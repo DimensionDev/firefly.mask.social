@@ -2,7 +2,7 @@
     "version": "0.1",
     "language": "en",
     "words": [],
-    "ignoreWords": ["tailwindcss"],
+    "ignoreWords": ["tailwindcss", "heroicons"],
     "flagWords": [],
     "ignorePaths": ["node_modules/**", "dist/**", "build/**", ".next/**"],
     "overrides": []
