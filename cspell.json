@@ -1,0 +1,15 @@
+{
+  "version": "0.1",
+  "language": "en",
+  "words": [],
+  "ignoreWords": [
+    "tailwindcss"
+  ],
+  "flagWords": [],
+  "ignorePaths": [
+    "node_modules/**",
+    "dist/**",
+    "build/**"
+  ],
+  "overrides": []
+}
