@@ -5,6 +5,8 @@ build/
 
 .next/
 
+.github/
+
 # Ignore specific files
 *.min.js
 *.min.css
