@@ -1,0 +1,19 @@
+# Ignore entire directories
+node_modules/
+dist/
+build/
+
+.next/
+
+# Ignore specific files
+*.min.js
+*.min.css
+
+# Ignore all files of a specific type in a specific directory
+public/*.html
+
+# Ignore specific files in a directory
+src/specialFile.js
+
+# Ignore files based on wildcard patterns
+**/vendor/**/*.js
