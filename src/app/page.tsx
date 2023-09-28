@@ -1,4 +1,3 @@
-import { useAccount } from 'wagmi';
 import { Layout } from '@/components/Layout';
 import { ConnectWallet } from '@/components/ConnectWallet';
 
