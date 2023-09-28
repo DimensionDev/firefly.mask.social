@@ -1,3 +1,5 @@
+'use client';
+
 /* cspell:disable */
 
 import Script from 'next/script';
