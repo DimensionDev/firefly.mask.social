@@ -1,8 +1,8 @@
 {
     "version": "0.1",
     "language": "en",
-    "words": [],
-    "ignoreWords": ["tailwindcss",  "tailwindui", "heroicons", "headlessui"],
+    "words": ["wagmi", "arbitrum", "viem"],
+    "ignoreWords": ["tailwindcss", "tailwindui", "heroicons", "headlessui"],
     "flagWords": [],
     "ignorePaths": ["node_modules/**", "dist/**", "build/**", ".next/**"],
     "overrides": []
