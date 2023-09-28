@@ -6,8 +6,8 @@ import { GA } from '../components/GA';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-    title: 'Firefly',
-    description: 'WEB3 SOCIAL AGGREGATOR',
+    title: 'Mask Social',
+    description: 'The Mask Social Website.',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
