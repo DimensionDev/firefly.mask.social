@@ -2,10 +2,10 @@
 
 import { Fragment } from 'react';
 import Image from 'next/image';
-import { Dialog, Transition } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
-import { classNames } from '@/helpers/classNames';
+import { Dialog, Transition } from '@headlessui/react';
 import { NavigationItem } from '@/types';
+import { classNames } from '@/helpers/classNames';
 
 export interface SidebarForMobileProps {
     items: NavigationItem[];
