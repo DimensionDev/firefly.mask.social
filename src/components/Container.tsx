@@ -24,12 +24,12 @@ const items: NavigationItem[] = [
     { id: 'reports', name: 'Reports', href: '#', icon: ChartPieIcon },
 ];
 
-export interface LayoutProps {
+export interface ContainerProps {
     MainArea?: React.ReactNode;
     SecondaryColumn?: React.ReactNode;
 }
 
-export function Layout(props: LayoutProps) {
+export function Container(props: ContainerProps) {
     const [sidebarOpen, setSidebarOpen] = useState(false);
 
     return (

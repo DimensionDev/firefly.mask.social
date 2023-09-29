@@ -5,7 +5,7 @@ import { createWeb3Modal, defaultWagmiConfig } from '@web3modal/wagmi/react';
 import { WagmiConfig } from 'wagmi';
 import { arbitrum, mainnet } from 'wagmi/chains';
 
-const projectId = '96dedca58ca659e9cdb953fe0e079be6';
+const projectId = process.env.NEXT_PUBLIC_W3M_PROJECT_ID;
 
 const metadata = {
     name: 'mask.social',
@@ -19,10 +19,10 @@ const wagmiConfig = defaultWagmiConfig({ chains, projectId, metadata });
 
 createWeb3Modal({ wagmiConfig, projectId, chains });
 
-export interface WagmiProps {
+export interface WagmiProviderProps {
     children: React.ReactNode;
 }
 
-export function WagmiProvider(props: WagmiProps) {
+export function WagmiProvider(props: WagmiProviderProps) {
     return <WagmiConfig config={wagmiConfig}>{props.children}</WagmiConfig>;
 }

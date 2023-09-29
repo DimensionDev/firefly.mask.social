@@ -4,6 +4,7 @@ import { useAccount } from 'wagmi';
 
 export function ConnectWallet() {
     const account = useAccount();
+
     return (
         <>
             <w3m-connect-button />
