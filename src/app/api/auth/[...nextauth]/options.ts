@@ -1,3 +1,5 @@
+/* cspell:disable */
+
 import { AuthOptions } from 'next-auth';
 import Twitter from 'next-auth/providers/twitter';
 import Github from 'next-auth/providers/github';
