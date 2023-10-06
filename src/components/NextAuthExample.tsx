@@ -21,14 +21,15 @@ export function NextAuthExample(props: NextAuthExampleProps) {
     );
 }
 
-
 function Example() {
     const { data: session, status } = useSession();
 
     if (status === 'authenticated') {
         return (
             <div>
-                {session.user?.image? <Image width={32} height={32} src={session.user?.image} alt={session.user.name ?? 'User'} />: null}
+                {session.user?.image ? (
+                    <Image width={32} height={32} src={session.user?.image} alt={session.user.name ?? 'User'} />
+                ) : null}
                 <p>Signed in as {session.user?.email ?? session.user?.name}</p>
                 <button onClick={() => signOut()}>Sign out</button>
             </div>

@@ -33,4 +33,22 @@ export const authOptions = {
             },
         }),
     ],
+    callbacks: {
+        jwt: async ({ token, user, account, profile, trigger, session }) => {
+            console.log('DEBUG: jwt');
+            console.log({
+                token,
+                user,
+                account,
+                profile,
+                session,
+                trigger,
+            });
+
+            if (account) {
+                session.accessToken = account.accessToken;
+            }
+            return token;
+        },
+    },
 } satisfies AuthOptions;

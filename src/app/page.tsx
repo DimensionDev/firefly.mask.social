@@ -10,6 +10,7 @@ async function getSession() {
 
 export default async function Home() {
     const session = await getSession();
+
     return (
         <Container
             MainArea={
