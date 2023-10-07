@@ -22,22 +22,10 @@ export async function GET(req: NextRequest) {
             return createErrorResponseJSON('Unauthorized', { status: StatusCodes.UNAUTHORIZED });
         }
 
-        console.log('DEBUG: search');
-        console.log({
-            q,
-            session,
-            token,
-        });
-
         const client = createTwitterClient(token as JWT);
         const results = await client.get('search/tweets', {
             q,
             count: 1,
-        });
-
-        console.log('DEBUG: results');
-        console.log({
-            results,
         });
 
         return createSuccessResponseJSON(results, { status: StatusCodes.OK });
