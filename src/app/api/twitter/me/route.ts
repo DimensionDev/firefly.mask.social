@@ -9,21 +9,15 @@ import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON';
 
 export async function GET(req: NextRequest) {
     try {
-        const u = new URL(req.url);
-        const id = u.searchParams.get('id');
-        if (!id) return createErrorResponseJSON('Bad Request', { status: StatusCodes.BAD_REQUEST });
-
         const token = await getToken({
             req,
         });
         const session = await getServerSession(authOptions);
 
-        if (!token || !session) {
-            return createErrorResponseJSON('Unauthorized', { status: StatusCodes.UNAUTHORIZED });
-        }
+        if (!token || !session) return createErrorResponseJSON('Unauthorized', { status: StatusCodes.UNAUTHORIZED });
 
         const client = createTwitterClientV2(token as JWT);
-        const results = await client.tweets.findTweetById(id);
+        const results = await client.users.findMyUser();
 
         return createSuccessResponseJSON(results, { status: StatusCodes.OK });
     } catch (error) {
