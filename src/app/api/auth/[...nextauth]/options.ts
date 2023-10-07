@@ -13,6 +13,11 @@ export const authOptions = {
             clientSecret: process.env.GITHUB_CLIENT_SECRET,
         }),
         Twitter({
+            id: 'twitter_legacy',
+            clientId: process.env.TWITTER_CLIENT_ID,
+            clientSecret: process.env.TWITTER_CLIENT_SECRET,
+        }),
+        Twitter({
             clientId: process.env.TWITTER_CLIENT_ID,
             clientSecret: process.env.TWITTER_CLIENT_SECRET,
             version: '2.0',
