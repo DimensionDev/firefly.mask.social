@@ -33,4 +33,40 @@ export const authOptions = {
             },
         }),
     ],
+    callbacks: {
+        jwt: async ({ token, user, account, profile, trigger, session }) => {
+            console.log('DEBUG: jwt');
+            console.log({
+                token,
+                user,
+                account,
+                profile,
+                session,
+                trigger,
+            });
+
+            // export tokens to session
+            if (account && session) {
+                session[account.provider] = {
+                    ...session[account.provider],
+                    accessToken: account.accessToken,
+                    refreshToken: account.refreshToken,
+                };
+            }
+
+            if (account?.provider && !token[account.provider]) {
+                token[account.provider] = {};
+            }
+
+            if (account?.access_token) {
+                token[account.provider].accessToken = account.access_token;
+            }
+
+            if (account?.refresh_token) {
+                token[account.provider].refreshToken = account.refresh_token!;
+            }
+
+            return token;
+        },
+    },
 } satisfies AuthOptions;
