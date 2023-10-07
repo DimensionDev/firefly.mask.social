@@ -45,9 +45,27 @@ export const authOptions = {
                 trigger,
             });
 
-            if (account) {
-                session.accessToken = account.accessToken;
+            // export tokens to session
+            if (account && session) {
+                session[account.provider] = {
+                    ...session[account.provider],
+                    accessToken: account.accessToken,
+                    refreshToken: account.refreshToken,
+                };
             }
+
+            if (account?.provider && !token[account.provider]) {
+                token[account.provider] = {};
+            }
+
+            if (account?.access_token) {
+                token[account.provider].accessToken = account.access_token;
+            }
+
+            if (account?.refresh_token) {
+                token[account.provider].refreshToken = account.refresh_token!;
+            }
+
             return token;
         },
     },
