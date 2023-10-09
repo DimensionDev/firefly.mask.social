@@ -2,7 +2,7 @@
     "version": "0.1",
     "language": "en",
     "words": ["wagmi", "arbitrum", "viem"],
-    "ignoreWords": ["tailwindcss", "tailwindui", "heroicons", "headlessui", "nextauth"],
+    "ignoreWords": ["tailwindcss", "tailwindui", "heroicons", "headlessui", "nextauth", "canonicalize"],
     "flagWords": [],
     "ignorePaths": ["node_modules/**", "dist/**", "build/**", ".next/**"],
     "overrides": []
