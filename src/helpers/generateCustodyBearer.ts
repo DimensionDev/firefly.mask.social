@@ -30,7 +30,7 @@ function createPayload(): CustodyPayload {
  */
 export async function generateCustodyBearer() {
     const message = canonicalize(createPayload());
-    if (!message) throw new Error('Failed to generate custody payload.');
+    if (!message) throw new Error('Failed to serialize payload.');
 
     const signature = await signMessage({
         message,
