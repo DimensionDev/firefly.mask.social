@@ -1,6 +1,6 @@
-import { toUtf8Bytes } from 'ethers';
+import { toBytes } from 'viem';
+import { WalletClient } from 'wagmi';
 import canonicalize from 'canonicalize';
-import { signMessage } from 'wagmi/actions';
 
 export interface CustodyPayload {
     method: 'generateToken';
@@ -28,14 +28,14 @@ function createPayload(): CustodyPayload {
  * Generate a FC custody bearer token. (wagmi connection required)
  * @returns
  */
-export async function generateCustodyBearer() {
+export async function generateCustodyBearer(client: WalletClient) {
     const message = canonicalize(createPayload());
     if (!message) throw new Error('Failed to serialize payload.');
 
-    const signature = await signMessage({
+    const signature = await client.signMessage({
         message,
     });
-    const signatureBase64 = Buffer.from(toUtf8Bytes(signature)).toString('base64');
+    const signatureBase64 = Buffer.from(toBytes(signature)).toString('base64');
 
     return `eip191:${signatureBase64}`;
 }

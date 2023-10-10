@@ -1,6 +1,7 @@
 'use client';
 
 import { ConnectWallet } from '@/components/ConnectWallet';
+import { SignMessage } from '@/components/SignMessage';
 import { WagmiProvider } from '@/components/WagmiProvider';
 import { useMounted } from '@/hooks/useMounted';
 
@@ -11,6 +12,7 @@ export function WagmiExample() {
     return (
         <WagmiProvider>
             <ConnectWallet />
+            <SignMessage />
         </WagmiProvider>
     );
 }
