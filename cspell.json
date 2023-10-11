@@ -1,8 +1,8 @@
 {
     "version": "0.1",
     "language": "en",
-    "words": ["wagmi", "arbitrum", "viem"],
-    "ignoreWords": ["tailwindcss", "tailwindui", "heroicons", "headlessui", "nextauth", "canonicalize"],
+    "words": ["wagmi", "arbitrum", "viem", "farcaster"],
+    "ignoreWords": ["tailwindcss", "tailwindui", "heroicons", "headlessui", "nextauth", "canonicalize", "rainbowkit"],
     "flagWords": [],
     "ignorePaths": ["node_modules/**", "dist/**", "build/**", ".next/**"],
     "overrides": []

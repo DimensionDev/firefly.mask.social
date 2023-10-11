@@ -10,7 +10,7 @@ export function SignMessage() {
             <button
                 onClick={async () => {
                     const client = await getWalletClient();
-                    if (!client) throw new Error('Failed to create client.')
+                    if (!client) throw new Error('Failed to create client.');
 
                     console.log(client.account);
                     console.log(client.chain);
@@ -20,7 +20,7 @@ export function SignMessage() {
                     setSigned(signed ?? '');
                 }}
             >
-                Sign mesage
+                Sign Message
             </button>
         </div>
     );
