@@ -17,7 +17,7 @@ export const { chains, publicClient, webSocketPublicClient } = configureChains(
 );
 
 const { wallets } = getDefaultWallets({
-    appName: 'mask.scial',
+    appName: 'mask.social',
     projectId: process.env.NEXT_PUBLIC_W3M_PROJECT_ID,
     chains,
 });
