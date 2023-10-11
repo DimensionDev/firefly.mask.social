@@ -3,6 +3,7 @@ import { authOptions } from '@/app/api/auth/[...nextauth]/options';
 import { Container } from '@/components/Container';
 import { NextAuthExample } from '@/components/NextAuthExample';
 import { WagmiExample } from '@/components/WagmiExample';
+import { FarcasterAuthExample } from '@/components/FarcasterAuthExample';
 
 async function getSession() {
     return await getServerSession(authOptions);
@@ -18,8 +19,11 @@ export default async function Home() {
                     <h2>Wagmi</h2>
                     <WagmiExample />
 
-                    <h2 className="mt-12">Twitter</h2>
+                    <h2 className="mt-8">Twitter</h2>
                     <NextAuthExample session={session} />
+
+                    <h2 className="mt-8">Farcaster</h2>
+                    <FarcasterAuthExample />
                 </>
             }
         />
