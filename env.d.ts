@@ -13,5 +13,8 @@ declare namespace NodeJS {
 
         VITE_ACCOUNT: `0x${string}`;
         VITE_ACCOUNT_KEY: `0x${string}`;
+
+        FARCASTER_SIGNER_FID: string;
+        FARCASTER_SIGNER_MNEMONIC: string;
     }
 }
