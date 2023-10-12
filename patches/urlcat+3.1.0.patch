@@ -1,4 +1,28 @@
-diff --git a/node_modules/urlcat/.DS_Store b/node_modules/urlcat/.DS_Store
-new file mode 100644
-index 0000000..c88a062
-Binary files /dev/null and b/node_modules/urlcat/.DS_Store differ
+diff --git a/node_modules/urlcat/package.json b/node_modules/urlcat/package.json
+index 6c09937..4962dcc 100644
+--- a/node_modules/urlcat/package.json
++++ b/node_modules/urlcat/package.json
+@@ -1,21 +1,15 @@
+ {
+   "name": "urlcat",
+   "version": "3.1.0",
++  "type": "module",
+   "description": "A library for concatenating URL's.",
+   "repository": {
+     "type": "git",
+     "url": "https://github.com/balazsbotond/urlcat.git"
+   },
+-  "main": "dist/index.js",
++  "main": "dist/index.mjs",
+   "module": "dist/index.mjs",
+   "types": "dist/index.d.ts",
+-  "exports": {
+-    ".": {
+-      "import": "./dist/index.mjs",
+-      "require": "./dist/index.js"
+-    },
+-    "./package.json": "./package.json"
+-  },
+   "files": [
+     "dist"
+   ],
