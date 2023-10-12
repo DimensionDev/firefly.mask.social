@@ -4,6 +4,7 @@ import { Container } from '@/components/Container';
 import { NextAuthExample } from '@/components/NextAuthExample';
 import { WagmiExample } from '@/components/WagmiExample';
 import { FarcasterAuthExample } from '@/components/FarcasterAuthExample';
+import { WagmiProvider } from '@/components/WagmiProvider';
 
 async function getSession() {
     return await getServerSession(authOptions);
@@ -23,7 +24,9 @@ export default async function Home() {
                     <NextAuthExample session={session} />
 
                     <h2 className="mt-8">Farcaster</h2>
-                    <FarcasterAuthExample />
+                    <WagmiProvider>
+                        <FarcasterAuthExample />
+                    </WagmiProvider>
                 </>
             }
         />

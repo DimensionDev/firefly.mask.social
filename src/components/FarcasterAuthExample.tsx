@@ -1,23 +1,41 @@
 'use client';
 
-import { generateCustodyBearer } from '@/helpers/generateCustodyBearer';
 import { useState } from 'react';
-import { getWalletClient } from 'wagmi/actions';
+import { FarcasterSocialMedia } from '@/providers/farcaster/SocialMedia';
+import { User } from '@standard-crypto/farcaster-js';
 
 export function FarcasterAuthExample() {
-    const [token, setToken] = useState('');
+    const [user, setUser] = useState<User>();
     return (
         <div>
-            <h1>Farcaster Auth Example</h1>
-            <pre>Token: {token || 'Please generate a token.'}</pre>
+            {user ? (
+                <>
+                    <pre>FID: {user?.fid}</pre>
+                    <pre>Display Name: {user?.displayName}</pre>
+                </>
+            ) : null}
             <button
                 onClick={async () => {
-                    const client = await getWalletClient();
-                    if (!client) throw new Error('Failed to create client.');
-                    setToken(await generateCustodyBearer(client));
+                    const farcaster = new FarcasterSocialMedia();
+                    const client = await farcaster.createClient();
+                    const currentUser = await client.fetchCurrentUser();
+
+                    setUser(currentUser);
                 }}
             >
-                Generate Token
+                &gt; Get Current User
+            </button>
+            <br />
+            <button
+                onClick={async () => {
+                    const farcaster = new FarcasterSocialMedia();
+                    const client = await farcaster.createClient();
+
+                    const cast = await client.publishCast('Hello World!');
+                    console.log(cast);
+                }}
+            >
+                &gt; Publish Cast
             </button>
         </div>
     );

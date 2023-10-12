@@ -37,8 +37,7 @@ function Example() {
     }
     return (
         <div>
-            <p>Hi, there!</p>
-            <button onClick={() => signIn()}>Sign in</button>
+            <button onClick={() => signIn()}>&gt; Sign in</button>
         </div>
     );
 }

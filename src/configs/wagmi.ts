@@ -25,7 +25,7 @@ const { wallets } = getDefaultWallets({
 export const connectors = connectorsForWallets([...wallets]);
 
 export const config = createConfig({
-    autoConnect: process.env.NODE_ENV === 'test',
+    autoConnect: process.env.NODE_ENV !== 'test',
     connectors,
     publicClient,
     webSocketPublicClient,

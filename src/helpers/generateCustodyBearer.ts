@@ -12,7 +12,7 @@ export interface CustodyPayload {
 
 const ONE_DAY = 60 * 60 * 24 * 1000;
 
-function createPayload(): CustodyPayload {
+function createCustodyPayload(): CustodyPayload {
     const timestamp = Date.now();
 
     return {
@@ -25,17 +25,20 @@ function createPayload(): CustodyPayload {
 }
 
 /**
- * Generate a FC custody bearer token. (wagmi connection required)
+ * Generate a FC custody bearer (wagmi connection required)
  * @returns
  */
 export async function generateCustodyBearer(client: WalletClient) {
-    const message = canonicalize(createPayload());
+    const payload = createCustodyPayload();
+    const message = canonicalize(payload);
     if (!message) throw new Error('Failed to serialize payload.');
 
     const signature = await client.signMessage({
         message,
     });
-    const signatureBase64 = Buffer.from(toBytes(signature)).toString('base64');
 
-    return `eip191:${signatureBase64}`;
+    return {
+        payload,
+        token: `eip191:${Buffer.from(toBytes(signature)).toString('base64')}`,
+    };
 }
