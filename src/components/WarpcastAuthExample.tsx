@@ -11,8 +11,8 @@ export function WarpcastAuthExample() {
             <button
                 onClick={async () => {
                     const result = await fetchJSON<{
-                        key: string
-                        token: string
+                        key: string;
+                        token: string;
                     }>('/api/warpcast/signin', {
                         method: 'POST',
                     });

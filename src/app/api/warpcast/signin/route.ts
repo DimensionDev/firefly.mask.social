@@ -3,7 +3,7 @@ import { StatusCodes } from 'http-status-codes';
 import { NextRequest } from 'next/server';
 import { toHex } from 'viem';
 import { mnemonicToAccount } from 'viem/accounts';
-import { utils, getPublicKeyAsync} from '@noble/ed25519';
+import { utils, getPublicKeyAsync } from '@noble/ed25519';
 import { fetchJSON } from '@/helpers/fetchJSON';
 import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON';
 
@@ -51,9 +51,9 @@ export async function POST(req: NextRequest) {
             signedKeyRequest: {
                 token: string;
                 deeplinkUrl: string;
-                key: string
-                requestFid: number,
-                state: 'pending' | 'completed',
+                key: string;
+                requestFid: number;
+                state: 'pending' | 'completed';
             };
         };
     }>(urlcat(ROOT_URL, '/signed-key-requests'), {
