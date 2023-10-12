@@ -3,7 +3,7 @@ import { StatusCodes } from 'http-status-codes';
 import { NextRequest } from 'next/server';
 import { toHex } from 'viem';
 import { mnemonicToAccount } from 'viem/accounts';
-import * as ed from '@noble/ed25519';
+import { utils, getPublicKeyAsync} from '@noble/ed25519';
 import { fetchJSON } from '@/helpers/fetchJSON';
 import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON';
 
@@ -25,9 +25,8 @@ const SIGNED_KEY_REQUEST_TYPE = [
 ] as const;
 
 export async function POST(req: NextRequest) {
-    const privateKey = ed.utils.randomPrivateKey();
-    const publicKeyBytes = await ed.getPublicKey(privateKey);
-    const key: `0x${string}` = `0x${Buffer.from(publicKeyBytes).toString('hex')}`;
+    const privateKey = utils.randomPrivateKey();
+    const publicKey = toHex(await getPublicKeyAsync(privateKey));
 
     const appFid = process.env.FARCASTER_SIGNER_FID;
     const account = mnemonicToAccount(process.env.FARCASTER_SIGNER_MNEMONIC);
@@ -42,18 +41,19 @@ export async function POST(req: NextRequest) {
         primaryType: 'SignedKeyRequest',
         message: {
             requestFid: BigInt(appFid),
-            key,
+            key: publicKey,
             deadline: BigInt(deadline),
         },
     });
 
     const response = await fetchJSON<{
-        data: {
-            result: {
-                signKeyRequest: {
-                    token: string;
-                    deeplinkUrl: string;
-                };
+        result: {
+            signedKeyRequest: {
+                token: string;
+                deeplinkUrl: string;
+                key: string
+                requestFid: number,
+                state: 'pending' | 'completed',
             };
         };
     }>(urlcat(ROOT_URL, '/signed-key-requests'), {
@@ -62,7 +62,7 @@ export async function POST(req: NextRequest) {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-            key,
+            key: publicKey,
             requestFid: appFid,
             signature,
             deadline,
@@ -71,9 +71,11 @@ export async function POST(req: NextRequest) {
 
     return createSuccessResponseJSON(
         {
-            key: toHex(privateKey),
-            token: response.data.result.signKeyRequest.token,
-            deeplinkUrl: response.data.result.signKeyRequest.deeplinkUrl,
+            publicKey,
+            privateKey: toHex(privateKey),
+            fid: response.result.signedKeyRequest.requestFid,
+            token: response.result.signedKeyRequest.token,
+            deeplinkUrl: response.result.signedKeyRequest.deeplinkUrl,
         },
         { status: StatusCodes.OK },
     );

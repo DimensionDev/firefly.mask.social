@@ -5,6 +5,7 @@ import { NextAuthExample } from '@/components/NextAuthExample';
 import { WagmiExample } from '@/components/WagmiExample';
 import { FarcasterAuthExample } from '@/components/FarcasterAuthExample';
 import { WagmiProvider } from '@/components/WagmiProvider';
+import { WarpcastAuthExample } from '@/components/WarpcastAuthExample';
 
 async function getSession() {
     return await getServerSession(authOptions);
@@ -27,6 +28,9 @@ export default async function Home() {
                     <WagmiProvider>
                         <FarcasterAuthExample />
                     </WagmiProvider>
+
+                    <h2 className="mt-8">Warpcast</h2>
+                    <WarpcastAuthExample />
                 </>
             }
         />
