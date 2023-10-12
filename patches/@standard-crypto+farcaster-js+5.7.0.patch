@@ -1,0 +1,19 @@
+diff --git a/node_modules/@standard-crypto/farcaster-js/dist/.DS_Store b/node_modules/@standard-crypto/farcaster-js/dist/.DS_Store
+new file mode 100644
+index 0000000..22f48e8
+Binary files /dev/null and b/node_modules/@standard-crypto/farcaster-js/dist/.DS_Store differ
+diff --git a/node_modules/@standard-crypto/farcaster-js/package.json b/node_modules/@standard-crypto/farcaster-js/package.json
+index ee875e5..b59e43c 100644
+--- a/node_modules/@standard-crypto/farcaster-js/package.json
++++ b/node_modules/@standard-crypto/farcaster-js/package.json
+@@ -3,10 +3,6 @@
+   "version": "5.7.0",
+   "main": "./dist/cjs/index.cjs",
+   "module": "./dist/esm/index.mjs",
+-  "exports": {
+-    "require": "./dist/cjs/index.cjs",
+-    "import": "./dist/esm/index.mjs"
+-  },
+   "types": "./types/index.d.ts",
+   "license": "MIT",
+   "engines": {

@@ -1,5 +1,6 @@
 import urlcat from 'urlcat';
 import { getWalletClient } from 'wagmi/actions';
+import { MerkleAPIClient } from '@standard-crypto/farcaster-js';
 import { fetchJSON } from '@/helpers/fetchJSON';
 import { generateCustodyBearer } from '@/helpers/generateCustodyBearer';
 import { Provider, Type } from '@/providers/types/SocialMedia';
@@ -16,8 +17,8 @@ export class FarcasterSocialMedia implements Provider {
     async createSession(): Promise<Session> {
         const client = await getWalletClient();
         if (!client) throw new Error('No client found');
-        const { payload, token } = await generateCustodyBearer(client);
 
+        const { payload, token } = await generateCustodyBearer(client);
         const response = await fetchJSON<{
             result: {
                 token: {
@@ -37,5 +38,16 @@ export class FarcasterSocialMedia implements Provider {
 
         if (response.errors?.length) throw new Error(response.errors[0].message);
         return FarcasterSession.from(response.result.token.secret, payload);
+    }
+
+    async createClient() {
+        const session = await this.createSession();
+        const client = new MerkleAPIClient({
+            secret: session.token,
+            expiresAt: session.expiresAt,
+        });
+        const user = await client.fetchCurrentUser();
+
+        console.log(user);
     }
 }

@@ -38,7 +38,7 @@ export class FarcasterSession implements Session {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                metohd: 'revokeToken',
+                method: 'revokeToken',
                 params: {
                     timestamp: this.timestamp,
                 },

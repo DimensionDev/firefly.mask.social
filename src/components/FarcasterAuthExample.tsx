@@ -1,7 +1,7 @@
 'use client';
 
-import { FarcasterSocialMedia } from '@/providers/farcaster/SocialMedia';
 import { useState } from 'react';
+import { FarcasterSocialMedia } from '@/providers/farcaster/SocialMedia';
 
 export function FarcasterAuthExample() {
     const [token, setToken] = useState('');
