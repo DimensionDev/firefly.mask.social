@@ -1,8 +1,7 @@
 'use client';
 
-import { generateCustodyBearer } from '@/helpers/generateCustodyBearer';
+import { FarcasterSocialMedia } from '@/providers/farcaster/SocialMedia';
 import { useState } from 'react';
-import { getWalletClient } from 'wagmi/actions';
 
 export function FarcasterAuthExample() {
     const [token, setToken] = useState('');
@@ -12,9 +11,10 @@ export function FarcasterAuthExample() {
             <pre>Token: {token || 'Please generate a token.'}</pre>
             <button
                 onClick={async () => {
-                    const client = await getWalletClient();
-                    if (!client) throw new Error('Failed to create client.');
-                    setToken(await generateCustodyBearer(client));
+                    const farcaster = new FarcasterSocialMedia();
+                    const session = await farcaster.createSession();
+
+                    console.log(session);
                 }}
             >
                 Generate Token

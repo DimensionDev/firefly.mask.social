@@ -12,7 +12,7 @@ describe('generateCustodyBearer', () => {
             return 'signed';
         });
 
-        const token = await generateCustodyBearer(walletClient);
+        const { token } = await generateCustodyBearer(walletClient);
         // cspell: disable-next-line
         expect(token).toBe('eip191:c2lnbmVk');
     });
