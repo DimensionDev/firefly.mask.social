@@ -35,19 +35,16 @@ export class FarcasterSocialMedia implements Provider {
             },
             body: JSON.stringify(payload),
         });
-
         if (response.errors?.length) throw new Error(response.errors[0].message);
+
         return FarcasterSession.from(response.result.token.secret, payload);
     }
 
     async createClient() {
         const session = await this.createSession();
-        const client = new MerkleAPIClient({
+        return new MerkleAPIClient({
             secret: session.token,
             expiresAt: session.expiresAt,
         });
-        const user = await client.fetchCurrentUser();
-
-        console.log(user);
     }
 }

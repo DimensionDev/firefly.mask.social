@@ -11,8 +11,8 @@ export function ConnectWallet() {
         <>
             {account.isConnected ? (
                 <div className="mt-4">
-                    <button onClick={() => disconnect()}>Disconnect Wallet</button>
-                    <p>{account.address}</p>
+                    <pre>{account.address}</pre>
+                    <button onClick={() => disconnect()}>&gt; Disconnect Wallet</button>
                 </div>
             ) : (
                 <ConnectButton />

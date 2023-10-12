@@ -2,22 +2,40 @@
 
 import { useState } from 'react';
 import { FarcasterSocialMedia } from '@/providers/farcaster/SocialMedia';
+import { User } from '@standard-crypto/farcaster-js';
 
 export function FarcasterAuthExample() {
-    const [token, setToken] = useState('');
+    const [user, setUser] = useState<User>();
     return (
         <div>
-            <h1>Farcaster Auth Example</h1>
-            <pre>Token: {token || 'Please generate a token.'}</pre>
+            {user ? (
+                <>
+                    <pre>FID: {user?.fid}</pre>
+                    <pre>Display Name: {user?.displayName}</pre>
+                </>
+            ) : null}
             <button
                 onClick={async () => {
                     const farcaster = new FarcasterSocialMedia();
-                    const session = await farcaster.createSession();
+                    const client = await farcaster.createClient();
+                    const currentUser = await client.fetchCurrentUser();
 
-                    console.log(session);
+                    setUser(currentUser);
                 }}
             >
-                Generate Token
+                &gt; Get Current User
+            </button>
+            <br />
+            <button
+                onClick={async () => {
+                    const farcaster = new FarcasterSocialMedia();
+                    const client = await farcaster.createClient();
+
+                    const cast = await client.publishCast('Hello World!');
+                    console.log(cast);
+                }}
+            >
+                &gt; Publish Cast
             </button>
         </div>
     );

@@ -1,7 +1,7 @@
 {
     "version": "0.1",
     "language": "en",
-    "words": ["wagmi", "arbitrum", "viem", "farcaster", "urlcat", "canonicalize", "cacheable"],
+    "words": ["wagmi", "arbitrum", "viem", "farcaster", "urlcat", "canonicalize", "cacheable", "merkle"],
     "ignoreWords": ["tailwindcss", "tailwindui", "heroicons", "headlessui", "nextauth", "rainbowkit"],
     "flagWords": [],
     "ignorePaths": ["node_modules/**", "dist/**", "build/**", ".next/**"],
