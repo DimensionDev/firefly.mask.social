@@ -1,6 +1,6 @@
 import { ResponseJSON } from '@/types';
 import { fetchJSON } from '@/helpers/fetchJSON';
-import { waitForSignedKeyRequestComplete } from '@/helpers/waitForSignedKeyRequestCompele';
+import { waitForSignedKeyRequestComplete } from '@/helpers/waitForSignedKeyRequestComplete';
 import { Provider, Type } from '@/providers/types/SocialMedia';
 import { WarpcastSession } from '@/providers/warpcast/Session';
 
@@ -17,7 +17,7 @@ export class WarpcastSocialMedia implements Provider {
                 fid: string;
                 token: string;
                 timestamp: number;
-                epxiresAt: number;
+                expiresAt: number;
                 deeplinkUrl: string;
             }>
         >('/api/warpcast/signin', {
@@ -25,7 +25,7 @@ export class WarpcastSocialMedia implements Provider {
         });
         if (!response.success) throw new Error(response.error.message);
 
-        // show the qrcode
+        // show the QR code
         console.log('DEBUG: response');
         console.log(response);
 
@@ -33,6 +33,6 @@ export class WarpcastSocialMedia implements Provider {
 
         await waitForSignedKeyRequestComplete(controller.signal)(response.data.token);
 
-        return new WarpcastSession(response.data.privateKey, response.data.timestamp, response.data.epxiresAt);
+        return new WarpcastSession(response.data.privateKey, response.data.timestamp, response.data.expiresAt);
     }
 }

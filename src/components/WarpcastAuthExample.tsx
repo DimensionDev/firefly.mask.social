@@ -2,7 +2,7 @@
 
 import { fetchJSON } from '@/helpers/fetchJSON';
 import { ResponseJSON } from '@/types';
-import { waitForSignedKeyRequestComplete } from '@/helpers/waitForSignedKeyRequestCompele';
+import { waitForSignedKeyRequestComplete } from '@/helpers/waitForSignedKeyRequestComplete';
 
 export function WarpcastAuthExample() {
     return (
