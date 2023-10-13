@@ -4,10 +4,9 @@ import { NextRequest } from 'next/server';
 import { toHex } from 'viem';
 import { mnemonicToAccount } from 'viem/accounts';
 import { utils, getPublicKeyAsync } from '@noble/ed25519';
+import { WARPCAST_ROOT_URL } from '@/constants';
 import { fetchJSON } from '@/helpers/fetchJSON';
 import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON';
-
-const ROOT_URL = 'https://api.warpcast.com/v2';
 
 const ONE_DAY = 60 * 60 * 24 * 1000;
 
@@ -40,10 +39,16 @@ export async function POST(req: NextRequest) {
         },
         primaryType: 'SignedKeyRequest',
         message: {
-            requestFid: BigInt(appFid),
             key: publicKey,
             deadline: BigInt(deadline),
+            requestFid: BigInt(appFid),
         },
+    });
+
+    console.log('DEBUG: prepare');
+    console.log({
+        deadline,
+        signature,
     });
 
     const response = await fetchJSON<{
@@ -56,7 +61,7 @@ export async function POST(req: NextRequest) {
                 state: 'pending' | 'completed';
             };
         };
-    }>(urlcat(ROOT_URL, '/signed-key-requests'), {
+    }>(urlcat(WARPCAST_ROOT_URL, '/signed-key-requests'), {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -69,12 +74,17 @@ export async function POST(req: NextRequest) {
         }),
     });
 
+    console.log('DEBUG: response');
+    console.log(response);
+
     return createSuccessResponseJSON(
         {
             publicKey,
             privateKey: toHex(privateKey),
             fid: response.result.signedKeyRequest.requestFid,
             token: response.result.signedKeyRequest.token,
+            timestamp: Date.now(),
+            expiresAt: deadline * 1000,
             deeplinkUrl: response.result.signedKeyRequest.deeplinkUrl,
         },
         { status: StatusCodes.OK },
