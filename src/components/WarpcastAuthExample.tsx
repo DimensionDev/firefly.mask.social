@@ -1,23 +1,37 @@
 'use client';
 
-import { useState } from 'react';
 import { fetchJSON } from '@/helpers/fetchJSON';
+import { ResponseJSON } from '@/types';
+import { waitForSignedKeyRequestComplete } from '@/helpers/waitForSignedKeyRequestCompele';
 
 export function WarpcastAuthExample() {
-    const [signed, setSigned] = useState<{ key: string; token: string }>();
     return (
         <div>
-            <pre>{JSON.stringify(signed)}</pre>
             <button
                 onClick={async () => {
-                    const result = await fetchJSON<{
-                        key: string;
-                        token: string;
-                    }>('/api/warpcast/signin', {
+                    const response = await fetchJSON<
+                        ResponseJSON<{
+                            publicKey: string;
+                            privateKey: string;
+                            fid: string;
+                            token: string;
+                            deeplinkUrl: string;
+                        }>
+                    >('/api/warpcast/signin', {
                         method: 'POST',
                     });
 
-                    setSigned(result);
+                    if (!response.success) throw new Error(response.error.message);
+
+                    console.log('DEBUG: response');
+                    console.log(response);
+
+                    const controller = new AbortController();
+
+                    await waitForSignedKeyRequestComplete(controller.signal)(response.data.token);
+
+                    console.log('DEBUG: ready');
+                    console.log(response);
                 }}
             >
                 &gt; Sign in

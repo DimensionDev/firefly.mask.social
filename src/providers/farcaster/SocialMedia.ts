@@ -3,11 +3,10 @@ import { getWalletClient } from 'wagmi/actions';
 import { MerkleAPIClient } from '@standard-crypto/farcaster-js';
 import { fetchJSON } from '@/helpers/fetchJSON';
 import { generateCustodyBearer } from '@/helpers/generateCustodyBearer';
+import { WARPCAST_ROOT_URL } from '@/constants';
 import { Provider, Type } from '@/providers/types/SocialMedia';
 import { Session } from '@/providers/types/Session';
 import { FarcasterSession } from '@/providers/farcaster/Session';
-
-const ROOT_URL = 'https://api.warpcast.com/v2';
 
 export class FarcasterSocialMedia implements Provider {
     get type() {
@@ -27,7 +26,7 @@ export class FarcasterSocialMedia implements Provider {
                 };
             };
             errors?: Array<{ message: string; reason: string }>;
-        }>(urlcat(ROOT_URL, '/auth'), {
+        }>(urlcat(WARPCAST_ROOT_URL, '/auth'), {
             method: 'PUT',
             headers: {
                 Authorization: `Bearer ${token}`,
@@ -37,7 +36,7 @@ export class FarcasterSocialMedia implements Provider {
         });
         if (response.errors?.length) throw new Error(response.errors[0].message);
 
-        return FarcasterSession.from(response.result.token.secret, payload);
+        return new FarcasterSession(response.result.token.secret, payload.params.timestamp, payload.params.expiresAt);
     }
 
     async createClient() {
