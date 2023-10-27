@@ -7,11 +7,13 @@
         "wagmi",
         "arbitrum",
         "viem",
+        "immer",
         "farcaster",
         "urlcat",
         "canonicalize",
         "cacheable",
-        "merkle"
+        "merkle",
+        "zustand"
     ],
     "ignoreWords": ["tailwindcss", "tailwindui", "heroicons", "headlessui", "nextauth", "rainbowkit"],
     "flagWords": [],
