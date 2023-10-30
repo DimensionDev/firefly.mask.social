@@ -35,6 +35,7 @@
         "twitter-lite": "^1.1.0",
         "typescript": "5.2.2",
         "urlcat": "^3.1.0",
+        "use-subscription": "^1.8.0",
         "viem": "^1.16.2",
         "wagmi": "^1.4.3",
         "zod": "^3.22.4",
