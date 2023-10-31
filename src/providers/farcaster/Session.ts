@@ -33,6 +33,9 @@ export class FarcasterSession extends BaseSession implements Session {
             }),
         });
 
+        // indicate the session is destroyed
+        this.expiresAt = 0;
+
         if (!response.result.success) throw new Error('Failed to destroy the session.');
         return;
     }
