@@ -10,12 +10,24 @@
         "immer",
         "farcaster",
         "urlcat",
+        "pageable",
         "canonicalize",
         "cacheable",
         "merkle",
         "zustand"
     ],
-    "ignoreWords": ["tailwindcss", "tailwindui", "heroicons", "headlessui", "nextauth", "rainbowkit"],
+    "ignoreWords": [
+        "tailwindcss",
+        "tailwindui",
+        "heroicons",
+        "headlessui",
+        "nextauth",
+        "rainbowkit",
+        "flac",
+        "quicktime",
+        "unupvote",
+        "unfollow"
+    ],
     "flagWords": [],
     "ignorePaths": ["node_modules/**", "dist/**", "build/**", ".next/**"],
     "overrides": []
