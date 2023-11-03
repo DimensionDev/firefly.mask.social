@@ -203,7 +203,7 @@ export interface Provider {
      * @param profileId
      * @returns
      */
-    getRecentPosts: () => Promise<Pageable<Post>>;
+    getRecentPosts: (profileId: number, cursor: string) => Promise<Pageable<Post>>;
 
     getPostsByProfileId: (profileId: string) => Promise<Pageable<Post>>;
 

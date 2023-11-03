@@ -7,6 +7,8 @@ import { WARPCAST_ROOT_URL } from '@/constants';
 import { Provider, Type } from '@/providers/types/SocialMedia';
 import { Session } from '@/providers/types/Session';
 import { FarcasterSession } from '@/providers/farcaster/Session';
+import { createPageable } from '@/helpers/createPageable';
+import { CastsResponse } from '@/providers/types/Farcaster';
 
 export class FarcasterSocialMedia implements Provider {
     get type() {
@@ -46,4 +48,37 @@ export class FarcasterSocialMedia implements Provider {
             expiresAt: session.expiresAt,
         });
     }
+
+    async getRecentPosts(profileId: number, cursor: string) {
+        const url = urlcat(WARPCAST_ROOT_URL, '/casts',{fid:profileId, limit: 10, cursor});
+        const {result , next} = await fetchJSON<CastsResponse>(url, {method: 'GET', headers: {Authorization: `Bearer `,'Content-Type': 'application/json'}});
+        const data = result.casts.map(cast => {
+            return ({
+                postId: cast.hash,
+                parentPostId: cast.threadHash,
+                timestamp: cast.timestamp,
+                author: {
+                    userId:cast.author.fid.toString(),
+                    nickname:cast.author.username,
+                    displayName: cast.author.displayName,
+                    pfp: cast.author.pfp.url,
+                    followerCount: cast.author.followerCount,
+                    followingCount: cast.author.followingCount,
+                    status: 'active',
+                    verified: cast.author.pfp.verified,
+                },
+                metadata: {
+                    locale: "",
+                    content: cast.text,
+                },
+                stats: {
+                    comments: cast.replies.count,
+                    mirrors: cast.recasts.count,
+                    quotes: cast.recasts.count,
+                    reactions: cast.reactions.count,
+                }
+            });
+        })
+      return createPageable(data, cursor,next.cursor)
+    } 
 }
