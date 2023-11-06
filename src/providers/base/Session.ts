@@ -1,7 +1,7 @@
 import { Session } from '@/providers/types/Session';
 import { Type } from '@/providers/types/SocialMedia';
 
-export class BaseSession implements Session {
+export abstract class BaseSession implements Session {
     constructor(
         public type: Type,
         public profileId: string,
@@ -21,11 +21,7 @@ export class BaseSession implements Session {
         return `${this.type}:${body}`;
     }
 
-    refresh(): Promise<void> {
-        throw new Error('Method not implemented.');
-    }
+    abstract refresh(): Promise<void>;
 
-    destroy(): Promise<void> {
-        throw new Error('Method not implemented.');
-    }
+    abstract destroy(): Promise<void>;
 }
