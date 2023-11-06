@@ -8,29 +8,29 @@ export interface Pageable<Item, Indicator = unknown> {
 }
 
 export interface PageIndicator {
-    /** The id of the page (cursor). */
-    id: string;
+    /** The id of the page. */
+    cursor: string;
     /** The index number of the page. */
     index: number;
 }
 
-export function createIndicator(indicator?: PageIndicator, id?: string): PageIndicator {
+export function createIndicator(indicator?: PageIndicator, cursor?: string): PageIndicator {
     const index = indicator?.index ?? 0;
     return {
-        id: id ?? indicator?.id ?? index.toString(),
+        cursor: cursor ?? indicator?.cursor ?? index.toString(),
         index,
     };
 }
 
-export function createNextIndicator(indicator?: PageIndicator, id?: string): PageIndicator {
+export function createNextIndicator(indicator?: PageIndicator, cursor?: string): PageIndicator {
     const index = (indicator?.index ?? 0) + 1;
-    return typeof id === 'string'
+    return typeof cursor === 'string'
         ? {
-              id,
+              cursor,
               index,
           }
         : {
-              id: index.toString(),
+              cursor: index.toString(),
               index,
           };
 }

@@ -7,7 +7,7 @@ import { WARPCAST_ROOT_URL } from '@/constants';
 import { Provider, Type } from '@/providers/types/SocialMedia';
 import { Session } from '@/providers/types/Session';
 import { FarcasterSession } from '@/providers/farcaster/Session';
-import { createPageable } from '@/helpers/createPageable';
+import { PageIndicator, createPageable } from '@/helpers/createPageable';
 import { CastsResponse } from '@/providers/types/Farcaster';
 
 export class FarcasterSocialMedia implements Provider {
@@ -22,6 +22,9 @@ export class FarcasterSocialMedia implements Provider {
         const { payload, token } = await generateCustodyBearer(client);
         const response = await fetchJSON<{
             result: {
+                // TODO: this filed was added for demonstration purposes only
+                // TODO: should update this type according to the actual response
+                fid: string;
                 token: {
                     expiresAt: number;
                     secret: string;
@@ -38,7 +41,17 @@ export class FarcasterSocialMedia implements Provider {
         });
         if (response.errors?.length) throw new Error(response.errors[0].message);
 
-        return new FarcasterSession(response.result.token.secret, payload.params.timestamp, payload.params.expiresAt);
+        return new FarcasterSession(
+            response.result.fid,
+            response.result.token.secret,
+            payload.params.timestamp,
+            payload.params.expiresAt,
+        );
+    }
+
+    async resumeSession(): Promise<Session> {
+        // TODO: impl the resume session logic
+        return this.createSession();
     }
 
     async createClient() {
@@ -49,17 +62,26 @@ export class FarcasterSocialMedia implements Provider {
         });
     }
 
-    async getRecentPosts(profileId: number, cursor: string) {
-        const url = urlcat(WARPCAST_ROOT_URL, '/casts',{fid:profileId, limit: 10, cursor});
-        const {result , next} = await fetchJSON<CastsResponse>(url, {method: 'GET', headers: {Authorization: `Bearer `,'Content-Type': 'application/json'}});
-        const data = result.casts.map(cast => {
-            return ({
+    async getRecentPosts(indicator?: PageIndicator) {
+        const session = await this.resumeSession();
+
+        const url = urlcat(WARPCAST_ROOT_URL, '/casts', {
+            fid: session.profileId,
+            limit: 10,
+            cursor: indicator?.cursor,
+        });
+        const { result, next } = await fetchJSON<CastsResponse>(url, {
+            method: 'GET',
+            headers: { Authorization: `Bearer `, 'Content-Type': 'application/json' },
+        });
+        const data = result.casts.map((cast) => {
+            return {
                 postId: cast.hash,
                 parentPostId: cast.threadHash,
                 timestamp: cast.timestamp,
                 author: {
-                    userId:cast.author.fid.toString(),
-                    nickname:cast.author.username,
+                    userId: cast.author.fid.toString(),
+                    nickname: cast.author.username,
                     displayName: cast.author.displayName,
                     pfp: cast.author.pfp.url,
                     followerCount: cast.author.followerCount,
@@ -68,7 +90,7 @@ export class FarcasterSocialMedia implements Provider {
                     verified: cast.author.pfp.verified,
                 },
                 metadata: {
-                    locale: "",
+                    locale: '',
                     content: cast.text,
                 },
                 stats: {
@@ -76,9 +98,9 @@ export class FarcasterSocialMedia implements Provider {
                     mirrors: cast.recasts.count,
                     quotes: cast.recasts.count,
                     reactions: cast.reactions.count,
-                }
-            });
-        })
-      return createPageable(data, cursor,next.cursor)
-    } 
+                },
+            };
+        });
+        return createPageable(data, indicator?.cursor, next.cursor);
+    }
 }

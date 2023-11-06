@@ -1,4 +1,4 @@
-import { Pageable } from '@/helpers/createPageable';
+import { PageIndicator, Pageable } from '@/helpers/createPageable';
 import { Session } from '@/providers/types/Session';
 
 export enum Type {
@@ -58,7 +58,7 @@ export interface Tag {
 }
 
 export interface Profile {
-    userId: string;
+    profileId: string;
     nickname: string;
     displayName: string;
     pfp: string;
@@ -180,6 +180,8 @@ export interface Provider {
      */
     createSession: () => Promise<Session>;
 
+    resumeSession: () => Promise<Session>;
+
     publishPost: (post: Post) => Promise<Post>;
 
     mirrorPost?: (postId: string) => Promise<Post>;
@@ -203,21 +205,21 @@ export interface Provider {
      * @param profileId
      * @returns
      */
-    getRecentPosts: (profileId: number, cursor: string) => Promise<Pageable<Post>>;
+    getRecentPosts: (profileId: number, indicator?: PageIndicator) => Promise<Pageable<Post>>;
 
-    getPostsByProfileId: (profileId: string) => Promise<Pageable<Post>>;
+    getPostsByProfileId: (profileId: string, indicator?: PageIndicator) => Promise<Pageable<Post>>;
 
-    getPostsBeMentioned: (profileId: string) => Promise<Pageable<Post>>;
+    getPostsBeMentioned: (profileId: string, indicator?: PageIndicator) => Promise<Pageable<Post>>;
 
-    getPostsLiked: (profileId: string) => Promise<Pageable<Post>>;
+    getPostsLiked: (profileId: string, indicator?: PageIndicator) => Promise<Pageable<Post>>;
 
-    getPostsReplies: (profileId: string) => Promise<Pageable<Post>>;
+    getPostsReplies: (profileId: string, indicator?: PageIndicator) => Promise<Pageable<Post>>;
 
-    getPostsByParentPostId: (postId: string) => Promise<Pageable<Post>>;
+    getPostsByParentPostId: (postId: string, indicator?: PageIndicator) => Promise<Pageable<Post>>;
 
-    __TODO__getReactorsByPostId: (postId: string) => Promise<Pageable<Profile>>;
+    __TODO__getReactorsByPostId: (postId: string, indicator?: PageIndicator) => Promise<Pageable<Profile>>;
 
-    __TODO__getAllReactorsByPostId: (postId: string) => Promise<Pageable<Profile>>;
+    __TODO__getAllReactorsByPostId: (postId: string, indicator?: PageIndicator) => Promise<Pageable<Profile>>;
 
     /**
      * Let the current logged user to follow another user.
@@ -233,15 +235,15 @@ export interface Provider {
      */
     unfollow: (profileId: string) => Promise<void>;
 
-    getFollowers: (profileId: string) => Promise<Pageable<Profile>>;
+    getFollowers: (profileId: string, indicator?: PageIndicator) => Promise<Pageable<Profile>>;
 
-    getFollowings: (profileId: string) => Promise<Pageable<Profile>>;
+    getFollowings: (profileId: string, indicator?: PageIndicator) => Promise<Pageable<Profile>>;
 
     isFollowedByMe?: (profileId: string) => Promise<boolean>;
 
     isFollowingMe?: (profileId: string) => Promise<boolean>;
 
-    getNotifications: () => Promise<Pageable<Notification>>;
+    getNotifications: (indicator?: PageIndicator) => Promise<Pageable<Notification>>;
 
-    getSuggestedFollows: () => Promise<Pageable<Profile>>;
+    getSuggestedFollows: (indicator?: PageIndicator) => Promise<Pageable<Profile>>;
 }
