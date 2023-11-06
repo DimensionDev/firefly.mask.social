@@ -221,7 +221,7 @@ export class FarcasterSocialMedia implements Provider {
         const session = await this.resumeSession();
         
         const url = urlcat(WARPCAST_ROOT_URL, '/followers', {
-            fid: session.profileId,
+            fid: profileId,
             limit: 10,
             cursor: indicator?.cursor,
         })
@@ -251,7 +251,7 @@ export class FarcasterSocialMedia implements Provider {
         const session = await this.resumeSession();
 
         const url = urlcat(WARPCAST_ROOT_URL, '/following', {
-            fid: session.profileId,
+            fid: profileId,
             limit: 10,
             cursor: indicator?.cursor,
         })
