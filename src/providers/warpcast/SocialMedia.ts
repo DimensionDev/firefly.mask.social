@@ -33,6 +33,11 @@ export class WarpcastSocialMedia implements Provider {
 
         await waitForSignedKeyRequestComplete(controller.signal)(response.data.token);
 
-        return new WarpcastSession(response.data.privateKey, response.data.timestamp, response.data.expiresAt);
+        return new WarpcastSession(
+            response.data.fid,
+            response.data.privateKey,
+            response.data.timestamp,
+            response.data.expiresAt,
+        );
     }
 }

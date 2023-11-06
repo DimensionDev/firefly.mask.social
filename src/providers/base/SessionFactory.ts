@@ -16,6 +16,7 @@ export class SessionFactory {
 
         const session = parseJSON<{
             type: Type;
+            profileId: string;
             token: string;
             createdAt: number;
             expiresAt: number;
@@ -33,9 +34,9 @@ export class SessionFactory {
 
         switch (type) {
             case Type.Farcaster:
-                return new FarcasterSession(session.token, session.createdAt, session.expiresAt);
+                return new FarcasterSession(session.profileId, session.token, session.createdAt, session.expiresAt);
             case Type.Warpcast:
-                return new WarpcastSession(session.token, session.createdAt, session.expiresAt);
+                return new WarpcastSession(session.profileId, session.token, session.createdAt, session.expiresAt);
             case Type.Twitter:
                 throw new Error('Not implemented yet.');
             default:
