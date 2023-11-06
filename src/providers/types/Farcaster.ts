@@ -4,19 +4,19 @@ export interface CastsResponse {
 }
 
 export interface CastResponse {
-  result: Cast;
+    result: Cast;
 }
 
 export interface UserResponse {
-  result: Profile;
+    result: Profile;
 }
 export interface CastsResult {
     casts: Cast[];
 }
 
 export interface UsersResponse {
-  result: Profile[]
-  next: Next
+    result: Profile[];
+    next: Next;
 }
 
 export interface Cast {
@@ -81,25 +81,25 @@ export interface Next {
 }
 
 export interface Profile {
-    fid: number
-    username: string
-    displayName: string
+    fid: number;
+    username: string;
+    displayName: string;
     pfp: {
-      url: string
-      verified: boolean
-    }
+        url: string;
+        verified: boolean;
+    };
     profile: {
-      bio: {
-        text: string
-        mentions: Array<any>
-      }
-    }
-    followerCount: number
-    followingCount: number
-    referrerUsername: string
+        bio: {
+            text: string;
+            mentions: Array<any>;
+        };
+    };
+    followerCount: number;
+    followingCount: number;
+    referrerUsername: string;
     viewerContext: {
-      following: boolean
-      followedBy: boolean
-      canSendDirectCasts: boolean
-    }
+        following: boolean;
+        followedBy: boolean;
+        canSendDirectCasts: boolean;
+    };
 }

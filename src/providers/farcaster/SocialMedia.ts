@@ -12,7 +12,6 @@ import { CastsResponse, CastResponse, UserResponse, Profile, UsersResponse } fro
 import { ProfileStatus } from '@/providers/types/SocialMedia';
 
 export class FarcasterSocialMedia implements Provider {
-
     private currentSession: FarcasterSession | null = null;
 
     get type() {
@@ -45,12 +44,12 @@ export class FarcasterSocialMedia implements Provider {
         });
         if (response.errors?.length) throw new Error(response.errors[0].message);
 
-        return this.currentSession = new FarcasterSession(
+        return (this.currentSession = new FarcasterSession(
             response.result.fid,
             response.result.token.secret,
             payload.params.timestamp,
             payload.params.expiresAt,
-        );
+        ));
     }
 
     async resumeSession(): Promise<FarcasterSession> {
@@ -59,7 +58,7 @@ export class FarcasterSocialMedia implements Provider {
         if (this.currentSession && this.currentSession.expiresAt > currentTime) {
             return this.currentSession;
         }
-        
+
         this.currentSession = await this.createSession();
         return this.currentSession;
     }
@@ -72,7 +71,7 @@ export class FarcasterSocialMedia implements Provider {
         });
     }
 
-    async getRecentPosts(profileId: number,indicator?: PageIndicator) {
+    async getRecentPosts(profileId: number, indicator?: PageIndicator) {
         const session = await this.resumeSession();
 
         const url = urlcat(WARPCAST_ROOT_URL, '/casts', {
@@ -113,16 +112,16 @@ export class FarcasterSocialMedia implements Provider {
         });
         return createPageable(data, indicator?.cursor, next.cursor);
     }
-    
+
     async getPostById(postId: string) {
         const session = await this.resumeSession();
-        
-        const url = urlcat(WARPCAST_ROOT_URL, '/cast', {hash: postId});
-        const { result:cast } = await fetchJSON<CastResponse>(url, {
+
+        const url = urlcat(WARPCAST_ROOT_URL, '/cast', { hash: postId });
+        const { result: cast } = await fetchJSON<CastResponse>(url, {
             method: 'GET',
             headers: { Authorization: `Bearer ${session.token}`, 'Content-Type': 'application/json' },
         });
-        
+
         return {
             postId: cast.hash,
             parentPostId: cast.threadHash,
@@ -147,14 +146,14 @@ export class FarcasterSocialMedia implements Provider {
                 quotes: cast.recasts.count,
                 reactions: cast.reactions.count,
             },
-        }
+        };
     }
 
     async getProfileById(profileId: string) {
         const session = await this.resumeSession();
-        
-        const url = urlcat(WARPCAST_ROOT_URL, '/user', {fid: profileId});
-        const { result:user } = await fetchJSON<UserResponse>(url, {
+
+        const url = urlcat(WARPCAST_ROOT_URL, '/user', { fid: profileId });
+        const { result: user } = await fetchJSON<UserResponse>(url, {
             method: 'GET',
             headers: { Authorization: `Bearer ${session.token}`, 'Content-Type': 'application/json' },
         });
@@ -171,15 +170,15 @@ export class FarcasterSocialMedia implements Provider {
             viewerContext: {
                 following: user.viewerContext.following,
                 followedBy: user.viewerContext.followedBy,
-            }
-        }
+            },
+        };
     }
 
-    async getPostsByParentPostId(parentPostId: string,indicator?: PageIndicator) {
+    async getPostsByParentPostId(parentPostId: string, indicator?: PageIndicator) {
         const session = await this.resumeSession();
 
         const url = urlcat(WARPCAST_ROOT_URL, '/all-casts-in-thread', {
-            threadHash: parentPostId, 
+            threadHash: parentPostId,
         });
         const { result } = await fetchJSON<CastsResponse>(url, {
             method: 'GET',
@@ -213,23 +212,23 @@ export class FarcasterSocialMedia implements Provider {
                 },
             };
         });
-    
+
         return createPageable(data, indicator?.cursor, null);
     }
 
     async getFollowers(profileId: string, indicator?: PageIndicator) {
         const session = await this.resumeSession();
-        
+
         const url = urlcat(WARPCAST_ROOT_URL, '/followers', {
             fid: profileId,
             limit: 10,
             cursor: indicator?.cursor,
-        })
+        });
         const { result, next } = await fetchJSON<UsersResponse>(url, {
             method: 'GET',
             headers: { Authorization: `Bearer ${session.token}`, 'Content-Type': 'application/json' },
         });
-        const data = result.map(user => ({
+        const data = result.map((user) => ({
             profileId: user.fid.toString(),
             nickname: user.username,
             displayName: user.displayName,
@@ -241,10 +240,10 @@ export class FarcasterSocialMedia implements Provider {
             viewerContext: {
                 following: user.viewerContext.following,
                 followedBy: user.viewerContext.followedBy,
-            }
-        })) 
+            },
+        }));
 
-        return createPageable(data, indicator?.cursor, next.cursor )
+        return createPageable(data, indicator?.cursor, next.cursor);
     }
 
     async getFollowings(profileId: string, indicator?: PageIndicator) {
@@ -254,12 +253,12 @@ export class FarcasterSocialMedia implements Provider {
             fid: profileId,
             limit: 10,
             cursor: indicator?.cursor,
-        })
+        });
         const { result, next } = await fetchJSON<UsersResponse>(url, {
             method: 'GET',
             headers: { Authorization: `Bearer ${session.token}`, 'Content-Type': 'application/json' },
         });
-        const data = result.map(user => ({
+        const data = result.map((user) => ({
             profileId: user.fid.toString(),
             nickname: user.username,
             displayName: user.displayName,
@@ -271,10 +270,9 @@ export class FarcasterSocialMedia implements Provider {
             viewerContext: {
                 following: user.viewerContext.following,
                 followedBy: user.viewerContext.followedBy,
-            }
-        })) 
+            },
+        }));
 
-        return createPageable(data, indicator?.cursor, next.cursor )
+        return createPageable(data, indicator?.cursor, next.cursor);
     }
 }
-
