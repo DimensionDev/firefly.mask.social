@@ -1,4 +1,4 @@
-import { Pageable } from '@/helpers/createPageable';
+import { PageIndicator, Pageable } from '@/helpers/createPageable';
 import { Session } from '@/providers/types/Session';
 
 export enum Type {
@@ -58,7 +58,7 @@ export interface Tag {
 }
 
 export interface Profile {
-    userId: string;
+    profileId: string;
     nickname: string;
     displayName: string;
     pfp: string;
@@ -180,6 +180,8 @@ export interface Provider {
      */
     createSession: () => Promise<Session>;
 
+    resumeSession: () => Promise<Session>;
+
     publishPost: (post: Post) => Promise<Post>;
 
     mirrorPost?: (postId: string) => Promise<Post>;
@@ -203,7 +205,7 @@ export interface Provider {
      * @param profileId
      * @returns
      */
-    getRecentPosts: (profileId: number, cursor: string) => Promise<Pageable<Post>>;
+    getRecentPosts: (profileId: number, indicator?: PageIndicator) => Promise<Pageable<Post>>;
 
     getPostsByProfileId: (profileId: string) => Promise<Pageable<Post>>;
 

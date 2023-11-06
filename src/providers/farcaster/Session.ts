@@ -7,11 +7,12 @@ import { Type } from '@/providers/types/SocialMedia';
 
 export class FarcasterSession extends BaseSession implements Session {
     constructor(
+        public profileId: string,
         public token: string,
         public timestamp: number,
         public expiresAt: number,
     ) {
-        super(Type.Farcaster, token, timestamp, expiresAt);
+        super(Type.Farcaster, profileId, token, timestamp, expiresAt);
     }
 
     async destroy(): Promise<void> {
