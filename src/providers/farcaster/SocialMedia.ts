@@ -5,10 +5,9 @@ import { fetchJSON } from '@/helpers/fetchJSON';
 import { generateCustodyBearer } from '@/helpers/generateCustodyBearer';
 import { WARPCAST_ROOT_URL } from '@/constants';
 import { Provider, Type } from '@/providers/types/SocialMedia';
-import { Session } from '@/providers/types/Session';
 import { FarcasterSession } from '@/providers/farcaster/Session';
 import { PageIndicator, createPageable } from '@/helpers/createPageable';
-import { CastsResponse, CastResponse, UserResponse, Profile, UsersResponse } from '@/providers/types/Farcaster';
+import { CastsResponse, CastResponse, UserResponse, UsersResponse } from '@/providers/types/Farcaster';
 import { ProfileStatus } from '@/providers/types/SocialMedia';
 
 export class FarcasterSocialMedia implements Provider {

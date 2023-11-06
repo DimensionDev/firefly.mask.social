@@ -44,13 +44,6 @@ export async function POST(req: NextRequest) {
             requestFid: BigInt(appFid),
         },
     });
-
-    console.log('DEBUG: prepare');
-    console.log({
-        deadline,
-        signature,
-    });
-
     const response = await fetchJSON<{
         result: {
             signedKeyRequest: {
@@ -73,9 +66,6 @@ export async function POST(req: NextRequest) {
             deadline,
         }),
     });
-
-    console.log('DEBUG: response');
-    console.log(response);
 
     return createSuccessResponseJSON(
         {
