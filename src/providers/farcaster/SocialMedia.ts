@@ -40,7 +40,15 @@ export class FarcasterSocialMedia implements Provider {
         });
         if (response.errors?.length) throw new Error(response.errors[0].message);
 
-        const {result: user} = await fetchJSON<UserResponse>(urlcat(WARPCAST_ROOT_URL, '/me', {method: 'GET', headers: {Authorization: `Bearer ${response.result.token.secret}`, 'Content-Type': 'application/json'}}));
+        const { result: user } = await fetchJSON<UserResponse>(
+            urlcat(WARPCAST_ROOT_URL, '/me', {
+                method: 'GET',
+                headers: {
+                    Authorization: `Bearer ${response.result.token.secret}`,
+                    'Content-Type': 'application/json',
+                },
+            }),
+        );
 
         return (this.currentSession = new FarcasterSession(
             user.fid.toString(),
@@ -273,6 +281,4 @@ export class FarcasterSocialMedia implements Provider {
 
         return createPageable(data, indicator?.cursor, next.cursor);
     }
-
-    
 }
