@@ -25,11 +25,7 @@ export class FarcasterSocialMedia implements Provider {
         const { payload, token } = await generateCustodyBearer(client);
         const response = await fetchJSON<{
             result: {
-                // TODO: this filed was added for demonstration purposes only
-                // TODO: should update this type according to the actual response
-                fid: string;
                 token: {
-                    expiresAt: number;
                     secret: string;
                 };
             };
@@ -44,8 +40,10 @@ export class FarcasterSocialMedia implements Provider {
         });
         if (response.errors?.length) throw new Error(response.errors[0].message);
 
+        const {result: user} = await fetchJSON<UserResponse>(urlcat(WARPCAST_ROOT_URL, '/me', {method: 'GET', headers: {Authorization: `Bearer ${response.result.token.secret}`, 'Content-Type': 'application/json'}}));
+
         return (this.currentSession = new FarcasterSession(
-            response.result.fid,
+            user.fid.toString(),
             response.result.token.secret,
             payload.params.timestamp,
             payload.params.expiresAt,
@@ -275,4 +273,6 @@ export class FarcasterSocialMedia implements Provider {
 
         return createPageable(data, indicator?.cursor, next.cursor);
     }
+
+    
 }
