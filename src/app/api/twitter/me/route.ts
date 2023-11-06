@@ -21,8 +21,6 @@ export async function GET(req: NextRequest) {
 
         return createSuccessResponseJSON(results, { status: StatusCodes.OK });
     } catch (error) {
-        console.log(error);
-
         return createErrorResponseJSON(error instanceof Error ? error.message : 'Internal Server Error', {
             status: StatusCodes.INTERNAL_SERVER_ERROR,
         });

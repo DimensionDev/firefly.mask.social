@@ -15,6 +15,10 @@ export class FarcasterSession extends BaseSession implements Session {
         super(Type.Farcaster, profileId, token, timestamp, expiresAt);
     }
 
+    refresh(): Promise<void> {
+        throw new Error('Not allowed');
+    }
+
     async destroy(): Promise<void> {
         const response = await fetchJSON<{
             result: {
