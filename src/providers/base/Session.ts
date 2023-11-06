@@ -4,6 +4,7 @@ import { Type } from '@/providers/types/SocialMedia';
 export class BaseSession implements Session {
     constructor(
         public type: Type,
+        public profileId: string,
         public token: string,
         public timestamp: number,
         public expiresAt: number,
@@ -11,6 +12,7 @@ export class BaseSession implements Session {
 
     serialize(): `${Type}:${string}` {
         const body = JSON.stringify({
+            profileId: this.profileId,
             token: this.token,
             createdAt: this.timestamp,
             expiresAt: this.expiresAt,

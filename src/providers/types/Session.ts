@@ -1,4 +1,6 @@
 export interface Session {
+    profileId: string;
+
     /**
      * The secret associated with the authenticated account.
      * It's typically used to validate the authenticity of the user in subsequent
