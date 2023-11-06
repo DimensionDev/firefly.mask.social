@@ -3,8 +3,20 @@ export interface CastsResponse {
     next: Next;
 }
 
+export interface CastResponse {
+  result: Cast;
+}
+
+export interface UserResponse {
+  result: Profile;
+}
 export interface CastsResult {
     casts: Cast[];
+}
+
+export interface UsersResponse {
+  result: Profile[]
+  next: Next
 }
 
 export interface Cast {
@@ -66,4 +78,28 @@ export interface ViewerContext {
 
 export interface Next {
     cursor: string;
+}
+
+export interface Profile {
+    fid: number
+    username: string
+    displayName: string
+    pfp: {
+      url: string
+      verified: boolean
+    }
+    profile: {
+      bio: {
+        text: string
+        mentions: Array<any>
+      }
+    }
+    followerCount: number
+    followingCount: number
+    referrerUsername: string
+    viewerContext: {
+      following: boolean
+      followedBy: boolean
+      canSendDirectCasts: boolean
+    }
 }
