@@ -45,6 +45,10 @@ export enum ReactionType {
 export enum NotificationType {
     Reaction = 'reaction',
     Comment = 'comment',
+    Mirror = 'mirror',
+    Quote = 'quote',
+    Follow = 'follow',
+    Mention = 'mention',
 }
 
 export enum ProfileStatus {
@@ -129,42 +133,42 @@ export interface Comment {
     hashTagsMentioned?: string[];
 }
 
-export interface Message {
+export interface BaseNotification {
     notificationId: string;
 }
 
-export interface MirrorNotification extends Message {
-    type: 'mirror';
+export interface MirrorNotification extends BaseNotification {
+    type: NotificationType;
     mirror: Post;
     post: Post;
 }
 
-export interface QuoteNotification extends Message {
-    type: 'quote';
+export interface QuoteNotification extends BaseNotification {
+    type: NotificationType;
     quote: Post;
     post: Post;
 }
 
-export interface ReactionNotification extends Message {
-    type: 'reaction';
+export interface ReactionNotification extends BaseNotification {
+    type: NotificationType;
     reaction: string;
     reactor: Profile;
     post: Post;
 }
 
-export interface CommentNotification extends Message {
-    type: 'comment';
+export interface CommentNotification extends BaseNotification {
+    type: NotificationType;
     comment: Comment;
     post: Post;
 }
 
-export interface FollowNotification extends Message {
-    type: 'follow';
+export interface FollowNotification extends BaseNotification {
+    type: NotificationType;
     follower: Profile;
 }
 
-export interface MentionNotification extends Message {
-    type: 'mention';
+export interface MentionNotification extends BaseNotification {
+    type: NotificationType;
     post: Post;
 }
 
@@ -182,74 +186,228 @@ export interface Provider {
     /**
      * Initiates the login process for the provider.
      *
+     * @param signal Optional AbortSignal for cancellation.
      * @returns A promise that resolves to an Auth object upon successful login.
      */
     createSession: (signal?: AbortSignal) => Promise<Session>;
 
+    /**
+     * Resumes an existing session.
+     *
+     * @param signal Optional AbortSignal for cancellation.
+     * @returns A promise that resolves to a Session object.
+     */
     resumeSession: (signal?: AbortSignal) => Promise<Session>;
 
+    /**
+     * Publishes a post.
+     *
+     * @param post The post to be published.
+     * @returns A promise that resolves to a Post object.
+     */
     publishPost: (post: Post) => Promise<Post>;
 
+    /**
+     * Mirrors a post with the specified post ID.
+     *
+     * @param postId The ID of the post to mirror.
+     * @returns A promise that resolves to a Post object.
+     */
     mirrorPost?: (postId: string) => Promise<Post>;
 
+    /**
+     * Quotes a post with the specified post ID and an introduction.
+     *
+     * @param postId The ID of the post to quote.
+     * @param intro The introduction text for the quote.
+     * @returns A promise that resolves to a Post object.
+     */
     quotePost?: (postId: string, intro: string) => Promise<Post>;
 
+    /**
+     * Collects a post with the specified post ID.
+     *
+     * @param postId The ID of the post to collect.
+     * @returns A promise that resolves to void.
+     */
     collectPost?: (postId: string) => Promise<void>;
 
+    /**
+     * Comments on a post with the specified post ID and comment text.
+     *
+     * @param postId The ID of the post to comment on.
+     * @param comment The comment text.
+     * @returns A promise that resolves to void.
+     */
     commentPost?: (postId: string, comment: string) => Promise<void>;
 
+    /**
+     * Upvotes a post with the specified post ID.
+     *
+     * @param postId The ID of the post to upvote.
+     * @returns A promise that resolves to a Reaction object.
+     */
     upvotePost: (postId: string) => Promise<Reaction>;
 
+    /**
+     * Removes an upvote from a post with the specified post ID.
+     *
+     * @param postId The ID of the post to remove the upvote from.
+     * @returns A promise that resolves to void.
+     */
     unupvotePost: (postId: string) => Promise<void>;
 
+    /**
+     * Retrieves a user's profile by their profile ID.
+     *
+     * @param profileId The ID of the user's profile.
+     * @returns A promise that resolves to a Profile object.
+     */
     getProfileById: (profileId: string) => Promise<Profile>;
 
+    /**
+     * Retrieves a post by its post ID.
+     *
+     * @param postId The ID of the post to retrieve.
+     * @returns A promise that resolves to a Post object.
+     */
     getPostById: (postId: string) => Promise<Post>;
 
     /**
-     * Timeline post in reverse chronological order.
-     * @param profileId
-     * @returns
+     * Retrieves recent posts for a given profile ID in reverse chronological order.
+     *
+     * @param profileId The ID of the profile.
+     * @param indicator Optional PageIndicator for pagination.
+     * @returns A promise that resolves to a pageable list of Post objects.
      */
     getRecentPosts: (profileId: number, indicator?: PageIndicator) => Promise<Pageable<Post>>;
 
+    /**
+     * Retrieves posts by a specific profile ID.
+     *
+     * @param profileId The ID of the profile.
+     * @param indicator Optional PageIndicator for pagination.
+     * @returns A promise that resolves to a pageable list of Post objects.
+     */
     getPostsByProfileId: (profileId: string, indicator?: PageIndicator) => Promise<Pageable<Post>>;
 
+    /**
+     * Retrieves posts where a user is mentioned by their profile ID.
+     *
+     * @param profileId The ID of the user's profile.
+     * @param indicator Optional PageIndicator for pagination.
+     * @returns A promise that resolves to a pageable list of Post objects.
+     */
     getPostsBeMentioned: (profileId: string, indicator?: PageIndicator) => Promise<Pageable<Post>>;
 
+    /**
+     * Retrieves posts that a user has liked by their profile ID.
+     *
+     * @param profileId The ID of the user's profile.
+     * @param indicator Optional PageIndicator for pagination.
+     * @returns A promise that resolves to a pageable list of Post objects.
+     */
     getPostsLiked: (profileId: string, indicator?: PageIndicator) => Promise<Pageable<Post>>;
 
+    /**
+     * Retrieves posts that are replies to a user's posts by their profile ID.
+     *
+     * @param profileId The ID of the user's profile.
+     * @param indicator Optional PageIndicator for pagination.
+     * @returns A promise that resolves to a pageable list of Post objects.
+     */
     getPostsReplies: (profileId: string, indicator?: PageIndicator) => Promise<Pageable<Post>>;
 
+    /**
+     * Retrieves posts with a specific parent post ID.
+     *
+     * @param postId The ID of the parent post.
+     * @param indicator Optional PageIndicator for pagination.
+     * @returns A promise that resolves to a pageable list of Post objects.
+     */
     getPostsByParentPostId: (postId: string, indicator?: PageIndicator) => Promise<Pageable<Post>>;
 
+    /**
+     * Review required, retrieves reactors (users who reacted to a post) by post ID.
+     *
+     * @param postId The ID of the post.
+     * @param indicator Optional PageIndicator for pagination.
+     * @returns A promise that resolves to a pageable list of Profile objects.
+     */
     __TODO__getReactorsByPostId: (postId: string, indicator?: PageIndicator) => Promise<Pageable<Profile>>;
 
+    /**
+     * Review required, retrieves all reactors (users who reacted to a post) by post ID.
+     *
+     * @param postId The ID of the post.
+     * @param indicator Optional PageIndicator for pagination.
+     * @returns A promise that resolves to a pageable list of Profile objects.
+     */
     __TODO__getAllReactorsByPostId: (postId: string, indicator?: PageIndicator) => Promise<Pageable<Profile>>;
 
     /**
-     * Let the current logged user to follow another user.
-     * @param profileId User to follow
-     * @returns
+     * Allows the current logged user to follow another user by specifying their profile ID.
+     *
+     * @param profileId The ID of the user to follow.
+     * @returns A promise that resolves to void.
      */
     follow: (profileId: string) => Promise<void>;
 
     /**
-     * Let the current logged user to unfollow another user.
-     * @param profileId User to follow
-     * @returns
+     * Allows the current logged user to unfollow another user by specifying their profile ID.
+     *
+     * @param profileId The ID of the user to unfollow.
+     * @returns A promise that resolves to void.
      */
     unfollow: (profileId: string) => Promise<void>;
 
+    /**
+     * Retrieves followers of a user by their profile ID.
+     *
+     * @param profileId The ID of the user's profile.
+     * @param indicator Optional PageIndicator for pagination.
+     * @returns A promise that resolves to a pageable list of Profile objects.
+     */
     getFollowers: (profileId: string, indicator?: PageIndicator) => Promise<Pageable<Profile>>;
 
+    /**
+     * Retrieves users followed by a user by their profile ID.
+     *
+     * @param profileId The ID of the user's profile.
+     * @param indicator Optional PageIndicator for pagination.
+     * @returns A promise that resolves to a pageable list of Profile objects.
+     */
     getFollowings: (profileId: string, indicator?: PageIndicator) => Promise<Pageable<Profile>>;
 
+    /**
+     * Checks if a user is followed by the current logged user by specifying their profile ID.
+     *
+     * @param profileId The ID of the user's profile to check.
+     * @returns A promise that resolves to a boolean.
+     */
     isFollowedByMe?: (profileId: string) => Promise<boolean>;
 
+    /**
+     * Checks if a user is following the current logged user by specifying their profile ID.
+     *
+     * @param profileId The ID of the user's profile to check.
+     * @returns A promise that resolves to a boolean.
+     */
     isFollowingMe?: (profileId: string) => Promise<boolean>;
 
+    /**
+     * Retrieves notifications.
+     *
+     * @param indicator Optional PageIndicator for pagination.
+     * @returns A promise that resolves to a pageable list of Notification objects.
+     */
     getNotifications: (indicator?: PageIndicator) => Promise<Pageable<Notification>>;
 
+    /**
+     * Retrieves suggested user profiles to follow.
+     *
+     * @param indicator Optional PageIndicator for pagination.
+     * @returns A promise that resolves to a pageable list of Profile objects.
+     */
     getSuggestedFollows: (indicator?: PageIndicator) => Promise<Pageable<Profile>>;
 }
