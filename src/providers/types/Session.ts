@@ -13,7 +13,7 @@ export interface Session {
      * It's represented as a UNIX timestamp, counting the number of seconds since
      * January 1, 1970 (the UNIX epoch).
      */
-    timestamp: number;
+    createdAt: number;
 
     /**
      * Specifies when the authentication or session will expire.

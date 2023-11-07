@@ -6,7 +6,7 @@ export abstract class BaseSession implements Session {
         public type: Type,
         public profileId: string,
         public token: string,
-        public timestamp: number,
+        public createdAt: number,
         public expiresAt: number,
     ) {}
 
@@ -14,7 +14,7 @@ export abstract class BaseSession implements Session {
         const body = JSON.stringify({
             profileId: this.profileId,
             token: this.token,
-            createdAt: this.timestamp,
+            createdAt: this.createdAt,
             expiresAt: this.expiresAt,
         });
 
