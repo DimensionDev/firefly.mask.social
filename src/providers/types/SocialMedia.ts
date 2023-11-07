@@ -47,6 +47,11 @@ export enum NotificationType {
     Comment = 'comment',
 }
 
+export enum ProfileStatus {
+    Active = 'active',
+    Inactive = 'inactive',
+}
+
 export interface Reaction {
     reactionId: string;
     type: ReactionType;
@@ -67,7 +72,7 @@ export interface Profile {
     address?: string;
     followerCount: number;
     followingCount: number;
-    status: 'active' | 'inactive';
+    status: ProfileStatus;
     tags?: Tag[];
     verified: boolean;
     viewerContext?: {
