@@ -4,6 +4,7 @@ import { waitForSignedKeyRequestComplete } from '@/helpers/waitForSignedKeyReque
 import { Provider, Type } from '@/providers/types/SocialMedia';
 import { WarpcastSession } from '@/providers/warpcast/Session';
 
+// @ts-ignore
 export class WarpcastSocialMedia implements Provider {
     get type() {
         return Type.Warpcast;
