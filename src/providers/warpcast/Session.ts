@@ -11,4 +11,12 @@ export class WarpcastSession extends BaseSession implements Session {
     ) {
         super(Type.Farcaster, profileId, token, timestamp, expiresAt);
     }
+
+    refresh(): Promise<void> {
+        throw new Error('Not allowed');
+    }
+
+    destroy(): Promise<void> {
+        throw new Error('Not allowed');
+    }
 }
