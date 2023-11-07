@@ -133,6 +133,11 @@ export interface Comment {
     hashTagsMentioned?: string[];
 }
 
+export interface Collection {
+    collectionId: string;
+    posts: Post[];
+}
+
 export interface BaseNotification {
     notificationId: string;
 }
@@ -219,7 +224,7 @@ export interface Provider {
      * Quotes a post with the specified post ID and an introduction.
      *
      * @param postId The ID of the post to quote.
-     * @param intro The introduction text for the quote.
+     * @param intro The introduction text for the quote. (Review required, not sure what the actual type is)
      * @returns A promise that resolves to a Post object.
      */
     quotePost?: (postId: string, intro: string) => Promise<Post>;
@@ -228,15 +233,16 @@ export interface Provider {
      * Collects a post with the specified post ID.
      *
      * @param postId The ID of the post to collect.
+     * @param collectionId The ID of the collection to collect the post to.
      * @returns A promise that resolves to void.
      */
-    collectPost?: (postId: string) => Promise<void>;
+    collectPost?: (postId: string, collectionId?: string) => Promise<void>;
 
     /**
      * Comments on a post with the specified post ID and comment text.
      *
      * @param postId The ID of the post to comment on.
-     * @param comment The comment text.
+     * @param comment The comment text. (Review required, not sure what the actual type is)
      * @returns A promise that resolves to void.
      */
     commentPost?: (postId: string, comment: string) => Promise<void>;
@@ -255,7 +261,7 @@ export interface Provider {
      * @param postId The ID of the post to remove the upvote from.
      * @returns A promise that resolves to void.
      */
-    unupvotePost: (postId: string) => Promise<void>;
+    unvotePost: (postId: string) => Promise<void>;
 
     /**
      * Retrieves a user's profile by their profile ID.
@@ -301,7 +307,7 @@ export interface Provider {
     getPostsBeMentioned: (profileId: string, indicator?: PageIndicator) => Promise<Pageable<Post>>;
 
     /**
-     * Retrieves posts that a user has liked by their profile ID.
+     * Retrieves posts that a user has liked.
      *
      * @param profileId The ID of the user's profile.
      * @param indicator Optional PageIndicator for pagination.
@@ -310,7 +316,7 @@ export interface Provider {
     getPostsLiked: (profileId: string, indicator?: PageIndicator) => Promise<Pageable<Post>>;
 
     /**
-     * Retrieves posts that are replies to a user's posts by their profile ID.
+     * Retrieves posts that are replied by user.
      *
      * @param profileId The ID of the user's profile.
      * @param indicator Optional PageIndicator for pagination.
@@ -328,22 +334,13 @@ export interface Provider {
     getPostsByParentPostId: (postId: string, indicator?: PageIndicator) => Promise<Pageable<Post>>;
 
     /**
-     * Review required, retrieves reactors (users who reacted to a post) by post ID.
+     * Retrieves reactors (users who reacted to a post) by post ID.
      *
      * @param postId The ID of the post.
      * @param indicator Optional PageIndicator for pagination.
      * @returns A promise that resolves to a pageable list of Profile objects.
      */
-    __TODO__getReactorsByPostId: (postId: string, indicator?: PageIndicator) => Promise<Pageable<Profile>>;
-
-    /**
-     * Review required, retrieves all reactors (users who reacted to a post) by post ID.
-     *
-     * @param postId The ID of the post.
-     * @param indicator Optional PageIndicator for pagination.
-     * @returns A promise that resolves to a pageable list of Profile objects.
-     */
-    __TODO__getAllReactorsByPostId: (postId: string, indicator?: PageIndicator) => Promise<Pageable<Profile>>;
+    getReactors: (postId: string, indicator?: PageIndicator) => Promise<Pageable<Profile>>;
 
     /**
      * Allows the current logged user to follow another user by specifying their profile ID.

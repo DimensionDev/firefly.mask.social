@@ -35,8 +35,7 @@ export class LensSocialMedia implements Provider {
         });
     }
 
-    __TODO__getReactorsByPostId!: (postId: string) => Promise<Pageable<Profile, unknown>>;
-    __TODO__getAllReactorsByPostId!: (postId: string) => Promise<Pageable<Profile, unknown>>;
+    getReactors!: (postId: string) => Promise<Pageable<Profile, unknown>>;
 
     get type() {
         return Type.Lens;
@@ -157,7 +156,7 @@ export class LensSocialMedia implements Provider {
         };
     }
 
-    async unupvotePost(postId: string): Promise<void> {
+    async unvotePost(postId: string): Promise<void> {
         const result = await this.lensClient.publication.reactions.remove({
             for: postId,
             reaction: PublicationReactionType.Upvote,
