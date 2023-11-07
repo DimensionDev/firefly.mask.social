@@ -7,8 +7,10 @@ import { WARPCAST_ROOT_URL } from '@/constants';
 import { Provider, Type } from '@/providers/types/SocialMedia';
 import { FarcasterSession } from '@/providers/farcaster/Session';
 import { PageIndicator, createPageable } from '@/helpers/createPageable';
-import { CastsResponse, CastResponse, UserResponse, UsersResponse } from '@/providers/types/Farcaster';
-import { ProfileStatus } from '@/providers/types/SocialMedia';
+import { CastsResponse, CastResponse, UserResponse, UsersResponse, ReactionResponse } from '@/providers/types/Farcaster';
+import { ProfileStatus, Post } from '@/providers/types/SocialMedia';
+import { ReactionType } from '../types/SocialMedia';
+import { SuccessResponse } from '../types/Farcaster';
 
 export class FarcasterSocialMedia implements Provider {
     private currentSession: FarcasterSession | null = null;
@@ -280,4 +282,94 @@ export class FarcasterSocialMedia implements Provider {
 
         return createPageable(data, indicator?.cursor, next.cursor);
     }
+
+    async publishPost(post: Post) {
+        const session = await this.resumeSession();
+        
+        const url = urlcat(WARPCAST_ROOT_URL, '/casts');
+        const { result: cast } = await fetchJSON<CastResponse>(url, {method: "POST", headers: {Authorization: `Bearer ${session.token}`, 'Content-Type': 'application/json'}, body: JSON.stringify({text: post.metadata.content})});
+
+        return {
+            postId: cast.hash,
+            parentPostId: cast.threadHash,
+            timestamp: cast.timestamp,
+            author: {
+                profileId: cast.author.fid.toString(),
+                nickname: cast.author.username,
+                displayName: cast.author.displayName,
+                pfp: cast.author.pfp.url,
+                followerCount: cast.author.followerCount,
+                followingCount: cast.author.followingCount,
+                status: ProfileStatus.Active,
+                verified: cast.author.pfp.verified,
+            },
+            metadata: {
+                locale: '',
+                content: cast.text,
+            },
+            stats: {
+                comments: cast.replies.count,
+                mirrors: cast.recasts.count,
+                quotes: cast.recasts.count,
+                reactions: cast.reactions.count,
+            },
+        };
+    }
+
+    async upvotePost(postId: string) {
+        const session = await this.resumeSession();
+
+        const url = urlcat(WARPCAST_ROOT_URL, '/cast-likes');
+        const {result: reaction} = await fetchJSON<ReactionResponse>(url, {method: "POST", headers: {Authorization: `Bearer ${session.token}`, 'Content-Type': 'application/json'}, body: JSON.stringify({castHash: postId})});
+
+        return {
+            reactId: reaction.hash,
+            type: ReactionType.Upvote,
+            timestamp: reaction.timestamp,
+        }
+    } 
+
+    async unupvotePost(postId: string) {
+        const session = await this.resumeSession();
+
+        const url = urlcat(WARPCAST_ROOT_URL, '/cast-likes');
+        await fetchJSON<ReactionResponse>(url, {method: "DELETE", headers: {Authorization: `Bearer ${session.token}`, 'Content-Type': 'application/json'}, body: JSON.stringify({castHash: postId})});
+    }
+
+    async commentPost(postId: string, comment: string) {
+        const session = await this.resumeSession();
+
+        const url = urlcat(WARPCAST_ROOT_URL, '/casts', {parent: postId});
+        await fetchJSON<CastResponse>(url, {method: "POST", headers: {Authorization: `Bearer ${session.token}`, 'Content-Type': 'application/json'}, body: JSON.stringify({text: comment})});
+    }
+
+    async mirrorPost(postId: string) {
+        const session = await this.resumeSession();
+
+        const url = urlcat(WARPCAST_ROOT_URL, '/recasts');
+        await fetchJSON<{result: {castHash: string}}>(url, {method: "PUT", headers: {Authorization: `Bearer ${session.token}`, 'Content-Type': 'application/json'}, body: JSON.stringify({castHash: postId})});
+    }
+    
+    async unmirrorPost(postId: string) {
+        const session = await this.resumeSession();
+
+        const url = urlcat(WARPCAST_ROOT_URL, '/recasts');
+        const {result} = await fetchJSON<SuccessResponse>(url, {method: "DELETE", headers: {Authorization: `Bearer ${session.token}`, 'Content-Type': 'application/json'}, body: JSON.stringify({castHash: postId})});
+        return result.success; 
+    }
+
+    async followProfile(profileId: string) {
+        const session = await this.resumeSession();
+        
+        const url = urlcat(WARPCAST_ROOT_URL, '/follows')
+        await fetchJSON<SuccessResponse>(url, {method: "PUT", headers: {Authorization: `Bearer ${session.token}`, 'Content-Type': 'application/json'}, body: JSON.stringify({targetFid: Number(profileId)})});
+    }
+
+    async unfollow(profileId: string) {
+        const session = await this.resumeSession();
+        
+        const url = urlcat(WARPCAST_ROOT_URL, '/follows')
+        await fetchJSON<SuccessResponse>(url, {method: "DELETE", headers: {Authorization: `Bearer ${session.token}`, 'Content-Type': 'application/json'}, body: JSON.stringify({targetFid: Number(profileId)})});
+    }
+
 }

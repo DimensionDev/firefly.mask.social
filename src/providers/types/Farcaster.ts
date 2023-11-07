@@ -103,3 +103,22 @@ export interface Profile {
         canSendDirectCasts: boolean;
     };
 }
+
+
+export interface ReactionInfo {
+  type: string;
+  hash: string;
+  reactor: Profile
+  timestamp: number;
+  castHash: string;
+};
+
+export interface ReactionResponse {
+  result: ReactionInfo;
+};
+
+export interface SuccessResponse {
+  result: {
+    success: boolean;
+  }
+}
