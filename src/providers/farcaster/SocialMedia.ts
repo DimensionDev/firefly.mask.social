@@ -10,6 +10,7 @@ import { PageIndicator, createPageable } from '@/helpers/createPageable';
 import { CastsResponse, CastResponse, UserResponse, UsersResponse } from '@/providers/types/Farcaster';
 import { ProfileStatus } from '@/providers/types/SocialMedia';
 
+// @ts-ignore
 export class FarcasterSocialMedia implements Provider {
     private currentSession: FarcasterSession | null = null;
 
