@@ -104,21 +104,20 @@ export interface Profile {
     };
 }
 
-
 export interface ReactionInfo {
-  type: string;
-  hash: string;
-  reactor: Profile
-  timestamp: number;
-  castHash: string;
-};
+    type: string;
+    hash: string;
+    reactor: Profile;
+    timestamp: number;
+    castHash: string;
+}
 
 export interface ReactionResponse {
-  result: ReactionInfo;
-};
+    result: ReactionInfo;
+}
 
 export interface SuccessResponse {
-  result: {
-    success: boolean;
-  }
+    result: {
+        success: boolean;
+    };
 }
