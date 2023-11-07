@@ -13,6 +13,10 @@
         "recaster",
         "recasters",
         "urlcat",
+        "upvotes",
+        "unfollow",
+        "unmirror",
+        "unvote",
         "viem",
         "wagmi",
         "warpcast",
@@ -27,10 +31,8 @@
         "quicktime",
         "rainbowkit",
         "tailwindui",
-        "unfollow",
-        "unmirror",
-        "unupvote",
-        "tailwindcss"
+        "tailwindcss",
+        "typecheck"
     ],
     "flagWords": [],
     "ignorePaths": ["node_modules/**", "dist/**", "build/**", ".next/**", "public/svg/**"],
