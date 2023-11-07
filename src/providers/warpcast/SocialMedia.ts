@@ -10,7 +10,7 @@ export class WarpcastSocialMedia implements Provider {
         return Type.Warpcast;
     }
 
-    async createSession() {
+    async createSession(signal?: AbortSignal) {
         const response = await fetchJSON<
             ResponseJSON<{
                 publicKey: string;
@@ -30,9 +30,7 @@ export class WarpcastSocialMedia implements Provider {
         console.log('DEBUG: response');
         console.log(response);
 
-        const controller = new AbortController();
-
-        await waitForSignedKeyRequestComplete(controller.signal)(response.data.token);
+        await waitForSignedKeyRequestComplete(signal)(response.data.token);
 
         return new WarpcastSession(
             response.data.fid,

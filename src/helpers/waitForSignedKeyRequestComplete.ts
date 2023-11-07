@@ -3,12 +3,12 @@ import { delay } from '@/helpers/delay';
 import { fetchJSON } from '@/helpers/fetchJSON';
 import { WARPCAST_ROOT_URL } from '@/constants';
 
-export function waitForSignedKeyRequestComplete(signal: AbortSignal) {
+export function waitForSignedKeyRequestComplete(signal?: AbortSignal) {
     return async (token: string, maxTries = 100, ms = 2000) => {
         let tries = 0;
 
         while (true) {
-            if (signal.aborted) throw new Error('Aborted.');
+            if (signal?.aborted) throw new Error('Aborted.');
             if (tries++ >= maxTries) throw new Error('Max tries reached.');
 
             // delay a while before checking again

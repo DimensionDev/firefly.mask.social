@@ -48,7 +48,7 @@ export class LensSession extends BaseSession implements Session {
         const accessToken = accessTokenResult.unwrap();
 
         this.token = accessToken;
-        this.timestamp = payload.params.timestamp;
+        this.createdAt = payload.params.timestamp;
         this.expiresAt = payload.params.expiresAt;
     }
 

@@ -184,9 +184,9 @@ export interface Provider {
      *
      * @returns A promise that resolves to an Auth object upon successful login.
      */
-    createSession: () => Promise<Session>;
+    createSession: (signal?: AbortSignal) => Promise<Session>;
 
-    resumeSession: () => Promise<Session>;
+    resumeSession: (signal?: AbortSignal) => Promise<Session>;
 
     publishPost: (post: Post) => Promise<Post>;
 
