@@ -5,6 +5,7 @@ import {
     Notification,
     Post,
     Profile,
+    ProfileStatus,
     Provider,
     Reaction,
     ReactionType,
@@ -178,7 +179,7 @@ export class LensSocialMedia implements Provider {
 
     formatProfile(result: ProfileFragment): Profile {
         return {
-            userId: result.id,
+            profileId: result.id,
             nickname: result.metadata?.displayName ?? '',
             displayName: result.metadata?.displayName ?? '',
             pfp:
@@ -191,7 +192,7 @@ export class LensSocialMedia implements Provider {
             address: result.followNftAddress?.address ?? undefined,
             followerCount: result.stats.followers,
             followingCount: result.stats.following,
-            status: 'active',
+            status: ProfileStatus.Active,
             verified: true,
             ownedBy: {
                 networkType: NetworkType.Ethereum,
