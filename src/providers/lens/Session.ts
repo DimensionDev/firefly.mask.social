@@ -1,22 +1,21 @@
-import urlcat from 'urlcat';
-import { WARPCAST_ROOT_URL } from '@/constants';
-import { fetchJSON } from '@/helpers/fetchJSON';
+import { getWalletClient } from 'wagmi/actions';
 import { Session } from '@/providers/types/Session';
 import { BaseSession } from '@/providers/base/Session';
 import { Type } from '@/providers/types/SocialMedia';
-import { LensClient } from '@lens-protocol/client';
-import { getWalletClient } from 'wagmi/actions';
+import { LensClient, development, production } from '@lens-protocol/client';
 import { generateCustodyBearer } from '@/helpers/generateCustodyBearer';
 
 export class LensSession extends BaseSession implements Session {
     constructor(
-        public token: string,
         public profileId: string,
-        public timestamp: number,
+        public token: string,
+        public createdAt: number,
         public expiresAt: number,
-        public lensClient: LensClient,
+        private client = new LensClient({
+            environment: process.env.NODE_ENV === 'production' ? production : development,
+        }),
     ) {
-        super(Type.Lens, profileId, token, timestamp, expiresAt);
+        super(Type.Lens, profileId, token, createdAt, expiresAt);
     }
 
     async refresh(): Promise<void> {
@@ -27,11 +26,11 @@ export class LensSession extends BaseSession implements Session {
 
         const address = client.account.address;
 
-        const profile = await this.lensClient.profile.fetchDefault({
+        const profile = await this.client.profile.fetchDefault({
             for: address,
         });
 
-        const { id, text } = await this.lensClient.authentication.generateChallenge({
+        const { id, text } = await this.client.authentication.generateChallenge({
             for: profile?.id,
             signedBy: address,
         });
@@ -40,12 +39,12 @@ export class LensSession extends BaseSession implements Session {
             message: text,
         });
 
-        await this.lensClient.authentication.authenticate({
+        await this.client.authentication.authenticate({
             id,
             signature,
         });
 
-        const accessTokenResult = await this.lensClient.authentication.getAccessToken();
+        const accessTokenResult = await this.client.authentication.getAccessToken();
         const accessToken = accessTokenResult.unwrap();
 
         this.token = accessToken;
@@ -54,7 +53,7 @@ export class LensSession extends BaseSession implements Session {
     }
 
     async destroy(): Promise<void> {
-        await this.lensClient.authentication.logout();
+        await this.client.authentication.logout();
 
         this.expiresAt = 0;
     }

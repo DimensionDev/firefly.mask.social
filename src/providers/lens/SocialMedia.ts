@@ -14,7 +14,6 @@ import {
 import { Session } from '@/providers/types/Session';
 import {
     AnyPublicationFragment,
-    CommentRankingFilterType,
     ExploreProfilesOrderByType,
     LensClient,
     ProfileFragment,
@@ -55,12 +54,6 @@ export class LensSocialMedia implements Provider {
         const profile = await this.lensClient.profile.fetchDefault({
             for: address,
         });
-
-        // await this.lensClient.profile.fetchAll({
-        //     where: {
-        //         ownedBy: [address],
-        //     },
-        // });
 
         const { id, text } = await this.lensClient.authentication.generateChallenge({
             for: profile?.id,

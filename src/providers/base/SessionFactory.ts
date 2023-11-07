@@ -3,12 +3,13 @@ import { parseJSON } from '@/helpers/parseJSON';
 import { Type } from '@/providers/types/SocialMedia';
 import { FarcasterSession } from '@/providers/farcaster/Session';
 import { WarpcastSession } from '@/providers/warpcast/Session';
+import { LensSession } from '@/providers/lens/Session';
 
 export class SessionFactory {
     /**
-     * Creates a session instance based on the serialized string.
+     * Creates a session instance based on the serialized session in string.
      *
-     * @param serializedSession - The serialized session string.
+     * @param serializedSession - The serialized session session in string.
      * @returns An instance of a session.
      */
     public static createSession(serializedSession: string) {
@@ -24,8 +25,10 @@ export class SessionFactory {
         if (!session) throw new Error('Failed to parse session.');
 
         const schema = z.object({
+            type: z.nativeEnum(Type),
+            profileId: z.string(),
             token: z.string(),
-            timestamp: z.number().nonnegative(),
+            createdAt: z.number().nonnegative(),
             expiresAt: z.number().nonnegative(),
         });
 
@@ -33,6 +36,8 @@ export class SessionFactory {
         if (!success) throw new Error('Malformed session.');
 
         switch (type) {
+            case Type.Lens:
+                return new LensSession(session.profileId, session.token, session.createdAt, session.expiresAt);
             case Type.Farcaster:
                 return new FarcasterSession(session.profileId, session.token, session.createdAt, session.expiresAt);
             case Type.Warpcast:
