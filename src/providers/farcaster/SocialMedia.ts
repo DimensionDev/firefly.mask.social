@@ -85,7 +85,7 @@ export class FarcasterSocialMedia implements Provider {
         });
     }
 
-    async getRecentPosts(profileId: number, indicator?: PageIndicator) {
+    async discoverPosts(indicator?: PageIndicator) {
         const session = await this.resumeSession();
 
         const url = urlcat(WARPCAST_ROOT_URL, '/casts', {

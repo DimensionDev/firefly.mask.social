@@ -280,13 +280,13 @@ export interface Provider {
     getPostById: (postId: string) => Promise<Post>;
 
     /**
-     * Retrieves recent posts for a given profile ID in reverse chronological order.
+     * Retrieves recent posts in reverse chronological order.
      *
      * @param profileId The ID of the profile.
      * @param indicator Optional PageIndicator for pagination.
      * @returns A promise that resolves to a pageable list of Post objects.
      */
-    getRecentPosts: (profileId: number, indicator?: PageIndicator) => Promise<Pageable<Post>>;
+    discoverPosts: (indicator?: PageIndicator) => Promise<Pageable<Post>>;
 
     /**
      * Retrieves posts by a specific profile ID.
