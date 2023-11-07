@@ -261,7 +261,7 @@ export class LensSocialMedia implements Provider {
         };
     }
 
-    async getRecentPosts(): Promise<Pageable<Post>> {
+    async discoverPosts(): Promise<Pageable<Post>> {
         const result = await this.lensClient.publication.fetchAll({
             where: {},
         });
