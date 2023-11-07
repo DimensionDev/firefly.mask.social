@@ -344,7 +344,7 @@ export class FarcasterSocialMedia implements Provider {
         };
     }
 
-    async unupvotePost(postId: string) {
+    async unvotePost(postId: string) {
         const session = await this.resumeSession();
 
         const url = urlcat(WARPCAST_ROOT_URL, '/cast-likes');
