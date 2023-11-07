@@ -32,6 +32,6 @@
         "tailwindcss"
     ],
     "flagWords": [],
-    "ignorePaths": ["node_modules/**", "dist/**", "build/**", ".next/**"],
+    "ignorePaths": ["node_modules/**", "dist/**", "build/**", ".next/**", "public/svg/**"],
     "overrides": []
 }

@@ -8,6 +8,9 @@ const config: Config = {
     ],
     theme: {
         extend: {
+            colors: {
+                main: 'rgba(7, 16, 27, 1)',
+            },
             backgroundImage: {
                 'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
                 'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
@@ -19,6 +22,6 @@ const config: Config = {
             lg: '1265px',
         },
     },
-    plugins: [],
+    plugins: [require('@tailwindcss/forms')],
 };
 export default config;
