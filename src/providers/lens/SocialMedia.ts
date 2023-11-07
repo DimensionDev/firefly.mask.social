@@ -35,7 +35,6 @@ export class LensSocialMedia implements Provider {
         });
     }
 
-    resumeSession!: () => Promise<Session>;
     __TODO__getReactorsByPostId!: (postId: string) => Promise<Pageable<Profile, unknown>>;
     __TODO__getAllReactorsByPostId!: (postId: string) => Promise<Pageable<Profile, unknown>>;
 
@@ -79,6 +78,10 @@ export class LensSocialMedia implements Provider {
             payload.params.expiresAt,
             this.lensClient,
         );
+    }
+
+    async resumeSession(): Promise<Session> {
+        throw new Error('To be implemented.');
     }
 
     async publishPost(post: Post): Promise<Post> {
