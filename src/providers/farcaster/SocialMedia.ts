@@ -15,8 +15,8 @@ import {
     ReactionResponse,
 } from '@/providers/types/Farcaster';
 import { ProfileStatus, Post } from '@/providers/types/SocialMedia';
-import { ReactionType } from '../types/SocialMedia';
-import { SuccessResponse } from '../types/Farcaster';
+import { ReactionType } from '@/providers/types/SocialMedia';
+import { SuccessResponse } from '@/providers/types/Farcaster';
 
 // @ts-ignore
 export class FarcasterSocialMedia implements Provider {
@@ -338,7 +338,7 @@ export class FarcasterSocialMedia implements Provider {
         });
 
         return {
-            reactId: reaction.hash,
+            reactionId: reaction.hash,
             type: ReactionType.Upvote,
             timestamp: reaction.timestamp,
         };
@@ -375,6 +375,8 @@ export class FarcasterSocialMedia implements Provider {
             headers: { Authorization: `Bearer ${session.token}`, 'Content-Type': 'application/json' },
             body: JSON.stringify({ castHash: postId }),
         });
+
+        return null!;
     }
 
     async unmirrorPost(postId: string) {
