@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { NavigationItem } from '@/types';
+import type { NavigationItem } from '@/types';
 import { classNames } from '@/helpers/classNames';
 
 export interface SidebarForDesktopProps {

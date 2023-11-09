@@ -4,10 +4,10 @@ import { MerkleAPIClient } from '@standard-crypto/farcaster-js';
 import { fetchJSON } from '@/helpers/fetchJSON';
 import { generateCustodyBearer } from '@/helpers/generateCustodyBearer';
 import { WARPCAST_ROOT_URL } from '@/constants';
-import { Provider, Type, Post, ProfileStatus, ReactionType } from '@/providers/types/SocialMedia';
+import { type Provider, Type, type Post, ProfileStatus, ReactionType } from '@/providers/types/SocialMedia';
 import { FarcasterSession } from '@/providers/farcaster/Session';
-import { PageIndicator, createPageable } from '@/helpers/createPageable';
-import {
+import { type PageIndicator, createPageable } from '@/helpers/createPageable';
+import type {
     CastResponse,
     CastsResponse,
     ReactionResponse,

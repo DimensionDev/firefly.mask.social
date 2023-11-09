@@ -2,21 +2,21 @@ import { getWalletClient } from 'wagmi/actions';
 import { generateCustodyBearer } from '@/helpers/generateCustodyBearer';
 import {
     NetworkType,
-    Notification,
-    Post,
-    Profile,
+    type Notification,
+    type Post,
+    type Profile,
     ProfileStatus,
-    Provider,
-    Reaction,
+    type Provider,
+    type Reaction,
     ReactionType,
     Type,
 } from '@/providers/types/SocialMedia';
 import type { Session } from '@/providers/types/Session';
 import {
-    AnyPublicationFragment,
+    type AnyPublicationFragment,
     ExploreProfilesOrderByType,
     LensClient,
-    ProfileFragment,
+    type ProfileFragment,
     PublicationReactionType,
     PublicationType,
     development,
@@ -24,7 +24,7 @@ import {
     production,
 } from '@lens-protocol/client';
 import { LensSession } from '@/providers/lens/Session';
-import { Pageable } from '@/helpers/createPageable';
+import type { Pageable } from '@/helpers/createPageable';
 
 export class LensSocialMedia implements Provider {
     lensClient: LensClient;

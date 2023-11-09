@@ -1,5 +1,4 @@
 import { Suspense, lazy } from 'react';
-import { Box, Typography } from '@mui/material';
 import { RegistryContext, TypedMessageRender } from '@masknet/typed-message-react';
 import { registry } from './TypedMessageRender/registry.js';
 import { useDecrypt } from './Decrypt/useDecrypt.js';
@@ -12,27 +11,27 @@ export function DecryptMessage(props: { text: string; version: string }) {
 
     if (isE2E)
         return (
-            <Typography sx={{ padding: 2 }}>
+            <p className="p-2">
                 This message is a e2e encrypted message. You can only decrypt this message when it is encrypted to you
                 and decrypt it with Mask Network extension.
-            </Typography>
+            </p>
         );
     if (error)
         return (
-            <Typography sx={{ padding: 2 }}>
+            <p className="p-2">
                 We encountered an error when try to decrypt this message: <br />
                 {error.message}
-            </Typography>
+            </p>
         );
-    if (!message) return <Typography sx={{ padding: 2 }}>Decrypting...</Typography>;
+    if (!message) return <p className="p-2">Decrypting...</p>;
 
     return (
         <RegistryContext.Provider value={registry.getTypedMessageRender}>
-            <Box sx={{ px: 2 }}>
+            <div className="p-2">
                 <TypedMessageRender message={message} />
-            </Box>
+            </div>
 
-            <Suspense fallback={<Typography sx={{ padding: 2 }}>Plugin is loading...</Typography>}>
+            <Suspense fallback={<p className="p-2">Plugin is loading...</p>}>
                 <PluginRender message={message} />
             </Suspense>
         </RegistryContext.Provider>

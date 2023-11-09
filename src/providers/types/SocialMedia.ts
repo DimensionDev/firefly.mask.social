@@ -1,4 +1,4 @@
-import { PageIndicator, Pageable } from '@/helpers/createPageable';
+import type { PageIndicator, Pageable } from '@/helpers/createPageable';
 import type { Session } from '@/providers/types/Session';
 
 export enum Type {

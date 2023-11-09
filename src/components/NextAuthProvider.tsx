@@ -1,6 +1,6 @@
 'use client';
 
-import { Session } from 'next-auth';
+import type { Session } from 'next-auth';
 import { SessionProvider } from 'next-auth/react';
 
 export interface NextAuthProviderProps {

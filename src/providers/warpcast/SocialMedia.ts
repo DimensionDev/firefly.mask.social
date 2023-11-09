@@ -1,7 +1,7 @@
-import { ResponseJSON } from '@/types';
+import type { ResponseJSON } from '@/types';
 import { fetchJSON } from '@/helpers/fetchJSON';
 import { waitForSignedKeyRequestComplete } from '@/helpers/waitForSignedKeyRequestComplete';
-import { Provider, Type } from '@/providers/types/SocialMedia';
+import type { Provider, Type } from '@/providers/types/SocialMedia';
 import { WarpcastSession } from '@/providers/warpcast/Session';
 
 // @ts-ignore
