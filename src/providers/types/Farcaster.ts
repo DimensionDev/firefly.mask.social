@@ -91,7 +91,7 @@ export interface Profile {
     profile: {
         bio: {
             text: string;
-            mentions: Array<any>;
+            mentions: unknown[];
         };
     };
     followerCount: number;
