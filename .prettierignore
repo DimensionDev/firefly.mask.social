@@ -19,3 +19,6 @@ src/specialFile.js
 
 # Ignore files based on wildcard patterns
 **/vendor/**/*.js
+
+# Ignore git submodule
+src/maskbook
