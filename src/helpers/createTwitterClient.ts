@@ -1,5 +1,5 @@
 import Twitter from 'twitter-lite';
-import { JWT } from 'next-auth/jwt';
+import type { JWT } from 'next-auth/jwt';
 
 export function createTwitterClient(token: JWT) {
     if (!token.twitter) throw new Error('No Twitter token found');

@@ -1,4 +1,4 @@
-import { Fetcher } from '@/helpers/fetch';
+import type { Fetcher } from '@/helpers/fetch';
 import { fetchCached } from '@/helpers/fetchCached';
 import { fetchSquashed } from '@/helpers/fetchSquashed';
 

@@ -1,4 +1,4 @@
-import { PageIndicator, Pageable, createIndicator } from '@/helpers/createPageable';
+import { type PageIndicator, type Pageable, createIndicator } from '@/helpers/createPageable';
 
 export async function* pageableToIterator<T>(
     getPageable: (indicator?: PageIndicator) => Promise<Pageable<T> | void>,

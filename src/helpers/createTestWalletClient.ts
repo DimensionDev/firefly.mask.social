@@ -1,4 +1,4 @@
-import { EIP1193Parameters, createWalletClient, custom } from 'viem';
+import { type EIP1193Parameters, createWalletClient, custom } from 'viem';
 import { foundry } from 'viem/chains';
 
 /**

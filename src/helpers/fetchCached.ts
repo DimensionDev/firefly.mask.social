@@ -1,4 +1,4 @@
-import { Fetcher } from '@/helpers/fetch';
+import type { Fetcher } from '@/helpers/fetch';
 
 const { fetch: originalFetch } = globalThis;
 
