@@ -1,3 +1,3 @@
-import { createTypedMessageRenderRegistry } from '@masknet/typed-message-react'
+import { createTypedMessageRenderRegistry } from '@masknet/typed-message-react';
 
-export const registry = createTypedMessageRenderRegistry()
+export const registry = createTypedMessageRenderRegistry();

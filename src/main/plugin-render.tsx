@@ -1,14 +1,14 @@
-import '../plugin-host/enable.js'
+import '../plugin-host/enable.js';
 
-import type { TypedMessage } from '@masknet/typed-message'
-import { createInjectHooksRenderer } from '@masknet/plugin-infra/dom'
-import { useActivatedPluginsSiteAdaptor } from '@masknet/plugin-infra/content-script'
-import { DisableShadowRootContext, ShadowRootIsolation } from '@masknet/theme'
+import type { TypedMessage } from '@masknet/typed-message';
+import { createInjectHooksRenderer } from '@masknet/plugin-infra/dom';
+import { useActivatedPluginsSiteAdaptor } from '@masknet/plugin-infra/content-script';
+import { DisableShadowRootContext, ShadowRootIsolation } from '@masknet/theme';
 
 const Decrypted = createInjectHooksRenderer(
     useActivatedPluginsSiteAdaptor.visibility.useAnyMode,
     (x) => x.DecryptedInspector,
-)
+);
 
 export default function PluginRender(props: { message: TypedMessage }) {
     return (
@@ -17,5 +17,5 @@ export default function PluginRender(props: { message: TypedMessage }) {
                 <Decrypted message={props.message} />
             </ShadowRootIsolation>
         </DisableShadowRootContext.Provider>
-    )
+    );
 }

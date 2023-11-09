@@ -1,3 +1,3 @@
-import { defer } from '@masknet/kit'
+import { defer } from '@masknet/kit';
 
-export const [pluginWorkerReadyPromise, setPluginWorkerReady] = defer<void>()
+export const [pluginWorkerReadyPromise, setPluginWorkerReady] = defer<void>();

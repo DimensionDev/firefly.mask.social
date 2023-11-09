@@ -1,10 +1,10 @@
-import { WalletConnectQRCodeModal } from '@masknet/shared'
-import { EMPTY_ARRAY } from '@masknet/shared-base'
-import { initWallet } from '@masknet/web3-providers'
-import type { WalletAPI } from '@masknet/web3-providers/types'
+import { WalletConnectQRCodeModal } from '@masknet/shared';
+import { EMPTY_ARRAY } from '@masknet/shared-base';
+import { initWallet } from '@masknet/web3-providers';
+import type { WalletAPI } from '@masknet/web3-providers/types';
 
 async function reject(): Promise<never> {
-    throw new Error('Not implemented')
+    throw new Error('Not implemented');
 }
 
 const WalletIO: WalletAPI.IOContext = {
@@ -14,10 +14,10 @@ const WalletIO: WalletAPI.IOContext = {
     openWalletConnectDialog: async (uri: string) => {
         await WalletConnectQRCodeModal.openAndWaitForClose({
             uri,
-        })
+        });
     },
     closeWalletConnectDialog: () => {
-        WalletConnectQRCodeModal.close()
+        WalletConnectQRCodeModal.close();
     },
     grantEIP2255Permission: reject,
     disconnectAllWalletsFromOrigin: reject,
@@ -25,5 +25,5 @@ const WalletIO: WalletAPI.IOContext = {
     addWallet: reject,
     signWithPersona: reject,
     send: reject,
-}
-initWallet(WalletIO)
+};
+initWallet(WalletIO);

@@ -1,13 +1,13 @@
-import '../plugin-host/enable.js'
+import '../plugin-host/enable.js';
 
-import { DisableShadowRootContext, ShadowRootIsolation } from '@masknet/theme'
-import { createInjectHooksRenderer } from '@masknet/plugin-infra/dom'
-import { useActivatedPluginsSiteAdaptor } from '@masknet/plugin-infra/content-script'
+import { DisableShadowRootContext, ShadowRootIsolation } from '@masknet/theme';
+import { createInjectHooksRenderer } from '@masknet/plugin-infra/dom';
+import { useActivatedPluginsSiteAdaptor } from '@masknet/plugin-infra/content-script';
 
 const GlobalInjection = createInjectHooksRenderer(
     useActivatedPluginsSiteAdaptor.visibility.useAnyMode,
     (x) => x.GlobalInjection,
-)
+);
 
 export default function PageInspectorRender() {
     return (
@@ -16,5 +16,5 @@ export default function PageInspectorRender() {
                 <GlobalInjection />
             </ShadowRootIsolation>
         </DisableShadowRootContext.Provider>
-    )
+    );
 }

@@ -1,5 +1,5 @@
-import /* webpackSync: true */ './message-port.js'
-import { setupBuildInfo } from '@masknet/flags/build-info'
+import /* webpackSync: true */ './message-port.js';
+import { setupBuildInfo } from '@masknet/flags/build-info';
 
-await setupBuildInfo()
-await import(/* webpackMode: 'eager' */ './index.js')
+await setupBuildInfo();
+await import(/* webpackMode: 'eager' */ './index.js');

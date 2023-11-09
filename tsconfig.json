@@ -8,7 +8,7 @@
         { "path": "./src/maskbook/packages/mask-sdk/main/tsconfig.json" },
         { "path": "./src/maskbook/packages/mask-sdk/public-api/tsconfig.json" },
         { "path": "./src/maskbook/packages/plugins/tsconfig.json" }
-      ],
+    ],
     "compilerOptions": {
         "target": "es5",
         "lib": ["dom", "dom.iterable", "esnext"],
@@ -43,19 +43,33 @@
             "@masknet/sdk/shared": ["./src/maskbook/packages/mask-sdk/shared/index.ts"],
             "@masknet/plugin-infra/dom": ["./src/maskbook/packages/plugin-infra/src/entry-dom.ts"],
             "@masknet/plugin-infra/dom/context": ["./src/maskbook/packages/plugin-infra/src/dom/context.ts"],
-            "@masknet/plugin-infra/background-worker": ["./src/maskbook/packages/plugin-infra/src/entry-background-worker.ts"],
-            "@masknet/plugin-infra/extension-page": ["./src/maskbook/packages/plugin-infra/src/entry-extension-page.ts"],
-            "@masknet/plugin-infra/content-script/context": ["./src/maskbook/packages/plugin-infra/src/site-adaptor/context.ts"],
-            "@masknet/plugin-infra/content-script": ["./src/maskbook/packages/plugin-infra/src/entry-content-script.ts"],
+            "@masknet/plugin-infra/background-worker": [
+                "./src/maskbook/packages/plugin-infra/src/entry-background-worker.ts"
+            ],
+            "@masknet/plugin-infra/extension-page": [
+                "./src/maskbook/packages/plugin-infra/src/entry-extension-page.ts"
+            ],
+            "@masknet/plugin-infra/content-script/context": [
+                "./src/maskbook/packages/plugin-infra/src/site-adaptor/context.ts"
+            ],
+            "@masknet/plugin-infra/content-script": [
+                "./src/maskbook/packages/plugin-infra/src/entry-content-script.ts"
+            ],
             "@masknet/plugin-infra": ["./src/maskbook/packages/plugin-infra/src/entry.ts"],
             "@masknet/global-types/*": ["./src/maskbook/packages/polyfills/types/*"],
             "@masknet/public-api": ["./src/maskbook/packages/public-api/src/index.ts"],
-            "@masknet/sandboxed-plugin-runtime": ["./src/maskbook/packages/sandboxed-plugin-runtime/src/runtime/export.ts"],
-            "@masknet/sandboxed-plugin-runtime/background": ["./src/maskbook/packages/sandboxed-plugin-runtime/src/background/index.ts"],
-            "@masknet/sandboxed-plugin-runtime/site-adaptor": [
-              "./src/maskbook/packages/sandboxed-plugin-runtime/src/site-adaptor/index.ts"
+            "@masknet/sandboxed-plugin-runtime": [
+                "./src/maskbook/packages/sandboxed-plugin-runtime/src/runtime/export.ts"
             ],
-            "@masknet/sandboxed-plugin-runtime/extension-page": ["./src/maskbook/packages/sandboxed-plugin-runtime/src/extension-page"],
+            "@masknet/sandboxed-plugin-runtime/background": [
+                "./src/maskbook/packages/sandboxed-plugin-runtime/src/background/index.ts"
+            ],
+            "@masknet/sandboxed-plugin-runtime/site-adaptor": [
+                "./src/maskbook/packages/sandboxed-plugin-runtime/src/site-adaptor/index.ts"
+            ],
+            "@masknet/sandboxed-plugin-runtime/extension-page": [
+                "./src/maskbook/packages/sandboxed-plugin-runtime/src/extension-page"
+            ],
             "@masknet/shared": ["./src/maskbook/packages/shared/src/index.ts"],
             "@masknet/shared-base": ["./src/maskbook/packages/shared-base/src/index.ts"],
             "@masknet/shared-base-ui": ["./src/maskbook/packages/shared-base-ui/src/index.ts"],
@@ -112,9 +126,9 @@
     "exclude": ["node_modules", "src/maskbook"],
     "ts-node": {
         "compilerOptions": {
-          "noEmit": false
+            "noEmit": false
         },
         "esm": true,
         "swc": true
-      }
+    }
 }

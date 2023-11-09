@@ -1,6 +1,6 @@
-import type { IDBPTransaction } from 'idb/with-async-ittr'
-import type { Plugin, IndexableTaggedUnion } from '@masknet/plugin-infra'
-import { createPluginDBAccess, type PluginDatabase, pluginDataHasValidKeyPath, toStore } from './base.js'
+import type { IDBPTransaction } from 'idb/with-async-ittr';
+import type { Plugin, IndexableTaggedUnion } from '@masknet/plugin-infra';
+import { createPluginDBAccess, type PluginDatabase, pluginDataHasValidKeyPath, toStore } from './base.js';
 
 /**
  * Avoid calling it directly.
@@ -22,54 +22,54 @@ export function createPluginDatabase<Data extends IndexableTaggedUnion>(
     plugin_id: string,
     signal?: AbortSignal,
 ): Plugin.Worker.DatabaseStorage<Data> {
-    let livingTransaction: IDBPTransaction<PluginDatabase, ['PluginStore'], 'readwrite'> | undefined = undefined
-    let ended = false
+    let livingTransaction: IDBPTransaction<PluginDatabase, ['PluginStore'], 'readwrite'> | undefined = undefined;
+    let ended = false;
     signal?.addEventListener('abort', () => {
         // give some extra time after the plugin shutdown to store data.
-        setTimeout(() => (ended = true), 1500)
-    })
+        setTimeout(() => (ended = true), 1500);
+    });
     function key(data: IndexableTaggedUnion) {
-        return IDBKeyRange.only([plugin_id, data.type, data.id])
+        return IDBKeyRange.only([plugin_id, data.type, data.id]);
     }
     function ensureAlive() {
-        if (ended) throw new Error(`[@masknet/plugin-infra] Storage instance for ${plugin_id} has expired.`)
+        if (ended) throw new Error(`[@masknet/plugin-infra] Storage instance for ${plugin_id} has expired.`);
     }
     return {
         async get(type, id) {
-            const t = await c('r')
-            const data = await t.store.get(key({ type, id }))
-            if (!data) return undefined
-            return data.value as any
+            const t = await c('r');
+            const data = await t.store.get(key({ type, id }));
+            if (!data) return undefined;
+            return data.value as any;
         },
         async has(type, id) {
-            const t = await c('r')
-            const count = await t.store.count(key({ type, id }))
-            return count > 0
+            const t = await c('r');
+            const count = await t.store.count(key({ type, id }));
+            return count > 0;
         },
         async add(data) {
-            const t = await c('rw')
-            if (!pluginDataHasValidKeyPath(data)) throw new TypeError("Data doesn't have a valid key path")
-            if (await t.store.get(key(data))) await t.store.put(toStore(plugin_id, data))
-            else await t.store.add(toStore(plugin_id, data))
-            t.commit()
+            const t = await c('rw');
+            if (!pluginDataHasValidKeyPath(data)) throw new TypeError("Data doesn't have a valid key path");
+            if (await t.store.get(key(data))) await t.store.put(toStore(plugin_id, data));
+            else await t.store.add(toStore(plugin_id, data));
+            t.commit();
         },
         async remove(type, id) {
-            const t = await c('rw')
-            await t.store.delete(key({ type, id }))
-            t.commit()
+            const t = await c('rw');
+            await t.store.delete(key({ type, id }));
+            t.commit();
         },
         async *iterate(type) {
-            const db = await c('r')
+            const db = await c('r');
             const cursor = await db
                 .objectStore('PluginStore')
                 .index('type')
-                .openCursor(IDBKeyRange.only([plugin_id, type]))
-            if (!cursor) return
+                .openCursor(IDBKeyRange.only([plugin_id, type]));
+            if (!cursor) return;
             for await (const each of cursor) {
                 const roCursor: Plugin.Worker.StorageReadonlyCursor<Data, typeof type> = {
                     value: each.value.value as any,
-                }
-                yield roCursor
+                };
+                yield roCursor;
             }
         },
         async *iterate_mutate(type) {
@@ -78,44 +78,44 @@ export function createPluginDatabase<Data extends IndexableTaggedUnion>(
             )
                 .objectStore('PluginStore')
                 .index('type')
-                .openCursor(IDBKeyRange.only([plugin_id, type]))
-            if (!cursor) return
+                .openCursor(IDBKeyRange.only([plugin_id, type]));
+            if (!cursor) return;
             for await (const each of cursor) {
                 const rwCursor: Plugin.Worker.StorageMutableCursor<Data, typeof type> = {
                     value: each.value.value as any,
                     delete: () => each.delete(),
                     update: async (data) => {
-                        await each.update(toStore(plugin_id, data))
+                        await each.update(toStore(plugin_id, data));
                     },
-                }
-                yield rwCursor
+                };
+                yield rwCursor;
             }
         },
-    }
+    };
     async function c(usage: 'r' | 'rw'): Promise<NonNullable<typeof livingTransaction>> {
-        ensureAlive()
-        if (usage === 'rw' && (livingTransaction as any)?.mode === 'readonly') invalidateTransaction()
+        ensureAlive();
+        if (usage === 'rw' && (livingTransaction as any)?.mode === 'readonly') invalidateTransaction();
         try {
-            await livingTransaction?.store.openCursor()
+            await livingTransaction?.store.openCursor();
         } catch {
-            invalidateTransaction()
+            invalidateTransaction();
         }
         if (livingTransaction === undefined) {
-            const db = await createPluginDBAccess()
-            const tx = db.transaction('PluginStore', usage === 'r' ? 'readonly' : 'readwrite') as any
-            livingTransaction = tx
+            const db = await createPluginDBAccess();
+            const tx = db.transaction('PluginStore', usage === 'r' ? 'readonly' : 'readwrite') as any;
+            livingTransaction = tx;
             // Oops, workaround for https://bugs.webkit.org/show_bug.cgi?id=216769 or https://github.com/jakearchibald/idb/issues/201
             try {
-                await tx.store.openCursor()
+                await tx.store.openCursor();
             } catch {
-                livingTransaction = db.transaction('PluginStore', usage === 'r' ? 'readonly' : 'readwrite') as any
-                return livingTransaction as any
+                livingTransaction = db.transaction('PluginStore', usage === 'r' ? 'readonly' : 'readwrite') as any;
+                return livingTransaction as any;
             }
-            return tx
+            return tx;
         }
-        return livingTransaction
+        return livingTransaction;
     }
     function invalidateTransaction() {
-        livingTransaction = undefined
+        livingTransaction = undefined;
     }
 }
