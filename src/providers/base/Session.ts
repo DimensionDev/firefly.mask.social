@@ -1,4 +1,4 @@
-import { Session } from '@/providers/types/Session';
+import type { Session } from '@/providers/types/Session';
 import { Type } from '@/providers/types/SocialMedia';
 
 export abstract class BaseSession implements Session {

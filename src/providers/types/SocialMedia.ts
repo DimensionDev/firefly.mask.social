@@ -1,5 +1,5 @@
 import { PageIndicator, Pageable } from '@/helpers/createPageable';
-import { Session } from '@/providers/types/Session';
+import type { Session } from '@/providers/types/Session';
 
 export enum Type {
     Twitter = 'Twitter',

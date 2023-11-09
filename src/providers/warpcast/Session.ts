@@ -1,5 +1,5 @@
 import { BaseSession } from '@/providers/base/Session';
-import { Session } from '@/providers/types/Session';
+import type { Session } from '@/providers/types/Session';
 import { Type } from '@/providers/types/SocialMedia';
 
 export class WarpcastSession extends BaseSession implements Session {

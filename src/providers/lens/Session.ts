@@ -1,5 +1,5 @@
 import { getWalletClient } from 'wagmi/actions';
-import { Session } from '@/providers/types/Session';
+import type { Session } from '@/providers/types/Session';
 import { BaseSession } from '@/providers/base/Session';
 import { Type } from '@/providers/types/SocialMedia';
 import { LensClient, development, production } from '@lens-protocol/client';

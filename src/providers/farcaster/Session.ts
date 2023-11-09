@@ -1,7 +1,7 @@
 import urlcat from 'urlcat';
 import { WARPCAST_ROOT_URL } from '@/constants';
 import { fetchJSON } from '@/helpers/fetchJSON';
-import { Session } from '@/providers/types/Session';
+import type { Session } from '@/providers/types/Session';
 import { BaseSession } from '@/providers/base/Session';
 import { Type } from '@/providers/types/SocialMedia';
 

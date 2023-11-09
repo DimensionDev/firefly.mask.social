@@ -11,7 +11,7 @@ import {
     ReactionType,
     Type,
 } from '@/providers/types/SocialMedia';
-import { Session } from '@/providers/types/Session';
+import type { Session } from '@/providers/types/Session';
 import {
     AnyPublicationFragment,
     ExploreProfilesOrderByType,
