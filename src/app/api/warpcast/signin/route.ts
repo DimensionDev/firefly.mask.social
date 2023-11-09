@@ -3,7 +3,7 @@ import { StatusCodes } from 'http-status-codes';
 import { NextRequest } from 'next/server';
 import { toHex } from 'viem';
 import { mnemonicToAccount } from 'viem/accounts';
-import { utils, getPublicKeyAsync } from '@noble/ed25519';
+import { getPublicKeyAsync, utils } from '@noble/ed25519';
 import { WARPCAST_ROOT_URL } from '@/constants';
 import { fetchJSON } from '@/helpers/fetchJSON';
 import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON';

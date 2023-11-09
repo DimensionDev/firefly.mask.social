@@ -1,8 +1,8 @@
 /* cspell:disable */
 
 import { AuthOptions } from 'next-auth';
-import Twitter from 'next-auth/providers/twitter';
 import Github from 'next-auth/providers/github';
+import Twitter from 'next-auth/providers/twitter';
 
 export const authOptions = {
     debug: process.env.NODE_ENV === 'development',

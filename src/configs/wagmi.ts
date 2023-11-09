@@ -1,10 +1,9 @@
 'use client';
 
-import { connectorsForWallets, getDefaultWallets, RainbowKitProvider } from '@rainbow-me/rainbowkit';
-
 import { configureChains, createConfig } from 'wagmi';
 import { arbitrum, mainnet, polygon } from 'wagmi/chains';
 import { publicProvider } from 'wagmi/providers/public';
+import { RainbowKitProvider, connectorsForWallets, getDefaultWallets } from '@rainbow-me/rainbowkit';
 
 export const appInfo: Parameters<typeof RainbowKitProvider>[0]['appInfo'] = {
     appName: 'mask.social',
