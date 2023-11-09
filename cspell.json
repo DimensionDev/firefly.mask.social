@@ -26,10 +26,12 @@
         "flac",
         "headlessui",
         "heroicons",
+        "maskbook",
         "masknet",
         "nextauth",
         "quicktime",
         "rainbowkit",
+        "servie",
         "tailwindui",
         "tailwindcss",
         "typecheck"
