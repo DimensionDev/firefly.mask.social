@@ -12,6 +12,7 @@
         "postinstall": "patch-package"
     },
     "dependencies": {
+        "@dimensiondev/holoflows-kit": "0.9.0-20230307045856-46252fb",
         "@headlessui/react": "^1.7.17",
         "@heroicons/react": "^2.0.18",
         "@lens-protocol/client": "^2.0.0-alpha.18",
