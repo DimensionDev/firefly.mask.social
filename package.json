@@ -52,6 +52,7 @@
         "@types/lodash-es": "^4.17.10",
         "@types/use-subscription": "^1.0.1",
         "cspell": "^7.3.6",
+        "eslint-plugin-unused-imports": "^3.0.0",
         "https-proxy-agent": "^7.0.2",
         "patch-package": "^8.0.0",
         "prettier": "^3.0.3",
