@@ -35,7 +35,7 @@ export class LensSocialMedia implements Provider {
         });
     }
 
-    getReactors!: (postId: string) => Promise<Pageable<Profile, unknown>>;
+    getReactors!: (postId: string) => Promise<Pageable<Profile>>;
 
     get type() {
         return Type.Lens;
@@ -91,7 +91,7 @@ export class LensSocialMedia implements Provider {
         });
         const resultValue = result.unwrap();
 
-        if (!isRelaySuccess(resultValue)) throw new Error(`Something went wrong ${resultValue}`);
+        if (!isRelaySuccess(resultValue)) throw new Error(`Something went wrong ${JSON.stringify(resultValue)}`);
 
         return post;
     }
@@ -117,7 +117,7 @@ export class LensSocialMedia implements Provider {
         });
         const resultValue = result.unwrap();
 
-        if (!isRelaySuccess(resultValue)) throw new Error(`Something went wrong ${resultValue}`);
+        if (!isRelaySuccess(resultValue)) throw new Error(`Something went wrong ${JSON.stringify(resultValue)}`);
 
         const post = await this.getPostById(postId);
         return post;
@@ -129,7 +129,7 @@ export class LensSocialMedia implements Provider {
         });
         const resultValue = result.unwrap();
 
-        if (!isRelaySuccess(resultValue)) throw new Error(`Something went wrong ${resultValue}`);
+        if (!isRelaySuccess(resultValue)) throw new Error(`Something went wrong ${JSON.stringify(resultValue)}`);
     }
 
     async commentPost(postId: string, comment: string): Promise<void> {
@@ -140,7 +140,7 @@ export class LensSocialMedia implements Provider {
 
         const resultValue = result.unwrap();
 
-        if (!isRelaySuccess(resultValue)) throw new Error(`Something went wrong ${resultValue}`);
+        if (!isRelaySuccess(resultValue)) throw new Error(`Something went wrong ${JSON.stringify(resultValue)}`);
     }
 
     async upvotePost(postId: string): Promise<Reaction> {
@@ -358,7 +358,7 @@ export class LensSocialMedia implements Provider {
         });
         const resultValue = result.unwrap();
 
-        if (!isRelaySuccess(resultValue)) throw new Error(`Something went wrong ${resultValue}`);
+        if (!isRelaySuccess(resultValue)) throw new Error(`Something went wrong ${JSON.stringify(resultValue)}`);
     }
 
     async unfollow(profileId: string): Promise<void> {
@@ -367,7 +367,7 @@ export class LensSocialMedia implements Provider {
         });
         const resultValue = result.unwrap();
 
-        if (!isRelaySuccess(resultValue)) throw new Error(`Something went wrong ${resultValue}`);
+        if (!isRelaySuccess(resultValue)) throw new Error(`Something went wrong ${JSON.stringify(resultValue)}`);
     }
 
     async getFollowers(profileId: string): Promise<Pageable<Profile>> {

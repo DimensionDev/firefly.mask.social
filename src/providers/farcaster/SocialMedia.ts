@@ -4,7 +4,7 @@ import { MerkleAPIClient } from '@standard-crypto/farcaster-js';
 import { fetchJSON } from '@/helpers/fetchJSON';
 import { generateCustodyBearer } from '@/helpers/generateCustodyBearer';
 import { WARPCAST_ROOT_URL } from '@/constants';
-import { Provider, Type } from '@/providers/types/SocialMedia';
+import { Provider, Type, Post, ProfileStatus, ReactionType } from '@/providers/types/SocialMedia';
 import { FarcasterSession } from '@/providers/farcaster/Session';
 import { PageIndicator, createPageable } from '@/helpers/createPageable';
 import {
@@ -13,10 +13,8 @@ import {
     ReactionResponse,
     UserResponse,
     UsersResponse,
+    SuccessResponse,
 } from '@/providers/types/Farcaster';
-import { Post, ProfileStatus } from '@/providers/types/SocialMedia';
-import { ReactionType } from '@/providers/types/SocialMedia';
-import { SuccessResponse } from '@/providers/types/Farcaster';
 
 // @ts-ignore
 export class FarcasterSocialMedia implements Provider {
