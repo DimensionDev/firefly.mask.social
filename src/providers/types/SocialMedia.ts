@@ -3,7 +3,6 @@ import { Session } from '@/providers/types/Session';
 
 export enum Type {
     Twitter = 'Twitter',
-    Farcaster = 'Farcaster',
     Warpcast = 'Warpcast',
     Lens = 'Lens',
 }
