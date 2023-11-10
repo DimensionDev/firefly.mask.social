@@ -10,7 +10,7 @@ const config: Config = {
         extend: {
             colors: {
                 main: 'rgba(7, 16, 27, 1)',
-                textMain: '#181818'
+                textMain: '#181818',
             },
             backgroundImage: {
                 'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
