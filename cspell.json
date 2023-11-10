@@ -8,7 +8,9 @@
         "canonicalize",
         "cyberconnect",
         "deeplink",
+        "enhanceable",
         "farcaster",
+        "holoflows",
         "immer",
         "merkle",
         "nextid",
@@ -27,27 +29,29 @@
         "viem",
         "wagmi",
         "warpcast",
-        "zustand"        
-
+        "zustand"
     ],
     "ignoreWords": [
+        "ittr",
+        "IDBP",
+        "dimensiondev",
         "flac",
         "headlessui",
         "heroicons",
-        "maskbox",
         "maskbook",
+        "maskbox",
         "masknet",
         "nextauth",
         "quicktime",
         "rainbowkit",
         "servie",
-        "tailwindui",
         "tailwindcss",
+        "tailwindui",
+        "thefireflyapp",
         "transak",
-        "typecheck",
-        "thefireflyapp"
+        "typecheck"
     ],
     "flagWords": [],
-    "ignorePaths": ["node_modules/**", "dist/**", "build/**", ".next/**", "public/svg/**"],
+    "ignorePaths": ["node_modules/**", "dist/**", "build/**", ".next/**", "public/svg/**", "src/maskbook"],
     "overrides": []
 }
