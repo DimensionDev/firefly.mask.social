@@ -27,11 +27,11 @@ export class WarpcastSocialMedia implements Provider {
     }
 
     /**
-     * Create a session by approving another FID to access the user's data
+     * Initiates the creation of a session by granting data access permission to another FID.
      * @param signal
      * @returns
      */
-    async createSessionBySignedKey(signal?: AbortSignal) {
+    async createSessionByGrantPermission(signal?: AbortSignal) {
         const response = await fetchJSON<
             ResponseJSON<{
                 publicKey: string;

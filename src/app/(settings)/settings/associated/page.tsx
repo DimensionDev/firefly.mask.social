@@ -1,5 +1,4 @@
 import { AccountCard } from './AccountCard';
-import Image from 'next/image';
 
 export default function Associated() {
     return (
