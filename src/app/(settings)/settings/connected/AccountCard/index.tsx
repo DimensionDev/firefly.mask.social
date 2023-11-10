@@ -6,7 +6,7 @@ interface AccountCardProps {
   userName: string
   logout: () => void
   isCurrent: boolean
-  type: 'lens' | 'farcast'
+  type: 'lens' | 'farcaster'
 }
 export function AccountCard({ avatar, name, userName, logout, isCurrent, type }: AccountCardProps) {
   return <div className="w-full h-[63px] px-[12px] py-[8px] bg-white rounded-lg shadow backdrop-blur-lg justify-start items-center gap-[8px] inline-flex">

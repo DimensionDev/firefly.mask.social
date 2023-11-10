@@ -2,7 +2,7 @@ import Image from "next/image"
 
 export default function More() {
   return <div className="flex flex-col w-full p-[24px] items-center gap-[12px]">
-    <div className="  w-full gap-[24px] flex items-cente justify-between">
+    <div className="  w-full gap-[24px] flex items-center justify-between">
       <span className="text-main text-[18px] font-bold leading-[24px]">More
       </span>
     </div>
