@@ -29,9 +29,10 @@ export class LensSession extends BaseSession implements Session {
         const profile = await this.client.profile.fetchDefault({
             for: address,
         });
+        if (!profile) throw new Error('No profile found');
 
         const { id, text } = await this.client.authentication.generateChallenge({
-            for: profile?.id,
+            for: profile.id,
             signedBy: address,
         });
 
@@ -47,6 +48,7 @@ export class LensSession extends BaseSession implements Session {
         const accessTokenResult = await this.client.authentication.getAccessToken();
         const accessToken = accessTokenResult.unwrap();
 
+        this.profileId = profile.id;
         this.token = accessToken;
         this.createdAt = payload.params.timestamp;
         this.expiresAt = payload.params.expiresAt;

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { FarcasterSocialMedia } from '@/providers/farcaster/SocialMedia';
+import { WarpcastSocialMedia } from '@/providers/warpcast/SocialMedia';
 import { User } from '@standard-crypto/farcaster-js';
 
 export function FarcasterAuthExample() {
@@ -16,8 +16,8 @@ export function FarcasterAuthExample() {
             ) : null}
             <button
                 onClick={async () => {
-                    const farcaster = new FarcasterSocialMedia();
-                    const client = await farcaster.createClient();
+                    const warpcast = new WarpcastSocialMedia();
+                    const client = await warpcast.createClient();
                     const currentUser = await client.fetchCurrentUser();
 
                     setUser(currentUser);
@@ -28,8 +28,8 @@ export function FarcasterAuthExample() {
             <br />
             <button
                 onClick={async () => {
-                    const farcaster = new FarcasterSocialMedia();
-                    const client = await farcaster.createClient();
+                    const warpcast = new WarpcastSocialMedia();
+                    const client = await warpcast.createClient();
 
                     const cast = await client.publishCast('Hello World!');
                     console.log(cast);

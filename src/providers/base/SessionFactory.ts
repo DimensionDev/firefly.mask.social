@@ -1,7 +1,6 @@
 import z from 'zod';
 import { parseJSON } from '@/helpers/parseJSON';
 import { Type } from '@/providers/types/SocialMedia';
-import { FarcasterSession } from '@/providers/farcaster/Session';
 import { WarpcastSession } from '@/providers/warpcast/Session';
 import { LensSession } from '@/providers/lens/Session';
 
@@ -38,8 +37,6 @@ export class SessionFactory {
         switch (type) {
             case Type.Lens:
                 return new LensSession(session.profileId, session.token, session.createdAt, session.expiresAt);
-            case Type.Farcaster:
-                return new FarcasterSession(session.profileId, session.token, session.createdAt, session.expiresAt);
             case Type.Warpcast:
                 return new WarpcastSession(session.profileId, session.token, session.createdAt, session.expiresAt);
             case Type.Twitter:
