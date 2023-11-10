@@ -27,7 +27,7 @@ export class WarpcastSocialMedia implements Provider {
     }
 
     /**
-     * Create session by approving another FID to access the user's data.
+     * Create a session by approving another FID to access the user's data
      * @param signal
      * @returns
      */
@@ -62,7 +62,7 @@ export class WarpcastSocialMedia implements Provider {
     }
 
     /**
-     * Create session by signing the challenge with the custody wallet.
+     * Create a session by signing the challenge with the custody wallet
      * @param signal
      * @returns
      */
@@ -107,6 +107,7 @@ export class WarpcastSocialMedia implements Provider {
     }
 
     async createSession(signal?: AbortSignal): Promise<WarpcastSession> {
+        // Use the custody wallet by default
         return this.createSessionByCustodyWallet(signal);
     }
 
