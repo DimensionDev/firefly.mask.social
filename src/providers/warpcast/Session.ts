@@ -12,7 +12,7 @@ export class WarpcastSession extends BaseSession implements Session {
         public timestamp: number,
         public expiresAt: number,
     ) {
-        super(Type.Farcaster, profileId, token, timestamp, expiresAt);
+        super(Type.Warpcast, profileId, token, timestamp, expiresAt);
     }
 
     refresh(): Promise<void> {
