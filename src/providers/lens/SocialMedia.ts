@@ -11,10 +11,10 @@ import {
     ReactionType,
     Type,
 } from '@/providers/types/SocialMedia';
-import { Session } from '@/providers/types/Session';
 import {
     AnyPublicationFragment,
     ExploreProfilesOrderByType,
+    ExplorePublicationsOrderByType,
     LensClient,
     ProfileFragment,
     PublicationReactionType,
@@ -24,9 +24,11 @@ import {
     production,
 } from '@lens-protocol/client';
 import { LensSession } from '@/providers/lens/Session';
-import { Pageable } from '@/helpers/createPageable';
+import { PageIndicator, Pageable } from '@/helpers/createPageable';
 
 export class LensSocialMedia implements Provider {
+    private currentSession?: LensSession;
+
     lensClient: LensClient;
 
     constructor() {
@@ -35,33 +37,27 @@ export class LensSocialMedia implements Provider {
         });
     }
 
-    getReactors!: (postId: string) => Promise<Pageable<Profile>>;
-
     get type() {
         return Type.Lens;
     }
 
-    async createSession(): Promise<Session> {
+    async createSession(): Promise<LensSession> {
         const client = await getWalletClient();
         if (!client) throw new Error('No client found');
 
-        const { payload } = await generateCustodyBearer(client);
-
         const address = client.account.address;
-
         const profile = await this.lensClient.profile.fetchDefault({
             for: address,
         });
+        if (!profile) throw new Error('No profile found');
 
         const { id, text } = await this.lensClient.authentication.generateChallenge({
-            for: profile?.id,
+            for: profile.id,
             signedBy: address,
         });
-
         const signature = await client.signMessage({
             message: text,
         });
-
         await this.lensClient.authentication.authenticate({
             id,
             signature,
@@ -69,18 +65,24 @@ export class LensSocialMedia implements Provider {
 
         const accessTokenResult = await this.lensClient.authentication.getAccessToken();
         const accessToken = accessTokenResult.unwrap();
+        const { payload } = await generateCustodyBearer(client);
 
-        return new LensSession(
+        return (this.currentSession = new LensSession(
+            profile.id,
             accessToken,
-            profile?.id ?? '',
             payload.params.timestamp,
             payload.params.expiresAt,
             this.lensClient,
-        );
+        ));
     }
 
-    async resumeSession(): Promise<Session> {
-        throw new Error('To be implemented.');
+    async resumeSession(): Promise<LensSession> {
+        if (this.currentSession && this.currentSession.expiresAt > Date.now()) {
+            return this.currentSession;
+        }
+
+        this.currentSession = await this.createSession();
+        return this.currentSession;
     }
 
     async publishPost(post: Post): Promise<Post> {
@@ -110,6 +112,7 @@ export class LensSocialMedia implements Provider {
         return post;
     }
 
+    // intro is the contentURI of the post
     async quotePost(postId: string, intro: string): Promise<Post> {
         const result = await this.lensClient.publication.quoteOnchain({
             quoteOn: postId,
@@ -124,20 +127,19 @@ export class LensSocialMedia implements Provider {
     }
 
     async collectPost(postId: string): Promise<void> {
-        const result = await this.lensClient.publication.legacyCollect({
+        const result = await this.lensClient.publication.bookmarks.add({
             on: postId,
         });
-        const resultValue = result.unwrap();
 
-        if (!isRelaySuccess(resultValue)) throw new Error(`Something went wrong ${JSON.stringify(resultValue)}`);
+        if (result.isFailure()) throw new Error(`Something went wrong ${JSON.stringify(result.isFailure())}`);
     }
 
+    // comment is the contentURI of the post
     async commentPost(postId: string, comment: string): Promise<void> {
         const result = await this.lensClient.publication.commentOnchain({
             commentOn: postId,
             contentURI: comment,
         });
-
         const resultValue = result.unwrap();
 
         if (!isRelaySuccess(resultValue)) throw new Error(`Something went wrong ${JSON.stringify(resultValue)}`);
@@ -148,6 +150,8 @@ export class LensSocialMedia implements Provider {
             for: postId,
             reaction: PublicationReactionType.Upvote,
         });
+
+        if (result.isFailure()) throw new Error(`Something went wrong ${JSON.stringify(result.isFailure())}`);
 
         return {
             reactionId: '',
@@ -161,6 +165,8 @@ export class LensSocialMedia implements Provider {
             for: postId,
             reaction: PublicationReactionType.Upvote,
         });
+
+        if (result.isFailure()) throw new Error(`Something went wrong ${JSON.stringify(result.isFailure())}`);
     }
 
     async getProfileById(profileId: string): Promise<Profile> {
@@ -208,7 +214,7 @@ export class LensSocialMedia implements Provider {
 
     async formatPost(result: AnyPublicationFragment): Promise<Post> {
         if (result.__typename !== 'Post') throw new Error('Not a post');
-        if (result.metadata.__typename === 'EventMetadataV3') throw new Error('Not a post');
+        if (result.metadata.__typename === 'EventMetadataV3') throw new Error('Event not supported');
 
         const profile = await this.getProfileById(result.by.id);
 
@@ -261,35 +267,37 @@ export class LensSocialMedia implements Provider {
         };
     }
 
-    async discoverPosts(): Promise<Pageable<Post>> {
-        const result = await this.lensClient.publication.fetchAll({
-            where: {},
+    async discoverPosts(indicator?: PageIndicator): Promise<Pageable<Post>> {
+        const result = await this.lensClient.explore.publications({
+            orderBy: ExplorePublicationsOrderByType.LensCurated,
+            cursor: indicator?.cursor,
         });
 
         return {
-            indicator: result.pageInfo.prev,
+            indicator: indicator?.cursor,
             nextIndicator: result.pageInfo.next,
             data: await Promise.all(result.items.map((item) => this.formatPost(item))),
         };
     }
 
-    async getPostsByProfileId(profileId: string): Promise<Pageable<Post>> {
+    async getPostsByProfileId(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post>> {
         const result = await this.lensClient.publication.fetchAll({
             where: {
                 from: [profileId],
                 publicationTypes: [PublicationType.Post],
             },
+            cursor: indicator?.cursor,
         });
 
         return {
-            indicator: result.pageInfo.prev,
+            indicator: indicator?.cursor,
             nextIndicator: result.pageInfo.next,
             data: await Promise.all(result.items.map((item) => this.formatPost(item))),
         };
     }
 
     // TODO: Invalid
-    async getPostsBeMentioned(profileId: string): Promise<Pageable<Post>> {
+    async getPostsBeMentioned(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post>> {
         const result = await this.lensClient.publication.fetchAll({
             where: {
                 from: [profileId],
@@ -303,11 +311,12 @@ export class LensSocialMedia implements Provider {
         };
     }
 
-    async getPostsLiked(profileId: string): Promise<Pageable<Post>> {
+    async getPostsLiked(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post>> {
         const result = await this.lensClient.publication.fetchAll({
             where: {
                 actedBy: profileId,
             },
+            cursor: indicator?.cursor,
         });
 
         return {
@@ -317,36 +326,40 @@ export class LensSocialMedia implements Provider {
         };
     }
 
-    async getPostsReplies(profileId: string): Promise<Pageable<Post>> {
+    async getPostsReplies(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post>> {
         const result = await this.lensClient.publication.fetchAll({
             where: {
                 from: [profileId],
                 publicationTypes: [PublicationType.Comment],
             },
+            cursor: indicator?.cursor,
         });
 
         return {
-            indicator: result.pageInfo.prev,
+            indicator: indicator?.cursor,
             nextIndicator: result.pageInfo.next,
             data: await Promise.all(result.items.map((item) => this.formatPost(item))),
         };
     }
 
-    async getPostsByParentPostId(postId: string): Promise<Pageable<Post>> {
+    async getPostsByParentPostId(postId: string, indicator?: PageIndicator): Promise<Pageable<Post>> {
         const result = await this.lensClient.publication.fetchAll({
             where: {
                 commentOn: {
                     id: postId,
                 },
             },
+            cursor: indicator?.cursor,
         });
 
         return {
-            indicator: result.pageInfo.prev,
+            indicator: indicator?.cursor,
             nextIndicator: result.pageInfo.next,
             data: await Promise.all(result.items.map((item) => this.formatPost(item))),
         };
     }
+
+    getReactors!: (postId: string) => Promise<Pageable<Profile>>;
 
     async follow(profileId: string): Promise<void> {
         const result = await this.lensClient.profile.follow({
@@ -370,13 +383,14 @@ export class LensSocialMedia implements Provider {
         if (!isRelaySuccess(resultValue)) throw new Error(`Something went wrong ${JSON.stringify(resultValue)}`);
     }
 
-    async getFollowers(profileId: string): Promise<Pageable<Profile>> {
+    async getFollowers(profileId: string, indicator?: PageIndicator): Promise<Pageable<Profile>> {
         const result = await this.lensClient.profile.followers({
             of: profileId,
+            cursor: indicator?.cursor,
         });
 
         return {
-            indicator: result.pageInfo.prev,
+            indicator: indicator?.cursor,
             nextIndicator: result.pageInfo.next,
             data: result.items.map((item) => {
                 return this.formatProfile(item);
@@ -384,13 +398,14 @@ export class LensSocialMedia implements Provider {
         };
     }
 
-    async getFollowings(profileId: string): Promise<Pageable<Profile>> {
+    async getFollowings(profileId: string, indicator?: PageIndicator): Promise<Pageable<Profile>> {
         const result = await this.lensClient.profile.following({
             for: profileId,
+            cursor: indicator?.cursor,
         });
 
         return {
-            indicator: result.pageInfo.prev,
+            indicator: indicator?.cursor,
             nextIndicator: result.pageInfo.next,
             data: result.items.map((item) => {
                 return this.formatProfile(item);
@@ -414,8 +429,10 @@ export class LensSocialMedia implements Provider {
         return result?.operations.isFollowingMe.value ?? false;
     }
 
-    async getNotifications(): Promise<Pageable<Notification>> {
-        const result = await this.lensClient.notifications.fetch();
+    async getNotifications(indicator?: PageIndicator): Promise<Pageable<Notification>> {
+        const result = await this.lensClient.notifications.fetch({
+            cursor: indicator?.cursor,
+        });
 
         const value = result.unwrap();
 
@@ -492,19 +509,20 @@ export class LensSocialMedia implements Provider {
         );
 
         return {
-            indicator: value.pageInfo.prev,
+            indicator: indicator?.cursor,
             nextIndicator: value.pageInfo.next,
             data: data.filter((item) => item !== undefined) as Notification[],
         };
     }
 
-    async getSuggestedFollows(): Promise<Pageable<Profile>> {
+    async getSuggestedFollows(indicator?: PageIndicator): Promise<Pageable<Profile>> {
         const result = await this.lensClient.explore.profiles({
             orderBy: ExploreProfilesOrderByType.MostFollowers,
+            cursor: indicator?.cursor,
         });
 
         return {
-            indicator: result.pageInfo.prev,
+            indicator: indicator?.cursor,
             nextIndicator: result.pageInfo.next,
             data: result.items.map((item) => {
                 return this.formatProfile(item);
