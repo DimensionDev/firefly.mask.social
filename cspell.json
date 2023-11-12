@@ -3,6 +3,7 @@
     "language": "en",
     "words": [
         "arbitrum",
+        "autosize",
         "cacheable",
         "canonicalize",
         "deeplink",
@@ -12,11 +13,11 @@
         "pageable",
         "recaster",
         "recasters",
-        "urlcat",
-        "upvotes",
         "unfollow",
         "unmirror",
         "unvote",
+        "upvotes",
+        "urlcat",
         "viem",
         "wagmi",
         "warpcast",
@@ -38,6 +39,12 @@
         "thefireflyapp"
     ],
     "flagWords": [],
-    "ignorePaths": ["node_modules/**", "dist/**", "build/**", ".next/**", "public/svg/**"],
+    "ignorePaths": [
+        "node_modules/**",
+        "dist/**",
+        "build/**",
+        ".next/**",
+        "public/svg/**"
+    ],
     "overrides": []
 }
