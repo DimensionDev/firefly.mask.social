@@ -56,13 +56,13 @@ export default function Compose({ type = 'compose', opened, setOpened }: Compose
                                 </Dialog.Title>
 
                                 {/* Content */}
-                                <ComposeContent setCharacters={setCharacters} />
+                                <ComposeContent type={type} setCharacters={setCharacters} />
 
                                 {/* Action */}
-                                <ComposeAction />
+                                <ComposeAction type={type} />
 
                                 {/* Send */}
-                                <ComposeSend characters={characters} />
+                                <ComposeSend characters={characters} setOpened={setOpened} />
                             </Dialog.Panel>
                         </Transition.Child>
                     </div>

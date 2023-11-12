@@ -1,7 +1,10 @@
 import { ChevronRightIcon } from '@heroicons/react/20/solid';
 import Image from 'next/image';
 
-export default function ComposeAction() {
+interface ComposeActionProps {
+    type: 'compose' | 'quote' | 'reply';
+}
+export default function ComposeAction({ type }: ComposeActionProps) {
     return (
         <div className=" px-4 pb-4">
             <div className=" h-9 flex gap-3 items-center">
@@ -15,7 +18,7 @@ export default function ComposeAction() {
                 <span className=" text-sm text-[#767F8D]">Post by</span>
                 <div className=" flex gap-1 cursor-pointer text-[#07101B]">
                     <span className=" text-sm font-bold">@LensA, @FarcasterA</span>
-                    <ChevronRightIcon className="h-5 w-5" aria-hidden="true" />
+                    {type === 'compose' && <ChevronRightIcon className="h-5 w-5" aria-hidden="true" />}
                 </div>
             </div>
 

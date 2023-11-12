@@ -1,9 +1,14 @@
+import { classNames } from '@/helpers/classNames';
 import Image from 'next/image';
+import { useMemo } from 'react';
 
 interface ComposeSendProps {
     characters: number;
+    setOpened: (opened: boolean) => void;
 }
-export default function ComposeSend({ characters }: ComposeSendProps) {
+export default function ComposeSend({ characters, setOpened }: ComposeSendProps) {
+    const disabled = useMemo(() => characters > 280, [characters]);
+
     return (
         <div className=" h-[68px] flex items-center px-4 justify-end gap-4 shadow-send">
             <div className=" flex items-center gap-[10px]">
@@ -17,10 +22,16 @@ export default function ComposeSend({ characters }: ComposeSendProps) {
 
                 {characters >= 260 && <Image src="/svg/loading.red.svg" width={24} height={24} alt="loading.red" />}
 
-                <span>{characters} / 280</span>
+                <span className={classNames(disabled ? ' text-[#FF3545]' : '')}>{characters} / 280</span>
             </div>
 
-            <button className=" text-sm font-bold h-10 rounded-full text-white bg-[#07101B] flex items-center gap-1 w-[120px] justify-center">
+            <button
+                className={classNames(
+                    ' text-sm font-bold h-10 rounded-full bg-[#07101B] text-white flex items-center gap-1 w-[120px] justify-center',
+                    disabled ? ' opacity-50 cursor-no-drop' : '',
+                )}
+                onClick={() => !disabled && setOpened(false)}
+            >
                 <Image src="/svg/send.svg" width={18} height={18} alt="send" />
                 <span>Send</span>
             </button>
