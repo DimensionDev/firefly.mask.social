@@ -245,7 +245,7 @@ export class LensSocialMedia implements Provider {
 
         return {
             postId: result.id,
-            timestamp: Number(result.createdAt),
+            timestamp: new Date(result.createdAt).getTime(),
             author: profile,
             mediaObjects,
             isHidden: result.isHidden,

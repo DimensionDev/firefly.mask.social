@@ -1,6 +1,7 @@
 import ComposeAction from '@/components/compose/ComposeAction';
 import ComposeContent from '@/components/compose/ComposeContent';
 import ComposeSend from '@/components/compose/ComposeSend';
+// import { LensSocialMedia } from '@/providers/lens/SocialMedia';
 import { Transition, Dialog } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { Fragment, useCallback, useState } from 'react';
@@ -14,6 +15,12 @@ export default function Compose({ type = 'compose', opened, setOpened }: Compose
     const [characters, setCharacters] = useState(0);
 
     const close = useCallback(() => setOpened(false), [setOpened]);
+
+    // const lens = new LensSocialMedia();
+
+    // lens.discoverPosts().then((posts) => {
+    //     console.log(111, posts);
+    // });
 
     return (
         <Transition appear show={opened} as={Fragment}>
