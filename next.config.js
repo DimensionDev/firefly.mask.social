@@ -69,6 +69,11 @@ export default {
             ],
         );
 
+        config.experiments = {
+            ...config.experiments,
+            backCompat: false,
+            asyncWebAssembly: true,
+        };
         config.resolve.extensionAlias = {
             ...config.resolve.extensionAlias,
             '.js': ['.js', '.ts', '.tsx'],

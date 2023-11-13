@@ -8,8 +8,8 @@ index 96a82b8..b467d58 100644
 +++ b/node_modules/@rainbow-me/rainbowkit/dist/index.d.ts
 @@ -1,4 +1,6 @@
  export * from './components';
-+export { ConnectButton } from './componemts/ConnectButton/ConnectButton.js'
-+export { RainbowKitProvider } from './componemts/RainbowKitProvider/RainbowKitProvider.js'
++export { ConnectButton } from './components/ConnectButton/ConnectButton.js'
++export { RainbowKitProvider } from './components/RainbowKitProvider/RainbowKitProvider.js'
  export { getDefaultWallets } from './wallets/getDefaultWallets';
  export { getWalletConnectConnector } from './wallets/getWalletConnectConnector';
  export { connectorsForWallets } from './wallets/connectorsForWallets';

@@ -4,6 +4,7 @@ import type { TypedMessage } from '@masknet/typed-message';
 import { decrypt, parsePayloadBinary, parsePayloadText } from './decrypt.js';
 
 type DecryptResult = [DecryptError | null, boolean, TypedMessage | null];
+
 export function useDecrypt(text: string, version = '2') {
     const { value = [null, false, null] } = useAsyncRetry<DecryptResult>(async () => {
         const result = await main(version, text);
