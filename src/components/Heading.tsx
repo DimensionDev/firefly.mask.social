@@ -1,6 +1,7 @@
 'use client';
 
-import Image from 'next/image';
+// eslint-disable-next-line import/no-named-default
+import Image from 'next/image.js';
 import { Bars3Icon } from '@heroicons/react/24/outline';
 
 export interface HeadingProps {

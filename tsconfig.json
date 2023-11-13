@@ -1,15 +1,29 @@
 {
     "extends": "./src/maskbook/packages/config/tsconfig.json",
     "references": [
-        { "path": "./src/maskbook/packages/polyfills/tsconfig.json" },
-        { "path": "./src/maskbook/packages/app/tsconfig.json" },
-        { "path": "./src/maskbook/packages/mask/tsconfig.json" },
-        { "path": "./src/maskbook/packages/injected-script/main/tsconfig.json" },
-        { "path": "./src/maskbook/packages/mask-sdk/main/tsconfig.json" },
-        { "path": "./src/maskbook/packages/mask-sdk/public-api/tsconfig.json" },
-        { "path": "./src/maskbook/packages/plugins/tsconfig.json" }
+        {
+            "path": "./src/maskbook/packages/polyfills/tsconfig.json"
+        },
+        {
+            "path": "./src/maskbook/packages/mask/tsconfig.json"
+        },
+        {
+            "path": "./src/maskbook/packages/injected-script/main/tsconfig.json"
+        },
+        {
+            "path": "./src/maskbook/packages/mask-sdk/main/tsconfig.json"
+        },
+        {
+            "path": "./src/maskbook/packages/mask-sdk/public-api/tsconfig.json"
+        },
+        {
+            "path": "./src/maskbook/packages/plugins/tsconfig.json"
+        }
     ],
     "compilerOptions": {
+        "noEmit": true,
+        "esModuleInterop": true,
+        "jsx": "preserve",
         "downlevelIteration": true,
         "resolveJsonModule": true,
         "isolatedModules": true,
@@ -20,7 +34,6 @@
         ],
         "paths": {
             "@/*": ["./src/*"],
-
             "@masknet/backup-format": ["./src/maskbook/packages/backup-format/src/index.ts"],
             "@masknet/base": ["./src/maskbook/packages/base/src/index.ts"],
             "@masknet/encryption": ["./src/maskbook/packages/encryption/src/index.ts"],

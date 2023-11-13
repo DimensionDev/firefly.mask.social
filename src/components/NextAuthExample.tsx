@@ -1,7 +1,7 @@
 'use client';
 
-import type { Session } from 'next-auth';
 import Image from 'next/image';
+import type { Session } from 'next-auth';
 import { signIn, signOut, useSession } from 'next-auth/react';
 import { useMounted } from '@/hooks/useMounted.js';
 import { NextAuthProvider } from '@/components/NextAuthProvider.js';

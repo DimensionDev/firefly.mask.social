@@ -14,6 +14,12 @@ export default {
                 }),
             );
         }
+
+        config.resolve.extensionAlias = {
+            '.js': ['.js', '.ts', '.tsx'],
+            '.mjs': ['.mts', '.mjs'],
+        };
+
         return config;
     },
     async headers() {
