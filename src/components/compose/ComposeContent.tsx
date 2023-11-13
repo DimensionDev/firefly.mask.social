@@ -16,31 +16,26 @@ export default function ComposeContent({ type, setCharacters }: ComposeContentPr
         }[type];
     }, [type]);
 
-    const minRows = useMemo(() => {
-        return {
-            compose: 13,
-            quote: 4,
-            reply: 4,
-        }[type];
-    }, [type]);
-
-    const images = [
-        {
-            name: 'gallery',
-            src: '/svg/gallery.svg',
-        },
-        {
-            name: 'gallery1',
-            src: '/svg/at.svg',
-        },
-        {
-            name: 'gallery2',
-            src: '/svg/numberSign.svg',
-        },
-        {
-            name: 'gallery3',
-            src: '/svg/gallery.svg',
-        },
+    const images: Array<{
+        name: string;
+        src: string;
+    }> = [
+        // {
+        //     name: 'gallery',
+        //     src: '/svg/gallery.svg',
+        // },
+        // {
+        //     name: 'gallery1',
+        //     src: '/svg/at.svg',
+        // },
+        // {
+        //     name: 'gallery2',
+        //     src: '/svg/numberSign.svg',
+        // },
+        // {
+        //     name: 'gallery3',
+        //     src: '/svg/gallery.svg',
+        // },
     ];
 
     return (
@@ -91,80 +86,82 @@ export default function ComposeContent({ type, setCharacters }: ComposeContentPr
                     )}
 
                     {/* image */}
-                    <div className={classNames(' p-3 grid grid-cols-2 gap-2')}>
-                        {images.map((image, index) => {
-                            const len = images.length;
+                    {images.length > 0 && (
+                        <div className={classNames(' p-3 grid grid-cols-2 gap-2')}>
+                            {images.map((image, index) => {
+                                const len = images.length;
 
-                            if (len === 1) {
-                                return (
-                                    <div
-                                        key={image.name}
-                                        className=" col-span-2 relative h-72 rounded-2xl overflow-hidden"
-                                    >
-                                        <Image src={image.src} alt={image.name} fill className=" object-cover" />
-                                        <Image
-                                            src="/svg/close.svg"
-                                            width={18}
-                                            height={18}
-                                            alt="close"
-                                            className=" absolute top-2 right-2 cursor-pointer"
-                                        />
-                                    </div>
-                                );
-                            }
+                                if (len === 1) {
+                                    return (
+                                        <div
+                                            key={image.name}
+                                            className=" col-span-2 relative h-72 rounded-2xl overflow-hidden"
+                                        >
+                                            <Image src={image.src} alt={image.name} fill className=" object-cover" />
+                                            <Image
+                                                src="/svg/close.svg"
+                                                width={18}
+                                                height={18}
+                                                alt="close"
+                                                className=" absolute top-2 right-2 cursor-pointer"
+                                            />
+                                        </div>
+                                    );
+                                }
 
-                            if (len === 2) {
-                                return (
-                                    <div key={image.name} className=" relative h-72 rounded-2xl overflow-hidden">
-                                        <Image src={image.src} alt={image.name} fill className=" object-cover" />
-                                        <Image
-                                            src="/svg/close.svg"
-                                            width={18}
-                                            height={18}
-                                            alt="close"
-                                            className=" absolute top-2 right-2 cursor-pointer"
-                                        />
-                                    </div>
-                                );
-                            }
+                                if (len === 2) {
+                                    return (
+                                        <div key={image.name} className=" relative h-72 rounded-2xl overflow-hidden">
+                                            <Image src={image.src} alt={image.name} fill className=" object-cover" />
+                                            <Image
+                                                src="/svg/close.svg"
+                                                width={18}
+                                                height={18}
+                                                alt="close"
+                                                className=" absolute top-2 right-2 cursor-pointer"
+                                            />
+                                        </div>
+                                    );
+                                }
 
-                            if (len === 3) {
-                                return (
-                                    <div
-                                        key={image.name}
-                                        className={classNames(' relative h-[138px] rounded-2xl overflow-hidden')}
-                                    >
-                                        <Image src={image.src} alt={image.name} fill className=" object-cover" />
-                                        <Image
-                                            src="/svg/close.svg"
-                                            width={18}
-                                            height={18}
-                                            alt="close"
-                                            className=" absolute top-2 right-2 cursor-pointer"
-                                        />
-                                    </div>
-                                );
-                            }
+                                if (len === 3) {
+                                    return (
+                                        <div
+                                            key={image.name}
+                                            className={classNames(' relative h-[138px] rounded-2xl overflow-hidden')}
+                                        >
+                                            <Image src={image.src} alt={image.name} fill className=" object-cover" />
+                                            <Image
+                                                src="/svg/close.svg"
+                                                width={18}
+                                                height={18}
+                                                alt="close"
+                                                className=" absolute top-2 right-2 cursor-pointer"
+                                            />
+                                        </div>
+                                    );
+                                }
 
-                            if (len === 4) {
-                                return (
-                                    <div
-                                        key={image.name}
-                                        className={classNames(' relative h-[138px] rounded-2xl overflow-hidden')}
-                                    >
-                                        <Image src={image.src} alt={image.name} fill className=" object-cover" />
-                                        <Image
-                                            src="/svg/close.svg"
-                                            width={18}
-                                            height={18}
-                                            alt="close"
-                                            className=" absolute top-2 right-2 cursor-pointer"
-                                        />
-                                    </div>
-                                );
-                            }
-                        })}
-                    </div>
+                                if (len === 4) {
+                                    return (
+                                        <div
+                                            key={image.name}
+                                            className={classNames(' relative h-[138px] rounded-2xl overflow-hidden')}
+                                        >
+                                            <Image src={image.src} alt={image.name} fill className=" object-cover" />
+                                            <Image
+                                                src="/svg/close.svg"
+                                                width={18}
+                                                height={18}
+                                                alt="close"
+                                                className=" absolute top-2 right-2 cursor-pointer"
+                                            />
+                                        </div>
+                                    );
+                                }
+                            })}
+                        </div>
+                    )}
                 </div>
             </label>
         </div>

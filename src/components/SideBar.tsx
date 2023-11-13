@@ -26,7 +26,7 @@ const items = [
 ];
 
 export const SideBar = memo(function SideBar() {
-    const [opened, setOpened] = useState(true);
+    const [opened, setOpened] = useState(false);
 
     return (
         <>
