@@ -208,16 +208,30 @@ export class LensSocialMedia implements Provider {
         });
         if (!result) throw new Error('No post found');
 
-        const post = await this.formatPost(result);
+        const post = this.formatPost(result);
         return post;
     }
 
-    async formatPost(result: AnyPublicationFragment): Promise<Post> {
-        if (result.__typename !== 'Post') throw new Error('Not a post');
+    formatPost(result: AnyPublicationFragment): Post {
+        const profile = this.formatProfile(result.by);
+        const timestamp = new Date(result.createdAt).getTime();
+
+        if (result.__typename === 'Mirror') {
+            return {
+                postId: result.id,
+                timestamp,
+                author: profile,
+                isHidden: result.isHidden,
+                metadata: {
+                    locale: '',
+                    content: '',
+                    contentURI: '',
+                },
+                __original__: result,
+            };
+        }
+
         if (result.metadata.__typename === 'EventMetadataV3') throw new Error('Event not supported');
-
-        const profile = await this.getProfileById(result.by.id);
-
         const mediaObjects =
             result.metadata.__typename !== 'StoryMetadataV3' && result.metadata.__typename !== 'TextOnlyMetadataV3'
                 ? result.metadata.attachments?.map((attachment) =>
@@ -245,12 +259,11 @@ export class LensSocialMedia implements Provider {
 
         return {
             postId: result.id,
-            timestamp: new Date(result.createdAt).getTime(),
+            timestamp,
             author: profile,
             mediaObjects,
             isHidden: result.isHidden,
             isEncrypted: !!result.metadata.encryptedWith,
-            isEncryptedByMask: false,
             metadata: {
                 locale: result.metadata.locale,
                 content: result.metadata.content,
@@ -276,7 +289,7 @@ export class LensSocialMedia implements Provider {
         return {
             indicator: indicator?.cursor,
             nextIndicator: result.pageInfo.next,
-            data: await Promise.all(result.items.map((item) => this.formatPost(item))),
+            data: result.items.map((item) => this.formatPost(item)),
         };
     }
 
@@ -292,7 +305,7 @@ export class LensSocialMedia implements Provider {
         return {
             indicator: indicator?.cursor,
             nextIndicator: result.pageInfo.next,
-            data: await Promise.all(result.items.map((item) => this.formatPost(item))),
+            data: result.items.map((item) => this.formatPost(item)),
         };
     }
 
@@ -307,7 +320,7 @@ export class LensSocialMedia implements Provider {
         return {
             indicator: result.pageInfo.prev,
             nextIndicator: result.pageInfo.next,
-            data: await Promise.all(result.items.map((item) => this.formatPost(item))),
+            data: result.items.map((item) => this.formatPost(item)),
         };
     }
 
@@ -322,7 +335,7 @@ export class LensSocialMedia implements Provider {
         return {
             indicator: result.pageInfo.prev,
             nextIndicator: result.pageInfo.next,
-            data: await Promise.all(result.items.map((item) => this.formatPost(item))),
+            data: result.items.map((item) => this.formatPost(item)),
         };
     }
 
@@ -338,7 +351,7 @@ export class LensSocialMedia implements Provider {
         return {
             indicator: indicator?.cursor,
             nextIndicator: result.pageInfo.next,
-            data: await Promise.all(result.items.map((item) => this.formatPost(item))),
+            data: result.items.map((item) => this.formatPost(item)),
         };
     }
 
@@ -355,7 +368,7 @@ export class LensSocialMedia implements Provider {
         return {
             indicator: indicator?.cursor,
             nextIndicator: result.pageInfo.next,
-            data: await Promise.all(result.items.map((item) => this.formatPost(item))),
+            data: result.items.map((item) => this.formatPost(item)),
         };
     }
 
@@ -497,7 +510,7 @@ export class LensSocialMedia implements Provider {
                 }
 
                 if (item.__typename === 'MentionNotification') {
-                    const post = await this.formatPost(item.publication);
+                    const post = this.formatPost(item.publication);
 
                     return {
                         notificationId: item.id,
