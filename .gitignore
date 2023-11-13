@@ -12,8 +12,6 @@
 /.next/
 /out/
 
-/public/js/polyfills/*.js
-
 # production
 /build
 
