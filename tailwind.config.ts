@@ -9,7 +9,8 @@ const config: Config = {
     theme: {
         extend: {
             colors: {
-                main: 'rgba(7, 16, 27, 1)',
+                main: 'rgb(var(--color-main) / <alpha-value>)',
+                secondary: 'rgb(var(--color-second) / <alpha-value>)',
                 textMain: '#181818',
             },
             backgroundImage: {

@@ -4,7 +4,7 @@
 const nextConfig = {
     images: {
         dangerouslyAllowSVG: true,
-        domains: ['images.unsplash.com', 'tailwindui.com', 'pbs.twimg.com'],
+        domains: ['images.unsplash.com', 'tailwindui.com', 'pbs.twimg.com', 'static-assets.hey.xyz'],
     },
     webpack: (config, context) => {
         if (config.plugins) {
@@ -14,6 +14,11 @@ const nextConfig = {
                 }),
             );
         }
+        config.module.rules.push({
+            test: /\.svg$/i,
+            issuer: /\.[jt]sx?$/,
+            use: ['@svgr/webpack'],
+        });
         return config;
     },
     async headers() {

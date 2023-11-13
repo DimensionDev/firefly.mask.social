@@ -21,3 +21,11 @@ export type ResponseJSON<T> =
               message: string;
           };
       };
+
+export interface MetadataAsset {
+    type: 'Image' | 'Video' | 'Audio';
+    uri: string;
+    cover?: string;
+    artist?: string;
+    title?: string;
+}

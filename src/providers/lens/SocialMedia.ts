@@ -1,6 +1,7 @@
 import { getWalletClient } from 'wagmi/actions';
 import { generateCustodyBearer } from '@/helpers/generateCustodyBearer';
 import {
+    Attachment,
     NetworkType,
     Notification,
     Post,
@@ -16,25 +17,189 @@ import {
     ExploreProfilesOrderByType,
     ExplorePublicationsOrderByType,
     LensClient,
+    LimitType,
     ProfileFragment,
+    PublicationMetadataFragment,
+    PublicationMetadataMediaFragment,
     PublicationReactionType,
     PublicationType,
-    development,
     isRelaySuccess,
     production,
 } from '@lens-protocol/client';
 import { LensSession } from '@/providers/lens/Session';
 import { PageIndicator, Pageable } from '@/helpers/createPageable';
+import { compact, isEmpty } from 'lodash-es';
+import getStampFyiURL from '@/helpers/getStampFyiURL';
+import { zeroAddress } from 'viem';
+import { IPFS_GATEWAY, ARWEAVE_GATEWAY, LENS_MEDIA_SNAPSHOT_URL, AVATAR } from '@/constants';
+import { SocialPlatform } from '@/constants/enum';
+import { MetadataAsset } from '@/types';
 
+const PLACEHOLDER_IMAGE = 'https://static-assets.hey.xyz/images/placeholder.webp';
+
+const removeUrlsByHostnames = (content: string, hostnames: Set<string>) => {
+    const regexPattern = Array.from(hostnames)
+        .map((hostname) => `https?:\\/\\/(www\\.)?${hostname.replace('.', '\\.')}[\\S]+`)
+        .join('|');
+    const regex = new RegExp(regexPattern, 'g');
+
+    return content
+        .replace(regex, '')
+        .replace(/\s{2,}/g, ' ')
+        .trim();
+};
 export class LensSocialMedia implements Provider {
     private currentSession?: LensSession;
-
     lensClient: LensClient;
 
     constructor() {
         this.lensClient = new LensClient({
-            environment: process.env.NODE_ENV === 'production' ? production : development,
+            environment: production,
         });
+    }
+
+    private imageKit(url: string, name?: string) {
+        if (!url) {
+            return '';
+        }
+
+        if (url.includes(LENS_MEDIA_SNAPSHOT_URL)) {
+            const splitedUrl = url.split('/');
+            const path = splitedUrl[splitedUrl.length - 1];
+
+            return name ? `${LENS_MEDIA_SNAPSHOT_URL}/${name}/${path}` : url;
+        }
+
+        return url;
+    }
+
+    private sanitizeDStorageUrl(hash?: string) {
+        if (!hash) {
+            return '';
+        }
+
+        let link = hash.replace(/^Qm[1-9A-Za-z]{44}/gm, `${IPFS_GATEWAY}${hash}`);
+        link = link.replace('https://ipfs.io/ipfs/', IPFS_GATEWAY);
+        link = link.replace('ipfs://ipfs/', IPFS_GATEWAY);
+        link = link.replace('ipfs://', IPFS_GATEWAY);
+        link = link.replace('ar://', ARWEAVE_GATEWAY);
+
+        return link;
+    }
+
+    private getAvatar(profile: ProfileFragment, namedTransform = AVATAR) {
+        let avatarUrl;
+
+        if (profile?.metadata?.picture?.__typename === 'NftImage') {
+            avatarUrl = profile.metadata.picture.image.optimized?.uri ?? profile.metadata.picture.image.raw.uri;
+        } else if (profile.metadata?.picture?.__typename === 'ImageSet') {
+            avatarUrl = profile.metadata.picture.optimized?.uri ?? profile.metadata.picture.raw.uri;
+        } else {
+            avatarUrl = getStampFyiURL(profile.ownedBy.address ?? zeroAddress);
+        }
+
+        return this.imageKit(this.sanitizeDStorageUrl(avatarUrl), namedTransform);
+    }
+
+    private getAttachmentsData(attachments?: PublicationMetadataMediaFragment[] | null): Attachment[] {
+        if (!attachments) {
+            return [];
+        }
+
+        return compact(
+            attachments.map((attachment) => {
+                switch (attachment.__typename) {
+                    case 'PublicationMetadataMediaImage':
+                        return {
+                            uri: attachment.image.optimized?.uri,
+                            type: 'Image',
+                        };
+                    case 'PublicationMetadataMediaVideo':
+                        return {
+                            uri: attachment.video.optimized?.uri,
+                            coverUri: attachment.cover?.optimized?.uri,
+                            type: 'Video',
+                        };
+                    case 'PublicationMetadataMediaAudio':
+                        return {
+                            uri: attachment.audio.optimized?.uri,
+                            coverUri: attachment.cover?.optimized?.uri,
+                            artist: attachment.artist,
+                            type: 'Audio',
+                        };
+                    default:
+                        return;
+                }
+            }),
+        );
+    }
+
+    private formatContent(metadata: PublicationMetadataFragment) {
+        switch (metadata.__typename) {
+            case 'ArticleMetadataV3':
+                return {
+                    content: metadata.content,
+                    attachments: this.getAttachmentsData(metadata.attachments),
+                };
+            case 'TextOnlyMetadataV3':
+            case 'LinkMetadataV3':
+                return {
+                    content: metadata.content,
+                };
+            case 'ImageMetadataV3':
+                return {
+                    content: metadata.content,
+                    asset: {
+                        uri: metadata.asset.image.optimized?.uri,
+                        type: 'Image',
+                    } as MetadataAsset,
+                    attachments: this.getAttachmentsData(metadata.attachments),
+                };
+            case 'AudioMetadataV3':
+                const audioAttachments = this.getAttachmentsData(metadata.attachments)[0];
+
+                return {
+                    content: metadata.content,
+                    asset: {
+                        uri: metadata.asset.audio.optimized?.uri || audioAttachments?.uri,
+                        cover: metadata.asset.cover?.optimized?.uri || audioAttachments?.coverUri || PLACEHOLDER_IMAGE,
+                        artist: metadata.asset.artist || audioAttachments?.artist,
+                        title: metadata.title,
+                        type: 'Audio',
+                    } as MetadataAsset,
+                };
+            case 'VideoMetadataV3':
+                const videoAttachments = this.getAttachmentsData(metadata.attachments)[0];
+
+                return {
+                    content: metadata.content,
+                    asset: {
+                        uri: metadata.asset.video.optimized?.uri || videoAttachments?.uri,
+                        cover: metadata.asset.cover?.optimized?.uri || videoAttachments?.coverUri || PLACEHOLDER_IMAGE,
+                        type: 'Video',
+                    } as MetadataAsset,
+                };
+            case 'MintMetadataV3':
+                return {
+                    content: removeUrlsByHostnames(
+                        metadata.content,
+                        new Set(['zora.co', 'testnet.zora.co', 'basepaint.art', 'unlonely.app']),
+                    ),
+                    attachments: this.getAttachmentsData(metadata.attachments),
+                };
+            case 'EmbedMetadataV3':
+                return {
+                    content: removeUrlsByHostnames(metadata.content, new Set(['snapshot.org'])),
+                    attachments: this.getAttachmentsData(metadata.attachments),
+                };
+            case 'LiveStreamMetadataV3':
+                return {
+                    content: metadata.content,
+                    attachments: this.getAttachmentsData(metadata.attachments),
+                };
+            default:
+                return null;
+        }
     }
 
     get type() {
@@ -182,13 +347,8 @@ export class LensSocialMedia implements Provider {
         return {
             profileId: result.id,
             nickname: result.metadata?.displayName ?? '',
-            displayName: result.metadata?.displayName ?? '',
-            pfp:
-                result.metadata?.picture?.__typename === 'ImageSet'
-                    ? result.metadata?.picture?.raw.uri
-                    : result.metadata?.picture?.__typename === 'NftImage'
-                    ? result.metadata?.picture?.image.raw.uri
-                    : '',
+            displayName: result.handle?.localName ?? '',
+            pfp: this.getAvatar(result),
             bio: result.metadata?.bio ?? undefined,
             address: result.followNftAddress?.address ?? undefined,
             followerCount: result.stats.followers,
@@ -216,8 +376,6 @@ export class LensSocialMedia implements Provider {
         if (result.__typename !== 'Post') throw new Error('Not a post');
         if (result.metadata.__typename === 'EventMetadataV3') throw new Error('Event not supported');
 
-        const profile = await this.getProfileById(result.by.id);
-
         const mediaObjects =
             result.metadata.__typename !== 'StoryMetadataV3' && result.metadata.__typename !== 'TextOnlyMetadataV3'
                 ? result.metadata.attachments?.map((attachment) =>
@@ -227,33 +385,33 @@ export class LensSocialMedia implements Provider {
                                 mimeType: attachment.audio.raw.mimeType ?? 'audio/*',
                             }
                           : attachment.__typename === 'PublicationMetadataMediaImage'
-                          ? {
-                                url: attachment.image.raw.uri,
-                                mimeType: attachment.image.raw.mimeType ?? 'image/*',
-                            }
-                          : attachment.__typename === 'PublicationMetadataMediaVideo'
-                          ? {
-                                url: attachment.video.raw.uri,
-                                mimeType: attachment.video.raw.mimeType ?? 'video/*',
-                            }
-                          : {
-                                url: '',
-                                mimeType: '',
-                            },
+                            ? {
+                                  url: attachment.image.raw.uri,
+                                  mimeType: attachment.image.raw.mimeType ?? 'image/*',
+                              }
+                            : attachment.__typename === 'PublicationMetadataMediaVideo'
+                              ? {
+                                    url: attachment.video.raw.uri,
+                                    mimeType: attachment.video.raw.mimeType ?? 'video/*',
+                                }
+                              : {
+                                    url: '',
+                                    mimeType: '',
+                                },
                   ) ?? undefined
                 : undefined;
 
         return {
             postId: result.id,
             timestamp: new Date(result.createdAt).getTime(),
-            author: profile,
+            author: this.formatProfile(result.by),
             mediaObjects,
             isHidden: result.isHidden,
             isEncrypted: !!result.metadata.encryptedWith,
             isEncryptedByMask: false,
             metadata: {
                 locale: result.metadata.locale,
-                content: result.metadata.content,
+                content: this.formatContent(result.metadata),
                 contentURI: result.metadata.rawURI,
             },
             stats: {
@@ -263,20 +421,24 @@ export class LensSocialMedia implements Provider {
                 reactions: result.stats.upvoteReactions,
                 bookmarks: result.stats.bookmarks,
             },
+            source: SocialPlatform.Lens,
             __original__: result,
         };
     }
 
-    async discoverPosts(indicator?: PageIndicator): Promise<Pageable<Post>> {
+    async discoverPosts(indicator?: PageIndicator): Promise<Pageable<Post, string | null | undefined>> {
         const result = await this.lensClient.explore.publications({
             orderBy: ExplorePublicationsOrderByType.LensCurated,
-            cursor: indicator?.cursor,
+            cursor: !isEmpty(indicator?.cursor) ? indicator?.cursor : null,
+            limit: LimitType.TwentyFive,
         });
+
+        const data = await Promise.allSettled(result.items.map((item) => this.formatPost(item)));
 
         return {
             indicator: indicator?.cursor,
             nextIndicator: result.pageInfo.next,
-            data: await Promise.all(result.items.map((item) => this.formatPost(item))),
+            data: compact(data.flatMap((x) => (x.status === 'fulfilled' ? x.value : null))),
         };
     }
 
@@ -530,3 +692,5 @@ export class LensSocialMedia implements Provider {
         };
     }
 }
+
+export const LensSocialMediaProvider = new LensSocialMedia();

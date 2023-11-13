@@ -1,5 +1,7 @@
+import { SocialPlatform } from '@/constants/enum';
 import { PageIndicator, Pageable } from '@/helpers/createPageable';
 import { Session } from '@/providers/types/Session';
+import { MetadataAsset } from '@/types';
 
 export enum Type {
     Twitter = 'Twitter',
@@ -94,6 +96,12 @@ export interface MediaObject {
     mimeType: string;
 }
 
+export interface Attachment {
+    uri?: string;
+    coverUri?: string;
+    artist?: string | null;
+    type: 'Image' | 'Video' | 'Audio';
+}
 export interface Post {
     postId: string;
     parentPostId?: string;
@@ -107,10 +115,15 @@ export interface Post {
     isHidden?: boolean;
     isEncrypted?: boolean;
     isEncryptedByMask?: boolean;
+    source: SocialPlatform;
     metadata: {
         locale: string;
         description?: string;
-        content: string;
+        content: {
+            content?: string;
+            asset?: MetadataAsset;
+            attachments?: Attachment[];
+        } | null;
         contentURI?: string;
     };
     stats?: {

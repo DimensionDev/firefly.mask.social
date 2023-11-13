@@ -17,6 +17,7 @@ import {
     UserResponse,
     UsersResponse,
 } from '@/providers/types/Warpcast';
+import { SocialPlatform } from '@/constants/enum';
 
 // @ts-ignore
 export class WarpcastSocialMedia implements Provider {
@@ -165,6 +166,7 @@ export class WarpcastSocialMedia implements Provider {
                     quotes: cast.recasts.count,
                     reactions: cast.reactions.count,
                 },
+                source: SocialPlatform.Farcaster,
             };
         });
         return createPageable(data, indicator?.cursor, next.cursor);
@@ -203,6 +205,7 @@ export class WarpcastSocialMedia implements Provider {
                 quotes: cast.recasts.count,
                 reactions: cast.reactions.count,
             },
+            source: SocialPlatform.Farcaster,
         };
     }
 
@@ -267,6 +270,7 @@ export class WarpcastSocialMedia implements Provider {
                     quotes: cast.recasts.count,
                     reactions: cast.reactions.count,
                 },
+                source: SocialPlatform.Farcaster,
             };
         });
 
@@ -367,6 +371,7 @@ export class WarpcastSocialMedia implements Provider {
                 quotes: cast.recasts.count,
                 reactions: cast.reactions.count,
             },
+            source: SocialPlatform.Farcaster,
         };
     }
 
