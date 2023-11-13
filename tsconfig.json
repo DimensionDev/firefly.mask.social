@@ -127,13 +127,11 @@
         }
     },
     "include": [
-        "globals.d.tss",
+        "globals.d.ts",
         "next-env.d.ts",
         "**/*.ts",
         "**/*.tsx",
-        ".next/types/**/*.ts",
-        "src/maskbook/packages/theme/**/*.ts",
-        "src/maskbook/packages/theme/**/*.tsx"
+        ".next/types/**/*.ts"
     ],
     "exclude": ["node_modules", "src/maskbook"],
     "ts-node": {

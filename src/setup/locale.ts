@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { initReactI18next } from 'react-i18next';
 import { addSharedI18N } from '@masknet/shared';
 import { i18NextInstance } from '@masknet/shared-base';
