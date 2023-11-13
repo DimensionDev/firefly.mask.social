@@ -1,5 +1,5 @@
-import Image from 'next/image';
-import Link from 'next/link';
+import Image from 'next/image.js';
+import Link from 'next/link.js';
 
 const settings = [
     { name: 'Display', link: '/display' },

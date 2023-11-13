@@ -14,9 +14,22 @@ const polyfillsFolderPath = join(outputPath, './js/polyfills');
 
 /** @type {import('next').NextConfig} */
 export default {
+    experimental: {
+        esmExternals: true,
+    },
     images: {
-        dangerouslyAllowSVG: true,
-        domains: ['images.unsplash.com', 'tailwindui.com', 'pbs.twimg.com'],
+        dangerouslyAllowSVG: false,
+        remotePatterns: [
+            {
+                hostname: 'images.unsplash.com',
+            },
+            {
+                hostname: 'tailwindui.com',
+            },
+            {
+                hostname: 'pbs.twimg.com',
+            },
+        ],
     },
     webpack: (config, context) => {
         if (!config.plugins) config.plugins = [];
@@ -37,17 +50,16 @@ export default {
                     'process.env.MASK_SENTRY_DSN': process.env.MASK_SENTRY_DSN ?? '{}',
                     'process.env.NODE_DEBUG': 'undefined',
                     'process.version': JSON.stringify('0.1.0'),
-                    'process.browser': 'true',
                 }),
-                new CopyPlugin({
-                    patterns: [
-                        {
-                            context: join(__dirname, '../polyfills/dist/'),
-                            from: '*.js',
-                            to: polyfillsFolderPath,
-                        },
-                    ],
-                }),
+                // new CopyPlugin({
+                //     patterns: [
+                //         {
+                //             context: join(__dirname, '../polyfills/dist/'),
+                //             from: '*.js',
+                //             to: polyfillsFolderPath,
+                //         },
+                //     ],
+                // }),
             ],
         );
 

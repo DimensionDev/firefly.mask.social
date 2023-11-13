@@ -1,6 +1,6 @@
 'use client';
 
-import Image from 'next/image';
+import Image from 'next/image.js';
 import type { Session } from 'next-auth';
 import { signIn, signOut, useSession } from 'next-auth/react';
 import { useMounted } from '@/hooks/useMounted.js';

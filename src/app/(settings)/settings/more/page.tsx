@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import Image from 'next/image.js';
 
 export default function More() {
     return (

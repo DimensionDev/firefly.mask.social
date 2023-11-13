@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import Image from 'next/image.js';
 import { AccountCard } from '@/app/(settings)/settings/connected/AccountCard/index.js';
 
 export default function Connected() {
