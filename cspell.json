@@ -20,7 +20,8 @@
         "viem",
         "wagmi",
         "warpcast",
-        "zustand"
+        "zustand",
+        "recasted"
     ],
     "ignoreWords": [
         "flac",

@@ -254,7 +254,7 @@ export class FireflySocialMedia implements Provider {
         const url = urlcat(FIREFLY_ROOT_URL, '/v2/user/timeline/farcaster', {
             fids: [profileId],
             size: 10,
-            cusor: indicator?.cursor,
+            cursor: indicator?.cursor,
             sourceFid: session.profileId,
         });
         const {
