@@ -27,6 +27,7 @@
         "downlevelIteration": true,
         "resolveJsonModule": true,
         "isolatedModules": true,
+        "allowSyntheticDefaultImports": true,
         "plugins": [
             {
                 "name": "next"
@@ -124,16 +125,8 @@
             "@masknet/plugin-calendar": ["./src/maskbook/packages/plugins/Calendar/src/index.ts"]
         }
     },
-    "include": [
-        "next-auth.d.ts",
-        "next-env.d.ts",
-        "**/*.ts",
-        "**/*.tsx",
-        ".next/types/**/*.ts",
-        "tailwind.config.ks",
-        "tailwind.config.ks"
-    ],
-    "exclude": ["node_modules", "src/maskbook", ".next"],
+    "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+    "exclude": ["node_modules", "src/maskbook"],
     "ts-node": {
         "compilerOptions": {
             "noEmit": false

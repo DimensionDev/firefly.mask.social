@@ -1,10 +1,5 @@
-import Image from 'next/image.js';
-import Link from 'next/link.js';
-
-console.log({
-    Image,
-    Link,
-});
+import { Image } from '@/esm/Image.js';
+import { Link } from '@/esm/Link.js';
 
 const settings = [
     { name: 'Display', link: '/display' },

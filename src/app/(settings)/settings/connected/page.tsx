@@ -1,4 +1,4 @@
-import Image from 'next/image.js';
+import { Image } from '@/esm/Image.js';
 import { AccountCard } from '@/app/(settings)/settings/connected/AccountCard/index.js';
 
 export default function Connected() {

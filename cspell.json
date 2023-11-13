@@ -53,6 +53,14 @@
         "typecheck"
     ],
     "flagWords": [],
-    "ignorePaths": ["node_modules/**", "dist/**", "build/**", ".next/**", "public/svg/**", "public/js/**", "src/maskbook"],
+    "ignorePaths": [
+        "node_modules/**",
+        "dist/**",
+        "build/**",
+        ".next/**",
+        "public/svg/**",
+        "public/js/**",
+        "src/maskbook"
+    ],
     "overrides": []
 }

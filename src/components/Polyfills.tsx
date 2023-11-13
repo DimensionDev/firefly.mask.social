@@ -1,6 +1,6 @@
 'use client';
 
-import Script from 'next/script.js';
+import { Script } from '@/esm/Script.js';
 
 export function Polyfills() {
     return (

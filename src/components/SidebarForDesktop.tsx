@@ -1,6 +1,6 @@
 'use client';
 
-import Image from 'next/image.js';
+import { Image } from '@/esm/Image.js';
 import type { NavigationItem } from '@/types/index.js';
 import { classNames } from '@/helpers/classNames.js';
 

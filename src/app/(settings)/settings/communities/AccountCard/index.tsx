@@ -1,5 +1,5 @@
-import Image from 'next/image.js';
-import Link from 'next/link.js';
+import { Image } from '@/esm/Image.js';
+import { Link } from '@/esm/Link.js';
 
 interface AccountCardProps {
     logo: string;

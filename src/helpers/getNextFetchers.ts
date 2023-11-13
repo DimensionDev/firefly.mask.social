@@ -1,6 +1,6 @@
 import type { Fetcher } from '@/helpers/fetch.js';
-import { fetchCached } from '@/helpers/fetchCached';
-import { fetchSquashed } from '@/helpers/fetchSquashed';
+import { fetchCached } from '@/helpers/fetchCached.js';
+import { fetchSquashed } from '@/helpers/fetchSquashed.js';
 
 export interface NextFetchersOptions {
     /** Assigns 0 to disable squash. */

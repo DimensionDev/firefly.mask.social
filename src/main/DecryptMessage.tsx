@@ -1,10 +1,10 @@
-import { Suspense, lazy } from 'react';
-import { RegistryContext, TypedMessageRender } from '@masknet/typed-message-react';
+import React, { Suspense, lazy } from 'react';
+import { TypedMessageRender } from '@masknet/typed-message-react';
+import { RegistryContext } from '@/main/RegistryContext.js';
 import { registry } from './TypedMessageRender/registry.js';
 import { useDecrypt } from './Decrypt/useDecrypt.js';
 
 const PluginRender = lazy(() => import('./plugin-render.js'));
-
 export function DecryptMessage(props: { text: string; version: string }) {
     const { text, version } = props;
     const [error, isE2E, message] = useDecrypt(text, version);

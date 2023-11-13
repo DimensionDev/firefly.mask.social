@@ -1,7 +1,7 @@
 'use client';
 
 import { Fragment } from 'react';
-import Image from 'next/image.js';
+import { Image } from '@/esm/Image.js';
 import { Dialog, Transition } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import type { NavigationItem } from '@/types/index.js';

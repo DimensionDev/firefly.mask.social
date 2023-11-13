@@ -1,5 +1,5 @@
 import { hashMessage, recoverAddress, toHex } from 'viem';
-import canonicalize from 'canonicalize';
+import { canonicalize } from '@/esm/canonicalize.js';
 import type { CustodyPayload } from '@/helpers/generateCustodyBearer.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
 

@@ -2,7 +2,7 @@
 
 /* cspell:disable */
 
-import Script from 'next/script.js';
+import { Script } from '@/esm/Script.js';
 
 export function GA() {
     return (

@@ -1,6 +1,6 @@
 'use client';
 
-import Image from 'next/image.js';
+import { Image } from '@/esm/Image.js';
 import { Bars3Icon } from '@heroicons/react/24/outline';
 
 export interface HeadingProps {

@@ -1,4 +1,4 @@
-import Image from 'next/image.js';
+import { Image } from '@/esm/Image.js';
 
 interface AccountCardProps {
     name: string;

@@ -1,8 +1,8 @@
 'use client';
 
 import { memo } from 'react';
-import Image from 'next/image.js';
-import Link from 'next/link.js';
+import { Image } from '@/esm/Image.js';
+import { Link } from '@/esm/Link.js';
 import { PageRoutes } from '@/constants/enum.js';
 
 const items = [
