@@ -478,7 +478,7 @@ export class LensSocialMedia implements Provider {
                         type: 'comment',
                         comment: {
                             commentId: item.comment.id,
-                            timestamp: Number(item.comment.createdAt),
+                            timestamp: new Date(item.comment.createdAt).getTime(),
                             author: this.formatProfile(item.comment.by),
                             for: post,
                         },
