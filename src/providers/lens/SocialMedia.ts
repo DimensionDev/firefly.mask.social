@@ -187,8 +187,8 @@ export class LensSocialMedia implements Provider {
                 result.metadata?.picture?.__typename === 'ImageSet'
                     ? result.metadata?.picture?.raw.uri
                     : result.metadata?.picture?.__typename === 'NftImage'
-                    ? result.metadata?.picture?.image.raw.uri
-                    : '',
+                      ? result.metadata?.picture?.image.raw.uri
+                      : '',
             bio: result.metadata?.bio ?? undefined,
             address: result.followNftAddress?.address ?? undefined,
             followerCount: result.stats.followers,
@@ -227,19 +227,19 @@ export class LensSocialMedia implements Provider {
                                 mimeType: attachment.audio.raw.mimeType ?? 'audio/*',
                             }
                           : attachment.__typename === 'PublicationMetadataMediaImage'
-                          ? {
-                                url: attachment.image.raw.uri,
-                                mimeType: attachment.image.raw.mimeType ?? 'image/*',
-                            }
-                          : attachment.__typename === 'PublicationMetadataMediaVideo'
-                          ? {
-                                url: attachment.video.raw.uri,
-                                mimeType: attachment.video.raw.mimeType ?? 'video/*',
-                            }
-                          : {
-                                url: '',
-                                mimeType: '',
-                            },
+                            ? {
+                                  url: attachment.image.raw.uri,
+                                  mimeType: attachment.image.raw.mimeType ?? 'image/*',
+                              }
+                            : attachment.__typename === 'PublicationMetadataMediaVideo'
+                              ? {
+                                    url: attachment.video.raw.uri,
+                                    mimeType: attachment.video.raw.mimeType ?? 'video/*',
+                                }
+                              : {
+                                    url: '',
+                                    mimeType: '',
+                                },
                   ) ?? undefined
                 : undefined;
 
