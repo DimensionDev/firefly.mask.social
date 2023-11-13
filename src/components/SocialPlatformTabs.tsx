@@ -4,6 +4,7 @@ import { SocialPlatform } from '@/constants/enum';
 import { classNames } from '@/helpers/classNames';
 import { useGlobalState } from '@/store';
 import { getEnumAsArray } from '@masknet/kit';
+import { startTransition } from 'react';
 
 export function SocialPlatformTabs() {
     const currentSocialPlatform = useGlobalState.use.currentSocialPlatform();
@@ -18,7 +19,11 @@ export function SocialPlatformTabs() {
                         'rounded-md px-3 py-2 text-sm font-medium hover:cursor-pointer',
                     )}
                     aria-current={currentSocialPlatform === value ? 'page' : undefined}
-                    onClick={() => switchSocialPlatform(value)}
+                    onClick={() =>
+                        startTransition(() => {
+                            switchSocialPlatform(value);
+                        })
+                    }
                 >
                     {value}
                 </div>

@@ -1,4 +1,5 @@
 'use client';
+
 import { SinglePost } from '@/components/Posts/SinglePost';
 import { createIndicator } from '@/helpers/createPageable';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia';
@@ -9,7 +10,7 @@ import { memo } from 'react';
 export const Posts = memo(function Posts() {
     const currentSocialPlatform = useGlobalState.use.currentSocialPlatform();
 
-    const { data, isLoading, error } = useSuspenseInfiniteQuery({
+    const { data } = useSuspenseInfiniteQuery({
         queryKey: ['discover', currentSocialPlatform],
 
         queryFn: async ({ pageParam }) => {

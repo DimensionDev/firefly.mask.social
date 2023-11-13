@@ -1,8 +1,8 @@
 import { Post } from '@/providers/types/SocialMedia';
 import { memo } from 'react';
 import { Image } from '@/components/Image';
-import { getTwitterFormat } from '@/helpers/formatTime';
 import More from '../../../public/svg/more.svg';
+import { TimestampFormatter } from '@/components/TimestampFormatter';
 
 interface PostHeaderProps {
     post: Post;
@@ -12,6 +12,7 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({ post }) {
         <div className="flex justify-between space-x-1.5">
             <div className="flex items-center space-x-3">
                 <Image
+                    loading="lazy"
                     className="h-10 w-10 rounded-full border"
                     src={post.author.pfp}
                     width={40}
@@ -28,7 +29,9 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({ post }) {
             </div>
             <div className="flex items-center space-x-2">
                 <Image src="/svg/lens.svg" width={16} height={16} alt="lens" />
-                <span className="text-secondary text-xs leading-4">{getTwitterFormat(post.timestamp)}</span>
+                <span className="text-secondary text-xs leading-4">
+                    <TimestampFormatter time={post.timestamp} />
+                </span>
                 <span className="text-secondary">
                     <More width={24} height={24} alt="more" />
                 </span>
