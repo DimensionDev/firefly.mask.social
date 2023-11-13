@@ -1,6 +1,5 @@
 'use client';
 
-// eslint-disable-next-line import/no-named-default
 import Image from 'next/image.js';
 import { Bars3Icon } from '@heroicons/react/24/outline';
 
@@ -24,7 +23,7 @@ export function Heading(props: HeadingProps) {
             <div className="flex-1 text-sm font-semibold leading-6 text-gray-900">{props.title}</div>
             <a href="#">
                 <span className="sr-only">Your profile</span>
-                <Image
+                <Image.default
                     className="h-8 w-8 rounded-full bg-gray-50"
                     width={32}
                     height={32}

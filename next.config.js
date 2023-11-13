@@ -52,12 +52,14 @@ export default {
         );
 
         config.resolve.extensionAlias = {
+            ...config.resolve.extensionAlias,
             '.js': ['.js', '.ts', '.tsx'],
             '.mjs': ['.mts', '.mjs'],
         };
         config.resolve.extensions = ['.js', '.ts', '.tsx'];
         config.resolve.conditionNames = ['mask-src', '...'];
         config.resolve.fallback = {
+            ...config.resolve.fallback,
             http: require.resolve('stream-http'),
             https: require.resolve('https-browserify'),
             crypto: require.resolve('crypto-browserify'),
