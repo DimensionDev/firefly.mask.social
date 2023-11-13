@@ -1,6 +1,5 @@
 import React, { Suspense, lazy } from 'react';
-import { TypedMessageRender } from '@masknet/typed-message-react';
-import { RegistryContext } from '@/main/RegistryContext.js';
+import { RegistryContext, TypedMessageRender } from '@masknet/typed-message-react';
 import { registry } from './TypedMessageRender/registry.js';
 import { useDecrypt } from './Decrypt/useDecrypt.js';
 
