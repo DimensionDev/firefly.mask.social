@@ -1,10 +1,10 @@
 'use client';
 
 import type { Session } from 'next-auth';
-import { signIn, signOut, useSession } from 'next-auth/react';
-import { useMounted } from '@/hooks/useMounted';
-import { NextAuthProvider } from '@/components/NextAuthProvider';
 import Image from 'next/image';
+import { signIn, signOut, useSession } from 'next-auth/react';
+import { useMounted } from '@/hooks/useMounted.js';
+import { NextAuthProvider } from '@/components/NextAuthProvider.js';
 
 export interface NextAuthExampleProps {
     session: Session | null;

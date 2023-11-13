@@ -1,7 +1,7 @@
 import urlcat from 'urlcat';
-import { WARPCAST_ROOT_URL } from '@/constants';
-import { delay } from '@/helpers/delay';
-import { fetchJSON } from '@/helpers/fetchJSON';
+import { WARPCAST_ROOT_URL } from '@/constants/index.js';
+import { delay } from '@/helpers/delay.js';
+import { fetchJSON } from '@/helpers/fetchJSON.js';
 
 export function waitForSignedKeyRequestComplete(signal?: AbortSignal) {
     return async (token: string, maxTries = 100, ms = 2000) => {

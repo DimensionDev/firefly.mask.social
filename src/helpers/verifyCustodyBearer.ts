@@ -1,7 +1,7 @@
 import { hashMessage, recoverAddress, toHex } from 'viem';
 import canonicalize from 'canonicalize';
-import type { CustodyPayload } from '@/helpers/generateCustodyBearer';
-import { isSameAddress } from '@/helpers/isSameAddress';
+import type { CustodyPayload } from '@/helpers/generateCustodyBearer.js';
+import { isSameAddress } from '@/helpers/isSameAddress.js';
 
 export async function verifyCustodyBearer(token: string, payload: CustodyPayload, address: string) {
     const message = canonicalize(payload);

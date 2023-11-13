@@ -1,5 +1,6 @@
 {
     "name": "mask.social",
+    "type": "module",
     "version": "0.1.0",
     "private": true,
     "scripts": {

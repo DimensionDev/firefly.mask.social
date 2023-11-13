@@ -1,4 +1,4 @@
-import { AccountCard } from './AccountCard';
+import { AccountCard } from '@/app/(settings)/settings/communities/AccountCard/index.js';
 
 const FireflyCommunities = [
     { content: 'Follow @thefireflyapp on X', link: 'https://twitter.com/thefireflyapp', logo: '/svg/x-light.svg' },

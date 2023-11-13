@@ -1,5 +1,5 @@
 import { getWalletClient } from 'wagmi/actions';
-import { generateCustodyBearer } from '@/helpers/generateCustodyBearer';
+import { generateCustodyBearer } from '@/helpers/generateCustodyBearer.js';
 import {
     NetworkType,
     type Notification,
@@ -10,7 +10,7 @@ import {
     type Reaction,
     ReactionType,
     Type,
-} from '@/providers/types/SocialMedia';
+} from '@/providers/types/SocialMedia.js';
 import {
     type AnyPublicationFragment,
     ExploreProfilesOrderByType,
@@ -23,8 +23,8 @@ import {
     isRelaySuccess,
     production,
 } from '@lens-protocol/client';
-import { LensSession } from '@/providers/lens/Session';
-import type { PageIndicator, Pageable } from '@/helpers/createPageable';
+import { LensSession } from '@/providers/lens/Session.js';
+import type { PageIndicator, Pageable } from '@/helpers/createPageable.js';
 
 export class LensSocialMedia implements Provider {
     private currentSession?: LensSession;

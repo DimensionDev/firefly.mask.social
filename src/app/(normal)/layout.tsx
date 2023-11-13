@@ -2,9 +2,9 @@ import '../globals.css';
 
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
-import { GA } from '@/components/GA';
-import { classNames } from '@/helpers/classNames';
-import { SideBar } from '@/components/SideBar';
+import { GA } from '@/components/GA.js';
+import { classNames } from '@/helpers/classNames.js';
+import { SideBar } from '@/components/SideBar.js';
 
 const inter = Inter({ subsets: ['latin'] });
 

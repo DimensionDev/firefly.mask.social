@@ -2,10 +2,10 @@ import { StatusCodes } from 'http-status-codes';
 import { type JWT, getToken } from 'next-auth/jwt';
 import { NextRequest } from 'next/server';
 import { getServerSession } from 'next-auth';
-import { authOptions } from '@/app/api/auth/[...nextauth]/options';
-import { createTwitterClientV2 } from '@/helpers/createTwitterClientV2';
-import { createErrorResponseJSON } from '@/helpers/createErrorResponseJSON';
-import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON';
+import { authOptions } from '@/app/api/auth/[...nextauth]/options.js';
+import { createTwitterClientV2 } from '@/helpers/createTwitterClientV2.js';
+import { createErrorResponseJSON } from '@/helpers/createErrorResponseJSON.js';
+import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
 
 export async function GET(req: NextRequest) {
     try {

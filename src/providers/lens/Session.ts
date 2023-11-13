@@ -1,9 +1,9 @@
 import { getWalletClient } from 'wagmi/actions';
-import type { Session } from '@/providers/types/Session';
-import { BaseSession } from '@/providers/base/Session';
-import { Type } from '@/providers/types/SocialMedia';
+import type { Session } from '@/providers/types/Session.js';
+import { BaseSession } from '@/providers/base/Session.js';
+import { Type } from '@/providers/types/SocialMedia.js';
 import { LensClient, development, production } from '@lens-protocol/client';
-import { generateCustodyBearer } from '@/helpers/generateCustodyBearer';
+import { generateCustodyBearer } from '@/helpers/generateCustodyBearer.js';
 
 export class LensSession extends BaseSession implements Session {
     constructor(

@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'vitest';
-import { generateCustodyBearer } from '@/helpers/generateCustodyBearer';
-import { createTestWalletClient } from '@/helpers/createTestWalletClient';
+import { generateCustodyBearer } from '@/helpers/generateCustodyBearer.js';
+import { createTestWalletClient } from '@/helpers/createTestWalletClient.js';
 
 describe('generateCustodyBearer', () => {
     test('should generate token', async () => {

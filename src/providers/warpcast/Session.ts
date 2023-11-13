@@ -1,9 +1,9 @@
 import urlcat from 'urlcat';
-import { WARPCAST_ROOT_URL } from '@/constants';
-import { fetchJSON } from '@/helpers/fetchJSON';
-import { BaseSession } from '@/providers/base/Session';
-import type { Session } from '@/providers/types/Session';
-import { Type } from '@/providers/types/SocialMedia';
+import { WARPCAST_ROOT_URL } from '@/constants/index.js';
+import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { BaseSession } from '@/providers/base/Session.js';
+import type { Session } from '@/providers/types/Session.js';
+import { Type } from '@/providers/types/SocialMedia.js';
 
 export class WarpcastSession extends BaseSession implements Session {
     constructor(profileId: string, token: string, createdAt: number, expiresAt: number) {

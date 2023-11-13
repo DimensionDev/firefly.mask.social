@@ -1,11 +1,10 @@
 import { getServerSession } from 'next-auth';
-import { authOptions } from '@/app/api/auth/[...nextauth]/options';
-
-import { NextAuthExample } from '@/components/NextAuthExample';
-import { WagmiExample } from '@/components/WagmiExample';
-import { FarcasterAuthExample } from '@/components/FarcasterAuthExample';
-import { WagmiProvider } from '@/components/WagmiProvider';
-import { WarpcastAuthExample } from '@/components/WarpcastAuthExample';
+import { authOptions } from '@/app/api/auth/[...nextauth]/options.js';
+import { NextAuthExample } from '@/components/NextAuthExample.js';
+import { WagmiExample } from '@/components/WagmiExample.js';
+import { FarcasterAuthExample } from '@/components/FarcasterAuthExample.js';
+import { WagmiProvider } from '@/components/WagmiProvider.js';
+import { WarpcastAuthExample } from '@/components/WarpcastAuthExample.js';
 
 async function getSession() {
     return await getServerSession(authOptions);

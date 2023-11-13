@@ -4,8 +4,8 @@ import { Fragment } from 'react';
 import Image from 'next/image';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { Dialog, Transition } from '@headlessui/react';
-import type { NavigationItem } from '@/types';
-import { classNames } from '@/helpers/classNames';
+import type { NavigationItem } from '@/types/index.js';
+import { classNames } from '@/helpers/classNames.js';
 
 export interface SidebarForMobileProps {
     items: NavigationItem[];

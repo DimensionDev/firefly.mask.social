@@ -1,7 +1,7 @@
-import { fetch } from '@/helpers/fetch';
+import { fetch } from '@/helpers/fetch.js';
 import { Duration } from '@/helpers/fetchCached';
 import { Expiration } from '@/helpers/fetchSquashed';
-import { type NextFetchersOptions, getNextFetchers } from '@/helpers/getNextFetchers';
+import { type NextFetchersOptions, getNextFetchers } from '@/helpers/getNextFetchers.js';
 
 export async function fetchJSON<T = unknown>(
     input: RequestInfo | URL,

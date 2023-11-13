@@ -1,5 +1,5 @@
-import type { Session } from '@/providers/types/Session';
-import { Type } from '@/providers/types/SocialMedia';
+import type { Session } from '@/providers/types/Session.js';
+import { Type } from '@/providers/types/SocialMedia.js';
 
 export abstract class BaseSession implements Session {
     constructor(

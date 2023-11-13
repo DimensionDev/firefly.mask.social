@@ -1,5 +1,5 @@
-import { fetch } from '@/helpers/fetch';
-import { type NextFetchersOptions, getNextFetchers } from '@/helpers/getNextFetchers';
+import { fetch } from '@/helpers/fetch.js';
+import { type NextFetchersOptions, getNextFetchers } from '@/helpers/getNextFetchers.js';
 
 export async function fetchBlob(
     input: RequestInfo | URL,

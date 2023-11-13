@@ -1,14 +1,14 @@
 import urlcat from 'urlcat';
 import { getWalletClient } from 'wagmi/actions';
-import type { ResponseJSON } from '@/types';
-import { WARPCAST_ROOT_URL } from '@/constants';
-import { fetchJSON } from '@/helpers/fetchJSON';
-import { waitForSignedKeyRequestComplete } from '@/helpers/waitForSignedKeyRequestComplete';
-import { generateCustodyBearer } from '@/helpers/generateCustodyBearer';
-import { type PageIndicator, createPageable } from '@/helpers/createPageable';
+import type { ResponseJSON } from '@/types/index.js';
+import { WARPCAST_ROOT_URL } from '@/constants/index.js';
+import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { waitForSignedKeyRequestComplete } from '@/helpers/waitForSignedKeyRequestComplete.js';
+import { generateCustodyBearer } from '@/helpers/generateCustodyBearer.js';
+import { type PageIndicator, createPageable } from '@/helpers/createPageable.js';
 import { MerkleAPIClient } from '@standard-crypto/farcaster-js';
-import { type Post, ProfileStatus, type Provider, ReactionType, Type } from '@/providers/types/SocialMedia';
-import { WarpcastSession } from '@/providers/warpcast/Session';
+import { type Post, ProfileStatus, type Provider, ReactionType, Type } from '@/providers/types/SocialMedia.js';
+import { WarpcastSession } from '@/providers/warpcast/Session.js';
 import type {
     CastResponse,
     CastsResponse,
@@ -16,7 +16,7 @@ import type {
     SuccessResponse,
     UserResponse,
     UsersResponse,
-} from '@/providers/types/Warpcast';
+} from '@/providers/types/Warpcast.js';
 
 // @ts-ignore
 export class WarpcastSocialMedia implements Provider {

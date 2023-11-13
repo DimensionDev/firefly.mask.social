@@ -1,8 +1,8 @@
 'use client';
 
 import Image from 'next/image';
-import type { NavigationItem } from '@/types';
-import { classNames } from '@/helpers/classNames';
+import type { NavigationItem } from '@/types/index.js';
+import { classNames } from '@/helpers/classNames.js';
 
 export interface SidebarForDesktopProps {
     items: NavigationItem[];
