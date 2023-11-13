@@ -126,13 +126,7 @@
             "@masknet/plugin-calendar": ["./src/maskbook/packages/plugins/Calendar/src/index.ts"]
         }
     },
-    "include": [
-        "globals.d.ts",
-        "next-env.d.ts",
-        "**/*.ts",
-        "**/*.tsx",
-        ".next/types/**/*.ts"
-    ],
+    "include": ["globals.d.ts", "next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
     "exclude": ["node_modules", "src/maskbook"],
     "ts-node": {
         "compilerOptions": {
