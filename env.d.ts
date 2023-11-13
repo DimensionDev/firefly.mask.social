@@ -16,5 +16,8 @@ declare namespace NodeJS {
 
         FARCASTER_SIGNER_FID: string;
         FARCASTER_SIGNER_MNEMONIC: string;
+
+        WEB3_CONSTANTS_RPC: string;
+        MASK_SENTRY_DSN: string;
     }
 }

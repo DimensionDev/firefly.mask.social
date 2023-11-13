@@ -56,18 +56,27 @@
         "zustand": "^4.4.4"
     },
     "devDependencies": {
+        "@sinonjs/text-encoding": "^0.7.2",
         "@types/lodash-es": "^4.17.10",
         "@types/use-subscription": "^1.0.1",
         "@typescript-eslint/eslint-plugin": "^6.10.0",
+        "buffer": "^6.0.3",
+        "copy-webpack-plugin": "^11.0.0",
+        "crypto-browserify": "^3.12.0",
         "cspell": "^7.3.6",
         "eslint": "^8.53.0",
         "eslint-plugin-react": "^7.33.2",
         "eslint-plugin-react-hooks": "^4.6.0",
         "eslint-plugin-unicorn": "^49.0.0",
         "eslint-plugin-unused-imports": "^3.0.0",
+        "html-webpack-plugin": "^5.5.3",
+        "https-browserify": "^1.0.0",
         "https-proxy-agent": "^7.0.2",
         "patch-package": "^8.0.0",
         "prettier": "^3.0.3",
-        "vitest": "^0.34.6"
+        "stream-browserify": "^3.0.0",
+        "stream-http": "^2.8.3",
+        "vitest": "^0.34.6",
+        "zlib-browserify": "^0.0.3"
     }
 }
