@@ -1,5 +1,5 @@
 import { StatusCodes } from 'http-status-codes';
-import { JWT, getToken } from 'next-auth/jwt';
+import { type JWT, getToken } from 'next-auth/jwt';
 import { NextRequest } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/app/api/auth/[...nextauth]/options';

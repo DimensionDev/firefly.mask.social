@@ -123,7 +123,7 @@
         }
     },
     "include": ["next-auth.d.ts", "next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-    "exclude": ["node_modules", "src/maskbook"],
+    "exclude": ["node_modules", "src/maskbook", ".next"],
     "ts-node": {
         "compilerOptions": {
             "noEmit": false
