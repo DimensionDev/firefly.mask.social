@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { WarpcastSocialMedia } from '@/providers/warpcast/SocialMedia.js';
-import type { User } from '@standard-crypto/farcaster-js/src/utils.js';
+import type { User } from '@standard-crypto/farcaster-js';
 
 export function FarcasterAuthExample() {
     const [user, setUser] = useState<User>();

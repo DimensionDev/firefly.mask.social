@@ -6,7 +6,7 @@ import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { waitForSignedKeyRequestComplete } from '@/helpers/waitForSignedKeyRequestComplete.js';
 import { generateCustodyBearer } from '@/helpers/generateCustodyBearer.js';
 import { type PageIndicator, createPageable } from '@/helpers/createPageable.js';
-import { MerkleAPIClient } from '@standard-crypto/farcaster-js';
+import { HubRestAPIClient } from '@standard-crypto/farcaster-js';
 import { type Post, ProfileStatus, type Provider, ReactionType, Type } from '@/providers/types/SocialMedia.js';
 import { WarpcastSession } from '@/providers/warpcast/Session.js';
 import type {
@@ -124,10 +124,11 @@ export class WarpcastSocialMedia implements Provider {
 
     async createClient() {
         const session = await this.createSession();
-        return new MerkleAPIClient({
-            secret: session.token,
-            expiresAt: session.expiresAt,
-        });
+        return new HubRestAPIClient();
+        // return new MerkleAPIClient({
+        //     secret: session.token,
+        //     expiresAt: session.expiresAt,
+        // });
     }
 
     async discoverPosts(indicator?: PageIndicator) {

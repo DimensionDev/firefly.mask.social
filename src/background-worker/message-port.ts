@@ -39,8 +39,9 @@ globalThis.addEventListener('message', (event) => {
 
     const handlers = messageHandlers.get(type);
     if (!handlers?.size) return;
+    const it = (type: string, value: unknown) => globalThis.postMessage([type, value]);
     for (const f of handlers) {
-        f(data, null, (type, value) => globalThis.postMessage([type, value]));
+        f(data, null, it);
     }
 });
 
