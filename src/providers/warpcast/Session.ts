@@ -1,18 +1,13 @@
+import urlcat from 'urlcat';
 import { WARPCAST_ROOT_URL } from '@/constants';
 import { fetchJSON } from '@/helpers/fetchJSON';
 import { BaseSession } from '@/providers/base/Session';
 import type { Session } from '@/providers/types/Session';
 import { Type } from '@/providers/types/SocialMedia';
-import urlcat from 'urlcat';
 
 export class WarpcastSession extends BaseSession implements Session {
-    constructor(
-        public profileId: string,
-        public token: string,
-        public timestamp: number,
-        public expiresAt: number,
-    ) {
-        super(Type.Warpcast, profileId, token, timestamp, expiresAt);
+    constructor(profileId: string, token: string, createdAt: number, expiresAt: number) {
+        super(Type.Warpcast, profileId, token, createdAt, expiresAt);
     }
 
     refresh(): Promise<void> {
@@ -33,7 +28,7 @@ export class WarpcastSession extends BaseSession implements Session {
             body: JSON.stringify({
                 method: 'revokeToken',
                 params: {
-                    timestamp: this.timestamp,
+                    timestamp: this.createdAt,
                 },
             }),
         });

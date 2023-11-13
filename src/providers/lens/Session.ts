@@ -7,10 +7,10 @@ import { generateCustodyBearer } from '@/helpers/generateCustodyBearer';
 
 export class LensSession extends BaseSession implements Session {
     constructor(
-        public profileId: string,
-        public token: string,
-        public createdAt: number,
-        public expiresAt: number,
+        profileId: string,
+        token: string,
+        createdAt: number,
+        expiresAt: number,
         private client = new LensClient({
             environment: process.env.NODE_ENV === 'production' ? production : development,
         }),

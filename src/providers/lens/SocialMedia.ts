@@ -24,7 +24,7 @@ import {
     production,
 } from '@lens-protocol/client';
 import { LensSession } from '@/providers/lens/Session';
-import { PageIndicator, Pageable } from '@/helpers/createPageable';
+import type { PageIndicator, Pageable } from '@/helpers/createPageable';
 
 export class LensSocialMedia implements Provider {
     private currentSession?: LensSession;
@@ -505,13 +505,15 @@ export class LensSocialMedia implements Provider {
                         post,
                     };
                 }
+
+                return;
             }),
         );
 
         return {
             indicator: indicator?.cursor,
             nextIndicator: value.pageInfo.next,
-            data: data.filter((item) => item !== undefined) as Notification[],
+            data: data.filter((item) => typeof item !== 'undefined') as Notification[],
         };
     }
 

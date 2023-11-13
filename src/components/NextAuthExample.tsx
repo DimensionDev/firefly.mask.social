@@ -1,6 +1,6 @@
 'use client';
 
-import { Session } from 'next-auth';
+import type { Session } from 'next-auth';
 import { signIn, signOut, useSession } from 'next-auth/react';
 import { useMounted } from '@/hooks/useMounted';
 import { NextAuthProvider } from '@/components/NextAuthProvider';
