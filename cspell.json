@@ -34,7 +34,8 @@
         "servie",
         "tailwindui",
         "tailwindcss",
-        "typecheck"
+        "typecheck",
+        "thefireflyapp"
     ],
     "flagWords": [],
     "ignorePaths": ["node_modules/**", "dist/**", "build/**", ".next/**", "public/svg/**"],

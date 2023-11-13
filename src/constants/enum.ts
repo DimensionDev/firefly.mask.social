@@ -3,7 +3,7 @@ export enum PageRoutes {
     Following = '/following',
     Notification = '/notification',
     Profile = '/profile',
-    Setting = '/settings',
+    Setting = '/settings/display',
 }
 
 export enum SocialPlatform {

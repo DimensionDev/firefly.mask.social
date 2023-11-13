@@ -27,12 +27,9 @@ export async function POST(req: NextRequest) {
     const privateKey = utils.randomPrivateKey();
     const publicKey = toHex(await getPublicKeyAsync(privateKey));
 
-    const appFid = process.env.FARCASTER_SIGNER_FID;
-    const account = mnemonicToAccount(process.env.FARCASTER_SIGNER_MNEMONIC);
-
     // valid for 24 hours
     const deadline = Math.floor(Date.now() / 1000) + ONE_DAY;
-    const signature = await account.signTypedData({
+    const signature = await mnemonicToAccount(process.env.FARCASTER_SIGNER_MNEMONIC).signTypedData({
         domain: SIGNED_KEY_REQUEST_VALIDATOR_EIP_712_DOMAIN,
         types: {
             SignedKeyRequest: SIGNED_KEY_REQUEST_TYPE,
@@ -41,7 +38,7 @@ export async function POST(req: NextRequest) {
         message: {
             key: publicKey,
             deadline: BigInt(deadline),
-            requestFid: BigInt(appFid),
+            requestFid: BigInt(process.env.FARCASTER_SIGNER_FID),
         },
     });
     const response = await fetchJSON<{
@@ -61,7 +58,7 @@ export async function POST(req: NextRequest) {
         },
         body: JSON.stringify({
             key: publicKey,
-            requestFid: appFid,
+            requestFid: process.env.FARCASTER_SIGNER_FID,
             signature,
             deadline,
         }),
