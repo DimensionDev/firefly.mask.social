@@ -1,6 +1,11 @@
 import Image from 'next/image.js';
 import Link from 'next/link.js';
 
+console.log({
+    Image,
+    Link,
+});
+
 const settings = [
     { name: 'Display', link: '/display' },
     { name: 'Associated Wallets', link: '/associated' },

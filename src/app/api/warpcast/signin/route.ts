@@ -1,6 +1,6 @@
 import urlcat from 'urlcat';
 import { StatusCodes } from 'http-status-codes';
-import { NextRequest } from 'next/server';
+import { NextRequest } from 'next/server.js';
 import { toHex } from 'viem';
 import { mnemonicToAccount } from 'viem/accounts';
 import { getPublicKeyAsync, utils } from '@noble/ed25519';

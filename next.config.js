@@ -1,15 +1,13 @@
 /* cspell:disable */
 
 import { fileURLToPath } from 'url';
-import { readFileSync } from 'fs';
 import { dirname, join } from 'path';
 import { createRequire } from 'module';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
 import CopyPlugin from 'copy-webpack-plugin';
 
 const require = createRequire(import.meta.url);
 const __dirname = fileURLToPath(dirname(import.meta.url));
-const outputPath = fileURLToPath(new URL('./dist', import.meta.url));
+const outputPath = fileURLToPath(new URL('./public', import.meta.url));
 const polyfillsFolderPath = join(outputPath, './js/polyfills');
 
 /** @type {import('next').NextConfig} */
@@ -53,27 +51,21 @@ export default {
                 new context.webpack.IgnorePlugin({
                     resourceRegExp: /^(lokijs|pino-pretty|encoding)$/,
                 }),
-                // new HtmlWebpackPlugin({
-                //     templateContent: readFileSync(join(__dirname, './.webpack/template.html'), 'utf8'),
-                //     inject: 'body',
-                //     scriptLoading: 'defer',
-                //     minify: false,
-                // }),
                 new context.webpack.DefinePlugin({
                     'process.env.WEB3_CONSTANTS_RPC': process.env.WEB3_CONSTANTS_RPC ?? '{}',
                     'process.env.MASK_SENTRY_DSN': process.env.MASK_SENTRY_DSN ?? '{}',
                     'process.env.NODE_DEBUG': 'undefined',
                     'process.version': JSON.stringify('0.1.0'),
                 }),
-                // new CopyPlugin({
-                //     patterns: [
-                //         {
-                //             context: join(__dirname, '../polyfills/dist/'),
-                //             from: '*.js',
-                //             to: polyfillsFolderPath,
-                //         },
-                //     ],
-                // }),
+                new CopyPlugin({
+                    patterns: [
+                        {
+                            context: join(__dirname, './src/maskbook/packages/polyfills/dist/'),
+                            from: '*.js',
+                            to: polyfillsFolderPath,
+                        },
+                    ],
+                }),
             ],
         );
 

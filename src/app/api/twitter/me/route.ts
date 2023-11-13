@@ -1,6 +1,6 @@
 import { StatusCodes } from 'http-status-codes';
 import { type JWT, getToken } from 'next-auth/jwt';
-import { NextRequest } from 'next/server';
+import type { NextRequest } from 'next/server.js';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/app/api/auth/[...nextauth]/options.js';
 import { createTwitterClientV2 } from '@/helpers/createTwitterClientV2.js';
