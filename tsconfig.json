@@ -10,8 +10,6 @@
         { "path": "./src/maskbook/packages/plugins/tsconfig.json" }
     ],
     "compilerOptions": {
-        "allowJs": true,
-        "esModuleInterop": true,
         "downlevelIteration": true,
         "resolveJsonModule": true,
         "isolatedModules": true,
@@ -113,7 +111,7 @@
             "@masknet/plugin-calendar": ["./src/maskbook/packages/plugins/Calendar/src/index.ts"]
         }
     },
-    "include": ["next-auth.d.ts", "next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+    "include": ["next-auth.d.ts", "next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "tailwind.config.ks"],
     "exclude": ["node_modules", "src/maskbook", ".next"],
     "ts-node": {
         "compilerOptions": {

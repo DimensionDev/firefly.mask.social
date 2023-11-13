@@ -1,7 +1,7 @@
 /* cspell:disable */
 
 /** @type {import('next').NextConfig} */
-const nextConfig = {
+export default {
     images: {
         dangerouslyAllowSVG: true,
         domains: ['images.unsplash.com', 'tailwindui.com', 'pbs.twimg.com'],
@@ -30,5 +30,3 @@ const nextConfig = {
         ];
     },
 };
-
-module.exports = nextConfig;
