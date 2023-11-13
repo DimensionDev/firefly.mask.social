@@ -23,7 +23,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                         'relative m-auto h-screen bg-white': true,
                         // sm
                         [`sm:w-full`]: true,
-
                         // lg
                         [`lg:w-[1265px]`]: true,
                     })}

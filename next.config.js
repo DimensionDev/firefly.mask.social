@@ -31,20 +31,34 @@ export default {
             },
         ],
     },
+    async headers() {
+        return [
+            {
+                source: '/(.*)?', // Matches all pages
+                headers: [
+                    {
+                        key: 'X-Frame-Options',
+                        value: 'DENY',
+                    },
+                ],
+            },
+        ];
+    },
     webpack: (config, context) => {
         if (!config.plugins) config.plugins = [];
+        if (!config.module.rules) config.module.rules = [];
 
         config.plugins.push(
             ...[
                 new context.webpack.IgnorePlugin({
                     resourceRegExp: /^(lokijs|pino-pretty|encoding)$/,
                 }),
-                new HtmlWebpackPlugin({
-                    templateContent: readFileSync(join(__dirname, './.webpack/template.html'), 'utf8'),
-                    inject: 'body',
-                    scriptLoading: 'defer',
-                    minify: false,
-                }),
+                // new HtmlWebpackPlugin({
+                //     templateContent: readFileSync(join(__dirname, './.webpack/template.html'), 'utf8'),
+                //     inject: 'body',
+                //     scriptLoading: 'defer',
+                //     minify: false,
+                // }),
                 new context.webpack.DefinePlugin({
                     'process.env.WEB3_CONSTANTS_RPC': process.env.WEB3_CONSTANTS_RPC ?? '{}',
                     'process.env.MASK_SENTRY_DSN': process.env.MASK_SENTRY_DSN ?? '{}',
@@ -82,18 +96,5 @@ export default {
         };
 
         return config;
-    },
-    async headers() {
-        return [
-            {
-                source: '/(.*)?', // Matches all pages
-                headers: [
-                    {
-                        key: 'X-Frame-Options',
-                        value: 'DENY',
-                    },
-                ],
-            },
-        ];
     },
 };

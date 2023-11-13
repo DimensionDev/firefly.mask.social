@@ -124,7 +124,15 @@
             "@masknet/plugin-calendar": ["./src/maskbook/packages/plugins/Calendar/src/index.ts"]
         }
     },
-    "include": ["next-auth.d.ts", "next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "tailwind.config.ks"],
+    "include": [
+        "next-auth.d.ts",
+        "next-env.d.ts",
+        "**/*.ts",
+        "**/*.tsx",
+        ".next/types/**/*.ts",
+        "tailwind.config.ks",
+        "tailwind.config.ks"
+    ],
     "exclude": ["node_modules", "src/maskbook", ".next"],
     "ts-node": {
         "compilerOptions": {
