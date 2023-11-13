@@ -7,7 +7,7 @@ import { waitForSignedKeyRequestComplete } from '@/helpers/waitForSignedKeyReque
 import { generateCustodyBearer } from '@/helpers/generateCustodyBearer';
 import { PageIndicator, createPageable } from '@/helpers/createPageable';
 import { MerkleAPIClient } from '@standard-crypto/farcaster-js';
-import { Post, ProfileStatus, Provider, ReactionType, Type } from '@/providers/types/SocialMedia';
+import { ProfileStatus, Provider, Type } from '@/providers/types/SocialMedia';
 import { CastResponse, UsersResponse, UserResponse, CastsResponse } from '@/providers/types/Firefly';
 import { FireflySession } from './Session';
 import { CastsResponse as DiscoverPosts } from '@/providers/types/Warpcast';
