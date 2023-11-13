@@ -3,4 +3,4 @@ postcss.config.cjs
 tailwind.config.cjs
 
 src/maskbook
-public/
+public/js
