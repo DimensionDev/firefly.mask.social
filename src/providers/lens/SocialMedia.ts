@@ -12,7 +12,6 @@ import {
     Type,
 } from '@/providers/types/SocialMedia';
 import {
-    AnyPublicationFragment,
     ExploreProfilesOrderByType,
     ExplorePublicationsOrderByType,
     LensClient,
@@ -25,6 +24,8 @@ import {
 } from '@lens-protocol/client';
 import { LensSession } from '@/providers/lens/Session';
 import { PageIndicator, Pageable } from '@/helpers/createPageable';
+import formatLensPost from '@/helpers/formatLensPost';
+import formatLensProfile from '@/helpers/formatLensProfile';
 
 export class LensSocialMedia implements Provider {
     private currentSession?: LensSession;
@@ -175,7 +176,7 @@ export class LensSocialMedia implements Provider {
         });
         if (!result) throw new Error('No profile found');
 
-        return this.formatProfile(result);
+        return formatLensProfile(result);
     }
 
     formatProfile(result: ProfileFragment): Profile {
@@ -208,76 +209,8 @@ export class LensSocialMedia implements Provider {
         });
         if (!result) throw new Error('No post found');
 
-        const post = this.formatPost(result);
+        const post = formatLensPost(result);
         return post;
-    }
-
-    formatPost(result: AnyPublicationFragment): Post {
-        const profile = this.formatProfile(result.by);
-        const timestamp = new Date(result.createdAt).getTime();
-
-        if (result.__typename === 'Mirror') {
-            return {
-                postId: result.id,
-                timestamp,
-                author: profile,
-                isHidden: result.isHidden,
-                metadata: {
-                    locale: '',
-                    content: '',
-                    contentURI: '',
-                },
-                __original__: result,
-            };
-        }
-
-        if (result.metadata.__typename === 'EventMetadataV3') throw new Error('Event not supported');
-        const mediaObjects =
-            result.metadata.__typename !== 'StoryMetadataV3' && result.metadata.__typename !== 'TextOnlyMetadataV3'
-                ? result.metadata.attachments?.map((attachment) =>
-                      attachment.__typename === 'PublicationMetadataMediaAudio'
-                          ? {
-                                url: attachment.audio.raw.uri,
-                                mimeType: attachment.audio.raw.mimeType ?? 'audio/*',
-                            }
-                          : attachment.__typename === 'PublicationMetadataMediaImage'
-                          ? {
-                                url: attachment.image.raw.uri,
-                                mimeType: attachment.image.raw.mimeType ?? 'image/*',
-                            }
-                          : attachment.__typename === 'PublicationMetadataMediaVideo'
-                          ? {
-                                url: attachment.video.raw.uri,
-                                mimeType: attachment.video.raw.mimeType ?? 'video/*',
-                            }
-                          : {
-                                url: '',
-                                mimeType: '',
-                            },
-                  ) ?? undefined
-                : undefined;
-
-        return {
-            postId: result.id,
-            timestamp,
-            author: profile,
-            mediaObjects,
-            isHidden: result.isHidden,
-            isEncrypted: !!result.metadata.encryptedWith,
-            metadata: {
-                locale: result.metadata.locale,
-                content: result.metadata.content,
-                contentURI: result.metadata.rawURI,
-            },
-            stats: {
-                comments: result.stats.comments,
-                mirrors: result.stats.mirrors,
-                quotes: result.stats.quotes,
-                reactions: result.stats.upvoteReactions,
-                bookmarks: result.stats.bookmarks,
-            },
-            __original__: result,
-        };
     }
 
     async discoverPosts(indicator?: PageIndicator): Promise<Pageable<Post>> {
@@ -289,7 +222,7 @@ export class LensSocialMedia implements Provider {
         return {
             indicator: indicator?.cursor,
             nextIndicator: result.pageInfo.next,
-            data: result.items.map((item) => this.formatPost(item)),
+            data: result.items.map((item) => formatLensPost(item)),
         };
     }
 
@@ -305,7 +238,7 @@ export class LensSocialMedia implements Provider {
         return {
             indicator: indicator?.cursor,
             nextIndicator: result.pageInfo.next,
-            data: result.items.map((item) => this.formatPost(item)),
+            data: result.items.map((item) => formatLensPost(item)),
         };
     }
 
@@ -320,7 +253,7 @@ export class LensSocialMedia implements Provider {
         return {
             indicator: result.pageInfo.prev,
             nextIndicator: result.pageInfo.next,
-            data: result.items.map((item) => this.formatPost(item)),
+            data: result.items.map((item) => formatLensPost(item)),
         };
     }
 
@@ -335,7 +268,7 @@ export class LensSocialMedia implements Provider {
         return {
             indicator: result.pageInfo.prev,
             nextIndicator: result.pageInfo.next,
-            data: result.items.map((item) => this.formatPost(item)),
+            data: result.items.map((item) => formatLensPost(item)),
         };
     }
 
@@ -351,7 +284,7 @@ export class LensSocialMedia implements Provider {
         return {
             indicator: indicator?.cursor,
             nextIndicator: result.pageInfo.next,
-            data: result.items.map((item) => this.formatPost(item)),
+            data: result.items.map((item) => formatLensPost(item)),
         };
     }
 
@@ -368,7 +301,7 @@ export class LensSocialMedia implements Provider {
         return {
             indicator: indicator?.cursor,
             nextIndicator: result.pageInfo.next,
-            data: result.items.map((item) => this.formatPost(item)),
+            data: result.items.map((item) => formatLensPost(item)),
         };
     }
 
@@ -406,7 +339,7 @@ export class LensSocialMedia implements Provider {
             indicator: indicator?.cursor,
             nextIndicator: result.pageInfo.next,
             data: result.items.map((item) => {
-                return this.formatProfile(item);
+                return formatLensProfile(item);
             }),
         };
     }
@@ -421,7 +354,7 @@ export class LensSocialMedia implements Provider {
             indicator: indicator?.cursor,
             nextIndicator: result.pageInfo.next,
             data: result.items.map((item) => {
-                return this.formatProfile(item);
+                return formatLensProfile(item);
             }),
         };
     }
@@ -479,7 +412,7 @@ export class LensSocialMedia implements Provider {
                         notificationId: item.id,
                         type: 'reaction',
                         reaction: ReactionType.Upvote,
-                        reactor: this.formatProfile(item.reactions[0].profile),
+                        reactor: formatLensProfile(item.reactions[0].profile),
                         post: await this.getPostById(item.publication.id),
                     };
                 }
@@ -492,7 +425,7 @@ export class LensSocialMedia implements Provider {
                         comment: {
                             commentId: item.comment.id,
                             timestamp: new Date(item.comment.createdAt).getTime(),
-                            author: this.formatProfile(item.comment.by),
+                            author: formatLensProfile(item.comment.by),
                             for: post,
                         },
                         post,
@@ -505,12 +438,12 @@ export class LensSocialMedia implements Provider {
                     return {
                         notificationId: item.id,
                         type: 'follow',
-                        follower: this.formatProfile(item.followers[0]),
+                        follower: formatLensProfile(item.followers[0]),
                     };
                 }
 
                 if (item.__typename === 'MentionNotification') {
-                    const post = this.formatPost(item.publication);
+                    const post = formatLensPost(item.publication);
 
                     return {
                         notificationId: item.id,
@@ -538,7 +471,7 @@ export class LensSocialMedia implements Provider {
             indicator: indicator?.cursor,
             nextIndicator: result.pageInfo.next,
             data: result.items.map((item) => {
-                return this.formatProfile(item);
+                return formatLensProfile(item);
             }),
         };
     }
