@@ -27,16 +27,17 @@
         "flac",
         "headlessui",
         "heroicons",
+        "imgur",
         "maskbook",
         "masknet",
         "nextauth",
         "quicktime",
         "rainbowkit",
         "servie",
-        "tailwindui",
         "tailwindcss",
-        "typecheck",
-        "thefireflyapp"
+        "tailwindui",
+        "thefireflyapp",
+        "typecheck"
     ],
     "flagWords": [],
     "ignorePaths": [
