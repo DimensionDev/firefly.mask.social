@@ -1,6 +1,10 @@
 #!/bin/bash
 
-npm i -g pnpm@8.10.4
+# Initialize Git submodules in the repository
+git submodule init
+
+# Update Git submodules to the latest commit
+git submodule update
 
 # Change to the submodule directory
 cd src/maskbook
@@ -18,8 +22,11 @@ npx tsc -b
 # Return to the original directory
 cd -
 
+# Install Node.js dependencies using npm
+npm install
+
 # Patch packages
 npm run postinstall
 
-# Run Next.js build for the main project
-next build
+# Run a type checking script using npm
+npm run typecheck
