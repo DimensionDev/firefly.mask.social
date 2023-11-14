@@ -2,7 +2,7 @@
 
 export function SecondaryBar() {
     return (
-        <aside className="absolute inset-y-0 right-0 hidden w-96 overflow-y-auto border-l border-gray-200 px-4 py-6 sm:px-6 lg:px-8 lg:block">
+        <aside className="absolute inset-y-0 right-0 hidden w-96 overflow-y-auto border-l border-gray-200 px-4 py-6 sm:px-6 lg:block lg:px-8">
             <input
                 type="search"
                 name="search"

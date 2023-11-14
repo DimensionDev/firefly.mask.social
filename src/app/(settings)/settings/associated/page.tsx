@@ -2,26 +2,26 @@ import { AccountCard } from '@/app/(settings)/settings/associated/AccountCard/in
 
 export default function Associated() {
     return (
-        <div className="flex flex-col w-full p-[24px] items-center gap-[24px]">
-            <div className="  w-full gap-[24px] flex items-center justify-between">
-                <span className="text-main text-[18px] font-bold leading-[24px]">Associated Wallets</span>
+        <div className="flex w-full flex-col items-center gap-[24px] p-[24px]">
+            <div className="  flex w-full items-center justify-between gap-[24px]">
+                <span className="text-[18px] font-bold leading-[24px] text-main">Associated Wallets</span>
             </div>
-            <div className="w-full flex items-center justify-between">
-                <span className="text-main text-base font-bold leading-[18px]">Connected in Firefly</span>
+            <div className="flex w-full items-center justify-between">
+                <span className="text-base font-bold leading-[18px] text-main">Connected in Firefly</span>
             </div>
             <AccountCard name="aaa" address="aaaaa" logout={() => {}} />
-            <div className="flex gap-[16px] items-center">
-                <button className="w-[200px] h-10 flex-col justify-center items-center inline-flex">
-                    <div className="self-stretch h-10 px-[18px] py-[11px] bg-textMain rounded-2xl justify-center items-center gap-2 inline-flex">
-                        <div className="text-white text-sm font-bold font-['Helvetica'] leading-[18px]">
+            <div className="flex items-center gap-[16px]">
+                <button className="inline-flex h-10 w-[200px] flex-col items-center justify-center">
+                    <div className="inline-flex h-10 items-center justify-center gap-2 self-stretch rounded-2xl bg-textMain px-[18px] py-[11px]">
+                        <div className="font-['Helvetica'] text-sm font-bold leading-[18px] text-white">
                             Add an existing account
                         </div>
                     </div>
                 </button>
 
-                <button className="w-[200px] h-10 flex-col justify-start items-start inline-flex">
-                    <div className="self-stretch h-10 px-[18px] py-[11px] bg-[#FF3545] rounded-2xl justify-center items-center gap-2 inline-flex">
-                        <div className="text-white text-sm font-bold font-['Helvetica'] leading-[18px]">
+                <button className="inline-flex h-10 w-[200px] flex-col items-start justify-start">
+                    <div className="inline-flex h-10 items-center justify-center gap-2 self-stretch rounded-2xl bg-[#FF3545] px-[18px] py-[11px]">
+                        <div className="font-['Helvetica'] text-sm font-bold leading-[18px] text-white">
                             Log out all
                         </div>
                     </div>

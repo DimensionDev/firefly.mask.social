@@ -36,14 +36,14 @@ export const SideBar = memo(function SideBar() {
                         <li>
                             <ul role="list" className="-mx-2 space-y-6">
                                 {items.map((item) => (
-                                    <li className="py-3 px-4" key={item.name}>
+                                    <li className="px-4 py-3" key={item.name}>
                                         {item.href === '#' ? (
-                                            <div className="text-2xl/6 flex gap-x-3 hover:cursor-pointer">
+                                            <div className="flex gap-x-3 text-2xl/6 hover:cursor-pointer">
                                                 <Image src={item.icon} width={24} height={24} alt={item.name} />
                                                 {item.name}
                                             </div>
                                         ) : (
-                                            <Link href={item.href} className="text-2xl/6 flex gap-x-3">
+                                            <Link href={item.href} className="flex gap-x-3 text-2xl/6">
                                                 <Image src={item.icon} width={24} height={24} alt={item.name} />
                                                 {item.name}
                                             </Link>
@@ -53,14 +53,14 @@ export const SideBar = memo(function SideBar() {
                                 <li>
                                     <button
                                         type="button"
-                                        className="rounded-[16px] bg-main px-3 py-3 text-xl leading-6 min-w-[150px] font-semibold text-white shadow-sm hover:bg-main focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                                        className="min-w-[150px] rounded-[16px] bg-main px-3 py-3 text-xl font-semibold leading-6 text-white shadow-sm hover:bg-main focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                                     >
                                         Post
                                     </button>
                                 </li>
                             </ul>
                         </li>
-                        <li className="mt-auto mb-20">
+                        <li className="mb-20 mt-auto">
                             <div className="flex gap-x-2 pl-2">
                                 <Image src="/svg/lens.svg" width={40} height={40} alt="Lens" />
                                 <Image src="/svg/farcaster.svg" width={40} height={40} alt="Farcaster" />
