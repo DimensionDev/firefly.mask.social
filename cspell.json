@@ -28,18 +28,19 @@
         "zustand"
     ],
     "ignoreWords": [
-        "IDBP",
         "cyberconnect",
         "dimensiondev",
         "flac",
         "headlessui",
         "heroicons",
         "holoflows",
+        "imgur",
         "ittr",
         "maskbook",
         "maskbox",
         "masknet",
         "nextauth",
+        "nocheck",
         "profilecard",
         "quicktime",
         "rainbowkit",
@@ -52,7 +53,7 @@
         "thefireflyapp",
         "transak",
         "typecheck",
-        "nocheck"
+        "IDBP"
     ],
     "flagWords": [],
     "ignorePaths": [

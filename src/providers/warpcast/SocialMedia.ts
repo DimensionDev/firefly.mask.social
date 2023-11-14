@@ -132,16 +132,14 @@ export class WarpcastSocialMedia implements Provider {
     }
 
     async discoverPosts(indicator?: PageIndicator) {
-        const session = await this.resumeSession();
-
-        const url = urlcat(WARPCAST_ROOT_URL, '/casts', {
-            fid: session.profileId,
+        const url = urlcat('https://client.warpcast.com/v2', '/popular-casts-feed', {
             limit: 10,
             cursor: indicator?.cursor,
         });
+
         const { result, next } = await fetchJSON<CastsResponse>(url, {
             method: 'GET',
-            headers: { Authorization: `Bearer ${session.token}`, 'Content-Type': 'application/json' },
+            headers: { 'Content-Type': 'application/json' },
         });
         const data = result.casts.map((cast) => {
             return {

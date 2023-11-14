@@ -1,22 +1,18 @@
 import { getWalletClient } from 'wagmi/actions';
 import { generateCustodyBearer } from '@/helpers/generateCustodyBearer.js';
 import {
-    NetworkType,
     type Notification,
     type Post,
     type Profile,
-    ProfileStatus,
     type Provider,
     type Reaction,
     ReactionType,
     Type,
 } from '@/providers/types/SocialMedia.js';
 import {
-    type AnyPublicationFragment,
     ExploreProfilesOrderByType,
     ExplorePublicationsOrderByType,
     LensClient,
-    type ProfileFragment,
     PublicationReactionType,
     PublicationType,
     development,
@@ -25,6 +21,8 @@ import {
 } from '@lens-protocol/client';
 import { LensSession } from '@/providers/lens/Session.js';
 import type { PageIndicator, Pageable } from '@/helpers/createPageable.js';
+import formatLensPost from '@/helpers/formatLensPost.js';
+import formatLensProfile from '@/helpers/formatLensProfile.js';
 
 export class LensSocialMedia implements Provider {
     private currentSession?: LensSession;
@@ -175,31 +173,7 @@ export class LensSocialMedia implements Provider {
         });
         if (!result) throw new Error('No profile found');
 
-        return this.formatProfile(result);
-    }
-
-    formatProfile(result: ProfileFragment): Profile {
-        return {
-            profileId: result.id,
-            nickname: result.metadata?.displayName ?? '',
-            displayName: result.metadata?.displayName ?? '',
-            pfp:
-                result.metadata?.picture?.__typename === 'ImageSet'
-                    ? result.metadata?.picture?.raw.uri
-                    : result.metadata?.picture?.__typename === 'NftImage'
-                      ? result.metadata?.picture?.image.raw.uri
-                      : '',
-            bio: result.metadata?.bio ?? undefined,
-            address: result.followNftAddress?.address ?? undefined,
-            followerCount: result.stats.followers,
-            followingCount: result.stats.following,
-            status: ProfileStatus.Active,
-            verified: true,
-            ownedBy: {
-                networkType: NetworkType.Ethereum,
-                address: result.ownedBy.address,
-            },
-        };
+        return formatLensProfile(result);
     }
 
     async getPostById(postId: string): Promise<Post> {
@@ -208,63 +182,8 @@ export class LensSocialMedia implements Provider {
         });
         if (!result) throw new Error('No post found');
 
-        const post = await this.formatPost(result);
+        const post = formatLensPost(result);
         return post;
-    }
-
-    async formatPost(result: AnyPublicationFragment): Promise<Post> {
-        if (result.__typename !== 'Post') throw new Error('Not a post');
-        if (result.metadata.__typename === 'EventMetadataV3') throw new Error('Event not supported');
-
-        const profile = await this.getProfileById(result.by.id);
-
-        const mediaObjects =
-            result.metadata.__typename !== 'StoryMetadataV3' && result.metadata.__typename !== 'TextOnlyMetadataV3'
-                ? result.metadata.attachments?.map((attachment) =>
-                      attachment.__typename === 'PublicationMetadataMediaAudio'
-                          ? {
-                                url: attachment.audio.raw.uri,
-                                mimeType: attachment.audio.raw.mimeType ?? 'audio/*',
-                            }
-                          : attachment.__typename === 'PublicationMetadataMediaImage'
-                            ? {
-                                  url: attachment.image.raw.uri,
-                                  mimeType: attachment.image.raw.mimeType ?? 'image/*',
-                              }
-                            : attachment.__typename === 'PublicationMetadataMediaVideo'
-                              ? {
-                                    url: attachment.video.raw.uri,
-                                    mimeType: attachment.video.raw.mimeType ?? 'video/*',
-                                }
-                              : {
-                                    url: '',
-                                    mimeType: '',
-                                },
-                  ) ?? undefined
-                : undefined;
-
-        return {
-            postId: result.id,
-            timestamp: Number(result.createdAt),
-            author: profile,
-            mediaObjects,
-            isHidden: result.isHidden,
-            isEncrypted: !!result.metadata.encryptedWith,
-            isEncryptedByMask: false,
-            metadata: {
-                locale: result.metadata.locale,
-                content: result.metadata.content,
-                contentURI: result.metadata.rawURI,
-            },
-            stats: {
-                comments: result.stats.comments,
-                mirrors: result.stats.mirrors,
-                quotes: result.stats.quotes,
-                reactions: result.stats.upvoteReactions,
-                bookmarks: result.stats.bookmarks,
-            },
-            __original__: result,
-        };
     }
 
     async discoverPosts(indicator?: PageIndicator): Promise<Pageable<Post>> {
@@ -276,7 +195,7 @@ export class LensSocialMedia implements Provider {
         return {
             indicator: indicator?.cursor,
             nextIndicator: result.pageInfo.next,
-            data: await Promise.all(result.items.map((item) => this.formatPost(item))),
+            data: result.items.map((item) => formatLensPost(item)),
         };
     }
 
@@ -292,7 +211,7 @@ export class LensSocialMedia implements Provider {
         return {
             indicator: indicator?.cursor,
             nextIndicator: result.pageInfo.next,
-            data: await Promise.all(result.items.map((item) => this.formatPost(item))),
+            data: result.items.map((item) => formatLensPost(item)),
         };
     }
 
@@ -307,7 +226,7 @@ export class LensSocialMedia implements Provider {
         return {
             indicator: result.pageInfo.prev,
             nextIndicator: result.pageInfo.next,
-            data: await Promise.all(result.items.map((item) => this.formatPost(item))),
+            data: result.items.map((item) => formatLensPost(item)),
         };
     }
 
@@ -322,7 +241,7 @@ export class LensSocialMedia implements Provider {
         return {
             indicator: result.pageInfo.prev,
             nextIndicator: result.pageInfo.next,
-            data: await Promise.all(result.items.map((item) => this.formatPost(item))),
+            data: result.items.map((item) => formatLensPost(item)),
         };
     }
 
@@ -338,7 +257,7 @@ export class LensSocialMedia implements Provider {
         return {
             indicator: indicator?.cursor,
             nextIndicator: result.pageInfo.next,
-            data: await Promise.all(result.items.map((item) => this.formatPost(item))),
+            data: result.items.map((item) => formatLensPost(item)),
         };
     }
 
@@ -355,7 +274,7 @@ export class LensSocialMedia implements Provider {
         return {
             indicator: indicator?.cursor,
             nextIndicator: result.pageInfo.next,
-            data: await Promise.all(result.items.map((item) => this.formatPost(item))),
+            data: result.items.map((item) => formatLensPost(item)),
         };
     }
 
@@ -393,7 +312,7 @@ export class LensSocialMedia implements Provider {
             indicator: indicator?.cursor,
             nextIndicator: result.pageInfo.next,
             data: result.items.map((item) => {
-                return this.formatProfile(item);
+                return formatLensProfile(item);
             }),
         };
     }
@@ -408,7 +327,7 @@ export class LensSocialMedia implements Provider {
             indicator: indicator?.cursor,
             nextIndicator: result.pageInfo.next,
             data: result.items.map((item) => {
-                return this.formatProfile(item);
+                return formatLensProfile(item);
             }),
         };
     }
@@ -466,7 +385,7 @@ export class LensSocialMedia implements Provider {
                         notificationId: item.id,
                         type: 'reaction',
                         reaction: ReactionType.Upvote,
-                        reactor: this.formatProfile(item.reactions[0].profile),
+                        reactor: formatLensProfile(item.reactions[0].profile),
                         post: await this.getPostById(item.publication.id),
                     };
                 }
@@ -478,8 +397,8 @@ export class LensSocialMedia implements Provider {
                         type: 'comment',
                         comment: {
                             commentId: item.comment.id,
-                            timestamp: Number(item.comment.createdAt),
-                            author: this.formatProfile(item.comment.by),
+                            timestamp: new Date(item.comment.createdAt).getTime(),
+                            author: formatLensProfile(item.comment.by),
                             for: post,
                         },
                         post,
@@ -492,12 +411,12 @@ export class LensSocialMedia implements Provider {
                     return {
                         notificationId: item.id,
                         type: 'follow',
-                        follower: this.formatProfile(item.followers[0]),
+                        follower: formatLensProfile(item.followers[0]),
                     };
                 }
 
                 if (item.__typename === 'MentionNotification') {
-                    const post = await this.formatPost(item.publication);
+                    const post = formatLensPost(item.publication);
 
                     return {
                         notificationId: item.id,
@@ -527,7 +446,7 @@ export class LensSocialMedia implements Provider {
             indicator: indicator?.cursor,
             nextIndicator: result.pageInfo.next,
             data: result.items.map((item) => {
-                return this.formatProfile(item);
+                return formatLensProfile(item);
             }),
         };
     }
