@@ -1,6 +1,8 @@
+/* cspell:disable */
+
 // Learn more supported languages here:
 // https://api.cognitive.microsofttranslator.com/languages?api-version=3.0
-export enum Langugage {
+export enum Language {
     Afrikaans = 'af',
     Amharic = 'am',
     Arabic = 'ar',
@@ -138,22 +140,22 @@ export enum Langugage {
 
 export interface Translation {
     text: string;
-    to: Langugage;
+    to: Language;
 }
 
 /**
  * Translates the provided text to the specified target language.
  *
- * @param {Langugage} to - The target language code to which the text should be translated.
+ * @param {Language} to - The target language code to which the text should be translated.
  * @param {string} text - The text to be translated.
  * @returns - A promise that resolves to an object containing the detected language and translations.
  *
  */
 export function translate(
-    to: Langugage,
+    to: Language,
     text: string,
 ): Promise<{
-    detectedLanguage: Langugage;
+    detectedLanguage: Language;
     translations: Translation[];
 }> {
     // Learn more:
