@@ -1,12 +1,12 @@
 import urlcat from 'urlcat';
 import { StatusCodes } from 'http-status-codes';
-import { NextRequest } from 'next/server';
+import { NextRequest } from 'next/server.js';
 import { toHex } from 'viem';
 import { mnemonicToAccount } from 'viem/accounts';
 import { getPublicKeyAsync, utils } from '@noble/ed25519';
-import { WARPCAST_ROOT_URL } from '@/constants';
-import { fetchJSON } from '@/helpers/fetchJSON';
-import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON';
+import { WARPCAST_ROOT_URL } from '@/constants/index.js';
+import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
 
 const ONE_DAY = 60 * 60 * 24 * 1000;
 

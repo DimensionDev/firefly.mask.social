@@ -1,26 +1,24 @@
 'use client';
 
 import { useState } from 'react';
-import { WarpcastSocialMedia } from '@/providers/warpcast/SocialMedia';
-import { User } from '@standard-crypto/farcaster-js';
+import { WarpcastSocialMedia } from '@/providers/warpcast/SocialMedia.js';
 
 export function FarcasterAuthExample() {
-    const [user, setUser] = useState<User>();
+    const [info, setInfo] = useState<unknown>();
     return (
         <div>
-            {user ? (
+            {info ? (
                 <>
-                    <pre>FID: {user?.fid}</pre>
-                    <pre>Display Name: {user?.displayName}</pre>
+                    <pre>Info: {JSON.stringify(info)}</pre>
                 </>
             ) : null}
             <button
                 onClick={async () => {
                     const warpcast = new WarpcastSocialMedia();
                     const client = await warpcast.createClient();
-                    const currentUser = await client.fetchCurrentUser();
+                    const info = await client.getHubInfo();
 
-                    setUser(currentUser);
+                    setInfo(info);
                 }}
             >
                 &gt; Get Current User
@@ -28,11 +26,7 @@ export function FarcasterAuthExample() {
             <br />
             <button
                 onClick={async () => {
-                    const warpcast = new WarpcastSocialMedia();
-                    const client = await warpcast.createClient();
-
-                    const cast = await client.publishCast('Hello World!');
-                    console.log(cast);
+                    throw new Error('Not available');
                 }}
             >
                 &gt; Publish Cast

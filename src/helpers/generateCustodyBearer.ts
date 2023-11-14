@@ -1,6 +1,6 @@
 import { toBytes } from 'viem';
-import { WalletClient } from 'wagmi';
-import canonicalize from 'canonicalize';
+import type { WalletClient } from 'wagmi';
+import { canonicalize } from '@/esm/canonicalize.js';
 
 export interface CustodyPayload {
     method: 'generateToken';

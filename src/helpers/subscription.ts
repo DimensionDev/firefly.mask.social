@@ -1,8 +1,8 @@
 import { noop } from 'lodash-es';
 import type { Subscription } from 'use-subscription';
 import { None, type Option, Some } from 'ts-results-es';
-import { ValueRef } from '@/helpers/ValueRef';
-import { EMPTY_LIST, EMPTY_OBJECT } from '@/constants';
+import { ValueRef } from '@/helpers/ValueRef.js';
+import { EMPTY_LIST, EMPTY_OBJECT } from '@/constants/index.js';
 
 export async function getSubscriptionCurrentValue<T>(
     getSubscription: () => Subscription<T> | undefined,

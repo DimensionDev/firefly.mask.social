@@ -1,6 +1,14 @@
 import { getWalletClient } from 'wagmi/actions';
-import { generateCustodyBearer } from '@/helpers/generateCustodyBearer';
-import { Notification, Post, Profile, Provider, Reaction, ReactionType, Type } from '@/providers/types/SocialMedia';
+import { generateCustodyBearer } from '@/helpers/generateCustodyBearer.js';
+import {
+    type Notification,
+    type Post,
+    type Profile,
+    type Provider,
+    type Reaction,
+    ReactionType,
+    Type,
+} from '@/providers/types/SocialMedia.js';
 import {
     ExploreProfilesOrderByType,
     ExplorePublicationsOrderByType,
@@ -11,10 +19,10 @@ import {
     isRelaySuccess,
     production,
 } from '@lens-protocol/client';
-import { LensSession } from '@/providers/lens/Session';
-import { PageIndicator, Pageable } from '@/helpers/createPageable';
-import formatLensPost from '@/helpers/formatLensPost';
-import formatLensProfile from '@/helpers/formatLensProfile';
+import { LensSession } from '@/providers/lens/Session.js';
+import type { PageIndicator, Pageable } from '@/helpers/createPageable.js';
+import formatLensPost from '@/helpers/formatLensPost.js';
+import formatLensProfile from '@/helpers/formatLensProfile.js';
 
 export class LensSocialMedia implements Provider {
     private currentSession?: LensSession;
@@ -416,13 +424,15 @@ export class LensSocialMedia implements Provider {
                         post,
                     };
                 }
+
+                return;
             }),
         );
 
         return {
             indicator: indicator?.cursor,
             nextIndicator: value.pageInfo.next,
-            data: data.filter((item) => item !== undefined) as Notification[],
+            data: data.filter((item) => typeof item !== 'undefined') as Notification[],
         };
     }
 

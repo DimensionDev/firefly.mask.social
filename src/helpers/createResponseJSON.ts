@@ -1,5 +1,5 @@
 import { StatusCodes, getReasonPhrase } from 'http-status-codes';
-import { NextResponse } from 'next/server';
+import { NextResponse } from 'next/server.js';
 
 export function createResponseJSON(data: unknown, init?: ResponseInit) {
     const status = init?.status ?? StatusCodes.OK;

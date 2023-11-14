@@ -1,4 +1,4 @@
-import { AccountCard } from './AccountCard';
+import { AccountCard } from '@/app/(settings)/settings/associated/AccountCard/index.js';
 
 export default function Associated() {
     return (

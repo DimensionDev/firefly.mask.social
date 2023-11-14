@@ -1,6 +1,6 @@
-import formatLensProfile from '@/helpers/formatLensProfile';
-import { Post } from '@/providers/types/SocialMedia';
-import { AnyPublicationFragment } from '@lens-protocol/client';
+import formatLensProfile from '@/helpers/formatLensProfile.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
+import type { AnyPublicationFragment } from '@lens-protocol/client';
 
 export default function formatLensPost(result: AnyPublicationFragment): Post {
     const profile = formatLensProfile(result.by);
@@ -31,19 +31,19 @@ export default function formatLensPost(result: AnyPublicationFragment): Post {
                             mimeType: attachment.audio.raw.mimeType ?? 'audio/*',
                         }
                       : attachment.__typename === 'PublicationMetadataMediaImage'
-                      ? {
-                            url: attachment.image.raw.uri,
-                            mimeType: attachment.image.raw.mimeType ?? 'image/*',
-                        }
-                      : attachment.__typename === 'PublicationMetadataMediaVideo'
-                      ? {
-                            url: attachment.video.raw.uri,
-                            mimeType: attachment.video.raw.mimeType ?? 'video/*',
-                        }
-                      : {
-                            url: '',
-                            mimeType: '',
-                        },
+                        ? {
+                              url: attachment.image.raw.uri,
+                              mimeType: attachment.image.raw.mimeType ?? 'image/*',
+                          }
+                        : attachment.__typename === 'PublicationMetadataMediaVideo'
+                          ? {
+                                url: attachment.video.raw.uri,
+                                mimeType: attachment.video.raw.mimeType ?? 'video/*',
+                            }
+                          : {
+                                url: '',
+                                mimeType: '',
+                            },
               ) ?? undefined
             : undefined;
 

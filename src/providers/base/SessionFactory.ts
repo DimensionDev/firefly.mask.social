@@ -1,8 +1,8 @@
 import z from 'zod';
-import { parseJSON } from '@/helpers/parseJSON';
-import { Type } from '@/providers/types/SocialMedia';
-import { WarpcastSession } from '@/providers/warpcast/Session';
-import { LensSession } from '@/providers/lens/Session';
+import { parseJSON } from '@/helpers/parseJSON.js';
+import { Type } from '@/providers/types/SocialMedia.js';
+import { WarpcastSession } from '@/providers/warpcast/Session.js';
+import { LensSession } from '@/providers/lens/Session.js';
 
 export class SessionFactory {
     /**

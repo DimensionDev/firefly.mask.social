@@ -1,5 +1,5 @@
-import { ProfileStatus, NetworkType, Profile } from '@/providers/types/SocialMedia';
-import { ProfileFragment } from '@lens-protocol/client';
+import type { ProfileFragment } from '@lens-protocol/client';
+import { ProfileStatus, NetworkType, type Profile } from '@/providers/types/SocialMedia.js';
 
 export default function formatLensProfile(result: ProfileFragment): Profile {
     return {
@@ -10,8 +10,8 @@ export default function formatLensProfile(result: ProfileFragment): Profile {
             result.metadata?.picture?.__typename === 'ImageSet'
                 ? result.metadata?.picture?.raw.uri
                 : result.metadata?.picture?.__typename === 'NftImage'
-                ? result.metadata?.picture?.image.raw.uri
-                : '',
+                  ? result.metadata?.picture?.image.raw.uri
+                  : '',
         bio: result.metadata?.bio ?? undefined,
         address: result.followNftAddress?.address ?? undefined,
         followerCount: result.stats.followers,
