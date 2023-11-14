@@ -1,21 +1,13 @@
 import { classNames } from '@/helpers/classNames';
 import Image from 'next/image';
-import { useMemo } from 'react';
-import TextareaAutosize from 'react-textarea-autosize';
+import withLexicalContext from '@/components/shared/lexical/withLexicalContext';
+import Editor from '@/components/compose/Editor';
 
 interface ComposeContentProps {
     type: 'compose' | 'quote' | 'reply';
     setCharacters: (characters: number) => void;
 }
-export default function ComposeContent({ type, setCharacters }: ComposeContentProps) {
-    const placeholder = useMemo(() => {
-        return {
-            compose: "What's happening...",
-            quote: 'Add a comment',
-            reply: 'Post your reply',
-        }[type];
-    }, [type]);
-
+function ComposeContent({ type, setCharacters }: ComposeContentProps) {
     const images: Array<{
         name: string;
         src: string;
@@ -47,11 +39,7 @@ export default function ComposeContent({ type, setCharacters }: ComposeContentPr
                 )}
             >
                 <div className=" overflow-auto min-h-full flex flex-col justify-between">
-                    <TextareaAutosize
-                        className=" bg-transparent text-base w-full resize-none border-none outline-0 appearance-none p-0 focus:ring-0"
-                        placeholder={placeholder}
-                        onChange={(e) => setCharacters(e.target.value.length)}
-                    />
+                    <Editor type={type} />
 
                     {/* quote */}
                     {(type === 'quote' || type === 'reply') && (
@@ -69,11 +57,7 @@ export default function ComposeContent({ type, setCharacters }: ComposeContentPr
                             </div>
 
                             <div className=" flex gap-4">
-                                <p className=" text-left">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Viverra @dictum donec eu,
-                                    interdum tellus elementum, adipiscing. Lorem ipsum dolor sit amet. Tortor elementum
-                                    sagittis tempus tempor cras lobortis.
-                                </p>
+                                <p className=" text-left">123</p>
                                 <Image
                                     src="/svg/gallery.svg"
                                     width={120}
@@ -167,3 +151,5 @@ export default function ComposeContent({ type, setCharacters }: ComposeContentPr
         </div>
     );
 }
+
+export default withLexicalContext(ComposeContent);
