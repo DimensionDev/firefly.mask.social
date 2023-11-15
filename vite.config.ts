@@ -10,5 +10,6 @@ export default defineConfig({
         alias: {
             '@': createURL('./src'),
         },
+        setupFiles: ['./setups/index.ts'],
     },
 });

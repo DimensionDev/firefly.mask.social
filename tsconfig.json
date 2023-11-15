@@ -21,7 +21,7 @@
         }
     ],
     "compilerOptions": {
-        "noEmit": true,
+        "noEmit": false,
         "composite": true,
         "esModuleInterop": true,
         "jsx": "preserve",
@@ -36,7 +36,6 @@
         ],
         "paths": {
             "@/*": ["./src/*"],
-
             "@masknet/backup-format": ["./src/maskbook/packages/backup-format/src/index.ts"],
             "@masknet/base": ["./src/maskbook/packages/base/src/index.ts"],
             "@masknet/encryption": ["./src/maskbook/packages/encryption/src/index.ts"],
@@ -95,9 +94,6 @@
             "@masknet/web3-telemetry": ["./src/maskbook/packages/web3-telemetry/src/entry.ts"],
             "@masknet/web3-telemetry/helpers": ["./src/maskbook/packages/web3-telemetry/src/entry-helpers.ts"],
             "@masknet/web3-telemetry/types": ["./src/maskbook/packages/web3-telemetry/src/entry-types.ts"],
-            // @masknet/scripts: insert-here
-
-            // Plugins
             "@masknet/plugin-debugger": ["./src/maskbook/packages/plugins/Debugger/src/index.ts"],
             "@masknet/plugin-file-service": ["./src/maskbook/packages/plugins/FileService/src/index.ts"],
             "@masknet/plugin-rss3": ["./src/maskbook/packages/plugins/RSS3/src/index.ts"],
@@ -126,18 +122,16 @@
             "@masknet/plugin-profilecard": ["./src/maskbook/packages/plugins/ProfileCard/src/index.ts"],
             "@masknet/plugin-savings": ["./src/maskbook/packages/plugins/Savings/src/index.ts"],
             "@masknet/plugin-snapshot": ["./src/maskbook/packages/plugins/Snapshot/src/index.ts"],
-            // @masknet/scripts: insert-here 3
             "@masknet/plugin-switch-logo": ["./src/maskbook/packages/plugins/SwitchLogo/src/index.ts"],
             "@masknet/plugin-calendar": ["./src/maskbook/packages/plugins/Calendar/src/index.ts"]
         }
     },
-    "include": ["globals.d.ts", "next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-    "exclude": ["node_modules", "src/maskbook"],
-    "ts-node": {
-        "compilerOptions": {
-            "noEmit": false
-        },
-        "esm": true,
-        "swc": true
-    }
+    "include": [
+        "globals.d.ts",
+        "next-env.d.ts",
+        "**/*.ts",
+        "**/*.tsx",
+        ".next/types/**/*.ts"
+    ],
+    "exclude": ["node_modules", "src/maskbook"]
 }
