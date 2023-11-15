@@ -1,4 +1,4 @@
-import { SettingList } from '../components/SettingList';
+import { SettingList } from '@/app/(settings)/components/SettingList/index.js';
 
 export default function Settings({ children }: { children: React.ReactNode }) {
     return (

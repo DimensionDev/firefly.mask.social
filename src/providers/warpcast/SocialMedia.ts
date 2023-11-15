@@ -1,22 +1,22 @@
 import urlcat from 'urlcat';
 import { getWalletClient } from 'wagmi/actions';
-import { ResponseJSON } from '@/types';
-import { WARPCAST_ROOT_URL } from '@/constants';
-import { fetchJSON } from '@/helpers/fetchJSON';
-import { waitForSignedKeyRequestComplete } from '@/helpers/waitForSignedKeyRequestComplete';
-import { generateCustodyBearer } from '@/helpers/generateCustodyBearer';
-import { PageIndicator, createPageable } from '@/helpers/createPageable';
-import { MerkleAPIClient } from '@standard-crypto/farcaster-js';
-import { Post, ProfileStatus, Provider, ReactionType, Type } from '@/providers/types/SocialMedia';
-import { WarpcastSession } from '@/providers/warpcast/Session';
-import {
+import { HubRestAPIClient } from '@standard-crypto/farcaster-js';
+import type { ResponseJSON } from '@/types/index.js';
+import { WARPCAST_ROOT_URL } from '@/constants/index.js';
+import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { waitForSignedKeyRequestComplete } from '@/helpers/waitForSignedKeyRequestComplete.js';
+import { generateCustodyBearer } from '@/helpers/generateCustodyBearer.js';
+import { type PageIndicator, createPageable } from '@/helpers/createPageable.js';
+import { type Post, ProfileStatus, type Provider, ReactionType, Type } from '@/providers/types/SocialMedia.js';
+import { WarpcastSession } from '@/providers/warpcast/Session.js';
+import type {
     CastResponse,
     CastsResponse,
     ReactionResponse,
     SuccessResponse,
     UserResponse,
     UsersResponse,
-} from '@/providers/types/Warpcast';
+} from '@/providers/types/Warpcast.js';
 
 // @ts-ignore
 export class WarpcastSocialMedia implements Provider {
@@ -124,10 +124,11 @@ export class WarpcastSocialMedia implements Provider {
 
     async createClient() {
         const session = await this.createSession();
-        return new MerkleAPIClient({
-            secret: session.token,
-            expiresAt: session.expiresAt,
-        });
+        return new HubRestAPIClient();
+        // return new MerkleAPIClient({
+        //     secret: session.token,
+        //     expiresAt: session.expiresAt,
+        // });
     }
 
     async discoverPosts(indicator?: PageIndicator) {

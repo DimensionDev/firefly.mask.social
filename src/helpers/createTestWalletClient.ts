@@ -1,4 +1,5 @@
-import { EIP1193Parameters, createWalletClient, custom } from 'viem';
+import type { WalletClient } from 'wagmi';
+import { type EIP1193Parameters, createWalletClient, custom } from 'viem';
 import { foundry } from 'viem/chains';
 
 /**
@@ -6,7 +7,7 @@ import { foundry } from 'viem/chains';
  * @param request
  * @returns
  */
-export function createTestWalletClient(request: (payload: EIP1193Parameters) => Promise<unknown>) {
+export function createTestWalletClient(request: (payload: EIP1193Parameters) => Promise<unknown>): WalletClient {
     return createWalletClient({
         transport: custom({
             request,

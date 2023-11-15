@@ -19,5 +19,7 @@ declare namespace NodeJS {
 
         FIREFLY_HUBBLE_URL: string;
         FIREFLY_API_URL: string;
+        WEB3_CONSTANTS_RPC: string;
+        MASK_SENTRY_DSN: string;
     }
 }

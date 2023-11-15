@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import { Image } from '@/esm/Image.js';
 
 interface AccountCardProps {
     avatar: string;
@@ -10,14 +10,14 @@ interface AccountCardProps {
 }
 export function AccountCard({ avatar, name, userName, logout, isCurrent, type }: AccountCardProps) {
     return (
-        <div className="w-full h-[63px] px-[12px] py-[8px] bg-white rounded-lg shadow backdrop-blur-lg justify-start items-center gap-[8px] inline-flex">
-            <div className="w-[48px] h-[40px] justify-start items-start flex">
-                <div className="w-[40px] h-[40px] relative">
-                    <div className="w-[36px] h-[36px] left-0 top-0 absolute rounded-[99px] shadow backdrop-blur-lg">
+        <div className="inline-flex h-[63px] w-full items-center justify-start gap-[8px] rounded-lg bg-white px-[12px] py-[8px] shadow backdrop-blur-lg">
+            <div className="flex h-[40px] w-[48px] items-start justify-start">
+                <div className="relative h-[40px] w-[40px]">
+                    <div className="absolute left-0 top-0 h-[36px] w-[36px] rounded-[99px] shadow backdrop-blur-lg">
                         <Image src={avatar} alt="avatar" width={36} height={36} />
                     </div>
                     <Image
-                        className="w-[16px] h-[16px] left-[24px] top-[24px] absolute rounded-[99px] shadow border border-white"
+                        className="absolute left-[24px] top-[24px] h-[16px] w-[16px] rounded-[99px] border border-white shadow"
                         src={type === 'lens' ? '/svg/lens.svg' : '/svg/farcaster.svg'}
                         alt="logo"
                         width={16}
@@ -25,14 +25,14 @@ export function AccountCard({ avatar, name, userName, logout, isCurrent, type }:
                     />
                 </div>
             </div>
-            <div className="grow shrink basis-0 flex-col justify-center items-start gap-1 inline-flex">
-                <div className="text-neutral-900 text-base font-medium font-['PingFang SC']">{name}</div>
-                <div className="text-neutral-500 text-[15px] font-normal font-['PingFang SC']">@{userName}</div>
+            <div className="inline-flex shrink grow basis-0 flex-col items-start justify-center gap-1">
+                <div className="font-['PingFang SC'] text-base font-medium text-neutral-900">{name}</div>
+                <div className="font-['PingFang SC'] text-[15px] font-normal text-neutral-500">@{userName}</div>
             </div>
             {isCurrent ? (
-                <button className="text-red-500 text-xs font-medium font-['Inter'] leading-none">Log out</button>
+                <button className="font-['Inter'] text-xs font-medium leading-none text-red-500">Log out</button>
             ) : (
-                <button className="text-right text-neutral-900 text-xs font-medium font-['Inter'] leading-none">
+                <button className="text-right font-['Inter'] text-xs font-medium leading-none text-neutral-900">
                     Switch
                 </button>
             )}

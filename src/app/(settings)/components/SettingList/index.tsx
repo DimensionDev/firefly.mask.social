@@ -1,5 +1,5 @@
-import Image from 'next/image';
-import Link from 'next/link';
+import { Image } from '@/esm/Image.js';
+import { Link } from '@/esm/Link.js';
 
 const settings = [
     { name: 'Display', link: '/display' },
@@ -11,11 +11,11 @@ const settings = [
 
 export function SettingList() {
     return (
-        <div className="flex flex-col min-w-[280px] p-[24px] border-r border-gray-200 min-h-full">
-            <div className=" text-[20px] font-bold leading-[24px] text-textMain pb-[24px]">Settings</div>
+        <div className="flex min-h-full min-w-[280px] flex-col border-r border-gray-200 p-[24px]">
+            <div className=" pb-[24px] text-[20px] font-bold leading-[24px] text-textMain">Settings</div>
             {settings.map(({ name, link }) => (
                 <Link
-                    className="flex items-center justify-between border-b border-gray-200 mb-[24px] text-main text-[18px] leading-[24px] pb-[4px]"
+                    className="mb-[24px] flex items-center justify-between border-b border-gray-200 pb-[4px] text-[18px] leading-[24px] text-main"
                     key={name}
                     href={`/settings${link}`}
                 >

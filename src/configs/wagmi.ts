@@ -1,7 +1,8 @@
 'use client';
 
-import { configureChains, createConfig } from 'wagmi';
-import { arbitrum, mainnet, polygon } from 'wagmi/chains';
+import type { FallbackTransport } from 'viem';
+import { configureChains, createConfig, type Config, type PublicClient, type WebSocketPublicClient } from 'wagmi';
+import { arbitrum, mainnet, polygon, type Chain } from 'wagmi/chains';
 import { publicProvider } from 'wagmi/providers/public';
 import { RainbowKitProvider, connectorsForWallets, getDefaultWallets } from '@rainbow-me/rainbowkit';
 
@@ -13,7 +14,13 @@ export const appInfo: Parameters<typeof RainbowKitProvider>[0]['appInfo'] = {
 export const { chains, publicClient, webSocketPublicClient } = configureChains(
     [mainnet, polygon, arbitrum],
     [publicProvider()],
-);
+) as {
+    readonly chains: Chain[];
+    readonly publicClient: (options: { chainId?: number | undefined }) => PublicClient<FallbackTransport>;
+    readonly webSocketPublicClient: (options: {
+        chainId?: number | undefined;
+    }) => WebSocketPublicClient<FallbackTransport> | undefined;
+};
 
 const { wallets } = getDefaultWallets({
     appName: 'mask.social',
@@ -28,4 +35,4 @@ export const config = createConfig({
     connectors,
     publicClient,
     webSocketPublicClient,
-});
+}) as Config;
