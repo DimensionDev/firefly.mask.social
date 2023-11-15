@@ -6,11 +6,17 @@ import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin';
 import { HashtagPlugin } from '@lexical/react/LexicalHashtagPlugin';
 import LexicalAutoLinkPlugin from '@/components/shared/lexical/plugins/AutoLinkPlugin';
 import { MentionsPlugin } from '@/components/shared/lexical/plugins/AtMentionsPlugin';
+import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin';
+import { $convertToMarkdownString, TEXT_FORMAT_TRANSFORMERS } from '@lexical/markdown';
+import { MarkdownShortcutPlugin } from '@lexical/react/LexicalMarkdownShortcutPlugin';
+
+const TRANSFORMERS = [...TEXT_FORMAT_TRANSFORMERS];
 
 interface EditorProps {
     type: 'compose' | 'quote' | 'reply';
+    setCharacters: (characters: string) => void;
 }
-export default function Editor({ type }: EditorProps) {
+export default function Editor({ type, setCharacters }: EditorProps) {
     const placeholder = useMemo(() => {
         return {
             compose: "What's happening...",
@@ -28,11 +34,20 @@ export default function Editor({ type }: EditorProps) {
                 placeholder={<div className=" text-[#767F8D] absolute top-0 left-0">{placeholder}</div>}
                 ErrorBoundary={LexicalErrorBoundary}
             />
+            <OnChangePlugin
+                onChange={(editorState) => {
+                    editorState.read(() => {
+                        const markdown = $convertToMarkdownString(TRANSFORMERS);
+                        setCharacters(markdown);
+                    });
+                }}
+            />
 
             <LexicalAutoLinkPlugin />
             <HistoryPlugin />
             <HashtagPlugin />
             <MentionsPlugin />
+            <MarkdownShortcutPlugin transformers={TRANSFORMERS} />
         </div>
     );
 }

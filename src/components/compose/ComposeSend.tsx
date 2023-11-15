@@ -3,26 +3,26 @@ import Image from 'next/image';
 import { useMemo } from 'react';
 
 interface ComposeSendProps {
-    characters: number;
+    charactersLen: number;
     setOpened: (opened: boolean) => void;
 }
-export default function ComposeSend({ characters, setOpened }: ComposeSendProps) {
-    const disabled = useMemo(() => characters > 280, [characters]);
+export default function ComposeSend({ charactersLen, setOpened }: ComposeSendProps) {
+    const disabled = useMemo(() => charactersLen > 280, [charactersLen]);
 
     return (
         <div className=" h-[68px] flex items-center px-4 justify-end gap-4 shadow-send">
             <div className=" flex items-center gap-[10px]">
-                {characters >= 0 && characters < 200 && (
+                {charactersLen >= 0 && charactersLen < 200 && (
                     <Image src="/svg/loading.green.svg" width={24} height={24} alt="loading.green" />
                 )}
 
-                {characters >= 200 && characters < 260 && (
+                {charactersLen >= 200 && charactersLen < 260 && (
                     <Image src="/svg/loading.yellow.svg" width={24} height={24} alt="loading.yellow" />
                 )}
 
-                {characters >= 260 && <Image src="/svg/loading.red.svg" width={24} height={24} alt="loading.red" />}
+                {charactersLen >= 260 && <Image src="/svg/loading.red.svg" width={24} height={24} alt="loading.red" />}
 
-                <span className={classNames(disabled ? ' text-[#FF3545]' : '')}>{characters} / 280</span>
+                <span className={classNames(disabled ? ' text-[#FF3545]' : '')}>{charactersLen} / 280</span>
             </div>
 
             <button

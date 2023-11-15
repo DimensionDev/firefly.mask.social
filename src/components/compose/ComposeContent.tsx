@@ -1,13 +1,12 @@
 import { classNames } from '@/helpers/classNames';
 import Image from 'next/image';
-import withLexicalContext from '@/components/shared/lexical/withLexicalContext';
 import Editor from '@/components/compose/Editor';
 
 interface ComposeContentProps {
     type: 'compose' | 'quote' | 'reply';
-    setCharacters: (characters: number) => void;
+    setCharacters: (characters: string) => void;
 }
-function ComposeContent({ type, setCharacters }: ComposeContentProps) {
+export default function ComposeContent({ type, setCharacters }: ComposeContentProps) {
     const images: Array<{
         name: string;
         src: string;
@@ -39,7 +38,7 @@ function ComposeContent({ type, setCharacters }: ComposeContentProps) {
                 )}
             >
                 <div className=" overflow-auto min-h-full flex flex-col justify-between">
-                    <Editor type={type} />
+                    <Editor type={type} setCharacters={setCharacters} />
 
                     {/* quote */}
                     {(type === 'quote' || type === 'reply') && (
@@ -151,5 +150,3 @@ function ComposeContent({ type, setCharacters }: ComposeContentProps) {
         </div>
     );
 }
-
-export default withLexicalContext(ComposeContent);
