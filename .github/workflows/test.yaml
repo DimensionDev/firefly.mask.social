@@ -1,0 +1,36 @@
+name: Unit Tests
+
+on:
+  push:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+      with:
+        submodules: 'true'
+
+    - name: Authenticate NPM
+      uses: DimensionDev/github-token-action@latest
+      with:
+          registry: true
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18.9.0'
+
+    - name: Setup Github Actions
+      run: ./scripts/setup-gh-actions.sh
+
+    - name: Compile typescript files
+      run: npx tsc -p tsconfig.json --noEmit false
+
+    - name: Run unit tests
+      run: npm run test
+      env:
+          VITE_ACCOUNT: ${{ secrets.VITE_ACCOUNT }}
+          VITE_ACCOUNT_KEY: ${{ secrets.VITE_ACCOUNT_KEY }}

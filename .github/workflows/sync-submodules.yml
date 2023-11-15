@@ -1,0 +1,32 @@
+name: Sync Submodules
+
+on:
+  schedule:
+    - cron: '0 0 * * *'  # Run at midnight every day
+
+jobs:
+  sync-submodules:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Update submodules
+      run: |
+        git submodule update --recursive --remote
+
+    - name: Check for changes
+      id: submodule_changes
+      run: |
+        git diff-index --quiet HEAD || echo "Submodules have changes"
+
+    - name: Create pull request
+      if: steps.submodule_changes.outputs.submodules == 'Submodules have changes'
+      uses: peter-evans/create-pull-request@v4
+      with:
+        branch: sync-submodules
+        commit-message: 'Sync submodules'
+        title: 'Sync submodules'
+        body: 'This pull request updates submodules to the latest commit.'
+
