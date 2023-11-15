@@ -74,6 +74,9 @@ export default {
             backCompat: false,
             asyncWebAssembly: true,
         };
+
+        config.externals = [...(config.externals ?? []), '@napi-rs/image'];
+
         config.resolve.extensionAlias = {
             ...config.resolve.extensionAlias,
             '.js': ['.js', '.ts', '.tsx'],
