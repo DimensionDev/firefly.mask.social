@@ -1,44 +1,55 @@
 import { classNames } from '@/helpers/classNames';
 import Image from 'next/image';
 import Editor from '@/components/compose/Editor';
+import { Dispatch, SetStateAction, useCallback } from 'react';
 
 interface ComposeContentProps {
     type: 'compose' | 'quote' | 'reply';
     setCharacters: (characters: string) => void;
+    images: File[];
+    setImages: Dispatch<SetStateAction<File[]>>;
 }
-export default function ComposeContent({ type, setCharacters }: ComposeContentProps) {
-    const images: Array<{
-        name: string;
-        src: string;
-    }> = [
-        // {
-        //     name: 'gallery',
-        //     src: '/svg/gallery.svg',
-        // },
-        // {
-        //     name: 'gallery1',
-        //     src: '/svg/at.svg',
-        // },
-        // {
-        //     name: 'gallery2',
-        //     src: '/svg/numberSign.svg',
-        // },
-        // {
-        //     name: 'gallery3',
-        //     src: '/svg/gallery.svg',
-        // },
-    ];
+export default function ComposeContent({ type, setCharacters, images, setImages }: ComposeContentProps) {
+    const createImageUrl = (file: File) => URL.createObjectURL(file);
+
+    const removeImage = useCallback(
+        (index: number) => {
+            setImages((_images) => {
+                const newImages = [..._images];
+                newImages.splice(index, 1);
+                return newImages;
+            });
+        },
+        [setImages],
+    );
+
+    const createImageItem = useCallback(
+        (image: File, index: number) => (
+            <>
+                <Image src={createImageUrl(image)} alt={image.name} fill className=" object-cover" />
+                <Image
+                    src="/svg/close.svg"
+                    width={18}
+                    height={18}
+                    alt="close"
+                    className=" w-[18px] h-[18px] absolute top-2 right-2 cursor-pointer"
+                    onClick={() => removeImage(index)}
+                />
+            </>
+        ),
+        [removeImage],
+    );
 
     return (
         <div className=" p-4">
             <label
                 className={classNames(
-                    ' py-[14px] px-4 rounded-lg border border-[#E7E7E7] h-[338px] overflow-auto block',
+                    ' py-[14px] px-4 rounded-lg border border-[#E7E7E7] h-[338px] overflow-auto block hide-scrollbar',
                     type === 'compose' ? 'bg-[#F7F7F7]' : 'bg-white',
                 )}
             >
-                <div className=" overflow-auto min-h-full flex flex-col justify-between">
-                    <Editor type={type} setCharacters={setCharacters} />
+                <div className=" min-h-full flex flex-col justify-between">
+                    <Editor type={type} setCharacters={setCharacters} hasImages={images.length > 0} />
 
                     {/* quote */}
                     {(type === 'quote' || type === 'reply') && (
@@ -70,78 +81,26 @@ export default function ComposeContent({ type, setCharacters }: ComposeContentPr
 
                     {/* image */}
                     {images.length > 0 && (
-                        <div className={classNames(' p-3 grid grid-cols-2 gap-2')}>
+                        <div className=" p-3 grid grid-cols-2 gap-2 relative">
                             {images.map((image, index) => {
                                 const len = images.length;
 
-                                if (len === 1) {
-                                    return (
-                                        <div
-                                            key={image.name}
-                                            className=" col-span-2 relative h-72 rounded-2xl overflow-hidden"
-                                        >
-                                            <Image src={image.src} alt={image.name} fill className=" object-cover" />
-                                            <Image
-                                                src="/svg/close.svg"
-                                                width={18}
-                                                height={18}
-                                                alt="close"
-                                                className=" absolute top-2 right-2 cursor-pointer"
-                                            />
-                                        </div>
-                                    );
-                                }
-
-                                if (len === 2) {
-                                    return (
-                                        <div key={image.name} className=" relative h-72 rounded-2xl overflow-hidden">
-                                            <Image src={image.src} alt={image.name} fill className=" object-cover" />
-                                            <Image
-                                                src="/svg/close.svg"
-                                                width={18}
-                                                height={18}
-                                                alt="close"
-                                                className=" absolute top-2 right-2 cursor-pointer"
-                                            />
-                                        </div>
-                                    );
-                                }
-
-                                if (len === 3) {
-                                    return (
-                                        <div
-                                            key={image.name}
-                                            className={classNames(' relative h-[138px] rounded-2xl overflow-hidden')}
-                                        >
-                                            <Image src={image.src} alt={image.name} fill className=" object-cover" />
-                                            <Image
-                                                src="/svg/close.svg"
-                                                width={18}
-                                                height={18}
-                                                alt="close"
-                                                className=" absolute top-2 right-2 cursor-pointer"
-                                            />
-                                        </div>
-                                    );
-                                }
-
-                                if (len === 4) {
-                                    return (
-                                        <div
-                                            key={image.name}
-                                            className={classNames(' relative h-[138px] rounded-2xl overflow-hidden')}
-                                        >
-                                            <Image src={image.src} alt={image.name} fill className=" object-cover" />
-                                            <Image
-                                                src="/svg/close.svg"
-                                                width={18}
-                                                height={18}
-                                                alt="close"
-                                                className=" absolute top-2 right-2 cursor-pointer"
-                                            />
-                                        </div>
-                                    );
-                                }
+                                return (
+                                    <div
+                                        key={image.name + index}
+                                        className={classNames(
+                                            ' rounded-2xl overflow-hidden',
+                                            len <= 2 ? ' h-72' : len === 3 && index === 2 ? ' h-72' : ' h-[138px]',
+                                            len === 1 ? ' col-span-2' : '',
+                                            len === 3 && index === 1 ? ' col-start-1' : '',
+                                            len === 3 && index === 2
+                                                ? ' absolute top-3 right-3 w-[251px]'
+                                                : ' relative',
+                                        )}
+                                    >
+                                        {createImageItem(image, index)}
+                                    </div>
+                                );
                             })}
                         </div>
                     )}

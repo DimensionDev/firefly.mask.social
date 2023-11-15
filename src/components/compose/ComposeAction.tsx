@@ -5,12 +5,15 @@ import { ChevronRightIcon } from '@heroicons/react/20/solid';
 import Image from 'next/image';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import { $getSelection } from 'lexical';
-import { useCallback } from 'react';
+import { ChangeEvent, Dispatch, SetStateAction, useCallback, useRef } from 'react';
 
 interface ComposeActionProps {
     type: 'compose' | 'quote' | 'reply';
+    setImages: Dispatch<SetStateAction<File[]>>;
 }
-export default function ComposeAction({ type }: ComposeActionProps) {
+export default function ComposeAction({ type, setImages }: ComposeActionProps) {
+    const fileInputRef = useRef<HTMLInputElement | null>(null);
+
     const [editor] = useLexicalComposerContext();
 
     const insertText = useCallback(
@@ -25,10 +28,35 @@ export default function ComposeAction({ type }: ComposeActionProps) {
         [editor],
     );
 
+    const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
+        const files = event.target.files;
+        console.log(files);
+        if (files) {
+            setImages((_images) => _images.concat([...files]));
+        }
+    };
+
     return (
         <div className=" px-4 pb-4">
             <div className=" h-9 flex gap-3 items-center">
-                <Image src="/svg/gallery.svg" width={24} height={24} alt="gallery" className=" cursor-pointer" />
+                <Image
+                    src="/svg/gallery.svg"
+                    width={24}
+                    height={24}
+                    alt="gallery"
+                    className=" cursor-pointer"
+                    onClick={() => {
+                        fileInputRef.current?.click();
+                    }}
+                />
+                <input
+                    type="file"
+                    accept="image/*"
+                    multiple
+                    ref={fileInputRef}
+                    className=" hidden"
+                    onChange={handleFileChange}
+                />
                 <Image
                     src="/svg/at.svg"
                     width={24}

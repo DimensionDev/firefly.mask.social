@@ -14,8 +14,8 @@ interface ComposeProps {
 }
 function Compose({ type = 'compose', opened, setOpened }: ComposeProps) {
     const [characters, setCharacters] = useState('');
-
     const [discardOpened, setDiscardOpened] = useState(false);
+    const [images, setImages] = useState<File[]>([]);
 
     const close = useCallback(() => {
         if (characters) {
@@ -69,10 +69,15 @@ function Compose({ type = 'compose', opened, setOpened }: ComposeProps) {
                                     </Dialog.Title>
 
                                     {/* Content */}
-                                    <ComposeContent type={type} setCharacters={setCharacters} />
+                                    <ComposeContent
+                                        type={type}
+                                        setCharacters={setCharacters}
+                                        images={images}
+                                        setImages={setImages}
+                                    />
 
                                     {/* Action */}
-                                    <ComposeAction type={type} />
+                                    <ComposeAction type={type} setImages={setImages} />
 
                                     {/* Send */}
                                     <ComposeSend charactersLen={characters.length} setOpened={setOpened} />

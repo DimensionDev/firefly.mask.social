@@ -32,7 +32,7 @@ export default function ComposeSend({ charactersLen, setOpened }: ComposeSendPro
                 )}
                 onClick={() => !disabled && setOpened(false)}
             >
-                <Image src="/svg/send.svg" width={18} height={18} alt="send" />
+                <Image src="/svg/send.svg" width={18} height={18} alt="send" className=" w-[18px] h-[18px]" />
                 <span>Send</span>
             </button>
         </div>
