@@ -16,5 +16,8 @@ declare namespace NodeJS {
 
         FARCASTER_SIGNER_FID: string;
         FARCASTER_SIGNER_MNEMONIC: string;
+
+        FIREFLY_HUBBLE_URL: string;
+        FIREFLY_API_URL: string;
     }
 }
