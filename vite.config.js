@@ -1,9 +1,7 @@
 import { defineConfig } from 'vitest/config';
-
-function createURL(pathToFile: string) {
+function createURL(pathToFile) {
     return new URL(pathToFile, import.meta.url).toString();
 }
-
 export default defineConfig({
     test: {
         include: ['./tests/**/*.ts'],

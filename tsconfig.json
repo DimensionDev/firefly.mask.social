@@ -21,7 +21,9 @@
         }
     ],
     "compilerOptions": {
-        "noEmit": false,
+        "noEmit": true,
+        "sourceMap": false,
+        "declarationMap": false,
         "composite": true,
         "esModuleInterop": true,
         "jsx": "preserve",
