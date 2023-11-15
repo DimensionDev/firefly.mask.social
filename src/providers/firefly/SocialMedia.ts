@@ -1,14 +1,26 @@
 import urlcat from 'urlcat';
-import { FIREFLY_ROOT_URL } from '@/constants';
-import { fetchJSON } from '@/helpers/fetchJSON';
-import { PageIndicator, createPageable } from '@/helpers/createPageable';
-import { ProfileStatus, Provider, Type } from '@/providers/types/SocialMedia';
-import { CastResponse, UsersResponse, UserResponse, CastsResponse } from '@/providers/types/Firefly';
-import { CastsResponse as DiscoverPosts } from '@/providers/types/Warpcast';
+import { EIP_712_FARCASTER_DOMAIN, EMPTY_LIST, FIREFLY_HUBBLE_URL, FIREFLY_ROOT_URL } from '@/constants/index.js';
+import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { type PageIndicator, createPageable } from '@/helpers/createPageable.js';
+import { ProfileStatus, type Provider, Type, type Post } from '@/providers/types/SocialMedia.js';
+import type { CastResponse, UsersResponse, UserResponse, CastsResponse } from '@/providers/types/Firefly.js';
+import type { CastsResponse as DiscoverPosts } from '@/providers/types/Warpcast.js';
+import { getWalletClient } from 'wagmi/actions';
+import {
+    FarcasterNetwork,
+    MessageType, Message,
+    MessageData,
+    MessageDataEIP712Type,
+    HashScheme,
+    SignatureScheme,
+} from '@/providers/firefly/proto/message.js';
+import { blake3 } from 'hash-wasm';
+import { toBytes } from 'viem'
+
 
 // @ts-ignore
 export class FireflySocialMedia implements Provider {
-    private currentFid: string | null = null;
+    private currentFid: number | null = null;
 
     get type() {
         return Type.Firefly;
@@ -197,5 +209,50 @@ export class FireflySocialMedia implements Provider {
             },
         }));
         return createPageable(data, indicator?.cursor, cursor);
+    }
+
+    async publishPost(post: Post) {
+        const wallet = await getWalletClient();
+        if (!this.currentFid || !wallet) return;
+        const url = urlcat(FIREFLY_HUBBLE_URL, '/v1/submitMessage');
+        const messageData: MessageData = {
+            type: MessageType.MESSAGE_TYPE_CAST_ADD,
+            fid: this.currentFid,
+            timestamp: Math.floor(Date.now() / 1000),
+            network: FarcasterNetwork.FARCASTER_NETWORK_MAINNET,
+            castAddBody: {
+                embedsDeprecated: EMPTY_LIST,
+                mentions: EMPTY_LIST,
+                text: post.metadata.content,
+                mentionsPositions: [],
+                embeds: post.mediaObjects?.map((v) => ({ url: v.url })) ?? EMPTY_LIST,
+            },
+        };
+        const signature = await wallet?.signTypedData({
+            domain: EIP_712_FARCASTER_DOMAIN,
+            types: MessageDataEIP712Type,
+            primaryType: 'MessageData',
+            message: { ...messageData },
+        });
+
+        const encodedData = MessageData.encode(messageData)
+
+        const hash = await blake3(encodedData) 
+        
+        const message = {
+            data: messageData,            
+            hash: toBytes(hash),                     
+            hashScheme: HashScheme.HASH_SCHEME_BLAKE3,            
+            signature: toBytes(signature),               
+            signatureScheme :SignatureScheme.SIGNATURE_SCHEME_EIP712,
+            signer:toBytes(wallet.account.address)
+        }
+        const encodedMessage = Message.encode(message)
+
+        const result = await fetchJSON<CastResponse>(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/octet-stream' },
+            body: encodedMessage
+        }); 
     }
 }
