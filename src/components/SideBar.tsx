@@ -4,6 +4,7 @@ import { memo } from 'react';
 import { Image } from '@/esm/Image.js';
 import { Link } from '@/esm/Link.js';
 import { PageRoutes } from '@/constants/enum.js';
+import { LoginStatusBar } from '@/components/LoginStatusBar';
 
 const items = [
     { href: PageRoutes.Home, name: 'Discover', icon: '/svg/discover.svg', selectedIcon: '/svg/discover.selected.svg' },
@@ -61,10 +62,7 @@ export const SideBar = memo(function SideBar() {
                             </ul>
                         </li>
                         <li className="mb-20 mt-auto">
-                            <div className="flex gap-x-2 pl-2">
-                                <Image src="/svg/lens.svg" width={40} height={40} alt="Lens" />
-                                <Image src="/svg/farcaster.svg" width={40} height={40} alt="Farcaster" />
-                            </div>
+                            <LoginStatusBar />
                         </li>
                     </ul>
                 </nav>
