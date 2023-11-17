@@ -1,6 +1,15 @@
 import { getWalletClient } from 'wagmi/actions';
-import { generateCustodyBearer } from '@/helpers/generateCustodyBearer';
-import { Notification, Post, Profile, Provider, Reaction, ReactionType, Type } from '@/providers/types/SocialMedia';
+import { createPageable, type PageIndicator, type Pageable, createNextIndicator } from '@masknet/shared-base';
+import { generateCustodyBearer } from '@/helpers/generateCustodyBearer.js';
+import {
+    type Notification,
+    type Post,
+    type Profile,
+    type Provider,
+    type Reaction,
+    ReactionType,
+    Type,
+} from '@/providers/types/SocialMedia.js';
 import {
     ExploreProfilesOrderByType,
     ExplorePublicationsOrderByType,
@@ -11,10 +20,9 @@ import {
     isRelaySuccess,
     production,
 } from '@lens-protocol/client';
-import { LensSession } from '@/providers/lens/Session';
-import { PageIndicator, Pageable } from '@/helpers/createPageable';
-import formatLensPost from '@/helpers/formatLensPost';
-import formatLensProfile from '@/helpers/formatLensProfile';
+import { LensSession } from '@/providers/lens/Session.js';
+import formatLensPost from '@/helpers/formatLensPost.js';
+import formatLensProfile from '@/helpers/formatLensProfile.js';
 
 export class LensSocialMedia implements Provider {
     private currentSession?: LensSession;
@@ -181,14 +189,14 @@ export class LensSocialMedia implements Provider {
     async discoverPosts(indicator?: PageIndicator): Promise<Pageable<Post>> {
         const result = await this.lensClient.explore.publications({
             orderBy: ExplorePublicationsOrderByType.LensCurated,
-            cursor: indicator?.cursor,
+            cursor: indicator?.id,
         });
 
-        return {
-            indicator: indicator?.cursor,
-            nextIndicator: result.pageInfo.next,
-            data: result.items.map((item) => formatLensPost(item)),
-        };
+        return createPageable(
+            result.items.map((item) => formatLensPost(item)),
+            indicator,
+            createNextIndicator(indicator, result.pageInfo.next ?? undefined),
+        );
     }
 
     async getPostsByProfileId(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post>> {
@@ -197,14 +205,14 @@ export class LensSocialMedia implements Provider {
                 from: [profileId],
                 publicationTypes: [PublicationType.Post],
             },
-            cursor: indicator?.cursor,
+            cursor: indicator?.id,
         });
 
-        return {
-            indicator: indicator?.cursor,
-            nextIndicator: result.pageInfo.next,
-            data: result.items.map((item) => formatLensPost(item)),
-        };
+        return createPageable(
+            result.items.map((item) => formatLensPost(item)),
+            indicator,
+            createNextIndicator(indicator, result.pageInfo.next ?? undefined),
+        );
     }
 
     // TODO: Invalid
@@ -215,11 +223,11 @@ export class LensSocialMedia implements Provider {
             },
         });
 
-        return {
-            indicator: result.pageInfo.prev,
-            nextIndicator: result.pageInfo.next,
-            data: result.items.map((item) => formatLensPost(item)),
-        };
+        return createPageable(
+            result.items.map((item) => formatLensPost(item)),
+            indicator,
+            createNextIndicator(indicator, result.pageInfo.next ?? undefined),
+        );
     }
 
     async getPostsLiked(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post>> {
@@ -227,14 +235,14 @@ export class LensSocialMedia implements Provider {
             where: {
                 actedBy: profileId,
             },
-            cursor: indicator?.cursor,
+            cursor: indicator?.id,
         });
 
-        return {
-            indicator: result.pageInfo.prev,
-            nextIndicator: result.pageInfo.next,
-            data: result.items.map((item) => formatLensPost(item)),
-        };
+        return createPageable(
+            result.items.map((item) => formatLensPost(item)),
+            indicator,
+            createNextIndicator(indicator, result.pageInfo.next ?? undefined),
+        );
     }
 
     async getPostsReplies(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post>> {
@@ -243,14 +251,14 @@ export class LensSocialMedia implements Provider {
                 from: [profileId],
                 publicationTypes: [PublicationType.Comment],
             },
-            cursor: indicator?.cursor,
+            cursor: indicator?.id,
         });
 
-        return {
-            indicator: indicator?.cursor,
-            nextIndicator: result.pageInfo.next,
-            data: result.items.map((item) => formatLensPost(item)),
-        };
+        return createPageable(
+            result.items.map((item) => formatLensPost(item)),
+            indicator,
+            createNextIndicator(indicator, result.pageInfo.next ?? undefined),
+        );
     }
 
     async getPostsByParentPostId(postId: string, indicator?: PageIndicator): Promise<Pageable<Post>> {
@@ -260,14 +268,14 @@ export class LensSocialMedia implements Provider {
                     id: postId,
                 },
             },
-            cursor: indicator?.cursor,
+            cursor: indicator?.id,
         });
 
-        return {
-            indicator: indicator?.cursor,
-            nextIndicator: result.pageInfo.next,
-            data: result.items.map((item) => formatLensPost(item)),
-        };
+        return createPageable(
+            result.items.map((item) => formatLensPost(item)),
+            indicator,
+            createNextIndicator(indicator, result.pageInfo.next ?? undefined),
+        );
     }
 
     getReactors!: (postId: string) => Promise<Pageable<Profile>>;
@@ -297,31 +305,27 @@ export class LensSocialMedia implements Provider {
     async getFollowers(profileId: string, indicator?: PageIndicator): Promise<Pageable<Profile>> {
         const result = await this.lensClient.profile.followers({
             of: profileId,
-            cursor: indicator?.cursor,
+            cursor: indicator?.id,
         });
 
-        return {
-            indicator: indicator?.cursor,
-            nextIndicator: result.pageInfo.next,
-            data: result.items.map((item) => {
-                return formatLensProfile(item);
-            }),
-        };
+        return createPageable(
+            result.items.map((item) => formatLensProfile(item)),
+            indicator,
+            createNextIndicator(indicator, result.pageInfo.next ?? undefined),
+        );
     }
 
     async getFollowings(profileId: string, indicator?: PageIndicator): Promise<Pageable<Profile>> {
         const result = await this.lensClient.profile.following({
             for: profileId,
-            cursor: indicator?.cursor,
+            cursor: indicator?.id,
         });
 
-        return {
-            indicator: indicator?.cursor,
-            nextIndicator: result.pageInfo.next,
-            data: result.items.map((item) => {
-                return formatLensProfile(item);
-            }),
-        };
+        return createPageable(
+            result.items.map((item) => formatLensProfile(item)),
+            indicator,
+            createNextIndicator(indicator, result.pageInfo.next ?? undefined),
+        );
     }
 
     async isFollowedByMe(profileId: string): Promise<boolean> {
@@ -342,7 +346,7 @@ export class LensSocialMedia implements Provider {
 
     async getNotifications(indicator?: PageIndicator): Promise<Pageable<Notification>> {
         const result = await this.lensClient.notifications.fetch({
-            cursor: indicator?.cursor,
+            cursor: indicator?.id,
         });
 
         const value = result.unwrap();
@@ -416,28 +420,28 @@ export class LensSocialMedia implements Provider {
                         post,
                     };
                 }
+
+                return;
             }),
         );
 
-        return {
-            indicator: indicator?.cursor,
-            nextIndicator: value.pageInfo.next,
-            data: data.filter((item) => item !== undefined) as Notification[],
-        };
+        return createPageable(
+            data.filter((item) => typeof item !== 'undefined') as Notification[],
+            indicator,
+            createNextIndicator(indicator, value.pageInfo.next ?? undefined),
+        );
     }
 
     async getSuggestedFollows(indicator?: PageIndicator): Promise<Pageable<Profile>> {
         const result = await this.lensClient.explore.profiles({
             orderBy: ExploreProfilesOrderByType.MostFollowers,
-            cursor: indicator?.cursor,
+            cursor: indicator?.id,
         });
 
-        return {
-            indicator: indicator?.cursor,
-            nextIndicator: result.pageInfo.next,
-            data: result.items.map((item) => {
-                return formatLensProfile(item);
-            }),
-        };
+        return createPageable(
+            result.items.map((item) => formatLensProfile(item)),
+            indicator,
+            createNextIndicator(indicator, result.pageInfo.next ?? undefined),
+        );
     }
 }

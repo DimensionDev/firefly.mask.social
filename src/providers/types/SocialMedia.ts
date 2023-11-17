@@ -1,5 +1,5 @@
-import { PageIndicator, Pageable } from '@/helpers/createPageable';
-import { Session } from '@/providers/types/Session';
+import type { PageIndicator, Pageable } from '@masknet/shared-base';
+import type { Session } from '@/providers/types/Session.js';
 
 export enum Type {
     Twitter = 'Twitter',

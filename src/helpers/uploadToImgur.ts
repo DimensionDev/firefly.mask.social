@@ -14,7 +14,7 @@ export function* uploadToImgur(
     // https://apidocs.imgur.com/
 
     // Your implementation for uploading progress and obtaining the complete URL goes here
-    let progress: UploadProgress = {
+    const progress: UploadProgress = {
         percent: 0,
         transferred: 0,
         total: 0,

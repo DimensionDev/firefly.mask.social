@@ -3,7 +3,7 @@
 import { WagmiConfig } from 'wagmi';
 import { RainbowKitProvider } from '@rainbow-me/rainbowkit';
 import '@rainbow-me/rainbowkit/styles.css';
-import { appInfo, chains, config } from '@/configs/wagmi';
+import { appInfo, chains, config } from '@/configs/wagmi.js';
 
 export interface WagmiProviderProps {
     children: React.ReactNode;
