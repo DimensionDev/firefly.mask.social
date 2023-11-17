@@ -1,7 +1,7 @@
 import urlcat from 'urlcat';
 import { EIP_712_FARCASTER_DOMAIN, EMPTY_LIST, FIREFLY_HUBBLE_URL, FIREFLY_ROOT_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
-import { type PageIndicator, createPageable } from '@/helpers/createPageable.js';
+import { type PageIndicator, createPageable } from '@masknet/shared-base';
 import { ProfileStatus, type Provider, Type, type Post } from '@/providers/types/SocialMedia.js';
 import type { CastResponse, UsersResponse, UserResponse, CastsResponse } from '@/providers/types/Firefly.js';
 import type { CastsResponse as DiscoverPosts } from '@/providers/types/Warpcast.js';
@@ -29,7 +29,7 @@ export class FireflySocialMedia implements Provider {
     async discoverPosts(indicator?: PageIndicator) {
         const url = urlcat('https://client.warpcast.com/v2', '/popular-casts-feed', {
             limit: 10,
-            cursor: indicator?.cursor,
+            cursor: indicator?.id,
         });
 
         const { result, next } = await fetchJSON<DiscoverPosts>(url, {
@@ -63,7 +63,7 @@ export class FireflySocialMedia implements Provider {
                 },
             };
         });
-        return createPageable(data, indicator?.cursor, next.cursor);
+        return createPageable(data, indicator?.id, next.cursor);
     }
 
     async getPostById(postId: string) {
@@ -123,7 +123,7 @@ export class FireflySocialMedia implements Provider {
         const url = urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/followers', {
             fid: profileId,
             size: 10,
-            cursor: indicator?.cursor,
+            cursor: indicator?.id,
         });
         const {
             data: { list, next_cursor },
@@ -142,14 +142,14 @@ export class FireflySocialMedia implements Provider {
             verified: true,
         }));
 
-        return createPageable(data, indicator?.cursor, next_cursor);
+        return createPageable(data, indicator?.id, next_cursor);
     }
 
     async getFollowings(profileId: string, indicator?: PageIndicator) {
         const url = urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/followings', {
             fid: profileId,
             size: 10,
-            cursor: indicator?.cursor,
+            cursor: indicator?.id,
         });
         const {
             data: { list, next_cursor },
@@ -168,14 +168,14 @@ export class FireflySocialMedia implements Provider {
             verified: true,
         }));
 
-        return createPageable(data, indicator?.cursor, next_cursor);
+        return createPageable(data, indicator?.id, next_cursor);
     }
 
     async getPostsByProfileId(profileId: string, indicator?: PageIndicator) {
         const url = urlcat(FIREFLY_ROOT_URL, '/v2/user/timeline/farcaster', {
             fids: [profileId],
             size: 10,
-            cursor: indicator?.cursor,
+            cursor: indicator?.id,
         });
         const {
             data: { casts, cursor },
@@ -208,12 +208,12 @@ export class FireflySocialMedia implements Provider {
                 reactions: cast.likeCount,
             },
         }));
-        return createPageable(data, indicator?.cursor, cursor);
+        return createPageable(data, indicator?.id, cursor);
     }
 
     async publishPost(post: Post) {
         const wallet = await getWalletClient();
-        if (!this.currentFid || !wallet) return;
+        if (!this.currentFid || !wallet) throw new Error('Please login first');
         const url = urlcat(FIREFLY_HUBBLE_URL, '/v1/submitMessage');
         const messageData: MessageData = {
             type: MessageType.MESSAGE_TYPE_CAST_ADD,
@@ -254,5 +254,7 @@ export class FireflySocialMedia implements Provider {
             headers: { 'Content-Type': 'application/octet-stream' },
             body: encodedMessage,
         });
+
+        return post;
     }
 }
