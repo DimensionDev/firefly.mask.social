@@ -1,5 +1,5 @@
 import z from 'zod';
-import { parseJSON } from '@/helpers/parseJSON.js';
+import { parseJSON } from '@masknet/web3-providers/helpers';
 import { Type } from '@/providers/types/SocialMedia.js';
 import { WarpcastSession } from '@/providers/warpcast/Session.js';
 import { LensSession } from '@/providers/lens/Session.js';
