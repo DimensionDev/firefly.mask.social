@@ -8,15 +8,15 @@ import type { CastsResponse as DiscoverPosts } from '@/providers/types/Warpcast.
 import { getWalletClient } from 'wagmi/actions';
 import {
     FarcasterNetwork,
-    MessageType, Message,
+    MessageType,
+    Message,
     MessageData,
     MessageDataEIP712Type,
     HashScheme,
     SignatureScheme,
 } from '@/providers/firefly/proto/message.js';
 import { blake3 } from 'hash-wasm';
-import { toBytes } from 'viem'
-
+import { toBytes } from 'viem';
 
 // @ts-ignore
 export class FireflySocialMedia implements Provider {
@@ -235,24 +235,24 @@ export class FireflySocialMedia implements Provider {
             message: { ...messageData },
         });
 
-        const encodedData = MessageData.encode(messageData)
+        const encodedData = MessageData.encode(messageData);
 
-        const hash = await blake3(encodedData) 
-        
+        const hash = await blake3(encodedData);
+
         const message = {
-            data: messageData,            
-            hash: toBytes(hash),                     
-            hashScheme: HashScheme.HASH_SCHEME_BLAKE3,            
-            signature: toBytes(signature),               
-            signatureScheme :SignatureScheme.SIGNATURE_SCHEME_EIP712,
-            signer:toBytes(wallet.account.address)
-        }
-        const encodedMessage = Message.encode(message)
+            data: messageData,
+            hash: toBytes(hash),
+            hashScheme: HashScheme.HASH_SCHEME_BLAKE3,
+            signature: toBytes(signature),
+            signatureScheme: SignatureScheme.SIGNATURE_SCHEME_EIP712,
+            signer: toBytes(wallet.account.address),
+        };
+        const encodedMessage = Message.encode(message);
 
         const result = await fetchJSON<CastResponse>(url, {
             method: 'POST',
             headers: { 'Content-Type': 'application/octet-stream' },
-            body: encodedMessage
-        }); 
+            body: encodedMessage,
+        });
     }
 }
