@@ -27,9 +27,9 @@ const items = [
 ];
 
 export const SideBar = memo(function SideBar() {
-    const [loginOpen, setLoginOpen] = useState(false)
-    const [farcasterOpen, setFarcasterOpen] = useState(false)
-    const isLogin = false
+    const [loginOpen, setLoginOpen] = useState(false);
+    const [farcasterOpen, setFarcasterOpen] = useState(false);
+    const isLogin = false;
 
     return (
         <>
@@ -59,11 +59,13 @@ export const SideBar = memo(function SideBar() {
                                     ))}
                                     <li>
                                         <button
-                                            onClick={() => { isLogin ? null : setLoginOpen(true) }}
+                                            onClick={() => {
+                                                isLogin ? null : setLoginOpen(true);
+                                            }}
                                             type="button"
                                             className="min-w-[150px] rounded-[16px] bg-main px-3 py-3 text-xl font-semibold leading-6 text-white shadow-sm hover:bg-main focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                                         >
-                                            {isLogin ? "Post" : "Login"}
+                                            {isLogin ? 'Post' : 'Login'}
                                         </button>
                                     </li>
                                 </ul>

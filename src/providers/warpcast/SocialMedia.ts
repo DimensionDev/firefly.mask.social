@@ -31,7 +31,7 @@ export class WarpcastSocialMedia implements Provider {
      * @param signal
      * @returns
      */
-    async createSessionByGrantPermission(setUrl: (url:string) => void,signal?: AbortSignal) {
+    async createSessionByGrantPermission(setUrl: (url: string) => void, signal?: AbortSignal) {
         const response = await fetchJSON<
             ResponseJSON<{
                 publicKey: string;
@@ -46,7 +46,7 @@ export class WarpcastSocialMedia implements Provider {
             method: 'POST',
         });
         if (!response.success) throw new Error(response.error.message);
-    
+
         // present QR code to the user
         setUrl(response.data.deeplinkUrl);
         console.log('DEBUG: response');
