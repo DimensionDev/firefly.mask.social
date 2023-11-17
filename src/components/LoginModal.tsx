@@ -76,7 +76,7 @@ export function LoginModal({ isOpen, setIsOpen }: LoginModalProps) {
                         </div>
                       </button>)}
                   </div>
-                </div> : <LoginFarcaster />}
+                </div> : <LoginFarcaster closeFarcaster={() => { setFarcasterOpen(false) }} />}
             </Dialog.Panel>
           </Transition.Child>
         </div>
