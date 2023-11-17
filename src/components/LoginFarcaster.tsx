@@ -1,6 +1,6 @@
 'use client';
 
-import Image from 'next/image';
+import { Image } from '@/esm/Image.js';
 import { useState, useEffect } from 'react';
 import { WarpcastSocialMedia } from '@/providers/warpcast/SocialMedia.js';
 import QRCode from 'react-qr-code';

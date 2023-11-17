@@ -1,6 +1,6 @@
 'use client';
 
-import Image from 'next/image';
+import { Image } from '@/esm/Image.js';
 import { useCallback, Fragment, useState } from 'react';
 import { LensSocialMedia } from '@/providers/lens/SocialMedia.js';
 import { Dialog, Transition } from '@headlessui/react';

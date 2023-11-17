@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import { Image } from '@/esm/Image.js';
 
 export function LoginStatusBar() {
     return (
