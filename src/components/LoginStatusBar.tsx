@@ -1,7 +1,6 @@
 import Image from "next/image"
 
 export function LoginStatusBar() {
-
   return <div className="flex gap-x-2 pl-2">
     <div className="relative h-[40px] w-[48px]">
       <div className="absolute left-0 top-0 h-[40px] w-[40px] rounded-[99px] shadow backdrop-blur-lg">

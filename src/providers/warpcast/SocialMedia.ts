@@ -17,6 +17,7 @@ import type {
     UserResponse,
     UsersResponse,
 } from '@/providers/types/Warpcast.js';
+import { set } from 'date-fns';
 
 // @ts-ignore
 export class WarpcastSocialMedia implements Provider {
@@ -31,7 +32,7 @@ export class WarpcastSocialMedia implements Provider {
      * @param signal
      * @returns
      */
-    async createSessionByGrantPermission(signal?: AbortSignal) {
+    async createSessionByGrantPermission(setUrl: (url:string) => void,signal?: AbortSignal) {
         const response = await fetchJSON<
             ResponseJSON<{
                 publicKey: string;
@@ -46,8 +47,9 @@ export class WarpcastSocialMedia implements Provider {
             method: 'POST',
         });
         if (!response.success) throw new Error(response.error.message);
-
+    
         // present QR code to the user
+        setUrl(response.data.deeplinkUrl);
         console.log('DEBUG: response');
         console.log(response);
 
