@@ -5,34 +5,45 @@ interface UploadProgress {
     id: string;
 }
 
-export function* uploadToImgur(
+export function uploadToImgur(
     file: File,
     metadata?: { title: string; description?: string },
-): Generator<UploadProgress | string, string, boolean> {
-    // Learn more:
-    // https://www.npmjs.com/package/imgur
-    // https://apidocs.imgur.com/
+    onProgress?: (progress: UploadProgress) => void,
+): Promise<string> {
+    return new Promise((resolve, reject) => {
+        const clientId = process.env.IMGUR_CLIENT_ID;
+        const formData = new FormData();
+        formData.append('image', file);
 
-    // Your implementation for uploading progress and obtaining the complete URL goes here
-    const progress: UploadProgress = {
-        percent: 0,
-        transferred: 0,
-        total: 0,
-        id: '',
-    };
+        metadata?.title && formData.append('title', metadata.title);
+        metadata?.description && formData.append('description', metadata.description);
 
-    // Simulate uploading progress until it reaches 100%
-    while (progress.percent < 100) {
-        progress.percent += 10;
-        progress.transferred += 100;
-        progress.total += 1000;
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', 'https://api.imgur.com/3/upload');
+        xhr.setRequestHeader('Authorization', `Client-ID ${clientId}`);
 
-        // Yield the current progress information
-        yield progress;
-    }
+        xhr.upload.onprogress = function (event) {
+            if (event.lengthComputable && onProgress) {
+                const progress: UploadProgress = {
+                    percent: (event.loaded / event.total) * 100,
+                    transferred: event.loaded,
+                    total: event.total,
+                    id: '',
+                };
+                onProgress(progress);
+            }
+        };
 
-    const completeUrl = 'https://example.com/complete'; // Replace with the actual complete URL
+        xhr.onload = function () {
+            if (xhr.status === 200) {
+                const response = JSON.parse(xhr.responseText);
+                const completeUrl = response.data.link;
+                resolve(completeUrl);
+            } else {
+                reject(new Error('Upload failed'));
+            }
+        };
 
-    // You can return additional information or perform cleanup if needed
-    return completeUrl;
+        xhr.send(formData);
+    });
 }
