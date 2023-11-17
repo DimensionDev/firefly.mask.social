@@ -151,14 +151,29 @@ export interface Translation {
  * @returns - A promise that resolves to an object containing the detected language and translations.
  *
  */
-export function translate(
+export async function translate(
     to: Language,
     text: string,
 ): Promise<{
     detectedLanguage: Language;
     translations: Translation[];
 }> {
-    // Learn more:
-    // https://www.notion.so/mask/v1-misc-translate-e58932a0d051439394968d9c1d56f64a
-    throw new Error('Not implemented');
+    const response = await fetch(`/v1/misc/translate`, {
+        method: 'POST',
+        body: JSON.stringify({
+            toLanguage: to,
+            text,
+        }),
+    });
+
+    if (!response.ok) {
+        throw new Error('Translation failed');
+    }
+
+    const data = await response.json();
+
+    return {
+        detectedLanguage: data.data.detectedLanguage.language,
+        translations: data.data.translations,
+    };
 }
