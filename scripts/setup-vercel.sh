@@ -18,6 +18,8 @@ npx tsc -b
 # Return to the original directory
 cd -
 
+npm install
+
 # Patch packages
 npx patch-package
 
