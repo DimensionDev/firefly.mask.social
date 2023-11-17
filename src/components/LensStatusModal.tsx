@@ -11,7 +11,7 @@ interface LoginModalProps {
     setIsOpen: (isOpen: boolean) => void;
 }
 
-export function LoginModal({ isOpen, setIsOpen }: LoginModalProps) {
+export function LensStatusModal({ isOpen, setIsOpen }: LoginModalProps) {
     function closeModal() {
         setIsOpen(false);
     }
@@ -42,13 +42,13 @@ export function LoginModal({ isOpen, setIsOpen }: LoginModalProps) {
                             leaveTo="opacity-0 scale-95"
                         >
                             <Dialog.Panel className="transform rounded-[12px] bg-white transition-all">
-                                <div className="w-[260px] flex-col items-center gap-[23px] rounded-[16px] border-[0.5px] border-lightLineSecond p-[24px]">
+                                <div className="w-[260px] flex flex-col gap-[23px] rounded-[16px] border-[0.5px] border-lightLineSecond p-[24px]">
                                     {loggedLens.map(({ avatar, handle, name }) => (
                                         <div key={handle} className="flex items-center gap-[8px]">
                                             <div className="flex h-[40px] w-[48px] items-start justify-start">
                                                 <div className="relative h-[40px] w-[40px]">
-                                                    <div className="absolute left-0 top-0 h-[36px] w-[36px] rounded-[99px] shadow backdrop-blur-lg">
-                                                        <Image src={avatar} alt="avatar" width={36} height={36} />
+                                                    <div className="absolute left-0 top-0 h-[40px] w-[40px] rounded-[99px] shadow backdrop-blur-lg">
+                                                        <Image src={avatar} alt="avatar" width={40} height={36} />
                                                     </div>
                                                     <Image
                                                         className="absolute left-[24px] top-[24px] h-[16px] w-[16px] rounded-[99px] border border-white shadow"
@@ -59,16 +59,24 @@ export function LoginModal({ isOpen, setIsOpen }: LoginModalProps) {
                                                     />
                                                 </div>
                                             </div>
-                                            <div className="inline-flex shrink grow basis-0 flex-col items-start justify-center gap-1">
-                                                <div className="font-['PingFang SC'] text-base font-medium text-neutral-900">
+                                            <div className="inline-flex shrink grow basis-0 flex-col items-start justify-center h-[39px]">
+                                                <div className="font-['PingFang SC'] text-[15px] font-medium text-main">
                                                     {name}
                                                 </div>
-                                                <div className="font-['PingFang SC'] text-[15px] font-normal text-neutral-500">
+                                                <div className="font-['PingFang SC'] text-[15px] font-normal text-lightSecond">
                                                     @{handle}
                                                 </div>
                                             </div>
                                         </div>
                                     ))}
+                                    <button className='flex gap-[8px] items-center w-full'>
+                                        <Image src={'/svg/userAdd.svg'} alt="logo" width={24} height={24} />
+                                        <div className=' text-[17px] font-bold leading-[22px] text-[#101010]'>Change account</div>
+                                    </button>
+                                    <button className='flex gap-[8px] items-center'>
+                                        <Image src={'/svg/logOut.svg'} alt="logo" width={24} height={24} />
+                                        <div className=' text-[17px] font-bold leading-[22px] text-[#f00]'>Log out</div>
+                                    </button>
                                 </div>
                             </Dialog.Panel>
                         </Transition.Child>

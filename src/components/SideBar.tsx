@@ -1,5 +1,6 @@
 'use client';
 
+import { LensStatusModal } from '@/components/LensStatusModal.js';
 import { LoginModal } from '@/components/LoginModal.js';
 import { LoginStatusBar } from '@/components/LoginStatusBar.js';
 import { PageRoutes } from '@/constants/enum.js';
@@ -28,7 +29,7 @@ const items = [
 
 export const SideBar = memo(function SideBar() {
     const [loginOpen, setLoginOpen] = useState(false);
-    const [farcasterOpen, setFarcasterOpen] = useState(false);
+    const [lensStatusOpen, setLensStatusOpen] = useState(false);
     const isLogin = false;
 
     return (
@@ -58,26 +59,32 @@ export const SideBar = memo(function SideBar() {
                                         </li>
                                     ))}
                                     <li>
-                                        <button
-                                            onClick={() => {
-                                                isLogin ? null : setLoginOpen(true);
-                                            }}
+                                        <button onClick={() => {
+                                        }}
                                             type="button"
                                             className="min-w-[150px] rounded-[16px] bg-main px-3 py-3 text-xl font-semibold leading-6 text-white shadow-sm hover:bg-main focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                                         >
-                                            {isLogin ? 'Post' : 'Login'}
+                                            Post
                                         </button>
                                     </li>
                                 </ul>
                             </li>
                             <li className="mb-20 mt-auto">
-                                <LoginStatusBar />
+                                {isLogin ? <LoginStatusBar /> : <button onClick={() => {
+                                    setLoginOpen(true);
+                                }}
+                                    type="button"
+                                    className="min-w-[150px] rounded-[16px] bg-main px-3 py-3 text-xl font-semibold leading-6 text-white shadow-sm hover:bg-main focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                                >
+                                    Login
+                                </button>}
                             </li>
                         </ul>
                     </nav>
                 </div>
             </div>
             <LoginModal isOpen={loginOpen} setIsOpen={setLoginOpen} />
+            <LensStatusModal isOpen={lensStatusOpen} setIsOpen={setLensStatusOpen} />
         </>
     );
 });
