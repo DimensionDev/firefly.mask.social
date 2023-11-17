@@ -1,6 +1,5 @@
 'use client';
 
-import { LoginFarcasterModal } from '@/components/LoginFarcaster.js';
 import { LoginModal } from '@/components/LoginModal.js';
 import { LoginStatusBar } from '@/components/LoginStatusBar.js';
 import { PageRoutes } from '@/constants/enum.js';

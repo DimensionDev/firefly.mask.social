@@ -17,7 +17,6 @@ import type {
     UserResponse,
     UsersResponse,
 } from '@/providers/types/Warpcast.js';
-import { set } from 'date-fns';
 
 // @ts-ignore
 export class WarpcastSocialMedia implements Provider {
