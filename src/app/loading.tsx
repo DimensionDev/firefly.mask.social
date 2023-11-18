@@ -1,4 +1,4 @@
-import { Image } from '@/esm/Image.js'
+import { Image } from '@/esm/Image.js';
 
 export default function Loading() {
     return (

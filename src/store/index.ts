@@ -1,1 +1,1 @@
-export { useGlobalState } from './global';
+export { useGlobalState } from './global.js';
