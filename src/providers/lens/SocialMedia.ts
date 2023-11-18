@@ -173,8 +173,6 @@ export class LensSocialMedia implements Provider {
         });
         if (!result) throw new Error('No profile found');
 
-        console.log(result);
-
         return formatLensProfile(result);
     }
 
