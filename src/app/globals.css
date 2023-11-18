@@ -6,15 +6,21 @@
     --foreground-rgb: 0, 0, 0;
     --background-start-rgb: 214, 219, 220;
     --background-end-rgb: 255, 255, 255;
+    --color-main: 7 16 27;
+    --color-second: 118 127 141;
+    --color-bg: rgba(249, 249, 249, 1);
 }
 
-/* @media (prefers-color-scheme: dark) {
+@media (prefers-color-scheme: dark) {
     :root {
         --foreground-rgb: 255, 255, 255;
         --background-start-rgb: 0, 0, 0;
         --background-end-rgb: 0, 0, 0;
+        --color-main: 245, 245, 245, 1;
+        --color-second: rgba(255, 255, 255, 0.78);
+        --color-bg: rgba(255, 255, 255, 0.08);
     }
-} */
+}
 
 body {
     color: rgb(var(--foreground-rgb));

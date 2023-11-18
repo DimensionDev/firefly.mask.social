@@ -1,5 +1,6 @@
 import type { PageIndicator, Pageable } from '@masknet/shared-base';
 import type { Session } from '@/providers/types/Session.js';
+import type { MetadataAsset } from '@/types/index.js';
 
 export enum Type {
     Twitter = 'Twitter',
@@ -95,6 +96,13 @@ export interface MediaObject {
     mimeType: string;
 }
 
+export interface Attachment {
+    uri?: string;
+    coverUri?: string;
+    artist?: string | null;
+    type: 'Image' | 'Video' | 'Audio';
+}
+
 export interface Post {
     postId: string;
     parentPostId?: string;
@@ -111,7 +119,11 @@ export interface Post {
     metadata: {
         locale: string;
         description?: string;
-        content: string;
+        content: {
+            content?: string;
+            asset?: MetadataAsset;
+            attachments?: Attachment[];
+        } | null;
         contentURI?: string;
     };
     stats?: {

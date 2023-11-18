@@ -1,5 +1,11 @@
 import { getWalletClient } from 'wagmi/actions';
-import { createPageable, type PageIndicator, type Pageable, createNextIndicator } from '@masknet/shared-base';
+import {
+    createPageable,
+    type PageIndicator,
+    type Pageable,
+    createNextIndicator,
+    createIndicator,
+} from '@masknet/shared-base';
 import { generateCustodyBearer } from '@/helpers/generateCustodyBearer.js';
 import {
     type Notification,
@@ -186,7 +192,7 @@ export class LensSocialMedia implements Provider {
         return post;
     }
 
-    async discoverPosts(indicator?: PageIndicator): Promise<Pageable<Post>> {
+    async discoverPosts(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         const result = await this.lensClient.explore.publications({
             orderBy: ExplorePublicationsOrderByType.LensCurated,
             cursor: indicator?.id,
@@ -194,8 +200,8 @@ export class LensSocialMedia implements Provider {
 
         return createPageable(
             result.items.map((item) => formatLensPost(item)),
-            indicator,
-            createNextIndicator(indicator, result.pageInfo.next ?? undefined),
+            indicator ?? createIndicator(),
+            createNextIndicator(indicator, result.pageInfo.next ? result.pageInfo.next : undefined),
         );
     }
 
@@ -445,3 +451,5 @@ export class LensSocialMedia implements Provider {
         );
     }
 }
+
+export const LensSocialMediaProvider = new LensSocialMedia();

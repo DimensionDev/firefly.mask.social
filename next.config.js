@@ -27,6 +27,9 @@ export default {
             {
                 hostname: 'pbs.twimg.com',
             },
+            {
+                hostname: 'static-assets.hey.xyz',
+            },
         ],
     },
     async headers() {
@@ -66,6 +69,11 @@ export default {
                         },
                     ],
                 }),
+                config.module.rules.push({
+                    test: /\.svg$/i,
+                    issuer: /\.[jt]sx?$/,
+                    use: ['@svgr/webpack'],
+                });
             ],
         );
 
