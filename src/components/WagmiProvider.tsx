@@ -12,7 +12,7 @@ export interface WagmiProviderProps {
 export function WagmiProvider(props: WagmiProviderProps) {
     return (
         <WagmiConfig config={config}>
-            <RainbowKitProvider chains={chains} appInfo={appInfo}>
+            <RainbowKitProvider chains={chains} appInfo={appInfo} showRecentTransactions>
                 {props.children}
             </RainbowKitProvider>
         </WagmiConfig>
