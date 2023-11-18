@@ -1,12 +1,12 @@
 import urlcat from 'urlcat';
 import { getWalletClient } from 'wagmi/actions';
 import { HubRestAPIClient } from '@standard-crypto/farcaster-js';
+import { fetchJSON } from '@/helpers/fetchJSON.js';
 import type { ResponseJSON } from '@/types/index.js';
 import { WARPCAST_ROOT_URL } from '@/constants/index.js';
-import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { waitForSignedKeyRequestComplete } from '@/helpers/waitForSignedKeyRequestComplete.js';
 import { generateCustodyBearer } from '@/helpers/generateCustodyBearer.js';
-import { type PageIndicator, createPageable } from '@/helpers/createPageable.js';
+import { type PageIndicator, createPageable, createNextIndicator } from '@masknet/shared-base';
 import { type Post, ProfileStatus, type Provider, ReactionType, Type } from '@/providers/types/SocialMedia.js';
 import { WarpcastSession } from '@/providers/warpcast/Session.js';
 import type {
@@ -31,7 +31,7 @@ export class WarpcastSocialMedia implements Provider {
      * @param signal
      * @returns
      */
-    async createSessionByGrantPermission(signal?: AbortSignal) {
+    async createSessionByGrantPermission(setUrl: (url: string) => void, signal?: AbortSignal) {
         const response = await fetchJSON<
             ResponseJSON<{
                 publicKey: string;
@@ -48,6 +48,7 @@ export class WarpcastSocialMedia implements Provider {
         if (!response.success) throw new Error(response.error.message);
 
         // present QR code to the user
+        setUrl(response.data.deeplinkUrl);
         console.log('DEBUG: response');
         console.log(response);
 
@@ -134,7 +135,7 @@ export class WarpcastSocialMedia implements Provider {
     async discoverPosts(indicator?: PageIndicator) {
         const url = urlcat('https://client.warpcast.com/v2', '/popular-casts-feed', {
             limit: 10,
-            cursor: indicator?.cursor,
+            cursor: indicator?.id,
         });
 
         const { result, next } = await fetchJSON<CastsResponse>(url, {
@@ -168,7 +169,7 @@ export class WarpcastSocialMedia implements Provider {
                 },
             };
         });
-        return createPageable(data, indicator?.cursor, next.cursor);
+        return createPageable(data, indicator, createNextIndicator(indicator, next.cursor));
     }
 
     async getPostById(postId: string) {
@@ -271,7 +272,7 @@ export class WarpcastSocialMedia implements Provider {
             };
         });
 
-        return createPageable(data, indicator?.cursor, null);
+        return createPageable(data, indicator);
     }
 
     async getFollowers(profileId: string, indicator?: PageIndicator) {
@@ -280,7 +281,7 @@ export class WarpcastSocialMedia implements Provider {
         const url = urlcat(WARPCAST_ROOT_URL, '/followers', {
             fid: profileId,
             limit: 10,
-            cursor: indicator?.cursor,
+            cursor: indicator?.id,
         });
         const { result, next } = await fetchJSON<UsersResponse>(url, {
             method: 'GET',
@@ -301,7 +302,7 @@ export class WarpcastSocialMedia implements Provider {
             },
         }));
 
-        return createPageable(data, indicator?.cursor, next.cursor);
+        return createPageable(data, indicator, createNextIndicator(indicator, next.cursor));
     }
 
     async getFollowings(profileId: string, indicator?: PageIndicator) {
@@ -310,7 +311,7 @@ export class WarpcastSocialMedia implements Provider {
         const url = urlcat(WARPCAST_ROOT_URL, '/following', {
             fid: profileId,
             limit: 10,
-            cursor: indicator?.cursor,
+            cursor: indicator?.id,
         });
         const { result, next } = await fetchJSON<UsersResponse>(url, {
             method: 'GET',
@@ -331,7 +332,7 @@ export class WarpcastSocialMedia implements Provider {
             },
         }));
 
-        return createPageable(data, indicator?.cursor, next.cursor);
+        return createPageable(data, indicator, createNextIndicator(indicator, next.cursor));
     }
 
     async publishPost(post: Post) {

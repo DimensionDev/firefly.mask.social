@@ -1,4 +1,4 @@
-import type { PageIndicator, Pageable } from '@/helpers/createPageable.js';
+import type { PageIndicator, Pageable } from '@masknet/shared-base';
 import type { Session } from '@/providers/types/Session.js';
 
 export enum Type {
