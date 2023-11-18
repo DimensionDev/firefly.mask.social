@@ -37,7 +37,7 @@ export const SideBar = memo(function SideBar() {
             <div className="fixed inset-y-0 z-50 flex w-72 flex-col">
                 <div className="flex grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white px-6">
                     <div className="flex h-16 shrink-0 items-center">
-                         <Link href={PageRoutes.Home}>
+                        <Link href={PageRoutes.Home}>
                             <Image width={134} height={64} src="/logo.png" alt="Firefly" />
                         </Link>
                     </div>
@@ -48,7 +48,7 @@ export const SideBar = memo(function SideBar() {
                                     {items.map((item) => (
                                         <li className="px-4 py-3 text-textMain" key={item.name}>
                                             {item.href === '/connect-wallet' ? (
-                                               <ConnectWalletNav />
+                                                <ConnectWalletNav />
                                             ) : (
                                                 <Link href={item.href} className="flex gap-x-3 text-2xl/6">
                                                     <Image src={item.icon} width={24} height={24} alt={item.name} />

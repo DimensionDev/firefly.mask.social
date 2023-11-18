@@ -1,6 +1,6 @@
 'use client';
 import { SocialPlatform } from '@/constants/enum.js';
-import { createSelectors } from '@/helpers/createSelector.ts';
+import { createSelectors } from '@/helpers/createSelector.js';
 import { create } from 'zustand';
 
 interface GlobalState {
