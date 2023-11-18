@@ -1,5 +1,6 @@
 'use client';
 
+import { FarcasterStatusModal } from '@/components/FarcasterStatusModal.js';
 import { LensStatusModal } from '@/components/LensStatusModal.js';
 import { LoginModal } from '@/components/LoginModal.js';
 import { LoginStatusBar } from '@/components/LoginStatusBar.js';
@@ -30,6 +31,7 @@ const items = [
 export const SideBar = memo(function SideBar() {
     const [loginOpen, setLoginOpen] = useState(false);
     const [lensStatusOpen, setLensStatusOpen] = useState(false);
+    const [farcasterStatusOpen, setFarcasterStatusOpen] = useState(false);
     const isLogin = false;
 
     return (
@@ -69,8 +71,8 @@ export const SideBar = memo(function SideBar() {
                                     </li>
                                 </ul>
                             </li>
-                            <li className="mb-20 mt-auto">
-                                {isLogin ? <LoginStatusBar /> : <button onClick={() => {
+                            <li className="mb-20 mt-auto -mx-2">
+                                {isLogin ? <LoginStatusBar openFarcaster={() => setFarcasterStatusOpen(true)} openLens={() => setLensStatusOpen(true)} /> : <button onClick={() => {
                                     setLoginOpen(true);
                                 }}
                                     type="button"
@@ -85,6 +87,7 @@ export const SideBar = memo(function SideBar() {
             </div>
             <LoginModal isOpen={loginOpen} setIsOpen={setLoginOpen} />
             <LensStatusModal isOpen={lensStatusOpen} setIsOpen={setLensStatusOpen} />
+            <FarcasterStatusModal isOpen={farcasterStatusOpen} setIsOpen={setFarcasterStatusOpen} />
         </>
     );
 });

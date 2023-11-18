@@ -1,7 +1,7 @@
 'use client';
 
 import { Image } from '@/esm/Image.js';
-import { useCallback, Fragment, useState } from 'react';
+import { Fragment, useState } from 'react';
 import { LensSocialMedia } from '@/providers/lens/SocialMedia.js';
 import { Dialog, Transition } from '@headlessui/react';
 import { LoginFarcaster } from '@/components/LoginFarcaster.js';
@@ -18,18 +18,17 @@ interface LoginModalProps {
 
 export function LoginModal({ isOpen, setIsOpen }: LoginModalProps) {
     const [farcasterOpen, setFarcasterOpen] = useState(false);
-    function closeModal() {
+
+    const closeModal = () => {
         setIsOpen(false);
     }
 
-    function openModal() {
-        setIsOpen(true);
+    const loginLens = async () => {
+        const lensProvider = new LensSocialMedia();
+        await lensProvider.createSession();
+        closeModal()
     }
 
-    const loginLens = useCallback(() => {
-        const lensProvider = new LensSocialMedia();
-        lensProvider.createSession();
-    }, []);
     return (
         <Transition appear show={isOpen} as={Fragment}>
             <Dialog as="div" className="relative z-[999]" onClose={closeModal}>
