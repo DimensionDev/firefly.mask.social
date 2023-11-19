@@ -4,8 +4,8 @@ import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { type PageIndicator, createPageable } from '@masknet/shared-base';
 import { ProfileStatus, type Provider, Type, type Post } from '@/providers/types/SocialMedia.js';
 import type { CastResponse, UsersResponse, UserResponse, CastsResponse } from '@/providers/types/Firefly.js';
-import * as ed from '@noble/ed25519'
-import { sha512 } from '@noble/hashes/sha512'
+import * as ed from '@noble/ed25519';
+import { sha512 } from '@noble/hashes/sha512';
 import type { CastsResponse as DiscoverPosts } from '@/providers/types/Warpcast.js';
 import {
     FarcasterNetwork,
@@ -20,7 +20,7 @@ import { blake3 } from 'hash-wasm';
 import { waitForSignedKeyRequestComplete } from '@/helpers/waitForSignedKeyRequestComplete.js';
 import { toBytes } from 'viem';
 import { FireflySession } from '@/providers/firefly/Session.js';
-ed.etc.sha512Sync = (...m: any) => sha512(ed.etc.concatBytes(...m))
+ed.etc.sha512Sync = (...m: any) => sha512(ed.etc.concatBytes(...m));
 
 // @ts-ignore
 export class FireflySocialMedia implements Provider {
@@ -281,7 +281,7 @@ export class FireflySocialMedia implements Provider {
                 embeds: post.mediaObjects?.map((v) => ({ url: v.url })) ?? EMPTY_LIST,
             },
         };
-        
+
         const encodedData = MessageData.encode(messageData).finish();
 
         const messageHash = await blake3(encodedData);
@@ -296,40 +296,40 @@ export class FireflySocialMedia implements Provider {
             signatureScheme: SignatureScheme.SIGNATURE_SCHEME_ED25519,
             signer: ed.getPublicKey(toBytes(session.token)),
         };
-        console.log(message)
+        console.log(message);
         const encodedMessage = Buffer.from(Message.encode(message).finish());
         console.log('DEBUG: encodedMessage', encodedMessage);
 
-        const {data, hash} = await fetchJSON<Message>(url, {
+        const { data, hash } = await fetchJSON<Message>(url, {
             method: 'POST',
             headers: { 'Content-Type': 'application/octet-stream' },
             body: encodedMessage,
         });
-        if(!data) throw new Error('Failed to publish post')
+        if (!data) throw new Error('Failed to publish post');
         return {
-                postId: hash.toString(),
-                parentPostId: "",
-                timestamp: data.timestamp,
-                author: {
-                    profileId: data?.fid.toString(),
-                    nickname: "",
-                    displayName: "",
-                    pfp: "",
-                    followerCount: 0,
-                    followingCount: 0,
-                    status: ProfileStatus.Active,
-                    verified: true,
-                },
-                metadata: {
-                    locale: '',
-                    content: data.castAddBody?.text || "",
-                },
-                stats: {
-                    comments: 0,
-                    mirrors: 0,
-                    quotes: 0,
-                    reactions: 0,
-                },
-            }
+            postId: hash.toString(),
+            parentPostId: '',
+            timestamp: data.timestamp,
+            author: {
+                profileId: data?.fid.toString(),
+                nickname: '',
+                displayName: '',
+                pfp: '',
+                followerCount: 0,
+                followingCount: 0,
+                status: ProfileStatus.Active,
+                verified: true,
+            },
+            metadata: {
+                locale: '',
+                content: data.castAddBody?.text || '',
+            },
+            stats: {
+                comments: 0,
+                mirrors: 0,
+                quotes: 0,
+                reactions: 0,
+            },
+        };
     }
 }
