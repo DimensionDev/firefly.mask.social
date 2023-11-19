@@ -1,7 +1,7 @@
 import urlcat from 'urlcat';
 import { EMPTY_LIST, FIREFLY_HUBBLE_URL, FIREFLY_ROOT_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
-import { createPageable, type PageIndicator } from '@masknet/shared-base';
+import { type PageIndicator, createPageable } from '@masknet/shared-base';
 import { ProfileStatus, type Provider, Type, type Post } from '@/providers/types/SocialMedia.js';
 import type { CastResponse, UsersResponse, UserResponse, CastsResponse } from '@/providers/types/Firefly.js';
 import * as ed from '@noble/ed25519'

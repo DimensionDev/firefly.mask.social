@@ -1,15 +1,10 @@
-import { BaseSession } from '@/providers/base/Session';
-import { Session } from '@/providers/types/Session';
-import { Type } from '@/providers/types/SocialMedia';
+import { BaseSession } from '@/providers/base/Session.js';
+import type { Session } from '@/providers/types/Session.js';
+import { Type } from '@/providers/types/SocialMedia.js';
 
 export class FireflySession extends BaseSession implements Session {
-    constructor(
-        public profileId: string,
-        public token: string,
-        public timestamp: number,
-        public expiresAt: number,
-    ) {
-        super(Type.Firefly, profileId, token, timestamp, expiresAt);
+    constructor(profileId: string, token: string, createdAt: number, expiresAt: number) {
+        super(Type.Firefly, profileId, token, createdAt, expiresAt);
     }
 
     serialize(): `${Type}:${string}` {

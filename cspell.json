@@ -43,6 +43,7 @@
         "nextauth",
         "nocheck",
         "profilecard",
+        "proto",
         "quicktime",
         "rainbowkit",
         "redpacket",
@@ -54,6 +55,7 @@
         "thefireflyapp",
         "transak",
         "typecheck",
+        "DEVNET",
         "IDBP"
     ],
     "flagWords": [],
@@ -66,7 +68,8 @@
         ".next/**",
         "public/svg/**",
         "public/js/**",
-        "src/maskbook"
+        "src/maskbook",
+        "src/providers/firefly/proto"
     ],
     "overrides": []
 }
