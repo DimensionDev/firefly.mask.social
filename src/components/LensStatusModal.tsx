@@ -42,7 +42,7 @@ export function LensStatusModal({ isOpen, setIsOpen }: LoginModalProps) {
                             leaveTo="opacity-0 scale-95"
                         >
                             <Dialog.Panel className="transform rounded-[12px] bg-white transition-all">
-                                <div className="w-[260px] flex flex-col gap-[23px] rounded-[16px] border-[0.5px] border-lightLineSecond p-[24px]">
+                                <div className="flex w-[260px] flex-col gap-[23px] rounded-[16px] border-[0.5px] border-lightLineSecond p-[24px]">
                                     {loggedLens.map(({ avatar, handle, name }) => (
                                         <div key={handle} className="flex items-center gap-[8px]">
                                             <div className="flex h-[40px] w-[48px] items-start justify-start">
@@ -59,7 +59,7 @@ export function LensStatusModal({ isOpen, setIsOpen }: LoginModalProps) {
                                                     />
                                                 </div>
                                             </div>
-                                            <div className="inline-flex shrink grow basis-0 flex-col items-start justify-center h-[39px]">
+                                            <div className="inline-flex h-[39px] shrink grow basis-0 flex-col items-start justify-center">
                                                 <div className="font-['PingFang SC'] text-[15px] font-medium text-main">
                                                     {name}
                                                 </div>
@@ -69,13 +69,15 @@ export function LensStatusModal({ isOpen, setIsOpen }: LoginModalProps) {
                                             </div>
                                         </div>
                                     ))}
-                                    <button className='flex gap-[8px] items-center w-full'>
+                                    <button className="flex w-full items-center gap-[8px]">
                                         <Image src={'/svg/userAdd.svg'} alt="logo" width={24} height={24} />
-                                        <div className=' text-[17px] font-bold leading-[22px] text-[#101010]'>Change account</div>
+                                        <div className=" text-[17px] font-bold leading-[22px] text-[#101010]">
+                                            Change account
+                                        </div>
                                     </button>
-                                    <button className='flex gap-[8px] items-center'>
+                                    <button className="flex items-center gap-[8px]">
                                         <Image src={'/svg/logOut.svg'} alt="logo" width={24} height={24} />
-                                        <div className=' text-[17px] font-bold leading-[22px] text-[#f00]'>Log out</div>
+                                        <div className=" text-[17px] font-bold leading-[22px] text-[#f00]">Log out</div>
                                     </button>
                                 </div>
                             </Dialog.Panel>

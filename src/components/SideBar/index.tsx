@@ -61,8 +61,8 @@ export const SideBar = memo(function SideBar() {
                                         </li>
                                     ))}
                                     <li>
-                                        <button onClick={() => {
-                                        }}
+                                        <button
+                                            onClick={() => {}}
                                             type="button"
                                             className="min-w-[150px] rounded-[16px] bg-main px-3 py-3 text-xl font-semibold leading-6 text-white shadow-sm hover:bg-main focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                                         >
@@ -71,15 +71,23 @@ export const SideBar = memo(function SideBar() {
                                     </li>
                                 </ul>
                             </li>
-                            <li className="mb-20 mt-auto -mx-2">
-                                {isLogin ? <LoginStatusBar openFarcaster={() => setFarcasterStatusOpen(true)} openLens={() => setLensStatusOpen(true)} /> : <button onClick={() => {
-                                    setLoginOpen(true);
-                                }}
-                                    type="button"
-                                    className="min-w-[150px] rounded-[16px] bg-main px-3 py-3 text-xl font-semibold leading-6 text-white shadow-sm hover:bg-main focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                                >
-                                    Login
-                                </button>}
+                            <li className="-mx-2 mb-20 mt-auto">
+                                {isLogin ? (
+                                    <LoginStatusBar
+                                        openFarcaster={() => setFarcasterStatusOpen(true)}
+                                        openLens={() => setLensStatusOpen(true)}
+                                    />
+                                ) : (
+                                    <button
+                                        onClick={() => {
+                                            setLoginOpen(true);
+                                        }}
+                                        type="button"
+                                        className="min-w-[150px] rounded-[16px] bg-main px-3 py-3 text-xl font-semibold leading-6 text-white shadow-sm hover:bg-main focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                                    >
+                                        Login
+                                    </button>
+                                )}
                             </li>
                         </ul>
                     </nav>

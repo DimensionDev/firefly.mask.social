@@ -21,13 +21,13 @@ export function LoginModal({ isOpen, setIsOpen }: LoginModalProps) {
 
     const closeModal = () => {
         setIsOpen(false);
-    }
+    };
 
     const loginLens = async () => {
         const lensProvider = new LensSocialMedia();
         await lensProvider.createSession();
-        closeModal()
-    }
+        closeModal();
+    };
 
     return (
         <Transition appear show={isOpen} as={Fragment}>
