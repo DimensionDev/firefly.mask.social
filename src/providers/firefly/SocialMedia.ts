@@ -69,9 +69,9 @@ export class FireflySocialMedia implements Provider {
         const storedSession = localStorage.getItem('firefly_session');
 
         if (storedSession) {
-            const recoverdSession = FireflySession.deserialize(storedSession);
-            if (recoverdSession.expiresAt > currentTime) {
-                return recoverdSession;
+            const recoveredSession = FireflySession.deserialize(storedSession);
+            if (recoveredSession.expiresAt > currentTime) {
+                return recoveredSession;
             } else {
                 return null;
             }
@@ -281,7 +281,6 @@ export class FireflySocialMedia implements Provider {
                 embeds: post.mediaObjects?.map((v) => ({ url: v.url })) ?? EMPTY_LIST,
             },
         };
-
         
         const encodedData = MessageData.encode(messageData).finish();
 
@@ -333,5 +332,4 @@ export class FireflySocialMedia implements Provider {
                 },
             }
     }
-    
 }
