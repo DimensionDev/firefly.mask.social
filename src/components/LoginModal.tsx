@@ -5,6 +5,7 @@ import { Fragment, useState } from 'react';
 import { LensSocialMedia } from '@/providers/lens/SocialMedia.js';
 import { Dialog, Transition } from '@headlessui/react';
 import { LoginFarcaster } from '@/components/LoginFarcaster.js';
+import { ConnectButton } from '@rainbow-me/rainbowkit';
 
 const loginActions = [
     { name: 'Lens', logo: '/svg/lens.svg' },
@@ -81,30 +82,90 @@ export function LoginModal({ isOpen, setIsOpen }: LoginModalProps) {
                                             <div className="relative h-[24px] w-[24px]" />
                                         </div>
                                         <div className="flex w-full flex-col gap-[16px] p-[16px] ">
-                                            {loginActions.map(({ name, logo }) => (
-                                                <button
-                                                    className="group flex flex-col rounded-lg p-[16px] hover:bg-lightBg"
-                                                    key={name}
-                                                    onClick={() => {
-                                                        name === 'Lens' ? loginLens() : setFarcasterOpen(true);
-                                                    }}
-                                                >
-                                                    <div className="inline-flex w-full flex-col items-center justify-start gap-[8px] rounded-lg px-[16px] py-[24px]">
-                                                        <div className="relative h-[48px] w-[48px]">
-                                                            <Image
-                                                                className="left-0 top-0 rounded-full"
-                                                                src={logo}
-                                                                width={48}
-                                                                height={48}
-                                                                alt="lens"
-                                                            />
+                                            <ConnectButton.Custom>
+                                                {({
+                                                    chain,
+                                                    openConnectModal,
+                                                    openChainModal,
+                                                    authenticationStatus,
+                                                    account,
+                                                    mounted,
+                                                }: any) => {
+                                                    const ready = mounted && authenticationStatus !== 'loading';
+                                                    const connected =
+                                                        ready &&
+                                                        account &&
+                                                        chain &&
+                                                        (!authenticationStatus ||
+                                                            authenticationStatus === 'authenticated');
+
+                                                    return (
+                                                        <div
+                                                            {...(!ready && {
+                                                                'aria-hidden': true,
+                                                                style: {
+                                                                    opacity: 0,
+                                                                    pointerEvents: 'none',
+                                                                    userSelect: 'none',
+                                                                },
+                                                            })}
+                                                        >
+                                                            {(() => {
+                                                                return (
+                                                                    <button
+                                                                        className="group flex flex-col rounded-lg p-[16px] hover:bg-lightBg"
+                                                                        onClick={() => {
+                                                                            if (chain?.unsupported) {
+                                                                                openChainModal();
+                                                                                return;
+                                                                            }
+                                                                            connected
+                                                                                ? openConnectModal()
+                                                                                : loginLens();
+                                                                        }}
+                                                                    >
+                                                                        <div className="inline-flex w-full flex-col items-center justify-start gap-[8px] rounded-lg px-[16px] py-[24px]">
+                                                                            <div className="relative h-[48px] w-[48px]">
+                                                                                <Image
+                                                                                    className="left-0 top-0 rounded-full"
+                                                                                    src="/svg/lens.svg"
+                                                                                    width={48}
+                                                                                    height={48}
+                                                                                    alt="lens"
+                                                                                />
+                                                                            </div>
+                                                                            <div className="font-['Helvetica'] text-sm font-bold leading-[18px] text-lightSecond group-hover:text-textMain">
+                                                                                Lens
+                                                                            </div>
+                                                                        </div>
+                                                                    </button>
+                                                                );
+                                                            })()}
                                                         </div>
-                                                        <div className="font-['Helvetica'] text-sm font-bold leading-[18px] text-lightSecond group-hover:text-textMain">
-                                                            {name}
-                                                        </div>
+                                                    );
+                                                }}
+                                            </ConnectButton.Custom>
+                                            <button
+                                                className="group flex flex-col rounded-lg p-[16px] hover:bg-lightBg"
+                                                onClick={() => {
+                                                    setFarcasterOpen(true);
+                                                }}
+                                            >
+                                                <div className="inline-flex w-full flex-col items-center justify-start gap-[8px] rounded-lg px-[16px] py-[24px]">
+                                                    <div className="relative h-[48px] w-[48px]">
+                                                        <Image
+                                                            className="left-0 top-0 rounded-full"
+                                                            src="/svg/farcaster.svg"
+                                                            width={48}
+                                                            height={48}
+                                                            alt="lens"
+                                                        />
                                                     </div>
-                                                </button>
-                                            ))}
+                                                    <div className="font-['Helvetica'] text-sm font-bold leading-[18px] text-lightSecond group-hover:text-textMain">
+                                                        Farcaster
+                                                    </div>
+                                                </div>
+                                            </button>
                                         </div>
                                     </div>
                                 ) : (
