@@ -18,11 +18,14 @@ import { WarpcastSession } from '@/providers/warpcast/Session.js';
 import type {
     CastResponse,
     CastsResponse,
+    FeedResponse,
     ReactionResponse,
     SuccessResponse,
     UserResponse,
     UsersResponse,
 } from '@/providers/types/Warpcast.js';
+import formatWarpcastPost from '@/helpers/formatWarpcastPost.js';
+import { SocialPlatform } from '@/constants/enum.js';
 
 // @ts-ignore
 export class WarpcastSocialMedia implements Provider {
@@ -135,49 +138,20 @@ export class WarpcastSocialMedia implements Provider {
     }
 
     async discoverPosts(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        const url = urlcat('https://client.warpcast.com/v2', '/popular-casts-feed', {
+        const url = urlcat('https://client.warpcast.com/v2', '/default-recommended-feed', {
             limit: 10,
             cursor: indicator?.id,
         });
 
-        const { result, next } = await fetchJSON<CastsResponse>(url, {
+        const { result, next } = await fetchJSON<FeedResponse>(url, {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' },
         });
-        const data = result.casts.map((cast) => {
-            return {
-                postId: cast.hash,
-                parentPostId: cast.threadHash,
-                timestamp: cast.timestamp,
-                author: {
-                    profileId: cast.author.fid.toString(),
-                    nickname: cast.author.username,
-                    displayName: cast.author.displayName,
-                    pfp: cast.author.pfp.url,
-                    followerCount: cast.author.followerCount,
-                    followingCount: cast.author.followingCount,
-                    status: ProfileStatus.Active,
-                    verified: cast.author.pfp.verified,
-                },
-                metadata: {
-                    locale: '',
-                    content: {
-                        content: cast.text,
-                    },
-                },
-                stats: {
-                    comments: cast.replies.count,
-                    mirrors: cast.recasts.count,
-                    quotes: cast.recasts.count,
-                    reactions: cast.reactions.count,
-                },
-                __original__: cast,
-            };
-        });
+        const data = result.feed.map(formatWarpcastPost);
         return createPageable(data, indicator ?? createIndicator(), createNextIndicator(indicator, next.cursor));
     }
 
-    async getPostById(postId: string) {
+    async getPostById(postId: string): Promise<Post> {
         const session = await this.resumeSession();
 
         const url = urlcat(WARPCAST_ROOT_URL, '/cast', { hash: postId });
@@ -187,6 +161,7 @@ export class WarpcastSocialMedia implements Provider {
         });
 
         return {
+            source: SocialPlatform.Farcaster,
             postId: cast.hash,
             parentPostId: cast.threadHash,
             timestamp: cast.timestamp,
@@ -202,7 +177,9 @@ export class WarpcastSocialMedia implements Provider {
             },
             metadata: {
                 locale: '',
-                content: cast.text,
+                content: {
+                    content: cast.text,
+                },
             },
             stats: {
                 comments: cast.replies.count,
@@ -238,7 +215,10 @@ export class WarpcastSocialMedia implements Provider {
         };
     }
 
-    async getPostsByParentPostId(parentPostId: string, indicator?: PageIndicator) {
+    async getPostsByParentPostId(
+        parentPostId: string,
+        indicator?: PageIndicator,
+    ): Promise<Pageable<Post, PageIndicator>> {
         const session = await this.resumeSession();
 
         const url = urlcat(WARPCAST_ROOT_URL, '/all-casts-in-thread', {
@@ -251,6 +231,7 @@ export class WarpcastSocialMedia implements Provider {
 
         const data = result.casts.map((cast) => {
             return {
+                source: SocialPlatform.Farcaster,
                 postId: cast.hash,
                 parentPostId: cast.threadHash,
                 timestamp: cast.timestamp,
@@ -266,7 +247,9 @@ export class WarpcastSocialMedia implements Provider {
                 },
                 metadata: {
                     locale: '',
-                    content: cast.text,
+                    content: {
+                        content: cast.text,
+                    },
                 },
                 stats: {
                     comments: cast.replies.count,
@@ -277,7 +260,7 @@ export class WarpcastSocialMedia implements Provider {
             };
         });
 
-        return createPageable(data, indicator);
+        return createPageable(data, indicator ?? createIndicator());
     }
 
     async getFollowers(profileId: string, indicator?: PageIndicator) {
@@ -340,7 +323,7 @@ export class WarpcastSocialMedia implements Provider {
         return createPageable(data, indicator, createNextIndicator(indicator, next.cursor));
     }
 
-    async publishPost(post: Post) {
+    async publishPost(post: Post): Promise<Post> {
         const session = await this.resumeSession();
 
         const url = urlcat(WARPCAST_ROOT_URL, '/casts');
@@ -351,6 +334,7 @@ export class WarpcastSocialMedia implements Provider {
         });
 
         return {
+            source: SocialPlatform.Farcaster,
             postId: cast.hash,
             parentPostId: cast.threadHash,
             timestamp: cast.timestamp,
@@ -366,7 +350,9 @@ export class WarpcastSocialMedia implements Provider {
             },
             metadata: {
                 locale: '',
-                content: cast.text,
+                content: {
+                    content: cast.text,
+                },
             },
             stats: {
                 comments: cast.replies.count,

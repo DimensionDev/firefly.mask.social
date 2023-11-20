@@ -2,7 +2,7 @@
 
 import { SinglePost } from '@/components/Posts/SinglePost.js';
 import { SocialPlatform } from '@/constants/enum.js';
-import { FireflySocialMediaprovider } from '@/providers/firefly/SocialMedia.js';
+import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { useSuspenseQuery } from '@tanstack/react-query';
 

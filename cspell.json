@@ -30,7 +30,7 @@
         "zora",
         "basepaint",
         "unlonely",
-        "ipsf",
+        "ipfs",
         "arweave"
     ],
     "ignoreWords": [
@@ -62,7 +62,11 @@
         "typecheck",
         "DEVNET",
         "IDBP",
-        "splited"
+        "splited",
+        "linkify",
+        "trimify",
+        "plyr",
+        "livepeer"
     ],
     "flagWords": [],
     "ignorePaths": [

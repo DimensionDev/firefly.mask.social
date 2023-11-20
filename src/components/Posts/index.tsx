@@ -7,7 +7,7 @@ import { useGlobalState } from '@/store/index.js';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { memo } from 'react';
 import { SocialPlatform } from '@/constants/enum.js';
-import { FireflySocialMediaprovider } from '@/providers/firefly/SocialMedia.js';
+import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 
 export const Posts = memo(function Posts() {
     const currentSocialPlatform = useGlobalState.use.currentSocialPlatform();

@@ -26,6 +26,7 @@ const getClass = (attachments: number) => {
             row: 'grid-cols-2 grid-rows-2',
         };
     }
+    return;
 };
 
 interface AttachmentsProps {
@@ -37,7 +38,7 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({ attachm
     const [previewImage, setPreviewImage] = useState<string | null>(null);
 
     const { processedAttachments, attachmentsHasImage, imageAttachments } = useMemo(() => {
-        // TODO: farcast only support 2 attachment
+        // TODO: farcaster only support 2 attachment
         const processedAttachments = attachments.slice(0, 4);
         const attachmentsHasImage = attachments.some((x) => x.type === 'Image');
         const imageAttachments = processedAttachments.filter((x) => x.type === 'Image' && x.uri);
