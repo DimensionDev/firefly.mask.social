@@ -4,6 +4,7 @@ import dynamic from 'next/dynamic.js';
 import { usePathname } from 'next/navigation.js';
 import { memo } from 'react';
 
+// @ts-ignore
 const DynamicCalendar = dynamic(() => import('@masknet/plugin-calendar').then((x) => ({ default: x.RenderCalendar })), {
     ssr: false,
 });

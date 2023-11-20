@@ -6,11 +6,15 @@ git submodule init
 # Update Git submodules to the latest commit
 git submodule update
 
+# Install Node.js dependencies using npm
+
 # Change to the submodule directory
 cd src/maskbook
 
+pnpm install
+
 # Install dependencies using pnpm for development environment
-NODE_ENV=development pnpm install
+# NODE_ENV=development pnpm install
 
 # Run Gulp tasks for polyfill and code generation
 npx gulp polyfill
@@ -22,11 +26,10 @@ npx tsc -b
 # Return to the original directory
 cd -
 
-# Install Node.js dependencies using npm
-npm install
+pnpm install
 
 # Patch packages
-npm run postinstall
+# pnpm run postinstall
 
 # Run a type checking script using npm
-npm run typecheck
+pnpm run typecheck

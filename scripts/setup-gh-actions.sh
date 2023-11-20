@@ -19,8 +19,4 @@ npx tsc -b
 cd -
 
 # Install Node.js dependencies using npm
-npm install
-
-# Patch packages
-npm run postinstall
-
+pnpm install
