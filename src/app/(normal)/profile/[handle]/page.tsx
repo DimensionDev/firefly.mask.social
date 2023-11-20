@@ -6,8 +6,9 @@ import PlatformTabs from '@/app/(normal)/profile/components/PlatformTabs.js';
 import Title from '@/app/(normal)/profile/components/Title.js';
 import { PlatformEnum } from '@/app/(normal)/profile/type.js';
 import { LensSocialMedia } from '@/providers/lens/SocialMedia.js';
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import type { Profile } from '@/providers/types/SocialMedia.js';
+import { useQuery } from '@tanstack/react-query';
 
 const lensClient = new LensSocialMedia();
 
@@ -15,20 +16,16 @@ interface ProfileProps {
     params: { handle: string };
 }
 export default function Profile({ params: { handle } }: ProfileProps) {
-    const [profile, setProfile] = useState<Profile>();
     const [tab, setTab] = useState<PlatformEnum>(PlatformEnum.Lens);
+
+    const { data: profile } = useQuery({
+        queryKey: ['profile', handle],
+        queryFn: () => lensClient.getProfileById(`test/${handle}`),
+    });
 
     const isLogin = useMemo(() => false, []);
 
     const isMyProfile = useMemo(() => isLogin && false, [isLogin]);
-
-    useEffect(() => {
-        (async () => {
-            const profile = await lensClient.getProfileById(`test/${handle}`);
-            console.log(profile);
-            setProfile(profile);
-        })();
-    }, [handle]);
 
     return (
         <div>

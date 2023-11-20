@@ -102,9 +102,7 @@ export class LensSocialMedia implements Provider {
         });
         const resultValue = result.unwrap();
 
-        if (!isRelaySuccess(resultValue)) {
-            console.log(`Something went wrong`, resultValue);
-        }
+        if (!isRelaySuccess(resultValue)) throw new Error(`Something went wrong ${JSON.stringify(resultValue)}`);
 
         const post = await this.getPostById(postId);
         return post;
