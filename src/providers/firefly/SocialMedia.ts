@@ -7,13 +7,15 @@ import type { CastResponse, UsersResponse, UserResponse, CastsResponse } from '@
 import * as ed from '@noble/ed25519';
 import { sha512 } from '@noble/hashes/sha512';
 import type { CastsResponse as DiscoverPosts } from '@/providers/types/Warpcast.js';
-import {Message, FarcasterNetwork, } from '@farcaster/hub-web'
+import { Message, FarcasterNetwork } from '@farcaster/hub-web';
 import {
     MessageType,
     MessageData,
     HashScheme,
     SignatureScheme,
+    ReactionType,
 } from '@/providers/firefly/proto/message.js';
+import { ReactionType as ReactionTypeCustom } from '@/providers/types/SocialMedia.js';
 import type { ResponseJSON } from '@/types/index.js';
 import { blake3 } from 'hash-wasm';
 import { waitForSignedKeyRequestComplete } from '@/helpers/waitForSignedKeyRequestComplete.js';
@@ -295,7 +297,7 @@ export class FireflySocialMedia implements Provider {
             signatureScheme: SignatureScheme.ED25519,
             signer: ed.getPublicKey(toBytes(session.token)),
         };
-    
+
         const messageBytes = Buffer.from(Message.encode(message).finish());
 
         const { data, hash } = await fetchJSON<Message>(url, {
@@ -329,5 +331,315 @@ export class FireflySocialMedia implements Provider {
                 reactions: 0,
             },
         };
+    }
+
+    async upvotePost(postId: string) {
+        const session = await this.resumeSession();
+        if (!session) throw new Error('No session found');
+        const url = urlcat(FIREFLY_HUBBLE_URL, '/v1/submitMessage');
+        const messageData: MessageData = {
+            type: MessageType.REACTION_ADD,
+            fid: Number(session.profileId),
+            timestamp: Math.floor(Date.now() / 1000),
+            network: FarcasterNetwork.MAINNET,
+            reactionBody: {
+                type: ReactionType.LIKE,
+                targetCastId: {
+                    hash: toBytes(postId),
+                    fid: Number(session.profileId),
+                },
+            },
+        };
+
+        const encodedData = MessageData.encode(messageData).finish();
+
+        const messageHash = await blake3(encodedData);
+
+        const signature = await ed.signAsync(encodedData, toBytes(session.token));
+
+        const message = {
+            data: messageData,
+            hash: toBytes(messageHash),
+            hashScheme: HashScheme.BLAKE3,
+            signature,
+            signatureScheme: SignatureScheme.ED25519,
+            signer: ed.getPublicKey(toBytes(session.token)),
+        };
+
+        const messageBytes = Buffer.from(Message.encode(message).finish());
+
+        const { data, hash } = await fetchJSON<Message>(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/octet-stream' },
+            body: messageBytes,
+        });
+        if (!data) throw new Error('Failed to upvote post');
+        return {
+            reactionId: messageHash,
+            type: ReactionTypeCustom.Upvote,
+            timestamp: messageData.timestamp,
+        };
+    }
+
+    async unvotePost(postId: string) {
+        const session = await this.resumeSession();
+        if (!session) throw new Error('No session found');
+        const url = urlcat(FIREFLY_HUBBLE_URL, '/v1/submitMessage');
+        const messageData: MessageData = {
+            type: MessageType.REACTION_REMOVE,
+            fid: Number(session.profileId),
+            timestamp: Math.floor(Date.now() / 1000),
+            network: FarcasterNetwork.MAINNET,
+            reactionBody: {
+                type: ReactionType.LIKE,
+                targetCastId: {
+                    hash: toBytes(postId),
+                    fid: Number(session.profileId),
+                },
+            },
+        };
+
+        const encodedData = MessageData.encode(messageData).finish();
+
+        const messageHash = await blake3(encodedData);
+
+        const signature = await ed.signAsync(encodedData, toBytes(session.token));
+
+        const message = {
+            data: messageData,
+            hash: toBytes(messageHash),
+            hashScheme: HashScheme.BLAKE3,
+            signature,
+            signatureScheme: SignatureScheme.ED25519,
+            signer: ed.getPublicKey(toBytes(session.token)),
+        };
+
+        const messageBytes = Buffer.from(Message.encode(message).finish());
+
+        const { data, hash } = await fetchJSON<Message>(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/octet-stream' },
+            body: messageBytes,
+        });
+        if (!data) throw new Error('Failed to unvote post');
+        return;
+    }
+
+    async commentPost(postId: string, comment: string) {
+        const session = await this.resumeSession();
+        if (!session) throw new Error('No session found');
+        const url = urlcat(FIREFLY_HUBBLE_URL, '/v1/submitMessage');
+        const messageData: MessageData = {
+            type: MessageType.CAST_ADD,
+            fid: Number(session.profileId),
+            timestamp: Math.floor(Date.now() / 1000),
+            network: FarcasterNetwork.MAINNET,
+            castAddBody: {
+                parentCastId: {
+                    hash: toBytes(postId),
+                    fid: Number(session.profileId),
+                },
+                embedsDeprecated: EMPTY_LIST,
+                mentions: EMPTY_LIST,
+                text: comment,
+                mentionsPositions: [],
+                embeds: EMPTY_LIST,
+            },
+        };
+
+        const encodedData = MessageData.encode(messageData).finish();
+
+        const messageHash = await blake3(encodedData);
+
+        const signature = await ed.signAsync(encodedData, toBytes(session.token));
+
+        const message = {
+            data: messageData,
+            hash: toBytes(messageHash),
+            hashScheme: HashScheme.BLAKE3,
+            signature,
+            signatureScheme: SignatureScheme.ED25519,
+            signer: ed.getPublicKey(toBytes(session.token)),
+        };
+
+        const messageBytes = Buffer.from(Message.encode(message).finish());
+
+        const { data, hash } = await fetchJSON<Message>(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/octet-stream' },
+            body: messageBytes,
+        });
+        if (!data) throw new Error('Failed to publish post');
+        return;
+    }
+
+    async unmirrorPost(postId: string) {
+        const session = await this.resumeSession();
+        if (!session) throw new Error('No session found');
+        const url = urlcat(FIREFLY_HUBBLE_URL, '/v1/submitMessage');
+        const messageData: MessageData = {
+            type: MessageType.REACTION_REMOVE,
+            fid: Number(session.profileId),
+            timestamp: Math.floor(Date.now() / 1000),
+            network: FarcasterNetwork.MAINNET,
+            reactionBody: {
+                type: ReactionType.RECAST,
+                targetCastId: {
+                    hash: toBytes(postId),
+                    fid: Number(session.profileId),
+                },
+            },
+        };
+
+        const encodedData = MessageData.encode(messageData).finish();
+
+        const messageHash = await blake3(encodedData);
+
+        const signature = await ed.signAsync(encodedData, toBytes(session.token));
+
+        const message = {
+            data: messageData,
+            hash: toBytes(messageHash),
+            hashScheme: HashScheme.BLAKE3,
+            signature,
+            signatureScheme: SignatureScheme.ED25519,
+            signer: ed.getPublicKey(toBytes(session.token)),
+        };
+
+        const messageBytes = Buffer.from(Message.encode(message).finish());
+
+        const { data, hash } = await fetchJSON<Message>(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/octet-stream' },
+            body: messageBytes,
+        });
+        if (!data) throw new Error('Failed to unmirror post');
+        return null!;
+    }
+
+    async mirrorPost(postId: string) {
+        const session = await this.resumeSession();
+        if (!session) throw new Error('No session found');
+        const url = urlcat(FIREFLY_HUBBLE_URL, '/v1/submitMessage');
+        const messageData: MessageData = {
+            type: MessageType.REACTION_ADD,
+            fid: Number(session.profileId),
+            timestamp: Math.floor(Date.now() / 1000),
+            network: FarcasterNetwork.MAINNET,
+            reactionBody: {
+                type: ReactionType.RECAST,
+                targetCastId: {
+                    hash: toBytes(postId),
+                    fid: Number(session.profileId),
+                },
+            },
+        };
+
+        const encodedData = MessageData.encode(messageData).finish();
+
+        const messageHash = await blake3(encodedData);
+
+        const signature = await ed.signAsync(encodedData, toBytes(session.token));
+
+        const message = {
+            data: messageData,
+            hash: toBytes(messageHash),
+            hashScheme: HashScheme.BLAKE3,
+            signature,
+            signatureScheme: SignatureScheme.ED25519,
+            signer: ed.getPublicKey(toBytes(session.token)),
+        };
+
+        const messageBytes = Buffer.from(Message.encode(message).finish());
+
+        const { data, hash } = await fetchJSON<Message>(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/octet-stream' },
+            body: messageBytes,
+        });
+        if (!data) throw new Error('Failed to mirror post');
+        return null!;
+    }
+
+    async followProfile(profileId: string) {
+        const session = await this.resumeSession();
+        if (!session) throw new Error('No session found');
+        const url = urlcat(FIREFLY_HUBBLE_URL, '/v1/submitMessage');
+        const messageData: MessageData = {
+            type: MessageType.LINK_ADD,
+            fid: Number(session.profileId),
+            timestamp: Math.floor(Date.now() / 1000),
+            network: FarcasterNetwork.MAINNET,
+            linkBody: {
+                type: '1',
+                targetFid: Number(profileId),
+            },
+        };
+
+        const encodedData = MessageData.encode(messageData).finish();
+
+        const messageHash = await blake3(encodedData);
+
+        const signature = await ed.signAsync(encodedData, toBytes(session.token));
+
+        const message = {
+            data: messageData,
+            hash: toBytes(messageHash),
+            hashScheme: HashScheme.BLAKE3,
+            signature,
+            signatureScheme: SignatureScheme.ED25519,
+            signer: ed.getPublicKey(toBytes(session.token)),
+        };
+
+        const messageBytes = Buffer.from(Message.encode(message).finish());
+
+        const { data, hash } = await fetchJSON<Message>(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/octet-stream' },
+            body: messageBytes,
+        });
+        if (!data) throw new Error('Failed to follow');
+        return null!;
+    }
+
+    async unfollowProfile(profileId: string) {
+        const session = await this.resumeSession();
+        if (!session) throw new Error('No session found');
+        const url = urlcat(FIREFLY_HUBBLE_URL, '/v1/submitMessage');
+        const messageData: MessageData = {
+            type: MessageType.LINK_REMOVE,
+            fid: Number(session.profileId),
+            timestamp: Math.floor(Date.now() / 1000),
+            network: FarcasterNetwork.MAINNET,
+            linkBody: {
+                type: '1',
+                targetFid: Number(profileId),
+            },
+        };
+
+        const encodedData = MessageData.encode(messageData).finish();
+
+        const messageHash = await blake3(encodedData);
+
+        const signature = await ed.signAsync(encodedData, toBytes(session.token));
+
+        const message = {
+            data: messageData,
+            hash: toBytes(messageHash),
+            hashScheme: HashScheme.BLAKE3,
+            signature,
+            signatureScheme: SignatureScheme.ED25519,
+            signer: ed.getPublicKey(toBytes(session.token)),
+        };
+
+        const messageBytes = Buffer.from(Message.encode(message).finish());
+
+        const { data, hash } = await fetchJSON<Message>(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/octet-stream' },
+            body: messageBytes,
+        });
+        if (!data) throw new Error('Failed to unfollow');
+        return null!;
     }
 }
