@@ -1,6 +1,5 @@
-import Loading from '@/app/loading.js';
-import { Suspense } from 'react';
+import { Posts } from '@/components/Posts/index.js';
 
 export default function Home() {
-    return <Suspense fallback={<Loading />}>{/* <Posts /> */}</Suspense>;
+    return <Posts />;
 }
