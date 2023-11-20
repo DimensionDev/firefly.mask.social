@@ -21,7 +21,7 @@ import {
     FarcasterNetwork,
     ReactionType,
 } from '@/providers/firefly/proto/message.js';
-import {Message} from "@farcaster/hub-web";
+import { Message } from '@farcaster/hub-web';
 import { ReactionType as ReactionTypeCustom } from '@/providers/types/SocialMedia.js';
 import type { MetadataAsset, ResponseJSON } from '@/types/index.js';
 import { blake3 } from 'hash-wasm';
