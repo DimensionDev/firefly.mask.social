@@ -335,4 +335,4 @@ export class FireflySocialMedia implements Provider {
     }
 }
 
-export const FireflySocialMediaprovider = new FireflySocialMedia();
+export const FireflySocialMediaProvider = new FireflySocialMedia();

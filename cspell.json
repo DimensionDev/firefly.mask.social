@@ -26,7 +26,12 @@
         "wagmi",
         "warpcast",
         "zustand",
-        "recasted"
+        "recasted",
+        "zora",
+        "basepaint",
+        "unlonely",
+        "ipsf",
+        "arweave"
     ],
     "ignoreWords": [
         "cyberconnect",
@@ -56,7 +61,8 @@
         "transak",
         "typecheck",
         "DEVNET",
-        "IDBP"
+        "IDBP",
+        "splited"
     ],
     "flagWords": [],
     "ignorePaths": [

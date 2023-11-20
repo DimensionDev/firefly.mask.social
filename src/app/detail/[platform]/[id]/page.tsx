@@ -15,7 +15,7 @@ export default function Page({ params }: { params: { id: string; platform: strin
                 case SocialPlatform.Lens.toLowerCase():
                     return LensSocialMediaProvider.getPostById(params.id);
                 case SocialPlatform.Farcaster.toLowerCase():
-                    return FireflySocialMediaprovider.getPostById(params.id);
+                    return FireflySocialMediaProvider.getPostById(params.id);
                 default:
                     return;
             }

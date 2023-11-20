@@ -20,7 +20,7 @@ export const Posts = memo(function Posts() {
                 case SocialPlatform.Lens:
                     return LensSocialMediaProvider.discoverPosts(createIndicator(undefined, pageParam));
                 case SocialPlatform.Farcaster:
-                    return FireflySocialMediaprovider.discoverPosts(createIndicator(undefined, pageParam));
+                    return FireflySocialMediaProvider.discoverPosts(createIndicator(undefined, pageParam));
                 default:
                     return createPageable([], undefined);
             }

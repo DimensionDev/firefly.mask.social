@@ -43,7 +43,7 @@ export const getNumberOfDaysFromDate = (date: Date) => {
  * @param date The date to format.
  * @returns A string representing the elapsed time between the date and the current time.
  */
-export const getTimetoNow = (date: Date) => {
+export const getTimeToNow = (date: Date) => {
     return dayjs(date).toNow(true);
 };
 
