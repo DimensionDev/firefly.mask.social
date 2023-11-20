@@ -7,11 +7,11 @@ export class FireflySession extends BaseSession implements Session {
         super(Type.Firefly, profileId, token, createdAt, expiresAt);
     }
 
-    serialize(): `${Type}:${string}` {
+    override serialize(): `${Type}:${string}` {
         const body = JSON.stringify({
             profileId: this.profileId,
             token: this.token,
-            timestamp: this.timestamp,
+            createdAt: this.createdAt,
             expiresAt: this.expiresAt,
         });
 
