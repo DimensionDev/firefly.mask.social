@@ -79,7 +79,8 @@
         "public/svg/**",
         "public/js/**",
         "src/maskbook",
-        "src/providers/firefly/proto"
+        "src/providers/firefly/proto",
+        "src/assets/**"
     ],
     "overrides": []
 }
