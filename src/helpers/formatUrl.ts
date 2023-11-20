@@ -6,7 +6,6 @@
  * @returns truncated url
  */
 export const formatUrl = (url: string, maxLength: number): string => {
-    if (!URL.canParse(url)) return '';
     const strippedUrl = new URL(url).host;
 
     if (strippedUrl.length > maxLength) {

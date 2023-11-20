@@ -1,11 +1,13 @@
 'use client';
 
-import { createIndicator } from '@/maskbook/packages/shared-base/src/index.js';
+import { createIndicator, createPageable } from '@/maskbook/packages/shared-base/src/index.js';
 import { SinglePost } from './SinglePost.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { useGlobalState } from '@/store/index.js';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { memo } from 'react';
+import { SocialPlatform } from '@/constants/enum.js';
+import { FireflySocialMediaprovider } from '@/providers/firefly/SocialMedia.js';
 
 export const Posts = memo(function Posts() {
     const currentSocialPlatform = useGlobalState.use.currentSocialPlatform();
@@ -14,7 +16,14 @@ export const Posts = memo(function Posts() {
         queryKey: ['discover', currentSocialPlatform],
 
         queryFn: async ({ pageParam }) => {
-            return LensSocialMediaProvider.discoverPosts(createIndicator(undefined, pageParam));
+            switch (currentSocialPlatform) {
+                case SocialPlatform.Lens:
+                    return LensSocialMediaProvider.discoverPosts(createIndicator(undefined, pageParam));
+                case SocialPlatform.Farcaster:
+                    return FireflySocialMediaprovider.discoverPosts(createIndicator(undefined, pageParam));
+                default:
+                    return createPageable([], undefined);
+            }
         },
         initialPageParam: '',
         getNextPageParam: (lastPage) => lastPage.nextIndicator?.id,

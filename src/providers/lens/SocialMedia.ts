@@ -22,13 +22,12 @@ import {
     LensClient,
     PublicationReactionType,
     PublicationType,
-    development,
     isRelaySuccess,
     production,
 } from '@lens-protocol/client';
 import { LensSession } from '@/providers/lens/Session.js';
-import formatLensPost from '@/helpers/formatLensPost.js';
-import formatLensProfile from '@/helpers/formatLensProfile.js';
+import formatLensPost from '../../helpers/formatLensPost.js';
+import formatLensProfile from '../../helpers/formatLensProfile.js';
 
 export class LensSocialMedia implements Provider {
     private currentSession?: LensSession;
@@ -37,7 +36,7 @@ export class LensSocialMedia implements Provider {
 
     constructor() {
         this.lensClient = new LensClient({
-            environment: process.env.NODE_ENV === 'production' ? production : development,
+            environment: production,
         });
     }
 
@@ -195,7 +194,7 @@ export class LensSocialMedia implements Provider {
     async discoverPosts(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         const result = await this.lensClient.explore.publications({
             orderBy: ExplorePublicationsOrderByType.LensCurated,
-            cursor: indicator?.id,
+            cursor: indicator?.id ? indicator.id : undefined,
         });
 
         return createPageable(

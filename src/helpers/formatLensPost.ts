@@ -1,4 +1,5 @@
-import formatLensProfile from '@/helpers/formatLensProfile.js';
+import { SocialPlatform } from '@/constants/enum.js';
+import formatLensProfile from './formatLensProfile.js';
 import type { Attachment, Post } from '@/providers/types/SocialMedia.js';
 import type { MetadataAsset } from '@/types/index.js';
 import type {
@@ -133,6 +134,7 @@ export default function formatLensPost(result: AnyPublicationFragment): Post {
             timestamp,
             author: profile,
             isHidden: result.isHidden,
+            source: SocialPlatform.Lens,
             metadata: {
                 locale: '',
                 content: null,
@@ -169,6 +171,7 @@ export default function formatLensPost(result: AnyPublicationFragment): Post {
             : undefined;
 
     return {
+        source: SocialPlatform.Lens,
         postId: result.id,
         timestamp,
         author: profile,

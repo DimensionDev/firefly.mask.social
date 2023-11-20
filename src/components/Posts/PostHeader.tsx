@@ -3,11 +3,25 @@ import { memo } from 'react';
 import { Image } from '@/components/Image.js';
 import More from '../../assets/more.svg';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
+import { SocialPlatform } from '@/constants/enum.js';
 
 interface PostHeaderProps {
     post: Post;
 }
+
+function getSocialPlatformIconBySource(source: SocialPlatform) {
+    switch (source) {
+        case SocialPlatform.Lens:
+            return '/svg/lens.svg';
+        case SocialPlatform.Farcaster:
+            return '/svg/farcaster.svg';
+        default:
+            return '';
+    }
+}
+
 export const PostHeader = memo<PostHeaderProps>(function PostHeader({ post }) {
+    const sourceIcon = getSocialPlatformIconBySource(post.source);
     return (
         <div className="flex justify-between space-x-1.5">
             <div className="flex items-center space-x-3">
@@ -28,7 +42,7 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({ post }) {
                 </div>
             </div>
             <div className="flex items-center space-x-2">
-                <Image src="/svg/lens.svg" width={16} height={16} alt="lens" />
+                {sourceIcon ? <Image src={sourceIcon} width={16} height={16} alt={post.source} /> : null}
                 <span className="text-xs leading-4 text-secondary">
                     <TimestampFormatter time={post.timestamp} />
                 </span>

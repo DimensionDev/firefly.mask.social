@@ -9,6 +9,8 @@
     --color-main: 7 16 27;
     --color-second: 118 127 141;
     --color-bg: rgba(249, 249, 249, 1);
+    --color-link: 142, 150, 255;
+    --color-main1: rgba(183, 183, 183, 1);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -19,6 +21,8 @@
         --color-main: 245, 245, 245, 1;
         --color-second: rgba(255, 255, 255, 0.78);
         --color-bg: rgba(255, 255, 255, 0.08);
+        --color-link: 142, 150, 255;
+        --color-main1: rgba(255, 255, 255, 0.28);
     }
 }
 

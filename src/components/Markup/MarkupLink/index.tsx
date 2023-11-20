@@ -1,5 +1,5 @@
 import { ExternalLink } from './ExternalLink.js';
-import { Hashtag } from './Hashtag.jsx';
+import { Hashtag } from './Hashtag.js';
 import { MentionLink } from './MentionLink.js';
 import { memo } from 'react';
 

@@ -6,7 +6,13 @@ import type { ResponseJSON } from '@/types/index.js';
 import { WARPCAST_ROOT_URL } from '@/constants/index.js';
 import { waitForSignedKeyRequestComplete } from '@/helpers/waitForSignedKeyRequestComplete.js';
 import { generateCustodyBearer } from '@/helpers/generateCustodyBearer.js';
-import { type PageIndicator, createPageable, createNextIndicator } from '@masknet/shared-base';
+import {
+    type PageIndicator,
+    createPageable,
+    createNextIndicator,
+    type Pageable,
+    createIndicator,
+} from '@masknet/shared-base';
 import { type Post, ProfileStatus, type Provider, ReactionType, Type } from '@/providers/types/SocialMedia.js';
 import { WarpcastSession } from '@/providers/warpcast/Session.js';
 import type {
@@ -126,13 +132,9 @@ export class WarpcastSocialMedia implements Provider {
     async createClient() {
         const session = await this.createSession();
         return new HubRestAPIClient();
-        // return new MerkleAPIClient({
-        //     secret: session.token,
-        //     expiresAt: session.expiresAt,
-        // });
     }
 
-    async discoverPosts(indicator?: PageIndicator) {
+    async discoverPosts(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         const url = urlcat('https://client.warpcast.com/v2', '/popular-casts-feed', {
             limit: 10,
             cursor: indicator?.id,
@@ -159,7 +161,9 @@ export class WarpcastSocialMedia implements Provider {
                 },
                 metadata: {
                     locale: '',
-                    content: cast.text,
+                    content: {
+                        content: cast.text,
+                    },
                 },
                 stats: {
                     comments: cast.replies.count,
@@ -167,9 +171,10 @@ export class WarpcastSocialMedia implements Provider {
                     quotes: cast.recasts.count,
                     reactions: cast.reactions.count,
                 },
+                __original__: cast,
             };
         });
-        return createPageable(data, indicator, createNextIndicator(indicator, next.cursor));
+        return createPageable(data, indicator ?? createIndicator(), createNextIndicator(indicator, next.cursor));
     }
 
     async getPostById(postId: string) {
@@ -458,3 +463,5 @@ export class WarpcastSocialMedia implements Provider {
         });
     }
 }
+
+export const WarpcastSocialMediaProvider = new WarpcastSocialMedia();

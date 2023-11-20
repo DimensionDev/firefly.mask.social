@@ -1,6 +1,7 @@
 import type { PageIndicator, Pageable } from '@masknet/shared-base';
 import type { Session } from '@/providers/types/Session.js';
 import type { MetadataAsset } from '@/types/index.js';
+import type { SocialPlatform } from '@/constants/enum.js';
 
 export enum Type {
     Twitter = 'Twitter',
@@ -107,7 +108,7 @@ export interface Post {
     postId: string;
     parentPostId?: string;
     parentAuthor?: Profile;
-    timestamp: number;
+    timestamp?: number;
     author: Profile;
     embedPosts?: Post[];
     mediaObjects?: MediaObject[];
@@ -134,6 +135,7 @@ export interface Post {
         bookmarks?: number;
     };
     __original__?: unknown;
+    source: SocialPlatform;
 }
 
 export interface Comment {
