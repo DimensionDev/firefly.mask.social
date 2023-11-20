@@ -14,7 +14,8 @@ export function LoginFarcaster({ closeFarcaster }: LoginFarcasterProps) {
 
     async function login() {
         const fireflyProvider = new FireflySocialMedia();
-        await fireflyProvider.createSessionByGrantPermission(setUrl);
+        // await fireflyProvider.createSessionByGrantPermission(setUrl);
+        fireflyProvider.publishPost({ metadata: { content: 'hhhhhhhhhhh' } })
     }
 
     useEffect(() => {

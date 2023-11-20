@@ -7,10 +7,9 @@ import type { CastResponse, UsersResponse, UserResponse, CastsResponse } from '@
 import * as ed from '@noble/ed25519';
 import { sha512 } from '@noble/hashes/sha512';
 import type { CastsResponse as DiscoverPosts } from '@/providers/types/Warpcast.js';
+import {Message, FarcasterNetwork, } from '@farcaster/hub-web'
 import {
-    FarcasterNetwork,
     MessageType,
-    Message,
     MessageData,
     HashScheme,
     SignatureScheme,
@@ -269,10 +268,10 @@ export class FireflySocialMedia implements Provider {
         if (!session) throw new Error('No session found');
         const url = urlcat(FIREFLY_HUBBLE_URL, '/v1/submitMessage');
         const messageData: MessageData = {
-            type: MessageType.MESSAGE_TYPE_CAST_ADD,
+            type: MessageType.CAST_ADD,
             fid: Number(session.profileId),
             timestamp: Math.floor(Date.now() / 1000),
-            network: FarcasterNetwork.FARCASTER_NETWORK_MAINNET,
+            network: FarcasterNetwork.MAINNET,
             castAddBody: {
                 embedsDeprecated: EMPTY_LIST,
                 mentions: EMPTY_LIST,
@@ -291,19 +290,18 @@ export class FireflySocialMedia implements Provider {
         const message = {
             data: messageData,
             hash: toBytes(messageHash),
-            hashScheme: HashScheme.HASH_SCHEME_BLAKE3,
+            hashScheme: HashScheme.BLAKE3,
             signature,
-            signatureScheme: SignatureScheme.SIGNATURE_SCHEME_ED25519,
+            signatureScheme: SignatureScheme.ED25519,
             signer: ed.getPublicKey(toBytes(session.token)),
         };
-        console.log(message);
-        const encodedMessage = Buffer.from(Message.encode(message).finish());
-        console.log('DEBUG: encodedMessage', encodedMessage);
+    
+        const messageBytes = Buffer.from(Message.encode(message).finish());
 
         const { data, hash } = await fetchJSON<Message>(url, {
             method: 'POST',
             headers: { 'Content-Type': 'application/octet-stream' },
-            body: encodedMessage,
+            body: messageBytes,
         });
         if (!data) throw new Error('Failed to publish post');
         return {
