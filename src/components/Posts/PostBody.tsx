@@ -18,7 +18,7 @@ export const PostBody = memo<PostBodyProps>(function PostBody({ post }) {
     if (post.isEncrypted) {
         return (
             <div className="my-2 pl-[52px]">
-                <div className="border-primaryMain flex items-center gap-1  rounded-lg border px-3 py-[6px]">
+                <div className="flex items-center gap-1 rounded-lg  border border-primaryMain px-3 py-[6px]">
                     <EyeSlash width={16} height={16} />
                     Post has been encrypted
                 </div>
@@ -30,7 +30,7 @@ export const PostBody = memo<PostBodyProps>(function PostBody({ post }) {
         <div className="text- my-2 break-words pl-[52px] text-base text-main">
             <Markup className="markup linkify text-md break-words">{post.metadata.content?.content || ''}</Markup>
 
-            {canShowMore ? <div className="text-link text-base font-bold">Show More</div> : null}
+            {canShowMore ? <div className="text-base font-bold text-link">Show More</div> : null}
             {showAttachments ? (
                 <Attachments
                     asset={post.metadata.content?.asset}

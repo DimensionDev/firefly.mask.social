@@ -49,7 +49,7 @@ export const SideBar = memo(function SideBar() {
                             <li>
                                 <ul role="list" className="-mx-2 space-y-6">
                                     {items.map((item) => (
-                                        <li className="hover:bg-bg px-4 py-3 text-main" key={item.name}>
+                                        <li className="px-4 py-3 text-main hover:bg-bg" key={item.name}>
                                             {item.href === '/connect-wallet' ? (
                                                 <ConnectWalletNav />
                                             ) : (
