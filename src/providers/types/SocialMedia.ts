@@ -5,6 +5,7 @@ export enum Type {
     Twitter = 'Twitter',
     Warpcast = 'Warpcast',
     Lens = 'Lens',
+    Firefly = 'Firefly',
 }
 
 export enum MimeType {
