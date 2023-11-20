@@ -29,6 +29,9 @@
         "@servie/events": "^3.0.0",
         "@standard-crypto/farcaster-js": "^6.0.3",
         "@tailwindcss/forms": "^0.5.6",
+        "@tanstack/react-query": "^5.8.4",
+        "@tanstack/react-query-devtools": "^5.8.4",
+        "@tanstack/react-query-next-experimental": "^5.8.4",
         "async-call-rpc": "^6.3.1",
         "autoprefixer": "10.4.16",
         "bignumber.js": "9.1.1",
@@ -36,6 +39,7 @@
         "color": "^4.2.3",
         "date-fns": "^2.30.0",
         "eslint-config-next": "13.5.2",
+        "hash-wasm": "^4.11.0",
         "http-status-codes": "^2.3.0",
         "i18next": "^23.2.11",
         "i18next-browser-languagedetector": "^7.1.0",
@@ -44,6 +48,7 @@
         "lodash-es": "^4.17.21",
         "next": "^14.0.2",
         "postcss": "^8.4.30",
+        "protobufjs": "^7.2.5",
         "react": "18.2.0",
         "react-dom": "18.2.0",
         "react-i18next": "^13.0.2",
@@ -94,6 +99,7 @@
         "stream-http": "^2.8.3",
         "style-loader": "^3.3.3",
         "swc-loader": "^0.2.3",
+        "ts-proto": "^1.164.0",
         "vitest": "^0.34.6",
         "zlib-browserify": "^0.0.3"
     }

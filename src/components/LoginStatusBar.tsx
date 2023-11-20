@@ -1,6 +1,11 @@
 import { Image } from '@/esm/Image.js';
 
-export function LoginStatusBar() {
+interface LoginStatusBarProps {
+    openLens: () => void;
+    openFarcaster: () => void;
+}
+
+export function LoginStatusBar({ openLens, openFarcaster }: LoginStatusBarProps) {
     return (
         <div className="flex gap-x-2 pl-2">
             <div className="relative h-[40px] w-[48px]">

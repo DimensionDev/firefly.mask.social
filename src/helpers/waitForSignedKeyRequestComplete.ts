@@ -19,7 +19,7 @@ export function waitForSignedKeyRequestComplete(signal?: AbortSignal) {
             await delay(ms);
 
             const response = await fetchJSON<{
-                state: 'pending' | 'complete';
+                result: { signedKeyRequest: { state: 'pending' | 'completed' | 'approved' } };
                 errors?: Array<{ message: string }>;
             }>(
                 urlcat(WARPCAST_ROOT_URL, '/signed-key-request', {
@@ -28,10 +28,10 @@ export function waitForSignedKeyRequestComplete(signal?: AbortSignal) {
             );
 
             console.log(`DEBUG: ${tries} check`);
-            console.log(response);
+            console.log(response.result.signedKeyRequest.state);
 
             if (response.errors?.length) continue;
-            if (response.state === 'complete') return true;
+            if (response.result.signedKeyRequest.state === 'completed') return true;
         }
     };
 }

@@ -11,6 +11,7 @@ build/
 *.min.js
 *.min.css
 
+
 # Ignore all files of a specific type in a specific directory
 public/*.html
 public/js/polyfills/*.js
@@ -23,3 +24,4 @@ src/specialFile.js
 
 # Ignore git submodule
 src/maskbook
+
