@@ -1,4 +1,4 @@
-import FollowButton from '@/app/(normal)/profile/components/FollowButton.js';
+import FollowButton from '@/app/profile/components/FollowButton.js';
 import { Image } from '@/esm/Image.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { useRouter } from 'next/navigation.js';

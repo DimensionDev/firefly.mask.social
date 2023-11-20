@@ -1,5 +1,5 @@
-import FollowButton from '@/app/(normal)/profile/components/FollowButton.js';
-import { PlatformEnum } from '@/app/(normal)/profile/type.js';
+import FollowButton from '@/app/profile/components/FollowButton.js';
+import { PlatformEnum } from '@/app/profile/type.js';
 import { Image } from '@/esm/Image.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 

@@ -1,4 +1,4 @@
-import { PlatformEnum } from '@/app/(normal)/profile/type.js';
+import { PlatformEnum } from '@/app/profile/type.js';
 import { classNames } from '@/helpers/classNames.js';
 
 interface PlatformTabsProps {

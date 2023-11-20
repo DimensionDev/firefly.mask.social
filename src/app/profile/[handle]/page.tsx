@@ -1,10 +1,10 @@
 'use client';
 
-import ContentTabs from '@/app/(normal)/profile/components/ContentTabs.js';
-import Info from '@/app/(normal)/profile/components/Info.js';
-import PlatformTabs from '@/app/(normal)/profile/components/PlatformTabs.js';
-import Title from '@/app/(normal)/profile/components/Title.js';
-import { PlatformEnum } from '@/app/(normal)/profile/type.js';
+import ContentTabs from '@/app/profile/components/ContentTabs.js';
+import Info from '@/app/profile/components/Info.js';
+import PlatformTabs from '@/app/profile/components/PlatformTabs.js';
+import Title from '@/app/profile/components/Title.js';
+import { PlatformEnum } from '@/app/profile/type.js';
 import { LensSocialMedia } from '@/providers/lens/SocialMedia.js';
 import { useMemo, useState } from 'react';
 import type { Profile } from '@/providers/types/SocialMedia.js';
