@@ -23,6 +23,8 @@
     "compilerOptions": {
         "noEmit": true,
         "sourceMap": false,
+        "declaration": true,
+        "declarationDir": "./src/types",
         "declarationMap": false,
         "composite": true,
         "esModuleInterop": true,

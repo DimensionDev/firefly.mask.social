@@ -1,26 +1,38 @@
 import urlcat from 'urlcat';
 import { EMPTY_LIST, FIREFLY_HUBBLE_URL, FIREFLY_ROOT_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
-import { type PageIndicator, createPageable } from '@masknet/shared-base';
+import {
+    type PageIndicator,
+    createPageable,
+    createIndicator,
+    type Pageable,
+    createNextIndicator,
+} from '@masknet/shared-base';
 import { ProfileStatus, type Provider, Type, type Post } from '@/providers/types/SocialMedia.js';
 import type { CastResponse, UsersResponse, UserResponse, CastsResponse } from '@/providers/types/Firefly.js';
 import * as ed from '@noble/ed25519';
 import { sha512 } from '@noble/hashes/sha512';
-import type { CastsResponse as DiscoverPosts } from '@/providers/types/Warpcast.js';
-import { Message, FarcasterNetwork } from '@farcaster/hub-web';
+import type { FeedResponse } from '@/providers/types/Warpcast.js';
 import {
     MessageType,
     MessageData,
     HashScheme,
     SignatureScheme,
+    FarcasterNetwork,
     ReactionType,
 } from '@/providers/firefly/proto/message.js';
+import {Message} from "@farcaster/hub-web";
 import { ReactionType as ReactionTypeCustom } from '@/providers/types/SocialMedia.js';
-import type { ResponseJSON } from '@/types/index.js';
+import type { MetadataAsset, ResponseJSON } from '@/types/index.js';
 import { blake3 } from 'hash-wasm';
 import { waitForSignedKeyRequestComplete } from '@/helpers/waitForSignedKeyRequestComplete.js';
 import { toBytes } from 'viem';
 import { FireflySession } from '@/providers/firefly/Session.js';
+import formatWarpcastPost from '@/helpers/formatWarpcastPost.js';
+import { first } from 'lodash-es';
+import dayjs from 'dayjs';
+import { getResourceType } from '@/helpers/getResourceType.js';
+import { SocialPlatform } from '@/constants/enum.js';
 ed.etc.sha512Sync = (...m: any) => sha512(ed.etc.concatBytes(...m));
 
 // @ts-ignore
@@ -80,57 +92,33 @@ export class FireflySocialMedia implements Provider {
         return null;
     }
 
-    async discoverPosts(indicator?: PageIndicator) {
-        const url = urlcat('https://client.warpcast.com/v2', '/popular-casts-feed', {
+    async discoverPosts(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        const url = urlcat('https://client.warpcast.com/v2', '/default-recommended-feed', {
             limit: 10,
             cursor: indicator?.id,
         });
 
-        const { result, next } = await fetchJSON<DiscoverPosts>(url, {
+        const { result, next } = await fetchJSON<FeedResponse>(url, {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' },
         });
-        const data = result.casts.map((cast) => {
-            return {
-                postId: cast.hash,
-                parentPostId: cast.threadHash,
-                timestamp: cast.timestamp,
-                author: {
-                    profileId: cast.author.fid.toString(),
-                    nickname: cast.author.username,
-                    displayName: cast.author.displayName,
-                    pfp: cast.author.pfp.url,
-                    followerCount: cast.author.followerCount,
-                    followingCount: cast.author.followingCount,
-                    status: ProfileStatus.Active,
-                    verified: cast.author.pfp.verified,
-                },
-                metadata: {
-                    locale: '',
-                    content: cast.text,
-                },
-                stats: {
-                    comments: cast.replies.count,
-                    mirrors: cast.recasts.count,
-                    quotes: cast.recasts.count,
-                    reactions: cast.reactions.count,
-                },
-            };
-        });
-        return createPageable(data, indicator?.id, next.cursor);
+        const data = result.feed.map(formatWarpcastPost);
+        return createPageable(data, indicator ?? createIndicator(), createNextIndicator(indicator, next.cursor));
     }
 
-    async getPostById(postId: string) {
+    async getPostById(postId: string): Promise<Post> {
         const url = urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/cast', { hash: postId });
         const { data: cast } = await fetchJSON<CastResponse>(url, {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' },
         });
 
+        const asset = first(cast.embeds);
         return {
+            source: SocialPlatform.Farcaster,
             postId: cast.hash,
             parentPostId: cast.parent_hash,
-            timestamp: Number(cast.created_at),
+            timestamp: cast.timestamp ? dayjs(cast.timestamp).valueOf() : undefined,
             author: {
                 profileId: cast.author.fid,
                 nickname: cast.author.username,
@@ -143,7 +131,15 @@ export class FireflySocialMedia implements Provider {
             },
             metadata: {
                 locale: '',
-                content: cast.text,
+                content: {
+                    content: cast.text,
+                    asset: asset
+                        ? ({
+                              uri: asset.url,
+                              type: getResourceType(asset.url),
+                          } as MetadataAsset)
+                        : undefined,
+                },
             },
             stats: {
                 comments: cast.replyCount,
@@ -238,6 +234,7 @@ export class FireflySocialMedia implements Provider {
             headers: { 'Content-Type': 'application/json' },
         });
         const data = casts.map((cast) => ({
+            source: SocialPlatform.Farcaster,
             postId: cast.hash,
             parentPostId: cast.parent_hash,
             timestamp: Number(cast.created_at),
@@ -253,7 +250,9 @@ export class FireflySocialMedia implements Provider {
             },
             metadata: {
                 locale: '',
-                content: cast.text,
+                content: {
+                    content: cast.text,
+                },
             },
             stats: {
                 comments: cast.replyCount,
@@ -265,7 +264,7 @@ export class FireflySocialMedia implements Provider {
         return createPageable(data, indicator?.id, cursor);
     }
 
-    async publishPost(post: Post) {
+    async publishPost(post: Post): Promise<Post> {
         const session = await this.resumeSession();
         if (!session) throw new Error('No session found');
         const url = urlcat(FIREFLY_HUBBLE_URL, '/v1/submitMessage');
@@ -277,7 +276,7 @@ export class FireflySocialMedia implements Provider {
             castAddBody: {
                 embedsDeprecated: EMPTY_LIST,
                 mentions: EMPTY_LIST,
-                text: post.metadata.content,
+                text: post.metadata.content?.content ?? '',
                 mentionsPositions: [],
                 embeds: post.mediaObjects?.map((v) => ({ url: v.url })) ?? EMPTY_LIST,
             },
@@ -307,6 +306,7 @@ export class FireflySocialMedia implements Provider {
         });
         if (!data) throw new Error('Failed to publish post');
         return {
+            source: SocialPlatform.Farcaster,
             postId: hash.toString(),
             parentPostId: '',
             timestamp: data.timestamp,
@@ -322,7 +322,9 @@ export class FireflySocialMedia implements Provider {
             },
             metadata: {
                 locale: '',
-                content: data.castAddBody?.text || '',
+                content: {
+                    content: data.castAddBody?.text || '',
+                },
             },
             stats: {
                 comments: 0,
@@ -643,3 +645,5 @@ export class FireflySocialMedia implements Provider {
         return null!;
     }
 }
+
+export const FireflySocialMediaProvider = new FireflySocialMedia();

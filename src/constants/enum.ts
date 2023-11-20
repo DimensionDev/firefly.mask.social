@@ -4,6 +4,7 @@ export enum PageRoutes {
     Notification = '/notification',
     Profile = '/profile',
     Setting = '/settings/display',
+    Search = '/search',
 }
 
 export enum SocialPlatform {

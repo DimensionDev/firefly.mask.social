@@ -27,6 +27,9 @@ export default {
             {
                 hostname: 'pbs.twimg.com',
             },
+            {
+                hostname: 'static-assets.hey.xyz',
+            },
         ],
     },
     async headers() {
@@ -94,6 +97,13 @@ export default {
             zlib: require.resolve('zlib-browserify'),
             'text-encoding': require.resolve('@sinonjs/text-encoding'),
         };
+
+        config.module.rules.push({
+            test: /\.svg$/i,
+            exclude: /src\/maskbook/,
+            issuer: /\.[jt]sx?$/,
+            use: ['@svgr/webpack'],
+        });
 
         return config;
     },
