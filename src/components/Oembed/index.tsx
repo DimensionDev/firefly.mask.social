@@ -1,6 +1,8 @@
+import urlcat from 'urlcat';
 import Embed from '@/components/Oembed/Embed.js';
 import Player from '@/components/Oembed/Player.js';
-import type { OpenGraph } from '@/services/digestLink.js';
+import { fetchJSON } from '@/helpers/fetchJSON.js';
+import type { LinkDigest, OpenGraph } from '@/services/digestLink.js';
 import { useQuery } from '@tanstack/react-query';
 
 interface OembedProps {
@@ -11,24 +13,23 @@ interface OembedProps {
 export default function Oembed({ url, onData }: OembedProps) {
     const { isLoading, error, data } = useQuery({
         queryKey: ['oembed', url],
-        queryFn: async () => {
-            const response = await fetch(`/api/oembed?link=${encodeURIComponent(url as string)}`);
-            return response.json();
+        queryFn: () => {
+            if (!url) return
+            return fetchJSON<LinkDigest>(
+                urlcat('/api/oembed', {
+                    link: encodeURIComponent(url),
+                }),
+            );
         },
         enabled: Boolean(url),
     });
 
-    if (isLoading || error || !data) {
-        return null;
-    } else if (data) {
-        onData(data);
-    }
+    if (isLoading || error || !data) return null;
+
+    onData(data.og);
 
     const og: OpenGraph = data.og;
-
-    if (!og.title) {
-        return null;
-    }
+    if (!og.title) return null;
 
     return og.html ? <Player html={og.html} /> : <Embed og={og} />;
 }
