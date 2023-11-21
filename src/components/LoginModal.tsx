@@ -13,14 +13,14 @@ interface LoginModalProps {
 }
 
 interface connectParams {
-    chain: any,
-    openConnectModal: () => void,
-    openChainModal: () => void,
-    authenticationStatus: "loading" | "unauthenticated" | "authenticated" | undefined,
-    account: any,
-    mounted: boolean,
-    connectModalOpen: boolean
-    chainModalOpen: boolean
+    chain: any;
+    openConnectModal: () => void;
+    openChainModal: () => void;
+    authenticationStatus: 'loading' | 'unauthenticated' | 'authenticated' | undefined;
+    account: any;
+    mounted: boolean;
+    connectModalOpen: boolean;
+    chainModalOpen: boolean;
 }
 
 function usePrevious(value: boolean) {
@@ -33,10 +33,10 @@ function usePrevious(value: boolean) {
 
 export function LoginModal({ isOpen, setIsOpen }: LoginModalProps) {
     const [farcasterOpen, setFarcasterOpen] = useState(false);
-    const [connectOpen, setConnectOpen] = useState(false)
-    const [chainOpen, setChainOpen] = useState(false)
-    const previousConnectModalOpen = usePrevious(connectOpen)
-    const previousChainModalOpen = usePrevious(chainOpen)
+    const [connectOpen, setConnectOpen] = useState(false);
+    const [chainOpen, setChainOpen] = useState(false);
+    const previousConnectModalOpen = usePrevious(connectOpen);
+    const previousChainModalOpen = usePrevious(chainOpen);
 
     const closeModal = () => {
         setIsOpen(false);
@@ -45,19 +45,18 @@ export function LoginModal({ isOpen, setIsOpen }: LoginModalProps) {
     const loginLens = useCallback(async () => {
         const lensProvider = new LensSocialMedia();
         await lensProvider.createSession();
-        setIsOpen(false)
+        setIsOpen(false);
     }, [setIsOpen]);
 
     useEffect(() => {
         if (previousConnectModalOpen && !connectOpen) {
-            loginLens()
+            loginLens();
         }
     }, [connectOpen, previousConnectModalOpen, loginLens]);
 
-
     useEffect(() => {
         if (previousChainModalOpen && !chainOpen) {
-            loginLens()
+            loginLens();
         }
     }, [chainOpen, previousChainModalOpen, loginLens]);
 
@@ -122,10 +121,10 @@ export function LoginModal({ isOpen, setIsOpen }: LoginModalProps) {
                                                     account,
                                                     mounted,
                                                     connectModalOpen,
-                                                    chainModalOpen
+                                                    chainModalOpen,
                                                 }: connectParams) => {
-                                                    setConnectOpen(connectModalOpen)
-                                                    setChainOpen(chainModalOpen)
+                                                    setConnectOpen(connectModalOpen);
+                                                    setChainOpen(chainModalOpen);
                                                     const ready = mounted && authenticationStatus !== 'loading';
                                                     const connected =
                                                         ready &&
@@ -145,12 +144,11 @@ export function LoginModal({ isOpen, setIsOpen }: LoginModalProps) {
                                                                 },
                                                             })}
                                                         >
-
                                                             <button
-                                                                className="group w-full flex flex-col rounded-lg p-[16px] hover:bg-lightBg"
+                                                                className="group flex w-full flex-col rounded-lg p-[16px] hover:bg-lightBg"
                                                                 onClick={() => {
                                                                     if (!connected) {
-                                                                        openConnectModal()
+                                                                        openConnectModal();
                                                                     }
                                                                     if (chain?.unsupported) {
                                                                         openChainModal();

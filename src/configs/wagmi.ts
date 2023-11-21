@@ -12,7 +12,7 @@ export const appInfo: Parameters<typeof RainbowKitProvider>[0]['appInfo'] = {
 };
 
 export const { chains, publicClient, webSocketPublicClient } = configureChains(
-    [process.env.NODE_ENV === "production" ? polygon: polygonMumbai],
+    [process.env.NODE_ENV === 'production' ? polygon : polygonMumbai],
     [publicProvider()],
 ) as {
     readonly chains: Chain[];
