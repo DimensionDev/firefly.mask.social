@@ -37,9 +37,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                                 ['lg:pl-72 lg:pr-96']: true,
                             })}
                         >
-                            <div className="px-4 py-5">
-                                <SocialPlatformTabs />
-                            </div>
+                            <SocialPlatformTabs />
+
                             {children}
                         </main>
                         <SearchBar />

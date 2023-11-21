@@ -25,7 +25,13 @@
         "viem",
         "wagmi",
         "warpcast",
-        "zustand"
+        "zustand",
+        "recasted",
+        "zora",
+        "basepaint",
+        "unlonely",
+        "ipfs",
+        "arweave"
     ],
     "ignoreWords": [
         "cyberconnect",
@@ -42,6 +48,7 @@
         "nextauth",
         "nocheck",
         "profilecard",
+        "proto",
         "quicktime",
         "rainbowkit",
         "redpacket",
@@ -53,7 +60,13 @@
         "thefireflyapp",
         "transak",
         "typecheck",
-        "IDBP"
+        "DEVNET",
+        "IDBP",
+        "splited",
+        "linkify",
+        "trimify",
+        "plyr",
+        "livepeer"
     ],
     "flagWords": [],
     "ignorePaths": [
@@ -65,7 +78,9 @@
         ".next/**",
         "public/svg/**",
         "public/js/**",
-        "src/maskbook"
+        "src/maskbook",
+        "src/providers/firefly/proto",
+        "src/assets/**"
     ],
     "overrides": []
 }

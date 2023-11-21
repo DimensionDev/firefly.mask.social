@@ -2,8 +2,8 @@
 
 import { Image } from '@/esm/Image.js';
 import { useState, useEffect } from 'react';
-import { WarpcastSocialMedia } from '@/providers/warpcast/SocialMedia.js';
 import QRCode from 'react-qr-code';
+import { FireflySocialMedia } from '@/providers/firefly/SocialMedia.js';
 
 interface LoginFarcasterProps {
     closeFarcaster: () => void;
@@ -13,8 +13,8 @@ export function LoginFarcaster({ closeFarcaster }: LoginFarcasterProps) {
     const [url, setUrl] = useState('');
 
     async function login() {
-        const warpcastProvider = new WarpcastSocialMedia();
-        warpcastProvider.createSessionByGrantPermission(setUrl);
+        const fireflyProvider = new FireflySocialMedia();
+        await fireflyProvider.createSessionByGrantPermission(setUrl);
     }
 
     useEffect(() => {
