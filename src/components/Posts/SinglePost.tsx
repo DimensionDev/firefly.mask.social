@@ -21,7 +21,7 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({ post, show
             exit={{ opacity: 0 }}
             className="cursor-pointer border-b border-line bg-bottom px-4 py-3 hover:bg-bg"
             onClick={() => {
-                router.push(urlcat('/detail/:platform/:id', { platform: post.source, id: post.postId }));
+                router.push(urlcat('/detail/:platform/:id', { platform: post.source.toLowerCase(), id: post.postId }));
             }}
         >
             <PostHeader post={post} />

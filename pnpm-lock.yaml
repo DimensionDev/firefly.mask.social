@@ -235,6 +235,9 @@ importers:
       next:
         specifier: ^14.0.2
         version: 14.0.2(react-dom@18.2.0)(react@18.2.0)
+      plyr:
+        specifier: ^3.7.8
+        version: 3.7.8
       plyr-react:
         specifier: ^5.3.0
         version: 5.3.0(plyr@3.7.8)(react@18.2.0)
@@ -34790,6 +34793,7 @@ time:
   /notistack@2.0.8: '2022-10-16T13:58:55.665Z'
   /patch-package@8.0.0: '2023-07-27T17:39:57.984Z'
   /plyr-react@5.3.0: '2023-06-12T22:50:21.153Z'
+  /plyr@3.7.8: '2023-03-24T12:03:43.643Z'
   /postcss-cli@10.1.0: '2022-11-29T20:55:37.193Z'
   /postcss@8.4.30: '2023-09-18T21:24:57.039Z'
   /prettier-plugin-tailwindcss@0.5.7: '2023-11-08T16:05:24.330Z'

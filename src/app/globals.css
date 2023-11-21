@@ -7,15 +7,24 @@
     --background-start-rgb: 214, 219, 220;
     --background-end-rgb: 255, 255, 255;
     --color-main: 7 16 27;
-    --color-second: 118 127 141;
+    --color-second: rgba(118, 127, 141, 1);
     --color-link: 142 150 255;
     --color-bottom: 255 255 255;
     --color-bottom80: rgba(255, 255, 255, 0.8);
     --color-bg: rgba(249, 249, 249, 1);
     --color-main1: rgba(183, 183, 183, 1);
+    --color-main2: rgba(207, 207, 207, 1);
+    --color-main3: rgba(243, 243, 243, 1);
     --color-third: rgba(177, 177, 177, 1);
     --color-input: rgba(245, 245, 245, 1);
     --color-line: rgba(245, 245, 245, 1);
+    --plyr-audio-controls-background: rgba(243, 243, 243, 1);
+    --plyr-range-thumb-height: 0px;
+    --plyr-range-track-height: 12px;
+    --plyr-control-radius: 12px;
+    --plyr-range-fill-background: rgba(118, 118, 118, 1);
+    --plyr-audio-progress-buffered-background: rgba(207, 207, 207, 1);
+    --plyr-control-icon-size: 16px;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -28,11 +37,27 @@
         --color-bottom: 3 3 3;
         --color-bottom80: rgba(0, 0, 0, 0.8);
         --color-main1: rgba(255, 255, 255, 0.28);
+        --color-main2: rgba(255, 255, 255, 0.13);
+        --color-main3: rgba(255, 255, 255, 0.11);
         --color-third: rgba(255, 255, 255, 0.44);
         --color-second: rgba(255, 255, 255, 0.78);
         --color-bg: rgba(255, 255, 255, 0.08);
         --color-input: rgba(255, 255, 255, 0.15);
         --color-line: rgba(255, 255, 255, 0.18);
+        --plyr-audio-controls-background: inherit;
+        --plyr-range-thumb-height: 0px;
+        --plyr-range-track-height: 12px;
+        --plyr-control-radius: 12px;
+        --plyr-range-fill-background: rgba(255, 255, 255, 0.78);
+        --plyr-audio-progress-buffered-background: rgba(255, 255, 255, 0.13);
+        --plyr-control-icon-size: 16px;
+    }
+
+    .plyr__controls {
+        background: inherit !important;
+    }
+    .plyr__progress__buffer {
+        color: #0000 !important;
     }
 }
 
@@ -54,4 +79,17 @@ ul {
     @apply [&>div>div]:border;
     @apply [&>div>div]:border-gray-100;
     @apply [&>div>div]:dark:border-gray-700;
+}
+
+.plyr__time {
+    font-weight: 700;
+    color: var(--color-second);
+    font-size: 16px;
+    line-height: 24px;
+}
+
+.plyr__control {
+    background: var(--color-third) !important;
+    color: rgb(var(--color-main)) !important;
+    padding: 8px !important;
 }

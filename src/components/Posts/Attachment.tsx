@@ -9,7 +9,7 @@ import { dynamic } from '@/esm/dynamic.js';
 import { ImageAsset } from '@/components/Posts/ImageAsset.js';
 
 const Video = dynamic(() => import('@/components/Posts/Video.js').then((module) => module.Video), { ssr: false });
-
+const Audio = dynamic(() => import('@/components/Posts/Audio.js').then((module) => module.Audio), { ssr: false });
 const getClass = (attachments: number) => {
     if (attachments === 1) {
         return {
@@ -102,6 +102,9 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({ attachm
                 </div>
             ) : null}
             {asset?.type === 'Video' ? <Video src={asset.uri} poster={asset.cover} /> : null}
+            {asset?.type === 'Audio' ? (
+                <Audio src={asset.uri} poster={asset.cover} artist={asset.artist} title={asset.title} />
+            ) : null}
         </div>
     );
 });

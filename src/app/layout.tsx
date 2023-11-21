@@ -31,12 +31,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                         })}
                     >
                         <SideBar />
-                        <main
-                            className={classNames({
-                                // lg
-                                ['lg:pl-72 lg:pr-96']: true,
-                            })}
-                        >
+                        <main className="pl-72 lg:pr-96">
                             <SocialPlatformTabs />
 
                             {children}

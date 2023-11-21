@@ -20,8 +20,9 @@ export const Quote = memo<QuoteProps>(function Quote({ post }) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="mt-3 cursor-pointer rounded-2xl border border-solid border-third bg-primaryBottom  px-4 py-3 hover:bg-bg dark:bg-secondaryBottom"
-            onClick={() => {
-                router.push(urlcat('/detail/:platform/:id', { platform: post.source, id: post.postId }));
+            onClick={(event) => {
+                event.stopPropagation();
+                router.push(urlcat('/detail/:platform/:id', { platform: post.source.toLowerCase(), id: post.postId }));
             }}
         >
             <PostHeader post={post} isQuote />

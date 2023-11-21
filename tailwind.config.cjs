@@ -16,6 +16,8 @@ module.exports = {
                 bg: 'var(--color-bg)',
                 secondaryBottom: 'var(--color-bottom80)',
                 primaryMain: 'var(--color-main1)',
+                secondaryMain: 'var(--color-main2)',
+                thirdMain: 'var(--color-main3)',
                 third: 'var(--color-third)',
                 input: 'var(--color-input)',
                 line: 'var(--color-line)',
