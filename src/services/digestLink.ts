@@ -1,4 +1,12 @@
-import { getDescription, getImage, getSite, getTitle } from '@/helpers/getMetadata.js';
+import {
+    generateIframe,
+    getDescription,
+    getEmbedUrl,
+    getImage,
+    getIsLarge,
+    getSite,
+    getTitle,
+} from '@/helpers/getMetadata.js';
 import { parseHTML } from 'linkedom';
 import sizeOf from 'image-size';
 
@@ -12,10 +20,13 @@ export interface OpenGraphImage {
 export interface OpenGraph {
     type: 'website';
     url: string;
+    favicon: string;
     title: string | null;
     description: string | null;
     site: string | null;
     image: OpenGraphImage | null;
+    isLarge: boolean;
+    html: string | null;
     locale: string | null;
 }
 
@@ -59,10 +70,15 @@ export async function digestLink(link: string): Promise<LinkDigest> {
     const og: OpenGraph = {
         type: 'website',
         url: link,
+        favicon: `https://external-content.duckduckgo.com/ip3/${link
+            .replace('https://', '')
+            .replace('http://', '')}.ico`,
         title: getTitle(document),
         description: getDescription(document),
         site: getSite(document),
         image,
+        isLarge: getIsLarge(document),
+        html: generateIframe(getEmbedUrl(document), link),
         locale: null,
     };
 
