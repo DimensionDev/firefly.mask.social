@@ -1,9 +1,9 @@
 'use client';
 
-import { Image } from '@/esm/Image.js';
 import { Fragment, useState } from 'react';
-import { LensSocialMedia } from '@/providers/lens/SocialMedia.js';
 import { Dialog, Transition } from '@headlessui/react';
+import { Image } from '@/esm/Image.js';
+import { LensSocialMedia } from '@/providers/lens/SocialMedia.js';
 import { LoginFarcaster } from '@/components/LoginFarcaster.js';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 
@@ -90,7 +90,7 @@ export function LoginModal({ isOpen, setIsOpen }: LoginModalProps) {
                                                     authenticationStatus,
                                                     account,
                                                     mounted,
-                                                }: any) => {
+                                                }) => {
                                                     const ready = mounted && authenticationStatus !== 'loading';
                                                     const connected =
                                                         ready &&
