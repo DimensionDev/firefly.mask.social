@@ -78,7 +78,7 @@ export default {
             asyncWebAssembly: true,
         };
 
-        config.externals = [...(config.externals ?? []), '@napi-rs/image'];
+        config.externals = [...(config.externals ?? []), '@napi-rs/image', 'canvas'];
 
         config.resolve.extensionAlias = {
             ...config.resolve.extensionAlias,
