@@ -16,13 +16,13 @@ export const SearchBar = memo(function SearchBar() {
     if (pathname.includes('/settings')) return null;
     return (
         <aside className="absolute inset-y-0 right-0 hidden w-96 overflow-y-auto px-4 py-6 sm:px-6 lg:block lg:px-8">
-            <div className=" flex items-center rounded-xl bg-input px-3 text-main">
+            <div className=" bg-input flex items-center rounded-xl px-3 text-main">
                 <SearchIcon width={18} height={18} />
                 <input
                     type="search"
                     name="search"
                     id="search"
-                    className="w-full border-0 bg-transparent py-1.5 shadow-sm  placeholder:text-secondary focus:border-0 focus:outline-0 focus:ring-0 sm:text-sm sm:leading-6"
+                    className="w-full border-0 bg-transparent py-1.5 placeholder-secondary shadow-sm focus:border-0 focus:outline-0 focus:ring-0 sm:text-sm sm:leading-6"
                     placeholder="Search Lens handle or Farcaster"
                 />
             </div>
