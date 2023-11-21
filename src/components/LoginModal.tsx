@@ -149,10 +149,13 @@ export function LoginModal({ isOpen, setIsOpen }: LoginModalProps) {
                                                                 onClick={() => {
                                                                     if (!connected) {
                                                                         openConnectModal();
+                                                                        return;
                                                                     }
                                                                     if (chain?.unsupported) {
                                                                         openChainModal();
+                                                                        return;
                                                                     }
+                                                                    loginLens();
                                                                 }}
                                                             >
                                                                 <div className="inline-flex w-full flex-col items-center justify-start gap-[8px] rounded-lg px-[16px] py-[24px]">
