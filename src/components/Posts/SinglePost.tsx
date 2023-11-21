@@ -19,7 +19,7 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({ post, show
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="border-line cursor-pointer border-b bg-bottom px-4 py-3 hover:bg-bg"
+            className="cursor-pointer border-b border-line bg-bottom px-4 py-3 hover:bg-bg"
             onClick={() => {
                 router.push(urlcat('/detail/:platform/:id', { platform: post.source, id: post.postId }));
             }}
