@@ -26,7 +26,8 @@ export const Image = forwardRef(function Image(
 
     // TODO: replace failed fallback image
     return (
-        // Since next/image requires the domain of the image to be configured in next.cong, But we can't predict the origin of all images.
+        // Since next/image requires the domain of the image to be configured in next.cong,
+        // But we can't predict the origin of all images.
         // eslint-disable-next-line @next/next/no-img-element
         <img
             {...props}

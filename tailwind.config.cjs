@@ -8,12 +8,17 @@ module.exports = {
     theme: {
         extend: {
             colors: {
-                main: 'rgb(var(--color-main) / <alpha-value>)',
-                link: 'rgb(var(--color-link) / <alpha-value>)',
+                main: 'rgba(var(--color-main), <alpha-value>)',
+                link: 'rgba(var(--color-link), <alpha-value>)',
+                primaryBottom: 'rgba(var(--color-bottom), <alpha-value>)',
                 // Because the secondary and bg color values are fixed alpha values in the design, the css variable is used directly.
                 secondary: 'var(--color-second)',
-                bg: 'var(--color-second)',
+                bg: 'var(--color-bg)',
+                secondaryBottom: 'var(--color-bottom80)',
                 primaryMain: 'var(--color-main1)',
+                third: 'var(--color-third)',
+                input: 'var(--color-input)',
+                line: 'var(--color-line)',
                 textMain: '#181818',
                 lightBg: '#F9F9F9',
                 lightSecond: '#767F8D',
