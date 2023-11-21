@@ -1,378 +1,314 @@
 /* eslint-disable */
 import Long from 'long';
-import _m0 from 'protobufjs';
-
-export const protobufPackage = '';
+import _m0 from 'protobufjs/minimal.js';
+import { UserNameProof } from './username_proof.js';
 
 /** Type of hashing scheme used to produce a digest of MessageData */
 export enum HashScheme {
-    HASH_SCHEME_NONE = 0,
-    /** HASH_SCHEME_BLAKE3 - Default scheme for hashing MessageData */
-    HASH_SCHEME_BLAKE3 = 1,
-    UNRECOGNIZED = -1,
+    NONE = 0,
+    /** BLAKE3 - Default scheme for hashing MessageData */
+    BLAKE3 = 1,
 }
 
 export function hashSchemeFromJSON(object: any): HashScheme {
     switch (object) {
         case 0:
         case 'HASH_SCHEME_NONE':
-            return HashScheme.HASH_SCHEME_NONE;
+            return HashScheme.NONE;
         case 1:
         case 'HASH_SCHEME_BLAKE3':
-            return HashScheme.HASH_SCHEME_BLAKE3;
-        case -1:
-        case 'UNRECOGNIZED':
+            return HashScheme.BLAKE3;
         default:
-            return HashScheme.UNRECOGNIZED;
+            throw new tsProtoGlobalThis.Error('Unrecognized enum value ' + object + ' for enum HashScheme');
     }
 }
 
 export function hashSchemeToJSON(object: HashScheme): string {
     switch (object) {
-        case HashScheme.HASH_SCHEME_NONE:
+        case HashScheme.NONE:
             return 'HASH_SCHEME_NONE';
-        case HashScheme.HASH_SCHEME_BLAKE3:
+        case HashScheme.BLAKE3:
             return 'HASH_SCHEME_BLAKE3';
-        case HashScheme.UNRECOGNIZED:
         default:
-            return 'UNRECOGNIZED';
+            throw new tsProtoGlobalThis.Error('Unrecognized enum value ' + object + ' for enum HashScheme');
     }
 }
 
 /** Type of signature scheme used to sign the Message hash */
 export enum SignatureScheme {
-    SIGNATURE_SCHEME_NONE = 0,
-    /** SIGNATURE_SCHEME_ED25519 - Ed25519 signature (default) */
-    SIGNATURE_SCHEME_ED25519 = 1,
-    /** SIGNATURE_SCHEME_EIP712 - ECDSA signature using EIP-712 scheme */
-    SIGNATURE_SCHEME_EIP712 = 2,
-    UNRECOGNIZED = -1,
+    NONE = 0,
+    /** ED25519 - Ed25519 signature (default) */
+    ED25519 = 1,
+    /** EIP712 - ECDSA signature using EIP-712 scheme */
+    EIP712 = 2,
 }
 
 export function signatureSchemeFromJSON(object: any): SignatureScheme {
     switch (object) {
         case 0:
         case 'SIGNATURE_SCHEME_NONE':
-            return SignatureScheme.SIGNATURE_SCHEME_NONE;
+            return SignatureScheme.NONE;
         case 1:
         case 'SIGNATURE_SCHEME_ED25519':
-            return SignatureScheme.SIGNATURE_SCHEME_ED25519;
+            return SignatureScheme.ED25519;
         case 2:
         case 'SIGNATURE_SCHEME_EIP712':
-            return SignatureScheme.SIGNATURE_SCHEME_EIP712;
-        case -1:
-        case 'UNRECOGNIZED':
+            return SignatureScheme.EIP712;
         default:
-            return SignatureScheme.UNRECOGNIZED;
+            throw new tsProtoGlobalThis.Error('Unrecognized enum value ' + object + ' for enum SignatureScheme');
     }
 }
 
 export function signatureSchemeToJSON(object: SignatureScheme): string {
     switch (object) {
-        case SignatureScheme.SIGNATURE_SCHEME_NONE:
+        case SignatureScheme.NONE:
             return 'SIGNATURE_SCHEME_NONE';
-        case SignatureScheme.SIGNATURE_SCHEME_ED25519:
+        case SignatureScheme.ED25519:
             return 'SIGNATURE_SCHEME_ED25519';
-        case SignatureScheme.SIGNATURE_SCHEME_EIP712:
+        case SignatureScheme.EIP712:
             return 'SIGNATURE_SCHEME_EIP712';
-        case SignatureScheme.UNRECOGNIZED:
         default:
-            return 'UNRECOGNIZED';
+            throw new tsProtoGlobalThis.Error('Unrecognized enum value ' + object + ' for enum SignatureScheme');
     }
 }
 
 /** Type of the MessageBody */
 export enum MessageType {
-    MESSAGE_TYPE_NONE = 0,
-    /** MESSAGE_TYPE_CAST_ADD - Add a new Cast */
-    MESSAGE_TYPE_CAST_ADD = 1,
-    /** MESSAGE_TYPE_CAST_REMOVE - Remove an existing Cast */
-    MESSAGE_TYPE_CAST_REMOVE = 2,
-    /** MESSAGE_TYPE_REACTION_ADD - Add a Reaction to a Cast */
-    MESSAGE_TYPE_REACTION_ADD = 3,
-    /** MESSAGE_TYPE_REACTION_REMOVE - Remove a Reaction from a Cast */
-    MESSAGE_TYPE_REACTION_REMOVE = 4,
-    /** MESSAGE_TYPE_LINK_ADD - Add a new Link */
-    MESSAGE_TYPE_LINK_ADD = 5,
-    /** MESSAGE_TYPE_LINK_REMOVE - Remove an existing Link */
-    MESSAGE_TYPE_LINK_REMOVE = 6,
-    /** MESSAGE_TYPE_VERIFICATION_ADD_ETH_ADDRESS - Add a Verification of an Ethereum Address */
-    MESSAGE_TYPE_VERIFICATION_ADD_ETH_ADDRESS = 7,
-    /** MESSAGE_TYPE_VERIFICATION_REMOVE - Remove a Verification */
-    MESSAGE_TYPE_VERIFICATION_REMOVE = 8,
+    NONE = 0,
+    /** CAST_ADD - Add a new Cast */
+    CAST_ADD = 1,
+    /** CAST_REMOVE - Remove an existing Cast */
+    CAST_REMOVE = 2,
+    /** REACTION_ADD - Add a Reaction to a Cast */
+    REACTION_ADD = 3,
+    /** REACTION_REMOVE - Remove a Reaction from a Cast */
+    REACTION_REMOVE = 4,
+    /** LINK_ADD - Add a new Link */
+    LINK_ADD = 5,
+    /** LINK_REMOVE - Remove an existing Link */
+    LINK_REMOVE = 6,
+    /** VERIFICATION_ADD_ETH_ADDRESS - Add a Verification of an Ethereum Address */
+    VERIFICATION_ADD_ETH_ADDRESS = 7,
+    /** VERIFICATION_REMOVE - Remove a Verification */
+    VERIFICATION_REMOVE = 8,
     /**
-     * MESSAGE_TYPE_USER_DATA_ADD - Deprecated
+     * USER_DATA_ADD - Deprecated
      *  MESSAGE_TYPE_SIGNER_ADD = 9; // Add a new Ed25519 key pair that signs messages for a user
      *  MESSAGE_TYPE_SIGNER_REMOVE = 10; // Remove an Ed25519 key pair that signs messages for a user
      */
-    MESSAGE_TYPE_USER_DATA_ADD = 11,
-    /** MESSAGE_TYPE_USERNAME_PROOF - Add or replace a username proof */
-    MESSAGE_TYPE_USERNAME_PROOF = 12,
-    UNRECOGNIZED = -1,
+    USER_DATA_ADD = 11,
+    /** USERNAME_PROOF - Add or replace a username proof */
+    USERNAME_PROOF = 12,
 }
 
 export function messageTypeFromJSON(object: any): MessageType {
     switch (object) {
         case 0:
         case 'MESSAGE_TYPE_NONE':
-            return MessageType.MESSAGE_TYPE_NONE;
+            return MessageType.NONE;
         case 1:
         case 'MESSAGE_TYPE_CAST_ADD':
-            return MessageType.MESSAGE_TYPE_CAST_ADD;
+            return MessageType.CAST_ADD;
         case 2:
         case 'MESSAGE_TYPE_CAST_REMOVE':
-            return MessageType.MESSAGE_TYPE_CAST_REMOVE;
+            return MessageType.CAST_REMOVE;
         case 3:
         case 'MESSAGE_TYPE_REACTION_ADD':
-            return MessageType.MESSAGE_TYPE_REACTION_ADD;
+            return MessageType.REACTION_ADD;
         case 4:
         case 'MESSAGE_TYPE_REACTION_REMOVE':
-            return MessageType.MESSAGE_TYPE_REACTION_REMOVE;
+            return MessageType.REACTION_REMOVE;
         case 5:
         case 'MESSAGE_TYPE_LINK_ADD':
-            return MessageType.MESSAGE_TYPE_LINK_ADD;
+            return MessageType.LINK_ADD;
         case 6:
         case 'MESSAGE_TYPE_LINK_REMOVE':
-            return MessageType.MESSAGE_TYPE_LINK_REMOVE;
+            return MessageType.LINK_REMOVE;
         case 7:
         case 'MESSAGE_TYPE_VERIFICATION_ADD_ETH_ADDRESS':
-            return MessageType.MESSAGE_TYPE_VERIFICATION_ADD_ETH_ADDRESS;
+            return MessageType.VERIFICATION_ADD_ETH_ADDRESS;
         case 8:
         case 'MESSAGE_TYPE_VERIFICATION_REMOVE':
-            return MessageType.MESSAGE_TYPE_VERIFICATION_REMOVE;
+            return MessageType.VERIFICATION_REMOVE;
         case 11:
         case 'MESSAGE_TYPE_USER_DATA_ADD':
-            return MessageType.MESSAGE_TYPE_USER_DATA_ADD;
+            return MessageType.USER_DATA_ADD;
         case 12:
         case 'MESSAGE_TYPE_USERNAME_PROOF':
-            return MessageType.MESSAGE_TYPE_USERNAME_PROOF;
-        case -1:
-        case 'UNRECOGNIZED':
+            return MessageType.USERNAME_PROOF;
         default:
-            return MessageType.UNRECOGNIZED;
+            throw new tsProtoGlobalThis.Error('Unrecognized enum value ' + object + ' for enum MessageType');
     }
 }
 
 export function messageTypeToJSON(object: MessageType): string {
     switch (object) {
-        case MessageType.MESSAGE_TYPE_NONE:
+        case MessageType.NONE:
             return 'MESSAGE_TYPE_NONE';
-        case MessageType.MESSAGE_TYPE_CAST_ADD:
+        case MessageType.CAST_ADD:
             return 'MESSAGE_TYPE_CAST_ADD';
-        case MessageType.MESSAGE_TYPE_CAST_REMOVE:
+        case MessageType.CAST_REMOVE:
             return 'MESSAGE_TYPE_CAST_REMOVE';
-        case MessageType.MESSAGE_TYPE_REACTION_ADD:
+        case MessageType.REACTION_ADD:
             return 'MESSAGE_TYPE_REACTION_ADD';
-        case MessageType.MESSAGE_TYPE_REACTION_REMOVE:
+        case MessageType.REACTION_REMOVE:
             return 'MESSAGE_TYPE_REACTION_REMOVE';
-        case MessageType.MESSAGE_TYPE_LINK_ADD:
+        case MessageType.LINK_ADD:
             return 'MESSAGE_TYPE_LINK_ADD';
-        case MessageType.MESSAGE_TYPE_LINK_REMOVE:
+        case MessageType.LINK_REMOVE:
             return 'MESSAGE_TYPE_LINK_REMOVE';
-        case MessageType.MESSAGE_TYPE_VERIFICATION_ADD_ETH_ADDRESS:
+        case MessageType.VERIFICATION_ADD_ETH_ADDRESS:
             return 'MESSAGE_TYPE_VERIFICATION_ADD_ETH_ADDRESS';
-        case MessageType.MESSAGE_TYPE_VERIFICATION_REMOVE:
+        case MessageType.VERIFICATION_REMOVE:
             return 'MESSAGE_TYPE_VERIFICATION_REMOVE';
-        case MessageType.MESSAGE_TYPE_USER_DATA_ADD:
+        case MessageType.USER_DATA_ADD:
             return 'MESSAGE_TYPE_USER_DATA_ADD';
-        case MessageType.MESSAGE_TYPE_USERNAME_PROOF:
+        case MessageType.USERNAME_PROOF:
             return 'MESSAGE_TYPE_USERNAME_PROOF';
-        case MessageType.UNRECOGNIZED:
         default:
-            return 'UNRECOGNIZED';
+            throw new tsProtoGlobalThis.Error('Unrecognized enum value ' + object + ' for enum MessageType');
     }
 }
 
 /** Farcaster network the message is intended for */
 export enum FarcasterNetwork {
-    FARCASTER_NETWORK_NONE = 0,
-    /** FARCASTER_NETWORK_MAINNET - Public primary network */
-    FARCASTER_NETWORK_MAINNET = 1,
-    /** FARCASTER_NETWORK_TESTNET - Public test network */
-    FARCASTER_NETWORK_TESTNET = 2,
-    /** FARCASTER_NETWORK_DEVNET - Private test network */
-    FARCASTER_NETWORK_DEVNET = 3,
-    UNRECOGNIZED = -1,
+    NONE = 0,
+    /** MAINNET - Public primary network */
+    MAINNET = 1,
+    /** TESTNET - Public test network */
+    TESTNET = 2,
+    /** DEVNET - Private test network */
+    DEVNET = 3,
 }
 
 export function farcasterNetworkFromJSON(object: any): FarcasterNetwork {
     switch (object) {
         case 0:
         case 'FARCASTER_NETWORK_NONE':
-            return FarcasterNetwork.FARCASTER_NETWORK_NONE;
+            return FarcasterNetwork.NONE;
         case 1:
         case 'FARCASTER_NETWORK_MAINNET':
-            return FarcasterNetwork.FARCASTER_NETWORK_MAINNET;
+            return FarcasterNetwork.MAINNET;
         case 2:
         case 'FARCASTER_NETWORK_TESTNET':
-            return FarcasterNetwork.FARCASTER_NETWORK_TESTNET;
+            return FarcasterNetwork.TESTNET;
         case 3:
         case 'FARCASTER_NETWORK_DEVNET':
-            return FarcasterNetwork.FARCASTER_NETWORK_DEVNET;
-        case -1:
-        case 'UNRECOGNIZED':
+            return FarcasterNetwork.DEVNET;
         default:
-            return FarcasterNetwork.UNRECOGNIZED;
+            throw new tsProtoGlobalThis.Error('Unrecognized enum value ' + object + ' for enum FarcasterNetwork');
     }
 }
 
 export function farcasterNetworkToJSON(object: FarcasterNetwork): string {
     switch (object) {
-        case FarcasterNetwork.FARCASTER_NETWORK_NONE:
+        case FarcasterNetwork.NONE:
             return 'FARCASTER_NETWORK_NONE';
-        case FarcasterNetwork.FARCASTER_NETWORK_MAINNET:
+        case FarcasterNetwork.MAINNET:
             return 'FARCASTER_NETWORK_MAINNET';
-        case FarcasterNetwork.FARCASTER_NETWORK_TESTNET:
+        case FarcasterNetwork.TESTNET:
             return 'FARCASTER_NETWORK_TESTNET';
-        case FarcasterNetwork.FARCASTER_NETWORK_DEVNET:
+        case FarcasterNetwork.DEVNET:
             return 'FARCASTER_NETWORK_DEVNET';
-        case FarcasterNetwork.UNRECOGNIZED:
         default:
-            return 'UNRECOGNIZED';
+            throw new tsProtoGlobalThis.Error('Unrecognized enum value ' + object + ' for enum FarcasterNetwork');
     }
 }
 
 /** Type of UserData */
 export enum UserDataType {
-    USER_DATA_TYPE_NONE = 0,
-    /** USER_DATA_TYPE_PFP - Profile Picture for the user */
-    USER_DATA_TYPE_PFP = 1,
-    /** USER_DATA_TYPE_DISPLAY - Display Name for the user */
-    USER_DATA_TYPE_DISPLAY = 2,
-    /** USER_DATA_TYPE_BIO - Bio for the user */
-    USER_DATA_TYPE_BIO = 3,
-    /** USER_DATA_TYPE_URL - URL of the user */
-    USER_DATA_TYPE_URL = 5,
-    /** USER_DATA_TYPE_USERNAME - Preferred Name for the user */
-    USER_DATA_TYPE_USERNAME = 6,
-    UNRECOGNIZED = -1,
+    NONE = 0,
+    /** PFP - Profile Picture for the user */
+    PFP = 1,
+    /** DISPLAY - Display Name for the user */
+    DISPLAY = 2,
+    /** BIO - Bio for the user */
+    BIO = 3,
+    /** URL - URL of the user */
+    URL = 5,
+    /** USERNAME - Preferred Name for the user */
+    USERNAME = 6,
 }
 
 export function userDataTypeFromJSON(object: any): UserDataType {
     switch (object) {
         case 0:
         case 'USER_DATA_TYPE_NONE':
-            return UserDataType.USER_DATA_TYPE_NONE;
+            return UserDataType.NONE;
         case 1:
         case 'USER_DATA_TYPE_PFP':
-            return UserDataType.USER_DATA_TYPE_PFP;
+            return UserDataType.PFP;
         case 2:
         case 'USER_DATA_TYPE_DISPLAY':
-            return UserDataType.USER_DATA_TYPE_DISPLAY;
+            return UserDataType.DISPLAY;
         case 3:
         case 'USER_DATA_TYPE_BIO':
-            return UserDataType.USER_DATA_TYPE_BIO;
+            return UserDataType.BIO;
         case 5:
         case 'USER_DATA_TYPE_URL':
-            return UserDataType.USER_DATA_TYPE_URL;
+            return UserDataType.URL;
         case 6:
         case 'USER_DATA_TYPE_USERNAME':
-            return UserDataType.USER_DATA_TYPE_USERNAME;
-        case -1:
-        case 'UNRECOGNIZED':
+            return UserDataType.USERNAME;
         default:
-            return UserDataType.UNRECOGNIZED;
+            throw new tsProtoGlobalThis.Error('Unrecognized enum value ' + object + ' for enum UserDataType');
     }
 }
 
 export function userDataTypeToJSON(object: UserDataType): string {
     switch (object) {
-        case UserDataType.USER_DATA_TYPE_NONE:
+        case UserDataType.NONE:
             return 'USER_DATA_TYPE_NONE';
-        case UserDataType.USER_DATA_TYPE_PFP:
+        case UserDataType.PFP:
             return 'USER_DATA_TYPE_PFP';
-        case UserDataType.USER_DATA_TYPE_DISPLAY:
+        case UserDataType.DISPLAY:
             return 'USER_DATA_TYPE_DISPLAY';
-        case UserDataType.USER_DATA_TYPE_BIO:
+        case UserDataType.BIO:
             return 'USER_DATA_TYPE_BIO';
-        case UserDataType.USER_DATA_TYPE_URL:
+        case UserDataType.URL:
             return 'USER_DATA_TYPE_URL';
-        case UserDataType.USER_DATA_TYPE_USERNAME:
+        case UserDataType.USERNAME:
             return 'USER_DATA_TYPE_USERNAME';
-        case UserDataType.UNRECOGNIZED:
         default:
-            return 'UNRECOGNIZED';
+            throw new tsProtoGlobalThis.Error('Unrecognized enum value ' + object + ' for enum UserDataType');
     }
 }
 
 /** Type of Reaction */
 export enum ReactionType {
-    REACTION_TYPE_NONE = 0,
-    /** REACTION_TYPE_LIKE - Like the target cast */
-    REACTION_TYPE_LIKE = 1,
-    /** REACTION_TYPE_RECAST - Share target cast to the user's audience */
-    REACTION_TYPE_RECAST = 2,
-    UNRECOGNIZED = -1,
+    NONE = 0,
+    /** LIKE - Like the target cast */
+    LIKE = 1,
+    /** RECAST - Share target cast to the user's audience */
+    RECAST = 2,
 }
 
 export function reactionTypeFromJSON(object: any): ReactionType {
     switch (object) {
         case 0:
         case 'REACTION_TYPE_NONE':
-            return ReactionType.REACTION_TYPE_NONE;
+            return ReactionType.NONE;
         case 1:
         case 'REACTION_TYPE_LIKE':
-            return ReactionType.REACTION_TYPE_LIKE;
+            return ReactionType.LIKE;
         case 2:
         case 'REACTION_TYPE_RECAST':
-            return ReactionType.REACTION_TYPE_RECAST;
-        case -1:
-        case 'UNRECOGNIZED':
+            return ReactionType.RECAST;
         default:
-            return ReactionType.UNRECOGNIZED;
+            throw new tsProtoGlobalThis.Error('Unrecognized enum value ' + object + ' for enum ReactionType');
     }
 }
 
 export function reactionTypeToJSON(object: ReactionType): string {
     switch (object) {
-        case ReactionType.REACTION_TYPE_NONE:
+        case ReactionType.NONE:
             return 'REACTION_TYPE_NONE';
-        case ReactionType.REACTION_TYPE_LIKE:
+        case ReactionType.LIKE:
             return 'REACTION_TYPE_LIKE';
-        case ReactionType.REACTION_TYPE_RECAST:
+        case ReactionType.RECAST:
             return 'REACTION_TYPE_RECAST';
-        case ReactionType.UNRECOGNIZED:
         default:
-            return 'UNRECOGNIZED';
-    }
-}
-
-export enum UserNameType {
-    USERNAME_TYPE_NONE = 0,
-    USERNAME_TYPE_FNAME = 1,
-    USERNAME_TYPE_ENS_L1 = 2,
-    UNRECOGNIZED = -1,
-}
-
-export function userNameTypeFromJSON(object: any): UserNameType {
-    switch (object) {
-        case 0:
-        case 'USERNAME_TYPE_NONE':
-            return UserNameType.USERNAME_TYPE_NONE;
-        case 1:
-        case 'USERNAME_TYPE_FNAME':
-            return UserNameType.USERNAME_TYPE_FNAME;
-        case 2:
-        case 'USERNAME_TYPE_ENS_L1':
-            return UserNameType.USERNAME_TYPE_ENS_L1;
-        case -1:
-        case 'UNRECOGNIZED':
-        default:
-            return UserNameType.UNRECOGNIZED;
-    }
-}
-
-export function userNameTypeToJSON(object: UserNameType): string {
-    switch (object) {
-        case UserNameType.USERNAME_TYPE_NONE:
-            return 'USERNAME_TYPE_NONE';
-        case UserNameType.USERNAME_TYPE_FNAME:
-            return 'USERNAME_TYPE_FNAME';
-        case UserNameType.USERNAME_TYPE_ENS_L1:
-            return 'USERNAME_TYPE_ENS_L1';
-        case UserNameType.UNRECOGNIZED:
-        default:
-            return 'UNRECOGNIZED';
+            throw new tsProtoGlobalThis.Error('Unrecognized enum value ' + object + ' for enum ReactionType');
     }
 }
 
@@ -507,23 +443,14 @@ export interface LinkBody {
     targetFid?: number | undefined;
 }
 
-export interface UserNameProof {
-    timestamp: number;
-    name: Uint8Array;
-    owner: Uint8Array;
-    signature: Uint8Array;
-    fid: number;
-    type: UserNameType;
-}
-
 function createBaseMessage(): Message {
     return {
         data: undefined,
-        hash: new Uint8Array(0),
+        hash: new Uint8Array(),
         hashScheme: 0,
-        signature: new Uint8Array(0),
+        signature: new Uint8Array(),
         signatureScheme: 0,
-        signer: new Uint8Array(0),
+        signer: new Uint8Array(),
         dataBytes: undefined,
     };
 }
@@ -562,56 +489,56 @@ export const Message = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    if (tag !== 10) {
+                    if (tag != 10) {
                         break;
                     }
 
                     message.data = MessageData.decode(reader, reader.uint32());
                     continue;
                 case 2:
-                    if (tag !== 18) {
+                    if (tag != 18) {
                         break;
                     }
 
                     message.hash = reader.bytes();
                     continue;
                 case 3:
-                    if (tag !== 24) {
+                    if (tag != 24) {
                         break;
                     }
 
                     message.hashScheme = reader.int32() as any;
                     continue;
                 case 4:
-                    if (tag !== 34) {
+                    if (tag != 34) {
                         break;
                     }
 
                     message.signature = reader.bytes();
                     continue;
                 case 5:
-                    if (tag !== 40) {
+                    if (tag != 40) {
                         break;
                     }
 
                     message.signatureScheme = reader.int32() as any;
                     continue;
                 case 6:
-                    if (tag !== 50) {
+                    if (tag != 50) {
                         break;
                     }
 
                     message.signer = reader.bytes();
                     continue;
                 case 7:
-                    if (tag !== 58) {
+                    if (tag != 58) {
                         break;
                     }
 
                     message.dataBytes = reader.bytes();
                     continue;
             }
-            if ((tag & 7) === 4 || tag === 0) {
+            if ((tag & 7) == 4 || tag == 0) {
                 break;
             }
             reader.skipType(tag & 7);
@@ -622,53 +549,44 @@ export const Message = {
     fromJSON(object: any): Message {
         return {
             data: isSet(object.data) ? MessageData.fromJSON(object.data) : undefined,
-            hash: isSet(object.hash) ? bytesFromBase64(object.hash) : new Uint8Array(0),
+            hash: isSet(object.hash) ? bytesFromBase64(object.hash) : new Uint8Array(),
             hashScheme: isSet(object.hashScheme) ? hashSchemeFromJSON(object.hashScheme) : 0,
-            signature: isSet(object.signature) ? bytesFromBase64(object.signature) : new Uint8Array(0),
+            signature: isSet(object.signature) ? bytesFromBase64(object.signature) : new Uint8Array(),
             signatureScheme: isSet(object.signatureScheme) ? signatureSchemeFromJSON(object.signatureScheme) : 0,
-            signer: isSet(object.signer) ? bytesFromBase64(object.signer) : new Uint8Array(0),
+            signer: isSet(object.signer) ? bytesFromBase64(object.signer) : new Uint8Array(),
             dataBytes: isSet(object.dataBytes) ? bytesFromBase64(object.dataBytes) : undefined,
         };
     },
 
     toJSON(message: Message): unknown {
         const obj: any = {};
-        if (message.data !== undefined) {
-            obj.data = MessageData.toJSON(message.data);
-        }
-        if (message.hash.length !== 0) {
-            obj.hash = base64FromBytes(message.hash);
-        }
-        if (message.hashScheme !== 0) {
-            obj.hashScheme = hashSchemeToJSON(message.hashScheme);
-        }
-        if (message.signature.length !== 0) {
-            obj.signature = base64FromBytes(message.signature);
-        }
-        if (message.signatureScheme !== 0) {
-            obj.signatureScheme = signatureSchemeToJSON(message.signatureScheme);
-        }
-        if (message.signer.length !== 0) {
-            obj.signer = base64FromBytes(message.signer);
-        }
-        if (message.dataBytes !== undefined) {
-            obj.dataBytes = base64FromBytes(message.dataBytes);
-        }
+        message.data !== undefined && (obj.data = message.data ? MessageData.toJSON(message.data) : undefined);
+        message.hash !== undefined &&
+            (obj.hash = base64FromBytes(message.hash !== undefined ? message.hash : new Uint8Array()));
+        message.hashScheme !== undefined && (obj.hashScheme = hashSchemeToJSON(message.hashScheme));
+        message.signature !== undefined &&
+            (obj.signature = base64FromBytes(message.signature !== undefined ? message.signature : new Uint8Array()));
+        message.signatureScheme !== undefined && (obj.signatureScheme = signatureSchemeToJSON(message.signatureScheme));
+        message.signer !== undefined &&
+            (obj.signer = base64FromBytes(message.signer !== undefined ? message.signer : new Uint8Array()));
+        message.dataBytes !== undefined &&
+            (obj.dataBytes = message.dataBytes !== undefined ? base64FromBytes(message.dataBytes) : undefined);
         return obj;
     },
 
     create<I extends Exact<DeepPartial<Message>, I>>(base?: I): Message {
-        return Message.fromPartial(base ?? ({} as any));
+        return Message.fromPartial(base ?? {});
     },
+
     fromPartial<I extends Exact<DeepPartial<Message>, I>>(object: I): Message {
         const message = createBaseMessage();
         message.data =
             object.data !== undefined && object.data !== null ? MessageData.fromPartial(object.data) : undefined;
-        message.hash = object.hash ?? new Uint8Array(0);
+        message.hash = object.hash ?? new Uint8Array();
         message.hashScheme = object.hashScheme ?? 0;
-        message.signature = object.signature ?? new Uint8Array(0);
+        message.signature = object.signature ?? new Uint8Array();
         message.signatureScheme = object.signatureScheme ?? 0;
-        message.signer = object.signer ?? new Uint8Array(0);
+        message.signer = object.signer ?? new Uint8Array();
         message.dataBytes = object.dataBytes ?? undefined;
         return message;
     },
@@ -743,56 +661,56 @@ export const MessageData = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    if (tag !== 8) {
+                    if (tag != 8) {
                         break;
                     }
 
                     message.type = reader.int32() as any;
                     continue;
                 case 2:
-                    if (tag !== 16) {
+                    if (tag != 16) {
                         break;
                     }
 
                     message.fid = longToNumber(reader.uint64() as Long);
                     continue;
                 case 3:
-                    if (tag !== 24) {
+                    if (tag != 24) {
                         break;
                     }
 
                     message.timestamp = reader.uint32();
                     continue;
                 case 4:
-                    if (tag !== 32) {
+                    if (tag != 32) {
                         break;
                     }
 
                     message.network = reader.int32() as any;
                     continue;
                 case 5:
-                    if (tag !== 42) {
+                    if (tag != 42) {
                         break;
                     }
 
                     message.castAddBody = CastAddBody.decode(reader, reader.uint32());
                     continue;
                 case 6:
-                    if (tag !== 50) {
+                    if (tag != 50) {
                         break;
                     }
 
                     message.castRemoveBody = CastRemoveBody.decode(reader, reader.uint32());
                     continue;
                 case 7:
-                    if (tag !== 58) {
+                    if (tag != 58) {
                         break;
                     }
 
                     message.reactionBody = ReactionBody.decode(reader, reader.uint32());
                     continue;
                 case 9:
-                    if (tag !== 74) {
+                    if (tag != 74) {
                         break;
                     }
 
@@ -802,35 +720,35 @@ export const MessageData = {
                     );
                     continue;
                 case 10:
-                    if (tag !== 82) {
+                    if (tag != 82) {
                         break;
                     }
 
                     message.verificationRemoveBody = VerificationRemoveBody.decode(reader, reader.uint32());
                     continue;
                 case 12:
-                    if (tag !== 98) {
+                    if (tag != 98) {
                         break;
                     }
 
                     message.userDataBody = UserDataBody.decode(reader, reader.uint32());
                     continue;
                 case 14:
-                    if (tag !== 114) {
+                    if (tag != 114) {
                         break;
                     }
 
                     message.linkBody = LinkBody.decode(reader, reader.uint32());
                     continue;
                 case 15:
-                    if (tag !== 122) {
+                    if (tag != 122) {
                         break;
                     }
 
                     message.usernameProofBody = UserNameProof.decode(reader, reader.uint32());
                     continue;
             }
-            if ((tag & 7) === 4 || tag === 0) {
+            if ((tag & 7) == 4 || tag == 0) {
                 break;
             }
             reader.skipType(tag & 7);
@@ -841,8 +759,8 @@ export const MessageData = {
     fromJSON(object: any): MessageData {
         return {
             type: isSet(object.type) ? messageTypeFromJSON(object.type) : 0,
-            fid: isSet(object.fid) ? globalThis.Number(object.fid) : 0,
-            timestamp: isSet(object.timestamp) ? globalThis.Number(object.timestamp) : 0,
+            fid: isSet(object.fid) ? Number(object.fid) : 0,
+            timestamp: isSet(object.timestamp) ? Number(object.timestamp) : 0,
             network: isSet(object.network) ? farcasterNetworkFromJSON(object.network) : 0,
             castAddBody: isSet(object.castAddBody) ? CastAddBody.fromJSON(object.castAddBody) : undefined,
             castRemoveBody: isSet(object.castRemoveBody) ? CastRemoveBody.fromJSON(object.castRemoveBody) : undefined,
@@ -863,50 +781,39 @@ export const MessageData = {
 
     toJSON(message: MessageData): unknown {
         const obj: any = {};
-        if (message.type !== 0) {
-            obj.type = messageTypeToJSON(message.type);
-        }
-        if (message.fid !== 0) {
-            obj.fid = Math.round(message.fid);
-        }
-        if (message.timestamp !== 0) {
-            obj.timestamp = Math.round(message.timestamp);
-        }
-        if (message.network !== 0) {
-            obj.network = farcasterNetworkToJSON(message.network);
-        }
-        if (message.castAddBody !== undefined) {
-            obj.castAddBody = CastAddBody.toJSON(message.castAddBody);
-        }
-        if (message.castRemoveBody !== undefined) {
-            obj.castRemoveBody = CastRemoveBody.toJSON(message.castRemoveBody);
-        }
-        if (message.reactionBody !== undefined) {
-            obj.reactionBody = ReactionBody.toJSON(message.reactionBody);
-        }
-        if (message.verificationAddEthAddressBody !== undefined) {
-            obj.verificationAddEthAddressBody = VerificationAddEthAddressBody.toJSON(
-                message.verificationAddEthAddressBody,
-            );
-        }
-        if (message.verificationRemoveBody !== undefined) {
-            obj.verificationRemoveBody = VerificationRemoveBody.toJSON(message.verificationRemoveBody);
-        }
-        if (message.userDataBody !== undefined) {
-            obj.userDataBody = UserDataBody.toJSON(message.userDataBody);
-        }
-        if (message.linkBody !== undefined) {
-            obj.linkBody = LinkBody.toJSON(message.linkBody);
-        }
-        if (message.usernameProofBody !== undefined) {
-            obj.usernameProofBody = UserNameProof.toJSON(message.usernameProofBody);
-        }
+        message.type !== undefined && (obj.type = messageTypeToJSON(message.type));
+        message.fid !== undefined && (obj.fid = Math.round(message.fid));
+        message.timestamp !== undefined && (obj.timestamp = Math.round(message.timestamp));
+        message.network !== undefined && (obj.network = farcasterNetworkToJSON(message.network));
+        message.castAddBody !== undefined &&
+            (obj.castAddBody = message.castAddBody ? CastAddBody.toJSON(message.castAddBody) : undefined);
+        message.castRemoveBody !== undefined &&
+            (obj.castRemoveBody = message.castRemoveBody ? CastRemoveBody.toJSON(message.castRemoveBody) : undefined);
+        message.reactionBody !== undefined &&
+            (obj.reactionBody = message.reactionBody ? ReactionBody.toJSON(message.reactionBody) : undefined);
+        message.verificationAddEthAddressBody !== undefined &&
+            (obj.verificationAddEthAddressBody = message.verificationAddEthAddressBody
+                ? VerificationAddEthAddressBody.toJSON(message.verificationAddEthAddressBody)
+                : undefined);
+        message.verificationRemoveBody !== undefined &&
+            (obj.verificationRemoveBody = message.verificationRemoveBody
+                ? VerificationRemoveBody.toJSON(message.verificationRemoveBody)
+                : undefined);
+        message.userDataBody !== undefined &&
+            (obj.userDataBody = message.userDataBody ? UserDataBody.toJSON(message.userDataBody) : undefined);
+        message.linkBody !== undefined &&
+            (obj.linkBody = message.linkBody ? LinkBody.toJSON(message.linkBody) : undefined);
+        message.usernameProofBody !== undefined &&
+            (obj.usernameProofBody = message.usernameProofBody
+                ? UserNameProof.toJSON(message.usernameProofBody)
+                : undefined);
         return obj;
     },
 
     create<I extends Exact<DeepPartial<MessageData>, I>>(base?: I): MessageData {
-        return MessageData.fromPartial(base ?? ({} as any));
+        return MessageData.fromPartial(base ?? {});
     },
+
     fromPartial<I extends Exact<DeepPartial<MessageData>, I>>(object: I): MessageData {
         const message = createBaseMessageData();
         message.type = object.type ?? 0;
@@ -972,21 +879,21 @@ export const UserDataBody = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    if (tag !== 8) {
+                    if (tag != 8) {
                         break;
                     }
 
                     message.type = reader.int32() as any;
                     continue;
                 case 2:
-                    if (tag !== 18) {
+                    if (tag != 18) {
                         break;
                     }
 
                     message.value = reader.string();
                     continue;
             }
-            if ((tag & 7) === 4 || tag === 0) {
+            if ((tag & 7) == 4 || tag == 0) {
                 break;
             }
             reader.skipType(tag & 7);
@@ -997,24 +904,21 @@ export const UserDataBody = {
     fromJSON(object: any): UserDataBody {
         return {
             type: isSet(object.type) ? userDataTypeFromJSON(object.type) : 0,
-            value: isSet(object.value) ? globalThis.String(object.value) : '',
+            value: isSet(object.value) ? String(object.value) : '',
         };
     },
 
     toJSON(message: UserDataBody): unknown {
         const obj: any = {};
-        if (message.type !== 0) {
-            obj.type = userDataTypeToJSON(message.type);
-        }
-        if (message.value !== '') {
-            obj.value = message.value;
-        }
+        message.type !== undefined && (obj.type = userDataTypeToJSON(message.type));
+        message.value !== undefined && (obj.value = message.value);
         return obj;
     },
 
     create<I extends Exact<DeepPartial<UserDataBody>, I>>(base?: I): UserDataBody {
-        return UserDataBody.fromPartial(base ?? ({} as any));
+        return UserDataBody.fromPartial(base ?? {});
     },
+
     fromPartial<I extends Exact<DeepPartial<UserDataBody>, I>>(object: I): UserDataBody {
         const message = createBaseUserDataBody();
         message.type = object.type ?? 0;
@@ -1046,21 +950,21 @@ export const Embed = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    if (tag !== 10) {
+                    if (tag != 10) {
                         break;
                     }
 
                     message.url = reader.string();
                     continue;
                 case 2:
-                    if (tag !== 18) {
+                    if (tag != 18) {
                         break;
                     }
 
                     message.castId = CastId.decode(reader, reader.uint32());
                     continue;
             }
-            if ((tag & 7) === 4 || tag === 0) {
+            if ((tag & 7) == 4 || tag == 0) {
                 break;
             }
             reader.skipType(tag & 7);
@@ -1070,25 +974,22 @@ export const Embed = {
 
     fromJSON(object: any): Embed {
         return {
-            url: isSet(object.url) ? globalThis.String(object.url) : undefined,
+            url: isSet(object.url) ? String(object.url) : undefined,
             castId: isSet(object.castId) ? CastId.fromJSON(object.castId) : undefined,
         };
     },
 
     toJSON(message: Embed): unknown {
         const obj: any = {};
-        if (message.url !== undefined) {
-            obj.url = message.url;
-        }
-        if (message.castId !== undefined) {
-            obj.castId = CastId.toJSON(message.castId);
-        }
+        message.url !== undefined && (obj.url = message.url);
+        message.castId !== undefined && (obj.castId = message.castId ? CastId.toJSON(message.castId) : undefined);
         return obj;
     },
 
     create<I extends Exact<DeepPartial<Embed>, I>>(base?: I): Embed {
-        return Embed.fromPartial(base ?? ({} as any));
+        return Embed.fromPartial(base ?? {});
     },
+
     fromPartial<I extends Exact<DeepPartial<Embed>, I>>(object: I): Embed {
         const message = createBaseEmbed();
         message.url = object.url ?? undefined;
@@ -1148,20 +1049,19 @@ export const CastAddBody = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    if (tag !== 10) {
+                    if (tag != 10) {
                         break;
                     }
 
                     message.embedsDeprecated.push(reader.string());
                     continue;
                 case 2:
-                    if (tag === 16) {
+                    if (tag == 16) {
                         message.mentions.push(longToNumber(reader.uint64() as Long));
-
                         continue;
                     }
 
-                    if (tag === 18) {
+                    if (tag == 18) {
                         const end2 = reader.uint32() + reader.pos;
                         while (reader.pos < end2) {
                             message.mentions.push(longToNumber(reader.uint64() as Long));
@@ -1172,34 +1072,33 @@ export const CastAddBody = {
 
                     break;
                 case 3:
-                    if (tag !== 26) {
+                    if (tag != 26) {
                         break;
                     }
 
                     message.parentCastId = CastId.decode(reader, reader.uint32());
                     continue;
                 case 7:
-                    if (tag !== 58) {
+                    if (tag != 58) {
                         break;
                     }
 
                     message.parentUrl = reader.string();
                     continue;
                 case 4:
-                    if (tag !== 34) {
+                    if (tag != 34) {
                         break;
                     }
 
                     message.text = reader.string();
                     continue;
                 case 5:
-                    if (tag === 40) {
+                    if (tag == 40) {
                         message.mentionsPositions.push(reader.uint32());
-
                         continue;
                     }
 
-                    if (tag === 42) {
+                    if (tag == 42) {
                         const end2 = reader.uint32() + reader.pos;
                         while (reader.pos < end2) {
                             message.mentionsPositions.push(reader.uint32());
@@ -1210,14 +1109,14 @@ export const CastAddBody = {
 
                     break;
                 case 6:
-                    if (tag !== 50) {
+                    if (tag != 50) {
                         break;
                     }
 
                     message.embeds.push(Embed.decode(reader, reader.uint32()));
                     continue;
             }
-            if ((tag & 7) === 4 || tag === 0) {
+            if ((tag & 7) == 4 || tag == 0) {
                 break;
             }
             reader.skipType(tag & 7);
@@ -1227,51 +1126,53 @@ export const CastAddBody = {
 
     fromJSON(object: any): CastAddBody {
         return {
-            embedsDeprecated: globalThis.Array.isArray(object?.embedsDeprecated)
-                ? object.embedsDeprecated.map((e: any) => globalThis.String(e))
+            embedsDeprecated: Array.isArray(object?.embedsDeprecated)
+                ? object.embedsDeprecated.map((e: any) => String(e))
                 : [],
-            mentions: globalThis.Array.isArray(object?.mentions)
-                ? object.mentions.map((e: any) => globalThis.Number(e))
-                : [],
+            mentions: Array.isArray(object?.mentions) ? object.mentions.map((e: any) => Number(e)) : [],
             parentCastId: isSet(object.parentCastId) ? CastId.fromJSON(object.parentCastId) : undefined,
-            parentUrl: isSet(object.parentUrl) ? globalThis.String(object.parentUrl) : undefined,
-            text: isSet(object.text) ? globalThis.String(object.text) : '',
-            mentionsPositions: globalThis.Array.isArray(object?.mentionsPositions)
-                ? object.mentionsPositions.map((e: any) => globalThis.Number(e))
+            parentUrl: isSet(object.parentUrl) ? String(object.parentUrl) : undefined,
+            text: isSet(object.text) ? String(object.text) : '',
+            mentionsPositions: Array.isArray(object?.mentionsPositions)
+                ? object.mentionsPositions.map((e: any) => Number(e))
                 : [],
-            embeds: globalThis.Array.isArray(object?.embeds) ? object.embeds.map((e: any) => Embed.fromJSON(e)) : [],
+            embeds: Array.isArray(object?.embeds) ? object.embeds.map((e: any) => Embed.fromJSON(e)) : [],
         };
     },
 
     toJSON(message: CastAddBody): unknown {
         const obj: any = {};
-        if (message.embedsDeprecated?.length) {
-            obj.embedsDeprecated = message.embedsDeprecated;
+        if (message.embedsDeprecated) {
+            obj.embedsDeprecated = message.embedsDeprecated.map((e) => e);
+        } else {
+            obj.embedsDeprecated = [];
         }
-        if (message.mentions?.length) {
+        if (message.mentions) {
             obj.mentions = message.mentions.map((e) => Math.round(e));
+        } else {
+            obj.mentions = [];
         }
-        if (message.parentCastId !== undefined) {
-            obj.parentCastId = CastId.toJSON(message.parentCastId);
-        }
-        if (message.parentUrl !== undefined) {
-            obj.parentUrl = message.parentUrl;
-        }
-        if (message.text !== '') {
-            obj.text = message.text;
-        }
-        if (message.mentionsPositions?.length) {
+        message.parentCastId !== undefined &&
+            (obj.parentCastId = message.parentCastId ? CastId.toJSON(message.parentCastId) : undefined);
+        message.parentUrl !== undefined && (obj.parentUrl = message.parentUrl);
+        message.text !== undefined && (obj.text = message.text);
+        if (message.mentionsPositions) {
             obj.mentionsPositions = message.mentionsPositions.map((e) => Math.round(e));
+        } else {
+            obj.mentionsPositions = [];
         }
-        if (message.embeds?.length) {
-            obj.embeds = message.embeds.map((e) => Embed.toJSON(e));
+        if (message.embeds) {
+            obj.embeds = message.embeds.map((e) => (e ? Embed.toJSON(e) : undefined));
+        } else {
+            obj.embeds = [];
         }
         return obj;
     },
 
     create<I extends Exact<DeepPartial<CastAddBody>, I>>(base?: I): CastAddBody {
-        return CastAddBody.fromPartial(base ?? ({} as any));
+        return CastAddBody.fromPartial(base ?? {});
     },
+
     fromPartial<I extends Exact<DeepPartial<CastAddBody>, I>>(object: I): CastAddBody {
         const message = createBaseCastAddBody();
         message.embedsDeprecated = object.embedsDeprecated?.map((e) => e) || [];
@@ -1289,7 +1190,7 @@ export const CastAddBody = {
 };
 
 function createBaseCastRemoveBody(): CastRemoveBody {
-    return { targetHash: new Uint8Array(0) };
+    return { targetHash: new Uint8Array() };
 }
 
 export const CastRemoveBody = {
@@ -1308,14 +1209,14 @@ export const CastRemoveBody = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    if (tag !== 10) {
+                    if (tag != 10) {
                         break;
                     }
 
                     message.targetHash = reader.bytes();
                     continue;
             }
-            if ((tag & 7) === 4 || tag === 0) {
+            if ((tag & 7) == 4 || tag == 0) {
                 break;
             }
             reader.skipType(tag & 7);
@@ -1324,29 +1225,31 @@ export const CastRemoveBody = {
     },
 
     fromJSON(object: any): CastRemoveBody {
-        return { targetHash: isSet(object.targetHash) ? bytesFromBase64(object.targetHash) : new Uint8Array(0) };
+        return { targetHash: isSet(object.targetHash) ? bytesFromBase64(object.targetHash) : new Uint8Array() };
     },
 
     toJSON(message: CastRemoveBody): unknown {
         const obj: any = {};
-        if (message.targetHash.length !== 0) {
-            obj.targetHash = base64FromBytes(message.targetHash);
-        }
+        message.targetHash !== undefined &&
+            (obj.targetHash = base64FromBytes(
+                message.targetHash !== undefined ? message.targetHash : new Uint8Array(),
+            ));
         return obj;
     },
 
     create<I extends Exact<DeepPartial<CastRemoveBody>, I>>(base?: I): CastRemoveBody {
-        return CastRemoveBody.fromPartial(base ?? ({} as any));
+        return CastRemoveBody.fromPartial(base ?? {});
     },
+
     fromPartial<I extends Exact<DeepPartial<CastRemoveBody>, I>>(object: I): CastRemoveBody {
         const message = createBaseCastRemoveBody();
-        message.targetHash = object.targetHash ?? new Uint8Array(0);
+        message.targetHash = object.targetHash ?? new Uint8Array();
         return message;
     },
 };
 
 function createBaseCastId(): CastId {
-    return { fid: 0, hash: new Uint8Array(0) };
+    return { fid: 0, hash: new Uint8Array() };
 }
 
 export const CastId = {
@@ -1368,21 +1271,21 @@ export const CastId = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    if (tag !== 8) {
+                    if (tag != 8) {
                         break;
                     }
 
                     message.fid = longToNumber(reader.uint64() as Long);
                     continue;
                 case 2:
-                    if (tag !== 18) {
+                    if (tag != 18) {
                         break;
                     }
 
                     message.hash = reader.bytes();
                     continue;
             }
-            if ((tag & 7) === 4 || tag === 0) {
+            if ((tag & 7) == 4 || tag == 0) {
                 break;
             }
             reader.skipType(tag & 7);
@@ -1392,29 +1295,27 @@ export const CastId = {
 
     fromJSON(object: any): CastId {
         return {
-            fid: isSet(object.fid) ? globalThis.Number(object.fid) : 0,
-            hash: isSet(object.hash) ? bytesFromBase64(object.hash) : new Uint8Array(0),
+            fid: isSet(object.fid) ? Number(object.fid) : 0,
+            hash: isSet(object.hash) ? bytesFromBase64(object.hash) : new Uint8Array(),
         };
     },
 
     toJSON(message: CastId): unknown {
         const obj: any = {};
-        if (message.fid !== 0) {
-            obj.fid = Math.round(message.fid);
-        }
-        if (message.hash.length !== 0) {
-            obj.hash = base64FromBytes(message.hash);
-        }
+        message.fid !== undefined && (obj.fid = Math.round(message.fid));
+        message.hash !== undefined &&
+            (obj.hash = base64FromBytes(message.hash !== undefined ? message.hash : new Uint8Array()));
         return obj;
     },
 
     create<I extends Exact<DeepPartial<CastId>, I>>(base?: I): CastId {
-        return CastId.fromPartial(base ?? ({} as any));
+        return CastId.fromPartial(base ?? {});
     },
+
     fromPartial<I extends Exact<DeepPartial<CastId>, I>>(object: I): CastId {
         const message = createBaseCastId();
         message.fid = object.fid ?? 0;
-        message.hash = object.hash ?? new Uint8Array(0);
+        message.hash = object.hash ?? new Uint8Array();
         return message;
     },
 };
@@ -1445,28 +1346,28 @@ export const ReactionBody = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    if (tag !== 8) {
+                    if (tag != 8) {
                         break;
                     }
 
                     message.type = reader.int32() as any;
                     continue;
                 case 2:
-                    if (tag !== 18) {
+                    if (tag != 18) {
                         break;
                     }
 
                     message.targetCastId = CastId.decode(reader, reader.uint32());
                     continue;
                 case 3:
-                    if (tag !== 26) {
+                    if (tag != 26) {
                         break;
                     }
 
                     message.targetUrl = reader.string();
                     continue;
             }
-            if ((tag & 7) === 4 || tag === 0) {
+            if ((tag & 7) == 4 || tag == 0) {
                 break;
             }
             reader.skipType(tag & 7);
@@ -1478,27 +1379,23 @@ export const ReactionBody = {
         return {
             type: isSet(object.type) ? reactionTypeFromJSON(object.type) : 0,
             targetCastId: isSet(object.targetCastId) ? CastId.fromJSON(object.targetCastId) : undefined,
-            targetUrl: isSet(object.targetUrl) ? globalThis.String(object.targetUrl) : undefined,
+            targetUrl: isSet(object.targetUrl) ? String(object.targetUrl) : undefined,
         };
     },
 
     toJSON(message: ReactionBody): unknown {
         const obj: any = {};
-        if (message.type !== 0) {
-            obj.type = reactionTypeToJSON(message.type);
-        }
-        if (message.targetCastId !== undefined) {
-            obj.targetCastId = CastId.toJSON(message.targetCastId);
-        }
-        if (message.targetUrl !== undefined) {
-            obj.targetUrl = message.targetUrl;
-        }
+        message.type !== undefined && (obj.type = reactionTypeToJSON(message.type));
+        message.targetCastId !== undefined &&
+            (obj.targetCastId = message.targetCastId ? CastId.toJSON(message.targetCastId) : undefined);
+        message.targetUrl !== undefined && (obj.targetUrl = message.targetUrl);
         return obj;
     },
 
     create<I extends Exact<DeepPartial<ReactionBody>, I>>(base?: I): ReactionBody {
-        return ReactionBody.fromPartial(base ?? ({} as any));
+        return ReactionBody.fromPartial(base ?? {});
     },
+
     fromPartial<I extends Exact<DeepPartial<ReactionBody>, I>>(object: I): ReactionBody {
         const message = createBaseReactionBody();
         message.type = object.type ?? 0;
@@ -1513,9 +1410,9 @@ export const ReactionBody = {
 
 function createBaseVerificationAddEthAddressBody(): VerificationAddEthAddressBody {
     return {
-        address: new Uint8Array(0),
-        ethSignature: new Uint8Array(0),
-        blockHash: new Uint8Array(0),
+        address: new Uint8Array(),
+        ethSignature: new Uint8Array(),
+        blockHash: new Uint8Array(),
         verificationType: 0,
         chainId: 0,
     };
@@ -1549,42 +1446,42 @@ export const VerificationAddEthAddressBody = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    if (tag !== 10) {
+                    if (tag != 10) {
                         break;
                     }
 
                     message.address = reader.bytes();
                     continue;
                 case 2:
-                    if (tag !== 18) {
+                    if (tag != 18) {
                         break;
                     }
 
                     message.ethSignature = reader.bytes();
                     continue;
                 case 3:
-                    if (tag !== 26) {
+                    if (tag != 26) {
                         break;
                     }
 
                     message.blockHash = reader.bytes();
                     continue;
                 case 4:
-                    if (tag !== 32) {
+                    if (tag != 32) {
                         break;
                     }
 
                     message.verificationType = reader.uint32();
                     continue;
                 case 5:
-                    if (tag !== 40) {
+                    if (tag != 40) {
                         break;
                     }
 
                     message.chainId = reader.uint32();
                     continue;
             }
-            if ((tag & 7) === 4 || tag === 0) {
+            if ((tag & 7) == 4 || tag == 0) {
                 break;
             }
             reader.skipType(tag & 7);
@@ -1594,44 +1491,40 @@ export const VerificationAddEthAddressBody = {
 
     fromJSON(object: any): VerificationAddEthAddressBody {
         return {
-            address: isSet(object.address) ? bytesFromBase64(object.address) : new Uint8Array(0),
-            ethSignature: isSet(object.ethSignature) ? bytesFromBase64(object.ethSignature) : new Uint8Array(0),
-            blockHash: isSet(object.blockHash) ? bytesFromBase64(object.blockHash) : new Uint8Array(0),
-            verificationType: isSet(object.verificationType) ? globalThis.Number(object.verificationType) : 0,
-            chainId: isSet(object.chainId) ? globalThis.Number(object.chainId) : 0,
+            address: isSet(object.address) ? bytesFromBase64(object.address) : new Uint8Array(),
+            ethSignature: isSet(object.ethSignature) ? bytesFromBase64(object.ethSignature) : new Uint8Array(),
+            blockHash: isSet(object.blockHash) ? bytesFromBase64(object.blockHash) : new Uint8Array(),
+            verificationType: isSet(object.verificationType) ? Number(object.verificationType) : 0,
+            chainId: isSet(object.chainId) ? Number(object.chainId) : 0,
         };
     },
 
     toJSON(message: VerificationAddEthAddressBody): unknown {
         const obj: any = {};
-        if (message.address.length !== 0) {
-            obj.address = base64FromBytes(message.address);
-        }
-        if (message.ethSignature.length !== 0) {
-            obj.ethSignature = base64FromBytes(message.ethSignature);
-        }
-        if (message.blockHash.length !== 0) {
-            obj.blockHash = base64FromBytes(message.blockHash);
-        }
-        if (message.verificationType !== 0) {
-            obj.verificationType = Math.round(message.verificationType);
-        }
-        if (message.chainId !== 0) {
-            obj.chainId = Math.round(message.chainId);
-        }
+        message.address !== undefined &&
+            (obj.address = base64FromBytes(message.address !== undefined ? message.address : new Uint8Array()));
+        message.ethSignature !== undefined &&
+            (obj.ethSignature = base64FromBytes(
+                message.ethSignature !== undefined ? message.ethSignature : new Uint8Array(),
+            ));
+        message.blockHash !== undefined &&
+            (obj.blockHash = base64FromBytes(message.blockHash !== undefined ? message.blockHash : new Uint8Array()));
+        message.verificationType !== undefined && (obj.verificationType = Math.round(message.verificationType));
+        message.chainId !== undefined && (obj.chainId = Math.round(message.chainId));
         return obj;
     },
 
     create<I extends Exact<DeepPartial<VerificationAddEthAddressBody>, I>>(base?: I): VerificationAddEthAddressBody {
-        return VerificationAddEthAddressBody.fromPartial(base ?? ({} as any));
+        return VerificationAddEthAddressBody.fromPartial(base ?? {});
     },
+
     fromPartial<I extends Exact<DeepPartial<VerificationAddEthAddressBody>, I>>(
         object: I,
     ): VerificationAddEthAddressBody {
         const message = createBaseVerificationAddEthAddressBody();
-        message.address = object.address ?? new Uint8Array(0);
-        message.ethSignature = object.ethSignature ?? new Uint8Array(0);
-        message.blockHash = object.blockHash ?? new Uint8Array(0);
+        message.address = object.address ?? new Uint8Array();
+        message.ethSignature = object.ethSignature ?? new Uint8Array();
+        message.blockHash = object.blockHash ?? new Uint8Array();
         message.verificationType = object.verificationType ?? 0;
         message.chainId = object.chainId ?? 0;
         return message;
@@ -1639,7 +1532,7 @@ export const VerificationAddEthAddressBody = {
 };
 
 function createBaseVerificationRemoveBody(): VerificationRemoveBody {
-    return { address: new Uint8Array(0) };
+    return { address: new Uint8Array() };
 }
 
 export const VerificationRemoveBody = {
@@ -1658,14 +1551,14 @@ export const VerificationRemoveBody = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    if (tag !== 10) {
+                    if (tag != 10) {
                         break;
                     }
 
                     message.address = reader.bytes();
                     continue;
             }
-            if ((tag & 7) === 4 || tag === 0) {
+            if ((tag & 7) == 4 || tag == 0) {
                 break;
             }
             reader.skipType(tag & 7);
@@ -1674,23 +1567,23 @@ export const VerificationRemoveBody = {
     },
 
     fromJSON(object: any): VerificationRemoveBody {
-        return { address: isSet(object.address) ? bytesFromBase64(object.address) : new Uint8Array(0) };
+        return { address: isSet(object.address) ? bytesFromBase64(object.address) : new Uint8Array() };
     },
 
     toJSON(message: VerificationRemoveBody): unknown {
         const obj: any = {};
-        if (message.address.length !== 0) {
-            obj.address = base64FromBytes(message.address);
-        }
+        message.address !== undefined &&
+            (obj.address = base64FromBytes(message.address !== undefined ? message.address : new Uint8Array()));
         return obj;
     },
 
     create<I extends Exact<DeepPartial<VerificationRemoveBody>, I>>(base?: I): VerificationRemoveBody {
-        return VerificationRemoveBody.fromPartial(base ?? ({} as any));
+        return VerificationRemoveBody.fromPartial(base ?? {});
     },
+
     fromPartial<I extends Exact<DeepPartial<VerificationRemoveBody>, I>>(object: I): VerificationRemoveBody {
         const message = createBaseVerificationRemoveBody();
-        message.address = object.address ?? new Uint8Array(0);
+        message.address = object.address ?? new Uint8Array();
         return message;
     },
 };
@@ -1721,28 +1614,28 @@ export const LinkBody = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    if (tag !== 10) {
+                    if (tag != 10) {
                         break;
                     }
 
                     message.type = reader.string();
                     continue;
                 case 2:
-                    if (tag !== 16) {
+                    if (tag != 16) {
                         break;
                     }
 
                     message.displayTimestamp = reader.uint32();
                     continue;
                 case 3:
-                    if (tag !== 24) {
+                    if (tag != 24) {
                         break;
                     }
 
                     message.targetFid = longToNumber(reader.uint64() as Long);
                     continue;
             }
-            if ((tag & 7) === 4 || tag === 0) {
+            if ((tag & 7) == 4 || tag == 0) {
                 break;
             }
             reader.skipType(tag & 7);
@@ -1752,29 +1645,24 @@ export const LinkBody = {
 
     fromJSON(object: any): LinkBody {
         return {
-            type: isSet(object.type) ? globalThis.String(object.type) : '',
-            displayTimestamp: isSet(object.displayTimestamp) ? globalThis.Number(object.displayTimestamp) : undefined,
-            targetFid: isSet(object.targetFid) ? globalThis.Number(object.targetFid) : undefined,
+            type: isSet(object.type) ? String(object.type) : '',
+            displayTimestamp: isSet(object.displayTimestamp) ? Number(object.displayTimestamp) : undefined,
+            targetFid: isSet(object.targetFid) ? Number(object.targetFid) : undefined,
         };
     },
 
     toJSON(message: LinkBody): unknown {
         const obj: any = {};
-        if (message.type !== '') {
-            obj.type = message.type;
-        }
-        if (message.displayTimestamp !== undefined) {
-            obj.displayTimestamp = Math.round(message.displayTimestamp);
-        }
-        if (message.targetFid !== undefined) {
-            obj.targetFid = Math.round(message.targetFid);
-        }
+        message.type !== undefined && (obj.type = message.type);
+        message.displayTimestamp !== undefined && (obj.displayTimestamp = Math.round(message.displayTimestamp));
+        message.targetFid !== undefined && (obj.targetFid = Math.round(message.targetFid));
         return obj;
     },
 
     create<I extends Exact<DeepPartial<LinkBody>, I>>(base?: I): LinkBody {
-        return LinkBody.fromPartial(base ?? ({} as any));
+        return LinkBody.fromPartial(base ?? {});
     },
+
     fromPartial<I extends Exact<DeepPartial<LinkBody>, I>>(object: I): LinkBody {
         const message = createBaseLinkBody();
         message.type = object.type ?? '';
@@ -1784,152 +1672,30 @@ export const LinkBody = {
     },
 };
 
-function createBaseUserNameProof(): UserNameProof {
-    return {
-        timestamp: 0,
-        name: new Uint8Array(0),
-        owner: new Uint8Array(0),
-        signature: new Uint8Array(0),
-        fid: 0,
-        type: 0,
-    };
-}
-
-export const UserNameProof = {
-    encode(message: UserNameProof, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-        if (message.timestamp !== 0) {
-            writer.uint32(8).uint64(message.timestamp);
-        }
-        if (message.name.length !== 0) {
-            writer.uint32(18).bytes(message.name);
-        }
-        if (message.owner.length !== 0) {
-            writer.uint32(26).bytes(message.owner);
-        }
-        if (message.signature.length !== 0) {
-            writer.uint32(34).bytes(message.signature);
-        }
-        if (message.fid !== 0) {
-            writer.uint32(40).uint64(message.fid);
-        }
-        if (message.type !== 0) {
-            writer.uint32(48).int32(message.type);
-        }
-        return writer;
-    },
-
-    decode(input: _m0.Reader | Uint8Array, length?: number): UserNameProof {
-        const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
-        let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseUserNameProof();
-        while (reader.pos < end) {
-            const tag = reader.uint32();
-            switch (tag >>> 3) {
-                case 1:
-                    if (tag !== 8) {
-                        break;
-                    }
-
-                    message.timestamp = longToNumber(reader.uint64() as Long);
-                    continue;
-                case 2:
-                    if (tag !== 18) {
-                        break;
-                    }
-
-                    message.name = reader.bytes();
-                    continue;
-                case 3:
-                    if (tag !== 26) {
-                        break;
-                    }
-
-                    message.owner = reader.bytes();
-                    continue;
-                case 4:
-                    if (tag !== 34) {
-                        break;
-                    }
-
-                    message.signature = reader.bytes();
-                    continue;
-                case 5:
-                    if (tag !== 40) {
-                        break;
-                    }
-
-                    message.fid = longToNumber(reader.uint64() as Long);
-                    continue;
-                case 6:
-                    if (tag !== 48) {
-                        break;
-                    }
-
-                    message.type = reader.int32() as any;
-                    continue;
-            }
-            if ((tag & 7) === 4 || tag === 0) {
-                break;
-            }
-            reader.skipType(tag & 7);
-        }
-        return message;
-    },
-
-    fromJSON(object: any): UserNameProof {
-        return {
-            timestamp: isSet(object.timestamp) ? globalThis.Number(object.timestamp) : 0,
-            name: isSet(object.name) ? bytesFromBase64(object.name) : new Uint8Array(0),
-            owner: isSet(object.owner) ? bytesFromBase64(object.owner) : new Uint8Array(0),
-            signature: isSet(object.signature) ? bytesFromBase64(object.signature) : new Uint8Array(0),
-            fid: isSet(object.fid) ? globalThis.Number(object.fid) : 0,
-            type: isSet(object.type) ? userNameTypeFromJSON(object.type) : 0,
-        };
-    },
-
-    toJSON(message: UserNameProof): unknown {
-        const obj: any = {};
-        if (message.timestamp !== 0) {
-            obj.timestamp = Math.round(message.timestamp);
-        }
-        if (message.name.length !== 0) {
-            obj.name = base64FromBytes(message.name);
-        }
-        if (message.owner.length !== 0) {
-            obj.owner = base64FromBytes(message.owner);
-        }
-        if (message.signature.length !== 0) {
-            obj.signature = base64FromBytes(message.signature);
-        }
-        if (message.fid !== 0) {
-            obj.fid = Math.round(message.fid);
-        }
-        if (message.type !== 0) {
-            obj.type = userNameTypeToJSON(message.type);
-        }
-        return obj;
-    },
-
-    create<I extends Exact<DeepPartial<UserNameProof>, I>>(base?: I): UserNameProof {
-        return UserNameProof.fromPartial(base ?? ({} as any));
-    },
-    fromPartial<I extends Exact<DeepPartial<UserNameProof>, I>>(object: I): UserNameProof {
-        const message = createBaseUserNameProof();
-        message.timestamp = object.timestamp ?? 0;
-        message.name = object.name ?? new Uint8Array(0);
-        message.owner = object.owner ?? new Uint8Array(0);
-        message.signature = object.signature ?? new Uint8Array(0);
-        message.fid = object.fid ?? 0;
-        message.type = object.type ?? 0;
-        return message;
-    },
-};
+declare var self: any | undefined;
+declare var window: any | undefined;
+declare var global: any | undefined;
+var tsProtoGlobalThis: any = (() => {
+    if (typeof globalThis !== 'undefined') {
+        return globalThis;
+    }
+    if (typeof self !== 'undefined') {
+        return self;
+    }
+    if (typeof window !== 'undefined') {
+        return window;
+    }
+    if (typeof global !== 'undefined') {
+        return global;
+    }
+    throw 'Unable to locate global object';
+})();
 
 function bytesFromBase64(b64: string): Uint8Array {
-    if (globalThis.Buffer) {
-        return Uint8Array.from(globalThis.Buffer.from(b64, 'base64'));
+    if (tsProtoGlobalThis.Buffer) {
+        return Uint8Array.from(tsProtoGlobalThis.Buffer.from(b64, 'base64'));
     } else {
-        const bin = globalThis.atob(b64);
+        const bin = tsProtoGlobalThis.atob(b64);
         const arr = new Uint8Array(bin.length);
         for (let i = 0; i < bin.length; ++i) {
             arr[i] = bin.charCodeAt(i);
@@ -1939,23 +1705,23 @@ function bytesFromBase64(b64: string): Uint8Array {
 }
 
 function base64FromBytes(arr: Uint8Array): string {
-    if (globalThis.Buffer) {
-        return globalThis.Buffer.from(arr).toString('base64');
+    if (tsProtoGlobalThis.Buffer) {
+        return tsProtoGlobalThis.Buffer.from(arr).toString('base64');
     } else {
         const bin: string[] = [];
         arr.forEach((byte) => {
-            bin.push(globalThis.String.fromCharCode(byte));
+            bin.push(String.fromCharCode(byte));
         });
-        return globalThis.btoa(bin.join(''));
+        return tsProtoGlobalThis.btoa(bin.join(''));
     }
 }
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
-export type DeepPartial<T> = T extends Builtin
+type DeepPartial<T> = T extends Builtin
     ? T
-    : T extends globalThis.Array<infer U>
-      ? globalThis.Array<DeepPartial<U>>
+    : T extends Array<infer U>
+      ? Array<DeepPartial<U>>
       : T extends ReadonlyArray<infer U>
         ? ReadonlyArray<DeepPartial<U>>
         : T extends {}
@@ -1963,13 +1729,13 @@ export type DeepPartial<T> = T extends Builtin
           : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
-export type Exact<P, I extends P> = P extends Builtin
+type Exact<P, I extends P> = P extends Builtin
     ? P
     : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
 function longToNumber(long: Long): number {
-    if (long.gt(globalThis.Number.MAX_SAFE_INTEGER)) {
-        throw new globalThis.Error('Value is larger than Number.MAX_SAFE_INTEGER');
+    if (long.gt(Number.MAX_SAFE_INTEGER)) {
+        throw new tsProtoGlobalThis.Error('Value is larger than Number.MAX_SAFE_INTEGER');
     }
     return long.toNumber();
 }

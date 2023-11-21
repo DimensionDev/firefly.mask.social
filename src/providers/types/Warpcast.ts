@@ -7,6 +7,11 @@ export interface CastResponse {
     result: Cast;
 }
 
+export interface FeedResponse {
+    result: FeedResult;
+    next: Next;
+}
+
 export interface UserResponse {
     result: Profile;
 }
@@ -14,13 +19,52 @@ export interface CastsResult {
     casts: Cast[];
 }
 
+export interface FeedResult {
+    feed: Feed[];
+}
+
 export interface UsersResponse {
     result: Profile[];
     next: Next;
 }
 
+export interface Feed {
+    cast: Cast;
+    id: string;
+    timestamp: number;
+    otherParticipants: Author[];
+    replies: Cast[];
+}
+
 export interface Cast {
     hash: string;
+    embeds?: {
+        images: Array<{
+            type: string;
+            sourceUrl: string;
+            url: string;
+            alt: string;
+        }>;
+        processedCastText: string;
+        unknowns: unknown[];
+        urls: Array<{
+            type: string;
+            openGraph: {
+                description: string;
+                domain: string;
+                image: string;
+                logo: string;
+                sourceUrl: string;
+                title: StaticRange;
+                url: string;
+                userLargeImage: boolean;
+            };
+        }>;
+        videos: Array<{
+            url: string;
+            type: string;
+        }>;
+    };
     threadHash: string;
     author: Author;
     text: string;
@@ -40,6 +84,17 @@ export interface Author {
     pfp: Pfp;
     followerCount: number;
     followingCount: number;
+    profile: {
+        bio: {
+            mention: string[];
+            text: string;
+        };
+        location: {
+            description: string;
+            placeId: string;
+        };
+        username: string;
+    };
 }
 
 export interface Pfp {

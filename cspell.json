@@ -26,7 +26,12 @@
         "wagmi",
         "warpcast",
         "zustand",
-        "recasted"
+        "recasted",
+        "zora",
+        "basepaint",
+        "unlonely",
+        "ipfs",
+        "arweave"
     ],
     "ignoreWords": [
         "cyberconnect",
@@ -56,7 +61,12 @@
         "transak",
         "typecheck",
         "DEVNET",
-        "IDBP"
+        "IDBP",
+        "splited",
+        "linkify",
+        "trimify",
+        "plyr",
+        "livepeer"
     ],
     "flagWords": [],
     "ignorePaths": [
@@ -69,7 +79,8 @@
         "public/svg/**",
         "public/js/**",
         "src/maskbook",
-        "src/providers/firefly/proto"
+        "src/providers/firefly/proto",
+        "src/assets/**"
     ],
     "overrides": []
 }

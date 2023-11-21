@@ -5,7 +5,7 @@ export interface Cast {
     parent_hash?: string;
     parent_fid?: string;
     parent_url?: string;
-    embeds: string[];
+    embeds: Array<{ url: string }>;
     mentions: string[];
     mentions_positions: number[];
     created_at: string;
@@ -17,6 +17,7 @@ export interface Cast {
     recasted: boolean;
     author: User;
     recastedBy?: User;
+    timestamp?: string;
 }
 
 export interface User {
