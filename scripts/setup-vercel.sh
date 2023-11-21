@@ -19,7 +19,7 @@ npx tsc -b
 cd -
 
 # Patch packages
-npm run postinstall
+npx patch-package
 
 # Run Next.js build for the main project
 next build
