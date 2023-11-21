@@ -14,7 +14,7 @@ export default function Oembed({ url, onData }: OembedProps) {
     const { isLoading, error, data } = useQuery({
         queryKey: ['oembed', url],
         queryFn: () => {
-            if (!url) return
+            if (!url) return;
             return fetchJSON<LinkDigest>(
                 urlcat('/api/oembed', {
                     link: encodeURIComponent(url),
