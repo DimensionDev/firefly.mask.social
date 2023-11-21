@@ -145,35 +145,37 @@ export function LoginModal({ isOpen, setIsOpen }: LoginModalProps) {
                                                             })}
                                                         >
                                                             {(() => {
-                                                                return <button
-                                                                    className="group flex w-full flex-col rounded-lg p-[16px] hover:bg-lightBg"
-                                                                    onClick={() => {
-                                                                        if (!connected) {
-                                                                            openConnectModal();
-                                                                            return;
-                                                                        }
-                                                                        if (chain?.unsupported) {
-                                                                            openChainModal();
-                                                                            return;
-                                                                        }
-                                                                        loginLens();
-                                                                    }}
-                                                                >
-                                                                    <div className="inline-flex w-full flex-col items-center justify-start gap-[8px] rounded-lg px-[16px] py-[24px]">
-                                                                        <div className="relative h-[48px] w-[48px]">
-                                                                            <Image
-                                                                                className="left-0 top-0 rounded-full"
-                                                                                src="/svg/lens.svg"
-                                                                                width={48}
-                                                                                height={48}
-                                                                                alt="lens"
-                                                                            />
+                                                                return (
+                                                                    <button
+                                                                        className="group flex w-full flex-col rounded-lg p-[16px] hover:bg-lightBg"
+                                                                        onClick={() => {
+                                                                            if (!connected) {
+                                                                                openConnectModal();
+                                                                                return;
+                                                                            }
+                                                                            if (chain?.unsupported) {
+                                                                                openChainModal();
+                                                                                return;
+                                                                            }
+                                                                            loginLens();
+                                                                        }}
+                                                                    >
+                                                                        <div className="inline-flex w-full flex-col items-center justify-start gap-[8px] rounded-lg px-[16px] py-[24px]">
+                                                                            <div className="relative h-[48px] w-[48px]">
+                                                                                <Image
+                                                                                    className="left-0 top-0 rounded-full"
+                                                                                    src="/svg/lens.svg"
+                                                                                    width={48}
+                                                                                    height={48}
+                                                                                    alt="lens"
+                                                                                />
+                                                                            </div>
+                                                                            <div className="font-['Helvetica'] text-sm font-bold leading-[18px] text-lightSecond group-hover:text-textMain">
+                                                                                Lens
+                                                                            </div>
                                                                         </div>
-                                                                        <div className="font-['Helvetica'] text-sm font-bold leading-[18px] text-lightSecond group-hover:text-textMain">
-                                                                            Lens
-                                                                        </div>
-                                                                    </div>
-                                                                </button>
+                                                                    </button>
+                                                                );
                                                             })()}
                                                         </div>
                                                     );
