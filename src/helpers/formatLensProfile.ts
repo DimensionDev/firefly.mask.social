@@ -63,5 +63,9 @@ export default function formatLensProfile(result: ProfileFragment): Profile {
             networkType: NetworkType.Ethereum,
             address: result.ownedBy.address,
         },
+        viewerContext: {
+            following: result.operations.isFollowedByMe.value,
+            followedBy: result.operations.isFollowingMe.value,
+        },
     };
 }

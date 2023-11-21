@@ -107,9 +107,7 @@ export class LensSocialMedia implements Provider {
         });
         const resultValue = result.unwrap();
 
-        if (!isRelaySuccess(resultValue)) {
-            console.log(`Something went wrong`, resultValue);
-        }
+        if (!isRelaySuccess(resultValue)) throw new Error(`Something went wrong ${JSON.stringify(resultValue)}`);
 
         const post = await this.getPostById(postId);
         return post;
@@ -174,7 +172,7 @@ export class LensSocialMedia implements Provider {
 
     async getProfileById(profileId: string): Promise<Profile> {
         const result = await this.lensClient.profile.fetch({
-            forProfileId: profileId,
+            forHandle: profileId,
         });
         if (!result) throw new Error('No profile found');
 
