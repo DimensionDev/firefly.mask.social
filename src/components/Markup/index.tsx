@@ -1,3 +1,4 @@
+'use client';
 import stripMarkdown from 'strip-markdown';
 import remarkBreaks from 'remark-breaks';
 import ReactMarkdown from 'react-markdown';

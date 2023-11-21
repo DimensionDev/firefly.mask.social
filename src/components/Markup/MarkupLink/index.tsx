@@ -1,3 +1,5 @@
+'use client';
+
 import { ExternalLink } from './ExternalLink.js';
 import { Hashtag } from './Hashtag.js';
 import { MentionLink } from './MentionLink.js';

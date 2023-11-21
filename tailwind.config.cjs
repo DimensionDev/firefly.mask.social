@@ -8,9 +8,9 @@ module.exports = {
     theme: {
         extend: {
             colors: {
-                main: 'rgba(var(--color-main), <alpha-value>)',
-                link: 'rgba(var(--color-link), <alpha-value>)',
-                primaryBottom: 'rgba(var(--color-bottom), <alpha-value>)',
+                main: 'rgb(var(--color-main) / <alpha-value>)',
+                link: 'rgb(var(--color-link) / <alpha-value>)',
+                primaryBottom: 'rgb(var(--color-bottom) / <alpha-value>)',
                 // Because the secondary and bg color values are fixed alpha values in the design, the css variable is used directly.
                 secondary: 'var(--color-second)',
                 bg: 'var(--color-bg)',

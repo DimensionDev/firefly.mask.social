@@ -1,3 +1,5 @@
+'use client';
+
 import { formatUrl } from '@/helpers/formatUrl.js';
 import { useMounted } from '@/hooks/useMounted.js';
 import { Link } from '@/esm/Link.js';

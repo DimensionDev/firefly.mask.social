@@ -1,3 +1,5 @@
+'use client';
+
 import type { MarkupLinkProps } from '@/components/Markup/MarkupLink/index.jsx';
 import { Link } from '@/esm/Link.js';
 import urlcat from 'urlcat';

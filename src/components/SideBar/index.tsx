@@ -62,7 +62,7 @@ export const SideBar = memo(function SideBar() {
                                         const Icon = item.icon;
 
                                         return (
-                                            <li className="px-4 py-3 text-main hover:bg-bg" key={item.name}>
+                                            <li className="rounded-lg px-4 py-3 text-main hover:bg-bg" key={item.name}>
                                                 {item.href === '/connect-wallet' ? (
                                                     <ConnectWalletNav />
                                                 ) : (

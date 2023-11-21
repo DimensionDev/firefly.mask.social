@@ -1,3 +1,7 @@
+'use client';
+
+import urlcat from 'urlcat';
+import { useRouter } from 'next/navigation.js';
 import { memo } from 'react';
 import { motion } from 'framer-motion';
 import { PostHeader } from '@/components/Posts/PostHeader.js';
@@ -9,17 +13,19 @@ interface QuoteProps {
 }
 
 export const Quote = memo<QuoteProps>(function Quote({ post }) {
+    const router = useRouter();
     return (
-        <div className="mt-3 cursor-auto rounded-2xl border border-solid border-third bg-primaryBottom dark:bg-secondaryBottom">
-            <motion.article
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                className="cursor-pointer px-4 py-3"
-            >
-                <PostHeader post={post} />
-                <PostBody post={post} isQuote />
-            </motion.article>
-        </div>
+        <motion.article
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="mt-3 cursor-pointer rounded-2xl border border-solid border-third bg-primaryBottom  px-4 py-3 hover:bg-bg dark:bg-secondaryBottom"
+            onClick={() => {
+                router.push(urlcat('/detail/:platform/:id', { platform: post.source, id: post.postId }));
+            }}
+        >
+            <PostHeader post={post} isQuote />
+            <PostBody post={post} isQuote />
+        </motion.article>
     );
 });

@@ -1,3 +1,5 @@
+'use client';
+
 import { Markup } from '@/components/Markup/index.js';
 import { Attachments } from '@/components/Posts/Attachment.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
@@ -6,7 +8,8 @@ import EyeSlash from '@/assets/eye-slash.svg';
 import Lock from '@/assets/lock.svg';
 import { classNames } from '@/helpers/classNames.js';
 import { Quote } from '@/components/Posts/Quote.js';
-
+import { Link } from '@/esm/Link.js';
+import urlcat from 'urlcat';
 interface PostBodyProps {
     post: Post;
     isQuote?: boolean;
@@ -15,7 +18,6 @@ interface PostBodyProps {
 
 export const PostBody = memo<PostBodyProps>(function PostBody({ post, isQuote = false, showMore = false }) {
     const canShowMore = !!(post.metadata.content?.content && post.metadata.content?.content.length > 450) && showMore;
-
     const showAttachments = !!(
         (post.metadata.content?.attachments && post.metadata.content?.attachments?.length > 0) ||
         post.metadata.content?.asset
@@ -50,12 +52,18 @@ export const PostBody = memo<PostBodyProps>(function PostBody({ post, isQuote = 
     }
 
     return (
-        <div className="text- my-2 break-words pl-[52px] text-base text-main">
+        <div className={classNames('text- my-2 break-words text-base text-main', { 'pl-[52px]': !isQuote })}>
             <Markup className={classNames({ 'line-clamp-5': canShowMore }, 'markup linkify text-md break-words')}>
                 {post.metadata.content?.content || ''}
             </Markup>
 
-            {canShowMore ? <div className="text-base font-bold text-link">Show More</div> : null}
+            {canShowMore ? (
+                <div className="text-base font-bold text-link">
+                    <Link href={urlcat('/detail/:platform/:id', { platform: post.source, id: post.postId })}>
+                        Show More
+                    </Link>
+                </div>
+            ) : null}
             {showAttachments ? (
                 <Attachments
                     asset={post.metadata.content?.asset}

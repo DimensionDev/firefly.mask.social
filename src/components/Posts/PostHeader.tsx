@@ -4,9 +4,11 @@ import { Image } from '@/components/Image.js';
 import More from '../../assets/more.svg';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
 import { SocialPlatform } from '@/constants/enum.js';
+import { classNames } from '@/helpers/classNames.js';
 
 interface PostHeaderProps {
     post: Post;
+    isQuote?: boolean;
 }
 
 function getSocialPlatformIconBySource(source: SocialPlatform) {
@@ -20,14 +22,19 @@ function getSocialPlatformIconBySource(source: SocialPlatform) {
     }
 }
 
-export const PostHeader = memo<PostHeaderProps>(function PostHeader({ post }) {
+export const PostHeader = memo<PostHeaderProps>(function PostHeader({ post, isQuote = false }) {
     const sourceIcon = getSocialPlatformIconBySource(post.source);
     return (
         <div className="flex justify-between space-x-1.5">
             <div className="flex items-center space-x-3">
                 <Image
                     loading="lazy"
-                    className="h-10 w-10 rounded-full border"
+                    className={classNames('rounded-full border', {
+                        'h-10': !isQuote,
+                        'w-10': !isQuote,
+                        'h-6': isQuote,
+                        'w-6': isQuote,
+                    })}
                     src={post.author.pfp}
                     width={40}
                     height={40}
@@ -46,9 +53,11 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({ post }) {
                 <span className="text-xs leading-4 text-secondary">
                     <TimestampFormatter time={post.timestamp} />
                 </span>
-                <span className="text-secondary">
-                    <More width={24} height={24} />
-                </span>
+                {!isQuote ? (
+                    <span className="text-secondary">
+                        <More width={24} height={24} />
+                    </span>
+                ) : null}
             </div>
         </div>
     );
