@@ -1,3 +1,5 @@
+/* cspell:disable */
+
 import type { Document } from 'linkedom';
 
 export const getTitle = (document: Document): string | null => {
