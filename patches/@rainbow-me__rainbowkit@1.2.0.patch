@@ -10,6 +10,18 @@ index 39a95f1cfcd2ae28058e52690320886cdcf0d94e..0a333dd50c2170ee336cddd69b33a151
  type AccountStatus = 'full' | 'avatar' | 'address';
  type ChainStatus = 'full' | 'icon' | 'name' | 'none';
  export interface ConnectButtonProps {
+diff --git a/dist/components/ConnectButton/ConnectButtonRenderer.d.ts b/dist/components/ConnectButton/ConnectButtonRenderer.d.ts
+index c9f2971a523ed56b65dd3081706f14a0751ec876..764c340bb5c6cf74e4cab10fd4a86359538e2443 100644
+--- a/dist/components/ConnectButton/ConnectButtonRenderer.d.ts
++++ b/dist/components/ConnectButton/ConnectButtonRenderer.d.ts
+@@ -1,6 +1,7 @@
+ import React, { ReactNode } from 'react';
+ import { AuthenticationStatus } from '../RainbowKitProvider/AuthenticationContext';
+ export interface ConnectButtonRendererProps {
++    className: string
+     children: (renderProps: {
+         account?: {
+             address: string;
 diff --git a/dist/components/index.d.ts b/dist/components/index.d.ts
 index e6bf7a6270102d9e468f607699863a4081ffb7de..a6a3a19f24ba0b1bcc326b408a71e3308f22a878 100644
 --- a/dist/components/index.d.ts

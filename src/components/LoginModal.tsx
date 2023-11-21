@@ -12,17 +12,6 @@ interface LoginModalProps {
     setIsOpen: (isOpen: boolean) => void;
 }
 
-interface ConnectParams {
-    chain: any;
-    openConnectModal: () => void;
-    openChainModal: () => void;
-    authenticationStatus: 'loading' | 'unauthenticated' | 'authenticated' | undefined;
-    account: any;
-    mounted: boolean;
-    connectModalOpen: boolean;
-    chainModalOpen: boolean;
-}
-
 function usePrevious(value: boolean) {
     const ref = useRef<boolean>();
     useEffect(() => {
@@ -122,7 +111,7 @@ export function LoginModal({ isOpen, setIsOpen }: LoginModalProps) {
                                                     mounted,
                                                     connectModalOpen,
                                                     chainModalOpen,
-                                                }: ConnectParams) => {
+                                                }) => {
                                                     setConnectOpen(connectModalOpen);
                                                     setChainOpen(chainModalOpen);
                                                     const ready = mounted && authenticationStatus !== 'loading';
