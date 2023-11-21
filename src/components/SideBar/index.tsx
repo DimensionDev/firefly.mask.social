@@ -48,7 +48,7 @@ export const SideBar = memo(function SideBar() {
     return (
         <>
             <div className="fixed inset-y-0 z-50 flex w-72 flex-col">
-                <div className="border-line flex grow flex-col gap-y-5 overflow-y-auto border-r px-6">
+                <div className="flex grow flex-col gap-y-5 overflow-y-auto border-r border-line px-6">
                     <div className="flex h-16 shrink-0 items-center">
                         <Link href={PageRoutes.Home}>
                             <Image width={134} height={64} src="/logo.png" alt="Firefly" />
@@ -78,7 +78,7 @@ export const SideBar = memo(function SideBar() {
                                         <button
                                             onClick={() => {}}
                                             type="button"
-                                            className=" text-primaryBottom min-w-[150px] rounded-[16px] bg-main px-3 py-3 text-xl font-semibold leading-6 "
+                                            className=" min-w-[150px] rounded-[16px] bg-main px-3 py-3 text-xl font-semibold leading-6 text-primaryBottom "
                                         >
                                             Post
                                         </button>
@@ -97,7 +97,7 @@ export const SideBar = memo(function SideBar() {
                                             setLoginOpen(true);
                                         }}
                                         type="button"
-                                        className=" text-primaryBottom min-w-[150px] rounded-[16px] bg-main px-3 py-3 text-xl font-semibold leading-6 "
+                                        className=" min-w-[150px] rounded-[16px] bg-main px-3 py-3 text-xl font-semibold leading-6 text-primaryBottom "
                                     >
                                         Login
                                     </button>

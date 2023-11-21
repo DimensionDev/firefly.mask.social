@@ -10,7 +10,7 @@ interface QuoteProps {
 
 export const Quote = memo<QuoteProps>(function Quote({ post }) {
     return (
-        <div className="border-third bg-primaryBottom mt-3 cursor-auto rounded-2xl border border-solid dark:bg-secondaryBottom">
+        <div className="mt-3 cursor-auto rounded-2xl border border-solid border-third bg-primaryBottom dark:bg-secondaryBottom">
             <motion.article
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
