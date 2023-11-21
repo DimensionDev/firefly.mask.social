@@ -20,6 +20,7 @@ export const ExternalLink = memo<ExternalLinkProps>(function ExternalLink({ titl
 
     return (
         <Link
+            className="text-link"
             href={href}
             onClick={(event) => event.stopPropagation()}
             target={isMounted && href.includes(location.host) ? '_self' : '_blank'}

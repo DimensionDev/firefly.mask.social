@@ -27,7 +27,7 @@ export const PostBody = memo<PostBodyProps>(function PostBody({ post, isQuote = 
         return (
             <div className="my-2 pl-[52px]">
                 <div
-                    className={classNames('flex items-center gap-1 rounded-lg border-primaryMain px-3 py-[6px]', {
+                    className={classNames('border-primaryMain flex items-center gap-1 rounded-lg px-3 py-[6px]', {
                         border: !isQuote,
                     })}
                 >
@@ -41,7 +41,7 @@ export const PostBody = memo<PostBodyProps>(function PostBody({ post, isQuote = 
     if (post.isHidden) {
         <div className="my-2 pl-[52px]">
             <div
-                className={classNames('flex items-center gap-1 rounded-lg border-primaryMain px-3 py-[6px]', {
+                className={classNames('border-primaryMain flex items-center gap-1 rounded-lg px-3 py-[6px]', {
                     border: !isQuote,
                 })}
             >
@@ -53,12 +53,17 @@ export const PostBody = memo<PostBodyProps>(function PostBody({ post, isQuote = 
 
     return (
         <div className={classNames('text- my-2 break-words text-base text-main', { 'pl-[52px]': !isQuote })}>
-            <Markup className={classNames({ 'line-clamp-5': canShowMore }, 'markup linkify text-md break-words')}>
+            <Markup
+                className={classNames(
+                    { 'line-clamp-5': canShowMore, 'dark:opacity-50': isQuote, 'opacity-75': isQuote },
+                    'markup linkify text-md break-words',
+                )}
+            >
                 {post.metadata.content?.content || ''}
             </Markup>
 
             {canShowMore ? (
-                <div className="text-base font-bold text-link">
+                <div className="text-link text-base font-bold">
                     <Link href={urlcat('/detail/:platform/:id', { platform: post.source, id: post.postId })}>
                         Show More
                     </Link>
