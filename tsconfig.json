@@ -5,9 +5,6 @@
             "path": "./src/maskbook/packages/polyfills/tsconfig.json"
         },
         {
-            "path": "./src/maskbook/packages/mask/tsconfig.json"
-        },
-        {
             "path": "./src/maskbook/packages/injected-script/main/tsconfig.json"
         },
         {
