@@ -74,7 +74,6 @@ export default function ComposeAction({ type, setImages }: ComposeActionProps) {
                     className=" cursor-pointer"
                     onClick={() => insertText('#')}
                 />
-                {/* <Image src="/svg/redPacket.svg" width={24} height={24} alt="redPacket" /> */}
             </div>
 
             <div className=" flex h-9 items-center justify-between">
