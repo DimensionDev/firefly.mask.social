@@ -1,12 +1,13 @@
-import type { Attachment } from '@/providers/types/SocialMedia.js';
-import type { MetadataAsset } from '@/types/index.js';
-import { Image } from '@/components/Image.js';
 import { memo, useMemo, useState } from 'react';
+
+import { Image } from '@/components/Image.js';
+import { ImageAsset } from '@/components/Posts/ImageAsset.js';
 import { ATTACHMENT } from '@/constants/index.js';
+import { dynamic } from '@/esm/dynamic.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatImageUrl } from '@/helpers/formatImageUrl.js';
-import { dynamic } from '@/esm/dynamic.js';
-import { ImageAsset } from '@/components/Posts/ImageAsset.js';
+import type { Attachment } from '@/providers/types/SocialMedia.js';
+import type { MetadataAsset } from '@/types/index.js';
 
 const Video = dynamic(() => import('@/components/Posts/Video.js').then((module) => module.Video), { ssr: false });
 const Audio = dynamic(() => import('@/components/Posts/Audio.js').then((module) => module.Audio), { ssr: false });

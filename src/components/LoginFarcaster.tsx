@@ -1,8 +1,9 @@
 'use client';
 
-import { Image } from '@/esm/Image.js';
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import QRCode from 'react-qr-code';
+
+import { Image } from '@/esm/Image.js';
 import { FireflySocialMedia } from '@/providers/firefly/SocialMedia.js';
 
 interface LoginFarcasterProps {

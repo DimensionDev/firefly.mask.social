@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+
 import { WarpcastSocialMedia } from '@/providers/warpcast/SocialMedia.js';
 
 export function FarcasterAuthExample() {

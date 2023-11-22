@@ -1,7 +1,8 @@
-import type { PageIndicator, Pageable } from '@masknet/shared-base';
+import type { Pageable, PageIndicator } from '@masknet/shared-base';
+
+import type { SocialPlatform } from '@/constants/enum.js';
 import type { Session } from '@/providers/types/Session.js';
 import type { MetadataAsset } from '@/types/index.js';
-import type { SocialPlatform } from '@/constants/enum.js';
 
 export enum Type {
     Twitter = 'Twitter',

@@ -1,11 +1,12 @@
 'use client';
 
+import { createReactClient, LivepeerConfig, studioProvider } from '@livepeer/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import React from 'react';
 import { ReactQueryStreamedHydration } from '@tanstack/react-query-next-experimental';
+import React from 'react';
+
 import { WagmiProvider } from '@/components/WagmiProvider.js';
-import { LivepeerConfig, createReactClient, studioProvider } from '@livepeer/react';
 
 const livepeerClient = createReactClient({
     provider: studioProvider({ apiKey: '' }),

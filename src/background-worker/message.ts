@@ -1,15 +1,16 @@
-import {
-    __workaround__replaceImplementationOfCrossIsolationMessage__,
-    __workaround__replaceImplementationOfMaskMessage__,
-    serializer,
-} from '@masknet/shared-base';
+import type { Serialization } from '@dimensiondev/holoflows-kit';
 import {
     __workaround__replaceImplementationOfCreatePluginMessage__,
     __workaround__replaceIsBackground__,
     type PluginMessageEmitter,
     type PluginMessageEmitterItem,
 } from '@masknet/plugin-infra';
-import type { Serialization } from '@dimensiondev/holoflows-kit';
+import {
+    __workaround__replaceImplementationOfCrossIsolationMessage__,
+    __workaround__replaceImplementationOfMaskMessage__,
+    serializer,
+} from '@masknet/shared-base';
+
 import { addListener, broadcastMessage, type InternalMessage_PluginMessage } from './message-port.js';
 
 // Plugin Message

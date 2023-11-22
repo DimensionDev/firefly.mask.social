@@ -1,8 +1,9 @@
+import { first, union } from 'lodash-es';
+
 import { SocialPlatform } from '@/constants/enum.js';
-import { ProfileStatus, type Attachment, type Post } from '@/providers/types/SocialMedia.js';
+import { type Attachment, type Post, ProfileStatus } from '@/providers/types/SocialMedia.js';
 import type { Cast, Feed } from '@/providers/types/Warpcast.js';
 import type { MetadataAsset } from '@/types/index.js';
-import { first, union } from 'lodash-es';
 
 export function getAttachments(cast: Cast) {
     const images = cast.embeds?.images.map<Attachment>((x) => ({ uri: x.url, type: 'Image' }));

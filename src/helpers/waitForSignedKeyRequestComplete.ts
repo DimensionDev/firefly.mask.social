@@ -1,6 +1,7 @@
-import urlcat from 'urlcat';
-import { WARPCAST_ROOT_URL } from '@/constants/index.js';
 import { delay } from '@masknet/kit';
+import urlcat from 'urlcat';
+
+import { WARPCAST_ROOT_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 
 export function waitForSignedKeyRequestComplete(signal?: AbortSignal) {

@@ -1,4 +1,4 @@
-import { IPFS_GATEWAY, ARWEAVE_GATEWAY } from '@/constants/index.js';
+import { ARWEAVE_GATEWAY, IPFS_GATEWAY } from '@/constants/index.js';
 
 export function sanitizeDStorageUrl(hash?: string) {
     if (!hash) {

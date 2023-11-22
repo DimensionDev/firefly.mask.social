@@ -1,12 +1,13 @@
 'use client';
 
-import urlcat from 'urlcat';
+import { motion } from 'framer-motion';
 import { useRouter } from 'next/navigation.js';
 import { memo } from 'react';
-import { motion } from 'framer-motion';
+import urlcat from 'urlcat';
+
+import { PostBody } from '@/components/Posts/PostBody.js';
 import { PostHeader } from '@/components/Posts/PostHeader.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
-import { PostBody } from '@/components/Posts/PostBody.js';
 
 interface QuoteProps {
     post: Post;

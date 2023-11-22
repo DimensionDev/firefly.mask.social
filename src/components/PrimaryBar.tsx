@@ -1,6 +1,7 @@
 'use client';
 
 import type React from 'react';
+
 import { classNames } from '@/helpers/classNames.js';
 
 export interface PrimaryBarProps {

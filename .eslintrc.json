@@ -1,16 +1,17 @@
 {
     "extends": "next/core-web-vitals",
     "plugins": [
+        "eslint-plugin-simple-import-sort",
         "@typescript-eslint/eslint-plugin",
         "eslint-plugin-react",
         "eslint-plugin-react-hooks",
         "eslint-plugin-unicorn",
+        "eslint-plugin-import",
         "unused-imports"
     ],
     "rules": {
         "default-case-last": "error",
         "eqeqeq": "error",
-        "import/no-duplicates": "warn",
         "import/no-empty-named-blocks": "warn",
         "import/no-named-default": "warn",
         "import/no-useless-path-segments": "warn",
@@ -148,7 +149,12 @@
         "@typescript-eslint/prefer-return-this-type": "error",
         "@typescript-eslint/prefer-string-starts-ends-with": "warn",
         "@typescript-eslint/require-array-sort-compare": "error",
-        "@typescript-eslint/no-misused-new": "error"
+        "@typescript-eslint/no-misused-new": "error",
+        "simple-import-sort/imports": "error",
+        "simple-import-sort/exports": "error",
+        "import/first": "error",
+        "import/newline-after-import": "error",
+        "import/no-duplicates": "error"
     },
     "parser": "@typescript-eslint/parser",
     "parserOptions": {

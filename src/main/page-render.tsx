@@ -1,8 +1,8 @@
 import '../plugin-host/enable.js';
 
-import { DisableShadowRootContext, ShadowRootIsolation } from '@masknet/theme';
-import { createInjectHooksRenderer } from '@masknet/plugin-infra/dom';
 import { useActivatedPluginsSiteAdaptor } from '@masknet/plugin-infra/content-script';
+import { createInjectHooksRenderer } from '@masknet/plugin-infra/dom';
+import { DisableShadowRootContext, ShadowRootIsolation } from '@masknet/theme';
 
 const GlobalInjection = createInjectHooksRenderer(
     useActivatedPluginsSiteAdaptor.visibility.useAnyMode,

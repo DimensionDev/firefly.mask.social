@@ -1,20 +1,21 @@
+import {
+    createIndicator,
+    createNextIndicator,
+    createPageable,
+    type Pageable,
+    type PageIndicator,
+} from '@masknet/shared-base';
+import { HubRestAPIClient } from '@standard-crypto/farcaster-js';
 import urlcat from 'urlcat';
 import { getWalletClient } from 'wagmi/actions';
-import { HubRestAPIClient } from '@standard-crypto/farcaster-js';
-import { fetchJSON } from '@/helpers/fetchJSON.js';
-import type { ResponseJSON } from '@/types/index.js';
+
+import { SocialPlatform } from '@/constants/enum.js';
 import { WARPCAST_ROOT_URL } from '@/constants/index.js';
-import { waitForSignedKeyRequestComplete } from '@/helpers/waitForSignedKeyRequestComplete.js';
+import { fetchJSON } from '@/helpers/fetchJSON.js';
+import formatWarpcastPost from '@/helpers/formatWarpcastPost.js';
 import { generateCustodyBearer } from '@/helpers/generateCustodyBearer.js';
-import {
-    type PageIndicator,
-    createPageable,
-    createNextIndicator,
-    type Pageable,
-    createIndicator,
-} from '@masknet/shared-base';
+import { waitForSignedKeyRequestComplete } from '@/helpers/waitForSignedKeyRequestComplete.js';
 import { type Post, ProfileStatus, type Provider, ReactionType, Type } from '@/providers/types/SocialMedia.js';
-import { WarpcastSession } from '@/providers/warpcast/Session.js';
 import type {
     CastResponse,
     CastsResponse,
@@ -24,8 +25,8 @@ import type {
     UserResponse,
     UsersResponse,
 } from '@/providers/types/Warpcast.js';
-import formatWarpcastPost from '@/helpers/formatWarpcastPost.js';
-import { SocialPlatform } from '@/constants/enum.js';
+import { WarpcastSession } from '@/providers/warpcast/Session.js';
+import type { ResponseJSON } from '@/types/index.js';
 
 // @ts-ignore
 export class WarpcastSocialMedia implements Provider {

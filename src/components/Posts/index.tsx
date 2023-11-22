@@ -1,13 +1,15 @@
 'use client';
 
-import { createIndicator, createPageable } from '@/maskbook/packages/shared-base/src/index.js';
-import { SinglePost } from './SinglePost.js';
-import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
-import { useGlobalState } from '@/store/index.js';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { memo } from 'react';
+
 import { SocialPlatform } from '@/constants/enum.js';
+import { createIndicator, createPageable } from '@/maskbook/packages/shared-base/src/index.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
+import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
+import { useGlobalState } from '@/store/index.js';
+
+import { SinglePost } from './SinglePost.js';
 
 export const Posts = memo(function Posts() {
     const currentSocialPlatform = useGlobalState.use.currentSocialPlatform();

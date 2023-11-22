@@ -1,5 +1,6 @@
-import { classNames } from '@/helpers/classNames.js';
 import { useState } from 'react';
+
+import { classNames } from '@/helpers/classNames.js';
 
 enum TabEnum {
     Feed = 'feed',

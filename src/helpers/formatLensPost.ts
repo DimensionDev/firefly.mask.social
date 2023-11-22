@@ -1,23 +1,19 @@
-import { SocialPlatform } from '@/constants/enum.js';
-import formatLensProfile from './formatLensProfile.js';
-import type { Attachment, Post } from '@/providers/types/SocialMedia.js';
-import type { MetadataAsset } from '@/types/index.js';
 import {
     type AnyPublicationFragment,
-    type PublicationMetadataFragment,
-    type PublicationMetadataMediaFragment,
-    type QuoteBaseFragment,
-    type PostFragment,
-    type CommentBaseFragment,
     type ArticleMetadataV3Fragment,
     type AudioMetadataV3Fragment,
     type CheckingInMetadataV3Fragment,
+    type CommentBaseFragment,
     type EmbedMetadataV3Fragment,
     type EventMetadataV3Fragment,
     type ImageMetadataV3Fragment,
     type LinkMetadataV3Fragment,
     type LiveStreamMetadataV3Fragment,
     type MintMetadataV3Fragment,
+    type PostFragment,
+    type PublicationMetadataFragment,
+    type PublicationMetadataMediaFragment,
+    type QuoteBaseFragment,
     type SpaceMetadataV3Fragment,
     type StoryMetadataV3Fragment,
     type TextOnlyMetadataV3Fragment,
@@ -26,6 +22,12 @@ import {
     type VideoMetadataV3Fragment,
 } from '@lens-protocol/client';
 import { compact } from 'lodash-es';
+
+import { SocialPlatform } from '@/constants/enum.js';
+import type { Attachment, Post } from '@/providers/types/SocialMedia.js';
+import type { MetadataAsset } from '@/types/index.js';
+
+import formatLensProfile from './formatLensProfile.js';
 
 const PLACEHOLDER_IMAGE = 'https://static-assets.hey.xyz/images/placeholder.webp';
 

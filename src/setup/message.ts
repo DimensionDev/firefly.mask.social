@@ -5,12 +5,13 @@ import {
     type PluginMessageEmitter,
     type PluginMessageEmitterItem,
 } from '@masknet/plugin-infra';
-import type { InternalMessage_PluginMessage } from '../background-worker/message-port.js';
 import {
     __workaround__replaceImplementationOfCrossIsolationMessage__,
     __workaround__replaceImplementationOfMaskMessage__,
     serializer,
 } from '@masknet/shared-base';
+
+import type { InternalMessage_PluginMessage } from '../background-worker/message-port.js';
 
 type MessageHandler = (message: any) => void;
 

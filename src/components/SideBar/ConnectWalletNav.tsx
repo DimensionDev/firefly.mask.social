@@ -1,10 +1,11 @@
 'use client';
-import { useAccount, useEnsName } from 'wagmi';
 import { useAccountModal, useConnectModal } from '@rainbow-me/rainbowkit';
 import { useMemo } from 'react';
+import { useAccount, useEnsName } from 'wagmi';
+
+import WalletIcon from '@/assets/wallet.svg';
 import { useMounted } from '@/hooks/useMounted.js';
 import { formatEthereumAddress } from '@/maskbook/packages/web3-shared/evm/src/index.js';
-import WalletIcon from '@/assets/wallet.svg';
 
 export function ConnectWalletNav() {
     const mounted = useMounted();

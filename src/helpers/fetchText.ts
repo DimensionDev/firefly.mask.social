@@ -1,5 +1,5 @@
 import { fetch } from '@/helpers/fetch.js';
-import { type NextFetchersOptions, getNextFetchers } from '@/helpers/getNextFetchers.js';
+import { getNextFetchers, type NextFetchersOptions } from '@/helpers/getNextFetchers.js';
 
 export async function fetchText(
     input: RequestInfo | URL,

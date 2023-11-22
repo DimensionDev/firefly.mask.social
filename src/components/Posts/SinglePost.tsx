@@ -1,12 +1,14 @@
 'use client';
 
-import urlcat from 'urlcat';
+import { motion } from 'framer-motion';
 import { useRouter } from 'next/navigation.js';
 import { memo } from 'react';
-import { motion } from 'framer-motion';
+import urlcat from 'urlcat';
+
 import type { Post } from '@/providers/types/SocialMedia.js';
-import { PostHeader } from './PostHeader.js';
+
 import { PostBody } from './PostBody.js';
+import { PostHeader } from './PostHeader.js';
 
 interface SinglePostProps {
     post: Post;
