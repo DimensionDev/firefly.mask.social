@@ -1,7 +1,8 @@
-import React, { Suspense, lazy } from 'react';
 import { RegistryContext, TypedMessageRender } from '@masknet/typed-message-react';
-import { registry } from './TypedMessageRender/registry.js';
+import React, { lazy, Suspense } from 'react';
+
 import { useDecrypt } from './Decrypt/useDecrypt.js';
+import { registry } from './TypedMessageRender/registry.js';
 
 const PluginRender = lazy(() => import('./plugin-render.js'));
 

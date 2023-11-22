@@ -1,8 +1,8 @@
 'use client';
 import dynamic from 'next/dynamic.js';
-
 import { usePathname } from 'next/navigation.js';
 import { memo } from 'react';
+
 import SearchIcon from '@/assets/search.svg';
 
 // @ts-ignore

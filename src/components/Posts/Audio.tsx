@@ -1,10 +1,11 @@
 import 'plyr-react/plyr.css';
 
 import Plyr from 'plyr-react';
-import { Image } from '@/components/Image.js';
 import { memo } from 'react';
-import { classNames } from '@/helpers/classNames.js';
+
 import Music from '@/assets/music.svg';
+import { Image } from '@/components/Image.js';
+import { classNames } from '@/helpers/classNames.js';
 
 const PlyrComponent = Plyr.default;
 interface AudioProps {

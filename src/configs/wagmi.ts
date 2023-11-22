@@ -1,10 +1,10 @@
 'use client';
 
+import { connectorsForWallets, getDefaultWallets, RainbowKitProvider } from '@rainbow-me/rainbowkit';
 import type { FallbackTransport } from 'viem';
-import { configureChains, createConfig, type Config, type PublicClient, type WebSocketPublicClient } from 'wagmi';
-import { polygon, type Chain, polygonMumbai } from 'wagmi/chains';
+import { type Config, configureChains, createConfig, type PublicClient, type WebSocketPublicClient } from 'wagmi';
+import { type Chain, polygon, polygonMumbai } from 'wagmi/chains';
 import { publicProvider } from 'wagmi/providers/public';
-import { RainbowKitProvider, connectorsForWallets, getDefaultWallets } from '@rainbow-me/rainbowkit';
 
 export const appInfo: Parameters<typeof RainbowKitProvider>[0]['appInfo'] = {
     appName: 'mask.social',

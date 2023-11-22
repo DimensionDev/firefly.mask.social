@@ -1,11 +1,12 @@
 'use client';
 
-import { SocialPlatform } from '@/constants/enum.js';
-import { classNames } from '@/helpers/classNames.js';
-import { useGlobalState } from '@/store/index.js';
 import { getEnumAsArray } from '@masknet/kit';
 import { usePathname } from 'next/navigation.js';
 import { startTransition } from 'react';
+
+import { SocialPlatform } from '@/constants/enum.js';
+import { classNames } from '@/helpers/classNames.js';
+import { useGlobalState } from '@/store/index.js';
 
 export function SocialPlatformTabs() {
     const pathname = usePathname();

@@ -1,11 +1,13 @@
 import 'plyr-react/plyr.css';
-import { classNames } from '@/helpers/classNames.js';
+
 import { Player } from '@livepeer/react';
 import { memo } from 'react';
 import { useAccount } from 'wagmi';
+
+import { ARWEAVE_GATEWAY, IPFS_GATEWAY } from '@/constants/index.js';
+import { classNames } from '@/helpers/classNames.js';
 import { formatImageUrl } from '@/helpers/formatImageUrl.js';
 import { sanitizeDStorageUrl } from '@/helpers/sanitizeDStorageUrl.js';
-import { IPFS_GATEWAY, ARWEAVE_GATEWAY } from '@/constants/index.js';
 
 interface VideoProps {
     src: string;

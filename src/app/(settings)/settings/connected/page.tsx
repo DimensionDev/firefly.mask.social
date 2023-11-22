@@ -1,5 +1,5 @@
-import { Image } from '@/esm/Image.js';
 import { AccountCard } from '@/app/(settings)/settings/connected/AccountCard/index.js';
+import { Image } from '@/esm/Image.js';
 
 export default function Connected() {
     return (

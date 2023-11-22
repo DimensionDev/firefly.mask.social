@@ -1,4 +1,4 @@
-import { StatusCodes, getReasonPhrase } from 'http-status-codes';
+import { getReasonPhrase, StatusCodes } from 'http-status-codes';
 import { NextResponse } from 'next/server.js';
 
 export function createResponseJSON(data: unknown, init?: ResponseInit) {

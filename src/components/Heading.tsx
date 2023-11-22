@@ -1,7 +1,8 @@
 'use client';
 
-import { Image } from '@/esm/Image.js';
 import { Bars3Icon } from '@heroicons/react/24/outline';
+
+import { Image } from '@/esm/Image.js';
 
 export interface HeadingProps {
     title: React.ReactNode;

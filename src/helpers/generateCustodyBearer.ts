@@ -1,5 +1,6 @@
 import { toBytes } from 'viem';
 import type { WalletClient } from 'wagmi';
+
 import { canonicalize } from '@/esm/canonicalize.js';
 
 export interface CustodyPayload {

@@ -1,10 +1,11 @@
 'use client';
 
+import { useSuspenseQuery } from '@tanstack/react-query';
+
 import { SinglePost } from '@/components/Posts/SinglePost.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
-import { useSuspenseQuery } from '@tanstack/react-query';
 
 export default function Page({ params }: { params: { id: string; platform: string } }) {
     const { data } = useSuspenseQuery({

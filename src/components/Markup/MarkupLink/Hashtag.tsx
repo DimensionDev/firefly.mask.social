@@ -1,11 +1,11 @@
 'use client';
 
-import type { MarkupLinkProps } from '@/components/Markup/MarkupLink/index.jsx';
-import { Link } from '@/esm/Link.js';
-import urlcat from 'urlcat';
-import { PageRoutes } from '@/constants/enum.js';
-
 import { memo } from 'react';
+import urlcat from 'urlcat';
+
+import type { MarkupLinkProps } from '@/components/Markup/MarkupLink/index.jsx';
+import { PageRoutes } from '@/constants/enum.js';
+import { Link } from '@/esm/Link.js';
 
 export const Hashtag = memo<MarkupLinkProps>(function Hashtag({ title }) {
     if (!title) return null;

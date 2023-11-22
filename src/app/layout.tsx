@@ -1,12 +1,12 @@
 import './globals.css';
 
+import { Providers } from '@/app/provider.js';
 import { GA } from '@/components/GA.js';
-import { classNames } from '@/helpers/classNames.js';
+import { Polyfills } from '@/components/Polyfills.js';
+import { SearchBar } from '@/components/SearchBar.js';
 import { SideBar } from '@/components/SideBar/index.js';
 import { SocialPlatformTabs } from '@/components/SocialPlatformTabs.js';
-import { SearchBar } from '@/components/SearchBar.js';
-import { Providers } from '@/app/provider.js';
-import { Polyfills } from '@/components/Polyfills.js';
+import { classNames } from '@/helpers/classNames.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 
 export const metadata = createSiteMetadata();

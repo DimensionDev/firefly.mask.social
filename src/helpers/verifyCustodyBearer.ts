@@ -1,5 +1,6 @@
-import { hashMessage, recoverAddress, toHex } from 'viem';
 import { isSameAddress } from '@masknet/web3-shared-base';
+import { hashMessage, recoverAddress, toHex } from 'viem';
+
 import { canonicalize } from '@/esm/canonicalize.js';
 import type { CustodyPayload } from '@/helpers/generateCustodyBearer.js';
 

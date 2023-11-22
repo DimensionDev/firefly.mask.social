@@ -1,15 +1,17 @@
 'use client';
 
-import { Markup } from '@/components/Markup/index.js';
-import { Attachments } from '@/components/Posts/Attachment.js';
-import type { Post } from '@/providers/types/SocialMedia.js';
 import { memo } from 'react';
+import urlcat from 'urlcat';
+
 import EyeSlash from '@/assets/eye-slash.svg';
 import Lock from '@/assets/lock.svg';
-import { classNames } from '@/helpers/classNames.js';
+import { Markup } from '@/components/Markup/index.js';
+import { Attachments } from '@/components/Posts/Attachment.js';
 import { Quote } from '@/components/Posts/Quote.js';
 import { Link } from '@/esm/Link.js';
-import urlcat from 'urlcat';
+import { classNames } from '@/helpers/classNames.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
+
 interface PostBodyProps {
     post: Post;
     isQuote?: boolean;

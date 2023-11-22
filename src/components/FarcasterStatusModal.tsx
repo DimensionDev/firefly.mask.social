@@ -1,7 +1,8 @@
 'use client';
 
-import { Fragment } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
+import { Fragment } from 'react';
+
 import { Image } from '@/esm/Image.js';
 
 const loggedLens = [{ name: 'Lens', handle: '@ssssss', avatar: '/svg/lens.svg' }];

@@ -1,9 +1,10 @@
+import { useQuery } from '@tanstack/react-query';
 import urlcat from 'urlcat';
+
 import Embed from '@/components/Oembed/Embed.js';
 import Player from '@/components/Oembed/Player.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import type { LinkDigest, OpenGraph } from '@/services/digestLink.js';
-import { useQuery } from '@tanstack/react-query';
 
 interface OembedProps {
     url?: string;

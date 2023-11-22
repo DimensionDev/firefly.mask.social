@@ -1,4 +1,5 @@
 import { createKVStorageHost, setupMaskKVStorageBackend } from '@masknet/shared-base';
+
 import { addListener } from './message.js';
 import { BackgroundWorker } from './rpc.js';
 

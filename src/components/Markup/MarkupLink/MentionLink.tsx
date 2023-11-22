@@ -1,9 +1,11 @@
 'use client';
 
-import type { MarkupLinkProps } from './index.js';
-import { Link } from '@/esm/Link.js';
 import { memo } from 'react';
 import urlcat from 'urlcat';
+
+import { Link } from '@/esm/Link.js';
+
+import type { MarkupLinkProps } from './index.js';
 
 const formatMentionTitle = (title: string) => {
     if (title.startsWith('@lens/')) return title.replace('@lens/', '@');
