@@ -70,7 +70,9 @@
         "linkify",
         "trimify",
         "plyr",
-        "livepeer"
+        "livepeer",
+        "notistack",
+        "tippyjs"
     ],
     "flagWords": [],
     "ignorePaths": [

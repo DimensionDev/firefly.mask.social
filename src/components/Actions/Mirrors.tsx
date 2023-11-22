@@ -91,7 +91,7 @@ export const Mirror = memo<MirrorProps>(function Mirror({ shares, source, hasMir
     return (
         <Menu
             as="div"
-            className={classNames('text-secondar relative', {
+            className={classNames('relative text-secondary', {
                 'text-secondarySuccess': !!mirrored,
             })}
             onClick={(event) => event.stopPropagation()}
