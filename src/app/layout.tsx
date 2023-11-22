@@ -17,12 +17,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <head>
                 <Polyfills />
             </head>
-            <body className={classNames('bg-white')}>
+            <body>
                 <Providers>
                     <div
                         className={classNames({
                             // global
-                            'relative m-auto h-screen bg-white': true,
+                            'relative m-auto h-screen': true,
                             // sm
                             [`sm:w-full`]: true,
 
@@ -31,12 +31,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                         })}
                     >
                         <SideBar />
-                        <main
-                            className={classNames({
-                                // lg
-                                ['lg:pl-72 lg:pr-96']: true,
-                            })}
-                        >
+                        <main className="pl-72 lg:pr-96">
                             <SocialPlatformTabs />
 
                             {children}

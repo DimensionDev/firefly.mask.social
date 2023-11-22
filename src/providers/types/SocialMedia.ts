@@ -134,6 +134,7 @@ export interface Post {
         reactions: number;
         bookmarks?: number;
     };
+    quoteOn?: Post;
     __original__?: unknown;
     source: SocialPlatform;
 }

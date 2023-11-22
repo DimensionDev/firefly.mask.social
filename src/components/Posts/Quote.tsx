@@ -4,28 +4,29 @@ import urlcat from 'urlcat';
 import { useRouter } from 'next/navigation.js';
 import { memo } from 'react';
 import { motion } from 'framer-motion';
+import { PostHeader } from '@/components/Posts/PostHeader.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
-import { PostHeader } from './PostHeader.js';
-import { PostBody } from './PostBody.js';
+import { PostBody } from '@/components/Posts/PostBody.js';
 
-interface SinglePostProps {
+interface QuoteProps {
     post: Post;
-    showMore?: boolean;
 }
-export const SinglePost = memo<SinglePostProps>(function SinglePost({ post, showMore = false }) {
+
+export const Quote = memo<QuoteProps>(function Quote({ post }) {
     const router = useRouter();
     return (
         <motion.article
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="cursor-pointer border-b border-line bg-bottom px-4 py-3 hover:bg-bg"
-            onClick={() => {
+            className="mt-3 cursor-pointer rounded-2xl border border-solid border-third bg-primaryBottom  px-4 py-3 hover:bg-bg dark:bg-secondaryBottom"
+            onClick={(event) => {
+                event.stopPropagation();
                 router.push(urlcat('/detail/:platform/:id', { platform: post.source.toLowerCase(), id: post.postId }));
             }}
         >
-            <PostHeader post={post} />
-            <PostBody post={post} showMore={showMore} />
+            <PostHeader post={post} isQuote />
+            <PostBody post={post} isQuote />
         </motion.article>
     );
 });

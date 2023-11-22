@@ -1,4 +1,5 @@
 'use client';
+
 import type { MarkupLinkProps } from './index.js';
 import { Link } from '@/esm/Link.js';
 import { memo } from 'react';
@@ -17,7 +18,7 @@ export const MentionLink = memo<MarkupLinkProps>(function MentionLink({ title })
             href={urlcat('/u/:handle', { handle: formatMentionTitle(title).slice(1) })}
             onClick={(event) => event.stopPropagation()}
         >
-            <span className="text-[#8E96FF]">{formatMentionTitle(title)}</span>
+            <span className="text-link">{formatMentionTitle(title)}</span>
         </Link>
     );
 });

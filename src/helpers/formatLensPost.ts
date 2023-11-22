@@ -2,10 +2,28 @@ import { SocialPlatform } from '@/constants/enum.js';
 import formatLensProfile from './formatLensProfile.js';
 import type { Attachment, Post } from '@/providers/types/SocialMedia.js';
 import type { MetadataAsset } from '@/types/index.js';
-import type {
-    AnyPublicationFragment,
-    PublicationMetadataFragment,
-    PublicationMetadataMediaFragment,
+import {
+    type AnyPublicationFragment,
+    type PublicationMetadataFragment,
+    type PublicationMetadataMediaFragment,
+    type QuoteBaseFragment,
+    type PostFragment,
+    type CommentBaseFragment,
+    type ArticleMetadataV3Fragment,
+    type AudioMetadataV3Fragment,
+    type CheckingInMetadataV3Fragment,
+    type EmbedMetadataV3Fragment,
+    type EventMetadataV3Fragment,
+    type ImageMetadataV3Fragment,
+    type LinkMetadataV3Fragment,
+    type LiveStreamMetadataV3Fragment,
+    type MintMetadataV3Fragment,
+    type SpaceMetadataV3Fragment,
+    type StoryMetadataV3Fragment,
+    type TextOnlyMetadataV3Fragment,
+    type ThreeDMetadataV3Fragment,
+    type TransactionMetadataV3Fragment,
+    type VideoMetadataV3Fragment,
 } from '@lens-protocol/client';
 import { compact } from 'lodash-es';
 
@@ -124,6 +142,72 @@ function formatContent(metadata: PublicationMetadataFragment) {
     }
 }
 
+function getMediaObjects(
+    metadata:
+        | ArticleMetadataV3Fragment
+        | AudioMetadataV3Fragment
+        | CheckingInMetadataV3Fragment
+        | EmbedMetadataV3Fragment
+        | EventMetadataV3Fragment
+        | ImageMetadataV3Fragment
+        | LinkMetadataV3Fragment
+        | LiveStreamMetadataV3Fragment
+        | MintMetadataV3Fragment
+        | SpaceMetadataV3Fragment
+        | StoryMetadataV3Fragment
+        | TextOnlyMetadataV3Fragment
+        | ThreeDMetadataV3Fragment
+        | TransactionMetadataV3Fragment
+        | VideoMetadataV3Fragment,
+) {
+    return metadata.__typename !== 'StoryMetadataV3' && metadata.__typename !== 'TextOnlyMetadataV3'
+        ? metadata.attachments?.map((attachment) =>
+              attachment.__typename === 'PublicationMetadataMediaAudio'
+                  ? {
+                        url: attachment.audio.raw.uri,
+                        mimeType: attachment.audio.raw.mimeType ?? 'audio/*',
+                    }
+                  : attachment.__typename === 'PublicationMetadataMediaImage'
+                    ? {
+                          url: attachment.image.raw.uri,
+                          mimeType: attachment.image.raw.mimeType ?? 'image/*',
+                      }
+                    : attachment.__typename === 'PublicationMetadataMediaVideo'
+                      ? {
+                            url: attachment.video.raw.uri,
+                            mimeType: attachment.video.raw.mimeType ?? 'video/*',
+                        }
+                      : {
+                            url: '',
+                            mimeType: '',
+                        },
+          ) ?? undefined
+        : undefined;
+}
+
+export function formatLensQuote(result: CommentBaseFragment | PostFragment | QuoteBaseFragment): Post {
+    const profile = formatLensProfile(result.by);
+    const timestamp = new Date(result.createdAt).getTime();
+
+    const mediaObjects = getMediaObjects(result.metadata);
+
+    return {
+        source: SocialPlatform.Lens,
+        postId: result.id,
+        timestamp,
+        author: profile,
+        mediaObjects,
+        isHidden: result.isHidden,
+        isEncrypted: !!result.metadata.encryptedWith,
+        metadata: {
+            locale: result.metadata.locale,
+            content: formatContent(result.metadata),
+            contentURI: result.metadata.rawURI,
+        },
+        __original__: result,
+    };
+}
+
 export default function formatLensPost(result: AnyPublicationFragment): Post {
     const profile = formatLensProfile(result.by);
     const timestamp = new Date(result.createdAt).getTime();
@@ -145,31 +229,33 @@ export default function formatLensPost(result: AnyPublicationFragment): Post {
     }
 
     if (result.metadata.__typename === 'EventMetadataV3') throw new Error('Event not supported');
-    const mediaObjects =
-        result.metadata.__typename !== 'StoryMetadataV3' && result.metadata.__typename !== 'TextOnlyMetadataV3'
-            ? result.metadata.attachments?.map((attachment) =>
-                  attachment.__typename === 'PublicationMetadataMediaAudio'
-                      ? {
-                            url: attachment.audio.raw.uri,
-                            mimeType: attachment.audio.raw.mimeType ?? 'audio/*',
-                        }
-                      : attachment.__typename === 'PublicationMetadataMediaImage'
-                        ? {
-                              url: attachment.image.raw.uri,
-                              mimeType: attachment.image.raw.mimeType ?? 'image/*',
-                          }
-                        : attachment.__typename === 'PublicationMetadataMediaVideo'
-                          ? {
-                                url: attachment.video.raw.uri,
-                                mimeType: attachment.video.raw.mimeType ?? 'video/*',
-                            }
-                          : {
-                                url: '',
-                                mimeType: '',
-                            },
-              ) ?? undefined
-            : undefined;
+    const mediaObjects = getMediaObjects(result.metadata);
 
+    if (result.__typename === 'Quote') {
+        return {
+            source: SocialPlatform.Lens,
+            postId: result.id,
+            timestamp,
+            author: profile,
+            mediaObjects,
+            isHidden: result.isHidden,
+            isEncrypted: !!result.metadata.encryptedWith,
+            metadata: {
+                locale: result.metadata.locale,
+                content: formatContent(result.metadata),
+                contentURI: result.metadata.rawURI,
+            },
+            stats: {
+                comments: result.stats.comments,
+                mirrors: result.stats.mirrors,
+                quotes: result.stats.quotes,
+                reactions: result.stats.upvoteReactions,
+                bookmarks: result.stats.bookmarks,
+            },
+            __original__: result,
+            quoteOn: formatLensQuote(result.quoteOn),
+        };
+    }
     return {
         source: SocialPlatform.Lens,
         postId: result.id,

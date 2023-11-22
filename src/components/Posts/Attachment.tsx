@@ -6,13 +6,14 @@ import { ATTACHMENT } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatImageUrl } from '@/helpers/formatImageUrl.js';
 import { dynamic } from '@/esm/dynamic.js';
+import { ImageAsset } from '@/components/Posts/ImageAsset.js';
 
 const Video = dynamic(() => import('@/components/Posts/Video.js').then((module) => module.Video), { ssr: false });
-
+const Audio = dynamic(() => import('@/components/Posts/Audio.js').then((module) => module.Audio), { ssr: false });
 const getClass = (attachments: number) => {
     if (attachments === 1) {
         return {
-            aspect: '',
+            aspect: 'aspect-w-16 aspect-h-10',
             row: 'grid-cols-1 grid-rows-1',
         };
     } else if (attachments === 2) {
@@ -26,7 +27,10 @@ const getClass = (attachments: number) => {
             row: 'grid-cols-2 grid-rows-2',
         };
     }
-    return;
+    return {
+        aspect: '',
+        row: '',
+    };
 };
 
 interface AttachmentsProps {
@@ -54,7 +58,7 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({ attachm
         <div className="mt-3">
             {asset?.type === 'Image' && !attachmentsHasImage ? (
                 <div className="w-full" onClick={(event) => event.stopPropagation}>
-                    <Image
+                    <ImageAsset
                         className="w-full cursor-pointer rounded-lg"
                         loading="lazy"
                         width={1000}
@@ -67,18 +71,23 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({ attachm
                 </div>
             ) : null}
             {attachmentsHasImage ? (
-                <div className={classNames('grid gap-2', getClass(imageAttachments.length)?.row ?? '')}>
+                <div
+                    className={classNames(getClass(imageAttachments.length)?.row ?? '', 'grid gap-2', {
+                        'grid-auto-flow': imageAttachments.length === 3,
+                    })}
+                >
                     {imageAttachments.map((attachment, index) => {
                         const uri = attachment.uri ?? '';
                         return (
                             <div
                                 key={index}
-                                className={classNames({
+                                className={classNames(getClass(imageAttachments.length).aspect, {
                                     'row-span-2': imageAttachments.length === 3 && index === 2,
+                                    'max-h-[138px]': imageAttachments.length === 3 && index !== 2,
                                 })}
                             >
                                 <Image
-                                    className={classNames('h-full cursor-pointer rounded-lg')}
+                                    className={classNames('h-full cursor-pointer rounded-lg object-cover')}
                                     loading="lazy"
                                     width={1000}
                                     height={1000}
@@ -93,6 +102,9 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({ attachm
                 </div>
             ) : null}
             {asset?.type === 'Video' ? <Video src={asset.uri} poster={asset.cover} /> : null}
+            {asset?.type === 'Audio' ? (
+                <Audio src={asset.uri} poster={asset.cover} artist={asset.artist} title={asset.title} />
+            ) : null}
         </div>
     );
 });
