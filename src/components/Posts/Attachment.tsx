@@ -1,13 +1,13 @@
 import { memo, useMemo, useState } from 'react';
 
+import Music from '@/assets/music.svg';
+import Play from '@/assets/play.svg';
 import { Image } from '@/components/Image.js';
 import { ImageAsset } from '@/components/Posts/ImageAsset.js';
 import { ATTACHMENT } from '@/constants/index.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatImageUrl } from '@/helpers/formatImageUrl.js';
-import Music from '@/assets/music.svg';
-import Play from '@/assets/play.svg';
 import type { Attachment } from '@/providers/types/SocialMedia.js';
 import type { MetadataAsset } from '@/types/index.js';
 

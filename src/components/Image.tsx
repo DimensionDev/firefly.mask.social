@@ -1,6 +1,7 @@
-import { useQueryMode } from '@/hooks/useQueryMode.js';
 import type { DetailedHTMLProps, ImgHTMLAttributes, Ref, SyntheticEvent } from 'react';
 import { forwardRef, useCallback, useEffect, useState } from 'react';
+
+import { useQueryMode } from '@/hooks/useQueryMode.js';
 
 export const Image = forwardRef(function Image(
     {

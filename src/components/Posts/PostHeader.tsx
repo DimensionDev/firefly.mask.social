@@ -1,12 +1,12 @@
 import { memo } from 'react';
 
+import More from '@/assets/more.svg';
 import { Image } from '@/components/Image.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { useQueryMode } from '@/hooks/useQueryMode.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
-import More from '@/assets/more.svg';
 
 interface PostHeaderProps {
     post: Post;
