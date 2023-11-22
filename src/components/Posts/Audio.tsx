@@ -7,7 +7,7 @@ import Music from '@/assets/music.svg';
 import { Image } from '@/components/Image.js';
 import { classNames } from '@/helpers/classNames.js';
 
-const PlyrComponent = Plyr.default;
+const PlyrComponent = Plyr as unknown as typeof Plyr.default;
 interface AudioProps {
     src: string;
     poster?: string;
@@ -17,7 +17,6 @@ interface AudioProps {
 }
 
 export const Audio = memo<AudioProps>(function Audio({ poster, src, title, artist, className }) {
-    if (!src) return null;
     return (
         <div
             className={classNames('overflow-hidden rounded-2xl bg-thirdMain p-3', className ?? '')}

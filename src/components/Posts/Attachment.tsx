@@ -6,6 +6,8 @@ import { ATTACHMENT } from '@/constants/index.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatImageUrl } from '@/helpers/formatImageUrl.js';
+import Music from '@/assets/music.svg';
+import Play from '@/assets/play.svg';
 import type { Attachment } from '@/providers/types/SocialMedia.js';
 import type { MetadataAsset } from '@/types/index.js';
 
@@ -37,12 +39,13 @@ const getClass = (attachments: number) => {
 interface AttachmentsProps {
     attachments: Attachment[];
     asset?: MetadataAsset;
+    isQuote?: boolean;
 }
 
-export const Attachments = memo<AttachmentsProps>(function Attachments({ attachments, asset }) {
+export const Attachments = memo<AttachmentsProps>(function Attachments({ attachments, asset, isQuote = false }) {
     const [previewImage, setPreviewImage] = useState<string | null>(null);
 
-    const { processedAttachments, attachmentsHasImage, imageAttachments } = useMemo(() => {
+    const { attachmentsHasImage, imageAttachments } = useMemo(() => {
         // TODO: farcaster only support 2 attachment
         const processedAttachments = attachments.slice(0, 4);
         const attachmentsHasImage = attachments.some((x) => x.type === 'Image');
@@ -55,15 +58,41 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({ attachm
         };
     }, [attachments]);
 
+    if (isQuote && asset?.type === 'Video') {
+        return <div />;
+    } else if (isQuote && asset?.type === 'Audio') {
+        return (
+            <div className="h-[120px] w-[120px]">
+                {asset.cover ? (
+                    <div className="relative">
+                        <div className="absolute left-[calc(50%-16px)] top-[calc(50%-16px)] flex items-center justify-center rounded-xl bg-third p-2 text-[#181818]">
+                            <Play width={16} height={16} />
+                        </div>
+                        <Image src={asset.cover} className="h-[120px] w-[120px] max-w-none" alt={asset.cover} />
+                    </div>
+                ) : (
+                    <div className="flex h-[120px] w-[120px] flex-col items-center justify-center space-y-2 rounded-xl bg-secondaryMain px-[7.5px] py-4">
+                        <span className=" text-primaryBottom opacity-50">
+                            <Music width={24} height={24} />
+                        </span>
+                        <span className="break-keep text-[11px] font-medium leading-[16px] text-secondary">
+                            Audio Cover
+                        </span>
+                    </div>
+                )}
+            </div>
+        );
+    }
+
     return (
-        <div className="mt-3">
+        <div className={isQuote ? '' : 'mt-3'}>
             {asset?.type === 'Image' && !attachmentsHasImage ? (
                 <div className="w-full" onClick={(event) => event.stopPropagation}>
                     <ImageAsset
                         className="w-full cursor-pointer rounded-lg"
                         loading="lazy"
-                        width={1000}
-                        height={1000}
+                        width={isQuote ? 120 : 1000}
+                        height={isQuote ? 120 : 1000}
                         onError={({ currentTarget }) => (currentTarget.src = asset.uri)}
                         onClick={() => setPreviewImage(asset.uri)}
                         src={formatImageUrl(asset.uri, ATTACHMENT)}
@@ -74,7 +103,9 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({ attachm
             {attachmentsHasImage ? (
                 <div
                     className={classNames(getClass(imageAttachments.length)?.row ?? '', 'grid gap-2', {
-                        'grid-auto-flow': imageAttachments.length === 3,
+                        'grid-flow-col': imageAttachments.length === 3,
+                        'w-[120px]': isQuote,
+                        'h-[120px]': isQuote,
                     })}
                 >
                     {imageAttachments.map((attachment, index) => {
@@ -84,7 +115,7 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({ attachm
                                 key={index}
                                 className={classNames(getClass(imageAttachments.length).aspect, {
                                     'row-span-2': imageAttachments.length === 3 && index === 2,
-                                    'max-h-[138px]': imageAttachments.length === 3 && index !== 2,
+                                    'max-h-[138px]': imageAttachments.length === 3 && index !== 2 && !isQuote,
                                 })}
                             >
                                 <Image
@@ -102,8 +133,8 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({ attachm
                     })}
                 </div>
             ) : null}
-            {asset?.type === 'Video' ? <Video src={asset.uri} poster={asset.cover} /> : null}
-            {asset?.type === 'Audio' ? (
+            {asset?.type === 'Video' && !isQuote ? <Video src={asset.uri} poster={asset.cover} /> : null}
+            {asset?.type === 'Audio' && !isQuote ? (
                 <Audio src={asset.uri} poster={asset.cover} artist={asset.artist} title={asset.title} />
             ) : null}
         </div>

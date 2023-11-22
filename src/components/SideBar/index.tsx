@@ -2,25 +2,25 @@
 
 import { memo, useState } from 'react';
 
-import DiscoverSelectedIcon from '@/assets/discover.selected.svg';
-import DiscoverIcon from '@/assets/discover.svg';
-import FollowingSelectedIcon from '@/assets/following.selected.svg';
-import FollowingIcon from '@/assets/following.svg';
-import NotificationSelectedIcon from '@/assets/notification.selected.svg';
-import NotificationIcon from '@/assets/notification.svg';
-import ProfileSelectedIcon from '@/assets/profile.selected.svg';
-import ProfileIcon from '@/assets/profile.svg';
-import SettingsSelectedIcon from '@/assets/setting.selected.svg';
-import SettingsIcon from '@/assets/setting.svg';
 import { FarcasterStatusModal } from '@/components/FarcasterStatusModal.js';
 import { LensStatusModal } from '@/components/LensStatusModal.js';
 import { LoginModal } from '@/components/LoginModal.js';
 import { LoginStatusBar } from '@/components/LoginStatusBar.js';
 import { PageRoutes } from '@/constants/enum.js';
-import { Image } from '@/esm/Image.js';
 import { Link } from '@/esm/Link.js';
 
 import { ConnectWalletNav } from './ConnectWalletNav.js';
+import DiscoverIcon from '@/assets/discover.svg';
+import DiscoverSelectedIcon from '@/assets/discover.selected.svg';
+import FollowingIcon from '@/assets/following.svg';
+import FollowingSelectedIcon from '@/assets/following.selected.svg';
+import NotificationIcon from '@/assets/notification.svg';
+import NotificationSelectedIcon from '@/assets/notification.selected.svg';
+import ProfileIcon from '@/assets/profile.svg';
+import ProfileSelectedIcon from '@/assets/profile.selected.svg';
+import SettingsIcon from '@/assets/setting.svg';
+import SettingsSelectedIcon from '@/assets/setting.selected.svg';
+import Logo from '@/assets/logo.svg';
 
 const items = [
     { href: PageRoutes.Home, name: 'Discover', icon: DiscoverIcon, selectedIcon: DiscoverSelectedIcon },
@@ -53,7 +53,7 @@ export const SideBar = memo(function SideBar() {
                 <div className="flex grow flex-col gap-y-5 overflow-y-auto border-r border-line px-6">
                     <div className="flex h-16 shrink-0 items-center">
                         <Link href={PageRoutes.Home}>
-                            <Image width={134} height={64} src="/logo.png" alt="Firefly" />
+                            <Logo className="text-secondaryBottom dark:text-main" width={134} height={64} />
                         </Link>
                     </div>
                     <nav className="flex flex-1 flex-col">

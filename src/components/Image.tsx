@@ -1,11 +1,17 @@
+import { useQueryMode } from '@/hooks/useQueryMode.js';
 import type { DetailedHTMLProps, ImgHTMLAttributes, Ref, SyntheticEvent } from 'react';
 import { forwardRef, useCallback, useEffect, useState } from 'react';
 
 export const Image = forwardRef(function Image(
-    { onError, ...props }: DetailedHTMLProps<ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement>,
+    {
+        onError,
+        fallback,
+        ...props
+    }: DetailedHTMLProps<ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement> & { fallback?: string },
     ref: Ref<HTMLImageElement>,
 ) {
     const [imageLoadFailed, setImageLoadFailed] = useState(false);
+    const mode = useQueryMode();
 
     const handleError = useCallback(
         (e: SyntheticEvent<HTMLImageElement>) => {
@@ -31,7 +37,11 @@ export const Image = forwardRef(function Image(
         // eslint-disable-next-line @next/next/no-img-element
         <img
             {...props}
-            src={imageLoadFailed ? '/image/firefly-avatar.png' : props.src}
+            src={
+                imageLoadFailed
+                    ? fallback || (mode === 'light' ? '/image/fallback-light.png' : '/image/fallback-dark.png')
+                    : props.src
+            }
             onError={handleError}
             alt={props.alt || ''}
             ref={ref}

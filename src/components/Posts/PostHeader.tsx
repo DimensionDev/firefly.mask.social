@@ -4,19 +4,19 @@ import { Image } from '@/components/Image.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
+import { useQueryMode } from '@/hooks/useQueryMode.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
-
-import More from '../../assets/more.svg';
+import More from '@/assets/more.svg';
 
 interface PostHeaderProps {
     post: Post;
     isQuote?: boolean;
 }
 
-function getSocialPlatformIconBySource(source: SocialPlatform) {
+function getSocialPlatformIconBySource(source: SocialPlatform, mode: 'light' | 'dark') {
     switch (source) {
         case SocialPlatform.Lens:
-            return '/svg/lens.svg';
+            return mode === 'light' ? '/svg/lens-light.svg' : '/svg/lens-dark.svg';
         case SocialPlatform.Farcaster:
             return '/svg/farcaster.svg';
         default:
@@ -25,7 +25,10 @@ function getSocialPlatformIconBySource(source: SocialPlatform) {
 }
 
 export const PostHeader = memo<PostHeaderProps>(function PostHeader({ post, isQuote = false }) {
-    const sourceIcon = getSocialPlatformIconBySource(post.source);
+    const mode = useQueryMode();
+
+    const sourceIcon = getSocialPlatformIconBySource(post.source, mode);
+
     return (
         <div className="flex justify-between space-x-1.5">
             <div className="flex items-center space-x-3">
@@ -38,6 +41,7 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({ post, isQu
                         'w-6': isQuote,
                     })}
                     src={post.author.pfp}
+                    fallback={mode === 'light' ? '/image/firefly-light-avatar.png' : '/image/firefly-dark-avatar.png'}
                     width={40}
                     height={40}
                     alt={post.author.profileId}

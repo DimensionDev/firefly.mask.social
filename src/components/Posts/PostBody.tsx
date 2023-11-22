@@ -53,14 +53,26 @@ export const PostBody = memo<PostBodyProps>(function PostBody({ post, isQuote = 
         </div>;
     }
 
+    if (isQuote) {
+        return (
+            <div className="my-2 flex break-words text-base text-main">
+                <Markup className="markup linkify text-md line-clamp-5 w-full break-words opacity-75 dark:opacity-50">
+                    {post.metadata.content?.content || ''}
+                </Markup>
+                {showAttachments ? (
+                    <Attachments
+                        asset={post.metadata.content?.asset}
+                        attachments={post.metadata.content?.attachments ?? []}
+                        isQuote
+                    />
+                ) : null}
+            </div>
+        );
+    }
+
     return (
-        <div className={classNames('text- my-2 break-words text-base text-main', { 'pl-[52px]': !isQuote })}>
-            <Markup
-                className={classNames(
-                    { 'line-clamp-5': canShowMore, 'dark:opacity-50': isQuote, 'opacity-75': isQuote },
-                    'markup linkify text-md break-words',
-                )}
-            >
+        <div className={' my-2 break-words pl-[52px] text-base text-main'}>
+            <Markup className={classNames({ 'line-clamp-5': canShowMore }, 'markup linkify text-md break-words')}>
                 {post.metadata.content?.content || ''}
             </Markup>
 
