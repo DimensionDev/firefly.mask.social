@@ -1,7 +1,8 @@
+import { Popover, Transition } from '@headlessui/react';
+import { Fragment, useMemo } from 'react';
+
 import { Image } from '@/esm/Image.js';
 import { classNames } from '@/helpers/classNames.js';
-import { Popover, Transition } from '@headlessui/react';
-import { useMemo, Fragment } from 'react';
 
 export default function ReplyRestriction() {
     const disabled = useMemo(() => true, []);

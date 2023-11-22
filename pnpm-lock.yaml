@@ -115,12 +115,21 @@ importers:
       '@lens-protocol/client':
         specifier: ^2.0.0-alpha.20
         version: 2.0.0-alpha.20(@lens-protocol/metadata@1.0.5)(ethers@5.5.1)
+      '@lexical/hashtag':
+        specifier: ^0.12.4
+        version: 0.12.4(lexical@0.12.2)
+      '@lexical/link':
+        specifier: ^0.12.4
+        version: 0.12.4(lexical@0.12.2)
       '@lexical/markdown':
         specifier: ^0.12.4
         version: 0.12.4(@lexical/clipboard@0.12.4)(@lexical/selection@0.12.4)(lexical@0.12.2)
       '@lexical/react':
         specifier: ^0.12.2
         version: 0.12.2(lexical@0.12.2)(react-dom@18.2.0)(react@18.2.0)(yjs@13.6.8)
+      '@lexical/utils':
+        specifier: ^0.12.4
+        version: 0.12.4(lexical@0.12.2)
       '@livepeer/react':
         specifier: ^3.0.5
         version: 3.0.5(@types/react-dom@18.2.15)(@types/react@18.2.21)(react-dom@18.2.0)(react@18.2.0)
@@ -8803,6 +8812,15 @@ packages:
       lexical: 0.12.2
     dependencies:
       '@lexical/utils': 0.12.2(lexical@0.12.2)
+      lexical: 0.12.2
+    dev: false
+
+  /@lexical/hashtag@0.12.4(lexical@0.12.2):
+    resolution: {integrity: sha512-iCxQRBZmgwAV6kypmxtWg7HVhBC7PKclmqLNaLDLoKBm+keEXpKnGB5iEtgK/tCMiwkzrg+wGcrw5qi+YjvM9Q==}
+    peerDependencies:
+      lexical: 0.12.4
+    dependencies:
+      '@lexical/utils': 0.12.4(lexical@0.12.2)
       lexical: 0.12.2
     dev: false
 
@@ -35073,8 +35091,11 @@ time:
   /@hookform/resolvers@3.1.1: '2023-06-12T17:05:20.706Z'
   /@json2csv/plainjs@7.0.1: '2023-05-31T09:42:24.217Z'
   /@lens-protocol/client@2.0.0-alpha.20: '2023-11-08T16:21:49.323Z'
+  /@lexical/hashtag@0.12.4: '2023-11-17T23:41:27.571Z'
+  /@lexical/link@0.12.4: '2023-11-17T23:41:53.674Z'
   /@lexical/markdown@0.12.4: '2023-11-17T23:41:57.952Z'
   /@lexical/react@0.12.2: '2023-09-08T21:51:01.776Z'
+  /@lexical/utils@0.12.4: '2023-11-17T23:41:47.324Z'
   /@livepeer/react@3.0.5: '2023-11-16T15:35:37.068Z'
   /@magic-works/i18n-codegen@0.5.0: '2023-02-17T06:35:05.095Z'
   /@masknet/compartment@0.4.2: '2022-10-31T05:24:41.592Z'

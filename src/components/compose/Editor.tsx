@@ -1,13 +1,14 @@
-import { useMemo } from 'react';
-import { ContentEditable } from '@lexical/react/LexicalContentEditable.js';
-import { PlainTextPlugin } from '@lexical/react/LexicalPlainTextPlugin.js';
-import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin.js';
-import { HashtagPlugin } from '@lexical/react/LexicalHashtagPlugin.js';
-import LexicalAutoLinkPlugin from '@/components/shared/lexical/plugins/AutoLinkPlugin.js';
-import { MentionsPlugin } from '@/components/shared/lexical/plugins/AtMentionsPlugin.js';
-import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin.js';
 import { $convertToMarkdownString, TEXT_FORMAT_TRANSFORMERS } from '@lexical/markdown/index.js';
+import { ContentEditable } from '@lexical/react/LexicalContentEditable.js';
+import { HashtagPlugin } from '@lexical/react/LexicalHashtagPlugin.js';
+import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin.js';
 import { MarkdownShortcutPlugin } from '@lexical/react/LexicalMarkdownShortcutPlugin.js';
+import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin.js';
+import { PlainTextPlugin } from '@lexical/react/LexicalPlainTextPlugin.js';
+import { useMemo } from 'react';
+
+import { MentionsPlugin } from '@/components/shared/lexical/plugins/AtMentionsPlugin.js';
+import LexicalAutoLinkPlugin from '@/components/shared/lexical/plugins/AutoLinkPlugin.js';
 import { classNames } from '@/helpers/classNames.js';
 
 const TRANSFORMERS = [...TEXT_FORMAT_TRANSFORMERS];

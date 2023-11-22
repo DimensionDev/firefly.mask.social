@@ -1,4 +1,4 @@
-import { AutoLinkPlugin } from '@lexical/react/LexicalAutoLinkPlugin';
+import { AutoLinkPlugin } from '@lexical/react/LexicalAutoLinkPlugin.js';
 
 const URL_MATCHER = /((https?:\/\/(www\.)?)|(www\.))[\w#%+.:=@~-]{1,256}\.[\d()A-Za-z]{1,6}\b([\w#%&()+./:=?@~-]*)/;
 

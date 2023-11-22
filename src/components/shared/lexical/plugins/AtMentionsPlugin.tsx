@@ -1,9 +1,9 @@
-import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
-import { TextNode } from 'lexical';
+import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext.js';
+import { useLexicalTextEntity } from '@lexical/react/useLexicalTextEntity.js';
+import type { TextNode } from 'lexical/index.js';
 import { useCallback, useEffect } from 'react';
-import { useLexicalTextEntity } from '@lexical/react/useLexicalTextEntity';
 
-import { $createMentionNode, MentionNode } from '../nodes/MentionsNode';
+import { $createMentionNode, MentionNode } from '@/components/shared/lexical/nodes/MentionsNode.jsx';
 
 function getMentionRegexStringChars(): Readonly<{
     alpha: string;

@@ -1,14 +1,14 @@
-import type { EditorConfig, LexicalNode, NodeKey, SerializedTextNode } from 'lexical';
-
-import { addClassNamesToElement } from '@lexical/utils';
-import { TextNode } from 'lexical';
+import { addClassNamesToElement } from '@lexical/utils/index.js';
+import type { EditorConfig } from 'lexical/LexicalEditor.js';
+import type { LexicalNode, NodeKey } from 'lexical/LexicalNode.js';
+import { type SerializedTextNode, TextNode } from 'lexical/nodes/LexicalTextNode.js';
 
 export class MentionNode extends TextNode {
-    static getType(): string {
+    static override getType(): string {
         return 'mention';
     }
 
-    static clone(node: MentionNode): MentionNode {
+    static override clone(node: MentionNode): MentionNode {
         return new MentionNode(node.__text, node.__key);
     }
 
@@ -16,13 +16,13 @@ export class MentionNode extends TextNode {
         super(text, key);
     }
 
-    createDOM(config: EditorConfig): HTMLElement {
+    override createDOM(config: EditorConfig): HTMLElement {
         const element = super.createDOM(config);
         addClassNamesToElement(element, config.theme.mention);
         return element;
     }
 
-    static importJSON(serializedNode: SerializedTextNode): MentionNode {
+    static override importJSON(serializedNode: SerializedTextNode): MentionNode {
         const node = $createMentionNode(serializedNode.text);
         node.setFormat(serializedNode.format);
         node.setDetail(serializedNode.detail);
@@ -31,18 +31,18 @@ export class MentionNode extends TextNode {
         return node;
     }
 
-    exportJSON(): SerializedTextNode {
+    override exportJSON(): SerializedTextNode {
         return {
             ...super.exportJSON(),
             type: 'mention',
         };
     }
 
-    canInsertTextBefore(): boolean {
+    override canInsertTextBefore(): boolean {
         return false;
     }
 
-    isTextEntity(): true {
+    override isTextEntity(): true {
         return true;
     }
 }

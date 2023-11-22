@@ -1,9 +1,9 @@
-import { ComponentType } from 'react';
 import { HashtagNode } from '@lexical/hashtag';
 import { AutoLinkNode, LinkNode } from '@lexical/link';
-import { LexicalComposer } from '@lexical/react/LexicalComposer';
+import { LexicalComposer } from '@lexical/react/LexicalComposer.js';
+import type { ComponentType } from 'react';
 
-import { MentionNode } from './nodes/MentionsNode';
+import { MentionNode } from '@/components/shared/lexical/nodes/MentionsNode.jsx';
 
 const initialConfig = {
     namespace: 'composer',

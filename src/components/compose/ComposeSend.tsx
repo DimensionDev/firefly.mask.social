@@ -1,6 +1,7 @@
+import { useMemo } from 'react';
+
 import { Image } from '@/esm/Image.js';
 import { classNames } from '@/helpers/classNames.js';
-import { useMemo } from 'react';
 
 interface ComposeSendProps {
     charactersLen: number;

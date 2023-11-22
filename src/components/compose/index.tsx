@@ -1,11 +1,12 @@
+import { Dialog, Transition } from '@headlessui/react';
+import { XMarkIcon } from '@heroicons/react/24/outline';
+import { Fragment, useCallback, useState } from 'react';
+
 import ComposeAction from '@/components/compose/ComposeAction.js';
 import ComposeContent from '@/components/compose/ComposeContent.js';
 import ComposeSend from '@/components/compose/ComposeSend.js';
 import Discard from '@/components/compose/Discard.js';
 import withLexicalContext from '@/components/shared/lexical/withLexicalContext.js';
-import { Dialog, Transition } from '@headlessui/react';
-import { XMarkIcon } from '@heroicons/react/24/outline';
-import { useState, useCallback, Fragment } from 'react';
 
 interface ComposeProps {
     type?: 'compose' | 'quote' | 'reply';
