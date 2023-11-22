@@ -255,6 +255,9 @@ export default function formatLensPost(result: AnyPublicationFragment): Post {
                 bookmarks: result.stats.bookmarks,
             },
             __original__: result,
+            canComment: result.operations.canComment === 'YES',
+            canMirror: result.operations.canMirror === 'YES',
+            hasMirrored: result.operations.hasMirrored,
             quoteOn: formatLensQuote(result.quoteOn),
         };
     }
@@ -278,6 +281,9 @@ export default function formatLensPost(result: AnyPublicationFragment): Post {
             reactions: result.stats.upvoteReactions,
             bookmarks: result.stats.bookmarks,
         },
+        canComment: result.operations.canComment === 'YES',
+        canMirror: result.operations.canMirror === 'YES',
+        hasMirrored: result.operations.hasMirrored,
         __original__: result,
     };
 }

@@ -55,7 +55,7 @@ export const PostBody = memo<PostBodyProps>(function PostBody({ post, isQuote = 
 
     if (isQuote) {
         return (
-            <div className="my-2 flex break-words text-base text-main">
+            <div className="my-2 flex items-center break-words text-base text-main">
                 <Markup className="markup linkify text-md line-clamp-5 w-full break-words opacity-75 dark:opacity-50">
                     {post.metadata.content?.content || ''}
                 </Markup>

@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation.js';
 import { memo } from 'react';
 import urlcat from 'urlcat';
 
+import { PostActions } from '@/components/Actions/index.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 import { PostBody } from './PostBody.js';
@@ -28,6 +29,7 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({ post, show
         >
             <PostHeader post={post} />
             <PostBody post={post} showMore={showMore} />
+            <PostActions post={post} />
         </motion.article>
     );
 });

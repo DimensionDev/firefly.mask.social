@@ -181,6 +181,9 @@ importers:
       '@tanstack/react-query-next-experimental':
         specifier: ^5.8.4
         version: 5.8.4(@tanstack/react-query@5.8.4)(next@14.0.2)(react-dom@18.2.0)(react@18.2.0)
+      '@tippyjs/react':
+        specifier: ^4.2.6
+        version: 4.2.6(react-dom@18.2.0)(react@18.2.0)
       '@walletconnect/socket-transport':
         specifier: 1.7.8
         version: 1.7.8(patch_hash=sme2rghvxvgvnqeexxxwrxv5xm)
@@ -253,6 +256,9 @@ importers:
       next:
         specifier: ^14.0.2
         version: 14.0.2(react-dom@18.2.0)(react@18.2.0)
+      notistack:
+        specifier: 2.0.8
+        version: 2.0.8(@emotion/react@11.11.1)(@emotion/styled@11.11.0)(@mui/material@5.10.8)(react-dom@18.2.0)(react@18.2.0)
       plyr-react:
         specifier: ^5.3.0
         version: 5.3.0(plyr@3.7.8)(react@18.2.0)
@@ -13433,6 +13439,22 @@ packages:
       '@tanstack/query-core': 5.8.3
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
+    dev: false
+
+  /@tippyjs/react@4.2.6(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-91RicDR+H7oDSyPycI13q3b7o4O60wa2oRbjlz2fyRLmHImc4vyDwuUP8NtZaN0VARJY5hybvDYrFzhY9+Lbyw==}
+    peerDependencies:
+      react: 18.2.0 || 0.0.0-experimental-0a360642d-20230711
+      react-dom: 18.2.0 || 0.0.0-experimental-0a360642d-20230711
+    peerDependenciesMeta:
+      react:
+        optional: true
+      react-dom:
+        optional: true
+    dependencies:
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+      tippy.js: 6.3.7
     dev: false
 
   /@tootallnate/once@2.0.0:
@@ -31867,6 +31889,12 @@ packages:
     engines: {node: '>=14.0.0'}
     dev: true
 
+  /tippy.js@6.3.7:
+    resolution: {integrity: sha512-E1d3oP2emgJ9dRQZdf3Kkn0qJgI6ZLpyS5z6ZkY1DF3kaQaBsGZsndEpHwx+eC+tYM41HaSNvNtLx8tU57FzTQ==}
+    dependencies:
+      '@popperjs/core': 2.11.8
+    dev: false
+
   /tmp@0.0.33:
     resolution: {integrity: sha512-jRCJlojKnZ3addtTOjdIqoRuPEKBvNXcGYqzO6zWZX8KfKEpnGY5jfggJQ3EjKuu8D4bJRr0y+cYJFmYbImXGw==}
     engines: {node: '>=0.6.0'}
@@ -35152,6 +35180,7 @@ time:
   /@tanstack/react-query-persist-client@4.36.1: '2023-10-07T07:10:02.544Z'
   /@tanstack/react-query@4.36.1: '2023-10-07T07:09:55.998Z'
   /@tanstack/react-query@5.8.4: '2023-11-15T11:30:00.892Z'
+  /@tippyjs/react@4.2.6: '2021-10-29T12:39:32.094Z'
   /@typechain/web3-v1@6.0.2: '2022-11-01T22:04:27.996Z'
   /@types/bn.js@4.11.6: '2020-01-03T23:18:47.360Z'
   /@types/bs58@4.0.1: '2019-11-15T20:48:33.391Z'

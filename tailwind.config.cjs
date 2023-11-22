@@ -11,6 +11,7 @@ module.exports = {
                 main: 'rgb(var(--color-main) / <alpha-value>)',
                 link: 'rgb(var(--color-link) / <alpha-value>)',
                 primaryBottom: 'rgb(var(--color-bottom) / <alpha-value>)',
+                secondarySuccess: 'rgb(var(--color-secondary-success) / <alpha-value>)',
                 // Because the secondary and bg color values are fixed alpha values in the design, the css variable is used directly.
                 secondary: 'var(--color-second)',
                 bg: 'var(--color-bg)',
@@ -33,6 +34,7 @@ module.exports = {
             boxShadow: {
                 send: '0px 0px 20px 0px #0000000D',
                 popover: '0px 0px 16px 0px #65778633',
+                messageShadow: '0px 0px 16px 0px rgba(101, 119, 134, 0.20)',
             },
         },
         screens: {
