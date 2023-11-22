@@ -93,3 +93,14 @@ ul {
     color: rgb(var(--color-main)) !important;
     padding: 8px !important;
 }
+
+@layer components {
+    .hide-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+
+    .hide-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+}
