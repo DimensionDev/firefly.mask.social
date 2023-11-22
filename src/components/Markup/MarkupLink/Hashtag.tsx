@@ -1,3 +1,5 @@
+'use client';
+
 import type { MarkupLinkProps } from '@/components/Markup/MarkupLink/index.jsx';
 import { Link } from '@/esm/Link.js';
 import urlcat from 'urlcat';
@@ -10,5 +12,9 @@ export const Hashtag = memo<MarkupLinkProps>(function Hashtag({ title }) {
 
     const tag = title.slice(1).toLowerCase();
 
-    return <Link href={urlcat(PageRoutes.Search, { q: tag })}>{title}</Link>;
+    return (
+        <Link className="text-link" href={urlcat(PageRoutes.Search, { q: tag })}>
+            {title}
+        </Link>
+    );
 });

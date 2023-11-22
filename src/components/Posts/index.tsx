@@ -29,5 +29,5 @@ export const Posts = memo(function Posts() {
         getNextPageParam: (lastPage) => lastPage.nextIndicator?.id,
     });
 
-    return data.pages.flatMap((x) => x.data).map((x) => <SinglePost post={x} key={x.postId} />);
+    return data.pages.flatMap((x) => x.data).map((x) => <SinglePost post={x} key={x.postId} showMore />);
 });

@@ -1,34 +1,53 @@
 'use client';
 
-import { Fragment, useState } from 'react';
+import { Fragment, useState, useEffect, useRef, useCallback } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { Image } from '@/esm/Image.js';
 import { LensSocialMedia } from '@/providers/lens/SocialMedia.js';
 import { LoginFarcaster } from '@/components/LoginFarcaster.js';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 
-const loginActions = [
-    { name: 'Lens', logo: '/svg/lens.svg' },
-    { name: 'Farcaster', logo: '/svg/farcaster.svg' },
-];
-
 interface LoginModalProps {
     isOpen: boolean;
     setIsOpen: (isOpen: boolean) => void;
 }
 
+function usePrevious(value: boolean) {
+    const ref = useRef<boolean>();
+    useEffect(() => {
+        ref.current = value;
+    });
+    return ref.current;
+}
+
 export function LoginModal({ isOpen, setIsOpen }: LoginModalProps) {
     const [farcasterOpen, setFarcasterOpen] = useState(false);
+    const [connectOpen, setConnectOpen] = useState(false);
+    const [chainOpen, setChainOpen] = useState(false);
+    const previousConnectModalOpen = usePrevious(connectOpen);
+    const previousChainModalOpen = usePrevious(chainOpen);
 
     const closeModal = () => {
         setIsOpen(false);
     };
 
-    const loginLens = async () => {
+    const loginLens = useCallback(async () => {
         const lensProvider = new LensSocialMedia();
         await lensProvider.createSession();
-        closeModal();
-    };
+        setIsOpen(false);
+    }, [setIsOpen]);
+
+    useEffect(() => {
+        if (previousConnectModalOpen && !connectOpen) {
+            loginLens();
+        }
+    }, [connectOpen, previousConnectModalOpen, loginLens]);
+
+    useEffect(() => {
+        if (previousChainModalOpen && !chainOpen) {
+            loginLens();
+        }
+    }, [chainOpen, previousChainModalOpen, loginLens]);
 
     return (
         <Transition appear show={isOpen} as={Fragment}>
@@ -82,7 +101,7 @@ export function LoginModal({ isOpen, setIsOpen }: LoginModalProps) {
                                             <div className="relative h-[24px] w-[24px]" />
                                         </div>
                                         <div className="flex w-full flex-col gap-[16px] p-[16px] ">
-                                            <ConnectButton.Custom>
+                                            <ConnectButton.Custom className="w-full">
                                                 {({
                                                     chain,
                                                     openConnectModal,
@@ -90,7 +109,11 @@ export function LoginModal({ isOpen, setIsOpen }: LoginModalProps) {
                                                     authenticationStatus,
                                                     account,
                                                     mounted,
+                                                    connectModalOpen,
+                                                    chainModalOpen,
                                                 }) => {
+                                                    setConnectOpen(connectModalOpen);
+                                                    setChainOpen(chainModalOpen);
                                                     const ready = mounted && authenticationStatus !== 'loading';
                                                     const connected =
                                                         ready &&
@@ -113,15 +136,17 @@ export function LoginModal({ isOpen, setIsOpen }: LoginModalProps) {
                                                             {(() => {
                                                                 return (
                                                                     <button
-                                                                        className="group flex flex-col rounded-lg p-[16px] hover:bg-lightBg"
+                                                                        className="group flex w-full flex-col rounded-lg p-[16px] hover:bg-lightBg"
                                                                         onClick={() => {
+                                                                            if (!connected) {
+                                                                                openConnectModal();
+                                                                                return;
+                                                                            }
                                                                             if (chain?.unsupported) {
                                                                                 openChainModal();
                                                                                 return;
                                                                             }
-                                                                            connected
-                                                                                ? openConnectModal()
-                                                                                : loginLens();
+                                                                            loginLens();
                                                                         }}
                                                                     >
                                                                         <div className="inline-flex w-full flex-col items-center justify-start gap-[8px] rounded-lg px-[16px] py-[24px]">

@@ -2,7 +2,7 @@
 
 import type { FallbackTransport } from 'viem';
 import { configureChains, createConfig, type Config, type PublicClient, type WebSocketPublicClient } from 'wagmi';
-import { arbitrum, mainnet, polygon, type Chain } from 'wagmi/chains';
+import { polygon, type Chain, polygonMumbai } from 'wagmi/chains';
 import { publicProvider } from 'wagmi/providers/public';
 import { RainbowKitProvider, connectorsForWallets, getDefaultWallets } from '@rainbow-me/rainbowkit';
 
@@ -12,7 +12,7 @@ export const appInfo: Parameters<typeof RainbowKitProvider>[0]['appInfo'] = {
 };
 
 export const { chains, publicClient, webSocketPublicClient } = configureChains(
-    [mainnet, polygon, arbitrum],
+    [process.env.NODE_ENV === 'production' ? polygon : polygonMumbai],
     [publicProvider()],
 ) as {
     readonly chains: Chain[];
