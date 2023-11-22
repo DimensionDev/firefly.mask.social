@@ -1,17 +1,20 @@
 import { useMemo } from 'react';
-import { ContentEditable } from '@lexical/react/LexicalContentEditable';
-import LexicalErrorBoundary from '@lexical/react/LexicalErrorBoundary';
-import { PlainTextPlugin } from '@lexical/react/LexicalPlainTextPlugin';
-import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin';
-import { HashtagPlugin } from '@lexical/react/LexicalHashtagPlugin';
-import LexicalAutoLinkPlugin from '@/components/shared/lexical/plugins/AutoLinkPlugin';
-import { MentionsPlugin } from '@/components/shared/lexical/plugins/AtMentionsPlugin';
-import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin';
-import { $convertToMarkdownString, TEXT_FORMAT_TRANSFORMERS } from '@lexical/markdown';
-import { MarkdownShortcutPlugin } from '@lexical/react/LexicalMarkdownShortcutPlugin';
-import { classNames } from '@/helpers/classNames';
+import { ContentEditable } from '@lexical/react/LexicalContentEditable.js';
+import { PlainTextPlugin } from '@lexical/react/LexicalPlainTextPlugin.js';
+import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin.js';
+import { HashtagPlugin } from '@lexical/react/LexicalHashtagPlugin.js';
+import LexicalAutoLinkPlugin from '@/components/shared/lexical/plugins/AutoLinkPlugin.js';
+import { MentionsPlugin } from '@/components/shared/lexical/plugins/AtMentionsPlugin.js';
+import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin.js';
+import { $convertToMarkdownString, TEXT_FORMAT_TRANSFORMERS } from '@lexical/markdown/index.js';
+import { MarkdownShortcutPlugin } from '@lexical/react/LexicalMarkdownShortcutPlugin.js';
+import { classNames } from '@/helpers/classNames.js';
 
 const TRANSFORMERS = [...TEXT_FORMAT_TRANSFORMERS];
+
+function ErrorBoundaryComponent() {
+    return <div>Something went wrong!</div>;
+}
 
 interface EditorProps {
     type: 'compose' | 'quote' | 'reply';
@@ -33,17 +36,17 @@ export default function Editor({ type, setCharacters, hasImages }: EditorProps) 
                 contentEditable={
                     <ContentEditable
                         className={classNames(
-                            ' leading-5 text-left bg-transparent text-base resize-none border-none outline-0 appearance-none p-0 focus:ring-0 cursor-text',
+                            ' cursor-text resize-none appearance-none border-none bg-transparent p-0 text-left text-base leading-5 outline-0 focus:ring-0',
                             hasImages ? '' : 'min-h-[308px]',
                         )}
                     />
                 }
                 placeholder={
-                    <div className=" leading-5 text-[#767F8D] absolute top-0 left-0 pointer-events-none">
+                    <div className=" pointer-events-none absolute left-0 top-0 leading-5 text-[#767F8D]">
                         {placeholder}
                     </div>
                 }
-                ErrorBoundary={LexicalErrorBoundary}
+                ErrorBoundary={ErrorBoundaryComponent}
             />
             <OnChangePlugin
                 onChange={(editorState) => {

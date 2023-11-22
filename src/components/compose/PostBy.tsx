@@ -1,7 +1,7 @@
-import { classNames } from '@/helpers/classNames';
+import { Image } from '@/esm/Image.js';
+import { classNames } from '@/helpers/classNames.js';
 import { Popover, Transition } from '@headlessui/react';
-import Image from 'next/image';
-import { Fragment, useMemo } from 'react';
+import { useMemo, Fragment } from 'react';
 
 export default function PostBy() {
     const disabled = useMemo(() => true, []);
@@ -16,12 +16,12 @@ export default function PostBy() {
             leaveFrom="opacity-100"
             leaveTo="opacity-0 translate-y-1"
         >
-            <Popover.Panel className="absolute -translate-y-3 bottom-full right-0 w-[280px] rounded-lg p-3 flex flex-col gap-2 bg-white shadow-popover">
-                <div className=" h-[22px] flex justify-between items-center cursor-pointer">
+            <Popover.Panel className="absolute bottom-full right-0 flex w-[280px] -translate-y-3 flex-col gap-2 rounded-lg bg-white p-3 shadow-popover">
+                <div className=" flex h-[22px] cursor-pointer items-center justify-between">
                     <div className=" flex items-center gap-2">
                         <Image src="/svg/gallery.svg" width={22} height={22} alt="gallery" />
                         <span
-                            className={classNames(' text-[#07101B] text-sm font-bold', !disabled ? ' opacity-50' : '')}
+                            className={classNames(' text-sm font-bold text-[#07101B]', !disabled ? ' opacity-50' : '')}
                         >
                             @LensA
                         </span>
@@ -29,18 +29,18 @@ export default function PostBy() {
                     <Image src="/svg/radio.yes.svg" width={16} height={16} alt="radio.yes" />
                 </div>
 
-                <div className=" bg-[#F2F5F6] h-px" />
+                <div className=" h-px bg-[#F2F5F6]" />
 
                 <div
                     className={classNames(
-                        ' h-[22px] flex justify-between items-center',
+                        ' flex h-[22px] items-center justify-between',
                         disabled ? ' cursor-no-drop' : ' cursor-pointer',
                     )}
                 >
                     <div className=" flex items-center gap-2">
                         <Image src="/svg/gallery.svg" width={22} height={22} alt="gallery" />
                         <span
-                            className={classNames(' text-[#07101B] text-sm font-bold', disabled ? ' opacity-50' : '')}
+                            className={classNames(' text-sm font-bold text-[#07101B]', disabled ? ' opacity-50' : '')}
                         >
                             @LensB
                         </span>
@@ -48,13 +48,13 @@ export default function PostBy() {
                     <button className=" text-xs font-bold text-[#246BFD]">Switch</button>
                 </div>
 
-                <div className=" bg-[#F2F5F6] h-px" />
+                <div className=" h-px bg-[#F2F5F6]" />
 
-                <div className=" h-[22px] flex justify-between items-center cursor-pointer">
+                <div className=" flex h-[22px] cursor-pointer items-center justify-between">
                     <div className=" flex items-center gap-2">
                         <Image src="/svg/gallery.svg" width={22} height={22} alt="gallery" />
                         <span
-                            className={classNames(' text-[#07101B] text-sm font-bold', !disabled ? ' opacity-50' : '')}
+                            className={classNames(' text-sm font-bold text-[#07101B]', !disabled ? ' opacity-50' : '')}
                         >
                             @FarcasterA
                         </span>

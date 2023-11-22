@@ -36,16 +36,16 @@ export default function Discard({ opened, setOpened, setComposeOpened }: Compose
                             leaveFrom="opacity-100 scale-100"
                             leaveTo="opacity-0 scale-95"
                         >
-                            <Dialog.Panel className=" w-[356px] p-6 gap-6 flex flex-col overflow-hidden rounded-xl bg-white transition-all">
+                            <Dialog.Panel className=" flex w-[356px] flex-col gap-6 overflow-hidden rounded-xl bg-white p-6 transition-all">
                                 {/* Title */}
-                                <Dialog.Title as="h3" className=" h-6 relative">
+                                <Dialog.Title as="h3" className=" relative h-6">
                                     <XMarkIcon
-                                        className="h-6 w-6 absolute cursor-pointer left-0 top-0"
+                                        className="absolute left-0 top-0 h-6 w-6 cursor-pointer"
                                         aria-hidden="true"
                                         onClick={close}
                                     />
 
-                                    <span className=" text-[#07101B] text-lg leading-6 font-bold h-full w-full capitalize flex items-center justify-center">
+                                    <span className=" flex h-full w-full items-center justify-center text-lg font-bold capitalize leading-6 text-[#07101B]">
                                         Discard
                                     </span>
                                 </Dialog.Title>
@@ -53,7 +53,7 @@ export default function Discard({ opened, setOpened, setComposeOpened }: Compose
                                 <div className=" text-sm">This can’t be undone and you’ll lose your draft</div>
 
                                 <button
-                                    className=" w-full h-10 rounded-full bg-[#FF3545] flex items-center justify-center text-white text-sm font-bold"
+                                    className=" flex h-10 w-full items-center justify-center rounded-full bg-[#FF3545] text-sm font-bold text-white"
                                     onClick={() => {
                                         close();
                                         setComposeOpened(false);

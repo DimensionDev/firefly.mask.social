@@ -1,11 +1,11 @@
-import ComposeAction from '@/components/compose/ComposeAction';
-import ComposeContent from '@/components/compose/ComposeContent';
-import ComposeSend from '@/components/compose/ComposeSend';
-import Discard from '@/components/compose/Discard';
-import withLexicalContext from '@/components/shared/lexical/withLexicalContext';
-import { Transition, Dialog } from '@headlessui/react';
+import ComposeAction from '@/components/compose/ComposeAction.js';
+import ComposeContent from '@/components/compose/ComposeContent.js';
+import ComposeSend from '@/components/compose/ComposeSend.js';
+import Discard from '@/components/compose/Discard.js';
+import withLexicalContext from '@/components/shared/lexical/withLexicalContext.js';
+import { Dialog, Transition } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
-import { Fragment, useCallback, useState } from 'react';
+import { useState, useCallback, Fragment } from 'react';
 
 interface ComposeProps {
     type?: 'compose' | 'quote' | 'reply';
@@ -56,14 +56,14 @@ function Compose({ type = 'compose', opened, setOpened }: ComposeProps) {
                             >
                                 <Dialog.Panel className="w-[600px] overflow-hidden rounded-xl bg-white transition-all">
                                     {/* Title */}
-                                    <Dialog.Title as="h3" className=" h-14 relative">
+                                    <Dialog.Title as="h3" className=" relative h-14">
                                         <XMarkIcon
-                                            className="h-6 w-6 absolute cursor-pointer left-4 top-1/2 -translate-y-1/2"
+                                            className="absolute left-4 top-1/2 h-6 w-6 -translate-y-1/2 cursor-pointer"
                                             aria-hidden="true"
                                             onClick={close}
                                         />
 
-                                        <span className=" text-[#07101B] text-lg font-bold h-full w-full capitalize flex items-center justify-center">
+                                        <span className=" flex h-full w-full items-center justify-center text-lg font-bold capitalize text-[#07101B]">
                                             {type}
                                         </span>
                                     </Dialog.Title>

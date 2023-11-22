@@ -1,11 +1,11 @@
-import PostBy from '@/components/compose/PostBy';
-import ReplyRestriction from '@/components/compose/ReplyRestriction';
+import PostBy from '@/components/compose/PostBy.jsx';
+import ReplyRestriction from '@/components/compose/ReplyRestriction.jsx';
 import { Popover } from '@headlessui/react';
-import { ChevronRightIcon } from '@heroicons/react/20/solid';
-import Image from 'next/image';
-import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
-import { $getSelection } from 'lexical';
-import { ChangeEvent, Dispatch, SetStateAction, useCallback, useRef } from 'react';
+import { ChevronRightIcon } from '@heroicons/react/24/outline';
+import { $getSelection } from 'lexical/LexicalSelection.js';
+import { type Dispatch, type SetStateAction, useRef, useCallback, type ChangeEvent } from 'react';
+import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext.js';
+import { Image } from '@/esm/Image.js';
 
 interface ComposeActionProps {
     type: 'compose' | 'quote' | 'reply';
@@ -38,7 +38,7 @@ export default function ComposeAction({ type, setImages }: ComposeActionProps) {
 
     return (
         <div className=" px-4 pb-4">
-            <div className=" h-9 flex gap-3 items-center">
+            <div className=" flex h-9 items-center gap-3">
                 <Image
                     src="/svg/gallery.svg"
                     width={24}
@@ -76,12 +76,12 @@ export default function ComposeAction({ type, setImages }: ComposeActionProps) {
                 {/* <Image src="/svg/redPacket.svg" width={24} height={24} alt="redPacket" /> */}
             </div>
 
-            <div className=" flex justify-between items-center h-9">
+            <div className=" flex h-9 items-center justify-between">
                 <span className=" text-sm text-[#767F8D]">Post by</span>
                 <Popover as="div" className="relative">
                     {(_) => (
                         <>
-                            <Popover.Button className=" flex gap-1 cursor-pointer text-[#07101B] focus:outline-none">
+                            <Popover.Button className=" flex cursor-pointer gap-1 text-[#07101B] focus:outline-none">
                                 <span className=" text-sm font-bold">@LensA, @FarcasterA</span>
                                 {type === 'compose' && <ChevronRightIcon className="h-5 w-5" aria-hidden="true" />}
                             </Popover.Button>
@@ -91,12 +91,12 @@ export default function ComposeAction({ type, setImages }: ComposeActionProps) {
                 </Popover>
             </div>
 
-            <div className=" flex justify-between items-center h-9">
+            <div className=" flex h-9 items-center justify-between">
                 <span className=" text-sm text-[#767F8D]">Reply Restriction</span>
                 <Popover as="div" className="relative">
                     {(_) => (
                         <>
-                            <Popover.Button className=" flex gap-1 cursor-pointer text-[#07101B] focus:outline-none">
+                            <Popover.Button className=" flex cursor-pointer gap-1 text-[#07101B] focus:outline-none">
                                 <span className=" text-sm font-bold">Everyone can reply</span>
                                 <ChevronRightIcon className="h-5 w-5" aria-hidden="true" />
                             </Popover.Button>

@@ -1,5 +1,5 @@
-import { classNames } from '@/helpers/classNames';
-import Image from 'next/image';
+import { Image } from '@/esm/Image.js';
+import { classNames } from '@/helpers/classNames.js';
 import { useMemo } from 'react';
 
 interface ComposeSendProps {
@@ -10,7 +10,7 @@ export default function ComposeSend({ charactersLen, setOpened }: ComposeSendPro
     const disabled = useMemo(() => charactersLen > 280, [charactersLen]);
 
     return (
-        <div className=" h-[68px] flex items-center px-4 justify-end gap-4 shadow-send">
+        <div className=" flex h-[68px] items-center justify-end gap-4 px-4 shadow-send">
             <div className=" flex items-center gap-[10px]">
                 {charactersLen >= 0 && charactersLen < 200 && (
                     <Image src="/svg/loading.green.svg" width={24} height={24} alt="loading.green" />
@@ -27,12 +27,12 @@ export default function ComposeSend({ charactersLen, setOpened }: ComposeSendPro
 
             <button
                 className={classNames(
-                    ' text-sm font-bold h-10 rounded-full bg-[#07101B] text-white flex items-center gap-1 w-[120px] justify-center',
-                    disabled ? ' opacity-50 cursor-no-drop' : '',
+                    ' flex h-10 w-[120px] items-center justify-center gap-1 rounded-full bg-[#07101B] text-sm font-bold text-white',
+                    disabled ? ' cursor-no-drop opacity-50' : '',
                 )}
                 onClick={() => !disabled && setOpened(false)}
             >
-                <Image src="/svg/send.svg" width={18} height={18} alt="send" className=" w-[18px] h-[18px]" />
+                <Image src="/svg/send.svg" width={18} height={18} alt="send" className=" h-[18px] w-[18px]" />
                 <span>Send</span>
             </button>
         </div>
