@@ -1,13 +1,12 @@
 import 'plyr-react/plyr.css';
 
-import Plyr from 'plyr-react';
 import { memo } from 'react';
 
 import Music from '@/assets/music.svg';
 import { Image } from '@/components/Image.js';
+import { Plyr } from '@/esm/Plyr.js';
 import { classNames } from '@/helpers/classNames.js';
 
-const PlyrComponent = Plyr as unknown as typeof Plyr.default;
 interface AudioProps {
     src: string;
     poster?: string;
@@ -41,7 +40,7 @@ export const Audio = memo<AudioProps>(function Audio({ poster, src, title, artis
                 </div>
             </div>
             <div className="mt-2">
-                <PlyrComponent
+                <Plyr
                     source={{ type: 'audio', sources: [{ src }] }}
                     options={{ controls: ['current-time', 'progress', 'duration', 'play'] }}
                 />
