@@ -1,8 +1,9 @@
 import type { ProfileFragment } from '@lens-protocol/client';
-import { ProfileStatus, NetworkType, type Profile } from '@/providers/types/SocialMedia.js';
-import getStampFyiURL from '@/helpers/getStampFyiURL.js';
 import { zeroAddress } from 'viem';
-import { LENS_MEDIA_SNAPSHOT_URL, IPFS_GATEWAY, ARWEAVE_GATEWAY, AVATAR } from '@/constants/index.js';
+
+import { ARWEAVE_GATEWAY, AVATAR, IPFS_GATEWAY, LENS_MEDIA_SNAPSHOT_URL } from '@/constants/index.js';
+import getStampFyiURL from '@/helpers/getStampFyiURL.js';
+import { NetworkType, type Profile, ProfileStatus } from '@/providers/types/SocialMedia.js';
 
 function imageKit(url: string, name?: string) {
     if (!url) {

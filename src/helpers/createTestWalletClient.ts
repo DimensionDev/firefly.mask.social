@@ -1,6 +1,6 @@
-import type { WalletClient } from 'wagmi';
-import { type EIP1193Parameters, createWalletClient, custom } from 'viem';
+import { createWalletClient, custom, type EIP1193Parameters } from 'viem';
 import { foundry } from 'viem/chains';
+import type { WalletClient } from 'wagmi';
 
 /**
  * Create a test wallet client with given response or request handler.

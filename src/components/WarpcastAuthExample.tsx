@@ -1,8 +1,8 @@
 'use client';
 
-import type { ResponseJSON } from '@/types/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { waitForSignedKeyRequestComplete } from '@/helpers/waitForSignedKeyRequestComplete.js';
+import type { ResponseJSON } from '@/types/index.js';
 
 export function WarpcastAuthExample() {
     return (

@@ -1,4 +1,5 @@
 import { StatusCodes } from 'http-status-codes';
+
 import { createResponseJSON } from '@/helpers/createResponseJSON.js';
 
 export enum ServerErrorCodes {

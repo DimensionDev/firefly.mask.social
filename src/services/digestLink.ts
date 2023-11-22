@@ -1,3 +1,6 @@
+import sizeOf from 'image-size';
+import { parseHTML } from 'linkedom';
+
 import {
     generateIframe,
     getDescription,
@@ -7,8 +10,6 @@ import {
     getSite,
     getTitle,
 } from '@/helpers/getMetadata.js';
-import { parseHTML } from 'linkedom';
-import sizeOf from 'image-size';
 
 export interface OpenGraphImage {
     url: string;

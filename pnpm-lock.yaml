@@ -374,12 +374,18 @@ importers:
       eslint:
         specifier: ^8.53.0
         version: 8.53.0
+      eslint-plugin-import:
+        specifier: ^2.29.0
+        version: 2.29.0(@typescript-eslint/parser@6.10.0)(eslint-import-resolver-typescript@3.6.1)(eslint@8.53.0)
       eslint-plugin-react:
         specifier: ^7.33.2
         version: 7.33.2(eslint@8.53.0)
       eslint-plugin-react-hooks:
         specifier: ^4.6.0
         version: 4.6.0(eslint@8.53.0)
+      eslint-plugin-simple-import-sort:
+        specifier: ^10.0.0
+        version: 10.0.0(eslint@8.53.0)
       eslint-plugin-unicorn:
         specifier: ^49.0.0
         version: 49.0.0(eslint@8.53.0)
@@ -20042,7 +20048,6 @@ packages:
       - eslint-import-resolver-node
       - eslint-import-resolver-webpack
       - supports-color
-    dev: false
 
   /eslint-import-resolver-typescript@3.6.1(@typescript-eslint/parser@6.10.0)(eslint-plugin-import@2.29.0)(eslint@8.48.0):
     resolution: {integrity: sha512-xgdptdoi5W3niYeuQxKmzVDTATvLYqhpwmykwsh7f6HIOStGWEIL9iqZgQDF9u9OEzrRwR8no5q2VT+bjAujTg==}
@@ -20125,7 +20130,6 @@ packages:
       eslint-import-resolver-typescript: 3.6.1(@typescript-eslint/parser@6.10.0)(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.29.0)(eslint@8.53.0)
     transitivePeerDependencies:
       - supports-color
-    dev: false
 
   /eslint-plugin-i@2.28.1(patch_hash=zgide6rxzjqivhxxv36ouq6c4y)(@typescript-eslint/parser@6.10.0)(eslint-import-resolver-typescript@3.6.1)(eslint@8.48.0):
     resolution: {integrity: sha512-a4oVt0j3ixNhGhvV4XF6NS7OWRFK2rrJ0Q5C4S2dSRb8FxZi31J0uUd5WJLL58wnVJ/OiQ1BxiXnFA4dWQO1Cg==}
@@ -20219,7 +20223,6 @@ packages:
       - eslint-import-resolver-typescript
       - eslint-import-resolver-webpack
       - supports-color
-    dev: false
 
   /eslint-plugin-jsdoc@40.3.0(eslint@8.53.0):
     resolution: {integrity: sha512-EhCqpzRkxoT2DUB4AnrU0ggBYvTh3bWrLZzQTupq6vSVE6XzNwJVKsOHa41GCoevnsWMBNmoDVjXWGqckjuG1g==}
@@ -20337,6 +20340,14 @@ packages:
       resolve: 2.0.0-next.5
       semver: 6.3.1
       string.prototype.matchall: 4.0.10
+
+  /eslint-plugin-simple-import-sort@10.0.0(eslint@8.53.0):
+    resolution: {integrity: sha512-AeTvO9UCMSNzIHRkg8S6c3RPy5YEwKWSQPx3DYghLedo2ZQxowPFLGDN1AZ2evfg6r6mjBSZSLxLFsWSu3acsw==}
+    peerDependencies:
+      eslint: '>=5.0.0'
+    dependencies:
+      eslint: 8.53.0
+    dev: true
 
   /eslint-plugin-tss-unused-classes@1.0.1(eslint@8.48.0):
     resolution: {integrity: sha512-SVmf+J7JOdFUwwZs2IcRAtWhDIkLuzOMb71ZVecu2udMFdtqu0H1SAzAKqdGn8yQ3oy9WZQJrwLcpBjBEdZlzQ==}
@@ -35078,8 +35089,10 @@ time:
   /eslint-config-next@13.5.2: '2023-09-20T16:29:06.089Z'
   /eslint-import-resolver-typescript@3.6.1: '2023-09-22T10:03:30.716Z'
   /eslint-plugin-i@2.28.1: '2023-09-06T08:19:37.937Z'
+  /eslint-plugin-import@2.29.0: '2023-10-23T06:44:23.401Z'
   /eslint-plugin-react-hooks@4.6.0: '2022-06-14T19:46:28.829Z'
   /eslint-plugin-react@7.33.2: '2023-08-16T04:22:35.076Z'
+  /eslint-plugin-simple-import-sort@10.0.0: '2023-01-27T21:23:38.907Z'
   /eslint-plugin-tss-unused-classes@1.0.1: '2023-08-18T03:08:33.065Z'
   /eslint-plugin-unicorn@48.0.1: '2023-07-25T16:06:04.550Z'
   /eslint-plugin-unicorn@49.0.0: '2023-10-29T19:52:51.791Z'

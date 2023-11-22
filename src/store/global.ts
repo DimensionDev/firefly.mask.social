@@ -1,7 +1,8 @@
 'use client';
+import { create } from 'zustand';
+
 import { SocialPlatform } from '@/constants/enum.js';
 import { createSelectors } from '@/helpers/createSelector.js';
-import { create } from 'zustand';
 
 interface GlobalState {
     currentSocialPlatform: SocialPlatform;

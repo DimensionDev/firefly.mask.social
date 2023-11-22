@@ -1,9 +1,10 @@
 'use client';
 
+import { memo } from 'react';
+
 import { ExternalLink } from './ExternalLink.js';
 import { Hashtag } from './Hashtag.js';
 import { MentionLink } from './MentionLink.js';
-import { memo } from 'react';
 
 export interface MarkupLinkProps {
     title?: string;

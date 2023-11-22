@@ -1,5 +1,5 @@
-import type { PaletteMode } from '@mui/material';
 import { Appearance } from '@masknet/public-api';
+import type { PaletteMode } from '@mui/material';
 
 export function getThemeMode() {
     return localStorage.themeMode ?? Appearance.default;

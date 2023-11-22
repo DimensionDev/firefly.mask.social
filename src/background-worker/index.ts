@@ -2,13 +2,14 @@ import './message.js';
 import './rpc.js';
 import './register.js';
 
-import { noop } from 'lodash-es';
-import { startPluginWorker, type Plugin } from '@masknet/plugin-infra/background-worker';
-import { Emitter } from '@servie/events';
+import { type Plugin, startPluginWorker } from '@masknet/plugin-infra/background-worker';
 import { BooleanPreference, createI18NBundle, createKVStorageHost, i18NextInstance } from '@masknet/shared-base';
+import { Emitter } from '@servie/events';
+import { noop } from 'lodash-es';
+
 import { createPluginDatabase } from './database/database.js';
-import { indexedDBStorageBackend, inMemoryStorageBackend } from './storage.js';
 import { setPluginWorkerReady } from './ready.js';
+import { indexedDBStorageBackend, inMemoryStorageBackend } from './storage.js';
 
 const inMemoryStorage = createKVStorageHost(inMemoryStorageBackend, {
     on: () => noop,

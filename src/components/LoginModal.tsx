@@ -1,11 +1,12 @@
 'use client';
 
-import { Fragment, useState, useEffect, useRef, useCallback } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
+import { ConnectButton } from '@rainbow-me/rainbowkit';
+import { Fragment, useCallback, useEffect, useRef, useState } from 'react';
+
+import { LoginFarcaster } from '@/components/LoginFarcaster.js';
 import { Image } from '@/esm/Image.js';
 import { LensSocialMedia } from '@/providers/lens/SocialMedia.js';
-import { LoginFarcaster } from '@/components/LoginFarcaster.js';
-import { ConnectButton } from '@rainbow-me/rainbowkit';
 
 interface LoginModalProps {
     isOpen: boolean;

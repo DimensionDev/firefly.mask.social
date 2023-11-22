@@ -2,8 +2,9 @@
 
 import '@rainbow-me/rainbowkit/styles.css';
 
-import { WagmiConfig } from 'wagmi';
 import { RainbowKitProvider } from '@rainbow-me/rainbowkit';
+import { WagmiConfig } from 'wagmi';
+
 import { appInfo, chains, config } from '@/configs/wagmi.js';
 
 export interface WagmiProviderProps {

@@ -1,10 +1,11 @@
 'use client';
 
-import { formatUrl } from '@/helpers/formatUrl.js';
-import { useMounted } from '@/hooks/useMounted.js';
-import { Link } from '@/esm/Link.js';
 import type { LinkProps } from 'next/link.js';
 import { memo } from 'react';
+
+import { Link } from '@/esm/Link.js';
+import { formatUrl } from '@/helpers/formatUrl.js';
+import { useMounted } from '@/hooks/useMounted.js';
 
 interface ExternalLinkProps extends Omit<LinkProps, 'href'> {
     title: string;

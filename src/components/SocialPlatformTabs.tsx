@@ -1,11 +1,12 @@
 'use client';
 
-import { SocialPlatform } from '@/constants/enum.js';
-import { classNames } from '@/helpers/classNames.js';
-import { useGlobalState } from '@/store/index.js';
 import { getEnumAsArray } from '@masknet/kit';
 import { usePathname } from 'next/navigation.js';
 import { startTransition } from 'react';
+
+import { SocialPlatform } from '@/constants/enum.js';
+import { classNames } from '@/helpers/classNames.js';
+import { useGlobalState } from '@/store/index.js';
 
 export function SocialPlatformTabs() {
     const pathname = usePathname();
@@ -22,9 +23,9 @@ export function SocialPlatformTabs() {
                         key={key}
                         className={classNames(
                             currentSocialPlatform === value
-                                ? 'bg-main text-[#f9f9f9]'
-                                : 'text-main hover:text-gray-700',
-                            'rounded-md px-3 py-2 text-sm font-medium hover:cursor-pointer',
+                                ? 'rounded-full bg-main text-bg dark:text-secondaryBottom'
+                                : 'text-main',
+                            'px-4 py-2 text-sm font-medium hover:cursor-pointer',
                         )}
                         aria-current={currentSocialPlatform === value ? 'page' : undefined}
                         onClick={() =>

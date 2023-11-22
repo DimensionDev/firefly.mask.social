@@ -1,21 +1,22 @@
 import './register.js';
 
-import { Emitter } from '@servie/events';
 import {
-    startPluginSiteAdaptor,
     __setSiteAdaptorContext__,
     __setUIContext__,
+    startPluginSiteAdaptor,
 } from '@masknet/plugin-infra/content-script';
 import {
     BooleanPreference,
+    createI18NBundle,
     EMPTY_ARRAY,
     EnhanceableSite,
-    UNDEFINED,
-    createI18NBundle,
     i18NextInstance,
+    UNDEFINED,
 } from '@masknet/shared-base';
 import { setupReactShadowRootEnvironment } from '@masknet/theme';
-import { inMemoryStorage, indexedDBStorage } from '../setup/storage.js';
+import { Emitter } from '@servie/events';
+
+import { indexedDBStorage, inMemoryStorage } from '../setup/storage.js';
 
 async function reject(): Promise<never> {
     throw new Error('Not implemented');

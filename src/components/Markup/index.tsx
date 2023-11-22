@@ -1,14 +1,15 @@
 'use client';
-import stripMarkdown from 'strip-markdown';
-import remarkBreaks from 'remark-breaks';
+import { memo } from 'react';
 import ReactMarkdown from 'react-markdown';
+import remarkBreaks from 'remark-breaks';
 // @ts-expect-error
 import linkifyRegex from 'remark-linkify-regex';
+import stripMarkdown from 'strip-markdown';
+
+import { Code } from '@/components/Code.js';
 import { HASHTAG_REGEX, MENTION_REGEX, URL_REGEX } from '@/constants/regex.js';
-import { memo } from 'react';
 
 import { MarkupLink } from './MarkupLink/index.js';
-import { Code } from '@/components/Code.js';
 
 const trimify = (value: string): string => value?.replace(/\n\n\s*\n/g, '\n\n').trim();
 

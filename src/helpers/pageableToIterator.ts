@@ -1,4 +1,4 @@
-import { type PageIndicator, type Pageable, createIndicator } from '@masknet/shared-base';
+import { createIndicator, type Pageable, type PageIndicator } from '@masknet/shared-base';
 
 export async function* pageableToIterator<T>(
     getPageable: (indicator?: PageIndicator) => Promise<Pageable<T> | void>,

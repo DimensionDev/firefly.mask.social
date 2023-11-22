@@ -1,14 +1,15 @@
 'use client';
 
+import { useQuery } from '@tanstack/react-query';
+import { useMemo, useState } from 'react';
+
 import ContentTabs from '@/app/profile/components/ContentTabs.js';
 import Info from '@/app/profile/components/Info.js';
 import PlatformTabs from '@/app/profile/components/PlatformTabs.js';
 import Title from '@/app/profile/components/Title.js';
 import { PlatformEnum } from '@/app/profile/type.js';
 import { LensSocialMedia } from '@/providers/lens/SocialMedia.js';
-import { useMemo, useState } from 'react';
 import type { Profile } from '@/providers/types/SocialMedia.js';
-import { useQuery } from '@tanstack/react-query';
 
 const lensClient = new LensSocialMedia();
 

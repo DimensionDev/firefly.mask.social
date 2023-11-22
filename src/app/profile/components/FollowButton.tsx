@@ -1,6 +1,7 @@
+import { useMemo, useState } from 'react';
+
 import { classNames } from '@/helpers/classNames.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
-import { useState, useMemo } from 'react';
 
 interface FollowButtonProps {
     profile: Profile;

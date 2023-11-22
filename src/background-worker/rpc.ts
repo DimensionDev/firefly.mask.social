@@ -1,7 +1,8 @@
-import { AsyncCall, type CallbackBasedChannel } from 'async-call-rpc/full';
 import { serializer } from '@masknet/shared-base';
-import * as Service from './service.js';
+import { AsyncCall, type CallbackBasedChannel } from 'async-call-rpc/full';
+
 import { addListener } from './message-port.js';
+import * as Service from './service.js';
 
 // RPC
 const channel: CallbackBasedChannel = {
