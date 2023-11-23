@@ -72,7 +72,11 @@
         "plyr",
         "livepeer",
         "notistack",
-        "tippyjs"
+        "tippyjs",
+        "Leafwatch",
+        "inview",
+        "upvote",
+        "Upvoted"
     ],
     "flagWords": [],
     "ignorePaths": [

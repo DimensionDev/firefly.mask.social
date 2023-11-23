@@ -46,7 +46,7 @@ export const Like = memo<LikeProps>(function Like({ count, hasLiked, postId, sou
                 default:
                     break;
             }
-            enqueueSnackbar(liked ? 'Unliked' : 'Liked', {
+            enqueueSnackbar(liked ? 'UnLiked' : 'Liked', {
                 variant: 'success',
             });
             queryClient.invalidateQueries({ queryKey: [source, 'post-detail', postId] });
