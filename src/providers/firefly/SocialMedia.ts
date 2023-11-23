@@ -37,10 +37,46 @@ import type { MetadataAsset, ResponseJSON } from '@/types/index.js';
 
 ed.etc.sha512Sync = (...m: any) => sha512(ed.etc.concatBytes(...m));
 
-// @ts-ignore
 export class FireflySocialMedia implements Provider {
     get type() {
         return Type.Firefly;
+    }
+
+    async createSession(setUrlOrSignal?: AbortSignal | ((url: string) => void), signal?: AbortSignal) {
+        const response = await fetchJSON<
+            ResponseJSON<{
+                publicKey: string;
+                privateKey: string;
+                fid: string;
+                token: string;
+                timestamp: number;
+                expiresAt: number;
+                deeplinkUrl: string;
+            }>
+        >('/api/warpcast/signin', {
+            method: 'POST',
+        });
+        if (!response.success) throw new Error(response.error.message);
+
+        const setUrl = typeof setUrlOrSignal === 'function' ? setUrlOrSignal : undefined;
+        const abortSignal = setUrlOrSignal instanceof AbortSignal ? setUrlOrSignal : signal;
+
+        // present QR code to the user
+        setUrl?.(response.data.deeplinkUrl);
+        console.log('DEBUG: response');
+        console.log(response);
+
+        await waitForSignedKeyRequestComplete(abortSignal)(response.data.token);
+        console.log('DEBUG: signed key request complete');
+
+        const session = new FireflySession(
+            response.data.fid,
+            response.data.privateKey,
+            response.data.timestamp,
+            response.data.expiresAt,
+        );
+        localStorage.setItem('firefly_session', session.serialize());
+        return session;
     }
 
     // @ts-ignore

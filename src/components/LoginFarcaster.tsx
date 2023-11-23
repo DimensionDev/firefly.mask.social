@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import QRCode from 'react-qr-code';
 
 import { Image } from '@/esm/Image.js';
-import { FireflySocialMedia } from '@/providers/firefly/SocialMedia.js';
+import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 
 interface LoginFarcasterProps {
     closeFarcaster: () => void;
@@ -14,8 +14,7 @@ export function LoginFarcaster({ closeFarcaster }: LoginFarcasterProps) {
     const [url, setUrl] = useState('');
 
     async function login() {
-        const fireflyProvider = new FireflySocialMedia();
-        await fireflyProvider.createSessionByGrantPermission(setUrl);
+        await FireflySocialMediaProvider.createSession(setUrl);
     }
 
     useEffect(() => {
