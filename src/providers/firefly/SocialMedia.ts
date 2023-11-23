@@ -102,7 +102,6 @@ export class FireflySocialMedia implements Provider {
 
         const { result, next } = await fetchJSON<FeedResponse>(url, {
             method: 'GET',
-            headers: { 'Content-Type': 'application/json' },
         });
         const data = result.feed.map(formatWarpcastPost);
         return createPageable(data, indicator ?? createIndicator(), createNextIndicator(indicator, next.cursor));
@@ -112,7 +111,6 @@ export class FireflySocialMedia implements Provider {
         const url = urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/cast', { hash: postId });
         const { data: cast } = await fetchJSON<CastResponse>(url, {
             method: 'GET',
-            headers: { 'Content-Type': 'application/json' },
         });
 
         const asset = first(cast.embeds);
@@ -156,7 +154,6 @@ export class FireflySocialMedia implements Provider {
         const url = urlcat(FIREFLY_ROOT_URL, '/user', { fid: profileId });
         const { data: user } = await fetchJSON<UserResponse>(url, {
             method: 'GET',
-            headers: { 'Content-Type': 'application/json' },
         });
 
         return {
@@ -181,7 +178,6 @@ export class FireflySocialMedia implements Provider {
             data: { list, next_cursor },
         } = await fetchJSON<UsersResponse>(url, {
             method: 'GET',
-            headers: { 'Content-Type': 'application/json' },
         });
         const data = list.map((user) => ({
             profileId: user.fid.toString(),
@@ -207,7 +203,6 @@ export class FireflySocialMedia implements Provider {
             data: { list, next_cursor },
         } = await fetchJSON<UsersResponse>(url, {
             method: 'GET',
-            headers: { 'Content-Type': 'application/json' },
         });
         const data = list.map((user) => ({
             profileId: user.fid.toString(),
@@ -233,7 +228,6 @@ export class FireflySocialMedia implements Provider {
             data: { casts, cursor },
         } = await fetchJSON<CastsResponse>(url, {
             method: 'GET',
-            headers: { 'Content-Type': 'application/json' },
         });
         const data = casts.map((cast) => ({
             source: SocialPlatform.Farcaster,

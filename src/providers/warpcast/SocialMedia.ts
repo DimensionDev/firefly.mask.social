@@ -93,7 +93,6 @@ export class WarpcastSocialMedia implements Provider {
             method: 'PUT',
             headers: {
                 Authorization: `Bearer ${token}`,
-                'Content-Type': 'application/json',
             },
             body: JSON.stringify(payload),
         });
@@ -104,7 +103,6 @@ export class WarpcastSocialMedia implements Provider {
                 method: 'GET',
                 headers: {
                     Authorization: `Bearer ${response.result.token.secret}`,
-                    'Content-Type': 'application/json',
                 },
             }),
         );
@@ -146,7 +144,6 @@ export class WarpcastSocialMedia implements Provider {
 
         const { result, next } = await fetchJSON<FeedResponse>(url, {
             method: 'GET',
-            headers: { 'Content-Type': 'application/json' },
         });
         const data = result.feed.map(formatWarpcastPost);
         return createPageable(data, indicator ?? createIndicator(), createNextIndicator(indicator, next.cursor));
@@ -158,7 +155,7 @@ export class WarpcastSocialMedia implements Provider {
         const url = urlcat(WARPCAST_ROOT_URL, '/cast', { hash: postId });
         const { result: cast } = await fetchJSON<CastResponse>(url, {
             method: 'GET',
-            headers: { Authorization: `Bearer ${session.token}`, 'Content-Type': 'application/json' },
+            headers: { Authorization: `Bearer ${session.token}` },
         });
 
         return {
@@ -197,7 +194,7 @@ export class WarpcastSocialMedia implements Provider {
         const url = urlcat(WARPCAST_ROOT_URL, '/user', { fid: profileId });
         const { result: user } = await fetchJSON<UserResponse>(url, {
             method: 'GET',
-            headers: { Authorization: `Bearer ${session.token}`, 'Content-Type': 'application/json' },
+            headers: { Authorization: `Bearer ${session.token}` },
         });
 
         return {
@@ -227,7 +224,7 @@ export class WarpcastSocialMedia implements Provider {
         });
         const { result } = await fetchJSON<CastsResponse>(url, {
             method: 'GET',
-            headers: { Authorization: `Bearer ${session.token}`, 'Content-Type': 'application/json' },
+            headers: { Authorization: `Bearer ${session.token}` },
         });
 
         const data = result.casts.map((cast) => {
@@ -274,7 +271,7 @@ export class WarpcastSocialMedia implements Provider {
         });
         const { result, next } = await fetchJSON<UsersResponse>(url, {
             method: 'GET',
-            headers: { Authorization: `Bearer ${session.token}`, 'Content-Type': 'application/json' },
+            headers: { Authorization: `Bearer ${session.token}` },
         });
         const data = result.map((user) => ({
             profileId: user.fid.toString(),
@@ -304,7 +301,7 @@ export class WarpcastSocialMedia implements Provider {
         });
         const { result, next } = await fetchJSON<UsersResponse>(url, {
             method: 'GET',
-            headers: { Authorization: `Bearer ${session.token}`, 'Content-Type': 'application/json' },
+            headers: { Authorization: `Bearer ${session.token}` },
         });
         const data = result.map((user) => ({
             profileId: user.fid.toString(),
@@ -330,7 +327,7 @@ export class WarpcastSocialMedia implements Provider {
         const url = urlcat(WARPCAST_ROOT_URL, '/casts');
         const { result: cast } = await fetchJSON<CastResponse>(url, {
             method: 'POST',
-            headers: { Authorization: `Bearer ${session.token}`, 'Content-Type': 'application/json' },
+            headers: { Authorization: `Bearer ${session.token}` },
             body: JSON.stringify({ text: post.metadata.content }),
         });
 
@@ -370,7 +367,7 @@ export class WarpcastSocialMedia implements Provider {
         const url = urlcat(WARPCAST_ROOT_URL, '/cast-likes');
         const { result: reaction } = await fetchJSON<ReactionResponse>(url, {
             method: 'POST',
-            headers: { Authorization: `Bearer ${session.token}`, 'Content-Type': 'application/json' },
+            headers: { Authorization: `Bearer ${session.token}` },
             body: JSON.stringify({ castHash: postId }),
         });
 
@@ -387,7 +384,7 @@ export class WarpcastSocialMedia implements Provider {
         const url = urlcat(WARPCAST_ROOT_URL, '/cast-likes');
         await fetchJSON<ReactionResponse>(url, {
             method: 'DELETE',
-            headers: { Authorization: `Bearer ${session.token}`, 'Content-Type': 'application/json' },
+            headers: { Authorization: `Bearer ${session.token}` },
             body: JSON.stringify({ castHash: postId }),
         });
     }
@@ -398,7 +395,7 @@ export class WarpcastSocialMedia implements Provider {
         const url = urlcat(WARPCAST_ROOT_URL, '/casts', { parent: postId });
         await fetchJSON<CastResponse>(url, {
             method: 'POST',
-            headers: { Authorization: `Bearer ${session.token}`, 'Content-Type': 'application/json' },
+            headers: { Authorization: `Bearer ${session.token}` },
             body: JSON.stringify({ text: comment }),
         });
     }
@@ -409,7 +406,7 @@ export class WarpcastSocialMedia implements Provider {
         const url = urlcat(WARPCAST_ROOT_URL, '/recasts');
         await fetchJSON<{ result: { castHash: string } }>(url, {
             method: 'PUT',
-            headers: { Authorization: `Bearer ${session.token}`, 'Content-Type': 'application/json' },
+            headers: { Authorization: `Bearer ${session.token}` },
             body: JSON.stringify({ castHash: postId }),
         });
 
@@ -422,7 +419,7 @@ export class WarpcastSocialMedia implements Provider {
         const url = urlcat(WARPCAST_ROOT_URL, '/recasts');
         const { result } = await fetchJSON<SuccessResponse>(url, {
             method: 'DELETE',
-            headers: { Authorization: `Bearer ${session.token}`, 'Content-Type': 'application/json' },
+            headers: { Authorization: `Bearer ${session.token}` },
             body: JSON.stringify({ castHash: postId }),
         });
         return result.success;
@@ -434,7 +431,7 @@ export class WarpcastSocialMedia implements Provider {
         const url = urlcat(WARPCAST_ROOT_URL, '/follows');
         await fetchJSON<SuccessResponse>(url, {
             method: 'PUT',
-            headers: { Authorization: `Bearer ${session.token}`, 'Content-Type': 'application/json' },
+            headers: { Authorization: `Bearer ${session.token}` },
             body: JSON.stringify({ targetFid: Number(profileId) }),
         });
     }
@@ -445,7 +442,7 @@ export class WarpcastSocialMedia implements Provider {
         const url = urlcat(WARPCAST_ROOT_URL, '/follows');
         await fetchJSON<SuccessResponse>(url, {
             method: 'DELETE',
-            headers: { Authorization: `Bearer ${session.token}`, 'Content-Type': 'application/json' },
+            headers: { Authorization: `Bearer ${session.token}` },
             body: JSON.stringify({ targetFid: Number(profileId) }),
         });
     }

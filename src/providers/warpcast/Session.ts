@@ -24,7 +24,6 @@ export class WarpcastSession extends BaseSession implements Session {
             method: 'DELETE',
             headers: {
                 Authorization: `Bearer ${this.token}`,
-                'Content-Type': 'application/json',
             },
             body: JSON.stringify({
                 method: 'revokeToken',
