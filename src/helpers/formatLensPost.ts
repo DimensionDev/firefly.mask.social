@@ -261,6 +261,7 @@ export default function formatLensPost(result: AnyPublicationFragment): Post {
             quoteOn: formatLensQuote(result.quoteOn),
         };
     }
+
     return {
         source: SocialPlatform.Lens,
         postId: result.id,
@@ -284,6 +285,7 @@ export default function formatLensPost(result: AnyPublicationFragment): Post {
         canComment: result.operations.canComment === 'YES',
         canMirror: result.operations.canMirror === 'YES',
         hasMirrored: result.operations.hasMirrored,
+        hasLiked: result.operations.hasUpvoted,
         __original__: result,
     };
 }

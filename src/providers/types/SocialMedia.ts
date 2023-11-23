@@ -139,6 +139,7 @@ export interface Post {
     canComment?: boolean;
     canMirror?: boolean;
     hasMirrored?: boolean;
+    hasLiked?: boolean;
     __original__?: unknown;
     source: SocialPlatform;
 }

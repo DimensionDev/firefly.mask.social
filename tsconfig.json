@@ -18,6 +18,7 @@
         }
     ],
     "compilerOptions": {
+        "lib": ["DOM", "WebWorker"],
         "noEmit": true,
         "sourceMap": false,
         "declaration": true,

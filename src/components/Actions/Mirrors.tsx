@@ -7,6 +7,7 @@ import { useAsyncFn } from 'react-use';
 import LoadingIcon from '@/assets/loading.svg';
 import MirrorIcon from '@/assets/mirror.svg';
 import MirrorLargeIcon from '@/assets/mirror-large.svg';
+import MirroredIcon from '@/assets/mirrored.svg';
 import QuoteDownIcon from '@/assets/quote-down.svg';
 import { Tooltip } from '@/components/Tooltip.js';
 import { SocialPlatform } from '@/constants/enum.js';
@@ -98,7 +99,7 @@ export const Mirror = memo<MirrorProps>(function Mirror({ shares, source, hasMir
         >
             <Menu.Button
                 as={motion.button}
-                className="flex items-center space-x-2 hover:text-secondarySuccess"
+                className="flex items-center space-x-2 text-secondary hover:text-secondarySuccess"
                 whileTap={{ scale: 0.9 }}
                 onClick={(event) => event.stopPropagation()}
                 aria-label="Mirror"
@@ -111,6 +112,8 @@ export const Mirror = memo<MirrorProps>(function Mirror({ shares, source, hasMir
                 >
                     {loading ? (
                         <LoadingIcon width={16} height={16} className="animate-spin text-secondarySuccess" />
+                    ) : mirrored ? (
+                        <MirroredIcon width={16} height={16} />
                     ) : (
                         <MirrorIcon width={16} height={16} />
                     )}
@@ -128,7 +131,7 @@ export const Mirror = memo<MirrorProps>(function Mirror({ shares, source, hasMir
                 leaveTo="transform opacity-0 scale-95"
             >
                 <Menu.Items
-                    className="absolute z-[5] mt-1 w-max space-y-2 rounded-2xl bg-primaryBottom px-2 py-4 text-main shadow-messageShadow hover:text-main"
+                    className="absolute z-[5] mt-1 w-max space-y-2 rounded-2xl bg-primaryBottom px-4 py-2 text-main shadow-messageShadow hover:text-main"
                     static
                 >
                     <Menu.Item>

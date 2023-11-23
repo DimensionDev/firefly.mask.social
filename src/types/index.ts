@@ -30,3 +30,8 @@ export interface MetadataAsset {
     artist?: string;
     title?: string;
 }
+
+export type LensPublicationViewCount = {
+    id: string;
+    views: number;
+};

@@ -3,10 +3,10 @@
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/navigation.js';
 import { memo } from 'react';
-import urlcat from 'urlcat';
 
 import { PostBody } from '@/components/Posts/PostBody.js';
 import { PostHeader } from '@/components/Posts/PostHeader.js';
+import { getPostDetailUrl } from '@/helpers/getPostDetailUrl.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 interface QuoteProps {
@@ -23,7 +23,7 @@ export const Quote = memo<QuoteProps>(function Quote({ post }) {
             className="mt-3 cursor-pointer rounded-2xl border border-solid border-third bg-primaryBottom  px-4 py-3 hover:bg-bg dark:bg-secondaryBottom"
             onClick={(event) => {
                 event.stopPropagation();
-                router.push(urlcat('/detail/:platform/:id', { platform: post.source.toLowerCase(), id: post.postId }));
+                router.push(getPostDetailUrl(post.postId, post.source));
             }}
         >
             <PostHeader post={post} isQuote />

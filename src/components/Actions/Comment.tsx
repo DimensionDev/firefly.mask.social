@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
-import { memo, useMemo } from 'react';
+import { useSnackbar } from 'notistack';
+import { memo, useCallback, useMemo } from 'react';
 
 import ReplyIcon from '@/assets/reply.svg';
 import { Tooltip } from '@/components/Tooltip.js';
@@ -15,16 +16,22 @@ interface CommentProps {
 }
 
 export const Comment = memo<CommentProps>(function Comment({ count, disabled, source, author }) {
+    const { enqueueSnackbar } = useSnackbar();
     const tooltip = useMemo(() => {
-        if (disabled) {
-            return `You cannot reply to @${author} on ${source}`;
-        }
         if (count && count > 0) {
             return `${humanize(count)} Comments`;
         }
 
         return 'Comment';
-    }, [disabled, count, author, source]);
+    }, [count]);
+
+    const handleClick = useCallback(() => {
+        if (disabled)
+            enqueueSnackbar(`You cannot reply to @${author} on ${source}`, {
+                variant: 'error',
+            });
+    }, [disabled, author, source, enqueueSnackbar]);
+
     return (
         <div className="flex items-center space-x-2">
             <motion.button
@@ -33,7 +40,10 @@ export const Comment = memo<CommentProps>(function Comment({ count, disabled, so
                     'hover:bg-bg': !disabled,
                     'opacity-50': !!disabled,
                 })}
-                onClick={(event) => event.stopPropagation()}
+                onClick={(event) => {
+                    event.stopPropagation();
+                    handleClick();
+                }}
                 aria-label="Comment"
             >
                 <Tooltip placement="top" content={tooltip}>

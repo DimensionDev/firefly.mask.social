@@ -4,3 +4,5 @@ tailwind.config.cjs
 
 src/maskbook
 public/js
+
+scripts/build-sw.mjs
