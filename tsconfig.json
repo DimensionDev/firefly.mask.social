@@ -18,7 +18,6 @@
         }
     ],
     "compilerOptions": {
-        "lib": ["DOM", "ESNext", "WebWorker"],
         "noEmit": true,
         "sourceMap": false,
         "declaration": true,
