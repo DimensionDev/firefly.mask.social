@@ -244,9 +244,6 @@ importers:
       long:
         specifier: ^5.2.3
         version: 5.2.3
-      make-plural:
-        specifier: 7.3.0
-        version: 7.3.0
       micromark:
         specifier: 3.1.0
         version: 3.1.0(patch_hash=w5le45vl373yc24qnd4o3e4hz4)
@@ -256,6 +253,7 @@ importers:
       next:
         specifier: ^14.0.2
 <<<<<<< HEAD
+<<<<<<< HEAD
         version: 14.0.2(react-dom@18.2.0)(react@18.2.0)
       notistack:
         specifier: 2.0.8
@@ -263,6 +261,9 @@ importers:
 =======
         version: 14.0.2(@babel/core@7.23.3)(babel-plugin-macros@3.1.0)(react-dom@18.2.0)(react@18.2.0)
 >>>>>>> f831a50 (chore: setup lingui)
+=======
+        version: 14.0.2(babel-plugin-macros@3.1.0)(react-dom@18.2.0)(react@18.2.0)
+>>>>>>> 6c0a675 (refactor: lingui config)
       plyr-react:
         specifier: ^5.3.0
         version: 5.3.0(plyr@3.7.8)(react@18.2.0)
@@ -351,18 +352,27 @@ importers:
         specifier: ^4.4.4
         version: 4.4.4(@types/react@18.2.21)(react@18.2.0)
     devDependencies:
-      '@babel/core':
-        specifier: ^7.23.3
-        version: 7.23.3
       '@crowdin/cli':
         specifier: ^3.9.1
         version: 3.9.1
       '@lingui/cli':
         specifier: ^4.5.0
         version: 4.5.0(typescript@5.2.2)
+      '@lingui/conf':
+        specifier: ^4.5.0
+        version: 4.5.0(typescript@5.2.2)
       '@lingui/core':
         specifier: ^4.5.0
         version: 4.5.0
+      '@lingui/format-po':
+        specifier: ^4.5.0
+        version: 4.5.0(typescript@5.2.2)
+      '@lingui/loader':
+        specifier: ^4.5.0
+        version: 4.5.0(typescript@5.2.2)(webpack@5.88.2)
+      '@lingui/macro':
+        specifier: ^4.5.0
+        version: 4.5.0(@lingui/react@4.5.0)(babel-plugin-macros@3.1.0)(typescript@5.2.2)
       '@sinonjs/text-encoding':
         specifier: ^0.7.2
         version: 0.7.2
@@ -396,9 +406,6 @@ importers:
       '@typescript/lib-dom':
         specifier: npm:@types/web@^0.0.119
         version: /@types/web@0.0.119
-      babel-plugin-macros:
-        specifier: ^3.1.0
-        version: 3.1.0
       buffer:
         specifier: ^6.0.3
         version: 6.0.3
@@ -1258,7 +1265,7 @@ importers:
         version: 1.1.0
       react-avatar-editor:
         specifier: ^13.0.0
-        version: 13.0.0(@babel/core@7.23.3)(react-dom@18.2.0)(react@18.2.0)
+        version: 13.0.0(react-dom@18.2.0)(react@18.2.0)
       react-draggable:
         specifier: ^4.4.5
         version: 4.4.5(react-dom@18.2.0)(react@18.2.0)
@@ -1593,7 +1600,7 @@ importers:
         version: 10.0.2
       react-avatar-editor:
         specifier: ^13.0.0
-        version: 13.0.0(@babel/core@7.23.3)(react-dom@18.2.0)(react@18.2.0)
+        version: 13.0.0(react-dom@18.2.0)(react@18.2.0)
       react-router-dom:
         specifier: ^6.14.2
         version: 6.18.0(react-dom@18.2.0)(react@18.2.0)
@@ -2462,10 +2469,14 @@ importers:
       '@scamsniffer/detector':
         specifier: 0.0.21
 <<<<<<< HEAD
+<<<<<<< HEAD
         version: 0.0.21(@swc/core@1.3.96)(esbuild@0.19.7)(jest@28.1.3)(typescript@5.2.2)
 =======
         version: 0.0.21(@babel/core@7.23.3)(@swc/core@1.3.96)(jest@28.1.3)(typescript@5.2.2)
 >>>>>>> f831a50 (chore: setup lingui)
+=======
+        version: 0.0.21(@swc/core@1.3.96)(jest@28.1.3)(typescript@5.2.2)
+>>>>>>> 6c0a675 (refactor: lingui config)
       react-use:
         specifier: ^17.4.0
         version: 17.4.0(react-dom@18.2.0)(react@18.2.0)
@@ -5144,7 +5155,7 @@ packages:
       '@babel/helper-plugin-utils': 7.22.5
     dev: true
 
-  /@babel/plugin-transform-runtime@7.23.3(@babel/core@7.23.3):
+  /@babel/plugin-transform-runtime@7.23.3:
     resolution: {integrity: sha512-XcQ3X58CKBdBnnZpPaQjgVMePsXtSZzHoku70q9tUAQp02ggPQNM04BF3RvlW1GSM/McbSOQAzEK4MXbS7/JFg==}
     engines: {node: '>=6.9.0'}
     peerDependencies:
@@ -5153,7 +5164,6 @@ packages:
       '@babel/core':
         optional: true
     dependencies:
-      '@babel/core': 7.23.3
       '@babel/helper-module-imports': 7.22.15
       '@babel/helper-plugin-utils': 7.22.5
       babel-plugin-polyfill-corejs2: 0.4.6(@babel/core@7.23.3)
@@ -9502,6 +9512,39 @@ packages:
       - typescript
     dev: true
 
+  /@lingui/loader@4.5.0(typescript@5.2.2)(webpack@5.88.2):
+    resolution: {integrity: sha512-g7lS6/TXvOuNoEyoaqTplMYUBYJ1AASs+ioRIbzUCwXS7s2lETg+mRNmDyVM4INiHZdTPQfYsZta4cqoD5QGdQ==}
+    engines: {node: '>=16.0.0'}
+    peerDependencies:
+      webpack: ^5.0.0
+    dependencies:
+      '@babel/runtime': 7.23.2
+      '@lingui/cli': 4.5.0(typescript@5.2.2)
+      '@lingui/conf': 4.5.0(typescript@5.2.2)
+      webpack: 5.88.2(@swc/core@1.3.96)
+    transitivePeerDependencies:
+      - supports-color
+      - typescript
+    dev: true
+
+  /@lingui/macro@4.5.0(@lingui/react@4.5.0)(babel-plugin-macros@3.1.0)(typescript@5.2.2):
+    resolution: {integrity: sha512-6qha9YXuNnta4HCR+g6J6UPaAuAFlM1duqgznh4X7hHSsFG+m6oX7/srAMfU41Z8lbDmgXc3raqHLXFSdUNbYQ==}
+    engines: {node: '>=16.0.0'}
+    peerDependencies:
+      '@lingui/react': ^4.0.0
+      babel-plugin-macros: 2 || 3
+    dependencies:
+      '@babel/runtime': 7.23.2
+      '@babel/types': 7.23.3
+      '@lingui/conf': 4.5.0(typescript@5.2.2)
+      '@lingui/core': 4.5.0
+      '@lingui/message-utils': 4.5.0
+      '@lingui/react': 4.5.0(react@18.2.0)
+      babel-plugin-macros: 3.1.0
+    transitivePeerDependencies:
+      - typescript
+    dev: true
+
   /@lingui/message-utils@4.5.0:
     resolution: {integrity: sha512-iRqh2wvNtzJO3NStB77nEXEfeI53aVVjzD7/mBrEm/P0lC7sqPHk0WBQCfzE0N9xm6a+XHmHu3J+x2nnQ2OjcA==}
     engines: {node: '>=16.0.0'}
@@ -9520,7 +9563,6 @@ packages:
       '@babel/runtime': 7.23.2
       '@lingui/core': 4.5.0
       react: 18.2.0
-    dev: false
 
   /@lit-labs/ssr-dom-shim@1.1.2:
     resolution: {integrity: sha512-jnOD+/+dSrfTWYfSXBXlo5l5f0q1UuJo3tkbMDCYA2lKUYq79jaxqtGEvnRoh049nt1vdo1+45RinipU6FGY2g==}
@@ -12720,10 +12762,14 @@ packages:
     dev: false
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   /@scamsniffer/detector@0.0.21(@swc/core@1.3.96)(esbuild@0.19.7)(jest@28.1.3)(typescript@5.2.2):
 =======
   /@scamsniffer/detector@0.0.21(@babel/core@7.23.3)(@swc/core@1.3.96)(jest@28.1.3)(typescript@5.2.2):
 >>>>>>> f831a50 (chore: setup lingui)
+=======
+  /@scamsniffer/detector@0.0.21(@swc/core@1.3.96)(jest@28.1.3)(typescript@5.2.2):
+>>>>>>> 6c0a675 (refactor: lingui config)
     resolution: {integrity: sha512-4XtsUBjJKuqoENHsaEPh3AjpuT4WDQrYRYn6gErjWk+vq5MOPpQzUMaMCSjL3EajKx68tDTWJbJ7S5QM5nq/nw==}
     engines: {node: '>=16.6'}
     dependencies:
@@ -12736,10 +12782,14 @@ packages:
       jsdom: 20.0.3
       parse-domain: 3.0.3
 <<<<<<< HEAD
+<<<<<<< HEAD
       ts-jest: 28.0.8(esbuild@0.19.7)(jest@28.1.3)(typescript@5.2.2)
 =======
       ts-jest: 28.0.8(@babel/core@7.23.3)(jest@28.1.3)(typescript@5.2.2)
 >>>>>>> f831a50 (chore: setup lingui)
+=======
+      ts-jest: 28.0.8(jest@28.1.3)(typescript@5.2.2)
+>>>>>>> 6c0a675 (refactor: lingui config)
       ts-node: 10.9.1(@swc/core@1.3.96)(@types/node@20.5.7)(typescript@5.2.2)
     transitivePeerDependencies:
       - '@babel/core'
@@ -13676,7 +13726,7 @@ packages:
         optional: true
     dependencies:
       '@tanstack/react-query': 5.8.4(react-dom@18.2.0)(react@18.2.0)
-      next: 14.0.2(@babel/core@7.23.3)(babel-plugin-macros@3.1.0)(react-dom@18.2.0)(react@18.2.0)
+      next: 14.0.2(babel-plugin-macros@3.1.0)(react-dom@18.2.0)(react@18.2.0)
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
     dev: false
@@ -27628,7 +27678,7 @@ packages:
   /next-tick@1.1.0:
     resolution: {integrity: sha512-CXdUiJembsNjuToQvxayPZF9Vqht7hewsvy2sOWafLvi2awflj9mOC6bHIg50orX8IJvWKY9wYQ/zB2kogPslQ==}
 
-  /next@14.0.2(@babel/core@7.23.3)(babel-plugin-macros@3.1.0)(react-dom@18.2.0)(react@18.2.0):
+  /next@14.0.2(babel-plugin-macros@3.1.0)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-jsAU2CkYS40GaQYOiLl9m93RTv2DA/tTJ0NRlmZIBIL87YwQ/xR8k796z7IqgM3jydI8G25dXvyYMC9VDIevIg==}
     engines: {node: '>=18.17.0'}
     hasBin: true
@@ -27654,7 +27704,7 @@ packages:
       postcss: 8.4.31
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
-      styled-jsx: 5.1.1(@babel/core@7.23.3)(babel-plugin-macros@3.1.0)(react@18.2.0)
+      styled-jsx: 5.1.1(babel-plugin-macros@3.1.0)(react@18.2.0)
       watchpack: 2.4.0
     optionalDependencies:
       '@next/swc-darwin-arm64': 14.0.2
@@ -29498,7 +29548,7 @@ packages:
       react: 18.2.0
     dev: false
 
-  /react-avatar-editor@13.0.0(@babel/core@7.23.3)(react-dom@18.2.0)(react@18.2.0):
+  /react-avatar-editor@13.0.0(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-0xw63MbRRQdDy7YI1IXU9+7tTFxYEFLV8CABvryYOGjZmXRTH2/UA0mafe57ns62uaEFX181kA4XlGlxCaeXKA==}
     peerDependencies:
       react: ^0.14.0 || ^16.0.0 || ^17.0.0 || ^18.0.0 || 0.0.0-experimental-0a360642d-20230711
@@ -29509,7 +29559,7 @@ packages:
       react-dom:
         optional: true
     dependencies:
-      '@babel/plugin-transform-runtime': 7.23.3(@babel/core@7.23.3)
+      '@babel/plugin-transform-runtime': 7.23.3
       '@babel/runtime': 7.23.2
       prop-types: 15.8.1
       react: 18.2.0
@@ -29990,7 +30040,6 @@ packages:
     engines: {node: '>=0.10.0'}
     dependencies:
       loose-envify: 1.4.0
-    dev: false
 
   /read-cache@1.0.0:
     resolution: {integrity: sha512-Owdv/Ft7IjOgm/i0xvNDZ1LrRANRfew4b2prF3OWMQLxLfu3bS8FVhCsrSCMK4lR56Y9ya+AThoTpDCTxCmpRA==}
@@ -32023,7 +32072,7 @@ packages:
       inline-style-parser: 0.1.1
     dev: false
 
-  /styled-jsx@5.1.1(@babel/core@7.23.3)(babel-plugin-macros@3.1.0)(react@18.2.0):
+  /styled-jsx@5.1.1(babel-plugin-macros@3.1.0)(react@18.2.0):
     resolution: {integrity: sha512-pW7uC1l4mBZ8ugbiZrcIsiIvVx1UmTfw7UkC3Um2tmfUq9Bhk8IiyEIPl6F8agHgjzku6j0xQEZbfA5uSgSaCw==}
     engines: {node: '>= 12.0.0'}
     peerDependencies:
@@ -32038,7 +32087,6 @@ packages:
       react:
         optional: true
     dependencies:
-      '@babel/core': 7.23.3
       babel-plugin-macros: 3.1.0
       client-only: 0.0.1
       react: 18.2.0
@@ -32681,10 +32729,14 @@ packages:
     dev: false
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   /ts-jest@28.0.8(esbuild@0.19.7)(jest@28.1.3)(typescript@5.2.2):
 =======
   /ts-jest@28.0.8(@babel/core@7.23.3)(jest@28.1.3)(typescript@5.2.2):
 >>>>>>> f831a50 (chore: setup lingui)
+=======
+  /ts-jest@28.0.8(jest@28.1.3)(typescript@5.2.2):
+>>>>>>> 6c0a675 (refactor: lingui config)
     resolution: {integrity: sha512-5FaG0lXmRPzApix8oFG8RKjAz4ehtm8yMKOTy5HX3fY6W8kmvOrmcY0hKDElW52FJov+clhUbrKAqofnj4mXTg==}
     engines: {node: ^12.13.0 || ^14.15.0 || ^16.10.0 || >=17.0.0}
     hasBin: true
@@ -32707,7 +32759,6 @@ packages:
       typescript:
         optional: true
     dependencies:
-      '@babel/core': 7.23.3
       bs-logger: 0.2.6
       esbuild: 0.19.7
       fast-json-stable-stringify: 2.1.0
@@ -34982,6 +35033,46 @@ packages:
       webpack: github.com/Jack-Works/webpack/f7244d8e23e799b84a536efb2fdccec5370ac37e(@swc/core@1.3.96)(esbuild@0.19.7)(webpack-cli@5.1.4)
     dev: true
 
+  /webpack@5.88.2(@swc/core@1.3.96):
+    resolution: {integrity: sha512-JmcgNZ1iKj+aiR0OvTYtWQqJwq37Pf683dY9bVORwVbUrDhLhdn/PlO2sHsFHPkj7sHNQF3JwaAkp49V+Sq1tQ==}
+    engines: {node: '>=10.13.0'}
+    hasBin: true
+    peerDependencies:
+      webpack-cli: '*'
+    peerDependenciesMeta:
+      webpack-cli:
+        optional: true
+    dependencies:
+      '@types/eslint-scope': 3.7.7
+      '@types/estree': 1.0.5
+      '@webassemblyjs/ast': 1.11.6
+      '@webassemblyjs/wasm-edit': 1.11.6
+      '@webassemblyjs/wasm-parser': 1.11.6
+      acorn: 8.11.2
+      acorn-import-assertions: 1.9.0(acorn@8.11.2)
+      browserslist: 4.22.1
+      chrome-trace-event: 1.0.3
+      enhanced-resolve: 5.15.0
+      es-module-lexer: 1.4.1
+      eslint-scope: 5.1.1
+      events: 3.3.0
+      glob-to-regexp: 0.4.1
+      graceful-fs: 4.2.11
+      json-parse-even-better-errors: 2.3.1
+      loader-runner: 4.3.0
+      mime-types: 2.1.35
+      neo-async: 2.6.2
+      schema-utils: 3.3.0
+      tapable: 2.2.1
+      terser-webpack-plugin: 5.3.9(@swc/core@1.3.96)(webpack@5.88.2)
+      watchpack: 2.4.0
+      webpack-sources: 3.2.3
+    transitivePeerDependencies:
+      - '@swc/core'
+      - esbuild
+      - uglify-js
+    dev: true
+
   /websocket-driver@0.7.4:
     resolution: {integrity: sha512-b17KeDIQVjvb0ssuSDF2cYXSg2iztliJ4B9WdsuB6J952qCPKmnVq4DyW5motImXHDC1cBT/1UezrJVsKw5zjg==}
     engines: {node: '>=0.8.0'}
@@ -35624,8 +35715,13 @@ packages:
     resolution: {integrity: sha512-bXE4cR/kVZhKZX/RjPEflHaKVhUVl85noU3v6b8apfQEc1x4A+zBxjZ4lN8LqGd6WZ3dl98pY4o717VFmoPp+A==}
     dev: false
 
+<<<<<<< HEAD
   github.com/Jack-Works/webpack/f7244d8e23e799b84a536efb2fdccec5370ac37e(@swc/core@1.3.96)(esbuild@0.19.7)(webpack-cli@5.1.4):
     resolution: {tarball: https://codeload.github.com/Jack-Works/webpack/tar.gz/f7244d8e23e799b84a536efb2fdccec5370ac37e}
+=======
+  github.com/Jack-Works/webpack/f7244d8e23e799b84a536efb2fdccec5370ac37e(@swc/core@1.3.96)(webpack-cli@5.1.4):
+    resolution: {commit: f7244d8e23e799b84a536efb2fdccec5370ac37e, repo: git+ssh://git@github.com/Jack-Works/webpack.git, type: git}
+>>>>>>> 6c0a675 (refactor: lingui config)
     id: github.com/Jack-Works/webpack/f7244d8e23e799b84a536efb2fdccec5370ac37e
     name: webpack
     version: 5.88.2
@@ -35669,7 +35765,7 @@ packages:
     dev: true
 
   github.com/locize/html-parse-stringify2/d463109433b2c49c74a081044f54b2a6a1ccad7c:
-    resolution: {tarball: https://codeload.github.com/locize/html-parse-stringify2/tar.gz/d463109433b2c49c74a081044f54b2a6a1ccad7c}
+    resolution: {commit: d463109433b2c49c74a081044f54b2a6a1ccad7c, repo: git+ssh://git@github.com/locize/html-parse-stringify2.git, type: git}
     name: html-parse-stringify2
     version: 2.0.1
     dependencies:
@@ -35677,7 +35773,6 @@ packages:
     dev: true
 
 time:
-  /@babel/core@7.23.3: '2023-11-09T07:04:19.954Z'
   /@blocto/fcl@1.4.0: '2023-06-07T11:29:36.137Z'
   /@bonfida/spl-name-service@0.1.50: '2022-08-29T01:47:36.489Z'
   /@changesets/cli@2.26.2: '2023-06-27T08:30:52.503Z'
@@ -35706,7 +35801,11 @@ time:
   /@lexical/react@0.12.2: '2023-09-08T21:51:01.776Z'
   /@lexical/utils@0.12.4: '2023-11-17T23:41:47.324Z'
   /@lingui/cli@4.5.0: '2023-09-14T08:22:52.006Z'
+  /@lingui/conf@4.5.0: '2023-09-14T08:22:45.164Z'
   /@lingui/core@4.5.0: '2023-09-14T08:22:48.955Z'
+  /@lingui/format-po@4.5.0: '2023-09-14T08:22:49.112Z'
+  /@lingui/loader@4.5.0: '2023-09-14T08:22:53.377Z'
+  /@lingui/macro@4.5.0: '2023-09-14T08:22:50.547Z'
   /@lingui/react@4.5.0: '2023-09-14T08:22:51.326Z'
   /@livepeer/react@3.0.5: '2023-11-16T15:35:37.068Z'
   /@magic-works/i18n-codegen@0.5.0: '2023-02-17T06:35:05.095Z'
@@ -35812,7 +35911,6 @@ time:
   /assert@2.1.0: '2023-09-07T18:24:30.341Z'
   /async-call-rpc@6.3.1: '2023-05-31T14:38:02.038Z'
   /autoprefixer@10.4.16: '2023-09-20T21:22:00.269Z'
-  /babel-plugin-macros@3.1.0: '2021-05-05T16:49:39.264Z'
   /bignumber.js@9.1.1: '2022-12-04T12:43:57.430Z'
   /bignumber.js@9.1.2: '2023-08-28T12:15:45.587Z'
   /bip39@3.1.0: '2023-02-25T05:36:52.236Z'
@@ -35892,7 +35990,6 @@ time:
   /lodash-es@4.17.21: '2021-02-20T15:43:35.756Z'
   /long@5.2.3: '2023-04-16T09:58:41.576Z'
   /lru-cache@10.0.2: '2023-11-10T15:18:50.180Z'
-  /make-plural@7.3.0: '2023-05-03T22:08:08.202Z'
   /merkletreejs@0.3.10: '2023-04-24T07:24:06.338Z'
   /millify@6.1.0: '2023-03-12T05:25:33.920Z'
   /msw@1.2.1: '2023-03-24T14:26:16.989Z'

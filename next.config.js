@@ -14,6 +14,7 @@ const polyfillsFolderPath = join(outputPath, './js/polyfills');
 export default {
     experimental: {
         esmExternals: true,
+        swcPlugins: [['@lingui/swc-plugin', {}]],
     },
     images: {
         dangerouslyAllowSVG: false,

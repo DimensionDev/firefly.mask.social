@@ -13,7 +13,7 @@ export const metadata = createSiteMetadata();
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
     return (
-        <html lang="en">
+        <html>
             <head>
                 <Polyfills />
             </head>

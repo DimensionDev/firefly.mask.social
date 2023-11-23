@@ -15,7 +15,7 @@ export function SettingList() {
     return (
         <div className="flex min-h-full min-w-[280px] flex-col border-r border-gray-200 p-[24px]">
             <div className=" pb-[24px] text-[20px] font-bold leading-[24px] text-lightMain">
-                <Trans id="settings_list_title">Settings</Trans>
+                <Trans id="Settings" />
             </div>
             {settings.map(({ name, link }) => (
                 <Link

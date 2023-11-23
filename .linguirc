@@ -6,13 +6,19 @@
   "rootDir": ".",
   "pseudoLocale": "qaa",
   "fallbackLocales": {
-    "qaa": "en"
+    "qaa": "en",
+    "default": "en"
   },
+  "sourceLocale": "en",
   "catalogs": [
     {
       "path": "src/locales/{locale}/messages",
       "include": [
-        "src/app/**"
+        "src/app/**",
+        "src/components/**",
+        "src/helpers/**",
+        "src/hooks/**",
+        "src/providers/**"
       ],
       "exclude": [
         "src/maskbook/**"

@@ -12,7 +12,7 @@
         "lint": "next lint",
         "test": "vitest",
         "typecheck": "tsc --noEmit",
-        "extract": "NODE_ENV=development lingui extract"
+        "extract": "NODE_ENV=development lingui extract --clean"
     },
     "dependencies": {
         "@dimensiondev/holoflows-kit": "0.9.0-20230307045856-46252fb",
@@ -99,10 +99,13 @@
         "zustand": "^4.4.4"
     },
     "devDependencies": {
-        "@babel/core": "^7.23.3",
         "@crowdin/cli": "^3.9.1",
         "@lingui/cli": "^4.5.0",
         "@lingui/core": "^4.5.0",
+        "@lingui/loader": "^4.5.0",
+        "@lingui/macro": "^4.5.0",
+        "@lingui/conf": "^4.5.0",
+        "@lingui/format-po": "^4.5.0",
         "@sinonjs/text-encoding": "^0.7.2",
         "@svgr/webpack": "^8.1.0",
         "@types/lodash-es": "^4.17.10",
@@ -114,7 +117,6 @@
         "@typescript-eslint/eslint-plugin": "^6.10.0",
         "@typescript-eslint/parser": "^6.5.0",
         "@typescript/lib-dom": "npm:@types/web@^0.0.119",
-        "babel-plugin-macros": "^3.1.0",
         "buffer": "^6.0.3",
         "copy-webpack-plugin": "^11.0.0",
         "cross-fetch": "^4.0.0",

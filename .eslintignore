@@ -1,4 +1,5 @@
 next.config.js
+lingui.config.js
 postcss.config.cjs
 tailwind.config.cjs
 

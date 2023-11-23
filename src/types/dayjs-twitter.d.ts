@@ -3,6 +3,7 @@ declare module 'dayjs-twitter' {
 
     declare const plugin: PluginFunc;
     export default plugin;
+
     declare module 'dayjs' {
         interface Dayjs {
             twitter(): string;
