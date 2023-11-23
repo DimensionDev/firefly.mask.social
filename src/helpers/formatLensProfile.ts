@@ -2,10 +2,10 @@ import type { ProfileFragment } from '@lens-protocol/client';
 import { zeroAddress } from 'viem';
 
 import { AVATAR } from '@/constants/index.js';
-import { getStampFyiURL } from '@/helpers/getStampFyiURL.js';
-import { NetworkType, type Profile, ProfileStatus } from '@/providers/types/SocialMedia.js';
-import { sanitizeDStorageUrl } from '@/helpers/sanitizeDStorageUrl.js';
 import { formatImageUrl } from '@/helpers/formatImageUrl.js';
+import { getStampFyiURL } from '@/helpers/getStampFyiURL.js';
+import { sanitizeDStorageUrl } from '@/helpers/sanitizeDStorageUrl.js';
+import { NetworkType, type Profile, ProfileStatus } from '@/providers/types/SocialMedia.js';
 
 function getAvatar(profile: ProfileFragment, namedTransform = AVATAR) {
     let avatarUrl;
