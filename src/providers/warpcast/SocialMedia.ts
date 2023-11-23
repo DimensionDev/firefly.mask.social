@@ -41,7 +41,7 @@ export class WarpcastSocialMedia implements Provider {
      * @param signal
      * @returns
      */
-    async createSessionByGrantPermission(setUrl?: (url: string) => void, signal?: AbortSignal) {
+    private async createSessionByGrantPermission(setUrl?: (url: string) => void, signal?: AbortSignal) {
         const response = await fetchJSON<
             ResponseJSON<{
                 publicKey: string;
@@ -77,7 +77,7 @@ export class WarpcastSocialMedia implements Provider {
      * @param signal
      * @returns
      */
-    async createSessionByCustodyWallet(signal?: AbortSignal) {
+    private async createSessionByCustodyWallet(signal?: AbortSignal) {
         const client = await getWalletClient();
         if (!client) throw new Error('No client found');
 
