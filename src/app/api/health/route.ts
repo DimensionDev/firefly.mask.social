@@ -1,3 +1,5 @@
+import { createSuccessResponseJSON } from "@/helpers/createSuccessResponseJSON.js";
+
 export async function GET(request: Request) {
-    return new Response('OK', { status: 200 });
+    return createSuccessResponseJSON({ message: 'OK' });
 }

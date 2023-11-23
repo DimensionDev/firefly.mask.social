@@ -1,3 +1,4 @@
+import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
 import { digestLink } from '@/services/digestLink.js';
 
 export async function GET(request: Request) {
@@ -7,7 +8,6 @@ export async function GET(request: Request) {
         return Response.json({ error: 'Missing link' }, { status: 400 });
     }
 
-    const res = await digestLink(link);
-
-    return Response.json(res);
+    const response = await digestLink(link);
+    return createSuccessResponseJSON(response);
 }
