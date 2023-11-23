@@ -43,40 +43,6 @@ export class FireflySocialMedia implements Provider {
         return Type.Firefly;
     }
 
-    async createSessionByGrantPermission(setUrl: (url: string) => void, signal?: AbortSignal) {
-        const response = await fetchJSON<
-            ResponseJSON<{
-                publicKey: string;
-                privateKey: string;
-                fid: string;
-                token: string;
-                timestamp: number;
-                expiresAt: number;
-                deeplinkUrl: string;
-            }>
-        >('/api/warpcast/signin', {
-            method: 'POST',
-        });
-        if (!response.success) throw new Error(response.error.message);
-
-        // present QR code to the user
-        setUrl(response.data.deeplinkUrl);
-        console.log('DEBUG: response');
-        console.log(response);
-
-        await waitForSignedKeyRequestComplete(signal)(response.data.token);
-        console.log('DEBUG: signed key request complete');
-
-        const session = new FireflySession(
-            response.data.fid,
-            response.data.privateKey,
-            response.data.timestamp,
-            response.data.expiresAt,
-        );
-        localStorage.setItem('firefly_session', session.serialize());
-        return session;
-    }
-
     // @ts-ignore
     async resumeSession(): Promise<FireflySession | null> {
         const currentTime = Date.now();
