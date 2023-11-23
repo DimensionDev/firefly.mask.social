@@ -4,11 +4,12 @@ interface AccountCardProps {
     avatar: string;
     name: string;
     userName: string;
+    id: string;
     setAccount: (profileId: string) => void;
     isCurrent: boolean;
 }
 
-export function AccountCard({ avatar, name, userName, isCurrent, setAccount }: AccountCardProps) {
+export function AccountCard({ avatar, name, userName, id, isCurrent, setAccount }: AccountCardProps) {
     return (
         <div className="inline-flex h-[48px] w-full items-center justify-start gap-[16px]">
             <div
@@ -29,7 +30,7 @@ export function AccountCard({ avatar, name, userName, isCurrent, setAccount }: A
             ) : (
                 <button
                     onClick={() => {
-                        setAccount(userName);
+                        setAccount(id);
                     }}
                 >
                     <Image src="/svg/disableNo.svg" alt="select" width={20} height={20} />

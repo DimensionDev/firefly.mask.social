@@ -202,6 +202,10 @@ export function LoginModal({ isOpen, setIsOpen }: LoginModalProps) {
                                     <>
                                         {farcasterOpen && (
                                             <LoginFarcaster
+                                                onClose={() => {
+                                                    setIsOpen(false);
+                                                    setFarcasterOpen(false);
+                                                }}
                                                 closeFarcaster={() => {
                                                     setFarcasterOpen(false);
                                                 }}

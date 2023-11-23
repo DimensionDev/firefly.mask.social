@@ -1,6 +1,6 @@
 'use client';
 
-import { memo, useState } from 'react';
+import { memo, useState, useMemo } from 'react';
 
 import DiscoverSelectedIcon from '@/assets/discover.selected.svg';
 import DiscoverIcon from '@/assets/discover.svg';
@@ -19,6 +19,7 @@ import { LoginModal } from '@/components/LoginModal.js';
 import { LoginStatusBar } from '@/components/LoginStatusBar.js';
 import { PageRoutes } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
+import { useLensAccountsStore, useFarcasterAccountsStore } from '@/store/presisting.js';
 
 import { ConnectWalletNav } from './ConnectWalletNav.js';
 
@@ -45,7 +46,10 @@ export const SideBar = memo(function SideBar() {
     const [loginOpen, setLoginOpen] = useState(false);
     const [lensStatusOpen, setLensStatusOpen] = useState(false);
     const [farcasterStatusOpen, setFarcasterStatusOpen] = useState(false);
-    const isLogin = false;
+    const lensAccounts = useLensAccountsStore.getState().currentAccounts;
+    const farcasterAccounts = useFarcasterAccountsStore.getState().currentAccounts;
+    const isLogin = useMemo(() => lensAccounts.length || farcasterAccounts.length, [lensAccounts, farcasterAccounts]);
+    console.log(isLogin, lensAccounts, farcasterAccounts);
 
     return (
         <>
@@ -62,7 +66,6 @@ export const SideBar = memo(function SideBar() {
                                 <ul role="list" className="-mx-2 space-y-6">
                                     {items.map((item) => {
                                         const Icon = item.icon;
-
                                         return (
                                             <li className="rounded-lg px-4 py-3 text-main hover:bg-bg" key={item.name}>
                                                 {item.href === '/connect-wallet' ? (

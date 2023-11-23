@@ -5,6 +5,7 @@ export interface LensAccount {
     profileId: string;
     avatar: string;
     name: string;
+    id: string;
     isCurrent?: boolean;
 }
 
@@ -19,3 +20,24 @@ const lensAccountsSlice: StateCreator<LensAccountsState, [['zustand/persist', un
 });
 
 export const useLensAccountsStore = create<LensAccountsState>()(persist(lensAccountsSlice, { name: 'lens-accounts' }));
+
+export interface FarcasterAccount {
+    profileId: string;
+    avatar: string;
+    name: string;
+    isCurrent?: boolean;
+}
+
+export interface FarcasterAccountsState {
+    currentAccounts: FarcasterAccount[];
+    setAccounts: (accounts: FarcasterAccount[]) => void;
+}
+
+const farcasterAccountsSlice: StateCreator<FarcasterAccountsState, [['zustand/persist', unknown]]> = (set) => ({
+    currentAccounts: [],
+    setAccounts: (accounts: FarcasterAccount[]) => set({ currentAccounts: accounts }),
+});
+
+export const useFarcasterAccountsStore = create<FarcasterAccountsState>()(
+    persist(farcasterAccountsSlice, { name: 'farcaster-accounts' }),
+);

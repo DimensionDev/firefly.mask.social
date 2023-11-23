@@ -135,6 +135,7 @@ export class LensSocialMedia implements Provider {
                     : profile.metadata?.picture?.image.optimized?.uri,
             profileId: profile.handle?.localName,
             signless: profile.signless,
+            id: profile.id,
         }));
     }
     //@ts-ignore

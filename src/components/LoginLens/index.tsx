@@ -15,14 +15,14 @@ interface LoginLensProps {
 }
 
 export function LoginLens({ onClose, accounts }: LoginLensProps) {
-    const [currentAccount, setCurrentAccount] = useState<string>(accounts ? accounts[0].profileId : '');
+    const [currentAccount, setCurrentAccount] = useState<string>(accounts ? accounts[0].id : '');
     const { openAccountModal } = useAccountModal();
     const setLensAccounts = useLensAccountsStore.getState().setAccounts;
     async function login() {
         if (!accounts) return;
         const lensProvider = new LensSocialMedia();
         await lensProvider.createSessionForProfileId(currentAccount);
-        setLensAccounts(accounts.map((account) => ({ ...account, isCurrent: account.profileId === currentAccount })));
+        setLensAccounts(accounts.map((account) => ({ ...account, isCurrent: account.id === currentAccount })));
         onClose();
     }
 
@@ -57,10 +57,12 @@ export function LoginLens({ onClose, accounts }: LoginLensProps) {
                     </div>
                     {accounts?.map((account) => (
                         <AccountCard
+                            key={account.id}
                             avatar={account.avatar}
                             name={account.name}
                             userName={account.profileId}
-                            isCurrent={currentAccount === account.profileId}
+                            id={account.id}
+                            isCurrent={currentAccount === account.id}
                             setAccount={setCurrentAccount}
                         />
                     ))}
@@ -88,7 +90,10 @@ export function LoginLens({ onClose, accounts }: LoginLensProps) {
                         <Image src="/svg/wallet.svg" alt="wallet" width={20} height={20} />
                         <span className=" text-[14px] font-bold leading-[18px] text-lightSecond">Change Wallet</span>
                     </button>
-                    <button className="flex w-[120px] items-center justify-center gap-[8px] rounded-[99px] bg-lightMain py-[11px] text-primaryBottom">
+                    <button
+                        className="flex w-[120px] items-center justify-center gap-[8px] rounded-[99px] bg-lightMain py-[11px] text-primaryBottom"
+                        onClick={() => login()}
+                    >
                         Sign
                     </button>
                 </div>
