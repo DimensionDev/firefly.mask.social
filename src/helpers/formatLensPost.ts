@@ -27,7 +27,7 @@ import { SocialPlatform } from '@/constants/enum.js';
 import type { Attachment, Post } from '@/providers/types/SocialMedia.js';
 import type { MetadataAsset } from '@/types/index.js';
 
-import formatLensProfile from './formatLensProfile.js';
+import { formatLensProfile } from './formatLensProfile.js';
 
 const PLACEHOLDER_IMAGE = 'https://static-assets.hey.xyz/images/placeholder.webp';
 
@@ -210,7 +210,7 @@ export function formatLensQuote(result: CommentBaseFragment | PostFragment | Quo
     };
 }
 
-export default function formatLensPost(result: AnyPublicationFragment): Post {
+export function formatLensPost(result: AnyPublicationFragment): Post {
     const profile = formatLensProfile(result.by);
     const timestamp = new Date(result.createdAt).getTime();
 

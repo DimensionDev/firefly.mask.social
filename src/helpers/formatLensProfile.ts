@@ -2,7 +2,7 @@ import type { ProfileFragment } from '@lens-protocol/client';
 import { zeroAddress } from 'viem';
 
 import { ARWEAVE_GATEWAY, AVATAR, IPFS_GATEWAY, LENS_MEDIA_SNAPSHOT_URL } from '@/constants/index.js';
-import getStampFyiURL from '@/helpers/getStampFyiURL.js';
+import { getStampFyiURL } from '@/helpers/getStampFyiURL.js';
 import { NetworkType, type Profile, ProfileStatus } from '@/providers/types/SocialMedia.js';
 
 function imageKit(url: string, name?: string) {
@@ -48,7 +48,7 @@ function getAvatar(profile: ProfileFragment, namedTransform = AVATAR) {
     return imageKit(sanitizeDStorageUrl(avatarUrl), namedTransform);
 }
 
-export default function formatLensProfile(result: ProfileFragment): Profile {
+export function formatLensProfile(result: ProfileFragment): Profile {
     return {
         profileId: result.id,
         nickname: result.metadata?.displayName ?? '',

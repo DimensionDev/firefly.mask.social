@@ -5,11 +5,11 @@
  * @param maxLength number of characters to truncate to
  * @returns truncated url
  */
-export const formatUrl = (url: string, maxLength: number): string => {
+export function formatUrl(url: string, maxLength: number): string {
     const strippedUrl = url.replace(/^(http|https):\/\//, '').replace(/^www\./, '');
 
     if (strippedUrl.length > maxLength) {
         return strippedUrl.substring(0, maxLength - 1) + '…';
     }
     return strippedUrl;
-};
+}
