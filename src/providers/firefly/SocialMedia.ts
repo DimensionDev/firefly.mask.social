@@ -17,7 +17,7 @@ import { toBytes } from 'viem';
 import { SocialPlatform } from '@/constants/enum.js';
 import { EMPTY_LIST, FIREFLY_HUBBLE_URL, FIREFLY_ROOT_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
-import formatWarpcastPost from '@/helpers/formatWarpcastPost.js';
+import { formatWarpcastPost } from '@/helpers/formatWarpcastPost.js';
 import { getResourceType } from '@/helpers/getResourceType.js';
 import { waitForSignedKeyRequestComplete } from '@/helpers/waitForSignedKeyRequestComplete.js';
 import {

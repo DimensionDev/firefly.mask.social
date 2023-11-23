@@ -12,7 +12,7 @@ import { getWalletClient } from 'wagmi/actions';
 import { SocialPlatform } from '@/constants/enum.js';
 import { WARPCAST_ROOT_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
-import formatWarpcastPost from '@/helpers/formatWarpcastPost.js';
+import { formatWarpcastPost } from '@/helpers/formatWarpcastPost.js';
 import { generateCustodyBearer } from '@/helpers/generateCustodyBearer.js';
 import { waitForSignedKeyRequestComplete } from '@/helpers/waitForSignedKeyRequestComplete.js';
 import { type Post, ProfileStatus, type Provider, ReactionType, Type } from '@/providers/types/SocialMedia.js';
