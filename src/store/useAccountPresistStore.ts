@@ -1,5 +1,6 @@
 import { create, type StateCreator } from 'zustand';
 import { persist } from 'zustand/middleware';
+import { createSelectors } from '@/helpers/createSelector.js';
 
 export interface LensAccount {
     profileId: string;
@@ -14,12 +15,15 @@ export interface LensAccountsState {
     setAccounts: (accounts: LensAccount[]) => void;
 }
 
-const lensAccountsSlice: StateCreator<LensAccountsState, [['zustand/persist', unknown]]> = (set) => ({
+const lensAccountsSlice: StateCreator<LensAccountsState, [['zustand/persist', unknown]]> = (set, get) => ({
     currentAccounts: [],
     setAccounts: (accounts: LensAccount[]) => set({ currentAccounts: accounts }),
 });
 
-export const useLensAccountsStore = create<LensAccountsState>()(persist(lensAccountsSlice, { name: 'lens-accounts' }));
+export const useLensAccountsStoreBase = create<LensAccountsState>()(
+    persist(lensAccountsSlice, { name: 'lens-accounts' }),
+);
+export const useLensAccountsStore = createSelectors(useLensAccountsStoreBase);
 
 export interface FarcasterAccount {
     profileId: string;
@@ -33,11 +37,12 @@ export interface FarcasterAccountsState {
     setAccounts: (accounts: FarcasterAccount[]) => void;
 }
 
-const farcasterAccountsSlice: StateCreator<FarcasterAccountsState, [['zustand/persist', unknown]]> = (set) => ({
+const farcasterAccountsSlice: StateCreator<FarcasterAccountsState, [['zustand/persist', unknown]]> = (set, get) => ({
     currentAccounts: [],
     setAccounts: (accounts: FarcasterAccount[]) => set({ currentAccounts: accounts }),
 });
 
-export const useFarcasterAccountsStore = create<FarcasterAccountsState>()(
+export const useFarcasterAccountsStoreBase = create<FarcasterAccountsState>()(
     persist(farcasterAccountsSlice, { name: 'farcaster-accounts' }),
 );
+export const useFarcasterAccountsStore = createSelectors(useFarcasterAccountsStoreBase);

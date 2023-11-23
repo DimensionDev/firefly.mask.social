@@ -19,7 +19,7 @@ import { LoginModal } from '@/components/LoginModal.js';
 import { LoginStatusBar } from '@/components/LoginStatusBar.js';
 import { PageRoutes } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
-import { useLensAccountsStore, useFarcasterAccountsStore } from '@/store/presisting.js';
+import { useLensAccountsStore, useFarcasterAccountsStore } from '@/store/index.js';
 
 import { ConnectWalletNav } from './ConnectWalletNav.js';
 
@@ -46,8 +46,8 @@ export const SideBar = memo(function SideBar() {
     const [loginOpen, setLoginOpen] = useState(false);
     const [lensStatusOpen, setLensStatusOpen] = useState(false);
     const [farcasterStatusOpen, setFarcasterStatusOpen] = useState(false);
-    const lensAccounts = useLensAccountsStore.getState().currentAccounts;
-    const farcasterAccounts = useFarcasterAccountsStore.getState().currentAccounts;
+    const lensAccounts = useLensAccountsStore.use.currentAccounts();
+    const farcasterAccounts = useFarcasterAccountsStore.use.currentAccounts();
     const isLogin = useMemo(() => lensAccounts.length || farcasterAccounts.length, [lensAccounts, farcasterAccounts]);
     console.log(isLogin, lensAccounts, farcasterAccounts);
 

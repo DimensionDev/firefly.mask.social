@@ -3,11 +3,11 @@
 import { useState } from 'react';
 import { AccountCard } from '@/components/LoginLens/AccountCard.js';
 import { Image } from '@/esm/Image.js';
-import type { LensAccount } from '@/store/presisting.js';
+import type { LensAccount } from '@/store/index.js';
 import { useAccountModal } from '@rainbow-me/rainbowkit';
 import { Switch } from '@mui/material';
 import { LensSocialMedia } from '@/providers/lens/SocialMedia.js';
-import { useLensAccountsStore } from '@/store/presisting.js';
+import { useLensAccountsStore } from '@/store/index.js';
 
 interface LoginLensProps {
     onClose: Function;
@@ -17,7 +17,7 @@ interface LoginLensProps {
 export function LoginLens({ onClose, accounts }: LoginLensProps) {
     const [currentAccount, setCurrentAccount] = useState<string>(accounts ? accounts[0].id : '');
     const { openAccountModal } = useAccountModal();
-    const setLensAccounts = useLensAccountsStore.getState().setAccounts;
+    const setLensAccounts = useLensAccountsStore.use.setAccounts();
     async function login() {
         if (!accounts) return;
         const lensProvider = new LensSocialMedia();
