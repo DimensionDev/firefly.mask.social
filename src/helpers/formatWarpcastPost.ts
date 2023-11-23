@@ -37,7 +37,7 @@ export function formatContent(cast: Cast) {
     };
 }
 
-export default function formatWarpcastPost(feed: Feed): Post {
+export function formatWarpcastPost(feed: Feed): Post {
     return {
         source: SocialPlatform.Farcaster,
         postId: feed.cast.hash,

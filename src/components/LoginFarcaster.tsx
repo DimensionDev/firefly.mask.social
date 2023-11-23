@@ -17,7 +17,7 @@ export function LoginFarcaster({ onClose, closeFarcaster }: LoginFarcasterProps)
 
     async function login() {
         const fireflyProvider = new FireflySocialMedia();
-        const session = await fireflyProvider.createSessionByGrantPermission(setUrl);
+        const session = await fireflyProvider.createSession(setUrl);
         const profile = await fireflyProvider.getProfileById(session.profileId);
         setFireflyAccounts([
             { avatar: profile.pfp, name: profile.displayName, profileId: profile.profileId, isCurrent: true },

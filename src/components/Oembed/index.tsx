@@ -5,6 +5,7 @@ import Embed from '@/components/Oembed/Embed.js';
 import Player from '@/components/Oembed/Player.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import type { LinkDigest, OpenGraph } from '@/services/digestLink.js';
+import type { ResponseJSON } from '@/types/index.js';
 
 interface OembedProps {
     url?: string;
@@ -16,7 +17,7 @@ export default function Oembed({ url, onData }: OembedProps) {
         queryKey: ['oembed', url],
         queryFn: () => {
             if (!url) return;
-            return fetchJSON<LinkDigest>(
+            return fetchJSON<ResponseJSON<LinkDigest>>(
                 urlcat('/api/oembed', {
                     link: encodeURIComponent(url),
                 }),
@@ -25,11 +26,11 @@ export default function Oembed({ url, onData }: OembedProps) {
         enabled: Boolean(url),
     });
 
-    if (isLoading || error || !data) return null;
+    if (isLoading || error || !data?.success) return null;
 
-    onData(data.og);
+    onData(data.data.og);
 
-    const og: OpenGraph = data.og;
+    const og: OpenGraph = data.data.og;
     if (!og.title) return null;
 
     return og.html ? <Player html={og.html} /> : <Embed og={og} />;

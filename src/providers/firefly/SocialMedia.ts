@@ -17,7 +17,7 @@ import { toBytes } from 'viem';
 import { SocialPlatform } from '@/constants/enum.js';
 import { EMPTY_LIST, FIREFLY_HUBBLE_URL, FIREFLY_ROOT_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
-import formatWarpcastPost from '@/helpers/formatWarpcastPost.js';
+import { formatWarpcastPost } from '@/helpers/formatWarpcastPost.js';
 import { getResourceType } from '@/helpers/getResourceType.js';
 import { waitForSignedKeyRequestComplete } from '@/helpers/waitForSignedKeyRequestComplete.js';
 import {
@@ -37,13 +37,12 @@ import type { MetadataAsset, ResponseJSON } from '@/types/index.js';
 
 ed.etc.sha512Sync = (...m: any) => sha512(ed.etc.concatBytes(...m));
 
-// @ts-ignore
 export class FireflySocialMedia implements Provider {
     get type() {
         return Type.Firefly;
     }
 
-    async createSessionByGrantPermission(setUrl: (url: string) => void, signal?: AbortSignal) {
+    async createSession(setUrlOrSignal?: AbortSignal | ((url: string) => void), signal?: AbortSignal) {
         const response = await fetchJSON<
             ResponseJSON<{
                 publicKey: string;
@@ -59,12 +58,15 @@ export class FireflySocialMedia implements Provider {
         });
         if (!response.success) throw new Error(response.error.message);
 
+        const setUrl = typeof setUrlOrSignal === 'function' ? setUrlOrSignal : undefined;
+        const abortSignal = setUrlOrSignal instanceof AbortSignal ? setUrlOrSignal : signal;
+
         // present QR code to the user
-        setUrl(response.data.deeplinkUrl);
+        setUrl?.(response.data.deeplinkUrl);
         console.log('DEBUG: response');
         console.log(response);
 
-        await waitForSignedKeyRequestComplete(signal)(response.data.token);
+        await waitForSignedKeyRequestComplete(abortSignal)(response.data.token);
         console.log('DEBUG: signed key request complete');
 
         const session = new FireflySession(
@@ -102,7 +104,6 @@ export class FireflySocialMedia implements Provider {
 
         const { result, next } = await fetchJSON<FeedResponse>(url, {
             method: 'GET',
-            headers: { 'Content-Type': 'application/json' },
         });
         const data = result.feed.map(formatWarpcastPost);
         return createPageable(data, indicator ?? createIndicator(), createNextIndicator(indicator, next.cursor));
@@ -112,7 +113,6 @@ export class FireflySocialMedia implements Provider {
         const url = urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/cast', { hash: postId });
         const { data: cast } = await fetchJSON<CastResponse>(url, {
             method: 'GET',
-            headers: { 'Content-Type': 'application/json' },
         });
 
         const asset = first(cast.embeds);
@@ -156,7 +156,6 @@ export class FireflySocialMedia implements Provider {
         const url = urlcat(FIREFLY_ROOT_URL, '/user', { fid: profileId });
         const { data: user } = await fetchJSON<UserResponse>(url, {
             method: 'GET',
-            headers: { 'Content-Type': 'application/json' },
         });
 
         return {
@@ -181,7 +180,6 @@ export class FireflySocialMedia implements Provider {
             data: { list, next_cursor },
         } = await fetchJSON<UsersResponse>(url, {
             method: 'GET',
-            headers: { 'Content-Type': 'application/json' },
         });
         const data = list.map((user) => ({
             profileId: user.fid.toString(),
@@ -207,7 +205,6 @@ export class FireflySocialMedia implements Provider {
             data: { list, next_cursor },
         } = await fetchJSON<UsersResponse>(url, {
             method: 'GET',
-            headers: { 'Content-Type': 'application/json' },
         });
         const data = list.map((user) => ({
             profileId: user.fid.toString(),
@@ -233,7 +230,6 @@ export class FireflySocialMedia implements Provider {
             data: { casts, cursor },
         } = await fetchJSON<CastsResponse>(url, {
             method: 'GET',
-            headers: { 'Content-Type': 'application/json' },
         });
         const data = casts.map((cast) => ({
             source: SocialPlatform.Farcaster,

@@ -13,6 +13,7 @@
         "farcaster",
         "immer",
         "ipfs",
+        "Jamo",
         "linkedom",
         "merkle",
         "nextid",
@@ -69,7 +70,13 @@
         "linkify",
         "trimify",
         "plyr",
-        "livepeer"
+        "livepeer",
+        "notistack",
+        "tippyjs",
+        "Leafwatch",
+        "inview",
+        "upvote",
+        "Upvoted"
     ],
     "flagWords": [],
     "ignorePaths": [

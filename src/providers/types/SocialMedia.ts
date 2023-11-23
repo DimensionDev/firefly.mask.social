@@ -136,6 +136,10 @@ export interface Post {
         bookmarks?: number;
     };
     quoteOn?: Post;
+    canComment?: boolean;
+    canMirror?: boolean;
+    hasMirrored?: boolean;
+    hasLiked?: boolean;
     __original__?: unknown;
     source: SocialPlatform;
 }

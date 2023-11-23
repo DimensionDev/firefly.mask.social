@@ -37,10 +37,16 @@ export function LoginModal({ isOpen, setIsOpen }: LoginModalProps) {
     };
 
     const loginLens = useCallback(async () => {
+<<<<<<< HEAD
         const lensProvider = new LensSocialMedia();
         setAccounts(await lensProvider.getAllProfiles());
         setLensOpen(true);
     }, [setAccounts, setLensOpen]);
+=======
+        await LensSocialMediaProvider.createSession();
+        setIsOpen(false);
+    }, [setIsOpen]);
+>>>>>>> 97fff45b9cf25c26541d745237ca2234183077c1
 
     useEffect(() => {
         if (previousConnectModalOpen && !connectOpen) {

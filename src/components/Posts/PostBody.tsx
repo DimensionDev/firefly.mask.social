@@ -1,6 +1,6 @@
 'use client';
 
-import { memo } from 'react';
+import { forwardRef } from 'react';
 import urlcat from 'urlcat';
 
 import EyeSlash from '@/assets/eye-slash.svg';
@@ -18,7 +18,10 @@ interface PostBodyProps {
     showMore?: boolean;
 }
 
-export const PostBody = memo<PostBodyProps>(function PostBody({ post, isQuote = false, showMore = false }) {
+export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostBody(
+    { post, isQuote = false, showMore = false },
+    ref,
+) {
     const canShowMore = !!(post.metadata.content?.content && post.metadata.content?.content.length > 450) && showMore;
     const showAttachments = !!(
         (post.metadata.content?.attachments && post.metadata.content?.attachments?.length > 0) ||
@@ -27,7 +30,7 @@ export const PostBody = memo<PostBodyProps>(function PostBody({ post, isQuote = 
 
     if (post.isEncrypted) {
         return (
-            <div className="my-2 pl-[52px]">
+            <div className="my-2 pl-[52px]" ref={ref}>
                 <div
                     className={classNames('flex items-center gap-1 rounded-lg border-primaryMain px-3 py-[6px]', {
                         border: !isQuote,
@@ -41,7 +44,7 @@ export const PostBody = memo<PostBodyProps>(function PostBody({ post, isQuote = 
     }
 
     if (post.isHidden) {
-        <div className="my-2 pl-[52px]">
+        <div className="my-2 pl-[52px]" ref={ref}>
             <div
                 className={classNames('flex items-center gap-1 rounded-lg border-primaryMain px-3 py-[6px]', {
                     border: !isQuote,
@@ -55,7 +58,7 @@ export const PostBody = memo<PostBodyProps>(function PostBody({ post, isQuote = 
 
     if (isQuote) {
         return (
-            <div className="my-2 flex break-words text-base text-main">
+            <div className="my-2 flex items-center break-words text-base text-main">
                 <Markup className="markup linkify text-md line-clamp-5 w-full break-words opacity-75 dark:opacity-50">
                     {post.metadata.content?.content || ''}
                 </Markup>
@@ -71,7 +74,7 @@ export const PostBody = memo<PostBodyProps>(function PostBody({ post, isQuote = 
     }
 
     return (
-        <div className={' my-2 break-words pl-[52px] text-base text-main'}>
+        <div className={'my-2 break-words pl-[52px] text-base text-main'} ref={ref}>
             <Markup className={classNames({ 'line-clamp-5': canShowMore }, 'markup linkify text-md break-words')}>
                 {post.metadata.content?.content || ''}
             </Markup>
