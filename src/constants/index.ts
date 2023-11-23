@@ -15,6 +15,7 @@ export const EIP_712_FARCASTER_DOMAIN = {
 export const IPFS_GATEWAY = 'https://gw.ipfs-lens.dev/ipfs/';
 export const ARWEAVE_GATEWAY = 'https://arweave.net/';
 export const LENS_MEDIA_SNAPSHOT_URL = 'https://ik.imagekit.io/lens/media-snapshot';
+export const METADATA_WORKER_URL = 'https://metadata.hey.xyz';
 
 // Named transforms for ImageKit
 export const AVATAR = 'tr:w-300,h-300';

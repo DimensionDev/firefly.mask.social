@@ -43,6 +43,7 @@
         "@tanstack/react-query-devtools": "^5.8.4",
         "@tanstack/react-query-next-experimental": "^5.8.4",
         "@tippyjs/react": "^4.2.6",
+        "@types/uuid": "^9.0.3",
         "@walletconnect/socket-transport": "1.7.8",
         "async-call-rpc": "^6.3.1",
         "autoprefixer": "10.4.16",

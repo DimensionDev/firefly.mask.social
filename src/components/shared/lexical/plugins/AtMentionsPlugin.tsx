@@ -3,7 +3,7 @@ import { useLexicalTextEntity } from '@lexical/react/useLexicalTextEntity.js';
 import type { TextNode } from 'lexical/index.js';
 import { useCallback, useEffect } from 'react';
 
-import { $createMentionNode, MentionNode } from '@/components/shared/lexical/nodes/MentionsNode.jsx';
+import { $createMentionNode, MentionNode } from '@/components/shared/lexical/nodes/MentionsNode.js';
 
 function getMentionRegexStringChars(): Readonly<{
     alpha: string;

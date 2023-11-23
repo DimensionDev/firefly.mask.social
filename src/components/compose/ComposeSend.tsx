@@ -1,14 +1,53 @@
-import { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 
+import { SocialPlatform } from '@/constants/enum.js';
 import { Image } from '@/esm/Image.js';
 import { classNames } from '@/helpers/classNames.js';
+import getPostMetaData from '@/helpers/getPostMetaData.js';
+import { LensSocialMedia } from '@/providers/lens/SocialMedia.js';
+import uploadToArweave from '@/services/uploadToArweave.js';
 
 interface ComposeSendProps {
-    charactersLen: number;
+    characters: string;
+    images: File[];
     setOpened: (opened: boolean) => void;
 }
-export default function ComposeSend({ charactersLen, setOpened }: ComposeSendProps) {
+export default function ComposeSend({ characters, images, setOpened }: ComposeSendProps) {
+    const charactersLen = useMemo(() => characters.length, [characters]);
+
     const disabled = useMemo(() => charactersLen > 280, [charactersLen]);
+
+    const handleSend = useCallback(async () => {
+        const lens = new LensSocialMedia();
+
+        const session = await lens.resumeSession();
+
+        const profile = await lens.getProfileById(session.profileId);
+
+        const title = `Post by #${profile.profileId}`;
+
+        const metadata = getPostMetaData({
+            title,
+            content: characters,
+            marketplace: {
+                name: title,
+                description: characters,
+            },
+        });
+
+        const arweaveId = await uploadToArweave(metadata);
+
+        await lens.publishPost({
+            postId: metadata.id,
+            author: profile,
+            metadata: {
+                locale: metadata.locale,
+                contentURI: arweaveId,
+                content: null,
+            },
+            source: SocialPlatform.Lens,
+        });
+    }, [characters]);
 
     return (
         <div className=" flex h-[68px] items-center justify-end gap-4 px-4 shadow-send">
@@ -31,7 +70,12 @@ export default function ComposeSend({ charactersLen, setOpened }: ComposeSendPro
                     ' flex h-10 w-[120px] items-center justify-center gap-1 rounded-full bg-[#07101B] text-sm font-bold text-white',
                     disabled ? ' cursor-no-drop opacity-50' : '',
                 )}
-                onClick={() => !disabled && setOpened(false)}
+                onClick={() => {
+                    if (!disabled) {
+                        handleSend();
+                        setOpened(false);
+                    }
+                }}
             >
                 <Image src="/svg/send.svg" width={18} height={18} alt="send" className=" h-[18px] w-[18px]" />
                 <span>Send</span>

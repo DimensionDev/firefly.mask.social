@@ -81,7 +81,7 @@ function Compose({ type = 'compose', opened, setOpened }: ComposeProps) {
                                     <ComposeAction type={type} setImages={setImages} />
 
                                     {/* Send */}
-                                    <ComposeSend charactersLen={characters.length} setOpened={setOpened} />
+                                    <ComposeSend characters={characters} images={images} setOpened={setOpened} />
                                 </Dialog.Panel>
                             </Transition.Child>
                         </div>

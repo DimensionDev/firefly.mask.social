@@ -1,11 +1,11 @@
 import { Popover } from '@headlessui/react';
 import { ChevronRightIcon } from '@heroicons/react/24/outline';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext.js';
-import { $getSelection } from 'lexical/LexicalSelection.js';
+import { $getSelection } from 'lexical';
 import { type ChangeEvent, type Dispatch, type SetStateAction, useCallback, useRef } from 'react';
 
-import PostBy from '@/components/compose/PostBy.jsx';
-import ReplyRestriction from '@/components/compose/ReplyRestriction.jsx';
+import PostBy from '@/components/compose/PostBy.js';
+import ReplyRestriction from '@/components/compose/ReplyRestriction.js';
 import { Image } from '@/esm/Image.js';
 
 interface ComposeActionProps {

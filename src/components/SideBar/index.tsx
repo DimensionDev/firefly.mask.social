@@ -13,6 +13,7 @@ import ProfileSelectedIcon from '@/assets/profile.selected.svg';
 import ProfileIcon from '@/assets/profile.svg';
 import SettingsSelectedIcon from '@/assets/setting.selected.svg';
 import SettingsIcon from '@/assets/setting.svg';
+import Compose from '@/components/compose/index.js';
 import { FarcasterStatusModal } from '@/components/FarcasterStatusModal.js';
 import { LensStatusModal } from '@/components/LensStatusModal.js';
 import { LoginModal } from '@/components/LoginModal.js';
@@ -45,6 +46,7 @@ export const SideBar = memo(function SideBar() {
     const [loginOpen, setLoginOpen] = useState(false);
     const [lensStatusOpen, setLensStatusOpen] = useState(false);
     const [farcasterStatusOpen, setFarcasterStatusOpen] = useState(false);
+    const [composeOpen, setComposeOpen] = useState(false);
     const isLogin = false;
 
     return (
@@ -78,9 +80,9 @@ export const SideBar = memo(function SideBar() {
                                     })}
                                     <li>
                                         <button
-                                            onClick={() => {}}
                                             type="button"
                                             className=" min-w-[150px] rounded-[16px] bg-main px-3 py-3 text-xl font-semibold leading-6 text-primaryBottom "
+                                            onClick={() => setComposeOpen(true)}
                                         >
                                             Post
                                         </button>
@@ -112,6 +114,8 @@ export const SideBar = memo(function SideBar() {
             <LoginModal isOpen={loginOpen} setIsOpen={setLoginOpen} />
             <LensStatusModal isOpen={lensStatusOpen} setIsOpen={setLensStatusOpen} />
             <FarcasterStatusModal isOpen={farcasterStatusOpen} setIsOpen={setFarcasterStatusOpen} />
+
+            <Compose opened={composeOpen} setOpened={setComposeOpen} />
         </>
     );
 });

@@ -1,7 +1,7 @@
-import { addClassNamesToElement } from '@lexical/utils/index.js';
+import { addClassNamesToElement } from '@lexical/utils';
+import { type SerializedTextNode, TextNode } from 'lexical';
 import type { EditorConfig } from 'lexical/LexicalEditor.js';
 import type { LexicalNode, NodeKey } from 'lexical/LexicalNode.js';
-import { type SerializedTextNode, TextNode } from 'lexical/nodes/LexicalTextNode.js';
 
 export class MentionNode extends TextNode {
     static override getType(): string {

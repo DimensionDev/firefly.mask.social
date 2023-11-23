@@ -1,6 +1,6 @@
 import { type Dispatch, type SetStateAction, useCallback } from 'react';
 
-import Editor from '@/components/compose/Editor.jsx';
+import Editor from '@/components/compose/Editor.js';
 import { Image } from '@/esm/Image.js';
 import { classNames } from '@/helpers/classNames.js';
 
