@@ -4,12 +4,14 @@ import { memo, useCallback } from 'react';
 
 import CollectIcon from '@/assets/collect.svg';
 import { Tooltip } from '@/components/Tooltip.js';
+import { classNames } from '@/helpers/classNames.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 
 interface CollectProps {
     count?: number;
+    disabled?: boolean;
 }
-export const Collect = memo<CollectProps>(function Collect({ count }) {
+export const Collect = memo<CollectProps>(function Collect({ count, disabled = false }) {
     const { enqueueSnackbar } = useSnackbar();
 
     const handleClick = useCallback(() => {
@@ -18,11 +20,17 @@ export const Collect = memo<CollectProps>(function Collect({ count }) {
         });
     }, [enqueueSnackbar]);
     return (
-        <div className="flex items-center space-x-2 text-secondary hover:text-primaryPink">
-            <Tooltip content="Act" placement="top">
+        <div
+            className={classNames('flex items-center space-x-2 text-secondary hover:text-primaryPink', {
+                'opacity-50': disabled,
+            })}
+        >
+            <Tooltip content="Act" placement="top" disabled={disabled}>
                 <motion.button
+                    disabled={disabled}
                     onClick={(event) => {
                         event.stopPropagation();
+                        if (disabled) return;
                         handleClick();
                     }}
                     whileTap={{ scale: 0.9 }}

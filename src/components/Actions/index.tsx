@@ -14,10 +14,11 @@ import { Views } from './Views.js';
 
 interface PostActionsProps {
     post: Post;
+    disabled?: boolean;
 }
 
 // TODO: open compose dialog
-export const PostActions = memo<PostActionsProps>(function PostActions({ post }) {
+export const PostActions = memo<PostActionsProps>(function PostActions({ post, disabled = false }) {
     const publicationViews = useImpressionsStore.use.publicationViews();
 
     const views = useMemo(() => {
@@ -27,21 +28,31 @@ export const PostActions = memo<PostActionsProps>(function PostActions({ post })
     return (
         <span className="mt-2 flex items-center justify-between pl-[52px]">
             <Comment
+                disabled={disabled}
                 count={post.stats?.comments}
-                disabled={post.canComment}
+                canComment={post.canComment}
                 source={post.source}
                 author={post.author.displayName}
             />
             <Mirror
+                disabled={disabled}
                 shares={(post.stats?.mirrors ?? 0) + (post.stats?.quotes ?? 0)}
                 source={post.source}
                 postId={post.postId}
                 hasMirrored={post.hasMirrored}
             />
-            {post.source !== SocialPlatform.Farcaster ? <Collect count={post.stats?.bookmarks} /> : null}
-            <Like count={post.stats?.reactions} hasLiked={post?.hasLiked} postId={post.postId} source={post.source} />
-            {post.source !== SocialPlatform.Farcaster ? <Views count={views} /> : null}
-            <Share url={getPostDetailUrl(post.postId, post.source)} />
+            {post.source !== SocialPlatform.Farcaster ? (
+                <Collect count={post.stats?.bookmarks} disabled={disabled} />
+            ) : null}
+            <Like
+                count={post.stats?.reactions}
+                hasLiked={post?.hasLiked}
+                postId={post.postId}
+                source={post.source}
+                disabled={disabled}
+            />
+            {post.source !== SocialPlatform.Farcaster ? <Views count={views} disabled={disabled} /> : null}
+            <Share url={getPostDetailUrl(post.postId, post.source)} disabled={disabled} />
         </span>
     );
 });

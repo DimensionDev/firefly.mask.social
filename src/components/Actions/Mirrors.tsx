@@ -21,9 +21,10 @@ interface MirrorProps {
     hasMirrored?: boolean;
     source: SocialPlatform;
     postId: string;
+    disabled?: boolean;
 }
 
-export const Mirror = memo<MirrorProps>(function Mirror({ shares, source, hasMirrored, postId }) {
+export const Mirror = memo<MirrorProps>(function Mirror({ shares, source, hasMirrored, postId, disabled = false }) {
     const { enqueueSnackbar } = useSnackbar();
     const [mirrored, setMirrored] = useState(hasMirrored);
     const [count, setCount] = useState(shares);
@@ -94,18 +95,21 @@ export const Mirror = memo<MirrorProps>(function Mirror({ shares, source, hasMir
             as="div"
             className={classNames('relative text-secondary', {
                 'text-secondarySuccess': !!mirrored,
+                'opacity-50': !!disabled,
             })}
             onClick={(event) => event.stopPropagation()}
         >
             <Menu.Button
+                disabled={disabled}
                 as={motion.button}
-                className="flex items-center space-x-2 text-secondary hover:text-secondarySuccess"
+                className={'flex items-center space-x-2 text-secondary hover:text-secondarySuccess'}
                 whileTap={{ scale: 0.9 }}
                 onClick={(event) => event.stopPropagation()}
                 aria-label="Mirror"
             >
                 <Tooltip
-                    className="rounded-full p-1.5 hover:bg-secondarySuccess/[.20]"
+                    disabled={disabled}
+                    className={'rounded-full p-1.5 hover:bg-secondarySuccess/[.20]'}
                     placement="top"
                     content={count && count > 0 ? `${humanize(count)} ${content}` : content}
                     withDelay
@@ -121,46 +125,48 @@ export const Mirror = memo<MirrorProps>(function Mirror({ shares, source, hasMir
                 {count ? <span className="text-xs font-medium">{nFormatter(count)}</span> : null}
             </Menu.Button>
 
-            <Transition
-                as={Fragment}
-                enter="transition ease-out duration-100"
-                enterFrom="transform opacity-0 scale-95"
-                enterTo="transform opacity-100 scale-100"
-                leave="transition ease-in duration-75"
-                leaveFrom="transform opacity-100 scale-100"
-                leaveTo="transform opacity-0 scale-95"
-            >
-                <Menu.Items
-                    className="absolute z-[5] mt-1 w-max space-y-2 rounded-2xl bg-primaryBottom px-4 py-2 text-main shadow-messageShadow hover:text-main"
-                    static
+            {!disabled ? (
+                <Transition
+                    as={Fragment}
+                    enter="transition ease-out duration-100"
+                    enterFrom="transform opacity-0 scale-95"
+                    enterTo="transform opacity-100 scale-100"
+                    leave="transition ease-in duration-75"
+                    leaveFrom="transform opacity-100 scale-100"
+                    leaveTo="transform opacity-0 scale-95"
                 >
-                    <Menu.Item>
-                        {({ close }) => (
-                            <div
-                                className={classNames('flex cursor-pointer items-center space-x-2', {
-                                    'text-secondarySuccess': !!mirrored,
-                                })}
-                                onClick={(event) => {
-                                    event.stopPropagation();
-                                    close();
-                                    handleMirror();
-                                }}
-                            >
-                                <MirrorLargeIcon width={24} height={24} />
-                                <span className="font-medium">{mirrorActionText}</span>
-                            </div>
-                        )}
-                    </Menu.Item>
-                    {source === SocialPlatform.Lens ? (
+                    <Menu.Items
+                        className="absolute z-[5] mt-1 w-max space-y-2 rounded-2xl bg-primaryBottom px-4 py-2 text-main shadow-messageShadow hover:text-main"
+                        static
+                    >
                         <Menu.Item>
-                            <div className="flex cursor-pointer items-center space-x-2">
-                                <QuoteDownIcon width={24} height={24} />
-                                <span className="font-medium">Quote Post</span>
-                            </div>
+                            {({ close }) => (
+                                <div
+                                    className={classNames('flex cursor-pointer items-center space-x-2', {
+                                        'text-secondarySuccess': !!mirrored,
+                                    })}
+                                    onClick={(event) => {
+                                        event.stopPropagation();
+                                        close();
+                                        handleMirror();
+                                    }}
+                                >
+                                    <MirrorLargeIcon width={24} height={24} />
+                                    <span className="font-medium">{mirrorActionText}</span>
+                                </div>
+                            )}
                         </Menu.Item>
-                    ) : null}
-                </Menu.Items>
-            </Transition>
+                        {source === SocialPlatform.Lens ? (
+                            <Menu.Item>
+                                <div className="flex cursor-pointer items-center space-x-2">
+                                    <QuoteDownIcon width={24} height={24} />
+                                    <span className="font-medium">Quote Post</span>
+                                </div>
+                            </Menu.Item>
+                        ) : null}
+                    </Menu.Items>
+                </Transition>
+            ) : null}
         </Menu>
     );
 });

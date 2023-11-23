@@ -5,11 +5,13 @@ import { useCopyToClipboard } from 'react-use';
 
 import ShareIcon from '@/assets/share.svg';
 import { Tooltip } from '@/components/Tooltip.js';
+import { classNames } from '@/helpers/classNames.js';
 
-interface CollectProps {
+interface ShareProps {
     url: string;
+    disabled?: boolean;
 }
-export const Share = memo<CollectProps>(function Collect({ url }) {
+export const Share = memo<ShareProps>(function Collect({ url, disabled = false }) {
     const { enqueueSnackbar } = useSnackbar();
     const [, copyToClipboard] = useCopyToClipboard();
 
@@ -21,11 +23,17 @@ export const Share = memo<CollectProps>(function Collect({ url }) {
     }, [enqueueSnackbar, url, copyToClipboard]);
 
     return (
-        <div className="flex items-center space-x-2 text-secondary">
-            <Tooltip content="Share" placement="top">
+        <div
+            className={classNames('flex items-center space-x-2 text-secondary', {
+                'opacity-50': disabled,
+            })}
+        >
+            <Tooltip content="Share" placement="top" disabled={disabled}>
                 <motion.button
+                    disabled={disabled}
                     onClick={(event) => {
                         event.stopPropagation();
+                        if (disabled) return;
                         handleClick();
                     }}
                     whileTap={{ scale: 0.9 }}

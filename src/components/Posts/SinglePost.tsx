@@ -41,7 +41,7 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({ post, show
 
             <PostBody post={post} showMore={showMore} ref={observe} />
 
-            <PostActions post={post} />
+            <PostActions post={post} disabled={post.isHidden} />
         </motion.article>
     );
 });

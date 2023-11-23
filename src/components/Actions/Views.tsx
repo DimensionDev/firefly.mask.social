@@ -3,16 +3,23 @@ import { memo } from 'react';
 
 import ViewsIcon from '@/assets/views.svg';
 import { Tooltip } from '@/components/Tooltip.js';
+import { classNames } from '@/helpers/classNames.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 
-interface CollectProps {
+interface ViewsProps {
     count?: number;
+    disabled?: boolean;
 }
-export const Views = memo<CollectProps>(function Collect({ count }) {
+export const Views = memo<ViewsProps>(function Collect({ count, disabled = false }) {
     return (
-        <div className=" flex items-center space-x-2 text-secondary">
-            <Tooltip content={count ? `${nFormatter(count)} views` : null} placement="top">
+        <div
+            className={classNames('flex items-center space-x-2 text-secondary', {
+                'opacity-50': disabled,
+            })}
+        >
+            <Tooltip content={count ? `${nFormatter(count)} views` : null} placement="top" disabled={disabled}>
                 <motion.button
+                    disabled={disabled}
                     onClick={(event) => {
                         event.stopPropagation();
                     }}

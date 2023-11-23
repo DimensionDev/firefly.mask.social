@@ -19,9 +19,10 @@ interface LikeProps {
     source: SocialPlatform;
     count?: number;
     hasLiked?: boolean;
+    disabled?: boolean;
 }
 
-export const Like = memo<LikeProps>(function Like({ count, hasLiked, postId, source }) {
+export const Like = memo<LikeProps>(function Like({ count, hasLiked, postId, source, disabled = false }) {
     const queryClient = useQueryClient();
     const [liked, setLiked] = useState(hasLiked);
     const [realCount, setRealCount] = useState(count);
@@ -73,14 +74,17 @@ export const Like = memo<LikeProps>(function Like({ count, hasLiked, postId, sou
             className={classNames('flex items-center space-x-2 text-secondary hover:text-danger', {
                 'font-bold': !!liked,
                 'text-danger': !!liked,
+                'opacity-50': disabled,
             })}
         >
-            <Tooltip content={hasLiked ? 'Unlike' : 'Like'} placement="top">
+            <Tooltip content={hasLiked ? 'Unlike' : 'Like'} placement="top" disabled={disabled}>
                 <motion.button
+                    disabled={disabled}
                     whileTap={{ scale: 0.9 }}
                     className="rounded-full  p-1.5 hover:bg-danger/[.20] "
                     onClick={(event) => {
                         event.stopPropagation();
+                        if (disabled) return;
                         handleClick();
                     }}
                 >
