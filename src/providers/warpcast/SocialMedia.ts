@@ -12,7 +12,7 @@ import { getWalletClient } from 'wagmi/actions';
 import { SocialPlatform } from '@/constants/enum.js';
 import { WARPCAST_ROOT_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
-import formatWarpcastPost from '@/helpers/formatWarpcastPost.js';
+import { formatWarpcastPost } from '@/helpers/formatWarpcastPost.js';
 import { generateCustodyBearer } from '@/helpers/generateCustodyBearer.js';
 import { waitForSignedKeyRequestComplete } from '@/helpers/waitForSignedKeyRequestComplete.js';
 import { type Post, ProfileStatus, type Provider, ReactionType, Type } from '@/providers/types/SocialMedia.js';
@@ -41,7 +41,7 @@ export class WarpcastSocialMedia implements Provider {
      * @param signal
      * @returns
      */
-    async createSessionByGrantPermission(setUrl: (url: string) => void, signal?: AbortSignal) {
+    private async createSessionByGrantPermission(setUrl?: (url: string) => void, signal?: AbortSignal) {
         const response = await fetchJSON<
             ResponseJSON<{
                 publicKey: string;
@@ -58,7 +58,7 @@ export class WarpcastSocialMedia implements Provider {
         if (!response.success) throw new Error(response.error.message);
 
         // present QR code to the user
-        setUrl(response.data.deeplinkUrl);
+        setUrl?.(response.data.deeplinkUrl);
         console.log('DEBUG: response');
         console.log(response);
 
@@ -77,7 +77,7 @@ export class WarpcastSocialMedia implements Provider {
      * @param signal
      * @returns
      */
-    async createSessionByCustodyWallet(signal?: AbortSignal) {
+    private async createSessionByCustodyWallet(signal?: AbortSignal) {
         const client = await getWalletClient();
         if (!client) throw new Error('No client found');
 
@@ -93,7 +93,6 @@ export class WarpcastSocialMedia implements Provider {
             method: 'PUT',
             headers: {
                 Authorization: `Bearer ${token}`,
-                'Content-Type': 'application/json',
             },
             body: JSON.stringify(payload),
         });
@@ -104,7 +103,6 @@ export class WarpcastSocialMedia implements Provider {
                 method: 'GET',
                 headers: {
                     Authorization: `Bearer ${response.result.token.secret}`,
-                    'Content-Type': 'application/json',
                 },
             }),
         );
@@ -119,7 +117,7 @@ export class WarpcastSocialMedia implements Provider {
 
     async createSession(signal?: AbortSignal): Promise<WarpcastSession> {
         // Use the custody wallet by default
-        return this.createSessionByCustodyWallet(signal);
+        return Math.random() < 1 ? this.createSessionByCustodyWallet(signal) : this.createSessionByGrantPermission();
     }
 
     async resumeSession(): Promise<WarpcastSession> {
@@ -146,19 +144,15 @@ export class WarpcastSocialMedia implements Provider {
 
         const { result, next } = await fetchJSON<FeedResponse>(url, {
             method: 'GET',
-            headers: { 'Content-Type': 'application/json' },
         });
         const data = result.feed.map(formatWarpcastPost);
         return createPageable(data, indicator ?? createIndicator(), createNextIndicator(indicator, next.cursor));
     }
 
     async getPostById(postId: string): Promise<Post> {
-        const session = await this.resumeSession();
-
         const url = urlcat(WARPCAST_ROOT_URL, '/cast', { hash: postId });
-        const { result: cast } = await fetchJSON<CastResponse>(url, {
+        const { result: cast } = await this.fetchWithSession<CastResponse>(url, {
             method: 'GET',
-            headers: { Authorization: `Bearer ${session.token}`, 'Content-Type': 'application/json' },
         });
 
         return {
@@ -192,12 +186,9 @@ export class WarpcastSocialMedia implements Provider {
     }
 
     async getProfileById(profileId: string) {
-        const session = await this.resumeSession();
-
         const url = urlcat(WARPCAST_ROOT_URL, '/user', { fid: profileId });
-        const { result: user } = await fetchJSON<UserResponse>(url, {
+        const { result: user } = await this.fetchWithSession<UserResponse>(url, {
             method: 'GET',
-            headers: { Authorization: `Bearer ${session.token}`, 'Content-Type': 'application/json' },
         });
 
         return {
@@ -220,14 +211,11 @@ export class WarpcastSocialMedia implements Provider {
         parentPostId: string,
         indicator?: PageIndicator,
     ): Promise<Pageable<Post, PageIndicator>> {
-        const session = await this.resumeSession();
-
         const url = urlcat(WARPCAST_ROOT_URL, '/all-casts-in-thread', {
             threadHash: parentPostId,
         });
-        const { result } = await fetchJSON<CastsResponse>(url, {
+        const { result } = await this.fetchWithSession<CastsResponse>(url, {
             method: 'GET',
-            headers: { Authorization: `Bearer ${session.token}`, 'Content-Type': 'application/json' },
         });
 
         const data = result.casts.map((cast) => {
@@ -265,16 +253,13 @@ export class WarpcastSocialMedia implements Provider {
     }
 
     async getFollowers(profileId: string, indicator?: PageIndicator) {
-        const session = await this.resumeSession();
-
         const url = urlcat(WARPCAST_ROOT_URL, '/followers', {
             fid: profileId,
             limit: 10,
             cursor: indicator?.id,
         });
-        const { result, next } = await fetchJSON<UsersResponse>(url, {
+        const { result, next } = await this.fetchWithSession<UsersResponse>(url, {
             method: 'GET',
-            headers: { Authorization: `Bearer ${session.token}`, 'Content-Type': 'application/json' },
         });
         const data = result.map((user) => ({
             profileId: user.fid.toString(),
@@ -295,16 +280,13 @@ export class WarpcastSocialMedia implements Provider {
     }
 
     async getFollowings(profileId: string, indicator?: PageIndicator) {
-        const session = await this.resumeSession();
-
         const url = urlcat(WARPCAST_ROOT_URL, '/following', {
             fid: profileId,
             limit: 10,
             cursor: indicator?.id,
         });
-        const { result, next } = await fetchJSON<UsersResponse>(url, {
+        const { result, next } = await this.fetchWithSession<UsersResponse>(url, {
             method: 'GET',
-            headers: { Authorization: `Bearer ${session.token}`, 'Content-Type': 'application/json' },
         });
         const data = result.map((user) => ({
             profileId: user.fid.toString(),
@@ -325,12 +307,9 @@ export class WarpcastSocialMedia implements Provider {
     }
 
     async publishPost(post: Post): Promise<Post> {
-        const session = await this.resumeSession();
-
         const url = urlcat(WARPCAST_ROOT_URL, '/casts');
-        const { result: cast } = await fetchJSON<CastResponse>(url, {
+        const { result: cast } = await this.fetchWithSession<CastResponse>(url, {
             method: 'POST',
-            headers: { Authorization: `Bearer ${session.token}`, 'Content-Type': 'application/json' },
             body: JSON.stringify({ text: post.metadata.content }),
         });
 
@@ -365,12 +344,9 @@ export class WarpcastSocialMedia implements Provider {
     }
 
     async upvotePost(postId: string) {
-        const session = await this.resumeSession();
-
         const url = urlcat(WARPCAST_ROOT_URL, '/cast-likes');
-        const { result: reaction } = await fetchJSON<ReactionResponse>(url, {
+        const { result: reaction } = await this.fetchWithSession<ReactionResponse>(url, {
             method: 'POST',
-            headers: { Authorization: `Bearer ${session.token}`, 'Content-Type': 'application/json' },
             body: JSON.stringify({ castHash: postId }),
         });
 
@@ -382,34 +358,25 @@ export class WarpcastSocialMedia implements Provider {
     }
 
     async unvotePost(postId: string) {
-        const session = await this.resumeSession();
-
         const url = urlcat(WARPCAST_ROOT_URL, '/cast-likes');
-        await fetchJSON<ReactionResponse>(url, {
+        await this.fetchWithSession<ReactionResponse>(url, {
             method: 'DELETE',
-            headers: { Authorization: `Bearer ${session.token}`, 'Content-Type': 'application/json' },
             body: JSON.stringify({ castHash: postId }),
         });
     }
 
     async commentPost(postId: string, comment: string) {
-        const session = await this.resumeSession();
-
         const url = urlcat(WARPCAST_ROOT_URL, '/casts', { parent: postId });
-        await fetchJSON<CastResponse>(url, {
+        await this.fetchWithSession<CastResponse>(url, {
             method: 'POST',
-            headers: { Authorization: `Bearer ${session.token}`, 'Content-Type': 'application/json' },
             body: JSON.stringify({ text: comment }),
         });
     }
 
     async mirrorPost(postId: string) {
-        const session = await this.resumeSession();
-
         const url = urlcat(WARPCAST_ROOT_URL, '/recasts');
-        await fetchJSON<{ result: { castHash: string } }>(url, {
+        await this.fetchWithSession<{ result: { castHash: string } }>(url, {
             method: 'PUT',
-            headers: { Authorization: `Bearer ${session.token}`, 'Content-Type': 'application/json' },
             body: JSON.stringify({ castHash: postId }),
         });
 
@@ -417,36 +384,35 @@ export class WarpcastSocialMedia implements Provider {
     }
 
     async unmirrorPost(postId: string) {
-        const session = await this.resumeSession();
-
         const url = urlcat(WARPCAST_ROOT_URL, '/recasts');
-        const { result } = await fetchJSON<SuccessResponse>(url, {
+        const { result } = await this.fetchWithSession<SuccessResponse>(url, {
             method: 'DELETE',
-            headers: { Authorization: `Bearer ${session.token}`, 'Content-Type': 'application/json' },
             body: JSON.stringify({ castHash: postId }),
         });
         return result.success;
     }
 
     async followProfile(profileId: string) {
-        const session = await this.resumeSession();
-
         const url = urlcat(WARPCAST_ROOT_URL, '/follows');
-        await fetchJSON<SuccessResponse>(url, {
+        await this.fetchWithSession<SuccessResponse>(url, {
             method: 'PUT',
-            headers: { Authorization: `Bearer ${session.token}`, 'Content-Type': 'application/json' },
             body: JSON.stringify({ targetFid: Number(profileId) }),
         });
     }
 
     async unfollow(profileId: string) {
-        const session = await this.resumeSession();
-
         const url = urlcat(WARPCAST_ROOT_URL, '/follows');
-        await fetchJSON<SuccessResponse>(url, {
+        await this.fetchWithSession<SuccessResponse>(url, {
             method: 'DELETE',
-            headers: { Authorization: `Bearer ${session.token}`, 'Content-Type': 'application/json' },
             body: JSON.stringify({ targetFid: Number(profileId) }),
+        });
+    }
+
+    private async fetchWithSession<T>(url: string, options: RequestInit) {
+        const session = await this.resumeSession();
+        return fetchJSON<T>(url, {
+            ...options,
+            headers: { Authorization: `Bearer ${session.token}` },
         });
     }
 }

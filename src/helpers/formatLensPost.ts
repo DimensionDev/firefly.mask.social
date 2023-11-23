@@ -1,25 +1,25 @@
-import {
-    type AnyPublicationFragment,
-    type ArticleMetadataV3Fragment,
-    type AudioMetadataV3Fragment,
-    type CheckingInMetadataV3Fragment,
-    type CommentBaseFragment,
-    type EmbedMetadataV3Fragment,
-    type EventMetadataV3Fragment,
-    type ImageMetadataV3Fragment,
-    type LinkMetadataV3Fragment,
-    type LiveStreamMetadataV3Fragment,
-    type MintMetadataV3Fragment,
-    type PostFragment,
-    type PublicationMetadataFragment,
-    type PublicationMetadataMediaFragment,
-    type QuoteBaseFragment,
-    type SpaceMetadataV3Fragment,
-    type StoryMetadataV3Fragment,
-    type TextOnlyMetadataV3Fragment,
-    type ThreeDMetadataV3Fragment,
-    type TransactionMetadataV3Fragment,
-    type VideoMetadataV3Fragment,
+import type {
+    AnyPublicationFragment,
+    ArticleMetadataV3Fragment,
+    AudioMetadataV3Fragment,
+    CheckingInMetadataV3Fragment,
+    CommentBaseFragment,
+    EmbedMetadataV3Fragment,
+    EventMetadataV3Fragment,
+    ImageMetadataV3Fragment,
+    LinkMetadataV3Fragment,
+    LiveStreamMetadataV3Fragment,
+    MintMetadataV3Fragment,
+    PostFragment,
+    PublicationMetadataFragment,
+    PublicationMetadataMediaFragment,
+    QuoteBaseFragment,
+    SpaceMetadataV3Fragment,
+    StoryMetadataV3Fragment,
+    TextOnlyMetadataV3Fragment,
+    ThreeDMetadataV3Fragment,
+    TransactionMetadataV3Fragment,
+    VideoMetadataV3Fragment,
 } from '@lens-protocol/client';
 import { compact } from 'lodash-es';
 
@@ -27,7 +27,7 @@ import { SocialPlatform } from '@/constants/enum.js';
 import type { Attachment, Post } from '@/providers/types/SocialMedia.js';
 import type { MetadataAsset } from '@/types/index.js';
 
-import formatLensProfile from './formatLensProfile.js';
+import { formatLensProfile } from './formatLensProfile.js';
 
 const PLACEHOLDER_IMAGE = 'https://static-assets.hey.xyz/images/placeholder.webp';
 
@@ -210,7 +210,7 @@ export function formatLensQuote(result: CommentBaseFragment | PostFragment | Quo
     };
 }
 
-export default function formatLensPost(result: AnyPublicationFragment): Post {
+export function formatLensPost(result: AnyPublicationFragment): Post {
     const profile = formatLensProfile(result.by);
     const timestamp = new Date(result.createdAt).getTime();
 

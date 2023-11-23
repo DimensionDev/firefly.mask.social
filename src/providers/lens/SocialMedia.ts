@@ -28,8 +28,8 @@ import {
     Type,
 } from '@/providers/types/SocialMedia.js';
 
-import formatLensPost from '../../helpers/formatLensPost.js';
-import formatLensProfile from '../../helpers/formatLensProfile.js';
+import { formatLensPost } from '../../helpers/formatLensPost.js';
+import { formatLensProfile } from '../../helpers/formatLensProfile.js';
 
 export class LensSocialMedia implements Provider {
     private currentSession?: LensSession;

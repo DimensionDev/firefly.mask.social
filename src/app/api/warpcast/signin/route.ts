@@ -54,9 +54,6 @@ export async function POST(req: NextRequest) {
         };
     }>(urlcat(WARPCAST_ROOT_URL, '/signed-key-requests'), {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
         body: JSON.stringify({
             key: publicKey,
             requestFid: process.env.FARCASTER_SIGNER_FID,

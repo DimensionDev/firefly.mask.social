@@ -8,7 +8,17 @@ export async function fetchJSON<T = unknown>(
     init?: RequestInit,
     options?: NextFetchersOptions,
 ): Promise<T> {
-    const response = await fetch(input, init, getNextFetchers(options));
+    const response = await fetch(
+        input,
+        {
+            ...init,
+            headers: {
+                'Content-Type': 'application/json',
+                ...init?.headers,
+            },
+        },
+        getNextFetchers(options),
+    );
     return response.json();
 }
 

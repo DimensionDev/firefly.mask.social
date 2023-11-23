@@ -1,38 +1,11 @@
 import type { ProfileFragment } from '@lens-protocol/client';
 import { zeroAddress } from 'viem';
 
-import { ARWEAVE_GATEWAY, AVATAR, IPFS_GATEWAY, LENS_MEDIA_SNAPSHOT_URL } from '@/constants/index.js';
-import getStampFyiURL from '@/helpers/getStampFyiURL.js';
+import { AVATAR } from '@/constants/index.js';
+import { formatImageUrl } from '@/helpers/formatImageUrl.js';
+import { getStampFyiURL } from '@/helpers/getStampFyiURL.js';
+import { sanitizeDStorageUrl } from '@/helpers/sanitizeDStorageUrl.js';
 import { NetworkType, type Profile, ProfileStatus } from '@/providers/types/SocialMedia.js';
-
-function imageKit(url: string, name?: string) {
-    if (!url) {
-        return '';
-    }
-
-    if (url.includes(LENS_MEDIA_SNAPSHOT_URL)) {
-        const splitedUrl = url.split('/');
-        const path = splitedUrl[splitedUrl.length - 1];
-
-        return name ? `${LENS_MEDIA_SNAPSHOT_URL}/${name}/${path}` : url;
-    }
-
-    return url;
-}
-
-function sanitizeDStorageUrl(hash?: string) {
-    if (!hash) {
-        return '';
-    }
-
-    let link = hash.replace(/^Qm[1-9A-Za-z]{44}/gm, `${IPFS_GATEWAY}${hash}`);
-    link = link.replace('https://ipfs.io/ipfs/', IPFS_GATEWAY);
-    link = link.replace('ipfs://ipfs/', IPFS_GATEWAY);
-    link = link.replace('ipfs://', IPFS_GATEWAY);
-    link = link.replace('ar://', ARWEAVE_GATEWAY);
-
-    return link;
-}
 
 function getAvatar(profile: ProfileFragment, namedTransform = AVATAR) {
     let avatarUrl;
@@ -45,10 +18,10 @@ function getAvatar(profile: ProfileFragment, namedTransform = AVATAR) {
         avatarUrl = getStampFyiURL(profile.ownedBy.address ?? zeroAddress);
     }
 
-    return imageKit(sanitizeDStorageUrl(avatarUrl), namedTransform);
+    return formatImageUrl(sanitizeDStorageUrl(avatarUrl), namedTransform);
 }
 
-export default function formatLensProfile(result: ProfileFragment): Profile {
+export function formatLensProfile(result: ProfileFragment): Profile {
     return {
         profileId: result.id,
         nickname: result.metadata?.displayName ?? '',
