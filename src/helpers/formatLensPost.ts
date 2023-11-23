@@ -255,9 +255,13 @@ export function formatLensPost(result: AnyPublicationFragment): Post {
                 bookmarks: result.stats.bookmarks,
             },
             __original__: result,
+            canComment: result.operations.canComment === 'YES',
+            canMirror: result.operations.canMirror === 'YES',
+            hasMirrored: result.operations.hasMirrored,
             quoteOn: formatLensQuote(result.quoteOn),
         };
     }
+
     return {
         source: SocialPlatform.Lens,
         postId: result.id,
@@ -278,6 +282,10 @@ export function formatLensPost(result: AnyPublicationFragment): Post {
             reactions: result.stats.upvoteReactions,
             bookmarks: result.stats.bookmarks,
         },
+        canComment: result.operations.canComment === 'YES',
+        canMirror: result.operations.canMirror === 'YES',
+        hasMirrored: result.operations.hasMirrored,
+        hasLiked: result.operations.hasUpvoted,
         __original__: result,
     };
 }

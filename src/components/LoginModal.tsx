@@ -6,7 +6,7 @@ import { Fragment, useCallback, useEffect, useRef, useState } from 'react';
 
 import { LoginFarcaster } from '@/components/LoginFarcaster.js';
 import { Image } from '@/esm/Image.js';
-import { LensSocialMedia } from '@/providers/lens/SocialMedia.js';
+import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 
 interface LoginModalProps {
     isOpen: boolean;
@@ -33,8 +33,7 @@ export function LoginModal({ isOpen, setIsOpen }: LoginModalProps) {
     };
 
     const loginLens = useCallback(async () => {
-        const lensProvider = new LensSocialMedia();
-        await lensProvider.createSession();
+        await LensSocialMediaProvider.createSession();
         setIsOpen(false);
     }, [setIsOpen]);
 
