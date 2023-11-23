@@ -15,6 +15,9 @@
         },
         {
             "path": "./src/maskbook/packages/plugins/tsconfig.json"
+        },
+        {
+            "path": "./src/service-workers/tsconfig.json"
         }
     ],
     "compilerOptions": {
@@ -128,5 +131,5 @@
         }
     },
     "include": ["globals.d.ts", "next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-    "exclude": ["node_modules", "src/maskbook"]
+    "exclude": ["node_modules", "src/maskbook", "src/service-workers"]
 }

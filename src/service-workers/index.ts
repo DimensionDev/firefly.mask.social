@@ -1,4 +1,3 @@
-/// <reference lib="webworker" />
 declare let self: ServiceWorkerGlobalScope;
 
 const impressionsEndpoint = 'https://api.hey.xyz/leafwatch/impressions';
