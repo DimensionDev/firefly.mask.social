@@ -1,0 +1,28 @@
+{
+  "locales": [
+    "en",
+    "qaa"
+  ],
+  "rootDir": ".",
+  "pseudoLocale": "qaa",
+  "fallbackLocales": {
+    "qaa": "en"
+  },
+  "catalogs": [
+    {
+      "path": "src/locales/{locale}/messages",
+      "include": [
+        "src/app/**"
+      ],
+      "exclude": [
+        "src/maskbook/**"
+      ]
+    }
+  ],
+  "format": "po",
+  "formatOptions": {
+    "origins": true,
+    "lineNumbers": false
+  },
+  "orderBy": "messageId"
+}

@@ -1,6 +1,5 @@
 import { i18n } from '@lingui/core';
 import dayjs from 'dayjs';
-import { en } from 'make-plural/plurals';
 
 import { IS_PREVIEW, IS_PRODUCTION, LS_LOCALE_KEY } from '@/constants/index.js';
 
@@ -13,12 +12,6 @@ if (!IS_PRODUCTION || IS_PREVIEW) {
 }
 
 const defaultLocale = 'en';
-
-i18n.loadLocaleData({
-    en: { plurals: en },
-    qaa: { plurals: en },
-});
-
 /**
  * set locale and dynamically import catalog
  * @param locale a supported locale string
