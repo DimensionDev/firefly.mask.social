@@ -15,7 +15,7 @@ export class FireflySession extends BaseSession implements Session {
             expiresAt: this.expiresAt,
         });
 
-        return `${super.type}:${body}`;
+        return `${this.type}:${body}`;
     }
 
     static deserialize(serializedSession: string): FireflySession {

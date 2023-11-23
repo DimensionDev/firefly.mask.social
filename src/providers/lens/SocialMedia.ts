@@ -72,22 +72,87 @@ export class LensSocialMedia implements Provider {
         const accessToken = accessTokenResult.unwrap();
         const { payload } = await generateCustodyBearer(client);
 
-        return (this.currentSession = new LensSession(
+        const currentSession = new LensSession(
             profile.id,
             accessToken,
             payload.params.timestamp,
             payload.params.expiresAt,
             this.lensClient,
-        ));
+        );
+        localStorage.setItem(`lens_session${profile.id}`, currentSession.serialize());
+        return currentSession;
     }
 
-    async resumeSession(): Promise<LensSession> {
-        if (this.currentSession && this.currentSession.expiresAt > Date.now()) {
-            return this.currentSession;
-        }
+    async createSessionForProfileId(profileId: string): Promise<LensSession> {
+        const client = await getWalletClient();
+        if (!client) throw new Error('No client found');
 
-        this.currentSession = await this.createSession();
-        return this.currentSession;
+        const address = client.account.address;
+
+        const { id, text } = await this.lensClient.authentication.generateChallenge({
+            for: profileId,
+            signedBy: address,
+        });
+        const signature = await client.signMessage({
+            message: text,
+        });
+
+        await this.lensClient.authentication.authenticate({
+            id,
+            signature,
+        });
+
+        const accessTokenResult = await this.lensClient.authentication.getAccessToken();
+        const accessToken = accessTokenResult.unwrap();
+        const { payload } = await generateCustodyBearer(client);
+
+        const currentSession = new LensSession(
+            profileId,
+            accessToken,
+            payload.params.timestamp,
+            payload.params.expiresAt,
+            this.lensClient,
+        );
+        localStorage.setItem(`lens_session${profileId}`, currentSession.serialize());
+        return currentSession;
+    }
+
+    async getAllProfiles(): Promise<any> {
+        const client = await getWalletClient();
+        if (!client) throw new Error('No client found');
+
+        const address = client.account.address;
+        const profiles = await this.lensClient.profile.fetchAll({
+            where: {
+                ownedBy: [address],
+            },
+        });
+        return profiles.items.map((profile) => ({
+            name: profile.metadata?.displayName,
+            avatar:
+                profile.metadata?.picture?.__typename === 'ImageSet'
+                    ? profile.metadata?.picture?.optimized?.uri
+                    : profile.metadata?.picture?.image.optimized?.uri,
+            profileId: profile.handle?.localName,
+            signless: profile.signless,
+        }));
+    }
+    //@ts-ignore
+    async resumeSession(profileId: string): Promise<LensSession | null> {
+        const currentTime = Date.now();
+
+        const storedSession = localStorage.getItem(`lens_session${profileId}`);
+
+        if (storedSession) {
+            const recoveredSession = LensSession.deserialize(storedSession);
+            if (recoveredSession.expiresAt > currentTime) {
+                this.lensClient = recoveredSession.client;
+                return recoveredSession;
+            } else {
+                return null;
+            }
+        }
+        return null;
     }
 
     async publishPost(post: Post): Promise<Post> {

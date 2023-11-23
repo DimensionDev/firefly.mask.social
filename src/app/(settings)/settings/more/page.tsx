@@ -12,7 +12,7 @@ export default function More() {
             >
                 <Image src="/svg/security.svg" width={24} height={24} alt="security" />
                 <div className="inline-flex shrink grow basis-0 flex-col items-start justify-center gap-1">
-                    <div className=" text-[14px] font-bold leading-[18px] text-textMain">Privacy Policy</div>
+                    <div className=" text-[14px] font-bold leading-[18px] text-lightMain">Privacy Policy</div>
                 </div>
                 <button>
                     <Image src="/svg/link.svg" width={16} height={16} alt="link" />
@@ -24,7 +24,7 @@ export default function More() {
             >
                 <Image src="/svg/documents.svg" width={24} height={24} alt="security" />
                 <div className="inline-flex shrink grow basis-0 flex-col items-start justify-center gap-1">
-                    <div className=" text-[14px] font-bold leading-[18px] text-textMain">Terms of Service</div>
+                    <div className=" text-[14px] font-bold leading-[18px] text-lightMain">Terms of Service</div>
                 </div>
                 <button>
                     <Image src="/svg/link.svg" width={16} height={16} alt="link" />

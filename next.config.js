@@ -30,6 +30,9 @@ export default {
             {
                 hostname: 'static-assets.hey.xyz',
             },
+            {
+                hostname: 'gw.ipfs-lens.dev',
+            },
         ],
     },
     async headers() {

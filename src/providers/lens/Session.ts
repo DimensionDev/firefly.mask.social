@@ -12,11 +12,34 @@ export class LensSession extends BaseSession implements Session {
         token: string,
         createdAt: number,
         expiresAt: number,
-        private client = new LensClient({
+        public client = new LensClient({
             environment: process.env.NODE_ENV === 'production' ? production : development,
         }),
     ) {
         super(Type.Lens, profileId, token, createdAt, expiresAt);
+        this.client = client;
+    }
+
+    static deserialize(serializedSession: string): LensSession {
+        const colonIndex = serializedSession.indexOf(':');
+        const body = serializedSession.substring(colonIndex + 1);
+        const data = JSON.parse(body);
+
+        const session = new LensSession(data.profileId, data.token, data.timestamp, data.expiresAt, data.client);
+
+        return session;
+    }
+
+    override serialize(): `${Type}:${string}` {
+        const body = JSON.stringify({
+            profileId: this.profileId,
+            token: this.token,
+            createdAt: this.createdAt,
+            expiresAt: this.expiresAt,
+            client: this.client,
+        });
+
+        return `${this.type}:${body}`;
     }
 
     async refresh(): Promise<void> {

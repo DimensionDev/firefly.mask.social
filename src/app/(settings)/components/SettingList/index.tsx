@@ -12,7 +12,7 @@ const settings = [
 export function SettingList() {
     return (
         <div className="flex min-h-full min-w-[280px] flex-col border-r border-gray-200 p-[24px]">
-            <div className=" pb-[24px] text-[20px] font-bold leading-[24px] text-textMain">Settings</div>
+            <div className=" pb-[24px] text-[20px] font-bold leading-[24px] text-lightMain">Settings</div>
             {settings.map(({ name, link }) => (
                 <Link
                     className="mb-[24px] flex items-center justify-between border-b border-gray-200 pb-[4px] text-[18px] leading-[24px] text-main"

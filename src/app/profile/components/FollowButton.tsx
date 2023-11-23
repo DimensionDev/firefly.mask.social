@@ -24,8 +24,8 @@ export default function FollowButton({ profile }: FollowButtonProps) {
         <button
             className={classNames(
                 ' flex h-8 w-[100px] items-center justify-center rounded-full text-sm font-semibold transition-all',
-                followButtonText === 'Follow' ? ' bg-textMain text-white hover:opacity-80' : '',
-                followButtonText === 'Following' ? ' border border-textMain text-textMain' : '',
+                followButtonText === 'Follow' ? ' bg-lightMain text-white hover:opacity-80' : '',
+                followButtonText === 'Following' ? ' border border-lightMain text-lightMain' : '',
                 followButtonText === 'Unfollow' ? ' border border-[#FF354580] bg-[#FF354533] text-[#FF354580]' : '',
             )}
             onMouseMove={() => setFollowHover(true)}

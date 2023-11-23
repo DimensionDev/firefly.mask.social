@@ -17,7 +17,7 @@ export default function ContentTabs() {
                     <button
                         className={classNames(
                             ' flex h-[46px] items-center px-[14px] font-extrabold transition-all',
-                            tab === tabName ? ' text-textMain' : ' text-[#767F8D]',
+                            tab === tabName ? ' text-lightMain' : ' text-[#767F8D]',
                         )}
                         onClick={() => setTab(tabName)}
                     >
