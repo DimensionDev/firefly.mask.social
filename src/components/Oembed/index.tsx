@@ -36,7 +36,6 @@ export default function Oembed({ url, onData }: OembedProps) {
     const og: OpenGraph = data.data.og;
     if (!og.title) return null;
 
-    console.log(data);
     if (data.data.payload?.type === OpenGraphPayloadSourceType.Mirror) {
         return (
             <Mirror
