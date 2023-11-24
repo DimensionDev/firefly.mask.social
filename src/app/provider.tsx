@@ -10,7 +10,7 @@ import { useEffectOnce } from 'react-use';
 import { v4 as uuid } from 'uuid';
 
 import { WagmiProvider } from '@/components/WagmiProvider.js';
-import { useLeafwatchPersistStore } from '@/store/index.js';
+import { useLeafwatchPersistStore } from '@/store/useLeafwatchPersistStore.js';
 
 const livepeerClient = createReactClient({
     provider: studioProvider({ apiKey: '' }),

@@ -7,8 +7,7 @@ import { useState } from 'react';
 import { AccountCard } from '@/components/LoginLens/AccountCard.js';
 import { Image } from '@/esm/Image.js';
 import { LensSocialMedia } from '@/providers/lens/SocialMedia.js';
-import type { LensAccount } from '@/store/index.js';
-import { useLensAccountsStore } from '@/store/index.js';
+import { type LensAccount, useLensAccountsStore } from '@/store/useAccountPersistStore.js';
 
 interface LoginLensProps {
     onClose: () => void;

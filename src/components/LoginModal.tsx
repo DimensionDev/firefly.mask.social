@@ -8,7 +8,7 @@ import { LoginFarcaster } from '@/components/LoginFarcaster.js';
 import { LoginLens } from '@/components/LoginLens/index.js';
 import { Image } from '@/esm/Image.js';
 import { LensSocialMedia } from '@/providers/lens/SocialMedia.js';
-import { type LensAccount } from '@/store/index.js';
+import type { LensAccount } from '@/store/useAccountPersistStore.js';
 
 interface LoginModalProps {
     isOpen: boolean;

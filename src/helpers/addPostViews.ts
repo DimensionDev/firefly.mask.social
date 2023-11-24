@@ -1,4 +1,4 @@
-import { hydrateLeafwatchViewerId } from '@/store/index.js';
+import { hydrateLeafwatchViewerId } from '@/store/useLeafwatchPersistStore.js';
 
 export function addPostViews(id: string) {
     const viewerId = hydrateLeafwatchViewerId();
