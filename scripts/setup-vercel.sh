@@ -18,4 +18,5 @@ npx tsc -b
 cd -
 
 # Run Next.js build for the main project
-pnpm build
+pnpm run build:sw
+pnpm run build

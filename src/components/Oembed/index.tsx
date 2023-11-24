@@ -8,7 +8,7 @@ import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { formatWarpcastPost } from '@/helpers/formatWarpcastPost.js';
 import type { LinkDigest, OpenGraph } from '@/services/digestLink.js';
 import type { ResponseJSON } from '@/types/index.js';
-import { OpenGraphPayloadSourceType } from '@/types/openGraph.js';
+import { OpenGraphPayloadSourceType } from '@/types/og.js';
 
 import { Mirror } from './Mirror.js';
 

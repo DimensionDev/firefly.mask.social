@@ -1,0 +1,382 @@
+msgid ""
+msgstr ""
+"POT-Creation-Date: 2023-11-24 21:17+0800\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: @lingui/cli\n"
+"Language: pseudo\n"
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Plural-Forms: \n"
+
+#. js-lingui-explicit-id
+msgid "Add an existing account"
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "Allow Lens Manager to perform actions such as posting, liking, and commenting without the need to sign each transaction"
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "Associated Wallets"
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "Audio Cover"
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "Change Wallet"
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "Change account"
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "Collect is coming soon"
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "Comment"
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "Communities"
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "Confirm"
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "Connect Wallet"
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "Connected Accounts"
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "Connected in Firefly"
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "Copied"
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "Dark mode"
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "Delegate Signing (Recommend)"
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "Details"
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "Discard"
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "Discover"
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "Display"
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "Everyone can reply"
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "Failed to fetch as Blob."
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "Failed to fetch as Text."
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "Failed to follow"
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "Failed to like. {message}"
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "Failed to mirror post"
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "Failed to mirror. {message}"
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "Failed to parse session."
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "Failed to publish post"
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "Failed to serialize payload."
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "Failed to unfollow"
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "Failed to unlike. {message}"
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "Failed to unmirror post"
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "Failed to unvote post"
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "Failed to upvote post"
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "Firefly"
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "Follow"
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "Follow @thefireflyapp on X"
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "Follow System"
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "Followers"
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "Following"
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "Lens"
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "Light mode"
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "Liked"
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "Log in to your Farcaster account by scanning this QR code using mobile application Warpcast."
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "Log in with Farcaster account"
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "Log out"
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "Log out all"
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "Login"
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "Malformed session."
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "Method not implemented."
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "Mirror"
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "Mirror and Quotes"
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "Mirrored"
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "Mirrors and Quotes"
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "Missing client."
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "More"
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "No client found"
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "No content URI found"
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "No post found"
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "No profile found"
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "No session found"
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "Not followed by anyone you’re following"
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "Not implemented yet."
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "Notification"
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "Only people you follow can reply"
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "Post"
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "Post by"
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "Post has been hidden"
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "Privacy Policy"
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "Profile"
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "Quote Post"
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "Recast"
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "Recasted"
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "Reply Restriction"
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "Search Lens handle or Farcaster"
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "Select Account"
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "Setting"
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "Settings"
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "Share"
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "Show More"
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "Sign"
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "Sign the transaction to verify you are the owner of the selected profile"
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "Switch"
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "Terms of Service"
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "This can’t be undone and you’ll lose your draft"
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "UnLiked"
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "Unfollow"
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "Unknown session type."
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "You cannot reply to @{author} on {source}"
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "{count} Comments"
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "{count} views"
+msgstr ""

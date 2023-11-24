@@ -1,5 +1,6 @@
 import 'plyr-react/plyr.css';
 
+import { Trans } from '@lingui/react';
 import { memo } from 'react';
 
 import Music from '@/assets/music.svg';
@@ -30,7 +31,7 @@ export const Audio = memo<AudioProps>(function Audio({ poster, src, title, artis
                             <Music width={24} height={24} />
                         </span>
                         <span className="break-keep text-[11px] font-medium leading-[16px] text-secondary">
-                            Audio Cover
+                            <Trans id="Audio Cover" />
                         </span>
                     </div>
                 )}

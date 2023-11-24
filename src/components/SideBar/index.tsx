@@ -1,5 +1,7 @@
 'use client';
 
+import { i18n } from '@lingui/core';
+import { Trans } from '@lingui/react';
 import { memo, useMemo, useState } from 'react';
 
 import DiscoverSelectedIcon from '@/assets/discover.selected.svg';
@@ -26,22 +28,27 @@ import { useFarcasterAccountsStore, useLensAccountsStore } from '@/store/useAcco
 import { ConnectWalletNav } from './ConnectWalletNav.js';
 
 const items = [
-    { href: PageRoutes.Home, name: 'Discover', icon: DiscoverIcon, selectedIcon: DiscoverSelectedIcon },
+    { href: PageRoutes.Home, name: i18n.t('Discover'), icon: DiscoverIcon, selectedIcon: DiscoverSelectedIcon },
     {
         href: PageRoutes.Following,
-        name: 'Following',
+        name: i18n.t('Following'),
         icon: FollowingIcon,
         selectedIcon: FollowingSelectedIcon,
     },
     {
         href: PageRoutes.Notification,
-        name: 'Notification',
+        name: i18n.t('Notification'),
         icon: NotificationIcon,
         selectedIcon: NotificationSelectedIcon,
     },
-    { href: PageRoutes.Profile, name: 'Profile', icon: ProfileIcon, selectedIcon: ProfileSelectedIcon },
-    { href: '/connect-wallet', name: 'Connect Wallet', icon: '/svg/wallet.svg', selectedIcon: '/svg/wallet.svg' },
-    { href: PageRoutes.Setting, name: 'Setting', icon: SettingsIcon, selectedIcon: SettingsSelectedIcon },
+    { href: PageRoutes.Profile, name: i18n.t('Profile'), icon: ProfileIcon, selectedIcon: ProfileSelectedIcon },
+    {
+        href: '/connect-wallet',
+        name: i18n.t('Connect Wallet'),
+        icon: '/svg/wallet.svg',
+        selectedIcon: '/svg/wallet.svg',
+    },
+    { href: PageRoutes.Setting, name: i18n.t('Settings'), icon: SettingsIcon, selectedIcon: SettingsSelectedIcon },
 ];
 
 export const SideBar = memo(function SideBar() {
@@ -91,7 +98,7 @@ export const SideBar = memo(function SideBar() {
                                             type="button"
                                             className=" min-w-[150px] rounded-[16px] bg-main px-3 py-3 text-xl font-semibold leading-6 text-primaryBottom "
                                         >
-                                            Post
+                                            <Trans id="Post" />
                                         </button>
                                     </li>
                                 </ul>
@@ -110,7 +117,7 @@ export const SideBar = memo(function SideBar() {
                                         type="button"
                                         className=" min-w-[150px] rounded-[16px] bg-main px-3 py-3 text-xl font-semibold leading-6 text-primaryBottom "
                                     >
-                                        Login
+                                        <Trans id="Login" />
                                     </button>
                                 )}
                             </li>

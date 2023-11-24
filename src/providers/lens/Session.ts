@@ -1,4 +1,5 @@
 import { development, LensClient, production } from '@lens-protocol/client';
+import { i18n } from '@lingui/core';
 import { getWalletClient } from 'wagmi/actions';
 
 import { generateCustodyBearer } from '@/helpers/generateCustodyBearer.js';
@@ -34,7 +35,7 @@ export class LensSession extends BaseSession implements Session {
 
     async refresh(): Promise<void> {
         const client = await getWalletClient();
-        if (!client) throw new Error('No client found');
+        if (!client) throw new Error(i18n.t('No client found'));
 
         const { payload } = await generateCustodyBearer(client);
 
@@ -43,7 +44,7 @@ export class LensSession extends BaseSession implements Session {
         const profile = await this.client.profile.fetchDefault({
             for: address,
         });
-        if (!profile) throw new Error('No profile found');
+        if (!profile) throw new Error(i18n.t('No profile found'));
 
         const { id, text } = await this.client.authentication.generateChallenge({
             for: profile.id,

@@ -1,4 +1,5 @@
 import { Popover, Transition } from '@headlessui/react';
+import { Trans } from '@lingui/react';
 import { Fragment, useMemo } from 'react';
 
 import { Image } from '@/esm/Image.js';
@@ -20,7 +21,7 @@ export default function ReplyRestriction() {
             <Popover.Panel className="absolute bottom-full right-0 flex w-[280px] -translate-y-3 flex-col gap-2 rounded-lg bg-white p-3 shadow-popover">
                 <div className=" flex h-[22px] cursor-pointer items-center justify-between">
                     <span className={classNames(' text-sm font-bold text-[#07101B]', !disabled ? ' opacity-50' : '')}>
-                        Everyone can reply
+                        <Trans id="Everyone can reply" />
                     </span>
                     <Image src="/svg/radio.yes.svg" width={16} height={16} alt="radio.yes" />
                 </div>
@@ -34,7 +35,7 @@ export default function ReplyRestriction() {
                     )}
                 >
                     <span className={classNames(' text-sm font-bold text-[#07101B]', disabled ? ' opacity-50' : '')}>
-                        Only people you follow can reply
+                        <Trans id="Only people you follow can reply" />
                     </span>
                     <Image src="/svg/radio.disable-no.svg" width={16} height={16} alt="radio.disable-no" />
                 </div>

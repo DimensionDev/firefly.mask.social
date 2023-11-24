@@ -1,6 +1,7 @@
 import { Popover } from '@headlessui/react';
 import { ChevronRightIcon } from '@heroicons/react/24/outline';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext.js';
+import { Trans } from '@lingui/react';
 import { $getSelection } from 'lexical/LexicalSelection.js';
 import { type ChangeEvent, type Dispatch, type SetStateAction, useCallback, useRef } from 'react';
 
@@ -31,7 +32,7 @@ export default function ComposeAction({ type, setImages }: ComposeActionProps) {
 
     const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
         const files = event.target.files;
-        console.log(files);
+
         if (files) {
             setImages((_images) => _images.concat([...files]));
         }
@@ -77,7 +78,9 @@ export default function ComposeAction({ type, setImages }: ComposeActionProps) {
             </div>
 
             <div className=" flex h-9 items-center justify-between">
-                <span className=" text-sm text-[#767F8D]">Post by</span>
+                <span className=" text-sm text-[#767F8D]">
+                    <Trans id="Post by" />
+                </span>
                 <Popover as="div" className="relative">
                     {(_) => (
                         <>
@@ -92,15 +95,18 @@ export default function ComposeAction({ type, setImages }: ComposeActionProps) {
             </div>
 
             <div className=" flex h-9 items-center justify-between">
-                <span className=" text-sm text-[#767F8D]">Reply Restriction</span>
+                <span className=" text-sm text-[#767F8D]">
+                    <Trans id="Reply Restriction" />
+                </span>
                 <Popover as="div" className="relative">
                     {(_) => (
                         <>
                             <Popover.Button className=" flex cursor-pointer gap-1 text-[#07101B] focus:outline-none">
-                                <span className=" text-sm font-bold">Everyone can reply</span>
+                                <span className=" text-sm font-bold">
+                                    <Trans id="Everyone can reply" />
+                                </span>
                                 <ChevronRightIcon className="h-5 w-5" aria-hidden="true" />
                             </Popover.Button>
-
                             <ReplyRestriction />
                         </>
                     )}

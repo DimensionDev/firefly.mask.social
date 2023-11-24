@@ -1,3 +1,4 @@
+import { i18n } from '@lingui/core';
 import { motion } from 'framer-motion';
 import { memo } from 'react';
 
@@ -17,14 +18,24 @@ export const Views = memo<ViewsProps>(function Collect({ count, disabled = false
                 'opacity-50': disabled,
             })}
         >
-            <Tooltip content={count ? `${nFormatter(count)} views` : null} placement="top" disabled={disabled}>
+            <Tooltip
+                content={
+                    count
+                        ? i18n.t('{count} views', {
+                              count: nFormatter(count),
+                          })
+                        : null
+                }
+                placement="top"
+                disabled={disabled}
+            >
                 <motion.button
                     disabled={disabled}
                     onClick={(event) => {
                         event.stopPropagation();
                     }}
                     whileTap={{ scale: 0.9 }}
-                    className="  rounded-full p-1.5 "
+                    className=" rounded-full p-1.5 "
                 >
                     <ViewsIcon width={17} height={16} />
                 </motion.button>

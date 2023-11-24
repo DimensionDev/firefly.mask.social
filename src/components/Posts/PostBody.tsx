@@ -1,5 +1,6 @@
 'use client';
 
+import { Trans } from '@lingui/react';
 import { forwardRef } from 'react';
 import urlcat from 'urlcat';
 
@@ -52,7 +53,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
                 })}
             >
                 <EyeSlash width={16} height={16} />
-                Post has been hidden
+                <Trans id="Post has been hidden" />
             </div>
         </div>;
     }
@@ -83,7 +84,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
             {canShowMore ? (
                 <div className="text-base font-bold text-link">
                     <Link href={urlcat('/detail/:platform/:id', { platform: post.source, id: post.postId })}>
-                        Show More
+                        <Trans id="Show More" />
                     </Link>
                 </div>
             ) : null}

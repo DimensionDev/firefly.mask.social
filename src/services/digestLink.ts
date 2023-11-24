@@ -13,7 +13,7 @@ import {
     getTitle,
 } from '@/helpers/getMetadata.js';
 import { getFarcasterPayload, getMirrorPayload } from '@/helpers/getPayload.js';
-import { type FarcasterPayload, type MirrorPayload } from '@/types/openGraph.js';
+import type { FarcasterPayload, MirrorPayload } from '@/types/og.js';
 
 export interface OpenGraphImage {
     url: string;

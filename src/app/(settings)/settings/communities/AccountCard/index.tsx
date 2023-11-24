@@ -6,6 +6,7 @@ interface AccountCardProps {
     link: string;
     content: string;
 }
+
 export function AccountCard({ logo, link, content }: AccountCardProps) {
     return (
         <div

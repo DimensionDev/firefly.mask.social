@@ -1,7 +1,7 @@
 import { parseJSON } from '@masknet/web3-providers/helpers';
 
 import type { Cast } from '@/providers/types/Warpcast.js';
-import { type FarcasterPayload, type MirrorPayload, OpenGraphPayloadSourceType } from '@/types/openGraph.js';
+import { type FarcasterPayload, type MirrorPayload, OpenGraphPayloadSourceType } from '@/types/og.js';
 
 export function getMirrorPayload(document: Document): MirrorPayload | null {
     const dataScript = document.getElementById('__NEXT_DATA__');

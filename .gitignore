@@ -41,3 +41,6 @@ sw.js
 
 .vscode/
 .vim/
+
+# locales
+src/locales/**/*.js

@@ -2,6 +2,9 @@
     "version": "0.1",
     "language": "en",
     "words": [
+        "Jamo",
+        "Oembed",
+        "Twitterbot",
         "arbitrum",
         "artblocks",
         "arweave",
@@ -13,17 +16,16 @@
         "farcaster",
         "immer",
         "ipfs",
-        "Jamo",
+        "lingui",
         "linkedom",
         "merkle",
         "nextid",
-        "Oembed",
         "pageable",
         "recasted",
         "recaster",
         "recasters",
+        "signless",
         "solana",
-        "Twitterbot",
         "unfollow",
         "unlonely",
         "unmirror",
@@ -35,8 +37,7 @@
         "wagmi",
         "warpcast",
         "zora",
-        "zustand",
-        "signless"
+        "zustand"
     ],
     "ignoreWords": [
         "cyberconnect",
@@ -92,7 +93,8 @@
         "public/js/**",
         "src/maskbook",
         "src/providers/firefly/proto",
-        "src/assets/**"
+        "src/assets/**",
+        "src/locales/**"
     ],
     "overrides": []
 }

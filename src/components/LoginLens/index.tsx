@@ -1,5 +1,6 @@
 'use client';
 
+import { Trans } from '@lingui/react';
 import { Switch } from '@mui/material';
 import { useAccountModal } from '@rainbow-me/rainbowkit';
 import { useState } from 'react';
@@ -18,6 +19,7 @@ export function LoginLens({ onClose, accounts }: LoginLensProps) {
     const [currentAccount, setCurrentAccount] = useState<string>(accounts ? accounts[0].id : '');
     const { openAccountModal } = useAccountModal();
     const setLensAccounts = useLensAccountsStore.use.setAccounts();
+
     async function login() {
         if (!accounts) return;
         const lensProvider = new LensSocialMedia();
@@ -46,14 +48,14 @@ export function LoginLens({ onClose, accounts }: LoginLensProps) {
                     />
                 </button>
                 <div className="shrink grow basis-0 text-center font-['Helvetica'] text-lg font-bold leading-snug text-lightMain">
-                    Select Account
+                    <Trans id="Select Account" />
                 </div>
                 <div className="relative h-[24px] w-[24px]" />
             </div>
             <div className="flex min-h-[372px] w-full flex-col gap-[16px] p-[16px]">
                 <div className="flex w-full flex-col gap-[16px] rounded-[8px] bg-lightBg px-[16px] py-[24px]">
                     <div className="w-full text-left text-[14px] leading-[16px] text-lightSecond">
-                        Sign the transaction to verify you are the owner of the selected profile
+                        <Trans id="Sign the transaction to verify you are the owner of the selected profile" />
                     </div>
                     {accounts?.map((account) => (
                         <AccountCard
@@ -70,13 +72,12 @@ export function LoginLens({ onClose, accounts }: LoginLensProps) {
                 <div className="flex w-full flex-col gap-[8px] rounded-[8px] bg-lightBg px-[16px] py-[24px]">
                     <div className="flex items-center justify-between">
                         <span className="text-[14px] font-bold leading-[18px] text-lightMain">
-                            Delegate Signing (Recommend)
+                            <Trans id="Delegate Signing (Recommend)" />
                         </span>
                         <Switch checked />
                     </div>
                     <div className="w-full text-left text-[14px] leading-[16px] text-lightSecond">
-                        Allow Lens Manager to perform actions such as posting, liking, and commenting without the need
-                        to sign each transaction
+                        <Trans id="Allow Lens Manager to perform actions such as posting, liking, and commenting without the need to sign each transaction" />
                     </div>
                 </div>
                 <div
@@ -88,13 +89,15 @@ export function LoginLens({ onClose, accounts }: LoginLensProps) {
                 >
                     <button className="flex gap-[8px] py-[11px]" onClick={() => openAccountModal()}>
                         <Image src="/svg/wallet.svg" alt="wallet" width={20} height={20} />
-                        <span className=" text-[14px] font-bold leading-[18px] text-lightSecond">Change Wallet</span>
+                        <span className=" text-[14px] font-bold leading-[18px] text-lightSecond">
+                            <Trans id="Change Wallet" />
+                        </span>
                     </button>
                     <button
                         className="flex w-[120px] items-center justify-center gap-[8px] rounded-[99px] bg-lightMain py-[11px] text-primaryBottom"
                         onClick={() => login()}
                     >
-                        Sign
+                        <Trans id="Sign" />
                     </button>
                 </div>
             </div>

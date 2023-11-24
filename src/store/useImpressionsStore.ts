@@ -2,7 +2,11 @@ import { create } from 'zustand';
 
 import { createSelectors } from '@/helpers/createSelector.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
-import type { LensPublicationViewCount } from '@/types/index.js';
+
+export interface LensPublicationViewCount {
+    id: string;
+    views: number;
+}
 
 interface ImpressionsState {
     publicationViews: LensPublicationViewCount[];
