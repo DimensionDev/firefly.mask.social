@@ -1,11 +1,13 @@
+'use client';
+
 import { Trans } from '@lingui/react';
 
-import { AccountCard } from '@/app/(settings)/settings/associated/AccountCard/index.js';
+import { AccountCard } from './AccountCard/index.js';
 
 export default function Associated() {
     return (
         <div className="flex w-full flex-col items-center gap-[24px] p-[24px]">
-            <div className="  flex w-full items-center justify-between gap-[24px]">
+            <div className=" flex w-full items-center justify-between gap-[24px]">
                 <span className="text-[18px] font-bold leading-[24px] text-main">
                     <Trans id="Associated Wallets" />
                 </span>

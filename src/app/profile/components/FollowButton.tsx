@@ -21,7 +21,7 @@ export default function FollowButton({ profile }: FollowButtonProps) {
         const isFollowing = profile?.viewerContext?.following;
 
         return {
-            buttonText: isFollowing ? (followHover ? i18n._('Unfollow') : i18n._('Following')) : i18n._('Follow'),
+            buttonText: isFollowing ? (followHover ? i18n.t('Unfollow') : i18n.t('Following')) : i18n.t('Follow'),
             buttonState: isFollowing
                 ? followHover
                     ? FollowButtonState.Unfollow

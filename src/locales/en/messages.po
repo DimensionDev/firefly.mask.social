@@ -14,10 +14,6 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. js-lingui-explicit-id
-msgid "> Disconnect Wallet"
-msgstr "> Disconnect Wallet"
-
-#. js-lingui-explicit-id
 msgid "Add an existing account"
 msgstr "Add an existing account"
 
@@ -318,6 +314,10 @@ msgid "Reply Restriction"
 msgstr "Reply Restriction"
 
 #. js-lingui-explicit-id
+msgid "Search Lens handle or Farcaster"
+msgstr "Search Lens handle or Farcaster"
+
+#. js-lingui-explicit-id
 msgid "Select Account"
 msgstr "Select Account"
 
@@ -328,6 +328,10 @@ msgstr "Setting"
 #. js-lingui-explicit-id
 msgid "Settings"
 msgstr "Settings"
+
+#. js-lingui-explicit-id
+msgid "Share"
+msgstr "Share"
 
 #. js-lingui-explicit-id
 msgid "Show More"

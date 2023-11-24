@@ -21,18 +21,18 @@ export const Comment = memo<CommentProps>(function Comment({ count, disabled = f
     const { enqueueSnackbar } = useSnackbar();
     const tooltip = useMemo(() => {
         if (count && count > 0) {
-            return i18n._('{count} Comments', {
+            return i18n.t('{count} Comments', {
                 count: humanize(count),
             });
         }
 
-        return i18n._('Comment');
+        return i18n.t('Comment');
     }, [count]);
 
     const handleClick = useCallback(() => {
         if (canComment)
             enqueueSnackbar(
-                i18n._('You cannot reply to @{author} on {source}', {
+                i18n.t('You cannot reply to @{author} on {source}', {
                     author,
                     source,
                 }),

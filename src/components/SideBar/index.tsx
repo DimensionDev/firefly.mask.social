@@ -28,27 +28,27 @@ import { useFarcasterAccountsStore, useLensAccountsStore } from '@/store/useAcco
 import { ConnectWalletNav } from './ConnectWalletNav.js';
 
 const items = [
-    { href: PageRoutes.Home, name: i18n._('Discover'), icon: DiscoverIcon, selectedIcon: DiscoverSelectedIcon },
+    { href: PageRoutes.Home, name: i18n.t('Discover'), icon: DiscoverIcon, selectedIcon: DiscoverSelectedIcon },
     {
         href: PageRoutes.Following,
-        name: i18n._('Following'),
+        name: i18n.t('Following'),
         icon: FollowingIcon,
         selectedIcon: FollowingSelectedIcon,
     },
     {
         href: PageRoutes.Notification,
-        name: i18n._('Notification'),
+        name: i18n.t('Notification'),
         icon: NotificationIcon,
         selectedIcon: NotificationSelectedIcon,
     },
-    { href: PageRoutes.Profile, name: i18n._('Profile'), icon: ProfileIcon, selectedIcon: ProfileSelectedIcon },
+    { href: PageRoutes.Profile, name: i18n.t('Profile'), icon: ProfileIcon, selectedIcon: ProfileSelectedIcon },
     {
         href: '/connect-wallet',
-        name: i18n._('Connect Wallet'),
+        name: i18n.t('Connect Wallet'),
         icon: '/svg/wallet.svg',
         selectedIcon: '/svg/wallet.svg',
     },
-    { href: PageRoutes.Setting, name: i18n._('Setting'), icon: SettingsIcon, selectedIcon: SettingsSelectedIcon },
+    { href: PageRoutes.Setting, name: i18n.t('Setting'), icon: SettingsIcon, selectedIcon: SettingsSelectedIcon },
 ];
 
 export const SideBar = memo(function SideBar() {

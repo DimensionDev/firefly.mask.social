@@ -48,7 +48,7 @@ export const Like = memo<LikeProps>(function Like({ count, hasLiked, postId, sou
                 default:
                     break;
             }
-            enqueueSnackbar(liked ? i18n._('UnLiked') : i18n._('Liked'), {
+            enqueueSnackbar(liked ? i18n.t('UnLiked') : i18n.t('Liked'), {
                 variant: 'success',
             });
             queryClient.invalidateQueries({ queryKey: [source, 'post-detail', postId] });
@@ -64,10 +64,10 @@ export const Like = memo<LikeProps>(function Like({ count, hasLiked, postId, sou
                 });
                 enqueueSnackbar(
                     liked
-                        ? i18n._('Failed to unlike. {message}', {
+                        ? i18n.t('Failed to unlike. {message}', {
                               message: error.message,
                           })
-                        : i18n._('Failed to like. {message}', {
+                        : i18n.t('Failed to like. {message}', {
                               message: error.message,
                           }),
                     {
@@ -91,7 +91,7 @@ export const Like = memo<LikeProps>(function Like({ count, hasLiked, postId, sou
                 <motion.button
                     disabled={disabled}
                     whileTap={{ scale: 0.9 }}
-                    className="rounded-full  p-1.5 hover:bg-danger/[.20] "
+                    className="rounded-full p-1.5 hover:bg-danger/[.20] "
                     onClick={(event) => {
                         event.stopPropagation();
                         if (disabled) return;

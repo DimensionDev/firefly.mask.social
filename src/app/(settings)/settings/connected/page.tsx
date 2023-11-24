@@ -1,13 +1,16 @@
+'use client';
+
 import { Trans } from '@lingui/react';
 
-import { AccountCard } from '@/app/(settings)/settings/connected/AccountCard/index.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { Image } from '@/esm/Image.js';
+
+import { AccountCard } from './AccountCard/index.js';
 
 export default function Connected() {
     return (
         <div className="flex w-full flex-col items-center gap-[24px] p-[24px]">
-            <div className="  flex w-full items-center justify-between gap-[24px]">
+            <div className=" flex w-full items-center justify-between gap-[24px]">
                 <span className="text-[18px] font-bold leading-[24px] text-main">
                     <Trans id="Connected Accounts" />
                 </span>

@@ -78,7 +78,7 @@ export class WarpcastSocialMedia implements Provider {
      */
     private async createSessionByCustodyWallet(signal?: AbortSignal) {
         const client = await getWalletClient();
-        if (!client) throw new Error(i18n._('No client found'));
+        if (!client) throw new Error(i18n.t('No client found'));
 
         const { payload, token } = await generateCustodyBearer(client);
         const response = await fetchJSON<{

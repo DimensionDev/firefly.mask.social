@@ -18,7 +18,7 @@ export const Share = memo<ShareProps>(function Collect({ url, disabled = false }
 
     const handleClick = useCallback(() => {
         copyToClipboard(url);
-        enqueueSnackbar(i18n._('Copied'), {
+        enqueueSnackbar(i18n.t('Copied'), {
             variant: 'success',
         });
     }, [enqueueSnackbar, url, copyToClipboard]);
@@ -29,7 +29,7 @@ export const Share = memo<ShareProps>(function Collect({ url, disabled = false }
                 'opacity-50': disabled,
             })}
         >
-            <Tooltip content="Share" placement="top" disabled={disabled}>
+            <Tooltip content={i18n.t('Share')} placement="top" disabled={disabled}>
                 <motion.button
                     disabled={disabled}
                     onClick={(event) => {

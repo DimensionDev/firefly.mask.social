@@ -1,11 +1,13 @@
+'use client';
+
 import { i18n } from '@lingui/core';
 import { Trans } from '@lingui/react';
 
-import { AccountCard } from '@/app/(settings)/settings/communities/AccountCard/index.js';
+import { AccountCard } from './AccountCard/index.js';
 
 const communities = [
     {
-        content: i18n._('Follow @thefireflyapp on X'),
+        content: i18n.t('Follow @thefireflyapp on X'),
         link: 'https://twitter.com/thefireflyapp',
         logo: '/svg/x-light.svg',
     },

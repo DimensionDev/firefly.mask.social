@@ -1,4 +1,5 @@
 'use client';
+import { i18n } from '@lingui/core';
 import { useAccountModal, useConnectModal } from '@rainbow-me/rainbowkit';
 import { useMemo } from 'react';
 import { useAccount, useEnsName } from 'wagmi';
@@ -18,7 +19,7 @@ export function ConnectWalletNav() {
     const { openAccountModal } = useAccountModal();
 
     const text = useMemo(() => {
-        if (!account.isConnected || !account.address || !mounted) return 'Connect Wallet';
+        if (!account.isConnected || !account.address || !mounted) return i18n.t('Connect Wallet');
         if (ensName) return ensName;
 
         return formatEthereumAddress(account.address, 4);

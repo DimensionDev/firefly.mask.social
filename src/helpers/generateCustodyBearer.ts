@@ -33,7 +33,7 @@ function createCustodyPayload(): CustodyPayload {
 export async function generateCustodyBearer(client: WalletClient) {
     const payload = createCustodyPayload();
     const message = canonicalize(payload);
-    if (!message) throw new Error(i18n._('Failed to serialize payload.'));
+    if (!message) throw new Error(i18n.t('Failed to serialize payload.'));
 
     const signature = await client.signMessage({
         message,

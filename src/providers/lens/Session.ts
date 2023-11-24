@@ -35,7 +35,7 @@ export class LensSession extends BaseSession implements Session {
 
     async refresh(): Promise<void> {
         const client = await getWalletClient();
-        if (!client) throw new Error(i18n._('No client found'));
+        if (!client) throw new Error(i18n.t('No client found'));
 
         const { payload } = await generateCustodyBearer(client);
 
@@ -44,7 +44,7 @@ export class LensSession extends BaseSession implements Session {
         const profile = await this.client.profile.fetchDefault({
             for: address,
         });
-        if (!profile) throw new Error(i18n._('No profile found'));
+        if (!profile) throw new Error(i18n.t('No profile found'));
 
         const { id, text } = await this.client.authentication.generateChallenge({
             for: profile.id,

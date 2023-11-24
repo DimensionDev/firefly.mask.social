@@ -1,3 +1,5 @@
+'use client';
+
 import { Trans } from '@lingui/react';
 
 import { Image } from '@/esm/Image.js';
@@ -5,7 +7,7 @@ import { Image } from '@/esm/Image.js';
 export default function More() {
     return (
         <div className="flex w-full flex-col items-center gap-[12px] p-[24px]">
-            <div className="  flex w-full items-center justify-between gap-[24px]">
+            <div className=" flex w-full items-center justify-between gap-[24px]">
                 <span className="text-[18px] font-bold leading-[24px] text-main">
                     <Trans id="More" />
                 </span>

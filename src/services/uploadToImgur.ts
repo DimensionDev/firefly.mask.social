@@ -42,7 +42,7 @@ export function uploadToImgur(
                 const completeUrl = response.data.link;
                 resolve(completeUrl);
             } else {
-                reject(new Error(i18n._('Upload failed')));
+                reject(new Error(i18n.t('Upload failed')));
             }
         };
 

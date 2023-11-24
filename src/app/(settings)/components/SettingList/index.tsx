@@ -7,11 +7,11 @@ import { Image } from '@/esm/Image.js';
 import { Link } from '@/esm/Link.js';
 
 const settings = [
-    { name: i18n._('Display'), link: '/display' },
-    { name: i18n._('Associated Wallets'), link: '/associated' },
-    { name: i18n._('Connected Accounts'), link: '/connected' },
-    { name: i18n._('Communities'), link: '/communities' },
-    { name: i18n._('More'), link: '/more' },
+    { name: i18n.t('Display'), link: '/display' },
+    { name: i18n.t('Associated Wallets'), link: '/associated' },
+    { name: i18n.t('Connected Accounts'), link: '/connected' },
+    { name: i18n.t('Communities'), link: '/communities' },
+    { name: i18n.t('More'), link: '/more' },
 ];
 
 export function SettingList() {

@@ -34,10 +34,10 @@ export const Mirror = memo<MirrorProps>(function Mirror({ shares, source, hasMir
     const content = useMemo(() => {
         switch (source) {
             case SocialPlatform.Lens:
-                if (count) return i18n._('Mirrors and Quotes');
-                return i18n._('Mirror and Quotes');
+                if (count) return i18n.t('Mirrors and Quotes');
+                return i18n.t('Mirror and Quotes');
             case SocialPlatform.Farcaster:
-                return i18n._('Recast');
+                return i18n.t('Recast');
             default:
                 return '';
         }
@@ -46,9 +46,9 @@ export const Mirror = memo<MirrorProps>(function Mirror({ shares, source, hasMir
     const mirrorActionText = useMemo(() => {
         switch (source) {
             case SocialPlatform.Lens:
-                return mirrored ? i18n._('Mirrored') : i18n._('Mirror');
+                return mirrored ? i18n.t('Mirrored') : i18n.t('Mirror');
             case SocialPlatform.Farcaster:
-                return mirrored ? i18n._('Recasted') : i18n._('Recast');
+                return mirrored ? i18n.t('Recasted') : i18n.t('Recast');
             default:
                 return '';
         }
@@ -66,7 +66,7 @@ export const Mirror = memo<MirrorProps>(function Mirror({ shares, source, hasMir
                         return prev + 1;
                     });
                     const result = await LensSocialMediaProvider.mirrorPost(postId);
-                    enqueueSnackbar(i18n._('Mirrored'), {
+                    enqueueSnackbar(i18n.t('Mirrored'), {
                         variant: 'success',
                     });
                     return result;
@@ -78,7 +78,7 @@ export const Mirror = memo<MirrorProps>(function Mirror({ shares, source, hasMir
                             return prev - 1;
                         });
                         enqueueSnackbar(
-                            i18n._('Failed to mirror. {message}', {
+                            i18n.t('Failed to mirror. {message}', {
                                 message: error.message,
                             }),
                             {

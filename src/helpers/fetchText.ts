@@ -9,6 +9,6 @@ export async function fetchText(
     options?: NextFetchersOptions,
 ): Promise<string> {
     const response = await fetch(input, init, getNextFetchers(options));
-    if (!response.ok) throw new Error(i18n._('Failed to fetch as Text.'));
+    if (!response.ok) throw new Error(i18n.t('Failed to fetch as Text.'));
     return response.text();
 }

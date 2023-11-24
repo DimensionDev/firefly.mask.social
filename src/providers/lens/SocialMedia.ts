@@ -44,13 +44,13 @@ export class LensSocialMedia implements Provider {
 
     async createSession(): Promise<LensSession> {
         const client = await getWalletClient();
-        if (!client) throw new Error(i18n._('No client found'));
+        if (!client) throw new Error(i18n.t('No client found'));
 
         const address = client.account.address;
         const profile = await this.lensClient.profile.fetchDefault({
             for: address,
         });
-        if (!profile) throw new Error(i18n._('No profile found'));
+        if (!profile) throw new Error(i18n.t('No profile found'));
 
         const { id, text } = await this.lensClient.authentication.generateChallenge({
             for: profile.id,
@@ -81,7 +81,7 @@ export class LensSocialMedia implements Provider {
 
     async createSessionForProfileId(profileId: string): Promise<LensSession> {
         const client = await getWalletClient();
-        if (!client) throw new Error(i18n._('No client found'));
+        if (!client) throw new Error(i18n.t('No client found'));
 
         const address = client.account.address;
 
@@ -115,7 +115,7 @@ export class LensSocialMedia implements Provider {
 
     async getAllProfiles(): Promise<any> {
         const client = await getWalletClient();
-        if (!client) throw new Error(i18n._('No client found'));
+        if (!client) throw new Error(i18n.t('No client found'));
 
         const address = client.account.address;
         const profiles = await this.lensClient.profile.fetchAll({
@@ -153,7 +153,7 @@ export class LensSocialMedia implements Provider {
     }
 
     async publishPost(post: Post): Promise<Post> {
-        if (!post.metadata.contentURI) throw new Error(i18n._('No content URI found'));
+        if (!post.metadata.contentURI) throw new Error(i18n.t('No content URI found'));
 
         const result = await this.lensClient.publication.postOnchain({
             contentURI: post.metadata.contentURI,
@@ -238,7 +238,7 @@ export class LensSocialMedia implements Provider {
         const result = await this.lensClient.profile.fetch({
             forHandle: profileId,
         });
-        if (!result) throw new Error(i18n._('No profile found'));
+        if (!result) throw new Error(i18n.t('No profile found'));
 
         return formatLensProfile(result);
     }
@@ -248,7 +248,7 @@ export class LensSocialMedia implements Provider {
             forId: postId,
         });
 
-        if (!result) throw new Error(i18n._('No post found'));
+        if (!result) throw new Error(i18n.t('No post found'));
 
         const post = formatLensPost(result);
         return post;
