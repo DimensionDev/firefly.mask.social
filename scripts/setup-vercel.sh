@@ -17,6 +17,9 @@ npx tsc -b
 # Return to the original directory
 cd -
 
+# Compile i18n
+pnpm run lingui:compile
+
 # Run Next.js build for the main project
 pnpm run build:sw
 pnpm run build
