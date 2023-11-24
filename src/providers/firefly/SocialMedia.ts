@@ -171,6 +171,20 @@ export class FireflySocialMedia implements Provider {
         };
     }
 
+    // @ts-ignore
+    async getPostsByParentPostId(postId: string, username: string, indicator?: PageIndicator) {
+        const url = urlcat('https://client.warpcast.com/v2', '/v2/user-thread-casts', {
+            castHashPrefix: postId,
+            limit: 10,
+            username,
+        });
+        const { result, next } = await fetchJSON<FeedResponse>(url, {
+            method: 'GET',
+        });
+        const data = result.feed.map(formatWarpcastPost);
+        return createPageable(data, indicator ?? createIndicator(), createNextIndicator(indicator, next.cursor));
+    }
+
     async getFollowers(profileId: string, indicator?: PageIndicator) {
         const url = urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/followers', {
             fid: profileId,
