@@ -5,6 +5,12 @@
             "path": "./src/maskbook/packages/polyfills/tsconfig.json"
         },
         {
+            "path": "./src/maskbook/packages/encryption/tsconfig.json"
+        },
+        {
+            "path": "./src/maskbook/packages/mask/tsconfig.json"
+        },
+        {
             "path": "./src/maskbook/packages/injected-script/main/tsconfig.json"
         },
         {
@@ -18,6 +24,18 @@
         },
         {
             "path": "./src/service-workers/tsconfig.json"
+        },
+        {
+            "path": "./src/maskbook/packages/plugins/Calendar/tsconfig.json"
+        },
+        {
+            "path": "./src/maskbook/packages/plugins/RedPacket/tsconfig.json"
+        },
+        {
+            "path": "./src/maskbook/packages/web3-providers/tsconfig.json"
+        },
+        {
+            "path": "./src/maskbook/packages/shared-base/tsconfig.json"
         }
     ],
     "compilerOptions": {
@@ -40,6 +58,7 @@
         ],
         "paths": {
             "@/*": ["./src/*"],
+            "@masknet/extension": ["./src/maskbook/packages/mask/"],
             "@masknet/backup-format": ["./src/maskbook/packages/backup-format/src/index.ts"],
             "@masknet/base": ["./src/maskbook/packages/base/src/index.ts"],
             "@masknet/encryption": ["./src/maskbook/packages/encryption/src/index.ts"],

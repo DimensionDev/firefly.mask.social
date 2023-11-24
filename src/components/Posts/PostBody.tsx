@@ -1,6 +1,7 @@
 'use client';
 
 import { Trans } from '@lingui/macro';
+import dynamic from 'next/dynamic.js';
 import { useRouter } from 'next/navigation.js';
 import { forwardRef } from 'react';
 import urlcat from 'urlcat';
@@ -10,9 +11,14 @@ import Lock from '@/assets/lock.svg';
 import { Markup } from '@/components/Markup/index.js';
 import Oembed from '@/components/Oembed/index.js';
 import { Attachments } from '@/components/Posts/Attachment.js';
+import { DecryptPost } from '@/components/Posts/DecryptPost.js';
 import { Quote } from '@/components/Posts/Quote.js';
 import { classNames } from '@/helpers/classNames.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
+
+const MaskRuntime = dynamic(() => import('@/components/MaskRuntime.js'), {
+    ssr: false,
+});
 
 interface PostBodyProps {
     post: Post;
@@ -78,9 +84,15 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
 
     return (
         <div className={'my-2 break-words pl-[52px] text-base text-main'} ref={ref}>
-            <Markup className={classNames({ 'line-clamp-5': canShowMore }, 'markup linkify text-md break-words')}>
-                {post.metadata.content?.content || ''}
-            </Markup>
+            <MaskRuntime>
+                <DecryptPost raw={post.metadata.content?.content || ''}>
+                    <Markup
+                        className={classNames({ 'line-clamp-5': canShowMore }, 'markup linkify text-md break-words')}
+                    >
+                        {post.metadata.content?.content || ''}
+                    </Markup>
+                </DecryptPost>
+            </MaskRuntime>
 
             {canShowMore ? (
                 <div className="text-base font-bold text-link">

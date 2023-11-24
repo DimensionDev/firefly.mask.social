@@ -103,12 +103,34 @@ export default {
             'text-encoding': require.resolve('@sinonjs/text-encoding'),
         };
 
-        config.module.rules.push({
-            test: /\.svg$/i,
-            exclude: /src\/maskbook/,
-            issuer: /\.[jt]sx?$/,
-            use: ['@svgr/webpack'],
-        });
+        config.module.rules.push(
+            {
+                test: /\.svg$/i,
+                exclude: /src\/maskbook/,
+                issuer: /\.[jt]sx?$/,
+                use: ['@svgr/webpack'],
+            },
+            {
+                test: /\.svg$/i,
+                include: /src\/maskbook/,
+                loader: require.resolve('svgo-loader'),
+                options: {
+                    js2svg: {
+                        pretty: false,
+                    },
+                },
+                dependency(data) {
+                    if (data === '') return false;
+                    // if (data !== 'url')
+                    // throw new TypeError(
+                    //     'The only import mode valid for a non-JS file is via new URL(). Current import mode: ' +
+                    //         data,
+                    // );
+                    return true;
+                },
+                type: 'asset/resource',
+            },
+        );
 
         return config;
     },

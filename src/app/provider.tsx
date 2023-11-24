@@ -3,9 +3,8 @@
 import { i18n } from '@lingui/core';
 import { I18nProvider } from '@lingui/react';
 import { createReactClient, LivepeerConfig, studioProvider } from '@livepeer/react';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { Hydrate, QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import { ReactQueryStreamedHydration } from '@tanstack/react-query-next-experimental';
 import { SnackbarProvider } from 'notistack';
 import { useEffect, useState } from 'react';
 import { useEffectOnce } from 'react-use';
@@ -55,7 +54,7 @@ export function Providers(props: { children: React.ReactNode }) {
     return (
         <I18nProvider i18n={i18n}>
             <QueryClientProvider client={queryClient}>
-                <ReactQueryStreamedHydration>
+                <Hydrate>
                     <SnackbarProvider
                         maxSnack={30}
                         anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
@@ -65,7 +64,7 @@ export function Providers(props: { children: React.ReactNode }) {
                             <LivepeerConfig client={livepeerClient}>{props.children}</LivepeerConfig>
                         </WagmiProvider>
                     </SnackbarProvider>
-                </ReactQueryStreamedHydration>
+                </Hydrate>
                 <ReactQueryDevtools initialIsOpen={false} />
             </QueryClientProvider>
         </I18nProvider>

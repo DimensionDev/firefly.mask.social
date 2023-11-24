@@ -1,6 +1,6 @@
 'use client';
 
-import { useSuspenseQuery } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 
 import { SinglePost } from '@/components/Posts/SinglePost.js';
 import { SocialPlatform } from '@/constants/enum.js';
@@ -10,7 +10,8 @@ import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 
 export default function Page({ params }: { params: { id: string; platform: string } }) {
     const fetchAndStoreViews = useImpressionsStore.use.fetchAndStoreViews();
-    const { data } = useSuspenseQuery({
+    const { data } = useQuery({
+        suspense: true,
         queryKey: [params.platform, 'post-detail', params.id],
         queryFn: async () => {
             if (!params.id) return;

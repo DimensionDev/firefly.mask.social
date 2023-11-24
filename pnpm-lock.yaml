@@ -53,12 +53,6 @@ patchedDependencies:
   '@uniswap/v3-sdk@3.9.0':
     hash: i674dmxu47nk67u5bur7yueebu
     path: src/maskbook/patches/@uniswap__v3-sdk@3.9.0.patch
-  '@walletconnect/client@1.7.8':
-    hash: 2krbsxzv524dzcdemy7vploqza
-    path: src/maskbook/patches/@walletconnect__client@1.7.8.patch
-  '@walletconnect/socket-transport@1.7.8':
-    hash: sme2rghvxvgvnqeexxxwrxv5xm
-    path: src/maskbook/patches/@walletconnect__socket-transport@1.7.8.patch
   bloom-filters@3.0.0:
     hash: 2etetjrjxbcye2oktxqpij75ey
     path: src/maskbook/patches/bloom-filters@3.0.0.patch
@@ -135,7 +129,7 @@ importers:
         version: 0.12.4(@lexical/clipboard@0.12.4)(@lexical/selection@0.12.4)(lexical@0.12.2)
       '@lexical/react':
         specifier: ^0.12.2
-        version: 0.12.2(lexical@0.12.2)(react-dom@18.2.0)(react@18.2.0)(yjs@13.6.8)
+        version: 0.12.2(lexical@0.12.2)(react-dom@18.2.0)(react@18.2.0)(yjs@13.6.9)
       '@lexical/utils':
         specifier: ^0.12.4
         version: 0.12.4(lexical@0.12.2)
@@ -188,14 +182,14 @@ importers:
         specifier: ^0.5.6
         version: 0.5.6(tailwindcss@3.3.3)
       '@tanstack/react-query':
-        specifier: ^5.8.4
-        version: 5.8.4(react-dom@18.2.0)(react@18.2.0)
+        specifier: ^4.29.25
+        version: 4.36.1(react-dom@18.2.0)(react@18.2.0)
       '@tanstack/react-query-devtools':
-        specifier: ^5.8.4
-        version: 5.8.4(@tanstack/react-query@5.8.4)(react-dom@18.2.0)(react@18.2.0)
+        specifier: ^4.29.25
+        version: 4.29.25(@tanstack/react-query@4.36.1)(react-dom@18.2.0)(react@18.2.0)
       '@tanstack/react-query-next-experimental':
         specifier: ^5.8.4
-        version: 5.8.4(@tanstack/react-query@5.8.4)(next@14.0.2)(react-dom@18.2.0)(react@18.2.0)
+        version: 5.8.4(@tanstack/react-query@4.36.1)(next@14.0.2)(react-dom@18.2.0)(react@18.2.0)
       '@tippyjs/react':
         specifier: ^4.2.6
         version: 4.2.6(react-dom@18.2.0)(react@18.2.0)
@@ -204,7 +198,7 @@ importers:
         version: 9.0.3
       '@walletconnect/socket-transport':
         specifier: 1.7.8
-        version: 1.7.8(patch_hash=sme2rghvxvgvnqeexxxwrxv5xm)
+        version: 1.7.8
       async-call-rpc:
         specifier: ^6.3.1
         version: 6.3.1
@@ -446,6 +440,9 @@ importers:
       eslint-plugin-import:
         specifier: ^2.29.0
         version: 2.29.0(@typescript-eslint/parser@6.10.0)(eslint-import-resolver-typescript@3.6.1)(eslint@8.53.0)
+      eslint-plugin-jsx-a11y:
+        specifier: ^6.8.0
+        version: 6.8.0(eslint@8.53.0)
       eslint-plugin-react:
         specifier: ^7.33.2
         version: 7.33.2(eslint@8.53.0)
@@ -488,6 +485,9 @@ importers:
       style-loader:
         specifier: ^3.3.3
         version: 3.3.3(webpack@5.88.2)
+      svgo-loader:
+        specifier: ^4.0.0
+        version: 4.0.0
       swc-loader:
         specifier: ^0.2.3
         version: 0.2.3(@swc/core@1.3.96)(webpack@5.88.2)
@@ -1194,10 +1194,10 @@ importers:
         version: 2.2.6(@splinetool/runtime@0.9.342)(react-dom@18.2.0)(react@18.2.0)
       '@tanstack/react-query-devtools':
         specifier: ^4.29.25
-        version: 4.29.25(@tanstack/react-query@5.8.4)(react-dom@18.2.0)(react@18.2.0)
+        version: 4.29.25(@tanstack/react-query@4.36.1)(react-dom@18.2.0)(react@18.2.0)
       '@tanstack/react-query-persist-client':
         specifier: ^4.35.0
-        version: 4.36.1(@tanstack/react-query@5.8.4)
+        version: 4.36.1(@tanstack/react-query@4.36.1)
       '@types/elliptic':
         specifier: ^6.4.14
         version: 6.4.14
@@ -3141,10 +3141,10 @@ importers:
         version: 4.36.1
       '@tanstack/react-query-devtools':
         specifier: ^4.29.25
-        version: 4.29.25(@tanstack/react-query@5.8.4)(react-dom@18.2.0)(react@18.2.0)
+        version: 4.29.25(@tanstack/react-query@4.36.1)(react-dom@18.2.0)(react@18.2.0)
       '@tanstack/react-query-persist-client':
         specifier: ^4.35.0
-        version: 4.36.1(@tanstack/react-query@5.8.4)
+        version: 4.36.1(@tanstack/react-query@4.36.1)
       '@types/d3':
         specifier: 5.16.4
         version: 5.16.4
@@ -3625,7 +3625,7 @@ importers:
         version: 1.87.6
       '@walletconnect/client':
         specifier: 1.7.8
-        version: 1.7.8(patch_hash=2krbsxzv524dzcdemy7vploqza)
+        version: 1.7.8
       '@walletconnect/sign-client':
         specifier: ^2.7.3
         version: 2.10.1
@@ -6690,8 +6690,8 @@ packages:
       '@commitlint/types': 17.8.1
       '@types/node': 20.5.7
       chalk: 4.1.2
-      cosmiconfig: 8.3.6(typescript@5.3.0-beta)
-      cosmiconfig-typescript-loader: 4.4.0(@types/node@20.5.7)(cosmiconfig@8.3.6)(ts-node@10.9.1)(typescript@5.2.2)
+      cosmiconfig: 8.0.0
+      cosmiconfig-typescript-loader: 4.4.0(@types/node@20.5.7)(cosmiconfig@8.0.0)(ts-node@10.9.1)(typescript@5.2.2)
       lodash.isplainobject: 4.0.6
       lodash.merge: 4.6.2
       lodash.uniq: 4.5.0
@@ -9775,7 +9775,7 @@ packages:
       lexical: 0.12.2
     dev: false
 
-  /@lexical/react@0.12.2(lexical@0.12.2)(react-dom@18.2.0)(react@18.2.0)(yjs@13.6.8):
+  /@lexical/react@0.12.2(lexical@0.12.2)(react-dom@18.2.0)(react@18.2.0)(yjs@13.6.9):
     resolution: {integrity: sha512-ZBUvf5xmhiYWBw8pPrhYmLAEwFWrbF/cd15y76TUKD9l/2zDwwPs6nJQxBzfz3ei65r2/nnavLDV8W3QfvxfUA==}
     peerDependencies:
       lexical: 0.12.2
@@ -9803,7 +9803,7 @@ packages:
       '@lexical/table': 0.12.2(lexical@0.12.2)
       '@lexical/text': 0.12.2(lexical@0.12.2)
       '@lexical/utils': 0.12.2(lexical@0.12.2)
-      '@lexical/yjs': 0.12.2(lexical@0.12.2)(yjs@13.6.8)
+      '@lexical/yjs': 0.12.2(lexical@0.12.2)(yjs@13.6.9)
       lexical: 0.12.2
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
@@ -9912,7 +9912,7 @@ packages:
       lexical: 0.12.2
     dev: false
 
-  /@lexical/yjs@0.12.2(lexical@0.12.2)(yjs@13.6.8):
+  /@lexical/yjs@0.12.2(lexical@0.12.2)(yjs@13.6.9):
     resolution: {integrity: sha512-OPJhkJD1Mp9W80mfLzASTB3OFWFMzJteUYA+eSyDgiX9zNi1VGxAqmIITTkDvnCMa+qvw4EfhGeGezpjx6Og4A==}
     peerDependencies:
       lexical: 0.12.2
@@ -9920,7 +9920,7 @@ packages:
     dependencies:
       '@lexical/offset': 0.12.2(lexical@0.12.2)
       lexical: 0.12.2
-      yjs: 13.6.8
+      yjs: 13.6.9
     dev: false
 
   /@libp2p/interface-connection@4.0.0:
@@ -14642,14 +14642,6 @@ packages:
     resolution: {integrity: sha512-DJSilV5+ytBP1FbFcEJovv4rnnm/CokuVvrBEtW/Va9DvuJ3HksbXUJEpI0aV1KtuL4ZoO9AVE6PyNLzF7tLeA==}
     dev: false
 
-  /@tanstack/query-core@5.8.3:
-    resolution: {integrity: sha512-SWFMFtcHfttLYif6pevnnMYnBvxKf3C+MHMH7bevyYfpXpTMsLB9O6nNGBdWSoPwnZRXFNyNeVZOw25Wmdasow==}
-    dev: false
-
-  /@tanstack/query-devtools@5.8.4:
-    resolution: {integrity: sha512-F1dRbITNt9tMUoM9WCH8WQ2c54116hv52m/PKK8ZiN/pO2wGVzTZtKuLanF8pFpwmNchjIixcMw/a57HY5ivcw==}
-    dev: false
-
   /@tanstack/query-persist-client-core@4.29.23:
     resolution: {integrity: sha512-u0P6y4DPeXeHEZnj0LEnhcgqX8x7iV7xbUDuoRPItUYsPn+anyLjXG3d3622+wLP3XKdevff0PhXkA7j9ZOWKg==}
     dependencies:
@@ -14668,7 +14660,7 @@ packages:
       '@tanstack/query-persist-client-core': 4.36.1
     dev: false
 
-  /@tanstack/react-query-devtools@4.29.25(@tanstack/react-query@5.8.4)(react-dom@18.2.0)(react@18.2.0):
+  /@tanstack/react-query-devtools@4.29.25(@tanstack/react-query@4.36.1)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-XlrGUqmjv1O+6Ny23rAiyNSWYKep90SKT3IixDQRnIuTGaZej+hVCOh7wZSxq6qkzadIvsblc4SLtyJsOiIXBQ==}
     peerDependencies:
       '@tanstack/react-query': 4.29.25
@@ -14681,32 +14673,14 @@ packages:
         optional: true
     dependencies:
       '@tanstack/match-sorter-utils': 8.8.4
-      '@tanstack/react-query': 5.8.4(react-dom@18.2.0)(react@18.2.0)
+      '@tanstack/react-query': 4.36.1(react-dom@18.2.0)(react@18.2.0)
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
       superjson: 1.13.3
       use-sync-external-store: 1.2.0(react@18.2.0)
     dev: false
 
-  /@tanstack/react-query-devtools@5.8.4(@tanstack/react-query@5.8.4)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-mffs51FJqXU/5rwhbwv393DccL6et7uK2pRLwOcmMrWbPyW8vpxr9oidaghHX4cdVeP/7u5owW9yMpBhBAJfcQ==}
-    peerDependencies:
-      '@tanstack/react-query': ^5.8.4
-      react: 18.2.0 || 0.0.0-experimental-0a360642d-20230711
-      react-dom: 18.2.0 || 0.0.0-experimental-0a360642d-20230711
-    peerDependenciesMeta:
-      react:
-        optional: true
-      react-dom:
-        optional: true
-    dependencies:
-      '@tanstack/query-devtools': 5.8.4
-      '@tanstack/react-query': 5.8.4(react-dom@18.2.0)(react@18.2.0)
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
-    dev: false
-
-  /@tanstack/react-query-next-experimental@5.8.4(@tanstack/react-query@5.8.4)(next@14.0.2)(react-dom@18.2.0)(react@18.2.0):
+  /@tanstack/react-query-next-experimental@5.8.4(@tanstack/react-query@4.36.1)(next@14.0.2)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-+FfKNLOcjXyFUZHr5z2Wlm/7vJ9VCZUa3ajeOz/1awGSUuGaMyvHGYMO8Pk9YKxg7Fd/lymp1gjOccJcs3vc6g==}
     peerDependencies:
       '@tanstack/react-query': ^5.8.4
@@ -14719,7 +14693,7 @@ packages:
       react-dom:
         optional: true
     dependencies:
-      '@tanstack/react-query': 5.8.4(react-dom@18.2.0)(react@18.2.0)
+      '@tanstack/react-query': 4.36.1(react-dom@18.2.0)(react@18.2.0)
       next: 14.0.2(babel-plugin-macros@3.1.0)(react-dom@18.2.0)(react@18.2.0)
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
@@ -14741,15 +14715,6 @@ packages:
     dependencies:
       '@tanstack/query-persist-client-core': 4.36.1
       '@tanstack/react-query': 4.36.1(react-dom@18.2.0)(react@18.2.0)
-    dev: false
-
-  /@tanstack/react-query-persist-client@4.36.1(@tanstack/react-query@5.8.4):
-    resolution: {integrity: sha512-32I5b9aAu4NCiXZ7Te/KEQLfHbYeTNriVPrKYcvEThnZ9tlW01vLcSoxpUIsMYRsembvJUUAkzYBAiZHLOd6pQ==}
-    peerDependencies:
-      '@tanstack/react-query': ^4.36.1
-    dependencies:
-      '@tanstack/query-persist-client-core': 4.36.1
-      '@tanstack/react-query': 5.8.4(react-dom@18.2.0)(react@18.2.0)
     dev: false
 
   /@tanstack/react-query@4.29.23(react-dom@18.2.0)(react@18.2.0):
@@ -14790,25 +14755,6 @@ packages:
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
       use-sync-external-store: 1.2.0(react@18.2.0)
-    dev: false
-
-  /@tanstack/react-query@5.8.4(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-CD+AkXzg8J72JrE6ocmuBEJfGzEzu/bzkD6sFXFDDB5yji9N20JofXZlN6n0+CaPJuIi+e4YLCbGsyPFKkfNQA==}
-    peerDependencies:
-      react: 18.2.0 || 0.0.0-experimental-0a360642d-20230711
-      react-dom: 18.2.0 || 0.0.0-experimental-0a360642d-20230711
-      react-native: '*'
-    peerDependenciesMeta:
-      react:
-        optional: true
-      react-dom:
-        optional: true
-      react-native:
-        optional: true
-    dependencies:
-      '@tanstack/query-core': 5.8.3
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
     dev: false
 
   /@tippyjs/react@4.2.6(react-dom@18.2.0)(react@18.2.0):
@@ -16233,7 +16179,7 @@ packages:
       detect-browser: 5.2.0
     dev: false
 
-  /@walletconnect/client@1.7.8(patch_hash=2krbsxzv524dzcdemy7vploqza):
+  /@walletconnect/client@1.7.8:
     resolution: {integrity: sha512-pBroM6jZAaUM0SoXJZg5U7aPTiU3ljQAw3Xh/i2pxFDeN/oPKao7husZ5rdxS5xuGSV6YpqqRb0RxW1IeoR2Pg==}
     deprecated: 'WalletConnect''s v1 SDKs are now deprecated. Please upgrade to a v2 SDK. For details see: https://docs.walletconnect.com/'
     dependencies:
@@ -16245,7 +16191,6 @@ packages:
       - bufferutil
       - utf-8-validate
     dev: false
-    patched: true
 
   /@walletconnect/core@1.8.0:
     resolution: {integrity: sha512-aFTHvEEbXcZ8XdWBw6rpQDte41Rxwnuk3SgTD8/iKGSRTni50gI9S3YEzMj05jozSiOBxQci4pJDMVhIUMtarw==}
@@ -16266,7 +16211,7 @@ packages:
       '@walletconnect/jsonrpc-types': 1.0.3
       '@walletconnect/jsonrpc-utils': 1.0.8
       '@walletconnect/jsonrpc-ws-connection': 1.0.13
-      '@walletconnect/keyvaluestorage': 1.1.0
+      '@walletconnect/keyvaluestorage': 1.1.1
       '@walletconnect/logger': 2.0.1
       '@walletconnect/relay-api': 1.0.9
       '@walletconnect/relay-auth': 1.0.4
@@ -16302,7 +16247,7 @@ packages:
       '@walletconnect/jsonrpc-types': 1.0.3
       '@walletconnect/jsonrpc-utils': 1.0.8
       '@walletconnect/jsonrpc-ws-connection': 1.0.13
-      '@walletconnect/keyvaluestorage': 1.1.0
+      '@walletconnect/keyvaluestorage': 1.1.1
       '@walletconnect/logger': 2.0.1
       '@walletconnect/relay-api': 1.0.9
       '@walletconnect/relay-auth': 1.0.4
@@ -16496,8 +16441,8 @@ packages:
       - utf-8-validate
     dev: false
 
-  /@walletconnect/keyvaluestorage@1.1.0:
-    resolution: {integrity: sha512-CjDBs1WmLGstYRoxWx9oAskTKj1deu7gvPycxZo2jYMa85hAYe762AITKWW1i2OJ8y9+5WJTGDAy3inVl8pjtw==}
+  /@walletconnect/keyvaluestorage@1.1.1:
+    resolution: {integrity: sha512-V7ZQq2+mSxAq7MrRqDxanTzu2RcElfK1PfNYiaVnJgJ7Q7G7hTVwF8voIBx92qsRyGHZihrwNPHuZd1aKkd0rA==}
     peerDependencies:
       '@react-native-async-storage/async-storage': 1.x
     peerDependenciesMeta:
@@ -16711,7 +16656,7 @@ packages:
       - utf-8-validate
     dev: false
 
-  /@walletconnect/socket-transport@1.7.8(patch_hash=sme2rghvxvgvnqeexxxwrxv5xm):
+  /@walletconnect/socket-transport@1.7.8:
     resolution: {integrity: sha512-bqEjLxfSzG79v2OT7XVOZoyUkg6g3yng0fURrdLusWs42fYHWnrSrIZDejFn8N5PiZk5R2edrggkQ7w0VUUAfw==}
     dependencies:
       '@walletconnect/types': 1.8.0
@@ -16721,7 +16666,6 @@ packages:
       - bufferutil
       - utf-8-validate
     dev: false
-    patched: true
 
   /@walletconnect/socket-transport@1.8.0:
     resolution: {integrity: sha512-5DyIyWrzHXTcVp0Vd93zJ5XMW61iDM6bcWT4p8DTRfFsOtW46JquruMhxOLeCOieM4D73kcr3U7WtyR4JUsGuQ==}
@@ -16751,7 +16695,7 @@ packages:
       '@walletconnect/events': 1.0.1
       '@walletconnect/heartbeat': 1.2.1
       '@walletconnect/jsonrpc-types': 1.0.3
-      '@walletconnect/keyvaluestorage': 1.1.0
+      '@walletconnect/keyvaluestorage': 1.1.1
       '@walletconnect/logger': 2.0.1
       events: 3.3.0
     transitivePeerDependencies:
@@ -16775,7 +16719,7 @@ packages:
       '@walletconnect/events': 1.0.1
       '@walletconnect/heartbeat': 1.2.1
       '@walletconnect/jsonrpc-types': 1.0.3
-      '@walletconnect/keyvaluestorage': 1.1.0
+      '@walletconnect/keyvaluestorage': 1.1.1
       '@walletconnect/logger': 2.0.1
       events: 3.3.0
     transitivePeerDependencies:
@@ -17591,7 +17535,6 @@ packages:
     resolution: {integrity: sha512-b0P0sZPKtyu8HkeRAfCq0IfURZK+SuwMjY1UXGBU27wpAiTwQAIlq56IbIO+ytk/JjS1fMR14ee5WBBfKi5J6A==}
     dependencies:
       dequal: 2.0.3
-    dev: false
 
   /arity-n@1.0.4:
     resolution: {integrity: sha512-fExL2kFDC1Q2DUOx3whE/9KoN66IzkY4b4zUHUBFM1ojEYjZZYDcUW3bek/ufGionX9giIKDC5redH2IlGqcQQ==}
@@ -17833,7 +17776,6 @@ packages:
 
   /ast-types-flow@0.0.8:
     resolution: {integrity: sha512-OH/2E5Fg20h2aPrbe+QL8JZQFko0YZaF+j4mnQ7BGhfavO7OpSLa8a0y9sBwomHdSbkhTS8TQNayBfnW5DwbvQ==}
-    dev: false
 
   /async-call-rpc@6.3.1:
     resolution: {integrity: sha512-i9R46goYZIi0WPkd5X12O6rOsA1GFUiZ/71GOafdQaZtbytXjQ6VevODXDu5hAI5vn2/BQqbC6NznHV+TAC1QA==}
@@ -17932,7 +17874,6 @@ packages:
   /axe-core@4.7.0:
     resolution: {integrity: sha512-M0JtH+hlOL5pLQwHOLNYZaXuhqmvS8oExsqB1SBYgA4Dk7u/xx+YdGHXaK5pyUfed5mYXdlYiphWq3G8cRi5JQ==}
     engines: {node: '>=4'}
-    dev: false
 
   /axios@0.21.1:
     resolution: {integrity: sha512-dKQiRHxGD9PPRIUNIWvZhPTPpl1rf/OxTYKsqKUDjBwYylTvV7SjSHJb9ratfyzM6wCdLCOYLzs73qpg5c4iGA==}
@@ -17964,7 +17905,6 @@ packages:
     resolution: {integrity: sha512-jsyHu61e6N4Vbz/v18DHwWYKK0bSWLqn47eeDSKPB7m8tqMHF9YJ+mhIk2lVteyZrY8tnSj/jHOv4YiTCuCJgg==}
     dependencies:
       dequal: 2.0.3
-    dev: false
 
   /babel-jest@28.1.3(@babel/core@7.23.3):
     resolution: {integrity: sha512-epUaPOEWMk3cWX0M/sPvCHHCe9fMFAa/9hXEgKP8nFfNl/jlGkE9ucq9NqkZGXLDduCJYS0UvSlPUwC0S+rH6Q==}
@@ -19713,7 +19653,7 @@ packages:
       vary: 1.1.2
     dev: false
 
-  /cosmiconfig-typescript-loader@4.4.0(@types/node@20.5.7)(cosmiconfig@8.3.6)(ts-node@10.9.1)(typescript@5.2.2):
+  /cosmiconfig-typescript-loader@4.4.0(@types/node@20.5.7)(cosmiconfig@8.0.0)(ts-node@10.9.1)(typescript@5.2.2):
     resolution: {integrity: sha512-BabizFdC3wBHhbI4kJh0VkQP9GkBfoHPydD0COMce1nJ1kJAB3F2TmJ/I7diULBKtmEWSwEbuN/KDtgnmUUVmw==}
     engines: {node: '>=v14.21.3'}
     peerDependencies:
@@ -19728,7 +19668,7 @@ packages:
         optional: true
     dependencies:
       '@types/node': 20.5.7
-      cosmiconfig: 8.3.6(typescript@5.3.0-beta)
+      cosmiconfig: 8.0.0
       ts-node: 10.9.1(@swc/core@1.3.96)(@types/node@20.5.7)(typescript@5.2.2)
       typescript: 5.2.2
     dev: true
@@ -19766,22 +19706,6 @@ packages:
       parse-json: 5.2.0
       path-type: 4.0.0
       typescript: 5.2.2
-    dev: true
-
-  /cosmiconfig@8.3.6(typescript@5.3.0-beta):
-    resolution: {integrity: sha512-kcZ6+W5QzcJ3P1Mt+83OUv/oHFqZHIx8DuxG6eZ5RGMERoLqp4BuGjhHLYGK+Kf5XVkQvqBSmAy/nGWN3qDgEA==}
-    engines: {node: '>=14'}
-    peerDependencies:
-      typescript: '>=4.9.5 || 5'
-    peerDependenciesMeta:
-      typescript:
-        optional: true
-    dependencies:
-      import-fresh: 3.3.0
-      js-yaml: 4.1.0
-      parse-json: 5.2.0
-      path-type: 4.0.0
-      typescript: 5.3.0-beta
     dev: true
 
   /crc-32@1.2.2:
@@ -20460,7 +20384,6 @@ packages:
 
   /damerau-levenshtein@1.0.8:
     resolution: {integrity: sha512-sdQSFB7+llfUcQHUQO3+B8ERRj0Oa4w9POWMI/puGtuf7gFywGmkaLCElnudfTiKZV+NvHqL0ifzdrI8Ro7ESA==}
-    dev: false
 
   /dargs@7.0.0:
     resolution: {integrity: sha512-2iy1EkLdlBzQGvbweYRFxmFath8+K7+AKB0TlhHWkNuH+TmovaMH/Wp7V7R4u7f4SnX3OgLsU9t1NI9ioDnUpg==}
@@ -20768,7 +20691,6 @@ packages:
   /dequal@2.0.3:
     resolution: {integrity: sha512-0je+qPKHEMohvfRTCEo3CrPG6cAzAYgmzKyxRiYSSDkS6eGJdyVJm7WaYA5ECaAD9wLB2T4EEeymA5aFVcYXCA==}
     engines: {node: '>=6'}
-    dev: false
 
   /des.js@1.1.0:
     resolution: {integrity: sha512-r17GxjhUCjSRy8aiJpr8/UadFIzMzJGexI3Nmz4ADi9LYSFx4gTBp80+NaX/YsXWWLhpZ7v/v/ubEc/bCNfKwg==}
@@ -21858,7 +21780,6 @@ packages:
       minimatch: 3.1.2
       object.entries: 1.1.7
       object.fromentries: 2.0.7
-    dev: false
 
   /eslint-plugin-no-unsanitized@4.0.2(eslint@8.36.0):
     resolution: {integrity: sha512-Pry0S9YmHoz8NCEMRQh7N0Yexh2MYCNPIlrV52hTmS7qXnTghWsjXouF08bgsrrZqaW9tt1ZiK3j5NEmPE+EjQ==}
@@ -26519,14 +26440,12 @@ packages:
 
   /language-subtag-registry@0.3.22:
     resolution: {integrity: sha512-tN0MCzyWnoz/4nHS6uxdlFWoUZT7ABptwKPQ52Ea7URk6vll88bWBVhodtnlfEuCcKWNGoc+uGbw1cwa9IKh/w==}
-    dev: false
 
   /language-tags@1.0.9:
     resolution: {integrity: sha512-MbjN408fEndfiQXbFQ1vnd+1NoLDsnQW41410oQBXiyXDMYH5z505juWa4KUE1LqxRC7DgOgZDbKLxHIwm27hA==}
     engines: {node: '>=0.10'}
     dependencies:
       language-subtag-registry: 0.3.22
-    dev: false
 
   /last-run@1.1.1:
     resolution: {integrity: sha512-U/VxvpX4N/rFvPzr3qG5EtLKEnNI0emvIQB3/ecEwv+8GHaUKbIB8vxv1Oai5FAF0d0r7LXHhLLe5K/yChm5GQ==}
@@ -32401,7 +32320,7 @@ packages:
       define-property: 0.2.5
       extend-shallow: 2.0.1
       map-cache: 0.2.2
-      source-map: 0.5.7
+      source-map: 0.5.6
       source-map-resolve: 0.5.3
       use: 3.1.1
     transitivePeerDependencies:
@@ -32529,11 +32448,11 @@ packages:
   /source-map@0.5.6:
     resolution: {integrity: sha512-MjZkVp0NHr5+TPihLcadqnlVoGIoWo4IBHptutGh9wI3ttUYvCG26HkSuDi+K6lsZ25syXJXcctwgyVCt//xqA==}
     engines: {node: '>=0.10.0'}
-    dev: false
 
   /source-map@0.5.7:
     resolution: {integrity: sha512-LbrmJOMUSdEVxIKvdcJzQC+nQhe8FUZQTXQy6+I75skNgn3OoQ0DZA8YnFa7gp8tqtL3KPf1kmo0R5DoApeSGQ==}
     engines: {node: '>=0.10.0'}
+    dev: false
 
   /source-map@0.6.1:
     resolution: {integrity: sha512-UjgapumWlbMhkBgzT7Ykc5YXUT46F0iKu8SGXq0bcwP5dz/h0Plj6enJqjz1Zbq2l5WaqYnrVbwWOWMyF3F47g==}
@@ -36547,8 +36466,8 @@ packages:
     resolution: {integrity: sha512-8HFIh676uyGYP6wP13R/j6OJ/1HwJ46snpvzE7aHAN3Ryqh2yX6Xox2B4CUmTwwOIzlG3Bs7ocsP5dZH/R1Qbg==}
     dev: false
 
-  /yjs@13.6.8:
-    resolution: {integrity: sha512-ZPq0hpJQb6f59B++Ngg4cKexDJTvfOgeiv0sBc4sUm8CaBWH7OQC4kcCgrqbjJ/B2+6vO49exvTmYfdlPtcjbg==}
+  /yjs@13.6.9:
+    resolution: {integrity: sha512-kn5QVWRdMrdfAs5DyhMB/1Yc038N7kpD4dianzwfsh2dShQgbN+UIq1c8eqbumwrdL6w5ersJLJ/pllL/N8KXA==}
     engines: {node: '>=16.0.0', npm: '>=8.0.0'}
     dependencies:
       lib0: 0.2.87
@@ -36769,11 +36688,9 @@ time:
   /@tailwindcss/typography@0.5.9: '2023-01-10T16:14:23.354Z'
   /@tanstack/query-sync-storage-persister@4.36.1: '2023-10-07T07:09:52.777Z'
   /@tanstack/react-query-devtools@4.29.25: '2023-07-16T04:57:00.088Z'
-  /@tanstack/react-query-devtools@5.8.4: '2023-11-15T11:30:11.788Z'
   /@tanstack/react-query-next-experimental@5.8.4: '2023-11-15T11:30:16.654Z'
   /@tanstack/react-query-persist-client@4.36.1: '2023-10-07T07:10:02.544Z'
   /@tanstack/react-query@4.36.1: '2023-10-07T07:09:55.998Z'
-  /@tanstack/react-query@5.8.4: '2023-11-15T11:30:00.892Z'
   /@tippyjs/react@4.2.6: '2021-10-29T12:39:32.094Z'
   /@typechain/web3-v1@6.0.2: '2022-11-01T22:04:27.996Z'
   /@types/bn.js@4.11.6: '2020-01-03T23:18:47.360Z'
@@ -36857,6 +36774,7 @@ time:
   /eslint-import-resolver-typescript@3.6.1: '2023-09-22T10:03:30.716Z'
   /eslint-plugin-i@2.28.1: '2023-09-06T08:19:37.937Z'
   /eslint-plugin-import@2.29.0: '2023-10-23T06:44:23.401Z'
+  /eslint-plugin-jsx-a11y@6.8.0: '2023-11-01T22:25:31.813Z'
   /eslint-plugin-react-hooks@4.6.0: '2022-06-14T19:46:28.829Z'
   /eslint-plugin-react@7.33.2: '2023-08-16T04:22:35.076Z'
   /eslint-plugin-simple-import-sort@10.0.0: '2023-01-27T21:23:38.907Z'

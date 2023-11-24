@@ -11,6 +11,18 @@ import { SearchType } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { useSearchStore } from '@/store/useSearchStore.js';
 
+const MaskRuntime = dynamic(() => import('@/components/MaskRuntime.js'), {
+    ssr: false,
+});
+
+// @ts-ignore
+const DynamicCalendar = dynamic(
+    () => import('@masknet/plugin-calendar').then((x) => ({ default: x.CalendarContent })),
+    {
+        ssr: false,
+    },
+);
+
 interface SearchBarProps {
     source: 'header' | 'secondary';
 }
@@ -82,6 +94,11 @@ export const SearchBar = memo(function SearchBar(props: SearchBarProps) {
                     />
                 </label>
             </form>
+            <section className="mt-4">
+                <MaskRuntime>
+                    <DynamicCalendar />
+                </MaskRuntime>
+            </section>
         </div>
     );
 });
