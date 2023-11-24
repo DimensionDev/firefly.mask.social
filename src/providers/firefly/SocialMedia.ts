@@ -18,7 +18,7 @@ import { toBytes } from 'viem';
 import { SocialPlatform } from '@/constants/enum.js';
 import { EMPTY_LIST, FIREFLY_HUBBLE_URL, FIREFLY_ROOT_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
-import { formatWarpcastPost } from '@/helpers/formatWarpcastPost.js';
+import { formatWarpcastPostFromFeed } from '@/helpers/formatWarpcastPost.js';
 import { getResourceType } from '@/helpers/getResourceType.js';
 import { waitForSignedKeyRequestComplete } from '@/helpers/waitForSignedKeyRequestComplete.js';
 import { SessionFactory } from '@/providers/base/SessionFactory.js';
@@ -104,7 +104,7 @@ export class FireflySocialMedia implements Provider {
         const { result, next } = await fetchJSON<FeedResponse>(url, {
             method: 'GET',
         });
-        const data = result.feed.map(formatWarpcastPost);
+        const data = result.feed.map(formatWarpcastPostFromFeed);
         return createPageable(data, indicator ?? createIndicator(), createNextIndicator(indicator, next.cursor));
     }
 
@@ -179,7 +179,7 @@ export class FireflySocialMedia implements Provider {
         const { result, next } = await fetchJSON<FeedResponse>(url, {
             method: 'GET',
         });
-        const data = result.feed.map(formatWarpcastPost);
+        const data = result.feed.map(formatWarpcastPostFromFeed);
         return createPageable(data, indicator ?? createIndicator(), createNextIndicator(indicator, next.cursor));
     }
 

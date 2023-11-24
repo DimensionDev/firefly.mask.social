@@ -2,7 +2,7 @@ import sizeOf from 'image-size';
 import { parseHTML } from 'linkedom';
 import urlcat from 'urlcat';
 
-import { MIRROR_HOSTNAME_REGEXP } from '@/constants/regex.js';
+import { MIRROR_HOSTNAME_REGEXP, WARPCAST_CONVERSATIONS_REGEX, WARPCAST_THREAD_REGEX } from '@/constants/regex.js';
 import {
     generateIframe,
     getDescription,
@@ -12,8 +12,8 @@ import {
     getSite,
     getTitle,
 } from '@/helpers/getMetadata.js';
-import { getMirrorPayload } from '@/helpers/getPayload.js';
-import { type MirrorPayload } from '@/types/og.js';
+import { getFarcasterPayload, getMirrorPayload } from '@/helpers/getPayload.js';
+import type { FarcasterPayload, MirrorPayload } from '@/types/og.js';
 
 export interface OpenGraphImage {
     url: string;
@@ -37,7 +37,7 @@ export interface OpenGraph {
 
 export interface LinkDigest {
     og: OpenGraph;
-    payload?: MirrorPayload | null;
+    payload?: MirrorPayload | FarcasterPayload | null;
 }
 
 export async function digestImageUrl(url: string): Promise<OpenGraphImage | null> {
@@ -87,6 +87,11 @@ export async function digestLink(link: string): Promise<LinkDigest> {
         return {
             og,
             payload: getMirrorPayload(document),
+        };
+    } else if (WARPCAST_THREAD_REGEX.test(link) || WARPCAST_CONVERSATIONS_REGEX.test(link)) {
+        return {
+            og,
+            payload: getFarcasterPayload(document),
         };
     }
 
