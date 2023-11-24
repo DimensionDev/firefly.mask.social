@@ -1,8 +1,6 @@
 /* cspell:disable */
 
-import type { Document } from 'linkedom';
-
-export const getTitle = (document: Document): string | null => {
+export function getTitle(document: Document): string | null {
     const lens =
         document.querySelector('meta[name="lens:title"]') || document.querySelector('meta[property="lens:title"]');
     const og = document.querySelector('meta[name="og:title"]') || document.querySelector('meta[property="og:title"]');
@@ -23,9 +21,9 @@ export const getTitle = (document: Document): string | null => {
     } else {
         return domain;
     }
-};
+}
 
-export const getDescription = (document: Document): string | null => {
+export function getDescription(document: Document): string | null {
     const lens =
         document.querySelector('meta[name="lens:description"]') ||
         document.querySelector('meta[property="lens:description"]');
@@ -45,9 +43,9 @@ export const getDescription = (document: Document): string | null => {
     }
 
     return null;
-};
+}
 
-export const getSite = (document: Document): string | null => {
+export function getSite(document: Document): string | null {
     const lens =
         document.querySelector('meta[name="lens:site"]') || document.querySelector('meta[property="lens:site"]');
     const og =
@@ -64,9 +62,9 @@ export const getSite = (document: Document): string | null => {
     }
 
     return null;
-};
+}
 
-export const getImage = (document: Document): string | null => {
+export function getImageUrl(document: Document): string | null {
     const lens =
         document.querySelector('meta[name="lens:image"]') || document.querySelector('meta[property="lens:image"]');
     const og = document.querySelector('meta[name="og:image"]') || document.querySelector('meta[property="og:image"]');
@@ -85,9 +83,9 @@ export const getImage = (document: Document): string | null => {
     }
 
     return null;
-};
+}
 
-export const getEmbedUrl = (document: Document): string | null => {
+export function getEmbedUrl(document: Document): string | null {
     const lens =
         document.querySelector('meta[name="lens:player"]') || document.querySelector('meta[property="lens:player"]');
     const og =
@@ -108,9 +106,9 @@ export const getEmbedUrl = (document: Document): string | null => {
     }
 
     return null;
-};
+}
 
-export const getIsLarge = (document: Document): boolean => {
+export function getIsLarge(document: Document): boolean {
     const lens =
         document.querySelector('meta[name="lens:card"]') || document.querySelector('meta[property="lens:card"]');
     const twitter =
@@ -127,9 +125,9 @@ export const getIsLarge = (document: Document): boolean => {
     }
 
     return false;
-};
+}
 
-export const generateIframe = (embedUrl: string | null, url: string): string | null => {
+export function generateIframe(embedUrl: string | null, url: string): string | null {
     const knownSites = ['youtube.com', 'youtu.be', 'tape.xyz', 'open.spotify.com', 'soundcloud.com', 'oohlala.xyz'];
 
     const pickUrlSites = ['open.spotify.com'];
@@ -192,4 +190,4 @@ export const generateIframe = (embedUrl: string | null, url: string): string | n
         default:
             return `<iframe src="${pickedUrl}" width="560"></iframe>`;
     }
-};
+}
