@@ -20,16 +20,6 @@ export class LensSession extends BaseSession implements Session {
         this.client = client;
     }
 
-    static deserialize(serializedSession: string): LensSession {
-        const colonIndex = serializedSession.indexOf(':');
-        const body = serializedSession.substring(colonIndex + 1);
-        const data = JSON.parse(body);
-
-        const session = new LensSession(data.profileId, data.token, data.timestamp, data.expiresAt, data.client);
-
-        return session;
-    }
-
     override serialize(): `${Type}:${string}` {
         const body = JSON.stringify({
             profileId: this.profileId,
