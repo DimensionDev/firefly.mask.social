@@ -1,6 +1,6 @@
 'use client';
 
-import { memo, useEffect,useMemo, useState } from 'react';
+import { memo, useEffect, useMemo, useState } from 'react';
 
 import DiscoverSelectedIcon from '@/assets/discover.selected.svg';
 import DiscoverIcon from '@/assets/discover.svg';
@@ -99,6 +99,8 @@ export const SideBar = memo(function SideBar() {
                                     <LoginStatusBar
                                         openFarcaster={() => setFarcasterStatusOpen(true)}
                                         openLens={() => setLensStatusOpen(true)}
+                                        lensAccounts={lensAccounts}
+                                        farcasterAccounts={farcasterAccounts}
                                     />
                                 ) : (
                                     <button

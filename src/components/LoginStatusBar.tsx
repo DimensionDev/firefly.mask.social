@@ -1,16 +1,21 @@
 import { Image } from '@/esm/Image.js';
+import type { FarcasterAccount, LensAccount } from '@/store/useAccountPersistStore.js';
 
 interface LoginStatusBarProps {
     openLens: () => void;
     openFarcaster: () => void;
+    lensAccounts: LensAccount[]
+    farcasterAccounts: FarcasterAccount[]
 }
 
-export function LoginStatusBar({ openLens, openFarcaster }: LoginStatusBarProps) {
+export function LoginStatusBar({ openLens, openFarcaster, lensAccounts, farcasterAccounts }: LoginStatusBarProps) {
+    const lensAccount = lensAccounts.find((account) => account.isCurrent);
+    const farcasterAccount = farcasterAccounts.length ? farcasterAccounts[0] : undefined;
     return (
         <div className="flex gap-x-2 pl-2">
-            <button className="relative h-[40px] w-[48px]" onClick={() => openLens()}>
+            {lensAccount ? <button className="relative h-[40px] w-[48px]" onClick={() => openLens()}>
                 <div className="absolute left-0 top-0 h-[40px] w-[40px] rounded-[99px] shadow backdrop-blur-lg">
-                    <Image src="/svg/lens.svg" alt="avatar" width={40} height={40} />
+                    <Image src={lensAccount.avatar} alt="avatar" width={40} height={40} className='rounded-[99px]' />
                 </div>
                 <Image
                     className="absolute left-[32px] top-[24px] h-[16px] w-[16px] rounded-[99px] border border-white shadow"
@@ -19,10 +24,10 @@ export function LoginStatusBar({ openLens, openFarcaster }: LoginStatusBarProps)
                     width={16}
                     height={16}
                 />
-            </button>
-            <button className="relative h-[40px] w-[48px]" onClick={() => openFarcaster()}>
+            </button> : null}
+            {farcasterAccount ? <button className="relative h-[40px] w-[48px]" onClick={() => openFarcaster()}>
                 <div className="absolute left-0 top-0 h-[40px] w-[40px] rounded-[99px] shadow backdrop-blur-lg">
-                    <Image src="/svg/farcaster.svg" alt="avatar" width={40} height={40} />
+                    <Image src={farcasterAccount.avatar} alt="avatar" width={40} height={40} className='rounded-[99px]' />
                 </div>
                 <Image
                     className="absolute left-[32px] top-[24px] h-[16px] w-[16px] rounded-[99px] border border-white shadow"
@@ -31,7 +36,30 @@ export function LoginStatusBar({ openLens, openFarcaster }: LoginStatusBarProps)
                     width={16}
                     height={16}
                 />
-            </button>
+            </button> : <button className="relative h-[40px] w-[48px]" onClick={() => openFarcaster()}>
+                <div className="absolute left-0 top-0 h-[40px] w-[40px] rounded-[99px] shadow backdrop-blur-lg">
+                    <Image src="/svg/farcaster.svg" alt="farcaster" width={40} height={40} />
+                </div>
+                <Image
+                    className="absolute left-[32px] top-[24px] h-[17px] w-[17px] rounded-[99px] shadow"
+                    src={'/svg/plus.svg'}
+                    alt="logo"
+                    width={16}
+                    height={16}
+                />
+            </button>}
+            {lensAccounts ? null : <button className="relative h-[40px] w-[48px]" onClick={() => openFarcaster()}>
+                <div className="absolute left-0 top-0 h-[40px] w-[40px] rounded-[99px] shadow backdrop-blur-lg">
+                    <Image src="/svg/lens.svg" alt="lens" width={40} height={40} />
+                </div>
+                <Image
+                    className="absolute left-[32px] top-[24px] h-[17px] w-[17px] rounded-[99px] shadow"
+                    src={'/svg/plus.svg'}
+                    alt="logo"
+                    width={16}
+                    height={16}
+                />
+            </button>}
         </div>
     );
 }
