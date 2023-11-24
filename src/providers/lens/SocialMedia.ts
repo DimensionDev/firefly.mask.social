@@ -17,6 +17,7 @@ import {
 import { getWalletClient } from 'wagmi/actions';
 
 import { generateCustodyBearer } from '@/helpers/generateCustodyBearer.js';
+import { SessionFactory } from '@/providers/base/SessionFactory.js';
 import { LensSession } from '@/providers/lens/Session.js';
 import {
     type Notification,
@@ -32,15 +33,9 @@ import { formatLensPost } from '../../helpers/formatLensPost.js';
 import { formatLensProfile } from '../../helpers/formatLensProfile.js';
 
 export class LensSocialMedia implements Provider {
-    private currentSession?: LensSession;
-
-    lensClient: LensClient;
-
-    constructor() {
-        this.lensClient = new LensClient({
-            environment: production,
-        });
-    }
+    private lensClient = new LensClient({
+        environment: production,
+    });
 
     get type() {
         return Type.Lens;
@@ -138,14 +133,14 @@ export class LensSocialMedia implements Provider {
             id: profile.id,
         }));
     }
-    // @ts-ignore
+
     async resumeSession(profileId: string): Promise<LensSession | null> {
         const currentTime = Date.now();
 
         const storedSession = localStorage.getItem(`lens_session${profileId}`);
 
         if (storedSession) {
-            const recoveredSession = LensSession.deserialize(storedSession);
+            const recoveredSession = SessionFactory.createSession<LensSession>(storedSession);
             if (recoveredSession.expiresAt > currentTime) {
                 this.lensClient = recoveredSession.client;
                 return recoveredSession;
