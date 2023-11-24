@@ -222,7 +222,7 @@ export interface Provider {
      * @param signal Optional AbortSignal for cancellation.
      * @returns A promise that resolves to a Session object.
      */
-    resumeSession: (pprofileId: string, signal?: AbortSignal) => Promise<Session | null>;
+    resumeSession: (profileId: string, signal?: AbortSignal) => Promise<Session | null>;
 
     /**
      * Publishes a post.
