@@ -12,7 +12,7 @@ import { getWalletClient } from 'wagmi/actions';
 import { SocialPlatform } from '@/constants/enum.js';
 import { WARPCAST_ROOT_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
-import { formatWarpcastPost } from '@/helpers/formatWarpcastPost.js';
+import { formatWarpcastPostFromFeed } from '@/helpers/formatWarpcastPost.js';
 import { generateCustodyBearer } from '@/helpers/generateCustodyBearer.js';
 import { waitForSignedKeyRequestComplete } from '@/helpers/waitForSignedKeyRequestComplete.js';
 import { type Post, ProfileStatus, type Provider, ReactionType, Type } from '@/providers/types/SocialMedia.js';
@@ -145,7 +145,7 @@ export class WarpcastSocialMedia implements Provider {
         const { result, next } = await fetchJSON<FeedResponse>(url, {
             method: 'GET',
         });
-        const data = result.feed.map(formatWarpcastPost);
+        const data = result.feed.map(formatWarpcastPostFromFeed);
         return createPageable(data, indicator ?? createIndicator(), createNextIndicator(indicator, next.cursor));
     }
 

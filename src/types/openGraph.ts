@@ -1,3 +1,5 @@
+import type { Cast } from '@/providers/types/Warpcast.js';
+
 export enum OpenGraphPayloadSourceType {
     Mirror = 'Mirror',
     Farcaster = 'Farcaster',
@@ -13,9 +15,5 @@ export interface MirrorPayload {
 
 export interface FarcasterPayload {
     type: OpenGraphPayloadSourceType.Farcaster;
-    title: string;
-    description: string;
-    author: string;
-    avatar: string;
-    timestamp: number;
+    cast: Cast;
 }
