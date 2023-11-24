@@ -6,7 +6,8 @@ import DiscoverSelectedIcon from '@/assets/discover.selected.svg';
 import DiscoverIcon from '@/assets/discover.svg';
 import FollowingSelectedIcon from '@/assets/following.selected.svg';
 import FollowingIcon from '@/assets/following.svg';
-import Logo from '@/assets/logo.svg';
+import DarkLogo from '@/assets/logo.dark.svg';
+import LightLogo from '@/assets/logo.light.svg';
 import NotificationSelectedIcon from '@/assets/notification.selected.svg';
 import NotificationIcon from '@/assets/notification.svg';
 import ProfileSelectedIcon from '@/assets/profile.selected.svg';
@@ -19,6 +20,7 @@ import { LoginModal } from '@/components/LoginModal.js';
 import { LoginStatusBar } from '@/components/LoginStatusBar.js';
 import { PageRoutes } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
+import { useQueryMode } from '@/hooks/useQueryMode.js';
 import { useFarcasterAccountsStore, useLensAccountsStore } from '@/store/useAccountPersistStore.js';
 
 import { ConnectWalletNav } from './ConnectWalletNav.js';
@@ -43,13 +45,13 @@ const items = [
 ];
 
 export const SideBar = memo(function SideBar() {
+    const mode = useQueryMode();
     const [loginOpen, setLoginOpen] = useState(false);
     const [lensStatusOpen, setLensStatusOpen] = useState(false);
     const [farcasterStatusOpen, setFarcasterStatusOpen] = useState(false);
     const lensAccounts = useLensAccountsStore.use.currentAccounts();
     const farcasterAccounts = useFarcasterAccountsStore.use.currentAccounts();
     const isLogin = useMemo(() => lensAccounts.length || farcasterAccounts.length, [lensAccounts, farcasterAccounts]);
-    console.log(isLogin, lensAccounts, farcasterAccounts);
 
     return (
         <>
@@ -57,7 +59,11 @@ export const SideBar = memo(function SideBar() {
                 <div className="flex grow flex-col gap-y-5 overflow-y-auto border-r border-line px-6">
                     <div className="flex h-16 shrink-0 items-center">
                         <Link href={PageRoutes.Home}>
-                            <Logo className="text-secondaryBottom dark:text-main" width={134} height={64} />
+                            {mode === 'light' ? (
+                                <LightLogo width={134} height={64} />
+                            ) : (
+                                <DarkLogo width={134} height={64} />
+                            )}
                         </Link>
                     </div>
                     <nav className="flex flex-1 flex-col">

@@ -6,6 +6,7 @@ import urlcat from 'urlcat';
 import EyeSlash from '@/assets/eye-slash.svg';
 import Lock from '@/assets/lock.svg';
 import { Markup } from '@/components/Markup/index.js';
+import Oembed from '@/components/Oembed/index.js';
 import { Attachments } from '@/components/Posts/Attachment.js';
 import { Quote } from '@/components/Posts/Quote.js';
 import { Link } from '@/esm/Link.js';
@@ -92,6 +93,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
                     attachments={post.metadata.content?.attachments ?? []}
                 />
             ) : null}
+            {post.metadata.content?.oembedUrl ? <Oembed url={post.metadata.content.oembedUrl} /> : null}
             {!!post.quoteOn && !isQuote ? <Quote post={post.quoteOn} /> : null}
         </div>
     );

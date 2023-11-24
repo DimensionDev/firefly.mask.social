@@ -8,6 +8,7 @@ export async function GET(request: Request) {
         return Response.json({ error: 'Missing link' }, { status: 400 });
     }
 
-    const response = await digestLink(link);
+    const response = await digestLink(decodeURIComponent(link));
+
     return createSuccessResponseJSON(response);
 }

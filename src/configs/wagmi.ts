@@ -3,7 +3,7 @@
 import { connectorsForWallets, getDefaultWallets, RainbowKitProvider } from '@rainbow-me/rainbowkit';
 import type { FallbackTransport } from 'viem';
 import { type Config, configureChains, createConfig, type PublicClient, type WebSocketPublicClient } from 'wagmi';
-import { type Chain, polygon } from 'wagmi/chains';
+import { type Chain, mainnet, polygon } from 'wagmi/chains';
 import { publicProvider } from 'wagmi/providers/public';
 
 export const appInfo: Parameters<typeof RainbowKitProvider>[0]['appInfo'] = {
@@ -11,7 +11,10 @@ export const appInfo: Parameters<typeof RainbowKitProvider>[0]['appInfo'] = {
     learnMoreUrl: 'https://mask.social',
 };
 
-export const { chains, publicClient, webSocketPublicClient } = configureChains([polygon], [publicProvider()]) as {
+export const { chains, publicClient, webSocketPublicClient } = configureChains(
+    [mainnet, polygon],
+    [publicProvider()],
+) as {
     readonly chains: Chain[];
     readonly publicClient: (options: { chainId?: number | undefined }) => PublicClient<FallbackTransport>;
     readonly webSocketPublicClient: (options: {

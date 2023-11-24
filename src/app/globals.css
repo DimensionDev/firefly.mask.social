@@ -76,6 +76,10 @@ body {
     font-family: Helvetica;
 }
 
+iframe {
+    width: 100%;
+}
+
 /* Markup styles */
 .markup > p,
 ul {

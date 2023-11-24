@@ -4,3 +4,5 @@ export const URL_REGEX =
 export const MENTION_REGEX = /@\w+\/[\w@]+/g;
 
 export const HASHTAG_REGEX = /(#\w*[A-Za-z]\w*)/g;
+
+export const MIRROR_REGEX = /https(.*)mirror.xyz(.*)\//i;

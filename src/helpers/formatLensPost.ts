@@ -21,9 +21,10 @@ import type {
     TransactionMetadataV3Fragment,
     VideoMetadataV3Fragment,
 } from '@lens-protocol/client';
-import { compact } from 'lodash-es';
+import { compact, last } from 'lodash-es';
 
 import { SocialPlatform } from '@/constants/enum.js';
+import { URL_REGEX } from '@/constants/regex.js';
 import type { Attachment, Post } from '@/providers/types/SocialMedia.js';
 import type { MetadataAsset } from '@/types/index.js';
 
@@ -233,6 +234,17 @@ export function formatLensPost(result: AnyPublicationFragment): Post {
     if (result.metadata.__typename === 'EventMetadataV3') throw new Error('Event not supported');
     const mediaObjects = getMediaObjects(result.metadata);
 
+    const content = formatContent(result.metadata);
+
+    const showNFT = result.metadata.__typename === 'MintMetadataV3';
+    const showLive = result.metadata.__typename === 'LiveStreamMetadataV3';
+    const showEmbed = result.metadata.__typename === 'EmbedMetadataV3';
+    const showAttachments = (content?.attachments?.length && content.attachments.length > 0) || content?.asset;
+    const oembedUrl =
+        !showNFT && !showLive && !showEmbed && !showAttachments
+            ? last(content?.content.match(URL_REGEX) || [])
+            : undefined;
+
     if (result.__typename === 'Quote') {
         return {
             source: SocialPlatform.Lens,
@@ -244,7 +256,10 @@ export function formatLensPost(result: AnyPublicationFragment): Post {
             isEncrypted: !!result.metadata.encryptedWith,
             metadata: {
                 locale: result.metadata.locale,
-                content: formatContent(result.metadata),
+                content: {
+                    ...content,
+                    oembedUrl,
+                },
                 contentURI: result.metadata.rawURI,
             },
             stats: {
@@ -272,7 +287,10 @@ export function formatLensPost(result: AnyPublicationFragment): Post {
         isEncrypted: !!result.metadata.encryptedWith,
         metadata: {
             locale: result.metadata.locale,
-            content: formatContent(result.metadata),
+            content: {
+                ...content,
+                oembedUrl,
+            },
             contentURI: result.metadata.rawURI,
         },
         stats: {

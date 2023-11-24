@@ -1,7 +1,8 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import QRCode from 'react-qr-code';
+import { useAsync } from 'react-use';
 
 import { Image } from '@/esm/Image.js';
 import { FireflySocialMedia } from '@/providers/firefly/SocialMedia.js';
@@ -16,7 +17,7 @@ export function LoginFarcaster({ onClose, closeFarcaster }: LoginFarcasterProps)
     const [url, setUrl] = useState('');
     const setFireflyAccounts = useFarcasterAccountsStore.use.setAccounts();
 
-    async function login() {
+    useAsync(async () => {
         const fireflyProvider = new FireflySocialMedia();
         const session = await fireflyProvider.createSession(setUrl);
         const profile = await fireflyProvider.getProfileById(session.profileId);
@@ -24,10 +25,6 @@ export function LoginFarcaster({ onClose, closeFarcaster }: LoginFarcasterProps)
             { avatar: profile.pfp, name: profile.displayName, profileId: profile.profileId, isCurrent: true },
         ]);
         onClose();
-    }
-
-    useEffect(() => {
-        login();
     }, []);
 
     return (
