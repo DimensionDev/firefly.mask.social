@@ -1,3 +1,4 @@
+import { i18n } from '@lingui/core';
 import { motion } from 'framer-motion';
 import { useSnackbar } from 'notistack';
 import { memo, useCallback } from 'react';
@@ -15,7 +16,7 @@ export const Collect = memo<CollectProps>(function Collect({ count, disabled = f
     const { enqueueSnackbar } = useSnackbar();
 
     const handleClick = useCallback(() => {
-        enqueueSnackbar('Collect is coming soon', {
+        enqueueSnackbar(i18n.t('Collect is coming soon'), {
             variant: 'warning',
         });
     }, [enqueueSnackbar]);
@@ -30,8 +31,7 @@ export const Collect = memo<CollectProps>(function Collect({ count, disabled = f
                     disabled={disabled}
                     onClick={(event) => {
                         event.stopPropagation();
-                        if (disabled) return;
-                        handleClick();
+                        if (!disabled) handleClick();
                     }}
                     whileTap={{ scale: 0.9 }}
                     className="rounded-full  p-1.5 hover:bg-primaryPink/[.20] "

@@ -42,6 +42,14 @@ msgid "Change account"
 msgstr "Change account"
 
 #. js-lingui-explicit-id
+msgid "Collect is coming soon"
+msgstr "Collect is coming soon"
+
+#. js-lingui-explicit-id
+msgid "Comment"
+msgstr "Comment"
+
+#. js-lingui-explicit-id
 msgid "Communities"
 msgstr "Communities"
 
@@ -106,6 +114,10 @@ msgid "Failed to follow"
 msgstr "Failed to follow"
 
 #. js-lingui-explicit-id
+msgid "Failed to like. {message}"
+msgstr "Failed to like. {message}"
+
+#. js-lingui-explicit-id
 msgid "Failed to mirror post"
 msgstr "Failed to mirror post"
 
@@ -130,6 +142,10 @@ msgid "Failed to unfollow"
 msgstr "Failed to unfollow"
 
 #. js-lingui-explicit-id
+msgid "Failed to unlike. {message}"
+msgstr "Failed to unlike. {message}"
+
+#. js-lingui-explicit-id
 msgid "Failed to unmirror post"
 msgstr "Failed to unmirror post"
 
@@ -150,6 +166,10 @@ msgid "Follow"
 msgstr "Follow"
 
 #. js-lingui-explicit-id
+msgid "Follow @thefireflyapp on X"
+msgstr "Follow @thefireflyapp on X"
+
+#. js-lingui-explicit-id
 msgid "Follow System"
 msgstr "Follow System"
 
@@ -168,6 +188,10 @@ msgstr "Lens"
 #. js-lingui-explicit-id
 msgid "Light mode"
 msgstr "Light mode"
+
+#. js-lingui-explicit-id
+msgid "Liked"
+msgstr "Liked"
 
 #. js-lingui-explicit-id
 msgid "Log in to your Farcaster account by scanning this QR code using mobile application Warpcast."
@@ -330,12 +354,24 @@ msgid "This can’t be undone and you’ll lose your draft"
 msgstr "This can’t be undone and you’ll lose your draft"
 
 #. js-lingui-explicit-id
+msgid "UnLiked"
+msgstr "UnLiked"
+
+#. js-lingui-explicit-id
 msgid "Unfollow"
 msgstr "Unfollow"
 
 #. js-lingui-explicit-id
 msgid "Unknown session type."
 msgstr "Unknown session type."
+
+#. js-lingui-explicit-id
+msgid "You cannot reply to @{author} on {source}"
+msgstr "You cannot reply to @{author} on {source}"
+
+#. js-lingui-explicit-id
+msgid "{count} Comments"
+msgstr "{count} Comments"
 
 #. js-lingui-explicit-id
 msgid "{count} views"

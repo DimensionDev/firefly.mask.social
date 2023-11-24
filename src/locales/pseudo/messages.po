@@ -42,6 +42,14 @@ msgid "Change account"
 msgstr ""
 
 #. js-lingui-explicit-id
+msgid "Collect is coming soon"
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "Comment"
+msgstr ""
+
+#. js-lingui-explicit-id
 msgid "Communities"
 msgstr ""
 
@@ -106,6 +114,10 @@ msgid "Failed to follow"
 msgstr ""
 
 #. js-lingui-explicit-id
+msgid "Failed to like. {message}"
+msgstr ""
+
+#. js-lingui-explicit-id
 msgid "Failed to mirror post"
 msgstr ""
 
@@ -130,6 +142,10 @@ msgid "Failed to unfollow"
 msgstr ""
 
 #. js-lingui-explicit-id
+msgid "Failed to unlike. {message}"
+msgstr ""
+
+#. js-lingui-explicit-id
 msgid "Failed to unmirror post"
 msgstr ""
 
@@ -150,6 +166,10 @@ msgid "Follow"
 msgstr ""
 
 #. js-lingui-explicit-id
+msgid "Follow @thefireflyapp on X"
+msgstr ""
+
+#. js-lingui-explicit-id
 msgid "Follow System"
 msgstr ""
 
@@ -167,6 +187,10 @@ msgstr ""
 
 #. js-lingui-explicit-id
 msgid "Light mode"
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "Liked"
 msgstr ""
 
 #. js-lingui-explicit-id
@@ -330,11 +354,23 @@ msgid "This can’t be undone and you’ll lose your draft"
 msgstr ""
 
 #. js-lingui-explicit-id
+msgid "UnLiked"
+msgstr ""
+
+#. js-lingui-explicit-id
 msgid "Unfollow"
 msgstr ""
 
 #. js-lingui-explicit-id
 msgid "Unknown session type."
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "You cannot reply to @{author} on {source}"
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "{count} Comments"
 msgstr ""
 
 #. js-lingui-explicit-id

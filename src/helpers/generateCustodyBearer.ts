@@ -1,8 +1,8 @@
+import { i18n } from '@lingui/core';
 import { toBytes } from 'viem';
 import type { WalletClient } from 'wagmi';
 
 import { canonicalize } from '@/esm/canonicalize.js';
-import { i18n } from '@lingui/core';
 
 export interface CustodyPayload {
     method: 'generateToken';

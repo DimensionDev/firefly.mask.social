@@ -1,11 +1,11 @@
 import { development, LensClient, production } from '@lens-protocol/client';
+import { i18n } from '@lingui/core';
 import { getWalletClient } from 'wagmi/actions';
 
 import { generateCustodyBearer } from '@/helpers/generateCustodyBearer.js';
 import { BaseSession } from '@/providers/base/Session.js';
 import type { Session } from '@/providers/types/Session.js';
 import { Type } from '@/providers/types/SocialMedia.js';
-import { i18n } from '@lingui/core';
 
 export class LensSession extends BaseSession implements Session {
     constructor(

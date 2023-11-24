@@ -1,10 +1,16 @@
+import { i18n } from '@lingui/core';
 import { Trans } from '@lingui/react';
 
 import { AccountCard } from '@/app/(settings)/settings/communities/AccountCard/index.js';
 
-const FireflyCommunities = [
-    { content: 'Follow @thefireflyapp on X', link: 'https://twitter.com/thefireflyapp', logo: '/svg/x-light.svg' },
+const communities = [
+    {
+        content: i18n._('Follow @thefireflyapp on X'),
+        link: 'https://twitter.com/thefireflyapp',
+        logo: '/svg/x-light.svg',
+    },
 ];
+
 export default function Connected() {
     return (
         <div className="flex w-full flex-col items-center gap-[24px] p-[24px]">
@@ -18,7 +24,7 @@ export default function Connected() {
                     <Trans id="Firefly" />
                 </span>
             </div>
-            {FireflyCommunities.map(({ content, link, logo }) => (
+            {communities.map(({ content, link, logo }) => (
                 <AccountCard key={link} content={content} link={link} logo={logo} />
             ))}
         </div>

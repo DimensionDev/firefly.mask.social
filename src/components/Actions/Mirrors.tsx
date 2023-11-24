@@ -79,9 +79,7 @@ export const Mirror = memo<MirrorProps>(function Mirror({ shares, source, hasMir
                         });
                         enqueueSnackbar(
                             i18n._('Failed to mirror. {message}', {
-                                values: {
-                                    message: error.message,
-                                },
+                                message: error.message,
                             }),
                             {
                                 variant: 'error',

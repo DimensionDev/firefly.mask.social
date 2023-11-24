@@ -1,3 +1,4 @@
+import { i18n } from '@lingui/core';
 import { motion } from 'framer-motion';
 import { useSnackbar } from 'notistack';
 import { memo, useCallback, useMemo } from 'react';
@@ -20,17 +21,25 @@ export const Comment = memo<CommentProps>(function Comment({ count, disabled = f
     const { enqueueSnackbar } = useSnackbar();
     const tooltip = useMemo(() => {
         if (count && count > 0) {
-            return `${humanize(count)} Comments`;
+            return i18n._('{count} Comments', {
+                count: humanize(count),
+            });
         }
 
-        return 'Comment';
+        return i18n._('Comment');
     }, [count]);
 
     const handleClick = useCallback(() => {
         if (canComment)
-            enqueueSnackbar(`You cannot reply to @${author} on ${source}`, {
-                variant: 'error',
-            });
+            enqueueSnackbar(
+                i18n._('You cannot reply to @{author} on {source}', {
+                    author,
+                    source,
+                }),
+                {
+                    variant: 'error',
+                },
+            );
     }, [canComment, author, source, enqueueSnackbar]);
 
     return (
@@ -46,8 +55,7 @@ export const Comment = memo<CommentProps>(function Comment({ count, disabled = f
                 className={'rounded-full p-1.5 text-secondary hover:bg-bg'}
                 onClick={(event) => {
                     event.stopPropagation();
-                    if (disabled) return;
-                    handleClick();
+                    if (!disabled) handleClick();
                 }}
                 aria-label="Comment"
             >

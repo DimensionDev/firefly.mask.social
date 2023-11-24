@@ -1,6 +1,7 @@
 import { Trans } from '@lingui/react';
 
 import { AccountCard } from '@/app/(settings)/settings/connected/AccountCard/index.js';
+import { SocialPlatform } from '@/constants/enum.js';
 import { Image } from '@/esm/Image.js';
 
 export default function Connected() {
@@ -20,7 +21,14 @@ export default function Connected() {
                     <Image src="/svg/copy.svg" alt="copy" width={14} height={14} />
                 </div>
             </div>
-            <AccountCard avatar="" name="aaa" userName="aaaaa" isCurrent={false} type="lens" logout={() => {}} />
+            <AccountCard
+                avatar=""
+                name="aaa"
+                userName="aaaaa"
+                isCurrent={false}
+                type={SocialPlatform.Lens}
+                logout={() => {}}
+            />
         </div>
     );
 }

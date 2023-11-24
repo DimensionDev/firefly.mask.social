@@ -1,4 +1,5 @@
 import type { LensClient } from '@lens-protocol/client';
+import { i18n } from '@lingui/core';
 import { parseJSON } from '@masknet/web3-providers/helpers';
 import z from 'zod';
 
@@ -6,7 +7,6 @@ import { LensSession } from '@/providers/lens/Session.js';
 import type { Session } from '@/providers/types/Session.js';
 import { Type } from '@/providers/types/SocialMedia.js';
 import { WarpcastSession } from '@/providers/warpcast/Session.js';
-import { i18n } from '@lingui/core';
 
 export class SessionFactory {
     /**

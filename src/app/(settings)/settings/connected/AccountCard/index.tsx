@@ -1,9 +1,10 @@
 import { Trans } from '@lingui/react';
 
+import { SocialPlatform } from '@/constants/enum.js';
 import { Image } from '@/esm/Image.js';
 
 interface AccountCardProps {
-    type: 'lens' | 'farcaster';
+    type: SocialPlatform;
     avatar: string;
     name: string;
     userName: string;
@@ -21,7 +22,7 @@ export function AccountCard({ avatar, name, userName, logout, isCurrent, type }:
                     </div>
                     <Image
                         className="absolute left-[24px] top-[24px] h-[16px] w-[16px] rounded-[99px] border border-white shadow"
-                        src={type === 'lens' ? '/svg/lens.svg' : '/svg/farcaster.svg'}
+                        src={type === SocialPlatform.Lens ? '/svg/lens.svg' : '/svg/farcaster.svg'}
                         alt="logo"
                         width={16}
                         height={16}

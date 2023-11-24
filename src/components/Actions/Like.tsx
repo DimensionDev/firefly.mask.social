@@ -1,3 +1,4 @@
+import { i18n } from '@lingui/core';
 import { useQueryClient } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
 import { useSnackbar } from 'notistack';
@@ -47,7 +48,7 @@ export const Like = memo<LikeProps>(function Like({ count, hasLiked, postId, sou
                 default:
                     break;
             }
-            enqueueSnackbar(liked ? 'UnLiked' : 'Liked', {
+            enqueueSnackbar(liked ? i18n._('UnLiked') : i18n._('Liked'), {
                 variant: 'success',
             });
             queryClient.invalidateQueries({ queryKey: [source, 'post-detail', postId] });
@@ -61,9 +62,18 @@ export const Like = memo<LikeProps>(function Like({ count, hasLiked, postId, sou
                     if (!prev) return;
                     return prev - 1;
                 });
-                enqueueSnackbar(`'Failed to ${liked ? 'unlike' : 'like'}. ${error.message}`, {
-                    variant: 'error',
-                });
+                enqueueSnackbar(
+                    liked
+                        ? i18n._('Failed to unlike. {message}', {
+                              message: error.message,
+                          })
+                        : i18n._('Failed to like. {message}', {
+                              message: error.message,
+                          }),
+                    {
+                        variant: 'error',
+                    },
+                );
             }
             return;
         }

@@ -22,9 +22,7 @@ export const Views = memo<ViewsProps>(function Collect({ count, disabled = false
                 content={
                     count
                         ? i18n._('{count} views', {
-                              values: {
-                                  count: nFormatter(count),
-                              },
+                              count: nFormatter(count),
                           })
                         : null
                 }

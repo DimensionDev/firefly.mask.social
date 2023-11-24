@@ -7,6 +7,7 @@ import {
     PublicationReactionType,
     PublicationType,
 } from '@lens-protocol/client';
+import { i18n } from '@lingui/core';
 import {
     createIndicator,
     createNextIndicator,
@@ -31,7 +32,6 @@ import {
 
 import { formatLensPost } from '../../helpers/formatLensPost.js';
 import { formatLensProfile } from '../../helpers/formatLensProfile.js';
-import { i18n } from '@lingui/core';
 
 export class LensSocialMedia implements Provider {
     private lensClient = new LensClient({

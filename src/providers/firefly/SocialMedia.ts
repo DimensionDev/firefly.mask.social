@@ -1,4 +1,5 @@
 import { Message } from '@farcaster/hub-web';
+import { i18n } from '@lingui/core';
 import {
     createIndicator,
     createNextIndicator,
@@ -35,7 +36,6 @@ import { type Post, type Profile, ProfileStatus, type Provider, Type } from '@/p
 import { ReactionType as ReactionTypeCustom } from '@/providers/types/SocialMedia.js';
 import type { FeedResponse } from '@/providers/types/Warpcast.js';
 import type { MetadataAsset, ResponseJSON } from '@/types/index.js';
-import { i18n } from '@lingui/core';
 
 ed.etc.sha512Sync = (...m: any) => sha512(ed.etc.concatBytes(...m));
 

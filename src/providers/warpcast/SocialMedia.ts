@@ -1,3 +1,4 @@
+import { i18n } from '@lingui/core';
 import {
     createIndicator,
     createNextIndicator,
@@ -27,7 +28,6 @@ import type {
 } from '@/providers/types/Warpcast.js';
 import { WarpcastSession } from '@/providers/warpcast/Session.js';
 import type { ResponseJSON } from '@/types/index.js';
-import { i18n } from '@lingui/core';
 
 // @ts-ignore
 export class WarpcastSocialMedia implements Provider {

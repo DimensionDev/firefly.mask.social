@@ -1,12 +1,12 @@
 import { Trans } from '@lingui/react';
 
 import FollowButton from '@/app/profile/components/FollowButton.js';
-import { PlatformEnum } from '@/app/profile/type.js';
+import { SocialPlatform } from '@/constants/enum.js';
 import { Image } from '@/esm/Image.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 interface InfoProps {
-    platform: PlatformEnum;
+    platform: SocialPlatform;
     handle: string;
     profile?: Profile;
 }
@@ -29,7 +29,7 @@ export default function Info({ platform, handle, profile }: InfoProps) {
                     <div className=" flex items-center gap-2">
                         <span className=" font-black text-lightMain">{profile?.nickname ?? handle}</span>
                         <Image
-                            src={platform === PlatformEnum.Lens ? '/svg/lens.svg' : '/svg/farcaster.svg'}
+                            src={platform === SocialPlatform.Lens ? '/svg/lens.svg' : '/svg/farcaster.svg'}
                             width={20}
                             height={20}
                             alt="platform"
