@@ -15,17 +15,7 @@ export class FireflySession extends BaseSession implements Session {
             expiresAt: this.expiresAt,
         });
 
-        return `${super.type}:${body}`;
-    }
-
-    static deserialize(serializedSession: string): FireflySession {
-        const colonIndex = serializedSession.indexOf(':');
-        const body = serializedSession.substring(colonIndex + 1);
-        const data = JSON.parse(body);
-
-        const session = new FireflySession(data.profileId, data.token, data.timestamp, data.expiresAt);
-
-        return session;
+        return `${this.type}:${body}`;
     }
 
     refresh(): Promise<void> {

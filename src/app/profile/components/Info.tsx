@@ -25,7 +25,7 @@ export default function Info({ platform, handle, profile }: InfoProps) {
 
                 <div className=" flex flex-col">
                     <div className=" flex items-center gap-2">
-                        <span className=" font-black text-textMain">{profile?.nickname ?? handle}</span>
+                        <span className=" font-black text-lightMain">{profile?.nickname ?? handle}</span>
                         <Image
                             src={platform === PlatformEnum.Lens ? '/svg/lens.svg' : '/svg/farcaster.svg'}
                             width={20}
@@ -41,12 +41,12 @@ export default function Info({ platform, handle, profile }: InfoProps) {
 
                 <div className=" flex gap-3">
                     <div className=" flex gap-1">
-                        <span className=" font-bold text-textMain">{profile?.followingCount ?? 0}</span>
+                        <span className=" font-bold text-lightMain">{profile?.followingCount ?? 0}</span>
                         <span className=" text-[#767676]">Following</span>
                     </div>
 
                     <div className=" flex gap-1">
-                        <span className=" font-bold text-textMain">{profile?.followerCount ?? 0}</span>
+                        <span className=" font-bold text-lightMain">{profile?.followerCount ?? 0}</span>
                         <span className=" text-[#767676]">Followers</span>
                     </div>
                 </div>

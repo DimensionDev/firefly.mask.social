@@ -17,6 +17,7 @@ import {
 import { getWalletClient } from 'wagmi/actions';
 
 import { generateCustodyBearer } from '@/helpers/generateCustodyBearer.js';
+import { SessionFactory } from '@/providers/base/SessionFactory.js';
 import { LensSession } from '@/providers/lens/Session.js';
 import {
     type Notification,
@@ -32,15 +33,9 @@ import { formatLensPost } from '../../helpers/formatLensPost.js';
 import { formatLensProfile } from '../../helpers/formatLensProfile.js';
 
 export class LensSocialMedia implements Provider {
-    private currentSession?: LensSession;
-
-    lensClient: LensClient;
-
-    constructor() {
-        this.lensClient = new LensClient({
-            environment: production,
-        });
-    }
+    private lensClient = new LensClient({
+        environment: production,
+    });
 
     get type() {
         return Type.Lens;
@@ -72,22 +67,88 @@ export class LensSocialMedia implements Provider {
         const accessToken = accessTokenResult.unwrap();
         const { payload } = await generateCustodyBearer(client);
 
-        return (this.currentSession = new LensSession(
+        const currentSession = new LensSession(
             profile.id,
             accessToken,
             payload.params.timestamp,
             payload.params.expiresAt,
             this.lensClient,
-        ));
+        );
+        localStorage.setItem(`lens_session${profile.id}`, currentSession.serialize());
+        return currentSession;
     }
 
-    async resumeSession(): Promise<LensSession> {
-        if (this.currentSession && this.currentSession.expiresAt > Date.now()) {
-            return this.currentSession;
-        }
+    async createSessionForProfileId(profileId: string): Promise<LensSession> {
+        const client = await getWalletClient();
+        if (!client) throw new Error('No client found');
 
-        this.currentSession = await this.createSession();
-        return this.currentSession;
+        const address = client.account.address;
+
+        const { id, text } = await this.lensClient.authentication.generateChallenge({
+            for: profileId,
+            signedBy: address,
+        });
+        const signature = await client.signMessage({
+            message: text,
+        });
+
+        await this.lensClient.authentication.authenticate({
+            id,
+            signature,
+        });
+
+        const accessTokenResult = await this.lensClient.authentication.getAccessToken();
+        const accessToken = accessTokenResult.unwrap();
+        const { payload } = await generateCustodyBearer(client);
+
+        const currentSession = new LensSession(
+            profileId,
+            accessToken,
+            payload.params.timestamp,
+            payload.params.expiresAt,
+            this.lensClient,
+        );
+        localStorage.setItem(`lens_session${profileId}`, currentSession.serialize());
+        return currentSession;
+    }
+
+    async getAllProfiles(): Promise<any> {
+        const client = await getWalletClient();
+        if (!client) throw new Error('No client found');
+
+        const address = client.account.address;
+        const profiles = await this.lensClient.profile.fetchAll({
+            where: {
+                ownedBy: [address],
+            },
+        });
+        return profiles.items.map((profile) => ({
+            name: profile.metadata?.displayName,
+            avatar:
+                profile.metadata?.picture?.__typename === 'ImageSet'
+                    ? profile.metadata?.picture?.optimized?.uri
+                    : profile.metadata?.picture?.image.optimized?.uri,
+            profileId: profile.handle?.localName,
+            signless: profile.signless,
+            id: profile.id,
+        }));
+    }
+
+    async resumeSession(profileId: string): Promise<LensSession | null> {
+        const currentTime = Date.now();
+
+        const storedSession = localStorage.getItem(`lens_session${profileId}`);
+
+        if (storedSession) {
+            const recoveredSession = SessionFactory.createSession<LensSession>(storedSession);
+            if (recoveredSession.expiresAt > currentTime) {
+                this.lensClient = recoveredSession.client;
+                return recoveredSession;
+            } else {
+                return null;
+            }
+        }
+        return null;
     }
 
     async publishPost(post: Post): Promise<Post> {

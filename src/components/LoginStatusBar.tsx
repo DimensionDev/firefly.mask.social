@@ -8,7 +8,7 @@ interface LoginStatusBarProps {
 export function LoginStatusBar({ openLens, openFarcaster }: LoginStatusBarProps) {
     return (
         <div className="flex gap-x-2 pl-2">
-            <div className="relative h-[40px] w-[48px]">
+            <button className="relative h-[40px] w-[48px]" onClick={() => openLens()}>
                 <div className="absolute left-0 top-0 h-[40px] w-[40px] rounded-[99px] shadow backdrop-blur-lg">
                     <Image src="/svg/lens.svg" alt="avatar" width={40} height={40} />
                 </div>
@@ -19,8 +19,8 @@ export function LoginStatusBar({ openLens, openFarcaster }: LoginStatusBarProps)
                     width={16}
                     height={16}
                 />
-            </div>
-            <div className="relative h-[40px] w-[48px]">
+            </button>
+            <button className="relative h-[40px] w-[48px]" onClick={() => openFarcaster()}>
                 <div className="absolute left-0 top-0 h-[40px] w-[40px] rounded-[99px] shadow backdrop-blur-lg">
                     <Image src="/svg/farcaster.svg" alt="avatar" width={40} height={40} />
                 </div>
@@ -31,7 +31,7 @@ export function LoginStatusBar({ openLens, openFarcaster }: LoginStatusBarProps)
                     width={16}
                     height={16}
                 />
-            </div>
+            </button>
         </div>
     );
 }

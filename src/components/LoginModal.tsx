@@ -5,8 +5,10 @@ import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { Fragment, useCallback, useEffect, useRef, useState } from 'react';
 
 import { LoginFarcaster } from '@/components/LoginFarcaster.js';
+import { LoginLens } from '@/components/LoginLens/index.js';
 import { Image } from '@/esm/Image.js';
-import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
+import { LensSocialMedia } from '@/providers/lens/SocialMedia.js';
+import { type LensAccount } from '@/store/index.js';
 
 interface LoginModalProps {
     isOpen: boolean;
@@ -23,8 +25,10 @@ function usePrevious(value: boolean) {
 
 export function LoginModal({ isOpen, setIsOpen }: LoginModalProps) {
     const [farcasterOpen, setFarcasterOpen] = useState(false);
+    const [lensOpen, setLensOpen] = useState(false);
     const [connectOpen, setConnectOpen] = useState(false);
     const [chainOpen, setChainOpen] = useState(false);
+    const [accounts, setAccounts] = useState<LensAccount[]>();
     const previousConnectModalOpen = usePrevious(connectOpen);
     const previousChainModalOpen = usePrevious(chainOpen);
 
@@ -33,9 +37,10 @@ export function LoginModal({ isOpen, setIsOpen }: LoginModalProps) {
     };
 
     const loginLens = useCallback(async () => {
-        await LensSocialMediaProvider.createSession();
-        setIsOpen(false);
-    }, [setIsOpen]);
+        const lensProvider = new LensSocialMedia();
+        setAccounts(await lensProvider.getAllProfiles());
+        setLensOpen(true);
+    }, [setAccounts, setLensOpen]);
 
     useEffect(() => {
         if (previousConnectModalOpen && !connectOpen) {
@@ -76,7 +81,7 @@ export function LoginModal({ isOpen, setIsOpen }: LoginModalProps) {
                             leaveTo="opacity-0 scale-95"
                         >
                             <Dialog.Panel className="transform rounded-[12px] bg-white transition-all">
-                                {!farcasterOpen ? (
+                                {!farcasterOpen && !lensOpen ? (
                                     <div
                                         className="flex w-[600px] flex-col rounded-[12px]"
                                         style={{ boxShadow: '0px 4px 30px 0px rgba(0, 0, 0, 0.10)' }}
@@ -159,7 +164,7 @@ export function LoginModal({ isOpen, setIsOpen }: LoginModalProps) {
                                                                                     alt="lens"
                                                                                 />
                                                                             </div>
-                                                                            <div className="font-['Helvetica'] text-sm font-bold leading-[18px] text-lightSecond group-hover:text-textMain">
+                                                                            <div className="font-['Helvetica'] text-sm font-bold leading-[18px] text-lightSecond group-hover:text-lightMain">
                                                                                 Lens
                                                                             </div>
                                                                         </div>
@@ -186,7 +191,7 @@ export function LoginModal({ isOpen, setIsOpen }: LoginModalProps) {
                                                             alt="lens"
                                                         />
                                                     </div>
-                                                    <div className="font-['Helvetica'] text-sm font-bold leading-[18px] text-lightSecond group-hover:text-textMain">
+                                                    <div className="font-['Helvetica'] text-sm font-bold leading-[18px] text-lightSecond group-hover:text-lightMain">
                                                         Farcaster
                                                     </div>
                                                 </div>
@@ -194,11 +199,28 @@ export function LoginModal({ isOpen, setIsOpen }: LoginModalProps) {
                                         </div>
                                     </div>
                                 ) : (
-                                    <LoginFarcaster
-                                        closeFarcaster={() => {
-                                            setFarcasterOpen(false);
-                                        }}
-                                    />
+                                    <>
+                                        {farcasterOpen ? (
+                                            <LoginFarcaster
+                                                onClose={() => {
+                                                    setIsOpen(false);
+                                                    setFarcasterOpen(false);
+                                                }}
+                                                closeFarcaster={() => {
+                                                    setFarcasterOpen(false);
+                                                }}
+                                            />
+                                        ) : null}
+                                        {lensOpen ? (
+                                            <LoginLens
+                                                accounts={accounts}
+                                                onClose={() => {
+                                                    setIsOpen(false);
+                                                    setLensOpen(false);
+                                                }}
+                                            />
+                                        ) : null}
+                                    </>
                                 )}
                             </Dialog.Panel>
                         </Transition.Child>

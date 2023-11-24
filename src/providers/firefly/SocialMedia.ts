@@ -20,6 +20,7 @@ import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { formatWarpcastPost } from '@/helpers/formatWarpcastPost.js';
 import { getResourceType } from '@/helpers/getResourceType.js';
 import { waitForSignedKeyRequestComplete } from '@/helpers/waitForSignedKeyRequestComplete.js';
+import { SessionFactory } from '@/providers/base/SessionFactory.js';
 import {
     FarcasterNetwork,
     HashScheme,
@@ -37,6 +38,7 @@ import type { MetadataAsset, ResponseJSON } from '@/types/index.js';
 
 ed.etc.sha512Sync = (...m: any) => sha512(ed.etc.concatBytes(...m));
 
+// @ts-ignore
 export class FireflySocialMedia implements Provider {
     get type() {
         return Type.Firefly;
@@ -79,14 +81,13 @@ export class FireflySocialMedia implements Provider {
         return session;
     }
 
-    // @ts-ignore
     async resumeSession(): Promise<FireflySession | null> {
         const currentTime = Date.now();
 
         const storedSession = localStorage.getItem('firefly_session');
 
         if (storedSession) {
-            const recoveredSession = FireflySession.deserialize(storedSession);
+            const recoveredSession = SessionFactory.createSession<FireflySession>(storedSession);
             if (recoveredSession.expiresAt > currentTime) {
                 return recoveredSession;
             } else {
