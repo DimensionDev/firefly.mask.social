@@ -1,1 +1,1 @@
-/*eslint-disable*/export const messages=JSON.parse("{\"Settings\":\"Settings\"}");
+/*eslint-disable*/ export const messages = JSON.parse('{"Dsiplay":"Dsiplay","Settings":"Settings"}');
