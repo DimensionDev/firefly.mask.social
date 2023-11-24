@@ -22,7 +22,7 @@ const lensAccountsSlice: StateCreator<LensAccountsState, [['zustand/persist', un
 });
 
 export const useLensAccountsStoreBase = create<LensAccountsState>()(
-    persist(lensAccountsSlice, { name: 'lens-accounts' }),
+    persist(lensAccountsSlice, { name: 'lens-accounts', skipHydration: true,}),
 );
 export const useLensAccountsStore = createSelectors(useLensAccountsStoreBase);
 
@@ -44,6 +44,7 @@ const farcasterAccountsSlice: StateCreator<FarcasterAccountsState, [['zustand/pe
 });
 
 export const useFarcasterAccountsStoreBase = create<FarcasterAccountsState>()(
-    persist(farcasterAccountsSlice, { name: 'farcaster-accounts' }),
+    persist(farcasterAccountsSlice, { name: 'farcaster-accounts', skipHydration: true,
+}),
 );
 export const useFarcasterAccountsStore = createSelectors(useFarcasterAccountsStoreBase);

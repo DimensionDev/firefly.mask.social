@@ -1,6 +1,6 @@
 'use client';
 
-import { memo, useMemo, useState } from 'react';
+import { memo, useEffect,useMemo, useState } from 'react';
 
 import DiscoverSelectedIcon from '@/assets/discover.selected.svg';
 import DiscoverIcon from '@/assets/discover.svg';
@@ -49,7 +49,11 @@ export const SideBar = memo(function SideBar() {
     const lensAccounts = useLensAccountsStore.use.currentAccounts();
     const farcasterAccounts = useFarcasterAccountsStore.use.currentAccounts();
     const isLogin = useMemo(() => lensAccounts.length || farcasterAccounts.length, [lensAccounts, farcasterAccounts]);
-    console.log(isLogin, lensAccounts, farcasterAccounts);
+
+    useEffect(() => {
+        useLensAccountsStore.persist.rehydrate()
+        useFarcasterAccountsStore.persist.rehydrate()
+    }, [])
 
     return (
         <>
@@ -81,7 +85,7 @@ export const SideBar = memo(function SideBar() {
                                     })}
                                     <li>
                                         <button
-                                            onClick={() => {}}
+                                            onClick={() => { }}
                                             type="button"
                                             className=" min-w-[150px] rounded-[16px] bg-main px-3 py-3 text-xl font-semibold leading-6 text-primaryBottom "
                                         >
