@@ -36,8 +36,8 @@ const items = [
         selectedIcon: FollowingSelectedIcon,
     },
     {
-        href: PageRoutes.Notification,
-        name: i18n.t('Notification'),
+        href: PageRoutes.Notifications,
+        name: i18n.t('Notifications'),
         icon: NotificationIcon,
         selectedIcon: NotificationSelectedIcon,
     },
@@ -48,7 +48,7 @@ const items = [
         icon: '/svg/wallet.svg',
         selectedIcon: '/svg/wallet.svg',
     },
-    { href: PageRoutes.Setting, name: i18n.t('Settings'), icon: SettingsIcon, selectedIcon: SettingsSelectedIcon },
+    { href: PageRoutes.Settings, name: i18n.t('Settings'), icon: SettingsIcon, selectedIcon: SettingsSelectedIcon },
 ];
 
 export const SideBar = memo(function SideBar() {
