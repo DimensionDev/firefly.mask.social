@@ -450,6 +450,14 @@ export class LensSocialMedia implements Provider {
             createNextIndicator(indicator, result.pageInfo.next ?? undefined),
         );
     }
+
+    searchProfiles(indicator?: PageIndicator): Promise<Pageable<Profile>> {
+        throw new Error('Method not implemented.');
+    }
+
+    searchPosts(indicator?: PageIndicator): Promise<Pageable<Post>> {
+        throw new Error('Method not implemented.');
+    }
 }
 
 export const LensSocialMediaProvider = new LensSocialMedia();

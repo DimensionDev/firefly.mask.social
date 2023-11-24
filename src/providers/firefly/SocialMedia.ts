@@ -30,7 +30,7 @@ import {
 } from '@/providers/firefly/proto/message.js';
 import { FireflySession } from '@/providers/firefly/Session.js';
 import type { CastResponse, CastsResponse, UserResponse, UsersResponse } from '@/providers/types/Firefly.js';
-import { type Post, ProfileStatus, type Provider, Type } from '@/providers/types/SocialMedia.js';
+import { type Post, type Profile, ProfileStatus, type Provider, Type } from '@/providers/types/SocialMedia.js';
 import { ReactionType as ReactionTypeCustom } from '@/providers/types/SocialMedia.js';
 import type { FeedResponse } from '@/providers/types/Warpcast.js';
 import type { MetadataAsset, ResponseJSON } from '@/types/index.js';
@@ -641,6 +641,14 @@ export class FireflySocialMedia implements Provider {
         });
         if (!data) throw new Error('Failed to unfollow');
         return null!;
+    }
+
+    searchProfiles(indicator?: PageIndicator): Promise<Pageable<Profile>> {
+        throw new Error('Method not implemented.');
+    }
+
+    searchPosts(indicator?: PageIndicator): Promise<Pageable<Post>> {
+        throw new Error('Method not implemented.');
     }
 }
 
