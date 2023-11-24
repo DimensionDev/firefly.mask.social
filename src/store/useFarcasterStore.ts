@@ -12,7 +12,7 @@ export interface FarcasterState {
     updateAccounts: (accounts: Account[]) => void;
 }
 
-const useFacasterStateBase = create<FarcasterState, [['zustand/persist', unknown], ['zustand/immer', unknown]]>(
+const useFarcasterStateBase = create<FarcasterState, [['zustand/persist', unknown], ['zustand/immer', unknown]]>(
     persist(
         immer<FarcasterState>((set) => ({
             accounts: [],
@@ -29,4 +29,4 @@ const useFacasterStateBase = create<FarcasterState, [['zustand/persist', unknown
     ),
 );
 
-export const useFarcasterStateStore = createSelectors(useFacasterStateBase);
+export const useFarcasterStateStore = createSelectors(useFarcasterStateBase);
