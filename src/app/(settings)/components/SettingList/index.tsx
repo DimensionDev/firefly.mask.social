@@ -1,13 +1,13 @@
 'use client';
 
-import { Trans } from '@lingui/react';
 import { i18n } from '@lingui/core';
+import { Trans } from '@lingui/react';
 
 import { Image } from '@/esm/Image.js';
 import { Link } from '@/esm/Link.js';
 
 const settings = [
-    { name: i18n._({ id: 'Dsiplay' }), link: '/display' },
+    { name: i18n._({ id: 'Display' }), link: '/display' },
     { name: 'Associated Wallets', link: '/associated' },
     { name: 'Connected Accounts', link: '/connected' },
     { name: 'Communities', link: '/communities' },

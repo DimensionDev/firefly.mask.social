@@ -49,8 +49,8 @@ export function Providers(props: { children: React.ReactNode }) {
         }
     });
 
-    const mouted = useMounted();
-    if (!mouted) return null;
+    const mounted = useMounted();
+    if (!mounted) return null;
 
     return (
         <I18nProvider i18n={i18n}>
