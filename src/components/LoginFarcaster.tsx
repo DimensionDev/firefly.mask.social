@@ -5,7 +5,7 @@ import QRCode from 'react-qr-code';
 
 import { Image } from '@/esm/Image.js';
 import { FireflySocialMedia } from '@/providers/firefly/SocialMedia.js';
-import { useFarcasterAccountsStore } from '@/store/index.js';
+import { useFarcasterAccountsStore } from '@/store/useAccountPersistStore.js';
 
 interface LoginFarcasterProps {
     onClose: () => void;
