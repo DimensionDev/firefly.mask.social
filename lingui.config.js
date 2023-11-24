@@ -18,6 +18,9 @@ export default {
             exclude: ['src/maskbook/**'],
         },
     ],
+    fallbackLocales: {
+        pseudo: 'en',
+    },
     format: 'po',
     formatOptions: {
         origins: true,

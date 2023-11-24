@@ -12,6 +12,7 @@ import { useEffectOnce } from 'react-use';
 import { v4 as uuid } from 'uuid';
 
 import { WagmiProvider } from '@/components/WagmiProvider.js';
+import { useMounted } from '@/hooks/useMounted.js';
 import { initLocale } from '@/i18n/index.js';
 import { useLeafwatchPersistStore } from '@/store/useLeafwatchPersistStore.js';
 
@@ -21,7 +22,9 @@ const livepeerClient = createReactClient({
 
 export function Providers(props: { children: React.ReactNode }) {
     useEffect(() => {
-        initLocale();
+        if (typeof window !== 'undefined') {
+            initLocale();
+        }
     }, []);
 
     const [queryClient] = useState(
@@ -47,6 +50,9 @@ export function Providers(props: { children: React.ReactNode }) {
             (navigator.serviceWorker as ServiceWorkerContainer).register('/sw.js', { scope: '/' }).catch(console.error);
         }
     });
+
+    const mouted = useMounted();
+    if (!mouted) return null;
 
     return (
         <I18nProvider i18n={i18n}>
