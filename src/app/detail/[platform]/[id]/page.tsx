@@ -31,5 +31,5 @@ export default function Page({ params }: { params: { id: string; platform: strin
     });
 
     if (!data) return;
-    return <SinglePost post={data} />;
+    return <SinglePost post={data} disableAnimate />;
 }

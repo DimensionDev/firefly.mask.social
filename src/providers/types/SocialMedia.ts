@@ -125,6 +125,7 @@ export interface Post {
             content?: string;
             asset?: MetadataAsset;
             attachments?: Attachment[];
+            oembedUrl?: string;
         } | null;
         contentURI?: string;
     };
