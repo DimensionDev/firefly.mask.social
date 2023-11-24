@@ -15,7 +15,14 @@ export default {
     catalogs: [
         {
             path: 'src/locales/{locale}/messages',
-            include: ['src/app/**', 'src/components/**', 'src/helpers/**', 'src/hooks/**', 'src/providers/**'],
+            include: [
+                'src/app/**',
+                'src/components/**',
+                'src/helpers/**',
+                'src/hooks/**',
+                'src/providers/**',
+                'src/store/**',
+            ],
             exclude: ['src/maskbook/**'],
         },
     ],
