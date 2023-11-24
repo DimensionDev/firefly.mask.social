@@ -11,6 +11,7 @@ export default {
     locales,
     sourceLocale: 'en',
     pseudoLocale: 'pseudo',
+    compileNamespace: 'es',
     catalogs: [
         {
             path: 'src/locales/{locale}/messages',

@@ -23,7 +23,7 @@ export async function setLocale(locale: string) {
         locale = defaultLocale;
     }
     localStorage.setItem(LS_LOCALE_KEY, JSON.stringify(locale));
-    const { messages } = await import(`src/locales/${locale}/messages`);
+    const { messages } = await import(`src/locales/${locale}/messages.mjs`);
     i18n.load(locale, messages);
     i18n.activate(locale);
     dayjs.locale(locale);

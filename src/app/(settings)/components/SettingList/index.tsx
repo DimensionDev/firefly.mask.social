@@ -1,6 +1,7 @@
 'use client';
 
 import { Trans } from '@lingui/react';
+import { I18n } from '@lingui/core';
 
 import { Image } from '@/esm/Image.js';
 import { Link } from '@/esm/Link.js';

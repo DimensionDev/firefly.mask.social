@@ -22,9 +22,7 @@ const livepeerClient = createReactClient({
 
 export function Providers(props: { children: React.ReactNode }) {
     useEffect(() => {
-        if (typeof window !== 'undefined') {
-            initLocale();
-        }
+        initLocale();
     }, []);
 
     const [queryClient] = useState(
@@ -68,7 +66,7 @@ export function Providers(props: { children: React.ReactNode }) {
                         </WagmiProvider>
                     </SnackbarProvider>
                 </ReactQueryStreamedHydration>
-                {<ReactQueryDevtools initialIsOpen={false} />}
+                <ReactQueryDevtools initialIsOpen={false} />
             </QueryClientProvider>
         </I18nProvider>
     );
