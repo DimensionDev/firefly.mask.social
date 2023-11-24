@@ -1,6 +1,6 @@
 import { i18n, type MessageDescriptor } from '@lingui/core';
 
-export function t(strings: TemplateStringsArray, ...values: (string | number)[]): string {
+export function t(strings: TemplateStringsArray, ...values: Array<string | number>): string {
     const id = strings.join('');
     return i18n._({
         id,

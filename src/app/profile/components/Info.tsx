@@ -1,3 +1,5 @@
+import { Trans } from '@lingui/react';
+
 import FollowButton from '@/app/profile/components/FollowButton.js';
 import { PlatformEnum } from '@/app/profile/type.js';
 import { Image } from '@/esm/Image.js';
@@ -42,16 +44,22 @@ export default function Info({ platform, handle, profile }: InfoProps) {
                 <div className=" flex gap-3">
                     <div className=" flex gap-1">
                         <span className=" font-bold text-lightMain">{profile?.followingCount ?? 0}</span>
-                        <span className=" text-[#767676]">Following</span>
+                        <span className=" text-[#767676]">
+                            <Trans id="Following" />
+                        </span>
                     </div>
 
                     <div className=" flex gap-1">
                         <span className=" font-bold text-lightMain">{profile?.followerCount ?? 0}</span>
-                        <span className=" text-[#767676]">Followers</span>
+                        <span className=" text-[#767676]">
+                            <Trans id="Followers" />
+                        </span>
                     </div>
                 </div>
 
-                <div className=" text-sm text-[#767676]">Not followed by anyone you’re following</div>
+                <div className=" text-sm text-[#767676]">
+                    <Trans id="Not followed by anyone you’re following" />
+                </div>
             </div>
         </div>
     );

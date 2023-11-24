@@ -13,7 +13,8 @@
         "test": "vitest",
         "typecheck": "tsc --noEmit",
         "lingui:compile": "lingui compile",
-        "lingui:extract": "NODE_ENV=development lingui extract --clean"
+        "lingui:extract": "NODE_ENV=development lingui extract --clean",
+        "lingui": "pnpm run lingui:extract && pnpm run lingui:compile"
     },
     "dependencies": {
         "@dimensiondev/holoflows-kit": "0.9.0-20230307045856-46252fb",

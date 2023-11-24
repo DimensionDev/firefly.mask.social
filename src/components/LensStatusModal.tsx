@@ -1,6 +1,7 @@
 'use client';
 
 import { Dialog, Transition } from '@headlessui/react';
+import { Trans } from '@lingui/react';
 import { Fragment } from 'react';
 
 import { Image } from '@/esm/Image.js';
@@ -73,12 +74,14 @@ export function LensStatusModal({ isOpen, setIsOpen }: LoginModalProps) {
                                     <button className="flex w-full items-center gap-[8px]">
                                         <Image src={'/svg/userAdd.svg'} alt="logo" width={24} height={24} />
                                         <div className=" text-[17px] font-bold leading-[22px] text-[#101010]">
-                                            Change account
+                                            <Trans id="Change account" />
                                         </div>
                                     </button>
                                     <button className="flex items-center gap-[8px]">
                                         <Image src={'/svg/logOut.svg'} alt="logo" width={24} height={24} />
-                                        <div className=" text-[17px] font-bold leading-[22px] text-[#f00]">Log out</div>
+                                        <div className=" text-[17px] font-bold leading-[22px] text-[#f00]">
+                                            <Trans id="Log out" />
+                                        </div>
                                     </button>
                                 </div>
                             </Dialog.Panel>

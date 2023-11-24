@@ -14,9 +14,329 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. js-lingui-explicit-id
+msgid "> Disconnect Wallet"
+msgstr "> Disconnect Wallet"
+
+#. js-lingui-explicit-id
+msgid "Add an existing account"
+msgstr "Add an existing account"
+
+#. js-lingui-explicit-id
+msgid "Allow Lens Manager to perform actions such as posting, liking, and commenting without the need to sign each transaction"
+msgstr "Allow Lens Manager to perform actions such as posting, liking, and commenting without the need to sign each transaction"
+
+#. js-lingui-explicit-id
+msgid "Associated Wallets"
+msgstr "Associated Wallets"
+
+#. js-lingui-explicit-id
+msgid "Audio Cover"
+msgstr "Audio Cover"
+
+#. js-lingui-explicit-id
+msgid "Change Wallet"
+msgstr "Change Wallet"
+
+#. js-lingui-explicit-id
+msgid "Change account"
+msgstr "Change account"
+
+#. js-lingui-explicit-id
+msgid "Communities"
+msgstr "Communities"
+
+#. js-lingui-explicit-id
+msgid "Confirm"
+msgstr "Confirm"
+
+#. js-lingui-explicit-id
+msgid "Connect Wallet"
+msgstr "Connect Wallet"
+
+#. js-lingui-explicit-id
+msgid "Connected Accounts"
+msgstr "Connected Accounts"
+
+#. js-lingui-explicit-id
+msgid "Connected in Firefly"
+msgstr "Connected in Firefly"
+
+#. js-lingui-explicit-id
+msgid "Copied"
+msgstr "Copied"
+
+#. js-lingui-explicit-id
+msgid "Dark mode"
+msgstr "Dark mode"
+
+#. js-lingui-explicit-id
+msgid "Delegate Signing (Recommend)"
+msgstr "Delegate Signing (Recommend)"
+
+#. js-lingui-explicit-id
+msgid "Details"
+msgstr "Details"
+
+#. js-lingui-explicit-id
+msgid "Discard"
+msgstr "Discard"
+
+#. js-lingui-explicit-id
+msgid "Discover"
+msgstr "Discover"
+
+#. js-lingui-explicit-id
 msgid "Display"
 msgstr "Display"
 
 #. js-lingui-explicit-id
+msgid "Everyone can reply"
+msgstr "Everyone can reply"
+
+#. js-lingui-explicit-id
+msgid "Failed to fetch as Blob."
+msgstr "Failed to fetch as Blob."
+
+#. js-lingui-explicit-id
+msgid "Failed to fetch as Text."
+msgstr "Failed to fetch as Text."
+
+#. js-lingui-explicit-id
+msgid "Failed to follow"
+msgstr "Failed to follow"
+
+#. js-lingui-explicit-id
+msgid "Failed to mirror post"
+msgstr "Failed to mirror post"
+
+#. js-lingui-explicit-id
+msgid "Failed to mirror. {message}"
+msgstr "Failed to mirror. {message}"
+
+#. js-lingui-explicit-id
+msgid "Failed to parse session."
+msgstr "Failed to parse session."
+
+#. js-lingui-explicit-id
+msgid "Failed to publish post"
+msgstr "Failed to publish post"
+
+#. js-lingui-explicit-id
+msgid "Failed to serialize payload."
+msgstr "Failed to serialize payload."
+
+#. js-lingui-explicit-id
+msgid "Failed to unfollow"
+msgstr "Failed to unfollow"
+
+#. js-lingui-explicit-id
+msgid "Failed to unmirror post"
+msgstr "Failed to unmirror post"
+
+#. js-lingui-explicit-id
+msgid "Failed to unvote post"
+msgstr "Failed to unvote post"
+
+#. js-lingui-explicit-id
+msgid "Failed to upvote post"
+msgstr "Failed to upvote post"
+
+#. js-lingui-explicit-id
+msgid "Firefly"
+msgstr "Firefly"
+
+#. js-lingui-explicit-id
+msgid "Follow"
+msgstr "Follow"
+
+#. js-lingui-explicit-id
+msgid "Follow System"
+msgstr "Follow System"
+
+#. js-lingui-explicit-id
+msgid "Followers"
+msgstr "Followers"
+
+#. js-lingui-explicit-id
+msgid "Following"
+msgstr "Following"
+
+#. js-lingui-explicit-id
+msgid "Lens"
+msgstr "Lens"
+
+#. js-lingui-explicit-id
+msgid "Light mode"
+msgstr "Light mode"
+
+#. js-lingui-explicit-id
+msgid "Log in to your Farcaster account by scanning this QR code using mobile application Warpcast."
+msgstr "Log in to your Farcaster account by scanning this QR code using mobile application Warpcast."
+
+#. js-lingui-explicit-id
+msgid "Log in with Farcaster account"
+msgstr "Log in with Farcaster account"
+
+#. js-lingui-explicit-id
+msgid "Log out"
+msgstr "Log out"
+
+#. js-lingui-explicit-id
+msgid "Log out all"
+msgstr "Log out all"
+
+#. js-lingui-explicit-id
+msgid "Login"
+msgstr "Login"
+
+#. js-lingui-explicit-id
+msgid "Malformed session."
+msgstr "Malformed session."
+
+#. js-lingui-explicit-id
+msgid "Method not implemented."
+msgstr "Method not implemented."
+
+#. js-lingui-explicit-id
+msgid "Mirror"
+msgstr "Mirror"
+
+#. js-lingui-explicit-id
+msgid "Mirror and Quotes"
+msgstr "Mirror and Quotes"
+
+#. js-lingui-explicit-id
+msgid "Mirrored"
+msgstr "Mirrored"
+
+#. js-lingui-explicit-id
+msgid "Mirrors and Quotes"
+msgstr "Mirrors and Quotes"
+
+#. js-lingui-explicit-id
+msgid "Missing client."
+msgstr "Missing client."
+
+#. js-lingui-explicit-id
+msgid "More"
+msgstr "More"
+
+#. js-lingui-explicit-id
+msgid "No client found"
+msgstr "No client found"
+
+#. js-lingui-explicit-id
+msgid "No content URI found"
+msgstr "No content URI found"
+
+#. js-lingui-explicit-id
+msgid "No post found"
+msgstr "No post found"
+
+#. js-lingui-explicit-id
+msgid "No profile found"
+msgstr "No profile found"
+
+#. js-lingui-explicit-id
+msgid "No session found"
+msgstr "No session found"
+
+#. js-lingui-explicit-id
+msgid "Not followed by anyone you’re following"
+msgstr "Not followed by anyone you’re following"
+
+#. js-lingui-explicit-id
+msgid "Not implemented yet."
+msgstr "Not implemented yet."
+
+#. js-lingui-explicit-id
+msgid "Notification"
+msgstr "Notification"
+
+#. js-lingui-explicit-id
+msgid "Only people you follow can reply"
+msgstr "Only people you follow can reply"
+
+#. js-lingui-explicit-id
+msgid "Post"
+msgstr "Post"
+
+#. js-lingui-explicit-id
+msgid "Post by"
+msgstr "Post by"
+
+#. js-lingui-explicit-id
+msgid "Post has been hidden"
+msgstr "Post has been hidden"
+
+#. js-lingui-explicit-id
+msgid "Privacy Policy"
+msgstr "Privacy Policy"
+
+#. js-lingui-explicit-id
+msgid "Profile"
+msgstr "Profile"
+
+#. js-lingui-explicit-id
+msgid "Quote Post"
+msgstr "Quote Post"
+
+#. js-lingui-explicit-id
+msgid "Recast"
+msgstr "Recast"
+
+#. js-lingui-explicit-id
+msgid "Recasted"
+msgstr "Recasted"
+
+#. js-lingui-explicit-id
+msgid "Reply Restriction"
+msgstr "Reply Restriction"
+
+#. js-lingui-explicit-id
+msgid "Select Account"
+msgstr "Select Account"
+
+#. js-lingui-explicit-id
+msgid "Setting"
+msgstr "Setting"
+
+#. js-lingui-explicit-id
 msgid "Settings"
 msgstr "Settings"
+
+#. js-lingui-explicit-id
+msgid "Show More"
+msgstr "Show More"
+
+#. js-lingui-explicit-id
+msgid "Sign"
+msgstr "Sign"
+
+#. js-lingui-explicit-id
+msgid "Sign the transaction to verify you are the owner of the selected profile"
+msgstr "Sign the transaction to verify you are the owner of the selected profile"
+
+#. js-lingui-explicit-id
+msgid "Switch"
+msgstr "Switch"
+
+#. js-lingui-explicit-id
+msgid "Terms of Service"
+msgstr "Terms of Service"
+
+#. js-lingui-explicit-id
+msgid "This can’t be undone and you’ll lose your draft"
+msgstr "This can’t be undone and you’ll lose your draft"
+
+#. js-lingui-explicit-id
+msgid "Unfollow"
+msgstr "Unfollow"
+
+#. js-lingui-explicit-id
+msgid "Unknown session type."
+msgstr "Unknown session type."
+
+#. js-lingui-explicit-id
+msgid "{count} views"
+msgstr "{count} views"

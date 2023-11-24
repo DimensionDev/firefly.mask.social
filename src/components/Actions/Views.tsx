@@ -1,3 +1,4 @@
+import { i18n } from '@lingui/core';
 import { motion } from 'framer-motion';
 import { memo } from 'react';
 
@@ -17,7 +18,19 @@ export const Views = memo<ViewsProps>(function Collect({ count, disabled = false
                 'opacity-50': disabled,
             })}
         >
-            <Tooltip content={count ? `${nFormatter(count)} views` : null} placement="top" disabled={disabled}>
+            <Tooltip
+                content={
+                    count
+                        ? i18n._('{count} views', {
+                              values: {
+                                  count: nFormatter(count),
+                              },
+                          })
+                        : null
+                }
+                placement="top"
+                disabled={disabled}
+            >
                 <motion.button
                     disabled={disabled}
                     onClick={(event) => {

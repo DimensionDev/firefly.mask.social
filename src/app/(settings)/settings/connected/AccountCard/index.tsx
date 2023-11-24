@@ -1,13 +1,16 @@
+import { Trans } from '@lingui/react';
+
 import { Image } from '@/esm/Image.js';
 
 interface AccountCardProps {
+    type: 'lens' | 'farcaster';
     avatar: string;
     name: string;
     userName: string;
     logout: () => void;
     isCurrent: boolean;
-    type: 'lens' | 'farcaster';
 }
+
 export function AccountCard({ avatar, name, userName, logout, isCurrent, type }: AccountCardProps) {
     return (
         <div className="inline-flex h-[63px] w-full items-center justify-start gap-[8px] rounded-lg bg-white px-[12px] py-[8px] shadow backdrop-blur-lg">
@@ -30,10 +33,12 @@ export function AccountCard({ avatar, name, userName, logout, isCurrent, type }:
                 <div className="font-['PingFang SC'] text-[15px] font-normal text-neutral-500">@{userName}</div>
             </div>
             {isCurrent ? (
-                <button className="font-['Inter'] text-xs font-medium leading-none text-red-500">Log out</button>
+                <button className="font-['Inter'] text-xs font-medium leading-none text-red-500">
+                    <Trans id="Log out" />
+                </button>
             ) : (
                 <button className="text-right font-['Inter'] text-xs font-medium leading-none text-neutral-900">
-                    Switch
+                    <Trans id="Switch" />
                 </button>
             )}
         </div>

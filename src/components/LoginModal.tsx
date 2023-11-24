@@ -1,6 +1,7 @@
 'use client';
 
 import { Dialog, Transition } from '@headlessui/react';
+import { Trans } from '@lingui/react';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { Fragment, useCallback, useEffect, useRef, useState } from 'react';
 
@@ -101,7 +102,7 @@ export function LoginModal({ isOpen, setIsOpen }: LoginModalProps) {
                                                 />
                                             </button>
                                             <div className="shrink grow basis-0 text-center font-['Helvetica'] text-lg font-bold leading-snug text-slate-950">
-                                                Login
+                                                <Trans id="Login" />
                                             </div>
                                             <div className="relative h-[24px] w-[24px]" />
                                         </div>

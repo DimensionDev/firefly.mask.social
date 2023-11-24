@@ -6,6 +6,7 @@ import { LensSession } from '@/providers/lens/Session.js';
 import type { Session } from '@/providers/types/Session.js';
 import { Type } from '@/providers/types/SocialMedia.js';
 import { WarpcastSession } from '@/providers/warpcast/Session.js';
+import { i18n } from '@lingui/core';
 
 export class SessionFactory {
     /**
@@ -27,8 +28,8 @@ export class SessionFactory {
             expiresAt: number;
             client?: LensClient;
         }>(json);
-        if (!session) throw new Error('Failed to parse session.');
-        if (session.type === Type.Lens && !session.client) throw new Error('Missing client.');
+        if (!session) throw new Error(i18n._('Failed to parse session.'));
+        if (session.type === Type.Lens && !session.client) throw new Error(i18n._('Missing client.'));
 
         const schema = z.object({
             type: z.nativeEnum(Type),
@@ -39,7 +40,7 @@ export class SessionFactory {
         });
 
         const { success } = schema.safeParse(session);
-        if (!success) throw new Error('Malformed session.');
+        if (!success) throw new Error(i18n._('Malformed session.'));
 
         const createSession = (type: Type): Session => {
             switch (type) {
@@ -54,9 +55,9 @@ export class SessionFactory {
                 case Type.Warpcast:
                     return new WarpcastSession(session.profileId, session.token, session.createdAt, session.expiresAt);
                 case Type.Twitter:
-                    throw new Error('Not implemented yet.');
+                    throw new Error(i18n._('Not implemented yet.'));
                 default:
-                    throw new Error('Unknown session type.');
+                    throw new Error(i18n._('Unknown session type.'));
             }
         };
 

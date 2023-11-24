@@ -1,3 +1,4 @@
+import { i18n } from '@lingui/core';
 import { motion } from 'framer-motion';
 import { useSnackbar } from 'notistack';
 import { memo, useCallback } from 'react';
@@ -17,7 +18,7 @@ export const Share = memo<ShareProps>(function Collect({ url, disabled = false }
 
     const handleClick = useCallback(() => {
         copyToClipboard(url);
-        enqueueSnackbar('Copied', {
+        enqueueSnackbar(i18n._('Copied'), {
             variant: 'success',
         });
     }, [enqueueSnackbar, url, copyToClipboard]);

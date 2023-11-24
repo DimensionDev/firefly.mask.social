@@ -27,6 +27,7 @@ import type {
 } from '@/providers/types/Warpcast.js';
 import { WarpcastSession } from '@/providers/warpcast/Session.js';
 import type { ResponseJSON } from '@/types/index.js';
+import { i18n } from '@lingui/core';
 
 // @ts-ignore
 export class WarpcastSocialMedia implements Provider {
@@ -59,8 +60,6 @@ export class WarpcastSocialMedia implements Provider {
 
         // present QR code to the user
         setUrl?.(response.data.deeplinkUrl);
-        console.log('DEBUG: response');
-        console.log(response);
 
         await waitForSignedKeyRequestComplete(signal)(response.data.token);
 
@@ -79,7 +78,7 @@ export class WarpcastSocialMedia implements Provider {
      */
     private async createSessionByCustodyWallet(signal?: AbortSignal) {
         const client = await getWalletClient();
-        if (!client) throw new Error('No client found');
+        if (!client) throw new Error(i18n._('No client found'));
 
         const { payload, token } = await generateCustodyBearer(client);
         const response = await fetchJSON<{
