@@ -1,1 +1,1 @@
-/*eslint-disable*/ export const messages = JSON.parse('{"Dsiplay":"Ďśĩƥĺàŷ","Settings":"Śēţţĩńĝś"}');
+/*eslint-disable*/ export const messages = JSON.parse('{"Display":"Ďĩśƥĺàŷ","Settings":"Śēţţĩńĝś"}');

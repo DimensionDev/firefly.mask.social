@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"POT-Creation-Date: 2023-11-24 15:06+0800\n"
+"POT-Creation-Date: 2023-11-24 21:17+0800\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -14,8 +14,8 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. js-lingui-explicit-id
-msgid "Dsiplay"
-msgstr "Dsiplay"
+msgid "Display"
+msgstr "Display"
 
 #. js-lingui-explicit-id
 msgid "Settings"
