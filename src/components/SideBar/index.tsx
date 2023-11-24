@@ -48,7 +48,7 @@ const items = [
         icon: '/svg/wallet.svg',
         selectedIcon: '/svg/wallet.svg',
     },
-    { href: PageRoutes.Setting, name: i18n.t('Setting'), icon: SettingsIcon, selectedIcon: SettingsSelectedIcon },
+    { href: PageRoutes.Setting, name: i18n.t('Settings'), icon: SettingsIcon, selectedIcon: SettingsSelectedIcon },
 ];
 
 export const SideBar = memo(function SideBar() {
