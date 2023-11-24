@@ -67,7 +67,7 @@ export function formatWarpcastPost(cast: Cast): Post {
     };
 }
 
-export function formatWarpcastPostFromFirefly(feed: Feed): Post {
+export function formatWarpcastPostFromFeed(feed: Feed): Post {
     return {
         ...formatWarpcastPost(feed.cast),
         __original__: feed,
