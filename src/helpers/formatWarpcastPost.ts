@@ -37,32 +37,39 @@ export function formatContent(cast: Cast) {
     };
 }
 
-export function formatWarpcastPost(feed: Feed): Post {
+export function formatWarpcastPost(cast: Cast): Post {
     return {
         source: SocialPlatform.Farcaster,
-        postId: feed.cast.hash,
-        parentPostId: feed.cast.threadHash,
-        timestamp: feed.timestamp,
+        postId: cast.hash,
+        parentPostId: cast.threadHash,
+        timestamp: cast.timestamp,
         author: {
-            profileId: feed.cast.author.fid.toString(),
-            nickname: feed.cast.author.username,
-            displayName: feed.cast.author.displayName,
-            pfp: feed.cast.author.pfp.url,
-            followerCount: feed.cast.author.followerCount,
-            followingCount: feed.cast.author.followingCount,
+            profileId: cast.author.fid.toString(),
+            nickname: cast.author.username,
+            displayName: cast.author.displayName,
+            pfp: cast.author.pfp.url,
+            followerCount: cast.author.followerCount,
+            followingCount: cast.author.followingCount,
             status: ProfileStatus.Active,
-            verified: feed.cast.author.pfp.verified,
+            verified: cast.author.pfp.verified,
         },
         metadata: {
             locale: '',
-            content: formatContent(feed.cast),
+            content: formatContent(cast),
         },
         stats: {
-            comments: feed.cast.replies.count,
-            mirrors: feed.cast.recasts.count,
-            quotes: feed.cast.recasts.count,
-            reactions: feed.cast.reactions.count,
+            comments: cast.replies.count,
+            mirrors: cast.recasts.count,
+            quotes: cast.recasts.count,
+            reactions: cast.reactions.count,
         },
+        __original__: cast,
+    };
+}
+
+export function formatWarpcastPostFromFirefly(feed: Feed): Post {
+    return {
+        ...formatWarpcastPost(feed.cast),
         __original__: feed,
     };
 }

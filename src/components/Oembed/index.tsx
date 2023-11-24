@@ -3,7 +3,9 @@ import urlcat from 'urlcat';
 
 import Embed from '@/components/Oembed/Embed.js';
 import Player from '@/components/Oembed/Player.js';
+import { Quote } from '@/components/Posts/Quote.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { formatWarpcastPost } from '@/helpers/formatWarpcastPost.js';
 import type { LinkDigest, OpenGraph } from '@/services/digestLink.js';
 import type { ResponseJSON } from '@/types/index.js';
 import { OpenGraphPayloadSourceType } from '@/types/openGraph.js';
@@ -36,18 +38,26 @@ export default function Oembed({ url, onData }: OembedProps) {
     const og: OpenGraph = data.data.og;
     if (!og.title) return null;
 
-    if (data.data.payload?.type === OpenGraphPayloadSourceType.Mirror) {
-        return (
-            <Mirror
-                address={data.data.payload.address}
-                title={og.title}
-                description={og.description || ''}
-                url={og.url}
-                ens={data.data.payload.ens}
-                displayName={data.data.payload.displayName}
-                timestamp={data.data.payload.timestamp}
-            />
-        );
+    if (data.data.payload?.type) {
+        switch (data.data.payload.type) {
+            case OpenGraphPayloadSourceType.Mirror:
+                return (
+                    <Mirror
+                        address={data.data.payload.address}
+                        title={og.title}
+                        description={og.description || ''}
+                        url={og.url}
+                        ens={data.data.payload.ens}
+                        displayName={data.data.payload.displayName}
+                        timestamp={data.data.payload.timestamp}
+                    />
+                );
+            case OpenGraphPayloadSourceType.Farcaster:
+                const post = formatWarpcastPost(data.data.payload.cast);
+                return <Quote post={post} />;
+            default:
+                break;
+        }
     }
 
     return og.html ? <Player html={og.html} /> : <Embed og={og} />;
