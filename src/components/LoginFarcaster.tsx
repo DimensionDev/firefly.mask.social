@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import QRCode from 'react-qr-code';
+
 import { Image } from '@/esm/Image.js';
 import { FireflySocialMedia } from '@/providers/firefly/SocialMedia.js';
 import { useFarcasterAccountsStore } from '@/store/index.js';

@@ -138,7 +138,7 @@ export class LensSocialMedia implements Provider {
             id: profile.id,
         }));
     }
-    //@ts-ignore
+    // @ts-ignore
     async resumeSession(profileId: string): Promise<LensSession | null> {
         const currentTime = Date.now();
 

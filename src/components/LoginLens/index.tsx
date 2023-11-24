@@ -1,16 +1,17 @@
 'use client';
 
+import { Switch } from '@mui/material';
+import { useAccountModal } from '@rainbow-me/rainbowkit';
 import { useState } from 'react';
+
 import { AccountCard } from '@/components/LoginLens/AccountCard.js';
 import { Image } from '@/esm/Image.js';
-import type { LensAccount } from '@/store/index.js';
-import { useAccountModal } from '@rainbow-me/rainbowkit';
-import { Switch } from '@mui/material';
 import { LensSocialMedia } from '@/providers/lens/SocialMedia.js';
+import type { LensAccount } from '@/store/index.js';
 import { useLensAccountsStore } from '@/store/index.js';
 
 interface LoginLensProps {
-    onClose: Function;
+    onClose: () => void;
     accounts?: LensAccount[];
 }
 

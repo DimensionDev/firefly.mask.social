@@ -5,10 +5,10 @@ import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { Fragment, useCallback, useEffect, useRef, useState } from 'react';
 
 import { LoginFarcaster } from '@/components/LoginFarcaster.js';
+import { LoginLens } from '@/components/LoginLens/index.js';
 import { Image } from '@/esm/Image.js';
 import { LensSocialMedia } from '@/providers/lens/SocialMedia.js';
 import { type LensAccount } from '@/store/index.js';
-import { LoginLens } from '@/components/LoginLens/index.js';
 
 interface LoginModalProps {
     isOpen: boolean;
@@ -200,7 +200,7 @@ export function LoginModal({ isOpen, setIsOpen }: LoginModalProps) {
                                     </div>
                                 ) : (
                                     <>
-                                        {farcasterOpen && (
+                                        {farcasterOpen ? (
                                             <LoginFarcaster
                                                 onClose={() => {
                                                     setIsOpen(false);
@@ -210,8 +210,8 @@ export function LoginModal({ isOpen, setIsOpen }: LoginModalProps) {
                                                     setFarcasterOpen(false);
                                                 }}
                                             />
-                                        )}
-                                        {lensOpen && (
+                                        ) : null}
+                                        {lensOpen ? (
                                             <LoginLens
                                                 accounts={accounts}
                                                 onClose={() => {
@@ -219,7 +219,7 @@ export function LoginModal({ isOpen, setIsOpen }: LoginModalProps) {
                                                     setLensOpen(false);
                                                 }}
                                             />
-                                        )}
+                                        ) : null}
                                     </>
                                 )}
                             </Dialog.Panel>

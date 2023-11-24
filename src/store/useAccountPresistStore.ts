@@ -1,5 +1,6 @@
 import { create, type StateCreator } from 'zustand';
 import { persist } from 'zustand/middleware';
+
 import { createSelectors } from '@/helpers/createSelector.js';
 
 export interface LensAccount {

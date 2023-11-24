@@ -1,6 +1,6 @@
 'use client';
 
-import { memo, useState, useMemo } from 'react';
+import { memo, useMemo, useState } from 'react';
 
 import DiscoverSelectedIcon from '@/assets/discover.selected.svg';
 import DiscoverIcon from '@/assets/discover.svg';
@@ -19,7 +19,7 @@ import { LoginModal } from '@/components/LoginModal.js';
 import { LoginStatusBar } from '@/components/LoginStatusBar.js';
 import { PageRoutes } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
-import { useLensAccountsStore, useFarcasterAccountsStore } from '@/store/index.js';
+import { useFarcasterAccountsStore, useLensAccountsStore } from '@/store/index.js';
 
 import { ConnectWalletNav } from './ConnectWalletNav.js';
 
