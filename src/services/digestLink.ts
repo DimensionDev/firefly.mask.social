@@ -2,17 +2,18 @@ import sizeOf from 'image-size';
 import { parseHTML } from 'linkedom';
 import urlcat from 'urlcat';
 
-import { MIRROR_REGEX } from '@/constants/regex.js';
+import { MIRROR_HOSTNAME_REGEXP } from '@/constants/regex.js';
 import {
     generateIframe,
     getDescription,
     getEmbedUrl,
-    getImage,
+    getImageUrl,
     getIsLarge,
     getSite,
     getTitle,
 } from '@/helpers/getMetadata.js';
-import { type MirrorPayload, OpenGraphPayloadSourceType } from '@/types/openGraph.js';
+import { getMirrorPayload } from '@/helpers/getPayload.js';
+import { type MirrorPayload } from '@/types/openGraph.js';
 
 export interface OpenGraphImage {
     url: string;
@@ -36,7 +37,23 @@ export interface OpenGraph {
 
 export interface LinkDigest {
     og: OpenGraph;
-    payload?: MirrorPayload;
+    payload?: MirrorPayload | null;
+}
+
+export async function digestImageUrl(url: string): Promise<OpenGraphImage | null> {
+    // TODO: verify link
+    const response = await fetch(url);
+    if (!response.ok) return null;
+
+    const buffer = Buffer.from(await response.arrayBuffer());
+    const img = sizeOf.imageSize(buffer);
+
+    return {
+        url,
+        width: img.width ?? 0,
+        height: img.height ?? 0,
+        base64: `data:${response.headers.get('Content-Type')};base64,${buffer.toString('base64')}`,
+    };
 }
 
 export async function digestLink(link: string): Promise<LinkDigest> {
@@ -48,23 +65,8 @@ export async function digestLink(link: string): Promise<LinkDigest> {
 
     const { document } = parseHTML(html);
 
-    const imageUrl = getImage(document);
-    let image: OpenGraphImage | null = null;
-    if (imageUrl) {
-        await fetch(imageUrl).then(async (res) => {
-            if (res.ok) {
-                const buffer = Buffer.from(await res.arrayBuffer());
-                const img = sizeOf.imageSize(buffer);
-
-                image = {
-                    url: imageUrl,
-                    width: img.width ?? 0,
-                    height: img.height ?? 0,
-                    base64: `data:${res.headers.get('Content-Type')};base64,${buffer.toString('base64')}`,
-                };
-            }
-        });
-    }
+    const imageUrl = getImageUrl(document);
+    const image = imageUrl ? await digestImageUrl(imageUrl) : null;
 
     const og: OpenGraph = {
         type: 'website',
@@ -79,26 +81,15 @@ export async function digestLink(link: string): Promise<LinkDigest> {
         locale: null,
     };
 
-    if (MIRROR_REGEX.test(link)) {
-        const dataScript = document.getElementById('__NEXT_DATA__');
-        const data = dataScript?.innerText ? JSON.parse(dataScript.innerText) : undefined;
-        const address = data?.props?.pageProps?.publicationLayoutProject?.address;
-        const digest = data?.props?.pageProps?.digest;
-        const entry = data?.props?.pageProps?.__APOLLO_STATE__?.[`entry:${digest}`];
-        const timestamp = entry?.publishedAtTimestamp ? entry.publishedAtTimestamp * 1000 : undefined;
-        const ens = data?.props?.pageProps?.publicationLayoutProject?.ens;
-        const displayName = data?.props?.pageProps?.publicationLayoutProject?.displayName;
+    const u = URL.canParse(link) ? new URL(link) : null;
+
+    if (u && MIRROR_HOSTNAME_REGEXP.test(u.hostname)) {
         return {
             og,
-            payload: {
-                type: OpenGraphPayloadSourceType.Mirror,
-                address,
-                timestamp,
-                ens,
-                displayName,
-            },
+            payload: getMirrorPayload(document),
         };
     }
+
     return {
         og,
     };
