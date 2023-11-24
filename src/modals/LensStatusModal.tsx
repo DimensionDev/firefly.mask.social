@@ -2,24 +2,20 @@
 
 import { Dialog, Transition } from '@headlessui/react';
 import { Trans } from '@lingui/react';
-import { Fragment } from 'react';
+import { forwardRef, Fragment } from 'react';
 
 import { Image } from '@/esm/Image.js';
+import type { SingletonModalRefCreator } from '@/maskbook/packages/shared-base/src/index.js';
+import { useSingletonModal } from '@/maskbook/packages/shared-base-ui/src/index.js';
 
 const loggedLens = [{ name: 'Lens', handle: '@ssssss', avatar: '/svg/lens.svg' }];
 
-interface LoginModalProps {
-    isOpen: boolean;
-    setIsOpen: (isOpen: boolean) => void;
-}
+export const LensStatusModal = forwardRef<SingletonModalRefCreator>(function LensStatusModal(_, ref) {
+    const [open, dispatch] = useSingletonModal(ref);
 
-export function LensStatusModal({ isOpen, setIsOpen }: LoginModalProps) {
-    function closeModal() {
-        setIsOpen(false);
-    }
     return (
-        <Transition appear show={isOpen} as={Fragment}>
-            <Dialog as="div" className="relative z-[999]" onClose={closeModal}>
+        <Transition appear show={open} as={Fragment}>
+            <Dialog as="div" className="relative z-[999]" onClose={() => dispatch?.close()}>
                 <Transition.Child
                     as={Fragment}
                     enter="ease-out duration-300"
@@ -91,4 +87,4 @@ export function LensStatusModal({ isOpen, setIsOpen }: LoginModalProps) {
             </Dialog>
         </Transition>
     );
-}
+});

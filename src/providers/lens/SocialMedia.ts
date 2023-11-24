@@ -113,26 +113,13 @@ export class LensSocialMedia implements Provider {
         return currentSession;
     }
 
-    async getAllProfiles(): Promise<any> {
-        const client = await getWalletClient();
-        if (!client) throw new Error(i18n.t('No client found'));
-
-        const address = client.account.address;
+    async getProfilesByAddress(address: string): Promise<Profile[]> {
         const profiles = await this.lensClient.profile.fetchAll({
             where: {
                 ownedBy: [address],
             },
         });
-        return profiles.items.map((profile) => ({
-            name: profile.metadata?.displayName,
-            avatar:
-                profile.metadata?.picture?.__typename === 'ImageSet'
-                    ? profile.metadata?.picture?.optimized?.uri
-                    : profile.metadata?.picture?.image.optimized?.uri,
-            profileId: profile.handle?.localName,
-            signless: profile.signless,
-            id: profile.id,
-        }));
+        return profiles.items.map(formatLensProfile);
     }
 
     async resumeSession(profileId: string): Promise<LensSession | null> {

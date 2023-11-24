@@ -1,15 +1,13 @@
 import { Image } from '@/esm/Image.js';
+import type { Account } from '@/types/index.js';
 
-interface AccountCardProps {
-    avatar: string;
-    name: string;
-    userName: string;
-    id: string;
-    setAccount: (profileId: string) => void;
+interface AccountCardProps extends Account {
     isCurrent: boolean;
+    setAccount: (account: Account) => void;
 }
 
-export function AccountCard({ avatar, name, userName, id, isCurrent, setAccount }: AccountCardProps) {
+export function AccountCard({ isCurrent, setAccount, ...account }: AccountCardProps) {
+    const { avatar, name, profileId } = account;
     return (
         <div className="inline-flex h-[48px] w-full items-center justify-start gap-[16px]">
             <div
@@ -23,14 +21,14 @@ export function AccountCard({ avatar, name, userName, id, isCurrent, setAccount 
             </div>
             <div className="inline-flex shrink grow basis-0 flex-col items-start justify-center gap-1">
                 <div className="font-['PingFang SC'] text-base font-medium text-neutral-900">{name}</div>
-                <div className="font-['PingFang SC'] text-[15px] font-normal text-neutral-500">@{userName}</div>
+                <div className="font-['PingFang SC'] text-[15px] font-normal text-neutral-500">@{profileId}</div>
             </div>
             {isCurrent ? (
                 <Image src="/svg/yes.svg" alt="yes" width={40} height={40} />
             ) : (
                 <button
                     onClick={() => {
-                        setAccount(id);
+                        setAccount(account);
                     }}
                 >
                     <Image src="/svg/disableNo.svg" alt="select" width={20} height={20} />

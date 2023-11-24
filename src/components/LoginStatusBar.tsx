@@ -1,14 +1,10 @@
 import { Image } from '@/esm/Image.js';
+import { FarcasterStatusModalRef, LensStatusModalRef } from '@/modals/controls.js';
 
-interface LoginStatusBarProps {
-    openLens: () => void;
-    openFarcaster: () => void;
-}
-
-export function LoginStatusBar({ openLens, openFarcaster }: LoginStatusBarProps) {
+export function LoginStatusBar() {
     return (
         <div className="flex gap-x-2 pl-2">
-            <button className="relative h-[40px] w-[48px]" onClick={() => openLens()}>
+            <button className="relative h-[40px] w-[48px]" onClick={() => LensStatusModalRef.open()}>
                 <div className="absolute left-0 top-0 h-[40px] w-[40px] rounded-[99px] shadow backdrop-blur-lg">
                     <Image src="/svg/lens.svg" alt="avatar" width={40} height={40} />
                 </div>
@@ -20,7 +16,7 @@ export function LoginStatusBar({ openLens, openFarcaster }: LoginStatusBarProps)
                     height={16}
                 />
             </button>
-            <button className="relative h-[40px] w-[48px]" onClick={() => openFarcaster()}>
+            <button className="relative h-[40px] w-[48px]" onClick={() => FarcasterStatusModalRef.open()}>
                 <div className="absolute left-0 top-0 h-[40px] w-[40px] rounded-[99px] shadow backdrop-blur-lg">
                     <Image src="/svg/farcaster.svg" alt="avatar" width={40} height={40} />
                 </div>

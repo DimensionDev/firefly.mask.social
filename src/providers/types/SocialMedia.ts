@@ -82,6 +82,7 @@ export interface Profile {
     status: ProfileStatus;
     tags?: Tag[];
     verified: boolean;
+    signless?: boolean;
     viewerContext?: {
         following: boolean;
         followedBy: boolean;
@@ -283,6 +284,13 @@ export interface Provider {
      * @returns A promise that resolves to void.
      */
     unvotePost: (postId: string) => Promise<void>;
+
+    /**
+     *
+     * @param address EVM address
+     * @returns A promise that resolves to Profiles array by address.
+     */
+    getProfilesByAddress: (address: string) => Promise<Profile[]>;
 
     /**
      * Retrieves a user's profile by their profile ID.

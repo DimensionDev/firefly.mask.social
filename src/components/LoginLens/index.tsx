@@ -3,55 +3,68 @@
 import { Trans } from '@lingui/react';
 import { Switch } from '@mui/material';
 import { useAccountModal } from '@rainbow-me/rainbowkit';
+import { useSuspenseQuery } from '@tanstack/react-query';
+import { first } from 'lodash-es';
 import { useState } from 'react';
+import { useAsyncFn } from 'react-use';
+import { useAccount } from 'wagmi';
 
 import { AccountCard } from '@/components/LoginLens/AccountCard.js';
 import { Image } from '@/esm/Image.js';
-import { LensSocialMedia } from '@/providers/lens/SocialMedia.js';
-import { type LensAccount, useLensAccountsStore } from '@/store/useAccountPersistStore.js';
+import { isValidAddress } from '@/maskbook/packages/web3-shared/evm/src/index.js';
+import { LoginModalRef } from '@/modals/controls.js';
+import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
+import { useLensStateStore } from '@/store/useLensStore.js';
+import type { Account } from '@/types/index.js';
 
-interface LoginLensProps {
-    onClose: () => void;
-    accounts?: LensAccount[];
-}
+export function LoginLens() {
+    const [current, setCurrent] = useState<Account | undefined>();
 
-export function LoginLens({ onClose, accounts }: LoginLensProps) {
-    const [currentAccount, setCurrentAccount] = useState<string>(accounts ? accounts[0].id : '');
+    const account = useAccount();
+
+    const updateAccounts = useLensStateStore.use.updateAccounts();
+    const updateCurrentAccount = useLensStateStore.use.updateCurrentAccount();
+
+    const { data: accounts } = useSuspenseQuery<Account[]>({
+        queryKey: ['lens', 'accounts', account.address],
+        queryFn: async () => {
+            if (!account.address || !isValidAddress(account.address)) return [];
+            const profiles = await LensSocialMediaProvider.getProfilesByAddress(account.address);
+
+            const result = profiles.map<Account>((profile) => ({
+                name: profile.nickname,
+                avatar: profile.pfp,
+                profileId: profile.displayName,
+                id: profile.profileId,
+            }));
+
+            if (!result.length) return [];
+
+            // update current select and global lens accounts
+            updateAccounts(result);
+            setCurrent((prev) => {
+                if (!prev) return first(result);
+                return;
+            });
+
+            return result;
+        },
+    });
+
     const { openAccountModal } = useAccountModal();
-    const setLensAccounts = useLensAccountsStore.use.setAccounts();
 
-    async function login() {
-        if (!accounts) return;
-        const lensProvider = new LensSocialMedia();
-        await lensProvider.createSessionForProfileId(currentAccount);
-        setLensAccounts(accounts.map((account) => ({ ...account, isCurrent: account.id === currentAccount })));
-        onClose();
-    }
+    const [, login] = useAsyncFn(async () => {
+        if (!accounts || !current) return;
+        await LensSocialMediaProvider.createSessionForProfileId(current.id);
+        updateCurrentAccount(current);
+        LoginModalRef.close();
+    }, [accounts, current]);
 
     return (
         <div
             className="flex w-[600px] flex-col rounded-[12px]"
             style={{ boxShadow: '0px 4px 30px 0px rgba(0, 0, 0, 0.10)' }}
         >
-            <div className="inline-flex h-[56px] w-full items-center justify-center gap-2 rounded-t-[12px] bg-gradient-to-b from-white to-white p-4">
-                <button
-                    onClick={() => {
-                        onClose();
-                    }}
-                >
-                    <Image
-                        className="relative h-[24px] w-[24px]"
-                        src="/svg/close.svg"
-                        alt="close"
-                        width={24}
-                        height={24}
-                    />
-                </button>
-                <div className="shrink grow basis-0 text-center font-['Helvetica'] text-lg font-bold leading-snug text-lightMain">
-                    <Trans id="Select Account" />
-                </div>
-                <div className="relative h-[24px] w-[24px]" />
-            </div>
             <div className="flex min-h-[372px] w-full flex-col gap-[16px] p-[16px]">
                 <div className="flex w-full flex-col gap-[16px] rounded-[8px] bg-lightBg px-[16px] py-[24px]">
                     <div className="w-full text-left text-[14px] leading-[16px] text-lightSecond">
@@ -60,12 +73,9 @@ export function LoginLens({ onClose, accounts }: LoginLensProps) {
                     {accounts?.map((account) => (
                         <AccountCard
                             key={account.id}
-                            avatar={account.avatar}
-                            name={account.name}
-                            userName={account.profileId}
-                            id={account.id}
-                            isCurrent={currentAccount === account.id}
-                            setAccount={setCurrentAccount}
+                            {...account}
+                            isCurrent={current?.id === account.id}
+                            setAccount={setCurrent}
                         />
                     ))}
                 </div>

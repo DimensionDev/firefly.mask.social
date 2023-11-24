@@ -20,3 +20,15 @@ export interface MetadataAsset {
     artist?: string;
     title?: string;
 }
+
+export type LensPublicationViewCount = {
+    id: string;
+    views: number;
+};
+
+export interface Account {
+    profileId: string;
+    avatar: string;
+    name: string;
+    id: string;
+}
