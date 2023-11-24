@@ -4,6 +4,7 @@ import { Dialog, Transition } from '@headlessui/react';
 import { Fragment } from 'react';
 
 import { Image } from '@/esm/Image.js';
+import { useFarcasterAccountsStore } from '@/store/useAccountPersistStore.js';
 
 const loggedLens = [{ name: 'Lens', handle: '@ssssss', avatar: '/svg/lens.svg' }];
 
@@ -13,6 +14,8 @@ interface LoginModalProps {
 }
 
 export function FarcasterStatusModal({ isOpen, setIsOpen }: LoginModalProps) {
+    const farcasterAccounts = useFarcasterAccountsStore.use.currentAccounts()
+
     function closeModal() {
         setIsOpen(false);
     }
@@ -44,8 +47,8 @@ export function FarcasterStatusModal({ isOpen, setIsOpen }: LoginModalProps) {
                         >
                             <Dialog.Panel className="transform rounded-[12px] bg-white transition-all">
                                 <div className="flex w-[260px] flex-col gap-[23px] rounded-[16px] border-[0.5px] border-lightLineSecond p-[24px]">
-                                    {loggedLens.map(({ avatar, handle, name }) => (
-                                        <div key={handle} className="flex items-center gap-[8px]">
+                                    {farcasterAccounts.map(({ avatar, profileId, name, isCurrent }) => (
+                                        <div key={profileId} className="flex items-center gap-[8px] justify-between">
                                             <div className="flex h-[40px] w-[48px] items-start justify-start">
                                                 <div className="relative h-[40px] w-[40px]">
                                                     <div className="absolute left-0 top-0 h-[40px] w-[40px] rounded-[99px] shadow backdrop-blur-lg">
@@ -65,9 +68,10 @@ export function FarcasterStatusModal({ isOpen, setIsOpen }: LoginModalProps) {
                                                     {name}
                                                 </div>
                                                 <div className="font-['PingFang SC'] text-[15px] font-normal text-lightSecond">
-                                                    @{handle}
+                                                    @{profileId}
                                                 </div>
                                             </div>
+                                            {isCurrent ? <div className='w-[8px] h-[8px] rounded-[99px] bg-[#3DC233]' style={{ filter: "drop-shadow(0px 4px 10px #3DC233)" }} /> : null}
                                         </div>
                                     ))}
                                     <button className="flex w-full items-center gap-[8px]">
