@@ -26,7 +26,6 @@ function getSocialPlatformIconBySource(source: SocialPlatform, mode: 'light' | '
 
 export const PostHeader = memo<PostHeaderProps>(function PostHeader({ post, isQuote = false }) {
     const mode = useQueryMode();
-
     const sourceIcon = getSocialPlatformIconBySource(post.source, mode);
 
     return (

@@ -24,7 +24,6 @@ export const useImpressionsBase = create<ImpressionsState>((set) => ({
 
         const viewsResponse = await fetchJSON<{ success: boolean; views: LensPublicationViewCount[] }>(STATS_URL, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ ids }),
         });
 

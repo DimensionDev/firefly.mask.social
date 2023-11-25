@@ -87,7 +87,7 @@ export const Like = memo<LikeProps>(function Like({ count, hasLiked, postId, sou
                 'opacity-50': disabled,
             })}
         >
-            <Tooltip content={hasLiked ? 'Unlike' : 'Like'} placement="top" disabled={disabled}>
+            <Tooltip content={hasLiked ? i18n.t('UnLiked') : i18n.t('Liked')} placement="top" disabled={disabled}>
                 <motion.button
                     disabled={disabled}
                     whileTap={{ scale: 0.9 }}
