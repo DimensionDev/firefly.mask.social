@@ -23,3 +23,5 @@ export default function getPostMetaData(baseMetadata: IBaseMetadata) {
         ...localBaseMetadata,
     };
 }
+
+export type GetPostMetaData = ReturnType<typeof getPostMetaData>;

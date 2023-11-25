@@ -2,7 +2,7 @@
 
 import { i18n } from '@lingui/core';
 import { Trans } from '@lingui/react';
-import { memo } from 'react';
+import { memo, useState } from 'react';
 
 import DiscoverSelectedIcon from '@/assets/discover.selected.svg';
 import DiscoverIcon from '@/assets/discover.svg';
@@ -16,6 +16,7 @@ import ProfileSelectedIcon from '@/assets/profile.selected.svg';
 import ProfileIcon from '@/assets/profile.svg';
 import SettingsSelectedIcon from '@/assets/setting.selected.svg';
 import SettingsIcon from '@/assets/setting.svg';
+import Compose from '@/components/compose/index.js';
 import { LoginStatusBar } from '@/components/LoginStatusBar.js';
 import { PageRoutes } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
@@ -50,6 +51,8 @@ const items = [
 ];
 
 export const SideBar = memo(function SideBar() {
+    const [composeOpened, setComposeOpened] = useState(false);
+
     const mode = useQueryMode();
 
     const isLogin = useLogin();
@@ -90,7 +93,7 @@ export const SideBar = memo(function SideBar() {
                                         <button
                                             type="button"
                                             className=" min-w-[150px] rounded-[16px] bg-main px-3 py-3 text-xl font-semibold leading-6 text-primaryBottom "
-                                            onClick={() => setComposeOpen(true)}
+                                            onClick={() => setComposeOpened(true)}
                                         >
                                             <Trans id="Post" />
                                         </button>
@@ -116,6 +119,8 @@ export const SideBar = memo(function SideBar() {
                     </nav>
                 </div>
             </div>
+
+            <Compose opened={composeOpened} setOpened={setComposeOpened} />
         </>
     );
 });

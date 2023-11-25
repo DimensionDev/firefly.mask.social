@@ -5,7 +5,7 @@ import z from 'zod';
 
 import { LensSession } from '@/providers/lens/Session.js';
 import type { Session } from '@/providers/types/Session.js';
-import { Type } from '@/providers/types/SocialMedia.js';
+import { type Profile, Type } from '@/providers/types/SocialMedia.js';
 import { WarpcastSession } from '@/providers/warpcast/Session.js';
 
 export class SessionFactory {
@@ -26,9 +26,11 @@ export class SessionFactory {
             token: string;
             createdAt: number;
             expiresAt: number;
+            profile?: Profile;
             client?: LensClient;
         }>(json);
         if (!session) throw new Error(i18n.t('Failed to parse session.'));
+        if (session.type === Type.Lens && !session.profile) throw new Error(i18n.t('Missing profile.'));
         if (session.type === Type.Lens && !session.client) throw new Error(i18n.t('Missing client.'));
 
         const schema = z.object({
@@ -50,6 +52,7 @@ export class SessionFactory {
                         session.token,
                         session.createdAt,
                         session.expiresAt,
+                        session.profile!,
                         session.client!,
                     );
                 case Type.Warpcast:

@@ -15,6 +15,8 @@ import {
     type Pageable,
     type PageIndicator,
 } from '@masknet/shared-base';
+import type { TypedDataDomain } from 'viem';
+import type { WalletClient } from 'wagmi';
 import { getWalletClient } from 'wagmi/actions';
 
 import { formatLensPost } from '@/helpers/formatLensPost.js';
@@ -41,11 +43,16 @@ export class LensSocialMedia implements Provider {
         return Type.Lens;
     }
 
-    async createSession(): Promise<LensSession> {
+    async getWallet(): Promise<WalletClient> {
         const client = await getWalletClient();
-        if (!client) throw new Error(i18n.t('No client found'));
+        if (!client) throw new Error(i18n.t('No wallet client found'));
 
-        const address = client.account.address;
+        return client;
+    }
+
+    async createSession(): Promise<LensSession> {
+        const wallet = await this.getWallet();
+        const address = wallet.account.address;
         const profile = await this.lensClient.profile.fetchDefault({
             for: address,
         });
@@ -55,7 +62,7 @@ export class LensSocialMedia implements Provider {
             for: profile.id,
             signedBy: address,
         });
-        const signature = await client.signMessage({
+        const signature = await wallet.signMessage({
             message: text,
         });
         await this.lensClient.authentication.authenticate({
@@ -65,13 +72,14 @@ export class LensSocialMedia implements Provider {
 
         const accessTokenResult = await this.lensClient.authentication.getAccessToken();
         const accessToken = accessTokenResult.unwrap();
-        const { payload } = await generateCustodyBearer(client);
+        const { payload } = await generateCustodyBearer(wallet);
 
         const currentSession = new LensSession(
             profile.id,
             accessToken,
             payload.params.timestamp,
             payload.params.expiresAt,
+            formatLensProfile(profile),
             this.lensClient,
         );
         localStorage.setItem(`lens_session${profile.id}`, currentSession.serialize());
@@ -79,16 +87,15 @@ export class LensSocialMedia implements Provider {
     }
 
     async createSessionForProfileId(profileId: string): Promise<LensSession> {
-        const client = await getWalletClient();
-        if (!client) throw new Error(i18n.t('No client found'));
-
-        const address = client.account.address;
+        const wallet = await this.getWallet();
+        const address = wallet.account.address;
+        const profile = await this.getProfileById(profileId);
 
         const { id, text } = await this.lensClient.authentication.generateChallenge({
             for: profileId,
             signedBy: address,
         });
-        const signature = await client.signMessage({
+        const signature = await wallet.signMessage({
             message: text,
         });
 
@@ -99,13 +106,14 @@ export class LensSocialMedia implements Provider {
 
         const accessTokenResult = await this.lensClient.authentication.getAccessToken();
         const accessToken = accessTokenResult.unwrap();
-        const { payload } = await generateCustodyBearer(client);
+        const { payload } = await generateCustodyBearer(wallet);
 
         const currentSession = new LensSession(
             profileId,
             accessToken,
             payload.params.timestamp,
             payload.params.expiresAt,
+            profile,
             this.lensClient,
         );
         localStorage.setItem(`lens_session${profileId}`, currentSession.serialize());
@@ -141,14 +149,49 @@ export class LensSocialMedia implements Provider {
     async publishPost(post: Post): Promise<Post> {
         if (!post.metadata.contentURI) throw new Error(i18n.t('No content URI found'));
 
-        const result = await this.lensClient.publication.postOnchain({
-            contentURI: post.metadata.contentURI,
-        });
-        const resultValue = result.unwrap();
+        const profile = await this.getProfileById(post.author.profileId);
 
-        if (!isRelaySuccess(resultValue)) throw new Error(`Something went wrong ${JSON.stringify(resultValue)}`);
+        if (profile.signless) {
+            const result = await this.lensClient.publication.postOnchain({
+                contentURI: post.metadata.contentURI,
+            });
+            const resultValue = result.unwrap();
 
-        return post;
+            if (!isRelaySuccess(resultValue)) throw new Error(`Something went wrong ${JSON.stringify(resultValue)}`);
+
+            return post;
+        } else {
+            const wallet = await this.getWallet();
+
+            const resultTypedData = await this.lensClient.publication.createOnchainPostTypedData({
+                contentURI: post.metadata.contentURI,
+            });
+
+            const { id, typedData } = resultTypedData.unwrap();
+
+            // sign with the wallet
+            const signedTypedData = await wallet.signTypedData({
+                domain: typedData.domain as TypedDataDomain,
+                types: typedData.types,
+                message: typedData.value,
+                primaryType: 'Post',
+            });
+
+            const broadcastResult = await this.lensClient.transaction.broadcastOnchain({
+                id,
+                signature: signedTypedData,
+            });
+
+            const broadcastValue = broadcastResult.unwrap();
+
+            if (!isRelaySuccess(broadcastValue)) {
+                throw new Error(`Something went wrong ${JSON.stringify(broadcastValue)}`);
+            }
+
+            console.log('broadcastValue', broadcastValue);
+
+            return post;
+        }
     }
 
     async mirrorPost(postId: string): Promise<Post> {
@@ -221,6 +264,15 @@ export class LensSocialMedia implements Provider {
     }
 
     async getProfileById(profileId: string): Promise<Profile> {
+        const result = await this.lensClient.profile.fetch({
+            forProfileId: profileId,
+        });
+        if (!result) throw new Error(i18n.t('No profile found'));
+
+        return formatLensProfile(result);
+    }
+
+    async getProfileByHandle(profileId: string): Promise<Profile> {
         const result = await this.lensClient.profile.fetch({
             forHandle: profileId,
         });

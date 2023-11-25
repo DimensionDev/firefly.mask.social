@@ -2,16 +2,24 @@ import { Popover } from '@headlessui/react';
 import { ChevronRightIcon } from '@heroicons/react/24/outline';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext.js';
 import { Trans } from '@lingui/react';
-import { $getSelection } from 'lexical/LexicalSelection.js';
+import { $getSelection } from 'lexical';
 import { type ChangeEvent, type Dispatch, type SetStateAction, useCallback, useRef } from 'react';
 
 import PostBy from '@/components/compose/PostBy.js';
 import ReplyRestriction from '@/components/compose/ReplyRestriction.js';
 import { Image } from '@/esm/Image.js';
+import uploadToIPFS, { type IPFSResponse } from '@/services/uploadToIPFS.js';
 
 interface ComposeActionProps {
     type: 'compose' | 'quote' | 'reply';
-    setImages: Dispatch<SetStateAction<File[]>>;
+    setImages: Dispatch<
+        SetStateAction<
+            Array<{
+                file: File;
+                ipfs: IPFSResponse;
+            }>
+        >
+    >;
 }
 export default function ComposeAction({ type, setImages }: ComposeActionProps) {
     const fileInputRef = useRef<HTMLInputElement | null>(null);
@@ -30,13 +38,24 @@ export default function ComposeAction({ type, setImages }: ComposeActionProps) {
         [editor],
     );
 
-    const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
-        const files = event.target.files;
+    const handleFileChange = useCallback(
+        async (event: ChangeEvent<HTMLInputElement>) => {
+            const files = event.target.files;
 
-        if (files) {
-            setImages((_images) => _images.concat([...files]));
-        }
-    };
+            if (files) {
+                const res = await uploadToIPFS([...files]);
+                setImages((_images) =>
+                    _images.concat(
+                        res.map((ipfs, index) => ({
+                            file: files[index],
+                            ipfs,
+                        })),
+                    ),
+                );
+            }
+        },
+        [setImages],
+    );
 
     return (
         <div className=" px-4 pb-4">
