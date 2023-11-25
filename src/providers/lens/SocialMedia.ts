@@ -17,6 +17,8 @@ import {
 } from '@masknet/shared-base';
 import { getWalletClient } from 'wagmi/actions';
 
+import { formatLensPost } from '@/helpers/formatLensPost.js';
+import { formatLensProfile } from '@/helpers/formatLensProfile.js';
 import { generateCustodyBearer } from '@/helpers/generateCustodyBearer.js';
 import { SessionFactory } from '@/providers/base/SessionFactory.js';
 import { LensSession } from '@/providers/lens/Session.js';
@@ -29,9 +31,6 @@ import {
     ReactionType,
     Type,
 } from '@/providers/types/SocialMedia.js';
-
-import { formatLensPost } from '../../helpers/formatLensPost.js';
-import { formatLensProfile } from '../../helpers/formatLensProfile.js';
 
 export class LensSocialMedia implements Provider {
     private lensClient = new LensClient({

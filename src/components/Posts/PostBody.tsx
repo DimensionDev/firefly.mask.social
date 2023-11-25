@@ -39,7 +39,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
                     })}
                 >
                     <Lock width={16} height={16} />
-                    Post has been encrypted
+                    <Trans id="Post has been encrypted" />
                 </div>
             </div>
         );

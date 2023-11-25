@@ -25,7 +25,6 @@ export const Comment = memo<CommentProps>(function Comment({ count, disabled = f
                 count: humanize(count),
             });
         }
-
         return i18n.t('Comment');
     }, [count]);
 
