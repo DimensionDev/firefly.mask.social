@@ -14,6 +14,10 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. js-lingui-explicit-id
+msgid "Add a comment"
+msgstr ""
+
+#. js-lingui-explicit-id
 msgid "Add an existing account"
 msgstr ""
 
@@ -31,10 +35,6 @@ msgstr ""
 
 #. js-lingui-explicit-id
 msgid "Change Wallet"
-msgstr ""
-
-#. js-lingui-explicit-id
-msgid "Change account"
 msgstr ""
 
 #. js-lingui-explicit-id
@@ -190,11 +190,11 @@ msgid "Liked"
 msgstr ""
 
 #. js-lingui-explicit-id
-msgid "Log in to your Farcaster account by scanning this QR code using mobile application Warpcast."
+msgid "Log in"
 msgstr ""
 
 #. js-lingui-explicit-id
-msgid "Log in with Farcaster account"
+msgid "Log in to your Farcaster account by scanning this QR code using mobile application Warpcast."
 msgstr ""
 
 #. js-lingui-explicit-id
@@ -270,7 +270,7 @@ msgid "Not implemented yet."
 msgstr ""
 
 #. js-lingui-explicit-id
-msgid "Notification"
+msgid "Notifications"
 msgstr ""
 
 #. js-lingui-explicit-id
@@ -286,7 +286,15 @@ msgid "Post by"
 msgstr ""
 
 #. js-lingui-explicit-id
+msgid "Post has been encrypted"
+msgstr ""
+
+#. js-lingui-explicit-id
 msgid "Post has been hidden"
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "Post your reply"
 msgstr ""
 
 #. js-lingui-explicit-id
@@ -315,14 +323,6 @@ msgstr ""
 
 #. js-lingui-explicit-id
 msgid "Search Lens handle or Farcaster"
-msgstr ""
-
-#. js-lingui-explicit-id
-msgid "Select Account"
-msgstr ""
-
-#. js-lingui-explicit-id
-msgid "Setting"
 msgstr ""
 
 #. js-lingui-explicit-id
@@ -367,6 +367,10 @@ msgstr ""
 
 #. js-lingui-explicit-id
 msgid "Unknown session type."
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "What's happening..."
 msgstr ""
 
 #. js-lingui-explicit-id

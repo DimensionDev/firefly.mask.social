@@ -14,6 +14,10 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. js-lingui-explicit-id
+msgid "Add a comment"
+msgstr "Add a comment"
+
+#. js-lingui-explicit-id
 msgid "Add an existing account"
 msgstr "Add an existing account"
 
@@ -32,10 +36,6 @@ msgstr "Audio Cover"
 #. js-lingui-explicit-id
 msgid "Change Wallet"
 msgstr "Change Wallet"
-
-#. js-lingui-explicit-id
-msgid "Change account"
-msgstr "Change account"
 
 #. js-lingui-explicit-id
 msgid "Collect is coming soon"
@@ -190,12 +190,12 @@ msgid "Liked"
 msgstr "Liked"
 
 #. js-lingui-explicit-id
-msgid "Log in to your Farcaster account by scanning this QR code using mobile application Warpcast."
-msgstr "Log in to your Farcaster account by scanning this QR code using mobile application Warpcast."
+msgid "Log in"
+msgstr "Log in"
 
 #. js-lingui-explicit-id
-msgid "Log in with Farcaster account"
-msgstr "Log in with Farcaster account"
+msgid "Log in to your Farcaster account by scanning this QR code using mobile application Warpcast."
+msgstr "Log in to your Farcaster account by scanning this QR code using mobile application Warpcast."
 
 #. js-lingui-explicit-id
 msgid "Log out"
@@ -270,8 +270,8 @@ msgid "Not implemented yet."
 msgstr "Not implemented yet."
 
 #. js-lingui-explicit-id
-msgid "Notification"
-msgstr "Notification"
+msgid "Notifications"
+msgstr "Notifications"
 
 #. js-lingui-explicit-id
 msgid "Only people you follow can reply"
@@ -286,8 +286,16 @@ msgid "Post by"
 msgstr "Post by"
 
 #. js-lingui-explicit-id
+msgid "Post has been encrypted"
+msgstr "Post has been encrypted"
+
+#. js-lingui-explicit-id
 msgid "Post has been hidden"
 msgstr "Post has been hidden"
+
+#. js-lingui-explicit-id
+msgid "Post your reply"
+msgstr "Post your reply"
 
 #. js-lingui-explicit-id
 msgid "Privacy Policy"
@@ -316,14 +324,6 @@ msgstr "Reply Restriction"
 #. js-lingui-explicit-id
 msgid "Search Lens handle or Farcaster"
 msgstr "Search Lens handle or Farcaster"
-
-#. js-lingui-explicit-id
-msgid "Select Account"
-msgstr "Select Account"
-
-#. js-lingui-explicit-id
-msgid "Setting"
-msgstr "Setting"
 
 #. js-lingui-explicit-id
 msgid "Settings"
@@ -368,6 +368,10 @@ msgstr "Unfollow"
 #. js-lingui-explicit-id
 msgid "Unknown session type."
 msgstr "Unknown session type."
+
+#. js-lingui-explicit-id
+msgid "What's happening..."
+msgstr "What's happening..."
 
 #. js-lingui-explicit-id
 msgid "You cannot reply to @{author} on {source}"
