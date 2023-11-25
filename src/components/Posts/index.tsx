@@ -7,7 +7,8 @@ import { SocialPlatform } from '@/constants/enum.js';
 import { createIndicator, createPageable } from '@/maskbook/packages/shared-base/src/index.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
-import { useGlobalState, useImpressionsStore } from '@/store/index.js';
+import { useGlobalState } from '@/store/useGlobalStore.js';
+import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 
 import { SinglePost } from './SinglePost.js';
 

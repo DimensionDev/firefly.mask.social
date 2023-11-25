@@ -1,24 +1,20 @@
 'use client';
 
 import { Dialog, Transition } from '@headlessui/react';
-import { Fragment } from 'react';
+import { Trans } from '@lingui/react';
+import { forwardRef, Fragment } from 'react';
 
 import { Image } from '@/esm/Image.js';
+import type { SingletonModalRefCreator } from '@/maskbook/packages/shared-base/src/index.js';
+import { useSingletonModal } from '@/maskbook/packages/shared-base-ui/src/index.js';
 
 const loggedLens = [{ name: 'Lens', handle: '@ssssss', avatar: '/svg/lens.svg' }];
 
-interface LoginModalProps {
-    isOpen: boolean;
-    setIsOpen: (isOpen: boolean) => void;
-}
-
-export function FarcasterStatusModal({ isOpen, setIsOpen }: LoginModalProps) {
-    function closeModal() {
-        setIsOpen(false);
-    }
+export const FarcasterStatusModal = forwardRef<SingletonModalRefCreator>(function FarcasterStatusModal(_, ref) {
+    const [open, dispatch] = useSingletonModal(ref);
     return (
-        <Transition appear show={isOpen} as={Fragment}>
-            <Dialog as="div" className="relative z-[999]" onClose={closeModal}>
+        <Transition appear show={open} as={Fragment}>
+            <Dialog as="div" className="relative z-[999]" onClose={() => dispatch?.close()}>
                 <Transition.Child
                     as={Fragment}
                     enter="ease-out duration-300"
@@ -73,12 +69,14 @@ export function FarcasterStatusModal({ isOpen, setIsOpen }: LoginModalProps) {
                                     <button className="flex w-full items-center gap-[8px]">
                                         <Image src={'/svg/userAdd.svg'} alt="logo" width={24} height={24} />
                                         <div className=" text-[17px] font-bold leading-[22px] text-[#101010]">
-                                            Change account
+                                            <Trans id="Change account" />
                                         </div>
                                     </button>
                                     <button className="flex items-center gap-[8px]">
                                         <Image src={'/svg/logOut.svg'} alt="logo" width={24} height={24} />
-                                        <div className=" text-[17px] font-bold leading-[22px] text-[#f00]">Log out</div>
+                                        <div className=" text-[17px] font-bold leading-[22px] text-[#f00]">
+                                            <Trans id="Log out" />
+                                        </div>
                                     </button>
                                 </div>
                             </Dialog.Panel>
@@ -88,4 +86,4 @@ export function FarcasterStatusModal({ isOpen, setIsOpen }: LoginModalProps) {
             </Dialog>
         </Transition>
     );
-}
+});

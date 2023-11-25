@@ -1,4 +1,5 @@
 import { Message } from '@farcaster/hub-web';
+import { i18n } from '@lingui/core';
 import {
     createIndicator,
     createNextIndicator,
@@ -17,9 +18,10 @@ import { toBytes } from 'viem';
 import { SocialPlatform } from '@/constants/enum.js';
 import { EMPTY_LIST, FIREFLY_HUBBLE_URL, FIREFLY_ROOT_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
-import { formatWarpcastPost } from '@/helpers/formatWarpcastPost.js';
+import { formatWarpcastPostFromFeed } from '@/helpers/formatWarpcastPost.js';
 import { getResourceType } from '@/helpers/getResourceType.js';
 import { waitForSignedKeyRequestComplete } from '@/helpers/waitForSignedKeyRequestComplete.js';
+import { SessionFactory } from '@/providers/base/SessionFactory.js';
 import {
     FarcasterNetwork,
     HashScheme,
@@ -30,13 +32,14 @@ import {
 } from '@/providers/firefly/proto/message.js';
 import { FireflySession } from '@/providers/firefly/Session.js';
 import type { CastResponse, CastsResponse, UserResponse, UsersResponse } from '@/providers/types/Firefly.js';
-import { type Post, ProfileStatus, type Provider, Type } from '@/providers/types/SocialMedia.js';
+import { type Post, type Profile, ProfileStatus, type Provider, Type } from '@/providers/types/SocialMedia.js';
 import { ReactionType as ReactionTypeCustom } from '@/providers/types/SocialMedia.js';
 import type { FeedResponse } from '@/providers/types/Warpcast.js';
 import type { MetadataAsset, ResponseJSON } from '@/types/index.js';
 
 ed.etc.sha512Sync = (...m: any) => sha512(ed.etc.concatBytes(...m));
 
+// @ts-ignore
 export class FireflySocialMedia implements Provider {
     get type() {
         return Type.Firefly;
@@ -63,11 +66,8 @@ export class FireflySocialMedia implements Provider {
 
         // present QR code to the user
         setUrl?.(response.data.deeplinkUrl);
-        console.log('DEBUG: response');
-        console.log(response);
 
         await waitForSignedKeyRequestComplete(abortSignal)(response.data.token);
-        console.log('DEBUG: signed key request complete');
 
         const session = new FireflySession(
             response.data.fid,
@@ -79,14 +79,13 @@ export class FireflySocialMedia implements Provider {
         return session;
     }
 
-    // @ts-ignore
     async resumeSession(): Promise<FireflySession | null> {
         const currentTime = Date.now();
 
         const storedSession = localStorage.getItem('firefly_session');
 
         if (storedSession) {
-            const recoveredSession = FireflySession.deserialize(storedSession);
+            const recoveredSession = SessionFactory.createSession<FireflySession>(storedSession);
             if (recoveredSession.expiresAt > currentTime) {
                 return recoveredSession;
             } else {
@@ -105,7 +104,7 @@ export class FireflySocialMedia implements Provider {
         const { result, next } = await fetchJSON<FeedResponse>(url, {
             method: 'GET',
         });
-        const data = result.feed.map(formatWarpcastPost);
+        const data = result.feed.map(formatWarpcastPostFromFeed);
         return createPageable(data, indicator ?? createIndicator(), createNextIndicator(indicator, next.cursor));
     }
 
@@ -168,6 +167,20 @@ export class FireflySocialMedia implements Provider {
             status: ProfileStatus.Active,
             verified: true,
         };
+    }
+
+    // @ts-ignore
+    async getPostsByParentPostId(postId: string, username: string, indicator?: PageIndicator) {
+        const url = urlcat('https://client.warpcast.com/v2', '/v2/user-thread-casts', {
+            castHashPrefix: postId,
+            limit: 10,
+            username,
+        });
+        const { result, next } = await fetchJSON<FeedResponse>(url, {
+            method: 'GET',
+        });
+        const data = result.feed.map(formatWarpcastPostFromFeed);
+        return createPageable(data, indicator ?? createIndicator(), createNextIndicator(indicator, next.cursor));
     }
 
     async getFollowers(profileId: string, indicator?: PageIndicator) {
@@ -302,7 +315,7 @@ export class FireflySocialMedia implements Provider {
             headers: { 'Content-Type': 'application/octet-stream' },
             body: messageBytes,
         });
-        if (!data) throw new Error('Failed to publish post');
+        if (!data) throw new Error(i18n.t('Failed to publish post'));
         return {
             source: SocialPlatform.Farcaster,
             postId: hash.toString(),
@@ -335,7 +348,7 @@ export class FireflySocialMedia implements Provider {
 
     async upvotePost(postId: string) {
         const session = await this.resumeSession();
-        if (!session) throw new Error('No session found');
+        if (!session) throw new Error(i18n.t('No session found'));
         const url = urlcat(FIREFLY_HUBBLE_URL, '/v1/submitMessage');
         const messageData: MessageData = {
             type: MessageType.REACTION_ADD,
@@ -373,7 +386,7 @@ export class FireflySocialMedia implements Provider {
             headers: { 'Content-Type': 'application/octet-stream' },
             body: messageBytes,
         });
-        if (!data) throw new Error('Failed to upvote post');
+        if (!data) throw new Error(i18n.t('Failed to upvote post'));
         return {
             reactionId: messageHash,
             type: ReactionTypeCustom.Upvote,
@@ -383,7 +396,7 @@ export class FireflySocialMedia implements Provider {
 
     async unvotePost(postId: string) {
         const session = await this.resumeSession();
-        if (!session) throw new Error('No session found');
+        if (!session) throw new Error(i18n.t('No session found'));
         const url = urlcat(FIREFLY_HUBBLE_URL, '/v1/submitMessage');
         const messageData: MessageData = {
             type: MessageType.REACTION_REMOVE,
@@ -421,13 +434,13 @@ export class FireflySocialMedia implements Provider {
             headers: { 'Content-Type': 'application/octet-stream' },
             body: messageBytes,
         });
-        if (!data) throw new Error('Failed to unvote post');
+        if (!data) throw new Error(i18n.t('Failed to unvote post'));
         return;
     }
 
     async commentPost(postId: string, comment: string) {
         const session = await this.resumeSession();
-        if (!session) throw new Error('No session found');
+        if (!session) throw new Error(i18n.t('No session found'));
         const url = urlcat(FIREFLY_HUBBLE_URL, '/v1/submitMessage');
         const messageData: MessageData = {
             type: MessageType.CAST_ADD,
@@ -469,13 +482,13 @@ export class FireflySocialMedia implements Provider {
             headers: { 'Content-Type': 'application/octet-stream' },
             body: messageBytes,
         });
-        if (!data) throw new Error('Failed to publish post');
+        if (!data) throw new Error(i18n.t('Failed to publish post'));
         return;
     }
 
     async unmirrorPost(postId: string) {
         const session = await this.resumeSession();
-        if (!session) throw new Error('No session found');
+        if (!session) throw new Error(i18n.t('No session found'));
         const url = urlcat(FIREFLY_HUBBLE_URL, '/v1/submitMessage');
         const messageData: MessageData = {
             type: MessageType.REACTION_REMOVE,
@@ -513,13 +526,13 @@ export class FireflySocialMedia implements Provider {
             headers: { 'Content-Type': 'application/octet-stream' },
             body: messageBytes,
         });
-        if (!data) throw new Error('Failed to unmirror post');
+        if (!data) throw new Error(i18n.t('Failed to unmirror post'));
         return null!;
     }
 
     async mirrorPost(postId: string) {
         const session = await this.resumeSession();
-        if (!session) throw new Error('No session found');
+        if (!session) throw new Error(i18n.t('No session found'));
         const url = urlcat(FIREFLY_HUBBLE_URL, '/v1/submitMessage');
         const messageData: MessageData = {
             type: MessageType.REACTION_ADD,
@@ -557,13 +570,13 @@ export class FireflySocialMedia implements Provider {
             headers: { 'Content-Type': 'application/octet-stream' },
             body: messageBytes,
         });
-        if (!data) throw new Error('Failed to mirror post');
+        if (!data) throw new Error(i18n.t('Failed to mirror post'));
         return null!;
     }
 
     async followProfile(profileId: string) {
         const session = await this.resumeSession();
-        if (!session) throw new Error('No session found');
+        if (!session) throw new Error(i18n.t('No session found'));
         const url = urlcat(FIREFLY_HUBBLE_URL, '/v1/submitMessage');
         const messageData: MessageData = {
             type: MessageType.LINK_ADD,
@@ -598,13 +611,13 @@ export class FireflySocialMedia implements Provider {
             headers: { 'Content-Type': 'application/octet-stream' },
             body: messageBytes,
         });
-        if (!data) throw new Error('Failed to follow');
+        if (!data) throw new Error(i18n.t('Failed to follow'));
         return null!;
     }
 
     async unfollowProfile(profileId: string) {
         const session = await this.resumeSession();
-        if (!session) throw new Error('No session found');
+        if (!session) throw new Error(i18n.t('No session found'));
         const url = urlcat(FIREFLY_HUBBLE_URL, '/v1/submitMessage');
         const messageData: MessageData = {
             type: MessageType.LINK_REMOVE,
@@ -639,8 +652,16 @@ export class FireflySocialMedia implements Provider {
             headers: { 'Content-Type': 'application/octet-stream' },
             body: messageBytes,
         });
-        if (!data) throw new Error('Failed to unfollow');
+        if (!data) throw new Error(i18n.t('Failed to unfollow'));
         return null!;
+    }
+
+    searchProfiles(indicator?: PageIndicator): Promise<Pageable<Profile>> {
+        throw new Error(i18n.t('Method not implemented.'));
+    }
+
+    searchPosts(indicator?: PageIndicator): Promise<Pageable<Post>> {
+        throw new Error(i18n.t('Method not implemented.'));
     }
 }
 

@@ -1,10 +1,12 @@
+import { Trans } from '@lingui/react';
+
 import FollowButton from '@/app/profile/components/FollowButton.js';
-import { PlatformEnum } from '@/app/profile/type.js';
+import { SocialPlatform } from '@/constants/enum.js';
 import { Image } from '@/esm/Image.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 interface InfoProps {
-    platform: PlatformEnum;
+    platform: SocialPlatform;
     handle: string;
     profile?: Profile;
 }
@@ -25,9 +27,9 @@ export default function Info({ platform, handle, profile }: InfoProps) {
 
                 <div className=" flex flex-col">
                     <div className=" flex items-center gap-2">
-                        <span className=" font-black text-textMain">{profile?.nickname ?? handle}</span>
+                        <span className=" font-black text-lightMain">{profile?.nickname ?? handle}</span>
                         <Image
-                            src={platform === PlatformEnum.Lens ? '/svg/lens.svg' : '/svg/farcaster.svg'}
+                            src={platform === SocialPlatform.Lens ? '/svg/lens.svg' : '/svg/farcaster.svg'}
                             width={20}
                             height={20}
                             alt="platform"
@@ -41,17 +43,23 @@ export default function Info({ platform, handle, profile }: InfoProps) {
 
                 <div className=" flex gap-3">
                     <div className=" flex gap-1">
-                        <span className=" font-bold text-textMain">{profile?.followingCount ?? 0}</span>
-                        <span className=" text-[#767676]">Following</span>
+                        <span className=" font-bold text-lightMain">{profile?.followingCount ?? 0}</span>
+                        <span className=" text-[#767676]">
+                            <Trans id="Following" />
+                        </span>
                     </div>
 
                     <div className=" flex gap-1">
-                        <span className=" font-bold text-textMain">{profile?.followerCount ?? 0}</span>
-                        <span className=" text-[#767676]">Followers</span>
+                        <span className=" font-bold text-lightMain">{profile?.followerCount ?? 0}</span>
+                        <span className=" text-[#767676]">
+                            <Trans id="Followers" />
+                        </span>
                     </div>
                 </div>
 
-                <div className=" text-sm text-[#767676]">Not followed by anyone you’re following</div>
+                <div className=" text-sm text-[#767676]">
+                    <Trans id="Not followed by anyone you’re following" />
+                </div>
             </div>
         </div>
     );

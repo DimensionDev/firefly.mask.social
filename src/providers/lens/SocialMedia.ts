@@ -7,6 +7,7 @@ import {
     PublicationReactionType,
     PublicationType,
 } from '@lens-protocol/client';
+import { i18n } from '@lingui/core';
 import {
     createIndicator,
     createNextIndicator,
@@ -16,7 +17,10 @@ import {
 } from '@masknet/shared-base';
 import { getWalletClient } from 'wagmi/actions';
 
+import { formatLensPost } from '@/helpers/formatLensPost.js';
+import { formatLensProfile } from '@/helpers/formatLensProfile.js';
 import { generateCustodyBearer } from '@/helpers/generateCustodyBearer.js';
+import { SessionFactory } from '@/providers/base/SessionFactory.js';
 import { LensSession } from '@/providers/lens/Session.js';
 import {
     type Notification,
@@ -28,19 +32,10 @@ import {
     Type,
 } from '@/providers/types/SocialMedia.js';
 
-import { formatLensPost } from '../../helpers/formatLensPost.js';
-import { formatLensProfile } from '../../helpers/formatLensProfile.js';
-
 export class LensSocialMedia implements Provider {
-    private currentSession?: LensSession;
-
-    lensClient: LensClient;
-
-    constructor() {
-        this.lensClient = new LensClient({
-            environment: production,
-        });
-    }
+    private lensClient = new LensClient({
+        environment: production,
+    });
 
     get type() {
         return Type.Lens;
@@ -48,13 +43,13 @@ export class LensSocialMedia implements Provider {
 
     async createSession(): Promise<LensSession> {
         const client = await getWalletClient();
-        if (!client) throw new Error('No client found');
+        if (!client) throw new Error(i18n.t('No client found'));
 
         const address = client.account.address;
         const profile = await this.lensClient.profile.fetchDefault({
             for: address,
         });
-        if (!profile) throw new Error('No profile found');
+        if (!profile) throw new Error(i18n.t('No profile found'));
 
         const { id, text } = await this.lensClient.authentication.generateChallenge({
             for: profile.id,
@@ -72,26 +67,79 @@ export class LensSocialMedia implements Provider {
         const accessToken = accessTokenResult.unwrap();
         const { payload } = await generateCustodyBearer(client);
 
-        return (this.currentSession = new LensSession(
+        const currentSession = new LensSession(
             profile.id,
             accessToken,
             payload.params.timestamp,
             payload.params.expiresAt,
             this.lensClient,
-        ));
+        );
+        localStorage.setItem(`lens_session${profile.id}`, currentSession.serialize());
+        return currentSession;
     }
 
-    async resumeSession(): Promise<LensSession> {
-        if (this.currentSession && this.currentSession.expiresAt > Date.now()) {
-            return this.currentSession;
-        }
+    async createSessionForProfileId(profileId: string): Promise<LensSession> {
+        const client = await getWalletClient();
+        if (!client) throw new Error(i18n.t('No client found'));
 
-        this.currentSession = await this.createSession();
-        return this.currentSession;
+        const address = client.account.address;
+
+        const { id, text } = await this.lensClient.authentication.generateChallenge({
+            for: profileId,
+            signedBy: address,
+        });
+        const signature = await client.signMessage({
+            message: text,
+        });
+
+        await this.lensClient.authentication.authenticate({
+            id,
+            signature,
+        });
+
+        const accessTokenResult = await this.lensClient.authentication.getAccessToken();
+        const accessToken = accessTokenResult.unwrap();
+        const { payload } = await generateCustodyBearer(client);
+
+        const currentSession = new LensSession(
+            profileId,
+            accessToken,
+            payload.params.timestamp,
+            payload.params.expiresAt,
+            this.lensClient,
+        );
+        localStorage.setItem(`lens_session${profileId}`, currentSession.serialize());
+        return currentSession;
+    }
+
+    async getProfilesByAddress(address: string): Promise<Profile[]> {
+        const profiles = await this.lensClient.profile.fetchAll({
+            where: {
+                ownedBy: [address],
+            },
+        });
+        return profiles.items.map(formatLensProfile);
+    }
+
+    async resumeSession(profileId: string): Promise<LensSession | null> {
+        const currentTime = Date.now();
+
+        const storedSession = localStorage.getItem(`lens_session${profileId}`);
+
+        if (storedSession) {
+            const recoveredSession = SessionFactory.createSession<LensSession>(storedSession);
+            if (recoveredSession.expiresAt > currentTime) {
+                this.lensClient = recoveredSession.client;
+                return recoveredSession;
+            } else {
+                return null;
+            }
+        }
+        return null;
     }
 
     async publishPost(post: Post): Promise<Post> {
-        if (!post.metadata.contentURI) throw new Error('No content URI found');
+        if (!post.metadata.contentURI) throw new Error(i18n.t('No content URI found'));
 
         const result = await this.lensClient.publication.postOnchain({
             contentURI: post.metadata.contentURI,
@@ -176,7 +224,7 @@ export class LensSocialMedia implements Provider {
         const result = await this.lensClient.profile.fetch({
             forHandle: profileId,
         });
-        if (!result) throw new Error('No profile found');
+        if (!result) throw new Error(i18n.t('No profile found'));
 
         return formatLensProfile(result);
     }
@@ -186,7 +234,7 @@ export class LensSocialMedia implements Provider {
             forId: postId,
         });
 
-        if (!result) throw new Error('No post found');
+        if (!result) throw new Error(i18n.t('No post found'));
 
         const post = formatLensPost(result);
         return post;
@@ -449,6 +497,14 @@ export class LensSocialMedia implements Provider {
             indicator,
             createNextIndicator(indicator, result.pageInfo.next ?? undefined),
         );
+    }
+
+    searchProfiles(indicator?: PageIndicator): Promise<Pageable<Profile>> {
+        throw new Error('Method not implemented.');
+    }
+
+    searchPosts(indicator?: PageIndicator): Promise<Pageable<Post>> {
+        throw new Error('Method not implemented.');
     }
 }
 

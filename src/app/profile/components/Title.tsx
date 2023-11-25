@@ -7,6 +7,7 @@ import type { Profile } from '@/providers/types/SocialMedia.js';
 interface TitleProps {
     profile?: Profile;
 }
+
 export default function Title({ profile }: TitleProps) {
     const router = useRouter();
 

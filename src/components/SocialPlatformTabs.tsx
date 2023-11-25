@@ -6,7 +6,7 @@ import { startTransition } from 'react';
 
 import { SocialPlatform } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
-import { useGlobalState } from '@/store/index.js';
+import { useGlobalState } from '@/store/useGlobalStore.js';
 
 export function SocialPlatformTabs() {
     const pathname = usePathname();
@@ -17,15 +17,13 @@ export function SocialPlatformTabs() {
 
     return (
         <div className="px-4 py-5">
-            <nav className="flex space-x-4" aria-label="Tabs">
+            <nav className="-mb-px flex space-x-4" aria-label="Tabs">
                 {getEnumAsArray(SocialPlatform).map(({ key, value }) => (
-                    <div
+                    <a
                         key={key}
                         className={classNames(
-                            currentSocialPlatform === value
-                                ? 'rounded-full bg-main text-bg dark:text-secondaryBottom'
-                                : 'text-main',
-                            'px-4 py-2 text-sm font-medium hover:cursor-pointer',
+                            currentSocialPlatform === value ? 'border-b-2 border-[#9250FF] text-main' : 'text-third',
+                            'px-4 py-2 text-xl font-bold leading-6 hover:cursor-pointer',
                         )}
                         aria-current={currentSocialPlatform === value ? 'page' : undefined}
                         onClick={() =>
@@ -35,7 +33,7 @@ export function SocialPlatformTabs() {
                         }
                     >
                         {value}
-                    </div>
+                    </a>
                 ))}
             </nav>
         </div>

@@ -1,7 +1,9 @@
 'use client';
+import { i18n } from '@lingui/core';
 import { useAccountModal, useConnectModal } from '@rainbow-me/rainbowkit';
 import { useMemo } from 'react';
 import { useAccount, useEnsName } from 'wagmi';
+import { mainnet } from 'wagmi/chains';
 
 import WalletIcon from '@/assets/wallet.svg';
 import { useMounted } from '@/hooks/useMounted.js';
@@ -10,13 +12,14 @@ import { formatEthereumAddress } from '@/maskbook/packages/web3-shared/evm/src/i
 export function ConnectWalletNav() {
     const mounted = useMounted();
     const account = useAccount();
-    const { data: ensName } = useEnsName({ address: account.address });
+
+    const { data: ensName } = useEnsName({ address: account.address, chainId: mainnet.id });
 
     const { openConnectModal } = useConnectModal();
     const { openAccountModal } = useAccountModal();
 
     const text = useMemo(() => {
-        if (!account.isConnected || !account.address || !mounted) return 'Connect Wallet';
+        if (!account.isConnected || !account.address || !mounted) return i18n.t('Connect Wallet');
         if (ensName) return ensName;
 
         return formatEthereumAddress(account.address, 4);

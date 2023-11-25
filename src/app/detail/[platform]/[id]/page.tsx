@@ -6,7 +6,7 @@ import { SinglePost } from '@/components/Posts/SinglePost.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
-import { useImpressionsStore } from '@/store/index.js';
+import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 
 export default function Page({ params }: { params: { id: string; platform: string } }) {
     const fetchAndStoreViews = useImpressionsStore.use.fetchAndStoreViews();
@@ -31,5 +31,5 @@ export default function Page({ params }: { params: { id: string; platform: strin
     });
 
     if (!data) return;
-    return <SinglePost post={data} />;
+    return <SinglePost post={data} disableAnimate />;
 }

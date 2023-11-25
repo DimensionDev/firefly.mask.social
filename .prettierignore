@@ -11,6 +11,8 @@ build/
 *.min.js
 *.min.css
 
+# Ignore locales
+*.po
 
 # Ignore all files of a specific type in a specific directory
 public/*.html

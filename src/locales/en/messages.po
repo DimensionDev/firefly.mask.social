@@ -1,0 +1,386 @@
+msgid ""
+msgstr ""
+"POT-Creation-Date: 2023-11-24 21:17+0800\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: @lingui/cli\n"
+"Language: en\n"
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Plural-Forms: \n"
+
+#. js-lingui-explicit-id
+msgid "Add a comment"
+msgstr "Add a comment"
+
+#. js-lingui-explicit-id
+msgid "Add an existing account"
+msgstr "Add an existing account"
+
+#. js-lingui-explicit-id
+msgid "Allow Lens Manager to perform actions such as posting, liking, and commenting without the need to sign each transaction"
+msgstr "Allow Lens Manager to perform actions such as posting, liking, and commenting without the need to sign each transaction"
+
+#. js-lingui-explicit-id
+msgid "Associated Wallets"
+msgstr "Associated Wallets"
+
+#. js-lingui-explicit-id
+msgid "Audio Cover"
+msgstr "Audio Cover"
+
+#. js-lingui-explicit-id
+msgid "Change Wallet"
+msgstr "Change Wallet"
+
+#. js-lingui-explicit-id
+msgid "Collect is coming soon"
+msgstr "Collect is coming soon"
+
+#. js-lingui-explicit-id
+msgid "Comment"
+msgstr "Comment"
+
+#. js-lingui-explicit-id
+msgid "Communities"
+msgstr "Communities"
+
+#. js-lingui-explicit-id
+msgid "Confirm"
+msgstr "Confirm"
+
+#. js-lingui-explicit-id
+msgid "Connect Wallet"
+msgstr "Connect Wallet"
+
+#. js-lingui-explicit-id
+msgid "Connected Accounts"
+msgstr "Connected Accounts"
+
+#. js-lingui-explicit-id
+msgid "Connected in Firefly"
+msgstr "Connected in Firefly"
+
+#. js-lingui-explicit-id
+msgid "Copied"
+msgstr "Copied"
+
+#. js-lingui-explicit-id
+msgid "Dark mode"
+msgstr "Dark mode"
+
+#. js-lingui-explicit-id
+msgid "Delegate Signing (Recommend)"
+msgstr "Delegate Signing (Recommend)"
+
+#. js-lingui-explicit-id
+msgid "Details"
+msgstr "Details"
+
+#. js-lingui-explicit-id
+msgid "Discard"
+msgstr "Discard"
+
+#. js-lingui-explicit-id
+msgid "Discover"
+msgstr "Discover"
+
+#. js-lingui-explicit-id
+msgid "Display"
+msgstr "Display"
+
+#. js-lingui-explicit-id
+msgid "Everyone can reply"
+msgstr "Everyone can reply"
+
+#. js-lingui-explicit-id
+msgid "Failed to fetch as Blob."
+msgstr "Failed to fetch as Blob."
+
+#. js-lingui-explicit-id
+msgid "Failed to fetch as Text."
+msgstr "Failed to fetch as Text."
+
+#. js-lingui-explicit-id
+msgid "Failed to follow"
+msgstr "Failed to follow"
+
+#. js-lingui-explicit-id
+msgid "Failed to like. {message}"
+msgstr "Failed to like. {message}"
+
+#. js-lingui-explicit-id
+msgid "Failed to mirror post"
+msgstr "Failed to mirror post"
+
+#. js-lingui-explicit-id
+msgid "Failed to mirror. {message}"
+msgstr "Failed to mirror. {message}"
+
+#. js-lingui-explicit-id
+msgid "Failed to parse session."
+msgstr "Failed to parse session."
+
+#. js-lingui-explicit-id
+msgid "Failed to publish post"
+msgstr "Failed to publish post"
+
+#. js-lingui-explicit-id
+msgid "Failed to serialize payload."
+msgstr "Failed to serialize payload."
+
+#. js-lingui-explicit-id
+msgid "Failed to unfollow"
+msgstr "Failed to unfollow"
+
+#. js-lingui-explicit-id
+msgid "Failed to unlike. {message}"
+msgstr "Failed to unlike. {message}"
+
+#. js-lingui-explicit-id
+msgid "Failed to unmirror post"
+msgstr "Failed to unmirror post"
+
+#. js-lingui-explicit-id
+msgid "Failed to unvote post"
+msgstr "Failed to unvote post"
+
+#. js-lingui-explicit-id
+msgid "Failed to upvote post"
+msgstr "Failed to upvote post"
+
+#. js-lingui-explicit-id
+msgid "Firefly"
+msgstr "Firefly"
+
+#. js-lingui-explicit-id
+msgid "Follow"
+msgstr "Follow"
+
+#. js-lingui-explicit-id
+msgid "Follow @thefireflyapp on X"
+msgstr "Follow @thefireflyapp on X"
+
+#. js-lingui-explicit-id
+msgid "Follow System"
+msgstr "Follow System"
+
+#. js-lingui-explicit-id
+msgid "Followers"
+msgstr "Followers"
+
+#. js-lingui-explicit-id
+msgid "Following"
+msgstr "Following"
+
+#. js-lingui-explicit-id
+msgid "Lens"
+msgstr "Lens"
+
+#. js-lingui-explicit-id
+msgid "Light mode"
+msgstr "Light mode"
+
+#. js-lingui-explicit-id
+msgid "Liked"
+msgstr "Liked"
+
+#. js-lingui-explicit-id
+msgid "Log in"
+msgstr "Log in"
+
+#. js-lingui-explicit-id
+msgid "Log in to your Farcaster account by scanning this QR code using mobile application Warpcast."
+msgstr "Log in to your Farcaster account by scanning this QR code using mobile application Warpcast."
+
+#. js-lingui-explicit-id
+msgid "Log out"
+msgstr "Log out"
+
+#. js-lingui-explicit-id
+msgid "Log out all"
+msgstr "Log out all"
+
+#. js-lingui-explicit-id
+msgid "Login"
+msgstr "Login"
+
+#. js-lingui-explicit-id
+msgid "Malformed session."
+msgstr "Malformed session."
+
+#. js-lingui-explicit-id
+msgid "Method not implemented."
+msgstr "Method not implemented."
+
+#. js-lingui-explicit-id
+msgid "Mirror"
+msgstr "Mirror"
+
+#. js-lingui-explicit-id
+msgid "Mirror and Quotes"
+msgstr "Mirror and Quotes"
+
+#. js-lingui-explicit-id
+msgid "Mirrored"
+msgstr "Mirrored"
+
+#. js-lingui-explicit-id
+msgid "Mirrors and Quotes"
+msgstr "Mirrors and Quotes"
+
+#. js-lingui-explicit-id
+msgid "Missing client."
+msgstr "Missing client."
+
+#. js-lingui-explicit-id
+msgid "More"
+msgstr "More"
+
+#. js-lingui-explicit-id
+msgid "No client found"
+msgstr "No client found"
+
+#. js-lingui-explicit-id
+msgid "No content URI found"
+msgstr "No content URI found"
+
+#. js-lingui-explicit-id
+msgid "No post found"
+msgstr "No post found"
+
+#. js-lingui-explicit-id
+msgid "No profile found"
+msgstr "No profile found"
+
+#. js-lingui-explicit-id
+msgid "No session found"
+msgstr "No session found"
+
+#. js-lingui-explicit-id
+msgid "Not followed by anyone you’re following"
+msgstr "Not followed by anyone you’re following"
+
+#. js-lingui-explicit-id
+msgid "Not implemented yet."
+msgstr "Not implemented yet."
+
+#. js-lingui-explicit-id
+msgid "Notifications"
+msgstr "Notifications"
+
+#. js-lingui-explicit-id
+msgid "Only people you follow can reply"
+msgstr "Only people you follow can reply"
+
+#. js-lingui-explicit-id
+msgid "Post"
+msgstr "Post"
+
+#. js-lingui-explicit-id
+msgid "Post by"
+msgstr "Post by"
+
+#. js-lingui-explicit-id
+msgid "Post has been encrypted"
+msgstr "Post has been encrypted"
+
+#. js-lingui-explicit-id
+msgid "Post has been hidden"
+msgstr "Post has been hidden"
+
+#. js-lingui-explicit-id
+msgid "Post your reply"
+msgstr "Post your reply"
+
+#. js-lingui-explicit-id
+msgid "Privacy Policy"
+msgstr "Privacy Policy"
+
+#. js-lingui-explicit-id
+msgid "Profile"
+msgstr "Profile"
+
+#. js-lingui-explicit-id
+msgid "Quote Post"
+msgstr "Quote Post"
+
+#. js-lingui-explicit-id
+msgid "Recast"
+msgstr "Recast"
+
+#. js-lingui-explicit-id
+msgid "Recasted"
+msgstr "Recasted"
+
+#. js-lingui-explicit-id
+msgid "Reply Restriction"
+msgstr "Reply Restriction"
+
+#. js-lingui-explicit-id
+msgid "Search Lens handle or Farcaster"
+msgstr "Search Lens handle or Farcaster"
+
+#. js-lingui-explicit-id
+msgid "Settings"
+msgstr "Settings"
+
+#. js-lingui-explicit-id
+msgid "Share"
+msgstr "Share"
+
+#. js-lingui-explicit-id
+msgid "Show More"
+msgstr "Show More"
+
+#. js-lingui-explicit-id
+msgid "Sign"
+msgstr "Sign"
+
+#. js-lingui-explicit-id
+msgid "Sign the transaction to verify you are the owner of the selected profile"
+msgstr "Sign the transaction to verify you are the owner of the selected profile"
+
+#. js-lingui-explicit-id
+msgid "Switch"
+msgstr "Switch"
+
+#. js-lingui-explicit-id
+msgid "Terms of Service"
+msgstr "Terms of Service"
+
+#. js-lingui-explicit-id
+msgid "This can’t be undone and you’ll lose your draft"
+msgstr "This can’t be undone and you’ll lose your draft"
+
+#. js-lingui-explicit-id
+msgid "UnLiked"
+msgstr "UnLiked"
+
+#. js-lingui-explicit-id
+msgid "Unfollow"
+msgstr "Unfollow"
+
+#. js-lingui-explicit-id
+msgid "Unknown session type."
+msgstr "Unknown session type."
+
+#. js-lingui-explicit-id
+msgid "What's happening..."
+msgstr "What's happening..."
+
+#. js-lingui-explicit-id
+msgid "You cannot reply to @{author} on {source}"
+msgstr "You cannot reply to @{author} on {source}"
+
+#. js-lingui-explicit-id
+msgid "{count} Comments"
+msgstr "{count} Comments"
+
+#. js-lingui-explicit-id
+msgid "{count} views"
+msgstr "{count} views"

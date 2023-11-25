@@ -22,3 +22,9 @@ export const AVATAR = 'tr:w-300,h-300';
 export const EXPANDED_AVATAR = 'tr:w-1000,h-1000';
 export const COVER = 'tr:w-1500,h-500';
 export const ATTACHMENT = 'tr:w-1000';
+
+export const LS_LOCALE_KEY = 'social.mask.locale';
+
+export const IS_PRODUCTION = process.env.NODE_ENV === 'production';
+export const IS_DEVELOPMENT = process.env.NODE_ENV === 'development';
+export const IS_PREVIEW = process.env.NEXT_PUBLIC_VERCEL_ENV === 'preview';

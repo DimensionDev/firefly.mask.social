@@ -5,6 +5,7 @@ import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin.js';
 import { MarkdownShortcutPlugin } from '@lexical/react/LexicalMarkdownShortcutPlugin.js';
 import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin.js';
 import { PlainTextPlugin } from '@lexical/react/LexicalPlainTextPlugin.js';
+import { i18n } from '@lingui/core';
 import { useMemo } from 'react';
 
 import { MentionsPlugin } from '@/components/shared/lexical/plugins/AtMentionsPlugin.js';
@@ -25,9 +26,9 @@ interface EditorProps {
 export default function Editor({ type, setCharacters, hasImages }: EditorProps) {
     const placeholder = useMemo(() => {
         return {
-            compose: "What's happening...",
-            quote: 'Add a comment',
-            reply: 'Post your reply',
+            compose: i18n.t("What's happening..."),
+            quote: i18n.t('Add a comment'),
+            reply: i18n.t('Post your reply'),
         }[type];
     }, [type]);
 

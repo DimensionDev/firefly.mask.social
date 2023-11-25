@@ -1,3 +1,4 @@
+import { i18n } from '@lingui/core';
 import {
     createIndicator,
     createNextIndicator,
@@ -12,7 +13,7 @@ import { getWalletClient } from 'wagmi/actions';
 import { SocialPlatform } from '@/constants/enum.js';
 import { WARPCAST_ROOT_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
-import { formatWarpcastPost } from '@/helpers/formatWarpcastPost.js';
+import { formatWarpcastPostFromFeed } from '@/helpers/formatWarpcastPost.js';
 import { generateCustodyBearer } from '@/helpers/generateCustodyBearer.js';
 import { waitForSignedKeyRequestComplete } from '@/helpers/waitForSignedKeyRequestComplete.js';
 import { type Post, ProfileStatus, type Provider, ReactionType, Type } from '@/providers/types/SocialMedia.js';
@@ -59,8 +60,6 @@ export class WarpcastSocialMedia implements Provider {
 
         // present QR code to the user
         setUrl?.(response.data.deeplinkUrl);
-        console.log('DEBUG: response');
-        console.log(response);
 
         await waitForSignedKeyRequestComplete(signal)(response.data.token);
 
@@ -79,7 +78,7 @@ export class WarpcastSocialMedia implements Provider {
      */
     private async createSessionByCustodyWallet(signal?: AbortSignal) {
         const client = await getWalletClient();
-        if (!client) throw new Error('No client found');
+        if (!client) throw new Error(i18n.t('No client found'));
 
         const { payload, token } = await generateCustodyBearer(client);
         const response = await fetchJSON<{
@@ -145,7 +144,7 @@ export class WarpcastSocialMedia implements Provider {
         const { result, next } = await fetchJSON<FeedResponse>(url, {
             method: 'GET',
         });
-        const data = result.feed.map(formatWarpcastPost);
+        const data = result.feed.map(formatWarpcastPostFromFeed);
         return createPageable(data, indicator ?? createIndicator(), createNextIndicator(indicator, next.cursor));
     }
 

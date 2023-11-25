@@ -82,6 +82,7 @@ export interface Profile {
     status: ProfileStatus;
     tags?: Tag[];
     verified: boolean;
+    signless?: boolean;
     viewerContext?: {
         following: boolean;
         followedBy: boolean;
@@ -125,6 +126,7 @@ export interface Post {
             content?: string;
             asset?: MetadataAsset;
             attachments?: Attachment[];
+            oembedUrl?: string;
         } | null;
         contentURI?: string;
     };
@@ -222,7 +224,7 @@ export interface Provider {
      * @param signal Optional AbortSignal for cancellation.
      * @returns A promise that resolves to a Session object.
      */
-    resumeSession: (signal?: AbortSignal) => Promise<Session>;
+    resumeSession: (profileId: string, signal?: AbortSignal) => Promise<Session | null>;
 
     /**
      * Publishes a post.
@@ -282,6 +284,13 @@ export interface Provider {
      * @returns A promise that resolves to void.
      */
     unvotePost: (postId: string) => Promise<void>;
+
+    /**
+     *
+     * @param address EVM address
+     * @returns A promise that resolves to Profiles array by address.
+     */
+    getProfilesByAddress: (address: string) => Promise<Profile[]>;
 
     /**
      * Retrieves a user's profile by their profile ID.
@@ -427,4 +436,18 @@ export interface Provider {
      * @returns A promise that resolves to a pageable list of Profile objects.
      */
     getSuggestedFollows: (indicator?: PageIndicator) => Promise<Pageable<Profile>>;
+
+    /**
+     * Search profiles.
+     * @param indicator
+     * @returns
+     */
+    searchProfiles: (indicator?: PageIndicator) => Promise<Pageable<Profile>>;
+
+    /**
+     * Search posts.
+     * @param indicator
+     * @returns
+     */
+    searchPosts: (indicator?: PageIndicator) => Promise<Pageable<Post>>;
 }

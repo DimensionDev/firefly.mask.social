@@ -1,14 +1,14 @@
-import { PlatformEnum } from '@/app/profile/type.js';
+import { SocialPlatform } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 
 interface PlatformTabsProps {
-    tab: PlatformEnum;
-    setTab: (tab: PlatformEnum) => void;
+    tab: SocialPlatform;
+    setTab: (tab: SocialPlatform) => void;
 }
 export default function PlatformTabs({ tab, setTab }: PlatformTabsProps) {
     return (
         <div className=" flex items-center px-4 py-5">
-            {Object.values(PlatformEnum).map((item) => (
+            {Object.values(SocialPlatform).map((item) => (
                 <button
                     key={item}
                     className={classNames(

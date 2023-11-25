@@ -28,9 +28,6 @@ export function waitForSignedKeyRequestComplete(signal?: AbortSignal) {
                 }),
             );
 
-            console.log(`DEBUG: ${tries} check`);
-            console.log(response.result.signedKeyRequest.state);
-
             if (response.errors?.length) continue;
             if (response.result.signedKeyRequest.state === 'completed') return true;
         }

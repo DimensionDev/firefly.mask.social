@@ -4,6 +4,7 @@ module.exports = {
         './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
         './src/components/**/*.{js,ts,jsx,tsx,mdx}',
         './src/app/**/*.{js,ts,jsx,tsx,mdx}',
+        './src/modals/**/*.{js,ts,jsx,tsx,mdx}',
     ],
     theme: {
         extend: {
@@ -25,8 +26,9 @@ module.exports = {
                 third: 'var(--color-third)',
                 input: 'var(--color-input)',
                 line: 'var(--color-line)',
-                textMain: '#181818',
-                lightBg: '#F9F9F9',
+                lightMain: 'var(--color-light-main)',
+                lightBg: 'var(--color-light-bg)',
+                lightBottom80: 'var(--color-bottom80)',
                 lightSecond: '#767F8D',
                 lightLineSecond: '#E6E7E8',
             },

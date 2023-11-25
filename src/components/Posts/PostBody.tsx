@@ -1,11 +1,13 @@
 'use client';
 
+import { Trans } from '@lingui/react';
 import { forwardRef } from 'react';
 import urlcat from 'urlcat';
 
 import EyeSlash from '@/assets/eye-slash.svg';
 import Lock from '@/assets/lock.svg';
 import { Markup } from '@/components/Markup/index.js';
+import Oembed from '@/components/Oembed/index.js';
 import { Attachments } from '@/components/Posts/Attachment.js';
 import { Quote } from '@/components/Posts/Quote.js';
 import { Link } from '@/esm/Link.js';
@@ -37,7 +39,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
                     })}
                 >
                     <Lock width={16} height={16} />
-                    Post has been encrypted
+                    <Trans id="Post has been encrypted" />
                 </div>
             </div>
         );
@@ -51,15 +53,15 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
                 })}
             >
                 <EyeSlash width={16} height={16} />
-                Post has been hidden
+                <Trans id="Post has been hidden" />
             </div>
         </div>;
     }
 
     if (isQuote) {
         return (
-            <div className="my-2 flex items-center break-words text-base text-main">
-                <Markup className="markup linkify text-md line-clamp-5 w-full break-words opacity-75 dark:opacity-50">
+            <div className="my-2 flex items-center space-x-2 break-words text-base text-main">
+                <Markup className="markup linkify text-md line-clamp-5 w-full self-stretch break-words opacity-75 dark:opacity-50">
                     {post.metadata.content?.content || ''}
                 </Markup>
                 {showAttachments ? (
@@ -82,7 +84,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
             {canShowMore ? (
                 <div className="text-base font-bold text-link">
                     <Link href={urlcat('/detail/:platform/:id', { platform: post.source, id: post.postId })}>
-                        Show More
+                        <Trans id="Show More" />
                     </Link>
                 </div>
             ) : null}
@@ -92,6 +94,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
                     attachments={post.metadata.content?.attachments ?? []}
                 />
             ) : null}
+            {post.metadata.content?.oembedUrl ? <Oembed url={post.metadata.content.oembedUrl} /> : null}
             {!!post.quoteOn && !isQuote ? <Quote post={post.quoteOn} /> : null}
         </div>
     );

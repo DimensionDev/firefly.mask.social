@@ -1748,3 +1748,8 @@ if (_m0.util.Long !== Long) {
 function isSet(value: any): boolean {
     return value !== null && value !== undefined;
 }
+
+export type MessagesPage = {
+    messages: Message[];
+    nextPageToken: string;
+};

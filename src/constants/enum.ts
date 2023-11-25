@@ -1,9 +1,9 @@
 export enum PageRoutes {
     Home = '/',
     Following = '/following',
-    Notification = '/notification',
+    Notifications = '/notifications',
     Profile = '/profile',
-    Setting = '/settings/display',
+    Settings = '/settings/display',
     Search = '/search',
 }
 

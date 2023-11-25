@@ -1,8 +1,10 @@
 next.config.js
+lingui.config.js
 postcss.config.cjs
 tailwind.config.cjs
 
 src/maskbook
+src/locales/**/*.js
 public/js
 public/sw.js
 scripts/build-sw.mjs
