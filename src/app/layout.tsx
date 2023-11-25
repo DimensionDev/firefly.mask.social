@@ -6,6 +6,8 @@ import { Providers } from '@/app/provider.js';
 import { GA } from '@/components/GA.js';
 import { Polyfills } from '@/components/Polyfills.js';
 import { SearchBar } from '@/components/SearchBar.js';
+import { SearchFilter } from '@/components/SearchFilter.js';
+import { SearchSideBar } from '@/components/SearchSideBar.js';
 import { SideBar } from '@/components/SideBar/index.js';
 import { SocialPlatformTabs } from '@/components/SocialPlatformTabs.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
@@ -24,11 +26,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                     <div className="m-auto flex min-h-screen sm:w-full lg:w-[1265px] ">
                         <SideBar />
                         <main className="max-w-[888px] flex-1 border-r border-line pl-72">
+                            <SearchBar />
+
                             <SocialPlatformTabs />
 
                             {children}
                         </main>
-                        <SearchBar />
+                        <SearchFilter />
+                        <SearchSideBar />
                     </div>
                     <Modals />
                 </Providers>
