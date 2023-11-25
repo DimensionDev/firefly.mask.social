@@ -2,7 +2,7 @@
 
 import { i18n } from '@lingui/core';
 import { Trans } from '@lingui/react';
-import { memo, useMemo, useState } from 'react';
+import { memo } from 'react';
 
 import DiscoverSelectedIcon from '@/assets/discover.selected.svg';
 import DiscoverIcon from '@/assets/discover.svg';
@@ -16,14 +16,12 @@ import ProfileSelectedIcon from '@/assets/profile.selected.svg';
 import ProfileIcon from '@/assets/profile.svg';
 import SettingsSelectedIcon from '@/assets/setting.selected.svg';
 import SettingsIcon from '@/assets/setting.svg';
-import { FarcasterStatusModal } from '@/components/FarcasterStatusModal.js';
-import { LensStatusModal } from '@/components/LensStatusModal.js';
-import { LoginModal } from '@/components/LoginModal.js';
 import { LoginStatusBar } from '@/components/LoginStatusBar.js';
 import { PageRoutes } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
+import { useLogin } from '@/hooks/useLogin.js';
 import { useQueryMode } from '@/hooks/useQueryMode.js';
-import { useFarcasterAccountsStore, useLensAccountsStore } from '@/store/useAccountPersistStore.js';
+import { LoginModalRef } from '@/modals/controls.js';
 
 import { ConnectWalletNav } from './ConnectWalletNav.js';
 
@@ -53,12 +51,8 @@ const items = [
 
 export const SideBar = memo(function SideBar() {
     const mode = useQueryMode();
-    const [loginOpen, setLoginOpen] = useState(false);
-    const [lensStatusOpen, setLensStatusOpen] = useState(false);
-    const [farcasterStatusOpen, setFarcasterStatusOpen] = useState(false);
-    const lensAccounts = useLensAccountsStore.use.currentAccounts();
-    const farcasterAccounts = useFarcasterAccountsStore.use.currentAccounts();
-    const isLogin = useMemo(() => lensAccounts.length || farcasterAccounts.length, [lensAccounts, farcasterAccounts]);
+
+    const isLogin = useLogin();
 
     return (
         <>
@@ -105,14 +99,11 @@ export const SideBar = memo(function SideBar() {
                             </li>
                             <li className="-mx-2 mb-20 mt-auto">
                                 {isLogin ? (
-                                    <LoginStatusBar
-                                        openFarcaster={() => setFarcasterStatusOpen(true)}
-                                        openLens={() => setLensStatusOpen(true)}
-                                    />
+                                    <LoginStatusBar />
                                 ) : (
                                     <button
                                         onClick={() => {
-                                            setLoginOpen(true);
+                                            LoginModalRef.open();
                                         }}
                                         type="button"
                                         className=" min-w-[150px] rounded-[16px] bg-main px-3 py-3 text-xl font-semibold leading-6 text-primaryBottom "
@@ -125,9 +116,6 @@ export const SideBar = memo(function SideBar() {
                     </nav>
                 </div>
             </div>
-            <LoginModal isOpen={loginOpen} setIsOpen={setLoginOpen} />
-            <LensStatusModal isOpen={lensStatusOpen} setIsOpen={setLensStatusOpen} />
-            <FarcasterStatusModal isOpen={farcasterStatusOpen} setIsOpen={setFarcasterStatusOpen} />
         </>
     );
 });

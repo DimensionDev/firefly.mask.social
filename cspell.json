@@ -78,7 +78,8 @@
         "Leafwatch",
         "inview",
         "upvote",
-        "Upvoted"
+        "Upvoted",
+        "partialize"
     ],
     "flagWords": [],
     "ignorePaths": [
