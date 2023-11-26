@@ -26,7 +26,7 @@ export const SearchFilter = memo(function SearchBar(props: SearchFilterProps) {
 
     return (
         <div>
-            <div className=" mb-6 rounded-xl bg-input px-3 py-2.5 text-sm font-bold">
+            <div className=" my-6 rounded-xl bg-input px-3 py-2.5 text-sm font-bold">
                 <h1>Search Filter</h1>
             </div>
             <div className=" mt-4 rounded-xl border border-line">

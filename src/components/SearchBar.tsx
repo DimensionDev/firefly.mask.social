@@ -59,7 +59,7 @@ export const SearchBar = memo(function SearchBar(props: SearchBarProps) {
     if (props.source === 'secondary' && isSearchPage) return null;
 
     return (
-        <div className=" flex items-center rounded-xl bg-input px-3 text-main">
+        <div className=" mt-5 flex items-center rounded-xl bg-input px-3 text-main">
             <SearchIcon width={18} height={18} />
             <form className="w-full flex-1" onSubmit={handleKeyDown}>
                 <label className="flex w-full items-center" htmlFor="search">
