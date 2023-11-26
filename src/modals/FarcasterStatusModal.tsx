@@ -5,12 +5,13 @@ import { Trans } from '@lingui/react';
 import { forwardRef, Fragment } from 'react';
 
 import { Image } from '@/esm/Image.js';
-import { useFarcasterAccountsStore } from '@/store/useAccountPersistStore.js';
 import type { SingletonModalRefCreator } from '@/maskbook/packages/shared-base/src/index.js';
 import { useSingletonModal } from '@/maskbook/packages/shared-base-ui/src/index.js';
+import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
 
 export const FarcasterStatusModal = forwardRef<SingletonModalRefCreator>(function FarcasterStatusModal(_, ref) {
-    const farcasterAccounts = useFarcasterAccountsStore.use.currentAccounts()
+    const farcasterAccounts = useFarcasterStateStore.use.accounts();
+    const currentAccount = useFarcasterStateStore.use.currentAccount?.();
     const [open, dispatch] = useSingletonModal(ref);
     return (
         <Transition appear show={open} as={Fragment}>
@@ -40,8 +41,8 @@ export const FarcasterStatusModal = forwardRef<SingletonModalRefCreator>(functio
                         >
                             <Dialog.Panel className="transform rounded-[12px] bg-white transition-all">
                                 <div className="flex w-[260px] flex-col gap-[23px] rounded-[16px] border-[0.5px] border-lightLineSecond p-[24px]">
-                                    {farcasterAccounts.map(({ avatar, profileId, name, isCurrent }) => (
-                                        <div key={profileId} className="flex items-center gap-[8px] justify-between">
+                                    {farcasterAccounts.map(({ avatar, profileId, name }) => (
+                                        <div key={profileId} className="flex items-center justify-between gap-[8px]">
                                             <div className="flex h-[40px] w-[48px] items-start justify-start">
                                                 <div className="relative h-[40px] w-[40px]">
                                                     <div className="absolute left-0 top-0 h-[40px] w-[40px] rounded-[99px] shadow backdrop-blur-lg">
@@ -64,7 +65,12 @@ export const FarcasterStatusModal = forwardRef<SingletonModalRefCreator>(functio
                                                     @{profileId}
                                                 </div>
                                             </div>
-                                            {isCurrent ? <div className='w-[8px] h-[8px] rounded-[99px] bg-[#3DC233]' style={{ filter: "drop-shadow(0px 4px 10px #3DC233)" }} /> : null}
+                                            {currentAccount && currentAccount.profileId === profileId ? (
+                                                <div
+                                                    className="h-[8px] w-[8px] rounded-[99px] bg-[#3DC233]"
+                                                    style={{ filter: 'drop-shadow(0px 4px 10px #3DC233)' }}
+                                                />
+                                            ) : null}
                                         </div>
                                     ))}
                                     <button className="flex w-full items-center gap-[8px]">

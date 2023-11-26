@@ -6,7 +6,7 @@ import { useLensStateStore } from '@/store/useLensStore.js';
 
 export function useLogin(platform?: SocialPlatform) {
     const currentLensAccount = useLensStateStore.use.currentAccount?.();
-    const currentFarcasterAccount = useFarcasterStateStore.use.accounts();
+    const currentFarcasterAccount = useFarcasterStateStore.use.currentAccount?.();
 
     return useMemo(() => {
         if (platform) {

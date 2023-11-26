@@ -50,8 +50,6 @@ const items = [
 ];
 
 export const SideBar = memo(function SideBar() {
-
-
     const mode = useQueryMode();
 
     const isLogin = useLogin();

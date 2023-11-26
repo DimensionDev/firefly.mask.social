@@ -19,7 +19,7 @@ export const useLeafwatchPersistBase = create(
             },
         }),
         { name: 'leafwatch.store' },
-),
+    ),
 );
 
 export const useLeafwatchPersistStore = createSelectors(useLeafwatchPersistBase);
