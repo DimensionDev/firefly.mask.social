@@ -9,7 +9,6 @@ import CloseIcon from '@/assets/close-circle.svg';
 import SearchIcon from '@/assets/search.svg';
 import { SearchType } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
-import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useSearchStore } from '@/store/useSearchStore.js';
 
 interface SearchBarProps {
@@ -53,7 +52,7 @@ export const SearchBar = memo(function SearchBar(props: SearchBarProps) {
             router.push(`/search?q=${searchText}&type=${SearchType.Profiles}`);
         }
 
-        // submit the finall search text
+        // submit the final search text
         updateSearchText(searchText);
     };
 
