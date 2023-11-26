@@ -24,17 +24,22 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 <Providers>
                     <div className="m-auto flex min-h-screen sm:w-full lg:w-[1265px] ">
                         <SideBar />
-                        <main className="max-w-[888px] flex-1 border-r border-line pl-72">
-                            <SearchBar />
 
-                            <SocialPlatformTabs />
+                        <main className="max-w-[888px] flex-1 border-r border-line pl-72">
+                            <div className="sticky p-4">
+                                <SearchBar source="header" />
+
+                                <SocialPlatformTabs />
+                            </div>
 
                             {children}
                         </main>
 
-                        <SearchFilter />
+                        <aside className=" hidden w-96 overflow-y-auto px-4 py-6 lg:block">
+                            <SearchFilter />
 
-                        <SearchBar />
+                            <SearchBar source="secondary" />
+                        </aside>
                     </div>
                     <Modals />
                 </Providers>

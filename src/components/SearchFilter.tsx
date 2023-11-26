@@ -17,9 +17,7 @@ const Filters = [
     },
 ];
 
-interface SearchFilterProps {
-    onChange(filterType: SearchType): void;
-}
+interface SearchFilterProps {}
 
 export const SearchFilter = memo(function SearchBar(props: SearchFilterProps) {
     const pathname = usePathname();
@@ -27,8 +25,8 @@ export const SearchFilter = memo(function SearchBar(props: SearchFilterProps) {
     if (!pathname.startsWith('/search')) return null;
 
     return (
-        <aside className="absolute inset-y-0 right-0 hidden w-96 overflow-y-auto px-4 py-6 sm:px-6 lg:block lg:px-8">
-            <div className=" rounded-xl bg-input px-3 py-2.5 text-sm font-bold">
+        <div>
+            <div className=" mb-6 rounded-xl bg-input px-3 py-2.5 text-sm font-bold">
                 <h1>Search Filter</h1>
             </div>
             <div className=" mt-4 rounded-xl border border-line">
@@ -47,12 +45,14 @@ export const SearchFilter = memo(function SearchBar(props: SearchFilterProps) {
                                 type="radio"
                                 defaultChecked={filter.type === SearchType.Profiles}
                                 className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
-                                onClick={() => props.onChange(filter.type)}
+                                onClick={() => {
+                                    // dispatch the action here
+                                }}
                             />
                         </div>
                     ))}
                 </fieldset>
             </div>
-        </aside>
+        </div>
     );
 });
