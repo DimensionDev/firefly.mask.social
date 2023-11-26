@@ -1,14 +1,17 @@
 import { useMemo } from 'react';
+import { useAccount } from 'wagmi';
 
 import { SocialPlatform } from '@/constants/enum.js';
 import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
 import { useLensStateStore } from '@/store/useLensStore.js';
 
 export function useLogin(platform?: SocialPlatform) {
+    const account = useAccount();
     const currentLensAccount = useLensStateStore.use.currentAccount?.();
-    const currentFarcasterAccount = useFarcasterStateStore.use.accounts();
+    const currentFarcasterAccount = useFarcasterStateStore.use.currentAccount?.();
 
     return useMemo(() => {
+        if (!account.isConnected) return false;
         if (platform) {
             switch (platform) {
                 case SocialPlatform.Lens:
@@ -20,5 +23,5 @@ export function useLogin(platform?: SocialPlatform) {
             }
         }
         return currentLensAccount || currentFarcasterAccount;
-    }, [currentLensAccount, currentFarcasterAccount, platform]);
+    }, [currentLensAccount, currentFarcasterAccount, platform, account]);
 }

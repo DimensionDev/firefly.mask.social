@@ -1,18 +1,18 @@
 'use client';
 
 import type { LinkProps } from 'next/link.js';
+import { useRouter } from 'next/navigation.js';
 import { memo } from 'react';
 
-import { Link } from '@/esm/Link.js';
 import { formatUrl } from '@/helpers/formatUrl.js';
-import { useMounted } from '@/hooks/useMounted.js';
+import { openWindow } from '@/maskbook/packages/shared-base-ui/src/index.js';
 
 interface ExternalLinkProps extends Omit<LinkProps, 'href'> {
     title: string;
 }
 
 export const ExternalLink = memo<ExternalLinkProps>(function ExternalLink({ title }) {
-    const isMounted = useMounted();
+    const router = useRouter();
     if (!title) return null;
 
     let href = title;
@@ -20,14 +20,18 @@ export const ExternalLink = memo<ExternalLinkProps>(function ExternalLink({ titl
     if (!href.includes('://')) href = new URL(href).href;
 
     return (
-        <Link
+        <span
             className="text-link"
-            href={href}
-            onClick={(event) => event.stopPropagation()}
-            target={isMounted && href.includes(location.host) ? '_self' : '_blank'}
-            rel="noopener"
+            onClick={(event) => {
+                event.stopPropagation();
+                if (href.includes(location.host)) {
+                    router.push(href);
+                } else {
+                    openWindow(href, '_blank');
+                }
+            }}
         >
             {title ? formatUrl(title, 30) : title}
-        </Link>
+        </span>
     );
 });

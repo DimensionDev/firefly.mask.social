@@ -1,5 +1,6 @@
 import { Trans } from '@lingui/react';
-import { memo, useMemo, useState } from 'react';
+import { compact } from 'lodash-es';
+import { memo, useMemo } from 'react';
 
 import Music from '@/assets/music.svg';
 import Play from '@/assets/play.svg';
@@ -9,7 +10,8 @@ import { ATTACHMENT } from '@/constants/index.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatImageUrl } from '@/helpers/formatImageUrl.js';
-import type { Attachment } from '@/providers/types/SocialMedia.js';
+import { PreviewImageModalRef } from '@/modals/controls.js';
+import type { Attachment, Post } from '@/providers/types/SocialMedia.js';
 import type { MetadataAsset } from '@/types/index.js';
 
 const Video = dynamic(() => import('@/components/Posts/Video.js').then((module) => module.Video), { ssr: false });
@@ -38,14 +40,13 @@ const getClass = (attachments: number) => {
 };
 
 interface AttachmentsProps {
+    post?: Post;
     attachments: Attachment[];
     asset?: MetadataAsset;
     isQuote?: boolean;
 }
 
-export const Attachments = memo<AttachmentsProps>(function Attachments({ attachments, asset, isQuote = false }) {
-    const [previewImage, setPreviewImage] = useState<string | null>(null);
-
+export const Attachments = memo<AttachmentsProps>(function Attachments({ attachments, asset, post, isQuote = false }) {
     const { attachmentsHasImage, imageAttachments } = useMemo(() => {
         // TODO: farcaster only support 2 attachment
         const processedAttachments = attachments.slice(0, 4);
@@ -97,7 +98,16 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({ attachm
                         width={isQuote ? 120 : 1000}
                         height={isQuote ? 120 : 1000}
                         onError={({ currentTarget }) => (currentTarget.src = asset.uri)}
-                        onClick={() => setPreviewImage(asset.uri)}
+                        onClick={(event) => {
+                            event.stopPropagation();
+                            event.preventDefault();
+                            if (!post || isQuote) return;
+                            PreviewImageModalRef.open({
+                                images: [asset.uri],
+                                current: asset.uri,
+                                post,
+                            });
+                        }}
                         src={formatImageUrl(asset.uri, ATTACHMENT)}
                         alt={formatImageUrl(asset.uri, ATTACHMENT)}
                     />
@@ -127,7 +137,16 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({ attachm
                                     width={1000}
                                     height={1000}
                                     onError={({ currentTarget }) => (currentTarget.src = uri)}
-                                    onClick={() => setPreviewImage(uri)}
+                                    onClick={(event) => {
+                                        event.preventDefault();
+                                        event.stopPropagation();
+                                        if (!post || isQuote) return;
+                                        PreviewImageModalRef.open({
+                                            images: compact(imageAttachments.map((x) => x.uri)),
+                                            current: uri,
+                                            post,
+                                        });
+                                    }}
                                     src={formatImageUrl(uri, ATTACHMENT)}
                                     alt={formatImageUrl(uri, ATTACHMENT)}
                                 />

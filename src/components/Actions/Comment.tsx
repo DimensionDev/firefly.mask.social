@@ -8,6 +8,8 @@ import { Tooltip } from '@/components/Tooltip.js';
 import type { SocialPlatform } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { humanize, nFormatter } from '@/helpers/formatCommentCounts.js';
+import { useLogin } from '@/hooks/useLogin.js';
+import { LoginModalRef } from '@/modals/controls.js';
 
 interface CommentProps {
     count?: number;
@@ -18,6 +20,8 @@ interface CommentProps {
 }
 
 export const Comment = memo<CommentProps>(function Comment({ count, disabled = false, source, author, canComment }) {
+    const isLogin = useLogin(source);
+
     const { enqueueSnackbar } = useSnackbar();
     const tooltip = useMemo(() => {
         if (count && count > 0) {
@@ -29,7 +33,7 @@ export const Comment = memo<CommentProps>(function Comment({ count, disabled = f
     }, [count]);
 
     const handleClick = useCallback(() => {
-        if (canComment)
+        if (canComment) {
             enqueueSnackbar(
                 i18n.t('You cannot reply to @{author} on {source}', {
                     author,
@@ -39,7 +43,11 @@ export const Comment = memo<CommentProps>(function Comment({ count, disabled = f
                     variant: 'error',
                 },
             );
-    }, [canComment, author, source, enqueueSnackbar]);
+        } else if (!isLogin) {
+            LoginModalRef.open();
+            return;
+        }
+    }, [canComment, author, source, enqueueSnackbar, isLogin]);
 
     return (
         <div

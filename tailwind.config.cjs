@@ -26,6 +26,7 @@ module.exports = {
                 third: 'var(--color-third)',
                 input: 'var(--color-input)',
                 line: 'var(--color-line)',
+                secondaryLine: 'var(--color-line2)',
                 lightMain: 'var(--color-light-main)',
                 lightBg: 'var(--color-light-bg)',
                 lightBottom80: 'var(--color-bottom80)',

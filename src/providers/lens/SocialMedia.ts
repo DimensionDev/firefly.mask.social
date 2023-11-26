@@ -3,6 +3,7 @@ import {
     ExplorePublicationsOrderByType,
     isRelaySuccess,
     LensClient,
+    LimitType,
     production,
     PublicationReactionType,
     PublicationType,
@@ -20,6 +21,7 @@ import { getWalletClient } from 'wagmi/actions';
 import { formatLensPost } from '@/helpers/formatLensPost.js';
 import { formatLensProfile } from '@/helpers/formatLensProfile.js';
 import { generateCustodyBearer } from '@/helpers/generateCustodyBearer.js';
+import { isZero } from '@/maskbook/packages/web3-shared/base/src/index.js';
 import { SessionFactory } from '@/providers/base/SessionFactory.js';
 import { LensSession } from '@/providers/lens/Session.js';
 import {
@@ -243,13 +245,14 @@ export class LensSocialMedia implements Provider {
     async discoverPosts(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         const result = await this.lensClient.explore.publications({
             orderBy: ExplorePublicationsOrderByType.LensCurated,
-            cursor: indicator?.id ? indicator.id : undefined,
+            cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
+            limit: LimitType.TwentyFive,
         });
 
         return createPageable(
             result.items.map((item) => formatLensPost(item)),
             indicator ?? createIndicator(),
-            createNextIndicator(indicator, result.pageInfo.next ? result.pageInfo.next : undefined),
+            result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );
     }
 

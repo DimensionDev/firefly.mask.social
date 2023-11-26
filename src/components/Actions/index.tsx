@@ -1,6 +1,7 @@
 import { memo, useMemo } from 'react';
 
 import { SocialPlatform } from '@/constants/enum.js';
+import { classNames } from '@/helpers/classNames.js';
 import { getPostDetailUrl } from '@/helpers/getPostDetailUrl.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
@@ -15,10 +16,11 @@ import { Views } from './Views.js';
 interface PostActionsProps {
     post: Post;
     disabled?: boolean;
+    isPreview?: boolean;
 }
 
 // TODO: open compose dialog
-export const PostActions = memo<PostActionsProps>(function PostActions({ post, disabled = false }) {
+export const PostActions = memo<PostActionsProps>(function PostActions({ post, disabled = false, isPreview = false }) {
     const publicationViews = useImpressionsStore.use.publicationViews();
 
     const views = useMemo(() => {
@@ -26,7 +28,11 @@ export const PostActions = memo<PostActionsProps>(function PostActions({ post, d
     }, [publicationViews, post]);
 
     return (
-        <span className="mt-2 flex items-center justify-between pl-[52px]">
+        <span
+            className={classNames('mt-2 flex items-center justify-between', {
+                'pl-[52px]': !isPreview,
+            })}
+        >
             <Comment
                 disabled={disabled}
                 count={post.stats?.comments}
