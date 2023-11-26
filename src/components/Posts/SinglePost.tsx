@@ -1,7 +1,6 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { useRouter } from 'next/navigation.js';
 import { memo } from 'react';
 import { useInView } from 'react-cool-inview';
 
@@ -29,8 +28,6 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
     disableAnimate = false,
     showMore = false,
 }) {
-    const router = useRouter();
-
     const { observe } = useInView({
         onChange: async ({ inView }) => {
             if (!inView || post.source !== SocialPlatform.Lens) return;

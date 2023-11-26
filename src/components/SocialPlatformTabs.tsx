@@ -16,14 +16,14 @@ export function SocialPlatformTabs() {
     if (pathname.includes('/settings') || pathname.includes('/detail')) return null;
 
     return (
-        <div className="px-4 py-5">
-            <nav className="-mb-px flex space-x-4" aria-label="Tabs">
+        <div className="py-0">
+            <nav className="-mb-px flex space-x-4 border-b border-line" aria-label="Tabs">
                 {getEnumAsArray(SocialPlatform).map(({ key, value }) => (
                     <a
                         key={key}
                         className={classNames(
                             currentSocialPlatform === value ? 'border-b-2 border-[#9250FF] text-main' : 'text-third',
-                            'px-4 py-2 text-xl font-bold leading-6 hover:cursor-pointer',
+                            'px-4 py-5 text-xl font-bold leading-6 hover:cursor-pointer',
                         )}
                         aria-current={currentSocialPlatform === value ? 'page' : undefined}
                         onClick={() =>

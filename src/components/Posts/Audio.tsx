@@ -20,7 +20,10 @@ export const Audio = memo<AudioProps>(function Audio({ poster, src, title, artis
     return (
         <div
             className={classNames('overflow-hidden rounded-2xl bg-thirdMain p-3', className ?? '')}
-            onClick={(event) => event.stopPropagation()}
+            onClick={(event) => {
+                event.stopPropagation();
+                event.preventDefault();
+            }}
         >
             <div className="flex space-x-2">
                 {poster ? (

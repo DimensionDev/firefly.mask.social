@@ -16,7 +16,7 @@ export const SearchBar = memo(function SearchBar() {
 
     if (pathname.includes('/settings')) return null;
     return (
-        <aside className="absolute inset-y-0 right-0 hidden w-96 overflow-y-auto border-l border-line px-4 py-6 sm:px-6 lg:block lg:px-8">
+        <aside className="inset-y-0 right-0 w-96 overflow-y-auto px-4 py-6 sm:px-6 lg:block lg:px-8">
             <div className=" flex items-center rounded-xl bg-input px-3 text-main">
                 <SearchIcon width={18} height={18} />
                 <input

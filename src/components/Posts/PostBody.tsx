@@ -95,6 +95,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
             ) : null}
             {showAttachments ? (
                 <Attachments
+                    post={post}
                     asset={post.metadata.content?.asset}
                     attachments={post.metadata.content?.attachments ?? []}
                 />
