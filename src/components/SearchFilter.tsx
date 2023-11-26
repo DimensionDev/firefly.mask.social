@@ -1,5 +1,4 @@
 'use client';
-import { i18n } from '@lingui/core';
 
 import { memo } from 'react';
 

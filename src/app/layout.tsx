@@ -7,7 +7,6 @@ import { GA } from '@/components/GA.js';
 import { Polyfills } from '@/components/Polyfills.js';
 import { SearchBar } from '@/components/SearchBar.js';
 import { SearchFilter } from '@/components/SearchFilter.js';
-import { SearchSideBar } from '@/components/SearchSideBar.js';
 import { SideBar } from '@/components/SideBar/index.js';
 import { SocialPlatformTabs } from '@/components/SocialPlatformTabs.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
@@ -32,8 +31,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
                             {children}
                         </main>
+
                         <SearchFilter />
-                        <SearchSideBar />
+                        <SearchBar />
                     </div>
                     <Modals />
                 </Providers>
