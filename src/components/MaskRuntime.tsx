@@ -10,7 +10,6 @@ import {
     CSSVariableInjector,
     DialogStackingProvider,
     DisableShadowRootContext,
-    MaskLightTheme,
     MaskThemeProvider,
 } from '@masknet/theme';
 import { ChainContextProvider, RootWeb3ContextProvider } from '@masknet/web3-hooks-base';
@@ -20,9 +19,7 @@ import { type PropsWithChildren, useEffect } from 'react';
 import { I18nextProvider } from 'react-i18next';
 import { useAccount } from 'wagmi';
 
-function useTheme() {
-    return MaskLightTheme;
-}
+import { useMaskTheme } from '@/hooks/useMaskTheme.js';
 
 export default function MaskRuntime({ children }: PropsWithChildren<{}>) {
     useEffect(() => {
@@ -36,7 +33,7 @@ export default function MaskRuntime({ children }: PropsWithChildren<{}>) {
         <DisableShadowRootContext.Provider value>
             <DialogStackingProvider hasGlobalBackdrop={false}>
                 <StyledEngineProvider injectFirst>
-                    <MaskThemeProvider useMaskIconPalette={(theme) => theme.palette.mode} useTheme={useTheme}>
+                    <MaskThemeProvider useMaskIconPalette={(theme) => theme.palette.mode} useTheme={useMaskTheme}>
                         <I18nextProvider i18n={i18NextInstance}>
                             <RootWeb3ContextProvider>
                                 <ChainContextProvider account={account.address} chainId={ChainId.Mainnet}>

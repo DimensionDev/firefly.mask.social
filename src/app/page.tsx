@@ -1,6 +1,6 @@
 'use client';
 
-import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
+import { useInfiniteQuery } from '@tanstack/react-query';
 import { useMemo } from 'react';
 import { useInView } from 'react-cool-inview';
 
@@ -16,9 +16,9 @@ import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 export default function Home() {
     const currentSocialPlatform = useGlobalState.use.currentSocialPlatform();
     const fetchAndStoreViews = useImpressionsStore.use.fetchAndStoreViews();
-    const { data, hasNextPage, fetchNextPage, isFetchingNextPage, isFetching } = useSuspenseInfiniteQuery({
+    const { data, hasNextPage, fetchNextPage, isFetchingNextPage, isFetching } = useInfiniteQuery({
         queryKey: ['discover', currentSocialPlatform],
-
+        suspense: true,
         queryFn: async ({ pageParam }) => {
             switch (currentSocialPlatform) {
                 case SocialPlatform.Lens:

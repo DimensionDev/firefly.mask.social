@@ -1,6 +1,7 @@
 'use client';
 
 import { t } from '@lingui/macro';
+import dynamic from 'next/dynamic.js';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation.js';
 import { type ChangeEvent, memo, useEffect, useRef, useState } from 'react';
 import { useDebounce, useOnClickOutside } from 'usehooks-ts';
@@ -11,6 +12,7 @@ import { SearchType } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { useSearchStore } from '@/store/useSearchStore.js';
 
+// @ts-ignore
 const MaskRuntime = dynamic(() => import('@/components/MaskRuntime.js'), {
     ssr: false,
 });
@@ -73,32 +75,34 @@ export const SearchBar = memo(function SearchBar(props: SearchBarProps) {
     if (props.source === 'secondary' && isSearchPage) return null;
 
     return (
-        <div className=" mt-5 flex items-center rounded-xl bg-input px-3 text-main">
-            <SearchIcon width={18} height={18} />
-            <form className="w-full flex-1" onSubmit={handleSubmit}>
-                <label className="flex w-full items-center" htmlFor="search">
-                    <input
-                        type="search"
-                        name="search"
-                        id="search"
-                        value={searchText}
-                        className=" w-full border-0 bg-transparent py-2 text-[10px] placeholder-secondary focus:border-0 focus:outline-0 focus:ring-0 sm:text-sm sm:leading-6"
-                        placeholder={t`Search…`}
-                        onChange={handleInputChange}
-                    />
-                    <CloseIcon
-                        className={classNames('cursor-pointer', searchText ? 'visible' : 'invisible')}
-                        width={16}
-                        height={16}
-                        onClick={() => setSearchText('')}
-                    />
-                </label>
-            </form>
+        <>
+            <div className=" mt-5 flex items-center rounded-xl bg-input px-3 text-main">
+                <SearchIcon width={18} height={18} />
+                <form className="w-full flex-1" onSubmit={handleSubmit}>
+                    <label className="flex w-full items-center" htmlFor="search">
+                        <input
+                            type="search"
+                            name="search"
+                            id="search"
+                            value={searchText}
+                            className=" w-full border-0 bg-transparent py-2 text-[10px] placeholder-secondary focus:border-0 focus:outline-0 focus:ring-0 sm:text-sm sm:leading-6"
+                            placeholder={t`Search…`}
+                            onChange={handleInputChange}
+                        />
+                        <CloseIcon
+                            className={classNames('cursor-pointer', searchText ? 'visible' : 'invisible')}
+                            width={16}
+                            height={16}
+                            onClick={() => setSearchText('')}
+                        />
+                    </label>
+                </form>
+            </div>
             <section className="mt-4">
                 <MaskRuntime>
                     <DynamicCalendar />
                 </MaskRuntime>
             </section>
-        </div>
+        </>
     );
 });
