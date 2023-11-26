@@ -1,5 +1,7 @@
 import './globals.css';
 
+import { ScrollRestorer } from 'next-scroll-restorer';
+
 import { Providers } from '@/app/provider.js';
 import { GA } from '@/components/GA.js';
 import { Polyfills } from '@/components/Polyfills.js';
@@ -23,7 +25,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                     <div
                         className={classNames({
                             // global
-                            'relative m-auto h-screen': true,
+                            'm-auto h-screen': true,
                             // sm
                             [`sm:w-full`]: true,
 
@@ -43,6 +45,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 </Providers>
                 <GA />
             </body>
+            <ScrollRestorer />
         </html>
     );
 }

@@ -1,6 +1,7 @@
 'use client';
 
 import { Trans } from '@lingui/react';
+import { useRouter } from 'next/navigation.js';
 import { forwardRef } from 'react';
 import urlcat from 'urlcat';
 
@@ -10,7 +11,6 @@ import { Markup } from '@/components/Markup/index.js';
 import Oembed from '@/components/Oembed/index.js';
 import { Attachments } from '@/components/Posts/Attachment.js';
 import { Quote } from '@/components/Posts/Quote.js';
-import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
@@ -24,6 +24,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
     { post, isQuote = false, showMore = false },
     ref,
 ) {
+    const router = useRouter();
     const canShowMore = !!(post.metadata.content?.content && post.metadata.content?.content.length > 450) && showMore;
     const showAttachments = !!(
         (post.metadata.content?.attachments && post.metadata.content?.attachments?.length > 0) ||
@@ -83,9 +84,13 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
 
             {canShowMore ? (
                 <div className="text-base font-bold text-link">
-                    <Link href={urlcat('/detail/:platform/:id', { platform: post.source, id: post.postId })}>
+                    <div
+                        onClick={(event) => {
+                            router.push(urlcat('/detail/:platform/:id', { platform: post.source, id: post.postId }));
+                        }}
+                    >
                         <Trans id="Show More" />
-                    </Link>
+                    </div>
                 </div>
             ) : null}
             {showAttachments ? (
