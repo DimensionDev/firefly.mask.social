@@ -7,6 +7,7 @@ import { type ChangeEvent, memo, useRef, useState } from 'react';
 import CloseIcon from '@/assets/close-circle.svg';
 import SearchIcon from '@/assets/search.svg';
 import { SearchType } from '@/constants/enum.js';
+import { useOnClickOutside } from '@/hooks/useOnClickOutside.js';
 
 export const SearchBar = memo(function SearchBar() {
     const router = useRouter();
@@ -16,23 +17,13 @@ export const SearchBar = memo(function SearchBar() {
     const dropdownRef = useRef(null);
     const [searchText, setSearchText] = useState('');
 
-    // useOnClickOutside(dropdownRef, () => setSearchText(''));
+    useOnClickOutside(dropdownRef, () => setSearchText(''));
 
     const handleSearch = (evt: ChangeEvent<HTMLInputElement>) => {
         const keyword = evt.target.value;
         setSearchText(keyword);
-        // if (pathname !== '/search' && !hideDropdown) {
-        //   searchUsers({
-        //     variables: {
-        //       request: {
-        //         type: SearchRequestTypes.Profile,
-        //         query: keyword,
-        //         customFilters: [CustomFiltersTypes.Gardeners],
-        //         limit: 8
-        //       }
-        //     }
-        //   });
-        // }
+
+        // implement the fetch data here
     };
 
     const handleKeyDown = (evt: ChangeEvent<HTMLFormElement>) => {
@@ -42,20 +33,20 @@ export const SearchBar = memo(function SearchBar() {
         } else {
             router.push(`/search?q=${searchText}&type=${SearchType.Profiles}`);
         }
-        // setSearchText('');
+        setSearchText('');
     };
 
-    if (pathname.startsWith('/settings')) return null;
+    if (pathname.startsWith('/settings') || pathname.startsWith('/search')) return null;
 
     return (
-        <div className="w-full overflow-y-auto px-4 py-4 sm:px-6 lg:block lg:px-8">
+        <aside className="absolute inset-y-0 right-0 hidden w-96 overflow-y-auto px-4 py-6 sm:px-6 lg:block lg:px-8">
             <div className=" flex items-center rounded-xl bg-input px-3 text-main">
                 <SearchIcon width={18} height={18} />
                 <form className="w-full flex-1" onSubmit={handleKeyDown}>
                     <input
                         type="search"
-                        name="search"
-                        id="search"
+                        name="searchBarInput"
+                        id="searchBarInput"
                         value={searchText}
                         className=" w-full border-0 bg-transparent py-2 text-[10px] placeholder-secondary focus:border-0 focus:outline-0 focus:ring-0 sm:text-sm sm:leading-6"
                         placeholder={i18n.t('Search…')}
