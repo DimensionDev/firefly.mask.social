@@ -2,19 +2,34 @@
     "extends": "./src/maskbook/packages/config/tsconfig.json",
     "references": [
         {
+            "path": "./src/maskbook/packages/polyfills/tsconfig.json"
+        },
+        {
             "path": "./src/maskbook/packages/encryption/tsconfig.json"
         },
         {
             "path": "./src/maskbook/packages/mask/tsconfig.json"
         },
         {
+            "path": "./src/maskbook/packages/injected-script/main/tsconfig.json"
+        },
+        {
+            "path": "./src/maskbook/packages/mask-sdk/main/tsconfig.json"
+        },
+        {
             "path": "./src/maskbook/packages/mask-sdk/public-api/tsconfig.json"
+        },
+        {
+            "path": "./src/maskbook/packages/plugins/tsconfig.json"
         },
         {
             "path": "./src/service-workers/tsconfig.json"
         },
         {
             "path": "./src/maskbook/packages/plugins/Calendar/tsconfig.json"
+        },
+        {
+            "path": "./src/maskbook/packages/plugins/RedPacket/tsconfig.json"
         },
         {
             "path": "./src/maskbook/packages/web3-providers/tsconfig.json"
