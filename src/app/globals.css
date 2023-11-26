@@ -14,7 +14,8 @@
     --color-danger: 255 53 69;
     --color-second: rgba(118, 127, 141, 1);
     --color-bottom80: rgba(255, 255, 255, 0.8);
-    --color-bg: rgba(249, 249, 249, 1) --color-main1: rgba(183, 183, 183, 1);
+    --color-bg: rgba(249, 249, 249, 1);
+    --color-main1: rgba(183, 183, 183, 1);
     --color-main2: rgba(207, 207, 207, 1);
     --color-main3: rgba(243, 243, 243, 1);
     --color-third: rgba(177, 177, 177, 1);

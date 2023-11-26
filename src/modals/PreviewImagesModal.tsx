@@ -3,6 +3,7 @@ import { ArrowLeftIcon, ArrowRightIcon } from '@heroicons/react/24/outline';
 import { forwardRef, Fragment, useState } from 'react';
 import { useStateList } from 'react-use';
 
+import CloseIcon from '@/assets/close.svg';
 import { PostActions } from '@/components/Actions/index.js';
 import { Image } from '@/components/Image.js';
 import type { SingletonModalRefCreator } from '@/maskbook/packages/shared-base/src/index.js';
@@ -61,17 +62,27 @@ export const PreviewImagesModal = forwardRef<SingletonModalRefCreator<PreviewIma
                                 leaveFrom="opacity-100 scale-100"
                                 leaveTo="opacity-0 scale-95"
                             >
-                                <Dialog.Panel className="flex transform flex-col items-center transition-all">
+                                <Dialog.Panel className="preview-actions flex transform flex-col items-center transition-all">
+                                    <div className="mb-2 w-full">
+                                        <CloseIcon
+                                            width={24}
+                                            height={24}
+                                            className="cursor-pointer text-secondary"
+                                            onClick={(event) => {
+                                                event.stopPropagation();
+                                                event.preventDefault();
+                                                dispatch?.close();
+                                            }}
+                                        />
+                                    </div>
                                     <Image
                                         src={state ?? current}
                                         alt={state ?? current}
-                                        width={1000}
-                                        height={1000}
-                                        className="max-h-[calc(100vh-78px)] max-w-full"
+                                        className="max-h-[calc(100vh-110px)] max-w-full"
                                     />
 
                                     {post ? (
-                                        <div className="preview-actions my-1 flex w-[512px] items-center justify-between">
+                                        <div className="my-1 flex w-[512px] items-center justify-between">
                                             <ArrowLeftIcon
                                                 className="cursor-pointer text-secondary"
                                                 width={16}
