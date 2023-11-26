@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation.js';
 import { memo } from 'react';
 
 import { SearchType } from '@/constants/enum.js';
+import { useSearchStore } from '@/store/useSearchStore.js';
 
 const Filters = [
     {
@@ -21,6 +22,7 @@ interface SearchFilterProps {}
 
 export const SearchFilter = memo(function SearchBar(props: SearchFilterProps) {
     const pathname = usePathname();
+    const { searchType, updateSearchType } = useSearchStore();
 
     if (!pathname.startsWith('/search')) return null;
 
@@ -43,11 +45,9 @@ export const SearchFilter = memo(function SearchBar(props: SearchFilterProps) {
                                 id={filter.type}
                                 name="notification-method"
                                 type="radio"
-                                defaultChecked={filter.type === SearchType.Profiles}
+                                defaultChecked={filter.type === searchType}
                                 className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
-                                onClick={() => {
-                                    // dispatch the action here
-                                }}
+                                onClick={() => updateSearchType(filter.type)}
                             />
                         </div>
                     ))}

@@ -7,7 +7,6 @@ import { createSelectors } from '@/helpers/createSelector.js';
 interface SearchState {
     searchText: string;
     searchType: SearchType;
-    resetSearchText: () => void;
     updateSearchText: (searchText: string) => void;
     updateSearchType: (searchType: SearchType) => void;
 }
@@ -17,11 +16,6 @@ const useSearchStateBase = create<SearchState, [['zustand/immer', never]]>(
         return {
             searchText: '',
             searchType: SearchType.Profiles,
-            resetSearchText: () =>
-                set((state) => {
-                    const params = typeof location !== 'undefined' ? new URLSearchParams(location.search) : undefined;
-                    state.searchText = params?.get('q') ?? '';
-                }),
             updateSearchText: (searchText: string) =>
                 set((state) => {
                     state.searchText = searchText;
