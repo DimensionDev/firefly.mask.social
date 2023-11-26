@@ -1,3 +1,4 @@
+import { Trans } from '@lingui/react';
 import { memo, useMemo, useState } from 'react';
 
 import Music from '@/assets/music.svg';
@@ -60,7 +61,9 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({ attachm
 
     if (isQuote && asset?.type === 'Video') {
         return <div />;
-    } else if (isQuote && asset?.type === 'Audio') {
+    }
+
+    if (isQuote && asset?.type === 'Audio') {
         return (
             <div className="h-[120px] w-[120px]">
                 {asset.cover ? (
@@ -76,7 +79,7 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({ attachm
                             <Music width={24} height={24} />
                         </span>
                         <span className="break-keep text-[11px] font-medium leading-[16px] text-secondary">
-                            Audio Cover
+                            <Trans id="Audio Cover" />
                         </span>
                     </div>
                 )}

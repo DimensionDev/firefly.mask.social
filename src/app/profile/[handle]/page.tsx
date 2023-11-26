@@ -7,7 +7,7 @@ import ContentTabs from '@/app/profile/components/ContentTabs.js';
 import Info from '@/app/profile/components/Info.js';
 import PlatformTabs from '@/app/profile/components/PlatformTabs.js';
 import Title from '@/app/profile/components/Title.js';
-import { PlatformEnum } from '@/app/profile/type.js';
+import { SocialPlatform } from '@/constants/enum.js';
 import { LensSocialMedia } from '@/providers/lens/SocialMedia.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
@@ -17,7 +17,7 @@ interface ProfileProps {
     params: { handle: string };
 }
 export default function Profile({ params: { handle } }: ProfileProps) {
-    const [tab, setTab] = useState<PlatformEnum>(PlatformEnum.Lens);
+    const [tab, setTab] = useState<SocialPlatform>(SocialPlatform.Lens);
 
     const { data: profile } = useQuery({
         queryKey: ['profile', handle],

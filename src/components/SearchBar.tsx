@@ -1,4 +1,5 @@
 'use client';
+import { i18n } from '@lingui/core';
 import dynamic from 'next/dynamic.js';
 import { usePathname } from 'next/navigation.js';
 import { memo } from 'react';
@@ -23,7 +24,7 @@ export const SearchBar = memo(function SearchBar() {
                     name="search"
                     id="search"
                     className="w-full border-0 bg-transparent py-1.5 placeholder-secondary shadow-sm focus:border-0 focus:outline-0 focus:ring-0 sm:text-sm sm:leading-6"
-                    placeholder="Search Lens handle or Farcaster"
+                    placeholder={i18n.t('Search Lens handle or Farcaster')}
                 />
             </div>
         </aside>

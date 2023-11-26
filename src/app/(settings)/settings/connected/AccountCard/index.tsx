@@ -1,13 +1,17 @@
+import { Trans } from '@lingui/react';
+
+import { SocialPlatform } from '@/constants/enum.js';
 import { Image } from '@/esm/Image.js';
 
 interface AccountCardProps {
+    type: SocialPlatform;
     avatar: string;
     name: string;
     userName: string;
     logout: () => void;
     isCurrent: boolean;
-    type: 'lens' | 'farcaster';
 }
+
 export function AccountCard({ avatar, name, userName, logout, isCurrent, type }: AccountCardProps) {
     return (
         <div className="inline-flex h-[63px] w-full items-center justify-start gap-[8px] rounded-lg bg-white px-[12px] py-[8px] shadow backdrop-blur-lg">
@@ -18,7 +22,7 @@ export function AccountCard({ avatar, name, userName, logout, isCurrent, type }:
                     </div>
                     <Image
                         className="absolute left-[24px] top-[24px] h-[16px] w-[16px] rounded-[99px] border border-white shadow"
-                        src={type === 'lens' ? '/svg/lens.svg' : '/svg/farcaster.svg'}
+                        src={type === SocialPlatform.Lens ? '/svg/lens.svg' : '/svg/farcaster.svg'}
                         alt="logo"
                         width={16}
                         height={16}
@@ -30,10 +34,12 @@ export function AccountCard({ avatar, name, userName, logout, isCurrent, type }:
                 <div className="font-['PingFang SC'] text-[15px] font-normal text-neutral-500">@{userName}</div>
             </div>
             {isCurrent ? (
-                <button className="font-['Inter'] text-xs font-medium leading-none text-red-500">Log out</button>
+                <button className="font-['Inter'] text-xs font-medium leading-none text-red-500">
+                    <Trans id="Log out" />
+                </button>
             ) : (
                 <button className="text-right font-['Inter'] text-xs font-medium leading-none text-neutral-900">
-                    Switch
+                    <Trans id="Switch" />
                 </button>
             )}
         </div>

@@ -33,6 +33,7 @@ export function formatLensProfile(result: ProfileFragment): Profile {
         followingCount: result.stats.following,
         status: ProfileStatus.Active,
         verified: true,
+        signless: result.signless,
         ownedBy: {
             networkType: NetworkType.Ethereum,
             address: result.ownedBy.address,

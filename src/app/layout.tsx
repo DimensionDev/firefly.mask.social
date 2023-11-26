@@ -8,12 +8,13 @@ import { SideBar } from '@/components/SideBar/index.js';
 import { SocialPlatformTabs } from '@/components/SocialPlatformTabs.js';
 import { classNames } from '@/helpers/classNames.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
+import { Modals } from '@/modals/index.js';
 
 export const metadata = createSiteMetadata();
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
     return (
-        <html lang="en">
+        <html>
             <head>
                 <Polyfills />
             </head>
@@ -38,6 +39,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                         </main>
                         <SearchBar />
                     </div>
+                    <Modals />
                 </Providers>
                 <GA />
             </body>

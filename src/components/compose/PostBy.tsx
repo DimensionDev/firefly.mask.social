@@ -1,4 +1,5 @@
 import { Popover, Transition } from '@headlessui/react';
+import { Trans } from '@lingui/react';
 import { Fragment, useMemo } from 'react';
 
 import { Image } from '@/esm/Image.js';
@@ -46,7 +47,9 @@ export default function PostBy() {
                             @LensB
                         </span>
                     </div>
-                    <button className=" text-xs font-bold text-[#246BFD]">Switch</button>
+                    <button className=" text-xs font-bold text-[#246BFD]">
+                        <Trans id="Switch" />
+                    </button>
                 </div>
 
                 <div className=" h-px bg-[#F2F5F6]" />
@@ -60,7 +63,9 @@ export default function PostBy() {
                             @FarcasterA
                         </span>
                     </div>
-                    <button className=" text-xs font-bold text-[#246BFD]">Log in</button>
+                    <button className=" text-xs font-bold text-[#246BFD]">
+                        <Trans id="Log in" />
+                    </button>
                 </div>
             </Popover.Panel>
         </Transition>

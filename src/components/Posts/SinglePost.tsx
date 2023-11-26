@@ -5,8 +5,8 @@ import { useRouter } from 'next/navigation.js';
 import { memo } from 'react';
 import { useInView } from 'react-cool-inview';
 
-import { PostActions } from '@/components/Actions/index.js';
 import { SocialPlatform } from '@/constants/enum.js';
+import { dynamic } from '@/esm/dynamic.js';
 import { addPostViews } from '@/helpers/addPostViews.js';
 import { getPostDetailUrl } from '@/helpers/getPostDetailUrl.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
@@ -14,11 +14,20 @@ import type { Post } from '@/providers/types/SocialMedia.js';
 import { PostBody } from './PostBody.js';
 import { PostHeader } from './PostHeader.js';
 
+const PostActions = dynamic(() => import('@/components/Actions/index.js').then((module) => module.PostActions), {
+    ssr: false,
+});
+
 interface SinglePostProps {
     post: Post;
+    disableAnimate?: boolean;
     showMore?: boolean;
 }
-export const SinglePost = memo<SinglePostProps>(function SinglePost({ post, showMore = false }) {
+export const SinglePost = memo<SinglePostProps>(function SinglePost({
+    post,
+    disableAnimate = false,
+    showMore = false,
+}) {
     const router = useRouter();
 
     const { observe } = useInView({
@@ -29,7 +38,7 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({ post, show
     });
     return (
         <motion.article
-            initial={{ opacity: 0 }}
+            initial={!disableAnimate ? { opacity: 0 } : false}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="cursor-pointer border-b border-line bg-bottom px-4 py-3 hover:bg-bg"

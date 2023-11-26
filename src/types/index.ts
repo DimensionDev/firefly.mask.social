@@ -1,14 +1,4 @@
-import { HomeIcon } from '@heroicons/react/24/outline';
-
 import { ServerErrorCodes } from '@/helpers/createErrorResponseJSON.js';
-
-export interface NavigationItem {
-    id: string;
-    name: React.ReactNode;
-    icon: typeof HomeIcon;
-    href: string;
-    selected?: boolean;
-}
 
 export type ResponseJSON<T> =
     | {
@@ -35,3 +25,10 @@ export type LensPublicationViewCount = {
     id: string;
     views: number;
 };
+
+export interface Account {
+    profileId: string;
+    avatar: string;
+    name: string;
+    id: string;
+}

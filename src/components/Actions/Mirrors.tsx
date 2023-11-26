@@ -1,4 +1,6 @@
 import { Menu, Transition } from '@headlessui/react';
+import { i18n } from '@lingui/core';
+import { Trans } from '@lingui/react';
 import { motion } from 'framer-motion';
 import { useSnackbar } from 'notistack';
 import { Fragment, memo, useMemo, useState } from 'react';
@@ -32,10 +34,10 @@ export const Mirror = memo<MirrorProps>(function Mirror({ shares, source, hasMir
     const content = useMemo(() => {
         switch (source) {
             case SocialPlatform.Lens:
-                if (count) return 'Mirrors and Quotes';
-                return 'Mirror and Quotes';
+                if (count) return i18n.t('Mirrors and Quotes');
+                return i18n.t('Mirror and Quotes');
             case SocialPlatform.Farcaster:
-                return 'Recast';
+                return i18n.t('Recast');
             default:
                 return '';
         }
@@ -44,9 +46,9 @@ export const Mirror = memo<MirrorProps>(function Mirror({ shares, source, hasMir
     const mirrorActionText = useMemo(() => {
         switch (source) {
             case SocialPlatform.Lens:
-                return mirrored ? 'Mirrored' : 'Mirror';
+                return mirrored ? i18n.t('Mirrored') : i18n.t('Mirror');
             case SocialPlatform.Farcaster:
-                return mirrored ? 'Recasted' : 'Recast';
+                return mirrored ? i18n.t('Recasted') : i18n.t('Recast');
             default:
                 return '';
         }
@@ -64,7 +66,7 @@ export const Mirror = memo<MirrorProps>(function Mirror({ shares, source, hasMir
                         return prev + 1;
                     });
                     const result = await LensSocialMediaProvider.mirrorPost(postId);
-                    enqueueSnackbar('Mirrored', {
+                    enqueueSnackbar(i18n.t('Mirrored'), {
                         variant: 'success',
                     });
                     return result;
@@ -75,9 +77,14 @@ export const Mirror = memo<MirrorProps>(function Mirror({ shares, source, hasMir
                             if (!prev) return;
                             return prev - 1;
                         });
-                        enqueueSnackbar(`Failed to mirror. ${error.message}`, {
-                            variant: 'error',
-                        });
+                        enqueueSnackbar(
+                            i18n.t('Failed to mirror. {message}', {
+                                message: error.message,
+                            }),
+                            {
+                                variant: 'error',
+                            },
+                        );
                         return;
                     }
                     return;
@@ -160,7 +167,9 @@ export const Mirror = memo<MirrorProps>(function Mirror({ shares, source, hasMir
                             <Menu.Item>
                                 <div className="flex cursor-pointer items-center space-x-2">
                                     <QuoteDownIcon width={24} height={24} />
-                                    <span className="font-medium">Quote Post</span>
+                                    <span className="font-medium">
+                                        <Trans id="Quote Post" />
+                                    </span>
                                 </div>
                             </Menu.Item>
                         ) : null}

@@ -1,19 +1,18 @@
+"use client"
+
+import { useMemo } from 'react';
 import { Image } from '@/esm/Image.js';
-import type { FarcasterAccount, LensAccount } from '@/store/useAccountPersistStore.js';
+import { FarcasterStatusModalRef, LensStatusModalRef } from '@/modals/controls.js';
+import { useLensAccountsStore, useFarcasterAccountsStore } from '@/store/useAccountPersistStore.js';
 
-interface LoginStatusBarProps {
-    openLens: () => void;
-    openFarcaster: () => void;
-    lensAccounts: LensAccount[]
-    farcasterAccounts: FarcasterAccount[]
-}
-
-export function LoginStatusBar({ openLens, openFarcaster, lensAccounts, farcasterAccounts }: LoginStatusBarProps) {
-    const lensAccount = lensAccounts.find((account) => account.isCurrent);
-    const farcasterAccount = farcasterAccounts.length ? farcasterAccounts[0] : undefined;
+export function LoginStatusBar() {
+    const lensAccounts = useLensAccountsStore.use.currentAccounts();
+    const farcasterAccounts = useFarcasterAccountsStore.use.currentAccounts();
+    const lensAccount = useMemo(() => lensAccounts.find((account) => account.isCurrent), [lensAccounts]);
+    const farcasterAccount = useMemo(() => farcasterAccounts.length ? farcasterAccounts[0] : undefined, [farcasterAccounts]);
     return (
         <div className="flex gap-x-2 pl-2">
-            {lensAccount ? <button className="relative h-[40px] w-[48px]" onClick={() => openLens()}>
+            {lensAccount ? <button className="relative h-[40px] w-[48px]" onClick={() => LensStatusModalRef.open()}>
                 <div className="absolute left-0 top-0 h-[40px] w-[40px] rounded-[99px] shadow backdrop-blur-lg">
                     <Image src={lensAccount.avatar} alt="avatar" width={40} height={40} className='rounded-[99px]' />
                 </div>
@@ -25,7 +24,7 @@ export function LoginStatusBar({ openLens, openFarcaster, lensAccounts, farcaste
                     height={16}
                 />
             </button> : null}
-            {farcasterAccount ? <button className="relative h-[40px] w-[48px]" onClick={() => openFarcaster()}>
+            {farcasterAccount ? <button className="relative h-[40px] w-[48px]" onClick={() => FarcasterStatusModalRef.open()}>
                 <div className="absolute left-0 top-0 h-[40px] w-[40px] rounded-[99px] shadow backdrop-blur-lg">
                     <Image src={farcasterAccount.avatar} alt="avatar" width={40} height={40} className='rounded-[99px]' />
                 </div>
@@ -36,7 +35,7 @@ export function LoginStatusBar({ openLens, openFarcaster, lensAccounts, farcaste
                     width={16}
                     height={16}
                 />
-            </button> : <button className="relative h-[40px] w-[48px]" onClick={() => openFarcaster()}>
+            </button> : <button className="relative h-[40px] w-[48px]" onClick={() => FarcasterStatusModalRef.open()}>
                 <div className="absolute left-0 top-0 h-[40px] w-[40px] rounded-[99px] shadow backdrop-blur-lg">
                     <Image src="/svg/farcaster.svg" alt="farcaster" width={40} height={40} />
                 </div>
@@ -48,7 +47,7 @@ export function LoginStatusBar({ openLens, openFarcaster, lensAccounts, farcaste
                     height={16}
                 />
             </button>}
-            {lensAccounts ? null : <button className="relative h-[40px] w-[48px]" onClick={() => openFarcaster()}>
+            {lensAccounts ? null : <button className="relative h-[40px] w-[48px]" onClick={() => FarcasterStatusModalRef.open()}>
                 <div className="absolute left-0 top-0 h-[40px] w-[40px] rounded-[99px] shadow backdrop-blur-lg">
                     <Image src="/svg/lens.svg" alt="lens" width={40} height={40} />
                 </div>

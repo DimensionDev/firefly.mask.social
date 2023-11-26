@@ -5,6 +5,7 @@ interface AccountCardProps {
     address: string;
     logout: () => void;
 }
+
 export function AccountCard({ name, address }: AccountCardProps) {
     return (
         <div className="inline-flex h-[63px] w-full items-center justify-start gap-[8px] rounded-lg bg-white px-[12px] py-[8px] shadow backdrop-blur-lg">

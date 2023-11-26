@@ -38,3 +38,9 @@ yarn-error.log*
 next-env.d.ts
 
 sw.js
+
+.vscode/
+.vim/
+
+# locales
+src/locales/**/*.js
