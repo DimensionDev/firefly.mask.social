@@ -16,7 +16,7 @@ export function SocialPlatformTabs() {
     if (pathname.includes('/settings') || pathname.includes('/detail')) return null;
 
     return (
-        <div className="sticky top-0  z-[998] border-b border-line bg-primaryBottom px-4 py-0">
+        <div className="sticky top-0 z-[998] border-b border-line bg-primaryBottom">
             <nav className="-mb-px flex space-x-4" aria-label="Tabs">
                 {getEnumAsArray(SocialPlatform).map(({ key, value }) => (
                     <a
