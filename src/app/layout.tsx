@@ -26,7 +26,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                         <SideBar />
 
                         <main className="max-w-[888px] flex-1 border-r border-line pl-72">
-                            <div className="sticky px-4 pb-5">
+                            <div className="sticky px-4">
                                 <SearchBar source="header" />
 
                                 <SocialPlatformTabs />
