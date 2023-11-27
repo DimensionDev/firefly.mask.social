@@ -19,18 +19,11 @@ export default function ComposeSend({ characters, images, setOpened }: ComposeSe
     const disabled = useMemo(() => charactersLen > 280, [charactersLen]);
 
     const handleSend = useCallback(async () => {
-        // const fc = new WarpcastSocialMedia();
-
-        // const session = await fc.createSession();
-
-        // const profile = await fc.getProfileById(session.profileId);
-
-        // console.log('profile', profile);
-
         const lens = new LensSocialMedia();
         const session = await lens.createSession();
         const profile = await lens.getProfileById(session.profileId);
         console.log('profile', profile);
+
         const title = `Post by #${profile.profileId}`;
         const metadata = getPostMetaData({
             title,
@@ -54,7 +47,8 @@ export default function ComposeSend({ characters, images, setOpened }: ComposeSe
             source: SocialPlatform.Lens,
         });
         console.log('post', post);
-    }, [characters]);
+        setOpened(false);
+    }, [characters, setOpened]);
 
     return (
         <div className=" flex h-[68px] items-center justify-end gap-4 px-4 shadow-send">
@@ -80,7 +74,6 @@ export default function ComposeSend({ characters, images, setOpened }: ComposeSe
                 onClick={() => {
                     if (!disabled) {
                         handleSend();
-                        setOpened(false);
                     }
                 }}
             >
