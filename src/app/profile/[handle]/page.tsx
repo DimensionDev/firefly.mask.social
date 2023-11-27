@@ -39,7 +39,7 @@ export default function Profile({ params: { handle } }: ProfileProps) {
         <div>
             {isMyProfile ? <PlatformTabs tab={tab} setTab={setTab} /> : null}
 
-            {!isMyProfile ? <Title profile={profile} /> : null}
+            {!isMyProfile ? <Title profile={profile} isMyProfile={isMyProfile} /> : null}
 
             <Info platform={tab} handle={handle} profile={profile} isMyProfile={isMyProfile} />
 
