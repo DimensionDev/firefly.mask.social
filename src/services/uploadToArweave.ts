@@ -16,11 +16,10 @@ interface IUploadToArweaveResponse {
  */
 const uploadToArweave = async (data: GetPostMetaData): Promise<string> => {
     try {
-        const res: IUploadToArweaveResponse = await fetchJSON(`${HEY_API_URL}/metadata`, {
+        const { id, success } = await fetchJSON<IUploadToArweaveResponse>(`${HEY_API_URL}/metadata`, {
             method: 'POST',
             body: JSON.stringify(data),
         });
-        const { id, success } = res;
 
         if (!success) {
             throw new Error('Upload failed!');
