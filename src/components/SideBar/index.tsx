@@ -3,6 +3,7 @@
 import { i18n } from '@lingui/core';
 import { Trans } from '@lingui/react';
 import { memo, useState } from 'react';
+import urlcat from 'urlcat';
 
 import DiscoverSelectedIcon from '@/assets/discover.selected.svg';
 import DiscoverIcon from '@/assets/discover.svg';
@@ -85,12 +86,12 @@ export const SideBar = memo(function SideBar() {
                                                     <ConnectWalletNav />
                                                 ) : (
                                                     <Link
-                                                        href={
-                                                            item.href +
-                                                            (item.href === PageRoutes.Profile
+                                                        href={urlcat(
+                                                            item.href,
+                                                            item.href === PageRoutes.Profile
                                                                 ? `/${platformAccount.lens?.handle}`
-                                                                : '')
-                                                        }
+                                                                : '',
+                                                        )}
                                                         className="flex gap-x-3 text-2xl/6"
                                                     >
                                                         <Icon width={24} height={24} />
