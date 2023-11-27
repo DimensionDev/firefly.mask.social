@@ -2,6 +2,7 @@ import { SingletonModal } from '@masknet/shared-base';
 
 import type { LoginModalProps } from '@/modals/LoginModal.js';
 import type { LogoutModalProps } from '@/modals/LogoutModal.js';
+
 import type { PreviewImagesModalOpenProps } from './PreviewImagesModal.js';
 
 export const LoginModalRef = new SingletonModal<LoginModalProps>();
