@@ -1,3 +1,4 @@
+'use client';
 import '../plugin-host/enable.js';
 
 import { useActivatedPluginsSiteAdaptor } from '@masknet/plugin-infra/content-script';

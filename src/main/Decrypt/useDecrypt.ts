@@ -8,7 +8,9 @@ type DecryptResult = [DecryptError | null, boolean, TypedMessage | null];
 
 export function useDecrypt(text: string, version = '2') {
     const { value = [null, false, null] } = useAsyncRetry<DecryptResult>(async () => {
+        console.log('before main');
         const result = await main(version, text);
+        console.log('main', result);
 
         if (typeof result === 'boolean')
             return [new DecryptError(DecryptErrorReasons.PayloadBroken, undefined), false, null];

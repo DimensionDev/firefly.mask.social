@@ -1,3 +1,4 @@
+'use client';
 import { RegistryContext, TypedMessageRender } from '@masknet/typed-message-react';
 import React, { lazy, Suspense } from 'react';
 
@@ -9,6 +10,7 @@ const PluginRender = lazy(() => import('./plugin-render.js'));
 export function DecryptMessage(props: { text: string; version: string }) {
     const { text, version } = props;
     const [error, isE2E, message] = useDecrypt(text, version);
+    console.log('useDecrypt', error, isE2E, message);
 
     if (isE2E)
         return (

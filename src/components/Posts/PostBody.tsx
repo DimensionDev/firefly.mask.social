@@ -85,7 +85,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
     return (
         <div className={'my-2 break-words pl-[52px] text-base text-main'} ref={ref}>
             <MaskRuntime>
-                <DecryptPost raw={post.metadata.content?.content || ''}>
+                <DecryptPost raw={post.metadata.content?.content || ''} post={post}>
                     <Markup
                         className={classNames({ 'line-clamp-5': canShowMore }, 'markup linkify text-md break-words')}
                     >
