@@ -6,11 +6,11 @@ import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
 import { useLensStateStore } from '@/store/useLensStore.js';
 
 export function LoginStatusBar() {
-    const lensAccount = useLensStateStore.use.currentAccount?.();
-    const farcasterAccount = useFarcasterStateStore.use.currentAccount?.();
+    const lensAccount = useLensStateStore.use.currentAccount();
+    const farcasterAccount = useFarcasterStateStore.use.currentAccount();
     return (
         <div className="flex gap-x-2 pl-2">
-            {lensAccount ? (
+            {lensAccount && !!lensAccount.profileId ? (
                 <button className="relative h-[40px] w-[48px]" onClick={() => LensStatusModalRef.open()}>
                     <div className="absolute left-0 top-0 h-[40px] w-[40px] rounded-[99px] shadow backdrop-blur-lg">
                         <Image
@@ -30,7 +30,7 @@ export function LoginStatusBar() {
                     />
                 </button>
             ) : null}
-            {farcasterAccount ? (
+            {farcasterAccount && !!farcasterAccount.profileId ? (
                 <button className="relative h-[40px] w-[48px]" onClick={() => FarcasterStatusModalRef.open()}>
                     <div className="absolute left-0 top-0 h-[40px] w-[40px] rounded-[99px] shadow backdrop-blur-lg">
                         <Image
