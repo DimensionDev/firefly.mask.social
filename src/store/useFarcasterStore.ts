@@ -10,6 +10,7 @@ export interface FarcasterState {
     currentAccount: Account;
     updateCurrentAccount: (account: Account) => void;
     updateAccounts: (accounts: Account[]) => void;
+    clearCurrentAccount: () => void;
 }
 
 const useFarcasterStateBase = create<FarcasterState, [['zustand/persist', unknown], ['zustand/immer', unknown]]>(
@@ -29,6 +30,15 @@ const useFarcasterStateBase = create<FarcasterState, [['zustand/persist', unknow
             updateAccounts: (accounts: Account[]) =>
                 set((state) => {
                     state.accounts = accounts;
+                }),
+            clearCurrentAccount: () =>
+                set((state) => {
+                    state.currentAccount = {
+                        profileId: '',
+                        avatar: '',
+                        name: '',
+                        id: '',
+                    };
                 }),
         })),
         { name: 'farcaster-state', partialize: (state) => ({ accounts: state.accounts }) },

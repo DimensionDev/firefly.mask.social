@@ -2,6 +2,7 @@
 
 import { Dialog, Transition } from '@headlessui/react';
 import { i18n } from '@lingui/core';
+import { Trans } from '@lingui/react';
 import type { SingletonModalRefCreator } from '@masknet/shared-base';
 import { forwardRef, Fragment, useMemo, useState } from 'react';
 
@@ -19,8 +20,8 @@ export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps>
     const [props, setProps] = useState<LogoutModalProps>({ platform: SocialPlatform.Lens });
     const lensAccount = useLensStateStore.use.currentAccount?.();
     const farcasterAccount = useFarcasterStateStore.use.currentAccount?.();
-    const setLensAccount = useLensStateStore.use.updateCurrentAccount();
-    const setFarcasterAccount = useFarcasterStateStore.use.updateCurrentAccount();
+    const clearLensAccount = useLensStateStore.use.clearCurrentAccount();
+    const clearFarcasterAccount = useFarcasterStateStore.use.clearCurrentAccount();
 
     const [open, dispatch] = useSingletonModal(ref, {
         onOpen(p) {
@@ -73,13 +74,13 @@ export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps>
                                         />
                                     </button>
                                     <div className="shrink grow basis-0 text-center font-['Helvetica'] text-lg font-bold leading-snug text-slate-950">
-                                        {title}
+                                        <Trans id="Log out" />
                                     </div>
                                     <div className="relative h-[24px] w-[24px]" />
                                 </div>
                                 <div className="flex flex-col gap-[12px] p-[24px]">
                                     <div className="text-[15px] font-medium leading-normal text-lightMain">
-                                        {i18n.t('Confirm to log out these accounts?')}
+                                        <Trans id="Confirm to log out these accounts?" />
                                     </div>
                                     {account ? (
                                         <div
@@ -124,8 +125,8 @@ export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps>
                                         className=" flex items-center justify-center rounded-[99px] bg-commonDanger py-[11px] text-lightBottom"
                                         onClick={() => {
                                             props.platform === SocialPlatform.Lens
-                                                ? setLensAccount(undefined)
-                                                : setFarcasterAccount(undefined);
+                                                ? clearLensAccount()
+                                                : clearFarcasterAccount();
                                             dispatch?.close();
                                         }}
                                     >

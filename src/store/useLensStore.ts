@@ -10,6 +10,7 @@ export interface LensState {
     currentAccount: Account;
     updateCurrentAccount: (account: Account) => void;
     updateAccounts: (accounts: Account[]) => void;
+    clearCurrentAccount: () => void;
 }
 
 const useLensStateBase = create<LensState, [['zustand/persist', unknown], ['zustand/immer', unknown]]>(
@@ -29,6 +30,15 @@ const useLensStateBase = create<LensState, [['zustand/persist', unknown], ['zust
             updateAccounts: (accounts: Account[]) =>
                 set((state) => {
                     state.accounts = accounts;
+                }),
+            clearCurrentAccount: () =>
+                set((state) => {
+                    state.currentAccount = {
+                        profileId: '',
+                        avatar: '',
+                        name: '',
+                        id: '',
+                    };
                 }),
         })),
         {
