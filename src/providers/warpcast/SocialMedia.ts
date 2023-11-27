@@ -168,6 +168,7 @@ export class WarpcastSocialMedia implements Provider {
                 followingCount: cast.author.followingCount,
                 status: ProfileStatus.Active,
                 verified: cast.author.pfp.verified,
+                source: SocialPlatform.Farcaster
             },
             metadata: {
                 locale: '',
@@ -232,6 +233,7 @@ export class WarpcastSocialMedia implements Provider {
                     followingCount: cast.author.followingCount,
                     status: ProfileStatus.Active,
                     verified: cast.author.pfp.verified,
+                    source: SocialPlatform.Farcaster
                 },
                 metadata: {
                     locale: '',
@@ -326,6 +328,7 @@ export class WarpcastSocialMedia implements Provider {
                 followingCount: cast.author.followingCount,
                 status: ProfileStatus.Active,
                 verified: cast.author.pfp.verified,
+                source: SocialPlatform.Farcaster
             },
             metadata: {
                 locale: '',

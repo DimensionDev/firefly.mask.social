@@ -52,6 +52,7 @@ export function formatWarpcastPost(cast: Cast): Post {
             followingCount: cast.author.followingCount,
             status: ProfileStatus.Active,
             verified: cast.author.pfp.verified,
+            source: SocialPlatform.Farcaster
         },
         metadata: {
             locale: '',
