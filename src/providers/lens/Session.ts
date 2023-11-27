@@ -31,6 +31,7 @@ export class LensSession extends BaseSession implements Session {
             expiresAt: this.expiresAt,
             profile: this.profile,
             client: this.client,
+            type: this.type,
         });
 
         return `${this.type}:${body}`;

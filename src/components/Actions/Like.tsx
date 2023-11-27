@@ -100,6 +100,7 @@ export const Like = memo<LikeProps>(function Like({ count, hasLiked, postId, sou
                     whileTap={{ scale: 0.9 }}
                     className="rounded-full p-1.5 hover:bg-danger/[.20] "
                     onClick={(event) => {
+                        event.preventDefault();
                         event.stopPropagation();
                         if (disabled) return;
                         handleClick();
