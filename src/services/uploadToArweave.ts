@@ -18,6 +18,9 @@ const uploadToArweave = async (data: GetPostMetaData): Promise<string> => {
         const res = await fetch(`${HEY_API_URL}/metadata`, {
             method: 'POST',
             body: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json',
+            },
         });
         const upload: IUploadToArweaveResponse = await res.json();
         const { id, success } = upload;
