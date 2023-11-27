@@ -31,4 +31,5 @@ export interface Account {
     avatar: string;
     name: string;
     id: string;
+    handle?: string;
 }

@@ -8,10 +8,11 @@ import type { Profile } from '@/providers/types/SocialMedia.js';
 interface InfoProps {
     platform: SocialPlatform;
     handle: string;
+    isMyProfile: boolean;
     profile?: Profile;
 }
 
-export default function Info({ platform, handle, profile }: InfoProps) {
+export default function Info({ platform, handle, isMyProfile, profile }: InfoProps) {
     return (
         <div className=" flex gap-3 px-4">
             <Image
@@ -23,7 +24,9 @@ export default function Info({ platform, handle, profile }: InfoProps) {
             />
 
             <div className=" relative flex flex-1 flex-col gap-[6px] pt-4">
-                <div className=" absolute right-0 top-4">{profile ? <FollowButton profile={profile} /> : null}</div>
+                <div className=" absolute right-0 top-4">
+                    {profile ? <FollowButton profile={profile} isMyProfile={isMyProfile} /> : null}
+                </div>
 
                 <div className=" flex flex-col">
                     <div className=" flex items-center gap-2">
@@ -58,7 +61,7 @@ export default function Info({ platform, handle, profile }: InfoProps) {
                 </div>
 
                 <div className=" text-sm text-[#767676]">
-                    <Trans id="Not followed by anyone you’re following" />
+                    <Trans id="Not followed by anyone you're following" />
                 </div>
             </div>
         </div>

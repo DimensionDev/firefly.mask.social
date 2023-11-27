@@ -3,6 +3,7 @@
 import { i18n } from '@lingui/core';
 import { Trans } from '@lingui/react';
 import { memo, useState } from 'react';
+import urlcat from 'urlcat';
 
 import DiscoverSelectedIcon from '@/assets/discover.selected.svg';
 import DiscoverIcon from '@/assets/discover.svg';
@@ -21,6 +22,7 @@ import { LoginStatusBar } from '@/components/LoginStatusBar.js';
 import { PageRoutes } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { useLogin } from '@/hooks/useLogin.js';
+import { usePlatformAccount } from '@/hooks/usePlatformAccount.js';
 import { useQueryMode } from '@/hooks/useQueryMode.js';
 import { LoginModalRef } from '@/modals/controls.js';
 
@@ -57,6 +59,8 @@ export const SideBar = memo(function SideBar() {
 
     const isLogin = useLogin();
 
+    const platformAccount = usePlatformAccount();
+
     return (
         <>
             <div className="fixed inset-y-0 z-50 flex w-72 flex-col">
@@ -81,7 +85,15 @@ export const SideBar = memo(function SideBar() {
                                                 {item.href === '/connect-wallet' ? (
                                                     <ConnectWalletNav />
                                                 ) : (
-                                                    <Link href={item.href} className="flex gap-x-3 text-2xl/6">
+                                                    <Link
+                                                        href={urlcat(
+                                                            item.href,
+                                                            item.href === PageRoutes.Profile
+                                                                ? `/${platformAccount.lens?.handle}`
+                                                                : '',
+                                                        )}
+                                                        className="flex gap-x-3 text-2xl/6"
+                                                    >
                                                         <Icon width={24} height={24} />
                                                         {item.name}
                                                     </Link>
