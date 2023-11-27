@@ -22,16 +22,20 @@ export const useImpressionsBase = create<ImpressionsState>((set) => ({
             return;
         }
 
-        const viewsResponse = await fetchJSON<{ success: boolean; views: LensPublicationViewCount[] }>(STATS_URL, {
-            method: 'POST',
-            body: JSON.stringify({ ids }),
-        });
+        try {
+            const viewsResponse = await fetchJSON<{ success: boolean; views: LensPublicationViewCount[] }>(STATS_URL, {
+                method: 'POST',
+                body: JSON.stringify({ ids }),
+            });
 
-        if (!viewsResponse.success) return;
+            if (!viewsResponse.success) return;
 
-        set((state) => ({
-            publicationViews: [...state.publicationViews, ...viewsResponse.views],
-        }));
+            set((state) => ({
+                publicationViews: [...state.publicationViews, ...viewsResponse.views],
+            }));
+        } catch {
+            return;
+        }
     },
 }));
 

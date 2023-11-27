@@ -22,6 +22,7 @@ export const Video = memo<VideoProps>(function Video({ src, poster, className = 
         <div
             className={classNames('lp-player', className)}
             onClick={(event) => {
+                event.preventDefault();
                 event.stopPropagation();
             }}
         >

@@ -1,12 +1,12 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { useRouter } from 'next/navigation.js';
 import { memo } from 'react';
 import { useInView } from 'react-cool-inview';
 
 import { SocialPlatform } from '@/constants/enum.js';
 import { dynamic } from '@/esm/dynamic.js';
+import { Link } from '@/esm/Link.js';
 import { addPostViews } from '@/helpers/addPostViews.js';
 import { getPostDetailUrl } from '@/helpers/getPostDetailUrl.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
@@ -28,8 +28,6 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
     disableAnimate = false,
     showMore = false,
 }) {
-    const router = useRouter();
-
     const { observe } = useInView({
         onChange: async ({ inView }) => {
             if (!inView || post.source !== SocialPlatform.Lens) return;
@@ -41,16 +39,15 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
             initial={!disableAnimate ? { opacity: 0 } : false}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="cursor-pointer border-b border-line bg-bottom px-4 py-3 hover:bg-bg"
-            onClick={() => {
-                router.push(getPostDetailUrl(post.postId, post.source));
-            }}
+            className="cursor-pointer border-b border-secondaryLine bg-bottom px-4 py-3 hover:bg-bg"
         >
-            <PostHeader post={post} />
+            <Link href={getPostDetailUrl(post.postId, post.source)}>
+                <PostHeader post={post} />
 
-            <PostBody post={post} showMore={showMore} ref={observe} />
+                <PostBody post={post} showMore={showMore} ref={observe} />
 
-            <PostActions post={post} disabled={post.isHidden} />
+                <PostActions post={post} disabled={post.isHidden} />
+            </Link>
         </motion.article>
     );
 });

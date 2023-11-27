@@ -1,12 +1,14 @@
 import './globals.css';
 
+import { ScrollRestorer } from 'next-scroll-restorer';
+
 import { Providers } from '@/app/provider.js';
 import { GA } from '@/components/GA.js';
 import { Polyfills } from '@/components/Polyfills.js';
 import { SearchBar } from '@/components/SearchBar.js';
+import { SearchFilter } from '@/components/SearchFilter.js';
 import { SideBar } from '@/components/SideBar/index.js';
 import { SocialPlatformTabs } from '@/components/SocialPlatformTabs.js';
-import { classNames } from '@/helpers/classNames.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { Modals } from '@/modals/index.js';
 
@@ -20,29 +22,30 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </head>
             <body>
                 <Providers>
-                    <div
-                        className={classNames({
-                            // global
-                            'relative m-auto h-screen': true,
-                            // sm
-                            [`sm:w-full`]: true,
-
-                            // lg
-                            [`lg:w-[1265px]`]: true,
-                        })}
-                    >
+                    <div className="m-auto flex min-h-screen sm:w-full lg:w-[1265px] ">
                         <SideBar />
-                        <main className="pl-72 lg:pr-96">
-                            <SocialPlatformTabs />
+
+                        <main className="max-w-[888px] flex-1 border-r border-line pl-72">
+                            <div className="sticky px-4">
+                                <SearchBar source="header" />
+
+                                <SocialPlatformTabs />
+                            </div>
 
                             {children}
                         </main>
-                        <SearchBar />
+
+                        <aside className=" hidden w-96 overflow-y-auto px-4 lg:block">
+                            <SearchFilter />
+
+                            <SearchBar source="secondary" />
+                        </aside>
                     </div>
                     <Modals />
                 </Providers>
                 <GA />
             </body>
+            <ScrollRestorer />
         </html>
     );
 }

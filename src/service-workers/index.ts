@@ -8,7 +8,7 @@ const visiblePublicationsSet = new Set();
 const sendVisiblePublicationsToServer = () => {
     const publicationsToSend = Array.from(visiblePublicationsSet);
 
-    if (publicationsToSend.length > 0 && viewerId) {
+    if (process.env.NODE_ENV === 'production' && publicationsToSend.length > 0 && viewerId) {
         visiblePublicationsSet.clear();
         fetch(impressionsEndpoint, {
             method: 'POST',
