@@ -5,7 +5,7 @@ import { Switch } from '@mui/material';
 import { useAccountModal } from '@rainbow-me/rainbowkit';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { first } from 'lodash-es';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 import { useAccount } from 'wagmi';
 
@@ -18,7 +18,7 @@ import { useLensStateStore } from '@/store/useLensStore.js';
 import type { Account } from '@/types/index.js';
 
 export function LoginLens() {
-    const [current, setCurrent] = useState<Account | undefined>();
+    const [selected, setSelected] = useState<Account | undefined>();
 
     const account = useAccount();
 
@@ -42,16 +42,14 @@ export function LoginLens() {
 
             // update current select and global lens accounts
             updateAccounts(result);
-            setCurrent((prev) => {
-                if (!prev) return first(result);
-                return;
-            });
 
             return result;
         },
     });
 
     const { openAccountModal } = useAccountModal();
+
+    const current = useMemo(() => selected ?? first(accounts), [selected, accounts]);
 
     const [, login] = useAsyncFn(async () => {
         if (!accounts || !current) return;
@@ -75,7 +73,7 @@ export function LoginLens() {
                             key={account.id}
                             {...account}
                             isCurrent={current?.id === account.id}
-                            setAccount={setCurrent}
+                            setAccount={setSelected}
                         />
                     ))}
                 </div>

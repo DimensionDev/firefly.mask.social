@@ -7,7 +7,7 @@ import type { Account } from '@/types/index.js';
 
 export interface FarcasterState {
     accounts: Account[];
-    currentAccount?: Account;
+    currentAccount: Account;
     updateCurrentAccount: (account: Account) => void;
     updateAccounts: (accounts: Account[]) => void;
 }
@@ -16,6 +16,12 @@ const useFarcasterStateBase = create<FarcasterState, [['zustand/persist', unknow
     persist(
         immer<FarcasterState>((set) => ({
             accounts: [],
+            currentAccount: {
+                profileId: '',
+                avatar: '',
+                name: '',
+                id: '',
+            },
             updateCurrentAccount: (account: Account) =>
                 set((state) => {
                     state.currentAccount = account;

@@ -117,6 +117,7 @@ export const Mirror = memo<MirrorProps>(function Mirror({ shares, source, hasMir
                 whileTap={{ scale: 0.9 }}
                 onClick={(event) => {
                     event.stopPropagation();
+                    event.preventDefault();
                     if (!isLogin && !loading) {
                         LoginModalRef.open();
                         return;
@@ -164,6 +165,7 @@ export const Mirror = memo<MirrorProps>(function Mirror({ shares, source, hasMir
                                     })}
                                     onClick={(event) => {
                                         event.stopPropagation();
+                                        event.preventDefault();
                                         close();
                                         handleMirror();
                                     }}
