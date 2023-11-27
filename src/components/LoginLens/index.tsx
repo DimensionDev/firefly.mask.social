@@ -36,6 +36,7 @@ export function LoginLens() {
                 avatar: profile.pfp,
                 profileId: profile.displayName,
                 id: profile.profileId,
+                handle: profile.handle,
             }));
 
             if (!result.length) return [];
