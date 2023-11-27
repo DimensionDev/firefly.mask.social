@@ -21,6 +21,7 @@ import type {
     TransactionMetadataV3Fragment,
     VideoMetadataV3Fragment,
 } from '@lens-protocol/client';
+import { safeUnreachable } from '@masknet/kit';
 import { compact, last } from 'lodash-es';
 
 import { SocialPlatform } from '@/constants/enum.js';
@@ -29,7 +30,6 @@ import type { Attachment, Post } from '@/providers/types/SocialMedia.js';
 import type { MetadataAsset } from '@/types/index.js';
 
 import { formatLensProfile } from './formatLensProfile.js';
-import { safeUnreachable } from '@masknet/kit';
 
 const PLACEHOLDER_IMAGE = 'https://static-assets.hey.xyz/images/placeholder.webp';
 
