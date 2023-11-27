@@ -91,6 +91,8 @@ export interface Profile {
         networkType: NetworkType;
         address: string;
     };
+    __original__?: unknown;
+    source: SocialPlatform;
 }
 
 export interface MediaObject {
