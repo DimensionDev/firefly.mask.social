@@ -3,6 +3,7 @@
 import '@rainbow-me/rainbowkit/styles.css';
 
 import { RainbowKitProvider } from '@rainbow-me/rainbowkit';
+import { polygon } from 'viem/chains';
 import { WagmiConfig } from 'wagmi';
 
 import { appInfo, chains, config } from '@/configs/wagmi.js';
@@ -14,7 +15,7 @@ export interface WagmiProviderProps {
 export function WagmiProvider(props: WagmiProviderProps) {
     return (
         <WagmiConfig config={config}>
-            <RainbowKitProvider chains={chains} appInfo={appInfo} showRecentTransactions>
+            <RainbowKitProvider chains={chains} initialChain={polygon} appInfo={appInfo} showRecentTransactions>
                 {props.children}
             </RainbowKitProvider>
         </WagmiConfig>

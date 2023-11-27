@@ -2,7 +2,9 @@ import {
     ExploreProfilesOrderByType,
     ExplorePublicationsOrderByType,
     isRelaySuccess,
+    type IStorageProvider,
     LensClient,
+    LimitType,
     production,
     PublicationReactionType,
     PublicationType,
@@ -15,15 +17,19 @@ import {
     type Pageable,
     type PageIndicator,
 } from '@masknet/shared-base';
+import type { TypedDataDomain } from 'viem';
+import type { WalletClient } from 'wagmi';
 import { getWalletClient } from 'wagmi/actions';
 
 import { formatLensPost } from '@/helpers/formatLensPost.js';
 import { formatLensProfile } from '@/helpers/formatLensProfile.js';
 import { generateCustodyBearer } from '@/helpers/generateCustodyBearer.js';
+import { isZero } from '@/maskbook/packages/web3-shared/base/src/index.js';
 import { SessionFactory } from '@/providers/base/SessionFactory.js';
 import { LensSession } from '@/providers/lens/Session.js';
 import {
     type Notification,
+    NotificationType,
     type Post,
     type Profile,
     type Provider,
@@ -32,20 +38,40 @@ import {
     Type,
 } from '@/providers/types/SocialMedia.js';
 
+class LocalStorageProvider implements IStorageProvider {
+    getItem(key: string) {
+        return window.localStorage.getItem(key);
+    }
+
+    setItem(key: string, value: string) {
+        window.localStorage.setItem(key, value);
+    }
+
+    removeItem(key: string) {
+        window.localStorage.removeItem(key);
+    }
+}
+
 export class LensSocialMedia implements Provider {
     private lensClient = new LensClient({
         environment: production,
+        storage: new LocalStorageProvider(),
     });
 
     get type() {
         return Type.Lens;
     }
 
-    async createSession(): Promise<LensSession> {
+    async getWallet(): Promise<WalletClient> {
         const client = await getWalletClient();
-        if (!client) throw new Error(i18n.t('No client found'));
+        if (!client) throw new Error(i18n.t('No wallet client found'));
 
-        const address = client.account.address;
+        return client;
+    }
+
+    async createSession(): Promise<LensSession> {
+        const wallet = await this.getWallet();
+        const address = wallet.account.address;
         const profile = await this.lensClient.profile.fetchDefault({
             for: address,
         });
@@ -55,7 +81,7 @@ export class LensSocialMedia implements Provider {
             for: profile.id,
             signedBy: address,
         });
-        const signature = await client.signMessage({
+        const signature = await wallet.signMessage({
             message: text,
         });
         await this.lensClient.authentication.authenticate({
@@ -65,13 +91,14 @@ export class LensSocialMedia implements Provider {
 
         const accessTokenResult = await this.lensClient.authentication.getAccessToken();
         const accessToken = accessTokenResult.unwrap();
-        const { payload } = await generateCustodyBearer(client);
+        const { payload } = await generateCustodyBearer(wallet);
 
         const currentSession = new LensSession(
             profile.id,
             accessToken,
             payload.params.timestamp,
             payload.params.expiresAt,
+            formatLensProfile(profile),
             this.lensClient,
         );
         localStorage.setItem(`lens_session${profile.id}`, currentSession.serialize());
@@ -79,16 +106,15 @@ export class LensSocialMedia implements Provider {
     }
 
     async createSessionForProfileId(profileId: string): Promise<LensSession> {
-        const client = await getWalletClient();
-        if (!client) throw new Error(i18n.t('No client found'));
-
-        const address = client.account.address;
+        const wallet = await this.getWallet();
+        const address = wallet.account.address;
+        const profile = await this.getProfileById(profileId);
 
         const { id, text } = await this.lensClient.authentication.generateChallenge({
             for: profileId,
             signedBy: address,
         });
-        const signature = await client.signMessage({
+        const signature = await wallet.signMessage({
             message: text,
         });
 
@@ -99,13 +125,14 @@ export class LensSocialMedia implements Provider {
 
         const accessTokenResult = await this.lensClient.authentication.getAccessToken();
         const accessToken = accessTokenResult.unwrap();
-        const { payload } = await generateCustodyBearer(client);
+        const { payload } = await generateCustodyBearer(wallet);
 
         const currentSession = new LensSession(
             profileId,
             accessToken,
             payload.params.timestamp,
             payload.params.expiresAt,
+            profile,
             this.lensClient,
         );
         localStorage.setItem(`lens_session${profileId}`, currentSession.serialize());
@@ -141,14 +168,50 @@ export class LensSocialMedia implements Provider {
     async publishPost(post: Post): Promise<Post> {
         if (!post.metadata.contentURI) throw new Error(i18n.t('No content URI found'));
 
-        const result = await this.lensClient.publication.postOnchain({
-            contentURI: post.metadata.contentURI,
-        });
-        const resultValue = result.unwrap();
+        const profile = await this.getProfileById(post.author.profileId);
 
-        if (!isRelaySuccess(resultValue)) throw new Error(`Something went wrong ${JSON.stringify(resultValue)}`);
+        if (profile.signless) {
+            const result = await this.lensClient.publication.postOnchain({
+                contentURI: post.metadata.contentURI,
+            });
+            const resultValue = result.unwrap();
 
-        return post;
+            if (!isRelaySuccess(resultValue)) throw new Error(`Something went wrong ${JSON.stringify(resultValue)}`);
+
+            return post;
+        } else {
+            const wallet = await this.getWallet();
+
+            const resultTypedData = await this.lensClient.publication.createOnchainPostTypedData({
+                contentURI: post.metadata.contentURI,
+            });
+
+            const { id, typedData } = resultTypedData.unwrap();
+
+            console.log(typedData);
+
+            const signedTypedData = await wallet.signTypedData({
+                domain: typedData.domain as TypedDataDomain,
+                types: typedData.types,
+                primaryType: 'Post',
+                message: typedData.value,
+            });
+
+            const broadcastResult = await this.lensClient.transaction.broadcastOnchain({
+                id,
+                signature: signedTypedData,
+            });
+
+            const broadcastValue = broadcastResult.unwrap();
+
+            console.log(broadcastValue);
+
+            if (!isRelaySuccess(broadcastValue)) {
+                throw new Error(`Something went wrong ${JSON.stringify(broadcastValue)}`);
+            }
+
+            return post;
+        }
     }
 
     async mirrorPost(postId: string): Promise<Post> {
@@ -222,6 +285,15 @@ export class LensSocialMedia implements Provider {
 
     async getProfileById(profileId: string): Promise<Profile> {
         const result = await this.lensClient.profile.fetch({
+            forProfileId: profileId,
+        });
+        if (!result) throw new Error(i18n.t('No profile found'));
+
+        return formatLensProfile(result);
+    }
+
+    async getProfileByHandle(profileId: string): Promise<Profile> {
+        const result = await this.lensClient.profile.fetch({
             forHandle: profileId,
         });
         if (!result) throw new Error(i18n.t('No profile found'));
@@ -243,13 +315,14 @@ export class LensSocialMedia implements Provider {
     async discoverPosts(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         const result = await this.lensClient.explore.publications({
             orderBy: ExplorePublicationsOrderByType.LensCurated,
-            cursor: indicator?.id ? indicator.id : undefined,
+            cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
+            limit: LimitType.TwentyFive,
         });
 
         return createPageable(
             result.items.map((item) => formatLensPost(item)),
             indicator ?? createIndicator(),
-            createNextIndicator(indicator, result.pageInfo.next ? result.pageInfo.next : undefined),
+            result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );
     }
 
@@ -398,9 +471,9 @@ export class LensSocialMedia implements Provider {
         return result?.operations.isFollowingMe.value ?? false;
     }
 
-    async getNotifications(indicator?: PageIndicator): Promise<Pageable<Notification>> {
+    async getNotifications(indicator?: PageIndicator): Promise<Pageable<Notification, PageIndicator>> {
         const result = await this.lensClient.notifications.fetch({
-            cursor: indicator?.id,
+            cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
         });
 
         const value = result.unwrap();
@@ -412,7 +485,7 @@ export class LensSocialMedia implements Provider {
 
                     return {
                         notificationId: item.id,
-                        type: 'mirror',
+                        type: NotificationType.Mirror,
                         mirror: await this.getPostById(item.mirrors[0].mirrorId),
                         post: await this.getPostById(item.publication.id),
                     };
@@ -422,7 +495,7 @@ export class LensSocialMedia implements Provider {
                     const quote = await this.getPostById(item.quote.id);
                     return {
                         notificationId: item.id,
-                        type: 'quote',
+                        type: NotificationType.Quote,
                         quote,
                         post: quote,
                     };
@@ -433,7 +506,7 @@ export class LensSocialMedia implements Provider {
 
                     return {
                         notificationId: item.id,
-                        type: 'reaction',
+                        type: NotificationType.Reaction,
                         reaction: ReactionType.Upvote,
                         reactor: formatLensProfile(item.reactions[0].profile),
                         post: await this.getPostById(item.publication.id),
@@ -444,7 +517,7 @@ export class LensSocialMedia implements Provider {
                     const post = await this.getPostById(item.comment.commentOn.id);
                     return {
                         notificationId: item.id,
-                        type: 'comment',
+                        type: NotificationType.Comment,
                         comment: {
                             commentId: item.comment.id,
                             timestamp: new Date(item.comment.createdAt).getTime(),
@@ -460,7 +533,7 @@ export class LensSocialMedia implements Provider {
 
                     return {
                         notificationId: item.id,
-                        type: 'follow',
+                        type: NotificationType.Follow,
                         follower: formatLensProfile(item.followers[0]),
                     };
                 }
@@ -470,7 +543,7 @@ export class LensSocialMedia implements Provider {
 
                     return {
                         notificationId: item.id,
-                        type: 'mention',
+                        type: NotificationType.Mention,
                         post,
                     };
                 }
@@ -481,7 +554,7 @@ export class LensSocialMedia implements Provider {
 
         return createPageable(
             data.filter((item) => typeof item !== 'undefined') as Notification[],
-            indicator,
+            indicator ?? createIndicator(),
             createNextIndicator(indicator, value.pageInfo.next ?? undefined),
         );
     }

@@ -8,6 +8,7 @@ import * as controls from './controls.js';
 import { FarcasterStatusModal } from './FarcasterStatusModal.js';
 import { LensStatusModal } from './LensStatusModal.js';
 import { LoginModal } from './LoginModal.js';
+import { PreviewImagesModal } from './PreviewImagesModal.js';
 
 export const Modals = memo(function Modals() {
     return (
@@ -16,6 +17,7 @@ export const Modals = memo(function Modals() {
             <LensStatusModal ref={controls.LensStatusModalRef.register} />
             <FarcasterStatusModal ref={controls.FarcasterStatusModalRef.register} />
             <LogoutModal ref={controls.LogoutModalRef.register} />
+            <PreviewImagesModal ref={controls.PreviewImageModalRef.register} />
         </div>
     );
 });

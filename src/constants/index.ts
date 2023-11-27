@@ -15,6 +15,7 @@ export const EIP_712_FARCASTER_DOMAIN = {
 export const IPFS_GATEWAY = 'https://gw.ipfs-lens.dev/ipfs/';
 export const ARWEAVE_GATEWAY = 'https://arweave.net/';
 export const LENS_MEDIA_SNAPSHOT_URL = 'https://ik.imagekit.io/lens/media-snapshot';
+export const HEY_API_URL = 'https://api.hey.xyz';
 
 // Named transforms for ImageKit
 export const AVATAR = 'tr:w-300,h-300';
@@ -27,3 +28,10 @@ export const LS_LOCALE_KEY = 'social.mask.locale';
 export const IS_PRODUCTION = process.env.NODE_ENV === 'production';
 export const IS_DEVELOPMENT = process.env.NODE_ENV === 'development';
 export const IS_PREVIEW = process.env.NEXT_PUBLIC_VERCEL_ENV === 'preview';
+
+export const EVER_API = 'https://endpoint.4everland.co';
+
+// S3 bucket
+export const S3_BUCKET = {
+    HEY_MEDIA: 'hey-media',
+};

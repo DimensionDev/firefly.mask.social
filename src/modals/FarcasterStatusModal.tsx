@@ -8,12 +8,19 @@ import { SocialPlatform } from '@/constants/enum.js';
 import { Image } from '@/esm/Image.js';
 import type { SingletonModalRefCreator } from '@/maskbook/packages/shared-base/src/index.js';
 import { useSingletonModal } from '@/maskbook/packages/shared-base-ui/src/index.js';
+<<<<<<< HEAD
 import { LogoutModalRef } from '@/modals/controls.js';
+=======
+>>>>>>> 74b28236230e769a02c444f8ce31450e8f0cf35e
 import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
 
 export const FarcasterStatusModal = forwardRef<SingletonModalRefCreator>(function FarcasterStatusModal(_, ref) {
     const farcasterAccounts = useFarcasterStateStore.use.accounts();
+<<<<<<< HEAD
     const currentAccount = useFarcasterStateStore.use.currentAccount?.();
+=======
+    const currentAccount = useFarcasterStateStore.use.currentAccount();
+>>>>>>> 74b28236230e769a02c444f8ce31450e8f0cf35e
     const [open, dispatch] = useSingletonModal(ref);
     return (
         <Transition appear show={open} as={Fragment}>

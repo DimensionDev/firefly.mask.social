@@ -11,3 +11,8 @@ export enum SocialPlatform {
     Lens = 'Lens',
     Farcaster = 'Farcaster',
 }
+
+export enum SearchType {
+    Profiles = 'Profiles',
+    Posts = 'Posts',
+}

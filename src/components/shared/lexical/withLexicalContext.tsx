@@ -3,7 +3,7 @@ import { AutoLinkNode, LinkNode } from '@lexical/link';
 import { LexicalComposer } from '@lexical/react/LexicalComposer.js';
 import type { ComponentType } from 'react';
 
-import { MentionNode } from '@/components/shared/lexical/nodes/MentionsNode.jsx';
+import { MentionNode } from '@/components/shared/lexical/nodes/MentionsNode.js';
 
 const initialConfig = {
     namespace: 'composer',

@@ -3,7 +3,8 @@
 import { Dialog, Transition } from '@headlessui/react';
 import type { SingletonModalRefCreator } from '@masknet/shared-base';
 import { useChainModal, useConnectModal } from '@rainbow-me/rainbowkit';
-import { forwardRef, Fragment, Suspense, useMemo, useState } from 'react';
+import { forwardRef, Fragment, Suspense, useMemo, useRef, useState } from 'react';
+import { usePrevious, useUpdateEffect } from 'react-use';
 import { polygon } from 'viem/chains';
 import { useAccount, useNetwork } from 'wagmi';
 
@@ -13,18 +14,25 @@ import { LoginLens } from '@/components/LoginLens/index.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { Image } from '@/esm/Image.js';
 import { useSingletonModal } from '@/maskbook/packages/shared-base-ui/src/index.js';
+import { isLensCollect } from '@/maskbook/packages/web3-shared/evm/src/index.js';
 
 export interface LoginModalProps {
     current?: SocialPlatform;
 }
 
 export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps>>(function LoginModal(_, ref) {
+    const isLensConnecting = useRef(false);
     const [current, setCurrent] = useState<SocialPlatform | undefined>();
 
-    const { openConnectModal } = useConnectModal();
-    const { openChainModal } = useChainModal();
+    const { openConnectModal, connectModalOpen } = useConnectModal();
+    const { openChainModal, chainModalOpen } = useChainModal();
     const account = useAccount();
     const { chain } = useNetwork();
+
+    const previousAccount = usePrevious(account);
+    const previousChain = usePrevious(chain);
+    const previousConnectModalOpen = usePrevious(connectModalOpen);
+    const previousChainModalOpen = usePrevious(chainModalOpen);
 
     const [open, dispatch] = useSingletonModal(ref, {
         onOpen: (props) => {
@@ -40,6 +48,18 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps>>(
         else if (current === SocialPlatform.Farcaster) return 'Log in to Farcaster account';
         return 'Login';
     }, [current]);
+
+    useUpdateEffect(() => {
+        if (!isLensCollect) return;
+        // When the wallet is connected or the chain switch is successful, it automatically jumps to the next step
+        if (
+            (account.isConnected && !previousAccount?.isConnected && previousConnectModalOpen) ||
+            (chain?.id === polygon.id && previousChain?.id !== polygon.id && previousChainModalOpen)
+        ) {
+            setCurrent(SocialPlatform.Lens);
+            isLensConnecting.current = false;
+        }
+    }, [account, chain]);
 
     return (
         <Transition appear show={open} as={Fragment}>
@@ -94,8 +114,10 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps>>(
                                                 onClick={() => {
                                                     if (!account.isConnected) {
                                                         openConnectModal();
+                                                        isLensConnecting.current = true;
                                                     } else if (chain?.id !== polygon.id) {
                                                         openChainModal();
+                                                        isLensConnecting.current = true;
                                                     } else {
                                                         setCurrent(SocialPlatform.Lens);
                                                     }

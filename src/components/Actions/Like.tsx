@@ -12,6 +12,8 @@ import { Tooltip } from '@/components/Tooltip.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
+import { useLogin } from '@/hooks/useLogin.js';
+import { LoginModalRef } from '@/modals/controls.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 
@@ -24,6 +26,7 @@ interface LikeProps {
 }
 
 export const Like = memo<LikeProps>(function Like({ count, hasLiked, postId, source, disabled = false }) {
+    const isLogin = useLogin(source);
     const queryClient = useQueryClient();
     const [liked, setLiked] = useState(hasLiked);
     const [realCount, setRealCount] = useState(count);
@@ -31,6 +34,10 @@ export const Like = memo<LikeProps>(function Like({ count, hasLiked, postId, sou
     const { enqueueSnackbar } = useSnackbar();
     const [{ loading }, handleClick] = useAsyncFn(async () => {
         if (!postId) return null;
+        if (!isLogin) {
+            LoginModalRef.open();
+            return;
+        }
         setLiked((prev) => !prev);
         setRealCount((prev) => (prev ?? 0) + 1);
         try {
@@ -77,7 +84,7 @@ export const Like = memo<LikeProps>(function Like({ count, hasLiked, postId, sou
             }
             return;
         }
-    }, [postId, source, liked, queryClient]);
+    }, [postId, source, liked, queryClient, isLogin]);
 
     return (
         <div
@@ -93,6 +100,7 @@ export const Like = memo<LikeProps>(function Like({ count, hasLiked, postId, sou
                     whileTap={{ scale: 0.9 }}
                     className="rounded-full p-1.5 hover:bg-danger/[.20] "
                     onClick={(event) => {
+                        event.preventDefault();
                         event.stopPropagation();
                         if (disabled) return;
                         handleClick();

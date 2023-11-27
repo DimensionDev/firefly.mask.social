@@ -21,7 +21,7 @@ export default function Profile({ params: { handle } }: ProfileProps) {
 
     const { data: profile } = useQuery({
         queryKey: ['profile', handle],
-        queryFn: () => lensClient.getProfileById(`test/${handle}`),
+        queryFn: () => lensClient.getProfileByHandle(`lens/${handle}`),
     });
 
     const isLogin = useMemo(() => false, []);

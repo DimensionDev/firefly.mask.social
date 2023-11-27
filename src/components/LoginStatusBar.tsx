@@ -31,7 +31,7 @@ export function LoginStatusBar() {
                     />
                 </button>
             ) : null}
-            {farcasterAccount ? (
+            {farcasterAccount && !!farcasterAccount.profileId ? (
                 <button className="relative h-[40px] w-[48px]" onClick={() => FarcasterStatusModalRef.open()}>
                     <div className="absolute left-0 top-0 h-[40px] w-[40px] rounded-[99px] shadow backdrop-blur-lg">
                         <Image

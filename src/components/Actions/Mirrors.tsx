@@ -15,6 +15,8 @@ import { Tooltip } from '@/components/Tooltip.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { humanize, nFormatter } from '@/helpers/formatCommentCounts.js';
+import { useLogin } from '@/hooks/useLogin.js';
+import { LoginModalRef } from '@/modals/controls.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 
@@ -27,6 +29,8 @@ interface MirrorProps {
 }
 
 export const Mirror = memo<MirrorProps>(function Mirror({ shares, source, hasMirrored, postId, disabled = false }) {
+    const isLogin = useLogin(source);
+
     const { enqueueSnackbar } = useSnackbar();
     const [mirrored, setMirrored] = useState(hasMirrored);
     const [count, setCount] = useState(shares);
@@ -111,7 +115,14 @@ export const Mirror = memo<MirrorProps>(function Mirror({ shares, source, hasMir
                 as={motion.button}
                 className={'flex items-center space-x-2 text-secondary hover:text-secondarySuccess'}
                 whileTap={{ scale: 0.9 }}
-                onClick={(event) => event.stopPropagation()}
+                onClick={(event) => {
+                    event.stopPropagation();
+                    event.preventDefault();
+                    if (!isLogin && !loading) {
+                        LoginModalRef.open();
+                        return;
+                    }
+                }}
                 aria-label="Mirror"
             >
                 <Tooltip
@@ -132,7 +143,7 @@ export const Mirror = memo<MirrorProps>(function Mirror({ shares, source, hasMir
                 {count ? <span className="text-xs font-medium">{nFormatter(count)}</span> : null}
             </Menu.Button>
 
-            {!disabled ? (
+            {!disabled && isLogin ? (
                 <Transition
                     as={Fragment}
                     enter="transition ease-out duration-100"
@@ -154,6 +165,7 @@ export const Mirror = memo<MirrorProps>(function Mirror({ shares, source, hasMir
                                     })}
                                     onClick={(event) => {
                                         event.stopPropagation();
+                                        event.preventDefault();
                                         close();
                                         handleMirror();
                                     }}

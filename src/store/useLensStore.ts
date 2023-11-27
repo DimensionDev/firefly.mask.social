@@ -7,8 +7,8 @@ import type { Account } from '@/types/index.js';
 
 export interface LensState {
     accounts: Account[];
-    currentAccount?: Account;
-    updateCurrentAccount: (account: Account | undefined) => void;
+    currentAccount: Account;
+    updateCurrentAccount: (account: Account) => void;
     updateAccounts: (accounts: Account[]) => void;
 }
 
@@ -16,7 +16,13 @@ const useLensStateBase = create<LensState, [['zustand/persist', unknown], ['zust
     persist(
         immer((set, get) => ({
             accounts: [],
-            updateCurrentAccount: (account: Account | undefined) =>
+            currentAccount: {
+                profileId: '',
+                avatar: '',
+                name: '',
+                id: '',
+            },
+            updateCurrentAccount: (account: Account) =>
                 set((state) => {
                     state.currentAccount = account;
                 }),

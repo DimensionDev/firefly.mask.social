@@ -13,7 +13,7 @@ import { useLensStateStore } from '@/store/useLensStore.js';
 
 export const LensStatusModal = forwardRef<SingletonModalRefCreator>(function LensStatusModal(_, ref) {
     const lensAccounts = useLensStateStore.use.accounts();
-    const currentAccount = useLensStateStore.use.currentAccount?.();
+    const currentAccount = useLensStateStore.use.currentAccount();
     const [open, dispatch] = useSingletonModal(ref);
 
     return (
