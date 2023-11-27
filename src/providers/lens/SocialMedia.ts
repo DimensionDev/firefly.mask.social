@@ -171,6 +171,8 @@ export class LensSocialMedia implements Provider {
 
             const { id, typedData } = resultTypedData.unwrap();
 
+            console.log(typedData);
+
             const signedTypedData = await wallet.signTypedData({
                 domain: typedData.domain as TypedDataDomain,
                 types: typedData.types,
@@ -184,6 +186,8 @@ export class LensSocialMedia implements Provider {
             });
 
             const broadcastValue = broadcastResult.unwrap();
+
+            console.log(broadcastValue);
 
             if (!isRelaySuccess(broadcastValue)) {
                 throw new Error(`Something went wrong ${JSON.stringify(broadcastValue)}`);

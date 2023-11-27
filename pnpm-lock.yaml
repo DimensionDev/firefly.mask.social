@@ -121,6 +121,9 @@ importers:
       '@lens-protocol/client':
         specifier: ^2.0.0-alpha.20
         version: 2.0.0-alpha.20(@lens-protocol/metadata@1.0.5)(ethers@5.5.1)
+      '@lens-protocol/metadata':
+        specifier: ^1.0.5
+        version: 1.0.5(zod@3.22.4)
       '@lexical/hashtag':
         specifier: ^0.12.4
         version: 0.12.4(lexical@0.12.2)
@@ -36701,6 +36704,7 @@ time:
   /@hookform/resolvers@3.1.1: '2023-06-12T17:05:20.706Z'
   /@json2csv/plainjs@7.0.1: '2023-05-31T09:42:24.217Z'
   /@lens-protocol/client@2.0.0-alpha.20: '2023-11-08T16:21:49.323Z'
+  /@lens-protocol/metadata@1.0.5: '2023-11-08T08:46:44.189Z'
   /@lexical/hashtag@0.12.4: '2023-11-17T23:41:27.571Z'
   /@lexical/link@0.12.4: '2023-11-17T23:41:53.674Z'
   /@lexical/markdown@0.12.4: '2023-11-17T23:41:57.952Z'

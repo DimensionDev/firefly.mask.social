@@ -24,23 +24,42 @@ export default function ComposeSend({ characters, images, setOpened }: ComposeSe
         const profile = await lens.getProfileById(session.profileId);
         console.log('profile', profile);
 
+        const posts = await lens.getPostsByProfileId(profile.profileId);
+        console.log('posts', posts);
+
         const title = `Post by #${profile.profileId}`;
-        const metadata = getPostMetaData({
-            title,
-            content: characters,
-            marketplace: {
-                name: title,
-                description: characters,
+        const metadata = getPostMetaData(
+            {
+                title,
+                content: characters,
+                marketplace: {
+                    name: title,
+                    description: characters,
+                    external_url: 'https://hey.xyz',
+                },
             },
-        });
+            images.length > 0
+                ? {
+                      image: {
+                          item: images[0].ipfs.uri,
+                          type: images[0].ipfs.mimeType,
+                      },
+                      attachments: images.map((image) => ({
+                          item: image.ipfs.uri,
+                          type: image.ipfs.mimeType,
+                          cover: images[0].ipfs.uri,
+                      })),
+                  }
+                : undefined,
+        );
         const arweaveId = await uploadToArweave(metadata);
         console.log('metadata', metadata);
         console.log('arweaveId', arweaveId);
         const post = await lens.publishPost({
-            postId: metadata.id,
+            postId: metadata.lens.id,
             author: profile,
             metadata: {
-                locale: metadata.locale,
+                locale: metadata.lens.locale,
                 contentURI: `ar://${arweaveId}`,
                 content: null,
             },
@@ -48,7 +67,7 @@ export default function ComposeSend({ characters, images, setOpened }: ComposeSe
         });
         console.log('post', post);
         setOpened(false);
-    }, [characters, setOpened]);
+    }, [characters, images, setOpened]);
 
     return (
         <div className=" flex h-[68px] items-center justify-end gap-4 px-4 shadow-send">
