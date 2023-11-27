@@ -1,10 +1,12 @@
 'use client';
 
+import { i18n } from '@lingui/core';
 import { Trans } from '@lingui/react';
 import { Switch } from '@mui/material';
 import { useAccountModal } from '@rainbow-me/rainbowkit';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { first } from 'lodash-es';
+import { useSnackbar } from 'notistack';
 import { useState } from 'react';
 import { useAsyncFn } from 'react-use';
 import { useAccount } from 'wagmi';
@@ -25,6 +27,8 @@ export function LoginLens() {
     const updateAccounts = useLensStateStore.use.updateAccounts();
     const updateCurrentAccount = useLensStateStore.use.updateCurrentAccount();
 
+    const { enqueueSnackbar } = useSnackbar();
+
     const { data: accounts } = useSuspenseQuery<Account[]>({
         queryKey: ['lens', 'accounts', account.address],
         queryFn: async () => {
@@ -38,7 +42,11 @@ export function LoginLens() {
                 id: profile.profileId,
             }));
 
-            if (!result.length) return [];
+            if (!result.length) {
+                enqueueSnackbar(i18n.t('No Lens profile found. Please change another wallet'), { variant: 'error' });
+                LoginModalRef.close();
+                return [];
+            }
 
             // update current select and global lens accounts
             updateAccounts(result);

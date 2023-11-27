@@ -14,7 +14,11 @@ import { SocialPlatform } from '@/constants/enum.js';
 import { Image } from '@/esm/Image.js';
 import { useSingletonModal } from '@/maskbook/packages/shared-base-ui/src/index.js';
 
-export const LoginModal = forwardRef<SingletonModalRefCreator>(function LoginModal(_, ref) {
+export interface LoginModalProps {
+    current?: SocialPlatform;
+}
+
+export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps>>(function LoginModal(_, ref) {
     const [current, setCurrent] = useState<SocialPlatform | undefined>();
 
     const { openConnectModal } = useConnectModal();
@@ -23,7 +27,9 @@ export const LoginModal = forwardRef<SingletonModalRefCreator>(function LoginMod
     const { chain } = useNetwork();
 
     const [open, dispatch] = useSingletonModal(ref, {
-        onOpen: () => {},
+        onOpen: (props) => {
+            setCurrent(props?.current);
+        },
         onClose: () => {
             setCurrent(undefined);
         },
@@ -61,7 +67,7 @@ export const LoginModal = forwardRef<SingletonModalRefCreator>(function LoginMod
                             leaveFrom="opacity-100 scale-100"
                             leaveTo="opacity-0 scale-95"
                         >
-                            <Dialog.Panel className="transform rounded-[12px] bg-white transition-all">
+                            <Dialog.Panel className="transform rounded-[12px] bg-lightBottom transition-all">
                                 <div className="inline-flex h-[56px] w-[600px] items-center justify-center gap-2 rounded-t-[12px] bg-gradient-to-b from-white to-white p-4">
                                     <button onClick={() => dispatch?.close()}>
                                         <Image

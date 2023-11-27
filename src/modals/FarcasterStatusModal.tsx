@@ -4,9 +4,11 @@ import { Dialog, Transition } from '@headlessui/react';
 import { Trans } from '@lingui/react';
 import { forwardRef, Fragment } from 'react';
 
+import { SocialPlatform } from '@/constants/enum.js';
 import { Image } from '@/esm/Image.js';
 import type { SingletonModalRefCreator } from '@/maskbook/packages/shared-base/src/index.js';
 import { useSingletonModal } from '@/maskbook/packages/shared-base-ui/src/index.js';
+import { LogoutModalRef } from '@/modals/controls.js';
 import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
 
 export const FarcasterStatusModal = forwardRef<SingletonModalRefCreator>(function FarcasterStatusModal(_, ref) {
@@ -27,7 +29,6 @@ export const FarcasterStatusModal = forwardRef<SingletonModalRefCreator>(functio
                 >
                     <div className="fixed inset-0 bg-black/25" />
                 </Transition.Child>
-
                 <div className="fixed inset-0 overflow-y-auto">
                     <div className="flex min-h-full items-center justify-center p-4 text-center">
                         <Transition.Child
@@ -39,7 +40,7 @@ export const FarcasterStatusModal = forwardRef<SingletonModalRefCreator>(functio
                             leaveFrom="opacity-100 scale-100"
                             leaveTo="opacity-0 scale-95"
                         >
-                            <Dialog.Panel className="transform rounded-[12px] bg-white transition-all">
+                            <Dialog.Panel className="transform rounded-[12px] bg-lightBottom transition-all">
                                 <div className="flex w-[260px] flex-col gap-[23px] rounded-[16px] border-[0.5px] border-lightLineSecond p-[24px]">
                                     {farcasterAccounts.map(({ avatar, profileId, name }) => (
                                         <div key={profileId} className="flex items-center justify-between gap-[8px]">
@@ -79,7 +80,10 @@ export const FarcasterStatusModal = forwardRef<SingletonModalRefCreator>(functio
                                             <Trans id="Change account" />
                                         </div>
                                     </button>
-                                    <button className="flex items-center gap-[8px]">
+                                    <button
+                                        className="flex items-center gap-[8px]"
+                                        onClick={() => LogoutModalRef.open({ platform: SocialPlatform.Farcaster })}
+                                    >
                                         <Image src={'/svg/logOut.svg'} alt="logo" width={24} height={24} />
                                         <div className=" text-[17px] font-bold leading-[22px] text-[#f00]">
                                             <Trans id="Log out" />

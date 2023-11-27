@@ -1,7 +1,8 @@
 'use client';
 
+import { SocialPlatform } from '@/constants/enum.js';
 import { Image } from '@/esm/Image.js';
-import { FarcasterStatusModalRef, LensStatusModalRef } from '@/modals/controls.js';
+import { FarcasterStatusModalRef, LensStatusModalRef, LoginModalRef } from '@/modals/controls.js';
 import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
 import { useLensStateStore } from '@/store/useLensStore.js';
 
@@ -50,7 +51,10 @@ export function LoginStatusBar() {
                     />
                 </button>
             ) : (
-                <button className="relative h-[40px] w-[48px]" onClick={() => FarcasterStatusModalRef.open()}>
+                <button
+                    className="relative h-[40px] w-[48px]"
+                    onClick={() => LoginModalRef.open({ current: SocialPlatform.Farcaster })}
+                >
                     <div className="absolute left-0 top-0 h-[40px] w-[40px] rounded-[99px] shadow backdrop-blur-lg">
                         <Image src="/svg/farcaster.svg" alt="farcaster" width={40} height={40} />
                     </div>
@@ -64,7 +68,10 @@ export function LoginStatusBar() {
                 </button>
             )}
             {lensAccount ? null : (
-                <button className="relative h-[40px] w-[48px]" onClick={() => FarcasterStatusModalRef.open()}>
+                <button
+                    className="relative h-[40px] w-[48px]"
+                    onClick={() => LoginModalRef.open({ current: SocialPlatform.Lens })}
+                >
                     <div className="absolute left-0 top-0 h-[40px] w-[40px] rounded-[99px] shadow backdrop-blur-lg">
                         <Image src="/svg/lens.svg" alt="lens" width={40} height={40} />
                     </div>

@@ -22,6 +22,9 @@
     --color-line: rgba(245, 245, 245, 1);
     --color-light-bg: #f9f9f9;
     --color-light-main: #181818;
+    --color-bottom-bg: rgba(0, 0, 0, 0.05);
+    --m-common-danger: #ff3545;
+    --m-light-bottom: #fff;
     --plyr-audio-controls-background: rgba(243, 243, 243, 1);
     --plyr-range-thumb-height: 0px;
     --plyr-range-track-height: 12px;

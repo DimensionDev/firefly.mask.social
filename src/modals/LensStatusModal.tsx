@@ -4,9 +4,11 @@ import { Dialog, Transition } from '@headlessui/react';
 import { Trans } from '@lingui/react';
 import { forwardRef, Fragment } from 'react';
 
+import { SocialPlatform } from '@/constants/enum.js';
 import { Image } from '@/esm/Image.js';
 import type { SingletonModalRefCreator } from '@/maskbook/packages/shared-base/src/index.js';
 import { useSingletonModal } from '@/maskbook/packages/shared-base-ui/src/index.js';
+import { LogoutModalRef } from '@/modals/controls.js';
 import { useLensStateStore } from '@/store/useLensStore.js';
 
 export const LensStatusModal = forwardRef<SingletonModalRefCreator>(function LensStatusModal(_, ref) {
@@ -86,7 +88,13 @@ export const LensStatusModal = forwardRef<SingletonModalRefCreator>(function Len
                                             <Trans id="Change account" />
                                         </div>
                                     </button>
-                                    <button className="flex items-center gap-[8px]">
+                                    <button
+                                        className="flex items-center gap-[8px]"
+                                        onClick={() => {
+                                            LogoutModalRef.open({ platform: SocialPlatform.Lens });
+                                            dispatch?.close();
+                                        }}
+                                    >
                                         <Image src={'/svg/logOut.svg'} alt="logo" width={24} height={24} />
                                         <div className=" text-[17px] font-bold leading-[22px] text-[#f00]">
                                             <Trans id="Log out" />
