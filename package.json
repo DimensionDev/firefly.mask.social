@@ -25,6 +25,7 @@
         "@headlessui/react": "^1.7.17",
         "@heroicons/react": "^2.0.18",
         "@lens-protocol/client": "^2.0.0-alpha.20",
+        "@lens-protocol/metadata": "^1.0.5",
         "@lexical/hashtag": "^0.12.4",
         "@lexical/link": "^0.12.4",
         "@lexical/markdown": "^0.12.4",
