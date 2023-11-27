@@ -1,6 +1,7 @@
 import { type Dispatch, type SetStateAction, useCallback } from 'react';
 
-import Editor from '@/components/compose/Editor.jsx';
+import Editor from '@/components/compose/Editor.js';
+import type { IImage } from '@/components/compose/index.js';
 import { Image } from '@/esm/Image.js';
 import { classNames } from '@/helpers/classNames.js';
 
@@ -8,7 +9,7 @@ interface ComposeContentProps {
     type: 'compose' | 'quote' | 'reply';
     setCharacters: (characters: string) => void;
     images: File[];
-    setImages: Dispatch<SetStateAction<File[]>>;
+    setImages: Dispatch<SetStateAction<IImage[]>>;
 }
 export default function ComposeContent({ type, setCharacters, images, setImages }: ComposeContentProps) {
     const createImageUrl = (file: File) => URL.createObjectURL(file);

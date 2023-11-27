@@ -2,10 +2,11 @@ import { development, LensClient, production } from '@lens-protocol/client';
 import { i18n } from '@lingui/core';
 import { getWalletClient } from 'wagmi/actions';
 
+import { formatLensProfile } from '@/helpers/formatLensProfile.js';
 import { generateCustodyBearer } from '@/helpers/generateCustodyBearer.js';
 import { BaseSession } from '@/providers/base/Session.js';
 import type { Session } from '@/providers/types/Session.js';
-import { Type } from '@/providers/types/SocialMedia.js';
+import { type Profile, Type } from '@/providers/types/SocialMedia.js';
 
 export class LensSession extends BaseSession implements Session {
     constructor(
@@ -13,6 +14,7 @@ export class LensSession extends BaseSession implements Session {
         token: string,
         createdAt: number,
         expiresAt: number,
+        public profile: Profile,
         public client = new LensClient({
             environment: process.env.NODE_ENV === 'production' ? production : development,
         }),
@@ -27,6 +29,7 @@ export class LensSession extends BaseSession implements Session {
             token: this.token,
             createdAt: this.createdAt,
             expiresAt: this.expiresAt,
+            profile: this.profile,
             client: this.client,
         });
 
@@ -67,6 +70,7 @@ export class LensSession extends BaseSession implements Session {
         this.token = accessToken;
         this.createdAt = payload.params.timestamp;
         this.expiresAt = payload.params.expiresAt;
+        this.profile = formatLensProfile(profile);
     }
 
     async destroy(): Promise<void> {

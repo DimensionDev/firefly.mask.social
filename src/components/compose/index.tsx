@@ -7,6 +7,12 @@ import ComposeContent from '@/components/compose/ComposeContent.js';
 import ComposeSend from '@/components/compose/ComposeSend.js';
 import Discard from '@/components/compose/Discard.js';
 import withLexicalContext from '@/components/shared/lexical/withLexicalContext.js';
+import type { IPFSResponse } from '@/services/uploadToIPFS.js';
+
+export interface IImage {
+    file: File;
+    ipfs: IPFSResponse;
+}
 
 interface ComposeProps {
     type?: 'compose' | 'quote' | 'reply';
@@ -16,7 +22,7 @@ interface ComposeProps {
 function Compose({ type = 'compose', opened, setOpened }: ComposeProps) {
     const [characters, setCharacters] = useState('');
     const [discardOpened, setDiscardOpened] = useState(false);
-    const [images, setImages] = useState<File[]>([]);
+    const [images, setImages] = useState<IImage[]>([]);
 
     const close = useCallback(() => {
         if (characters) {
@@ -73,7 +79,7 @@ function Compose({ type = 'compose', opened, setOpened }: ComposeProps) {
                                     <ComposeContent
                                         type={type}
                                         setCharacters={setCharacters}
-                                        images={images}
+                                        images={images.map((image) => image.file)}
                                         setImages={setImages}
                                     />
 
@@ -81,7 +87,7 @@ function Compose({ type = 'compose', opened, setOpened }: ComposeProps) {
                                     <ComposeAction type={type} setImages={setImages} />
 
                                     {/* Send */}
-                                    <ComposeSend charactersLen={characters.length} setOpened={setOpened} />
+                                    <ComposeSend characters={characters} images={images} setOpened={setOpened} />
                                 </Dialog.Panel>
                             </Transition.Child>
                         </div>

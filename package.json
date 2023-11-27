@@ -17,6 +17,8 @@
         "lingui": "pnpm run lingui:extract && pnpm run lingui:compile"
     },
     "dependencies": {
+        "@aws-sdk/client-s3": "^3.456.0",
+        "@aws-sdk/lib-storage": "^3.456.0",
         "@dimensiondev/holoflows-kit": "0.9.0-20230307045856-46252fb",
         "@emotion/styled": "11.11.0",
         "@farcaster/hub-web": "^0.7.0",
@@ -48,9 +50,11 @@
         "@tanstack/react-query-devtools": "^5.8.4",
         "@tanstack/react-query-next-experimental": "^5.8.4",
         "@tippyjs/react": "^4.2.6",
+        "@types/uuid": "^9.0.3",
         "@walletconnect/socket-transport": "1.7.8",
         "async-call-rpc": "^6.3.1",
         "autoprefixer": "10.4.16",
+        "axios": "^1.6.2",
         "bignumber.js": "9.1.1",
         "canonicalize": "^2.0.0",
         "color": "^4.2.3",

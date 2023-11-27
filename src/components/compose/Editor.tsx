@@ -1,4 +1,4 @@
-import { $convertToMarkdownString, TEXT_FORMAT_TRANSFORMERS } from '@lexical/markdown/index.js';
+import { $convertToMarkdownString, TEXT_FORMAT_TRANSFORMERS } from '@lexical/markdown';
 import { ContentEditable } from '@lexical/react/LexicalContentEditable.js';
 import { HashtagPlugin } from '@lexical/react/LexicalHashtagPlugin.js';
 import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin.js';
