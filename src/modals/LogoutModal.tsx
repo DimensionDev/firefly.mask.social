@@ -34,8 +34,6 @@ export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps>
         [lensAccount, farcasterAccount, props.platform],
     );
 
-    const title = 'Log out';
-
     return (
         <Transition appear show={open} as={Fragment}>
             <Dialog as="div" className="relative z-[999]" onClose={() => dispatch?.close()}>
