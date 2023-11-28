@@ -39,7 +39,7 @@ export function ProfileInList(props: ProfileInListProps) {
 
                 {props.noFollowButton ? (
                     <div>
-                        <FollowButton profile={profile} />
+                        <FollowButton isMyProfile={false} profile={profile} />
                     </div>
                 ) : null}
             </div>
