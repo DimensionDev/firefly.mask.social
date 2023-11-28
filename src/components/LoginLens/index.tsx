@@ -9,7 +9,7 @@ import { first } from 'lodash-es';
 import { useSnackbar } from 'notistack';
 import { useMemo, useState } from 'react';
 import { useAsyncFn } from 'react-use';
-import { useAccount } from 'wagmi';
+import { useAccount, useDisconnect } from 'wagmi';
 
 import { AccountCard } from '@/components/LoginLens/AccountCard.js';
 import { Image } from '@/esm/Image.js';
@@ -19,10 +19,15 @@ import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { useLensStateStore } from '@/store/useLensStore.js';
 import type { Account } from '@/types/index.js';
 
-export function LoginLens() {
+interface LoginLensProps {
+    back: () => void;
+}
+
+export function LoginLens({ back }: LoginLensProps) {
     const [selected, setSelected] = useState<Account | undefined>();
 
     const account = useAccount();
+    const { disconnect } = useDisconnect();
 
     const updateAccounts = useLensStateStore.use.updateAccounts();
     const updateCurrentAccount = useLensStateStore.use.updateCurrentAccount();
@@ -104,7 +109,13 @@ export function LoginLens() {
                         backdropFilter: 'blur(8px)',
                     }}
                 >
-                    <button className="flex gap-[8px] py-[11px]" onClick={() => openAccountModal()}>
+                    <button
+                        className="flex gap-[8px] py-[11px]"
+                        onClick={() => {
+                            disconnect();
+                            back();
+                        }}
+                    >
                         <Image src="/svg/wallet.svg" alt="wallet" width={20} height={20} />
                         <span className=" text-[14px] font-bold leading-[18px] text-lightSecond">
                             <Trans id="Change Wallet" />

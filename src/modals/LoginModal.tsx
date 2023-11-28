@@ -172,7 +172,9 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps>>(
                                             </div>
                                         }
                                     >
-                                        {current === SocialPlatform.Lens ? <LoginLens /> : null}
+                                        {current === SocialPlatform.Lens ? (
+                                            <LoginLens back={() => setCurrent(undefined)} />
+                                        ) : null}
                                         {current === SocialPlatform.Farcaster ? <LoginFarcaster /> : null}
                                     </Suspense>
                                 )}
