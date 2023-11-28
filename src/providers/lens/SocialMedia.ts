@@ -572,12 +572,30 @@ export class LensSocialMedia implements Provider {
         );
     }
 
-    searchProfiles(indicator?: PageIndicator): Promise<Pageable<Profile>> {
-        throw new Error('Method not implemented.');
+    async searchProfiles(q: string, indicator?: PageIndicator): Promise<Pageable<Profile>> {
+        const result = await this.lensClient.search.profiles({
+            query: q,
+            cursor: indicator?.id,
+            limit: LimitType.TwentyFive,
+        });
+        return createPageable(
+            result.items.map((item) => formatLensProfile(item)),
+            indicator,
+            createNextIndicator(indicator, result.pageInfo.next ?? undefined),
+        );
     }
 
-    searchPosts(indicator?: PageIndicator): Promise<Pageable<Post>> {
-        throw new Error('Method not implemented.');
+    async searchPosts(q: string, indicator?: PageIndicator): Promise<Pageable<Post>> {
+        const result = await this.lensClient.search.publications({
+            query: q,
+            cursor: indicator?.id,
+            limit: LimitType.TwentyFive,
+        });
+        return createPageable(
+            result.items.map((item) => formatLensPost(item)),
+            indicator,
+            createNextIndicator(indicator, result.pageInfo.next ?? undefined),
+        );
     }
 }
 
