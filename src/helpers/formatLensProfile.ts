@@ -1,6 +1,7 @@
 import type { ProfileFragment } from '@lens-protocol/client';
 import { zeroAddress } from 'viem';
 
+import { SocialPlatform } from '@/constants/enum.js';
 import { AVATAR } from '@/constants/index.js';
 import { formatImageUrl } from '@/helpers/formatImageUrl.js';
 import { getStampFyiURL } from '@/helpers/getStampFyiURL.js';
@@ -43,5 +44,6 @@ export function formatLensProfile(result: ProfileFragment): Profile {
             following: result.operations.isFollowedByMe.value,
             followedBy: result.operations.isFollowingMe.value,
         },
+        source: SocialPlatform.Lens,
     };
 }
