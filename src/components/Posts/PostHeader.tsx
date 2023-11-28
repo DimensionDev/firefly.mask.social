@@ -1,11 +1,11 @@
 import { memo } from 'react';
+import { useDarkMode } from 'usehooks-ts';
 
 import More from '@/assets/more.svg';
 import { Image } from '@/components/Image.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getSocialPlatformIconBySource } from '@/helpers/getSocialPlatformIconBySource.js';
-import { useQueryMode } from '@/hooks/useQueryMode.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 interface PostHeaderProps {
@@ -14,8 +14,8 @@ interface PostHeaderProps {
 }
 
 export const PostHeader = memo<PostHeaderProps>(function PostHeader({ post, isQuote = false }) {
-    const mode = useQueryMode();
-    const sourceIcon = getSocialPlatformIconBySource(post.source, mode);
+    const { isDarkMode } = useDarkMode();
+    const sourceIcon = getSocialPlatformIconBySource(post.source, isDarkMode);
 
     return (
         <div className="flex justify-between space-x-1.5">
@@ -29,7 +29,7 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({ post, isQu
                         'w-6': isQuote,
                     })}
                     src={post.author.pfp}
-                    fallback={mode === 'light' ? '/image/firefly-light-avatar.png' : '/image/firefly-dark-avatar.png'}
+                    fallback={!isDarkMode ? '/image/firefly-light-avatar.png' : '/image/firefly-dark-avatar.png'}
                     width={40}
                     height={40}
                     alt={post.author.profileId}

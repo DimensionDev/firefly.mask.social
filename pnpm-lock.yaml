@@ -383,6 +383,9 @@ importers:
       '@lingui/macro':
         specifier: ^4.5.0
         version: 4.5.0(@lingui/react@4.5.0)(babel-plugin-macros@3.1.0)(typescript@5.2.2)
+      '@lingui/swc-plugin':
+        specifier: ^4.0.4
+        version: 4.0.4(@lingui/macro@4.5.0)(@swc/core@1.3.96)(next@14.0.2)
       '@sinonjs/text-encoding':
         specifier: ^0.7.2
         version: 0.7.2
@@ -10129,6 +10132,23 @@ packages:
       '@lingui/core': 4.5.0
       react: 18.2.0
 
+  /@lingui/swc-plugin@4.0.4(@lingui/macro@4.5.0)(@swc/core@1.3.96)(next@14.0.2):
+    resolution: {integrity: sha512-xRnR96Mqi6zwGlVfGJMfoM8QykBbUz/sSnwmcFL9BZ8Y9YBZxzLAVf4t1BbiIQsAs+pMYu/HfujTBD4y/r1ucA==}
+    peerDependencies:
+      '@lingui/macro': '4'
+      '@swc/core': '*'
+      next: '*'
+    peerDependenciesMeta:
+      '@swc/core':
+        optional: true
+      next:
+        optional: true
+    dependencies:
+      '@lingui/macro': 4.5.0(@lingui/react@4.5.0)(babel-plugin-macros@3.1.0)(typescript@5.2.2)
+      '@swc/core': 1.3.96
+      next: 14.0.2(babel-plugin-macros@3.1.0)(react-dom@18.2.0)(react@18.2.0)
+    dev: true
+
   /@lit-labs/ssr-dom-shim@1.1.2:
     resolution: {integrity: sha512-jnOD+/+dSrfTWYfSXBXlo5l5f0q1UuJo3tkbMDCYA2lKUYq79jaxqtGEvnRoh049nt1vdo1+45RinipU6FGY2g==}
     dev: false
@@ -11341,7 +11361,6 @@ packages:
 
   /@next/env@14.0.2:
     resolution: {integrity: sha512-HAW1sljizEaduEOes/m84oUqeIDAUYBR1CDwu2tobNlNDFP3cSm9d6QsOsGeNlIppU1p/p1+bWbYCbvwjFiceA==}
-    dev: false
 
   /@next/eslint-plugin-next@13.5.2:
     resolution: {integrity: sha512-Ew8DOUerJYGRo8pI84SVwn9wxxx8sH92AanCXSkkLJM2W0RJEWy+BqWSCfrlA/3ZIczEl4l4o4lOeTGBPYfBJg==}
@@ -11354,7 +11373,6 @@ packages:
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [darwin]
-    dev: false
     optional: true
 
   /@next/swc-darwin-x64@14.0.2:
@@ -11362,7 +11380,6 @@ packages:
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [darwin]
-    dev: false
     optional: true
 
   /@next/swc-linux-arm64-gnu@14.0.2:
@@ -11370,7 +11387,6 @@ packages:
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [linux]
-    dev: false
     optional: true
 
   /@next/swc-linux-arm64-musl@14.0.2:
@@ -11378,7 +11394,6 @@ packages:
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [linux]
-    dev: false
     optional: true
 
   /@next/swc-linux-x64-gnu@14.0.2:
@@ -11386,7 +11401,6 @@ packages:
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [linux]
-    dev: false
     optional: true
 
   /@next/swc-linux-x64-musl@14.0.2:
@@ -11394,7 +11408,6 @@ packages:
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [linux]
-    dev: false
     optional: true
 
   /@next/swc-win32-arm64-msvc@14.0.2:
@@ -11402,7 +11415,6 @@ packages:
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [win32]
-    dev: false
     optional: true
 
   /@next/swc-win32-ia32-msvc@14.0.2:
@@ -11410,7 +11422,6 @@ packages:
     engines: {node: '>= 10'}
     cpu: [ia32]
     os: [win32]
-    dev: false
     optional: true
 
   /@next/swc-win32-x64-msvc@14.0.2:
@@ -11418,7 +11429,6 @@ packages:
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [win32]
-    dev: false
     optional: true
 
   /@nice-labs/emit-file-webpack-plugin@1.1.4(webpack@5.88.2):
@@ -14565,7 +14575,6 @@ packages:
     resolution: {integrity: sha512-E4KcWTpoLHqwPHLxidpOqQbcrZVgi0rsmmZXUle1jXmJfuIf/UWpczUJ7MZZ5tlxytgJXyp0w4PGkkeLiuIdZw==}
     dependencies:
       tslib: 2.6.2
-    dev: false
 
   /@swc/types@0.1.5:
     resolution: {integrity: sha512-myfUej5naTBWnqOCc/MdVOLVjXUXtIA+NpDrDBKJtLLg2shUjBu3cZmB/85RyitKc55+lUUyl7oRfLOvkr2hsw==}
@@ -18653,7 +18662,6 @@ packages:
     engines: {node: '>=10.16.0'}
     dependencies:
       streamsearch: 1.1.0
-    dev: false
 
   /bytes@3.0.0:
     resolution: {integrity: sha512-pMhOfFDPiv9t5jjIXkHosWmkSyQbvsgEVNkz0ERHbuLh2T/7j4Mqqpz523Fe8MVY89KC6Sh/QfS2sM+SjgFDcw==}
@@ -19142,7 +19150,6 @@ packages:
 
   /client-only@0.0.1:
     resolution: {integrity: sha512-IV3Ou0jSMzZrd3pZ48nLkT9DA7Ag1pnPzaiQhpW7c3RbcqqzvzzVu+L8gfqMp/8IM2MQtSiqaCxrrcfu8I8rMA==}
-    dev: false
 
   /clipboard-polyfill@3.0.3:
     resolution: {integrity: sha512-hts0o01ZkwjA1qHA5gFePzAj/780W7v+eyN3GdaCRyDnapzcPsKRV5aodv77gcr40NDIcyNjNmc+HvfKV+jD0g==}
@@ -28708,7 +28715,6 @@ packages:
     transitivePeerDependencies:
       - '@babel/core'
       - babel-plugin-macros
-    dev: false
 
   /njre@0.2.0:
     resolution: {integrity: sha512-+Wq8R6VmjK+jI8a9NdzfU6Vh50r3tjsdvl5KJE1OyHeH8I/nx5Ptm12qpO3qNUbstXuZfBDgDL0qQZw9JyjhMw==}
@@ -30579,7 +30585,6 @@ packages:
       loose-envify: 1.4.0
       react: 18.2.0
       scheduler: 0.23.0
-    dev: false
 
   /react-draggable@4.4.5(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-OMHzJdyJbYTZo4uQE393fHcqqPYsEtkjfMgvCHr6rejT+Ezn4OZbNyGH50vv+SunC1RMvwOTSWkEODQLzw1M9g==}
@@ -31951,7 +31956,6 @@ packages:
     resolution: {integrity: sha512-CtuThmgHNg7zIZWAXi3AsyIzA3n4xx7aNyjwC2VJldO2LMVDhFK+63xGqq6CsJH4rTAt6/M+N4GhZiDYPx9eUw==}
     dependencies:
       loose-envify: 1.4.0
-    dev: false
 
   /schema-utils@3.3.0:
     resolution: {integrity: sha512-pN/yOAvcC+5rQ5nERGuwrjLlYvLTbCibnZ1I7B1LaiAz9BRBlE9GMgE/eqV30P7aJQUf7Ddimy/RsbYO/GrVGg==}
@@ -32798,7 +32802,6 @@ packages:
   /streamsearch@1.1.0:
     resolution: {integrity: sha512-Mcc5wHehp9aXz1ax6bZUyY5afg9u2rv5cqQI3mRrYkGC8rW2hM02jWuwjtL++LS5qinSyhj2QfLyNsuc+VsExg==}
     engines: {node: '>=10.0.0'}
-    dev: false
 
   /strict-event-emitter@0.2.8:
     resolution: {integrity: sha512-KDf/ujU8Zud3YaLtMCcTI4xkZlZVIYxTLr+XIULexP+77EEVWixeXroLUXQXiVtH4XH2W7jr/3PT1v3zBuvc3A==}
@@ -33057,7 +33060,6 @@ packages:
       babel-plugin-macros: 3.1.0
       client-only: 0.0.1
       react: 18.2.0
-    dev: false
 
   /stylis@4.2.0:
     resolution: {integrity: sha512-Orov6g6BB1sDfYgzWfTHDOxamtX1bE/zo104Dh9e6fqJ3PooipYyfJ0pUmrZO2wAvO8YbEyeFrkV91XTsGMSrw==}
@@ -36715,6 +36717,7 @@ time:
   /@lingui/core@4.5.0: '2023-09-14T08:22:48.955Z'
   /@lingui/macro@4.5.0: '2023-09-14T08:22:50.547Z'
   /@lingui/react@4.5.0: '2023-09-14T08:22:51.326Z'
+  /@lingui/swc-plugin@4.0.4: '2023-07-26T12:46:59.533Z'
   /@livepeer/react@3.0.5: '2023-11-16T15:35:37.068Z'
   /@magic-works/i18n-codegen@0.5.0: '2023-02-17T06:35:05.095Z'
   /@masknet/compartment@0.4.2: '2022-10-31T05:24:41.592Z'

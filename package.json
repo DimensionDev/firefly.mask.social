@@ -114,6 +114,7 @@
         "@lingui/cli": "^4.5.0",
         "@lingui/conf": "^4.5.0",
         "@lingui/macro": "^4.5.0",
+        "@lingui/swc-plugin": "^4.0.4",
         "@sinonjs/text-encoding": "^0.7.2",
         "@svgr/webpack": "^8.1.0",
         "@types/lodash-es": "^4.17.10",

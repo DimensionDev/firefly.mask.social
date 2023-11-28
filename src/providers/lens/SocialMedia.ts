@@ -1,4 +1,5 @@
 import {
+    CustomFiltersType,
     ExploreProfilesOrderByType,
     ExplorePublicationsOrderByType,
     isRelaySuccess,
@@ -17,11 +18,13 @@ import {
     type Pageable,
     type PageIndicator,
 } from '@masknet/shared-base';
+import { first, flatMap } from 'lodash-es';
 import type { TypedDataDomain } from 'viem';
 import type { WalletClient } from 'wagmi';
 import { getWalletClient } from 'wagmi/actions';
 
-import { formatLensPost } from '@/helpers/formatLensPost.js';
+import { SocialPlatform } from '@/constants/enum.js';
+import { formatLensPost, formatLensQuoteOrComment } from '@/helpers/formatLensPost.js';
 import { formatLensProfile } from '@/helpers/formatLensProfile.js';
 import { generateCustodyBearer } from '@/helpers/generateCustodyBearer.js';
 import { isZero } from '@/maskbook/packages/web3-shared/base/src/index.js';
@@ -473,6 +476,9 @@ export class LensSocialMedia implements Provider {
 
     async getNotifications(indicator?: PageIndicator): Promise<Pageable<Notification, PageIndicator>> {
         const result = await this.lensClient.notifications.fetch({
+            where: {
+                customFilters: [CustomFiltersType.Gardeners],
+            },
             cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
         });
 
@@ -483,48 +489,52 @@ export class LensSocialMedia implements Provider {
                 if (item.__typename === 'MirrorNotification') {
                     if (item.mirrors.length === 0) throw new Error('No mirror found');
 
+                    const time = first(item.mirrors)?.mirroredAt;
                     return {
+                        source: SocialPlatform.Lens,
                         notificationId: item.id,
                         type: NotificationType.Mirror,
-                        mirror: await this.getPostById(item.mirrors[0].mirrorId),
-                        post: await this.getPostById(item.publication.id),
+                        mirrors: item.mirrors.map((x) => formatLensProfile(x.profile)),
+                        post: formatLensPost(item.publication),
+                        timestamp: time ? new Date(time).getTime() : undefined,
                     };
                 }
 
                 if (item.__typename === 'QuoteNotification') {
-                    const quote = await this.getPostById(item.quote.id);
+                    const time = item.quote.createdAt;
                     return {
+                        source: SocialPlatform.Lens,
                         notificationId: item.id,
                         type: NotificationType.Quote,
-                        quote,
-                        post: quote,
+                        quote: formatLensPost(item.quote),
+                        post: formatLensQuoteOrComment(item.quote.quoteOn),
+                        timestamp: time ? new Date(time).getTime() : undefined,
                     };
                 }
 
                 if (item.__typename === 'ReactionNotification') {
                     if (item.reactions.length === 0) throw new Error('No reaction found');
 
+                    const time = first(flatMap(item.reactions.map((x) => x.reactions)))?.reactedAt;
                     return {
+                        source: SocialPlatform.Lens,
                         notificationId: item.id,
                         type: NotificationType.Reaction,
                         reaction: ReactionType.Upvote,
-                        reactor: formatLensProfile(item.reactions[0].profile),
-                        post: await this.getPostById(item.publication.id),
+                        reactors: item.reactions.map((x) => formatLensProfile(x.profile)),
+                        post: formatLensPost(item.publication),
+                        timestamp: time ? new Date(time).getTime() : undefined,
                     };
                 }
 
                 if (item.__typename === 'CommentNotification') {
-                    const post = await this.getPostById(item.comment.commentOn.id);
                     return {
+                        source: SocialPlatform.Lens,
                         notificationId: item.id,
                         type: NotificationType.Comment,
-                        comment: {
-                            commentId: item.comment.id,
-                            timestamp: new Date(item.comment.createdAt).getTime(),
-                            author: formatLensProfile(item.comment.by),
-                            for: post,
-                        },
-                        post,
+                        comment: formatLensPost(item.comment),
+                        post: formatLensQuoteOrComment(item.comment.commentOn),
+                        timestamp: new Date(item.comment.createdAt).getTime(),
                     };
                 }
 
@@ -532,9 +542,10 @@ export class LensSocialMedia implements Provider {
                     if (item.followers.length === 0) throw new Error('No follower found');
 
                     return {
+                        source: SocialPlatform.Lens,
                         notificationId: item.id,
                         type: NotificationType.Follow,
-                        follower: formatLensProfile(item.followers[0]),
+                        followers: item.followers.map(formatLensProfile),
                     };
                 }
 
@@ -542,9 +553,23 @@ export class LensSocialMedia implements Provider {
                     const post = formatLensPost(item.publication);
 
                     return {
+                        source: SocialPlatform.Lens,
                         notificationId: item.id,
                         type: NotificationType.Mention,
                         post,
+                        timestamp: new Date(item.publication.createdAt).getTime(),
+                    };
+                }
+
+                if (item.__typename === 'ActedNotification') {
+                    const time = first(item.actions)?.actedAt;
+                    return {
+                        source: SocialPlatform.Lens,
+                        notificationId: item.id,
+                        type: NotificationType.Act,
+                        post: formatLensPost(item.publication),
+                        actions: item.actions.map((x) => formatLensProfile(x.by)),
+                        timestamp: time ? new Date(time).getTime() : undefined,
                     };
                 }
 

@@ -1,7 +1,9 @@
 'use client';
 
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
+import { compact } from 'lodash-es';
 
+import { NotificationItem } from '@/components/Notification/NotificationItem.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { useLogin } from '@/hooks/useLogin.js';
@@ -22,7 +24,6 @@ export default function Notification() {
                     return LensSocialMediaProvider.getNotifications(createIndicator(undefined, pageParam));
                 case SocialPlatform.Farcaster:
                     return;
-                // return WarpcastSocialMediaProvider;
             }
         },
         initialPageParam: '',
@@ -33,5 +34,11 @@ export default function Notification() {
         return <NotLoginFallback platform={currentSocialPlatform} />;
     }
 
-    return null;
+    return (
+        <div>
+            {compact(data.pages.flatMap((x) => x?.data)).map((notification, index) => (
+                <NotificationItem key={index} notification={notification} />
+            ))}
+        </div>
+    );
 }
