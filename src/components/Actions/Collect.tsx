@@ -25,11 +25,16 @@ export const Collect = memo<CollectProps>(function Collect({ count, disabled = f
             className={classNames('flex items-center space-x-2 text-secondary hover:text-primaryPink', {
                 'opacity-50': disabled,
             })}
+            onClick={(event) => {
+                event.preventDefault();
+                event.stopPropagation();
+            }}
         >
             <Tooltip content="Act" placement="top" disabled={disabled}>
                 <motion.button
                     disabled={disabled}
                     onClick={(event) => {
+                        event.preventDefault();
                         event.stopPropagation();
                         if (!disabled) handleClick();
                     }}
