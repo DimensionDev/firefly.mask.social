@@ -1,12 +1,6 @@
 import { Message } from '@farcaster/hub-web';
 import { i18n } from '@lingui/core';
-import {
-    createIndicator,
-    createNextIndicator,
-    createPageable,
-    type Pageable,
-    type PageIndicator,
-} from '@masknet/shared-base';
+import { createPageable, type Pageable, type PageIndicator } from '@masknet/shared-base';
 import * as ed from '@noble/ed25519';
 import { sha512 } from '@noble/hashes/sha512';
 import dayjs from 'dayjs';
@@ -18,10 +12,7 @@ import { toBytes } from 'viem';
 import { SocialPlatform } from '@/constants/enum.js';
 import { EMPTY_LIST, FIREFLY_HUBBLE_URL, FIREFLY_ROOT_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
-import { formatWarpcastPostFromFeed } from '@/helpers/formatWarpcastPost.js';
 import { getResourceType } from '@/helpers/getResourceType.js';
-import { waitForSignedKeyRequestComplete } from '@/helpers/waitForSignedKeyRequestComplete.js';
-import { SessionFactory } from '@/providers/base/SessionFactory.js';
 import {
     FarcasterNetwork,
     HashScheme,
@@ -34,8 +25,8 @@ import { FireflySession } from '@/providers/firefly/Session.js';
 import type { CastResponse, CastsResponse, UserResponse, UsersResponse } from '@/providers/types/Firefly.js';
 import { type Post, type Profile, ProfileStatus, type Provider, Type } from '@/providers/types/SocialMedia.js';
 import { ReactionType as ReactionTypeCustom } from '@/providers/types/SocialMedia.js';
-import type { FeedResponse } from '@/providers/types/Warpcast.js';
-import type { MetadataAsset, ResponseJSON } from '@/types/index.js';
+import { WarpcastSocialMediaProvider } from '@/providers/warpcast/SocialMedia.js';
+import type { MetadataAsset } from '@/types/index.js';
 
 ed.etc.sha512Sync = (...m: any) => sha512(ed.etc.concatBytes(...m));
 
@@ -46,66 +37,15 @@ export class FireflySocialMedia implements Provider {
     }
 
     async createSession(setUrlOrSignal?: AbortSignal | ((url: string) => void), signal?: AbortSignal) {
-        const response = await fetchJSON<
-            ResponseJSON<{
-                publicKey: string;
-                privateKey: string;
-                fid: string;
-                token: string;
-                timestamp: number;
-                expiresAt: number;
-                deeplinkUrl: string;
-            }>
-        >('/api/warpcast/signin', {
-            method: 'POST',
-        });
-        if (!response.success) throw new Error(response.error.message);
-
-        const setUrl = typeof setUrlOrSignal === 'function' ? setUrlOrSignal : undefined;
-        const abortSignal = setUrlOrSignal instanceof AbortSignal ? setUrlOrSignal : signal;
-
-        // present QR code to the user
-        setUrl?.(response.data.deeplinkUrl);
-
-        await waitForSignedKeyRequestComplete(abortSignal)(response.data.token);
-
-        const session = new FireflySession(
-            response.data.fid,
-            response.data.privateKey,
-            response.data.timestamp,
-            response.data.expiresAt,
-        );
-        localStorage.setItem('firefly_session', session.serialize());
-        return session;
+        return WarpcastSocialMediaProvider.createSession(setUrlOrSignal, signal);
     }
 
     async resumeSession(): Promise<FireflySession | null> {
-        const currentTime = Date.now();
-
-        const storedSession = localStorage.getItem('firefly_session');
-
-        if (storedSession) {
-            const recoveredSession = SessionFactory.createSession<FireflySession>(storedSession);
-            if (recoveredSession.expiresAt > currentTime) {
-                return recoveredSession;
-            } else {
-                return null;
-            }
-        }
-        return null;
+        return WarpcastSocialMediaProvider.resumeSession();
     }
 
     async discoverPosts(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        const url = urlcat('https://client.warpcast.com/v2', '/default-recommended-feed', {
-            limit: 10,
-            cursor: indicator?.id,
-        });
-
-        const { result, next } = await fetchJSON<FeedResponse>(url, {
-            method: 'GET',
-        });
-        const data = result.feed.map(formatWarpcastPostFromFeed);
-        return createPageable(data, indicator ?? createIndicator(), createNextIndicator(indicator, next.cursor));
+        throw new Error('Method not implemented.');
     }
 
     async getPostById(postId: string): Promise<Post> {
@@ -171,18 +111,8 @@ export class FireflySocialMedia implements Provider {
         };
     }
 
-    // @ts-ignore
-    async getPostsByParentPostId(postId: string, username: string, indicator?: PageIndicator) {
-        const url = urlcat('https://client.warpcast.com/v2', '/v2/user-thread-casts', {
-            castHashPrefix: postId,
-            limit: 10,
-            username,
-        });
-        const { result, next } = await fetchJSON<FeedResponse>(url, {
-            method: 'GET',
-        });
-        const data = result.feed.map(formatWarpcastPostFromFeed);
-        return createPageable(data, indicator ?? createIndicator(), createNextIndicator(indicator, next.cursor));
+    async getPostsByParentPostId(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        throw new Error('Method not implemented.');
     }
 
     async getFollowers(profileId: string, indicator?: PageIndicator) {
@@ -371,9 +301,7 @@ export class FireflySocialMedia implements Provider {
         };
 
         const encodedData = MessageData.encode(messageData).finish();
-
         const messageHash = await blake3(encodedData);
-
         const signature = await ed.signAsync(encodedData, toBytes(session.token));
 
         const message = {
@@ -393,6 +321,7 @@ export class FireflySocialMedia implements Provider {
             body: messageBytes,
         });
         if (!data) throw new Error(i18n.t('Failed to upvote post'));
+
         return {
             reactionId: messageHash,
             type: ReactionTypeCustom.Upvote,
@@ -419,9 +348,7 @@ export class FireflySocialMedia implements Provider {
         };
 
         const encodedData = MessageData.encode(messageData).finish();
-
         const messageHash = await blake3(encodedData);
-
         const signature = await ed.signAsync(encodedData, toBytes(session.token));
 
         const message = {
@@ -467,9 +394,7 @@ export class FireflySocialMedia implements Provider {
         };
 
         const encodedData = MessageData.encode(messageData).finish();
-
         const messageHash = await blake3(encodedData);
-
         const signature = await ed.signAsync(encodedData, toBytes(session.token));
 
         const message = {
@@ -511,9 +436,7 @@ export class FireflySocialMedia implements Provider {
         };
 
         const encodedData = MessageData.encode(messageData).finish();
-
         const messageHash = await blake3(encodedData);
-
         const signature = await ed.signAsync(encodedData, toBytes(session.token));
 
         const message = {
@@ -555,9 +478,7 @@ export class FireflySocialMedia implements Provider {
         };
 
         const encodedData = MessageData.encode(messageData).finish();
-
         const messageHash = await blake3(encodedData);
-
         const signature = await ed.signAsync(encodedData, toBytes(session.token));
 
         const message = {
@@ -596,9 +517,7 @@ export class FireflySocialMedia implements Provider {
         };
 
         const encodedData = MessageData.encode(messageData).finish();
-
         const messageHash = await blake3(encodedData);
-
         const signature = await ed.signAsync(encodedData, toBytes(session.token));
 
         const message = {
@@ -637,9 +556,7 @@ export class FireflySocialMedia implements Provider {
         };
 
         const encodedData = MessageData.encode(messageData).finish();
-
         const messageHash = await blake3(encodedData);
-
         const signature = await ed.signAsync(encodedData, toBytes(session.token));
 
         const message = {
@@ -662,11 +579,11 @@ export class FireflySocialMedia implements Provider {
         return null!;
     }
 
-    searchProfiles(indicator?: PageIndicator): Promise<Pageable<Profile>> {
+    searchProfiles(q: string, indicator?: PageIndicator): Promise<Pageable<Profile>> {
         throw new Error(i18n.t('Method not implemented.'));
     }
 
-    searchPosts(indicator?: PageIndicator): Promise<Pageable<Post>> {
+    searchPosts(q: string, indicator?: PageIndicator): Promise<Pageable<Post>> {
         throw new Error(i18n.t('Method not implemented.'));
     }
 }
