@@ -40,7 +40,7 @@ export const NotLoginFallback = memo<NotLoginFallbackProps>(function LoginFallba
                     },
                 )}
                 onClick={() => {
-                    LoginModalRef.open();
+                    LoginModalRef.open({});
                 }}
             >
                 <Trans id="Connect to {platform}" values={{ platform }} />
