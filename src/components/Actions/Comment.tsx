@@ -55,12 +55,17 @@ export const Comment = memo<CommentProps>(function Comment({ count, disabled = f
                 'cursor-not-allowed': disabled,
                 'opacity-50': disabled,
             })}
+            onClick={(event) => {
+                event.preventDefault();
+                event.stopPropagation();
+            }}
         >
             <motion.button
                 disabled={disabled}
                 whileTap={{ scale: 0.9 }}
                 className={'rounded-full p-1.5 text-secondary hover:bg-bg'}
                 onClick={(event) => {
+                    event.preventDefault();
                     event.stopPropagation();
                     if (!disabled) handleClick();
                 }}

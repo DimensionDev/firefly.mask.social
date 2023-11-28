@@ -17,6 +17,10 @@ export const Views = memo<ViewsProps>(function Collect({ count, disabled = false
             className={classNames('flex items-center space-x-2 text-secondary', {
                 'opacity-50': disabled,
             })}
+            onClick={(event) => {
+                event.preventDefault();
+                event.stopPropagation();
+            }}
         >
             <Tooltip
                 content={
@@ -33,6 +37,7 @@ export const Views = memo<ViewsProps>(function Collect({ count, disabled = false
                     disabled={disabled}
                     onClick={(event) => {
                         event.stopPropagation();
+                        event.preventDefault();
                     }}
                     whileTap={{ scale: 0.9 }}
                     className=" rounded-full p-1.5"
