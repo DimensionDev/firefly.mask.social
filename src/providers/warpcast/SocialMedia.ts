@@ -168,7 +168,7 @@ export class WarpcastSocialMedia implements Provider {
                 followingCount: cast.author.followingCount,
                 status: ProfileStatus.Active,
                 verified: cast.author.pfp.verified,
-                source: SocialPlatform.Farcaster
+                source: SocialPlatform.Farcaster,
             },
             metadata: {
                 locale: '',
@@ -204,6 +204,7 @@ export class WarpcastSocialMedia implements Provider {
                 following: user.viewerContext.following,
                 followedBy: user.viewerContext.followedBy,
             },
+            source: SocialPlatform.Farcaster,
         };
     }
 
@@ -233,7 +234,7 @@ export class WarpcastSocialMedia implements Provider {
                     followingCount: cast.author.followingCount,
                     status: ProfileStatus.Active,
                     verified: cast.author.pfp.verified,
-                    source: SocialPlatform.Farcaster
+                    source: SocialPlatform.Farcaster,
                 },
                 metadata: {
                     locale: '',
@@ -275,6 +276,7 @@ export class WarpcastSocialMedia implements Provider {
                 following: user.viewerContext.following,
                 followedBy: user.viewerContext.followedBy,
             },
+            source: SocialPlatform.Farcaster,
         }));
 
         return createPageable(data, indicator, createNextIndicator(indicator, next.cursor));
@@ -302,6 +304,7 @@ export class WarpcastSocialMedia implements Provider {
                 following: user.viewerContext.following,
                 followedBy: user.viewerContext.followedBy,
             },
+            source: SocialPlatform.Farcaster,
         }));
 
         return createPageable(data, indicator, createNextIndicator(indicator, next.cursor));
@@ -328,7 +331,7 @@ export class WarpcastSocialMedia implements Provider {
                 followingCount: cast.author.followingCount,
                 status: ProfileStatus.Active,
                 verified: cast.author.pfp.verified,
-                source: SocialPlatform.Farcaster
+                source: SocialPlatform.Farcaster,
             },
             metadata: {
                 locale: '',
