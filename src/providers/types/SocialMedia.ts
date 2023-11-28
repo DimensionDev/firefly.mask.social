@@ -112,7 +112,7 @@ export interface Attachment {
 
 export type PostType = 'Post' | 'Comment' | 'Quote' | 'Mirror';
 export interface Post {
-    type: PostType;
+    type?: PostType;
     postId: string;
     parentPostId?: string;
     parentAuthor?: Profile;

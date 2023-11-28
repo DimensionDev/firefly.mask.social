@@ -90,7 +90,7 @@ export const NotificationItem = memo<NotificationItemProps>(function SingleNotif
             case NotificationType.Reaction:
                 const firstReactorName = first(notification.reactors)?.displayName;
 
-                if (!firstReactorName || !notification.post) return;
+                if (!firstReactorName || !notification.post?.type) return;
                 return (
                     <Trans>
                         <Plural
@@ -110,6 +110,7 @@ export const NotificationItem = memo<NotificationItemProps>(function SingleNotif
                 );
             case NotificationType.Quote:
                 const by = notification.quote.author;
+                if (!notification.quote.type) return;
                 return (
                     <Trans>
                         <strong>{by.displayName}</strong> quoted your{' '}
@@ -136,7 +137,7 @@ export const NotificationItem = memo<NotificationItemProps>(function SingleNotif
                     </Trans>
                 );
             case NotificationType.Comment:
-                if (!notification.comment) return;
+                if (!notification.comment?.type) return;
                 const author = notification.comment.author;
                 return (
                     <Trans>
@@ -147,7 +148,7 @@ export const NotificationItem = memo<NotificationItemProps>(function SingleNotif
                     </Trans>
                 );
             case NotificationType.Mention:
-                if (!notification.post) return;
+                if (!notification.post?.type) return;
                 const mentionAuthor = notification.post.author;
                 return (
                     <Trans>
@@ -159,7 +160,7 @@ export const NotificationItem = memo<NotificationItemProps>(function SingleNotif
                 );
             case NotificationType.Mirror:
                 const firstMirrorName = first(notification.mirrors)?.displayName;
-                if (!firstMirrorName || !notification.post) return;
+                if (!firstMirrorName || !notification.post?.type) return;
                 return (
                     <Trans>
                         <Plural
@@ -178,7 +179,7 @@ export const NotificationItem = memo<NotificationItemProps>(function SingleNotif
                 );
             case NotificationType.Act:
                 const firstActedName = first(notification.actions)?.displayName;
-                if (!firstActedName) return;
+                if (!firstActedName || !notification.post.type) return;
                 return (
                     <Trans>
                         <Plural
