@@ -3,11 +3,10 @@
 import { i18n } from '@lingui/core';
 import { Trans } from '@lingui/react';
 import { Switch } from '@mui/material';
-import { useAccountModal } from '@rainbow-me/rainbowkit';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { first } from 'lodash-es';
 import { useSnackbar } from 'notistack';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 import { useAccount, useDisconnect } from 'wagmi';
 
@@ -25,6 +24,7 @@ interface LoginLensProps {
 
 export function LoginLens({ back }: LoginLensProps) {
     const [selected, setSelected] = useState<Account | undefined>();
+    const [signless, setSignless] = useState(true);
 
     const account = useAccount();
     const { disconnect } = useDisconnect();
@@ -45,6 +45,7 @@ export function LoginLens({ back }: LoginLensProps) {
                 avatar: profile.pfp,
                 profileId: profile.displayName,
                 id: profile.profileId,
+                signless: profile.signless,
             }));
 
             if (!result.length) {
@@ -60,8 +61,6 @@ export function LoginLens({ back }: LoginLensProps) {
         },
     });
 
-    const { openAccountModal } = useAccountModal();
-
     const current = useMemo(() => selected ?? first(accounts), [selected, accounts]);
 
     const [, login] = useAsyncFn(async () => {
@@ -71,6 +70,11 @@ export function LoginLens({ back }: LoginLensProps) {
         enqueueSnackbar(i18n.t('Your Lens account is now connected'), { variant: 'success' });
         LoginModalRef.close();
     }, [accounts, current]);
+
+    useEffect(() => {
+        if (!current) return;
+        setSignless(signless);
+    }, [current, signless]);
 
     return (
         <div
@@ -96,7 +100,7 @@ export function LoginLens({ back }: LoginLensProps) {
                         <span className="text-[14px] font-bold leading-[18px] text-lightMain">
                             <Trans id="Delegate Signing (Recommend)" />
                         </span>
-                        <Switch checked />
+                        <Switch checked={signless} onChange={(e) => setSignless(e.target.checked)} />
                     </div>
                     <div className="w-full text-left text-[14px] leading-[16px] text-lightSecond">
                         <Trans id="Allow Lens Manager to perform actions such as posting, liking, and commenting without the need to sign each transaction" />

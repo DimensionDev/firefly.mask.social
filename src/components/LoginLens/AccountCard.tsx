@@ -20,7 +20,7 @@ export function AccountCard({ isCurrent, setAccount, ...account }: AccountCardPr
                 <Image src={avatar} alt="avatar" width={46} height={46} className="rounded-[99px]" />
             </div>
             <div className="inline-flex shrink grow basis-0 flex-col items-start justify-center gap-1">
-                <div className="font-['PingFang SC'] text-base font-medium text-neutral-900">{name}</div>
+                <div className="font-['PingFang SC'] text-base font-medium text-main">{name}</div>
                 <div className="font-['PingFang SC'] text-[15px] font-normal text-neutral-500">@{profileId}</div>
             </div>
             {isCurrent ? (
