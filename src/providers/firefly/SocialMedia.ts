@@ -1,43 +1,24 @@
-import { Message } from '@farcaster/hub-web';
 import { i18n } from '@lingui/core';
-import {
-    createIndicator,
-    createNextIndicator,
-    createPageable,
-    type Pageable,
-    type PageIndicator,
-} from '@masknet/shared-base';
-import * as ed from '@noble/ed25519';
-import { sha512 } from '@noble/hashes/sha512';
+import { createPageable, type Pageable, type PageIndicator } from '@masknet/shared-base';
 import dayjs from 'dayjs';
-import { blake3 } from 'hash-wasm';
 import { first } from 'lodash-es';
 import urlcat from 'urlcat';
-import { toBytes } from 'viem';
 
 import { SocialPlatform } from '@/constants/enum.js';
-import { EMPTY_LIST, FIREFLY_HUBBLE_URL, FIREFLY_ROOT_URL } from '@/constants/index.js';
+import { FIREFLY_ROOT_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
-import { formatWarpcastPostFromFeed } from '@/helpers/formatWarpcastPost.js';
 import { getResourceType } from '@/helpers/getResourceType.js';
-import { waitForSignedKeyRequestComplete } from '@/helpers/waitForSignedKeyRequestComplete.js';
-import { SessionFactory } from '@/providers/base/SessionFactory.js';
-import {
-    FarcasterNetwork,
-    HashScheme,
-    MessageData,
-    MessageType,
-    ReactionType,
-    SignatureScheme,
-} from '@/providers/firefly/proto/message.js';
-import { FireflySession } from '@/providers/firefly/Session.js';
 import type { CastResponse, CastsResponse, UserResponse, UsersResponse } from '@/providers/types/Firefly.js';
-import { type Post, type Profile, ProfileStatus, type Provider, Type } from '@/providers/types/SocialMedia.js';
-import { ReactionType as ReactionTypeCustom } from '@/providers/types/SocialMedia.js';
-import type { FeedResponse } from '@/providers/types/Warpcast.js';
-import type { MetadataAsset, ResponseJSON } from '@/types/index.js';
-
-ed.etc.sha512Sync = (...m: any) => sha512(ed.etc.concatBytes(...m));
+import {
+    type Post,
+    type Profile,
+    ProfileStatus,
+    type Provider,
+    type Reaction,
+    Type,
+} from '@/providers/types/SocialMedia.js';
+import { WarpcastSocialMediaProvider } from '@/providers/warpcast/SocialMedia.js';
+import type { MetadataAsset } from '@/types/index.js';
 
 // @ts-ignore
 export class FireflySocialMedia implements Provider {
@@ -46,66 +27,15 @@ export class FireflySocialMedia implements Provider {
     }
 
     async createSession(setUrlOrSignal?: AbortSignal | ((url: string) => void), signal?: AbortSignal) {
-        const response = await fetchJSON<
-            ResponseJSON<{
-                publicKey: string;
-                privateKey: string;
-                fid: string;
-                token: string;
-                timestamp: number;
-                expiresAt: number;
-                deeplinkUrl: string;
-            }>
-        >('/api/warpcast/signin', {
-            method: 'POST',
-        });
-        if (!response.success) throw new Error(response.error.message);
-
-        const setUrl = typeof setUrlOrSignal === 'function' ? setUrlOrSignal : undefined;
-        const abortSignal = setUrlOrSignal instanceof AbortSignal ? setUrlOrSignal : signal;
-
-        // present QR code to the user
-        setUrl?.(response.data.deeplinkUrl);
-
-        await waitForSignedKeyRequestComplete(abortSignal)(response.data.token);
-
-        const session = new FireflySession(
-            response.data.fid,
-            response.data.privateKey,
-            response.data.timestamp,
-            response.data.expiresAt,
-        );
-        localStorage.setItem('firefly_session', session.serialize());
-        return session;
+        return WarpcastSocialMediaProvider.createSession(setUrlOrSignal, signal);
     }
 
-    async resumeSession(): Promise<FireflySession | null> {
-        const currentTime = Date.now();
-
-        const storedSession = localStorage.getItem('firefly_session');
-
-        if (storedSession) {
-            const recoveredSession = SessionFactory.createSession<FireflySession>(storedSession);
-            if (recoveredSession.expiresAt > currentTime) {
-                return recoveredSession;
-            } else {
-                return null;
-            }
-        }
-        return null;
+    async resumeSession() {
+        return WarpcastSocialMediaProvider.resumeSession();
     }
 
     async discoverPosts(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        const url = urlcat('https://client.warpcast.com/v2', '/default-recommended-feed', {
-            limit: 10,
-            cursor: indicator?.id,
-        });
-
-        const { result, next } = await fetchJSON<FeedResponse>(url, {
-            method: 'GET',
-        });
-        const data = result.feed.map(formatWarpcastPostFromFeed);
-        return createPageable(data, indicator ?? createIndicator(), createNextIndicator(indicator, next.cursor));
+        throw new Error('Method not implemented.');
     }
 
     async getPostById(postId: string): Promise<Post> {
@@ -171,18 +101,8 @@ export class FireflySocialMedia implements Provider {
         };
     }
 
-    // @ts-ignore
-    async getPostsByParentPostId(postId: string, username: string, indicator?: PageIndicator) {
-        const url = urlcat('https://client.warpcast.com/v2', '/v2/user-thread-casts', {
-            castHashPrefix: postId,
-            limit: 10,
-            username,
-        });
-        const { result, next } = await fetchJSON<FeedResponse>(url, {
-            method: 'GET',
-        });
-        const data = result.feed.map(formatWarpcastPostFromFeed);
-        return createPageable(data, indicator ?? createIndicator(), createNextIndicator(indicator, next.cursor));
+    async getPostsByParentPostId(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        throw new Error('Method not implemented.');
     }
 
     async getFollowers(profileId: string, indicator?: PageIndicator) {
@@ -281,392 +201,42 @@ export class FireflySocialMedia implements Provider {
     }
 
     async publishPost(post: Post): Promise<Post> {
-        const session = await this.resumeSession();
-        if (!session) throw new Error('No session found');
-        const url = urlcat(FIREFLY_HUBBLE_URL, '/v1/submitMessage');
-        const messageData: MessageData = {
-            type: MessageType.CAST_ADD,
-            fid: Number(session.profileId),
-            timestamp: Math.floor(Date.now() / 1000),
-            network: FarcasterNetwork.MAINNET,
-            castAddBody: {
-                embedsDeprecated: EMPTY_LIST,
-                mentions: EMPTY_LIST,
-                text: post.metadata.content?.content ?? '',
-                mentionsPositions: [],
-                embeds: post.mediaObjects?.map((v) => ({ url: v.url })) ?? EMPTY_LIST,
-            },
-        };
-
-        const encodedData = MessageData.encode(messageData).finish();
-
-        const messageHash = await blake3(encodedData);
-
-        const signature = await ed.signAsync(encodedData, toBytes(session.token));
-
-        const message = {
-            data: messageData,
-            hash: toBytes(messageHash),
-            hashScheme: HashScheme.BLAKE3,
-            signature,
-            signatureScheme: SignatureScheme.ED25519,
-            signer: ed.getPublicKey(toBytes(session.token)),
-        };
-
-        const messageBytes = Buffer.from(Message.encode(message).finish());
-
-        const { data, hash } = await fetchJSON<Message>(url, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/octet-stream' },
-            body: messageBytes,
-        });
-        if (!data) throw new Error(i18n.t('Failed to publish post'));
-        return {
-            source: SocialPlatform.Farcaster,
-            postId: hash.toString(),
-            parentPostId: '',
-            timestamp: data.timestamp,
-            author: {
-                profileId: data?.fid.toString(),
-                nickname: '',
-                displayName: '',
-                pfp: '',
-                followerCount: 0,
-                followingCount: 0,
-                status: ProfileStatus.Active,
-                verified: true,
-                source: SocialPlatform.Farcaster,
-            },
-            metadata: {
-                locale: '',
-                content: {
-                    content: data.castAddBody?.text || '',
-                },
-            },
-            stats: {
-                comments: 0,
-                mirrors: 0,
-                quotes: 0,
-                reactions: 0,
-            },
-        };
+        throw new Error('Method not implemented.');
     }
 
-    async upvotePost(postId: string) {
-        const session = await this.resumeSession();
-        if (!session) throw new Error(i18n.t('No session found'));
-        const url = urlcat(FIREFLY_HUBBLE_URL, '/v1/submitMessage');
-        const messageData: MessageData = {
-            type: MessageType.REACTION_ADD,
-            fid: Number(session.profileId),
-            timestamp: Math.floor(Date.now() / 1000),
-            network: FarcasterNetwork.MAINNET,
-            reactionBody: {
-                type: ReactionType.LIKE,
-                targetCastId: {
-                    hash: toBytes(postId),
-                    fid: Number(session.profileId),
-                },
-            },
-        };
-
-        const encodedData = MessageData.encode(messageData).finish();
-
-        const messageHash = await blake3(encodedData);
-
-        const signature = await ed.signAsync(encodedData, toBytes(session.token));
-
-        const message = {
-            data: messageData,
-            hash: toBytes(messageHash),
-            hashScheme: HashScheme.BLAKE3,
-            signature,
-            signatureScheme: SignatureScheme.ED25519,
-            signer: ed.getPublicKey(toBytes(session.token)),
-        };
-
-        const messageBytes = Buffer.from(Message.encode(message).finish());
-
-        const { data, hash } = await fetchJSON<Message>(url, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/octet-stream' },
-            body: messageBytes,
-        });
-        if (!data) throw new Error(i18n.t('Failed to upvote post'));
-        return {
-            reactionId: messageHash,
-            type: ReactionTypeCustom.Upvote,
-            timestamp: messageData.timestamp,
-        };
+    async upvotePost(postId: string): Promise<Reaction> {
+        throw new Error('Method not implemented.');
     }
 
     async unvotePost(postId: string) {
-        const session = await this.resumeSession();
-        if (!session) throw new Error(i18n.t('No session found'));
-        const url = urlcat(FIREFLY_HUBBLE_URL, '/v1/submitMessage');
-        const messageData: MessageData = {
-            type: MessageType.REACTION_REMOVE,
-            fid: Number(session.profileId),
-            timestamp: Math.floor(Date.now() / 1000),
-            network: FarcasterNetwork.MAINNET,
-            reactionBody: {
-                type: ReactionType.LIKE,
-                targetCastId: {
-                    hash: toBytes(postId),
-                    fid: Number(session.profileId),
-                },
-            },
-        };
-
-        const encodedData = MessageData.encode(messageData).finish();
-
-        const messageHash = await blake3(encodedData);
-
-        const signature = await ed.signAsync(encodedData, toBytes(session.token));
-
-        const message = {
-            data: messageData,
-            hash: toBytes(messageHash),
-            hashScheme: HashScheme.BLAKE3,
-            signature,
-            signatureScheme: SignatureScheme.ED25519,
-            signer: ed.getPublicKey(toBytes(session.token)),
-        };
-
-        const messageBytes = Buffer.from(Message.encode(message).finish());
-
-        const { data, hash } = await fetchJSON<Message>(url, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/octet-stream' },
-            body: messageBytes,
-        });
-        if (!data) throw new Error(i18n.t('Failed to unvote post'));
-        return;
+        throw new Error('Method not implemented.');
     }
 
     async commentPost(postId: string, comment: string) {
-        const session = await this.resumeSession();
-        if (!session) throw new Error(i18n.t('No session found'));
-        const url = urlcat(FIREFLY_HUBBLE_URL, '/v1/submitMessage');
-        const messageData: MessageData = {
-            type: MessageType.CAST_ADD,
-            fid: Number(session.profileId),
-            timestamp: Math.floor(Date.now() / 1000),
-            network: FarcasterNetwork.MAINNET,
-            castAddBody: {
-                parentCastId: {
-                    hash: toBytes(postId),
-                    fid: Number(session.profileId),
-                },
-                embedsDeprecated: EMPTY_LIST,
-                mentions: EMPTY_LIST,
-                text: comment,
-                mentionsPositions: [],
-                embeds: EMPTY_LIST,
-            },
-        };
+        throw new Error('Method not implemented.');
+    }
 
-        const encodedData = MessageData.encode(messageData).finish();
-
-        const messageHash = await blake3(encodedData);
-
-        const signature = await ed.signAsync(encodedData, toBytes(session.token));
-
-        const message = {
-            data: messageData,
-            hash: toBytes(messageHash),
-            hashScheme: HashScheme.BLAKE3,
-            signature,
-            signatureScheme: SignatureScheme.ED25519,
-            signer: ed.getPublicKey(toBytes(session.token)),
-        };
-
-        const messageBytes = Buffer.from(Message.encode(message).finish());
-
-        const { data, hash } = await fetchJSON<Message>(url, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/octet-stream' },
-            body: messageBytes,
-        });
-        if (!data) throw new Error(i18n.t('Failed to publish post'));
-        return;
+    async mirrorPost(postId: string): Promise<Post> {
+        throw new Error('Method not implemented.');
     }
 
     async unmirrorPost(postId: string) {
-        const session = await this.resumeSession();
-        if (!session) throw new Error(i18n.t('No session found'));
-        const url = urlcat(FIREFLY_HUBBLE_URL, '/v1/submitMessage');
-        const messageData: MessageData = {
-            type: MessageType.REACTION_REMOVE,
-            fid: Number(session.profileId),
-            timestamp: Math.floor(Date.now() / 1000),
-            network: FarcasterNetwork.MAINNET,
-            reactionBody: {
-                type: ReactionType.RECAST,
-                targetCastId: {
-                    hash: toBytes(postId),
-                    fid: Number(session.profileId),
-                },
-            },
-        };
-
-        const encodedData = MessageData.encode(messageData).finish();
-
-        const messageHash = await blake3(encodedData);
-
-        const signature = await ed.signAsync(encodedData, toBytes(session.token));
-
-        const message = {
-            data: messageData,
-            hash: toBytes(messageHash),
-            hashScheme: HashScheme.BLAKE3,
-            signature,
-            signatureScheme: SignatureScheme.ED25519,
-            signer: ed.getPublicKey(toBytes(session.token)),
-        };
-
-        const messageBytes = Buffer.from(Message.encode(message).finish());
-
-        const { data, hash } = await fetchJSON<Message>(url, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/octet-stream' },
-            body: messageBytes,
-        });
-        if (!data) throw new Error(i18n.t('Failed to unmirror post'));
-        return null!;
+        throw new Error('Method not implemented.');
     }
 
-    async mirrorPost(postId: string) {
-        const session = await this.resumeSession();
-        if (!session) throw new Error(i18n.t('No session found'));
-        const url = urlcat(FIREFLY_HUBBLE_URL, '/v1/submitMessage');
-        const messageData: MessageData = {
-            type: MessageType.REACTION_ADD,
-            fid: Number(session.profileId),
-            timestamp: Math.floor(Date.now() / 1000),
-            network: FarcasterNetwork.MAINNET,
-            reactionBody: {
-                type: ReactionType.RECAST,
-                targetCastId: {
-                    hash: toBytes(postId),
-                    fid: Number(session.profileId),
-                },
-            },
-        };
-
-        const encodedData = MessageData.encode(messageData).finish();
-
-        const messageHash = await blake3(encodedData);
-
-        const signature = await ed.signAsync(encodedData, toBytes(session.token));
-
-        const message = {
-            data: messageData,
-            hash: toBytes(messageHash),
-            hashScheme: HashScheme.BLAKE3,
-            signature,
-            signatureScheme: SignatureScheme.ED25519,
-            signer: ed.getPublicKey(toBytes(session.token)),
-        };
-
-        const messageBytes = Buffer.from(Message.encode(message).finish());
-
-        const { data, hash } = await fetchJSON<Message>(url, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/octet-stream' },
-            body: messageBytes,
-        });
-        if (!data) throw new Error(i18n.t('Failed to mirror post'));
-        return null!;
+    async follow(profileId: string) {
+        throw new Error('Method not implemented.');
     }
 
-    async followProfile(profileId: string) {
-        const session = await this.resumeSession();
-        if (!session) throw new Error(i18n.t('No session found'));
-        const url = urlcat(FIREFLY_HUBBLE_URL, '/v1/submitMessage');
-        const messageData: MessageData = {
-            type: MessageType.LINK_ADD,
-            fid: Number(session.profileId),
-            timestamp: Math.floor(Date.now() / 1000),
-            network: FarcasterNetwork.MAINNET,
-            linkBody: {
-                type: '1',
-                targetFid: Number(profileId),
-            },
-        };
-
-        const encodedData = MessageData.encode(messageData).finish();
-
-        const messageHash = await blake3(encodedData);
-
-        const signature = await ed.signAsync(encodedData, toBytes(session.token));
-
-        const message = {
-            data: messageData,
-            hash: toBytes(messageHash),
-            hashScheme: HashScheme.BLAKE3,
-            signature,
-            signatureScheme: SignatureScheme.ED25519,
-            signer: ed.getPublicKey(toBytes(session.token)),
-        };
-
-        const messageBytes = Buffer.from(Message.encode(message).finish());
-
-        const { data, hash } = await fetchJSON<Message>(url, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/octet-stream' },
-            body: messageBytes,
-        });
-        if (!data) throw new Error(i18n.t('Failed to follow'));
-        return null!;
+    async unfollow(profileId: string) {
+        throw new Error('Method not implemented.');
     }
 
-    async unfollowProfile(profileId: string) {
-        const session = await this.resumeSession();
-        if (!session) throw new Error(i18n.t('No session found'));
-        const url = urlcat(FIREFLY_HUBBLE_URL, '/v1/submitMessage');
-        const messageData: MessageData = {
-            type: MessageType.LINK_REMOVE,
-            fid: Number(session.profileId),
-            timestamp: Math.floor(Date.now() / 1000),
-            network: FarcasterNetwork.MAINNET,
-            linkBody: {
-                type: '1',
-                targetFid: Number(profileId),
-            },
-        };
-
-        const encodedData = MessageData.encode(messageData).finish();
-
-        const messageHash = await blake3(encodedData);
-
-        const signature = await ed.signAsync(encodedData, toBytes(session.token));
-
-        const message = {
-            data: messageData,
-            hash: toBytes(messageHash),
-            hashScheme: HashScheme.BLAKE3,
-            signature,
-            signatureScheme: SignatureScheme.ED25519,
-            signer: ed.getPublicKey(toBytes(session.token)),
-        };
-
-        const messageBytes = Buffer.from(Message.encode(message).finish());
-
-        const { data, hash } = await fetchJSON<Message>(url, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/octet-stream' },
-            body: messageBytes,
-        });
-        if (!data) throw new Error(i18n.t('Failed to unfollow'));
-        return null!;
-    }
-
-    searchProfiles(indicator?: PageIndicator): Promise<Pageable<Profile>> {
+    searchProfiles(q: string, indicator?: PageIndicator): Promise<Pageable<Profile>> {
         throw new Error(i18n.t('Method not implemented.'));
     }
 
-    searchPosts(indicator?: PageIndicator): Promise<Pageable<Post>> {
+    searchPosts(q: string, indicator?: PageIndicator): Promise<Pageable<Post>> {
         throw new Error(i18n.t('Method not implemented.'));
     }
 }

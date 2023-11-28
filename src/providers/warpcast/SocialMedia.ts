@@ -16,10 +16,17 @@ import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { formatWarpcastPostFromFeed } from '@/helpers/formatWarpcastPost.js';
 import { generateCustodyBearer } from '@/helpers/generateCustodyBearer.js';
 import { waitForSignedKeyRequestComplete } from '@/helpers/waitForSignedKeyRequestComplete.js';
-import { type Post, ProfileStatus, type Provider, ReactionType, Type } from '@/providers/types/SocialMedia.js';
+import { SessionFactory } from '@/providers/base/SessionFactory.js';
+import {
+    type Post,
+    type Profile,
+    ProfileStatus,
+    type Provider,
+    ReactionType,
+    Type,
+} from '@/providers/types/SocialMedia.js';
 import type {
     CastResponse,
-    CastsResponse,
     FeedResponse,
     ReactionResponse,
     SuccessResponse,
@@ -29,10 +36,7 @@ import type {
 import { WarpcastSession } from '@/providers/warpcast/Session.js';
 import type { ResponseJSON } from '@/types/index.js';
 
-// @ts-ignore
 export class WarpcastSocialMedia implements Provider {
-    private currentSession: WarpcastSession | null = null;
-
     get type() {
         return Type.Warpcast;
     }
@@ -42,7 +46,7 @@ export class WarpcastSocialMedia implements Provider {
      * @param signal
      * @returns
      */
-    private async createSessionByGrantPermission(setUrl?: (url: string) => void, signal?: AbortSignal) {
+    async _createSessionByGrantPermission(setUrl?: (url: string) => void, signal?: AbortSignal) {
         const response = await fetchJSON<
             ResponseJSON<{
                 publicKey: string;
@@ -76,7 +80,7 @@ export class WarpcastSocialMedia implements Provider {
      * @param signal
      * @returns
      */
-    private async createSessionByCustodyWallet(signal?: AbortSignal) {
+    async _createSessionByCustodyWallet(signal?: AbortSignal) {
         const client = await getWalletClient();
         if (!client) throw new Error(i18n.t('No client found'));
 
@@ -106,32 +110,39 @@ export class WarpcastSocialMedia implements Provider {
             }),
         );
 
-        return (this.currentSession = new WarpcastSession(
+        return new WarpcastSession(
             user.fid.toString(),
             response.result.token.secret,
             payload.params.timestamp,
             payload.params.expiresAt,
-        ));
+        );
     }
 
-    async createSession(signal?: AbortSignal): Promise<WarpcastSession> {
-        // Use the custody wallet by default
-        return Math.random() < 1 ? this.createSessionByCustodyWallet(signal) : this.createSessionByGrantPermission();
+    async createSession(
+        setUrlOrSignal?: AbortSignal | ((url: string) => void),
+        signal?: AbortSignal,
+    ): Promise<WarpcastSession> {
+        const setUrl = typeof setUrlOrSignal === 'function' ? setUrlOrSignal : undefined;
+        const abortSignal = setUrlOrSignal instanceof AbortSignal ? setUrlOrSignal : signal;
+
+        const session = await this._createSessionByGrantPermission(setUrl, abortSignal);
+        localStorage.setItem('warpcast_session', session.serialize());
+        return session;
     }
 
-    async resumeSession(): Promise<WarpcastSession> {
-        const currentTime = Date.now();
+    async resumeSession(): Promise<WarpcastSession | null> {
+        const storedSession = localStorage.getItem('warpcast_session');
+        if (!storedSession) return null;
 
-        if (this.currentSession && this.currentSession.expiresAt > currentTime) {
-            return this.currentSession;
+        const recoveredSession = SessionFactory.createSession<WarpcastSession>(storedSession);
+        if (recoveredSession.expiresAt > Date.now()) {
+            return recoveredSession;
+        } else {
+            return null;
         }
-
-        this.currentSession = await this.createSession();
-        return this.currentSession;
     }
 
     async createClient() {
-        const session = await this.createSession();
         return new HubRestAPIClient();
     }
 
@@ -208,50 +219,22 @@ export class WarpcastSocialMedia implements Provider {
         };
     }
 
+    // @ts-ignore
     async getPostsByParentPostId(
         parentPostId: string,
+        username: string,
         indicator?: PageIndicator,
     ): Promise<Pageable<Post, PageIndicator>> {
-        const url = urlcat(WARPCAST_ROOT_URL, '/all-casts-in-thread', {
-            threadHash: parentPostId,
+        const url = urlcat('https://client.warpcast.com/v2', '/v2/user-thread-casts', {
+            castHashPrefix: parentPostId,
+            limit: 10,
+            username,
         });
-        const { result } = await this.fetchWithSession<CastsResponse>(url, {
+        const { result, next } = await fetchJSON<FeedResponse>(url, {
             method: 'GET',
         });
-
-        const data = result.casts.map((cast) => {
-            return {
-                source: SocialPlatform.Farcaster,
-                postId: cast.hash,
-                parentPostId: cast.threadHash,
-                timestamp: cast.timestamp,
-                author: {
-                    profileId: cast.author.fid.toString(),
-                    nickname: cast.author.username,
-                    displayName: cast.author.displayName,
-                    pfp: cast.author.pfp.url,
-                    followerCount: cast.author.followerCount,
-                    followingCount: cast.author.followingCount,
-                    status: ProfileStatus.Active,
-                    verified: cast.author.pfp.verified,
-                    source: SocialPlatform.Farcaster,
-                },
-                metadata: {
-                    locale: '',
-                    content: {
-                        content: cast.text,
-                    },
-                },
-                stats: {
-                    comments: cast.replies.count,
-                    mirrors: cast.recasts.count,
-                    quotes: cast.recasts.count,
-                    reactions: cast.reactions.count,
-                },
-            };
-        });
-
-        return createPageable(data, indicator ?? createIndicator());
+        const data = result.feed.map(formatWarpcastPostFromFeed);
+        return createPageable(data, indicator ?? createIndicator(), createNextIndicator(indicator, next.cursor));
     }
 
     async getFollowers(profileId: string, indicator?: PageIndicator) {
@@ -415,10 +398,19 @@ export class WarpcastSocialMedia implements Provider {
 
     private async fetchWithSession<T>(url: string, options: RequestInit) {
         const session = await this.resumeSession();
+        if (!session) throw new Error('No session found');
         return fetchJSON<T>(url, {
             ...options,
             headers: { Authorization: `Bearer ${session.token}` },
         });
+    }
+
+    searchProfiles(q: string, indicator?: PageIndicator): Promise<Pageable<Profile>> {
+        throw new Error(i18n.t('Method not implemented.'));
+    }
+
+    searchPosts(q: string, indicator?: PageIndicator): Promise<Pageable<Post>> {
+        throw new Error(i18n.t('Method not implemented.'));
     }
 }
 

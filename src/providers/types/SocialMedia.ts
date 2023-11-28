@@ -445,12 +445,12 @@ export interface Provider {
      * @param indicator
      * @returns
      */
-    searchProfiles: (indicator?: PageIndicator) => Promise<Pageable<Profile>>;
+    searchProfiles: (q: string, indicator?: PageIndicator) => Promise<Pageable<Profile>>;
 
     /**
      * Search posts.
      * @param indicator
      * @returns
      */
-    searchPosts: (indicator?: PageIndicator) => Promise<Pageable<Post>>;
+    searchPosts: (q: string, indicator?: PageIndicator) => Promise<Pageable<Post>>;
 }
