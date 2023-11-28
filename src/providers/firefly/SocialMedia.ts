@@ -1,7 +1,5 @@
 import { i18n } from '@lingui/core';
 import { createPageable, type Pageable, type PageIndicator } from '@masknet/shared-base';
-import * as ed from '@noble/ed25519';
-import { sha512 } from '@noble/hashes/sha512';
 import dayjs from 'dayjs';
 import { first } from 'lodash-es';
 import urlcat from 'urlcat';
@@ -21,8 +19,6 @@ import {
 } from '@/providers/types/SocialMedia.js';
 import { WarpcastSocialMediaProvider } from '@/providers/warpcast/SocialMedia.js';
 import type { MetadataAsset } from '@/types/index.js';
-
-ed.etc.sha512Sync = (...m: any) => sha512(ed.etc.concatBytes(...m));
 
 // @ts-ignore
 export class FireflySocialMedia implements Provider {
