@@ -87,8 +87,8 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps>>(
                             leaveFrom="opacity-100 scale-100"
                             leaveTo="opacity-0 scale-95"
                         >
-                            <Dialog.Panel className="transform rounded-[12px] bg-lightBottom transition-all">
-                                <div className="inline-flex h-[56px] w-[600px] items-center justify-center gap-2 rounded-t-[12px] bg-gradient-to-b from-white to-white p-4">
+                            <Dialog.Panel className="transform rounded-[12px] bg-bgModal transition-all">
+                                <div className="inline-flex h-[56px] w-[600px] items-center justify-center gap-2 rounded-t-[12px] p-4" style={{ background: 'var(--m-modal-title-bg)' }}>
                                     <button onClick={() => dispatch?.close()}>
                                         <Image
                                             className="relative h-[24px] w-[24px]"
@@ -98,7 +98,7 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps>>(
                                             height={24}
                                         />
                                     </button>
-                                    <div className="shrink grow basis-0 text-center font-['Helvetica'] text-lg font-bold leading-snug text-slate-950">
+                                    <div className="shrink grow basis-0 text-center font-['Helvetica'] text-lg font-bold leading-snug text-main">
                                         {title}
                                     </div>
                                     <div className="relative h-[24px] w-[24px]" />
@@ -138,28 +138,29 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps>>(
                                                     </div>
                                                 </div>
                                             </button>
+                                            <button
+                                                className="group flex flex-col rounded-lg p-[16px] hover:bg-lightBg"
+                                                onClick={() => {
+                                                    setCurrent(SocialPlatform.Farcaster);
+                                                }}
+                                            >
+                                                <div className="inline-flex w-full flex-col items-center justify-start gap-[8px] rounded-lg px-[16px] py-[24px]">
+                                                    <div className="relative h-[48px] w-[48px]">
+                                                        <Image
+                                                            className="left-0 top-0 rounded-full"
+                                                            src="/svg/farcaster.svg"
+                                                            width={48}
+                                                            height={48}
+                                                            alt="lens"
+                                                        />
+                                                    </div>
+                                                    <div className="font-['Helvetica'] text-sm font-bold leading-[18px] text-lightSecond group-hover:text-lightMain">
+                                                        Farcaster
+                                                    </div>
+                                                </div>
+                                            </button>
                                         </div>
-                                        <button
-                                            className="group flex flex-col rounded-lg p-[16px] hover:bg-lightBg"
-                                            onClick={() => {
-                                                setCurrent(SocialPlatform.Farcaster);
-                                            }}
-                                        >
-                                            <div className="inline-flex w-full flex-col items-center justify-start gap-[8px] rounded-lg px-[16px] py-[24px]">
-                                                <div className="relative h-[48px] w-[48px]">
-                                                    <Image
-                                                        className="left-0 top-0 rounded-full"
-                                                        src="/svg/farcaster.svg"
-                                                        width={48}
-                                                        height={48}
-                                                        alt="lens"
-                                                    />
-                                                </div>
-                                                <div className="font-['Helvetica'] text-sm font-bold leading-[18px] text-lightSecond group-hover:text-lightMain">
-                                                    Farcaster
-                                                </div>
-                                            </div>
-                                        </button>
+
                                     </div>
                                 ) : (
                                     <Suspense

@@ -20,6 +20,8 @@ module.exports = {
                 // Because the secondary and bg color values are fixed alpha values in the design, the css variable is used directly.
                 secondary: 'var(--color-second)',
                 bg: 'var(--color-bg)',
+                bgModal: 'var(--color-bg-modal)',
+                modalTitleBg: 'var(--m-modal-title-bg)',
                 secondaryBottom: 'var(--color-bottom80)',
                 primaryMain: 'var(--color-main1)',
                 secondaryMain: 'var(--color-main2)',

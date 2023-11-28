@@ -63,6 +63,7 @@ export function LoginLens() {
         if (!accounts || !current) return;
         await LensSocialMediaProvider.createSessionForProfileId(current.id);
         updateCurrentAccount(current);
+        enqueueSnackbar(i18n.t('Your Lens account is now connected'), { variant: 'success' });
         LoginModalRef.close();
     }, [accounts, current]);
 
