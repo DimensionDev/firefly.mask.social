@@ -89,15 +89,17 @@ export const SideBar = memo(function SideBar() {
                                             </li>
                                         );
                                     })}
-                                    <li>
-                                        <button
-                                            type="button"
-                                            className=" min-w-[150px] rounded-[16px] bg-main px-3 py-3 text-xl font-semibold leading-6 text-primaryBottom "
-                                            onClick={() => setComposeOpened(true)}
-                                        >
-                                            <Trans id="Post" />
-                                        </button>
-                                    </li>
+                                    {isLogin ? (
+                                        <li>
+                                            <button
+                                                type="button"
+                                                className=" min-w-[150px] rounded-[16px] bg-main px-3 py-3 text-xl font-semibold leading-6 text-primaryBottom "
+                                                onClick={() => setComposeOpened(true)}
+                                            >
+                                                <Trans id="Post" />
+                                            </button>
+                                        </li>
+                                    ) : null}
                                 </ul>
                             </li>
                             <li className="-mx-2 mb-20 mt-auto">

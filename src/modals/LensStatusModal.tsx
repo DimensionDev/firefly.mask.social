@@ -42,8 +42,8 @@ export const LensStatusModal = forwardRef<SingletonModalRefCreator>(function Len
                             leaveFrom="opacity-100 scale-100"
                             leaveTo="opacity-0 scale-95"
                         >
-                            <Dialog.Panel className="transform rounded-[12px] bg-white transition-all">
-                                <div className="flex w-[260px] flex-col gap-[23px] rounded-[16px] border-[0.5px] border-lightLineSecond p-[24px]">
+                            <Dialog.Panel className="transform rounded-[12px] bg-bgModal transition-all">
+                                <div className="flex w-[260px] flex-col gap-[23px] rounded-[16px] p-[24px]">
                                     {lensAccounts.map(({ avatar, profileId, id, name }) => (
                                         <div key={id} className="flex items-center justify-between gap-[8px]">
                                             <div className="flex h-[40px] w-[48px] items-start justify-start">
@@ -84,7 +84,7 @@ export const LensStatusModal = forwardRef<SingletonModalRefCreator>(function Len
                                     ))}
                                     <button className="flex w-full items-center gap-[8px]">
                                         <Image src={'/svg/userAdd.svg'} alt="logo" width={24} height={24} />
-                                        <div className=" text-[17px] font-bold leading-[22px] text-[#101010]">
+                                        <div className=" text-[17px] font-bold leading-[22px] text-[#101010] dark:text-gray-400">
                                             <Trans id="Change account" />
                                         </div>
                                     </button>

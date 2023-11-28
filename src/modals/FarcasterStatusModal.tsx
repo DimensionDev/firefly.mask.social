@@ -40,8 +40,8 @@ export const FarcasterStatusModal = forwardRef<SingletonModalRefCreator>(functio
                             leaveFrom="opacity-100 scale-100"
                             leaveTo="opacity-0 scale-95"
                         >
-                            <Dialog.Panel className="transform rounded-[12px] bg-lightBottom transition-all">
-                                <div className="flex w-[260px] flex-col gap-[23px] rounded-[16px] border-[0.5px] border-lightLineSecond p-[24px]">
+                            <Dialog.Panel className="transform rounded-[12px] bg-bgModal transition-all">
+                                <div className="flex w-[260px] flex-col gap-[23px] rounded-[16px] p-[24px]">
                                     {farcasterAccounts.map(({ avatar, profileId, name }) => (
                                         <div key={profileId} className="flex items-center justify-between gap-[8px]">
                                             <div className="flex h-[40px] w-[48px] items-start justify-start">

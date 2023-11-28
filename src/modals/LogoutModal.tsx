@@ -60,8 +60,8 @@ export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps>
                             leaveFrom="opacity-100 scale-100"
                             leaveTo="opacity-0 scale-95"
                         >
-                            <Dialog.Panel className="transform rounded-[12px] bg-lightBottom transition-all">
-                                <div className="inline-flex h-[56px] w-[355px] items-center justify-center gap-2 rounded-t-[12px] bg-gradient-to-b from-white to-white p-4">
+                            <Dialog.Panel className="transform rounded-[12px] bg-bgModal transition-all">
+                                <div className="inline-flex h-[56px] w-[355px] items-center justify-center gap-2 rounded-t-[12px] p-4">
                                     <button onClick={() => dispatch?.close()}>
                                         <Image
                                             className="relative h-[24px] w-[24px]"
@@ -71,7 +71,7 @@ export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps>
                                             height={24}
                                         />
                                     </button>
-                                    <div className="shrink grow basis-0 text-center font-['Helvetica'] text-lg font-bold leading-snug text-slate-950">
+                                    <div className="shrink grow basis-0 text-center font-['Helvetica'] text-lg font-bold leading-snug text-main">
                                         <Trans id="Log out" />
                                     </div>
                                     <div className="relative h-[24px] w-[24px]" />
