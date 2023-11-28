@@ -139,7 +139,7 @@ export interface Post {
     stats?: {
         comments: number;
         mirrors: number;
-        quotes: number;
+        quotes?: number;
         reactions: number;
         bookmarks?: number;
     };
@@ -176,7 +176,7 @@ export interface BaseNotification {
 export interface MirrorNotification extends BaseNotification {
     type: NotificationType.Mirror;
     mirrors: Profile[];
-    post: Post;
+    post?: Post;
 }
 
 export interface QuoteNotification extends BaseNotification {
@@ -188,13 +188,13 @@ export interface QuoteNotification extends BaseNotification {
 export interface ReactionNotification extends BaseNotification {
     type: NotificationType.Reaction;
     reactors: Profile[];
-    post: Post;
+    post?: Post;
 }
 
 export interface CommentNotification extends BaseNotification {
     type: NotificationType.Comment;
-    comment: Post;
-    post: Post;
+    comment?: Post;
+    post?: Post;
 }
 
 export interface FollowNotification extends BaseNotification {
@@ -204,7 +204,7 @@ export interface FollowNotification extends BaseNotification {
 
 export interface MentionNotification extends BaseNotification {
     type: NotificationType.Mention;
-    post: Post;
+    post?: Post;
 }
 
 export interface ActedNotification extends BaseNotification {

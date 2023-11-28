@@ -580,7 +580,7 @@ export class LensSocialMedia implements Provider {
         return createPageable(
             data.filter((item) => typeof item !== 'undefined') as Notification[],
             indicator ?? createIndicator(),
-            createNextIndicator(indicator, value.pageInfo.next ?? undefined),
+            value.pageInfo.next ? createNextIndicator(indicator, value.pageInfo.next ?? undefined) : undefined,
         );
     }
 

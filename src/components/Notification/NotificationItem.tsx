@@ -73,9 +73,9 @@ export const NotificationItem = memo<NotificationItemProps>(function SingleNotif
             case NotificationType.Follow:
                 return notification.followers;
             case NotificationType.Comment:
-                return [notification.comment.author];
+                return notification.comment ? [notification.comment.author] : undefined;
             case NotificationType.Mention:
-                return [notification.post.author];
+                return notification.post ? [notification.post.author] : undefined;
             case NotificationType.Mirror:
                 return notification.mirrors;
             case NotificationType.Act:
@@ -90,7 +90,7 @@ export const NotificationItem = memo<NotificationItemProps>(function SingleNotif
             case NotificationType.Reaction:
                 const firstReactorName = first(notification.reactors)?.displayName;
 
-                if (!firstReactorName) return;
+                if (!firstReactorName || !notification.post) return;
                 return (
                     <Trans>
                         <Plural
@@ -136,6 +136,7 @@ export const NotificationItem = memo<NotificationItemProps>(function SingleNotif
                     </Trans>
                 );
             case NotificationType.Comment:
+                if (!notification.comment) return;
                 const author = notification.comment.author;
                 return (
                     <Trans>
@@ -146,6 +147,7 @@ export const NotificationItem = memo<NotificationItemProps>(function SingleNotif
                     </Trans>
                 );
             case NotificationType.Mention:
+                if (!notification.post) return;
                 const mentionAuthor = notification.post.author;
                 return (
                     <Trans>
@@ -157,7 +159,7 @@ export const NotificationItem = memo<NotificationItemProps>(function SingleNotif
                 );
             case NotificationType.Mirror:
                 const firstMirrorName = first(notification.mirrors)?.displayName;
-                if (!firstMirrorName) return;
+                if (!firstMirrorName || !notification.post) return;
                 return (
                     <Trans>
                         <Plural
@@ -207,10 +209,12 @@ export const NotificationItem = memo<NotificationItemProps>(function SingleNotif
             case NotificationType.Reaction:
             case NotificationType.Mirror:
             case NotificationType.Act:
+                if (!notification.post) return;
                 return <Quote className="bg-bg" post={notification.post} />;
             case NotificationType.Comment:
             case NotificationType.Mention:
                 const post = notification.type === NotificationType.Comment ? notification.comment : notification.post;
+                if (!post) return;
                 return (
                     <div className="mt-1">
                         <Markup className="markup linkify text-md line-clamp-5 break-words">
@@ -235,8 +239,10 @@ export const NotificationItem = memo<NotificationItemProps>(function SingleNotif
     const actions = useMemo(() => {
         switch (notification.type) {
             case NotificationType.Comment:
+                if (!notification.comment) return;
                 return <PostActions post={notification.comment} />;
             case NotificationType.Mention:
+                if (!notification.post) return;
                 return <PostActions post={notification.post} />;
             case NotificationType.Quote:
                 return <PostActions post={notification.quote} />;

@@ -1,7 +1,7 @@
 import { first, union } from 'lodash-es';
 
 import { SocialPlatform } from '@/constants/enum.js';
-import { type Attachment, type Post, ProfileStatus } from '@/providers/types/SocialMedia.js';
+import { type Attachment, type Post, type PostType, ProfileStatus } from '@/providers/types/SocialMedia.js';
 import type { Cast, Feed } from '@/providers/types/Warpcast.js';
 import type { MetadataAsset } from '@/types/index.js';
 
@@ -39,6 +39,7 @@ export function formatContent(cast: Cast) {
 
 export function formatWarpcastPost(cast: Cast): Post {
     return {
+        type: 'Post' as PostType,
         source: SocialPlatform.Farcaster,
         postId: cast.hash,
         parentPostId: cast.threadHash,

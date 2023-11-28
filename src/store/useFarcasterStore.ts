@@ -11,17 +11,18 @@ export interface FarcasterState {
     updateCurrentAccount: (account: Account) => void;
     updateAccounts: (accounts: Account[]) => void;
     clearCurrentAccount: () => void;
+    hydrateCurrentAccount: () => Account;
 }
 
 const useFarcasterStateBase = create<FarcasterState, [['zustand/persist', unknown], ['zustand/immer', unknown]]>(
     persist(
-        immer<FarcasterState>((set) => ({
+        immer<FarcasterState>((set, get) => ({
             accounts: [],
             currentAccount: {
                 profileId: '',
                 avatar: '',
                 name: '',
-                id: '',
+                id: '7591',
             },
             updateCurrentAccount: (account: Account) =>
                 set((state) => {
@@ -40,9 +41,14 @@ const useFarcasterStateBase = create<FarcasterState, [['zustand/persist', unknow
                         id: '',
                     };
                 }),
+            hydrateCurrentAccount: () => {
+                return get().currentAccount;
+            },
         })),
         { name: 'farcaster-state', partialize: (state) => ({ accounts: state.accounts }) },
     ),
 );
 
 export const useFarcasterStateStore = createSelectors(useFarcasterStateBase);
+
+export const hydrateCurrentAccount = () => useFarcasterStateBase.getState().hydrateCurrentAccount();
