@@ -4,6 +4,7 @@ import { i18n } from '@lingui/core';
 import { Trans } from '@lingui/react';
 import { memo, useState } from 'react';
 import urlcat from 'urlcat';
+import { useDarkMode } from 'usehooks-ts';
 
 import DiscoverSelectedIcon from '@/assets/discover.selected.svg';
 import DiscoverIcon from '@/assets/discover.svg';
@@ -23,7 +24,6 @@ import { PageRoutes } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { useLogin } from '@/hooks/useLogin.js';
 import { usePlatformAccount } from '@/hooks/usePlatformAccount.js';
-import { useQueryMode } from '@/hooks/useQueryMode.js';
 import { LoginModalRef } from '@/modals/controls.js';
 
 import { ConnectWalletNav } from './ConnectWalletNav.js';
@@ -55,8 +55,7 @@ const items = [
 export const SideBar = memo(function SideBar() {
     const [composeOpened, setComposeOpened] = useState(false);
 
-    const mode = useQueryMode();
-
+    const { isDarkMode } = useDarkMode();
     const isLogin = useLogin();
 
     const platformAccount = usePlatformAccount();
@@ -67,11 +66,7 @@ export const SideBar = memo(function SideBar() {
                 <div className="flex grow flex-col gap-y-5 overflow-y-auto border-r border-line px-6">
                     <div className="flex h-16 shrink-0 items-center">
                         <Link href={PageRoutes.Home}>
-                            {mode === 'light' ? (
-                                <LightLogo width={134} height={64} />
-                            ) : (
-                                <DarkLogo width={134} height={64} />
-                            )}
+                            {!isDarkMode ? <LightLogo width={134} height={64} /> : <DarkLogo width={134} height={64} />}
                         </Link>
                     </div>
                     <nav className="flex flex-1 flex-col">
