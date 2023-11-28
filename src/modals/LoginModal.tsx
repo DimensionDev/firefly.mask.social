@@ -88,7 +88,10 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps>>(
                             leaveTo="opacity-0 scale-95"
                         >
                             <Dialog.Panel className="transform rounded-[12px] bg-bgModal transition-all">
-                                <div className="inline-flex h-[56px] w-[600px] items-center justify-center gap-2 rounded-t-[12px] p-4" style={{ background: 'var(--m-modal-title-bg)' }}>
+                                <div
+                                    className="inline-flex h-[56px] w-[600px] items-center justify-center gap-2 rounded-t-[12px] p-4"
+                                    style={{ background: 'var(--m-modal-title-bg)' }}
+                                >
                                     <button onClick={() => dispatch?.close()}>
                                         <Image
                                             className="relative h-[24px] w-[24px]"
@@ -160,7 +163,6 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps>>(
                                                 </div>
                                             </button>
                                         </div>
-
                                     </div>
                                 ) : (
                                     <Suspense
