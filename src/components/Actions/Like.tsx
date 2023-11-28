@@ -35,7 +35,7 @@ export const Like = memo<LikeProps>(function Like({ count, hasLiked, postId, sou
     const [{ loading }, handleClick] = useAsyncFn(async () => {
         if (!postId) return null;
         if (!isLogin) {
-            LoginModalRef.open();
+            LoginModalRef.open({});
             return;
         }
         setLiked((prev) => !prev);

@@ -16,9 +16,12 @@ import { Image } from '@/esm/Image.js';
 import { useSingletonModal } from '@/maskbook/packages/shared-base-ui/src/index.js';
 import { isLensCollect } from '@/maskbook/packages/web3-shared/evm/src/index.js';
 
-export const LoginModal = forwardRef<SingletonModalRefCreator>(function LoginModal(_, ref) {
-    const isLensConnecting = useRef(false);
+export interface LoginModalProps {
+    current?: SocialPlatform;
+}
 
+export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps>>(function LoginModal(_, ref) {
+    const isLensConnecting = useRef(false);
     const [current, setCurrent] = useState<SocialPlatform | undefined>();
 
     const { openConnectModal, connectModalOpen } = useConnectModal();
@@ -32,7 +35,9 @@ export const LoginModal = forwardRef<SingletonModalRefCreator>(function LoginMod
     const previousChainModalOpen = usePrevious(chainModalOpen);
 
     const [open, dispatch] = useSingletonModal(ref, {
-        onOpen: () => {},
+        onOpen: (props) => {
+            setCurrent(props?.current);
+        },
         onClose: () => {
             setCurrent(undefined);
         },
@@ -82,8 +87,11 @@ export const LoginModal = forwardRef<SingletonModalRefCreator>(function LoginMod
                             leaveFrom="opacity-100 scale-100"
                             leaveTo="opacity-0 scale-95"
                         >
-                            <Dialog.Panel className="transform rounded-[12px] bg-white transition-all">
-                                <div className="inline-flex h-[56px] w-[600px] items-center justify-center gap-2 rounded-t-[12px] bg-gradient-to-b from-white to-white p-4">
+                            <Dialog.Panel className="transform rounded-[12px] bg-bgModal transition-all">
+                                <div
+                                    className="inline-flex h-[56px] w-[600px] items-center justify-center gap-2 rounded-t-[12px] p-4"
+                                    style={{ background: 'var(--m-modal-title-bg)' }}
+                                >
                                     <button onClick={() => dispatch?.close()}>
                                         <Image
                                             className="relative h-[24px] w-[24px]"
@@ -93,7 +101,7 @@ export const LoginModal = forwardRef<SingletonModalRefCreator>(function LoginMod
                                             height={24}
                                         />
                                     </button>
-                                    <div className="shrink grow basis-0 text-center font-['Helvetica'] text-lg font-bold leading-snug text-slate-950">
+                                    <div className="shrink grow basis-0 text-center font-['Helvetica'] text-lg font-bold leading-snug text-main">
                                         {title}
                                     </div>
                                     <div className="relative h-[24px] w-[24px]" />
@@ -133,28 +141,28 @@ export const LoginModal = forwardRef<SingletonModalRefCreator>(function LoginMod
                                                     </div>
                                                 </div>
                                             </button>
+                                            <button
+                                                className="group flex flex-col rounded-lg p-[16px] hover:bg-lightBg"
+                                                onClick={() => {
+                                                    setCurrent(SocialPlatform.Farcaster);
+                                                }}
+                                            >
+                                                <div className="inline-flex w-full flex-col items-center justify-start gap-[8px] rounded-lg px-[16px] py-[24px]">
+                                                    <div className="relative h-[48px] w-[48px]">
+                                                        <Image
+                                                            className="left-0 top-0 rounded-full"
+                                                            src="/svg/farcaster.svg"
+                                                            width={48}
+                                                            height={48}
+                                                            alt="lens"
+                                                        />
+                                                    </div>
+                                                    <div className="font-['Helvetica'] text-sm font-bold leading-[18px] text-lightSecond group-hover:text-lightMain">
+                                                        Farcaster
+                                                    </div>
+                                                </div>
+                                            </button>
                                         </div>
-                                        <button
-                                            className="group flex flex-col rounded-lg p-[16px] hover:bg-lightBg"
-                                            onClick={() => {
-                                                setCurrent(SocialPlatform.Farcaster);
-                                            }}
-                                        >
-                                            <div className="inline-flex w-full flex-col items-center justify-start gap-[8px] rounded-lg px-[16px] py-[24px]">
-                                                <div className="relative h-[48px] w-[48px]">
-                                                    <Image
-                                                        className="left-0 top-0 rounded-full"
-                                                        src="/svg/farcaster.svg"
-                                                        width={48}
-                                                        height={48}
-                                                        alt="lens"
-                                                    />
-                                                </div>
-                                                <div className="font-['Helvetica'] text-sm font-bold leading-[18px] text-lightSecond group-hover:text-lightMain">
-                                                    Farcaster
-                                                </div>
-                                            </div>
-                                        </button>
                                     </div>
                                 ) : (
                                     <Suspense
@@ -164,7 +172,9 @@ export const LoginModal = forwardRef<SingletonModalRefCreator>(function LoginMod
                                             </div>
                                         }
                                     >
-                                        {current === SocialPlatform.Lens ? <LoginLens /> : null}
+                                        {current === SocialPlatform.Lens ? (
+                                            <LoginLens back={() => setCurrent(undefined)} />
+                                        ) : null}
                                         {current === SocialPlatform.Farcaster ? <LoginFarcaster /> : null}
                                     </Suspense>
                                 )}

@@ -31,5 +31,6 @@ export interface Account {
     avatar: string;
     name: string;
     id: string;
+    signless?: boolean;
     handle?: string;
 }

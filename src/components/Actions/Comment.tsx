@@ -44,7 +44,7 @@ export const Comment = memo<CommentProps>(function Comment({ count, disabled = f
                 },
             );
         } else if (!isLogin) {
-            LoginModalRef.open();
+            LoginModalRef.open({});
             return;
         }
     }, [canComment, author, source, enqueueSnackbar, isLogin]);

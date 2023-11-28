@@ -1,13 +1,14 @@
 'use client';
 
+import { i18n } from '@lingui/core';
 import { Trans } from '@lingui/react';
 import { Switch } from '@mui/material';
-import { useAccountModal } from '@rainbow-me/rainbowkit';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { first } from 'lodash-es';
-import { useMemo, useState } from 'react';
+import { useSnackbar } from 'notistack';
+import { useEffect, useMemo, useState } from 'react';
 import { useAsyncFn } from 'react-use';
-import { useAccount } from 'wagmi';
+import { useAccount, useDisconnect } from 'wagmi';
 
 import { AccountCard } from '@/components/LoginLens/AccountCard.js';
 import { Image } from '@/esm/Image.js';
@@ -17,13 +18,21 @@ import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { useLensStateStore } from '@/store/useLensStore.js';
 import type { Account } from '@/types/index.js';
 
-export function LoginLens() {
+interface LoginLensProps {
+    back: () => void;
+}
+
+export function LoginLens({ back }: LoginLensProps) {
     const [selected, setSelected] = useState<Account | undefined>();
+    const [signless, setSignless] = useState(true);
 
     const account = useAccount();
+    const { disconnect } = useDisconnect();
 
     const updateAccounts = useLensStateStore.use.updateAccounts();
     const updateCurrentAccount = useLensStateStore.use.updateCurrentAccount();
+
+    const { enqueueSnackbar } = useSnackbar();
 
     const { data: accounts } = useSuspenseQuery<Account[]>({
         queryKey: ['lens', 'accounts', account.address],
@@ -36,10 +45,15 @@ export function LoginLens() {
                 avatar: profile.pfp,
                 profileId: profile.displayName,
                 id: profile.profileId,
+                signless: profile.signless,
                 handle: profile.handle,
             }));
 
-            if (!result.length) return [];
+            if (!result.length) {
+                enqueueSnackbar(i18n.t('No Lens profile found. Please change another wallet'), { variant: 'error' });
+                LoginModalRef.close();
+                return [];
+            }
 
             // update current select and global lens accounts
             updateAccounts(result);
@@ -48,16 +62,20 @@ export function LoginLens() {
         },
     });
 
-    const { openAccountModal } = useAccountModal();
-
     const current = useMemo(() => selected ?? first(accounts), [selected, accounts]);
 
     const [, login] = useAsyncFn(async () => {
         if (!accounts || !current) return;
         await LensSocialMediaProvider.createSessionForProfileId(current.id);
         updateCurrentAccount(current);
+        enqueueSnackbar(i18n.t('Your Lens account is now connected'), { variant: 'success' });
         LoginModalRef.close();
     }, [accounts, current]);
+
+    useEffect(() => {
+        if (!current) return;
+        setSignless(signless);
+    }, [current, signless]);
 
     return (
         <div
@@ -83,7 +101,7 @@ export function LoginLens() {
                         <span className="text-[14px] font-bold leading-[18px] text-lightMain">
                             <Trans id="Delegate Signing (Recommend)" />
                         </span>
-                        <Switch checked />
+                        <Switch checked={signless} onChange={(e) => setSignless(e.target.checked)} />
                     </div>
                     <div className="w-full text-left text-[14px] leading-[16px] text-lightSecond">
                         <Trans id="Allow Lens Manager to perform actions such as posting, liking, and commenting without the need to sign each transaction" />
@@ -96,7 +114,13 @@ export function LoginLens() {
                         backdropFilter: 'blur(8px)',
                     }}
                 >
-                    <button className="flex gap-[8px] py-[11px]" onClick={() => openAccountModal()}>
+                    <button
+                        className="flex gap-[8px] py-[11px]"
+                        onClick={() => {
+                            disconnect();
+                            back();
+                        }}
+                    >
                         <Image src="/svg/wallet.svg" alt="wallet" width={20} height={20} />
                         <span className=" text-[14px] font-bold leading-[18px] text-lightSecond">
                             <Trans id="Change Wallet" />

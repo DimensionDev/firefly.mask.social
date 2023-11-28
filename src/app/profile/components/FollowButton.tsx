@@ -12,7 +12,7 @@ enum FollowButtonState {
 
 interface FollowButtonProps {
     profile: Profile;
-    isMyProfile: boolean;
+    isMyProfile?: boolean;
 }
 
 export default function FollowButton({ profile, isMyProfile }: FollowButtonProps) {

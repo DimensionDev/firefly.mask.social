@@ -20,6 +20,8 @@ module.exports = {
                 // Because the secondary and bg color values are fixed alpha values in the design, the css variable is used directly.
                 secondary: 'var(--color-second)',
                 bg: 'var(--color-bg)',
+                bgModal: 'var(--color-bg-modal)',
+                modalTitleBg: 'var(--m-modal-title-bg)',
                 secondaryBottom: 'var(--color-bottom80)',
                 primaryMain: 'var(--color-main1)',
                 secondaryMain: 'var(--color-main2)',
@@ -30,7 +32,9 @@ module.exports = {
                 secondaryLine: 'var(--color-line2)',
                 lightMain: 'var(--color-light-main)',
                 lightBg: 'var(--color-light-bg)',
+                lightBottom: 'var(--m-light-bottom)',
                 lightBottom80: 'var(--color-bottom80)',
+                commonDanger: 'var(--m-common-danger)',
                 lightSecond: '#767F8D',
                 lightLineSecond: '#E6E7E8',
             },
