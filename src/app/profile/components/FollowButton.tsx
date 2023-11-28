@@ -12,13 +12,14 @@ enum FollowButtonState {
 
 interface FollowButtonProps {
     profile: Profile;
+    isMyProfile: boolean;
 }
 
-export default function FollowButton({ profile }: FollowButtonProps) {
+export default function FollowButton({ profile, isMyProfile }: FollowButtonProps) {
     const [followHover, setFollowHover] = useState(false);
 
     const { buttonText, buttonState } = useMemo(() => {
-        const isFollowing = profile?.viewerContext?.following;
+        const isFollowing = isMyProfile || profile?.viewerContext?.following;
 
         return {
             buttonText: isFollowing ? (followHover ? i18n.t('Unfollow') : i18n.t('Following')) : i18n.t('Follow'),
@@ -28,7 +29,7 @@ export default function FollowButton({ profile }: FollowButtonProps) {
                     : FollowButtonState.Following
                 : FollowButtonState.Follow,
         };
-    }, [followHover, profile?.viewerContext?.following]);
+    }, [followHover, isMyProfile, profile?.viewerContext?.following]);
 
     return (
         <button

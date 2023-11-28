@@ -74,6 +74,7 @@ export interface Profile {
     profileId: string;
     nickname: string;
     displayName: string;
+    handle?: string;
     pfp: string;
     bio?: string;
     address?: string;
@@ -91,6 +92,8 @@ export interface Profile {
         networkType: NetworkType;
         address: string;
     };
+    __original__?: unknown;
+    source: SocialPlatform;
 }
 
 export interface MediaObject {

@@ -129,6 +129,7 @@ export class FireflySocialMedia implements Provider {
                 followingCount: cast.author.following,
                 status: ProfileStatus.Active,
                 verified: true,
+                source: SocialPlatform.Farcaster,
             },
             metadata: {
                 locale: '',
@@ -166,6 +167,7 @@ export class FireflySocialMedia implements Provider {
             followingCount: user.following,
             status: ProfileStatus.Active,
             verified: true,
+            source: SocialPlatform.Farcaster,
         };
     }
 
@@ -203,6 +205,7 @@ export class FireflySocialMedia implements Provider {
             followingCount: user.following,
             status: ProfileStatus.Active,
             verified: true,
+            source: SocialPlatform.Farcaster,
         }));
 
         return createPageable(data, indicator?.id, next_cursor);
@@ -228,6 +231,7 @@ export class FireflySocialMedia implements Provider {
             followingCount: user.following,
             status: ProfileStatus.Active,
             verified: true,
+            source: SocialPlatform.Farcaster,
         }));
 
         return createPageable(data, indicator?.id, next_cursor);
@@ -258,6 +262,7 @@ export class FireflySocialMedia implements Provider {
                 followingCount: cast.author.following,
                 status: ProfileStatus.Active,
                 verified: true,
+                source: SocialPlatform.Farcaster,
             },
             metadata: {
                 locale: '',
@@ -330,6 +335,7 @@ export class FireflySocialMedia implements Provider {
                 followingCount: 0,
                 status: ProfileStatus.Active,
                 verified: true,
+                source: SocialPlatform.Farcaster,
             },
             metadata: {
                 locale: '',

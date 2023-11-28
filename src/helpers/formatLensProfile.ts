@@ -1,6 +1,7 @@
 import type { ProfileFragment } from '@lens-protocol/client';
 import { zeroAddress } from 'viem';
 
+import { SocialPlatform } from '@/constants/enum.js';
 import { AVATAR } from '@/constants/index.js';
 import { formatImageUrl } from '@/helpers/formatImageUrl.js';
 import { getStampFyiURL } from '@/helpers/getStampFyiURL.js';
@@ -26,6 +27,7 @@ export function formatLensProfile(result: ProfileFragment): Profile {
         profileId: result.id,
         nickname: result.metadata?.displayName ?? '',
         displayName: result.handle?.localName ?? '',
+        handle: result.handle?.localName,
         pfp: getAvatar(result),
         bio: result.metadata?.bio ?? undefined,
         address: result.followNftAddress?.address ?? undefined,
@@ -42,5 +44,6 @@ export function formatLensProfile(result: ProfileFragment): Profile {
             following: result.operations.isFollowedByMe.value,
             followedBy: result.operations.isFollowingMe.value,
         },
+        source: SocialPlatform.Lens,
     };
 }

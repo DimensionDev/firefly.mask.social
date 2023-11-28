@@ -13,6 +13,6 @@ export enum SocialPlatform {
 }
 
 export enum SearchType {
-    Profiles = 'Profiles',
-    Posts = 'Posts',
+    Profiles = 'profiles',
+    Posts = 'posts',
 }

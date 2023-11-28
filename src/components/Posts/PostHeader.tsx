@@ -3,25 +3,14 @@ import { memo } from 'react';
 import More from '@/assets/more.svg';
 import { Image } from '@/components/Image.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
-import { SocialPlatform } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
+import { getSocialPlatformIconBySource } from '@/helpers/getSocialPlatformIconBySource.js';
 import { useQueryMode } from '@/hooks/useQueryMode.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 interface PostHeaderProps {
     post: Post;
     isQuote?: boolean;
-}
-
-function getSocialPlatformIconBySource(source: SocialPlatform, mode: 'light' | 'dark') {
-    switch (source) {
-        case SocialPlatform.Lens:
-            return mode === 'light' ? '/svg/lens-light.svg' : '/svg/lens-dark.svg';
-        case SocialPlatform.Farcaster:
-            return '/svg/farcaster.svg';
-        default:
-            return '';
-    }
 }
 
 export const PostHeader = memo<PostHeaderProps>(function PostHeader({ post, isQuote = false }) {
@@ -48,7 +37,7 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({ post, isQu
 
                 <div className="flex max-w-sm items-center">
                     <div className="flex items-center space-x-2">
-                        <div className="text-sm font-bold leading-5">{post.author.displayName}</div>
+                        <span className="block text-sm font-bold leading-5">{post.author.displayName}</span>
                         <span className="text-sm leading-6 text-secondary">@{post.author.displayName}</span>
                     </div>
                 </div>

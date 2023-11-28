@@ -32,4 +32,5 @@ export interface Account {
     name: string;
     id: string;
     signless?: boolean;
+    handle?: string;
 }

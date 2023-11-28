@@ -46,6 +46,7 @@ export function LoginLens({ back }: LoginLensProps) {
                 profileId: profile.displayName,
                 id: profile.profileId,
                 signless: profile.signless,
+                handle: profile.handle,
             }));
 
             if (!result.length) {

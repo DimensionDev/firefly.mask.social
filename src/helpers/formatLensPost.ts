@@ -21,6 +21,7 @@ import type {
     TransactionMetadataV3Fragment,
     VideoMetadataV3Fragment,
 } from '@lens-protocol/client';
+import { safeUnreachable } from '@masknet/kit';
 import { compact, last } from 'lodash-es';
 
 import { SocialPlatform } from '@/constants/enum.js';
@@ -164,27 +165,32 @@ function getMediaObjects(
         | VideoMetadataV3Fragment,
 ) {
     return metadata.__typename !== 'StoryMetadataV3' && metadata.__typename !== 'TextOnlyMetadataV3'
-        ? metadata.attachments?.map((attachment) =>
-              attachment.__typename === 'PublicationMetadataMediaAudio'
-                  ? {
-                        url: attachment.audio.raw.uri,
-                        mimeType: attachment.audio.raw.mimeType ?? 'audio/*',
-                    }
-                  : attachment.__typename === 'PublicationMetadataMediaImage'
-                    ? {
+        ? metadata.attachments?.map((attachment) => {
+              const type = attachment.__typename;
+              switch (type) {
+                  case 'PublicationMetadataMediaAudio':
+                      return {
+                          url: attachment.audio.raw.uri,
+                          mimeType: attachment.audio.raw.mimeType ?? 'audio/*',
+                      };
+                  case 'PublicationMetadataMediaImage':
+                      return {
                           url: attachment.image.raw.uri,
                           mimeType: attachment.image.raw.mimeType ?? 'image/*',
-                      }
-                    : attachment.__typename === 'PublicationMetadataMediaVideo'
-                      ? {
-                            url: attachment.video.raw.uri,
-                            mimeType: attachment.video.raw.mimeType ?? 'video/*',
-                        }
-                      : {
-                            url: '',
-                            mimeType: '',
-                        },
-          ) ?? undefined
+                      };
+                  case 'PublicationMetadataMediaVideo':
+                      return {
+                          url: attachment.video.raw.uri,
+                          mimeType: attachment.video.raw.mimeType ?? 'video/*',
+                      };
+                  default:
+                      safeUnreachable(type);
+                      return {
+                          url: '',
+                          mimeType: '',
+                      };
+              }
+          }) ?? undefined
         : undefined;
 }
 

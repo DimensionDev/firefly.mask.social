@@ -5,10 +5,11 @@ import { Image } from '@/esm/Image.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 interface TitleProps {
+    isMyProfile: boolean;
     profile?: Profile;
 }
 
-export default function Title({ profile }: TitleProps) {
+export default function Title({ isMyProfile, profile }: TitleProps) {
     const router = useRouter();
 
     return (
@@ -25,7 +26,7 @@ export default function Title({ profile }: TitleProps) {
                 <span className=" text-lg font-black text-[#0F1419]">{profile?.nickname ?? '-'}</span>
             </div>
 
-            {profile ? <FollowButton profile={profile} /> : null}
+            {profile ? <FollowButton profile={profile} isMyProfile={isMyProfile} /> : null}
         </div>
     );
 }
