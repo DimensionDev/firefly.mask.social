@@ -16,6 +16,7 @@ import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { formatWarpcastPostFromFeed } from '@/helpers/formatWarpcastPost.js';
 import { generateCustodyBearer } from '@/helpers/generateCustodyBearer.js';
 import { waitForSignedKeyRequestComplete } from '@/helpers/waitForSignedKeyRequestComplete.js';
+import { isZero } from '@/maskbook/packages/web3-shared/base/src/index.js';
 import { SessionFactory } from '@/providers/base/SessionFactory.js';
 import {
     type Post,
@@ -70,7 +71,7 @@ export class WarpcastSocialMedia implements Provider {
 
         return new WarpcastSession(
             response.data.fid,
-            response.data.privateKey,
+            response.data.token,
             response.data.timestamp,
             response.data.expiresAt,
         );
@@ -148,12 +149,25 @@ export class WarpcastSocialMedia implements Provider {
     }
 
     async discoverPosts(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        const url = urlcat('https://client.warpcast.com/v2', '/default-recommended-feed', {
+        const url = urlcat(WARPCAST_ROOT_URL, '/default-recommended-feed', {
             limit: 10,
-            cursor: indicator?.id,
+            cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
         });
 
         const { result, next } = await fetchJSON<FeedResponse>(url, {
+            method: 'GET',
+        });
+        const data = result.feed.map(formatWarpcastPostFromFeed);
+        return createPageable(data, indicator ?? createIndicator(), createNextIndicator(indicator, next.cursor));
+    }
+
+    async discoverPostsById(profileId: string, indicator?: PageIndicator | undefined) {
+        const url = urlcat(WARPCAST_ROOT_URL, '/home-feed', {
+            limit: 10,
+            cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
+        });
+
+        const { result, next } = await this.fetchWithSession<FeedResponse>(url, {
             method: 'GET',
         });
         const data = result.feed.map(formatWarpcastPostFromFeed);

@@ -34,7 +34,6 @@ export class SessionFactory {
         if (session.type === Type.Lens && !session.client) throw new Error(t`Missing client.`);
 
         const schema = z.object({
-            type: z.nativeEnum(Type),
             profileId: z.string(),
             token: z.string(),
             createdAt: z.number().nonnegative(),

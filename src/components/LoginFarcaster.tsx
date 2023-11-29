@@ -19,7 +19,12 @@ export function LoginFarcaster() {
         const fireflyProvider = new FireflySocialMedia();
         const session = await fireflyProvider.createSession(setUrl);
         const profile = await fireflyProvider.getProfileById(session.profileId);
-        const account = { avatar: profile.pfp, name: profile.displayName, profileId: profile.profileId, id: '' };
+        const account = {
+            avatar: profile.pfp,
+            name: profile.displayName,
+            profileId: profile.profileId,
+            id: profile.profileId,
+        };
         updateAccounts([account]);
         updateCurrentAccount(account);
         LoginModalRef.close();

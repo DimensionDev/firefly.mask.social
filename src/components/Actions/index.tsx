@@ -16,11 +16,15 @@ import { Views } from './Views.js';
 interface PostActionsProps {
     post: Post;
     disabled?: boolean;
-    isPreview?: boolean;
+    disablePadding?: boolean;
 }
 
 // TODO: open compose dialog
-export const PostActions = memo<PostActionsProps>(function PostActions({ post, disabled = false, isPreview = false }) {
+export const PostActions = memo<PostActionsProps>(function PostActions({
+    post,
+    disabled = false,
+    disablePadding = false,
+}) {
     const publicationViews = useImpressionsStore.use.publicationViews();
 
     const views = useMemo(() => {
@@ -30,7 +34,7 @@ export const PostActions = memo<PostActionsProps>(function PostActions({ post, d
     return (
         <span
             className={classNames('mt-2 flex items-center justify-between', {
-                'pl-[52px]': !isPreview,
+                'pl-[52px]': !disablePadding,
             })}
         >
             <Comment

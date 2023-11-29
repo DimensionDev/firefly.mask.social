@@ -1,7 +1,7 @@
 'use client';
 
+import { Image } from '@/components/Image.js';
 import { SocialPlatform } from '@/constants/enum.js';
-import { Image } from '@/esm/Image.js';
 import { FarcasterStatusModalRef, LensStatusModalRef, LoginModalRef } from '@/modals/controls.js';
 import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
 import { useLensStateStore } from '@/store/useLensStore.js';
@@ -9,6 +9,7 @@ import { useLensStateStore } from '@/store/useLensStore.js';
 export function LoginStatusBar() {
     const lensAccount = useLensStateStore.use.currentAccount?.();
     const farcasterAccount = useFarcasterStateStore.use.currentAccount?.();
+    
     return (
         <div className="flex gap-x-2 pl-2">
             {lensAccount ? (

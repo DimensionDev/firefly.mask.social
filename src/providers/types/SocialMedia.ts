@@ -145,6 +145,10 @@ export interface Post {
     };
     quoteOn?: Post;
     commentOn?: Post;
+    comments?: Post[];
+    mirrors?: Profile[];
+    reactions?: Profile[];
+    root?: Post;
     canComment?: boolean;
     canMirror?: boolean;
     hasMirrored?: boolean;
@@ -326,12 +330,18 @@ export interface Provider {
     /**
      * Retrieves recent posts in reverse chronological order.
      *
-     * @param profileId The ID of the profile.
      * @param indicator Optional PageIndicator for pagination.
      * @returns A promise that resolves to a pageable list of Post objects.
      */
     discoverPosts: (indicator?: PageIndicator) => Promise<Pageable<Post>>;
 
+    /**
+     * Retrieves recent post by a specific profile id.
+     * @param profileId The ID of the profile.
+     * @param indicator Optional PageIndicator for pagination.
+     * @returns A promise that resolves to a pageable list of Post objects.
+     */
+    discoverPostsById: (profileId: string, indicator?: PageIndicator) => Promise<Pageable<Post>>;
     /**
      * Retrieves posts by a specific profile ID.
      *

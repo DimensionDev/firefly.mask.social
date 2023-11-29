@@ -6,6 +6,7 @@ import type {
     CommentBaseFragment,
     EmbedMetadataV3Fragment,
     EventMetadataV3Fragment,
+    FeedItemFragment,
     ImageMetadataV3Fragment,
     LinkMetadataV3Fragment,
     LiveStreamMetadataV3Fragment,
@@ -22,7 +23,7 @@ import type {
     VideoMetadataV3Fragment,
 } from '@lens-protocol/client';
 import { safeUnreachable } from '@masknet/kit';
-import { compact, last } from 'lodash-es';
+import { compact, first, isEmpty, last } from 'lodash-es';
 
 import { SocialPlatform } from '@/constants/enum.js';
 import { URL_REGEX } from '@/constants/regex.js';
@@ -314,6 +315,7 @@ export function formatLensPost(result: AnyPublicationFragment): Post {
             canMirror: result.operations.canMirror === 'YES',
             hasMirrored: result.operations.hasMirrored,
             commentOn: formatLensQuoteOrComment(result.commentOn),
+            root: result.root && !isEmpty(result.root) ? formatLensPost(result.root as PostFragment) : undefined,
         };
     } else {
         return {
@@ -347,4 +349,22 @@ export function formatLensPost(result: AnyPublicationFragment): Post {
             __original__: result,
         };
     }
+}
+
+export function formatLensPostByFeed(result: FeedItemFragment): Post {
+    const firstComment = result.comments.length ? first(result.comments) : undefined;
+    const post = formatLensPost(firstComment || result.root);
+    const mirrors = result.mirrors.map((x) => formatLensProfile(x.by));
+    const reactions = result.reactions.map((x) => formatLensProfile(x.by));
+
+    return {
+        ...post,
+        mirrors,
+        reactions,
+        commentOn: firstComment ? formatLensPost(result.root) : undefined,
+        root:
+            firstComment && result.root.__typename === 'Comment'
+                ? formatLensQuoteOrComment(result.root.commentOn)
+                : undefined,
+    };
 }

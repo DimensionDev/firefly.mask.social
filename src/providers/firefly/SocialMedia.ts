@@ -290,6 +290,60 @@ export class FireflySocialMedia implements Provider {
         );
     }
 
+    async discoverPostsById(
+        profileId: string,
+        indicator?: PageIndicator | undefined,
+    ): Promise<Pageable<Post, PageIndicator>> {
+        const url = urlcat(FIREFLY_ROOT_URL, '/v2/timeline/farcaster');
+
+        const {
+            data: { casts, cursor },
+        } = await fetchJSON<CastsResponse>(url, {
+            method: 'POST',
+            body: JSON.stringify({
+                fid: profileId,
+                sourceFid: profileId,
+                cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
+            }),
+        });
+
+        const data = casts.map((cast) => ({
+            type: (cast.parent_hash ? 'Comment' : 'Post') as PostType,
+            source: SocialPlatform.Farcaster,
+            postId: cast.hash,
+            parentPostId: cast.parent_hash,
+            timestamp: Number(cast.created_at),
+            author: {
+                profileId: cast.author.fid,
+                nickname: cast.author.username,
+                displayName: cast.author.display_name,
+                pfp: cast.author.pfp,
+                followerCount: cast.author.followers,
+                followingCount: cast.author.following,
+                status: ProfileStatus.Active,
+                verified: true,
+                source: SocialPlatform.Farcaster,
+            },
+            metadata: {
+                locale: '',
+                content: {
+                    content: cast.text,
+                },
+            },
+            stats: {
+                comments: Number(cast.replyCount),
+                mirrors: cast.recastCount,
+                quotes: cast.recastCount,
+                reactions: cast.likeCount,
+            },
+        }));
+        return createPageable(
+            data,
+            indicator ?? createIndicator(),
+            cursor ? createNextIndicator(indicator, cursor) : undefined,
+        );
+    }
+
     async publishPost(post: Post): Promise<Post> {
         throw new Error('Method not implemented.');
     }

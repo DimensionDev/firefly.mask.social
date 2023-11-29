@@ -18,10 +18,11 @@ interface PostBodyProps {
     post: Post;
     isQuote?: boolean;
     showMore?: boolean;
+    disablePadding?: boolean;
 }
 
 export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostBody(
-    { post, isQuote = false, showMore = false },
+    { post, isQuote = false, showMore = false, disablePadding = false },
     ref,
 ) {
     const router = useRouter();
@@ -33,7 +34,12 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
 
     if (post.isEncrypted) {
         return (
-            <div className="my-2 pl-[52px]" ref={ref}>
+            <div
+                className={classNames('my-2', {
+                    'pl-[52px]': !disablePadding,
+                })}
+                ref={ref}
+            >
                 <div
                     className={classNames('flex items-center gap-1 rounded-lg border-primaryMain px-3 py-[6px]', {
                         border: !isQuote,
@@ -47,7 +53,12 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
     }
 
     if (post.isHidden) {
-        <div className="my-2 pl-[52px]" ref={ref}>
+        <div
+            className={classNames('my-2', {
+                'pl-[52px]': !disablePadding,
+            })}
+            ref={ref}
+        >
             <div
                 className={classNames('flex items-center gap-1 rounded-lg border-primaryMain px-3 py-[6px]', {
                     border: !isQuote,
@@ -77,7 +88,12 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
     }
 
     return (
-        <div className={'my-2 break-words pl-[52px] text-base text-main'} ref={ref}>
+        <div
+            className={classNames('my-2 break-words text-base text-main', {
+                ['pl-[52px]']: !disablePadding,
+            })}
+            ref={ref}
+        >
             <Markup className={classNames({ 'line-clamp-5': canShowMore }, 'markup linkify text-md break-words')}>
                 {post.metadata.content?.content || ''}
             </Markup>
