@@ -59,10 +59,6 @@ export default function Info({ platform, handle, isMyProfile, profile }: InfoPro
                         </span>
                     </div>
                 </div>
-
-                {/* <div className=" text-sm text-[#767676]">
-                    <Trans>Not followed by anyone you&apos;re following</Trans>
-                </div> */}
             </div>
         </div>
     );
