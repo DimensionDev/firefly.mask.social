@@ -63,18 +63,27 @@ export function LoginLens({ back }: LoginLensProps) {
 
     const current = useMemo(() => selected ?? first(accounts), [selected, accounts]);
 
-    const [, login] = useAsyncFn(async () => {
-        if (!accounts || !current) return;
-        await LensSocialMediaProvider.createSessionForProfileId(current.id);
-        updateCurrentAccount(current);
-        enqueueSnackbar(t`Your Lens account is now connected`, { variant: 'success' });
-        LoginModalRef.close();
-    }, [accounts, current]);
+    const [, login] = useAsyncFn(
+        async (signless: boolean) => {
+            if (!accounts || !current) return;
+            await LensSocialMediaProvider.createSessionForProfileId(current.id);
+            if (!current.signless && signless) {
+                await LensSocialMediaProvider.updateSignless(true);
+            }
+            if (current.signless && !signless) {
+                await LensSocialMediaProvider.updateSignless(false);
+            }
+            updateCurrentAccount(current);
+            enqueueSnackbar(t`Your Lens account is now connected`, { variant: 'success' });
+            LoginModalRef.close();
+        },
+        [accounts, current],
+    );
 
     useEffect(() => {
         if (!current) return;
-        setSignless(signless);
-    }, [current, signless]);
+        if (!current.signless) setSignless(false);
+    }, [current]);
 
     return (
         <div
@@ -130,7 +139,7 @@ export function LoginLens({ back }: LoginLensProps) {
                     </button>
                     <button
                         className="flex w-[120px] items-center justify-center gap-[8px] rounded-[99px] bg-lightMain py-[11px] text-primaryBottom"
-                        onClick={() => login()}
+                        onClick={() => login(signless)}
                     >
                         <Trans>Sign</Trans>
                     </button>
