@@ -5,6 +5,7 @@ import { useState } from 'react';
 import QRCode from 'react-qr-code';
 import { useAsync } from 'react-use';
 
+import LoadingIcon from '@/assets/loading.svg';
 import { LoginModalRef } from '@/modals/controls.js';
 import { FireflySocialMedia } from '@/providers/firefly/SocialMedia.js';
 import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
@@ -35,7 +36,13 @@ export function LoginFarcaster() {
                         Log in to your Farcaster account by scanning this QR code using mobile application Warpcast.
                     </Trans>
                 </div>
-                {url ? <QRCode value={url} size={330} /> : null}
+                {url ? (
+                    <QRCode value={url} size={360} />
+                ) : (
+                    <div className="flex w-full flex-1 flex-col items-center justify-center">
+                        <LoadingIcon className="animate-spin" width={24} height={24} />
+                    </div>
+                )}
             </div>
         </div>
     );
