@@ -1,7 +1,14 @@
-import { i18n } from '@lingui/core';
+import { i18n, type Messages } from '@lingui/core';
 import dayjs from 'dayjs';
 
 import { IS_PREVIEW, IS_PRODUCTION, LS_LOCALE_KEY } from '@/constants/index.js';
+
+const locales: Record<string, Messages> = {
+    // @ts-ignore
+    en: await import(`@/locales/en/messages.mjs`),
+    // @ts-ignore
+    pseudo: await import(`@/locales/pseudo/messages.mjs`),
+};
 
 export const supportedLocales: Record<string, string> = {
     en: 'English',
@@ -23,8 +30,7 @@ export async function setLocale(locale: string) {
         locale = defaultLocale;
     }
     localStorage.setItem(LS_LOCALE_KEY, JSON.stringify(locale));
-    const { messages } = await import(`src/locales/${locale}/messages.mjs`);
-    i18n.load(locale, messages);
+    i18n.load(locale, locales[locale]);
     i18n.activate(locale);
     dayjs.locale(locale);
 }
