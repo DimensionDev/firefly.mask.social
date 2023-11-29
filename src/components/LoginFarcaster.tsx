@@ -5,10 +5,10 @@ import { useState } from 'react';
 import QRCode from 'react-qr-code';
 import { useAsync } from 'react-use';
 
+import LoadingIcon from '@/assets/loading.svg';
 import { LoginModalRef } from '@/modals/controls.js';
 import { FireflySocialMedia } from '@/providers/firefly/SocialMedia.js';
 import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
-import LoadingIcon from '@/assets/loading.svg';
 
 export function LoginFarcaster() {
     const [url, setUrl] = useState('');
