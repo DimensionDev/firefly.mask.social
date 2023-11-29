@@ -25,7 +25,7 @@ export function ProfileInList(props: ProfileInListProps) {
                 fallback={!isDarkMode ? '/image/firefly-light-avatar.png' : '/image/firefly-dark-avatar.png'}
                 width={40}
                 height={40}
-                alt={profile.profileId}
+                alt={profile.displayName}
             />
 
             <div className="flex max-w-sm items-center">
