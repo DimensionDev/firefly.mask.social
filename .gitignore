@@ -43,4 +43,4 @@ sw.js
 .vim/
 
 # locales
-src/locales/**/*.js
+src/locales/**/*.mjs
