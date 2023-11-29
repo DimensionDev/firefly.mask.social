@@ -310,9 +310,6 @@ msgstr "No matching users"
 msgid "Recasted"
 msgstr "Recasted"
 
-msgid "Relay error"
-msgstr "Relay error"
-
 msgid "No client found"
 msgstr "No client found"
 
