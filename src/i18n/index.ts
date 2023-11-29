@@ -1,26 +1,18 @@
 import { i18n, type Messages } from '@lingui/core';
 import dayjs from 'dayjs';
 
-import { IS_PREVIEW, IS_PRODUCTION, LS_LOCALE_KEY } from '@/constants/index.js';
+import { LS_LOCALE_KEY } from '@/constants/index.js';
 
 // @ts-ignore
 import { messages as en } from '../locales/en/messages.mjs';
 
-// @ts-ignore
-import { messages as pseudo } from '../locales/pseudo/messages.mjs';
-
 const locales: Record<string, Messages> = {
     en,
-    pseudo,
 };
 
 export const supportedLocales: Record<string, string> = {
     en: 'English',
 };
-
-if (!IS_PRODUCTION || IS_PREVIEW) {
-    supportedLocales.qaa = 'PseudoLanguage';
-}
 
 const defaultLocale = 'en';
 
