@@ -47,7 +47,7 @@ export default function Home() {
         },
     });
 
-    const results = useMemo(() => data.pages.flatMap((x) => x.data), [data]);
+    const results = useMemo(() => data.pages.flatMap((x) => x.data), [data.pages]);
 
     return (
         <div>

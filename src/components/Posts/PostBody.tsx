@@ -15,7 +15,9 @@ import { DecryptPost } from '@/components/Posts/DecryptPost.js';
 import { Quote } from '@/components/Posts/Quote.js';
 import { classNames } from '@/helpers/classNames.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
+// import MaskRuntime from '@/components/MaskRuntime.js';
 
+// @ts-ignore
 const MaskRuntime = dynamic(() => import('@/components/MaskRuntime.js'), {
     ssr: false,
 });

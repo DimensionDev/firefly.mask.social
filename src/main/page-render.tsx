@@ -1,5 +1,5 @@
 'use client';
-import '../plugin-host/enable.js';
+// import '../plugin-host/enable.js';
 
 import { useActivatedPluginsSiteAdaptor } from '@masknet/plugin-infra/content-script';
 import { createInjectHooksRenderer } from '@masknet/plugin-infra/dom';

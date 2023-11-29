@@ -7,7 +7,7 @@ import {
     PostInfoProvider,
     useActivatedPluginsSiteAdaptor,
 } from '@masknet/plugin-infra/content-script';
-import { RedPacketInspector } from '@masknet/plugin-redpacket';
+import { openDialog, RedPacketInspector } from '@masknet/plugin-redpacket';
 import {
     createConstantSubscription,
     EMPTY_ARRAY,
@@ -124,6 +124,7 @@ export const DecryptPost = memo(function DecryptPost({ raw, post, children }: Pr
             <div style={{ borderTop: '1px solid red' }} />
             <PossiblePluginSuggestionPostInspector />
             <PluginHooksRenderer />
+            <button onClick={openDialog}>open</button>
         </PostInfoProvider>
     );
 });
