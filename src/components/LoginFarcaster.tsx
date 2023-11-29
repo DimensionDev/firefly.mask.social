@@ -36,9 +36,13 @@ export function LoginFarcaster() {
                         Log in to your Farcaster account by scanning this QR code using mobile application Warpcast.
                     </Trans>
                 </div>
-                {url ? <QRCode value={url} size={360} /> : <div className="flex flex-col flex-1 w-full items-center justify-center">
-                    <LoadingIcon className="animate-spin" width={24} height={24} />
-                </div>}
+                {url ? (
+                    <QRCode value={url} size={360} />
+                ) : (
+                    <div className="flex w-full flex-1 flex-col items-center justify-center">
+                        <LoadingIcon className="animate-spin" width={24} height={24} />
+                    </div>
+                )}
             </div>
         </div>
     );
