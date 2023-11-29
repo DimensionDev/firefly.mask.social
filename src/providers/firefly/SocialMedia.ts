@@ -83,7 +83,7 @@ export class FireflySocialMedia implements Provider {
     }
 
     async getProfileById(profileId: string) {
-        const url = urlcat(FIREFLY_ROOT_URL, '/user', { fid: profileId });
+        const url = urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/user/profile', { fid: profileId });
         const { data: user } = await fetchJSON<UserResponse>(url, {
             method: 'GET',
         });

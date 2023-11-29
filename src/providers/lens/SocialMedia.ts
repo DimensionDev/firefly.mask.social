@@ -1,4 +1,5 @@
 import {
+    ChangeProfileManagerActionType,
     ExploreProfilesOrderByType,
     ExplorePublicationsOrderByType,
     isRelaySuccess,
@@ -7,8 +8,7 @@ import {
     LimitType,
     production,
     PublicationReactionType,
-    PublicationType,
-} from '@lens-protocol/client';
+    PublicationType} from '@lens-protocol/client';
 import { i18n } from '@lingui/core';
 import {
     createIndicator,
@@ -163,6 +163,41 @@ export class LensSocialMedia implements Provider {
             }
         }
         return null;
+    }
+
+    async updateSignless(): Promise<void> {
+        const typedDataResult = await this.lensClient.profile.createChangeProfileManagersTypedData({
+            approveSignless: true,
+            changeManagers: [
+              {
+                action: ChangeProfileManagerActionType.Add,
+                address: "0x0000000000",
+              },
+            ],
+          });
+          
+          const { id, typedData } = typedDataResult.unwrap();
+          const wallet = await this.getWallet();
+          const signedTypedData = await wallet.signTypedData(
+            {
+                domain: typedData.domain as TypedDataDomain,
+                types: typedData.types,
+                primaryType: 'ChangeDelegatedExecutorsConfig',
+                message: typedData.value,
+            }
+          );
+          
+          const broadcastOnchainResult = await this.lensClient.transaction.broadcastOnchain({
+            id,
+            signature: signedTypedData,
+          });
+          
+          const onchainRelayResult = broadcastOnchainResult.unwrap();
+          
+          if (onchainRelayResult.__typename === "RelayError") {
+            throw new Error(i18n.t('Relay error'));
+          }
+          return;
     }
 
     async publishPost(post: Post): Promise<Post> {

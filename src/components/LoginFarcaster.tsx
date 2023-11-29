@@ -8,6 +8,7 @@ import { useAsync } from 'react-use';
 import { LoginModalRef } from '@/modals/controls.js';
 import { FireflySocialMedia } from '@/providers/firefly/SocialMedia.js';
 import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
+import LoadingIcon from '@/assets/loading.svg';
 
 export function LoginFarcaster() {
     const [url, setUrl] = useState('');
@@ -33,7 +34,9 @@ export function LoginFarcaster() {
                 <div className=" text-center text-[12px] leading-[16px] text-lightSecond">
                     <Trans id="Log in to your Farcaster account by scanning this QR code using mobile application Warpcast." />
                 </div>
-                {url ? <QRCode value={url} size={330} /> : null}
+                {url ? <QRCode value={url} size={360} /> : <div className="flex flex-col flex-1 w-full items-center justify-center">
+                    <LoadingIcon className="animate-spin" width={24} height={24} />
+                </div>}
             </div>
         </div>
     );
