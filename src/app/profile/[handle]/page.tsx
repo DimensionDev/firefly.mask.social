@@ -5,7 +5,6 @@ import { useMemo, useState } from 'react';
 
 import ContentTabs from '@/app/profile/components/ContentTabs.js';
 import Info from '@/app/profile/components/Info.js';
-import PlatformTabs from '@/app/profile/components/PlatformTabs.js';
 import Title from '@/app/profile/components/Title.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { useLogin } from '@/hooks/useLogin.js';
@@ -37,8 +36,6 @@ export default function Profile({ params: { handle } }: ProfileProps) {
 
     return (
         <div>
-            {isMyProfile ? <PlatformTabs tab={tab} setTab={setTab} /> : null}
-
             {!isMyProfile ? <Title profile={profile} isMyProfile={isMyProfile} /> : null}
 
             <Info platform={tab} handle={handle} profile={profile} isMyProfile={isMyProfile} />

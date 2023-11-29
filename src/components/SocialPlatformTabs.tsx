@@ -6,14 +6,23 @@ import { startTransition } from 'react';
 
 import { SocialPlatform } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
+import { usePlatformAccount } from '@/hooks/usePlatformAccount.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 
 export function SocialPlatformTabs() {
     const pathname = usePathname();
     const currentSocialPlatform = useGlobalState.use.currentSocialPlatform();
     const switchSocialPlatform = useGlobalState.use.switchSocialPlatform();
+    const platformAccount = usePlatformAccount();
 
     if (pathname.includes('/settings') || pathname.includes('/detail')) return null;
+
+    if (pathname.includes('/profile')) {
+        const param = pathname.split('/');
+        const handle = param[param.length - 1];
+
+        if (platformAccount.lens.handle !== handle) return null;
+    }
 
     return (
         <div className="sticky top-0 z-[998] border-b border-line bg-primaryBottom">

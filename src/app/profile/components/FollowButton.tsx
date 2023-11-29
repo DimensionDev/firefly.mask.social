@@ -2,6 +2,8 @@ import { t } from '@lingui/macro';
 import { useMemo, useState } from 'react';
 
 import { classNames } from '@/helpers/classNames.js';
+import { useLogin } from '@/hooks/useLogin.js';
+import { LoginModalRef } from '@/modals/controls.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 enum FollowButtonState {
@@ -17,6 +19,8 @@ interface FollowButtonProps {
 
 export default function FollowButton({ profile, isMyProfile }: FollowButtonProps) {
     const [followHover, setFollowHover] = useState(false);
+
+    const isLogin = useLogin();
 
     const { buttonText, buttonState } = useMemo(() => {
         const isFollowing = isMyProfile || profile?.viewerContext?.following;
@@ -43,6 +47,11 @@ export default function FollowButton({ profile, isMyProfile }: FollowButtonProps
             )}
             onMouseMove={() => setFollowHover(true)}
             onMouseLeave={() => setFollowHover(false)}
+            onClick={() => {
+                if (!isLogin) {
+                    LoginModalRef.open({});
+                }
+            }}
         >
             {buttonText}
         </button>

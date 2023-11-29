@@ -14,7 +14,7 @@ interface InfoProps {
 
 export default function Info({ platform, handle, isMyProfile, profile }: InfoProps) {
     return (
-        <div className=" flex gap-3 px-4">
+        <div className=" flex gap-3 p-3">
             <Image
                 src={profile?.pfp || '/svg/lens.svg'}
                 width={80}
@@ -58,10 +58,6 @@ export default function Info({ platform, handle, isMyProfile, profile }: InfoPro
                             <Trans>Followers</Trans>
                         </span>
                     </div>
-                </div>
-
-                <div className=" text-sm text-[#767676]">
-                    <Trans>Not followed by anyone you&apos;re following</Trans>
                 </div>
             </div>
         </div>
