@@ -52,6 +52,7 @@ export enum NotificationType {
     Quote = 'quote',
     Follow = 'follow',
     Mention = 'mention',
+    Act = 'act',
 }
 
 export enum ProfileStatus {
@@ -109,7 +110,9 @@ export interface Attachment {
     type: 'Image' | 'Video' | 'Audio';
 }
 
+export type PostType = 'Post' | 'Comment' | 'Quote' | 'Mirror';
 export interface Post {
+    type?: PostType;
     postId: string;
     parentPostId?: string;
     parentAuthor?: Profile;
@@ -136,11 +139,12 @@ export interface Post {
     stats?: {
         comments: number;
         mirrors: number;
-        quotes: number;
+        quotes?: number;
         reactions: number;
         bookmarks?: number;
     };
     quoteOn?: Post;
+    commentOn?: Post;
     canComment?: boolean;
     canMirror?: boolean;
     hasMirrored?: boolean;
@@ -165,41 +169,48 @@ export interface Collection {
 
 export interface BaseNotification {
     notificationId: string;
+    source: SocialPlatform;
+    timestamp?: number;
 }
 
 export interface MirrorNotification extends BaseNotification {
-    type: NotificationType;
-    mirror: Post;
-    post: Post;
+    type: NotificationType.Mirror;
+    mirrors: Profile[];
+    post?: Post;
 }
 
 export interface QuoteNotification extends BaseNotification {
-    type: NotificationType;
+    type: NotificationType.Quote;
     quote: Post;
     post: Post;
 }
 
 export interface ReactionNotification extends BaseNotification {
-    type: NotificationType;
-    reaction: string;
-    reactor: Profile;
-    post: Post;
+    type: NotificationType.Reaction;
+    reactors: Profile[];
+    post?: Post;
 }
 
 export interface CommentNotification extends BaseNotification {
-    type: NotificationType;
-    comment: Comment;
-    post: Post;
+    type: NotificationType.Comment;
+    comment?: Post;
+    post?: Post;
 }
 
 export interface FollowNotification extends BaseNotification {
-    type: NotificationType;
-    follower: Profile;
+    type: NotificationType.Follow;
+    followers: Profile[];
 }
 
 export interface MentionNotification extends BaseNotification {
-    type: NotificationType;
+    type: NotificationType.Mention;
+    post?: Post;
+}
+
+export interface ActedNotification extends BaseNotification {
+    type: NotificationType.Act;
     post: Post;
+    actions: Profile[];
 }
 
 export type Notification =
@@ -208,7 +219,8 @@ export type Notification =
     | ReactionNotification
     | CommentNotification
     | FollowNotification
-    | MentionNotification;
+    | MentionNotification
+    | ActedNotification;
 
 export interface Provider {
     type: Type;

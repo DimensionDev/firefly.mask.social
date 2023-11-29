@@ -11,7 +11,7 @@ export interface Cast {
     created_at: string;
     likeCount: number;
     recastCount: number;
-    replyCount: number;
+    replyCount: string;
     parentCast?: Cast;
     liked: boolean;
     recasted: boolean;
@@ -59,4 +59,16 @@ export interface CastsResponse {
         casts: Cast[];
         cursor: string;
     };
+}
+
+export interface Notification {
+    cast: Cast | null;
+    notificationType: number;
+    user: User | null;
+    timestamp: string;
+}
+
+export interface NotificationResponse {
+    code: number;
+    data: { notifications: Notification[]; cursor: string };
 }

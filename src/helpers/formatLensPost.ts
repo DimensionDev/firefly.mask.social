@@ -194,13 +194,14 @@ function getMediaObjects(
         : undefined;
 }
 
-export function formatLensQuote(result: CommentBaseFragment | PostFragment | QuoteBaseFragment): Post {
+export function formatLensQuoteOrComment(result: CommentBaseFragment | PostFragment | QuoteBaseFragment): Post {
     const profile = formatLensProfile(result.by);
     const timestamp = new Date(result.createdAt).getTime();
 
     const mediaObjects = getMediaObjects(result.metadata);
 
     return {
+        type: result.__typename,
         source: SocialPlatform.Lens,
         postId: result.id,
         timestamp,
@@ -223,6 +224,7 @@ export function formatLensPost(result: AnyPublicationFragment): Post {
 
     if (result.__typename === 'Mirror') {
         return {
+            type: result.__typename,
             postId: result.id,
             timestamp,
             author: profile,
@@ -253,6 +255,7 @@ export function formatLensPost(result: AnyPublicationFragment): Post {
 
     if (result.__typename === 'Quote') {
         return {
+            type: result.__typename,
             source: SocialPlatform.Lens,
             postId: result.id,
             timestamp,
@@ -279,37 +282,69 @@ export function formatLensPost(result: AnyPublicationFragment): Post {
             canComment: result.operations.canComment === 'YES',
             canMirror: result.operations.canMirror === 'YES',
             hasMirrored: result.operations.hasMirrored,
-            quoteOn: formatLensQuote(result.quoteOn),
+            quoteOn: formatLensQuoteOrComment(result.quoteOn),
+        };
+    } else if (result.__typename === 'Comment') {
+        return {
+            type: result.__typename,
+            source: SocialPlatform.Lens,
+            postId: result.id,
+            timestamp,
+            author: profile,
+            mediaObjects,
+            isHidden: result.isHidden,
+            isEncrypted: !!result.metadata.encryptedWith,
+            metadata: {
+                locale: result.metadata.locale,
+                content: {
+                    ...content,
+                    oembedUrl,
+                },
+                contentURI: result.metadata.rawURI,
+            },
+            stats: {
+                comments: result.stats.comments,
+                mirrors: result.stats.mirrors,
+                quotes: result.stats.quotes,
+                reactions: result.stats.upvoteReactions,
+                bookmarks: result.stats.bookmarks,
+            },
+            __original__: result,
+            canComment: result.operations.canComment === 'YES',
+            canMirror: result.operations.canMirror === 'YES',
+            hasMirrored: result.operations.hasMirrored,
+            commentOn: formatLensQuoteOrComment(result.commentOn),
+        };
+    } else {
+        return {
+            type: result.__typename,
+            source: SocialPlatform.Lens,
+            postId: result.id,
+            timestamp,
+            author: profile,
+            mediaObjects,
+            isHidden: result.isHidden,
+            isEncrypted: !!result.metadata.encryptedWith,
+            metadata: {
+                locale: result.metadata.locale,
+                content: {
+                    ...content,
+                    oembedUrl,
+                },
+                contentURI: result.metadata.rawURI,
+            },
+            stats: {
+                comments: result.stats.comments,
+                mirrors: result.stats.mirrors,
+                quotes: result.stats.quotes,
+                reactions: result.stats.upvoteReactions,
+                bookmarks: result.stats.bookmarks,
+            },
+            canComment: result.operations.canComment === 'YES',
+            canMirror: result.operations.canMirror === 'YES',
+            hasMirrored: result.operations.hasMirrored,
+            hasLiked: result.operations.hasUpvoted,
+            __original__: result,
         };
     }
-
-    return {
-        source: SocialPlatform.Lens,
-        postId: result.id,
-        timestamp,
-        author: profile,
-        mediaObjects,
-        isHidden: result.isHidden,
-        isEncrypted: !!result.metadata.encryptedWith,
-        metadata: {
-            locale: result.metadata.locale,
-            content: {
-                ...content,
-                oembedUrl,
-            },
-            contentURI: result.metadata.rawURI,
-        },
-        stats: {
-            comments: result.stats.comments,
-            mirrors: result.stats.mirrors,
-            quotes: result.stats.quotes,
-            reactions: result.stats.upvoteReactions,
-            bookmarks: result.stats.bookmarks,
-        },
-        canComment: result.operations.canComment === 'YES',
-        canMirror: result.operations.canMirror === 'YES',
-        hasMirrored: result.operations.hasMirrored,
-        hasLiked: result.operations.hasUpvoted,
-        __original__: result,
-    };
 }
