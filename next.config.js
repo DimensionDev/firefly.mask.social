@@ -38,7 +38,6 @@ export default {
             {
                 hostname: 'cdn.stamp.fyi',
             },
-       
         ],
     },
     async headers() {

@@ -9,7 +9,7 @@ import { useLensStateStore } from '@/store/useLensStore.js';
 export function LoginStatusBar() {
     const lensAccount = useLensStateStore.use.currentAccount?.();
     const farcasterAccount = useFarcasterStateStore.use.currentAccount?.();
-    
+
     return (
         <div className="flex gap-x-2 pl-2">
             {lensAccount ? (
