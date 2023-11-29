@@ -3,7 +3,6 @@
 import { Plural, Trans } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import { first } from 'lodash-es';
-import { useRouter } from 'next/navigation.js';
 import { type FunctionComponent, memo, type SVGAttributes, useMemo } from 'react';
 import { useDarkMode } from 'usehooks-ts';
 
@@ -19,7 +18,7 @@ import { Markup } from '@/components/Markup/index.js';
 import { Quote } from '@/components/Posts/Quote.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
 import { classNames } from '@/helpers/classNames.js';
-import { getSocialPlatformIconBySource } from '@/helpers/getSourceIcon.js';
+import { getSocialPlatformIconBySource } from '@/helpers/getSocialPlatformIconBySource.js';
 import { createLookupTableResolver } from '@/maskbook/packages/shared-base/src/index.js';
 import { type Notification, NotificationType, type PostType } from '@/providers/types/SocialMedia.js';
 
@@ -58,7 +57,6 @@ function PostTypeI18N({ type }: { type: PostType }) {
 }
 
 export const NotificationItem = memo<NotificationItemProps>(function SingleNotification({ notification }) {
-    const router = useRouter();
     const { isDarkMode } = useDarkMode();
     const Icon = resolveNotificationIcon(notification.type);
 

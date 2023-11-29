@@ -35,6 +35,9 @@ export default {
             {
                 hostname: 'gw.ipfs-lens.dev',
             },
+            {
+                hostname: 'cdn.stamp.fyi',
+            }
         ],
     },
     async headers() {

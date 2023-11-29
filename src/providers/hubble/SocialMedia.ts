@@ -462,4 +462,4 @@ export class HubbleSocialMedia implements Provider {
     }
 }
 
-export const HubbleMediaProvider = new HubbleSocialMedia();
+export const HubbleSocialMediaProvider = new HubbleSocialMedia();
