@@ -1,5 +1,4 @@
 import {
-    ChangeProfileManagerActionType,
     CustomFiltersType,
     ExploreProfilesOrderByType,
     ExplorePublicationsOrderByType,
@@ -169,15 +168,9 @@ export class LensSocialMedia implements Provider {
         return null;
     }
 
-    async updateSignless(): Promise<void> {
+    async updateSignless(enable: boolean): Promise<void> {
         const typedDataResult = await this.lensClient.profile.createChangeProfileManagersTypedData({
-            approveSignless: true,
-            changeManagers: [
-                {
-                    action: ChangeProfileManagerActionType.Add,
-                    address: '0x0000000000',
-                },
-            ],
+            approveSignless: enable,
         });
 
         const { id, typedData } = typedDataResult.unwrap();
@@ -197,7 +190,7 @@ export class LensSocialMedia implements Provider {
         const onchainRelayResult = broadcastOnchainResult.unwrap();
 
         if (onchainRelayResult.__typename === 'RelayError') {
-            throw new Error(t`Relay error`);
+            console.log("DEBUG: Couldn't update signless", onchainRelayResult);
         }
         return;
     }

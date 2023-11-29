@@ -22,7 +22,7 @@ const useFarcasterStateBase = create<FarcasterState, [['zustand/persist', unknow
                 profileId: '',
                 avatar: '',
                 name: '',
-                id: '7591',
+                id: '',
             },
             updateCurrentAccount: (account: Account) =>
                 set((state) => {
