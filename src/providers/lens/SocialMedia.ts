@@ -10,7 +10,7 @@ import {
     PublicationReactionType,
     PublicationType,
 } from '@lens-protocol/client';
-import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 import {
     createIndicator,
     createNextIndicator,
@@ -67,7 +67,7 @@ export class LensSocialMedia implements Provider {
 
     async getWallet(): Promise<WalletClient> {
         const client = await getWalletClient();
-        if (!client) throw new Error(i18n.t('No wallet client found'));
+        if (!client) throw new Error(t`No wallet client found`);
 
         return client;
     }
@@ -78,7 +78,7 @@ export class LensSocialMedia implements Provider {
         const profile = await this.lensClient.profile.fetchDefault({
             for: address,
         });
-        if (!profile) throw new Error(i18n.t('No profile found'));
+        if (!profile) throw new Error(t`No profile found`);
 
         const { id, text } = await this.lensClient.authentication.generateChallenge({
             for: profile.id,
@@ -169,7 +169,7 @@ export class LensSocialMedia implements Provider {
     }
 
     async publishPost(post: Post): Promise<Post> {
-        if (!post.metadata.contentURI) throw new Error(i18n.t('No content URI found'));
+        if (!post.metadata.contentURI) throw new Error(t`No content URI found`);
 
         const profile = await this.getProfileById(post.author.profileId);
 
@@ -290,7 +290,7 @@ export class LensSocialMedia implements Provider {
         const result = await this.lensClient.profile.fetch({
             forProfileId: profileId,
         });
-        if (!result) throw new Error(i18n.t('No profile found'));
+        if (!result) throw new Error(t`No profile found`);
 
         return formatLensProfile(result);
     }
@@ -299,7 +299,7 @@ export class LensSocialMedia implements Provider {
         const result = await this.lensClient.profile.fetch({
             forHandle: profileId,
         });
-        if (!result) throw new Error(i18n.t('No profile found'));
+        if (!result) throw new Error(t`No profile found`);
 
         return formatLensProfile(result);
     }
@@ -309,7 +309,7 @@ export class LensSocialMedia implements Provider {
             forId: postId,
         });
 
-        if (!result) throw new Error(i18n.t('No post found'));
+        if (!result) throw new Error(t`No post found`);
 
         const post = formatLensPost(result);
         return post;

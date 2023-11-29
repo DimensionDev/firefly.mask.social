@@ -1,4 +1,4 @@
-import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 import {
     createIndicator,
     createNextIndicator,
@@ -83,7 +83,7 @@ export class WarpcastSocialMedia implements Provider {
      */
     async _createSessionByCustodyWallet(signal?: AbortSignal) {
         const client = await getWalletClient();
-        if (!client) throw new Error(i18n.t('No client found'));
+        if (!client) throw new Error(t`No client found`);
 
         const { payload, token } = await generateCustodyBearer(client);
         const response = await fetchJSON<{
@@ -375,11 +375,11 @@ export class WarpcastSocialMedia implements Provider {
     }
 
     searchProfiles(q: string, indicator?: PageIndicator): Promise<Pageable<Profile>> {
-        throw new Error(i18n.t('Method not implemented.'));
+        throw new Error(t`Method not implemented.`);
     }
 
     searchPosts(q: string, indicator?: PageIndicator): Promise<Pageable<Post>> {
-        throw new Error(i18n.t('Method not implemented.'));
+        throw new Error(t`Method not implemented.`);
     }
 }
 

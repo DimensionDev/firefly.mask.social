@@ -1,6 +1,6 @@
 'use client';
 
-import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation.js';
 import { type ChangeEvent, memo, useEffect, useRef, useState } from 'react';
 import { useDebounce, useOnClickOutside } from 'usehooks-ts';
@@ -71,7 +71,7 @@ export const SearchBar = memo(function SearchBar(props: SearchBarProps) {
                         id="search"
                         value={searchText}
                         className=" w-full border-0 bg-transparent py-2 text-[10px] placeholder-secondary focus:border-0 focus:outline-0 focus:ring-0 sm:text-sm sm:leading-6"
-                        placeholder={i18n.t('Search…')}
+                        placeholder={t`Search…`}
                         onChange={handleInputChange}
                     />
                     <CloseIcon

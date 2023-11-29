@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/react';
+import { Trans } from '@lingui/macro';
 
 import { SocialPlatform } from '@/constants/enum.js';
 import { Image } from '@/esm/Image.js';
@@ -35,11 +35,11 @@ export function AccountCard({ avatar, name, userName, logout, isCurrent, type }:
             </div>
             {isCurrent ? (
                 <button className="font-['Inter'] text-xs font-medium leading-none text-red-500">
-                    <Trans id="Log out" />
+                    <Trans>Log out</Trans>
                 </button>
             ) : (
                 <button className="text-right font-['Inter'] text-xs font-medium leading-none text-neutral-900">
-                    <Trans id="Switch" />
+                    <Trans>Switch</Trans>
                 </button>
             )}
         </div>

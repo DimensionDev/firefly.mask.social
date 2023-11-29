@@ -1,5 +1,5 @@
 import { Popover, Transition } from '@headlessui/react';
-import { Trans } from '@lingui/react';
+import { Trans } from '@lingui/macro';
 import { Fragment, useMemo } from 'react';
 
 import { Image } from '@/esm/Image.js';
@@ -48,7 +48,7 @@ export default function PostBy() {
                         </span>
                     </div>
                     <button className=" text-xs font-bold text-[#246BFD]">
-                        <Trans id="Switch" />
+                        <Trans>Switch</Trans>
                     </button>
                 </div>
 
@@ -64,7 +64,7 @@ export default function PostBy() {
                         </span>
                     </div>
                     <button className=" text-xs font-bold text-[#246BFD]">
-                        <Trans id="Log in" />
+                        <Trans>Log in</Trans>
                     </button>
                 </div>
             </Popover.Panel>

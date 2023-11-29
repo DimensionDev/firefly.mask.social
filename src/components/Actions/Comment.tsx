@@ -1,4 +1,4 @@
-import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import { useSnackbar } from 'notistack';
 import { memo, useCallback, useMemo } from 'react';
@@ -25,24 +25,16 @@ export const Comment = memo<CommentProps>(function Comment({ count, disabled = f
     const { enqueueSnackbar } = useSnackbar();
     const tooltip = useMemo(() => {
         if (count && count > 0) {
-            return i18n.t('{count} Comments', {
-                count: humanize(count),
-            });
+            return t`${humanize(count)} Comments`;
         }
-        return i18n.t('Comment');
+        return t`Comment`;
     }, [count]);
 
     const handleClick = useCallback(() => {
         if (canComment) {
-            enqueueSnackbar(
-                i18n.t('You cannot reply to @{author} on {source}', {
-                    author,
-                    source,
-                }),
-                {
-                    variant: 'error',
-                },
-            );
+            enqueueSnackbar(t`You cannot reply to @${author} on ${source}`, {
+                variant: 'error',
+            });
         } else if (!isLogin) {
             LoginModalRef.open({});
             return;

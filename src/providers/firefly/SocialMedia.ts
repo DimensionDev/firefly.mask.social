@@ -1,4 +1,4 @@
-import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 import {
     createIndicator,
     createNextIndicator,
@@ -323,11 +323,11 @@ export class FireflySocialMedia implements Provider {
     }
 
     searchProfiles(q: string, indicator?: PageIndicator): Promise<Pageable<Profile>> {
-        throw new Error(i18n.t('Method not implemented.'));
+        throw new Error(t`Method not implemented.`);
     }
 
     searchPosts(q: string, indicator?: PageIndicator): Promise<Pageable<Post>> {
-        throw new Error(i18n.t('Method not implemented.'));
+        throw new Error(t`Method not implemented.`);
     }
 }
 

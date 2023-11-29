@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/react';
+import { Trans } from '@lingui/macro';
 import { compact } from 'lodash-es';
 import { memo, useMemo } from 'react';
 
@@ -80,7 +80,7 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({ attachm
                             <Music width={24} height={24} />
                         </span>
                         <span className="break-keep text-[11px] font-medium leading-[16px] text-secondary">
-                            <Trans id="Audio Cover" />
+                            <Trans>Audio Cover</Trans>
                         </span>
                     </div>
                 )}

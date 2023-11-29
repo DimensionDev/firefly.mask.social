@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/react';
+import { t } from '@lingui/macro';
 import { memo, useMemo } from 'react';
 
 import { SocialPlatform } from '@/constants/enum.js';
@@ -26,7 +26,7 @@ export const NotLoginFallback = memo<NotLoginFallbackProps>(function LoginFallba
         <div className="flex h-[calc(100%-66px)] flex-col items-center justify-center space-y-9">
             <Image src={fallbackUrl} width={200} height={200} alt={`${platform} login`} />
             <span className="leading-3.5 text-base text-secondary">
-                <Trans id="Log in to your {platform} profile to enable all features" values={{ platform }} />
+                {t`You need to connect your ${platform} account to use this feature.`}
             </span>
             <button
                 type="button"
@@ -43,7 +43,7 @@ export const NotLoginFallback = memo<NotLoginFallbackProps>(function LoginFallba
                     LoginModalRef.open({});
                 }}
             >
-                <Trans id="Connect to {platform}" values={{ platform }} />
+                {t`Connect to ${platform}`}
             </button>
         </div>
     );

@@ -1,6 +1,5 @@
 'use client';
 
-import { i18n } from '@lingui/core';
 import { usePathname } from 'next/navigation.js';
 import { memo } from 'react';
 
@@ -10,11 +9,11 @@ import { useSearchStore } from '@/store/useSearchStore.js';
 const Filters = [
     {
         type: SearchType.Posts,
-        label: i18n.t('Publications'),
+        label: t`Publications`,
     },
     {
         type: SearchType.Profiles,
-        label: i18n.t('Profiles'),
+        label: t`Profiles`,
     },
 ];
 

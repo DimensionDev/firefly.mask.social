@@ -1,6 +1,6 @@
 'use client';
 
-import { Trans } from '@lingui/react';
+import { Trans } from '@lingui/macro';
 import { useState } from 'react';
 import QRCode from 'react-qr-code';
 import { useAsync } from 'react-use';
@@ -31,7 +31,9 @@ export function LoginFarcaster() {
         >
             <div className="flex min-h-[475px] w-full flex-col items-center gap-[16px] p-[16px] ">
                 <div className=" text-center text-[12px] leading-[16px] text-lightSecond">
-                    <Trans id="Log in to your Farcaster account by scanning this QR code using mobile application Warpcast." />
+                    <Trans>
+                        Log in to your Farcaster account by scanning this QR code using mobile application Warpcast.
+                    </Trans>
                 </div>
                 {url ? <QRCode value={url} size={330} /> : null}
             </div>

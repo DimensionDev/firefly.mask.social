@@ -1,4 +1,4 @@
-import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 
 interface UploadProgress {
     percent: number;
@@ -42,7 +42,7 @@ export function uploadToImgur(
                 const completeUrl = response.data.link;
                 resolve(completeUrl);
             } else {
-                reject(new Error(i18n.t('Upload failed')));
+                reject(new Error(t`Upload failed`));
             }
         };
 

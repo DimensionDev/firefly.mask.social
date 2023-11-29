@@ -3,10 +3,8 @@
  *
  * @returns the user's locale or 'en-US' as default
  */
-const getUserLocale = () => {
+export function getUserLocale() {
     const locale = navigator?.languages?.length ? navigator.languages[0] : navigator.language;
 
     return locale ? locale.split('-')[0] : 'en';
-};
-
-export default getUserLocale;
+}

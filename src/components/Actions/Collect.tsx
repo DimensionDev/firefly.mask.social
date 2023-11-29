@@ -1,4 +1,3 @@
-import { i18n } from '@lingui/core';
 import { motion } from 'framer-motion';
 import { useSnackbar } from 'notistack';
 import { memo, useCallback } from 'react';
@@ -16,7 +15,7 @@ export const Collect = memo<CollectProps>(function Collect({ count, disabled = f
     const { enqueueSnackbar } = useSnackbar();
 
     const handleClick = useCallback(() => {
-        enqueueSnackbar(i18n.t('Collect is coming soon'), {
+        enqueueSnackbar(t`Collect is coming soon`, {
             variant: 'warning',
         });
     }, [enqueueSnackbar]);

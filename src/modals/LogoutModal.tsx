@@ -1,8 +1,7 @@
 'use client';
 
 import { Dialog, Transition } from '@headlessui/react';
-import { i18n } from '@lingui/core';
-import { Trans } from '@lingui/react';
+import { t, Trans } from '@lingui/macro';
 import type { SingletonModalRefCreator } from '@masknet/shared-base';
 import { forwardRef, Fragment, useMemo, useState } from 'react';
 
@@ -72,13 +71,13 @@ export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps>
                                         />
                                     </button>
                                     <div className="shrink grow basis-0 text-center font-['Helvetica'] text-lg font-bold leading-snug text-main">
-                                        <Trans id="Log out" />
+                                        <Trans>Log out</Trans>
                                     </div>
                                     <div className="relative h-[24px] w-[24px]" />
                                 </div>
                                 <div className="flex flex-col gap-[12px] p-[24px]">
                                     <div className="text-[15px] font-medium leading-normal text-lightMain">
-                                        <Trans id="Confirm to log out these accounts?" />
+                                        <Trans>Confirm to log out these accounts?</Trans>
                                     </div>
                                     {account ? (
                                         <div
@@ -128,7 +127,7 @@ export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps>
                                             dispatch?.close();
                                         }}
                                     >
-                                        {i18n.t('Confirm')}
+                                        {t`Confirm`}
                                     </button>
                                 </div>
                             </Dialog.Panel>

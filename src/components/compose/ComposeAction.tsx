@@ -1,7 +1,7 @@
 import { Popover } from '@headlessui/react';
 import { ChevronRightIcon } from '@heroicons/react/24/outline';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext.js';
-import { Trans } from '@lingui/react';
+import { Trans } from '@lingui/macro';
 import { $getSelection } from 'lexical';
 import { type ChangeEvent, type Dispatch, type SetStateAction, useCallback, useRef } from 'react';
 
@@ -98,7 +98,7 @@ export default function ComposeAction({ type, setImages }: ComposeActionProps) {
 
             <div className=" flex h-9 items-center justify-between">
                 <span className=" text-sm text-[#767F8D]">
-                    <Trans id="Post by" />
+                    <Trans>Post by</Trans>
                 </span>
                 <Popover as="div" className="relative">
                     {(_) => (
@@ -115,14 +115,14 @@ export default function ComposeAction({ type, setImages }: ComposeActionProps) {
 
             <div className=" flex h-9 items-center justify-between">
                 <span className=" text-sm text-[#767F8D]">
-                    <Trans id="Reply Restriction" />
+                    <Trans>Reply Restriction</Trans>
                 </span>
                 <Popover as="div" className="relative">
                     {(_) => (
                         <>
                             <Popover.Button className=" flex cursor-pointer gap-1 text-[#07101B] focus:outline-none">
                                 <span className=" text-sm font-bold">
-                                    <Trans id="Everyone can reply" />
+                                    <Trans>Everyone can reply</Trans>
                                 </span>
                                 <ChevronRightIcon className="h-5 w-5" aria-hidden="true" />
                             </Popover.Button>

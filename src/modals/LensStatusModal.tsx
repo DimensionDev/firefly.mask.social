@@ -1,7 +1,7 @@
 'use client';
 
 import { Dialog, Transition } from '@headlessui/react';
-import { Trans } from '@lingui/react';
+import { Trans } from '@lingui/macro';
 import { forwardRef, Fragment } from 'react';
 
 import { SocialPlatform } from '@/constants/enum.js';
@@ -85,7 +85,7 @@ export const LensStatusModal = forwardRef<SingletonModalRefCreator>(function Len
                                     <button className="flex w-full items-center gap-[8px]">
                                         <Image src={'/svg/userAdd.svg'} alt="logo" width={24} height={24} />
                                         <div className=" text-[17px] font-bold leading-[22px] text-[#101010] dark:text-gray-400">
-                                            <Trans id="Change account" />
+                                            <Trans>Change account</Trans>
                                         </div>
                                     </button>
                                     <button
@@ -97,7 +97,7 @@ export const LensStatusModal = forwardRef<SingletonModalRefCreator>(function Len
                                     >
                                         <Image src={'/svg/logOut.svg'} alt="logo" width={24} height={24} />
                                         <div className=" text-[17px] font-bold leading-[22px] text-[#f00]">
-                                            <Trans id="Log out" />
+                                            <Trans>Log out</Trans>
                                         </div>
                                     </button>
                                 </div>
