@@ -144,17 +144,30 @@ export interface Post {
         bookmarks?: number;
     };
     quoteOn?: Post;
-    commentOn?: Post;
     comments?: Post[];
     mirrors?: Profile[];
     reactions?: Profile[];
-    root?: Post;
     canComment?: boolean;
     canMirror?: boolean;
     hasMirrored?: boolean;
     hasLiked?: boolean;
     __original__?: unknown;
     source: SocialPlatform;
+
+    /**
+     * Sometimes we need to render a thread, and we currently support up to three level.
+     * root
+     * |
+     * commentOn
+     * |
+     * post
+     *
+     * As shown above, `root` represents the start of the thread.
+     * the current post itself represents the end of the thread.
+     * and `commentOn` represents the post to which the current post is a reply.
+     */
+    commentOn?: Post;
+    root?: Post;
 }
 
 export interface Comment {

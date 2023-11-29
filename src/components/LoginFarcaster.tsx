@@ -18,7 +18,7 @@ export function LoginFarcaster() {
     useAsync(async () => {
         const fireflyProvider = new FireflySocialMedia();
         const session = await fireflyProvider.createSession(setUrl);
-        const profile = await fireflyProvider.getProfileById(session.profileId);
+        const profile = await fireflyProvider.getProfileById(`${session.profileId}`);
         const account = {
             avatar: profile.pfp,
             name: profile.displayName,
