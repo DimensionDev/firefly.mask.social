@@ -1,6 +1,6 @@
 'use client';
 
-import { Trans } from '@lingui/react';
+import { Trans } from '@lingui/macro';
 
 import { Image } from '@/esm/Image.js';
 
@@ -9,7 +9,7 @@ export default function More() {
         <div className="flex w-full flex-col items-center gap-[12px] p-[24px]">
             <div className=" flex w-full items-center justify-between gap-[24px]">
                 <span className="text-[18px] font-bold leading-[24px] text-main">
-                    <Trans id="More" />
+                    <Trans>More</Trans>
                 </span>
             </div>
             <div
@@ -19,7 +19,7 @@ export default function More() {
                 <Image src="/svg/security.svg" width={24} height={24} alt="security" />
                 <div className="inline-flex shrink grow basis-0 flex-col items-start justify-center gap-1">
                     <div className=" text-[14px] font-bold leading-[18px] text-lightMain">
-                        <Trans id="Privacy Policy" />
+                        <Trans>Privacy Policy</Trans>
                     </div>
                 </div>
                 <button>
@@ -33,7 +33,7 @@ export default function More() {
                 <Image src="/svg/documents.svg" width={24} height={24} alt="security" />
                 <div className="inline-flex shrink grow basis-0 flex-col items-start justify-center gap-1">
                     <div className=" text-[14px] font-bold leading-[18px] text-lightMain">
-                        <Trans id="Terms of Service" />
+                        <Trans>Terms of Service</Trans>
                     </div>
                 </div>
                 <button>

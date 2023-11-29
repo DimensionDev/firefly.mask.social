@@ -1,4 +1,4 @@
-import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 import { useMemo, useState } from 'react';
 
 import { classNames } from '@/helpers/classNames.js';
@@ -22,7 +22,7 @@ export default function FollowButton({ profile, isMyProfile }: FollowButtonProps
         const isFollowing = isMyProfile || profile?.viewerContext?.following;
 
         return {
-            buttonText: isFollowing ? (followHover ? i18n.t('Unfollow') : i18n.t('Following')) : i18n.t('Follow'),
+            buttonText: isFollowing ? (followHover ? t`Unfollow` : t`Following`) : t`Follow`,
             buttonState: isFollowing
                 ? followHover
                     ? FollowButtonState.Unfollow

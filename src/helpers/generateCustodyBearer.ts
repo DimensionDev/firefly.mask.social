@@ -1,4 +1,3 @@
-import { i18n } from '@lingui/core';
 import { toBytes } from 'viem';
 import type { WalletClient } from 'wagmi';
 
@@ -33,7 +32,7 @@ function createCustodyPayload(): CustodyPayload {
 export async function generateCustodyBearer(client: WalletClient) {
     const payload = createCustodyPayload();
     const message = canonicalize(payload);
-    if (!message) throw new Error(i18n.t('Failed to serialize payload.'));
+    if (!message) throw new Error('Failed to serialize payload.');
 
     const signature = await client.signMessage({
         message,

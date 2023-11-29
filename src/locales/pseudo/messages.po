@@ -13,6 +13,15 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
+msgid "<0>{0}</0> commented your <1><2/></1>"
+msgstr ""
+
+msgid "comment"
+msgstr ""
+
+msgid "{0, plural, one {<0>{firstReactorName}</0>} other {<1>{firstReactorName}</1> and # others}} <2>liked your </2><3><4/></3>"
+msgstr ""
+
 #. js-lingui-explicit-id
 msgid "Add a comment"
 msgstr ""
@@ -31,6 +40,9 @@ msgstr ""
 
 #. js-lingui-explicit-id
 msgid "Audio Cover"
+msgstr ""
+
+msgid "mirror"
 msgstr ""
 
 #. js-lingui-explicit-id
@@ -55,6 +67,10 @@ msgstr ""
 
 #. js-lingui-explicit-id
 msgid "Connect Wallet"
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "Connect to {platform}"
 msgstr ""
 
 #. js-lingui-explicit-id
@@ -177,6 +193,9 @@ msgstr ""
 msgid "Following"
 msgstr ""
 
+msgid "post"
+msgstr ""
+
 #. js-lingui-explicit-id
 msgid "Lens"
 msgstr ""
@@ -195,6 +214,10 @@ msgstr ""
 
 #. js-lingui-explicit-id
 msgid "Log in to your Farcaster account by scanning this QR code using mobile application Warpcast."
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "Log in to your {platform} profile to enable all features"
 msgstr ""
 
 #. js-lingui-explicit-id
@@ -238,7 +261,15 @@ msgid "Missing client."
 msgstr ""
 
 #. js-lingui-explicit-id
+msgid "Missing profile."
+msgstr ""
+
+#. js-lingui-explicit-id
 msgid "More"
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "No Lens profile found. Please change another wallet"
 msgstr ""
 
 #. js-lingui-explicit-id
@@ -262,7 +293,11 @@ msgid "No session found"
 msgstr ""
 
 #. js-lingui-explicit-id
-msgid "Not followed by anyone you’re following"
+msgid "No wallet client found"
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "Not followed by anyone you're following"
 msgstr ""
 
 #. js-lingui-explicit-id
@@ -306,6 +341,14 @@ msgid "Profile"
 msgstr ""
 
 #. js-lingui-explicit-id
+msgid "Profiles"
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "Publications"
+msgstr ""
+
+#. js-lingui-explicit-id
 msgid "Quote Post"
 msgstr ""
 
@@ -322,7 +365,7 @@ msgid "Reply Restriction"
 msgstr ""
 
 #. js-lingui-explicit-id
-msgid "Search Lens handle or Farcaster"
+msgid "Search…"
 msgstr ""
 
 #. js-lingui-explicit-id
@@ -373,8 +416,30 @@ msgstr ""
 msgid "What's happening..."
 msgstr ""
 
+msgid "<0>{0}</0> quoted your <1><2/></1>"
+msgstr ""
+
 #. js-lingui-explicit-id
 msgid "You cannot reply to @{author} on {source}"
+msgstr ""
+
+#. js-lingui-explicit-id
+msgid "Your Lens account is now connected"
+msgstr ""
+
+msgid "quote"
+msgstr ""
+
+msgid "{0, plural, one {<0>{firstActedName}</0>} other {<1>{firstActedName}</1> and # others acted on your}} <2><3/></2>"
+msgstr ""
+
+msgid "{0, plural, one {<0>{firstFollowerName}</0>} other {<1>{firstFollowerName}</1> and # others}} <2>followed you</2>"
+msgstr ""
+
+msgid "{0, plural, one {<0>{firstMirrorName}</0>} other {<1>{firstMirrorName}</1> and # others mirrored you}} <2><3/></2>"
+msgstr ""
+
+msgid "<0>{0}</0> mentioned you in a <1><2/></1>"
 msgstr ""
 
 #. js-lingui-explicit-id

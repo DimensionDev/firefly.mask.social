@@ -1,6 +1,6 @@
 'use client';
 
-import { Trans } from '@lingui/react';
+import { Trans } from '@lingui/macro';
 import { useRouter } from 'next/navigation.js';
 import type React from 'react';
 
@@ -13,7 +13,7 @@ export default function DetailLayout({ children }: { children: React.ReactNode }
             <div className=" flex items-center p-4 ">
                 <ComeBack width={24} height={24} className="mr-8 cursor-pointer" onClick={() => router.back()} />
                 <h2 className=" text-lg font-black leading-6">
-                    <Trans id="Details" />
+                    <Trans>Details</Trans>
                 </h2>
             </div>
             {children}

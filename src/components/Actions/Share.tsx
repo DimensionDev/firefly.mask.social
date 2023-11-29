@@ -1,4 +1,4 @@
-import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import { useSnackbar } from 'notistack';
 import { memo, useCallback } from 'react';
@@ -18,7 +18,7 @@ export const Share = memo<ShareProps>(function Collect({ url, disabled = false }
 
     const handleClick = useCallback(() => {
         copyToClipboard(url);
-        enqueueSnackbar(i18n.t('Copied'), {
+        enqueueSnackbar(t`Copied`, {
             variant: 'success',
         });
     }, [enqueueSnackbar, url, copyToClipboard]);
@@ -28,11 +28,16 @@ export const Share = memo<ShareProps>(function Collect({ url, disabled = false }
             className={classNames('flex items-center space-x-2 text-secondary', {
                 'opacity-50': disabled,
             })}
+            onClick={(event) => {
+                event.preventDefault();
+                event.stopPropagation();
+            }}
         >
-            <Tooltip content={i18n.t('Share')} placement="top" disabled={disabled}>
+            <Tooltip content={t`Share`} placement="top" disabled={disabled}>
                 <motion.button
                     disabled={disabled}
                     onClick={(event) => {
+                        event.preventDefault();
                         event.stopPropagation();
                         if (disabled) return;
                         handleClick();

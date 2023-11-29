@@ -13,6 +13,15 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
+msgid "<0>{0}</0> commented your <1><2/></1>"
+msgstr "<0>{0}</0> commented your <1><2/></1>"
+
+msgid "comment"
+msgstr "comment"
+
+msgid "{0, plural, one {<0>{firstReactorName}</0>} other {<1>{firstReactorName}</1> and # others}} <2>liked your </2><3><4/></3>"
+msgstr "{0, plural, one {<0>{firstReactorName}</0>} other {<1>{firstReactorName}</1> and # others}} <2>liked your </2><3><4/></3>"
+
 #. js-lingui-explicit-id
 msgid "Add a comment"
 msgstr "Add a comment"
@@ -32,6 +41,9 @@ msgstr "Associated Wallets"
 #. js-lingui-explicit-id
 msgid "Audio Cover"
 msgstr "Audio Cover"
+
+msgid "mirror"
+msgstr "mirror"
 
 #. js-lingui-explicit-id
 msgid "Change Wallet"
@@ -56,6 +68,10 @@ msgstr "Confirm"
 #. js-lingui-explicit-id
 msgid "Connect Wallet"
 msgstr "Connect Wallet"
+
+#. js-lingui-explicit-id
+msgid "Connect to {platform}"
+msgstr "Connect to {platform}"
 
 #. js-lingui-explicit-id
 msgid "Connected Accounts"
@@ -177,6 +193,9 @@ msgstr "Followers"
 msgid "Following"
 msgstr "Following"
 
+msgid "post"
+msgstr "post"
+
 #. js-lingui-explicit-id
 msgid "Lens"
 msgstr "Lens"
@@ -196,6 +215,10 @@ msgstr "Log in"
 #. js-lingui-explicit-id
 msgid "Log in to your Farcaster account by scanning this QR code using mobile application Warpcast."
 msgstr "Log in to your Farcaster account by scanning this QR code using mobile application Warpcast."
+
+#. js-lingui-explicit-id
+msgid "Log in to your {platform} profile to enable all features"
+msgstr "Log in to your {platform} profile to enable all features"
 
 #. js-lingui-explicit-id
 msgid "Log out"
@@ -238,8 +261,16 @@ msgid "Missing client."
 msgstr "Missing client."
 
 #. js-lingui-explicit-id
+msgid "Missing profile."
+msgstr "Missing profile."
+
+#. js-lingui-explicit-id
 msgid "More"
 msgstr "More"
+
+#. js-lingui-explicit-id
+msgid "No Lens profile found. Please change another wallet"
+msgstr "No Lens profile found. Please change another wallet"
 
 #. js-lingui-explicit-id
 msgid "No client found"
@@ -262,8 +293,12 @@ msgid "No session found"
 msgstr "No session found"
 
 #. js-lingui-explicit-id
-msgid "Not followed by anyone you’re following"
-msgstr "Not followed by anyone you’re following"
+msgid "No wallet client found"
+msgstr "No wallet client found"
+
+#. js-lingui-explicit-id
+msgid "Not followed by anyone you're following"
+msgstr "Not followed by anyone you're following"
 
 #. js-lingui-explicit-id
 msgid "Not implemented yet."
@@ -306,6 +341,14 @@ msgid "Profile"
 msgstr "Profile"
 
 #. js-lingui-explicit-id
+msgid "Profiles"
+msgstr "Profiles"
+
+#. js-lingui-explicit-id
+msgid "Publications"
+msgstr "Publications"
+
+#. js-lingui-explicit-id
 msgid "Quote Post"
 msgstr "Quote Post"
 
@@ -322,8 +365,8 @@ msgid "Reply Restriction"
 msgstr "Reply Restriction"
 
 #. js-lingui-explicit-id
-msgid "Search Lens handle or Farcaster"
-msgstr "Search Lens handle or Farcaster"
+msgid "Search…"
+msgstr "Search…"
 
 #. js-lingui-explicit-id
 msgid "Settings"
@@ -373,9 +416,31 @@ msgstr "Unknown session type."
 msgid "What's happening..."
 msgstr "What's happening..."
 
+msgid "<0>{0}</0> quoted your <1><2/></1>"
+msgstr "<0>{0}</0> quoted your <1><2/></1>"
+
 #. js-lingui-explicit-id
 msgid "You cannot reply to @{author} on {source}"
 msgstr "You cannot reply to @{author} on {source}"
+
+#. js-lingui-explicit-id
+msgid "Your Lens account is now connected"
+msgstr "Your Lens account is now connected"
+
+msgid "quote"
+msgstr "quote"
+
+msgid "{0, plural, one {<0>{firstActedName}</0>} other {<1>{firstActedName}</1> and # others acted on your}} <2><3/></2>"
+msgstr "{0, plural, one {<0>{firstActedName}</0>} other {<1>{firstActedName}</1> and # others acted on your}} <2><3/></2>"
+
+msgid "{0, plural, one {<0>{firstFollowerName}</0>} other {<1>{firstFollowerName}</1> and # others}} <2>followed you</2>"
+msgstr "{0, plural, one {<0>{firstFollowerName}</0>} other {<1>{firstFollowerName}</1> and # others}} <2>followed you</2>"
+
+msgid "{0, plural, one {<0>{firstMirrorName}</0>} other {<1>{firstMirrorName}</1> and # others mirrored you}} <2><3/></2>"
+msgstr "{0, plural, one {<0>{firstMirrorName}</0>} other {<1>{firstMirrorName}</1> and # others mirrored you}} <2><3/></2>"
+
+msgid "<0>{0}</0> mentioned you in a <1><2/></1>"
+msgstr "<0>{0}</0> mentioned you in a <1><2/></1>"
 
 #. js-lingui-explicit-id
 msgid "{count} Comments"

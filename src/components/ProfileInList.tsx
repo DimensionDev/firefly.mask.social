@@ -1,7 +1,8 @@
+import { useDarkMode } from 'usehooks-ts';
+
 import FollowButton from '@/app/profile/components/FollowButton.jsx';
 import { Image } from '@/components/Image.js';
 import { getSocialPlatformIconBySource } from '@/helpers/getSocialPlatformIconBySource.js';
-import { useQueryMode } from '@/hooks/useQueryMode.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 interface ProfileInListProps {
@@ -12,8 +13,8 @@ interface ProfileInListProps {
 export function ProfileInList(props: ProfileInListProps) {
     const { profile } = props;
 
-    const mode = useQueryMode();
-    const sourceIcon = getSocialPlatformIconBySource(profile.source, mode);
+    const { isDarkMode } = useDarkMode();
+    const sourceIcon = getSocialPlatformIconBySource(profile.source, isDarkMode);
 
     return (
         <div className="flex items-center space-x-3">
@@ -21,7 +22,7 @@ export function ProfileInList(props: ProfileInListProps) {
                 loading="lazy"
                 className="h-[75px] w-[75px] rounded-full border"
                 src={profile.pfp}
-                fallback={mode === 'light' ? '/image/firefly-light-avatar.png' : '/image/firefly-dark-avatar.png'}
+                fallback={!isDarkMode ? '/image/firefly-light-avatar.png' : '/image/firefly-dark-avatar.png'}
                 width={40}
                 height={40}
                 alt={profile.profileId}

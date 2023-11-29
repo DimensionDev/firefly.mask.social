@@ -1,4 +1,4 @@
-import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 import {
     createIndicator,
     createNextIndicator,
@@ -19,6 +19,7 @@ import { waitForSignedKeyRequestComplete } from '@/helpers/waitForSignedKeyReque
 import { SessionFactory } from '@/providers/base/SessionFactory.js';
 import {
     type Post,
+    type PostType,
     type Profile,
     ProfileStatus,
     type Provider,
@@ -82,7 +83,7 @@ export class WarpcastSocialMedia implements Provider {
      */
     async _createSessionByCustodyWallet(signal?: AbortSignal) {
         const client = await getWalletClient();
-        if (!client) throw new Error(i18n.t('No client found'));
+        if (!client) throw new Error(t`No client found`);
 
         const { payload, token } = await generateCustodyBearer(client);
         const response = await fetchJSON<{
@@ -160,40 +161,7 @@ export class WarpcastSocialMedia implements Provider {
     }
 
     async getPostById(postId: string): Promise<Post> {
-        const url = urlcat(WARPCAST_ROOT_URL, '/cast', { hash: postId });
-        const { result: cast } = await this.fetchWithSession<CastResponse>(url, {
-            method: 'GET',
-        });
-
-        return {
-            source: SocialPlatform.Farcaster,
-            postId: cast.hash,
-            parentPostId: cast.threadHash,
-            timestamp: cast.timestamp,
-            author: {
-                profileId: cast.author.fid.toString(),
-                nickname: cast.author.username,
-                displayName: cast.author.displayName,
-                pfp: cast.author.pfp.url,
-                followerCount: cast.author.followerCount,
-                followingCount: cast.author.followingCount,
-                status: ProfileStatus.Active,
-                verified: cast.author.pfp.verified,
-                source: SocialPlatform.Farcaster,
-            },
-            metadata: {
-                locale: '',
-                content: {
-                    content: cast.text,
-                },
-            },
-            stats: {
-                comments: cast.replies.count,
-                mirrors: cast.recasts.count,
-                quotes: cast.recasts.count,
-                reactions: cast.reactions.count,
-            },
-        };
+        throw new Error('Method not implemented.');
     }
 
     async getProfileById(profileId: string) {
@@ -301,6 +269,7 @@ export class WarpcastSocialMedia implements Provider {
         });
 
         return {
+            type: 'Post' as PostType,
             source: SocialPlatform.Farcaster,
             postId: cast.hash,
             parentPostId: cast.threadHash,
@@ -406,11 +375,11 @@ export class WarpcastSocialMedia implements Provider {
     }
 
     searchProfiles(q: string, indicator?: PageIndicator): Promise<Pageable<Profile>> {
-        throw new Error(i18n.t('Method not implemented.'));
+        throw new Error(t`Method not implemented.`);
     }
 
     searchPosts(q: string, indicator?: PageIndicator): Promise<Pageable<Post>> {
-        throw new Error(i18n.t('Method not implemented.'));
+        throw new Error(t`Method not implemented.`);
     }
 }
 

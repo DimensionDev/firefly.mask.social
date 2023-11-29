@@ -1,7 +1,6 @@
 import type { DetailedHTMLProps, ImgHTMLAttributes, Ref, SyntheticEvent } from 'react';
 import { forwardRef, useCallback, useEffect, useState } from 'react';
-
-import { useQueryMode } from '@/hooks/useQueryMode.js';
+import { useDarkMode } from 'usehooks-ts';
 
 export const Image = forwardRef(function Image(
     {
@@ -12,7 +11,7 @@ export const Image = forwardRef(function Image(
     ref: Ref<HTMLImageElement>,
 ) {
     const [imageLoadFailed, setImageLoadFailed] = useState(false);
-    const mode = useQueryMode();
+    const { isDarkMode } = useDarkMode();
 
     const handleError = useCallback(
         (e: SyntheticEvent<HTMLImageElement>) => {
@@ -40,7 +39,7 @@ export const Image = forwardRef(function Image(
             {...props}
             src={
                 imageLoadFailed
-                    ? fallback || (mode === 'light' ? '/image/fallback-light.png' : '/image/fallback-dark.png')
+                    ? fallback || (!isDarkMode ? '/image/fallback-light.png' : '/image/fallback-dark.png')
                     : props.src
             }
             onError={handleError}

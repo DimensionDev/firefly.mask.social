@@ -1,5 +1,5 @@
 import { Message } from '@farcaster/hub-web';
-import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 import { type Pageable, type PageIndicator } from '@masknet/shared-base';
 import * as ed from '@noble/ed25519';
 import { sha512 } from '@noble/hashes/sha512';
@@ -84,7 +84,7 @@ export class HubbleSocialMedia implements Provider {
 
     async publishPost(post: Post): Promise<Post> {
         const session = await this.resumeSession();
-        if (!session) throw new Error(i18n.t('No session found'));
+        if (!session) throw new Error(t`No session found`);
 
         const url = urlcat(FIREFLY_HUBBLE_URL, '/v1/submitMessage');
         const messageData: MessageData = {
@@ -123,7 +123,7 @@ export class HubbleSocialMedia implements Provider {
             headers: { 'Content-Type': 'application/octet-stream' },
             body: messageBytes,
         });
-        if (!data) throw new Error(i18n.t('Failed to publish post'));
+        if (!data) throw new Error(t`Failed to publish post`);
 
         return {
             source: SocialPlatform.Farcaster,
@@ -158,7 +158,7 @@ export class HubbleSocialMedia implements Provider {
 
     async upvotePost(postId: string) {
         const session = await this.resumeSession();
-        if (!session) throw new Error(i18n.t('No session found'));
+        if (!session) throw new Error(t`No session found`);
         const url = urlcat(FIREFLY_HUBBLE_URL, '/v1/submitMessage');
         const messageData: MessageData = {
             type: MessageType.REACTION_ADD,
@@ -194,7 +194,7 @@ export class HubbleSocialMedia implements Provider {
             headers: { 'Content-Type': 'application/octet-stream' },
             body: messageBytes,
         });
-        if (!data) throw new Error(i18n.t('Failed to upvote post'));
+        if (!data) throw new Error(t`Failed to upvote post`);
 
         return {
             reactionId: messageHash,
@@ -205,7 +205,7 @@ export class HubbleSocialMedia implements Provider {
 
     async unvotePost(postId: string) {
         const session = await this.resumeSession();
-        if (!session) throw new Error(i18n.t('No session found'));
+        if (!session) throw new Error(t`No session found`);
         const url = urlcat(FIREFLY_HUBBLE_URL, '/v1/submitMessage');
         const messageData: MessageData = {
             type: MessageType.REACTION_REMOVE,
@@ -241,13 +241,13 @@ export class HubbleSocialMedia implements Provider {
             headers: { 'Content-Type': 'application/octet-stream' },
             body: messageBytes,
         });
-        if (!data) throw new Error(i18n.t('Failed to unvote post'));
+        if (!data) throw new Error(t`Failed to unvote post`);
         return;
     }
 
     async commentPost(postId: string, comment: string) {
         const session = await this.resumeSession();
-        if (!session) throw new Error(i18n.t('No session found'));
+        if (!session) throw new Error(t`No session found`);
         const url = urlcat(FIREFLY_HUBBLE_URL, '/v1/submitMessage');
         const messageData: MessageData = {
             type: MessageType.CAST_ADD,
@@ -287,13 +287,13 @@ export class HubbleSocialMedia implements Provider {
             headers: { 'Content-Type': 'application/octet-stream' },
             body: messageBytes,
         });
-        if (!data) throw new Error(i18n.t('Failed to publish post'));
+        if (!data) throw new Error(t`Failed to publish post`);
         return;
     }
 
     async mirrorPost(postId: string) {
         const session = await this.resumeSession();
-        if (!session) throw new Error(i18n.t('No session found'));
+        if (!session) throw new Error(t`No session found`);
         const url = urlcat(FIREFLY_HUBBLE_URL, '/v1/submitMessage');
         const messageData: MessageData = {
             type: MessageType.REACTION_ADD,
@@ -329,13 +329,13 @@ export class HubbleSocialMedia implements Provider {
             headers: { 'Content-Type': 'application/octet-stream' },
             body: messageBytes,
         });
-        if (!data) throw new Error(i18n.t('Failed to mirror post'));
+        if (!data) throw new Error(t`Failed to mirror post`);
         return null!;
     }
 
     async unmirrorPost(postId: string) {
         const session = await this.resumeSession();
-        if (!session) throw new Error(i18n.t('No session found'));
+        if (!session) throw new Error(t`No session found`);
         const url = urlcat(FIREFLY_HUBBLE_URL, '/v1/submitMessage');
         const messageData: MessageData = {
             type: MessageType.REACTION_REMOVE,
@@ -371,13 +371,13 @@ export class HubbleSocialMedia implements Provider {
             headers: { 'Content-Type': 'application/octet-stream' },
             body: messageBytes,
         });
-        if (!data) throw new Error(i18n.t('Failed to unmirror post'));
+        if (!data) throw new Error(t`Failed to unmirror post`);
         return null!;
     }
 
     async follow(profileId: string) {
         const session = await this.resumeSession();
-        if (!session) throw new Error(i18n.t('No session found'));
+        if (!session) throw new Error(t`No session found`);
         const url = urlcat(FIREFLY_HUBBLE_URL, '/v1/submitMessage');
         const messageData: MessageData = {
             type: MessageType.LINK_ADD,
@@ -410,13 +410,13 @@ export class HubbleSocialMedia implements Provider {
             headers: { 'Content-Type': 'application/octet-stream' },
             body: messageBytes,
         });
-        if (!data) throw new Error(i18n.t('Failed to follow'));
+        if (!data) throw new Error(t`Failed to follow`);
         return null!;
     }
 
     async unfollow(profileId: string) {
         const session = await this.resumeSession();
-        if (!session) throw new Error(i18n.t('No session found'));
+        if (!session) throw new Error(t`No session found`);
         const url = urlcat(FIREFLY_HUBBLE_URL, '/v1/submitMessage');
         const messageData: MessageData = {
             type: MessageType.LINK_REMOVE,
@@ -449,16 +449,16 @@ export class HubbleSocialMedia implements Provider {
             headers: { 'Content-Type': 'application/octet-stream' },
             body: messageBytes,
         });
-        if (!data) throw new Error(i18n.t('Failed to unfollow'));
+        if (!data) throw new Error(t`Failed to unfollow`);
         return null!;
     }
 
     searchProfiles(q: string, indicator?: PageIndicator): Promise<Pageable<Profile>> {
-        throw new Error(i18n.t('Method not implemented.'));
+        throw new Error(t`Method not implemented.`);
     }
 
     searchPosts(q: string, indicator?: PageIndicator): Promise<Pageable<Post>> {
-        throw new Error(i18n.t('Method not implemented.'));
+        throw new Error(t`Method not implemented.`);
     }
 }
 

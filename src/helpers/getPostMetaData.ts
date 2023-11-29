@@ -1,7 +1,7 @@
 import { image, MediaImageMimeType, MediaVideoMimeType, textOnly, video } from '@lens-protocol/metadata';
 import { v4 as uuid } from 'uuid';
 
-import getUserLocale from '@/helpers/getUserLocale.js';
+import { getUserLocale } from '@/helpers/getUserLocale.js';
 
 interface IBaseMetadata {
     title: string;
@@ -30,7 +30,7 @@ interface IAttachments {
     }>;
 }
 
-export default function getPostMetaData(baseMetadata: IBaseMetadata, attachments?: IAttachments) {
+export function getPostMetaData(baseMetadata: IBaseMetadata, attachments?: IAttachments) {
     const localBaseMetadata = {
         id: uuid(),
         locale: getUserLocale(),

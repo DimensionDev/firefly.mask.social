@@ -1,4 +1,4 @@
-import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 import { useQueryClient } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
 import { useSnackbar } from 'notistack';
@@ -55,7 +55,7 @@ export const Like = memo<LikeProps>(function Like({ count, hasLiked, postId, sou
                 default:
                     break;
             }
-            enqueueSnackbar(liked ? i18n.t('UnLiked') : i18n.t('Liked'), {
+            enqueueSnackbar(liked ? t`UnLiked` : t`Liked`, {
                 variant: 'success',
             });
             queryClient.invalidateQueries({ queryKey: [source, 'post-detail', postId] });
@@ -69,18 +69,9 @@ export const Like = memo<LikeProps>(function Like({ count, hasLiked, postId, sou
                     if (!prev) return;
                     return prev - 1;
                 });
-                enqueueSnackbar(
-                    liked
-                        ? i18n.t('Failed to unlike. {message}', {
-                              message: error.message,
-                          })
-                        : i18n.t('Failed to like. {message}', {
-                              message: error.message,
-                          }),
-                    {
-                        variant: 'error',
-                    },
-                );
+                enqueueSnackbar(liked ? t`Failed to unlike. ${error.message}` : t`Failed to like. ${error.message}`, {
+                    variant: 'error',
+                });
             }
             return;
         }
@@ -94,7 +85,7 @@ export const Like = memo<LikeProps>(function Like({ count, hasLiked, postId, sou
                 'opacity-50': disabled,
             })}
         >
-            <Tooltip content={hasLiked ? i18n.t('UnLiked') : i18n.t('Liked')} placement="top" disabled={disabled}>
+            <Tooltip content={hasLiked ? t`UnLiked` : t`Liked`} placement="top" disabled={disabled}>
                 <motion.button
                     disabled={disabled}
                     whileTap={{ scale: 0.9 }}

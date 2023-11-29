@@ -1,6 +1,7 @@
 'use client';
 
 import { memo } from 'react';
+import { useDarkMode } from 'usehooks-ts';
 import { useEnsAvatar, useEnsName } from 'wagmi';
 import { mainnet } from 'wagmi/chains';
 
@@ -8,7 +9,6 @@ import MirrorIon from '@/assets/mirror.xyz.svg';
 import { Image } from '@/components/Image.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
 import { Link } from '@/esm/Link.js';
-import { useQueryMode } from '@/hooks/useQueryMode.js';
 import { formatEthereumAddress } from '@/maskbook/packages/web3-shared/evm/src/index.js';
 
 interface MirrorProps {
@@ -30,7 +30,7 @@ export const Mirror = memo<MirrorProps>(function Mirror({
     title,
     description,
 }) {
-    const mode = useQueryMode();
+    const { isDarkMode } = useDarkMode();
 
     const { data: ensName = ens } = useEnsName({
         address,
@@ -54,9 +54,7 @@ export const Mirror = memo<MirrorProps>(function Mirror({
                                 className="rounded-full"
                                 src={
                                     avatar ||
-                                    (mode === 'light'
-                                        ? '/image/firefly-light-avatar.png'
-                                        : '/image/firefly-dark-avatar.png')
+                                    (!isDarkMode ? '/image/firefly-light-avatar.png' : '/image/firefly-dark-avatar.png')
                                 }
                                 width={24}
                                 height={24}

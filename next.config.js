@@ -15,6 +15,7 @@ export default {
     experimental: {
         esmExternals: true,
         scrollRestoration: true,
+        swcPlugins: [['@lingui/swc-plugin', {}]],
     },
     images: {
         dangerouslyAllowSVG: false,

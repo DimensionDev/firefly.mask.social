@@ -1,5 +1,6 @@
 import {
     ChangeProfileManagerActionType,
+    CustomFiltersType,
     ExploreProfilesOrderByType,
     ExplorePublicationsOrderByType,
     isRelaySuccess,
@@ -8,8 +9,9 @@ import {
     LimitType,
     production,
     PublicationReactionType,
-    PublicationType} from '@lens-protocol/client';
-import { i18n } from '@lingui/core';
+    PublicationType,
+} from '@lens-protocol/client';
+import { t } from '@lingui/macro';
 import {
     createIndicator,
     createNextIndicator,
@@ -17,11 +19,13 @@ import {
     type Pageable,
     type PageIndicator,
 } from '@masknet/shared-base';
+import { first, flatMap } from 'lodash-es';
 import type { TypedDataDomain } from 'viem';
 import type { WalletClient } from 'wagmi';
 import { getWalletClient } from 'wagmi/actions';
 
-import { formatLensPost } from '@/helpers/formatLensPost.js';
+import { SocialPlatform } from '@/constants/enum.js';
+import { formatLensPost, formatLensQuoteOrComment } from '@/helpers/formatLensPost.js';
 import { formatLensProfile } from '@/helpers/formatLensProfile.js';
 import { generateCustodyBearer } from '@/helpers/generateCustodyBearer.js';
 import { isZero } from '@/maskbook/packages/web3-shared/base/src/index.js';
@@ -64,7 +68,7 @@ export class LensSocialMedia implements Provider {
 
     async getWallet(): Promise<WalletClient> {
         const client = await getWalletClient();
-        if (!client) throw new Error(i18n.t('No wallet client found'));
+        if (!client) throw new Error(t`No wallet client found`);
 
         return client;
     }
@@ -75,7 +79,7 @@ export class LensSocialMedia implements Provider {
         const profile = await this.lensClient.profile.fetchDefault({
             for: address,
         });
-        if (!profile) throw new Error(i18n.t('No profile found'));
+        if (!profile) throw new Error(t`No profile found`);
 
         const { id, text } = await this.lensClient.authentication.generateChallenge({
             for: profile.id,
@@ -195,13 +199,13 @@ export class LensSocialMedia implements Provider {
           const onchainRelayResult = broadcastOnchainResult.unwrap();
           
           if (onchainRelayResult.__typename === "RelayError") {
-            throw new Error(i18n.t('Relay error'));
+            throw new Error(t`Relay error`);
           }
           return;
     }
 
     async publishPost(post: Post): Promise<Post> {
-        if (!post.metadata.contentURI) throw new Error(i18n.t('No content URI found'));
+        if (!post.metadata.contentURI) throw new Error(t`No content URI found`);
 
         const profile = await this.getProfileById(post.author.profileId);
 
@@ -322,7 +326,7 @@ export class LensSocialMedia implements Provider {
         const result = await this.lensClient.profile.fetch({
             forProfileId: profileId,
         });
-        if (!result) throw new Error(i18n.t('No profile found'));
+        if (!result) throw new Error(t`No profile found`);
 
         return formatLensProfile(result);
     }
@@ -331,7 +335,7 @@ export class LensSocialMedia implements Provider {
         const result = await this.lensClient.profile.fetch({
             forHandle: profileId,
         });
-        if (!result) throw new Error(i18n.t('No profile found'));
+        if (!result) throw new Error(t`No profile found`);
 
         return formatLensProfile(result);
     }
@@ -341,7 +345,7 @@ export class LensSocialMedia implements Provider {
             forId: postId,
         });
 
-        if (!result) throw new Error(i18n.t('No post found'));
+        if (!result) throw new Error(t`No post found`);
 
         const post = formatLensPost(result);
         return post;
@@ -508,6 +512,9 @@ export class LensSocialMedia implements Provider {
 
     async getNotifications(indicator?: PageIndicator): Promise<Pageable<Notification, PageIndicator>> {
         const result = await this.lensClient.notifications.fetch({
+            where: {
+                customFilters: [CustomFiltersType.Gardeners],
+            },
             cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
         });
 
@@ -518,48 +525,52 @@ export class LensSocialMedia implements Provider {
                 if (item.__typename === 'MirrorNotification') {
                     if (item.mirrors.length === 0) throw new Error('No mirror found');
 
+                    const time = first(item.mirrors)?.mirroredAt;
                     return {
+                        source: SocialPlatform.Lens,
                         notificationId: item.id,
                         type: NotificationType.Mirror,
-                        mirror: await this.getPostById(item.mirrors[0].mirrorId),
-                        post: await this.getPostById(item.publication.id),
+                        mirrors: item.mirrors.map((x) => formatLensProfile(x.profile)),
+                        post: formatLensPost(item.publication),
+                        timestamp: time ? new Date(time).getTime() : undefined,
                     };
                 }
 
                 if (item.__typename === 'QuoteNotification') {
-                    const quote = await this.getPostById(item.quote.id);
+                    const time = item.quote.createdAt;
                     return {
+                        source: SocialPlatform.Lens,
                         notificationId: item.id,
                         type: NotificationType.Quote,
-                        quote,
-                        post: quote,
+                        quote: formatLensPost(item.quote),
+                        post: formatLensQuoteOrComment(item.quote.quoteOn),
+                        timestamp: time ? new Date(time).getTime() : undefined,
                     };
                 }
 
                 if (item.__typename === 'ReactionNotification') {
                     if (item.reactions.length === 0) throw new Error('No reaction found');
 
+                    const time = first(flatMap(item.reactions.map((x) => x.reactions)))?.reactedAt;
                     return {
+                        source: SocialPlatform.Lens,
                         notificationId: item.id,
                         type: NotificationType.Reaction,
                         reaction: ReactionType.Upvote,
-                        reactor: formatLensProfile(item.reactions[0].profile),
-                        post: await this.getPostById(item.publication.id),
+                        reactors: item.reactions.map((x) => formatLensProfile(x.profile)),
+                        post: formatLensPost(item.publication),
+                        timestamp: time ? new Date(time).getTime() : undefined,
                     };
                 }
 
                 if (item.__typename === 'CommentNotification') {
-                    const post = await this.getPostById(item.comment.commentOn.id);
                     return {
+                        source: SocialPlatform.Lens,
                         notificationId: item.id,
                         type: NotificationType.Comment,
-                        comment: {
-                            commentId: item.comment.id,
-                            timestamp: new Date(item.comment.createdAt).getTime(),
-                            author: formatLensProfile(item.comment.by),
-                            for: post,
-                        },
-                        post,
+                        comment: formatLensPost(item.comment),
+                        post: formatLensQuoteOrComment(item.comment.commentOn),
+                        timestamp: new Date(item.comment.createdAt).getTime(),
                     };
                 }
 
@@ -567,9 +578,10 @@ export class LensSocialMedia implements Provider {
                     if (item.followers.length === 0) throw new Error('No follower found');
 
                     return {
+                        source: SocialPlatform.Lens,
                         notificationId: item.id,
                         type: NotificationType.Follow,
-                        follower: formatLensProfile(item.followers[0]),
+                        followers: item.followers.map(formatLensProfile),
                     };
                 }
 
@@ -577,9 +589,23 @@ export class LensSocialMedia implements Provider {
                     const post = formatLensPost(item.publication);
 
                     return {
+                        source: SocialPlatform.Lens,
                         notificationId: item.id,
                         type: NotificationType.Mention,
                         post,
+                        timestamp: new Date(item.publication.createdAt).getTime(),
+                    };
+                }
+
+                if (item.__typename === 'ActedNotification') {
+                    const time = first(item.actions)?.actedAt;
+                    return {
+                        source: SocialPlatform.Lens,
+                        notificationId: item.id,
+                        type: NotificationType.Act,
+                        post: formatLensPost(item.publication),
+                        actions: item.actions.map((x) => formatLensProfile(x.by)),
+                        timestamp: time ? new Date(time).getTime() : undefined,
                     };
                 }
 
@@ -590,7 +616,7 @@ export class LensSocialMedia implements Provider {
         return createPageable(
             data.filter((item) => typeof item !== 'undefined') as Notification[],
             indicator ?? createIndicator(),
-            createNextIndicator(indicator, value.pageInfo.next ?? undefined),
+            value.pageInfo.next ? createNextIndicator(indicator, value.pageInfo.next ?? undefined) : undefined,
         );
     }
 

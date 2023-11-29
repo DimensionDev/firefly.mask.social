@@ -1,6 +1,6 @@
 'use client';
 
-import { Trans } from '@lingui/react';
+import { Trans } from '@lingui/macro';
 import { useRouter } from 'next/navigation.js';
 import { forwardRef } from 'react';
 import urlcat from 'urlcat';
@@ -40,7 +40,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
                     })}
                 >
                     <Lock width={16} height={16} />
-                    <Trans id="Post has been encrypted" />
+                    <Trans>Post has been encrypted</Trans>
                 </div>
             </div>
         );
@@ -54,7 +54,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
                 })}
             >
                 <EyeSlash width={16} height={16} />
-                <Trans id="Post has been hidden" />
+                <Trans>Post has been hidden</Trans>
             </div>
         </div>;
     }
@@ -89,7 +89,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
                             router.push(urlcat('/detail/:platform/:id', { platform: post.source, id: post.postId }));
                         }}
                     >
-                        <Trans id="Show More" />
+                        <Trans>Show More</Trans>
                     </div>
                 </div>
             ) : null}

@@ -1,4 +1,4 @@
-import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import { memo } from 'react';
 
@@ -17,22 +17,17 @@ export const Views = memo<ViewsProps>(function Collect({ count, disabled = false
             className={classNames('flex items-center space-x-2 text-secondary', {
                 'opacity-50': disabled,
             })}
+            onClick={(event) => {
+                event.preventDefault();
+                event.stopPropagation();
+            }}
         >
-            <Tooltip
-                content={
-                    count
-                        ? i18n.t('{count} views', {
-                              count: nFormatter(count),
-                          })
-                        : null
-                }
-                placement="top"
-                disabled={disabled}
-            >
+            <Tooltip content={count ? t`${nFormatter(count)} views` : null} placement="top" disabled={disabled}>
                 <motion.button
                     disabled={disabled}
                     onClick={(event) => {
                         event.stopPropagation();
+                        event.preventDefault();
                     }}
                     whileTap={{ scale: 0.9 }}
                     className=" rounded-full p-1.5"

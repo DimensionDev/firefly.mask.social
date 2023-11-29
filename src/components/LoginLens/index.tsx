@@ -1,7 +1,6 @@
 'use client';
 
-import { i18n } from '@lingui/core';
-import { Trans } from '@lingui/react';
+import { t, Trans } from '@lingui/macro';
 import { Switch } from '@mui/material';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { first } from 'lodash-es';
@@ -50,7 +49,7 @@ export function LoginLens({ back }: LoginLensProps) {
             }));
 
             if (!result.length) {
-                enqueueSnackbar(i18n.t('No Lens profile found. Please change another wallet'), { variant: 'error' });
+                enqueueSnackbar(t`No Lens profile found. Please change another wallet`, { variant: 'error' });
                 LoginModalRef.close();
                 return [];
             }
@@ -68,7 +67,7 @@ export function LoginLens({ back }: LoginLensProps) {
         if (!accounts || !current) return;
         await LensSocialMediaProvider.createSessionForProfileId(current.id);
         updateCurrentAccount(current);
-        enqueueSnackbar(i18n.t('Your Lens account is now connected'), { variant: 'success' });
+        enqueueSnackbar(t`Your Lens account is now connected`, { variant: 'success' });
         LoginModalRef.close();
     }, [accounts, current]);
 
@@ -85,7 +84,7 @@ export function LoginLens({ back }: LoginLensProps) {
             <div className="flex min-h-[372px] w-full flex-col gap-[16px] p-[16px]">
                 <div className="flex w-full flex-col gap-[16px] rounded-[8px] bg-lightBg px-[16px] py-[24px]">
                     <div className="w-full text-left text-[14px] leading-[16px] text-lightSecond">
-                        <Trans id="Sign the transaction to verify you are the owner of the selected profile" />
+                        <Trans>Sign the transaction to verify you are the owner of the selected profile</Trans>
                     </div>
                     {accounts?.map((account) => (
                         <AccountCard
@@ -99,12 +98,15 @@ export function LoginLens({ back }: LoginLensProps) {
                 <div className="flex w-full flex-col gap-[8px] rounded-[8px] bg-lightBg px-[16px] py-[24px]">
                     <div className="flex items-center justify-between">
                         <span className="text-[14px] font-bold leading-[18px] text-lightMain">
-                            <Trans id="Delegate Signing (Recommend)" />
+                            <Trans>Delegate Signing (Recommend)</Trans>
                         </span>
                         <Switch checked={signless} onChange={(e) => setSignless(e.target.checked)} />
                     </div>
                     <div className="w-full text-left text-[14px] leading-[16px] text-lightSecond">
-                        <Trans id="Allow Lens Manager to perform actions such as posting, liking, and commenting without the need to sign each transaction" />
+                        <Trans>
+                            Allow Lens Manager to perform actions such as posting, liking, and commenting without the
+                            need to sign each transaction
+                        </Trans>
                     </div>
                 </div>
                 <div
@@ -123,14 +125,14 @@ export function LoginLens({ back }: LoginLensProps) {
                     >
                         <Image src="/svg/wallet.svg" alt="wallet" width={20} height={20} />
                         <span className=" text-[14px] font-bold leading-[18px] text-lightSecond">
-                            <Trans id="Change Wallet" />
+                            <Trans>Change Wallet</Trans>
                         </span>
                     </button>
                     <button
                         className="flex w-[120px] items-center justify-center gap-[8px] rounded-[99px] bg-lightMain py-[11px] text-primaryBottom"
                         onClick={() => login()}
                     >
-                        <Trans id="Sign" />
+                        <Trans>Sign</Trans>
                     </button>
                 </div>
             </div>

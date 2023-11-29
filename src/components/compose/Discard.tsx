@@ -1,6 +1,6 @@
 import { Dialog, Transition } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
-import { Trans } from '@lingui/react';
+import { Trans } from '@lingui/macro';
 import { Fragment, useCallback } from 'react';
 
 interface ComposeProps {
@@ -47,12 +47,12 @@ export default function Discard({ opened, setOpened, setComposeOpened }: Compose
                                     />
 
                                     <span className=" flex h-full w-full items-center justify-center text-lg font-bold capitalize leading-6 text-[#07101B]">
-                                        <Trans id="Discard" />
+                                        <Trans>Discard</Trans>
                                     </span>
                                 </Dialog.Title>
 
                                 <div className=" text-sm">
-                                    <Trans id="This can’t be undone and you’ll lose your draft" />
+                                    <Trans>This can’t be undone and you’ll lose your draft</Trans>
                                 </div>
 
                                 <button
@@ -62,7 +62,7 @@ export default function Discard({ opened, setOpened, setComposeOpened }: Compose
                                         setComposeOpened(false);
                                     }}
                                 >
-                                    <Trans id="Confirm" />
+                                    <Trans>Confirm</Trans>
                                 </button>
                             </Dialog.Panel>
                         </Transition.Child>
