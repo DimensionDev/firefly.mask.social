@@ -1,13 +1,11 @@
 import { i18n, type Messages } from '@lingui/core';
 import dayjs from 'dayjs';
 
+import { IS_PREVIEW, IS_PRODUCTION, LS_LOCALE_KEY } from '@/constants/index.js';
 // @ts-ignore
 import * as EN from '@/locales/en/messages.mjs';
-
 // @ts-ignore
 import * as PSEUDO from '@/locales/pseudo/messages.mjs';
-
-import { IS_PREVIEW, IS_PRODUCTION, LS_LOCALE_KEY } from '@/constants/index.js';
 
 const locales: Record<string, Messages> = {
     en: EN.messages,
