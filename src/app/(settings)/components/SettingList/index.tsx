@@ -1,24 +1,23 @@
 'use client';
 
-import { i18n } from '@lingui/core';
-import { Trans } from '@lingui/react';
+import { t, Trans } from '@lingui/macro';
 
 import { Image } from '@/esm/Image.js';
 import { Link } from '@/esm/Link.js';
 
 const settings = [
-    { name: i18n.t('Display'), link: '/display' },
-    { name: i18n.t('Associated Wallets'), link: '/associated' },
-    { name: i18n.t('Connected Accounts'), link: '/connected' },
-    { name: i18n.t('Communities'), link: '/communities' },
-    { name: i18n.t('More'), link: '/more' },
+    { name: t`Display`, link: '/display' },
+    { name: t`Associated Wallets`, link: '/associated' },
+    { name: t`Connected Accounts`, link: '/connected' },
+    { name: t`Communities`, link: '/communities' },
+    { name: t`More`, link: '/more' },
 ];
 
 export function SettingList() {
     return (
         <div className="flex min-h-full min-w-[280px] flex-col border-r border-gray-200 p-[24px]">
             <div className=" pb-[24px] text-[20px] font-bold leading-[24px] text-lightMain">
-                <Trans id="Settings" />
+                <Trans>Settings</Trans>
             </div>
             {settings.map(({ name, link }) => (
                 <Link
