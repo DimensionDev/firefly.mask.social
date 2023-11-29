@@ -1,5 +1,6 @@
 'use client';
 
+import { t } from '@lingui/macro';
 import { usePathname } from 'next/navigation.js';
 import { memo } from 'react';
 

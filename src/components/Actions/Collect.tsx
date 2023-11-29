@@ -1,3 +1,4 @@
+import { t } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import { useSnackbar } from 'notistack';
 import { memo, useCallback } from 'react';

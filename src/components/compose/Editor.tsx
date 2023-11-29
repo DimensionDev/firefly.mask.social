@@ -26,7 +26,7 @@ interface EditorProps {
 export default function Editor({ type, setCharacters, hasImages }: EditorProps) {
     const placeholder = useMemo(() => {
         return {
-            compose: i18n.t("What's happening..."),
+            compose: t`What's happening...`,
             quote: t`Add a comment`,
             reply: t`Post your reply`,
         }[type];
