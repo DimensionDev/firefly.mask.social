@@ -4,7 +4,7 @@ import type { IImage } from '@/components/compose/index.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { Image } from '@/esm/Image.js';
 import { classNames } from '@/helpers/classNames.js';
-import getPostMetaData from '@/helpers/getPostMetaData.js';
+import { getPostMetaData } from '@/helpers/getPostMetaData.js';
 import { LensSocialMedia } from '@/providers/lens/SocialMedia.js';
 import uploadToArweave from '@/services/uploadToArweave.js';
 

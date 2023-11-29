@@ -30,7 +30,7 @@ interface IAttachments {
     }>;
 }
 
-export default function getPostMetaData(baseMetadata: IBaseMetadata, attachments?: IAttachments) {
+export function getPostMetaData(baseMetadata: IBaseMetadata, attachments?: IAttachments) {
     const localBaseMetadata = {
         id: uuid(),
         locale: getUserLocale(),
