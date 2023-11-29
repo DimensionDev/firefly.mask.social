@@ -13,439 +13,350 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
+msgid "Quote Post"
+msgstr "Quote Post"
+
+msgid "Posts"
+msgstr "Posts"
+
+msgid "Failed to fetch as Blob."
+msgstr "Failed to fetch as Blob."
+
+msgid "Failed to mirror post"
+msgstr "Failed to mirror post"
+
+msgid "Communities"
+msgstr "Communities"
+
+msgid "Discover"
+msgstr "Discover"
+
+msgid "Failed to publish post"
+msgstr "Failed to publish post"
+
+msgid "Failed to mirror. {0}"
+msgstr "Failed to mirror. {0}"
+
+msgid "{0} views"
+msgstr "{0} views"
+
+msgid "Mirrors and Quotes"
+msgstr "Mirrors and Quotes"
+
+msgid "You need to connect your {platform} account to use this feature."
+msgstr "You need to connect your {platform} account to use this feature."
+
+msgid "More"
+msgstr "More"
+
 msgid "<0>{0}</0> commented your <1><2/></1>"
 msgstr "<0>{0}</0> commented your <1><2/></1>"
+
+msgid "Searching users"
+msgstr "Searching users"
+
+msgid "Change Wallet"
+msgstr "Change Wallet"
+
+msgid "Failed to follow"
+msgstr "Failed to follow"
+
+msgid "Casts"
+msgstr "Casts"
+
+msgid "Not implemented yet."
+msgstr "Not implemented yet."
+
+msgid "Copied"
+msgstr "Copied"
+
+msgid "Mirror and Quotes"
+msgstr "Mirror and Quotes"
 
 msgid "comment"
 msgstr "comment"
 
+msgid "Confirm"
+msgstr "Confirm"
+
 msgid "{0, plural, one {<0>{firstReactorName}</0>} other {<1>{firstReactorName}</1> and # others}} <2>liked your </2><3><4/></3>"
 msgstr "{0, plural, one {<0>{firstReactorName}</0>} other {<1>{firstReactorName}</1> and # others}} <2>liked your </2><3><4/></3>"
 
-#. js-lingui-explicit-id
-msgid "Add a comment"
-msgstr "Add a comment"
+msgid "Liked"
+msgstr "Liked"
 
-#. js-lingui-explicit-id
-msgid "Add an existing account"
-msgstr "Add an existing account"
+msgid "Failed to unlike. {0}"
+msgstr "Failed to unlike. {0}"
 
-#. js-lingui-explicit-id
-msgid "Allow Lens Manager to perform actions such as posting, liking, and commenting without the need to sign each transaction"
-msgstr "Allow Lens Manager to perform actions such as posting, liking, and commenting without the need to sign each transaction"
-
-#. js-lingui-explicit-id
-msgid "Associated Wallets"
-msgstr "Associated Wallets"
-
-#. js-lingui-explicit-id
-msgid "Audio Cover"
-msgstr "Audio Cover"
+msgid "Connected Accounts"
+msgstr "Connected Accounts"
 
 msgid "mirror"
 msgstr "mirror"
 
-#. js-lingui-explicit-id
-msgid "Change Wallet"
-msgstr "Change Wallet"
+msgid "Audio Cover"
+msgstr "Audio Cover"
 
-#. js-lingui-explicit-id
-msgid "Collect is coming soon"
-msgstr "Collect is coming soon"
-
-#. js-lingui-explicit-id
-msgid "Comment"
-msgstr "Comment"
-
-#. js-lingui-explicit-id
-msgid "Communities"
-msgstr "Communities"
-
-#. js-lingui-explicit-id
-msgid "Confirm"
-msgstr "Confirm"
-
-#. js-lingui-explicit-id
 msgid "Connect Wallet"
 msgstr "Connect Wallet"
 
-#. js-lingui-explicit-id
-msgid "Connect to {platform}"
-msgstr "Connect to {platform}"
+msgid "No content URI found"
+msgstr "No content URI found"
 
-#. js-lingui-explicit-id
-msgid "Connected Accounts"
-msgstr "Connected Accounts"
-
-#. js-lingui-explicit-id
-msgid "Connected in Firefly"
-msgstr "Connected in Firefly"
-
-#. js-lingui-explicit-id
-msgid "Copied"
-msgstr "Copied"
-
-#. js-lingui-explicit-id
-msgid "Dark mode"
-msgstr "Dark mode"
-
-#. js-lingui-explicit-id
-msgid "Delegate Signing (Recommend)"
-msgstr "Delegate Signing (Recommend)"
-
-#. js-lingui-explicit-id
-msgid "Details"
-msgstr "Details"
-
-#. js-lingui-explicit-id
-msgid "Discard"
-msgstr "Discard"
-
-#. js-lingui-explicit-id
-msgid "Discover"
-msgstr "Discover"
-
-#. js-lingui-explicit-id
-msgid "Display"
-msgstr "Display"
-
-#. js-lingui-explicit-id
-msgid "Everyone can reply"
-msgstr "Everyone can reply"
-
-#. js-lingui-explicit-id
-msgid "Failed to fetch as Blob."
-msgstr "Failed to fetch as Blob."
-
-#. js-lingui-explicit-id
-msgid "Failed to fetch as Text."
-msgstr "Failed to fetch as Text."
-
-#. js-lingui-explicit-id
-msgid "Failed to follow"
-msgstr "Failed to follow"
-
-#. js-lingui-explicit-id
-msgid "Failed to like. {message}"
-msgstr "Failed to like. {message}"
-
-#. js-lingui-explicit-id
-msgid "Failed to mirror post"
-msgstr "Failed to mirror post"
-
-#. js-lingui-explicit-id
-msgid "Failed to mirror. {message}"
-msgstr "Failed to mirror. {message}"
-
-#. js-lingui-explicit-id
-msgid "Failed to parse session."
-msgstr "Failed to parse session."
-
-#. js-lingui-explicit-id
-msgid "Failed to publish post"
-msgstr "Failed to publish post"
-
-#. js-lingui-explicit-id
-msgid "Failed to serialize payload."
-msgstr "Failed to serialize payload."
-
-#. js-lingui-explicit-id
-msgid "Failed to unfollow"
-msgstr "Failed to unfollow"
-
-#. js-lingui-explicit-id
-msgid "Failed to unlike. {message}"
-msgstr "Failed to unlike. {message}"
-
-#. js-lingui-explicit-id
-msgid "Failed to unmirror post"
-msgstr "Failed to unmirror post"
-
-#. js-lingui-explicit-id
-msgid "Failed to unvote post"
-msgstr "Failed to unvote post"
-
-#. js-lingui-explicit-id
-msgid "Failed to upvote post"
-msgstr "Failed to upvote post"
-
-#. js-lingui-explicit-id
-msgid "Firefly"
-msgstr "Firefly"
-
-#. js-lingui-explicit-id
-msgid "Follow"
-msgstr "Follow"
-
-#. js-lingui-explicit-id
-msgid "Follow @thefireflyapp on X"
-msgstr "Follow @thefireflyapp on X"
-
-#. js-lingui-explicit-id
 msgid "Follow System"
 msgstr "Follow System"
 
-#. js-lingui-explicit-id
-msgid "Followers"
-msgstr "Followers"
+msgid "Sign the transaction to verify you are the owner of the selected profile"
+msgstr "Sign the transaction to verify you are the owner of the selected profile"
 
-#. js-lingui-explicit-id
-msgid "Following"
-msgstr "Following"
+msgid "Log out"
+msgstr "Log out"
 
 msgid "post"
 msgstr "post"
 
-#. js-lingui-explicit-id
-msgid "Lens"
-msgstr "Lens"
+msgid "Failed to fetch as Text."
+msgstr "Failed to fetch as Text."
 
-#. js-lingui-explicit-id
-msgid "Light mode"
-msgstr "Light mode"
+msgid "Add an existing account"
+msgstr "Add an existing account"
 
-#. js-lingui-explicit-id
-msgid "Liked"
-msgstr "Liked"
+msgid "Connect to {platform}"
+msgstr "Connect to {platform}"
 
-#. js-lingui-explicit-id
-msgid "Log in"
-msgstr "Log in"
-
-#. js-lingui-explicit-id
-msgid "Log in to your Farcaster account by scanning this QR code using mobile application Warpcast."
-msgstr "Log in to your Farcaster account by scanning this QR code using mobile application Warpcast."
-
-#. js-lingui-explicit-id
-msgid "Log in to your {platform} profile to enable all features"
-msgstr "Log in to your {platform} profile to enable all features"
-
-#. js-lingui-explicit-id
-msgid "Log out"
-msgstr "Log out"
-
-#. js-lingui-explicit-id
-msgid "Log out all"
-msgstr "Log out all"
-
-#. js-lingui-explicit-id
-msgid "Login"
-msgstr "Login"
-
-#. js-lingui-explicit-id
-msgid "Malformed session."
-msgstr "Malformed session."
-
-#. js-lingui-explicit-id
-msgid "Method not implemented."
-msgstr "Method not implemented."
-
-#. js-lingui-explicit-id
-msgid "Mirror"
-msgstr "Mirror"
-
-#. js-lingui-explicit-id
-msgid "Mirror and Quotes"
-msgstr "Mirror and Quotes"
-
-#. js-lingui-explicit-id
-msgid "Mirrored"
-msgstr "Mirrored"
-
-#. js-lingui-explicit-id
-msgid "Mirrors and Quotes"
-msgstr "Mirrors and Quotes"
-
-#. js-lingui-explicit-id
-msgid "Missing client."
-msgstr "Missing client."
-
-#. js-lingui-explicit-id
-msgid "Missing profile."
-msgstr "Missing profile."
-
-#. js-lingui-explicit-id
-msgid "More"
-msgstr "More"
-
-#. js-lingui-explicit-id
-msgid "No Lens profile found. Please change another wallet"
-msgstr "No Lens profile found. Please change another wallet"
-
-#. js-lingui-explicit-id
-msgid "No client found"
-msgstr "No client found"
-
-#. js-lingui-explicit-id
-msgid "No content URI found"
-msgstr "No content URI found"
-
-#. js-lingui-explicit-id
-msgid "No post found"
-msgstr "No post found"
-
-#. js-lingui-explicit-id
-msgid "No profile found"
-msgstr "No profile found"
-
-#. js-lingui-explicit-id
-msgid "No session found"
-msgstr "No session found"
-
-#. js-lingui-explicit-id
-msgid "No wallet client found"
-msgstr "No wallet client found"
-
-#. js-lingui-explicit-id
-msgid "Not followed by anyone you're following"
-msgstr "Not followed by anyone you're following"
-
-#. js-lingui-explicit-id
-msgid "Not implemented yet."
-msgstr "Not implemented yet."
-
-#. js-lingui-explicit-id
-msgid "Notifications"
-msgstr "Notifications"
-
-#. js-lingui-explicit-id
-msgid "Only people you follow can reply"
-msgstr "Only people you follow can reply"
-
-#. js-lingui-explicit-id
-msgid "Post"
-msgstr "Post"
-
-#. js-lingui-explicit-id
 msgid "Post by"
 msgstr "Post by"
 
-#. js-lingui-explicit-id
-msgid "Post has been encrypted"
-msgstr "Post has been encrypted"
-
-#. js-lingui-explicit-id
-msgid "Post has been hidden"
-msgstr "Post has been hidden"
-
-#. js-lingui-explicit-id
-msgid "Post your reply"
-msgstr "Post your reply"
-
-#. js-lingui-explicit-id
 msgid "Privacy Policy"
 msgstr "Privacy Policy"
 
-#. js-lingui-explicit-id
-msgid "Profile"
-msgstr "Profile"
+msgid "No wallet client found"
+msgstr "No wallet client found"
 
-#. js-lingui-explicit-id
-msgid "Profiles"
-msgstr "Profiles"
+msgid "Only people you follow can reply"
+msgstr "Only people you follow can reply"
 
-#. js-lingui-explicit-id
-msgid "Publications"
-msgstr "Publications"
-
-#. js-lingui-explicit-id
-msgid "Quote Post"
-msgstr "Quote Post"
-
-#. js-lingui-explicit-id
-msgid "Recast"
-msgstr "Recast"
-
-#. js-lingui-explicit-id
-msgid "Recasted"
-msgstr "Recasted"
-
-#. js-lingui-explicit-id
-msgid "Reply Restriction"
-msgstr "Reply Restriction"
-
-#. js-lingui-explicit-id
-msgid "Search…"
-msgstr "Search…"
-
-#. js-lingui-explicit-id
-msgid "Settings"
-msgstr "Settings"
-
-#. js-lingui-explicit-id
-msgid "Share"
-msgstr "Share"
-
-#. js-lingui-explicit-id
-msgid "Show More"
-msgstr "Show More"
-
-#. js-lingui-explicit-id
-msgid "Sign"
-msgstr "Sign"
-
-#. js-lingui-explicit-id
-msgid "Sign the transaction to verify you are the owner of the selected profile"
-msgstr "Sign the transaction to verify you are the owner of the selected profile"
-
-#. js-lingui-explicit-id
 msgid "Switch"
 msgstr "Switch"
 
-#. js-lingui-explicit-id
-msgid "Terms of Service"
-msgstr "Terms of Service"
+msgid "Follow"
+msgstr "Follow"
 
-#. js-lingui-explicit-id
+msgid "Failed to like. {0}"
+msgstr "Failed to like. {0}"
+
+msgid "{0} Comments"
+msgstr "{0} Comments"
+
 msgid "This can’t be undone and you’ll lose your draft"
 msgstr "This can’t be undone and you’ll lose your draft"
 
-#. js-lingui-explicit-id
+msgid "Comment"
+msgstr "Comment"
+
+msgid "Failed to unmirror post"
+msgstr "Failed to unmirror post"
+
+msgid "Method not implemented."
+msgstr "Method not implemented."
+
+msgid "Malformed session."
+msgstr "Malformed session."
+
+msgid "Post has been hidden"
+msgstr "Post has been hidden"
+
+msgid "Log in to your Farcaster account by scanning this QR code using mobile application Warpcast."
+msgstr "Log in to your Farcaster account by scanning this QR code using mobile application Warpcast."
+
+msgid "Failed to unfollow"
+msgstr "Failed to unfollow"
+
+msgid "No post found"
+msgstr "No post found"
+
 msgid "UnLiked"
 msgstr "UnLiked"
 
-#. js-lingui-explicit-id
-msgid "Unfollow"
-msgstr "Unfollow"
+msgid "Lens"
+msgstr "Lens"
 
-#. js-lingui-explicit-id
-msgid "Unknown session type."
-msgstr "Unknown session type."
+msgid "Reply Restriction"
+msgstr "Reply Restriction"
 
-#. js-lingui-explicit-id
+msgid "Post your reply"
+msgstr "Post your reply"
+
+msgid "Missing profile."
+msgstr "Missing profile."
+
+msgid "Post has been encrypted"
+msgstr "Post has been encrypted"
+
+msgid "Settings"
+msgstr "Settings"
+
+msgid "Details"
+msgstr "Details"
+
 msgid "What's happening..."
 msgstr "What's happening..."
 
 msgid "<0>{0}</0> quoted your <1><2/></1>"
 msgstr "<0>{0}</0> quoted your <1><2/></1>"
 
-#. js-lingui-explicit-id
-msgid "You cannot reply to @{author} on {source}"
-msgstr "You cannot reply to @{author} on {source}"
+msgid "Publications"
+msgstr "Publications"
 
-#. js-lingui-explicit-id
-msgid "Your Lens account is now connected"
-msgstr "Your Lens account is now connected"
+msgid "Display"
+msgstr "Display"
+
+msgid "Show More"
+msgstr "Show More"
+
+msgid "Failed to parse session."
+msgstr "Failed to parse session."
+
+msgid "Share"
+msgstr "Share"
+
+msgid "Connected in Firefly"
+msgstr "Connected in Firefly"
+
+msgid "Discard"
+msgstr "Discard"
+
+msgid "Sign"
+msgstr "Sign"
+
+msgid "Follow @thefireflyapp on X"
+msgstr "Follow @thefireflyapp on X"
+
+msgid "Mirrored"
+msgstr "Mirrored"
+
+msgid "Associated Wallets"
+msgstr "Associated Wallets"
+
+msgid "Allow Lens Manager to perform actions such as posting, liking, and commenting without the need to sign each transaction"
+msgstr "Allow Lens Manager to perform actions such as posting, liking, and commenting without the need to sign each transaction"
 
 msgid "quote"
 msgstr "quote"
 
+msgid "Notifications"
+msgstr "Notifications"
+
+msgid "Search…"
+msgstr "Search…"
+
+msgid "No profile found"
+msgstr "No profile found"
+
+msgid "Everyone can reply"
+msgstr "Everyone can reply"
+
+msgid "Missing client."
+msgstr "Missing client."
+
+msgid "No Lens profile found. Please change another wallet"
+msgstr "No Lens profile found. Please change another wallet"
+
+msgid "Delegate Signing (Recommend)"
+msgstr "Delegate Signing (Recommend)"
+
+msgid "Firefly"
+msgstr "Firefly"
+
+msgid "Log out all"
+msgstr "Log out all"
+
+msgid "Unknown session type."
+msgstr "Unknown session type."
+
 msgid "{0, plural, one {<0>{firstActedName}</0>} other {<1>{firstActedName}</1> and # others acted on your}} <2><3/></2>"
 msgstr "{0, plural, one {<0>{firstActedName}</0>} other {<1>{firstActedName}</1> and # others acted on your}} <2><3/></2>"
+
+msgid "Unfollow"
+msgstr "Unfollow"
 
 msgid "{0, plural, one {<0>{firstFollowerName}</0>} other {<1>{firstFollowerName}</1> and # others}} <2>followed you</2>"
 msgstr "{0, plural, one {<0>{firstFollowerName}</0>} other {<1>{firstFollowerName}</1> and # others}} <2>followed you</2>"
 
+msgid "Failed to upvote post"
+msgstr "Failed to upvote post"
+
+msgid "You cannot reply to @{author} on {source}"
+msgstr "You cannot reply to @{author} on {source}"
+
+msgid "Failed to unvote post"
+msgstr "Failed to unvote post"
+
+msgid "Light mode"
+msgstr "Light mode"
+
+msgid "Your Lens account is now connected"
+msgstr "Your Lens account is now connected"
+
+msgid "Log in"
+msgstr "Log in"
+
 msgid "{0, plural, one {<0>{firstMirrorName}</0>} other {<1>{firstMirrorName}</1> and # others mirrored you}} <2><3/></2>"
 msgstr "{0, plural, one {<0>{firstMirrorName}</0>} other {<1>{firstMirrorName}</1> and # others mirrored you}} <2><3/></2>"
+
+msgid "No matching users"
+msgstr "No matching users"
+
+msgid "Recasted"
+msgstr "Recasted"
+
+msgid "Relay error"
+msgstr "Relay error"
+
+msgid "No client found"
+msgstr "No client found"
+
+msgid "Profile"
+msgstr "Profile"
+
+msgid "Add a comment"
+msgstr "Add a comment"
+
+msgid "No session found"
+msgstr "No session found"
+
+msgid "Profiles"
+msgstr "Profiles"
 
 msgid "<0>{0}</0> mentioned you in a <1><2/></1>"
 msgstr "<0>{0}</0> mentioned you in a <1><2/></1>"
 
-#. js-lingui-explicit-id
-msgid "{count} Comments"
-msgstr "{count} Comments"
+msgid "Recast"
+msgstr "Recast"
 
-#. js-lingui-explicit-id
-msgid "{count} views"
-msgstr "{count} views"
+msgid "Not followed by anyone you're following"
+msgstr "Not followed by anyone you're following"
+
+msgid "Followers"
+msgstr "Followers"
+
+msgid "Mirror"
+msgstr "Mirror"
+
+msgid "Terms of Service"
+msgstr "Terms of Service"
+
+msgid "Post"
+msgstr "Post"
+
+msgid "Following"
+msgstr "Following"
+
+msgid "Dark mode"
+msgstr "Dark mode"
+
+msgid "Collect is coming soon"
+msgstr "Collect is coming soon"
+
+msgid "Login"
+msgstr "Login"
