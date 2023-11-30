@@ -22,9 +22,19 @@ export default function Page() {
     const { currentSocialPlatform } = useGlobalState();
 
     const { data, hasNextPage, fetchNextPage, isFetchingNextPage, isFetching } = useSuspenseInfiniteQuery({
-        queryKey: ['search'],
+        queryKey: ['search', searchType, searchText, currentSocialPlatform],
         queryFn: async ({ pageParam }) => {
-            const indicator = createIndicator(undefined, pageParam);
+            if (!searchText) return;
+
+            console.log('DEBUG: search page');
+            console.log({
+                pageParam,
+                searchType,
+                searchText,
+                currentSocialPlatform,
+            });
+
+            const indicator = pageParam ? createIndicator(undefined, pageParam) : undefined;
 
             if (searchType === SearchType.Profiles) {
                 switch (currentSocialPlatform) {
@@ -73,11 +83,11 @@ export default function Page() {
     return (
         <div>
             {results.map((item) => {
-                if (searchText === SearchType.Profiles) {
+                if (searchType === SearchType.Profiles) {
                     const profile = item as Profile;
                     return <ProfileInList key={profile.profileId} profile={profile} />;
                 }
-                if (searchText === SearchType.Posts) {
+                if (searchType === SearchType.Posts) {
                     const post = item as Post;
                     return <SinglePost key={post.postId} post={post} />;
                 }
