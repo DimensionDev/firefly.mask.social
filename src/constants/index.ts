@@ -1,3 +1,6 @@
+export const SITE_NAME = 'Mask Social';
+export const SITE_DESCRIPTION = 'The Mask Social Website.';
+
 export const WARPCAST_ROOT_URL = 'https://api.warpcast.com/v2';
 export const FIREFLY_ROOT_URL = process.env.NEXT_PUBLIC_FIREFLY_API_URL;
 export const FIREFLY_HUBBLE_URL = process.env.NEXT_PUBLIC_FIREFLY_HUBBLE_URL;
