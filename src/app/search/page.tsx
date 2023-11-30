@@ -1,5 +1,6 @@
 'use client';
 
+import { Trans } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
@@ -71,17 +72,23 @@ export default function Page() {
 
     return (
         <div>
-            {results.map((item) => {
-                if (searchType === SearchType.Profiles) {
-                    const profile = item as Profile;
-                    return <ProfileInList key={profile.profileId} profile={profile} />;
-                }
-                if (searchType === SearchType.Posts) {
-                    const post = item as Post;
-                    return <SinglePost key={post.postId} post={post} />;
-                }
-                return null;
-            })}
+            {results.length ? (
+                results.map((item) => {
+                    if (searchType === SearchType.Profiles) {
+                        const profile = item as Profile;
+                        return <ProfileInList key={profile.profileId} profile={profile} />;
+                    }
+                    if (searchType === SearchType.Posts) {
+                        const post = item as Post;
+                        return <SinglePost key={post.postId} post={post} />;
+                    }
+                    return null;
+                })
+            ) : (
+                <div className="flex items-center justify-center pb-4 pt-6">
+                    <Trans>No results for {searchText}</Trans>
+                </div>
+            )}
 
             {hasNextPage && results.length ? (
                 <div className="flex items-center justify-center p-2" ref={observe}>
