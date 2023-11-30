@@ -1,13 +1,7 @@
 'use client';
 import { DOMProxy } from '@dimensiondev/holoflows-kit';
 import { DecryptProgressKind, EncryptPayloadNetwork } from '@masknet/encryption';
-import {
-    createInjectHooksRenderer,
-    type PostContext,
-    PostInfoProvider,
-    useActivatedPluginsSiteAdaptor,
-} from '@masknet/plugin-infra/content-script';
-import { openDialog, RedPacketInspector } from '@masknet/plugin-redpacket';
+import { type PostContext, PostInfoProvider } from '@masknet/plugin-infra/content-script';
 import {
     createConstantSubscription,
     EMPTY_ARRAY,
@@ -27,22 +21,11 @@ import {
     type DecryptionContext,
     decryptWithDecoding,
 } from '../../maskbook/packages/mask/background/services/crypto/index.js';
-import { PossiblePluginSuggestionPostInspector } from '../../maskbook/packages/mask/content-script/components/InjectedComponents/DisabledPluginSuggestion.js';
 
 interface Props extends PropsWithChildren<{}> {
     raw: string;
     post: Post;
 }
-
-const Decrypted = createInjectHooksRenderer(
-    useActivatedPluginsSiteAdaptor.visibility.useNotMinimalMode,
-    (x) => x.DecryptedInspector,
-);
-
-const PluginHooksRenderer = createInjectHooksRenderer(
-    useActivatedPluginsSiteAdaptor.visibility.useNotMinimalMode,
-    (plugin) => plugin.PostInspector,
-);
 
 export const DecryptPost = memo(function DecryptPost({ raw, post, children }: Props) {
     const [result, setResult] = useState<TypedMessage | null>(null);
@@ -116,15 +99,14 @@ export const DecryptPost = memo(function DecryptPost({ raw, post, children }: Pr
     return (
         <PostInfoProvider post={postInfo}>
             {children}
-            {result ? <RedPacketInspector message={result} /> : null}
-            <div style={{ borderTop: '1px solid blue' }} />
-            {result ? <Decrypted message={result} /> : null}
-            <div style={{ borderTop: '1px solid blue' }} />
-            <DecryptMessage text={payload} version="2" />
-            <div style={{ borderTop: '1px solid red' }} />
-            <PossiblePluginSuggestionPostInspector />
-            <PluginHooksRenderer />
-            <button onClick={openDialog}>open</button>
+            <div
+                onClickCapture={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                }}
+            >
+                <DecryptMessage text={payload} version="2" />
+            </div>
         </PostInfoProvider>
     );
 });

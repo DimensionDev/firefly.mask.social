@@ -16,7 +16,6 @@ import { Modals } from '@/modals/index.js';
 export const metadata = createSiteMetadata();
 
 // @ts-ignore
-const MaskRuntime = dynamic(() => import('@/components/MaskRuntime.js'), { ssr: false });
 const PageInspectorRender = dynamic(() => import('@/main/page-render.js'), { ssr: false });
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -47,9 +46,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                         </aside>
                     </div>
                     <Modals />
-                    <MaskRuntime>
-                        <PageInspectorRender />
-                    </MaskRuntime>
+                    <PageInspectorRender />
                 </Providers>
                 <GA />
             </body>

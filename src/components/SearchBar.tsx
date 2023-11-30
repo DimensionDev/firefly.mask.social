@@ -98,11 +98,11 @@ export const SearchBar = memo(function SearchBar(props: SearchBarProps) {
                     </label>
                 </form>
             </div>
-            <section className="mt-4">
-                <MaskRuntime>
+            <MaskRuntime>
+                <section className="mt-4">
                     <DynamicCalendar />
-                </MaskRuntime>
-            </section>
+                </section>
+            </MaskRuntime>
         </>
     );
 });

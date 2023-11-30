@@ -1,11 +1,8 @@
 'use client';
-import '../maskbook/packages/app/src/setup/storage.js';
-import '../maskbook/packages/app/src/setup/wallet.js';
+import '../plugin-host/enable.js';
 
-import { languages, PLUGIN_ID } from '@masknet/plugin-calendar';
-import { languages as redPacketLanguages, PLUGIN_ID as REDPACKET_PLUGIN_ID } from '@masknet/plugin-redpacket';
-import { languages as sharedLanguages, SharedContextProvider } from '@masknet/shared';
-import { addI18NBundle, i18NextInstance } from '@masknet/shared-base';
+import { SharedContextProvider } from '@masknet/shared';
+import { i18NextInstance } from '@masknet/shared-base';
 import {
     CSSVariableInjector,
     DialogStackingProvider,
@@ -15,18 +12,19 @@ import {
 import { ChainContextProvider, RootWeb3ContextProvider } from '@masknet/web3-hooks-base';
 import { ChainId } from '@masknet/web3-shared-evm';
 import { StyledEngineProvider } from '@mui/material';
-import { type PropsWithChildren, useEffect } from 'react';
+import { Suspense, use } from 'react';
+import { type PropsWithChildren } from 'react';
 import { I18nextProvider } from 'react-i18next';
 import { useAccount } from 'wagmi';
 
 import { useMaskTheme } from '@/hooks/useMaskTheme.js';
 
-export default function MaskRuntime({ children }: PropsWithChildren<{}>) {
-    useEffect(() => {
-        addI18NBundle(i18NextInstance, 'shared', sharedLanguages);
-        addI18NBundle(i18NextInstance, PLUGIN_ID, languages);
-        addI18NBundle(i18NextInstance, REDPACKET_PLUGIN_ID, redPacketLanguages);
-    }, []);
+import { doInitWallet } from '../maskbook/packages/app/src/setup/wallet.js';
+
+const promise = doInitWallet();
+
+export function Runtime({ children }: PropsWithChildren<{}>) {
+    use(promise);
 
     const account = useAccount();
     return (
@@ -48,5 +46,13 @@ export default function MaskRuntime({ children }: PropsWithChildren<{}>) {
                 </StyledEngineProvider>
             </DialogStackingProvider>
         </DisableShadowRootContext.Provider>
+    );
+}
+
+export default function MaskRuntime({ children }: PropsWithChildren<{}>) {
+    return (
+        <Suspense fallback={null}>
+            <Runtime>{children}</Runtime>
+        </Suspense>
     );
 }
