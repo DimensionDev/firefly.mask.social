@@ -16,7 +16,7 @@ import { PostActions } from '@/components/Actions/index.js';
 import { Image } from '@/components/Image.js';
 import { Markup } from '@/components/Markup/index.js';
 import { Quote } from '@/components/Posts/Quote.js';
-import { SourceIcon } from '@/components/SourceIcon.jsx';
+import { SourceIcon } from '@/components/SourceIcon.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
 import { classNames } from '@/helpers/classNames.js';
 import { createLookupTableResolver } from '@/maskbook/packages/shared-base/src/index.js';

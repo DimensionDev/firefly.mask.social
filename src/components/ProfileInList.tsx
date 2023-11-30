@@ -3,7 +3,7 @@ import { useDarkMode } from 'usehooks-ts';
 
 import FollowButton from '@/app/profile/components/FollowButton.js';
 import { Image } from '@/components/Image.js';
-import { SourceIcon } from '@/components/SourceIcon.jsx';
+import { SourceIcon } from '@/components/SourceIcon.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { useSearchStore } from '@/store/useSearchStore.js';
 

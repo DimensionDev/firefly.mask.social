@@ -10,7 +10,7 @@ import CloseIcon from '@/assets/close-circle.svg';
 import LoadingIcon from '@/assets/loading.svg';
 import SearchIcon from '@/assets/search.svg';
 import { Image } from '@/components/Image.js';
-import { SourceIcon } from '@/components/SourceIcon.jsx';
+import { SourceIcon } from '@/components/SourceIcon.js';
 import { SearchType, SocialPlatform } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { HubbleSocialMediaProvider } from '@/providers/hubble/SocialMedia.js';
