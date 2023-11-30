@@ -26,14 +26,6 @@ export default function Page() {
         queryFn: async ({ pageParam }) => {
             if (!searchText) return;
 
-            console.log('DEBUG: search page');
-            console.log({
-                pageParam,
-                searchType,
-                searchText,
-                currentSocialPlatform,
-            });
-
             const indicator = pageParam ? createIndicator(undefined, pageParam) : undefined;
 
             if (searchType === SearchType.Profiles) {
@@ -76,9 +68,6 @@ export default function Page() {
     const results = useMemo(() => {
         return compact(data.pages.flatMap((x) => x?.data as Array<Profile | Post>));
     }, [data.pages]);
-
-    console.log('DEBUG: results');
-    console.log(results);
 
     return (
         <div>
