@@ -1,9 +1,11 @@
+import { useRouter } from 'next/navigation.js';
 import { useDarkMode } from 'usehooks-ts';
 
-import FollowButton from '@/app/profile/components/FollowButton.jsx';
+import FollowButton from '@/app/profile/components/FollowButton.js';
 import { Image } from '@/components/Image.js';
 import { getSocialPlatformIconBySource } from '@/helpers/getSocialPlatformIconBySource.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
+import { useSearchStore } from '@/store/useSearchStore.js';
 
 interface ProfileInListProps {
     profile: Profile;
@@ -13,37 +15,45 @@ interface ProfileInListProps {
 export function ProfileInList(props: ProfileInListProps) {
     const { profile } = props;
 
+    const router = useRouter();
     const { isDarkMode } = useDarkMode();
+    const { updateSearchText } = useSearchStore();
     const sourceIcon = getSocialPlatformIconBySource(profile.source, isDarkMode);
 
     return (
-        <div className="flex items-center space-x-3">
-            <Image
-                loading="lazy"
-                className="h-[75px] w-[75px] rounded-full border"
-                src={profile.pfp}
-                fallback={!isDarkMode ? '/image/firefly-light-avatar.png' : '/image/firefly-dark-avatar.png'}
-                width={40}
-                height={40}
-                alt={profile.displayName}
-            />
+        <div
+            className="flex-start flex cursor-pointer px-4 py-6 hover:bg-bg"
+            onClick={(evt) => {
+                router.push(`/profile/${profile.handle}`);
+                updateSearchText('');
+            }}
+        >
+            <div className="flex-start flex flex-1">
+                <Image
+                    loading="lazy"
+                    className="mr-3 h-[78px] w-[78px] rounded-full border"
+                    src={profile.pfp}
+                    fallback={!isDarkMode ? '/image/firefly-light-avatar.png' : '/image/firefly-dark-avatar.png'}
+                    width={78}
+                    height={78}
+                    alt={profile.displayName}
+                />
 
-            <div className="flex max-w-sm items-center">
-                <div className="flex items-center space-x-2">
-                    <span className="block text-sm font-bold leading-5">
-                        <span>{profile.displayName}</span>
+                <div className="flex-start flex flex-1 flex-col">
+                    <span className="flex-start mt-2 flex text-sm font-bold leading-5">
+                        <span className="mr-2 text-xl">{profile.displayName}</span>
                         {sourceIcon ? <Image src={sourceIcon} width={16} height={16} alt={profile.source} /> : null}
                     </span>
-                    <span className="text-sm leading-6 text-secondary">@{profile.displayName}</span>
-                    {profile.bio ? <span className="text-sm">{profile.bio}</span> : null}
+                    {profile.handle ? <span className="text-sm text-secondary">@{profile.handle}</span> : null}
+                    {profile.bio ? <span className="mt-1.5 text-sm">{profile.bio}</span> : null}
                 </div>
-
-                {props.noFollowButton ? (
-                    <div>
-                        <FollowButton isMyProfile={false} profile={profile} />
-                    </div>
-                ) : null}
             </div>
+
+            {!props.noFollowButton ? (
+                <div>
+                    <FollowButton profile={profile} />
+                </div>
+            ) : null}
         </div>
     );
 }
