@@ -8,14 +8,12 @@ import {
 } from '@masknet/shared-base';
 import { HubRestAPIClient } from '@standard-crypto/farcaster-js';
 import urlcat from 'urlcat';
-import { getWalletClient } from 'wagmi/actions';
 
 import { SocialPlatform } from '@/constants/enum.js';
 import { WARPCAST_ROOT_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { formatWarpcastPostFromFeed } from '@/helpers/formatWarpcastPost.js';
-import { generateCustodyBearer } from '@/helpers/generateCustodyBearer.js';
-import { waitForSignedKeyRequestComplete } from '@/helpers/waitForSignedKeyRequestComplete.js';
+import { isZero } from '@/maskbook/packages/web3-shared/base/src/index.js';
 import { SessionFactory } from '@/providers/base/SessionFactory.js';
 import {
     type Post,
@@ -34,89 +32,12 @@ import type {
     UserResponse,
     UsersResponse,
 } from '@/providers/types/Warpcast.js';
+import { createSessionByGrantPermission } from '@/providers/warpcast/createSessionByGrantPermission.js';
 import { WarpcastSession } from '@/providers/warpcast/Session.js';
-import type { ResponseJSON } from '@/types/index.js';
 
 export class WarpcastSocialMedia implements Provider {
     get type() {
         return Type.Warpcast;
-    }
-
-    /**
-     * Initiates the creation of a session by granting data access permission to another FID.
-     * @param signal
-     * @returns
-     */
-    async _createSessionByGrantPermission(setUrl?: (url: string) => void, signal?: AbortSignal) {
-        const response = await fetchJSON<
-            ResponseJSON<{
-                publicKey: string;
-                privateKey: string;
-                fid: string;
-                token: string;
-                timestamp: number;
-                expiresAt: number;
-                deeplinkUrl: string;
-            }>
-        >('/api/warpcast/signin', {
-            method: 'POST',
-        });
-        if (!response.success) throw new Error(response.error.message);
-
-        // present QR code to the user
-        setUrl?.(response.data.deeplinkUrl);
-
-        await waitForSignedKeyRequestComplete(signal)(response.data.token);
-
-        return new WarpcastSession(
-            response.data.fid,
-            response.data.privateKey,
-            response.data.timestamp,
-            response.data.expiresAt,
-        );
-    }
-
-    /**
-     * Create a session by signing the challenge with the custody wallet
-     * @param signal
-     * @returns
-     */
-    async _createSessionByCustodyWallet(signal?: AbortSignal) {
-        const client = await getWalletClient();
-        if (!client) throw new Error(t`No client found`);
-
-        const { payload, token } = await generateCustodyBearer(client);
-        const response = await fetchJSON<{
-            result: {
-                token: {
-                    secret: string;
-                };
-            };
-            errors?: Array<{ message: string; reason: string }>;
-        }>(urlcat(WARPCAST_ROOT_URL, '/auth'), {
-            method: 'PUT',
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-            body: JSON.stringify(payload),
-        });
-        if (response.errors?.length) throw new Error(response.errors[0].message);
-
-        const { result: user } = await fetchJSON<UserResponse>(
-            urlcat(WARPCAST_ROOT_URL, '/me', {
-                method: 'GET',
-                headers: {
-                    Authorization: `Bearer ${response.result.token.secret}`,
-                },
-            }),
-        );
-
-        return new WarpcastSession(
-            user.fid.toString(),
-            response.result.token.secret,
-            payload.params.timestamp,
-            payload.params.expiresAt,
-        );
     }
 
     async createSession(
@@ -126,7 +47,7 @@ export class WarpcastSocialMedia implements Provider {
         const setUrl = typeof setUrlOrSignal === 'function' ? setUrlOrSignal : undefined;
         const abortSignal = setUrlOrSignal instanceof AbortSignal ? setUrlOrSignal : signal;
 
-        const session = await this._createSessionByGrantPermission(setUrl, abortSignal);
+        const session = await createSessionByGrantPermission(setUrl, abortSignal);
         localStorage.setItem('warpcast_session', session.serialize());
         return session;
     }
@@ -148,12 +69,25 @@ export class WarpcastSocialMedia implements Provider {
     }
 
     async discoverPosts(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        const url = urlcat('https://client.warpcast.com/v2', '/default-recommended-feed', {
+        const url = urlcat(WARPCAST_ROOT_URL, '/default-recommended-feed', {
             limit: 10,
-            cursor: indicator?.id,
+            cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
         });
 
         const { result, next } = await fetchJSON<FeedResponse>(url, {
+            method: 'GET',
+        });
+        const data = result.feed.map(formatWarpcastPostFromFeed);
+        return createPageable(data, indicator ?? createIndicator(), createNextIndicator(indicator, next.cursor));
+    }
+
+    async discoverPostsById(profileId: string, indicator?: PageIndicator | undefined) {
+        const url = urlcat(WARPCAST_ROOT_URL, '/home-feed', {
+            limit: 10,
+            cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
+        });
+
+        const { result, next } = await this.fetchWithSession<FeedResponse>(url, {
             method: 'GET',
         });
         const data = result.feed.map(formatWarpcastPostFromFeed);

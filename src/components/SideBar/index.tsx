@@ -1,6 +1,6 @@
 'use client';
 
-import { t, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import { memo, useState } from 'react';
 import urlcat from 'urlcat';
 import { useDarkMode } from 'usehooks-ts';
@@ -28,27 +28,32 @@ import { LoginModalRef } from '@/modals/controls.js';
 import { ConnectWalletNav } from './ConnectWalletNav.js';
 
 const items = [
-    { href: PageRoutes.Home, name: t`Discover`, icon: DiscoverIcon, selectedIcon: DiscoverSelectedIcon },
+    { href: PageRoutes.Home, name: <Trans>Discover</Trans>, icon: DiscoverIcon, selectedIcon: DiscoverSelectedIcon },
     {
         href: PageRoutes.Following,
-        name: t`Following`,
+        name: <Trans>Following</Trans>,
         icon: FollowingIcon,
         selectedIcon: FollowingSelectedIcon,
     },
     {
         href: PageRoutes.Notifications,
-        name: t`Notifications`,
+        name: <Trans>Notifications</Trans>,
         icon: NotificationIcon,
         selectedIcon: NotificationSelectedIcon,
     },
-    { href: PageRoutes.Profile, name: t`Profile`, icon: ProfileIcon, selectedIcon: ProfileSelectedIcon },
+    { href: PageRoutes.Profile, name: <Trans>Profile</Trans>, icon: ProfileIcon, selectedIcon: ProfileSelectedIcon },
     {
         href: '/connect-wallet',
-        name: t`Connect Wallet`,
+        name: <Trans>Connect</Trans>,
         icon: '/svg/wallet.svg',
         selectedIcon: '/svg/wallet.svg',
     },
-    { href: PageRoutes.Settings, name: t`Settings`, icon: SettingsIcon, selectedIcon: SettingsSelectedIcon },
+    {
+        href: PageRoutes.Settings,
+        name: <Trans>Settings</Trans>,
+        icon: SettingsIcon,
+        selectedIcon: SettingsSelectedIcon,
+    },
 ];
 
 export const SideBar = memo(function SideBar() {
@@ -75,7 +80,7 @@ export const SideBar = memo(function SideBar() {
                                     {items.map((item) => {
                                         const Icon = item.icon;
                                         return (
-                                            <li className="rounded-lg px-4 py-3 text-main hover:bg-bg" key={item.name}>
+                                            <li className="rounded-lg px-4 py-3 text-main hover:bg-bg" key={item.href}>
                                                 {item.href === '/connect-wallet' ? (
                                                     <ConnectWalletNav />
                                                 ) : (

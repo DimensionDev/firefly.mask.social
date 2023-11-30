@@ -1,8 +1,8 @@
 import {
-    ChangeProfileManagerActionType,
     CustomFiltersType,
     ExploreProfilesOrderByType,
     ExplorePublicationsOrderByType,
+    FeedEventItemType,
     isRelaySuccess,
     type IStorageProvider,
     LensClient,
@@ -25,7 +25,7 @@ import type { WalletClient } from 'wagmi';
 import { getWalletClient } from 'wagmi/actions';
 
 import { SocialPlatform } from '@/constants/enum.js';
-import { formatLensPost, formatLensQuoteOrComment } from '@/helpers/formatLensPost.js';
+import { formatLensPost, formatLensPostByFeed, formatLensQuoteOrComment } from '@/helpers/formatLensPost.js';
 import { formatLensProfile } from '@/helpers/formatLensProfile.js';
 import { generateCustodyBearer } from '@/helpers/generateCustodyBearer.js';
 import { isZero } from '@/maskbook/packages/web3-shared/base/src/index.js';
@@ -169,15 +169,9 @@ export class LensSocialMedia implements Provider {
         return null;
     }
 
-    async updateSignless(): Promise<void> {
+    async updateSignless(enable: boolean): Promise<void> {
         const typedDataResult = await this.lensClient.profile.createChangeProfileManagersTypedData({
-            approveSignless: true,
-            changeManagers: [
-                {
-                    action: ChangeProfileManagerActionType.Add,
-                    address: '0x0000000000',
-                },
-            ],
+            approveSignless: enable,
         });
 
         const { id, typedData } = typedDataResult.unwrap();
@@ -197,7 +191,7 @@ export class LensSocialMedia implements Provider {
         const onchainRelayResult = broadcastOnchainResult.unwrap();
 
         if (onchainRelayResult.__typename === 'RelayError') {
-            throw new Error(t`Relay error`);
+            console.log("DEBUG: Couldn't update signless", onchainRelayResult);
         }
         return;
     }
@@ -358,6 +352,30 @@ export class LensSocialMedia implements Provider {
 
         return createPageable(
             result.items.map((item) => formatLensPost(item)),
+            indicator ?? createIndicator(),
+            result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
+        );
+    }
+
+    async discoverPostsById(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        const data = await this.lensClient.feed.fetch({
+            where: {
+                for: profileId,
+                feedEventItemTypes: [
+                    FeedEventItemType.Post,
+                    FeedEventItemType.Comment,
+                    FeedEventItemType.Comment,
+                    FeedEventItemType.Mirror,
+                ],
+            },
+            cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
+        });
+
+        if (data.isFailure()) throw new Error(`Some thing went wrong ${JSON.stringify(data.isFailure())}`);
+
+        const result = data.unwrap();
+        return createPageable(
+            result.items.map((item) => formatLensPostByFeed(item)),
             indicator ?? createIndicator(),
             result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );
@@ -548,7 +566,6 @@ export class LensSocialMedia implements Provider {
 
                 if (item.__typename === 'ReactionNotification') {
                     if (item.reactions.length === 0) throw new Error('No reaction found');
-
                     const time = first(flatMap(item.reactions.map((x) => x.reactions)))?.reactedAt;
                     return {
                         source: SocialPlatform.Lens,

@@ -1,10 +1,6 @@
 import { formatter } from '@lingui/format-po';
 
-const locales = ['en'];
-
-if (process.env.NODE_ENV !== 'production') {
-    locales.push('pseudo');
-}
+const locales = ['en', 'pseudo'];
 
 /** @type {import('@lingui/conf').LinguiConfig} */
 export default {

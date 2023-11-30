@@ -1,11 +1,11 @@
 msgid ""
 msgstr ""
-"POT-Creation-Date: 2023-11-24 21:17+0800\n"
+"POT-Creation-Date: 2023-11-29 19:36+0800\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: @lingui/cli\n"
-"Language: en\n"
+"Language: psuedo\n"
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "PO-Revision-Date: \n"
@@ -14,352 +14,346 @@ msgstr ""
 "Plural-Forms: \n"
 
 msgid "Quote Post"
-msgstr "Quote Post"
+msgstr ""
 
 msgid "Posts"
-msgstr "Posts"
+msgstr ""
 
 msgid "Failed to fetch as Blob."
-msgstr "Failed to fetch as Blob."
+msgstr ""
 
 msgid "Failed to mirror post"
-msgstr "Failed to mirror post"
+msgstr ""
 
 msgid "Communities"
-msgstr "Communities"
+msgstr ""
 
 msgid "Discover"
-msgstr "Discover"
+msgstr ""
 
 msgid "Failed to publish post"
-msgstr "Failed to publish post"
+msgstr ""
 
 msgid "Failed to mirror. {0}"
-msgstr "Failed to mirror. {0}"
+msgstr ""
 
 msgid "{0} views"
-msgstr "{0} views"
+msgstr ""
 
 msgid "Mirrors and Quotes"
-msgstr "Mirrors and Quotes"
+msgstr ""
 
 msgid "You need to connect your {platform} account to use this feature."
-msgstr "You need to connect your {platform} account to use this feature."
+msgstr ""
 
 msgid "More"
-msgstr "More"
+msgstr ""
 
 msgid "<0>{0}</0> commented your <1><2/></1>"
-msgstr "<0>{0}</0> commented your <1><2/></1>"
+msgstr ""
 
 msgid "Searching users"
-msgstr "Searching users"
+msgstr ""
 
 msgid "Change Wallet"
-msgstr "Change Wallet"
+msgstr ""
 
 msgid "Failed to follow"
-msgstr "Failed to follow"
+msgstr ""
 
 msgid "Casts"
-msgstr "Casts"
+msgstr ""
 
 msgid "Not implemented yet."
-msgstr "Not implemented yet."
+msgstr ""
 
 msgid "Copied"
-msgstr "Copied"
+msgstr ""
 
 msgid "Mirror and Quotes"
-msgstr "Mirror and Quotes"
+msgstr ""
 
 msgid "comment"
-msgstr "comment"
+msgstr ""
 
 msgid "Confirm"
-msgstr "Confirm"
+msgstr ""
 
 msgid "{0, plural, one {<0>{firstReactorName}</0>} other {<1>{firstReactorName}</1> and # others}} <2>liked your </2><3><4/></3>"
-msgstr "{0, plural, one {<0>{firstReactorName}</0>} other {<1>{firstReactorName}</1> and # others}} <2>liked your </2><3><4/></3>"
+msgstr ""
 
 msgid "Liked"
-msgstr "Liked"
+msgstr ""
 
 msgid "Failed to unlike. {0}"
-msgstr "Failed to unlike. {0}"
+msgstr ""
 
 msgid "Connected Accounts"
-msgstr "Connected Accounts"
+msgstr ""
 
 msgid "mirror"
-msgstr "mirror"
+msgstr ""
 
 msgid "Audio Cover"
-msgstr "Audio Cover"
+msgstr ""
 
 msgid "Connect Wallet"
-msgstr "Connect Wallet"
+msgstr ""
 
 msgid "No content URI found"
-msgstr "No content URI found"
+msgstr ""
 
 msgid "Follow System"
-msgstr "Follow System"
+msgstr ""
 
 msgid "Sign the transaction to verify you are the owner of the selected profile"
-msgstr "Sign the transaction to verify you are the owner of the selected profile"
+msgstr ""
 
 msgid "Log out"
-msgstr "Log out"
+msgstr ""
 
 msgid "post"
-msgstr "post"
+msgstr ""
 
 msgid "Failed to fetch as Text."
-msgstr "Failed to fetch as Text."
+msgstr ""
 
 msgid "Add an existing account"
-msgstr "Add an existing account"
+msgstr ""
 
 msgid "Connect to {platform}"
-msgstr "Connect to {platform}"
+msgstr ""
 
 msgid "Post by"
-msgstr "Post by"
+msgstr ""
 
 msgid "Privacy Policy"
-msgstr "Privacy Policy"
+msgstr ""
 
 msgid "No wallet client found"
-msgstr "No wallet client found"
+msgstr ""
 
 msgid "Only people you follow can reply"
-msgstr "Only people you follow can reply"
+msgstr ""
 
 msgid "Switch"
-msgstr "Switch"
+msgstr ""
 
 msgid "Follow"
-msgstr "Follow"
+msgstr ""
 
 msgid "Failed to like. {0}"
-msgstr "Failed to like. {0}"
+msgstr ""
 
 msgid "{0} Comments"
-msgstr "{0} Comments"
+msgstr ""
 
 msgid "This can’t be undone and you’ll lose your draft"
-msgstr "This can’t be undone and you’ll lose your draft"
+msgstr ""
 
 msgid "Comment"
-msgstr "Comment"
+msgstr ""
 
 msgid "Failed to unmirror post"
-msgstr "Failed to unmirror post"
+msgstr ""
 
 msgid "Method not implemented."
-msgstr "Method not implemented."
+msgstr ""
 
 msgid "Malformed session."
-msgstr "Malformed session."
+msgstr ""
 
 msgid "Post has been hidden"
-msgstr "Post has been hidden"
+msgstr ""
 
 msgid "Log in to your Farcaster account by scanning this QR code using mobile application Warpcast."
-msgstr "Log in to your Farcaster account by scanning this QR code using mobile application Warpcast."
-
-msgid "<0>{0}</0> liked"
-msgstr "<0>{0}</0> liked"
+msgstr ""
 
 msgid "Failed to unfollow"
-msgstr "Failed to unfollow"
+msgstr ""
 
 msgid "No post found"
-msgstr "No post found"
+msgstr ""
 
 msgid "UnLiked"
-msgstr "UnLiked"
+msgstr ""
 
 msgid "Lens"
-msgstr "Lens"
+msgstr ""
 
 msgid "Reply Restriction"
-msgstr "Reply Restriction"
+msgstr ""
 
 msgid "Post your reply"
-msgstr "Post your reply"
+msgstr ""
 
 msgid "Missing profile."
-msgstr "Missing profile."
+msgstr ""
 
 msgid "Post has been encrypted"
-msgstr "Post has been encrypted"
+msgstr ""
 
 msgid "Settings"
-msgstr "Settings"
+msgstr ""
 
 msgid "Details"
-msgstr "Details"
+msgstr ""
 
 msgid "What's happening..."
-msgstr "What's happening..."
+msgstr ""
 
 msgid "<0>{0}</0> quoted your <1><2/></1>"
-msgstr "<0>{0}</0> quoted your <1><2/></1>"
+msgstr ""
 
 msgid "Publications"
-msgstr "Publications"
+msgstr ""
 
 msgid "Display"
-msgstr "Display"
+msgstr ""
 
 msgid "Show More"
-msgstr "Show More"
+msgstr ""
 
 msgid "Failed to parse session."
-msgstr "Failed to parse session."
+msgstr ""
 
 msgid "Share"
-msgstr "Share"
+msgstr ""
 
 msgid "Connected in Firefly"
-msgstr "Connected in Firefly"
+msgstr ""
 
 msgid "Discard"
-msgstr "Discard"
+msgstr ""
 
 msgid "Sign"
-msgstr "Sign"
+msgstr ""
 
 msgid "Follow @thefireflyapp on X"
-msgstr "Follow @thefireflyapp on X"
+msgstr ""
 
 msgid "Mirrored"
-msgstr "Mirrored"
+msgstr ""
 
 msgid "Associated Wallets"
-msgstr "Associated Wallets"
+msgstr ""
 
 msgid "Allow Lens Manager to perform actions such as posting, liking, and commenting without the need to sign each transaction"
-msgstr "Allow Lens Manager to perform actions such as posting, liking, and commenting without the need to sign each transaction"
-
-msgid "<0>{0}</0> mirrored"
-msgstr "<0>{0}</0> mirrored"
+msgstr ""
 
 msgid "quote"
-msgstr "quote"
+msgstr ""
 
 msgid "Notifications"
-msgstr "Notifications"
+msgstr ""
 
 msgid "Search…"
-msgstr "Search…"
+msgstr ""
 
 msgid "No profile found"
-msgstr "No profile found"
+msgstr ""
 
 msgid "Everyone can reply"
-msgstr "Everyone can reply"
+msgstr ""
 
 msgid "Missing client."
-msgstr "Missing client."
+msgstr ""
 
 msgid "No Lens profile found. Please change another wallet"
-msgstr "No Lens profile found. Please change another wallet"
+msgstr ""
 
 msgid "Delegate Signing (Recommend)"
-msgstr "Delegate Signing (Recommend)"
+msgstr ""
 
 msgid "Firefly"
-msgstr "Firefly"
+msgstr ""
 
 msgid "Log out all"
-msgstr "Log out all"
+msgstr ""
 
 msgid "Unknown session type."
-msgstr "Unknown session type."
+msgstr ""
 
 msgid "{0, plural, one {<0>{firstActedName}</0>} other {<1>{firstActedName}</1> and # others acted on your}} <2><3/></2>"
-msgstr "{0, plural, one {<0>{firstActedName}</0>} other {<1>{firstActedName}</1> and # others acted on your}} <2><3/></2>"
+msgstr ""
 
 msgid "Unfollow"
-msgstr "Unfollow"
+msgstr ""
 
 msgid "{0, plural, one {<0>{firstFollowerName}</0>} other {<1>{firstFollowerName}</1> and # others}} <2>followed you</2>"
-msgstr "{0, plural, one {<0>{firstFollowerName}</0>} other {<1>{firstFollowerName}</1> and # others}} <2>followed you</2>"
+msgstr ""
 
 msgid "Failed to upvote post"
-msgstr "Failed to upvote post"
+msgstr ""
 
 msgid "You cannot reply to @{author} on {source}"
-msgstr "You cannot reply to @{author} on {source}"
+msgstr ""
 
 msgid "Failed to unvote post"
-msgstr "Failed to unvote post"
+msgstr ""
 
 msgid "Light mode"
-msgstr "Light mode"
+msgstr ""
 
 msgid "Your Lens account is now connected"
-msgstr "Your Lens account is now connected"
+msgstr ""
 
 msgid "Log in"
-msgstr "Log in"
+msgstr ""
 
 msgid "{0, plural, one {<0>{firstMirrorName}</0>} other {<1>{firstMirrorName}</1> and # others mirrored you}} <2><3/></2>"
-msgstr "{0, plural, one {<0>{firstMirrorName}</0>} other {<1>{firstMirrorName}</1> and # others mirrored you}} <2><3/></2>"
+msgstr ""
 
 msgid "No matching users"
-msgstr "No matching users"
+msgstr ""
 
 msgid "Recasted"
-msgstr "Recasted"
+msgstr ""
 
 msgid "No client found"
-msgstr "No client found"
+msgstr ""
 
 msgid "Profile"
-msgstr "Profile"
+msgstr ""
 
 msgid "Add a comment"
-msgstr "Add a comment"
+msgstr ""
 
 msgid "No session found"
-msgstr "No session found"
+msgstr ""
 
 msgid "Profiles"
-msgstr "Profiles"
+msgstr ""
 
 msgid "<0>{0}</0> mentioned you in a <1><2/></1>"
-msgstr "<0>{0}</0> mentioned you in a <1><2/></1>"
+msgstr ""
 
 msgid "Recast"
-msgstr "Recast"
+msgstr ""
 
 msgid "Not followed by anyone you're following"
-msgstr "Not followed by anyone you're following"
+msgstr ""
 
 msgid "Followers"
-msgstr "Followers"
+msgstr ""
 
 msgid "Mirror"
-msgstr "Mirror"
+msgstr ""
 
 msgid "Terms of Service"
-msgstr "Terms of Service"
+msgstr ""
 
 msgid "Post"
-msgstr "Post"
+msgstr ""
 
 msgid "Following"
-msgstr "Following"
+msgstr ""
 
 msgid "Dark mode"
-msgstr "Dark mode"
+msgstr ""
 
 msgid "Collect is coming soon"
-msgstr "Collect is coming soon"
+msgstr ""
 
 msgid "Login"
-msgstr "Login"
+msgstr ""

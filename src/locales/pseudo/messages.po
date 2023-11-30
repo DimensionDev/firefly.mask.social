@@ -169,6 +169,9 @@ msgstr ""
 msgid "Log in to your Farcaster account by scanning this QR code using mobile application Warpcast."
 msgstr ""
 
+msgid "<0>{0}</0> liked"
+msgstr ""
+
 msgid "Failed to unfollow"
 msgstr ""
 
@@ -241,6 +244,9 @@ msgstr ""
 msgid "Allow Lens Manager to perform actions such as posting, liking, and commenting without the need to sign each transaction"
 msgstr ""
 
+msgid "<0>{0}</0> mirrored"
+msgstr ""
+
 msgid "quote"
 msgstr ""
 
@@ -308,9 +314,6 @@ msgid "No matching users"
 msgstr ""
 
 msgid "Recasted"
-msgstr ""
-
-msgid "Relay error"
 msgstr ""
 
 msgid "No client found"

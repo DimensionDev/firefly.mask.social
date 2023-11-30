@@ -8,8 +8,8 @@ import LoadingIcon from '@/assets/loading.svg';
 import { SinglePost } from '@/components/Posts/SinglePost.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { createIndicator, createPageable } from '@/maskbook/packages/shared-base/src/index.js';
-import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
+import { WarpcastSocialMediaProvider } from '@/providers/warpcast/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 
@@ -28,7 +28,7 @@ export default function Home() {
 
                     return result;
                 case SocialPlatform.Farcaster:
-                    return FireflySocialMediaProvider.discoverPosts(createIndicator(undefined, pageParam));
+                    return WarpcastSocialMediaProvider.discoverPosts(createIndicator(undefined, pageParam));
                 default:
                     return createPageable([], undefined);
             }

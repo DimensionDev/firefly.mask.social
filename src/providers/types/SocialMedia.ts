@@ -144,13 +144,30 @@ export interface Post {
         bookmarks?: number;
     };
     quoteOn?: Post;
-    commentOn?: Post;
+    comments?: Post[];
+    mirrors?: Profile[];
+    reactions?: Profile[];
     canComment?: boolean;
     canMirror?: boolean;
     hasMirrored?: boolean;
     hasLiked?: boolean;
     __original__?: unknown;
     source: SocialPlatform;
+
+    /**
+     * Sometimes we need to render a thread, and we currently support up to three level.
+     * root
+     * |
+     * commentOn
+     * |
+     * post
+     *
+     * As shown above, `root` represents the start of the thread.
+     * the current post itself represents the end of the thread.
+     * and `commentOn` represents the post to which the current post is a reply.
+     */
+    commentOn?: Post;
+    root?: Post;
 }
 
 export interface Comment {
@@ -326,12 +343,18 @@ export interface Provider {
     /**
      * Retrieves recent posts in reverse chronological order.
      *
-     * @param profileId The ID of the profile.
      * @param indicator Optional PageIndicator for pagination.
      * @returns A promise that resolves to a pageable list of Post objects.
      */
     discoverPosts: (indicator?: PageIndicator) => Promise<Pageable<Post>>;
 
+    /**
+     * Retrieves recent post by a specific profile id.
+     * @param profileId The ID of the profile.
+     * @param indicator Optional PageIndicator for pagination.
+     * @returns A promise that resolves to a pageable list of Post objects.
+     */
+    discoverPostsById: (profileId: string, indicator?: PageIndicator) => Promise<Pageable<Post>>;
     /**
      * Retrieves posts by a specific profile ID.
      *

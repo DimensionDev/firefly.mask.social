@@ -1,5 +1,5 @@
 export interface Session {
-    profileId: string;
+    profileId: string | number;
 
     /**
      * The secret associated with the authenticated account.
