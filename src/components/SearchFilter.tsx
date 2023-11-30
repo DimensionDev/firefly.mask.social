@@ -1,6 +1,6 @@
 'use client';
 
-import { t, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import { usePathname } from 'next/navigation.js';
 import { memo } from 'react';
 
@@ -10,11 +10,11 @@ import { useSearchStore } from '@/store/useSearchStore.js';
 const Filters = [
     {
         type: SearchType.Posts,
-        label: t`Publications`,
+        label: <Trans>Publications</Trans>,
     },
     {
         type: SearchType.Profiles,
-        label: t`Profiles`,
+        label: <Trans>Profiles</Trans>,
     },
 ];
 
