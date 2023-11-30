@@ -1,9 +1,11 @@
 'use client';
 
 import { useSuspenseQuery } from '@tanstack/react-query';
+import { useEffect } from 'react';
 
 import { SinglePost } from '@/components/Posts/SinglePost.js';
 import { SocialPlatform } from '@/constants/enum.js';
+import { SITE_NAME } from '@/constants/index.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
@@ -29,6 +31,11 @@ export default function Page({ params }: { params: { id: string; platform: strin
             }
         },
     });
+
+    useEffect(() => {
+        if (!data) return;
+        document.title = `Post by ${data.author.displayName} • ${SITE_NAME}`;
+    }, [data]);
 
     if (!data) return;
     return <SinglePost post={data} disableAnimate />;
