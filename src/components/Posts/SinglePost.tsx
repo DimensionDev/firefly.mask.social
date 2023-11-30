@@ -2,13 +2,12 @@
 
 import { motion } from 'framer-motion';
 import { memo } from 'react';
-import { useInView } from 'react-cool-inview';
 
-import { SocialPlatform } from '@/constants/enum.js';
+import { FeedActionType } from '@/components/Posts/ActionType.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { Link } from '@/esm/Link.js';
-import { addPostViews } from '@/helpers/addPostViews.js';
 import { getPostDetailUrl } from '@/helpers/getPostDetailUrl.js';
+import { useObserveLensPost } from '@/hooks/useObserveLensPost.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 import { PostBody } from './PostBody.js';
@@ -28,12 +27,7 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
     disableAnimate = false,
     showMore = false,
 }) {
-    const { observe } = useInView({
-        onChange: async ({ inView }) => {
-            if (!inView || post.source !== SocialPlatform.Lens) return;
-            addPostViews(post.postId);
-        },
-    });
+    const { observe } = useObserveLensPost(post.postId, post.source);
     return (
         <motion.article
             initial={!disableAnimate ? { opacity: 0 } : false}
@@ -41,6 +35,7 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
             exit={{ opacity: 0 }}
             className="cursor-pointer border-b border-secondaryLine bg-bottom px-4 py-3 hover:bg-bg"
         >
+            <FeedActionType post={post} />
             <Link href={getPostDetailUrl(post.postId, post.source)}>
                 <PostHeader post={post} />
 

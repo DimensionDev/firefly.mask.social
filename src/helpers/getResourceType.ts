@@ -1,7 +1,6 @@
 export function getResourceType(urlString: string) {
     let fileExtension;
 
-    console.log(urlString);
     if (typeof window !== 'undefined') {
         const parsedUrl = new URL(urlString);
         fileExtension = parsedUrl.pathname.split('.').pop()?.toLowerCase();

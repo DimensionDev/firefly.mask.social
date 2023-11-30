@@ -45,7 +45,10 @@ const useFarcasterStateBase = create<FarcasterState, [['zustand/persist', unknow
                 return get().currentAccount;
             },
         })),
-        { name: 'farcaster-state', partialize: (state) => ({ accounts: state.accounts }) },
+        {
+            name: 'farcaster-state',
+            partialize: (state) => ({ accounts: state.accounts, currentAccount: state.currentAccount }),
+        },
     ),
 );
 

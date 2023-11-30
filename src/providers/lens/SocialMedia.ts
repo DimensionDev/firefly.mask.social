@@ -2,6 +2,7 @@ import {
     CustomFiltersType,
     ExploreProfilesOrderByType,
     ExplorePublicationsOrderByType,
+    FeedEventItemType,
     isRelaySuccess,
     type IStorageProvider,
     LensClient,
@@ -24,7 +25,7 @@ import type { WalletClient } from 'wagmi';
 import { getWalletClient } from 'wagmi/actions';
 
 import { SocialPlatform } from '@/constants/enum.js';
-import { formatLensPost, formatLensQuoteOrComment } from '@/helpers/formatLensPost.js';
+import { formatLensPost, formatLensPostByFeed, formatLensQuoteOrComment } from '@/helpers/formatLensPost.js';
 import { formatLensProfile } from '@/helpers/formatLensProfile.js';
 import { generateCustodyBearer } from '@/helpers/generateCustodyBearer.js';
 import { isZero } from '@/maskbook/packages/web3-shared/base/src/index.js';
@@ -356,6 +357,30 @@ export class LensSocialMedia implements Provider {
         );
     }
 
+    async discoverPostsById(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        const data = await this.lensClient.feed.fetch({
+            where: {
+                for: profileId,
+                feedEventItemTypes: [
+                    FeedEventItemType.Post,
+                    FeedEventItemType.Comment,
+                    FeedEventItemType.Comment,
+                    FeedEventItemType.Mirror,
+                ],
+            },
+            cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
+        });
+
+        if (data.isFailure()) throw new Error(`Some thing went wrong ${JSON.stringify(data.isFailure())}`);
+
+        const result = data.unwrap();
+        return createPageable(
+            result.items.map((item) => formatLensPostByFeed(item)),
+            indicator ?? createIndicator(),
+            result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
+        );
+    }
+
     async getPostsByProfileId(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post>> {
         const result = await this.lensClient.publication.fetchAll({
             where: {
@@ -541,7 +566,6 @@ export class LensSocialMedia implements Provider {
 
                 if (item.__typename === 'ReactionNotification') {
                     if (item.reactions.length === 0) throw new Error('No reaction found');
-
                     const time = first(flatMap(item.reactions.map((x) => x.reactions)))?.reactedAt;
                     return {
                         source: SocialPlatform.Lens,

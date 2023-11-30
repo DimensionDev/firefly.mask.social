@@ -22,7 +22,7 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({ post, isQu
             <div className="flex items-center space-x-3">
                 <Image
                     loading="lazy"
-                    className={classNames('rounded-full border', {
+                    className={classNames('z-[1] rounded-full border bg-secondary', {
                         'h-10': !isQuote,
                         'w-10': !isQuote,
                         'h-6': isQuote,

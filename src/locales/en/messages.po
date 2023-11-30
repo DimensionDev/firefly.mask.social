@@ -169,6 +169,9 @@ msgstr "Post has been hidden"
 msgid "Log in to your Farcaster account by scanning this QR code using mobile application Warpcast."
 msgstr "Log in to your Farcaster account by scanning this QR code using mobile application Warpcast."
 
+msgid "<0>{0}</0> liked"
+msgstr "<0>{0}</0> liked"
+
 msgid "Failed to unfollow"
 msgstr "Failed to unfollow"
 
@@ -240,6 +243,9 @@ msgstr "Associated Wallets"
 
 msgid "Allow Lens Manager to perform actions such as posting, liking, and commenting without the need to sign each transaction"
 msgstr "Allow Lens Manager to perform actions such as posting, liking, and commenting without the need to sign each transaction"
+
+msgid "<0>{0}</0> mirrored"
+msgstr "<0>{0}</0> mirrored"
 
 msgid "quote"
 msgstr "quote"
