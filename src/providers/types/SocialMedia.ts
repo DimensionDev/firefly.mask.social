@@ -110,7 +110,13 @@ export interface Attachment {
     type: 'Image' | 'Video' | 'Audio';
 }
 
-export type PostType = 'Post' | 'Comment' | 'Quote' | 'Mirror';
+export enum PostType {
+    Post = 'Post',
+    Comment = 'Comment',
+    Quote = 'Quote',
+    Mirror = 'Mirror',
+}
+
 export interface Post {
     type?: PostType;
     postId: string;

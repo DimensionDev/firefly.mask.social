@@ -6,14 +6,14 @@ import LikeIcon from '@/assets/like.svg';
 import LikedIcon from '@/assets/liked.svg';
 import MirrorIcon from '@/assets/mirror.svg';
 import { ThreadBody } from '@/components/Posts/ThreadBody.js';
-import type { Post } from '@/providers/types/SocialMedia.js';
+import { type Post, PostType } from '@/providers/types/SocialMedia.js';
 
 export interface FeedActionType {
     post: Post;
 }
 
 export const FeedActionType = memo<FeedActionType>(function FeedActionType({ post }) {
-    const isComment = post.type === 'Comment';
+    const isComment = post.type === PostType.Comment;
     const showThread = isComment || !post.comments?.length;
 
     return (
@@ -23,7 +23,7 @@ export const FeedActionType = memo<FeedActionType>(function FeedActionType({ pos
                 event.preventDefault();
             }}
         >
-            {post.type === 'Mirror' ? (
+            {post.type === PostType.Mirror ? (
                 <div className="mb-3 flex items-center space-x-2 text-secondary">
                     <MirrorIcon width={16} height={16} />
                     <span>
