@@ -26,6 +26,7 @@ export class SessionFactory {
             token: string;
             createdAt: number;
             expiresAt: number;
+            privateKey?: string;
             profile?: Profile;
             client?: LensClient;
         }>(json);
@@ -55,7 +56,13 @@ export class SessionFactory {
                         session.client!,
                     );
                 case Type.Warpcast:
-                    return new WarpcastSession(session.profileId, session.token, session.createdAt, session.expiresAt);
+                    return new WarpcastSession(
+                        session.profileId,
+                        session.token,
+                        session.createdAt,
+                        session.expiresAt,
+                        session.privateKey!,
+                    );
                 case Type.Twitter:
                     throw new Error(t`Not implemented yet.`);
                 default:
