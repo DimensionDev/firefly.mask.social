@@ -40,6 +40,7 @@ const useLensStateBase = create<LensState, [['zustand/persist', unknown], ['zust
                         avatar: '',
                         name: '',
                         id: '',
+                        platform: SocialPlatform.Lens,
                     };
                 }),
         })),

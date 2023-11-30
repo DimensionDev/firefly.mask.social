@@ -5,6 +5,7 @@ import { useAccount } from 'wagmi';
 
 import { SocialPlatform } from '@/constants/enum.js';
 import { Image } from '@/esm/Image.js';
+import { formatEthereumAddress } from '@/maskbook/packages/web3-shared/evm/src/index.js';
 import { LogoutModalRef } from '@/modals/controls.js';
 import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
 import { useLensStateStore } from '@/store/useLensStore.js';
@@ -31,7 +32,7 @@ export default function Connected() {
                         <Trans>Lens</Trans>
                     </span>
                     <div className="flex items-center gap-[4px]">
-                        <span className="text-base font-bold leading-[18px] text-slate-500">{address}</span>
+                        <span className="text-base font-bold leading-[18px] text-slate-500">{address ? formatEthereumAddress(address, 4) : null}</span>
                         <Image src="/svg/copy.svg" alt="copy" width={14} height={14} />
                     </div>
                 </div>
