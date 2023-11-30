@@ -78,7 +78,7 @@ export class WarpcastSocialMedia implements Provider {
             method: 'GET',
         });
         const data = result.feed.map(formatWarpcastPostFromFeed);
-        return createPageable(data, indicator ?? createIndicator(), createNextIndicator(indicator, next.cursor));
+        return createPageable(data, createIndicator(indicator), createNextIndicator(indicator, next.cursor));
     }
 
     async discoverPostsById(profileId: string, indicator?: PageIndicator | undefined) {
@@ -136,7 +136,7 @@ export class WarpcastSocialMedia implements Provider {
             method: 'GET',
         });
         const data = result.feed.map(formatWarpcastPostFromFeed);
-        return createPageable(data, indicator ?? createIndicator(), createNextIndicator(indicator, next.cursor));
+        return createPageable(data, createIndicator(indicator), createNextIndicator(indicator, next.cursor));
     }
 
     async getFollowers(profileId: string, indicator?: PageIndicator) {
@@ -163,8 +163,7 @@ export class WarpcastSocialMedia implements Provider {
             },
             source: SocialPlatform.Farcaster,
         }));
-
-        return createPageable(data, indicator, createNextIndicator(indicator, next.cursor));
+        return createPageable(data, createIndicator(indicator), createNextIndicator(indicator, next.cursor));
     }
 
     async getFollowings(profileId: string, indicator?: PageIndicator) {
@@ -191,8 +190,7 @@ export class WarpcastSocialMedia implements Provider {
             },
             source: SocialPlatform.Farcaster,
         }));
-
-        return createPageable(data, indicator, createNextIndicator(indicator, next.cursor));
+        return createPageable(data, createIndicator(indicator), createNextIndicator(indicator, next.cursor));
     }
 
     async publishPost(post: Post): Promise<Post> {

@@ -10,9 +10,9 @@ import CloseIcon from '@/assets/close-circle.svg';
 import LoadingIcon from '@/assets/loading.svg';
 import SearchIcon from '@/assets/search.svg';
 import { Image } from '@/components/Image.js';
+import { SourceIcon } from '@/components/SourceIcon.js';
 import { SearchType, SocialPlatform } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
-import { getSocialPlatformIconBySource } from '@/helpers/getSocialPlatformIconBySource.js';
 import { HubbleSocialMediaProvider } from '@/providers/hubble/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
@@ -37,12 +37,10 @@ export const SearchBar = memo(function SearchBar(props: SearchBarProps) {
     const [searchText, setSearchText] = useState('');
     const debouncedSearchText = useDebounce(searchText, 500);
 
-    const sourceIcon = getSocialPlatformIconBySource(currentSocialPlatform, isDarkMode);
-
     useOnClickOutside(dropdownRef, () => setSearchText(''));
 
     const { data: profiles, isLoading } = useQuery({
-        queryKey: ['searchText', debouncedSearchText],
+        queryKey: ['searchText', debouncedSearchText, currentSocialPlatform],
         queryFn: async () => {
             switch (currentSocialPlatform) {
                 case SocialPlatform.Lens:
@@ -64,9 +62,6 @@ export const SearchBar = memo(function SearchBar(props: SearchBarProps) {
     const handleInputChange = (evt: ChangeEvent<HTMLInputElement>) => {
         const searchText = evt.target.value;
         setSearchText(searchText);
-
-        // implement the fetch profiles data for dropdown
-        // use debouncedSearchText here
     };
 
     const handleSubmit = (evt: ChangeEvent<HTMLFormElement>) => {
@@ -183,12 +178,7 @@ export const SearchBar = memo(function SearchBar(props: SearchBarProps) {
                                             <div className="flex-1 text-left">
                                                 <div className="flex">
                                                     <span className="mr-1">{user.displayName}</span>
-                                                    <Image
-                                                        src={sourceIcon}
-                                                        width={16}
-                                                        height={16}
-                                                        alt={currentSocialPlatform}
-                                                    />
+                                                    <SourceIcon source={user.source} />
                                                 </div>
                                                 <div className=" font-normal text-secondary">@{user.handle}</div>
                                             </div>

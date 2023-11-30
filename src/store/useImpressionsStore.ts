@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 
+import { EMPTY_LIST } from '@/constants/index.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 
@@ -16,7 +17,7 @@ interface ImpressionsState {
 const STATS_URL = 'https://api.hey.xyz/stats/publicationViews';
 
 export const useImpressionsBase = create<ImpressionsState>((set) => ({
-    publicationViews: [],
+    publicationViews: EMPTY_LIST,
     fetchAndStoreViews: async (ids) => {
         if (!ids.length) {
             return;
