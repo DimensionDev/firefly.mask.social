@@ -108,9 +108,22 @@ export default {
 
         config.module.rules.push({
             test: /\.svg$/i,
-            exclude: /src\/maskbook/,
-            issuer: /\.[jt]sx?$/,
-            use: ['@svgr/webpack'],
+            loader: '@svgr/webpack',
+            options: {
+                svgoConfig: {
+                    plugins: [
+                        {
+                            name: 'preset-default',
+                            params: {
+                                overrides: {
+                                    // disable plugins
+                                    removeViewBox: false,
+                                },
+                            },
+                        },
+                    ],
+                },
+            },
         });
 
         return config;
