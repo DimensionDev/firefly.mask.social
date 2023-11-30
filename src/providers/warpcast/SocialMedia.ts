@@ -13,7 +13,6 @@ import { SocialPlatform } from '@/constants/enum.js';
 import { WARPCAST_ROOT_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { formatWarpcastPostFromFeed } from '@/helpers/formatWarpcastPost.js';
-import { waitForSignedKeyRequestComplete } from '@/helpers/waitForSignedKeyRequestComplete.js';
 import { isZero } from '@/maskbook/packages/web3-shared/base/src/index.js';
 import { SessionFactory } from '@/providers/base/SessionFactory.js';
 import {
@@ -33,47 +32,12 @@ import type {
     UserResponse,
     UsersResponse,
 } from '@/providers/types/Warpcast.js';
+import { createSessionByGrantPermission } from '@/providers/warpcast/createSessionByGrantPermission.js';
 import { WarpcastSession } from '@/providers/warpcast/Session.js';
-import type { ResponseJSON } from '@/types/index.js';
 
 export class WarpcastSocialMedia implements Provider {
     get type() {
         return Type.Warpcast;
-    }
-
-    /**
-     * Initiates the creation of a session by granting data access permission to another FID.
-     * @param signal
-     * @returns
-     */
-    async _createSessionByGrantPermission(setUrl?: (url: string) => void, signal?: AbortSignal) {
-        const response = await fetchJSON<
-            ResponseJSON<{
-                publicKey: string;
-                privateKey: string;
-                fid: string;
-                token: string;
-                timestamp: number;
-                expiresAt: number;
-                deeplinkUrl: string;
-            }>
-        >('/api/warpcast/signin', {
-            method: 'POST',
-        });
-        if (!response.success) throw new Error(response.error.message);
-
-        // present QR code to the user
-        setUrl?.(response.data.deeplinkUrl);
-
-        await waitForSignedKeyRequestComplete(signal)(response.data.token);
-
-        return new WarpcastSession(
-            response.data.fid,
-            response.data.token,
-            response.data.timestamp,
-            response.data.expiresAt,
-            response.data.privateKey,
-        );
     }
 
     async createSession(
@@ -83,7 +47,7 @@ export class WarpcastSocialMedia implements Provider {
         const setUrl = typeof setUrlOrSignal === 'function' ? setUrlOrSignal : undefined;
         const abortSignal = setUrlOrSignal instanceof AbortSignal ? setUrlOrSignal : signal;
 
-        const session = await this._createSessionByGrantPermission(setUrl, abortSignal);
+        const session = await createSessionByGrantPermission(setUrl, abortSignal);
         localStorage.setItem('warpcast_session', session.serialize());
         return session;
     }
