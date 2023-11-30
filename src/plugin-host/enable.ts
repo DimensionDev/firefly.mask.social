@@ -16,7 +16,7 @@ import {
 import { setupReactShadowRootEnvironment } from '@masknet/theme';
 import { Emitter } from '@servie/events';
 
-import { indexedDBStorage, inMemoryStorage } from '../setup/storage.js';
+import { indexedDBStorage, inMemoryStorage } from '../MaskRuntime/storage.js';
 
 async function reject(): Promise<never> {
     throw new Error('Not implemented');
