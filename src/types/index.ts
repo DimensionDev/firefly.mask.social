@@ -1,4 +1,5 @@
 import { ServerErrorCodes } from '@/helpers/createErrorResponseJSON.js';
+import {SocialPlatform} from '@/types/index.js';
 
 export type ResponseJSON<T> =
     | {
@@ -31,6 +32,7 @@ export interface Account {
     avatar: string;
     name: string;
     id: string;
+    platform: SocialPlatform;
     signless?: boolean;
     handle?: string;
 }

@@ -5,6 +5,7 @@ import { useAccount } from 'wagmi';
 
 import { SocialPlatform } from '@/constants/enum.js';
 import { Image } from '@/esm/Image.js';
+import { LogoutModalRef } from '@/modals/controls.js';
 import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
 import { useLensStateStore } from '@/store/useLensStore.js';
 
@@ -24,7 +25,7 @@ export default function Connected() {
                     <Trans>Connected Accounts</Trans>
                 </span>
             </div>
-            {currentLensAccount ? <>
+            {currentLensAccount.id ? <>
                 <div className="flex w-full items-center justify-between">
                     <span className="text-base font-bold leading-[18px] text-main">
                         <Trans>Lens</Trans>
@@ -46,7 +47,7 @@ export default function Connected() {
                     />
                 ))}
             </> : null}
-            {currentFarcasterAccount ? <>
+            {currentFarcasterAccount.id ? <>
                 <div className="flex w-full items-center justify-between">
                     <span className="text-base font-bold leading-[18px] text-main">
                         <Trans>Farcaster</Trans>
@@ -73,7 +74,7 @@ export default function Connected() {
                     </div>
                 </button>
 
-                <button className="inline-flex h-10 w-[200px] flex-col items-start justify-start">
+                <button className="inline-flex h-10 w-[200px] flex-col items-start justify-start" onClick={() => { LogoutModalRef.open({}) }}>
                     <div className="inline-flex h-10 items-center justify-center gap-2 self-stretch rounded-2xl bg-[#FF3545] px-[18px] py-[11px]">
                         <div className="font-['Helvetica'] text-sm font-bold leading-[18px] text-white">
                             <Trans>Log out all</Trans>

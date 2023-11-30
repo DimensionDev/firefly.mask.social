@@ -4,6 +4,7 @@ import { immer } from 'zustand/middleware/immer';
 
 import { createSelectors } from '@/helpers/createSelector.js';
 import type { Account } from '@/types/index.js';
+import { SocialPlatform } from '@/types/index.js';
 
 export interface FarcasterState {
     accounts: Account[];
@@ -23,6 +24,7 @@ const useFarcasterStateBase = create<FarcasterState, [['zustand/persist', unknow
                 avatar: '',
                 name: '',
                 id: '',
+                platform: SocialPlatform.Farcaster,
             },
             updateCurrentAccount: (account: Account) =>
                 set((state) => {
