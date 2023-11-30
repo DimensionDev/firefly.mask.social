@@ -453,11 +453,11 @@ export class HubbleSocialMedia implements Provider {
         return null!;
     }
 
-    searchProfiles(q: string, indicator?: PageIndicator): Promise<Pageable<Profile>> {
+    searchProfiles(q: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
         throw new Error(t`Method not implemented.`);
     }
 
-    searchPosts(q: string, indicator?: PageIndicator): Promise<Pageable<Post>> {
+    searchPosts(q: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         throw new Error(t`Method not implemented.`);
     }
 }

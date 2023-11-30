@@ -2,7 +2,11 @@
 
 import { safeUnreachable } from '@masknet/kit';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
+import { compact } from 'lodash-es';
+import { useMemo } from 'react';
+import { useInView } from 'react-cool-inview';
 
+import LoadingIcon from '@/assets/loading.svg';
 import { SinglePost } from '@/components/Posts/SinglePost.js';
 import { ProfileInList } from '@/components/ProfileInList.js';
 import { SearchType, SocialPlatform } from '@/constants/enum.js';
@@ -17,30 +21,26 @@ export default function Page() {
     const { searchText, searchType } = useSearchStore();
     const { currentSocialPlatform } = useGlobalState();
 
-    const { data } = useSuspenseInfiniteQuery({
+    const { data, hasNextPage, fetchNextPage, isFetchingNextPage, isFetching } = useSuspenseInfiniteQuery({
         queryKey: ['search'],
         queryFn: async ({ pageParam }) => {
+            const indicator = createIndicator(undefined, pageParam);
+
             if (searchType === SearchType.Profiles) {
                 switch (currentSocialPlatform) {
                     case SocialPlatform.Lens:
-                        return LensSocialMediaProvider.searchProfiles(
-                            searchText,
-                            createIndicator(undefined, pageParam),
-                        );
+                        return LensSocialMediaProvider.searchProfiles(searchText, indicator);
                     case SocialPlatform.Farcaster:
-                        return HubbleSocialMediaProvider.searchProfiles(
-                            searchText,
-                            createIndicator(undefined, pageParam),
-                        );
+                        return HubbleSocialMediaProvider.searchProfiles(searchText, indicator);
                     default:
                         return;
                 }
             } else if (searchType === SearchType.Posts) {
                 switch (currentSocialPlatform) {
                     case SocialPlatform.Lens:
-                        return LensSocialMediaProvider.searchPosts(searchText, createIndicator(undefined, pageParam));
+                        return LensSocialMediaProvider.searchPosts(searchText, indicator);
                     case SocialPlatform.Farcaster:
-                        return HubbleSocialMediaProvider.searchPosts(searchText, createIndicator(undefined, pageParam));
+                        return HubbleSocialMediaProvider.searchPosts(searchText, indicator);
                     default:
                         return;
                 }
@@ -53,18 +53,42 @@ export default function Page() {
         getNextPageParam: (lastPage) => lastPage?.nextIndicator?.id,
     });
 
-    console.log('DEBUG: data');
-    console.log(data);
+    const { observe } = useInView({
+        rootMargin: '300px 0px',
+        onChange: async ({ inView }) => {
+            if (!inView || !hasNextPage || isFetching || isFetchingNextPage) {
+                return;
+            }
+            await fetchNextPage();
+        },
+    });
 
-    if (searchType === SearchType.Profiles) {
-        const profiles = data?.data as Profile[];
-        return profiles.map((profile: Profile) => <ProfileInList key={profile.profileId} profile={profile} />);
-    }
+    const results = useMemo(() => {
+        return compact(data.pages.flatMap((x) => x?.data as Array<Profile | Post>));
+    }, [data.pages]);
 
-    if (searchType === SearchType.Posts) {
-        const posts = data?.data as Post[];
-        return posts.map((post: Post) => <SinglePost key={post.postId} post={post} />);
-    }
+    console.log('DEBUG: results');
+    console.log(results);
 
-    return null;
+    return (
+        <div>
+            {results.map((item) => {
+                if (searchText === SearchType.Profiles) {
+                    const profile = item as Profile;
+                    return <ProfileInList key={profile.profileId} profile={profile} />;
+                }
+                if (searchText === SearchType.Posts) {
+                    const post = item as Post;
+                    return <SinglePost key={post.postId} post={post} />;
+                }
+                return null;
+            })}
+
+            {hasNextPage && results.length ? (
+                <div className="flex items-center justify-center p-2" ref={observe}>
+                    <LoadingIcon width={16} height={16} className="animate-spin" />
+                </div>
+            ) : null}
+        </div>
+    );
 }

@@ -29,9 +29,9 @@ export const SearchFilter = memo(function SearchBar(props: SearchFilterProps) {
     return (
         <div>
             <div className=" my-6 rounded-xl bg-lightBg px-3 py-2.5 text-sm font-bold">
-                <h1>
+                <h2>
                     <Trans>Search Filter</Trans>
-                </h1>
+                </h2>
             </div>
             <div className=" mt-4 rounded-xl border border-line">
                 <fieldset className=" px-4 pb-1 pt-2">
