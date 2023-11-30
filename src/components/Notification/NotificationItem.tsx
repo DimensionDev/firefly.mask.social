@@ -16,9 +16,9 @@ import { PostActions } from '@/components/Actions/index.js';
 import { Image } from '@/components/Image.js';
 import { Markup } from '@/components/Markup/index.js';
 import { Quote } from '@/components/Posts/Quote.js';
+import { SourceIcon } from '@/components/SourceIcon.jsx';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
 import { classNames } from '@/helpers/classNames.js';
-import { getSocialPlatformIconBySource } from '@/helpers/getSocialPlatformIconBySource.js';
 import { createLookupTableResolver } from '@/maskbook/packages/shared-base/src/index.js';
 import { type Notification, NotificationType, type PostType } from '@/providers/types/SocialMedia.js';
 
@@ -59,8 +59,6 @@ function PostTypeI18N({ type }: { type: PostType }) {
 export const NotificationItem = memo<NotificationItemProps>(function SingleNotification({ notification }) {
     const { isDarkMode } = useDarkMode();
     const Icon = resolveNotificationIcon(notification.type);
-
-    const sourceIcon = getSocialPlatformIconBySource(notification.source, isDarkMode);
 
     const profiles = useMemo(() => {
         switch (notification.type) {
@@ -283,9 +281,7 @@ export const NotificationItem = memo<NotificationItemProps>(function SingleNotif
                                 })}
                             </div>
                             <div className="flex items-center space-x-2">
-                                {sourceIcon ? (
-                                    <Image src={sourceIcon} width={16} height={16} alt={notification.source} />
-                                ) : null}
+                                <SourceIcon source={notification.source} />
                                 {showMoreAction ? (
                                     <>
                                         <span className="text-xs leading-4 text-secondary">
