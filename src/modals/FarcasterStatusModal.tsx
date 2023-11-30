@@ -12,8 +12,8 @@ import { LogoutModalRef } from '@/modals/controls.js';
 import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
 
 export const FarcasterStatusModal = forwardRef<SingletonModalRefCreator>(function FarcasterStatusModal(_, ref) {
-    const farcasterAccounts = useFarcasterStateStore.use.accounts();
-    const currentAccount = useFarcasterStateStore.use.currentAccount();
+    const farcasterAccounts = useFarcasterStateStore((state) => state.accounts);
+    const currentAccount = useFarcasterStateStore((state) => state.currentAccount);
     const [open, dispatch] = useSingletonModal(ref);
     return (
         <Transition appear show={open} as={Fragment}>

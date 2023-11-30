@@ -471,7 +471,34 @@ export class LensSocialMedia implements Provider {
         });
         const resultValue = result.unwrap();
 
-        if (!isRelaySuccess(resultValue)) throw new Error(`Something went wrong ${JSON.stringify(resultValue)}`);
+        if (!isRelaySuccess(resultValue)) {
+            const result = await this.lensClient.profile.createFollowTypedData({
+                follow: [
+                    {
+                        profileId,
+                    },
+                ],
+            });
+
+            const data = result.unwrap();
+            const wallet = await this.getWallet();
+            const signedTypedData = await wallet.signTypedData({
+                domain: data.typedData.domain as TypedDataDomain,
+                types: data.typedData.types,
+                primaryType: 'Follow',
+                message: data.typedData.value,
+            });
+
+            const broadcastResult = await this.lensClient.transaction.broadcastOnchain({
+                id: data.id,
+                signature: signedTypedData,
+            });
+
+            const broadcastValue = broadcastResult.unwrap();
+            if (!isRelaySuccess(broadcastValue)) {
+                throw new Error(`Something went wrong ${JSON.stringify(broadcastValue)}`);
+            }
+        }
     }
 
     async unfollow(profileId: string): Promise<void> {
@@ -480,7 +507,30 @@ export class LensSocialMedia implements Provider {
         });
         const resultValue = result.unwrap();
 
-        if (!isRelaySuccess(resultValue)) throw new Error(`Something went wrong ${JSON.stringify(resultValue)}`);
+        if (!isRelaySuccess(resultValue)) {
+            const followTypedDataResult = await this.lensClient.profile.createUnfollowTypedData({
+                unfollow: [profileId],
+            });
+
+            const data = followTypedDataResult.unwrap();
+            const wallet = await this.getWallet();
+            const signedTypedData = await wallet.signTypedData({
+                domain: data.typedData.domain as TypedDataDomain,
+                types: data.typedData.types,
+                primaryType: 'Unfollow',
+                message: data.typedData.value,
+            });
+
+            const broadcastResult = await this.lensClient.transaction.broadcastOnchain({
+                id: data.id,
+                signature: signedTypedData,
+            });
+
+            const broadcastValue = broadcastResult.unwrap();
+            if (!isRelaySuccess(broadcastValue)) {
+                throw new Error(`Something went wrong ${JSON.stringify(broadcastValue)}`);
+            }
+        }
     }
 
     async getFollowers(profileId: string, indicator?: PageIndicator): Promise<Pageable<Profile>> {

@@ -289,12 +289,29 @@ export class WarpcastSocialMedia implements Provider {
         });
     }
 
+    async follow(profileId: string) {
+        const url = urlcat(WARPCAST_ROOT_URL, '/follows');
+        const {
+            result: { success },
+        } = await this.fetchWithSession<SuccessResponse>(url, {
+            method: 'PUT',
+            body: JSON.stringify({ targetFid: Number(profileId) }),
+        });
+        if (!success) throw new Error('Follow Failed');
+        return;
+    }
+
     async unfollow(profileId: string) {
         const url = urlcat(WARPCAST_ROOT_URL, '/follows');
-        await this.fetchWithSession<SuccessResponse>(url, {
+        const {
+            result: { success },
+        } = await this.fetchWithSession<SuccessResponse>(url, {
             method: 'DELETE',
             body: JSON.stringify({ targetFid: Number(profileId) }),
         });
+
+        if (!success) throw new Error('Unfollow Failed');
+        return;
     }
 
     private async fetchWithSession<T>(url: string, options: RequestInit) {

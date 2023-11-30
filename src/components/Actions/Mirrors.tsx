@@ -102,7 +102,10 @@ export const Mirror = memo<MirrorProps>(function Mirror({ shares, source, hasMir
                 'text-secondarySuccess': !!mirrored,
                 'opacity-50': !!disabled,
             })}
-            onClick={(event) => event.stopPropagation()}
+            onClick={(event) => {
+                event.preventDefault();
+                event.stopPropagation();
+            }}
         >
             <Menu.Button
                 disabled={disabled}
@@ -110,12 +113,13 @@ export const Mirror = memo<MirrorProps>(function Mirror({ shares, source, hasMir
                 className={'flex items-center space-x-2 text-secondary hover:text-secondarySuccess'}
                 whileTap={{ scale: 0.9 }}
                 onClick={(event) => {
-                    event.stopPropagation();
-                    event.preventDefault();
                     if (!isLogin && !loading) {
+                        event.stopPropagation();
+                        event.preventDefault();
                         LoginModalRef.open({});
                         return;
                     }
+                    return;
                 }}
                 aria-label="Mirror"
             >

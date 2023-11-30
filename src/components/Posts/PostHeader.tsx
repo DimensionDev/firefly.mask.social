@@ -1,7 +1,7 @@
 import { memo } from 'react';
 import { useDarkMode } from 'usehooks-ts';
 
-import More from '@/assets/more.svg';
+import { MoreAction } from '@/components/Actions/More.js';
 import { Image } from '@/components/Image.js';
 import { SourceIcon } from '@/components/SourceIcon.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
@@ -46,11 +46,7 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({ post, isQu
                 <span className="text-xs leading-4 text-secondary">
                     <TimestampFormatter time={post.timestamp} />
                 </span>
-                {!isQuote ? (
-                    <span className="text-secondary">
-                        <More width={24} height={24} />
-                    </span>
-                ) : null}
+                {!isQuote ? <MoreAction post={post} /> : null}
             </div>
         </div>
     );
