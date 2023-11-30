@@ -3,9 +3,9 @@ import { useDarkMode } from 'usehooks-ts';
 
 import More from '@/assets/more.svg';
 import { Image } from '@/components/Image.js';
+import { SourceIcon } from '@/components/SourceIcon.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
 import { classNames } from '@/helpers/classNames.js';
-import { getSocialPlatformIconBySource } from '@/helpers/getSocialPlatformIconBySource.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 interface PostHeaderProps {
@@ -15,7 +15,6 @@ interface PostHeaderProps {
 
 export const PostHeader = memo<PostHeaderProps>(function PostHeader({ post, isQuote = false }) {
     const { isDarkMode } = useDarkMode();
-    const sourceIcon = getSocialPlatformIconBySource(post.source, isDarkMode);
 
     return (
         <div className="flex justify-between space-x-1.5">
@@ -43,7 +42,7 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({ post, isQu
                 </div>
             </div>
             <div className="flex items-center space-x-2">
-                {sourceIcon ? <Image src={sourceIcon} width={16} height={16} alt={post.source} /> : null}
+                <SourceIcon source={post.source} />
                 <span className="text-xs leading-4 text-secondary">
                     <TimestampFormatter time={post.timestamp} />
                 </span>

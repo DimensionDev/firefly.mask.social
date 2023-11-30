@@ -3,7 +3,7 @@ import { useDarkMode } from 'usehooks-ts';
 
 import FollowButton from '@/app/profile/components/FollowButton.js';
 import { Image } from '@/components/Image.js';
-import { getSocialPlatformIconBySource } from '@/helpers/getSocialPlatformIconBySource.js';
+import { SourceIcon } from '@/components/SourceIcon.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { useSearchStore } from '@/store/useSearchStore.js';
 
@@ -18,7 +18,6 @@ export function ProfileInList(props: ProfileInListProps) {
     const router = useRouter();
     const { isDarkMode } = useDarkMode();
     const { updateSearchText } = useSearchStore();
-    const sourceIcon = getSocialPlatformIconBySource(profile.source, isDarkMode);
 
     return (
         <div
@@ -42,7 +41,7 @@ export function ProfileInList(props: ProfileInListProps) {
                 <div className="flex-start flex flex-1 flex-col">
                     <span className="flex-start mt-2 flex text-sm font-bold leading-5">
                         <span className="mr-2 text-xl">{profile.displayName}</span>
-                        {sourceIcon ? <Image src={sourceIcon} width={16} height={16} alt={profile.source} /> : null}
+                        <SourceIcon source={profile.source} />
                     </span>
                     {profile.handle ? <span className="text-sm text-secondary">@{profile.handle}</span> : null}
                     {profile.bio ? <span className="mt-1.5 text-sm">{profile.bio}</span> : null}
