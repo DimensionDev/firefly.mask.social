@@ -6,7 +6,7 @@ import QRCode from 'react-qr-code';
 import { useAsync } from 'react-use';
 
 import LoadingIcon from '@/assets/loading.svg';
-import { SocialPlatform } from "@/constants/enum.js";
+import { SocialPlatform } from '@/constants/enum.js';
 import { LoginModalRef } from '@/modals/controls.js';
 import { FireflySocialMedia } from '@/providers/firefly/SocialMedia.js';
 import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
@@ -39,9 +39,7 @@ export function LoginFarcaster() {
         >
             <div className="flex min-h-[475px] w-full flex-col items-center gap-[16px] p-[16px] ">
                 <div className=" text-center text-[12px] leading-[16px] text-lightSecond">
-                    <Trans>
-                        On your mobile device with Warpcast, open the Camera app and scan the QR code
-                    </Trans>
+                    <Trans>On your mobile device with Warpcast, open the Camera app and scan the QR code</Trans>
                 </div>
                 {url ? (
                     <QRCode value={url} size={360} />

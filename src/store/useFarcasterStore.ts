@@ -42,7 +42,7 @@ const useFarcasterStateBase = create<FarcasterState, [['zustand/persist', unknow
                         avatar: '',
                         name: '',
                         id: '',
-                        platform: SocialPlatform.Farcaster, 
+                        platform: SocialPlatform.Farcaster,
                     };
                 }),
             hydrateCurrentAccount: () => {

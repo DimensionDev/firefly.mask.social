@@ -29,7 +29,12 @@ export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps>
     });
 
     const accounts = useMemo(
-        () => (!props.platform ? lensAccounts.concat(farcasterAccounts) : props.platform === SocialPlatform.Lens ? lensAccounts : farcasterAccounts),
+        () =>
+            !props.platform
+                ? lensAccounts.concat(farcasterAccounts)
+                : props.platform === SocialPlatform.Lens
+                  ? lensAccounts
+                  : farcasterAccounts,
         [lensAccounts, farcasterAccounts, props.platform],
     );
 
