@@ -7,6 +7,7 @@ import { useInView } from 'react-cool-inview';
 import LoadingIcon from '@/assets/loading.svg';
 import { SinglePost } from '@/components/Posts/SinglePost.js';
 import { SocialPlatform } from '@/constants/enum.js';
+import { EMPTY_LIST } from '@/constants/index.js';
 import { createIndicator, createPageable } from '@/maskbook/packages/shared-base/src/index.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
@@ -30,7 +31,7 @@ export default function Home() {
                 case SocialPlatform.Farcaster:
                     return FireflySocialMediaProvider.discoverPosts(createIndicator(undefined, pageParam));
                 default:
-                    return createPageable([], undefined);
+                    return createPageable(EMPTY_LIST, undefined);
             }
         },
         initialPageParam: '',

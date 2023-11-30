@@ -1,11 +1,12 @@
 'use client';
 
 import { safeUnreachable } from '@masknet/kit';
-import { useSuspenseQuery } from '@tanstack/react-query';
+import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 
-import { SinglePost } from '@/components/Posts/SinglePost.jsx';
-import { ProfileInList } from '@/components/ProfileInList.jsx';
+import { SinglePost } from '@/components/Posts/SinglePost.js';
+import { ProfileInList } from '@/components/ProfileInList.js';
 import { SearchType, SocialPlatform } from '@/constants/enum.js';
+import { createIndicator } from '@/maskbook/packages/shared-base/src/index.js';
 import { HubbleSocialMediaProvider } from '@/providers/hubble/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import type { Post, Profile } from '@/providers/types/SocialMedia.js';
@@ -16,24 +17,30 @@ export default function Page() {
     const { searchText, searchType } = useSearchStore();
     const { currentSocialPlatform } = useGlobalState();
 
-    const { data } = useSuspenseQuery({
+    const { data } = useSuspenseInfiniteQuery({
         queryKey: ['search'],
-        queryFn: async () => {
+        queryFn: async ({ pageParam }) => {
             if (searchType === SearchType.Profiles) {
                 switch (currentSocialPlatform) {
                     case SocialPlatform.Lens:
-                        return LensSocialMediaProvider.searchProfiles(searchText);
+                        return LensSocialMediaProvider.searchProfiles(
+                            searchText,
+                            createIndicator(undefined, pageParam),
+                        );
                     case SocialPlatform.Farcaster:
-                        return HubbleSocialMediaProvider.searchProfiles(searchText);
+                        return HubbleSocialMediaProvider.searchProfiles(
+                            searchText,
+                            createIndicator(undefined, pageParam),
+                        );
                     default:
                         return;
                 }
             } else if (searchType === SearchType.Posts) {
                 switch (currentSocialPlatform) {
                     case SocialPlatform.Lens:
-                        return LensSocialMediaProvider.searchPosts(searchText);
+                        return LensSocialMediaProvider.searchPosts(searchText, createIndicator(undefined, pageParam));
                     case SocialPlatform.Farcaster:
-                        return HubbleSocialMediaProvider.searchPosts(searchText);
+                        return HubbleSocialMediaProvider.searchPosts(searchText, createIndicator(undefined, pageParam));
                     default:
                         return;
                 }
@@ -42,11 +49,16 @@ export default function Page() {
                 return;
             }
         },
+        initialPageParam: '',
+        getNextPageParam: (lastPage) => lastPage?.nextIndicator?.id,
     });
+
+    console.log('DEBUG: data');
+    console.log(data);
 
     if (searchType === SearchType.Profiles) {
         const profiles = data?.data as Profile[];
-        return profiles.map((profile: Profile) => <ProfileInList key={profile.handle} profile={profile} />);
+        return profiles.map((profile: Profile) => <ProfileInList key={profile.profileId} profile={profile} />);
     }
 
     if (searchType === SearchType.Posts) {
@@ -54,5 +66,5 @@ export default function Page() {
         return posts.map((post: Post) => <SinglePost key={post.postId} post={post} />);
     }
 
-    return;
+    return null;
 }

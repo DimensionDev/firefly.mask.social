@@ -1,6 +1,6 @@
 import { useDarkMode } from 'usehooks-ts';
 
-import FollowButton from '@/app/profile/components/FollowButton.jsx';
+import FollowButton from '@/app/profile/components/FollowButton.js';
 import { Image } from '@/components/Image.js';
 import { getSocialPlatformIconBySource } from '@/helpers/getSocialPlatformIconBySource.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';

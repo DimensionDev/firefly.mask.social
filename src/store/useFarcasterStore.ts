@@ -2,6 +2,7 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
 
+import { EMPTY_LIST } from '@/constants/index.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 import type { Account } from '@/types/index.js';
 
@@ -17,7 +18,7 @@ export interface FarcasterState {
 const useFarcasterStateBase = create<FarcasterState, [['zustand/persist', unknown], ['zustand/immer', unknown]]>(
     persist(
         immer<FarcasterState>((set, get) => ({
-            accounts: [],
+            accounts: EMPTY_LIST,
             currentAccount: {
                 profileId: '',
                 avatar: '',
