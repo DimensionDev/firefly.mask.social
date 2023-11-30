@@ -7,7 +7,7 @@ import { Link } from '@/esm/Link.js';
 
 const settings = [
     { name: t`Display`, link: '/display' },
-    { name: t`Associated Wallets`, link: '/associated' },
+    // { name: t`Associated Wallets`, link: '/associated' },
     { name: t`Connected Accounts`, link: '/connected' },
     { name: t`Communities`, link: '/communities' },
     { name: t`More`, link: '/more' },
