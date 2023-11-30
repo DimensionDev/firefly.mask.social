@@ -8,13 +8,11 @@ import {
 } from '@masknet/shared-base';
 import { HubRestAPIClient } from '@standard-crypto/farcaster-js';
 import urlcat from 'urlcat';
-import { getWalletClient } from 'wagmi/actions';
 
 import { SocialPlatform } from '@/constants/enum.js';
 import { WARPCAST_ROOT_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { formatWarpcastPostFromFeed } from '@/helpers/formatWarpcastPost.js';
-import { generateCustodyBearer } from '@/helpers/generateCustodyBearer.js';
 import { waitForSignedKeyRequestComplete } from '@/helpers/waitForSignedKeyRequestComplete.js';
 import { isZero } from '@/maskbook/packages/web3-shared/base/src/index.js';
 import { SessionFactory } from '@/providers/base/SessionFactory.js';
@@ -74,49 +72,7 @@ export class WarpcastSocialMedia implements Provider {
             response.data.token,
             response.data.timestamp,
             response.data.expiresAt,
-        );
-    }
-
-    /**
-     * Create a session by signing the challenge with the custody wallet
-     * @param signal
-     * @returns
-     */
-    async _createSessionByCustodyWallet(signal?: AbortSignal) {
-        const client = await getWalletClient();
-        if (!client) throw new Error(t`No client found`);
-
-        const { payload, token } = await generateCustodyBearer(client);
-        const response = await fetchJSON<{
-            result: {
-                token: {
-                    secret: string;
-                };
-            };
-            errors?: Array<{ message: string; reason: string }>;
-        }>(urlcat(WARPCAST_ROOT_URL, '/auth'), {
-            method: 'PUT',
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-            body: JSON.stringify(payload),
-        });
-        if (response.errors?.length) throw new Error(response.errors[0].message);
-
-        const { result: user } = await fetchJSON<UserResponse>(
-            urlcat(WARPCAST_ROOT_URL, '/me', {
-                method: 'GET',
-                headers: {
-                    Authorization: `Bearer ${response.result.token.secret}`,
-                },
-            }),
-        );
-
-        return new WarpcastSession(
-            user.fid.toString(),
-            response.result.token.secret,
-            payload.params.timestamp,
-            payload.params.expiresAt,
+            response.data.privateKey,
         );
     }
 
