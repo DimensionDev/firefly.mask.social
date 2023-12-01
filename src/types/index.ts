@@ -1,3 +1,4 @@
+import { SocialPlatform } from '@/constants/enum.js';
 import { ServerErrorCodes } from '@/helpers/createErrorResponseJSON.js';
 
 export type ResponseJSON<T> =
@@ -31,6 +32,7 @@ export interface Account {
     avatar: string;
     name: string;
     id: string;
+    platform: SocialPlatform;
     signless?: boolean;
     handle?: string;
 }

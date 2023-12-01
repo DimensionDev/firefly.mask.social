@@ -2,6 +2,7 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
 
+import { SocialPlatform } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 import type { Account } from '@/types/index.js';
@@ -23,6 +24,7 @@ const useLensStateBase = create<LensState, [['zustand/persist', unknown], ['zust
                 avatar: '',
                 name: '',
                 id: '',
+                platform: SocialPlatform.Lens,
             },
             updateCurrentAccount: (account: Account) =>
                 set((state) => {
@@ -39,6 +41,7 @@ const useLensStateBase = create<LensState, [['zustand/persist', unknown], ['zust
                         avatar: '',
                         name: '',
                         id: '',
+                        platform: SocialPlatform.Lens,
                     };
                 }),
         })),

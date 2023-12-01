@@ -10,6 +10,7 @@ import { useAsyncFn } from 'react-use';
 import { useAccount, useDisconnect } from 'wagmi';
 
 import { AccountCard } from '@/components/LoginLens/AccountCard.js';
+import { SocialPlatform } from '@/constants/enum.js';
 import { Image } from '@/esm/Image.js';
 import { isValidAddress } from '@/maskbook/packages/web3-shared/evm/src/index.js';
 import { LoginModalRef } from '@/modals/controls.js';
@@ -46,6 +47,7 @@ export function LoginLens({ back }: LoginLensProps) {
                 id: profile.profileId,
                 signless: profile.signless,
                 handle: profile.handle,
+                platform: SocialPlatform.Lens,
             }));
 
             if (!result.length) {

@@ -12,13 +12,13 @@ import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
 import { useLensStateStore } from '@/store/useLensStore.js';
 
 export interface LogoutModalProps {
-    platform: SocialPlatform;
+    platform?: SocialPlatform;
 }
 
 export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps>>(function LogoutModal(_, ref) {
     const [props, setProps] = useState<LogoutModalProps>({ platform: SocialPlatform.Lens });
-    const lensAccount = useLensStateStore.use.currentAccount?.();
-    const farcasterAccount = useFarcasterStateStore.use.currentAccount?.();
+    const lensAccounts = useLensStateStore.use.accounts();
+    const farcasterAccounts = useFarcasterStateStore.use.accounts();
     const clearLensAccount = useLensStateStore.use.clearCurrentAccount();
     const clearFarcasterAccount = useFarcasterStateStore.use.clearCurrentAccount();
 
@@ -28,9 +28,14 @@ export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps>
         },
     });
 
-    const account = useMemo(
-        () => (props.platform === SocialPlatform.Lens ? lensAccount : farcasterAccount),
-        [lensAccount, farcasterAccount, props.platform],
+    const accounts = useMemo(
+        () =>
+            !props.platform
+                ? lensAccounts.concat(farcasterAccounts)
+                : props.platform === SocialPlatform.Lens
+                  ? lensAccounts
+                  : farcasterAccounts,
+        [lensAccounts, farcasterAccounts, props.platform],
     );
 
     return (
@@ -79,8 +84,9 @@ export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps>
                                     <div className="text-[15px] font-medium leading-normal text-lightMain">
                                         <Trans>Confirm to log out these accounts?</Trans>
                                     </div>
-                                    {account ? (
+                                    {accounts.map((account) => (
                                         <div
+                                            key={account.profileId}
                                             className="flex items-center justify-between gap-[8px] rounded-[8px] px-[12px] py-[8px] backdrop-blur-[8px]"
                                             style={{ boxShadow: '0px 0px 20px 0px var(--color-bottom-bg)' }}
                                         >
@@ -117,7 +123,7 @@ export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps>
                                                 </div>
                                             </div>
                                         </div>
-                                    ) : null}
+                                    ))}
                                     <button
                                         className=" flex items-center justify-center rounded-[99px] bg-commonDanger py-[11px] text-lightBottom"
                                         onClick={() => {
