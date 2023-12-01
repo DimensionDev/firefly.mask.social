@@ -1,4 +1,4 @@
-name: CSpell Check
+name: CSpell
 
 on:
     push:

@@ -1,10 +1,10 @@
-name: Lingui Extract
+name: Lingui
 
 on:
     push:
 
 jobs:
-  build:
+  extract:
     runs-on: ubuntu-latest
 
     steps:
