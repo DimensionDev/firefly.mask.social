@@ -1,5 +1,5 @@
-import { ServerErrorCodes } from '@/helpers/createErrorResponseJSON.js';
 import { SocialPlatform } from '@/constants/enum.js';
+import { ServerErrorCodes } from '@/helpers/createErrorResponseJSON.js';
 
 export type ResponseJSON<T> =
     | {
