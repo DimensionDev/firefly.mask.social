@@ -15,10 +15,7 @@ export const ExternalLink = memo<ExternalLinkProps>(function ExternalLink({ titl
     const router = useRouter();
     if (!title) return null;
 
-    let href = title;
-
-    if (!href.includes('://')) href = new URL(href).href;
-
+    const href = title.includes('://') ? title : new URL(title).href;
     return (
         <span
             className="text-link"

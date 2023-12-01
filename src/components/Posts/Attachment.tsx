@@ -132,7 +132,7 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({ attachm
                                 })}
                             >
                                 <Image
-                                    className={classNames('h-full cursor-pointer rounded-lg object-cover')}
+                                    className="h-full cursor-pointer rounded-lg object-cover"
                                     loading="lazy"
                                     width={1000}
                                     height={1000}
