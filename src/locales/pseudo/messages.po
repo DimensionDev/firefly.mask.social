@@ -55,7 +55,13 @@ msgstr ""
 msgid "Searching users"
 msgstr ""
 
+msgid "No results for {searchText}"
+msgstr ""
+
 msgid "Change Wallet"
+msgstr ""
+
+msgid "UnLike"
 msgstr ""
 
 msgid "Failed to follow"
@@ -106,6 +112,9 @@ msgstr ""
 msgid "Follow System"
 msgstr ""
 
+msgid "On your mobile device with Warpcast, open the Camera app and scan the QR code"
+msgstr ""
+
 msgid "Sign the transaction to verify you are the owner of the selected profile"
 msgstr ""
 
@@ -115,10 +124,16 @@ msgstr ""
 msgid "post"
 msgstr ""
 
+msgid "Search Filter"
+msgstr ""
+
 msgid "Failed to fetch as Text."
 msgstr ""
 
 msgid "Add an existing account"
+msgstr ""
+
+msgid "Send"
 msgstr ""
 
 msgid "Connect to {platform}"
@@ -166,9 +181,6 @@ msgstr ""
 msgid "Post has been hidden"
 msgstr ""
 
-msgid "Log in to your Farcaster account by scanning this QR code using mobile application Warpcast."
-msgstr ""
-
 msgid "<0>{0}</0> liked"
 msgstr ""
 
@@ -202,7 +214,13 @@ msgstr ""
 msgid "Details"
 msgstr ""
 
+msgid "Farcaster"
+msgstr ""
+
 msgid "What's happening..."
+msgstr ""
+
+msgid "Like"
 msgstr ""
 
 msgid "<0>{0}</0> quoted your <1><2/></1>"
@@ -212,6 +230,9 @@ msgid "Publications"
 msgstr ""
 
 msgid "Display"
+msgstr ""
+
+msgid "Login required"
 msgstr ""
 
 msgid "Show More"
@@ -238,6 +259,9 @@ msgstr ""
 msgid "Mirrored"
 msgstr ""
 
+msgid "{0, select, follow {Follow} unfollow {UnFollow} other {Follow}}"
+msgstr ""
+
 msgid "Associated Wallets"
 msgstr ""
 
@@ -251,6 +275,9 @@ msgid "quote"
 msgstr ""
 
 msgid "Notifications"
+msgstr ""
+
+msgid "Connect"
 msgstr ""
 
 msgid "Search…"
@@ -337,13 +364,13 @@ msgstr ""
 msgid "Recast"
 msgstr ""
 
-msgid "Not followed by anyone you're following"
-msgstr ""
-
 msgid "Followers"
 msgstr ""
 
 msgid "Mirror"
+msgstr ""
+
+msgid "{0, select, follow {Failed to followed @{1} on {2}} unfollow {Failed to unFollowed @{3} on {4}} other {Failed to followed @{5} on {6}}}"
 msgstr ""
 
 msgid "Terms of Service"
@@ -356,6 +383,9 @@ msgid "Following"
 msgstr ""
 
 msgid "Dark mode"
+msgstr ""
+
+msgid "{0, select, follow {Followed @{1} on {2}} unfollow {UnFollowed @{3} on {4}} other {Followed @{5} on {6}}}"
 msgstr ""
 
 msgid "Collect is coming soon"
