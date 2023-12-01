@@ -87,6 +87,7 @@
         "pnpm-lock.yaml",
         "scripts/**",
         "package.json",
+        "cspell.json",
         "tsconfig.tsbuildinfo",
         "node_modules/**",
         "dist/**",
