@@ -55,14 +55,8 @@ msgstr "<0>{0}</0> commented your <1><2/></1>"
 msgid "Searching users"
 msgstr "Searching users"
 
-msgid "No results for {searchText}"
-msgstr "No results for {searchText}"
-
 msgid "Change Wallet"
 msgstr "Change Wallet"
-
-msgid "UnLike"
-msgstr "UnLike"
 
 msgid "Failed to follow"
 msgstr "Failed to follow"
@@ -112,9 +106,6 @@ msgstr "No content URI found"
 msgid "Follow System"
 msgstr "Follow System"
 
-msgid "On your mobile device with Warpcast, open the Camera app and scan the QR code"
-msgstr "On your mobile device with Warpcast, open the Camera app and scan the QR code"
-
 msgid "Sign the transaction to verify you are the owner of the selected profile"
 msgstr "Sign the transaction to verify you are the owner of the selected profile"
 
@@ -123,9 +114,6 @@ msgstr "Log out"
 
 msgid "post"
 msgstr "post"
-
-msgid "Search Filter"
-msgstr "Search Filter"
 
 msgid "Failed to fetch as Text."
 msgstr "Failed to fetch as Text."
@@ -178,6 +166,9 @@ msgstr "Malformed session."
 msgid "Post has been hidden"
 msgstr "Post has been hidden"
 
+msgid "Log in to your Farcaster account by scanning this QR code using mobile application Warpcast."
+msgstr "Log in to your Farcaster account by scanning this QR code using mobile application Warpcast."
+
 msgid "<0>{0}</0> liked"
 msgstr "<0>{0}</0> liked"
 
@@ -211,14 +202,8 @@ msgstr "Settings"
 msgid "Details"
 msgstr "Details"
 
-msgid "Farcaster"
-msgstr "Farcaster"
-
 msgid "What's happening..."
 msgstr "What's happening..."
-
-msgid "Like"
-msgstr "Like"
 
 msgid "<0>{0}</0> quoted your <1><2/></1>"
 msgstr "<0>{0}</0> quoted your <1><2/></1>"
@@ -228,9 +213,6 @@ msgstr "Publications"
 
 msgid "Display"
 msgstr "Display"
-
-msgid "Login required"
-msgstr "Login required"
 
 msgid "Show More"
 msgstr "Show More"
@@ -256,9 +238,6 @@ msgstr "Follow @thefireflyapp on X"
 msgid "Mirrored"
 msgstr "Mirrored"
 
-msgid "{0, select, follow {Follow} unfollow {UnFollow} other {Follow}}"
-msgstr "{0, select, follow {Follow} unfollow {UnFollow} other {Follow}}"
-
 msgid "Associated Wallets"
 msgstr "Associated Wallets"
 
@@ -273,9 +252,6 @@ msgstr "quote"
 
 msgid "Notifications"
 msgstr "Notifications"
-
-msgid "Connect"
-msgstr "Connect"
 
 msgid "Search…"
 msgstr "Search…"
@@ -361,14 +337,14 @@ msgstr "<0>{0}</0> mentioned you in a <1><2/></1>"
 msgid "Recast"
 msgstr "Recast"
 
+msgid "Not followed by anyone you're following"
+msgstr "Not followed by anyone you're following"
+
 msgid "Followers"
 msgstr "Followers"
 
 msgid "Mirror"
 msgstr "Mirror"
-
-msgid "{0, select, follow {Failed to followed @{1} on {2}} unfollow {Failed to unFollowed @{3} on {4}} other {Failed to followed @{5} on {6}}}"
-msgstr "{0, select, follow {Failed to followed @{1} on {2}} unfollow {Failed to unFollowed @{3} on {4}} other {Failed to followed @{5} on {6}}}"
 
 msgid "Terms of Service"
 msgstr "Terms of Service"
@@ -381,9 +357,6 @@ msgstr "Following"
 
 msgid "Dark mode"
 msgstr "Dark mode"
-
-msgid "{0, select, follow {Followed @{1} on {2}} unfollow {UnFollowed @{3} on {4}} other {Followed @{5} on {6}}}"
-msgstr "{0, select, follow {Followed @{1} on {2}} unfollow {UnFollowed @{3} on {4}} other {Followed @{5} on {6}}}"
 
 msgid "Collect is coming soon"
 msgstr "Collect is coming soon"
