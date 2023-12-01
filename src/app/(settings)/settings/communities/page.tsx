@@ -13,18 +13,18 @@ const fireflyCommunities = [
     {
         content: t`Visit firefly.land`,
         link: 'https://firefly.land',
-        logo: '/svg/fireflyRound.svg'
+        logo: '/svg/fireflyRound.svg',
     },
     {
         content: t`Join our Discord`,
         link: 'https://discord.com/invite/pufMbBGQZN',
-        logo: '/svg/discord.svg'
+        logo: '/svg/discord.svg',
     },
     {
         content: t`Join our Telegram`,
         link: 'https://t.me/+mz9T_4YOYhoyYmYx',
-        logo: '/svg/telegram.svg'
-    }
+        logo: '/svg/telegram.svg',
+    },
 ];
 
 const maskCommunities = [
@@ -36,19 +36,19 @@ const maskCommunities = [
     {
         content: t`Visit mask.io`,
         link: 'https://mask.io',
-        logo: '/svg/maskRound.svg'
+        logo: '/svg/maskRound.svg',
     },
     {
         content: t`Join our Discord`,
         link: 'https://discord.com/invite/4SVXvj7',
-        logo: '/svg/discord.svg'
+        logo: '/svg/discord.svg',
     },
     {
         content: t`Join our Telegram`,
         link: 'https://t.me/maskbook_group#telegram',
-        logo: '/svg/telegram.svg'
-    }
-]
+        logo: '/svg/telegram.svg',
+    },
+];
 
 export default function Connected() {
     return (

@@ -92,10 +92,20 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps>>(
                                     className="inline-flex h-[56px] w-[600px] items-center justify-center gap-2 rounded-t-[12px] p-4"
                                     style={{ background: 'var(--m-modal-title-bg)' }}
                                 >
-                                    <button onClick={() => { current === SocialPlatform.Farcaster ? setCurrent(undefined) : dispatch?.close() }}>
+                                    <button
+                                        onClick={() => {
+                                            current === SocialPlatform.Farcaster
+                                                ? setCurrent(undefined)
+                                                : dispatch?.close();
+                                        }}
+                                    >
                                         <Image
                                             className="relative h-[24px] w-[24px]"
-                                            src={current === SocialPlatform.Farcaster ? "/svg/leftArrow.svg" : "/svg/close.svg"}
+                                            src={
+                                                current === SocialPlatform.Farcaster
+                                                    ? '/svg/leftArrow.svg'
+                                                    : '/svg/close.svg'
+                                            }
                                             alt="close"
                                             width={24}
                                             height={24}

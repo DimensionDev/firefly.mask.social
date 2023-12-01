@@ -2,18 +2,12 @@
 
 import { Trans } from '@lingui/macro';
 import { Appearance } from '@masknet/public-api';
-import { useLayoutEffect, useState } from 'react';
 
-import { useSetThemeMode } from '@/hooks/useSetTheme.js';
-import { getThemeMode } from '@/helpers/themeMode.js';
+import { useThemeModeStore } from '@/store/useThemeModeStore.js';
 
 export default function Display() {
-    const [mode, setMode] = useState(Appearance.default)
-    const setThemeMode = useSetThemeMode()
-
-    useLayoutEffect(() => {
-        setMode(getThemeMode)
-    }, [])
+    const setThemeMode = useThemeModeStore.use.setThemeMode();
+    const mode = useThemeModeStore.use.themeMode();
 
     return (
         <div className="flex w-full flex-col items-center p-[24px]">
@@ -24,7 +18,6 @@ export default function Display() {
                 className="my-[12px] inline-flex h-[60px] w-[250px] items-center justify-center gap-5 rounded-lg border border-neutral-900 bg-white px-3"
                 onClick={() => {
                     setThemeMode(Appearance.default);
-                    setMode(Appearance.default)
                 }}
             >
                 {mode === Appearance.default ? (
@@ -43,7 +36,6 @@ export default function Display() {
                 className="my-[12px] inline-flex h-[60px] w-[250px] items-center justify-center gap-5 rounded-lg border border-neutral-900 bg-white px-3"
                 onClick={() => {
                     setThemeMode(Appearance.light);
-                    setMode(Appearance.light)
                 }}
             >
                 {mode === Appearance.light ? (
@@ -62,7 +54,6 @@ export default function Display() {
                 className="inline-flex h-[60px] w-[250px] items-center justify-center gap-4 rounded-lg border border-white bg-slate-950 px-3"
                 onClick={() => {
                     setThemeMode(Appearance.dark);
-                    setMode(Appearance.dark)
                 }}
             >
                 {mode === Appearance.dark ? (
