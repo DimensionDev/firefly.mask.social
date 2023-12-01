@@ -1,9 +1,9 @@
 import { useMemo } from 'react';
-import { useDarkMode } from 'usehooks-ts';
 
 import { Image } from '@/components/Image.js';
 import type { SocialPlatform } from '@/constants/enum.js';
 import { getSocialPlatformIconBySource } from '@/helpers/getSocialPlatformIconBySource.js';
+import { useDarkMode } from '@/hooks/useDarkMode.js';
 
 interface SourceIconProps {
     size?: number;

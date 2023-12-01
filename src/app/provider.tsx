@@ -7,12 +7,13 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { ReactQueryStreamedHydration } from '@tanstack/react-query-next-experimental';
 import { SnackbarProvider } from 'notistack';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useEffectOnce } from 'react-use';
 import { useMediaQuery } from 'usehooks-ts';
 import { v4 as uuid } from 'uuid';
 
 import { WagmiProvider } from '@/components/WagmiProvider.js';
+import { DarkModeContext } from '@/hooks/useDarkMode.js';
 import { useMounted } from '@/hooks/useMounted.js';
 import { initLocale } from '@/i18n/index.js';
 import { useLeafwatchPersistStore } from '@/store/useLeafwatchPersistStore.js';
@@ -26,11 +27,16 @@ export function Providers(props: { children: React.ReactNode }) {
     const isDarkOS = useMediaQuery('(prefers-color-scheme: dark)');
     const themeMode = useThemeModeStore.use.themeMode();
 
-    useEffect(() => {
-        if (themeMode === 'dark' || (themeMode === 'default' && isDarkOS))
-            document.documentElement.classList.add('dark');
-        else document.documentElement.classList.remove('dark');
+    const darkModeContext = useMemo(() => {
+        return {
+            isDarkMode: themeMode === 'dark' || (themeMode === 'default' && isDarkOS),
+        };
     }, [isDarkOS, themeMode]);
+
+    useEffect(() => {
+        if (darkModeContext.isDarkMode) document.documentElement.classList.add('dark');
+        else document.documentElement.classList.remove('dark');
+    }, [darkModeContext.isDarkMode]);
 
     useEffect(() => {
         initLocale();
@@ -67,15 +73,17 @@ export function Providers(props: { children: React.ReactNode }) {
         <I18nProvider i18n={i18n}>
             <QueryClientProvider client={queryClient}>
                 <ReactQueryStreamedHydration>
-                    <SnackbarProvider
-                        maxSnack={30}
-                        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-                        autoHideDuration={3000}
-                    >
-                        <WagmiProvider>
-                            <LivepeerConfig client={livepeerClient}>{props.children}</LivepeerConfig>
-                        </WagmiProvider>
-                    </SnackbarProvider>
+                    <DarkModeContext.Provider value={darkModeContext}>
+                        <SnackbarProvider
+                            maxSnack={30}
+                            anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+                            autoHideDuration={3000}
+                        >
+                            <WagmiProvider>
+                                <LivepeerConfig client={livepeerClient}>{props.children}</LivepeerConfig>
+                            </WagmiProvider>
+                        </SnackbarProvider>
+                    </DarkModeContext.Provider>
                 </ReactQueryStreamedHydration>
                 <ReactQueryDevtools initialIsOpen={false} />
             </QueryClientProvider>

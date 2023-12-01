@@ -1,5 +1,5 @@
+import { createPageTitle } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
-import { createPageTitle } from '@/helpers/createSiteTitle.js';
 
 export const metadata = createSiteMetadata({
     title: createPageTitle('Display'),

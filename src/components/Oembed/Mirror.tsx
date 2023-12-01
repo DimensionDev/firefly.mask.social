@@ -1,7 +1,6 @@
 'use client';
 
 import { memo } from 'react';
-import { useDarkMode } from 'usehooks-ts';
 import { useEnsAvatar, useEnsName } from 'wagmi';
 import { mainnet } from 'wagmi/chains';
 
@@ -9,6 +8,7 @@ import MirrorIon from '@/assets/mirror.xyz.svg';
 import { Image } from '@/components/Image.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
 import { Link } from '@/esm/Link.js';
+import { useDarkMode } from '@/hooks/useDarkMode.js';
 import { formatEthereumAddress } from '@/maskbook/packages/web3-shared/evm/src/index.js';
 
 interface MirrorProps {

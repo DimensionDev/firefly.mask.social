@@ -1,9 +1,9 @@
 import { useRouter } from 'next/navigation.js';
-import { useDarkMode } from 'usehooks-ts';
 
 import FollowButton from '@/app/profile/components/FollowButton.js';
 import { Image } from '@/components/Image.js';
 import { SourceIcon } from '@/components/SourceIcon.js';
+import { useDarkMode } from '@/hooks/useDarkMode.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { useSearchStore } from '@/store/useSearchStore.js';
 

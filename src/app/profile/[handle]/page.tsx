@@ -8,7 +8,7 @@ import ContentTabs from '@/app/profile/components/ContentTabs.js';
 import Info from '@/app/profile/components/Info.js';
 import Title from '@/app/profile/components/Title.js';
 import { SocialPlatform } from '@/constants/enum.js';
-import { createPageTitle } from '@/helpers/createSiteTitle.js';
+import { createPageTitle } from '@/helpers/createPageTitle.js';
 import { useLogin } from '@/hooks/useLogin.js';
 import { usePlatformAccount } from '@/hooks/usePlatformAccount.js';
 import { LensSocialMedia } from '@/providers/lens/SocialMedia.js';
