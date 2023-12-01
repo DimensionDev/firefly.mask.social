@@ -1,7 +1,8 @@
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
+import { useDocumentTitle } from 'usehooks-ts';
 
 import ContentTabs from '@/app/profile/components/ContentTabs.js';
 import Info from '@/app/profile/components/Info.js';
@@ -35,12 +36,14 @@ export default function Profile({ params: { handle } }: ProfileProps) {
         [handle, isLogin, platformAccount.lens?.handle],
     );
 
-    useEffect(() => {
-        if (!profile) return;
+    const title = useMemo(() => {
+        if (!profile) return '';
         const fragments = [profile.displayName];
         if (profile.handle) fragments.push(`(@${profile.handle})`);
-        document.title = `${fragments.join(' ')} • ${SITE_NAME}`;
+        return `${fragments.join(' ')} • ${SITE_NAME}`;
     }, [profile]);
+
+    useDocumentTitle(title);
 
     return (
         <div>
