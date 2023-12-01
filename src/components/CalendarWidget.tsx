@@ -1,5 +1,6 @@
 'use client';
 
+import { DisableShadowRootContext, ShadowRootIsolation } from '@masknet/theme';
 import dynamic from 'next/dynamic.js';
 import type { HTMLProps } from 'react';
 
@@ -19,9 +20,13 @@ const DynamicCalendar = dynamic(
 export function CalendarWidget(props: HTMLProps<HTMLDivElement>) {
     return (
         <MaskRuntime>
-            <section {...props}>
-                <DynamicCalendar />
-            </section>
+            <DisableShadowRootContext.Provider value={false}>
+                <ShadowRootIsolation>
+                    <section {...props}>
+                        <DynamicCalendar />
+                    </section>
+                </ShadowRootIsolation>
+            </DisableShadowRootContext.Provider>
         </MaskRuntime>
     );
 }

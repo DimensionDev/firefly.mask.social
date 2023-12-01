@@ -106,25 +106,43 @@ export default {
             'text-encoding': require.resolve('@sinonjs/text-encoding'),
         };
 
-        config.module.rules.push({
-            test: /\.svg$/i,
-            loader: '@svgr/webpack',
-            options: {
-                svgoConfig: {
-                    plugins: [
-                        {
-                            name: 'preset-default',
-                            params: {
-                                overrides: {
-                                    // disable plugins
-                                    removeViewBox: false,
+        config.module.rules.push(
+            {
+                test: /\.svg$/i,
+                exclude: /src\/maskbook/,
+                loader: '@svgr/webpack',
+                options: {
+                    svgoConfig: {
+                        plugins: [
+                            {
+                                name: 'preset-default',
+                                params: {
+                                    overrides: {
+                                        // disable plugins
+                                        removeViewBox: false,
+                                    },
                                 },
                             },
-                        },
-                    ],
+                        ],
+                    },
                 },
             },
-        });
+            {
+                test: /\.svg$/i,
+                include: /src\/maskbook/,
+                loader: require.resolve('svgo-loader'),
+                options: {
+                    js2svg: {
+                        pretty: false,
+                    },
+                },
+                dependency(data) {
+                    if (data === '') return false;
+                    return true;
+                },
+                type: 'asset/resource',
+            },
+        );
 
         return config;
     },

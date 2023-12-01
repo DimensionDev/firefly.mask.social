@@ -1,8 +1,7 @@
 'use client';
 import { DOMProxy } from '@dimensiondev/holoflows-kit';
-import { DecryptProgressKind, EncryptPayloadNetwork } from '@masknet/encryption';
-import { type DecryptionContext, decryptWithDecoding } from '@masknet/extension/crypto';
 import { type PostContext, PostInfoProvider } from '@masknet/plugin-infra/content-script';
+import { openDialog } from '@masknet/plugin-redpacket';
 import {
     createConstantSubscription,
     EMPTY_ARRAY,
@@ -12,8 +11,9 @@ import {
     ValueRef,
 } from '@masknet/shared-base';
 import type { TypedMessage } from '@masknet/typed-message';
+import { makeTypedMessageEmpty, makeTypedMessageTuple } from '@masknet/typed-message';
 import { compact } from 'lodash-es';
-import { memo, type PropsWithChildren, useEffect, useMemo, useState } from 'react';
+import { memo, type PropsWithChildren, useMemo, useState } from 'react';
 
 import { SocialPlatform } from '@/constants/enum.js';
 import { DecryptMessage } from '@/main/DecryptMessage.js';
@@ -27,28 +27,8 @@ interface Props extends PropsWithChildren<{}> {
 export const DecryptPost = memo(function DecryptPost({ raw, post, children }: Props) {
     const [result, setResult] = useState<TypedMessage | null>(null);
 
-    useEffect(() => {
-        const decrypt = async () => {
-            const payload = {
-                type: 'text',
-                text: raw,
-            } as const;
-            const context: DecryptionContext = {
-                encryptPayloadNetwork: EncryptPayloadNetwork.Twitter,
-                currentProfile: null,
-                authorHint: null,
-                postURL: undefined,
-            };
-            for await (const progress of decryptWithDecoding(payload, context)) {
-                if (progress.type === DecryptProgressKind.Success) {
-                    return progress.content;
-                }
-            }
-            return null;
-        };
-        decrypt().then((r) => setResult(r));
-    }, [raw]);
     const payload = raw.replace(/.*PostData_v2=/, '');
+    const hasMaskPayload = /\bPostData_v2=/.test(raw);
     const postInfo = useMemo((): PostContext => {
         const author = ProfileIdentifier.of('mask.social', post.author.displayName).unwrapOr(null);
         const url = `${location.origin}/detail/${post.source === SocialPlatform.Farcaster ? 'farcaster' : 'lens'}/${
@@ -80,10 +60,10 @@ export const DecryptPost = memo(function DecryptPost({ raw, post, children }: Pr
             url: createConstantSubscription(new URL(url)),
             mentionedLinks: createConstantSubscription([]),
             postMetadataImages: createConstantSubscription(imageUris),
-            rawMessage: createConstantSubscription(result!),
+            rawMessage: createConstantSubscription(makeTypedMessageTuple([makeTypedMessageEmpty()])),
             encryptComment: new ValueRef<null | ((commentToEncrypt: string) => Promise<string>)>(null),
             decryptComment: new ValueRef<null | ((commentToEncrypt: string) => Promise<string | null>)>(null),
-            hasMaskPayload: createConstantSubscription(!!result),
+            hasMaskPayload: createConstantSubscription(!!hasMaskPayload),
             postIVIdentifier: createConstantSubscription(null),
             publicShared: createConstantSubscription(!post.isHidden),
             isAuthorOfPost: createConstantSubscription(!post.hasMirrored),
@@ -92,18 +72,19 @@ export const DecryptPost = memo(function DecryptPost({ raw, post, children }: Pr
                 return;
             },
         };
-    }, [post, result]);
+    }, [post, hasMaskPayload]);
 
     return (
         <PostInfoProvider post={postInfo}>
             {children}
             <div
-                onClickCapture={(e) => {
+                onClick={(e) => {
                     e.preventDefault();
                     e.stopPropagation();
                 }}
             >
                 <DecryptMessage text={payload} version="2" />
+                <button onClick={openDialog}>open dialog2</button>
             </div>
         </PostInfoProvider>
     );
