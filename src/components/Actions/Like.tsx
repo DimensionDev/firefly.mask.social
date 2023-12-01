@@ -64,7 +64,6 @@ export const Like = memo<LikeProps>(function Like({ count, hasLiked, postId, sou
             return;
         } catch (error) {
             if (error instanceof Error) {
-                setLiked((prev) => !prev);
                 setRealCount((prev) => {
                     if (!prev) return;
                     return prev - 1;
@@ -72,6 +71,7 @@ export const Like = memo<LikeProps>(function Like({ count, hasLiked, postId, sou
                 enqueueSnackbar(liked ? t`Failed to unlike. ${error.message}` : t`Failed to like. ${error.message}`, {
                     variant: 'error',
                 });
+                setLiked((prev) => !prev);
             }
             return;
         }
@@ -85,7 +85,7 @@ export const Like = memo<LikeProps>(function Like({ count, hasLiked, postId, sou
                 'opacity-50': disabled,
             })}
         >
-            <Tooltip content={hasLiked ? t`UnLiked` : t`Liked`} placement="top" disabled={disabled}>
+            <Tooltip content={liked ? t`UnLike` : t`Like`} placement="top" disabled={disabled}>
                 <motion.button
                     disabled={disabled}
                     whileTap={{ scale: 0.9 }}

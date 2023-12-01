@@ -3,6 +3,7 @@ import {
     createIndicator,
     createNextIndicator,
     createPageable,
+    EMPTY_LIST,
     type Pageable,
     type PageIndicator,
 } from '@masknet/shared-base';
@@ -65,7 +66,7 @@ export class FireflySocialMedia implements Provider {
 
         const asset = first(cast.embeds);
         return {
-            type: (cast.parent_hash ? 'Comment' : 'Post') as PostType,
+            type: (cast.parent_hash ? t`Comment` : t`Post`) as PostType,
             source: SocialPlatform.Farcaster,
             postId: cast.hash,
             parentPostId: cast.parent_hash,
@@ -148,7 +149,7 @@ export class FireflySocialMedia implements Provider {
             source: SocialPlatform.Farcaster,
         }));
 
-        return createPageable(data, indicator?.id, next_cursor);
+        return createPageable(data, createIndicator(indicator), createNextIndicator(indicator, next_cursor));
     }
 
     async getFollowings(profileId: string, indicator?: PageIndicator) {
@@ -174,7 +175,7 @@ export class FireflySocialMedia implements Provider {
             source: SocialPlatform.Farcaster,
         }));
 
-        return createPageable(data, indicator?.id, next_cursor);
+        return createPageable(data, createIndicator(indicator), createNextIndicator(indicator, next_cursor));
     }
 
     async getPostsByProfileId(profileId: string, indicator?: PageIndicator) {
@@ -189,7 +190,7 @@ export class FireflySocialMedia implements Provider {
             method: 'GET',
         });
         const data = casts.map((cast) => ({
-            type: (cast.parent_hash ? 'Comment' : 'Post') as PostType,
+            type: (cast.parent_hash ? t`Comment` : t`Post`) as PostType,
             source: SocialPlatform.Farcaster,
             postId: cast.hash,
             parentPostId: cast.parent_hash,
@@ -218,12 +219,12 @@ export class FireflySocialMedia implements Provider {
                 reactions: cast.likeCount,
             },
         }));
-        return createPageable(data, indicator?.id, cursor);
+        return createPageable(data, createIndicator(indicator), createNextIndicator(indicator, cursor));
     }
 
     async getNotifications(indicator?: PageIndicator): Promise<Pageable<Notification, PageIndicator>> {
         const currentAccount = hydrateCurrentAccount();
-        if (!currentAccount.id) throw new Error('Login required');
+        if (!currentAccount.id) throw new Error(t`Login required`);
         const url = urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/notifications', {
             fid: currentAccount.id,
             sourceFid: currentAccount.id,
@@ -233,7 +234,7 @@ export class FireflySocialMedia implements Provider {
 
         const result = data.notifications.map<Notification | undefined>((notification) => {
             const notificationId = `${currentAccount.id}_${notification.timestamp}_${notification.notificationType}`;
-            const user = notification.user ? [formatFarcasterProfileFromFirefly(notification.user)] : [];
+            const user = notification.user ? [formatFarcasterProfileFromFirefly(notification.user)] : EMPTY_LIST;
             const post = notification.cast ? formatFarcasterPostFromFirefly(notification.cast) : undefined;
             const timestamp = notification.timestamp ? new Date(notification.timestamp).getTime() : undefined;
             if (notification.notificationType === 1) {
@@ -285,8 +286,62 @@ export class FireflySocialMedia implements Provider {
         });
         return createPageable(
             compact(result),
-            indicator ?? createIndicator(),
+            createIndicator(indicator),
             data.cursor ? createNextIndicator(indicator, data.cursor) : undefined,
+        );
+    }
+
+    async discoverPostsById(
+        profileId: string,
+        indicator?: PageIndicator | undefined,
+    ): Promise<Pageable<Post, PageIndicator>> {
+        const url = urlcat(FIREFLY_ROOT_URL, '/v2/timeline/farcaster');
+
+        const {
+            data: { casts, cursor },
+        } = await fetchJSON<CastsResponse>(url, {
+            method: 'POST',
+            body: JSON.stringify({
+                fid: profileId,
+                sourceFid: profileId,
+                cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
+            }),
+        });
+
+        const data = casts.map((cast) => ({
+            type: (cast.parent_hash ? 'Comment' : 'Post') as PostType,
+            source: SocialPlatform.Farcaster,
+            postId: cast.hash,
+            parentPostId: cast.parent_hash,
+            timestamp: Number(cast.created_at),
+            author: {
+                profileId: cast.author.fid,
+                nickname: cast.author.username,
+                displayName: cast.author.display_name,
+                pfp: cast.author.pfp,
+                followerCount: cast.author.followers,
+                followingCount: cast.author.following,
+                status: ProfileStatus.Active,
+                verified: true,
+                source: SocialPlatform.Farcaster,
+            },
+            metadata: {
+                locale: '',
+                content: {
+                    content: cast.text,
+                },
+            },
+            stats: {
+                comments: Number(cast.replyCount),
+                mirrors: cast.recastCount,
+                quotes: cast.recastCount,
+                reactions: cast.likeCount,
+            },
+        }));
+        return createPageable(
+            data,
+            indicator ?? createIndicator(),
+            cursor ? createNextIndicator(indicator, cursor) : undefined,
         );
     }
 

@@ -2,11 +2,13 @@
 
 import { useQuery } from '@tanstack/react-query';
 import { useMemo, useState } from 'react';
+import { useDocumentTitle } from 'usehooks-ts';
 
 import ContentTabs from '@/app/profile/components/ContentTabs.js';
 import Info from '@/app/profile/components/Info.js';
 import Title from '@/app/profile/components/Title.js';
 import { SocialPlatform } from '@/constants/enum.js';
+import { SITE_NAME } from '@/constants/index.js';
 import { useLogin } from '@/hooks/useLogin.js';
 import { usePlatformAccount } from '@/hooks/usePlatformAccount.js';
 import { LensSocialMedia } from '@/providers/lens/SocialMedia.js';
@@ -33,6 +35,15 @@ export default function Profile({ params: { handle } }: ProfileProps) {
         () => !!isLogin && platformAccount.lens?.handle === handle,
         [handle, isLogin, platformAccount.lens?.handle],
     );
+
+    const title = useMemo(() => {
+        if (!profile) return '';
+        const fragments = [profile.displayName];
+        if (profile.handle) fragments.push(`(@${profile.handle})`);
+        return `${fragments.join(' ')} • ${SITE_NAME}`;
+    }, [profile]);
+
+    useDocumentTitle(title);
 
     return (
         <div>

@@ -17,7 +17,7 @@ import { useGlobalState } from '@/store/useGlobalStore.js';
 
 export default function Notification() {
     const currentSocialPlatform = useGlobalState.use.currentSocialPlatform();
-    const isLogin = useLogin();
+    const isLogin = useLogin(currentSocialPlatform);
 
     const { data, hasNextPage, fetchNextPage, isFetchingNextPage, isFetching } = useSuspenseInfiniteQuery({
         queryKey: ['notifications', currentSocialPlatform, isLogin],

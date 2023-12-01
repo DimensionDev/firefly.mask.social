@@ -1,11 +1,11 @@
 import { memo } from 'react';
 import { useDarkMode } from 'usehooks-ts';
 
-import More from '@/assets/more.svg';
+import { MoreAction } from '@/components/Actions/More.js';
 import { Image } from '@/components/Image.js';
+import { SourceIcon } from '@/components/SourceIcon.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
 import { classNames } from '@/helpers/classNames.js';
-import { getSocialPlatformIconBySource } from '@/helpers/getSocialPlatformIconBySource.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 interface PostHeaderProps {
@@ -15,14 +15,13 @@ interface PostHeaderProps {
 
 export const PostHeader = memo<PostHeaderProps>(function PostHeader({ post, isQuote = false }) {
     const { isDarkMode } = useDarkMode();
-    const sourceIcon = getSocialPlatformIconBySource(post.source, isDarkMode);
 
     return (
         <div className="flex justify-between space-x-1.5">
             <div className="flex items-center space-x-3">
                 <Image
                     loading="lazy"
-                    className={classNames('rounded-full border', {
+                    className={classNames('z-[1] rounded-full border bg-secondary', {
                         'h-10': !isQuote,
                         'w-10': !isQuote,
                         'h-6': isQuote,
@@ -43,15 +42,11 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({ post, isQu
                 </div>
             </div>
             <div className="flex items-center space-x-2">
-                {sourceIcon ? <Image src={sourceIcon} width={16} height={16} alt={post.source} /> : null}
+                <SourceIcon source={post.source} />
                 <span className="text-xs leading-4 text-secondary">
                     <TimestampFormatter time={post.timestamp} />
                 </span>
-                {!isQuote ? (
-                    <span className="text-secondary">
-                        <More width={24} height={24} />
-                    </span>
-                ) : null}
+                {!isQuote ? <MoreAction post={post} /> : null}
             </div>
         </div>
     );

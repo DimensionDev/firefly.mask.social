@@ -26,6 +26,7 @@ export class SessionFactory {
             token: string;
             createdAt: number;
             expiresAt: number;
+            privateKey?: string;
             profile?: Profile;
             client?: LensClient;
         }>(json);
@@ -34,7 +35,6 @@ export class SessionFactory {
         if (session.type === Type.Lens && !session.client) throw new Error(t`Missing client.`);
 
         const schema = z.object({
-            type: z.nativeEnum(Type),
             profileId: z.string(),
             token: z.string(),
             createdAt: z.number().nonnegative(),
@@ -56,7 +56,13 @@ export class SessionFactory {
                         session.client!,
                     );
                 case Type.Warpcast:
-                    return new WarpcastSession(session.profileId, session.token, session.createdAt, session.expiresAt);
+                    return new WarpcastSession(
+                        session.profileId,
+                        session.token,
+                        session.createdAt,
+                        session.expiresAt,
+                        session.privateKey!,
+                    );
                 case Type.Twitter:
                     throw new Error(t`Not implemented yet.`);
                 default:

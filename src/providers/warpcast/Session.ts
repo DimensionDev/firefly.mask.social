@@ -7,8 +7,8 @@ import type { Session } from '@/providers/types/Session.js';
 import { Type } from '@/providers/types/SocialMedia.js';
 
 export class WarpcastSession extends BaseSession implements Session {
-    constructor(profileId: string, token: string, createdAt: number, expiresAt: number) {
-        super(Type.Warpcast, profileId, token, createdAt, expiresAt);
+    constructor(profileId: string, token: string, createdAt: number, expiresAt: number, privateKey: string) {
+        super(Type.Warpcast, profileId, token, createdAt, expiresAt, privateKey);
     }
 
     refresh(): Promise<void> {

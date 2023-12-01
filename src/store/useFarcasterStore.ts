@@ -2,6 +2,8 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
 
+import { SocialPlatform } from '@/constants/enum.js';
+import { EMPTY_LIST } from '@/constants/index.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 import type { Account } from '@/types/index.js';
 
@@ -17,12 +19,13 @@ export interface FarcasterState {
 const useFarcasterStateBase = create<FarcasterState, [['zustand/persist', unknown], ['zustand/immer', unknown]]>(
     persist(
         immer<FarcasterState>((set, get) => ({
-            accounts: [],
+            accounts: EMPTY_LIST,
             currentAccount: {
                 profileId: '',
                 avatar: '',
                 name: '',
                 id: '',
+                platform: SocialPlatform.Farcaster,
             },
             updateCurrentAccount: (account: Account) =>
                 set((state) => {
@@ -39,13 +42,17 @@ const useFarcasterStateBase = create<FarcasterState, [['zustand/persist', unknow
                         avatar: '',
                         name: '',
                         id: '',
+                        platform: SocialPlatform.Farcaster,
                     };
                 }),
             hydrateCurrentAccount: () => {
                 return get().currentAccount;
             },
         })),
-        { name: 'farcaster-state', partialize: (state) => ({ accounts: state.accounts }) },
+        {
+            name: 'farcaster-state',
+            partialize: (state) => ({ accounts: state.accounts, currentAccount: state.currentAccount }),
+        },
     ),
 );
 

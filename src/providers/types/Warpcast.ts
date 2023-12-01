@@ -33,11 +33,13 @@ export interface Feed {
     id: string;
     timestamp: number;
     otherParticipants: Author[];
-    replies: Cast[];
+    replies?: Cast[];
 }
 
 export interface Cast {
     hash: string;
+    parentHash: string;
+    parentAuthor: Author;
     embeds?: {
         images: Array<{
             type: string;

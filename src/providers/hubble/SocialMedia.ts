@@ -96,7 +96,7 @@ export class HubbleSocialMedia implements Provider {
                 embedsDeprecated: EMPTY_LIST,
                 mentions: EMPTY_LIST,
                 text: post.metadata.content?.content ?? '',
-                mentionsPositions: [],
+                mentionsPositions: EMPTY_LIST,
                 embeds: post.mediaObjects?.map((v) => ({ url: v.url })) ?? EMPTY_LIST,
             },
         };
@@ -262,7 +262,7 @@ export class HubbleSocialMedia implements Provider {
                 embedsDeprecated: EMPTY_LIST,
                 mentions: EMPTY_LIST,
                 text: comment,
-                mentionsPositions: [],
+                mentionsPositions: EMPTY_LIST,
                 embeds: EMPTY_LIST,
             },
         };
@@ -453,11 +453,11 @@ export class HubbleSocialMedia implements Provider {
         return null!;
     }
 
-    searchProfiles(q: string, indicator?: PageIndicator): Promise<Pageable<Profile>> {
+    searchProfiles(q: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
         throw new Error(t`Method not implemented.`);
     }
 
-    searchPosts(q: string, indicator?: PageIndicator): Promise<Pageable<Post>> {
+    searchPosts(q: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         throw new Error(t`Method not implemented.`);
     }
 }

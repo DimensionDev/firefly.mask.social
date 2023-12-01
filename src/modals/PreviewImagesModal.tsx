@@ -94,7 +94,7 @@ export const PreviewImagesModal = forwardRef<SingletonModalRefCreator<PreviewIma
                                                     prev();
                                                 }}
                                             />
-                                            <PostActions post={post} isPreview />
+                                            <PostActions post={post} disablePadding />
                                             <ArrowRightIcon
                                                 className="cursor-pointer text-secondary"
                                                 width={16}

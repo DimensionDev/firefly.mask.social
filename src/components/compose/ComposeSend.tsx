@@ -21,7 +21,7 @@ export default function ComposeSend({ characters, images, setOpened }: ComposeSe
     const handleSend = useCallback(async () => {
         const lens = new LensSocialMedia();
         const session = await lens.createSession();
-        const profile = await lens.getProfileById(session.profileId);
+        const profile = await lens.getProfileById(`${session.profileId}`);
         console.log('profile', profile);
 
         const posts = await lens.getPostsByProfileId(profile.profileId);
