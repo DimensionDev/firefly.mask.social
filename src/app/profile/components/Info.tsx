@@ -4,15 +4,17 @@ import FollowButton from '@/app/profile/components/FollowButton.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { Image } from '@/esm/Image.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
+import { useGlobalState } from '@/store/useGlobalStore.js';
 
 interface InfoProps {
-    platform: SocialPlatform;
     handle: string;
     isMyProfile: boolean;
     profile?: Profile;
 }
 
-export default function Info({ platform, handle, isMyProfile, profile }: InfoProps) {
+export default function Info({ handle, isMyProfile, profile }: InfoProps) {
+    const currentSocialPlatform = useGlobalState.use.currentSocialPlatform();
+
     return (
         <div className=" flex gap-3 p-3">
             <Image
@@ -24,15 +26,17 @@ export default function Info({ platform, handle, isMyProfile, profile }: InfoPro
             />
 
             <div className=" relative flex flex-1 flex-col gap-[6px] pt-4">
-                <div className=" absolute right-0 top-4">
-                    {profile ? <FollowButton profile={profile} isMyProfile={isMyProfile} /> : null}
-                </div>
+                {!isMyProfile && (
+                    <div className=" absolute right-0 top-4">
+                        {profile ? <FollowButton profile={profile} isMyProfile={isMyProfile} /> : null}
+                    </div>
+                )}
 
                 <div className=" flex flex-col">
                     <div className=" flex items-center gap-2">
                         <span className=" font-black text-lightMain">{profile?.nickname ?? handle}</span>
                         <Image
-                            src={platform === SocialPlatform.Lens ? '/svg/lens.svg' : '/svg/farcaster.svg'}
+                            src={currentSocialPlatform === SocialPlatform.Lens ? '/svg/lens.svg' : '/svg/farcaster.svg'}
                             width={20}
                             height={20}
                             alt="platform"

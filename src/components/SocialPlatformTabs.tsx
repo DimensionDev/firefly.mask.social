@@ -21,7 +21,7 @@ export function SocialPlatformTabs() {
         const param = pathname.split('/');
         const handle = param[param.length - 1];
 
-        if (platformAccount.lens.handle !== handle) return null;
+        if (platformAccount.lens.handle && platformAccount.lens.handle !== handle) return null;
     }
 
     return (

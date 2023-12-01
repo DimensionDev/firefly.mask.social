@@ -360,12 +360,7 @@ export class LensSocialMedia implements Provider {
         const data = await this.lensClient.feed.fetch({
             where: {
                 for: profileId,
-                feedEventItemTypes: [
-                    FeedEventItemType.Post,
-                    FeedEventItemType.Comment,
-                    FeedEventItemType.Comment,
-                    FeedEventItemType.Mirror,
-                ],
+                feedEventItemTypes: [FeedEventItemType.Post, FeedEventItemType.Comment, FeedEventItemType.Mirror],
             },
             cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
         });
@@ -380,13 +375,29 @@ export class LensSocialMedia implements Provider {
         );
     }
 
-    async getPostsByProfileId(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post>> {
+    async getPostsByCollected(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        const result = await this.lensClient.publication.fetchAll({
+            where: {
+                actedBy: profileId,
+                publicationTypes: [PublicationType.Post, PublicationType.Comment, PublicationType.Mirror],
+            },
+            cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
+        });
+
+        return createPageable(
+            result.items.map((item) => formatLensPost(item)),
+            createIndicator(indicator),
+            result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
+        );
+    }
+
+    async getPostsByProfileId(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         const result = await this.lensClient.publication.fetchAll({
             where: {
                 from: [profileId],
-                publicationTypes: [PublicationType.Post],
+                publicationTypes: [PublicationType.Post, PublicationType.Mirror, PublicationType.Quote],
             },
-            cursor: indicator?.id,
+            cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
         });
 
         return createPageable(
