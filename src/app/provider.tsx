@@ -9,18 +9,29 @@ import { ReactQueryStreamedHydration } from '@tanstack/react-query-next-experime
 import { SnackbarProvider } from 'notistack';
 import { useEffect, useState } from 'react';
 import { useEffectOnce } from 'react-use';
+import { useMediaQuery } from 'usehooks-ts';
 import { v4 as uuid } from 'uuid';
 
 import { WagmiProvider } from '@/components/WagmiProvider.js';
 import { useMounted } from '@/hooks/useMounted.js';
 import { initLocale } from '@/i18n/index.js';
 import { useLeafwatchPersistStore } from '@/store/useLeafwatchPersistStore.js';
+import { useThemeModeStore } from '@/store/useThemeModeStore.js';
 
 const livepeerClient = createReactClient({
     provider: studioProvider({ apiKey: '' }),
 });
 
 export function Providers(props: { children: React.ReactNode }) {
+    const isDarkOS = useMediaQuery('(prefers-color-scheme: dark)');
+    const themeMode = useThemeModeStore.use.themeMode();
+
+    useEffect(() => {
+        if (themeMode === 'dark' || (themeMode === 'default' && isDarkOS))
+            document.documentElement.classList.add('dark');
+        else document.documentElement.classList.remove('dark');
+    }, [isDarkOS, themeMode]);
+
     useEffect(() => {
         initLocale();
     }, []);

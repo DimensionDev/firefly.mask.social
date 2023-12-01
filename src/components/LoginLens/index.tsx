@@ -89,7 +89,7 @@ export function LoginLens({ back }: LoginLensProps) {
 
     return (
         <div
-            className="flex w-[600px] flex-col rounded-[12px]"
+            className="flex max-h-[535px] w-[600px] flex-col overflow-auto rounded-[12px] pb-[80px]"
             style={{ boxShadow: '0px 4px 30px 0px rgba(0, 0, 0, 0.10)' }}
         >
             <div className="flex min-h-[372px] w-full flex-col gap-[16px] p-[16px]">

@@ -36,3 +36,5 @@ export interface Account {
     signless?: boolean;
     handle?: string;
 }
+
+export type ThemeMode = 'light' | 'dark' | 'default';
