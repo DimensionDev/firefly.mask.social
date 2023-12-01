@@ -37,7 +37,7 @@ jobs:
             - name: Commit changes if any
               if: steps.check-changes.outputs.changes != ''
               run: |
-              git config --local user.email "actions@github.com"
-              git config --local user.name "GitHub Actions"
-              git add 'src/locales/*.po'
-              git commit -m "chore: i18n"
+                git config --local user.email "actions@github.com"
+                git config --local user.name "GitHub Actions"
+                git add 'src/locales/*.po'
+                git commit -m "chore: i18n"
