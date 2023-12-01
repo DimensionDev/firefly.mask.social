@@ -1,4 +1,4 @@
-name: ESLint Check
+name: ESLint
 
 on:
     push:
@@ -9,23 +9,23 @@ jobs:
 
         steps:
             - name: Checkout code
-                uses: actions/checkout@v2
-                with:
-                    submodules: 'true'
+              uses: actions/checkout@v2
+              with:
+                  submodules: 'true'
 
             - name: Authenticate NPM
-                uses: DimensionDev/github-token-action@latest
-                with:
-                    registry: true
+              uses: DimensionDev/github-token-action@latest
+              with:
+                  registry: true
 
             - name: Set up Node.js
-                uses: actions/setup-node@v2
-                with:
-                    node-version: '18.9.0'
+              uses: actions/setup-node@v2
+              with:
+                  node-version: '18.9.0'
 
             - uses: pnpm/action-setup@v2
             - name: Install dependencies
-                run: pnpm install
+              run: pnpm install
 
             - name: Run ESLint
-                run: npx eslint . --ext .js,.jsx,.ts,.tsx
+              run: npx eslint . --ext .js,.jsx,.ts,.tsx
