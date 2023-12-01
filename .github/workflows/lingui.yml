@@ -35,9 +35,6 @@ jobs:
               run: echo "::set-output name=changes::$(git diff --name-only -- 'src/locales/*.po')"
 
             - name: Commit changes if any
-              if: steps.check-changes.outputs.changes != ''
-              run: |
-              git config --local user.email "actions@github.com"
-              git config --local user.name "GitHub Actions"
-              git add 'src/locales/*.po'
-              git commit -m "chore: i18n"
+              uses: EndBug/add-and-commit@v9
+              with:
+                  message: 'chore: lingui extract'
