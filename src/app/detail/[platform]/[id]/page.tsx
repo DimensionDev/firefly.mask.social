@@ -1,7 +1,7 @@
 'use client';
 
 import { useSuspenseQuery } from '@tanstack/react-query';
-import { useEffect } from 'react';
+import { useDocumentTitle } from 'usehooks-ts';
 
 import { SinglePost } from '@/components/Posts/SinglePost.js';
 import { SocialPlatform } from '@/constants/enum.js';
@@ -32,10 +32,7 @@ export default function Page({ params }: { params: { id: string; platform: strin
         },
     });
 
-    useEffect(() => {
-        if (!data) return;
-        document.title = `Post by ${data.author.displayName} • ${SITE_NAME}`;
-    }, [data]);
+    useDocumentTitle(data ? `Post by ${data?.author.displayName} • ${SITE_NAME}` : '');
 
     if (!data) return;
     return <SinglePost post={data} disableAnimate />;
