@@ -1,4 +1,4 @@
-name: Prettier Code Style Check
+name: Prettier
 
 on:
     push:
