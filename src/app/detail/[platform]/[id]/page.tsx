@@ -5,7 +5,7 @@ import { useDocumentTitle } from 'usehooks-ts';
 
 import { SinglePost } from '@/components/Posts/SinglePost.js';
 import { SocialPlatform } from '@/constants/enum.js';
-import { SITE_NAME } from '@/constants/index.js';
+import { createPageTitle } from '@/helpers/createSiteTitle.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
@@ -32,7 +32,7 @@ export default function Page({ params }: { params: { id: string; platform: strin
         },
     });
 
-    useDocumentTitle(data ? `Post by ${data?.author.displayName} • ${SITE_NAME}` : '');
+    useDocumentTitle(data ? createPageTitle(`Post by ${data?.author.displayName}`) : '');
 
     if (!data) return;
     return <SinglePost post={data} disableAnimate />;

@@ -8,7 +8,7 @@ import ContentTabs from '@/app/profile/components/ContentTabs.js';
 import Info from '@/app/profile/components/Info.js';
 import Title from '@/app/profile/components/Title.js';
 import { SocialPlatform } from '@/constants/enum.js';
-import { SITE_NAME } from '@/constants/index.js';
+import { createPageTitle } from '@/helpers/createSiteTitle.js';
 import { useLogin } from '@/hooks/useLogin.js';
 import { usePlatformAccount } from '@/hooks/usePlatformAccount.js';
 import { LensSocialMedia } from '@/providers/lens/SocialMedia.js';
@@ -40,7 +40,7 @@ export default function Profile({ params: { handle } }: ProfileProps) {
         if (!profile) return '';
         const fragments = [profile.displayName];
         if (profile.handle) fragments.push(`(@${profile.handle})`);
-        return `${fragments.join(' ')} • ${SITE_NAME}`;
+        return createPageTitle(fragments.join(' '));
     }, [profile]);
 
     useDocumentTitle(title);
