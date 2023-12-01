@@ -21,6 +21,6 @@ export const indexedDBStorage = createKVStorageHost(idbBackend, {
     on: (callback) => addListener('indexedDBStorage', callback),
 });
 
-export function initStorage(argument) {
+export function initStorage() {
     return setupMaskKVStorageBackend(idbBackend, inMemoryBackend);
 }

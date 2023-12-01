@@ -12,11 +12,7 @@ import {
 import { ChainContextProvider, RootWeb3ContextProvider } from '@masknet/web3-hooks-base';
 import { ChainId } from '@masknet/web3-shared-evm';
 import { StyledEngineProvider } from '@mui/material';
-import { createSyncStoragePersister } from '@tanstack/query-sync-storage-persister';
-import { QueryClient } from '@tanstack/react-query';
-import { type PersistQueryClientOptions, PersistQueryClientProvider } from '@tanstack/react-query-persist-client';
-import { Suspense, use } from 'react';
-import { type PropsWithChildren } from 'react';
+import { memo, type PropsWithChildren, Suspense, use } from 'react';
 import { I18nextProvider } from 'react-i18next';
 import { useAccount } from 'wagmi';
 
@@ -32,59 +28,33 @@ async function setupRuntime() {
 }
 const promise = setupRuntime();
 
-const queryClient = new QueryClient({
-    defaultOptions: {
-        queries: {
-            refetchOnWindowFocus: false,
-        },
-    },
-});
-const persistOptions: Omit<PersistQueryClientOptions, 'queryClient'> = {
-    persister: createSyncStoragePersister({
-        storage: localStorage,
-    }),
-    buster: 'v1',
-    dehydrateOptions: {
-        shouldDehydrateQuery: ({ queryKey }) => {
-            if (Array.isArray(queryKey) && String(queryKey[0]).startsWith('@@')) return true;
-            return false;
-        },
-    },
-};
-
-export function Runtime({ children }: PropsWithChildren<{}>) {
-    use(
-        promise.then(() => {
-            console.log('setup runtime');
-        }),
-    );
+export const Runtime = memo(function Runtime({ children }: PropsWithChildren<{}>) {
+    use(promise);
 
     const account = useAccount();
     return (
-        <PersistQueryClientProvider client={queryClient} persistOptions={persistOptions}>
-            <DisableShadowRootContext.Provider value>
-                <DialogStackingProvider hasGlobalBackdrop={false}>
-                    <StyledEngineProvider injectFirst>
-                        <MaskThemeProvider useMaskIconPalette={(theme) => theme.palette.mode} useTheme={useMaskTheme}>
-                            <I18nextProvider i18n={i18NextInstance}>
-                                <RootWeb3ContextProvider>
-                                    <ChainContextProvider account={account.address} chainId={ChainId.Mainnet}>
-                                        <SharedContextProvider>
-                                            <Suspense fallback={null}>
-                                                <CSSVariableInjector />
-                                                {children}
-                                            </Suspense>
-                                        </SharedContextProvider>
-                                    </ChainContextProvider>
-                                </RootWeb3ContextProvider>
-                            </I18nextProvider>
-                        </MaskThemeProvider>
-                    </StyledEngineProvider>
-                </DialogStackingProvider>
-            </DisableShadowRootContext.Provider>
-        </PersistQueryClientProvider>
+        <DisableShadowRootContext.Provider value>
+            <DialogStackingProvider hasGlobalBackdrop={false}>
+                <StyledEngineProvider injectFirst>
+                    <MaskThemeProvider useMaskIconPalette={(theme) => theme.palette.mode} useTheme={useMaskTheme}>
+                        <I18nextProvider i18n={i18NextInstance}>
+                            <RootWeb3ContextProvider enforceEVM>
+                                <ChainContextProvider account={account.address} chainId={ChainId.Mainnet}>
+                                    <SharedContextProvider>
+                                        <Suspense fallback={null}>
+                                            <CSSVariableInjector />
+                                            {children}
+                                        </Suspense>
+                                    </SharedContextProvider>
+                                </ChainContextProvider>
+                            </RootWeb3ContextProvider>
+                        </I18nextProvider>
+                    </MaskThemeProvider>
+                </StyledEngineProvider>
+            </DialogStackingProvider>
+        </DisableShadowRootContext.Provider>
     );
-}
+});
 
 export default function MaskRuntime({ children }: PropsWithChildren<{}>) {
     return (

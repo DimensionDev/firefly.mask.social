@@ -18,6 +18,9 @@
         },
         {
             "path": "./src/service-workers/tsconfig.json"
+        },
+        {
+            "path": "./src/maskbook/packages/web3-hooks/base/tsconfig.json"
         }
     ],
     "compilerOptions": {

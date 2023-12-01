@@ -7,7 +7,7 @@ async function reject(): Promise<never> {
     throw new Error('Not implemented');
 }
 
-export function initWallet(argument) {
+export function initWallet() {
     const WalletIO: WalletAPI.IOContext = {
         wallets: EMPTY_ARRAY,
         hasPaymentPassword: reject,
