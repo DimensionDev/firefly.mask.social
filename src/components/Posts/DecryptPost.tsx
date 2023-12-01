@@ -1,7 +1,6 @@
 'use client';
 import { DOMProxy } from '@dimensiondev/holoflows-kit';
 import { type PostContext, PostInfoProvider } from '@masknet/plugin-infra/content-script';
-import { openDialog } from '@masknet/plugin-redpacket';
 import {
     createConstantSubscription,
     EMPTY_ARRAY,
@@ -84,7 +83,6 @@ export const DecryptPost = memo(function DecryptPost({ raw, post, children }: Pr
                 }}
             >
                 <DecryptMessage text={payload} version="2" />
-                <button onClick={openDialog}>open dialog2</button>
             </div>
         </PostInfoProvider>
     );

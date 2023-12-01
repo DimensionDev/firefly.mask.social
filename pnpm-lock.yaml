@@ -175,6 +175,9 @@ importers:
       '@masknet/web3-providers':
         specifier: workspace:^
         version: link:src/maskbook/packages/web3-providers
+      '@masknet/web3-shared-base':
+        specifier: workspace:^
+        version: link:src/maskbook/packages/web3-shared/base
       '@masknet/web3-shared-evm':
         specifier: workspace:^
         version: link:src/maskbook/packages/web3-shared/evm
@@ -3545,6 +3548,9 @@ importers:
       '@masknet/web3-telemetry':
         specifier: workspace:^
         version: link:../../web3-telemetry
+      '@tanstack/react-query':
+        specifier: ^5.8.7
+        version: 5.8.7(react-dom@18.2.0)(react@18.2.0)
       '@types/ethereum-blockies':
         specifier: ^0.1.0
         version: 0.1.0

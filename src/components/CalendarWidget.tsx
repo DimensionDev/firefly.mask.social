@@ -20,13 +20,13 @@ const DynamicCalendar = dynamic(
 export function CalendarWidget(props: HTMLProps<HTMLDivElement>) {
     return (
         <MaskRuntime>
-            <DisableShadowRootContext.Provider value={false}>
-                <ShadowRootIsolation>
-                    <section {...props}>
+            <section {...props}>
+                <DisableShadowRootContext.Provider value={false}>
+                    <ShadowRootIsolation>
                         <DynamicCalendar />
-                    </section>
-                </ShadowRootIsolation>
-            </DisableShadowRootContext.Provider>
+                    </ShadowRootIsolation>
+                </DisableShadowRootContext.Provider>
+            </section>
         </MaskRuntime>
     );
 }
