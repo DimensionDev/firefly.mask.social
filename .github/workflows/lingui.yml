@@ -1,0 +1,35 @@
+name: Run Lingui
+
+on:
+    push:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18.9.0'
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Run Lingui
+      run: npm run lingui
+
+    - name: Check for changes in src/locales/*.po
+      id: check-changes
+      run: echo "::set-output name=changes::$(git diff --name-only -- 'src/locales/*.po')"
+
+    - name: Commit changes if any
+      if: steps.check-changes.outputs.changes != ''
+      run: |
+        git config --local user.email "actions@github.com"
+        git config --local user.name "GitHub Actions"
+        git add 'src/locales/*.po'
+        git commit -m "chore: i18n"
