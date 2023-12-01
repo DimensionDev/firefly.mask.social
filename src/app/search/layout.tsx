@@ -1,10 +1,10 @@
 import type React from 'react';
 
-import { SITE_NAME } from '@/constants/index.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
+import { createPageTitle } from '@/helpers/createSiteTitle.js';
 
 export const metadata = createSiteMetadata({
-    title: `Search • ${SITE_NAME}`,
+    title: createPageTitle('Search'),
 });
 
 export default function DetailLayout({ children }: { children: React.ReactNode }) {

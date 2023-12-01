@@ -1,3 +1,4 @@
+import { Trans } from '@lingui/macro';
 import { useCallback, useMemo } from 'react';
 
 import type { IImage } from '@/components/compose/index.js';
@@ -22,10 +23,7 @@ export default function ComposeSend({ characters, images, setOpened }: ComposeSe
         const lens = new LensSocialMedia();
         const session = await lens.createSession();
         const profile = await lens.getProfileById(`${session.profileId}`);
-        console.log('profile', profile);
-
         const posts = await lens.getPostsByProfileId(profile.profileId);
-        console.log('posts', posts);
 
         const title = `Post by #${profile.profileId}`;
         const metadata = getPostMetaData(
@@ -53,8 +51,6 @@ export default function ComposeSend({ characters, images, setOpened }: ComposeSe
                 : undefined,
         );
         const arweaveId = await uploadToArweave(metadata);
-        console.log('metadata', metadata);
-        console.log('arweaveId', arweaveId);
         const post = await lens.publishPost({
             postId: metadata.lens.id,
             author: profile,
@@ -97,7 +93,9 @@ export default function ComposeSend({ characters, images, setOpened }: ComposeSe
                 }}
             >
                 <Image src="/svg/send.svg" width={18} height={18} alt="send" className=" h-[18px] w-[18px]" />
-                <span>Send</span>
+                <span>
+                    <Trans>Send</Trans>
+                </span>
             </button>
         </div>
     );
