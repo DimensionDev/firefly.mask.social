@@ -57,7 +57,10 @@ export const SearchBar = memo(function SearchBar(props: SearchBarProps) {
 
     useEffect(() => {
         const params = typeof location !== 'undefined' ? new URLSearchParams(location.search) : undefined;
-        updateSearchText(params?.get('q') ?? '');
+        if (pathname.startsWith('/search')) {
+            setSearchText('');
+            updateSearchText(params?.get('q') ?? '');
+        }
     }, [pathname, updateSearchText]);
 
     const handleInputChange = (evt: ChangeEvent<HTMLInputElement>) => {
