@@ -1,5 +1,6 @@
 'use client';
 
+import { Trans } from '@lingui/macro';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { useMemo } from 'react';
 
@@ -59,9 +60,13 @@ export default function Following() {
 
     return (
         <div>
-            {results.map((x) => (
-                <SinglePost post={x} key={x.postId} showMore />
-            ))}
+            {results.length ? (
+                results.map((x) => <SinglePost post={x} key={x.postId} showMore />)
+            ) : (
+                <div className="flex items-center justify-center pb-4 pt-6">
+                    <Trans>No results</Trans>
+                </div>
+            )}
         </div>
     );
 }

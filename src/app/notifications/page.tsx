@@ -1,5 +1,6 @@
 'use client';
 
+import { Trans } from '@lingui/macro';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
 import { useMemo } from 'react';
@@ -54,9 +55,13 @@ export default function Notification() {
 
     return (
         <div>
-            {results.map((notification, index) => (
-                <NotificationItem key={index} notification={notification} />
-            ))}
+            {results.length ? (
+                results.map((notification, index) => <NotificationItem key={index} notification={notification} />)
+            ) : (
+                <div className="flex items-center justify-center pb-4 pt-6">
+                    <Trans>No results</Trans>
+                </div>
+            )}
             {hasNextPage && results.length ? (
                 <div className="flex items-center justify-center p-2" ref={observe}>
                     <LoadingIcon width={16} height={16} className="animate-spin" />
