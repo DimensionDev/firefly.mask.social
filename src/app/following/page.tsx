@@ -3,6 +3,7 @@
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { useMemo } from 'react';
 
+import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { SinglePost } from '@/components/Posts/SinglePost.js';
 import { SocialPlatform } from '@/constants/enum.js';
@@ -59,9 +60,11 @@ export default function Following() {
 
     return (
         <div>
-            {results.map((x) => (
-                <SinglePost post={x} key={x.postId} showMore />
-            ))}
+            {results.length ? (
+                results.map((x) => <SinglePost post={x} key={x.postId} showMore />)
+            ) : (
+                <NoResultsFallback />
+            )}
         </div>
     );
 }

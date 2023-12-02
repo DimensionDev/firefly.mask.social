@@ -1,6 +1,5 @@
 'use client';
 
-import { Trans } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
@@ -8,6 +7,7 @@ import { useMemo } from 'react';
 import { useInView } from 'react-cool-inview';
 
 import LoadingIcon from '@/assets/loading.svg';
+import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { SinglePost } from '@/components/Posts/SinglePost.js';
 import { ProfileInList } from '@/components/ProfileInList.js';
 import { SearchType, SocialPlatform } from '@/constants/enum.js';
@@ -85,9 +85,7 @@ export default function Page() {
                     return null;
                 })
             ) : (
-                <div className="flex items-center justify-center pb-4 pt-6">
-                    <Trans>No results for {searchText}</Trans>
-                </div>
+                <NoResultsFallback />
             )}
 
             {hasNextPage && results.length ? (
