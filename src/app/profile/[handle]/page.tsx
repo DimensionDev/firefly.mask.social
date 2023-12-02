@@ -49,7 +49,7 @@ export default function Profile({ params: { handle } }: ProfileProps) {
         <div>
             {!isMyProfile ? <Title profile={profile} isMyProfile={isMyProfile} /> : null}
 
-            <Info platform={tab} handle={handle} profile={profile} isMyProfile={isMyProfile} />
+            <Info platform={tab} profile={profile} isMyProfile={isMyProfile} />
 
             <ContentTabs />
         </div>
