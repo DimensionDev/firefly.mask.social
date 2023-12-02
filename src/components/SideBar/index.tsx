@@ -3,7 +3,6 @@
 import { Trans } from '@lingui/macro';
 import { memo, useState } from 'react';
 import urlcat from 'urlcat';
-import { useDarkMode } from 'usehooks-ts';
 
 import DiscoverSelectedIcon from '@/assets/discover.selected.svg';
 import DiscoverIcon from '@/assets/discover.svg';
@@ -21,6 +20,7 @@ import Compose from '@/components/compose/index.js';
 import { LoginStatusBar } from '@/components/LoginStatusBar.js';
 import { PageRoutes } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
+import { useDarkMode } from '@/hooks/useDarkMode.js';
 import { useLogin } from '@/hooks/useLogin.js';
 import { usePlatformAccount } from '@/hooks/usePlatformAccount.js';
 import { LoginModalRef } from '@/modals/controls.js';

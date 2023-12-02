@@ -21,8 +21,8 @@ const useThemeModeStateBase = create<ThemeModeState, [['zustand/persist', unknow
             },
         })),
         {
-            name: 'lens-state',
-            partialize: (state) => ({ mode: state.themeMode, setThemeMode: state.setThemeMode }),
+            name: 'global-theme-state',
+            partialize: (state) => ({ mode: state.themeMode }),
         },
     ),
 );

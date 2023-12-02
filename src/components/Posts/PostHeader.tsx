@@ -1,11 +1,11 @@
 import { memo } from 'react';
-import { useDarkMode } from 'usehooks-ts';
 
 import { MoreAction } from '@/components/Actions/More.js';
 import { Image } from '@/components/Image.js';
 import { SourceIcon } from '@/components/SourceIcon.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
 import { classNames } from '@/helpers/classNames.js';
+import { useDarkMode } from '@/hooks/useDarkMode.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 interface PostHeaderProps {

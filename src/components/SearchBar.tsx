@@ -4,7 +4,7 @@ import { t, Trans } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation.js';
 import { type ChangeEvent, memo, useEffect, useRef, useState } from 'react';
-import { useDarkMode, useDebounce, useOnClickOutside } from 'usehooks-ts';
+import { useDebounce, useOnClickOutside } from 'usehooks-ts';
 
 import CloseIcon from '@/assets/close-circle.svg';
 import LoadingIcon from '@/assets/loading.svg';
@@ -13,6 +13,7 @@ import { Image } from '@/components/Image.js';
 import { SourceIcon } from '@/components/SourceIcon.js';
 import { SearchType, SocialPlatform } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
+import { useDarkMode } from '@/hooks/useDarkMode.js';
 import { HubbleSocialMediaProvider } from '@/providers/hubble/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';

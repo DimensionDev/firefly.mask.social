@@ -5,7 +5,7 @@ import { useDocumentTitle } from 'usehooks-ts';
 
 import { SinglePost } from '@/components/Posts/SinglePost.js';
 import { SocialPlatform } from '@/constants/enum.js';
-import { createPageTitle } from '@/helpers/createSiteTitle.js';
+import { createPageTitle } from '@/helpers/createPageTitle.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';

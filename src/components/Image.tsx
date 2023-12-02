@@ -1,6 +1,7 @@
 import type { DetailedHTMLProps, ImgHTMLAttributes, Ref, SyntheticEvent } from 'react';
 import { forwardRef, useCallback, useEffect, useState } from 'react';
-import { useDarkMode } from 'usehooks-ts';
+
+import { useDarkMode } from '@/hooks/useDarkMode.js';
 
 export const Image = forwardRef(function Image(
     {
