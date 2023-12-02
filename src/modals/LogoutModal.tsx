@@ -75,7 +75,7 @@ export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps>
                                             height={24}
                                         />
                                     </button>
-                                    <div className="shrink grow basis-0 text-center font-['Helvetica'] text-lg font-bold leading-snug text-main">
+                                    <div className="shrink grow basis-0 text-center text-lg font-bold leading-snug text-main">
                                         <Trans>Log out</Trans>
                                     </div>
                                     <div className="relative h-[24px] w-[24px]" />

@@ -111,7 +111,7 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps>>(
                                             height={24}
                                         />
                                     </button>
-                                    <div className="shrink grow basis-0 text-center font-['Helvetica'] text-lg font-bold leading-snug text-main">
+                                    <div className="shrink grow basis-0 text-center text-lg font-bold leading-snug text-main">
                                         {title}
                                     </div>
                                     <div className="relative h-[24px] w-[24px]" />
@@ -146,7 +146,7 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps>>(
                                                             alt="lens"
                                                         />
                                                     </div>
-                                                    <div className="font-['Helvetica'] text-sm font-bold leading-[18px] text-lightSecond group-hover:text-lightMain">
+                                                    <div className="text-sm font-bold leading-[18px] text-lightSecond group-hover:text-lightMain">
                                                         Lens
                                                     </div>
                                                 </div>
@@ -167,7 +167,7 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps>>(
                                                             alt="lens"
                                                         />
                                                     </div>
-                                                    <div className="font-['Helvetica'] text-sm font-bold leading-[18px] text-lightSecond group-hover:text-lightMain">
+                                                    <div className="text-sm font-bold leading-[18px] text-lightSecond group-hover:text-lightMain">
                                                         Farcaster
                                                     </div>
                                                 </div>
