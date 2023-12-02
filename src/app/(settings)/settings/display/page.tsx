@@ -28,7 +28,7 @@ export default function Display() {
                         />
                     </div>
                 ) : null}
-                <div className="font-['Helvetica'] text-sm font-bold leading-[18px] text-slate-950">
+                <div className="text-sm font-bold leading-[18px] text-slate-950">
                     <Trans>Follow System</Trans>
                 </div>
             </button>
@@ -46,7 +46,7 @@ export default function Display() {
                         />
                     </div>
                 ) : null}
-                <div className="font-['Helvetica'] text-sm font-bold leading-[18px] text-slate-950">
+                <div className="text-sm font-bold leading-[18px] text-slate-950">
                     <Trans>Light mode</Trans>
                 </div>
             </button>
@@ -64,7 +64,7 @@ export default function Display() {
                         />
                     </div>
                 ) : null}
-                <div className="font-['Helvetica'] text-sm font-bold leading-[18px] text-white">
+                <div className="text-sm font-bold leading-[18px] text-white">
                     <Trans>Dark mode</Trans>
                 </div>
             </button>

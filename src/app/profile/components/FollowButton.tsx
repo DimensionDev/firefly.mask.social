@@ -39,7 +39,7 @@ export default function FollowButton({ profile, isMyProfile }: FollowButtonProps
         <button
             className={classNames(
                 ' flex h-8 w-[100px] items-center justify-center rounded-full text-sm font-semibold transition-all',
-                buttonState === FollowButtonState.Follow ? ' bg-lightMain text-white hover:opacity-80' : '',
+                buttonState === FollowButtonState.Follow ? ' bg-main text-primaryBottom hover:opacity-80' : '',
                 buttonState === FollowButtonState.Following ? ' border border-lightMain text-lightMain' : '',
                 buttonState === FollowButtonState.Unfollow
                     ? ' border border-[#FF354580] bg-[#FF354533] text-[#FF354580]'
