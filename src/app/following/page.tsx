@@ -1,9 +1,9 @@
 'use client';
 
-import { Trans } from '@lingui/macro';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { useMemo } from 'react';
 
+import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { SinglePost } from '@/components/Posts/SinglePost.js';
 import { SocialPlatform } from '@/constants/enum.js';
@@ -63,9 +63,7 @@ export default function Following() {
             {results.length ? (
                 results.map((x) => <SinglePost post={x} key={x.postId} showMore />)
             ) : (
-                <div className="flex items-center justify-center pb-4 pt-6">
-                    <Trans>No results</Trans>
-                </div>
+                <NoResultsFallback />
             )}
         </div>
     );
