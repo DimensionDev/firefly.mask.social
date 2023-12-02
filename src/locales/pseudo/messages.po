@@ -58,9 +58,6 @@ msgstr ""
 msgid "Join our Discord"
 msgstr ""
 
-msgid "No results for {searchText}"
-msgstr ""
-
 msgid "Change Wallet"
 msgstr ""
 
@@ -113,6 +110,9 @@ msgid "No content URI found"
 msgstr ""
 
 msgid "Follow System"
+msgstr ""
+
+msgid "No results"
 msgstr ""
 
 msgid "On your mobile device with Warpcast, open the Camera app and scan the QR code"
