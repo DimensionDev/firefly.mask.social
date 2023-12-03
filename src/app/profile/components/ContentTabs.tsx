@@ -25,7 +25,7 @@ export default function ContentTabs() {
                             )}
                             onClick={() => setTab(tabName)}
                         >
-                            <Trans>{tabName}</Trans>
+                            {tabName === TabEnum.Feed ? <Trans>Feed</Trans> : <Trans>Collected</Trans>}
                         </button>
                         <span
                             className={classNames(
