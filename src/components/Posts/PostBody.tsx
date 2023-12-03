@@ -2,7 +2,6 @@
 
 import { Trans } from '@lingui/macro';
 import dynamic from 'next/dynamic.js';
-import { Link } from 'next/link.js';
 import { useRouter } from 'next/navigation.js';
 import { forwardRef } from 'react';
 import urlcat from 'urlcat';
@@ -14,6 +13,7 @@ import Oembed from '@/components/Oembed/index.js';
 import { Attachments } from '@/components/Posts/Attachment.js';
 import { DecryptPost } from '@/components/Posts/DecryptPost.js';
 import { Quote } from '@/components/Posts/Quote.js';
+import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getPostDetailUrl } from '@/helpers/getPostDetailUrl.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
