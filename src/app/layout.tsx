@@ -40,10 +40,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                             {children}
                         </main>
 
-                        <aside className=" w-96 px-4 lg:block">
-                            <div className="sticky top-0 z-[998] bg-white dark:bg-black">
-                                <SearchBar source="secondary" />
-                            </div>
+                        <aside className=" sticky top-0 z-[998] h-full w-96 px-4 lg:block">
+                            <SearchBar source="secondary" />
 
                             <SearchFilter />
 

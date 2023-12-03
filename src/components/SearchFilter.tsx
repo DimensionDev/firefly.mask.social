@@ -33,7 +33,7 @@ export const SearchFilter = memo(function SearchBar(props: SearchFilterProps) {
                     <Trans>Search Filter</Trans>
                 </h2>
             </div>
-            <div className=" mt-4 rounded-xl border border-line">
+            <div className=" my-4 rounded-xl border border-line">
                 <fieldset className=" px-4 pb-1 pt-2">
                     {Filters.map((filter) => (
                         <div key={filter.type} className="flex items-center">
