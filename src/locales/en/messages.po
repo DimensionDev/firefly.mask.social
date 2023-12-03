@@ -25,6 +25,9 @@ msgstr "Failed to fetch as Blob."
 msgid "Failed to mirror post"
 msgstr "Failed to mirror post"
 
+msgid "This profile doesn't exist"
+msgstr "This profile doesn't exist"
+
 msgid "Communities"
 msgstr "Communities"
 
@@ -78,9 +81,6 @@ msgstr "Copied"
 
 msgid "Mirror and Quotes"
 msgstr "Mirror and Quotes"
-
-msgid "This profile doesn1't exist"
-msgstr "This profile doesn1't exist"
 
 msgid "comment"
 msgstr "comment"

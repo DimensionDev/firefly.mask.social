@@ -25,6 +25,9 @@ msgstr ""
 msgid "Failed to mirror post"
 msgstr ""
 
+msgid "This profile doesn't exist"
+msgstr ""
+
 msgid "Communities"
 msgstr ""
 
@@ -77,9 +80,6 @@ msgid "Copied"
 msgstr ""
 
 msgid "Mirror and Quotes"
-msgstr ""
-
-msgid "This profile doesn1't exist"
 msgstr ""
 
 msgid "comment"
