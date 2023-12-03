@@ -3,8 +3,10 @@ import { useMemo } from 'react';
 import { useDocumentTitle } from 'usehooks-ts';
 
 import ContentTabs from '@/app/profile/components/ContentTabs.js';
+import EmptyProfile from '@/app/profile/components/EmptyProfile.js';
 import Info from '@/app/profile/components/Info.js';
 import Title from '@/app/profile/components/Title.js';
+import Loading from '@/components/Loading.js';
 import { createPageTitle } from '@/helpers/createPageTitle.js';
 import { useLogin } from '@/hooks/useLogin.js';
 import { usePlatformAccount } from '@/hooks/usePlatformAccount.js';
@@ -15,7 +17,7 @@ interface FarcasterProfileProps {
 }
 export default function FarcasterProfile({ id }: FarcasterProfileProps) {
     const farcasterClient = new WarpcastSocialMedia();
-    const { data: profile } = useQuery({
+    const { data: profile, isLoading } = useQuery({
         queryKey: ['profile', id],
         queryFn: () => farcasterClient.getProfileById(id),
     });
@@ -37,6 +39,14 @@ export default function FarcasterProfile({ id }: FarcasterProfileProps) {
     }, [profile]);
 
     useDocumentTitle(title);
+
+    if (isLoading) {
+        return <Loading />;
+    }
+
+    if (!profile) {
+        return <EmptyProfile />;
+    }
 
     return (
         <div>
