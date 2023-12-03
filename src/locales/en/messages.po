@@ -13,9 +13,6 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-msgid "This Account doesn't exist"
-msgstr "This Account doesn't exist"
-
 msgid "Quote Post"
 msgstr "Quote Post"
 
@@ -81,6 +78,9 @@ msgstr "Copied"
 
 msgid "Mirror and Quotes"
 msgstr "Mirror and Quotes"
+
+msgid "This profile doesn1't exist"
+msgstr "This profile doesn1't exist"
 
 msgid "comment"
 msgstr "comment"
