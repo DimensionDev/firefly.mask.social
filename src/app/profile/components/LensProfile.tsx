@@ -1,4 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
+import { redirect } from 'next/navigation.js';
 import { useMemo } from 'react';
 import { useDocumentTitle } from 'usehooks-ts';
 
@@ -19,6 +20,8 @@ export default function LensProfile({ handle }: LensProfileProps) {
         queryKey: ['profile', handle],
         queryFn: () => lensClient.getProfileByHandle(`lens/${handle}`),
     });
+
+    if (!profile) redirect('/');
 
     const isLogin = useLogin();
 
