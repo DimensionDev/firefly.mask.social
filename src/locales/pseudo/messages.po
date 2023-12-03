@@ -25,6 +25,9 @@ msgstr ""
 msgid "Failed to mirror post"
 msgstr ""
 
+msgid "This profile doesn't exist"
+msgstr ""
+
 msgid "Communities"
 msgstr ""
 
