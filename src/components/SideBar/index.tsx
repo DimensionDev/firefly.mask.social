@@ -16,7 +16,7 @@ import ProfileSelectedIcon from '@/assets/profile.selected.svg';
 import ProfileIcon from '@/assets/profile.svg';
 import SettingsSelectedIcon from '@/assets/setting.selected.svg';
 import SettingsIcon from '@/assets/setting.svg';
-import Compose from '@/components/compose/index.js';
+import Compose from '@/components/Compose/index.js';
 import { LoginStatusBar } from '@/components/LoginStatusBar.js';
 import { PageRoutes } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';

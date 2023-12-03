@@ -43,6 +43,7 @@ export const PostActions = memo<PostActionsProps>(function PostActions({
                 canComment={post.canComment}
                 source={post.source}
                 author={post.author.displayName}
+                post={post}
             />
             <Mirror
                 disabled={disabled}
@@ -50,6 +51,7 @@ export const PostActions = memo<PostActionsProps>(function PostActions({
                 source={post.source}
                 postId={post.postId}
                 hasMirrored={post.hasMirrored}
+                post={post}
             />
             {post.source !== SocialPlatform.Farcaster ? (
                 <Collect count={post.stats?.bookmarks} disabled={disabled} />

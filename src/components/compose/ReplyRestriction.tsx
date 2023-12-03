@@ -4,9 +4,16 @@ import { Fragment, useMemo } from 'react';
 
 import { Image } from '@/esm/Image.js';
 import { classNames } from '@/helpers/classNames.js';
+import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
 
-export default function ReplyRestriction() {
-    const disabled = useMemo(() => true, []);
+interface IReplyRestrictionProps {
+    restriction: number;
+    setRestriction: (restriction: number) => void;
+}
+export default function ReplyRestriction({ restriction, setRestriction }: IReplyRestrictionProps) {
+    const currentFarcasterAccount = useFarcasterStateStore.use.currentAccount();
+
+    const disabled = useMemo(() => currentFarcasterAccount.id, [currentFarcasterAccount.id]);
 
     return (
         <Transition
@@ -19,11 +26,18 @@ export default function ReplyRestriction() {
             leaveTo="opacity-0 translate-y-1"
         >
             <Popover.Panel className="absolute bottom-full right-0 flex w-[280px] -translate-y-3 flex-col gap-2 rounded-lg bg-white p-3 shadow-popover">
-                <div className=" flex h-[22px] cursor-pointer items-center justify-between">
-                    <span className={classNames(' text-sm font-bold text-[#07101B]', !disabled ? ' opacity-50' : '')}>
+                <div
+                    className=" flex h-[22px] cursor-pointer items-center justify-between"
+                    onClick={() => setRestriction(0)}
+                >
+                    <span className={classNames(' text-sm font-bold text-main')}>
                         <Trans>Everyone can reply</Trans>
                     </span>
-                    <Image src="/svg/radio.yes.svg" width={16} height={16} alt="radio.yes" />
+                    {restriction === 0 ? (
+                        <Image src="/svg/radio.yes.svg" width={16} height={16} alt="radio.yes" />
+                    ) : (
+                        <Image src="/svg/radio.disable-no.svg" width={16} height={16} alt="radio.disable-no" />
+                    )}
                 </div>
 
                 <div className=" h-px bg-[#F2F5F6]" />
@@ -33,11 +47,16 @@ export default function ReplyRestriction() {
                         ' flex h-[22px] items-center justify-between',
                         disabled ? ' cursor-no-drop' : ' cursor-pointer',
                     )}
+                    onClick={() => !disabled && setRestriction(1)}
                 >
-                    <span className={classNames(' text-sm font-bold text-[#07101B]', disabled ? ' opacity-50' : '')}>
+                    <span className={classNames(' text-sm font-bold text-main', disabled ? ' opacity-50' : '')}>
                         <Trans>Only people you follow can reply</Trans>
                     </span>
-                    <Image src="/svg/radio.disable-no.svg" width={16} height={16} alt="radio.disable-no" />
+                    {restriction === 1 ? (
+                        <Image src="/svg/radio.yes.svg" width={16} height={16} alt="radio.yes" />
+                    ) : (
+                        <Image src="/svg/radio.disable-no.svg" width={16} height={16} alt="radio.disable-no" />
+                    )}
                 </div>
             </Popover.Panel>
         </Transition>

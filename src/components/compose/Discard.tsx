@@ -46,7 +46,7 @@ export default function Discard({ opened, setOpened, setComposeOpened }: Compose
                                         onClick={close}
                                     />
 
-                                    <span className=" flex h-full w-full items-center justify-center text-lg font-bold capitalize leading-6 text-[#07101B]">
+                                    <span className=" flex h-full w-full items-center justify-center text-lg font-bold capitalize leading-6 text-main">
                                         <Trans>Discard</Trans>
                                     </span>
                                 </Dialog.Title>

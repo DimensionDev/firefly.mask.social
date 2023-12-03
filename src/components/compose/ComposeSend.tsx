@@ -1,69 +1,90 @@
-import { Trans } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
+import { useSnackbar } from 'notistack';
 import { useCallback, useMemo } from 'react';
 
-import type { IImage } from '@/components/compose/index.js';
-import { SocialPlatform } from '@/constants/enum.js';
+import type { IImage } from '@/components/Compose/index.js';
 import { Image } from '@/esm/Image.js';
 import { classNames } from '@/helpers/classNames.js';
-import { getPostMetaData } from '@/helpers/getPostMetaData.js';
-import { LensSocialMedia } from '@/providers/lens/SocialMedia.js';
-import uploadToArweave from '@/services/uploadToArweave.js';
+import { commentPostForLens, publishPostForLens, quotePostForLens } from '@/helpers/publishPost.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
+import { useLensStateStore } from '@/store/useLensStore.js';
 
 interface ComposeSendProps {
+    type: 'compose' | 'quote' | 'reply';
     characters: string;
     images: IImage[];
     setOpened: (opened: boolean) => void;
+    setLoading: (loading: boolean) => void;
+    post?: Post;
 }
-export default function ComposeSend({ characters, images, setOpened }: ComposeSendProps) {
+export default function ComposeSend({ type, characters, images, setOpened, setLoading, post }: ComposeSendProps) {
+    const { enqueueSnackbar } = useSnackbar();
+
+    const currentLensAccount = useLensStateStore.use.currentAccount();
+
     const charactersLen = useMemo(() => characters.length, [characters]);
 
     const disabled = useMemo(() => charactersLen > 280, [charactersLen]);
 
     const handleSend = useCallback(async () => {
-        const lens = new LensSocialMedia();
-        const session = await lens.createSession();
-        const profile = await lens.getProfileById(`${session.profileId}`);
-        const posts = await lens.getPostsByProfileId(profile.profileId);
+        setLoading(true);
+        if (currentLensAccount.id) {
+            if (type === 'compose') {
+                try {
+                    await publishPostForLens(currentLensAccount.id, characters, images);
+                    enqueueSnackbar(t`Posted on Lens`, {
+                        variant: 'success',
+                    });
+                    setOpened(false);
+                } catch {
+                    enqueueSnackbar(t`Failed to post on Lens`, {
+                        variant: 'error',
+                    });
+                }
+            }
 
-        const title = `Post by #${profile.profileId}`;
-        const metadata = getPostMetaData(
-            {
-                title,
-                content: characters,
-                marketplace: {
-                    name: title,
-                    description: characters,
-                    external_url: 'https://hey.xyz',
-                },
-            },
-            images.length > 0
-                ? {
-                      image: {
-                          item: images[0].ipfs.uri,
-                          type: images[0].ipfs.mimeType,
-                      },
-                      attachments: images.map((image) => ({
-                          item: image.ipfs.uri,
-                          type: image.ipfs.mimeType,
-                          cover: images[0].ipfs.uri,
-                      })),
-                  }
-                : undefined,
-        );
-        const arweaveId = await uploadToArweave(metadata);
-        const post = await lens.publishPost({
-            postId: metadata.lens.id,
-            author: profile,
-            metadata: {
-                locale: metadata.lens.locale,
-                contentURI: `ar://${arweaveId}`,
-                content: null,
-            },
-            source: SocialPlatform.Lens,
-        });
-        console.log('post', post);
-        setOpened(false);
-    }, [characters, images, setOpened]);
+            if (type === 'reply') {
+                if (!post) return;
+                try {
+                    await commentPostForLens(currentLensAccount.id, post.postId, characters, images);
+                    enqueueSnackbar(t`Replying to @${currentLensAccount.handle || currentLensAccount.id} on Lens`, {
+                        variant: 'success',
+                    });
+                    setOpened(false);
+                } catch {
+                    enqueueSnackbar(t`Replying to @${currentLensAccount.handle || currentLensAccount.id} on Lens`, {
+                        variant: 'error',
+                    });
+                }
+            }
+
+            if (type === 'quote') {
+                if (!post) return;
+                try {
+                    await quotePostForLens(currentLensAccount.id, post.postId, characters, images);
+                    enqueueSnackbar(t`Quote on Lens`, {
+                        variant: 'success',
+                    });
+                    setOpened(false);
+                } catch {
+                    enqueueSnackbar(t`Failed to quote on Lens`, {
+                        variant: 'error',
+                    });
+                }
+            }
+        }
+        setLoading(false);
+    }, [
+        characters,
+        currentLensAccount.handle,
+        currentLensAccount.id,
+        enqueueSnackbar,
+        images,
+        post,
+        setLoading,
+        setOpened,
+        type,
+    ]);
 
     return (
         <div className=" flex h-[68px] items-center justify-end gap-4 px-4 shadow-send">
@@ -78,12 +99,12 @@ export default function ComposeSend({ characters, images, setOpened }: ComposeSe
 
                 {charactersLen >= 260 && <Image src="/svg/loading.red.svg" width={24} height={24} alt="loading.red" />}
 
-                <span className={classNames(disabled ? ' text-[#FF3545]' : '')}>{charactersLen} / 280</span>
+                <span className={classNames(disabled ? ' text-danger' : '')}>{charactersLen} / 280</span>
             </div>
 
             <button
                 className={classNames(
-                    ' flex h-10 w-[120px] items-center justify-center gap-1 rounded-full bg-[#07101B] text-sm font-bold text-white',
+                    ' flex h-10 w-[120px] items-center justify-center gap-1 rounded-full bg-black text-sm font-bold text-white dark:bg-white dark:text-black',
                     disabled ? ' cursor-no-drop opacity-50' : '',
                 )}
                 onClick={() => {

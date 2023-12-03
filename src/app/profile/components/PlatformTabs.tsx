@@ -13,7 +13,7 @@ export default function PlatformTabs({ tab, setTab }: PlatformTabsProps) {
                     key={item}
                     className={classNames(
                         ' h-8 rounded-full px-4 text-sm font-semibold transition-all',
-                        tab === item ? 'bg-[#07101B] text-[#F9F9F9]' : ' text-[#07101B]',
+                        tab === item ? 'bg-main text-[#F9F9F9]' : ' text-main',
                     )}
                     onClick={() => setTab(item)}
                 >

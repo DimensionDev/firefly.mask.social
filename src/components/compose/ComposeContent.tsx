@@ -1,17 +1,21 @@
 import { type Dispatch, type SetStateAction, useCallback } from 'react';
 
-import Editor from '@/components/compose/Editor.js';
-import type { IImage } from '@/components/compose/index.js';
+import Editor from '@/components/Compose/Editor.js';
+import type { IImage } from '@/components/Compose/index.js';
+import { SourceIcon } from '@/components/SourceIcon.js';
+import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
 import { Image } from '@/esm/Image.js';
 import { classNames } from '@/helpers/classNames.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
 
 interface ComposeContentProps {
     type: 'compose' | 'quote' | 'reply';
     setCharacters: (characters: string) => void;
     images: File[];
     setImages: Dispatch<SetStateAction<IImage[]>>;
+    post?: Post;
 }
-export default function ComposeContent({ type, setCharacters, images, setImages }: ComposeContentProps) {
+export default function ComposeContent({ type, setCharacters, images, setImages, post }: ComposeContentProps) {
     const createImageUrl = (file: File) => URL.createObjectURL(file);
 
     const removeImage = useCallback(
@@ -46,40 +50,45 @@ export default function ComposeContent({ type, setCharacters, images, setImages 
         <div className=" p-4">
             <label
                 className={classNames(
-                    ' hide-scrollbar block h-[338px] overflow-auto rounded-lg border border-[#E7E7E7] px-4 py-[14px]',
-                    type === 'compose' ? 'bg-[#F7F7F7]' : 'bg-white',
+                    ' hide-scrollbar border-line2 block h-[338px] overflow-auto rounded-lg border bg-bg px-4 py-[14px]',
                 )}
             >
                 <div className=" flex min-h-full flex-col justify-between">
-                    <Editor type={type} setCharacters={setCharacters} hasImages={images.length > 0} />
+                    <Editor type={type} setCharacters={setCharacters} hasImages={images.length > 0} hasPost={!!post} />
 
                     {/* quote */}
-                    {(type === 'quote' || type === 'reply') && (
-                        <div className=" gap-1 rounded-2xl border border-[#ACB4C1] bg-[#F9F9F9] p-3">
+                    {(type === 'quote' || type === 'reply') && post ? (
+                        <div className=" flex flex-col gap-1 rounded-2xl border border-[#acb4c1] bg-bg p-3">
                             <div className=" flex h-6 items-center justify-between">
                                 <div className=" flex items-center gap-2">
-                                    <Image src="/svg/gallery.svg" width={24} height={24} alt="gallery" />
-                                    <span className=" text-sm font-medium text-[#07101B]">Judd</span>
-                                    <span className=" text-sm text-[#767F8D]">@judd</span>
+                                    <Image src={post.author.pfp} width={24} height={24} alt="gallery" />
+                                    <span className=" text-sm font-medium text-main">{post.author.displayName}</span>
+                                    <span className=" text-sm text-secondary">
+                                        @{post.author.handle || post.author.profileId}
+                                    </span>
                                 </div>
-                                <div className=" flex items-center gap-2">
-                                    <Image src="/svg/gallery.svg" width={16} height={16} alt="gallery" />
-                                    <span className=" text-xs font-medium text-[#767F8D]">1h</span>
+                                <div className="flex items-center gap-2">
+                                    <SourceIcon source={post.source} />
+                                    <span className="text-xs leading-4 text-secondary">
+                                        <TimestampFormatter time={post.timestamp} />
+                                    </span>
                                 </div>
                             </div>
 
                             <div className=" flex gap-4">
-                                <p className=" text-left">123</p>
-                                <Image
-                                    src="/svg/gallery.svg"
-                                    width={120}
-                                    height={120}
-                                    alt="gallery"
-                                    className=" h-[120px] w-[120px] rounded-lg object-cover"
-                                />
+                                <p className=" text-left">{post.metadata.content?.content}</p>
+                                {(post.mediaObjects?.length ?? 0) > 0 && (
+                                    <Image
+                                        src={post.mediaObjects?.[0].url ?? ''}
+                                        width={120}
+                                        height={120}
+                                        alt={post.postId}
+                                        className=" h-[120px] w-[120px] rounded-lg object-cover"
+                                    />
+                                )}
                             </div>
                         </div>
-                    )}
+                    ) : null}
 
                     {/* image */}
                     {images.length > 0 && (

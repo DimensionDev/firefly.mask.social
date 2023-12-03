@@ -3,26 +3,28 @@ import { ChevronRightIcon } from '@heroicons/react/24/outline';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext.js';
 import { Trans } from '@lingui/macro';
 import { $getSelection } from 'lexical';
-import { type ChangeEvent, type Dispatch, type SetStateAction, useCallback, useRef } from 'react';
+import { type ChangeEvent, type Dispatch, type SetStateAction, useCallback, useRef, useState } from 'react';
 
-import PostBy from '@/components/compose/PostBy.js';
-import ReplyRestriction from '@/components/compose/ReplyRestriction.js';
+import type { IImage } from '@/components/Compose/index.js';
+import PostBy from '@/components/Compose/PostBy.js';
+import ReplyRestriction from '@/components/Compose/ReplyRestriction.js';
 import { Image } from '@/esm/Image.js';
-import uploadToIPFS, { type IPFSResponse } from '@/services/uploadToIPFS.js';
+import uploadToIPFS from '@/services/uploadToIPFS.js';
+import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
+import { useLensStateStore } from '@/store/useLensStore.js';
 
 interface ComposeActionProps {
     type: 'compose' | 'quote' | 'reply';
-    setImages: Dispatch<
-        SetStateAction<
-            Array<{
-                file: File;
-                ipfs: IPFSResponse;
-            }>
-        >
-    >;
+    images: IImage[];
+    setImages: Dispatch<SetStateAction<IImage[]>>;
+    setLoading: (loading: boolean) => void;
 }
-export default function ComposeAction({ type, setImages }: ComposeActionProps) {
+export default function ComposeAction({ type, images, setImages, setLoading }: ComposeActionProps) {
     const fileInputRef = useRef<HTMLInputElement | null>(null);
+    const [restriction, setRestriction] = useState(0);
+
+    const currentLensAccount = useLensStateStore.use.currentAccount();
+    const currentFarcasterAccount = useFarcasterStateStore.use.currentAccount();
 
     const [editor] = useLexicalComposerContext();
 
@@ -43,18 +45,22 @@ export default function ComposeAction({ type, setImages }: ComposeActionProps) {
             const files = event.target.files;
 
             if (files) {
+                setLoading(true);
                 const res = await uploadToIPFS([...files]);
                 setImages((_images) =>
-                    _images.concat(
-                        res.map((ipfs, index) => ({
-                            file: files[index],
-                            ipfs,
-                        })),
-                    ),
+                    [..._images]
+                        .concat(
+                            res.map((ipfs, index) => ({
+                                file: files[index],
+                                ipfs,
+                            })),
+                        )
+                        .slice(0, currentFarcasterAccount.id ? 2 : 4),
                 );
+                setLoading(false);
             }
         },
-        [setImages],
+        [currentFarcasterAccount.id, setImages, setLoading],
     );
 
     return (
@@ -67,7 +73,9 @@ export default function ComposeAction({ type, setImages }: ComposeActionProps) {
                     alt="gallery"
                     className=" cursor-pointer"
                     onClick={() => {
-                        fileInputRef.current?.click();
+                        if (images.length < (currentFarcasterAccount.id ? 2 : 4)) {
+                            fileInputRef.current?.click();
+                        }
                     }}
                 />
                 <input
@@ -97,36 +105,44 @@ export default function ComposeAction({ type, setImages }: ComposeActionProps) {
             </div>
 
             <div className=" flex h-9 items-center justify-between">
-                <span className=" text-sm text-[#767F8D]">
+                <span className=" text-sm text-secondary">
                     <Trans>Post by</Trans>
                 </span>
                 <Popover as="div" className="relative">
                     {(_) => (
                         <>
-                            <Popover.Button className=" flex cursor-pointer gap-1 text-[#07101B] focus:outline-none">
-                                <span className=" text-sm font-bold">@LensA, @FarcasterA</span>
+                            <Popover.Button className=" flex cursor-pointer gap-1 text-main focus:outline-none">
+                                <span className=" text-sm font-bold">
+                                    {currentLensAccount.id
+                                        ? `@${currentLensAccount.handle || currentLensAccount.id}`
+                                        : ''}
+                                    {currentLensAccount.id && currentFarcasterAccount.id ? ', ' : ''}
+                                    {currentFarcasterAccount.id ? `@${currentFarcasterAccount.id}` : ''}
+                                </span>
                                 {type === 'compose' && <ChevronRightIcon className="h-5 w-5" aria-hidden="true" />}
                             </Popover.Button>
-                            <PostBy />
+                            <PostBy images={images} />
                         </>
                     )}
                 </Popover>
             </div>
 
             <div className=" flex h-9 items-center justify-between">
-                <span className=" text-sm text-[#767F8D]">
+                <span className=" text-sm text-secondary">
                     <Trans>Reply Restriction</Trans>
                 </span>
                 <Popover as="div" className="relative">
                     {(_) => (
                         <>
-                            <Popover.Button className=" flex cursor-pointer gap-1 text-[#07101B] focus:outline-none">
+                            <Popover.Button className=" flex cursor-pointer gap-1 text-main focus:outline-none">
                                 <span className=" text-sm font-bold">
-                                    <Trans>Everyone can reply</Trans>
+                                    <Trans>
+                                        {restriction === 0 ? 'Everyone can reply' : 'Only people you follow can reply'}
+                                    </Trans>
                                 </span>
                                 <ChevronRightIcon className="h-5 w-5" aria-hidden="true" />
                             </Popover.Button>
-                            <ReplyRestriction />
+                            <ReplyRestriction restriction={restriction} setRestriction={setRestriction} />
                         </>
                     )}
                 </Popover>

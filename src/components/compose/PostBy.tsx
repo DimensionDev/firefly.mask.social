@@ -1,12 +1,25 @@
 import { Popover, Transition } from '@headlessui/react';
-import { Trans } from '@lingui/macro';
-import { Fragment, useMemo } from 'react';
+import { t, Trans } from '@lingui/macro';
+import { useSnackbar } from 'notistack';
+import { Fragment } from 'react';
 
+import type { IImage } from '@/components/Compose/index.js';
 import { Image } from '@/esm/Image.js';
 import { classNames } from '@/helpers/classNames.js';
+import { LoginModalRef } from '@/modals/controls.js';
+import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
+import { useLensStateStore } from '@/store/useLensStore.js';
 
-export default function PostBy() {
-    const disabled = useMemo(() => true, []);
+interface IPostByProps {
+    images: IImage[];
+}
+export default function PostBy({ images }: IPostByProps) {
+    const { enqueueSnackbar } = useSnackbar();
+
+    const lensAccounts = useLensStateStore.use.accounts();
+    const farcasterAccounts = useFarcasterStateStore.use.accounts();
+    const currentLensAccount = useLensStateStore.use.currentAccount();
+    const currentFarcasterAccount = useFarcasterStateStore.use.currentAccount();
 
     return (
         <Transition
@@ -19,54 +32,97 @@ export default function PostBy() {
             leaveTo="opacity-0 translate-y-1"
         >
             <Popover.Panel className="absolute bottom-full right-0 flex w-[280px] -translate-y-3 flex-col gap-2 rounded-lg bg-white p-3 shadow-popover">
-                <div className=" flex h-[22px] cursor-pointer items-center justify-between">
-                    <div className=" flex items-center gap-2">
-                        <Image src="/svg/gallery.svg" width={22} height={22} alt="gallery" />
-                        <span
-                            className={classNames(' text-sm font-bold text-[#07101B]', !disabled ? ' opacity-50' : '')}
-                        >
-                            @LensA
-                        </span>
-                    </div>
-                    <Image src="/svg/radio.yes.svg" width={16} height={16} alt="radio.yes" />
-                </div>
+                {lensAccounts.length > 0 ? (
+                    lensAccounts.map((account) => (
+                        <Fragment key={account.id}>
+                            <div className={classNames(' flex h-[22px] items-center justify-between')}>
+                                <div className=" flex items-center gap-2">
+                                    <Image src={account.avatar || '/svg/lens.svg'} width={22} height={22} alt="lens" />
+                                    <span className={classNames(' text-sm font-bold text-main')}>
+                                        @{account.handle || account.id}
+                                    </span>
+                                </div>
+                                {currentLensAccount.id === account.id ? (
+                                    <Image src="/svg/radio.yes.svg" width={16} height={16} alt="radio.yes" />
+                                ) : (
+                                    <button className=" text-xs font-bold text-[#246BFD]">
+                                        <Trans>Switch</Trans>
+                                    </button>
+                                )}
+                            </div>
+                            <div className=" h-px bg-[#F2F5F6]" />
+                        </Fragment>
+                    ))
+                ) : (
+                    <Fragment>
+                        <div className=" flex h-[22px] cursor-pointer items-center justify-between">
+                            <div className=" flex items-center gap-2">
+                                <Image src="/svg/lens.svg" width={22} height={22} alt="lens" />
+                                <span className={classNames(' text-sm font-bold text-main')}>Lens</span>
+                            </div>
 
-                <div className=" h-px bg-[#F2F5F6]" />
+                            <button
+                                className=" text-xs font-bold text-[#246BFD]"
+                                onClick={() => LoginModalRef.open({})}
+                            >
+                                <Trans>Log in</Trans>
+                            </button>
+                        </div>
+                        <div className=" h-px bg-[#F2F5F6]" />
+                    </Fragment>
+                )}
 
-                <div
-                    className={classNames(
-                        ' flex h-[22px] items-center justify-between',
-                        disabled ? ' cursor-no-drop' : ' cursor-pointer',
-                    )}
-                >
-                    <div className=" flex items-center gap-2">
-                        <Image src="/svg/gallery.svg" width={22} height={22} alt="gallery" />
-                        <span
-                            className={classNames(' text-sm font-bold text-[#07101B]', disabled ? ' opacity-50' : '')}
-                        >
-                            @LensB
-                        </span>
-                    </div>
-                    <button className=" text-xs font-bold text-[#246BFD]">
-                        <Trans>Switch</Trans>
-                    </button>
-                </div>
+                {farcasterAccounts.length > 0 ? (
+                    farcasterAccounts.map((account, index) => (
+                        <Fragment key={account.id}>
+                            <div className={classNames(' flex h-[22px] items-center justify-between')}>
+                                <div className=" flex items-center gap-2">
+                                    <Image
+                                        src={account.avatar || '/svg/farcaster.svg'}
+                                        width={22}
+                                        height={22}
+                                        alt="farcaster"
+                                    />
+                                    <span className={classNames(' text-sm font-bold text-main')}>
+                                        @{account.handle || account.id}
+                                    </span>
+                                </div>
+                                {currentFarcasterAccount.id === account.id ? (
+                                    <Image src="/svg/radio.yes.svg" width={16} height={16} alt="radio.yes" />
+                                ) : (
+                                    <button className=" text-xs font-bold text-[#246BFD]">
+                                        <Trans>Switch</Trans>
+                                    </button>
+                                )}
+                            </div>
+                            {index !== farcasterAccounts.length - 1 && <div className=" h-px bg-[#F2F5F6]" />}
+                        </Fragment>
+                    ))
+                ) : (
+                    <Fragment>
+                        <div className=" flex h-[22px] cursor-pointer items-center justify-between">
+                            <div className=" flex items-center gap-2">
+                                <Image src="/svg/farcaster.svg" width={22} height={22} alt="farcaster" />
+                                <span className={classNames(' text-sm font-bold text-main')}>Farcaster</span>
+                            </div>
 
-                <div className=" h-px bg-[#F2F5F6]" />
-
-                <div className=" flex h-[22px] cursor-pointer items-center justify-between">
-                    <div className=" flex items-center gap-2">
-                        <Image src="/svg/gallery.svg" width={22} height={22} alt="gallery" />
-                        <span
-                            className={classNames(' text-sm font-bold text-[#07101B]', !disabled ? ' opacity-50' : '')}
-                        >
-                            @FarcasterA
-                        </span>
-                    </div>
-                    <button className=" text-xs font-bold text-[#246BFD]">
-                        <Trans>Log in</Trans>
-                    </button>
-                </div>
+                            <button
+                                className=" text-xs font-bold text-[#246BFD]"
+                                onClick={() => {
+                                    if (images.length >= 2) {
+                                        enqueueSnackbar(t`Select failed: More than 2 images`, {
+                                            variant: 'error',
+                                        });
+                                    } else {
+                                        LoginModalRef.open({});
+                                    }
+                                }}
+                            >
+                                <Trans>Log in</Trans>
+                            </button>
+                        </div>
+                    </Fragment>
+                )}
             </Popover.Panel>
         </Transition>
     );

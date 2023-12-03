@@ -2,11 +2,13 @@ import { Dialog, Transition } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { Fragment, useCallback, useState } from 'react';
 
-import ComposeAction from '@/components/compose/ComposeAction.js';
-import ComposeContent from '@/components/compose/ComposeContent.js';
-import ComposeSend from '@/components/compose/ComposeSend.js';
-import Discard from '@/components/compose/Discard.js';
+import LoadingIcon from '@/assets/loading.svg';
+import ComposeAction from '@/components/Compose/ComposeAction.js';
+import ComposeContent from '@/components/Compose/ComposeContent.js';
+import ComposeSend from '@/components/Compose/ComposeSend.js';
+import Discard from '@/components/Compose/Discard.js';
 import withLexicalContext from '@/components/shared/lexical/withLexicalContext.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
 import type { IPFSResponse } from '@/services/uploadToIPFS.js';
 
 export interface IImage {
@@ -14,15 +16,17 @@ export interface IImage {
     ipfs: IPFSResponse;
 }
 
-interface ComposeProps {
+interface IComposeProps {
     type?: 'compose' | 'quote' | 'reply';
+    post?: Post;
     opened: boolean;
     setOpened: (opened: boolean) => void;
 }
-function Compose({ type = 'compose', opened, setOpened }: ComposeProps) {
+function Compose({ type = 'compose', post, opened, setOpened }: IComposeProps) {
     const [characters, setCharacters] = useState('');
     const [discardOpened, setDiscardOpened] = useState(false);
     const [images, setImages] = useState<IImage[]>([]);
+    const [loading, setLoading] = useState(false);
 
     const close = useCallback(() => {
         if (characters) {
@@ -47,11 +51,11 @@ function Compose({ type = 'compose', opened, setOpened }: ComposeProps) {
                         leaveFrom="opacity-100"
                         leaveTo="opacity-0"
                     >
-                        <div className="fixed inset-0 bg-black/25" />
+                        <div className="fixed inset-0 bg-[#d9d9d9] bg-opacity-30" />
                     </Transition.Child>
 
                     <div className="fixed inset-0 overflow-y-auto">
-                        <div className="flex min-h-full items-center justify-center p-4 text-center">
+                        <div className=" flex min-h-full items-center justify-center p-4 text-center">
                             <Transition.Child
                                 as={Fragment}
                                 enter="ease-out duration-300"
@@ -61,7 +65,14 @@ function Compose({ type = 'compose', opened, setOpened }: ComposeProps) {
                                 leaveFrom="opacity-100 scale-100"
                                 leaveTo="opacity-0 scale-95"
                             >
-                                <Dialog.Panel className="w-[600px] overflow-hidden rounded-xl bg-white transition-all">
+                                <Dialog.Panel className="relative w-[600px] overflow-hidden rounded-xl bg-bgModal shadow-popover transition-all">
+                                    {/* Loading */}
+                                    {loading ? (
+                                        <div className=" absolute bottom-0 left-0 right-0 top-0 z-50 flex items-center justify-center">
+                                            <LoadingIcon className="animate-spin" width={24} height={24} />
+                                        </div>
+                                    ) : null}
+
                                     {/* Title */}
                                     <Dialog.Title as="h3" className=" relative h-14">
                                         <XMarkIcon
@@ -70,7 +81,7 @@ function Compose({ type = 'compose', opened, setOpened }: ComposeProps) {
                                             onClick={close}
                                         />
 
-                                        <span className=" flex h-full w-full items-center justify-center text-lg font-bold capitalize text-[#07101B]">
+                                        <span className=" flex h-full w-full items-center justify-center text-lg font-bold capitalize text-main">
                                             {type}
                                         </span>
                                     </Dialog.Title>
@@ -81,13 +92,26 @@ function Compose({ type = 'compose', opened, setOpened }: ComposeProps) {
                                         setCharacters={setCharacters}
                                         images={images.map((image) => image.file)}
                                         setImages={setImages}
+                                        post={post}
                                     />
 
                                     {/* Action */}
-                                    <ComposeAction type={type} setImages={setImages} />
+                                    <ComposeAction
+                                        type={type}
+                                        images={images}
+                                        setImages={setImages}
+                                        setLoading={setLoading}
+                                    />
 
                                     {/* Send */}
-                                    <ComposeSend characters={characters} images={images} setOpened={setOpened} />
+                                    <ComposeSend
+                                        type={type}
+                                        characters={characters}
+                                        images={images}
+                                        setOpened={setOpened}
+                                        setLoading={setLoading}
+                                        post={post}
+                                    />
                                 </Dialog.Panel>
                             </Transition.Child>
                         </div>

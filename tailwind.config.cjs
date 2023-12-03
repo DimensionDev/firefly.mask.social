@@ -38,6 +38,8 @@ module.exports = {
                 commonDanger: 'var(--m-common-danger)',
                 lightSecond: '#767F8D',
                 lightLineSecond: '#E6E7E8',
+                foreground: 'var(--foreground-rgb)',
+                placeholder: 'var(--plyr-range-fill-background)',
             },
             backgroundImage: {
                 'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
