@@ -70,6 +70,9 @@ msgstr ""
 msgid "Failed to follow"
 msgstr ""
 
+msgid "Replying to @{0} on Lens"
+msgstr ""
+
 msgid "Casts"
 msgstr ""
 
@@ -143,6 +146,9 @@ msgid "Failed to fetch as Text."
 msgstr ""
 
 msgid "Add an existing account"
+msgstr ""
+
+msgid "{0}"
 msgstr ""
 
 msgid "Send"
@@ -262,6 +268,12 @@ msgstr ""
 msgid "Share"
 msgstr ""
 
+msgid "Select failed: More than 2 images"
+msgstr ""
+
+msgid "Failed to post on Lens"
+msgstr ""
+
 msgid "Visit mask.io"
 msgstr ""
 
@@ -275,6 +287,9 @@ msgid "Sign"
 msgstr ""
 
 msgid "Follow @thefireflyapp on X"
+msgstr ""
+
+msgid "Posted on Lens"
 msgstr ""
 
 msgid "Mirrored"
@@ -293,6 +308,9 @@ msgid "Allow Lens Manager to perform actions such as posting, liking, and commen
 msgstr ""
 
 msgid "<0>{0}</0> mirrored"
+msgstr ""
+
+msgid "Failed to quote on Lens"
 msgstr ""
 
 msgid "quote"
@@ -317,6 +335,9 @@ msgid "Missing client."
 msgstr ""
 
 msgid "No Lens profile found. Please change another wallet"
+msgstr ""
+
+msgid "Quote on Lens"
 msgstr ""
 
 msgid "Delegate Signing (Recommend)"
