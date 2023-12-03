@@ -54,10 +54,8 @@ export const FeedActionType = memo<FeedActionType>(function FeedActionType({ pos
                 </div>
             ) : null}
 
-            <>
-                {showThread && post.root ? <ThreadBody post={post.root} /> : null}
-                {showThread && post.commentOn ? <ThreadBody post={post.commentOn} /> : null}
-            </>
+            {showThread && post.root ? <ThreadBody post={post.root} /> : null}
+            {showThread && post.commentOn ? <ThreadBody post={post.commentOn} /> : null}
         </div>
     );
 });
