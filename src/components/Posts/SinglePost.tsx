@@ -5,8 +5,6 @@ import { memo } from 'react';
 
 import { FeedActionType } from '@/components/Posts/ActionType.js';
 import { dynamic } from '@/esm/dynamic.js';
-import { Link } from '@/esm/Link.js';
-import { getPostDetailUrl } from '@/helpers/getPostDetailUrl.js';
 import { useObserveLensPost } from '@/hooks/useObserveLensPost.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
@@ -33,16 +31,14 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
             initial={!disableAnimate ? { opacity: 0 } : false}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="cursor-pointer border-b border-secondaryLine bg-bottom px-4 py-3 hover:bg-bg"
+            className="order-b border-secondaryLine bg-bottom px-4 py-3 hover:bg-bg"
         >
             <FeedActionType post={post} />
-            <Link href={getPostDetailUrl(post.postId, post.source)}>
-                <PostHeader post={post} />
+            <PostHeader post={post} />
 
-                <PostBody post={post} showMore={showMore} ref={observe} />
+            <PostBody post={post} showMore={showMore} ref={observe} />
 
-                <PostActions post={post} disabled={post.isHidden} />
-            </Link>
+            <PostActions post={post} disabled={post.isHidden} />
         </motion.article>
     );
 });
