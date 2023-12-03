@@ -86,114 +86,121 @@ export const SearchBar = memo(function SearchBar(props: SearchBarProps) {
     if (props.source === 'secondary' && isSearchPage) return null;
 
     return (
-        <div className=" relative mt-5 flex items-center rounded-xl bg-lightBg px-3 text-main">
-            <SearchIcon width={18} height={18} />
-            <form className="w-full flex-1" onSubmit={handleSubmit}>
-                <label className="flex w-full items-center" htmlFor="search">
-                    <input
-                        type="search"
-                        name="searchText"
-                        id="searchText"
-                        value={searchText}
-                        className=" w-full border-0 bg-transparent py-2 text-[10px] placeholder-secondary focus:border-0 focus:outline-0 focus:ring-0 sm:text-sm sm:leading-6"
-                        placeholder={t`Search…`}
-                        onChange={handleInputChange}
-                    />
-                    <CloseIcon
-                        className={classNames('cursor-pointer', searchText ? 'visible' : 'invisible')}
-                        width={16}
-                        height={16}
-                        onClick={(evt) => {
-                            evt.preventDefault();
-                            evt.stopPropagation();
-                            setSearchText('');
-                        }}
-                    />
-                </label>
-            </form>
-            {!isSearchPage && searchText.length > 0 ? (
-                <div
-                    className="bg-wite absolute inset-x-0 top-[40px] z-[1000] mt-2 flex w-full flex-col dark:bg-black"
-                    ref={dropdownRef}
-                >
-                    <div className=" rounded-2xl bg-lightBg">
-                        <h2 className=" p-3 pb-2 text-xs">
-                            {currentSocialPlatform === SocialPlatform.Lens ? (
-                                <Trans>Publications</Trans>
-                            ) : currentSocialPlatform === SocialPlatform.Farcaster ? (
-                                <Trans>Casts</Trans>
-                            ) : (
-                                <Trans>Posts</Trans>
-                            )}
-                        </h2>
+        <div
+            className={classNames('px-4 pt-5', {
+                'px-0': props.source === 'secondary',
+                'pb-5': props.source === 'secondary',
+            })}
+        >
+            <div className="relative flex items-center rounded-xl bg-lightBg px-3 text-main">
+                <SearchIcon width={18} height={18} />
+                <form className="w-full flex-1" onSubmit={handleSubmit}>
+                    <label className="flex w-full items-center" htmlFor="search">
+                        <input
+                            type="search"
+                            name="searchText"
+                            id="searchText"
+                            value={searchText}
+                            className=" w-full border-0 bg-transparent py-2 text-[10px] placeholder-secondary focus:border-0 focus:outline-0 focus:ring-0 sm:text-sm sm:leading-6"
+                            placeholder={t`Search…`}
+                            onChange={handleInputChange}
+                        />
+                        <CloseIcon
+                            className={classNames('cursor-pointer', searchText ? 'visible' : 'invisible')}
+                            width={16}
+                            height={16}
+                            onClick={(evt) => {
+                                evt.preventDefault();
+                                evt.stopPropagation();
+                                setSearchText('');
+                            }}
+                        />
+                    </label>
+                </form>
+                {!isSearchPage && searchText.length > 0 ? (
+                    <div
+                        className="bg-wite absolute inset-x-0 top-[40px] z-[1000] mt-2 flex w-full flex-col dark:bg-black"
+                        ref={dropdownRef}
+                    >
+                        <div className=" rounded-2xl bg-lightBg">
+                            <h2 className=" p-3 pb-2 text-xs">
+                                {currentSocialPlatform === SocialPlatform.Lens ? (
+                                    <Trans>Publications</Trans>
+                                ) : currentSocialPlatform === SocialPlatform.Farcaster ? (
+                                    <Trans>Casts</Trans>
+                                ) : (
+                                    <Trans>Posts</Trans>
+                                )}
+                            </h2>
 
-                        <div
-                            className=" flex cursor-pointer items-center px-4 py-4 text-left hover:bg-bg"
-                            // @ts-ignore
-                            onClick={handleSubmit}
-                        >
-                            <SearchIcon className=" ml-1" width={18} height={18} />
-                            <span className=" ml-5">{searchText}</span>
-                        </div>
-
-                        {isLoading || profiles?.data ? (
-                            <>
-                                <hr className=" border-b border-t-0 border-line" />
-                                <h2 className=" p-3 pb-2 text-xs">
-                                    <Trans>Profiles</Trans>
-                                </h2>
-                            </>
-                        ) : null}
-
-                        {isLoading ? (
-                            <div className="flex flex-col items-center space-y-2 px-4 pb-5 pt-2 text-center text-sm font-bold">
-                                <LoadingIcon className="animate-spin" width={24} height={24} />
-                                <div className="text-bold">{t`Searching users`}</div>
+                            <div
+                                className=" flex cursor-pointer items-center px-4 py-4 text-left hover:bg-bg"
+                                // @ts-ignore
+                                onClick={handleSubmit}
+                            >
+                                <SearchIcon className=" ml-1" width={18} height={18} />
+                                <span className=" ml-5">{searchText}</span>
                             </div>
-                        ) : profiles?.data.length === 0 ? (
-                            <div className="space-y-2 px-4 py-4 text-center text-sm font-bold">
-                                <div className="text-bold">{t`No matching users`}</div>
-                            </div>
-                        ) : profiles?.data.length ? (
-                            <div className="cursor-pointer py-2">
-                                {profiles?.data.slice(0, 10).map((user) => (
-                                    <div
-                                        key={user.handle}
-                                        className="space-y-2 px-4 py-2 text-center text-sm font-bold hover:bg-bg"
-                                        onClick={(evt) => {
-                                            router.push(`/profile/${user.handle}`);
-                                            setSearchText('');
-                                        }}
-                                    >
-                                        <div className="flex flex-row items-center">
-                                            <Image
-                                                className="mr-[10px] h-10 w-10 rounded-full"
-                                                loading="lazy"
-                                                src={user.pfp}
-                                                fallback={
-                                                    isDarkMode
-                                                        ? '/image/firefly-dark-avatar.png'
-                                                        : '/image/firefly-light-avatar.png'
-                                                }
-                                                width={40}
-                                                height={40}
-                                                alt={user.displayName}
-                                            />
-                                            <div className="flex-1 text-left">
-                                                <div className="flex">
-                                                    <span className="mr-1">{user.displayName}</span>
-                                                    <SourceIcon source={user.source} />
+
+                            {isLoading || profiles?.data ? (
+                                <>
+                                    <hr className=" border-b border-t-0 border-line" />
+                                    <h2 className=" p-3 pb-2 text-xs">
+                                        <Trans>Profiles</Trans>
+                                    </h2>
+                                </>
+                            ) : null}
+
+                            {isLoading ? (
+                                <div className="flex flex-col items-center space-y-2 px-4 pb-5 pt-2 text-center text-sm font-bold">
+                                    <LoadingIcon className="animate-spin" width={24} height={24} />
+                                    <div className="text-bold">{t`Searching users`}</div>
+                                </div>
+                            ) : profiles?.data.length === 0 ? (
+                                <div className="space-y-2 px-4 py-4 text-center text-sm font-bold">
+                                    <div className="text-bold">{t`No matching users`}</div>
+                                </div>
+                            ) : profiles?.data.length ? (
+                                <div className="cursor-pointer py-2">
+                                    {profiles?.data.slice(0, 10).map((user) => (
+                                        <div
+                                            key={user.handle}
+                                            className="space-y-2 px-4 py-2 text-center text-sm font-bold hover:bg-bg"
+                                            onClick={(evt) => {
+                                                router.push(`/profile/${user.handle}`);
+                                                setSearchText('');
+                                            }}
+                                        >
+                                            <div className="flex flex-row items-center">
+                                                <Image
+                                                    className="mr-[10px] h-10 w-10 rounded-full"
+                                                    loading="lazy"
+                                                    src={user.pfp}
+                                                    fallback={
+                                                        isDarkMode
+                                                            ? '/image/firefly-dark-avatar.png'
+                                                            : '/image/firefly-light-avatar.png'
+                                                    }
+                                                    width={40}
+                                                    height={40}
+                                                    alt={user.displayName}
+                                                />
+                                                <div className="flex-1 text-left">
+                                                    <div className="flex">
+                                                        <span className="mr-1">{user.displayName}</span>
+                                                        <SourceIcon source={user.source} />
+                                                    </div>
+                                                    <div className=" font-normal text-secondary">@{user.handle}</div>
                                                 </div>
-                                                <div className=" font-normal text-secondary">@{user.handle}</div>
                                             </div>
                                         </div>
-                                    </div>
-                                ))}
-                            </div>
-                        ) : null}
+                                    ))}
+                                </div>
+                            ) : null}
+                        </div>
                     </div>
-                </div>
-            ) : null}
+                ) : null}
+            </div>
         </div>
     );
 });
