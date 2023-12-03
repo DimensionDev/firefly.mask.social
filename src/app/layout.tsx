@@ -1,5 +1,6 @@
 import './globals.css';
 
+import dynamic from 'next/dynamic.js';
 import { ScrollRestorer } from 'next-scroll-restorer';
 
 import { Providers } from '@/app/provider.js';
@@ -14,6 +15,9 @@ import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { Modals } from '@/modals/index.js';
 
 export const metadata = createSiteMetadata();
+
+// @ts-ignore
+const PageInspectorRender = dynamic(() => import('@/main/page-render.js'), { ssr: false });
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
     return (
@@ -45,6 +49,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                         </aside>
                     </div>
                     <Modals />
+                    <PageInspectorRender />
                 </Providers>
                 <GA />
             </body>

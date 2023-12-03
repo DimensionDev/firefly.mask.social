@@ -61,16 +61,16 @@ export default function ContentCollected() {
 
     return (
         <div>
-            {results.map((x) => (
-                <SinglePost post={x} key={x.postId} showMore />
-            ))}
+            {results.length ? (
+                results.map((x) => <SinglePost post={x} key={x.postId} showMore />)
+            ) : (
+                <NoResultsFallback />
+            )}
             {hasNextPage && results.length > 0 ? (
                 <div className="flex items-center justify-center p-2" ref={observe}>
                     <LoadingIcon width={16} height={16} className="animate-spin" />
                 </div>
             ) : null}
-
-            {results.length === 0 && <NoResultsFallback />}
         </div>
     );
 }
