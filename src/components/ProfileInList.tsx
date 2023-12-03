@@ -1,11 +1,10 @@
 import { useRouter } from 'next/navigation.js';
-import { useDarkMode } from 'usehooks-ts';
 
 import FollowButton from '@/app/profile/components/FollowButton.js';
 import { Image } from '@/components/Image.js';
 import { SourceIcon } from '@/components/SourceIcon.js';
+import { useDarkMode } from '@/hooks/useDarkMode.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
-import { useSearchStore } from '@/store/useSearchStore.js';
 
 interface ProfileInListProps {
     profile: Profile;
@@ -17,14 +16,12 @@ export function ProfileInList(props: ProfileInListProps) {
 
     const router = useRouter();
     const { isDarkMode } = useDarkMode();
-    const { updateSearchText } = useSearchStore();
 
     return (
         <div
             className="flex-start flex cursor-pointer px-4 py-6 hover:bg-bg"
             onClick={(evt) => {
                 router.push(`/profile/${profile.handle}`);
-                updateSearchText('');
             }}
         >
             <div className="flex-start flex flex-1">

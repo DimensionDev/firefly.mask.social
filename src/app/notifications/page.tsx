@@ -6,6 +6,7 @@ import { useMemo } from 'react';
 import { useInView } from 'react-cool-inview';
 
 import LoadingIcon from '@/assets/loading.svg';
+import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { NotificationItem } from '@/components/Notification/NotificationItem.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { SocialPlatform } from '@/constants/enum.js';
@@ -54,9 +55,11 @@ export default function Notification() {
 
     return (
         <div>
-            {results.map((notification, index) => (
-                <NotificationItem key={index} notification={notification} />
-            ))}
+            {results.length ? (
+                results.map((notification, index) => <NotificationItem key={index} notification={notification} />)
+            ) : (
+                <NoResultsFallback />
+            )}
             {hasNextPage && results.length ? (
                 <div className="flex items-center justify-center p-2" ref={observe}>
                     <LoadingIcon width={16} height={16} className="animate-spin" />

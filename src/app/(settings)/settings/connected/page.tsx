@@ -75,7 +75,7 @@ export default function Connected() {
             <div className="flex items-center gap-[16px]">
                 <button className="inline-flex h-10 w-[200px] flex-col items-center justify-center">
                     <div className="inline-flex h-10 items-center justify-center gap-2 self-stretch rounded-2xl bg-lightMain px-[18px] py-[11px]">
-                        <div className="font-['Helvetica'] text-sm font-bold leading-[18px] text-white">
+                        <div className="text-sm font-bold leading-[18px] text-primaryBottom">
                             <Trans>Add an existing account</Trans>
                         </div>
                     </div>
@@ -88,7 +88,7 @@ export default function Connected() {
                     }}
                 >
                     <div className="inline-flex h-10 items-center justify-center gap-2 self-stretch rounded-2xl bg-[#FF3545] px-[18px] py-[11px]">
-                        <div className="font-['Helvetica'] text-sm font-bold leading-[18px] text-white">
+                        <div className="text-sm font-bold leading-[18px] text-lightMain">
                             <Trans>Log out all</Trans>
                         </div>
                     </div>

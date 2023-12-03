@@ -55,7 +55,7 @@ msgstr ""
 msgid "Searching users"
 msgstr ""
 
-msgid "No results for {searchText}"
+msgid "Join our Discord"
 msgstr ""
 
 msgid "Change Wallet"
@@ -112,7 +112,13 @@ msgstr ""
 msgid "Follow System"
 msgstr ""
 
+msgid "No results"
+msgstr ""
+
 msgid "On your mobile device with Warpcast, open the Camera app and scan the QR code"
+msgstr ""
+
+msgid "Join our Telegram"
 msgstr ""
 
 msgid "Sign the transaction to verify you are the owner of the selected profile"
@@ -199,6 +205,9 @@ msgstr ""
 msgid "Reply Restriction"
 msgstr ""
 
+msgid "Visit firefly.land"
+msgstr ""
+
 msgid "Post your reply"
 msgstr ""
 
@@ -244,6 +253,9 @@ msgstr ""
 msgid "Share"
 msgstr ""
 
+msgid "Visit mask.io"
+msgstr ""
+
 msgid "Connected in Firefly"
 msgstr ""
 
@@ -263,6 +275,9 @@ msgid "{0, select, follow {Follow} unfollow {UnFollow} other {Follow}}"
 msgstr ""
 
 msgid "Associated Wallets"
+msgstr ""
+
+msgid "Follow @realMaskNetwork on X"
 msgstr ""
 
 msgid "Allow Lens Manager to perform actions such as posting, liking, and commenting without the need to sign each transaction"
@@ -332,6 +347,9 @@ msgid "Your Lens account is now connected"
 msgstr ""
 
 msgid "Log in"
+msgstr ""
+
+msgid "Mask Network"
 msgstr ""
 
 msgid "{0, plural, one {<0>{firstMirrorName}</0>} other {<1>{firstMirrorName}</1> and # others mirrored you}} <2><3/></2>"

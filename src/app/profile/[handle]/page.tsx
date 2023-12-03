@@ -7,7 +7,7 @@ import { useDocumentTitle } from 'usehooks-ts';
 import ContentTabs from '@/app/profile/components/ContentTabs.js';
 import Info from '@/app/profile/components/Info.js';
 import Title from '@/app/profile/components/Title.js';
-import { createPageTitle } from '@/helpers/createSiteTitle.js';
+import { createPageTitle } from '@/helpers/createPageTitle.js';
 import { useLogin } from '@/hooks/useLogin.js';
 import { usePlatformAccount } from '@/hooks/usePlatformAccount.js';
 import { LensSocialMedia } from '@/providers/lens/SocialMedia.js';
@@ -46,7 +46,7 @@ export default function Profile({ params: { handle } }: ProfileProps) {
         <div>
             {!isMyProfile ? <Title profile={profile} isMyProfile={isMyProfile} /> : null}
 
-            <Info handle={handle} profile={profile} isMyProfile={isMyProfile} />
+            <Info profile={profile} isMyProfile={isMyProfile} />
 
             <ContentTabs />
         </div>

@@ -55,8 +55,8 @@ msgstr "<0>{0}</0> commented your <1><2/></1>"
 msgid "Searching users"
 msgstr "Searching users"
 
-msgid "No results for {searchText}"
-msgstr "No results for {searchText}"
+msgid "Join our Discord"
+msgstr "Join our Discord"
 
 msgid "Change Wallet"
 msgstr "Change Wallet"
@@ -112,8 +112,14 @@ msgstr "No content URI found"
 msgid "Follow System"
 msgstr "Follow System"
 
+msgid "No results"
+msgstr "No results"
+
 msgid "On your mobile device with Warpcast, open the Camera app and scan the QR code"
 msgstr "On your mobile device with Warpcast, open the Camera app and scan the QR code"
+
+msgid "Join our Telegram"
+msgstr "Join our Telegram"
 
 msgid "Sign the transaction to verify you are the owner of the selected profile"
 msgstr "Sign the transaction to verify you are the owner of the selected profile"
@@ -199,6 +205,9 @@ msgstr "Lens"
 msgid "Reply Restriction"
 msgstr "Reply Restriction"
 
+msgid "Visit firefly.land"
+msgstr "Visit firefly.land"
+
 msgid "Post your reply"
 msgstr "Post your reply"
 
@@ -244,6 +253,9 @@ msgstr "Failed to parse session."
 msgid "Share"
 msgstr "Share"
 
+msgid "Visit mask.io"
+msgstr "Visit mask.io"
+
 msgid "Connected in Firefly"
 msgstr "Connected in Firefly"
 
@@ -264,6 +276,9 @@ msgstr "{0, select, follow {Follow} unfollow {UnFollow} other {Follow}}"
 
 msgid "Associated Wallets"
 msgstr "Associated Wallets"
+
+msgid "Follow @realMaskNetwork on X"
+msgstr "Follow @realMaskNetwork on X"
 
 msgid "Allow Lens Manager to perform actions such as posting, liking, and commenting without the need to sign each transaction"
 msgstr "Allow Lens Manager to perform actions such as posting, liking, and commenting without the need to sign each transaction"
@@ -333,6 +348,9 @@ msgstr "Your Lens account is now connected"
 
 msgid "Log in"
 msgstr "Log in"
+
+msgid "Mask Network"
+msgstr "Mask Network"
 
 msgid "{0, plural, one {<0>{firstMirrorName}</0>} other {<1>{firstMirrorName}</1> and # others mirrored you}} <2><3/></2>"
 msgstr "{0, plural, one {<0>{firstMirrorName}</0>} other {<1>{firstMirrorName}</1> and # others mirrored you}} <2><3/></2>"

@@ -92,16 +92,26 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps>>(
                                     className="inline-flex h-[56px] w-[600px] items-center justify-center gap-2 rounded-t-[12px] p-4"
                                     style={{ background: 'var(--m-modal-title-bg)' }}
                                 >
-                                    <button onClick={() => dispatch?.close()}>
+                                    <button
+                                        onClick={() => {
+                                            current === SocialPlatform.Farcaster
+                                                ? setCurrent(undefined)
+                                                : dispatch?.close();
+                                        }}
+                                    >
                                         <Image
                                             className="relative h-[24px] w-[24px]"
-                                            src="/svg/close.svg"
+                                            src={
+                                                current === SocialPlatform.Farcaster
+                                                    ? '/svg/leftArrow.svg'
+                                                    : '/svg/close.svg'
+                                            }
                                             alt="close"
                                             width={24}
                                             height={24}
                                         />
                                     </button>
-                                    <div className="shrink grow basis-0 text-center font-['Helvetica'] text-lg font-bold leading-snug text-main">
+                                    <div className="shrink grow basis-0 text-center text-lg font-bold leading-snug text-main">
                                         {title}
                                     </div>
                                     <div className="relative h-[24px] w-[24px]" />
@@ -136,7 +146,7 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps>>(
                                                             alt="lens"
                                                         />
                                                     </div>
-                                                    <div className="font-['Helvetica'] text-sm font-bold leading-[18px] text-lightSecond group-hover:text-lightMain">
+                                                    <div className="text-sm font-bold leading-[18px] text-lightSecond group-hover:text-lightMain">
                                                         Lens
                                                     </div>
                                                 </div>
@@ -157,7 +167,7 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps>>(
                                                             alt="lens"
                                                         />
                                                     </div>
-                                                    <div className="font-['Helvetica'] text-sm font-bold leading-[18px] text-lightSecond group-hover:text-lightMain">
+                                                    <div className="text-sm font-bold leading-[18px] text-lightSecond group-hover:text-lightMain">
                                                         Farcaster
                                                     </div>
                                                 </div>
