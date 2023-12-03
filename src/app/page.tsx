@@ -5,6 +5,7 @@ import { useMemo } from 'react';
 import { useInView } from 'react-cool-inview';
 
 import LoadingIcon from '@/assets/loading.svg';
+import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { SinglePost } from '@/components/Posts/SinglePost.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
@@ -52,9 +53,11 @@ export default function Home() {
 
     return (
         <div>
-            {results.map((x) => (
-                <SinglePost post={x} key={x.postId} showMore />
-            ))}
+            {results.length ? (
+                results.map((x) => <SinglePost post={x} key={x.postId} showMore />)
+            ) : (
+                <NoResultsFallback />
+            )}
             {hasNextPage && results.length ? (
                 <div className="flex items-center justify-center p-2" ref={observe}>
                     <LoadingIcon width={16} height={16} className="animate-spin" />
