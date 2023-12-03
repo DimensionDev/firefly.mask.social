@@ -2,6 +2,7 @@
 
 import { Trans } from '@lingui/macro';
 import dynamic from 'next/dynamic.js';
+import { Link } from 'next/link.js';
 import { useRouter } from 'next/navigation.js';
 import { forwardRef } from 'react';
 import urlcat from 'urlcat';
@@ -14,6 +15,7 @@ import { Attachments } from '@/components/Posts/Attachment.js';
 import { DecryptPost } from '@/components/Posts/DecryptPost.js';
 import { Quote } from '@/components/Posts/Quote.js';
 import { classNames } from '@/helpers/classNames.js';
+import { getPostDetailUrl } from '@/helpers/getPostDetailUrl.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 // @ts-ignore
@@ -38,6 +40,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
         (post.metadata.content?.attachments && post.metadata.content?.attachments?.length > 0) ||
         post.metadata.content?.asset
     );
+    const postLink = getPostDetailUrl(post.postId, post.source);
 
     if (post.isEncrypted) {
         return (
@@ -47,14 +50,16 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
                 })}
                 ref={ref}
             >
-                <div
-                    className={classNames('flex items-center gap-1 rounded-lg border-primaryMain px-3 py-[6px]', {
-                        border: !isQuote,
-                    })}
-                >
-                    <Lock width={16} height={16} />
-                    <Trans>Post has been encrypted</Trans>
-                </div>
+                <Link href={postLink}>
+                    <div
+                        className={classNames('flex items-center gap-1 rounded-lg border-primaryMain px-3 py-[6px]', {
+                            border: !isQuote,
+                        })}
+                    >
+                        <Lock width={16} height={16} />
+                        <Trans>Post has been encrypted</Trans>
+                    </div>
+                </Link>
             </div>
         );
     }
@@ -66,14 +71,16 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
             })}
             ref={ref}
         >
-            <div
-                className={classNames('flex items-center gap-1 rounded-lg border-primaryMain px-3 py-[6px]', {
-                    border: !isQuote,
-                })}
-            >
-                <EyeSlash width={16} height={16} />
-                <Trans>Post has been hidden</Trans>
-            </div>
+            <Link href={postLink}>
+                <div
+                    className={classNames('flex items-center gap-1 rounded-lg border-primaryMain px-3 py-[6px]', {
+                        border: !isQuote,
+                    })}
+                >
+                    <EyeSlash width={16} height={16} />
+                    <Trans>Post has been hidden</Trans>
+                </div>
+            </Link>
         </div>;
     }
 
@@ -103,11 +110,16 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
         >
             <MaskRuntime>
                 <DecryptPost raw={post.metadata.content?.content || ''} post={post}>
-                    <Markup
-                        className={classNames({ 'line-clamp-5': canShowMore }, 'markup linkify text-md break-words')}
-                    >
-                        {post.metadata.content?.content || ''}
-                    </Markup>
+                    <a href={postLink}>
+                        <Markup
+                            className={classNames(
+                                { 'line-clamp-5': canShowMore },
+                                'markup linkify text-md break-words',
+                            )}
+                        >
+                            {post.metadata.content?.content || ''}
+                        </Markup>
+                    </a>
                 </DecryptPost>
             </MaskRuntime>
 
