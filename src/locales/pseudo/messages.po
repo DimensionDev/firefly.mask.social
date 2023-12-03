@@ -238,9 +238,6 @@ msgstr ""
 msgid "Like"
 msgstr ""
 
-msgid "{tabName}"
-msgstr ""
-
 msgid "<0>{0}</0> quoted your <1><2/></1>"
 msgstr ""
 
