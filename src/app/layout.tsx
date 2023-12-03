@@ -31,7 +31,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                         <SideBar />
 
                         <main className="max-w-[888px] flex-1 border-r border-line pl-72">
-                            <div className="sticky px-4">
+                            <div className="sticky top-0 z-[998] bg-white dark:bg-black">
                                 <SearchBar source="header" />
 
                                 <SocialPlatformTabs />
@@ -40,12 +40,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                             {children}
                         </main>
 
-                        <aside className=" hidden w-96 overflow-y-auto px-4 lg:block">
+                        <aside className=" w-96 px-4 lg:block">
+                            <div className="sticky top-0 z-[998] bg-white dark:bg-black">
+                                <SearchBar source="secondary" />
+                            </div>
+
                             <SearchFilter />
 
-                            <SearchBar source="secondary" />
-
-                            <CalendarWidget className="mt-4" />
+                            <CalendarWidget />
                         </aside>
                     </div>
                     <Modals />
