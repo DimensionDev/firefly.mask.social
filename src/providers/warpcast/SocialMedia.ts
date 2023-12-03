@@ -94,6 +94,20 @@ export class WarpcastSocialMedia implements Provider {
         return createPageable(data, indicator ?? createIndicator(), createNextIndicator(indicator, next.cursor));
     }
 
+    async getPostsByProfileId(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        const url = urlcat(WARPCAST_ROOT_URL, '/casts', {
+            fid: profileId,
+            limit: 10,
+            cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
+        });
+
+        const { result, next } = await this.fetchWithSession<FeedResponse>(url, {
+            method: 'GET',
+        });
+        const data = result.feed.map(formatWarpcastPostFromFeed);
+        return createPageable(data, indicator ?? createIndicator(), createNextIndicator(indicator, next.cursor));
+    }
+
     async getPostById(postId: string): Promise<Post> {
         throw new Error('Method not implemented.');
     }

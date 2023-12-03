@@ -106,6 +106,9 @@ msgstr ""
 msgid "Connect Wallet"
 msgstr ""
 
+msgid "Feed"
+msgstr ""
+
 msgid "No content URI found"
 msgstr ""
 
@@ -140,6 +143,9 @@ msgid "Add an existing account"
 msgstr ""
 
 msgid "Send"
+msgstr ""
+
+msgid "Collected"
 msgstr ""
 
 msgid "Connect to {platform}"
