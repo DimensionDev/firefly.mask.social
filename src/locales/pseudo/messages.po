@@ -13,6 +13,9 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
+msgid "This Account doesn't exist"
+msgstr ""
+
 msgid "Quote Post"
 msgstr ""
 
