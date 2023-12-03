@@ -1,54 +1,23 @@
 'use client';
 
-import { useQuery } from '@tanstack/react-query';
-import { useMemo } from 'react';
-import { useDocumentTitle } from 'usehooks-ts';
-
-import ContentTabs from '@/app/profile/components/ContentTabs.js';
-import Info from '@/app/profile/components/Info.js';
-import Title from '@/app/profile/components/Title.js';
-import { createPageTitle } from '@/helpers/createPageTitle.js';
-import { useLogin } from '@/hooks/useLogin.js';
-import { usePlatformAccount } from '@/hooks/usePlatformAccount.js';
-import { LensSocialMedia } from '@/providers/lens/SocialMedia.js';
-import type { Profile } from '@/providers/types/SocialMedia.js';
-
-const lensClient = new LensSocialMedia();
+import FarcasterProfile from '@/app/profile/components/FarcasterProfile.js';
+import LensProfile from '@/app/profile/components/LensProfile.js';
+import { SocialPlatform } from '@/constants/enum.js';
+import { useGlobalState } from '@/store/useGlobalStore.js';
 
 interface ProfileProps {
     params: { handle: string };
 }
 export default function Profile({ params: { handle } }: ProfileProps) {
-    const { data: profile } = useQuery({
-        queryKey: ['profile', handle],
-        queryFn: () => lensClient.getProfileByHandle(`lens/${handle}`),
-    });
+    const currentSocialPlatform = useGlobalState.use.currentSocialPlatform();
 
-    const isLogin = useLogin();
+    if (currentSocialPlatform === SocialPlatform.Lens) {
+        return <LensProfile handle={handle} />;
+    }
 
-    const platformAccount = usePlatformAccount();
+    if (currentSocialPlatform === SocialPlatform.Farcaster) {
+        return <FarcasterProfile id={handle} />;
+    }
 
-    const isMyProfile = useMemo(
-        () => !!isLogin && platformAccount.lens?.handle === handle,
-        [handle, isLogin, platformAccount.lens?.handle],
-    );
-
-    const title = useMemo(() => {
-        if (!profile) return '';
-        const fragments = [profile.displayName];
-        if (profile.handle) fragments.push(`(@${profile.handle})`);
-        return createPageTitle(fragments.join(' '));
-    }, [profile]);
-
-    useDocumentTitle(title);
-
-    return (
-        <div>
-            {!isMyProfile ? <Title profile={profile} isMyProfile={isMyProfile} /> : null}
-
-            <Info profile={profile} isMyProfile={isMyProfile} />
-
-            <ContentTabs />
-        </div>
-    );
+    return null;
 }

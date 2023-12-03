@@ -1,3 +1,4 @@
+import { Trans } from '@lingui/macro';
 import { useState } from 'react';
 
 import ContentCollected from '@/app/profile/components/ContentCollected.js';
@@ -24,7 +25,7 @@ export default function ContentTabs() {
                             )}
                             onClick={() => setTab(tabName)}
                         >
-                            {tabName}
+                            <Trans>{tabName}</Trans>
                         </button>
                         <span
                             className={classNames(
