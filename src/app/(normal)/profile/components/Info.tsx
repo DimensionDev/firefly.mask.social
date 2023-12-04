@@ -1,7 +1,7 @@
 import { Trans } from '@lingui/macro';
 
-import FollowButton from '@/app/profile/components/FollowButton.js';
-import { PlatformIcon } from '@/app/profile/components/PlatformIcon.js';
+import FollowButton from '@/app/(normal)/profile/components/FollowButton.js';
+import { PlatformIcon } from '@/app/(normal)/profile/components/PlatformIcon.js';
 import { Image } from '@/esm/Image.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';

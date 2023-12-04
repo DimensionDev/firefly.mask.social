@@ -2,7 +2,7 @@ import { useMotionValueEvent, useScroll } from 'framer-motion';
 import { useRouter } from 'next/navigation.js';
 import { useState } from 'react';
 
-import FollowButton from '@/app/profile/components/FollowButton.js';
+import FollowButton from '@/app/(normal)/profile/components/FollowButton.jsx';
 import ComeBackIcon from '@/assets/comeback.svg';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 

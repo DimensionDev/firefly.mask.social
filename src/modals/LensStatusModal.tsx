@@ -4,7 +4,7 @@ import { Dialog, Transition } from '@headlessui/react';
 import { Trans } from '@lingui/macro';
 import { forwardRef, Fragment } from 'react';
 
-import { PlatformIcon } from '@/app/profile/components/PlatformIcon.js';
+import { PlatformIcon } from '@/app/(normal)/profile/components/PlatformIcon.js';
 import LogOutIcon from '@/assets/logout.svg';
 import UserAddIcon from '@/assets/user-add.svg';
 import { SocialPlatform } from '@/constants/enum.js';

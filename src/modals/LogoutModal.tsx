@@ -6,7 +6,7 @@ import { safeUnreachable } from '@masknet/kit';
 import type { SingletonModalRefCreator } from '@masknet/shared-base';
 import { forwardRef, Fragment, useMemo, useState } from 'react';
 
-import { PlatformIcon } from '@/app/profile/components/PlatformIcon.js';
+import { PlatformIcon } from '@/app/(normal)/profile/components/PlatformIcon.js';
 import CloseIcon from '@/assets/close.svg';
 import { SocialPlatform } from '@/constants/enum.js';
 import { Image } from '@/esm/Image.js';
@@ -36,8 +36,8 @@ export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps>
             !props.platform
                 ? lensAccounts.concat(farcasterAccounts)
                 : props.platform === SocialPlatform.Lens
-                  ? lensAccounts
-                  : farcasterAccounts,
+                    ? lensAccounts
+                    : farcasterAccounts,
         [lensAccounts, farcasterAccounts, props.platform],
     );
 
