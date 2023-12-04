@@ -114,7 +114,9 @@ export class WarpcastSocialMedia implements Provider {
 
     async getProfileById(profileId: string) {
         const url = urlcat(WARPCAST_ROOT_URL, '/user', { fid: profileId });
-        const { result: user } = await this.fetchWithSession<UserResponse>(url, {
+        const {
+            result: { user },
+        } = await this.fetchWithSession<UserResponse>(url, {
             method: 'GET',
         });
 

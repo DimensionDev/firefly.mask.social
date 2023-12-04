@@ -37,7 +37,7 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({ post, isQu
                 <div className="flex max-w-sm items-center">
                     <div className="flex items-center space-x-2">
                         <span className="block text-sm font-bold leading-5">{post.author.displayName}</span>
-                        <span className="text-sm leading-6 text-secondary">@{post.author.displayName}</span>
+                        <span className="text-sm leading-6 text-secondary">@{post.author.handle}</span>
                     </div>
                 </div>
             </div>

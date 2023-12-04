@@ -341,6 +341,12 @@ export interface Provider {
     getPostById: (postId: string) => Promise<Post>;
 
     /**
+     * Retrieves comments by post ID.
+     * @param postId The ID of the post to retrieve.
+     * @returns A promise that resolves to Comments list.
+     */
+    getCommentsById: (postId: string, indicator?: PageIndicator) => Promise<Pageable<Post, PageIndicator>>;
+    /**
      * Retrieves recent posts in reverse chronological order.
      *
      * @param indicator Optional PageIndicator for pagination.
