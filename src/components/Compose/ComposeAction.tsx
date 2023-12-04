@@ -123,9 +123,11 @@ export default function ComposeAction({ type, images, setImages, setLoading }: C
                         <>
                             <Popover.Button className=" flex cursor-pointer gap-1 text-main focus:outline-none">
                                 <span className=" text-sm font-bold">
-                                    <Trans>
-                                        {restriction === 0 ? 'Everyone can reply' : 'Only people you follow can reply'}
-                                    </Trans>
+                                    {restriction === 0 ? (
+                                        <Trans>Everyone can reply</Trans>
+                                    ) : (
+                                        <Trans>Only people you follow can reply</Trans>
+                                    )}
                                 </span>
                                 <ChevronRightIcon className="h-5 w-5" aria-hidden="true" />
                             </Popover.Button>

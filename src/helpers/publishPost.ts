@@ -1,11 +1,12 @@
 import type { IImage } from '@/components/Compose/index.js';
 import { SocialPlatform } from '@/constants/enum.js';
+import { SITE_URL } from '@/constants/index.js';
 import { getPostMetaData } from '@/helpers/getPostMetaData.js';
-import { LensSocialMedia } from '@/providers/lens/SocialMedia.js';
+import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import uploadToArweave from '@/services/uploadToArweave.js';
 
 export async function publishPostForLens(profileId: string, characters: string, images: IImage[]) {
-    const lens = new LensSocialMedia();
+    const lens = LensSocialMediaProvider;
     const profile = await lens.getProfileById(profileId);
 
     const title = `Post by #${profile.handle}`;
@@ -16,7 +17,7 @@ export async function publishPostForLens(profileId: string, characters: string, 
             marketplace: {
                 name: title,
                 description: characters,
-                external_url: 'https://mask.social',
+                external_url: SITE_URL,
             },
         },
         images.length > 0
@@ -48,7 +49,7 @@ export async function publishPostForLens(profileId: string, characters: string, 
 }
 
 export async function commentPostForLens(profileId: string, postId: string, characters: string, images: IImage[]) {
-    const lens = new LensSocialMedia();
+    const lens = LensSocialMediaProvider;
     const profile = await lens.getProfileById(profileId);
 
     const title = `Post by #${profile.handle}`;
@@ -81,7 +82,7 @@ export async function commentPostForLens(profileId: string, postId: string, char
 }
 
 export async function quotePostForLens(profileId: string, postId: string, characters: string, images: IImage[]) {
-    const lens = new LensSocialMedia();
+    const lens = LensSocialMediaProvider;
     const profile = await lens.getProfileById(profileId);
 
     const title = `Post by #${profile.handle}`;
