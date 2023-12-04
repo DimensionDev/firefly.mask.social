@@ -41,7 +41,7 @@ function Compose({ type = 'compose', post, opened, setOpened }: IComposeProps) {
             <Discard opened={discardOpened} setOpened={setDiscardOpened} setComposeOpened={setOpened} />
 
             <Transition appear show={opened} as={Fragment}>
-                <Dialog as="div" className="relative z-[100]" onClose={close}>
+                <Dialog as="div" className="relative z-[1000]" onClose={close}>
                     <Transition.Child
                         as={Fragment}
                         enter="ease-out duration-300"

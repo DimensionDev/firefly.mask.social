@@ -45,7 +45,7 @@ export default function Editor({ type, setCharacters, hasImages, hasPost }: Edit
                     />
                 }
                 placeholder={
-                    <div className=" text-placeholder pointer-events-none absolute left-0 top-0 leading-5">
+                    <div className=" pointer-events-none absolute left-0 top-0 leading-5 text-placeholder">
                         {placeholder}
                     </div>
                 }
