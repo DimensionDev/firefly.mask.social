@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation.js';
 import { memo } from 'react';
 import urlcat from 'urlcat';
 
-import type { MarkupLinkProps } from '@/components/Markup/MarkupLink/index.jsx';
+import type { MarkupLinkProps } from '@/components/Markup/MarkupLink/index.js';
 import { PageRoutes } from '@/constants/enum.js';
 
 export const Hashtag = memo<MarkupLinkProps>(function Hashtag({ title }) {

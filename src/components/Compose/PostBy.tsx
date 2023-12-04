@@ -48,7 +48,7 @@ export default function PostBy({ images }: IPostByProps) {
                                 {currentLensAccount.id === account.id ? (
                                     <RadioYesIcon width={16} height={16} />
                                 ) : (
-                                    <button className=" text-blueBottom text-xs font-bold">
+                                    <button className=" text-xs font-bold text-blueBottom">
                                         <Trans>Switch</Trans>
                                     </button>
                                 )}
@@ -65,7 +65,7 @@ export default function PostBy({ images }: IPostByProps) {
                             </div>
 
                             <button
-                                className=" text-blueBottom text-xs font-bold"
+                                className=" text-xs font-bold text-blueBottom"
                                 onClick={() => LoginModalRef.open({})}
                             >
                                 <Trans>Log in</Trans>
@@ -93,7 +93,7 @@ export default function PostBy({ images }: IPostByProps) {
                                 {currentFarcasterAccount.id === account.id ? (
                                     <RadioYesIcon width={16} height={16} />
                                 ) : (
-                                    <button className=" text-blueBottom text-xs font-bold">
+                                    <button className=" text-xs font-bold text-blueBottom">
                                         <Trans>Switch</Trans>
                                     </button>
                                 )}
@@ -110,7 +110,7 @@ export default function PostBy({ images }: IPostByProps) {
                             </div>
 
                             <button
-                                className=" text-blueBottom text-xs font-bold"
+                                className=" text-xs font-bold text-blueBottom"
                                 onClick={() => {
                                     if (images.length >= 2) {
                                         enqueueSnackbar(t`Select failed: More than 2 images`, {

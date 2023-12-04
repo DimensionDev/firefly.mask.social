@@ -4,6 +4,7 @@ import { type PostContext, PostInfoProvider } from '@masknet/plugin-infra/conten
 import {
     createConstantSubscription,
     EMPTY_ARRAY,
+    EMPTY_LIST,
     EnhanceableSite,
     PostIdentifier,
     ProfileIdentifier,
@@ -14,7 +15,7 @@ import { compact } from 'lodash-es';
 import { memo, type PropsWithChildren, useMemo } from 'react';
 
 import { SocialPlatform } from '@/constants/enum.js';
-import { DecryptMessage } from '@/main/DecryptMessage.js';
+import { DecryptMessage } from '@/mask/main/DecryptMessage.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 interface Props extends PropsWithChildren<{}> {
@@ -32,7 +33,7 @@ export const DecryptPost = memo(function DecryptPost({ post, payload, children }
             post.metadata.content?.attachments
                 ?.filter((x) => x.type === 'Image')
                 .map((x) => x.uri)
-                .filter(Boolean) ?? [],
+                .filter(Boolean) ?? EMPTY_LIST,
         );
         return {
             author: createConstantSubscription(author),

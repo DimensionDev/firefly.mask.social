@@ -29,7 +29,7 @@ export default function ContentTabs() {
                         </button>
                         <span
                             className={classNames(
-                                ' bg-tabLine h-1 w-full rounded-full transition-all',
+                                ' h-1 w-full rounded-full bg-tabLine transition-all',
                                 tab !== tabName ? ' hidden' : '',
                             )}
                         />
