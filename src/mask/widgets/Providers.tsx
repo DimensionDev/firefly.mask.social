@@ -16,7 +16,7 @@ import { useAccount, useChainId } from 'wagmi';
 
 import { useMaskTheme } from '@/hooks/useMaskTheme.js';
 
-export function MaskRuntime({ children }: PropsWithChildren<{}>) {
+export function Providers({ children }: PropsWithChildren<{}>) {
     const account = useAccount();
     const chainId = useChainId();
 

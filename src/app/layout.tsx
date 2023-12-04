@@ -44,6 +44,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                             <SearchFilter />
 
                             <mask-calendar-widget />
+                            <mask-page-inspector />
                         </aside>
                     </div>
                     <Modals />

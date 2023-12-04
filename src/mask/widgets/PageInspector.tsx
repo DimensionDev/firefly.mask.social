@@ -1,26 +1,24 @@
 'use client';
 
-import { CalendarContent } from '@masknet/plugin-calendar';
+import { useActivatedPluginsSiteAdaptor } from '@masknet/plugin-infra/content-script'
+import { createInjectHooksRenderer } from '@masknet/plugin-infra/dom'
 import { DisableShadowRootContext, ShadowRootIsolation } from '@masknet/theme';
-import { usePathname } from 'next/navigation.js';
 
 import { Providers } from '@/app/provider.js';
 import { Providers as MaskProviders } from '@/mask/widgets/Providers.js';
 
-export default function CalendarWidget() {
-    const pathname = usePathname();
+const GlobalInjection = createInjectHooksRenderer(
+    useActivatedPluginsSiteAdaptor.visibility.useAnyMode,
+    (x) => x.GlobalInjection,
+)
 
-    console.log('DEBUG: pathname');
-    console.log({
-        pathname,
-    });
-
+export default function PageInspector() {
     return (
         <Providers>
             <MaskProviders>
                 <DisableShadowRootContext.Provider value={false}>
                     <ShadowRootIsolation>
-                        <CalendarContent />
+                        <GlobalInjection />
                     </ShadowRootIsolation>
                 </DisableShadowRootContext.Provider>
             </MaskProviders>
