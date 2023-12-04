@@ -4,6 +4,9 @@ import { Dialog, Transition } from '@headlessui/react';
 import { Trans } from '@lingui/macro';
 import { forwardRef, Fragment } from 'react';
 
+import LensIcon from '@/assets/lens.svg';
+import LogOutIcon from '@/assets/logOut.svg';
+import UserAddIcon from '@/assets/userAdd.svg';
 import { SocialPlatform } from '@/constants/enum.js';
 import { Image } from '@/esm/Image.js';
 import type { SingletonModalRefCreator } from '@/maskbook/packages/shared-base/src/index.js';
@@ -57,20 +60,16 @@ export const LensStatusModal = forwardRef<SingletonModalRefCreator>(function Len
                                                             className="rounded-[99px]"
                                                         />
                                                     </div>
-                                                    <Image
-                                                        className="absolute left-[24px] top-[24px] h-[16px] w-[16px] rounded-[99px] border border-white shadow"
-                                                        src={'/svg/lens.svg'}
-                                                        alt="logo"
+                                                    <LensIcon
+                                                        className="absolute left-0 top-0 h-[40px] w-[40px] rounded-[99px] shadow"
                                                         width={16}
                                                         height={16}
                                                     />
                                                 </div>
                                             </div>
                                             <div className="inline-flex h-[39px] shrink grow basis-0 flex-col items-start justify-center">
-                                                <div className="font-['PingFang SC'] text-[15px] font-medium text-main">
-                                                    {name}
-                                                </div>
-                                                <div className="font-['PingFang SC'] text-[15px] font-normal text-lightSecond">
+                                                <div className=" text-[15px] font-medium text-main">{name}</div>
+                                                <div className=" text-[15px] font-normal text-lightSecond">
                                                     @{profileId}
                                                 </div>
                                             </div>
@@ -83,7 +82,7 @@ export const LensStatusModal = forwardRef<SingletonModalRefCreator>(function Len
                                         </div>
                                     ))}
                                     <button className="flex w-full items-center gap-[8px]">
-                                        <Image src={'/svg/userAdd.svg'} alt="logo" width={24} height={24} />
+                                        <UserAddIcon width={24} height={24} />
                                         <div className=" text-[17px] font-bold leading-[22px] text-[#101010] dark:text-gray-400">
                                             <Trans>Change account</Trans>
                                         </div>
@@ -95,7 +94,7 @@ export const LensStatusModal = forwardRef<SingletonModalRefCreator>(function Len
                                             dispatch?.close();
                                         }}
                                     >
-                                        <Image src={'/svg/logOut.svg'} alt="logo" width={24} height={24} />
+                                        <LogOutIcon width={24} height={24} />
                                         <div className=" text-[17px] font-bold leading-[22px] text-[#f00]">
                                             <Trans>Log out</Trans>
                                         </div>

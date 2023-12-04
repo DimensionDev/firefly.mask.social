@@ -1,9 +1,12 @@
 import { Trans } from '@lingui/macro';
 import { useCallback, useMemo } from 'react';
 
+import LoadingGreenIcon from '@/assets/loading.green.svg';
+import LoadingRedIcon from '@/assets/loading.red.svg';
+import LoadingYellowIcon from '@/assets/loading.yellow.svg';
+import SendIcon from '@/assets/send.svg';
 import type { IImage } from '@/components/compose/index.js';
 import { SocialPlatform } from '@/constants/enum.js';
-import { Image } from '@/esm/Image.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getPostMetaData } from '@/helpers/getPostMetaData.js';
 import { LensSocialMedia } from '@/providers/lens/SocialMedia.js';
@@ -68,15 +71,11 @@ export default function ComposeSend({ characters, images, setOpened }: ComposeSe
     return (
         <div className=" flex h-[68px] items-center justify-end gap-4 px-4 shadow-send">
             <div className=" flex items-center gap-[10px]">
-                {charactersLen >= 0 && charactersLen < 200 && (
-                    <Image src="/svg/loading.green.svg" width={24} height={24} alt="loading.green" />
-                )}
+                {charactersLen >= 0 && charactersLen < 200 && <LoadingGreenIcon width={24} height={24} />}
 
-                {charactersLen >= 200 && charactersLen < 260 && (
-                    <Image src="/svg/loading.yellow.svg" width={24} height={24} alt="loading.yellow" />
-                )}
+                {charactersLen >= 200 && charactersLen < 260 && <LoadingYellowIcon width={24} height={24} />}
 
-                {charactersLen >= 260 && <Image src="/svg/loading.red.svg" width={24} height={24} alt="loading.red" />}
+                {charactersLen >= 260 && <LoadingRedIcon width={24} height={24} />}
 
                 <span className={classNames(disabled ? ' text-[#FF3545]' : '')}>{charactersLen} / 280</span>
             </div>
@@ -92,7 +91,7 @@ export default function ComposeSend({ characters, images, setOpened }: ComposeSe
                     }
                 }}
             >
-                <Image src="/svg/send.svg" width={18} height={18} alt="send" className=" h-[18px] w-[18px]" />
+                <SendIcon className=" h-[18px] w-[18px]" width={18} height={18} />
                 <span>
                     <Trans>Send</Trans>
                 </span>

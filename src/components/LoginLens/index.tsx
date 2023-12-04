@@ -9,9 +9,9 @@ import { useEffect, useMemo, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 import { useAccount, useDisconnect } from 'wagmi';
 
+import WalletIcon from '@/assets/wallet.svg';
 import { AccountCard } from '@/components/LoginLens/AccountCard.js';
 import { SocialPlatform } from '@/constants/enum.js';
-import { Image } from '@/esm/Image.js';
 import { isValidAddress } from '@/maskbook/packages/web3-shared/evm/src/index.js';
 import { LoginModalRef } from '@/modals/controls.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
@@ -134,7 +134,7 @@ export function LoginLens({ back }: LoginLensProps) {
                             back();
                         }}
                     >
-                        <Image src="/svg/wallet.svg" alt="wallet" width={20} height={20} />
+                        <WalletIcon width={20} height={20} />
                         <span className=" text-[14px] font-bold leading-[18px] text-lightSecond">
                             <Trans>Change Wallet</Trans>
                         </span>

@@ -1,5 +1,7 @@
 import { type Dispatch, type SetStateAction, useCallback } from 'react';
 
+import CloseIcon from '@/assets/close.svg';
+import GalleryIcon from '@/assets/gallery.svg';
 import Editor from '@/components/compose/Editor.js';
 import type { IImage } from '@/components/compose/index.js';
 import { Image } from '@/esm/Image.js';
@@ -29,12 +31,10 @@ export default function ComposeContent({ type, setCharacters, images, setImages 
         (image: File, index: number) => (
             <>
                 <Image src={createImageUrl(image)} alt={image.name} fill className=" object-cover" />
-                <Image
-                    src="/svg/close.svg"
+                <CloseIcon
+                    className=" absolute right-2 top-2 h-[18px] w-[18px] cursor-pointer"
                     width={18}
                     height={18}
-                    alt="close"
-                    className=" absolute right-2 top-2 h-[18px] w-[18px] cursor-pointer"
                     onClick={() => removeImage(index)}
                 />
             </>
@@ -58,24 +58,22 @@ export default function ComposeContent({ type, setCharacters, images, setImages 
                         <div className=" gap-1 rounded-2xl border border-[#ACB4C1] bg-[#F9F9F9] p-3">
                             <div className=" flex h-6 items-center justify-between">
                                 <div className=" flex items-center gap-2">
-                                    <Image src="/svg/gallery.svg" width={24} height={24} alt="gallery" />
+                                    <GalleryIcon width={24} height={24} />
                                     <span className=" text-sm font-medium text-[#07101B]">Judd</span>
                                     <span className=" text-sm text-[#767F8D]">@judd</span>
                                 </div>
                                 <div className=" flex items-center gap-2">
-                                    <Image src="/svg/gallery.svg" width={16} height={16} alt="gallery" />
+                                    <GalleryIcon width={16} height={16} />
                                     <span className=" text-xs font-medium text-[#767F8D]">1h</span>
                                 </div>
                             </div>
 
                             <div className=" flex gap-4">
                                 <p className=" text-left">123</p>
-                                <Image
-                                    src="/svg/gallery.svg"
+                                <GalleryIcon
+                                    className=" h-[120px] w-[120px] rounded-lg object-cover"
                                     width={120}
                                     height={120}
-                                    alt="gallery"
-                                    className=" h-[120px] w-[120px] rounded-lg object-cover"
                                 />
                             </div>
                         </div>

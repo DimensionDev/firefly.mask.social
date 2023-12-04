@@ -2,28 +2,34 @@
 
 import { t, Trans } from '@lingui/macro';
 
+import DiscordIcon from '@/assets/discord.svg';
+import FireflyRoundIcon from '@/assets/fireflyRound.svg';
+import MaskRoundIcon from '@/assets/maskRound.svg';
+import TelegramIcon from '@/assets/telegram.svg';
+import XLightIcon from '@/assets/x-light.svg';
+
 import { AccountCard } from './AccountCard/index.js';
 
 const fireflyCommunities = [
     {
         content: t`Follow @thefireflyapp on X`,
         link: 'https://twitter.com/intent/user?screen_name=thefireflyapp',
-        logo: '/svg/x-light.svg',
+        logo: XLightIcon,
     },
     {
         content: t`Visit firefly.land`,
         link: 'https://firefly.land',
-        logo: '/svg/fireflyRound.svg',
+        logo: FireflyRoundIcon,
     },
     {
         content: t`Join our Discord`,
         link: 'https://discord.com/invite/pufMbBGQZN',
-        logo: '/svg/discord.svg',
+        logo: DiscordIcon,
     },
     {
         content: t`Join our Telegram`,
         link: 'https://t.me/+mz9T_4YOYhoyYmYx',
-        logo: '/svg/telegram.svg',
+        logo: TelegramIcon,
     },
 ];
 
@@ -31,22 +37,22 @@ const maskCommunities = [
     {
         content: t`Follow @realMaskNetwork on X`,
         link: 'https://twitter.com/intent/user?screen_name=realMaskNetwork',
-        logo: '/svg/x-light.svg',
+        logo: XLightIcon,
     },
     {
         content: t`Visit mask.io`,
         link: 'https://mask.io',
-        logo: '/svg/maskRound.svg',
+        logo: MaskRoundIcon,
     },
     {
         content: t`Join our Discord`,
         link: 'https://discord.com/invite/4SVXvj7',
-        logo: '/svg/discord.svg',
+        logo: DiscordIcon,
     },
     {
         content: t`Join our Telegram`,
         link: 'https://t.me/maskbook_group#telegram',
-        logo: '/svg/telegram.svg',
+        logo: TelegramIcon,
     },
 ];
 

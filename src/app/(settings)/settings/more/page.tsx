@@ -2,7 +2,9 @@
 
 import { Trans } from '@lingui/macro';
 
-import { Image } from '@/esm/Image.js';
+import DocumentsIcon from '@/assets/documents.svg';
+import LinkIcon from '@/assets/link.svg';
+import SecurityIcon from '@/assets/security.svg';
 
 export default function More() {
     return (
@@ -16,28 +18,28 @@ export default function More() {
                 className="inline-flex h-[48px] w-full items-center justify-start gap-[8px]  rounded-lg bg-white px-[12px] py-[8px]"
                 style={{ boxShadow: '0px 0px 20px 0px rgba(0, 0, 0, 0.05)', backdropFilter: 'blur(8px)' }}
             >
-                <Image src="/svg/security.svg" width={24} height={24} alt="security" />
+                <SecurityIcon width={24} height={24} />
                 <div className="inline-flex shrink grow basis-0 flex-col items-start justify-center gap-1">
                     <div className=" text-[14px] font-bold leading-[18px] text-main dark:text-primaryBottom">
                         <Trans>Privacy Policy</Trans>
                     </div>
                 </div>
                 <button>
-                    <Image src="/svg/link.svg" width={16} height={16} alt="link" />
+                    <LinkIcon width={16} height={16} />
                 </button>
             </div>
             <div
                 className="inline-flex h-[48px] w-full items-center justify-start gap-[8px] rounded-lg bg-white px-[12px] py-[8px]"
                 style={{ boxShadow: '0px 0px 20px 0px rgba(0, 0, 0, 0.05)', backdropFilter: 'blur(8px)' }}
             >
-                <Image src="/svg/documents.svg" width={24} height={24} alt="security" />
+                <DocumentsIcon width={24} height={24} />
                 <div className="inline-flex shrink grow basis-0 flex-col items-start justify-center gap-1">
                     <div className=" text-[14px] font-bold leading-[18px] text-main dark:text-primaryBottom">
                         <Trans>Terms of Service</Trans>
                     </div>
                 </div>
                 <button>
-                    <Image src="/svg/link.svg" width={16} height={16} alt="link" />
+                    <LinkIcon width={16} height={16} />
                 </button>
             </div>
         </div>
