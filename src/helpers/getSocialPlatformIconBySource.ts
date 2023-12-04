@@ -1,12 +1,15 @@
+import FarcasterIcon from '@/assets/farcaster.svg';
+import LensDarkIcon from '@/assets/lens-dark.svg';
+import LensLightIcon from '@/assets/lens-light.svg';
 import { SocialPlatform } from '@/constants/enum.js';
 
 export function getSocialPlatformIconBySource(source: SocialPlatform, isDark: boolean) {
     switch (source) {
         case SocialPlatform.Lens:
-            return !isDark ? '/svg/lens-light.svg' : '/svg/lens-dark.svg';
+            return isDark ? LensDarkIcon : LensLightIcon;
         case SocialPlatform.Farcaster:
-            return '/svg/farcaster.svg';
+            return FarcasterIcon;
         default:
-            return '';
+            return null;
     }
 }

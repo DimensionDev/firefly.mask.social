@@ -1,7 +1,7 @@
 import { Trans } from '@lingui/macro';
 
 import FollowButton from '@/app/profile/components/FollowButton.js';
-import { SocialPlatform } from '@/constants/enum.js';
+import { PlatformIcon } from '@/app/profile/components/PlatformIcon.js';
 import { Image } from '@/esm/Image.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
@@ -13,17 +13,14 @@ interface InfoProps {
 
 export default function Info({ isMyProfile, profile }: InfoProps) {
     const currentSocialPlatform = useGlobalState.use.currentSocialPlatform();
-    const fallbackImage = currentSocialPlatform === SocialPlatform.Lens ? '/svg/lens.svg' : '/svg/farcaster.svg';
 
     return (
         <div className=" flex gap-3 p-3">
-            <Image
-                src={profile?.pfp || fallbackImage}
-                width={80}
-                height={80}
-                alt="avatar"
-                className=" h-20 w-20 rounded-full"
-            />
+            {profile?.pfp ? (
+                <Image src={profile.pfp} width={80} height={80} alt="avatar" className=" h-20 w-20 rounded-full" />
+            ) : (
+                <PlatformIcon className="rounded-full" platform={currentSocialPlatform} size={80} />
+            )}
 
             <div className=" relative flex flex-1 flex-col gap-[6px] pt-4">
                 {!isMyProfile && profile ? (
@@ -35,13 +32,7 @@ export default function Info({ isMyProfile, profile }: InfoProps) {
                 <div className=" flex flex-col">
                     <div className=" flex items-center gap-2">
                         <span className=" font-black text-lightMain">{profile?.displayName}</span>
-                        <Image
-                            src={fallbackImage}
-                            width={20}
-                            height={20}
-                            alt={currentSocialPlatform}
-                            className=" h-5 w-5"
-                        />
+                        <PlatformIcon platform={currentSocialPlatform} size={20} />
                     </div>
                     <span className=" text-secondary">@{profile?.handle}</span>
                 </div>

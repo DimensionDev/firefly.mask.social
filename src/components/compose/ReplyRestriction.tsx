@@ -2,7 +2,8 @@ import { Popover, Transition } from '@headlessui/react';
 import { Trans } from '@lingui/macro';
 import { Fragment, useMemo } from 'react';
 
-import { Image } from '@/esm/Image.js';
+import RadioDisableNoIcon from '@/assets/radio.disable-no.svg';
+import RadioYesIcon from '@/assets/radio.yes.svg';
 import { classNames } from '@/helpers/classNames.js';
 
 export default function ReplyRestriction() {
@@ -23,7 +24,7 @@ export default function ReplyRestriction() {
                     <span className={classNames(' text-sm font-bold text-[#07101B]', !disabled ? ' opacity-50' : '')}>
                         <Trans>Everyone can reply</Trans>
                     </span>
-                    <Image src="/svg/radio.yes.svg" width={16} height={16} alt="radio.yes" />
+                    <RadioYesIcon width={16} height={16} />
                 </div>
 
                 <div className=" h-px bg-[#F2F5F6]" />
@@ -37,7 +38,7 @@ export default function ReplyRestriction() {
                     <span className={classNames(' text-sm font-bold text-[#07101B]', disabled ? ' opacity-50' : '')}>
                         <Trans>Only people you follow can reply</Trans>
                     </span>
-                    <Image src="/svg/radio.disable-no.svg" width={16} height={16} alt="radio.disable-no" />
+                    <RadioDisableNoIcon width={16} height={16} />
                 </div>
             </Popover.Panel>
         </Transition>

@@ -2,7 +2,8 @@ import { Popover, Transition } from '@headlessui/react';
 import { Trans } from '@lingui/macro';
 import { Fragment, useMemo } from 'react';
 
-import { Image } from '@/esm/Image.js';
+import GalleryIcon from '@/assets/gallery.svg';
+import RadioYesIcon from '@/assets/radio.yes.svg';
 import { classNames } from '@/helpers/classNames.js';
 
 export default function PostBy() {
@@ -21,14 +22,14 @@ export default function PostBy() {
             <Popover.Panel className="absolute bottom-full right-0 flex w-[280px] -translate-y-3 flex-col gap-2 rounded-lg bg-white p-3 shadow-popover">
                 <div className=" flex h-[22px] cursor-pointer items-center justify-between">
                     <div className=" flex items-center gap-2">
-                        <Image src="/svg/gallery.svg" width={22} height={22} alt="gallery" />
+                        <GalleryIcon width={22} height={22} />
                         <span
                             className={classNames(' text-sm font-bold text-[#07101B]', !disabled ? ' opacity-50' : '')}
                         >
                             @LensA
                         </span>
                     </div>
-                    <Image src="/svg/radio.yes.svg" width={16} height={16} alt="radio.yes" />
+                    <RadioYesIcon width={16} height={16} />
                 </div>
 
                 <div className=" h-px bg-[#F2F5F6]" />
@@ -40,7 +41,7 @@ export default function PostBy() {
                     )}
                 >
                     <div className=" flex items-center gap-2">
-                        <Image src="/svg/gallery.svg" width={22} height={22} alt="gallery" />
+                        <GalleryIcon width={22} height={22} />
                         <span
                             className={classNames(' text-sm font-bold text-[#07101B]', disabled ? ' opacity-50' : '')}
                         >
@@ -56,7 +57,7 @@ export default function PostBy() {
 
                 <div className=" flex h-[22px] cursor-pointer items-center justify-between">
                     <div className=" flex items-center gap-2">
-                        <Image src="/svg/gallery.svg" width={22} height={22} alt="gallery" />
+                        <GalleryIcon width={22} height={22} />
                         <span
                             className={classNames(' text-sm font-bold text-[#07101B]', !disabled ? ' opacity-50' : '')}
                         >

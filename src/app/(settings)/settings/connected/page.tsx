@@ -3,8 +3,8 @@
 import { Trans } from '@lingui/macro';
 import { useAccount } from 'wagmi';
 
+import CopyIcon from '@/assets/copy.svg';
 import { SocialPlatform } from '@/constants/enum.js';
-import { Image } from '@/esm/Image.js';
 import { formatEthereumAddress } from '@/maskbook/packages/web3-shared/evm/src/index.js';
 import { LogoutModalRef } from '@/modals/controls.js';
 import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
@@ -36,7 +36,7 @@ export default function Connected() {
                             <span className="text-base font-bold leading-[18px] text-slate-500">
                                 {address ? formatEthereumAddress(address, 4) : null}
                             </span>
-                            <Image src="/svg/copy.svg" alt="copy" width={14} height={14} />
+                            <CopyIcon width={14} height={14} />
                         </div>
                     </div>
                     {lensAccounts.map(({ avatar, profileId, id, name }) => (
