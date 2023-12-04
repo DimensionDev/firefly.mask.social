@@ -5,7 +5,7 @@ import React, { lazy, Suspense } from 'react';
 import { useDecrypt } from './Decrypt/useDecrypt.js';
 import { registry } from './TypedMessageRender/registry.js';
 
-const PluginRender = lazy(() => import('./plugin-render.js'));
+const PluginRender = lazy(() => import('./plugin-render.jsx'));
 
 export function DecryptMessage(props: { text: string; version: string }) {
     const { text, version } = props;

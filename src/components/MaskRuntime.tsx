@@ -1,6 +1,5 @@
 'use client';
 
-import { setupBuildInfo } from '@masknet/flags/build-info';
 import { SharedContextProvider } from '@masknet/shared';
 import { i18NextInstance } from '@masknet/shared-base';
 import {
@@ -11,34 +10,16 @@ import {
 } from '@masknet/theme';
 import { ChainContextProvider, RootWeb3ContextProvider } from '@masknet/web3-hooks-base';
 import { StyledEngineProvider } from '@mui/material';
-import { lazy, memo, type PropsWithChildren, Suspense, use } from 'react';
+import { memo, type PropsWithChildren, Suspense } from 'react';
 import { I18nextProvider } from 'react-i18next';
 import { useAccount, useChainId } from 'wagmi';
 
 import { useMaskTheme } from '@/hooks/useMaskTheme.js';
 
-// @ts-ignore
-const PageInspectorRender = lazy(() => import('@/mask/main/page-render.jsx'), { ssr: false });
-
-async function setupRuntime() {
-    console.log('DEBUG: setup runtime begin');
-
-    await import('./setup/locale.js');
-    await setupBuildInfo();
-
-    await import('./setup/storage.js');
-    await import('./setup/wallet.js');
-
-    console.log('DEBUG: setup runtime done');
-}
-
-const promise = setupRuntime();
-
 const Runtime = memo(function Runtime({ children }: PropsWithChildren<{}>) {
-    use(promise);
-
     const account = useAccount();
     const chainId = useChainId();
+
     return (
         <DisableShadowRootContext.Provider value>
             <DialogStackingProvider hasGlobalBackdrop={false}>
@@ -51,7 +32,6 @@ const Runtime = memo(function Runtime({ children }: PropsWithChildren<{}>) {
                                         <Suspense fallback={null}>
                                             <CSSVariableInjector />
                                             {children}
-                                            <PageInspectorRender />
                                         </Suspense>
                                     </SharedContextProvider>
                                 </ChainContextProvider>
@@ -64,7 +44,7 @@ const Runtime = memo(function Runtime({ children }: PropsWithChildren<{}>) {
     );
 });
 
-export default function MaskRuntime({ children }: PropsWithChildren<{}>) {
+export function MaskRuntime({ children }: PropsWithChildren<{}>) {
     return (
         <Suspense fallback={null}>
             <Runtime>{children}</Runtime>
