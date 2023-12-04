@@ -3,8 +3,8 @@
 import { t, Trans } from '@lingui/macro';
 
 import DiscordIcon from '@/assets/discord.svg';
-import FireflyRoundIcon from '@/assets/firefly-round.svg';
-import MaskRoundIcon from '@/assets/mask-round.svg';
+import FireflyRoundIcon from '@/assets/firefly.round.svg';
+import MaskRoundIcon from '@/assets/mask.round.svg';
 import TelegramIcon from '@/assets/telegram.svg';
 import XLightIcon from '@/assets/x-light.svg';
 
