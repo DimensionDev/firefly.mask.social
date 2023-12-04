@@ -16,6 +16,7 @@ import { Quote } from '@/components/Posts/Quote.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getPostDetailUrl } from '@/helpers/getPostDetailUrl.js';
+import { getPostPayload } from '@/helpers/getPostPayload.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 // @ts-ignore
@@ -40,6 +41,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
         (post.metadata.content?.attachments && post.metadata.content?.attachments?.length > 0) ||
         post.metadata.content?.asset
     );
+    const postPayload = getPostPayload(post.metadata.content?.content);
     const postLink = getPostDetailUrl(post.postId, post.source);
 
     if (post.isEncrypted) {
@@ -108,20 +110,22 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
             })}
             ref={ref}
         >
-            <MaskRuntime>
-                <DecryptPost raw={post.metadata.content?.content || ''} post={post}>
-                    <a href={postLink}>
-                        <Markup
-                            className={classNames(
-                                { 'line-clamp-5': canShowMore },
-                                'markup linkify text-md break-words',
-                            )}
-                        >
-                            {post.metadata.content?.content || ''}
-                        </Markup>
-                    </a>
-                </DecryptPost>
-            </MaskRuntime>
+            {postPayload ? (
+                <MaskRuntime>
+                    <DecryptPost post={post} payload={postPayload}>
+                        <a href={postLink}>
+                            <Markup
+                                className={classNames(
+                                    { 'line-clamp-5': canShowMore },
+                                    'markup linkify text-md break-words',
+                                )}
+                            >
+                                {post.metadata.content?.content || ''}
+                            </Markup>
+                        </a>
+                    </DecryptPost>
+                </MaskRuntime>
+            ) : null}
 
             {canShowMore ? (
                 <div className="text-base font-bold text-link">
