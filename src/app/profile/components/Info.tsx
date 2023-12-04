@@ -13,11 +13,12 @@ interface InfoProps {
 
 export default function Info({ isMyProfile, profile }: InfoProps) {
     const currentSocialPlatform = useGlobalState.use.currentSocialPlatform();
+    const fallbackImage = currentSocialPlatform === SocialPlatform.Lens ? '/svg/lens.svg' : '/svg/farcaster.svg';
 
     return (
         <div className=" flex gap-3 p-3">
             <Image
-                src={profile?.pfp || '/svg/lens.svg'}
+                src={profile?.pfp || fallbackImage}
                 width={80}
                 height={80}
                 alt="avatar"
@@ -35,7 +36,7 @@ export default function Info({ isMyProfile, profile }: InfoProps) {
                     <div className=" flex items-center gap-2">
                         <span className=" font-black text-lightMain">{profile?.displayName}</span>
                         <Image
-                            src={currentSocialPlatform === SocialPlatform.Lens ? '/svg/lens.svg' : '/svg/farcaster.svg'}
+                            src={fallbackImage}
                             width={20}
                             height={20}
                             alt={currentSocialPlatform}
