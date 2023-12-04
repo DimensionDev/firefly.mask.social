@@ -97,6 +97,9 @@ msgstr "Liked"
 msgid "Failed to unlike. {0}"
 msgstr "Failed to unlike. {0}"
 
+msgid "Search"
+msgstr "Search"
+
 msgid "Connected Accounts"
 msgstr "Connected Accounts"
 
@@ -294,6 +297,9 @@ msgstr "Allow Lens Manager to perform actions such as posting, liking, and comme
 
 msgid "<0>{0}</0> mirrored"
 msgstr "<0>{0}</0> mirrored"
+
+msgid "Post by {0}"
+msgstr "Post by {0}"
 
 msgid "quote"
 msgstr "quote"

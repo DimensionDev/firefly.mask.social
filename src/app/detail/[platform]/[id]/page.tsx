@@ -1,5 +1,6 @@
 'use client';
 
+import { t } from '@lingui/macro';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { useDocumentTitle } from 'usehooks-ts';
 
@@ -32,7 +33,7 @@ export default function Page({ params }: { params: { id: string; platform: strin
         },
     });
 
-    useDocumentTitle(data ? createPageTitle(`Post by ${data?.author.displayName}`) : '');
+    useDocumentTitle(data ? createPageTitle(t`Post by ${data?.author.displayName}`) : '');
 
     if (!data) return;
     return <SinglePost post={data} disableAnimate />;
