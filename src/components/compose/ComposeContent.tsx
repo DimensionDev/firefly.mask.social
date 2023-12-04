@@ -1,5 +1,6 @@
 import { type Dispatch, type SetStateAction, useCallback } from 'react';
 
+import CloseIcon from '@/assets/close.svg';
 import Editor from '@/components/Compose/Editor.js';
 import type { IImage } from '@/components/Compose/index.js';
 import { SourceIcon } from '@/components/SourceIcon.js';
@@ -33,12 +34,10 @@ export default function ComposeContent({ type, setCharacters, images, setImages,
         (image: File, index: number) => (
             <>
                 <Image src={createImageUrl(image)} alt={image.name} fill className=" object-cover" />
-                <Image
-                    src="/svg/close.svg"
+                <CloseIcon
+                    className=" absolute right-2 top-2 h-[18px] w-[18px] cursor-pointer"
                     width={18}
                     height={18}
-                    alt="close"
-                    className=" absolute right-2 top-2 h-[18px] w-[18px] cursor-pointer"
                     onClick={() => removeImage(index)}
                 />
             </>
@@ -61,7 +60,7 @@ export default function ComposeContent({ type, setCharacters, images, setImages,
                         <div className=" flex flex-col gap-1 rounded-2xl border border-[#acb4c1] bg-bg p-3">
                             <div className=" flex h-6 items-center justify-between">
                                 <div className=" flex items-center gap-2">
-                                    <Image src={post.author.pfp} width={24} height={24} alt="gallery" />
+                                    <Image src={post.author.pfp} width={24} height={24} alt="pfp" />
                                     <span className=" text-sm font-medium text-main">{post.author.displayName}</span>
                                     <span className=" text-sm text-secondary">
                                         @{post.author.handle || post.author.profileId}

@@ -3,6 +3,9 @@ import { t, Trans } from '@lingui/macro';
 import { useSnackbar } from 'notistack';
 import { Fragment } from 'react';
 
+import FarcasterIcon from '@/assets/farcaster.svg';
+import LensIcon from '@/assets/lens.svg';
+import RadioYesIcon from '@/assets/radio.yes.svg';
 import type { IImage } from '@/components/Compose/index.js';
 import { Image } from '@/esm/Image.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -37,13 +40,13 @@ export default function PostBy({ images }: IPostByProps) {
                         <Fragment key={account.id}>
                             <div className={classNames(' flex h-[22px] items-center justify-between')}>
                                 <div className=" flex items-center gap-2">
-                                    <Image src={account.avatar || '/svg/lens.svg'} width={22} height={22} alt="lens" />
+                                    <Image src={account.avatar} width={22} height={22} alt="lens" />
                                     <span className={classNames(' text-sm font-bold text-main')}>
                                         @{account.handle || account.id}
                                     </span>
                                 </div>
                                 {currentLensAccount.id === account.id ? (
-                                    <Image src="/svg/radio.yes.svg" width={16} height={16} alt="radio.yes" />
+                                    <RadioYesIcon width={16} height={16} />
                                 ) : (
                                     <button className=" text-xs font-bold text-[#246BFD]">
                                         <Trans>Switch</Trans>
@@ -57,7 +60,7 @@ export default function PostBy({ images }: IPostByProps) {
                     <Fragment>
                         <div className=" flex h-[22px] cursor-pointer items-center justify-between">
                             <div className=" flex items-center gap-2">
-                                <Image src="/svg/lens.svg" width={22} height={22} alt="lens" />
+                                <LensIcon width={22} height={22} />
                                 <span className={classNames(' text-sm font-bold text-main')}>Lens</span>
                             </div>
 
@@ -88,7 +91,7 @@ export default function PostBy({ images }: IPostByProps) {
                                     </span>
                                 </div>
                                 {currentFarcasterAccount.id === account.id ? (
-                                    <Image src="/svg/radio.yes.svg" width={16} height={16} alt="radio.yes" />
+                                    <RadioYesIcon width={16} height={16} />
                                 ) : (
                                     <button className=" text-xs font-bold text-[#246BFD]">
                                         <Trans>Switch</Trans>
@@ -102,7 +105,7 @@ export default function PostBy({ images }: IPostByProps) {
                     <Fragment>
                         <div className=" flex h-[22px] cursor-pointer items-center justify-between">
                             <div className=" flex items-center gap-2">
-                                <Image src="/svg/farcaster.svg" width={22} height={22} alt="farcaster" />
+                                <FarcasterIcon width={22} height={22} />
                                 <span className={classNames(' text-sm font-bold text-main')}>Farcaster</span>
                             </div>
 

@@ -8,11 +8,13 @@ import { usePrevious, useUpdateEffect } from 'react-use';
 import { polygon } from 'viem/chains';
 import { useAccount, useNetwork } from 'wagmi';
 
+import { PlatformIcon } from '@/app/profile/components/PlatformIcon.js';
+import CloseIcon from '@/assets/close.svg';
+import LeftArrowIcon from '@/assets/leftArrow.svg';
 import LoadingIcon from '@/assets/loading.svg';
 import { LoginFarcaster } from '@/components/LoginFarcaster.js';
 import { LoginLens } from '@/components/LoginLens/index.js';
 import { SocialPlatform } from '@/constants/enum.js';
-import { Image } from '@/esm/Image.js';
 import { useSingletonModal } from '@/maskbook/packages/shared-base-ui/src/index.js';
 import { isLensCollect } from '@/maskbook/packages/web3-shared/evm/src/index.js';
 
@@ -99,17 +101,11 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps>>(
                                                 : dispatch?.close();
                                         }}
                                     >
-                                        <Image
-                                            className="relative h-[24px] w-[24px]"
-                                            src={
-                                                current === SocialPlatform.Farcaster
-                                                    ? '/svg/leftArrow.svg'
-                                                    : '/svg/close.svg'
-                                            }
-                                            alt="close"
-                                            width={24}
-                                            height={24}
-                                        />
+                                        {current === SocialPlatform.Farcaster ? (
+                                            <LeftArrowIcon width={24} height={24} />
+                                        ) : (
+                                            <CloseIcon width={24} height={24} />
+                                        )}
                                     </button>
                                     <div className="shrink grow basis-0 text-center text-lg font-bold leading-snug text-main">
                                         {title}
@@ -138,12 +134,10 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps>>(
                                             >
                                                 <div className="inline-flex w-full flex-col items-center justify-start gap-[8px] rounded-lg px-[16px] py-[24px]">
                                                     <div className="relative h-[48px] w-[48px]">
-                                                        <Image
+                                                        <PlatformIcon
                                                             className="left-0 top-0 rounded-full"
-                                                            src="/svg/lens.svg"
-                                                            width={48}
-                                                            height={48}
-                                                            alt="lens"
+                                                            size={48}
+                                                            platform={SocialPlatform.Lens}
                                                         />
                                                     </div>
                                                     <div className="text-sm font-bold leading-[18px] text-lightSecond group-hover:text-lightMain">
@@ -159,12 +153,10 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps>>(
                                             >
                                                 <div className="inline-flex w-full flex-col items-center justify-start gap-[8px] rounded-lg px-[16px] py-[24px]">
                                                     <div className="relative h-[48px] w-[48px]">
-                                                        <Image
+                                                        <PlatformIcon
                                                             className="left-0 top-0 rounded-full"
-                                                            src="/svg/farcaster.svg"
-                                                            width={48}
-                                                            height={48}
-                                                            alt="lens"
+                                                            size={48}
+                                                            platform={SocialPlatform.Farcaster}
                                                         />
                                                     </div>
                                                     <div className="text-sm font-bold leading-[18px] text-lightSecond group-hover:text-lightMain">

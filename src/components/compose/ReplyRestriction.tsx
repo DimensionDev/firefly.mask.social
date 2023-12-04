@@ -2,7 +2,8 @@ import { Popover, Transition } from '@headlessui/react';
 import { Trans } from '@lingui/macro';
 import { Fragment, useMemo } from 'react';
 
-import { Image } from '@/esm/Image.js';
+import RadioDisableNoIcon from '@/assets/radio.disable-no.svg';
+import RadioYesIcon from '@/assets/radio.yes.svg';
 import { classNames } from '@/helpers/classNames.js';
 import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
 
@@ -34,9 +35,9 @@ export default function ReplyRestriction({ restriction, setRestriction }: IReply
                         <Trans>Everyone can reply</Trans>
                     </span>
                     {restriction === 0 ? (
-                        <Image src="/svg/radio.yes.svg" width={16} height={16} alt="radio.yes" />
+                        <RadioYesIcon width={16} height={16} />
                     ) : (
-                        <Image src="/svg/radio.disable-no.svg" width={16} height={16} alt="radio.disable-no" />
+                        <RadioDisableNoIcon width={16} height={16} />
                     )}
                 </div>
 
@@ -53,9 +54,9 @@ export default function ReplyRestriction({ restriction, setRestriction }: IReply
                         <Trans>Only people you follow can reply</Trans>
                     </span>
                     {restriction === 1 ? (
-                        <Image src="/svg/radio.yes.svg" width={16} height={16} alt="radio.yes" />
+                        <RadioYesIcon width={16} height={16} />
                     ) : (
-                        <Image src="/svg/radio.disable-no.svg" width={16} height={16} alt="radio.disable-no" />
+                        <RadioDisableNoIcon width={16} height={16} />
                     )}
                 </div>
             </Popover.Panel>

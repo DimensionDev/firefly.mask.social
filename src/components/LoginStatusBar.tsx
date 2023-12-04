@@ -1,5 +1,7 @@
 'use client';
 
+import { PlatformIcon } from '@/app/profile/components/PlatformIcon.js';
+import PlusIcon from '@/assets/plus.svg';
 import { Image } from '@/components/Image.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { FarcasterStatusModalRef, LensStatusModalRef, LoginModalRef } from '@/modals/controls.js';
@@ -23,12 +25,10 @@ export function LoginStatusBar() {
                             className="rounded-[99px]"
                         />
                     </div>
-                    <Image
+                    <PlatformIcon
                         className="absolute left-[32px] top-[24px] h-[16px] w-[16px] rounded-[99px] border border-white shadow"
-                        src={'/svg/lens.svg'}
-                        alt="logo"
-                        width={16}
-                        height={16}
+                        platform={SocialPlatform.Lens}
+                        size={16}
                     />
                 </button>
             ) : null}
@@ -43,12 +43,10 @@ export function LoginStatusBar() {
                             className="rounded-[99px]"
                         />
                     </div>
-                    <Image
+                    <PlatformIcon
                         className="absolute left-[32px] top-[24px] h-[16px] w-[16px] rounded-[99px] border border-white shadow"
-                        src={'/svg/farcaster.svg'}
-                        alt="logo"
-                        width={16}
-                        height={16}
+                        platform={SocialPlatform.Farcaster}
+                        size={16}
                     />
                 </button>
             ) : (
@@ -57,12 +55,10 @@ export function LoginStatusBar() {
                     onClick={() => LoginModalRef.open({ current: SocialPlatform.Farcaster })}
                 >
                     <div className="absolute left-0 top-0 h-[40px] w-[40px] rounded-[99px] shadow backdrop-blur-lg">
-                        <Image src="/svg/farcaster.svg" alt="farcaster" width={40} height={40} />
+                        <PlatformIcon platform={SocialPlatform.Farcaster} size={40} />
                     </div>
-                    <Image
+                    <PlusIcon
                         className="absolute left-[32px] top-[24px] h-[17px] w-[17px] rounded-[99px] shadow"
-                        src={'/svg/plus.svg'}
-                        alt="logo"
                         width={16}
                         height={16}
                     />
@@ -74,12 +70,10 @@ export function LoginStatusBar() {
                     onClick={() => LoginModalRef.open({ current: SocialPlatform.Lens })}
                 >
                     <div className="absolute left-0 top-0 h-[40px] w-[40px] rounded-[99px] shadow backdrop-blur-lg">
-                        <Image src="/svg/lens.svg" alt="lens" width={40} height={40} />
+                        <PlatformIcon platform={SocialPlatform.Lens} size={40} />
                     </div>
-                    <Image
+                    <PlusIcon
                         className="absolute left-[32px] top-[24px] h-[17px] w-[17px] rounded-[99px] shadow"
-                        src={'/svg/plus.svg'}
-                        alt="logo"
                         width={16}
                         height={16}
                     />

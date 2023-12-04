@@ -5,10 +5,12 @@ import { Trans } from '@lingui/macro';
 import { $getSelection } from 'lexical';
 import { type ChangeEvent, type Dispatch, type SetStateAction, useCallback, useRef, useState } from 'react';
 
+import AtIcon from '@/assets/at.svg';
+import GalleryIcon from '@/assets/gallery.svg';
+import NumberSignIcon from '@/assets/numberSign.svg';
 import type { IImage } from '@/components/Compose/index.js';
 import PostBy from '@/components/Compose/PostBy.js';
 import ReplyRestriction from '@/components/Compose/ReplyRestriction.js';
-import { Image } from '@/esm/Image.js';
 import uploadToIPFS from '@/services/uploadToIPFS.js';
 import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
 import { useLensStateStore } from '@/store/useLensStore.js';
@@ -66,12 +68,10 @@ export default function ComposeAction({ type, images, setImages, setLoading }: C
     return (
         <div className=" px-4 pb-4">
             <div className=" flex h-9 items-center gap-3">
-                <Image
-                    src="/svg/gallery.svg"
+                <GalleryIcon
+                    className=" cursor-pointer"
                     width={24}
                     height={24}
-                    alt="gallery"
-                    className=" cursor-pointer"
                     onClick={() => {
                         if (images.length < (currentFarcasterAccount.id ? 2 : 4)) {
                             fileInputRef.current?.click();
@@ -86,22 +86,9 @@ export default function ComposeAction({ type, images, setImages, setLoading }: C
                     className=" hidden"
                     onChange={handleFileChange}
                 />
-                <Image
-                    src="/svg/at.svg"
-                    width={24}
-                    height={24}
-                    alt="at"
-                    className=" cursor-pointer"
-                    onClick={() => insertText('@')}
-                />
-                <Image
-                    src="/svg/numberSign.svg"
-                    width={24}
-                    height={24}
-                    alt="numberSign"
-                    className=" cursor-pointer"
-                    onClick={() => insertText('#')}
-                />
+                <AtIcon className=" cursor-pointer" width={24} height={24} onClick={() => insertText('@')} />
+
+                <NumberSignIcon className=" cursor-pointer" width={24} height={24} onClick={() => insertText('#')} />
             </div>
 
             <div className=" flex h-9 items-center justify-between">
