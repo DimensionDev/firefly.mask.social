@@ -21,3 +21,9 @@ declare module '*.svg' {
     const content: React.FunctionComponent<React.SVGAttributes<SVGElement>>;
     export default content;
 }
+
+namespace JSX {
+    interface IntrinsicElements {
+        'mask-calendar-widget': React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
+    }
+}

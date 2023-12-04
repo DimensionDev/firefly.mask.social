@@ -3,7 +3,7 @@ import './globals.css';
 import { ScrollRestorer } from 'next-scroll-restorer';
 
 import { Providers } from '@/app/provider.js';
-import { CalendarWidgetRenderer } from '@/components/CalendarWidgetRenderer.js';
+import { CustomElements } from '@/components/CustomElements.js';
 import { GA } from '@/components/GA.js';
 import { Polyfills } from '@/components/Polyfills.js';
 import { SearchBar } from '@/components/SearchBar.js';
@@ -15,9 +15,6 @@ import { Modals } from '@/modals/index.js';
 
 export const metadata = createSiteMetadata();
 
-// @ts-ignore
-// const PageInspectorRender = lazy(() => import('@/main/page-render.js'), { ssr: false });
-
 export default function RootLayout({ children }: { children: React.ReactNode }) {
     return (
         <html>
@@ -26,6 +23,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </head>
             <body>
                 <Providers>
+                    <CustomElements />
+
                     <div className="m-auto flex min-h-screen sm:w-full lg:w-[1265px] ">
                         <SideBar />
 
@@ -44,11 +43,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
                             <SearchFilter />
 
-                            <CalendarWidgetRenderer />
+                            <mask-calendar-widget />
                         </aside>
                     </div>
                     <Modals />
-                    {/* <PageInspectorRender /> */}
                 </Providers>
                 <GA />
             </body>

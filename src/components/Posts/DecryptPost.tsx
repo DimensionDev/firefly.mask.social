@@ -15,7 +15,7 @@ import { compact } from 'lodash-es';
 import { memo, type PropsWithChildren, useMemo } from 'react';
 
 import { SocialPlatform } from '@/constants/enum.js';
-import { DecryptMessage } from '@/mask/main/DecryptMessage.jsx';
+import { DecryptMessage } from '@/mask/main/DecryptMessage.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 interface Props extends PropsWithChildren<{}> {
