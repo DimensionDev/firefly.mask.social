@@ -9,8 +9,9 @@ import type { Post } from '@/providers/types/SocialMedia.js';
 const DecryptedPost = dynamic(() => import('@/mask/widgets/DecryptedPost.js'), { ssr: false });
 
 class Element extends WidgetWithProps<{
-    post: Post;
-    payload: [string, '1' | '2'];
+    post?: Post;
+    payload?: [string, '1' | '2'];
+    canShowMore?: boolean;
 }> {
     constructor() {
         super(DecryptedPost);

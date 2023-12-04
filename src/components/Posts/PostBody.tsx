@@ -102,6 +102,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
                         JSON.stringify({
                             post,
                             payload: postPayload,
+                            canShowMore,
                         }),
                     )}
                 />
