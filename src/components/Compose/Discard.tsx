@@ -37,7 +37,7 @@ export default function Discard({ opened, setOpened, setComposeOpened }: Compose
                             leaveFrom="opacity-100 scale-100"
                             leaveTo="opacity-0 scale-95"
                         >
-                            <Dialog.Panel className=" flex w-[356px] flex-col gap-6 overflow-hidden rounded-xl bg-white p-6 transition-all">
+                            <Dialog.Panel className=" flex w-[356px] flex-col gap-6 overflow-hidden rounded-xl bg-bgModal p-6 transition-all">
                                 {/* Title */}
                                 <Dialog.Title as="h3" className=" relative h-6">
                                     <XMarkIcon
@@ -56,7 +56,7 @@ export default function Discard({ opened, setOpened, setComposeOpened }: Compose
                                 </div>
 
                                 <button
-                                    className=" flex h-10 w-full items-center justify-center rounded-full bg-[#FF3545] text-sm font-bold text-white"
+                                    className=" flex h-10 w-full items-center justify-center rounded-full bg-danger text-sm font-bold text-secondaryBottom"
                                     onClick={() => {
                                         close();
                                         setComposeOpened(false);

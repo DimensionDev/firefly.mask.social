@@ -41,7 +41,7 @@ export default function ReplyRestriction({ restriction, setRestriction }: IReply
                     )}
                 </div>
 
-                <div className=" h-px bg-[#F2F5F6]" />
+                <div className=" h-px bg-line" />
 
                 <div
                     className={classNames(

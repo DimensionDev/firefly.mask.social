@@ -34,7 +34,7 @@ export default function PostBy({ images }: IPostByProps) {
             leaveFrom="opacity-100"
             leaveTo="opacity-0 translate-y-1"
         >
-            <Popover.Panel className="absolute bottom-full right-0 flex w-[280px] -translate-y-3 flex-col gap-2 rounded-lg bg-white p-3 shadow-popover">
+            <Popover.Panel className="absolute bottom-full right-0 flex w-[280px] -translate-y-3 flex-col gap-2 rounded-lg bg-bg p-3 shadow-popover">
                 {lensAccounts.length > 0 ? (
                     lensAccounts.map((account) => (
                         <Fragment key={account.id}>
@@ -48,12 +48,12 @@ export default function PostBy({ images }: IPostByProps) {
                                 {currentLensAccount.id === account.id ? (
                                     <RadioYesIcon width={16} height={16} />
                                 ) : (
-                                    <button className=" text-xs font-bold text-[#246BFD]">
+                                    <button className=" text-blueBottom text-xs font-bold">
                                         <Trans>Switch</Trans>
                                     </button>
                                 )}
                             </div>
-                            <div className=" h-px bg-[#F2F5F6]" />
+                            <div className=" h-px bg-line" />
                         </Fragment>
                     ))
                 ) : (
@@ -65,13 +65,13 @@ export default function PostBy({ images }: IPostByProps) {
                             </div>
 
                             <button
-                                className=" text-xs font-bold text-[#246BFD]"
+                                className=" text-blueBottom text-xs font-bold"
                                 onClick={() => LoginModalRef.open({})}
                             >
                                 <Trans>Log in</Trans>
                             </button>
                         </div>
-                        <div className=" h-px bg-[#F2F5F6]" />
+                        <div className=" h-px bg-line" />
                     </Fragment>
                 )}
 
@@ -93,12 +93,12 @@ export default function PostBy({ images }: IPostByProps) {
                                 {currentFarcasterAccount.id === account.id ? (
                                     <RadioYesIcon width={16} height={16} />
                                 ) : (
-                                    <button className=" text-xs font-bold text-[#246BFD]">
+                                    <button className=" text-blueBottom text-xs font-bold">
                                         <Trans>Switch</Trans>
                                     </button>
                                 )}
                             </div>
-                            {index !== farcasterAccounts.length - 1 && <div className=" h-px bg-[#F2F5F6]" />}
+                            {index !== farcasterAccounts.length - 1 && <div className=" h-px bg-line" />}
                         </Fragment>
                     ))
                 ) : (
@@ -110,7 +110,7 @@ export default function PostBy({ images }: IPostByProps) {
                             </div>
 
                             <button
-                                className=" text-xs font-bold text-[#246BFD]"
+                                className=" text-blueBottom text-xs font-bold"
                                 onClick={() => {
                                     if (images.length >= 2) {
                                         enqueueSnackbar(t`Select failed: More than 2 images`, {

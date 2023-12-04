@@ -42,7 +42,7 @@ export default function FollowButton({ profile, isMyProfile }: FollowButtonProps
                 buttonState === FollowButtonState.Follow ? ' bg-main text-primaryBottom hover:opacity-80' : '',
                 buttonState === FollowButtonState.Following ? ' border border-lightMain text-lightMain' : '',
                 buttonState === FollowButtonState.Unfollow
-                    ? ' border border-[#FF354580] bg-[#FF354533] text-[#FF354580]'
+                    ? ' border border-danger border-opacity-50 bg-danger bg-opacity-20 text-danger text-opacity-50'
                     : '',
             )}
             onMouseMove={() => setFollowHover(true)}
