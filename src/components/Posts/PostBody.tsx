@@ -52,16 +52,14 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
                 })}
                 ref={ref}
             >
-                <Link href={postLink}>
-                    <div
-                        className={classNames('flex items-center gap-1 rounded-lg border-primaryMain px-3 py-[6px]', {
-                            border: !isQuote,
-                        })}
-                    >
-                        <Lock width={16} height={16} />
-                        <Trans>Post has been encrypted</Trans>
-                    </div>
-                </Link>
+                <div
+                    className={classNames('flex items-center gap-1 rounded-lg border-primaryMain px-3 py-[6px]', {
+                        border: !isQuote,
+                    })}
+                >
+                    <Lock width={16} height={16} />
+                    <Trans>Post has been encrypted</Trans>
+                </div>
             </div>
         );
     }
@@ -73,16 +71,14 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
             })}
             ref={ref}
         >
-            <Link href={postLink}>
-                <div
-                    className={classNames('flex items-center gap-1 rounded-lg border-primaryMain px-3 py-[6px]', {
-                        border: !isQuote,
-                    })}
-                >
-                    <EyeSlash width={16} height={16} />
-                    <Trans>Post has been hidden</Trans>
-                </div>
-            </Link>
+            <div
+                className={classNames('flex items-center gap-1 rounded-lg border-primaryMain px-3 py-[6px]', {
+                    border: !isQuote,
+                })}
+            >
+                <EyeSlash width={16} height={16} />
+                <Trans>Post has been hidden</Trans>
+            </div>
         </div>;
     }
 
@@ -113,7 +109,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
             {postPayload ? (
                 <MaskRuntime>
                     <DecryptPost post={post} payload={postPayload}>
-                        <a href={postLink}>
+                        <Link href={postLink}>
                             <Markup
                                 className={classNames(
                                     { 'line-clamp-5': canShowMore },
@@ -122,10 +118,14 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
                             >
                                 {post.metadata.content?.content || ''}
                             </Markup>
-                        </a>
+                        </Link>
                     </DecryptPost>
                 </MaskRuntime>
-            ) : null}
+            ) : (
+                <Markup className={classNames({ 'line-clamp-5': canShowMore }, 'markup linkify text-md break-words')}>
+                    {post.metadata.content?.content || ''}
+                </Markup>
+            )}
 
             {canShowMore ? (
                 <div className="text-base font-bold text-link">

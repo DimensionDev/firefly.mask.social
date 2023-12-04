@@ -15,6 +15,13 @@ export interface FeedResponse {
 export interface UserResponse {
     result: Profile;
 }
+
+export interface UserDetailResponse {
+    result: {
+        user: Profile;
+    };
+}
+
 export interface CastsResult {
     casts: Cast[];
 }

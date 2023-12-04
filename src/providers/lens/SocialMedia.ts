@@ -1,4 +1,5 @@
 import {
+    CommentRankingFilterType,
     CustomFiltersType,
     ExploreProfilesOrderByType,
     ExplorePublicationsOrderByType,
@@ -391,6 +392,25 @@ export class LensSocialMedia implements Provider {
 
         const post = formatLensPost(result);
         return post;
+    }
+
+    async getCommentsById(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        const result = await this.lensClient.publication.fetchAll({
+            where: {
+                commentOn: { id: postId, ranking: { filter: CommentRankingFilterType.Relevant } },
+                customFilters: [CustomFiltersType.Gardeners],
+            },
+            limit: LimitType.TwentyFive,
+            cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
+        });
+
+        if (!result) throw new Error(t`No comments found`);
+
+        return createPageable(
+            result.items.map((item) => formatLensPost(item)),
+            indicator ?? createIndicator(),
+            result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
+        );
     }
 
     async discoverPosts(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {

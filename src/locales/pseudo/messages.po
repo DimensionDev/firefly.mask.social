@@ -277,6 +277,9 @@ msgstr ""
 msgid "Visit mask.io"
 msgstr ""
 
+msgid "No comments found"
+msgstr ""
+
 msgid "Connected in Firefly"
 msgstr ""
 

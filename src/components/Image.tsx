@@ -1,6 +1,7 @@
 import type { DetailedHTMLProps, ImgHTMLAttributes, Ref, SyntheticEvent } from 'react';
 import { forwardRef, useCallback, useEffect, useState } from 'react';
 
+import { classNames } from '@/helpers/classNames.js';
 import { useDarkMode } from '@/hooks/useDarkMode.js';
 
 export const Image = forwardRef(function Image(
@@ -43,6 +44,7 @@ export const Image = forwardRef(function Image(
                     ? fallback || (!isDarkMode ? '/image/fallback-light.png' : '/image/fallback-dark.png')
                     : props.src
             }
+            className={classNames(props.className ?? '', 'border border-secondaryLine')}
             onError={handleError}
             alt={props.alt || ''}
             ref={ref}

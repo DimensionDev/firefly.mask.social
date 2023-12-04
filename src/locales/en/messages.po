@@ -277,6 +277,9 @@ msgstr "Failed to post on Lens"
 msgid "Visit mask.io"
 msgstr "Visit mask.io"
 
+msgid "No comments found"
+msgstr "No comments found"
+
 msgid "Connected in Firefly"
 msgstr "Connected in Firefly"
 

@@ -4,7 +4,7 @@ import dynamic from 'next/dynamic.js';
 import { ScrollRestorer } from 'next-scroll-restorer';
 
 import { Providers } from '@/app/provider.js';
-import { CalendarWidget } from '@/components/CalendarWidget.js';
+// import { CalendarWidget } from '@/components/CalendarWidget.js';
 import { GA } from '@/components/GA.js';
 import { Polyfills } from '@/components/Polyfills.js';
 import { SearchBar } from '@/components/SearchBar.js';
@@ -45,7 +45,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
                             <SearchFilter />
 
-                            <CalendarWidget />
+                            {/* <CalendarWidget /> */}
                         </aside>
                     </div>
                     <Modals />
