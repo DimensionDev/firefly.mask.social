@@ -1,4 +1,5 @@
-import DisconnectIcon from '@/assets/disconnect.svg';
+// CC @harlan I cannot find disconnect icon in the repo, use discover icon instead
+import DisconnectIcon from '@/assets/discover.svg';
 import WalletVerifiedIcon from '@/assets/wallet-verified.svg';
 
 interface AccountCardProps {

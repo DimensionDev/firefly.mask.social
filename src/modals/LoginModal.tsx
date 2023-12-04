@@ -8,9 +8,9 @@ import { usePrevious, useUpdateEffect } from 'react-use';
 import { polygon } from 'viem/chains';
 import { useAccount, useNetwork } from 'wagmi';
 
-import { PlatformIcon } from '@/app/profile/components/PlatformIcon.jsx';
+import { PlatformIcon } from '@/app/profile/components/PlatformIcon.js';
 import CloseIcon from '@/assets/close.svg';
-import LeftErrorIcon from '@/assets/leftError.svg';
+import LeftArrowIcon from '@/assets/leftArrow.svg';
 import LoadingIcon from '@/assets/loading.svg';
 import { LoginFarcaster } from '@/components/LoginFarcaster.js';
 import { LoginLens } from '@/components/LoginLens/index.js';
@@ -102,7 +102,7 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps>>(
                                         }}
                                     >
                                         {current === SocialPlatform.Farcaster ? (
-                                            <LeftErrorIcon width={24} height={24} />
+                                            <LeftArrowIcon width={24} height={24} />
                                         ) : (
                                             <CloseIcon width={24} height={24} />
                                         )}
