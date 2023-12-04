@@ -10,13 +10,13 @@ import {
 } from '@masknet/theme';
 import { ChainContextProvider, RootWeb3ContextProvider } from '@masknet/web3-hooks-base';
 import { StyledEngineProvider } from '@mui/material';
-import { memo, type PropsWithChildren, Suspense } from 'react';
+import { type PropsWithChildren, Suspense } from 'react';
 import { I18nextProvider } from 'react-i18next';
 import { useAccount, useChainId } from 'wagmi';
 
 import { useMaskTheme } from '@/hooks/useMaskTheme.js';
 
-const Runtime = memo(function Runtime({ children }: PropsWithChildren<{}>) {
+export function MaskRuntime({ children }: PropsWithChildren<{}>) {
     const account = useAccount();
     const chainId = useChainId();
 
@@ -41,13 +41,5 @@ const Runtime = memo(function Runtime({ children }: PropsWithChildren<{}>) {
                 </StyledEngineProvider>
             </DialogStackingProvider>
         </DisableShadowRootContext.Provider>
-    );
-});
-
-export function MaskRuntime({ children }: PropsWithChildren<{}>) {
-    return (
-        <Suspense fallback={null}>
-            <Runtime>{children}</Runtime>
-        </Suspense>
     );
 }
