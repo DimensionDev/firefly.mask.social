@@ -11,23 +11,30 @@ import {
 } from '@masknet/theme';
 import { ChainContextProvider, RootWeb3ContextProvider } from '@masknet/web3-hooks-base';
 import { StyledEngineProvider } from '@mui/material';
-import { memo, type PropsWithChildren, Suspense, use } from 'react';
+import { lazy,memo, type PropsWithChildren, Suspense, use } from 'react';
 import { I18nextProvider } from 'react-i18next';
 import { useAccount, useChainId } from 'wagmi';
 
 import { useMaskTheme } from '@/hooks/useMaskTheme.js';
 
+// @ts-ignore
+const PageInspectorRender = lazy(() => import('@/main/page-render.js'), { ssr: false });
+
 async function setupRuntime() {
+    console.log('DEBUG: setup runtime begin')
+    
     await import('./locale.js');
     await setupBuildInfo();
 
     await import('./storage.js');
     await import('./wallet.js');
+
+    console.log('DEBUG: setup runtime done')
 }
 
 const promise = setupRuntime();
 
-export const Runtime = memo(function Runtime({ children }: PropsWithChildren<{}>) {
+const Runtime = memo(function Runtime({ children }: PropsWithChildren<{}>) {
     use(promise);
 
     const account = useAccount();
@@ -44,6 +51,7 @@ export const Runtime = memo(function Runtime({ children }: PropsWithChildren<{}>
                                         <Suspense fallback={null}>
                                             <CSSVariableInjector />
                                             {children}
+                                            <PageInspectorRender />
                                         </Suspense>
                                     </SharedContextProvider>
                                 </ChainContextProvider>
