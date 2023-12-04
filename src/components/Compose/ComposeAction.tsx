@@ -2,6 +2,7 @@ import { Popover } from '@headlessui/react';
 import { ChevronRightIcon } from '@heroicons/react/24/outline';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext.js';
 import { Trans } from '@lingui/macro';
+import { openDialog } from '@masknet/plugin-redpacket';
 import { $getSelection } from 'lexical';
 import { type ChangeEvent, type Dispatch, type SetStateAction, useCallback, useRef, useState } from 'react';
 
@@ -89,6 +90,7 @@ export default function ComposeAction({ type, images, setImages, setLoading }: C
                 <AtIcon className=" cursor-pointer" width={24} height={24} onClick={() => insertText('@')} />
 
                 <NumberSignIcon className=" cursor-pointer" width={24} height={24} onClick={() => insertText('#')} />
+                <button onClick={openDialog}>Open Red Packet Dialog</button>
             </div>
 
             <div className=" flex h-9 items-center justify-between">

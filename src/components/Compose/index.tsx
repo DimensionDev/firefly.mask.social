@@ -65,7 +65,7 @@ function Compose({ type = 'compose', post, opened, setOpened }: IComposeProps) {
                                 leaveFrom="opacity-100 scale-100"
                                 leaveTo="opacity-0 scale-95"
                             >
-                                <Dialog.Panel className="relative w-[600px] overflow-hidden rounded-xl bg-bgModal shadow-popover transition-all">
+                                <Dialog.Panel className="relative w-[600px] overflow-hidden rounded-xl bg-bgModal shadow-popover transition-all dark:text-gray-950">
                                     {/* Loading */}
                                     {loading ? (
                                         <div className=" absolute bottom-0 left-0 right-0 top-0 z-50 flex items-center justify-center">

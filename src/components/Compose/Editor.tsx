@@ -39,7 +39,7 @@ export default function Editor({ type, setCharacters, hasImages, hasPost }: Edit
                 contentEditable={
                     <ContentEditable
                         className={classNames(
-                            ' cursor-text resize-none appearance-none border-none bg-transparent p-0 text-left text-base leading-5 outline-0 focus:ring-0',
+                            ' cursor-text resize-none appearance-none border-none bg-transparent p-0 text-left text-base leading-5 outline-0 focus:ring-0 dark:text-gray-900',
                             hasImages ? '' : hasPost ? 'min-h-[200px]' : 'min-h-[308px]',
                         )}
                     />
