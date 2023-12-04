@@ -7,7 +7,7 @@ import { type ChangeEvent, type Dispatch, type SetStateAction, useCallback, useR
 
 import AtIcon from '@/assets/at.svg';
 import GalleryIcon from '@/assets/gallery.svg';
-import NumberSignIcon from '@/assets/numberSign.svg';
+import NumberSignIcon from '@/assets/number-sign.svg';
 import PostBy from '@/components/compose/PostBy.js';
 import ReplyRestriction from '@/components/compose/ReplyRestriction.js';
 import uploadToIPFS, { type IPFSResponse } from '@/services/uploadToIPFS.js';
