@@ -22,8 +22,9 @@ interface EditorProps {
     type: 'compose' | 'quote' | 'reply';
     setCharacters: (characters: string) => void;
     hasImages: boolean;
+    hasPost: boolean;
 }
-export default function Editor({ type, setCharacters, hasImages }: EditorProps) {
+export default function Editor({ type, setCharacters, hasImages, hasPost }: EditorProps) {
     const placeholder = useMemo(() => {
         return {
             compose: t`What's happening...`,
@@ -39,12 +40,12 @@ export default function Editor({ type, setCharacters, hasImages }: EditorProps) 
                     <ContentEditable
                         className={classNames(
                             ' cursor-text resize-none appearance-none border-none bg-transparent p-0 text-left text-base leading-5 outline-0 focus:ring-0',
-                            hasImages ? '' : 'min-h-[308px]',
+                            hasImages ? '' : hasPost ? 'min-h-[200px]' : 'min-h-[308px]',
                         )}
                     />
                 }
                 placeholder={
-                    <div className=" pointer-events-none absolute left-0 top-0 leading-5 text-[#767F8D]">
+                    <div className=" pointer-events-none absolute left-0 top-0 leading-5 text-placeholder">
                         {placeholder}
                     </div>
                 }

@@ -16,8 +16,10 @@
     --color-farcaster-primary: 146 80 255;
     --color-second: rgba(118, 127, 141, 1);
     --color-bottom80: rgba(255, 255, 255, 0.8);
+    --color-bottom-blue: rgba(36, 107, 253, 1);
     --color-bg: rgba(249, 249, 249, 1);
     --color-bg-modal: rgba(249, 249, 249, 1);
+    --color-bg-modal-layer: 217 217 217;
     --m-modal-title-bg: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.9) 100%),
         linear-gradient(
             90deg,
@@ -35,6 +37,7 @@
     --color-light-bg: #f9f9f9;
     --color-light-main: #181818;
     --color-bottom-bg: rgba(0, 0, 0, 0.05);
+    --color-tab-line: rgba(29, 155, 240, 1);
     --m-common-danger: #ff3545;
     --m-light-bottom: #fff;
     --plyr-audio-controls-background: rgba(243, 243, 243, 1);
@@ -59,6 +62,7 @@
     --color-lens-primary: 154 227 42;
     --color-farcaster-primary: 146 80 255;
     --color-bottom80: rgba(0, 0, 0, 0.8);
+    --color-bottom-blue: rgba(36, 107, 253, 1);
     --color-main1: rgba(255, 255, 255, 0.28);
     --color-main2: rgba(255, 255, 255, 0.13);
     --color-main3: rgba(255, 255, 255, 0.11);
@@ -66,12 +70,14 @@
     --color-second: rgba(255, 255, 255, 0.78);
     --color-bg: rgba(255, 255, 255, 0.08);
     --color-bg-modal: rgba(0, 0, 0);
+    --color-bg-modal-layer: 217 217 217;
     --m-modal-title-bg: linear-gradient(180deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.06) 100%);
     --color-input: rgba(255, 255, 255, 0.15);
     --color-line: rgba(255, 255, 255, 0.18);
     --color-line2: rgba(255, 255, 255, 0.43);
     --color-light-bg: rgba(255, 255, 255, 0.08);
     --color-light-main: #f5f5f5;
+    --color-tab-line: rgba(146, 80, 255, 1);
     --plyr-audio-controls-background: inherit;
     --plyr-range-thumb-height: 0px;
     --plyr-range-track-height: 12px;
