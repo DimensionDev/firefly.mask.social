@@ -3,13 +3,13 @@
 import { usePathname } from 'next/navigation.js';
 import type { ReactNode } from 'react';
 
-interface ConditionalRenderByPathnameProps {
-    includes?: string[];
-    excludes?: string[];
+interface IfPathname {
+    isOneOf?: string[];
+    isNotOneOf?: string[];
     children: ReactNode;
 }
 
-export function ConditionalRenderByPathname({ includes, excludes, children }: ConditionalRenderByPathnameProps) {
+export function IfPathname({ isOneOf: includes, isNotOneOf: excludes, children }: IfPathname) {
     const pathname = usePathname();
 
     if (includes?.some((includedPath) => pathname.startsWith(includedPath))) {
