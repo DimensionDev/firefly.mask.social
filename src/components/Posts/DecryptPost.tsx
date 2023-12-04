@@ -4,6 +4,7 @@ import { type PostContext, PostInfoProvider } from '@masknet/plugin-infra/conten
 import {
     createConstantSubscription,
     EMPTY_ARRAY,
+    EMPTY_LIST,
     EnhanceableSite,
     PostIdentifier,
     ProfileIdentifier,
@@ -32,7 +33,7 @@ export const DecryptPost = memo(function DecryptPost({ post, payload, children }
             post.metadata.content?.attachments
                 ?.filter((x) => x.type === 'Image')
                 .map((x) => x.uri)
-                .filter(Boolean) ?? [],
+                .filter(Boolean) ?? EMPTY_LIST,
         );
         return {
             author: createConstantSubscription(author),
