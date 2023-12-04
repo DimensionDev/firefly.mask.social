@@ -1,3 +1,4 @@
+import { Trans } from '@lingui/macro';
 import { RegistryContext, TypedMessageRender } from '@masknet/typed-message-react';
 import React, { lazy, Suspense } from 'react';
 
@@ -13,15 +14,16 @@ export function DecryptMessage(props: { text: string; version: string }) {
     if (isE2E)
         return (
             <p className="p-2">
-                This message is a e2e encrypted message. You can only decrypt this message when it is encrypted to you
-                and decrypt it with Mask Network extension.
+                <Trans>
+                    This message is a e2e encrypted message. You can only decrypt this message when it is encrypted to
+                    you and decrypt it with Mask Network extension.
+                </Trans>
             </p>
         );
     if (error)
         return (
             <p className="p-2">
-                We encountered an error when try to decrypt this message: <br />
-                {error.message}
+                <Trans>We encountered an error when try to decrypt this message: {error.message}</Trans>
             </p>
         );
     if (!message) return <p className="p-2">Decrypting...</p>;
@@ -32,7 +34,13 @@ export function DecryptMessage(props: { text: string; version: string }) {
                 <TypedMessageRender message={message} />
             </div>
 
-            <Suspense fallback={<p className="p-2">Plugin is loading...</p>}>
+            <Suspense
+                fallback={
+                    <p className="p-2">
+                        <Trans>Plugin is loading...</Trans>
+                    </p>
+                }
+            >
                 <PluginRender message={message} />
             </Suspense>
         </RegistryContext.Provider>

@@ -1,6 +1,9 @@
-export function getPostPayload(): [string, '1' | '2'] | undefined {
-    const params = new URLSearchParams(location.search);
-    if (params.has('PostData_v2')) return [params.get('PostData_v2')!, '2'];
-    if (params.has('PostData_v1')) return [params.get('PostData_v1')!, '1'];
+export function getPostPayload(raw: string | undefined): [string, '1' | '2'] | undefined {
+    const matched = raw?.match(/(?:.*)PostData_([v1|v2])=(.*)/);
+    if (!matched) return;
+    const [, version, payload] = matched;
+
+    if (version === 'v1') return [payload, '1'];
+    if (version === 'v2') return [payload, '2'];
     return;
 }

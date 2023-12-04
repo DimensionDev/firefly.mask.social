@@ -9,25 +9,20 @@ import {
     ProfileIdentifier,
     ValueRef,
 } from '@masknet/shared-base';
-import type { TypedMessage } from '@masknet/typed-message';
 import { makeTypedMessageEmpty, makeTypedMessageTuple } from '@masknet/typed-message';
 import { compact } from 'lodash-es';
-import { memo, type PropsWithChildren, useMemo, useState } from 'react';
+import { memo, type PropsWithChildren, useMemo } from 'react';
 
 import { SocialPlatform } from '@/constants/enum.js';
 import { DecryptMessage } from '@/main/DecryptMessage.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 interface Props extends PropsWithChildren<{}> {
-    raw: string;
     post: Post;
+    payload: [string, '1' | '2'];
 }
 
-export const DecryptPost = memo(function DecryptPost({ raw, post, children }: Props) {
-    const [result, setResult] = useState<TypedMessage | null>(null);
-
-    const payload = raw.replace(/.*PostData_v2=/, '');
-    const hasMaskPayload = /\bPostData_v2=/.test(raw);
+export const DecryptPost = memo(function DecryptPost({ post, payload, children }: Props) {
     const postInfo = useMemo((): PostContext => {
         const author = ProfileIdentifier.of('mask.social', post.author.displayName).unwrapOr(null);
         const url = `${location.origin}/detail/${post.source === SocialPlatform.Farcaster ? 'farcaster' : 'lens'}/${
@@ -62,7 +57,7 @@ export const DecryptPost = memo(function DecryptPost({ raw, post, children }: Pr
             rawMessage: createConstantSubscription(makeTypedMessageTuple([makeTypedMessageEmpty()])),
             encryptComment: new ValueRef<null | ((commentToEncrypt: string) => Promise<string>)>(null),
             decryptComment: new ValueRef<null | ((commentToEncrypt: string) => Promise<string | null>)>(null),
-            hasMaskPayload: createConstantSubscription(!!hasMaskPayload),
+            hasMaskPayload: createConstantSubscription(true),
             postIVIdentifier: createConstantSubscription(null),
             publicShared: createConstantSubscription(!post.isHidden),
             isAuthorOfPost: createConstantSubscription(!post.hasMirrored),
@@ -71,7 +66,7 @@ export const DecryptPost = memo(function DecryptPost({ raw, post, children }: Pr
                 return;
             },
         };
-    }, [post, hasMaskPayload]);
+    }, [post]);
 
     return (
         <PostInfoProvider post={postInfo}>
@@ -82,7 +77,7 @@ export const DecryptPost = memo(function DecryptPost({ raw, post, children }: Pr
                     e.stopPropagation();
                 }}
             >
-                <DecryptMessage text={payload} version="2" />
+                <DecryptMessage text={payload[0]} version={payload[1]} />
             </div>
         </PostInfoProvider>
     );
