@@ -1,4 +1,5 @@
 import {
+    CommentRankingFilterType,
     CustomFiltersType,
     ExploreProfilesOrderByType,
     ExplorePublicationsOrderByType,
@@ -199,9 +200,7 @@ export class LensSocialMedia implements Provider {
     async publishPost(post: Post): Promise<Post> {
         if (!post.metadata.contentURI) throw new Error(t`No content URI found`);
 
-        const profile = await this.getProfileById(post.author.profileId);
-
-        if (profile.signless) {
+        if (post.author.signless) {
             const result = await this.lensClient.publication.postOnchain({
                 contentURI: post.metadata.contentURI,
             });
@@ -218,8 +217,6 @@ export class LensSocialMedia implements Provider {
 
             const { id, typedData } = resultTypedData.unwrap();
 
-            console.log(typedData);
-
             const signedTypedData = await wallet.signTypedData({
                 domain: typedData.domain as TypedDataDomain,
                 types: typedData.types,
@@ -233,8 +230,6 @@ export class LensSocialMedia implements Provider {
             });
 
             const broadcastValue = broadcastResult.unwrap();
-
-            console.log(broadcastValue);
 
             if (!isRelaySuccess(broadcastValue)) {
                 throw new Error(`Something went wrong ${JSON.stringify(broadcastValue)}`);
@@ -257,15 +252,43 @@ export class LensSocialMedia implements Provider {
     }
 
     // intro is the contentURI of the post
-    async quotePost(postId: string, intro: string): Promise<Post> {
-        const result = await this.lensClient.publication.quoteOnchain({
-            quoteOn: postId,
-            contentURI: intro,
-        });
-        const resultValue = result.unwrap();
+    async quotePost(postId: string, intro: string, signless?: boolean): Promise<Post> {
+        if (signless) {
+            const result = await this.lensClient.publication.quoteOnchain({
+                quoteOn: postId,
+                contentURI: intro,
+            });
+            const resultValue = result.unwrap();
 
-        if (!isRelaySuccess(resultValue)) throw new Error(`Something went wrong ${JSON.stringify(resultValue)}`);
+            if (!isRelaySuccess(resultValue)) throw new Error(`Something went wrong ${JSON.stringify(resultValue)}`);
+        } else {
+            const wallet = await this.getWallet();
 
+            const resultTypedData = await this.lensClient.publication.createOnchainQuoteTypedData({
+                quoteOn: postId,
+                contentURI: intro,
+            });
+
+            const { id, typedData } = resultTypedData.unwrap();
+
+            const signedTypedData = await wallet.signTypedData({
+                domain: typedData.domain as TypedDataDomain,
+                types: typedData.types,
+                primaryType: 'Quote',
+                message: typedData.value,
+            });
+
+            const broadcastResult = await this.lensClient.transaction.broadcastOnchain({
+                id,
+                signature: signedTypedData,
+            });
+
+            const broadcastValue = broadcastResult.unwrap();
+
+            if (!isRelaySuccess(broadcastValue)) {
+                throw new Error(`Something went wrong ${JSON.stringify(broadcastValue)}`);
+            }
+        }
         const post = await this.getPostById(postId);
         return post;
     }
@@ -279,14 +302,43 @@ export class LensSocialMedia implements Provider {
     }
 
     // comment is the contentURI of the post
-    async commentPost(postId: string, comment: string): Promise<void> {
-        const result = await this.lensClient.publication.commentOnchain({
-            commentOn: postId,
-            contentURI: comment,
-        });
-        const resultValue = result.unwrap();
+    async commentPost(postId: string, comment: string, signless?: boolean): Promise<void> {
+        if (signless) {
+            const result = await this.lensClient.publication.commentOnchain({
+                commentOn: postId,
+                contentURI: comment,
+            });
+            const resultValue = result.unwrap();
 
-        if (!isRelaySuccess(resultValue)) throw new Error(`Something went wrong ${JSON.stringify(resultValue)}`);
+            if (!isRelaySuccess(resultValue)) throw new Error(`Something went wrong ${JSON.stringify(resultValue)}`);
+        } else {
+            const wallet = await this.getWallet();
+
+            const resultTypedData = await this.lensClient.publication.createOnchainCommentTypedData({
+                commentOn: postId,
+                contentURI: comment,
+            });
+
+            const { id, typedData } = resultTypedData.unwrap();
+
+            const signedTypedData = await wallet.signTypedData({
+                domain: typedData.domain as TypedDataDomain,
+                types: typedData.types,
+                primaryType: 'Comment',
+                message: typedData.value,
+            });
+
+            const broadcastResult = await this.lensClient.transaction.broadcastOnchain({
+                id,
+                signature: signedTypedData,
+            });
+
+            const broadcastValue = broadcastResult.unwrap();
+
+            if (!isRelaySuccess(broadcastValue)) {
+                throw new Error(`Something went wrong ${JSON.stringify(broadcastValue)}`);
+            }
+        }
     }
 
     async upvotePost(postId: string): Promise<Reaction> {
@@ -340,6 +392,25 @@ export class LensSocialMedia implements Provider {
 
         const post = formatLensPost(result);
         return post;
+    }
+
+    async getCommentsById(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        const result = await this.lensClient.publication.fetchAll({
+            where: {
+                commentOn: { id: postId, ranking: { filter: CommentRankingFilterType.Relevant } },
+                customFilters: [CustomFiltersType.Gardeners],
+            },
+            limit: LimitType.TwentyFive,
+            cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
+        });
+
+        if (!result) throw new Error(t`No comments found`);
+
+        return createPageable(
+            result.items.map((item) => formatLensPost(item)),
+            indicator ?? createIndicator(),
+            result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
+        );
     }
 
     async discoverPosts(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {

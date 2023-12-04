@@ -8,9 +8,9 @@ import { MentionNode } from '@/components/shared/lexical/nodes/MentionsNode.js';
 const initialConfig = {
     namespace: 'composer',
     theme: {
-        link: 'text-[#8E96FF]',
-        hashtag: 'text-[#8E96FF]',
-        mention: 'text-[#8E96FF]',
+        link: 'text-link',
+        hashtag: 'text-link',
+        mention: 'text-link',
     },
     nodes: [MentionNode, HashtagNode, AutoLinkNode, LinkNode],
     editorState: null,

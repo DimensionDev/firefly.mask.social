@@ -21,7 +21,7 @@ export default function ContentTabs() {
                         <button
                             className={classNames(
                                 ' flex h-[46px] items-center px-[14px] font-extrabold transition-all',
-                                tab === tabName ? ' text-lightMain' : ' text-[#767F8D]',
+                                tab === tabName ? ' text-lightMain' : ' text-secondary',
                             )}
                             onClick={() => setTab(tabName)}
                         >
@@ -29,7 +29,7 @@ export default function ContentTabs() {
                         </button>
                         <span
                             className={classNames(
-                                ' h-1 w-full rounded-full bg-[#1D9BF0] transition-all',
+                                ' h-1 w-full rounded-full bg-tabLine transition-all',
                                 tab !== tabName ? ' hidden' : '',
                             )}
                         />

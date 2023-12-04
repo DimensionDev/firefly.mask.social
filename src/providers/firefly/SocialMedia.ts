@@ -7,8 +7,7 @@ import {
     type Pageable,
     type PageIndicator,
 } from '@masknet/shared-base';
-import dayjs from 'dayjs';
-import { compact, first } from 'lodash-es';
+import { compact } from 'lodash-es';
 import urlcat from 'urlcat';
 
 import { SocialPlatform } from '@/constants/enum.js';
@@ -16,11 +15,11 @@ import { FIREFLY_ROOT_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { formatFarcasterPostFromFirefly } from '@/helpers/formatFarcasterPostFromFirefly.js';
 import { formatFarcasterProfileFromFirefly } from '@/helpers/formatFarcasterProfileFromFirefly.js';
-import { getResourceType } from '@/helpers/getResourceType.js';
 import { isZero } from '@/maskbook/packages/web3-shared/base/src/index.js';
 import type {
     CastResponse,
     CastsResponse,
+    CommentsResponse,
     NotificationResponse,
     UserResponse,
     UsersResponse,
@@ -38,7 +37,6 @@ import {
 } from '@/providers/types/SocialMedia.js';
 import { WarpcastSocialMediaProvider } from '@/providers/warpcast/SocialMedia.js';
 import { hydrateCurrentAccount } from '@/store/useFarcasterStore.js';
-import type { MetadataAsset } from '@/types/index.js';
 
 // @ts-ignore
 export class FireflySocialMedia implements Provider {
@@ -64,43 +62,7 @@ export class FireflySocialMedia implements Provider {
             method: 'GET',
         });
 
-        const asset = first(cast.embeds);
-        return {
-            type: (cast.parent_hash ? t`Comment` : t`Post`) as PostType,
-            source: SocialPlatform.Farcaster,
-            postId: cast.hash,
-            parentPostId: cast.parent_hash,
-            timestamp: cast.timestamp ? dayjs(cast.timestamp).valueOf() : undefined,
-            author: {
-                profileId: cast.author.fid,
-                nickname: cast.author.username,
-                displayName: cast.author.display_name,
-                pfp: cast.author.pfp,
-                followerCount: cast.author.followers,
-                followingCount: cast.author.following,
-                status: ProfileStatus.Active,
-                verified: true,
-                source: SocialPlatform.Farcaster,
-            },
-            metadata: {
-                locale: '',
-                content: {
-                    content: cast.text,
-                    asset: asset
-                        ? ({
-                              uri: asset.url,
-                              type: getResourceType(asset.url),
-                          } as MetadataAsset)
-                        : undefined,
-                },
-            },
-            stats: {
-                comments: Number(cast.replyCount),
-                mirrors: cast.recastCount,
-                quotes: cast.recastCount,
-                reactions: cast.likeCount,
-            },
-        };
+        return formatFarcasterPostFromFirefly(cast);
     }
 
     async getProfileById(profileId: string) {
@@ -178,11 +140,32 @@ export class FireflySocialMedia implements Provider {
         return createPageable(data, createIndicator(indicator), createNextIndicator(indicator, next_cursor));
     }
 
+    async getCommentsById(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        // TODO: pass fid
+        const url = urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/cast/comments', {
+            hash: postId,
+            size: 25,
+            cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
+        });
+
+        const {
+            data: { comments, cursor },
+        } = await fetchJSON<CommentsResponse>(url, {
+            method: 'GET',
+        });
+
+        return createPageable(
+            comments.map((item) => formatFarcasterPostFromFirefly(item)),
+            indicator ?? createIndicator(indicator),
+            cursor ? createNextIndicator(indicator, cursor) : undefined,
+        );
+    }
+
     async getPostsByProfileId(profileId: string, indicator?: PageIndicator) {
         const url = urlcat(FIREFLY_ROOT_URL, '/v2/user/timeline/farcaster', {
             fids: [profileId],
             size: 10,
-            cursor: indicator?.id,
+            cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
         });
         const {
             data: { casts, cursor },

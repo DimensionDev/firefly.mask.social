@@ -67,7 +67,7 @@ export const PreviewImagesModal = forwardRef<SingletonModalRefCreator<PreviewIma
                                         <CloseIcon
                                             width={24}
                                             height={24}
-                                            className="cursor-pointer text-secondary"
+                                            className="cursor-pointer text-white"
                                             onClick={(event) => {
                                                 event.stopPropagation();
                                                 event.preventDefault();
@@ -78,6 +78,8 @@ export const PreviewImagesModal = forwardRef<SingletonModalRefCreator<PreviewIma
                                     <Image
                                         src={state ?? current}
                                         alt={state ?? current}
+                                        width={1000}
+                                        height={1000}
                                         className="max-h-[calc(100vh-110px)] max-w-full"
                                     />
 

@@ -70,6 +70,9 @@ msgstr "UnLike"
 msgid "Failed to follow"
 msgstr "Failed to follow"
 
+msgid "Replying to @{0} on Lens"
+msgstr "Replying to @{0} on Lens"
+
 msgid "Casts"
 msgstr "Casts"
 
@@ -265,8 +268,17 @@ msgstr "Failed to parse session."
 msgid "Share"
 msgstr "Share"
 
+msgid "Select failed: More than 2 images"
+msgstr "Select failed: More than 2 images"
+
+msgid "Failed to post on Lens"
+msgstr "Failed to post on Lens"
+
 msgid "Visit mask.io"
 msgstr "Visit mask.io"
+
+msgid "No comments found"
+msgstr "No comments found"
 
 msgid "Connected in Firefly"
 msgstr "Connected in Firefly"
@@ -279,6 +291,9 @@ msgstr "Sign"
 
 msgid "Follow @thefireflyapp on X"
 msgstr "Follow @thefireflyapp on X"
+
+msgid "Posted on Lens"
+msgstr "Posted on Lens"
 
 msgid "Mirrored"
 msgstr "Mirrored"
@@ -297,6 +312,9 @@ msgstr "Allow Lens Manager to perform actions such as posting, liking, and comme
 
 msgid "<0>{0}</0> mirrored"
 msgstr "<0>{0}</0> mirrored"
+
+msgid "Failed to quote on Lens"
+msgstr "Failed to quote on Lens"
 
 msgid "Post by {0}"
 msgstr "Post by {0}"
@@ -324,6 +342,9 @@ msgstr "Missing client."
 
 msgid "No Lens profile found. Please change another wallet"
 msgstr "No Lens profile found. Please change another wallet"
+
+msgid "Quote on Lens"
+msgstr "Quote on Lens"
 
 msgid "Delegate Signing (Recommend)"
 msgstr "Delegate Signing (Recommend)"
