@@ -5,8 +5,8 @@ import { Trans } from '@lingui/macro';
 import { forwardRef, Fragment } from 'react';
 
 import { PlatformIcon } from '@/app/profile/components/PlatformIcon.js';
-import LogOutIcon from '@/assets/logOut.svg';
-import UserAddIcon from '@/assets/userAdd.svg';
+import LogoutIcon from '@/assets/logout.svg';
+import UserAddIcon from '@/assets/user-add.svg';
 import { SocialPlatform } from '@/constants/enum.js';
 import { Image } from '@/esm/Image.js';
 import type { SingletonModalRefCreator } from '@/maskbook/packages/shared-base/src/index.js';
@@ -83,7 +83,7 @@ export const FarcasterStatusModal = forwardRef<SingletonModalRefCreator>(functio
                                         className="flex items-center gap-[8px]"
                                         onClick={() => LogoutModalRef.open({ platform: SocialPlatform.Farcaster })}
                                     >
-                                        <LogOutIcon width={24} height={24} />
+                                        <LogoutIcon width={24} height={24} />
                                         <div className=" text-[17px] font-bold leading-[22px] text-[#f00]">
                                             <Trans>Log out</Trans>
                                         </div>

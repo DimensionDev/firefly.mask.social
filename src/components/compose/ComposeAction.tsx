@@ -7,7 +7,7 @@ import { type ChangeEvent, type Dispatch, type SetStateAction, useCallback, useR
 
 import AtIcon from '@/assets/at.svg';
 import GalleryIcon from '@/assets/gallery.svg';
-import NumberSignIcon from '@/assets/numberSign.svg';
+import NumberSignIcon from '@/assets/number-sign.svg';
 import type { IImage } from '@/components/Compose/index.js';
 import PostBy from '@/components/Compose/PostBy.js';
 import ReplyRestriction from '@/components/Compose/ReplyRestriction.js';

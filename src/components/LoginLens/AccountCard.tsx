@@ -1,4 +1,4 @@
-import DisableNoIcon from '@/assets/disableNo.svg';
+import DisableNoIcon from '@/assets/disable-no.svg';
 import YesIcon from '@/assets/yes.svg';
 import { Image } from '@/esm/Image.js';
 import type { Account } from '@/types/index.js';

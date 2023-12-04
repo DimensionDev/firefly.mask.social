@@ -5,8 +5,8 @@ import { Trans } from '@lingui/macro';
 import { forwardRef, Fragment } from 'react';
 
 import { PlatformIcon } from '@/app/profile/components/PlatformIcon.js';
-import LogOutIcon from '@/assets/logOut.svg';
-import UserAddIcon from '@/assets/userAdd.svg';
+import LogOutIcon from '@/assets/logout.svg';
+import UserAddIcon from '@/assets/user-add.svg';
 import { SocialPlatform } from '@/constants/enum.js';
 import { Image } from '@/esm/Image.js';
 import type { SingletonModalRefCreator } from '@/maskbook/packages/shared-base/src/index.js';

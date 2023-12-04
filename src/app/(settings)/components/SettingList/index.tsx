@@ -2,7 +2,7 @@
 
 import { t, Trans } from '@lingui/macro';
 
-import RightArrowIcon from '@/assets/rightArrow.svg';
+import RightArrowIcon from '@/assets/right-arrow.svg';
 import { Link } from '@/esm/Link.js';
 
 const settings = [
