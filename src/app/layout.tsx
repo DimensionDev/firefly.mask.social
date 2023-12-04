@@ -3,6 +3,7 @@ import './globals.css';
 import { ScrollRestorer } from 'next-scroll-restorer';
 
 import { Providers } from '@/app/provider.js';
+import { ConditionalRenderByPathname } from '@/components/ConditionalRenderByPathname.js';
 import { CustomElements } from '@/components/CustomElements.js';
 import { GA } from '@/components/GA.js';
 import { Polyfills } from '@/components/Polyfills.js';
@@ -39,12 +40,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                         </main>
 
                         <aside className=" sticky top-0 z-[998] h-full w-96 px-4 lg:block">
-                            <SearchBar source="secondary" />
+                            <ConditionalRenderByPathname excludes={['/settings']}>
+                                <SearchBar source="secondary" />
 
-                            <SearchFilter />
+                                <SearchFilter />
 
-                            <mask-calendar-widget />
-                            <mask-page-inspector />
+                                <mask-calendar-widget />
+                                <mask-page-inspector />
+                            </ConditionalRenderByPathname>
                         </aside>
                     </div>
                     <Modals />

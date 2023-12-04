@@ -1,7 +1,6 @@
 'use client';
 
 import { Trans } from '@lingui/macro';
-import { usePathname } from 'next/navigation.js';
 import { memo } from 'react';
 
 import { SearchType } from '@/constants/enum.js';
@@ -21,10 +20,7 @@ const Filters = [
 interface SearchFilterProps {}
 
 export const SearchFilter = memo(function SearchBar(props: SearchFilterProps) {
-    const pathname = usePathname();
     const { searchType, updateSearchType } = useSearchStore();
-
-    if (!pathname.startsWith('/search')) return null;
 
     return (
         <div>
