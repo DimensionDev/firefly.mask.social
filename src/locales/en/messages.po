@@ -151,9 +151,6 @@ msgstr "Failed to fetch as Text."
 msgid "Add an existing account"
 msgstr "Add an existing account"
 
-msgid "{0}"
-msgstr "{0}"
-
 msgid "Send"
 msgstr "Send"
 

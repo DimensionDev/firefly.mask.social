@@ -151,9 +151,6 @@ msgstr ""
 msgid "Add an existing account"
 msgstr ""
 
-msgid "{0}"
-msgstr ""
-
 msgid "Send"
 msgstr ""
 
