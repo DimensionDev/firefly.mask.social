@@ -2,12 +2,12 @@
 
 import { Dialog, Transition } from '@headlessui/react';
 import { t, Trans } from '@lingui/macro';
+import { safeUnreachable } from '@masknet/kit';
 import type { SingletonModalRefCreator } from '@masknet/shared-base';
 import { forwardRef, Fragment, useMemo, useState } from 'react';
 
+import { PlatformIcon } from '@/app/profile/components/PlatformIcon.js';
 import CloseIcon from '@/assets/close.svg';
-import FarcasterIcon from '@/assets/farcaster.svg';
-import LensIcon from '@/assets/lens.svg';
 import { SocialPlatform } from '@/constants/enum.js';
 import { Image } from '@/esm/Image.js';
 import { useSingletonModal } from '@/maskbook/packages/shared-base-ui/src/index.js';
@@ -98,19 +98,13 @@ export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps>
                                                             className="rounded-[99px]"
                                                         />
                                                     </div>
-                                                    {props.platform === SocialPlatform.Farcaster ? (
-                                                        <FarcasterIcon
+                                                    {props.platform ? (
+                                                        <PlatformIcon
                                                             className="absolute left-[24px] top-[24px] h-[16px] w-[16px] rounded-[99px] border border-white shadow"
-                                                            width={16}
-                                                            height={16}
+                                                            platform={props.platform}
+                                                            size={16}
                                                         />
-                                                    ) : (
-                                                        <LensIcon
-                                                            className="absolute left-[24px] top-[24px] h-[16px] w-[16px] rounded-[99px] border border-white shadow"
-                                                            width={16}
-                                                            height={16}
-                                                        />
-                                                    )}
+                                                    ) : null}
                                                 </div>
                                             </div>
                                             <div className="inline-flex h-[39px] shrink grow basis-0 flex-col items-start justify-center">
@@ -124,9 +118,18 @@ export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps>
                                     <button
                                         className=" flex items-center justify-center rounded-[99px] bg-commonDanger py-[11px] text-lightBottom"
                                         onClick={() => {
-                                            props.platform === SocialPlatform.Lens
-                                                ? clearLensAccount()
-                                                : clearFarcasterAccount();
+                                            if (!props.platform) return;
+                                            switch (props.platform) {
+                                                case SocialPlatform.Lens:
+                                                    clearLensAccount();
+                                                    break;
+                                                case SocialPlatform.Farcaster:
+                                                    clearFarcasterAccount();
+                                                    break;
+                                                default:
+                                                    safeUnreachable(props.platform);
+                                                    break;
+                                            }
                                             dispatch?.close();
                                         }}
                                     >

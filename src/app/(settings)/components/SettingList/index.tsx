@@ -2,7 +2,7 @@
 
 import { t, Trans } from '@lingui/macro';
 
-import RightArrow from '@/assets/rightArrow.svg';
+import RightArrowIcon from '@/assets/rightArrow.svg';
 import { Link } from '@/esm/Link.js';
 
 const settings = [
@@ -24,7 +24,7 @@ export function SettingList() {
                     key={name}
                     href={`/settings${link}`}
                 >
-                    {name} <RightArrow width={20} height={20} />
+                    {name} <RightArrowIcon width={20} height={20} />
                 </Link>
             ))}
         </div>

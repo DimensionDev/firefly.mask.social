@@ -4,7 +4,7 @@ import { Dialog, Transition } from '@headlessui/react';
 import { Trans } from '@lingui/macro';
 import { forwardRef, Fragment } from 'react';
 
-import LensIcon from '@/assets/lens.svg';
+import { PlatformIcon } from '@/app/profile/components/PlatformIcon.jsx';
 import LogOutIcon from '@/assets/logOut.svg';
 import UserAddIcon from '@/assets/userAdd.svg';
 import { SocialPlatform } from '@/constants/enum.js';
@@ -60,10 +60,10 @@ export const LensStatusModal = forwardRef<SingletonModalRefCreator>(function Len
                                                             className="rounded-[99px]"
                                                         />
                                                     </div>
-                                                    <LensIcon
-                                                        className="absolute left-0 top-0 h-[40px] w-[40px] rounded-[99px] shadow"
-                                                        width={16}
-                                                        height={16}
+                                                    <PlatformIcon
+                                                        className="absolute left-[24px] top-[24px] h-[16px] w-[16px] rounded-[99px] border border-white shadow"
+                                                        platform={SocialPlatform.Lens}
+                                                        size={16}
                                                     />
                                                 </div>
                                             </div>

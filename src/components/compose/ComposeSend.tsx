@@ -91,7 +91,7 @@ export default function ComposeSend({ characters, images, setOpened }: ComposeSe
                     }
                 }}
             >
-                <SendIcon className=" h-[18px] w-[18px]" width={18} height={18} />
+                <SendIcon width={18} height={18} />
                 <span>
                     <Trans>Send</Trans>
                 </span>

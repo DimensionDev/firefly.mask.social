@@ -4,7 +4,7 @@ import { Dialog, Transition } from '@headlessui/react';
 import { Trans } from '@lingui/macro';
 import { forwardRef, Fragment } from 'react';
 
-import FarcasterIcon from '@/assets/farcaster.svg';
+import { PlatformIcon } from '@/app/profile/components/PlatformIcon.js';
 import LogOutIcon from '@/assets/logOut.svg';
 import UserAddIcon from '@/assets/userAdd.svg';
 import { SocialPlatform } from '@/constants/enum.js';
@@ -52,10 +52,10 @@ export const FarcasterStatusModal = forwardRef<SingletonModalRefCreator>(functio
                                                     <div className="absolute left-0 top-0 h-[40px] w-[40px] rounded-[99px] shadow backdrop-blur-lg">
                                                         <Image src={avatar} alt="avatar" width={40} height={36} />
                                                     </div>
-                                                    <FarcasterIcon
-                                                        className="absolute left-0 top-0 h-[40px] w-[40px] rounded-[99px] shadow"
-                                                        width={16}
-                                                        height={16}
+                                                    <PlatformIcon
+                                                        className="absolute left-[24px] top-[24px] h-[16px] w-[16px] rounded-[99px] border border-white shadow"
+                                                        platform={SocialPlatform.Farcaster}
+                                                        size={16}
                                                     />
                                                 </div>
                                             </div>

@@ -1,7 +1,6 @@
 import { Trans } from '@lingui/macro';
 
-import FarcasterIcon from '@/assets/farcaster.svg';
-import LensIcon from '@/assets/lens.svg';
+import { PlatformIcon } from '@/app/profile/components/PlatformIcon.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { Image } from '@/esm/Image.js';
 
@@ -22,19 +21,11 @@ export function AccountCard({ avatar, name, userName, logout, isCurrent, type }:
                     <div className="absolute left-0 top-0 h-[36px] w-[36px] rounded-[99px] shadow backdrop-blur-lg">
                         <Image src={avatar} alt="avatar" width={36} height={36} />
                     </div>
-                    {type === SocialPlatform.Lens ? (
-                        <LensIcon
-                            className="absolute left-[24px] top-[24px] h-[16px] w-[16px] rounded-[99px] border border-white shadow"
-                            width={16}
-                            height={16}
-                        />
-                    ) : (
-                        <FarcasterIcon
-                            className="absolute left-[24px] top-[24px] h-[16px] w-[16px] rounded-[99px] border border-white shadow"
-                            width={16}
-                            height={16}
-                        />
-                    )}
+                    <PlatformIcon
+                        className="absolute left-[24px] top-[24px] h-[16px] w-[16px] rounded-[99px] border border-white shadow"
+                        platform={type}
+                        size={16}
+                    />
                 </div>
             </div>
             <div className="inline-flex shrink grow basis-0 flex-col items-start justify-center gap-1">
