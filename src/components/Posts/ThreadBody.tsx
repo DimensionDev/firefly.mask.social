@@ -29,7 +29,7 @@ export const ThreadBody = memo<ThreadBodyProps>(function ThreadBody({ post, disa
             initial={!disableAnimate ? { opacity: 0 } : false}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="cursor-pointer bg-bottom hover:bg-bg"
+            className="cursor-pointer bg-bottom"
         >
             <span ref={observe} />
             <div
