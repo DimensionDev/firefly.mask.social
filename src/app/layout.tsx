@@ -28,7 +28,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 <Providers>
                     <div className="m-auto flex min-h-screen sm:w-full lg:w-[1265px] ">
                         <SideBar />
-                        <main>
+                        <main className='pl-72'>
                             {children}
                         </main>
                         <aside className=" sticky top-0 z-[998] h-full w-96 px-4 lg:block">
