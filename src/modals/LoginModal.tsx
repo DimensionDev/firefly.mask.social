@@ -10,7 +10,7 @@ import { useAccount, useNetwork } from 'wagmi';
 
 import { PlatformIcon } from '@/app/profile/components/PlatformIcon.js';
 import CloseIcon from '@/assets/close.svg';
-import LeftArrowIcon from '@/assets/leftArrow.svg';
+import LeftArrowIcon from '@/assets/left-arrow.svg';
 import LoadingIcon from '@/assets/loading.svg';
 import { LoginFarcaster } from '@/components/LoginFarcaster.js';
 import { LoginLens } from '@/components/LoginLens/index.js';
