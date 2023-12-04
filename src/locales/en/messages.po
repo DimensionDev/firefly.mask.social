@@ -313,6 +313,9 @@ msgstr "Allow Lens Manager to perform actions such as posting, liking, and comme
 msgid "<0>{0}</0> mirrored"
 msgstr "<0>{0}</0> mirrored"
 
+msgid "Failed to quote on Lens"
+msgstr "Failed to quote on Lens"
+
 msgid "Post by {0}"
 msgstr "Post by {0}"
 

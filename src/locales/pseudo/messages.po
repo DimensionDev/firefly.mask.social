@@ -313,6 +313,9 @@ msgstr ""
 msgid "<0>{0}</0> mirrored"
 msgstr ""
 
+msgid "Failed to quote on Lens"
+msgstr ""
+
 msgid "Post by {0}"
 msgstr ""
 
