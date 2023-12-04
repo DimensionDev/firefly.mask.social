@@ -14,7 +14,7 @@ export function CustomElements() {
         // define custom elements
         await import('@/mask/custom-elements/PageInspector.js');
         await import('@/mask/custom-elements/CalendarWidget.js');
-        await import('@/mask/custom-elements/DecryptedPost.jsx');
+        await import('@/mask/custom-elements/DecryptedPost.js');
     }, []);
 
     return null;

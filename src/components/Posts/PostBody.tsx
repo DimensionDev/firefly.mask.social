@@ -103,7 +103,16 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
             })}
             ref={ref}
         >
-            {postPayload ? <mask-decrypted-post /> : null}
+            {postPayload ? (
+                <mask-decrypted-post
+                    props={encodeURIComponent(
+                        JSON.stringify({
+                            post,
+                            payload: postPayload,
+                        }),
+                    )}
+                />
+            ) : null}
 
             {canShowMore ? (
                 <div className="text-base font-bold text-link">

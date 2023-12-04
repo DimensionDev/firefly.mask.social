@@ -1,25 +1,19 @@
 'use client';
 
 import dynamic from 'next/dynamic.js';
-import { createRoot, type Root } from 'react-dom/client';
+
+import { WidgetWithProps } from '@/mask/custom-elements/WidgetWithProps.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
 
 // @ts-ignore
 const DecryptedPost = dynamic(() => import('@/mask/widgets/DecryptedPost.js'), { ssr: false });
 
-class Element extends HTMLElement {
-    private root: Root | null = null;
-
+class Element extends WidgetWithProps<{
+    post: Post;
+    payload: [string, '1' | '2'];
+}> {
     constructor() {
-        super();
-    }
-
-    connectedCallback() {
-        this.root = createRoot(this);
-        this.root.render(<DecryptedPost />);
-    }
-
-    disconnectedCallback() {
-        this.root?.unmount();
+        super(DecryptedPost);
     }
 }
 

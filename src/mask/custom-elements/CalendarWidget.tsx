@@ -1,25 +1,15 @@
 'use client';
 
 import dynamic from 'next/dynamic.js';
-import { createRoot, type Root } from 'react-dom/client';
+
+import { Widget } from '@/mask/custom-elements/Widget.js';
 
 // @ts-ignore
 const CalendarWidget = dynamic(() => import('@/mask/widgets/CalendarWidget.js'), { ssr: false });
 
-class Element extends HTMLElement {
-    private root: Root | null = null;
-
+class Element extends Widget {
     constructor() {
-        super();
-    }
-
-    connectedCallback() {
-        this.root = createRoot(this);
-        this.root.render(<CalendarWidget />);
-    }
-
-    disconnectedCallback() {
-        this.root?.unmount();
+        super(CalendarWidget);
     }
 }
 
