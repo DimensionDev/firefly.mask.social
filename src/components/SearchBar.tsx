@@ -86,7 +86,8 @@ export const SearchBar = memo(function SearchBar(props: SearchBarProps) {
     return (
         <div
             className={classNames('px-4 pt-5', {
-                'px-0': props.source === 'secondary',
+                'pl-0': props.source === 'secondary',
+                'pr-0': props.source === 'secondary',
                 'pb-5': props.source === 'secondary',
             })}
         >

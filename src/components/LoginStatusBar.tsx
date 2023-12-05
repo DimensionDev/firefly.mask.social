@@ -26,7 +26,7 @@ export function LoginStatusBar() {
                         />
                     </div>
                     <PlatformIcon
-                        className="absolute left-[32px] top-[24px] h-[16px] w-[16px] rounded-[99px] border border-white shadow"
+                        className="absolute left-[32px] top-[24px] rounded-[99px] border border-white shadow"
                         platform={SocialPlatform.Lens}
                         size={16}
                     />
@@ -44,7 +44,7 @@ export function LoginStatusBar() {
                         />
                     </div>
                     <PlatformIcon
-                        className="absolute left-[32px] top-[24px] h-[16px] w-[16px] rounded-[99px] border border-white shadow"
+                        className="absolute left-[32px] top-[24px] rounded-[99px] border border-white shadow"
                         platform={SocialPlatform.Farcaster}
                         size={16}
                     />
@@ -58,7 +58,7 @@ export function LoginStatusBar() {
                         <PlatformIcon platform={SocialPlatform.Farcaster} size={40} />
                     </div>
                     <PlusIcon
-                        className="absolute left-[32px] top-[24px] h-[17px] w-[17px] rounded-[99px] shadow"
+                        className="absolute left-[32px] top-[24px] rounded-[99px] shadow"
                         width={16}
                         height={16}
                     />
@@ -73,7 +73,7 @@ export function LoginStatusBar() {
                         <PlatformIcon platform={SocialPlatform.Lens} size={40} />
                     </div>
                     <PlusIcon
-                        className="absolute left-[32px] top-[24px] h-[17px] w-[17px] rounded-[99px] shadow"
+                        className="absolute left-[32px] top-[24px] rounded-[99px] shadow"
                         width={16}
                         height={16}
                     />
