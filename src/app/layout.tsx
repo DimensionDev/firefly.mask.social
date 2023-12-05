@@ -3,7 +3,6 @@ import './globals.css';
 import { ScrollRestorer } from 'next-scroll-restorer';
 
 import { Providers } from '@/app/provider.js';
-import { CustomElements } from '@/components/CustomElements.js';
 import { GA } from '@/components/GA.js';
 import { Polyfills } from '@/components/Polyfills.js';
 import { SideBar } from '@/components/SideBar/index.js';
@@ -20,8 +19,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </head>
             <body>
                 <Providers>
-                    <CustomElements />
-
                     <div className="m-auto flex min-h-screen sm:w-full lg:w-[1265px] ">
                         <SideBar />
                         {children}
