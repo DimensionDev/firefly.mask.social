@@ -12,6 +12,7 @@ function createTheme(theme: Theme) {
                 styleOverrides: {
                     root: {
                         fontFamily:
+                            /* cspell:disable-next-line */
                             '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
                     },
                 },
