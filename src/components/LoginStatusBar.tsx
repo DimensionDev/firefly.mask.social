@@ -1,6 +1,6 @@
 'use client';
 
-import { PlatformIcon } from '@/app/profile/components/PlatformIcon.js';
+import { PlatformIcon } from '@/app/(normal)/profile/components/PlatformIcon.js';
 import PlusIcon from '@/assets/plus.svg';
 import { Image } from '@/components/Image.js';
 import { SocialPlatform } from '@/constants/enum.js';

@@ -8,7 +8,7 @@ import { usePrevious, useUpdateEffect } from 'react-use';
 import { polygon } from 'viem/chains';
 import { useAccount, useNetwork } from 'wagmi';
 
-import { PlatformIcon } from '@/app/profile/components/PlatformIcon.js';
+import { PlatformIcon } from '@/app/(normal)/profile/components/PlatformIcon.js';
 import CloseIcon from '@/assets/close.svg';
 import LeftArrowIcon from '@/assets/left-arrow.svg';
 import LoadingIcon from '@/assets/loading.svg';

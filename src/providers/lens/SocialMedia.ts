@@ -145,11 +145,7 @@ export class LensSocialMedia implements Provider {
     }
 
     async getProfilesByAddress(address: string): Promise<Profile[]> {
-        const profiles = await this.lensClient.profile.fetchAll({
-            where: {
-                ownedBy: [address],
-            },
-        });
+        const profiles = await this.lensClient.wallet.profilesManaged({ for: address });
         return profiles.items.map(formatLensProfile);
     }
 

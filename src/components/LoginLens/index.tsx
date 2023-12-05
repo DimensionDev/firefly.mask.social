@@ -9,6 +9,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 import { useAccount, useDisconnect } from 'wagmi';
 
+import LoadingIcon from '@/assets/loading.svg';
 import WalletIcon from '@/assets/wallet.svg';
 import { AccountCard } from '@/components/LoginLens/AccountCard.js';
 import { SocialPlatform } from '@/constants/enum.js';
@@ -25,6 +26,7 @@ interface LoginLensProps {
 export function LoginLens({ back }: LoginLensProps) {
     const [selected, setSelected] = useState<Account | undefined>();
     const [signless, setSignless] = useState(true);
+    const [loading, setLoading] = useState(false);
 
     const account = useAccount();
     const { disconnect } = useDisconnect();
@@ -68,6 +70,7 @@ export function LoginLens({ back }: LoginLensProps) {
     const [, login] = useAsyncFn(
         async (signless: boolean) => {
             if (!accounts || !current) return;
+            setLoading(true);
             await LensSocialMediaProvider.createSessionForProfileId(current.id);
             if (!current.signless && signless) {
                 await LensSocialMediaProvider.updateSignless(true);
@@ -75,6 +78,7 @@ export function LoginLens({ back }: LoginLensProps) {
             if (current.signless && !signless) {
                 await LensSocialMediaProvider.updateSignless(false);
             }
+            setLoading(false);
             updateCurrentAccount(current);
             enqueueSnackbar(t`Your Lens account is now connected`, { variant: 'success' });
             LoginModalRef.close();
@@ -140,10 +144,15 @@ export function LoginLens({ back }: LoginLensProps) {
                         </span>
                     </button>
                     <button
+                        disabled={loading}
                         className="flex w-[120px] items-center justify-center gap-[8px] rounded-[99px] bg-lightMain py-[11px] text-primaryBottom"
                         onClick={() => login(signless)}
                     >
-                        <Trans>Sign</Trans>
+                        {loading ? (
+                            <LoadingIcon className="animate-spin" width={24} height={24} />
+                        ) : (
+                            <Trans>Sign</Trans>
+                        )}
                     </button>
                 </div>
             </div>
