@@ -23,5 +23,7 @@ declare namespace NodeJS {
         MASK_SENTRY_DSN: string;
 
         IMGUR_CLIENT_ID: string;
+
+        ENABLE_MASK_WEB_COMPONENTS: boolean;
     }
 }

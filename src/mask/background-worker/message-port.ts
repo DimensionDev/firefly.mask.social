@@ -1,4 +1,3 @@
-import { isArray } from 'lodash-es';
 
 import { pluginWorkerReadyPromise } from './ready.js';
 
@@ -33,7 +32,6 @@ globalThis.addEventListener('connect', (event) => {
 
 // normal worker
 globalThis.addEventListener('message', (event) => {
-    if (!isArray(event.data)) return;
     const [type, data] = event.data;
     if (type === 'ready-request') {
         pluginWorkerReadyPromise.then(() => postMessage(['ready', undefined]));
