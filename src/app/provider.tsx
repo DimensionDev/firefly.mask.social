@@ -82,7 +82,7 @@ export function Providers(props: { children: React.ReactNode }) {
                         </SnackbarProvider>
                     </DarkModeContext.Provider>
                 </ReactQueryStreamedHydration>
-                <ReactQueryDevtools initialIsOpen={false} />
+                {process.env.NODE_ENV === 'development' ? <ReactQueryDevtools initialIsOpen={false} /> : null}
             </QueryClientProvider>
         </I18nProvider>
     );
