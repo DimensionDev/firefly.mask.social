@@ -2,13 +2,12 @@
 
 import { memo } from 'react';
 
+import * as controls from '@/modals/controls.js';
+import { FarcasterStatusModal } from '@/modals/FarcasterStatusModal.js';
+import { LensStatusModal } from '@/modals/LensStatusModal.js';
+import { LoginModal } from '@/modals/LoginModal.js';
 import { LogoutModal } from '@/modals/LogoutModal.js';
-
-import * as controls from './controls.js';
-import { FarcasterStatusModal } from './FarcasterStatusModal.js';
-import { LensStatusModal } from './LensStatusModal.js';
-import { LoginModal } from './LoginModal.js';
-import { PreviewImagesModal } from './PreviewImagesModal.js';
+import { PreviewImagesModal } from '@/modals/PreviewImagesModal.js';
 
 export const Modals = memo(function Modals() {
     return (

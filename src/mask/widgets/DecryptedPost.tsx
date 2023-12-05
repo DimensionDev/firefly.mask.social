@@ -1,10 +1,7 @@
 'use client';
 
 import { Providers } from '@/app/provider.js';
-import { Markup } from '@/components/Markup/index.js';
 import { DecryptPost } from '@/components/Posts/DecryptPost.js';
-import { Link } from '@/esm/Link.js';
-import { classNames } from '@/helpers/classNames.js';
 import { getPostDetailUrl } from '@/helpers/getPostDetailUrl.js';
 import { Providers as MaskProviders } from '@/mask/widgets/Providers.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
@@ -23,18 +20,7 @@ export default function DecryptedPost({ post, payload, canShowMore = false }: Pa
     return (
         <Providers>
             <MaskProviders>
-                <DecryptPost post={post} payload={payload}>
-                    <Link href={postLink}>
-                        <Markup
-                            className={classNames(
-                                { 'line-clamp-5': canShowMore },
-                                'markup linkify text-md break-words',
-                            )}
-                        >
-                            {post.metadata.content?.content || ''}
-                        </Markup>
-                    </Link>
-                </DecryptPost>
+                <DecryptPost post={post} payload={payload} />
             </MaskProviders>
         </Providers>
     );
