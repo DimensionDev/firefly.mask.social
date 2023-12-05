@@ -15,7 +15,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 </div>
                 {children}
             </main>
-            <aside className=" sticky top-0 z-[998] h-full w-96 px-4 lg:block">
+            <aside className=" sticky top-0 z-[1] h-full w-96 px-4 lg:block">
                 <IfPathname isNotOneOf={['/settings']}>
                     <SearchBar source="secondary" />
                 </IfPathname>
