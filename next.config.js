@@ -12,6 +12,7 @@ const polyfillsFolderPath = join(outputPath, './js/polyfills');
 
 /** @type {import('next').NextConfig} */
 export default {
+    productionBrowserSourceMaps: true,
     experimental: {
         esmExternals: true,
         scrollRestoration: true,
