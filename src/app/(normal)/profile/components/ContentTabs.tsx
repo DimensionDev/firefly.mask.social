@@ -15,7 +15,7 @@ export default function ContentTabs() {
 
     return (
         <>
-            <div className=" flex gap-5 border-b border-lightLineSecond px-5">
+            <div className=" flex gap-5 border-b border-lightLineSecond px-5 dark:border-line">
                 {Object.values(TabEnum).map((tabName) => (
                     <div key={tabName} className=" flex flex-col">
                         <button
