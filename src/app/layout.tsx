@@ -5,7 +5,6 @@ import { ScrollRestorer } from 'next-scroll-restorer';
 import { Providers } from '@/app/provider.js';
 import { CustomElements } from '@/components/CustomElements.js';
 import { GA } from '@/components/GA.js';
-import { IfPathname } from '@/components/IfPathname.js';
 import { Polyfills } from '@/components/Polyfills.js';
 import { SideBar } from '@/components/SideBar/index.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';

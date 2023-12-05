@@ -1,7 +1,7 @@
-import { SocialPlatformTabs } from '@/components/SocialPlatformTabs.js';
 import { SearchBar } from '@/components/SearchBar.js';
-import { CalendarWidget } from '@/components/CalendarWidget.js';
 import { SearchFilter } from '@/components/SearchFilter.js';
+import { SocialPlatformTabs } from '@/components/SocialPlatformTabs.js';
+import CalendarWidget from '@/mask/widgets/CalendarWidget.js';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
     return (

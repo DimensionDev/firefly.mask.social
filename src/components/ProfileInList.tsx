@@ -1,6 +1,6 @@
 import { useRouter } from 'next/navigation.js';
 
-import FollowButton from '@/app/(normal)/profile/components/FollowButton.jsx';
+import FollowButton from '@/app/(normal)/profile/components/FollowButton.js';
 import { Image } from '@/components/Image.js';
 import { SourceIcon } from '@/components/SourceIcon.js';
 import { useDarkMode } from '@/hooks/useDarkMode.js';

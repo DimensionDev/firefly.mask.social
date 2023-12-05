@@ -1,7 +1,7 @@
 'use client';
 
-import FarcasterProfile from '@/app/(normal)/profile/components/FarcasterProfile.jsx';
-import LensProfile from '@/app/(normal)/profile/components/LensProfile.jsx';
+import FarcasterProfile from '@/app/(normal)/profile/components/FarcasterProfile.js';
+import LensProfile from '@/app/(normal)/profile/components/LensProfile.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 

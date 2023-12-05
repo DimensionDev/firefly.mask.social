@@ -2,10 +2,10 @@ import { useQuery } from '@tanstack/react-query';
 import { useMemo } from 'react';
 import { useDocumentTitle } from 'usehooks-ts';
 
-import ContentTabs from '@/app/(normal)/profile/components/ContentTabs.jsx';
-import EmptyProfile from '@/app/(normal)/profile/components/EmptyProfile.jsx';
-import Info from '@/app/(normal)/profile/components/Info.jsx';
-import Title from '@/app/(normal)/profile/components/Title.jsx';
+import ContentTabs from '@/app/(normal)/profile/components/ContentTabs.js';
+import EmptyProfile from '@/app/(normal)/profile/components/EmptyProfile.js';
+import Info from '@/app/(normal)/profile/components/Info.js';
+import Title from '@/app/(normal)/profile/components/Title.js';
 import Loading from '@/components/Loading.js';
 import { createPageTitle } from '@/helpers/createPageTitle.js';
 import { useLogin } from '@/hooks/useLogin.js';

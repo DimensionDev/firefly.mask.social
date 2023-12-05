@@ -1,11 +1,11 @@
 'use client';
 
 import { t, Trans } from '@lingui/macro';
+import { usePathname } from 'next/navigation.js'
 
 import RightArrowIcon from '@/assets/right-arrow.svg';
 import { Link } from '@/esm/Link.js';
 import { useLogin } from '@/hooks/useLogin.js';
-import { usePathname } from 'next/navigation.js'
 
 const settings = [
     { name: t`Display`, link: '/display' },
