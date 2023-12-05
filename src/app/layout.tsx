@@ -24,7 +24,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </head>
             <body>
                 <Providers>
-                    {process.env.NEXT_PUBLIC_MASK_WEB_COMPONENTS === 'enabled' ? <CustomElements /> : null}
+                    <CustomElements />
 
                     <div className="m-auto flex min-h-screen sm:w-full lg:w-[1265px] ">
                         <SideBar />
