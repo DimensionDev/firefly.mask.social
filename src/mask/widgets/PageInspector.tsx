@@ -2,7 +2,9 @@
 
 import { useActivatedPluginsSiteAdaptor } from '@masknet/plugin-infra/content-script';
 import { createInjectHooksRenderer } from '@masknet/plugin-infra/dom';
+import { Modals } from '@masknet/shared';
 import { DisableShadowRootContext, ShadowRootIsolation } from '@masknet/theme';
+import { noop } from 'lodash-es';
 
 import { Providers } from '@/app/provider.js';
 import { Providers as MaskProviders } from '@/mask/widgets/Providers.js';
@@ -19,6 +21,7 @@ export default function PageInspector() {
                 <DisableShadowRootContext.Provider value={false}>
                     <ShadowRootIsolation>
                         <GlobalInjection />
+                        <Modals createWallet={noop} />
                     </ShadowRootIsolation>
                 </DisableShadowRootContext.Provider>
             </MaskProviders>
