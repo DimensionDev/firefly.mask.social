@@ -51,7 +51,7 @@ function Compose({ type = 'compose', post, opened, setOpened }: IComposeProps) {
                         leaveFrom="opacity-100"
                         leaveTo="opacity-0"
                     >
-                        <div className="fixed inset-0 bg-bgModalLayer bg-opacity-30" />
+                        <div className="fixed inset-0 bg-black/25 bg-opacity-30" />
                     </Transition.Child>
 
                     <div className="fixed inset-0 overflow-y-auto">

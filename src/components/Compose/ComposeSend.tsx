@@ -2,15 +2,14 @@ import { t, Trans } from '@lingui/macro';
 import { useSnackbar } from 'notistack';
 import { useCallback, useMemo } from 'react';
 
-import LoadingGreenIcon from '@/assets/loading.green.svg';
-import LoadingRedIcon from '@/assets/loading.red.svg';
-import LoadingYellowIcon from '@/assets/loading.yellow.svg';
 import SendIcon from '@/assets/send.svg';
 import type { IImage } from '@/components/Compose/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { commentPostForLens, publishPostForLens, quotePostForLens } from '@/helpers/publishPost.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { useLensStateStore } from '@/store/useLensStore.js';
+
+import { CountdownCircle } from './CountdownCircle.js';
 
 interface ComposeSendProps {
     type: 'compose' | 'quote' | 'reply';
@@ -91,13 +90,8 @@ export default function ComposeSend({ type, characters, images, setOpened, setLo
 
     return (
         <div className=" flex h-[68px] items-center justify-end gap-4 px-4 shadow-send">
-            <div className=" flex items-center gap-[10px]">
-                {charactersLen >= 0 && charactersLen < 200 && <LoadingGreenIcon width={24} height={24} />}
-
-                {charactersLen >= 200 && charactersLen < 260 && <LoadingYellowIcon width={24} height={24} />}
-
-                {charactersLen >= 260 && <LoadingRedIcon width={24} height={24} />}
-
+            <div className=" flex items-center gap-[10px] whitespace-nowrap">
+                <CountdownCircle count={charactersLen} width={24} height={24} className="flex-shrink-0" />
                 <span className={classNames(disabled ? ' text-danger' : '')}>{charactersLen} / 280</span>
             </div>
 
