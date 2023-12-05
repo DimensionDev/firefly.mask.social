@@ -1,4 +1,3 @@
-
 import { pluginWorkerReadyPromise } from './ready.js';
 
 const ports = new Set<MessagePort>();
