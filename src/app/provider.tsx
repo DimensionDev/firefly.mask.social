@@ -25,7 +25,7 @@ const queryClient = new QueryClient({
             refetchOnWindowFocus: false,
         },
     },
-})
+});
 
 const livepeerClient = createReactClient({
     provider: studioProvider({ apiKey: '' }),
