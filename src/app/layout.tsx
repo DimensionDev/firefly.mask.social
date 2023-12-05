@@ -29,8 +29,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                     <Modals />
                 </Providers>
                 <GA />
-            </body >
+            </body>
             <ScrollRestorer />
-        </html >
+        </html>
     );
 }

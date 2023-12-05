@@ -1,7 +1,7 @@
 'use client';
 
 import { t, Trans } from '@lingui/macro';
-import { usePathname } from 'next/navigation.js'
+import { usePathname } from 'next/navigation.js';
 
 import RightArrowIcon from '@/assets/right-arrow.svg';
 import { Link } from '@/esm/Link.js';
@@ -25,12 +25,15 @@ export function SettingList() {
             {settings.map(({ name, link }) => {
                 return link === '/connected' && !isLoggedIn ? null : (
                     <Link
-                        className={`mb-[24px] flex items-center justify-between border-b border-line pb-[4px] text-[18px] leading-[24px] text-main ${pathname === `/settings${link}` ? 'font-bold' : 'font-normal'}`}
+                        className={`mb-[24px] flex items-center justify-between border-b border-line pb-[4px] text-[18px] leading-[24px] text-main ${
+                            pathname === `/settings${link}` ? 'font-bold' : 'font-normal'
+                        }`}
                         key={name}
                         href={`/settings${link}`}
                     >
                         {name} <RightArrowIcon width={20} height={20} />
-                    </Link>)
+                    </Link>
+                );
             })}
         </div>
     );

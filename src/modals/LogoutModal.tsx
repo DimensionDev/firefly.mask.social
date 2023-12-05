@@ -36,8 +36,8 @@ export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps>
             !props.platform
                 ? lensAccounts.concat(farcasterAccounts)
                 : props.platform === SocialPlatform.Lens
-                    ? lensAccounts
-                    : farcasterAccounts,
+                  ? lensAccounts
+                  : farcasterAccounts,
         [lensAccounts, farcasterAccounts, props.platform],
     );
 
