@@ -3,6 +3,7 @@
 import { Dialog, Transition } from '@headlessui/react';
 import { Trans } from '@lingui/macro';
 import { forwardRef, Fragment } from 'react';
+import { useDisconnect } from 'wagmi';
 
 import { PlatformIcon } from '@/app/(normal)/profile/components/PlatformIcon.js';
 import LogOutIcon from '@/assets/logout.svg';
@@ -11,13 +12,14 @@ import { SocialPlatform } from '@/constants/enum.js';
 import { Image } from '@/esm/Image.js';
 import type { SingletonModalRefCreator } from '@/maskbook/packages/shared-base/src/index.js';
 import { useSingletonModal } from '@/maskbook/packages/shared-base-ui/src/index.js';
-import { LogoutModalRef } from '@/modals/controls.js';
+import { LoginModalRef, LogoutModalRef } from '@/modals/controls.js';
 import { useLensStateStore } from '@/store/useLensStore.js';
 
 export const LensStatusModal = forwardRef<SingletonModalRefCreator>(function LensStatusModal(_, ref) {
     const lensAccounts = useLensStateStore.use.accounts();
     const currentAccount = useLensStateStore.use.currentAccount();
     const [open, dispatch] = useSingletonModal(ref);
+    const { disconnect } = useDisconnect();
 
     return (
         <Transition appear show={open} as={Fragment}>
@@ -81,7 +83,13 @@ export const LensStatusModal = forwardRef<SingletonModalRefCreator>(function Len
                                             ) : null}
                                         </div>
                                     ))}
-                                    <button className="flex w-full items-center gap-[8px]">
+                                    <button
+                                        className="flex w-full items-center gap-[8px]"
+                                        onClick={() => {
+                                            disconnect();
+                                            LoginModalRef.open({});
+                                        }}
+                                    >
                                         <UserAddIcon width={24} height={24} />
                                         <div className=" text-[17px] font-bold leading-[22px] text-[#101010] dark:text-gray-400">
                                             <Trans>Change account</Trans>

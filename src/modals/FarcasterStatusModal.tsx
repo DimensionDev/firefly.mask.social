@@ -3,6 +3,7 @@
 import { Dialog, Transition } from '@headlessui/react';
 import { Trans } from '@lingui/macro';
 import { forwardRef, Fragment } from 'react';
+import { useDisconnect } from 'wagmi';
 
 import { PlatformIcon } from '@/app/(normal)/profile/components/PlatformIcon.js';
 import LogoutIcon from '@/assets/logout.svg';
@@ -11,10 +12,11 @@ import { SocialPlatform } from '@/constants/enum.js';
 import { Image } from '@/esm/Image.js';
 import type { SingletonModalRefCreator } from '@/maskbook/packages/shared-base/src/index.js';
 import { useSingletonModal } from '@/maskbook/packages/shared-base-ui/src/index.js';
-import { LogoutModalRef } from '@/modals/controls.js';
+import { LoginModalRef, LogoutModalRef } from '@/modals/controls.js';
 import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
 
 export const FarcasterStatusModal = forwardRef<SingletonModalRefCreator>(function FarcasterStatusModal(_, ref) {
+    const { disconnect } = useDisconnect();
     const farcasterAccounts = useFarcasterStateStore((state) => state.accounts);
     const currentAccount = useFarcasterStateStore((state) => state.currentAccount);
     const [open, dispatch] = useSingletonModal(ref);
@@ -73,7 +75,13 @@ export const FarcasterStatusModal = forwardRef<SingletonModalRefCreator>(functio
                                             ) : null}
                                         </div>
                                     ))}
-                                    <button className="flex w-full items-center gap-[8px]">
+                                    <button
+                                        className="flex w-full items-center gap-[8px]"
+                                        onClick={() => {
+                                            disconnect();
+                                            LoginModalRef.open({ current: SocialPlatform.Farcaster });
+                                        }}
+                                    >
                                         <UserAddIcon width={24} height={24} />
                                         <div className=" text-[17px] font-bold leading-[22px] text-[#101010]">
                                             <Trans>Change account</Trans>
