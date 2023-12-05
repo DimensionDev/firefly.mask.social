@@ -1,15 +1,55 @@
-import { Appearance } from '@masknet/public-api';
-import { MaskDarkTheme, MaskLightTheme, useSystemPreferencePalette } from '@masknet/theme';
+import { MaskDarkTheme, MaskLightTheme } from '@masknet/theme';
 import type { Theme } from '@mui/material/styles';
+import { merge } from 'lodash-es';
+import { useMemo } from 'react';
 
-import { useMaskThemeMode } from '@/hooks/useMaskThemeMode.js';
+import { useDarkMode } from '@/hooks/useDarkMode.js';
+
+function createTheme(theme: Theme) {
+    return merge(theme, {
+        components: {
+            MuiTypography: {
+                styleOverrides: {
+                    root: {
+                        fontFamily:
+                            /* cspell:disable-next-line */
+                            '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
+                    },
+                },
+            },
+            MuiPaper: {
+                defaultProps: {
+                    elevation: 0,
+                },
+                styleOverrides: {
+                    root: {
+                        backgroundColor: theme.palette.maskColor.bottom,
+                    },
+                },
+            },
+            MuiTab: {
+                styleOverrides: {
+                    root: {
+                        textTransform: 'none',
+                    },
+                },
+            },
+            MuiBackdrop: {
+                styleOverrides: {
+                    root: {
+                        backgroundColor: theme.palette.action.mask,
+                    },
+                    invisible: {
+                        opacity: '0 !important',
+                    },
+                },
+            },
+        },
+    });
+}
 
 export function useMaskTheme(): Theme {
-    const mode = useMaskThemeMode();
-    const systemMode = useSystemPreferencePalette();
+    const { isDarkMode } = useDarkMode();
 
-    const computedMode = mode === Appearance.default ? systemMode : mode;
-
-    if (computedMode === Appearance.dark) return MaskDarkTheme;
-    return MaskLightTheme;
+    return useMemo(() => createTheme(isDarkMode ? MaskDarkTheme : MaskLightTheme), [isDarkMode]);
 }
