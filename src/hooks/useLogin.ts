@@ -1,3 +1,4 @@
+import { safeUnreachable } from '@masknet/kit';
 import { useMemo } from 'react';
 import { useAccount } from 'wagmi';
 
@@ -19,6 +20,7 @@ export function useLogin(platform?: SocialPlatform) {
                 case SocialPlatform.Farcaster:
                     return !!currentFarcasterAccount.id;
                 default:
+                    safeUnreachable(platform);
                     return false;
             }
         }

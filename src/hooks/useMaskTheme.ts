@@ -1,15 +1,10 @@
-import { Appearance } from '@masknet/public-api';
-import { MaskDarkTheme, MaskLightTheme, useSystemPreferencePalette } from '@masknet/theme';
+import { MaskDarkTheme, MaskLightTheme } from '@masknet/theme';
 import type { Theme } from '@mui/material/styles';
 
-import { useMaskThemeMode } from '@/hooks/useMaskThemeMode.js';
+import { useDarkMode } from '@/hooks/useDarkMode.js';
 
 export function useMaskTheme(): Theme {
-    const mode = useMaskThemeMode();
-    const systemMode = useSystemPreferencePalette();
+    const { isDarkMode } = useDarkMode();
 
-    const computedMode = mode === Appearance.default ? systemMode : mode;
-
-    if (computedMode === Appearance.dark) return MaskDarkTheme;
-    return MaskLightTheme;
+    return isDarkMode ? MaskDarkTheme : MaskLightTheme;
 }
