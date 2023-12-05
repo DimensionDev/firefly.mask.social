@@ -7,7 +7,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { ReactQueryStreamedHydration } from '@tanstack/react-query-next-experimental';
 import { SnackbarProvider } from 'notistack';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useEffectOnce } from 'react-use';
 import { useMediaQuery } from 'usehooks-ts';
 import { v4 as uuid } from 'uuid';
@@ -18,6 +18,14 @@ import { useMounted } from '@/hooks/useMounted.js';
 import { initLocale } from '@/i18n/index.js';
 import { useLeafwatchPersistStore } from '@/store/useLeafwatchPersistStore.js';
 import { useThemeModeStore } from '@/store/useThemeModeStore.js';
+
+const queryClient = new QueryClient({
+    defaultOptions: {
+        queries: {
+            refetchOnWindowFocus: false,
+        },
+    },
+})
 
 const livepeerClient = createReactClient({
     provider: studioProvider({ apiKey: '' }),
@@ -41,17 +49,6 @@ export function Providers(props: { children: React.ReactNode }) {
     useEffect(() => {
         initLocale();
     }, []);
-
-    const [queryClient] = useState(
-        () =>
-            new QueryClient({
-                defaultOptions: {
-                    queries: {
-                        refetchOnWindowFocus: false,
-                    },
-                },
-            }),
-    );
 
     const viewerId = useLeafwatchPersistStore.use.viewerId();
     const setViewerId = useLeafwatchPersistStore.use.setViewerId();
