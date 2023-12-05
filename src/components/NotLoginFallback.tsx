@@ -31,13 +31,10 @@ export const NotLoginFallback = memo<NotLoginFallbackProps>(function LoginFallba
             <button
                 type="button"
                 className={classNames(
-                    'rounded-[10px] px-5 py-3.5 text-sm font-bold shadow-sm ring-1 ring-inset hover:bg-gray-50',
-                    {
-                        'text-lensPrimary': platform === SocialPlatform.Lens,
-                        'ring-lensPrimary': platform === SocialPlatform.Lens,
-                        'text-farcasterPrimary': platform === SocialPlatform.Farcaster,
-                        'ring-farcasterPrimary': platform === SocialPlatform.Farcaster,
-                    },
+                    'rounded-[10px] bg-transparent px-5 py-3.5 text-sm font-bold shadow-sm ring-1 ring-inset',
+                    platform === SocialPlatform.Lens
+                        ? 'text-lensPrimary ring-lensPrimary hover:bg-[rgba(154,227,42,0.20)] hover:shadow-[0_0_16px_0_rgba(101,119,134,0.20)]'
+                        : 'text-farcasterPrimary ring-farcasterPrimary hover:bg-[#9250FF]/20 hover:shadow-[0_0_16px_0_rgba(101,119,134,0.20)]',
                 )}
                 onClick={() => {
                     LoginModalRef.open({});
