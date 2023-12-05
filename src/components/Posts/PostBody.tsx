@@ -1,7 +1,6 @@
 'use client';
 
 import { Trans } from '@lingui/macro';
-import dynamic from 'next/dynamic.js';
 import { useRouter } from 'next/navigation.js';
 import { forwardRef } from 'react';
 import urlcat from 'urlcat';
@@ -11,18 +10,10 @@ import Lock from '@/assets/lock.svg';
 import { Markup } from '@/components/Markup/index.js';
 import Oembed from '@/components/Oembed/index.js';
 import { Attachments } from '@/components/Posts/Attachment.js';
-import { DecryptPost } from '@/components/Posts/DecryptPost.js';
 import { Quote } from '@/components/Posts/Quote.js';
-import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
-import { getPostDetailUrl } from '@/helpers/getPostDetailUrl.js';
 import { getPostPayload } from '@/helpers/getPostPayload.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
-
-// @ts-ignore
-const MaskRuntime = dynamic(() => import('@/MaskRuntime/index.js'), {
-    ssr: false,
-});
 
 interface PostBodyProps {
     post: Post;
@@ -42,7 +33,6 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
         post.metadata.content?.asset
     );
     const postPayload = getPostPayload(post.metadata.content?.content);
-    const postLink = getPostDetailUrl(post.postId, post.source);
 
     if (post.isEncrypted) {
         return (
@@ -52,16 +42,14 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
                 })}
                 ref={ref}
             >
-                <Link href={postLink}>
-                    <div
-                        className={classNames('flex items-center gap-1 rounded-lg border-primaryMain px-3 py-[6px]', {
-                            border: !isQuote,
-                        })}
-                    >
-                        <Lock width={16} height={16} />
-                        <Trans>Post has been encrypted</Trans>
-                    </div>
-                </Link>
+                <div
+                    className={classNames('flex items-center gap-1 rounded-lg border-primaryMain px-3 py-[6px]', {
+                        border: !isQuote,
+                    })}
+                >
+                    <Lock width={16} height={16} />
+                    <Trans>Post has been encrypted</Trans>
+                </div>
             </div>
         );
     }
@@ -73,16 +61,14 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
             })}
             ref={ref}
         >
-            <Link href={postLink}>
-                <div
-                    className={classNames('flex items-center gap-1 rounded-lg border-primaryMain px-3 py-[6px]', {
-                        border: !isQuote,
-                    })}
-                >
-                    <EyeSlash width={16} height={16} />
-                    <Trans>Post has been hidden</Trans>
-                </div>
-            </Link>
+            <div
+                className={classNames('flex items-center gap-1 rounded-lg border-primaryMain px-3 py-[6px]', {
+                    border: !isQuote,
+                })}
+            >
+                <EyeSlash width={16} height={16} />
+                <Trans>Post has been hidden</Trans>
+            </div>
         </div>;
     }
 
@@ -111,21 +97,20 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
             ref={ref}
         >
             {postPayload ? (
-                <MaskRuntime>
-                    <DecryptPost post={post} payload={postPayload}>
-                        <a href={postLink}>
-                            <Markup
-                                className={classNames(
-                                    { 'line-clamp-5': canShowMore },
-                                    'markup linkify text-md break-words',
-                                )}
-                            >
-                                {post.metadata.content?.content || ''}
-                            </Markup>
-                        </a>
-                    </DecryptPost>
-                </MaskRuntime>
-            ) : null}
+                <mask-decrypted-post
+                    props={encodeURIComponent(
+                        JSON.stringify({
+                            post,
+                            payload: postPayload,
+                            canShowMore,
+                        }),
+                    )}
+                />
+            ) : (
+                <Markup className={classNames({ 'line-clamp-5': canShowMore }, 'markup linkify text-md break-words')}>
+                    {post.metadata.content?.content || ''}
+                </Markup>
+            )}
 
             {canShowMore ? (
                 <div className="text-base font-bold text-link">

@@ -83,13 +83,7 @@ export const MoreAction = memo<MoreProps>(function More({ post }) {
     }, [post, isFollowed, isLogin]);
 
     return (
-        <Menu
-            as="div"
-            onClick={(event) => {
-                event.stopPropagation();
-                event.preventDefault();
-            }}
-        >
+        <Menu as="div">
             <Menu.Button
                 disabled={!isLogin}
                 whileTap={{ scale: 0.9 }}
@@ -103,6 +97,7 @@ export const MoreAction = memo<MoreProps>(function More({ post }) {
                         LoginModalRef.open({});
                         return;
                     }
+                    event.stopPropagation();
                     return;
                 }}
             >

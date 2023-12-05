@@ -31,7 +31,6 @@ export const SearchBar = memo(function SearchBar(props: SearchBarProps) {
     const { currentSocialPlatform } = useGlobalState();
 
     const isSearchPage = pathname.startsWith('/search');
-    const isSettingsPage = pathname.startsWith('/settings');
 
     const dropdownRef = useRef(null);
     const { updateSearchText } = useSearchStore();
@@ -81,7 +80,6 @@ export const SearchBar = memo(function SearchBar(props: SearchBarProps) {
         updateSearchText(searchText);
     };
 
-    if (isSettingsPage) return null;
     if (props.source === 'header' && !isSearchPage) return null;
     if (props.source === 'secondary' && isSearchPage) return null;
 

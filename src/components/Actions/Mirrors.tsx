@@ -10,6 +10,7 @@ import MirrorIcon from '@/assets/mirror.svg';
 import MirrorLargeIcon from '@/assets/mirror-large.svg';
 import MirroredIcon from '@/assets/mirrored.svg';
 import QuoteDownIcon from '@/assets/quote-down.svg';
+import Compose from '@/components/Compose/index.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -18,6 +19,7 @@ import { useLogin } from '@/hooks/useLogin.js';
 import { LoginModalRef } from '@/modals/controls.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
 
 interface MirrorProps {
     shares?: number;
@@ -25,9 +27,19 @@ interface MirrorProps {
     source: SocialPlatform;
     postId: string;
     disabled?: boolean;
+    post: Post;
 }
 
-export const Mirror = memo<MirrorProps>(function Mirror({ shares, source, hasMirrored, postId, disabled = false }) {
+export const Mirror = memo<MirrorProps>(function Mirror({
+    shares,
+    source,
+    hasMirrored,
+    postId,
+    disabled = false,
+    post,
+}) {
+    const [composeOpened, setComposeOpened] = useState(false);
+
     const isLogin = useLogin(source);
 
     const { enqueueSnackbar } = useSnackbar();
@@ -96,96 +108,106 @@ export const Mirror = memo<MirrorProps>(function Mirror({ shares, source, hasMir
     }, [postId, source]);
 
     return (
-        <Menu
-            as="div"
-            className={classNames('relative text-secondary', {
-                'text-secondarySuccess': !!mirrored,
-                'opacity-50': !!disabled,
-            })}
-            onClick={(event) => {
-                event.preventDefault();
-                event.stopPropagation();
-            }}
-        >
-            <Menu.Button
-                disabled={disabled}
-                as={motion.button}
-                className={'flex items-center space-x-2 text-secondary hover:text-secondarySuccess'}
-                whileTap={{ scale: 0.9 }}
+        <>
+            <Menu
+                as="div"
+                className={classNames('relative text-secondary', {
+                    'text-secondarySuccess': !!mirrored,
+                    'opacity-50': !!disabled,
+                })}
                 onClick={(event) => {
-                    if (!isLogin && !loading) {
-                        event.stopPropagation();
-                        event.preventDefault();
-                        LoginModalRef.open({});
-                        return;
-                    }
-                    return;
+                    event.preventDefault();
+                    event.stopPropagation();
                 }}
-                aria-label="Mirror"
             >
-                <Tooltip
+                <Menu.Button
                     disabled={disabled}
-                    className={'rounded-full p-1.5 hover:bg-secondarySuccess/[.20]'}
-                    placement="top"
-                    content={count && count > 0 ? `${humanize(count)} ${content}` : content}
-                    withDelay
+                    as={motion.button}
+                    className={'flex items-center space-x-2 text-secondary hover:text-secondarySuccess'}
+                    whileTap={{ scale: 0.9 }}
+                    onClick={(event) => {
+                        if (!isLogin && !loading) {
+                            event.stopPropagation();
+                            event.preventDefault();
+                            LoginModalRef.open({});
+                            return;
+                        }
+                        return;
+                    }}
+                    aria-label="Mirror"
                 >
-                    {loading ? (
-                        <LoadingIcon width={16} height={16} className="animate-spin text-secondarySuccess" />
-                    ) : mirrored ? (
-                        <MirroredIcon width={16} height={16} />
-                    ) : (
-                        <MirrorIcon width={16} height={16} />
-                    )}
-                </Tooltip>
-                {count ? <span className="text-xs font-medium">{nFormatter(count)}</span> : null}
-            </Menu.Button>
-
-            {!disabled && isLogin ? (
-                <Transition
-                    as={Fragment}
-                    enter="transition ease-out duration-100"
-                    enterFrom="transform opacity-0 scale-95"
-                    enterTo="transform opacity-100 scale-100"
-                    leave="transition ease-in duration-75"
-                    leaveFrom="transform opacity-100 scale-100"
-                    leaveTo="transform opacity-0 scale-95"
-                >
-                    <Menu.Items
-                        className="absolute z-[5] mt-1 w-max space-y-2 rounded-2xl bg-primaryBottom px-4 py-2 text-main shadow-messageShadow hover:text-main"
-                        static
+                    <Tooltip
+                        disabled={disabled}
+                        className={'rounded-full p-1.5 hover:bg-secondarySuccess/[.20]'}
+                        placement="top"
+                        content={count && count > 0 ? `${humanize(count)} ${content}` : content}
+                        withDelay
                     >
-                        <Menu.Item>
-                            {({ close }) => (
-                                <div
-                                    className={classNames('flex cursor-pointer items-center space-x-2', {
-                                        'text-secondarySuccess': !!mirrored,
-                                    })}
-                                    onClick={(event) => {
-                                        event.stopPropagation();
-                                        event.preventDefault();
-                                        close();
-                                        handleMirror();
-                                    }}
-                                >
-                                    <MirrorLargeIcon width={24} height={24} />
-                                    <span className="font-medium">{mirrorActionText}</span>
-                                </div>
-                            )}
-                        </Menu.Item>
-                        {source === SocialPlatform.Lens ? (
+                        {loading ? (
+                            <LoadingIcon width={16} height={16} className="animate-spin text-secondarySuccess" />
+                        ) : mirrored ? (
+                            <MirroredIcon width={16} height={16} />
+                        ) : (
+                            <MirrorIcon width={16} height={16} />
+                        )}
+                    </Tooltip>
+                    {count ? <span className="text-xs font-medium">{nFormatter(count)}</span> : null}
+                </Menu.Button>
+
+                {!disabled && isLogin ? (
+                    <Transition
+                        as={Fragment}
+                        enter="transition ease-out duration-100"
+                        enterFrom="transform opacity-0 scale-95"
+                        enterTo="transform opacity-100 scale-100"
+                        leave="transition ease-in duration-75"
+                        leaveFrom="transform opacity-100 scale-100"
+                        leaveTo="transform opacity-0 scale-95"
+                    >
+                        <Menu.Items
+                            className="absolute z-[5] mt-1 w-max space-y-2 rounded-2xl bg-primaryBottom px-4 py-2 text-main shadow-messageShadow hover:text-main"
+                            static
+                        >
                             <Menu.Item>
-                                <div className="flex cursor-pointer items-center space-x-2">
-                                    <QuoteDownIcon width={24} height={24} />
-                                    <span className="font-medium">
-                                        <Trans>Quote Post</Trans>
-                                    </span>
-                                </div>
+                                {({ close }) => (
+                                    <div
+                                        className={classNames('flex cursor-pointer items-center space-x-2', {
+                                            'text-secondarySuccess': !!mirrored,
+                                        })}
+                                        onClick={(event) => {
+                                            event.stopPropagation();
+                                            event.preventDefault();
+                                            close();
+                                            handleMirror();
+                                        }}
+                                    >
+                                        <MirrorLargeIcon width={24} height={24} />
+                                        <span className="font-medium">{mirrorActionText}</span>
+                                    </div>
+                                )}
                             </Menu.Item>
-                        ) : null}
-                    </Menu.Items>
-                </Transition>
-            ) : null}
-        </Menu>
+                            {source === SocialPlatform.Lens ? (
+                                <Menu.Item>
+                                    <div
+                                        className="flex cursor-pointer items-center space-x-2"
+                                        onClick={() => {
+                                            close();
+                                            setComposeOpened(true);
+                                        }}
+                                    >
+                                        <QuoteDownIcon width={24} height={24} />
+                                        <span className="font-medium">
+                                            <Trans>Quote Post</Trans>
+                                        </span>
+                                    </div>
+                                </Menu.Item>
+                            ) : null}
+                        </Menu.Items>
+                    </Transition>
+                ) : null}
+            </Menu>
+
+            <Compose type="quote" opened={composeOpened} setOpened={setComposeOpened} post={post} />
+        </>
     );
 });

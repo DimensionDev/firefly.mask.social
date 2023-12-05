@@ -72,3 +72,11 @@ export interface NotificationResponse {
     code: number;
     data: { notifications: Notification[]; cursor: string };
 }
+
+export interface CommentsResponse {
+    code: number;
+    data: {
+        comments: Cast[];
+        cursor: string;
+    };
+}

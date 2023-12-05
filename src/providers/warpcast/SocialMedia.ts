@@ -29,7 +29,7 @@ import type {
     FeedResponse,
     ReactionResponse,
     SuccessResponse,
-    UserResponse,
+    UserDetailResponse,
     UsersResponse,
 } from '@/providers/types/Warpcast.js';
 import { createSessionByGrantPermission } from '@/providers/warpcast/createSessionByGrantPermission.js';
@@ -114,7 +114,9 @@ export class WarpcastSocialMedia implements Provider {
 
     async getProfileById(profileId: string) {
         const url = urlcat(WARPCAST_ROOT_URL, '/user', { fid: profileId });
-        const { result: user } = await this.fetchWithSession<UserResponse>(url, {
+        const {
+            result: { user },
+        } = await this.fetchWithSession<UserDetailResponse>(url, {
             method: 'GET',
         });
 
