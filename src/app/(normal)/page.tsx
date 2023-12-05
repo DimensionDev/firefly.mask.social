@@ -10,7 +10,7 @@ import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { SinglePost } from '@/components/Posts/SinglePost.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
-import Image from '@/esm/Image.js';
+import { Image } from '@/esm/Image.js';
 import { classNames } from '@/helpers/classNames.js';
 import { createIndicator, createPageable } from '@/maskbook/packages/shared-base/src/index.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
@@ -66,7 +66,7 @@ export default function Home() {
                 </div>
                 <button
                     className="mt-6 whitespace-nowrap rounded-2xl bg-main px-4 py-1 text-sm font-semibold leading-6 text-primaryBottom"
-                    onClick={refetch}
+                    onClick={() => refetch()}
                 >
                     <LoadingIcon
                         width={16}

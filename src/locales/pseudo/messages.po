@@ -37,6 +37,9 @@ msgstr ""
 msgid "Failed to publish post"
 msgstr ""
 
+msgid "Something went wrong, Please try again."
+msgstr ""
+
 msgid "Failed to mirror. {0}"
 msgstr ""
 
@@ -347,6 +350,9 @@ msgid "Quote on Lens"
 msgstr ""
 
 msgid "Delegate Signing (Recommend)"
+msgstr ""
+
+msgid "Refresh"
 msgstr ""
 
 msgid "Firefly"
