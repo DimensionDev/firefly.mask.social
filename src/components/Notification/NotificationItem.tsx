@@ -90,7 +90,7 @@ export const NotificationItem = memo<NotificationItemProps>(function SingleNotif
                 return (
                     <Trans>
                         <Plural
-                            value={notification.reactors.length}
+                            value={Math.max(1, notification.reactors.length - 1)}
                             one={<strong>{firstReactorName}</strong>}
                             other={
                                 <Trans>
@@ -121,7 +121,7 @@ export const NotificationItem = memo<NotificationItemProps>(function SingleNotif
                 return (
                     <Trans>
                         <Plural
-                            value={notification.followers.length}
+                            value={Math.max(1, notification.followers.length - 1)}
                             one={<strong>{firstFollowerName}</strong>}
                             other={
                                 <Trans>
@@ -160,7 +160,7 @@ export const NotificationItem = memo<NotificationItemProps>(function SingleNotif
                 return (
                     <Trans>
                         <Plural
-                            value={notification.mirrors.length}
+                            value={Math.max(1, notification.mirrors.length - 1)}
                             one={<strong>{firstMirrorName}</strong>}
                             other={
                                 <Trans>
@@ -179,7 +179,7 @@ export const NotificationItem = memo<NotificationItemProps>(function SingleNotif
                 return (
                     <Trans>
                         <Plural
-                            value={notification.actions.length}
+                            value={Math.max(1, notification.actions.length - 1)}
                             one={<strong>{firstActedName}</strong>}
                             other={
                                 <Trans>
@@ -258,7 +258,7 @@ export const NotificationItem = memo<NotificationItemProps>(function SingleNotif
                     <div className="flex-1">
                         <div className="flex flex-1 items-center justify-between">
                             <div className="flex items-center">
-                                {profiles.slice(0, 3).map((x, index, self) => {
+                                {profiles.slice(0, 5).map((x, index, self) => {
                                     return (
                                         <Image
                                             key={index}
