@@ -53,9 +53,9 @@ export const MoreAction = memo<MoreProps>(function More({ post }) {
             enqueueSnackbar(
                 <Select
                     value={isFollowed ? 'unfollow' : 'follow'}
-                    _follow={`Followed @${post.author.displayName} on ${post.source}`}
-                    _unfollow={`UnFollowed @${post.author.displayName} on ${post.source}`}
-                    other={`Followed @${post.author.displayName} on ${post.source}`}
+                    _follow={`Followed @${post.author.handle} on ${post.source}`}
+                    _unfollow={`UnFollowed @${post.author.handle} on ${post.source}`}
+                    other={`Followed @${post.author.handle} on ${post.source}`}
                 />,
                 {
                     variant: 'success',
@@ -69,9 +69,9 @@ export const MoreAction = memo<MoreProps>(function More({ post }) {
                 enqueueSnackbar(
                     <Select
                         value={isFollowed ? 'unfollow' : 'follow'}
-                        _follow={`Failed to followed @${post.author.displayName} on ${post.source}`}
-                        _unfollow={`Failed to unFollowed @${post.author.displayName} on ${post.source}`}
-                        other={`Failed to followed @${post.author.displayName} on ${post.source}`}
+                        _follow={`Failed to followed @${post.author.handle} on ${post.source}`}
+                        _unfollow={`Failed to unfollowed @${post.author.handle} on ${post.source}`}
+                        other={`Failed to followed @${post.author.handle} on ${post.source}`}
                     />,
                     {
                         variant: 'error',
@@ -116,7 +116,7 @@ export const MoreAction = memo<MoreProps>(function More({ post }) {
                 leaveFrom="transform opacity-100 scale-100"
                 leaveTo="transform opacity-0 scale-95"
             >
-                <Menu.Items className="absolute z-[5] w-max space-y-2 overflow-hidden rounded-2xl bg-primaryBottom text-main shadow-messageShadow hover:text-main">
+                <Menu.Items className="absolute z-[1000] w-max space-y-2 overflow-hidden rounded-2xl bg-primaryBottom text-main shadow-messageShadow hover:text-main">
                     <Menu.Item>
                         {({ close }) => (
                             <div className="flex cursor-pointer items-center space-x-2 p-4 hover:bg-bg">
@@ -140,7 +140,7 @@ export const MoreAction = memo<MoreProps>(function More({ post }) {
                                         _unfollow="UnFollow"
                                         other="Follow"
                                     />{' '}
-                                    @{post.author.displayName}
+                                    @{post.author.handle}
                                 </span>
                             </div>
                         )}
