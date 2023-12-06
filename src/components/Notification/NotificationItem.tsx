@@ -106,12 +106,12 @@ export const NotificationItem = memo<NotificationItemProps>(function SingleNotif
                 );
             case NotificationType.Quote:
                 const by = notification.quote.author;
-                if (!notification.quote.type) return;
+                if (!notification.quote.quoteOn?.type) return;
                 return (
                     <Trans>
                         <strong>{by.displayName}</strong> quoted your{' '}
                         <strong>
-                            <PostTypeI18N type={notification.quote.type} />
+                            <PostTypeI18N type={notification.quote.quoteOn.type} />
                         </strong>
                     </Trans>
                 );
@@ -237,12 +237,12 @@ export const NotificationItem = memo<NotificationItemProps>(function SingleNotif
         switch (notification.type) {
             case NotificationType.Comment:
                 if (!notification.comment) return;
-                return <PostActions post={notification.comment} />;
+                return <PostActions post={notification.comment} disablePadding />;
             case NotificationType.Mention:
                 if (!notification.post) return;
-                return <PostActions post={notification.post} />;
+                return <PostActions post={notification.post} disablePadding />;
             case NotificationType.Quote:
-                return <PostActions post={notification.quote} />;
+                return <PostActions post={notification.quote} disablePadding />;
             default:
                 return;
         }

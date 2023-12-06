@@ -32,7 +32,7 @@ export const PostActions = memo<PostActionsProps>(function PostActions({
     }, [publicationViews, post]);
 
     return (
-        <span
+        <div
             className={classNames('mt-2 flex items-center justify-between', {
                 'pl-[52px]': !disablePadding,
             })}
@@ -65,6 +65,6 @@ export const PostActions = memo<PostActionsProps>(function PostActions({
             />
             {post.source !== SocialPlatform.Farcaster ? <Views count={views} disabled={disabled} /> : null}
             <Share url={getPostDetailUrl(post.postId, post.source)} disabled={disabled} />
-        </span>
+        </div>
     );
 });
