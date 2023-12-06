@@ -16,15 +16,15 @@ const GlobalInjection = createInjectHooksRenderer(
 
 export default function PageInspector() {
     return (
-        <Providers>
-            <MaskProviders>
-                <DisableShadowRootContext.Provider value={false}>
-                    <ShadowRootIsolation>
+        <DisableShadowRootContext.Provider value={false}>
+            <ShadowRootIsolation>
+                <Providers>
+                    <MaskProviders>
                         <GlobalInjection />
                         <Modals createWallet={noop} />
-                    </ShadowRootIsolation>
-                </DisableShadowRootContext.Provider>
-            </MaskProviders>
-        </Providers>
+                    </MaskProviders>
+                </Providers>
+            </ShadowRootIsolation>
+        </DisableShadowRootContext.Provider>
     );
 }
