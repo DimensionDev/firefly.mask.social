@@ -58,22 +58,27 @@ export function Providers(props: { children: React.ReactNode }) {
 
     return (
         <I18nProvider i18n={i18n}>
-            <QueryClientProvider client={queryClient}>
-                <ReactQueryStreamedHydration>
-                    <DarkModeContext.Provider value={darkModeContext}>
-                        <SnackbarProvider
-                            maxSnack={30}
-                            anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-                            autoHideDuration={3000}
-                        >
-                            <WagmiProvider>
-                                <LivepeerConfig client={livepeerClient}>{props.children}</LivepeerConfig>
-                            </WagmiProvider>
-                        </SnackbarProvider>
-                    </DarkModeContext.Provider>
-                </ReactQueryStreamedHydration>
-                {process.env.NODE_ENV === 'development' ? <ReactQueryDevtools initialIsOpen={false} /> : null}
-            </QueryClientProvider>
+            <DarkModeContext.Provider value={darkModeContext}>
+                <SnackbarProvider
+                    maxSnack={30}
+                    anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+                    autoHideDuration={3000}
+                >
+                    {/* wagmi depends @tanstack/react-query@4.29.23 */}
+                    <WagmiProvider>
+                        {/* livepeer depends @tanstack/react-query@4.36.1 */}
+                        <LivepeerConfig client={livepeerClient}>
+                            {/* We are using @tanstack/react-query@5.8.7 */}
+                            <QueryClientProvider client={queryClient}>
+                                <ReactQueryStreamedHydration>{props.children}</ReactQueryStreamedHydration>
+                                {process.env.NODE_ENV === 'development' ? (
+                                    <ReactQueryDevtools initialIsOpen={false} />
+                                ) : null}
+                            </QueryClientProvider>
+                        </LivepeerConfig>
+                    </WagmiProvider>
+                </SnackbarProvider>
+            </DarkModeContext.Provider>
         </I18nProvider>
     );
 }
