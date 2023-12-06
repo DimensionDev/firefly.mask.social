@@ -22,6 +22,7 @@ NODE_ENV=development pnpm install
 # Create symbolic links for tanstack packages
 # It makes maskbook repo to share the same packages with the primary repo
 ./scripts/setup-packages.sh ./src/maskbook/node_modules ./node_modules "@tanstack+"
+./scripts/setup-packages.sh ./src/maskbook/node_modules ./node_modules "react-i18next"
 
 # Compile i18n
 pnpm run lingui:compile
