@@ -1,11 +1,11 @@
 'use client';
 
 import { Trans } from '@lingui/macro';
-import Link from 'next/link.js';
 
 import DocumentsIcon from '@/assets/documents.svg';
 import LinkIcon from '@/assets/link.svg';
 import SecurityIcon from '@/assets/security.svg';
+import { Link } from '@/esm/Link.js';
 
 export default function More() {
     return (

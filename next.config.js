@@ -128,6 +128,7 @@ export default {
                                     },
                                 },
                             },
+                            'prefixIds',
                         ],
                     },
                 },
