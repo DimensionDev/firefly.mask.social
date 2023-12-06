@@ -301,9 +301,6 @@ msgstr "Posted on Lens"
 msgid "Mirrored"
 msgstr "Mirrored"
 
-msgid "{0, select, follow {Follow} unfollow {UnFollow} other {Follow}}"
-msgstr "{0, select, follow {Follow} unfollow {UnFollow} other {Follow}}"
-
 msgid "Associated Wallets"
 msgstr "Associated Wallets"
 
@@ -426,6 +423,9 @@ msgstr "Recast"
 
 msgid "Followers"
 msgstr "Followers"
+
+msgid "{0, select, follow {Follow} unfollow {Unfollow} other {Follow}}"
+msgstr "{0, select, follow {Follow} unfollow {Unfollow} other {Follow}}"
 
 msgid "Mirror"
 msgstr "Mirror"

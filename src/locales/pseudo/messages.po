@@ -301,9 +301,6 @@ msgstr ""
 msgid "Mirrored"
 msgstr ""
 
-msgid "{0, select, follow {Follow} unfollow {UnFollow} other {Follow}}"
-msgstr ""
-
 msgid "Associated Wallets"
 msgstr ""
 
@@ -425,6 +422,9 @@ msgid "Recast"
 msgstr ""
 
 msgid "Followers"
+msgstr ""
+
+msgid "{0, select, follow {Follow} unfollow {Unfollow} other {Follow}}"
 msgstr ""
 
 msgid "Mirror"
