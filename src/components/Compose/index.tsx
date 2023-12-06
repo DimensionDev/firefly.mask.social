@@ -7,7 +7,7 @@ import { forwardRef, Fragment, useCallback, useState } from 'react';
 import LoadingIcon from '@/assets/loading.svg';
 import ComposeSend from '@/components/Compose/ComposeSend.js';
 import Discard from '@/components/Compose/Discard.js';
-import WithLexicalContextWrapper from '@/components/Compose/withLexicalContextWrapper.js';
+import WithLexicalContextWrapper from '@/components/Compose/WithLexicalContextWrapper.js';
 import type { SingletonModalRefCreator } from '@/maskbook/packages/shared-base/src/index.js';
 import { useSingletonModal } from '@/maskbook/packages/shared-base-ui/src/index.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
