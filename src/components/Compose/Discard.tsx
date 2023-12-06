@@ -6,9 +6,9 @@ import { Fragment, useCallback } from 'react';
 interface ComposeProps {
     opened: boolean;
     setOpened: (opened: boolean) => void;
-    setComposeOpened: (opened: boolean) => void;
+    closeCompose: () => void;
 }
-export default function Discard({ opened, setOpened, setComposeOpened }: ComposeProps) {
+export default function Discard({ opened, setOpened, closeCompose }: ComposeProps) {
     const close = useCallback(() => setOpened(false), [setOpened]);
 
     return (
@@ -59,7 +59,7 @@ export default function Discard({ opened, setOpened, setComposeOpened }: Compose
                                     className=" flex h-10 w-full items-center justify-center rounded-full bg-danger text-sm font-bold text-secondaryBottom"
                                     onClick={() => {
                                         close();
-                                        setComposeOpened(false);
+                                        closeCompose();
                                     }}
                                 >
                                     <Trans>Confirm</Trans>

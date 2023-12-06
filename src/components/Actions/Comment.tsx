@@ -4,13 +4,12 @@ import { useSnackbar } from 'notistack';
 import { memo, useCallback, useMemo, useState } from 'react';
 
 import ReplyIcon from '@/assets/reply.svg';
-import Compose from '@/components/Compose/index.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import type { SocialPlatform } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { humanize, nFormatter } from '@/helpers/formatCommentCounts.js';
 import { useLogin } from '@/hooks/useLogin.js';
-import { LoginModalRef } from '@/modals/controls.js';
+import { ComposeModalRef, LoginModalRef } from '@/modals/controls.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 interface CommentProps {
@@ -48,13 +47,16 @@ export const Comment = memo<CommentProps>(function Comment({
             return;
         }
         if (canComment) {
-            setComposeOpened(true);
+            ComposeModalRef.open({
+                type: 'reply',
+                post,
+            });
         } else {
             enqueueSnackbar(t`You cannot reply to @${author} on ${source}`, {
                 variant: 'error',
             });
         }
-    }, [canComment, author, source, enqueueSnackbar, isLogin]);
+    }, [isLogin, canComment, post, enqueueSnackbar, author, source]);
 
     return (
         <>
@@ -85,8 +87,6 @@ export const Comment = memo<CommentProps>(function Comment({
                 </motion.button>
                 {count ? <span className="text-xs font-medium text-secondary">{nFormatter(count)}</span> : null}
             </div>
-
-            <Compose type="reply" opened={composeOpened} setOpened={setComposeOpened} post={post} />
         </>
     );
 });

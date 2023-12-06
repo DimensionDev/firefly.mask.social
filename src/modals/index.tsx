@@ -2,6 +2,7 @@
 
 import { memo } from 'react';
 
+import ComposeModal from '@/components/Compose/index.js';
 import * as controls from '@/modals/controls.js';
 import { FarcasterStatusModal } from '@/modals/FarcasterStatusModal.js';
 import { LensStatusModal } from '@/modals/LensStatusModal.js';
@@ -17,6 +18,7 @@ export const Modals = memo(function Modals() {
             <FarcasterStatusModal ref={controls.FarcasterStatusModalRef.register} />
             <LogoutModal ref={controls.LogoutModalRef.register} />
             <PreviewImagesModal ref={controls.PreviewImageModalRef.register} />
+            <ComposeModal ref={controls.ComposeModalRef.register} />
         </div>
     );
 });
