@@ -100,9 +100,6 @@ importers:
       '@dimensiondev/holoflows-kit':
         specifier: 0.9.0-20230307045856-46252fb
         version: 0.9.0-20230307045856-46252fb
-      '@emotion/styled':
-        specifier: 11.11.0
-        version: 11.11.0(@emotion/react@11.11.1)(@types/react@18.2.21)(react@18.2.0)
       '@farcaster/hub-web':
         specifier: ^0.7.0
         version: 0.7.0(google-protobuf@3.21.2)(typescript@5.2.2)(zod@3.22.4)
@@ -315,7 +312,7 @@ importers:
         version: 0.6.14(next@14.0.2)(react@18.2.0)
       notistack:
         specifier: 2.0.8
-        version: 2.0.8(@emotion/react@11.11.1)(@emotion/styled@11.11.0)(@mui/material@5.10.8)(react-dom@18.2.0)(react@18.2.0)
+        version: 2.0.8(@emotion/react@11.11.1)(@mui/material@5.10.8)(react-dom@18.2.0)(react@18.2.0)
       plyr-react:
         specifier: ^5.3.0
         version: 5.3.0(plyr@3.7.8)(react@18.2.0)
@@ -3401,7 +3398,7 @@ importers:
         version: 6.6.2(patch_hash=b2o4qvyfvxmpo7347sqko6h22a)
       notistack:
         specifier: 2.0.8
-        version: 2.0.8(@emotion/react@11.11.1)(@emotion/styled@11.11.0)(@mui/material@5.10.8)(react-dom@18.2.0)(react@18.2.0)
+        version: 2.0.8(@emotion/react@11.11.1)(@mui/material@5.10.8)(react-dom@18.2.0)(react@18.2.0)
       react-use:
         specifier: ^17.4.0
         version: 17.4.0(react-dom@18.2.0)(react@18.2.0)
@@ -29056,7 +29053,7 @@ packages:
     engines: {node: '>=14.16'}
     dev: true
 
-  /notistack@2.0.8(@emotion/react@11.11.1)(@emotion/styled@11.11.0)(@mui/material@5.10.8)(react-dom@18.2.0)(react@18.2.0):
+  /notistack@2.0.8(@emotion/react@11.11.1)(@mui/material@5.10.8)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-/IY14wkFp5qjPgKNvAdfL5Jp6q90+MjgKTPh4c81r/lW70KeuX6b9pE/4f8L4FG31cNudbN9siiFS5ql1aSLRw==}
     peerDependencies:
       '@emotion/react': ^11.4.1
@@ -29077,7 +29074,6 @@ packages:
         optional: true
     dependencies:
       '@emotion/react': 11.11.1(@types/react@18.2.21)(react@18.2.0)
-      '@emotion/styled': 11.11.0(@emotion/react@11.11.1)(@types/react@18.2.21)(react@18.2.0)
       '@mui/material': 5.10.8(@emotion/react@11.11.1)(@emotion/styled@11.11.0)(@types/react@18.2.21)(react-dom@18.2.0)(react@18.2.0)
       clsx: 1.2.1
       hoist-non-react-statics: 3.3.2

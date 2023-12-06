@@ -126,9 +126,19 @@
     --plyr-control-icon-size: 16px;
 }
 
+html {
+    -webkit-font-smoothing: antialiased !important;
+    -moz-osx-font-smoothing: grayscale !important;
+    box-sizing:  border-box !important;
+    -webkit-text-size-adjust: 100% !important;
+}
+
 body {
-    color: rgb(var(--color-main));
-    background: rgb(var(--color-bottom));
+    /*  These !important rules prevent the overriding of website styles by Maskbook when injecting widgets from it. */
+    font-family: inherit !important;
+    line-height: inherit !important;
+    color: rgb(var(--color-main)) !important;
+    background: rgb(var(--color-bottom)) !important;
 }
 
 iframe {
