@@ -17,6 +17,10 @@ npx tsc -b
 # Return to the original directory
 cd -
 
+# Create symbolic links for tanstack packages
+# It makes maskbook repo to share the same packages with the primary repo
+./scripts/setup-packages.sh ./src/maskbook/node_modules ./node_modules "@tanstack+"
+
 # Compile i18n
 pnpm run lingui:compile
 

@@ -2,8 +2,8 @@
 
 import { i18n } from '@lingui/core';
 import { I18nProvider } from '@lingui/react';
-import { createReactClient, LivepeerConfig, studioProvider } from '@livepeer/react';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { LivepeerConfig } from '@livepeer/react';
+import { QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { ReactQueryStreamedHydration } from '@tanstack/react-query-next-experimental';
 import { SnackbarProvider } from 'notistack';
@@ -13,23 +13,13 @@ import { useMediaQuery } from 'usehooks-ts';
 import { v4 as uuid } from 'uuid';
 
 import { WagmiProvider } from '@/components/WagmiProvider.js';
+import { livepeerClient } from '@/configs/livepeerClient.js';
+import { queryClient } from '@/configs/queryClient.js';
 import { DarkModeContext } from '@/hooks/useDarkMode.js';
 import { useMounted } from '@/hooks/useMounted.js';
 import { initLocale } from '@/i18n/index.js';
 import { useLeafwatchPersistStore } from '@/store/useLeafwatchPersistStore.js';
 import { useThemeModeStore } from '@/store/useThemeModeStore.js';
-
-const queryClient = new QueryClient({
-    defaultOptions: {
-        queries: {
-            refetchOnWindowFocus: false,
-        },
-    },
-});
-
-const livepeerClient = createReactClient({
-    provider: studioProvider({ apiKey: '' }),
-});
 
 export function Providers(props: { children: React.ReactNode }) {
     const isDarkOS = useMediaQuery('(prefers-color-scheme: dark)');
@@ -68,6 +58,7 @@ export function Providers(props: { children: React.ReactNode }) {
 
     return (
         <I18nProvider i18n={i18n}>
+            {/* We are using @tanstack/react-query@5.8.7 */}
             <QueryClientProvider client={queryClient}>
                 <ReactQueryStreamedHydration>
                     <DarkModeContext.Provider value={darkModeContext}>
@@ -76,7 +67,9 @@ export function Providers(props: { children: React.ReactNode }) {
                             anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
                             autoHideDuration={3000}
                         >
+                            {/* wagmi depends @tanstack/react-query@4.29.23 */}
                             <WagmiProvider>
+                                {/* livepeer depends @tanstack/react-query@4.36.1 */}
                                 <LivepeerConfig client={livepeerClient}>{props.children}</LivepeerConfig>
                             </WagmiProvider>
                         </SnackbarProvider>

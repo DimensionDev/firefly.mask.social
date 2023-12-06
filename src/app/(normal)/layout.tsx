@@ -22,9 +22,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 <IfPathname isOneOf={['/search']}>
                     <SearchFilter />
                 </IfPathname>
-                <IfPathname isNotOneOf={['/settings']}>
-                    <mask-calendar-widget />
-                </IfPathname>
+
+                <mask-calendar-widget />
                 <mask-page-inspector />
             </aside>
         </>
