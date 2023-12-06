@@ -8,14 +8,14 @@ import { Providers as MaskProviders } from '@/mask/widgets/Providers.js';
 
 export default function CalendarWidget() {
     return (
-        <DisableShadowRootContext.Provider value={false}>
-            <ShadowRootIsolation>
-                <Providers>
-                    <MaskProviders>
+        <Providers>
+            <MaskProviders>
+                <DisableShadowRootContext.Provider value={false}>
+                    <ShadowRootIsolation>
                         <CalendarContent />
-                    </MaskProviders>
-                </Providers>
-            </ShadowRootIsolation>
-        </DisableShadowRootContext.Provider>
+                    </ShadowRootIsolation>
+                </DisableShadowRootContext.Provider>
+            </MaskProviders>
+        </Providers>
     );
 }
