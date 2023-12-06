@@ -1,11 +1,20 @@
+'use client';
+
 import { Trans } from '@lingui/macro';
+import { useActivatedPluginsSiteAdaptor } from '@masknet/plugin-infra/content-script';
+import { createInjectHooksRenderer } from '@masknet/plugin-infra/dom';
+import { MaskPostExtraPluginWrapper } from '@masknet/shared';
 import { RegistryContext, TypedMessageRender } from '@masknet/typed-message-react';
-import React, { lazy, Suspense } from 'react';
+import React, { Suspense } from 'react';
 
-import { useDecrypt } from './Decrypt/useDecrypt.js';
-import { registry } from './TypedMessageRender/registry.js';
+import { useDecrypt } from '@/mask/main/Decrypt/useDecrypt.js';
+import { registry } from '@/mask/main/TypedMessageRender/registry.js';
 
-const PluginRender = lazy(() => import('./plugin-render.js'));
+const Decrypted = createInjectHooksRenderer(
+    useActivatedPluginsSiteAdaptor.visibility.useAnyMode,
+    (x) => x.DecryptedInspector,
+    MaskPostExtraPluginWrapper,
+);
 
 export function DecryptMessage(props: { text: string; version: string }) {
     const { text, version } = props;
@@ -41,7 +50,7 @@ export function DecryptMessage(props: { text: string; version: string }) {
                     </p>
                 }
             >
-                <PluginRender message={message} />
+                <Decrypted message={message} />
             </Suspense>
         </RegistryContext.Provider>
     );
