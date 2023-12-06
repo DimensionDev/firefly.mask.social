@@ -109,7 +109,7 @@ export default {
         config.module.rules.push({
             test: () => true,
             sideEffects: true,
-        })
+        });
         config.module.rules.push(
             {
                 test: /\.svg$/i,
