@@ -129,7 +129,7 @@
 html {
     -webkit-font-smoothing: antialiased !important;
     -moz-osx-font-smoothing: grayscale !important;
-    box-sizing:  border-box !important;
+    box-sizing: border-box !important;
     -webkit-text-size-adjust: 100% !important;
 }
 
