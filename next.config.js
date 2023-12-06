@@ -106,6 +106,10 @@ export default {
             'text-encoding': require.resolve('@sinonjs/text-encoding'),
         };
 
+        config.module.rules.push({
+            test: () => true,
+            sideEffects: true,
+        })
         config.module.rules.push(
             {
                 test: /\.svg$/i,
