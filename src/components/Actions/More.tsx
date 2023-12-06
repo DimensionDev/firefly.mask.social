@@ -137,7 +137,7 @@ export const MoreAction = memo<MoreProps>(function More({ post }) {
                                     <Select
                                         value={isFollowed ? 'unfollow' : 'follow'}
                                         _follow="Follow"
-                                        _unfollow="UnFollow"
+                                        _unfollow="Unfollow"
                                         other="Follow"
                                     />{' '}
                                     @{post.author.handle}

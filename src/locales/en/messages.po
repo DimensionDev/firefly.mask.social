@@ -430,9 +430,6 @@ msgstr "Followers"
 msgid "Mirror"
 msgstr "Mirror"
 
-msgid "{0, select, follow {Failed to followed @{1} on {2}} unfollow {Failed to unFollowed @{3} on {4}} other {Failed to followed @{5} on {6}}}"
-msgstr "{0, select, follow {Failed to followed @{1} on {2}} unfollow {Failed to unFollowed @{3} on {4}} other {Failed to followed @{5} on {6}}}"
-
 msgid "Terms of Service"
 msgstr "Terms of Service"
 
@@ -453,3 +450,6 @@ msgstr "Collect is coming soon"
 
 msgid "Login"
 msgstr "Login"
+
+msgid "{0, select, follow {Failed to followed @{1} on {2}} unfollow {Failed to unfollowed @{3} on {4}} other {Failed to followed @{5} on {6}}}"
+msgstr "{0, select, follow {Failed to followed @{1} on {2}} unfollow {Failed to unfollowed @{3} on {4}} other {Failed to followed @{5} on {6}}}"
