@@ -107,9 +107,10 @@ export default {
         };
 
         config.module.rules.push({
-            test: () => true,
+            test: /\.[js|tsx]?$/,
             sideEffects: true,
         });
+
         config.module.rules.push(
             {
                 test: /\.svg$/i,
