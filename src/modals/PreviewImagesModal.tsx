@@ -22,7 +22,10 @@ export const PreviewImagesModal = forwardRef<SingletonModalRefCreator<PreviewIma
         const [post, setPost] = useState<Post | undefined>();
         const [images, setImages] = useState<string[]>([]);
 
-        const { state, setState, prev, next } = useStateList(images);
+        const { state, setState, prev, next, currentIndex } = useStateList(images);
+        const isMultiple = images.length > 1;
+        const isAtStart = currentIndex === 0;
+        const isAtEnd = currentIndex === images.length - 1;
 
         const [open, dispatch] = useSingletonModal(ref, {
             onOpen: (props) => {
@@ -85,29 +88,33 @@ export const PreviewImagesModal = forwardRef<SingletonModalRefCreator<PreviewIma
 
                                     {post ? (
                                         <div className="my-1 flex w-[512px] items-center justify-between">
-                                            <ArrowLeftIcon
-                                                className="cursor-pointer text-secondary"
-                                                width={16}
-                                                height={16}
-                                                onClick={(event) => {
-                                                    event.stopPropagation();
-                                                    event.preventDefault();
-                                                    if (!state && current) setState(current);
-                                                    prev();
-                                                }}
-                                            />
-                                            <PostActions post={post} disablePadding />
-                                            <ArrowRightIcon
-                                                className="cursor-pointer text-secondary"
-                                                width={16}
-                                                height={16}
-                                                onClick={(event) => {
-                                                    event.stopPropagation();
-                                                    event.preventDefault();
-                                                    if (!state && current) setState(current);
-                                                    next();
-                                                }}
-                                            />
+                                            {isMultiple && !isAtStart ? (
+                                                <ArrowLeftIcon
+                                                    className="cursor-pointer text-secondary"
+                                                    width={16}
+                                                    height={16}
+                                                    onClick={(event) => {
+                                                        event.stopPropagation();
+                                                        event.preventDefault();
+                                                        if (!state && current) setState(current);
+                                                        prev();
+                                                    }}
+                                                />
+                                            ) : null}
+                                            <PostActions post={post} disablePadding className="mx-auto" />
+                                            {isMultiple && !isAtEnd ? (
+                                                <ArrowRightIcon
+                                                    className="cursor-pointer text-secondary"
+                                                    width={16}
+                                                    height={16}
+                                                    onClick={(event) => {
+                                                        event.stopPropagation();
+                                                        event.preventDefault();
+                                                        if (!state && current) setState(current);
+                                                        next();
+                                                    }}
+                                                />
+                                            ) : null}
                                         </div>
                                     ) : null}
                                 </Dialog.Panel>
