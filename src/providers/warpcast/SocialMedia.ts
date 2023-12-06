@@ -10,7 +10,7 @@ import { HubRestAPIClient } from '@standard-crypto/farcaster-js';
 import urlcat from 'urlcat';
 
 import { SocialPlatform } from '@/constants/enum.js';
-import { WARPCAST_ROOT_URL } from '@/constants/index.js';
+import { WARPCAST_CLIENT_URL, WARPCAST_ROOT_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { formatWarpcastPostFromFeed } from '@/helpers/formatWarpcastPost.js';
 import { isZero } from '@/maskbook/packages/web3-shared/base/src/index.js';
@@ -24,13 +24,13 @@ import {
     ReactionType,
     Type,
 } from '@/providers/types/SocialMedia.js';
-import type {
-    CastResponse,
-    FeedResponse,
-    ReactionResponse,
-    SuccessResponse,
-    UserDetailResponse,
-    UsersResponse,
+import {
+    type CastResponse,
+    type FeedResponse,
+    type ReactionResponse,
+    type SuccessResponse,
+    type UserDetailResponse,
+    type UsersResponse,
 } from '@/providers/types/Warpcast.js';
 import { createSessionByGrantPermission } from '@/providers/warpcast/createSessionByGrantPermission.js';
 import { WarpcastSession } from '@/providers/warpcast/Session.js';
@@ -143,7 +143,7 @@ export class WarpcastSocialMedia implements Provider {
         username: string,
         indicator?: PageIndicator,
     ): Promise<Pageable<Post, PageIndicator>> {
-        const url = urlcat('https://client.warpcast.com/v2', '/v2/user-thread-casts', {
+        const url = urlcat(WARPCAST_CLIENT_URL, '/v2/user-thread-casts', {
             castHashPrefix: parentPostId,
             limit: 10,
             username,
@@ -208,6 +208,8 @@ export class WarpcastSocialMedia implements Provider {
         }));
         return createPageable(data, createIndicator(indicator), createNextIndicator(indicator, next.cursor));
     }
+
+
 
     async publishPost(post: Post): Promise<Post> {
         const url = urlcat(WARPCAST_ROOT_URL, '/casts');
@@ -339,12 +341,44 @@ export class WarpcastSocialMedia implements Provider {
         });
     }
 
-    searchProfiles(q: string, indicator?: PageIndicator): Promise<Pageable<Profile>> {
-        throw new Error(t`Method not implemented.`);
+    async searchProfiles(q: string, indicator?:PageIndicator): Promise<Pageable<Profile, PageIndicator>>{
+        const url = urlcat(WARPCAST_CLIENT_URL, '/search-users', {
+            q,
+            limit: 25,
+            cursor: indicator?.id,
+        });
+        const {result, next} = await this.fetchWithSession<UsersResponse>(url,{
+            method: 'GET',
+        });
+        const data = result.map((user) => ({
+            profileId: user.fid.toString(),
+            nickname: user.username,
+            displayName: user.displayName,
+            pfp: user.pfp.url,
+            followerCount: user.followerCount,
+            followingCount: user.followingCount,
+            status: ProfileStatus.Active,
+            verified: user.pfp.verified,
+            viewerContext: {
+                following: user.viewerContext.following,
+                followedBy: user.viewerContext.followedBy,
+            },
+            source: SocialPlatform.Farcaster,
+        }));
+        return createPageable(data, createIndicator(indicator), createNextIndicator(indicator, next.cursor));
     }
 
-    searchPosts(q: string, indicator?: PageIndicator): Promise<Pageable<Post>> {
-        throw new Error(t`Method not implemented.`);
+    async searchPosts(q: string, indicator?: PageIndicator): Promise<Pageable<Post>> {
+        const url = urlcat(WARPCAST_CLIENT_URL, '/search-casts', {
+            q,
+            limit: 25,
+            cursor: indicator?.id,
+        });
+        const {result, next} = await this.fetchWithSession<FeedResponse>(url,{
+            method: 'GET',
+        });
+        const data = result.feed.map(formatWarpcastPostFromFeed);
+        return createPageable(data, createIndicator(indicator), createNextIndicator(indicator, next.cursor));
     }
 }
 

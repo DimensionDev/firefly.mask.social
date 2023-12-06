@@ -4,6 +4,7 @@ export const SITE_DESCRIPTION =
 export const SITE_URL = 'https://mask.social';
 
 export const WARPCAST_ROOT_URL = 'https://api.warpcast.com/v2';
+export const WARPCAST_CLIENT_URL = 'https://client.warpcast.com/v2';
 export const FIREFLY_ROOT_URL = process.env.NEXT_PUBLIC_FIREFLY_API_URL;
 export const FIREFLY_HUBBLE_URL = process.env.NEXT_PUBLIC_FIREFLY_HUBBLE_URL;
 
