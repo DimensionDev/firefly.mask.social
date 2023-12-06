@@ -80,6 +80,11 @@ export default {
             ],
         );
 
+        config.optimization = {
+            ...config.optimization,
+            usedExports: false,
+        };
+
         config.experiments = {
             ...config.experiments,
             backCompat: false,
@@ -105,11 +110,6 @@ export default {
             zlib: require.resolve('zlib-browserify'),
             'text-encoding': require.resolve('@sinonjs/text-encoding'),
         };
-
-        config.module.rules.push({
-            test: /\.[js|tsx]?$/,
-            sideEffects: true,
-        });
 
         config.module.rules.push(
             {
