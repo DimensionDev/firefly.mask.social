@@ -116,10 +116,10 @@ export const MoreAction = memo<MoreProps>(function More({ post }) {
                 leaveFrom="transform opacity-100 scale-100"
                 leaveTo="transform opacity-0 scale-95"
             >
-                <Menu.Items className="absolute z-[5] w-max space-y-2 rounded-2xl bg-primaryBottom p-4 text-main shadow-messageShadow hover:text-main">
+                <Menu.Items className="absolute z-[5] w-max space-y-2 overflow-hidden rounded-2xl bg-primaryBottom text-main shadow-messageShadow hover:text-main">
                     <Menu.Item>
                         {({ close }) => (
-                            <div className="flex cursor-pointer items-center space-x-2">
+                            <div className="flex cursor-pointer items-center space-x-2 p-4 hover:bg-bg">
                                 {isFollowed ? (
                                     <UnFollowUserIcon width={24} height={24} />
                                 ) : (
