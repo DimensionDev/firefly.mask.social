@@ -344,7 +344,7 @@ export class WarpcastSocialMedia implements Provider {
     async getSuggestedFollows(indicator?: PageIndicator): Promise<Pageable<Profile>> {
         const url = urlcat(WARPCAST_ROOT_URL, '/recent-users', {
             limit: 25,
-            cusror: indicator?.id,
+            cursor: indicator?.id,
         });
         const { result, next } = await this.fetchWithSession<UsersResponse>(url, {
             method: 'GET',
