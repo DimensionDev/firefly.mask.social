@@ -1,7 +1,7 @@
 'use client';
 
-import { Providers } from '@/app/provider.js';
 import { DecryptPost } from '@/components/Posts/DecryptPost.js';
+import { Providers } from '@/components/Provider.js';
 import { getPostDetailUrl } from '@/helpers/getPostDetailUrl.js';
 import { Providers as MaskProviders } from '@/mask/widgets/Providers.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
