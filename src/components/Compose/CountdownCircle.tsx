@@ -12,17 +12,17 @@ export function CountdownCircle({ count, ...rest }: Props) {
     const dashoffset = Math.floor(dasharray * (1 - progress));
     return (
         <svg viewBox="0 0 160 160" {...rest}>
-            <circle r="70" cx="80" cy="80" fill="transparent" stroke="rgba(61,194,51,0.2)" stroke-width="12px" />
+            <circle r="70" cx="80" cy="80" fill="transparent" stroke="rgba(61,194,51,0.2)" strokeWidth="12px" />
             <circle
                 r="70"
                 cx="80"
                 cy="80"
                 fill="transparent"
                 stroke={color}
-                stroke-linecap="round"
-                stroke-width="12px"
-                stroke-dasharray={`${dasharray.toFixed(3)}px`}
-                stroke-dashoffset={`${dashoffset}px`}
+                strokeLinecap="round"
+                strokeWidth="12px"
+                strokeDasharray={`${dasharray.toFixed(3)}px`}
+                strokeDashoffset={`${dashoffset}px`}
             />
         </svg>
     );
