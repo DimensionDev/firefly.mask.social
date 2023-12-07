@@ -4,9 +4,9 @@ import { useDocumentTitle } from 'usehooks-ts';
 
 import ContentTabs from '@/app/(normal)/profile/components/ContentTabs.js';
 import Info from '@/app/(normal)/profile/components/Info.js';
-import NotFoundFallback from '@/app/(normal)/profile/components/NotFoundFallback.js';
 import Title from '@/app/(normal)/profile/components/Title.js';
 import Loading from '@/components/Loading.js';
+import NotFoundFallback from '@/components/NotFoundFallback.js';
 import { createPageTitle } from '@/helpers/createPageTitle.js';
 import { useLogin } from '@/hooks/useLogin.js';
 import { usePlatformAccount } from '@/hooks/usePlatformAccount.js';
@@ -45,7 +45,7 @@ export default function LensProfile({ handle }: LensProfileProps) {
     }
 
     if (!profile) {
-        return <NotFoundFallback />;
+        return <NotFoundFallback type="profile" />;
     }
 
     return (

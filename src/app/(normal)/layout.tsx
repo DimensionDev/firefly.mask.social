@@ -1,7 +1,7 @@
 import { CustomElements } from '@/components/CustomElements.js';
 import { IfPathname } from '@/components/IfPathname.js';
-import { SearchBar } from '@/components/SearchBar.js';
-import { SearchFilter } from '@/components/SearchFilter.js';
+import { SearchBar } from '@/components/Search/SearchBar.js';
+import { SearchFilter } from '@/components/Search/SearchFilter.js';
 import { SocialPlatformTabs } from '@/components/SocialPlatformTabs.js';
 
 export default function Layout({ children }: { children: React.ReactNode }) {

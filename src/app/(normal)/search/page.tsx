@@ -9,7 +9,7 @@ import { useInView } from 'react-cool-inview';
 import LoadingIcon from '@/assets/loading.svg';
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { SinglePost } from '@/components/Posts/SinglePost.js';
-import { ProfileInList } from '@/components/ProfileInList.js';
+import { ProfileInList } from '@/components/Search/ProfileInList.js';
 import { SearchType, SocialPlatform } from '@/constants/enum.js';
 import { createIndicator } from '@/maskbook/packages/shared-base/src/index.js';
 import { HubbleSocialMediaProvider } from '@/providers/hubble/SocialMedia.js';

@@ -11,12 +11,12 @@ import { useAccount, useNetwork } from 'wagmi';
 import CloseIcon from '@/assets/close.svg';
 import LeftArrowIcon from '@/assets/left-arrow.svg';
 import LoadingIcon from '@/assets/loading.svg';
-import { LoginFarcaster } from '@/components/LoginFarcaster.js';
+import { LoginButton } from '@/components/Login/LoginButton.js';
+import { LoginFarcaster } from '@/components/Login/LoginFarcaster.js';
 import { LoginLens } from '@/components/LoginLens/index.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { useSingletonModal } from '@/maskbook/packages/shared-base-ui/src/index.js';
 import { isLensCollect } from '@/maskbook/packages/web3-shared/evm/src/index.js';
-import { LoginButton } from '@/modals/LoginButton.js';
 
 export interface LoginModalProps {
     current?: SocialPlatform;
