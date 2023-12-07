@@ -83,7 +83,7 @@ export const FarcasterStatusModal = forwardRef<SingletonModalRefCreator>(functio
                                         }}
                                     >
                                         <UserAddIcon width={24} height={24} />
-                                        <div className=" tetext-[17px] font-bold leading-[22px] text-main">
+                                        <div className=" text-[17px] font-bold leading-[22px] text-main">
                                             <Trans>Change account</Trans>
                                         </div>
                                     </button>
