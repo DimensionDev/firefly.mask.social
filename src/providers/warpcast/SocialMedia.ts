@@ -328,7 +328,7 @@ export class WarpcastSocialMedia implements Provider {
         return createPageable(data, createIndicator(indicator), createNextIndicator(indicator, next.cursor));
     }
 
-    async searchPosts(q: string, indicator?: PageIndicator): Promise<Pageable<Post>> {
+    async searchPosts(q: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         const url = urlcat(WARPCAST_CLIENT_URL, '/search-casts', {
             q,
             limit: 25,
