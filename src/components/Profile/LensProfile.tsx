@@ -23,11 +23,11 @@ export default function LensProfile({ handle }: LensProfileProps) {
 
     const isLogin = useIsLogin();
 
-    const platformAccount = usePlatformProfile();
+    const platformProfile = usePlatformProfile();
 
     const isMyProfile = useMemo(
-        () => !!isLogin && platformAccount.lens?.handle === handle,
-        [handle, isLogin, platformAccount.lens?.handle],
+        () => !!isLogin && platformProfile.lens?.handle === handle,
+        [handle, isLogin, platformProfile.lens?.handle],
     );
 
     const title = useMemo(() => {

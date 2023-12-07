@@ -58,7 +58,7 @@ const items = [
 export const SideBar = memo(function SideBar() {
     const { isDarkMode } = useDarkMode();
     const isLogin = useIsLogin();
-    const platformAccount = usePlatformProfile();
+    const platformProfile = usePlatformProfile();
 
     return (
         <>
@@ -84,7 +84,7 @@ export const SideBar = memo(function SideBar() {
                                                         href={urlcat(
                                                             item.href,
                                                             item.href === PageRoutes.Profile
-                                                                ? `/${platformAccount.lens?.handle ?? ''}`
+                                                                ? `/${platformProfile.lens?.handle ?? ''}`
                                                                 : '',
                                                         )}
                                                         className="flex gap-x-3 px-4 py-3 text-2xl/6"

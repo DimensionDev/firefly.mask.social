@@ -17,8 +17,8 @@ import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
 
 export const FarcasterStatusModal = forwardRef<SingletonModalRefCreator>(function FarcasterStatusModal(_, ref) {
     const { disconnect } = useDisconnect();
-    const farcasterAccounts = useFarcasterStateStore((state) => state.profiles);
-    const currentAccount = useFarcasterStateStore((state) => state.currentProfile);
+    const farcasterProfiles = useFarcasterStateStore((state) => state.profiles);
+    const currentProfile = useFarcasterStateStore((state) => state.currentProfile);
     const [open, dispatch] = useSingletonModal(ref);
     return (
         <Transition appear show={open} as={Fragment}>
@@ -47,7 +47,7 @@ export const FarcasterStatusModal = forwardRef<SingletonModalRefCreator>(functio
                         >
                             <Dialog.Panel className="transform rounded-[12px] bg-bgModal transition-all">
                                 <div className="flex w-[260px] flex-col gap-[23px] rounded-[16px] p-[24px]">
-                                    {farcasterAccounts.map(({ pfp, profileId, handle, displayName }) => (
+                                    {farcasterProfiles.map(({ pfp, profileId, handle, displayName }) => (
                                         <div key={profileId} className="flex items-center justify-between gap-[8px]">
                                             <div className="flex h-[40px] w-[48px] items-start justify-start">
                                                 <div className="relative h-[40px] w-[40px]">
@@ -67,7 +67,7 @@ export const FarcasterStatusModal = forwardRef<SingletonModalRefCreator>(functio
                                                     @{handle}
                                                 </div>
                                             </div>
-                                            {currentAccount && currentAccount.profileId === profileId ? (
+                                            {currentProfile && currentProfile.profileId === profileId ? (
                                                 <div
                                                     className="h-[8px] w-[8px] rounded-[99px] bg-[#3DC233]"
                                                     style={{ filter: 'drop-shadow(0px 4px 10px #3DC233)' }}

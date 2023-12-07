@@ -31,7 +31,7 @@ export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps>
         },
     });
 
-    const accounts = useMemo(
+    const profiles = useMemo(
         () =>
             !props.platform
                 ? lensProfiles.concat(farcasterProfiles)
@@ -81,7 +81,7 @@ export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps>
                                     <div className="text-[15px] font-medium leading-normal text-lightMain">
                                         <Trans>Confirm to log out these accounts?</Trans>
                                     </div>
-                                    {accounts.map((account) => (
+                                    {profiles.map((account) => (
                                         <div
                                             key={account.profileId}
                                             className="flex items-center justify-between gap-[8px] rounded-[8px] px-[12px] py-[8px] backdrop-blur-[8px]"

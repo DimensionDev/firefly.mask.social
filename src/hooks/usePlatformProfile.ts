@@ -4,13 +4,13 @@ import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
 import { useLensStateStore } from '@/store/useLensStore.js';
 
 export function usePlatformProfile() {
-    const currentLensAccount = useLensStateStore.use.currentProfile?.();
-    const currentFarcasterAccount = useFarcasterStateStore.use.currentProfile?.();
+    const currentLensProfile = useLensStateStore.use.currentProfile?.();
+    const currentFarcasterProfile = useFarcasterStateStore.use.currentProfile?.();
 
     return useMemo(() => {
         return {
-            lens: currentLensAccount,
-            farcaster: currentFarcasterAccount,
+            lens: currentLensProfile,
+            farcaster: currentFarcasterProfile,
         };
-    }, [currentLensAccount, currentFarcasterAccount]);
+    }, [currentLensProfile, currentFarcasterProfile]);
 }

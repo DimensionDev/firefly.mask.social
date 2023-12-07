@@ -15,8 +15,8 @@ import { LoginModalRef, LogoutModalRef } from '@/modals/controls.js';
 import { useLensStateStore } from '@/store/useLensStore.js';
 
 export const LensStatusModal = forwardRef<SingletonModalRefCreator>(function LensStatusModal(_, ref) {
-    const lensAccounts = useLensStateStore.use.profiles();
-    const currentAccount = useLensStateStore.use.currentProfile();
+    const lensProfiles = useLensStateStore.use.profiles();
+    const currentProfile = useLensStateStore.use.currentProfile();
     const [open, dispatch] = useSingletonModal(ref);
 
     return (
@@ -47,7 +47,7 @@ export const LensStatusModal = forwardRef<SingletonModalRefCreator>(function Len
                         >
                             <Dialog.Panel className="transform rounded-[12px] bg-bgModal transition-all">
                                 <div className="flex w-[260px] flex-col gap-[23px] rounded-[16px] p-[24px]">
-                                    {lensAccounts.map(({ pfp, profileId, handle, displayName }) => (
+                                    {lensProfiles.map(({ pfp, profileId, handle, displayName }) => (
                                         <div key={profileId} className="flex items-center justify-between gap-[8px]">
                                             <div className="flex h-[40px] w-[48px] items-start justify-start">
                                                 <div className="relative h-[40px] w-[40px]">
@@ -73,7 +73,7 @@ export const LensStatusModal = forwardRef<SingletonModalRefCreator>(function Len
                                                     @{handle}
                                                 </div>
                                             </div>
-                                            {currentAccount && currentAccount.profileId === profileId ? (
+                                            {currentProfile && currentProfile.profileId === profileId ? (
                                                 <div
                                                     className="h-[8px] w-[8px] rounded-[99px] bg-[#3DC233]"
                                                     style={{ filter: 'drop-shadow(0px 4px 10px #3DC233)' }}
