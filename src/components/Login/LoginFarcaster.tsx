@@ -56,8 +56,8 @@ export function LoginFarcaster() {
                     <>
                         <div className=" text-center text-[12px] leading-[16px] text-lightSecond">
                             <Trans>
-                                On your mobile device with Warpcast, open the <span className="font-bold">Camera</span> app and
-                                scan the QR code
+                                On your mobile device with Warpcast, open the <span className="font-bold">Camera</span>{' '}
+                                app and scan the QR code
                             </Trans>
                         </div>
                         <QRCode value={url} size={360} />
@@ -68,6 +68,6 @@ export function LoginFarcaster() {
                     </div>
                 )}
             </div>
-        </div >
+        </div>
     );
 }
