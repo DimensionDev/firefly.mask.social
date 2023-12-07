@@ -4,6 +4,8 @@ import { useRouter } from 'next/navigation.js';
 import { memo } from 'react';
 import urlcat from 'urlcat';
 
+import { Link } from '@/esm/Link.js';
+
 import type { MarkupLinkProps } from './index.js';
 
 const formatMentionTitle = (title: string) => {
@@ -16,13 +18,8 @@ export const MentionLink = memo<MarkupLinkProps>(function MentionLink({ title })
     if (!title) return null;
 
     return (
-        <span
-            onClick={(event) => {
-                event.stopPropagation();
-                router.push(urlcat('/u/:handle', { handle: formatMentionTitle(title).slice(1) }));
-            }}
-        >
+        <Link href={urlcat('/profile/:handle', { handle: formatMentionTitle(title).slice(1) })}>
             <span className="text-link">{formatMentionTitle(title)}</span>
-        </span>
+        </Link>
     );
 });
