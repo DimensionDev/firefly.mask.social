@@ -81,8 +81,7 @@ export const PreviewImagesModal = forwardRef<SingletonModalRefCreator<PreviewIma
                                     <Image
                                         src={state ?? current}
                                         alt={state ?? current}
-                                        width={1000}
-                                        height={1000}
+                                        width="auto"
                                         className="max-h-[calc(100vh-110px)] max-w-full"
                                     />
 
