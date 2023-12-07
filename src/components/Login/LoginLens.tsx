@@ -11,7 +11,7 @@ import { useAccount, useDisconnect } from 'wagmi';
 
 import LoadingIcon from '@/assets/loading.svg';
 import WalletIcon from '@/assets/wallet.svg';
-import { AccountCard } from '@/components/LoginLens/AccountCard.js';
+import { AccountCard } from '@/components/Login/AccountCard.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { isValidAddress } from '@/maskbook/packages/web3-shared/evm/src/index.js';
 import { LoginModalRef } from '@/modals/controls.js';

@@ -3,6 +3,7 @@
 import { Dialog, Transition } from '@headlessui/react';
 import { t } from '@lingui/macro';
 import type { SingletonModalRefCreator } from '@masknet/shared-base';
+import { useSingletonModal } from '@masknet/shared-base-ui';
 import { useChainModal, useConnectModal } from '@rainbow-me/rainbowkit';
 import { forwardRef, Fragment, Suspense, useMemo, useRef, useState } from 'react';
 import { usePrevious, useUpdateEffect } from 'react-use';
@@ -14,10 +15,8 @@ import LeftArrowIcon from '@/assets/left-arrow.svg';
 import LoadingIcon from '@/assets/loading.svg';
 import { LoginButton } from '@/components/Login/LoginButton.js';
 import { LoginFarcaster } from '@/components/Login/LoginFarcaster.js';
-import { LoginLens } from '@/components/LoginLens/index.js';
+import { LoginLens } from '@/components/Login/LoginLens.js';
 import { SocialPlatform } from '@/constants/enum.js';
-import { useSingletonModal } from '@/maskbook/packages/shared-base-ui/src/index.js';
-import { isLensCollect } from '@/maskbook/packages/web3-shared/evm/src/index.js';
 
 export interface LoginModalProps {
     current?: SocialPlatform;
@@ -25,7 +24,7 @@ export interface LoginModalProps {
 
 export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps>>(function LoginModal(_, ref) {
     const isLensConnecting = useRef(false);
-    const [current, setCurrent] = useState<SocialPlatform | undefined>();
+    const [current, setCurrent] = useState<SocialPlatform>();
 
     const { openConnectModal, connectModalOpen } = useConnectModal();
     const { openChainModal, chainModalOpen } = useChainModal();
@@ -53,7 +52,7 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps>>(
     }, [current]);
 
     useUpdateEffect(() => {
-        if (!isLensCollect) return;
+        if (isLensConnecting.current) return;
         // When the wallet is connected or the chain switch is successful, it automatically jumps to the next step
         if (
             (account.isConnected && !previousAccount?.isConnected && previousConnectModalOpen) ||

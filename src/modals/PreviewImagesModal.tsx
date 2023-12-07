@@ -1,5 +1,6 @@
 import { Dialog, Transition } from '@headlessui/react';
 import { ArrowLeftIcon, ArrowRightIcon } from '@heroicons/react/24/outline';
+import { useSingletonModal } from '@masknet/shared-base-ui';
 import { forwardRef, Fragment, useState } from 'react';
 import { useStateList } from 'react-use';
 
@@ -7,7 +8,6 @@ import CloseIcon from '@/assets/close.svg';
 import { PostActions } from '@/components/Actions/index.js';
 import { Image } from '@/components/Image.js';
 import type { SingletonModalRefCreator } from '@/maskbook/packages/shared-base/src/index.js';
-import { useSingletonModal } from '@/maskbook/packages/shared-base-ui/src/index.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 export interface PreviewImagesModalOpenProps {
