@@ -3,8 +3,8 @@ import { useMemo } from 'react';
 import { useDocumentTitle } from 'usehooks-ts';
 
 import ContentTabs from '@/app/(normal)/profile/components/ContentTabs.js';
-import EmptyProfile from '@/app/(normal)/profile/components/EmptyProfile.js';
 import Info from '@/app/(normal)/profile/components/Info.js';
+import NotFoundFallback from '@/app/(normal)/profile/components/NotFoundFallback.js';
 import Title from '@/app/(normal)/profile/components/Title.js';
 import Loading from '@/components/Loading.js';
 import { createPageTitle } from '@/helpers/createPageTitle.js';
@@ -45,7 +45,7 @@ export default function FarcasterProfile({ id }: FarcasterProfileProps) {
     }
 
     if (!profile) {
-        return <EmptyProfile />;
+        return <NotFoundFallback />;
     }
 
     return (
