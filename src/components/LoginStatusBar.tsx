@@ -1,8 +1,8 @@
 'use client';
 
-import { PlatformIcon } from '@/app/(normal)/profile/components/PlatformIcon.js';
 import PlusIcon from '@/assets/plus.svg';
 import { Image } from '@/components/Image.js';
+import { PlatformIcon } from '@/components/PlatformIcon.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { FarcasterStatusModalRef, LensStatusModalRef, LoginModalRef } from '@/modals/controls.js';
 import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';

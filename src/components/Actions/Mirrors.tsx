@@ -37,8 +37,6 @@ export const Mirror = memo<MirrorProps>(function Mirror({
     disabled = false,
     post,
 }) {
-    const [composeOpened, setComposeOpened] = useState(false);
-
     const isLogin = useLogin(source);
 
     const { enqueueSnackbar } = useSnackbar();

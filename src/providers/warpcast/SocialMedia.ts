@@ -55,6 +55,7 @@ export class WarpcastSocialMedia implements Provider {
 
         const client = await getWalletClient();
         if (!client) throw new Error(t`No client found`);
+
         const session = await createSessionByCustodyWallet(client, abortSignal);
         // const session = await createSessionByGrantPermission(setUrl, abortSignal);
         localStorage.setItem('warpcast_session', session.serialize());

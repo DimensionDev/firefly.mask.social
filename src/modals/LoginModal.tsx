@@ -8,7 +8,6 @@ import { usePrevious, useUpdateEffect } from 'react-use';
 import { polygon } from 'viem/chains';
 import { useAccount, useNetwork } from 'wagmi';
 
-import { PlatformIcon } from '@/app/(normal)/profile/components/PlatformIcon.js';
 import CloseIcon from '@/assets/close.svg';
 import LeftArrowIcon from '@/assets/left-arrow.svg';
 import LoadingIcon from '@/assets/loading.svg';
@@ -17,6 +16,7 @@ import { LoginLens } from '@/components/LoginLens/index.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { useSingletonModal } from '@/maskbook/packages/shared-base-ui/src/index.js';
 import { isLensCollect } from '@/maskbook/packages/web3-shared/evm/src/index.js';
+import { LoginButton } from '@/modals/LoginButton.js';
 
 export interface LoginModalProps {
     current?: SocialPlatform;
@@ -118,8 +118,8 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps>>(
                                         style={{ boxShadow: '0px 4px 30px 0px rgba(0, 0, 0, 0.10)' }}
                                     >
                                         <div className="flex w-full flex-col gap-[16px] p-[16px] ">
-                                            <button
-                                                className="group flex w-full flex-col rounded-lg p-[16px] hover:bg-lightBg"
+                                            <LoginButton
+                                                platform={SocialPlatform.Lens}
                                                 onClick={() => {
                                                     if (!account.isConnected) {
                                                         openConnectModal();
@@ -131,39 +131,13 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps>>(
                                                         setCurrent(SocialPlatform.Lens);
                                                     }
                                                 }}
-                                            >
-                                                <div className="inline-flex w-full flex-col items-center justify-start gap-[8px] rounded-lg px-[16px] py-[24px]">
-                                                    <div className="relative h-[48px] w-[48px]">
-                                                        <PlatformIcon
-                                                            className="left-0 top-0 rounded-full"
-                                                            size={48}
-                                                            platform={SocialPlatform.Lens}
-                                                        />
-                                                    </div>
-                                                    <div className="text-sm font-bold leading-[18px] text-lightSecond group-hover:text-lightMain">
-                                                        Lens
-                                                    </div>
-                                                </div>
-                                            </button>
-                                            <button
-                                                className="group flex flex-col rounded-lg p-[16px] hover:bg-lightBg"
+                                            />
+                                            <LoginButton
+                                                platform={SocialPlatform.Farcaster}
                                                 onClick={() => {
                                                     setCurrent(SocialPlatform.Farcaster);
                                                 }}
-                                            >
-                                                <div className="inline-flex w-full flex-col items-center justify-start gap-[8px] rounded-lg px-[16px] py-[24px]">
-                                                    <div className="relative h-[48px] w-[48px]">
-                                                        <PlatformIcon
-                                                            className="left-0 top-0 rounded-full"
-                                                            size={48}
-                                                            platform={SocialPlatform.Farcaster}
-                                                        />
-                                                    </div>
-                                                    <div className="text-sm font-bold leading-[18px] text-lightSecond group-hover:text-lightMain">
-                                                        Farcaster
-                                                    </div>
-                                                </div>
-                                            </button>
+                                            />
                                         </div>
                                     </div>
                                 ) : (
