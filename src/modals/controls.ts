@@ -1,6 +1,6 @@
 import { SingletonModal } from '@masknet/shared-base';
 
-import type { ComposeProps } from '@/components/Compose/index.js';
+import type { ComposeProps } from '@/modals/ComposeModal.js';
 import type { LoginModalProps } from '@/modals/LoginModal.js';
 import type { LogoutModalProps } from '@/modals/LogoutModal.js';
 

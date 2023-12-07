@@ -18,8 +18,9 @@ export interface ComposeProps {
     type?: 'compose' | 'quote' | 'reply';
     post?: Post;
 }
+
 // { type = 'compose', post, opened, setOpened }: ComposeProps
-const ComposeModal = forwardRef<SingletonModalRefCreator<ComposeProps>>(function Compose(_, ref) {
+export const ComposeModal = forwardRef<SingletonModalRefCreator<ComposeProps>>(function Compose(_, ref) {
     const [type, setType] = useState<'compose' | 'quote' | 'reply'>('compose');
     const [post, setPost] = useState<Post>();
     const [characters, setCharacters] = useState('');
@@ -130,5 +131,3 @@ const ComposeModal = forwardRef<SingletonModalRefCreator<ComposeProps>>(function
         </>
     );
 });
-
-export default ComposeModal;

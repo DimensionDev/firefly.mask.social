@@ -2,7 +2,7 @@
 
 import { memo } from 'react';
 
-import ComposeModal from '@/components/Compose/index.js';
+import { ComposeModal } from '@/modals/ComposeModal.js';
 import * as controls from '@/modals/controls.js';
 import { FarcasterStatusModal } from '@/modals/FarcasterStatusModal.js';
 import { LensStatusModal } from '@/modals/LensStatusModal.js';
