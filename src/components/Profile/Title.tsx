@@ -2,8 +2,8 @@ import { useMotionValueEvent, useScroll } from 'framer-motion';
 import { useRouter } from 'next/navigation.js';
 import { useState } from 'react';
 
-import FollowButton from '@/app/(normal)/profile/components/FollowButton.js';
 import ComeBackIcon from '@/assets/comeback.svg';
+import FollowButton from '@/components/Profile/FollowButton.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 interface TitleProps {
