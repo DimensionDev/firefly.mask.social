@@ -3,12 +3,12 @@ import { XMarkIcon } from '@heroicons/react/24/outline';
 import { Trans } from '@lingui/macro';
 import { Fragment, useCallback } from 'react';
 
-interface ComposeProps {
+interface DiscardProps {
     opened: boolean;
     setOpened: (opened: boolean) => void;
     closeCompose: () => void;
 }
-export default function Discard({ opened, setOpened, closeCompose }: ComposeProps) {
+export default function Discard({ opened, setOpened, closeCompose }: DiscardProps) {
     const close = useCallback(() => setOpened(false), [setOpened]);
 
     return (

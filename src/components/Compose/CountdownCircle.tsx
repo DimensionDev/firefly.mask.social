@@ -19,10 +19,10 @@ export function CountdownCircle({ count, ...rest }: Props) {
                 cy="80"
                 fill="transparent"
                 stroke={color}
-                stroke-linecap="round"
-                stroke-width="12px"
-                stroke-dasharray={`${dasharray.toFixed(3)}px`}
-                stroke-dashoffset={`${dashoffset}px`}
+                strokeLinecap="round"
+                strokeWidth="12px"
+                strokeDasharray={`${dasharray.toFixed(3)}px`}
+                strokeDashoffset={`${dashoffset}px`}
             />
         </svg>
     );
