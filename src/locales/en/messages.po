@@ -136,9 +136,6 @@ msgstr "Follow System"
 msgid "No results"
 msgstr "No results"
 
-msgid "On your mobile device with Warpcast, open the Camera app and scan the QR code"
-msgstr "On your mobile device with Warpcast, open the Camera app and scan the QR code"
-
 msgid "Join our Telegram"
 msgstr "Join our Telegram"
 
@@ -369,6 +366,9 @@ msgstr "Firefly"
 
 msgid "Log out all"
 msgstr "Log out all"
+
+msgid "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code"
+msgstr "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code"
 
 msgid "Unknown session type."
 msgstr "Unknown session type."
