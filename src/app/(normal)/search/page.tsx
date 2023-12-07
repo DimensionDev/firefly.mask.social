@@ -1,13 +1,7 @@
 'use client';
 
 import { safeUnreachable } from '@masknet/kit';
-import {
-    createIndicator,
-    createPageable,
-    EMPTY_LIST,
-    type Pageable,
-    type PageIndicator,
-} from '@masknet/shared-base';
+import { createIndicator, createPageable, EMPTY_LIST, type Pageable, type PageIndicator } from '@masknet/shared-base';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
 import { useMemo } from 'react';
@@ -51,10 +45,13 @@ export default function Page() {
                     case SocialPlatform.Lens:
                         return LensSocialMediaProvider.searchPosts(searchText, indicator);
                     case SocialPlatform.Farcaster:
-                        return attemptUntil<Pageable<Post, PageIndicator>>([
-                            async () => WarpcastSocialMediaProvider.searchPosts(searchText, indicator),
-                            async () => FireflySocialMediaProvider.searchPosts(searchText, indicator),
-                        ], createPageable<Post>(EMPTY_LIST, createIndicator(indicator)));
+                        return attemptUntil<Pageable<Post, PageIndicator>>(
+                            [
+                                async () => WarpcastSocialMediaProvider.searchPosts(searchText, indicator),
+                                async () => FireflySocialMediaProvider.searchPosts(searchText, indicator),
+                            ],
+                            createPageable<Post>(EMPTY_LIST, createIndicator(indicator)),
+                        );
                     default:
                         return;
                 }
