@@ -61,6 +61,11 @@ export interface CastsResponse {
     };
 }
 
+export interface SearchCastsResponse {
+    code: number;
+    data: Cast[];
+}
+
 export interface Notification {
     cast: Cast | null;
     notificationType: number;

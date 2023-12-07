@@ -21,6 +21,7 @@ import type {
     CastsResponse,
     CommentsResponse,
     NotificationResponse,
+    SearchCastsResponse,
     UserResponse,
     UsersResponse,
 } from '@/providers/types/Firefly.js';
@@ -365,12 +366,11 @@ export class FireflySocialMedia implements Provider {
     }
 
     async searchPosts(q: string, indicator?: PageIndicator): Promise<Pageable<Post>> {
-        const url = urlcat(FIREFLY_ROOT_URL, '/search-casts', {
+        const url = urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/cast/search', {
             keyword: q,
             limit: 25,
-            cursor: indicator?.id,
         });
-        const { data: { casts}} = await fetchJSON<CastsResponse>(url, {
+        const { data: casts } = await fetchJSON<SearchCastsResponse>(url, {
             method: 'GET',
         });
         const data = casts.map((cast) => ({
