@@ -8,7 +8,7 @@ import { useAsync } from 'react-use';
 import LoadingIcon from '@/assets/loading.svg';
 import { SocialPlatform } from '@/constants/enum.js';
 import { LoginModalRef } from '@/modals/controls.js';
-import { FireflySocialMedia } from '@/providers/firefly/SocialMedia.js';
+import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
 
 export function LoginFarcaster() {
@@ -17,9 +17,8 @@ export function LoginFarcaster() {
     const updateCurrentAccount = useFarcasterStateStore.use.updateCurrentAccount();
 
     useAsync(async () => {
-        const fireflyProvider = new FireflySocialMedia();
-        const session = await fireflyProvider.createSession(setUrl);
-        const profile = await fireflyProvider.getProfileById(`${session.profileId}`);
+        const session = await FireflySocialMediaProvider.createSession(setUrl);
+        const profile = await FireflySocialMediaProvider.getProfileById(`${session.profileId}`);
         const account = {
             avatar: profile.pfp,
             name: profile.displayName,
