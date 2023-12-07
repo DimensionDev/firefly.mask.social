@@ -189,3 +189,11 @@ input[type='search']::-webkit-search-results-button,
 input[type='search']::-webkit-search-results-decoration {
     -webkit-appearance: none;
 }
+/* turn scrollbar into dark mode */
+html.dark {
+    color-scheme: dark;
+}
+html,
+body {
+    scrollbar-gutter: stable;
+}

@@ -133,7 +133,7 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
                     </Trans>
                 );
             case NotificationType.Comment:
-                if (!notification.comment.commentOn?.type || !notification.comment) return;
+                if (!notification.comment?.commentOn?.type) return;
                 const author = notification.comment.author;
                 return (
                     <Trans>
