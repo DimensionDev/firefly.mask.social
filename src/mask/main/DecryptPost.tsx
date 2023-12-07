@@ -1,4 +1,5 @@
 'use client';
+
 import { DOMProxy } from '@dimensiondev/holoflows-kit';
 import { type PostContext, PostInfoProvider } from '@masknet/plugin-infra/content-script';
 import {

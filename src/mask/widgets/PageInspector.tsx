@@ -6,7 +6,7 @@ import { Modals } from '@masknet/shared';
 import { DisableShadowRootContext, ShadowRootIsolation } from '@masknet/theme';
 import { noop } from 'lodash-es';
 
-import { Providers } from '@/app/provider.js';
+import { Providers } from '@/components/Provider.js';
 import { Providers as MaskProviders } from '@/mask/widgets/Providers.js';
 
 const GlobalInjection = createInjectHooksRenderer(
