@@ -3,6 +3,13 @@ export interface CastsResponse {
     next: Next;
 }
 
+export interface SearchCastsResponse {
+    result: {
+        casts: Cast[];
+    };
+    next: Next;
+}
+
 export interface CastResponse {
     result: Cast;
 }
@@ -32,6 +39,13 @@ export interface FeedResult {
 
 export interface UsersResponse {
     result: Profile[];
+    next: Next;
+}
+
+export interface SearchUsersResponse {
+    result: {
+        users: Profile[];
+    };
     next: Next;
 }
 

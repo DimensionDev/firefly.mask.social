@@ -8,11 +8,11 @@ export function formatWarpcastUser(user: WarpProfile): Profile {
         profileId: user.fid.toString(),
         nickname: user.username,
         displayName: user.displayName,
-        pfp: user.pfp.url,
+        pfp: user.pfp?.url,
         followerCount: user.followerCount,
         followingCount: user.followingCount,
         status: ProfileStatus.Active,
-        verified: user.pfp.verified,
+        verified: user.pfp ? user.pfp.verified : false,
         viewerContext: {
             following: user.viewerContext.following,
             followedBy: user.viewerContext.followedBy,
