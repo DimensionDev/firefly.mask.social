@@ -93,7 +93,11 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({ attachm
             {asset?.type === 'Image' && !attachmentsHasImage ? (
                 <div className="w-full" onClick={(event) => event.stopPropagation}>
                     <ImageAsset
-                        className="w-full cursor-pointer rounded-lg"
+                        className={classNames('cursor-pointer rounded-lg', {
+                            'w-full': !isQuote,
+                            'w-[120px]': isQuote,
+                            'h-[120px]': isQuote,
+                        })}
                         loading="lazy"
                         width={isQuote ? 120 : 1000}
                         height={isQuote ? 120 : 1000}

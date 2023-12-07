@@ -21,7 +21,7 @@ interface MoreProps {
     post: Post;
 }
 
-export const MoreAction = memo<MoreProps>(function More({ post }) {
+export const MoreAction = memo<MoreProps>(function MoreAction({ post }) {
     const [isFollowed, setIsFollowed] = useState(post.author.viewerContext?.followedBy ?? false);
 
     const isLogin = useLogin(post.source);

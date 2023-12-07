@@ -14,7 +14,7 @@ import type { Post } from '@/providers/types/SocialMedia.js';
 export interface PreviewImagesModalOpenProps {
     images: string[];
     current: string;
-    post: Post;
+    post?: Post;
 }
 
 export const PreviewImagesModal = forwardRef<SingletonModalRefCreator<PreviewImagesModalOpenProps>>(
