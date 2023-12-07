@@ -1,6 +1,6 @@
 import { SingletonModal } from '@masknet/shared-base';
 
-import type { ComposeProps } from '@/modals/ComposeModal.js';
+import type { ComposeModalProps } from '@/modals/ComposeModal.js';
 import type { LoginModalProps } from '@/modals/LoginModal.js';
 import type { LogoutModalProps } from '@/modals/LogoutModal.js';
 
@@ -11,4 +11,4 @@ export const LensStatusModalRef = new SingletonModal();
 export const FarcasterStatusModalRef = new SingletonModal();
 export const LogoutModalRef = new SingletonModal<LogoutModalProps>();
 export const PreviewImageModalRef = new SingletonModal<PreviewImagesModalOpenProps>();
-export const ComposeModalRef = new SingletonModal<ComposeProps>();
+export const ComposeModalRef = new SingletonModal<ComposeModalProps>();

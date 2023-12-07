@@ -14,13 +14,13 @@ import { useSingletonModal } from '@/maskbook/packages/shared-base-ui/src/index.
 import type { Post } from '@/providers/types/SocialMedia.js';
 import type { IPFS_MediaObject } from '@/types/index.js';
 
-export interface ComposeProps {
+export interface ComposeModalProps {
     type?: 'compose' | 'quote' | 'reply';
     post?: Post;
 }
 
-// { type = 'compose', post, opened, setOpened }: ComposeProps
-export const ComposeModal = forwardRef<SingletonModalRefCreator<ComposeProps>>(function Compose(_, ref) {
+// { type = 'compose', post, opened, setOpened }: ComposeModalProps
+export const ComposeModal = forwardRef<SingletonModalRefCreator<ComposeModalProps>>(function Compose(_, ref) {
     const [type, setType] = useState<'compose' | 'quote' | 'reply'>('compose');
     const [post, setPost] = useState<Post>();
     const [characters, setCharacters] = useState('');
