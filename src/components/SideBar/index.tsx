@@ -76,7 +76,7 @@ export const SideBar = memo(function SideBar() {
                                     {items.map((item) => {
                                         const Icon = item.icon;
                                         return (
-                                            <li className="rounded-lg px-4 py-3 text-main hover:bg-bg" key={item.href}>
+                                            <li className="rounded-lg text-main hover:bg-bg" key={item.href}>
                                                 {item.href === '/connect-wallet' ? (
                                                     <ConnectWalletNav />
                                                 ) : (
@@ -87,7 +87,7 @@ export const SideBar = memo(function SideBar() {
                                                                 ? `/${platformAccount.lens?.handle ?? ''}`
                                                                 : '',
                                                         )}
-                                                        className="flex gap-x-3 text-2xl/6"
+                                                        className="flex gap-x-3 px-4 py-3 text-2xl/6"
                                                     >
                                                         <Icon width={24} height={24} />
                                                         {item.name}
