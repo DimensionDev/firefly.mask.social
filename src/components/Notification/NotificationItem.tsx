@@ -56,7 +56,7 @@ function PostTypeI18N({ type }: { type: PostType }) {
     return;
 }
 
-export const NotificationItem = memo<NotificationItemProps>(function SingleNotification({ notification }) {
+export const NotificationItem = memo<NotificationItemProps>(function NotificationItem({ notification }) {
     const { isDarkMode } = useDarkMode();
     const Icon = resolveNotificationIcon(notification.type);
 
@@ -133,13 +133,13 @@ export const NotificationItem = memo<NotificationItemProps>(function SingleNotif
                     </Trans>
                 );
             case NotificationType.Comment:
-                if (!notification.comment?.type) return;
+                if (!notification.comment.commentOn?.type) return;
                 const author = notification.comment.author;
                 return (
                     <Trans>
                         <strong>{author.displayName}</strong> commented your{' '}
                         <strong>
-                            <PostTypeI18N type={notification.comment.type} />
+                            <PostTypeI18N type={notification.comment.commentOn.type} />
                         </strong>
                     </Trans>
                 );
