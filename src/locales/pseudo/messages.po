@@ -184,6 +184,9 @@ msgstr ""
 msgid "Switch"
 msgstr ""
 
+msgid "Oops… Something went wrong. Please try again"
+msgstr ""
+
 msgid "Follow"
 msgstr ""
 
