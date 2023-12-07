@@ -7,6 +7,7 @@ import { useStateList } from 'react-use';
 import CloseIcon from '@/assets/close.svg';
 import { PostActions } from '@/components/Actions/index.js';
 import { Image } from '@/components/Image.js';
+import { EMPTY_LIST } from '@/constants/index.js';
 import type { SingletonModalRefCreator } from '@/maskbook/packages/shared-base/src/index.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
@@ -19,7 +20,7 @@ export interface PreviewImagesModalOpenProps {
 export const PreviewImagesModal = forwardRef<SingletonModalRefCreator<PreviewImagesModalOpenProps>>(
     function PreviewImagesModal(_, ref) {
         const [current, setCurrent] = useState<string>();
-        const [post, setPost] = useState<Post | undefined>();
+        const [post, setPost] = useState<Post>();
         const [images, setImages] = useState<string[]>([]);
 
         const { state, setState, prev, next, currentIndex } = useStateList(images);
@@ -36,7 +37,7 @@ export const PreviewImagesModal = forwardRef<SingletonModalRefCreator<PreviewIma
             onClose: () => {
                 setCurrent(undefined);
                 setPost(undefined);
-                setImages([]);
+                setImages(EMPTY_LIST);
             },
         });
 
