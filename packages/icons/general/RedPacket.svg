@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 42 46">
+    <filter id="RedPacket_svg__a" width="56" height="58" x="-7" y="-11" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse">
+        <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+        <feGaussianBlur in="BackgroundImageFix" stdDeviation="8"/>
+        <feComposite in2="SourceAlpha" operator="in" result="effect1_backgroundBlur_253_30607"/>
+        <feColorMatrix in="SourceAlpha" result="hardAlpha" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"/>
+        <feOffset dy="6"/>
+        <feGaussianBlur stdDeviation="6"/>
+        <feComposite in2="hardAlpha" operator="out"/>
+        <feColorMatrix values="0 0 0 0 0.941176 0 0 0 0 0.2 0 0 0 0 0.2 0 0 0 0.2 0"/>
+        <feBlend in2="effect1_backgroundBlur_253_30607" result="effect2_dropShadow_253_30607"/>
+        <feBlend in="SourceGraphic" in2="effect2_dropShadow_253_30607" result="shape"/>
+    </filter>
+    <g filter="url('#RedPacket_svg__a')">
+        <path fill="#db1919" d="M12.88 11.194S12.085 8.91 21 8.91s8.121 2.284 8.121 2.284v.983H12.88z"/>
+        <path fill="#ffbc5a" stroke="#f5b250" stroke-width=".2" d="M26.8 10.398a2.372 2.372 0 1 1-4.744 0 2.372 2.372 0 0 1 4.745 0z"/>
+        <path fill="#fff" fill-rule="evenodd" d="M25.78 9.874v.746h-2.353c.103.452.51.79.998.79.403 0 .751-.231.918-.567h.437v.626a.27.27 0 0 1-.27.268h-2.166a.27.27 0 0 1-.27-.268V9.874zm-.697.97a.798.798 0 0 1-.658.344.798.798 0 0 1-.658-.345zm-1.235-.79a.42.42 0 0 0-.417.357h.23a.195.195 0 0 1 .187-.134c.087 0 .16.056.186.134h.23a.42.42 0 0 0-.416-.358zm1.158 0a.42.42 0 0 0-.417.357h.23a.195.195 0 0 1 .373 0h.23a.42.42 0 0 0-.416-.358zm.504-1c.15 0 .27.12.27.269v.328h-2.707v-.328a.27.27 0 0 1 .27-.268z" clip-rule="evenodd"/>
+        <circle cx="17.39" cy="10.398" r="2.372" fill="#ffbc5a" stroke="#f5b250" stroke-width=".2"/>
+        <path fill="#fff" fill-rule="evenodd" d="M18.742 9.874v.746H16.39c.103.452.51.79.998.79.403 0 .751-.231.918-.567h.437v.626a.27.27 0 0 1-.27.268h-2.166a.27.27 0 0 1-.27-.268V9.874zm-.697.97a.799.799 0 0 1-1.317 0zm-1.235-.79a.42.42 0 0 0-.417.357h.23a.195.195 0 0 1 .373 0h.23a.42.42 0 0 0-.416-.358zm1.158 0a.42.42 0 0 0-.417.357h.23a.195.195 0 0 1 .373 0h.23a.42.42 0 0 0-.416-.358zm.504-1c.149 0 .27.12.27.269v.328h-2.707v-.328a.27.27 0 0 1 .27-.268z" clip-rule="evenodd"/>
+        <path fill="#ffbc5a" stroke="#f5b250" stroke-width=".2" d="M24.183 9.783a3.183 3.183 0 1 1-6.366 0 3.183 3.183 0 0 1 6.366 0z"/>
+        <path fill="#fff" fill-rule="evenodd" d="M22.797 9.09v.99h-3.125c.137.6.678 1.05 1.325 1.05a1.36 1.36 0 0 0 1.22-.753h.58v.831a.358.358 0 0 1-.36.357h-2.875a.358.358 0 0 1-.36-.356V9.09zm-.925 1.287c-.19.276-.511.458-.875.458s-.683-.182-.874-.458zM20.23 9.328a.558.558 0 0 0-.554.475h.307a.26.26 0 0 1 .494 0h.306a.558.558 0 0 0-.553-.475zm1.538 0a.558.558 0 0 0-.554.475h.307a.26.26 0 0 1 .494 0h.306a.558.558 0 0 0-.553-.475zm.669-1.326c.198 0 .36.16.36.356v.436h-3.596v-.436c0-.197.161-.356.36-.356z" clip-rule="evenodd"/>
+        <path fill="#f93737" d="M12.88 11.258s3.013.904 8.105.904 8.137-.904 8.137-.904V26.5a1 1 0 0 1-1 1H13.88a1 1 0 0 1-1-1z"/>
+    </g>
+</svg>

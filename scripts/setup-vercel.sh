@@ -34,4 +34,5 @@ pnpm run lingui:compile
 
 # Run Next.js build for the main project
 pnpm run build:sw
+npx gulp icon-codegen
 pnpm run build

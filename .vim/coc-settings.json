@@ -1,5 +1,5 @@
 {
     "eslint.experimental.useFlatConfig": false,
-    "cSpell.words": [],
+    "cSpell.words": ["Codegen", "xlink"],
     "typescript.preferences.autoImportFileExcludePatterns": []
 }

@@ -8,3 +8,6 @@ src/locales/**/*.js
 public/js
 public/sw.js
 scripts/build-sw.mjs
+gulpfile.js
+packages/icons/
+svgo.config.js

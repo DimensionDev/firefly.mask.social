@@ -1,5 +1,5 @@
 {
-    "version": "0.1",
+    "version": "0.2",
     "language": "en",
     "words": [
         "arbitrum",
@@ -8,6 +8,7 @@
         "basepaint",
         "cacheable",
         "canonicalize",
+        "Codegen",
         "deeplink",
         "enhanceable",
         "farcaster",
@@ -37,6 +38,7 @@
         "viem",
         "wagmi",
         "warpcast",
+        "xlink",
         "zora",
         "zustand"
     ],
@@ -99,6 +101,8 @@
         "src/maskbook",
         "src/providers/firefly/proto",
         "src/assets/**",
+        "packages/icons/**",
+        "svgo.config.js",
         "src/locales/**"
     ],
     "overrides": []

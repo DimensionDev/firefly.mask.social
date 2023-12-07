@@ -1,5 +1,6 @@
 'use client';
 
+import { FireflyIconPaletteContext } from '@firefly/icons';
 import { i18n } from '@lingui/core';
 import { I18nProvider } from '@lingui/react';
 import { LivepeerConfig } from '@livepeer/react';
@@ -62,17 +63,19 @@ export function Providers(props: { children: React.ReactNode }) {
             <QueryClientProvider client={queryClient}>
                 <ReactQueryStreamedHydration>
                     <DarkModeContext.Provider value={darkModeContext}>
-                        <SnackbarProvider
-                            maxSnack={30}
-                            anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-                            autoHideDuration={3000}
-                        >
-                            {/* wagmi depends @tanstack/react-query@4.29.23 */}
-                            <WagmiProvider>
-                                {/* livepeer depends @tanstack/react-query@4.36.1 */}
-                                <LivepeerConfig client={livepeerClient}>{props.children}</LivepeerConfig>
-                            </WagmiProvider>
-                        </SnackbarProvider>
+                        <FireflyIconPaletteContext.Provider value={darkModeContext.isDarkMode ? 'dark' : 'light'}>
+                            <SnackbarProvider
+                                maxSnack={30}
+                                anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+                                autoHideDuration={3000}
+                            >
+                                {/* wagmi depends @tanstack/react-query@4.29.23 */}
+                                <WagmiProvider>
+                                    {/* livepeer depends @tanstack/react-query@4.36.1 */}
+                                    <LivepeerConfig client={livepeerClient}>{props.children}</LivepeerConfig>
+                                </WagmiProvider>
+                            </SnackbarProvider>
+                        </FireflyIconPaletteContext.Provider>
                     </DarkModeContext.Provider>
                 </ReactQueryStreamedHydration>
                 {process.env.NODE_ENV === 'development' ? <ReactQueryDevtools initialIsOpen={false} /> : null}

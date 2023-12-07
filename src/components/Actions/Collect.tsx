@@ -1,9 +1,9 @@
+import { Icons } from '@firefly/icons';
 import { t } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import { useSnackbar } from 'notistack';
 import { memo, useCallback } from 'react';
 
-import CollectIcon from '@/assets/collect.svg';
 import { Tooltip } from '@/components/Tooltip.js';
 import { classNames } from '@/helpers/classNames.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
@@ -41,7 +41,7 @@ export const Collect = memo<CollectProps>(function Collect({ count, disabled = f
                     whileTap={{ scale: 0.9 }}
                     className="rounded-full p-1.5 hover:bg-primaryPink/[.20] "
                 >
-                    <CollectIcon width={17} height={16} />
+                    <Icons.Collect size={16} />
                 </motion.button>
             </Tooltip>
             {count ? <span className="text-xs font-medium">{nFormatter(count)}</span> : null}

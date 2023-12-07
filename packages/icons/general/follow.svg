@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+    <g stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" clip-path="url('#follow_svg__follow_a')">
+        <path d="M8 7a4 4 0 1 0 8 0 4 4 0 0 0-8 0Zm8 12h6m-3-3v6M6 21v-2a4 4 0 0 1 4-4h4"/>
+    </g>
+    <defs>
+        <clipPath id="follow_svg__follow_a">
+            <path fill="#fff" d="M0 0h24v24H0z"/>
+        </clipPath>
+    </defs>
+</svg>

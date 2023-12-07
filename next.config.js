@@ -113,8 +113,9 @@ export default {
 
         config.module.rules.push(
             {
+                // Would remove this once we all migrate to generated icons
                 test: /\.svg$/i,
-                exclude: /src\/maskbook/,
+                exclude: /(src\/maskbook|packages\/icons)/,
                 loader: '@svgr/webpack',
                 options: {
                     svgoConfig: {
@@ -135,7 +136,7 @@ export default {
             },
             {
                 test: /\.svg$/i,
-                include: /src\/maskbook/,
+                include: /(src\/maskbook|packages\/icons)/,
                 loader: require.resolve('svgo-loader'),
                 options: {
                     js2svg: {

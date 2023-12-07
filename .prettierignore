@@ -27,3 +27,5 @@ src/specialFile.js
 # Ignore git submodule
 src/maskbook
 pnpm-lock.yaml
+
+packages/icons/icon-generated-*

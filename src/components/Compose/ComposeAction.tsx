@@ -1,14 +1,11 @@
+import { Icons } from '@firefly/icons';
 import { Popover } from '@headlessui/react';
 import { ChevronRightIcon } from '@heroicons/react/24/outline';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext.js';
 import { Trans } from '@lingui/macro';
-import { openDialog } from '@masknet/plugin-redpacket';
 import { $getSelection } from 'lexical';
 import { type ChangeEvent, type Dispatch, type SetStateAction, useCallback, useRef, useState } from 'react';
 
-import AtIcon from '@/assets/at.svg';
-import GalleryIcon from '@/assets/gallery.svg';
-import NumberSignIcon from '@/assets/number-sign.svg';
 import PostBy from '@/components/Compose/PostBy.js';
 import ReplyRestriction from '@/components/Compose/ReplyRestriction.js';
 import uploadToIPFS from '@/services/uploadToIPFS.js';
@@ -68,11 +65,9 @@ export default function ComposeAction({ type, images, setImages, setLoading }: C
 
     return (
         <div className=" px-4 pb-4">
-            <div className=" flex h-9 items-center gap-3">
-                <GalleryIcon
-                    className=" cursor-pointer"
-                    width={24}
-                    height={24}
+            <div className="flex h-9 items-center gap-3">
+                <Icons.Gallery
+                    size={24}
                     onClick={() => {
                         if (images.length < (currentFarcasterAccount.id ? 2 : 4)) {
                             fileInputRef.current?.click();
@@ -87,10 +82,8 @@ export default function ComposeAction({ type, images, setImages, setLoading }: C
                     className=" hidden"
                     onChange={handleFileChange}
                 />
-                <AtIcon className=" cursor-pointer" width={24} height={24} onClick={() => insertText('@')} />
-
-                <NumberSignIcon className=" cursor-pointer" width={24} height={24} onClick={() => insertText('#')} />
-                <button onClick={openDialog}>Open Red Packet Dialog</button>
+                <Icons.At size={24} onClick={() => insertText('@')} />
+                <Icons.NumberSign size={24} onClick={() => insertText('#')} />
             </div>
 
             <div className=" flex h-9 items-center justify-between">
