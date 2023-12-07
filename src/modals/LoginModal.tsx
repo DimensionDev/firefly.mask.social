@@ -7,7 +7,6 @@ import { useSingletonModal } from '@masknet/shared-base-ui';
 import { useChainModal, useConnectModal } from '@rainbow-me/rainbowkit';
 import { forwardRef, Fragment, Suspense, useMemo, useRef, useState } from 'react';
 import { usePrevious, useUpdateEffect } from 'react-use';
-import { polygon } from 'viem/chains';
 import { useAccount, useNetwork } from 'wagmi';
 
 import CloseIcon from '@/assets/close.svg';
@@ -54,10 +53,7 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps>>(
     useUpdateEffect(() => {
         if (isLensConnecting.current) return;
         // When the wallet is connected or the chain switch is successful, it automatically jumps to the next step
-        if (
-            (account.isConnected && !previousAccount?.isConnected && previousConnectModalOpen) ||
-            (chain?.id === polygon.id && previousChain?.id !== polygon.id && previousChainModalOpen)
-        ) {
+        if (account.isConnected && !previousAccount?.isConnected && previousConnectModalOpen) {
             setCurrent(SocialPlatform.Lens);
             isLensConnecting.current = false;
         }
@@ -123,9 +119,6 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps>>(
                                                 onClick={() => {
                                                     if (!account.isConnected) {
                                                         openConnectModal();
-                                                        isLensConnecting.current = true;
-                                                    } else if (chain?.id !== polygon.id) {
-                                                        openChainModal();
                                                         isLensConnecting.current = true;
                                                     } else {
                                                         setCurrent(SocialPlatform.Lens);
