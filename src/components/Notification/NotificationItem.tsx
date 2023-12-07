@@ -56,7 +56,7 @@ function PostTypeI18N({ type }: { type: PostType }) {
     return;
 }
 
-export const NotificationItem = memo<NotificationItemProps>(function SingleNotification({ notification }) {
+export const NotificationItem = memo<NotificationItemProps>(function NotificationItem({ notification }) {
     const { isDarkMode } = useDarkMode();
     const Icon = resolveNotificationIcon(notification.type);
 
@@ -133,13 +133,13 @@ export const NotificationItem = memo<NotificationItemProps>(function SingleNotif
                     </Trans>
                 );
             case NotificationType.Comment:
-                if (!notification.comment?.type) return;
+                if (!notification.comment?.commentOn?.type) return;
                 const author = notification.comment.author;
                 return (
                     <Trans>
                         <strong>{author.displayName}</strong> commented your{' '}
                         <strong>
-                            <PostTypeI18N type={notification.comment.type} />
+                            <PostTypeI18N type={notification.comment.commentOn.type} />
                         </strong>
                     </Trans>
                 );
@@ -251,7 +251,12 @@ export const NotificationItem = memo<NotificationItemProps>(function SingleNotif
     if (!profiles) return;
 
     return (
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="px-4 py-3">
+        <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="border-b border-secondaryLine px-4 py-3 hover:bg-bg dark:border-line"
+        >
             <div className="flex justify-between">
                 <div className="flex flex-1 items-start space-x-4">
                     {Icon ? <Icon className="text-secondary" width={24} height={24} /> : null}
