@@ -256,6 +256,9 @@ msgstr ""
 msgid "Publications"
 msgstr ""
 
+msgid "This post doesn't exist"
+msgstr ""
+
 msgid "Display"
 msgstr ""
 

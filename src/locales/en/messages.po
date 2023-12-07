@@ -256,6 +256,9 @@ msgstr "<0>{0}</0> quoted your <1><2/></1>"
 msgid "Publications"
 msgstr "Publications"
 
+msgid "This post doesn't exist"
+msgstr "This post doesn't exist"
+
 msgid "Display"
 msgstr "Display"
 
