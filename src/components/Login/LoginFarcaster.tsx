@@ -31,12 +31,15 @@ export function LoginFarcaster() {
             };
             updateAccounts([account]);
             updateCurrentAccount(account);
+
             LoginModalRef.close();
 
             enqueueSnackbar(t`Login successful`, {
                 variant: 'success',
             });
         } catch (error) {
+            LoginModalRef.close();
+
             enqueueSnackbar(error instanceof Error ? error.message : t`Failed to login`, {
                 variant: 'error',
             });

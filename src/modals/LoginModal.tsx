@@ -1,6 +1,7 @@
 'use client';
 
 import { Dialog, Transition } from '@headlessui/react';
+import { t } from '@lingui/macro';
 import type { SingletonModalRefCreator } from '@masknet/shared-base';
 import { useChainModal, useConnectModal } from '@rainbow-me/rainbowkit';
 import { forwardRef, Fragment, Suspense, useMemo, useRef, useState } from 'react';
@@ -46,9 +47,9 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps>>(
     });
 
     const title = useMemo(() => {
-        if (current === SocialPlatform.Lens) return 'Select Account';
-        else if (current === SocialPlatform.Farcaster) return 'Log in to Farcaster account';
-        return 'Login';
+        if (current === SocialPlatform.Lens) return t`Select Account`;
+        else if (current === SocialPlatform.Farcaster) return t`Log in to Farcaster account`;
+        return t`Login`;
     }, [current]);
 
     useUpdateEffect(() => {
