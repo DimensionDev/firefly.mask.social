@@ -14,7 +14,9 @@ class LocalStorageProvider implements IStorageProvider {
     }
 }
 
-export const lensClient = new LensClient({
-    environment: production,
-    storage: new LocalStorageProvider(),
-});
+export function createLensClient() {
+    return new LensClient({
+        environment: production,
+        storage: new LocalStorageProvider(),
+    });
+}

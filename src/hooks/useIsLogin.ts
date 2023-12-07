@@ -6,7 +6,7 @@ import { SocialPlatform } from '@/constants/enum.js';
 import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
 import { useLensStateStore } from '@/store/useLensStore.js';
 
-export function useLogin(platform?: SocialPlatform) {
+export function useIsLogin(platform?: SocialPlatform) {
     const account = useAccount();
     const currentLensProfile = useLensStateStore.use.currentProfile();
     const currentFarcasterProfile = useFarcasterStateStore.use.currentProfile();

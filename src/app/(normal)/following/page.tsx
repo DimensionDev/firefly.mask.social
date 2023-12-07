@@ -8,7 +8,7 @@ import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { SinglePost } from '@/components/Posts/SinglePost.js';
 import { SocialPlatform } from '@/constants/enum.js';
-import { useLogin } from '@/hooks/useLogin.js';
+import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { WarpcastSocialMediaProvider } from '@/providers/warpcast/SocialMedia.js';
 import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
@@ -17,7 +17,7 @@ import { useLensStateStore } from '@/store/useLensStore.js';
 
 export default function Following() {
     const currentSocialPlatform = useGlobalState.use.currentSocialPlatform();
-    const isLogin = useLogin(currentSocialPlatform);
+    const isLogin = useIsLogin(currentSocialPlatform);
     const currentLensProfile = useLensStateStore.use.currentProfile();
     const currentFarcasterProfile = useFarcasterStateStore.use.currentProfile();
 

@@ -12,7 +12,7 @@ import { Tooltip } from '@/components/Tooltip.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
-import { useLogin } from '@/hooks/useLogin.js';
+import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { LoginModalRef } from '@/modals/controls.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
@@ -26,7 +26,7 @@ interface LikeProps {
 }
 
 export const Like = memo<LikeProps>(function Like({ count, hasLiked, postId, source, disabled = false }) {
-    const isLogin = useLogin(source);
+    const isLogin = useIsLogin(source);
     const queryClient = useQueryClient();
     const [liked, setLiked] = useState(hasLiked);
     const [realCount, setRealCount] = useState(count);

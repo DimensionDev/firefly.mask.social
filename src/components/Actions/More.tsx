@@ -10,7 +10,7 @@ import LoadingIcon from '@/assets/loading.svg';
 import MoreIcon from '@/assets/more.svg';
 import UnFollowUserIcon from '@/assets/unfollow-user.svg';
 import { SocialPlatform } from '@/constants/enum.js';
-import { useLogin } from '@/hooks/useLogin.js';
+import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { queryClient } from '@/maskbook/packages/shared-base-ui/src/index.js';
 import { LoginModalRef } from '@/modals/controls.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
@@ -24,7 +24,7 @@ interface MoreProps {
 export const MoreAction = memo<MoreProps>(function More({ post }) {
     const [isFollowed, setIsFollowed] = useState(post.author.viewerContext?.followedBy ?? false);
 
-    const isLogin = useLogin(post.source);
+    const isLogin = useIsLogin(post.source);
 
     const { enqueueSnackbar } = useSnackbar();
 

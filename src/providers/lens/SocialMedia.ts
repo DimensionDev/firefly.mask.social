@@ -21,13 +21,12 @@ import { first, flatMap } from 'lodash-es';
 import type { TypedDataDomain } from 'viem';
 import { polygon } from 'viem/chains';
 
-import { lensClient } from '@/configs/lensClient.js';
+import { createLensClient } from '@/configs/lensClient.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { formatLensPost, formatLensPostByFeed, formatLensQuoteOrComment } from '@/helpers/formatLensPost.js';
 import { formatLensProfile } from '@/helpers/formatLensProfile.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { isZero } from '@/maskbook/packages/web3-shared/base/src/index.js';
-import { SessionFactory } from '@/providers/base/SessionFactory.js';
 import { LensSession } from '@/providers/lens/Session.js';
 import {
     type Notification,
@@ -41,7 +40,7 @@ import {
 } from '@/providers/types/SocialMedia.js';
 
 export class LensSocialMedia implements Provider {
-    private client = lensClient;
+    private client = createLensClient();
 
     get type() {
         return Type.Lens;
@@ -54,15 +53,15 @@ export class LensSocialMedia implements Provider {
     async createSessionForProfileId(profileId: string): Promise<LensSession> {
         const profile = await this.getProfileById(profileId);
 
-        const client = await getWalletClientRequired({
+        const walletClient = await getWalletClientRequired({
             chainId: polygon.id,
         });
 
         const { id, text } = await this.client.authentication.generateChallenge({
             for: profileId,
-            signedBy: client.account.address,
+            signedBy: walletClient.account.address,
         });
-        const signature = await client.signMessage({
+        const signature = await walletClient.signMessage({
             message: text,
         });
 
@@ -72,35 +71,18 @@ export class LensSocialMedia implements Provider {
         });
 
         const now = Date.now();
-        const accessTokenResult = await this.client.authentication.getAccessToken();
-        const accessToken = accessTokenResult.unwrap();
 
-        const session = new LensSession(
+        return new LensSession(
             profileId,
-            accessToken,
+            '', // the LensClient will renew it with refreshToken
             now,
             now + 1000 * 60 * 60 * 24 * 30, // 30 days
             profile,
-            this.client,
         );
-
-        localStorage.setItem(`lens_session${profileId}`, session.serialize());
-        return session;
     }
 
     async resumeSession(profileId: string): Promise<LensSession | null> {
-        const storedSession = localStorage.getItem(`lens_session${profileId}`);
-
-        if (storedSession) {
-            const recoveredSession = SessionFactory.createSession<LensSession>(storedSession);
-            if (recoveredSession.expiresAt > Date.now()) {
-                this.client = recoveredSession.client;
-                return recoveredSession;
-            } else {
-                return null;
-            }
-        }
-        return null;
+        throw new Error('The LensClient will handle this.');
     }
 
     async updateSignless(enable: boolean): Promise<void> {
@@ -109,8 +91,8 @@ export class LensSocialMedia implements Provider {
         });
 
         const { id, typedData } = typedDataResult.unwrap();
-        const client = await getWalletClientRequired();
-        const signedTypedData = await client.signTypedData({
+        const walletClient = await getWalletClientRequired();
+        const signedTypedData = await walletClient.signTypedData({
             domain: typedData.domain as TypedDataDomain,
             types: typedData.types,
             primaryType: 'ChangeDelegatedExecutorsConfig',
@@ -142,14 +124,14 @@ export class LensSocialMedia implements Provider {
 
             return post;
         } else {
-            const client = await getWalletClientRequired();
+            const walletClient = await getWalletClientRequired();
             const resultTypedData = await this.client.publication.createOnchainPostTypedData({
                 contentURI: post.metadata.contentURI,
             });
 
             const { id, typedData } = resultTypedData.unwrap();
 
-            const signedTypedData = await client.signTypedData({
+            const signedTypedData = await walletClient.signTypedData({
                 domain: typedData.domain as TypedDataDomain,
                 types: typedData.types,
                 primaryType: 'Post',
@@ -194,7 +176,7 @@ export class LensSocialMedia implements Provider {
 
             if (!isRelaySuccess(resultValue)) throw new Error(`Something went wrong ${JSON.stringify(resultValue)}`);
         } else {
-            const client = await getWalletClientRequired();
+            const walletClient = await getWalletClientRequired();
             const resultTypedData = await this.client.publication.createOnchainQuoteTypedData({
                 quoteOn: postId,
                 contentURI: intro,
@@ -202,7 +184,7 @@ export class LensSocialMedia implements Provider {
 
             const { id, typedData } = resultTypedData.unwrap();
 
-            const signedTypedData = await client.signTypedData({
+            const signedTypedData = await walletClient.signTypedData({
                 domain: typedData.domain as TypedDataDomain,
                 types: typedData.types,
                 primaryType: 'Quote',
@@ -243,7 +225,7 @@ export class LensSocialMedia implements Provider {
 
             if (!isRelaySuccess(resultValue)) throw new Error(`Something went wrong ${JSON.stringify(resultValue)}`);
         } else {
-            const client = await getWalletClientRequired();
+            const walletClient = await getWalletClientRequired();
             const resultTypedData = await this.client.publication.createOnchainCommentTypedData({
                 commentOn: postId,
                 contentURI: comment,
@@ -251,7 +233,7 @@ export class LensSocialMedia implements Provider {
 
             const { id, typedData } = resultTypedData.unwrap();
 
-            const signedTypedData = await client.signTypedData({
+            const signedTypedData = await walletClient.signTypedData({
                 domain: typedData.domain as TypedDataDomain,
                 types: typedData.types,
                 primaryType: 'Comment',
@@ -498,8 +480,8 @@ export class LensSocialMedia implements Provider {
             });
 
             const data = result.unwrap();
-            const client = await getWalletClientRequired();
-            const signedTypedData = await client.signTypedData({
+            const walletClient = await getWalletClientRequired();
+            const signedTypedData = await walletClient.signTypedData({
                 domain: data.typedData.domain as TypedDataDomain,
                 types: data.typedData.types,
                 primaryType: 'Follow',
@@ -697,7 +679,7 @@ export class LensSocialMedia implements Provider {
         return createPageable(
             data.filter((item) => typeof item !== 'undefined') as Notification[],
             createIndicator(indicator),
-            result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next ?? undefined) : undefined,
+            result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );
     }
 

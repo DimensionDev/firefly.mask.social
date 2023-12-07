@@ -9,8 +9,8 @@ import type { Profile } from '@/providers/types/SocialMedia.js';
 export interface FarcasterState {
     profiles: Profile[];
     currentProfile: Profile | null;
-    updateCurrentProfile: (account: Profile) => void;
-    updateProfiles: (accounts: Profile[]) => void;
+    updateCurrentProfile: (profile: Profile) => void;
+    updateProfiles: (profiles: Profile[]) => void;
     clearCurrentProfile: () => void;
     hydrateCurrentProfile: () => Profile | null;
 }
@@ -20,13 +20,13 @@ const useFarcasterStateBase = create<FarcasterState, [['zustand/persist', unknow
         immer<FarcasterState>((set, get) => ({
             profiles: EMPTY_LIST,
             currentProfile: null,
-            updateCurrentProfile: (account: Profile) =>
+            updateCurrentProfile: (profile: Profile) =>
                 set((state) => {
-                    state.currentProfile = account;
+                    state.currentProfile = profile;
                 }),
-            updateProfiles: (accounts: Profile[]) =>
+            updateProfiles: (profiles: Profile[]) =>
                 set((state) => {
-                    state.profiles = accounts;
+                    state.profiles = profiles;
                 }),
             clearCurrentProfile: () =>
                 set((state) => {
@@ -38,7 +38,7 @@ const useFarcasterStateBase = create<FarcasterState, [['zustand/persist', unknow
         })),
         {
             name: 'farcaster-state',
-            partialize: (state) => ({ accounts: state.profiles, currentAccount: state.currentProfile }),
+            partialize: (state) => ({ profiles: state.profiles, currentProfile: state.currentProfile }),
         },
     ),
 );

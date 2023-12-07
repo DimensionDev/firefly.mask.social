@@ -8,21 +8,20 @@ import ContentTabs from '@/components/Profile/ContentTabs.js';
 import Info from '@/components/Profile/Info.js';
 import Title from '@/components/Profile/Title.js';
 import { createPageTitle } from '@/helpers/createPageTitle.js';
-import { useLogin } from '@/hooks/useLogin.js';
+import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { usePlatformProfile } from '@/hooks/usePlatformProfile.js';
-import { LensSocialMedia } from '@/providers/lens/SocialMedia.js';
+import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 
 interface LensProfileProps {
     handle: string;
 }
 export default function LensProfile({ handle }: LensProfileProps) {
-    const lensClient = new LensSocialMedia();
     const { data: profile, isLoading } = useQuery({
         queryKey: ['profile', handle],
-        queryFn: () => lensClient.getProfileByHandle(`lens/${handle}`),
+        queryFn: () => LensSocialMediaProvider.getProfileByHandle(`lens/${handle}`),
     });
 
-    const isLogin = useLogin();
+    const isLogin = useIsLogin();
 
     const platformAccount = usePlatformProfile();
 

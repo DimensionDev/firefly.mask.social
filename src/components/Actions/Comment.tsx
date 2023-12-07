@@ -8,7 +8,7 @@ import { Tooltip } from '@/components/Tooltip.js';
 import type { SocialPlatform } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { humanize, nFormatter } from '@/helpers/formatCommentCounts.js';
-import { useLogin } from '@/hooks/useLogin.js';
+import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { ComposeModalRef, LoginModalRef } from '@/modals/controls.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
@@ -29,7 +29,7 @@ export const Comment = memo<CommentProps>(function Comment({
     canComment,
     post,
 }) {
-    const isLogin = useLogin(source);
+    const isLogin = useIsLogin(source);
 
     const { enqueueSnackbar } = useSnackbar();
     const tooltip = useMemo(() => {

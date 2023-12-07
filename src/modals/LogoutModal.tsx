@@ -20,10 +20,10 @@ export interface LogoutModalProps {
 
 export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps>>(function LogoutModal(_, ref) {
     const [props, setProps] = useState<LogoutModalProps>({ platform: SocialPlatform.Lens });
-    const lensAccounts = useLensStateStore.use.profiles();
-    const farcasterAccounts = useFarcasterStateStore.use.profiles();
-    const clearLensAccount = useLensStateStore.use.clearCurrentProfile();
-    const clearFarcasterAccount = useFarcasterStateStore.use.clearCurrentProfile();
+    const lensProfiles = useLensStateStore.use.profiles();
+    const farcasterProfiles = useFarcasterStateStore.use.profiles();
+    const clearLensProfile = useLensStateStore.use.clearCurrentProfile();
+    const clearFarcasterProfile = useFarcasterStateStore.use.clearCurrentProfile();
 
     const [open, dispatch] = useSingletonModal(ref, {
         onOpen(p) {
@@ -34,11 +34,11 @@ export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps>
     const accounts = useMemo(
         () =>
             !props.platform
-                ? lensAccounts.concat(farcasterAccounts)
+                ? lensProfiles.concat(farcasterProfiles)
                 : props.platform === SocialPlatform.Lens
-                  ? lensAccounts
-                  : farcasterAccounts,
-        [lensAccounts, farcasterAccounts, props.platform],
+                  ? lensProfiles
+                  : farcasterProfiles,
+        [lensProfiles, farcasterProfiles, props.platform],
     );
 
     return (
@@ -123,10 +123,10 @@ export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps>
                                             if (!props.platform) return;
                                             switch (props.platform) {
                                                 case SocialPlatform.Lens:
-                                                    clearLensAccount();
+                                                    clearLensProfile();
                                                     break;
                                                 case SocialPlatform.Farcaster:
-                                                    clearFarcasterAccount();
+                                                    clearFarcasterProfile();
                                                     break;
                                                 default:
                                                     safeUnreachable(props.platform);

@@ -11,7 +11,6 @@ export const ConnectWalletModal = forwardRef<SingletonModalRefCreator>(function 
 
     useEffect(() => {
         if (open && !resolvedOpenRef.current) {
-            console.log('DEBUG: open');
             resolvedOpenRef.current = true;
             setTimeout(() => {
                 openConnectModal?.();
@@ -22,7 +21,6 @@ export const ConnectWalletModal = forwardRef<SingletonModalRefCreator>(function 
 
     useEffect(() => {
         if (!connectModalOpen && resolvedOpenRef.current) {
-            console.log('DEBUG: close');
             resolvedOpenRef.current = false;
             setTimeout(() => {
                 dispatch?.close();

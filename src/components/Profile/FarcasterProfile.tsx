@@ -8,7 +8,7 @@ import ContentTabs from '@/components/Profile/ContentTabs.js';
 import Info from '@/components/Profile/Info.js';
 import Title from '@/components/Profile/Title.js';
 import { createPageTitle } from '@/helpers/createPageTitle.js';
-import { useLogin } from '@/hooks/useLogin.js';
+import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { usePlatformProfile } from '@/hooks/usePlatformProfile.js';
 import { WarpcastSocialMedia } from '@/providers/warpcast/SocialMedia.js';
 
@@ -22,7 +22,7 @@ export default function FarcasterProfile({ id }: FarcasterProfileProps) {
         queryFn: () => farcasterClient.getProfileById(id),
     });
 
-    const isLogin = useLogin();
+    const isLogin = useIsLogin();
 
     const platformProfile = usePlatformProfile();
 

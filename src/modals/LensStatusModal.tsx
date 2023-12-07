@@ -5,7 +5,6 @@ import { Trans } from '@lingui/macro';
 import type { SingletonModalRefCreator } from '@masknet/shared-base';
 import { useSingletonModal } from '@masknet/shared-base-ui';
 import { forwardRef, Fragment } from 'react';
-import { useDisconnect } from 'wagmi';
 
 import LogOutIcon from '@/assets/logout.svg';
 import UserAddIcon from '@/assets/user-add.svg';
@@ -19,7 +18,6 @@ export const LensStatusModal = forwardRef<SingletonModalRefCreator>(function Len
     const lensAccounts = useLensStateStore.use.profiles();
     const currentAccount = useLensStateStore.use.currentProfile();
     const [open, dispatch] = useSingletonModal(ref);
-    const { disconnect } = useDisconnect();
 
     return (
         <Transition appear show={open} as={Fragment}>
@@ -86,8 +84,8 @@ export const LensStatusModal = forwardRef<SingletonModalRefCreator>(function Len
                                     <button
                                         className="flex w-full items-center gap-[8px]"
                                         onClick={() => {
-                                            disconnect();
                                             LoginModalRef.open();
+                                            dispatch?.close();
                                         }}
                                     >
                                         <UserAddIcon width={24} height={24} />

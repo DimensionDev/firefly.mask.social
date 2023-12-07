@@ -46,7 +46,7 @@ export function LoginLens(props: LoginLensProps) {
             if (!profiles?.length || !current) return;
 
             try {
-                await LensSocialMediaProvider.createSessionForProfileId(current.profileId);
+                const session = await LensSocialMediaProvider.createSessionForProfileId(current.profileId);
 
                 if (!current.signless && signless) {
                     await LensSocialMediaProvider.updateSignless(true);

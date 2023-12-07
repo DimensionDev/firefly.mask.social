@@ -22,7 +22,7 @@ import { ConnectWalletNav } from '@/components/SideBar/ConnectWalletNav.js';
 import { PageRoutes } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { useDarkMode } from '@/hooks/useDarkMode.js';
-import { useLogin } from '@/hooks/useLogin.js';
+import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { usePlatformProfile } from '@/hooks/usePlatformProfile.js';
 import { ComposeModalRef, LoginModalRef } from '@/modals/controls.js';
 
@@ -57,7 +57,7 @@ const items = [
 
 export const SideBar = memo(function SideBar() {
     const { isDarkMode } = useDarkMode();
-    const isLogin = useLogin();
+    const isLogin = useIsLogin();
     const platformAccount = usePlatformProfile();
 
     return (

@@ -14,7 +14,7 @@ import { Tooltip } from '@/components/Tooltip.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { humanize, nFormatter } from '@/helpers/formatCommentCounts.js';
-import { useLogin } from '@/hooks/useLogin.js';
+import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { ComposeModalRef, LoginModalRef } from '@/modals/controls.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
@@ -37,7 +37,7 @@ export const Mirror = memo<MirrorProps>(function Mirror({
     disabled = false,
     post,
 }) {
-    const isLogin = useLogin(source);
+    const isLogin = useIsLogin(source);
 
     const { enqueueSnackbar } = useSnackbar();
     const [mirrored, setMirrored] = useState(hasMirrored);
