@@ -133,7 +133,7 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
                     </Trans>
                 );
             case NotificationType.Comment:
-                if (!notification.comment.commentOn?.type) return;
+                if (!notification.comment.commentOn?.type || !notification.comment) return;
                 const author = notification.comment.author;
                 return (
                     <Trans>
@@ -251,7 +251,12 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
     if (!profiles) return;
 
     return (
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="px-4 py-3">
+        <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="border-b border-secondaryLine px-4 py-3 hover:bg-bg dark:border-line"
+        >
             <div className="flex justify-between">
                 <div className="flex flex-1 items-start space-x-4">
                     {Icon ? <Icon className="text-secondary" width={24} height={24} /> : null}
