@@ -326,7 +326,6 @@ export class WarpcastSocialMedia implements Provider {
         const { result, next } = await fetchJSON<SearchUsersResponse>(url, {
             method: 'GET',
         });
-        console.log(result)
         const data = result.users.map(formatWarpcastUser);
         return createPageable(data, createIndicator(indicator), createNextIndicator(indicator, next.cursor));
     }
