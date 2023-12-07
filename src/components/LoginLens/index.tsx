@@ -71,7 +71,13 @@ export function LoginLens({ back }: LoginLensProps) {
         async (signless: boolean) => {
             if (!accounts || !current) return;
             setLoading(true);
-            await LensSocialMediaProvider.createSessionForProfileId(current.id);
+            try {
+                await LensSocialMediaProvider.createSessionForProfileId(current.id);
+            } catch (e) {
+                enqueueSnackbar(t`Oops… Something went wrong. Please try again`, { variant: 'error' });
+                setLoading(false);
+                return;
+            }
             if (!current.signless && signless) {
                 await LensSocialMediaProvider.updateSignless(true);
             }
