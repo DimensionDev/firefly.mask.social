@@ -178,6 +178,9 @@ msgstr "Only people you follow can reply"
 msgid "Switch"
 msgstr "Switch"
 
+msgid "Oops… Something went wrong. Please try again"
+msgstr "Oops… Something went wrong. Please try again"
+
 msgid "Follow"
 msgstr "Follow"
 
