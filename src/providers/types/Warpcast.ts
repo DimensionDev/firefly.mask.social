@@ -185,3 +185,20 @@ export interface SuccessResponse {
         success: boolean;
     };
 }
+
+export interface Notification {
+    type: string;
+    id: string;
+    timestamp: number;
+    actor: Profile;
+    content: {
+        cast: Cast;
+    };
+}
+
+export interface NotificationResponse {
+    result: {
+        notifications: Notification[];
+    };
+    next: Next;
+}

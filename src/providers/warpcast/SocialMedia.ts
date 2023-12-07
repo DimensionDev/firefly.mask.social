@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import {
     createIndicator,
     createNextIndicator,
@@ -7,15 +6,19 @@ import {
     type PageIndicator,
 } from '@masknet/shared-base';
 import { HubRestAPIClient } from '@standard-crypto/farcaster-js';
+import { compact } from 'lodash-es';
 import urlcat from 'urlcat';
 
 import { SocialPlatform } from '@/constants/enum.js';
-import { WARPCAST_ROOT_URL } from '@/constants/index.js';
+import { EMPTY_LIST, WARPCAST_CLIENT_URL, WARPCAST_ROOT_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
-import { formatWarpcastPostFromFeed } from '@/helpers/formatWarpcastPost.js';
+import { formatWarpcastPost, formatWarpcastPostFromFeed } from '@/helpers/formatWarpcastPost.js';
+import { formatWarpcastUser } from '@/helpers/formatWarpcastUser.js';
 import { isZero } from '@/maskbook/packages/web3-shared/base/src/index.js';
 import { SessionFactory } from '@/providers/base/SessionFactory.js';
 import {
+    type Notification,
+    NotificationType,
     type Post,
     type PostType,
     type Profile,
@@ -24,13 +27,14 @@ import {
     ReactionType,
     Type,
 } from '@/providers/types/SocialMedia.js';
-import type {
-    CastResponse,
-    FeedResponse,
-    ReactionResponse,
-    SuccessResponse,
-    UserDetailResponse,
-    UsersResponse,
+import {
+    type CastResponse,
+    type FeedResponse,
+    type NotificationResponse,
+    type ReactionResponse,
+    type SuccessResponse,
+    type UserDetailResponse,
+    type UsersResponse,
 } from '@/providers/types/Warpcast.js';
 import { createSessionByGrantPermission } from '@/providers/warpcast/createSessionByGrantPermission.js';
 import { WarpcastSession } from '@/providers/warpcast/Session.js';
@@ -120,21 +124,7 @@ export class WarpcastSocialMedia implements Provider {
             method: 'GET',
         });
 
-        return {
-            profileId: user.fid.toString(),
-            nickname: user.username,
-            displayName: user.displayName,
-            pfp: user.pfp.url,
-            followerCount: user.followerCount,
-            followingCount: user.followingCount,
-            status: ProfileStatus.Active,
-            verified: user.pfp.verified,
-            viewerContext: {
-                following: user.viewerContext.following,
-                followedBy: user.viewerContext.followedBy,
-            },
-            source: SocialPlatform.Farcaster,
-        };
+        return formatWarpcastUser(user);
     }
 
     // @ts-ignore
@@ -143,7 +133,7 @@ export class WarpcastSocialMedia implements Provider {
         username: string,
         indicator?: PageIndicator,
     ): Promise<Pageable<Post, PageIndicator>> {
-        const url = urlcat('https://client.warpcast.com/v2', '/v2/user-thread-casts', {
+        const url = urlcat(WARPCAST_CLIENT_URL, '/v2/user-thread-casts', {
             castHashPrefix: parentPostId,
             limit: 10,
             username,
@@ -191,21 +181,7 @@ export class WarpcastSocialMedia implements Provider {
         const { result, next } = await this.fetchWithSession<UsersResponse>(url, {
             method: 'GET',
         });
-        const data = result.map((user) => ({
-            profileId: user.fid.toString(),
-            nickname: user.username,
-            displayName: user.displayName,
-            pfp: user.pfp.url,
-            followerCount: user.followerCount,
-            followingCount: user.followingCount,
-            status: ProfileStatus.Active,
-            verified: user.pfp.verified,
-            viewerContext: {
-                following: user.viewerContext.following,
-                followedBy: user.viewerContext.followedBy,
-            },
-            source: SocialPlatform.Farcaster,
-        }));
+        const data = result.map(formatWarpcastUser);
         return createPageable(data, createIndicator(indicator), createNextIndicator(indicator, next.cursor));
     }
 
@@ -339,12 +315,70 @@ export class WarpcastSocialMedia implements Provider {
         });
     }
 
-    searchProfiles(q: string, indicator?: PageIndicator): Promise<Pageable<Profile>> {
-        throw new Error(t`Method not implemented.`);
+    async searchProfiles(q: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
+        const url = urlcat(WARPCAST_CLIENT_URL, '/search-users', {
+            q,
+            limit: 25,
+            cursor: indicator?.id,
+        });
+        const { result, next } = await this.fetchWithSession<UsersResponse>(url, {
+            method: 'GET',
+        });
+        const data = result.map(formatWarpcastUser);
+        return createPageable(data, createIndicator(indicator), createNextIndicator(indicator, next.cursor));
     }
 
-    searchPosts(q: string, indicator?: PageIndicator): Promise<Pageable<Post>> {
-        throw new Error(t`Method not implemented.`);
+    async searchPosts(q: string, indicator?: PageIndicator): Promise<Pageable<Post>> {
+        const url = urlcat(WARPCAST_CLIENT_URL, '/search-casts', {
+            q,
+            limit: 25,
+            cursor: indicator?.id,
+        });
+        const { result, next } = await this.fetchWithSession<FeedResponse>(url, {
+            method: 'GET',
+        });
+        const data = result.feed.map(formatWarpcastPostFromFeed);
+        return createPageable(data, createIndicator(indicator), createNextIndicator(indicator, next.cursor));
+    }
+
+    async getSuggestedFollows(indicator?: PageIndicator): Promise<Pageable<Profile>> {
+        const url = urlcat(WARPCAST_ROOT_URL, '/recent-users', {
+            limit: 25,
+            cursor: indicator?.id,
+        });
+        const { result, next } = await this.fetchWithSession<UsersResponse>(url, {
+            method: 'GET',
+        });
+        const data = result.map(formatWarpcastUser);
+        return createPageable(data, createIndicator(indicator), createNextIndicator(indicator, next.cursor));
+    }
+
+    // need to login
+    async getNotifications(indicator?: PageIndicator): Promise<Pageable<Notification, PageIndicator>> {
+        const url = urlcat(WARPCAST_ROOT_URL, '/mention-and-reply-notifications', {
+            limit: 25,
+            cursor: indicator?.id,
+        });
+        const { result, next } = await this.fetchWithSession<NotificationResponse>(url, {
+            method: 'GET',
+        });
+        const data = result.notifications.map<Notification | undefined>((notification) => {
+            const notificationId = `${notification.type}_${notification.id}`;
+            const user = notification.actor ? [formatWarpcastUser(notification.actor)] : EMPTY_LIST;
+            const post = notification.content.cast ? formatWarpcastPost(notification.content.cast) : undefined;
+            const timestamp = notification.timestamp ? new Date(notification.timestamp).getTime() : undefined;
+            if (notification.type === 'cast-reply') {
+                return {
+                    source: SocialPlatform.Farcaster,
+                    notificationId,
+                    type: NotificationType.Comment,
+                    post,
+                    timestamp,
+                };
+            }
+            return;
+        });
+        return createPageable(compact(data), createIndicator(indicator), createNextIndicator(indicator, next.cursor));
     }
 }
 
