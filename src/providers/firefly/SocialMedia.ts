@@ -365,7 +365,7 @@ export class FireflySocialMedia implements Provider {
         throw new Error(t`Method not implemented.`);
     }
 
-    async searchPosts(q: string, indicator?: PageIndicator): Promise<Pageable<Post>> {
+    async searchPosts(q: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         const url = urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/cast/search', {
             keyword: q,
             limit: 25,

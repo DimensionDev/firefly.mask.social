@@ -1,6 +1,7 @@
 'use client';
 
 import { safeUnreachable } from '@masknet/kit';
+import { createIndicator, createPageable, EMPTY_LIST, type Pageable, type PageIndicator } from '@masknet/shared-base';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
 import { useMemo } from 'react';
@@ -11,7 +12,8 @@ import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { SinglePost } from '@/components/Posts/SinglePost.js';
 import { ProfileInList } from '@/components/ProfileInList.js';
 import { SearchType, SocialPlatform } from '@/constants/enum.js';
-import { createIndicator } from '@/maskbook/packages/shared-base/src/index.js';
+import { attemptUntil } from '@/maskbook/packages/web3-shared/base/src/index.js';
+import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import type { Post, Profile } from '@/providers/types/SocialMedia.js';
 import { WarpcastSocialMediaProvider } from '@/providers/warpcast/SocialMedia.js';
@@ -43,7 +45,13 @@ export default function Page() {
                     case SocialPlatform.Lens:
                         return LensSocialMediaProvider.searchPosts(searchText, indicator);
                     case SocialPlatform.Farcaster:
-                        return WarpcastSocialMediaProvider.searchPosts(searchText, indicator);
+                        return attemptUntil<Pageable<Post, PageIndicator>>(
+                            [
+                                async () => WarpcastSocialMediaProvider.searchPosts(searchText, indicator),
+                                async () => FireflySocialMediaProvider.searchPosts(searchText, indicator),
+                            ],
+                            createPageable<Post>(EMPTY_LIST, createIndicator(indicator)),
+                        );
                     default:
                         return;
                 }

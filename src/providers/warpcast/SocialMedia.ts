@@ -327,7 +327,7 @@ export class WarpcastSocialMedia implements Provider {
             method: 'GET',
         });
         const data = result.users.map(formatWarpcastUser);
-        return createPageable(data, createIndicator(indicator), createNextIndicator(indicator, next.cursor));
+        return createPageable(data, createIndicator(indicator), createNextIndicator(indicator, next?.cursor));
     }
 
     async searchPosts(q: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
@@ -340,7 +340,7 @@ export class WarpcastSocialMedia implements Provider {
             method: 'GET',
         });
         const data = result.casts.map(formatWarpcastPost);
-        return createPageable(data, createIndicator(indicator), createNextIndicator(indicator, next.cursor));
+        return createPageable(data, createIndicator(indicator), createNextIndicator(indicator, next?.cursor));
     }
 
     async getSuggestedFollows(indicator?: PageIndicator): Promise<Pageable<Profile>> {
@@ -352,7 +352,7 @@ export class WarpcastSocialMedia implements Provider {
             method: 'GET',
         });
         const data = result.map(formatWarpcastUser);
-        return createPageable(data, createIndicator(indicator), createNextIndicator(indicator, next.cursor));
+        return createPageable(data, createIndicator(indicator), createNextIndicator(indicator, next?.cursor));
     }
 
     // need to login
@@ -380,7 +380,7 @@ export class WarpcastSocialMedia implements Provider {
             }
             return;
         });
-        return createPageable(compact(data), createIndicator(indicator), createNextIndicator(indicator, next.cursor));
+        return createPageable(compact(data), createIndicator(indicator), createNextIndicator(indicator, next?.cursor));
     }
 }
 
