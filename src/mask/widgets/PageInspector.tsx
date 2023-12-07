@@ -3,11 +3,10 @@
 import { useActivatedPluginsSiteAdaptor } from '@masknet/plugin-infra/content-script';
 import { createInjectHooksRenderer } from '@masknet/plugin-infra/dom';
 import { Modals } from '@masknet/shared';
-import { DisableShadowRootContext, ShadowRootIsolation } from '@masknet/theme';
 import { noop } from 'lodash-es';
 
-import { Providers } from '@/components/Provider.js';
-import { Providers as MaskProviders } from '@/mask/widgets/Providers.js';
+import { MaskProviders } from '@/components/MaskProviders.js';
+import { Providers } from '@/components/Providers.js';
 
 const GlobalInjection = createInjectHooksRenderer(
     useActivatedPluginsSiteAdaptor.visibility.useAnyMode,
@@ -18,12 +17,8 @@ export default function PageInspector() {
     return (
         <Providers>
             <MaskProviders>
-                <DisableShadowRootContext.Provider value={false}>
-                    <ShadowRootIsolation>
-                        <GlobalInjection />
-                        <Modals createWallet={noop} />
-                    </ShadowRootIsolation>
-                </DisableShadowRootContext.Provider>
+                <GlobalInjection />
+                <Modals createWallet={noop} />
             </MaskProviders>
         </Providers>
     );

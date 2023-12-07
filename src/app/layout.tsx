@@ -4,7 +4,7 @@ import { ScrollRestorer } from 'next-scroll-restorer';
 
 import { GA } from '@/components/GA.js';
 import { Polyfills } from '@/components/Polyfills.js';
-import { Providers } from '@/components/Provider.js';
+import { Providers } from '@/components/Providers.js';
 import { SideBar } from '@/components/SideBar/index.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { Modals } from '@/modals/index.js';
