@@ -2,24 +2,24 @@ import { useQuery } from '@tanstack/react-query';
 import { useMemo } from 'react';
 import { useDocumentTitle } from 'usehooks-ts';
 
-import ContentTabs from '@/app/(normal)/profile/components/ContentTabs.js';
-import EmptyProfile from '@/app/(normal)/profile/components/EmptyProfile.js';
-import Info from '@/app/(normal)/profile/components/Info.js';
-import Title from '@/app/(normal)/profile/components/Title.js';
 import Loading from '@/components/Loading.js';
+import NotFoundFallback from '@/components/NotFoundFallback.js';
+import ContentTabs from '@/components/Profile/ContentTabs.js';
+import Info from '@/components/Profile/Info.js';
+import Title from '@/components/Profile/Title.js';
 import { createPageTitle } from '@/helpers/createPageTitle.js';
 import { useLogin } from '@/hooks/useLogin.js';
 import { usePlatformAccount } from '@/hooks/usePlatformAccount.js';
-import { LensSocialMedia } from '@/providers/lens/SocialMedia.js';
+import { WarpcastSocialMedia } from '@/providers/warpcast/SocialMedia.js';
 
-interface LensProfileProps {
-    handle: string;
+interface FarcasterProfileProps {
+    id: string;
 }
-export default function LensProfile({ handle }: LensProfileProps) {
-    const lensClient = new LensSocialMedia();
+export default function FarcasterProfile({ id }: FarcasterProfileProps) {
+    const farcasterClient = new WarpcastSocialMedia();
     const { data: profile, isLoading } = useQuery({
-        queryKey: ['profile', handle],
-        queryFn: () => lensClient.getProfileByHandle(`lens/${handle}`),
+        queryKey: ['profile', id],
+        queryFn: () => farcasterClient.getProfileById(id),
     });
 
     const isLogin = useLogin();
@@ -27,14 +27,14 @@ export default function LensProfile({ handle }: LensProfileProps) {
     const platformAccount = usePlatformAccount();
 
     const isMyProfile = useMemo(
-        () => !!isLogin && platformAccount.lens?.handle === handle,
-        [handle, isLogin, platformAccount.lens?.handle],
+        () => !!isLogin && platformAccount.farcaster.id === id,
+        [id, isLogin, platformAccount.farcaster.id],
     );
 
     const title = useMemo(() => {
         if (!profile) return '';
         const fragments = [profile.displayName];
-        if (profile.handle) fragments.push(`(@${profile.handle})`);
+        if (profile.profileId) fragments.push(`(@${profile.profileId})`);
         return createPageTitle(fragments.join(' '));
     }, [profile]);
 
@@ -45,7 +45,7 @@ export default function LensProfile({ handle }: LensProfileProps) {
     }
 
     if (!profile) {
-        return <EmptyProfile />;
+        return <NotFoundFallback type="profile" />;
     }
 
     return (

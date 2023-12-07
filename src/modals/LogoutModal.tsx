@@ -4,13 +4,13 @@ import { Dialog, Transition } from '@headlessui/react';
 import { t, Trans } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
 import type { SingletonModalRefCreator } from '@masknet/shared-base';
+import { useSingletonModal } from '@masknet/shared-base-ui';
 import { forwardRef, Fragment, useMemo, useState } from 'react';
 
-import { PlatformIcon } from '@/app/(normal)/profile/components/PlatformIcon.js';
 import CloseIcon from '@/assets/close.svg';
+import { PlatformIcon } from '@/components/PlatformIcon.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { Image } from '@/esm/Image.js';
-import { useSingletonModal } from '@/maskbook/packages/shared-base-ui/src/index.js';
 import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
 import { useLensStateStore } from '@/store/useLensStore.js';
 

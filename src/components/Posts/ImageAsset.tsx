@@ -8,7 +8,7 @@ import { useMounted } from '@/hooks/useMounted.js';
 import { isGreaterThan } from '@/maskbook/packages/web3-shared/base/src/index.js';
 
 export const ImageAsset = memo<ImgHTMLAttributes<HTMLImageElement>>(function ImageAsset(props) {
-    const [imageProps, setImageProps] = useState<ImgHTMLAttributes<HTMLImageElement> | undefined>();
+    const [imageProps, setImageProps] = useState<ImgHTMLAttributes<HTMLImageElement>>();
     const mounted = useMounted();
 
     const handleLoad = useCallback((event: SyntheticEvent<HTMLImageElement>) => {

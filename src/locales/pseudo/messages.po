@@ -79,10 +79,16 @@ msgstr ""
 msgid "Casts"
 msgstr ""
 
+msgid "Failed to login"
+msgstr ""
+
 msgid "Not implemented yet."
 msgstr ""
 
 msgid "Copied"
+msgstr ""
+
+msgid "Login successful"
 msgstr ""
 
 msgid "Mirror and Quotes"
@@ -254,6 +260,9 @@ msgid "<0>{0}</0> quoted your <1><2/></1>"
 msgstr ""
 
 msgid "Publications"
+msgstr ""
+
+msgid "This post doesn't exist"
 msgstr ""
 
 msgid "Display"

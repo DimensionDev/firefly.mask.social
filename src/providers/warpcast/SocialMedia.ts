@@ -1,3 +1,4 @@
+import { t } from '@lingui/macro';
 import {
     createIndicator,
     createNextIndicator,
@@ -8,6 +9,7 @@ import {
 import { HubRestAPIClient } from '@standard-crypto/farcaster-js';
 import { compact } from 'lodash-es';
 import urlcat from 'urlcat';
+import { getWalletClient } from 'wagmi/actions';
 
 import { SocialPlatform } from '@/constants/enum.js';
 import { EMPTY_LIST, WARPCAST_CLIENT_URL, WARPCAST_ROOT_URL } from '@/constants/index.js';
@@ -38,7 +40,7 @@ import {
     type UserDetailResponse,
     type UsersResponse,
 } from '@/providers/types/Warpcast.js';
-import { createSessionByGrantPermission } from '@/providers/warpcast/createSessionByGrantPermission.js';
+import { createSessionByCustodyWallet } from '@/providers/warpcast/createSessionByCustodyWallet.js';
 import { WarpcastSession } from '@/providers/warpcast/Session.js';
 
 export class WarpcastSocialMedia implements Provider {
@@ -53,7 +55,11 @@ export class WarpcastSocialMedia implements Provider {
         const setUrl = typeof setUrlOrSignal === 'function' ? setUrlOrSignal : undefined;
         const abortSignal = setUrlOrSignal instanceof AbortSignal ? setUrlOrSignal : signal;
 
-        const session = await createSessionByGrantPermission(setUrl, abortSignal);
+        const client = await getWalletClient();
+        if (!client) throw new Error(t`No client found`);
+
+        const session = await createSessionByCustodyWallet(client, abortSignal);
+        // const session = await createSessionByGrantPermission(setUrl, abortSignal);
         localStorage.setItem('warpcast_session', session.serialize());
         return session;
     }
