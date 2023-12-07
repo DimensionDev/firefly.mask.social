@@ -11,6 +11,7 @@ import { Markup } from '@/components/Markup/index.js';
 import Oembed from '@/components/Oembed/index.js';
 import { Attachments } from '@/components/Posts/Attachment.js';
 import { Quote } from '@/components/Posts/Quote.js';
+import { EMPTY_LIST } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getPostPayload } from '@/helpers/getPostPayload.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
@@ -27,11 +28,8 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
     ref,
 ) {
     const router = useRouter();
-    const canShowMore = !!(post.metadata.content?.content && post.metadata.content?.content.length > 450) && showMore;
-    const showAttachments = !!(
-        (post.metadata.content?.attachments && post.metadata.content?.attachments?.length > 0) ||
-        post.metadata.content?.asset
-    );
+    const canShowMore = !!(post.metadata.content?.content && post.metadata.content.content.length > 450) && showMore;
+    const showAttachments = !!post.metadata.content?.attachments?.length || !!post.metadata.content?.asset;
     const postPayload = getPostPayload(post.metadata.content?.content);
 
     if (post.isEncrypted) {
@@ -81,7 +79,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
                 {showAttachments ? (
                     <Attachments
                         asset={post.metadata.content?.asset}
-                        attachments={post.metadata.content?.attachments ?? []}
+                        attachments={post.metadata.content?.attachments ?? EMPTY_LIST}
                         isQuote
                     />
                 ) : null}
@@ -126,7 +124,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
                 <Attachments
                     post={post}
                     asset={post.metadata.content?.asset}
-                    attachments={post.metadata.content?.attachments ?? []}
+                    attachments={post.metadata.content?.attachments ?? EMPTY_LIST}
                 />
             ) : null}
             {post.metadata.content?.oembedUrl ? <Oembed url={post.metadata.content.oembedUrl} /> : null}

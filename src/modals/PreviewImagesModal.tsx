@@ -1,7 +1,7 @@
 import { Dialog, Transition } from '@headlessui/react';
 import { ArrowLeftIcon, ArrowRightIcon } from '@heroicons/react/24/outline';
 import { useSingletonModal } from '@masknet/shared-base-ui';
-import { forwardRef, Fragment, useState } from 'react';
+import { forwardRef, Fragment, useEffect, useState } from 'react';
 import { useStateList } from 'react-use';
 
 import CloseIcon from '@/assets/close.svg';
@@ -27,6 +27,12 @@ export const PreviewImagesModal = forwardRef<SingletonModalRefCreator<PreviewIma
         const isMultiple = images.length > 1;
         const isAtStart = currentIndex === 0;
         const isAtEnd = currentIndex === images.length - 1;
+        const currentIsIncluded = current && images.includes(current);
+        useEffect(() => {
+            if (currentIsIncluded) {
+                setState(current);
+            }
+        }, [currentIsIncluded, setState, current]);
 
         const [open, dispatch] = useSingletonModal(ref, {
             onOpen: (props) => {
@@ -86,8 +92,8 @@ export const PreviewImagesModal = forwardRef<SingletonModalRefCreator<PreviewIma
                                         className="max-h-[calc(100vh-110px)] max-w-full"
                                     />
 
-                                    {post ? (
-                                        <div className="my-1 flex w-[512px] items-center justify-between">
+                                    <div className="my-1 flex w-[512px] items-center justify-between">
+                                        <div className="mr-auto h-4 w-4">
                                             {isMultiple && !isAtStart ? (
                                                 <ArrowLeftIcon
                                                     className="cursor-pointer text-secondary"
@@ -96,12 +102,13 @@ export const PreviewImagesModal = forwardRef<SingletonModalRefCreator<PreviewIma
                                                     onClick={(event) => {
                                                         event.stopPropagation();
                                                         event.preventDefault();
-                                                        if (!state && current) setState(current);
                                                         prev();
                                                     }}
                                                 />
                                             ) : null}
-                                            <PostActions post={post} disablePadding className="mx-auto" />
+                                        </div>
+                                        {post ? <PostActions post={post} disablePadding className="mx-auto" /> : null}
+                                        <div className="ml-auto h-4 w-4">
                                             {isMultiple && !isAtEnd ? (
                                                 <ArrowRightIcon
                                                     className="cursor-pointer text-secondary"
@@ -110,13 +117,12 @@ export const PreviewImagesModal = forwardRef<SingletonModalRefCreator<PreviewIma
                                                     onClick={(event) => {
                                                         event.stopPropagation();
                                                         event.preventDefault();
-                                                        if (!state && current) setState(current);
                                                         next();
                                                     }}
                                                 />
                                             ) : null}
                                         </div>
-                                    ) : null}
+                                    </div>
                                 </Dialog.Panel>
                             </Transition.Child>
                         </div>

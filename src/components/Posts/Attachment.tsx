@@ -101,7 +101,6 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({ attachm
                         onClick={(event) => {
                             event.stopPropagation();
                             event.preventDefault();
-                            if (!post || isQuote) return;
                             PreviewImageModalRef.open({
                                 images: [asset.uri],
                                 current: asset.uri,
@@ -140,7 +139,6 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({ attachm
                                     onClick={(event) => {
                                         event.preventDefault();
                                         event.stopPropagation();
-                                        if (!post || isQuote) return;
                                         PreviewImageModalRef.open({
                                             images: compact(imageAttachments.map((x) => x.uri)),
                                             current: uri,
