@@ -1,6 +1,6 @@
 'use client';
 
-import { Trans } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import { useSnackbar } from 'notistack';
 import { useState } from 'react';
 import QRCode from 'react-qr-code';
@@ -33,11 +33,11 @@ export function LoginFarcaster() {
             updateCurrentAccount(account);
             LoginModalRef.close();
 
-            enqueueSnackbar('Login successful', {
+            enqueueSnackbar(t`Login successful`, {
                 variant: 'success',
             });
         } catch (error) {
-            enqueueSnackbar(error instanceof Error ? error.message : 'Failed to login', {
+            enqueueSnackbar(error instanceof Error ? error.message : t`Failed to login`, {
                 variant: 'error',
             });
         }
