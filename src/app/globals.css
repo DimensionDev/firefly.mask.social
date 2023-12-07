@@ -78,7 +78,7 @@
     --color-light-bg: rgba(255, 255, 255, 0.08);
     --color-light-main: #f5f5f5;
     --color-tab-line: rgba(146, 80, 255, 1);
-    --plyr-audio-controls-background: inherit;
+    --plyr-audio-controls-background: transparent;
     --plyr-range-thumb-height: 0px;
     --plyr-range-track-height: 12px;
     --plyr-control-radius: 12px;
