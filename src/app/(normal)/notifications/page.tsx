@@ -1,5 +1,6 @@
 'use client';
 
+import { createIndicator } from '@masknet/shared-base';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
 import { useMemo } from 'react';
@@ -11,7 +12,6 @@ import { NotificationItem } from '@/components/Notification/NotificationItem.js'
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { useLogin } from '@/hooks/useLogin.js';
-import { createIndicator } from '@/maskbook/packages/shared-base/src/index.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';

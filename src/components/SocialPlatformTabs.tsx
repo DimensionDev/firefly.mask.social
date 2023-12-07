@@ -6,14 +6,14 @@ import { startTransition } from 'react';
 
 import { SocialPlatform } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
-import { usePlatformAccount } from '@/hooks/usePlatformAccount.js';
+import { usePlatformProfile } from '@/hooks/usePlatformProfile.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 
 export function SocialPlatformTabs() {
     const pathname = usePathname();
     const currentSocialPlatform = useGlobalState.use.currentSocialPlatform();
     const switchSocialPlatform = useGlobalState.use.switchSocialPlatform();
-    const platformAccount = usePlatformAccount();
+    const platformProfile = usePlatformProfile();
 
     if (pathname.includes('/settings') || pathname.includes('/detail')) return null;
 
@@ -21,7 +21,7 @@ export function SocialPlatformTabs() {
         const param = pathname.split('/');
         const handle = param[param.length - 1];
 
-        if (platformAccount.lens.handle && platformAccount.lens.handle !== handle) return null;
+        if (platformProfile.lens?.handle && platformProfile.lens.handle !== handle) return null;
     }
 
     return (

@@ -26,8 +26,8 @@ export default function ComposeAction({ type, images, setImages, setLoading }: C
     const fileInputRef = useRef<HTMLInputElement | null>(null);
     const [restriction, setRestriction] = useState(0);
 
-    const currentLensAccount = useLensStateStore.use.currentAccount();
-    const currentFarcasterAccount = useFarcasterStateStore.use.currentAccount();
+    const currentLensProfile = useLensStateStore.use.currentProfile();
+    const currentFarcasterProfile = useFarcasterStateStore.use.currentProfile();
 
     const [editor] = useLexicalComposerContext();
 
@@ -58,12 +58,12 @@ export default function ComposeAction({ type, images, setImages, setLoading }: C
                                 ipfs,
                             })),
                         )
-                        .slice(0, currentFarcasterAccount.id ? 2 : 4),
+                        .slice(0, currentFarcasterProfile?.profileId ? 2 : 4),
                 );
                 setLoading(false);
             }
         },
-        [currentFarcasterAccount.id, setImages, setLoading],
+        [currentFarcasterProfile?.profileId, setImages, setLoading],
     );
 
     return (
@@ -74,7 +74,7 @@ export default function ComposeAction({ type, images, setImages, setLoading }: C
                     width={24}
                     height={24}
                     onClick={() => {
-                        if (images.length < (currentFarcasterAccount.id ? 2 : 4)) {
+                        if (images.length < (currentFarcasterProfile?.profileId ? 2 : 4)) {
                             fileInputRef.current?.click();
                         }
                     }}
@@ -102,11 +102,11 @@ export default function ComposeAction({ type, images, setImages, setLoading }: C
                         <>
                             <Popover.Button className=" flex cursor-pointer gap-1 text-main focus:outline-none">
                                 <span className=" text-sm font-bold">
-                                    {currentLensAccount.id
-                                        ? `@${currentLensAccount.handle || currentLensAccount.id}`
+                                    {currentLensProfile?.profileId
+                                        ? `@${currentLensProfile.handle || currentLensProfile.profileId}`
                                         : ''}
-                                    {currentLensAccount.id && currentFarcasterAccount.id ? ', ' : ''}
-                                    {currentFarcasterAccount.id ? `@${currentFarcasterAccount.id}` : ''}
+                                    {currentLensProfile?.profileId && currentFarcasterProfile?.profileId ? ', ' : ''}
+                                    {currentFarcasterProfile?.profileId ? `@${currentFarcasterProfile.profileId}` : ''}
                                 </span>
                                 {type === 'compose' && <ChevronRightIcon className="h-5 w-5" aria-hidden="true" />}
                             </Popover.Button>

@@ -6,7 +6,7 @@ import { RainbowKitProvider } from '@rainbow-me/rainbowkit';
 import { polygon } from 'viem/chains';
 import { WagmiConfig } from 'wagmi';
 
-import { appInfo, chains, config } from '@/configs/wagmi.js';
+import { appInfo, chains, config } from '@/configs/wagmiClient.js';
 
 export interface WagmiProviderProps {
     children: React.ReactNode;

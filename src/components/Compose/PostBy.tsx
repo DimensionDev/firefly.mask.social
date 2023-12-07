@@ -19,10 +19,10 @@ interface IPostByProps {
 export default function PostBy({ images }: IPostByProps) {
     const { enqueueSnackbar } = useSnackbar();
 
-    const lensAccounts = useLensStateStore.use.accounts();
-    const farcasterAccounts = useFarcasterStateStore.use.accounts();
-    const currentLensAccount = useLensStateStore.use.currentAccount();
-    const currentFarcasterAccount = useFarcasterStateStore.use.currentAccount();
+    const lensProfiles = useLensStateStore.use.profiles();
+    const farcasterProfiles = useFarcasterStateStore.use.profiles();
+    const currentLensProfile = useLensStateStore.use.currentProfile();
+    const currentFarcasterProfile = useFarcasterStateStore.use.currentProfile();
 
     return (
         <Transition
@@ -35,17 +35,17 @@ export default function PostBy({ images }: IPostByProps) {
             leaveTo="opacity-0 translate-y-1"
         >
             <Popover.Panel className="absolute bottom-full right-0 flex w-[280px] -translate-y-3 flex-col gap-2 rounded-lg bg-bgModal p-3 shadow-popover">
-                {lensAccounts.length > 0 ? (
-                    lensAccounts.map((account) => (
-                        <Fragment key={account.id}>
+                {lensProfiles.length > 0 ? (
+                    lensProfiles.map((profile) => (
+                        <Fragment key={profile.profileId}>
                             <div className={classNames(' flex h-[22px] items-center justify-between')}>
                                 <div className=" flex items-center gap-2">
-                                    <Image src={account.avatar} width={22} height={22} alt="lens" />
+                                    <Image src={profile.pfp} width={22} height={22} alt="lens" />
                                     <span className={classNames(' text-sm font-bold text-main')}>
-                                        @{account.handle || account.id}
+                                        @{profile.handle || profile.profileId}
                                     </span>
                                 </div>
-                                {currentLensAccount.id === account.id ? (
+                                {currentLensProfile?.profileId === profile.profileId ? (
                                     <RadioYesIcon width={16} height={16} />
                                 ) : (
                                     <button className=" text-xs font-bold text-blueBottom">
@@ -64,10 +64,7 @@ export default function PostBy({ images }: IPostByProps) {
                                 <span className={classNames(' text-sm font-bold text-main')}>Lens</span>
                             </div>
 
-                            <button
-                                className=" text-xs font-bold text-blueBottom"
-                                onClick={() => LoginModalRef.open({})}
-                            >
+                            <button className=" text-xs font-bold text-blueBottom" onClick={() => LoginModalRef.open()}>
                                 <Trans>Log in</Trans>
                             </button>
                         </div>
@@ -75,22 +72,22 @@ export default function PostBy({ images }: IPostByProps) {
                     </Fragment>
                 )}
 
-                {farcasterAccounts.length > 0 ? (
-                    farcasterAccounts.map((account, index) => (
-                        <Fragment key={account.id}>
+                {farcasterProfiles.length > 0 ? (
+                    farcasterProfiles.map((profile, index) => (
+                        <Fragment key={profile.profileId}>
                             <div className={classNames(' flex h-[22px] items-center justify-between')}>
                                 <div className=" flex items-center gap-2">
                                     <Image
-                                        src={account.avatar || '/svg/farcaster.svg'}
+                                        src={profile.pfp || '/svg/farcaster.svg'}
                                         width={22}
                                         height={22}
                                         alt="farcaster"
                                     />
                                     <span className={classNames(' text-sm font-bold text-main')}>
-                                        @{account.handle || account.id}
+                                        @{profile.handle || profile.profileId}
                                     </span>
                                 </div>
-                                {currentFarcasterAccount.id === account.id ? (
+                                {currentFarcasterProfile?.profileId === profile.profileId ? (
                                     <RadioYesIcon width={16} height={16} />
                                 ) : (
                                     <button className=" text-xs font-bold text-blueBottom">
@@ -98,7 +95,7 @@ export default function PostBy({ images }: IPostByProps) {
                                     </button>
                                 )}
                             </div>
-                            {index !== farcasterAccounts.length - 1 && <div className=" h-px bg-line" />}
+                            {index !== farcasterProfiles.length - 1 && <div className=" h-px bg-line" />}
                         </Fragment>
                     ))
                 ) : (
@@ -117,7 +114,7 @@ export default function PostBy({ images }: IPostByProps) {
                                             variant: 'error',
                                         });
                                     } else {
-                                        LoginModalRef.open({});
+                                        LoginModalRef.open();
                                     }
                                 }}
                             >

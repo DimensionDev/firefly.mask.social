@@ -20,10 +20,10 @@ export interface LogoutModalProps {
 
 export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps>>(function LogoutModal(_, ref) {
     const [props, setProps] = useState<LogoutModalProps>({ platform: SocialPlatform.Lens });
-    const lensAccounts = useLensStateStore.use.accounts();
-    const farcasterAccounts = useFarcasterStateStore.use.accounts();
-    const clearLensAccount = useLensStateStore.use.clearCurrentAccount();
-    const clearFarcasterAccount = useFarcasterStateStore.use.clearCurrentAccount();
+    const lensAccounts = useLensStateStore.use.profiles();
+    const farcasterAccounts = useFarcasterStateStore.use.profiles();
+    const clearLensAccount = useLensStateStore.use.clearCurrentProfile();
+    const clearFarcasterAccount = useFarcasterStateStore.use.clearCurrentProfile();
 
     const [open, dispatch] = useSingletonModal(ref, {
         onOpen(p) {
@@ -91,7 +91,7 @@ export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps>
                                                 <div className="relative h-[40px] w-[40px]">
                                                     <div className="absolute left-0 top-0 h-[40px] w-[40px] rounded-[99px] shadow backdrop-blur-lg">
                                                         <Image
-                                                            src={account.avatar}
+                                                            src={account.pfp}
                                                             alt="avatar"
                                                             width={36}
                                                             height={36}
@@ -108,7 +108,9 @@ export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps>
                                                 </div>
                                             </div>
                                             <div className="inline-flex h-[39px] shrink grow basis-0 flex-col items-start justify-center">
-                                                <div className=" text-[15px] font-medium text-main">{account.name}</div>
+                                                <div className=" text-[15px] font-medium text-main">
+                                                    {account.displayName}
+                                                </div>
                                                 <div className=" text-[15px] font-normal text-lightSecond">
                                                     @{account.profileId}
                                                 </div>

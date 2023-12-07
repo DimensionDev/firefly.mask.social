@@ -14,10 +14,10 @@ import { AccountCard } from './AccountCard/index.js';
 
 export default function Connected() {
     const { address } = useAccount();
-    const lensAccounts = useLensStateStore.use.accounts();
-    const farcasterAccounts = useFarcasterStateStore.use.accounts();
-    const currentLensAccount = useLensStateStore.use.currentAccount();
-    const currentFarcasterAccount = useFarcasterStateStore.use.currentAccount();
+    const lensProfiles = useLensStateStore.use.profiles();
+    const farcasterProfiles = useFarcasterStateStore.use.profiles();
+    const currentLensProfile = useLensStateStore.use.currentProfile();
+    const currentFarcasterProfile = useFarcasterStateStore.use.currentProfile();
 
     return (
         <div className="flex w-full flex-col items-center gap-[24px] p-[24px]">
@@ -26,7 +26,7 @@ export default function Connected() {
                     <Trans>Connected Accounts</Trans>
                 </span>
             </div>
-            {currentLensAccount.id ? (
+            {currentLensProfile?.profileId ? (
                 <>
                     <div className="flex w-full items-center justify-between">
                         <span className="text-base font-bold leading-[18px] text-main">
@@ -39,33 +39,33 @@ export default function Connected() {
                             <CopyIcon width={14} height={14} />
                         </div>
                     </div>
-                    {lensAccounts.map(({ avatar, profileId, id, name }) => (
+                    {lensProfiles.map(({ pfp, profileId, displayName }) => (
                         <AccountCard
-                            key={id}
-                            avatar={avatar}
-                            name={name}
+                            key={profileId}
+                            avatar={pfp}
+                            name={displayName}
                             userName={profileId}
-                            isCurrent={currentLensAccount?.id === id}
+                            isCurrent={currentLensProfile?.profileId === profileId}
                             type={SocialPlatform.Lens}
                             logout={() => {}}
                         />
                     ))}
                 </>
             ) : null}
-            {currentFarcasterAccount.id ? (
+            {currentFarcasterProfile?.profileId ? (
                 <>
                     <div className="flex w-full items-center justify-between">
                         <span className="text-base font-bold leading-[18px] text-main">
                             <Trans>Farcaster</Trans>
                         </span>
                     </div>
-                    {farcasterAccounts.map(({ avatar, profileId, id, name }) => (
+                    {farcasterProfiles.map(({ pfp, profileId, displayName }) => (
                         <AccountCard
-                            key={id}
-                            avatar={avatar}
-                            name={name}
+                            key={profileId}
+                            avatar={pfp}
+                            name={displayName}
                             userName={profileId}
-                            isCurrent={currentFarcasterAccount?.id === id}
+                            isCurrent={currentFarcasterProfile?.profileId === profileId}
                             type={SocialPlatform.Farcaster}
                             logout={() => {}}
                         />

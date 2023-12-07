@@ -2,6 +2,7 @@
 
 import { Dialog, Transition } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
+import type { SingletonModalRefCreator } from '@masknet/shared-base';
 import { useSingletonModal } from '@masknet/shared-base-ui';
 import { forwardRef, Fragment, useCallback, useState } from 'react';
 
@@ -10,7 +11,6 @@ import ComposeSend from '@/components/Compose/ComposeSend.js';
 import Discard from '@/components/Compose/Discard.js';
 import WithLexicalContextWrapper from '@/components/Compose/WithLexicalContextWrapper.js';
 import { EMPTY_LIST } from '@/constants/index.js';
-import type { SingletonModalRefCreator } from '@/maskbook/packages/shared-base/src/index.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import type { IPFS_MediaObject } from '@/types/index.js';
 

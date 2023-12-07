@@ -2,6 +2,7 @@
 
 import { Dialog, Transition } from '@headlessui/react';
 import { Trans } from '@lingui/macro';
+import type { SingletonModalRefCreator } from '@masknet/shared-base';
 import { useSingletonModal } from '@masknet/shared-base-ui';
 import { forwardRef, Fragment } from 'react';
 import { useDisconnect } from 'wagmi';
@@ -11,14 +12,13 @@ import UserAddIcon from '@/assets/user-add.svg';
 import { PlatformIcon } from '@/components/PlatformIcon.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { Image } from '@/esm/Image.js';
-import type { SingletonModalRefCreator } from '@/maskbook/packages/shared-base/src/index.js';
 import { LoginModalRef, LogoutModalRef } from '@/modals/controls.js';
 import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
 
 export const FarcasterStatusModal = forwardRef<SingletonModalRefCreator>(function FarcasterStatusModal(_, ref) {
     const { disconnect } = useDisconnect();
-    const farcasterAccounts = useFarcasterStateStore((state) => state.accounts);
-    const currentAccount = useFarcasterStateStore((state) => state.currentAccount);
+    const farcasterAccounts = useFarcasterStateStore((state) => state.profiles);
+    const currentAccount = useFarcasterStateStore((state) => state.currentProfile);
     const [open, dispatch] = useSingletonModal(ref);
     return (
         <Transition appear show={open} as={Fragment}>
@@ -47,12 +47,12 @@ export const FarcasterStatusModal = forwardRef<SingletonModalRefCreator>(functio
                         >
                             <Dialog.Panel className="transform rounded-[12px] bg-bgModal transition-all">
                                 <div className="flex w-[260px] flex-col gap-[23px] rounded-[16px] p-[24px]">
-                                    {farcasterAccounts.map(({ avatar, profileId, name }) => (
+                                    {farcasterAccounts.map(({ pfp, profileId, handle, displayName }) => (
                                         <div key={profileId} className="flex items-center justify-between gap-[8px]">
                                             <div className="flex h-[40px] w-[48px] items-start justify-start">
                                                 <div className="relative h-[40px] w-[40px]">
                                                     <div className="absolute left-0 top-0 h-[40px] w-[40px] rounded-[99px] shadow backdrop-blur-lg">
-                                                        <Image src={avatar} alt="avatar" width={40} height={36} />
+                                                        <Image src={pfp} alt="avatar" width={40} height={36} />
                                                     </div>
                                                     <PlatformIcon
                                                         className="absolute left-[24px] top-[24px] h-[16px] w-[16px] rounded-[99px] border border-white shadow"
@@ -62,9 +62,9 @@ export const FarcasterStatusModal = forwardRef<SingletonModalRefCreator>(functio
                                                 </div>
                                             </div>
                                             <div className="inline-flex h-[39px] shrink grow basis-0 flex-col items-start justify-center">
-                                                <div className=" text-[15px] font-medium text-main">{name}</div>
+                                                <div className=" text-[15px] font-medium text-main">{displayName}</div>
                                                 <div className=" text-[15px] font-normal text-lightSecond">
-                                                    @{profileId}
+                                                    @{handle}
                                                 </div>
                                             </div>
                                             {currentAccount && currentAccount.profileId === profileId ? (
@@ -83,7 +83,7 @@ export const FarcasterStatusModal = forwardRef<SingletonModalRefCreator>(functio
                                         }}
                                     >
                                         <UserAddIcon width={24} height={24} />
-                                        <div className=" text-[17px] font-bold leading-[22px] text-[#101010]">
+                                        <div className=" tetext-[17px] font-bold leading-[22px] text-main">
                                             <Trans>Change account</Trans>
                                         </div>
                                     </button>

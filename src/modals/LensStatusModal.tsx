@@ -2,6 +2,7 @@
 
 import { Dialog, Transition } from '@headlessui/react';
 import { Trans } from '@lingui/macro';
+import type { SingletonModalRefCreator } from '@masknet/shared-base';
 import { useSingletonModal } from '@masknet/shared-base-ui';
 import { forwardRef, Fragment } from 'react';
 import { useDisconnect } from 'wagmi';
@@ -11,13 +12,12 @@ import UserAddIcon from '@/assets/user-add.svg';
 import { PlatformIcon } from '@/components/PlatformIcon.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { Image } from '@/esm/Image.js';
-import type { SingletonModalRefCreator } from '@/maskbook/packages/shared-base/src/index.js';
 import { LoginModalRef, LogoutModalRef } from '@/modals/controls.js';
 import { useLensStateStore } from '@/store/useLensStore.js';
 
 export const LensStatusModal = forwardRef<SingletonModalRefCreator>(function LensStatusModal(_, ref) {
-    const lensAccounts = useLensStateStore.use.accounts();
-    const currentAccount = useLensStateStore.use.currentAccount();
+    const lensAccounts = useLensStateStore.use.profiles();
+    const currentAccount = useLensStateStore.use.currentProfile();
     const [open, dispatch] = useSingletonModal(ref);
     const { disconnect } = useDisconnect();
 
@@ -49,13 +49,13 @@ export const LensStatusModal = forwardRef<SingletonModalRefCreator>(function Len
                         >
                             <Dialog.Panel className="transform rounded-[12px] bg-bgModal transition-all">
                                 <div className="flex w-[260px] flex-col gap-[23px] rounded-[16px] p-[24px]">
-                                    {lensAccounts.map(({ avatar, profileId, id, name }) => (
-                                        <div key={id} className="flex items-center justify-between gap-[8px]">
+                                    {lensAccounts.map(({ pfp, profileId, handle, displayName }) => (
+                                        <div key={profileId} className="flex items-center justify-between gap-[8px]">
                                             <div className="flex h-[40px] w-[48px] items-start justify-start">
                                                 <div className="relative h-[40px] w-[40px]">
                                                     <div className="absolute left-0 top-0 h-[40px] w-[40px] rounded-[99px] shadow backdrop-blur-lg">
                                                         <Image
-                                                            src={avatar}
+                                                            src={pfp}
                                                             alt="avatar"
                                                             width={36}
                                                             height={36}
@@ -70,9 +70,9 @@ export const LensStatusModal = forwardRef<SingletonModalRefCreator>(function Len
                                                 </div>
                                             </div>
                                             <div className="inline-flex h-[39px] shrink grow basis-0 flex-col items-start justify-center">
-                                                <div className=" text-[15px] font-medium text-main">{name}</div>
+                                                <div className=" text-[15px] font-medium text-main">{displayName}</div>
                                                 <div className=" text-[15px] font-normal text-lightSecond">
-                                                    @{profileId}
+                                                    @{handle}
                                                 </div>
                                             </div>
                                             {currentAccount && currentAccount.profileId === profileId ? (
@@ -87,11 +87,11 @@ export const LensStatusModal = forwardRef<SingletonModalRefCreator>(function Len
                                         className="flex w-full items-center gap-[8px]"
                                         onClick={() => {
                                             disconnect();
-                                            LoginModalRef.open({});
+                                            LoginModalRef.open();
                                         }}
                                     >
                                         <UserAddIcon width={24} height={24} />
-                                        <div className=" text-[17px] font-bold leading-[22px] text-[#101010] dark:text-gray-400">
+                                        <div className=" text-[17px] font-bold leading-[22px] text-main">
                                             <Trans>Change account</Trans>
                                         </div>
                                     </button>

@@ -2,52 +2,39 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
 
-import { SocialPlatform } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { createSelectors } from '@/helpers/createSelector.js';
-import type { SocialMediaAccount } from '@/types/index.js';
+import type { Profile } from '@/providers/types/SocialMedia.js';
 
 export interface LensState {
-    accounts: SocialMediaAccount[];
-    currentAccount: SocialMediaAccount;
-    updateCurrentAccount: (account: SocialMediaAccount) => void;
-    updateAccounts: (accounts: SocialMediaAccount[]) => void;
-    clearCurrentAccount: () => void;
+    profiles: Profile[];
+    currentProfile: Profile | null;
+    updateProfiles: (accounts: Profile[]) => void;
+    updateCurrentProfile: (account: Profile) => void;
+    clearCurrentProfile: () => void;
 }
 
 const useLensStateBase = create<LensState, [['zustand/persist', unknown], ['zustand/immer', unknown]]>(
     persist(
         immer((set, get) => ({
-            accounts: EMPTY_LIST,
-            currentAccount: {
-                profileId: '',
-                avatar: '',
-                name: '',
-                id: '',
-                platform: SocialPlatform.Lens,
-            },
-            updateCurrentAccount: (account: SocialMediaAccount) =>
+            profiles: EMPTY_LIST,
+            currentProfile: null,
+            updateCurrentProfile: (account: Profile) =>
                 set((state) => {
-                    state.currentAccount = account;
+                    state.currentProfile = account;
                 }),
-            updateAccounts: (accounts: SocialMediaAccount[]) =>
+            updateProfiles: (accounts: Profile[]) =>
                 set((state) => {
-                    state.accounts = accounts;
+                    state.profiles = accounts;
                 }),
-            clearCurrentAccount: () =>
+            clearCurrentProfile: () =>
                 set((state) => {
-                    state.currentAccount = {
-                        profileId: '',
-                        avatar: '',
-                        name: '',
-                        id: '',
-                        platform: SocialPlatform.Lens,
-                    };
+                    state.currentProfile = null;
                 }),
         })),
         {
             name: 'lens-state',
-            partialize: (state) => ({ accounts: state.accounts, currentAccount: state.currentAccount }),
+            partialize: (state) => ({ accounts: state.profiles, currentAccount: state.currentProfile }),
         },
     ),
 );

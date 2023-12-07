@@ -23,7 +23,7 @@ import { PageRoutes } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { useDarkMode } from '@/hooks/useDarkMode.js';
 import { useLogin } from '@/hooks/useLogin.js';
-import { usePlatformAccount } from '@/hooks/usePlatformAccount.js';
+import { usePlatformProfile } from '@/hooks/usePlatformProfile.js';
 import { ComposeModalRef, LoginModalRef } from '@/modals/controls.js';
 
 const items = [
@@ -58,7 +58,7 @@ const items = [
 export const SideBar = memo(function SideBar() {
     const { isDarkMode } = useDarkMode();
     const isLogin = useLogin();
-    const platformAccount = usePlatformAccount();
+    const platformAccount = usePlatformProfile();
 
     return (
         <>
@@ -115,7 +115,7 @@ export const SideBar = memo(function SideBar() {
                                 ) : (
                                     <button
                                         onClick={() => {
-                                            LoginModalRef.open({});
+                                            LoginModalRef.open();
                                         }}
                                         type="button"
                                         className=" min-w-[150px] cursor-pointer rounded-[16px] bg-main px-3 py-3 text-xl font-semibold leading-6 text-primaryBottom "

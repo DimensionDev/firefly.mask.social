@@ -9,21 +9,15 @@ import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
 import { useLensStateStore } from '@/store/useLensStore.js';
 
 export function LoginStatusBar() {
-    const lensAccount = useLensStateStore.use.currentAccount?.();
-    const farcasterAccount = useFarcasterStateStore.use.currentAccount?.();
+    const lensAccount = useLensStateStore.use.currentProfile?.();
+    const farcasterAccount = useFarcasterStateStore.use.currentProfile?.();
 
     return (
         <div className="flex gap-x-2 pl-2">
             {lensAccount ? (
                 <button className="relative h-[40px] w-[48px]" onClick={() => LensStatusModalRef.open()}>
                     <div className="absolute left-0 top-0 h-[40px] w-[40px] rounded-[99px] shadow backdrop-blur-lg">
-                        <Image
-                            src={lensAccount.avatar}
-                            alt="avatar"
-                            width={40}
-                            height={40}
-                            className="rounded-[99px]"
-                        />
+                        <Image src={lensAccount.pfp} alt="avatar" width={40} height={40} className="rounded-[99px]" />
                     </div>
                     <PlatformIcon
                         className="absolute left-[32px] top-[24px] rounded-[99px] border border-white shadow"
@@ -36,7 +30,7 @@ export function LoginStatusBar() {
                 <button className="relative h-[40px] w-[48px]" onClick={() => FarcasterStatusModalRef.open()}>
                     <div className="absolute left-0 top-0 h-[40px] w-[40px] rounded-[99px] shadow backdrop-blur-lg">
                         <Image
-                            src={farcasterAccount.avatar}
+                            src={farcasterAccount.pfp}
                             alt="avatar"
                             width={40}
                             height={40}

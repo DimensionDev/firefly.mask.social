@@ -1,5 +1,5 @@
 import { toBytes } from 'viem';
-import type { WalletClient } from 'wagmi';
+import type { GetWalletClientResult } from 'wagmi/actions';
 
 import { canonicalize } from '@/esm/canonicalize.js';
 
@@ -29,12 +29,12 @@ function createCustodyPayload(): CustodyPayload {
  * Generate a FC custody bearer (wagmi connection required)
  * @returns
  */
-export async function generateCustodyBearer(client: WalletClient) {
+export async function generateCustodyBearer(client: Exclude<GetWalletClientResult, null>) {
     const payload = createCustodyPayload();
     const message = canonicalize(payload);
     if (!message) throw new Error('Failed to serialize payload.');
 
-    const signature = await client.signMessage({
+    const signature = await client?.signMessage({
         message,
     });
 

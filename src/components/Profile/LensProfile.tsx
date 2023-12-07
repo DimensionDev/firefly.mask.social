@@ -9,7 +9,7 @@ import Info from '@/components/Profile/Info.js';
 import Title from '@/components/Profile/Title.js';
 import { createPageTitle } from '@/helpers/createPageTitle.js';
 import { useLogin } from '@/hooks/useLogin.js';
-import { usePlatformAccount } from '@/hooks/usePlatformAccount.js';
+import { usePlatformProfile } from '@/hooks/usePlatformProfile.js';
 import { LensSocialMedia } from '@/providers/lens/SocialMedia.js';
 
 interface LensProfileProps {
@@ -24,7 +24,7 @@ export default function LensProfile({ handle }: LensProfileProps) {
 
     const isLogin = useLogin();
 
-    const platformAccount = usePlatformAccount();
+    const platformAccount = usePlatformProfile();
 
     const isMyProfile = useMemo(
         () => !!isLogin && platformAccount.lens?.handle === handle,

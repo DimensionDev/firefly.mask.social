@@ -12,9 +12,9 @@ interface IReplyRestrictionProps {
     setRestriction: (restriction: number) => void;
 }
 export default function ReplyRestriction({ restriction, setRestriction }: IReplyRestrictionProps) {
-    const currentFarcasterAccount = useFarcasterStateStore.use.currentAccount();
+    const currentFarcasterProfile = useFarcasterStateStore.use.currentProfile();
 
-    const disabled = useMemo(() => currentFarcasterAccount.id, [currentFarcasterAccount.id]);
+    const disabled = useMemo(() => currentFarcasterProfile?.profileId, [currentFarcasterProfile?.profileId]);
 
     return (
         <Transition

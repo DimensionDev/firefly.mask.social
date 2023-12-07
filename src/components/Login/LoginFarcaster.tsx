@@ -7,7 +7,7 @@ import { useState } from 'react';
 import QRCode from 'react-qr-code';
 
 import LoadingIcon from '@/assets/loading.svg';
-import { SocialPlatform } from '@/constants/enum.js';
+import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { LoginModalRef } from '@/modals/controls.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
@@ -15,24 +15,21 @@ import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
 export function LoginFarcaster() {
     const [url, setUrl] = useState('');
     const { enqueueSnackbar } = useSnackbar();
-    const updateAccounts = useFarcasterStateStore.use.updateAccounts();
-    const updateCurrentAccount = useFarcasterStateStore.use.updateCurrentAccount();
+    const updateProfiles = useFarcasterStateStore.use.updateProfiles();
+    const updateCurrentProfile = useFarcasterStateStore.use.updateCurrentProfile();
 
-    useSuspenseQuery<void>({
+    useSuspenseQuery<string>({
         queryKey: ['farcaster', 'login'],
         queryFn: async () => {
             try {
-                const session = await FireflySocialMediaProvider.createSession(setUrl);
+                // required to connect a wallet
+                await getWalletClientRequired();
+
+                const session = await FireflySocialMediaProvider.createSessionByScanningQRCode(setUrl);
                 const profile = await FireflySocialMediaProvider.getProfileById(`${session.profileId}`);
-                const account = {
-                    avatar: profile.pfp,
-                    name: profile.displayName,
-                    profileId: profile.profileId,
-                    id: profile.profileId,
-                    platform: SocialPlatform.Farcaster,
-                };
-                updateAccounts([account]);
-                updateCurrentAccount(account);
+
+                updateProfiles([profile]);
+                updateCurrentProfile(profile);
 
                 LoginModalRef.close();
 
@@ -40,12 +37,12 @@ export function LoginFarcaster() {
                     variant: 'success',
                 });
             } catch (error) {
-                LoginModalRef.close();
-
                 enqueueSnackbar(error instanceof Error ? error.message : t`Failed to login`, {
                     variant: 'error',
                 });
             }
+
+            return 'success';
         },
     });
 

@@ -8,22 +8,23 @@ import { useLensStateStore } from '@/store/useLensStore.js';
 
 export function useLogin(platform?: SocialPlatform) {
     const account = useAccount();
-    const currentLensAccount = useLensStateStore.use.currentAccount();
-    const currentFarcasterAccount = useFarcasterStateStore.use.currentAccount();
+    const currentLensProfile = useLensStateStore.use.currentProfile();
+    const currentFarcasterProfile = useFarcasterStateStore.use.currentProfile();
 
     return useMemo(() => {
         if (!account.isConnected) return false;
+
         if (platform) {
             switch (platform) {
                 case SocialPlatform.Lens:
-                    return !!currentLensAccount.id;
+                    return !!currentLensProfile?.profileId;
                 case SocialPlatform.Farcaster:
-                    return !!currentFarcasterAccount.id;
+                    return !!currentFarcasterProfile?.profileId;
                 default:
                     safeUnreachable(platform);
                     return false;
             }
         }
-        return currentLensAccount.id || currentFarcasterAccount.id;
-    }, [currentLensAccount, currentFarcasterAccount, platform, account]);
+        return !!(currentLensProfile?.profileId || currentFarcasterProfile?.profileId);
+    }, [currentLensProfile, currentFarcasterProfile, platform, account]);
 }

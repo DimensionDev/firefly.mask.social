@@ -1,7 +1,7 @@
 import { t } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import { useSnackbar } from 'notistack';
-import { memo, useCallback, useMemo, useState } from 'react';
+import { memo, useCallback, useMemo } from 'react';
 
 import ReplyIcon from '@/assets/reply.svg';
 import { Tooltip } from '@/components/Tooltip.js';
@@ -29,8 +29,6 @@ export const Comment = memo<CommentProps>(function Comment({
     canComment,
     post,
 }) {
-    const [composeOpened, setComposeOpened] = useState(false);
-
     const isLogin = useLogin(source);
 
     const { enqueueSnackbar } = useSnackbar();
@@ -43,7 +41,7 @@ export const Comment = memo<CommentProps>(function Comment({
 
     const handleClick = useCallback(() => {
         if (!isLogin) {
-            LoginModalRef.open({});
+            LoginModalRef.open();
             return;
         }
         if (canComment) {

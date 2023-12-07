@@ -49,7 +49,7 @@ export default function FollowButton({ profile, isMyProfile }: FollowButtonProps
             onMouseLeave={() => setFollowHover(false)}
             onClick={() => {
                 if (!isLogin) {
-                    LoginModalRef.open({});
+                    LoginModalRef.open();
                 }
             }}
         >

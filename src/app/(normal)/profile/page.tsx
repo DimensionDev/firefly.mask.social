@@ -4,15 +4,15 @@ import { redirect } from 'next/navigation.js';
 
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { useLogin } from '@/hooks/useLogin.js';
-import { usePlatformAccount } from '@/hooks/usePlatformAccount.js';
+import { usePlatformProfile } from '@/hooks/usePlatformProfile.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 
 export default function ProfileHome() {
     const currentSocialPlatform = useGlobalState.use.currentSocialPlatform();
     const isLogin = useLogin(currentSocialPlatform);
-    const platformAccount = usePlatformAccount();
-    if (!isLogin || !platformAccount.lens.handle) {
+    const platformProfile = usePlatformProfile();
+    if (!isLogin || !platformProfile.lens?.handle) {
         return <NotLoginFallback platform={currentSocialPlatform} />;
     }
-    redirect(`/profile/${platformAccount.lens.handle}`);
+    redirect(`/profile/${platformProfile.lens.handle}`);
 }

@@ -11,7 +11,7 @@ export function LoginButton(props: LoginButtonProps) {
     const { platform, onClick } = props;
     return (
         <button
-            className="group flex w-full flex-col rounded-lg p-[16px] hover:bg-lightBg"
+            className=" group flex w-full flex-col rounded-lg p-[16px] hover:bg-lightBg"
             onClick={() => onClick?.(platform)}
         >
             <div className=" inline-flex w-full cursor-pointer flex-col items-center justify-start gap-[8px] rounded-lg px-[16px] py-[24px]">

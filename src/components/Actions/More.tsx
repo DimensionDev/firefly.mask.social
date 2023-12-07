@@ -31,7 +31,7 @@ export const MoreAction = memo<MoreProps>(function More({ post }) {
     const [{ loading }, handleClick] = useAsyncFn(async () => {
         if (!post.author.profileId) return;
         if (!isLogin) {
-            LoginModalRef.open({});
+            LoginModalRef.open();
             return;
         }
         setIsFollowed((prev) => !prev);
@@ -94,7 +94,7 @@ export const MoreAction = memo<MoreProps>(function More({ post }) {
                     if (!isLogin) {
                         event.stopPropagation();
                         event.preventDefault();
-                        LoginModalRef.open({});
+                        LoginModalRef.open();
                         return;
                     }
                     event.stopPropagation();

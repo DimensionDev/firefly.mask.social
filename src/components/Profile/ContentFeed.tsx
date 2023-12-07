@@ -1,3 +1,4 @@
+import { createIndicator, createPageable } from '@masknet/shared-base';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { useMemo } from 'react';
 import { useInView } from 'react-cool-inview';
@@ -7,7 +8,6 @@ import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { SinglePost } from '@/components/Posts/SinglePost.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
-import { createIndicator, createPageable } from '@/maskbook/packages/shared-base/src/index.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { WarpcastSocialMediaProvider } from '@/providers/warpcast/SocialMedia.js';
 import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
@@ -17,8 +17,8 @@ import { useLensStateStore } from '@/store/useLensStore.js';
 
 export default function ContentFeed() {
     const currentSocialPlatform = useGlobalState.use.currentSocialPlatform();
-    const currentLensAccount = useLensStateStore.use.currentAccount();
-    const currentFarcasterAccount = useFarcasterStateStore.use.currentAccount();
+    const currentLensProfile = useLensStateStore.use.currentProfile();
+    const currentFarcasterProfile = useFarcasterStateStore.use.currentProfile();
     const fetchAndStoreViews = useImpressionsStore.use.fetchAndStoreViews();
     const { data, hasNextPage, fetchNextPage, isFetchingNextPage, isFetching } = useSuspenseInfiniteQuery({
         queryKey: ['getPostsByProfileId', currentSocialPlatform],
@@ -26,8 +26,9 @@ export default function ContentFeed() {
         queryFn: async ({ pageParam }) => {
             switch (currentSocialPlatform) {
                 case SocialPlatform.Lens:
+                    if (!currentLensProfile?.profileId) return createPageable(EMPTY_LIST, undefined);
                     const result = await LensSocialMediaProvider.getPostsByProfileId(
-                        currentLensAccount.id,
+                        currentLensProfile?.profileId,
                         createIndicator(undefined, pageParam),
                     );
                     const ids = result.data.flatMap((x) => [x.postId]);
@@ -35,8 +36,9 @@ export default function ContentFeed() {
 
                     return result;
                 case SocialPlatform.Farcaster:
+                    if (!currentFarcasterProfile?.profileId) return createPageable(EMPTY_LIST, undefined);
                     return WarpcastSocialMediaProvider.getPostsByProfileId(
-                        currentFarcasterAccount.id,
+                        currentFarcasterProfile?.profileId,
                         createIndicator(undefined, pageParam),
                     );
                 default:

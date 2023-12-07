@@ -3,9 +3,9 @@ import { useMemo } from 'react';
 import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
 import { useLensStateStore } from '@/store/useLensStore.js';
 
-export function usePlatformAccount() {
-    const currentLensAccount = useLensStateStore.use.currentAccount?.();
-    const currentFarcasterAccount = useFarcasterStateStore.use.currentAccount?.();
+export function usePlatformProfile() {
+    const currentLensAccount = useLensStateStore.use.currentProfile?.();
+    const currentFarcasterAccount = useFarcasterStateStore.use.currentProfile?.();
 
     return useMemo(() => {
         return {

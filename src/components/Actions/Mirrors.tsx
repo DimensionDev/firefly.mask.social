@@ -126,7 +126,7 @@ export const Mirror = memo<MirrorProps>(function Mirror({
                         if (!isLogin && !loading) {
                             event.stopPropagation();
                             event.preventDefault();
-                            LoginModalRef.open({});
+                            LoginModalRef.open();
                             return;
                         }
                         return;
