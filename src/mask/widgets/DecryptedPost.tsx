@@ -1,10 +1,8 @@
 'use client';
 
-import { DisableShadowRootContext, ShadowRootIsolation } from '@masknet/theme';
-
-import { Providers } from '@/components/Provider.js';
+import { MaskProviders } from '@/components/MaskProviders.js';
+import { Providers } from '@/components/Providers.js';
 import { DecryptPost } from '@/mask/main/DecryptPost.js';
-import { Providers as MaskProviders } from '@/mask/widgets/Providers.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 interface PageInspectorProps {
@@ -18,11 +16,7 @@ export default function DecryptedPost({ post, payload }: PageInspectorProps) {
     return (
         <Providers>
             <MaskProviders>
-                <DisableShadowRootContext.Provider value={false}>
-                    <ShadowRootIsolation>
-                        <DecryptPost post={post} payload={payload} />
-                    </ShadowRootIsolation>
-                </DisableShadowRootContext.Provider>
+                <DecryptPost post={post} payload={payload} />
             </MaskProviders>
         </Providers>
     );
