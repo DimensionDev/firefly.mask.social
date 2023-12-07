@@ -9,5 +9,5 @@ export const metadata = createSiteMetadata({
 });
 
 export default function DetailLayout({ children }: { children: React.ReactNode }) {
-    return <>{children}</>;
+    return <>{children}</>
 }
