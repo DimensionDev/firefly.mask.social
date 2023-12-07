@@ -2,15 +2,15 @@ import type { Dispatch, SetStateAction } from 'react';
 
 import ComposeAction from '@/components/Compose/ComposeAction.js';
 import ComposeContent from '@/components/Compose/ComposeContent.js';
-import type { IImage } from '@/components/Compose/index.js';
 import withLexicalContext from '@/components/shared/lexical/withLexicalContext.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
+import type { IPFS_MediaObject } from '@/types/index.js';
 
 interface IWithLexicalContextWrapper {
     type: 'compose' | 'quote' | 'reply';
     setCharacters: (characters: string) => void;
-    images: IImage[];
-    setImages: Dispatch<SetStateAction<IImage[]>>;
+    images: IPFS_MediaObject[];
+    setImages: Dispatch<SetStateAction<IPFS_MediaObject[]>>;
     setLoading: (loading: boolean) => void;
     post?: Post;
 }

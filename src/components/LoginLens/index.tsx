@@ -17,14 +17,14 @@ import { isValidAddress } from '@/maskbook/packages/web3-shared/evm/src/index.js
 import { LoginModalRef } from '@/modals/controls.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { useLensStateStore } from '@/store/useLensStore.js';
-import type { Account } from '@/types/index.js';
+import type { SocialMediaAccount } from '@/types/index.js';
 
 interface LoginLensProps {
     back: () => void;
 }
 
 export function LoginLens({ back }: LoginLensProps) {
-    const [selected, setSelected] = useState<Account | undefined>();
+    const [selected, setSelected] = useState<SocialMediaAccount | undefined>();
     const [signless, setSignless] = useState(true);
     const [loading, setLoading] = useState(false);
 
@@ -36,13 +36,13 @@ export function LoginLens({ back }: LoginLensProps) {
 
     const { enqueueSnackbar } = useSnackbar();
 
-    const { data: accounts } = useSuspenseQuery<Account[]>({
+    const { data: accounts } = useSuspenseQuery<SocialMediaAccount[]>({
         queryKey: ['lens', 'accounts', account.address],
         queryFn: async () => {
             if (!account.address || !isValidAddress(account.address)) return [];
             const profiles = await LensSocialMediaProvider.getProfilesByAddress(account.address);
 
-            const result = profiles.map<Account>((profile) => ({
+            const result = profiles.map<SocialMediaAccount>((profile) => ({
                 name: profile.nickname,
                 avatar: profile.pfp,
                 profileId: profile.displayName,

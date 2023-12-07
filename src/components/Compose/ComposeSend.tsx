@@ -3,18 +3,18 @@ import { useSnackbar } from 'notistack';
 import { useCallback, useMemo } from 'react';
 
 import SendIcon from '@/assets/send.svg';
-import type { IImage } from '@/components/Compose/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { commentPostForLens, publishPostForLens, quotePostForLens } from '@/helpers/publishPost.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { useLensStateStore } from '@/store/useLensStore.js';
+import type { IPFS_MediaObject } from '@/types/index.js';
 
 import { CountdownCircle } from './CountdownCircle.js';
 
 interface ComposeSendProps {
     type: 'compose' | 'quote' | 'reply';
     characters: string;
-    images: IImage[];
+    images: IPFS_MediaObject[];
     closeCompose: () => void;
     setLoading: (loading: boolean) => void;
     post?: Post;

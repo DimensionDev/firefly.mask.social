@@ -9,17 +9,17 @@ import { type ChangeEvent, type Dispatch, type SetStateAction, useCallback, useR
 import AtIcon from '@/assets/at.svg';
 import GalleryIcon from '@/assets/gallery.svg';
 import NumberSignIcon from '@/assets/number-sign.svg';
-import type { IImage } from '@/components/Compose/index.js';
 import PostBy from '@/components/Compose/PostBy.js';
 import ReplyRestriction from '@/components/Compose/ReplyRestriction.js';
 import uploadToIPFS from '@/services/uploadToIPFS.js';
 import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
 import { useLensStateStore } from '@/store/useLensStore.js';
+import type { IPFS_MediaObject } from '@/types/index.js';
 
 interface ComposeActionProps {
     type: 'compose' | 'quote' | 'reply';
-    images: IImage[];
-    setImages: Dispatch<SetStateAction<IImage[]>>;
+    images: IPFS_MediaObject[];
+    setImages: Dispatch<SetStateAction<IPFS_MediaObject[]>>;
     setLoading: (loading: boolean) => void;
 }
 export default function ComposeAction({ type, images, setImages, setLoading }: ComposeActionProps) {

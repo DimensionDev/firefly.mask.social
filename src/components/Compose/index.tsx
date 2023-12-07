@@ -8,27 +8,23 @@ import LoadingIcon from '@/assets/loading.svg';
 import ComposeSend from '@/components/Compose/ComposeSend.js';
 import Discard from '@/components/Compose/Discard.js';
 import WithLexicalContextWrapper from '@/components/Compose/WithLexicalContextWrapper.js';
+import { EMPTY_LIST } from '@/constants/index.js';
 import type { SingletonModalRefCreator } from '@/maskbook/packages/shared-base/src/index.js';
 import { useSingletonModal } from '@/maskbook/packages/shared-base-ui/src/index.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
-import type { IPFSResponse } from '@/services/uploadToIPFS.js';
+import type { IPFS_MediaObject } from '@/types/index.js';
 
-export interface IImage {
-    file: File;
-    ipfs: IPFSResponse;
-}
-
-export interface IComposeProps {
+export interface ComposeProps {
     type?: 'compose' | 'quote' | 'reply';
     post?: Post;
 }
-// { type = 'compose', post, opened, setOpened }: IComposeProps
-const ComposeModal = forwardRef<SingletonModalRefCreator<IComposeProps>>(function Compose(_, ref) {
+// { type = 'compose', post, opened, setOpened }: ComposeProps
+const ComposeModal = forwardRef<SingletonModalRefCreator<ComposeProps>>(function Compose(_, ref) {
     const [type, setType] = useState<'compose' | 'quote' | 'reply'>('compose');
-    const [post, setPost] = useState<IComposeProps['post']>();
+    const [post, setPost] = useState<Post>();
     const [characters, setCharacters] = useState('');
     const [discardOpened, setDiscardOpened] = useState(false);
-    const [images, setImages] = useState<IImage[]>([]);
+    const [images, setImages] = useState<IPFS_MediaObject[]>(EMPTY_LIST);
     const [loading, setLoading] = useState(false);
 
     const [open, dispatch] = useSingletonModal(ref, {
@@ -38,7 +34,7 @@ const ComposeModal = forwardRef<SingletonModalRefCreator<IComposeProps>>(functio
         },
         onClose: () => {
             setCharacters('');
-            setImages([]);
+            setImages(EMPTY_LIST);
             setPost(undefined);
         },
     });
