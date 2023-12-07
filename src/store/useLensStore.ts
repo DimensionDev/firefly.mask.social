@@ -5,13 +5,13 @@ import { immer } from 'zustand/middleware/immer';
 import { SocialPlatform } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { createSelectors } from '@/helpers/createSelector.js';
-import type { Account } from '@/types/index.js';
+import type { SocialMediaAccount } from '@/types/index.js';
 
 export interface LensState {
-    accounts: Account[];
-    currentAccount: Account;
-    updateCurrentAccount: (account: Account) => void;
-    updateAccounts: (accounts: Account[]) => void;
+    accounts: SocialMediaAccount[];
+    currentAccount: SocialMediaAccount;
+    updateCurrentAccount: (account: SocialMediaAccount) => void;
+    updateAccounts: (accounts: SocialMediaAccount[]) => void;
     clearCurrentAccount: () => void;
 }
 
@@ -26,11 +26,11 @@ const useLensStateBase = create<LensState, [['zustand/persist', unknown], ['zust
                 id: '',
                 platform: SocialPlatform.Lens,
             },
-            updateCurrentAccount: (account: Account) =>
+            updateCurrentAccount: (account: SocialMediaAccount) =>
                 set((state) => {
                     state.currentAccount = account;
                 }),
-            updateAccounts: (accounts: Account[]) =>
+            updateAccounts: (accounts: SocialMediaAccount[]) =>
                 set((state) => {
                     state.accounts = accounts;
                 }),

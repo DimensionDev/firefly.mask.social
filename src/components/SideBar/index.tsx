@@ -1,7 +1,7 @@
 'use client';
 
 import { Trans } from '@lingui/macro';
-import { memo, useState } from 'react';
+import { memo } from 'react';
 import urlcat from 'urlcat';
 
 import DiscoverSelectedIcon from '@/assets/discover.selected.svg';
@@ -17,14 +17,13 @@ import ProfileIcon from '@/assets/profile.svg';
 import SettingsSelectedIcon from '@/assets/setting.selected.svg';
 import SettingsIcon from '@/assets/setting.svg';
 import WalletIcon from '@/assets/wallet.svg';
-import Compose from '@/components/Compose/index.js';
 import { LoginStatusBar } from '@/components/LoginStatusBar.js';
 import { PageRoutes } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { useDarkMode } from '@/hooks/useDarkMode.js';
 import { useLogin } from '@/hooks/useLogin.js';
 import { usePlatformAccount } from '@/hooks/usePlatformAccount.js';
-import { LoginModalRef } from '@/modals/controls.js';
+import { ComposeModalRef, LoginModalRef } from '@/modals/controls.js';
 
 import { ConnectWalletNav } from './ConnectWalletNav.js';
 
@@ -58,8 +57,6 @@ const items = [
 ];
 
 export const SideBar = memo(function SideBar() {
-    const [composeOpened, setComposeOpened] = useState(false);
-
     const { isDarkMode } = useDarkMode();
     const isLogin = useLogin();
     const platformAccount = usePlatformAccount();
@@ -105,7 +102,7 @@ export const SideBar = memo(function SideBar() {
                                             <button
                                                 type="button"
                                                 className=" min-w-[150px] rounded-[16px] bg-main px-3 py-3 text-xl font-semibold leading-6 text-primaryBottom "
-                                                onClick={() => setComposeOpened(true)}
+                                                onClick={() => ComposeModalRef.open({})}
                                             >
                                                 <Trans>Post</Trans>
                                             </button>
@@ -132,8 +129,6 @@ export const SideBar = memo(function SideBar() {
                     </nav>
                 </div>
             </div>
-
-            <Compose opened={composeOpened} setOpened={setComposeOpened} />
         </>
     );
 });

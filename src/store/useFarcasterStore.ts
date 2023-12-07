@@ -5,15 +5,15 @@ import { immer } from 'zustand/middleware/immer';
 import { SocialPlatform } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { createSelectors } from '@/helpers/createSelector.js';
-import type { Account } from '@/types/index.js';
+import type { SocialMediaAccount } from '@/types/index.js';
 
 export interface FarcasterState {
-    accounts: Account[];
-    currentAccount: Account;
-    updateCurrentAccount: (account: Account) => void;
-    updateAccounts: (accounts: Account[]) => void;
+    accounts: SocialMediaAccount[];
+    currentAccount: SocialMediaAccount;
+    updateCurrentAccount: (account: SocialMediaAccount) => void;
+    updateAccounts: (accounts: SocialMediaAccount[]) => void;
     clearCurrentAccount: () => void;
-    hydrateCurrentAccount: () => Account;
+    hydrateCurrentAccount: () => SocialMediaAccount;
 }
 
 const useFarcasterStateBase = create<FarcasterState, [['zustand/persist', unknown], ['zustand/immer', unknown]]>(
@@ -27,11 +27,11 @@ const useFarcasterStateBase = create<FarcasterState, [['zustand/persist', unknow
                 id: '',
                 platform: SocialPlatform.Farcaster,
             },
-            updateCurrentAccount: (account: Account) =>
+            updateCurrentAccount: (account: SocialMediaAccount) =>
                 set((state) => {
                     state.currentAccount = account;
                 }),
-            updateAccounts: (accounts: Account[]) =>
+            updateAccounts: (accounts: SocialMediaAccount[]) =>
                 set((state) => {
                     state.accounts = accounts;
                 }),

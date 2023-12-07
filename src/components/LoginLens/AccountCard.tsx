@@ -1,11 +1,11 @@
 import DisableNoIcon from '@/assets/disable-no.svg';
 import YesIcon from '@/assets/yes.svg';
 import { Image } from '@/esm/Image.js';
-import type { Account } from '@/types/index.js';
+import type { SocialMediaAccount } from '@/types/index.js';
 
-interface AccountCardProps extends Account {
+interface AccountCardProps extends SocialMediaAccount {
     isCurrent: boolean;
-    setAccount: (account: Account) => void;
+    setAccount: (account: SocialMediaAccount) => void;
 }
 
 export function AccountCard({ isCurrent, setAccount, ...account }: AccountCardProps) {

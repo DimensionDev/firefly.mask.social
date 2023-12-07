@@ -1,5 +1,6 @@
 import { SocialPlatform } from '@/constants/enum.js';
 import { ServerErrorCodes } from '@/helpers/createErrorResponseJSON.js';
+import type { IPFSResponse } from '@/services/uploadToIPFS.js';
 
 export type ResponseJSON<T> =
     | {
@@ -22,12 +23,7 @@ export interface MetadataAsset {
     title?: string;
 }
 
-export type LensPublicationViewCount = {
-    id: string;
-    views: number;
-};
-
-export interface Account {
+export interface SocialMediaAccount {
     profileId: string;
     avatar: string;
     name: string;
@@ -35,6 +31,11 @@ export interface Account {
     platform: SocialPlatform;
     signless?: boolean;
     handle?: string;
+}
+
+export interface IPFS_MediaObject {
+    file: File;
+    ipfs: IPFSResponse;
 }
 
 export type ThemeMode = 'light' | 'dark' | 'default';

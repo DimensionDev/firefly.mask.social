@@ -1,47 +1,65 @@
+'use client';
+
 import { Dialog, Transition } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
-import { Fragment, useCallback, useState } from 'react';
+import { forwardRef, Fragment, useCallback, useState } from 'react';
 
 import LoadingIcon from '@/assets/loading.svg';
-import ComposeAction from '@/components/Compose/ComposeAction.js';
-import ComposeContent from '@/components/Compose/ComposeContent.js';
 import ComposeSend from '@/components/Compose/ComposeSend.js';
 import Discard from '@/components/Compose/Discard.js';
-import withLexicalContext from '@/components/shared/lexical/withLexicalContext.js';
+import WithLexicalContextWrapper from '@/components/Compose/WithLexicalContextWrapper.js';
+import { EMPTY_LIST } from '@/constants/index.js';
+import type { SingletonModalRefCreator } from '@/maskbook/packages/shared-base/src/index.js';
+import { useSingletonModal } from '@/maskbook/packages/shared-base-ui/src/index.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
-import type { IPFSResponse } from '@/services/uploadToIPFS.js';
+import type { IPFS_MediaObject } from '@/types/index.js';
 
-export interface IImage {
-    file: File;
-    ipfs: IPFSResponse;
-}
-
-interface IComposeProps {
+export interface ComposeModalProps {
     type?: 'compose' | 'quote' | 'reply';
     post?: Post;
-    opened: boolean;
-    setOpened: (opened: boolean) => void;
 }
-function Compose({ type = 'compose', post, opened, setOpened }: IComposeProps) {
+
+// { type = 'compose', post, opened, setOpened }: ComposeModalProps
+export const ComposeModal = forwardRef<SingletonModalRefCreator<ComposeModalProps>>(function Compose(_, ref) {
+    const [type, setType] = useState<'compose' | 'quote' | 'reply'>('compose');
+    const [post, setPost] = useState<Post>();
     const [characters, setCharacters] = useState('');
     const [discardOpened, setDiscardOpened] = useState(false);
-    const [images, setImages] = useState<IImage[]>([]);
+    const [images, setImages] = useState<IPFS_MediaObject[]>(EMPTY_LIST);
     const [loading, setLoading] = useState(false);
 
+    const [open, dispatch] = useSingletonModal(ref, {
+        onOpen: (props) => {
+            setType(props.type || 'compose');
+            setPost(props.post);
+        },
+        onClose: () => {
+            setCharacters('');
+            setImages(EMPTY_LIST);
+            setPost(undefined);
+        },
+    });
+
     const close = useCallback(() => {
-        if (characters) {
-            setDiscardOpened(true);
-        } else {
-            setOpened(false);
-        }
-    }, [characters, setOpened]);
+        dispatch?.close();
+    }, [dispatch]);
 
     return (
         <>
-            <Discard opened={discardOpened} setOpened={setDiscardOpened} setComposeOpened={setOpened} />
+            <Discard opened={discardOpened} setOpened={setDiscardOpened} closeCompose={close} />
 
-            <Transition appear show={opened} as={Fragment}>
-                <Dialog as="div" className="relative z-[1000]" onClose={close}>
+            <Transition appear show={open} as={Fragment}>
+                <Dialog
+                    as="div"
+                    className="relative z-[1000]"
+                    onClose={() => {
+                        if (characters) {
+                            setDiscardOpened(true);
+                        } else {
+                            close();
+                        }
+                    }}
+                >
                     <Transition.Child
                         as={Fragment}
                         enter="ease-out duration-300"
@@ -86,21 +104,13 @@ function Compose({ type = 'compose', post, opened, setOpened }: IComposeProps) {
                                         </span>
                                     </Dialog.Title>
 
-                                    {/* Content */}
-                                    <ComposeContent
+                                    <WithLexicalContextWrapper
                                         type={type}
                                         setCharacters={setCharacters}
-                                        images={images.map((image) => image.file)}
-                                        setImages={setImages}
-                                        post={post}
-                                    />
-
-                                    {/* Action */}
-                                    <ComposeAction
-                                        type={type}
                                         images={images}
                                         setImages={setImages}
                                         setLoading={setLoading}
+                                        post={post}
                                     />
 
                                     {/* Send */}
@@ -108,7 +118,7 @@ function Compose({ type = 'compose', post, opened, setOpened }: IComposeProps) {
                                         type={type}
                                         characters={characters}
                                         images={images}
-                                        setOpened={setOpened}
+                                        closeCompose={close}
                                         setLoading={setLoading}
                                         post={post}
                                     />
@@ -120,6 +130,4 @@ function Compose({ type = 'compose', post, opened, setOpened }: IComposeProps) {
             </Transition>
         </>
     );
-}
-
-export default withLexicalContext(Compose);
+});
