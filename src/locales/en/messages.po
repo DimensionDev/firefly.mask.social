@@ -79,11 +79,17 @@ msgstr "Replying to @{0} on Lens"
 msgid "Casts"
 msgstr "Casts"
 
+msgid "Failed to login"
+msgstr "Failed to login"
+
 msgid "Not implemented yet."
 msgstr "Not implemented yet."
 
 msgid "Copied"
 msgstr "Copied"
+
+msgid "Login successful"
+msgstr "Login successful"
 
 msgid "Mirror and Quotes"
 msgstr "Mirror and Quotes"

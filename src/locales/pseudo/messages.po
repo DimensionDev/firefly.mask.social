@@ -79,10 +79,16 @@ msgstr ""
 msgid "Casts"
 msgstr ""
 
+msgid "Failed to login"
+msgstr ""
+
 msgid "Not implemented yet."
 msgstr ""
 
 msgid "Copied"
+msgstr ""
+
+msgid "Login successful"
 msgstr ""
 
 msgid "Mirror and Quotes"
