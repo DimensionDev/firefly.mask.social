@@ -80,6 +80,11 @@ export default {
             ],
         );
 
+        config.optimization = {
+            ...config.optimization,
+            usedExports: false,
+        };
+
         config.experiments = {
             ...config.experiments,
             backCompat: false,
@@ -123,6 +128,7 @@ export default {
                                     },
                                 },
                             },
+                            'prefixIds',
                         ],
                     },
                 },

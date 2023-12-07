@@ -93,7 +93,11 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({ attachm
             {asset?.type === 'Image' && !attachmentsHasImage ? (
                 <div className="w-full" onClick={(event) => event.stopPropagation}>
                     <ImageAsset
-                        className="w-full cursor-pointer rounded-lg"
+                        className={classNames('cursor-pointer rounded-lg', {
+                            'w-full': !isQuote,
+                            'w-[120px]': isQuote,
+                            'h-[120px]': isQuote,
+                        })}
                         loading="lazy"
                         width={isQuote ? 120 : 1000}
                         height={isQuote ? 120 : 1000}
@@ -101,7 +105,6 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({ attachm
                         onClick={(event) => {
                             event.stopPropagation();
                             event.preventDefault();
-                            if (!post || isQuote) return;
                             PreviewImageModalRef.open({
                                 images: [asset.uri],
                                 current: asset.uri,
@@ -140,7 +143,6 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({ attachm
                                     onClick={(event) => {
                                         event.preventDefault();
                                         event.stopPropagation();
-                                        if (!post || isQuote) return;
                                         PreviewImageModalRef.open({
                                             images: compact(imageAttachments.map((x) => x.uri)),
                                             current: uri,

@@ -23,7 +23,7 @@ export const Quote = memo<QuoteProps>(function Quote({ post, className = '' }) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className={classNames(
-                'mt-3 cursor-pointer rounded-2xl border border-solid border-third bg-primaryBottom  px-4 py-3 hover:bg-bg dark:bg-secondaryBottom',
+                'mt-3 cursor-pointer rounded-2xl border border-secondaryLine px-4 py-3 hover:bg-bg dark:bg-secondaryBottom',
                 className,
             )}
             onClick={(event) => {

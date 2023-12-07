@@ -7,6 +7,7 @@ import {
     DialogStackingProvider,
     DisableShadowRootContext,
     MaskThemeProvider,
+    ShadowRootIsolation,
 } from '@masknet/theme';
 import { EVMWeb3ContextProvider } from '@masknet/web3-hooks-base';
 import { StyledEngineProvider } from '@mui/material';
@@ -16,7 +17,7 @@ import { useAccount, useChainId } from 'wagmi';
 
 import { useMaskTheme } from '@/hooks/useMaskTheme.js';
 
-export function Providers({ children }: PropsWithChildren<{}>) {
+export function MaskProviders({ children }: PropsWithChildren<{}>) {
     const account = useAccount();
     const chainId = useChainId();
 
@@ -30,7 +31,9 @@ export function Providers({ children }: PropsWithChildren<{}>) {
                                 <SharedContextProvider>
                                     <Suspense fallback={null}>
                                         <CSSVariableInjector />
-                                        {children}
+                                        <DisableShadowRootContext.Provider value={false}>
+                                            <ShadowRootIsolation>{children}</ShadowRootIsolation>
+                                        </DisableShadowRootContext.Provider>
                                     </Suspense>
                                 </SharedContextProvider>
                             </EVMWeb3ContextProvider>

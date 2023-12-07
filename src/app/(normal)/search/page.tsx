@@ -1,6 +1,7 @@
 'use client';
 
 import { safeUnreachable } from '@masknet/kit';
+import { createIndicator, createPageable, EMPTY_LIST, type Pageable, type PageIndicator } from '@masknet/shared-base';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
 import { useMemo } from 'react';
@@ -9,12 +10,13 @@ import { useInView } from 'react-cool-inview';
 import LoadingIcon from '@/assets/loading.svg';
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { SinglePost } from '@/components/Posts/SinglePost.js';
-import { ProfileInList } from '@/components/ProfileInList.js';
+import { ProfileInList } from '@/components/Search/ProfileInList.js';
 import { SearchType, SocialPlatform } from '@/constants/enum.js';
-import { createIndicator } from '@/maskbook/packages/shared-base/src/index.js';
-import { HubbleSocialMediaProvider } from '@/providers/hubble/SocialMedia.js';
+import { attemptUntil } from '@/maskbook/packages/web3-shared/base/src/index.js';
+import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import type { Post, Profile } from '@/providers/types/SocialMedia.js';
+import { WarpcastSocialMediaProvider } from '@/providers/warpcast/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useSearchStore } from '@/store/useSearchStore.js';
 
@@ -34,7 +36,7 @@ export default function Page() {
                     case SocialPlatform.Lens:
                         return LensSocialMediaProvider.searchProfiles(searchText, indicator);
                     case SocialPlatform.Farcaster:
-                        return HubbleSocialMediaProvider.searchProfiles(searchText, indicator);
+                        return WarpcastSocialMediaProvider.searchProfiles(searchText, indicator);
                     default:
                         return;
                 }
@@ -43,7 +45,13 @@ export default function Page() {
                     case SocialPlatform.Lens:
                         return LensSocialMediaProvider.searchPosts(searchText, indicator);
                     case SocialPlatform.Farcaster:
-                        return HubbleSocialMediaProvider.searchPosts(searchText, indicator);
+                        return attemptUntil<Pageable<Post, PageIndicator>>(
+                            [
+                                async () => WarpcastSocialMediaProvider.searchPosts(searchText, indicator),
+                                async () => FireflySocialMediaProvider.searchPosts(searchText, indicator),
+                            ],
+                            createPageable<Post>(EMPTY_LIST, createIndicator(indicator)),
+                        );
                     default:
                         return;
                 }

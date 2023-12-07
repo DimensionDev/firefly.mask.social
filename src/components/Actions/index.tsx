@@ -1,4 +1,4 @@
-import { memo, useMemo } from 'react';
+import { type HTMLProps, memo, useMemo } from 'react';
 
 import { SocialPlatform } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -13,7 +13,7 @@ import { Mirror } from './Mirrors.js';
 import { Share } from './Share.js';
 import { Views } from './Views.js';
 
-interface PostActionsProps {
+interface PostActionsProps extends HTMLProps<HTMLDivElement> {
     post: Post;
     disabled?: boolean;
     disablePadding?: boolean;
@@ -24,6 +24,8 @@ export const PostActions = memo<PostActionsProps>(function PostActions({
     post,
     disabled = false,
     disablePadding = false,
+    className,
+    ...rest
 }) {
     const publicationViews = useImpressionsStore.use.publicationViews();
 
@@ -32,10 +34,11 @@ export const PostActions = memo<PostActionsProps>(function PostActions({
     }, [publicationViews, post]);
 
     return (
-        <span
-            className={classNames('mt-2 flex items-center justify-between', {
+        <div
+            className={classNames('mt-2 flex items-center justify-between', className, {
                 'pl-[52px]': !disablePadding,
             })}
+            {...rest}
         >
             <Comment
                 disabled={disabled}
@@ -65,6 +68,6 @@ export const PostActions = memo<PostActionsProps>(function PostActions({
             />
             {post.source !== SocialPlatform.Farcaster ? <Views count={views} disabled={disabled} /> : null}
             <Share url={getPostDetailUrl(post.postId, post.source)} disabled={disabled} />
-        </span>
+        </div>
     );
 });

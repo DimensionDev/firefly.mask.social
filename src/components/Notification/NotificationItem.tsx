@@ -56,7 +56,7 @@ function PostTypeI18N({ type }: { type: PostType }) {
     return;
 }
 
-export const NotificationItem = memo<NotificationItemProps>(function SingleNotification({ notification }) {
+export const NotificationItem = memo<NotificationItemProps>(function NotificationItem({ notification }) {
     const { isDarkMode } = useDarkMode();
     const Icon = resolveNotificationIcon(notification.type);
 
@@ -90,7 +90,7 @@ export const NotificationItem = memo<NotificationItemProps>(function SingleNotif
                 return (
                     <Trans>
                         <Plural
-                            value={notification.reactors.length}
+                            value={Math.max(1, notification.reactors.length - 1)}
                             one={<strong>{firstReactorName}</strong>}
                             other={
                                 <Trans>
@@ -106,12 +106,12 @@ export const NotificationItem = memo<NotificationItemProps>(function SingleNotif
                 );
             case NotificationType.Quote:
                 const by = notification.quote.author;
-                if (!notification.quote.type) return;
+                if (!notification.quote.quoteOn?.type) return;
                 return (
                     <Trans>
                         <strong>{by.displayName}</strong> quoted your{' '}
                         <strong>
-                            <PostTypeI18N type={notification.quote.type} />
+                            <PostTypeI18N type={notification.quote.quoteOn.type} />
                         </strong>
                     </Trans>
                 );
@@ -121,7 +121,7 @@ export const NotificationItem = memo<NotificationItemProps>(function SingleNotif
                 return (
                     <Trans>
                         <Plural
-                            value={notification.followers.length}
+                            value={Math.max(1, notification.followers.length - 1)}
                             one={<strong>{firstFollowerName}</strong>}
                             other={
                                 <Trans>
@@ -133,13 +133,13 @@ export const NotificationItem = memo<NotificationItemProps>(function SingleNotif
                     </Trans>
                 );
             case NotificationType.Comment:
-                if (!notification.comment?.type) return;
+                if (!notification.comment?.commentOn?.type) return;
                 const author = notification.comment.author;
                 return (
                     <Trans>
                         <strong>{author.displayName}</strong> commented your{' '}
                         <strong>
-                            <PostTypeI18N type={notification.comment.type} />
+                            <PostTypeI18N type={notification.comment.commentOn.type} />
                         </strong>
                     </Trans>
                 );
@@ -160,7 +160,7 @@ export const NotificationItem = memo<NotificationItemProps>(function SingleNotif
                 return (
                     <Trans>
                         <Plural
-                            value={notification.mirrors.length}
+                            value={Math.max(1, notification.mirrors.length - 1)}
                             one={<strong>{firstMirrorName}</strong>}
                             other={
                                 <Trans>
@@ -179,7 +179,7 @@ export const NotificationItem = memo<NotificationItemProps>(function SingleNotif
                 return (
                     <Trans>
                         <Plural
-                            value={notification.actions.length}
+                            value={Math.max(1, notification.actions.length - 1)}
                             one={<strong>{firstActedName}</strong>}
                             other={
                                 <Trans>
@@ -237,12 +237,12 @@ export const NotificationItem = memo<NotificationItemProps>(function SingleNotif
         switch (notification.type) {
             case NotificationType.Comment:
                 if (!notification.comment) return;
-                return <PostActions post={notification.comment} />;
+                return <PostActions post={notification.comment} disablePadding />;
             case NotificationType.Mention:
                 if (!notification.post) return;
-                return <PostActions post={notification.post} />;
+                return <PostActions post={notification.post} disablePadding />;
             case NotificationType.Quote:
-                return <PostActions post={notification.quote} />;
+                return <PostActions post={notification.quote} disablePadding />;
             default:
                 return;
         }
@@ -251,14 +251,19 @@ export const NotificationItem = memo<NotificationItemProps>(function SingleNotif
     if (!profiles) return;
 
     return (
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="px-4 py-3">
+        <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="border-b border-secondaryLine px-4 py-3 hover:bg-bg dark:border-line"
+        >
             <div className="flex justify-between">
                 <div className="flex flex-1 items-start space-x-4">
                     {Icon ? <Icon className="text-secondary" width={24} height={24} /> : null}
                     <div className="flex-1">
                         <div className="flex flex-1 items-center justify-between">
                             <div className="flex items-center">
-                                {profiles.slice(0, 3).map((x, index, self) => {
+                                {profiles.slice(0, 5).map((x, index, self) => {
                                     return (
                                         <Image
                                             key={index}

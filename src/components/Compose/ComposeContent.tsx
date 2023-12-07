@@ -2,18 +2,18 @@ import { type Dispatch, type SetStateAction, useCallback } from 'react';
 
 import CloseIcon from '@/assets/close.svg';
 import Editor from '@/components/Compose/Editor.js';
-import type { IImage } from '@/components/Compose/index.js';
 import { SourceIcon } from '@/components/SourceIcon.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
 import { Image } from '@/esm/Image.js';
 import { classNames } from '@/helpers/classNames.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
+import type { IPFS_MediaObject } from '@/types/index.js';
 
 interface ComposeContentProps {
     type: 'compose' | 'quote' | 'reply';
     setCharacters: (characters: string) => void;
     images: File[];
-    setImages: Dispatch<SetStateAction<IImage[]>>;
+    setImages: Dispatch<SetStateAction<IPFS_MediaObject[]>>;
     post?: Post;
 }
 export default function ComposeContent({ type, setCharacters, images, setImages, post }: ComposeContentProps) {

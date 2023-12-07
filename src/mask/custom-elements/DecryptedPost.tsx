@@ -11,7 +11,6 @@ const DecryptedPost = dynamic(() => import('@/mask/widgets/DecryptedPost.js'), {
 class Element extends WidgetWithProps<{
     post?: Post;
     payload?: [string, '1' | '2'];
-    canShowMore?: boolean;
 }> {
     constructor() {
         super(DecryptedPost);

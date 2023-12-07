@@ -11,10 +11,8 @@ git submodule update
 # Change to the submodule directory
 cd src/maskbook
 
+# Install dependencies using pnpm
 pnpm install
-
-# Install dependencies using pnpm for development environment
-# NODE_ENV=development pnpm install
 
 # Run Gulp tasks for polyfill and code generation
 npx gulp polyfill

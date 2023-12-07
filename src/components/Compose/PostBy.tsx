@@ -6,15 +6,15 @@ import { Fragment } from 'react';
 import FarcasterIcon from '@/assets/farcaster.svg';
 import LensIcon from '@/assets/lens.svg';
 import RadioYesIcon from '@/assets/radio.yes.svg';
-import type { IImage } from '@/components/Compose/index.js';
 import { Image } from '@/esm/Image.js';
 import { classNames } from '@/helpers/classNames.js';
 import { LoginModalRef } from '@/modals/controls.js';
 import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
 import { useLensStateStore } from '@/store/useLensStore.js';
+import type { IPFS_MediaObject } from '@/types/index.js';
 
 interface IPostByProps {
-    images: IImage[];
+    images: IPFS_MediaObject[];
 }
 export default function PostBy({ images }: IPostByProps) {
     const { enqueueSnackbar } = useSnackbar();

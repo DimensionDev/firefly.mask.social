@@ -1,20 +1,15 @@
 'use client';
 
 import { CalendarContent } from '@masknet/plugin-calendar';
-import { DisableShadowRootContext, ShadowRootIsolation } from '@masknet/theme';
 
-import { Providers } from '@/app/provider.js';
-import { Providers as MaskProviders } from '@/mask/widgets/Providers.js';
+import { MaskProviders } from '@/components/MaskProviders.js';
+import { Providers } from '@/components/Providers.js';
 
 export default function CalendarWidget() {
     return (
         <Providers>
             <MaskProviders>
-                <DisableShadowRootContext.Provider value={false}>
-                    <ShadowRootIsolation>
-                        <CalendarContent />
-                    </ShadowRootIsolation>
-                </DisableShadowRootContext.Provider>
+                <CalendarContent />
             </MaskProviders>
         </Providers>
     );

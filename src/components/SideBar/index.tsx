@@ -1,7 +1,7 @@
 'use client';
 
 import { Trans } from '@lingui/macro';
-import { memo, useState } from 'react';
+import { memo } from 'react';
 import urlcat from 'urlcat';
 
 import DiscoverSelectedIcon from '@/assets/discover.selected.svg';
@@ -17,16 +17,14 @@ import ProfileIcon from '@/assets/profile.svg';
 import SettingsSelectedIcon from '@/assets/setting.selected.svg';
 import SettingsIcon from '@/assets/setting.svg';
 import WalletIcon from '@/assets/wallet.svg';
-import Compose from '@/components/Compose/index.js';
-import { LoginStatusBar } from '@/components/LoginStatusBar.js';
+import { LoginStatusBar } from '@/components/Login/LoginStatusBar.js';
+import { ConnectWalletNav } from '@/components/SideBar/ConnectWalletNav.js';
 import { PageRoutes } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { useDarkMode } from '@/hooks/useDarkMode.js';
 import { useLogin } from '@/hooks/useLogin.js';
 import { usePlatformAccount } from '@/hooks/usePlatformAccount.js';
-import { LoginModalRef } from '@/modals/controls.js';
-
-import { ConnectWalletNav } from './ConnectWalletNav.js';
+import { ComposeModalRef, LoginModalRef } from '@/modals/controls.js';
 
 const items = [
     { href: PageRoutes.Home, name: <Trans>Discover</Trans>, icon: DiscoverIcon, selectedIcon: DiscoverSelectedIcon },
@@ -58,8 +56,6 @@ const items = [
 ];
 
 export const SideBar = memo(function SideBar() {
-    const [composeOpened, setComposeOpened] = useState(false);
-
     const { isDarkMode } = useDarkMode();
     const isLogin = useLogin();
     const platformAccount = usePlatformAccount();
@@ -80,7 +76,7 @@ export const SideBar = memo(function SideBar() {
                                     {items.map((item) => {
                                         const Icon = item.icon;
                                         return (
-                                            <li className="rounded-lg px-4 py-3 text-main hover:bg-bg" key={item.href}>
+                                            <li className="rounded-lg text-main hover:bg-bg" key={item.href}>
                                                 {item.href === '/connect-wallet' ? (
                                                     <ConnectWalletNav />
                                                 ) : (
@@ -91,7 +87,7 @@ export const SideBar = memo(function SideBar() {
                                                                 ? `/${platformAccount.lens?.handle ?? ''}`
                                                                 : '',
                                                         )}
-                                                        className="flex gap-x-3 text-2xl/6"
+                                                        className="flex gap-x-3 px-4 py-3 text-2xl/6"
                                                     >
                                                         <Icon width={24} height={24} />
                                                         {item.name}
@@ -104,8 +100,8 @@ export const SideBar = memo(function SideBar() {
                                         <li>
                                             <button
                                                 type="button"
-                                                className=" min-w-[150px] rounded-[16px] bg-main px-3 py-3 text-xl font-semibold leading-6 text-primaryBottom "
-                                                onClick={() => setComposeOpened(true)}
+                                                className=" min-w-[150px] cursor-pointer rounded-[16px] bg-main px-3 py-3 text-xl font-semibold leading-6 text-primaryBottom "
+                                                onClick={() => ComposeModalRef.open({})}
                                             >
                                                 <Trans>Post</Trans>
                                             </button>
@@ -122,7 +118,7 @@ export const SideBar = memo(function SideBar() {
                                             LoginModalRef.open({});
                                         }}
                                         type="button"
-                                        className=" min-w-[150px] rounded-[16px] bg-main px-3 py-3 text-xl font-semibold leading-6 text-primaryBottom "
+                                        className=" min-w-[150px] cursor-pointer rounded-[16px] bg-main px-3 py-3 text-xl font-semibold leading-6 text-primaryBottom "
                                     >
                                         <Trans>Login</Trans>
                                     </button>
@@ -132,8 +128,6 @@ export const SideBar = memo(function SideBar() {
                     </nav>
                 </div>
             </div>
-
-            <Compose opened={composeOpened} setOpened={setComposeOpened} />
         </>
     );
 });

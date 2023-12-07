@@ -1,11 +1,12 @@
+import { compact } from 'lodash-es';
 /**
  * Combine multiple class names and conditionally include them based on the provided conditions.
  * @param classes - An array or object where keys are class names and values are boolean conditions to include each class.
  * @returns A string containing the combined class names.
  */
-export function classNames(...classes: Array<string | Record<string, boolean>>): string {
+export function classNames(...classes: Array<string | null | undefined | Record<string, boolean>>): string {
     // Filter the provided classes based on their type
-    const filteredClasses = classes.filter(Boolean);
+    const filteredClasses = compact(classes);
 
     // Process each class based on its type (string or object)
     const combinedClasses = filteredClasses.map((item) => {

@@ -79,10 +79,16 @@ msgstr ""
 msgid "Casts"
 msgstr ""
 
+msgid "Failed to login"
+msgstr ""
+
 msgid "Not implemented yet."
 msgstr ""
 
 msgid "Copied"
+msgstr ""
+
+msgid "Login successful"
 msgstr ""
 
 msgid "Mirror and Quotes"
@@ -256,6 +262,9 @@ msgstr ""
 msgid "Publications"
 msgstr ""
 
+msgid "This post doesn't exist"
+msgstr ""
+
 msgid "Display"
 msgstr ""
 
@@ -299,9 +308,6 @@ msgid "Posted on Lens"
 msgstr ""
 
 msgid "Mirrored"
-msgstr ""
-
-msgid "{0, select, follow {Follow} unfollow {UnFollow} other {Follow}}"
 msgstr ""
 
 msgid "Associated Wallets"
@@ -427,10 +433,10 @@ msgstr ""
 msgid "Followers"
 msgstr ""
 
-msgid "Mirror"
+msgid "{0, select, follow {Follow} unfollow {Unfollow} other {Follow}}"
 msgstr ""
 
-msgid "{0, select, follow {Failed to followed @{1} on {2}} unfollow {Failed to unFollowed @{3} on {4}} other {Failed to followed @{5} on {6}}}"
+msgid "Mirror"
 msgstr ""
 
 msgid "Terms of Service"
@@ -452,4 +458,7 @@ msgid "Collect is coming soon"
 msgstr ""
 
 msgid "Login"
+msgstr ""
+
+msgid "{0, select, follow {Failed to followed @{1} on {2}} unfollow {Failed to unfollowed @{3} on {4}} other {Failed to followed @{5} on {6}}}"
 msgstr ""

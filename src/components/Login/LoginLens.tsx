@@ -11,20 +11,21 @@ import { useAccount, useDisconnect } from 'wagmi';
 
 import LoadingIcon from '@/assets/loading.svg';
 import WalletIcon from '@/assets/wallet.svg';
-import { AccountCard } from '@/components/LoginLens/AccountCard.js';
+import { AccountCard } from '@/components/Login/AccountCard.js';
 import { SocialPlatform } from '@/constants/enum.js';
+import { EMPTY_LIST } from '@/constants/index.js';
 import { isValidAddress } from '@/maskbook/packages/web3-shared/evm/src/index.js';
 import { LoginModalRef } from '@/modals/controls.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { useLensStateStore } from '@/store/useLensStore.js';
-import type { Account } from '@/types/index.js';
+import type { SocialMediaAccount } from '@/types/index.js';
 
 interface LoginLensProps {
     back: () => void;
 }
 
 export function LoginLens({ back }: LoginLensProps) {
-    const [selected, setSelected] = useState<Account | undefined>();
+    const [selected, setSelected] = useState<SocialMediaAccount>();
     const [signless, setSignless] = useState(true);
     const [loading, setLoading] = useState(false);
 
@@ -36,13 +37,13 @@ export function LoginLens({ back }: LoginLensProps) {
 
     const { enqueueSnackbar } = useSnackbar();
 
-    const { data: accounts } = useSuspenseQuery<Account[]>({
+    const { data: accounts } = useSuspenseQuery<SocialMediaAccount[]>({
         queryKey: ['lens', 'accounts', account.address],
         queryFn: async () => {
-            if (!account.address || !isValidAddress(account.address)) return [];
+            if (!account.address || !isValidAddress(account.address)) return EMPTY_LIST;
             const profiles = await LensSocialMediaProvider.getProfilesByAddress(account.address);
 
-            const result = profiles.map<Account>((profile) => ({
+            const result = profiles.map<SocialMediaAccount>((profile) => ({
                 name: profile.nickname,
                 avatar: profile.pfp,
                 profileId: profile.displayName,
@@ -55,7 +56,7 @@ export function LoginLens({ back }: LoginLensProps) {
             if (!result.length) {
                 enqueueSnackbar(t`No Lens profile found. Please change another wallet`, { variant: 'error' });
                 LoginModalRef.close();
-                return [];
+                return EMPTY_LIST;
             }
 
             // update current select and global lens accounts

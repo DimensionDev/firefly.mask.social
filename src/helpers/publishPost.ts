@@ -1,11 +1,11 @@
-import type { IImage } from '@/components/Compose/index.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { SITE_URL } from '@/constants/index.js';
 import { getPostMetaData } from '@/helpers/getPostMetaData.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import uploadToArweave from '@/services/uploadToArweave.js';
+import type { IPFS_MediaObject } from '@/types/index.js';
 
-export async function publishPostForLens(profileId: string, characters: string, images: IImage[]) {
+export async function publishPostForLens(profileId: string, characters: string, images: IPFS_MediaObject[]) {
     const lens = LensSocialMediaProvider;
     const profile = await lens.getProfileById(profileId);
 
@@ -48,7 +48,12 @@ export async function publishPostForLens(profileId: string, characters: string, 
     return post;
 }
 
-export async function commentPostForLens(profileId: string, postId: string, characters: string, images: IImage[]) {
+export async function commentPostForLens(
+    profileId: string,
+    postId: string,
+    characters: string,
+    images: IPFS_MediaObject[],
+) {
     const lens = LensSocialMediaProvider;
     const profile = await lens.getProfileById(profileId);
 
@@ -81,7 +86,12 @@ export async function commentPostForLens(profileId: string, postId: string, char
     await lens.commentPost(postId, `ar://${arweaveId}`, profile.signless);
 }
 
-export async function quotePostForLens(profileId: string, postId: string, characters: string, images: IImage[]) {
+export async function quotePostForLens(
+    profileId: string,
+    postId: string,
+    characters: string,
+    images: IPFS_MediaObject[],
+) {
     const lens = LensSocialMediaProvider;
     const profile = await lens.getProfileById(profileId);
 

@@ -10,13 +10,12 @@ import MirrorIcon from '@/assets/mirror.svg';
 import MirrorLargeIcon from '@/assets/mirror-large.svg';
 import MirroredIcon from '@/assets/mirrored.svg';
 import QuoteDownIcon from '@/assets/quote-down.svg';
-import Compose from '@/components/Compose/index.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { humanize, nFormatter } from '@/helpers/formatCommentCounts.js';
 import { useLogin } from '@/hooks/useLogin.js';
-import { LoginModalRef } from '@/modals/controls.js';
+import { ComposeModalRef, LoginModalRef } from '@/modals/controls.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
@@ -38,8 +37,6 @@ export const Mirror = memo<MirrorProps>(function Mirror({
     disabled = false,
     post,
 }) {
-    const [composeOpened, setComposeOpened] = useState(false);
-
     const isLogin = useLogin(source);
 
     const { enqueueSnackbar } = useSnackbar();
@@ -192,7 +189,10 @@ export const Mirror = memo<MirrorProps>(function Mirror({
                                         className="flex cursor-pointer items-center space-x-2"
                                         onClick={() => {
                                             close();
-                                            setComposeOpened(true);
+                                            ComposeModalRef.open({
+                                                type: 'quote',
+                                                post,
+                                            });
                                         }}
                                     >
                                         <QuoteDownIcon width={24} height={24} />
@@ -206,8 +206,6 @@ export const Mirror = memo<MirrorProps>(function Mirror({
                     </Transition>
                 ) : null}
             </Menu>
-
-            <Compose type="quote" opened={composeOpened} setOpened={setComposeOpened} post={post} />
         </>
     );
 });

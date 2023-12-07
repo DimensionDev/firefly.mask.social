@@ -3,23 +3,23 @@ import { useSnackbar } from 'notistack';
 import { useCallback, useMemo } from 'react';
 
 import SendIcon from '@/assets/send.svg';
-import type { IImage } from '@/components/Compose/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { commentPostForLens, publishPostForLens, quotePostForLens } from '@/helpers/publishPost.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { useLensStateStore } from '@/store/useLensStore.js';
+import type { IPFS_MediaObject } from '@/types/index.js';
 
 import { CountdownCircle } from './CountdownCircle.js';
 
 interface ComposeSendProps {
     type: 'compose' | 'quote' | 'reply';
     characters: string;
-    images: IImage[];
-    setOpened: (opened: boolean) => void;
+    images: IPFS_MediaObject[];
+    closeCompose: () => void;
     setLoading: (loading: boolean) => void;
     post?: Post;
 }
-export default function ComposeSend({ type, characters, images, setOpened, setLoading, post }: ComposeSendProps) {
+export default function ComposeSend({ type, characters, images, closeCompose, setLoading, post }: ComposeSendProps) {
     const { enqueueSnackbar } = useSnackbar();
 
     const currentLensAccount = useLensStateStore.use.currentAccount();
@@ -37,7 +37,7 @@ export default function ComposeSend({ type, characters, images, setOpened, setLo
                     enqueueSnackbar(t`Posted on Lens`, {
                         variant: 'success',
                     });
-                    setOpened(false);
+                    closeCompose();
                 } catch {
                     enqueueSnackbar(t`Failed to post on Lens`, {
                         variant: 'error',
@@ -52,7 +52,7 @@ export default function ComposeSend({ type, characters, images, setOpened, setLo
                     enqueueSnackbar(t`Replying to @${currentLensAccount.handle || currentLensAccount.id} on Lens`, {
                         variant: 'success',
                     });
-                    setOpened(false);
+                    closeCompose();
                 } catch {
                     enqueueSnackbar(t`Replying to @${currentLensAccount.handle || currentLensAccount.id} on Lens`, {
                         variant: 'error',
@@ -67,7 +67,7 @@ export default function ComposeSend({ type, characters, images, setOpened, setLo
                     enqueueSnackbar(t`Quote on Lens`, {
                         variant: 'success',
                     });
-                    setOpened(false);
+                    closeCompose();
                 } catch {
                     enqueueSnackbar(t`Failed to quote on Lens`, {
                         variant: 'error',
@@ -78,13 +78,13 @@ export default function ComposeSend({ type, characters, images, setOpened, setLo
         setLoading(false);
     }, [
         characters,
+        closeCompose,
         currentLensAccount.handle,
         currentLensAccount.id,
         enqueueSnackbar,
         images,
         post,
         setLoading,
-        setOpened,
         type,
     ]);
 

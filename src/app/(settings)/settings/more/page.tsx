@@ -5,6 +5,7 @@ import { Trans } from '@lingui/macro';
 import DocumentsIcon from '@/assets/documents.svg';
 import LinkIcon from '@/assets/link.svg';
 import SecurityIcon from '@/assets/security.svg';
+import { Link } from '@/esm/Link.js';
 
 export default function More() {
     return (
@@ -14,7 +15,9 @@ export default function More() {
                     <Trans>More</Trans>
                 </span>
             </div>
-            <div
+            <Link
+                href="https://legal.mask.io/maskbook/privacy-policy-browser.html"
+                target="_blank"
                 className="inline-flex h-[48px] w-full items-center justify-start gap-[8px]  rounded-lg bg-white px-[12px] py-[8px]"
                 style={{ boxShadow: '0px 0px 20px 0px rgba(0, 0, 0, 0.05)', backdropFilter: 'blur(8px)' }}
             >
@@ -24,11 +27,11 @@ export default function More() {
                         <Trans>Privacy Policy</Trans>
                     </div>
                 </div>
-                <button>
-                    <LinkIcon width={16} height={16} />
-                </button>
-            </div>
-            <div
+                <LinkIcon width={16} height={16} />
+            </Link>
+            <Link
+                href="https://legal.mask.io/maskbook/service-agreement-beta-browser.html"
+                target="_blank"
                 className="inline-flex h-[48px] w-full items-center justify-start gap-[8px] rounded-lg bg-white px-[12px] py-[8px]"
                 style={{ boxShadow: '0px 0px 20px 0px rgba(0, 0, 0, 0.05)', backdropFilter: 'blur(8px)' }}
             >
@@ -38,10 +41,8 @@ export default function More() {
                         <Trans>Terms of Service</Trans>
                     </div>
                 </div>
-                <button>
-                    <LinkIcon width={16} height={16} />
-                </button>
-            </div>
+                <LinkIcon width={16} height={16} />
+            </Link>
         </div>
     );
 }

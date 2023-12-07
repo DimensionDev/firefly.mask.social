@@ -1,22 +1,22 @@
 'use client';
 
 import { Dialog, Transition } from '@headlessui/react';
+import { t } from '@lingui/macro';
 import type { SingletonModalRefCreator } from '@masknet/shared-base';
+import { useSingletonModal } from '@masknet/shared-base-ui';
 import { useChainModal, useConnectModal } from '@rainbow-me/rainbowkit';
 import { forwardRef, Fragment, Suspense, useMemo, useRef, useState } from 'react';
 import { usePrevious, useUpdateEffect } from 'react-use';
 import { polygon } from 'viem/chains';
 import { useAccount, useNetwork } from 'wagmi';
 
-import { PlatformIcon } from '@/app/(normal)/profile/components/PlatformIcon.js';
 import CloseIcon from '@/assets/close.svg';
 import LeftArrowIcon from '@/assets/left-arrow.svg';
 import LoadingIcon from '@/assets/loading.svg';
-import { LoginFarcaster } from '@/components/LoginFarcaster.js';
-import { LoginLens } from '@/components/LoginLens/index.js';
+import { LoginButton } from '@/components/Login/LoginButton.js';
+import { LoginFarcaster } from '@/components/Login/LoginFarcaster.js';
+import { LoginLens } from '@/components/Login/LoginLens.js';
 import { SocialPlatform } from '@/constants/enum.js';
-import { useSingletonModal } from '@/maskbook/packages/shared-base-ui/src/index.js';
-import { isLensCollect } from '@/maskbook/packages/web3-shared/evm/src/index.js';
 
 export interface LoginModalProps {
     current?: SocialPlatform;
@@ -24,7 +24,7 @@ export interface LoginModalProps {
 
 export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps>>(function LoginModal(_, ref) {
     const isLensConnecting = useRef(false);
-    const [current, setCurrent] = useState<SocialPlatform | undefined>();
+    const [current, setCurrent] = useState<SocialPlatform>();
 
     const { openConnectModal, connectModalOpen } = useConnectModal();
     const { openChainModal, chainModalOpen } = useChainModal();
@@ -46,13 +46,13 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps>>(
     });
 
     const title = useMemo(() => {
-        if (current === SocialPlatform.Lens) return 'Select Account';
-        else if (current === SocialPlatform.Farcaster) return 'Log in to Farcaster account';
-        return 'Login';
+        if (current === SocialPlatform.Lens) return t`Select Account`;
+        else if (current === SocialPlatform.Farcaster) return t`Log in to Farcaster account`;
+        return t`Login`;
     }, [current]);
 
     useUpdateEffect(() => {
-        if (!isLensCollect) return;
+        if (isLensConnecting.current) return;
         // When the wallet is connected or the chain switch is successful, it automatically jumps to the next step
         if (
             (account.isConnected && !previousAccount?.isConnected && previousConnectModalOpen) ||
@@ -118,8 +118,8 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps>>(
                                         style={{ boxShadow: '0px 4px 30px 0px rgba(0, 0, 0, 0.10)' }}
                                     >
                                         <div className="flex w-full flex-col gap-[16px] p-[16px] ">
-                                            <button
-                                                className="group flex w-full flex-col rounded-lg p-[16px] hover:bg-lightBg"
+                                            <LoginButton
+                                                platform={SocialPlatform.Lens}
                                                 onClick={() => {
                                                     if (!account.isConnected) {
                                                         openConnectModal();
@@ -131,39 +131,13 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps>>(
                                                         setCurrent(SocialPlatform.Lens);
                                                     }
                                                 }}
-                                            >
-                                                <div className="inline-flex w-full flex-col items-center justify-start gap-[8px] rounded-lg px-[16px] py-[24px]">
-                                                    <div className="relative h-[48px] w-[48px]">
-                                                        <PlatformIcon
-                                                            className="left-0 top-0 rounded-full"
-                                                            size={48}
-                                                            platform={SocialPlatform.Lens}
-                                                        />
-                                                    </div>
-                                                    <div className="text-sm font-bold leading-[18px] text-lightSecond group-hover:text-lightMain">
-                                                        Lens
-                                                    </div>
-                                                </div>
-                                            </button>
-                                            <button
-                                                className="group flex flex-col rounded-lg p-[16px] hover:bg-lightBg"
+                                            />
+                                            <LoginButton
+                                                platform={SocialPlatform.Farcaster}
                                                 onClick={() => {
                                                     setCurrent(SocialPlatform.Farcaster);
                                                 }}
-                                            >
-                                                <div className="inline-flex w-full flex-col items-center justify-start gap-[8px] rounded-lg px-[16px] py-[24px]">
-                                                    <div className="relative h-[48px] w-[48px]">
-                                                        <PlatformIcon
-                                                            className="left-0 top-0 rounded-full"
-                                                            size={48}
-                                                            platform={SocialPlatform.Farcaster}
-                                                        />
-                                                    </div>
-                                                    <div className="text-sm font-bold leading-[18px] text-lightSecond group-hover:text-lightMain">
-                                                        Farcaster
-                                                    </div>
-                                                </div>
-                                            </button>
+                                            />
                                         </div>
                                     </div>
                                 ) : (

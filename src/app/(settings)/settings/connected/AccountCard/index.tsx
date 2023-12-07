@@ -1,6 +1,6 @@
 import { Trans } from '@lingui/macro';
 
-import { PlatformIcon } from '@/app/(normal)/profile/components/PlatformIcon.js';
+import { PlatformIcon } from '@/components/PlatformIcon.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { Image } from '@/esm/Image.js';
 
