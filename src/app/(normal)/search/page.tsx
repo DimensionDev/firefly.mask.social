@@ -12,9 +12,9 @@ import { SinglePost } from '@/components/Posts/SinglePost.js';
 import { ProfileInList } from '@/components/ProfileInList.js';
 import { SearchType, SocialPlatform } from '@/constants/enum.js';
 import { createIndicator } from '@/maskbook/packages/shared-base/src/index.js';
-import { HubbleSocialMediaProvider } from '@/providers/hubble/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import type { Post, Profile } from '@/providers/types/SocialMedia.js';
+import { WarpcastSocialMediaProvider } from '@/providers/warpcast/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useSearchStore } from '@/store/useSearchStore.js';
 
@@ -34,7 +34,7 @@ export default function Page() {
                     case SocialPlatform.Lens:
                         return LensSocialMediaProvider.searchProfiles(searchText, indicator);
                     case SocialPlatform.Farcaster:
-                        return HubbleSocialMediaProvider.searchProfiles(searchText, indicator);
+                        return WarpcastSocialMediaProvider.searchProfiles(searchText, indicator);
                     default:
                         return;
                 }
@@ -43,7 +43,7 @@ export default function Page() {
                     case SocialPlatform.Lens:
                         return LensSocialMediaProvider.searchPosts(searchText, indicator);
                     case SocialPlatform.Farcaster:
-                        return HubbleSocialMediaProvider.searchPosts(searchText, indicator);
+                        return WarpcastSocialMediaProvider.searchPosts(searchText, indicator);
                     default:
                         return;
                 }

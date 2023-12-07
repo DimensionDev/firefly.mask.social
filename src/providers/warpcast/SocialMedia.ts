@@ -32,6 +32,8 @@ import {
     type FeedResponse,
     type NotificationResponse,
     type ReactionResponse,
+    type SearchCastsResponse,
+    type SearchUsersResponse,
     type SuccessResponse,
     type UserDetailResponse,
     type UsersResponse,
@@ -321,23 +323,23 @@ export class WarpcastSocialMedia implements Provider {
             limit: 25,
             cursor: indicator?.id,
         });
-        const { result, next } = await this.fetchWithSession<UsersResponse>(url, {
+        const { result, next } = await fetchJSON<SearchUsersResponse>(url, {
             method: 'GET',
         });
-        const data = result.map(formatWarpcastUser);
+        const data = result.users.map(formatWarpcastUser);
         return createPageable(data, createIndicator(indicator), createNextIndicator(indicator, next.cursor));
     }
 
-    async searchPosts(q: string, indicator?: PageIndicator): Promise<Pageable<Post>> {
+    async searchPosts(q: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         const url = urlcat(WARPCAST_CLIENT_URL, '/search-casts', {
             q,
             limit: 25,
             cursor: indicator?.id,
         });
-        const { result, next } = await this.fetchWithSession<FeedResponse>(url, {
+        const { result, next } = await fetchJSON<SearchCastsResponse>(url, {
             method: 'GET',
         });
-        const data = result.feed.map(formatWarpcastPostFromFeed);
+        const data = result.casts.map(formatWarpcastPost);
         return createPageable(data, createIndicator(indicator), createNextIndicator(indicator, next.cursor));
     }
 

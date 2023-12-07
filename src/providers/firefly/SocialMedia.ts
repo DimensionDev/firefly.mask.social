@@ -21,6 +21,7 @@ import type {
     CastsResponse,
     CommentsResponse,
     NotificationResponse,
+    SearchCastsResponse,
     UserResponse,
     UsersResponse,
 } from '@/providers/types/Firefly.js';
@@ -364,8 +365,45 @@ export class FireflySocialMedia implements Provider {
         throw new Error(t`Method not implemented.`);
     }
 
-    searchPosts(q: string, indicator?: PageIndicator): Promise<Pageable<Post>> {
-        throw new Error(t`Method not implemented.`);
+    async searchPosts(q: string, indicator?: PageIndicator): Promise<Pageable<Post>> {
+        const url = urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/cast/search', {
+            keyword: q,
+            limit: 25,
+        });
+        const { data: casts } = await fetchJSON<SearchCastsResponse>(url, {
+            method: 'GET',
+        });
+        const data = casts.map((cast) => ({
+            type: (cast.parent_hash ? 'Comment' : 'Post') as PostType,
+            source: SocialPlatform.Farcaster,
+            postId: cast.hash,
+            parentPostId: cast.parent_hash,
+            timestamp: Number(cast.created_at),
+            author: {
+                profileId: cast.author.fid,
+                nickname: cast.author.username,
+                displayName: cast.author.display_name,
+                pfp: cast.author.pfp,
+                followerCount: cast.author.followers,
+                followingCount: cast.author.following,
+                status: ProfileStatus.Active,
+                verified: true,
+                source: SocialPlatform.Farcaster,
+            },
+            metadata: {
+                locale: '',
+                content: {
+                    content: cast.text,
+                },
+            },
+            stats: {
+                comments: Number(cast.replyCount),
+                mirrors: cast.recastCount,
+                quotes: cast.recastCount,
+                reactions: cast.likeCount,
+            },
+        }));
+        return createPageable(data, createIndicator(indicator), createNextIndicator(indicator, ''));
     }
 }
 
