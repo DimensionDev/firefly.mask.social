@@ -1,10 +1,10 @@
 'use client';
 
 import { t, Trans } from '@lingui/macro';
+import { useSuspenseQuery } from '@tanstack/react-query';
 import { useSnackbar } from 'notistack';
 import { useState } from 'react';
 import QRCode from 'react-qr-code';
-import { useAsync } from 'react-use';
 
 import LoadingIcon from '@/assets/loading.svg';
 import { SocialPlatform } from '@/constants/enum.js';
@@ -18,33 +18,36 @@ export function LoginFarcaster() {
     const updateAccounts = useFarcasterStateStore.use.updateAccounts();
     const updateCurrentAccount = useFarcasterStateStore.use.updateCurrentAccount();
 
-    useAsync(async () => {
-        try {
-            const session = await FireflySocialMediaProvider.createSession(setUrl);
-            const profile = await FireflySocialMediaProvider.getProfileById(`${session.profileId}`);
-            const account = {
-                avatar: profile.pfp,
-                name: profile.displayName,
-                profileId: profile.profileId,
-                id: profile.profileId,
-                platform: SocialPlatform.Farcaster,
-            };
-            updateAccounts([account]);
-            updateCurrentAccount(account);
+    useSuspenseQuery<void>({
+        queryKey: ['farcaster', 'login'],
+        queryFn: async () => {
+            try {
+                const session = await FireflySocialMediaProvider.createSession(setUrl);
+                const profile = await FireflySocialMediaProvider.getProfileById(`${session.profileId}`);
+                const account = {
+                    avatar: profile.pfp,
+                    name: profile.displayName,
+                    profileId: profile.profileId,
+                    id: profile.profileId,
+                    platform: SocialPlatform.Farcaster,
+                };
+                updateAccounts([account]);
+                updateCurrentAccount(account);
 
-            LoginModalRef.close();
+                LoginModalRef.close();
 
-            enqueueSnackbar(t`Login successful`, {
-                variant: 'success',
-            });
-        } catch (error) {
-            LoginModalRef.close();
+                enqueueSnackbar(t`Your Farcaster account is now connected`, {
+                    variant: 'success',
+                });
+            } catch (error) {
+                LoginModalRef.close();
 
-            enqueueSnackbar(error instanceof Error ? error.message : t`Failed to login`, {
-                variant: 'error',
-            });
-        }
-    }, []);
+                enqueueSnackbar(error instanceof Error ? error.message : t`Failed to login`, {
+                    variant: 'error',
+                });
+            }
+        },
+    });
 
     return (
         <div

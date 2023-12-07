@@ -40,10 +40,10 @@ export function LoginLens({ back }: LoginLensProps) {
     const { data: accounts } = useSuspenseQuery<SocialMediaAccount[]>({
         queryKey: ['lens', 'accounts', account.address],
         queryFn: async () => {
-            if (!account.address || !isValidAddress(account.address)) return EMPTY_LIST;
-            const profiles = await LensSocialMediaProvider.getProfilesByAddress(account.address);
+            if (!isValidAddress(account.address)) return EMPTY_LIST;
 
-            const result = profiles.map<SocialMediaAccount>((profile) => ({
+            const profiles = await LensSocialMediaProvider.getProfilesByAddress(account.address);
+            const accounts = profiles.map<SocialMediaAccount>((profile) => ({
                 name: profile.nickname,
                 avatar: profile.pfp,
                 profileId: profile.displayName,
@@ -53,16 +53,15 @@ export function LoginLens({ back }: LoginLensProps) {
                 platform: SocialPlatform.Lens,
             }));
 
-            if (!result.length) {
+            if (!accounts.length) {
                 enqueueSnackbar(t`No Lens profile found. Please change another wallet`, { variant: 'error' });
                 LoginModalRef.close();
                 return EMPTY_LIST;
             }
 
             // update current select and global lens accounts
-            updateAccounts(result);
-
-            return result;
+            updateAccounts(accounts);
+            return accounts;
         },
     });
 
@@ -70,19 +69,31 @@ export function LoginLens({ back }: LoginLensProps) {
 
     const [, login] = useAsyncFn(
         async (signless: boolean) => {
-            if (!accounts || !current) return;
-            setLoading(true);
-            await LensSocialMediaProvider.createSessionForProfileId(current.id);
-            if (!current.signless && signless) {
-                await LensSocialMediaProvider.updateSignless(true);
+            if (!accounts?.length || !current) {
+                enqueueSnackbar(t`No Lens profile found. Please change another wallet`, { variant: 'error' });
+                return;
             }
-            if (current.signless && !signless) {
-                await LensSocialMediaProvider.updateSignless(false);
+
+            try {
+                setLoading(true);
+
+                await LensSocialMediaProvider.createSessionForProfileId(current.id);
+                if (!current.signless && signless) {
+                    await LensSocialMediaProvider.updateSignless(true);
+                }
+                if (current.signless && !signless) {
+                    await LensSocialMediaProvider.updateSignless(false);
+                }
+
+                setLoading(false);
+                updateCurrentAccount(current);
+                enqueueSnackbar(t`Your Lens account is now connected`, { variant: 'success' });
+                LoginModalRef.close();
+            } catch (error) {
+                setLoading(false);
+                enqueueSnackbar(error instanceof Error ? error.message : t`Failed to login`, { variant: 'error' });
+                LoginModalRef.close();
             }
-            setLoading(false);
-            updateCurrentAccount(current);
-            enqueueSnackbar(t`Your Lens account is now connected`, { variant: 'success' });
-            LoginModalRef.close();
         },
         [accounts, current],
     );
