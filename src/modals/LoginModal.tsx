@@ -26,14 +26,12 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps>>(
     const [current, setCurrent] = useState<SocialPlatform>();
 
     const { openConnectModal, connectModalOpen } = useConnectModal();
-    const { openChainModal, chainModalOpen } = useChainModal();
+    const { chainModalOpen } = useChainModal();
     const account = useAccount();
     const { chain } = useNetwork();
 
     const previousAccount = usePrevious(account);
-    const previousChain = usePrevious(chain);
     const previousConnectModalOpen = usePrevious(connectModalOpen);
-    const previousChainModalOpen = usePrevious(chainModalOpen);
 
     const [open, dispatch] = useSingletonModal(ref, {
         onOpen: (props) => {
