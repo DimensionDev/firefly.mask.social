@@ -2,7 +2,7 @@
 
 import { useAsync } from 'react-use';
 
-export function CustomElements() {
+export default function CustomElements() {
     useAsync(async () => {
         // setup mask runtime
         await import('@/mask/setup/locale.js');
