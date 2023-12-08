@@ -2,13 +2,12 @@
 
 import { Dialog, Transition } from '@headlessui/react';
 import { t } from '@lingui/macro';
+import { delay, getEnumAsArray } from '@masknet/kit';
 import type { SingletonModalRefCreator } from '@masknet/shared-base';
 import { useSingletonModal } from '@masknet/shared-base-ui';
-import { useChainModal, useConnectModal } from '@rainbow-me/rainbowkit';
-import { forwardRef, Fragment, Suspense, useMemo, useRef, useState } from 'react';
-import { usePrevious, useUpdateEffect } from 'react-use';
+import { useSnackbar } from 'notistack';
+import { forwardRef, Fragment, Suspense, useState } from 'react';
 import { polygon } from 'viem/chains';
-import { useAccount, useNetwork } from 'wagmi';
 
 import CloseIcon from '@/assets/close.svg';
 import LeftArrowIcon from '@/assets/left-arrow.svg';
@@ -17,51 +16,27 @@ import { LoginButton } from '@/components/Login/LoginButton.js';
 import { LoginFarcaster } from '@/components/Login/LoginFarcaster.js';
 import { LoginLens } from '@/components/Login/LoginLens.js';
 import { SocialPlatform } from '@/constants/enum.js';
+import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 
 export interface LoginModalProps {
     current?: SocialPlatform;
 }
 
-export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps>>(function LoginModal(_, ref) {
-    const isLensConnecting = useRef(false);
+export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | void>>(function LoginModal(_, ref) {
     const [current, setCurrent] = useState<SocialPlatform>();
 
-    const { openConnectModal, connectModalOpen } = useConnectModal();
-    const { openChainModal, chainModalOpen } = useChainModal();
-    const account = useAccount();
-    const { chain } = useNetwork();
-
-    const previousAccount = usePrevious(account);
-    const previousChain = usePrevious(chain);
-    const previousConnectModalOpen = usePrevious(connectModalOpen);
-    const previousChainModalOpen = usePrevious(chainModalOpen);
+    const { enqueueSnackbar } = useSnackbar();
 
     const [open, dispatch] = useSingletonModal(ref, {
         onOpen: (props) => {
             setCurrent(props?.current);
         },
-        onClose: () => {
+        onClose: async () => {
+            // setCurrent will trigger a re-render, so we need to delay the setCurrent(undefined) to avoid the re-render
+            await delay(500);
             setCurrent(undefined);
         },
     });
-
-    const title = useMemo(() => {
-        if (current === SocialPlatform.Lens) return t`Select Account`;
-        else if (current === SocialPlatform.Farcaster) return t`Log in to Farcaster account`;
-        return t`Login`;
-    }, [current]);
-
-    useUpdateEffect(() => {
-        if (isLensConnecting.current) return;
-        // When the wallet is connected or the chain switch is successful, it automatically jumps to the next step
-        if (
-            (account.isConnected && !previousAccount?.isConnected && previousConnectModalOpen) ||
-            (chain?.id === polygon.id && previousChain?.id !== polygon.id && previousChainModalOpen)
-        ) {
-            setCurrent(SocialPlatform.Lens);
-            isLensConnecting.current = false;
-        }
-    }, [account, chain]);
 
     return (
         <Transition appear show={open} as={Fragment}>
@@ -75,6 +50,7 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps>>(
                     leaveFrom="opacity-100"
                     leaveTo="opacity-0"
                 >
+                    {/* backdrop */}
                     <div className="fixed inset-0 bg-black/25" />
                 </Transition.Child>
 
@@ -108,7 +84,11 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps>>(
                                         )}
                                     </button>
                                     <div className="shrink grow basis-0 text-center text-lg font-bold leading-snug text-main">
-                                        {title}
+                                        {current === SocialPlatform.Lens
+                                            ? t`Select Account`
+                                            : current === SocialPlatform.Farcaster
+                                              ? t`Log in to Farcaster account`
+                                              : t`Login`}
                                     </div>
                                     <div className="relative h-[24px] w-[24px]" />
                                 </div>
@@ -118,26 +98,30 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps>>(
                                         style={{ boxShadow: '0px 4px 30px 0px rgba(0, 0, 0, 0.10)' }}
                                     >
                                         <div className="flex w-full flex-col gap-[16px] p-[16px] ">
-                                            <LoginButton
-                                                platform={SocialPlatform.Lens}
-                                                onClick={() => {
-                                                    if (!account.isConnected) {
-                                                        openConnectModal();
-                                                        isLensConnecting.current = true;
-                                                    } else if (chain?.id !== polygon.id) {
-                                                        openChainModal();
-                                                        isLensConnecting.current = true;
-                                                    } else {
-                                                        setCurrent(SocialPlatform.Lens);
-                                                    }
-                                                }}
-                                            />
-                                            <LoginButton
-                                                platform={SocialPlatform.Farcaster}
-                                                onClick={() => {
-                                                    setCurrent(SocialPlatform.Farcaster);
-                                                }}
-                                            />
+                                            {getEnumAsArray(SocialPlatform).map(({ value: platform }) => (
+                                                <LoginButton
+                                                    key={platform}
+                                                    platform={platform}
+                                                    onClick={async () => {
+                                                        if (platform === SocialPlatform.Lens) {
+                                                            try {
+                                                                await getWalletClientRequired({
+                                                                    chainId: polygon.id,
+                                                                });
+                                                            } catch (error) {
+                                                                enqueueSnackbar(
+                                                                    error instanceof Error
+                                                                        ? error.message
+                                                                        : t`Failed to login`,
+                                                                    { variant: 'error' },
+                                                                );
+                                                                return;
+                                                            }
+                                                        }
+                                                        setCurrent(platform);
+                                                    }}
+                                                />
+                                            ))}
                                         </div>
                                     </div>
                                 ) : (
@@ -148,9 +132,7 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps>>(
                                             </div>
                                         }
                                     >
-                                        {current === SocialPlatform.Lens ? (
-                                            <LoginLens back={() => setCurrent(undefined)} />
-                                        ) : null}
+                                        {current === SocialPlatform.Lens ? <LoginLens /> : null}
                                         {current === SocialPlatform.Farcaster ? <LoginFarcaster /> : null}
                                     </Suspense>
                                 )}

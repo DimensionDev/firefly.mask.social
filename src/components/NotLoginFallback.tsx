@@ -37,7 +37,7 @@ export const NotLoginFallback = memo<NotLoginFallbackProps>(function LoginFallba
                         : 'text-farcasterPrimary ring-farcasterPrimary hover:bg-[#9250FF]/20 hover:shadow-[0_0_16px_0_rgba(101,119,134,0.20)]',
                 )}
                 onClick={() => {
-                    LoginModalRef.open({});
+                    LoginModalRef.open();
                 }}
             >
                 {t`Connect to ${platform}`}

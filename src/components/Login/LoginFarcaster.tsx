@@ -1,13 +1,13 @@
 'use client';
 
 import { t, Trans } from '@lingui/macro';
+import { useSuspenseQuery } from '@tanstack/react-query';
 import { useSnackbar } from 'notistack';
 import { useState } from 'react';
 import QRCode from 'react-qr-code';
-import { useAsync } from 'react-use';
 
 import LoadingIcon from '@/assets/loading.svg';
-import { SocialPlatform } from '@/constants/enum.js';
+import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { LoginModalRef } from '@/modals/controls.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
@@ -15,36 +15,36 @@ import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
 export function LoginFarcaster() {
     const [url, setUrl] = useState('');
     const { enqueueSnackbar } = useSnackbar();
-    const updateAccounts = useFarcasterStateStore.use.updateAccounts();
-    const updateCurrentAccount = useFarcasterStateStore.use.updateCurrentAccount();
+    const updateProfiles = useFarcasterStateStore.use.updateProfiles();
+    const updateCurrentProfile = useFarcasterStateStore.use.updateCurrentProfile();
 
-    useAsync(async () => {
-        try {
-            const session = await FireflySocialMediaProvider.createSession(setUrl);
-            const profile = await FireflySocialMediaProvider.getProfileById(`${session.profileId}`);
-            const account = {
-                avatar: profile.pfp,
-                name: profile.displayName,
-                profileId: profile.profileId,
-                id: profile.profileId,
-                platform: SocialPlatform.Farcaster,
-            };
-            updateAccounts([account]);
-            updateCurrentAccount(account);
+    useSuspenseQuery<string>({
+        queryKey: ['farcaster', 'login'],
+        queryFn: async () => {
+            try {
+                // required to connect a wallet
+                await getWalletClientRequired();
 
-            LoginModalRef.close();
+                const session = await FireflySocialMediaProvider.createSessionByScanningQRCode(setUrl);
+                const profile = await FireflySocialMediaProvider.getProfileById(`${session.profileId}`);
 
-            enqueueSnackbar(t`Login successful`, {
-                variant: 'success',
-            });
-        } catch (error) {
-            LoginModalRef.close();
+                updateProfiles([profile]);
+                updateCurrentProfile(profile);
 
-            enqueueSnackbar(error instanceof Error ? error.message : t`Failed to login`, {
-                variant: 'error',
-            });
-        }
-    }, []);
+                LoginModalRef.close();
+
+                enqueueSnackbar(t`Your Farcaster account is now connected`, {
+                    variant: 'success',
+                });
+            } catch (error) {
+                enqueueSnackbar(error instanceof Error ? error.message : t`Failed to login`, {
+                    variant: 'error',
+                });
+            }
+
+            return 'success';
+        },
+    });
 
     return (
         <div

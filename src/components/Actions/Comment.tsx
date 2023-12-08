@@ -1,14 +1,14 @@
 import { t } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import { useSnackbar } from 'notistack';
-import { memo, useCallback, useMemo, useState } from 'react';
+import { memo, useCallback, useMemo } from 'react';
 
 import ReplyIcon from '@/assets/reply.svg';
 import { Tooltip } from '@/components/Tooltip.js';
 import type { SocialPlatform } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { humanize, nFormatter } from '@/helpers/formatCommentCounts.js';
-import { useLogin } from '@/hooks/useLogin.js';
+import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { ComposeModalRef, LoginModalRef } from '@/modals/controls.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
@@ -29,9 +29,7 @@ export const Comment = memo<CommentProps>(function Comment({
     canComment,
     post,
 }) {
-    const [composeOpened, setComposeOpened] = useState(false);
-
-    const isLogin = useLogin(source);
+    const isLogin = useIsLogin(source);
 
     const { enqueueSnackbar } = useSnackbar();
     const tooltip = useMemo(() => {
@@ -43,7 +41,7 @@ export const Comment = memo<CommentProps>(function Comment({
 
     const handleClick = useCallback(() => {
         if (!isLogin) {
-            LoginModalRef.open({});
+            LoginModalRef.open();
             return;
         }
         if (canComment) {

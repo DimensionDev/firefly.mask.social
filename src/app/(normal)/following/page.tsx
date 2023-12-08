@@ -1,5 +1,6 @@
 'use client';
 
+import { createIndicator } from '@masknet/shared-base';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { useMemo } from 'react';
 
@@ -7,8 +8,7 @@ import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { SinglePost } from '@/components/Posts/SinglePost.js';
 import { SocialPlatform } from '@/constants/enum.js';
-import { useLogin } from '@/hooks/useLogin.js';
-import { createIndicator } from '@/maskbook/packages/shared-base/src/index.js';
+import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { WarpcastSocialMediaProvider } from '@/providers/warpcast/SocialMedia.js';
 import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
@@ -17,31 +17,31 @@ import { useLensStateStore } from '@/store/useLensStore.js';
 
 export default function Following() {
     const currentSocialPlatform = useGlobalState.use.currentSocialPlatform();
-    const isLogin = useLogin(currentSocialPlatform);
-    const currentLensAccount = useLensStateStore.use.currentAccount();
-    const currentFarcasterAccount = useFarcasterStateStore.use.currentAccount();
+    const isLogin = useIsLogin(currentSocialPlatform);
+    const currentLensProfile = useLensStateStore.use.currentProfile();
+    const currentFarcasterProfile = useFarcasterStateStore.use.currentProfile();
 
     const { data } = useSuspenseInfiniteQuery({
         queryKey: [
             'following',
             currentSocialPlatform,
             isLogin,
-            currentLensAccount.profileId,
-            currentFarcasterAccount.profileId,
+            currentLensProfile?.profileId,
+            currentFarcasterProfile?.profileId,
         ],
         queryFn: async ({ pageParam }) => {
             if (!isLogin) return;
             switch (currentSocialPlatform) {
                 case SocialPlatform.Lens:
-                    if (!currentLensAccount.profileId) return;
+                    if (!currentLensProfile?.profileId) return;
                     return LensSocialMediaProvider.discoverPostsById(
-                        currentLensAccount.id,
+                        currentLensProfile.profileId,
                         createIndicator(undefined, pageParam),
                     );
                 case SocialPlatform.Farcaster:
-                    if (!currentFarcasterAccount.profileId) return;
+                    if (!currentFarcasterProfile?.profileId) return;
                     return WarpcastSocialMediaProvider.discoverPostsById(
-                        currentFarcasterAccount.id,
+                        currentFarcasterProfile.profileId,
                         createIndicator(undefined, pageParam),
                     );
                 default:

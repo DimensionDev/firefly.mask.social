@@ -88,9 +88,6 @@ msgstr ""
 msgid "Copied"
 msgstr ""
 
-msgid "Login successful"
-msgstr ""
-
 msgid "Mirror and Quotes"
 msgstr ""
 
@@ -104,6 +101,9 @@ msgid "{0, plural, one {<0>{firstReactorName}</0>} other {<1>{firstReactorName}<
 msgstr ""
 
 msgid "Liked"
+msgstr ""
+
+msgid "Your Farcaster account is now connected"
 msgstr ""
 
 msgid "Failed to unlike. {0}"
@@ -283,6 +283,9 @@ msgstr ""
 msgid "Select failed: More than 2 images"
 msgstr ""
 
+msgid "Please switch to the {0} network in your wallet ({1})}"
+msgstr ""
+
 msgid "Failed to post on Lens"
 msgstr ""
 
@@ -334,6 +337,9 @@ msgstr ""
 msgid "Notifications"
 msgstr ""
 
+msgid "No Lens profile found. Please change to another wallet."
+msgstr ""
+
 msgid "Connect"
 msgstr ""
 
@@ -347,9 +353,6 @@ msgid "Everyone can reply"
 msgstr ""
 
 msgid "Missing client."
-msgstr ""
-
-msgid "No Lens profile found. Please change another wallet"
 msgstr ""
 
 msgid "Quote on Lens"
@@ -407,9 +410,6 @@ msgid "No matching users"
 msgstr ""
 
 msgid "Recasted"
-msgstr ""
-
-msgid "No client found"
 msgstr ""
 
 msgid "Profile"

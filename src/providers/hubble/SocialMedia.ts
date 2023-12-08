@@ -21,6 +21,7 @@ import {
 import type { UserResponse } from '@/providers/types/Firefly.js';
 import { type Post, type Profile, ProfileStatus, type Provider, Type } from '@/providers/types/SocialMedia.js';
 import { ReactionType as ReactionTypeCustom } from '@/providers/types/SocialMedia.js';
+import type { WarpcastSession } from '@/providers/warpcast/Session.js';
 import { WarpcastSocialMediaProvider } from '@/providers/warpcast/SocialMedia.js';
 
 ed.etc.sha512Sync = (...m: any) => sha512(ed.etc.concatBytes(...m));
@@ -31,8 +32,12 @@ export class HubbleSocialMedia implements Provider {
         return Type.Firefly;
     }
 
-    async createSession(setUrlOrSignal?: AbortSignal | ((url: string) => void), signal?: AbortSignal) {
-        return WarpcastSocialMediaProvider.createSession(setUrlOrSignal, signal);
+    async createSession(signal?: AbortSignal): Promise<WarpcastSession> {
+        throw new Error('Please use createSessionByScanningQRCode() instead.');
+    }
+
+    async createSessionByScanningQRCode(setUrl: (url: string) => void, signal?: AbortSignal) {
+        return WarpcastSocialMediaProvider.createSessionByScanningQRCode(setUrl, signal);
     }
 
     async resumeSession() {

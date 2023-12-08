@@ -53,7 +53,6 @@ export class SessionFactory {
                         session.createdAt,
                         session.expiresAt,
                         session.profile!,
-                        session.client!,
                     );
                 case Type.Warpcast:
                     return new WarpcastSession(

@@ -7,84 +7,64 @@ import { first } from 'lodash-es';
 import { useSnackbar } from 'notistack';
 import { useEffect, useMemo, useState } from 'react';
 import { useAsyncFn } from 'react-use';
-import { useAccount, useDisconnect } from 'wagmi';
+import { useAccount } from 'wagmi';
 
 import LoadingIcon from '@/assets/loading.svg';
 import WalletIcon from '@/assets/wallet.svg';
 import { AccountCard } from '@/components/Login/AccountCard.js';
-import { SocialPlatform } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
-import { isValidAddress } from '@/maskbook/packages/web3-shared/evm/src/index.js';
 import { LoginModalRef } from '@/modals/controls.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
+import type { Profile } from '@/providers/types/SocialMedia.js';
 import { useLensStateStore } from '@/store/useLensStore.js';
-import type { SocialMediaAccount } from '@/types/index.js';
 
-interface LoginLensProps {
-    back: () => void;
-}
+interface LoginLensProps {}
 
-export function LoginLens({ back }: LoginLensProps) {
-    const [selected, setSelected] = useState<SocialMediaAccount>();
+export function LoginLens(props: LoginLensProps) {
+    const [selected, setSelected] = useState<Profile>();
     const [signless, setSignless] = useState(true);
-    const [loading, setLoading] = useState(false);
 
     const account = useAccount();
-    const { disconnect } = useDisconnect();
 
-    const updateAccounts = useLensStateStore.use.updateAccounts();
-    const updateCurrentAccount = useLensStateStore.use.updateCurrentAccount();
+    const updateProfiles = useLensStateStore.use.updateProfiles();
+    const updateCurrentProfile = useLensStateStore.use.updateCurrentProfile();
 
     const { enqueueSnackbar } = useSnackbar();
 
-    const { data: accounts } = useSuspenseQuery<SocialMediaAccount[]>({
-        queryKey: ['lens', 'accounts', account.address],
+    const { data: profiles } = useSuspenseQuery<Profile[]>({
+        queryKey: ['lens', 'profiles', account.address],
         queryFn: async () => {
-            if (!account.address || !isValidAddress(account.address)) return EMPTY_LIST;
-            const profiles = await LensSocialMediaProvider.getProfilesByAddress(account.address);
-
-            const result = profiles.map<SocialMediaAccount>((profile) => ({
-                name: profile.nickname,
-                avatar: profile.pfp,
-                profileId: profile.displayName,
-                id: profile.profileId,
-                signless: profile.signless,
-                handle: profile.handle,
-                platform: SocialPlatform.Lens,
-            }));
-
-            if (!result.length) {
-                enqueueSnackbar(t`No Lens profile found. Please change another wallet`, { variant: 'error' });
-                LoginModalRef.close();
-                return EMPTY_LIST;
-            }
-
-            // update current select and global lens accounts
-            updateAccounts(result);
-
-            return result;
+            if (!account.address) return EMPTY_LIST;
+            return LensSocialMediaProvider.getProfilesByAddress(account.address);
         },
     });
 
-    const current = useMemo(() => selected ?? first(accounts), [selected, accounts]);
+    const current = useMemo(() => selected ?? first(profiles), [selected, profiles]);
 
-    const [, login] = useAsyncFn(
+    const [{ loading }, login] = useAsyncFn(
         async (signless: boolean) => {
-            if (!accounts || !current) return;
-            setLoading(true);
-            await LensSocialMediaProvider.createSessionForProfileId(current.id);
-            if (!current.signless && signless) {
-                await LensSocialMediaProvider.updateSignless(true);
+            if (!profiles?.length || !current) return;
+
+            try {
+                const session = await LensSocialMediaProvider.createSessionForProfileId(current.profileId);
+
+                if (!current.signless && signless) {
+                    await LensSocialMediaProvider.updateSignless(true);
+                }
+                if (current.signless && !signless) {
+                    await LensSocialMediaProvider.updateSignless(false);
+                }
+
+                updateProfiles(profiles);
+                updateCurrentProfile(current);
+                enqueueSnackbar(t`Your Lens account is now connected`, { variant: 'success' });
+                LoginModalRef.close();
+            } catch (error) {
+                enqueueSnackbar(error instanceof Error ? error.message : t`Failed to login`, { variant: 'error' });
+                LoginModalRef.close();
             }
-            if (current.signless && !signless) {
-                await LensSocialMediaProvider.updateSignless(false);
-            }
-            setLoading(false);
-            updateCurrentAccount(current);
-            enqueueSnackbar(t`Your Lens account is now connected`, { variant: 'success' });
-            LoginModalRef.close();
         },
-        [accounts, current],
+        [profiles, current],
     );
 
     useEffect(() => {
@@ -98,33 +78,44 @@ export function LoginLens({ back }: LoginLensProps) {
             style={{ boxShadow: '0px 4px 30px 0px rgba(0, 0, 0, 0.10)' }}
         >
             <div className="flex min-h-[372px] w-full flex-col gap-[16px] p-[16px]">
-                <div className="flex w-full flex-col gap-[16px] rounded-[8px] bg-lightBg px-[16px] py-[24px]">
-                    <div className="w-full text-left text-[14px] leading-[16px] text-lightSecond">
-                        <Trans>Sign the transaction to verify you are the owner of the selected profile</Trans>
+                {profiles?.length ? (
+                    <>
+                        <div className="flex w-full flex-col gap-[16px] rounded-[8px] bg-lightBg px-[16px] py-[24px]">
+                            <div className="w-full text-left text-[14px] leading-[16px] text-lightSecond">
+                                <Trans>Sign the transaction to verify you are the owner of the selected profile</Trans>
+                            </div>
+                            {profiles?.map((profile) => (
+                                <AccountCard
+                                    key={profile.profileId}
+                                    profile={profile}
+                                    isSelected={current?.profileId === profile.profileId}
+                                    onSelect={setSelected}
+                                />
+                            ))}
+                        </div>
+                        <div className="flex w-full flex-col gap-[8px] rounded-[8px] bg-lightBg px-[16px] py-[24px]">
+                            <div className="flex items-center justify-between">
+                                <span className="text-[14px] font-bold leading-[18px] text-lightMain">
+                                    <Trans>Delegate Signing (Recommend)</Trans>
+                                </span>
+                                <Switch checked={signless} onChange={(e) => setSignless(e.target.checked)} />
+                            </div>
+                            <div className="w-full text-left text-[14px] leading-[16px] text-lightSecond">
+                                <Trans>
+                                    Allow Lens Manager to perform actions such as posting, liking, and commenting
+                                    without the need to sign each transaction
+                                </Trans>
+                            </div>
+                        </div>
+                    </>
+                ) : (
+                    <div className="flex w-full flex-col gap-[8px] rounded-[8px] bg-lightBg px-[16px] py-[24px]">
+                        <div className="w-full text-left text-[14px] leading-[16px] text-lightSecond">
+                            <Trans>No Lens profile found. Please change to another wallet.</Trans>
+                        </div>
                     </div>
-                    {accounts?.map((account) => (
-                        <AccountCard
-                            key={account.id}
-                            {...account}
-                            isCurrent={current?.id === account.id}
-                            setAccount={setSelected}
-                        />
-                    ))}
-                </div>
-                <div className="flex w-full flex-col gap-[8px] rounded-[8px] bg-lightBg px-[16px] py-[24px]">
-                    <div className="flex items-center justify-between">
-                        <span className="text-[14px] font-bold leading-[18px] text-lightMain">
-                            <Trans>Delegate Signing (Recommend)</Trans>
-                        </span>
-                        <Switch checked={signless} onChange={(e) => setSignless(e.target.checked)} />
-                    </div>
-                    <div className="w-full text-left text-[14px] leading-[16px] text-lightSecond">
-                        <Trans>
-                            Allow Lens Manager to perform actions such as posting, liking, and commenting without the
-                            need to sign each transaction
-                        </Trans>
-                    </div>
-                </div>
+                )}
+
                 <div
                     className=" absolute bottom-0 left-0 flex w-full items-center justify-between rounded-b-[8px] bg-lightBottom80 p-[16px]"
                     style={{
@@ -135,8 +126,7 @@ export function LoginLens({ back }: LoginLensProps) {
                     <button
                         className="flex gap-[8px] py-[11px]"
                         onClick={() => {
-                            disconnect();
-                            back();
+                            LoginModalRef.close();
                         }}
                     >
                         <WalletIcon width={20} height={20} />
@@ -146,7 +136,7 @@ export function LoginLens({ back }: LoginLensProps) {
                     </button>
                     <button
                         disabled={loading}
-                        className="flex w-[120px] items-center justify-center gap-[8px] rounded-[99px] bg-lightMain py-[11px] text-primaryBottom"
+                        className=" flex w-[120px] items-center justify-center gap-[8px] rounded-[99px] bg-lightMain py-[11px] font-bold text-primaryBottom"
                         onClick={() => login(signless)}
                     >
                         {loading ? (
