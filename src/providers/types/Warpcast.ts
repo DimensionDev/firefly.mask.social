@@ -31,7 +31,9 @@ export interface FeedResponse extends ErrorResponse {
 }
 
 export interface UserResponse extends ErrorResponse {
-    result: Profile;
+    result: {
+        user: Profile;
+    };
 }
 
 export interface UserDetailResponse extends ErrorResponse {

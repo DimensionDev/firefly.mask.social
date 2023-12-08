@@ -42,7 +42,7 @@ export async function createSessionByCustodyWallet(client: Exclude<GetWalletClie
     if (errorMessage) throw new Error(errorMessage);
 
     return new WarpcastSession(
-        userResponse.result.fid.toString(),
+        userResponse.result.user.fid.toString(),
         response.result.token.secret,
         payload.params.timestamp,
         payload.params.expiresAt,
