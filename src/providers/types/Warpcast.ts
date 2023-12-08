@@ -1,6 +1,7 @@
 export interface ErrorResponse {
-    erorrs: Array<{
+    errors: Array<{
         message: string;
+        reason?: string;
     }>;
 }
 

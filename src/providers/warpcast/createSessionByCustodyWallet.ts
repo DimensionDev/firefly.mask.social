@@ -31,14 +31,12 @@ export async function createSessionByCustodyWallet(client: Exclude<GetWalletClie
     });
     if (response.errors?.length) throw new Error(response.errors[0].message);
 
-    const userResponse = await fetchJSON<UserResponse>(
-        urlcat(WARPCAST_ROOT_URL, '/me', {
-            method: 'GET',
-            headers: {
-                Authorization: `Bearer ${response.result.token.secret}`,
-            },
-        }),
-    );
+    const userResponse = await fetchJSON<UserResponse>(urlcat(WARPCAST_ROOT_URL, '/me'), {
+        method: 'GET',
+        headers: {
+            Authorization: `Bearer ${response.result.token.secret}`,
+        },
+    });
 
     const errorMessage = getWarpcastErrorMessage(userResponse);
     if (errorMessage) throw new Error(errorMessage);
@@ -48,6 +46,6 @@ export async function createSessionByCustodyWallet(client: Exclude<GetWalletClie
         response.result.token.secret,
         payload.params.timestamp,
         payload.params.expiresAt,
-        response.result.token.secret,
+        '',
     );
 }
