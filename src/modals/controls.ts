@@ -7,6 +7,7 @@ import type { ProfileStatusModalProps } from '@/modals/ProfileStatusModal.js';
 
 import type { PreviewImagesModalOpenProps } from './PreviewImagesModal.js';
 
+export const AccountModalRef = new SingletonModal();
 export const ConnectWalletModalRef = new SingletonModal();
 export const ChainModalRef = new SingletonModal();
 export const LoginModalRef = new SingletonModal<LoginModalProps | void>();

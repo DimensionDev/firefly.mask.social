@@ -14,7 +14,7 @@ import LoadingIcon from '@/assets/loading.svg';
 import WalletIcon from '@/assets/wallet.svg';
 import { AccountCard } from '@/components/Login/AccountCard.js';
 import { EMPTY_LIST } from '@/constants/index.js';
-import { ChainModalRef, LoginModalRef } from '@/modals/controls.js';
+import { ConnectWalletModalRef, LoginModalRef } from '@/modals/controls.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { useLensStateStore } from '@/store/useLensStore.js';
@@ -129,7 +129,7 @@ export function LoginLens(props: LoginLensProps) {
                         onClick={async () => {
                             LoginModalRef.close();
                             await delay(300);
-                            ChainModalRef.open();
+                            ConnectWalletModalRef.open();
                         }}
                     >
                         <WalletIcon width={20} height={20} />

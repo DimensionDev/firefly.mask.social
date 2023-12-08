@@ -18,7 +18,7 @@ export interface LogoutModalProps {
     platform?: SocialPlatform;
 }
 
-export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps>>(function LogoutModal(_, ref) {
+export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps | void>>(function LogoutModal(_, ref) {
     const [platform, setPlatform] = useState<SocialPlatform>();
 
     const lensProfiles = useLensStateStore.use.profiles();
@@ -28,7 +28,7 @@ export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps>
 
     const [open, dispatch] = useSingletonModal(ref, {
         onOpen(props) {
-            setPlatform(props.platform);
+            setPlatform(props?.platform);
         },
     });
 
