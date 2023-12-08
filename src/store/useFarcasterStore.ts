@@ -5,6 +5,7 @@ import { immer } from 'zustand/middleware/immer';
 import { warpcastClient } from '@/configs/warpcastClient.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { createSelectors } from '@/helpers/createSelector.js';
+import { createSessionStorage } from '@/helpers/createSessionStorage.js';
 import type { Session } from '@/providers/types/Session.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import type { WarpcastSession } from '@/providers/warpcast/Session.js';
@@ -40,11 +41,16 @@ const useFarcasterStateBase = create<FarcasterState, [['zustand/persist', unknow
         })),
         {
             name: 'farcaster-state',
-            partialize: (state) => ({ profiles: state.profiles, currentProfile: state.currentProfile }),
+            storage: createSessionStorage(),
+            partialize: (state) => ({
+                profiles: state.profiles,
+                currentProfile: state.currentProfile,
+                currentProfileSession: state.currentProfileSession,
+            }),
             onRehydrateStorage: () => async (state) => {
                 const session = state?.currentProfileSession;
 
-                if (session && session.expiresAt > Date.now()) {
+                if (session && session.expiresAt < Date.now()) {
                     console.warn('[farcaster store] session expired');
                     state?.clearCurrentProfile();
                     return;

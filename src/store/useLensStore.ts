@@ -2,9 +2,10 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
 
-import { lensClient } from '@/configs/lensClient.js';
+import { createLensClient } from '@/configs/lensClient.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { createSelectors } from '@/helpers/createSelector.js';
+import { createSessionStorage } from '@/helpers/createSessionStorage.js';
 import type { Session } from '@/providers/types/Session.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
@@ -39,11 +40,15 @@ const useLensStateBase = create<LensState, [['zustand/persist', unknown], ['zust
         })),
         {
             name: 'lens-state',
+            storage: createSessionStorage(),
             partialize: (state) => ({
                 profiles: state.profiles,
                 currentProfile: state.currentProfile,
+                currentProfileSession: state.currentProfileSession,
             }),
             onRehydrateStorage: () => async (state) => {
+                const lensClient = createLensClient();
+
                 const profileId = state?.currentProfile?.profileId;
                 const clientProfileId = await lensClient.authentication.getProfileId();
 

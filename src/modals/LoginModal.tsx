@@ -19,22 +19,22 @@ import { SocialPlatform } from '@/constants/enum.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 
 export interface LoginModalProps {
-    current?: SocialPlatform;
+    platform?: SocialPlatform;
 }
 
 export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | void>>(function LoginModal(_, ref) {
-    const [current, setCurrent] = useState<SocialPlatform>();
+    const [platform, setPlatform] = useState<SocialPlatform>();
 
     const { enqueueSnackbar } = useSnackbar();
 
     const [open, dispatch] = useSingletonModal(ref, {
         onOpen: (props) => {
-            setCurrent(props?.current);
+            setPlatform(props?.platform);
         },
         onClose: async () => {
             // setCurrent will trigger a re-render, so we need to delay the setCurrent(undefined) to avoid the re-render
             await delay(500);
-            setCurrent(undefined);
+            setPlatform(undefined);
         },
     });
 
@@ -72,27 +72,27 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | 
                                 >
                                     <button
                                         onClick={() => {
-                                            current === SocialPlatform.Farcaster
-                                                ? setCurrent(undefined)
+                                            platform === SocialPlatform.Farcaster
+                                                ? setPlatform(undefined)
                                                 : dispatch?.close();
                                         }}
                                     >
-                                        {current === SocialPlatform.Farcaster ? (
+                                        {platform === SocialPlatform.Farcaster ? (
                                             <LeftArrowIcon width={24} height={24} />
                                         ) : (
                                             <CloseIcon width={24} height={24} />
                                         )}
                                     </button>
                                     <div className="shrink grow basis-0 text-center text-lg font-bold leading-snug text-main">
-                                        {current === SocialPlatform.Lens
+                                        {platform === SocialPlatform.Lens
                                             ? t`Select Account`
-                                            : current === SocialPlatform.Farcaster
+                                            : platform === SocialPlatform.Farcaster
                                               ? t`Log in to Farcaster account`
                                               : t`Login`}
                                     </div>
                                     <div className="relative h-[24px] w-[24px]" />
                                 </div>
-                                {!current ? (
+                                {!platform ? (
                                     <div
                                         className="flex w-[600px] flex-col rounded-[12px]"
                                         style={{ boxShadow: '0px 4px 30px 0px rgba(0, 0, 0, 0.10)' }}
@@ -117,7 +117,7 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | 
                                                             return;
                                                         }
 
-                                                        setCurrent(platform);
+                                                        setPlatform(platform);
                                                     }}
                                                 />
                                             ))}
@@ -131,8 +131,8 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | 
                                             </div>
                                         }
                                     >
-                                        {current === SocialPlatform.Lens ? <LoginLens /> : null}
-                                        {current === SocialPlatform.Farcaster ? <LoginFarcaster /> : null}
+                                        {platform === SocialPlatform.Lens ? <LoginLens /> : null}
+                                        {platform === SocialPlatform.Farcaster ? <LoginFarcaster /> : null}
                                     </Suspense>
                                 )}
                             </Dialog.Panel>

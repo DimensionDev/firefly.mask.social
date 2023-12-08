@@ -6,11 +6,10 @@ import { ChainModal } from '@/modals/ChainModal.js';
 import { ComposeModal } from '@/modals/ComposeModal.js';
 import { ConnectWalletModal } from '@/modals/ConnectWalletModal.js';
 import * as controls from '@/modals/controls.js';
-import { FarcasterStatusModal } from '@/modals/FarcasterStatusModal.js';
-import { LensStatusModal } from '@/modals/LensStatusModal.js';
 import { LoginModal } from '@/modals/LoginModal.js';
 import { LogoutModal } from '@/modals/LogoutModal.js';
 import { PreviewImagesModal } from '@/modals/PreviewImagesModal.js';
+import { ProfileStatusModal } from '@/modals/ProfileStatusModal.js';
 
 export const Modals = memo(function Modals() {
     return (
@@ -18,8 +17,7 @@ export const Modals = memo(function Modals() {
             <ConnectWalletModal ref={controls.ConnectWalletModalRef.register} />
             <ChainModal ref={controls.ChainModalRef.register} />
             <LoginModal ref={controls.LoginModalRef.register} />
-            <LensStatusModal ref={controls.LensStatusModalRef.register} />
-            <FarcasterStatusModal ref={controls.FarcasterStatusModalRef.register} />
+            <ProfileStatusModal ref={controls.ProfileStatusModal.register} />
             <LogoutModal ref={controls.LogoutModalRef.register} />
             <PreviewImagesModal ref={controls.PreviewImageModalRef.register} />
             <ComposeModal ref={controls.ComposeModalRef.register} />

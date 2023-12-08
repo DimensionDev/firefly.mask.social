@@ -23,7 +23,7 @@ export function LoginFarcaster() {
         queryFn: async () => {
             try {
                 const session = await WarpcastSocialMediaProvider.createSessionByCustodyWallet();
-                const profile = await FireflySocialMediaProvider.getProfileById(`${session.profileId}`);
+                const profile = await FireflySocialMediaProvider.getProfileById(session.profileId);
 
                 updateProfiles([profile]);
                 updateCurrentProfile(profile, session);

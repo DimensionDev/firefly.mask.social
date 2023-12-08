@@ -62,15 +62,18 @@ export class FireflySocialMedia implements Provider {
         return formatFarcasterPostFromFirefly(cast);
     }
 
-    async getProfileById(profileId: string) {
-        const url = urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/user/profile', { fid: profileId });
-        const { data: user } = await fetchJSON<UserResponse>(url, {
-            method: 'GET',
-        });
+    async getProfileById(profileId: string): Promise<Profile> {
+        const { data: user } = await fetchJSON<UserResponse>(
+            urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/user/profile', { fid: profileId }),
+            {
+                method: 'GET',
+            },
+        );
 
         return {
             profileId: user.fid.toString(),
             nickname: user.username,
+            handle: user.username,
             displayName: user.display_name,
             pfp: user.pfp,
             followerCount: user.followers,
@@ -85,7 +88,7 @@ export class FireflySocialMedia implements Provider {
         throw new Error('Method not implemented.');
     }
 
-    async getFollowers(profileId: string, indicator?: PageIndicator) {
+    async getFollowers(profileId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
         const url = urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/followers', {
             fid: profileId,
             size: 10,
@@ -111,7 +114,7 @@ export class FireflySocialMedia implements Provider {
         return createPageable(data, createIndicator(indicator), createNextIndicator(indicator, next_cursor));
     }
 
-    async getFollowings(profileId: string, indicator?: PageIndicator) {
+    async getFollowings(profileId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
         const url = urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/followings', {
             fid: profileId,
             size: 10,

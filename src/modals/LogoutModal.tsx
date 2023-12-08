@@ -8,9 +8,9 @@ import { useSingletonModal } from '@masknet/shared-base-ui';
 import { forwardRef, Fragment, useMemo, useState } from 'react';
 
 import CloseIcon from '@/assets/close.svg';
-import { PlatformIcon } from '@/components/PlatformIcon.js';
+import { ProfileAvatar } from '@/components/ProfileAvatar.js';
+import { ProfileName } from '@/components/ProfileName.js';
 import { SocialPlatform } from '@/constants/enum.js';
-import { Image } from '@/esm/Image.js';
 import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
 import { useLensStateStore } from '@/store/useLensStore.js';
 
@@ -19,26 +19,27 @@ export interface LogoutModalProps {
 }
 
 export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps>>(function LogoutModal(_, ref) {
-    const [props, setProps] = useState<LogoutModalProps>({ platform: SocialPlatform.Lens });
+    const [platform, setPlatform] = useState<SocialPlatform>();
+
     const lensProfiles = useLensStateStore.use.profiles();
     const farcasterProfiles = useFarcasterStateStore.use.profiles();
     const clearLensProfile = useLensStateStore.use.clearCurrentProfile();
     const clearFarcasterProfile = useFarcasterStateStore.use.clearCurrentProfile();
 
     const [open, dispatch] = useSingletonModal(ref, {
-        onOpen(p) {
-            setProps(p);
+        onOpen(props) {
+            setPlatform(props.platform);
         },
     });
 
     const profiles = useMemo(
         () =>
-            !props.platform
+            !platform
                 ? lensProfiles.concat(farcasterProfiles)
-                : props.platform === SocialPlatform.Lens
+                : platform === SocialPlatform.Lens
                   ? lensProfiles
                   : farcasterProfiles,
-        [lensProfiles, farcasterProfiles, props.platform],
+        [lensProfiles, farcasterProfiles, platform],
     );
 
     return (
@@ -81,47 +82,21 @@ export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps>
                                     <div className="text-[15px] font-medium leading-normal text-lightMain">
                                         <Trans>Confirm to log out these accounts?</Trans>
                                     </div>
-                                    {profiles.map((account) => (
+                                    {profiles.map((profile) => (
                                         <div
-                                            key={account.profileId}
+                                            key={profile.profileId}
                                             className="flex items-center justify-between gap-[8px] rounded-[8px] px-[12px] py-[8px] backdrop-blur-[8px]"
                                             style={{ boxShadow: '0px 0px 20px 0px var(--color-bottom-bg)' }}
                                         >
-                                            <div className="flex h-[40px] w-[48px] items-start justify-start">
-                                                <div className="relative h-[40px] w-[40px]">
-                                                    <div className="absolute left-0 top-0 h-[40px] w-[40px] rounded-[99px] shadow backdrop-blur-lg">
-                                                        <Image
-                                                            src={account.pfp}
-                                                            alt="avatar"
-                                                            width={36}
-                                                            height={36}
-                                                            className="rounded-[99px]"
-                                                        />
-                                                    </div>
-                                                    {props.platform ? (
-                                                        <PlatformIcon
-                                                            className="absolute left-[24px] top-[24px] h-[16px] w-[16px] rounded-[99px] border border-white shadow"
-                                                            platform={props.platform}
-                                                            size={16}
-                                                        />
-                                                    ) : null}
-                                                </div>
-                                            </div>
-                                            <div className="inline-flex h-[39px] shrink grow basis-0 flex-col items-start justify-center">
-                                                <div className=" text-[15px] font-medium text-main">
-                                                    {account.displayName}
-                                                </div>
-                                                <div className=" text-[15px] font-normal text-lightSecond">
-                                                    @{account.profileId}
-                                                </div>
-                                            </div>
+                                            <ProfileAvatar profile={profile} size={36} />
+                                            <ProfileName profile={profile} />
                                         </div>
                                     ))}
                                     <button
                                         className=" flex items-center justify-center rounded-[99px] bg-commonDanger py-[11px] text-lightBottom"
                                         onClick={() => {
-                                            if (!props.platform) return;
-                                            switch (props.platform) {
+                                            if (!platform) return;
+                                            switch (platform) {
                                                 case SocialPlatform.Lens:
                                                     clearLensProfile();
                                                     break;
@@ -129,7 +104,7 @@ export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps>
                                                     clearFarcasterProfile();
                                                     break;
                                                 default:
-                                                    safeUnreachable(props.platform);
+                                                    safeUnreachable(platform);
                                                     break;
                                             }
                                             dispatch?.close();
