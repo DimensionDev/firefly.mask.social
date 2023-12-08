@@ -25,8 +25,6 @@ export class SessionFactory {
             token: string;
             createdAt: number;
             expiresAt: number;
-            // for warpcast grant permission login
-            privateKey?: string;
         }>(json);
         if (!session) throw new Error(t`Failed to parse session.`);
 
