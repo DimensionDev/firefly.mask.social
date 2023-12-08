@@ -1,19 +1,19 @@
 import { t } from '@lingui/macro';
 import { motion } from 'framer-motion';
-import { useSnackbar } from 'notistack';
 import { memo, useCallback } from 'react';
 
 import CollectIcon from '@/assets/collect.svg';
 import { Tooltip } from '@/components/Tooltip.js';
 import { classNames } from '@/helpers/classNames.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
+import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
 
 interface CollectProps {
     count?: number;
     disabled?: boolean;
 }
 export const Collect = memo<CollectProps>(function Collect({ count, disabled = false }) {
-    const { enqueueSnackbar } = useSnackbar();
+    const enqueueSnackbar = useCustomSnackbar();
 
     const handleClick = useCallback(() => {
         enqueueSnackbar(t`Collect is coming soon`, {

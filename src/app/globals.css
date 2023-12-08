@@ -197,3 +197,16 @@ html,
 body {
     scrollbar-gutter: stable;
 }
+
+.SnackbarContainer-root.SnackbarContainer-root.SnackbarContainer-root {
+    max-width: 400px;
+}
+
+.SnackbarContainer-root .SnackbarContent-root.SnackbarContent-root {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+.SnackbarItem-action {
+    margin-left: auto;
+}
