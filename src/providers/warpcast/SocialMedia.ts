@@ -51,11 +51,18 @@ export class WarpcastSocialMedia implements Provider {
         throw new Error('Please use createSessionWithURL() instead.');
     }
 
-    async createSessionByScanningQRCode(setUrl: (url: string) => void, signal?: AbortSignal): Promise<WarpcastSession> {
+    async createSessionByGustodyWallet(signal?: AbortSignal) {
         const client = await getWalletClientRequired();
         const session = await createSessionByCustodyWallet(client, signal);
+        localStorage.setItem('warpcast_session', session.serialize());
+        return session;
+    }
 
-        // const session = await createSessionByGrantPermission(setUrl, abortSignal);
+    async createSessionByGrantPermission(
+        setUrl: (url: string) => void,
+        signal?: AbortSignal,
+    ): Promise<WarpcastSession> {
+        const session = await this.createSessionByGrantPermission(setUrl, signal);
         localStorage.setItem('warpcast_session', session.serialize());
         return session;
     }

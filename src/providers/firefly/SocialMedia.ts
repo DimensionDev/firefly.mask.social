@@ -47,11 +47,15 @@ export class FireflySocialMedia implements Provider {
     }
 
     async createSession(signal?: AbortSignal): Promise<WarpcastSession> {
-        throw new Error('Please use createSessionByScanningQRCode() instead.');
+        throw new Error('Please use createSessionByGrantPermission() instead.');
     }
 
-    async createSessionByScanningQRCode(setUrl: (url: string) => void, signal?: AbortSignal) {
-        return WarpcastSocialMediaProvider.createSessionByScanningQRCode(setUrl, signal);
+    async createSessionByCustodyWallet(signal?: AbortSignal) {
+        return WarpcastSocialMediaProvider.createSessionByGustodyWallet(signal);
+    }
+
+    async createSessionByGrantPermission(setUrl: (url: string) => void, signal?: AbortSignal) {
+        return WarpcastSocialMediaProvider.createSessionByGrantPermission(setUrl, signal);
     }
 
     async resumeSession() {

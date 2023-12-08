@@ -103,21 +103,20 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | 
                                                     key={platform}
                                                     platform={platform}
                                                     onClick={async () => {
-                                                        if (platform === SocialPlatform.Lens) {
-                                                            try {
-                                                                await getWalletClientRequired({
-                                                                    chainId: polygon.id,
-                                                                });
-                                                            } catch (error) {
-                                                                enqueueSnackbar(
-                                                                    error instanceof Error
-                                                                        ? error.message
-                                                                        : t`Failed to login`,
-                                                                    { variant: 'error' },
-                                                                );
-                                                                return;
-                                                            }
+                                                        try {
+                                                            await getWalletClientRequired({
+                                                                chainId: polygon.id,
+                                                            });
+                                                        } catch (error) {
+                                                            enqueueSnackbar(
+                                                                error instanceof Error
+                                                                    ? error.message
+                                                                    : t`Failed to connect wallet.`,
+                                                                { variant: 'error' },
+                                                            );
+                                                            return;
                                                         }
+
                                                         setCurrent(platform);
                                                     }}
                                                 />
