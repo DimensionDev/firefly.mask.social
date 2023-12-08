@@ -13,19 +13,19 @@ import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
 
 export function FarcasterAccountSetting() {
     const { disconnect } = useDisconnect();
-    const farcasterAccounts = useFarcasterStateStore((state) => state.accounts);
-    const currentAccount = useFarcasterStateStore((state) => state.currentAccount);
-    const clearCurrentAccount = useFarcasterStateStore((state) => state.clearCurrentAccount);
+    const farcasterAccounts = useFarcasterStateStore.use.profiles();
+    const currentAccount = useFarcasterStateStore.use.currentProfile();
+    const clearCurrentAccount = useFarcasterStateStore.use.clearCurrentProfile();
 
     return (
         <div className="absolute -top-[180px] hidden rounded-[12px] bg-bgModal group-hover:block">
             <div className="flex w-[260px] flex-col gap-[23px] rounded-[16px] p-[24px]">
-                {farcasterAccounts.map(({ avatar, profileId, name }) => (
+                {farcasterAccounts.map(({ pfp, profileId, displayName }) => (
                     <div key={profileId} className="flex items-center justify-between gap-[8px]">
                         <div className="flex h-[40px] w-[48px] items-start justify-start">
                             <div className="relative h-[40px] w-[40px]">
                                 <div className="absolute left-0 top-0 h-[40px] w-[40px] rounded-[99px] shadow backdrop-blur-lg">
-                                    <Image src={avatar} alt="avatar" width={40} height={36} />
+                                    <Image src={pfp} alt="avatar" width={40} height={36} />
                                 </div>
                                 <PlatformIcon
                                     className="absolute left-[24px] top-[24px] h-[16px] w-[16px] rounded-[99px] border border-white shadow"
@@ -35,7 +35,7 @@ export function FarcasterAccountSetting() {
                             </div>
                         </div>
                         <div className="inline-flex h-[39px] shrink grow basis-0 flex-col items-start justify-center">
-                            <div className=" text-[15px] font-medium text-main">{name}</div>
+                            <div className=" text-[15px] font-medium text-main">{displayName}</div>
                             <div className=" text-[15px] font-normal text-lightSecond">@{profileId}</div>
                         </div>
                         {currentAccount && currentAccount.profileId === profileId ? (
