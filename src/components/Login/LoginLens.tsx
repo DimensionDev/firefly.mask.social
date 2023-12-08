@@ -18,7 +18,7 @@ import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { useLensStateStore } from '@/store/useLensStore.js';
 
-interface LoginLensProps { }
+interface LoginLensProps {}
 
 export function LoginLens(props: LoginLensProps) {
     const [selected, setSelected] = useState<Profile>();
@@ -107,7 +107,8 @@ export function LoginLens(props: LoginLensProps) {
                                         without the need to sign each transaction
                                     </Trans>
                                 </div>
-                            </div>)}
+                            </div>
+                        )}
                     </>
                 ) : (
                     <div className="flex w-full flex-col gap-[8px] rounded-[8px] bg-lightBg px-[16px] py-[24px]">
@@ -147,7 +148,7 @@ export function LoginLens(props: LoginLensProps) {
                         )}
                     </button>
                 </div>
-            </div >
-        </div >
+            </div>
+        </div>
     );
 }
