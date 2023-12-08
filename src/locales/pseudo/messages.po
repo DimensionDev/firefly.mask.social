@@ -235,9 +235,6 @@ msgstr ""
 msgid "Post your reply"
 msgstr ""
 
-msgid "Missing profile."
-msgstr ""
-
 msgid "Post has been encrypted"
 msgstr ""
 

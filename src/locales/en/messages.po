@@ -235,9 +235,6 @@ msgstr "Visit firefly.land"
 msgid "Post your reply"
 msgstr "Post your reply"
 
-msgid "Missing profile."
-msgstr "Missing profile."
-
 msgid "Post has been encrypted"
 msgstr "Post has been encrypted"
 
