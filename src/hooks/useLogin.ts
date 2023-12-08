@@ -24,6 +24,6 @@ export function useLogin(platform?: SocialPlatform) {
                     return false;
             }
         }
-        return currentLensAccount.id || currentFarcasterAccount.id;
+        return !!currentLensAccount.id || !!currentFarcasterAccount.id;
     }, [currentLensAccount, currentFarcasterAccount, platform, account]);
 }

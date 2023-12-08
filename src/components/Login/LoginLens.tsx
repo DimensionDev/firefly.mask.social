@@ -117,20 +117,22 @@ export function LoginLens({ back }: LoginLensProps) {
                         />
                     ))}
                 </div>
-                <div className="flex w-full flex-col gap-[8px] rounded-[8px] bg-lightBg px-[16px] py-[24px]">
-                    <div className="flex items-center justify-between">
-                        <span className="text-[14px] font-bold leading-[18px] text-lightMain">
-                            <Trans>Delegate Signing (Recommend)</Trans>
-                        </span>
-                        <Switch checked={signless} onChange={(e) => setSignless(e.target.checked)} />
+                {current?.signless ? null : (
+                    <div className="flex w-full flex-col gap-[8px] rounded-[8px] bg-lightBg px-[16px] py-[24px]">
+                        <div className="flex items-center justify-between">
+                            <span className="text-[14px] font-bold leading-[18px] text-lightMain">
+                                <Trans>Delegate Signing (Recommend)</Trans>
+                            </span>
+                            <Switch checked={signless} onChange={(e) => setSignless(e.target.checked)} />
+                        </div>
+                        <div className="w-full text-left text-[14px] leading-[16px] text-lightSecond">
+                            <Trans>
+                                Allow Lens Manager to perform actions such as posting, liking, and commenting without
+                                the need to sign each transaction
+                            </Trans>
+                        </div>
                     </div>
-                    <div className="w-full text-left text-[14px] leading-[16px] text-lightSecond">
-                        <Trans>
-                            Allow Lens Manager to perform actions such as posting, liking, and commenting without the
-                            need to sign each transaction
-                        </Trans>
-                    </div>
-                </div>
+                )}
                 <div
                     className=" absolute bottom-0 left-0 flex w-full items-center justify-between rounded-b-[8px] bg-lightBottom80 p-[16px]"
                     style={{

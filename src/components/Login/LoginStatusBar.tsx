@@ -1,10 +1,12 @@
 'use client';
 
 import PlusIcon from '@/assets/plus.svg';
+import { FarcasterAccountSetting } from '@/components/AccountSetting/FarcasterAccountSetting.js';
+import { LensAccountSetting } from '@/components/AccountSetting/LensAccountSetting.js';
 import { Image } from '@/components/Image.js';
 import { PlatformIcon } from '@/components/PlatformIcon.js';
 import { SocialPlatform } from '@/constants/enum.js';
-import { FarcasterStatusModalRef, LensStatusModalRef, LoginModalRef } from '@/modals/controls.js';
+import { LoginModalRef } from '@/modals/controls.js';
 import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
 import { useLensStateStore } from '@/store/useLensStore.js';
 
@@ -15,7 +17,7 @@ export function LoginStatusBar() {
     return (
         <div className="flex gap-x-2 pl-2">
             {lensAccount ? (
-                <button className="relative h-[40px] w-[48px]" onClick={() => LensStatusModalRef.open()}>
+                <div className="group relative h-[40px] w-[48px]">
                     <div className="absolute left-0 top-0 h-[40px] w-[40px] rounded-[99px] shadow backdrop-blur-lg">
                         <Image
                             src={lensAccount.avatar}
@@ -30,10 +32,11 @@ export function LoginStatusBar() {
                         platform={SocialPlatform.Lens}
                         size={16}
                     />
-                </button>
+                    <LensAccountSetting />
+                </div>
             ) : null}
             {farcasterAccount && !!farcasterAccount.profileId ? (
-                <button className="relative h-[40px] w-[48px]" onClick={() => FarcasterStatusModalRef.open()}>
+                <div className="group relative h-[40px] w-[48px] cursor-pointer">
                     <div className="absolute left-0 top-0 h-[40px] w-[40px] rounded-[99px] shadow backdrop-blur-lg">
                         <Image
                             src={farcasterAccount.avatar}
@@ -48,7 +51,8 @@ export function LoginStatusBar() {
                         platform={SocialPlatform.Farcaster}
                         size={16}
                     />
-                </button>
+                    <FarcasterAccountSetting />
+                </div>
             ) : (
                 <button
                     className="relative h-[40px] w-[48px]"

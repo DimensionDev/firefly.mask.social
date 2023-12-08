@@ -4,7 +4,7 @@ import { Dialog, Transition } from '@headlessui/react';
 import { t } from '@lingui/macro';
 import type { SingletonModalRefCreator } from '@masknet/shared-base';
 import { useSingletonModal } from '@masknet/shared-base-ui';
-import { useChainModal, useConnectModal } from '@rainbow-me/rainbowkit';
+import { useConnectModal } from '@rainbow-me/rainbowkit';
 import { forwardRef, Fragment, Suspense, useMemo, useRef, useState } from 'react';
 import { usePrevious, useUpdateEffect } from 'react-use';
 import { useAccount, useNetwork } from 'wagmi';
@@ -26,7 +26,6 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps>>(
     const [current, setCurrent] = useState<SocialPlatform>();
 
     const { openConnectModal, connectModalOpen } = useConnectModal();
-    const { chainModalOpen } = useChainModal();
     const account = useAccount();
     const { chain } = useNetwork();
 
