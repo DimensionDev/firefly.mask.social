@@ -31,6 +31,7 @@ export interface SocialMediaAccount {
     platform: SocialPlatform;
     signless?: boolean;
     handle?: string;
+    ownedBy?: string;
 }
 
 export interface IPFS_MediaObject {

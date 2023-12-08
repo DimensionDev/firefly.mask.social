@@ -18,7 +18,7 @@ export function LensAccountSetting() {
     const { disconnect } = useDisconnect();
 
     return (
-        <div className="absolute -top-[160px] hidden rounded-[12px] bg-bgModal group-hover:block">
+        <div className="absolute -top-[182px] hidden rounded-[12px] bg-bgModal group-hover:block">
             <div className="flex w-[260px] flex-col gap-[23px] rounded-[16px] p-[24px]">
                 {lensAccounts.map(({ avatar, profileId, id, name }) => (
                     <div key={id} className="flex items-center justify-between gap-[8px]">
@@ -28,8 +28,8 @@ export function LensAccountSetting() {
                                     <Image
                                         src={avatar}
                                         alt="avatar"
-                                        width={36}
-                                        height={36}
+                                        width={40}
+                                        height={40}
                                         className="rounded-[99px]"
                                     />
                                 </div>

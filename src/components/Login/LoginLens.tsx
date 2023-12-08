@@ -51,6 +51,7 @@ export function LoginLens({ back }: LoginLensProps) {
                 signless: profile.signless,
                 handle: profile.handle,
                 platform: SocialPlatform.Lens,
+                ownedBy: profile.ownedBy?.address,
             }));
 
             if (!result.length) {
@@ -117,7 +118,7 @@ export function LoginLens({ back }: LoginLensProps) {
                         />
                     ))}
                 </div>
-                {current?.signless ? null : (
+                {current?.signless && current.ownedBy === account.address ? null : (
                     <div className="flex w-full flex-col gap-[8px] rounded-[8px] bg-lightBg px-[16px] py-[24px]">
                         <div className="flex items-center justify-between">
                             <span className="text-[14px] font-bold leading-[18px] text-lightMain">
