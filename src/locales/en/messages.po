@@ -349,9 +349,6 @@ msgstr "No profile found"
 msgid "Everyone can reply"
 msgstr "Everyone can reply"
 
-msgid "Missing client."
-msgstr "Missing client."
-
 msgid "Quote on Lens"
 msgstr "Quote on Lens"
 
@@ -414,9 +411,6 @@ msgstr "Profile"
 
 msgid "Add a comment"
 msgstr "Add a comment"
-
-msgid "No session found"
-msgstr "No session found"
 
 msgid "Profiles"
 msgstr "Profiles"

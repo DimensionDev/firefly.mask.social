@@ -2,10 +2,12 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
 
+import { warpcastClient } from '@/configs/warpcastClient.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 import type { Session } from '@/providers/types/Session.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
+import type { WarpcastSession } from '@/providers/warpcast/Session.js';
 
 export interface FarcasterState {
     profiles: Profile[];
@@ -39,7 +41,19 @@ const useFarcasterStateBase = create<FarcasterState, [['zustand/persist', unknow
         {
             name: 'farcaster-state',
             partialize: (state) => ({ profiles: state.profiles, currentProfile: state.currentProfile }),
-            onRehydrateStorage: () => async (state) => {},
+            onRehydrateStorage: () => async (state) => {
+                const session = state?.currentProfileSession;
+
+                if (session && session.expiresAt > Date.now()) {
+                    console.warn('[farcaster store] session expired');
+                    state?.clearCurrentProfile();
+                    return;
+                }
+
+                if (session) {
+                    warpcastClient.resumeSession(session as WarpcastSession);
+                }
+            },
         },
     ),
 );

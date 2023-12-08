@@ -40,6 +40,7 @@ import {
     type UsersResponse,
 } from '@/providers/types/Warpcast.js';
 import { createSessionByCustodyWallet } from '@/providers/warpcast/createSessionByCustodyWallet.js';
+import { createSessionByGrantPermission } from '@/providers/warpcast/createSessionByGrantPermission.js';
 import { WarpcastSession } from '@/providers/warpcast/Session.js';
 
 export class WarpcastSocialMedia implements Provider {
@@ -60,7 +61,7 @@ export class WarpcastSocialMedia implements Provider {
         setUrl: (url: string) => void,
         signal?: AbortSignal,
     ): Promise<WarpcastSession> {
-        return this.createSessionByGrantPermission(setUrl, signal);
+        return createSessionByGrantPermission(setUrl, signal);
     }
 
     async createClient() {

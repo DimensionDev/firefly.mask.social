@@ -9,6 +9,7 @@ import QRCode from 'react-qr-code';
 import LoadingIcon from '@/assets/loading.svg';
 import { LoginModalRef } from '@/modals/controls.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
+import { WarpcastSocialMediaProvider } from '@/providers/warpcast/SocialMedia.js';
 import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
 
 export function LoginFarcaster() {
@@ -21,7 +22,7 @@ export function LoginFarcaster() {
         queryKey: ['farcaster', 'login'],
         queryFn: async () => {
             try {
-                const session = await FireflySocialMediaProvider.createSessionByCustodyWallet();
+                const session = await WarpcastSocialMediaProvider.createSessionByCustodyWallet();
                 const profile = await FireflySocialMediaProvider.getProfileById(`${session.profileId}`);
 
                 updateProfiles([profile]);

@@ -38,7 +38,6 @@ import {
     Type,
 } from '@/providers/types/SocialMedia.js';
 import type { WarpcastSession } from '@/providers/warpcast/Session.js';
-import { WarpcastSocialMediaProvider } from '@/providers/warpcast/SocialMedia.js';
 
 // @ts-ignore
 export class FireflySocialMedia implements Provider {
@@ -48,14 +47,6 @@ export class FireflySocialMedia implements Provider {
 
     async createSession(signal?: AbortSignal): Promise<WarpcastSession> {
         throw new Error('Please use createSessionByGrantPermission() instead.');
-    }
-
-    async createSessionByCustodyWallet(signal?: AbortSignal) {
-        return WarpcastSocialMediaProvider.createSessionByCustodyWallet(signal);
-    }
-
-    async createSessionByGrantPermission(setUrl: (url: string) => void, signal?: AbortSignal) {
-        return WarpcastSocialMediaProvider.createSessionByGrantPermission(setUrl, signal);
     }
 
     async discoverPosts(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
