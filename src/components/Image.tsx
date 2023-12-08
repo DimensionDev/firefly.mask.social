@@ -1,17 +1,14 @@
-import type { DetailedHTMLProps, ImgHTMLAttributes, Ref, SyntheticEvent } from 'react';
+import type { ImgHTMLAttributes, Ref, SyntheticEvent } from 'react';
 import { forwardRef, useCallback, useEffect, useState } from 'react';
 
 import { classNames } from '@/helpers/classNames.js';
 import { useDarkMode } from '@/hooks/useDarkMode.js';
 
-export const Image = forwardRef(function Image(
-    {
-        onError,
-        fallback,
-        ...props
-    }: DetailedHTMLProps<ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement> & { fallback?: string },
-    ref: Ref<HTMLImageElement>,
-) {
+interface Props extends ImgHTMLAttributes<HTMLImageElement> {
+    fallback?: string;
+}
+
+export const Image = forwardRef(function Image({ onError, fallback, ...props }: Props, ref: Ref<HTMLImageElement>) {
     const [imageLoadFailed, setImageLoadFailed] = useState(false);
     const { isDarkMode } = useDarkMode();
 
@@ -29,7 +26,7 @@ export const Image = forwardRef(function Image(
     );
 
     useEffect(() => {
-        setImageLoadFailed(false);
+        setImageLoadFailed(!props.src);
     }, [props.src]);
 
     // TODO: replace failed fallback image
@@ -40,11 +37,11 @@ export const Image = forwardRef(function Image(
         <img
             {...props}
             src={
-                imageLoadFailed
-                    ? fallback || (!isDarkMode ? '/image/fallback-light.png' : '/image/fallback-dark.png')
+                imageLoadFailed || !props.src
+                    ? fallback || (isDarkMode ? '/image/fallback-dark.png' : '/image/fallback-light.png')
                     : props.src
             }
-            className={classNames(props.className ?? '', 'border border-secondaryLine')}
+            className={classNames(props.className, 'border border-secondaryLine')}
             onError={handleError}
             alt={props.alt || ''}
             ref={ref}

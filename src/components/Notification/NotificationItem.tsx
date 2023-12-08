@@ -310,30 +310,33 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
                     <div className="flex-1">
                         <div className="flex flex-1 items-center justify-between">
                             <div className="flex items-center">
-                                {profiles.slice(0, 5).map((x, index, self) => (
-                                    <Link
-                                        key={index}
-                                        href={`/profile/${x.handle}`}
-                                        className={classNames({
-                                            '-ml-5': index > 0 && self.length > 1,
-                                        })}
-                                        style={{ zIndex: self.length - index }}
-                                    >
-                                        <Image
-                                            loading="lazy"
-                                            className={'h-10 w-10 rounded-full'}
-                                            src={x.pfp}
-                                            fallback={
-                                                isDarkMode
-                                                    ? '/image/firefly-dark-avatar.png'
-                                                    : '/image/firefly-light-avatar.png'
-                                            }
-                                            width={40}
-                                            height={40}
-                                            alt={x.profileId}
-                                        />
-                                    </Link>
-                                ))}
+                                {profiles.slice(0, 5).map((x, index, self) => {
+                                    const isFallbackPfp = x.pfp.startsWith('https://cdn.stamp.fyi/avatar/eth:');
+                                    const avatar = isFallbackPfp
+                                        ? isDarkMode
+                                            ? '/image/firefly-dark-avatar.png'
+                                            : '/image/firefly-light-avatar.png'
+                                        : x.pfp;
+                                    return (
+                                        <Link
+                                            key={index}
+                                            href={`/profile/${x.handle}`}
+                                            className={classNames('inline-flex items-center', {
+                                                '-ml-5': index > 0 && self.length > 1,
+                                            })}
+                                            style={{ zIndex: self.length - index }}
+                                        >
+                                            <Image
+                                                loading="lazy"
+                                                className="h-10 w-10 rounded-full"
+                                                src={avatar}
+                                                width={40}
+                                                height={40}
+                                                alt={x.profileId}
+                                            />
+                                        </Link>
+                                    );
+                                })}
                             </div>
                             <div className="flex items-center space-x-2">
                                 <SourceIcon source={notification.source} />
