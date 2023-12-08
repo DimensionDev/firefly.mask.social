@@ -1,8 +1,12 @@
-import { CustomElements } from '@/components/CustomElements.js';
+import { lazy } from 'react';
+
 import { IfPathname } from '@/components/IfPathname.js';
 import { SearchBar } from '@/components/Search/SearchBar.js';
 import { SearchFilter } from '@/components/Search/SearchFilter.js';
 import { SocialPlatformTabs } from '@/components/SocialPlatformTabs.js';
+
+// @ts-ignore
+const CustomElements = lazy(() => import('@/components/CustomElements.js'));
 
 export default function Layout({ children }: { children: React.ReactNode }) {
     return (
