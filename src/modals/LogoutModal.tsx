@@ -20,10 +20,10 @@ export interface LogoutModalProps {
 
 export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps>>(function LogoutModal(_, ref) {
     const [props, setProps] = useState<LogoutModalProps>({ platform: SocialPlatform.Lens });
-    const lensAccounts = useLensStateStore.use.accounts();
-    const farcasterAccounts = useFarcasterStateStore.use.accounts();
-    const clearLensAccount = useLensStateStore.use.clearCurrentAccount();
-    const clearFarcasterAccount = useFarcasterStateStore.use.clearCurrentAccount();
+    const lensProfiles = useLensStateStore.use.profiles();
+    const farcasterProfiles = useFarcasterStateStore.use.profiles();
+    const clearLensProfile = useLensStateStore.use.clearCurrentProfile();
+    const clearFarcasterProfile = useFarcasterStateStore.use.clearCurrentProfile();
 
     const [open, dispatch] = useSingletonModal(ref, {
         onOpen(p) {
@@ -31,14 +31,14 @@ export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps>
         },
     });
 
-    const accounts = useMemo(
+    const profiles = useMemo(
         () =>
             !props.platform
-                ? lensAccounts.concat(farcasterAccounts)
+                ? lensProfiles.concat(farcasterProfiles)
                 : props.platform === SocialPlatform.Lens
-                  ? lensAccounts
-                  : farcasterAccounts,
-        [lensAccounts, farcasterAccounts, props.platform],
+                  ? lensProfiles
+                  : farcasterProfiles,
+        [lensProfiles, farcasterProfiles, props.platform],
     );
 
     return (
@@ -81,7 +81,7 @@ export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps>
                                     <div className="text-[15px] font-medium leading-normal text-lightMain">
                                         <Trans>Confirm to log out these accounts?</Trans>
                                     </div>
-                                    {accounts.map((account) => (
+                                    {profiles.map((account) => (
                                         <div
                                             key={account.profileId}
                                             className="flex items-center justify-between gap-[8px] rounded-[8px] px-[12px] py-[8px] backdrop-blur-[8px]"
@@ -91,7 +91,7 @@ export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps>
                                                 <div className="relative h-[40px] w-[40px]">
                                                     <div className="absolute left-0 top-0 h-[40px] w-[40px] rounded-[99px] shadow backdrop-blur-lg">
                                                         <Image
-                                                            src={account.avatar}
+                                                            src={account.pfp}
                                                             alt="avatar"
                                                             width={36}
                                                             height={36}
@@ -108,7 +108,9 @@ export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps>
                                                 </div>
                                             </div>
                                             <div className="inline-flex h-[39px] shrink grow basis-0 flex-col items-start justify-center">
-                                                <div className=" text-[15px] font-medium text-main">{account.name}</div>
+                                                <div className=" text-[15px] font-medium text-main">
+                                                    {account.displayName}
+                                                </div>
                                                 <div className=" text-[15px] font-normal text-lightSecond">
                                                     @{account.profileId}
                                                 </div>
@@ -121,10 +123,10 @@ export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps>
                                             if (!props.platform) return;
                                             switch (props.platform) {
                                                 case SocialPlatform.Lens:
-                                                    clearLensAccount();
+                                                    clearLensProfile();
                                                     break;
                                                 case SocialPlatform.Farcaster:
-                                                    clearFarcasterAccount();
+                                                    clearFarcasterProfile();
                                                     break;
                                                 default:
                                                     safeUnreachable(props.platform);

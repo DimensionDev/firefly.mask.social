@@ -11,21 +11,15 @@ import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
 import { useLensStateStore } from '@/store/useLensStore.js';
 
 export function LoginStatusBar() {
-    const lensAccount = useLensStateStore.use.currentAccount?.();
-    const farcasterAccount = useFarcasterStateStore.use.currentAccount?.();
+    const lensProfile = useLensStateStore.use.currentProfile?.();
+    const farcasterProfile = useFarcasterStateStore.use.currentProfile?.();
 
     return (
         <div className="flex gap-x-2 pl-2">
-            {lensAccount ? (
+            {lensProfile ? (
                 <div className="group relative h-[40px] w-[48px]">
                     <div className="absolute left-0 top-0 h-[40px] w-[40px] rounded-[99px] shadow backdrop-blur-lg">
-                        <Image
-                            src={lensAccount.avatar}
-                            alt="avatar"
-                            width={40}
-                            height={40}
-                            className="rounded-[99px]"
-                        />
+                        <Image src={lensProfile.pfp} alt="avatar" width={40} height={40} className="rounded-[99px]" />
                     </div>
                     <PlatformIcon
                         className="absolute left-[32px] top-[24px] rounded-[99px] border border-white shadow"
@@ -35,11 +29,11 @@ export function LoginStatusBar() {
                     <LensAccountSetting />
                 </div>
             ) : null}
-            {farcasterAccount && !!farcasterAccount.profileId ? (
+            {farcasterProfile && !!farcasterProfile.profileId ? (
                 <div className="group relative h-[40px] w-[48px] cursor-pointer">
                     <div className="absolute left-0 top-0 h-[40px] w-[40px] rounded-[99px] shadow backdrop-blur-lg">
                         <Image
-                            src={farcasterAccount.avatar}
+                            src={farcasterProfile.pfp}
                             alt="avatar"
                             width={40}
                             height={40}
@@ -68,7 +62,7 @@ export function LoginStatusBar() {
                     />
                 </button>
             )}
-            {lensAccount ? null : (
+            {lensProfile ? null : (
                 <button
                     className="relative h-[40px] w-[48px]"
                     onClick={() => LoginModalRef.open({ current: SocialPlatform.Lens })}

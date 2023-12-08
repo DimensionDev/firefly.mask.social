@@ -2,60 +2,47 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
 
-import { SocialPlatform } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { createSelectors } from '@/helpers/createSelector.js';
-import type { SocialMediaAccount } from '@/types/index.js';
+import type { Profile } from '@/providers/types/SocialMedia.js';
 
 export interface FarcasterState {
-    accounts: SocialMediaAccount[];
-    currentAccount: SocialMediaAccount;
-    updateCurrentAccount: (account: SocialMediaAccount) => void;
-    updateAccounts: (accounts: SocialMediaAccount[]) => void;
-    clearCurrentAccount: () => void;
-    hydrateCurrentAccount: () => SocialMediaAccount;
+    profiles: Profile[];
+    currentProfile: Profile | null;
+    updateCurrentProfile: (profile: Profile) => void;
+    updateProfiles: (profiles: Profile[]) => void;
+    clearCurrentProfile: () => void;
+    hydrateCurrentProfile: () => Profile | null;
 }
 
 const useFarcasterStateBase = create<FarcasterState, [['zustand/persist', unknown], ['zustand/immer', unknown]]>(
     persist(
         immer<FarcasterState>((set, get) => ({
-            accounts: EMPTY_LIST,
-            currentAccount: {
-                profileId: '',
-                avatar: '',
-                name: '',
-                id: '',
-                platform: SocialPlatform.Farcaster,
-            },
-            updateCurrentAccount: (account: SocialMediaAccount) =>
+            profiles: EMPTY_LIST,
+            currentProfile: null,
+            updateCurrentProfile: (profile: Profile) =>
                 set((state) => {
-                    state.currentAccount = account;
+                    state.currentProfile = profile;
                 }),
-            updateAccounts: (accounts: SocialMediaAccount[]) =>
+            updateProfiles: (profiles: Profile[]) =>
                 set((state) => {
-                    state.accounts = accounts;
+                    state.profiles = profiles;
                 }),
-            clearCurrentAccount: () =>
+            clearCurrentProfile: () =>
                 set((state) => {
-                    state.currentAccount = {
-                        profileId: '',
-                        avatar: '',
-                        name: '',
-                        id: '',
-                        platform: SocialPlatform.Farcaster,
-                    };
+                    state.currentProfile = null;
                 }),
-            hydrateCurrentAccount: () => {
-                return get().currentAccount;
+            hydrateCurrentProfile: () => {
+                return get().currentProfile;
             },
         })),
         {
             name: 'farcaster-state',
-            partialize: (state) => ({ accounts: state.accounts, currentAccount: state.currentAccount }),
+            partialize: (state) => ({ profiles: state.profiles, currentProfile: state.currentProfile }),
         },
     ),
 );
 
 export const useFarcasterStateStore = createSelectors(useFarcasterStateBase);
 
-export const hydrateCurrentAccount = () => useFarcasterStateBase.getState().hydrateCurrentAccount();
+export const hydrateCurrentProfile = () => useFarcasterStateBase.getState().hydrateCurrentProfile();

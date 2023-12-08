@@ -1,4 +1,3 @@
-import { SocialPlatform } from '@/constants/enum.js';
 import { ServerErrorCodes } from '@/helpers/createErrorResponseJSON.js';
 import type { IPFSResponse } from '@/services/uploadToIPFS.js';
 
@@ -21,17 +20,6 @@ export interface MetadataAsset {
     cover?: string;
     artist?: string;
     title?: string;
-}
-
-export interface SocialMediaAccount {
-    profileId: string;
-    avatar: string;
-    name: string;
-    id: string;
-    platform: SocialPlatform;
-    signless?: boolean;
-    handle?: string;
-    ownedBy?: string;
 }
 
 export interface IPFS_MediaObject {

@@ -36,8 +36,9 @@ import {
     type Reaction,
     Type,
 } from '@/providers/types/SocialMedia.js';
+import type { WarpcastSession } from '@/providers/warpcast/Session.js';
 import { WarpcastSocialMediaProvider } from '@/providers/warpcast/SocialMedia.js';
-import { hydrateCurrentAccount } from '@/store/useFarcasterStore.js';
+import { hydrateCurrentProfile } from '@/store/useFarcasterStore.js';
 
 // @ts-ignore
 export class FireflySocialMedia implements Provider {
@@ -45,8 +46,12 @@ export class FireflySocialMedia implements Provider {
         return Type.Firefly;
     }
 
-    async createSession(setUrlOrSignal?: AbortSignal | ((url: string) => void), signal?: AbortSignal) {
-        return WarpcastSocialMediaProvider.createSession(setUrlOrSignal, signal);
+    async createSession(signal?: AbortSignal): Promise<WarpcastSession> {
+        throw new Error('Please use createSessionByScanningQRCode() instead.');
+    }
+
+    async createSessionByScanningQRCode(setUrl: (url: string) => void, signal?: AbortSignal) {
+        return WarpcastSocialMediaProvider.createSessionByScanningQRCode(setUrl, signal);
     }
 
     async resumeSession() {
@@ -207,17 +212,17 @@ export class FireflySocialMedia implements Provider {
     }
 
     async getNotifications(indicator?: PageIndicator): Promise<Pageable<Notification, PageIndicator>> {
-        const currentAccount = hydrateCurrentAccount();
-        if (!currentAccount.id) throw new Error(t`Login required`);
+        const currentProfile = hydrateCurrentProfile();
+        if (!currentProfile?.profileId) throw new Error(t`Login required`);
         const url = urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/notifications', {
-            fid: currentAccount.id,
-            sourceFid: currentAccount.id,
+            fid: currentProfile.profileId,
+            sourceFid: currentProfile.profileId,
             cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
         });
         const { data } = await fetchJSON<NotificationResponse>(url, { method: 'GET' });
 
         const result = data.notifications.map<Notification | undefined>((notification) => {
-            const notificationId = `${currentAccount.id}_${notification.timestamp}_${notification.notificationType}`;
+            const notificationId = `${currentProfile.profileId}_${notification.timestamp}_${notification.notificationType}`;
             const user = notification.user ? [formatFarcasterProfileFromFirefly(notification.user)] : EMPTY_LIST;
             const post = notification.cast ? formatFarcasterPostFromFirefly(notification.cast) : undefined;
             const timestamp = notification.timestamp ? new Date(notification.timestamp).getTime() : undefined;

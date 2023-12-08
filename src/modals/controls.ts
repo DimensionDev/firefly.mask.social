@@ -6,7 +6,9 @@ import type { LogoutModalProps } from '@/modals/LogoutModal.js';
 
 import type { PreviewImagesModalOpenProps } from './PreviewImagesModal.js';
 
-export const LoginModalRef = new SingletonModal<LoginModalProps>();
+export const ConnectWalletModalRef = new SingletonModal();
+export const ChainModalRef = new SingletonModal();
+export const LoginModalRef = new SingletonModal<LoginModalProps | void>();
 export const LensStatusModalRef = new SingletonModal();
 export const FarcasterStatusModalRef = new SingletonModal();
 export const LogoutModalRef = new SingletonModal<LogoutModalProps>();

@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation.js';
 
 import RightArrowIcon from '@/assets/right-arrow.svg';
 import { Link } from '@/esm/Link.js';
-import { useLogin } from '@/hooks/useLogin.js';
+import { useIsLogin } from '@/hooks/useIsLogin.js';
 
 const settings = [
     { name: t`Display`, link: '/display' },
@@ -15,7 +15,7 @@ const settings = [
 ];
 
 export function SettingList() {
-    const isLoggedIn = useLogin();
+    const isLoggedIn = useIsLogin();
     const pathname = usePathname();
     return (
         <div className="flex min-h-full min-w-[280px] flex-col border-r border-line p-[24px]">

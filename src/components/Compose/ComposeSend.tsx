@@ -22,7 +22,7 @@ interface ComposeSendProps {
 export default function ComposeSend({ type, characters, images, closeCompose, setLoading, post }: ComposeSendProps) {
     const { enqueueSnackbar } = useSnackbar();
 
-    const currentLensAccount = useLensStateStore.use.currentAccount();
+    const currentLensProfile = useLensStateStore.use.currentProfile();
 
     const charactersLen = useMemo(() => characters.length, [characters]);
 
@@ -30,10 +30,10 @@ export default function ComposeSend({ type, characters, images, closeCompose, se
 
     const handleSend = useCallback(async () => {
         setLoading(true);
-        if (currentLensAccount.id) {
+        if (currentLensProfile?.profileId) {
             if (type === 'compose') {
                 try {
-                    await publishPostForLens(currentLensAccount.id, characters, images);
+                    await publishPostForLens(currentLensProfile?.profileId, characters, images);
                     enqueueSnackbar(t`Posted on Lens`, {
                         variant: 'success',
                     });
@@ -48,22 +48,28 @@ export default function ComposeSend({ type, characters, images, closeCompose, se
             if (type === 'reply') {
                 if (!post) return;
                 try {
-                    await commentPostForLens(currentLensAccount.id, post.postId, characters, images);
-                    enqueueSnackbar(t`Replying to @${currentLensAccount.handle || currentLensAccount.id} on Lens`, {
-                        variant: 'success',
-                    });
+                    await commentPostForLens(currentLensProfile?.profileId, post.postId, characters, images);
+                    enqueueSnackbar(
+                        t`Replying to @${currentLensProfile.handle || currentLensProfile?.profileId} on Lens`,
+                        {
+                            variant: 'success',
+                        },
+                    );
                     closeCompose();
                 } catch {
-                    enqueueSnackbar(t`Replying to @${currentLensAccount.handle || currentLensAccount.id} on Lens`, {
-                        variant: 'error',
-                    });
+                    enqueueSnackbar(
+                        t`Replying to @${currentLensProfile.handle || currentLensProfile?.profileId} on Lens`,
+                        {
+                            variant: 'error',
+                        },
+                    );
                 }
             }
 
             if (type === 'quote') {
                 if (!post) return;
                 try {
-                    await quotePostForLens(currentLensAccount.id, post.postId, characters, images);
+                    await quotePostForLens(currentLensProfile?.profileId, post.postId, characters, images);
                     enqueueSnackbar(t`Quote on Lens`, {
                         variant: 'success',
                     });
@@ -79,8 +85,8 @@ export default function ComposeSend({ type, characters, images, closeCompose, se
     }, [
         characters,
         closeCompose,
-        currentLensAccount.handle,
-        currentLensAccount.id,
+        currentLensProfile?.handle,
+        currentLensProfile?.profileId,
         enqueueSnackbar,
         images,
         post,

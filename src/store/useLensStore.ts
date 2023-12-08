@@ -2,52 +2,62 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
 
-import { SocialPlatform } from '@/constants/enum.js';
+import { createLensClient } from '@/configs/lensClient.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { createSelectors } from '@/helpers/createSelector.js';
-import type { SocialMediaAccount } from '@/types/index.js';
+import type { Profile } from '@/providers/types/SocialMedia.js';
 
 export interface LensState {
-    accounts: SocialMediaAccount[];
-    currentAccount: SocialMediaAccount;
-    updateCurrentAccount: (account: SocialMediaAccount) => void;
-    updateAccounts: (accounts: SocialMediaAccount[]) => void;
-    clearCurrentAccount: () => void;
+    profiles: Profile[];
+    currentProfile: Profile | null;
+    updateProfiles: (profiles: Profile[]) => void;
+    updateCurrentProfile: (profile: Profile) => void;
+    clearCurrentProfile: () => void;
 }
 
 const useLensStateBase = create<LensState, [['zustand/persist', unknown], ['zustand/immer', unknown]]>(
     persist(
         immer((set, get) => ({
-            accounts: EMPTY_LIST,
-            currentAccount: {
-                profileId: '',
-                avatar: '',
-                name: '',
-                id: '',
-                platform: SocialPlatform.Lens,
-            },
-            updateCurrentAccount: (account: SocialMediaAccount) =>
+            profiles: EMPTY_LIST,
+            currentProfile: null,
+            updateCurrentProfile: (profile: Profile) =>
                 set((state) => {
-                    state.currentAccount = account;
+                    state.currentProfile = profile;
                 }),
-            updateAccounts: (accounts: SocialMediaAccount[]) =>
+            updateProfiles: (profiles: Profile[]) =>
                 set((state) => {
-                    state.accounts = accounts;
+                    state.profiles = profiles;
                 }),
-            clearCurrentAccount: () =>
+            clearCurrentProfile: () =>
                 set((state) => {
-                    state.currentAccount = {
-                        profileId: '',
-                        avatar: '',
-                        name: '',
-                        id: '',
-                        platform: SocialPlatform.Lens,
-                    };
+                    state.currentProfile = null;
                 }),
         })),
         {
             name: 'lens-state',
-            partialize: (state) => ({ accounts: state.accounts, currentAccount: state.currentAccount }),
+            partialize: (state) => ({
+                profiles: state.profiles,
+                currentProfile: state.currentProfile,
+            }),
+            onRehydrateStorage: () => async (state) => {
+                const profileId = state?.currentProfile?.profileId;
+
+                const client = createLensClient();
+                const clientProfileId = await client.authentication.getProfileId();
+
+                if (!clientProfileId || (profileId && clientProfileId !== profileId)) {
+                    console.warn('[lens store] clean the local store because the client cannot recover properly');
+                    state?.clearCurrentProfile();
+                    return;
+                }
+
+                const authenticated = await client.authentication.isAuthenticated();
+                if (!authenticated) {
+                    console.warn('[lens store] clean the local profile because the client session is broken');
+                    state?.clearCurrentProfile();
+                    return;
+                }
+            },
         },
     ),
 );

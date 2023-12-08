@@ -1,6 +1,7 @@
 'use client';
 
 import { Plural, Trans } from '@lingui/macro';
+import { createLookupTableResolver } from '@masknet/shared-base';
 import { motion } from 'framer-motion';
 import { first } from 'lodash-es';
 import { type FunctionComponent, memo, type SVGAttributes, useMemo } from 'react';
@@ -19,7 +20,6 @@ import { SourceIcon } from '@/components/SourceIcon.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
 import { classNames } from '@/helpers/classNames.js';
 import { useDarkMode } from '@/hooks/useDarkMode.js';
-import { createLookupTableResolver } from '@/maskbook/packages/shared-base/src/index.js';
 import { type Notification, NotificationType, type PostType } from '@/providers/types/SocialMedia.js';
 
 const resolveNotificationIcon = createLookupTableResolver<

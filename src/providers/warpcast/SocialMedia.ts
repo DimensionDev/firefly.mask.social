@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import {
     createIndicator,
     createNextIndicator,
@@ -9,13 +8,13 @@ import {
 import { HubRestAPIClient } from '@standard-crypto/farcaster-js';
 import { compact } from 'lodash-es';
 import urlcat from 'urlcat';
-import { getWalletClient } from 'wagmi/actions';
 
 import { SocialPlatform } from '@/constants/enum.js';
 import { EMPTY_LIST, WARPCAST_CLIENT_URL, WARPCAST_ROOT_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { formatWarpcastPost, formatWarpcastPostFromFeed } from '@/helpers/formatWarpcastPost.js';
 import { formatWarpcastUser } from '@/helpers/formatWarpcastUser.js';
+import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { isZero } from '@/maskbook/packages/web3-shared/base/src/index.js';
 import { SessionFactory } from '@/providers/base/SessionFactory.js';
 import {
@@ -48,17 +47,14 @@ export class WarpcastSocialMedia implements Provider {
         return Type.Warpcast;
     }
 
-    async createSession(
-        setUrlOrSignal?: AbortSignal | ((url: string) => void),
-        signal?: AbortSignal,
-    ): Promise<WarpcastSession> {
-        const setUrl = typeof setUrlOrSignal === 'function' ? setUrlOrSignal : undefined;
-        const abortSignal = setUrlOrSignal instanceof AbortSignal ? setUrlOrSignal : signal;
+    async createSession(signal?: AbortSignal): Promise<WarpcastSession> {
+        throw new Error('Please use createSessionWithURL() instead.');
+    }
 
-        const client = await getWalletClient();
-        if (!client) throw new Error(t`No client found`);
+    async createSessionByScanningQRCode(setUrl: (url: string) => void, signal?: AbortSignal): Promise<WarpcastSession> {
+        const client = await getWalletClientRequired();
+        const session = await createSessionByCustodyWallet(client, signal);
 
-        const session = await createSessionByCustodyWallet(client, abortSignal);
         // const session = await createSessionByGrantPermission(setUrl, abortSignal);
         localStorage.setItem('warpcast_session', session.serialize());
         return session;

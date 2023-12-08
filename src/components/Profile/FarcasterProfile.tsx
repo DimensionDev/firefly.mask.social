@@ -8,8 +8,8 @@ import ContentTabs from '@/components/Profile/ContentTabs.js';
 import Info from '@/components/Profile/Info.js';
 import Title from '@/components/Profile/Title.js';
 import { createPageTitle } from '@/helpers/createPageTitle.js';
-import { useLogin } from '@/hooks/useLogin.js';
-import { usePlatformAccount } from '@/hooks/usePlatformAccount.js';
+import { useIsLogin } from '@/hooks/useIsLogin.js';
+import { usePlatformProfile } from '@/hooks/usePlatformProfile.js';
 import { WarpcastSocialMedia } from '@/providers/warpcast/SocialMedia.js';
 
 interface FarcasterProfileProps {
@@ -22,13 +22,13 @@ export default function FarcasterProfile({ id }: FarcasterProfileProps) {
         queryFn: () => farcasterClient.getProfileById(id),
     });
 
-    const isLogin = useLogin();
+    const isLogin = useIsLogin();
 
-    const platformAccount = usePlatformAccount();
+    const platformProfile = usePlatformProfile();
 
     const isMyProfile = useMemo(
-        () => !!isLogin && platformAccount.farcaster.id === id,
-        [id, isLogin, platformAccount.farcaster.id],
+        () => !!isLogin && platformProfile.farcaster?.profileId === id,
+        [id, isLogin, platformProfile.farcaster?.profileId],
     );
 
     const title = useMemo(() => {
