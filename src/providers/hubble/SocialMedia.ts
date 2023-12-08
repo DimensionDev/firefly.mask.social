@@ -7,6 +7,7 @@ import { blake3 } from 'hash-wasm';
 import urlcat from 'urlcat';
 import { toBytes } from 'viem';
 
+import { warpcastClient } from '@/configs/warpcastClient.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { EMPTY_LIST, FIREFLY_HUBBLE_URL, FIREFLY_ROOT_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
@@ -22,7 +23,6 @@ import type { UserResponse } from '@/providers/types/Firefly.js';
 import { type Post, type Profile, ProfileStatus, type Provider, Type } from '@/providers/types/SocialMedia.js';
 import { ReactionType as ReactionTypeCustom } from '@/providers/types/SocialMedia.js';
 import type { WarpcastSession } from '@/providers/warpcast/Session.js';
-import { WarpcastSocialMediaProvider } from '@/providers/warpcast/SocialMedia.js';
 
 ed.etc.sha512Sync = (...m: any) => sha512(ed.etc.concatBytes(...m));
 
@@ -33,15 +33,7 @@ export class HubbleSocialMedia implements Provider {
     }
 
     async createSession(signal?: AbortSignal): Promise<WarpcastSession> {
-        throw new Error('Please use createSessionByScanningQRCode() instead.');
-    }
-
-    async createSessionByScanningQRCode(setUrl: (url: string) => void, signal?: AbortSignal) {
-        return WarpcastSocialMediaProvider.createSessionByScanningQRCode(setUrl, signal);
-    }
-
-    async resumeSession() {
-        return WarpcastSocialMediaProvider.resumeSession();
+        throw new Error('Please use createSessionByGrantPermission() instead.');
     }
 
     async discoverPosts(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
@@ -88,8 +80,7 @@ export class HubbleSocialMedia implements Provider {
     }
 
     async publishPost(post: Post): Promise<Post> {
-        const session = await this.resumeSession();
-        if (!session) throw new Error(t`No session found`);
+        const session = warpcastClient.getSessionRequired();
 
         const url = urlcat(FIREFLY_HUBBLE_URL, '/v1/submitMessage');
         const messageData: MessageData = {
@@ -162,8 +153,7 @@ export class HubbleSocialMedia implements Provider {
     }
 
     async upvotePost(postId: string) {
-        const session = await this.resumeSession();
-        if (!session) throw new Error(t`No session found`);
+        const session = warpcastClient.getSessionRequired();
         const url = urlcat(FIREFLY_HUBBLE_URL, '/v1/submitMessage');
         const messageData: MessageData = {
             type: MessageType.REACTION_ADD,
@@ -209,8 +199,7 @@ export class HubbleSocialMedia implements Provider {
     }
 
     async unvotePost(postId: string) {
-        const session = await this.resumeSession();
-        if (!session) throw new Error(t`No session found`);
+        const session = warpcastClient.getSessionRequired();
         const url = urlcat(FIREFLY_HUBBLE_URL, '/v1/submitMessage');
         const messageData: MessageData = {
             type: MessageType.REACTION_REMOVE,
@@ -251,8 +240,7 @@ export class HubbleSocialMedia implements Provider {
     }
 
     async commentPost(postId: string, comment: string) {
-        const session = await this.resumeSession();
-        if (!session) throw new Error(t`No session found`);
+        const session = warpcastClient.getSessionRequired();
         const url = urlcat(FIREFLY_HUBBLE_URL, '/v1/submitMessage');
         const messageData: MessageData = {
             type: MessageType.CAST_ADD,
@@ -297,8 +285,7 @@ export class HubbleSocialMedia implements Provider {
     }
 
     async mirrorPost(postId: string) {
-        const session = await this.resumeSession();
-        if (!session) throw new Error(t`No session found`);
+        const session = warpcastClient.getSessionRequired();
         const url = urlcat(FIREFLY_HUBBLE_URL, '/v1/submitMessage');
         const messageData: MessageData = {
             type: MessageType.REACTION_ADD,
@@ -339,8 +326,7 @@ export class HubbleSocialMedia implements Provider {
     }
 
     async unmirrorPost(postId: string) {
-        const session = await this.resumeSession();
-        if (!session) throw new Error(t`No session found`);
+        const session = warpcastClient.getSessionRequired();
         const url = urlcat(FIREFLY_HUBBLE_URL, '/v1/submitMessage');
         const messageData: MessageData = {
             type: MessageType.REACTION_REMOVE,
@@ -381,8 +367,7 @@ export class HubbleSocialMedia implements Provider {
     }
 
     async follow(profileId: string) {
-        const session = await this.resumeSession();
-        if (!session) throw new Error(t`No session found`);
+        const session = warpcastClient.getSessionRequired();
         const url = urlcat(FIREFLY_HUBBLE_URL, '/v1/submitMessage');
         const messageData: MessageData = {
             type: MessageType.LINK_ADD,
@@ -420,8 +405,7 @@ export class HubbleSocialMedia implements Provider {
     }
 
     async unfollow(profileId: string) {
-        const session = await this.resumeSession();
-        if (!session) throw new Error(t`No session found`);
+        const session = warpcastClient.getSessionRequired();
         const url = urlcat(FIREFLY_HUBBLE_URL, '/v1/submitMessage');
         const messageData: MessageData = {
             type: MessageType.LINK_REMOVE,

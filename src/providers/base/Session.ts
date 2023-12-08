@@ -4,12 +4,10 @@ import { Type } from '@/providers/types/SocialMedia.js';
 export abstract class BaseSession implements Session {
     constructor(
         public type: Type,
-        public profileId: string | number,
+        public profileId: string,
         public token: string,
         public createdAt: number,
         public expiresAt: number,
-        // for warpcast
-        public privateKey?: string,
     ) {}
 
     serialize(): `${Type}:${string}` {
@@ -18,7 +16,6 @@ export abstract class BaseSession implements Session {
             token: this.token,
             createdAt: this.createdAt,
             expiresAt: this.expiresAt,
-            privateKey: this.privateKey,
         });
 
         return `${this.type}:${body}`;

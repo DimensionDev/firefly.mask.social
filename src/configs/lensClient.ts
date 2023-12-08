@@ -1,22 +1,29 @@
 import { type IStorageProvider, LensClient, production } from '@lens-protocol/client';
 
+const ls = typeof window === 'undefined' ? undefined : window.localStorage;
+
 class LocalStorageProvider implements IStorageProvider {
     getItem(key: string) {
-        return window.localStorage.getItem(key);
+        return ls?.getItem(key) ?? null;
     }
 
     setItem(key: string, value: string) {
-        window.localStorage.setItem(key, value);
+        ls?.setItem(key, value);
     }
 
     removeItem(key: string) {
-        window.localStorage.removeItem(key);
+        ls?.removeItem(key);
     }
 }
 
+let client: LensClient;
+
 export function createLensClient() {
-    return new LensClient({
-        environment: production,
-        storage: new LocalStorageProvider(),
-    });
+    if (!client) {
+        client = new LensClient({
+            environment: production,
+            storage: new LocalStorageProvider(),
+        });
+    }
+    return client;
 }

@@ -1,11 +1,10 @@
 'use client';
 
 import { Trans } from '@lingui/macro';
+import { formatEthereumAddress } from '@masknet/web3-shared-evm';
 import { useAccount } from 'wagmi';
 
 import CopyIcon from '@/assets/copy.svg';
-import { SocialPlatform } from '@/constants/enum.js';
-import { formatEthereumAddress } from '@/maskbook/packages/web3-shared/evm/src/index.js';
 import { LogoutModalRef } from '@/modals/controls.js';
 import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
 import { useLensStateStore } from '@/store/useLensStore.js';
@@ -14,6 +13,7 @@ import { AccountCard } from './AccountCard/index.js';
 
 export default function Connected() {
     const { address } = useAccount();
+
     const lensProfiles = useLensStateStore.use.profiles();
     const farcasterProfiles = useFarcasterStateStore.use.profiles();
     const currentLensProfile = useLensStateStore.use.currentProfile();
@@ -39,15 +39,11 @@ export default function Connected() {
                             <CopyIcon width={14} height={14} />
                         </div>
                     </div>
-                    {lensProfiles.map(({ pfp, profileId, displayName }) => (
+                    {lensProfiles.map((profile) => (
                         <AccountCard
-                            key={profileId}
-                            avatar={pfp}
-                            name={displayName}
-                            userName={profileId}
-                            isCurrent={currentLensProfile?.profileId === profileId}
-                            type={SocialPlatform.Lens}
-                            logout={() => {}}
+                            key={profile.profileId}
+                            profile={profile}
+                            isCurrent={currentLensProfile?.profileId === profile.profileId}
                         />
                     ))}
                 </>
@@ -59,15 +55,11 @@ export default function Connected() {
                             <Trans>Farcaster</Trans>
                         </span>
                     </div>
-                    {farcasterProfiles.map(({ pfp, profileId, displayName }) => (
+                    {farcasterProfiles.map((profile) => (
                         <AccountCard
-                            key={profileId}
-                            avatar={pfp}
-                            name={displayName}
-                            userName={profileId}
-                            isCurrent={currentFarcasterProfile?.profileId === profileId}
-                            type={SocialPlatform.Farcaster}
-                            logout={() => {}}
+                            key={profile.profileId}
+                            profile={profile}
+                            isCurrent={currentFarcasterProfile?.profileId === profile.profileId}
                         />
                     ))}
                 </>
@@ -84,7 +76,7 @@ export default function Connected() {
                 <button
                     className="inline-flex h-10 w-[200px] flex-col items-start justify-start"
                     onClick={() => {
-                        LogoutModalRef.open({});
+                        LogoutModalRef.open();
                     }}
                 >
                     <div className="inline-flex h-10 items-center justify-center gap-2 self-stretch rounded-2xl bg-[#FF3545] px-[18px] py-[11px]">

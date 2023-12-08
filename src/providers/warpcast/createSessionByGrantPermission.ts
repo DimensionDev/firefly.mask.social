@@ -12,7 +12,6 @@ export async function createSessionByGrantPermission(setUrl?: (url: string) => v
     const response = await fetchJSON<
         ResponseJSON<{
             publicKey: string;
-            privateKey: string;
             fid: string;
             token: string;
             timestamp: number;
@@ -34,6 +33,5 @@ export async function createSessionByGrantPermission(setUrl?: (url: string) => v
         response.data.token,
         response.data.timestamp,
         response.data.expiresAt,
-        response.data.privateKey,
     );
 }

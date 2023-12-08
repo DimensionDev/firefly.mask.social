@@ -4,6 +4,7 @@ import type { GetWalletClientResult } from 'wagmi/actions';
 import { WARPCAST_ROOT_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { generateCustodyBearer } from '@/helpers/generateCustodyBearer.js';
+import { getWarpcastErrorMessage } from '@/helpers/getWarpcastErrorMessage.js';
 import type { UserResponse } from '@/providers/types/Warpcast.js';
 import { WarpcastSession } from '@/providers/warpcast/Session.js';
 
@@ -30,20 +31,20 @@ export async function createSessionByCustodyWallet(client: Exclude<GetWalletClie
     });
     if (response.errors?.length) throw new Error(response.errors[0].message);
 
-    const { result: user } = await fetchJSON<UserResponse>(
-        urlcat(WARPCAST_ROOT_URL, '/me', {
-            method: 'GET',
-            headers: {
-                Authorization: `Bearer ${response.result.token.secret}`,
-            },
-        }),
-    );
+    const userResponse = await fetchJSON<UserResponse>(urlcat(WARPCAST_ROOT_URL, '/me'), {
+        method: 'GET',
+        headers: {
+            Authorization: `Bearer ${response.result.token.secret}`,
+        },
+    });
+
+    const errorMessage = getWarpcastErrorMessage(userResponse);
+    if (errorMessage) throw new Error(errorMessage);
 
     return new WarpcastSession(
-        user.fid.toString(),
+        userResponse.result.user.fid.toString(),
         response.result.token.secret,
         payload.params.timestamp,
         payload.params.expiresAt,
-        response.result.token.secret,
     );
 }

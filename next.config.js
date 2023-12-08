@@ -38,6 +38,9 @@ export default {
             {
                 hostname: 'cdn.stamp.fyi',
             },
+            {
+                hostname: 'i.imgur.com',
+            },
         ],
     },
     async headers() {

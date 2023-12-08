@@ -1,6 +1,7 @@
 'use client';
 
 import { t, Trans } from '@lingui/macro';
+import { delay } from '@masknet/kit';
 import { Switch } from '@mui/material';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { first } from 'lodash-es';
@@ -13,7 +14,7 @@ import LoadingIcon from '@/assets/loading.svg';
 import WalletIcon from '@/assets/wallet.svg';
 import { AccountCard } from '@/components/Login/AccountCard.js';
 import { EMPTY_LIST } from '@/constants/index.js';
-import { LoginModalRef } from '@/modals/controls.js';
+import { ConnectWalletModalRef, LoginModalRef } from '@/modals/controls.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { useLensStateStore } from '@/store/useLensStore.js';
@@ -56,7 +57,7 @@ export function LoginLens(props: LoginLensProps) {
                 }
 
                 updateProfiles(profiles);
-                updateCurrentProfile(current);
+                updateCurrentProfile(current, session);
                 enqueueSnackbar(t`Your Lens account is now connected`, { variant: 'success' });
                 LoginModalRef.close();
             } catch (error) {
@@ -125,8 +126,10 @@ export function LoginLens(props: LoginLensProps) {
                 >
                     <button
                         className="flex gap-[8px] py-[11px]"
-                        onClick={() => {
+                        onClick={async () => {
                             LoginModalRef.close();
+                            await delay(300);
+                            ConnectWalletModalRef.open();
                         }}
                     >
                         <WalletIcon width={20} height={20} />

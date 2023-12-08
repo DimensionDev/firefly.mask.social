@@ -7,9 +7,9 @@ import { useState } from 'react';
 import QRCode from 'react-qr-code';
 
 import LoadingIcon from '@/assets/loading.svg';
-import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { LoginModalRef } from '@/modals/controls.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
+import { WarpcastSocialMediaProvider } from '@/providers/warpcast/SocialMedia.js';
 import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
 
 export function LoginFarcaster() {
@@ -22,27 +22,24 @@ export function LoginFarcaster() {
         queryKey: ['farcaster', 'login'],
         queryFn: async () => {
             try {
-                // required to connect a wallet
-                await getWalletClientRequired();
-
-                const session = await FireflySocialMediaProvider.createSessionByScanningQRCode(setUrl);
-                const profile = await FireflySocialMediaProvider.getProfileById(`${session.profileId}`);
+                const session = await WarpcastSocialMediaProvider.createSessionByCustodyWallet();
+                const profile = await FireflySocialMediaProvider.getProfileById(session.profileId);
 
                 updateProfiles([profile]);
-                updateCurrentProfile(profile);
-
-                LoginModalRef.close();
+                updateCurrentProfile(profile, session);
 
                 enqueueSnackbar(t`Your Farcaster account is now connected`, {
                     variant: 'success',
                 });
+                LoginModalRef.close();
             } catch (error) {
                 enqueueSnackbar(error instanceof Error ? error.message : t`Failed to login`, {
                     variant: 'error',
                 });
+                LoginModalRef.close();
             }
 
-            return 'success';
+            return '';
         },
     });
 

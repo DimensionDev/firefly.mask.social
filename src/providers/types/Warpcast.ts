@@ -1,50 +1,72 @@
-export interface CastsResponse {
-    result: CastsResult;
-    next: Next;
+export interface ErrorResponse {
+    errors: Array<{
+        message: string;
+        reason?: string;
+    }>;
 }
 
-export interface SearchCastsResponse {
+export interface CastsResponse extends ErrorResponse {
     result: {
         casts: Cast[];
     };
     next: Next;
 }
 
-export interface CastResponse {
-    result: Cast;
-}
-
-export interface FeedResponse {
-    result: FeedResult;
+export interface SearchCastsResponse extends ErrorResponse {
+    result: {
+        casts: Cast[];
+    };
     next: Next;
 }
 
-export interface UserResponse {
-    result: Profile;
+export interface CastResponse extends ErrorResponse {
+    result: Cast;
 }
 
-export interface UserDetailResponse {
+export interface FeedResponse extends ErrorResponse {
+    result: {
+        feed: Feed[];
+    };
+    next: Next;
+}
+
+export interface UserResponse extends ErrorResponse {
     result: {
         user: Profile;
     };
 }
 
-export interface CastsResult {
-    casts: Cast[];
+export interface UserDetailResponse extends ErrorResponse {
+    result: {
+        user: Profile;
+    };
 }
 
-export interface FeedResult {
-    feed: Feed[];
-}
-
-export interface UsersResponse {
+export interface UsersResponse extends ErrorResponse {
     result: Profile[];
     next: Next;
 }
 
-export interface SearchUsersResponse {
+export interface SearchUsersResponse extends ErrorResponse {
     result: {
         users: Profile[];
+    };
+    next: Next;
+}
+
+export interface ReactionResponse extends ErrorResponse {
+    result: ReactionInfo;
+}
+
+export interface SuccessResponse extends ErrorResponse {
+    result: {
+        success: boolean;
+    };
+}
+
+export interface NotificationResponse extends ErrorResponse {
+    result: {
+        notifications: Notification[];
     };
     next: Next;
 }
@@ -190,16 +212,6 @@ export interface ReactionInfo {
     castHash: string;
 }
 
-export interface ReactionResponse {
-    result: ReactionInfo;
-}
-
-export interface SuccessResponse {
-    result: {
-        success: boolean;
-    };
-}
-
 export interface Notification {
     type: string;
     id: string;
@@ -208,11 +220,4 @@ export interface Notification {
     content: {
         cast: Cast;
     };
-}
-
-export interface NotificationResponse {
-    result: {
-        notifications: Notification[];
-    };
-    next: Next;
 }

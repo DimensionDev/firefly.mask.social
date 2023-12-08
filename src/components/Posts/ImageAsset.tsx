@@ -1,10 +1,10 @@
 'use client';
+import { isGreaterThan } from '@masknet/web3-shared-base';
 import { divide } from 'lodash-es';
 import { type ImgHTMLAttributes, memo, type SyntheticEvent, useCallback, useState } from 'react';
 
 import { Image } from '@/components/Image.js';
 import { useMounted } from '@/hooks/useMounted.js';
-import { isGreaterThan } from '@/maskbook/packages/web3-shared/base/src/index.js';
 
 export const ImageAsset = memo<ImgHTMLAttributes<HTMLImageElement>>(function ImageAsset(props) {
     const [imageProps, setImageProps] = useState<ImgHTMLAttributes<HTMLImageElement>>();

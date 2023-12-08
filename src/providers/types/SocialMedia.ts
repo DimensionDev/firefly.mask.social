@@ -251,14 +251,6 @@ export interface Provider {
     createSession: (signal?: AbortSignal) => Promise<Session>;
 
     /**
-     * Resumes an existing session.
-     *
-     * @param signal Optional AbortSignal for cancellation.
-     * @returns A promise that resolves to a Session object.
-     */
-    resumeSession: (profileId: string, signal?: AbortSignal) => Promise<Session | null>;
-
-    /**
      * Publishes a post.
      *
      * @param post The post to be published.

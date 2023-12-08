@@ -1,5 +1,6 @@
 import { Menu, Transition } from '@headlessui/react';
 import { Select } from '@lingui/macro';
+import { queryClient } from '@masknet/shared-base-ui';
 import { motion } from 'framer-motion';
 import { useSnackbar } from 'notistack';
 import { Fragment, memo, useState } from 'react';
@@ -11,7 +12,6 @@ import MoreIcon from '@/assets/more.svg';
 import UnFollowUserIcon from '@/assets/unfollow-user.svg';
 import { SocialPlatform } from '@/constants/enum.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
-import { queryClient } from '@/maskbook/packages/shared-base-ui/src/index.js';
 import { LoginModalRef } from '@/modals/controls.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
