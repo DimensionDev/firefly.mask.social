@@ -18,9 +18,12 @@ import { Markup } from '@/components/Markup/index.js';
 import { Quote } from '@/components/Posts/Quote.js';
 import { SourceIcon } from '@/components/SourceIcon.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
+import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { useDarkMode } from '@/hooks/useDarkMode.js';
 import { type Notification, NotificationType, type PostType } from '@/providers/types/SocialMedia.js';
+
+import { ProfileLink } from './ProfileLink.js';
 
 const resolveNotificationIcon = createLookupTableResolver<
     NotificationType,
@@ -84,18 +87,29 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
     const title = useMemo(() => {
         switch (notification.type) {
             case NotificationType.Reaction:
-                const firstReactorName = first(notification.reactors)?.displayName;
+                const firstReactor = first(notification.reactors);
+                if (!firstReactor || !notification.post?.type) return;
 
-                if (!firstReactorName || !notification.post?.type) return;
                 return (
                     <Trans>
                         <Plural
-                            value={Math.max(1, notification.reactors.length - 1)}
-                            one={<strong>{firstReactorName}</strong>}
+                            value={notification.reactors.length}
+                            one={<ProfileLink profile={firstReactor} />}
                             other={
-                                <Trans>
-                                    <strong>{firstReactorName}</strong> and # others
-                                </Trans>
+                                <Plural
+                                    value={notification.reactors.length - 1}
+                                    one={
+                                        <Trans>
+                                            <ProfileLink profile={firstReactor} /> and{' '}
+                                            <ProfileLink profile={notification.reactors[1]} />
+                                        </Trans>
+                                    }
+                                    other={
+                                        <Trans>
+                                            <ProfileLink profile={firstReactor} /> and # others
+                                        </Trans>
+                                    }
+                                />
                             }
                         />{' '}
                         <span>liked your </span>
@@ -109,24 +123,35 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
                 if (!notification.quote.quoteOn?.type) return;
                 return (
                     <Trans>
-                        <strong>{by.displayName}</strong> quoted your{' '}
+                        <ProfileLink profile={by} /> quoted your{' '}
                         <strong>
                             <PostTypeI18N type={notification.quote.quoteOn.type} />
                         </strong>
                     </Trans>
                 );
             case NotificationType.Follow:
-                const firstFollowerName = first(notification.followers)?.displayName;
-                if (!firstFollowerName) return;
+                const firstFollower = first(notification.followers);
+                if (!firstFollower) return;
                 return (
                     <Trans>
                         <Plural
-                            value={Math.max(1, notification.followers.length - 1)}
-                            one={<strong>{firstFollowerName}</strong>}
+                            value={notification.followers.length}
+                            one={<ProfileLink profile={firstFollower} />}
                             other={
-                                <Trans>
-                                    <strong>{firstFollowerName}</strong> and # others
-                                </Trans>
+                                <Plural
+                                    value={notification.followers.length - 1}
+                                    one={
+                                        <Trans>
+                                            <ProfileLink profile={firstFollower} /> and{' '}
+                                            <ProfileLink profile={notification.followers[1]} />
+                                        </Trans>
+                                    }
+                                    other={
+                                        <Trans>
+                                            <ProfileLink profile={firstFollower} /> and # others
+                                        </Trans>
+                                    }
+                                />
                             }
                         />{' '}
                         <span>followed you</span>
@@ -137,7 +162,7 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
                 const author = notification.comment.author;
                 return (
                     <Trans>
-                        <strong>{author.displayName}</strong> commented your{' '}
+                        <ProfileLink profile={author} /> commented your{' '}
                         <strong>
                             <PostTypeI18N type={notification.comment.commentOn.type} />
                         </strong>
@@ -148,24 +173,35 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
                 const mentionAuthor = notification.post.author;
                 return (
                     <Trans>
-                        <strong>{mentionAuthor.displayName}</strong> mentioned you in a{' '}
+                        <ProfileLink profile={mentionAuthor} /> mentioned you in a{' '}
                         <strong>
                             <PostTypeI18N type={notification.post.type} />
                         </strong>
                     </Trans>
                 );
             case NotificationType.Mirror:
-                const firstMirrorName = first(notification.mirrors)?.displayName;
-                if (!firstMirrorName || !notification.post?.type) return;
+                const firstMirror = first(notification.mirrors);
+                if (!firstMirror || !notification.post?.type) return;
                 return (
                     <Trans>
                         <Plural
-                            value={Math.max(1, notification.mirrors.length - 1)}
-                            one={<strong>{firstMirrorName}</strong>}
+                            value={notification.mirrors.length}
+                            one={<ProfileLink profile={firstMirror} />}
                             other={
-                                <Trans>
-                                    <strong>{firstMirrorName}</strong> and # others mirrored you
-                                </Trans>
+                                <Plural
+                                    value={notification.mirrors.length - 1}
+                                    one={
+                                        <Trans>
+                                            <ProfileLink profile={firstMirror} /> and{' '}
+                                            <ProfileLink profile={notification.mirrors[1]} />
+                                        </Trans>
+                                    }
+                                    other={
+                                        <Trans>
+                                            <ProfileLink profile={firstMirror} /> and # others mirrored you
+                                        </Trans>
+                                    }
+                                />
                             }
                         />{' '}
                         <strong>
@@ -174,17 +210,28 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
                     </Trans>
                 );
             case NotificationType.Act:
-                const firstActedName = first(notification.actions)?.displayName;
-                if (!firstActedName || !notification.post.type) return;
+                const firstActed = first(notification.actions);
+                if (!firstActed || !notification.post.type) return;
                 return (
                     <Trans>
                         <Plural
-                            value={Math.max(1, notification.actions.length - 1)}
-                            one={<strong>{firstActedName}</strong>}
+                            value={notification.actions.length}
+                            one={<ProfileLink profile={firstActed} />}
                             other={
-                                <Trans>
-                                    <strong>{firstActedName}</strong> and # others acted on your
-                                </Trans>
+                                <Plural
+                                    value={notification.actions.length - 1}
+                                    one={
+                                        <Trans>
+                                            <ProfileLink profile={firstActed} /> and{' '}
+                                            <ProfileLink profile={notification.actions[1]} />
+                                        </Trans>
+                                    }
+                                    other={
+                                        <Trans>
+                                            <ProfileLink profile={firstActed} /> and # others acted on your
+                                        </Trans>
+                                    }
+                                />
                             }
                         />{' '}
                         <strong>
@@ -263,27 +310,30 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
                     <div className="flex-1">
                         <div className="flex flex-1 items-center justify-between">
                             <div className="flex items-center">
-                                {profiles.slice(0, 5).map((x, index, self) => {
-                                    return (
+                                {profiles.slice(0, 5).map((x, index, self) => (
+                                    <Link
+                                        key={index}
+                                        href={`/profile/${x.handle}`}
+                                        className={classNames({
+                                            '-ml-5': index > 0 && self.length > 1,
+                                        })}
+                                        style={{ zIndex: self.length - index }}
+                                    >
                                         <Image
-                                            key={index}
                                             loading="lazy"
-                                            className={classNames('h-10 w-10 rounded-full', {
-                                                '-ml-5': index > 0 && self.length > 1,
-                                            })}
-                                            style={{ zIndex: self.length - index }}
+                                            className={'h-10 w-10 rounded-full'}
                                             src={x.pfp}
                                             fallback={
-                                                !isDarkMode
-                                                    ? '/image/firefly-light-avatar.png'
-                                                    : '/image/firefly-dark-avatar.png'
+                                                isDarkMode
+                                                    ? '/image/firefly-dark-avatar.png'
+                                                    : '/image/firefly-light-avatar.png'
                                             }
                                             width={40}
                                             height={40}
                                             alt={x.profileId}
                                         />
-                                    );
-                                })}
+                                    </Link>
+                                ))}
                             </div>
                             <div className="flex items-center space-x-2">
                                 <SourceIcon source={notification.source} />
