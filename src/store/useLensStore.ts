@@ -5,13 +5,15 @@ import { immer } from 'zustand/middleware/immer';
 import { createLensClient } from '@/configs/lensClient.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { createSelectors } from '@/helpers/createSelector.js';
+import type { Session } from '@/providers/types/Session.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 export interface LensState {
     profiles: Profile[];
     currentProfile: Profile | null;
+    currentProfileSession: Session | null;
     updateProfiles: (profiles: Profile[]) => void;
-    updateCurrentProfile: (profile: Profile) => void;
+    updateCurrentProfile: (profile: Profile, session: Session) => void;
     clearCurrentProfile: () => void;
 }
 
@@ -20,13 +22,15 @@ const useLensStateBase = create<LensState, [['zustand/persist', unknown], ['zust
         immer((set, get) => ({
             profiles: EMPTY_LIST,
             currentProfile: null,
-            updateCurrentProfile: (profile: Profile) =>
-                set((state) => {
-                    state.currentProfile = profile;
-                }),
+            currentProfileSession: null,
             updateProfiles: (profiles: Profile[]) =>
                 set((state) => {
                     state.profiles = profiles;
+                }),
+            updateCurrentProfile: (profile: Profile, session: Session) =>
+                set((state) => {
+                    state.currentProfile = profile;
+                    state.currentProfileSession = session;
                 }),
             clearCurrentProfile: () =>
                 set((state) => {

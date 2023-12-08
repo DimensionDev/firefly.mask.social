@@ -51,8 +51,6 @@ export class LensSocialMedia implements Provider {
     }
 
     async createSessionForProfileId(profileId: string): Promise<LensSession> {
-        const profile = await this.getProfileById(profileId);
-
         const walletClient = await getWalletClientRequired({
             chainId: polygon.id,
         });
@@ -78,10 +76,6 @@ export class LensSocialMedia implements Provider {
             now,
             now + 1000 * 60 * 60 * 24 * 30, // 30 days
         );
-    }
-
-    async resumeSession(profileId: string): Promise<LensSession | null> {
-        throw new Error('The LensClient will handle this.');
     }
 
     async updateSignless(enable: boolean): Promise<void> {

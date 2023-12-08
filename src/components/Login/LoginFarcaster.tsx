@@ -25,7 +25,7 @@ export function LoginFarcaster() {
                 const profile = await FireflySocialMediaProvider.getProfileById(`${session.profileId}`);
 
                 updateProfiles([profile]);
-                updateCurrentProfile(profile);
+                updateCurrentProfile(profile, session);
 
                 enqueueSnackbar(t`Your Farcaster account is now connected`, {
                     variant: 'success',

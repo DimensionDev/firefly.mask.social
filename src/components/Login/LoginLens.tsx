@@ -56,7 +56,7 @@ export function LoginLens(props: LoginLensProps) {
                 }
 
                 updateProfiles(profiles);
-                updateCurrentProfile(current);
+                updateCurrentProfile(current, session);
                 enqueueSnackbar(t`Your Lens account is now connected`, { variant: 'success' });
                 LoginModalRef.close();
             } catch (error) {

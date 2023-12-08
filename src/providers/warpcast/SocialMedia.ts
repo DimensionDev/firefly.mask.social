@@ -63,18 +63,6 @@ export class WarpcastSocialMedia implements Provider {
         return this.createSessionByGrantPermission(setUrl, signal);
     }
 
-    // async resumeSession(): Promise<WarpcastSession | null> {
-    //     const storedSession = localStorage.getItem('warpcast_session');
-    //     if (!storedSession) return null;
-
-    //     const recoveredSession = SessionFactory.createSession<WarpcastSession>(storedSession);
-    //     if (recoveredSession.expiresAt > Date.now()) {
-    //         return recoveredSession;
-    //     } else {
-    //         return null;
-    //     }
-    // }
-
     async createClient() {
         return new HubRestAPIClient();
     }

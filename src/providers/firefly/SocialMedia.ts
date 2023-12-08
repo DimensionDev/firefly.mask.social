@@ -11,6 +11,7 @@ import { isZero } from '@masknet/web3-shared-base';
 import { compact } from 'lodash-es';
 import urlcat from 'urlcat';
 
+import { warpcastClient } from '@/configs/warpcastClient.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { FIREFLY_ROOT_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
@@ -38,7 +39,6 @@ import {
 } from '@/providers/types/SocialMedia.js';
 import type { WarpcastSession } from '@/providers/warpcast/Session.js';
 import { WarpcastSocialMediaProvider } from '@/providers/warpcast/SocialMedia.js';
-import { hydrateCurrentProfile } from '@/store/useFarcasterStore.js';
 
 // @ts-ignore
 export class FireflySocialMedia implements Provider {
@@ -212,17 +212,18 @@ export class FireflySocialMedia implements Provider {
     }
 
     async getNotifications(indicator?: PageIndicator): Promise<Pageable<Notification, PageIndicator>> {
-        const currentProfile = hydrateCurrentProfile();
-        if (!currentProfile?.profileId) throw new Error(t`Login required`);
+        const session = warpcastClient.getSessionRequired();
+        const profileId = session.profileId;
+        if (!profileId) throw new Error(t`Login required`);
         const url = urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/notifications', {
-            fid: currentProfile.profileId,
-            sourceFid: currentProfile.profileId,
+            fid: profileId,
+            sourceFid: profileId,
             cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
         });
         const { data } = await fetchJSON<NotificationResponse>(url, { method: 'GET' });
 
         const result = data.notifications.map<Notification | undefined>((notification) => {
-            const notificationId = `${currentProfile.profileId}_${notification.timestamp}_${notification.notificationType}`;
+            const notificationId = `${profileId}_${notification.timestamp}_${notification.notificationType}`;
             const user = notification.user ? [formatFarcasterProfileFromFirefly(notification.user)] : EMPTY_LIST;
             const post = notification.cast ? formatFarcasterPostFromFirefly(notification.cast) : undefined;
             const timestamp = notification.timestamp ? new Date(notification.timestamp).getTime() : undefined;
