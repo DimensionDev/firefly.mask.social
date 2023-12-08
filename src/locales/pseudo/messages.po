@@ -127,6 +127,9 @@ msgstr ""
 msgid "Feed"
 msgstr ""
 
+msgid "Change account"
+msgstr ""
+
 msgid "No content URI found"
 msgstr ""
 

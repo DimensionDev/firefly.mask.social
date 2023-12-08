@@ -127,6 +127,9 @@ msgstr "Connect Wallet"
 msgid "Feed"
 msgstr "Feed"
 
+msgid "Change account"
+msgstr "Change account"
+
 msgid "No content URI found"
 msgstr "No content URI found"
 
