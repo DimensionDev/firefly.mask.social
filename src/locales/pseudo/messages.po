@@ -184,9 +184,6 @@ msgstr ""
 msgid "Switch"
 msgstr ""
 
-msgid "Oops… Something went wrong. Please try again"
-msgstr ""
-
 msgid "Follow"
 msgstr ""
 
@@ -284,9 +281,6 @@ msgid "Share"
 msgstr ""
 
 msgid "Select failed: More than 2 images"
-msgstr ""
-
-msgid "Please switch to the {0} network in your wallet ({1})}"
 msgstr ""
 
 msgid "Failed to post on Lens"

@@ -184,9 +184,6 @@ msgstr "Only people you follow can reply"
 msgid "Switch"
 msgstr "Switch"
 
-msgid "Oops… Something went wrong. Please try again"
-msgstr "Oops… Something went wrong. Please try again"
-
 msgid "Follow"
 msgstr "Follow"
 
@@ -285,9 +282,6 @@ msgstr "Share"
 
 msgid "Select failed: More than 2 images"
 msgstr "Select failed: More than 2 images"
-
-msgid "Please switch to the {0} network in your wallet ({1})}"
-msgstr "Please switch to the {0} network in your wallet ({1})}"
 
 msgid "Failed to post on Lens"
 msgstr "Failed to post on Lens"
