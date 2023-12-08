@@ -1,5 +1,6 @@
 'use client';
 
+import { formatEthereumAddress } from '@masknet/web3-shared-evm';
 import { memo } from 'react';
 import { useEnsAvatar, useEnsName } from 'wagmi';
 import { mainnet } from 'wagmi/chains';
@@ -9,7 +10,6 @@ import { Image } from '@/components/Image.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
 import { Link } from '@/esm/Link.js';
 import { useDarkMode } from '@/hooks/useDarkMode.js';
-import { formatEthereumAddress } from '@/maskbook/packages/web3-shared/evm/src/index.js';
 
 interface MirrorProps {
     address?: `0x${string}`;

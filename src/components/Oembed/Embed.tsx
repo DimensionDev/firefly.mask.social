@@ -1,5 +1,6 @@
+import { openWindow } from '@masknet/shared-base-ui';
+
 import { Image } from '@/esm/Image.js';
-import { openWindow } from '@/maskbook/packages/shared-base-ui/src/index.js';
 import type { OpenGraph } from '@/services/digestLink.js';
 
 interface EmbedProps {

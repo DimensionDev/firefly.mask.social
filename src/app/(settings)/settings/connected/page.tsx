@@ -1,11 +1,11 @@
 'use client';
 
 import { Trans } from '@lingui/macro';
+import { formatEthereumAddress } from '@masknet/web3-shared-evm';
 import { useAccount } from 'wagmi';
 
 import CopyIcon from '@/assets/copy.svg';
 import { SocialPlatform } from '@/constants/enum.js';
-import { formatEthereumAddress } from '@/maskbook/packages/web3-shared/evm/src/index.js';
 import { LogoutModalRef } from '@/modals/controls.js';
 import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
 import { useLensStateStore } from '@/store/useLensStore.js';

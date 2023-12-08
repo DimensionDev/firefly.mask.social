@@ -46,6 +46,5 @@ export async function createSessionByCustodyWallet(client: Exclude<GetWalletClie
         response.result.token.secret,
         payload.params.timestamp,
         payload.params.expiresAt,
-        '',
     );
 }

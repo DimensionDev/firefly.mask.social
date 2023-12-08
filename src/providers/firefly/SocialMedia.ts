@@ -7,6 +7,7 @@ import {
     type Pageable,
     type PageIndicator,
 } from '@masknet/shared-base';
+import { isZero } from '@masknet/web3-shared-base';
 import { compact } from 'lodash-es';
 import urlcat from 'urlcat';
 
@@ -15,7 +16,6 @@ import { FIREFLY_ROOT_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { formatFarcasterPostFromFirefly } from '@/helpers/formatFarcasterPostFromFirefly.js';
 import { formatFarcasterProfileFromFirefly } from '@/helpers/formatFarcasterProfileFromFirefly.js';
-import { isZero } from '@/maskbook/packages/web3-shared/base/src/index.js';
 import type {
     CastResponse,
     CastsResponse,

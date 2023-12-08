@@ -1,11 +1,11 @@
 'use client';
 
+import { openWindow } from '@masknet/shared-base-ui';
 import type { LinkProps } from 'next/link.js';
 import { useRouter } from 'next/navigation.js';
 import { memo } from 'react';
 
 import { formatUrl } from '@/helpers/formatUrl.js';
-import { openWindow } from '@/maskbook/packages/shared-base-ui/src/index.js';
 
 interface ExternalLinkProps extends Omit<LinkProps, 'href'> {
     title: string;

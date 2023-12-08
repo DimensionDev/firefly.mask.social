@@ -17,6 +17,7 @@ import {
     type Pageable,
     type PageIndicator,
 } from '@masknet/shared-base';
+import { isZero } from '@masknet/web3-shared-base';
 import { first, flatMap } from 'lodash-es';
 import type { TypedDataDomain } from 'viem';
 import { polygon } from 'viem/chains';
@@ -26,7 +27,6 @@ import { SocialPlatform } from '@/constants/enum.js';
 import { formatLensPost, formatLensPostByFeed, formatLensQuoteOrComment } from '@/helpers/formatLensPost.js';
 import { formatLensProfile } from '@/helpers/formatLensProfile.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
-import { isZero } from '@/maskbook/packages/web3-shared/base/src/index.js';
 import { LensSession } from '@/providers/lens/Session.js';
 import {
     type Notification,
@@ -77,7 +77,6 @@ export class LensSocialMedia implements Provider {
             '', // the LensClient will renew it with refreshToken
             now,
             now + 1000 * 60 * 60 * 24 * 30, // 30 days
-            profile,
         );
     }
 

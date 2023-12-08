@@ -5,6 +5,7 @@ import {
     type Pageable,
     type PageIndicator,
 } from '@masknet/shared-base';
+import { isZero } from '@masknet/web3-shared-base';
 import { HubRestAPIClient } from '@standard-crypto/farcaster-js';
 import { compact } from 'lodash-es';
 import urlcat from 'urlcat';
@@ -15,7 +16,6 @@ import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { formatWarpcastPost, formatWarpcastPostFromFeed } from '@/helpers/formatWarpcastPost.js';
 import { formatWarpcastUser } from '@/helpers/formatWarpcastUser.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
-import { isZero } from '@/maskbook/packages/web3-shared/base/src/index.js';
 import { SessionFactory } from '@/providers/base/SessionFactory.js';
 import {
     type Notification,
