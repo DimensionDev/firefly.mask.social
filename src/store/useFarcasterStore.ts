@@ -39,6 +39,7 @@ const useFarcasterStateBase = create<FarcasterState, [['zustand/persist', unknow
         {
             name: 'farcaster-state',
             partialize: (state) => ({ profiles: state.profiles, currentProfile: state.currentProfile }),
+            onRehydrateStorage: () => async (state) => {},
         },
     ),
 );

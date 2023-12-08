@@ -51,15 +51,11 @@ export class FireflySocialMedia implements Provider {
     }
 
     async createSessionByCustodyWallet(signal?: AbortSignal) {
-        return WarpcastSocialMediaProvider.createSessionByGustodyWallet(signal);
+        return WarpcastSocialMediaProvider.createSessionByCustodyWallet(signal);
     }
 
     async createSessionByGrantPermission(setUrl: (url: string) => void, signal?: AbortSignal) {
         return WarpcastSocialMediaProvider.createSessionByGrantPermission(setUrl, signal);
-    }
-
-    async resumeSession() {
-        return WarpcastSocialMediaProvider.resumeSession();
     }
 
     async discoverPosts(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
