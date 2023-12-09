@@ -1,6 +1,5 @@
 import { t } from '@lingui/macro';
 import { motion } from 'framer-motion';
-import { useSnackbar } from 'notistack';
 import { memo, useCallback, useMemo } from 'react';
 
 import ReplyIcon from '@/assets/reply.svg';
@@ -8,6 +7,7 @@ import { Tooltip } from '@/components/Tooltip.js';
 import type { SocialPlatform } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { humanize, nFormatter } from '@/helpers/formatCommentCounts.js';
+import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { ComposeModalRef, LoginModalRef } from '@/modals/controls.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
@@ -31,7 +31,7 @@ export const Comment = memo<CommentProps>(function Comment({
 }) {
     const isLogin = useIsLogin(source);
 
-    const { enqueueSnackbar } = useSnackbar();
+    const enqueueSnackbar = useCustomSnackbar();
     const tooltip = useMemo(() => {
         if (count && count > 0) {
             return t`${humanize(count)} Comments`;

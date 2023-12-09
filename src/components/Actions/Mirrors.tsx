@@ -1,7 +1,6 @@
 import { Menu, Transition } from '@headlessui/react';
 import { t, Trans } from '@lingui/macro';
 import { motion } from 'framer-motion';
-import { useSnackbar } from 'notistack';
 import { Fragment, memo, useMemo, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 
@@ -14,6 +13,7 @@ import { Tooltip } from '@/components/Tooltip.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { humanize, nFormatter } from '@/helpers/formatCommentCounts.js';
+import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { ComposeModalRef, LoginModalRef } from '@/modals/controls.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
@@ -39,7 +39,7 @@ export const Mirror = memo<MirrorProps>(function Mirror({
 }) {
     const isLogin = useIsLogin(source);
 
-    const { enqueueSnackbar } = useSnackbar();
+    const enqueueSnackbar = useCustomSnackbar();
     const [mirrored, setMirrored] = useState(hasMirrored);
     const [count, setCount] = useState(shares);
 

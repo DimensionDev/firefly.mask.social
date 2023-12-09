@@ -5,7 +5,6 @@ import { delay } from '@masknet/kit';
 import { Switch } from '@mui/material';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { first } from 'lodash-es';
-import { useSnackbar } from 'notistack';
 import { useEffect, useMemo, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 import { useAccount } from 'wagmi';
@@ -14,6 +13,7 @@ import LoadingIcon from '@/assets/loading.svg';
 import WalletIcon from '@/assets/wallet.svg';
 import { AccountCard } from '@/components/Login/AccountCard.js';
 import { EMPTY_LIST } from '@/constants/index.js';
+import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
 import { ConnectWalletModalRef, LoginModalRef } from '@/modals/controls.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
@@ -30,7 +30,7 @@ export function LoginLens(props: LoginLensProps) {
     const updateProfiles = useLensStateStore.use.updateProfiles();
     const updateCurrentProfile = useLensStateStore.use.updateCurrentProfile();
 
-    const { enqueueSnackbar } = useSnackbar();
+    const enqueueSnackbar = useCustomSnackbar();
 
     const { data: profiles } = useSuspenseQuery<Profile[]>({
         queryKey: ['lens', 'profiles', account.address],
