@@ -50,7 +50,7 @@ export function FarcasterAccountSetting() {
                     className="flex w-full items-center gap-[8px]"
                     onClick={() => {
                         disconnect();
-                        LoginModalRef.open({ current: SocialPlatform.Farcaster });
+                        LoginModalRef.open({ platform: SocialPlatform.Farcaster });
                         clearCurrentAccount();
                     }}
                 >

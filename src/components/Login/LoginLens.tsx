@@ -18,6 +18,7 @@ import { ConnectWalletModalRef, LoginModalRef } from '@/modals/controls.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { useLensStateStore } from '@/store/useLensStore.js';
+import { isSameAddress } from '@/maskbook/packages/web3-shared/base/src/index.js';
 
 interface LoginLensProps { }
 
@@ -94,7 +95,7 @@ export function LoginLens(props: LoginLensProps) {
                                 />
                             ))}
                         </div>
-                        {current?.signless || current?.ownedBy?.address !== account.address ? null : (
+                        {current?.signless || isSameAddress(current?.ownedBy?.address, account.address) ? null : (
                             <div className="flex w-full flex-col gap-[8px] rounded-[8px] bg-lightBg px-[16px] py-[24px]">
                                 <div className="flex items-center justify-between">
                                     <span className="text-[14px] font-bold leading-[18px] text-lightMain">
