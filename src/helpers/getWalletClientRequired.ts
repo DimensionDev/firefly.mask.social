@@ -3,7 +3,6 @@ import { getWalletClient, type GetWalletClientArgs, type GetWalletClientResult }
 
 import { chains } from '@/configs/wagmiClient.js';
 import { ChainModalRef, ConnectWalletModalRef } from '@/modals/controls.js';
-import { ConnectWalletModalRef } from '@/modals/controls.js';
 
 export async function getWalletClientRequired(
     args?: GetWalletClientArgs,
