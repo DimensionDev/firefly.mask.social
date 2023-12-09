@@ -7,15 +7,16 @@ import {
     type Pageable,
     type PageIndicator,
 } from '@masknet/shared-base';
+import { isZero } from '@masknet/web3-shared-base';
 import { compact } from 'lodash-es';
 import urlcat from 'urlcat';
 
+import { warpcastClient } from '@/configs/warpcastClient.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { FIREFLY_ROOT_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { formatFarcasterPostFromFirefly } from '@/helpers/formatFarcasterPostFromFirefly.js';
 import { formatFarcasterProfileFromFirefly } from '@/helpers/formatFarcasterProfileFromFirefly.js';
-import { isZero } from '@/maskbook/packages/web3-shared/base/src/index.js';
 import type {
     CastResponse,
     CastsResponse,
@@ -37,8 +38,6 @@ import {
     Type,
 } from '@/providers/types/SocialMedia.js';
 import type { WarpcastSession } from '@/providers/warpcast/Session.js';
-import { WarpcastSocialMediaProvider } from '@/providers/warpcast/SocialMedia.js';
-import { hydrateCurrentProfile } from '@/store/useFarcasterStore.js';
 
 // @ts-ignore
 export class FireflySocialMedia implements Provider {
@@ -47,15 +46,7 @@ export class FireflySocialMedia implements Provider {
     }
 
     async createSession(signal?: AbortSignal): Promise<WarpcastSession> {
-        throw new Error('Please use createSessionByScanningQRCode() instead.');
-    }
-
-    async createSessionByScanningQRCode(setUrl: (url: string) => void, signal?: AbortSignal) {
-        return WarpcastSocialMediaProvider.createSessionByScanningQRCode(setUrl, signal);
-    }
-
-    async resumeSession() {
-        return WarpcastSocialMediaProvider.resumeSession();
+        throw new Error('Please use createSessionByGrantPermission() instead.');
     }
 
     async discoverPosts(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
@@ -71,15 +62,18 @@ export class FireflySocialMedia implements Provider {
         return formatFarcasterPostFromFirefly(cast);
     }
 
-    async getProfileById(profileId: string) {
-        const url = urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/user/profile', { fid: profileId });
-        const { data: user } = await fetchJSON<UserResponse>(url, {
-            method: 'GET',
-        });
+    async getProfileById(profileId: string): Promise<Profile> {
+        const { data: user } = await fetchJSON<UserResponse>(
+            urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/user/profile', { fid: profileId }),
+            {
+                method: 'GET',
+            },
+        );
 
         return {
             profileId: user.fid.toString(),
             nickname: user.username,
+            handle: user.username,
             displayName: user.display_name,
             pfp: user.pfp,
             followerCount: user.followers,
@@ -94,7 +88,7 @@ export class FireflySocialMedia implements Provider {
         throw new Error('Method not implemented.');
     }
 
-    async getFollowers(profileId: string, indicator?: PageIndicator) {
+    async getFollowers(profileId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
         const url = urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/followers', {
             fid: profileId,
             size: 10,
@@ -120,7 +114,7 @@ export class FireflySocialMedia implements Provider {
         return createPageable(data, createIndicator(indicator), createNextIndicator(indicator, next_cursor));
     }
 
-    async getFollowings(profileId: string, indicator?: PageIndicator) {
+    async getFollowings(profileId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
         const url = urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/followings', {
             fid: profileId,
             size: 10,
@@ -212,17 +206,18 @@ export class FireflySocialMedia implements Provider {
     }
 
     async getNotifications(indicator?: PageIndicator): Promise<Pageable<Notification, PageIndicator>> {
-        const currentProfile = hydrateCurrentProfile();
-        if (!currentProfile?.profileId) throw new Error(t`Login required`);
+        const session = warpcastClient.getSessionRequired();
+        const profileId = session.profileId;
+        if (!profileId) throw new Error(t`Login required`);
         const url = urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/notifications', {
-            fid: currentProfile.profileId,
-            sourceFid: currentProfile.profileId,
+            fid: profileId,
+            sourceFid: profileId,
             cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
         });
         const { data } = await fetchJSON<NotificationResponse>(url, { method: 'GET' });
 
         const result = data.notifications.map<Notification | undefined>((notification) => {
-            const notificationId = `${currentProfile.profileId}_${notification.timestamp}_${notification.notificationType}`;
+            const notificationId = `${profileId}_${notification.timestamp}_${notification.notificationType}`;
             const user = notification.user ? [formatFarcasterProfileFromFirefly(notification.user)] : EMPTY_LIST;
             const post = notification.cast ? formatFarcasterPostFromFirefly(notification.cast) : undefined;
             const timestamp = notification.timestamp ? new Date(notification.timestamp).getTime() : undefined;

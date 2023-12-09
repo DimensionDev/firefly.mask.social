@@ -2,6 +2,7 @@
 
 import { Switch } from '@headlessui/react';
 import { t, Trans } from '@lingui/macro';
+import { delay } from '@masknet/kit';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { first } from 'lodash-es';
 import { useSnackbar } from 'notistack';
@@ -13,12 +14,12 @@ import LoadingIcon from '@/assets/loading.svg';
 import WalletIcon from '@/assets/wallet.svg';
 import { AccountCard } from '@/components/Login/AccountCard.js';
 import { EMPTY_LIST } from '@/constants/index.js';
-import { LoginModalRef } from '@/modals/controls.js';
+import { ConnectWalletModalRef, LoginModalRef } from '@/modals/controls.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { useLensStateStore } from '@/store/useLensStore.js';
 
-interface LoginLensProps {}
+interface LoginLensProps { }
 
 export function LoginLens(props: LoginLensProps) {
     const [selected, setSelected] = useState<Profile>();
@@ -56,7 +57,7 @@ export function LoginLens(props: LoginLensProps) {
                 }
 
                 updateProfiles(profiles);
-                updateCurrentProfile(current);
+                updateCurrentProfile(current, session);
                 enqueueSnackbar(t`Your Lens account is now connected`, { variant: 'success' });
                 LoginModalRef.close();
             } catch (error) {
@@ -102,15 +103,13 @@ export function LoginLens(props: LoginLensProps) {
                                     <Switch checked={signless} onChange={setSignless}>
                                         {({ checked }) => (
                                             <button
-                                                className={`${
-                                                    checked ? 'bg-success' : 'bg-gray-200'
-                                                } relative inline-flex h-[22px] w-[43px] items-center rounded-full`}
+                                                className={`${checked ? 'bg-success' : 'bg-gray-200'
+                                                    } relative inline-flex h-[22px] w-[43px] items-center rounded-full`}
                                             >
                                                 <span className="sr-only">Enable signless</span>
                                                 <span
-                                                    className={`${
-                                                        checked ? 'translate-x-6' : 'translate-x-1'
-                                                    } inline-block h-3 w-3 transform rounded-full bg-white transition`}
+                                                    className={`${checked ? 'translate-x-6' : 'translate-x-1'
+                                                        } inline-block h-3 w-3 transform rounded-full bg-white transition`}
                                                 />
                                             </button>
                                         )}
@@ -142,8 +141,10 @@ export function LoginLens(props: LoginLensProps) {
                 >
                     <button
                         className="flex gap-[8px] py-[11px]"
-                        onClick={() => {
+                        onClick={async () => {
                             LoginModalRef.close();
+                            await delay(300);
+                            ConnectWalletModalRef.open();
                         }}
                     >
                         <WalletIcon width={20} height={20} />

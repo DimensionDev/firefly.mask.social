@@ -1,11 +1,10 @@
-import type { LensClient } from '@lens-protocol/client';
 import { t } from '@lingui/macro';
 import { parseJSON } from '@masknet/web3-providers/helpers';
 import z from 'zod';
 
 import { LensSession } from '@/providers/lens/Session.js';
 import type { Session } from '@/providers/types/Session.js';
-import { type Profile, Type } from '@/providers/types/SocialMedia.js';
+import { Type } from '@/providers/types/SocialMedia.js';
 import { WarpcastSession } from '@/providers/warpcast/Session.js';
 
 export class SessionFactory {
@@ -26,13 +25,8 @@ export class SessionFactory {
             token: string;
             createdAt: number;
             expiresAt: number;
-            privateKey?: string;
-            profile?: Profile;
-            client?: LensClient;
         }>(json);
         if (!session) throw new Error(t`Failed to parse session.`);
-        if (session.type === Type.Lens && !session.profile) throw new Error(t`Missing profile.`);
-        if (session.type === Type.Lens && !session.client) throw new Error(t`Missing client.`);
 
         const schema = z.object({
             profileId: z.string(),
@@ -47,21 +41,9 @@ export class SessionFactory {
         const createSession = (type: Type): Session => {
             switch (type) {
                 case Type.Lens:
-                    return new LensSession(
-                        session.profileId,
-                        session.token,
-                        session.createdAt,
-                        session.expiresAt,
-                        session.profile!,
-                    );
+                    return new LensSession(session.profileId, session.token, session.createdAt, session.expiresAt);
                 case Type.Warpcast:
-                    return new WarpcastSession(
-                        session.profileId,
-                        session.token,
-                        session.createdAt,
-                        session.expiresAt,
-                        session.privateKey!,
-                    );
+                    return new WarpcastSession(session.profileId, session.token, session.createdAt, session.expiresAt);
                 case Type.Twitter:
                     throw new Error(t`Not implemented yet.`);
                 default:

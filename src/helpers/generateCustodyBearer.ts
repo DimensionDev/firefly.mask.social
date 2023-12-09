@@ -29,12 +29,15 @@ function createCustodyPayload(): CustodyPayload {
  * Generate a FC custody bearer (wagmi connection required)
  * @returns
  */
-export async function generateCustodyBearer(client: Exclude<GetWalletClientResult, null>) {
+export async function generateCustodyBearer(client: Exclude<GetWalletClientResult, null>): Promise<{
+    payload: CustodyPayload;
+    token: `eip191:${string}`;
+}> {
     const payload = createCustodyPayload();
     const message = canonicalize(payload);
     if (!message) throw new Error('Failed to serialize payload.');
 
-    const signature = await client?.signMessage({
+    const signature = await client.signMessage({
         message,
     });
 
