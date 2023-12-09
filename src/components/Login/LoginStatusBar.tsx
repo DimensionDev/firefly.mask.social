@@ -17,18 +17,13 @@ export function LoginStatusBar() {
         <div className="flex gap-x-2 pl-2">
             {lensProfile ? (
                 <div className="group relative">
-                    <ProfileAvatar
-                        profile={lensProfile}
-
-                    />
+                    <ProfileAvatar profile={lensProfile} />
                     <LensAccountSetting />
                 </div>
             ) : null}
             {farcasterProfile ? (
                 <div className="group relative">
-                    <ProfileAvatar
-                        profile={farcasterProfile}
-                    />
+                    <ProfileAvatar profile={farcasterProfile} />
                     <FarcasterAccountSetting />
                 </div>
             ) : null}

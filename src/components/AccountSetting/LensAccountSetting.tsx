@@ -24,7 +24,6 @@ export function LensAccountSetting() {
             <div className="flex w-[260px] flex-col gap-[23px] rounded-[16px] p-[24px]">
                 {lensAccounts.map((profile) => (
                     <div key={profile.profileId} className="flex items-center justify-between gap-[8px]">
-
                         <ProfileAvatar profile={profile} />
                         <ProfileName profile={profile} />
                         {currentAccount && currentAccount.profileId === profile.profileId ? (
