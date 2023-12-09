@@ -1,8 +1,8 @@
-import { useRouter } from 'next/navigation.js';
 
 import { Image } from '@/components/Image.js';
 import FollowButton from '@/components/Profile/FollowButton.js';
 import { SourceIcon } from '@/components/SourceIcon.js';
+import { Link } from '@/esm/Link.js';
 import { useDarkMode } from '@/hooks/useDarkMode.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
@@ -14,17 +14,11 @@ interface ProfileInListProps {
 export function ProfileInList(props: ProfileInListProps) {
     const { profile } = props;
 
-    const router = useRouter();
     const { isDarkMode } = useDarkMode();
 
     return (
-        <div
-            className="flex-start flex cursor-pointer px-4 py-6 hover:bg-bg"
-            onClick={(evt) => {
-                router.push(`/profile/${profile.handle}`);
-            }}
-        >
-            <div className="flex-start flex flex-1">
+        <div className="flex-start flex cursor-pointer px-4 py-6 hover:bg-bg">
+            <Link className="flex-start flex flex-1" href={`/profile/${profile.handle}`}>
                 <Image
                     loading="lazy"
                     className="mr-3 h-[78px] w-[78px] rounded-full border"
@@ -36,14 +30,14 @@ export function ProfileInList(props: ProfileInListProps) {
                 />
 
                 <div className="flex-start flex flex-1 flex-col">
-                    <span className="flex-start mt-2 flex text-sm font-bold leading-5">
+                    <span className="flex-start mt-2 flex items-center text-sm font-bold leading-5">
                         <span className="mr-2 text-xl">{profile.displayName}</span>
                         <SourceIcon source={profile.source} />
                     </span>
                     {profile.handle ? <span className="text-sm text-secondary">@{profile.handle}</span> : null}
-                    {profile.bio ? <span className="mt-1.5 text-sm">{profile.bio}</span> : null}
+                    {profile.bio ? <span className="mt-1.5 line-clamp-1 text-sm">{profile.bio}</span> : null}
                 </div>
-            </div>
+            </Link>
 
             {!props.noFollowButton ? (
                 <div>
