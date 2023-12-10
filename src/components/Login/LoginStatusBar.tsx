@@ -1,13 +1,12 @@
 'use client';
 
-import { FarcasterAccountSetting } from '@/components/AccountSetting/FarcasterAccountSetting.js';
-import { LensAccountSetting } from '@/components/AccountSetting/LensAccountSetting.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { LoginModalRef } from '@/modals/controls.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { ProfileAvatarAdd } from '@/components/ProfileAvatarAdd.js';
 import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
 import { useLensStateStore } from '@/store/useLensStore.js';
+import { AccountSetting } from '@/components/AccountSetting.js';
 
 export function LoginStatusBar() {
     const lensProfile = useLensStateStore.use.currentProfile?.();
@@ -21,7 +20,7 @@ export function LoginStatusBar() {
                         profile={lensProfile}
 
                     />
-                    <LensAccountSetting />
+                    <AccountSetting platform={SocialPlatform.Lens} />
                 </div>
             ) : null}
             {farcasterProfile ? (
@@ -29,7 +28,7 @@ export function LoginStatusBar() {
                     <ProfileAvatar
                         profile={farcasterProfile}
                     />
-                    <FarcasterAccountSetting />
+                    <AccountSetting platform={SocialPlatform.Farcaster} />
                 </div>
             ) : null}
             {lensProfile ? null : (
