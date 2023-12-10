@@ -1,12 +1,12 @@
 'use client';
 
-import { SocialPlatform } from '@/constants/enum.js';
-import { LoginModalRef } from '@/modals/controls.js';
+import { AccountSetting } from '@/components/AccountSetting.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { ProfileAvatarAdd } from '@/components/ProfileAvatarAdd.js';
+import { SocialPlatform } from '@/constants/enum.js';
+import { LoginModalRef } from '@/modals/controls.js';
 import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
 import { useLensStateStore } from '@/store/useLensStore.js';
-import { AccountSetting } from '@/components/AccountSetting.js';
 
 export function LoginStatusBar() {
     const lensProfile = useLensStateStore.use.currentProfile?.();
@@ -16,18 +16,13 @@ export function LoginStatusBar() {
         <div className="flex gap-x-2 pl-2">
             {lensProfile ? (
                 <div className="group relative">
-                    <ProfileAvatar
-                        profile={lensProfile}
-
-                    />
+                    <ProfileAvatar profile={lensProfile} />
                     <AccountSetting platform={SocialPlatform.Lens} />
                 </div>
             ) : null}
             {farcasterProfile ? (
                 <div className="group relative">
-                    <ProfileAvatar
-                        profile={farcasterProfile}
-                    />
+                    <ProfileAvatar profile={farcasterProfile} />
                     <AccountSetting platform={SocialPlatform.Farcaster} />
                 </div>
             ) : null}

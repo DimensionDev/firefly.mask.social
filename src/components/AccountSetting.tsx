@@ -5,25 +5,24 @@ import { useDisconnect } from 'wagmi';
 
 import LogOutIcon from '@/assets/logout.svg';
 import UserAddIcon from '@/assets/user-add.svg';
-import { SocialPlatform } from '@/constants/enum.js';
-import { LoginModalRef, LogoutModalRef } from '@/modals/controls.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { ProfileName } from '@/components/ProfileName.js';
+import { SocialPlatform } from '@/constants/enum.js';
 import { useProfiles } from '@/hooks/useProfiles.js';
+import { LoginModalRef, LogoutModalRef } from '@/modals/controls.js';
 
 interface AccountSettingProps {
-    platform: SocialPlatform
+    platform: SocialPlatform;
 }
 
 export function AccountSetting({ platform }: AccountSettingProps) {
     const { disconnect } = useDisconnect();
-    const { currentProfile, profiles, clearCurrentProfile } = useProfiles(platform)
+    const { currentProfile, profiles, clearCurrentProfile } = useProfiles(platform);
     return (
         <div className="absolute -top-[200px] hidden rounded-[12px] bg-bgModal group-hover:block">
             <div className="flex w-[260px] flex-col gap-[23px] rounded-[16px] p-[24px]">
                 {profiles.map((profile) => (
                     <div key={profile.profileId} className="flex items-center justify-between gap-[8px]">
-
                         <ProfileAvatar profile={profile} />
                         <ProfileName profile={profile} />
                         {currentProfile && currentProfile.profileId === profile.profileId ? (
@@ -37,8 +36,7 @@ export function AccountSetting({ platform }: AccountSettingProps) {
                 <button
                     className="flex w-full items-center gap-[8px]"
                     onClick={() => {
-                        if (platform === SocialPlatform.Lens)
-                            disconnect();
+                        if (platform === SocialPlatform.Lens) disconnect();
                         clearCurrentProfile();
                         LoginModalRef.open({});
                     }}

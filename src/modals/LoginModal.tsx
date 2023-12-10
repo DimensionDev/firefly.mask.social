@@ -86,8 +86,8 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | 
                                         {platform === SocialPlatform.Lens
                                             ? t`Select Account`
                                             : platform === SocialPlatform.Farcaster
-                                                ? t`Log in to Farcaster account`
-                                                : t`Login`}
+                                              ? t`Log in to Farcaster account`
+                                              : t`Login`}
                                     </div>
                                     <div className="relative h-[24px] w-[24px]" />
                                 </div>
