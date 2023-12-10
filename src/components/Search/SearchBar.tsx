@@ -7,6 +7,7 @@ import { type ChangeEvent, memo, useEffect, useRef, useState } from 'react';
 import { useDebounce, useOnClickOutside } from 'usehooks-ts';
 
 import CloseIcon from '@/assets/close-circle.svg';
+import LeftArrowIcon from '@/assets/left-arrow.svg';
 import LoadingIcon from '@/assets/loading.svg';
 import SearchIcon from '@/assets/search.svg';
 import { Image } from '@/components/Image.js';
@@ -23,18 +24,19 @@ interface SearchBarProps {
     source: 'header' | 'secondary';
 }
 
-export const SearchBar = memo(function SearchBar(props: SearchBarProps) {
+const SearchBar = memo(function SearchBar(props: SearchBarProps) {
     const router = useRouter();
     const pathname = usePathname();
     const params = useSearchParams();
     const { isDarkMode } = useDarkMode();
     const { currentSocialPlatform } = useGlobalState();
 
-    const isSearchPage = pathname.startsWith('/search');
+    const isSearchPage = pathname === '/search';
 
     const dropdownRef = useRef(null);
     const { updateSearchText } = useSearchStore();
-    const [searchText, setSearchText] = useState('');
+    const queryKeyword = params.get('q') || '';
+    const [searchText, setSearchText] = useState(queryKeyword);
     const debouncedSearchText = useDebounce(searchText, 500);
 
     useOnClickOutside(dropdownRef, () => setSearchText(''));
@@ -55,12 +57,10 @@ export const SearchBar = memo(function SearchBar(props: SearchBarProps) {
     });
 
     useEffect(() => {
-        const params = typeof location !== 'undefined' ? new URLSearchParams(location.search) : undefined;
-        if (pathname.startsWith('/search')) {
-            setSearchText('');
-            updateSearchText(params?.get('q') ?? '');
+        if (isSearchPage) {
+            updateSearchText(queryKeyword);
         }
-    }, [pathname, updateSearchText]);
+    }, [queryKeyword, isSearchPage, updateSearchText]);
 
     const handleInputChange = (evt: ChangeEvent<HTMLInputElement>) => {
         const searchText = evt.target.value;
@@ -85,20 +85,23 @@ export const SearchBar = memo(function SearchBar(props: SearchBarProps) {
 
     return (
         <div
-            className={classNames('px-4 pt-5', {
+            className={classNames('flex items-center px-4 pt-6', {
                 'pl-0': props.source === 'secondary',
                 'pr-0': props.source === 'secondary',
                 'pb-5': props.source === 'secondary',
             })}
         >
-            <div className="relative flex items-center rounded-xl bg-lightBg px-3 text-main">
+            {isSearchPage && props.source === 'header' ? (
+                <LeftArrowIcon width={24} height={24} className="mr-7 cursor-pointer" onClick={() => router.back()} />
+            ) : null}
+            <div className="relative flex flex-grow items-center rounded-xl bg-lightBg px-3 text-main">
                 <SearchIcon width={18} height={18} />
                 <form className="w-full flex-1" onSubmit={handleSubmit}>
                     <label className="flex w-full items-center" htmlFor="search">
                         <input
                             type="search"
                             name="searchText"
-                            id="searchText"
+                            autoComplete="off"
                             value={searchText}
                             className=" w-full border-0 bg-transparent py-2 text-[10px] placeholder-secondary focus:border-0 focus:outline-0 focus:ring-0 sm:text-sm sm:leading-6"
                             placeholder={t`Search…`}
@@ -161,7 +164,7 @@ export const SearchBar = memo(function SearchBar(props: SearchBarProps) {
                                 </div>
                             ) : profiles?.data.length ? (
                                 <div className="cursor-pointer py-2">
-                                    {profiles?.data.slice(0, 10).map((user) => (
+                                    {profiles.data.slice(0, 10).map((user) => (
                                         <div
                                             key={user.handle}
                                             className="space-y-2 px-4 py-2 text-center text-sm font-bold hover:bg-bg"
@@ -203,3 +206,15 @@ export const SearchBar = memo(function SearchBar(props: SearchBarProps) {
         </div>
     );
 });
+
+export function HeaderSearchBar() {
+    const pathname = usePathname();
+    const isSearchPage = pathname === '/search';
+    return isSearchPage ? <SearchBar source="header" /> : null;
+}
+
+export function AsideSearchBar() {
+    const pathname = usePathname();
+    const isSearchPage = pathname !== '/search';
+    return isSearchPage ? <SearchBar source="secondary" /> : null;
+}

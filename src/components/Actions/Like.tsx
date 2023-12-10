@@ -1,7 +1,6 @@
 import { t } from '@lingui/macro';
 import { useQueryClient } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
-import { useSnackbar } from 'notistack';
 import { memo, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 
@@ -12,6 +11,7 @@ import { Tooltip } from '@/components/Tooltip.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
+import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { LoginModalRef } from '@/modals/controls.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
@@ -31,7 +31,7 @@ export const Like = memo<LikeProps>(function Like({ count, hasLiked, postId, sou
     const [liked, setLiked] = useState(hasLiked);
     const [realCount, setRealCount] = useState(count);
 
-    const { enqueueSnackbar } = useSnackbar();
+    const enqueueSnackbar = useCustomSnackbar();
     const [{ loading }, handleClick] = useAsyncFn(async () => {
         if (!postId) return null;
         if (!isLogin) {

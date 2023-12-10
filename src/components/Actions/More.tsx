@@ -2,7 +2,6 @@ import { Menu, Transition } from '@headlessui/react';
 import { Select } from '@lingui/macro';
 import { queryClient } from '@masknet/shared-base-ui';
 import { motion } from 'framer-motion';
-import { useSnackbar } from 'notistack';
 import { Fragment, memo, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 
@@ -11,6 +10,7 @@ import LoadingIcon from '@/assets/loading.svg';
 import MoreIcon from '@/assets/more.svg';
 import UnFollowUserIcon from '@/assets/unfollow-user.svg';
 import { SocialPlatform } from '@/constants/enum.js';
+import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { LoginModalRef } from '@/modals/controls.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
@@ -26,7 +26,7 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ post }) {
 
     const isLogin = useIsLogin(post.source);
 
-    const { enqueueSnackbar } = useSnackbar();
+    const enqueueSnackbar = useCustomSnackbar();
 
     const [{ loading }, handleClick] = useAsyncFn(async () => {
         if (!post.author.profileId) return;

@@ -55,9 +55,6 @@ msgstr ""
 msgid "More"
 msgstr ""
 
-msgid "<0>{0}</0> commented your <1><2/></1>"
-msgstr ""
-
 msgid "Searching users"
 msgstr ""
 
@@ -68,6 +65,9 @@ msgid "Change Wallet"
 msgstr ""
 
 msgid "UnLike"
+msgstr ""
+
+msgid "{0, plural, one {<0/>} other {{1, plural, one {<1/> and <2/>} other {<3/> and # others acted on your}}}} <4><5/></4>"
 msgstr ""
 
 msgid "Failed to follow"
@@ -95,9 +95,6 @@ msgid "comment"
 msgstr ""
 
 msgid "Confirm"
-msgstr ""
-
-msgid "{0, plural, one {<0>{firstReactorName}</0>} other {<1>{firstReactorName}</1> and # others}} <2>liked your </2><3><4/></3>"
 msgstr ""
 
 msgid "Liked"
@@ -193,6 +190,9 @@ msgstr ""
 msgid "{0} Comments"
 msgstr ""
 
+msgid "{0, plural, one {<0/>} other {{1, plural, one {<1/> and <2/>} other {<3/> and # others}}}} <4>followed you</4>"
+msgstr ""
+
 msgid "This can’t be undone and you’ll lose your draft"
 msgstr ""
 
@@ -203,6 +203,9 @@ msgid "Failed to unmirror post"
 msgstr ""
 
 msgid "Method not implemented."
+msgstr ""
+
+msgid "{0, plural, one {<0/>} other {{1, plural, one {<1/> and <2/>} other {<3/> and # others mirrored you}}}} <4><5/></4>"
 msgstr ""
 
 msgid "Malformed session."
@@ -253,9 +256,6 @@ msgstr ""
 msgid "Like"
 msgstr ""
 
-msgid "<0>{0}</0> quoted your <1><2/></1>"
-msgstr ""
-
 msgid "Publications"
 msgstr ""
 
@@ -272,6 +272,9 @@ msgid "Show More"
 msgstr ""
 
 msgid "Failed to parse session."
+msgstr ""
+
+msgid "{0, plural, one {<0/>} other {{1, plural, one {<1/> and <2/>} other {<3/> and # others}}}} <4>liked your </4><5><6/></5>"
 msgstr ""
 
 msgid "Share"
@@ -370,13 +373,10 @@ msgstr ""
 msgid "Unknown session type."
 msgstr ""
 
-msgid "{0, plural, one {<0>{firstActedName}</0>} other {<1>{firstActedName}</1> and # others acted on your}} <2><3/></2>"
+msgid "<0/> commented your <1><2/></1>"
 msgstr ""
 
 msgid "Unfollow"
-msgstr ""
-
-msgid "{0, plural, one {<0>{firstFollowerName}</0>} other {<1>{firstFollowerName}</1> and # others}} <2>followed you</2>"
 msgstr ""
 
 msgid "Failed to upvote post"
@@ -400,9 +400,6 @@ msgstr ""
 msgid "Mask Network"
 msgstr ""
 
-msgid "{0, plural, one {<0>{firstMirrorName}</0>} other {<1>{firstMirrorName}</1> and # others mirrored you}} <2><3/></2>"
-msgstr ""
-
 msgid "No matching users"
 msgstr ""
 
@@ -416,9 +413,6 @@ msgid "Add a comment"
 msgstr ""
 
 msgid "Profiles"
-msgstr ""
-
-msgid "<0>{0}</0> mentioned you in a <1><2/></1>"
 msgstr ""
 
 msgid "Recast"
@@ -451,8 +445,14 @@ msgstr ""
 msgid "Collect is coming soon"
 msgstr ""
 
+msgid "<0/> mentioned you in a <1><2/></1>"
+msgstr ""
+
 msgid "Login"
 msgstr ""
 
 msgid "{0, select, follow {Failed to followed @{1} on {2}} unfollow {Failed to unfollowed @{3} on {4}} other {Failed to followed @{5} on {6}}}"
+msgstr ""
+
+msgid "<0/> quoted your <1><2/></1>"
 msgstr ""

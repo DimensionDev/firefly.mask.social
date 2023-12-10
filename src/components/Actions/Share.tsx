@@ -1,19 +1,19 @@
 import { t } from '@lingui/macro';
 import { motion } from 'framer-motion';
-import { useSnackbar } from 'notistack';
 import { memo, useCallback } from 'react';
 import { useCopyToClipboard } from 'react-use';
 
 import ShareIcon from '@/assets/share.svg';
 import { Tooltip } from '@/components/Tooltip.js';
 import { classNames } from '@/helpers/classNames.js';
+import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
 
 interface ShareProps {
     url: string;
     disabled?: boolean;
 }
 export const Share = memo<ShareProps>(function Collect({ url, disabled = false }) {
-    const { enqueueSnackbar } = useSnackbar();
+    const enqueueSnackbar = useCustomSnackbar();
     const [, copyToClipboard] = useCopyToClipboard();
 
     const handleClick = useCallback(() => {

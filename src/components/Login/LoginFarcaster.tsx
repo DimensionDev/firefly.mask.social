@@ -2,11 +2,11 @@
 
 import { t, Trans } from '@lingui/macro';
 import { useSuspenseQuery } from '@tanstack/react-query';
-import { useSnackbar } from 'notistack';
 import { useState } from 'react';
 import QRCode from 'react-qr-code';
 
 import LoadingIcon from '@/assets/loading.svg';
+import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
 import { LoginModalRef } from '@/modals/controls.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { WarpcastSocialMediaProvider } from '@/providers/warpcast/SocialMedia.js';
@@ -14,7 +14,7 @@ import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
 
 export function LoginFarcaster() {
     const [url, setUrl] = useState('');
-    const { enqueueSnackbar } = useSnackbar();
+    const enqueueSnackbar = useCustomSnackbar();
     const updateProfiles = useFarcasterStateStore.use.updateProfiles();
     const updateCurrentProfile = useFarcasterStateStore.use.updateCurrentProfile();
 

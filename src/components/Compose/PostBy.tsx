@@ -1,6 +1,5 @@
 import { Popover, Transition } from '@headlessui/react';
 import { t, Trans } from '@lingui/macro';
-import { useSnackbar } from 'notistack';
 import { Fragment } from 'react';
 
 import FarcasterIcon from '@/assets/farcaster.svg';
@@ -8,6 +7,7 @@ import LensIcon from '@/assets/lens.svg';
 import RadioYesIcon from '@/assets/radio.yes.svg';
 import { Image } from '@/esm/Image.js';
 import { classNames } from '@/helpers/classNames.js';
+import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
 import { LoginModalRef } from '@/modals/controls.js';
 import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
 import { useLensStateStore } from '@/store/useLensStore.js';
@@ -17,7 +17,7 @@ interface IPostByProps {
     images: IPFS_MediaObject[];
 }
 export default function PostBy({ images }: IPostByProps) {
-    const { enqueueSnackbar } = useSnackbar();
+    const enqueueSnackbar = useCustomSnackbar();
 
     const lensProfiles = useLensStateStore.use.profiles();
     const farcasterProfiles = useFarcasterStateStore.use.profiles();

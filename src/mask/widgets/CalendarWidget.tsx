@@ -9,7 +9,7 @@ export default function CalendarWidget() {
     return (
         <Providers>
             <MaskProviders>
-                <CalendarContent />
+                <CalendarContent disableSetting />
             </MaskProviders>
         </Providers>
     );

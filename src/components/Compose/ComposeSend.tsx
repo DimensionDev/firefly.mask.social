@@ -1,10 +1,10 @@
 import { t, Trans } from '@lingui/macro';
-import { useSnackbar } from 'notistack';
 import { useCallback, useMemo } from 'react';
 
 import SendIcon from '@/assets/send.svg';
 import { classNames } from '@/helpers/classNames.js';
 import { commentPostForLens, publishPostForLens, quotePostForLens } from '@/helpers/publishPost.js';
+import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { useLensStateStore } from '@/store/useLensStore.js';
 import type { IPFS_MediaObject } from '@/types/index.js';
@@ -20,7 +20,7 @@ interface ComposeSendProps {
     post?: Post;
 }
 export default function ComposeSend({ type, characters, images, closeCompose, setLoading, post }: ComposeSendProps) {
-    const { enqueueSnackbar } = useSnackbar();
+    const enqueueSnackbar = useCustomSnackbar();
 
     const currentLensProfile = useLensStateStore.use.currentProfile();
 
