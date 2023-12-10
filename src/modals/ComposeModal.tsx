@@ -51,7 +51,7 @@ export const ComposeModal = forwardRef<SingletonModalRefCreator<ComposeModalProp
             <Transition appear show={open} as={Fragment}>
                 <Dialog
                     as="div"
-                    className="relative z-[1000]"
+                    className="relative z-[100]"
                     onClose={() => {
                         if (characters) {
                             setDiscardOpened(true);
@@ -69,7 +69,7 @@ export const ComposeModal = forwardRef<SingletonModalRefCreator<ComposeModalProp
                         leaveFrom="opacity-100"
                         leaveTo="opacity-0"
                     >
-                        <div className="fixed inset-0 bg-black/25 bg-opacity-30" />
+                        <div className="fixed inset-0 bg-main/25 bg-opacity-30" />
                     </Transition.Child>
 
                     <div className="fixed inset-0 overflow-y-auto">

@@ -39,13 +39,13 @@ export default function Editor({ type, setCharacters, hasImages, hasPost }: Edit
                 contentEditable={
                     <ContentEditable
                         className={classNames(
-                            ' cursor-text resize-none appearance-none border-none bg-transparent p-0 text-left text-base leading-5 outline-0 focus:ring-0 dark:text-gray-900',
+                            ' cursor-text resize-none appearance-none border-none bg-transparent p-0 text-left text-[15px] leading-5 text-main outline-0 focus:ring-0',
                             hasImages ? '' : hasPost ? 'min-h-[200px]' : 'min-h-[308px]',
                         )}
                     />
                 }
                 placeholder={
-                    <div className=" pointer-events-none absolute left-0 top-0 leading-5 text-placeholder">
+                    <div className=" pointer-events-none absolute left-0 top-0 text-[15px] leading-5 text-placeholder">
                         {placeholder}
                     </div>
                 }

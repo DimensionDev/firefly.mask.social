@@ -57,12 +57,18 @@ export default function ComposeContent({ type, setCharacters, images, setImages,
 
                     {/* quote */}
                     {(type === 'quote' || type === 'reply') && post ? (
-                        <div className=" flex flex-col gap-1 rounded-2xl border border-secondaryLine bg-bg p-3">
+                        <div className=" flex flex-col gap-1 overflow-hidden rounded-2xl border border-secondaryLine bg-bg p-3">
                             <div className=" flex h-6 items-center justify-between">
-                                <div className=" flex items-center gap-2">
-                                    <Image src={post.author.pfp} width={24} height={24} alt="pfp" />
-                                    <span className=" text-sm font-medium text-main">{post.author.displayName}</span>
-                                    <span className=" text-sm text-secondary">
+                                <div className=" text-[15px]] flex items-center gap-2">
+                                    <Image
+                                        src={post.author.pfp}
+                                        width={24}
+                                        height={24}
+                                        alt="pfp"
+                                        className=" rounded-full"
+                                    />
+                                    <span className=" font-medium text-main">{post.author.displayName}</span>
+                                    <span className=" text-secondary">
                                         @{post.author.handle || post.author.profileId}
                                     </span>
                                 </div>

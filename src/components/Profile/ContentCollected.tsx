@@ -15,7 +15,10 @@ import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 import { useLensStateStore } from '@/store/useLensStore.js';
 
-export default function ContentCollected() {
+interface ContentFeedProps {
+    profileId: string;
+}
+export default function ContentCollected({ profileId }: ContentFeedProps) {
     const currentSocialPlatform = useGlobalState.use.currentSocialPlatform();
     const currentLensProfile = useLensStateStore.use.currentProfile();
     const currentFarcasterProfile = useFarcasterStateStore.use.currentProfile();
@@ -24,11 +27,12 @@ export default function ContentCollected() {
         queryKey: ['getPostsByBookmarks', currentSocialPlatform],
 
         queryFn: async ({ pageParam }) => {
+            if (!profileId) return createPageable(EMPTY_LIST, undefined);
+
             switch (currentSocialPlatform) {
                 case SocialPlatform.Lens:
-                    if (!currentLensProfile?.profileId) return createPageable(EMPTY_LIST, undefined);
                     const posts = await LensSocialMediaProvider.getPostsByCollected(
-                        currentLensProfile?.profileId,
+                        profileId,
                         createIndicator(undefined, pageParam),
                     );
                     const ids = posts.data.flatMap((x) => [x.postId]);
@@ -36,9 +40,8 @@ export default function ContentCollected() {
 
                     return posts;
                 case SocialPlatform.Farcaster:
-                    if (!currentFarcasterProfile?.profileId) return createPageable(EMPTY_LIST, undefined);
                     return WarpcastSocialMediaProvider.getPostsByProfileId(
-                        currentFarcasterProfile?.profileId,
+                        profileId,
                         createIndicator(undefined, pageParam),
                     );
                 default:
