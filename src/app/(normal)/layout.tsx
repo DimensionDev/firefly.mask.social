@@ -11,7 +11,10 @@ const CustomElements = lazy(() => import('@/components/CustomElements.js'));
 export default function Layout({ children }: { children: React.ReactNode }) {
     return (
         <>
-            <CustomElements />
+            {process.env.NODE_ENV !== 'development' ||
+            (process.env.NODE_ENV === 'development' && process.env.NEXT_PUBLIC_MASK_WEB_COMPONENTS === 'enabled') ? (
+                <CustomElements />
+            ) : null}
             <main className="max-w-[888px] flex-1 border-r border-line pl-72">
                 <div className="sticky top-0 z-[998] border-b border-line bg-white pb-[1px] dark:bg-black">
                     <HeaderSearchBar />
