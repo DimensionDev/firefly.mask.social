@@ -118,6 +118,9 @@ msgstr "mirror"
 msgid "Audio Cover"
 msgstr "Audio Cover"
 
+msgid "Recent"
+msgstr "Recent"
+
 msgid "Connect Wallet"
 msgstr "Connect Wallet"
 
