@@ -7,7 +7,6 @@ import { useAsyncFn } from 'react-use';
 import LoadingIcon from '@/assets/loading.svg';
 import MirrorIcon from '@/assets/mirror.svg';
 import MirrorLargeIcon from '@/assets/mirror-large.svg';
-import MirroredIcon from '@/assets/mirrored.svg';
 import QuoteDownIcon from '@/assets/quote-down.svg';
 import { Tooltip } from '@/components/Tooltip.js';
 import { SocialPlatform } from '@/constants/enum.js';
@@ -142,8 +141,6 @@ export const Mirror = memo<MirrorProps>(function Mirror({
                     >
                         {loading ? (
                             <LoadingIcon width={16} height={16} className="animate-spin text-secondarySuccess" />
-                        ) : mirrored ? (
-                            <MirroredIcon width={16} height={16} />
                         ) : (
                             <MirrorIcon width={16} height={16} />
                         )}
