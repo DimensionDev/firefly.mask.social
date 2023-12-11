@@ -1,6 +1,7 @@
 'use client';
 
 import { Trans } from '@lingui/macro';
+import { usePathname } from 'next/navigation.js';
 import { memo } from 'react';
 import urlcat from 'urlcat';
 
@@ -21,13 +22,19 @@ import { LoginStatusBar } from '@/components/Login/LoginStatusBar.js';
 import { ConnectWalletNav } from '@/components/SideBar/ConnectWalletNav.js';
 import { PageRoutes } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
+import { classNames } from '@/helpers/classNames.js';
 import { useDarkMode } from '@/hooks/useDarkMode.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { usePlatformProfile } from '@/hooks/usePlatformProfile.js';
 import { ComposeModalRef, LoginModalRef } from '@/modals/controls.js';
 
 const items = [
-    { href: PageRoutes.Home, name: <Trans>Discover</Trans>, icon: DiscoverIcon, selectedIcon: DiscoverSelectedIcon },
+    {
+        href: PageRoutes.Home,
+        name: <Trans>Discover</Trans>,
+        icon: DiscoverIcon,
+        selectedIcon: DiscoverSelectedIcon,
+    },
     {
         href: PageRoutes.Following,
         name: <Trans>Following</Trans>,
@@ -40,7 +47,12 @@ const items = [
         icon: NotificationIcon,
         selectedIcon: NotificationSelectedIcon,
     },
-    { href: PageRoutes.Profile, name: <Trans>Profile</Trans>, icon: ProfileIcon, selectedIcon: ProfileSelectedIcon },
+    {
+        href: PageRoutes.Profile,
+        name: <Trans>Profile</Trans>,
+        icon: ProfileIcon,
+        selectedIcon: ProfileSelectedIcon,
+    },
     {
         href: '/connect-wallet',
         name: <Trans>Connect</Trans>,
@@ -60,23 +72,27 @@ export const SideBar = memo(function SideBar() {
     const isLogin = useIsLogin();
     const platformProfile = usePlatformProfile();
 
+    const route = usePathname();
+
     return (
         <>
             <div className="fixed inset-y-0 z-50 flex w-72 flex-col">
                 <div className="flex grow flex-col gap-y-5 overflow-y-auto border-r border-line px-6">
-                    <div className="flex h-16 shrink-0 items-center">
+                    <div className="flex h-16 shrink-0 items-center px-4">
                         <Link href={PageRoutes.Home}>
                             {!isDarkMode ? <LightLogo width={134} height={64} /> : <DarkLogo width={134} height={64} />}
                         </Link>
                     </div>
                     <nav className="flex flex-1 flex-col">
                         <ul role="list" className="flex flex-1 flex-col gap-y-7">
-                            <li>
-                                <ul role="list" className="-mx-2 space-y-6">
+                            <li className="flex">
+                                <ul role="list" className="space-y-1">
                                     {items.map((item) => {
-                                        const Icon = item.icon;
+                                        const isSelected =
+                                            item.href === '/' ? route === '/' : route.startsWith(item.href);
+                                        const Icon = isSelected ? item.selectedIcon : item.icon;
                                         return (
-                                            <li className="rounded-lg text-main hover:bg-bg" key={item.href}>
+                                            <li className="flex rounded-lg text-main" key={item.href}>
                                                 {item.href === '/connect-wallet' ? (
                                                     <ConnectWalletNav />
                                                 ) : (
@@ -87,9 +103,12 @@ export const SideBar = memo(function SideBar() {
                                                                 ? `/${platformProfile.lens?.handle ?? ''}`
                                                                 : '',
                                                         )}
-                                                        className="flex gap-x-3 px-4 py-3 text-2xl/6"
+                                                        className={classNames(
+                                                            'flex flex-grow-0 gap-x-3 px-4 py-3 text-xl/5 hover:bg-bg hover:font-bold',
+                                                            { 'font-bold': isSelected },
+                                                        )}
                                                     >
-                                                        <Icon width={24} height={24} />
+                                                        <Icon width={20} height={20} />
                                                         {item.name}
                                                     </Link>
                                                 )}
@@ -100,7 +119,7 @@ export const SideBar = memo(function SideBar() {
                                         <li>
                                             <button
                                                 type="button"
-                                                className=" min-w-[150px] cursor-pointer rounded-[16px] bg-main px-3 py-3 text-xl font-semibold leading-6 text-primaryBottom "
+                                                className="w-[200px] rounded-2xl bg-main p-2 text-xl font-bold leading-6 text-primaryBottom"
                                                 onClick={() => ComposeModalRef.open({})}
                                             >
                                                 <Trans>Post</Trans>
@@ -118,7 +137,7 @@ export const SideBar = memo(function SideBar() {
                                             LoginModalRef.open();
                                         }}
                                         type="button"
-                                        className=" min-w-[150px] cursor-pointer rounded-[16px] bg-main px-3 py-3 text-xl font-semibold leading-6 text-primaryBottom "
+                                        className="w-[200px] rounded-2xl bg-main p-2 text-xl font-bold leading-6 text-primaryBottom"
                                     >
                                         <Trans>Login</Trans>
                                     </button>

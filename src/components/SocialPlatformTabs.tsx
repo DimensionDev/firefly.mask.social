@@ -26,7 +26,7 @@ export function SocialPlatformTabs() {
 
     return (
         <div className="bg-primaryBottom px-4">
-            <nav className="-mb-px flex space-x-4 border-b border-line" aria-label="Tabs">
+            <nav className="-mb-px flex space-x-4" aria-label="Tabs">
                 {getEnumAsArray(SocialPlatform).map(({ key, value }) => (
                     <a
                         key={key}

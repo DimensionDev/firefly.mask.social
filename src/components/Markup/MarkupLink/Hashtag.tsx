@@ -1,7 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation.js';
-import { memo } from 'react';
+import { memo, useEffect } from 'react';
 import urlcat from 'urlcat';
 
 import type { MarkupLinkProps } from '@/components/Markup/MarkupLink/index.js';
@@ -9,6 +9,11 @@ import { PageRoutes } from '@/constants/enum.js';
 
 export const Hashtag = memo<MarkupLinkProps>(function Hashtag({ title }) {
     const router = useRouter();
+
+    useEffect(() => {
+        if (title) router.prefetch(PageRoutes.Search);
+    }, [title, router]);
+
     if (!title) return null;
 
     const tag = title.slice(1).toLowerCase();
