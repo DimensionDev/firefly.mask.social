@@ -30,42 +30,36 @@ import { ComposeModalRef, LoginModalRef } from '@/modals/controls.js';
 
 const items = [
     {
-        pathname: '/',
         href: PageRoutes.Home,
         name: <Trans>Discover</Trans>,
         icon: DiscoverIcon,
         selectedIcon: DiscoverSelectedIcon,
     },
     {
-        pathname: '/following',
         href: PageRoutes.Following,
         name: <Trans>Following</Trans>,
         icon: FollowingIcon,
         selectedIcon: FollowingSelectedIcon,
     },
     {
-        pathname: '/notifications',
         href: PageRoutes.Notifications,
         name: <Trans>Notifications</Trans>,
         icon: NotificationIcon,
         selectedIcon: NotificationSelectedIcon,
     },
     {
-        pathname: '/profile',
         href: PageRoutes.Profile,
         name: <Trans>Profile</Trans>,
         icon: ProfileIcon,
         selectedIcon: ProfileSelectedIcon,
     },
     {
-        pathname: '/connect-wallet',
         href: '/connect-wallet',
         name: <Trans>Connect</Trans>,
         icon: WalletIcon,
         selectedIcon: WalletIcon,
     },
     {
-        pathname: '/settings',
         href: PageRoutes.Settings,
         name: <Trans>Settings</Trans>,
         icon: SettingsIcon,
@@ -95,7 +89,7 @@ export const SideBar = memo(function SideBar() {
                                 <ul role="list" className="space-y-1">
                                     {items.map((item) => {
                                         const isSelected =
-                                            item.pathname === '/' ? route === '/' : route.startsWith(item.pathname);
+                                            item.href === '/' ? route === '/' : route.startsWith(item.href);
                                         const Icon = isSelected ? item.selectedIcon : item.icon;
                                         return (
                                             <li className="flex rounded-lg text-main" key={item.href}>

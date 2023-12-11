@@ -3,7 +3,7 @@ export enum PageRoutes {
     Following = '/following',
     Notifications = '/notifications',
     Profile = '/profile',
-    Settings = '/settings/display',
+    Settings = '/settings',
     Search = '/search',
 }
 
