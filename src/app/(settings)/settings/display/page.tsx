@@ -17,10 +17,11 @@ export default function Display() {
                 <Trans>Display</Trans>
             </div>
             <button
-                className={`my-[12px] inline-flex h-[60px] w-[250px] items-center justify-center gap-5 rounded-lg px-3 ${isDarkOS
-                    ? ' border border-white bg-slate-950 text-white'
-                    : 'border border-neutral-900 bg-white text-slate-950'
-                    }`}
+                className={`my-[12px] inline-flex h-[60px] w-[250px] items-center justify-center gap-5 rounded-lg px-3 ${
+                    isDarkOS
+                        ? ' border border-white bg-slate-950 text-white'
+                        : 'border border-neutral-900 bg-white text-slate-950'
+                }`}
                 onClick={() => {
                     setThemeMode(Appearance.default);
                 }}
