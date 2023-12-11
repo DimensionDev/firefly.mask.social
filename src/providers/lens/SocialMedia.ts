@@ -72,7 +72,7 @@ export class LensSocialMedia implements Provider {
 
         return new LensSession(
             profileId,
-            '', // the LensClient will renew it with refreshToken
+            '', // the LensClient maintains it
             now,
             now + 1000 * 60 * 60 * 24 * 30, // 30 days
         );
