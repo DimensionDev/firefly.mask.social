@@ -53,7 +53,7 @@ export default function LensProfile({ handle }: LensProfileProps) {
 
             <Info profile={profile} isMyProfile={isMyProfile} />
 
-            <ContentTabs />
+            <ContentTabs profileId={profile.profileId} />
         </div>
     );
 }

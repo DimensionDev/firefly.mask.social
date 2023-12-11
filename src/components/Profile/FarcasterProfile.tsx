@@ -54,7 +54,7 @@ export default function FarcasterProfile({ id }: FarcasterProfileProps) {
 
             <Info profile={profile} isMyProfile={isMyProfile} />
 
-            <ContentTabs />
+            <ContentTabs profileId={profile.profileId} />
         </div>
     );
 }

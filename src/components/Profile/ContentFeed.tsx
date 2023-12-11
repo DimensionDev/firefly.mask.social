@@ -10,25 +10,25 @@ import { SocialPlatform } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { WarpcastSocialMediaProvider } from '@/providers/warpcast/SocialMedia.js';
-import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
-import { useLensStateStore } from '@/store/useLensStore.js';
 
-export default function ContentFeed() {
+interface ContentFeedProps {
+    profileId: string;
+}
+export default function ContentFeed({ profileId }: ContentFeedProps) {
     const currentSocialPlatform = useGlobalState.use.currentSocialPlatform();
-    const currentLensProfile = useLensStateStore.use.currentProfile();
-    const currentFarcasterProfile = useFarcasterStateStore.use.currentProfile();
     const fetchAndStoreViews = useImpressionsStore.use.fetchAndStoreViews();
     const { data, hasNextPage, fetchNextPage, isFetchingNextPage, isFetching } = useSuspenseInfiniteQuery({
         queryKey: ['getPostsByProfileId', currentSocialPlatform],
 
         queryFn: async ({ pageParam }) => {
+            if (!profileId) return createPageable(EMPTY_LIST, undefined);
+
             switch (currentSocialPlatform) {
                 case SocialPlatform.Lens:
-                    if (!currentLensProfile?.profileId) return createPageable(EMPTY_LIST, undefined);
                     const result = await LensSocialMediaProvider.getPostsByProfileId(
-                        currentLensProfile?.profileId,
+                        profileId,
                         createIndicator(undefined, pageParam),
                     );
                     const ids = result.data.flatMap((x) => [x.postId]);
@@ -36,9 +36,8 @@ export default function ContentFeed() {
 
                     return result;
                 case SocialPlatform.Farcaster:
-                    if (!currentFarcasterProfile?.profileId) return createPageable(EMPTY_LIST, undefined);
                     return WarpcastSocialMediaProvider.getPostsByProfileId(
-                        currentFarcasterProfile?.profileId,
+                        profileId,
                         createIndicator(undefined, pageParam),
                     );
                 default:

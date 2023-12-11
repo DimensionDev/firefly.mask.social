@@ -34,21 +34,27 @@ export default function PostBy({ images }: IPostByProps) {
             leaveFrom="opacity-100"
             leaveTo="opacity-0 translate-y-1"
         >
-            <Popover.Panel className="absolute bottom-full right-0 flex w-[280px] -translate-y-3 flex-col gap-2 rounded-lg bg-bgModal p-3 shadow-popover">
+            <Popover.Panel className=" absolute bottom-full right-0 flex w-[280px] -translate-y-3 flex-col gap-2 rounded-lg bg-bgModal p-3 text-[15px] shadow-popover">
                 {lensProfiles.length > 0 ? (
                     lensProfiles.map((profile) => (
                         <Fragment key={profile.profileId}>
                             <div className={classNames(' flex h-[22px] items-center justify-between')}>
                                 <div className=" flex items-center gap-2">
-                                    <Image src={profile.pfp} width={22} height={22} alt="lens" />
-                                    <span className={classNames(' text-sm font-bold text-main')}>
+                                    <Image
+                                        src={profile.pfp}
+                                        width={24}
+                                        height={24}
+                                        alt="lens"
+                                        className=" rounded-full"
+                                    />
+                                    <span className={classNames(' font-bold text-main')}>
                                         @{profile.handle || profile.profileId}
                                     </span>
                                 </div>
                                 {currentLensProfile?.profileId === profile.profileId ? (
-                                    <RadioYesIcon width={16} height={16} />
+                                    <RadioYesIcon width={20} height={20} />
                                 ) : (
-                                    <button className=" text-xs font-bold text-blueBottom">
+                                    <button className=" font-bold text-blueBottom">
                                         <Trans>Switch</Trans>
                                     </button>
                                 )}
@@ -60,11 +66,11 @@ export default function PostBy({ images }: IPostByProps) {
                     <Fragment>
                         <div className=" flex h-[22px] cursor-pointer items-center justify-between">
                             <div className=" flex items-center gap-2">
-                                <LensIcon width={22} height={22} />
-                                <span className={classNames(' text-sm font-bold text-main')}>Lens</span>
+                                <LensIcon width={24} height={24} />
+                                <span className={classNames(' font-bold text-main')}>Lens</span>
                             </div>
 
-                            <button className=" text-xs font-bold text-blueBottom" onClick={() => LoginModalRef.open()}>
+                            <button className=" font-bold text-blueBottom" onClick={() => LoginModalRef.open()}>
                                 <Trans>Log in</Trans>
                             </button>
                         </div>
@@ -79,18 +85,19 @@ export default function PostBy({ images }: IPostByProps) {
                                 <div className=" flex items-center gap-2">
                                     <Image
                                         src={profile.pfp || '/svg/farcaster.svg'}
-                                        width={22}
-                                        height={22}
+                                        width={24}
+                                        height={24}
                                         alt="farcaster"
+                                        className=" rounded-full"
                                     />
-                                    <span className={classNames(' text-sm font-bold text-main')}>
+                                    <span className={classNames(' font-bold text-main')}>
                                         @{profile.handle || profile.profileId}
                                     </span>
                                 </div>
                                 {currentFarcasterProfile?.profileId === profile.profileId ? (
-                                    <RadioYesIcon width={16} height={16} />
+                                    <RadioYesIcon width={20} height={20} />
                                 ) : (
-                                    <button className=" text-xs font-bold text-blueBottom">
+                                    <button className=" font-bold text-blueBottom">
                                         <Trans>Switch</Trans>
                                     </button>
                                 )}
@@ -102,12 +109,12 @@ export default function PostBy({ images }: IPostByProps) {
                     <Fragment>
                         <div className=" flex h-[22px] cursor-pointer items-center justify-between">
                             <div className=" flex items-center gap-2">
-                                <FarcasterIcon width={22} height={22} />
-                                <span className={classNames(' text-sm font-bold text-main')}>Farcaster</span>
+                                <FarcasterIcon width={24} height={24} />
+                                <span className={classNames(' font-bold text-main')}>Farcaster</span>
                             </div>
 
                             <button
-                                className=" text-xs font-bold text-blueBottom"
+                                className=" font-bold text-blueBottom"
                                 onClick={() => {
                                     if (images.length >= 2) {
                                         enqueueSnackbar(t`Select failed: More than 2 images`, {

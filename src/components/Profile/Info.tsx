@@ -31,15 +31,15 @@ export default function Info({ isMyProfile, profile }: InfoProps) {
 
                 <div className=" flex flex-col">
                     <div className=" flex items-center gap-2">
-                        <span className=" font-black text-lightMain">{profile?.displayName}</span>
+                        <span className=" text-xl font-black text-lightMain">{profile?.displayName}</span>
                         <PlatformIcon platform={currentSocialPlatform} size={20} />
                     </div>
-                    <span className=" text-secondary">@{profile?.handle}</span>
+                    <span className=" text-[15px] text-secondary">@{profile?.handle}</span>
                 </div>
 
                 <div>{profile?.bio ?? '-'}</div>
 
-                <div className=" flex gap-3">
+                <div className=" flex gap-3 text-[15px]">
                     <div className=" flex gap-1">
                         <span className=" font-bold text-lightMain">{profile?.followingCount ?? 0}</span>
                         <span className=" text-secondary">

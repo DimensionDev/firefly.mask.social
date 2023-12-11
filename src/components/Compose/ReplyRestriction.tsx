@@ -14,7 +14,7 @@ interface IReplyRestrictionProps {
 export default function ReplyRestriction({ restriction, setRestriction }: IReplyRestrictionProps) {
     const currentFarcasterProfile = useFarcasterStateStore.use.currentProfile();
 
-    const disabled = useMemo(() => currentFarcasterProfile?.profileId, [currentFarcasterProfile?.profileId]);
+    const disabled = useMemo(() => !!currentFarcasterProfile?.profileId, [currentFarcasterProfile?.profileId]);
 
     return (
         <Transition
@@ -26,18 +26,18 @@ export default function ReplyRestriction({ restriction, setRestriction }: IReply
             leaveFrom="opacity-100"
             leaveTo="opacity-0 translate-y-1"
         >
-            <Popover.Panel className="absolute bottom-full right-0 flex w-[280px] -translate-y-3 flex-col gap-2 rounded-lg bg-white p-3 shadow-popover">
+            <Popover.Panel className="absolute bottom-full right-0 flex w-[300px] -translate-y-3 flex-col gap-2 rounded-lg bg-white p-3 text-[15px] shadow-popover">
                 <div
                     className=" flex h-[22px] cursor-pointer items-center justify-between"
                     onClick={() => setRestriction(0)}
                 >
-                    <span className={classNames(' text-sm font-bold text-main')}>
+                    <span className={classNames(' font-bold text-main')}>
                         <Trans>Everyone can reply</Trans>
                     </span>
                     {restriction === 0 ? (
-                        <RadioYesIcon width={16} height={16} />
+                        <RadioYesIcon width={20} height={20} />
                     ) : (
-                        <RadioDisableNoIcon width={16} height={16} />
+                        <RadioDisableNoIcon width={20} height={20} />
                     )}
                 </div>
 
@@ -50,13 +50,13 @@ export default function ReplyRestriction({ restriction, setRestriction }: IReply
                     )}
                     onClick={() => !disabled && setRestriction(1)}
                 >
-                    <span className={classNames(' text-sm font-bold text-main', disabled ? ' opacity-50' : '')}>
+                    <span className={classNames(' font-bold text-main', disabled ? ' opacity-50' : '')}>
                         <Trans>Only people you follow can reply</Trans>
                     </span>
                     {restriction === 1 ? (
-                        <RadioYesIcon width={16} height={16} />
+                        <RadioYesIcon width={20} height={20} />
                     ) : (
-                        <RadioDisableNoIcon width={16} height={16} />
+                        <RadioDisableNoIcon width={20} height={20} />
                     )}
                 </div>
             </Popover.Panel>
