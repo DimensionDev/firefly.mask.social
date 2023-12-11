@@ -49,16 +49,13 @@ export default function ComposeSend({ type, characters, images, closeCompose, se
                 if (!post) return;
                 try {
                     await commentPostForLens(currentLensProfile?.profileId, post.postId, characters, images);
-                    enqueueSnackbar(
-                        t`Replying to @${currentLensProfile.handle || currentLensProfile?.profileId} on Lens`,
-                        {
-                            variant: 'success',
-                        },
-                    );
+                    enqueueSnackbar(t`Replied on Lens`, {
+                        variant: 'success',
+                    });
                     closeCompose();
                 } catch {
                     enqueueSnackbar(
-                        t`Replying to @${currentLensProfile.handle || currentLensProfile?.profileId} on Lens`,
+                        t`Failed to relay on Lens. @${currentLensProfile.handle || currentLensProfile.displayName}`,
                         {
                             variant: 'error',
                         },
@@ -70,14 +67,17 @@ export default function ComposeSend({ type, characters, images, closeCompose, se
                 if (!post) return;
                 try {
                     await quotePostForLens(currentLensProfile?.profileId, post.postId, characters, images);
-                    enqueueSnackbar(t`Quote on Lens`, {
+                    enqueueSnackbar(t`Posted on Lens`, {
                         variant: 'success',
                     });
                     closeCompose();
                 } catch {
-                    enqueueSnackbar(t`Failed to quote on Lens`, {
-                        variant: 'error',
-                    });
+                    enqueueSnackbar(
+                        t`Failed to quote on Lens. @${currentLensProfile.handle || currentLensProfile.displayName}`,
+                        {
+                            variant: 'error',
+                        },
+                    );
                 }
             }
         }
@@ -85,6 +85,7 @@ export default function ComposeSend({ type, characters, images, closeCompose, se
     }, [
         characters,
         closeCompose,
+        currentLensProfile?.displayName,
         currentLensProfile?.handle,
         currentLensProfile?.profileId,
         enqueueSnackbar,

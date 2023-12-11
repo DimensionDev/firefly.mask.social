@@ -4,7 +4,7 @@ import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext
 import { Trans } from '@lingui/macro';
 import { openDialog } from '@masknet/plugin-redpacket';
 import { $getSelection } from 'lexical';
-import { type ChangeEvent, type Dispatch, type SetStateAction, useCallback, useRef, useState } from 'react';
+import { type ChangeEvent, type Dispatch, type SetStateAction, useCallback, useMemo, useRef, useState } from 'react';
 
 import AtIcon from '@/assets/at.svg';
 import GalleryIcon from '@/assets/gallery.svg';
@@ -12,6 +12,8 @@ import NumberSignIcon from '@/assets/number-sign.svg';
 import RedPacketIcon from '@/assets/red-packet.svg';
 import PostBy from '@/components/Compose/PostBy.js';
 import ReplyRestriction from '@/components/Compose/ReplyRestriction.js';
+import { SocialPlatform } from '@/constants/enum.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
 import uploadToIPFS from '@/services/uploadToIPFS.js';
 import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
 import { useLensStateStore } from '@/store/useLensStore.js';
@@ -22,8 +24,9 @@ interface ComposeActionProps {
     images: IPFS_MediaObject[];
     setImages: Dispatch<SetStateAction<IPFS_MediaObject[]>>;
     setLoading: (loading: boolean) => void;
+    post?: Post;
 }
-export default function ComposeAction({ type, images, setImages, setLoading }: ComposeActionProps) {
+export default function ComposeAction({ type, images, setImages, setLoading, post }: ComposeActionProps) {
     const fileInputRef = useRef<HTMLInputElement | null>(null);
     const [restriction, setRestriction] = useState(0);
 
@@ -67,9 +70,33 @@ export default function ComposeAction({ type, images, setImages, setLoading }: C
         [currentFarcasterProfile?.profileId, setImages, setLoading],
     );
 
+    const postByText = useMemo(() => {
+        if (!post) {
+            return (
+                (currentLensProfile?.profileId
+                    ? `@${currentLensProfile.handle || currentLensProfile.displayName}`
+                    : '') +
+                (currentLensProfile?.profileId && currentFarcasterProfile?.profileId ? ', ' : '') +
+                (currentFarcasterProfile?.profileId
+                    ? `@${currentFarcasterProfile.handle || currentFarcasterProfile.displayName}`
+                    : '')
+            );
+        } else {
+            if (post.source === SocialPlatform.Lens) {
+                return currentLensProfile?.profileId
+                    ? `@${currentLensProfile.handle || currentLensProfile.displayName}`
+                    : '';
+            } else {
+                return currentFarcasterProfile?.profileId
+                    ? `@${currentFarcasterProfile.handle || currentFarcasterProfile.displayName}`
+                    : '';
+            }
+        }
+    }, [currentFarcasterProfile, currentLensProfile, post]);
+
     return (
         <div className=" px-4 pb-4">
-            <div className=" flex h-9 items-center gap-3">
+            <div className=" relative flex h-9 items-center gap-3">
                 <GalleryIcon
                     className=" cursor-pointer text-main"
                     width={24}
@@ -97,7 +124,12 @@ export default function ComposeAction({ type, images, setImages, setLoading }: C
                     onClick={() => insertText('#')}
                 />
 
-                <RedPacketIcon className=" cursor-pointer" width={24} height={24} onClick={openDialog} />
+                <RedPacketIcon
+                    className=" absolute left-[100px] top-[2px] cursor-pointer"
+                    width={40}
+                    height={40}
+                    onClick={openDialog}
+                />
             </div>
 
             <div className=" flex h-9 items-center justify-between">
@@ -108,16 +140,10 @@ export default function ComposeAction({ type, images, setImages, setLoading }: C
                     {(_) => (
                         <>
                             <Popover.Button className=" flex cursor-pointer gap-1 text-main focus:outline-none">
-                                <span className=" text-[15px] font-bold">
-                                    {currentLensProfile?.profileId
-                                        ? `@${currentLensProfile.handle || currentLensProfile.profileId}`
-                                        : ''}
-                                    {currentLensProfile?.profileId && currentFarcasterProfile?.profileId ? ', ' : ''}
-                                    {currentFarcasterProfile?.profileId ? `@${currentFarcasterProfile.profileId}` : ''}
-                                </span>
+                                <span className=" text-[15px] font-bold">{postByText}</span>
                                 {type === 'compose' && <ChevronRightIcon className="h-5 w-5" aria-hidden="true" />}
                             </Popover.Button>
-                            <PostBy images={images} />
+                            {!post ? <PostBy images={images} /> : null}
                         </>
                     )}
                 </Popover>

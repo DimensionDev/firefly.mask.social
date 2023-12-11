@@ -4,7 +4,7 @@ import { Fragment } from 'react';
 
 import FarcasterIcon from '@/assets/farcaster.svg';
 import LensIcon from '@/assets/lens.svg';
-import RadioYesIcon from '@/assets/radio.yes.svg';
+import YesIcon from '@/assets/yes.svg';
 import { Image } from '@/esm/Image.js';
 import { classNames } from '@/helpers/classNames.js';
 import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
@@ -52,7 +52,7 @@ export default function PostBy({ images }: IPostByProps) {
                                     </span>
                                 </div>
                                 {currentLensProfile?.profileId === profile.profileId ? (
-                                    <RadioYesIcon width={20} height={20} />
+                                    <YesIcon width={40} height={40} className=" relative -right-2" />
                                 ) : (
                                     <button className=" font-bold text-blueBottom">
                                         <Trans>Switch</Trans>
@@ -95,7 +95,7 @@ export default function PostBy({ images }: IPostByProps) {
                                     </span>
                                 </div>
                                 {currentFarcasterProfile?.profileId === profile.profileId ? (
-                                    <RadioYesIcon width={20} height={20} />
+                                    <YesIcon width={20} height={20} className=" relative -right-2" />
                                 ) : (
                                     <button className=" font-bold text-blueBottom">
                                         <Trans>Switch</Trans>

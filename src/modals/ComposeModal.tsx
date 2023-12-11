@@ -94,7 +94,7 @@ export const ComposeModal = forwardRef<SingletonModalRefCreator<ComposeModalProp
                                     {/* Title */}
                                     <Dialog.Title as="h3" className=" relative h-14">
                                         <XMarkIcon
-                                            className="absolute left-4 top-1/2 h-6 w-6 -translate-y-1/2 cursor-pointer"
+                                            className="absolute left-4 top-1/2 h-6 w-6 -translate-y-1/2 cursor-pointer text-main"
                                             aria-hidden="true"
                                             onClick={close}
                                         />

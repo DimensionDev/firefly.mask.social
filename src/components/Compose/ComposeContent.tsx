@@ -1,3 +1,4 @@
+import { Trans } from '@lingui/macro';
 import { type Dispatch, type SetStateAction, useCallback } from 'react';
 
 import CloseIcon from '@/assets/close.svg';
@@ -53,11 +54,19 @@ export default function ComposeContent({ type, setCharacters, images, setImages,
                 )}
             >
                 <div className=" flex min-h-full flex-col justify-between">
+                    {type === 'reply' && post ? (
+                        <div className=" mb-3 text-left text-[15px]">
+                            <Trans>Replying to</Trans>
+                            <span className=" text-blueBottom"> @{post.author.handle || post.author.displayName} </span>
+                            <Trans>on Lens</Trans>
+                        </div>
+                    ) : null}
+
                     <Editor type={type} setCharacters={setCharacters} hasImages={images.length > 0} hasPost={!!post} />
 
                     {/* quote */}
                     {(type === 'quote' || type === 'reply') && post ? (
-                        <div className=" flex flex-col gap-1 overflow-hidden rounded-2xl border border-secondaryLine bg-bg p-3">
+                        <div className=" flex flex-col gap-1 overflow-hidden rounded-2xl border border-secondaryLine bg-bg p-3 text-main">
                             <div className=" flex h-6 items-center justify-between">
                                 <div className=" text-[15px]] flex items-center gap-2">
                                     <Image
@@ -67,7 +76,7 @@ export default function ComposeContent({ type, setCharacters, images, setImages,
                                         alt="pfp"
                                         className=" rounded-full"
                                     />
-                                    <span className=" font-medium text-main">{post.author.displayName}</span>
+                                    <span className=" font-medium">{post.author.displayName}</span>
                                     <span className=" text-secondary">
                                         @{post.author.handle || post.author.profileId}
                                     </span>
@@ -83,7 +92,8 @@ export default function ComposeContent({ type, setCharacters, images, setImages,
                             <div className=" flex gap-4">
                                 <p className=" text-left">{post.metadata.content?.content}</p>
                                 {(post.mediaObjects?.length ?? 0) > 0 && (
-                                    <Image
+                                    // eslint-disable-next-line @next/next/no-img-element
+                                    <img
                                         src={post.mediaObjects?.[0].url ?? ''}
                                         width={120}
                                         height={120}

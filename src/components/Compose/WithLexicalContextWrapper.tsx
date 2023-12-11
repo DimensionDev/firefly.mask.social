@@ -34,7 +34,7 @@ function WithLexicalContextWrapper({
             />
 
             {/* Action */}
-            <ComposeAction type={type} images={images} setImages={setImages} setLoading={setLoading} />
+            <ComposeAction type={type} images={images} setImages={setImages} setLoading={setLoading} post={post} />
         </>
     );
 }
