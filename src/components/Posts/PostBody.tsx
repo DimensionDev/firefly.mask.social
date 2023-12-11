@@ -13,7 +13,6 @@ import { Attachments } from '@/components/Posts/Attachment.js';
 import { Quote } from '@/components/Posts/Quote.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
-import { getPostPayload } from '@/helpers/getPostPayload.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 interface PostBodyProps {
@@ -21,16 +20,16 @@ interface PostBodyProps {
     isQuote?: boolean;
     showMore?: boolean;
     disablePadding?: boolean;
+    postPayload?: [string, '1' | '2'];
 }
 
 export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostBody(
-    { post, isQuote = false, showMore = false, disablePadding = false },
+    { post, isQuote = false, showMore = false, disablePadding = false, postPayload },
     ref,
 ) {
     const router = useRouter();
     const canShowMore = !!(post.metadata.content?.content && post.metadata.content.content.length > 450) && showMore;
     const showAttachments = !!post.metadata.content?.attachments?.length || !!post.metadata.content?.asset;
-    const postPayload = getPostPayload(post.metadata.content?.content);
 
     if (post.isEncrypted) {
         return (

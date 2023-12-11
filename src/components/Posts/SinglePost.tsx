@@ -1,12 +1,14 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { useRouter } from 'next/navigation.js';
-import { memo, useEffect } from 'react';
+import { usePathname, useRouter } from 'next/navigation.js';
+import { memo } from 'react';
 
 import { FeedActionType } from '@/components/Posts/ActionType.js';
 import { dynamic } from '@/esm/dynamic.js';
+import { Link } from '@/esm/Link.js';
 import { getPostDetailUrl } from '@/helpers/getPostDetailUrl.js';
+import { getPostPayload } from '@/helpers/getPostPayload.js';
 import { useObserveLensPost } from '@/hooks/useObserveLensPost.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
@@ -31,11 +33,11 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
 }) {
     const router = useRouter();
     const { observe } = useObserveLensPost(post.postId, post.source);
-    const postLink = getPostDetailUrl(post.postId, post.source);
+    const postPayload = getPostPayload(post.metadata.content?.content);
 
-    useEffect(() => {
-        router.prefetch(postLink);
-    }, [postLink, router]);
+    const pathname = usePathname();
+    const isDetail = pathname.includes('/detail');
+    const postLink = getPostDetailUrl(post.postId, post.source);
 
     return (
         <motion.article
@@ -44,15 +46,29 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
             exit={{ opacity: 0 }}
             className="cursor-pointer border-b border-secondaryLine bg-bottom px-4 py-3 hover:bg-bg dark:border-line"
             onClick={() => {
-                router.push(postLink);
+                if (!isDetail && postPayload) {
+                    router.push(postLink);
+                }
             }}
         >
             {!isComment ? <FeedActionType post={post} /> : null}
-            <PostHeader post={post} />
+            {!isDetail && !postPayload ? (
+                <Link href={postLink}>
+                    <PostHeader post={post} />
 
-            <PostBody post={post} showMore={showMore} ref={observe} />
+                    <PostBody post={post} showMore={showMore} ref={observe} postPayload={postPayload} />
 
-            <PostActions post={post} disabled={post.isHidden} />
+                    <PostActions post={post} disabled={post.isHidden} />
+                </Link>
+            ) : (
+                <>
+                    <PostHeader post={post} />
+
+                    <PostBody post={post} showMore={showMore} ref={observe} postPayload={postPayload} />
+
+                    <PostActions post={post} disabled={post.isHidden} />
+                </>
+            )}
         </motion.article>
     );
 });

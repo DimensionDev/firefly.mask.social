@@ -39,7 +39,7 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({ post, isQu
 
     return (
         <div className="flex justify-between space-x-1.5">
-            <div className="flex items-center space-x-3">
+            <div className="flex items-start space-x-3">
                 <Image
                     loading="lazy"
                     className={classNames('z-[1] rounded-full border bg-secondary', {
@@ -57,14 +57,14 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({ post, isQu
 
                 <div className="flex max-w-sm items-center">
                     <div className="flex items-center space-x-2">
-                        <span className="block text-sm font-bold leading-5">{post.author.displayName}</span>
-                        <span className="text-sm leading-6 text-secondary">@{post.author.handle}</span>
+                        <span className="block text-[15px] font-bold leading-5">{post.author.displayName}</span>
+                        <span className="text-[15px] leading-6 text-secondary">@{post.author.handle}</span>
                     </div>
                 </div>
             </div>
-            <div className="flex items-center space-x-2">
+            <div className="flex space-x-2 self-baseline">
                 <SourceIcon source={post.source} />
-                <span className="text-xs leading-4 text-secondary">
+                <span className="text-[13px] leading-4 text-secondary">
                     <TimestampFormatter time={post.timestamp} />
                 </span>
                 {!isQuote && !isMyPost ? <MoreAction post={post} /> : null}

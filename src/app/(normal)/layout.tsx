@@ -13,7 +13,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <>
             <CustomElements />
             <main className="max-w-[888px] flex-1 border-r border-line pl-72">
-                <div className="sticky top-0 z-[998] bg-white dark:bg-black">
+                <div className="sticky top-0 z-[998] border-b border-line bg-white pb-[1px] dark:bg-black">
                     <HeaderSearchBar />
                     <SocialPlatformTabs />
                 </div>
