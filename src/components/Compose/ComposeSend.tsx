@@ -112,7 +112,7 @@ export default function ComposeSend({ type, characters, images, closeCompose, se
                     }
                 }}
             >
-                <SendIcon width={18} height={18} className=" text-main" />
+                <SendIcon width={18} height={18} className=" text-foreground" />
                 <span>
                     <Trans>Send</Trans>
                 </span>
