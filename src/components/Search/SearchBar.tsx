@@ -106,7 +106,7 @@ const SearchBar = memo(function SearchBar(props: SearchBarProps) {
                 <LeftArrowIcon width={24} height={24} className="mr-7 cursor-pointer" onClick={() => router.back()} />
             ) : null}
             <div className="relative flex flex-grow items-center rounded-xl bg-lightBg px-3 text-main">
-                <SearchIcon width={18} height={18} />
+                <SearchIcon width={18} height={18} className="shrink-0" />
                 <form
                     className="w-full flex-1"
                     onSubmit={(evt) => {
@@ -145,7 +145,13 @@ const SearchBar = memo(function SearchBar(props: SearchBarProps) {
                             <>
                                 <h2 className=" flex p-3 pb-2 text-xs">
                                     <Trans>Recent</Trans>
-                                    <button className="ml-auto font-bold text-[#246BFD]" onClick={clearAll}>
+                                    <button
+                                        className="ml-auto font-bold text-[#246BFD]"
+                                        onClick={() => {
+                                            clearAll();
+                                            inputRef.current?.focus();
+                                        }}
+                                    >
                                         Clear All
                                     </button>
                                 </h2>
@@ -153,12 +159,12 @@ const SearchBar = memo(function SearchBar(props: SearchBarProps) {
                                     {histories.map((history) => (
                                         <li
                                             key={history}
-                                            className="flex cursor-pointer items-center px-4 hover:bg-bg"
+                                            className="flex cursor-pointer items-center text-ellipsis px-4 hover:bg-bg"
                                             onClick={() => {
                                                 selectKeyword(history);
                                             }}
                                         >
-                                            <SearchIcon width={18} height={18} />
+                                            <SearchIcon width={18} height={18} className="shrink-0" />
                                             <span className="color-main ml-4 text-ellipsis py-2">{history}</span>
                                             <button
                                                 onClick={(e) => {
@@ -191,8 +197,8 @@ const SearchBar = memo(function SearchBar(props: SearchBarProps) {
                                     className=" flex cursor-pointer items-center px-4 py-4 text-left hover:bg-bg"
                                     onClick={() => selectKeyword(searchText)}
                                 >
-                                    <SearchIcon width={18} height={18} />
-                                    <span className=" ml-4">{searchText}</span>
+                                    <SearchIcon width={18} height={18} className="shrink-0" />
+                                    <span className=" ml-4 text-ellipsis">{searchText}</span>
                                 </div>
                             </>
                         ) : null}
