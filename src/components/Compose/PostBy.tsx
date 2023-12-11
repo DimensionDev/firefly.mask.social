@@ -9,20 +9,25 @@ import { Image } from '@/esm/Image.js';
 import { classNames } from '@/helpers/classNames.js';
 import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
 import { LoginModalRef } from '@/modals/controls.js';
+import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
 import { useLensStateStore } from '@/store/useLensStore.js';
 import type { IPFS_MediaObject } from '@/types/index.js';
 
 interface IPostByProps {
     images: IPFS_MediaObject[];
+    setLoading: (loading: boolean) => void;
 }
-export default function PostBy({ images }: IPostByProps) {
+export default function PostBy({ images, setLoading }: IPostByProps) {
     const enqueueSnackbar = useCustomSnackbar();
 
     const lensProfiles = useLensStateStore.use.profiles();
     const farcasterProfiles = useFarcasterStateStore.use.profiles();
+
     const currentLensProfile = useLensStateStore.use.currentProfile();
     const currentFarcasterProfile = useFarcasterStateStore.use.currentProfile();
+
+    const updateLensCurrentProfile = useLensStateStore.use.updateCurrentProfile();
 
     return (
         <Transition
@@ -35,7 +40,7 @@ export default function PostBy({ images }: IPostByProps) {
             leaveTo="opacity-0 translate-y-1"
         >
             <Popover.Panel className=" absolute bottom-full right-0 flex w-[280px] -translate-y-3 flex-col gap-2 rounded-lg bg-bgModal p-3 text-[15px] shadow-popover">
-                {lensProfiles.length > 0 ? (
+                {currentLensProfile && lensProfiles.length > 0 ? (
                     lensProfiles.map((profile) => (
                         <Fragment key={profile.profileId}>
                             <div className={classNames(' flex h-[22px] items-center justify-between')}>
@@ -54,7 +59,28 @@ export default function PostBy({ images }: IPostByProps) {
                                 {currentLensProfile?.profileId === profile.profileId ? (
                                     <YesIcon width={40} height={40} className=" relative -right-2" />
                                 ) : (
-                                    <button className=" font-bold text-blueBottom">
+                                    <button
+                                        className=" font-bold text-blueBottom"
+                                        onClick={async () => {
+                                            setLoading(true);
+                                            try {
+                                                const session = await LensSocialMediaProvider.createSessionForProfileId(
+                                                    profile.profileId,
+                                                );
+
+                                                updateLensCurrentProfile(profile, session);
+                                                enqueueSnackbar(t`Your Lens account is now connected`, {
+                                                    variant: 'success',
+                                                });
+                                            } catch (error) {
+                                                enqueueSnackbar(
+                                                    error instanceof Error ? error.message : t`Failed to login`,
+                                                    { variant: 'error' },
+                                                );
+                                            }
+                                            setLoading(false);
+                                        }}
+                                    >
                                         <Trans>Switch</Trans>
                                     </button>
                                 )}
@@ -78,7 +104,7 @@ export default function PostBy({ images }: IPostByProps) {
                     </Fragment>
                 )}
 
-                {farcasterProfiles.length > 0 ? (
+                {currentFarcasterProfile && farcasterProfiles.length > 0 ? (
                     farcasterProfiles.map((profile, index) => (
                         <Fragment key={profile.profileId}>
                             <div className={classNames(' flex h-[22px] items-center justify-between')}>

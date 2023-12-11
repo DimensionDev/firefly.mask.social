@@ -2,8 +2,9 @@
 
 import { createIndicator, createPageable } from '@masknet/shared-base';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useInView } from 'react-cool-inview';
+import { useAccount } from 'wagmi';
 
 import LoadingIcon from '@/assets/loading.svg';
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
@@ -12,8 +13,10 @@ import { SocialPlatform } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { WarpcastSocialMediaProvider } from '@/providers/warpcast/SocialMedia.js';
+import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
+import { useLensStateStore } from '@/store/useLensStore.js';
 
 export default function Home() {
     const currentSocialPlatform = useGlobalState.use.currentSocialPlatform();
@@ -54,6 +57,17 @@ export default function Home() {
     });
 
     const posts = useMemo(() => data?.pages.flatMap((x) => x.data) || EMPTY_LIST, [data?.pages]);
+
+    const account = useAccount();
+    const clearLensCurrentProfile = useLensStateStore.use.clearCurrentProfile();
+    const clearFarcasterCurrentProfileId = useFarcasterStateStore.use.clearCurrentProfile();
+
+    useEffect(() => {
+        if (account.isDisconnected) {
+            clearLensCurrentProfile();
+            clearFarcasterCurrentProfileId();
+        }
+    }, [account.isDisconnected, clearFarcasterCurrentProfileId, clearLensCurrentProfile]);
 
     return (
         <div>

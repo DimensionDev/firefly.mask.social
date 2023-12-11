@@ -143,7 +143,7 @@ export default function ComposeAction({ type, images, setImages, setLoading, pos
                                 <span className=" text-[15px] font-bold">{postByText}</span>
                                 {type === 'compose' && <ChevronRightIcon className="h-5 w-5" aria-hidden="true" />}
                             </Popover.Button>
-                            {!post ? <PostBy images={images} /> : null}
+                            {!post ? <PostBy images={images} setLoading={setLoading} /> : null}
                         </>
                     )}
                 </Popover>
