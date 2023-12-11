@@ -16,8 +16,8 @@ export const Modals = memo(function Modals() {
     return (
         <div>
             <AccountModal ref={controls.AccountModalRef.register} />
-            <ConnectWalletModal ref={controls.ConnectWalletModalRef.register} />
             <ChainModal ref={controls.ChainModalRef.register} />
+            <ConnectWalletModal ref={controls.ConnectWalletModalRef.register} />
             <LoginModal ref={controls.LoginModalRef.register} />
             <ProfileStatusModal ref={controls.ProfileStatusModal.register} />
             <LogoutModal ref={controls.LogoutModalRef.register} />
