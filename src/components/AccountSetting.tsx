@@ -28,7 +28,7 @@ export function AccountSetting({ platform }: AccountSettingProps) {
                         {currentProfile && currentProfile.profileId === profile.profileId ? (
                             <div
                                 className="h-[8px] w-[8px] rounded-[99px] bg-success"
-                                style={{ filter: 'drop-shadow(0px 4px 10px #3DC233)' }}
+                                style={{ filter: 'drop-shadow(0px 4px 10px var(--color-success))' }}
                             />
                         ) : null}
                     </div>
@@ -38,7 +38,7 @@ export function AccountSetting({ platform }: AccountSettingProps) {
                     onClick={() => {
                         if (platform === SocialPlatform.Lens) disconnect();
                         clearCurrentProfile();
-                        LoginModalRef.open({});
+                        LoginModalRef.open();
                     }}
                 >
                     <UserAddIcon width={24} height={24} />

@@ -73,8 +73,8 @@ export const ProfileStatusModal = forwardRef<SingletonModalRefCreator<ProfileSta
                                                 <ProfileName profile={profile} />
                                                 {currentProfile && currentProfile.profileId === profile.profileId ? (
                                                     <div
-                                                        className="h-[8px] w-[8px] rounded-[99px] bg-[#3DC233]"
-                                                        style={{ filter: 'drop-shadow(0px 4px 10px #3DC233)' }}
+                                                        className="h-[8px] w-[8px] rounded-[99px] bg-success"
+                                                        style={{ filter: 'drop-shadow(0px 4px 10px var(--color-success))' }}
                                                     />
                                                 ) : null}
                                             </div>

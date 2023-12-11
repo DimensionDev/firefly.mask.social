@@ -17,11 +17,10 @@ export default function Display() {
                 <Trans>Display</Trans>
             </div>
             <button
-                className={`my-[12px] inline-flex h-[60px] w-[250px] items-center justify-center gap-5 rounded-lg px-3 ${
-                    isDarkOS
-                        ? ' border border-white bg-slate-950 text-white'
-                        : 'border border-neutral-900 bg-white text-slate-950'
-                }`}
+                className={`my-[12px] inline-flex h-[60px] w-[250px] items-center justify-center gap-5 rounded-lg px-3 ${isDarkOS
+                    ? ' border border-white bg-slate-950 text-white'
+                    : 'border border-neutral-900 bg-white text-slate-950'
+                    }`}
                 onClick={() => {
                     setThemeMode(Appearance.default);
                 }}
@@ -29,7 +28,7 @@ export default function Display() {
                 <div className="flex items-center gap-[20px]">
                     {mode === Appearance.default ? (
                         <div
-                            className="h-2 w-2 rounded-full bg-[#3DC233]"
+                            className="h-2 w-2 rounded-full bg-success"
                             style={{ filter: 'drop-shadow(0px 4px 10px #3DC233)' }}
                         />
                     ) : (
@@ -49,7 +48,7 @@ export default function Display() {
                 <div className="flex items-center gap-[20px]">
                     {mode === Appearance.light ? (
                         <div
-                            className="h-2 w-2 rounded-full bg-[#3DC233]"
+                            className="h-2 w-2 rounded-full bg-success"
                             style={{ filter: 'drop-shadow(0px 4px 10px #3DC233)' }}
                         />
                     ) : (
@@ -69,8 +68,8 @@ export default function Display() {
                 <div className="flex items-center gap-[20px]">
                     {mode === Appearance.dark ? (
                         <div
-                            className="h-2 w-2 rounded-full bg-[#3DC233]"
-                            style={{ filter: 'drop-shadow(0px 4px 10px #3DC233)' }}
+                            className="h-2 w-2 rounded-full bg-success"
+                            style={{ filter: 'drop-shadow(0px 4px 10px var(--color-success))' }}
                         />
                     ) : (
                         <div className="h-2 w-2" />
