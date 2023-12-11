@@ -346,6 +346,9 @@ msgstr "Post by {0}"
 msgid "quote"
 msgstr "quote"
 
+msgid "Image"
+msgstr "Image"
+
 msgid "Notifications"
 msgstr "Notifications"
 
@@ -417,6 +420,9 @@ msgstr "Recasted"
 
 msgid "Profile"
 msgstr "Profile"
+
+msgid "Video"
+msgstr "Video"
 
 msgid "Add a comment"
 msgstr "Add a comment"

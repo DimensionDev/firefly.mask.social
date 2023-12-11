@@ -346,6 +346,9 @@ msgstr ""
 msgid "quote"
 msgstr ""
 
+msgid "Image"
+msgstr ""
+
 msgid "Notifications"
 msgstr ""
 
@@ -416,6 +419,9 @@ msgid "Recasted"
 msgstr ""
 
 msgid "Profile"
+msgstr ""
+
+msgid "Video"
 msgstr ""
 
 msgid "Add a comment"
