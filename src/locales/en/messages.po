@@ -76,9 +76,6 @@ msgstr "{0, plural, one {<0/>} other {{1, plural, one {<1/> and <2/>} other {<3/
 msgid "Failed to follow"
 msgstr "Failed to follow"
 
-msgid "Replying to @{0} on Lens"
-msgstr "Replying to @{0} on Lens"
-
 msgid "Casts"
 msgstr "Casts"
 
@@ -117,6 +114,9 @@ msgstr "Connected Accounts"
 
 msgid "mirror"
 msgstr "mirror"
+
+msgid "Replied on Lens"
+msgstr "Replied on Lens"
 
 msgid "Audio Cover"
 msgstr "Audio Cover"
@@ -177,6 +177,9 @@ msgstr "Post by"
 
 msgid "Privacy Policy"
 msgstr "Privacy Policy"
+
+msgid "Failed to quote on Lens. @{0}"
+msgstr "Failed to quote on Lens. @{0}"
 
 msgid "No wallet client found"
 msgstr "No wallet client found"
@@ -256,6 +259,9 @@ msgstr "Details"
 msgid "Farcaster"
 msgstr "Farcaster"
 
+msgid "Replying to"
+msgstr "Replying to"
+
 msgid "What's happening..."
 msgstr "What's happening..."
 
@@ -301,6 +307,9 @@ msgstr "Visit mask.io"
 msgid "No comments found"
 msgstr "No comments found"
 
+msgid "Failed to relay on Lens. @{0}"
+msgstr "Failed to relay on Lens. @{0}"
+
 msgid "Connected in Firefly"
 msgstr "Connected in Firefly"
 
@@ -331,9 +340,6 @@ msgstr "Allow Lens Manager to perform actions such as posting, liking, and comme
 msgid "<0>{0}</0> mirrored"
 msgstr "<0>{0}</0> mirrored"
 
-msgid "Failed to quote on Lens"
-msgstr "Failed to quote on Lens"
-
 msgid "Post by {0}"
 msgstr "Post by {0}"
 
@@ -357,9 +363,6 @@ msgstr "No profile found"
 
 msgid "Everyone can reply"
 msgstr "Everyone can reply"
-
-msgid "Quote on Lens"
-msgstr "Quote on Lens"
 
 msgid "Delegate Signing (Recommend)"
 msgstr "Delegate Signing (Recommend)"
@@ -447,6 +450,9 @@ msgstr "Dark mode"
 
 msgid "{0, select, follow {Followed @{1} on {2}} unfollow {UnFollowed @{3} on {4}} other {Followed @{5} on {6}}}"
 msgstr "{0, select, follow {Followed @{1} on {2}} unfollow {UnFollowed @{3} on {4}} other {Followed @{5} on {6}}}"
+
+msgid "on Lens"
+msgstr "on Lens"
 
 msgid "Collect is coming soon"
 msgstr "Collect is coming soon"
