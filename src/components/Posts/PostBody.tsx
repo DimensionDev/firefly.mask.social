@@ -7,7 +7,7 @@ import urlcat from 'urlcat';
 
 import EyeSlash from '@/assets/eye-slash.svg';
 import Lock from '@/assets/lock.svg';
-import { Markup } from '@/components/Markup/index.js';
+import { Markup, NakedMarkup } from '@/components/Markup/index.js';
 import Oembed from '@/components/Oembed/index.js';
 import { Attachments } from '@/components/Posts/Attachment.js';
 import { Quote } from '@/components/Posts/Quote.js';
@@ -73,9 +73,9 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
     if (isQuote) {
         return (
             <div className="my-2 flex items-center space-x-2 break-words text-base text-main">
-                <Markup className="markup linkify text-md line-clamp-5 w-full self-stretch break-words opacity-75 dark:opacity-50">
-                    {post.metadata.content?.content || ''}
-                </Markup>
+                <NakedMarkup className="markup linkify text-md line-clamp-5 w-full self-stretch break-words opacity-75 dark:opacity-50">
+                    {post.metadata.content?.content}
+                </NakedMarkup>
                 {showAttachments ? (
                     <Attachments
                         asset={post.metadata.content?.asset}
@@ -105,7 +105,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
                 />
             ) : (
                 <Markup className={classNames({ 'line-clamp-5': canShowMore }, 'markup linkify text-md break-words')}>
-                    {post.metadata.content?.content || ''}
+                    {post.metadata.content?.content}
                 </Markup>
             )}
 
