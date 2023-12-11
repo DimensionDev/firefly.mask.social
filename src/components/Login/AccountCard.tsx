@@ -27,6 +27,7 @@ export function AccountCard({ isSelected, onSelect, profile }: AccountCardProps)
                 <YesIcon width={40} height={40} />
             ) : (
                 <button
+                    className="flex h-[40px] w-[40px] items-center justify-center"
                     onClick={() => {
                         onSelect(profile);
                     }}

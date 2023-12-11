@@ -127,6 +127,9 @@ msgstr ""
 msgid "Feed"
 msgstr ""
 
+msgid "Change account"
+msgstr ""
+
 msgid "No content URI found"
 msgstr ""
 
@@ -134,9 +137,6 @@ msgid "Follow System"
 msgstr ""
 
 msgid "No results"
-msgstr ""
-
-msgid "On your mobile device with Warpcast, open the Camera app and scan the QR code"
 msgstr ""
 
 msgid "Join our Telegram"
@@ -368,6 +368,9 @@ msgid "Firefly"
 msgstr ""
 
 msgid "Log out all"
+msgstr ""
+
+msgid "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code"
 msgstr ""
 
 msgid "Unknown session type."

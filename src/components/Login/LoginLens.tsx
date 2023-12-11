@@ -1,8 +1,9 @@
 'use client';
 
+import { Switch } from '@headlessui/react';
 import { t, Trans } from '@lingui/macro';
 import { delay } from '@masknet/kit';
-import { Switch } from '@mui/material';
+import { isSameAddress } from '@masknet/web3-shared-base';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { first } from 'lodash-es';
 import { useEffect, useMemo, useState } from 'react';
@@ -94,20 +95,37 @@ export function LoginLens(props: LoginLensProps) {
                                 />
                             ))}
                         </div>
-                        <div className="flex w-full flex-col gap-[8px] rounded-[8px] bg-lightBg px-[16px] py-[24px]">
-                            <div className="flex items-center justify-between">
-                                <span className="text-[14px] font-bold leading-[18px] text-lightMain">
-                                    <Trans>Delegate Signing (Recommend)</Trans>
-                                </span>
-                                <Switch checked={signless} onChange={(e) => setSignless(e.target.checked)} />
+                        {current?.signless || isSameAddress(current?.ownedBy?.address, account.address) ? null : (
+                            <div className="flex w-full flex-col gap-[8px] rounded-[8px] bg-lightBg px-[16px] py-[24px]">
+                                <div className="flex items-center justify-between">
+                                    <span className="text-[14px] font-bold leading-[18px] text-lightMain">
+                                        <Trans>Delegate Signing (Recommend)</Trans>
+                                    </span>
+                                    <Switch checked={signless} onChange={setSignless}>
+                                        {({ checked }) => (
+                                            <button
+                                                className={`${
+                                                    checked ? 'bg-success' : 'bg-gray-200'
+                                                } relative inline-flex h-[22px] w-[43px] items-center rounded-full`}
+                                            >
+                                                <span className="sr-only">Enable signless</span>
+                                                <span
+                                                    className={`${
+                                                        checked ? 'translate-x-6' : 'translate-x-1'
+                                                    } inline-block h-3 w-3 transform rounded-full bg-white transition`}
+                                                />
+                                            </button>
+                                        )}
+                                    </Switch>
+                                </div>
+                                <div className="w-full text-left text-[14px] leading-[16px] text-lightSecond">
+                                    <Trans>
+                                        Allow Lens Manager to perform actions such as posting, liking, and commenting
+                                        without the need to sign each transaction
+                                    </Trans>
+                                </div>
                             </div>
-                            <div className="w-full text-left text-[14px] leading-[16px] text-lightSecond">
-                                <Trans>
-                                    Allow Lens Manager to perform actions such as posting, liking, and commenting
-                                    without the need to sign each transaction
-                                </Trans>
-                            </div>
-                        </div>
+                        )}
                     </>
                 ) : (
                     <div className="flex w-full flex-col gap-[8px] rounded-[8px] bg-lightBg px-[16px] py-[24px]">

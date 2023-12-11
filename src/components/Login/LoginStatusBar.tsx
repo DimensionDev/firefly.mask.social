@@ -1,9 +1,10 @@
 'use client';
 
+import { AccountSetting } from '@/components/AccountSetting.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { ProfileAvatarAdd } from '@/components/ProfileAvatarAdd.js';
 import { SocialPlatform } from '@/constants/enum.js';
-import { LoginModalRef, ProfileStatusModal } from '@/modals/controls.js';
+import { LoginModalRef } from '@/modals/controls.js';
 import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
 import { useLensStateStore } from '@/store/useLensStore.js';
 
@@ -14,24 +15,16 @@ export function LoginStatusBar() {
     return (
         <div className="flex gap-x-2 pl-2">
             {lensProfile ? (
-                <ProfileAvatar
-                    profile={lensProfile}
-                    onClick={() => {
-                        ProfileStatusModal.open({
-                            platform: SocialPlatform.Lens,
-                        });
-                    }}
-                />
+                <div className="group relative">
+                    <ProfileAvatar profile={lensProfile} />
+                    <AccountSetting platform={SocialPlatform.Lens} />
+                </div>
             ) : null}
             {farcasterProfile ? (
-                <ProfileAvatar
-                    profile={farcasterProfile}
-                    onClick={() => {
-                        ProfileStatusModal.open({
-                            platform: SocialPlatform.Farcaster,
-                        });
-                    }}
-                />
+                <div className="group relative">
+                    <ProfileAvatar profile={farcasterProfile} />
+                    <AccountSetting platform={SocialPlatform.Farcaster} />
+                </div>
             ) : null}
             {lensProfile ? null : (
                 <ProfileAvatarAdd

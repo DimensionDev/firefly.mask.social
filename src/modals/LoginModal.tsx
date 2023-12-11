@@ -7,7 +7,6 @@ import type { SingletonModalRefCreator } from '@masknet/shared-base';
 import { useSingletonModal } from '@masknet/shared-base-ui';
 import { useSnackbar } from 'notistack';
 import { forwardRef, Fragment, Suspense, useState } from 'react';
-import { polygon } from 'viem/chains';
 
 import CloseIcon from '@/assets/close.svg';
 import LeftArrowIcon from '@/assets/left-arrow.svg';
@@ -104,9 +103,7 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | 
                                                     platform={platform}
                                                     onClick={async () => {
                                                         try {
-                                                            await getWalletClientRequired({
-                                                                chainId: polygon.id,
-                                                            });
+                                                            await getWalletClientRequired();
                                                         } catch (error) {
                                                             enqueueSnackbar(
                                                                 error instanceof Error

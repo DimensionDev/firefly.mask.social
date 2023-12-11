@@ -44,6 +44,7 @@ module.exports = {
                 foreground: 'var(--foreground-rgb)',
                 placeholder: 'var(--plyr-range-fill-background)',
                 tabLine: 'var(--color-tab-line)',
+                success: 'var(--color-success)',
             },
             backgroundImage: {
                 'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',

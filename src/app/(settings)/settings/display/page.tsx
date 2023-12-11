@@ -2,12 +2,14 @@
 
 import { Trans } from '@lingui/macro';
 import { Appearance } from '@masknet/public-api';
+import { useMediaQuery } from 'usehooks-ts';
 
 import { useThemeModeStore } from '@/store/useThemeModeStore.js';
 
 export default function Display() {
     const setThemeMode = useThemeModeStore.use.setThemeMode();
     const mode = useThemeModeStore.use.themeMode();
+    const isDarkOS = useMediaQuery('(prefers-color-scheme: dark)');
 
     return (
         <div className="flex w-full flex-col items-center p-[24px]">
@@ -15,21 +17,27 @@ export default function Display() {
                 <Trans>Display</Trans>
             </div>
             <button
-                className="my-[12px] inline-flex h-[60px] w-[250px] items-center justify-center gap-5 rounded-lg border border-neutral-900 bg-white px-3"
+                className={`my-[12px] inline-flex h-[60px] w-[250px] items-center justify-center gap-5 rounded-lg px-3 ${
+                    isDarkOS
+                        ? ' border border-white bg-slate-950 text-white'
+                        : 'border border-neutral-900 bg-white text-slate-950'
+                }`}
                 onClick={() => {
                     setThemeMode(Appearance.default);
                 }}
             >
-                {mode === Appearance.default ? (
-                    <div className="relative h-2 w-2 shadow">
+                <div className="flex items-center gap-[20px]">
+                    {mode === Appearance.default ? (
                         <div
-                            className="absolute left-0 top-0 h-2 w-2 rounded-full bg-[#3DC233]"
-                            style={{ filter: 'drop-shadow(0px 4px 10px #3DC233)' }}
+                            className="h-2 w-2 rounded-full bg-success"
+                            style={{ filter: 'drop-shadow(0px 4px 10px var(--color-success))' }}
                         />
+                    ) : (
+                        <div className="h-2 w-2" />
+                    )}
+                    <div className="text-sm font-bold leading-[18px]">
+                        <Trans>Follow System</Trans>
                     </div>
-                ) : null}
-                <div className="text-sm font-bold leading-[18px] text-slate-950">
-                    <Trans>Follow System</Trans>
                 </div>
             </button>
             <button
@@ -38,16 +46,18 @@ export default function Display() {
                     setThemeMode(Appearance.light);
                 }}
             >
-                {mode === Appearance.light ? (
-                    <div className="relative h-2 w-2 shadow">
+                <div className="flex items-center gap-[20px]">
+                    {mode === Appearance.light ? (
                         <div
-                            className="absolute left-0 top-0 h-2 w-2 rounded-full bg-[#3DC233]"
-                            style={{ filter: 'drop-shadow(0px 4px 10px #3DC233)' }}
+                            className="h-2 w-2 rounded-full bg-success"
+                            style={{ filter: 'drop-shadow(0px 4px 10px var(--color-success))' }}
                         />
+                    ) : (
+                        <div className="h-2 w-2" />
+                    )}
+                    <div className="w-[96px] text-left text-sm font-bold leading-[18px] text-slate-950">
+                        <Trans>Light mode</Trans>
                     </div>
-                ) : null}
-                <div className="text-sm font-bold leading-[18px] text-slate-950">
-                    <Trans>Light mode</Trans>
                 </div>
             </button>
             <button
@@ -56,16 +66,18 @@ export default function Display() {
                     setThemeMode(Appearance.dark);
                 }}
             >
-                {mode === Appearance.dark ? (
-                    <div className="relative h-2 w-2 shadow">
+                <div className="flex items-center gap-[20px]">
+                    {mode === Appearance.dark ? (
                         <div
-                            className="absolute left-0 top-0 h-2 w-2 rounded-full bg-[#3DC233]"
-                            style={{ filter: 'drop-shadow(0px 4px 10px #3DC233)' }}
+                            className="h-2 w-2 rounded-full bg-success"
+                            style={{ filter: 'drop-shadow(0px 4px 10px var(--color-success))' }}
                         />
+                    ) : (
+                        <div className="h-2 w-2" />
+                    )}
+                    <div className="w-[96px] text-left text-sm font-bold leading-[18px] text-white">
+                        <Trans>Dark mode</Trans>
                     </div>
-                ) : null}
-                <div className="text-sm font-bold leading-[18px] text-white">
-                    <Trans>Dark mode</Trans>
                 </div>
             </button>
         </div>
