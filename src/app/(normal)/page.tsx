@@ -2,7 +2,7 @@
 
 import { Trans } from '@lingui/macro';
 import { createIndicator, createPageable } from '@masknet/shared-base';
-import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
+import { useInfiniteQuery } from '@tanstack/react-query';
 import { useMemo } from 'react';
 import { useInView } from 'react-cool-inview';
 
@@ -22,8 +22,9 @@ export default function Home() {
     const currentSocialPlatform = useGlobalState.use.currentSocialPlatform();
     const fetchAndStoreViews = useImpressionsStore.use.fetchAndStoreViews();
     const { data, hasNextPage, fetchNextPage, isFetchingNextPage, isError, isPending, refetch, isFetching } =
-        useSuspenseInfiniteQuery({
+        useInfiniteQuery({
             queryKey: ['discover', currentSocialPlatform],
+            networkMode: 'always',
 
             queryFn: async ({ pageParam }) => {
                 switch (currentSocialPlatform) {
@@ -38,7 +39,7 @@ export default function Home() {
                     case SocialPlatform.Farcaster:
                         return WarpcastSocialMediaProvider.discoverPosts(createIndicator(undefined, pageParam));
                     default:
-                        return createPageable(EMPTY_LIST, undefined);
+                        return createPageable([], undefined);
                 }
             },
             initialPageParam: '',
@@ -55,9 +56,9 @@ export default function Home() {
         },
     });
 
-    const results = useMemo(() => data.pages.flatMap((x) => x.data), [data.pages]);
+    const posts = useMemo(() => data?.pages.flatMap((x) => x.data) || EMPTY_LIST, [data?.pages]);
 
-    if (isError && !results.length && !isPending) {
+    if (isError && !posts.length && !isPending) {
         return (
             <div className="flex h-screen flex-col items-center justify-center">
                 <Image src="/image/radar.png" width={200} height={106} alt="Something went wrong, Please try again." />
@@ -79,14 +80,17 @@ export default function Home() {
         );
     }
 
+    if (isPending)
+        return (
+            <div className="flex items-center justify-center py-20">
+                <LoadingIcon width={16} height={16} className="animate-spin" />
+            </div>
+        );
+
     return (
         <div>
-            {results.length ? (
-                results.map((x) => <SinglePost post={x} key={x.postId} showMore />)
-            ) : (
-                <NoResultsFallback />
-            )}
-            {hasNextPage && results.length ? (
+            {posts.length ? posts.map((x) => <SinglePost post={x} key={x.postId} showMore />) : <NoResultsFallback />}
+            {hasNextPage && posts.length ? (
                 <div className="flex items-center justify-center p-2" ref={observe}>
                     <LoadingIcon width={16} height={16} className="animate-spin" />
                 </div>
