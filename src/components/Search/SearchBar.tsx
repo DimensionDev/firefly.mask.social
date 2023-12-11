@@ -3,7 +3,7 @@
 import { t, Trans } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation.js';
-import { type ChangeEvent, memo, useEffect, useRef, useState } from 'react';
+import { type ChangeEvent, memo, useEffect, useMemo, useRef, useState } from 'react';
 import { useDebounce, useOnClickOutside } from 'usehooks-ts';
 
 import CloseIcon from '@/assets/close-circle.svg';
@@ -19,6 +19,8 @@ import { HubbleSocialMediaProvider } from '@/providers/hubble/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useSearchStore } from '@/store/useSearchStore.js';
+
+import { useSearchHistories } from './useSearchHistories.js';
 
 interface SearchBarProps {
     source: 'header' | 'secondary';
@@ -38,6 +40,11 @@ const SearchBar = memo(function SearchBar(props: SearchBarProps) {
     const queryKeyword = params.get('q') || '';
     const [searchText, setSearchText] = useState(queryKeyword);
     const debouncedSearchText = useDebounce(searchText, 500);
+    const { histories, addRecord, removeRecord, clearAll } = useSearchHistories();
+    const matchedHistories = useMemo(
+        () => (debouncedSearchText ? histories.filter((x) => x.includes(debouncedSearchText)) : histories),
+        [debouncedSearchText, histories],
+    );
 
     useOnClickOutside(dropdownRef, () => setSearchText(''));
 
@@ -69,6 +76,7 @@ const SearchBar = memo(function SearchBar(props: SearchBarProps) {
 
     const handleSubmit = (evt: ChangeEvent<HTMLFormElement>) => {
         evt.preventDefault();
+        addRecord(searchText);
 
         if (isSearchPage) {
             router.push(`/search?q=${searchText}&type=${params.get('type') ?? SearchType.Profiles}`);
@@ -119,12 +127,42 @@ const SearchBar = memo(function SearchBar(props: SearchBarProps) {
                         />
                     </label>
                 </form>
-                {!isSearchPage && searchText.length > 0 ? (
+                {searchText.length > 0 ? (
                     <div
-                        className="bg-wite absolute inset-x-0 top-[40px] z-[1000] mt-2 flex w-full flex-col dark:bg-black"
+                        className="absolute inset-x-0 top-[40px] z-[1000] mt-2 flex w-full flex-col bg-white dark:bg-black"
                         ref={dropdownRef}
                     >
-                        <div className=" rounded-2xl bg-lightBg">
+                        <div className="rounded-2xl shadow-[0px_4px_30px_0px_rgba(0,0,0,0.10)]">
+                            {matchedHistories.length ? (
+                                <>
+                                    <h2 className=" flex p-3 pb-2 text-xs">
+                                        <Trans>Recent</Trans>
+                                        <button className="ml-auto font-bold text-[#246BFD]" onClick={clearAll}>
+                                            Clear All
+                                        </button>
+                                    </h2>
+                                    <ul className="mx-4 my-4">
+                                        {histories.map((history) => (
+                                            <li key={history} className="flex cursor-pointer items-center">
+                                                <SearchIcon width={18} height={18} />
+                                                <span className="color-main ml-4 text-ellipsis py-2">{history}</span>
+                                                <button onClick={() => removeRecord(history)} className="ml-auto">
+                                                    <CloseIcon width={16} height={16} />
+                                                </button>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </>
+                            ) : null}
+
+                            <div
+                                className=" flex cursor-pointer items-center px-4 py-4 text-left hover:bg-bg"
+                                // @ts-ignore
+                                onClick={handleSubmit}
+                            >
+                                <SearchIcon width={18} height={18} />
+                                <span className=" ml-4">{searchText}</span>
+                            </div>
                             <h2 className=" p-3 pb-2 text-xs">
                                 {currentSocialPlatform === SocialPlatform.Lens ? (
                                     <Trans>Publications</Trans>
@@ -140,8 +178,8 @@ const SearchBar = memo(function SearchBar(props: SearchBarProps) {
                                 // @ts-ignore
                                 onClick={handleSubmit}
                             >
-                                <SearchIcon className=" ml-1" width={18} height={18} />
-                                <span className=" ml-5">{searchText}</span>
+                                <SearchIcon width={18} height={18} />
+                                <span className=" ml-4">{searchText}</span>
                             </div>
 
                             {isLoading || profiles?.data ? (
