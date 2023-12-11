@@ -18,8 +18,17 @@ interface ComposeSendProps {
     closeCompose: () => void;
     setLoading: (loading: boolean) => void;
     post?: Post;
+    video: IPFS_MediaObject | null;
 }
-export default function ComposeSend({ type, characters, images, closeCompose, setLoading, post }: ComposeSendProps) {
+export default function ComposeSend({
+    type,
+    characters,
+    images,
+    closeCompose,
+    setLoading,
+    post,
+    video,
+}: ComposeSendProps) {
     const enqueueSnackbar = useCustomSnackbar();
 
     const currentLensProfile = useLensStateStore.use.currentProfile();
@@ -33,7 +42,7 @@ export default function ComposeSend({ type, characters, images, closeCompose, se
         if (currentLensProfile?.profileId) {
             if (type === 'compose') {
                 try {
-                    await publishPostForLens(currentLensProfile?.profileId, characters, images);
+                    await publishPostForLens(currentLensProfile?.profileId, characters, images, video);
                     enqueueSnackbar(t`Posted on Lens`, {
                         variant: 'success',
                     });
@@ -48,7 +57,7 @@ export default function ComposeSend({ type, characters, images, closeCompose, se
             if (type === 'reply') {
                 if (!post) return;
                 try {
-                    await commentPostForLens(currentLensProfile?.profileId, post.postId, characters, images);
+                    await commentPostForLens(currentLensProfile?.profileId, post.postId, characters, images, video);
                     enqueueSnackbar(t`Replied on Lens`, {
                         variant: 'success',
                     });
@@ -66,7 +75,7 @@ export default function ComposeSend({ type, characters, images, closeCompose, se
             if (type === 'quote') {
                 if (!post) return;
                 try {
-                    await quotePostForLens(currentLensProfile?.profileId, post.postId, characters, images);
+                    await quotePostForLens(currentLensProfile?.profileId, post.postId, characters, images, video);
                     enqueueSnackbar(t`Posted on Lens`, {
                         variant: 'success',
                     });
@@ -93,6 +102,7 @@ export default function ComposeSend({ type, characters, images, closeCompose, se
         post,
         setLoading,
         type,
+        video,
     ]);
 
     return (

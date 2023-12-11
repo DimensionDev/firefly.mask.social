@@ -13,6 +13,8 @@ interface IWithLexicalContextWrapper {
     setImages: Dispatch<SetStateAction<IPFS_MediaObject[]>>;
     setLoading: (loading: boolean) => void;
     post?: Post;
+    video: IPFS_MediaObject | null;
+    setVideo: Dispatch<SetStateAction<IPFS_MediaObject | null>>;
 }
 function WithLexicalContextWrapper({
     type,
@@ -21,6 +23,8 @@ function WithLexicalContextWrapper({
     setImages,
     setLoading,
     post,
+    video,
+    setVideo,
 }: IWithLexicalContextWrapper) {
     return (
         <>
@@ -31,10 +35,20 @@ function WithLexicalContextWrapper({
                 images={images.map((image) => image.file)}
                 setImages={setImages}
                 post={post}
+                video={video}
+                setVideo={setVideo}
             />
 
             {/* Action */}
-            <ComposeAction type={type} images={images} setImages={setImages} setLoading={setLoading} post={post} />
+            <ComposeAction
+                type={type}
+                images={images}
+                setImages={setImages}
+                setLoading={setLoading}
+                post={post}
+                video={video}
+                setVideo={setVideo}
+            />
         </>
     );
 }

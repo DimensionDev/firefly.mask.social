@@ -16,8 +16,18 @@ interface ComposeContentProps {
     images: File[];
     setImages: Dispatch<SetStateAction<IPFS_MediaObject[]>>;
     post?: Post;
+    video: IPFS_MediaObject | null;
+    setVideo: Dispatch<SetStateAction<IPFS_MediaObject | null>>;
 }
-export default function ComposeContent({ type, setCharacters, images, setImages, post }: ComposeContentProps) {
+export default function ComposeContent({
+    type,
+    setCharacters,
+    images,
+    setImages,
+    post,
+    video,
+    setVideo,
+}: ComposeContentProps) {
     const createImageUrl = (file: File) => URL.createObjectURL(file);
 
     const removeImage = useCallback(
@@ -46,6 +56,10 @@ export default function ComposeContent({ type, setCharacters, images, setImages,
         [removeImage],
     );
 
+    const removeVideo = useCallback(() => {
+        setVideo(null);
+    }, [setVideo]);
+
     return (
         <div className=" p-4">
             <label
@@ -62,7 +76,12 @@ export default function ComposeContent({ type, setCharacters, images, setImages,
                         </div>
                     ) : null}
 
-                    <Editor type={type} setCharacters={setCharacters} hasImages={images.length > 0} hasPost={!!post} />
+                    <Editor
+                        type={type}
+                        setCharacters={setCharacters}
+                        hasImages={images.length > 0 || !!video}
+                        hasPost={!!post}
+                    />
 
                     {/* quote */}
                     {(type === 'quote' || type === 'reply') && post ? (
@@ -130,6 +149,19 @@ export default function ComposeContent({ type, setCharacters, images, setImages,
                             })}
                         </div>
                     )}
+
+                    {/* video */}
+                    {video ? (
+                        <div className=" relative">
+                            <video controls src={createImageUrl(video.file)} />
+                            <CloseIcon
+                                className=" absolute right-2 top-2 h-[18px] w-[18px] cursor-pointer"
+                                width={18}
+                                height={18}
+                                onClick={() => removeVideo()}
+                            />
+                        </div>
+                    ) : null}
                 </div>
             </label>
         </div>

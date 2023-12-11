@@ -4,17 +4,17 @@ import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext
 import { Trans } from '@lingui/macro';
 import { openDialog } from '@masknet/plugin-redpacket';
 import { $getSelection } from 'lexical';
-import { type ChangeEvent, type Dispatch, type SetStateAction, useCallback, useMemo, useRef, useState } from 'react';
+import { type Dispatch, type SetStateAction, useCallback, useMemo, useState } from 'react';
 
 import AtIcon from '@/assets/at.svg';
 import GalleryIcon from '@/assets/gallery.svg';
 import NumberSignIcon from '@/assets/number-sign.svg';
 import RedPacketIcon from '@/assets/red-packet.svg';
+import Media from '@/components/Compose/Media.js';
 import PostBy from '@/components/Compose/PostBy.js';
 import ReplyRestriction from '@/components/Compose/ReplyRestriction.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
-import uploadToIPFS from '@/services/uploadToIPFS.js';
 import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
 import { useLensStateStore } from '@/store/useLensStore.js';
 import type { IPFS_MediaObject } from '@/types/index.js';
@@ -25,9 +25,18 @@ interface ComposeActionProps {
     setImages: Dispatch<SetStateAction<IPFS_MediaObject[]>>;
     setLoading: (loading: boolean) => void;
     post?: Post;
+    video: IPFS_MediaObject | null;
+    setVideo: Dispatch<SetStateAction<IPFS_MediaObject | null>>;
 }
-export default function ComposeAction({ type, images, setImages, setLoading, post }: ComposeActionProps) {
-    const fileInputRef = useRef<HTMLInputElement | null>(null);
+export default function ComposeAction({
+    type,
+    images,
+    setImages,
+    setLoading,
+    post,
+    video,
+    setVideo,
+}: ComposeActionProps) {
     const [restriction, setRestriction] = useState(0);
 
     const currentLensProfile = useLensStateStore.use.currentProfile();
@@ -45,29 +54,6 @@ export default function ComposeAction({ type, images, setImages, setLoading, pos
             });
         },
         [editor],
-    );
-
-    const handleFileChange = useCallback(
-        async (event: ChangeEvent<HTMLInputElement>) => {
-            const files = event.target.files;
-
-            if (files) {
-                setLoading(true);
-                const res = await uploadToIPFS([...files]);
-                setImages((_images) =>
-                    [..._images]
-                        .concat(
-                            res.map((ipfs, index) => ({
-                                file: files[index],
-                                ipfs,
-                            })),
-                        )
-                        .slice(0, currentFarcasterProfile?.profileId ? 2 : 4),
-                );
-                setLoading(false);
-            }
-        },
-        [currentFarcasterProfile?.profileId, setImages, setLoading],
     );
 
     const postByText = useMemo(() => {
@@ -97,24 +83,25 @@ export default function ComposeAction({ type, images, setImages, setLoading, pos
     return (
         <div className=" px-4 pb-4">
             <div className=" relative flex h-9 items-center gap-3">
-                <GalleryIcon
-                    className=" cursor-pointer text-main"
-                    width={24}
-                    height={24}
-                    onClick={() => {
-                        if (images.length < (currentFarcasterProfile?.profileId ? 2 : 4)) {
-                            fileInputRef.current?.click();
-                        }
-                    }}
-                />
-                <input
-                    type="file"
-                    accept="image/*"
-                    multiple
-                    ref={fileInputRef}
-                    className=" hidden"
-                    onChange={handleFileChange}
-                />
+                <Popover as="div" className="relative">
+                    {(_) => (
+                        <>
+                            <Popover.Button className=" flex cursor-pointer gap-1 text-main focus:outline-none">
+                                <GalleryIcon className=" cursor-pointer text-main" width={24} height={24} />
+                            </Popover.Button>
+
+                            <Media
+                                type={type}
+                                images={images}
+                                setImages={setImages}
+                                setLoading={setLoading}
+                                video={video}
+                                setVideo={setVideo}
+                            />
+                        </>
+                    )}
+                </Popover>
+
                 <AtIcon className=" cursor-pointer text-main" width={24} height={24} onClick={() => insertText('@')} />
 
                 <NumberSignIcon

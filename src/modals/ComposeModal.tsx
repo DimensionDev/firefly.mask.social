@@ -26,6 +26,7 @@ export const ComposeModal = forwardRef<SingletonModalRefCreator<ComposeModalProp
     const [characters, setCharacters] = useState('');
     const [discardOpened, setDiscardOpened] = useState(false);
     const [images, setImages] = useState<IPFS_MediaObject[]>(EMPTY_LIST);
+    const [video, setVideo] = useState<IPFS_MediaObject | null>(null);
     const [loading, setLoading] = useState(false);
 
     const [open, dispatch] = useSingletonModal(ref, {
@@ -37,6 +38,7 @@ export const ComposeModal = forwardRef<SingletonModalRefCreator<ComposeModalProp
             setCharacters('');
             setImages(EMPTY_LIST);
             setPost(undefined);
+            setVideo(null);
         },
     });
 
@@ -83,7 +85,7 @@ export const ComposeModal = forwardRef<SingletonModalRefCreator<ComposeModalProp
                                 leaveFrom="opacity-100 scale-100"
                                 leaveTo="opacity-0 scale-95"
                             >
-                                <Dialog.Panel className="relative w-[600px] overflow-hidden rounded-xl bg-bgModal shadow-popover transition-all dark:text-gray-950">
+                                <Dialog.Panel className="relative w-[600px] rounded-xl bg-bgModal shadow-popover transition-all dark:text-gray-950">
                                     {/* Loading */}
                                     {loading ? (
                                         <div className=" absolute bottom-0 left-0 right-0 top-0 z-50 flex items-center justify-center">
@@ -110,6 +112,8 @@ export const ComposeModal = forwardRef<SingletonModalRefCreator<ComposeModalProp
                                         images={images}
                                         setImages={setImages}
                                         setLoading={setLoading}
+                                        video={video}
+                                        setVideo={setVideo}
                                         post={post}
                                     />
 
@@ -121,6 +125,7 @@ export const ComposeModal = forwardRef<SingletonModalRefCreator<ComposeModalProp
                                         closeCompose={close}
                                         setLoading={setLoading}
                                         post={post}
+                                        video={video}
                                     />
                                 </Dialog.Panel>
                             </Transition.Child>

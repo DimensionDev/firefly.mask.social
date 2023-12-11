@@ -52,7 +52,14 @@ export default function PostBy({ images, setLoading }: IPostByProps) {
                                         alt="lens"
                                         className=" rounded-full"
                                     />
-                                    <span className={classNames(' font-bold text-main')}>
+                                    <span
+                                        className={classNames(
+                                            ' font-bold',
+                                            currentLensProfile?.profileId === profile.profileId
+                                                ? ' text-secondary'
+                                                : ' text-main',
+                                        )}
+                                    >
                                         @{profile.handle || profile.profileId}
                                     </span>
                                 </div>
@@ -116,7 +123,14 @@ export default function PostBy({ images, setLoading }: IPostByProps) {
                                         alt="farcaster"
                                         className=" rounded-full"
                                     />
-                                    <span className={classNames(' font-bold text-main')}>
+                                    <span
+                                        className={classNames(
+                                            ' font-bold',
+                                            currentFarcasterProfile?.profileId === profile.profileId
+                                                ? ' text-secondary'
+                                                : ' text-main',
+                                        )}
+                                    >
                                         @{profile.handle || profile.profileId}
                                     </span>
                                 </div>
