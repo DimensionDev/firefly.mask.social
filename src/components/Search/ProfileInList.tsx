@@ -1,4 +1,3 @@
-
 import { Image } from '@/components/Image.js';
 import FollowButton from '@/components/Profile/FollowButton.js';
 import { SourceIcon } from '@/components/SourceIcon.js';
