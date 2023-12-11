@@ -26,7 +26,7 @@ export default function ReplyRestriction({ restriction, setRestriction }: IReply
             leaveFrom="opacity-100"
             leaveTo="opacity-0 translate-y-1"
         >
-            <Popover.Panel className="absolute bottom-full right-0 flex w-[300px] -translate-y-3 flex-col gap-2 rounded-lg bg-white p-3 text-[15px] shadow-popover">
+            <Popover.Panel className="absolute bottom-full right-0 flex w-[300px] -translate-y-3 flex-col gap-2 rounded-lg bg-bgModal p-3 text-[15px] shadow-popover">
                 <div
                     className=" flex h-[22px] cursor-pointer items-center justify-between"
                     onClick={() => setRestriction(0)}

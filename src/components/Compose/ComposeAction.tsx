@@ -71,7 +71,7 @@ export default function ComposeAction({ type, images, setImages, setLoading }: C
         <div className=" px-4 pb-4">
             <div className=" flex h-9 items-center gap-3">
                 <GalleryIcon
-                    className=" cursor-pointer fill-main"
+                    className=" cursor-pointer text-main"
                     width={24}
                     height={24}
                     onClick={() => {
@@ -88,10 +88,10 @@ export default function ComposeAction({ type, images, setImages, setLoading }: C
                     className=" hidden"
                     onChange={handleFileChange}
                 />
-                <AtIcon className=" cursor-pointer fill-main" width={24} height={24} onClick={() => insertText('@')} />
+                <AtIcon className=" cursor-pointer text-main" width={24} height={24} onClick={() => insertText('@')} />
 
                 <NumberSignIcon
-                    className=" cursor-pointer fill-main"
+                    className=" cursor-pointer text-main"
                     width={24}
                     height={24}
                     onClick={() => insertText('#')}
