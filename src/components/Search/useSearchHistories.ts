@@ -15,6 +15,7 @@ function write(records: string[]) {
 export function useSearchHistories() {
     const [histories, setHistories] = useState(read);
     const addRecord = useCallback((record: string) => {
+        if (!record) return;
         setHistories((histories) => {
             const records = uniq([record, ...histories]);
             write(records);

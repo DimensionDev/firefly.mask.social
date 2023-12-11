@@ -4,7 +4,8 @@ import { Trans } from '@lingui/macro';
 import { memo } from 'react';
 
 import { SearchType } from '@/constants/enum.js';
-import { useSearchStore } from '@/store/useSearchStore.js';
+
+import { useSearchState } from './useSearchState.js';
 
 const Filters = [
     {
@@ -17,10 +18,8 @@ const Filters = [
     },
 ];
 
-interface SearchFilterProps {}
-
-export const SearchFilter = memo(function SearchBar(props: SearchFilterProps) {
-    const { searchType, updateSearchType } = useSearchStore();
+export const SearchFilter = memo(function SearchFilter() {
+    const { searchType, updateParams } = useSearchState();
 
     return (
         <div>
@@ -45,7 +44,7 @@ export const SearchFilter = memo(function SearchBar(props: SearchFilterProps) {
                                 type="radio"
                                 defaultChecked={filter.type === searchType}
                                 className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
-                                onClick={() => updateSearchType(filter.type)}
+                                onClick={() => updateParams({ type: filter.type })}
                             />
                         </div>
                     ))}
