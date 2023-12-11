@@ -32,7 +32,7 @@ export const Views = memo<ViewsProps>(function Collect({ count, disabled = false
                     whileTap={{ scale: 0.9 }}
                     className=" rounded-full p-1.5"
                 >
-                    <ViewsIcon width={17} height={16} />
+                    <ViewsIcon width={20} height={20} />
                 </motion.button>
             </Tooltip>
             {count ? <span className="text-xs font-medium">{nFormatter(count)}</span> : null}
