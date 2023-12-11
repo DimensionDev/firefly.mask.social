@@ -1,7 +1,7 @@
 'use client';
 
 import { Dialog, Transition } from '@headlessui/react';
-import { t } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import { delay, getEnumAsArray } from '@masknet/kit';
 import type { SingletonModalRefCreator } from '@masknet/shared-base';
 import { useSingletonModal } from '@masknet/shared-base-ui';
@@ -83,11 +83,13 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | 
                                         )}
                                     </button>
                                     <div className="shrink grow basis-0 text-center text-lg font-bold leading-snug text-main">
-                                        {platform === SocialPlatform.Lens
-                                            ? t`Select Account`
-                                            : platform === SocialPlatform.Farcaster
-                                              ? t`Log in to Farcaster account`
-                                              : t`Login`}
+                                        {platform === SocialPlatform.Lens ? (
+                                            <Trans>Select Account</Trans>
+                                        ) : platform === SocialPlatform.Farcaster ? (
+                                            <Trans>Log in to Farcaster account</Trans>
+                                        ) : (
+                                            <Trans>Login</Trans>
+                                        )}
                                     </div>
                                     <div className="relative h-[24px] w-[24px]" />
                                 </div>
