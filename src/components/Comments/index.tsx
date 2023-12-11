@@ -1,9 +1,11 @@
+import { Trans } from '@lingui/macro';
 import { createIndicator, createPageable } from '@masknet/shared-base';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { memo, useMemo } from 'react';
 import { useInView } from 'react-cool-inview';
 
 import LoadingIcon from '@/assets/loading.svg';
+import MessageIcon from '@/assets/Message.svg';
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { SinglePost } from '@/components/Posts/SinglePost.js';
 import { SocialPlatform } from '@/constants/enum.js';
@@ -60,7 +62,10 @@ export const CommentList = memo<CommentListProps>(function CommentList({ postId,
             {results.length ? (
                 results.map((x) => <SinglePost isComment post={x} key={x.postId} showMore />)
             ) : (
-                <NoResultsFallback />
+                <NoResultsFallback
+                    icon={<MessageIcon width={24} height={24} />}
+                    message={<Trans>Be the first one to comment!</Trans>}
+                />
             )}
             {hasNextPage && results.length ? (
                 <div className="flex items-center justify-center p-2" ref={observe}>

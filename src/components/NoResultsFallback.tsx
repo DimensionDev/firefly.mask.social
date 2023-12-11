@@ -1,9 +1,17 @@
 import { Trans } from '@lingui/macro';
+import type { HTMLProps, ReactNode } from 'react';
 
-export function NoResultsFallback() {
+import { classNames } from '@/helpers/classNames.js';
+
+interface Props extends HTMLProps<HTMLDivElement> {
+    message?: string | ReactNode;
+    icon?: ReactNode;
+}
+export function NoResultsFallback({ icon, message, className, ...rest }: Props) {
     return (
-        <div className="flex items-center justify-center pb-4 pt-6">
-            <Trans>No results</Trans>
+        <div className={classNames('flex flex-col items-center py-12 text-secondary', className)} {...rest}>
+            {icon}
+            <div className="mt-3 text-[15px] font-bold">{message ?? <Trans>No results</Trans>}</div>
         </div>
     );
 }

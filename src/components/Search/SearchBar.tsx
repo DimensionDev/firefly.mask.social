@@ -2,8 +2,8 @@
 
 import { t, Trans } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation.js';
-import { type ChangeEvent, memo, useEffect, useMemo, useRef, useState } from 'react';
+import { usePathname, useRouter } from 'next/navigation.js';
+import { type ChangeEvent, memo, useRef, useState } from 'react';
 import { useDebounce, useOnClickOutside } from 'usehooks-ts';
 
 import CloseIcon from '@/assets/close-circle.svg';
@@ -18,9 +18,9 @@ import { useDarkMode } from '@/hooks/useDarkMode.js';
 import { HubbleSocialMediaProvider } from '@/providers/hubble/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
-import { useSearchStore } from '@/store/useSearchStore.js';
 
 import { useSearchHistories } from './useSearchHistories.js';
+import { useSearchState } from './useSearchState.js';
 
 interface SearchBarProps {
     source: 'header' | 'secondary';
@@ -29,22 +29,16 @@ interface SearchBarProps {
 const SearchBar = memo(function SearchBar(props: SearchBarProps) {
     const router = useRouter();
     const pathname = usePathname();
-    const params = useSearchParams();
     const { isDarkMode } = useDarkMode();
     const { currentSocialPlatform } = useGlobalState();
     const inputRef = useRef<HTMLInputElement>(null);
     const [showDropdown, setShowDropdown] = useState(false);
 
     const isSearchPage = pathname === '/search';
-    const { updateSearchText } = useSearchStore();
-    const queryKeyword = params.get('q') || '';
-    const [searchText, setSearchText] = useState(queryKeyword);
-    const debouncedSearchText = useDebounce(searchText, 500);
+    const { keyword: queryKeyword, updateParams } = useSearchState();
+    const [inputText, setInputText] = useState(queryKeyword);
+    const debouncedKeyword = useDebounce(inputText, 300);
     const { histories, addRecord, removeRecord, clearAll } = useSearchHistories();
-    const matchedHistories = useMemo(
-        () => (debouncedSearchText ? histories.filter((x) => x.includes(debouncedSearchText)) : histories),
-        [debouncedSearchText, histories],
-    );
 
     const rootRef = useRef(null);
     useOnClickOutside(rootRef, () => {
@@ -52,44 +46,29 @@ const SearchBar = memo(function SearchBar(props: SearchBarProps) {
     });
 
     const { data: profiles, isLoading } = useQuery({
-        queryKey: ['searchText', debouncedSearchText, currentSocialPlatform],
+        queryKey: ['searchText', currentSocialPlatform, debouncedKeyword],
         queryFn: async () => {
             switch (currentSocialPlatform) {
                 case SocialPlatform.Lens:
-                    return LensSocialMediaProvider.searchProfiles(debouncedSearchText);
+                    return LensSocialMediaProvider.searchProfiles(debouncedKeyword);
                 case SocialPlatform.Farcaster:
-                    return HubbleSocialMediaProvider.searchProfiles(debouncedSearchText);
+                    return HubbleSocialMediaProvider.searchProfiles(debouncedKeyword);
                 default:
                     return;
             }
         },
-        enabled: !isSearchPage && Boolean(debouncedSearchText),
+        enabled: !isSearchPage && Boolean(debouncedKeyword),
     });
 
-    useEffect(() => {
-        if (isSearchPage) {
-            updateSearchText(queryKeyword);
-        }
-    }, [queryKeyword, isSearchPage, updateSearchText]);
-
     const handleInputChange = (evt: ChangeEvent<HTMLInputElement>) => {
-        const searchText = evt.target.value;
-        setSearchText(searchText);
+        setInputText(evt.target.value);
     };
 
-    const selectKeyword = (keyword: string) => {
+    const selectKeyword = (keyword: string, searchType?: SearchType) => {
         addRecord(keyword);
-        setSearchText(keyword);
 
-        if (isSearchPage) {
-            router.push(`/search?q=${keyword}&type=${params.get('type') ?? SearchType.Profiles}`);
-        } else {
-            router.push(`/search?q=${keyword}&type=${SearchType.Profiles}`);
-        }
+        updateParams({ q: keyword, type: searchType });
         setShowDropdown(false);
-
-        // submit the final search text
-        updateSearchText(keyword);
     };
 
     if (props.source === 'header' && !isSearchPage) return null;
@@ -111,7 +90,7 @@ const SearchBar = memo(function SearchBar(props: SearchBarProps) {
                     className="w-full flex-1"
                     onSubmit={(evt) => {
                         evt.preventDefault();
-                        selectKeyword(searchText);
+                        selectKeyword(inputText);
                     }}
                 >
                     <label className="flex w-full items-center" htmlFor="search">
@@ -119,7 +98,7 @@ const SearchBar = memo(function SearchBar(props: SearchBarProps) {
                             type="search"
                             name="searchText"
                             autoComplete="off"
-                            value={searchText}
+                            value={inputText}
                             className=" w-full border-0 bg-transparent py-2 text-[10px] placeholder-secondary focus:border-0 focus:outline-0 focus:ring-0 sm:text-sm sm:leading-6"
                             placeholder={t`Search…`}
                             ref={inputRef}
@@ -127,13 +106,13 @@ const SearchBar = memo(function SearchBar(props: SearchBarProps) {
                             onFocus={() => setShowDropdown(true)}
                         />
                         <CloseIcon
-                            className={classNames('cursor-pointer', searchText ? 'visible' : 'invisible')}
+                            className={classNames('cursor-pointer', inputText ? 'visible' : 'invisible')}
                             width={16}
                             height={16}
                             onClick={(evt) => {
                                 evt.preventDefault();
                                 evt.stopPropagation();
-                                setSearchText('');
+                                setInputText('');
                                 inputRef.current?.focus();
                             }}
                         />
@@ -141,7 +120,7 @@ const SearchBar = memo(function SearchBar(props: SearchBarProps) {
                 </form>
                 {showDropdown ? (
                     <div className="absolute inset-x-0 top-[40px] z-[1000] mt-2 flex w-full flex-col overflow-hidden rounded-2xl bg-white shadow-[0_4px_30px_0_rgba(0,0,0,0.10)] dark:bg-black">
-                        {matchedHistories.length && !searchText ? (
+                        {histories.length && !inputText ? (
                             <>
                                 <h2 className=" flex p-3 pb-2 text-xs">
                                     <Trans>Recent</Trans>
@@ -181,7 +160,7 @@ const SearchBar = memo(function SearchBar(props: SearchBarProps) {
                             </>
                         ) : null}
 
-                        {searchText ? (
+                        {inputText ? (
                             <>
                                 <h2 className=" p-3 pb-2 text-xs">
                                     {currentSocialPlatform === SocialPlatform.Lens ? (
@@ -195,10 +174,10 @@ const SearchBar = memo(function SearchBar(props: SearchBarProps) {
 
                                 <div
                                     className=" flex cursor-pointer items-center px-4 py-4 text-left hover:bg-bg"
-                                    onClick={() => selectKeyword(searchText)}
+                                    onClick={() => selectKeyword(inputText, SearchType.Posts)}
                                 >
                                     <SearchIcon width={18} height={18} className="shrink-0" />
-                                    <span className=" ml-4 text-ellipsis">{searchText}</span>
+                                    <span className=" ml-4 text-ellipsis">{inputText}</span>
                                 </div>
                             </>
                         ) : null}
@@ -229,7 +208,6 @@ const SearchBar = memo(function SearchBar(props: SearchBarProps) {
                                         className="space-y-2 px-4 py-2 text-center text-sm font-bold hover:bg-bg"
                                         onClick={(evt) => {
                                             router.push(`/profile/${user.handle}`);
-                                            setSearchText('');
                                         }}
                                     >
                                         <div className="flex flex-row items-center">

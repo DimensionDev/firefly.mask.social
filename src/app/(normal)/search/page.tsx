@@ -12,43 +12,43 @@ import LoadingIcon from '@/assets/loading.svg';
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { SinglePost } from '@/components/Posts/SinglePost.js';
 import { ProfileInList } from '@/components/Search/ProfileInList.js';
+import { useSearchState } from '@/components/Search/useSearchState.js';
 import { SearchType, SocialPlatform } from '@/constants/enum.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import type { Post, Profile } from '@/providers/types/SocialMedia.js';
 import { WarpcastSocialMediaProvider } from '@/providers/warpcast/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
-import { useSearchStore } from '@/store/useSearchStore.js';
 
 export default function Page() {
-    const { searchText, searchType } = useSearchStore();
+    const { keyword, searchType } = useSearchState();
     const { currentSocialPlatform } = useGlobalState();
 
     const { data, hasNextPage, fetchNextPage, isFetchingNextPage, isFetching } = useSuspenseInfiniteQuery({
-        queryKey: ['search', searchType, searchText, currentSocialPlatform],
+        queryKey: ['search', searchType, keyword, currentSocialPlatform],
         queryFn: async ({ pageParam }) => {
-            if (!searchText) return;
+            if (!keyword) return;
 
             const indicator = pageParam ? createIndicator(undefined, pageParam) : undefined;
 
             if (searchType === SearchType.Profiles) {
                 switch (currentSocialPlatform) {
                     case SocialPlatform.Lens:
-                        return LensSocialMediaProvider.searchProfiles(searchText, indicator);
+                        return LensSocialMediaProvider.searchProfiles(keyword, indicator);
                     case SocialPlatform.Farcaster:
-                        return WarpcastSocialMediaProvider.searchProfiles(searchText, indicator);
+                        return WarpcastSocialMediaProvider.searchProfiles(keyword, indicator);
                     default:
                         return;
                 }
             } else if (searchType === SearchType.Posts) {
                 switch (currentSocialPlatform) {
                     case SocialPlatform.Lens:
-                        return LensSocialMediaProvider.searchPosts(searchText, indicator);
+                        return LensSocialMediaProvider.searchPosts(keyword, indicator);
                     case SocialPlatform.Farcaster:
                         return attemptUntil<Pageable<Post, PageIndicator>>(
                             [
-                                async () => WarpcastSocialMediaProvider.searchPosts(searchText, indicator),
-                                async () => FireflySocialMediaProvider.searchPosts(searchText, indicator),
+                                async () => WarpcastSocialMediaProvider.searchPosts(keyword, indicator),
+                                async () => FireflySocialMediaProvider.searchPosts(keyword, indicator),
                             ],
                             createPageable<Post>(EMPTY_LIST, createIndicator(indicator)),
                         );

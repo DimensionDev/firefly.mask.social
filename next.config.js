@@ -41,6 +41,9 @@ export default {
             {
                 hostname: 'i.imgur.com',
             },
+            {
+                hostname: 'ik.imagekit.io',
+            },
         ],
     },
     async headers() {
