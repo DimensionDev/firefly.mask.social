@@ -199,6 +199,10 @@ body {
     scrollbar-gutter: stable;
 }
 
+.SnackbarContainer-root .SnackbarItem-message.SnackbarItem-message {
+    overflow: auto;
+    display: flex;
+}
 .SnackbarContainer-root.SnackbarContainer-root.SnackbarContainer-root {
     max-width: 400px;
 }

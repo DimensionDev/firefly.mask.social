@@ -10,7 +10,10 @@ enum TabEnum {
     Collected = 'Collected',
 }
 
-export default function ContentTabs() {
+interface ContentTabsProps {
+    profileId: string;
+}
+export default function ContentTabs({ profileId }: ContentTabsProps) {
     const [tab, setTab] = useState<TabEnum>(TabEnum.Feed);
 
     return (
@@ -37,9 +40,9 @@ export default function ContentTabs() {
                 ))}
             </div>
 
-            {tab === TabEnum.Feed && <ContentFeed />}
+            {tab === TabEnum.Feed && <ContentFeed profileId={profileId} />}
 
-            {tab === TabEnum.Collected && <ContentCollected />}
+            {tab === TabEnum.Collected && <ContentCollected profileId={profileId} />}
         </>
     );
 }

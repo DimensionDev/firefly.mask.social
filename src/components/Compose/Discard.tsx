@@ -51,7 +51,7 @@ export default function Discard({ opened, setOpened, closeCompose }: DiscardProp
                                     </span>
                                 </Dialog.Title>
 
-                                <div className=" text-sm">
+                                <div className=" text-[15px]">
                                     <Trans>This can’t be undone and you’ll lose your draft</Trans>
                                 </div>
 

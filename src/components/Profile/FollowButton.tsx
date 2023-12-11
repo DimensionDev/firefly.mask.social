@@ -38,11 +38,11 @@ export default function FollowButton({ profile, isMyProfile }: FollowButtonProps
     return (
         <button
             className={classNames(
-                ' flex h-8 w-[100px] items-center justify-center rounded-full text-sm font-semibold transition-all',
+                ' flex h-8 w-[100px] items-center justify-center rounded-full text-[15px] text-sm font-semibold transition-all',
                 buttonState === FollowButtonState.Follow ? ' bg-main text-primaryBottom hover:opacity-80' : '',
-                buttonState === FollowButtonState.Following ? ' border border-lightMain text-lightMain' : '',
+                buttonState === FollowButtonState.Following ? ' border-[1.5px] border-lightMain text-lightMain' : '',
                 buttonState === FollowButtonState.Unfollow
-                    ? ' border border-danger border-opacity-50 bg-danger bg-opacity-20 text-danger text-opacity-50'
+                    ? ' border-[1.5px] border-danger border-opacity-50 bg-danger bg-opacity-20 text-danger text-opacity-50'
                     : '',
             )}
             onMouseMove={() => setFollowHover(true)}

@@ -87,11 +87,13 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({ attachm
             </div>
         );
     }
+    const noText = !post?.metadata.content?.content;
+    const isSoloImage = noText && attachmentsHasImage && imageAttachments.length === 1;
 
     return (
         <div className={isQuote ? '' : 'mt-3'}>
             {asset?.type === 'Image' && !attachmentsHasImage ? (
-                <div className="w-full" onClick={(event) => event.stopPropagation}>
+                <div className="w-full" onClick={(event) => event.stopPropagation()}>
                     <ImageAsset
                         className={classNames('cursor-pointer rounded-lg', {
                             'w-full': !isQuote,
@@ -120,8 +122,8 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({ attachm
                 <div
                     className={classNames(getClass(imageAttachments.length)?.row ?? '', 'grid gap-2', {
                         'grid-flow-col': imageAttachments.length === 3,
-                        'w-[120px]': isQuote,
-                        'h-[120px]': isQuote,
+                        'w-[120px]': isQuote && !isSoloImage,
+                        'h-[120px]': isQuote && !isSoloImage,
                     })}
                 >
                     {imageAttachments.map((attachment, index) => {
@@ -139,6 +141,9 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({ attachm
                                     loading="lazy"
                                     width={1000}
                                     height={1000}
+                                    style={{
+                                        maxHeight: isSoloImage && isQuote ? 288 : undefined,
+                                    }}
                                     onError={({ currentTarget }) => (currentTarget.src = uri)}
                                     onClick={(event) => {
                                         event.preventDefault();

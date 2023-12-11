@@ -9,6 +9,7 @@ import { type ChangeEvent, type Dispatch, type SetStateAction, useCallback, useR
 import AtIcon from '@/assets/at.svg';
 import GalleryIcon from '@/assets/gallery.svg';
 import NumberSignIcon from '@/assets/number-sign.svg';
+import RedPacketIcon from '@/assets/red-packet.svg';
 import PostBy from '@/components/Compose/PostBy.js';
 import ReplyRestriction from '@/components/Compose/ReplyRestriction.js';
 import uploadToIPFS from '@/services/uploadToIPFS.js';
@@ -70,7 +71,7 @@ export default function ComposeAction({ type, images, setImages, setLoading }: C
         <div className=" px-4 pb-4">
             <div className=" flex h-9 items-center gap-3">
                 <GalleryIcon
-                    className=" cursor-pointer"
+                    className=" cursor-pointer text-main"
                     width={24}
                     height={24}
                     onClick={() => {
@@ -87,21 +88,27 @@ export default function ComposeAction({ type, images, setImages, setLoading }: C
                     className=" hidden"
                     onChange={handleFileChange}
                 />
-                <AtIcon className=" cursor-pointer" width={24} height={24} onClick={() => insertText('@')} />
+                <AtIcon className=" cursor-pointer text-main" width={24} height={24} onClick={() => insertText('@')} />
 
-                <NumberSignIcon className=" cursor-pointer" width={24} height={24} onClick={() => insertText('#')} />
-                <button onClick={openDialog}>Open Red Packet Dialog</button>
+                <NumberSignIcon
+                    className=" cursor-pointer text-main"
+                    width={24}
+                    height={24}
+                    onClick={() => insertText('#')}
+                />
+
+                <RedPacketIcon className=" cursor-pointer" width={24} height={24} onClick={openDialog} />
             </div>
 
             <div className=" flex h-9 items-center justify-between">
-                <span className=" text-sm text-secondary">
+                <span className=" text-[15px] text-secondary">
                     <Trans>Post by</Trans>
                 </span>
                 <Popover as="div" className="relative">
                     {(_) => (
                         <>
                             <Popover.Button className=" flex cursor-pointer gap-1 text-main focus:outline-none">
-                                <span className=" text-sm font-bold">
+                                <span className=" text-[15px] font-bold">
                                     {currentLensProfile?.profileId
                                         ? `@${currentLensProfile.handle || currentLensProfile.profileId}`
                                         : ''}
@@ -117,14 +124,14 @@ export default function ComposeAction({ type, images, setImages, setLoading }: C
             </div>
 
             <div className=" flex h-9 items-center justify-between">
-                <span className=" text-sm text-secondary">
+                <span className=" text-[15px] text-secondary">
                     <Trans>Reply Restriction</Trans>
                 </span>
                 <Popover as="div" className="relative">
                     {(_) => (
                         <>
                             <Popover.Button className=" flex cursor-pointer gap-1 text-main focus:outline-none">
-                                <span className=" text-sm font-bold">
+                                <span className=" text-[15px] font-bold">
                                     {restriction === 0 ? (
                                         <Trans>Everyone can reply</Trans>
                                     ) : (

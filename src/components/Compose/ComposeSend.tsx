@@ -96,14 +96,14 @@ export default function ComposeSend({ type, characters, images, closeCompose, se
 
     return (
         <div className=" flex h-[68px] items-center justify-end gap-4 px-4 shadow-send">
-            <div className=" flex items-center gap-[10px] whitespace-nowrap">
+            <div className=" flex items-center gap-[10px] whitespace-nowrap text-[15px] text-main">
                 <CountdownCircle count={charactersLen} width={24} height={24} className="flex-shrink-0" />
                 <span className={classNames(disabled ? ' text-danger' : '')}>{charactersLen} / 280</span>
             </div>
 
             <button
                 className={classNames(
-                    ' flex h-10 w-[120px] items-center justify-center gap-1 rounded-full bg-black text-sm font-bold text-white dark:bg-white dark:text-black',
+                    ' flex h-10 w-[120px] items-center justify-center gap-1 rounded-full bg-black text-[15px] font-bold text-white dark:bg-white dark:text-black',
                     disabled ? ' cursor-no-drop opacity-50' : '',
                 )}
                 onClick={() => {
@@ -112,7 +112,7 @@ export default function ComposeSend({ type, characters, images, closeCompose, se
                     }
                 }}
             >
-                <SendIcon width={18} height={18} />
+                <SendIcon width={18} height={18} className=" text-foreground" />
                 <span>
                     <Trans>Send</Trans>
                 </span>

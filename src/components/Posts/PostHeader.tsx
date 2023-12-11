@@ -1,12 +1,16 @@
-import { memo } from 'react';
+import { memo, useMemo } from 'react';
 
 import { MoreAction } from '@/components/Actions/More.js';
 import { Image } from '@/components/Image.js';
 import { SourceIcon } from '@/components/SourceIcon.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
+import { SocialPlatform } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { useDarkMode } from '@/hooks/useDarkMode.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
+import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
+import { useGlobalState } from '@/store/useGlobalStore.js';
+import { useLensStateStore } from '@/store/useLensStore.js';
 
 interface PostHeaderProps {
     post: Post;
@@ -15,6 +19,23 @@ interface PostHeaderProps {
 
 export const PostHeader = memo<PostHeaderProps>(function PostHeader({ post, isQuote = false }) {
     const { isDarkMode } = useDarkMode();
+
+    const currentLensProfile = useLensStateStore.use.currentProfile();
+    const currentFarcasterProfile = useFarcasterStateStore.use.currentProfile();
+    const currentSocialPlatform = useGlobalState.use.currentSocialPlatform();
+
+    const isMyPost = useMemo(
+        () =>
+            currentSocialPlatform === SocialPlatform.Lens
+                ? post.author.profileId === currentLensProfile?.profileId
+                : post.author.profileId === currentFarcasterProfile?.profileId,
+        [
+            currentFarcasterProfile?.profileId,
+            currentLensProfile?.profileId,
+            currentSocialPlatform,
+            post.author.profileId,
+        ],
+    );
 
     return (
         <div className="flex justify-between space-x-1.5">
@@ -46,7 +67,7 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({ post, isQu
                 <span className="text-xs leading-4 text-secondary">
                     <TimestampFormatter time={post.timestamp} />
                 </span>
-                {!isQuote ? <MoreAction post={post} /> : null}
+                {!isQuote && !isMyPost ? <MoreAction post={post} /> : null}
             </div>
         </div>
     );

@@ -7,8 +7,10 @@ export function useCustomSnackbar(): ProviderContext['enqueueSnackbar'] {
     const { enqueueSnackbar, closeSnackbar } = useSnackbar();
     const show: ProviderContext['enqueueSnackbar'] = useCallback(
         (message, options) => {
-            const key = enqueueSnackbar(<div className="line-clamp-3">{message}</div>, {
-                action: <CloseIcon width={20} height={20} onClick={() => closeSnackbar(key)} />,
+            const key = enqueueSnackbar(<div className="line-clamp-3 flex-grow break-words">{message}</div>, {
+                action: (
+                    <CloseIcon className="cursor-pointer" width={20} height={20} onClick={() => closeSnackbar(key)} />
+                ),
                 style: {
                     maxWidth: 400,
                 },

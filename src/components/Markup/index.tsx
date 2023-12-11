@@ -1,12 +1,14 @@
 'use client';
 import { memo } from 'react';
 import ReactMarkdown from 'react-markdown';
+import { type Options as ReactMarkdownOptions } from 'react-markdown';
 import remarkBreaks from 'remark-breaks';
 // @ts-expect-error
 import linkifyRegex from 'remark-linkify-regex';
 import stripMarkdown from 'strip-markdown';
 
 import { Code } from '@/components/Code.js';
+import { EMPTY_LIST } from '@/constants/index.js';
 import { HASHTAG_REGEX, MENTION_REGEX, URL_REGEX } from '@/constants/regex.js';
 
 import { MarkupLink } from './MarkupLink/index.js';
@@ -21,25 +23,30 @@ const plugins = [
     linkifyRegex(HASHTAG_REGEX),
 ];
 
-interface MarkupProps {
-    children: string;
-    className?: string;
+interface MarkupProps extends Omit<ReactMarkdownOptions, 'children'> {
+    children?: ReactMarkdownOptions['children'] | null;
 }
 
-export const Markup = memo<MarkupProps>(function Markup({ children, className }) {
+export const Markup = memo<MarkupProps>(function Markup({ children, ...rest }) {
     if (!children) return null;
 
     return (
         <ReactMarkdown
-            className={className}
+            {...rest}
+            remarkPlugins={plugins}
             components={{
                 // @ts-ignore
                 a: MarkupLink,
                 code: Code,
+                ...rest.components,
             }}
-            remarkPlugins={plugins}
         >
             {trimify(children)}
         </ReactMarkdown>
     );
 });
+
+// Render without tags
+export function NakedMarkup(props: MarkupProps) {
+    return <Markup {...props} allowedElements={EMPTY_LIST} unwrapDisallowed />;
+}
