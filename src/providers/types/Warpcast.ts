@@ -47,6 +47,13 @@ export interface UsersResponse extends ErrorResponse {
     next: Next;
 }
 
+export interface RecastersResponse extends ErrorResponse {
+    result : {
+        users: Profile[];
+    };
+    next: Next;
+}
+
 export interface SearchUsersResponse extends ErrorResponse {
     result: {
         users: Profile[];
@@ -220,4 +227,11 @@ export interface Notification {
     content: {
         cast: Cast;
     };
+}
+
+export interface LikesResponse extends ErrorResponse{
+    result: {
+        likes: ReactionInfo[];
+    };
+    next: Next;
 }

@@ -38,6 +38,7 @@ export async function createSessionByCustodyWallet(client: Exclude<GetWalletClie
         },
     });
 
+    console.log(response)
     const errorMessage = getWarpcastErrorMessage(userResponse);
     if (errorMessage) throw new Error(errorMessage);
 
