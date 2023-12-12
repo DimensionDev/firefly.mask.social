@@ -17,7 +17,12 @@ export function SocialPlatformTabs() {
     const switchSocialPlatform = useGlobalState.use.switchSocialPlatform();
     const router = useRouter();
 
-    if (pathname.includes('/settings') || pathname.includes('/post') || pathname.includes('/profile')) return null;
+    if (
+        pathname.includes('/settings') ||
+        pathname.includes('/post') ||
+        (pathname.includes('/profile') && pathname !== '/profile')
+    )
+        return null;
 
     return (
         <div className="border-b border-line bg-primaryBottom px-4">
