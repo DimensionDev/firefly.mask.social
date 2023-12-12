@@ -2,7 +2,7 @@ import { Menu, Transition } from '@headlessui/react';
 import { Select } from '@lingui/macro';
 import { queryClient } from '@masknet/shared-base-ui';
 import { motion } from 'framer-motion';
-import { Fragment, memo, useState } from 'react';
+import { Fragment, memo } from 'react';
 import { useAsyncFn } from 'react-use';
 
 import FollowUserIcon from '@/assets/follow-user.svg';
@@ -22,7 +22,7 @@ interface MoreProps {
 }
 
 export const MoreAction = memo<MoreProps>(function MoreAction({ post }) {
-    const [isFollowed, setIsFollowed] = useState(post.author.viewerContext?.followedBy ?? false);
+    const isFollowed = !!post.author.viewerContext?.followedBy;
 
     const isLogin = useIsLogin(post.source);
 
@@ -34,7 +34,6 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ post }) {
             LoginModalRef.open();
             return;
         }
-        setIsFollowed((prev) => !prev);
         try {
             switch (post.source) {
                 case SocialPlatform.Lens:
@@ -77,7 +76,6 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ post }) {
                         variant: 'error',
                     },
                 );
-                setIsFollowed((prev) => !prev);
             }
         }
     }, [post, isFollowed, isLogin]);
@@ -102,7 +100,9 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ post }) {
                 }}
             >
                 {loading ? (
-                    <LoadingIcon width={16} height={16} className="animate-spin" />
+                    <span className="inline-flex h-6 w-6 animate-spin items-center justify-center">
+                        <LoadingIcon width={16} height={16} />
+                    </span>
                 ) : (
                     <MoreIcon width={24} height={24} />
                 )}
