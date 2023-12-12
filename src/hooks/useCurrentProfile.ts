@@ -1,4 +1,3 @@
-
 import { safeUnreachable } from '@masknet/kit';
 
 import { SocialPlatform } from '@/constants/enum.js';
@@ -15,7 +14,7 @@ export function useCurrentProfile(platform: SocialPlatform) {
         case SocialPlatform.Farcaster:
             return currentFarcasterProfile;
         default:
-            safeUnreachable(platform)
-            return null
+            safeUnreachable(platform);
+            return null;
     }
 }

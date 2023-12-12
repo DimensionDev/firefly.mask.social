@@ -46,7 +46,6 @@ export function formatWarpcastPost(cast: Cast): Post {
         timestamp: cast.timestamp,
         author: {
             profileId: cast.author.fid.toString(),
-            nickname: cast.author.username,
             displayName: cast.author.displayName,
             pfp: cast.author.pfp.url,
             handle: cast.author.username,

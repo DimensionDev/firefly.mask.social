@@ -40,7 +40,7 @@ export const DecryptPost = memo(function DecryptPost({ post, payload, children }
             author: createConstantSubscription(author),
             coAuthors: EMPTY_ARRAY,
             avatarURL: createConstantSubscription(new URL(post.author.pfp)),
-            nickname: createConstantSubscription(post.author.nickname),
+            nickname: createConstantSubscription(post.author.displayName),
             site: EnhanceableSite.Firefly,
             postID: createConstantSubscription(post.postId),
             get rootNode() {

@@ -1,3 +1,4 @@
+import { Trans } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
 import { useMemo } from 'react';
 import { useDocumentTitle } from 'usehooks-ts';
@@ -23,7 +24,6 @@ export default function LensProfile({ handle }: LensProfileProps) {
     });
 
     const platformProfile = useCurrentProfile(SocialPlatform.Lens);
-
     const isMyProfile = useMemo(() => platformProfile?.handle === handle, [handle, platformProfile?.handle]);
 
     const title = useMemo(() => {
@@ -40,7 +40,11 @@ export default function LensProfile({ handle }: LensProfileProps) {
     }
 
     if (!profile) {
-        return <NotFoundFallback type="profile" />;
+        return (
+            <NotFoundFallback>
+                <Trans>This profile does not exist</Trans>
+            </NotFoundFallback>
+        );
     }
 
     return (

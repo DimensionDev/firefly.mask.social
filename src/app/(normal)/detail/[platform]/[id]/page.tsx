@@ -20,24 +20,26 @@ export default function Page({ params }: { params: { id: string; platform: Socia
         queryFn: async () => {
             if (!params.id) return;
             switch (params.platform) {
-                case SocialPlatform.Lens.toLowerCase():
-                    const result = await LensSocialMediaProvider.getPostById(params.id);
+                case SocialPlatform.Lens.toLowerCase(): {
+                    const post = await LensSocialMediaProvider.getPostById(params.id);
 
                     // TODO: comment views
-                    fetchAndStoreViews([result.postId]);
+                    fetchAndStoreViews([post.postId]);
 
-                    return result;
-                case SocialPlatform.Farcaster.toLowerCase():
-                    const data = await FireflySocialMediaProvider.getPostById(params.id);
-                    if (!data.author.nickname) {
-                        const author = await WarpcastSocialMediaProvider.getProfileById(data.author.profileId);
+                    return post;
+                }
+                case SocialPlatform.Farcaster.toLowerCase(): {
+                    const post = await FireflySocialMediaProvider.getPostById(params.id);
+                    if (!post.author.handle) {
+                        const author = await WarpcastSocialMediaProvider.getProfileById(post.author.profileId);
                         return {
-                            ...data,
+                            ...post,
                             author,
                         };
                     }
 
-                    return data;
+                    return post;
+                }
                 default:
                     return;
             }

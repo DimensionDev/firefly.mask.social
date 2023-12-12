@@ -1,3 +1,4 @@
+import { Trans } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
 import { useMemo } from 'react';
 import { useDocumentTitle } from 'usehooks-ts';
@@ -22,7 +23,6 @@ export default function FarcasterProfile({ id }: FarcasterProfileProps) {
     });
 
     const currentProfile = useCurrentProfile(SocialPlatform.Farcaster);
-
     const isMyProfile = useMemo(() => !!currentProfile && currentProfile?.profileId === id, [id, currentProfile]);
 
     const title = useMemo(() => {
@@ -39,7 +39,11 @@ export default function FarcasterProfile({ id }: FarcasterProfileProps) {
     }
 
     if (!profile) {
-        return <NotFoundFallback type="profile" />;
+        return (
+            <NotFoundFallback>
+                <Trans>This profile does not exist</Trans>
+            </NotFoundFallback>
+        );
     }
 
     return (

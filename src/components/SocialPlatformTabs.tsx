@@ -23,14 +23,8 @@ export function SocialPlatformTabs() {
         const param = pathname.split('/');
         const handle = param[param.length - 1];
 
-        if (currentProfile?.source === SocialPlatform.Lens && currentProfile.handle && currentProfile.handle !== handle)
-            return null;
-        if (
-            currentProfile?.source === SocialPlatform.Farcaster &&
-            currentProfile.profileId &&
-            currentProfile.profileId !== handle
-        )
-            return null;
+        if (currentProfile?.source === SocialPlatform.Lens && currentProfile.handle !== handle) return null;
+        if (currentProfile?.source === SocialPlatform.Farcaster && currentProfile.profileId !== handle) return null;
     }
 
     return (
@@ -46,13 +40,13 @@ export function SocialPlatformTabs() {
                         aria-current={currentSocialPlatform === value ? 'page' : undefined}
                         onClick={() =>
                             startTransition(() => {
-                                if (pathname.includes('/profile')) {
+                                if (pathname.includes('/profile') && currentProfile) {
                                     router.push(
                                         urlcat('/profile/:handle', {
                                             handle:
                                                 value === SocialPlatform.Lens
-                                                    ? currentProfile?.handle
-                                                    : currentProfile?.profileId,
+                                                    ? currentProfile.handle
+                                                    : currentProfile.profileId,
                                         }),
                                     );
                                 }
