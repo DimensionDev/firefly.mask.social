@@ -20,13 +20,14 @@ import SettingsIcon from '@/assets/setting.svg';
 import WalletIcon from '@/assets/wallet.svg';
 import { LoginStatusBar } from '@/components/Login/LoginStatusBar.js';
 import { ConnectWalletNav } from '@/components/SideBar/ConnectWalletNav.js';
-import { PageRoutes } from '@/constants/enum.js';
+import { PageRoutes, SocialPlatform } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { useDarkMode } from '@/hooks/useDarkMode.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { usePlatformProfile } from '@/hooks/usePlatformProfile.js';
 import { ComposeModalRef, LoginModalRef } from '@/modals/controls.js';
+import { useGlobalState } from '@/store/useGlobalStore.js';
 
 const items = [
     {
@@ -71,6 +72,7 @@ export const SideBar = memo(function SideBar() {
     const { isDarkMode } = useDarkMode();
     const isLogin = useIsLogin();
     const platformProfile = usePlatformProfile();
+    const currentSocialPlatform = useGlobalState.use.currentSocialPlatform();
 
     const route = usePathname();
 
@@ -100,7 +102,11 @@ export const SideBar = memo(function SideBar() {
                                                         href={urlcat(
                                                             item.href,
                                                             item.href === PageRoutes.Profile
-                                                                ? `/${platformProfile.lens?.handle ?? ''}`
+                                                                ? `/${
+                                                                      currentSocialPlatform === SocialPlatform.Lens
+                                                                          ? platformProfile.lens?.handle ?? ''
+                                                                          : platformProfile.farcaster?.profileId ?? ''
+                                                                  }`
                                                                 : '',
                                                         )}
                                                         className={classNames(

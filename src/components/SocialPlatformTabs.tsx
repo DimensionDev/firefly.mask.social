@@ -1,8 +1,9 @@
 'use client';
 
 import { getEnumAsArray } from '@masknet/kit';
-import { usePathname } from 'next/navigation.js';
+import { usePathname, useRouter } from 'next/navigation.js';
 import { startTransition } from 'react';
+import urlcat from 'urlcat';
 
 import { SocialPlatform } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -14,6 +15,7 @@ export function SocialPlatformTabs() {
     const currentSocialPlatform = useGlobalState.use.currentSocialPlatform();
     const switchSocialPlatform = useGlobalState.use.switchSocialPlatform();
     const platformProfile = usePlatformProfile();
+    const router = useRouter();
 
     if (pathname.includes('/settings') || pathname.includes('/detail')) return null;
 
@@ -21,7 +23,18 @@ export function SocialPlatformTabs() {
         const param = pathname.split('/');
         const handle = param[param.length - 1];
 
-        if (platformProfile.lens?.handle && platformProfile.lens.handle !== handle) return null;
+        if (
+            currentSocialPlatform === SocialPlatform.Lens &&
+            platformProfile.lens?.handle &&
+            platformProfile.lens.handle !== handle
+        )
+            return null;
+        if (
+            currentSocialPlatform === SocialPlatform.Farcaster &&
+            platformProfile.farcaster?.profileId &&
+            platformProfile.farcaster.profileId !== handle
+        )
+            return null;
     }
 
     return (
@@ -37,6 +50,16 @@ export function SocialPlatformTabs() {
                         aria-current={currentSocialPlatform === value ? 'page' : undefined}
                         onClick={() =>
                             startTransition(() => {
+                                if (pathname.includes('/profile')) {
+                                    router.push(
+                                        urlcat('/profile/:handle', {
+                                            handle:
+                                                value === SocialPlatform.Lens
+                                                    ? platformProfile.lens?.handle
+                                                    : platformProfile.farcaster?.profileId,
+                                        }),
+                                    );
+                                }
                                 switchSocialPlatform(value);
                             })
                         }

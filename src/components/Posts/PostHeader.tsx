@@ -39,7 +39,9 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({ post, isQu
         ],
     );
 
-    const profileLink = urlcat('/profile/:handle', { handle: post.author.handle });
+    const profileLink = urlcat('/profile/:handle', {
+        handle: currentSocialPlatform === SocialPlatform.Lens ? post.author.handle : post.author.profileId,
+    });
 
     return (
         <div className="flex justify-between space-x-1.5">

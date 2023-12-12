@@ -21,6 +21,7 @@ export default function FarcasterProfile({ id }: FarcasterProfileProps) {
         queryKey: ['farcaster-profile', id],
         queryFn: () => farcasterClient.getProfileById(id),
     });
+    console.log(profile, id, 'aaaa');
 
     const isLogin = useIsLogin();
 
