@@ -49,6 +49,7 @@ export function formatWarpcastPost(cast: Cast): Post {
             nickname: cast.author.username,
             displayName: cast.author.displayName,
             pfp: cast.author.pfp.url,
+            handle: cast.author.username,
             followerCount: cast.author.followerCount,
             followingCount: cast.author.followingCount,
             status: ProfileStatus.Active,
