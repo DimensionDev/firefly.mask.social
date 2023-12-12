@@ -8,14 +8,14 @@ import { CommentList } from '@/components/Comments/index.js';
 import { SinglePost } from '@/components/Posts/SinglePost.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { createPageTitle } from '@/helpers/createPageTitle.js';
-import { resolvePlatform } from '@/helpers/resolvePlatform.js';
+import { type PlatformKeyword, resolvePlatform } from '@/helpers/resolvePlatform.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { WarpcastSocialMediaProvider } from '@/providers/warpcast/SocialMedia.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 
 interface PostPageProps {
-    params: { id: string; platform: 'lens' | 'farcaster' };
+    params: { id: string; platform: PlatformKeyword };
 }
 
 export default function PostPage({ params: { id: postId, platform: _platform } }: PostPageProps) {

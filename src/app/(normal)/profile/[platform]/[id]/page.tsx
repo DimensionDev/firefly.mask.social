@@ -12,13 +12,13 @@ import Info from '@/components/Profile/Info.js';
 import Title from '@/components/Profile/Title.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { createPageTitle } from '@/helpers/createPageTitle.js';
-import { resolvePlatform } from '@/helpers/resolvePlatform.js';
+import { type PlatformKeyword, resolvePlatform } from '@/helpers/resolvePlatform.js';
 import { useIsMyProfile } from '@/hooks/isMyProfile.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { WarpcastSocialMediaProvider } from '@/providers/warpcast/SocialMedia.js';
 
 interface ProfilePageProps {
-    params: { platform: 'lens' | 'farcaster'; id: string };
+    params: { id: string; platform: PlatformKeyword };
 }
 export default function ProfilePage({ params: { platform: _platform, id: handleOrProfileId } }: ProfilePageProps) {
     const platform = resolvePlatform(_platform);
