@@ -23,7 +23,7 @@ export default function FollowButton({ profile, isMyProfile }: FollowButtonProps
 
     const [{ loading }, handleToggleFollow] = useToggleFollow({
         profileId: profile.profileId,
-        handle: profile.handle || profile.nickname, // `nickname` for Farcaster
+        handle: profile.handle,
         platform: profile.source,
         isFollowed: !!isFollowing,
     });
