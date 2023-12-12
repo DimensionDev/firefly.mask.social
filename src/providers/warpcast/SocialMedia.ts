@@ -77,10 +77,11 @@ export class WarpcastSocialMedia implements Provider {
             cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
         });
 
-        const { result, next } = await fetchJSON<FeedResponse>(url, {
+        const { result, next } = await fetchJSON<CastsResponse>(url, {
             method: 'GET',
         });
-        const data = result.feed.map(formatWarpcastPostFromFeed);
+        const data = result.casts.map(formatWarpcastPost);
+        console.log(data);
         return createPageable(data, createIndicator(indicator), createNextIndicator(indicator, next.cursor));
     }
 
