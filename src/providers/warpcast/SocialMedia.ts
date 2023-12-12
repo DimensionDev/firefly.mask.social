@@ -81,7 +81,6 @@ export class WarpcastSocialMedia implements Provider {
             method: 'GET',
         });
         const data = result.casts.map(formatWarpcastPost);
-        console.log(data);
         return createPageable(data, createIndicator(indicator), createNextIndicator(indicator, next.cursor));
     }
 
@@ -91,10 +90,10 @@ export class WarpcastSocialMedia implements Provider {
             cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
         });
 
-        const { result, next } = await warpcastClient.fetchWithSession<FeedResponse>(url, {
+        const { result, next } = await warpcastClient.fetchWithSession<CastsResponse>(url, {
             method: 'GET',
         });
-        const data = result.feed.map(formatWarpcastPostFromFeed);
+        const data = result.casts.map(formatWarpcastPost);
         return createPageable(data, indicator ?? createIndicator(), createNextIndicator(indicator, next.cursor));
     }
 
@@ -105,10 +104,10 @@ export class WarpcastSocialMedia implements Provider {
             cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
         });
 
-        const { result, next } = await warpcastClient.fetchWithSession<FeedResponse>(url, {
+        const { result, next } = await warpcastClient.fetchWithSession<CastsResponse>(url, {
             method: 'GET',
         });
-        const data = result.feed.map(formatWarpcastPostFromFeed);
+        const data = result.casts.map(formatWarpcastPost);
         return createPageable(data, indicator ?? createIndicator(), createNextIndicator(indicator, next.cursor));
     }
 
