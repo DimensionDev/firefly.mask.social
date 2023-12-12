@@ -127,7 +127,6 @@ export class WarpcastSocialMedia implements Provider {
             method: 'GET',
         });
 
-        console.log(user, profileId);
         return formatWarpcastUser(user);
     }
 

@@ -15,7 +15,6 @@ export default function ProfileHome() {
     if (!isLogin) {
         return <NotLoginFallback platform={currentSocialPlatform} />;
     }
-    console.log(currentSocialPlatform);
     redirect(
         `/profile/${
             currentSocialPlatform === SocialPlatform.Lens
