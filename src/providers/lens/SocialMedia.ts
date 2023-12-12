@@ -286,9 +286,9 @@ export class LensSocialMedia implements Provider {
         return formatLensProfile(result);
     }
 
-    async getProfileByHandle(profileId: string): Promise<Profile> {
+    async getProfileByHandle(handle: string): Promise<Profile> {
         const result = await this.client.profile.fetch({
-            forHandle: profileId,
+            forHandle: `lens/${handle}`,
         });
         if (!result) throw new Error(t`No profile found`);
 

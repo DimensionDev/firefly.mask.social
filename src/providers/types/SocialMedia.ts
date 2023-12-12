@@ -324,6 +324,14 @@ export interface Provider {
     getProfileById: (profileId: string) => Promise<Profile>;
 
     /**
+     * Retrieves a user's profile by their handle.
+     *
+     * @param handle The handle of the user's profile.
+     * @returns
+     */
+    getProfileByHandle: (handle: string) => Promise<Profile>;
+
+    /**
      * Retrieves a post by its post ID.
      *
      * @param postId The ID of the post to retrieve.

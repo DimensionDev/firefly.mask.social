@@ -17,18 +17,10 @@ export function SocialPlatformTabs() {
     const switchSocialPlatform = useGlobalState.use.switchSocialPlatform();
     const router = useRouter();
 
-    if (pathname.includes('/settings') || pathname.includes('/detail')) return null;
-
-    if (pathname.includes('/profile')) {
-        const param = pathname.split('/');
-        const handle = param[param.length - 1];
-
-        if (currentProfile?.source === SocialPlatform.Lens && currentProfile.handle !== handle) return null;
-        if (currentProfile?.source === SocialPlatform.Farcaster && currentProfile.profileId !== handle) return null;
-    }
+    if (pathname.includes('/settings') || pathname.includes('/post') || pathname.includes('/profile')) return null;
 
     return (
-        <div className="bg-primaryBottom px-4">
+        <div className="border-b border-line bg-primaryBottom px-4">
             <nav className="-mb-px flex space-x-4" aria-label="Tabs">
                 {getEnumAsArray(SocialPlatform).map(({ key, value }) => (
                     <a

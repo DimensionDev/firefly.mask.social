@@ -27,7 +27,7 @@ export const CommentList = memo<CommentListProps>(function CommentList({ postId,
         queryFn: async ({ pageParam }) => {
             if (!postId) return createPageable(EMPTY_LIST, undefined);
             switch (platform) {
-                case SocialPlatform.Lens.toLowerCase():
+                case SocialPlatform.Lens:
                     const result = await LensSocialMediaProvider.getCommentsById(
                         postId,
                         createIndicator(undefined, pageParam),
@@ -35,7 +35,7 @@ export const CommentList = memo<CommentListProps>(function CommentList({ postId,
                     const ids = result.data.flatMap((x) => [x.postId]);
                     await fetchAndStoreViews(ids);
                     return result;
-                case SocialPlatform.Farcaster.toLowerCase():
+                case SocialPlatform.Farcaster:
                     return FireflySocialMediaProvider.getCommentsById(postId, createIndicator(undefined, pageParam));
                 default:
                     return createPageable(EMPTY_LIST, undefined);
