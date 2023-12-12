@@ -73,7 +73,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
     if (isQuote) {
         return (
             <div className="my-2 flex items-center space-x-2 break-words text-base text-main">
-                <NakedMarkup className="markup linkify text-md line-clamp-5 w-full self-stretch break-words opacity-75 dark:opacity-50">
+                <NakedMarkup className="linkify text-md line-clamp-5 w-full self-stretch break-words opacity-75 dark:opacity-50">
                     {post.metadata.content?.content}
                 </NakedMarkup>
                 {showAttachments ? (
