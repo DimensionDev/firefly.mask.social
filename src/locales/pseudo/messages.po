@@ -31,9 +31,6 @@ msgstr ""
 msgid "Failed to mirror post"
 msgstr ""
 
-msgid "This profile doesn't exist"
-msgstr ""
-
 msgid "Communities"
 msgstr ""
 
@@ -271,9 +268,6 @@ msgstr ""
 msgid "Publications"
 msgstr ""
 
-msgid "This post doesn't exist"
-msgstr ""
-
 msgid "Display"
 msgstr ""
 
@@ -383,6 +377,9 @@ msgid "On your mobile device with Warpcast, open the <0>Camera</0> app and scan 
 msgstr ""
 
 msgid "Unknown session type."
+msgstr ""
+
+msgid "This profile does not exist"
 msgstr ""
 
 msgid "<0/> commented your <1><2/></1>"
