@@ -72,7 +72,7 @@ export class WarpcastSocialMedia implements Provider {
     }
 
     async discoverPosts(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        const url = urlcat(WARPCAST_ROOT_URL, '/default-recommended-feed', {
+        const url = urlcat(WARPCAST_ROOT_URL, '/popular-casts-feed', {
             limit: 10,
             cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
         });
