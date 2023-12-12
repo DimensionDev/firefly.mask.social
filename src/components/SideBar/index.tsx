@@ -23,9 +23,9 @@ import { ConnectWalletNav } from '@/components/SideBar/ConnectWalletNav.js';
 import { PageRoutes, SocialPlatform } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
+import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useDarkMode } from '@/hooks/useDarkMode.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
-import { usePlatformProfile } from '@/hooks/usePlatformProfile.js';
 import { ComposeModalRef, LoginModalRef } from '@/modals/controls.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 
@@ -71,8 +71,8 @@ const items = [
 export const SideBar = memo(function SideBar() {
     const { isDarkMode } = useDarkMode();
     const isLogin = useIsLogin();
-    const platformProfile = usePlatformProfile();
     const currentSocialPlatform = useGlobalState.use.currentSocialPlatform();
+    const currentProfile = useCurrentProfile(currentSocialPlatform);
 
     const route = usePathname();
 
@@ -103,9 +103,9 @@ export const SideBar = memo(function SideBar() {
                                                             item.href,
                                                             item.href === PageRoutes.Profile
                                                                 ? `/${
-                                                                      currentSocialPlatform === SocialPlatform.Lens
-                                                                          ? platformProfile.lens?.handle ?? ''
-                                                                          : platformProfile.farcaster?.profileId ?? ''
+                                                                      currentProfile?.source === SocialPlatform.Lens
+                                                                          ? currentProfile.handle ?? ''
+                                                                          : currentProfile?.profileId ?? ''
                                                                   }`
                                                                 : '',
                                                         )}

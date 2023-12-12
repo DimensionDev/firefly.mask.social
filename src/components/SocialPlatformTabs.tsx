@@ -7,14 +7,14 @@ import urlcat from 'urlcat';
 
 import { SocialPlatform } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
-import { usePlatformProfile } from '@/hooks/usePlatformProfile.js';
+import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 
 export function SocialPlatformTabs() {
     const pathname = usePathname();
     const currentSocialPlatform = useGlobalState.use.currentSocialPlatform();
+    const currentProfile = useCurrentProfile(currentSocialPlatform);
     const switchSocialPlatform = useGlobalState.use.switchSocialPlatform();
-    const platformProfile = usePlatformProfile();
     const router = useRouter();
 
     if (pathname.includes('/settings') || pathname.includes('/detail')) return null;
@@ -23,16 +23,12 @@ export function SocialPlatformTabs() {
         const param = pathname.split('/');
         const handle = param[param.length - 1];
 
-        if (
-            currentSocialPlatform === SocialPlatform.Lens &&
-            platformProfile.lens?.handle &&
-            platformProfile.lens.handle !== handle
-        )
+        if (currentProfile?.source === SocialPlatform.Lens && currentProfile.handle && currentProfile.handle !== handle)
             return null;
         if (
-            currentSocialPlatform === SocialPlatform.Farcaster &&
-            platformProfile.farcaster?.profileId &&
-            platformProfile.farcaster.profileId !== handle
+            currentProfile?.source === SocialPlatform.Farcaster &&
+            currentProfile.profileId &&
+            currentProfile.profileId !== handle
         )
             return null;
     }
@@ -55,8 +51,8 @@ export function SocialPlatformTabs() {
                                         urlcat('/profile/:handle', {
                                             handle:
                                                 value === SocialPlatform.Lens
-                                                    ? platformProfile.lens?.handle
-                                                    : platformProfile.farcaster?.profileId,
+                                                    ? currentProfile?.handle
+                                                    : currentProfile?.profileId,
                                         }),
                                     );
                                 }

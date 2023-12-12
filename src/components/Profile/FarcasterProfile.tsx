@@ -7,29 +7,23 @@ import NotFoundFallback from '@/components/NotFoundFallback.js';
 import ContentTabs from '@/components/Profile/ContentTabs.js';
 import Info from '@/components/Profile/Info.js';
 import Title from '@/components/Profile/Title.js';
+import { SocialPlatform } from '@/constants/enum.js';
 import { createPageTitle } from '@/helpers/createPageTitle.js';
-import { useIsLogin } from '@/hooks/useIsLogin.js';
-import { usePlatformProfile } from '@/hooks/usePlatformProfile.js';
-import { WarpcastSocialMedia } from '@/providers/warpcast/SocialMedia.js';
+import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
+import { WarpcastSocialMediaProvider } from '@/providers/warpcast/SocialMedia.js';
 
 interface FarcasterProfileProps {
     id: string;
 }
 export default function FarcasterProfile({ id }: FarcasterProfileProps) {
-    const farcasterClient = new WarpcastSocialMedia();
     const { data: profile, isLoading } = useQuery({
         queryKey: ['farcaster-profile', id],
-        queryFn: () => farcasterClient.getProfileById(id),
+        queryFn: () => WarpcastSocialMediaProvider.getProfileById(id),
     });
 
-    const isLogin = useIsLogin();
+    const currentProfile = useCurrentProfile(SocialPlatform.Farcaster);
 
-    const platformProfile = usePlatformProfile();
-
-    const isMyProfile = useMemo(
-        () => !!isLogin && platformProfile.farcaster?.profileId === id,
-        [id, isLogin, platformProfile.farcaster?.profileId],
-    );
+    const isMyProfile = useMemo(() => !!currentProfile && currentProfile?.profileId === id, [id, currentProfile]);
 
     const title = useMemo(() => {
         if (!profile) return '';

@@ -274,7 +274,7 @@ export class WarpcastSocialMedia implements Provider {
             timestamp: cast.timestamp,
             author: {
                 profileId: cast.author.fid.toString(),
-                nickname: cast.author.username,
+                handle: cast.author.username,
                 displayName: cast.author.displayName,
                 pfp: cast.author.pfp.url,
                 followerCount: cast.author.followerCount,

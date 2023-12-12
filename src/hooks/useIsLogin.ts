@@ -13,18 +13,16 @@ export function useIsLogin(platform?: SocialPlatform) {
 
     return useMemo(() => {
         if (!account.isConnected) return false;
+        if (!platform) return !!(currentLensProfile?.profileId || currentFarcasterProfile?.profileId);
 
-        if (platform) {
-            switch (platform) {
-                case SocialPlatform.Lens:
-                    return !!currentLensProfile?.profileId;
-                case SocialPlatform.Farcaster:
-                    return !!currentFarcasterProfile?.profileId;
-                default:
-                    safeUnreachable(platform);
-                    return false;
-            }
+        switch (platform) {
+            case SocialPlatform.Lens:
+                return !!currentLensProfile?.profileId;
+            case SocialPlatform.Farcaster:
+                return !!currentFarcasterProfile?.profileId;
+            default:
+                safeUnreachable(platform);
+                return false;
         }
-        return !!(currentLensProfile?.profileId || currentFarcasterProfile?.profileId);
     }, [currentLensProfile, currentFarcasterProfile, platform, account]);
 }

@@ -7,28 +7,24 @@ import NotFoundFallback from '@/components/NotFoundFallback.js';
 import ContentTabs from '@/components/Profile/ContentTabs.js';
 import Info from '@/components/Profile/Info.js';
 import Title from '@/components/Profile/Title.js';
+import { SocialPlatform } from '@/constants/enum.js';
 import { createPageTitle } from '@/helpers/createPageTitle.js';
-import { useIsLogin } from '@/hooks/useIsLogin.js';
-import { usePlatformProfile } from '@/hooks/usePlatformProfile.js';
+import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 
 interface LensProfileProps {
     handle: string;
 }
+
 export default function LensProfile({ handle }: LensProfileProps) {
     const { data: profile, isLoading } = useQuery({
         queryKey: ['lens-profile', handle],
         queryFn: () => LensSocialMediaProvider.getProfileByHandle(`lens/${handle}`),
     });
 
-    const isLogin = useIsLogin();
+    const platformProfile = useCurrentProfile(SocialPlatform.Lens);
 
-    const platformProfile = usePlatformProfile();
-
-    const isMyProfile = useMemo(
-        () => !!isLogin && platformProfile.lens?.handle === handle,
-        [handle, isLogin, platformProfile.lens?.handle],
-    );
+    const isMyProfile = useMemo(() => platformProfile?.handle === handle, [handle, platformProfile?.handle]);
 
     const title = useMemo(() => {
         if (!profile) return '';
