@@ -122,7 +122,7 @@ const SearchBar = memo(function SearchBar(props: SearchBarProps) {
                     <div className="absolute inset-x-0 top-[40px] z-[1000] mt-2 flex w-full flex-col overflow-hidden rounded-2xl bg-white shadow-[0_4px_30px_0_rgba(0,0,0,0.10)] dark:bg-black">
                         {histories.length && !inputText ? (
                             <>
-                                <h2 className=" flex p-3 pb-2 text-xs">
+                                <h2 className=" flex p-3 pb-2 text-sm">
                                     <Trans>Recent</Trans>
                                     <button
                                         className="ml-auto font-bold text-[#246BFD]"
@@ -162,7 +162,7 @@ const SearchBar = memo(function SearchBar(props: SearchBarProps) {
 
                         {inputText ? (
                             <>
-                                <h2 className=" p-3 pb-2 text-xs">
+                                <h2 className=" p-3 pb-2 text-sm">
                                     {currentSocialPlatform === SocialPlatform.Lens ? (
                                         <Trans>Publications</Trans>
                                     ) : currentSocialPlatform === SocialPlatform.Farcaster ? (
@@ -185,7 +185,7 @@ const SearchBar = memo(function SearchBar(props: SearchBarProps) {
                         {isLoading || profiles?.data ? (
                             <>
                                 <hr className=" border-b border-t-0 border-line" />
-                                <h2 className=" p-3 pb-2 text-xs">
+                                <h2 className=" p-3 pb-2 text-sm">
                                     <Trans>Profiles</Trans>
                                 </h2>
                             </>

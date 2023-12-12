@@ -25,6 +25,9 @@ msgstr "Posts"
 msgid "Failed to fetch as Blob."
 msgstr "Failed to fetch as Blob."
 
+msgid "{0, select, follow {Followed @{handle} on {platform}} unfollow {UnFollowed @{handle} on {platform}} other {Followed @{handle} on {platform}}}"
+msgstr "{0, select, follow {Followed @{handle} on {platform}} unfollow {UnFollowed @{handle} on {platform}} other {Followed @{handle} on {platform}}}"
+
 msgid "Failed to mirror post"
 msgstr "Failed to mirror post"
 
@@ -219,6 +222,9 @@ msgstr "Malformed session."
 
 msgid "Post has been hidden"
 msgstr "Post has been hidden"
+
+msgid "{0, select, follow {Failed to followed @{handle} on {platform}} unfollow {Failed to unfollowed @{handle} on {platform}} other {Failed to followed @{handle} on {platform}}}"
+msgstr "{0, select, follow {Failed to followed @{handle} on {platform}} unfollow {Failed to unfollowed @{handle} on {platform}} other {Failed to followed @{handle} on {platform}}}"
 
 msgid "<0>{0}</0> liked"
 msgstr "<0>{0}</0> liked"
@@ -448,9 +454,6 @@ msgstr "Following"
 msgid "Dark mode"
 msgstr "Dark mode"
 
-msgid "{0, select, follow {Followed @{1} on {2}} unfollow {UnFollowed @{3} on {4}} other {Followed @{5} on {6}}}"
-msgstr "{0, select, follow {Followed @{1} on {2}} unfollow {UnFollowed @{3} on {4}} other {Followed @{5} on {6}}}"
-
 msgid "Collect is coming soon"
 msgstr "Collect is coming soon"
 
@@ -459,9 +462,6 @@ msgstr "<0/> mentioned you in a <1><2/></1>"
 
 msgid "Login"
 msgstr "Login"
-
-msgid "{0, select, follow {Failed to followed @{1} on {2}} unfollow {Failed to unfollowed @{3} on {4}} other {Failed to followed @{5} on {6}}}"
-msgstr "{0, select, follow {Failed to followed @{1} on {2}} unfollow {Failed to unfollowed @{3} on {4}} other {Failed to followed @{5} on {6}}}"
 
 msgid "<0/> quoted your <1><2/></1>"
 msgstr "<0/> quoted your <1><2/></1>"
