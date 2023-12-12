@@ -2,7 +2,7 @@ import { type HTMLProps, memo, useMemo } from 'react';
 
 import { SocialPlatform } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
-import { getPostDetailUrl } from '@/helpers/getPostDetailUrl.js';
+import { getPostUrl } from '@/helpers/getPostUrl.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 
@@ -67,7 +67,7 @@ export const PostActions = memo<PostActionsProps>(function PostActions({
                 disabled={disabled}
             />
             {post.source !== SocialPlatform.Farcaster ? <Views count={views} disabled={disabled} /> : null}
-            <Share url={getPostDetailUrl(post.postId, post.source)} disabled={disabled} />
+            <Share url={getPostUrl(post.postId, post.source)} disabled={disabled} />
         </div>
     );
 });

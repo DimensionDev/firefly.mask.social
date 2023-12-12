@@ -14,6 +14,7 @@ import { Image } from '@/components/Image.js';
 import { SourceIcon } from '@/components/SourceIcon.js';
 import { SearchType, SocialPlatform } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
+import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { useDarkMode } from '@/hooks/useDarkMode.js';
 import { HubbleSocialMediaProvider } from '@/providers/hubble/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
@@ -202,19 +203,19 @@ const SearchBar = memo(function SearchBar(props: SearchBarProps) {
                             </div>
                         ) : profiles?.data.length ? (
                             <div className="cursor-pointer py-2">
-                                {profiles.data.slice(0, 10).map((user) => (
+                                {profiles.data.slice(0, 10).map((profile) => (
                                     <div
-                                        key={user.handle}
+                                        key={profile.handle}
                                         className="space-y-2 px-4 py-2 text-center text-sm font-bold hover:bg-bg"
                                         onClick={(evt) => {
-                                            router.push(`/profile/${user.handle}`);
+                                            router.push(getProfileUrl(profile));
                                         }}
                                     >
                                         <div className="flex flex-row items-center">
                                             <Image
                                                 className="mr-[10px] h-10 w-10 rounded-full"
                                                 loading="lazy"
-                                                src={user.pfp}
+                                                src={profile.pfp}
                                                 fallback={
                                                     isDarkMode
                                                         ? '/image/firefly-dark-avatar.png'
@@ -222,14 +223,14 @@ const SearchBar = memo(function SearchBar(props: SearchBarProps) {
                                                 }
                                                 width={40}
                                                 height={40}
-                                                alt={user.displayName}
+                                                alt={profile.displayName}
                                             />
                                             <div className="flex-1 text-left">
                                                 <div className="flex">
-                                                    <span className="mr-1">{user.displayName}</span>
-                                                    <SourceIcon source={user.source} />
+                                                    <span className="mr-1">{profile.displayName}</span>
+                                                    <SourceIcon source={profile.source} />
                                                 </div>
-                                                <div className=" font-normal text-secondary">@{user.handle}</div>
+                                                <div className=" font-normal text-secondary">@{profile.handle}</div>
                                             </div>
                                         </div>
                                     </div>

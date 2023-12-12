@@ -20,6 +20,7 @@ import { SourceIcon } from '@/components/SourceIcon.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
+import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { useDarkMode } from '@/hooks/useDarkMode.js';
 import { type Notification, NotificationType, type PostType } from '@/providers/types/SocialMedia.js';
 
@@ -310,17 +311,17 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
                     <div className="flex-1">
                         <div className="flex flex-1 items-center justify-between">
                             <div className="flex items-center">
-                                {profiles.slice(0, 5).map((x, index, self) => {
-                                    const isFallbackPfp = x.pfp.startsWith('https://cdn.stamp.fyi/avatar/eth:');
+                                {profiles.slice(0, 5).map((profile, index, self) => {
+                                    const isFallbackPfp = profile.pfp.startsWith('https://cdn.stamp.fyi/avatar/eth:');
                                     const avatar = isFallbackPfp
                                         ? isDarkMode
                                             ? '/image/firefly-dark-avatar.png'
                                             : '/image/firefly-light-avatar.png'
-                                        : x.pfp;
+                                        : profile.pfp;
                                     return (
                                         <Link
                                             key={index}
-                                            href={`/profile/${x.handle}`}
+                                            href={getProfileUrl(profile)}
                                             className={classNames('inline-flex items-center', {
                                                 '-ml-5': index > 0 && self.length > 1,
                                             })}
@@ -332,7 +333,7 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
                                                 src={avatar}
                                                 width={40}
                                                 height={40}
-                                                alt={x.profileId}
+                                                alt={profile.profileId}
                                             />
                                         </Link>
                                     );

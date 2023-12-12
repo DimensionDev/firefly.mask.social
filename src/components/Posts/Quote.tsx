@@ -7,7 +7,7 @@ import { memo } from 'react';
 import { PostBody } from '@/components/Posts/PostBody.js';
 import { PostHeader } from '@/components/Posts/PostHeader.js';
 import { classNames } from '@/helpers/classNames.js';
-import { getPostDetailUrl } from '@/helpers/getPostDetailUrl.js';
+import { getPostUrl } from '@/helpers/getPostUrl.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 interface QuoteProps {
@@ -28,7 +28,7 @@ export const Quote = memo<QuoteProps>(function Quote({ post, className = '' }) {
             )}
             onClick={(event) => {
                 event.stopPropagation();
-                router.push(getPostDetailUrl(post.postId, post.source));
+                router.push(getPostUrl(post.postId, post.source));
             }}
         >
             <PostHeader post={post} isQuote />

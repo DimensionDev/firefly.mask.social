@@ -3,7 +3,7 @@
 import { redirect } from 'next/navigation.js';
 
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
-import { SocialPlatform } from '@/constants/enum.js';
+import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 
@@ -15,7 +15,5 @@ export default function ProfileHome() {
         return <NotLoginFallback platform={currentSocialPlatform} />;
     }
 
-    redirect(
-        `/profile/${currentProfile.source === SocialPlatform.Lens ? currentProfile.handle : currentProfile.profileId}`,
-    );
+    redirect(getProfileUrl(currentProfile));
 }

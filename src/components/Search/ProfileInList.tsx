@@ -2,6 +2,7 @@ import { Image } from '@/components/Image.js';
 import FollowButton from '@/components/Profile/FollowButton.js';
 import { SourceIcon } from '@/components/SourceIcon.js';
 import { Link } from '@/esm/Link.js';
+import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { useDarkMode } from '@/hooks/useDarkMode.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
@@ -17,7 +18,7 @@ export function ProfileInList(props: ProfileInListProps) {
 
     return (
         <div className="flex-start flex cursor-pointer border-b border-secondaryLine px-4 py-6 hover:bg-bg dark:border-line">
-            <Link className="flex-start flex flex-1" href={`/profile/${profile.handle}`}>
+            <Link className="flex-start flex flex-1" href={getProfileUrl(profile)}>
                 <Image
                     loading="lazy"
                     className="mr-3 h-[78px] w-[78px] rounded-full border"

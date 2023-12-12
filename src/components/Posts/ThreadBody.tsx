@@ -6,8 +6,8 @@ import { PostActions } from '@/components/Actions/index.js';
 import { PostBody } from '@/components/Posts/PostBody.js';
 import { PostHeader } from '@/components/Posts/PostHeader.js';
 import { Link } from '@/esm/Link.js';
-import { getPostDetailUrl } from '@/helpers/getPostDetailUrl.js';
 import { getPostPayload } from '@/helpers/getPostPayload.js';
+import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { useObserveLensPost } from '@/hooks/useObserveLensPost.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
@@ -23,7 +23,7 @@ export const ThreadBody = memo<ThreadBodyProps>(function ThreadBody({ post, disa
     const pathname = usePathname();
     const isDetail = pathname.includes('/detail');
 
-    const link = getPostDetailUrl(post.postId, post.source);
+    const link = getPostUrl(post.postId, post.source);
     const postPayload = getPostPayload(post.metadata.content?.content);
 
     return (
