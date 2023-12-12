@@ -25,6 +25,9 @@ msgstr ""
 msgid "Failed to fetch as Blob."
 msgstr ""
 
+msgid "{0, select, follow {Followed @{handle} on {platform}} unfollow {UnFollowed @{handle} on {platform}} other {Followed @{handle} on {platform}}}"
+msgstr ""
+
 msgid "Failed to mirror post"
 msgstr ""
 
@@ -218,6 +221,9 @@ msgid "Malformed session."
 msgstr ""
 
 msgid "Post has been hidden"
+msgstr ""
+
+msgid "{0, select, follow {Failed to followed @{handle} on {platform}} unfollow {Failed to unfollowed @{handle} on {platform}} other {Failed to followed @{handle} on {platform}}}"
 msgstr ""
 
 msgid "<0>{0}</0> liked"
@@ -448,9 +454,6 @@ msgstr ""
 msgid "Dark mode"
 msgstr ""
 
-msgid "{0, select, follow {Followed @{1} on {2}} unfollow {UnFollowed @{3} on {4}} other {Followed @{5} on {6}}}"
-msgstr ""
-
 msgid "Collect is coming soon"
 msgstr ""
 
@@ -458,9 +461,6 @@ msgid "<0/> mentioned you in a <1><2/></1>"
 msgstr ""
 
 msgid "Login"
-msgstr ""
-
-msgid "{0, select, follow {Failed to followed @{1} on {2}} unfollow {Failed to unfollowed @{3} on {4}} other {Failed to followed @{5} on {6}}}"
 msgstr ""
 
 msgid "<0/> quoted your <1><2/></1>"
