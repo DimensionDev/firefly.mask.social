@@ -9,11 +9,12 @@ import EyeSlash from '@/assets/eye-slash.svg';
 import Lock from '@/assets/lock.svg';
 import { Markup, NakedMarkup } from '@/components/Markup/index.js';
 import Oembed from '@/components/Oembed/index.js';
-import { Attachments } from '@/components/Posts/Attachment.js';
-import { Quote } from '@/components/Posts/Quote.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
+
+import { Attachments } from './Attachment.js';
+import { Quote } from './Quote.js';
 
 interface PostBodyProps {
     post: Post;
@@ -72,7 +73,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
     if (isQuote) {
         return (
             <div className="my-2 flex items-center space-x-2 break-words text-base text-main">
-                <NakedMarkup className="markup linkify text-md line-clamp-5 w-full self-stretch break-words opacity-75 dark:opacity-50">
+                <NakedMarkup className="linkify text-md line-clamp-5 w-full self-stretch break-words opacity-75 dark:opacity-50">
                     {post.metadata.content?.content}
                 </NakedMarkup>
                 {showAttachments ? (

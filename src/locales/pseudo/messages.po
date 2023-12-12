@@ -409,6 +409,9 @@ msgstr ""
 msgid "No matching users"
 msgstr ""
 
+msgid "There is no data available for display"
+msgstr ""
+
 msgid "Recasted"
 msgstr ""
 

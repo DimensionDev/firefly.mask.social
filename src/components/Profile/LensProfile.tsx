@@ -17,7 +17,7 @@ interface LensProfileProps {
 }
 export default function LensProfile({ handle }: LensProfileProps) {
     const { data: profile, isLoading } = useQuery({
-        queryKey: ['profile', handle],
+        queryKey: ['lens-profile', handle],
         queryFn: () => LensSocialMediaProvider.getProfileByHandle(`lens/${handle}`),
     });
 

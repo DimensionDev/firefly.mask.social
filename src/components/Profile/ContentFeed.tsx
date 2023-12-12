@@ -1,13 +1,14 @@
+import { Trans } from '@lingui/macro';
 import { createIndicator, createPageable } from '@masknet/shared-base';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { useMemo } from 'react';
 import { useInView } from 'react-cool-inview';
 
+import BlackHoleIcon from '@/assets/BlackHole.svg';
 import LoadingIcon from '@/assets/loading.svg';
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { SinglePost } from '@/components/Posts/SinglePost.js';
 import { SocialPlatform } from '@/constants/enum.js';
-import { EMPTY_LIST } from '@/constants/index.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { WarpcastSocialMediaProvider } from '@/providers/warpcast/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
@@ -20,10 +21,10 @@ export default function ContentFeed({ profileId }: ContentFeedProps) {
     const currentSocialPlatform = useGlobalState.use.currentSocialPlatform();
     const fetchAndStoreViews = useImpressionsStore.use.fetchAndStoreViews();
     const { data, hasNextPage, fetchNextPage, isFetchingNextPage, isFetching } = useSuspenseInfiniteQuery({
-        queryKey: ['getPostsByProfileId', currentSocialPlatform],
+        queryKey: ['getPostsByProfileId', currentSocialPlatform, profileId],
 
         queryFn: async ({ pageParam }) => {
-            if (!profileId) return createPageable(EMPTY_LIST, undefined);
+            if (!profileId) return createPageable([], undefined);
 
             switch (currentSocialPlatform) {
                 case SocialPlatform.Lens:
@@ -41,7 +42,7 @@ export default function ContentFeed({ profileId }: ContentFeedProps) {
                         createIndicator(undefined, pageParam),
                     );
                 default:
-                    return createPageable(EMPTY_LIST, undefined);
+                    return createPageable([], undefined);
             }
         },
         initialPageParam: '',
@@ -58,15 +59,26 @@ export default function ContentFeed({ profileId }: ContentFeedProps) {
         },
     });
 
-    const results = useMemo(() => data.pages.flatMap((x) => x.data), [data]);
+    const results = useMemo(() => data.pages.flatMap((x) => x.data), [data.pages]);
+
+    if (!results.length)
+        return (
+            <NoResultsFallback
+                className="mt-20"
+                icon={<BlackHoleIcon width={200} height="auto" className="text-secondaryMain" />}
+                message={
+                    <div className="mt-10">
+                        <Trans>There is no data available for display</Trans>
+                    </div>
+                }
+            />
+        );
 
     return (
         <div>
-            {results.length ? (
-                results.map((x) => <SinglePost post={x} key={x.postId} showMore />)
-            ) : (
-                <NoResultsFallback />
-            )}
+            {results.map((x) => (
+                <SinglePost post={x} key={x.postId} showMore />
+            ))}
             {hasNextPage && results.length > 0 ? (
                 <div className="flex items-center justify-center p-2" ref={observe}>
                     <LoadingIcon width={16} height={16} className="animate-spin" />

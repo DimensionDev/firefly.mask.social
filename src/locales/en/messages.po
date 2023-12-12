@@ -409,6 +409,9 @@ msgstr "Mask Network"
 msgid "No matching users"
 msgstr "No matching users"
 
+msgid "There is no data available for display"
+msgstr "There is no data available for display"
+
 msgid "Recasted"
 msgstr "Recasted"
 

@@ -18,7 +18,7 @@ interface FarcasterProfileProps {
 export default function FarcasterProfile({ id }: FarcasterProfileProps) {
     const farcasterClient = new WarpcastSocialMedia();
     const { data: profile, isLoading } = useQuery({
-        queryKey: ['profile', id],
+        queryKey: ['farcaster-profile', id],
         queryFn: () => farcasterClient.getProfileById(id),
     });
 
