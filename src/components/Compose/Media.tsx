@@ -1,6 +1,7 @@
 import { Popover, Transition } from '@headlessui/react';
 import { Trans } from '@lingui/macro';
-import { type ChangeEvent, type Dispatch, Fragment, type SetStateAction, useCallback, useRef } from 'react';
+import { type ChangeEvent, type Dispatch, Fragment, type SetStateAction, useRef } from 'react';
+import { useAsyncFn } from 'react-use';
 
 import ImageIcon from '@/assets/image.svg';
 import VideoIcon from '@/assets/video.svg';
@@ -22,7 +23,7 @@ export default function Media({ type, images, setImages, setLoading, video, setV
 
     const currentFarcasterProfile = useFarcasterStateStore.use.currentProfile();
 
-    const handleImageChange = useCallback(
+    const [, handleImageChange] = useAsyncFn(
         async (event: ChangeEvent<HTMLInputElement>) => {
             const files = event.target.files;
 
@@ -30,7 +31,7 @@ export default function Media({ type, images, setImages, setLoading, video, setV
                 setLoading(true);
                 const res = await uploadToIPFS([...files]);
                 setImages((_images) =>
-                    [..._images]
+                    _images
                         .concat(
                             res.map((ipfs, index) => ({
                                 file: files[index],
@@ -45,7 +46,7 @@ export default function Media({ type, images, setImages, setLoading, video, setV
         [currentFarcasterProfile, setImages, setLoading],
     );
 
-    const handleVideoChange = useCallback(
+    const [, handleVideoChange] = useAsyncFn(
         async (event: ChangeEvent<HTMLInputElement>) => {
             const files = event.target.files;
 

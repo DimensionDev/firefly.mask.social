@@ -1,15 +1,18 @@
 import { Popover, Transition } from '@headlessui/react';
 import { t, Trans } from '@lingui/macro';
 import { Fragment } from 'react';
+import { useAsyncFn } from 'react-use';
 
 import FarcasterIcon from '@/assets/farcaster.svg';
 import LensIcon from '@/assets/lens.svg';
+import LoadingIcon from '@/assets/loading.svg';
 import YesIcon from '@/assets/yes.svg';
 import { Image } from '@/esm/Image.js';
 import { classNames } from '@/helpers/classNames.js';
 import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
 import { LoginModalRef } from '@/modals/controls.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
+import type { Profile } from '@/providers/types/SocialMedia.js';
 import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
 import { useLensStateStore } from '@/store/useLensStore.js';
 import type { IPFS_MediaObject } from '@/types/index.js';
@@ -28,6 +31,21 @@ export default function PostBy({ images, setLoading }: IPostByProps) {
     const currentFarcasterProfile = useFarcasterStateStore.use.currentProfile();
 
     const updateLensCurrentProfile = useLensStateStore.use.updateCurrentProfile();
+
+    const [{ loading }, login] = useAsyncFn(async (profile: Profile) => {
+        setLoading(true);
+        try {
+            const session = await LensSocialMediaProvider.createSessionForProfileId(profile.profileId);
+
+            updateLensCurrentProfile(profile, session);
+            enqueueSnackbar(t`Your Lens account is now connected`, {
+                variant: 'success',
+            });
+        } catch (error) {
+            enqueueSnackbar(error instanceof Error ? error.message : t`Failed to login`, { variant: 'error' });
+        }
+        setLoading(false);
+    }, []);
 
     return (
         <Transition
@@ -68,27 +86,14 @@ export default function PostBy({ images, setLoading }: IPostByProps) {
                                 ) : (
                                     <button
                                         className=" font-bold text-blueBottom"
-                                        onClick={async () => {
-                                            setLoading(true);
-                                            try {
-                                                const session = await LensSocialMediaProvider.createSessionForProfileId(
-                                                    profile.profileId,
-                                                );
-
-                                                updateLensCurrentProfile(profile, session);
-                                                enqueueSnackbar(t`Your Lens account is now connected`, {
-                                                    variant: 'success',
-                                                });
-                                            } catch (error) {
-                                                enqueueSnackbar(
-                                                    error instanceof Error ? error.message : t`Failed to login`,
-                                                    { variant: 'error' },
-                                                );
-                                            }
-                                            setLoading(false);
-                                        }}
+                                        disabled={loading}
+                                        onClick={async () => login(profile)}
                                     >
-                                        <Trans>Switch</Trans>
+                                        {loading ? (
+                                            <LoadingIcon className="animate-spin" width={24} height={24} />
+                                        ) : (
+                                            <Trans>Switch</Trans>
+                                        )}
                                     </button>
                                 )}
                             </div>

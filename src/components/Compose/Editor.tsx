@@ -21,10 +21,10 @@ function ErrorBoundaryComponent() {
 interface EditorProps {
     type: 'compose' | 'quote' | 'reply';
     setCharacters: (characters: string) => void;
-    hasImages: boolean;
+    hasMediaObject: boolean;
     hasPost: boolean;
 }
-export default function Editor({ type, setCharacters, hasImages, hasPost }: EditorProps) {
+export default function Editor({ type, setCharacters, hasMediaObject, hasPost }: EditorProps) {
     const placeholder = useMemo(() => {
         return {
             compose: t`What's happening...`,
@@ -40,7 +40,7 @@ export default function Editor({ type, setCharacters, hasImages, hasPost }: Edit
                     <ContentEditable
                         className={classNames(
                             ' cursor-text resize-none appearance-none border-none bg-transparent p-0 text-left text-[15px] leading-5 text-main outline-0 focus:ring-0',
-                            hasImages ? '' : hasPost ? 'min-h-[200px]' : 'min-h-[308px]',
+                            hasMediaObject ? '' : hasPost ? 'min-h-[200px]' : 'min-h-[308px]',
                         )}
                     />
                 }

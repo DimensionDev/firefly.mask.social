@@ -57,25 +57,15 @@ export default function ComposeAction({
     );
 
     const postByText = useMemo(() => {
+        const lensHandle = currentLensProfile?.handle || currentLensProfile?.displayName;
+        const farcasterHandle = currentFarcasterProfile?.handle || currentFarcasterProfile?.displayName;
         if (!post) {
-            return (
-                (currentLensProfile?.profileId
-                    ? `@${currentLensProfile.handle || currentLensProfile.displayName}`
-                    : '') +
-                (currentLensProfile?.profileId && currentFarcasterProfile?.profileId ? ', ' : '') +
-                (currentFarcasterProfile?.profileId
-                    ? `@${currentFarcasterProfile.handle || currentFarcasterProfile.displayName}`
-                    : '')
-            );
+            return `@${lensHandle}` + (lensHandle && farcasterHandle ? ', ' : '') + `@${farcasterHandle}`;
         } else {
             if (post.source === SocialPlatform.Lens) {
-                return currentLensProfile?.profileId
-                    ? `@${currentLensProfile.handle || currentLensProfile.displayName}`
-                    : '';
+                return `@${lensHandle}`;
             } else {
-                return currentFarcasterProfile?.profileId
-                    ? `@${currentFarcasterProfile.handle || currentFarcasterProfile.displayName}`
-                    : '';
+                return `@${farcasterHandle}`;
             }
         }
     }, [currentFarcasterProfile, currentLensProfile, post]);
