@@ -37,7 +37,7 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
 
     const pathname = usePathname();
     const isDetail = pathname.includes('/detail');
-    const postLink = getPostUrl(post.postId, post.source);
+    const postLink = getPostUrl(post);
 
     return (
         <motion.article

@@ -3,10 +3,10 @@
 import { getEnumAsArray } from '@masknet/kit';
 import { usePathname, useRouter } from 'next/navigation.js';
 import { startTransition } from 'react';
-import urlcat from 'urlcat';
 
 import { SocialPlatform } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
+import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 
@@ -41,14 +41,7 @@ export function SocialPlatformTabs() {
                         onClick={() =>
                             startTransition(() => {
                                 if (pathname.includes('/profile') && currentProfile) {
-                                    router.push(
-                                        urlcat('/profile/:handle', {
-                                            handle:
-                                                value === SocialPlatform.Lens
-                                                    ? currentProfile.handle
-                                                    : currentProfile.profileId,
-                                        }),
-                                    );
+                                    router.push(getProfileUrl(currentProfile));
                                 }
                                 switchSocialPlatform(value);
                             })

@@ -23,7 +23,7 @@ export const ThreadBody = memo<ThreadBodyProps>(function ThreadBody({ post, disa
     const pathname = usePathname();
     const isDetail = pathname.includes('/detail');
 
-    const link = getPostUrl(post.postId, post.source);
+    const link = getPostUrl(post);
     const postPayload = getPostPayload(post.metadata.content?.content);
 
     return (

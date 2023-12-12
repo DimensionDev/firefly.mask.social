@@ -1,5 +1,4 @@
 import { memo, useMemo } from 'react';
-import urlcat from 'urlcat';
 
 import { MoreAction } from '@/components/Actions/More.js';
 import { Image } from '@/components/Image.js';
@@ -8,6 +7,7 @@ import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
+import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { useDarkMode } from '@/hooks/useDarkMode.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
@@ -39,9 +39,7 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({ post, isQu
         ],
     );
 
-    const profileLink = urlcat('/profile/:handle', {
-        handle: currentSocialPlatform === SocialPlatform.Lens ? post.author.handle : post.author.profileId,
-    });
+    const profileLink = getProfileUrl(post.author);
 
     return (
         <div className="flex justify-between space-x-1.5">

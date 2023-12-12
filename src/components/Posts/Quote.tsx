@@ -28,7 +28,7 @@ export const Quote = memo<QuoteProps>(function Quote({ post, className = '' }) {
             )}
             onClick={(event) => {
                 event.stopPropagation();
-                router.push(getPostUrl(post.postId, post.source));
+                router.push(getPostUrl(post));
             }}
         >
             <PostHeader post={post} isQuote />

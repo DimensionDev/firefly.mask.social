@@ -67,7 +67,7 @@ export const PostActions = memo<PostActionsProps>(function PostActions({
                 disabled={disabled}
             />
             {post.source !== SocialPlatform.Farcaster ? <Views count={views} disabled={disabled} /> : null}
-            <Share url={getPostUrl(post.postId, post.source)} disabled={disabled} />
+            <Share url={getPostUrl(post)} disabled={disabled} />
         </div>
     );
 });

@@ -15,7 +15,7 @@ import { makeTypedMessageEmpty, makeTypedMessageTuple } from '@masknet/typed-mes
 import { compact } from 'lodash-es';
 import { memo, type PropsWithChildren, useMemo } from 'react';
 
-import { SocialPlatform } from '@/constants/enum.js';
+import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { DecryptMessage } from '@/mask/main/DecryptMessage.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
@@ -27,9 +27,6 @@ interface Props extends PropsWithChildren<{}> {
 export const DecryptPost = memo(function DecryptPost({ post, payload, children }: Props) {
     const postInfo = useMemo((): PostContext => {
         const author = ProfileIdentifier.of('mask.social', post.author.displayName).unwrapOr(null);
-        const url = `${location.origin}/detail/${post.source === SocialPlatform.Farcaster ? 'farcaster' : 'lens'}/${
-            post.postId
-        }`;
         const imageUris: string[] = compact(
             post.metadata.content?.attachments
                 ?.filter((x) => x.type === 'Image')
@@ -53,7 +50,7 @@ export const DecryptPost = memo(function DecryptPost({ post, payload, children }
             suggestedInjectionPoint: document.body,
             comment: undefined,
             identifier: createConstantSubscription(author ? new PostIdentifier(author, post.postId) : null),
-            url: createConstantSubscription(new URL(url)),
+            url: createConstantSubscription(new URL(getPostUrl(post))),
             mentionedLinks: createConstantSubscription([]),
             postMetadataImages: createConstantSubscription(imageUris),
             rawMessage: createConstantSubscription(makeTypedMessageTuple([makeTypedMessageEmpty()])),
