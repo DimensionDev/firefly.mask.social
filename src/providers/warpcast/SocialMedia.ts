@@ -72,15 +72,15 @@ export class WarpcastSocialMedia implements Provider {
     }
 
     async discoverPosts(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        const url = urlcat(WARPCAST_ROOT_URL, '/default-recommended-feed', {
+        const url = urlcat(WARPCAST_ROOT_URL, '/popular-casts-feed', {
             limit: 10,
             cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
         });
 
-        const { result, next } = await fetchJSON<FeedResponse>(url, {
+        const { result, next } = await fetchJSON<CastsResponse>(url, {
             method: 'GET',
         });
-        const data = result.feed.map(formatWarpcastPostFromFeed);
+        const data = result.casts.map(formatWarpcastPost);
         return createPageable(data, createIndicator(indicator), createNextIndicator(indicator, next.cursor));
     }
 
@@ -90,10 +90,10 @@ export class WarpcastSocialMedia implements Provider {
             cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
         });
 
-        const { result, next } = await warpcastClient.fetchWithSession<FeedResponse>(url, {
+        const { result, next } = await warpcastClient.fetchWithSession<CastsResponse>(url, {
             method: 'GET',
         });
-        const data = result.feed.map(formatWarpcastPostFromFeed);
+        const data = result.casts.map(formatWarpcastPost);
         return createPageable(data, indicator ?? createIndicator(), createNextIndicator(indicator, next.cursor));
     }
 
@@ -104,10 +104,10 @@ export class WarpcastSocialMedia implements Provider {
             cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
         });
 
-        const { result, next } = await warpcastClient.fetchWithSession<FeedResponse>(url, {
+        const { result, next } = await warpcastClient.fetchWithSession<CastsResponse>(url, {
             method: 'GET',
         });
-        const data = result.feed.map(formatWarpcastPostFromFeed);
+        const data = result.casts.map(formatWarpcastPost);
         return createPageable(data, indicator ?? createIndicator(), createNextIndicator(indicator, next.cursor));
     }
 
@@ -274,7 +274,7 @@ export class WarpcastSocialMedia implements Provider {
             timestamp: cast.timestamp,
             author: {
                 profileId: cast.author.fid.toString(),
-                nickname: cast.author.username,
+                handle: cast.author.username,
                 displayName: cast.author.displayName,
                 pfp: cast.author.pfp.url,
                 followerCount: cast.author.followerCount,

@@ -52,7 +52,7 @@ export class HubbleSocialMedia implements Provider {
 
         return {
             profileId: user.fid.toString(),
-            nickname: user.username,
+            handle: user.username,
             displayName: user.display_name,
             pfp: user.pfp,
             followerCount: user.followers,
@@ -128,9 +128,9 @@ export class HubbleSocialMedia implements Provider {
             timestamp: data.timestamp,
             author: {
                 profileId: data?.fid.toString(),
-                nickname: '',
-                displayName: '',
-                pfp: '',
+                displayName: post.author.displayName,
+                handle: post.author.handle,
+                pfp: post.author.pfp,
                 followerCount: 0,
                 followingCount: 0,
                 status: ProfileStatus.Active,

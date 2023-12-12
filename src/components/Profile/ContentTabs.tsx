@@ -1,9 +1,10 @@
 import { Trans } from '@lingui/macro';
 import { useState } from 'react';
 
-import ContentCollected from '@/components/Profile/ContentCollected.js';
-import ContentFeed from '@/components/Profile/ContentFeed.js';
 import { classNames } from '@/helpers/classNames.js';
+
+import ContentCollected from './ContentCollected.js';
+import ContentFeed from './ContentFeed.js';
 
 enum TabEnum {
     Feed = 'Feed',

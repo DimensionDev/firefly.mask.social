@@ -73,9 +73,8 @@ export interface Tag {
 
 export interface Profile {
     profileId: string;
-    nickname: string;
     displayName: string;
-    handle?: string;
+    handle: string;
     pfp: string;
     bio?: string;
     address?: string;
@@ -323,6 +322,14 @@ export interface Provider {
      * @returns A promise that resolves to a Profile object.
      */
     getProfileById: (profileId: string) => Promise<Profile>;
+
+    /**
+     * Retrieves a user's profile by their handle.
+     *
+     * @param handle The handle of the user's profile.
+     * @returns
+     */
+    getProfileByHandle: (handle: string) => Promise<Profile>;
 
     /**
      * Retrieves a post by its post ID.

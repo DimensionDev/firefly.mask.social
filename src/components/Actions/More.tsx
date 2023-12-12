@@ -1,86 +1,33 @@
 import { Menu, Transition } from '@headlessui/react';
 import { Select } from '@lingui/macro';
-import { queryClient } from '@masknet/shared-base-ui';
 import { motion } from 'framer-motion';
-import { Fragment, memo, useState } from 'react';
-import { useAsyncFn } from 'react-use';
+import { Fragment, memo } from 'react';
 
 import FollowUserIcon from '@/assets/follow-user.svg';
 import LoadingIcon from '@/assets/loading.svg';
 import MoreIcon from '@/assets/more.svg';
 import UnFollowUserIcon from '@/assets/unfollow-user.svg';
-import { SocialPlatform } from '@/constants/enum.js';
-import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
+import { queryClient } from '@/configs/queryClient.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
+import { useToggleFollow } from '@/hooks/useToggleFollow.js';
 import { LoginModalRef } from '@/modals/controls.js';
-import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
-import { WarpcastSocialMediaProvider } from '@/providers/warpcast/SocialMedia.js';
 
 interface MoreProps {
     post: Post;
 }
 
 export const MoreAction = memo<MoreProps>(function MoreAction({ post }) {
-    const [isFollowed, setIsFollowed] = useState(post.author.viewerContext?.followedBy ?? false);
+    const isFollowed = !!post.author.viewerContext?.followedBy;
 
     const isLogin = useIsLogin(post.source);
 
-    const enqueueSnackbar = useCustomSnackbar();
-
-    const [{ loading }, handleClick] = useAsyncFn(async () => {
-        if (!post.author.profileId) return;
-        if (!isLogin) {
-            LoginModalRef.open();
-            return;
-        }
-        setIsFollowed((prev) => !prev);
-        try {
-            switch (post.source) {
-                case SocialPlatform.Lens:
-                    await (isFollowed
-                        ? LensSocialMediaProvider.unfollow(post.author.profileId)
-                        : LensSocialMediaProvider.follow(post.author.profileId));
-                    break;
-                case SocialPlatform.Farcaster:
-                    await (isFollowed
-                        ? WarpcastSocialMediaProvider.unfollow(post.author.profileId)
-                        : await WarpcastSocialMediaProvider.follow(post.author.profileId));
-                    break;
-                default:
-                    return;
-            }
-            enqueueSnackbar(
-                <Select
-                    value={isFollowed ? 'unfollow' : 'follow'}
-                    _follow={`Followed @${post.author.handle} on ${post.source}`}
-                    _unfollow={`UnFollowed @${post.author.handle} on ${post.source}`}
-                    other={`Followed @${post.author.handle} on ${post.source}`}
-                />,
-                {
-                    variant: 'success',
-                },
-            );
-            queryClient.invalidateQueries({ queryKey: [post.source, 'post-detail', post.postId] });
-            queryClient.invalidateQueries({ queryKey: ['discover', post.source] });
-            return;
-        } catch (error) {
-            if (error instanceof Error) {
-                enqueueSnackbar(
-                    <Select
-                        value={isFollowed ? 'unfollow' : 'follow'}
-                        _follow={`Failed to followed @${post.author.handle} on ${post.source}`}
-                        _unfollow={`Failed to unfollowed @${post.author.handle} on ${post.source}`}
-                        other={`Failed to followed @${post.author.handle} on ${post.source}`}
-                    />,
-                    {
-                        variant: 'error',
-                    },
-                );
-                setIsFollowed((prev) => !prev);
-            }
-        }
-    }, [post, isFollowed, isLogin]);
+    const [{ loading }, handleToggleFollow] = useToggleFollow({
+        profileId: post.author.profileId,
+        handle: post.author.handle!,
+        platform: post.source,
+        isFollowed,
+    });
 
     return (
         <Menu as="div">
@@ -102,7 +49,9 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ post }) {
                 }}
             >
                 {loading ? (
-                    <LoadingIcon width={16} height={16} className="animate-spin" />
+                    <span className="inline-flex h-6 w-6 animate-spin items-center justify-center">
+                        <LoadingIcon width={16} height={16} />
+                    </span>
                 ) : (
                     <MoreIcon width={24} height={24} />
                 )}
@@ -131,7 +80,10 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ post }) {
                                         event.stopPropagation();
                                         event.preventDefault();
                                         close();
-                                        handleClick();
+                                        handleToggleFollow();
+                                        queryClient.invalidateQueries({
+                                            queryKey: [post.source, 'post-detail', post.postId],
+                                        });
                                     }}
                                 >
                                     <Select

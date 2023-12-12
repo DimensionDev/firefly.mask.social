@@ -1,4 +1,4 @@
-import { uniq } from 'lodash-es';
+import { take, uniq } from 'lodash-es';
 import { useCallback, useState } from 'react';
 
 import { EMPTY_LIST } from '@/constants/index.js';
@@ -17,7 +17,7 @@ export function useSearchHistories() {
     const addRecord = useCallback((record: string) => {
         if (!record) return;
         setHistories((histories) => {
-            const records = uniq([record, ...histories]);
+            const records = take(uniq([record, ...histories]), 5);
             write(records);
             return records;
         });

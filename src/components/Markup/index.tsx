@@ -8,7 +8,6 @@ import linkifyRegex from 'remark-linkify-regex';
 import stripMarkdown from 'strip-markdown';
 
 import { Code } from '@/components/Code.js';
-import { EMPTY_LIST } from '@/constants/index.js';
 import { HASHTAG_REGEX, MENTION_REGEX, URL_REGEX } from '@/constants/regex.js';
 
 import { MarkupLink } from './MarkupLink/index.js';
@@ -46,7 +45,8 @@ export const Markup = memo<MarkupProps>(function Markup({ children, ...rest }) {
     );
 });
 
-// Render without tags
+// Render without tags, but leave <br/> and <p/> to keep paragraphs
+const allowedElements = ['br', 'p'];
 export function NakedMarkup(props: MarkupProps) {
-    return <Markup {...props} allowedElements={EMPTY_LIST} unwrapDisallowed />;
+    return <Markup {...props} allowedElements={allowedElements} unwrapDisallowed />;
 }
