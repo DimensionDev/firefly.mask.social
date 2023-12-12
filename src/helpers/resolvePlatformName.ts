@@ -2,7 +2,7 @@ import { createLookupTableResolver } from '@masknet/shared-base';
 
 import { SocialPlatform } from '@/constants/enum.js';
 
-export const resolveSocialPlatformName = createLookupTableResolver<SocialPlatform, string>(
+export const resolvePlatformName = createLookupTableResolver<SocialPlatform, string>(
     {
         [SocialPlatform.Lens]: 'Lens Protocol',
         [SocialPlatform.Farcaster]: 'Farcaster',

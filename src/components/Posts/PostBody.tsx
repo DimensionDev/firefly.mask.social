@@ -3,7 +3,6 @@
 import { Trans } from '@lingui/macro';
 import { useRouter } from 'next/navigation.js';
 import { forwardRef } from 'react';
-import urlcat from 'urlcat';
 
 import EyeSlash from '@/assets/eye-slash.svg';
 import Lock from '@/assets/lock.svg';
@@ -11,6 +10,7 @@ import { Markup, NakedMarkup } from '@/components/Markup/index.js';
 import Oembed from '@/components/Oembed/index.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
+import { getPostUrl } from '@/helpers/getPostUrl.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 import { Attachments } from './Attachment.js';
@@ -113,7 +113,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
                 <div className="text-base font-bold text-link">
                     <div
                         onClick={(event) => {
-                            router.push(urlcat('/detail/:platform/:id', { platform: post.source, id: post.postId }));
+                            router.push(getPostUrl(post));
                         }}
                     >
                         <Trans>Show More</Trans>

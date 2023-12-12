@@ -1,6 +1,6 @@
 import { PlatformIcon } from '@/components/PlatformIcon.js';
 import { SocialPlatform } from '@/constants/enum.js';
-import { resolveSocialPlatformName } from '@/helpers/resolveSocialMediaProviderName.js';
+import { resolvePlatformName } from '@/helpers/resolvePlatformName.js';
 
 interface LoginButtonProps {
     platform: SocialPlatform;
@@ -19,7 +19,7 @@ export function LoginButton(props: LoginButtonProps) {
                     <PlatformIcon className="left-0 top-0 rounded-full" size={48} platform={platform} />
                 </div>
                 <div className="text-sm font-bold leading-[18px] text-lightSecond group-hover:text-lightMain">
-                    {resolveSocialPlatformName(platform)}
+                    {resolvePlatformName(platform)}
                 </div>
             </div>
         </button>

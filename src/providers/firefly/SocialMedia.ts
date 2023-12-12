@@ -72,7 +72,6 @@ export class FireflySocialMedia implements Provider {
 
         return {
             profileId: user.fid.toString(),
-            nickname: user.username,
             handle: user.username,
             displayName: user.display_name,
             pfp: user.pfp,
@@ -101,7 +100,7 @@ export class FireflySocialMedia implements Provider {
         });
         const data = list.map((user) => ({
             profileId: user.fid.toString(),
-            nickname: user.username,
+            handle: user.username,
             displayName: user.display_name,
             pfp: user.pfp,
             followerCount: user.followers,
@@ -127,7 +126,7 @@ export class FireflySocialMedia implements Provider {
         });
         const data = list.map((user) => ({
             profileId: user.fid.toString(),
-            nickname: user.username,
+            handle: user.username,
             displayName: user.display_name,
             pfp: user.pfp,
             followerCount: user.followers,
@@ -180,7 +179,7 @@ export class FireflySocialMedia implements Provider {
             timestamp: Number(cast.created_at),
             author: {
                 profileId: cast.author.fid,
-                nickname: cast.author.username,
+                handle: cast.author.username,
                 displayName: cast.author.display_name,
                 pfp: cast.author.pfp,
                 followerCount: cast.author.followers,
@@ -300,7 +299,7 @@ export class FireflySocialMedia implements Provider {
             timestamp: Number(cast.created_at),
             author: {
                 profileId: cast.author.fid,
-                nickname: cast.author.username,
+                handle: cast.author.username,
                 displayName: cast.author.display_name,
                 pfp: cast.author.pfp,
                 followerCount: cast.author.followers,
@@ -381,7 +380,7 @@ export class FireflySocialMedia implements Provider {
             timestamp: Number(cast.created_at),
             author: {
                 profileId: cast.author.fid,
-                nickname: cast.author.username,
+                handle: cast.author.username,
                 displayName: cast.author.display_name,
                 pfp: cast.author.pfp,
                 followerCount: cast.author.followers,

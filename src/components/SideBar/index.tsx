@@ -3,7 +3,6 @@
 import { Trans } from '@lingui/macro';
 import { usePathname } from 'next/navigation.js';
 import { memo } from 'react';
-import urlcat from 'urlcat';
 
 import DiscoverSelectedIcon from '@/assets/discover.selected.svg';
 import DiscoverIcon from '@/assets/discover.svg';
@@ -20,12 +19,13 @@ import SettingsIcon from '@/assets/setting.svg';
 import WalletIcon from '@/assets/wallet.svg';
 import { LoginStatusBar } from '@/components/Login/LoginStatusBar.js';
 import { ConnectWalletNav } from '@/components/SideBar/ConnectWalletNav.js';
-import { PageRoutes, SocialPlatform } from '@/constants/enum.js';
+import { PageRoutes } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
+import { getProfileUrl } from '@/helpers/getProfileUrl.js';
+import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useDarkMode } from '@/hooks/useDarkMode.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
-import { usePlatformProfile } from '@/hooks/usePlatformProfile.js';
 import { ComposeModalRef, LoginModalRef } from '@/modals/controls.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 
@@ -71,8 +71,8 @@ const items = [
 export const SideBar = memo(function SideBar() {
     const { isDarkMode } = useDarkMode();
     const isLogin = useIsLogin();
-    const platformProfile = usePlatformProfile();
     const currentSocialPlatform = useGlobalState.use.currentSocialPlatform();
+    const currentProfile = useCurrentProfile(currentSocialPlatform);
 
     const route = usePathname();
 
@@ -99,16 +99,11 @@ export const SideBar = memo(function SideBar() {
                                                     <ConnectWalletNav />
                                                 ) : (
                                                     <Link
-                                                        href={urlcat(
-                                                            item.href,
-                                                            item.href === PageRoutes.Profile
-                                                                ? `/${
-                                                                      currentSocialPlatform === SocialPlatform.Lens
-                                                                          ? platformProfile.lens?.handle ?? ''
-                                                                          : platformProfile.farcaster?.profileId ?? ''
-                                                                  }`
-                                                                : '',
-                                                        )}
+                                                        href={
+                                                            item.href === PageRoutes.Profile && currentProfile
+                                                                ? getProfileUrl(currentProfile)
+                                                                : item.href
+                                                        }
                                                         className={classNames(
                                                             'flex flex-grow-0 gap-x-3 px-4 py-3 text-xl/5 hover:bg-bg hover:font-bold',
                                                             { 'font-bold': isSelected },

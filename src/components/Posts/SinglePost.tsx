@@ -7,8 +7,8 @@ import { memo } from 'react';
 import { FeedActionType } from '@/components/Posts/ActionType.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { Link } from '@/esm/Link.js';
-import { getPostDetailUrl } from '@/helpers/getPostDetailUrl.js';
 import { getPostPayload } from '@/helpers/getPostPayload.js';
+import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { useObserveLensPost } from '@/hooks/useObserveLensPost.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
@@ -37,7 +37,7 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
 
     const pathname = usePathname();
     const isDetail = pathname.includes('/detail');
-    const postLink = getPostDetailUrl(post.postId, post.source);
+    const postLink = getPostUrl(post);
 
     return (
         <motion.article
