@@ -460,6 +460,9 @@ msgstr "Following"
 msgid "Dark mode"
 msgstr "Dark mode"
 
+msgid "on Lens"
+msgstr "on Lens"
+
 msgid "Collect is coming soon"
 msgstr "Collect is coming soon"
 
