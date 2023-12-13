@@ -33,6 +33,13 @@ import type { MetadataAsset } from '@/types/index.js';
 import { formatLensProfile } from './formatLensProfile.js';
 
 const PLACEHOLDER_IMAGE = 'https://static-assets.hey.xyz/images/placeholder.webp';
+const allowedTypes = [
+    'LegacySimpleCollectModule',
+    'LegacyMultirecipientFeeCollectModule',
+    'SimpleCollectOpenActionModule',
+    'MultirecipientFeeCollectOpenActionModule',
+    'UnknownOpenActionModule',
+];
 
 const removeUrlsByHostnames = (content: string, hostnames: Set<string>) => {
     const regexPattern = Array.from(hostnames)
@@ -254,6 +261,10 @@ export function formatLensPost(result: AnyPublicationFragment): Post {
             ? last(content?.content.match(URL_REGEX) || [])
             : undefined;
 
+    const canAct =
+        !!result.openActionModules?.length &&
+        result.openActionModules?.some((openAction) => allowedTypes.includes(openAction.type));
+
     if (result.__typename === 'Quote') {
         return {
             type: result.__typename,
@@ -284,6 +295,7 @@ export function formatLensPost(result: AnyPublicationFragment): Post {
             canMirror: result.operations.canMirror === 'YES',
             hasMirrored: result.operations.hasMirrored,
             quoteOn: formatLensQuoteOrComment(result.quoteOn),
+            canAct,
         };
     } else if (result.__typename === 'Comment') {
         return {
@@ -315,7 +327,11 @@ export function formatLensPost(result: AnyPublicationFragment): Post {
             canMirror: result.operations.canMirror === 'YES',
             hasMirrored: result.operations.hasMirrored,
             commentOn: formatLensQuoteOrComment(result.commentOn),
-            root: result.root && !isEmpty(result.root) ? formatLensPost(result.root as PostFragment) : undefined,
+            root:
+                result.root && !isEmpty(result.root) && (result.root as PostFragment).id !== result.commentOn.id
+                    ? formatLensPost(result.root as PostFragment)
+                    : undefined,
+            canAct,
         };
     } else {
         return {
@@ -344,6 +360,7 @@ export function formatLensPost(result: AnyPublicationFragment): Post {
             },
             canComment: result.operations.canComment === 'YES',
             canMirror: result.operations.canMirror === 'YES',
+            canAct,
             hasMirrored: result.operations.hasMirrored,
             hasLiked: result.operations.hasUpvoted,
             __original__: result,

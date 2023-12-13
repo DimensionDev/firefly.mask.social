@@ -3,6 +3,7 @@ import { usePathname, useRouter } from 'next/navigation.js';
 import { memo } from 'react';
 
 import { PostActions } from '@/components/Actions/index.js';
+import { FeedActionType } from '@/components/Posts/ActionType.js';
 import { PostBody } from '@/components/Posts/PostBody.js';
 import { PostHeader } from '@/components/Posts/PostHeader.js';
 import { Link } from '@/esm/Link.js';
@@ -21,7 +22,7 @@ export const ThreadBody = memo<ThreadBodyProps>(function ThreadBody({ post, disa
     const { observe } = useObserveLensPost(post.postId, post.source);
 
     const pathname = usePathname();
-    const isDetail = pathname.includes('/detail');
+    const isDetail = pathname.includes('/post');
 
     const link = getPostUrl(post);
     const postPayload = getPostPayload(post.metadata.content?.content);
@@ -34,6 +35,7 @@ export const ThreadBody = memo<ThreadBodyProps>(function ThreadBody({ post, disa
             className="cursor-pointer bg-bottom"
         >
             <span ref={observe} />
+            <FeedActionType post={post} isThread />
             {postPayload || isDetail ? (
                 <div
                     onClick={(event) => {

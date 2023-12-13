@@ -29,6 +29,7 @@ import {
     Type,
 } from '@/providers/types/SocialMedia.js';
 import {
+    type Cast,
     type CastResponse,
     type CastsResponse,
     type FeedResponse,
@@ -90,10 +91,10 @@ export class WarpcastSocialMedia implements Provider {
             cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
         });
 
-        const { result, next } = await warpcastClient.fetchWithSession<CastsResponse>(url, {
+        const { result, next } = await warpcastClient.fetchWithSession<FeedResponse>(url, {
             method: 'GET',
         });
-        const data = result.casts.map(formatWarpcastPost);
+        const data = result.feed.map(formatWarpcastPostFromFeed);
         return createPageable(data, indicator ?? createIndicator(), createNextIndicator(indicator, next.cursor));
     }
 
@@ -113,7 +114,9 @@ export class WarpcastSocialMedia implements Provider {
 
     async getPostById(postId: string): Promise<Post> {
         const url = urlcat(WARPCAST_ROOT_URL, '/cast', { hash: postId });
-        const { result: cast } = await warpcastClient.fetchWithSession<CastResponse>(url, {
+        const {
+            result: { cast },
+        } = await warpcastClient.fetchWithSession<{ result: { cast: Cast } }>(url, {
             method: 'GET',
         });
         return formatWarpcastPost(cast);

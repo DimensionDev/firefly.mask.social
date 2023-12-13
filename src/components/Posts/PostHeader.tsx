@@ -41,9 +41,9 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({ post, isQu
     return (
         <div className="flex justify-between space-x-1.5">
             <div className="flex items-start space-x-3">
-                <Link href={profileLink}>
+                <Link href={profileLink} className="z-[1]">
                     <Avatar
-                        className={classNames('z-[1] rounded-full border bg-secondary', {
+                        className={classNames('rounded-full bg-secondary', {
                             'h-10 w-10': !isQuote,
                             'h-6 w-6': isQuote,
                         })}

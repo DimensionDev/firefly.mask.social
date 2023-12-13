@@ -146,6 +146,8 @@ export interface Post {
     reactions?: Profile[];
     canComment?: boolean;
     canMirror?: boolean;
+    canAct?: boolean;
+    mentions?: Profile[];
     hasMirrored?: boolean;
     hasLiked?: boolean;
     __original__?: unknown;

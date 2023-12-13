@@ -9,7 +9,6 @@ import { SinglePost } from '@/components/Posts/SinglePost.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { createPageTitle } from '@/helpers/createPageTitle.js';
 import { type PlatformKeyword, resolvePlatform } from '@/helpers/resolvePlatform.js';
-import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { WarpcastSocialMediaProvider } from '@/providers/warpcast/SocialMedia.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
@@ -36,15 +35,7 @@ export default function PostPage({ params: { id: postId, platform: _platform } }
                     return post;
                 }
                 case SocialPlatform.Farcaster: {
-                    const post = await FireflySocialMediaProvider.getPostById(postId);
-                    if (!post.author.handle) {
-                        const author = await WarpcastSocialMediaProvider.getProfileById(post.author.profileId);
-                        return {
-                            ...post,
-                            author,
-                        };
-                    }
-
+                    const post = await WarpcastSocialMediaProvider.getPostById(postId);
                     return post;
                 }
                 default:

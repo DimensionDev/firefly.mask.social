@@ -9,6 +9,7 @@ import stripMarkdown from 'strip-markdown';
 
 import { Code } from '@/components/Code.js';
 import { HASHTAG_REGEX, MENTION_REGEX, URL_REGEX } from '@/constants/regex.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
 
 import { MarkupLink } from './MarkupLink/index.js';
 
@@ -24,9 +25,10 @@ const plugins = [
 
 interface MarkupProps extends Omit<ReactMarkdownOptions, 'children'> {
     children?: ReactMarkdownOptions['children'] | null;
+    post: Post;
 }
 
-export const Markup = memo<MarkupProps>(function Markup({ children, ...rest }) {
+export const Markup = memo<MarkupProps>(function Markup({ children, post, ...rest }) {
     if (!children) return null;
 
     return (
@@ -35,7 +37,8 @@ export const Markup = memo<MarkupProps>(function Markup({ children, ...rest }) {
             remarkPlugins={plugins}
             components={{
                 // @ts-ignore
-                a: MarkupLink,
+                // eslint-disable-next-line react/no-unstable-nested-components
+                a: (props) => <MarkupLink title={props.title} post={post} />,
                 code: Code,
                 ...rest.components,
             }}

@@ -61,7 +61,11 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({ attachm
     }, [attachments]);
 
     if (isQuote && asset?.type === 'Video') {
-        return <div />;
+        return (
+            <div className="h-[120px] w-[120px] flex-shrink-0 flex-grow-0 basis-[120px]">
+                <Image width={120} height={120} className="h-[120px] w-[120px]" src={asset.cover} alt={asset.cover} />
+            </div>
+        );
     }
 
     if (isQuote && asset?.type === 'Audio') {
@@ -132,6 +136,8 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({ attachm
                             <div
                                 key={index}
                                 className={classNames(getClass(imageAttachments.length).aspect, {
+                                    'max-h-[288px]': imageAttachments.length === 2 && !isQuote,
+                                    'max-h-[284px]': imageAttachments.length === 3 && index === 2,
                                     'row-span-2': imageAttachments.length === 3 && index === 2,
                                     'max-h-[138px]': imageAttachments.length === 3 && index !== 2 && !isQuote,
                                 })}

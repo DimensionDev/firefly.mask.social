@@ -16,8 +16,8 @@ export const Collect = memo<CollectProps>(function Collect({ count, disabled = f
     const enqueueSnackbar = useCustomSnackbar();
 
     const handleClick = useCallback(() => {
-        enqueueSnackbar(t`Collect is coming soon`, {
-            variant: 'warning',
+        enqueueSnackbar(t`Open actions on Lens is coming soon`, {
+            variant: 'error',
         });
     }, [enqueueSnackbar]);
     return (

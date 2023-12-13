@@ -15,8 +15,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             (process.env.NODE_ENV === 'development' && process.env.NEXT_PUBLIC_MASK_WEB_COMPONENTS === 'enabled') ? (
                 <CustomElements />
             ) : null}
-            <main className="max-w-[888px] flex-1 border-r border-line pl-72">
-                <div className="sticky top-0 z-[998] bg-primaryBottom pb-[1px]">
+            <main className="max-w-[888px] flex-1 border-r border-line pl-[282px]">
+                <div className="sticky top-0 z-[98] bg-primaryBottom pb-[1px]">
                     <HeaderSearchBar />
                     <SocialPlatformTabs />
                 </div>

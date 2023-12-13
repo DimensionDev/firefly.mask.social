@@ -32,7 +32,6 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ post }) {
     return (
         <Menu as="div">
             <Menu.Button
-                disabled={!isLogin}
                 whileTap={{ scale: 0.9 }}
                 as={motion.button}
                 className="flex items-center text-secondary"
@@ -41,7 +40,7 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ post }) {
                     if (!isLogin) {
                         event.stopPropagation();
                         event.preventDefault();
-                        LoginModalRef.open();
+                        LoginModalRef.open({ platform: post.source });
                         return;
                     }
                     event.stopPropagation();

@@ -77,13 +77,19 @@ export interface NotificationResponse extends ErrorResponse {
     };
     next: Next;
 }
-
+export interface Recast {
+    displayName: string;
+    fid: number;
+    recastHash: string;
+    username: string;
+}
 export interface Feed {
     cast: Cast;
     id: string;
     timestamp: number;
     otherParticipants: Author[];
     replies?: Cast[];
+    recasts?: Recast[];
 }
 
 export interface Cast {
@@ -117,6 +123,7 @@ export interface Cast {
             type: string;
         }>;
     };
+    mentions?: Author[];
     threadHash: string;
     author: Author;
     text: string;
