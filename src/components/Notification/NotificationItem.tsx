@@ -13,7 +13,7 @@ import MessageIcon from '@/assets/messages.svg';
 import MirrorIcon from '@/assets/mirror-large.svg';
 import More from '@/assets/more.svg';
 import { PostActions } from '@/components/Actions/index.js';
-import { Image } from '@/components/Image.js';
+import { Avatar } from '@/components/Avatar.js';
 import { Markup } from '@/components/Markup/index.js';
 import { Quote } from '@/components/Posts/Quote.js';
 import { SourceIcon } from '@/components/SourceIcon.js';
@@ -21,7 +21,6 @@ import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
-import { useDarkMode } from '@/hooks/useDarkMode.js';
 import { type Notification, NotificationType, type PostType } from '@/providers/types/SocialMedia.js';
 
 import { ProfileLink } from './ProfileLink.js';
@@ -61,7 +60,6 @@ function PostTypeI18N({ type }: { type: PostType }) {
 }
 
 export const NotificationItem = memo<NotificationItemProps>(function NotificationItem({ notification }) {
-    const { isDarkMode } = useDarkMode();
     const Icon = resolveNotificationIcon(notification.type);
 
     const profiles = useMemo(() => {
@@ -312,12 +310,6 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
                         <div className="flex flex-1 items-center justify-between">
                             <div className="flex items-center">
                                 {profiles.slice(0, 5).map((profile, index, self) => {
-                                    const isFallbackPfp = profile.pfp.startsWith('https://cdn.stamp.fyi/avatar/eth:');
-                                    const avatar = isFallbackPfp
-                                        ? isDarkMode
-                                            ? '/image/firefly-dark-avatar.png'
-                                            : '/image/firefly-light-avatar.png'
-                                        : profile.pfp;
                                     return (
                                         <Link
                                             key={index}
@@ -327,14 +319,7 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
                                             })}
                                             style={{ zIndex: self.length - index }}
                                         >
-                                            <Image
-                                                loading="lazy"
-                                                className="h-10 w-10 rounded-full"
-                                                src={avatar}
-                                                width={40}
-                                                height={40}
-                                                alt={profile.profileId}
-                                            />
+                                            <Avatar src={profile.pfp} size={40} alt={profile.profileId} />
                                         </Link>
                                     );
                                 })}

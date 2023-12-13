@@ -6,10 +6,9 @@ import { useEnsAvatar, useEnsName } from 'wagmi';
 import { mainnet } from 'wagmi/chains';
 
 import MirrorIon from '@/assets/mirror.xyz.svg';
-import { Image } from '@/components/Image.js';
+import { Avatar } from '@/components/Avatar.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
 import { Link } from '@/esm/Link.js';
-import { useDarkMode } from '@/hooks/useDarkMode.js';
 
 interface MirrorProps {
     address?: `0x${string}`;
@@ -30,8 +29,6 @@ export const Mirror = memo<MirrorProps>(function Mirror({
     title,
     description,
 }) {
-    const { isDarkMode } = useDarkMode();
-
     const { data: ensName = ens } = useEnsName({
         address,
         chainId: mainnet.id,
@@ -49,17 +46,8 @@ export const Mirror = memo<MirrorProps>(function Mirror({
                 <div className="cursor-pointer rounded-2xl border border-solid border-third bg-primaryBottom  px-4 py-3 hover:bg-bg dark:bg-secondaryBottom">
                     <div className="flex items-center justify-between">
                         <div className="flex items-center space-x-2">
-                            <Image
-                                loading="lazy"
-                                className="rounded-full"
-                                src={
-                                    avatar ||
-                                    (!isDarkMode ? '/image/firefly-light-avatar.png' : '/image/firefly-dark-avatar.png')
-                                }
-                                width={24}
-                                height={24}
-                                alt={ensName || address}
-                            />
+                            <Avatar src={avatar!} size={24} alt={ensName || address} />
+
                             {displayName ? <span className="text-sm font-medium text-main">{displayName}</span> : null}
                             {ensName || address ? (
                                 <span className="text-[13px] leading-[20px] text-secondary">

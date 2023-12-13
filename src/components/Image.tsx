@@ -4,11 +4,14 @@ import { forwardRef, useCallback, useEffect, useState } from 'react';
 import { classNames } from '@/helpers/classNames.js';
 import { useDarkMode } from '@/hooks/useDarkMode.js';
 
-interface Props extends ImgHTMLAttributes<HTMLImageElement> {
+export interface ImageProps extends ImgHTMLAttributes<HTMLImageElement> {
     fallback?: string;
 }
 
-export const Image = forwardRef(function Image({ onError, fallback, ...props }: Props, ref: Ref<HTMLImageElement>) {
+export const Image = forwardRef(function Image(
+    { onError, fallback, ...props }: ImageProps,
+    ref: Ref<HTMLImageElement>,
+) {
     const [imageLoadFailed, setImageLoadFailed] = useState(false);
     const { isDarkMode } = useDarkMode();
 
