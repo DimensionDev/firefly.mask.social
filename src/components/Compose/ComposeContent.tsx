@@ -71,7 +71,7 @@ export default function ComposeContent({
                     {type === 'reply' && post ? (
                         <div className=" mb-3 text-left text-[15px]">
                             <Trans>Replying to</Trans>
-                            <span className=" text-blueBottom"> @{post.author.handle || post.author.displayName} </span>
+                            <span className=" text-blueBottom"> @{post.author.handle} </span>
                             <Trans>on Lens</Trans>
                         </div>
                     ) : null}

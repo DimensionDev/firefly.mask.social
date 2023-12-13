@@ -63,12 +63,9 @@ export default function ComposeSend({
                     });
                     closeCompose();
                 } catch {
-                    enqueueSnackbar(
-                        t`Failed to relay on Lens. @${currentLensProfile.handle || currentLensProfile.displayName}`,
-                        {
-                            variant: 'error',
-                        },
-                    );
+                    enqueueSnackbar(t`Failed to relay on Lens. @${currentLensProfile.handle}`, {
+                        variant: 'error',
+                    });
                 }
             }
 
@@ -81,12 +78,9 @@ export default function ComposeSend({
                     });
                     closeCompose();
                 } catch {
-                    enqueueSnackbar(
-                        t`Failed to quote on Lens. @${currentLensProfile.handle || currentLensProfile.displayName}`,
-                        {
-                            variant: 'error',
-                        },
-                    );
+                    enqueueSnackbar(t`Failed to quote on Lens. @${currentLensProfile.handle}`, {
+                        variant: 'error',
+                    });
                 }
             }
         }
@@ -94,7 +88,6 @@ export default function ComposeSend({
     }, [
         characters,
         closeCompose,
-        currentLensProfile?.displayName,
         currentLensProfile?.handle,
         currentLensProfile?.profileId,
         enqueueSnackbar,

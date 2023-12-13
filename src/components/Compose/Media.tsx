@@ -18,8 +18,8 @@ interface MediaProps {
     setVideo: Dispatch<SetStateAction<IPFS_MediaObject | null>>;
 }
 export default function Media({ type, images, setImages, setLoading, video, setVideo }: MediaProps) {
-    const imageInputRef = useRef<HTMLInputElement | null>(null);
-    const videoInputRef = useRef<HTMLInputElement | null>(null);
+    const imageInputRef = useRef<HTMLInputElement>(null);
+    const videoInputRef = useRef<HTMLInputElement>(null);
 
     const currentFarcasterProfile = useFarcasterStateStore.use.currentProfile();
 
