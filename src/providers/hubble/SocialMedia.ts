@@ -1,30 +1,19 @@
 import { Message } from '@farcaster/hub-web';
 import { t } from '@lingui/macro';
-import { type Pageable, type PageIndicator } from '@masknet/shared-base';
-import * as ed from '@noble/ed25519';
-import { sha512 } from '@noble/hashes/sha512';
-import { blake3 } from 'hash-wasm';
+import type { Pageable, PageIndicator } from '@masknet/shared-base';
 import urlcat from 'urlcat';
 import { toBytes } from 'viem';
 
 import { warpcastClient } from '@/configs/warpcastClient.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { EMPTY_LIST, FIREFLY_HUBBLE_URL, FIREFLY_ROOT_URL } from '@/constants/index.js';
+import { encodeMessageData } from '@/helpers/encodeMessageData.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
-import {
-    FarcasterNetwork,
-    HashScheme,
-    MessageData,
-    MessageType,
-    ReactionType,
-    SignatureScheme,
-} from '@/providers/hubble/proto/message.js';
+import { FarcasterNetwork, MessageType, ReactionType } from '@/providers/hubble/proto/message.js';
 import type { UserResponse } from '@/providers/types/Firefly.js';
 import { type Post, type Profile, ProfileStatus, type Provider, Type } from '@/providers/types/SocialMedia.js';
 import { ReactionType as ReactionTypeCustom } from '@/providers/types/SocialMedia.js';
 import type { WarpcastSession } from '@/providers/warpcast/Session.js';
-
-ed.etc.sha512Sync = (...m: any) => sha512(ed.etc.concatBytes(...m));
 
 // @ts-ignore
 export class HubbleSocialMedia implements Provider {
@@ -82,42 +71,27 @@ export class HubbleSocialMedia implements Provider {
     async publishPost(post: Post): Promise<Post> {
         const session = warpcastClient.getSessionRequired();
 
-        const url = urlcat(FIREFLY_HUBBLE_URL, '/v1/submitMessage');
-        const messageData: MessageData = {
-            type: MessageType.CAST_ADD,
-            fid: Number(session.profileId),
-            timestamp: Math.floor(Date.now() / 1000),
-            network: FarcasterNetwork.MAINNET,
-            castAddBody: {
-                embedsDeprecated: EMPTY_LIST,
-                mentions: EMPTY_LIST,
-                text: post.metadata.content?.content ?? '',
-                mentionsPositions: EMPTY_LIST,
-                embeds: post.mediaObjects?.map((v) => ({ url: v.url })) ?? EMPTY_LIST,
+        const { bytes } = await encodeMessageData(
+            {
+                type: MessageType.CAST_ADD,
+                fid: Number(session.profileId),
+                timestamp: Math.floor(Date.now() / 1000),
+                network: FarcasterNetwork.MAINNET,
+                castAddBody: {
+                    embedsDeprecated: EMPTY_LIST,
+                    mentions: EMPTY_LIST,
+                    text: post.metadata.content?.content ?? '',
+                    mentionsPositions: EMPTY_LIST,
+                    embeds: post.mediaObjects?.map((v) => ({ url: v.url })) ?? EMPTY_LIST,
+                },
             },
-        };
+            session.token,
+        );
 
-        const encodedData = MessageData.encode(messageData).finish();
-
-        const messageHash = await blake3(encodedData);
-
-        const signature = await ed.signAsync(encodedData, toBytes(session.token));
-
-        const message = {
-            data: messageData,
-            hash: toBytes(messageHash),
-            hashScheme: HashScheme.BLAKE3,
-            signature,
-            signatureScheme: SignatureScheme.ED25519,
-            signer: ed.getPublicKey(toBytes(session.token)),
-        };
-
-        const messageBytes = Buffer.from(Message.encode(message).finish());
-
-        const { data, hash } = await fetchJSON<Message>(url, {
+        const { data, hash } = await fetchJSON<Message>(urlcat(FIREFLY_HUBBLE_URL, '/v1/submitMessage'), {
             method: 'POST',
             headers: { 'Content-Type': 'application/octet-stream' },
-            body: messageBytes,
+            body: bytes,
         });
         if (!data) throw new Error(t`Failed to publish post`);
 
@@ -154,40 +128,28 @@ export class HubbleSocialMedia implements Provider {
 
     async upvotePost(postId: string) {
         const session = warpcastClient.getSessionRequired();
-        const url = urlcat(FIREFLY_HUBBLE_URL, '/v1/submitMessage');
-        const messageData: MessageData = {
-            type: MessageType.REACTION_ADD,
-            fid: Number(session.profileId),
-            timestamp: Math.floor(Date.now() / 1000),
-            network: FarcasterNetwork.MAINNET,
-            reactionBody: {
-                type: ReactionType.LIKE,
-                targetCastId: {
-                    hash: toBytes(postId),
-                    fid: Number(session.profileId),
+
+        const { bytes, messageHash, messageData } = await encodeMessageData(
+            {
+                type: MessageType.REACTION_ADD,
+                fid: Number(session.profileId),
+                timestamp: Math.floor(Date.now() / 1000),
+                network: FarcasterNetwork.MAINNET,
+                reactionBody: {
+                    type: ReactionType.LIKE,
+                    targetCastId: {
+                        hash: toBytes(postId),
+                        fid: Number(session.profileId),
+                    },
                 },
             },
-        };
+            session.token,
+        );
 
-        const encodedData = MessageData.encode(messageData).finish();
-        const messageHash = await blake3(encodedData);
-        const signature = await ed.signAsync(encodedData, toBytes(session.token));
-
-        const message = {
-            data: messageData,
-            hash: toBytes(messageHash),
-            hashScheme: HashScheme.BLAKE3,
-            signature,
-            signatureScheme: SignatureScheme.ED25519,
-            signer: ed.getPublicKey(toBytes(session.token)),
-        };
-
-        const messageBytes = Buffer.from(Message.encode(message).finish());
-
-        const { data, hash } = await fetchJSON<Message>(url, {
+        const { data } = await fetchJSON<Message>(urlcat(FIREFLY_HUBBLE_URL, '/v1/submitMessage'), {
             method: 'POST',
             headers: { 'Content-Type': 'application/octet-stream' },
-            body: messageBytes,
+            body: bytes,
         });
         if (!data) throw new Error(t`Failed to upvote post`);
 
@@ -200,40 +162,28 @@ export class HubbleSocialMedia implements Provider {
 
     async unvotePost(postId: string) {
         const session = warpcastClient.getSessionRequired();
-        const url = urlcat(FIREFLY_HUBBLE_URL, '/v1/submitMessage');
-        const messageData: MessageData = {
-            type: MessageType.REACTION_REMOVE,
-            fid: Number(session.profileId),
-            timestamp: Math.floor(Date.now() / 1000),
-            network: FarcasterNetwork.MAINNET,
-            reactionBody: {
-                type: ReactionType.LIKE,
-                targetCastId: {
-                    hash: toBytes(postId),
-                    fid: Number(session.profileId),
+
+        const { bytes } = await encodeMessageData(
+            {
+                type: MessageType.REACTION_REMOVE,
+                fid: Number(session.profileId),
+                timestamp: Math.floor(Date.now() / 1000),
+                network: FarcasterNetwork.MAINNET,
+                reactionBody: {
+                    type: ReactionType.LIKE,
+                    targetCastId: {
+                        hash: toBytes(postId),
+                        fid: Number(session.profileId),
+                    },
                 },
             },
-        };
+            session.token,
+        );
 
-        const encodedData = MessageData.encode(messageData).finish();
-        const messageHash = await blake3(encodedData);
-        const signature = await ed.signAsync(encodedData, toBytes(session.token));
-
-        const message = {
-            data: messageData,
-            hash: toBytes(messageHash),
-            hashScheme: HashScheme.BLAKE3,
-            signature,
-            signatureScheme: SignatureScheme.ED25519,
-            signer: ed.getPublicKey(toBytes(session.token)),
-        };
-
-        const messageBytes = Buffer.from(Message.encode(message).finish());
-
-        const { data, hash } = await fetchJSON<Message>(url, {
+        const { data, hash } = await fetchJSON<Message>(urlcat(FIREFLY_HUBBLE_URL, '/v1/submitMessage'), {
             method: 'POST',
             headers: { 'Content-Type': 'application/octet-stream' },
-            body: messageBytes,
+            body: bytes,
         });
         if (!data) throw new Error(t`Failed to unvote post`);
         return;
@@ -241,44 +191,31 @@ export class HubbleSocialMedia implements Provider {
 
     async commentPost(postId: string, comment: string) {
         const session = warpcastClient.getSessionRequired();
-        const url = urlcat(FIREFLY_HUBBLE_URL, '/v1/submitMessage');
-        const messageData: MessageData = {
-            type: MessageType.CAST_ADD,
-            fid: Number(session.profileId),
-            timestamp: Math.floor(Date.now() / 1000),
-            network: FarcasterNetwork.MAINNET,
-            castAddBody: {
-                parentCastId: {
-                    hash: toBytes(postId),
-                    fid: Number(session.profileId),
+        const { bytes } = await encodeMessageData(
+            {
+                type: MessageType.CAST_ADD,
+                fid: Number(session.profileId),
+                timestamp: Math.floor(Date.now() / 1000),
+                network: FarcasterNetwork.MAINNET,
+                castAddBody: {
+                    parentCastId: {
+                        hash: toBytes(postId),
+                        fid: Number(session.profileId),
+                    },
+                    embedsDeprecated: EMPTY_LIST,
+                    mentions: EMPTY_LIST,
+                    text: comment,
+                    mentionsPositions: EMPTY_LIST,
+                    embeds: EMPTY_LIST,
                 },
-                embedsDeprecated: EMPTY_LIST,
-                mentions: EMPTY_LIST,
-                text: comment,
-                mentionsPositions: EMPTY_LIST,
-                embeds: EMPTY_LIST,
             },
-        };
+            session.token,
+        );
 
-        const encodedData = MessageData.encode(messageData).finish();
-        const messageHash = await blake3(encodedData);
-        const signature = await ed.signAsync(encodedData, toBytes(session.token));
-
-        const message = {
-            data: messageData,
-            hash: toBytes(messageHash),
-            hashScheme: HashScheme.BLAKE3,
-            signature,
-            signatureScheme: SignatureScheme.ED25519,
-            signer: ed.getPublicKey(toBytes(session.token)),
-        };
-
-        const messageBytes = Buffer.from(Message.encode(message).finish());
-
-        const { data, hash } = await fetchJSON<Message>(url, {
+        const { data, hash } = await fetchJSON<Message>(urlcat(FIREFLY_HUBBLE_URL, '/v1/submitMessage'), {
             method: 'POST',
             headers: { 'Content-Type': 'application/octet-stream' },
-            body: messageBytes,
+            body: bytes,
         });
         if (!data) throw new Error(t`Failed to publish post`);
         return;
@@ -286,40 +223,28 @@ export class HubbleSocialMedia implements Provider {
 
     async mirrorPost(postId: string) {
         const session = warpcastClient.getSessionRequired();
-        const url = urlcat(FIREFLY_HUBBLE_URL, '/v1/submitMessage');
-        const messageData: MessageData = {
-            type: MessageType.REACTION_ADD,
-            fid: Number(session.profileId),
-            timestamp: Math.floor(Date.now() / 1000),
-            network: FarcasterNetwork.MAINNET,
-            reactionBody: {
-                type: ReactionType.RECAST,
-                targetCastId: {
-                    hash: toBytes(postId),
-                    fid: Number(session.profileId),
+
+        const { bytes } = await encodeMessageData(
+            {
+                type: MessageType.REACTION_ADD,
+                fid: Number(session.profileId),
+                timestamp: Math.floor(Date.now() / 1000),
+                network: FarcasterNetwork.MAINNET,
+                reactionBody: {
+                    type: ReactionType.RECAST,
+                    targetCastId: {
+                        hash: toBytes(postId),
+                        fid: Number(session.profileId),
+                    },
                 },
             },
-        };
+            session.token,
+        );
 
-        const encodedData = MessageData.encode(messageData).finish();
-        const messageHash = await blake3(encodedData);
-        const signature = await ed.signAsync(encodedData, toBytes(session.token));
-
-        const message = {
-            data: messageData,
-            hash: toBytes(messageHash),
-            hashScheme: HashScheme.BLAKE3,
-            signature,
-            signatureScheme: SignatureScheme.ED25519,
-            signer: ed.getPublicKey(toBytes(session.token)),
-        };
-
-        const messageBytes = Buffer.from(Message.encode(message).finish());
-
-        const { data, hash } = await fetchJSON<Message>(url, {
+        const { data, hash } = await fetchJSON<Message>(urlcat(FIREFLY_HUBBLE_URL, '/v1/submitMessage'), {
             method: 'POST',
             headers: { 'Content-Type': 'application/octet-stream' },
-            body: messageBytes,
+            body: bytes,
         });
         if (!data) throw new Error(t`Failed to mirror post`);
         return null!;
@@ -327,40 +252,28 @@ export class HubbleSocialMedia implements Provider {
 
     async unmirrorPost(postId: string) {
         const session = warpcastClient.getSessionRequired();
-        const url = urlcat(FIREFLY_HUBBLE_URL, '/v1/submitMessage');
-        const messageData: MessageData = {
-            type: MessageType.REACTION_REMOVE,
-            fid: Number(session.profileId),
-            timestamp: Math.floor(Date.now() / 1000),
-            network: FarcasterNetwork.MAINNET,
-            reactionBody: {
-                type: ReactionType.RECAST,
-                targetCastId: {
-                    hash: toBytes(postId),
-                    fid: Number(session.profileId),
+
+        const { bytes } = await encodeMessageData(
+            {
+                type: MessageType.REACTION_REMOVE,
+                fid: Number(session.profileId),
+                timestamp: Math.floor(Date.now() / 1000),
+                network: FarcasterNetwork.MAINNET,
+                reactionBody: {
+                    type: ReactionType.RECAST,
+                    targetCastId: {
+                        hash: toBytes(postId),
+                        fid: Number(session.profileId),
+                    },
                 },
             },
-        };
+            session.token,
+        );
 
-        const encodedData = MessageData.encode(messageData).finish();
-        const messageHash = await blake3(encodedData);
-        const signature = await ed.signAsync(encodedData, toBytes(session.token));
-
-        const message = {
-            data: messageData,
-            hash: toBytes(messageHash),
-            hashScheme: HashScheme.BLAKE3,
-            signature,
-            signatureScheme: SignatureScheme.ED25519,
-            signer: ed.getPublicKey(toBytes(session.token)),
-        };
-
-        const messageBytes = Buffer.from(Message.encode(message).finish());
-
-        const { data, hash } = await fetchJSON<Message>(url, {
+        const { data, hash } = await fetchJSON<Message>(urlcat(FIREFLY_HUBBLE_URL, '/v1/submitMessage'), {
             method: 'POST',
             headers: { 'Content-Type': 'application/octet-stream' },
-            body: messageBytes,
+            body: bytes,
         });
         if (!data) throw new Error(t`Failed to unmirror post`);
         return null!;
@@ -368,37 +281,25 @@ export class HubbleSocialMedia implements Provider {
 
     async follow(profileId: string) {
         const session = warpcastClient.getSessionRequired();
-        const url = urlcat(FIREFLY_HUBBLE_URL, '/v1/submitMessage');
-        const messageData: MessageData = {
-            type: MessageType.LINK_ADD,
-            fid: Number(session.profileId),
-            timestamp: Math.floor(Date.now() / 1000),
-            network: FarcasterNetwork.MAINNET,
-            linkBody: {
-                type: '1',
-                targetFid: Number(profileId),
+
+        const { bytes } = await encodeMessageData(
+            {
+                type: MessageType.LINK_ADD,
+                fid: Number(session.profileId),
+                timestamp: Math.floor(Date.now() / 1000),
+                network: FarcasterNetwork.MAINNET,
+                linkBody: {
+                    type: '1',
+                    targetFid: Number(profileId),
+                },
             },
-        };
+            session.token,
+        );
 
-        const encodedData = MessageData.encode(messageData).finish();
-        const messageHash = await blake3(encodedData);
-        const signature = await ed.signAsync(encodedData, toBytes(session.token));
-
-        const message = {
-            data: messageData,
-            hash: toBytes(messageHash),
-            hashScheme: HashScheme.BLAKE3,
-            signature,
-            signatureScheme: SignatureScheme.ED25519,
-            signer: ed.getPublicKey(toBytes(session.token)),
-        };
-
-        const messageBytes = Buffer.from(Message.encode(message).finish());
-
-        const { data, hash } = await fetchJSON<Message>(url, {
+        const { data, hash } = await fetchJSON<Message>(urlcat(FIREFLY_HUBBLE_URL, '/v1/submitMessage'), {
             method: 'POST',
             headers: { 'Content-Type': 'application/octet-stream' },
-            body: messageBytes,
+            body: bytes,
         });
         if (!data) throw new Error(t`Failed to follow`);
         return null!;
@@ -406,37 +307,25 @@ export class HubbleSocialMedia implements Provider {
 
     async unfollow(profileId: string) {
         const session = warpcastClient.getSessionRequired();
-        const url = urlcat(FIREFLY_HUBBLE_URL, '/v1/submitMessage');
-        const messageData: MessageData = {
-            type: MessageType.LINK_REMOVE,
-            fid: Number(session.profileId),
-            timestamp: Math.floor(Date.now() / 1000),
-            network: FarcasterNetwork.MAINNET,
-            linkBody: {
-                type: '1',
-                targetFid: Number(profileId),
+
+        const { bytes } = await encodeMessageData(
+            {
+                type: MessageType.LINK_REMOVE,
+                fid: Number(session.profileId),
+                timestamp: Math.floor(Date.now() / 1000),
+                network: FarcasterNetwork.MAINNET,
+                linkBody: {
+                    type: '1',
+                    targetFid: Number(profileId),
+                },
             },
-        };
+            session.token,
+        );
 
-        const encodedData = MessageData.encode(messageData).finish();
-        const messageHash = await blake3(encodedData);
-        const signature = await ed.signAsync(encodedData, toBytes(session.token));
-
-        const message = {
-            data: messageData,
-            hash: toBytes(messageHash),
-            hashScheme: HashScheme.BLAKE3,
-            signature,
-            signatureScheme: SignatureScheme.ED25519,
-            signer: ed.getPublicKey(toBytes(session.token)),
-        };
-
-        const messageBytes = Buffer.from(Message.encode(message).finish());
-
-        const { data, hash } = await fetchJSON<Message>(url, {
+        const { data, hash } = await fetchJSON<Message>(urlcat(FIREFLY_HUBBLE_URL, '/v1/submitMessage'), {
             method: 'POST',
             headers: { 'Content-Type': 'application/octet-stream' },
-            body: messageBytes,
+            body: bytes,
         });
         if (!data) throw new Error(t`Failed to unfollow`);
         return null!;

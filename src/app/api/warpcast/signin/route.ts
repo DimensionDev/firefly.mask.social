@@ -30,7 +30,7 @@ export async function POST(req: NextRequest) {
 
     // valid for 24 hours
     const deadline = Math.floor(Date.now() / 1000) + ONE_DAY;
-    const account = mnemonicToAccount(process.env.FARCASTER_SIGNER_MNEMONIC)
+    const account = mnemonicToAccount(process.env.FARCASTER_SIGNER_MNEMONIC);
     const signature = await account.signTypedData({
         domain: SIGNED_KEY_REQUEST_VALIDATOR_EIP_712_DOMAIN,
         types: {
