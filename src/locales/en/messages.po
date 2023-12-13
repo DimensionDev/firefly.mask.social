@@ -49,9 +49,6 @@ msgstr "Failed to mirror. {0}"
 msgid "{0} views"
 msgstr "{0} views"
 
-msgid "Mirrors and Quotes"
-msgstr "Mirrors and Quotes"
-
 msgid "You need to connect your {platform} account to use this feature."
 msgstr "You need to connect your {platform} account to use this feature."
 
@@ -87,9 +84,6 @@ msgstr "Not implemented yet."
 
 msgid "Copied"
 msgstr "Copied"
-
-msgid "Mirror and Quotes"
-msgstr "Mirror and Quotes"
 
 msgid "comment"
 msgstr "comment"
@@ -159,6 +153,9 @@ msgstr "Search Filter"
 
 msgid "Failed to fetch as Text."
 msgstr "Failed to fetch as Text."
+
+msgid "Open actions on Lens is coming soon"
+msgstr "Open actions on Lens is coming soon"
 
 msgid "Add an existing account"
 msgstr "Add an existing account"
@@ -340,6 +337,9 @@ msgstr "Allow Lens Manager to perform actions such as posting, liking, and comme
 msgid "<0>{0}</0> mirrored"
 msgstr "<0>{0}</0> mirrored"
 
+msgid "recasted"
+msgstr "recasted"
+
 msgid "Post by {0}"
 msgstr "Post by {0}"
 
@@ -406,6 +406,9 @@ msgstr "Failed to unvote post"
 msgid "Light mode"
 msgstr "Light mode"
 
+msgid "{0, plural, zero {Mirror and Quote} one {Mirror and Quote} other {Mirrors and Quotes}}"
+msgstr "{0, plural, zero {Mirror and Quote} one {Mirror and Quote} other {Mirrors and Quotes}}"
+
 msgid "Your Lens account is now connected"
 msgstr "Your Lens account is now connected"
 
@@ -454,6 +457,9 @@ msgstr "Terms of Service"
 msgid "Post"
 msgstr "Post"
 
+msgid "mirrored"
+msgstr "mirrored"
+
 msgid "Following"
 msgstr "Following"
 
@@ -462,9 +468,6 @@ msgstr "Dark mode"
 
 msgid "on Lens"
 msgstr "on Lens"
-
-msgid "Collect is coming soon"
-msgstr "Collect is coming soon"
 
 msgid "<0/> mentioned you in a <1><2/></1>"
 msgstr "<0/> mentioned you in a <1><2/></1>"
