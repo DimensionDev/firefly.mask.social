@@ -1,4 +1,4 @@
-import { SourceIcon } from '@/components/SourceIcon.jsx';
+import { SourceIcon } from '@/components/SourceIcon.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { resolveSourceName } from '@/helpers/resovleSourceName.js';
 

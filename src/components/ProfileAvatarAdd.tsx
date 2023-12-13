@@ -1,5 +1,5 @@
 import PlusIcon from '@/assets/plus.svg';
-import { SourceIcon } from '@/components/SourceIcon.jsx';
+import { SourceIcon } from '@/components/SourceIcon.js';
 import type { SocialPlatform } from '@/constants/enum.js';
 
 interface ProfileAvatarAddProps extends React.HTMLAttributes<HTMLDivElement> {

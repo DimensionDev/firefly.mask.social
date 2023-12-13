@@ -2,7 +2,7 @@ import { memo, useMemo } from 'react';
 
 import { MoreAction } from '@/components/Actions/More.js';
 import { Avatar } from '@/components/Avatar.js';
-import { SourceIcon } from '@/components/SourceIcon.jsx';
+import { SourceIcon } from '@/components/SourceIcon.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';

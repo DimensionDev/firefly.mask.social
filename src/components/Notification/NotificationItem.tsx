@@ -17,7 +17,7 @@ import { PostActions } from '@/components/Actions/index.js';
 import { Avatar } from '@/components/Avatar.js';
 import { Markup } from '@/components/Markup/index.js';
 import { Quote } from '@/components/Posts/Quote.js';
-import { SourceIcon } from '@/components/SourceIcon.jsx';
+import { SourceIcon } from '@/components/SourceIcon.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';

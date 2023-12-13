@@ -2,7 +2,7 @@ import { Trans } from '@lingui/macro';
 
 import { Avatar } from '@/components/Avatar.js';
 import FollowButton from '@/components/Profile/FollowButton.js';
-import { SourceIcon } from '@/components/SourceIcon.jsx';
+import { SourceIcon } from '@/components/SourceIcon.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 

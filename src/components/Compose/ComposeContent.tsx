@@ -4,7 +4,7 @@ import { useCallback } from 'react';
 
 import CloseIcon from '@/assets/close.svg';
 import Editor from '@/components/Compose/Editor.js';
-import { SourceIcon } from '@/components/SourceIcon.jsx';
+import { SourceIcon } from '@/components/SourceIcon.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
 import { Image } from '@/esm/Image.js';
 import { classNames } from '@/helpers/classNames.js';
