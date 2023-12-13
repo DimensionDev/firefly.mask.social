@@ -12,12 +12,12 @@ import { useProfiles } from '@/hooks/useProfiles.js';
 import { LoginModalRef, LogoutModalRef } from '@/modals/controls.js';
 
 interface AccountSettingProps {
-    platform: SocialPlatform;
+    source: SocialPlatform;
 }
 
-export function AccountSetting({ platform }: AccountSettingProps) {
+export function AccountSetting({ source }: AccountSettingProps) {
     const { disconnect } = useDisconnect();
-    const { currentProfile, profiles, clearCurrentProfile } = useProfiles(platform);
+    const { currentProfile, profiles, clearCurrentProfile } = useProfiles(source);
     return (
         <div className="absolute -top-[200px] hidden rounded-[12px] bg-bgModal group-hover:block">
             <div className="flex w-[260px] flex-col gap-[23px] rounded-[16px] p-[24px]">
@@ -36,7 +36,7 @@ export function AccountSetting({ platform }: AccountSettingProps) {
                 <button
                     className="flex w-full items-center gap-[8px]"
                     onClick={() => {
-                        if (platform === SocialPlatform.Lens) disconnect();
+                        if (source === SocialPlatform.Lens) disconnect();
                         clearCurrentProfile();
                         LoginModalRef.open();
                     }}
@@ -49,7 +49,7 @@ export function AccountSetting({ platform }: AccountSettingProps) {
                 <button
                     className="flex items-center gap-[8px]"
                     onClick={() => {
-                        LogoutModalRef.open({ platform });
+                        LogoutModalRef.open({ source });
                     }}
                 >
                     <LogOutIcon width={24} height={24} />

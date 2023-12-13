@@ -12,28 +12,28 @@ import Info from '@/components/Profile/Info.js';
 import Title from '@/components/Profile/Title.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { createPageTitle } from '@/helpers/createPageTitle.js';
-import { type PlatformKeyword, resolvePlatform } from '@/helpers/resolvePlatform.js';
+import { resolveSource, type SourceKeyword } from '@/helpers/resolveSource.js';
 import { useIsMyProfile } from '@/hooks/isMyProfile.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { WarpcastSocialMediaProvider } from '@/providers/warpcast/SocialMedia.js';
 
 interface ProfilePageProps {
-    params: { id: string; platform: PlatformKeyword };
+    params: { id: string; source: SourceKeyword };
 }
-export default function ProfilePage({ params: { platform: _platform, id: handleOrProfileId } }: ProfilePageProps) {
-    const platform = resolvePlatform(_platform);
-    const isMyProfile = useIsMyProfile(platform, handleOrProfileId);
+export default function ProfilePage({ params: { source: _source, id: handleOrProfileId } }: ProfilePageProps) {
+    const currentSource = resolveSource(_source);
+    const isMyProfile = useIsMyProfile(currentSource, handleOrProfileId);
 
     const { data: profile, isLoading } = useQuery({
-        queryKey: ['profile', handleOrProfileId, platform],
+        queryKey: ['profile', handleOrProfileId, currentSource],
         queryFn: () => {
-            switch (platform) {
+            switch (currentSource) {
                 case SocialPlatform.Lens:
                     return LensSocialMediaProvider.getProfileByHandle(handleOrProfileId);
                 case SocialPlatform.Farcaster:
                     return WarpcastSocialMediaProvider.getProfileById(handleOrProfileId);
                 default:
-                    safeUnreachable(platform);
+                    safeUnreachable(currentSource);
                     return null;
             }
         },

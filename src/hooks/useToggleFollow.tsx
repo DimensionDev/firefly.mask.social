@@ -11,13 +11,13 @@ import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { WarpcastSocialMediaProvider } from '@/providers/warpcast/SocialMedia.js';
 
 interface Options {
-    platform: SocialPlatform;
+    source: SocialPlatform;
     profileId: string;
     handle: string;
     isFollowed: boolean;
 }
-export function useToggleFollow({ profileId, handle, platform, isFollowed }: Options) {
-    const isLogin = useIsLogin(platform);
+export function useToggleFollow({ profileId, handle, source, isFollowed }: Options) {
+    const isLogin = useIsLogin(source);
     const enqueueSnackbar = useCustomSnackbar();
     return useAsyncFn(async () => {
         if (!profileId) return;
@@ -26,7 +26,7 @@ export function useToggleFollow({ profileId, handle, platform, isFollowed }: Opt
             return;
         }
         try {
-            switch (platform) {
+            switch (source) {
                 case SocialPlatform.Lens:
                     await (isFollowed
                         ? LensSocialMediaProvider.unfollow(profileId)
@@ -38,30 +38,30 @@ export function useToggleFollow({ profileId, handle, platform, isFollowed }: Opt
                         : WarpcastSocialMediaProvider.follow(profileId));
                     break;
                 default:
-                    safeUnreachable(platform);
+                    safeUnreachable(source);
                     return;
             }
             enqueueSnackbar(
                 <Select
                     value={isFollowed ? 'unfollow' : 'follow'}
-                    _follow={`Followed @${handle} on ${platform}`}
-                    _unfollow={`UnFollowed @${handle} on ${platform}`}
-                    other={`Followed @${handle} on ${platform}`}
+                    _follow={`Followed @${handle} on ${source}`}
+                    _unfollow={`UnFollowed @${handle} on ${source}`}
+                    other={`Followed @${handle} on ${source}`}
                 />,
                 {
                     variant: 'success',
                 },
             );
-            queryClient.invalidateQueries({ queryKey: ['discover', platform] });
+            queryClient.invalidateQueries({ queryKey: ['discover', source] });
             return;
         } catch (error) {
             if (error instanceof Error) {
                 enqueueSnackbar(
                     <Select
                         value={isFollowed ? 'unfollow' : 'follow'}
-                        _follow={`Failed to followed @${handle} on ${platform}`}
-                        _unfollow={`Failed to unfollowed @${handle} on ${platform}`}
-                        other={`Failed to followed @${handle} on ${platform}`}
+                        _follow={`Failed to followed @${handle} on ${source}`}
+                        _unfollow={`Failed to unfollowed @${handle} on ${source}`}
+                        other={`Failed to followed @${handle} on ${source}`}
                     />,
                     {
                         variant: 'error',
@@ -69,5 +69,5 @@ export function useToggleFollow({ profileId, handle, platform, isFollowed }: Opt
                 );
             }
         }
-    }, [isFollowed, isLogin, profileId, platform, handle]);
+    }, [isFollowed, isLogin, profileId, source, handle]);
 }

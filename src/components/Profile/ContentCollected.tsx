@@ -20,15 +20,15 @@ interface ContentFeedProps {
     profileId: string;
 }
 export default function ContentCollected({ profileId }: ContentFeedProps) {
-    const currentSocialPlatform = useGlobalState.use.currentSocialPlatform();
+    const currentSource = useGlobalState.use.currentSource();
     const fetchAndStoreViews = useImpressionsStore.use.fetchAndStoreViews();
     const { data, hasNextPage, fetchNextPage, isFetchingNextPage, isFetching } = useSuspenseInfiniteQuery({
-        queryKey: ['getPostsByBookmarks', currentSocialPlatform],
+        queryKey: ['getPostsByBookmarks', currentSource],
 
         queryFn: async ({ pageParam }) => {
             if (!profileId) return createPageable(EMPTY_LIST, undefined);
 
-            switch (currentSocialPlatform) {
+            switch (currentSource) {
                 case SocialPlatform.Lens:
                     const posts = await LensSocialMediaProvider.getPostsByCollected(
                         profileId,
@@ -44,7 +44,7 @@ export default function ContentCollected({ profileId }: ContentFeedProps) {
                         createIndicator(undefined, pageParam),
                     );
                 default:
-                    safeUnreachable(currentSocialPlatform);
+                    safeUnreachable(currentSource);
                     return createPageable(EMPTY_LIST, undefined);
             }
         },

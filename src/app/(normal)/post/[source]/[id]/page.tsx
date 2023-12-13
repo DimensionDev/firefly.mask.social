@@ -9,24 +9,24 @@ import { CommentList } from '@/components/Comments/index.js';
 import { SinglePost } from '@/components/Posts/SinglePost.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { createPageTitle } from '@/helpers/createPageTitle.js';
-import { type PlatformKeyword, resolvePlatform } from '@/helpers/resolvePlatform.js';
+import { resolveSource, type SourceKeyword } from '@/helpers/resolveSource.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { WarpcastSocialMediaProvider } from '@/providers/warpcast/SocialMedia.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 
 interface PostPageProps {
-    params: { id: string; platform: PlatformKeyword };
+    params: { id: string; source: SourceKeyword };
 }
 
-export default function PostPage({ params: { id: postId, platform: _platform } }: PostPageProps) {
-    const platform = resolvePlatform(_platform);
+export default function PostPage({ params: { id: postId, source: _source } }: PostPageProps) {
+    const currentSource = resolveSource(_source);
 
     const fetchAndStoreViews = useImpressionsStore.use.fetchAndStoreViews();
     const { data } = useSuspenseQuery({
-        queryKey: [platform, 'post-detail', postId],
+        queryKey: [currentSource, 'post-detail', postId],
         queryFn: async () => {
             if (!postId) return;
-            switch (platform) {
+            switch (currentSource) {
                 case SocialPlatform.Lens: {
                     const post = await LensSocialMediaProvider.getPostById(postId);
 
@@ -40,7 +40,7 @@ export default function PostPage({ params: { id: postId, platform: _platform } }
                     return post;
                 }
                 default:
-                    safeUnreachable(platform);
+                    safeUnreachable(currentSource);
                     return;
             }
         },
@@ -53,7 +53,7 @@ export default function PostPage({ params: { id: postId, platform: _platform } }
         <div>
             <SinglePost post={data} disableAnimate />
             {/* TODO: Compose Comment Input */}
-            <CommentList postId={postId} platform={platform} />
+            <CommentList postId={postId} source={currentSource} />
         </div>
     );
 }

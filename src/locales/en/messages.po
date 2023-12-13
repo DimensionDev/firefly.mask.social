@@ -25,9 +25,6 @@ msgstr "Posts"
 msgid "Failed to fetch as Blob."
 msgstr "Failed to fetch as Blob."
 
-msgid "{0, select, follow {Followed @{handle} on {platform}} unfollow {UnFollowed @{handle} on {platform}} other {Followed @{handle} on {platform}}}"
-msgstr "{0, select, follow {Followed @{handle} on {platform}} unfollow {UnFollowed @{handle} on {platform}} other {Followed @{handle} on {platform}}}"
-
 msgid "Failed to mirror post"
 msgstr "Failed to mirror post"
 
@@ -40,6 +37,9 @@ msgstr "Discover"
 msgid "Failed to publish post"
 msgstr "Failed to publish post"
 
+msgid "{0, select, follow {Followed @{handle} on {source}} unfollow {UnFollowed @{handle} on {source}} other {Followed @{handle} on {source}}}"
+msgstr "{0, select, follow {Followed @{handle} on {source}} unfollow {UnFollowed @{handle} on {source}} other {Followed @{handle} on {source}}}"
+
 msgid "Something went wrong, Please try again."
 msgstr "Something went wrong, Please try again."
 
@@ -48,9 +48,6 @@ msgstr "Failed to mirror. {0}"
 
 msgid "{0} views"
 msgstr "{0} views"
-
-msgid "You need to connect your {platform} account to use this feature."
-msgstr "You need to connect your {platform} account to use this feature."
 
 msgid "More"
 msgstr "More"
@@ -99,6 +96,9 @@ msgstr "Your Farcaster account is now connected"
 
 msgid "Failed to unlike. {0}"
 msgstr "Failed to unlike. {0}"
+
+msgid "You need to connect your {source} account to use this feature."
+msgstr "You need to connect your {source} account to use this feature."
 
 msgid "Search"
 msgstr "Search"
@@ -166,9 +166,6 @@ msgstr "Send"
 msgid "Collected"
 msgstr "Collected"
 
-msgid "Connect to {platform}"
-msgstr "Connect to {platform}"
-
 msgid "Post by"
 msgstr "Post by"
 
@@ -220,11 +217,11 @@ msgstr "Malformed session."
 msgid "Post has been hidden"
 msgstr "Post has been hidden"
 
-msgid "{0, select, follow {Failed to followed @{handle} on {platform}} unfollow {Failed to unfollowed @{handle} on {platform}} other {Failed to followed @{handle} on {platform}}}"
-msgstr "{0, select, follow {Failed to followed @{handle} on {platform}} unfollow {Failed to unfollowed @{handle} on {platform}} other {Failed to followed @{handle} on {platform}}}"
-
 msgid "<0>{0}</0> liked"
 msgstr "<0>{0}</0> liked"
+
+msgid "{0, select, follow {Failed to followed @{handle} on {source}} unfollow {Failed to unfollowed @{handle} on {source}} other {Failed to followed @{handle} on {source}}}"
+msgstr "{0, select, follow {Failed to followed @{handle} on {source}} unfollow {Failed to unfollowed @{handle} on {source}} other {Failed to followed @{handle} on {source}}}"
 
 msgid "Failed to unfollow"
 msgstr "Failed to unfollow"
@@ -255,6 +252,9 @@ msgstr "Settings"
 
 msgid "Details"
 msgstr "Details"
+
+msgid "Connect to {source}"
+msgstr "Connect to {source}"
 
 msgid "Farcaster"
 msgstr "Farcaster"

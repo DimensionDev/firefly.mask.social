@@ -7,11 +7,11 @@ import { classNames } from '@/helpers/classNames.js';
 
 interface PlatformIconProps extends React.SVGProps<SVGSVGElement> {
     size?: number;
-    platform: SocialPlatform;
+    source: SocialPlatform;
 }
 
-export function PlatformIcon({ platform, size = 20, className = '', ...props }: PlatformIconProps) {
-    switch (platform) {
+export function PlatformIcon({ source, size = 20, className = '', ...props }: PlatformIconProps) {
+    switch (source) {
         case SocialPlatform.Lens:
             return (
                 <LensIcon
@@ -31,7 +31,7 @@ export function PlatformIcon({ platform, size = 20, className = '', ...props }: 
                 />
             );
         default:
-            safeUnreachable(platform);
+            safeUnreachable(source);
             return null;
     }
 }

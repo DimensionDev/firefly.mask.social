@@ -344,7 +344,7 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
                                 })}
                             </div>
                             <div className="flex items-center space-x-2">
-                                <PlatformIcon platform={notification.source} />
+                                <PlatformIcon source={notification.source} />
                                 {showMoreAction ? (
                                     <>
                                         <span className="text-xs leading-4 text-secondary">

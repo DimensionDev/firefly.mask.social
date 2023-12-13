@@ -19,22 +19,23 @@ import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useLensStateStore } from '@/store/useLensStore.js';
 
 export default function Following() {
-    const currentSocialPlatform = useGlobalState.use.currentSocialPlatform();
-    const isLogin = useIsLogin(currentSocialPlatform);
+    const currentSource = useGlobalState.use.currentSource();
     const currentLensProfile = useLensStateStore.use.currentProfile();
     const currentFarcasterProfile = useFarcasterStateStore.use.currentProfile();
+
+    const isLogin = useIsLogin(currentSource);
 
     const { data, hasNextPage, fetchNextPage, isFetchingNextPage, isFetching } = useSuspenseInfiniteQuery({
         queryKey: [
             'following',
-            currentSocialPlatform,
+            currentSource,
             isLogin,
             currentLensProfile?.profileId,
             currentFarcasterProfile?.profileId,
         ],
         queryFn: async ({ pageParam }) => {
             if (!isLogin) return;
-            switch (currentSocialPlatform) {
+            switch (currentSource) {
                 case SocialPlatform.Lens:
                     if (!currentLensProfile?.profileId) return;
                     return LensSocialMediaProvider.discoverPostsById(
@@ -48,7 +49,7 @@ export default function Following() {
                         createIndicator(undefined, pageParam),
                     );
                 default:
-                    safeUnreachable(currentSocialPlatform);
+                    safeUnreachable(currentSource);
                     return;
             }
         },
@@ -69,7 +70,7 @@ export default function Following() {
     const results = useMemo(() => data.pages?.flatMap((x) => x?.data ?? []) ?? [], [data]);
 
     if (!isLogin) {
-        return <NotLoginFallback platform={currentSocialPlatform} />;
+        return <NotLoginFallback source={currentSource} />;
     }
 
     return (

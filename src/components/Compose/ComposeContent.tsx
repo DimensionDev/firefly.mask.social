@@ -111,7 +111,7 @@ export default function ComposeContent(props: ComposeContentProps) {
                                     </span>
                                 </div>
                                 <div className="flex items-center gap-2">
-                                    <PlatformIcon platform={post.source} />
+                                    <PlatformIcon source={post.source} />
                                     <span className="text-xs leading-4 text-secondary">
                                         <TimestampFormatter time={post.timestamp} />
                                     </span>

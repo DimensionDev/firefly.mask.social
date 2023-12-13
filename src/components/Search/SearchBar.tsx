@@ -30,7 +30,7 @@ interface SearchBarProps {
 const SearchBar = memo(function SearchBar(props: SearchBarProps) {
     const router = useRouter();
     const pathname = usePathname();
-    const { currentSocialPlatform } = useGlobalState();
+    const { currentSource: currentSocialPlatform } = useGlobalState();
     const inputRef = useRef<HTMLInputElement>(null);
     const [showDropdown, setShowDropdown] = useState(false);
 
@@ -222,7 +222,7 @@ const SearchBar = memo(function SearchBar(props: SearchBarProps) {
                                             <div className="flex-1 text-left">
                                                 <div className="flex">
                                                     <span className="mr-1">{profile.displayName}</span>
-                                                    <PlatformIcon platform={profile.source} />
+                                                    <PlatformIcon source={profile.source} />
                                                 </div>
                                                 <div className=" font-normal text-secondary">@{profile.handle}</div>
                                             </div>

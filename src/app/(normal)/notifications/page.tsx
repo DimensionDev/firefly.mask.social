@@ -18,20 +18,20 @@ import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 
 export default function Notification() {
-    const currentSocialPlatform = useGlobalState.use.currentSocialPlatform();
-    const isLogin = useIsLogin(currentSocialPlatform);
+    const currentSource = useGlobalState.use.currentSource();
+    const isLogin = useIsLogin(currentSource);
 
     const { data, hasNextPage, fetchNextPage, isFetchingNextPage, isFetching } = useSuspenseInfiniteQuery({
-        queryKey: ['notifications', currentSocialPlatform, isLogin],
+        queryKey: ['notifications', currentSource, isLogin],
         queryFn: async ({ pageParam }) => {
             if (!isLogin) return;
-            switch (currentSocialPlatform) {
+            switch (currentSource) {
                 case SocialPlatform.Lens:
                     return LensSocialMediaProvider.getNotifications(createIndicator(undefined, pageParam));
                 case SocialPlatform.Farcaster:
                     return FireflySocialMediaProvider.getNotifications(createIndicator(undefined, pageParam));
                 default:
-                    safeUnreachable(currentSocialPlatform);
+                    safeUnreachable(currentSource);
                     return;
             }
         },
@@ -52,7 +52,7 @@ export default function Notification() {
     const results = useMemo(() => compact(data.pages.flatMap((x) => x?.data)), [data.pages]);
 
     if (!isLogin) {
-        return <NotLoginFallback platform={currentSocialPlatform} />;
+        return <NotLoginFallback source={currentSource} />;
     }
 
     return (

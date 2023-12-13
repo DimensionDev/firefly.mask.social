@@ -25,9 +25,6 @@ msgstr ""
 msgid "Failed to fetch as Blob."
 msgstr ""
 
-msgid "{0, select, follow {Followed @{handle} on {platform}} unfollow {UnFollowed @{handle} on {platform}} other {Followed @{handle} on {platform}}}"
-msgstr ""
-
 msgid "Failed to mirror post"
 msgstr ""
 
@@ -40,6 +37,9 @@ msgstr ""
 msgid "Failed to publish post"
 msgstr ""
 
+msgid "{0, select, follow {Followed @{handle} on {source}} unfollow {UnFollowed @{handle} on {source}} other {Followed @{handle} on {source}}}"
+msgstr ""
+
 msgid "Something went wrong, Please try again."
 msgstr ""
 
@@ -47,9 +47,6 @@ msgid "Failed to mirror. {0}"
 msgstr ""
 
 msgid "{0} views"
-msgstr ""
-
-msgid "You need to connect your {platform} account to use this feature."
 msgstr ""
 
 msgid "More"
@@ -98,6 +95,9 @@ msgid "Your Farcaster account is now connected"
 msgstr ""
 
 msgid "Failed to unlike. {0}"
+msgstr ""
+
+msgid "You need to connect your {source} account to use this feature."
 msgstr ""
 
 msgid "Search"
@@ -166,9 +166,6 @@ msgstr ""
 msgid "Collected"
 msgstr ""
 
-msgid "Connect to {platform}"
-msgstr ""
-
 msgid "Post by"
 msgstr ""
 
@@ -220,10 +217,10 @@ msgstr ""
 msgid "Post has been hidden"
 msgstr ""
 
-msgid "{0, select, follow {Failed to followed @{handle} on {platform}} unfollow {Failed to unfollowed @{handle} on {platform}} other {Failed to followed @{handle} on {platform}}}"
+msgid "<0>{0}</0> liked"
 msgstr ""
 
-msgid "<0>{0}</0> liked"
+msgid "{0, select, follow {Failed to followed @{handle} on {source}} unfollow {Failed to unfollowed @{handle} on {source}} other {Failed to followed @{handle} on {source}}}"
 msgstr ""
 
 msgid "Failed to unfollow"
@@ -254,6 +251,9 @@ msgid "Settings"
 msgstr ""
 
 msgid "Details"
+msgstr ""
+
+msgid "Connect to {source}"
 msgstr ""
 
 msgid "Farcaster"

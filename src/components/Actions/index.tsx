@@ -51,7 +51,7 @@ export const PostActions = memo<PostActionsProps>(function PostActions({
             <Mirror
                 disabled={disabled}
                 shares={(post.stats?.mirrors ?? 0) + (post.stats?.quotes ?? 0)}
-                platform={post.source}
+                source={post.source}
                 postId={post.postId}
                 hasMirrored={post.hasMirrored}
                 post={post}

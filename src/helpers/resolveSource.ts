@@ -2,9 +2,9 @@ import { createLookupTableResolver } from '@masknet/shared-base';
 
 import { SocialPlatform } from '@/constants/enum.js';
 
-export type PlatformKeyword = 'lens' | 'farcaster';
+export type SourceKeyword = 'lens' | 'farcaster';
 
-export const resolvePlatform = createLookupTableResolver<PlatformKeyword, SocialPlatform>(
+export const resolveSource = createLookupTableResolver<SourceKeyword, SocialPlatform>(
     {
         lens: SocialPlatform.Lens,
         farcaster: SocialPlatform.Farcaster,

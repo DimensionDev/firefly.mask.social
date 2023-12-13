@@ -8,11 +8,11 @@ import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 
 export default function ProfileHome() {
-    const currentSocialPlatform = useGlobalState.use.currentSocialPlatform();
-    const currentProfile = useCurrentProfile(currentSocialPlatform);
+    const currentSource = useGlobalState.use.currentSource();
+    const currentProfile = useCurrentProfile(currentSource);
 
     if (!currentProfile) {
-        return <NotLoginFallback platform={currentSocialPlatform} />;
+        return <NotLoginFallback source={currentSource} />;
     }
 
     redirect(getProfileUrl(currentProfile));

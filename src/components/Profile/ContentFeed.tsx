@@ -19,15 +19,15 @@ interface ContentFeedProps {
     profileId: string;
 }
 export default function ContentFeed({ profileId }: ContentFeedProps) {
-    const currentSocialPlatform = useGlobalState.use.currentSocialPlatform();
+    const currentSource = useGlobalState.use.currentSource();
     const fetchAndStoreViews = useImpressionsStore.use.fetchAndStoreViews();
     const { data, hasNextPage, fetchNextPage, isFetchingNextPage, isFetching } = useSuspenseInfiniteQuery({
-        queryKey: ['getPostsByProfileId', currentSocialPlatform, profileId],
+        queryKey: ['getPostsByProfileId', currentSource, profileId],
 
         queryFn: async ({ pageParam }) => {
             if (!profileId) return createPageable([], undefined);
 
-            switch (currentSocialPlatform) {
+            switch (currentSource) {
                 case SocialPlatform.Lens:
                     const result = await LensSocialMediaProvider.getPostsByProfileId(
                         profileId,
@@ -43,7 +43,7 @@ export default function ContentFeed({ profileId }: ContentFeedProps) {
                         createIndicator(undefined, pageParam),
                     );
                 default:
-                    safeUnreachable(currentSocialPlatform);
+                    safeUnreachable(currentSource);
                     return createPageable(EMPTY_LIST, undefined);
             }
         },

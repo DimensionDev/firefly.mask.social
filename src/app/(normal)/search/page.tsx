@@ -22,7 +22,7 @@ import { useGlobalState } from '@/store/useGlobalStore.js';
 
 export default function Page() {
     const { keyword, searchType } = useSearchState();
-    const { currentSocialPlatform } = useGlobalState();
+    const { currentSource: currentSocialPlatform } = useGlobalState();
 
     const { data, hasNextPage, fetchNextPage, isFetchingNextPage, isFetching } = useSuspenseInfiniteQuery({
         queryKey: ['search', searchType, keyword, currentSocialPlatform],

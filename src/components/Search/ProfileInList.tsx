@@ -24,7 +24,7 @@ export function ProfileInList({ profile, noFollowButton }: ProfileInListProps) {
                 <div className="flex-start flex flex-1 flex-col">
                     <span className="flex-start mt-2 flex items-center text-sm font-bold leading-5">
                         <span className="mr-2 text-xl">{profile.displayName}</span>
-                        <PlatformIcon platform={profile.source} />
+                        <PlatformIcon source={profile.source} />
                     </span>
                     {profile.handle ? <span className="text-sm text-secondary">@{profile.handle}</span> : null}
                     {profile.bio ? <span className="mt-1.5 line-clamp-1 text-sm">{profile.bio}</span> : null}

@@ -13,7 +13,7 @@ interface UseProfilesReturnType {
     clearCurrentProfile: () => void;
 }
 
-export function useProfiles(platform: SocialPlatform): UseProfilesReturnType {
+export function useProfiles(source: SocialPlatform): UseProfilesReturnType {
     const currentLensProfile = useLensStateStore.use.currentProfile();
     const currentFarcasterProfile = useFarcasterStateStore.use.currentProfile();
     const lensProfiles = useLensStateStore.use.profiles();
@@ -22,7 +22,7 @@ export function useProfiles(platform: SocialPlatform): UseProfilesReturnType {
     const clearLensCurrentProfile = useLensStateStore.use.clearCurrentProfile();
 
     return useMemo(() => {
-        switch (platform) {
+        switch (source) {
             case SocialPlatform.Lens:
                 return {
                     currentProfile: currentLensProfile,
@@ -36,7 +36,7 @@ export function useProfiles(platform: SocialPlatform): UseProfilesReturnType {
                     clearCurrentProfile: clearFarcasterCurrentProfile,
                 };
             default:
-                safeUnreachable(platform);
+                safeUnreachable(source);
                 return {
                     currentProfile: null,
                     profiles: EMPTY_LIST,
@@ -46,7 +46,7 @@ export function useProfiles(platform: SocialPlatform): UseProfilesReturnType {
     }, [
         currentLensProfile,
         currentFarcasterProfile,
-        platform,
+        source,
         lensProfiles,
         farcasterProfiles,
         clearFarcasterCurrentProfile,

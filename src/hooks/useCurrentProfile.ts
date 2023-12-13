@@ -4,17 +4,17 @@ import { SocialPlatform } from '@/constants/enum.js';
 import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
 import { useLensStateStore } from '@/store/useLensStore.js';
 
-export function useCurrentProfile(platform: SocialPlatform) {
+export function useCurrentProfile(source: SocialPlatform) {
     const currentLensProfile = useLensStateStore.use.currentProfile?.();
     const currentFarcasterProfile = useFarcasterStateStore.use.currentProfile?.();
 
-    switch (platform) {
+    switch (source) {
         case SocialPlatform.Lens:
             return currentLensProfile;
         case SocialPlatform.Farcaster:
             return currentFarcasterProfile;
         default:
-            safeUnreachable(platform);
+            safeUnreachable(source);
             return null;
     }
 }

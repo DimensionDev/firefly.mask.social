@@ -26,7 +26,7 @@ export function ProfileAvatar(props: ProfileAvatarProps) {
                 </div>
                 <PlatformIcon
                     className="absolute left-[24px] top-[24px] h-[16px] w-[16px] rounded-[99px] border border-white shadow"
-                    platform={profile.source}
+                    source={profile.source}
                     size={16}
                 />
             </div>
