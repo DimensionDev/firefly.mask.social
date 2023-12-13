@@ -10,11 +10,11 @@ export function waitForSignedKeyRequestComplete(signal?: AbortSignal) {
 
         // eslint-disable-next-line no-constant-condition
         while (true) {
-            if (signal?.aborted) throw new Error('Aborted.');
+            if (signal?.aborted) throw new Error('Aborted');
 
             tries += 1;
 
-            if (tries >= maxTries) throw new Error('Max tries reached.');
+            if (tries >= maxTries) throw new Error('Max tries reached');
 
             // delay a while before checking again
             await delay(ms);

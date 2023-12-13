@@ -40,6 +40,9 @@ msgstr ""
 msgid "{0, select, follow {Followed @{handle} on {source}} unfollow {UnFollowed @{handle} on {source}} other {Followed @{handle} on {source}}}"
 msgstr ""
 
+msgid "Click to refresh QRCode"
+msgstr ""
+
 msgid "Something went wrong, Please try again."
 msgstr ""
 
@@ -286,6 +289,9 @@ msgstr ""
 msgid "{0, plural, one {<0/>} other {{1, plural, one {<1/> and <2/>} other {<3/> and # others}}}} <4>liked your </4><5><6/></5>"
 msgstr ""
 
+msgid "Loading..."
+msgstr ""
+
 msgid "Share"
 msgstr ""
 
@@ -365,6 +371,9 @@ msgid "No profile found"
 msgstr ""
 
 msgid "Everyone can reply"
+msgstr ""
+
+msgid "Login with custody wallet"
 msgstr ""
 
 msgid "Delegate Signing (Recommend)"
