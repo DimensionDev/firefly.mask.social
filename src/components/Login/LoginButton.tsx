@@ -1,6 +1,6 @@
 import { SourceIcon } from '@/components/SourceIcon.js';
 import { SocialPlatform } from '@/constants/enum.js';
-import { resolveSourceName } from '@/helpers/resovleSourceName.js';
+import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 
 interface LoginButtonProps {
     source: SocialPlatform;
