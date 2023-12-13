@@ -2,21 +2,15 @@ import { Select } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
 import { useAsyncFn } from 'react-use';
 
-import { queryClient } from '@/configs/queryClient.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { LoginModalRef } from '@/modals/controls.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
+import type { Profile } from '@/providers/types/SocialMedia.js';
 import { WarpcastSocialMediaProvider } from '@/providers/warpcast/SocialMedia.js';
 
-interface Options {
-    source: SocialPlatform;
-    profileId: string;
-    handle: string;
-    isFollowed: boolean;
-}
-export function useToggleFollow({ profileId, handle, source, isFollowed }: Options) {
+export function useToggleFollow({ profileId, handle, source }: Profile, isFollowed: boolean) {
     const isLogin = useIsLogin(source);
     const enqueueSnackbar = useCustomSnackbar();
     return useAsyncFn(async () => {
@@ -52,7 +46,6 @@ export function useToggleFollow({ profileId, handle, source, isFollowed }: Optio
                     variant: 'success',
                 },
             );
-            queryClient.invalidateQueries({ queryKey: ['discover', source] });
             return;
         } catch (error) {
             if (error instanceof Error) {

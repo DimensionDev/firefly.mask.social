@@ -25,7 +25,7 @@ export default function ProfilePage({ params: { source: _source, id: handleOrPro
     const isMyProfile = useIsMyProfile(currentSource, handleOrProfileId);
 
     const { data: profile, isLoading } = useQuery({
-        queryKey: ['profile', handleOrProfileId, currentSource],
+        queryKey: ['profile', currentSource, handleOrProfileId],
         queryFn: () => {
             switch (currentSource) {
                 case SocialPlatform.Lens:
@@ -62,7 +62,7 @@ export default function ProfilePage({ params: { source: _source, id: handleOrPro
 
     return (
         <div>
-            {!isMyProfile ? <Title profile={profile} isMyProfile={isMyProfile} /> : null}
+            {!isMyProfile ? <Title profile={profile} /> : null}
 
             <Info profile={profile} isMyProfile={isMyProfile} />
 
