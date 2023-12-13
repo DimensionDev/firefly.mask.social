@@ -1,5 +1,6 @@
 'use client';
 
+import { safeUnreachable } from '@masknet/kit';
 import { createIndicator, createPageable } from '@masknet/shared-base';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { useEffect, useMemo } from 'react';
@@ -36,7 +37,8 @@ export default function Home() {
                 case SocialPlatform.Farcaster:
                     return WarpcastSocialMediaProvider.discoverPosts(createIndicator(undefined, pageParam));
                 default:
-                    return createPageable([], undefined);
+                    safeUnreachable(currentSocialPlatform);
+                    return createPageable(EMPTY_LIST, undefined);
             }
         },
         initialPageParam: '',
