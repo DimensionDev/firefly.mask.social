@@ -40,6 +40,9 @@ msgstr "Failed to publish post"
 msgid "{0, select, follow {Followed @{handle} on {source}} unfollow {UnFollowed @{handle} on {source}} other {Followed @{handle} on {source}}}"
 msgstr "{0, select, follow {Followed @{handle} on {source}} unfollow {UnFollowed @{handle} on {source}} other {Followed @{handle} on {source}}}"
 
+msgid "Click to refresh QRCode"
+msgstr "Click to refresh QRCode"
+
 msgid "Something went wrong, Please try again."
 msgstr "Something went wrong, Please try again."
 
@@ -286,6 +289,9 @@ msgstr "Failed to parse session."
 msgid "{0, plural, one {<0/>} other {{1, plural, one {<1/> and <2/>} other {<3/> and # others}}}} <4>liked your </4><5><6/></5>"
 msgstr "{0, plural, one {<0/>} other {{1, plural, one {<1/> and <2/>} other {<3/> and # others}}}} <4>liked your </4><5><6/></5>"
 
+msgid "Loading..."
+msgstr "Loading..."
+
 msgid "Share"
 msgstr "Share"
 
@@ -366,6 +372,9 @@ msgstr "No profile found"
 
 msgid "Everyone can reply"
 msgstr "Everyone can reply"
+
+msgid "Login with custody wallet"
+msgstr "Login with custody wallet"
 
 msgid "Delegate Signing (Recommend)"
 msgstr "Delegate Signing (Recommend)"

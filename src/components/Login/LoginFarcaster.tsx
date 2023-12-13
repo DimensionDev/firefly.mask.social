@@ -1,28 +1,30 @@
 'use client';
 
 import { t, Trans } from '@lingui/macro';
-import { useSuspenseQuery } from '@tanstack/react-query';
-import { useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import QRCode from 'react-qr-code';
+import { useAsyncFn, useEffectOnce, useUnmount } from 'react-use';
 
 import LoadingIcon from '@/assets/loading.svg';
+import { classNames } from '@/helpers/classNames.js';
 import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
 import { LoginModalRef } from '@/modals/controls.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
+import type { WarpcastSession } from '@/providers/warpcast/Session.js';
 import { WarpcastSocialMediaProvider } from '@/providers/warpcast/SocialMedia.js';
 import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
 
 export function LoginFarcaster() {
     const [url, setUrl] = useState('');
+    const controllerRef = useRef<AbortController>();
     const enqueueSnackbar = useCustomSnackbar();
     const updateProfiles = useFarcasterStateStore.use.updateProfiles();
     const updateCurrentProfile = useFarcasterStateStore.use.updateCurrentProfile();
 
-    useSuspenseQuery<string>({
-        queryKey: ['farcaster', 'login'],
-        queryFn: async () => {
+    const login = useCallback(
+        async (createSession: () => Promise<WarpcastSession>) => {
             try {
-                const session = await WarpcastSocialMediaProvider.createSessionByCustodyWallet();
+                const session = await createSession();
                 const profile = await FireflySocialMediaProvider.getProfileById(session.profileId);
 
                 updateProfiles([profile]);
@@ -33,14 +35,37 @@ export function LoginFarcaster() {
                 });
                 LoginModalRef.close();
             } catch (error) {
+                if (error instanceof Error && error.message === 'Aborted') return;
+
                 enqueueSnackbar(error instanceof Error ? error.message : t`Failed to login`, {
                     variant: 'error',
                 });
                 LoginModalRef.close();
             }
-
-            return '';
         },
+        [updateProfiles, updateCurrentProfile, enqueueSnackbar],
+    );
+
+    const [{ loading: loadingGrantPermission, error: errorGrantPermission }, onLoginWithGrantPermission] =
+        useAsyncFn(async () => {
+            controllerRef.current?.abort();
+            controllerRef.current = new AbortController();
+            await login(() =>
+                WarpcastSocialMediaProvider.createSessionByGrantPermission(setUrl, controllerRef.current?.signal),
+            );
+        }, [login, setUrl]);
+
+    const [{ loading: loadingCustodyWallet }, onLoginWithCustodyWallet] = useAsyncFn(async () => {
+        if (controllerRef.current) controllerRef.current.abort();
+        await login(() => WarpcastSocialMediaProvider.createSessionByCustodyWallet());
+    }, [login]);
+
+    useEffectOnce(() => {
+        onLoginWithGrantPermission();
+    });
+
+    useUnmount(() => {
+        controllerRef.current?.abort();
     });
 
     return (
@@ -57,7 +82,34 @@ export function LoginFarcaster() {
                                 app and scan the QR code
                             </Trans>
                         </div>
-                        <QRCode value={url} size={360} />
+                        <div
+                            className=" relative flex cursor-pointer items-center justify-center"
+                            onClick={onLoginWithGrantPermission}
+                        >
+                            <QRCode
+                                className={classNames({
+                                    'blur-md': !!errorGrantPermission,
+                                })}
+                                value={url}
+                                size={360}
+                            />
+                            {errorGrantPermission ? (
+                                <button className=" absolute text-sm font-semibold text-main">
+                                    <Trans>Click to refresh QRCode</Trans>
+                                </button>
+                            ) : null}
+                        </div>
+                        <button
+                            className="text-sm font-semibold text-lightSecond"
+                            disabled={loadingCustodyWallet}
+                            onClick={onLoginWithCustodyWallet}
+                        >
+                            {loadingCustodyWallet ? (
+                                <Trans>Loading...</Trans>
+                            ) : (
+                                <Trans>Login with custody wallet</Trans>
+                            )}
+                        </button>
                     </>
                 ) : (
                     <div className="flex w-full flex-1 flex-col items-center justify-center">
