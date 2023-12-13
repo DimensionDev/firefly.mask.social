@@ -14,21 +14,18 @@ interface ComposeState {
     type: 'compose' | 'quote' | 'reply';
     post: OrphanPost | null;
     chars: string;
-    images: IPFS_MediaObject[];
     video: IPFS_MediaObject | null;
+    images: IPFS_MediaObject[];
     loading: boolean;
     isDraft: boolean;
     updateType: (type: 'compose' | 'quote' | 'reply') => void;
     updateChars: (chars: string) => void;
     updateLoading: (loading: boolean) => void;
+    updatePost: (post: OrphanPost | null) => void;
+    updateVideo: (video: IPFS_MediaObject | null) => void;
     updateImages: (images: IPFS_MediaObject[]) => void;
-    addPost: (post: OrphanPost) => void;
-    removePost: () => void;
     addImage: (image: IPFS_MediaObject) => void;
-    addVideo: (video: IPFS_MediaObject) => void;
-    removeVideo: () => void;
     removeImage: (index: number) => void;
-    removeImages: () => void;
     save: () => void;
     clear: () => void;
 }
@@ -60,7 +57,7 @@ const useComposeStateBase = create<ComposeState, [['zustand/persist', unknown], 
                 set((state) => {
                     state.images = images;
                 }),
-            addPost: (post: OrphanPost) =>
+            updatePost: (post: OrphanPost | null) =>
                 set((state) => {
                     state.post = post;
                 }),
@@ -72,21 +69,13 @@ const useComposeStateBase = create<ComposeState, [['zustand/persist', unknown], 
                 set((state) => {
                     state.images = [...state.images, image];
                 }),
-            addVideo: (video: IPFS_MediaObject) =>
+            updateVideo: (video: IPFS_MediaObject | null) =>
                 set((state) => {
                     state.video = video;
-                }),
-            removeVideo: () =>
-                set((state) => {
-                    state.video = null;
                 }),
             removeImage: (index: number) =>
                 set((state) => {
                     state.images = state.images.filter((_, i) => i !== index);
-                }),
-            removeImages: () =>
-                set((state) => {
-                    state.images = EMPTY_LIST;
                 }),
             save: () =>
                 set((state) => {

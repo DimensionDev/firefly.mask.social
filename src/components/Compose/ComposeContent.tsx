@@ -19,7 +19,7 @@ export default function ComposeContent(props: ComposeContentProps) {
     const images = useComposeStateStore.use.images();
     const video = useComposeStateStore.use.video();
     const removeImage = useComposeStateStore.use.removeImage();
-    const removeVideo = useComposeStateStore.use.removeVideo();
+    const updateVideo = useComposeStateStore.use.updateVideo();
 
     const createImageItem = useCallback(
         (image: File, index: number) => (
@@ -88,7 +88,7 @@ export default function ComposeContent(props: ComposeContentProps) {
                                 className=" absolute right-2 top-2 h-[18px] w-[18px] cursor-pointer"
                                 width={18}
                                 height={18}
-                                onClick={() => removeVideo()}
+                                onClick={() => updateVideo(null)}
                             />
                         </div>
                     ) : null}

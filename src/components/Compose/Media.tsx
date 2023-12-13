@@ -19,7 +19,7 @@ export default function Media(props: MediaProps) {
 
     const video = useComposeStateStore.use.video();
     const images = useComposeStateStore.use.images();
-    const addVideo = useComposeStateStore.use.addVideo();
+    const updateVideo = useComposeStateStore.use.updateVideo();
     const updateImages = useComposeStateStore.use.updateImages();
     const updateLoading = useComposeStateStore.use.updateLoading();
 
@@ -51,15 +51,15 @@ export default function Media(props: MediaProps) {
 
             if (files && files.length > 0) {
                 updateLoading(true);
-                const res = await uploadToIPFS([...files]);
-                addVideo({
+                const response = await uploadToIPFS([...files]);
+                updateVideo({
                     file: files[0],
-                    ipfs: res[0],
+                    ipfs: response[0],
                 });
                 updateLoading(false);
             }
         },
-        [updateLoading, addVideo],
+        [updateLoading, updateVideo],
     );
 
     return (

@@ -28,13 +28,13 @@ export const ComposeModal = forwardRef<SingletonModalRefCreator<ComposeModalProp
     const type = useComposeStateStore.use.type();
     const chars = useComposeStateStore.use.chars();
     const updateType = useComposeStateStore.use.updateType();
-    const addPost = useComposeStateStore.use.addPost();
+    const updatePost = useComposeStateStore.use.updatePost();
     const clear = useComposeStateStore.use.clear();
 
     const [open, dispatch] = useSingletonModal(ref, {
         onOpen: (props) => {
             updateType(props.type || 'compose');
-            if (props.post) addPost(props.post);
+            if (props.post) updatePost(props.post);
         },
         onClose: () => {
             clear();
