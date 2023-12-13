@@ -26,11 +26,12 @@ const SIGNED_KEY_REQUEST_TYPE = [
 
 export async function POST(req: NextRequest) {
     const privateKey = utils.randomPrivateKey();
-    const publicKey = toHex(await getPublicKeyAsync(privateKey));
+    const publicKey: `0x${string}` = `0x${Buffer.from(await getPublicKeyAsync(privateKey)).toString('hex')}`;
 
     // valid for 24 hours
     const deadline = Math.floor(Date.now() / 1000) + ONE_DAY;
-    const signature = await mnemonicToAccount(process.env.FARCASTER_SIGNER_MNEMONIC).signTypedData({
+    const account = mnemonicToAccount(process.env.FARCASTER_SIGNER_MNEMONIC);
+    const signature = await account.signTypedData({
         domain: SIGNED_KEY_REQUEST_VALIDATOR_EIP_712_DOMAIN,
         types: {
             SignedKeyRequest: SIGNED_KEY_REQUEST_TYPE,
