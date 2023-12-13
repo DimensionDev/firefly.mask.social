@@ -1,6 +1,6 @@
 import { Trans } from '@lingui/macro';
 
-import { Image } from '@/components/Image.js';
+import { Avatar } from '@/components/Avatar.js';
 import { PlatformIcon } from '@/components/PlatformIcon.js';
 import FollowButton from '@/components/Profile/FollowButton.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
@@ -17,7 +17,7 @@ export default function Info({ isMyProfile, profile }: InfoProps) {
     return (
         <div className=" flex gap-3 p-3">
             {profile?.pfp ? (
-                <Image src={profile.pfp} width={80} height={80} alt="avatar" className=" h-20 w-20 rounded-full" />
+                <Avatar src={profile.pfp} alt="avatar" size={80} className=" h-20 w-20 rounded-full" />
             ) : (
                 <PlatformIcon className="rounded-full" platform={currentSocialPlatform} size={80} />
             )}

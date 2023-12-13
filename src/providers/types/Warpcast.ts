@@ -200,6 +200,10 @@ export interface Profile {
             text: string;
             mentions: unknown[];
         };
+        location: {
+            description: string;
+            placeId: string;
+        };
     };
     followerCount: number;
     followingCount: number;

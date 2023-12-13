@@ -1,9 +1,8 @@
-import { Image } from '@/components/Image.js';
+import { Avatar } from '@/components/Avatar.js';
 import FollowButton from '@/components/Profile/FollowButton.js';
 import { SourceIcon } from '@/components/SourceIcon.js';
 import { Link } from '@/esm/Link.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
-import { useDarkMode } from '@/hooks/useDarkMode.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 interface ProfileInListProps {
@@ -11,21 +10,14 @@ interface ProfileInListProps {
     noFollowButton?: boolean;
 }
 
-export function ProfileInList(props: ProfileInListProps) {
-    const { profile } = props;
-
-    const { isDarkMode } = useDarkMode();
-
+export function ProfileInList({ profile, noFollowButton }: ProfileInListProps) {
     return (
         <div className="flex-start flex cursor-pointer border-b border-secondaryLine px-4 py-6 hover:bg-bg dark:border-line">
             <Link className="flex-start flex flex-1" href={getProfileUrl(profile)}>
-                <Image
-                    loading="lazy"
+                <Avatar
                     className="mr-3 h-[78px] w-[78px] rounded-full border"
                     src={profile.pfp}
-                    fallback={!isDarkMode ? '/image/firefly-light-avatar.png' : '/image/firefly-dark-avatar.png'}
-                    width={78}
-                    height={78}
+                    size={78}
                     alt={profile.displayName}
                 />
 
@@ -39,7 +31,7 @@ export function ProfileInList(props: ProfileInListProps) {
                 </div>
             </Link>
 
-            {!props.noFollowButton ? (
+            {!noFollowButton ? (
                 <div>
                     <FollowButton profile={profile} />
                 </div>

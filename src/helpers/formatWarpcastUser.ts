@@ -9,6 +9,8 @@ export function formatWarpcastUser(user: WarpProfile): Profile {
         displayName: user.displayName,
         handle: user.username,
         pfp: user.pfp?.url,
+        bio: user.profile.bio.text,
+        address: user.profile.location.description,
         followerCount: user.followerCount,
         followingCount: user.followingCount,
         status: ProfileStatus.Active,

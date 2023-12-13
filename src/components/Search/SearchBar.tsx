@@ -10,12 +10,11 @@ import CloseIcon from '@/assets/close-circle.svg';
 import LeftArrowIcon from '@/assets/left-arrow.svg';
 import LoadingIcon from '@/assets/loading.svg';
 import SearchIcon from '@/assets/search.svg';
-import { Image } from '@/components/Image.js';
+import { Avatar } from '@/components/Avatar.js';
 import { SourceIcon } from '@/components/SourceIcon.js';
 import { SearchType, SocialPlatform } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
-import { useDarkMode } from '@/hooks/useDarkMode.js';
 import { HubbleSocialMediaProvider } from '@/providers/hubble/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
@@ -30,7 +29,6 @@ interface SearchBarProps {
 const SearchBar = memo(function SearchBar(props: SearchBarProps) {
     const router = useRouter();
     const pathname = usePathname();
-    const { isDarkMode } = useDarkMode();
     const { currentSocialPlatform } = useGlobalState();
     const inputRef = useRef<HTMLInputElement>(null);
     const [showDropdown, setShowDropdown] = useState(false);
@@ -212,19 +210,13 @@ const SearchBar = memo(function SearchBar(props: SearchBarProps) {
                                         }}
                                     >
                                         <div className="flex flex-row items-center">
-                                            <Image
+                                            <Avatar
                                                 className="mr-[10px] h-10 w-10 rounded-full"
-                                                loading="lazy"
                                                 src={profile.pfp}
-                                                fallback={
-                                                    isDarkMode
-                                                        ? '/image/firefly-dark-avatar.png'
-                                                        : '/image/firefly-light-avatar.png'
-                                                }
-                                                width={40}
-                                                height={40}
+                                                size={40}
                                                 alt={profile.displayName}
                                             />
+
                                             <div className="flex-1 text-left">
                                                 <div className="flex">
                                                     <span className="mr-1">{profile.displayName}</span>
