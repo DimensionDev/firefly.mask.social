@@ -1,5 +1,6 @@
 import { Menu, Transition } from '@headlessui/react';
 import { plural, t, Trans } from '@lingui/macro';
+import { safeUnreachable } from '@masknet/kit';
 import { motion } from 'framer-motion';
 import { Fragment, memo, useMemo, useState } from 'react';
 import { useAsyncFn } from 'react-use';
@@ -53,6 +54,7 @@ export const Mirror = memo<MirrorProps>(function Mirror({
             case SocialPlatform.Farcaster:
                 return t`Recast`;
             default:
+                safeUnreachable(source);
                 return '';
         }
     }, [source, count]);
@@ -64,6 +66,7 @@ export const Mirror = memo<MirrorProps>(function Mirror({
             case SocialPlatform.Farcaster:
                 return mirrored ? t`Recasted` : t`Recast`;
             default:
+                safeUnreachable(source);
                 return '';
         }
     }, [source, mirrored]);
@@ -102,6 +105,7 @@ export const Mirror = memo<MirrorProps>(function Mirror({
                 // TODO cancel Recast
                 return FireflySocialMediaProvider.mirrorPost(postId);
             default:
+                safeUnreachable(source);
                 return null;
         }
     }, [postId, source]);
@@ -128,7 +132,7 @@ export const Mirror = memo<MirrorProps>(function Mirror({
                         if (!isLogin && !loading) {
                             event.stopPropagation();
                             event.preventDefault();
-                            LoginModalRef.open({ platform: post.source });
+                            LoginModalRef.open({ source: post.source });
                             return;
                         }
                         return;

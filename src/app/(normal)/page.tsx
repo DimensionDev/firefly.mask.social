@@ -1,5 +1,6 @@
 'use client';
 
+import { safeUnreachable } from '@masknet/kit';
 import { createIndicator, createPageable } from '@masknet/shared-base';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { useEffect, useMemo } from 'react';
@@ -19,14 +20,14 @@ import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 import { useLensStateStore } from '@/store/useLensStore.js';
 
 export default function Home() {
-    const currentSocialPlatform = useGlobalState.use.currentSocialPlatform();
+    const currentSource = useGlobalState.use.currentSource();
     const fetchAndStoreViews = useImpressionsStore.use.fetchAndStoreViews();
     const { data, hasNextPage, fetchNextPage, isFetchingNextPage, isFetching } = useSuspenseInfiniteQuery({
-        queryKey: ['discover', currentSocialPlatform],
+        queryKey: ['discover', currentSource],
         networkMode: 'always',
 
         queryFn: async ({ pageParam }) => {
-            switch (currentSocialPlatform) {
+            switch (currentSource) {
                 case SocialPlatform.Lens:
                     const result = await LensSocialMediaProvider.discoverPosts(createIndicator(undefined, pageParam));
                     const ids = result.data.flatMap((x) => [x.postId]);
@@ -36,7 +37,8 @@ export default function Home() {
                 case SocialPlatform.Farcaster:
                     return WarpcastSocialMediaProvider.discoverPosts(createIndicator(undefined, pageParam));
                 default:
-                    return createPageable([], undefined);
+                    safeUnreachable(currentSource);
+                    return createPageable(EMPTY_LIST, undefined);
             }
         },
         initialPageParam: '',

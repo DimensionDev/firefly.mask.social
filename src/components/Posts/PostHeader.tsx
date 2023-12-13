@@ -19,21 +19,16 @@ interface PostHeaderProps {
 }
 
 export const PostHeader = memo<PostHeaderProps>(function PostHeader({ post, isQuote = false }) {
+    const currentSource = useGlobalState.use.currentSource();
     const currentLensProfile = useLensStateStore.use.currentProfile();
     const currentFarcasterProfile = useFarcasterStateStore.use.currentProfile();
-    const currentSocialPlatform = useGlobalState.use.currentSocialPlatform();
 
     const isMyPost = useMemo(
         () =>
-            currentSocialPlatform === SocialPlatform.Lens
+            currentSource === SocialPlatform.Lens
                 ? post.author.profileId === currentLensProfile?.profileId
                 : post.author.profileId === currentFarcasterProfile?.profileId,
-        [
-            currentFarcasterProfile?.profileId,
-            currentLensProfile?.profileId,
-            currentSocialPlatform,
-            post.author.profileId,
-        ],
+        [currentFarcasterProfile?.profileId, currentLensProfile?.profileId, currentSource, post.author.profileId],
     );
 
     const profileLink = getProfileUrl(post.author);

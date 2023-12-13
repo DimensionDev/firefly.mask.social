@@ -11,10 +11,11 @@ import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 
 export function SocialPlatformTabs() {
+    const currentSource = useGlobalState.use.currentSource();
+    const updateCurrentSource = useGlobalState.use.updateCurrentSource();
+    const currentProfile = useCurrentProfile(currentSource);
+
     const pathname = usePathname();
-    const currentSocialPlatform = useGlobalState.use.currentSocialPlatform();
-    const currentProfile = useCurrentProfile(currentSocialPlatform);
-    const switchSocialPlatform = useGlobalState.use.switchSocialPlatform();
     const router = useRouter();
 
     if (
@@ -31,16 +32,16 @@ export function SocialPlatformTabs() {
                     <a
                         key={key}
                         className={classNames(
-                            currentSocialPlatform === value ? 'border-b-2 border-[#9250FF] text-main' : 'text-third',
+                            currentSource === value ? 'border-b-2 border-[#9250FF] text-main' : 'text-third',
                             'px-4 py-5 text-xl font-bold leading-6 hover:cursor-pointer',
                         )}
-                        aria-current={currentSocialPlatform === value ? 'page' : undefined}
+                        aria-current={currentSource === value ? 'page' : undefined}
                         onClick={() =>
                             startTransition(() => {
                                 if (pathname.includes('/profile') && currentProfile) {
                                     router.push(getProfileUrl(currentProfile));
                                 }
-                                switchSocialPlatform(value);
+                                updateCurrentSource(value);
                             })
                         }
                     >

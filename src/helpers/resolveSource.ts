@@ -1,9 +1,10 @@
+import { createLookupTableResolver } from '@masknet/shared-base';
+
 import { SocialPlatform } from '@/constants/enum.js';
-import { createLookupTableResolver } from '@/maskbook/packages/shared-base/src/index.js';
 
-export type PlatformKeyword = 'lens' | 'farcaster';
+export type SourceInURL = 'lens' | 'farcaster';
 
-export const resolvePlatform = createLookupTableResolver<PlatformKeyword, SocialPlatform>(
+export const resolveSource = createLookupTableResolver<SourceInURL, SocialPlatform>(
     {
         lens: SocialPlatform.Lens,
         farcaster: SocialPlatform.Farcaster,

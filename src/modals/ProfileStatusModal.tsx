@@ -17,24 +17,24 @@ import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
 import { useLensStateStore } from '@/store/useLensStore.js';
 
 export interface ProfileStatusModalProps {
-    platform: SocialPlatform;
+    source: SocialPlatform;
 }
 
 export const ProfileStatusModal = forwardRef<SingletonModalRefCreator<ProfileStatusModalProps>>(
     function ProfileStatusModal(_, ref) {
-        const [platform, setPlatform] = useState<SocialPlatform>();
+        const [source, setSource] = useState<SocialPlatform>();
 
         const farcasterProfiles = useFarcasterStateStore.use.profiles();
         const currentFarcasterProfile = useFarcasterStateStore.use.currentProfile();
         const lensProfiles = useLensStateStore.use.profiles();
         const currentLensProfile = useLensStateStore.use.currentProfile();
 
-        const profiles = platform === SocialPlatform.Lens ? lensProfiles : farcasterProfiles;
-        const currentProfile = platform === SocialPlatform.Lens ? currentLensProfile : currentFarcasterProfile;
+        const profiles = source === SocialPlatform.Lens ? lensProfiles : farcasterProfiles;
+        const currentProfile = source === SocialPlatform.Lens ? currentLensProfile : currentFarcasterProfile;
 
         const [open, dispatch] = useSingletonModal(ref, {
             onOpen(props) {
-                setPlatform(props.platform);
+                setSource(props.source);
             },
         });
         return (
@@ -86,7 +86,7 @@ export const ProfileStatusModal = forwardRef<SingletonModalRefCreator<ProfileSta
                                             onClick={async () => {
                                                 dispatch?.close();
                                                 await delay(300);
-                                                LoginModalRef.open({ platform });
+                                                LoginModalRef.open({ source });
                                             }}
                                         >
                                             <UserAddIcon width={24} height={24} />
@@ -99,7 +99,7 @@ export const ProfileStatusModal = forwardRef<SingletonModalRefCreator<ProfileSta
                                             onClick={async () => {
                                                 dispatch?.close();
                                                 await delay(300);
-                                                LogoutModalRef.open({ platform });
+                                                LogoutModalRef.open({ source });
                                             }}
                                         >
                                             <LogoutIcon width={24} height={24} />

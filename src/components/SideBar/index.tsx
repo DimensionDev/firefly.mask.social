@@ -69,12 +69,12 @@ const items = [
 ];
 
 export const SideBar = memo(function SideBar() {
-    const { isDarkMode } = useDarkMode();
-    const isLogin = useIsLogin();
-    const currentSocialPlatform = useGlobalState.use.currentSocialPlatform();
-    const currentProfile = useCurrentProfile(currentSocialPlatform);
+    const currentSource = useGlobalState.use.currentSource();
+    const currentProfile = useCurrentProfile(currentSource);
 
     const route = usePathname();
+    const { isDarkMode } = useDarkMode();
+    const isLogin = useIsLogin();
 
     return (
         <>

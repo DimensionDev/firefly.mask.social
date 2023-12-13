@@ -25,7 +25,7 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ post }) {
     const [{ loading }, handleToggleFollow] = useToggleFollow({
         profileId: post.author.profileId,
         handle: post.author.handle!,
-        platform: post.source,
+        source: post.source,
         isFollowed,
     });
 
@@ -40,7 +40,7 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ post }) {
                     if (!isLogin) {
                         event.stopPropagation();
                         event.preventDefault();
-                        LoginModalRef.open({ platform: post.source });
+                        LoginModalRef.open({ source: post.source });
                         return;
                     }
                     event.stopPropagation();

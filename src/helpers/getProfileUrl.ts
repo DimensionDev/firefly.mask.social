@@ -7,13 +7,13 @@ import type { Profile } from '@/providers/types/SocialMedia.js';
 export function getProfileUrl(profile: Profile) {
     switch (profile.source) {
         case SocialPlatform.Lens:
-            return urlcat('/profile/:platform/:id', {
-                platform: profile.source.toLowerCase(),
+            return urlcat('/profile/:source/:id', {
+                source: profile.source.toLowerCase(),
                 id: profile.handle,
             });
         case SocialPlatform.Farcaster:
-            return urlcat('/profile/:platform/:id', {
-                platform: profile.source.toLowerCase(),
+            return urlcat('/profile/:source/:id', {
+                source: profile.source.toLowerCase(),
                 id: profile.profileId,
             });
         default:

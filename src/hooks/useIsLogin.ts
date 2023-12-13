@@ -6,23 +6,23 @@ import { SocialPlatform } from '@/constants/enum.js';
 import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
 import { useLensStateStore } from '@/store/useLensStore.js';
 
-export function useIsLogin(platform?: SocialPlatform) {
+export function useIsLogin(source?: SocialPlatform) {
     const account = useAccount();
     const currentLensProfile = useLensStateStore.use.currentProfile();
     const currentFarcasterProfile = useFarcasterStateStore.use.currentProfile();
 
     return useMemo(() => {
         if (!account.isConnected) return false;
-        if (!platform) return !!(currentLensProfile?.profileId || currentFarcasterProfile?.profileId);
+        if (!source) return !!(currentLensProfile?.profileId || currentFarcasterProfile?.profileId);
 
-        switch (platform) {
+        switch (source) {
             case SocialPlatform.Lens:
                 return !!currentLensProfile?.profileId;
             case SocialPlatform.Farcaster:
                 return !!currentFarcasterProfile?.profileId;
             default:
-                safeUnreachable(platform);
+                safeUnreachable(source);
                 return false;
         }
-    }, [currentLensProfile, currentFarcasterProfile, platform, account]);
+    }, [currentLensProfile, currentFarcasterProfile, source, account]);
 }
