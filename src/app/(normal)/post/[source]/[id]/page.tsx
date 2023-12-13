@@ -9,13 +9,13 @@ import { CommentList } from '@/components/Comments/index.js';
 import { SinglePost } from '@/components/Posts/SinglePost.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { createPageTitle } from '@/helpers/createPageTitle.js';
-import { resolveSource, type SourceKeyword } from '@/helpers/resolveSource.js';
+import { resolveSource, type SourceInURL } from '@/helpers/resolveSource.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { WarpcastSocialMediaProvider } from '@/providers/warpcast/SocialMedia.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 
 interface PostPageProps {
-    params: { id: string; source: SourceKeyword };
+    params: { id: string; source: SourceInURL };
 }
 
 export default function PostPage({ params: { id: postId, source: _source } }: PostPageProps) {

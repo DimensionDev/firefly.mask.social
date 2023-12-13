@@ -5,12 +5,12 @@ import LensIcon from '@/assets/lens.svg';
 import { SocialPlatform } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 
-interface PlatformIconProps extends React.SVGProps<SVGSVGElement> {
+interface SourceIconProps extends React.SVGProps<SVGSVGElement> {
     size?: number;
     source: SocialPlatform;
 }
 
-export function PlatformIcon({ source, size = 20, className = '', ...props }: PlatformIconProps) {
+export function SourceIcon({ source, size = 20, className = '', ...props }: SourceIconProps) {
     switch (source) {
         case SocialPlatform.Lens:
             return (

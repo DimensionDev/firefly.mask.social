@@ -22,27 +22,27 @@ import { useGlobalState } from '@/store/useGlobalStore.js';
 
 export default function Page() {
     const { keyword, searchType } = useSearchState();
-    const { currentSource: currentSocialPlatform } = useGlobalState();
+    const { currentSource } = useGlobalState();
 
     const { data, hasNextPage, fetchNextPage, isFetchingNextPage, isFetching } = useSuspenseInfiniteQuery({
-        queryKey: ['search', searchType, keyword, currentSocialPlatform],
+        queryKey: ['search', searchType, keyword, currentSource],
         queryFn: async ({ pageParam }) => {
             if (!keyword) return;
 
             const indicator = pageParam ? createIndicator(undefined, pageParam) : undefined;
 
             if (searchType === SearchType.Profiles) {
-                switch (currentSocialPlatform) {
+                switch (currentSource) {
                     case SocialPlatform.Lens:
                         return LensSocialMediaProvider.searchProfiles(keyword, indicator);
                     case SocialPlatform.Farcaster:
                         return WarpcastSocialMediaProvider.searchProfiles(keyword, indicator);
                     default:
-                        safeUnreachable(currentSocialPlatform);
+                        safeUnreachable(currentSource);
                         return;
                 }
             } else if (searchType === SearchType.Posts) {
-                switch (currentSocialPlatform) {
+                switch (currentSource) {
                     case SocialPlatform.Lens:
                         return LensSocialMediaProvider.searchPosts(keyword, indicator);
                     case SocialPlatform.Farcaster:
@@ -54,7 +54,7 @@ export default function Page() {
                             createPageable<Post>(EMPTY_LIST, createIndicator(indicator)),
                         );
                     default:
-                        safeUnreachable(currentSocialPlatform);
+                        safeUnreachable(currentSource);
                         return;
                 }
             } else {

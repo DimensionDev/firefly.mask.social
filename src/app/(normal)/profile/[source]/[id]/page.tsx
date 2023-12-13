@@ -12,13 +12,13 @@ import Info from '@/components/Profile/Info.js';
 import Title from '@/components/Profile/Title.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { createPageTitle } from '@/helpers/createPageTitle.js';
-import { resolveSource, type SourceKeyword } from '@/helpers/resolveSource.js';
+import { resolveSource, type SourceInURL } from '@/helpers/resolveSource.js';
 import { useIsMyProfile } from '@/hooks/isMyProfile.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { WarpcastSocialMediaProvider } from '@/providers/warpcast/SocialMedia.js';
 
 interface ProfilePageProps {
-    params: { id: string; source: SourceKeyword };
+    params: { id: string; source: SourceInURL };
 }
 export default function ProfilePage({ params: { source: _source, id: handleOrProfileId } }: ProfilePageProps) {
     const currentSource = resolveSource(_source);

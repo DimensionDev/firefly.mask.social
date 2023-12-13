@@ -12,7 +12,7 @@ import LeftArrowIcon from '@/assets/left-arrow.svg';
 import LoadingIcon from '@/assets/loading.svg';
 import SearchIcon from '@/assets/search.svg';
 import { Avatar } from '@/components/Avatar.js';
-import { PlatformIcon } from '@/components/PlatformIcon.js';
+import { SourceIcon } from '@/components/SourceIcon.jsx';
 import { SearchType, SocialPlatform } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
@@ -30,7 +30,7 @@ interface SearchBarProps {
 const SearchBar = memo(function SearchBar(props: SearchBarProps) {
     const router = useRouter();
     const pathname = usePathname();
-    const { currentSource: currentSocialPlatform } = useGlobalState();
+    const { currentSource } = useGlobalState();
     const inputRef = useRef<HTMLInputElement>(null);
     const [showDropdown, setShowDropdown] = useState(false);
 
@@ -46,15 +46,15 @@ const SearchBar = memo(function SearchBar(props: SearchBarProps) {
     });
 
     const { data: profiles, isLoading } = useQuery({
-        queryKey: ['searchText', currentSocialPlatform, debouncedKeyword],
+        queryKey: ['searchText', currentSource, debouncedKeyword],
         queryFn: async () => {
-            switch (currentSocialPlatform) {
+            switch (currentSource) {
                 case SocialPlatform.Lens:
                     return LensSocialMediaProvider.searchProfiles(debouncedKeyword);
                 case SocialPlatform.Farcaster:
                     return HubbleSocialMediaProvider.searchProfiles(debouncedKeyword);
                 default:
-                    safeUnreachable(currentSocialPlatform);
+                    safeUnreachable(currentSource);
                     return;
             }
         },
@@ -164,9 +164,9 @@ const SearchBar = memo(function SearchBar(props: SearchBarProps) {
                         {inputText ? (
                             <>
                                 <h2 className=" p-3 pb-2 text-sm">
-                                    {currentSocialPlatform === SocialPlatform.Lens ? (
+                                    {currentSource === SocialPlatform.Lens ? (
                                         <Trans>Publications</Trans>
-                                    ) : currentSocialPlatform === SocialPlatform.Farcaster ? (
+                                    ) : currentSource === SocialPlatform.Farcaster ? (
                                         <Trans>Casts</Trans>
                                     ) : (
                                         <Trans>Posts</Trans>
@@ -222,7 +222,7 @@ const SearchBar = memo(function SearchBar(props: SearchBarProps) {
                                             <div className="flex-1 text-left">
                                                 <div className="flex">
                                                     <span className="mr-1">{profile.displayName}</span>
-                                                    <PlatformIcon source={profile.source} />
+                                                    <SourceIcon source={profile.source} />
                                                 </div>
                                                 <div className=" font-normal text-secondary">@{profile.handle}</div>
                                             </div>

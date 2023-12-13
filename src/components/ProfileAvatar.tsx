@@ -1,4 +1,4 @@
-import { PlatformIcon } from '@/components/PlatformIcon.js';
+import { SourceIcon } from '@/components/SourceIcon.jsx';
 import { Image } from '@/esm/Image.js';
 import { classNames } from '@/helpers/classNames.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
@@ -24,7 +24,7 @@ export function ProfileAvatar(props: ProfileAvatarProps) {
                 >
                     <Image className="rounded-[99px]" src={profile.pfp} alt="avatar" width={size} height={size} />
                 </div>
-                <PlatformIcon
+                <SourceIcon
                     className="absolute left-[24px] top-[24px] h-[16px] w-[16px] rounded-[99px] border border-white shadow"
                     source={profile.source}
                     size={16}
