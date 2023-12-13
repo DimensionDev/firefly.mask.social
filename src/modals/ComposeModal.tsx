@@ -11,7 +11,7 @@ import ComposeAction from '@/components/Compose/ComposeAction.js';
 import ComposeContent from '@/components/Compose/ComposeContent.js';
 import ComposeSend from '@/components/Compose/ComposeSend.js';
 import Discard from '@/components/Compose/Discard.js';
-import withLexicalContext from '@/components/shared/lexical/withLexicalContext.jsx';
+import withLexicalContext from '@/components/shared/lexical/withLexicalContext.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 
