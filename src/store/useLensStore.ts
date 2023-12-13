@@ -9,7 +9,7 @@ import { createSessionStorage } from '@/helpers/createSessionStorage.js';
 import type { Session } from '@/providers/types/Session.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
-export interface LensState {
+interface LensState {
     profiles: Profile[];
     currentProfile: Profile | null;
     currentProfileSession: Session | null;

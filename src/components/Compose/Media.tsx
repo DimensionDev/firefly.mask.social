@@ -1,49 +1,48 @@
 import { Popover, Transition } from '@headlessui/react';
 import { Trans } from '@lingui/macro';
-import { type ChangeEvent, type Dispatch, Fragment, type SetStateAction, useRef } from 'react';
+import { type ChangeEvent, Fragment, useRef } from 'react';
 import { useAsyncFn } from 'react-use';
 
 import ImageIcon from '@/assets/image.svg';
 import VideoIcon from '@/assets/video.svg';
 import uploadToIPFS from '@/services/uploadToIPFS.js';
+import { useComposeStateStore } from '@/store/useComposeStore.js';
 import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
-import type { IPFS_MediaObject } from '@/types/index.js';
 
-interface MediaProps {
-    type: 'compose' | 'quote' | 'reply';
-    images: IPFS_MediaObject[];
-    setImages: Dispatch<SetStateAction<IPFS_MediaObject[]>>;
-    setLoading: (loading: boolean) => void;
-    video: IPFS_MediaObject | null;
-    setVideo: Dispatch<SetStateAction<IPFS_MediaObject | null>>;
-}
-export default function Media({ type, images, setImages, setLoading, video, setVideo }: MediaProps) {
+interface MediaProps {}
+
+export default function Media(props: MediaProps) {
     const imageInputRef = useRef<HTMLInputElement>(null);
     const videoInputRef = useRef<HTMLInputElement>(null);
 
     const currentFarcasterProfile = useFarcasterStateStore.use.currentProfile();
+
+    const video = useComposeStateStore.use.video();
+    const images = useComposeStateStore.use.images();
+    const updateVideo = useComposeStateStore.use.updateVideo();
+    const updateImages = useComposeStateStore.use.updateImages();
+    const updateLoading = useComposeStateStore.use.updateLoading();
 
     const [, handleImageChange] = useAsyncFn(
         async (event: ChangeEvent<HTMLInputElement>) => {
             const files = event.target.files;
 
             if (files && files.length > 0) {
-                setLoading(true);
-                const res = await uploadToIPFS([...files]);
-                setImages((_images) =>
-                    _images
-                        .concat(
-                            res.map((ipfs, index) => ({
-                                file: files[index],
-                                ipfs,
-                            })),
-                        )
-                        .slice(0, currentFarcasterProfile ? 2 : 4),
+                updateLoading(true);
+                const response = await uploadToIPFS([...files]);
+                updateImages(
+                    [
+                        ...images,
+                        ...response.map((ipfs, index) => ({
+                            file: files[index],
+                            ipfs,
+                        })),
+                    ].slice(0, currentFarcasterProfile ? 2 : 4),
                 );
-                setLoading(false);
+                updateLoading(false);
             }
         },
-        [currentFarcasterProfile, setImages, setLoading],
+        [currentFarcasterProfile, images, updateImages, updateLoading],
     );
 
     const [, handleVideoChange] = useAsyncFn(
@@ -51,16 +50,16 @@ export default function Media({ type, images, setImages, setLoading, video, setV
             const files = event.target.files;
 
             if (files && files.length > 0) {
-                setLoading(true);
-                const res = await uploadToIPFS([...files]);
-                setVideo({
+                updateLoading(true);
+                const response = await uploadToIPFS([...files]);
+                updateVideo({
                     file: files[0],
-                    ipfs: res[0],
+                    ipfs: response[0],
                 });
-                setLoading(false);
+                updateLoading(false);
             }
         },
-        [setLoading, setVideo],
+        [updateLoading, updateVideo],
     );
 
     return (

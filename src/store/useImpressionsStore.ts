@@ -4,13 +4,13 @@ import { EMPTY_LIST } from '@/constants/index.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 
-export interface LensPublicationViewCount {
+interface Views {
     id: string;
     views: number;
 }
 
 interface ImpressionsState {
-    publicationViews: LensPublicationViewCount[];
+    publicationViews: Views[];
     fetchAndStoreViews: (ids: string[]) => Promise<void>;
 }
 
@@ -24,7 +24,7 @@ export const useImpressionsBase = create<ImpressionsState>((set) => ({
         }
 
         try {
-            const viewsResponse = await fetchJSON<{ success: boolean; views: LensPublicationViewCount[] }>(STATS_URL, {
+            const viewsResponse = await fetchJSON<{ success: boolean; views: Views[] }>(STATS_URL, {
                 method: 'POST',
                 body: JSON.stringify({ ids }),
             });
