@@ -18,7 +18,7 @@ import {
     MessageType,
     ReactionType,
     SignatureScheme,
-} from '@/providers/firefly/proto/message.js';
+} from '@/providers/hubble/proto/message.js';
 import type { UserResponse } from '@/providers/types/Firefly.js';
 import { type Post, type Profile, ProfileStatus, type Provider, Type } from '@/providers/types/SocialMedia.js';
 import { ReactionType as ReactionTypeCustom } from '@/providers/types/SocialMedia.js';
@@ -123,11 +123,11 @@ export class HubbleSocialMedia implements Provider {
 
         return {
             source: SocialPlatform.Farcaster,
-            postId: hash.toString(),
+            postId: `0x${Buffer.from(hash).toString('hex')}`,
             parentPostId: '',
             timestamp: data.timestamp,
             author: {
-                profileId: data?.fid.toString(),
+                profileId: data.fid.toString(),
                 displayName: post.author.displayName,
                 handle: post.author.handle,
                 pfp: post.author.pfp,
