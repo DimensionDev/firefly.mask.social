@@ -7,7 +7,7 @@ import urlcat from 'urlcat';
 import type { MarkupLinkProps } from '@/components/Markup/MarkupLink/index.js';
 import { PageRoutes } from '@/constants/enum.js';
 
-export const Hashtag = memo<MarkupLinkProps>(function Hashtag({ title }) {
+export const Hashtag = memo<Omit<MarkupLinkProps, 'post'>>(function Hashtag({ title }) {
     const router = useRouter();
 
     useEffect(() => {

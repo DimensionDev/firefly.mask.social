@@ -21,30 +21,27 @@ import { useLensStateStore } from '@/store/useLensStore.js';
 export default function Home() {
     const currentSocialPlatform = useGlobalState.use.currentSocialPlatform();
     const fetchAndStoreViews = useImpressionsStore.use.fetchAndStoreViews();
-    const { data, hasNextPage, fetchNextPage, isFetchingNextPage, isError, isPending, refetch, isFetching } =
-        useSuspenseInfiniteQuery({
-            queryKey: ['discover', currentSocialPlatform],
-            networkMode: 'always',
+    const { data, hasNextPage, fetchNextPage, isFetchingNextPage, isFetching } = useSuspenseInfiniteQuery({
+        queryKey: ['discover', currentSocialPlatform],
+        networkMode: 'always',
 
-            queryFn: async ({ pageParam }) => {
-                switch (currentSocialPlatform) {
-                    case SocialPlatform.Lens:
-                        const result = await LensSocialMediaProvider.discoverPosts(
-                            createIndicator(undefined, pageParam),
-                        );
-                        const ids = result.data.flatMap((x) => [x.postId]);
-                        fetchAndStoreViews(ids);
+        queryFn: async ({ pageParam }) => {
+            switch (currentSocialPlatform) {
+                case SocialPlatform.Lens:
+                    const result = await LensSocialMediaProvider.discoverPosts(createIndicator(undefined, pageParam));
+                    const ids = result.data.flatMap((x) => [x.postId]);
+                    fetchAndStoreViews(ids);
 
-                        return result;
-                    case SocialPlatform.Farcaster:
-                        return WarpcastSocialMediaProvider.discoverPosts(createIndicator(undefined, pageParam));
-                    default:
-                        return createPageable([], undefined);
-                }
-            },
-            initialPageParam: '',
-            getNextPageParam: (lastPage) => lastPage.nextIndicator?.id,
-        });
+                    return result;
+                case SocialPlatform.Farcaster:
+                    return WarpcastSocialMediaProvider.discoverPosts(createIndicator(undefined, pageParam));
+                default:
+                    return createPageable([], undefined);
+            }
+        },
+        initialPageParam: '',
+        getNextPageParam: (lastPage) => lastPage.nextIndicator?.id,
+    });
 
     const { observe } = useInView({
         rootMargin: '300px 0px',

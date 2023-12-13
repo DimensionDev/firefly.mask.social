@@ -1,5 +1,5 @@
 import { Menu, Transition } from '@headlessui/react';
-import { t, Trans } from '@lingui/macro';
+import { plural, t, Trans } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import { Fragment, memo, useMemo, useState } from 'react';
 import { useAsyncFn } from 'react-use';
@@ -45,8 +45,11 @@ export const Mirror = memo<MirrorProps>(function Mirror({
     const content = useMemo(() => {
         switch (source) {
             case SocialPlatform.Lens:
-                if (count) return t`Mirrors and Quotes`;
-                return t`Mirror and Quotes`;
+                return plural(count ?? 0, {
+                    zero: 'Mirror and Quote',
+                    one: 'Mirror and Quote',
+                    other: 'Mirrors and Quotes',
+                });
             case SocialPlatform.Farcaster:
                 return t`Recast`;
             default:
@@ -125,7 +128,7 @@ export const Mirror = memo<MirrorProps>(function Mirror({
                         if (!isLogin && !loading) {
                             event.stopPropagation();
                             event.preventDefault();
-                            LoginModalRef.open();
+                            LoginModalRef.open({ platform: post.source });
                             return;
                         }
                         return;

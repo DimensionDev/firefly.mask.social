@@ -36,7 +36,7 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
     const postPayload = getPostPayload(post.metadata.content?.content);
 
     const pathname = usePathname();
-    const isDetail = pathname.includes('/detail');
+    const isDetail = pathname.includes('/post');
     const postLink = getPostUrl(post);
 
     return (

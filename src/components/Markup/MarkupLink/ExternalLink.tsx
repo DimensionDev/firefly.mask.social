@@ -18,7 +18,7 @@ export const ExternalLink = memo<ExternalLinkProps>(function ExternalLink({ titl
     const href = title.includes('://') ? title : new URL(title).href;
     return (
         <span
-            className="text-link"
+            className="text-link hover:underline"
             onClick={(event) => {
                 event.stopPropagation();
                 if (href.includes(location.host)) {

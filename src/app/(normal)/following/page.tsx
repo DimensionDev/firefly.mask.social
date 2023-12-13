@@ -3,7 +3,9 @@
 import { createIndicator } from '@masknet/shared-base';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { useMemo } from 'react';
+import { useInView } from 'react-cool-inview';
 
+import LoadingIcon from '@/assets/loading.svg';
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { SinglePost } from '@/components/Posts/SinglePost.js';
@@ -21,7 +23,7 @@ export default function Following() {
     const currentLensProfile = useLensStateStore.use.currentProfile();
     const currentFarcasterProfile = useFarcasterStateStore.use.currentProfile();
 
-    const { data } = useSuspenseInfiniteQuery({
+    const { data, hasNextPage, fetchNextPage, isFetchingNextPage, isFetching } = useSuspenseInfiniteQuery({
         queryKey: [
             'following',
             currentSocialPlatform,
@@ -52,6 +54,16 @@ export default function Following() {
         getNextPageParam: (lastPage) => lastPage?.nextIndicator?.id,
     });
 
+    const { observe } = useInView({
+        rootMargin: '300px 0px',
+        onChange: async ({ inView }) => {
+            if (!inView || !hasNextPage || isFetching || isFetchingNextPage) {
+                return;
+            }
+            await fetchNextPage();
+        },
+    });
+
     const results = useMemo(() => data.pages?.flatMap((x) => x?.data ?? []) ?? [], [data]);
 
     if (!isLogin) {
@@ -65,6 +77,11 @@ export default function Following() {
             ) : (
                 <NoResultsFallback />
             )}
+            {hasNextPage && results.length ? (
+                <div className="flex items-center justify-center p-2" ref={observe}>
+                    <LoadingIcon width={16} height={16} className="animate-spin" />
+                </div>
+            ) : null}
         </div>
     );
 }
