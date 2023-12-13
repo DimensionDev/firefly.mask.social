@@ -28,3 +28,5 @@ export interface IPFS_MediaObject {
 }
 
 export type ThemeMode = 'light' | 'dark' | 'default';
+
+export type PartialWith<T, K extends keyof T> = Partial<Pick<T, K>> & Omit<T, K>;

@@ -4,12 +4,11 @@ import type { Pageable, PageIndicator } from '@masknet/shared-base';
 import urlcat from 'urlcat';
 import { toBytes } from 'viem';
 
-import { warpcastClient } from '@/configs/warpcastClient.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { EMPTY_LIST, FIREFLY_HUBBLE_URL, FIREFLY_ROOT_URL } from '@/constants/index.js';
 import { encodeMessageData } from '@/helpers/encodeMessageData.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
-import { FarcasterNetwork, MessageType, ReactionType } from '@/providers/hubble/proto/message.js';
+import { MessageType, ReactionType } from '@/providers/hubble/proto/message.js';
 import type { UserResponse } from '@/providers/types/Firefly.js';
 import { type Post, type Profile, ProfileStatus, type Provider, Type } from '@/providers/types/SocialMedia.js';
 import { ReactionType as ReactionTypeCustom } from '@/providers/types/SocialMedia.js';
@@ -34,8 +33,7 @@ export class HubbleSocialMedia implements Provider {
     }
 
     async getProfileById(profileId: string) {
-        const url = urlcat(FIREFLY_ROOT_URL, '/user', { fid: profileId });
-        const { data: user } = await fetchJSON<UserResponse>(url, {
+        const { data: user } = await fetchJSON<UserResponse>(urlcat(FIREFLY_ROOT_URL, '/user', { fid: profileId }), {
             method: 'GET',
         });
 
@@ -69,24 +67,16 @@ export class HubbleSocialMedia implements Provider {
     }
 
     async publishPost(post: Post): Promise<Post> {
-        const session = warpcastClient.getSessionRequired();
-
-        const { bytes } = await encodeMessageData(
-            {
-                type: MessageType.CAST_ADD,
-                fid: Number(session.profileId),
-                timestamp: Math.floor(Date.now() / 1000),
-                network: FarcasterNetwork.MAINNET,
-                castAddBody: {
-                    embedsDeprecated: EMPTY_LIST,
-                    mentions: EMPTY_LIST,
-                    text: post.metadata.content?.content ?? '',
-                    mentionsPositions: EMPTY_LIST,
-                    embeds: post.mediaObjects?.map((v) => ({ url: v.url })) ?? EMPTY_LIST,
-                },
+        const { bytes } = await encodeMessageData(() => ({
+            type: MessageType.CAST_ADD,
+            castAddBody: {
+                embedsDeprecated: EMPTY_LIST,
+                mentions: EMPTY_LIST,
+                text: post.metadata.content?.content ?? '',
+                mentionsPositions: EMPTY_LIST,
+                embeds: post.mediaObjects?.map((v) => ({ url: v.url })) ?? EMPTY_LIST,
             },
-            session.token,
-        );
+        }));
 
         const { data, hash } = await fetchJSON<Message>(urlcat(FIREFLY_HUBBLE_URL, '/v1/submitMessage'), {
             method: 'POST',
@@ -127,24 +117,16 @@ export class HubbleSocialMedia implements Provider {
     }
 
     async upvotePost(postId: string) {
-        const session = warpcastClient.getSessionRequired();
-
-        const { bytes, messageHash, messageData } = await encodeMessageData(
-            {
-                type: MessageType.REACTION_ADD,
-                fid: Number(session.profileId),
-                timestamp: Math.floor(Date.now() / 1000),
-                network: FarcasterNetwork.MAINNET,
-                reactionBody: {
-                    type: ReactionType.LIKE,
-                    targetCastId: {
-                        hash: toBytes(postId),
-                        fid: Number(session.profileId),
-                    },
+        const { bytes, messageHash, messageData } = await encodeMessageData((fid) => ({
+            type: MessageType.REACTION_ADD,
+            reactionBody: {
+                type: ReactionType.LIKE,
+                targetCastId: {
+                    hash: toBytes(postId),
+                    fid,
                 },
             },
-            session.token,
-        );
+        }));
 
         const { data } = await fetchJSON<Message>(urlcat(FIREFLY_HUBBLE_URL, '/v1/submitMessage'), {
             method: 'POST',
@@ -161,24 +143,16 @@ export class HubbleSocialMedia implements Provider {
     }
 
     async unvotePost(postId: string) {
-        const session = warpcastClient.getSessionRequired();
-
-        const { bytes } = await encodeMessageData(
-            {
-                type: MessageType.REACTION_REMOVE,
-                fid: Number(session.profileId),
-                timestamp: Math.floor(Date.now() / 1000),
-                network: FarcasterNetwork.MAINNET,
-                reactionBody: {
-                    type: ReactionType.LIKE,
-                    targetCastId: {
-                        hash: toBytes(postId),
-                        fid: Number(session.profileId),
-                    },
+        const { bytes } = await encodeMessageData((fid) => ({
+            type: MessageType.REACTION_REMOVE,
+            reactionBody: {
+                type: ReactionType.LIKE,
+                targetCastId: {
+                    hash: toBytes(postId),
+                    fid,
                 },
             },
-            session.token,
-        );
+        }));
 
         const { data, hash } = await fetchJSON<Message>(urlcat(FIREFLY_HUBBLE_URL, '/v1/submitMessage'), {
             method: 'POST',
@@ -190,27 +164,20 @@ export class HubbleSocialMedia implements Provider {
     }
 
     async commentPost(postId: string, comment: string) {
-        const session = warpcastClient.getSessionRequired();
-        const { bytes } = await encodeMessageData(
-            {
-                type: MessageType.CAST_ADD,
-                fid: Number(session.profileId),
-                timestamp: Math.floor(Date.now() / 1000),
-                network: FarcasterNetwork.MAINNET,
-                castAddBody: {
-                    parentCastId: {
-                        hash: toBytes(postId),
-                        fid: Number(session.profileId),
-                    },
-                    embedsDeprecated: EMPTY_LIST,
-                    mentions: EMPTY_LIST,
-                    text: comment,
-                    mentionsPositions: EMPTY_LIST,
-                    embeds: EMPTY_LIST,
+        const { bytes } = await encodeMessageData((fid) => ({
+            type: MessageType.CAST_ADD,
+            castAddBody: {
+                parentCastId: {
+                    hash: toBytes(postId),
+                    fid,
                 },
+                embedsDeprecated: EMPTY_LIST,
+                mentions: EMPTY_LIST,
+                text: comment,
+                mentionsPositions: EMPTY_LIST,
+                embeds: EMPTY_LIST,
             },
-            session.token,
-        );
+        }));
 
         const { data, hash } = await fetchJSON<Message>(urlcat(FIREFLY_HUBBLE_URL, '/v1/submitMessage'), {
             method: 'POST',
@@ -222,24 +189,16 @@ export class HubbleSocialMedia implements Provider {
     }
 
     async mirrorPost(postId: string) {
-        const session = warpcastClient.getSessionRequired();
-
-        const { bytes } = await encodeMessageData(
-            {
-                type: MessageType.REACTION_ADD,
-                fid: Number(session.profileId),
-                timestamp: Math.floor(Date.now() / 1000),
-                network: FarcasterNetwork.MAINNET,
-                reactionBody: {
-                    type: ReactionType.RECAST,
-                    targetCastId: {
-                        hash: toBytes(postId),
-                        fid: Number(session.profileId),
-                    },
+        const { bytes } = await encodeMessageData((fid) => ({
+            type: MessageType.REACTION_ADD,
+            reactionBody: {
+                type: ReactionType.RECAST,
+                targetCastId: {
+                    hash: toBytes(postId),
+                    fid,
                 },
             },
-            session.token,
-        );
+        }));
 
         const { data, hash } = await fetchJSON<Message>(urlcat(FIREFLY_HUBBLE_URL, '/v1/submitMessage'), {
             method: 'POST',
@@ -251,24 +210,16 @@ export class HubbleSocialMedia implements Provider {
     }
 
     async unmirrorPost(postId: string) {
-        const session = warpcastClient.getSessionRequired();
-
-        const { bytes } = await encodeMessageData(
-            {
-                type: MessageType.REACTION_REMOVE,
-                fid: Number(session.profileId),
-                timestamp: Math.floor(Date.now() / 1000),
-                network: FarcasterNetwork.MAINNET,
-                reactionBody: {
-                    type: ReactionType.RECAST,
-                    targetCastId: {
-                        hash: toBytes(postId),
-                        fid: Number(session.profileId),
-                    },
+        const { bytes } = await encodeMessageData((fid) => ({
+            type: MessageType.REACTION_REMOVE,
+            reactionBody: {
+                type: ReactionType.RECAST,
+                targetCastId: {
+                    hash: toBytes(postId),
+                    fid,
                 },
             },
-            session.token,
-        );
+        }));
 
         const { data, hash } = await fetchJSON<Message>(urlcat(FIREFLY_HUBBLE_URL, '/v1/submitMessage'), {
             method: 'POST',
@@ -280,21 +231,13 @@ export class HubbleSocialMedia implements Provider {
     }
 
     async follow(profileId: string) {
-        const session = warpcastClient.getSessionRequired();
-
-        const { bytes } = await encodeMessageData(
-            {
-                type: MessageType.LINK_ADD,
-                fid: Number(session.profileId),
-                timestamp: Math.floor(Date.now() / 1000),
-                network: FarcasterNetwork.MAINNET,
-                linkBody: {
-                    type: '1',
-                    targetFid: Number(profileId),
-                },
+        const { bytes } = await encodeMessageData(() => ({
+            type: MessageType.LINK_ADD,
+            linkBody: {
+                type: '1',
+                targetFid: Number(profileId),
             },
-            session.token,
-        );
+        }));
 
         const { data, hash } = await fetchJSON<Message>(urlcat(FIREFLY_HUBBLE_URL, '/v1/submitMessage'), {
             method: 'POST',
@@ -306,21 +249,13 @@ export class HubbleSocialMedia implements Provider {
     }
 
     async unfollow(profileId: string) {
-        const session = warpcastClient.getSessionRequired();
-
-        const { bytes } = await encodeMessageData(
-            {
-                type: MessageType.LINK_REMOVE,
-                fid: Number(session.profileId),
-                timestamp: Math.floor(Date.now() / 1000),
-                network: FarcasterNetwork.MAINNET,
-                linkBody: {
-                    type: '1',
-                    targetFid: Number(profileId),
-                },
+        const { bytes } = await encodeMessageData(() => ({
+            type: MessageType.LINK_REMOVE,
+            linkBody: {
+                type: '1',
+                targetFid: Number(profileId),
             },
-            session.token,
-        );
+        }));
 
         const { data, hash } = await fetchJSON<Message>(urlcat(FIREFLY_HUBBLE_URL, '/v1/submitMessage'), {
             method: 'POST',
