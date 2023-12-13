@@ -20,7 +20,7 @@ export default function Media(props: MediaProps) {
     const video = useComposeStateStore.use.video();
     const images = useComposeStateStore.use.images();
     const addVideo = useComposeStateStore.use.addVideo();
-    const addImages = useComposeStateStore.use.addImages();
+    const updateImages = useComposeStateStore.use.updateImages();
     const updateLoading = useComposeStateStore.use.updateLoading();
 
     const [, handleImageChange] = useAsyncFn(
@@ -30,15 +30,19 @@ export default function Media(props: MediaProps) {
             if (files && files.length > 0) {
                 updateLoading(true);
                 const response = await uploadToIPFS([...files]);
-                const images = response.map((ipfs, index) => ({
-                    file: files[index],
-                    ipfs,
-                }));
-                addImages(images.slice(0, currentFarcasterProfile ? 2 : 4));
+                updateImages(
+                    [
+                        ...images,
+                        ...response.map((ipfs, index) => ({
+                            file: files[index],
+                            ipfs,
+                        })),
+                    ].slice(0, currentFarcasterProfile ? 2 : 4),
+                );
                 updateLoading(false);
             }
         },
-        [currentFarcasterProfile, addImages, updateLoading],
+        [currentFarcasterProfile, images, updateImages, updateLoading],
     );
 
     const [, handleVideoChange] = useAsyncFn(

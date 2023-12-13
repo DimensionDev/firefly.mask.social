@@ -21,10 +21,10 @@ interface ComposeState {
     updateType: (type: 'compose' | 'quote' | 'reply') => void;
     updateChars: (chars: string) => void;
     updateLoading: (loading: boolean) => void;
+    updateImages: (images: IPFS_MediaObject[]) => void;
     addPost: (post: OrphanPost) => void;
     removePost: () => void;
     addImage: (image: IPFS_MediaObject) => void;
-    addImages: (images: IPFS_MediaObject[]) => void;
     addVideo: (video: IPFS_MediaObject) => void;
     removeVideo: () => void;
     removeImage: (index: number) => void;
@@ -56,6 +56,10 @@ const useComposeStateBase = create<ComposeState, [['zustand/persist', unknown], 
                 set((state) => {
                     state.loading = loading;
                 }),
+            updateImages: (images: IPFS_MediaObject[]) =>
+                set((state) => {
+                    state.images = images;
+                }),
             addPost: (post: OrphanPost) =>
                 set((state) => {
                     state.post = post;
@@ -67,10 +71,6 @@ const useComposeStateBase = create<ComposeState, [['zustand/persist', unknown], 
             addImage: (image: IPFS_MediaObject) =>
                 set((state) => {
                     state.images = [...state.images, image];
-                }),
-            addImages: (images: IPFS_MediaObject[]) =>
-                set((state) => {
-                    state.images = [...state.images, ...images];
                 }),
             addVideo: (video: IPFS_MediaObject) =>
                 set((state) => {
