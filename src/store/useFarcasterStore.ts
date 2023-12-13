@@ -10,7 +10,7 @@ import type { Session } from '@/providers/types/Session.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import type { WarpcastSession } from '@/providers/warpcast/Session.js';
 
-export interface FarcasterState {
+interface FarcasterState {
     profiles: Profile[];
     currentProfile: Profile | null;
     currentProfileSession: Session | null;
