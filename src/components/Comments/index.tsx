@@ -1,4 +1,5 @@
 import { Trans } from '@lingui/macro';
+import { safeUnreachable } from '@masknet/kit';
 import { createIndicator, createPageable } from '@masknet/shared-base';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { memo, useMemo } from 'react';
@@ -38,6 +39,7 @@ export const CommentList = memo<CommentListProps>(function CommentList({ postId,
                 case SocialPlatform.Farcaster:
                     return FireflySocialMediaProvider.getCommentsById(postId, createIndicator(undefined, pageParam));
                 default:
+                    safeUnreachable(platform);
                     return createPageable(EMPTY_LIST, undefined);
             }
         },

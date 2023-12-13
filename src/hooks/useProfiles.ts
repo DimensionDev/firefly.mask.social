@@ -2,6 +2,7 @@ import { safeUnreachable } from '@masknet/kit';
 import { useMemo } from 'react';
 
 import { SocialPlatform } from '@/constants/enum.js';
+import { EMPTY_LIST } from '@/constants/index.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
 import { useLensStateStore } from '@/store/useLensStore.js';
@@ -38,7 +39,7 @@ export function useProfiles(platform: SocialPlatform): UseProfilesReturnType {
                 safeUnreachable(platform);
                 return {
                     currentProfile: null,
-                    profiles: [],
+                    profiles: EMPTY_LIST,
                     clearCurrentProfile: () => {},
                 };
         }

@@ -2,7 +2,7 @@ import { memo, useMemo } from 'react';
 
 import { MoreAction } from '@/components/Actions/More.js';
 import { Avatar } from '@/components/Avatar.js';
-import { SourceIcon } from '@/components/SourceIcon.js';
+import { PlatformIcon } from '@/components/PlatformIcon.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
@@ -65,7 +65,7 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({ post, isQu
                 </div>
             </div>
             <div className="flex items-center space-x-2 self-baseline">
-                <SourceIcon source={post.source} />
+                <PlatformIcon platform={post.source} />
                 <span className="text-[13px] leading-4 text-secondary">
                     <TimestampFormatter time={post.timestamp} />
                 </span>

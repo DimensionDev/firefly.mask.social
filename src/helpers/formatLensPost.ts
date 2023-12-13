@@ -26,6 +26,7 @@ import { safeUnreachable } from '@masknet/kit';
 import { compact, first, isEmpty, last } from 'lodash-es';
 
 import { SocialPlatform } from '@/constants/enum.js';
+import { EMPTY_LIST } from '@/constants/index.js';
 import { URL_REGEX } from '@/constants/regex.js';
 import type { Attachment, Post } from '@/providers/types/SocialMedia.js';
 import type { MetadataAsset } from '@/types/index.js';
@@ -55,12 +56,13 @@ const removeUrlsByHostnames = (content: string, hostnames: Set<string>) => {
 
 function getAttachmentsData(attachments?: PublicationMetadataMediaFragment[] | null): Attachment[] {
     if (!attachments) {
-        return [];
+        return EMPTY_LIST;
     }
 
     return compact(
         attachments.map((attachment) => {
-            switch (attachment.__typename) {
+            const type = attachment.__typename;
+            switch (type) {
                 case 'PublicationMetadataMediaImage':
                     return {
                         uri: attachment.image.optimized?.uri,
@@ -80,6 +82,7 @@ function getAttachmentsData(attachments?: PublicationMetadataMediaFragment[] | n
                         type: 'Audio',
                     };
                 default:
+                    safeUnreachable(type);
                     return;
             }
         }),
@@ -87,7 +90,8 @@ function getAttachmentsData(attachments?: PublicationMetadataMediaFragment[] | n
 }
 
 function formatContent(metadata: PublicationMetadataFragment) {
-    switch (metadata.__typename) {
+    const type = metadata.__typename;
+    switch (type) {
         case 'ArticleMetadataV3':
             return {
                 content: metadata.content,
@@ -149,7 +153,20 @@ function formatContent(metadata: PublicationMetadataFragment) {
                 content: metadata.content,
                 attachments: getAttachmentsData(metadata.attachments),
             };
+        case 'CheckingInMetadataV3':
+            return null;
+        case 'EventMetadataV3':
+            return null;
+        case 'SpaceMetadataV3':
+            return null;
+        case 'StoryMetadataV3':
+            return null;
+        case 'ThreeDMetadataV3':
+            return null;
+        case 'TransactionMetadataV3':
+            return null;
         default:
+            safeUnreachable(type);
             return null;
     }
 }

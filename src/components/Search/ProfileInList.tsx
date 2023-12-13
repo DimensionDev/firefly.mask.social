@@ -1,6 +1,6 @@
 import { Avatar } from '@/components/Avatar.js';
+import { PlatformIcon } from '@/components/PlatformIcon.js';
 import FollowButton from '@/components/Profile/FollowButton.js';
-import { SourceIcon } from '@/components/SourceIcon.js';
 import { Link } from '@/esm/Link.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
@@ -24,7 +24,7 @@ export function ProfileInList({ profile, noFollowButton }: ProfileInListProps) {
                 <div className="flex-start flex flex-1 flex-col">
                     <span className="flex-start mt-2 flex items-center text-sm font-bold leading-5">
                         <span className="mr-2 text-xl">{profile.displayName}</span>
-                        <SourceIcon source={profile.source} />
+                        <PlatformIcon platform={profile.source} />
                     </span>
                     {profile.handle ? <span className="text-sm text-secondary">@{profile.handle}</span> : null}
                     {profile.bio ? <span className="mt-1.5 line-clamp-1 text-sm">{profile.bio}</span> : null}

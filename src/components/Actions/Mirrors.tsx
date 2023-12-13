@@ -1,5 +1,6 @@
 import { Menu, Transition } from '@headlessui/react';
 import { plural, t, Trans } from '@lingui/macro';
+import { safeUnreachable } from '@masknet/kit';
 import { motion } from 'framer-motion';
 import { Fragment, memo, useMemo, useState } from 'react';
 import { useAsyncFn } from 'react-use';
@@ -22,7 +23,7 @@ import type { Post } from '@/providers/types/SocialMedia.js';
 interface MirrorProps {
     shares?: number;
     hasMirrored?: boolean;
-    source: SocialPlatform;
+    platform: SocialPlatform;
     postId: string;
     disabled?: boolean;
     post: Post;
@@ -30,20 +31,20 @@ interface MirrorProps {
 
 export const Mirror = memo<MirrorProps>(function Mirror({
     shares,
-    source,
+    platform,
     hasMirrored,
     postId,
     disabled = false,
     post,
 }) {
-    const isLogin = useIsLogin(source);
+    const isLogin = useIsLogin(platform);
 
     const enqueueSnackbar = useCustomSnackbar();
     const [mirrored, setMirrored] = useState(hasMirrored);
     const [count, setCount] = useState(shares);
 
     const content = useMemo(() => {
-        switch (source) {
+        switch (platform) {
             case SocialPlatform.Lens:
                 return plural(count ?? 0, {
                     zero: 'Mirror and Quote',
@@ -53,25 +54,27 @@ export const Mirror = memo<MirrorProps>(function Mirror({
             case SocialPlatform.Farcaster:
                 return t`Recast`;
             default:
+                safeUnreachable(platform);
                 return '';
         }
-    }, [source, count]);
+    }, [platform, count]);
 
     const mirrorActionText = useMemo(() => {
-        switch (source) {
+        switch (platform) {
             case SocialPlatform.Lens:
                 return mirrored ? t`Mirrored` : t`Mirror`;
             case SocialPlatform.Farcaster:
                 return mirrored ? t`Recasted` : t`Recast`;
             default:
+                safeUnreachable(platform);
                 return '';
         }
-    }, [source, mirrored]);
+    }, [platform, mirrored]);
 
     const [{ loading }, handleMirror] = useAsyncFn(async () => {
         if (!postId) return null;
 
-        switch (source) {
+        switch (platform) {
             case SocialPlatform.Lens:
                 try {
                     setMirrored(true);
@@ -102,9 +105,10 @@ export const Mirror = memo<MirrorProps>(function Mirror({
                 // TODO cancel Recast
                 return FireflySocialMediaProvider.mirrorPost(postId);
             default:
+                safeUnreachable(platform);
                 return null;
         }
-    }, [postId, source]);
+    }, [postId, platform]);
 
     return (
         <>
@@ -183,7 +187,7 @@ export const Mirror = memo<MirrorProps>(function Mirror({
                                     </div>
                                 )}
                             </Menu.Item>
-                            {source === SocialPlatform.Lens ? (
+                            {platform === SocialPlatform.Lens ? (
                                 <Menu.Item>
                                     <div
                                         className="flex cursor-pointer items-center space-x-2"

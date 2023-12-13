@@ -1,4 +1,5 @@
 import { t } from '@lingui/macro';
+import { safeUnreachable } from '@masknet/kit';
 import { useQueryClient } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
 import { memo, useState } from 'react';
@@ -53,6 +54,7 @@ export const Like = memo<LikeProps>(function Like({ count, hasLiked, postId, sou
                         : FireflySocialMediaProvider.upvotePost(postId));
                     break;
                 default:
+                    safeUnreachable(source);
                     break;
             }
             enqueueSnackbar(liked ? t`UnLiked` : t`Liked`, {

@@ -1,6 +1,7 @@
 'use client';
 
 import { t } from '@lingui/macro';
+import { safeUnreachable } from '@masknet/kit';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { useDocumentTitle } from 'usehooks-ts';
 
@@ -39,6 +40,7 @@ export default function PostPage({ params: { id: postId, platform: _platform } }
                     return post;
                 }
                 default:
+                    safeUnreachable(platform);
                     return;
             }
         },

@@ -1,6 +1,7 @@
 'use client';
 
 import { t, Trans } from '@lingui/macro';
+import { safeUnreachable } from '@masknet/kit';
 import { useQuery } from '@tanstack/react-query';
 import { usePathname, useRouter } from 'next/navigation.js';
 import { type ChangeEvent, memo, useRef, useState } from 'react';
@@ -11,7 +12,7 @@ import LeftArrowIcon from '@/assets/left-arrow.svg';
 import LoadingIcon from '@/assets/loading.svg';
 import SearchIcon from '@/assets/search.svg';
 import { Avatar } from '@/components/Avatar.js';
-import { SourceIcon } from '@/components/SourceIcon.js';
+import { PlatformIcon } from '@/components/PlatformIcon.js';
 import { SearchType, SocialPlatform } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
@@ -53,6 +54,7 @@ const SearchBar = memo(function SearchBar(props: SearchBarProps) {
                 case SocialPlatform.Farcaster:
                     return HubbleSocialMediaProvider.searchProfiles(debouncedKeyword);
                 default:
+                    safeUnreachable(currentSocialPlatform);
                     return;
             }
         },
@@ -220,7 +222,7 @@ const SearchBar = memo(function SearchBar(props: SearchBarProps) {
                                             <div className="flex-1 text-left">
                                                 <div className="flex">
                                                     <span className="mr-1">{profile.displayName}</span>
-                                                    <SourceIcon source={profile.source} />
+                                                    <PlatformIcon platform={profile.source} />
                                                 </div>
                                                 <div className=" font-normal text-secondary">@{profile.handle}</div>
                                             </div>

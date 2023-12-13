@@ -1,5 +1,6 @@
 'use client';
 
+import { safeUnreachable } from '@masknet/kit';
 import { createIndicator } from '@masknet/shared-base';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { useMemo } from 'react';
@@ -47,6 +48,7 @@ export default function Following() {
                         createIndicator(undefined, pageParam),
                     );
                 default:
+                    safeUnreachable(currentSocialPlatform);
                     return;
             }
         },

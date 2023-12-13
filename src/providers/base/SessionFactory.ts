@@ -1,4 +1,5 @@
 import { t } from '@lingui/macro';
+import { safeUnreachable } from '@masknet/kit';
 import { parseJSON } from '@masknet/web3-providers/helpers';
 import z from 'zod';
 
@@ -46,7 +47,10 @@ export class SessionFactory {
                     return new WarpcastSession(session.profileId, session.token, session.createdAt, session.expiresAt);
                 case Type.Twitter:
                     throw new Error(t`Not implemented yet.`);
+                case Type.Firefly:
+                    throw new Error(t`Not implemented yet.`);
                 default:
+                    safeUnreachable(type);
                     throw new Error(t`Unknown session type.`);
             }
         };

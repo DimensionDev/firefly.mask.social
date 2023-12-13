@@ -1,6 +1,7 @@
 'use client';
 
 import { Plural, Trans } from '@lingui/macro';
+import { safeUnreachable } from '@masknet/kit';
 import { createLookupTableResolver } from '@masknet/shared-base';
 import { motion } from 'framer-motion';
 import { first } from 'lodash-es';
@@ -15,8 +16,8 @@ import More from '@/assets/more.svg';
 import { PostActions } from '@/components/Actions/index.js';
 import { Avatar } from '@/components/Avatar.js';
 import { Markup } from '@/components/Markup/index.js';
+import { PlatformIcon } from '@/components/PlatformIcon.js';
 import { Quote } from '@/components/Posts/Quote.js';
-import { SourceIcon } from '@/components/SourceIcon.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -63,7 +64,8 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
     const Icon = resolveNotificationIcon(notification.type);
 
     const profiles = useMemo(() => {
-        switch (notification.type) {
+        const type = notification.type;
+        switch (type) {
             case NotificationType.Reaction:
                 return notification.reactors;
             case NotificationType.Quote:
@@ -79,12 +81,14 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
             case NotificationType.Act:
                 return notification.actions;
             default:
+                safeUnreachable(type);
                 return;
         }
     }, [notification]);
 
     const title = useMemo(() => {
-        switch (notification.type) {
+        const type = notification.type;
+        switch (type) {
             case NotificationType.Reaction:
                 const firstReactor = first(notification.reactors);
                 if (!firstReactor || !notification.post?.type) return;
@@ -239,7 +243,8 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
                     </Trans>
                 );
             default:
-                return;
+                safeUnreachable(type);
+                return null;
         }
     }, [notification]);
 
@@ -248,7 +253,8 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
     }, [notification, profiles]);
 
     const content = useMemo(() => {
-        switch (notification.type) {
+        const type = notification.type;
+        switch (type) {
             case NotificationType.Reaction:
             case NotificationType.Mirror:
             case NotificationType.Act:
@@ -274,13 +280,17 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
                         <Quote className="bg-bg" post={notification.post} />
                     </div>
                 );
+            case NotificationType.Follow:
+                return null;
             default:
-                return;
+                safeUnreachable(type);
+                return null;
         }
     }, [notification]);
 
     const actions = useMemo(() => {
-        switch (notification.type) {
+        const type = notification.type;
+        switch (type) {
             case NotificationType.Comment:
                 if (!notification.comment) return;
                 return <PostActions post={notification.comment} disablePadding />;
@@ -289,8 +299,17 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
                 return <PostActions post={notification.post} disablePadding />;
             case NotificationType.Quote:
                 return <PostActions post={notification.quote} disablePadding />;
+            case NotificationType.Act:
+                return null;
+            case NotificationType.Follow:
+                return null;
+            case NotificationType.Mirror:
+                return null;
+            case NotificationType.Reaction:
+                return null;
             default:
-                return;
+                safeUnreachable(type);
+                return null;
         }
     }, [notification]);
 
@@ -325,7 +344,7 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
                                 })}
                             </div>
                             <div className="flex items-center space-x-2">
-                                <SourceIcon source={notification.source} />
+                                <PlatformIcon platform={notification.source} />
                                 {showMoreAction ? (
                                     <>
                                         <span className="text-xs leading-4 text-secondary">

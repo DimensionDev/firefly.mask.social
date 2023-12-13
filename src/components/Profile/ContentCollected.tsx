@@ -1,4 +1,5 @@
 import { Trans } from '@lingui/macro';
+import { safeUnreachable } from '@masknet/kit';
 import { createIndicator, createPageable } from '@masknet/shared-base';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { useMemo } from 'react';
@@ -43,6 +44,7 @@ export default function ContentCollected({ profileId }: ContentFeedProps) {
                         createIndicator(undefined, pageParam),
                     );
                 default:
+                    safeUnreachable(currentSocialPlatform);
                     return createPageable(EMPTY_LIST, undefined);
             }
         },

@@ -38,6 +38,7 @@ export default function Page() {
                     case SocialPlatform.Farcaster:
                         return WarpcastSocialMediaProvider.searchProfiles(keyword, indicator);
                     default:
+                        safeUnreachable(currentSocialPlatform);
                         return;
                 }
             } else if (searchType === SearchType.Posts) {
@@ -53,6 +54,7 @@ export default function Page() {
                             createPageable<Post>(EMPTY_LIST, createIndicator(indicator)),
                         );
                     default:
+                        safeUnreachable(currentSocialPlatform);
                         return;
                 }
             } else {

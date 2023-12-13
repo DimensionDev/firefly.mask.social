@@ -1,3 +1,4 @@
+import { safeUnreachable } from '@masknet/kit';
 import { useQuery } from '@tanstack/react-query';
 import urlcat from 'urlcat';
 
@@ -38,24 +39,28 @@ export default function Oembed({ url, onData }: OembedProps) {
     const og: OpenGraph = data.data.og;
     if (!og.title) return null;
 
-    if (data.data.payload?.type) {
-        switch (data.data.payload.type) {
+    const payload = data.data.payload;
+
+    if (payload?.type) {
+        const type = payload.type;
+        switch (type) {
             case OpenGraphPayloadSourceType.Mirror:
                 return (
                     <Mirror
-                        address={data.data.payload.address}
+                        address={payload.address}
                         title={og.title}
                         description={og.description || ''}
                         url={og.url}
-                        ens={data.data.payload.ens}
-                        displayName={data.data.payload.displayName}
-                        timestamp={data.data.payload.timestamp}
+                        ens={payload.ens}
+                        displayName={payload.displayName}
+                        timestamp={payload.timestamp}
                     />
                 );
             case OpenGraphPayloadSourceType.Farcaster:
-                const post = formatWarpcastPost(data.data.payload.cast);
+                const post = formatWarpcastPost(payload.cast);
                 return <Quote post={post} />;
             default:
+                safeUnreachable(type);
                 break;
         }
     }

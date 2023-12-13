@@ -4,7 +4,7 @@ import { useCallback } from 'react';
 
 import CloseIcon from '@/assets/close.svg';
 import Editor from '@/components/Compose/Editor.js';
-import { SourceIcon } from '@/components/SourceIcon.js';
+import { PlatformIcon } from '@/components/PlatformIcon.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
 import { Image } from '@/esm/Image.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -111,7 +111,7 @@ export default function ComposeContent(props: ComposeContentProps) {
                                     </span>
                                 </div>
                                 <div className="flex items-center gap-2">
-                                    <SourceIcon source={post.source} />
+                                    <PlatformIcon platform={post.source} />
                                     <span className="text-xs leading-4 text-secondary">
                                         <TimestampFormatter time={post.timestamp} />
                                     </span>

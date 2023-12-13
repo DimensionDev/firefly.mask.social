@@ -1,5 +1,6 @@
 'use client';
 
+import { safeUnreachable } from '@masknet/kit';
 import { createIndicator } from '@masknet/shared-base';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
@@ -30,6 +31,7 @@ export default function Notification() {
                 case SocialPlatform.Farcaster:
                     return FireflySocialMediaProvider.getNotifications(createIndicator(undefined, pageParam));
                 default:
+                    safeUnreachable(currentSocialPlatform);
                     return;
             }
         },

@@ -1,4 +1,5 @@
 import { Select } from '@lingui/macro';
+import { safeUnreachable } from '@masknet/kit';
 import { useAsyncFn } from 'react-use';
 
 import { queryClient } from '@/configs/queryClient.js';
@@ -37,6 +38,7 @@ export function useToggleFollow({ profileId, handle, platform, isFollowed }: Opt
                         : WarpcastSocialMediaProvider.follow(profileId));
                     break;
                 default:
+                    safeUnreachable(platform);
                     return;
             }
             enqueueSnackbar(

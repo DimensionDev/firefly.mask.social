@@ -1,4 +1,5 @@
 import { t } from '@lingui/macro';
+import { safeUnreachable } from '@masknet/kit';
 import { memo, useMemo } from 'react';
 
 import { SocialPlatform } from '@/constants/enum.js';
@@ -18,6 +19,7 @@ export const NotLoginFallback = memo<NotLoginFallbackProps>(function LoginFallba
             case SocialPlatform.Farcaster:
                 return '/image/farcaster-fallback.png';
             default:
+                safeUnreachable(platform);
                 return '';
         }
     }, [platform]);
