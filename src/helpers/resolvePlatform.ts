@@ -1,5 +1,6 @@
+import { createLookupTableResolver } from '@masknet/shared-base';
+
 import { SocialPlatform } from '@/constants/enum.js';
-import { createLookupTableResolver } from '@/maskbook/packages/shared-base/src/index.js';
 
 export type PlatformKeyword = 'lens' | 'farcaster';
 
