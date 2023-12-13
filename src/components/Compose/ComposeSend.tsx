@@ -5,39 +5,40 @@ import SendIcon from '@/assets/send.svg';
 import { classNames } from '@/helpers/classNames.js';
 import { commentPostForLens, publishPostForLens, quotePostForLens } from '@/helpers/publishPost.js';
 import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
-import type { Post } from '@/providers/types/SocialMedia.js';
+import { useComposeStateStore } from '@/store/useComposeStore.js';
 import { useLensStateStore } from '@/store/useLensStore.js';
-import type { IPFS_MediaObject } from '@/types/index.js';
 
 import { CountdownCircle } from './CountdownCircle.js';
 
 interface ComposeSendProps {
-    type: 'compose' | 'quote' | 'reply';
-    characters: string;
-    images: IPFS_MediaObject[];
-    closeCompose: () => void;
-    setLoading: (loading: boolean) => void;
-    post?: Post;
+    onClose: () => void;
 }
-export default function ComposeSend({ type, characters, images, closeCompose, setLoading, post }: ComposeSendProps) {
-    const enqueueSnackbar = useCustomSnackbar();
-
+export default function ComposeSend({ onClose }: ComposeSendProps) {
     const currentLensProfile = useLensStateStore.use.currentProfile();
 
-    const charactersLen = useMemo(() => characters.length, [characters]);
+    const type = useComposeStateStore.use.type();
+    const chars = useComposeStateStore.use.chars();
+    const images = useComposeStateStore.use.images();
+    const video = useComposeStateStore.use.video();
+    const post = useComposeStateStore.use.post();
+    const updateLoading = useComposeStateStore.use.updateLoading();
 
-    const disabled = useMemo(() => charactersLen > 280, [charactersLen]);
+    const enqueueSnackbar = useCustomSnackbar();
+
+    const charsLength = useMemo(() => chars.length, [chars]);
+
+    const disabled = useMemo(() => charsLength > 280, [charsLength]);
 
     const handleSend = useCallback(async () => {
-        setLoading(true);
+        updateLoading(true);
         if (currentLensProfile?.profileId) {
             if (type === 'compose') {
                 try {
-                    await publishPostForLens(currentLensProfile?.profileId, characters, images);
+                    await publishPostForLens(currentLensProfile?.profileId, chars, images, video);
                     enqueueSnackbar(t`Posted on Lens`, {
                         variant: 'success',
                     });
-                    closeCompose();
+                    onClose();
                 } catch {
                     enqueueSnackbar(t`Failed to post on Lens`, {
                         variant: 'error',
@@ -48,57 +49,52 @@ export default function ComposeSend({ type, characters, images, closeCompose, se
             if (type === 'reply') {
                 if (!post) return;
                 try {
-                    await commentPostForLens(currentLensProfile?.profileId, post.postId, characters, images);
-                    enqueueSnackbar(
-                        t`Replying to @${currentLensProfile.handle || currentLensProfile?.profileId} on Lens`,
-                        {
-                            variant: 'success',
-                        },
-                    );
-                    closeCompose();
+                    await commentPostForLens(currentLensProfile?.profileId, post.postId, chars, images, video);
+                    enqueueSnackbar(t`Replied on Lens`, {
+                        variant: 'success',
+                    });
+                    onClose();
                 } catch {
-                    enqueueSnackbar(
-                        t`Replying to @${currentLensProfile.handle || currentLensProfile?.profileId} on Lens`,
-                        {
-                            variant: 'error',
-                        },
-                    );
+                    enqueueSnackbar(t`Failed to relay on Lens. @${currentLensProfile.handle}`, {
+                        variant: 'error',
+                    });
                 }
             }
 
             if (type === 'quote') {
                 if (!post) return;
                 try {
-                    await quotePostForLens(currentLensProfile?.profileId, post.postId, characters, images);
-                    enqueueSnackbar(t`Quote on Lens`, {
+                    await quotePostForLens(currentLensProfile?.profileId, post.postId, chars, images, video);
+                    enqueueSnackbar(t`Posted on Lens`, {
                         variant: 'success',
                     });
-                    closeCompose();
+                    onClose();
                 } catch {
-                    enqueueSnackbar(t`Failed to quote on Lens`, {
+                    enqueueSnackbar(t`Failed to quote on Lens. @${currentLensProfile.handle}`, {
                         variant: 'error',
                     });
                 }
             }
         }
-        setLoading(false);
+        updateLoading(false);
     }, [
-        characters,
-        closeCompose,
+        chars,
+        onClose,
         currentLensProfile?.handle,
         currentLensProfile?.profileId,
         enqueueSnackbar,
         images,
         post,
-        setLoading,
         type,
+        video,
+        updateLoading,
     ]);
 
     return (
         <div className=" flex h-[68px] items-center justify-end gap-4 px-4 shadow-send">
             <div className=" flex items-center gap-[10px] whitespace-nowrap text-[15px] text-main">
-                <CountdownCircle count={charactersLen} width={24} height={24} className="flex-shrink-0" />
-                <span className={classNames(disabled ? ' text-danger' : '')}>{charactersLen} / 280</span>
+                <CountdownCircle count={charsLength} width={24} height={24} className="flex-shrink-0" />
+                <span className={classNames(disabled ? ' text-danger' : '')}>{charsLength} / 280</span>
             </div>
 
             <button

@@ -378,6 +378,7 @@ export class LensSocialMedia implements Provider {
         const result = await this.client.publication.fetchAll({
             where: {
                 from: [profileId],
+                metadata: null,
                 publicationTypes: [PublicationType.Post, PublicationType.Mirror, PublicationType.Quote],
             },
             cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,

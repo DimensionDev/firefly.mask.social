@@ -4,31 +4,29 @@ import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext
 import { Trans } from '@lingui/macro';
 import { openDialog } from '@masknet/plugin-redpacket';
 import { $getSelection } from 'lexical';
-import { type ChangeEvent, type Dispatch, type SetStateAction, useCallback, useRef, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 
 import AtIcon from '@/assets/at.svg';
 import GalleryIcon from '@/assets/gallery.svg';
 import NumberSignIcon from '@/assets/number-sign.svg';
 import RedPacketIcon from '@/assets/red-packet.svg';
+import Media from '@/components/Compose/Media.js';
 import PostBy from '@/components/Compose/PostBy.js';
 import ReplyRestriction from '@/components/Compose/ReplyRestriction.js';
-import uploadToIPFS from '@/services/uploadToIPFS.js';
+import { SocialPlatform } from '@/constants/enum.js';
+import { useComposeStateStore } from '@/store/useComposeStore.js';
 import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
 import { useLensStateStore } from '@/store/useLensStore.js';
-import type { IPFS_MediaObject } from '@/types/index.js';
 
-interface ComposeActionProps {
-    type: 'compose' | 'quote' | 'reply';
-    images: IPFS_MediaObject[];
-    setImages: Dispatch<SetStateAction<IPFS_MediaObject[]>>;
-    setLoading: (loading: boolean) => void;
-}
-export default function ComposeAction({ type, images, setImages, setLoading }: ComposeActionProps) {
-    const fileInputRef = useRef<HTMLInputElement | null>(null);
+interface ComposeActionProps {}
+export default function ComposeAction(props: ComposeActionProps) {
     const [restriction, setRestriction] = useState(0);
 
     const currentLensProfile = useLensStateStore.use.currentProfile();
     const currentFarcasterProfile = useFarcasterStateStore.use.currentProfile();
+
+    const type = useComposeStateStore.use.type();
+    const post = useComposeStateStore.use.post();
 
     const [editor] = useLexicalComposerContext();
 
@@ -44,50 +42,35 @@ export default function ComposeAction({ type, images, setImages, setLoading }: C
         [editor],
     );
 
-    const handleFileChange = useCallback(
-        async (event: ChangeEvent<HTMLInputElement>) => {
-            const files = event.target.files;
-
-            if (files) {
-                setLoading(true);
-                const res = await uploadToIPFS([...files]);
-                setImages((_images) =>
-                    [..._images]
-                        .concat(
-                            res.map((ipfs, index) => ({
-                                file: files[index],
-                                ipfs,
-                            })),
-                        )
-                        .slice(0, currentFarcasterProfile?.profileId ? 2 : 4),
-                );
-                setLoading(false);
+    const postByText = useMemo(() => {
+        const lensHandle = currentLensProfile?.handle;
+        const farcasterHandle = currentFarcasterProfile?.handle;
+        if (!post) {
+            return `@${lensHandle}` + (lensHandle && farcasterHandle ? ', ' : '') + `@${farcasterHandle}`;
+        } else {
+            if (post.source === SocialPlatform.Lens) {
+                return `@${lensHandle}`;
+            } else {
+                return `@${farcasterHandle}`;
             }
-        },
-        [currentFarcasterProfile?.profileId, setImages, setLoading],
-    );
+        }
+    }, [currentFarcasterProfile, currentLensProfile, post]);
 
     return (
         <div className=" px-4 pb-4">
-            <div className=" flex h-9 items-center gap-3">
-                <GalleryIcon
-                    className=" cursor-pointer text-main"
-                    width={24}
-                    height={24}
-                    onClick={() => {
-                        if (images.length < (currentFarcasterProfile?.profileId ? 2 : 4)) {
-                            fileInputRef.current?.click();
-                        }
-                    }}
-                />
-                <input
-                    type="file"
-                    accept="image/*"
-                    multiple
-                    ref={fileInputRef}
-                    className=" hidden"
-                    onChange={handleFileChange}
-                />
+            <div className=" relative flex h-9 items-center gap-3">
+                <Popover as="div" className="relative">
+                    {(_) => (
+                        <>
+                            <Popover.Button className=" flex cursor-pointer gap-1 text-main focus:outline-none">
+                                <GalleryIcon className=" cursor-pointer text-main" width={24} height={24} />
+                            </Popover.Button>
+
+                            <Media />
+                        </>
+                    )}
+                </Popover>
+
                 <AtIcon className=" cursor-pointer text-main" width={24} height={24} onClick={() => insertText('@')} />
 
                 <NumberSignIcon
@@ -97,7 +80,12 @@ export default function ComposeAction({ type, images, setImages, setLoading }: C
                     onClick={() => insertText('#')}
                 />
 
-                <RedPacketIcon className=" cursor-pointer" width={24} height={24} onClick={openDialog} />
+                <RedPacketIcon
+                    className=" absolute left-[100px] top-[2px] cursor-pointer"
+                    width={40}
+                    height={40}
+                    onClick={openDialog}
+                />
             </div>
 
             <div className=" flex h-9 items-center justify-between">
@@ -108,16 +96,10 @@ export default function ComposeAction({ type, images, setImages, setLoading }: C
                     {(_) => (
                         <>
                             <Popover.Button className=" flex cursor-pointer gap-1 text-main focus:outline-none">
-                                <span className=" text-[15px] font-bold">
-                                    {currentLensProfile?.profileId
-                                        ? `@${currentLensProfile.handle || currentLensProfile.profileId}`
-                                        : ''}
-                                    {currentLensProfile?.profileId && currentFarcasterProfile?.profileId ? ', ' : ''}
-                                    {currentFarcasterProfile?.profileId ? `@${currentFarcasterProfile.profileId}` : ''}
-                                </span>
+                                <span className=" text-[15px] font-bold">{postByText}</span>
                                 {type === 'compose' && <ChevronRightIcon className="h-5 w-5" aria-hidden="true" />}
                             </Popover.Button>
-                            <PostBy images={images} />
+                            {!post ? <PostBy /> : null}
                         </>
                     )}
                 </Popover>

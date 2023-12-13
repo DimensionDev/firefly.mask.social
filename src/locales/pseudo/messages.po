@@ -76,9 +76,6 @@ msgstr ""
 msgid "Failed to follow"
 msgstr ""
 
-msgid "Replying to @{0} on Lens"
-msgstr ""
-
 msgid "Casts"
 msgstr ""
 
@@ -116,6 +113,9 @@ msgid "Connected Accounts"
 msgstr ""
 
 msgid "mirror"
+msgstr ""
+
+msgid "Replied on Lens"
 msgstr ""
 
 msgid "Audio Cover"
@@ -176,6 +176,9 @@ msgid "Post by"
 msgstr ""
 
 msgid "Privacy Policy"
+msgstr ""
+
+msgid "Failed to quote on Lens. @{0}"
 msgstr ""
 
 msgid "No wallet client found"
@@ -259,6 +262,9 @@ msgstr ""
 msgid "Farcaster"
 msgstr ""
 
+msgid "Replying to"
+msgstr ""
+
 msgid "What's happening..."
 msgstr ""
 
@@ -301,6 +307,9 @@ msgstr ""
 msgid "No comments found"
 msgstr ""
 
+msgid "Failed to relay on Lens. @{0}"
+msgstr ""
+
 msgid "Connected in Firefly"
 msgstr ""
 
@@ -331,13 +340,13 @@ msgstr ""
 msgid "<0>{0}</0> mirrored"
 msgstr ""
 
-msgid "Failed to quote on Lens"
-msgstr ""
-
 msgid "Post by {0}"
 msgstr ""
 
 msgid "quote"
+msgstr ""
+
+msgid "Image"
 msgstr ""
 
 msgid "Notifications"
@@ -356,9 +365,6 @@ msgid "No profile found"
 msgstr ""
 
 msgid "Everyone can reply"
-msgstr ""
-
-msgid "Quote on Lens"
 msgstr ""
 
 msgid "Delegate Signing (Recommend)"
@@ -421,6 +427,9 @@ msgstr ""
 msgid "Profile"
 msgstr ""
 
+msgid "Video"
+msgstr ""
+
 msgid "Add a comment"
 msgstr ""
 
@@ -449,6 +458,9 @@ msgid "Following"
 msgstr ""
 
 msgid "Dark mode"
+msgstr ""
+
+msgid "on Lens"
 msgstr ""
 
 msgid "Collect is coming soon"

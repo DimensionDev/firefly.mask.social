@@ -9,7 +9,7 @@ interface LeafwatchPersistState {
     hydrateLeafwatchViewerId: () => string | null;
 }
 
-export const useLeafwatchPersistBase = create(
+const useLeafwatchPersistBase = create(
     persist<LeafwatchPersistState>(
         (set, get) => ({
             viewerId: null,
