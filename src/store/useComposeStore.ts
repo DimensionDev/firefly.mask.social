@@ -13,19 +13,21 @@ type OrphanPost = Omit<Post, 'embedPosts' | 'comments' | 'root' | 'commentOn' | 
 interface ComposeState {
     type: 'compose' | 'quote' | 'reply';
     post: OrphanPost | null;
-    charachers: string;
+    chars: string;
     images: IPFS_MediaObject[];
     video: IPFS_MediaObject | null;
     loading: boolean;
     isDraft: boolean;
     updateType: (type: 'compose' | 'quote' | 'reply') => void;
-    updateCharachers: (charachers: string) => void;
+    updateChars: (chars: string) => void;
     updateLoading: (loading: boolean) => void;
     addPost: (post: OrphanPost) => void;
     removePost: () => void;
     addImage: (image: IPFS_MediaObject) => void;
+    addImages: (images: IPFS_MediaObject[]) => void;
     addVideo: (video: IPFS_MediaObject) => void;
     removeVideo: () => void;
+    removeImage: (index: number) => void;
     removeImages: () => void;
     save: () => void;
     clear: () => void;
@@ -37,7 +39,7 @@ const useComposeStateBase = create<ComposeState, [['zustand/persist', unknown], 
             type: 'compose',
             draft: null,
             post: null,
-            charachers: '',
+            chars: '',
             images: EMPTY_LIST,
             video: null,
             loading: false,
@@ -46,9 +48,9 @@ const useComposeStateBase = create<ComposeState, [['zustand/persist', unknown], 
                 set((state) => {
                     state.type = type;
                 }),
-            updateCharachers: (charachers: string) =>
+            updateChars: (chars: string) =>
                 set((state) => {
-                    state.charachers = charachers;
+                    state.chars = chars;
                 }),
             updateLoading: (loading) =>
                 set((state) => {
@@ -66,6 +68,10 @@ const useComposeStateBase = create<ComposeState, [['zustand/persist', unknown], 
                 set((state) => {
                     state.images = [...state.images, image];
                 }),
+            addImages: (images: IPFS_MediaObject[]) =>
+                set((state) => {
+                    state.images = [...state.images, ...images];
+                }),
             addVideo: (video: IPFS_MediaObject) =>
                 set((state) => {
                     state.video = video;
@@ -73,6 +79,10 @@ const useComposeStateBase = create<ComposeState, [['zustand/persist', unknown], 
             removeVideo: () =>
                 set((state) => {
                     state.video = null;
+                }),
+            removeImage: (index: number) =>
+                set((state) => {
+                    state.images = state.images.filter((_, i) => i !== index);
                 }),
             removeImages: () =>
                 set((state) => {
@@ -85,7 +95,7 @@ const useComposeStateBase = create<ComposeState, [['zustand/persist', unknown], 
             clear: () =>
                 set((state) => {
                     state.post = null;
-                    state.charachers = '';
+                    state.chars = '';
                     state.images = EMPTY_LIST;
                     state.video = null;
                     state.loading = false;

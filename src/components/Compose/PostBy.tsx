@@ -13,15 +13,13 @@ import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
 import { LoginModalRef } from '@/modals/controls.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
+import { useComposeStateStore } from '@/store/useComposeStore.js';
 import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
 import { useLensStateStore } from '@/store/useLensStore.js';
-import type { IPFS_MediaObject } from '@/types/index.js';
 
-interface IPostByProps {
-    images: IPFS_MediaObject[];
-    setLoading: (loading: boolean) => void;
-}
-export default function PostBy({ images, setLoading }: IPostByProps) {
+interface PostByProps {}
+
+export default function PostBy(props: PostByProps) {
     const enqueueSnackbar = useCustomSnackbar();
 
     const lensProfiles = useLensStateStore.use.profiles();
@@ -30,10 +28,13 @@ export default function PostBy({ images, setLoading }: IPostByProps) {
     const currentLensProfile = useLensStateStore.use.currentProfile();
     const currentFarcasterProfile = useFarcasterStateStore.use.currentProfile();
 
+    const images = useComposeStateStore.use.images();
+    const updateLoading = useComposeStateStore.use.updateLoading();
+
     const updateLensCurrentProfile = useLensStateStore.use.updateCurrentProfile();
 
     const [{ loading }, login] = useAsyncFn(async (profile: Profile) => {
-        setLoading(true);
+        updateLoading(true);
         try {
             const session = await LensSocialMediaProvider.createSessionForProfileId(profile.profileId);
 
@@ -44,7 +45,7 @@ export default function PostBy({ images, setLoading }: IPostByProps) {
         } catch (error) {
             enqueueSnackbar(error instanceof Error ? error.message : t`Failed to login`, { variant: 'error' });
         }
-        setLoading(false);
+        updateLoading(false);
     }, []);
 
     return (

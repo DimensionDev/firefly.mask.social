@@ -7,11 +7,11 @@ import YesIcon from '@/assets/yes.svg';
 import { classNames } from '@/helpers/classNames.js';
 import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
 
-interface IReplyRestrictionProps {
+interface ReplyRestrictionProps {
     restriction: number;
     setRestriction: (restriction: number) => void;
 }
-export default function ReplyRestriction({ restriction, setRestriction }: IReplyRestrictionProps) {
+export default function ReplyRestriction({ restriction, setRestriction }: ReplyRestrictionProps) {
     const currentFarcasterProfile = useFarcasterStateStore.use.currentProfile();
 
     const disabled = useMemo(() => !!currentFarcasterProfile?.profileId, [currentFarcasterProfile?.profileId]);

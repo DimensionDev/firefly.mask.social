@@ -4,7 +4,7 @@ import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext
 import { Trans } from '@lingui/macro';
 import { openDialog } from '@masknet/plugin-redpacket';
 import { $getSelection } from 'lexical';
-import { type Dispatch, type SetStateAction, useCallback, useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 
 import AtIcon from '@/assets/at.svg';
 import GalleryIcon from '@/assets/gallery.svg';
@@ -14,33 +14,19 @@ import Media from '@/components/Compose/Media.js';
 import PostBy from '@/components/Compose/PostBy.js';
 import ReplyRestriction from '@/components/Compose/ReplyRestriction.js';
 import { SocialPlatform } from '@/constants/enum.js';
-import type { Post } from '@/providers/types/SocialMedia.js';
+import { useComposeStateStore } from '@/store/useComposeStore.js';
 import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
 import { useLensStateStore } from '@/store/useLensStore.js';
-import type { IPFS_MediaObject } from '@/types/index.js';
 
-interface ComposeActionProps {
-    type: 'compose' | 'quote' | 'reply';
-    images: IPFS_MediaObject[];
-    setImages: Dispatch<SetStateAction<IPFS_MediaObject[]>>;
-    setLoading: (loading: boolean) => void;
-    post?: Post;
-    video: IPFS_MediaObject | null;
-    setVideo: Dispatch<SetStateAction<IPFS_MediaObject | null>>;
-}
-export default function ComposeAction({
-    type,
-    images,
-    setImages,
-    setLoading,
-    post,
-    video,
-    setVideo,
-}: ComposeActionProps) {
+interface ComposeActionProps {}
+export default function ComposeAction(props: ComposeActionProps) {
     const [restriction, setRestriction] = useState(0);
 
     const currentLensProfile = useLensStateStore.use.currentProfile();
     const currentFarcasterProfile = useFarcasterStateStore.use.currentProfile();
+
+    const type = useComposeStateStore.use.type();
+    const post = useComposeStateStore.use.post();
 
     const [editor] = useLexicalComposerContext();
 
@@ -80,14 +66,7 @@ export default function ComposeAction({
                                 <GalleryIcon className=" cursor-pointer text-main" width={24} height={24} />
                             </Popover.Button>
 
-                            <Media
-                                type={type}
-                                images={images}
-                                setImages={setImages}
-                                setLoading={setLoading}
-                                video={video}
-                                setVideo={setVideo}
-                            />
+                            <Media />
                         </>
                     )}
                 </Popover>
@@ -120,7 +99,7 @@ export default function ComposeAction({
                                 <span className=" text-[15px] font-bold">{postByText}</span>
                                 {type === 'compose' && <ChevronRightIcon className="h-5 w-5" aria-hidden="true" />}
                             </Popover.Button>
-                            {!post ? <PostBy images={images} setLoading={setLoading} /> : null}
+                            {!post ? <PostBy /> : null}
                         </>
                     )}
                 </Popover>

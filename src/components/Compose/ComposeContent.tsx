@@ -1,5 +1,6 @@
 import { Trans } from '@lingui/macro';
-import { type Dispatch, type SetStateAction, useCallback } from 'react';
+import { first } from 'lodash-es';
+import { useCallback } from 'react';
 
 import CloseIcon from '@/assets/close.svg';
 import Editor from '@/components/Compose/Editor.js';
@@ -7,39 +8,18 @@ import { SourceIcon } from '@/components/SourceIcon.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
 import { Image } from '@/esm/Image.js';
 import { classNames } from '@/helpers/classNames.js';
-import type { Post } from '@/providers/types/SocialMedia.js';
-import type { IPFS_MediaObject } from '@/types/index.js';
+import { useComposeStateStore } from '@/store/useComposeStore.js';
 
-interface ComposeContentProps {
-    type: 'compose' | 'quote' | 'reply';
-    setCharacters: (characters: string) => void;
-    images: File[];
-    setImages: Dispatch<SetStateAction<IPFS_MediaObject[]>>;
-    post?: Post;
-    video: IPFS_MediaObject | null;
-    setVideo: Dispatch<SetStateAction<IPFS_MediaObject | null>>;
-}
-export default function ComposeContent({
-    type,
-    setCharacters,
-    images,
-    setImages,
-    post,
-    video,
-    setVideo,
-}: ComposeContentProps) {
+interface ComposeContentProps {}
+export default function ComposeContent(props: ComposeContentProps) {
     const createImageUrl = (file: File) => URL.createObjectURL(file);
 
-    const removeImage = useCallback(
-        (index: number) => {
-            setImages((_images) => {
-                const newImages = [..._images];
-                newImages.splice(index, 1);
-                return newImages;
-            });
-        },
-        [setImages],
-    );
+    const type = useComposeStateStore.use.type();
+    const post = useComposeStateStore.use.post();
+    const images = useComposeStateStore.use.images();
+    const video = useComposeStateStore.use.video();
+    const removeImage = useComposeStateStore.use.removeImage();
+    const removeVideo = useComposeStateStore.use.removeVideo();
 
     const createImageItem = useCallback(
         (image: File, index: number) => (
@@ -55,10 +35,6 @@ export default function ComposeContent({
         ),
         [removeImage],
     );
-
-    const removeVideo = useCallback(() => {
-        setVideo(null);
-    }, [setVideo]);
 
     return (
         <div className=" p-4">
@@ -76,12 +52,7 @@ export default function ComposeContent({
                         </div>
                     ) : null}
 
-                    <Editor
-                        type={type}
-                        setCharacters={setCharacters}
-                        hasMediaObject={images.length > 0 || !!video}
-                        hasPost={!!post}
-                    />
+                    <Editor />
 
                     {/* image */}
                     {images.length > 0 && (
@@ -91,7 +62,7 @@ export default function ComposeContent({
 
                                 return (
                                     <div
-                                        key={image.name + index}
+                                        key={`${image.file.name}_${index}`}
                                         className={classNames(
                                             ' overflow-hidden rounded-2xl',
                                             len <= 2 ? ' h-72' : len === 3 && index === 2 ? ' h-72' : ' h-[138px]',
@@ -102,7 +73,7 @@ export default function ComposeContent({
                                                 : ' relative',
                                         )}
                                     >
-                                        {createImageItem(image, index)}
+                                        {createImageItem(image.file, index)}
                                     </div>
                                 );
                             })}
@@ -152,7 +123,7 @@ export default function ComposeContent({
                                 {(post.mediaObjects?.length ?? 0) > 0 && (
                                     // eslint-disable-next-line @next/next/no-img-element
                                     <img
-                                        src={post.mediaObjects?.[0].url ?? ''}
+                                        src={first(post.mediaObjects)?.url ?? ''}
                                         width={120}
                                         height={120}
                                         alt={post.postId}
