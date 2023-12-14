@@ -25,6 +25,9 @@ msgstr ""
 msgid "Failed to mirror post"
 msgstr ""
 
+msgid "Failed to connect wallet."
+msgstr ""
+
 msgid "Communities"
 msgstr ""
 
@@ -101,6 +104,9 @@ msgid "Search"
 msgstr ""
 
 msgid "Connected Accounts"
+msgstr ""
+
+msgid "Select Account"
 msgstr ""
 
 msgid "mirror"
@@ -233,6 +239,9 @@ msgid "Lens"
 msgstr ""
 
 msgid "Reply Restriction"
+msgstr ""
+
+msgid "No session found."
 msgstr ""
 
 msgid "Visit firefly.land"
@@ -406,6 +415,9 @@ msgstr ""
 msgid "Failed to unvote post"
 msgstr ""
 
+msgid "Confirm to log out these accounts?"
+msgstr ""
+
 msgid "Light mode"
 msgstr ""
 
@@ -422,6 +434,9 @@ msgid "Mask Network"
 msgstr ""
 
 msgid "No matching users"
+msgstr ""
+
+msgid "Log in to Farcaster account"
 msgstr ""
 
 msgid "There is no data available for display"

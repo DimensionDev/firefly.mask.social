@@ -25,6 +25,9 @@ msgstr "Failed to fetch as Blob."
 msgid "Failed to mirror post"
 msgstr "Failed to mirror post"
 
+msgid "Failed to connect wallet."
+msgstr "Failed to connect wallet."
+
 msgid "Communities"
 msgstr "Communities"
 
@@ -102,6 +105,9 @@ msgstr "Search"
 
 msgid "Connected Accounts"
 msgstr "Connected Accounts"
+
+msgid "Select Account"
+msgstr "Select Account"
 
 msgid "mirror"
 msgstr "mirror"
@@ -234,6 +240,9 @@ msgstr "Lens"
 
 msgid "Reply Restriction"
 msgstr "Reply Restriction"
+
+msgid "No session found."
+msgstr "No session found."
 
 msgid "Visit firefly.land"
 msgstr "Visit firefly.land"
@@ -406,6 +415,9 @@ msgstr "You cannot reply to @{author} on {source}"
 msgid "Failed to unvote post"
 msgstr "Failed to unvote post"
 
+msgid "Confirm to log out these accounts?"
+msgstr "Confirm to log out these accounts?"
+
 msgid "Light mode"
 msgstr "Light mode"
 
@@ -423,6 +435,9 @@ msgstr "Mask Network"
 
 msgid "No matching users"
 msgstr "No matching users"
+
+msgid "Log in to Farcaster account"
+msgstr "Log in to Farcaster account"
 
 msgid "There is no data available for display"
 msgstr "There is no data available for display"
