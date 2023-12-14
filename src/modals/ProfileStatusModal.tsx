@@ -87,7 +87,7 @@ export const ProfileStatusModal = forwardRef<SingletonModalRefCreator<ProfileSta
                                             onClick={async () => {
                                                 dispatch?.close();
                                                 await delay(300);
-                                                if (source === SocialPlatform.Lens) getWalletClientRequired();
+                                                if (source === SocialPlatform.Lens) await getWalletClientRequired();
                                                 LoginModalRef.open({ source });
                                             }}
                                         >
