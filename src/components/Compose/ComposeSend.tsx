@@ -34,7 +34,7 @@ export default function ComposeSend({ onClose }: ComposeSendProps) {
         if (currentLensProfile?.profileId) {
             if (type === 'compose') {
                 try {
-                    await publishPostForLens(currentLensProfile?.profileId, chars, images, video);
+                    await publishPostForLens(currentLensProfile.profileId, chars, images, video);
                     enqueueSnackbar(t`Posted on Lens`, {
                         variant: 'success',
                     });
@@ -49,7 +49,7 @@ export default function ComposeSend({ onClose }: ComposeSendProps) {
             if (type === 'reply') {
                 if (!post) return;
                 try {
-                    await commentPostForLens(currentLensProfile?.profileId, post.postId, chars, images, video);
+                    await commentPostForLens(currentLensProfile.profileId, post.postId, chars, images, video);
                     enqueueSnackbar(t`Replied on Lens`, {
                         variant: 'success',
                     });
@@ -64,7 +64,7 @@ export default function ComposeSend({ onClose }: ComposeSendProps) {
             if (type === 'quote') {
                 if (!post) return;
                 try {
-                    await quotePostForLens(currentLensProfile?.profileId, post.postId, chars, images, video);
+                    await quotePostForLens(currentLensProfile.profileId, post.postId, chars, images, video);
                     enqueueSnackbar(t`Posted on Lens`, {
                         variant: 'success',
                     });

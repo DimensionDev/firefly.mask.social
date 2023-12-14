@@ -23,7 +23,7 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ post }) {
     const isLogin = useIsLogin(post.source);
 
     const [{ loading }, handleToggleFollow] = useToggleFollow({
-        profileId: post.author.profileId,
+        identifier: post.author.identifier,
         handle: post.author.handle!,
         source: post.source,
         isFollowed,

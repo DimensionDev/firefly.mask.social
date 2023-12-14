@@ -91,6 +91,7 @@ export class HubbleSocialMedia implements Provider {
             parentPostId: '',
             timestamp: data.timestamp,
             author: {
+                identifier: data.fid.toString(),
                 profileId: data.fid.toString(),
                 displayName: post.author.displayName,
                 handle: post.author.handle,

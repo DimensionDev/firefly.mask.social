@@ -5,6 +5,7 @@ import type { Profile as WarpProfile } from '@/providers/types/Warpcast.js';
 
 export function formatWarpcastUser(user: WarpProfile): Profile {
     return {
+        identifier: user.fid.toString(),
         profileId: user.fid.toString(),
         displayName: user.displayName,
         handle: user.username,

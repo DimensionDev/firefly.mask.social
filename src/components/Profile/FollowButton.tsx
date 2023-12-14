@@ -1,8 +1,9 @@
 import { t } from '@lingui/macro';
-import { useState } from 'react';
+import { memo, useState } from 'react';
 
 import LoadingIcon from '@/assets/loading.svg';
 import { classNames } from '@/helpers/classNames.js';
+import { useIsMyProfile } from '@/hooks/isMyProfile.js';
 import { useToggleFollow } from '@/hooks/useToggleFollow.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
@@ -14,15 +15,15 @@ enum FollowLabel {
 
 interface FollowButtonProps {
     profile: Profile;
-    isMyProfile?: boolean;
 }
 
-export default function FollowButton({ profile, isMyProfile }: FollowButtonProps) {
+const FollowButton = memo(function FollowButton({ profile }: FollowButtonProps) {
     const [followHover, setFollowHover] = useState(false);
+    const isMyProfile = useIsMyProfile(profile.source, profile);
     const isFollowing = isMyProfile || profile?.viewerContext?.following;
 
     const [{ loading }, handleToggleFollow] = useToggleFollow({
-        profileId: profile.profileId,
+        identifier: profile.identifier,
         handle: profile.handle,
         source: profile.source,
         isFollowed: !!isFollowing,
@@ -50,4 +51,6 @@ export default function FollowButton({ profile, isMyProfile }: FollowButtonProps
             {buttonText}
         </button>
     );
-}
+});
+
+export default FollowButton;

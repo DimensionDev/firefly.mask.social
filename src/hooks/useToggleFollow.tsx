@@ -12,15 +12,16 @@ import { WarpcastSocialMediaProvider } from '@/providers/warpcast/SocialMedia.js
 
 interface Options {
     source: SocialPlatform;
-    profileId: string;
+    identifier: string;
+    /** For notification */
     handle: string;
     isFollowed: boolean;
 }
-export function useToggleFollow({ profileId, handle, source, isFollowed }: Options) {
+export function useToggleFollow({ identifier, handle, source, isFollowed }: Options) {
     const isLogin = useIsLogin(source);
     const enqueueSnackbar = useCustomSnackbar();
     return useAsyncFn(async () => {
-        if (!profileId) return;
+        if (!identifier) return;
         if (!isLogin) {
             LoginModalRef.open();
             return;
@@ -29,13 +30,13 @@ export function useToggleFollow({ profileId, handle, source, isFollowed }: Optio
             switch (source) {
                 case SocialPlatform.Lens:
                     await (isFollowed
-                        ? LensSocialMediaProvider.unfollow(profileId)
-                        : LensSocialMediaProvider.follow(profileId));
+                        ? LensSocialMediaProvider.unfollow(identifier)
+                        : LensSocialMediaProvider.follow(identifier));
                     break;
                 case SocialPlatform.Farcaster:
                     await (isFollowed
-                        ? WarpcastSocialMediaProvider.unfollow(profileId)
-                        : WarpcastSocialMediaProvider.follow(profileId));
+                        ? WarpcastSocialMediaProvider.unfollow(identifier)
+                        : WarpcastSocialMediaProvider.follow(identifier));
                     break;
                 default:
                     safeUnreachable(source);
@@ -69,5 +70,5 @@ export function useToggleFollow({ profileId, handle, source, isFollowed }: Optio
                 );
             }
         }
-    }, [isFollowed, isLogin, profileId, source, handle]);
+    }, [isFollowed, isLogin, identifier, source, handle]);
 }

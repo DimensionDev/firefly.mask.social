@@ -43,7 +43,7 @@ export default function Connected() {
                         <AccountCard
                             key={profile.profileId}
                             profile={profile}
-                            isCurrent={currentLensProfile?.profileId === profile.profileId}
+                            isCurrent={currentLensProfile.profileId === profile.profileId}
                         />
                     ))}
                 </>
@@ -59,7 +59,7 @@ export default function Connected() {
                         <AccountCard
                             key={profile.profileId}
                             profile={profile}
-                            isCurrent={currentFarcasterProfile?.profileId === profile.profileId}
+                            isCurrent={currentFarcasterProfile.profileId === profile.profileId}
                         />
                     ))}
                 </>

@@ -71,6 +71,7 @@ export class FireflySocialMedia implements Provider {
         );
 
         return {
+            identifier: user.fid.toString(),
             profileId: user.fid.toString(),
             handle: user.username,
             displayName: user.display_name,

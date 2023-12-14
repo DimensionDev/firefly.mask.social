@@ -20,18 +20,18 @@ import { WarpcastSocialMediaProvider } from '@/providers/warpcast/SocialMedia.js
 interface ProfilePageProps {
     params: { id: string; source: SourceInURL };
 }
-export default function ProfilePage({ params: { source: _source, id: handleOrProfileId } }: ProfilePageProps) {
+export default function ProfilePage({ params: { source: _source, id: identifier } }: ProfilePageProps) {
     const currentSource = resolveSource(_source);
-    const isMyProfile = useIsMyProfile(currentSource, handleOrProfileId);
+    const isMyProfile = useIsMyProfile(currentSource, identifier);
 
     const { data: profile, isLoading } = useQuery({
-        queryKey: ['profile', handleOrProfileId, currentSource],
+        queryKey: ['profile', currentSource, identifier],
         queryFn: () => {
             switch (currentSource) {
                 case SocialPlatform.Lens:
-                    return LensSocialMediaProvider.getProfileByHandle(handleOrProfileId);
+                    return LensSocialMediaProvider.getProfileByHandle(identifier);
                 case SocialPlatform.Farcaster:
-                    return WarpcastSocialMediaProvider.getProfileById(handleOrProfileId);
+                    return WarpcastSocialMediaProvider.getProfileById(identifier);
                 default:
                     safeUnreachable(currentSource);
                     return null;
@@ -62,7 +62,7 @@ export default function ProfilePage({ params: { source: _source, id: handleOrPro
 
     return (
         <div>
-            {!isMyProfile ? <Title profile={profile} isMyProfile={isMyProfile} /> : null}
+            {!isMyProfile ? <Title profile={profile} /> : null}
 
             <Info profile={profile} isMyProfile={isMyProfile} />
 

@@ -1,6 +1,6 @@
 import { Popover, Transition } from '@headlessui/react';
 import { Trans } from '@lingui/macro';
-import { Fragment, useMemo } from 'react';
+import { Fragment } from 'react';
 
 import RadioDisableNoIcon from '@/assets/radio.disable-no.svg';
 import YesIcon from '@/assets/yes.svg';
@@ -14,7 +14,7 @@ interface ReplyRestrictionProps {
 export default function ReplyRestriction({ restriction, setRestriction }: ReplyRestrictionProps) {
     const currentFarcasterProfile = useFarcasterStateStore.use.currentProfile();
 
-    const disabled = useMemo(() => !!currentFarcasterProfile?.profileId, [currentFarcasterProfile?.profileId]);
+    const disabled = !!currentFarcasterProfile?.profileId;
 
     return (
         <Transition

@@ -6,6 +6,7 @@ import { type Profile, ProfileStatus } from '@/providers/types/SocialMedia.js';
 
 export function formatFarcasterProfileFromFirefly(result: User): Profile {
     return {
+        identifier: result.fid,
         profileId: result.fid,
         displayName: result.display_name,
         handle: result.username,

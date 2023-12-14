@@ -72,6 +72,8 @@ export interface Tag {
 }
 
 export interface Profile {
+    /** handle for Lens, profileId for Farcaster */
+    identifier: string;
     profileId: string;
     displayName: string;
     handle: string;

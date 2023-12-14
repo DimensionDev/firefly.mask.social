@@ -23,10 +23,12 @@ function getAvatar(profile: ProfileFragment, namedTransform = AVATAR) {
 }
 
 export function formatLensProfile(result: ProfileFragment): Profile {
+    const handle = result.handle?.localName ?? '';
     return {
+        identifier: handle,
         profileId: result.id,
-        displayName: result.metadata?.displayName ?? result.handle?.localName ?? '',
-        handle: result.handle?.localName ?? '',
+        displayName: result.metadata?.displayName ?? handle,
+        handle,
         pfp: getAvatar(result),
         bio: result.metadata?.bio ?? undefined,
         address: result.followNftAddress?.address ?? undefined,
