@@ -2,8 +2,10 @@ import { Popover } from '@headlessui/react';
 import { ChevronRightIcon } from '@heroicons/react/24/outline';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext.js';
 import { t, Trans } from '@lingui/macro';
+import { safeUnreachable } from '@masknet/kit';
 import { openDialog } from '@masknet/plugin-redpacket';
 import { $getSelection } from 'lexical';
+import { compact } from 'lodash-es';
 import { useCallback, useMemo, useState } from 'react';
 
 import AtIcon from '@/assets/at.svg';
@@ -46,13 +48,20 @@ export default function ComposeAction(props: ComposeActionProps) {
     const postByText = useMemo(() => {
         const lensHandle = currentLensProfile?.handle;
         const farcasterHandle = currentFarcasterProfile?.handle;
+
         if (!post) {
-            return `@${lensHandle}` + (lensHandle && farcasterHandle ? ', ' : '') + `@${farcasterHandle}`;
+            return compact([lensHandle, farcasterHandle])
+                .map((x) => `@${x}`)
+                .join(', ');
         } else {
-            if (post.source === SocialPlatform.Lens) {
-                return `@${lensHandle}`;
-            } else {
-                return `@${farcasterHandle}`;
+            switch (post.source) {
+                case SocialPlatform.Lens:
+                    return `@${lensHandle}`;
+                case SocialPlatform.Farcaster:
+                    return `@${farcasterHandle}`;
+                default:
+                    safeUnreachable(post.source);
+                    return '';
             }
         }
     }, [currentFarcasterProfile, currentLensProfile, post]);
