@@ -17,11 +17,10 @@ export default function Display() {
                 <Trans>Display</Trans>
             </div>
             <button
-                className={`my-[12px] inline-flex h-[60px] w-[250px] items-center justify-center gap-5 rounded-lg px-3 ${
-                    isDarkOS
-                        ? ' border border-white bg-slate-950 text-white'
-                        : 'border border-neutral-900 bg-white text-slate-950'
-                }`}
+                className={`my-[12px] inline-flex h-[60px] w-[250px] items-center justify-center gap-5 rounded-lg px-3 ${isDarkOS
+                    ? ' border border-white bg-slate-950 text-white'
+                    : 'border border-neutral-900 bg-white text-slate-950'
+                    }`}
                 onClick={() => {
                     setThemeMode(Appearance.default);
                 }}
@@ -35,7 +34,7 @@ export default function Display() {
                     ) : (
                         <div className="h-2 w-2" />
                     )}
-                    <div className="text-sm font-bold leading-[18px]">
+                    <div className="text-[15px] font-bold leading-[18px]">
                         <Trans>Follow System</Trans>
                     </div>
                 </div>
@@ -55,7 +54,7 @@ export default function Display() {
                     ) : (
                         <div className="h-2 w-2" />
                     )}
-                    <div className="w-[96px] text-left text-sm font-bold leading-[18px] text-slate-950">
+                    <div className="w-[96px] text-left text-[15px] font-bold leading-[18px] text-slate-950">
                         <Trans>Light mode</Trans>
                     </div>
                 </div>
@@ -75,7 +74,7 @@ export default function Display() {
                     ) : (
                         <div className="h-2 w-2" />
                     )}
-                    <div className="w-[96px] text-left text-sm font-bold leading-[18px] text-white">
+                    <div className="w-[96px] text-left text-[15px] font-bold leading-[18px] text-white">
                         <Trans>Dark mode</Trans>
                     </div>
                 </div>

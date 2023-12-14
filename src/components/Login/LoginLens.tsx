@@ -20,7 +20,7 @@ import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { useLensStateStore } from '@/store/useLensStore.js';
 
-interface LoginLensProps {}
+interface LoginLensProps { }
 
 export function LoginLens(props: LoginLensProps) {
     const [selected, setSelected] = useState<Profile>();
@@ -63,11 +63,18 @@ export function LoginLens(props: LoginLensProps) {
                 LoginModalRef.close();
             } catch (error) {
                 enqueueSnackbar(error instanceof Error ? error.message : t`Failed to login`, { variant: 'error' });
-                LoginModalRef.close();
+                return;
             }
         },
         [profiles, current],
     );
+
+    useEffect(() => {
+        if (!profiles.length) {
+            enqueueSnackbar(t`No Lens profile found. Please change to another wallet.`, { variant: 'error' });
+            LoginModalRef.close()
+        }
+    }, [profiles])
 
     useEffect(() => {
         if (!current) return;
@@ -83,7 +90,7 @@ export function LoginLens(props: LoginLensProps) {
                 {profiles?.length ? (
                     <>
                         <div className="flex w-full flex-col gap-[16px] rounded-[8px] bg-lightBg px-[16px] py-[24px]">
-                            <div className="w-full text-left text-[14px] leading-[16px] text-lightSecond">
+                            <div className="w-full text-left text-[14px] leading-[16px] text-second">
                                 <Trans>Sign the transaction to verify you are the owner of the selected profile</Trans>
                             </div>
                             {profiles?.map((profile) => (
@@ -95,7 +102,7 @@ export function LoginLens(props: LoginLensProps) {
                                 />
                             ))}
                         </div>
-                        {current?.signless || isSameAddress(current?.ownedBy?.address, account.address) ? null : (
+                        {current?.signless || !isSameAddress(current?.ownedBy?.address, account.address) ? null : (
                             <div className="flex w-full flex-col gap-[8px] rounded-[8px] bg-lightBg px-[16px] py-[24px]">
                                 <div className="flex items-center justify-between">
                                     <span className="text-[14px] font-bold leading-[18px] text-lightMain">
@@ -104,21 +111,19 @@ export function LoginLens(props: LoginLensProps) {
                                     <Switch checked={signless} onChange={setSignless}>
                                         {({ checked }) => (
                                             <button
-                                                className={`${
-                                                    checked ? 'bg-success' : 'bg-gray-200'
-                                                } relative inline-flex h-[22px] w-[43px] items-center rounded-full`}
+                                                className={`${checked ? 'bg-success' : 'bg-gray-200'
+                                                    } relative inline-flex h-[22px] w-[43px] items-center rounded-full`}
                                             >
                                                 <span className="sr-only">Enable signless</span>
                                                 <span
-                                                    className={`${
-                                                        checked ? 'translate-x-6' : 'translate-x-1'
-                                                    } inline-block h-3 w-3 transform rounded-full bg-white transition`}
+                                                    className={`${checked ? 'translate-x-6' : 'translate-x-1'
+                                                        } inline-block h-3 w-3 transform rounded-full bg-white transition`}
                                                 />
                                             </button>
                                         )}
                                     </Switch>
                                 </div>
-                                <div className="w-full text-left text-[14px] leading-[16px] text-lightSecond">
+                                <div className="w-full text-left text-[14px] leading-[16px] text-second">
                                     <Trans>
                                         Allow Lens Manager to perform actions such as posting, liking, and commenting
                                         without the need to sign each transaction
@@ -129,7 +134,7 @@ export function LoginLens(props: LoginLensProps) {
                     </>
                 ) : (
                     <div className="flex w-full flex-col gap-[8px] rounded-[8px] bg-lightBg px-[16px] py-[24px]">
-                        <div className="w-full text-left text-[14px] leading-[16px] text-lightSecond">
+                        <div className="w-full text-left text-[14px] leading-[16px] text-second">
                             <Trans>No Lens profile found. Please change to another wallet.</Trans>
                         </div>
                     </div>

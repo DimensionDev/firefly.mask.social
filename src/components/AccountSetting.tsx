@@ -19,7 +19,7 @@ export function AccountSetting({ platform }: AccountSettingProps) {
     const { disconnect } = useDisconnect();
     const { currentProfile, profiles, clearCurrentProfile } = useProfiles(platform);
     return (
-        <div className="absolute -top-[200px] hidden rounded-[12px] bg-bgModal group-hover:block">
+        <div className={`absolute bottom-[36px] hidden rounded-[12px] bg-bgModal group-hover:flex`}>
             <div className="flex w-[260px] flex-col gap-[23px] rounded-[16px] p-[24px]">
                 {profiles.map((profile) => (
                     <div key={profile.profileId} className="flex items-center justify-between gap-[8px]">
@@ -33,6 +33,7 @@ export function AccountSetting({ platform }: AccountSettingProps) {
                         ) : null}
                     </div>
                 ))}
+                <div className='h-[30px]'></div>
                 <button
                     className="flex w-full items-center gap-[8px]"
                     onClick={() => {
