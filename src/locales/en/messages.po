@@ -19,9 +19,6 @@ msgstr "Be the first one to comment!"
 msgid "Quote Post"
 msgstr "Quote Post"
 
-msgid "Posts"
-msgstr "Posts"
-
 msgid "Failed to fetch as Blob."
 msgstr "Failed to fetch as Blob."
 
@@ -72,9 +69,6 @@ msgstr "{0, plural, one {<0/>} other {{1, plural, one {<1/> and <2/>} other {<3/
 
 msgid "Failed to follow"
 msgstr "Failed to follow"
-
-msgid "Casts"
-msgstr "Casts"
 
 msgid "Failed to login"
 msgstr "Failed to login"

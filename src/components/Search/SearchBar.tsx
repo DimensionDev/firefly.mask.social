@@ -164,13 +164,7 @@ const SearchBar = memo(function SearchBar(props: SearchBarProps) {
                         {inputText ? (
                             <>
                                 <h2 className=" p-3 pb-2 text-sm">
-                                    {currentSource === SocialPlatform.Lens ? (
-                                        <Trans>Publications</Trans>
-                                    ) : currentSource === SocialPlatform.Farcaster ? (
-                                        <Trans>Casts</Trans>
-                                    ) : (
-                                        <Trans>Posts</Trans>
-                                    )}
+                                    <Trans>Publications</Trans>
                                 </h2>
 
                                 <div
