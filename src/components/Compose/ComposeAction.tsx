@@ -1,7 +1,7 @@
 import { Popover } from '@headlessui/react';
 import { ChevronRightIcon } from '@heroicons/react/24/outline';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext.js';
-import { Trans } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import { openDialog } from '@masknet/plugin-redpacket';
 import { $getSelection } from 'lexical';
 import { useCallback, useMemo, useState } from 'react';
@@ -13,6 +13,7 @@ import RedPacketIcon from '@/assets/red-packet.svg';
 import Media from '@/components/Compose/Media.js';
 import PostBy from '@/components/Compose/PostBy.js';
 import ReplyRestriction from '@/components/Compose/ReplyRestriction.js';
+import { Tooltip } from '@/components/Tooltip.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
@@ -63,7 +64,9 @@ export default function ComposeAction(props: ComposeActionProps) {
                     {(_) => (
                         <>
                             <Popover.Button className=" flex cursor-pointer gap-1 text-main focus:outline-none">
-                                <GalleryIcon className=" cursor-pointer text-main" width={24} height={24} />
+                                <Tooltip content={t`Media`} placement="top">
+                                    <GalleryIcon className=" cursor-pointer text-main" width={24} height={24} />
+                                </Tooltip>
                             </Popover.Button>
 
                             <Media />
@@ -71,21 +74,27 @@ export default function ComposeAction(props: ComposeActionProps) {
                     )}
                 </Popover>
 
-                <AtIcon className=" cursor-pointer text-main" width={24} height={24} onClick={() => insertText('@')} />
+                <Tooltip content={t`Mention`} placement="top">
+                    <AtIcon
+                        className=" cursor-pointer text-main"
+                        width={24}
+                        height={24}
+                        onClick={() => insertText('@')}
+                    />
+                </Tooltip>
 
-                <NumberSignIcon
-                    className=" cursor-pointer text-main"
-                    width={24}
-                    height={24}
-                    onClick={() => insertText('#')}
-                />
+                <Tooltip content={t`Hashtag`} placement="top">
+                    <NumberSignIcon
+                        className=" cursor-pointer text-main"
+                        width={24}
+                        height={24}
+                        onClick={() => insertText('#')}
+                    />
+                </Tooltip>
 
-                <RedPacketIcon
-                    className=" absolute left-[100px] top-[2px] cursor-pointer"
-                    width={40}
-                    height={40}
-                    onClick={openDialog}
-                />
+                <Tooltip content={t`Red Packet`} placement="top">
+                    <RedPacketIcon className=" cursor-pointer" width={25} height={25} onClick={openDialog} />
+                </Tooltip>
             </div>
 
             <div className=" flex h-9 items-center justify-between">

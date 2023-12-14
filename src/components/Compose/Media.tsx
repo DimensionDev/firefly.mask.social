@@ -72,7 +72,7 @@ export default function Media(props: MediaProps) {
             leaveFrom="opacity-100"
             leaveTo="opacity-0 translate-y-1"
         >
-            <Popover.Panel className=" absolute bottom-full right-0 z-50 flex w-[280px] -translate-y-3 flex-col gap-2 rounded-lg bg-bgModal p-3 text-[15px] text-main shadow-popover">
+            <Popover.Panel className=" absolute bottom-full left-0 z-50 flex w-[280px] -translate-y-3 flex-col gap-2 rounded-lg bg-bgModal p-3 text-[15px] text-main shadow-popover">
                 <div
                     className=" flex h-8 cursor-pointer items-center gap-2 hover:bg-bg"
                     onClick={() => {
