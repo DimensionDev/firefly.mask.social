@@ -4,7 +4,7 @@ import { memo } from 'react';
 
 import { Link } from '@/esm/Link.js';
 
-const formatMentionTitle = (title: string) => {
+export const formatMentionTitle = (title: string) => {
     if (title.startsWith('@lens/')) return title.replace('@lens/', '@');
 
     return title;

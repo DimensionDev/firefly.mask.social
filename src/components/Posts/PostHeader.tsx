@@ -51,7 +51,7 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({ post, isQu
                 <div className="flex max-w-sm items-center">
                     <div className="flex items-center space-x-2">
                         <Link href={profileLink} className="block text-[15px] font-bold leading-5">
-                            {post.author.displayName}
+                            {post.author.displayName || post.author.handle}
                         </Link>
                         <Link href={profileLink} className="text-[15px] leading-6 text-secondary">
                             @{post.author.handle}

@@ -207,6 +207,7 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
                                 />
                             }
                         />{' '}
+                        <span>mirrored your </span>
                         <strong>
                             <PostTypeI18N type={notification.post.type} />
                         </strong>
@@ -237,6 +238,7 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
                                 />
                             }
                         />{' '}
+                        <span>acted on your </span>
                         <strong>
                             <PostTypeI18N type={notification.post.type} />
                         </strong>
@@ -323,9 +325,9 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
             className="border-b border-secondaryLine px-4 py-3 hover:bg-bg dark:border-line"
         >
             <div className="flex justify-between">
-                <div className="flex flex-1 items-start space-x-4">
+                <div className="flex max-w-full flex-1 items-start space-x-4">
                     {Icon ? <Icon className="text-secondary" width={24} height={24} /> : null}
-                    <div className="flex-1">
+                    <div className="max-w-[calc(100%-40px)] flex-1">
                         <div className="flex flex-1 items-center justify-between">
                             <div className="flex items-center">
                                 {profiles.slice(0, 5).map((profile, index, self) => {

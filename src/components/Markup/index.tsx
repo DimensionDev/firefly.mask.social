@@ -49,7 +49,7 @@ export const Markup = memo<MarkupProps>(function Markup({ children, post, ...res
 });
 
 // Render without tags, but leave <br/> and <p/> to keep paragraphs
-const allowedElements = ['br', 'p'];
+const allowedElements = ['br', 'p', 'a'];
 export function NakedMarkup(props: MarkupProps) {
     return <Markup {...props} allowedElements={allowedElements} unwrapDisallowed />;
 }

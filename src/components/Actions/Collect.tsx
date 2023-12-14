@@ -11,8 +11,9 @@ import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
 interface CollectProps {
     count?: number;
     disabled?: boolean;
+    collected?: boolean;
 }
-export const Collect = memo<CollectProps>(function Collect({ count, disabled = false }) {
+export const Collect = memo<CollectProps>(function Collect({ count, disabled = false, collected }) {
     const enqueueSnackbar = useCustomSnackbar();
 
     const handleClick = useCallback(() => {
@@ -20,9 +21,10 @@ export const Collect = memo<CollectProps>(function Collect({ count, disabled = f
             variant: 'error',
         });
     }, [enqueueSnackbar]);
+
     return (
         <div
-            className={classNames('flex items-center space-x-2 text-secondary hover:text-primaryPink', {
+            className={classNames('flex items-center space-x-2 text-main hover:text-primaryPink', {
                 'opacity-50': disabled,
             })}
             onClick={(event) => {
@@ -41,10 +43,20 @@ export const Collect = memo<CollectProps>(function Collect({ count, disabled = f
                     whileTap={{ scale: 0.9 }}
                     className="rounded-full p-1.5 hover:bg-primaryPink/[.20] "
                 >
-                    <CollectIcon width={17} height={16} />
+                    <CollectIcon width={17} height={16} className={collected ? 'text-collected' : ''} />
                 </motion.button>
             </Tooltip>
-            {count ? <span className="text-xs font-medium">{nFormatter(count)}</span> : null}
+            {count ? (
+                <span
+                    className={classNames('text-xs', {
+                        'font-medium': !collected,
+                        'font-bold': !!collected,
+                        'text-collected': !!collected,
+                    })}
+                >
+                    {nFormatter(count)}
+                </span>
+            ) : null}
         </div>
     );
 });
