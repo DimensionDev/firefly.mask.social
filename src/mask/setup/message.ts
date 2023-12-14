@@ -136,7 +136,7 @@ function createEmitter(domain: string, serializer: Serialization | undefined): P
     return emitter;
 }
 __workaround__replaceImplementationOfCreatePluginMessage__((pluginID: string) =>
-    createEmitter('plugin:' + pluginID, serializer),
+    createEmitter('plugin/' + pluginID, serializer),
 );
 __workaround__replaceImplementationOfCrossIsolationMessage__(createEmitter('cross-isolation', undefined));
 __workaround__replaceImplementationOfMaskMessage__(createEmitter('mask', serializer));

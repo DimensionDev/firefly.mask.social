@@ -3,7 +3,6 @@ import { BugAntIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext.js';
 import { t, Trans } from '@lingui/macro';
 import { delay, safeUnreachable } from '@masknet/kit';
-import { PluginDebuggerMessages } from '@masknet/plugin-debugger/messages';
 import { CrossIsolationMessages } from '@masknet/shared-base';
 import { $getSelection } from 'lexical';
 import { compact } from 'lodash-es';
@@ -18,6 +17,7 @@ import PostBy from '@/components/Compose/PostBy.js';
 import ReplyRestriction from '@/components/Compose/ReplyRestriction.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { SocialPlatform } from '@/constants/enum.js';
+import { PluginDebuggerMessages } from '@/mask/message-host/index.js';
 import { ComposeModalRef } from '@/modals/controls.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
@@ -104,14 +104,28 @@ export default function ComposeAction(props: ComposeActionProps) {
                 </Tooltip>
 
                 {process.env.NODE_ENV === 'development' ? (
-                    <Tooltip content={t`Debug`} placement="top">
-                        <BugAntIcon
-                            className="h-[24px] w-[24px] cursor-pointer text-main"
-                            onClick={() => {
-                                PluginDebuggerMessages.connectionDialogUpdated.sendToLocal({ open: true });
-                            }}
-                        />
-                    </Tooltip>
+                    <>
+                        <Tooltip content={t`Debug Connection`} placement="top">
+                            <BugAntIcon
+                                className="h-[24px] w-[24px] cursor-pointer text-main"
+                                onClick={async () => {
+                                    ComposeModalRef.close();
+                                    await delay(300);
+                                    PluginDebuggerMessages?.connectionDialogUpdated.sendToLocal({ open: true });
+                                }}
+                            />
+                        </Tooltip>
+                        <Tooltip content={t`Debug Console`} placement="top">
+                            <BugAntIcon
+                                className={`h-[24px] w-[24px] cursor-pointer text-main`}
+                                onClick={async () => {
+                                    ComposeModalRef.close();
+                                    await delay(300);
+                                    PluginDebuggerMessages?.consoleDialogUpdated.sendToLocal({ open: true });
+                                }}
+                            />
+                        </Tooltip>
+                    </>
                 ) : null}
 
                 <Tooltip content={t`Red Packet`} placement="top">
