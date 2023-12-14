@@ -148,7 +148,7 @@ export function LoginLens(props: LoginLensProps) {
                     }}
                 >
                     <button
-                        className="flex gap-[8px] py-[11px]"
+                        className="flex gap-[8px] py-[11px] items-center"
                         onClick={async () => {
                             LoginModalRef.close();
                             await delay(300);
@@ -157,13 +157,13 @@ export function LoginLens(props: LoginLensProps) {
                         }}
                     >
                         <WalletIcon width={20} height={20} />
-                        <span className=" text-[14px] font-bold leading-[18px] text-lightSecond">
+                        <span className=" text-[14px] font-bold leading-[18px] text-second">
                             <Trans>Change Wallet</Trans>
                         </span>
                     </button>
                     <button
                         disabled={loading}
-                        className=" flex w-[120px] items-center justify-center gap-[8px] rounded-[99px] bg-lightMain py-[11px] font-bold text-primaryBottom"
+                        className=" flex w-[120px] items-center justify-center gap-[8px] text-sm rounded-[99px] bg-lightMain py-[11px] font-bold text-primaryBottom"
                         onClick={() => login(signless)}
                     >
                         {loading ? (
