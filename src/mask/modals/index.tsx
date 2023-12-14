@@ -19,7 +19,9 @@ export interface ModalProps {}
 export const Modals = memo(function Modals(props: ModalProps) {
     return (
         <RootWeb3ContextProvider>
+            <ConfirmDialogComponent ref={controls.ConfirmDialog.register} />
             <WalletRiskWarningModal ref={controls.WalletRiskWarningModal.register} />
+            <LeavePageConfirmModal ref={controls.LeavePageConfirmModal.register} />
             <GasSettingModal ref={controls.GasSettingModal.register} />
             <TransactionSnackbarModal
                 pluginID={NetworkPluginID.PLUGIN_EVM}
@@ -30,8 +32,6 @@ export const Modals = memo(function Modals(props: ModalProps) {
             <SelectNonFungibleContractModal ref={controls.SelectNonFungibleContractModal.register} />
             <SelectFungibleTokenModal ref={controls.SelectFungibleTokenModal.register} />
             <SelectGasSettingsModal ref={controls.SelectGasSettingsModal.register} />
-            <ConfirmDialogComponent ref={controls.ConfirmDialog.register} />
-            <LeavePageConfirmModal ref={controls.LeavePageConfirmModal.register} />
         </RootWeb3ContextProvider>
     );
 });
