@@ -1,40 +1,24 @@
-import { Trans } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import { first } from 'lodash-es';
-import { useCallback } from 'react';
 
 import CloseIcon from '@/assets/close.svg';
 import Editor from '@/components/Compose/Editor.js';
 import { SourceIcon } from '@/components/SourceIcon.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
+import { Tooltip } from '@/components/Tooltip.js';
 import { Image } from '@/esm/Image.js';
 import { classNames } from '@/helpers/classNames.js';
+import { createImageUrl } from '@/helpers/createImageUrl.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 
 interface ComposeContentProps {}
 export default function ComposeContent(props: ComposeContentProps) {
-    const createImageUrl = (file: File) => URL.createObjectURL(file);
-
     const type = useComposeStateStore.use.type();
     const post = useComposeStateStore.use.post();
     const images = useComposeStateStore.use.images();
     const video = useComposeStateStore.use.video();
     const removeImage = useComposeStateStore.use.removeImage();
     const updateVideo = useComposeStateStore.use.updateVideo();
-
-    const createImageItem = useCallback(
-        (image: File, index: number) => (
-            <>
-                <Image src={createImageUrl(image)} alt={image.name} fill className=" object-cover" />
-                <CloseIcon
-                    className=" absolute right-2 top-2 h-[18px] w-[18px] cursor-pointer"
-                    width={18}
-                    height={18}
-                    onClick={() => removeImage(index)}
-                />
-            </>
-        ),
-        [removeImage],
-    );
 
     return (
         <div className=" p-4">
@@ -73,7 +57,22 @@ export default function ComposeContent(props: ComposeContentProps) {
                                                 : ' relative',
                                         )}
                                     >
-                                        {createImageItem(image.file, index)}
+                                        <Image
+                                            src={createImageUrl(image.file)}
+                                            alt={image.file.name}
+                                            fill
+                                            className=" object-cover"
+                                        />
+                                        <div className=" absolute right-2 top-2 h-[18px] w-[18px]">
+                                            <Tooltip content={t`Remove`} placement="top">
+                                                <CloseIcon
+                                                    className=" cursor-pointer"
+                                                    width={18}
+                                                    height={18}
+                                                    onClick={() => removeImage(index)}
+                                                />
+                                            </Tooltip>
+                                        </div>
                                     </div>
                                 );
                             })}

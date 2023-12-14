@@ -1,6 +1,8 @@
 import { t, Trans } from '@lingui/macro';
-import { useCallback, useMemo } from 'react';
+import { useMemo } from 'react';
+import { useAsyncFn } from 'react-use';
 
+import LoadingIcon from '@/assets/loading.svg';
 import SendIcon from '@/assets/send.svg';
 import { classNames } from '@/helpers/classNames.js';
 import { commentPostForLens, publishPostForLens, quotePostForLens } from '@/helpers/publishPost.js';
@@ -21,7 +23,6 @@ export default function ComposeSend({ onClose }: ComposeSendProps) {
     const images = useComposeStateStore.use.images();
     const video = useComposeStateStore.use.video();
     const post = useComposeStateStore.use.post();
-    const updateLoading = useComposeStateStore.use.updateLoading();
 
     const enqueueSnackbar = useCustomSnackbar();
 
@@ -29,8 +30,7 @@ export default function ComposeSend({ onClose }: ComposeSendProps) {
 
     const disabled = useMemo(() => charsLength > 280, [charsLength]);
 
-    const handleSend = useCallback(async () => {
-        updateLoading(true);
+    const [{ loading }, handleSend] = useAsyncFn(async () => {
         if (currentLensProfile?.profileId) {
             if (type === 'compose') {
                 try {
@@ -76,7 +76,6 @@ export default function ComposeSend({ onClose }: ComposeSendProps) {
                 }
             }
         }
-        updateLoading(false);
     }, [
         chars,
         onClose,
@@ -87,7 +86,6 @@ export default function ComposeSend({ onClose }: ComposeSendProps) {
         post,
         type,
         video,
-        updateLoading,
     ]);
 
     return (
@@ -108,10 +106,16 @@ export default function ComposeSend({ onClose }: ComposeSendProps) {
                     }
                 }}
             >
-                <SendIcon width={18} height={18} className=" text-foreground" />
-                <span>
-                    <Trans>Send</Trans>
-                </span>
+                {loading ? (
+                    <LoadingIcon width={16} height={16} className="animate-spin" />
+                ) : (
+                    <>
+                        <SendIcon width={18} height={18} className=" text-foreground" />
+                        <span>
+                            <Trans>Send</Trans>
+                        </span>
+                    </>
+                )}
             </button>
         </div>
     );

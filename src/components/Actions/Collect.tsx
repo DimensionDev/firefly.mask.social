@@ -30,7 +30,7 @@ export const Collect = memo<CollectProps>(function Collect({ count, disabled = f
                 event.stopPropagation();
             }}
         >
-            <Tooltip content="Act" placement="top" disabled={disabled}>
+            <Tooltip content={t`Act`} placement="top" disabled={disabled}>
                 <motion.button
                     disabled={disabled}
                     onClick={(event) => {
