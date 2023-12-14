@@ -43,15 +43,17 @@ export default function ComposeAction(props: ComposeActionProps) {
     );
 
     const postByText = useMemo(() => {
-        const lensHandle = currentLensProfile?.handle;
-        const farcasterHandle = currentFarcasterProfile?.handle;
+        const lensHandle = currentLensProfile?.handle || currentLensProfile?.displayName;
+        const farcasterHandle = currentFarcasterProfile?.handle || currentFarcasterProfile?.displayName;
+        const lensHandleText = lensHandle ? `@${lensHandle}` : '';
+        const farcasterHandleText = farcasterHandle ? `@${farcasterHandle}` : '';
         if (!post) {
-            return `@${lensHandle}` + (lensHandle && farcasterHandle ? ', ' : '') + `@${farcasterHandle}`;
+            return lensHandleText + (lensHandle && farcasterHandle ? ', ' : '') + farcasterHandleText;
         } else {
             if (post.source === SocialPlatform.Lens) {
-                return `@${lensHandle}`;
+                return lensHandleText;
             } else {
-                return `@${farcasterHandle}`;
+                return farcasterHandleText;
             }
         }
     }, [currentFarcasterProfile, currentLensProfile, post]);
