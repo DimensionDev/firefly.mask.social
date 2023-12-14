@@ -140,7 +140,7 @@ export interface Author {
     fid: number;
     username: string;
     displayName: string;
-    pfp: Pfp;
+    pfp?: Pfp;
     followerCount: number;
     followingCount: number;
     profile: {

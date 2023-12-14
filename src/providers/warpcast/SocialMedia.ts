@@ -94,6 +94,7 @@ export class WarpcastSocialMedia implements Provider {
         const { result, next } = await warpcastClient.fetchWithSession<FeedResponse>(url, {
             method: 'GET',
         });
+
         const data = result.feed.map(formatWarpcastPostFromFeed);
         return createPageable(data, indicator ?? createIndicator(), createNextIndicator(indicator, next?.cursor));
     }
@@ -279,11 +280,11 @@ export class WarpcastSocialMedia implements Provider {
                 profileId: cast.author.fid.toString(),
                 handle: cast.author.username,
                 displayName: cast.author.displayName,
-                pfp: cast.author.pfp.url,
+                pfp: cast.author.pfp?.url ?? '',
                 followerCount: cast.author.followerCount,
                 followingCount: cast.author.followingCount,
                 status: ProfileStatus.Active,
-                verified: cast.author.pfp.verified,
+                verified: cast.author.pfp?.verified ?? false,
                 source: SocialPlatform.Farcaster,
             },
             metadata: {
