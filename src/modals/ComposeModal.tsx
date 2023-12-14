@@ -45,22 +45,20 @@ export const ComposeModal = forwardRef<SingletonModalRefCreator<ComposeModalProp
         dispatch?.close();
     }, [dispatch]);
 
+    const checkClose = useCallback(() => {
+        if (chars) {
+            setDiscardOpened(true);
+        } else {
+            close();
+        }
+    }, [chars, close]);
+
     return (
         <>
             <Discard opened={discardOpened} setOpened={setDiscardOpened} onClose={close} />
 
             <Transition appear show={open} as={Fragment}>
-                <Dialog
-                    as="div"
-                    className="relative z-[100]"
-                    onClose={() => {
-                        if (chars) {
-                            setDiscardOpened(true);
-                        } else {
-                            close();
-                        }
-                    }}
-                >
+                <Dialog as="div" className="relative z-[100]" onClose={checkClose}>
                     <Transition.Child
                         as={Fragment}
                         enter="ease-out duration-300"
@@ -97,7 +95,7 @@ export const ComposeModal = forwardRef<SingletonModalRefCreator<ComposeModalProp
                                         <XMarkIcon
                                             className="absolute left-4 top-1/2 h-6 w-6 -translate-y-1/2 cursor-pointer text-main"
                                             aria-hidden="true"
-                                            onClick={close}
+                                            onClick={checkClose}
                                         />
 
                                         <span className=" flex h-full w-full items-center justify-center text-lg font-bold capitalize text-main">

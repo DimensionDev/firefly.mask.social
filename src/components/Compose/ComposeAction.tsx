@@ -48,8 +48,8 @@ export default function ComposeAction(props: ComposeActionProps) {
     );
 
     const postByText = useMemo(() => {
-        const lensHandle = currentLensProfile?.handle;
-        const farcasterHandle = currentFarcasterProfile?.handle;
+        const lensHandle = currentLensProfile?.handle || currentLensProfile?.displayName;
+        const farcasterHandle = currentFarcasterProfile?.handle || currentFarcasterProfile?.displayName;
 
         if (!post) {
             return compact([lensHandle, farcasterHandle])
@@ -72,7 +72,7 @@ export default function ComposeAction(props: ComposeActionProps) {
         <div className=" px-4 pb-4">
             <div className=" relative flex h-9 items-center gap-3">
                 <Popover as="div" className="relative">
-                    {(_) => (
+                    {({ close }) => (
                         <>
                             <Popover.Button className=" flex cursor-pointer gap-1 text-main focus:outline-none">
                                 <Tooltip content={t`Media`} placement="top">
@@ -80,7 +80,7 @@ export default function ComposeAction(props: ComposeActionProps) {
                                 </Tooltip>
                             </Popover.Button>
 
-                            <Media />
+                            <Media close={close} />
                         </>
                     )}
                 </Popover>

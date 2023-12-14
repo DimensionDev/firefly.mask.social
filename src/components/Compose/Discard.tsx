@@ -23,7 +23,7 @@ export default function Discard({ opened, setOpened, onClose }: DiscardProps) {
                     leaveFrom="opacity-100"
                     leaveTo="opacity-0"
                 >
-                    <div className="fixed inset-0 bg-black/25" />
+                    <div className="fixed inset-0 bg-main/25 bg-opacity-30" />
                 </Transition.Child>
 
                 <div className="fixed inset-0 overflow-y-auto">
@@ -37,7 +37,7 @@ export default function Discard({ opened, setOpened, onClose }: DiscardProps) {
                             leaveFrom="opacity-100 scale-100"
                             leaveTo="opacity-0 scale-95"
                         >
-                            <Dialog.Panel className=" flex w-[356px] flex-col gap-6 overflow-hidden rounded-xl bg-bgModal p-6 transition-all">
+                            <Dialog.Panel className=" flex w-[370px] flex-col gap-6 overflow-hidden rounded-xl bg-bgModal p-6 text-[15px] transition-all">
                                 {/* Title */}
                                 <Dialog.Title as="h3" className=" relative h-6">
                                     <XMarkIcon
@@ -51,12 +51,12 @@ export default function Discard({ opened, setOpened, onClose }: DiscardProps) {
                                     </span>
                                 </Dialog.Title>
 
-                                <div className=" text-[15px]">
-                                    <Trans>This cannot be undone and you will lose your draft.</Trans>
+                                <div>
+                                    <Trans>This can’t be undone and you’ll lose your draft.</Trans>
                                 </div>
 
                                 <button
-                                    className=" flex h-10 w-full items-center justify-center rounded-full bg-danger text-sm font-bold text-danger"
+                                    className=" bottom-danger flex h-10 w-full items-center justify-center rounded-full bg-danger font-bold text-primaryBottom"
                                     onClick={() => {
                                         close();
                                         onClose();

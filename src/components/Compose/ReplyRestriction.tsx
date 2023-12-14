@@ -35,9 +35,9 @@ export default function ReplyRestriction({ restriction, setRestriction }: ReplyR
                         <Trans>Everyone can reply</Trans>
                     </span>
                     {restriction === 0 ? (
-                        <YesIcon width={40} height={40} className=" relative -right-2" />
+                        <YesIcon width={40} height={40} className=" relative -right-[10px]" />
                     ) : (
-                        <RadioDisableNoIcon width={20} height={20} />
+                        <RadioDisableNoIcon width={20} height={20} className=" text-secondaryLine" />
                     )}
                 </div>
 
@@ -54,9 +54,9 @@ export default function ReplyRestriction({ restriction, setRestriction }: ReplyR
                         <Trans>Only people you follow can reply</Trans>
                     </span>
                     {restriction === 1 ? (
-                        <YesIcon width={40} height={40} className=" relative -right-2" />
+                        <YesIcon width={40} height={40} className=" relative -right-[10px]" />
                     ) : (
-                        <RadioDisableNoIcon width={20} height={20} />
+                        <RadioDisableNoIcon width={20} height={20} className=" text-secondaryLine" />
                     )}
                 </div>
             </Popover.Panel>

@@ -28,7 +28,12 @@ export default function ComposeSend({ onClose }: ComposeSendProps) {
 
     const charsLength = useMemo(() => chars.length, [chars]);
 
-    const disabled = useMemo(() => charsLength > 280, [charsLength]);
+    const disabled = useMemo(
+        () => (charsLength === 0 || charsLength > 280) && images.length === 0 && !video,
+        [charsLength, images.length, video],
+    );
+
+    const charsOverflow = useMemo(() => charsLength > 280, [charsLength]);
 
     const [{ loading }, handleSend] = useAsyncFn(async () => {
         if (currentLensProfile?.profileId) {
@@ -92,7 +97,7 @@ export default function ComposeSend({ onClose }: ComposeSendProps) {
         <div className=" flex h-[68px] items-center justify-end gap-4 px-4 shadow-send">
             <div className=" flex items-center gap-[10px] whitespace-nowrap text-[15px] text-main">
                 <CountdownCircle count={charsLength} width={24} height={24} className="flex-shrink-0" />
-                <span className={classNames(disabled ? ' text-danger' : '')}>{charsLength} / 280</span>
+                <span className={classNames(charsOverflow ? ' text-danger' : '')}>{charsLength} / 280</span>
             </div>
 
             <button
