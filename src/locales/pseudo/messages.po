@@ -52,6 +52,9 @@ msgstr ""
 msgid "{0} views"
 msgstr ""
 
+msgid "Act"
+msgstr ""
+
 msgid "More"
 msgstr ""
 
@@ -151,6 +154,9 @@ msgstr ""
 msgid "post"
 msgstr ""
 
+msgid "Hashtag"
+msgstr ""
+
 msgid "Search Filter"
 msgstr ""
 
@@ -197,9 +203,6 @@ msgid "{0} Comments"
 msgstr ""
 
 msgid "{0, plural, one {<0/>} other {{1, plural, one {<1/> and <2/>} other {<3/> and # others}}}} <4>followed you</4>"
-msgstr ""
-
-msgid "This can’t be undone and you’ll lose your draft"
 msgstr ""
 
 msgid "Comment"
@@ -367,6 +370,9 @@ msgstr ""
 msgid "Connect"
 msgstr ""
 
+msgid "Mention"
+msgstr ""
+
 msgid "Search…"
 msgstr ""
 
@@ -374,6 +380,9 @@ msgid "No profile found"
 msgstr ""
 
 msgid "Everyone can reply"
+msgstr ""
+
+msgid "This cannot be undone and you will lose your draft."
 msgstr ""
 
 msgid "Login with custody wallet"
@@ -433,6 +442,9 @@ msgstr ""
 msgid "Mask Network"
 msgstr ""
 
+msgid "Remove"
+msgstr ""
+
 msgid "No matching users"
 msgstr ""
 
@@ -466,6 +478,9 @@ msgstr ""
 msgid "{0, select, follow {Follow} unfollow {Unfollow} other {Follow}}"
 msgstr ""
 
+msgid "Media"
+msgstr ""
+
 msgid "Mirror"
 msgstr ""
 
@@ -488,6 +503,9 @@ msgid "on Lens"
 msgstr ""
 
 msgid "<0/> mentioned you in a <1><2/></1>"
+msgstr ""
+
+msgid "Red Packet"
 msgstr ""
 
 msgid "Login"
