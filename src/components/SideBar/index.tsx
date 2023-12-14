@@ -2,7 +2,7 @@
 
 import { Trans } from '@lingui/macro';
 import { usePathname } from 'next/navigation.js';
-import { memo } from 'react';
+import { memo, useMemo } from 'react';
 
 import DiscoverSelectedIcon from '@/assets/discover.selected.svg';
 import DiscoverIcon from '@/assets/discover.svg';
@@ -23,6 +23,7 @@ import { PageRoutes } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
+import { useIsMyProfile } from '@/hooks/isMyProfile.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useDarkMode } from '@/hooks/useDarkMode.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
@@ -76,6 +77,10 @@ export const SideBar = memo(function SideBar() {
     const { isDarkMode } = useDarkMode();
     const isLogin = useIsLogin();
 
+    const handleOrProfileId = useMemo(() => (route.startsWith('/profile') ? route.split('/')[3] ?? '' : ''), [route]);
+
+    const isMyProfile = useIsMyProfile(currentSource, handleOrProfileId);
+
     return (
         <>
             <div className="fixed inset-y-0 z-50 flex w-[282px] flex-col">
@@ -91,7 +96,11 @@ export const SideBar = memo(function SideBar() {
                                 <ul role="list" className="space-y-1">
                                     {items.map((item) => {
                                         const isSelected =
-                                            item.href === '/' ? route === '/' : route.startsWith(item.href);
+                                            item.href === '/'
+                                                ? route === '/'
+                                                : item.href === PageRoutes.Profile
+                                                  ? isMyProfile
+                                                  : route.startsWith(item.href);
                                         const Icon = isSelected ? item.selectedIcon : item.icon;
                                         return (
                                             <li className="flex rounded-lg text-main" key={item.href}>
