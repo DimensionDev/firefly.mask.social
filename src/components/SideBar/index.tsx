@@ -2,7 +2,7 @@
 
 import { Trans } from '@lingui/macro';
 import { usePathname } from 'next/navigation.js';
-import { memo, useMemo } from 'react';
+import { memo, useCallback, useMemo } from 'react';
 
 import DiscoverSelectedIcon from '@/assets/discover.selected.svg';
 import DiscoverIcon from '@/assets/discover.svg';
@@ -81,6 +81,11 @@ export const SideBar = memo(function SideBar() {
 
     const isMyProfile = useIsMyProfile(currentSource, handleOrProfileId);
 
+    const checkIsSelected = useCallback(
+        (href: string) => (href === PageRoutes.Profile ? isMyProfile : route.startsWith(href)),
+        [isMyProfile, route],
+    );
+
     return (
         <>
             <div className="fixed inset-y-0 z-50 flex w-[282px] flex-col">
@@ -96,11 +101,7 @@ export const SideBar = memo(function SideBar() {
                                 <ul role="list" className="space-y-1">
                                     {items.map((item) => {
                                         const isSelected =
-                                            item.href === '/'
-                                                ? route === '/'
-                                                : item.href === PageRoutes.Profile
-                                                  ? isMyProfile
-                                                  : route.startsWith(item.href);
+                                            item.href === '/' ? route === '/' : checkIsSelected(item.href);
                                         const Icon = isSelected ? item.selectedIcon : item.icon;
                                         return (
                                             <li className="flex rounded-lg text-main" key={item.href}>
