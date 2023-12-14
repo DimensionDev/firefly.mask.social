@@ -1,7 +1,8 @@
-import { createKVStorageHost, setupMaskKVStorageBackend } from '@masknet/shared-base';
-
-import { addListener } from './message.js';
+// eslint-disable-next-line simple-import-sort/imports
 import { BackgroundWorker } from './rpc.js';
+import { addListener } from './message.js';
+
+import { createKVStorageHost, setupMaskKVStorageBackend } from '@masknet/shared-base';
 
 const inMemoryBackend = {
     beforeAutoSync: Promise.resolve(),
