@@ -1,13 +1,15 @@
 import { Menu, Transition } from '@headlessui/react';
 import { Select } from '@lingui/macro';
 import { motion } from 'framer-motion';
-import { Fragment, memo } from 'react';
+import { Fragment, memo, useState } from 'react';
+import { useAsyncFn } from 'react-use';
 
 import FollowUserIcon from '@/assets/follow-user.svg';
 import LoadingIcon from '@/assets/loading.svg';
 import MoreIcon from '@/assets/more.svg';
 import UnFollowUserIcon from '@/assets/unfollow-user.svg';
 import { queryClient } from '@/configs/queryClient.js';
+import { useIsFollowing } from '@/hooks/useIsFollowing.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useToggleFollow } from '@/hooks/useToggleFollow.js';
 import { LoginModalRef } from '@/modals/controls.js';
@@ -19,15 +21,22 @@ interface MoreProps {
 
 export const MoreAction = memo<MoreProps>(function MoreAction({ post }) {
     const isFollowed = !!post.author.viewerContext?.followedBy;
+    const [touched, setTouched] = useState(false);
+
+    const [isFollowing, refresh] = useIsFollowing({
+        profile: post.author,
+        placeholder: !!post.author.viewerContext?.followedBy,
+        enabled: touched,
+    });
 
     const isLogin = useIsLogin(post.source);
 
-    const [{ loading }, handleToggleFollow] = useToggleFollow({
-        profileId: post.author.profileId,
-        handle: post.author.handle!,
-        source: post.source,
-        isFollowed,
-    });
+    const [, handleToggleFollow] = useToggleFollow(post.author, isFollowing);
+    const [{ loading }, handleToggle] = useAsyncFn(async () => {
+        await handleToggleFollow();
+        setTouched(true);
+        await refresh();
+    }, [handleToggleFollow, refresh]);
 
     return (
         <Menu as="div">
@@ -75,11 +84,11 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ post }) {
                                 )}
                                 <span
                                     className="text-[17px] font-bold leading-[22px] text-main"
-                                    onClick={(event) => {
+                                    onClick={async (event) => {
                                         event.stopPropagation();
                                         event.preventDefault();
                                         close();
-                                        handleToggleFollow();
+                                        await handleToggle();
                                         queryClient.invalidateQueries({
                                             queryKey: [post.source, 'post-detail', post.postId],
                                         });
