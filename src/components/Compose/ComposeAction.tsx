@@ -2,8 +2,8 @@ import { Popover } from '@headlessui/react';
 import { ChevronRightIcon } from '@heroicons/react/24/outline';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext.js';
 import { t, Trans } from '@lingui/macro';
-import { safeUnreachable } from '@masknet/kit';
-import { openDialog } from '@masknet/plugin-redpacket';
+import { delay, safeUnreachable } from '@masknet/kit';
+import { CrossIsolationMessages } from '@masknet/shared-base';
 import { $getSelection } from 'lexical';
 import { compact } from 'lodash-es';
 import { useCallback, useMemo, useState } from 'react';
@@ -17,6 +17,7 @@ import PostBy from '@/components/Compose/PostBy.js';
 import ReplyRestriction from '@/components/Compose/ReplyRestriction.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { SocialPlatform } from '@/constants/enum.js';
+import { ComposeModalRef } from '@/modals/controls.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
 import { useLensStateStore } from '@/store/useLensStore.js';
@@ -102,7 +103,16 @@ export default function ComposeAction(props: ComposeActionProps) {
                 </Tooltip>
 
                 <Tooltip content={t`Red Packet`} placement="top">
-                    <RedPacketIcon className=" cursor-pointer" width={25} height={25} onClick={openDialog} />
+                    <RedPacketIcon
+                        className=" cursor-pointer"
+                        width={25}
+                        height={25}
+                        onClick={async () => {
+                            ComposeModalRef.close();
+                            await delay(300);
+                            CrossIsolationMessages.events.redpacketDialogEvent.sendToLocal({ open: true });
+                        }}
+                    />
                 </Tooltip>
             </div>
 
