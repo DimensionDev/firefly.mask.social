@@ -154,6 +154,9 @@ msgstr ""
 msgid "post"
 msgstr ""
 
+msgid "Hashtag"
+msgstr ""
+
 msgid "Search Filter"
 msgstr ""
 
@@ -367,6 +370,9 @@ msgstr ""
 msgid "Connect"
 msgstr ""
 
+msgid "Mention"
+msgstr ""
+
 msgid "Search…"
 msgstr ""
 
@@ -472,6 +478,9 @@ msgstr ""
 msgid "{0, select, follow {Follow} unfollow {Unfollow} other {Follow}}"
 msgstr ""
 
+msgid "Media"
+msgstr ""
+
 msgid "Mirror"
 msgstr ""
 
@@ -494,6 +503,9 @@ msgid "on Lens"
 msgstr ""
 
 msgid "<0/> mentioned you in a <1><2/></1>"
+msgstr ""
+
+msgid "Red Packet"
 msgstr ""
 
 msgid "Login"

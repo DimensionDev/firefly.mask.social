@@ -154,6 +154,9 @@ msgstr "Log out"
 msgid "post"
 msgstr "post"
 
+msgid "Hashtag"
+msgstr "Hashtag"
+
 msgid "Search Filter"
 msgstr "Search Filter"
 
@@ -367,6 +370,9 @@ msgstr "No Lens profile found. Please change to another wallet."
 msgid "Connect"
 msgstr "Connect"
 
+msgid "Mention"
+msgstr "Mention"
+
 msgid "Search…"
 msgstr "Search…"
 
@@ -472,6 +478,9 @@ msgstr "Followers"
 msgid "{0, select, follow {Follow} unfollow {Unfollow} other {Follow}}"
 msgstr "{0, select, follow {Follow} unfollow {Unfollow} other {Follow}}"
 
+msgid "Media"
+msgstr "Media"
+
 msgid "Mirror"
 msgstr "Mirror"
 
@@ -495,6 +504,9 @@ msgstr "on Lens"
 
 msgid "<0/> mentioned you in a <1><2/></1>"
 msgstr "<0/> mentioned you in a <1><2/></1>"
+
+msgid "Red Packet"
+msgstr "Red Packet"
 
 msgid "Login"
 msgstr "Login"
