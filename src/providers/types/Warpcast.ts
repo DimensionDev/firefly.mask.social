@@ -9,14 +9,14 @@ export interface CastsResponse extends ErrorResponse {
     result: {
         casts: Cast[];
     };
-    next: Next;
+    next?: Next;
 }
 
 export interface SearchCastsResponse extends ErrorResponse {
     result: {
         casts: Cast[];
     };
-    next: Next;
+    next?: Next;
 }
 
 export interface CastResponse extends ErrorResponse {
@@ -27,7 +27,7 @@ export interface FeedResponse extends ErrorResponse {
     result: {
         feed: Feed[];
     };
-    next: Next;
+    next?: Next;
 }
 
 export interface UserResponse extends ErrorResponse {
@@ -44,21 +44,21 @@ export interface UserDetailResponse extends ErrorResponse {
 
 export interface UsersResponse extends ErrorResponse {
     result: Profile[];
-    next: Next;
+    next?: Next;
 }
 
 export interface RecastersResponse extends ErrorResponse {
     result: {
         users: Profile[];
     };
-    next: Next;
+    next?: Next;
 }
 
 export interface SearchUsersResponse extends ErrorResponse {
     result: {
         users: Profile[];
     };
-    next: Next;
+    next?: Next;
 }
 
 export interface ReactionResponse extends ErrorResponse {
@@ -75,7 +75,7 @@ export interface NotificationResponse extends ErrorResponse {
     result: {
         notifications: Notification[];
     };
-    next: Next;
+    next?: Next;
 }
 export interface Recast {
     displayName: string;
@@ -140,7 +140,7 @@ export interface Author {
     fid: number;
     username: string;
     displayName: string;
-    pfp: Pfp;
+    pfp?: Pfp;
     followerCount: number;
     followingCount: number;
     profile: {
@@ -244,5 +244,5 @@ export interface LikesResponse extends ErrorResponse {
     result: {
         likes: ReactionInfo[];
     };
-    next: Next;
+    next?: Next;
 }

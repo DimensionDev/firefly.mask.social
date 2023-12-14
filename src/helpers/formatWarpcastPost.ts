@@ -51,12 +51,12 @@ export function formatWarpcastPost(cast: Cast): Post {
         author: {
             profileId: cast.author.fid.toString(),
             displayName: cast.author.displayName,
-            pfp: cast.author.pfp.url,
+            pfp: cast.author.pfp?.url ?? '',
             handle: cast.author.username,
             followerCount: cast.author.followerCount,
             followingCount: cast.author.followingCount,
             status: ProfileStatus.Active,
-            verified: cast.author.pfp.verified,
+            verified: cast.author.pfp?.verified ?? false,
             source: SocialPlatform.Farcaster,
         },
         metadata: {
@@ -88,7 +88,7 @@ export function formatWarpcastPost(cast: Cast): Post {
             followerCount: x.followerCount,
             followingCount: x.followingCount,
             status: ProfileStatus.Active,
-            verified: x.pfp.verified,
+            verified: x.pfp?.verified ?? false,
             source: SocialPlatform.Farcaster,
         })),
         __original__: cast,
