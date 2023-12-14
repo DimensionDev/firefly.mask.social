@@ -36,7 +36,7 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
     const postPayload = getPostPayload(post.metadata.content?.content);
 
     const pathname = usePathname();
-    const isDetail = pathname.includes('/detail');
+    const isPostPage = pathname.includes('/post');
     const postLink = getPostUrl(post);
 
     return (
@@ -46,13 +46,13 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
             exit={{ opacity: 0 }}
             className="cursor-pointer border-b border-secondaryLine bg-bottom px-4 py-3 hover:bg-bg dark:border-line"
             onClick={() => {
-                if (!isDetail && postPayload) {
+                if (!isPostPage && postPayload) {
                     router.push(postLink);
                 }
             }}
         >
             {!isComment ? <FeedActionType post={post} /> : null}
-            {!isDetail && !postPayload ? (
+            {!isPostPage && !postPayload ? (
                 <Link href={postLink}>
                     <PostHeader post={post} />
 

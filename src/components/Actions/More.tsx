@@ -25,14 +25,13 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ post }) {
     const [{ loading }, handleToggleFollow] = useToggleFollow({
         profileId: post.author.profileId,
         handle: post.author.handle!,
-        platform: post.source,
+        source: post.source,
         isFollowed,
     });
 
     return (
         <Menu as="div">
             <Menu.Button
-                disabled={!isLogin}
                 whileTap={{ scale: 0.9 }}
                 as={motion.button}
                 className="flex items-center text-secondary"
@@ -41,7 +40,7 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ post }) {
                     if (!isLogin) {
                         event.stopPropagation();
                         event.preventDefault();
-                        LoginModalRef.open();
+                        LoginModalRef.open({ source: post.source });
                         return;
                     }
                     event.stopPropagation();

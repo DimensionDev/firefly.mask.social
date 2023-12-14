@@ -1,4 +1,5 @@
 import { Trans } from '@lingui/macro';
+import { safeUnreachable } from '@masknet/kit';
 import { createIndicator, createPageable } from '@masknet/shared-base';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { memo, useMemo } from 'react';
@@ -16,17 +17,17 @@ import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 
 export interface CommentListProps {
     postId: string;
-    platform: SocialPlatform;
+    source: SocialPlatform;
 }
 
-export const CommentList = memo<CommentListProps>(function CommentList({ postId, platform }) {
+export const CommentList = memo<CommentListProps>(function CommentList({ postId, source }) {
     const fetchAndStoreViews = useImpressionsStore.use.fetchAndStoreViews();
 
     const { data, hasNextPage, fetchNextPage, isFetchingNextPage, isFetching } = useSuspenseInfiniteQuery({
-        queryKey: ['post-detail', 'comments', platform, postId],
+        queryKey: ['post-detail', 'comments', source, postId],
         queryFn: async ({ pageParam }) => {
             if (!postId) return createPageable(EMPTY_LIST, undefined);
-            switch (platform) {
+            switch (source) {
                 case SocialPlatform.Lens:
                     const result = await LensSocialMediaProvider.getCommentsById(
                         postId,
@@ -38,6 +39,7 @@ export const CommentList = memo<CommentListProps>(function CommentList({ postId,
                 case SocialPlatform.Farcaster:
                     return FireflySocialMediaProvider.getCommentsById(postId, createIndicator(undefined, pageParam));
                 default:
+                    safeUnreachable(source);
                     return createPageable(EMPTY_LIST, undefined);
             }
         },

@@ -2,6 +2,7 @@ import { safeUnreachable } from '@masknet/kit';
 import { useMemo } from 'react';
 
 import { SocialPlatform } from '@/constants/enum.js';
+import { EMPTY_LIST } from '@/constants/index.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
 import { useLensStateStore } from '@/store/useLensStore.js';
@@ -12,7 +13,7 @@ interface UseProfilesReturnType {
     clearCurrentProfile: () => void;
 }
 
-export function useProfiles(platform: SocialPlatform): UseProfilesReturnType {
+export function useProfiles(source: SocialPlatform): UseProfilesReturnType {
     const currentLensProfile = useLensStateStore.use.currentProfile();
     const currentFarcasterProfile = useFarcasterStateStore.use.currentProfile();
     const lensProfiles = useLensStateStore.use.profiles();
@@ -21,7 +22,7 @@ export function useProfiles(platform: SocialPlatform): UseProfilesReturnType {
     const clearLensCurrentProfile = useLensStateStore.use.clearCurrentProfile();
 
     return useMemo(() => {
-        switch (platform) {
+        switch (source) {
             case SocialPlatform.Lens:
                 return {
                     currentProfile: currentLensProfile,
@@ -35,17 +36,17 @@ export function useProfiles(platform: SocialPlatform): UseProfilesReturnType {
                     clearCurrentProfile: clearFarcasterCurrentProfile,
                 };
             default:
-                safeUnreachable(platform);
+                safeUnreachable(source);
                 return {
                     currentProfile: null,
-                    profiles: [],
+                    profiles: EMPTY_LIST,
                     clearCurrentProfile: () => {},
                 };
         }
     }, [
         currentLensProfile,
         currentFarcasterProfile,
-        platform,
+        source,
         lensProfiles,
         farcasterProfiles,
         clearFarcasterCurrentProfile,

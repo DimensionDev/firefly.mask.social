@@ -1,5 +1,4 @@
 import type { ProfileFragment } from '@lens-protocol/client';
-import { zeroAddress } from 'viem';
 
 import { SocialPlatform } from '@/constants/enum.js';
 import { AVATAR } from '@/constants/index.js';
@@ -16,7 +15,7 @@ function getAvatar(profile: ProfileFragment, namedTransform = AVATAR) {
     } else if (profile.metadata?.picture?.__typename === 'ImageSet') {
         avatarUrl = profile.metadata.picture.optimized?.uri ?? profile.metadata.picture.raw.uri;
     } else {
-        avatarUrl = getStampFyiURL(profile.ownedBy.address ?? zeroAddress);
+        avatarUrl = profile.ownedBy.address ? getStampFyiURL(profile.ownedBy.address) : '';
     }
 
     return formatImageUrl(sanitizeDStorageUrl(avatarUrl), namedTransform);

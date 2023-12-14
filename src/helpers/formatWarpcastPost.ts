@@ -1,6 +1,7 @@
-import { first, union } from 'lodash-es';
+import { first, last, union } from 'lodash-es';
 
 import { SocialPlatform } from '@/constants/enum.js';
+import { URL_REGEX } from '@/constants/regex.js';
 import { type Attachment, type Post, ProfileStatus } from '@/providers/types/SocialMedia.js';
 import type { Cast, Feed } from '@/providers/types/Warpcast.js';
 import type { MetadataAsset } from '@/types/index.js';
@@ -31,8 +32,11 @@ export function formatContent(cast: Cast) {
             attachments: getAttachments(cast),
         };
     }
+
+    const oembedUrl = last(cast.text.match(URL_REGEX) || []);
     return {
         content: cast.text,
+        oembedUrl,
         attachments: getAttachments(cast),
     };
 }
@@ -47,12 +51,12 @@ export function formatWarpcastPost(cast: Cast): Post {
         author: {
             profileId: cast.author.fid.toString(),
             displayName: cast.author.displayName,
-            pfp: cast.author.pfp.url,
+            pfp: cast.author.pfp?.url ?? '',
             handle: cast.author.username,
             followerCount: cast.author.followerCount,
             followingCount: cast.author.followingCount,
             status: ProfileStatus.Active,
-            verified: cast.author.pfp.verified,
+            verified: cast.author.pfp?.verified ?? false,
             source: SocialPlatform.Farcaster,
         },
         metadata: {
@@ -65,6 +69,28 @@ export function formatWarpcastPost(cast: Cast): Post {
             quotes: cast.recasts.count,
             reactions: cast.reactions.count,
         },
+        mirrors: cast.recasts.recasters.map((x) => ({
+            profileId: x.fid.toString(),
+            displayName: x.displayName,
+            handle: x.username,
+            pfp: '',
+            followerCount: 0,
+            followingCount: 0,
+            status: ProfileStatus.Active,
+            verified: true,
+            source: SocialPlatform.Farcaster,
+        })),
+        mentions: cast.mentions?.map((x) => ({
+            profileId: x.fid.toString(),
+            displayName: x.displayName,
+            handle: x.username,
+            pfp: '',
+            followerCount: x.followerCount,
+            followingCount: x.followingCount,
+            status: ProfileStatus.Active,
+            verified: x.pfp?.verified ?? false,
+            source: SocialPlatform.Farcaster,
+        })),
         __original__: cast,
     };
 }

@@ -1,6 +1,7 @@
 'use client';
 
 import { t, Trans } from '@lingui/macro';
+import { safeUnreachable } from '@masknet/kit';
 import { useQuery } from '@tanstack/react-query';
 import { usePathname, useRouter } from 'next/navigation.js';
 import { type ChangeEvent, memo, useRef, useState } from 'react';
@@ -29,7 +30,7 @@ interface SearchBarProps {
 const SearchBar = memo(function SearchBar(props: SearchBarProps) {
     const router = useRouter();
     const pathname = usePathname();
-    const { currentSocialPlatform } = useGlobalState();
+    const { currentSource } = useGlobalState();
     const inputRef = useRef<HTMLInputElement>(null);
     const [showDropdown, setShowDropdown] = useState(false);
 
@@ -45,14 +46,15 @@ const SearchBar = memo(function SearchBar(props: SearchBarProps) {
     });
 
     const { data: profiles, isLoading } = useQuery({
-        queryKey: ['searchText', currentSocialPlatform, debouncedKeyword],
+        queryKey: ['searchText', currentSource, debouncedKeyword],
         queryFn: async () => {
-            switch (currentSocialPlatform) {
+            switch (currentSource) {
                 case SocialPlatform.Lens:
                     return LensSocialMediaProvider.searchProfiles(debouncedKeyword);
                 case SocialPlatform.Farcaster:
                     return HubbleSocialMediaProvider.searchProfiles(debouncedKeyword);
                 default:
+                    safeUnreachable(currentSource);
                     return;
             }
         },
@@ -162,13 +164,7 @@ const SearchBar = memo(function SearchBar(props: SearchBarProps) {
                         {inputText ? (
                             <>
                                 <h2 className=" p-3 pb-2 text-sm">
-                                    {currentSocialPlatform === SocialPlatform.Lens ? (
-                                        <Trans>Publications</Trans>
-                                    ) : currentSocialPlatform === SocialPlatform.Farcaster ? (
-                                        <Trans>Casts</Trans>
-                                    ) : (
-                                        <Trans>Posts</Trans>
-                                    )}
+                                    <Trans>Publications</Trans>
                                 </h2>
 
                                 <div

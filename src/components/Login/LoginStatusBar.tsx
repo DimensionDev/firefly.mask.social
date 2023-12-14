@@ -17,25 +17,25 @@ export function LoginStatusBar() {
             {lensProfile ? (
                 <div className="group relative h-[40px] w-[48px]">
                     <ProfileAvatar profile={lensProfile} />
-                    <AccountSetting platform={SocialPlatform.Lens} />
+                    <AccountSetting source={SocialPlatform.Lens} />
                 </div>
             ) : null}
             {farcasterProfile ? (
                 <div className="group relative h-[40px] w-[48px]">
                     <ProfileAvatar profile={farcasterProfile} />
-                    <AccountSetting platform={SocialPlatform.Farcaster} />
+                    <AccountSetting source={SocialPlatform.Farcaster} />
                 </div>
             ) : null}
             {lensProfile ? null : (
                 <ProfileAvatarAdd
-                    platform={SocialPlatform.Lens}
-                    onClick={() => LoginModalRef.open({ platform: SocialPlatform.Lens })}
+                    source={SocialPlatform.Lens}
+                    onClick={() => LoginModalRef.open({ source: SocialPlatform.Lens })}
                 />
             )}
             {farcasterProfile ? null : (
                 <ProfileAvatarAdd
-                    platform={SocialPlatform.Farcaster}
-                    onClick={() => LoginModalRef.open({ platform: SocialPlatform.Farcaster })}
+                    source={SocialPlatform.Farcaster}
+                    onClick={() => LoginModalRef.open({ source: SocialPlatform.Farcaster })}
                 />
             )}
         </div>

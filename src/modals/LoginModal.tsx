@@ -18,22 +18,22 @@ import { SocialPlatform } from '@/constants/enum.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 
 export interface LoginModalProps {
-    platform?: SocialPlatform;
+    source?: SocialPlatform;
 }
 
 export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | void>>(function LoginModal(_, ref) {
-    const [platform, setPlatform] = useState<SocialPlatform>();
+    const [source, setSource] = useState<SocialPlatform>();
 
     const { enqueueSnackbar } = useSnackbar();
 
     const [open, dispatch] = useSingletonModal(ref, {
         onOpen: (props) => {
-            setPlatform(props?.platform);
+            setSource(props?.source);
         },
         onClose: async () => {
             // setCurrent will trigger a re-render, so we need to delay the setCurrent(undefined) to avoid the re-render
             await delay(500);
-            setPlatform(undefined);
+            setSource(undefined);
         },
     });
 
@@ -71,21 +71,21 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | 
                                 >
                                     <button
                                         onClick={() => {
-                                            platform === SocialPlatform.Farcaster
-                                                ? setPlatform(undefined)
+                                            source === SocialPlatform.Farcaster
+                                                ? setSource(undefined)
                                                 : dispatch?.close();
                                         }}
                                     >
-                                        {platform === SocialPlatform.Farcaster ? (
+                                        {source === SocialPlatform.Farcaster ? (
                                             <LeftArrowIcon width={24} height={24} />
                                         ) : (
                                             <CloseIcon width={24} height={24} />
                                         )}
                                     </button>
                                     <div className="shrink grow basis-0 text-center text-lg font-bold leading-snug text-main">
-                                        {platform === SocialPlatform.Lens ? (
+                                        {source === SocialPlatform.Lens ? (
                                             <Trans>Select Account</Trans>
-                                        ) : platform === SocialPlatform.Farcaster ? (
+                                        ) : source === SocialPlatform.Farcaster ? (
                                             <Trans>Log in to Farcaster account</Trans>
                                         ) : (
                                             <Trans>Login</Trans>
@@ -93,16 +93,16 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | 
                                     </div>
                                     <div className="relative h-[24px] w-[24px]" />
                                 </div>
-                                {!platform ? (
+                                {!source ? (
                                     <div
                                         className="flex w-[600px] flex-col rounded-[12px]"
                                         style={{ boxShadow: '0px 4px 30px 0px rgba(0, 0, 0, 0.10)' }}
                                     >
                                         <div className="flex w-full flex-col gap-[16px] p-[16px] ">
-                                            {getEnumAsArray(SocialPlatform).map(({ value: platform }) => (
+                                            {getEnumAsArray(SocialPlatform).map(({ value: source }) => (
                                                 <LoginButton
-                                                    key={platform}
-                                                    platform={platform}
+                                                    key={source}
+                                                    source={source}
                                                     onClick={async () => {
                                                         try {
                                                             await getWalletClientRequired();
@@ -116,7 +116,7 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | 
                                                             return;
                                                         }
 
-                                                        setPlatform(platform);
+                                                        setSource(source);
                                                     }}
                                                 />
                                             ))}
@@ -130,8 +130,8 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | 
                                             </div>
                                         }
                                     >
-                                        {platform === SocialPlatform.Lens ? <LoginLens /> : null}
-                                        {platform === SocialPlatform.Farcaster ? <LoginFarcaster /> : null}
+                                        {source === SocialPlatform.Lens ? <LoginLens /> : null}
+                                        {source === SocialPlatform.Farcaster ? <LoginFarcaster /> : null}
                                     </Suspense>
                                 )}
                             </Dialog.Panel>

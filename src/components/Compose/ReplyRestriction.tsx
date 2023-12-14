@@ -3,15 +3,15 @@ import { Trans } from '@lingui/macro';
 import { Fragment, useMemo } from 'react';
 
 import RadioDisableNoIcon from '@/assets/radio.disable-no.svg';
-import RadioYesIcon from '@/assets/radio.yes.svg';
+import YesIcon from '@/assets/yes.svg';
 import { classNames } from '@/helpers/classNames.js';
 import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
 
-interface IReplyRestrictionProps {
+interface ReplyRestrictionProps {
     restriction: number;
     setRestriction: (restriction: number) => void;
 }
-export default function ReplyRestriction({ restriction, setRestriction }: IReplyRestrictionProps) {
+export default function ReplyRestriction({ restriction, setRestriction }: ReplyRestrictionProps) {
     const currentFarcasterProfile = useFarcasterStateStore.use.currentProfile();
 
     const disabled = useMemo(() => !!currentFarcasterProfile?.profileId, [currentFarcasterProfile?.profileId]);
@@ -26,7 +26,7 @@ export default function ReplyRestriction({ restriction, setRestriction }: IReply
             leaveFrom="opacity-100"
             leaveTo="opacity-0 translate-y-1"
         >
-            <Popover.Panel className="absolute bottom-full right-0 flex w-[300px] -translate-y-3 flex-col gap-2 rounded-lg bg-bgModal p-3 text-[15px] shadow-popover">
+            <Popover.Panel className="absolute bottom-full right-0 flex w-[320px] -translate-y-3 flex-col gap-2 rounded-lg bg-bgModal p-3 text-[15px] shadow-popover">
                 <div
                     className=" flex h-[22px] cursor-pointer items-center justify-between"
                     onClick={() => setRestriction(0)}
@@ -35,7 +35,7 @@ export default function ReplyRestriction({ restriction, setRestriction }: IReply
                         <Trans>Everyone can reply</Trans>
                     </span>
                     {restriction === 0 ? (
-                        <RadioYesIcon width={20} height={20} />
+                        <YesIcon width={40} height={40} className=" relative -right-2" />
                     ) : (
                         <RadioDisableNoIcon width={20} height={20} />
                     )}
@@ -54,7 +54,7 @@ export default function ReplyRestriction({ restriction, setRestriction }: IReply
                         <Trans>Only people you follow can reply</Trans>
                     </span>
                     {restriction === 1 ? (
-                        <RadioYesIcon width={20} height={20} />
+                        <YesIcon width={40} height={40} className=" relative -right-2" />
                     ) : (
                         <RadioDisableNoIcon width={20} height={20} />
                     )}

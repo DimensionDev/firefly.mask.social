@@ -69,16 +69,16 @@ const items = [
 ];
 
 export const SideBar = memo(function SideBar() {
-    const { isDarkMode } = useDarkMode();
-    const isLogin = useIsLogin();
-    const currentSocialPlatform = useGlobalState.use.currentSocialPlatform();
-    const currentProfile = useCurrentProfile(currentSocialPlatform);
+    const currentSource = useGlobalState.use.currentSource();
+    const currentProfile = useCurrentProfile(currentSource);
 
     const route = usePathname();
+    const { isDarkMode } = useDarkMode();
+    const isLogin = useIsLogin();
 
     return (
         <>
-            <div className="fixed inset-y-0 z-50 flex w-72 flex-col">
+            <div className="fixed inset-y-0 z-50 flex w-[282px] flex-col">
                 <div className="flex grow flex-col gap-y-5 overflow-y-auto border-r border-line px-6">
                     <div className="flex h-16 shrink-0 items-center px-4">
                         <Link href={PageRoutes.Home}>

@@ -1,33 +1,20 @@
 'use client';
 
-import { useRouter } from 'next/navigation.js';
-import { memo, useEffect } from 'react';
-import urlcat from 'urlcat';
+import { memo } from 'react';
 
-import type { MarkupLinkProps } from './index.js';
+import { Link } from '@/esm/Link.js';
 
 const formatMentionTitle = (title: string) => {
     if (title.startsWith('@lens/')) return title.replace('@lens/', '@');
 
     return title;
 };
-export const MentionLink = memo<MarkupLinkProps>(function MentionLink({ title }) {
-    const router = useRouter();
-
-    useEffect(() => {
-        if (title) router.prefetch(urlcat('/u/:handle', { handle: formatMentionTitle(title).slice(1) }));
-    }, [title, router]);
-
+export const MentionLink = memo<{ title: string; link: string }>(function MentionLink({ title, link }) {
     if (!title) return null;
 
     return (
-        <span
-            onClick={(event) => {
-                event.stopPropagation();
-                router.push(urlcat('/u/:handle', { handle: formatMentionTitle(title).slice(1) }));
-            }}
-        >
-            <span className="text-link">{formatMentionTitle(title)}</span>
-        </span>
+        <Link href={link} className="text-link">
+            {formatMentionTitle(title)}
+        </Link>
     );
 });

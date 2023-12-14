@@ -16,8 +16,8 @@ export const Collect = memo<CollectProps>(function Collect({ count, disabled = f
     const enqueueSnackbar = useCustomSnackbar();
 
     const handleClick = useCallback(() => {
-        enqueueSnackbar(t`Collect is coming soon`, {
-            variant: 'warning',
+        enqueueSnackbar(t`Open actions on Lens is coming soon`, {
+            variant: 'error',
         });
     }, [enqueueSnackbar]);
     return (
@@ -30,7 +30,7 @@ export const Collect = memo<CollectProps>(function Collect({ count, disabled = f
                 event.stopPropagation();
             }}
         >
-            <Tooltip content="Act" placement="top" disabled={disabled}>
+            <Tooltip content={t`Act`} placement="top" disabled={disabled}>
                 <motion.button
                     disabled={disabled}
                     onClick={(event) => {

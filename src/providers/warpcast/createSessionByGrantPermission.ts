@@ -11,7 +11,8 @@ import type { ResponseJSON } from '@/types/index.js';
 export async function createSessionByGrantPermission(setUrl?: (url: string) => void, signal?: AbortSignal) {
     const response = await fetchJSON<
         ResponseJSON<{
-            publicKey: string;
+            publicKey: `0x${string}`;
+            privateKey: `0x${string}`;
             fid: string;
             token: string;
             timestamp: number;
@@ -30,7 +31,7 @@ export async function createSessionByGrantPermission(setUrl?: (url: string) => v
 
     return new WarpcastSession(
         response.data.fid,
-        response.data.token,
+        response.data.privateKey,
         response.data.timestamp,
         response.data.expiresAt,
     );

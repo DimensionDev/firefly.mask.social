@@ -19,16 +19,13 @@ msgstr ""
 msgid "Quote Post"
 msgstr ""
 
-msgid "Posts"
-msgstr ""
-
 msgid "Failed to fetch as Blob."
 msgstr ""
 
-msgid "{0, select, follow {Followed @{handle} on {platform}} unfollow {UnFollowed @{handle} on {platform}} other {Followed @{handle} on {platform}}}"
+msgid "Failed to mirror post"
 msgstr ""
 
-msgid "Failed to mirror post"
+msgid "Failed to connect wallet."
 msgstr ""
 
 msgid "Communities"
@@ -40,6 +37,12 @@ msgstr ""
 msgid "Failed to publish post"
 msgstr ""
 
+msgid "{0, select, follow {Followed @{handle} on {source}} unfollow {UnFollowed @{handle} on {source}} other {Followed @{handle} on {source}}}"
+msgstr ""
+
+msgid "Click to refresh QRCode"
+msgstr ""
+
 msgid "Something went wrong, Please try again."
 msgstr ""
 
@@ -49,10 +52,7 @@ msgstr ""
 msgid "{0} views"
 msgstr ""
 
-msgid "Mirrors and Quotes"
-msgstr ""
-
-msgid "You need to connect your {platform} account to use this feature."
+msgid "Act"
 msgstr ""
 
 msgid "More"
@@ -76,12 +76,6 @@ msgstr ""
 msgid "Failed to follow"
 msgstr ""
 
-msgid "Replying to @{0} on Lens"
-msgstr ""
-
-msgid "Casts"
-msgstr ""
-
 msgid "Failed to login"
 msgstr ""
 
@@ -89,9 +83,6 @@ msgid "Not implemented yet."
 msgstr ""
 
 msgid "Copied"
-msgstr ""
-
-msgid "Mirror and Quotes"
 msgstr ""
 
 msgid "comment"
@@ -109,13 +100,22 @@ msgstr ""
 msgid "Failed to unlike. {0}"
 msgstr ""
 
+msgid "You need to connect your {source} account to use this feature."
+msgstr ""
+
 msgid "Search"
 msgstr ""
 
 msgid "Connected Accounts"
 msgstr ""
 
+msgid "Select Account"
+msgstr ""
+
 msgid "mirror"
+msgstr ""
+
+msgid "Replied on Lens"
 msgstr ""
 
 msgid "Audio Cover"
@@ -154,10 +154,16 @@ msgstr ""
 msgid "post"
 msgstr ""
 
+msgid "Hashtag"
+msgstr ""
+
 msgid "Search Filter"
 msgstr ""
 
 msgid "Failed to fetch as Text."
+msgstr ""
+
+msgid "Open actions on Lens is coming soon"
 msgstr ""
 
 msgid "Add an existing account"
@@ -169,13 +175,13 @@ msgstr ""
 msgid "Collected"
 msgstr ""
 
-msgid "Connect to {platform}"
-msgstr ""
-
 msgid "Post by"
 msgstr ""
 
 msgid "Privacy Policy"
+msgstr ""
+
+msgid "Failed to quote on Lens. @{0}"
 msgstr ""
 
 msgid "No wallet client found"
@@ -199,9 +205,6 @@ msgstr ""
 msgid "{0, plural, one {<0/>} other {{1, plural, one {<1/> and <2/>} other {<3/> and # others}}}} <4>followed you</4>"
 msgstr ""
 
-msgid "This can’t be undone and you’ll lose your draft"
-msgstr ""
-
 msgid "Comment"
 msgstr ""
 
@@ -220,10 +223,10 @@ msgstr ""
 msgid "Post has been hidden"
 msgstr ""
 
-msgid "{0, select, follow {Failed to followed @{handle} on {platform}} unfollow {Failed to unfollowed @{handle} on {platform}} other {Failed to followed @{handle} on {platform}}}"
+msgid "<0>{0}</0> liked"
 msgstr ""
 
-msgid "<0>{0}</0> liked"
+msgid "{0, select, follow {Failed to followed @{handle} on {source}} unfollow {Failed to unfollowed @{handle} on {source}} other {Failed to followed @{handle} on {source}}}"
 msgstr ""
 
 msgid "Failed to unfollow"
@@ -241,6 +244,9 @@ msgstr ""
 msgid "Reply Restriction"
 msgstr ""
 
+msgid "No session found."
+msgstr ""
+
 msgid "Visit firefly.land"
 msgstr ""
 
@@ -256,7 +262,13 @@ msgstr ""
 msgid "Details"
 msgstr ""
 
+msgid "Connect to {source}"
+msgstr ""
+
 msgid "Farcaster"
+msgstr ""
+
+msgid "Replying to"
 msgstr ""
 
 msgid "What's happening..."
@@ -283,6 +295,9 @@ msgstr ""
 msgid "{0, plural, one {<0/>} other {{1, plural, one {<1/> and <2/>} other {<3/> and # others}}}} <4>liked your </4><5><6/></5>"
 msgstr ""
 
+msgid "Loading..."
+msgstr ""
+
 msgid "Share"
 msgstr ""
 
@@ -299,6 +314,9 @@ msgid "Visit mask.io"
 msgstr ""
 
 msgid "No comments found"
+msgstr ""
+
+msgid "Failed to relay on Lens. @{0}"
 msgstr ""
 
 msgid "Connected in Firefly"
@@ -331,13 +349,16 @@ msgstr ""
 msgid "<0>{0}</0> mirrored"
 msgstr ""
 
-msgid "Failed to quote on Lens"
+msgid "recasted"
 msgstr ""
 
 msgid "Post by {0}"
 msgstr ""
 
 msgid "quote"
+msgstr ""
+
+msgid "Image"
 msgstr ""
 
 msgid "Notifications"
@@ -349,6 +370,9 @@ msgstr ""
 msgid "Connect"
 msgstr ""
 
+msgid "Mention"
+msgstr ""
+
 msgid "Search…"
 msgstr ""
 
@@ -358,7 +382,10 @@ msgstr ""
 msgid "Everyone can reply"
 msgstr ""
 
-msgid "Quote on Lens"
+msgid "This cannot be undone and you will lose your draft."
+msgstr ""
+
+msgid "Login with custody wallet"
 msgstr ""
 
 msgid "Delegate Signing (Recommend)"
@@ -397,7 +424,13 @@ msgstr ""
 msgid "Failed to unvote post"
 msgstr ""
 
+msgid "Confirm to log out these accounts?"
+msgstr ""
+
 msgid "Light mode"
+msgstr ""
+
+msgid "{0, plural, zero {Mirror and Quote} one {Mirror and Quote} other {Mirrors and Quotes}}"
 msgstr ""
 
 msgid "Your Lens account is now connected"
@@ -409,7 +442,13 @@ msgstr ""
 msgid "Mask Network"
 msgstr ""
 
+msgid "Remove"
+msgstr ""
+
 msgid "No matching users"
+msgstr ""
+
+msgid "Log in to Farcaster account"
 msgstr ""
 
 msgid "There is no data available for display"
@@ -419,6 +458,9 @@ msgid "Recasted"
 msgstr ""
 
 msgid "Profile"
+msgstr ""
+
+msgid "Video"
 msgstr ""
 
 msgid "Add a comment"
@@ -436,6 +478,9 @@ msgstr ""
 msgid "{0, select, follow {Follow} unfollow {Unfollow} other {Follow}}"
 msgstr ""
 
+msgid "Media"
+msgstr ""
+
 msgid "Mirror"
 msgstr ""
 
@@ -445,16 +490,22 @@ msgstr ""
 msgid "Post"
 msgstr ""
 
+msgid "mirrored"
+msgstr ""
+
 msgid "Following"
 msgstr ""
 
 msgid "Dark mode"
 msgstr ""
 
-msgid "Collect is coming soon"
+msgid "on Lens"
 msgstr ""
 
 msgid "<0/> mentioned you in a <1><2/></1>"
+msgstr ""
+
+msgid "Red Packet"
 msgstr ""
 
 msgid "Login"

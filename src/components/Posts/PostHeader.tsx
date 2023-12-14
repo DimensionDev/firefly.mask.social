@@ -19,21 +19,16 @@ interface PostHeaderProps {
 }
 
 export const PostHeader = memo<PostHeaderProps>(function PostHeader({ post, isQuote = false }) {
+    const currentSource = useGlobalState.use.currentSource();
     const currentLensProfile = useLensStateStore.use.currentProfile();
     const currentFarcasterProfile = useFarcasterStateStore.use.currentProfile();
-    const currentSocialPlatform = useGlobalState.use.currentSocialPlatform();
 
     const isMyPost = useMemo(
         () =>
-            currentSocialPlatform === SocialPlatform.Lens
+            currentSource === SocialPlatform.Lens
                 ? post.author.profileId === currentLensProfile?.profileId
                 : post.author.profileId === currentFarcasterProfile?.profileId,
-        [
-            currentFarcasterProfile?.profileId,
-            currentLensProfile?.profileId,
-            currentSocialPlatform,
-            post.author.profileId,
-        ],
+        [currentFarcasterProfile?.profileId, currentLensProfile?.profileId, currentSource, post.author.profileId],
     );
 
     const profileLink = getProfileUrl(post.author);
@@ -41,9 +36,9 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({ post, isQu
     return (
         <div className="flex justify-between space-x-1.5">
             <div className="flex items-start space-x-3">
-                <Link href={profileLink}>
+                <Link href={profileLink} className="z-[1]">
                     <Avatar
-                        className={classNames('z-[1] rounded-full border bg-secondary', {
+                        className={classNames('rounded-full bg-secondary', {
                             'h-10 w-10': !isQuote,
                             'h-6 w-6': isQuote,
                         })}

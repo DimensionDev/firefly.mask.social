@@ -1,8 +1,8 @@
 import { Trans } from '@lingui/macro';
 
 import { Avatar } from '@/components/Avatar.js';
-import { PlatformIcon } from '@/components/PlatformIcon.js';
 import FollowButton from '@/components/Profile/FollowButton.js';
+import { SourceIcon } from '@/components/SourceIcon.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 
@@ -12,14 +12,14 @@ interface InfoProps {
 }
 
 export default function Info({ isMyProfile, profile }: InfoProps) {
-    const currentSocialPlatform = useGlobalState.use.currentSocialPlatform();
+    const currentSource = useGlobalState.use.currentSource();
 
     return (
         <div className=" flex gap-3 p-3">
             {profile?.pfp ? (
                 <Avatar src={profile.pfp} alt="avatar" size={80} className=" h-20 w-20 rounded-full" />
             ) : (
-                <PlatformIcon className="rounded-full" platform={currentSocialPlatform} size={80} />
+                <SourceIcon className="rounded-full" source={currentSource} size={80} />
             )}
 
             <div className=" relative flex flex-1 flex-col gap-[6px] pt-4">
@@ -32,7 +32,7 @@ export default function Info({ isMyProfile, profile }: InfoProps) {
                 <div className=" flex flex-col">
                     <div className=" flex items-center gap-2">
                         <span className=" text-xl font-black text-lightMain">{profile?.displayName}</span>
-                        <PlatformIcon platform={currentSocialPlatform} size={20} />
+                        <SourceIcon source={currentSource} size={20} />
                     </div>
                     <span className=" text-[15px] text-secondary">@{profile?.handle}</span>
                 </div>

@@ -1,25 +1,25 @@
-import { PlatformIcon } from '@/components/PlatformIcon.js';
+import { SourceIcon } from '@/components/SourceIcon.js';
 import { SocialPlatform } from '@/constants/enum.js';
-import { resolvePlatformName } from '@/helpers/resolvePlatformName.js';
+import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 
 interface LoginButtonProps {
-    platform: SocialPlatform;
-    onClick?: (platform: SocialPlatform) => void;
+    source: SocialPlatform;
+    onClick?: (source: SocialPlatform) => void;
 }
 
 export function LoginButton(props: LoginButtonProps) {
-    const { platform, onClick } = props;
+    const { source, onClick } = props;
     return (
         <button
             className=" group flex w-full flex-col rounded-lg p-[16px] hover:bg-lightBg"
-            onClick={() => onClick?.(platform)}
+            onClick={() => onClick?.(source)}
         >
             <div className=" inline-flex w-full cursor-pointer flex-col items-center justify-start gap-[8px] rounded-lg px-[16px] py-[24px]">
                 <div className="relative h-[48px] w-[48px]">
-                    <PlatformIcon className="left-0 top-0 rounded-full" size={48} platform={platform} />
+                    <SourceIcon className="left-0 top-0 rounded-full" size={48} source={source} />
                 </div>
                 <div className="text-sm font-bold leading-[18px] text-lightSecond group-hover:text-lightMain">
-                    {resolvePlatformName(platform)}
+                    {resolveSourceName(source)}
                 </div>
             </div>
         </button>

@@ -6,9 +6,9 @@ import { Fragment, useCallback } from 'react';
 interface DiscardProps {
     opened: boolean;
     setOpened: (opened: boolean) => void;
-    closeCompose: () => void;
+    onClose: () => void;
 }
-export default function Discard({ opened, setOpened, closeCompose }: DiscardProps) {
+export default function Discard({ opened, setOpened, onClose }: DiscardProps) {
     const close = useCallback(() => setOpened(false), [setOpened]);
 
     return (
@@ -52,14 +52,14 @@ export default function Discard({ opened, setOpened, closeCompose }: DiscardProp
                                 </Dialog.Title>
 
                                 <div className=" text-[15px]">
-                                    <Trans>This can’t be undone and you’ll lose your draft</Trans>
+                                    <Trans>This cannot be undone and you will lose your draft.</Trans>
                                 </div>
 
                                 <button
-                                    className=" flex h-10 w-full items-center justify-center rounded-full bg-danger text-sm font-bold text-secondaryBottom"
+                                    className=" flex h-10 w-full items-center justify-center rounded-full bg-danger text-sm font-bold text-danger"
                                     onClick={() => {
                                         close();
-                                        closeCompose();
+                                        onClose();
                                     }}
                                 >
                                     <Trans>Confirm</Trans>

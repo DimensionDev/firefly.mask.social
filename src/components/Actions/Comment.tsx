@@ -41,7 +41,7 @@ export const Comment = memo<CommentProps>(function Comment({
 
     const handleClick = useCallback(() => {
         if (!isLogin) {
-            LoginModalRef.open();
+            LoginModalRef.open({ source });
             return;
         }
         if (canComment) {

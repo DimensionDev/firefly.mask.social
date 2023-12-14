@@ -15,11 +15,11 @@ import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
 import { useLensStateStore } from '@/store/useLensStore.js';
 
 export interface LogoutModalProps {
-    platform?: SocialPlatform;
+    source?: SocialPlatform;
 }
 
 export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps | void>>(function LogoutModal(_, ref) {
-    const [platform, setPlatform] = useState<SocialPlatform>();
+    const [source, setSource] = useState<SocialPlatform>();
 
     const lensProfiles = useLensStateStore.use.profiles();
     const farcasterProfiles = useFarcasterStateStore.use.profiles();
@@ -28,18 +28,18 @@ export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps 
 
     const [open, dispatch] = useSingletonModal(ref, {
         onOpen(props) {
-            setPlatform(props?.platform);
+            setSource(props?.source);
         },
     });
 
     const profiles = useMemo(
         () =>
-            !platform
+            !source
                 ? lensProfiles.concat(farcasterProfiles)
-                : platform === SocialPlatform.Lens
+                : source === SocialPlatform.Lens
                   ? lensProfiles
                   : farcasterProfiles,
-        [lensProfiles, farcasterProfiles, platform],
+        [lensProfiles, farcasterProfiles, source],
     );
 
     return (
@@ -95,8 +95,8 @@ export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps 
                                     <button
                                         className=" flex items-center justify-center rounded-[99px] bg-commonDanger py-[11px] text-lightBottom"
                                         onClick={() => {
-                                            if (!platform) return;
-                                            switch (platform) {
+                                            if (!source) return;
+                                            switch (source) {
                                                 case SocialPlatform.Lens:
                                                     clearLensProfile();
                                                     break;
@@ -104,7 +104,7 @@ export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps 
                                                     clearFarcasterProfile();
                                                     break;
                                                 default:
-                                                    safeUnreachable(platform);
+                                                    safeUnreachable(source);
                                                     break;
                                             }
                                             dispatch?.close();

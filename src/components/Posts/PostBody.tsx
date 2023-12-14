@@ -11,6 +11,7 @@ import Oembed from '@/components/Oembed/index.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
+import removeUrlAtEnd from '@/helpers/removeUrlAtEnd.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 import { Attachments } from './Attachment.js';
@@ -73,7 +74,10 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
     if (isQuote) {
         return (
             <div className="my-2 flex items-center space-x-2 break-words text-base text-main">
-                <NakedMarkup className="linkify text-md line-clamp-5 w-full self-stretch break-words opacity-75 dark:opacity-50">
+                <NakedMarkup
+                    post={post}
+                    className="linkify text-md line-clamp-5 w-full self-stretch break-words opacity-75 dark:opacity-50"
+                >
                     {post.metadata.content?.content}
                 </NakedMarkup>
                 {showAttachments ? (
@@ -89,7 +93,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
 
     return (
         <div
-            className={classNames('my-2 break-words text-base text-main', {
+            className={classNames('-mt-2 mb-2 break-words text-base text-main', {
                 ['pl-[52px]']: !disablePadding,
             })}
             ref={ref}
@@ -104,8 +108,11 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
                     )}
                 />
             ) : (
-                <Markup className={classNames({ 'line-clamp-5': canShowMore }, 'markup linkify text-md break-words')}>
-                    {post.metadata.content?.content}
+                <Markup
+                    post={post}
+                    className={classNames({ 'line-clamp-5': canShowMore }, 'markup linkify text-md break-words')}
+                >
+                    {removeUrlAtEnd(post.metadata.content?.oembedUrl, post.metadata.content?.content)}
                 </Markup>
             )}
 

@@ -5,7 +5,12 @@ import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import uploadToArweave from '@/services/uploadToArweave.js';
 import type { IPFS_MediaObject } from '@/types/index.js';
 
-export async function publishPostForLens(profileId: string, characters: string, images: IPFS_MediaObject[]) {
+export async function publishPostForLens(
+    profileId: string,
+    characters: string,
+    images: IPFS_MediaObject[],
+    video: IPFS_MediaObject | null,
+) {
     const lens = LensSocialMediaProvider;
     const profile = await lens.getProfileById(profileId);
 
@@ -20,17 +25,34 @@ export async function publishPostForLens(profileId: string, characters: string, 
                 external_url: SITE_URL,
             },
         },
-        images.length > 0
+        images.length > 0 || video
             ? {
-                  image: {
-                      item: images[0].ipfs.uri,
-                      type: images[0].ipfs.mimeType,
-                  },
-                  attachments: images.map((image) => ({
-                      item: image.ipfs.uri,
-                      type: image.ipfs.mimeType,
-                      cover: images[0].ipfs.uri,
-                  })),
+                  attachments: video
+                      ? [
+                            {
+                                item: video.ipfs.uri,
+                                type: video.ipfs.mimeType,
+                                cover: video.ipfs.uri,
+                            },
+                        ]
+                      : images.map((image) => ({
+                            item: image.ipfs.uri,
+                            type: image.ipfs.mimeType,
+                            cover: images[0].ipfs.uri,
+                        })),
+                  ...(video
+                      ? {
+                            video: {
+                                item: video.ipfs.uri,
+                                type: video.ipfs.mimeType,
+                            },
+                        }
+                      : {
+                            image: {
+                                item: images[0].ipfs.uri,
+                                type: images[0].ipfs.mimeType,
+                            },
+                        }),
               }
             : undefined,
     );
@@ -53,6 +75,7 @@ export async function commentPostForLens(
     postId: string,
     characters: string,
     images: IPFS_MediaObject[],
+    video: IPFS_MediaObject | null,
 ) {
     const lens = LensSocialMediaProvider;
     const profile = await lens.getProfileById(profileId);
@@ -65,20 +88,37 @@ export async function commentPostForLens(
             marketplace: {
                 name: title,
                 description: characters,
-                external_url: 'https://mask.social',
+                external_url: SITE_URL,
             },
         },
-        images.length > 0
+        images.length > 0 || video
             ? {
-                  image: {
-                      item: images[0].ipfs.uri,
-                      type: images[0].ipfs.mimeType,
-                  },
-                  attachments: images.map((image) => ({
-                      item: image.ipfs.uri,
-                      type: image.ipfs.mimeType,
-                      cover: images[0].ipfs.uri,
-                  })),
+                  attachments: video
+                      ? [
+                            {
+                                item: video.ipfs.uri,
+                                type: video.ipfs.mimeType,
+                                cover: video.ipfs.uri,
+                            },
+                        ]
+                      : images.map((image) => ({
+                            item: image.ipfs.uri,
+                            type: image.ipfs.mimeType,
+                            cover: images[0].ipfs.uri,
+                        })),
+                  ...(video
+                      ? {
+                            video: {
+                                item: video.ipfs.uri,
+                                type: video.ipfs.mimeType,
+                            },
+                        }
+                      : {
+                            image: {
+                                item: images[0].ipfs.uri,
+                                type: images[0].ipfs.mimeType,
+                            },
+                        }),
               }
             : undefined,
     );
@@ -91,6 +131,7 @@ export async function quotePostForLens(
     postId: string,
     characters: string,
     images: IPFS_MediaObject[],
+    video: IPFS_MediaObject | null,
 ) {
     const lens = LensSocialMediaProvider;
     const profile = await lens.getProfileById(profileId);
@@ -103,20 +144,37 @@ export async function quotePostForLens(
             marketplace: {
                 name: title,
                 description: characters,
-                external_url: 'https://mask.social',
+                external_url: SITE_URL,
             },
         },
-        images.length > 0
+        images.length > 0 || video
             ? {
-                  image: {
-                      item: images[0].ipfs.uri,
-                      type: images[0].ipfs.mimeType,
-                  },
-                  attachments: images.map((image) => ({
-                      item: image.ipfs.uri,
-                      type: image.ipfs.mimeType,
-                      cover: images[0].ipfs.uri,
-                  })),
+                  attachments: video
+                      ? [
+                            {
+                                item: video.ipfs.uri,
+                                type: video.ipfs.mimeType,
+                                cover: video.ipfs.uri,
+                            },
+                        ]
+                      : images.map((image) => ({
+                            item: image.ipfs.uri,
+                            type: image.ipfs.mimeType,
+                            cover: images[0].ipfs.uri,
+                        })),
+                  ...(video
+                      ? {
+                            video: {
+                                item: video.ipfs.uri,
+                                type: video.ipfs.mimeType,
+                            },
+                        }
+                      : {
+                            image: {
+                                item: images[0].ipfs.uri,
+                                type: images[0].ipfs.mimeType,
+                            },
+                        }),
               }
             : undefined,
     );

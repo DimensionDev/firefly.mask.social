@@ -110,6 +110,7 @@ export interface Attachment {
 }
 
 export type PostType = 'Post' | 'Comment' | 'Quote' | 'Mirror';
+
 export interface Post {
     type?: PostType;
     postId: string;
@@ -117,7 +118,6 @@ export interface Post {
     parentAuthor?: Profile;
     timestamp?: number;
     author: Profile;
-    embedPosts?: Post[];
     mediaObjects?: MediaObject[];
     permalink?: string;
     parentPermalink?: string;
@@ -142,12 +142,12 @@ export interface Post {
         reactions: number;
         bookmarks?: number;
     };
-    quoteOn?: Post;
-    comments?: Post[];
     mirrors?: Profile[];
     reactions?: Profile[];
     canComment?: boolean;
     canMirror?: boolean;
+    canAct?: boolean;
+    mentions?: Profile[];
     hasMirrored?: boolean;
     hasLiked?: boolean;
     __original__?: unknown;
@@ -167,6 +167,9 @@ export interface Post {
      */
     commentOn?: Post;
     root?: Post;
+    quoteOn?: Post;
+    comments?: Post[];
+    embedPosts?: Post[];
 }
 
 export interface Comment {

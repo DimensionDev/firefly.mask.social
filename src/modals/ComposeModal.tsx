@@ -7,12 +7,13 @@ import { useSingletonModal } from '@masknet/shared-base-ui';
 import { forwardRef, Fragment, useCallback, useState } from 'react';
 
 import LoadingIcon from '@/assets/loading.svg';
+import ComposeAction from '@/components/Compose/ComposeAction.js';
+import ComposeContent from '@/components/Compose/ComposeContent.js';
 import ComposeSend from '@/components/Compose/ComposeSend.js';
 import Discard from '@/components/Compose/Discard.js';
-import WithLexicalContextWrapper from '@/components/Compose/WithLexicalContextWrapper.js';
-import { EMPTY_LIST } from '@/constants/index.js';
+import withLexicalContext from '@/components/shared/lexical/withLexicalContext.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
-import type { IPFS_MediaObject } from '@/types/index.js';
+import { useComposeStateStore } from '@/store/useComposeStore.js';
 
 export interface ComposeModalProps {
     type?: 'compose' | 'quote' | 'reply';
@@ -21,22 +22,22 @@ export interface ComposeModalProps {
 
 // { type = 'compose', post, opened, setOpened }: ComposeModalProps
 export const ComposeModal = forwardRef<SingletonModalRefCreator<ComposeModalProps>>(function Compose(_, ref) {
-    const [type, setType] = useState<'compose' | 'quote' | 'reply'>('compose');
-    const [post, setPost] = useState<Post>();
-    const [characters, setCharacters] = useState('');
     const [discardOpened, setDiscardOpened] = useState(false);
-    const [images, setImages] = useState<IPFS_MediaObject[]>(EMPTY_LIST);
-    const [loading, setLoading] = useState(false);
+
+    const loading = useComposeStateStore.use.loading();
+    const type = useComposeStateStore.use.type();
+    const chars = useComposeStateStore.use.chars();
+    const updateType = useComposeStateStore.use.updateType();
+    const updatePost = useComposeStateStore.use.updatePost();
+    const clear = useComposeStateStore.use.clear();
 
     const [open, dispatch] = useSingletonModal(ref, {
         onOpen: (props) => {
-            setType(props.type || 'compose');
-            setPost(props.post);
+            updateType(props.type || 'compose');
+            if (props.post) updatePost(props.post);
         },
         onClose: () => {
-            setCharacters('');
-            setImages(EMPTY_LIST);
-            setPost(undefined);
+            clear();
         },
     });
 
@@ -46,14 +47,14 @@ export const ComposeModal = forwardRef<SingletonModalRefCreator<ComposeModalProp
 
     return (
         <>
-            <Discard opened={discardOpened} setOpened={setDiscardOpened} closeCompose={close} />
+            <Discard opened={discardOpened} setOpened={setDiscardOpened} onClose={close} />
 
             <Transition appear show={open} as={Fragment}>
                 <Dialog
                     as="div"
                     className="relative z-[100]"
                     onClose={() => {
-                        if (characters) {
+                        if (chars) {
                             setDiscardOpened(true);
                         } else {
                             close();
@@ -83,7 +84,7 @@ export const ComposeModal = forwardRef<SingletonModalRefCreator<ComposeModalProp
                                 leaveFrom="opacity-100 scale-100"
                                 leaveTo="opacity-0 scale-95"
                             >
-                                <Dialog.Panel className="relative w-[600px] overflow-hidden rounded-xl bg-bgModal shadow-popover transition-all dark:text-gray-950">
+                                <Dialog.Panel className="relative w-[600px] rounded-xl bg-bgModal shadow-popover transition-all dark:text-gray-950">
                                     {/* Loading */}
                                     {loading ? (
                                         <div className=" absolute bottom-0 left-0 right-0 top-0 z-50 flex items-center justify-center">
@@ -94,7 +95,7 @@ export const ComposeModal = forwardRef<SingletonModalRefCreator<ComposeModalProp
                                     {/* Title */}
                                     <Dialog.Title as="h3" className=" relative h-14">
                                         <XMarkIcon
-                                            className="absolute left-4 top-1/2 h-6 w-6 -translate-y-1/2 cursor-pointer"
+                                            className="absolute left-4 top-1/2 h-6 w-6 -translate-y-1/2 cursor-pointer text-main"
                                             aria-hidden="true"
                                             onClick={close}
                                         />
@@ -104,24 +105,10 @@ export const ComposeModal = forwardRef<SingletonModalRefCreator<ComposeModalProp
                                         </span>
                                     </Dialog.Title>
 
-                                    <WithLexicalContextWrapper
-                                        type={type}
-                                        setCharacters={setCharacters}
-                                        images={images}
-                                        setImages={setImages}
-                                        setLoading={setLoading}
-                                        post={post}
-                                    />
+                                    <WithLexicalContextWrapper />
 
                                     {/* Send */}
-                                    <ComposeSend
-                                        type={type}
-                                        characters={characters}
-                                        images={images}
-                                        closeCompose={close}
-                                        setLoading={setLoading}
-                                        post={post}
-                                    />
+                                    <ComposeSend onClose={close} />
                                 </Dialog.Panel>
                             </Transition.Child>
                         </div>
@@ -131,3 +118,10 @@ export const ComposeModal = forwardRef<SingletonModalRefCreator<ComposeModalProp
         </>
     );
 });
+
+const WithLexicalContextWrapper = withLexicalContext(() => (
+    <>
+        <ComposeContent />
+        <ComposeAction />
+    </>
+));

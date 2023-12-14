@@ -11,6 +11,7 @@ import { useMemo } from 'react';
 import { MentionsPlugin } from '@/components/shared/lexical/plugins/AtMentionsPlugin.js';
 import LexicalAutoLinkPlugin from '@/components/shared/lexical/plugins/AutoLinkPlugin.js';
 import { classNames } from '@/helpers/classNames.js';
+import { useComposeStateStore } from '@/store/useComposeStore.js';
 
 const TRANSFORMERS = [...TEXT_FORMAT_TRANSFORMERS];
 
@@ -18,13 +19,16 @@ function ErrorBoundaryComponent() {
     return <div>Something went wrong!</div>;
 }
 
-interface EditorProps {
-    type: 'compose' | 'quote' | 'reply';
-    setCharacters: (characters: string) => void;
-    hasImages: boolean;
-    hasPost: boolean;
-}
-export default function Editor({ type, setCharacters, hasImages, hasPost }: EditorProps) {
+interface EditorProps {}
+export default function Editor(props: EditorProps) {
+    const type = useComposeStateStore.use.type();
+    const post = useComposeStateStore.use.post();
+    const video = useComposeStateStore.use.video();
+    const images = useComposeStateStore.use.images();
+    const updateChars = useComposeStateStore.use.updateChars();
+
+    const hasMediaObject = images.length > 0 || !!video;
+
     const placeholder = useMemo(() => {
         return {
             compose: t`What's happening...`,
@@ -40,7 +44,7 @@ export default function Editor({ type, setCharacters, hasImages, hasPost }: Edit
                     <ContentEditable
                         className={classNames(
                             ' cursor-text resize-none appearance-none border-none bg-transparent p-0 text-left text-[15px] leading-5 text-main outline-0 focus:ring-0',
-                            hasImages ? '' : hasPost ? 'min-h-[200px]' : 'min-h-[308px]',
+                            hasMediaObject ? '' : post ? 'min-h-[200px]' : 'min-h-[308px]',
                         )}
                     />
                 }
@@ -55,7 +59,7 @@ export default function Editor({ type, setCharacters, hasImages, hasPost }: Edit
                 onChange={(editorState) => {
                     editorState.read(() => {
                         const markdown = $convertToMarkdownString(TRANSFORMERS);
-                        setCharacters(markdown);
+                        updateChars(markdown);
                     });
                 }}
             />

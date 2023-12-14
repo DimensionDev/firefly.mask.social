@@ -60,6 +60,7 @@
         "maskbook",
         "maskbox",
         "masknet",
+        "multirecipient",
         "nextauth",
         "nocheck",
         "notistack",
@@ -97,7 +98,7 @@
         ".next/**",
         "public/**",
         "src/maskbook",
-        "src/providers/firefly/proto",
+        "src/providers/hubble/proto",
         "src/assets/**",
         "src/locales/**"
     ],

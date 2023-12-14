@@ -1,5 +1,6 @@
 import { Trans } from '@lingui/macro';
-import { createIndicator, createPageable } from '@masknet/shared-base';
+import { safeUnreachable } from '@masknet/kit';
+import { createIndicator, createPageable, EMPTY_LIST } from '@masknet/shared-base';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { useMemo } from 'react';
 import { useInView } from 'react-cool-inview';
@@ -18,15 +19,15 @@ interface ContentFeedProps {
     profileId: string;
 }
 export default function ContentFeed({ profileId }: ContentFeedProps) {
-    const currentSocialPlatform = useGlobalState.use.currentSocialPlatform();
+    const currentSource = useGlobalState.use.currentSource();
     const fetchAndStoreViews = useImpressionsStore.use.fetchAndStoreViews();
     const { data, hasNextPage, fetchNextPage, isFetchingNextPage, isFetching } = useSuspenseInfiniteQuery({
-        queryKey: ['getPostsByProfileId', currentSocialPlatform, profileId],
+        queryKey: ['getPostsByProfileId', currentSource, profileId],
 
         queryFn: async ({ pageParam }) => {
             if (!profileId) return createPageable([], undefined);
 
-            switch (currentSocialPlatform) {
+            switch (currentSource) {
                 case SocialPlatform.Lens:
                     const result = await LensSocialMediaProvider.getPostsByProfileId(
                         profileId,
@@ -42,7 +43,8 @@ export default function ContentFeed({ profileId }: ContentFeedProps) {
                         createIndicator(undefined, pageParam),
                     );
                 default:
-                    return createPageable([], undefined);
+                    safeUnreachable(currentSource);
+                    return createPageable(EMPTY_LIST, undefined);
             }
         },
         initialPageParam: '',

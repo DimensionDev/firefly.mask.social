@@ -56,7 +56,7 @@ export const PostActions = memo<PostActionsProps>(function PostActions({
                 hasMirrored={post.hasMirrored}
                 post={post}
             />
-            {post.source !== SocialPlatform.Farcaster ? (
+            {post.source !== SocialPlatform.Farcaster && post.canAct ? (
                 <Collect count={post.stats?.bookmarks} disabled={disabled} />
             ) : null}
             <Like
