@@ -6,7 +6,7 @@ import { useAsyncFn } from 'react-use';
 import LoadingIcon from '@/assets/loading.svg';
 import YesIcon from '@/assets/yes.svg';
 import { SourceIcon } from '@/components/SourceIcon.js';
-import type { SocialPlatform } from '@/constants/enum.js';
+import { SocialPlatform } from '@/constants/enum.js';
 import { Image } from '@/esm/Image.js';
 import { classNames } from '@/helpers/classNames.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
@@ -104,6 +104,13 @@ export function PostByItem({ source }: PostByItemProps) {
                         <button
                             className=" font-bold text-blueBottom"
                             onClick={async () => {
+                                if (source === SocialPlatform.Farcaster && images.length > 2) {
+                                    enqueueSnackbar(t`Select failed: More than 2 images`, {
+                                        variant: 'error',
+                                    });
+                                    return;
+                                }
+
                                 ComposeModalRef.close();
                                 await delay(300);
                                 LoginModalRef.open();
