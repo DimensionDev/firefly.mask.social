@@ -14,6 +14,9 @@
             "path": "./src/maskbook/packages/plugins/RedPacket/tsconfig.json"
         },
         {
+            "path": "./src/maskbook/packages/plugins/Debugger/tsconfig.json"
+        },
+        {
             "path": "./src/service-workers/tsconfig.json"
         },
         {
@@ -101,7 +104,8 @@
             "@masknet/web3-telemetry": ["./src/maskbook/packages/web3-telemetry/src/entry.ts"],
             "@masknet/web3-telemetry/helpers": ["./src/maskbook/packages/web3-telemetry/src/entry-helpers.ts"],
             "@masknet/web3-telemetry/types": ["./src/maskbook/packages/web3-telemetry/src/entry-types.ts"],
-            "@masknet/plugin-debugger": ["./src/maskbook/packages/plugins/Debugger/src/index.ts"],
+            "@masknet/plugin-debugger/messages": ["./src/maskbook/packages/plugins/Debugger/src/messages.ts"],
+            "@masknet/plugin-debugger/register": ["./src/maskbook/packages/plugins/Debugger/src/register.ts"],
             "@masknet/plugin-file-service": ["./src/maskbook/packages/plugins/FileService/src/index.ts"],
             "@masknet/plugin-rss3": ["./src/maskbook/packages/plugins/RSS3/src/index.ts"],
             "@masknet/plugin-template": ["./src/maskbook/packages/plugins/template/src/index.ts"],
@@ -151,7 +155,6 @@
         "src/maskbook/packages/plugins/Collectible",
         "src/maskbook/packages/plugins/CrossChainBridge",
         "src/maskbook/packages/plugins/CyberConnect",
-        "src/maskbook/packages/plugins/Debugger",
         "src/maskbook/packages/plugins/FileService",
         "src/maskbook/packages/plugins/FriendTech",
         "src/maskbook/packages/plugins/Gitcoin",

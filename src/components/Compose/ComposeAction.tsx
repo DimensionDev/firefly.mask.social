@@ -1,8 +1,9 @@
 import { Popover } from '@headlessui/react';
-import { ChevronRightIcon } from '@heroicons/react/24/outline';
+import { BugAntIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext.js';
 import { t, Trans } from '@lingui/macro';
 import { delay, safeUnreachable } from '@masknet/kit';
+import { PluginDebuggerMessages } from '@masknet/plugin-debugger/messages';
 import { CrossIsolationMessages } from '@masknet/shared-base';
 import { $getSelection } from 'lexical';
 import { compact } from 'lodash-es';
@@ -101,6 +102,17 @@ export default function ComposeAction(props: ComposeActionProps) {
                         onClick={() => insertText('#')}
                     />
                 </Tooltip>
+
+                {process.env.NODE_ENV === 'development' ? (
+                    <Tooltip content={t`Debug`} placement="top">
+                        <BugAntIcon
+                            className="h-[24px] w-[24px] cursor-pointer text-main"
+                            onClick={() => {
+                                PluginDebuggerMessages.consoleDialogUpdated.sendToLocal({ open: true });
+                            }}
+                        />
+                    </Tooltip>
+                ) : null}
 
                 <Tooltip content={t`Red Packet`} placement="top">
                     <RedPacketIcon
