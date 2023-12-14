@@ -29,7 +29,7 @@ export default function ComposeContent(props: ComposeContentProps) {
             >
                 <div className=" flex min-h-full flex-col justify-between">
                     {type === 'reply' && post ? (
-                        <div className=" text-fourMain mb-3 text-left text-[15px]">
+                        <div className=" mb-3 text-left text-[15px] text-fourMain">
                             <Trans>Replying to</Trans>
                             <span className=" text-link"> @{post.author.handle} </span>
                             <Trans>on Lens</Trans>
