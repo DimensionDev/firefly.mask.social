@@ -20,10 +20,17 @@ export function SocialPlatformTabs() {
 
     if (
         pathname.includes('/settings') ||
-        pathname.includes('/post') ||
-        (pathname.includes('/profile') && pathname !== '/profile')
-    )
-        return null;
+        pathname.includes('/post')) return null;
+
+    if (pathname.includes('/profile')) {
+        const param = pathname.split('/');
+        const handle = param[param.length - 1];
+        if (currentSource === SocialPlatform.Farcaster && currentProfile?.profileId !== handle)
+            return null;
+        if (currentSource === SocialPlatform.Lens && currentProfile?.handle !== handle)
+            return null;
+    }
+
 
     return (
         <div className="border-b border-line bg-primaryBottom px-4">
