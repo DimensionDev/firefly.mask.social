@@ -220,6 +220,9 @@ msgstr ""
 msgid "Malformed session."
 msgstr ""
 
+msgid "Debug"
+msgstr ""
+
 msgid "Post has been hidden"
 msgstr ""
 

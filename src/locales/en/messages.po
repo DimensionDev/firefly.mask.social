@@ -220,6 +220,9 @@ msgstr "{0, plural, one {<0/>} other {{1, plural, one {<1/> and <2/>} other {<3/
 msgid "Malformed session."
 msgstr "Malformed session."
 
+msgid "Debug"
+msgstr "Debug"
+
 msgid "Post has been hidden"
 msgstr "Post has been hidden"
 
