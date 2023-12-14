@@ -13,6 +13,9 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
+msgid "Failed to upload. Network error"
+msgstr ""
+
 msgid "Be the first one to comment!"
 msgstr ""
 
@@ -283,6 +286,9 @@ msgstr ""
 msgid "Like"
 msgstr ""
 
+msgid "This can’t be undone and you’ll lose your draft."
+msgstr ""
+
 msgid "Publications"
 msgstr ""
 
@@ -386,9 +392,6 @@ msgid "No profile found"
 msgstr ""
 
 msgid "Everyone can reply"
-msgstr ""
-
-msgid "This cannot be undone and you will lose your draft."
 msgstr ""
 
 msgid "Login with custody wallet"
