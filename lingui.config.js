@@ -13,10 +13,13 @@ export default {
             path: 'src/locales/{locale}/messages',
             include: [
                 'src/app/**',
+                'src/configs/**',
                 'src/components/**',
+                'src/constants/**',
                 'src/helpers/**',
                 'src/hooks/**',
                 'src/providers/**',
+                'src/modals/**',
                 'src/store/**',
             ],
             exclude: ['src/maskbook/**'],
