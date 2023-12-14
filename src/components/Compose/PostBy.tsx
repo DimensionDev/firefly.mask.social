@@ -1,53 +1,13 @@
 import { Popover, Transition } from '@headlessui/react';
-import { t, Trans } from '@lingui/macro';
+import { getEnumAsArray } from '@masknet/kit';
 import { Fragment } from 'react';
-import { useAsyncFn } from 'react-use';
 
-import FarcasterIcon from '@/assets/farcaster.svg';
-import LensIcon from '@/assets/lens.svg';
-import LoadingIcon from '@/assets/loading.svg';
-import YesIcon from '@/assets/yes.svg';
-import { Image } from '@/esm/Image.js';
-import { classNames } from '@/helpers/classNames.js';
-import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
-import { LoginModalRef } from '@/modals/controls.js';
-import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
-import type { Profile } from '@/providers/types/SocialMedia.js';
-import { useComposeStateStore } from '@/store/useComposeStore.js';
-import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
-import { useLensStateStore } from '@/store/useLensStore.js';
+import { PostByItem } from '@/components/Compose/PostByItem.js';
+import { SocialPlatform } from '@/constants/enum.js';
 
 interface PostByProps {}
 
 export default function PostBy(props: PostByProps) {
-    const enqueueSnackbar = useCustomSnackbar();
-
-    const lensProfiles = useLensStateStore.use.profiles();
-    const farcasterProfiles = useFarcasterStateStore.use.profiles();
-
-    const currentLensProfile = useLensStateStore.use.currentProfile();
-    const currentFarcasterProfile = useFarcasterStateStore.use.currentProfile();
-
-    const images = useComposeStateStore.use.images();
-    const updateLoading = useComposeStateStore.use.updateLoading();
-
-    const updateLensCurrentProfile = useLensStateStore.use.updateCurrentProfile();
-
-    const [{ loading }, login] = useAsyncFn(async (profile: Profile) => {
-        updateLoading(true);
-        try {
-            const session = await LensSocialMediaProvider.createSessionForProfileId(profile.profileId);
-
-            updateLensCurrentProfile(profile, session);
-            enqueueSnackbar(t`Your Lens account is now connected`, {
-                variant: 'success',
-            });
-        } catch (error) {
-            enqueueSnackbar(error instanceof Error ? error.message : t`Failed to login`, { variant: 'error' });
-        }
-        updateLoading(false);
-    }, []);
-
     return (
         <Transition
             as={Fragment}
@@ -59,7 +19,10 @@ export default function PostBy(props: PostByProps) {
             leaveTo="opacity-0 translate-y-1"
         >
             <Popover.Panel className=" absolute bottom-full right-0 flex w-[280px] -translate-y-3 flex-col gap-2 rounded-lg bg-bgModal p-3 text-[15px] shadow-popover">
-                {currentLensProfile && lensProfiles.length > 0 ? (
+                {getEnumAsArray(SocialPlatform).map(({ key, value: source }) => (
+                    <PostByItem key={key} source={source} />
+                ))}
+                {/* {currentLensProfile && lensProfiles.length > 0 ? (
                     lensProfiles.map((profile) => (
                         <Fragment key={profile.profileId}>
                             <div className={classNames(' flex h-[22px] items-center justify-between')}>
@@ -115,9 +78,9 @@ export default function PostBy(props: PostByProps) {
                         </div>
                         <div className=" h-px bg-line" />
                     </Fragment>
-                )}
+                )} */}
 
-                {currentFarcasterProfile && farcasterProfiles.length > 0 ? (
+                {/* {currentFarcasterProfile && farcasterProfiles.length > 0 ? (
                     farcasterProfiles.map((profile, index) => (
                         <Fragment key={profile.profileId}>
                             <div className={classNames(' flex h-[22px] items-center justify-between')}>
@@ -175,7 +138,7 @@ export default function PostBy(props: PostByProps) {
                             </button>
                         </div>
                     </Fragment>
-                )}
+                )} */}
             </Popover.Panel>
         </Transition>
     );
