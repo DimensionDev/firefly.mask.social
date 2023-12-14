@@ -108,7 +108,7 @@ export default function ComposeAction(props: ComposeActionProps) {
                         <BugAntIcon
                             className="h-[24px] w-[24px] cursor-pointer text-main"
                             onClick={() => {
-                                PluginDebuggerMessages.consoleDialogUpdated.sendToLocal({ open: true });
+                                PluginDebuggerMessages.connectionDialogUpdated.sendToLocal({ open: true });
                             }}
                         />
                     </Tooltip>

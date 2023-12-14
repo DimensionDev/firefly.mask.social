@@ -6,16 +6,18 @@ export default function CustomElements() {
     useAsync(async () => {
         // setup mask runtime
         await import('@/mask/setup/locale.js');
-        await import('@masknet/flags/build-info').then((x) =>
+        await import('@masknet/flags/build-info').then((x) => {
+            const channel =
+                process.env.NEXT_PUBLIC_VERCEL_ENV === 'preview'
+                    ? 'beta'
+                    : process.env.NODE_ENV === 'production'
+                      ? 'stable'
+                      : 'insider';
+
             x.setupBuildInfoManually({
-                channel:
-                    process.env.NEXT_PUBLIC_VERCEL_ENV === 'preview'
-                        ? 'beta'
-                        : process.env.NODE_ENV === 'production'
-                          ? 'stable'
-                          : 'insider',
-            }),
-        );
+                channel,
+            });
+        });
         await import('@/mask/setup/storage.js');
         await import('@/mask/setup/wallet.js');
         await import('@/mask/setup/theme.js');
