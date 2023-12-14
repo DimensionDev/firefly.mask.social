@@ -52,6 +52,9 @@ msgstr ""
 msgid "{0} views"
 msgstr ""
 
+msgid "Act"
+msgstr ""
+
 msgid "More"
 msgstr ""
 
@@ -197,9 +200,6 @@ msgid "{0} Comments"
 msgstr ""
 
 msgid "{0, plural, one {<0/>} other {{1, plural, one {<1/> and <2/>} other {<3/> and # others}}}} <4>followed you</4>"
-msgstr ""
-
-msgid "This can’t be undone and you’ll lose your draft"
 msgstr ""
 
 msgid "Comment"
@@ -376,6 +376,9 @@ msgstr ""
 msgid "Everyone can reply"
 msgstr ""
 
+msgid "This cannot be undone and you will lose your draft."
+msgstr ""
+
 msgid "Login with custody wallet"
 msgstr ""
 
@@ -431,6 +434,9 @@ msgid "Log in"
 msgstr ""
 
 msgid "Mask Network"
+msgstr ""
+
+msgid "Remove"
 msgstr ""
 
 msgid "No matching users"

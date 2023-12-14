@@ -52,6 +52,9 @@ msgstr "Failed to mirror. {0}"
 msgid "{0} views"
 msgstr "{0} views"
 
+msgid "Act"
+msgstr "Act"
+
 msgid "More"
 msgstr "More"
 
@@ -198,9 +201,6 @@ msgstr "{0} Comments"
 
 msgid "{0, plural, one {<0/>} other {{1, plural, one {<1/> and <2/>} other {<3/> and # others}}}} <4>followed you</4>"
 msgstr "{0, plural, one {<0/>} other {{1, plural, one {<1/> and <2/>} other {<3/> and # others}}}} <4>followed you</4>"
-
-msgid "This can’t be undone and you’ll lose your draft"
-msgstr "This can’t be undone and you’ll lose your draft"
 
 msgid "Comment"
 msgstr "Comment"
@@ -376,6 +376,9 @@ msgstr "No profile found"
 msgid "Everyone can reply"
 msgstr "Everyone can reply"
 
+msgid "This cannot be undone and you will lose your draft."
+msgstr "This cannot be undone and you will lose your draft."
+
 msgid "Login with custody wallet"
 msgstr "Login with custody wallet"
 
@@ -432,6 +435,9 @@ msgstr "Log in"
 
 msgid "Mask Network"
 msgstr "Mask Network"
+
+msgid "Remove"
+msgstr "Remove"
 
 msgid "No matching users"
 msgstr "No matching users"
