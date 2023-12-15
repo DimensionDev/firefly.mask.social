@@ -1,8 +1,7 @@
 import { Menu, Transition } from '@headlessui/react';
 import { Select } from '@lingui/macro';
 import { motion } from 'framer-motion';
-import { Fragment, memo, useState } from 'react';
-import { useAsyncFn } from 'react-use';
+import { Fragment, memo } from 'react';
 
 import FollowUserIcon from '@/assets/follow-user.svg';
 import LoadingIcon from '@/assets/loading.svg';
@@ -11,7 +10,6 @@ import UnFollowUserIcon from '@/assets/unfollow-user.svg';
 import { queryClient } from '@/configs/queryClient.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
-import { useIsFollowing } from '@/hooks/useIsFollowing.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useToggleFollow } from '@/hooks/useToggleFollow.js';
 import { LoginModalRef } from '@/modals/controls.js';
@@ -22,24 +20,9 @@ interface MoreProps {
 }
 
 export const MoreAction = memo<MoreProps>(function MoreAction({ post }) {
-    const isFollowed = !!post.author.viewerContext?.followedBy;
-    const [touched, setTouched] = useState(false);
-
-    const [isFollowing, refresh] = useIsFollowing({
-        profile: post.author,
-        placeholder: !!post.author.viewerContext?.followedBy,
-        enabled: touched,
-    });
-
     const isLogin = useIsLogin(post.source);
 
-    const [, handleToggleFollow] = useToggleFollow(post.author, isFollowing);
-    const [{ loading }, handleToggle] = useAsyncFn(async () => {
-        await handleToggleFollow();
-        setTouched(true);
-        await refresh();
-    }, [handleToggleFollow, refresh]);
-
+    const [isFollowed, { loading }, handleToggle] = useToggleFollow(post.author);
     return (
         <Menu as="div">
             <Menu.Button
