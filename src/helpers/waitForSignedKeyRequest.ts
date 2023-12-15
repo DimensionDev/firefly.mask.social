@@ -12,7 +12,7 @@ import { fetchJSON } from '@/helpers/fetchJSON.js';
 export function waitForSignedKeyRequest(signal?: AbortSignal) {
     return async (
         token: string,
-        state: 'pending' | 'completed' | 'approved' = 'approved',
+        listOfState: Array<'pending' | 'completed' | 'approved'> = ['approved', 'completed'],
         maxTries = 100,
         ms = 2000,
     ) => {
@@ -45,7 +45,7 @@ export function waitForSignedKeyRequest(signal?: AbortSignal) {
             if (response.errors?.length) continue;
 
             // Check if the signed key request has reached the desired state
-            if (response.result.signedKeyRequest.state === state) return true;
+            if (listOfState.includes(response.result.signedKeyRequest.state)) return true;
         }
     };
 }

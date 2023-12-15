@@ -30,7 +30,7 @@ export function WarpcastSignerRequestIndicator({ session, children }: WarpcastSi
 
             controllerRef.current?.abort();
             controllerRef.current = new AbortController();
-            return waitForSignedKeyRequest(controllerRef.current.signal)(token, 'completed');
+            return waitForSignedKeyRequest(controllerRef.current.signal)(token, ['completed']);
         },
     });
 
