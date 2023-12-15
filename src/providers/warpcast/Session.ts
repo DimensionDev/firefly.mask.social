@@ -7,8 +7,18 @@ import type { Session } from '@/providers/types/Session.js';
 import { Type } from '@/providers/types/SocialMedia.js';
 
 export class WarpcastSession extends BaseSession implements Session {
-    constructor(profileId: string, token: string, createdAt: number, expiresAt: number) {
+    constructor(
+        profileId: string,
+        token: string,
+        createdAt: number,
+        expiresAt: number,
+        public signerRequestToken?: string,
+    ) {
         super(Type.Warpcast, profileId, token, createdAt, expiresAt);
+    }
+
+    override serialize(): `${Type}:${string}:${string}` {
+        return `${super.serialize()}:${this.signerRequestToken}`;
     }
 
     refresh(): Promise<void> {
@@ -38,5 +48,13 @@ export class WarpcastSession extends BaseSession implements Session {
 
         if (!response.result.success) throw new Error('Failed to destroy the session.');
         return;
+    }
+
+    static isGrantByPermission(session: WarpcastSession): session is WarpcastSession & { signerRequestToken: string } {
+        return session.signerRequestToken !== undefined;
+    }
+
+    static isCustodyWallet(session: WarpcastSession): session is WarpcastSession & { signerRequestToken: undefined } {
+        return session.signerRequestToken === undefined;
     }
 }
