@@ -57,7 +57,7 @@ export const PostActions = memo<PostActionsProps>(function PostActions({
                 post={post}
             />
             {post.source !== SocialPlatform.Farcaster && post.canAct ? (
-                <Collect count={post.stats?.bookmarks} disabled={disabled} />
+                <Collect count={post.stats?.countOpenActions} disabled={disabled} collected={post.hasActed} />
             ) : null}
             <Like
                 count={post.stats?.reactions}

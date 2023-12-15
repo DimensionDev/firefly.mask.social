@@ -4,6 +4,7 @@ import { AccountSetting } from '@/components/AccountSetting.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { ProfileAvatarAdd } from '@/components/ProfileAvatarAdd.js';
 import { SocialPlatform } from '@/constants/enum.js';
+import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { LoginModalRef } from '@/modals/controls.js';
 import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
 import { useLensStateStore } from '@/store/useLensStore.js';
@@ -29,7 +30,10 @@ export function LoginStatusBar() {
             {lensProfile ? null : (
                 <ProfileAvatarAdd
                     source={SocialPlatform.Lens}
-                    onClick={() => LoginModalRef.open({ source: SocialPlatform.Lens })}
+                    onClick={async () => {
+                        await getWalletClientRequired();
+                        LoginModalRef.open({ source: SocialPlatform.Lens });
+                    }}
                 />
             )}
             {farcasterProfile ? null : (

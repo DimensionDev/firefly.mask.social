@@ -1,5 +1,5 @@
 import { Menu, Transition } from '@headlessui/react';
-import { plural, t, Trans } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
 import { motion } from 'framer-motion';
 import { Fragment, memo, useMemo, useState } from 'react';
@@ -13,6 +13,7 @@ import { Tooltip } from '@/components/Tooltip.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { humanize, nFormatter } from '@/helpers/formatCommentCounts.js';
+import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { ComposeModalRef, LoginModalRef } from '@/modals/controls.js';
@@ -46,18 +47,14 @@ export const Mirror = memo<MirrorProps>(function Mirror({
     const content = useMemo(() => {
         switch (source) {
             case SocialPlatform.Lens:
-                return plural(count ?? 0, {
-                    zero: 'Mirror and Quote',
-                    one: 'Mirror and Quote',
-                    other: 'Mirrors and Quotes',
-                });
+                return t`Mirror and Quote`;
             case SocialPlatform.Farcaster:
                 return t`Recast`;
             default:
                 safeUnreachable(source);
                 return '';
         }
-    }, [source, count]);
+    }, [source]);
 
     const mirrorActionText = useMemo(() => {
         switch (source) {
@@ -114,7 +111,7 @@ export const Mirror = memo<MirrorProps>(function Mirror({
         <>
             <Menu
                 as="div"
-                className={classNames('relative text-secondary', {
+                className={classNames('relative text-main', {
                     'text-secondarySuccess': !!mirrored,
                     'opacity-50': !!disabled,
                 })}
@@ -126,12 +123,13 @@ export const Mirror = memo<MirrorProps>(function Mirror({
                 <Menu.Button
                     disabled={disabled}
                     as={motion.button}
-                    className={'flex items-center space-x-2 text-secondary hover:text-secondarySuccess'}
+                    className={'flex items-center space-x-2 text-main hover:text-secondarySuccess'}
                     whileTap={{ scale: 0.9 }}
-                    onClick={(event) => {
+                    onClick={async (event) => {
                         if (!isLogin && !loading) {
                             event.stopPropagation();
                             event.preventDefault();
+                            if (source === SocialPlatform.Lens) await getWalletClientRequired();
                             LoginModalRef.open({ source: post.source });
                             return;
                         }
@@ -149,10 +147,20 @@ export const Mirror = memo<MirrorProps>(function Mirror({
                         {loading ? (
                             <LoadingIcon width={16} height={16} className="animate-spin text-secondarySuccess" />
                         ) : (
-                            <MirrorIcon width={16} height={16} />
+                            <MirrorIcon width={16} height={16} className={mirrored ? 'text-secondarySuccess' : ''} />
                         )}
                     </Tooltip>
-                    {count ? <span className="text-xs font-medium">{nFormatter(count)}</span> : null}
+                    {count ? (
+                        <span
+                            className={classNames('text-xs', {
+                                'font-medium': !mirrored,
+                                'font-bold': !!mirrored,
+                                'text-secondarySuccess': !!mirrored,
+                            })}
+                        >
+                            {nFormatter(count)}
+                        </span>
+                    ) : null}
                 </Menu.Button>
 
                 {!disabled && isLogin ? (

@@ -25,7 +25,7 @@ export const Share = memo<ShareProps>(function Collect({ url, disabled = false }
 
     return (
         <div
-            className={classNames('flex items-center space-x-2 text-secondary', {
+            className={classNames('flex items-center space-x-2 text-main', {
                 'opacity-50': disabled,
             })}
             onClick={(event) => {
@@ -43,7 +43,7 @@ export const Share = memo<ShareProps>(function Collect({ url, disabled = false }
                         handleClick();
                     }}
                     whileTap={{ scale: 0.9 }}
-                    className="rounded-full p-1.5 "
+                    className="rounded-full p-1.5 hover:bg-bg"
                 >
                     <ShareIcon width={17} height={16} />
                 </motion.button>

@@ -24,7 +24,7 @@ function getAvatar(profile: ProfileFragment, namedTransform = AVATAR) {
 export function formatLensProfile(result: ProfileFragment): Profile {
     return {
         profileId: result.id,
-        displayName: result.metadata?.displayName ?? result.handle?.localName ?? '',
+        displayName: result.metadata?.displayName || result.handle?.localName || '',
         handle: result.handle?.localName ?? '',
         pfp: getAvatar(result),
         bio: result.metadata?.bio ?? undefined,

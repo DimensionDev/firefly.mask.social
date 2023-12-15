@@ -22,10 +22,7 @@ export const Quote = memo<QuoteProps>(function Quote({ post, className = '' }) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className={classNames(
-                'mt-3 cursor-pointer rounded-2xl border border-secondaryLine px-4 py-3 hover:bg-bg dark:bg-secondaryBottom',
-                className,
-            )}
+            className={classNames('mt-3 cursor-pointer rounded-2xl border border-secondaryLine bg-bg p-3', className)}
             onClick={(event) => {
                 event.stopPropagation();
                 router.push(getPostUrl(post));

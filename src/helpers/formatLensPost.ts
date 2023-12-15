@@ -137,15 +137,12 @@ function formatContent(metadata: PublicationMetadataFragment) {
             };
         case 'MintMetadataV3':
             return {
-                content: removeUrlsByHostnames(
-                    metadata.content,
-                    new Set(['zora.co', 'testnet.zora.co', 'basepaint.art', 'unlonely.app']),
-                ),
+                content: metadata.content,
                 attachments: getAttachmentsData(metadata.attachments),
             };
         case 'EmbedMetadataV3':
             return {
-                content: removeUrlsByHostnames(metadata.content, new Set(['snapshot.org'])),
+                content: metadata.content,
                 attachments: getAttachmentsData(metadata.attachments),
             };
         case 'LiveStreamMetadataV3':
@@ -269,14 +266,7 @@ export function formatLensPost(result: AnyPublicationFragment): Post {
 
     const content = formatContent(result.metadata);
 
-    const showNFT = result.metadata.__typename === 'MintMetadataV3';
-    const showLive = result.metadata.__typename === 'LiveStreamMetadataV3';
-    const showEmbed = result.metadata.__typename === 'EmbedMetadataV3';
-    const showAttachments = (content?.attachments?.length && content.attachments.length > 0) || content?.asset;
-    const oembedUrl =
-        !showNFT && !showLive && !showEmbed && !showAttachments
-            ? last(content?.content.match(URL_REGEX) || [])
-            : undefined;
+    const oembedUrl = last(content?.content.match(URL_REGEX) || []);
 
     const canAct =
         !!result.openActionModules?.length &&
@@ -306,11 +296,13 @@ export function formatLensPost(result: AnyPublicationFragment): Post {
                 quotes: result.stats.quotes,
                 reactions: result.stats.upvoteReactions,
                 bookmarks: result.stats.bookmarks,
+                countOpenActions: result.stats.countOpenActions,
             },
             __original__: result,
             canComment: result.operations.canComment === 'YES',
             canMirror: result.operations.canMirror === 'YES',
             hasMirrored: result.operations.hasMirrored,
+            hasActed: result.operations.hasActed.value,
             quoteOn: formatLensQuoteOrComment(result.quoteOn),
             canAct,
         };
@@ -338,11 +330,13 @@ export function formatLensPost(result: AnyPublicationFragment): Post {
                 quotes: result.stats.quotes,
                 reactions: result.stats.upvoteReactions,
                 bookmarks: result.stats.bookmarks,
+                countOpenActions: result.stats.countOpenActions,
             },
             __original__: result,
             canComment: result.operations.canComment === 'YES',
             canMirror: result.operations.canMirror === 'YES',
             hasMirrored: result.operations.hasMirrored,
+            hasActed: result.operations.hasActed.value,
             commentOn: formatLensQuoteOrComment(result.commentOn),
             root:
                 result.root && !isEmpty(result.root) && (result.root as PostFragment).id !== result.commentOn.id
@@ -374,12 +368,14 @@ export function formatLensPost(result: AnyPublicationFragment): Post {
                 quotes: result.stats.quotes,
                 reactions: result.stats.upvoteReactions,
                 bookmarks: result.stats.bookmarks,
+                countOpenActions: result.stats.countOpenActions,
             },
             canComment: result.operations.canComment === 'YES',
             canMirror: result.operations.canMirror === 'YES',
             canAct,
             hasMirrored: result.operations.hasMirrored,
             hasLiked: result.operations.hasUpvoted,
+            hasActed: result.operations.hasActed.value,
             __original__: result,
         };
     }

@@ -73,9 +73,6 @@ msgstr "Change Wallet"
 msgid "UnLike"
 msgstr "UnLike"
 
-msgid "{0, plural, one {<0/>} other {{1, plural, one {<1/> and <2/>} other {<3/> and # others acted on your}}}} <4><5/></4>"
-msgstr "{0, plural, one {<0/>} other {{1, plural, one {<1/> and <2/>} other {<3/> and # others acted on your}}}} <4><5/></4>"
-
 msgid "Failed to follow"
 msgstr "Failed to follow"
 
@@ -220,9 +217,6 @@ msgstr "Failed to unmirror post"
 msgid "Method not implemented."
 msgstr "Method not implemented."
 
-msgid "{0, plural, one {<0/>} other {{1, plural, one {<1/> and <2/>} other {<3/> and # others mirrored you}}}} <4><5/></4>"
-msgstr "{0, plural, one {<0/>} other {{1, plural, one {<1/> and <2/>} other {<3/> and # others mirrored you}}}} <4><5/></4>"
-
 msgid "Malformed session."
 msgstr "Malformed session."
 
@@ -310,6 +304,9 @@ msgstr "Share"
 msgid "Select failed: More than 2 images"
 msgstr "Select failed: More than 2 images"
 
+msgid "{0, plural, one {<0/>} other {{1, plural, one {<1/> and <2/>} other {<3/> and # others mirrored you}}}} <4>mirrored your </4><5><6/></5>"
+msgstr "{0, plural, one {<0/>} other {{1, plural, one {<1/> and <2/>} other {<3/> and # others mirrored you}}}} <4>mirrored your </4><5><6/></5>"
+
 msgid "Please switch to the {0} network in your wallet ({1})}"
 msgstr "Please switch to the {0} network in your wallet ({1})}"
 
@@ -382,6 +379,9 @@ msgstr "Mention"
 msgid "Search…"
 msgstr "Search…"
 
+msgid "{0, plural, one {<0/>} other {{1, plural, one {<1/> and <2/>} other {<3/> and # others acted on your}}}} <4>acted on your </4><5><6/></5>"
+msgstr "{0, plural, one {<0/>} other {{1, plural, one {<1/> and <2/>} other {<3/> and # others acted on your}}}} <4>acted on your </4><5><6/></5>"
+
 msgid "No profile found"
 msgstr "No profile found"
 
@@ -436,9 +436,6 @@ msgstr "Confirm to log out these accounts?"
 msgid "Light mode"
 msgstr "Light mode"
 
-msgid "{0, plural, zero {Mirror and Quote} one {Mirror and Quote} other {Mirrors and Quotes}}"
-msgstr "{0, plural, zero {Mirror and Quote} one {Mirror and Quote} other {Mirrors and Quotes}}"
-
 msgid "Your Lens account is now connected"
 msgstr "Your Lens account is now connected"
 
@@ -453,6 +450,9 @@ msgstr "Remove"
 
 msgid "No matching users"
 msgstr "No matching users"
+
+msgid "Mirror and Quote"
+msgstr "Mirror and Quote"
 
 msgid "Log in to Farcaster account"
 msgstr "Log in to Farcaster account"
@@ -486,6 +486,9 @@ msgstr "{0, select, follow {Follow} unfollow {Unfollow} other {Follow}}"
 
 msgid "Media"
 msgstr "Media"
+
+msgid "You've hit rock bottom"
+msgstr "You've hit rock bottom"
 
 msgid "Mirror"
 msgstr "Mirror"
