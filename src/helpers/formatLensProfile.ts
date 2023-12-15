@@ -25,7 +25,7 @@ export function formatLensProfile(result: ProfileFragment): Profile {
     return {
         profileId: result.id,
         displayName: result.metadata?.displayName || result.handle?.localName || '',
-        handle: result.handle?.localName ?? '',
+        handle: result.handle?.localName || result.metadata?.displayName || '',
         pfp: getAvatar(result),
         bio: result.metadata?.bio ?? undefined,
         address: result.followNftAddress?.address ?? undefined,

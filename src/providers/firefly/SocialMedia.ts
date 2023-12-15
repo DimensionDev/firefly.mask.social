@@ -72,7 +72,7 @@ export class FireflySocialMedia implements Provider {
 
         return {
             profileId: user.fid.toString(),
-            handle: user.username,
+            handle: user.username || user.display_name,
             displayName: user.display_name,
             pfp: user.pfp,
             followerCount: user.followers,
