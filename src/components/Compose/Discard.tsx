@@ -3,12 +3,13 @@ import { XMarkIcon } from '@heroicons/react/24/outline';
 import { Trans } from '@lingui/macro';
 import { Fragment, useCallback } from 'react';
 
+import { ComposeModalRef } from '@/modals/controls.js';
+
 interface DiscardProps {
     opened: boolean;
     setOpened: (opened: boolean) => void;
-    onClose: () => void;
 }
-export default function Discard({ opened, setOpened, onClose }: DiscardProps) {
+export default function Discard({ opened, setOpened }: DiscardProps) {
     const close = useCallback(() => setOpened(false), [setOpened]);
 
     return (
@@ -59,7 +60,7 @@ export default function Discard({ opened, setOpened, onClose }: DiscardProps) {
                                     className=" bottom-danger flex h-10 w-full items-center justify-center rounded-full bg-danger font-bold text-primaryBottom"
                                     onClick={() => {
                                         close();
-                                        onClose();
+                                        ComposeModalRef.close();
                                     }}
                                 >
                                     <Trans>Confirm</Trans>

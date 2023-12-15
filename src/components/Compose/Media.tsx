@@ -52,7 +52,7 @@ export default function Media({ close }: MediaProps) {
             }
             close();
         },
-        [currentFarcasterProfile, images, updateImages, updateLoading],
+        [currentFarcasterProfile, images, close, updateImages, updateLoading],
     );
 
     const [, handleVideoChange] = useAsyncFn(
@@ -75,7 +75,7 @@ export default function Media({ close }: MediaProps) {
             }
             close();
         },
-        [updateLoading, updateVideo],
+        [close, updateLoading, updateVideo],
     );
 
     return (
