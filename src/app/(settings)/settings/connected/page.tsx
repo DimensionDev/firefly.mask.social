@@ -5,6 +5,7 @@ import { formatEthereumAddress } from '@masknet/web3-shared-evm';
 import { useAccount } from 'wagmi';
 
 import CopyIcon from '@/assets/copy.svg';
+import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { LogoutModalRef } from '@/modals/controls.js';
 import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
 import { useLensStateStore } from '@/store/useLensStore.js';
@@ -43,7 +44,7 @@ export default function Connected() {
                         <AccountCard
                             key={profile.profileId}
                             profile={profile}
-                            isCurrent={currentLensProfile?.profileId === profile.profileId}
+                            isCurrent={isSameProfile(currentLensProfile, profile)}
                         />
                     ))}
                 </>
@@ -59,7 +60,7 @@ export default function Connected() {
                         <AccountCard
                             key={profile.profileId}
                             profile={profile}
-                            isCurrent={currentFarcasterProfile?.profileId === profile.profileId}
+                            isCurrent={isSameProfile(currentFarcasterProfile, profile)}
                         />
                     ))}
                 </>

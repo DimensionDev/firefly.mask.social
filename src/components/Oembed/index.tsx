@@ -29,7 +29,7 @@ export default function Oembed({ url, onData }: OembedProps) {
                 }),
             );
         },
-        enabled: Boolean(url),
+        enabled: !!url,
     });
 
     if (isLoading || error || !data?.success) return null;
