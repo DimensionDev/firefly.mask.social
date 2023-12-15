@@ -20,12 +20,12 @@ export function ProfileAvatar(props: ProfileAvatarProps) {
         >
             <div className="relative h-[40px] w-[40px]">
                 <div
-                    className={`absolute left-0 top-0 h-[${size}px] w-[${size}px] rounded-[99px] shadow backdrop-blur-lg`}
+                    className={`absolute left-0 top-0 h-[${size}px] w-[${size}px] rounded-full shadow backdrop-blur-lg`}
                 >
-                    <Image className="rounded-[99px]" src={profile.pfp} alt="avatar" width={size} height={size} />
+                    <Image className="rounded-full" src={profile.pfp} alt="avatar" width={size} height={size} />
                 </div>
                 <SourceIcon
-                    className="absolute left-[24px] top-[24px] h-[16px] w-[16px] rounded-[99px] border border-white shadow"
+                    className="absolute left-[24px] top-[24px] h-[16px] w-[16px] rounded-full border border-white shadow"
                     source={profile.source}
                     size={16}
                 />
