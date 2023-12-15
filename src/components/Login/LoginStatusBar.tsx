@@ -13,7 +13,7 @@ export function LoginStatusBar() {
     const farcasterProfile = useFarcasterStateStore.use.currentProfile?.();
 
     return (
-        <div className="flex gap-x-2 pl-2 relative">
+        <div className="relative flex gap-x-2 pl-2">
             {lensProfile ? (
                 <div className="group relative h-[40px] w-[48px]">
                     <ProfileAvatar profile={lensProfile} />

@@ -20,7 +20,7 @@ import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { useLensStateStore } from '@/store/useLensStore.js';
 
-interface LoginLensProps { }
+interface LoginLensProps {}
 
 export function LoginLens(props: LoginLensProps) {
     const [selected, setSelected] = useState<Profile>();
@@ -72,9 +72,9 @@ export function LoginLens(props: LoginLensProps) {
     useEffect(() => {
         if (!profiles.length) {
             enqueueSnackbar(t`No Lens profile found. Please change to another wallet.`, { variant: 'error' });
-            LoginModalRef.close()
+            LoginModalRef.close();
         }
-    }, [profiles])
+    }, [profiles]);
 
     useEffect(() => {
         if (!current) return;
@@ -111,13 +111,15 @@ export function LoginLens(props: LoginLensProps) {
                                     <Switch checked={signless} onChange={setSignless}>
                                         {({ checked }) => (
                                             <button
-                                                className={`${checked ? 'bg-success' : 'bg-gray-200'
-                                                    } relative inline-flex h-[22px] w-[43px] items-center rounded-full`}
+                                                className={`${
+                                                    checked ? 'bg-success' : 'bg-gray-200'
+                                                } relative inline-flex h-[22px] w-[43px] items-center rounded-full`}
                                             >
                                                 <span className="sr-only">Enable signless</span>
                                                 <span
-                                                    className={`${checked ? 'translate-x-6' : 'translate-x-1'
-                                                        } inline-block h-3 w-3 transform rounded-full bg-white transition`}
+                                                    className={`${
+                                                        checked ? 'translate-x-6' : 'translate-x-1'
+                                                    } inline-block h-3 w-3 transform rounded-full bg-white transition`}
                                                 />
                                             </button>
                                         )}
@@ -148,7 +150,7 @@ export function LoginLens(props: LoginLensProps) {
                     }}
                 >
                     <button
-                        className="flex gap-[8px] py-[11px] items-center"
+                        className="flex items-center gap-[8px] py-[11px]"
                         onClick={async () => {
                             LoginModalRef.close();
                             await delay(300);
@@ -163,7 +165,7 @@ export function LoginLens(props: LoginLensProps) {
                     </button>
                     <button
                         disabled={loading}
-                        className=" flex w-[120px] items-center justify-center gap-[8px] text-sm rounded-[99px] bg-lightMain py-[11px] font-bold text-primaryBottom"
+                        className=" flex w-[120px] items-center justify-center gap-[8px] rounded-[99px] bg-lightMain py-[11px] text-sm font-bold text-primaryBottom"
                         onClick={() => login(signless)}
                     >
                         {loading ? (

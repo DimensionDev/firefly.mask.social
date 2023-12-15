@@ -33,7 +33,7 @@ export function AccountSetting({ source }: AccountSettingProps) {
                         ) : null}
                     </div>
                 ))}
-                <div className='h-[30px]'></div>
+                <div className="h-[30px]"></div>
                 <button
                     className="flex w-full items-center gap-[8px]"
                     onClick={() => {
