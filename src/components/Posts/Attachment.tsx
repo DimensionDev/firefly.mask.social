@@ -16,6 +16,7 @@ import type { MetadataAsset } from '@/types/index.js';
 
 const Video = dynamic(() => import('@/components/Posts/Video.js').then((module) => module.Video), { ssr: false });
 const Audio = dynamic(() => import('@/components/Posts/Audio.js').then((module) => module.Audio), { ssr: false });
+
 const getClass = (attachments: number) => {
     if (attachments === 1) {
         return {

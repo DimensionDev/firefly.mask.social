@@ -2,11 +2,10 @@
 
 import { useActivatedPluginsSiteAdaptor } from '@masknet/plugin-infra/content-script';
 import { createInjectHooksRenderer } from '@masknet/plugin-infra/dom';
-import { Modals } from '@masknet/shared';
-import { noop } from 'lodash-es';
 
 import { MaskProviders } from '@/components/MaskProviders.js';
 import { Providers } from '@/components/Providers.js';
+import { Modals } from '@/modals/index.js';
 
 const GlobalInjection = createInjectHooksRenderer(
     useActivatedPluginsSiteAdaptor.visibility.useAnyMode,
@@ -18,7 +17,7 @@ export default function PageInspector() {
         <Providers>
             <MaskProviders>
                 <GlobalInjection />
-                <Modals createWallet={noop} />
+                <Modals />
             </MaskProviders>
         </Providers>
     );

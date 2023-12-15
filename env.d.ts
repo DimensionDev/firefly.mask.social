@@ -10,6 +10,7 @@ declare namespace NodeJS {
         NEXTAUTH_SECRET: string;
 
         NEXT_PUBLIC_W3M_PROJECT_ID: string;
+        NEXT_PUBLIC_VERCEL_ENV: 'production' | 'preview' | 'development';
 
         VITE_ACCOUNT: `0x${string}`;
         VITE_ACCOUNT_KEY: `0x${string}`;

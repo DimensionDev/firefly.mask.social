@@ -7,11 +7,10 @@ import FollowButton from '@/components/Profile/FollowButton.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 interface TitleProps {
-    isMyProfile: boolean;
     profile?: Profile;
 }
 
-export default function Title({ isMyProfile, profile }: TitleProps) {
+export default function Title({ profile }: TitleProps) {
     const [y, setY] = useState(0);
 
     const router = useRouter();
@@ -29,7 +28,7 @@ export default function Title({ isMyProfile, profile }: TitleProps) {
                 <span className=" text-xl font-black text-lightMain">{profile?.displayName ?? '-'}</span>
             </div>
 
-            {profile && y >= 48 ? <FollowButton profile={profile} isMyProfile={isMyProfile} /> : null}
+            {profile && y >= 48 ? <FollowButton profile={profile} /> : null}
         </div>
     );
 }
