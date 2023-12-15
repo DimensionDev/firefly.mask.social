@@ -7,12 +7,13 @@ import {
 } from '@masknet/shared-base';
 import { isZero } from '@masknet/web3-shared-base';
 import { HubRestAPIClient } from '@standard-crypto/farcaster-js';
-import { compact } from 'lodash-es';
+import { compact, toInteger } from 'lodash-es';
 import urlcat from 'urlcat';
+import { numberToHex } from 'viem';
 
 import { warpcastClient } from '@/configs/warpcastClient.js';
 import { SocialPlatform } from '@/constants/enum.js';
-import { EMPTY_LIST, WARPCAST_CLIENT_URL, WARPCAST_ROOT_URL } from '@/constants/index.js';
+import { WARPCAST_CLIENT_URL, WARPCAST_ROOT_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { formatWarpcastPost, formatWarpcastPostFromFeed } from '@/helpers/formatWarpcastPost.js';
 import { formatWarpcastUser } from '@/helpers/formatWarpcastUser.js';
@@ -101,14 +102,12 @@ export class WarpcastSocialMedia implements Provider {
 
     async getPostsByProfileId(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         const url = urlcat(WARPCAST_ROOT_URL, '/casts', {
-            fid: profileId,
+            fid: numberToHex(toInteger(profileId)),
             limit: 10,
             cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
         });
 
-        const { result, next } = await warpcastClient.fetchWithSession<CastsResponse>(url, {
-            method: 'GET',
-        });
+        const { result, next } = await warpcastClient.fetch<CastsResponse>(url);
         const data = result.casts.map(formatWarpcastPost);
         return createPageable(data, indicator ?? createIndicator(), createNextIndicator(indicator, next?.cursor));
     }
@@ -124,13 +123,9 @@ export class WarpcastSocialMedia implements Provider {
     }
 
     async getProfileById(profileId: string) {
-        const url = urlcat(WARPCAST_ROOT_URL, '/user', { fid: profileId });
-        const {
-            result: { user },
-        } = await warpcastClient.fetchWithSession<UserDetailResponse>(url, {
-            method: 'GET',
-        });
-
+        const url = urlcat(WARPCAST_ROOT_URL, '/user', { fid: numberToHex(toInteger(profileId)) });
+        const res = await warpcastClient.fetch<UserDetailResponse>(url);
+        const user = res.result.user;
         return formatWarpcastUser(user);
     }
 
@@ -432,7 +427,6 @@ export class WarpcastSocialMedia implements Provider {
         });
         const data = result.notifications.map<Notification | undefined>((notification) => {
             const notificationId = `${notification.type}_${notification.id}`;
-            const user = notification.actor ? [formatWarpcastUser(notification.actor)] : EMPTY_LIST;
             const post = notification.content.cast ? formatWarpcastPost(notification.content.cast) : undefined;
             const timestamp = notification.timestamp ? new Date(notification.timestamp).getTime() : undefined;
             if (notification.type === 'cast-reply') {

@@ -7,13 +7,13 @@ import type { Cast, Feed } from '@/providers/types/Warpcast.js';
 import type { MetadataAsset } from '@/types/index.js';
 
 export function getAttachments(cast: Cast) {
-    const images = cast.embeds?.images.map<Attachment>((x) => ({ uri: x.url, type: 'Image' }));
-    const videos = cast.embeds?.videos.map<Attachment>((x) => ({ uri: x.url, type: 'Video' }));
+    const images = cast.embeds?.images?.map<Attachment>((x) => ({ uri: x.url, type: 'Image' }));
+    const videos = cast.embeds?.videos?.map<Attachment>((x) => ({ uri: x.url, type: 'Video' }));
     return union<Attachment>(images, videos);
 }
 
 export function formatContent(cast: Cast) {
-    if (cast.embeds?.images.length) {
+    if (cast.embeds?.images?.length) {
         return {
             content: cast.text,
             asset: {
@@ -22,7 +22,7 @@ export function formatContent(cast: Cast) {
             } as MetadataAsset,
             attachments: getAttachments(cast),
         };
-    } else if (cast.embeds?.videos.length) {
+    } else if (cast.embeds?.videos?.length) {
         return {
             content: cast.text,
             asset: {

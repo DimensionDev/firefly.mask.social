@@ -20,12 +20,20 @@ class WarpcastClient {
             this.session = session;
         }
     }
-
-    fetchWithSession<T>(url: string, options: RequestInit) {
+    fetch<T>(url: string, options?: RequestInit) {
+        const authorized = this.session
+            ? {
+                  ...options,
+                  headers: { ...options?.headers, Authorization: `Bearer ${this.session.token}` },
+              }
+            : options;
+        return fetchJSON<T>(url, authorized);
+    }
+    fetchWithSession<T>(url: string, options?: RequestInit) {
         if (!this.session) throw new Error('No session found');
         return fetchJSON<T>(url, {
             ...options,
-            headers: { Authorization: `Bearer ${this.session.token}` },
+            headers: { ...options?.headers, Authorization: `Bearer ${this.session.token}` },
         });
     }
 }

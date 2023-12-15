@@ -112,7 +112,7 @@ export interface Cast {
     parentHash: string;
     parentAuthor: Author;
     embeds?: {
-        images: Array<{
+        images?: Array<{
             type: string;
             sourceUrl: string;
             url: string;
@@ -133,7 +133,7 @@ export interface Cast {
                 userLargeImage: boolean;
             };
         }>;
-        videos: Array<{
+        videos?: Array<{
             url: string;
             type: string;
         }>;
