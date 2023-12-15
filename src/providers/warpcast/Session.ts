@@ -18,7 +18,7 @@ export class WarpcastSession extends BaseSession implements Session {
     }
 
     override serialize(): `${SessionType}:${string}:${string}` {
-        return `${super.serialize()}:${this.signerRequestToken}`;
+        return `${super.serialize()}:${this.signerRequestToken ?? ''}`;
     }
 
     refresh(): Promise<void> {
