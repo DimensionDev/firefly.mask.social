@@ -16,6 +16,11 @@ import { LoginFarcaster } from '@/components/Login/LoginFarcaster.js';
 import { LoginLens } from '@/components/Login/LoginLens.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
+import type { Profile } from '@/providers/types/SocialMedia.js';
+import { queryClient } from '@/configs/queryClient.js';
+import { useAccount } from 'wagmi';
+import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
+import { EMPTY_LIST } from '@/constants/index.js';
 
 export interface LoginModalProps {
     source?: SocialPlatform;
@@ -23,6 +28,8 @@ export interface LoginModalProps {
 
 export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | void>>(function LoginModal(_, ref) {
     const [source, setSource] = useState<SocialPlatform>();
+    const [profiles, setProfiles] = useState<Profile[]>([]);
+    const account = useAccount();
 
     const { enqueueSnackbar } = useSnackbar();
 
@@ -115,8 +122,23 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | 
                                                             );
                                                             return;
                                                         }
-
-                                                        setSource(source);
+                                                        if (source === SocialPlatform.Lens) {
+                                                            const profiles = await queryClient.fetchQuery({
+                                                                queryKey: ['lens', 'profiles', account.address],
+                                                                queryFn: async () => {
+                                                                    if (!account.address) return EMPTY_LIST;
+                                                                    return LensSocialMediaProvider.getProfilesByAddress(account.address);
+                                                                },
+                                                            })
+                                                            if (!profiles.length) {
+                                                                enqueueSnackbar(t`No Lens profile found. Please change to another wallet.`, { variant: 'error' });
+                                                                return;
+                                                            }
+                                                            setProfiles(profiles)
+                                                            setSource(source)
+                                                        } else {
+                                                            setSource(source);
+                                                        }
                                                     }}
                                                 />
                                             ))}
@@ -130,7 +152,7 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | 
                                             </div>
                                         }
                                     >
-                                        {source === SocialPlatform.Lens ? <LoginLens /> : null}
+                                        {source === SocialPlatform.Lens ? <LoginLens profiles={profiles} /> : null}
                                         {source === SocialPlatform.Farcaster ? <LoginFarcaster /> : null}
                                     </Suspense>
                                 )}

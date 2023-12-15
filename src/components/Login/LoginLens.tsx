@@ -20,9 +20,11 @@ import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { useLensStateStore } from '@/store/useLensStore.js';
 
-interface LoginLensProps { }
+interface LoginLensProps {
+    profiles: Profile[]
+}
 
-export function LoginLens(props: LoginLensProps) {
+export function LoginLens({ profiles }: LoginLensProps) {
     const [selected, setSelected] = useState<Profile>();
     const [signless, setSignless] = useState(true);
 
@@ -32,14 +34,6 @@ export function LoginLens(props: LoginLensProps) {
     const updateCurrentProfile = useLensStateStore.use.updateCurrentProfile();
 
     const enqueueSnackbar = useCustomSnackbar();
-
-    const { data: profiles } = useSuspenseQuery<Profile[]>({
-        queryKey: ['lens', 'profiles', account.address],
-        queryFn: async () => {
-            if (!account.address) return EMPTY_LIST;
-            return LensSocialMediaProvider.getProfilesByAddress(account.address);
-        },
-    });
 
     const current = useMemo(() => selected ?? first(profiles), [selected, profiles]);
 
