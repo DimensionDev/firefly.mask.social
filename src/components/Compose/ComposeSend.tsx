@@ -90,10 +90,12 @@ export default function ComposeSend({ onClose }: ComposeSendProps) {
 
     return (
         <div className=" flex h-[68px] items-center justify-end gap-4 px-4 shadow-send">
-            <div className=" flex items-center gap-[10px] whitespace-nowrap text-[15px] text-main">
-                <CountdownCircle count={charsLength} width={24} height={24} className="flex-shrink-0" />
-                <span className={classNames(disabled ? ' text-danger' : '')}>{charsLength} / 280</span>
-            </div>
+            {charsLength ? (
+                <div className=" flex items-center gap-[10px] whitespace-nowrap text-[15px] text-main">
+                    <CountdownCircle count={charsLength} width={24} height={24} className="flex-shrink-0" />
+                    <span className={classNames(disabled ? ' text-danger' : '')}>{charsLength} / 280</span>
+                </div>
+            ) : null}
 
             <button
                 className={classNames(

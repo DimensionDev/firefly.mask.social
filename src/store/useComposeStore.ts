@@ -1,5 +1,4 @@
 import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
 
 import { EMPTY_LIST } from '@/constants/index.js';
@@ -30,71 +29,66 @@ interface ComposeState {
     clear: () => void;
 }
 
-const useComposeStateBase = create<ComposeState, [['zustand/persist', unknown], ['zustand/immer', unknown]]>(
-    persist(
-        immer<ComposeState>((set, get) => ({
-            type: 'compose',
-            draft: null,
-            post: null,
-            chars: '',
-            images: EMPTY_LIST,
-            video: null,
-            loading: false,
-            isDraft: false,
-            updateType: (type: 'compose' | 'quote' | 'reply') =>
-                set((state) => {
-                    state.type = type;
-                }),
-            updateChars: (chars: string) =>
-                set((state) => {
-                    state.chars = chars;
-                }),
-            updateLoading: (loading) =>
-                set((state) => {
-                    state.loading = loading;
-                }),
-            updateImages: (images: IPFS_MediaObject[]) =>
-                set((state) => {
-                    state.images = images;
-                }),
-            updatePost: (post: OrphanPost | null) =>
-                set((state) => {
-                    state.post = post;
-                }),
-            removePost: () =>
-                set((state) => {
-                    state.post = null;
-                }),
-            addImage: (image: IPFS_MediaObject) =>
-                set((state) => {
-                    state.images = [...state.images, image];
-                }),
-            updateVideo: (video: IPFS_MediaObject | null) =>
-                set((state) => {
-                    state.video = video;
-                }),
-            removeImage: (index: number) =>
-                set((state) => {
-                    state.images = state.images.filter((_, i) => i !== index);
-                }),
-            save: () =>
-                set((state) => {
-                    state.isDraft = true;
-                }),
-            clear: () =>
-                set((state) => {
-                    state.post = null;
-                    state.chars = '';
-                    state.images = EMPTY_LIST;
-                    state.video = null;
-                    state.loading = false;
-                    state.isDraft = false;
-                }),
-        })),
-        {
-            name: 'compose-state',
-        },
-    ),
+const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
+    immer<ComposeState>((set, get) => ({
+        type: 'compose',
+        draft: null,
+        post: null,
+        chars: '',
+        images: EMPTY_LIST,
+        video: null,
+        loading: false,
+        isDraft: false,
+        updateType: (type: 'compose' | 'quote' | 'reply') =>
+            set((state) => {
+                state.type = type;
+            }),
+        updateChars: (chars: string) =>
+            set((state) => {
+                state.chars = chars;
+            }),
+        updateLoading: (loading) =>
+            set((state) => {
+                state.loading = loading;
+            }),
+        updateImages: (images: IPFS_MediaObject[]) =>
+            set((state) => {
+                state.images = images;
+            }),
+        updatePost: (post: OrphanPost | null) =>
+            set((state) => {
+                state.post = post;
+            }),
+        removePost: () =>
+            set((state) => {
+                state.post = null;
+            }),
+        addImage: (image: IPFS_MediaObject) =>
+            set((state) => {
+                state.images = [...state.images, image];
+            }),
+        updateVideo: (video: IPFS_MediaObject | null) =>
+            set((state) => {
+                state.video = video;
+            }),
+        removeImage: (index: number) =>
+            set((state) => {
+                state.images = state.images.filter((_, i) => i !== index);
+            }),
+        save: () =>
+            set((state) => {
+                state.isDraft = true;
+            }),
+        clear: () =>
+            set((state) => {
+                state.post = null;
+                state.chars = '';
+                state.images = EMPTY_LIST;
+                state.video = null;
+                state.loading = false;
+                state.isDraft = false;
+            }),
+    })),
 );
 
 export const useComposeStateStore = createSelectors(useComposeStateBase);
