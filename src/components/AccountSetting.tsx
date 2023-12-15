@@ -8,6 +8,7 @@ import UserAddIcon from '@/assets/user-add.svg';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { ProfileName } from '@/components/ProfileName.js';
 import { SocialPlatform } from '@/constants/enum.js';
+import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { useProfiles } from '@/hooks/useProfiles.js';
 import { LoginModalRef, LogoutModalRef } from '@/modals/controls.js';
 
@@ -25,7 +26,7 @@ export function AccountSetting({ source }: AccountSettingProps) {
                     <div key={profile.profileId} className="flex items-center justify-between gap-[8px]">
                         <ProfileAvatar profile={profile} />
                         <ProfileName profile={profile} />
-                        {currentProfile && currentProfile.profileId === profile.profileId ? (
+                        {isSameProfile(currentProfile, profile) ? (
                             <div
                                 className="h-[8px] w-[8px] rounded-[99px] bg-success"
                                 style={{ filter: 'drop-shadow(0px 4px 10px var(--color-success))' }}
