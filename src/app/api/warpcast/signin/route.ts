@@ -9,7 +9,7 @@ import { WARPCAST_ROOT_URL } from '@/constants/index.js';
 import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 
-const ONE_DAY = 60 * 60 * 24 * 1000;
+const ONE_YEAR = 60 * 60 * 24 * 1000 * 365;
 
 const SIGNED_KEY_REQUEST_VALIDATOR_EIP_712_DOMAIN = {
     name: 'Farcaster SignedKeyRequestValidator',
@@ -28,8 +28,8 @@ export async function POST(req: NextRequest) {
     const privateKey = utils.randomPrivateKey();
     const publicKey: `0x${string}` = `0x${Buffer.from(await getPublicKeyAsync(privateKey)).toString('hex')}`;
 
-    // valid for 24 hours
-    const deadline = Math.floor(Date.now() / 1000) + ONE_DAY;
+    // valid for one year
+    const deadline = Math.floor(Date.now() / 1000) + ONE_YEAR;
     const account = mnemonicToAccount(process.env.FARCASTER_SIGNER_MNEMONIC);
     const signature = await account.signTypedData({
         domain: SIGNED_KEY_REQUEST_VALIDATOR_EIP_712_DOMAIN,
