@@ -7,7 +7,7 @@ import LogOutIcon from '@/assets/logout.svg';
 import UserAddIcon from '@/assets/user-add.svg';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { ProfileName } from '@/components/ProfileName.js';
-import { WarpcastSignerRequsetIndicator } from '@/components/WarpcastSignerRequsetIndicator.js';
+import { WarpcastSignerRequestIndicator } from '@/components/WarpcastSignerRequestIndicator.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { useProfiles } from '@/hooks/useProfiles.js';
 import { LoginModalRef, LogoutModalRef } from '@/modals/controls.js';
@@ -26,14 +26,14 @@ export function AccountSetting({ source }: AccountSettingProps) {
                     <div key={profile.profileId} className="flex items-center justify-between gap-[8px]">
                         <ProfileAvatar profile={profile} />
                         <ProfileName profile={profile} />
-                        <WarpcastSignerRequsetIndicator session={currentProfileSession}>
+                        <WarpcastSignerRequestIndicator session={currentProfileSession}>
                             {currentProfile && currentProfile.profileId === profile.profileId ? (
                                 <div
                                     className="h-[8px] w-[8px] rounded-full bg-success"
                                     style={{ filter: 'drop-shadow(0px 4px 10px var(--color-success))' }}
                                 />
                             ) : null}
-                        </WarpcastSignerRequsetIndicator>
+                        </WarpcastSignerRequestIndicator>
                     </div>
                 ))}
                 <button

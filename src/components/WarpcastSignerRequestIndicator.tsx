@@ -9,12 +9,12 @@ import { waitForSignedKeyRequest } from '@/helpers/waitForSignedKeyRequest.js';
 import type { Session } from '@/providers/types/Session.js';
 import { WarpcastSession } from '@/providers/warpcast/Session.js';
 
-interface WarpcastSignerRequsetIndicatorProps {
+interface WarpcastSignerRequestIndicatorProps {
     session: Session | null;
     children?: React.ReactNode;
 }
 
-export function WarpcastSignerRequsetIndicator({ session, children }: WarpcastSignerRequsetIndicatorProps) {
+export function WarpcastSignerRequestIndicator({ session, children }: WarpcastSignerRequestIndicatorProps) {
     const token = WarpcastSession.isGrantByPermission(session) ? session.signerRequestToken : null;
     const controllerRef = useRef<AbortController>();
 
