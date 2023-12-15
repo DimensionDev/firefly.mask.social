@@ -11,8 +11,6 @@ import { WarpcastSignerRequsetIndicator } from '@/components/WarpcastSignerRequs
 import { SocialPlatform } from '@/constants/enum.js';
 import { useProfiles } from '@/hooks/useProfiles.js';
 import { LoginModalRef, LogoutModalRef } from '@/modals/controls.js';
-import { SessionType } from '@/providers/types/SocialMedia.js';
-import { WarpcastSession } from '@/providers/warpcast/Session.js';
 
 interface AccountSettingProps {
     source: SocialPlatform;
@@ -28,12 +26,14 @@ export function AccountSetting({ source }: AccountSettingProps) {
                     <div key={profile.profileId} className="flex items-center justify-between gap-[8px]">
                         <ProfileAvatar profile={profile} />
                         <ProfileName profile={profile} />
-                        {currentProfile && currentProfile.profileId === profile.profileId ? (
-                            <div
-                                className="h-[8px] w-[8px] rounded-[99px] bg-success"
-                                style={{ filter: 'drop-shadow(0px 4px 10px var(--color-success))' }}
-                            />
-                        ) : null}
+                        <WarpcastSignerRequsetIndicator session={currentProfileSession}>
+                            {currentProfile && currentProfile.profileId === profile.profileId ? (
+                                <div
+                                    className="h-[8px] w-[8px] rounded-full bg-success"
+                                    style={{ filter: 'drop-shadow(0px 4px 10px var(--color-success))' }}
+                                />
+                            ) : null}
+                        </WarpcastSignerRequsetIndicator>
                     </div>
                 ))}
                 <button
@@ -48,10 +48,6 @@ export function AccountSetting({ source }: AccountSettingProps) {
                     <div className=" text-[17px] font-bold leading-[22px] text-[#101010] dark:text-gray-400">
                         <Trans>Change account</Trans>
                     </div>
-                    {currentProfileSession?.type === SessionType.Warpcast &&
-                    WarpcastSession.isGrantByPermission(currentProfileSession) ? (
-                        <WarpcastSignerRequsetIndicator token={currentProfileSession.signerRequestToken} />
-                    ) : null}
                 </button>
                 <button
                     className="flex items-center gap-[8px]"

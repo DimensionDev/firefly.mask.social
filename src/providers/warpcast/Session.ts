@@ -50,11 +50,13 @@ export class WarpcastSession extends BaseSession implements Session {
         return;
     }
 
-    static isGrantByPermission(session: Session): session is WarpcastSession & { signerRequestToken: string } {
+    static isGrantByPermission(session: Session | null): session is WarpcastSession & { signerRequestToken: string } {
+        if (!session) return false;
         return session.type === SessionType.Warpcast && (session as WarpcastSession).signerRequestToken !== undefined;
     }
 
-    static isCustodyWallet(session: Session): session is WarpcastSession & { signerRequestToken: undefined } {
+    static isCustodyWallet(session: Session | null): session is WarpcastSession & { signerRequestToken: undefined } {
+        if (!session) return false;
         return session.type === SessionType.Warpcast && (session as WarpcastSession).signerRequestToken === undefined;
     }
 }

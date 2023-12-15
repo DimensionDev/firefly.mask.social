@@ -1,14 +1,21 @@
+import { t } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
 import { useRef } from 'react';
 import { useUnmount } from 'react-use';
 
+import LoadingIcon from '@/assets/loading.svg';
+import { Tooltip } from '@/components/Tooltip.js';
 import { waitForSignedKeyRequest } from '@/helpers/waitForSignedKeyRequest.js';
+import type { Session } from '@/providers/types/Session.js';
+import { WarpcastSession } from '@/providers/warpcast/Session.js';
 
 interface WarpcastSignerRequsetIndicatorProps {
-    token: string;
+    session: Session | null;
+    children?: React.ReactNode;
 }
 
-export function WarpcastSignerRequsetIndicator({ token }: WarpcastSignerRequsetIndicatorProps) {
+export function WarpcastSignerRequsetIndicator({ session, children }: WarpcastSignerRequsetIndicatorProps) {
+    const token = WarpcastSession.isGrantByPermission(session) ? session.signerRequestToken : null;
     const controllerRef = useRef<AbortController>();
 
     useUnmount(() => {
@@ -19,14 +26,20 @@ export function WarpcastSignerRequsetIndicator({ token }: WarpcastSignerRequsetI
         queryKey: ['signerRequest', token],
         enabled: !!token,
         queryFn: async () => {
+            if (!token) return false;
+
             controllerRef.current?.abort();
             controllerRef.current = new AbortController();
-
             return waitForSignedKeyRequest(controllerRef.current.signal)(token, 'completed');
         },
     });
 
-    if (isLoading) return <div className=" h-[10px] w-[10px] bg-main" />;
+    if (!isLoading)
+        return (
+            <Tooltip content={t`Querying the signer request state.`} placement="top">
+                <LoadingIcon className="animate-spin cursor-pointer" width={24} height={24} />
+            </Tooltip>
+        );
 
-    return null;
+    return children;
 }
