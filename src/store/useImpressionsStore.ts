@@ -14,7 +14,7 @@ interface ImpressionsState {
     fetchAndStoreViews: (ids: string[]) => Promise<void>;
 }
 
-const STATS_URL = 'https://api.hey.xyz/stats/publicationViews';
+const STATS_URL = '/api/publicationViews';
 
 export const useImpressionsBase = create<ImpressionsState>((set) => ({
     publicationViews: EMPTY_LIST,
@@ -24,15 +24,15 @@ export const useImpressionsBase = create<ImpressionsState>((set) => ({
         }
 
         try {
-            const viewsResponse = await fetchJSON<{ success: boolean; views: Views[] }>(STATS_URL, {
+            const viewsResponse = await fetchJSON<{ data: { success: boolean; views: Views[] } }>(STATS_URL, {
                 method: 'POST',
                 body: JSON.stringify({ ids }),
             });
 
-            if (!viewsResponse.success) return;
+            if (!viewsResponse.data.success) return;
 
             set((state) => ({
-                publicationViews: [...state.publicationViews, ...viewsResponse.views],
+                publicationViews: [...state.publicationViews, ...viewsResponse.data.views],
             }));
         } catch {
             return;

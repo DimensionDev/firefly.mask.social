@@ -5,6 +5,7 @@ import { memo, useMemo } from 'react';
 import { SocialPlatform } from '@/constants/enum.js';
 import { Image } from '@/esm/Image.js';
 import { classNames } from '@/helpers/classNames.js';
+import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { LoginModalRef } from '@/modals/controls.js';
 
 interface NotLoginFallbackProps {
@@ -38,7 +39,8 @@ export const NotLoginFallback = memo<NotLoginFallbackProps>(function LoginFallba
                         ? 'text-lensPrimary ring-lensPrimary hover:bg-[rgba(154,227,42,0.20)] hover:shadow-[0_0_16px_0_rgba(101,119,134,0.20)]'
                         : 'text-farcasterPrimary ring-farcasterPrimary hover:bg-[#9250FF]/20 hover:shadow-[0_0_16px_0_rgba(101,119,134,0.20)]',
                 )}
-                onClick={() => {
+                onClick={async () => {
+                    if (source === SocialPlatform.Lens) await getWalletClientRequired();
                     LoginModalRef.open({ source });
                 }}
             >

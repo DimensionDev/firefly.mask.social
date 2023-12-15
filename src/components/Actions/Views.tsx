@@ -14,7 +14,7 @@ interface ViewsProps {
 export const Views = memo<ViewsProps>(function Collect({ count, disabled = false }) {
     return (
         <div
-            className={classNames('flex items-center space-x-2 text-secondary', {
+            className={classNames('flex items-center space-x-2 text-main', {
                 'opacity-50': disabled,
             })}
             onClick={(event) => {
@@ -22,7 +22,7 @@ export const Views = memo<ViewsProps>(function Collect({ count, disabled = false
                 event.stopPropagation();
             }}
         >
-            <Tooltip content={count ? t`${nFormatter(count)} views` : null} placement="top" disabled={disabled}>
+            <Tooltip content={t`${nFormatter(count ?? 0)} views`} placement="top" disabled={disabled}>
                 <motion.button
                     disabled={disabled}
                     onClick={(event) => {
@@ -30,7 +30,7 @@ export const Views = memo<ViewsProps>(function Collect({ count, disabled = false
                         event.preventDefault();
                     }}
                     whileTap={{ scale: 0.9 }}
-                    className=" rounded-full p-1.5"
+                    className="rounded-full p-1.5 hover:bg-bg"
                 >
                     <ViewsIcon width={20} height={20} />
                 </motion.button>

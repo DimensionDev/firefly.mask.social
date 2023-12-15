@@ -2,7 +2,7 @@
 
 import { Trans } from '@lingui/macro';
 import { useRouter } from 'next/navigation.js';
-import { forwardRef } from 'react';
+import { forwardRef, useState } from 'react';
 
 import EyeSlash from '@/assets/eye-slash.svg';
 import Lock from '@/assets/lock.svg';
@@ -32,6 +32,8 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
     const router = useRouter();
     const canShowMore = !!(post.metadata.content?.content && post.metadata.content.content.length > 450) && showMore;
     const showAttachments = !!post.metadata.content?.attachments?.length || !!post.metadata.content?.asset;
+
+    const [oembedLoaded, setOembedLoaded] = useState(false);
 
     if (post.isEncrypted) {
         return (
@@ -76,12 +78,13 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
             <div className="my-2 flex items-center space-x-2 break-words text-base text-main">
                 <NakedMarkup
                     post={post}
-                    className="linkify text-md line-clamp-5 w-full self-stretch break-words opacity-75 dark:opacity-50"
+                    className="linkify text-md line-clamp-5 w-full self-stretch break-words opacity-75"
                 >
                     {post.metadata.content?.content}
                 </NakedMarkup>
                 {showAttachments ? (
                     <Attachments
+                        post={post}
                         asset={post.metadata.content?.asset}
                         attachments={post.metadata.content?.attachments ?? EMPTY_LIST}
                         isQuote
@@ -112,7 +115,9 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
                     post={post}
                     className={classNames({ 'line-clamp-5': canShowMore }, 'markup linkify text-md break-words')}
                 >
-                    {removeUrlAtEnd(post.metadata.content?.oembedUrl, post.metadata.content?.content)}
+                    {oembedLoaded
+                        ? removeUrlAtEnd(post.metadata.content?.oembedUrl, post.metadata.content?.content)
+                        : post.metadata.content?.content}
                 </Markup>
             )}
 
@@ -134,7 +139,9 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
                     attachments={post.metadata.content?.attachments ?? EMPTY_LIST}
                 />
             ) : null}
-            {post.metadata.content?.oembedUrl ? <Oembed url={post.metadata.content.oembedUrl} /> : null}
+            {post.metadata.content?.oembedUrl ? (
+                <Oembed url={post.metadata.content.oembedUrl} onData={() => setOembedLoaded(true)} />
+            ) : null}
             {!!post.quoteOn && !isQuote ? <Quote post={post.quoteOn} /> : null}
         </div>
     );
