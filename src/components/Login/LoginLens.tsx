@@ -21,7 +21,7 @@ import type { Profile } from '@/providers/types/SocialMedia.js';
 import { useLensStateStore } from '@/store/useLensStore.js';
 
 interface LoginLensProps {
-    profiles: Profile[]
+    profiles: Profile[];
 }
 
 export function LoginLens({ profiles }: LoginLensProps) {
@@ -105,13 +105,15 @@ export function LoginLens({ profiles }: LoginLensProps) {
                                     <Switch checked={signless} onChange={setSignless}>
                                         {({ checked }) => (
                                             <button
-                                                className={`${checked ? 'bg-success' : 'bg-gray-200'
-                                                    } relative inline-flex h-[22px] w-[43px] items-center rounded-full`}
+                                                className={`${
+                                                    checked ? 'bg-success' : 'bg-gray-200'
+                                                } relative inline-flex h-[22px] w-[43px] items-center rounded-full`}
                                             >
                                                 <span className="sr-only">Enable signless</span>
                                                 <span
-                                                    className={`${checked ? 'translate-x-6' : 'translate-x-1'
-                                                        } inline-block h-3 w-3 transform rounded-full bg-white transition`}
+                                                    className={`${
+                                                        checked ? 'translate-x-6' : 'translate-x-1'
+                                                    } inline-block h-3 w-3 transform rounded-full bg-white transition`}
                                                 />
                                             </button>
                                         )}

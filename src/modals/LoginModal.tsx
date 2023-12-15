@@ -127,15 +127,20 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | 
                                                                 queryKey: ['lens', 'profiles', account.address],
                                                                 queryFn: async () => {
                                                                     if (!account.address) return EMPTY_LIST;
-                                                                    return LensSocialMediaProvider.getProfilesByAddress(account.address);
+                                                                    return LensSocialMediaProvider.getProfilesByAddress(
+                                                                        account.address,
+                                                                    );
                                                                 },
-                                                            })
+                                                            });
                                                             if (!profiles.length) {
-                                                                enqueueSnackbar(t`No Lens profile found. Please change to another wallet.`, { variant: 'error' });
+                                                                enqueueSnackbar(
+                                                                    t`No Lens profile found. Please change to another wallet.`,
+                                                                    { variant: 'error' },
+                                                                );
                                                                 return;
                                                             }
-                                                            setProfiles(profiles)
-                                                            setSource(source)
+                                                            setProfiles(profiles);
+                                                            setSource(source);
                                                         } else {
                                                             setSource(source);
                                                         }
