@@ -19,7 +19,7 @@ export class SessionFactory {
         const fragments = serializedSession.split(':');
         const type = fragments[0] as SessionType;
         const json = atob(fragments[1]) as string;
-        const signerRequestToken = fragments[2] as string | undefined;
+        const signerRequestToken = fragments[2] ?? '';
 
         const session = parseJSON<{
             type: SessionType;

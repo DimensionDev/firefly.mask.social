@@ -35,6 +35,7 @@ export function createSessionStorage(): PersistStorage<SessionState> {
             localStorage.setItem(
                 name,
                 JSON.stringify({
+                    ...newValue,
                     state: {
                         ...state,
                         currentProfileSession: state.currentProfileSession
