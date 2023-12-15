@@ -21,6 +21,7 @@ import { indexedDBStorage, inMemoryStorage } from '../setup/storage.js';
 async function reject(): Promise<never> {
     throw new Error('Not implemented');
 }
+
 __setUIContext__({
     currentPersona: UNDEFINED,
     allPersonas: EMPTY_ARRAY,
@@ -42,6 +43,7 @@ __setUIContext__({
     setCurrentPersonaIdentifier: undefined,
     setPluginMinimalModeEnabled: undefined,
 });
+
 __setSiteAdaptorContext__({
     lastRecognizedProfile: UNDEFINED,
     currentVisitingProfile: UNDEFINED,

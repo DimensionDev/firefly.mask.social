@@ -49,6 +49,9 @@ msgstr "Something went wrong, Please try again."
 msgid "Failed to mirror. {0}"
 msgstr "Failed to mirror. {0}"
 
+msgid "Debug Connection"
+msgstr "Debug Connection"
+
 msgid "{0} views"
 msgstr "{0} views"
 
@@ -75,6 +78,9 @@ msgstr "{0, plural, one {<0/>} other {{1, plural, one {<1/> and <2/>} other {<3/
 
 msgid "Failed to follow"
 msgstr "Failed to follow"
+
+msgid "Debug Console"
+msgstr "Debug Console"
 
 msgid "Failed to login"
 msgstr "Failed to login"
