@@ -55,7 +55,7 @@ export const ComposeModal = forwardRef<SingletonModalRefCreator<ComposeModalProp
 
     return (
         <>
-            <Discard opened={discardOpened} setOpened={setDiscardOpened} onClose={close} />
+            <Discard opened={discardOpened} setOpened={setDiscardOpened} />
 
             <Transition appear show={open} as={Fragment}>
                 <Dialog as="div" className="relative z-[100]" onClose={checkClose}>
@@ -106,7 +106,7 @@ export const ComposeModal = forwardRef<SingletonModalRefCreator<ComposeModalProp
                                     <WithLexicalContextWrapper />
 
                                     {/* Send */}
-                                    <ComposeSend onClose={close} />
+                                    <ComposeSend />
                                 </Dialog.Panel>
                             </Transition.Child>
                         </div>
