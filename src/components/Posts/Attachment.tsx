@@ -146,8 +146,8 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({ attachm
                                 <Image
                                     className="h-full shrink-0 cursor-pointer rounded-lg object-cover"
                                     loading="lazy"
-                                    width={isQuote ? 120 : 1000}
-                                    height={isQuote ? 120 : 1000}
+                                    width={isQuote ? (isSoloImage ? '100%' : 120) : 1000}
+                                    height={isQuote ? (isSoloImage ? '100%' : 120) : 1000}
                                     style={{
                                         maxHeight: isSoloImage && isQuote ? 288 : undefined,
                                     }}

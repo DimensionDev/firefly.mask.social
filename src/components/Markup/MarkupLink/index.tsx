@@ -24,9 +24,10 @@ export const MarkupLink = memo<MarkupLinkProps>(function MarkupLink({ title, pos
             const link = getProfileUrl(target);
             return <MentionLink title={title} link={link} />;
         }
+
         const link = getProfileUrl({
             source: SocialPlatform.Lens,
-            handle: title,
+            handle: title.replace('@lens/', ''),
             profileId: '',
             displayName: title,
             pfp: '',

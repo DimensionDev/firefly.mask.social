@@ -141,6 +141,7 @@ export interface Post {
         quotes?: number;
         reactions: number;
         bookmarks?: number;
+        countOpenActions?: number;
     };
     mirrors?: Profile[];
     reactions?: Profile[];
@@ -150,6 +151,7 @@ export interface Post {
     mentions?: Profile[];
     hasMirrored?: boolean;
     hasLiked?: boolean;
+    hasActed?: boolean;
     __original__?: unknown;
     source: SocialPlatform;
 

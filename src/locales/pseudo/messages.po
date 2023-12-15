@@ -76,9 +76,6 @@ msgstr ""
 msgid "UnLike"
 msgstr ""
 
-msgid "{0, plural, one {<0/>} other {{1, plural, one {<1/> and <2/>} other {<3/> and # others acted on your}}}} <4><5/></4>"
-msgstr ""
-
 msgid "Failed to follow"
 msgstr ""
 
@@ -223,9 +220,6 @@ msgstr ""
 msgid "Method not implemented."
 msgstr ""
 
-msgid "{0, plural, one {<0/>} other {{1, plural, one {<1/> and <2/>} other {<3/> and # others mirrored you}}}} <4><5/></4>"
-msgstr ""
-
 msgid "Malformed session."
 msgstr ""
 
@@ -316,6 +310,9 @@ msgstr ""
 msgid "Select failed: More than 2 images"
 msgstr ""
 
+msgid "{0, plural, one {<0/>} other {{1, plural, one {<1/> and <2/>} other {<3/> and # others mirrored you}}}} <4>mirrored your </4><5><6/></5>"
+msgstr ""
+
 msgid "Please switch to the {0} network in your wallet ({1})}"
 msgstr ""
 
@@ -388,6 +385,9 @@ msgstr ""
 msgid "Search…"
 msgstr ""
 
+msgid "{0, plural, one {<0/>} other {{1, plural, one {<1/> and <2/>} other {<3/> and # others acted on your}}}} <4>acted on your </4><5><6/></5>"
+msgstr ""
+
 msgid "No profile found"
 msgstr ""
 
@@ -439,9 +439,6 @@ msgstr ""
 msgid "Light mode"
 msgstr ""
 
-msgid "{0, plural, zero {Mirror and Quote} one {Mirror and Quote} other {Mirrors and Quotes}}"
-msgstr ""
-
 msgid "Your Lens account is now connected"
 msgstr ""
 
@@ -455,6 +452,9 @@ msgid "Remove"
 msgstr ""
 
 msgid "No matching users"
+msgstr ""
+
+msgid "Mirror and Quote"
 msgstr ""
 
 msgid "Log in to Farcaster account"
@@ -488,6 +488,9 @@ msgid "{0, select, follow {Follow} unfollow {Unfollow} other {Follow}}"
 msgstr ""
 
 msgid "Media"
+msgstr ""
+
+msgid "You've hit rock bottom"
 msgstr ""
 
 msgid "Mirror"

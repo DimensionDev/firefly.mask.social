@@ -12,6 +12,7 @@ import UserAddIcon from '@/assets/user-add.svg';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { ProfileName } from '@/components/ProfileName.js';
 import { SocialPlatform } from '@/constants/enum.js';
+import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { LoginModalRef, LogoutModalRef } from '@/modals/controls.js';
 import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
 import { useLensStateStore } from '@/store/useLensStore.js';
@@ -86,6 +87,7 @@ export const ProfileStatusModal = forwardRef<SingletonModalRefCreator<ProfileSta
                                             onClick={async () => {
                                                 dispatch?.close();
                                                 await delay(300);
+                                                if (source === SocialPlatform.Lens) await getWalletClientRequired();
                                                 LoginModalRef.open({ source });
                                             }}
                                         >

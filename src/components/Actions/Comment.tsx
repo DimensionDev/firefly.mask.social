@@ -4,9 +4,10 @@ import { memo, useCallback, useMemo } from 'react';
 
 import ReplyIcon from '@/assets/reply.svg';
 import { Tooltip } from '@/components/Tooltip.js';
-import type { SocialPlatform } from '@/constants/enum.js';
+import { SocialPlatform } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { humanize, nFormatter } from '@/helpers/formatCommentCounts.js';
+import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { ComposeModalRef, LoginModalRef } from '@/modals/controls.js';
@@ -39,8 +40,9 @@ export const Comment = memo<CommentProps>(function Comment({
         return t`Comment`;
     }, [count]);
 
-    const handleClick = useCallback(() => {
+    const handleClick = useCallback(async () => {
         if (!isLogin) {
+            if (source === SocialPlatform.Lens) await getWalletClientRequired();
             LoginModalRef.open({ source });
             return;
         }
@@ -71,7 +73,7 @@ export const Comment = memo<CommentProps>(function Comment({
                 <motion.button
                     disabled={disabled}
                     whileTap={{ scale: 0.9 }}
-                    className={'rounded-full p-1.5 text-secondary hover:bg-bg'}
+                    className={'rounded-full p-1.5 text-main hover:bg-bg'}
                     onClick={(event) => {
                         event.preventDefault();
                         event.stopPropagation();
@@ -83,7 +85,7 @@ export const Comment = memo<CommentProps>(function Comment({
                         <ReplyIcon width={16} height={16} />
                     </Tooltip>
                 </motion.button>
-                {count ? <span className="text-xs font-medium text-secondary">{nFormatter(count)}</span> : null}
+                {count ? <span className="text-xs font-medium text-main">{nFormatter(count)}</span> : null}
             </div>
         </>
     );

@@ -12,6 +12,7 @@ import { Tooltip } from '@/components/Tooltip.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
+import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { LoginModalRef } from '@/modals/controls.js';
@@ -36,11 +37,15 @@ export const Like = memo<LikeProps>(function Like({ count, hasLiked, postId, sou
     const [{ loading }, handleClick] = useAsyncFn(async () => {
         if (!postId) return null;
         if (!isLogin) {
+            if (source === SocialPlatform.Lens) await getWalletClientRequired();
             LoginModalRef.open({ source });
             return;
         }
         setLiked((prev) => !prev);
-        setRealCount((prev) => (prev ?? 0) + 1);
+        setRealCount((prev) => {
+            if (liked && prev) return prev - 1;
+            return (prev ?? 0) + 1;
+        });
         try {
             switch (source) {
                 case SocialPlatform.Lens:
@@ -81,7 +86,7 @@ export const Like = memo<LikeProps>(function Like({ count, hasLiked, postId, sou
 
     return (
         <div
-            className={classNames('flex items-center space-x-2 text-secondary hover:text-danger', {
+            className={classNames('flex items-center space-x-2 text-main hover:text-danger', {
                 'font-bold': !!liked,
                 'text-danger': !!liked,
                 'opacity-50': disabled,
@@ -108,7 +113,16 @@ export const Like = memo<LikeProps>(function Like({ count, hasLiked, postId, sou
                     )}
                 </motion.button>
             </Tooltip>
-            {realCount ? <span className="text-xs">{nFormatter(realCount)}</span> : null}
+            {realCount ? (
+                <span
+                    className={classNames('text-xs', {
+                        'font-bold': !!liked,
+                        'text-danger': !!liked,
+                    })}
+                >
+                    {nFormatter(realCount)}
+                </span>
+            ) : null}
         </div>
     );
 });

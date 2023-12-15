@@ -92,7 +92,7 @@
             }
         ],
         "react/jsx-boolean-value": ["error", "never"],
-        "react/self-closing-comp": "warn",
+        "react/self-closing-comp": ["error", { "component": true, "html": true }],
         "@typescript-eslint/ban-types": [
             "error",
             {

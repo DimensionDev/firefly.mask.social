@@ -52,7 +52,7 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
             }}
         >
             {!isComment ? <FeedActionType post={post} /> : null}
-            {!isPostPage && !postPayload ? (
+            {!isPostPage || isComment ? (
                 <Link href={postLink}>
                     <PostHeader post={post} />
 

@@ -10,7 +10,7 @@ export default function DetailLayout({ children }: { children: React.ReactNode }
     const router = useRouter();
     return (
         <div className="min-h-screen">
-            <div className=" flex items-center p-4 ">
+            <div className="flex items-center p-4">
                 <ComeBack width={24} height={24} className="mr-8 cursor-pointer" onClick={() => router.back()} />
                 <h2 className="text-xl font-black leading-6">
                     <Trans>Details</Trans>

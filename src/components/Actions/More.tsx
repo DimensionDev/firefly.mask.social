@@ -9,6 +9,8 @@ import LoadingIcon from '@/assets/loading.svg';
 import MoreIcon from '@/assets/more.svg';
 import UnFollowUserIcon from '@/assets/unfollow-user.svg';
 import { queryClient } from '@/configs/queryClient.js';
+import { SocialPlatform } from '@/constants/enum.js';
+import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { useIsFollowing } from '@/hooks/useIsFollowing.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useToggleFollow } from '@/hooks/useToggleFollow.js';
@@ -45,10 +47,11 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ post }) {
                 as={motion.button}
                 className="flex items-center text-secondary"
                 aria-label="More"
-                onClick={(event) => {
+                onClick={async (event) => {
                     if (!isLogin) {
                         event.stopPropagation();
                         event.preventDefault();
+                        if (post.source === SocialPlatform.Lens) await getWalletClientRequired();
                         LoginModalRef.open({ source: post.source });
                         return;
                     }

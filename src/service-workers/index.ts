@@ -1,6 +1,6 @@
 declare let self: ServiceWorkerGlobalScope;
 
-const impressionsEndpoint = 'https://api.hey.xyz/leafwatch/impressions';
+const impressionsEndpoint = '/api/impressions';
 const publicationsVisibilityInterval = 5000;
 let viewerId: string | null = null;
 const visiblePublicationsSet = new Set();

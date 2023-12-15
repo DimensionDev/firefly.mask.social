@@ -48,8 +48,8 @@ export default function ComposeAction(props: ComposeActionProps) {
     );
 
     const postByText = useMemo(() => {
-        const lensHandle = currentLensProfile?.handle || currentLensProfile?.displayName;
-        const farcasterHandle = currentFarcasterProfile?.handle || currentFarcasterProfile?.displayName;
+        const lensHandle = currentLensProfile?.handle;
+        const farcasterHandle = currentFarcasterProfile?.handle;
 
         if (!post) {
             return compact([lensHandle, farcasterHandle])
