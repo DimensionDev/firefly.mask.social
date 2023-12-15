@@ -1,5 +1,12 @@
+import type { SessionType } from '@/providers/types/SocialMedia.js';
+
 export interface Session {
     profileId: string | number;
+
+    /**
+     * The type of social platform that the session is associated with.
+     */
+    type: SessionType;
 
     /**
      * The secret associated with the authenticated account.
