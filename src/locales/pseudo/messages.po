@@ -67,6 +67,9 @@ msgstr ""
 msgid "Join our Discord"
 msgstr ""
 
+msgid "Querying the signer request state."
+msgstr ""
+
 msgid "Change Wallet"
 msgstr ""
 
