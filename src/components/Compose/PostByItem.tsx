@@ -73,7 +73,7 @@ export function PostByItem({ source }: PostByItemProps) {
                         </span>
                     </div>
                     {isSameProfile(currentProfile, profile) ? (
-                        <YesIcon width={40} height={40} className=" relative -right-2" />
+                        <YesIcon width={40} height={40} className=" relative -right-[10px]" />
                     ) : currentProfile.source === SocialPlatform.Lens ? (
                         <button
                             className=" font-bold text-blueBottom"
@@ -110,7 +110,9 @@ export function PostByItem({ source }: PostByItemProps) {
 
                         ComposeModalRef.close();
                         await delay(300);
-                        LoginModalRef.open();
+                        LoginModalRef.open({
+                            source,
+                        });
                     }}
                 >
                     <Trans>Log in</Trans>

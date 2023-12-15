@@ -29,9 +29,9 @@ export default function ComposeContent(props: ComposeContentProps) {
             >
                 <div className=" flex min-h-full flex-col justify-between">
                     {type === 'reply' && post ? (
-                        <div className=" mb-3 text-left text-[15px]">
+                        <div className=" mb-3 text-left text-[15px] text-fourMain">
                             <Trans>Replying to</Trans>
-                            <span className=" text-blueBottom"> @{post.author.handle} </span>
+                            <span className=" text-link"> @{post.author.handle} </span>
                             <Trans>on Lens</Trans>
                         </div>
                     ) : null}
@@ -105,7 +105,7 @@ export default function ComposeContent(props: ComposeContentProps) {
                                         className=" rounded-full"
                                     />
                                     <span className=" font-medium">{post.author.displayName}</span>
-                                    <span className=" text-secondary">
+                                    <span className=" text-placeholder">
                                         @{post.author.handle || post.author.profileId}
                                     </span>
                                 </div>
