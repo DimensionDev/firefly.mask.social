@@ -5,7 +5,12 @@ import { WARPCAST_ROOT_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 
 export function waitForSignedKeyRequestComplete(signal?: AbortSignal) {
-    return async (token: string, maxTries = 100, ms = 2000) => {
+    return async (
+        token: string,
+        state: 'pending' | 'completed' | 'approved' = 'approved',
+        maxTries = 100,
+        ms = 2000,
+    ) => {
         let tries = 0;
 
         // eslint-disable-next-line no-constant-condition
@@ -29,7 +34,7 @@ export function waitForSignedKeyRequestComplete(signal?: AbortSignal) {
             );
 
             if (response.errors?.length) continue;
-            if (response.result.signedKeyRequest.state === 'completed') return true;
+            if (response.result.signedKeyRequest.state === state) return true;
         }
     };
 }

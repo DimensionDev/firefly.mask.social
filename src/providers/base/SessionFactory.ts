@@ -16,9 +16,10 @@ export class SessionFactory {
      * @returns An instance of a session.
      */
     public static createSession<T extends Session>(serializedSession: string): T {
-        const colonIndex = serializedSession.indexOf(':');
-        const type = serializedSession.substring(0, colonIndex) as Type;
-        const json = serializedSession.substring(colonIndex + 1);
+        const fragments = serializedSession.split(':');
+        const type = fragments[0] as Type;
+        const json = atob(fragments[1]) as string;
+        const signerRequestToken = fragments[2] as string | undefined;
 
         const session = parseJSON<{
             type: Type;
@@ -44,7 +45,13 @@ export class SessionFactory {
                 case Type.Lens:
                     return new LensSession(session.profileId, session.token, session.createdAt, session.expiresAt);
                 case Type.Warpcast:
-                    return new WarpcastSession(session.profileId, session.token, session.createdAt, session.expiresAt);
+                    return new WarpcastSession(
+                        session.profileId,
+                        session.token,
+                        session.createdAt,
+                        session.expiresAt,
+                        signerRequestToken,
+                    );
                 case Type.Twitter:
                     throw new Error(t`Not implemented yet.`);
                 case Type.Firefly:

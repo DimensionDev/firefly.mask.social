@@ -18,7 +18,7 @@ export abstract class BaseSession implements Session {
             expiresAt: this.expiresAt,
         });
 
-        return `${this.type}:${body}`;
+        return `${this.type}:${btoa(body)}`;
     }
 
     abstract refresh(): Promise<void>;

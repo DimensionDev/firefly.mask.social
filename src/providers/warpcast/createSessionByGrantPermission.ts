@@ -34,5 +34,6 @@ export async function createSessionByGrantPermission(setUrl?: (url: string) => v
         response.data.privateKey,
         response.data.timestamp,
         response.data.expiresAt,
+        response.data.token,
     );
 }
