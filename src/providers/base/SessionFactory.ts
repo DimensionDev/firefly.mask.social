@@ -5,7 +5,7 @@ import z from 'zod';
 
 import { LensSession } from '@/providers/lens/Session.js';
 import type { Session } from '@/providers/types/Session.js';
-import { Type } from '@/providers/types/SocialMedia.js';
+import { SessionType } from '@/providers/types/SocialMedia.js';
 import { WarpcastSession } from '@/providers/warpcast/Session.js';
 
 export class SessionFactory {
@@ -17,12 +17,12 @@ export class SessionFactory {
      */
     public static createSession<T extends Session>(serializedSession: string): T {
         const fragments = serializedSession.split(':');
-        const type = fragments[0] as Type;
+        const type = fragments[0] as SessionType;
         const json = atob(fragments[1]) as string;
         const signerRequestToken = fragments[2] as string | undefined;
 
         const session = parseJSON<{
-            type: Type;
+            type: SessionType;
             profileId: string;
             token: string;
             createdAt: number;
@@ -40,11 +40,11 @@ export class SessionFactory {
         const { success } = schema.safeParse(session);
         if (!success) throw new Error(t`Malformed session.`);
 
-        const createSession = (type: Type): Session => {
+        const createSession = (type: SessionType): Session => {
             switch (type) {
-                case Type.Lens:
+                case SessionType.Lens:
                     return new LensSession(session.profileId, session.token, session.createdAt, session.expiresAt);
-                case Type.Warpcast:
+                case SessionType.Warpcast:
                     return new WarpcastSession(
                         session.profileId,
                         session.token,
@@ -52,9 +52,9 @@ export class SessionFactory {
                         session.expiresAt,
                         signerRequestToken,
                     );
-                case Type.Twitter:
+                case SessionType.Twitter:
                     throw new Error(t`Not implemented yet.`);
-                case Type.Firefly:
+                case SessionType.Firefly:
                     throw new Error(t`Not implemented yet.`);
                 default:
                     safeUnreachable(type);

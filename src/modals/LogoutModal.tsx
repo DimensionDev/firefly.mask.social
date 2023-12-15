@@ -93,7 +93,7 @@ export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps 
                                         </div>
                                     ))}
                                     <button
-                                        className=" flex items-center justify-center rounded-[99px] bg-commonDanger py-[11px] text-lightBottom"
+                                        className=" flex items-center justify-center rounded-full bg-commonDanger py-[11px] text-lightBottom"
                                         onClick={() => {
                                             if (!source) return;
                                             switch (source) {

@@ -26,7 +26,7 @@ import {
     ProfileStatus,
     type Provider,
     ReactionType,
-    Type,
+    SessionType,
 } from '@/providers/types/SocialMedia.js';
 import {
     type Cast,
@@ -49,7 +49,7 @@ import { WarpcastSession } from '@/providers/warpcast/Session.js';
 
 export class WarpcastSocialMedia implements Provider {
     get type() {
-        return Type.Warpcast;
+        return SessionType.Warpcast;
     }
 
     async createSession(signal?: AbortSignal): Promise<WarpcastSession> {
