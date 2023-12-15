@@ -88,6 +88,9 @@ msgstr ""
 msgid "Failed to login"
 msgstr ""
 
+msgid "Offline"
+msgstr ""
+
 msgid "Not implemented yet."
 msgstr ""
 
@@ -422,6 +425,9 @@ msgid "This profile does not exist"
 msgstr ""
 
 msgid "<0/> commented your <1><2/></1>"
+msgstr ""
+
+msgid "Online"
 msgstr ""
 
 msgid "Unfollow"
