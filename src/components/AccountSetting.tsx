@@ -7,9 +7,12 @@ import LogOutIcon from '@/assets/logout.svg';
 import UserAddIcon from '@/assets/user-add.svg';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { ProfileName } from '@/components/ProfileName.js';
+import { WarpcastSignerRequsetIndicator } from '@/components/WarpcastSignerRequsetIndicator.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { useProfiles } from '@/hooks/useProfiles.js';
 import { LoginModalRef, LogoutModalRef } from '@/modals/controls.js';
+import { SessionType } from '@/providers/types/SocialMedia.js';
+import { WarpcastSession } from '@/providers/warpcast/Session.js';
 
 interface AccountSettingProps {
     source: SocialPlatform;
@@ -17,7 +20,7 @@ interface AccountSettingProps {
 
 export function AccountSetting({ source }: AccountSettingProps) {
     const { disconnect } = useDisconnect();
-    const { currentProfile, profiles, clearCurrentProfile } = useProfiles(source);
+    const { currentProfile, currentProfileSession, profiles, clearCurrentProfile } = useProfiles(source);
     return (
         <div className="absolute -top-[200px] hidden rounded-[12px] bg-bgModal group-hover:block">
             <div className="flex w-[260px] flex-col gap-[23px] rounded-[16px] p-[24px]">
@@ -45,6 +48,10 @@ export function AccountSetting({ source }: AccountSettingProps) {
                     <div className=" text-[17px] font-bold leading-[22px] text-[#101010] dark:text-gray-400">
                         <Trans>Change account</Trans>
                     </div>
+                    {currentProfileSession?.type === SessionType.Warpcast &&
+                    WarpcastSession.isGrantByPermission(currentProfileSession) ? (
+                        <WarpcastSignerRequsetIndicator token={currentProfileSession.signerRequestToken} />
+                    ) : null}
                 </button>
                 <button
                     className="flex items-center gap-[8px]"

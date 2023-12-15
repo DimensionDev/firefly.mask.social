@@ -10,14 +10,14 @@ import { encodeMessageData } from '@/helpers/encodeMessageData.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { MessageType, ReactionType } from '@/providers/hubble/proto/message.js';
 import type { UserResponse } from '@/providers/types/Firefly.js';
-import { type Post, type Profile, ProfileStatus, type Provider, Type } from '@/providers/types/SocialMedia.js';
+import { type Post, type Profile, ProfileStatus, type Provider, SessionType } from '@/providers/types/SocialMedia.js';
 import { ReactionType as ReactionTypeCustom } from '@/providers/types/SocialMedia.js';
 import type { WarpcastSession } from '@/providers/warpcast/Session.js';
 
 // @ts-ignore
 export class HubbleSocialMedia implements Provider {
     get type() {
-        return Type.Firefly;
+        return SessionType.Firefly;
     }
 
     async createSession(signal?: AbortSignal): Promise<WarpcastSession> {
