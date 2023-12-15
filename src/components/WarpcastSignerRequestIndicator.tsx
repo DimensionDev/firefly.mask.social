@@ -34,7 +34,7 @@ export function WarpcastSignerRequestIndicator({ session, children }: WarpcastSi
         },
     });
 
-    if (!isLoading)
+    if (isLoading)
         return (
             <Tooltip content={t`Querying the signer request state.`} placement="top">
                 <LoadingIcon className="animate-spin cursor-pointer" width={24} height={24} />
