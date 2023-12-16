@@ -18,16 +18,19 @@ export function createSessionStorage(): PersistStorage<SessionState> {
                 state: {
                     currentProfileSession: string | null;
                 };
+                version: number
             }>(raw);
             if (!parsed) return null;
 
             return {
+                ...parsed,
                 state: {
                     ...parsed.state,
                     currentProfileSession: parsed.state.currentProfileSession
                         ? SessionFactory.createSession(parsed.state.currentProfileSession)
                         : null,
                 },
+                
             };
         },
         setItem(name, newValue) {
