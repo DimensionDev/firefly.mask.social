@@ -18,7 +18,7 @@ export function createSessionStorage(): PersistStorage<SessionState> {
                 state: {
                     currentProfileSession: string | null;
                 };
-                version: number
+                version: number;
             }>(raw);
             if (!parsed) return null;
 
@@ -30,7 +30,6 @@ export function createSessionStorage(): PersistStorage<SessionState> {
                         ? SessionFactory.createSession(parsed.state.currentProfileSession)
                         : null,
                 },
-                
             };
         },
         setItem(name, newValue) {
