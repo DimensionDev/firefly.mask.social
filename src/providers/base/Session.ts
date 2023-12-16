@@ -12,8 +12,9 @@ export abstract class BaseSession implements Session {
 
     serialize(): `${SessionType}:${string}` {
         const body = JSON.stringify({
-            profileId: `${this.profileId}`,
+            type: this.type,
             token: this.token,
+            profileId: `${this.profileId}`,
             createdAt: this.createdAt,
             expiresAt: this.expiresAt,
         });
