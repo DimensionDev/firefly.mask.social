@@ -59,14 +59,14 @@ export default function Home() {
 
     const account = useAccount();
     const clearLensCurrentProfile = useLensStateStore.use.clearCurrentProfile();
-    const clearFarcasterCurrentProfileId = useFarcasterStateStore.use.clearCurrentProfile();
+    const clearFarcasterCurrentProfile = useFarcasterStateStore.use.clearCurrentProfile();
 
     useEffect(() => {
         if (account.isDisconnected) {
             clearLensCurrentProfile();
-            clearFarcasterCurrentProfileId();
+            clearFarcasterCurrentProfile();
         }
-    }, [account.isDisconnected, clearFarcasterCurrentProfileId, clearLensCurrentProfile]);
+    }, [account.isDisconnected, clearFarcasterCurrentProfile, clearLensCurrentProfile]);
 
     return (
         <div>

@@ -77,6 +77,21 @@ export interface NotificationResponse extends ErrorResponse {
     };
     next?: Next;
 }
+
+export interface SignedKeyRequestResponse extends ErrorResponse {
+    result: {
+        signedKeyRequest: {
+            deeplinkUrl: string;
+            state: 'pending' | 'completed' | 'approved';
+            isSponsored: boolean;
+            key: string;
+            requestFid: number;
+            token: string;
+            userFid: number;
+        };
+    };
+}
+
 export interface Recast {
     displayName: string;
     fid: number;

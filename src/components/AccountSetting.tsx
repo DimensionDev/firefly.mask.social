@@ -5,6 +5,7 @@ import { useDisconnect } from 'wagmi';
 
 import LogOutIcon from '@/assets/logout.svg';
 import UserAddIcon from '@/assets/user-add.svg';
+import { OnlineStatusIndicator } from '@/components/OnlineStatusIndicator.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { ProfileName } from '@/components/ProfileName.js';
 import { WarpcastSignerRequestIndicator } from '@/components/WarpcastSignerRequestIndicator.js';
@@ -28,12 +29,7 @@ export function AccountSetting({ source }: AccountSettingProps) {
                         <ProfileAvatar profile={profile} />
                         <ProfileName profile={profile} />
                         <WarpcastSignerRequestIndicator session={currentProfileSession}>
-                            {isSameProfile(currentProfile, profile) ? (
-                                <div
-                                    className="h-[8px] w-[8px] rounded-full bg-success"
-                                    style={{ filter: 'drop-shadow(0px 4px 10px var(--color-success))' }}
-                                />
-                            ) : null}
+                            {isSameProfile(currentProfile, profile) ? <OnlineStatusIndicator /> : null}
                         </WarpcastSignerRequestIndicator>
                     </div>
                 ))}

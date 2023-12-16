@@ -3,6 +3,7 @@ import urlcat from 'urlcat';
 
 import { WARPCAST_ROOT_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
+import type { SignedKeyRequestResponse } from '@/providers/types/Warpcast.js';
 
 /**
  * Waits for a signed key request to reach a specified state.
@@ -12,7 +13,7 @@ import { fetchJSON } from '@/helpers/fetchJSON.js';
 export function waitForSignedKeyRequest(signal?: AbortSignal) {
     return async (
         token: string,
-        state: 'pending' | 'completed' | 'approved' = 'approved',
+        listOfState: Array<'pending' | 'completed' | 'approved'> = ['approved', 'completed'],
         maxTries = 100,
         ms = 2000,
     ) => {
@@ -32,10 +33,7 @@ export function waitForSignedKeyRequest(signal?: AbortSignal) {
             await delay(ms);
 
             // Fetch the signed key request status from the server
-            const response = await fetchJSON<{
-                result: { signedKeyRequest: { state: 'pending' | 'completed' | 'approved' } };
-                errors?: Array<{ message: string }>;
-            }>(
+            const response = await fetchJSON<SignedKeyRequestResponse>(
                 urlcat(WARPCAST_ROOT_URL, '/signed-key-request', {
                     token,
                 }),
@@ -45,7 +43,7 @@ export function waitForSignedKeyRequest(signal?: AbortSignal) {
             if (response.errors?.length) continue;
 
             // Check if the signed key request has reached the desired state
-            if (response.result.signedKeyRequest.state === state) return true;
+            if (listOfState.includes(response.result.signedKeyRequest.state)) return response;
         }
     };
 }

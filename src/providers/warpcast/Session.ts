@@ -18,7 +18,7 @@ export class WarpcastSession extends BaseSession implements Session {
     }
 
     override serialize(): `${SessionType}:${string}:${string}` {
-        return `${super.serialize()}:${this.signerRequestToken}`;
+        return `${super.serialize()}:${this.signerRequestToken ?? ''}`;
     }
 
     refresh(): Promise<void> {
@@ -52,11 +52,11 @@ export class WarpcastSession extends BaseSession implements Session {
 
     static isGrantByPermission(session: Session | null): session is WarpcastSession & { signerRequestToken: string } {
         if (!session) return false;
-        return session.type === SessionType.Warpcast && (session as WarpcastSession).signerRequestToken !== undefined;
+        return session.type === SessionType.Warpcast && !(session as WarpcastSession).signerRequestToken;
     }
 
     static isCustodyWallet(session: Session | null): session is WarpcastSession & { signerRequestToken: undefined } {
         if (!session) return false;
-        return session.type === SessionType.Warpcast && (session as WarpcastSession).signerRequestToken === undefined;
+        return session.type === SessionType.Warpcast && !!(session as WarpcastSession).signerRequestToken;
     }
 }

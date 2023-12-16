@@ -30,11 +30,11 @@ export function WarpcastSignerRequestIndicator({ session, children }: WarpcastSi
 
             controllerRef.current?.abort();
             controllerRef.current = new AbortController();
-            return waitForSignedKeyRequest(controllerRef.current.signal)(token, 'completed');
+            return waitForSignedKeyRequest(controllerRef.current.signal)(token, ['completed']);
         },
     });
 
-    if (!isLoading)
+    if (isLoading)
         return (
             <Tooltip content={t`Querying the signer request state.`} placement="top">
                 <LoadingIcon className="animate-spin cursor-pointer" width={24} height={24} />

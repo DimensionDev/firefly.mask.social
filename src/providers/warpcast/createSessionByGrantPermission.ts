@@ -27,10 +27,10 @@ export async function createSessionByGrantPermission(setUrl?: (url: string) => v
     // present QR code to the user
     setUrl?.(response.data.deeplinkUrl);
 
-    await waitForSignedKeyRequest(signal)(response.data.token);
+    const signedResponse = await waitForSignedKeyRequest(signal)(response.data.token);
 
     return new WarpcastSession(
-        response.data.fid,
+        `${signedResponse.result.signedKeyRequest.userFid}`,
         response.data.privateKey,
         response.data.timestamp,
         response.data.expiresAt,
