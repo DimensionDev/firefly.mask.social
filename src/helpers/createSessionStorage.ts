@@ -32,7 +32,7 @@ export function createSessionStorage(): PersistStorage<SessionState> {
 
             const output = schema.safeParse(parsedState);
             if (!output.success) {
-                console.error([`[${name}] failed to get item due to malformed state: ${output.error}`]);
+                console.error([`[${name}] zod validation failure: ${output.error}`]);
                 return null;
             }
 

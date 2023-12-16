@@ -39,7 +39,7 @@ export class SessionFactory {
 
         const output = schema.safeParse(session);
         if (!output.success) {
-            console.error([`[session factory] failed to get item due to malformed session.`]);
+            console.error([`[session factory] zod validation failure: ${output.error}`]);
             throw new Error(t`Malformed session.`);
         }
 
