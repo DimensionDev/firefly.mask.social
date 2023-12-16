@@ -15,7 +15,7 @@ export class SessionFactory {
      * @param serializedSession - The serialized session session in string.
      * @returns An instance of a session.
      */
-    public static createSession<T extends Session>(serializedSession: string): T {
+    static createSession<T extends Session>(serializedSession: string): T {
         const fragments = serializedSession.split(':');
         const type = fragments[0] as SessionType;
         const json = atob(fragments[1]) as string;
