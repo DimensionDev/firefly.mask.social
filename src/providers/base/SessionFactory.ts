@@ -37,8 +37,11 @@ export class SessionFactory {
             expiresAt: z.number().nonnegative(),
         });
 
-        const { success } = schema.safeParse(session);
-        if (!success) throw new Error(t`Malformed session.`);
+        const output = schema.safeParse(session);
+        if (!output.success) {
+            console.error([`[session factory] failed to get item due to malformed session.`]);
+            throw new Error(t`Malformed session.`);
+        }
 
         const createSession = (type: SessionType): Session => {
             switch (type) {
