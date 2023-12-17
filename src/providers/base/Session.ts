@@ -1,24 +1,25 @@
 import type { Session } from '@/providers/types/Session.js';
-import { Type } from '@/providers/types/SocialMedia.js';
+import { SessionType } from '@/providers/types/SocialMedia.js';
 
 export abstract class BaseSession implements Session {
     constructor(
-        public type: Type,
+        public type: SessionType,
         public profileId: string,
         public token: string,
         public createdAt: number,
         public expiresAt: number,
     ) {}
 
-    serialize(): `${Type}:${string}` {
+    serialize(): `${SessionType}:${string}` {
         const body = JSON.stringify({
-            profileId: `${this.profileId}`,
+            type: this.type,
             token: this.token,
+            profileId: `${this.profileId}`,
             createdAt: this.createdAt,
             expiresAt: this.expiresAt,
         });
 
-        return `${this.type}:${body}`;
+        return `${this.type}:${btoa(body)}`;
     }
 
     abstract refresh(): Promise<void>;

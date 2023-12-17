@@ -8,6 +8,7 @@ import { SocialPlatform } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
+import { isSameProfile } from '@/helpers/isSameProfile.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
@@ -26,9 +27,9 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({ post, isQu
     const isMyPost = useMemo(
         () =>
             currentSource === SocialPlatform.Lens
-                ? post.author.profileId === currentLensProfile?.profileId
-                : post.author.profileId === currentFarcasterProfile?.profileId,
-        [currentFarcasterProfile?.profileId, currentLensProfile?.profileId, currentSource, post.author.profileId],
+                ? isSameProfile(post.author, currentLensProfile)
+                : isSameProfile(post.author, currentFarcasterProfile),
+        [currentFarcasterProfile, currentLensProfile, currentSource, post.author],
     );
 
     const profileLink = getProfileUrl(post.author);

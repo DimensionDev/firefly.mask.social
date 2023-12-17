@@ -1,17 +1,19 @@
 import { Popover, Transition } from '@headlessui/react';
-import { Trans } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import { type ChangeEvent, Fragment, useRef } from 'react';
 import { useAsyncFn } from 'react-use';
 
 import ImageIcon from '@/assets/image.svg';
 import VideoIcon from '@/assets/video.svg';
+import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
 import uploadToIPFS from '@/services/uploadToIPFS.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
 
-interface MediaProps {}
-
-export default function Media(props: MediaProps) {
+interface MediaProps {
+    close: () => void;
+}
+export default function Media({ close }: MediaProps) {
     const imageInputRef = useRef<HTMLInputElement>(null);
     const videoInputRef = useRef<HTMLInputElement>(null);
 
@@ -23,6 +25,8 @@ export default function Media(props: MediaProps) {
     const updateImages = useComposeStateStore.use.updateImages();
     const updateLoading = useComposeStateStore.use.updateLoading();
 
+    const enqueueSnackbar = useCustomSnackbar();
+
     const [, handleImageChange] = useAsyncFn(
         async (event: ChangeEvent<HTMLInputElement>) => {
             const files = event.target.files;
@@ -30,6 +34,11 @@ export default function Media(props: MediaProps) {
             if (files && files.length > 0) {
                 updateLoading(true);
                 const response = await uploadToIPFS([...files]);
+                if (response.length === 0) {
+                    enqueueSnackbar(t`Failed to upload. Network error`, {
+                        variant: 'error',
+                    });
+                }
                 updateImages(
                     [
                         ...images,
@@ -41,8 +50,9 @@ export default function Media(props: MediaProps) {
                 );
                 updateLoading(false);
             }
+            close();
         },
-        [currentFarcasterProfile, images, updateImages, updateLoading],
+        [currentFarcasterProfile, images, close, updateImages, updateLoading],
     );
 
     const [, handleVideoChange] = useAsyncFn(
@@ -52,14 +62,20 @@ export default function Media(props: MediaProps) {
             if (files && files.length > 0) {
                 updateLoading(true);
                 const response = await uploadToIPFS([...files]);
+                if (response.length === 0) {
+                    enqueueSnackbar(t`Failed to upload. Network error`, {
+                        variant: 'error',
+                    });
+                }
                 updateVideo({
                     file: files[0],
                     ipfs: response[0],
                 });
                 updateLoading(false);
             }
+            close();
         },
-        [updateLoading, updateVideo],
+        [close, updateLoading, updateVideo],
     );
 
     return (

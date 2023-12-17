@@ -31,6 +31,7 @@ module.exports = {
                 primaryMain: 'var(--color-main1)',
                 secondaryMain: 'var(--color-main2)',
                 thirdMain: 'var(--color-main3)',
+                fourMain: 'var(--color-main4)',
                 third: 'var(--color-third)',
                 input: 'var(--color-input)',
                 line: 'var(--color-line)',

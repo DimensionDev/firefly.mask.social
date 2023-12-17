@@ -4,7 +4,7 @@ import type { SocialPlatform } from '@/constants/enum.js';
 import type { Session } from '@/providers/types/Session.js';
 import type { MetadataAsset } from '@/types/index.js';
 
-export enum Type {
+export enum SessionType {
     Twitter = 'Twitter',
     Warpcast = 'Warpcast',
     Lens = 'Lens',
@@ -244,7 +244,7 @@ export type Notification =
     | ActedNotification;
 
 export interface Provider {
-    type: Type;
+    type: SessionType;
 
     /**
      * Initiates the login process for the provider.

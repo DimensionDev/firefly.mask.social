@@ -14,6 +14,7 @@ import LoadingIcon from '@/assets/loading.svg';
 import WalletIcon from '@/assets/wallet.svg';
 import { AccountCard } from '@/components/Login/AccountCard.js';
 import { EMPTY_LIST } from '@/constants/index.js';
+import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
 import { AccountModalRef, ConnectWalletModalRef, LoginModalRef } from '@/modals/controls.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
@@ -25,7 +26,7 @@ interface LoginLensProps {
 }
 
 export function LoginLens({ profiles }: LoginLensProps) {
-    const [selected, setSelected] = useState<Profile>();
+    const [selectedProfile, setSelectedProfile] = useState<Profile>();
     const [signless, setSignless] = useState(true);
 
     const account = useAccount();
@@ -35,24 +36,24 @@ export function LoginLens({ profiles }: LoginLensProps) {
 
     const enqueueSnackbar = useCustomSnackbar();
 
-    const current = useMemo(() => selected ?? first(profiles), [selected, profiles]);
+    const currentProfile = useMemo(() => selectedProfile ?? first(profiles), [selectedProfile, profiles]);
 
     const [{ loading }, login] = useAsyncFn(
         async (signless: boolean) => {
-            if (!profiles?.length || !current) return;
+            if (!profiles?.length || !currentProfile) return;
 
             try {
-                const session = await LensSocialMediaProvider.createSessionForProfileId(current.profileId);
+                const session = await LensSocialMediaProvider.createSessionForProfileId(currentProfile.profileId);
 
-                if (!current.signless && signless) {
+                if (!currentProfile.signless && signless) {
                     await LensSocialMediaProvider.updateSignless(true);
                 }
-                if (current.signless && !signless) {
+                if (currentProfile.signless && !signless) {
                     await LensSocialMediaProvider.updateSignless(false);
                 }
 
                 updateProfiles(profiles);
-                updateCurrentProfile(current, session);
+                updateCurrentProfile(currentProfile, session);
                 enqueueSnackbar(t`Your Lens account is now connected`, { variant: 'success' });
                 LoginModalRef.close();
             } catch (error) {
@@ -60,20 +61,13 @@ export function LoginLens({ profiles }: LoginLensProps) {
                 return;
             }
         },
-        [profiles, current],
+        [profiles, currentProfile],
     );
 
     useEffect(() => {
-        if (!profiles.length) {
-            enqueueSnackbar(t`No Lens profile found. Please change to another wallet.`, { variant: 'error' });
-            LoginModalRef.close();
-        }
-    }, [profiles]);
-
-    useEffect(() => {
-        if (!current) return;
-        if (!current.signless) setSignless(false);
-    }, [current]);
+        if (!currentProfile) return;
+        if (!currentProfile.signless) setSignless(false);
+    }, [currentProfile]);
 
     return (
         <div
@@ -91,12 +85,13 @@ export function LoginLens({ profiles }: LoginLensProps) {
                                 <AccountCard
                                     key={profile.profileId}
                                     profile={profile}
-                                    isSelected={current?.profileId === profile.profileId}
-                                    onSelect={setSelected}
+                                    isSelected={isSameProfile(currentProfile, profile)}
+                                    onSelect={setSelectedProfile}
                                 />
                             ))}
                         </div>
-                        {current?.signless || !isSameAddress(current?.ownedBy?.address, account.address) ? null : (
+                        {currentProfile?.signless ||
+                            isSameAddress(currentProfile?.ownedBy?.address, account.address) ? null : (
                             <div className="flex w-full flex-col gap-[8px] rounded-[8px] bg-lightBg px-[16px] py-[24px]">
                                 <div className="flex items-center justify-between">
                                     <span className="text-[14px] font-bold leading-[18px] text-lightMain">
@@ -124,7 +119,8 @@ export function LoginLens({ profiles }: LoginLensProps) {
                                     </Trans>
                                 </div>
                             </div>
-                        )}
+                        )
+                        }
                     </>
                 ) : (
                     <div className="flex w-full flex-col gap-[8px] rounded-[8px] bg-lightBg px-[16px] py-[24px]">
@@ -132,7 +128,8 @@ export function LoginLens({ profiles }: LoginLensProps) {
                             <Trans>No Lens profile found. Please change to another wallet.</Trans>
                         </div>
                     </div>
-                )}
+                )
+                }
 
                 <div
                     className=" absolute bottom-0 left-0 flex w-full items-center justify-between rounded-b-[8px] bg-lightBottom80 p-[16px]"
@@ -167,7 +164,7 @@ export function LoginLens({ profiles }: LoginLensProps) {
                         )}
                     </button>
                 </div>
-            </div>
-        </div>
+            </div >
+        </div >
     );
 }

@@ -13,6 +13,9 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
+msgid "Failed to upload. Network error"
+msgstr ""
+
 msgid "Be the first one to comment!"
 msgstr ""
 
@@ -67,6 +70,9 @@ msgstr ""
 msgid "Join our Discord"
 msgstr ""
 
+msgid "Querying the signer request state."
+msgstr ""
+
 msgid "Change Wallet"
 msgstr ""
 
@@ -80,6 +86,9 @@ msgid "Debug Console"
 msgstr ""
 
 msgid "Failed to login"
+msgstr ""
+
+msgid "Offline"
 msgstr ""
 
 msgid "Not implemented yet."
@@ -277,6 +286,9 @@ msgstr ""
 msgid "Like"
 msgstr ""
 
+msgid "This can’t be undone and you’ll lose your draft."
+msgstr ""
+
 msgid "Publications"
 msgstr ""
 
@@ -388,9 +400,6 @@ msgstr ""
 msgid "Everyone can reply"
 msgstr ""
 
-msgid "This cannot be undone and you will lose your draft."
-msgstr ""
-
 msgid "Login with custody wallet"
 msgstr ""
 
@@ -416,6 +425,9 @@ msgid "This profile does not exist"
 msgstr ""
 
 msgid "<0/> commented your <1><2/></1>"
+msgstr ""
+
+msgid "Online"
 msgstr ""
 
 msgid "Unfollow"

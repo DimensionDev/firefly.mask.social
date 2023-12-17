@@ -4,18 +4,16 @@ import { useAsyncFn } from 'react-use';
 
 import LoadingIcon from '@/assets/loading.svg';
 import SendIcon from '@/assets/send.svg';
+import { CountdownCircle } from '@/components/Compose/CountdownCircle.js';
 import { classNames } from '@/helpers/classNames.js';
 import { commentPostForLens, publishPostForLens, quotePostForLens } from '@/helpers/publishPost.js';
 import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
+import { ComposeModalRef } from '@/modals/controls.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 import { useLensStateStore } from '@/store/useLensStore.js';
 
-import { CountdownCircle } from './CountdownCircle.js';
-
-interface ComposeSendProps {
-    onClose: () => void;
-}
-export default function ComposeSend({ onClose }: ComposeSendProps) {
+interface ComposeSendProps {}
+export default function ComposeSend(props: ComposeSendProps) {
     const currentLensProfile = useLensStateStore.use.currentProfile();
 
     const type = useComposeStateStore.use.type();
@@ -28,7 +26,12 @@ export default function ComposeSend({ onClose }: ComposeSendProps) {
 
     const charsLength = useMemo(() => chars.length, [chars]);
 
-    const disabled = useMemo(() => charsLength > 280, [charsLength]);
+    const disabled = useMemo(
+        () => (charsLength === 0 || charsLength > 280) && images.length === 0 && !video,
+        [charsLength, images.length, video],
+    );
+
+    const charsOverflow = useMemo(() => charsLength > 280, [charsLength]);
 
     const [{ loading }, handleSend] = useAsyncFn(async () => {
         if (currentLensProfile?.profileId) {
@@ -38,7 +41,7 @@ export default function ComposeSend({ onClose }: ComposeSendProps) {
                     enqueueSnackbar(t`Posted on Lens`, {
                         variant: 'success',
                     });
-                    onClose();
+                    ComposeModalRef.close();
                 } catch {
                     enqueueSnackbar(t`Failed to post on Lens`, {
                         variant: 'error',
@@ -53,7 +56,7 @@ export default function ComposeSend({ onClose }: ComposeSendProps) {
                     enqueueSnackbar(t`Replied on Lens`, {
                         variant: 'success',
                     });
-                    onClose();
+                    ComposeModalRef.close();
                 } catch {
                     enqueueSnackbar(t`Failed to relay on Lens. @${currentLensProfile.handle}`, {
                         variant: 'error',
@@ -68,7 +71,7 @@ export default function ComposeSend({ onClose }: ComposeSendProps) {
                     enqueueSnackbar(t`Posted on Lens`, {
                         variant: 'success',
                     });
-                    onClose();
+                    ComposeModalRef.close();
                 } catch {
                     enqueueSnackbar(t`Failed to quote on Lens. @${currentLensProfile.handle}`, {
                         variant: 'error',
@@ -76,17 +79,7 @@ export default function ComposeSend({ onClose }: ComposeSendProps) {
                 }
             }
         }
-    }, [
-        chars,
-        onClose,
-        currentLensProfile?.handle,
-        currentLensProfile?.profileId,
-        enqueueSnackbar,
-        images,
-        post,
-        type,
-        video,
-    ]);
+    }, [chars, currentLensProfile?.handle, currentLensProfile?.profileId, enqueueSnackbar, images, post, type, video]);
 
     return (
         <div className=" flex h-[68px] items-center justify-end gap-4 px-4 shadow-send">

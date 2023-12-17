@@ -9,6 +9,7 @@ import { SourceIcon } from '@/components/SourceIcon.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { Image } from '@/esm/Image.js';
 import { classNames } from '@/helpers/classNames.js';
+import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useCurrentProfiles } from '@/hooks/useCurrentProfiles.js';
@@ -65,14 +66,14 @@ export function PostByItem({ source }: PostByItemProps) {
                         <span
                             className={classNames(
                                 ' font-bold',
-                                currentProfile.profileId === profile.profileId ? ' text-secondary' : ' text-main',
+                                isSameProfile(currentProfile, profile) ? ' text-secondary' : ' text-main',
                             )}
                         >
                             @{profile.handle}
                         </span>
                     </div>
-                    {currentProfile.profileId === profile.profileId ? (
-                        <YesIcon width={40} height={40} className=" relative -right-2" />
+                    {isSameProfile(currentProfile, profile) ? (
+                        <YesIcon width={40} height={40} className=" relative -right-[10px]" />
                     ) : currentProfile.source === SocialPlatform.Lens ? (
                         <button
                             className=" font-bold text-blueBottom"
@@ -109,7 +110,9 @@ export function PostByItem({ source }: PostByItemProps) {
 
                         ComposeModalRef.close();
                         await delay(300);
-                        LoginModalRef.open();
+                        LoginModalRef.open({
+                            source,
+                        });
                     }}
                 >
                     <Trans>Log in</Trans>

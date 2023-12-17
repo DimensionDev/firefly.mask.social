@@ -36,14 +36,14 @@ import {
     type Provider,
     type Reaction,
     ReactionType,
-    Type,
+    SessionType,
 } from '@/providers/types/SocialMedia.js';
 
 export class LensSocialMedia implements Provider {
     private client = createLensClient();
 
     get type() {
-        return Type.Lens;
+        return SessionType.Lens;
     }
 
     async createSession(): Promise<LensSession> {

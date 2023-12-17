@@ -1,4 +1,5 @@
 import { parseJSON } from '@masknet/web3-providers/helpers';
+import { z } from 'zod';
 import type { PersistStorage } from 'zustand/middleware';
 
 import { SessionFactory } from '@/providers/base/SessionFactory.js';
@@ -14,18 +15,33 @@ export function createSessionStorage(): PersistStorage<SessionState> {
             const raw = localStorage.getItem(name);
             if (!raw) return null;
 
-            const parsed = parseJSON<{
+            const parsedState = parseJSON<{
                 state: {
                     currentProfileSession: string | null;
                 };
+                version: number;
             }>(raw);
-            if (!parsed) return null;
+            if (!parsedState) return null;
+
+            const schema = z.object({
+                state: z.object({
+                    currentProfileSession: z.string().nullable(),
+                }),
+                version: z.number(),
+            });
+
+            const output = schema.safeParse(parsedState);
+            if (!output.success) {
+                console.error([`[${name}] zod validation failure: ${output.error}`]);
+                return null;
+            }
 
             return {
+                ...parsedState,
                 state: {
-                    ...parsed.state,
-                    currentProfileSession: parsed.state.currentProfileSession
-                        ? SessionFactory.createSession(parsed.state.currentProfileSession)
+                    ...parsedState.state,
+                    currentProfileSession: parsedState.state.currentProfileSession
+                        ? SessionFactory.createSession(parsedState.state.currentProfileSession)
                         : null,
                 },
             };
@@ -35,6 +51,7 @@ export function createSessionStorage(): PersistStorage<SessionState> {
             localStorage.setItem(
                 name,
                 JSON.stringify({
+                    ...newValue,
                     state: {
                         ...state,
                         currentProfileSession: state.currentProfileSession

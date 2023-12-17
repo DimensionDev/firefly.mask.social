@@ -77,6 +77,21 @@ export interface NotificationResponse extends ErrorResponse {
     };
     next?: Next;
 }
+
+export interface SignedKeyRequestResponse extends ErrorResponse {
+    result: {
+        signedKeyRequest: {
+            deeplinkUrl: string;
+            state: 'pending' | 'completed' | 'approved';
+            isSponsored: boolean;
+            key: string;
+            requestFid: number;
+            token: string;
+            userFid: number;
+        };
+    };
+}
+
 export interface Recast {
     displayName: string;
     fid: number;
@@ -97,7 +112,7 @@ export interface Cast {
     parentHash: string;
     parentAuthor: Author;
     embeds?: {
-        images: Array<{
+        images?: Array<{
             type: string;
             sourceUrl: string;
             url: string;
@@ -118,7 +133,7 @@ export interface Cast {
                 userLargeImage: boolean;
             };
         }>;
-        videos: Array<{
+        videos?: Array<{
             url: string;
             type: string;
         }>;

@@ -35,14 +35,14 @@ import {
     ProfileStatus,
     type Provider,
     type Reaction,
-    Type,
+    SessionType,
 } from '@/providers/types/SocialMedia.js';
 import type { WarpcastSession } from '@/providers/warpcast/Session.js';
 
 // @ts-ignore
 export class FireflySocialMedia implements Provider {
     get type() {
-        return Type.Firefly;
+        return SessionType.Firefly;
     }
 
     async createSession(signal?: AbortSignal): Promise<WarpcastSession> {
@@ -72,7 +72,7 @@ export class FireflySocialMedia implements Provider {
 
         return {
             profileId: user.fid.toString(),
-            handle: user.username,
+            handle: user.username || user.display_name,
             displayName: user.display_name,
             pfp: user.pfp,
             followerCount: user.followers,

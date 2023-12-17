@@ -4,11 +4,21 @@ import { WARPCAST_ROOT_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { BaseSession } from '@/providers/base/Session.js';
 import type { Session } from '@/providers/types/Session.js';
-import { Type } from '@/providers/types/SocialMedia.js';
+import { SessionType } from '@/providers/types/SocialMedia.js';
 
 export class WarpcastSession extends BaseSession implements Session {
-    constructor(profileId: string, token: string, createdAt: number, expiresAt: number) {
-        super(Type.Warpcast, profileId, token, createdAt, expiresAt);
+    constructor(
+        profileId: string,
+        token: string,
+        createdAt: number,
+        expiresAt: number,
+        public signerRequestToken?: string,
+    ) {
+        super(SessionType.Warpcast, profileId, token, createdAt, expiresAt);
+    }
+
+    override serialize(): `${SessionType}:${string}:${string}` {
+        return `${super.serialize()}:${this.signerRequestToken ?? ''}`;
     }
 
     refresh(): Promise<void> {
@@ -38,5 +48,15 @@ export class WarpcastSession extends BaseSession implements Session {
 
         if (!response.result.success) throw new Error('Failed to destroy the session.');
         return;
+    }
+
+    static isGrantByPermission(session: Session | null): session is WarpcastSession & { signerRequestToken: string } {
+        if (!session) return false;
+        return session.type === SessionType.Warpcast && !(session as WarpcastSession).signerRequestToken;
+    }
+
+    static isCustodyWallet(session: Session | null): session is WarpcastSession & { signerRequestToken: undefined } {
+        if (!session) return false;
+        return session.type === SessionType.Warpcast && !!(session as WarpcastSession).signerRequestToken;
     }
 }
