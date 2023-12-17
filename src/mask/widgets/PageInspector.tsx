@@ -5,7 +5,7 @@ import { createInjectHooksRenderer } from '@masknet/plugin-infra/dom';
 
 import { MaskProviders } from '@/components/MaskProviders.js';
 import { Providers } from '@/components/Providers.js';
-import { Modals } from '@/modals/index.js';
+import { Modals } from '@/mask/modals/index.js';
 
 const GlobalInjection = createInjectHooksRenderer(
     useActivatedPluginsSiteAdaptor.visibility.useAnyMode,

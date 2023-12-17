@@ -14,7 +14,7 @@ import { ProfileStatusModal } from '@/modals/ProfileStatusModal.js';
 
 export const Modals = memo(function Modals() {
     return (
-        <div>
+        <>
             <AccountModal ref={controls.AccountModalRef.register} />
             <ChainModal ref={controls.ChainModalRef.register} />
             <ConnectWalletModal ref={controls.ConnectWalletModalRef.register} />
@@ -23,6 +23,6 @@ export const Modals = memo(function Modals() {
             <LogoutModal ref={controls.LogoutModalRef.register} />
             <PreviewImagesModal ref={controls.PreviewImageModalRef.register} />
             <ComposeModal ref={controls.ComposeModalRef.register} />
-        </div>
+        </>
     );
 });
