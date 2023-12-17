@@ -55,7 +55,6 @@ const useFarcasterStateBase = create<FarcasterState, [['zustand/persist', unknow
                     state?.clearCurrentProfile();
                     return;
                 }
-
                 if (session) {
                     warpcastClient.resumeSession(session as WarpcastSession);
                 }

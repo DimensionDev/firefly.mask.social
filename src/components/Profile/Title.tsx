@@ -7,28 +7,27 @@ import FollowButton from '@/components/Profile/FollowButton.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 interface TitleProps {
-    profile?: Profile;
+    profile: Profile;
 }
 
 export default function Title({ profile }: TitleProps) {
-    const [y, setY] = useState(0);
+    const [reached, setReached] = useState(false);
 
     const router = useRouter();
 
     const { scrollY } = useScroll();
-
-    useMotionValueEvent(scrollY, 'change', (latest) => {
-        setY(latest);
+    useMotionValueEvent(scrollY, 'change', (value) => {
+        setReached(value > 48);
     });
 
     return (
         <div className=" sticky top-0 z-10 flex h-[72px] items-center justify-between bg-white px-4 dark:bg-black">
             <div className=" flex items-center gap-7">
                 <ComeBackIcon className=" cursor-pointer text-lightMain" onClick={() => router.back()} />
-                <span className=" text-xl font-black text-lightMain">{profile?.displayName ?? '-'}</span>
+                <span className=" text-xl font-black text-lightMain">{profile.displayName ?? '-'}</span>
             </div>
 
-            {profile && y >= 48 ? <FollowButton profile={profile} /> : null}
+            {profile && reached ? <FollowButton profile={profile} /> : null}
         </div>
     );
 }
