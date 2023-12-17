@@ -91,7 +91,7 @@ export function LoginLens({ profiles }: LoginLensProps) {
                             ))}
                         </div>
                         {currentProfile?.signless ||
-                            isSameAddress(currentProfile?.ownedBy?.address, account.address) ? null : (
+                        isSameAddress(currentProfile?.ownedBy?.address, account.address) ? null : (
                             <div className="flex w-full flex-col gap-[8px] rounded-[8px] bg-lightBg px-[16px] py-[24px]">
                                 <div className="flex items-center justify-between">
                                     <span className="text-[14px] font-bold leading-[18px] text-lightMain">
@@ -121,8 +121,7 @@ export function LoginLens({ profiles }: LoginLensProps) {
                                     </Trans>
                                 </div>
                             </div>
-                        )
-                        }
+                        )}
                     </>
                 ) : (
                     <div className="flex w-full flex-col gap-[8px] rounded-[8px] bg-lightBg px-[16px] py-[24px]">
@@ -130,8 +129,7 @@ export function LoginLens({ profiles }: LoginLensProps) {
                             <Trans>No Lens profile found. Please change to another wallet.</Trans>
                         </div>
                     </div>
-                )
-                }
+                )}
 
                 <div
                     className=" absolute bottom-0 left-0 flex w-full items-center justify-between rounded-b-[8px] bg-lightBottom80 p-[16px]"
@@ -166,7 +164,7 @@ export function LoginLens({ profiles }: LoginLensProps) {
                         )}
                     </button>
                 </div>
-            </div >
-        </div >
+            </div>
+        </div>
     );
 }
