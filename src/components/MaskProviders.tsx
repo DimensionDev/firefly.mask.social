@@ -10,6 +10,7 @@ import {
     ShadowRootIsolation,
 } from '@masknet/theme';
 import { EVMWeb3ContextProvider } from '@masknet/web3-hooks-base';
+import { ProviderType } from '@masknet/web3-shared-evm';
 import { StyledEngineProvider } from '@mui/material';
 import { type PropsWithChildren, Suspense } from 'react';
 import { I18nextProvider } from 'react-i18next';
@@ -27,7 +28,12 @@ export function MaskProviders({ children }: PropsWithChildren<{}>) {
                 <StyledEngineProvider injectFirst>
                     <MaskThemeProvider useMaskIconPalette={(theme) => theme.palette.mode} useTheme={useMaskTheme}>
                         <I18nextProvider i18n={i18NextInstance}>
-                            <EVMWeb3ContextProvider account={account.address} chainId={chainId} controlled>
+                            <EVMWeb3ContextProvider
+                                account={account.address}
+                                chainId={chainId}
+                                providerType={ProviderType.CustomEvent}
+                                controlled
+                            >
                                 <SharedContextProvider>
                                     <Suspense fallback={null}>
                                         <CSSVariableInjector />

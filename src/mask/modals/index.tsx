@@ -1,4 +1,3 @@
-import { RootWeb3ContextProvider } from '@masknet/web3-hooks-base';
 import { memo } from 'react';
 
 import { ConfirmDialogComponent } from '@/maskbook/packages/shared/src/index.js';
@@ -18,7 +17,7 @@ export interface ModalProps {}
 
 export const Modals = memo(function Modals(props: ModalProps) {
     return (
-        <RootWeb3ContextProvider>
+        <>
             <ConfirmDialogComponent ref={controls.ConfirmDialog.register} />
             <WalletRiskWarningModal ref={controls.WalletRiskWarningModal.register} />
             <LeavePageConfirmModal ref={controls.LeavePageConfirmModal.register} />
@@ -32,6 +31,6 @@ export const Modals = memo(function Modals(props: ModalProps) {
             <SelectNonFungibleContractModal ref={controls.SelectNonFungibleContractModal.register} />
             <SelectFungibleTokenModal ref={controls.SelectFungibleTokenModal.register} />
             <SelectGasSettingsModal ref={controls.SelectGasSettingsModal.register} />
-        </RootWeb3ContextProvider>
+        </>
     );
 });

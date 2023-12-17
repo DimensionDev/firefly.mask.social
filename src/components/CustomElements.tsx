@@ -23,6 +23,7 @@ export default function CustomElements() {
         await import('@/mask/setup/storage.js');
         await import('@/mask/setup/wallet.js');
         await import('@/mask/setup/theme.js');
+        await import('@/mask/setup/custom-event-provider.js');
         await import('@/mask/plugin-host/enable.js');
 
         // define custom elements
