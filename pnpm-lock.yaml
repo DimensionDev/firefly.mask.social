@@ -145,6 +145,9 @@ importers:
       '@masknet/kit':
         specifier: ^0.1.3
         version: 0.1.3
+      '@masknet/stego-js':
+        specifier: 0.14.2
+        version: 0.14.2
       '@mui/material':
         specifier: 5.10.8
         version: 5.10.8(@emotion/react@11.11.1)(@emotion/styled@11.11.0)(@types/react@18.2.21)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
@@ -274,6 +277,9 @@ importers:
       tailwindcss:
         specifier: ^3.3.3
         version: 3.3.3
+      ts-results-es:
+        specifier: ^4.0.0
+        version: 4.0.0
       typescript:
         specifier: 5.2.2
         version: 5.2.2

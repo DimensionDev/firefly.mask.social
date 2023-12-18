@@ -1,10 +1,14 @@
 'use client';
-
 import { Dialog, Transition } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
+import { t } from '@lingui/macro';
+import { RedPacketMetaKey } from '@masknet/plugin-redpacket';
 import { type SingletonModalRefCreator } from '@masknet/shared-base';
 import { useSingletonModal } from '@masknet/shared-base-ui';
+import type { TypedMessageTextV1 } from '@masknet/typed-message';
 import { forwardRef, Fragment, useCallback, useState } from 'react';
+import { useAsync } from 'react-use';
+import { None } from 'ts-results-es';
 
 import LoadingIcon from '@/assets/loading.svg';
 import ComposeAction from '@/components/Compose/ComposeAction.js';
@@ -13,25 +17,50 @@ import ComposeSend from '@/components/Compose/ComposeSend.js';
 import Discard from '@/components/Compose/Discard.js';
 import withLexicalContext from '@/components/shared/lexical/withLexicalContext.js';
 import { SocialPlatform } from '@/constants/enum.js';
+import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
+import { encrypt } from '@/maskbook/packages/encryption/src/index.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
+import { steganographyEncodeImage } from '@/services/steganography.js';
+import { uploadFileToIPFS } from '@/services/uploadToIPFS.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
+
+async function throws(): Promise<never> {
+    throw new Error('Unreachable');
+}
 
 export interface ComposeModalProps {
     type?: 'compose' | 'quote' | 'reply';
     source?: SocialPlatform;
     post?: Post;
+    typedMessage?: TypedMessageTextV1 | null;
 }
 
 // { type = 'compose', post, opened, setOpened }: ComposeModalProps
 export const ComposeModal = forwardRef<SingletonModalRefCreator<ComposeModalProps>>(function Compose(_, ref) {
     const [discardOpened, setDiscardOpened] = useState(false);
 
-    const { loading, type, chars, updateType, updateSource, updatePost, clear } = useComposeStateStore();
+    const {
+        loading,
+        type,
+        chars,
+        typedMessage,
+        addImage,
+        updateType,
+        updateSource,
+        updateLoading,
+        updatePost,
+        updateTypedMessage,
+        updateImages,
+        clear,
+    } = useComposeStateStore();
+
+    const enqueueSnackbar = useCustomSnackbar();
 
     const [open, dispatch] = useSingletonModal(ref, {
         onOpen: (props) => {
             updateType(props.type || 'compose');
-            updateSource(props.source || SocialPlatform.Lens);
+            updateSource(props.source || null);
+            if (props.typedMessage) updateTypedMessage(props.typedMessage);
             if (props.post) updatePost(props.post);
         },
         onClose: () => {
@@ -46,6 +75,44 @@ export const ComposeModal = forwardRef<SingletonModalRefCreator<ComposeModalProp
             dispatch?.close();
         }
     }, [chars, dispatch]);
+
+    const { loading: encryptRedPacketLoading } = useAsync(async () => {
+        if (!typedMessage) return;
+
+        const hasRedPacketPayload = typedMessage?.meta?.has(RedPacketMetaKey);
+        if (!hasRedPacketPayload) return;
+
+        try {
+            const encrypted = await encrypt(
+                {
+                    // TODO: get the current profile data
+                    author: None,
+                    authorPublicKey: None,
+                    message: typedMessage,
+                    network: 'mask.social',
+                    target: { type: 'public' },
+                    version: -37,
+                },
+                { deriveAESKey: throws, encryptByLocalKey: throws },
+            );
+
+            const secretImage = await steganographyEncodeImage(encrypted.output);
+            const secretImageFile = new File([secretImage], 'image.png', { type: 'image/png' });
+
+            const response = await uploadFileToIPFS(secretImageFile);
+
+            updateImages([
+                {
+                    file: secretImageFile,
+                    ipfs: response,
+                },
+            ]);
+        } catch (error) {
+            enqueueSnackbar(t`Failed to create image payload.`, {
+                variant: 'error',
+            });
+        }
+    }, [typedMessage, updateImages, enqueueSnackbar]);
 
     return (
         <>
@@ -78,7 +145,7 @@ export const ComposeModal = forwardRef<SingletonModalRefCreator<ComposeModalProp
                             >
                                 <Dialog.Panel className="relative w-[600px] rounded-xl bg-bgModal shadow-popover transition-all dark:text-gray-950">
                                     {/* Loading */}
-                                    {loading ? (
+                                    {loading || encryptRedPacketLoading ? (
                                         <div className=" absolute bottom-0 left-0 right-0 top-0 z-50 flex items-center justify-center">
                                             <LoadingIcon className="animate-spin" width={24} height={24} />
                                         </div>

@@ -13,12 +13,7 @@ import { useComposeStateStore } from '@/store/useComposeStore.js';
 
 interface ComposeContentProps {}
 export default function ComposeContent(props: ComposeContentProps) {
-    const type = useComposeStateStore.use.type();
-    const post = useComposeStateStore.use.post();
-    const images = useComposeStateStore.use.images();
-    const video = useComposeStateStore.use.video();
-    const removeImage = useComposeStateStore.use.removeImage();
-    const updateVideo = useComposeStateStore.use.updateVideo();
+    const { type, post, images, video, removeImageByIndex, updateVideo } = useComposeStateStore();
 
     return (
         <div className=" p-4">
@@ -35,6 +30,8 @@ export default function ComposeContent(props: ComposeContentProps) {
                             <Trans>on Lens</Trans>
                         </div>
                     ) : null}
+
+                    {/* <PluginBadge /> */}
 
                     <Editor />
 
@@ -69,7 +66,7 @@ export default function ComposeContent(props: ComposeContentProps) {
                                                     className=" cursor-pointer"
                                                     width={18}
                                                     height={18}
-                                                    onClick={() => removeImage(index)}
+                                                    onClick={() => removeImageByIndex(index)}
                                                 />
                                             </Tooltip>
                                         </div>
