@@ -20,7 +20,8 @@ module.exports = {
                 lensPrimary: 'rgb(var(--color-lens-primary) / <alpha-value>)',
                 farcasterPrimary: 'rgb(var(--color-farcaster-primary) / <alpha-value>)',
                 // Because the secondary and bg color values are fixed alpha values in the design, the css variable is used directly.
-                secondary: 'var(--color-second)',
+                secondary: 'var(--color-secondary)',
+                second: 'var(--color-second)',
                 bg: 'var(--color-bg)',
                 bgModal: 'var(--color-bg-modal)',
                 bgModalLayer: 'rgb(var(--color-bg-modal-layer) / <alpha-value>)',

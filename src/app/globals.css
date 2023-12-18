@@ -10,10 +10,12 @@
     --color-link: 142 150 255;
     --color-bottom: 255 255 255;
     --color-secondary-success: 24 195 123;
+    --color-second: #767676;
     --color-primary-pink: 255 150 142;
     --color-danger: 255 53 69;
     --color-lens-primary: 154 227 42;
     --color-farcaster-primary: 146 80 255;
+    --color-secondary: rgba(118, 127, 141, 1);
     --color-collected: 255 150 142;
     --color-second: rgba(118, 127, 141, 1);
     --color-bottom80: rgba(255, 255, 255, 0.8);
@@ -59,6 +61,7 @@
     --color-main: 245 245 245;
     --color-link: 142 150 255;
     --color-bottom: 3 3 3;
+    --color-second: rgba(255, 255, 255, 0.78);
     --color-secondary-success: 24 195 123;
     --color-primary-pink: 255 150 142;
     --color-danger: 255 53 69;
@@ -72,7 +75,7 @@
     --color-main3: rgba(255, 255, 255, 0.11);
     --color-main4: rgba(245, 245, 245, 1);
     --color-third: rgba(255, 255, 255, 0.44);
-    --color-second: rgba(255, 255, 255, 0.78);
+    --color-secondary: rgba(255, 255, 255, 0.78);
     --color-bg: rgba(255, 255, 255, 0.08);
     --color-bg-modal: rgba(0, 0, 0);
     --color-bg-modal-layer: 217 217 217;

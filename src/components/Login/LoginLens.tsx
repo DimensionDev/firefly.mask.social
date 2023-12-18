@@ -4,7 +4,6 @@ import { Switch } from '@headlessui/react';
 import { t, Trans } from '@lingui/macro';
 import { delay } from '@masknet/kit';
 import { isSameAddress } from '@masknet/web3-shared-base';
-import { useSuspenseQuery } from '@tanstack/react-query';
 import { first } from 'lodash-es';
 import { useEffect, useMemo, useState } from 'react';
 import { useAsyncFn } from 'react-use';
@@ -13,7 +12,6 @@ import { useAccount } from 'wagmi';
 import LoadingIcon from '@/assets/loading.svg';
 import WalletIcon from '@/assets/wallet.svg';
 import { AccountCard } from '@/components/Login/AccountCard.js';
-import { EMPTY_LIST } from '@/constants/index.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
 import { AccountModalRef, ConnectWalletModalRef, LoginModalRef } from '@/modals/controls.js';
@@ -21,9 +19,11 @@ import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { useLensStateStore } from '@/store/useLensStore.js';
 
-interface LoginLensProps {}
+interface LoginLensProps {
+    profiles: Profile[];
+}
 
-export function LoginLens(props: LoginLensProps) {
+export function LoginLens({ profiles }: LoginLensProps) {
     const [selectedProfile, setSelectedProfile] = useState<Profile>();
     const [signless, setSignless] = useState(true);
 
@@ -33,14 +33,6 @@ export function LoginLens(props: LoginLensProps) {
     const updateCurrentProfile = useLensStateStore.use.updateCurrentProfile();
 
     const enqueueSnackbar = useCustomSnackbar();
-
-    const { data: profiles } = useSuspenseQuery<Profile[]>({
-        queryKey: ['lens', 'profiles', account.address],
-        queryFn: async () => {
-            if (!account.address) return EMPTY_LIST;
-            return LensSocialMediaProvider.getProfilesByAddress(account.address);
-        },
-    });
 
     const currentProfile = useMemo(() => selectedProfile ?? first(profiles), [selectedProfile, profiles]);
 
@@ -64,7 +56,7 @@ export function LoginLens(props: LoginLensProps) {
                 LoginModalRef.close();
             } catch (error) {
                 enqueueSnackbar(error instanceof Error ? error.message : t`Failed to login`, { variant: 'error' });
-                LoginModalRef.close();
+                return;
             }
         },
         [profiles, currentProfile],
@@ -84,7 +76,7 @@ export function LoginLens(props: LoginLensProps) {
                 {profiles?.length ? (
                     <>
                         <div className="flex w-full flex-col gap-[16px] rounded-[8px] bg-lightBg px-[16px] py-[24px]">
-                            <div className="w-full text-left text-[14px] leading-[16px] text-lightSecond">
+                            <div className="w-full text-left text-[14px] leading-[16px] text-second">
                                 <Trans>Sign the transaction to verify you are the owner of the selected profile</Trans>
                             </div>
                             {profiles?.map((profile) => (
@@ -120,7 +112,7 @@ export function LoginLens(props: LoginLensProps) {
                                         )}
                                     </Switch>
                                 </div>
-                                <div className="w-full text-left text-[14px] leading-[16px] text-lightSecond">
+                                <div className="w-full text-left text-[14px] leading-[16px] text-second">
                                     <Trans>
                                         Allow Lens Manager to perform actions such as posting, liking, and commenting
                                         without the need to sign each transaction
@@ -131,7 +123,7 @@ export function LoginLens(props: LoginLensProps) {
                     </>
                 ) : (
                     <div className="flex w-full flex-col gap-[8px] rounded-[8px] bg-lightBg px-[16px] py-[24px]">
-                        <div className="w-full text-left text-[14px] leading-[16px] text-lightSecond">
+                        <div className="w-full text-left text-[14px] leading-[16px] text-second">
                             <Trans>No Lens profile found. Please change to another wallet.</Trans>
                         </div>
                     </div>
@@ -145,7 +137,7 @@ export function LoginLens(props: LoginLensProps) {
                     }}
                 >
                     <button
-                        className="flex gap-[8px] py-[11px]"
+                        className="flex items-center gap-[8px] py-[11px]"
                         onClick={async () => {
                             LoginModalRef.close();
                             await delay(300);
@@ -154,13 +146,13 @@ export function LoginLens(props: LoginLensProps) {
                         }}
                     >
                         <WalletIcon width={20} height={20} />
-                        <span className=" text-[14px] font-bold leading-[18px] text-lightSecond">
+                        <span className=" text-[14px] font-bold leading-[18px] text-second">
                             <Trans>Change Wallet</Trans>
                         </span>
                     </button>
                     <button
                         disabled={loading}
-                        className=" flex w-[120px] items-center justify-center gap-[8px] rounded-[99px] bg-lightMain py-[11px] font-bold text-primaryBottom"
+                        className=" flex w-[120px] items-center justify-center gap-[8px] rounded-[99px] bg-lightMain py-[11px] text-sm font-bold text-primaryBottom"
                         onClick={() => login(signless)}
                     >
                         {loading ? (

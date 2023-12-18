@@ -35,7 +35,7 @@ export default function Display() {
                     ) : (
                         <div className="h-2 w-2" />
                     )}
-                    <div className="text-sm font-bold leading-[18px]">
+                    <div className="text-[15px] font-bold leading-[18px]">
                         <Trans>Follow System</Trans>
                     </div>
                 </div>
@@ -55,7 +55,7 @@ export default function Display() {
                     ) : (
                         <div className="h-2 w-2" />
                     )}
-                    <div className="w-[96px] text-left text-sm font-bold leading-[18px] text-slate-950">
+                    <div className="w-[96px] text-left text-[15px] font-bold leading-[18px] text-slate-950">
                         <Trans>Light mode</Trans>
                     </div>
                 </div>
@@ -75,7 +75,7 @@ export default function Display() {
                     ) : (
                         <div className="h-2 w-2" />
                     )}
-                    <div className="w-[96px] text-left text-sm font-bold leading-[18px] text-white">
+                    <div className="w-[96px] text-left text-[15px] font-bold leading-[18px] text-white">
                         <Trans>Dark mode</Trans>
                     </div>
                 </div>
