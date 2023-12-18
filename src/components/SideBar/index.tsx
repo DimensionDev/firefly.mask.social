@@ -1,6 +1,7 @@
 'use client';
 
 import { Trans } from '@lingui/macro';
+import { CrossIsolationMessages } from '@masknet/shared-base';
 import { usePathname } from 'next/navigation.js';
 import { memo, useCallback, useMemo } from 'react';
 
@@ -27,7 +28,6 @@ import { useIsMyProfile } from '@/hooks/isMyProfile.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useDarkMode } from '@/hooks/useDarkMode.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
-import { CrossIsolationMessages } from '@/maskbook/packages/shared-base/src/index.js';
 import { ComposeModalRef, LoginModalRef } from '@/modals/controls.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 

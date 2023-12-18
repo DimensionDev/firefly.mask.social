@@ -1,12 +1,12 @@
 'use client';
 
+import { CrossIsolationMessages } from '@masknet/shared-base';
 import { isTypedMessageText, makeTypedMessageText } from '@masknet/typed-message';
+import { editTypedMessageMeta } from '@masknet/typed-message-react';
 import { useEffect } from 'react';
 import { useAsync } from 'react-use';
 
 import { setPluginDebuggerMessages } from '@/mask/message-host/index.js';
-import { CrossIsolationMessages } from '@/maskbook/packages/shared-base/src/index.js';
-import { editTypedMessageMeta } from '@/maskbook/packages/typed-message/react/src/index.js';
 import { ComposeModalRef } from '@/modals/controls.js';
 
 export default function CustomElements() {

@@ -14,7 +14,7 @@ interface IUploadToArweaveResponse {
  * @returns The Arweave transaction ID.
  * @throws An error if the upload fails.
  */
-const uploadToArweave = async (data: GetPostMetaData): Promise<string> => {
+export async function uploadToArweave(data: GetPostMetaData): Promise<string> {
     try {
         const { id, success } = await fetchJSON<IUploadToArweaveResponse>(`${HEY_API_URL}/metadata`, {
             method: 'POST',
@@ -29,6 +29,4 @@ const uploadToArweave = async (data: GetPostMetaData): Promise<string> => {
     } catch {
         throw new Error('Something went wrong!');
     }
-};
-
-export default uploadToArweave;
+}

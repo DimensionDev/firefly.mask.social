@@ -2,6 +2,7 @@
 import { Dialog, Transition } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { t } from '@lingui/macro';
+import { encrypt } from '@masknet/encryption';
 import { RedPacketMetaKey } from '@masknet/plugin-redpacket';
 import { type SingletonModalRefCreator } from '@masknet/shared-base';
 import { useSingletonModal } from '@masknet/shared-base-ui';
@@ -18,7 +19,6 @@ import Discard from '@/components/Compose/Discard.js';
 import withLexicalContext from '@/components/shared/lexical/withLexicalContext.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
-import { encrypt } from '@/maskbook/packages/encryption/src/index.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { steganographyEncodeImage } from '@/services/steganography.js';
 import { uploadFileToIPFS } from '@/services/uploadToIPFS.js';

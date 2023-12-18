@@ -2,7 +2,7 @@ import { SocialPlatform } from '@/constants/enum.js';
 import { SITE_URL } from '@/constants/index.js';
 import { getPostMetaData } from '@/helpers/getPostMetaData.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
-import uploadToArweave from '@/services/uploadToArweave.js';
+import { uploadToArweave } from '@/services/uploadToArweave.js';
 import type { IPFS_MediaObject } from '@/types/index.js';
 
 export async function publishPostForLens(
