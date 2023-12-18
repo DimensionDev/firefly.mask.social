@@ -358,6 +358,12 @@ msgstr ""
 msgid "Associated Wallets"
 msgstr ""
 
+msgid "Failed to post on Farcaster: {0}"
+msgstr ""
+
+msgid "Posted on Farcaster"
+msgstr ""
+
 msgid "Follow @realMaskNetwork on X"
 msgstr ""
 

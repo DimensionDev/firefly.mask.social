@@ -7,9 +7,8 @@ import {
 } from '@masknet/shared-base';
 import { isZero } from '@masknet/web3-shared-base';
 import { HubRestAPIClient } from '@standard-crypto/farcaster-js';
-import { compact, toInteger } from 'lodash-es';
+import { compact } from 'lodash-es';
 import urlcat from 'urlcat';
-import { numberToHex } from 'viem';
 
 import { warpcastClient } from '@/configs/warpcastClient.js';
 import { SocialPlatform } from '@/constants/enum.js';
@@ -18,11 +17,11 @@ import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { formatWarpcastPost, formatWarpcastPostFromFeed } from '@/helpers/formatWarpcastPost.js';
 import { formatWarpcastUser } from '@/helpers/formatWarpcastUser.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
+import { toFid } from '@/helpers/toFid.js';
 import {
     type Notification,
     NotificationType,
     type Post,
-    type PostType,
     type Profile,
     ProfileStatus,
     type Provider,
@@ -102,7 +101,7 @@ export class WarpcastSocialMedia implements Provider {
 
     async getPostsByProfileId(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         const url = urlcat(WARPCAST_ROOT_URL, '/casts', {
-            fid: numberToHex(toInteger(profileId)),
+            fid: toFid(profileId),
             limit: 10,
             cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
         });
@@ -123,7 +122,7 @@ export class WarpcastSocialMedia implements Provider {
     }
 
     async getProfileById(profileId: string) {
-        const url = urlcat(WARPCAST_ROOT_URL, '/user', { fid: numberToHex(toInteger(profileId)) });
+        const url = urlcat(WARPCAST_ROOT_URL, '/user', { fid: toFid(profileId) });
         const res = await warpcastClient.fetch<UserDetailResponse>(url);
         const user = res.result.user;
         return formatWarpcastUser(user);
@@ -152,24 +151,20 @@ export class WarpcastSocialMedia implements Provider {
     }
 
     async isFollowedByMe(profileId: string) {
-        const url = urlcat(WARPCAST_ROOT_URL, '/user', { fid: profileId });
+        const url = urlcat(WARPCAST_ROOT_URL, '/user', { fid: toFid(profileId) });
         const {
             result: { user },
-        } = await warpcastClient.fetchWithSession<UserDetailResponse>(url, {
-            method: 'GET',
-        });
+        } = await warpcastClient.fetchWithSession<UserDetailResponse>(url);
 
         if (user.viewerContext?.following) return true;
         else return false;
     }
 
     async isFollowingMe(profileId: string) {
-        const url = urlcat(WARPCAST_ROOT_URL, '/user', { fid: profileId });
+        const url = urlcat(WARPCAST_ROOT_URL, '/user', { fid: toFid(profileId) });
         const {
             result: { user },
-        } = await warpcastClient.fetchWithSession<UserDetailResponse>(url, {
-            method: 'GET',
-        });
+        } = await warpcastClient.fetchWithSession<UserDetailResponse>(url);
 
         if (user.viewerContext?.followedBy) return true;
         else return false;
@@ -195,7 +190,7 @@ export class WarpcastSocialMedia implements Provider {
 
     async getFollowers(profileId: string, indicator?: PageIndicator) {
         const url = urlcat(WARPCAST_ROOT_URL, '/followers', {
-            fid: profileId,
+            fid: toFid(profileId),
             limit: 10,
             cursor: indicator?.id,
         });
@@ -208,7 +203,7 @@ export class WarpcastSocialMedia implements Provider {
 
     async getFollowings(profileId: string, indicator?: PageIndicator) {
         const url = urlcat(WARPCAST_ROOT_URL, '/following', {
-            fid: profileId,
+            fid: toFid(profileId),
             limit: 10,
             cursor: indicator?.id,
         });
@@ -221,7 +216,7 @@ export class WarpcastSocialMedia implements Provider {
 
     async getPostsLiked(profileId: string, indicator?: PageIndicator) {
         const url = urlcat(WARPCAST_CLIENT_URL, '/user-liked-casts', {
-            fid: profileId,
+            fid: toFid(profileId),
             limit: 25,
             cursor: indicator?.id,
         });
@@ -234,7 +229,7 @@ export class WarpcastSocialMedia implements Provider {
 
     async getPostsReplies(profileId: string, indicator?: PageIndicator) {
         const url = urlcat(WARPCAST_ROOT_URL, '/casts', {
-            fid: profileId,
+            fid: toFid(profileId),
             limit: 10,
             cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
         });
@@ -266,7 +261,7 @@ export class WarpcastSocialMedia implements Provider {
         });
 
         return {
-            type: 'Post' as PostType,
+            type: 'Post',
             source: SocialPlatform.Farcaster,
             postId: cast.hash,
             parentPostId: cast.threadHash,
@@ -294,7 +289,7 @@ export class WarpcastSocialMedia implements Provider {
                 quotes: cast.recasts.count,
                 reactions: cast.reactions.count,
             },
-        };
+        } satisfies Post;
     }
 
     async upvotePost(postId: string) {

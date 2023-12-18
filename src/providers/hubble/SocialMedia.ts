@@ -1,8 +1,9 @@
 import { Message } from '@farcaster/hub-web';
 import { t } from '@lingui/macro';
 import type { Pageable, PageIndicator } from '@masknet/shared-base';
+import { toInteger } from 'lodash-es';
 import urlcat from 'urlcat';
-import { toBytes } from 'viem';
+import { bytesToHex, toBytes } from 'viem';
 
 import { SocialPlatform } from '@/constants/enum.js';
 import { EMPTY_LIST, FIREFLY_HUBBLE_URL, FIREFLY_ROOT_URL } from '@/constants/index.js';
@@ -66,21 +67,30 @@ export class HubbleSocialMedia implements Provider {
         throw new Error('Method not implemented.');
     }
 
-    async publishPost(post: Post): Promise<Post> {
-        const { bytes } = await encodeMessageData(() => ({
+    async publishPost(post: Post, parentPost?: Post | null): Promise<Post> {
+        const { bytes } = await encodeMessageData((fid) => ({
             type: MessageType.CAST_ADD,
             castAddBody: {
-                embedsDeprecated: EMPTY_LIST,
-                mentions: EMPTY_LIST,
+                embedsDeprecated: [],
+                parentCastId: parentPost
+                    ? {
+                          fid: toInteger(parentPost.author.profileId),
+                          hash: toBytes(parentPost.postId),
+                      }
+                    : undefined,
+                parentUrl: undefined,
+                mentions: [],
                 text: post.metadata.content?.content ?? '',
-                mentionsPositions: EMPTY_LIST,
-                embeds: post.mediaObjects?.map((v) => ({ url: v.url })) ?? EMPTY_LIST,
+                mentionsPositions: [],
+                embeds: post.mediaObjects?.map((v) => ({ url: v.url })) ?? [],
             },
         }));
 
         const { data, hash } = await fetchJSON<Message>(urlcat(FIREFLY_HUBBLE_URL, '/v1/submitMessage'), {
             method: 'POST',
-            headers: { 'Content-Type': 'application/octet-stream' },
+            headers: {
+                'Content-Type': 'application/octet-stream',
+            },
             body: bytes,
         });
         if (!data) throw new Error(t`Failed to publish post`);
@@ -136,7 +146,7 @@ export class HubbleSocialMedia implements Provider {
         if (!data) throw new Error(t`Failed to upvote post`);
 
         return {
-            reactionId: messageHash,
+            reactionId: bytesToHex(messageHash),
             type: ReactionTypeCustom.Upvote,
             timestamp: messageData.timestamp,
         };
@@ -163,12 +173,17 @@ export class HubbleSocialMedia implements Provider {
         return;
     }
 
+    /**
+     * @deprecated
+     * Use publishPost with parent post instead
+     */
     async commentPost(postId: string, comment: string) {
         const { bytes } = await encodeMessageData((fid) => ({
             type: MessageType.CAST_ADD,
             castAddBody: {
                 parentCastId: {
                     hash: toBytes(postId),
+                    // TODO wrong fid, should be one of the parent cast
                     fid,
                 },
                 embedsDeprecated: EMPTY_LIST,

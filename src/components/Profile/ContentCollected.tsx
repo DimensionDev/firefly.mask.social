@@ -23,8 +23,7 @@ export default function ContentCollected({ profileId }: ContentFeedProps) {
     const currentSource = useGlobalState.use.currentSource();
     const fetchAndStoreViews = useImpressionsStore.use.fetchAndStoreViews();
     const { data, hasNextPage, fetchNextPage, isFetchingNextPage, isFetching } = useSuspenseInfiniteQuery({
-        queryKey: ['getPostsByBookmarks', currentSource],
-
+        queryKey: ['getPostsByBookmarks', currentSource, profileId],
         queryFn: async ({ pageParam }) => {
             if (!profileId) return createPageable(EMPTY_LIST, undefined);
 

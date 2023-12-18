@@ -5,7 +5,7 @@ import { t, Trans } from '@lingui/macro';
 import { delay } from '@masknet/kit';
 import { isSameAddress } from '@masknet/web3-shared-base';
 import { first } from 'lodash-es';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 import { useAccount } from 'wagmi';
 
@@ -34,7 +34,7 @@ export function LoginLens({ profiles }: LoginLensProps) {
 
     const enqueueSnackbar = useCustomSnackbar();
 
-    const currentProfile = useMemo(() => selectedProfile ?? first(profiles), [selectedProfile, profiles]);
+    const currentProfile = selectedProfile ?? first(profiles);
 
     const [{ loading }, login] = useAsyncFn(
         async (signless: boolean) => {
