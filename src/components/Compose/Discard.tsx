@@ -57,7 +57,7 @@ export default function Discard({ opened, setOpened }: DiscardProps) {
                                 </div>
 
                                 <button
-                                    className=" bottom-danger flex h-10 w-full items-center justify-center rounded-full bg-danger font-bold text-primaryBottom"
+                                    className=" bottom-danger flex h-10 w-full items-center justify-center rounded-full bg-danger font-bold text-main"
                                     onClick={() => {
                                         close();
                                         ComposeModalRef.close();

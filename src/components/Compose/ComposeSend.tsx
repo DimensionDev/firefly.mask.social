@@ -16,11 +16,7 @@ interface ComposeSendProps {}
 export default function ComposeSend(props: ComposeSendProps) {
     const currentLensProfile = useLensStateStore.use.currentProfile();
 
-    const type = useComposeStateStore.use.type();
-    const chars = useComposeStateStore.use.chars();
-    const images = useComposeStateStore.use.images();
-    const video = useComposeStateStore.use.video();
-    const post = useComposeStateStore.use.post();
+    const { type, chars, images, video, post } = useComposeStateStore();
 
     const enqueueSnackbar = useCustomSnackbar();
 

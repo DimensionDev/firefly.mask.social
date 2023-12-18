@@ -21,11 +21,7 @@ function ErrorBoundaryComponent() {
 
 interface EditorProps {}
 export default function Editor(props: EditorProps) {
-    const type = useComposeStateStore.use.type();
-    const post = useComposeStateStore.use.post();
-    const video = useComposeStateStore.use.video();
-    const images = useComposeStateStore.use.images();
-    const updateChars = useComposeStateStore.use.updateChars();
+    const { type, post, video, images, updateChars } = useComposeStateStore();
 
     const hasMediaObject = images.length > 0 || !!video;
 

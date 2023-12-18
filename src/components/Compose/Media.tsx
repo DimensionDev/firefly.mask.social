@@ -6,7 +6,7 @@ import { useAsyncFn } from 'react-use';
 import ImageIcon from '@/assets/image.svg';
 import VideoIcon from '@/assets/video.svg';
 import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
-import uploadToIPFS from '@/services/uploadToIPFS.js';
+import { uploadFilesToIPFS } from '@/services/uploadToIPFS.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
 
@@ -18,12 +18,7 @@ export default function Media({ close }: MediaProps) {
     const videoInputRef = useRef<HTMLInputElement>(null);
 
     const currentFarcasterProfile = useFarcasterStateStore.use.currentProfile();
-
-    const video = useComposeStateStore.use.video();
-    const images = useComposeStateStore.use.images();
-    const updateVideo = useComposeStateStore.use.updateVideo();
-    const updateImages = useComposeStateStore.use.updateImages();
-    const updateLoading = useComposeStateStore.use.updateLoading();
+    const { video, images, updateVideo, updateImages, updateLoading } = useComposeStateStore();
 
     const enqueueSnackbar = useCustomSnackbar();
 
@@ -33,7 +28,7 @@ export default function Media({ close }: MediaProps) {
 
             if (files && files.length > 0) {
                 updateLoading(true);
-                const response = await uploadToIPFS([...files]);
+                const response = await uploadFilesToIPFS([...files]);
                 if (response.length === 0) {
                     enqueueSnackbar(t`Failed to upload. Network error`, {
                         variant: 'error',
@@ -61,7 +56,7 @@ export default function Media({ close }: MediaProps) {
 
             if (files && files.length > 0) {
                 updateLoading(true);
-                const response = await uploadToIPFS([...files]);
+                const response = await uploadFilesToIPFS([...files]);
                 if (response.length === 0) {
                     enqueueSnackbar(t`Failed to upload. Network error`, {
                         variant: 'error',

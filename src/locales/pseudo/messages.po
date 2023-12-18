@@ -187,6 +187,9 @@ msgstr ""
 msgid "Collected"
 msgstr ""
 
+msgid "Failed to create image payload."
+msgstr ""
+
 msgid "Post by"
 msgstr ""
 

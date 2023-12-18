@@ -55,7 +55,10 @@ const getS3Client = async (): Promise<S3> => {
  * @param data Files to upload to IPFS.
  * @returns Array of MediaSet objects.
  */
-const uploadToIPFS = async (data: File[], onProgress?: (percentage: number) => void): Promise<IPFSResponse[]> => {
+export async function uploadFilesToIPFS(
+    data: File[],
+    onProgress?: (percentage: number) => void,
+): Promise<IPFSResponse[]> {
     try {
         const files = Array.from(data);
         const client = await getS3Client();
@@ -96,7 +99,7 @@ const uploadToIPFS = async (data: File[], onProgress?: (percentage: number) => v
     } catch {
         return [];
     }
-};
+}
 
 /**
  * Uploads a file to the IPFS network via S3 and returns a MediaSet object.
@@ -104,18 +107,13 @@ const uploadToIPFS = async (data: File[], onProgress?: (percentage: number) => v
  * @param file File to upload to IPFS.
  * @returns MediaSet object or null if the upload fails.
  */
-export const uploadFileToIPFS = async (
-    file: File,
-    onProgress?: (percentage: number) => void,
-): Promise<IPFSResponse> => {
+export async function uploadFileToIPFS(file: File, onProgress?: (percentage: number) => void): Promise<IPFSResponse> {
     try {
-        const ipfsResponse = await uploadToIPFS([file], onProgress);
+        const ipfsResponse = await uploadFilesToIPFS([file], onProgress);
         const metadata = ipfsResponse[0];
 
         return { uri: metadata.uri, mimeType: file.type || FALLBACK_TYPE };
     } catch {
         return { uri: '', mimeType: file.type || FALLBACK_TYPE };
     }
-};
-
-export default uploadToIPFS;
+}
