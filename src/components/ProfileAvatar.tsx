@@ -1,6 +1,5 @@
 import { Avatar } from '@/components/Avatar.js';
 import { SourceIcon } from '@/components/SourceIcon.js';
-import { Image } from '@/esm/Image.js';
 import { classNames } from '@/helpers/classNames.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 

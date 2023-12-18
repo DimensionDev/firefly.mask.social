@@ -7,6 +7,7 @@ import type { SingletonModalRefCreator } from '@masknet/shared-base';
 import { useSingletonModal } from '@masknet/shared-base-ui';
 import { useSnackbar } from 'notistack';
 import { forwardRef, Fragment, Suspense, useState } from 'react';
+import { useAccount } from 'wagmi';
 
 import CloseIcon from '@/assets/close.svg';
 import LeftArrowIcon from '@/assets/left-arrow.svg';
@@ -14,13 +15,12 @@ import LoadingIcon from '@/assets/loading.svg';
 import { LoginButton } from '@/components/Login/LoginButton.js';
 import { LoginFarcaster } from '@/components/Login/LoginFarcaster.js';
 import { LoginLens } from '@/components/Login/LoginLens.js';
-import { SocialPlatform } from '@/constants/enum.js';
-import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
-import type { Profile } from '@/providers/types/SocialMedia.js';
 import { queryClient } from '@/configs/queryClient.js';
-import { useAccount } from 'wagmi';
-import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
+import { SocialPlatform } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
+import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
+import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
+import type { Profile } from '@/providers/types/SocialMedia.js';
 
 export interface LoginModalProps {
     source?: SocialPlatform;
