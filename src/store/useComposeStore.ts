@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
 
+import { SocialPlatform } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
@@ -11,12 +12,15 @@ type OrphanPost = Omit<Post, 'embedPosts' | 'comments' | 'root' | 'commentOn' | 
 
 interface ComposeState {
     type: 'compose' | 'quote' | 'reply';
+    // If source is null, it means to post to all platforms.
+    source: SocialPlatform | null;
     post: OrphanPost | null;
     chars: string;
     video: IPFS_MediaObject | null;
     images: IPFS_MediaObject[];
     loading: boolean;
     isDraft: boolean;
+    updateSource: (source: SocialPlatform) => void;
     updateType: (type: 'compose' | 'quote' | 'reply') => void;
     updateChars: (chars: string) => void;
     updateLoading: (loading: boolean) => void;
@@ -32,6 +36,7 @@ interface ComposeState {
 const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
     immer<ComposeState>((set, get) => ({
         type: 'compose',
+        source: null,
         draft: null,
         post: null,
         chars: '',
@@ -42,6 +47,10 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
         updateType: (type: 'compose' | 'quote' | 'reply') =>
             set((state) => {
                 state.type = type;
+            }),
+        updateSource: (source: SocialPlatform | null) =>
+            set((state) => {
+                state.source = source;
             }),
         updateChars: (chars: string) =>
             set((state) => {
