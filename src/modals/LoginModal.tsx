@@ -29,6 +29,7 @@ export interface LoginModalProps {
 export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | void>>(function LoginModal(_, ref) {
     const [source, setSource] = useState<SocialPlatform>();
     const [profiles, setProfiles] = useState<Profile[]>([]);
+    const [loading, setLoading] = useState(false);
     const account = useAccount();
 
     const { enqueueSnackbar } = useSnackbar();
@@ -106,47 +107,56 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | 
                                         style={{ boxShadow: '0px 4px 30px 0px rgba(0, 0, 0, 0.10)' }}
                                     >
                                         <div className="flex w-full flex-col gap-[16px] p-[16px] ">
-                                            {getEnumAsArray(SocialPlatform).map(({ value: source }) => (
-                                                <LoginButton
-                                                    key={source}
-                                                    source={source}
-                                                    onClick={async () => {
-                                                        try {
-                                                            await getWalletClientRequired();
-                                                        } catch (error) {
-                                                            enqueueSnackbar(
-                                                                error instanceof Error
-                                                                    ? error.message
-                                                                    : t`Failed to connect wallet.`,
-                                                                { variant: 'error' },
-                                                            );
-                                                            return;
-                                                        }
-                                                        if (source === SocialPlatform.Lens) {
-                                                            const profiles = await queryClient.fetchQuery({
-                                                                queryKey: ['lens', 'profiles', account.address],
-                                                                queryFn: async () => {
-                                                                    if (!account.address) return EMPTY_LIST;
-                                                                    return LensSocialMediaProvider.getProfilesByAddress(
-                                                                        account.address,
-                                                                    );
-                                                                },
-                                                            });
-                                                            if (!profiles.length) {
+                                            {loading ? (
+                                                <div className="flex h-[324px] w-full items-center justify-center">
+                                                    <LoadingIcon className="animate-spin" width={24} height={24} />{' '}
+                                                </div>
+                                            ) : (
+                                                getEnumAsArray(SocialPlatform).map(({ value: source }) => (
+                                                    <LoginButton
+                                                        key={source}
+                                                        source={source}
+                                                        onClick={async () => {
+                                                            if (loading) return;
+                                                            try {
+                                                                await getWalletClientRequired();
+                                                            } catch (error) {
                                                                 enqueueSnackbar(
-                                                                    t`No Lens profile found. Please change to another wallet.`,
+                                                                    error instanceof Error
+                                                                        ? error.message
+                                                                        : t`Failed to connect wallet.`,
                                                                     { variant: 'error' },
                                                                 );
                                                                 return;
                                                             }
-                                                            setProfiles(profiles);
-                                                            setSource(source);
-                                                        } else {
-                                                            setSource(source);
-                                                        }
-                                                    }}
-                                                />
-                                            ))}
+                                                            if (source === SocialPlatform.Lens) {
+                                                                setLoading(true);
+                                                                const profiles = await queryClient.fetchQuery({
+                                                                    queryKey: ['lens', 'profiles', account.address],
+                                                                    queryFn: async () => {
+                                                                        if (!account.address) return EMPTY_LIST;
+                                                                        return LensSocialMediaProvider.getProfilesByAddress(
+                                                                            account.address,
+                                                                        );
+                                                                    },
+                                                                });
+                                                                setLoading(false);
+                                                                if (!profiles.length) {
+                                                                    enqueueSnackbar(
+                                                                        t`No Lens profile found. Please change to another wallet.`,
+                                                                        { variant: 'error' },
+                                                                    );
+                                                                    return;
+                                                                }
+                                                                setProfiles(profiles);
+                                                                setSource(source);
+                                                            } else {
+                                                                setSource(source);
+                                                            }
+                                                        }}
+                                                    />
+                                                ))
+                                            )}
                                         </div>
                                     </div>
                                 ) : (
