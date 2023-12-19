@@ -97,6 +97,9 @@ msgstr "Not implemented yet."
 msgid "Copied"
 msgstr "Copied"
 
+msgid "Failed to mirror on Farcaster: {0}"
+msgstr "Failed to mirror on Farcaster: {0}"
+
 msgid "comment"
 msgstr "comment"
 
@@ -247,6 +250,9 @@ msgstr "Failed to unfollow"
 msgid "No post found"
 msgstr "No post found"
 
+msgid "Failed to {0} on Farcaster: {1}"
+msgstr "Failed to {0} on Farcaster: {1}"
+
 msgid "UnLiked"
 msgstr "UnLiked"
 
@@ -357,9 +363,6 @@ msgstr "Mirrored"
 
 msgid "Associated Wallets"
 msgstr "Associated Wallets"
-
-msgid "Failed to post on Farcaster: {0}"
-msgstr "Failed to post on Farcaster: {0}"
 
 msgid "Posted on Farcaster"
 msgstr "Posted on Farcaster"
