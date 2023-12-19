@@ -3,6 +3,7 @@
 import { Trans } from '@lingui/macro';
 import { useRouter } from 'next/navigation.js';
 import { forwardRef, useState } from 'react';
+import { useAsync } from 'react-use';
 
 import EyeSlash from '@/assets/eye-slash.svg';
 import Lock from '@/assets/lock.svg';
@@ -10,6 +11,7 @@ import { Markup, NakedMarkup } from '@/components/Markup/index.js';
 import Oembed from '@/components/Oembed/index.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
+import { getEncryptedPayloadFromImageAttachment, getEncryptedPayloadFromText } from '@/helpers/getEncryptedPayload.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import removeUrlAtEnd from '@/helpers/removeUrlAtEnd.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
@@ -22,11 +24,10 @@ interface PostBodyProps {
     isQuote?: boolean;
     showMore?: boolean;
     disablePadding?: boolean;
-    postPayload?: [string, '1' | '2'];
 }
 
 export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostBody(
-    { post, isQuote = false, showMore = false, disablePadding = false, postPayload },
+    { post, isQuote = false, showMore = false, disablePadding = false },
     ref,
 ) {
     const router = useRouter();
@@ -34,6 +35,13 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
     const showAttachments = !!post.metadata.content?.attachments?.length || !!post.metadata.content?.asset;
 
     const [oembedLoaded, setOembedLoaded] = useState(false);
+
+    const { value: payload, loading } = useAsync(async () => {
+        const payloadFromText = getEncryptedPayloadFromText(post);
+        const payloadFromImageAttachment = await getEncryptedPayloadFromImageAttachment(post);
+
+        return payloadFromImageAttachment ?? payloadFromText;
+    }, [post]);
 
     if (post.isEncrypted) {
         return (
@@ -101,12 +109,12 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
             })}
             ref={ref}
         >
-            {postPayload ? (
+            {payload ? (
                 <mask-decrypted-post
                     props={encodeURIComponent(
                         JSON.stringify({
                             post,
-                            payload: postPayload,
+                            payload,
                         }),
                     )}
                 />
