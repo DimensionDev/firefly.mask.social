@@ -1,5 +1,5 @@
 import { t } from '@lingui/macro';
-import { useAsyncRetry } from 'react-use';
+import { useAsyncFn, useMount } from 'react-use';
 
 import CloseIcon from '@/assets/close.svg';
 import LoadingIcon from '@/assets/loading.svg';
@@ -21,7 +21,7 @@ export default function ComposeImage({ index, image }: ComposeImageProps) {
 
     const { images, updateImageByIndex, removeImageByIndex } = useComposeStateStore();
 
-    const { loading, error, retry } = useAsyncRetry(async () => {
+    const [{ loading, error }, handleImageUpload] = useAsyncFn(async () => {
         if (image.ipfs) return;
 
         const ipfs = await uploadFileToIPFS(image.file);
@@ -36,6 +36,10 @@ export default function ComposeImage({ index, image }: ComposeImageProps) {
             });
         }
     }, [enqueueSnackbar, image.file, index, updateImageByIndex]);
+
+    useMount(() => {
+        handleImageUpload();
+    });
 
     const len = images.length;
 
@@ -67,7 +71,7 @@ export default function ComposeImage({ index, image }: ComposeImageProps) {
                         ' absolute bottom-0 left-0 right-0 top-0 flex items-center justify-center bg-main/25 bg-opacity-30',
                         !image.ipfs && !loading ? ' cursor-pointer' : ' ',
                     )}
-                    onClick={() => !image.ipfs && !loading && retry()}
+                    onClick={() => !image.ipfs && !loading && handleImageUpload()}
                 >
                     {loading ? (
                         <LoadingIcon className={loading ? 'animate-spin' : undefined} width={24} height={24} />
