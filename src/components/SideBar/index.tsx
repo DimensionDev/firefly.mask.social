@@ -76,7 +76,7 @@ export const SideBar = memo(function SideBar() {
 
     const isLogin = useIsLogin();
     const { isDarkMode } = useDarkMode();
-    
+
     const pathname = usePathname();
     const isMyProfile = useIsMyProfile(
         currentSource,
