@@ -10,7 +10,7 @@ import { Markup, NakedMarkup } from '@/components/Markup/index.js';
 import Oembed from '@/components/Oembed/index.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
-import { getPostPayload } from '@/helpers/getPostPayload.js';
+import { getEncryptedPayloadFromText, getEncryptedPyloadFromImageAttachment } from '@/helpers/getEncryptedPayload.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import removeUrlAtEnd from '@/helpers/removeUrlAtEnd.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
@@ -94,7 +94,14 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
         );
     }
 
-    const postPayload = getPostPayload(post.metadata.content?.content);
+    const payloadFromText = getEncryptedPayloadFromText(post);
+    const payloadFromImageAttachment = getEncryptedPyloadFromImageAttachment(post);
+
+    console.log('DEBUG: payload');
+    console.log({
+        payloadFromText,
+        payloadFromImageAttachment,
+    });
 
     return (
         <div
@@ -103,12 +110,12 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
             })}
             ref={ref}
         >
-            {postPayload ? (
+            {payloadFromText ? (
                 <mask-decrypted-post
                     props={encodeURIComponent(
                         JSON.stringify({
                             post,
-                            payload: postPayload,
+                            payload: payloadFromText,
                         }),
                     )}
                 />
