@@ -10,6 +10,7 @@ import { Markup, NakedMarkup } from '@/components/Markup/index.js';
 import Oembed from '@/components/Oembed/index.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
+import { getPostPayload } from '@/helpers/getPostPayload.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import removeUrlAtEnd from '@/helpers/removeUrlAtEnd.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
@@ -22,11 +23,10 @@ interface PostBodyProps {
     isQuote?: boolean;
     showMore?: boolean;
     disablePadding?: boolean;
-    postPayload?: [string, '1' | '2'];
 }
 
 export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostBody(
-    { post, isQuote = false, showMore = false, disablePadding = false, postPayload },
+    { post, isQuote = false, showMore = false, disablePadding = false },
     ref,
 ) {
     const router = useRouter();
@@ -93,6 +93,8 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
             </div>
         );
     }
+
+    const postPayload = getPostPayload(post.metadata.content?.content);
 
     return (
         <div

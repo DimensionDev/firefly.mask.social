@@ -21,7 +21,6 @@ import { SocialPlatform } from '@/constants/enum.js';
 import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { steganographyEncodeImage } from '@/services/steganography.js';
-import { uploadFileToIPFS } from '@/services/uploadToIPFS.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 
 async function throws(): Promise<never> {
@@ -99,14 +98,22 @@ export const ComposeModal = forwardRef<SingletonModalRefCreator<ComposeModalProp
             const secretImage = await steganographyEncodeImage(encrypted.output);
             const secretImageFile = new File([secretImage], 'image.png', { type: 'image/png' });
 
-            const response = await uploadFileToIPFS(secretImageFile);
+            const fr = new FileReader();
+            fr.addEventListener('load', () => {
+                const img = document.createElement('img');
+                img.src = fr.result as string;
+                document.body.appendChild(img);
+            });
+            fr.readAsDataURL(secretImage);
 
-            updateImages([
-                {
-                    file: secretImageFile,
-                    ipfs: response,
-                },
-            ]);
+            // const response = await uploadFileToIPFS(secretImageFile);
+
+            // updateImages([
+            //     {
+            //         file: secretImageFile,
+            //         ipfs: response,
+            //     },
+            // ]);
         } catch (error) {
             enqueueSnackbar(t`Failed to create image payload.`, {
                 variant: 'error',

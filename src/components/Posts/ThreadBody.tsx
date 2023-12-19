@@ -7,7 +7,6 @@ import { FeedActionType } from '@/components/Posts/ActionType.js';
 import { PostBody } from '@/components/Posts/PostBody.js';
 import { PostHeader } from '@/components/Posts/PostHeader.js';
 import { Link } from '@/esm/Link.js';
-import { getPostPayload } from '@/helpers/getPostPayload.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { useObserveLensPost } from '@/hooks/useObserveLensPost.js';
@@ -26,7 +25,6 @@ export const ThreadBody = memo<ThreadBodyProps>(function ThreadBody({ post, disa
     const isPostPage = isRoutePathname(pathname, '/post');
 
     const link = getPostUrl(post);
-    const postPayload = getPostPayload(post.metadata.content?.content);
 
     return (
         <motion.article
@@ -37,7 +35,7 @@ export const ThreadBody = memo<ThreadBodyProps>(function ThreadBody({ post, disa
         >
             <span ref={observe} />
             <FeedActionType post={post} isThread />
-            {postPayload || isPostPage ? (
+            {isPostPage ? (
                 <div
                     onClick={(event) => {
                         if (!isPostPage) {
