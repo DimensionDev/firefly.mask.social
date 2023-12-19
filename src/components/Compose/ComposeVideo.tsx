@@ -1,6 +1,5 @@
-import { ArrowPathIcon } from '@heroicons/react/24/outline';
 import { t } from '@lingui/macro';
-import { useAsyncFn } from 'react-use';
+import { useAsyncRetry } from 'react-use';
 
 import CloseIcon from '@/assets/close.svg';
 import LoadingIcon from '@/assets/loading.svg';
@@ -16,7 +15,7 @@ export default function ComposeVideo() {
 
     const enqueueSnackbar = useCustomSnackbar();
 
-    const [{ loading, error }, handleVideoUpload] = useAsyncFn(async () => {
+    const { loading, error, retry } = useAsyncRetry(async () => {
         if (!video || video.ipfs) return;
 
         const ipfs = await uploadFileToIPFS(video.file);
@@ -43,18 +42,16 @@ export default function ComposeVideo() {
                 </Tooltip>
             </div>
 
-            {loading || error ? (
+            {!video.ipfs || loading || error ? (
                 <div
                     className={classNames(
                         ' absolute bottom-0 left-0 right-0 top-0 flex items-center justify-center bg-main/25 bg-opacity-30',
-                        !loading ? ' cursor-pointer' : ' ',
+                        !video.ipfs && !loading ? ' cursor-pointer' : ' ',
                     )}
-                    onClick={() => !loading && handleVideoUpload()}
+                    onClick={() => !video.ipfs && !loading && retry()}
                 >
                     {loading ? (
                         <LoadingIcon className={loading ? 'animate-spin' : undefined} width={24} height={24} />
-                    ) : error ? (
-                        <ArrowPathIcon fontSize={24} />
                     ) : null}
                 </div>
             ) : null}

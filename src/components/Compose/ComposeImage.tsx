@@ -1,6 +1,5 @@
-import { ArrowPathIcon } from '@heroicons/react/24/outline';
 import { t } from '@lingui/macro';
-import { useAsyncFn } from 'react-use';
+import { useAsyncRetry } from 'react-use';
 
 import CloseIcon from '@/assets/close.svg';
 import LoadingIcon from '@/assets/loading.svg';
@@ -20,9 +19,9 @@ interface ComposeImageProps {
 export default function ComposeImage({ index, image }: ComposeImageProps) {
     const enqueueSnackbar = useCustomSnackbar();
 
-    const { images, updateImages, removeImageByIndex } = useComposeStateStore();
+    const { images, updateImageByIndex, removeImageByIndex } = useComposeStateStore();
 
-    const [{ loading, error }, handleImageUpload] = useAsyncFn(async () => {
+    const { loading, error, retry } = useAsyncRetry(async () => {
         if (image.ipfs) return;
 
         const ipfs = await uploadFileToIPFS(image.file);
@@ -31,18 +30,12 @@ export default function ComposeImage({ index, image }: ComposeImageProps) {
                 variant: 'error',
             });
         } else {
-            updateImages(
-                images.map((image, i) => {
-                    return i === index
-                        ? {
-                              ...image,
-                              ipfs,
-                          }
-                        : image;
-                }),
-            );
+            updateImageByIndex(index, {
+                ...image,
+                ipfs,
+            });
         }
-    }, [enqueueSnackbar, image.file, images, index, updateImages]);
+    }, [enqueueSnackbar, image.file, index, updateImageByIndex]);
 
     const len = images.length;
 
@@ -68,18 +61,16 @@ export default function ComposeImage({ index, image }: ComposeImageProps) {
                 </Tooltip>
             </div>
 
-            {loading || error ? (
+            {!image.ipfs || loading || error ? (
                 <div
                     className={classNames(
                         ' absolute bottom-0 left-0 right-0 top-0 flex items-center justify-center bg-main/25 bg-opacity-30',
                         !image.ipfs && !loading ? ' cursor-pointer' : ' ',
                     )}
-                    onClick={() => !image.ipfs && !loading && handleImageUpload()}
+                    onClick={() => !image.ipfs && !loading && retry()}
                 >
                     {loading ? (
                         <LoadingIcon className={loading ? 'animate-spin' : undefined} width={24} height={24} />
-                    ) : error ? (
-                        <ArrowPathIcon fontSize={24} />
                     ) : null}
                 </div>
             ) : null}

@@ -107,13 +107,16 @@ export async function uploadFilesToIPFS(
  * @param file File to upload to IPFS.
  * @returns MediaSet object or null if the upload fails.
  */
-export async function uploadFileToIPFS(file: File, onProgress?: (percentage: number) => void): Promise<IPFSResponse> {
+export async function uploadFileToIPFS(
+    file: File,
+    onProgress?: (percentage: number) => void,
+): Promise<IPFSResponse | null> {
     try {
         const ipfsResponse = await uploadFilesToIPFS([file], onProgress);
         const metadata = ipfsResponse[0];
 
         return { uri: metadata.uri, mimeType: file.type || FALLBACK_TYPE };
     } catch {
-        return { uri: '', mimeType: file.type || FALLBACK_TYPE };
+        return null;
     }
 }

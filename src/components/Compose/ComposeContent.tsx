@@ -12,7 +12,7 @@ import { useComposeStateStore } from '@/store/useComposeStore.js';
 
 interface ComposeContentProps {}
 export default function ComposeContent(props: ComposeContentProps) {
-    const { type, post, images, video, removeImageByIndex, updateVideo } = useComposeStateStore();
+    const { type, post, images, video } = useComposeStateStore();
 
     return (
         <div className=" p-4">

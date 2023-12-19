@@ -31,6 +31,7 @@ interface ComposeState {
     updateVideo: (video: MediaObject | null) => void;
     updateImages: (images: MediaObject[]) => void;
     addImage: (image: MediaObject) => void;
+    updateImageByIndex: (index: number, image: MediaObject) => void;
     removeImageByIndex: (index: number) => void;
     clear: () => void;
 }
@@ -88,6 +89,12 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
         updateVideo: (video: MediaObject | null) =>
             set((state) => {
                 state.video = video;
+            }),
+        updateImageByIndex: (index: number, image: MediaObject) =>
+            set((state) => {
+                state.images = state.images.map((otherImage, i) => {
+                    return i === index ? image : otherImage;
+                });
             }),
         removeImageByIndex: (index: number) =>
             set((state) => {
