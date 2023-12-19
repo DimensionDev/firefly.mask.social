@@ -145,6 +145,9 @@ msgstr "Connect Wallet"
 msgid "Feed"
 msgstr "Feed"
 
+msgid "Follow more friends to continue exploring {0}"
+msgstr "Follow more friends to continue exploring {0}"
+
 msgid "Change account"
 msgstr "Change account"
 
@@ -234,9 +237,6 @@ msgstr "Failed to unmirror post"
 
 msgid "Method not implemented."
 msgstr "Method not implemented."
-
-msgid "Follow more friends to continue exploring {currentSource}"
-msgstr "Follow more friends to continue exploring {currentSource}"
 
 msgid "Malformed session."
 msgstr "Malformed session."

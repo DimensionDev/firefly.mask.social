@@ -145,6 +145,9 @@ msgstr ""
 msgid "Feed"
 msgstr ""
 
+msgid "Follow more friends to continue exploring {0}"
+msgstr ""
+
 msgid "Change account"
 msgstr ""
 
@@ -233,9 +236,6 @@ msgid "Failed to unmirror post"
 msgstr ""
 
 msgid "Method not implemented."
-msgstr ""
-
-msgid "Follow more friends to continue exploring {currentSource}"
 msgstr ""
 
 msgid "Malformed session."
