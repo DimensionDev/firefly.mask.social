@@ -2,7 +2,7 @@
 
 import { Trans } from '@lingui/macro';
 import { usePathname } from 'next/navigation.js';
-import { memo, useCallback, useMemo } from 'react';
+import { memo, useMemo } from 'react';
 
 import DiscoverSelectedIcon from '@/assets/discover.selected.svg';
 import DiscoverIcon from '@/assets/discover.svg';
@@ -85,10 +85,8 @@ export const SideBar = memo(function SideBar() {
 
     const isMyProfile = useIsMyProfile(currentSource, handleOrProfileId);
 
-    const checkIsSelected = useCallback(
-        (href: `/${string}`) => (href === PageRoutes.Profile ? isMyProfile : isRoutePathname(pathname, href)),
-        [isMyProfile, pathname],
-    );
+    const checkIsSelected = (href: `/${string}`) =>
+        href === PageRoutes.Profile ? isMyProfile : isRoutePathname(pathname, href);
 
     return (
         <>
