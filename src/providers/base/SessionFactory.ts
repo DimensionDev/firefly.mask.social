@@ -59,6 +59,8 @@ export class SessionFactory {
                     throw new Error(t`Not implemented yet.`);
                 case SessionType.Firefly:
                     throw new Error(t`Not implemented yet.`);
+                case SessionType.Farcaster:
+                    throw new Error(t`Not implemented yet.`);
                 default:
                     safeUnreachable(type);
                     throw new Error(t`Unknown session type.`);

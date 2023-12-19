@@ -14,6 +14,7 @@ import { SinglePost } from '@/components/Posts/SinglePost.js';
 import { ProfileInList } from '@/components/Search/ProfileInList.js';
 import { useSearchState } from '@/components/Search/useSearchState.js';
 import { SearchType, SocialPlatform } from '@/constants/enum.js';
+import { FarcasterSocialMediaProvider } from '@/providers/farcaster/index.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import type { Post, Profile } from '@/providers/types/SocialMedia.js';
@@ -36,7 +37,7 @@ export default function Page() {
                     case SocialPlatform.Lens:
                         return LensSocialMediaProvider.searchProfiles(keyword, indicator);
                     case SocialPlatform.Farcaster:
-                        return WarpcastSocialMediaProvider.searchProfiles(keyword, indicator);
+                        return FarcasterSocialMediaProvider.searchProfiles(keyword, indicator);
                     default:
                         safeUnreachable(currentSource);
                         return;

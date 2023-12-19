@@ -10,8 +10,8 @@ import { SinglePost } from '@/components/Posts/SinglePost.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { createPageTitle } from '@/helpers/createPageTitle.js';
 import { resolveSource, type SourceInURL } from '@/helpers/resolveSource.js';
+import { FarcasterSocialMediaProvider } from '@/providers/farcaster/index.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
-import { WarpcastSocialMediaProvider } from '@/providers/warpcast/SocialMedia.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 
 interface PostPageProps {
@@ -36,7 +36,7 @@ export default function PostPage({ params: { id: postId, source: _source } }: Po
                     return post;
                 }
                 case SocialPlatform.Farcaster: {
-                    const post = await WarpcastSocialMediaProvider.getPostById(postId);
+                    const post = await FarcasterSocialMediaProvider.getPostById(postId);
                     return post;
                 }
                 default:

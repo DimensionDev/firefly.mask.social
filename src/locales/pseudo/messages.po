@@ -271,6 +271,9 @@ msgstr ""
 msgid "Post your reply"
 msgstr ""
 
+msgid "wrong session type"
+msgstr ""
+
 msgid "Post has been encrypted"
 msgstr ""
 
