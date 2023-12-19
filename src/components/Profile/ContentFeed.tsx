@@ -12,22 +12,21 @@ import { SinglePost } from '@/components/Posts/SinglePost.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/index.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
-import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 
 interface ContentFeedProps {
     profileId: string;
+    source: SocialPlatform;
 }
-export default function ContentFeed({ profileId }: ContentFeedProps) {
-    const currentSource = useGlobalState.use.currentSource();
+export default function ContentFeed({ profileId, source }: ContentFeedProps) {
     const fetchAndStoreViews = useImpressionsStore.use.fetchAndStoreViews();
     const { data, hasNextPage, fetchNextPage, isFetchingNextPage, isFetching } = useSuspenseInfiniteQuery({
-        queryKey: ['getPostsByProfileId', currentSource, profileId],
+        queryKey: ['getPostsByProfileId', source, profileId],
 
         queryFn: async ({ pageParam }) => {
             if (!profileId) return createPageable([], undefined);
 
-            switch (currentSource) {
+            switch (source) {
                 case SocialPlatform.Lens:
                     const result = await LensSocialMediaProvider.getPostsByProfileId(
                         profileId,
@@ -43,7 +42,7 @@ export default function ContentFeed({ profileId }: ContentFeedProps) {
                         createIndicator(undefined, pageParam),
                     );
                 default:
-                    safeUnreachable(currentSource);
+                    safeUnreachable(source);
                     return createPageable(EMPTY_LIST, undefined);
             }
         },

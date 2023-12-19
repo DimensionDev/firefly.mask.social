@@ -13,21 +13,20 @@ import { SocialPlatform } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/index.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
-import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 
 interface ContentFeedProps {
     profileId: string;
+    source: SocialPlatform;
 }
-export default function ContentCollected({ profileId }: ContentFeedProps) {
-    const currentSource = useGlobalState.use.currentSource();
+export default function ContentCollected({ profileId, source }: ContentFeedProps) {
     const fetchAndStoreViews = useImpressionsStore.use.fetchAndStoreViews();
     const { data, hasNextPage, fetchNextPage, isFetchingNextPage, isFetching } = useSuspenseInfiniteQuery({
-        queryKey: ['getPostsByBookmarks', currentSource, profileId],
+        queryKey: ['getPostsByBookmarks', source, profileId],
         queryFn: async ({ pageParam }) => {
             if (!profileId) return createPageable(EMPTY_LIST, undefined);
 
-            switch (currentSource) {
+            switch (source) {
                 case SocialPlatform.Lens:
                     const posts = await LensSocialMediaProvider.getPostsByCollected(
                         profileId,
@@ -43,7 +42,7 @@ export default function ContentCollected({ profileId }: ContentFeedProps) {
                         createIndicator(undefined, pageParam),
                     );
                 default:
-                    safeUnreachable(currentSource);
+                    safeUnreachable(source);
                     return createPageable(EMPTY_LIST, undefined);
             }
         },
