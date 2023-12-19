@@ -27,7 +27,6 @@ import { SocialPlatform } from '@/constants/enum.js';
 import { formatLensPost, formatLensPostByFeed, formatLensQuoteOrComment } from '@/helpers/formatLensPost.js';
 import { formatLensProfile } from '@/helpers/formatLensProfile.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
-import { toFid } from '@/helpers/toFid.js';
 import { LensSession } from '@/providers/lens/Session.js';
 import {
     type Notification,
@@ -362,7 +361,7 @@ export class LensSocialMedia implements Provider {
     async getPostsByCollected(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         const result = await this.client.publication.fetchAll({
             where: {
-                actedBy: toFid(profileId),
+                actedBy: profileId,
                 publicationTypes: [PublicationType.Post, PublicationType.Comment, PublicationType.Mirror],
             },
             cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
@@ -378,7 +377,7 @@ export class LensSocialMedia implements Provider {
     async getPostsByProfileId(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         const result = await this.client.publication.fetchAll({
             where: {
-                from: [toFid(profileId)],
+                from: [profileId],
                 metadata: null,
                 publicationTypes: [PublicationType.Post, PublicationType.Mirror, PublicationType.Quote],
             },
@@ -396,7 +395,7 @@ export class LensSocialMedia implements Provider {
     async getPostsBeMentioned(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post>> {
         const result = await this.client.publication.fetchAll({
             where: {
-                from: [toFid(profileId)],
+                from: [profileId],
             },
         });
 
@@ -410,7 +409,7 @@ export class LensSocialMedia implements Provider {
     async getPostsLiked(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post>> {
         const result = await this.client.publication.fetchAll({
             where: {
-                actedBy: toFid(profileId),
+                actedBy: profileId,
             },
             cursor: indicator?.id,
         });
@@ -425,7 +424,7 @@ export class LensSocialMedia implements Provider {
     async getPostsReplies(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post>> {
         const result = await this.client.publication.fetchAll({
             where: {
-                from: [toFid(profileId)],
+                from: [profileId],
                 publicationTypes: [PublicationType.Comment],
             },
             cursor: indicator?.id,

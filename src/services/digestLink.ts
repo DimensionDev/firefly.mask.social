@@ -2,7 +2,13 @@ import sizeOf from 'image-size';
 import { parseHTML } from 'linkedom';
 import urlcat from 'urlcat';
 
-import { MIRROR_HOSTNAME_REGEXP, WARPCAST_CONVERSATIONS_REGEX, WARPCAST_THREAD_REGEX } from '@/constants/regex.js';
+import {
+    LENS_DETAIL_REGEX,
+    MASK_SOCIAL_DETAIL_REGEX,
+    MIRROR_HOSTNAME_REGEXP,
+    WARPCAST_CONVERSATIONS_REGEX,
+    WARPCAST_THREAD_REGEX,
+} from '@/constants/regex.js';
 import {
     generateIframe,
     getDescription,
@@ -13,7 +19,8 @@ import {
     getTitle,
 } from '@/helpers/getMetadata.js';
 import { getFarcasterPayload, getMirrorPayload } from '@/helpers/getPayload.js';
-import type { FarcasterPayload, MirrorPayload } from '@/types/og.js';
+import type { SourceInURL } from '@/helpers/resolveSource.js';
+import { type FarcasterPayload, type MirrorPayload, OpenGraphPayloadSourceType, type PostPayload } from '@/types/og.js';
 
 export interface OpenGraphImage {
     url: string;
@@ -37,7 +44,7 @@ export interface OpenGraph {
 
 export interface LinkDigest {
     og: OpenGraph;
-    payload?: MirrorPayload | FarcasterPayload | null;
+    payload?: MirrorPayload | FarcasterPayload | PostPayload | null;
 }
 
 export async function digestImageUrl(url: string): Promise<OpenGraphImage | null> {
@@ -92,6 +99,31 @@ export async function digestLink(link: string): Promise<LinkDigest> {
         return {
             og,
             payload: getFarcasterPayload(document),
+        };
+    } else if (LENS_DETAIL_REGEX.test(link)) {
+        const id = link.match(/\/posts\/([^/]+)/)?.[1];
+        if (!id) return { og };
+        return {
+            og,
+            payload: {
+                type: OpenGraphPayloadSourceType.Post,
+                id,
+                source: 'lens',
+            },
+        };
+    } else if (MASK_SOCIAL_DETAIL_REGEX.test(link)) {
+        const match = link.match(MASK_SOCIAL_DETAIL_REGEX);
+        const source = match ? match[1] : null;
+        const id = match ? match[2] : null;
+
+        if (!id || !source) return { og };
+        return {
+            og,
+            payload: {
+                type: OpenGraphPayloadSourceType.Post,
+                id,
+                source: source as SourceInURL,
+            },
         };
     }
 

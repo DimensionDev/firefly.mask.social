@@ -40,4 +40,8 @@ self.addEventListener('message', (event) => {
 
 self.addEventListener('activate', (event) => event.waitUntil(handleActivate()));
 
+self.addEventListener('install', (event) => {
+    self.skipWaiting();
+});
+
 export {};

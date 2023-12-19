@@ -222,6 +222,18 @@ export function formatLensQuoteOrComment(result: CommentBaseFragment | PostFragm
 
     const mediaObjects = getMediaObjects(result.metadata);
 
+    const stats =
+        result.__typename === 'Post'
+            ? {
+                  comments: result.stats.comments,
+                  mirrors: result.stats.mirrors,
+                  quotes: result.stats.quotes,
+                  reactions: result.stats.upvoteReactions,
+                  bookmarks: result.stats.bookmarks,
+                  countOpenActions: result.stats.countOpenActions,
+              }
+            : undefined;
+
     return {
         type: result.__typename,
         source: SocialPlatform.Lens,
@@ -236,6 +248,7 @@ export function formatLensQuoteOrComment(result: CommentBaseFragment | PostFragm
             content: formatContent(result.metadata),
             contentURI: result.metadata.rawURI,
         },
+        stats,
         __original__: result,
     };
 }
@@ -245,6 +258,15 @@ export function formatLensPost(result: AnyPublicationFragment): Post {
     const timestamp = new Date(result.createdAt).getTime();
 
     if (result.__typename === 'Mirror') {
+        const mediaObjects = getMediaObjects(result.mirrorOn.metadata);
+
+        const content = formatContent(result.mirrorOn.metadata);
+
+        const oembedUrl = last(content?.content.match(URL_REGEX) || []);
+
+        const canAct =
+            !!result.mirrorOn.openActionModules?.length &&
+            result.mirrorOn.openActionModules?.some((openAction) => allowedTypes.includes(openAction.type));
         return {
             type: result.__typename,
             postId: result.id,
@@ -252,11 +274,16 @@ export function formatLensPost(result: AnyPublicationFragment): Post {
             author: profile,
             isHidden: result.isHidden,
             source: SocialPlatform.Lens,
+            mediaObjects,
             metadata: {
-                locale: '',
-                content: null,
-                contentURI: '',
+                locale: result.mirrorOn.metadata.locale,
+                content: {
+                    ...content,
+                    oembedUrl,
+                },
+                contentURI: result.mirrorOn.metadata.rawURI,
             },
+            canAct,
             __original__: result,
         };
     }
@@ -386,9 +413,11 @@ export function formatLensPostByFeed(result: FeedItemFragment): Post {
     const post = formatLensPost(firstComment || result.root);
     const mirrors = result.mirrors.map((x) => formatLensProfile(x.by));
     const reactions = result.reactions.map((x) => formatLensProfile(x.by));
+    const comments = result.comments.map((x) => formatLensPost(x));
 
     return {
         ...post,
+        comments,
         mirrors,
         reactions,
         commentOn: firstComment ? formatLensPost(result.root) : undefined,

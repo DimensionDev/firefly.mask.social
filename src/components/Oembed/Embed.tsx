@@ -1,6 +1,5 @@
-import { openWindow } from '@masknet/shared-base-ui';
-
 import { Image } from '@/esm/Image.js';
+import { Link } from '@/esm/Link.js';
 import type { OpenGraph } from '@/services/digestLink.js';
 
 interface EmbedProps {
@@ -10,15 +9,7 @@ interface EmbedProps {
 export default function Embed({ og }: EmbedProps) {
     return (
         <div className="mt-4 text-sm">
-            <div
-                onClick={(event) => {
-                    event.stopPropagation();
-                    openWindow(og.url, og.url.includes(location.host) ? '_self' : '_blank', {
-                        referrer: false,
-                        opener: false,
-                    });
-                }}
-            >
+            <Link href={og.url} target={og.url.includes(location.host) ? '_self' : '_blank'} rel="noreferrer noopener">
                 <div className=" rounded-xl border bg-white dark:border-gray-700 dark:bg-black">
                     {og.isLarge && og.image ? (
                         <Image
@@ -66,7 +57,7 @@ export default function Embed({ og }: EmbedProps) {
                         </div>
                     </div>
                 </div>
-            </div>
+            </Link>
         </div>
     );
 }

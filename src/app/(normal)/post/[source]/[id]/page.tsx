@@ -8,12 +8,16 @@ import { useDocumentTitle } from 'usehooks-ts';
 import { CommentList } from '@/components/Comments/index.js';
 import { SinglePost } from '@/components/Posts/SinglePost.js';
 import { SocialPlatform } from '@/constants/enum.js';
+import { dynamic } from '@/esm/dynamic.js';
 import { createPageTitle } from '@/helpers/createPageTitle.js';
 import { resolveSource, type SourceInURL } from '@/helpers/resolveSource.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/index.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 
+const PostActions = dynamic(() => import('@/components/Actions/index.js').then((module) => module.PostActions), {
+    ssr: false,
+});
 interface PostPageProps {
     params: { id: string; source: SourceInURL };
 }
@@ -51,7 +55,13 @@ export default function PostPage({ params: { id: postId, source: _source } }: Po
     if (!data) return;
     return (
         <div>
-            <SinglePost post={data} disableAnimate />
+            <SinglePost post={data} disableAnimate isDetail />
+            <PostActions
+                disablePadding
+                post={data}
+                disabled={data?.isHidden}
+                className="!mt-0 border-b border-secondaryLine px-4 py-3"
+            />
             {/* TODO: Compose Comment Input */}
             <CommentList postId={postId} source={currentSource} />
         </div>

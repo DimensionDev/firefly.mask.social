@@ -35,7 +35,23 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | 
     const { enqueueSnackbar } = useSnackbar();
 
     const [open, dispatch] = useSingletonModal(ref, {
-        onOpen: (props) => {
+        onOpen: async (props) => {
+            if (props?.source === SocialPlatform.Lens) {
+                setLoading(true);
+                const profiles = await queryClient.fetchQuery({
+                    queryKey: ['lens', 'profiles', account.address],
+                    queryFn: async () => {
+                        if (!account.address) return EMPTY_LIST;
+                        return LensSocialMediaProvider.getProfilesByAddress(account.address);
+                    },
+                });
+                setLoading(false);
+                if (!profiles.length) {
+                    enqueueSnackbar(t`No Lens profile found. Please change to another wallet.`, { variant: 'error' });
+                    return;
+                }
+                setProfiles(profiles);
+            }
             setSource(props?.source);
         },
         onClose: async () => {

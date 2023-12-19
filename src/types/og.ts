@@ -1,8 +1,10 @@
+import type { SourceInURL } from '@/helpers/resolveSource.js';
 import type { Cast } from '@/providers/types/Warpcast.js';
 
 export enum OpenGraphPayloadSourceType {
     Mirror = 'Mirror',
     Farcaster = 'Farcaster',
+    Post = 'Post',
 }
 
 export interface MirrorPayload {
@@ -16,4 +18,10 @@ export interface MirrorPayload {
 export interface FarcasterPayload {
     type: OpenGraphPayloadSourceType.Farcaster;
     cast: Cast;
+}
+
+export interface PostPayload {
+    type: OpenGraphPayloadSourceType.Post;
+    id: string;
+    source: SourceInURL;
 }

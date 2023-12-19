@@ -59,34 +59,32 @@ export const Comment = memo<CommentProps>(function Comment({
     }, [isLogin, canComment, post, enqueueSnackbar, author, source]);
 
     return (
-        <>
-            <div
-                className={classNames('flex items-center space-x-2', {
-                    'cursor-not-allowed': disabled,
-                    'opacity-50': disabled,
-                })}
+        <div
+            className={classNames('flex items-center space-x-2', {
+                'cursor-not-allowed': disabled,
+                'opacity-50': disabled,
+            })}
+            onClick={(event) => {
+                event.preventDefault();
+                event.stopPropagation();
+            }}
+        >
+            <motion.button
+                disabled={disabled}
+                whileTap={{ scale: 0.9 }}
+                className={'rounded-full p-1.5 text-main hover:bg-bg focus:outline-none focus-visible:outline-none'}
                 onClick={(event) => {
                     event.preventDefault();
                     event.stopPropagation();
+                    if (!disabled) handleClick();
                 }}
+                aria-label="Comment"
             >
-                <motion.button
-                    disabled={disabled}
-                    whileTap={{ scale: 0.9 }}
-                    className={'rounded-full p-1.5 text-main hover:bg-bg'}
-                    onClick={(event) => {
-                        event.preventDefault();
-                        event.stopPropagation();
-                        if (!disabled) handleClick();
-                    }}
-                    aria-label="Comment"
-                >
-                    <Tooltip disabled={disabled} placement="top" content={tooltip}>
-                        <ReplyIcon width={16} height={16} />
-                    </Tooltip>
-                </motion.button>
-                {count ? <span className="text-xs font-medium text-main">{nFormatter(count)}</span> : null}
-            </div>
-        </>
+                <Tooltip disabled={disabled} placement="top" content={tooltip}>
+                    <ReplyIcon width={16} height={16} />
+                </Tooltip>
+            </motion.button>
+            {count ? <span className="text-xs font-medium text-main">{nFormatter(count)}</span> : null}
+        </div>
     );
 });

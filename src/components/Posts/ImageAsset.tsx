@@ -1,6 +1,4 @@
 'use client';
-import { isGreaterThan } from '@masknet/web3-shared-base';
-import { divide } from 'lodash-es';
 import { type ImgHTMLAttributes, memo, type SyntheticEvent, useCallback, useState } from 'react';
 
 import { Image } from '@/components/Image.js';
@@ -11,16 +9,23 @@ export const ImageAsset = memo<ImgHTMLAttributes<HTMLImageElement>>(function Ima
     const mounted = useMounted();
 
     const handleLoad = useCallback((event: SyntheticEvent<HTMLImageElement>) => {
-        const width = event.currentTarget.naturalWidth;
-        const height = event.currentTarget.naturalHeight;
-        const ratio = divide(width, height);
-
-        if (isGreaterThan(ratio, 3 / 4) && isGreaterThan(4 / 3, ratio)) return;
+        const height = event.currentTarget.height;
+        if (height < 288 || height > 682) {
+            setImageProps({
+                style: {
+                    aspectRatio: '16 / 9',
+                    objectFit: 'cover',
+                    minHeight: 288,
+                    maxHeight: 682,
+                },
+            });
+            return;
+        }
 
         setImageProps({
             style: {
-                aspectRatio: '16 / 9',
-                objectFit: 'cover',
+                minHeight: 288,
+                maxHeight: 682,
             },
         });
     }, []);

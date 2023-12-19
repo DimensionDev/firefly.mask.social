@@ -145,6 +145,9 @@ msgstr ""
 msgid "Feed"
 msgstr ""
 
+msgid "Follow more friends to continue exploring {0}"
+msgstr ""
+
 msgid "Change account"
 msgstr ""
 
@@ -173,6 +176,9 @@ msgid "Hashtag"
 msgstr ""
 
 msgid "Search Filter"
+msgstr ""
+
+msgid "and"
 msgstr ""
 
 msgid "Failed to fetch as Text."
@@ -271,6 +277,9 @@ msgstr ""
 msgid "Post your reply"
 msgstr ""
 
+msgid "liked"
+msgstr ""
+
 msgid "wrong session type"
 msgstr ""
 
@@ -290,6 +299,9 @@ msgid "Farcaster"
 msgstr ""
 
 msgid "Replying to"
+msgstr ""
+
+msgid "commented"
 msgstr ""
 
 msgid "What's happening..."
@@ -361,6 +373,9 @@ msgstr ""
 msgid "Posted on Lens"
 msgstr ""
 
+msgid "{0, plural, =0 {Mirror or Quote} zero {Mirror or Quote} one {Mirror or Quote} other {Mirrors or Quotes}}"
+msgstr ""
+
 msgid "Mirrored"
 msgstr ""
 
@@ -430,6 +445,9 @@ msgstr ""
 msgid "Log out all"
 msgstr ""
 
+msgid "{0} and others"
+msgstr ""
+
 msgid "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code"
 msgstr ""
 
@@ -437,9 +455,6 @@ msgid "Unknown session type."
 msgstr ""
 
 msgid "This profile does not exist"
-msgstr ""
-
-msgid "<0/> commented your <1><2/></1>"
 msgstr ""
 
 msgid "Online"
@@ -478,9 +493,6 @@ msgstr ""
 msgid "No matching users"
 msgstr ""
 
-msgid "Mirror and Quote"
-msgstr ""
-
 msgid "Log in to Farcaster account"
 msgstr ""
 
@@ -500,6 +512,9 @@ msgid "Add a comment"
 msgstr ""
 
 msgid "Profiles"
+msgstr ""
+
+msgid "<0/> commented on your <1><2/></1>"
 msgstr ""
 
 msgid "Recast"

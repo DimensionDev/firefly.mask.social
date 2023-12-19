@@ -21,6 +21,7 @@ import { SourceIcon } from '@/components/SourceIcon.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
+import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { type Notification, NotificationType, type PostType } from '@/providers/types/SocialMedia.js';
 
@@ -165,7 +166,7 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
                 const author = notification.comment.author;
                 return (
                     <Trans>
-                        <ProfileLink profile={author} /> commented your{' '}
+                        <ProfileLink profile={author} /> commented on your{' '}
                         <strong>
                             <PostTypeI18N type={notification.comment.commentOn.type} />
                         </strong>
@@ -266,12 +267,13 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
             case NotificationType.Mention:
                 const post = notification.type === NotificationType.Comment ? notification.comment : notification.post;
                 if (!post) return;
+                const postLink = getPostUrl(post);
                 return (
-                    <div className="mt-1">
+                    <Link className="mt-1" href={postLink}>
                         <Markup post={post} className="markup linkify text-md line-clamp-5 break-words">
                             {post.metadata.content?.content || ''}
                         </Markup>
-                    </div>
+                    </Link>
                 );
             case NotificationType.Quote:
                 return (

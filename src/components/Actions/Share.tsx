@@ -25,7 +25,7 @@ export const Share = memo<ShareProps>(function Collect({ url, disabled = false }
 
     return (
         <div
-            className={classNames('flex items-center space-x-2 text-main', {
+            className={classNames('flex flex-auto items-center space-x-2 self-auto justify-self-auto text-main', {
                 'opacity-50': disabled,
             })}
             onClick={(event) => {
