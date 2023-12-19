@@ -1,6 +1,7 @@
 import { Trans } from '@lingui/macro';
 import { useState } from 'react';
 
+import type { SocialPlatform } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 
 import ContentCollected from './ContentCollected.js';
@@ -13,8 +14,9 @@ enum TabEnum {
 
 interface ContentTabsProps {
     profileId: string;
+    source: SocialPlatform;
 }
-export default function ContentTabs({ profileId }: ContentTabsProps) {
+export default function ContentTabs({ profileId, source }: ContentTabsProps) {
     const [tab, setTab] = useState<TabEnum>(TabEnum.Feed);
 
     return (
@@ -41,9 +43,9 @@ export default function ContentTabs({ profileId }: ContentTabsProps) {
                 ))}
             </div>
 
-            {tab === TabEnum.Feed && <ContentFeed profileId={profileId} />}
+            {tab === TabEnum.Feed && <ContentFeed source={source} profileId={profileId} />}
 
-            {tab === TabEnum.Collected && <ContentCollected profileId={profileId} />}
+            {tab === TabEnum.Collected && <ContentCollected source={source} profileId={profileId} />}
         </>
     );
 }

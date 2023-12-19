@@ -66,7 +66,7 @@ export default function ProfilePage({ params: { source: _source, id: handleOrPro
 
             <Info profile={profile} isMyProfile={isMyProfile} />
 
-            <ContentTabs profileId={profile.profileId} />
+            <ContentTabs source={profile.source} profileId={profile.profileId} />
         </div>
     );
 }
