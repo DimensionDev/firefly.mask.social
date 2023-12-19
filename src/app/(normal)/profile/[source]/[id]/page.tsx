@@ -13,7 +13,7 @@ import Title from '@/components/Profile/Title.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { createPageTitle } from '@/helpers/createPageTitle.js';
 import { resolveSource, type SourceInURL } from '@/helpers/resolveSource.js';
-import { useIsMyProfile } from '@/hooks/isMyProfile.js';
+import { useIsMyProfile } from '@/hooks/useIsMyProfile.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/index.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 

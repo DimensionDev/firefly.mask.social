@@ -4,7 +4,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 
 import { SocialPlatform } from '@/constants/enum.js';
-import { useIsMyProfile } from '@/hooks/isMyProfile.js';
+import { useIsMyProfile } from '@/hooks/useIsMyProfile.js';
 import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
 import { useIsFollowing } from '@/hooks/useIsFollowing.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';

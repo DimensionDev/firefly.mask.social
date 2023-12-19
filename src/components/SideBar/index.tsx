@@ -23,7 +23,7 @@ import { PageRoutes } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
-import { useIsMyProfile } from '@/hooks/isMyProfile.js';
+import { useIsMyProfile } from '@/hooks/useIsMyProfile.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useDarkMode } from '@/hooks/useDarkMode.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
