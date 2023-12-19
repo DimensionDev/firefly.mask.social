@@ -4,10 +4,10 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 
 import { SocialPlatform } from '@/constants/enum.js';
-import { useIsMyProfile } from '@/hooks/isMyProfile.js';
 import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
 import { useIsFollowing } from '@/hooks/useIsFollowing.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
+import { useIsMyProfile } from '@/hooks/useIsMyProfile.js';
 import { useUnmountRef } from '@/hooks/useUnmountRef.js';
 import { LoginModalRef } from '@/modals/controls.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/index.js';
