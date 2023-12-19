@@ -48,6 +48,8 @@ const useFarcasterStateBase = create<FarcasterState, [['zustand/persist', unknow
                 currentProfileSession: state.currentProfileSession,
             }),
             onRehydrateStorage: () => async (state) => {
+                if (typeof window === 'undefined') return;
+
                 const session = state?.currentProfileSession;
 
                 if (session && session.expiresAt < Date.now()) {
