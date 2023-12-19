@@ -18,7 +18,12 @@ export const Avatar = memo(function Avatar({ src, size, className, ...rest }: Pr
         <Image
             loading="lazy"
             {...rest}
-            className={classNames(`h-[${size}px] w-[${size}px] rounded-full object-cover`, className)}
+            className={classNames('rounded-full object-cover', className)}
+            style={{
+                height: size,
+                width: size,
+                ...rest.style,
+            }}
             src={avatarUrl}
             fallback={fallbackUrl}
             width={size}
