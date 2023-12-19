@@ -20,7 +20,7 @@ export function ProfileAvatar(props: ProfileAvatarProps) {
         >
             <div className="relative h-[40px] w-[40px]">
                 <div
-                    className={`absolute left-0 top-0 rounded-full shadow backdrop-blur-lg`}
+                    className="absolute left-0 top-0 rounded-full shadow backdrop-blur-lg"
                     style={{
                         height: size,
                         width: size,
