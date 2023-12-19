@@ -175,6 +175,9 @@ msgstr "Hashtag"
 msgid "Search Filter"
 msgstr "Search Filter"
 
+msgid "and"
+msgstr "and"
+
 msgid "Failed to fetch as Text."
 msgstr "Failed to fetch as Text."
 
@@ -232,6 +235,9 @@ msgstr "Failed to unmirror post"
 msgid "Method not implemented."
 msgstr "Method not implemented."
 
+msgid "Follow more friends to continue exploring {currentSource}"
+msgstr "Follow more friends to continue exploring {currentSource}"
+
 msgid "Malformed session."
 msgstr "Malformed session."
 
@@ -271,6 +277,9 @@ msgstr "Visit firefly.land"
 msgid "Post your reply"
 msgstr "Post your reply"
 
+msgid "liked"
+msgstr "liked"
+
 msgid "wrong session type"
 msgstr "wrong session type"
 
@@ -291,6 +300,9 @@ msgstr "Farcaster"
 
 msgid "Replying to"
 msgstr "Replying to"
+
+msgid "commented"
+msgstr "commented"
 
 msgid "What's happening..."
 msgstr "What's happening..."
@@ -361,6 +373,9 @@ msgstr "Follow @thefireflyapp on X"
 msgid "Posted on Lens"
 msgstr "Posted on Lens"
 
+msgid "{0, plural, =0 {Mirror or Quote} zero {Mirror or Quote} one {Mirror or Quote} other {Mirrors or Quotes}}"
+msgstr "{0, plural, =0 {Mirror or Quote} zero {Mirror or Quote} one {Mirror or Quote} other {Mirrors or Quotes}}"
+
 msgid "Mirrored"
 msgstr "Mirrored"
 
@@ -430,6 +445,9 @@ msgstr "Firefly"
 msgid "Log out all"
 msgstr "Log out all"
 
+msgid "{0} and others"
+msgstr "{0} and others"
+
 msgid "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code"
 msgstr "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code"
 
@@ -438,9 +456,6 @@ msgstr "Unknown session type."
 
 msgid "This profile does not exist"
 msgstr "This profile does not exist"
-
-msgid "<0/> commented your <1><2/></1>"
-msgstr "<0/> commented your <1><2/></1>"
 
 msgid "Online"
 msgstr "Online"
@@ -478,9 +493,6 @@ msgstr "Remove"
 msgid "No matching users"
 msgstr "No matching users"
 
-msgid "Mirror and Quote"
-msgstr "Mirror and Quote"
-
 msgid "Log in to Farcaster account"
 msgstr "Log in to Farcaster account"
 
@@ -501,6 +513,9 @@ msgstr "Add a comment"
 
 msgid "Profiles"
 msgstr "Profiles"
+
+msgid "<0/> commented on your <1><2/></1>"
+msgstr "<0/> commented on your <1><2/></1>"
 
 msgid "Recast"
 msgstr "Recast"
