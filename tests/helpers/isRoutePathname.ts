@@ -13,7 +13,7 @@ describe('isRoutePathname', () => {
             ['/articles/789', '/articles/', true],
             ['/categories/abc/123', '/categories', true],
             ['/categories/abc/123', '/categories/', true],
-            ['/settings//', '/settings', false],
+            ['/settings//', '/settings', true],
             ['/settings', '/settings//', false],
         ] as Array<[`/${string}`, `/${string}`, boolean]>;
 

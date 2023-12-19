@@ -74,10 +74,10 @@ export const SideBar = memo(function SideBar() {
     const currentSource = useGlobalState.use.currentSource();
     const currentProfile = useCurrentProfile(currentSource);
 
-    const pathname = usePathname();
     const isLogin = useIsLogin();
     const { isDarkMode } = useDarkMode();
-
+    
+    const pathname = usePathname();
     const isMyProfile = useIsMyProfile(
         currentSource,
         isRoutePathname(pathname, '/profile') ? pathname.split('/')[3] ?? '' : '',
