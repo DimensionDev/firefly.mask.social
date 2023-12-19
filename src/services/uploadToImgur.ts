@@ -1,24 +1,6 @@
 import { t } from '@lingui/macro';
 import { ImgurClient } from 'imgur';
 
-function fileToBase64(file: File): Promise<string> {
-    return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = function () {
-            if (reader.result) {
-                resolve(reader.result as string);
-            } else {
-                reject(new Error('Failed to load file'));
-            }
-        };
-
-        reader.onerror = function () {
-            reject(new Error('Failed to load file'));
-        };
-    });
-}
-
 interface UploadProgress {
     percent: number;
     transferred: number;
@@ -35,20 +17,19 @@ export async function uploadToImgur(
         clientId: process.env.CLIENT_ID,
         clientSecret: process.env.CLIENT_SECRET,
     });
-    client.on('uploadProgress', (progress) => onProgress?.(progress));
 
-    const base64File = await fileToBase64(file);
+    if (onProgress) client.on('uploadProgress', (progress) => onProgress(progress));
 
     const response = await client.upload({
-        image: base64File,
-        type: 'base64',
-        title: metadata?.title ?? '',
-        description: metadata?.description ?? '',
+        image: file.stream(),
+        type: 'stream',
+        title: metadata?.title ?? file.name,
+        description: metadata?.description,
     });
 
-    if (response.success) {
-        return response.data.link;
-    } else {
-        throw new Error(t`Upload failed`);
+    if (!response.success) {
+        throw new Error(t`Failed to upload to Imgur`);
     }
+
+    return response.data.link;
 }

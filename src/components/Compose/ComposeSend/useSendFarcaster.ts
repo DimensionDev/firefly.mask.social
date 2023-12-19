@@ -9,7 +9,7 @@ import { useComposeStateStore } from '@/store/useComposeStore.js';
 import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
 
 export function useSendFarcaster() {
-    const { type, chars: content, post } = useComposeStateStore();
+    const { type, chars: content, post, imgurImages } = useComposeStateStore();
     const enqueueSnackbar = useCustomSnackbar();
     const currentProfile = useFarcasterStateStore.use.currentProfile();
 
@@ -29,6 +29,7 @@ export function useSendFarcaster() {
                                 content,
                             },
                         },
+                        mediaObjects: imgurImages,
                     },
                     post,
                 );
@@ -54,5 +55,5 @@ export function useSendFarcaster() {
                 });
             }
         }
-    }, [content, currentProfile, enqueueSnackbar, type, post]);
+    }, [currentProfile, type, post, content, imgurImages, enqueueSnackbar]);
 }
