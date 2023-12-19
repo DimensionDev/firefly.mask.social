@@ -5,6 +5,8 @@ import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 describe('isRoutePathname', () => {
     test('should correctly check pathname matching based on criteria', () => {
         const cases = [
+            ['users/123', '/users/123', false],
+            ['/users/123', 'users/123', false],
             ['/users/123', '/users/123', true],
             ['/users/123', '/users/123/', true],
             ['/posts/456', '/users/456/', false],
