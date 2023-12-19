@@ -1,9 +1,11 @@
 import { image, MediaImageMimeType, MediaVideoMimeType, textOnly, video } from '@lens-protocol/metadata';
+import { t } from '@lingui/macro';
 import { v4 as uuid } from 'uuid';
 
 import { getUserLocale } from '@/helpers/getUserLocale.js';
+import type { MediaObject } from '@/types/index.js';
 
-interface IBaseMetadata {
+interface BaseMetadata {
     title: string;
     content: string;
     marketplace: {
@@ -13,7 +15,7 @@ interface IBaseMetadata {
     };
 }
 
-interface IAttachments {
+interface Attachments {
     image?: {
         item: string;
         type: string;
@@ -30,7 +32,47 @@ interface IAttachments {
     }>;
 }
 
-export function getPostMetaData(baseMetadata: IBaseMetadata, attachments?: IAttachments) {
+export function createPayloadAttachments(images: MediaObject[], video: MediaObject | null): Attachments | undefined {
+    if (images.some((image) => !image.ipfs) || (video && !video?.ipfs)) {
+        throw new Error(t`Missing IPFS hash for image or video`);
+    }
+
+    const imagesWithIPFS = images as Array<Required<MediaObject>>;
+    const videoWithIPFS = video as Required<MediaObject> | null;
+
+    return imagesWithIPFS.length > 0 || !!videoWithIPFS
+        ? {
+              attachments: videoWithIPFS
+                  ? [
+                        {
+                            item: videoWithIPFS.ipfs.uri,
+                            type: videoWithIPFS.ipfs.mimeType,
+                            cover: videoWithIPFS.ipfs.uri,
+                        },
+                    ]
+                  : imagesWithIPFS.map((image) => ({
+                        item: image.ipfs.uri,
+                        type: image.ipfs.mimeType,
+                        cover: imagesWithIPFS[0].ipfs.uri,
+                    })),
+              ...(videoWithIPFS
+                  ? {
+                        video: {
+                            item: videoWithIPFS.ipfs.uri,
+                            type: videoWithIPFS.ipfs.mimeType,
+                        },
+                    }
+                  : {
+                        image: {
+                            item: imagesWithIPFS[0].ipfs.uri,
+                            type: imagesWithIPFS[0].ipfs.mimeType,
+                        },
+                    }),
+          }
+        : undefined;
+}
+
+export function createPostMetadata(baseMetadata: BaseMetadata, attachments?: Attachments) {
     const localBaseMetadata = {
         id: uuid(),
         locale: getUserLocale(),
@@ -78,4 +120,4 @@ export function getPostMetaData(baseMetadata: IBaseMetadata, attachments?: IAtta
     });
 }
 
-export type GetPostMetaData = ReturnType<typeof getPostMetaData>;
+export type GetPostMetaData = ReturnType<typeof createPostMetadata>;

@@ -1,6 +1,6 @@
 import { HEY_API_URL } from '@/constants/index.js';
+import type { GetPostMetaData } from '@/helpers/createPostMetadata.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
-import type { GetPostMetaData } from '@/helpers/getPostMetaData.js';
 
 interface IUploadToArweaveResponse {
     id: string;

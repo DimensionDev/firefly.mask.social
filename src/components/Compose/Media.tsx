@@ -1,12 +1,11 @@
 import { Popover, Transition } from '@headlessui/react';
-import { t, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import { type ChangeEvent, Fragment, useRef } from 'react';
 import { useAsyncFn } from 'react-use';
 
 import ImageIcon from '@/assets/image.svg';
 import VideoIcon from '@/assets/video.svg';
 import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
-import { uploadFilesToIPFS } from '@/services/uploadToIPFS.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
 
@@ -18,7 +17,7 @@ export default function Media({ close }: MediaProps) {
     const videoInputRef = useRef<HTMLInputElement>(null);
 
     const currentFarcasterProfile = useFarcasterStateStore.use.currentProfile();
-    const { video, images, updateVideo, updateImages, updateLoading } = useComposeStateStore();
+    const { video, images, updateVideo, updateImages } = useComposeStateStore();
 
     const enqueueSnackbar = useCustomSnackbar();
 
@@ -27,27 +26,18 @@ export default function Media({ close }: MediaProps) {
             const files = event.target.files;
 
             if (files && files.length > 0) {
-                updateLoading(true);
-                const response = await uploadFilesToIPFS([...files]);
-                if (response.length === 0) {
-                    enqueueSnackbar(t`Failed to upload. Network error`, {
-                        variant: 'error',
-                    });
-                }
                 updateImages(
                     [
                         ...images,
-                        ...response.map((ipfs, index) => ({
-                            file: files[index],
-                            ipfs,
+                        ...[...files].map((file) => ({
+                            file,
                         })),
                     ].slice(0, currentFarcasterProfile ? 2 : 4),
                 );
-                updateLoading(false);
             }
             close();
         },
-        [currentFarcasterProfile, images, close, updateImages, updateLoading],
+        [currentFarcasterProfile, images, close, updateImages],
     );
 
     const [, handleVideoChange] = useAsyncFn(
@@ -55,22 +45,13 @@ export default function Media({ close }: MediaProps) {
             const files = event.target.files;
 
             if (files && files.length > 0) {
-                updateLoading(true);
-                const response = await uploadFilesToIPFS([...files]);
-                if (response.length === 0) {
-                    enqueueSnackbar(t`Failed to upload. Network error`, {
-                        variant: 'error',
-                    });
-                }
                 updateVideo({
                     file: files[0],
-                    ipfs: response[0],
                 });
-                updateLoading(false);
             }
             close();
         },
-        [close, updateLoading, updateVideo],
+        [close, updateVideo],
     );
 
     return (

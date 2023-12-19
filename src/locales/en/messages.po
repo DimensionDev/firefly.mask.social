@@ -13,9 +13,6 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-msgid "Failed to upload. Network error"
-msgstr "Failed to upload. Network error"
-
 msgid "Be the first one to comment!"
 msgstr "Be the first one to comment!"
 
@@ -79,11 +76,17 @@ msgstr "Change Wallet"
 msgid "UnLike"
 msgstr "UnLike"
 
+msgid "Missing IPFS hash for image or video"
+msgstr "Missing IPFS hash for image or video"
+
 msgid "Failed to follow"
 msgstr "Failed to follow"
 
 msgid "Debug Console"
 msgstr "Debug Console"
+
+msgid "Failed to upload video. Network error"
+msgstr "Failed to upload video. Network error"
 
 msgid "Failed to login"
 msgstr "Failed to login"
@@ -243,6 +246,9 @@ msgstr "Malformed session."
 
 msgid "Post has been hidden"
 msgstr "Post has been hidden"
+
+msgid "Failed to upload image. Network error"
+msgstr "Failed to upload image. Network error"
 
 msgid "<0>{0}</0> liked"
 msgstr "<0>{0}</0> liked"

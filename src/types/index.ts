@@ -22,9 +22,9 @@ export interface MetadataAsset {
     title?: string;
 }
 
-export interface IPFS_MediaObject {
+export interface MediaObject {
     file: File;
-    ipfs: IPFSResponse;
+    ipfs?: IPFSResponse;
 }
 
 export type ThemeMode = 'light' | 'dark' | 'default';
