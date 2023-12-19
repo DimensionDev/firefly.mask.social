@@ -1,9 +1,9 @@
 import { SocialPlatform } from '@/constants/enum.js';
 import { SITE_URL } from '@/constants/index.js';
-import { getPostMetaData } from '@/helpers/getPostMetaData.js';
+import { createPayloadAttachments, createPostMetadata } from '@/helpers/createPostMetadata.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { uploadToArweave } from '@/services/uploadToArweave.js';
-import type { MediaObject, MediaObject_WithIPFS } from '@/types/index.js';
+import type { MediaObject } from '@/types/index.js';
 
 export async function publishPostForLens(
     profileId: string,
@@ -11,14 +11,10 @@ export async function publishPostForLens(
     images: MediaObject[],
     video: MediaObject | null,
 ) {
-    const lens = LensSocialMediaProvider;
-    const profile = await lens.getProfileById(profileId);
-
-    const filteredImages = images.filter((image) => !!image.ipfs) as MediaObject_WithIPFS[];
-    const filteredVideo = video && !!video.ipfs ? (video as MediaObject_WithIPFS) : null;
+    const profile = await LensSocialMediaProvider.getProfileById(profileId);
 
     const title = `Post by #${profile.handle}`;
-    const metadata = getPostMetaData(
+    const metadata = createPostMetadata(
         {
             title,
             content: characters,
@@ -28,39 +24,10 @@ export async function publishPostForLens(
                 external_url: SITE_URL,
             },
         },
-        filteredImages.length > 0 || !!filteredVideo
-            ? {
-                  attachments: filteredVideo
-                      ? [
-                            {
-                                item: filteredVideo.ipfs.uri,
-                                type: filteredVideo.ipfs.mimeType,
-                                cover: filteredVideo.ipfs.uri,
-                            },
-                        ]
-                      : filteredImages.map((image) => ({
-                            item: image.ipfs.uri,
-                            type: image.ipfs.mimeType,
-                            cover: filteredImages[0].ipfs.uri,
-                        })),
-                  ...(filteredVideo
-                      ? {
-                            filteredVideo: {
-                                item: filteredVideo.ipfs.uri,
-                                type: filteredVideo.ipfs.mimeType,
-                            },
-                        }
-                      : {
-                            image: {
-                                item: filteredImages[0].ipfs.uri,
-                                type: filteredImages[0].ipfs.mimeType,
-                            },
-                        }),
-              }
-            : undefined,
+        createPayloadAttachments(images, video),
     );
     const arweaveId = await uploadToArweave(metadata);
-    const post = await lens.publishPost({
+    const post = await LensSocialMediaProvider.publishPost({
         postId: metadata.lens.id,
         author: profile,
         metadata: {
@@ -80,14 +47,10 @@ export async function commentPostForLens(
     images: MediaObject[],
     video: MediaObject | null,
 ) {
-    const lens = LensSocialMediaProvider;
-    const profile = await lens.getProfileById(profileId);
-
-    const filteredImages = images.filter((image) => !!image.ipfs) as MediaObject_WithIPFS[];
-    const filteredVideo = video && !!video.ipfs ? (video as MediaObject_WithIPFS) : null;
+    const profile = await LensSocialMediaProvider.getProfileById(profileId);
 
     const title = `Post by #${profile.handle}`;
-    const metadata = getPostMetaData(
+    const metadata = createPostMetadata(
         {
             title,
             content: characters,
@@ -97,39 +60,10 @@ export async function commentPostForLens(
                 external_url: SITE_URL,
             },
         },
-        filteredImages.length > 0 || !!filteredVideo
-            ? {
-                  attachments: filteredVideo
-                      ? [
-                            {
-                                item: filteredVideo.ipfs.uri,
-                                type: filteredVideo.ipfs.mimeType,
-                                cover: filteredVideo.ipfs.uri,
-                            },
-                        ]
-                      : filteredImages.map((image) => ({
-                            item: image.ipfs.uri,
-                            type: image.ipfs.mimeType,
-                            cover: filteredImages[0].ipfs.uri,
-                        })),
-                  ...(filteredVideo
-                      ? {
-                            filteredVideo: {
-                                item: filteredVideo.ipfs.uri,
-                                type: filteredVideo.ipfs.mimeType,
-                            },
-                        }
-                      : {
-                            image: {
-                                item: filteredImages[0].ipfs.uri,
-                                type: filteredImages[0].ipfs.mimeType,
-                            },
-                        }),
-              }
-            : undefined,
+        createPayloadAttachments(images, video),
     );
     const arweaveId = await uploadToArweave(metadata);
-    await lens.commentPost(postId, `ar://${arweaveId}`, profile.signless);
+    await LensSocialMediaProvider.commentPost(postId, `ar://${arweaveId}`, profile.signless);
 }
 
 export async function quotePostForLens(
@@ -139,14 +73,10 @@ export async function quotePostForLens(
     images: MediaObject[],
     video: MediaObject | null,
 ) {
-    const lens = LensSocialMediaProvider;
-    const profile = await lens.getProfileById(profileId);
-
-    const filteredImages = images.filter((image) => !!image.ipfs) as MediaObject_WithIPFS[];
-    const filteredVideo = video && !!video.ipfs ? (video as MediaObject_WithIPFS) : null;
+    const profile = await LensSocialMediaProvider.getProfileById(profileId);
 
     const title = `Post by #${profile.handle}`;
-    const metadata = getPostMetaData(
+    const metadata = createPostMetadata(
         {
             title,
             content: characters,
@@ -156,38 +86,9 @@ export async function quotePostForLens(
                 external_url: SITE_URL,
             },
         },
-        filteredImages.length > 0 || !!filteredVideo
-            ? {
-                  attachments: filteredVideo
-                      ? [
-                            {
-                                item: filteredVideo.ipfs.uri,
-                                type: filteredVideo.ipfs.mimeType,
-                                cover: filteredVideo.ipfs.uri,
-                            },
-                        ]
-                      : filteredImages.map((image) => ({
-                            item: image.ipfs.uri,
-                            type: image.ipfs.mimeType,
-                            cover: filteredImages[0].ipfs.uri,
-                        })),
-                  ...(filteredVideo
-                      ? {
-                            filteredVideo: {
-                                item: filteredVideo.ipfs.uri,
-                                type: filteredVideo.ipfs.mimeType,
-                            },
-                        }
-                      : {
-                            image: {
-                                item: filteredImages[0].ipfs.uri,
-                                type: filteredImages[0].ipfs.mimeType,
-                            },
-                        }),
-              }
-            : undefined,
+        createPayloadAttachments(images, video),
     );
     const arweaveId = await uploadToArweave(metadata);
-    const post = await lens.quotePost(postId, `ar://${arweaveId}`, profile.signless);
+    const post = await LensSocialMediaProvider.quotePost(postId, `ar://${arweaveId}`, profile.signless);
     return post;
 }

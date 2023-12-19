@@ -27,11 +27,6 @@ export interface MediaObject {
     ipfs?: IPFSResponse;
 }
 
-export interface MediaObject_WithIPFS {
-    file: File;
-    ipfs: IPFSResponse;
-}
-
 export type ThemeMode = 'light' | 'dark' | 'default';
 
 export type PartialWith<T, K extends keyof T> = Partial<Pick<T, K>> & Omit<T, K>;

@@ -1,5 +1,6 @@
+import { ArrowPathIcon } from '@heroicons/react/24/outline';
 import { t } from '@lingui/macro';
-import { useCallback, useMemo, useState } from 'react';
+import { useAsyncFn } from 'react-use';
 
 import CloseIcon from '@/assets/close.svg';
 import LoadingIcon from '@/assets/loading.svg';
@@ -8,37 +9,42 @@ import { Image } from '@/esm/Image.js';
 import { classNames } from '@/helpers/classNames.js';
 import { createImageUrl } from '@/helpers/createImageUrl.js';
 import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
-import { uploadFilesToIPFS } from '@/services/uploadToIPFS.js';
+import { uploadFileToIPFS } from '@/services/uploadToIPFS.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
+import type { MediaObject } from '@/types/index.js';
 
 interface ComposeImageProps {
     index: number;
+    image: MediaObject;
 }
-export default function ComposeImage({ index }: ComposeImageProps) {
-    const [loading, setLoading] = useState(false);
+export default function ComposeImage({ index, image }: ComposeImageProps) {
+    const enqueueSnackbar = useCustomSnackbar();
 
     const { images, updateImages, removeImageByIndex } = useComposeStateStore();
 
-    const image = useMemo(() => images[index], [images, index]);
+    const [{ loading, error }, handleImageUpload] = useAsyncFn(async () => {
+        if (image.ipfs) return;
 
-    const len = useMemo(() => images.length, [images]);
-
-    const enqueueSnackbar = useCustomSnackbar();
-
-    const handleImageLoad = useCallback(async () => {
-        setLoading(true);
-        const response = await uploadFilesToIPFS([image.file]);
-        if (response.length === 0) {
-            enqueueSnackbar(t`Failed to upload. Network error`, {
+        const ipfs = await uploadFileToIPFS(image.file);
+        if (!ipfs) {
+            enqueueSnackbar(t`Failed to upload image. Network error`, {
                 variant: 'error',
             });
         } else {
-            const newImages = [...images];
-            newImages[index].ipfs = response[0];
-            updateImages([...newImages]);
+            updateImages(
+                images.map((image, i) => {
+                    return i === index
+                        ? {
+                              ...image,
+                              ipfs,
+                          }
+                        : image;
+                }),
+            );
         }
-        setLoading(false);
     }, [enqueueSnackbar, image.file, images, index, updateImages]);
+
+    const len = images.length;
 
     return (
         <div
@@ -62,15 +68,19 @@ export default function ComposeImage({ index }: ComposeImageProps) {
                 </Tooltip>
             </div>
 
-            {!image.ipfs || loading ? (
+            {loading || error ? (
                 <div
                     className={classNames(
                         ' absolute bottom-0 left-0 right-0 top-0 flex items-center justify-center bg-main/25 bg-opacity-30',
                         !image.ipfs && !loading ? ' cursor-pointer' : ' ',
                     )}
-                    onClick={() => !image.ipfs && !loading && handleImageLoad()}
+                    onClick={() => !image.ipfs && !loading && handleImageUpload()}
                 >
-                    <LoadingIcon className={loading ? 'animate-spin' : undefined} width={24} height={24} />
+                    {loading ? (
+                        <LoadingIcon className={loading ? 'animate-spin' : undefined} width={24} height={24} />
+                    ) : error ? (
+                        <ArrowPathIcon fontSize={24} />
+                    ) : null}
                 </div>
             ) : null}
         </div>

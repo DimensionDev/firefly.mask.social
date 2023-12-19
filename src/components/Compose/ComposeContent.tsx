@@ -38,13 +38,13 @@ export default function ComposeContent(props: ComposeContentProps) {
                     {images.length > 0 && (
                         <div className=" relative grid grid-cols-2 gap-2 p-3">
                             {images.map((image, index) => (
-                                <ComposeImage key={`${image.file.name}_${index}`} index={index} />
+                                <ComposeImage key={`${image.file.name}_${index}`} index={index} image={image} />
                             ))}
                         </div>
                     )}
 
                     {/* video */}
-                    <ComposeVideo />
+                    {video ? <ComposeVideo /> : null}
 
                     {/* quote */}
                     {(type === 'quote' || type === 'reply') && post ? (

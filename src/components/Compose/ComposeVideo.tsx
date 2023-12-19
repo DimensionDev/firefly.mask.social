@@ -1,5 +1,6 @@
+import { ArrowPathIcon } from '@heroicons/react/24/outline';
 import { t } from '@lingui/macro';
-import { useCallback, useState } from 'react';
+import { useAsyncFn } from 'react-use';
 
 import CloseIcon from '@/assets/close.svg';
 import LoadingIcon from '@/assets/loading.svg';
@@ -7,32 +8,28 @@ import { Tooltip } from '@/components/Tooltip.js';
 import { classNames } from '@/helpers/classNames.js';
 import { createImageUrl } from '@/helpers/createImageUrl.js';
 import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
-import { uploadFilesToIPFS } from '@/services/uploadToIPFS.js';
+import { uploadFileToIPFS } from '@/services/uploadToIPFS.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 
 export default function ComposeVideo() {
-    const [loading, setLoading] = useState(false);
-
     const { video, updateVideo } = useComposeStateStore();
 
     const enqueueSnackbar = useCustomSnackbar();
 
-    const handleVideoLoad = useCallback(async () => {
-        if (!video) return;
+    const [{ loading, error }, handleVideoUpload] = useAsyncFn(async () => {
+        if (!video || video.ipfs) return;
 
-        setLoading(true);
-        const response = await uploadFilesToIPFS([video.file]);
-        if (response.length === 0) {
-            enqueueSnackbar(t`Failed to upload. Network error`, {
+        const ipfs = await uploadFileToIPFS(video.file);
+        if (!ipfs) {
+            enqueueSnackbar(t`Failed to upload video. Network error`, {
                 variant: 'error',
             });
         } else {
             updateVideo({
                 ...video,
-                ipfs: response[0],
+                ipfs,
             });
         }
-        setLoading(false);
     }, [enqueueSnackbar, updateVideo, video]);
 
     if (!video) return null;
@@ -46,15 +43,19 @@ export default function ComposeVideo() {
                 </Tooltip>
             </div>
 
-            {!video.ipfs || loading ? (
+            {loading || error ? (
                 <div
                     className={classNames(
                         ' absolute bottom-0 left-0 right-0 top-0 flex items-center justify-center bg-main/25 bg-opacity-30',
-                        !video.ipfs && !loading ? ' cursor-pointer' : ' ',
+                        !loading ? ' cursor-pointer' : ' ',
                     )}
-                    onClick={() => !video.ipfs && !loading && handleVideoLoad()}
+                    onClick={() => !loading && handleVideoUpload()}
                 >
-                    <LoadingIcon className={loading ? 'animate-spin' : undefined} width={24} height={24} />
+                    {loading ? (
+                        <LoadingIcon className={loading ? 'animate-spin' : undefined} width={24} height={24} />
+                    ) : error ? (
+                        <ArrowPathIcon fontSize={24} />
+                    ) : null}
                 </div>
             ) : null}
         </div>
