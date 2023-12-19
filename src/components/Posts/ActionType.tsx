@@ -11,6 +11,7 @@ import { ThreadBody } from '@/components/Posts/ThreadBody.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
+import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 export interface FeedActionType {
@@ -23,7 +24,7 @@ export const FeedActionType = memo<FeedActionType>(function FeedActionType({ pos
     const showThread = isComment || !post.comments?.length;
 
     const pathname = usePathname();
-    const isPostPage = pathname.includes('/post');
+    const isPostPage = isRoutePathname(pathname, '/post');
 
     const combined =
         [post.mirrors?.length ?? 0, post.reactions?.length ?? 0, post.comments?.length ?? 0].filter((x) => x > 0)
