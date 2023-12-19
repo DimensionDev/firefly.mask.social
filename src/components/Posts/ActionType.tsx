@@ -56,7 +56,6 @@ export const FeedActionType = memo<FeedActionType>(function FeedActionType({ pos
         );
 
         const firstProfile = first(profiles);
-
         if (!firstProfile) return;
 
         return profiles.length > 1 ? (

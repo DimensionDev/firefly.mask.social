@@ -127,7 +127,7 @@ export const Mirror = memo<MirrorProps>(function Mirror({
             <Menu.Button
                 disabled={disabled}
                 as={motion.button}
-                className={'flex items-center space-x-2 text-main hover:text-secondarySuccess'}
+                className="flex items-center space-x-2 text-main hover:text-secondarySuccess"
                 whileTap={{ scale: 0.9 }}
                 onClick={async (event) => {
                     if (!isLogin && !loading) {

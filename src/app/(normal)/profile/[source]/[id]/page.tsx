@@ -60,7 +60,6 @@ export default function ProfilePage({ params: { source: _source, id: handleOrPro
         );
     }
 
-    console.log(profile);
     return (
         <div>
             {!isMyProfile ? <Title profile={profile} /> : null}

@@ -13,6 +13,7 @@ import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { SinglePost } from '@/components/Posts/SinglePost.js';
 import { SocialPlatform } from '@/constants/enum.js';
+import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/index.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
@@ -94,7 +95,7 @@ export default function Following() {
                     icon={<BlackHoleIcon width={200} height="auto" className="text-secondaryMain" />}
                     message={
                         <div className="mt-10">
-                            <Trans>Follow more friends to continue exploring {currentSource}</Trans>
+                            <Trans>Follow more friends to continue exploring {resolveSourceName(currentSource)}</Trans>
                         </div>
                     }
                 />
