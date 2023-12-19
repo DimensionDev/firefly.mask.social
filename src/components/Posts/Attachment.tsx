@@ -69,7 +69,7 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({ attachm
                 <Image
                     width={120}
                     height={120}
-                    className="h-[120px] w-[120px] rounded-xl"
+                    className="h-[120px] w-[120px] rounded-xl object-cover"
                     src={asset.cover}
                     alt={asset.cover}
                 />
