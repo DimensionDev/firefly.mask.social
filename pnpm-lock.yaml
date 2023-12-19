@@ -214,6 +214,9 @@ importers:
       image-size:
         specifier: ^1.0.2
         version: 1.0.2
+      imgur:
+        specifier: ^2.3.0
+        version: 2.3.0
       lexical:
         specifier: ^0.12.2
         version: 0.12.2
@@ -24689,6 +24692,16 @@ packages:
     dependencies:
       queue: 6.0.2
 
+  /imgur@2.3.0:
+    resolution: {integrity: sha512-ZAgK0YXHfrR+P1KavYSBRQyr0kSvBFrSYrCAr0Zm8EddAakTn8T5WcdX+NvI6GMvHuzwMePjNvV9sFD4sETIUg==}
+    engines: {node: '>=14'}
+    dependencies:
+      axios: 0.25.0
+      form-data: 4.0.0
+    transitivePeerDependencies:
+      - debug
+    dev: false
+
   /immediate@3.0.6:
     resolution: {integrity: sha512-XXOFtyqDjNDAQxVfYxuF7g9Il/IbWmmlQg2MYKOH8ExIT1qg6xc4zyS3HaEEATgs1btfzxq15ciUiY7gjSXRGQ==}
 
@@ -36577,6 +36590,7 @@ time:
   /i18next@23.2.11: '2023-07-12T19:10:10.167Z'
   /idb@7.1.1: '2022-11-04T10:28:55.720Z'
   /image-size@1.0.2: '2022-07-12T14:40:59.467Z'
+  /imgur@2.3.0: '2023-05-22T17:54:45.804Z'
   /immer@10.0.2: '2023-05-09T18:24:24.940Z'
   /ipfs-http-client@60.0.1: '2023-05-25T14:59:42.047Z'
   /json-stable-stringify@1.0.2: '2022-11-08T17:21:21.117Z'

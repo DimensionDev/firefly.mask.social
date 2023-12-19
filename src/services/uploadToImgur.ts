@@ -1,4 +1,23 @@
 import { t } from '@lingui/macro';
+import { ImgurClient } from 'imgur';
+
+function fileToBase64(file: File): Promise<string> {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = function () {
+            if (reader.result) {
+                resolve(reader.result as string);
+            } else {
+                reject(new Error('Failed to load file'));
+            }
+        };
+
+        reader.onerror = function () {
+            reject(new Error('Failed to load file'));
+        };
+    });
+}
 
 interface UploadProgress {
     percent: number;
@@ -7,45 +26,29 @@ interface UploadProgress {
     id: string;
 }
 
-export function uploadToImgur(
+export async function uploadToImgur(
     file: File,
     metadata?: { title: string; description?: string },
     onProgress?: (progress: UploadProgress) => void,
 ): Promise<string> {
-    return new Promise((resolve, reject) => {
-        const clientId = process.env.IMGUR_CLIENT_ID;
-        const formData = new FormData();
-        formData.append('image', file);
-
-        metadata?.title && formData.append('title', metadata.title);
-        metadata?.description && formData.append('description', metadata.description);
-
-        const xhr = new XMLHttpRequest();
-        xhr.open('POST', 'https://api.imgur.com/3/upload');
-        xhr.setRequestHeader('Authorization', `Client-ID ${clientId}`);
-
-        xhr.upload.onprogress = function (event) {
-            if (event.lengthComputable && onProgress) {
-                const progress: UploadProgress = {
-                    percent: (event.loaded / event.total) * 100,
-                    transferred: event.loaded,
-                    total: event.total,
-                    id: '',
-                };
-                onProgress(progress);
-            }
-        };
-
-        xhr.onload = function () {
-            if (xhr.status === 200) {
-                const response = JSON.parse(xhr.responseText);
-                const completeUrl = response.data.link;
-                resolve(completeUrl);
-            } else {
-                reject(new Error(t`Upload failed`));
-            }
-        };
-
-        xhr.send(formData);
+    const client = new ImgurClient({
+        clientId: process.env.CLIENT_ID,
+        clientSecret: process.env.CLIENT_SECRET,
     });
+    client.on('uploadProgress', (progress) => onProgress?.(progress));
+
+    const base64File = await fileToBase64(file);
+
+    const response = await client.upload({
+        image: base64File,
+        type: 'base64',
+        title: metadata?.title ?? '',
+        description: metadata?.description ?? '',
+    });
+
+    if (response.success) {
+        return response.data.link;
+    } else {
+        throw new Error(t`Upload failed`);
+    }
 }
