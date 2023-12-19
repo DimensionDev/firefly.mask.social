@@ -16,6 +16,7 @@ import { SourceIcon } from '@/components/SourceIcon.js';
 import { SearchType, SocialPlatform } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
+import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { HubbleSocialMediaProvider } from '@/providers/hubble/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
@@ -29,13 +30,14 @@ interface SearchBarProps {
 
 const SearchBar = memo(function SearchBar(props: SearchBarProps) {
     const router = useRouter();
-    const pathname = usePathname();
     const { currentSource } = useGlobalState();
+    const { keyword: queryKeyword, updateParams } = useSearchState();
     const inputRef = useRef<HTMLInputElement>(null);
     const [showDropdown, setShowDropdown] = useState(false);
 
-    const isSearchPage = pathname === '/search';
-    const { keyword: queryKeyword, updateParams } = useSearchState();
+    const pathname = usePathname();
+    const isSearchPage = isRoutePathname(pathname, '/search');
+
     const [inputText, setInputText] = useState(queryKeyword);
     const debouncedKeyword = useDebounce(inputText, 300);
     const { histories, addRecord, removeRecord, clearAll } = useSearchHistories();
@@ -234,12 +236,12 @@ const SearchBar = memo(function SearchBar(props: SearchBarProps) {
 
 export function HeaderSearchBar() {
     const pathname = usePathname();
-    const isSearchPage = pathname === '/search';
+    const isSearchPage = isRoutePathname(pathname, '/search');
     return isSearchPage ? <SearchBar source="header" /> : null;
 }
 
 export function AsideSearchBar() {
     const pathname = usePathname();
-    const isSearchPage = pathname !== '/search';
+    const isSearchPage = !isRoutePathname(pathname, '/search');
     return isSearchPage ? <SearchBar source="secondary" /> : null;
 }

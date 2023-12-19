@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation.js';
 
 import RightArrowIcon from '@/assets/right-arrow.svg';
 import { Link } from '@/esm/Link.js';
+import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 
 const settings = [
@@ -26,7 +27,7 @@ export function SettingList() {
                 return link === '/connected' && !isLoggedIn ? null : (
                     <Link
                         className={`mb-[24px] flex items-center justify-between border-b border-line pb-[4px] text-[18px] leading-[24px] text-main ${
-                            pathname === `/settings${link}` ? 'font-bold' : 'font-normal'
+                            isRoutePathname(pathname, `/settings${link}`) ? 'font-bold' : 'font-normal'
                         }`}
                         key={name}
                         href={`/settings${link}`}

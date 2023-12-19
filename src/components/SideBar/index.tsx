@@ -2,7 +2,7 @@
 
 import { Trans } from '@lingui/macro';
 import { usePathname } from 'next/navigation.js';
-import { memo, useCallback, useMemo } from 'react';
+import { memo } from 'react';
 
 import DiscoverSelectedIcon from '@/assets/discover.selected.svg';
 import DiscoverIcon from '@/assets/discover.svg';
@@ -23,6 +23,7 @@ import { PageRoutes } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
+import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useDarkMode } from '@/hooks/useDarkMode.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
@@ -73,18 +74,17 @@ export const SideBar = memo(function SideBar() {
     const currentSource = useGlobalState.use.currentSource();
     const currentProfile = useCurrentProfile(currentSource);
 
-    const route = usePathname();
-    const { isDarkMode } = useDarkMode();
     const isLogin = useIsLogin();
+    const { isDarkMode } = useDarkMode();
 
-    const handleOrProfileId = useMemo(() => (route.startsWith('/profile') ? route.split('/')[3] ?? '' : ''), [route]);
-
-    const isMyProfile = useIsMyProfile(currentSource, handleOrProfileId);
-
-    const checkIsSelected = useCallback(
-        (href: string) => (href === PageRoutes.Profile ? isMyProfile : route.startsWith(href)),
-        [isMyProfile, route],
+    const pathname = usePathname();
+    const isMyProfile = useIsMyProfile(
+        currentSource,
+        isRoutePathname(pathname, '/profile') ? pathname.split('/')[3] ?? '' : '',
     );
+
+    const checkIsSelected = (href: `/${string}`) =>
+        href === PageRoutes.Profile ? isMyProfile : isRoutePathname(pathname, href);
 
     return (
         <>
@@ -101,7 +101,9 @@ export const SideBar = memo(function SideBar() {
                                 <ul role="list" className="space-y-1">
                                     {items.map((item) => {
                                         const isSelected =
-                                            item.href === '/' ? route === '/' : checkIsSelected(item.href);
+                                            item.href === '/'
+                                                ? pathname === '/'
+                                                : checkIsSelected(item.href as `/${string}`);
                                         const Icon = isSelected ? item.selectedIcon : item.icon;
                                         return (
                                             <li className="flex rounded-lg text-main" key={item.href}>
