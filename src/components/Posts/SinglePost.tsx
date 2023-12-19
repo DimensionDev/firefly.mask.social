@@ -7,7 +7,6 @@ import { memo } from 'react';
 import { FeedActionType } from '@/components/Posts/ActionType.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { Link } from '@/esm/Link.js';
-import { getPostPayload } from '@/helpers/getPostPayload.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { useObserveLensPost } from '@/hooks/useObserveLensPost.js';
@@ -36,7 +35,6 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
 }) {
     const router = useRouter();
     const { observe } = useObserveLensPost(post.postId, post.source);
-    const postPayload = getPostPayload(post.metadata.content?.content);
 
     const pathname = usePathname();
     const isPostPage = isRoutePathname(pathname, '/post');
@@ -49,7 +47,7 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
             exit={{ opacity: 0 }}
             className="cursor-pointer border-b border-secondaryLine bg-bottom px-4 py-3 hover:bg-bg dark:border-line"
             onClick={() => {
-                if (!isPostPage && postPayload) {
+                if (!isPostPage) {
                     router.push(postLink);
                 }
             }}
@@ -59,7 +57,7 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
                 <Link href={postLink}>
                     <PostHeader post={post} />
 
-                    <PostBody post={post} showMore={showMore} ref={observe} postPayload={postPayload} />
+                    <PostBody post={post} showMore={showMore} ref={observe} />
 
                     {!isDetail ? <PostActions post={post} disabled={post.isHidden} /> : null}
                 </Link>
@@ -67,7 +65,7 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
                 <>
                     <PostHeader post={post} />
 
-                    <PostBody post={post} showMore={showMore} ref={observe} postPayload={postPayload} />
+                    <PostBody post={post} showMore={showMore} ref={observe} />
 
                     {!isDetail ? <PostActions post={post} disabled={post.isHidden} /> : null}
                 </>

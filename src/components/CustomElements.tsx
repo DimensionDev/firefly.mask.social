@@ -9,18 +9,8 @@ import { ComposeModalRef } from '@/modals/controls.js';
 
 export default function CustomElements() {
     const { value } = useAsync(async () => {
-        await import('@masknet/flags/build-info').then((module) => {
-            const channel =
-                process.env.NEXT_PUBLIC_VERCEL_ENV === 'preview'
-                    ? 'beta'
-                    : process.env.NODE_ENV === 'production'
-                      ? 'stable'
-                      : 'insider';
-
-            module.setupBuildInfoManually({
-                channel,
-            });
-        });
+        // storage must be imported before custom-elements
+        await import('@/mask/setup/storage.js');
 
         await import('@/mask/custom-elements.js');
 

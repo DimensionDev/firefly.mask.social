@@ -47,6 +47,8 @@ const useLensStateBase = create<LensState, [['zustand/persist', unknown], ['zust
                 currentProfileSession: state.currentProfileSession,
             }),
             onRehydrateStorage: () => async (state) => {
+                if (typeof window === 'undefined') return;
+
                 const lensClient = createLensClient();
 
                 const profileId = state?.currentProfile?.profileId;

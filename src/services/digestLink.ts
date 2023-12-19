@@ -18,7 +18,7 @@ import {
     getSite,
     getTitle,
 } from '@/helpers/getMetadata.js';
-import { getFarcasterPayload, getMirrorPayload } from '@/helpers/getPayload.js';
+import { getFarcasterPayload, getMirrorPayload } from '@/helpers/getOpenGraphPayload.js';
 import type { SourceInURL } from '@/helpers/resolveSource.js';
 import { type FarcasterPayload, type MirrorPayload, OpenGraphPayloadSourceType, type PostPayload } from '@/types/og.js';
 

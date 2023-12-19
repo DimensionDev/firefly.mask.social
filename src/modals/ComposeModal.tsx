@@ -99,12 +99,10 @@ export const ComposeModal = forwardRef<SingletonModalRefCreator<ComposeModalProp
             const secretImage = await steganographyEncodeImage(encrypted.output);
             const secretImageFile = new File([secretImage], 'image.png', { type: 'image/png' });
 
-            const response = await uploadFileToIPFS(secretImageFile);
-
             updateImages([
                 {
                     file: secretImageFile,
-                    ipfs: response,
+                    ipfs: await uploadFileToIPFS(secretImageFile),
                 },
             ]);
         } catch (error) {
