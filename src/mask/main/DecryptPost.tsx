@@ -14,14 +14,17 @@ import {
 import { makeTypedMessageEmpty, makeTypedMessageTuple } from '@masknet/typed-message';
 import { compact } from 'lodash-es';
 import { memo, type PropsWithChildren, useMemo } from 'react';
+import urlcat from 'urlcat';
 
+import { SITE_URL } from '@/constants/index.js';
+import type { EncryptedPayload } from '@/helpers/getEncryptedPayload.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { DecryptMessage } from '@/mask/main/DecryptMessage.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 interface Props extends PropsWithChildren<{}> {
     post: Post;
-    payload: [string, '1' | '2'];
+    payload: EncryptedPayload;
 }
 
 export const DecryptPost = memo(function DecryptPost({ post, payload, children }: Props) {
@@ -50,7 +53,7 @@ export const DecryptPost = memo(function DecryptPost({ post, payload, children }
             suggestedInjectionPoint: document.body,
             comment: undefined,
             identifier: createConstantSubscription(author ? new PostIdentifier(author, post.postId) : null),
-            url: createConstantSubscription(new URL(getPostUrl(post))),
+            url: createConstantSubscription(new URL(urlcat(SITE_URL, getPostUrl(post)))),
             mentionedLinks: createConstantSubscription([]),
             postMetadataImages: createConstantSubscription(imageUris),
             rawMessage: createConstantSubscription(makeTypedMessageTuple([makeTypedMessageEmpty()])),

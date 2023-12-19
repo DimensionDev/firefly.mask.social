@@ -3,6 +3,7 @@
 import { Trans } from '@lingui/macro';
 import { useRouter } from 'next/navigation.js';
 import { forwardRef, useState } from 'react';
+import { useAsync } from 'react-use';
 
 import EyeSlash from '@/assets/eye-slash.svg';
 import Lock from '@/assets/lock.svg';
@@ -34,6 +35,13 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
     const showAttachments = !!post.metadata.content?.attachments?.length || !!post.metadata.content?.asset;
 
     const [oembedLoaded, setOembedLoaded] = useState(false);
+
+    const { value: payload, loading } = useAsync(async () => {
+        const payloadFromText = getEncryptedPayloadFromText(post);
+        const payloadFromImageAttachment = await getEncryptedPyloadFromImageAttachment(post);
+
+        return payloadFromImageAttachment ?? payloadFromText;
+    }, [post]);
 
     if (post.isEncrypted) {
         return (
@@ -94,15 +102,6 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
         );
     }
 
-    const payloadFromText = getEncryptedPayloadFromText(post);
-    const payloadFromImageAttachment = getEncryptedPyloadFromImageAttachment(post);
-
-    console.log('DEBUG: payload');
-    console.log({
-        payloadFromText,
-        payloadFromImageAttachment,
-    });
-
     return (
         <div
             className={classNames('-mt-2 mb-2 break-words text-base text-main', {
@@ -110,12 +109,12 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
             })}
             ref={ref}
         >
-            {payloadFromText ? (
+            {payload ? (
                 <mask-decrypted-post
                     props={encodeURIComponent(
                         JSON.stringify({
                             post,
-                            payload: payloadFromText,
+                            payload,
                         }),
                     )}
                 />

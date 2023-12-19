@@ -1,6 +1,13 @@
-import type { Post } from '@/providers/types/SocialMedia.js';
+import { safeUnreachable } from '@masknet/kit';
+import { compact, first } from 'lodash-es';
 
-export function getEncryptedPayloadFromText(post: Post): [string, '1' | '2'] | undefined {
+import { fetchBlob } from '@/helpers/fetchBlob.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
+import { steganographyDecodeImage, SteganographyPreset } from '@/services/steganography.js';
+
+export type EncryptedPayload = [string, '1' | '2'];
+
+export function getEncryptedPayloadFromText(post: Post): EncryptedPayload | undefined {
     const raw = post.metadata.content?.content;
     if (!raw) return;
 
@@ -14,9 +21,27 @@ export function getEncryptedPayloadFromText(post: Post): [string, '1' | '2'] | u
     return;
 }
 
-export function getEncryptedPyloadFromImageAttachment(post: Post): [string, '1' | '2'] | undefined {
-    console.log('DEBUG: getEncryptedPyloadFromImageAttachment()');
-    console.log(post);
+export async function getEncryptedPyloadFromImageAttachment(post: Post): Promise<EncryptedPayload | undefined> {
+    const result =
+        post.metadata.content?.attachments?.map(async (attachment) => {
+            if (attachment.type !== 'Image') return;
 
-    return;
+            const image = attachment.uri ? await fetchBlob(attachment.uri) : null;
+            if (!image) return;
+
+            const decoded = await steganographyDecodeImage(image);
+            if (!decoded) return;
+
+            const [result, preset] = decoded;
+
+            if (preset === SteganographyPreset.Preset2023) {
+                return [result, '2'] as EncryptedPayload;
+            } else {
+                safeUnreachable(preset);
+                return;
+            }
+        }) ?? [];
+
+    const allSettled = await Promise.allSettled(result);
+    return first(compact(allSettled.map((x) => (x.status === 'fulfilled' ? x.value : null))));
 }

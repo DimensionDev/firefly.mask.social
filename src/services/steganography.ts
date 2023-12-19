@@ -1,4 +1,4 @@
-import { decodeArrayBuffer, encodeArrayBuffer } from '@masknet/kit';
+import { encodeArrayBuffer } from '@masknet/kit';
 import {
     AlgorithmVersion,
     decode,
@@ -32,6 +32,7 @@ export enum SteganographyPreset {
 const PRESET_SETTINGS: Record<
     SteganographyPreset,
     {
+        preset: SteganographyPreset;
         description: string;
         mask: string | null;
         payload: string;
@@ -41,6 +42,7 @@ const PRESET_SETTINGS: Record<
     }
 > = {
     [SteganographyPreset.Preset2023]: {
+        preset: SteganographyPreset.Preset2023,
         description: 'the preset mask network used for payload V37',
         mask: null,
         width: 1200,
@@ -85,5 +87,5 @@ export async function steganographyDecodeImage(image: Blob | ArrayBuffer) {
         ...settings.options,
         pass: 'mask',
     });
-    return new Uint8Array(decodeArrayBuffer(result));
+    return [result, settings.preset] as const;
 }
