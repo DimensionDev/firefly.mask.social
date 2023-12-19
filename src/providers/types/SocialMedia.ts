@@ -9,6 +9,7 @@ export enum SessionType {
     Warpcast = 'Warpcast',
     Lens = 'Lens',
     Firefly = 'Firefly',
+    Farcaster = 'Farcaster',
 }
 
 export enum MimeType {
