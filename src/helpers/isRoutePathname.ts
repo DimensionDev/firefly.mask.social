@@ -5,8 +5,8 @@ export function isRoutePathname(pathname: string, routePathname: `/${string}`) {
     }
 
     // Remove trailing '/' from, if present and split the pathnames into parts
-    const pathnameParts = pathname.replace(/\/+$/, '').split('/');
-    const routePathnameParts = routePathname.replace(/\/+$/, '').split('/');
+    const pathnameParts = pathname.replace(/\/$/, '').split('/');
+    const routePathnameParts = routePathname.replace(/\/$/, '').split('/');
 
     // Check if the number of parts in routePathname is less than or equal to pathname
     if (routePathnameParts.length > pathnameParts.length) {
