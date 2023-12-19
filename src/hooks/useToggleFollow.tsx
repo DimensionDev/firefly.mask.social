@@ -10,9 +10,9 @@ import { useIsFollowing } from '@/hooks/useIsFollowing.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useUnmountRef } from '@/hooks/useUnmountRef.js';
 import { LoginModalRef } from '@/modals/controls.js';
+import { FarcasterSocialMediaProvider } from '@/providers/farcaster/index.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
-import { WarpcastSocialMediaProvider } from '@/providers/warpcast/SocialMedia.js';
 
 export function useToggleFollow(profile: Profile) {
     const { profileId, handle, source } = profile;
@@ -51,8 +51,8 @@ export function useToggleFollow(profile: Profile) {
                     break;
                 case SocialPlatform.Farcaster:
                     await (followStateRef.current
-                        ? WarpcastSocialMediaProvider.unfollow(profileId)
-                        : WarpcastSocialMediaProvider.follow(profileId));
+                        ? FarcasterSocialMediaProvider.unfollow(profileId)
+                        : FarcasterSocialMediaProvider.follow(profileId));
                     break;
                 default:
                     safeUnreachable(source);

@@ -12,8 +12,8 @@ import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { SinglePost } from '@/components/Posts/SinglePost.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
+import { FarcasterSocialMediaProvider } from '@/providers/farcaster/index.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
-import { WarpcastSocialMediaProvider } from '@/providers/warpcast/SocialMedia.js';
 import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useLensStateStore } from '@/store/useLensStore.js';
@@ -44,7 +44,7 @@ export default function Following() {
                     );
                 case SocialPlatform.Farcaster:
                     if (!currentFarcasterProfile?.profileId) return;
-                    return WarpcastSocialMediaProvider.discoverPostsById(
+                    return FarcasterSocialMediaProvider.discoverPostsById(
                         currentFarcasterProfile.profileId,
                         createIndicator(undefined, pageParam),
                     );

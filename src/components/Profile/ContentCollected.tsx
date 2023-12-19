@@ -11,8 +11,8 @@ import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { SinglePost } from '@/components/Posts/SinglePost.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
+import { FarcasterSocialMediaProvider } from '@/providers/farcaster/index.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
-import { WarpcastSocialMediaProvider } from '@/providers/warpcast/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 
@@ -39,7 +39,7 @@ export default function ContentCollected({ profileId }: ContentFeedProps) {
 
                     return posts;
                 case SocialPlatform.Farcaster:
-                    return WarpcastSocialMediaProvider.getPostsByProfileId(
+                    return FarcasterSocialMediaProvider.getPostsByProfileId(
                         profileId,
                         createIndicator(undefined, pageParam),
                     );

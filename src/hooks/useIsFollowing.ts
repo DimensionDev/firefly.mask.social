@@ -3,9 +3,9 @@ import { useQuery } from '@tanstack/react-query';
 import { useCallback } from 'react';
 
 import { SocialPlatform } from '@/constants/enum.js';
+import { FarcasterSocialMediaProvider } from '@/providers/farcaster/index.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
-import { WarpcastSocialMediaProvider } from '@/providers/warpcast/SocialMedia.js';
 
 interface Options {
     profile: Profile;
@@ -26,7 +26,7 @@ export function useIsFollowing({ profile, placeholder, enabled }: Options) {
                 case SocialPlatform.Lens:
                     return LensSocialMediaProvider.getProfileByHandle(identifier);
                 case SocialPlatform.Farcaster:
-                    return WarpcastSocialMediaProvider.getProfileById(identifier);
+                    return FarcasterSocialMediaProvider.getProfileById(identifier);
                 default:
                     safeUnreachable(platform);
                     return null;
