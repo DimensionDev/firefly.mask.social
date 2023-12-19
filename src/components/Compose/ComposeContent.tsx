@@ -1,14 +1,13 @@
-import { t, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import { first } from 'lodash-es';
 
-import CloseIcon from '@/assets/close.svg';
+import ComposeImage from '@/components/Compose/ComposeImage.js';
+import ComposeVideo from '@/components/Compose/ComposeVideo.js';
 import Editor from '@/components/Compose/Editor.js';
 import { SourceIcon } from '@/components/SourceIcon.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
-import { Tooltip } from '@/components/Tooltip.js';
 import { Image } from '@/esm/Image.js';
 import { classNames } from '@/helpers/classNames.js';
-import { createImageUrl } from '@/helpers/createImageUrl.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 
 interface ComposeContentProps {}
@@ -38,56 +37,14 @@ export default function ComposeContent(props: ComposeContentProps) {
                     {/* image */}
                     {images.length > 0 && (
                         <div className=" relative grid grid-cols-2 gap-2 p-3">
-                            {images.map((image, index) => {
-                                const len = images.length;
-
-                                return (
-                                    <div
-                                        key={`${image.file.name}_${index}`}
-                                        className={classNames(
-                                            ' overflow-hidden rounded-2xl',
-                                            len <= 2 ? ' h-72' : len === 3 && index === 2 ? ' h-72' : ' h-[138px]',
-                                            len === 1 ? ' col-span-2' : '',
-                                            len === 3 && index === 1 ? ' col-start-1' : '',
-                                            len === 3 && index === 2
-                                                ? ' absolute right-3 top-3 w-[251px]'
-                                                : ' relative',
-                                        )}
-                                    >
-                                        <Image
-                                            src={createImageUrl(image.file)}
-                                            alt={image.file.name}
-                                            fill
-                                            className=" object-cover"
-                                        />
-                                        <div className=" absolute right-2 top-2 h-[18px] w-[18px]">
-                                            <Tooltip content={t`Remove`} placement="top">
-                                                <CloseIcon
-                                                    className=" cursor-pointer"
-                                                    width={18}
-                                                    height={18}
-                                                    onClick={() => removeImageByIndex(index)}
-                                                />
-                                            </Tooltip>
-                                        </div>
-                                    </div>
-                                );
-                            })}
+                            {images.map((image, index) => (
+                                <ComposeImage key={`${image.file.name}_${index}`} index={index} />
+                            ))}
                         </div>
                     )}
 
                     {/* video */}
-                    {video ? (
-                        <div className=" relative">
-                            <video controls src={createImageUrl(video.file)} />
-                            <CloseIcon
-                                className=" absolute right-2 top-2 h-[18px] w-[18px] cursor-pointer"
-                                width={18}
-                                height={18}
-                                onClick={() => updateVideo(null)}
-                            />
-                        </div>
-                    ) : null}
+                    <ComposeVideo />
 
                     {/* quote */}
                     {(type === 'quote' || type === 'reply') && post ? (

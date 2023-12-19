@@ -22,7 +22,12 @@ export interface MetadataAsset {
     title?: string;
 }
 
-export interface IPFS_MediaObject {
+export interface MediaObject {
+    file: File;
+    ipfs?: IPFSResponse;
+}
+
+export interface MediaObject_WithIPFS {
     file: File;
     ipfs: IPFSResponse;
 }

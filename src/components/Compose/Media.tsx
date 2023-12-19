@@ -27,22 +27,31 @@ export default function Media({ close }: MediaProps) {
             const files = event.target.files;
 
             if (files && files.length > 0) {
+                updateImages(
+                    [
+                        ...images,
+                        ...[...files].map((file) => ({
+                            file,
+                        })),
+                    ].slice(0, currentFarcasterProfile ? 2 : 4),
+                );
                 updateLoading(true);
                 const response = await uploadFilesToIPFS([...files]);
                 if (response.length === 0) {
                     enqueueSnackbar(t`Failed to upload. Network error`, {
                         variant: 'error',
                     });
+                } else {
+                    updateImages(
+                        [
+                            ...images,
+                            ...response.map((ipfs, index) => ({
+                                file: files[index],
+                                ipfs,
+                            })),
+                        ].slice(0, currentFarcasterProfile ? 2 : 4),
+                    );
                 }
-                updateImages(
-                    [
-                        ...images,
-                        ...response.map((ipfs, index) => ({
-                            file: files[index],
-                            ipfs,
-                        })),
-                    ].slice(0, currentFarcasterProfile ? 2 : 4),
-                );
                 updateLoading(false);
             }
             close();
@@ -55,17 +64,21 @@ export default function Media({ close }: MediaProps) {
             const files = event.target.files;
 
             if (files && files.length > 0) {
+                updateVideo({
+                    file: files[0],
+                });
                 updateLoading(true);
                 const response = await uploadFilesToIPFS([...files]);
                 if (response.length === 0) {
                     enqueueSnackbar(t`Failed to upload. Network error`, {
                         variant: 'error',
                     });
+                } else {
+                    updateVideo({
+                        file: files[0],
+                        ipfs: response[0],
+                    });
                 }
-                updateVideo({
-                    file: files[0],
-                    ipfs: response[0],
-                });
                 updateLoading(false);
             }
             close();

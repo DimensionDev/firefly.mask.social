@@ -3,16 +3,19 @@ import { SITE_URL } from '@/constants/index.js';
 import { getPostMetaData } from '@/helpers/getPostMetaData.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { uploadToArweave } from '@/services/uploadToArweave.js';
-import type { IPFS_MediaObject } from '@/types/index.js';
+import type { MediaObject, MediaObject_WithIPFS } from '@/types/index.js';
 
 export async function publishPostForLens(
     profileId: string,
     characters: string,
-    images: IPFS_MediaObject[],
-    video: IPFS_MediaObject | null,
+    images: MediaObject[],
+    video: MediaObject | null,
 ) {
     const lens = LensSocialMediaProvider;
     const profile = await lens.getProfileById(profileId);
+
+    const filteredImages = images.filter((image) => !!image.ipfs) as MediaObject_WithIPFS[];
+    const filteredVideo = video && !!video.ipfs ? (video as MediaObject_WithIPFS) : null;
 
     const title = `Post by #${profile.handle}`;
     const metadata = getPostMetaData(
@@ -25,32 +28,32 @@ export async function publishPostForLens(
                 external_url: SITE_URL,
             },
         },
-        images.length > 0 || video
+        filteredImages.length > 0 || !!filteredVideo
             ? {
-                  attachments: video
+                  attachments: filteredVideo
                       ? [
                             {
-                                item: video.ipfs.uri,
-                                type: video.ipfs.mimeType,
-                                cover: video.ipfs.uri,
+                                item: filteredVideo.ipfs.uri,
+                                type: filteredVideo.ipfs.mimeType,
+                                cover: filteredVideo.ipfs.uri,
                             },
                         ]
-                      : images.map((image) => ({
+                      : filteredImages.map((image) => ({
                             item: image.ipfs.uri,
                             type: image.ipfs.mimeType,
-                            cover: images[0].ipfs.uri,
+                            cover: filteredImages[0].ipfs.uri,
                         })),
-                  ...(video
+                  ...(filteredVideo
                       ? {
-                            video: {
-                                item: video.ipfs.uri,
-                                type: video.ipfs.mimeType,
+                            filteredVideo: {
+                                item: filteredVideo.ipfs.uri,
+                                type: filteredVideo.ipfs.mimeType,
                             },
                         }
                       : {
                             image: {
-                                item: images[0].ipfs.uri,
-                                type: images[0].ipfs.mimeType,
+                                item: filteredImages[0].ipfs.uri,
+                                type: filteredImages[0].ipfs.mimeType,
                             },
                         }),
               }
@@ -74,11 +77,14 @@ export async function commentPostForLens(
     profileId: string,
     postId: string,
     characters: string,
-    images: IPFS_MediaObject[],
-    video: IPFS_MediaObject | null,
+    images: MediaObject[],
+    video: MediaObject | null,
 ) {
     const lens = LensSocialMediaProvider;
     const profile = await lens.getProfileById(profileId);
+
+    const filteredImages = images.filter((image) => !!image.ipfs) as MediaObject_WithIPFS[];
+    const filteredVideo = video && !!video.ipfs ? (video as MediaObject_WithIPFS) : null;
 
     const title = `Post by #${profile.handle}`;
     const metadata = getPostMetaData(
@@ -91,32 +97,32 @@ export async function commentPostForLens(
                 external_url: SITE_URL,
             },
         },
-        images.length > 0 || video
+        filteredImages.length > 0 || !!filteredVideo
             ? {
-                  attachments: video
+                  attachments: filteredVideo
                       ? [
                             {
-                                item: video.ipfs.uri,
-                                type: video.ipfs.mimeType,
-                                cover: video.ipfs.uri,
+                                item: filteredVideo.ipfs.uri,
+                                type: filteredVideo.ipfs.mimeType,
+                                cover: filteredVideo.ipfs.uri,
                             },
                         ]
-                      : images.map((image) => ({
+                      : filteredImages.map((image) => ({
                             item: image.ipfs.uri,
                             type: image.ipfs.mimeType,
-                            cover: images[0].ipfs.uri,
+                            cover: filteredImages[0].ipfs.uri,
                         })),
-                  ...(video
+                  ...(filteredVideo
                       ? {
-                            video: {
-                                item: video.ipfs.uri,
-                                type: video.ipfs.mimeType,
+                            filteredVideo: {
+                                item: filteredVideo.ipfs.uri,
+                                type: filteredVideo.ipfs.mimeType,
                             },
                         }
                       : {
                             image: {
-                                item: images[0].ipfs.uri,
-                                type: images[0].ipfs.mimeType,
+                                item: filteredImages[0].ipfs.uri,
+                                type: filteredImages[0].ipfs.mimeType,
                             },
                         }),
               }
@@ -130,11 +136,14 @@ export async function quotePostForLens(
     profileId: string,
     postId: string,
     characters: string,
-    images: IPFS_MediaObject[],
-    video: IPFS_MediaObject | null,
+    images: MediaObject[],
+    video: MediaObject | null,
 ) {
     const lens = LensSocialMediaProvider;
     const profile = await lens.getProfileById(profileId);
+
+    const filteredImages = images.filter((image) => !!image.ipfs) as MediaObject_WithIPFS[];
+    const filteredVideo = video && !!video.ipfs ? (video as MediaObject_WithIPFS) : null;
 
     const title = `Post by #${profile.handle}`;
     const metadata = getPostMetaData(
@@ -147,32 +156,32 @@ export async function quotePostForLens(
                 external_url: SITE_URL,
             },
         },
-        images.length > 0 || video
+        filteredImages.length > 0 || !!filteredVideo
             ? {
-                  attachments: video
+                  attachments: filteredVideo
                       ? [
                             {
-                                item: video.ipfs.uri,
-                                type: video.ipfs.mimeType,
-                                cover: video.ipfs.uri,
+                                item: filteredVideo.ipfs.uri,
+                                type: filteredVideo.ipfs.mimeType,
+                                cover: filteredVideo.ipfs.uri,
                             },
                         ]
-                      : images.map((image) => ({
+                      : filteredImages.map((image) => ({
                             item: image.ipfs.uri,
                             type: image.ipfs.mimeType,
-                            cover: images[0].ipfs.uri,
+                            cover: filteredImages[0].ipfs.uri,
                         })),
-                  ...(video
+                  ...(filteredVideo
                       ? {
-                            video: {
-                                item: video.ipfs.uri,
-                                type: video.ipfs.mimeType,
+                            filteredVideo: {
+                                item: filteredVideo.ipfs.uri,
+                                type: filteredVideo.ipfs.mimeType,
                             },
                         }
                       : {
                             image: {
-                                item: images[0].ipfs.uri,
-                                type: images[0].ipfs.mimeType,
+                                item: filteredImages[0].ipfs.uri,
+                                type: filteredImages[0].ipfs.mimeType,
                             },
                         }),
               }

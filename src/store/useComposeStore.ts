@@ -6,7 +6,7 @@ import { SocialPlatform } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
-import type { IPFS_MediaObject } from '@/types/index.js';
+import type { MediaObject } from '@/types/index.js';
 
 // A recursive version of Post will cause typescript failed to infer the type of the final exports.
 type OrphanPost = Omit<Post, 'embedPosts' | 'comments' | 'root' | 'commentOn' | 'quoteOn'>;
@@ -19,8 +19,8 @@ interface ComposeState {
     post: OrphanPost | null;
     chars: string;
     typedMessage: TypedMessageTextV1 | null;
-    video: IPFS_MediaObject | null;
-    images: IPFS_MediaObject[];
+    video: MediaObject | null;
+    images: MediaObject[];
     loading: boolean;
     updateSource: (source: SocialPlatform | null) => void;
     updateType: (type: 'compose' | 'quote' | 'reply') => void;
@@ -28,9 +28,9 @@ interface ComposeState {
     updateTypedMessage: (typedMessage: TypedMessageTextV1 | null) => void;
     updateLoading: (loading: boolean) => void;
     updatePost: (post: OrphanPost | null) => void;
-    updateVideo: (video: IPFS_MediaObject | null) => void;
-    updateImages: (images: IPFS_MediaObject[]) => void;
-    addImage: (image: IPFS_MediaObject) => void;
+    updateVideo: (video: MediaObject | null) => void;
+    updateImages: (images: MediaObject[]) => void;
+    addImage: (image: MediaObject) => void;
     removeImageByIndex: (index: number) => void;
     clear: () => void;
 }
@@ -69,7 +69,7 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
             set((state) => {
                 state.loading = loading;
             }),
-        updateImages: (images: IPFS_MediaObject[]) =>
+        updateImages: (images: MediaObject[]) =>
             set((state) => {
                 state.images = images;
             }),
@@ -81,11 +81,11 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
             set((state) => {
                 state.post = null;
             }),
-        addImage: (image: IPFS_MediaObject) =>
+        addImage: (image: MediaObject) =>
             set((state) => {
                 state.images = [...state.images, image];
             }),
-        updateVideo: (video: IPFS_MediaObject | null) =>
+        updateVideo: (video: MediaObject | null) =>
             set((state) => {
                 state.video = video;
             }),
