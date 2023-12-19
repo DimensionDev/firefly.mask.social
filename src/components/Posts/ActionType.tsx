@@ -23,7 +23,7 @@ export const FeedActionType = memo<FeedActionType>(function FeedActionType({ pos
     const showThread = isComment || !post.comments?.length;
 
     const pathname = usePathname();
-    const isPostPage = pathname.includes('/post');
+    const isPostPage = pathname.startsWith('/post');
 
     const combined =
         [post.mirrors?.length ?? 0, post.reactions?.length ?? 0, post.comments?.length ?? 0].filter((x) => x > 0)

@@ -11,16 +11,15 @@ import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 
 export function SocialPlatformTabs() {
-    const currentSource = useGlobalState.use.currentSource();
-    const updateCurrentSource = useGlobalState.use.updateCurrentSource();
+    const { currentSource, updateCurrentSource } = useGlobalState();
     const currentProfile = useCurrentProfile(currentSource);
 
     const pathname = usePathname();
     const router = useRouter();
 
-    if (pathname.includes('/settings') || pathname.includes('/post')) return null;
+    if (pathname.startsWith('/settings') || pathname.startsWith('/post')) return null;
 
-    if (pathname.includes('/profile')) {
+    if (pathname.startsWith('/profile')) {
         const param = pathname.split('/');
         const handle = param[param.length - 1];
         if (currentSource === SocialPlatform.Farcaster && currentProfile?.profileId !== handle) return null;

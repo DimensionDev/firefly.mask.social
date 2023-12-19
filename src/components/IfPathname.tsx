@@ -4,19 +4,19 @@ import { usePathname } from 'next/navigation.js';
 import type { ReactNode } from 'react';
 
 interface IfPathname {
-    isOneOf?: string[];
-    isNotOneOf?: string[];
+    isStartsWithOneOf?: string[];
+    isNotStartsWithOneOf?: string[];
     children: ReactNode;
 }
 
-export function IfPathname({ isOneOf: includes, isNotOneOf: excludes, children }: IfPathname) {
+export function IfPathname({ isStartsWithOneOf, isNotStartsWithOneOf, children }: IfPathname) {
     const pathname = usePathname();
 
-    if (includes?.some((includedPath) => pathname.startsWith(includedPath))) {
+    if (isStartsWithOneOf?.some((includedPath) => pathname.startsWith(includedPath))) {
         return <>{children}</>;
     }
 
-    if (excludes && !excludes.some((excludedPath) => pathname.startsWith(excludedPath))) {
+    if (isNotStartsWithOneOf && !isNotStartsWithOneOf.some((excludedPath) => pathname.startsWith(excludedPath))) {
         return <>{children}</>;
     }
 

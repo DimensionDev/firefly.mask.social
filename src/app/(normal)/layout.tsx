@@ -23,10 +23,10 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 {children}
             </main>
             <aside className=" sticky top-0 z-[1] h-full w-96 px-4 lg:block">
-                <IfPathname isNotOneOf={['/settings']}>
+                <IfPathname isNotStartsWithOneOf={['/settings']}>
                     <AsideSearchBar />
                 </IfPathname>
-                <IfPathname isOneOf={['/search']}>
+                <IfPathname isStartsWithOneOf={['/search']}>
                     <SearchFilter />
                 </IfPathname>
 

@@ -22,7 +22,7 @@ export const ThreadBody = memo<ThreadBodyProps>(function ThreadBody({ post, disa
     const { observe } = useObserveLensPost(post.postId, post.source);
 
     const pathname = usePathname();
-    const isDetail = pathname.includes('/post');
+    const isPostPage = pathname.startsWith('/post');
 
     const link = getPostUrl(post);
     const postPayload = getPostPayload(post.metadata.content?.content);
@@ -36,10 +36,10 @@ export const ThreadBody = memo<ThreadBodyProps>(function ThreadBody({ post, disa
         >
             <span ref={observe} />
             <FeedActionType post={post} isThread />
-            {postPayload || isDetail ? (
+            {postPayload || isPostPage ? (
                 <div
                     onClick={(event) => {
-                        if (!isDetail) {
+                        if (!isPostPage) {
                             event.preventDefault();
                             event.stopPropagation();
                             router.push(link);

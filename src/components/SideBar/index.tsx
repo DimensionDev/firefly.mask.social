@@ -73,17 +73,20 @@ export const SideBar = memo(function SideBar() {
     const currentSource = useGlobalState.use.currentSource();
     const currentProfile = useCurrentProfile(currentSource);
 
-    const route = usePathname();
+    const pathname = usePathname();
     const { isDarkMode } = useDarkMode();
     const isLogin = useIsLogin();
 
-    const handleOrProfileId = useMemo(() => (route.startsWith('/profile') ? route.split('/')[3] ?? '' : ''), [route]);
+    const handleOrProfileId = useMemo(
+        () => (pathname.startsWith('/profile') ? pathname.split('/')[3] ?? '' : ''),
+        [pathname],
+    );
 
     const isMyProfile = useIsMyProfile(currentSource, handleOrProfileId);
 
     const checkIsSelected = useCallback(
-        (href: string) => (href === PageRoutes.Profile ? isMyProfile : route.startsWith(href)),
-        [isMyProfile, route],
+        (href: string) => (href === PageRoutes.Profile ? isMyProfile : pathname.startsWith(href)),
+        [isMyProfile, pathname],
     );
 
     return (
@@ -101,7 +104,7 @@ export const SideBar = memo(function SideBar() {
                                 <ul role="list" className="space-y-1">
                                     {items.map((item) => {
                                         const isSelected =
-                                            item.href === '/' ? route === '/' : checkIsSelected(item.href);
+                                            item.href === '/' ? pathname === '/' : checkIsSelected(item.href);
                                         const Icon = isSelected ? item.selectedIcon : item.icon;
                                         return (
                                             <li className="flex rounded-lg text-main" key={item.href}>
