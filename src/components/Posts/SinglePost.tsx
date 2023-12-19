@@ -9,6 +9,7 @@ import { dynamic } from '@/esm/dynamic.js';
 import { Link } from '@/esm/Link.js';
 import { getPostPayload } from '@/helpers/getPostPayload.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
+import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { useObserveLensPost } from '@/hooks/useObserveLensPost.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
@@ -38,7 +39,7 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
     const postPayload = getPostPayload(post.metadata.content?.content);
 
     const pathname = usePathname();
-    const isPostPage = pathname.startsWith('/post');
+    const isPostPage = isRoutePathname(pathname, '/post');
     const postLink = getPostUrl(post);
 
     return (

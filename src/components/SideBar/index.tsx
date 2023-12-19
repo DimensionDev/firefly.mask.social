@@ -23,6 +23,7 @@ import { PageRoutes } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
+import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useDarkMode } from '@/hooks/useDarkMode.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
@@ -74,18 +75,18 @@ export const SideBar = memo(function SideBar() {
     const currentProfile = useCurrentProfile(currentSource);
 
     const pathname = usePathname();
-    const { isDarkMode } = useDarkMode();
     const isLogin = useIsLogin();
+    const { isDarkMode } = useDarkMode();
 
     const handleOrProfileId = useMemo(
-        () => (pathname.startsWith('/profile') ? pathname.split('/')[3] ?? '' : ''),
+        () => (isRoutePathname(pathname, '/profile') ? pathname.split('/')[3] ?? '' : ''),
         [pathname],
     );
 
     const isMyProfile = useIsMyProfile(currentSource, handleOrProfileId);
 
     const checkIsSelected = useCallback(
-        (href: string) => (href === PageRoutes.Profile ? isMyProfile : pathname.startsWith(href)),
+        (href: `/${string}`) => (href === PageRoutes.Profile ? isMyProfile : isRoutePathname(pathname, href)),
         [isMyProfile, pathname],
     );
 
@@ -104,7 +105,9 @@ export const SideBar = memo(function SideBar() {
                                 <ul role="list" className="space-y-1">
                                     {items.map((item) => {
                                         const isSelected =
-                                            item.href === '/' ? pathname === '/' : checkIsSelected(item.href);
+                                            item.href === '/'
+                                                ? pathname === '/'
+                                                : checkIsSelected(item.href as `/${string}`);
                                         const Icon = isSelected ? item.selectedIcon : item.icon;
                                         return (
                                             <li className="flex rounded-lg text-main" key={item.href}>

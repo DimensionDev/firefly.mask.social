@@ -9,6 +9,7 @@ import { PostHeader } from '@/components/Posts/PostHeader.js';
 import { Link } from '@/esm/Link.js';
 import { getPostPayload } from '@/helpers/getPostPayload.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
+import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { useObserveLensPost } from '@/hooks/useObserveLensPost.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
@@ -22,7 +23,7 @@ export const ThreadBody = memo<ThreadBodyProps>(function ThreadBody({ post, disa
     const { observe } = useObserveLensPost(post.postId, post.source);
 
     const pathname = usePathname();
-    const isPostPage = pathname.startsWith('/post');
+    const isPostPage = isRoutePathname(pathname, '/post');
 
     const link = getPostUrl(post);
     const postPayload = getPostPayload(post.metadata.content?.content);

@@ -7,6 +7,7 @@ import { startTransition } from 'react';
 import { SocialPlatform } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
+import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 
@@ -14,12 +15,12 @@ export function SocialPlatformTabs() {
     const { currentSource, updateCurrentSource } = useGlobalState();
     const currentProfile = useCurrentProfile(currentSource);
 
-    const pathname = usePathname();
     const router = useRouter();
+    const pathname = usePathname();
 
-    if (pathname.startsWith('/settings') || pathname.startsWith('/post')) return null;
+    if (isRoutePathname(pathname, '/settings') || isRoutePathname(pathname, '/post')) return null;
 
-    if (pathname.startsWith('/profile')) {
+    if (isRoutePathname(pathname, '/profile')) {
         const param = pathname.split('/');
         const handle = param[param.length - 1];
         if (currentSource === SocialPlatform.Farcaster && currentProfile?.profileId !== handle) return null;
@@ -39,7 +40,7 @@ export function SocialPlatformTabs() {
                         aria-current={currentSource === value ? 'page' : undefined}
                         onClick={() =>
                             startTransition(() => {
-                                if (pathname.includes('/profile') && currentProfile) {
+                                if (isRoutePathname(pathname, '/profile') && currentProfile) {
                                     router.push(getProfileUrl(currentProfile));
                                 }
                                 updateCurrentSource(value);
