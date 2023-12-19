@@ -13,6 +13,8 @@ export function getAttachments(cast: Cast) {
 }
 
 export function formatContent(cast: Cast) {
+    const oembedUrl = last(cast.text.match(URL_REGEX) || []);
+
     if (cast.embeds?.images?.length) {
         return {
             content: cast.text,
@@ -20,6 +22,7 @@ export function formatContent(cast: Cast) {
                 uri: first(cast.embeds.images)!.url,
                 type: 'Image',
             } as MetadataAsset,
+            oembedUrl,
             attachments: getAttachments(cast),
         };
     } else if (cast.embeds?.videos?.length) {
@@ -29,11 +32,11 @@ export function formatContent(cast: Cast) {
                 uri: first(cast.embeds.videos)!.url,
                 type: 'Video',
             } as MetadataAsset,
+            oembedUrl,
             attachments: getAttachments(cast),
         };
     }
 
-    const oembedUrl = last(cast.text.match(URL_REGEX) || []);
     return {
         content: cast.text,
         oembedUrl,

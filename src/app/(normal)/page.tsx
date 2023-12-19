@@ -1,5 +1,6 @@
 'use client';
 
+import { Trans } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
 import { createIndicator, createPageable } from '@masknet/shared-base';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
@@ -7,6 +8,7 @@ import { useEffect, useMemo } from 'react';
 import { useInView } from 'react-cool-inview';
 import { useAccount } from 'wagmi';
 
+import BlackHoleIcon from '@/assets/BlackHole.svg';
 import LoadingIcon from '@/assets/loading.svg';
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { SinglePost } from '@/components/Posts/SinglePost.js';
@@ -70,7 +72,19 @@ export default function Home() {
 
     return (
         <div>
-            {posts.length ? posts.map((x) => <SinglePost post={x} key={x.postId} showMore />) : <NoResultsFallback />}
+            {posts.length ? (
+                posts.map((x) => <SinglePost post={x} key={x.postId} showMore />)
+            ) : (
+                <NoResultsFallback
+                    className="pt-[228px]"
+                    icon={<BlackHoleIcon width={200} height="auto" className="text-secondaryMain" />}
+                    message={
+                        <div className="mt-10">
+                            <Trans>There is no data available for display</Trans>
+                        </div>
+                    }
+                />
+            )}
             {hasNextPage && posts.length ? (
                 <div className="flex items-center justify-center p-2" ref={observe}>
                     <LoadingIcon width={16} height={16} className="animate-spin" />

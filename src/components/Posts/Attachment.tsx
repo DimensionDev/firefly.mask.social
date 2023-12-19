@@ -51,9 +51,8 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({ attachm
     const { attachmentsHasImage, imageAttachments } = useMemo(() => {
         // TODO: farcaster only support 2 attachment
         const processedAttachments = attachments.slice(0, 4);
-        const attachmentsHasImage = attachments.some((x) => x.type === 'Image');
         const imageAttachments = processedAttachments.filter((x) => x.type === 'Image' && x.uri);
-
+        const attachmentsHasImage = attachments.some((x) => x.type === 'Image') && imageAttachments.length > 1;
         return {
             processedAttachments,
             attachmentsHasImage,
@@ -63,8 +62,17 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({ attachm
 
     if (isQuote && asset?.type === 'Video') {
         return (
-            <div className="h-[120px] w-[120px] flex-shrink-0 flex-grow-0 basis-[120px]">
-                <Image width={120} height={120} className="h-[120px] w-[120px]" src={asset.cover} alt={asset.cover} />
+            <div className="relative h-[120px] w-[120px] flex-shrink-0 flex-grow-0 basis-[120px]">
+                <div className="absolute left-[calc(50%-16px)] top-[calc(50%-16px)] flex items-center justify-center rounded-xl bg-white/80 p-2 text-[#181818]">
+                    <Play width={16} height={16} />
+                </div>
+                <Image
+                    width={120}
+                    height={120}
+                    className="h-[120px] w-[120px] rounded-xl"
+                    src={asset.cover}
+                    alt={asset.cover}
+                />
             </div>
         );
     }
@@ -137,7 +145,8 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({ attachm
                             <div
                                 key={index}
                                 className={classNames(getClass(imageAttachments.length).aspect, {
-                                    'max-h-[288px]': imageAttachments.length === 2 && !isQuote,
+                                    'max-h-[288px]':
+                                        (imageAttachments.length === 2 || imageAttachments.length === 4) && !isQuote,
                                     'max-h-[284px]': imageAttachments.length === 3 && index === 2,
                                     'row-span-2': imageAttachments.length === 3 && index === 2,
                                     'max-h-[138px]': imageAttachments.length === 3 && index !== 2 && !isQuote,

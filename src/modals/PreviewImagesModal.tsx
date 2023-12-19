@@ -59,7 +59,7 @@ export const PreviewImagesModal = forwardRef<SingletonModalRefCreator<PreviewIma
                         leaveFrom="opacity-100"
                         leaveTo="opacity-0"
                     >
-                        <div className="fixed inset-0 bg-black/80" />
+                        <div className="fixed inset-0 bg-black bg-opacity-80 transition-opacity" />
                     </Transition.Child>
                     <div className="fixed inset-0 overflow-y-auto">
                         <div className="flex min-h-full items-center justify-center p-4 text-center">
@@ -72,7 +72,7 @@ export const PreviewImagesModal = forwardRef<SingletonModalRefCreator<PreviewIma
                                 leaveFrom="opacity-100 scale-100"
                                 leaveTo="opacity-0 scale-95"
                             >
-                                <Dialog.Panel className="preview-actions flex transform flex-col items-center transition-all">
+                                <Dialog.Panel className="preview-actions flex transform-none flex-col items-center transition-all">
                                     <div className="mb-2 w-full">
                                         <CloseIcon
                                             width={24}
@@ -92,7 +92,7 @@ export const PreviewImagesModal = forwardRef<SingletonModalRefCreator<PreviewIma
                                         className="max-h-[calc(100vh-110px)] max-w-full"
                                     />
 
-                                    <div className="my-1 flex w-[512px] items-center justify-between">
+                                    <div className="absolute bottom-0 my-1 flex w-[512px] items-center justify-between">
                                         <div className="mr-auto h-4 w-4">
                                             {isMultiple && !isAtStart ? (
                                                 <ArrowLeftIcon

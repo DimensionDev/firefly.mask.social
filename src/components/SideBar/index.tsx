@@ -115,7 +115,7 @@ export const SideBar = memo(function SideBar() {
                                                                 : item.href
                                                         }
                                                         className={classNames(
-                                                            'flex flex-grow-0 gap-x-3 px-4 py-3 text-xl/5 hover:bg-bg hover:font-bold',
+                                                            'flex flex-grow-0 gap-x-3 px-4 py-3 text-xl/5 hover:bg-bg',
                                                             { 'font-bold': isSelected },
                                                         )}
                                                     >

@@ -1,9 +1,11 @@
 import { safeUnreachable } from '@masknet/kit';
 import { useQuery } from '@tanstack/react-query';
+import { Suspense } from 'react';
 import urlcat from 'urlcat';
 
 import Embed from '@/components/Oembed/Embed.js';
 import Player from '@/components/Oembed/Player.js';
+import { PostEmbed } from '@/components/Oembed/Post.js';
 import { Quote } from '@/components/Posts/Quote.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { formatWarpcastPost } from '@/helpers/formatWarpcastPost.js';
@@ -59,6 +61,13 @@ export default function Oembed({ url, onData }: OembedProps) {
             case OpenGraphPayloadSourceType.Farcaster:
                 const post = formatWarpcastPost(payload.cast);
                 return <Quote post={post} />;
+            case OpenGraphPayloadSourceType.Post:
+                const id = payload.id;
+                return (
+                    <Suspense fallback={null}>
+                        <PostEmbed id={id} source={payload.source} />
+                    </Suspense>
+                );
             default:
                 safeUnreachable(type);
                 break;

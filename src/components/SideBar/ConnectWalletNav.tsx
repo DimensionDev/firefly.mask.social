@@ -24,7 +24,7 @@ export function ConnectWalletNav() {
 
     return (
         <div
-            className="flex gap-x-3 px-4 py-3 text-xl/5 hover:cursor-pointer hover:bg-bg hover:font-bold"
+            className="flex gap-x-3 px-4 py-3 text-xl/5 hover:cursor-pointer hover:bg-bg"
             onClick={() => {
                 account.isConnected ? AccountModalRef.open() : ConnectWalletModalRef.open();
             }}

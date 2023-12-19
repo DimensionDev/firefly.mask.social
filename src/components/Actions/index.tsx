@@ -35,8 +35,11 @@ export const PostActions = memo<PostActionsProps>(function PostActions({
 
     return (
         <div
-            className={classNames('mt-2 flex items-center justify-between', className, {
+            className={classNames('mt-2 grid grid-flow-col items-center', className, {
                 'pl-[52px]': !disablePadding,
+                'grid-cols-3': post.source === SocialPlatform.Farcaster,
+                'grid-cols-4': !post.canAct && post.source === SocialPlatform.Lens,
+                'grid-cols-5': !!post.canAct && post.source === SocialPlatform.Lens,
             })}
             {...rest}
         >

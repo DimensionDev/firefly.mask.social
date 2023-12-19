@@ -1,11 +1,13 @@
 'use client';
 
+import { Trans } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
 import { createIndicator } from '@masknet/shared-base';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { useMemo } from 'react';
 import { useInView } from 'react-cool-inview';
 
+import BlackHoleIcon from '@/assets/BlackHole.svg';
 import LoadingIcon from '@/assets/loading.svg';
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
@@ -16,6 +18,7 @@ import { FarcasterSocialMediaProvider } from '@/providers/farcaster/index.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
+import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 import { useLensStateStore } from '@/store/useLensStore.js';
 
 export default function Following() {
@@ -24,6 +27,8 @@ export default function Following() {
     const currentFarcasterProfile = useFarcasterStateStore.use.currentProfile();
 
     const isLogin = useIsLogin(currentSource);
+
+    const fetchAndStoreViews = useImpressionsStore.use.fetchAndStoreViews();
 
     const { data, hasNextPage, fetchNextPage, isFetchingNextPage, isFetching } = useSuspenseInfiniteQuery({
         queryKey: [
@@ -38,10 +43,16 @@ export default function Following() {
             switch (currentSource) {
                 case SocialPlatform.Lens:
                     if (!currentLensProfile?.profileId) return;
-                    return LensSocialMediaProvider.discoverPostsById(
+                    const result = await LensSocialMediaProvider.discoverPostsById(
                         currentLensProfile.profileId,
                         createIndicator(undefined, pageParam),
                     );
+
+                    const ids = result.data.flatMap((x) => [x.postId]);
+
+                    fetchAndStoreViews(ids);
+
+                    return result;
                 case SocialPlatform.Farcaster:
                     if (!currentFarcasterProfile?.profileId) return;
                     return FarcasterSocialMediaProvider.discoverPostsById(
@@ -78,7 +89,15 @@ export default function Following() {
             {results.length ? (
                 results.map((x) => <SinglePost post={x} key={x.postId} showMore />)
             ) : (
-                <NoResultsFallback />
+                <NoResultsFallback
+                    className="pt-[228px]"
+                    icon={<BlackHoleIcon width={200} height="auto" className="text-secondaryMain" />}
+                    message={
+                        <div className="mt-10">
+                            <Trans>Follow more friends to continue exploring {currentSource}</Trans>
+                        </div>
+                    }
+                />
             )}
             {hasNextPage && results.length ? (
                 <div className="flex items-center justify-center p-2" ref={observe}>

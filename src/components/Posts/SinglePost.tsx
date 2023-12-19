@@ -24,12 +24,14 @@ interface SinglePostProps {
     disableAnimate?: boolean;
     showMore?: boolean;
     isComment?: boolean;
+    isDetail?: boolean;
 }
 export const SinglePost = memo<SinglePostProps>(function SinglePost({
     post,
     disableAnimate = false,
     showMore = false,
     isComment = false,
+    isDetail = false,
 }) {
     const router = useRouter();
     const { observe } = useObserveLensPost(post.postId, post.source);
@@ -58,7 +60,7 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
 
                     <PostBody post={post} showMore={showMore} ref={observe} postPayload={postPayload} />
 
-                    <PostActions post={post} disabled={post.isHidden} />
+                    {!isDetail ? <PostActions post={post} disabled={post.isHidden} /> : null}
                 </Link>
             ) : (
                 <>
@@ -66,7 +68,7 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
 
                     <PostBody post={post} showMore={showMore} ref={observe} postPayload={postPayload} />
 
-                    <PostActions post={post} disabled={post.isHidden} />
+                    {!isDetail ? <PostActions post={post} disabled={post.isHidden} /> : null}
                 </>
             )}
         </motion.article>
