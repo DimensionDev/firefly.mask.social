@@ -97,6 +97,9 @@ msgstr ""
 msgid "Copied"
 msgstr ""
 
+msgid "Failed to mirror on Farcaster: {0}"
+msgstr ""
+
 msgid "comment"
 msgstr ""
 
@@ -247,6 +250,9 @@ msgstr ""
 msgid "No post found"
 msgstr ""
 
+msgid "Failed to {0} on Farcaster: {1}"
+msgstr ""
+
 msgid "UnLiked"
 msgstr ""
 
@@ -356,6 +362,9 @@ msgid "Mirrored"
 msgstr ""
 
 msgid "Associated Wallets"
+msgstr ""
+
+msgid "Posted on Farcaster"
 msgstr ""
 
 msgid "Follow @realMaskNetwork on X"

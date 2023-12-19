@@ -15,6 +15,7 @@ interface ComposeState {
     type: 'compose' | 'quote' | 'reply';
     // If source is null, it means to post to all platforms.
     source: SocialPlatform | null;
+    /** Parent post */
     post: OrphanPost | null;
     chars: string;
     typedMessage: TypedMessageTextV1 | null;

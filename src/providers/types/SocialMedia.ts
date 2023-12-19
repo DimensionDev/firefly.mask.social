@@ -113,6 +113,7 @@ export type PostType = 'Post' | 'Comment' | 'Quote' | 'Mirror';
 
 export interface Post {
     type?: PostType;
+    /** It's `hash` for Farcaster */
     postId: string;
     parentPostId?: string;
     parentAuthor?: Profile;

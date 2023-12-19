@@ -1,13 +1,12 @@
 import { t, Trans } from '@lingui/macro';
 import { delay } from '@masknet/kit';
-import { Fragment } from 'react';
 import { useAsyncFn } from 'react-use';
 
 import LoadingIcon from '@/assets/loading.svg';
 import YesIcon from '@/assets/yes.svg';
+import { Avatar } from '@/components/Avatar.js';
 import { SourceIcon } from '@/components/SourceIcon.js';
 import { SocialPlatform } from '@/constants/enum.js';
-import { Image } from '@/esm/Image.js';
 import { classNames } from '@/helpers/classNames.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
@@ -52,71 +51,64 @@ export function PostByItem({ source }: PostByItemProps) {
 
     return currentProfile && currentProfiles.length > 0 ? (
         currentProfiles.map((profile) => (
-            <Fragment key={profile.profileId}>
-                <div className="flex h-[40px] items-center justify-between border-b border-secondaryLine last:border-none">
-                    <div className=" flex items-center gap-2">
-                        <Image
-                            src={profile.pfp}
-                            width={24}
-                            height={24}
-                            alt={profile.handle}
-                            className=" rounded-full"
-                        />
-                        <span
-                            className={classNames(
-                                ' font-bold',
-                                isSameProfile(currentProfile, profile) ? ' text-secondary' : ' text-main',
-                            )}
-                        >
-                            @{profile.handle}
-                        </span>
-                    </div>
-                    {isSameProfile(currentProfile, profile) ? (
-                        <YesIcon width={40} height={40} className=" relative -right-[10px]" />
-                    ) : currentProfile.source === SocialPlatform.Lens ? (
-                        <button
-                            className=" font-bold text-blueBottom"
-                            disabled={loading}
-                            onClick={async () => login(profile)}
-                        >
-                            {loading ? (
-                                <LoadingIcon className="animate-spin" width={24} height={24} />
-                            ) : (
-                                <Trans>Switch</Trans>
-                            )}
-                        </button>
-                    ) : null}
+            <div
+                className="flex h-[40px] items-center justify-between border-b border-secondaryLine last:border-none"
+                key={profile.profileId}
+            >
+                <div className=" flex items-center gap-2">
+                    <Avatar src={profile.pfp} size={24} alt={profile.handle} style={{ height: 24 }} />
+                    <span
+                        className={classNames(
+                            ' font-bold',
+                            isSameProfile(currentProfile, profile) ? ' text-secondary' : ' text-main',
+                        )}
+                    >
+                        @{profile.handle}
+                    </span>
                 </div>
-            </Fragment>
+                {isSameProfile(currentProfile, profile) ? (
+                    <YesIcon width={40} height={40} className=" relative -right-[10px]" />
+                ) : currentProfile.source === SocialPlatform.Lens ? (
+                    <button
+                        className=" font-bold text-blueBottom disabled:opacity-50"
+                        disabled={loading}
+                        onClick={async () => login(profile)}
+                    >
+                        {loading ? (
+                            <LoadingIcon className="animate-spin" width={24} height={24} />
+                        ) : (
+                            <Trans>Switch</Trans>
+                        )}
+                    </button>
+                ) : null}
+            </div>
         ))
     ) : (
-        <Fragment>
-            <div className=" flex h-[40px] items-center justify-between border-b border-secondaryLine last:border-none">
-                <div className=" flex items-center gap-2">
-                    <SourceIcon size={24} source={source} />
-                    <span className={classNames(' font-bold text-main')}>{resolveSourceName(source)}</span>
-                </div>
-
-                <button
-                    className=" font-bold text-blueBottom"
-                    onClick={async () => {
-                        if (source === SocialPlatform.Farcaster && images.length > 2) {
-                            enqueueSnackbar(t`Select failed: More than 2 images`, {
-                                variant: 'error',
-                            });
-                            return;
-                        }
-
-                        ComposeModalRef.close();
-                        await delay(300);
-                        LoginModalRef.open({
-                            source,
-                        });
-                    }}
-                >
-                    <Trans>Log in</Trans>
-                </button>
+        <div className=" flex h-[40px] items-center justify-between border-b border-secondaryLine last:border-none">
+            <div className=" flex items-center gap-2">
+                <SourceIcon size={24} source={source} />
+                <span className=" font-bold text-main">{resolveSourceName(source)}</span>
             </div>
-        </Fragment>
+
+            <button
+                className=" font-bold text-blueBottom"
+                onClick={async () => {
+                    if (source === SocialPlatform.Farcaster && images.length > 2) {
+                        enqueueSnackbar(t`Select failed: More than 2 images`, {
+                            variant: 'error',
+                        });
+                        return;
+                    }
+
+                    ComposeModalRef.close();
+                    await delay(300);
+                    LoginModalRef.open({
+                        source,
+                    });
+                }}
+            >
+                <Trans>Log in</Trans>
+            </button>
+        </div>
     );
 }

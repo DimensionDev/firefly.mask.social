@@ -2,13 +2,7 @@
 import Long from 'long';
 import _m0 from 'protobufjs/minimal.js';
 import { UserNameProof } from './username_proof.js';
-
-/** Type of hashing scheme used to produce a digest of MessageData */
-export enum HashScheme {
-    NONE = 0,
-    /** BLAKE3 - Default scheme for hashing MessageData */
-    BLAKE3 = 1,
-}
+import { HashScheme, SignatureScheme } from '@farcaster/hub-web';
 
 export function hashSchemeFromJSON(object: any): HashScheme {
     switch (object) {
@@ -32,15 +26,6 @@ export function hashSchemeToJSON(object: HashScheme): string {
         default:
             throw new tsProtoGlobalThis.Error('Unrecognized enum value ' + object + ' for enum HashScheme');
     }
-}
-
-/** Type of signature scheme used to sign the Message hash */
-export enum SignatureScheme {
-    NONE = 0,
-    /** ED25519 - Ed25519 signature (default) */
-    ED25519 = 1,
-    /** EIP712 - ECDSA signature using EIP-712 scheme */
-    EIP712 = 2,
 }
 
 export function signatureSchemeFromJSON(object: any): SignatureScheme {
