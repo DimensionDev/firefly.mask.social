@@ -1,7 +1,6 @@
 'use client';
 
 import { Trans } from '@lingui/macro';
-import { CrossIsolationMessages } from '@masknet/shared-base';
 import { usePathname } from 'next/navigation.js';
 import { memo } from 'react';
 
@@ -140,51 +139,6 @@ export const SideBar = memo(function SideBar() {
                                             </button>
                                         </li>
                                     ) : null}
-                                    <li>
-                                        <button
-                                            type="button"
-                                            className="mt-2 w-[200px] rounded-2xl bg-main p-2 text-xl font-bold leading-6 text-primaryBottom"
-                                            onClick={() => {
-                                                CrossIsolationMessages.events.compositionDialogEvent.sendToAll({
-                                                    reason: 'timeline',
-                                                    open: true,
-                                                    options: {
-                                                        initialMetas: {
-                                                            'com.maskbook.red_packet:1': {
-                                                                network: 'Polygon',
-                                                                contract_address:
-                                                                    '0x93e0b87A0aD0C991dc1B5176ddCD850c9a78aabb',
-                                                                contract_version: 4,
-                                                                sender: {
-                                                                    address:
-                                                                        '0x33a7209F653727A2ff688C81E661D61BcfFfD809',
-                                                                    name: 'Unknown User',
-                                                                    message: 'Best Wishes!',
-                                                                },
-                                                                is_random: true,
-                                                                shares: 1,
-                                                                password:
-                                                                    '0x0e1b3c7b6d29e9eaa90b088ed17c40980f51912b2f74a8fc6ee7a2824b031f84',
-                                                                rpid: '0xb1462df26c7e6a963eb7e8f7f8c1146dc52f4d85db6e47634e743dee59ae42fb',
-                                                                total: '10000000000000000',
-                                                                duration: 86400,
-                                                                creation_time: 1702911355000,
-                                                                token: {
-                                                                    decimals: 18,
-                                                                    symbol: 'MATIC',
-                                                                    address:
-                                                                        '0x0000000000000000000000000000000000000000',
-                                                                    chainId: 137,
-                                                                },
-                                                            },
-                                                        },
-                                                    },
-                                                });
-                                            }}
-                                        >
-                                            <Trans>Draft Red Packet</Trans>
-                                        </button>
-                                    </li>
                                 </ul>
                             </li>
                             <li className="-mx-2 mb-20 mt-auto">
