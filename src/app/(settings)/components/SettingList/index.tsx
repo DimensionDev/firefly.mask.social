@@ -1,6 +1,6 @@
 'use client';
 
-import { t, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import { usePathname } from 'next/navigation.js';
 
 import RightArrowIcon from '@/assets/right-arrow.svg';
@@ -9,10 +9,10 @@ import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 
 const settings = [
-    { name: t`Display`, link: '/display' },
-    { name: t`Connected Accounts`, link: '/connected' },
-    { name: t`Communities`, link: '/communities' },
-    { name: t`More`, link: '/more' },
+    { name: <Trans>Display</Trans>, link: '/display' },
+    { name: <Trans>Connected Accounts</Trans>, link: '/connected' },
+    { name: <Trans>Communities</Trans>, link: '/communities' },
+    { name: <Trans>More</Trans>, link: '/more' },
 ];
 
 export function SettingList() {
@@ -29,7 +29,7 @@ export function SettingList() {
                         className={`mb-[24px] flex items-center justify-between border-b border-line pb-[4px] text-[18px] leading-[24px] text-main ${
                             isRoutePathname(pathname, `/settings${link}`) ? 'font-bold' : 'font-normal'
                         }`}
-                        key={name}
+                        key={link}
                         href={`/settings${link}`}
                     >
                         {name} <RightArrowIcon width={20} height={20} />
