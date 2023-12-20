@@ -699,6 +699,10 @@ export class LensSocialMedia implements Provider {
             query: q,
             cursor: indicator?.id,
             limit: LimitType.TwentyFive,
+            where: {
+                // hey.xyz passes such filters for its searching as well
+                customFilters: [CustomFiltersType.Gardeners],
+            },
         });
         return createPageable(
             result.items.map((item) => formatLensProfile(item)),
