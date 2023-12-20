@@ -100,6 +100,9 @@ msgstr ""
 msgid "comment"
 msgstr ""
 
+msgid "Failed to upload image to imgur"
+msgstr ""
+
 msgid "Confirm"
 msgstr ""
 
@@ -494,6 +497,9 @@ msgid "Failed to mirror post on Farcaster"
 msgstr ""
 
 msgid "No matching users"
+msgstr ""
+
+msgid "Failed to upload video to IPFS"
 msgstr ""
 
 msgid "Log in to Farcaster account"
