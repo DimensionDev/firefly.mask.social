@@ -12,7 +12,7 @@ import { classNames } from '@/helpers/classNames.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 
 export default function ComposeSend() {
-    const { chars, images, video, source } = useComposeStateStore();
+    const { chars, images, video, source, clear } = useComposeStateStore();
 
     const charsLength = chars.length;
     const disabled = (charsLength === 0 || charsLength > 280) && images.length === 0 && !video;
@@ -29,6 +29,7 @@ export default function ComposeSend() {
         } else {
             safeUnreachable(source);
         }
+        clear();
     }, [source, sendLens, sendFarcaster]);
 
     return (

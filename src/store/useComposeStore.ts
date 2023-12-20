@@ -16,6 +16,8 @@ interface ComposeState {
     // If source is null, it means to post to all platforms.
     source: SocialPlatform | null;
     /** Parent post */
+    lensPostId: string | null;
+    farcasterPostId: string | null;
     post: OrphanPost | null;
     chars: string;
     typedMessage: TypedMessageTextV1 | null;
@@ -34,10 +36,12 @@ interface ComposeState {
     updateImageByIndex: (index: number, image: MediaObject) => void;
     removeImageByIndex: (index: number) => void;
     clear: () => void;
+    updateLensPostId: (postId: string | null) => void;
+    updateFarcasterPostId: (postId: string | null) => void;
 }
 
-const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
-    immer<ComposeState>((set, get) => ({
+function createInitState() {
+    return {
         type: 'compose',
         source: null,
         draft: null,
@@ -47,6 +51,22 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
         images: EMPTY_LIST,
         video: null,
         loading: false,
+        lensPostId: null,
+        farcasterPostId: null,
+    } as const;
+}
+
+const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
+    immer<ComposeState>((set, get) => ({
+        ...createInitState(),
+        updateLensPostId: (postId) =>
+            set((state) => {
+                state.lensPostId = postId;
+            }),
+        updateFarcasterPostId: (postId) =>
+            set((state) => {
+                state.farcasterPostId = postId;
+            }),
         updateType: (type: 'compose' | 'quote' | 'reply') =>
             set((state) => {
                 state.type = type;
@@ -102,12 +122,7 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
             }),
         clear: () =>
             set((state) => {
-                state.post = null;
-                state.chars = '';
-                state.typedMessage = null;
-                state.images = EMPTY_LIST;
-                state.video = null;
-                state.loading = false;
+                Object.assign(state, createInitState());
             }),
     })),
 );

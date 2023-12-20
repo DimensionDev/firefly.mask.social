@@ -15,7 +15,7 @@ export default function ComposeVideo() {
 
     const enqueueSnackbar = useCustomSnackbar();
 
-    const [{ loading, error }, handleVideoUpaload] = useAsyncFn(async () => {
+    const [{ loading, error }, handleVideoUpload] = useAsyncFn(async () => {
         if (!video || video.ipfs) return;
 
         const ipfs = await uploadFileToIPFS(video.file);
@@ -32,7 +32,7 @@ export default function ComposeVideo() {
     }, [enqueueSnackbar, updateVideo, video]);
 
     useMount(() => {
-        handleVideoUpaload();
+        handleVideoUpload();
     });
 
     if (!video) return null;
@@ -52,7 +52,7 @@ export default function ComposeVideo() {
                         ' absolute bottom-0 left-0 right-0 top-0 flex items-center justify-center bg-main/25 bg-opacity-30',
                         !video.ipfs && !loading ? ' cursor-pointer' : ' ',
                     )}
-                    onClick={() => !video.ipfs && !loading && handleVideoUpaload()}
+                    onClick={() => !video.ipfs && !loading && handleVideoUpload()}
                 >
                     {loading ? (
                         <LoadingIcon className={loading ? 'animate-spin' : undefined} width={24} height={24} />
