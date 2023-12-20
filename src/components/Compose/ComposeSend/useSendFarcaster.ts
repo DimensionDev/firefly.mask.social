@@ -11,16 +11,24 @@ import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
 import type { MediaObject } from '@/types/index.js';
 
 export function useSendFarcaster() {
-    const { type, chars: content, post, images, updateImageByIndex, updateFarcasterPostId } = useComposeStateStore();
+    const {
+        type,
+        chars: content,
+        post,
+        images,
+        updateImageByIndex,
+        farcasterPostId,
+        updateFarcasterPostId,
+    } = useComposeStateStore();
     const enqueueSnackbar = useCustomSnackbar();
     const currentProfile = useFarcasterStateStore.use.currentProfile();
 
     return useCallback(async () => {
-        if (!currentProfile?.profileId) return;
+        if (!currentProfile?.profileId || farcasterPostId) return;
         if (type === 'compose' || type === 'reply') {
             const uploadedImages = await Promise.all(
                 images.map(async (media, index) => {
-                    if (media.ipfs) return media;
+                    if (media.imgur) return media;
                     const url = await uploadToImgur(media.file);
                     const patchedMedia: MediaObject = {
                         ...media,
@@ -71,5 +79,15 @@ export function useSendFarcaster() {
                 });
             }
         }
-    }, [currentProfile, type, post, images, updateImageByIndex, content, updateFarcasterPostId, enqueueSnackbar]);
+    }, [
+        currentProfile,
+        type,
+        post,
+        images,
+        farcasterPostId,
+        updateImageByIndex,
+        content,
+        updateFarcasterPostId,
+        enqueueSnackbar,
+    ]);
 }

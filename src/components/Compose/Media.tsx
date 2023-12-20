@@ -5,7 +5,6 @@ import { useAsyncFn } from 'react-use';
 
 import ImageIcon from '@/assets/image.svg';
 import VideoIcon from '@/assets/video.svg';
-import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
 
@@ -18,8 +17,6 @@ export default function Media({ close }: MediaProps) {
 
     const currentFarcasterProfile = useFarcasterStateStore.use.currentProfile();
     const { video, images, updateVideo, updateImages } = useComposeStateStore();
-
-    const enqueueSnackbar = useCustomSnackbar();
 
     const [, handleImageChange] = useAsyncFn(
         async (event: ChangeEvent<HTMLInputElement>) => {

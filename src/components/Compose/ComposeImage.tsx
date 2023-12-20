@@ -1,14 +1,10 @@
 import { t } from '@lingui/macro';
-import { useAsyncFn, useMount } from 'react-use';
 
 import CloseIcon from '@/assets/close.svg';
-import LoadingIcon from '@/assets/loading.svg';
 import { Tooltip } from '@/components/Tooltip.js';
 import { Image } from '@/esm/Image.js';
 import { classNames } from '@/helpers/classNames.js';
 import { createImageUrl } from '@/helpers/createImageUrl.js';
-import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
-import { uploadFileToIPFS } from '@/services/uploadToIPFS.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 import type { MediaObject } from '@/types/index.js';
 
@@ -17,29 +13,7 @@ interface ComposeImageProps {
     image: MediaObject;
 }
 export default function ComposeImage({ index, image }: ComposeImageProps) {
-    const enqueueSnackbar = useCustomSnackbar();
-
-    const { images, updateImageByIndex, removeImageByIndex } = useComposeStateStore();
-
-    const [{ loading, error }, handleImageUpload] = useAsyncFn(async () => {
-        if (image.ipfs) return;
-
-        const ipfs = await uploadFileToIPFS(image.file);
-        if (!ipfs) {
-            enqueueSnackbar(t`Failed to upload image. Network error`, {
-                variant: 'error',
-            });
-        } else {
-            updateImageByIndex(index, {
-                ...image,
-                ipfs,
-            });
-        }
-    }, [enqueueSnackbar, image.file, index, updateImageByIndex]);
-
-    useMount(() => {
-        handleImageUpload();
-    });
+    const { images, removeImageByIndex } = useComposeStateStore();
 
     const len = images.length;
 
@@ -64,20 +38,6 @@ export default function ComposeImage({ index, image }: ComposeImageProps) {
                     />
                 </Tooltip>
             </div>
-
-            {!image.ipfs || loading || error ? (
-                <div
-                    className={classNames(
-                        ' absolute bottom-0 left-0 right-0 top-0 flex items-center justify-center bg-main/25 bg-opacity-30',
-                        !image.ipfs && !loading ? ' cursor-pointer' : ' ',
-                    )}
-                    onClick={() => !image.ipfs && !loading && handleImageUpload()}
-                >
-                    {loading ? (
-                        <LoadingIcon className={loading ? 'animate-spin' : undefined} width={24} height={24} />
-                    ) : null}
-                </div>
-            ) : null}
         </div>
     );
 }

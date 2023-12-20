@@ -29,8 +29,9 @@ export function useSendLens() {
                     // TODO race conditions
                     updateImageByIndex(index, patchedMedia);
                     return patchedMedia;
+                } else {
+                    throw new Error(t`Failed to upload image to IPFS`);
                 }
-                return media;
             }),
         );
         let uploadedVideo = video;
@@ -42,6 +43,8 @@ export function useSendLens() {
                     ipfs: response,
                 };
                 updateVideo(uploadedVideo);
+            } else {
+                throw new Error(t`Failed to upload image to IPFS`);
             }
         }
 
