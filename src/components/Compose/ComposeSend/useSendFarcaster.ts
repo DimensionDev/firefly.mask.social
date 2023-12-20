@@ -3,7 +3,6 @@ import { useCallback } from 'react';
 
 import { SocialPlatform } from '@/constants/enum.js';
 import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
-import { ComposeModalRef } from '@/modals/controls.js';
 import { HubbleSocialMediaProvider } from '@/providers/hubble/SocialMedia.js';
 import { uploadToImgur } from '@/services/uploadToImgur.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
@@ -62,7 +61,6 @@ export function useSendFarcaster() {
                 enqueueSnackbar(t`Posted on Farcaster`, {
                     variant: 'success',
                 });
-                ComposeModalRef.close();
             } catch (err) {
                 enqueueSnackbar(
                     t`Failed to ${type === 'compose' ? 'post' : 'reply'} on Farcaster: ${(err as Error).message}`,

@@ -1,9 +1,8 @@
 import { t } from '@lingui/macro';
 import { useCallback } from 'react';
 
-import { commentPostForLens, publishPostForLens, quotePostForLens } from '@/helpers/publishPost.js';
+import { commentPostForLens, publishPostForLens, quotePostForLens } from '@/helpers/publishPostForLens.js';
 import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
-import { ComposeModalRef } from '@/modals/controls.js';
 import { uploadFileToIPFS } from '@/services/uploadToIPFS.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 import { useLensStateStore } from '@/store/useLensStore.js';
@@ -50,7 +49,6 @@ export function useSendLens() {
             }
         }
 
-        let publishedId: string | undefined = undefined;
         if (type === 'compose') {
             try {
                 const published = await publishPostForLens(
@@ -62,8 +60,7 @@ export function useSendLens() {
                 enqueueSnackbar(t`Posted on Lens`, {
                     variant: 'success',
                 });
-                publishedId = published.postId;
-                ComposeModalRef.close();
+                updateLensPostId(published.postId);
             } catch {
                 enqueueSnackbar(t`Failed to post on Lens`, {
                     variant: 'error',
@@ -72,17 +69,10 @@ export function useSendLens() {
         } else if (type === 'reply') {
             if (!post) return;
             try {
-                publishedId = await commentPostForLens(
-                    currentProfile.profileId,
-                    post.postId,
-                    chars,
-                    uploadedImages,
-                    uploadedVideo,
-                );
+                await commentPostForLens(currentProfile.profileId, post.postId, chars, uploadedImages, uploadedVideo);
                 enqueueSnackbar(t`Replied on Lens`, {
                     variant: 'success',
                 });
-                ComposeModalRef.close();
             } catch {
                 enqueueSnackbar(t`Failed to relay on Lens. @${currentProfile.handle}`, {
                     variant: 'error',
@@ -91,26 +81,15 @@ export function useSendLens() {
         } else if (type === 'quote') {
             if (!post) return;
             try {
-                const quoted = await quotePostForLens(
-                    currentProfile.profileId,
-                    post.postId,
-                    chars,
-                    uploadedImages,
-                    uploadedVideo,
-                );
-                publishedId = quoted.postId;
+                await quotePostForLens(currentProfile.profileId, post.postId, chars, uploadedImages, uploadedVideo);
                 enqueueSnackbar(t`Posted on Lens`, {
                     variant: 'success',
                 });
-                ComposeModalRef.close();
             } catch {
                 enqueueSnackbar(t`Failed to quote on Lens. @${currentProfile.handle}`, {
                     variant: 'error',
                 });
             }
-        }
-        if (publishedId) {
-            updateLensPostId(publishedId);
         }
     }, [
         chars,
