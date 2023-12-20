@@ -97,13 +97,13 @@ msgstr ""
 msgid "Copied"
 msgstr ""
 
-msgid "Failed to mirror on Farcaster: {0}"
-msgstr ""
-
 msgid "comment"
 msgstr ""
 
 msgid "Confirm"
+msgstr ""
+
+msgid "Failed to reply post on Farcaster"
 msgstr ""
 
 msgid "Liked"
@@ -205,9 +205,6 @@ msgstr ""
 msgid "Privacy Policy"
 msgstr ""
 
-msgid "Failed to quote on Lens. @{0}"
-msgstr ""
-
 msgid "No wallet client found"
 msgstr ""
 
@@ -232,6 +229,9 @@ msgstr ""
 msgid "Comment"
 msgstr ""
 
+msgid "Failed to post on Farcaster"
+msgstr ""
+
 msgid "Failed to unmirror post"
 msgstr ""
 
@@ -254,9 +254,6 @@ msgid "Failed to unfollow"
 msgstr ""
 
 msgid "No post found"
-msgstr ""
-
-msgid "Failed to {0} on Farcaster: {1}"
 msgstr ""
 
 msgid "UnLiked"
@@ -310,6 +307,9 @@ msgstr ""
 msgid "Like"
 msgstr ""
 
+msgid "Failed to quote post on Lens."
+msgstr ""
+
 msgid "This can’t be undone and you’ll lose your draft."
 msgstr ""
 
@@ -353,9 +353,6 @@ msgid "Visit mask.io"
 msgstr ""
 
 msgid "No comments found"
-msgstr ""
-
-msgid "Failed to relay on Lens. @{0}"
 msgstr ""
 
 msgid "Connected in Firefly"
@@ -493,6 +490,9 @@ msgstr ""
 msgid "Remove"
 msgstr ""
 
+msgid "Failed to mirror post on Farcaster"
+msgstr ""
+
 msgid "No matching users"
 msgstr ""
 
@@ -539,6 +539,9 @@ msgid "Mirror"
 msgstr ""
 
 msgid "Terms of Service"
+msgstr ""
+
+msgid "Failed to relay post on Lens."
 msgstr ""
 
 msgid "Post"

@@ -97,14 +97,14 @@ msgstr "Not implemented yet."
 msgid "Copied"
 msgstr "Copied"
 
-msgid "Failed to mirror on Farcaster: {0}"
-msgstr "Failed to mirror on Farcaster: {0}"
-
 msgid "comment"
 msgstr "comment"
 
 msgid "Confirm"
 msgstr "Confirm"
+
+msgid "Failed to reply post on Farcaster"
+msgstr "Failed to reply post on Farcaster"
 
 msgid "Liked"
 msgstr "Liked"
@@ -205,9 +205,6 @@ msgstr "Post by"
 msgid "Privacy Policy"
 msgstr "Privacy Policy"
 
-msgid "Failed to quote on Lens. @{0}"
-msgstr "Failed to quote on Lens. @{0}"
-
 msgid "No wallet client found"
 msgstr "No wallet client found"
 
@@ -232,6 +229,9 @@ msgstr "{0, plural, one {<0/>} other {{1, plural, one {<1/> and <2/>} other {<3/
 msgid "Comment"
 msgstr "Comment"
 
+msgid "Failed to post on Farcaster"
+msgstr "Failed to post on Farcaster"
+
 msgid "Failed to unmirror post"
 msgstr "Failed to unmirror post"
 
@@ -255,9 +255,6 @@ msgstr "Failed to unfollow"
 
 msgid "No post found"
 msgstr "No post found"
-
-msgid "Failed to {0} on Farcaster: {1}"
-msgstr "Failed to {0} on Farcaster: {1}"
 
 msgid "UnLiked"
 msgstr "UnLiked"
@@ -310,6 +307,9 @@ msgstr "What's happening..."
 msgid "Like"
 msgstr "Like"
 
+msgid "Failed to quote post on Lens."
+msgstr "Failed to quote post on Lens."
+
 msgid "This can’t be undone and you’ll lose your draft."
 msgstr "This can’t be undone and you’ll lose your draft."
 
@@ -354,9 +354,6 @@ msgstr "Visit mask.io"
 
 msgid "No comments found"
 msgstr "No comments found"
-
-msgid "Failed to relay on Lens. @{0}"
-msgstr "Failed to relay on Lens. @{0}"
 
 msgid "Connected in Firefly"
 msgstr "Connected in Firefly"
@@ -493,6 +490,9 @@ msgstr "Mask Network"
 msgid "Remove"
 msgstr "Remove"
 
+msgid "Failed to mirror post on Farcaster"
+msgstr "Failed to mirror post on Farcaster"
+
 msgid "No matching users"
 msgstr "No matching users"
 
@@ -540,6 +540,9 @@ msgstr "Mirror"
 
 msgid "Terms of Service"
 msgstr "Terms of Service"
+
+msgid "Failed to relay post on Lens."
+msgstr "Failed to relay post on Lens."
 
 msgid "Post"
 msgstr "Post"
