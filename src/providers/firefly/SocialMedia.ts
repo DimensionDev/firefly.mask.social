@@ -169,6 +169,7 @@ export class FireflySocialMedia implements Provider {
             size: 10,
             cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
         });
+        console.log(url)
         const {
             data: { casts, cursor },
         } = await fetchJSON<CastsResponse>(url, {
