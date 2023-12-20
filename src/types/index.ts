@@ -25,6 +25,8 @@ export interface MetadataAsset {
 export interface MediaObject {
     file: File;
     ipfs?: IPFSResponse;
+    /** imgur url */
+    imgur?: string;
 }
 
 export type ThemeMode = 'light' | 'dark' | 'default';

@@ -63,7 +63,7 @@ export async function commentPostForLens(
         createPayloadAttachments(images, video),
     );
     const arweaveId = await uploadToArweave(metadata);
-    await LensSocialMediaProvider.commentPost(postId, `ar://${arweaveId}`, profile.signless);
+    return LensSocialMediaProvider.commentPost(postId, `ar://${arweaveId}`, profile.signless);
 }
 
 export async function quotePostForLens(

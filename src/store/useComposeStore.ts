@@ -1,4 +1,5 @@
 import type { TypedMessageTextV1 } from '@masknet/typed-message';
+import type { Dispatch, SetStateAction } from 'react';
 import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
 
@@ -16,6 +17,8 @@ interface ComposeState {
     // If source is null, it means to post to all platforms.
     source: SocialPlatform | null;
     /** Parent post */
+    lensPostId: string | null;
+    farcasterPostId: string | null;
     post: OrphanPost | null;
     chars: string;
     typedMessage: TypedMessageTextV1 | null;
@@ -29,15 +32,16 @@ interface ComposeState {
     updateLoading: (loading: boolean) => void;
     updatePost: (post: OrphanPost | null) => void;
     updateVideo: (video: MediaObject | null) => void;
-    updateImages: (images: MediaObject[]) => void;
+    updateImages: Dispatch<SetStateAction<MediaObject[]>>;
     addImage: (image: MediaObject) => void;
-    updateImageByIndex: (index: number, image: MediaObject) => void;
-    removeImageByIndex: (index: number) => void;
+    removeImage: (image: MediaObject) => void;
     clear: () => void;
+    updateLensPostId: (postId: string | null) => void;
+    updateFarcasterPostId: (postId: string | null) => void;
 }
 
-const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
-    immer<ComposeState>((set, get) => ({
+function createInitState() {
+    return {
         type: 'compose',
         source: null,
         draft: null,
@@ -47,6 +51,22 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
         images: EMPTY_LIST,
         video: null,
         loading: false,
+        lensPostId: null,
+        farcasterPostId: null,
+    } as const;
+}
+
+const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
+    immer<ComposeState>((set, get) => ({
+        ...createInitState(),
+        updateLensPostId: (postId) =>
+            set((state) => {
+                state.lensPostId = postId;
+            }),
+        updateFarcasterPostId: (postId) =>
+            set((state) => {
+                state.farcasterPostId = postId;
+            }),
         updateType: (type: 'compose' | 'quote' | 'reply') =>
             set((state) => {
                 state.type = type;
@@ -70,9 +90,9 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
             set((state) => {
                 state.loading = loading;
             }),
-        updateImages: (images: MediaObject[]) =>
+        updateImages: (images) =>
             set((state) => {
-                state.images = images;
+                state.images = typeof images === 'function' ? images(state.images) : images;
             }),
         updatePost: (post: OrphanPost | null) =>
             set((state) => {
@@ -90,24 +110,13 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
             set((state) => {
                 state.video = video;
             }),
-        updateImageByIndex: (index: number, image: MediaObject) =>
+        removeImage: (target) =>
             set((state) => {
-                state.images = state.images.map((otherImage, i) => {
-                    return i === index ? image : otherImage;
-                });
-            }),
-        removeImageByIndex: (index: number) =>
-            set((state) => {
-                state.images = state.images.filter((_, i) => i !== index);
+                state.images = state.images.filter((image) => image.file !== target.file);
             }),
         clear: () =>
             set((state) => {
-                state.post = null;
-                state.chars = '';
-                state.typedMessage = null;
-                state.images = EMPTY_LIST;
-                state.video = null;
-                state.loading = false;
+                Object.assign(state, createInitState());
             }),
     })),
 );

@@ -316,10 +316,11 @@ export class WarpcastSocialMedia implements Provider {
 
     async commentPost(postId: string, comment: string) {
         const url = urlcat(WARPCAST_ROOT_URL, '/casts', { parent: postId });
-        await warpcastClient.fetchWithSession<CastResponse>(url, {
+        const response = await warpcastClient.fetchWithSession<CastResponse>(url, {
             method: 'POST',
             body: JSON.stringify({ text: comment }),
         });
+        return response.result.hash;
     }
 
     async mirrorPost(postId: string) {

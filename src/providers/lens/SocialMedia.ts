@@ -210,7 +210,7 @@ export class LensSocialMedia implements Provider {
     }
 
     // comment is the contentURI of the post
-    async commentPost(postId: string, comment: string, signless?: boolean): Promise<void> {
+    async commentPost(postId: string, comment: string, signless?: boolean): Promise<string> {
         if (signless) {
             const result = await this.client.publication.commentOnchain({
                 commentOn: postId,
@@ -219,6 +219,7 @@ export class LensSocialMedia implements Provider {
             const resultValue = result.unwrap();
 
             if (!isRelaySuccess(resultValue)) throw new Error(`Something went wrong ${JSON.stringify(resultValue)}`);
+            return resultValue.txId;
         } else {
             const walletClient = await getWalletClientRequired();
             const resultTypedData = await this.client.publication.createOnchainCommentTypedData({
@@ -245,6 +246,7 @@ export class LensSocialMedia implements Provider {
             if (!isRelaySuccess(broadcastValue)) {
                 throw new Error(`Something went wrong ${JSON.stringify(broadcastValue)}`);
             }
+            return id;
         }
     }
 
