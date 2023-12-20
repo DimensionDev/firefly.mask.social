@@ -4,12 +4,14 @@ import { hexToBigInt, hexToNumber, numberToHex } from 'viem';
 import { getAccount, getNetwork, sendTransaction, signMessage, switchNetwork } from 'wagmi/actions';
 
 import { config } from '@/configs/wagmiClient.js';
+import { ConnectWalletModalRef } from '@/modals/controls.js';
 
 // @ts-expect-error TODO: define the custom event
 document.addEventListener(
     'mask_custom_event_provider_request',
     async (event: CustomEvent<{ id: string; requestArguments: RequestArguments }>) => {
         const { id, requestArguments } = event.detail;
+        console.warn('[wagmi] request:', requestArguments);
 
         const dispatchEvent = (result: unknown, error?: Error) => {
             if (error) console.warn(`[wagmi] response error: ${error}`);
@@ -27,6 +29,15 @@ document.addEventListener(
 
         try {
             switch (requestArguments.method) {
+                case EthereumMethodType.ETH_REQUEST_ACCOUNTS: {
+                    const accountFirstTry = getAccount();
+                    if (!accountFirstTry.isConnected) await ConnectWalletModalRef.openAndWaitForClose();
+
+                    const accountSecondTry = getAccount();
+                    if (!accountSecondTry.isConnected) dispatchEvent([], new Error('No wallet connected'));
+                    else dispatchEvent(accountSecondTry.address ? [accountSecondTry.address] : []);
+                    return;
+                }
                 case EthereumMethodType.ETH_ACCOUNTS: {
                     const account = getAccount();
                     dispatchEvent(account.address ? [account.address] : []);
