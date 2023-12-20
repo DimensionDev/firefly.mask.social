@@ -27,17 +27,24 @@ export function useSendFarcaster() {
         if (type === 'compose' || type === 'reply') {
             const uploadedImages = await Promise.all(
                 images.map(async (media) => {
-                    if (media.imgur) return media;
-                    const url = await uploadToImgur(media.file);
-                    const patchedMedia: MediaObject = {
-                        ...media,
-                        imgur: url,
-                    };
-                    updateImages((originImages) => {
-                        return originImages.map((x) => (x.file === media.file ? { ...x, imgur: url } : x));
-                    });
-                    // We only care about imgur for Farcaster
-                    return patchedMedia;
+                    try {
+                        if (media.imgur) return media;
+                        const imgur = await uploadToImgur(media.file);
+                        const patchedMedia: MediaObject = {
+                            ...media,
+                            imgur,
+                        };
+                        updateImages((originImages) => {
+                            return originImages.map((x) => (x.file === media.file ? patchedMedia : x));
+                        });
+                        // We only care about imgur for Farcaster
+                        return patchedMedia;
+                    } catch (error) {
+                        enqueueSnackbar(t`Failed to upload image to imgur`, {
+                            variant: 'error',
+                        });
+                        throw new Error(t`Failed to upload image to imgur`);
+                    }
                 }),
             );
             try {

@@ -3,7 +3,20 @@
 import { connectorsForWallets, getDefaultWallets, RainbowKitProvider } from '@rainbow-me/rainbowkit';
 import { type FallbackTransport } from 'viem';
 import { type Config, configureChains, createConfig, type PublicClient, type WebSocketPublicClient } from 'wagmi';
-import { type Chain, mainnet, polygon } from 'wagmi/chains';
+import {
+    arbitrum,
+    aurora,
+    avalanche,
+    base,
+    bsc,
+    type Chain,
+    confluxESpace,
+    fantom,
+    gnosis,
+    mainnet,
+    optimism,
+    polygon,
+} from 'wagmi/chains';
 import { publicProvider } from 'wagmi/providers/public';
 
 export const appInfo: Parameters<typeof RainbowKitProvider>[0]['appInfo'] = {
@@ -12,7 +25,7 @@ export const appInfo: Parameters<typeof RainbowKitProvider>[0]['appInfo'] = {
 };
 
 export const { chains, publicClient, webSocketPublicClient } = configureChains(
-    [mainnet, polygon],
+    [mainnet, base, polygon, optimism, bsc, arbitrum, gnosis, avalanche, aurora, confluxESpace, fantom],
     [publicProvider()],
 ) as {
     readonly chains: Chain[];
