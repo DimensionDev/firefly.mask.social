@@ -86,7 +86,6 @@ export const ComposeModal = forwardRef<SingletonModalRefCreator<ComposeModalProp
         try {
             const encrypted = await encrypt(
                 {
-                    // TODO: get the current profile data
                     author: ProfileIdentifier.of('mask.social', profile?.handle),
                     authorPublicKey: None,
                     message: typedMessage,
