@@ -1,4 +1,5 @@
 import type { TypedMessageTextV1 } from '@masknet/typed-message';
+import type { Dispatch, SetStateAction } from 'react';
 import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
 
@@ -31,10 +32,9 @@ interface ComposeState {
     updateLoading: (loading: boolean) => void;
     updatePost: (post: OrphanPost | null) => void;
     updateVideo: (video: MediaObject | null) => void;
-    updateImages: (images: MediaObject[]) => void;
+    updateImages: Dispatch<SetStateAction<MediaObject[]>>;
     addImage: (image: MediaObject) => void;
-    updateImageByIndex: (index: number, image: MediaObject) => void;
-    removeImageByIndex: (index: number) => void;
+    removeImage: (image: MediaObject) => void;
     clear: () => void;
     updateLensPostId: (postId: string | null) => void;
     updateFarcasterPostId: (postId: string | null) => void;
@@ -90,9 +90,9 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
             set((state) => {
                 state.loading = loading;
             }),
-        updateImages: (images: MediaObject[]) =>
+        updateImages: (images) =>
             set((state) => {
-                state.images = images;
+                state.images = typeof images === 'function' ? images(state.images) : images;
             }),
         updatePost: (post: OrphanPost | null) =>
             set((state) => {
@@ -110,15 +110,9 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
             set((state) => {
                 state.video = video;
             }),
-        updateImageByIndex: (index: number, image: MediaObject) =>
+        removeImage: (target) =>
             set((state) => {
-                state.images = state.images.map((otherImage, i) => {
-                    return i === index ? image : otherImage;
-                });
-            }),
-        removeImageByIndex: (index: number) =>
-            set((state) => {
-                state.images = state.images.filter((_, i) => i !== index);
+                state.images = state.images.filter((image) => image.file !== target.file);
             }),
         clear: () =>
             set((state) => {

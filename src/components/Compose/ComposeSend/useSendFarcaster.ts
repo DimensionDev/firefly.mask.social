@@ -16,7 +16,7 @@ export function useSendFarcaster() {
         chars: content,
         post,
         images,
-        updateImageByIndex,
+        updateImages,
         farcasterPostId,
         updateFarcasterPostId,
     } = useComposeStateStore();
@@ -27,15 +27,17 @@ export function useSendFarcaster() {
         if (!currentProfile?.profileId || farcasterPostId) return;
         if (type === 'compose' || type === 'reply') {
             const uploadedImages = await Promise.all(
-                images.map(async (media, index) => {
+                images.map(async (media) => {
                     if (media.imgur) return media;
                     const url = await uploadToImgur(media.file);
                     const patchedMedia: MediaObject = {
                         ...media,
                         imgur: url,
                     };
-                    // TODO race conditions
-                    updateImageByIndex(index, patchedMedia);
+                    updateImages((originImages) => {
+                        return originImages.map((x) => (x.file === media.file ? { ...x, imgur: url } : x));
+                    });
+                    // We only care about imgur for Farcaster
                     return patchedMedia;
                 }),
             );
@@ -81,11 +83,11 @@ export function useSendFarcaster() {
         }
     }, [
         currentProfile,
+        farcasterPostId,
         type,
         post,
         images,
-        farcasterPostId,
-        updateImageByIndex,
+        updateImages,
         content,
         updateFarcasterPostId,
         enqueueSnackbar,

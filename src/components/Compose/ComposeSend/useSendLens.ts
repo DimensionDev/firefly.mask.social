@@ -11,14 +11,14 @@ import type { MediaObject } from '@/types/index.js';
 
 export function useSendLens() {
     const currentProfile = useLensStateStore.use.currentProfile();
-    const { type, post, chars, images, updateImageByIndex, video, updateVideo, updateLensPostId } =
+    const { type, post, chars, images, updateImages, video, updateVideo, lensPostId, updateLensPostId } =
         useComposeStateStore();
     const enqueueSnackbar = useCustomSnackbar();
 
     return useCallback(async () => {
-        if (!currentProfile?.profileId) return;
+        if (!currentProfile?.profileId || lensPostId) return;
         const uploadedImages = await Promise.all(
-            images.map(async (media, index) => {
+            images.map(async (media) => {
                 if (media.ipfs) return media;
                 const response = await uploadFileToIPFS(media.file);
                 if (response) {
@@ -26,8 +26,10 @@ export function useSendLens() {
                         ...media,
                         ipfs: response,
                     };
-                    // TODO race conditions
-                    updateImageByIndex(index, patchedMedia);
+                    updateImages((originImages) => {
+                        return originImages.map((x) => (x.file === media.file ? { ...x, ipfs: response } : x));
+                    });
+                    // We only care about ipfs for Lens
                     return patchedMedia;
                 } else {
                     throw new Error(t`Failed to upload image to IPFS`);
@@ -116,9 +118,10 @@ export function useSendLens() {
         currentProfile?.profileId,
         enqueueSnackbar,
         images,
+        lensPostId,
         post,
         type,
-        updateImageByIndex,
+        updateImages,
         updateLensPostId,
         updateVideo,
         video,
