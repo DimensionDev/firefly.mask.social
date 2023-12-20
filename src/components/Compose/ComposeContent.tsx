@@ -15,17 +15,17 @@ export default function ComposeContent(props: ComposeContentProps) {
     const { type, post, images, video } = useComposeStateStore();
 
     return (
-        <div className=" p-4">
+        <div className="p-4">
             <label
                 className={classNames(
-                    ' hide-scrollbar border-line2 block h-[338px] overflow-auto rounded-lg border bg-bg px-4 py-[14px]',
+                    'hide-scrollbar border-line2 block h-[338px] overflow-auto rounded-lg border bg-bg px-4 py-[14px]',
                 )}
             >
-                <div className=" flex min-h-full flex-col justify-between">
+                <div className="flex min-h-full flex-col justify-between">
                     {type === 'reply' && post ? (
                         <div className=" mb-3 text-left text-[15px] text-fourMain">
                             <Trans>Replying to</Trans>
-                            <span className=" text-link"> @{post.author.handle} </span>
+                            <span className="text-link"> @{post.author.handle} </span>
                             <Trans>on Lens</Trans>
                         </div>
                     ) : null}

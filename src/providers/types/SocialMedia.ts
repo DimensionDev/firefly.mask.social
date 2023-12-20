@@ -76,6 +76,7 @@ export interface Profile {
     profileId: string;
     displayName: string;
     handle: string;
+    fullHandle: string;
     pfp: string;
     bio?: string;
     address?: string;
