@@ -61,39 +61,41 @@ export function useSendLens() {
                     variant: 'success',
                 });
                 updateLensPostId(published.postId);
-            } catch {
+            } catch (error) {
                 enqueueSnackbar(t`Failed to post on Lens`, {
                     variant: 'error',
                 });
+                throw error;
             }
         } else if (type === 'reply') {
-            if (!post) return;
             try {
+                if (!post) throw new Error('No post found.');
                 await commentPostForLens(currentProfile.profileId, post.postId, chars, uploadedImages, uploadedVideo);
                 enqueueSnackbar(t`Replied on Lens`, {
                     variant: 'success',
                 });
-            } catch {
-                enqueueSnackbar(t`Failed to relay on Lens. @${currentProfile.handle}`, {
+            } catch (error) {
+                enqueueSnackbar(t`Failed to relay post on Lens.`, {
                     variant: 'error',
                 });
+                throw error;
             }
         } else if (type === 'quote') {
-            if (!post) return;
             try {
+                if (!post) throw new Error('No post found.');
                 await quotePostForLens(currentProfile.profileId, post.postId, chars, uploadedImages, uploadedVideo);
                 enqueueSnackbar(t`Posted on Lens`, {
                     variant: 'success',
                 });
-            } catch {
-                enqueueSnackbar(t`Failed to quote on Lens. @${currentProfile.handle}`, {
+            } catch (error) {
+                enqueueSnackbar(t`Failed to quote post on Lens.`, {
                     variant: 'error',
                 });
+                throw error;
             }
         }
     }, [
         chars,
-        currentProfile?.handle,
         currentProfile?.profileId,
         enqueueSnackbar,
         images,

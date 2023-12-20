@@ -21,7 +21,7 @@ export default function ComposeSend() {
 
     const [{ loading }, handleSend] = useAsyncFn(async () => {
         if (!source && type === 'compose') {
-            await Promise.allSettled([sendLens(), sendFarcaster()]);
+            await Promise.all([sendLens(), sendFarcaster()]);
         } else if (source === SocialPlatform.Lens) {
             await sendLens();
         } else if (source === SocialPlatform.Farcaster) {

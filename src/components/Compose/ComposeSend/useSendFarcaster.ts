@@ -63,22 +63,24 @@ export function useSendFarcaster() {
                 if (type === 'compose') {
                     updateFarcasterPostId(published.postId);
                 }
-            } catch (err) {
+            } catch (error) {
                 enqueueSnackbar(
-                    t`Failed to ${type === 'compose' ? 'post' : 'reply'} on Farcaster: ${(err as Error).message}`,
+                    type === 'compose' ? t`Failed to post on Farcaster` : t`Failed to reply post on Farcaster`,
                     {
                         variant: 'error',
                     },
                 );
+                throw error;
             }
         }
         if (type === 'quote' && post?.postId) {
             try {
                 await HubbleSocialMediaProvider.mirrorPost(post.postId);
-            } catch (err) {
-                enqueueSnackbar(t`Failed to mirror on Farcaster: ${(err as Error).message}`, {
+            } catch (error) {
+                enqueueSnackbar(t`Failed to mirror post on Farcaster`, {
                     variant: 'error',
                 });
+                throw error;
             }
         }
     }, [
