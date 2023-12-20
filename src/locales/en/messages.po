@@ -85,9 +85,6 @@ msgstr "Failed to follow"
 msgid "Debug Console"
 msgstr "Debug Console"
 
-msgid "Failed to upload video. Network error"
-msgstr "Failed to upload video. Network error"
-
 msgid "Failed to login"
 msgstr "Failed to login"
 
@@ -247,9 +244,6 @@ msgstr "Malformed session."
 msgid "Post has been hidden"
 msgstr "Post has been hidden"
 
-msgid "Failed to upload image. Network error"
-msgstr "Failed to upload image. Network error"
-
 msgid "<0>{0}</0> liked"
 msgstr "<0>{0}</0> liked"
 
@@ -375,6 +369,9 @@ msgstr "Sign"
 
 msgid "Follow @thefireflyapp on X"
 msgstr "Follow @thefireflyapp on X"
+
+msgid "Failed to upload image to IPFS"
+msgstr "Failed to upload image to IPFS"
 
 msgid "Posted on Lens"
 msgstr "Posted on Lens"
