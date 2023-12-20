@@ -1,7 +1,7 @@
 import { t } from '@lingui/macro';
 import { useCallback } from 'react';
 
-import { commentPostForLens, publishPostForLens, quotePostForLens } from '@/helpers/publishPost.js';
+import { commentPostForLens, publishPostForLens, quotePostForLens } from '@/helpers/publishPostForLens.js';
 import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
 import { uploadFileToIPFS } from '@/services/uploadToIPFS.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
@@ -49,7 +49,6 @@ export function useSendLens() {
             }
         }
 
-        let publishedId: string | undefined = undefined;
         if (type === 'compose') {
             try {
                 const published = await publishPostForLens(
@@ -61,7 +60,7 @@ export function useSendLens() {
                 enqueueSnackbar(t`Posted on Lens`, {
                     variant: 'success',
                 });
-                publishedId = published.postId;
+                updateLensPostId(published.postId);
             } catch {
                 enqueueSnackbar(t`Failed to post on Lens`, {
                     variant: 'error',
@@ -91,9 +90,6 @@ export function useSendLens() {
                     variant: 'error',
                 });
             }
-        }
-        if (publishedId) {
-            updateLensPostId(publishedId);
         }
     }, [
         chars,
