@@ -26,6 +26,7 @@ export const MarkupLink = memo<MarkupLinkProps>(function MarkupLink({ title, pos
         }
 
         const link = getProfileUrl({
+            fullHandle: title,
             source: SocialPlatform.Lens,
             handle: title.replace('@lens/', ''),
             profileId: '',

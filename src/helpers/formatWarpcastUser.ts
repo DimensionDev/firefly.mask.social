@@ -8,6 +8,7 @@ export function formatWarpcastUser(user: WarpProfile): Profile {
         profileId: user.fid.toString(),
         displayName: user.displayName,
         handle: user.username,
+        fullHandle: user.username,
         pfp: user.pfp?.url,
         bio: user.profile.bio.text,
         address: user.profile.location.description,

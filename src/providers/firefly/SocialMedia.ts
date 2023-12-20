@@ -71,6 +71,7 @@ export class FireflySocialMedia implements Provider {
         );
 
         return {
+            fullHandle: user.username || user.display_name,
             profileId: user.fid.toString(),
             handle: user.username || user.display_name,
             displayName: user.display_name,
@@ -99,6 +100,7 @@ export class FireflySocialMedia implements Provider {
             method: 'GET',
         });
         const data = list.map((user) => ({
+            fullHandle: user.username,
             profileId: user.fid.toString(),
             handle: user.username,
             displayName: user.display_name,
@@ -125,6 +127,7 @@ export class FireflySocialMedia implements Provider {
             method: 'GET',
         });
         const data = list.map((user) => ({
+            fullHandle: user.username,
             profileId: user.fid.toString(),
             handle: user.username,
             displayName: user.display_name,
@@ -178,6 +181,7 @@ export class FireflySocialMedia implements Provider {
             parentPostId: cast.parent_hash,
             timestamp: Number(cast.created_at),
             author: {
+                fullHandle: cast.author.username,
                 profileId: cast.author.fid,
                 handle: cast.author.username,
                 displayName: cast.author.display_name,
@@ -298,6 +302,7 @@ export class FireflySocialMedia implements Provider {
             parentPostId: cast.parent_hash,
             timestamp: Number(cast.created_at),
             author: {
+                fullHandle: cast.author.username,
                 profileId: cast.author.fid,
                 handle: cast.author.username,
                 displayName: cast.author.display_name,
@@ -379,6 +384,7 @@ export class FireflySocialMedia implements Provider {
             parentPostId: cast.parent_hash,
             timestamp: Number(cast.created_at),
             author: {
+                fullHandle: cast.author.username,
                 profileId: cast.author.fid,
                 handle: cast.author.username,
                 displayName: cast.author.display_name,

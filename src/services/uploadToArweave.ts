@@ -1,10 +1,11 @@
-import { HEY_API_URL } from '@/constants/index.js';
 import type { GetPostMetaData } from '@/helpers/createPostMetadata.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 
 interface IUploadToArweaveResponse {
-    id: string;
-    success: boolean;
+    data: {
+        id: string;
+        success: boolean;
+    };
 }
 
 /**
@@ -16,7 +17,9 @@ interface IUploadToArweaveResponse {
  */
 export async function uploadToArweave(data: GetPostMetaData): Promise<string> {
     try {
-        const { id, success } = await fetchJSON<IUploadToArweaveResponse>(`${HEY_API_URL}/metadata`, {
+        const {
+            data: { id, success },
+        } = await fetchJSON<IUploadToArweaveResponse>(`/api/metadata`, {
             method: 'POST',
             body: JSON.stringify(data),
         });

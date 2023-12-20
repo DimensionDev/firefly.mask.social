@@ -43,6 +43,7 @@ export function SocialPlatformTabs() {
                                 if (isRoutePathname(pathname, '/profile') && currentProfile) {
                                     router.push(getProfileUrl(currentProfile));
                                 }
+                                scrollTo(0, 0);
                                 updateCurrentSource(value);
                             })
                         }

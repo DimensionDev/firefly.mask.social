@@ -12,8 +12,8 @@ export class MentionNode extends TextNode {
         return new MentionNode(node.__text, node.__key);
     }
 
-    constructor(text: string, key?: NodeKey) {
-        super(text, key);
+    constructor(mentionName: string, key?: NodeKey) {
+        super(`@${mentionName}`, key);
     }
 
     override createDOM(config: EditorConfig): HTMLElement {
@@ -48,7 +48,10 @@ export class MentionNode extends TextNode {
 }
 
 export function $createMentionNode(text = ''): MentionNode {
-    return new MentionNode(text);
+    const mentionNode = new MentionNode(text);
+    mentionNode.setMode('segmented').toggleDirectionless();
+
+    return mentionNode;
 }
 
 export function $isMentionNode(node: LexicalNode | null | undefined): node is MentionNode {

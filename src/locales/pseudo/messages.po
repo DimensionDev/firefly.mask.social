@@ -76,6 +76,9 @@ msgstr ""
 msgid "UnLike"
 msgstr ""
 
+msgid "The page could be found."
+msgstr ""
+
 msgid "Missing IPFS hash for image or video"
 msgstr ""
 
