@@ -27,4 +27,4 @@ const WalletIO: WalletAPI.IOContext = {
     send: reject,
 };
 
-initWallet(WalletIO);
+await initWallet(WalletIO);
