@@ -18,19 +18,22 @@ export function useSendLens() {
         if (!currentProfile?.profileId || lensPostId) return;
         const uploadedImages = await Promise.all(
             images.map(async (media) => {
-                if (media.ipfs) return media;
-                const response = await uploadFileToIPFS(media.file);
-                if (response) {
+                try {
+                    if (media.ipfs) return media;
+                    const ipfs = await uploadFileToIPFS(media.file);
                     const patchedMedia: MediaObject = {
                         ...media,
-                        ipfs: response,
+                        ipfs,
                     };
                     updateImages((originImages) => {
-                        return originImages.map((x) => (x.file === media.file ? { ...x, ipfs: response } : x));
+                        return originImages.map((x) => (x.file === media.file ? patchedMedia : x));
                     });
                     // We only care about ipfs for Lens
                     return patchedMedia;
-                } else {
+                } catch {
+                    enqueueSnackbar(t`Failed to upload image to IPFS`, {
+                        variant: 'error',
+                    });
                     throw new Error(t`Failed to upload image to IPFS`);
                 }
             }),
@@ -45,7 +48,10 @@ export function useSendLens() {
                 };
                 updateVideo(uploadedVideo);
             } else {
-                throw new Error(t`Failed to upload image to IPFS`);
+                enqueueSnackbar(t`Failed to upload video to IPFS`, {
+                    variant: 'error',
+                });
+                throw new Error(t`Failed to upload video to IPFS`);
             }
         }
 
