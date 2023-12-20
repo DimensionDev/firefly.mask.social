@@ -29,7 +29,7 @@ export function MaskProviders({ children }: PropsWithChildren<{}>) {
                     <MaskThemeProvider useMaskIconPalette={(theme) => theme.palette.mode} useTheme={useMaskTheme}>
                         <I18nextProvider i18n={i18NextInstance}>
                             <EVMWeb3ContextProvider
-                                account={account.address}
+                                account={account.address ?? ''}
                                 chainId={chainId}
                                 providerType={ProviderType.CustomEvent}
                                 controlled
