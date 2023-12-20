@@ -57,12 +57,12 @@ export function useSendFarcaster() {
                     },
                     type === 'reply' ? post : undefined,
                 );
-                if (type === 'compose') {
-                    updateFarcasterPostId(published.postId);
-                }
                 enqueueSnackbar(t`Posted on Farcaster`, {
                     variant: 'success',
                 });
+                if (type === 'compose') {
+                    updateFarcasterPostId(published.postId);
+                }
             } catch (err) {
                 enqueueSnackbar(
                     t`Failed to ${type === 'compose' ? 'post' : 'reply'} on Farcaster: ${(err as Error).message}`,

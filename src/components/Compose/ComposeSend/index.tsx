@@ -19,9 +19,8 @@ export default function ComposeSend() {
     const sendLens = useSendLens();
     const sendFarcaster = useSendFarcaster();
 
-    const isCompose = type === 'compose';
     const [{ loading }, handleSend] = useAsyncFn(async () => {
-        if (!source && isCompose) {
+        if (!source && type === 'compose') {
             await Promise.allSettled([sendLens(), sendFarcaster()]);
         } else if (source === SocialPlatform.Lens) {
             await sendLens();
@@ -30,7 +29,7 @@ export default function ComposeSend() {
         }
         ComposeModalRef.close();
         clear();
-    }, [source, isCompose, sendLens, sendFarcaster]);
+    }, [source, type, sendLens, sendFarcaster]);
 
     return (
         <div className=" flex h-[68px] items-center justify-end gap-4 px-4 shadow-send">
