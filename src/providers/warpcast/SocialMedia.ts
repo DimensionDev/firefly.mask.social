@@ -267,6 +267,7 @@ export class WarpcastSocialMedia implements Provider {
             parentPostId: cast.threadHash,
             timestamp: cast.timestamp,
             author: {
+                fullHandle: cast.author.username,
                 profileId: cast.author.fid.toString(),
                 handle: cast.author.username,
                 displayName: cast.author.displayName,

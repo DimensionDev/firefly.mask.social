@@ -39,6 +39,7 @@ export class HubbleSocialMedia implements Provider {
         });
 
         return {
+            fullHandle: user.username,
             profileId: user.fid.toString(),
             handle: user.username,
             displayName: user.display_name,
@@ -101,6 +102,7 @@ export class HubbleSocialMedia implements Provider {
             parentPostId: '',
             timestamp: data.timestamp,
             author: {
+                fullHandle: post.author.handle,
                 profileId: data.fid.toString(),
                 displayName: post.author.displayName,
                 handle: post.author.handle,
