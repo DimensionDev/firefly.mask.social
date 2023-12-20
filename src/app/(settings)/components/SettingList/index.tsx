@@ -29,7 +29,7 @@ export function SettingList() {
                         className={`mb-[24px] flex items-center justify-between border-b border-line pb-[4px] text-[18px] leading-[24px] text-main ${
                             isRoutePathname(pathname, `/settings${link}`) ? 'font-bold' : 'font-normal'
                         }`}
-                        key={name}
+                        key={link}
                         href={`/settings${link}`}
                     >
                         {name} <RightArrowIcon width={20} height={20} />
