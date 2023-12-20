@@ -1,5 +1,4 @@
 import { Trans } from '@lingui/macro';
-import { safeUnreachable } from '@masknet/kit';
 import { useAsyncFn } from 'react-use';
 
 import LoadingIcon from '@/assets/loading.svg';
@@ -9,28 +8,29 @@ import { useSendLens } from '@/components/Compose/ComposeSend/useSendLens.js';
 import { CountdownCircle } from '@/components/Compose/CountdownCircle.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
+import { ComposeModalRef } from '@/modals/controls.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 
 export default function ComposeSend() {
-    const { chars, images, video, source, clear } = useComposeStateStore();
+    const { chars, images, type, video, source, clear } = useComposeStateStore();
 
     const charsLength = chars.length;
     const disabled = (charsLength === 0 || charsLength > 280) && images.length === 0 && !video;
     const sendLens = useSendLens();
     const sendFarcaster = useSendFarcaster();
 
+    const isCompose = type === 'compose';
     const [{ loading }, handleSend] = useAsyncFn(async () => {
-        if (!source) {
+        if (!source && isCompose) {
             await Promise.allSettled([sendLens(), sendFarcaster()]);
         } else if (source === SocialPlatform.Lens) {
             await sendLens();
         } else if (source === SocialPlatform.Farcaster) {
             await sendFarcaster();
-        } else {
-            safeUnreachable(source);
         }
+        ComposeModalRef.close();
         clear();
-    }, [source, sendLens, sendFarcaster]);
+    }, [source, isCompose, sendLens, sendFarcaster]);
 
     return (
         <div className=" flex h-[68px] items-center justify-end gap-4 px-4 shadow-send">

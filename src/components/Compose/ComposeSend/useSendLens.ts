@@ -3,7 +3,6 @@ import { useCallback } from 'react';
 
 import { commentPostForLens, publishPostForLens, quotePostForLens } from '@/helpers/publishPost.js';
 import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
-import { ComposeModalRef } from '@/modals/controls.js';
 import { uploadFileToIPFS } from '@/services/uploadToIPFS.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 import { useLensStateStore } from '@/store/useLensStore.js';
@@ -11,14 +10,14 @@ import type { MediaObject } from '@/types/index.js';
 
 export function useSendLens() {
     const currentProfile = useLensStateStore.use.currentProfile();
-    const { type, post, chars, images, updateImageByIndex, video, updateVideo, updateLensPostId } =
+    const { type, post, chars, images, updateImages, video, updateVideo, lensPostId, updateLensPostId } =
         useComposeStateStore();
     const enqueueSnackbar = useCustomSnackbar();
 
     return useCallback(async () => {
-        if (!currentProfile?.profileId) return;
+        if (!currentProfile?.profileId || lensPostId) return;
         const uploadedImages = await Promise.all(
-            images.map(async (media, index) => {
+            images.map(async (media) => {
                 if (media.ipfs) return media;
                 const response = await uploadFileToIPFS(media.file);
                 if (response) {
@@ -26,8 +25,10 @@ export function useSendLens() {
                         ...media,
                         ipfs: response,
                     };
-                    // TODO race conditions
-                    updateImageByIndex(index, patchedMedia);
+                    updateImages((originImages) => {
+                        return originImages.map((x) => (x.file === media.file ? { ...x, ipfs: response } : x));
+                    });
+                    // We only care about ipfs for Lens
                     return patchedMedia;
                 } else {
                     throw new Error(t`Failed to upload image to IPFS`);
@@ -61,7 +62,6 @@ export function useSendLens() {
                     variant: 'success',
                 });
                 publishedId = published.postId;
-                ComposeModalRef.close();
             } catch {
                 enqueueSnackbar(t`Failed to post on Lens`, {
                     variant: 'error',
@@ -70,17 +70,10 @@ export function useSendLens() {
         } else if (type === 'reply') {
             if (!post) return;
             try {
-                publishedId = await commentPostForLens(
-                    currentProfile.profileId,
-                    post.postId,
-                    chars,
-                    uploadedImages,
-                    uploadedVideo,
-                );
+                await commentPostForLens(currentProfile.profileId, post.postId, chars, uploadedImages, uploadedVideo);
                 enqueueSnackbar(t`Replied on Lens`, {
                     variant: 'success',
                 });
-                ComposeModalRef.close();
             } catch {
                 enqueueSnackbar(t`Failed to relay on Lens. @${currentProfile.handle}`, {
                     variant: 'error',
@@ -89,18 +82,10 @@ export function useSendLens() {
         } else if (type === 'quote') {
             if (!post) return;
             try {
-                const quoted = await quotePostForLens(
-                    currentProfile.profileId,
-                    post.postId,
-                    chars,
-                    uploadedImages,
-                    uploadedVideo,
-                );
-                publishedId = quoted.postId;
+                await quotePostForLens(currentProfile.profileId, post.postId, chars, uploadedImages, uploadedVideo);
                 enqueueSnackbar(t`Posted on Lens`, {
                     variant: 'success',
                 });
-                ComposeModalRef.close();
             } catch {
                 enqueueSnackbar(t`Failed to quote on Lens. @${currentProfile.handle}`, {
                     variant: 'error',
@@ -116,9 +101,10 @@ export function useSendLens() {
         currentProfile?.profileId,
         enqueueSnackbar,
         images,
+        lensPostId,
         post,
         type,
-        updateImageByIndex,
+        updateImages,
         updateLensPostId,
         updateVideo,
         video,

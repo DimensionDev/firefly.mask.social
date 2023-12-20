@@ -16,25 +16,22 @@ export default function Media({ close }: MediaProps) {
     const videoInputRef = useRef<HTMLInputElement>(null);
 
     const currentFarcasterProfile = useFarcasterStateStore.use.currentProfile();
-    const { video, images, updateVideo, updateImages } = useComposeStateStore();
+    const { video, updateVideo, images, updateImages } = useComposeStateStore();
 
+    const maxImageCount = currentFarcasterProfile ? 2 : 4;
     const [, handleImageChange] = useAsyncFn(
         async (event: ChangeEvent<HTMLInputElement>) => {
             const files = event.target.files;
 
             if (files && files.length > 0) {
-                updateImages(
-                    [
-                        ...images,
-                        ...[...files].map((file) => ({
-                            file,
-                        })),
-                    ].slice(0, currentFarcasterProfile ? 2 : 4),
-                );
+                updateImages((images) => {
+                    if (images.length === maxImageCount) return images;
+                    return [...images, ...[...files].map((file) => ({ file }))].slice(0, maxImageCount);
+                });
             }
             close();
         },
-        [currentFarcasterProfile, images, close, updateImages],
+        [maxImageCount, close, updateImages],
     );
 
     const [, handleVideoChange] = useAsyncFn(

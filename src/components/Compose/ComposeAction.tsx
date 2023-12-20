@@ -30,8 +30,7 @@ export default function ComposeAction(props: ComposeActionProps) {
     const currentLensProfile = useLensStateStore.use.currentProfile();
     const currentFarcasterProfile = useFarcasterStateStore.use.currentProfile();
 
-    const type = useComposeStateStore.use.type();
-    const post = useComposeStateStore.use.post();
+    const { type, post } = useComposeStateStore();
 
     const [editor] = useLexicalComposerContext();
 

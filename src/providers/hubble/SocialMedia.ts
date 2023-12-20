@@ -68,7 +68,7 @@ export class HubbleSocialMedia implements Provider {
     }
 
     async publishPost(post: Post, parentPost?: Post | null): Promise<Post> {
-        const { bytes } = await encodeMessageData((fid) => ({
+        const { bytes } = await encodeMessageData(() => ({
             type: MessageType.CAST_ADD,
             castAddBody: {
                 embedsDeprecated: [],

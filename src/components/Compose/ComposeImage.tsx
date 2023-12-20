@@ -13,7 +13,7 @@ interface ComposeImageProps {
     image: MediaObject;
 }
 export default function ComposeImage({ index, image }: ComposeImageProps) {
-    const { images, removeImageByIndex } = useComposeStateStore();
+    const { images, removeImage } = useComposeStateStore();
 
     const len = images.length;
 
@@ -30,12 +30,7 @@ export default function ComposeImage({ index, image }: ComposeImageProps) {
             <Image src={createImageUrl(image.file)} alt={image.file.name} fill className=" object-cover" />
             <div className=" absolute right-2 top-2 z-50 h-[18px] w-[18px]">
                 <Tooltip content={t`Remove`} placement="top">
-                    <CloseIcon
-                        className=" cursor-pointer"
-                        width={18}
-                        height={18}
-                        onClick={() => removeImageByIndex(index)}
-                    />
+                    <CloseIcon className=" cursor-pointer" width={18} height={18} onClick={() => removeImage(image)} />
                 </Tooltip>
             </div>
         </div>
