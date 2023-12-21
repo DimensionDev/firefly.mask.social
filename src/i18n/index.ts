@@ -31,3 +31,8 @@ export async function setLocale(locale: Locale) {
     i18n.activate(locale);
     dayjs.locale(locale);
 }
+
+export async function loadCatalog(locale: string) {
+    const { messages } = await import(`@lingui/loader!@/locales/${locale}/messages.po`);
+    return messages;
+}

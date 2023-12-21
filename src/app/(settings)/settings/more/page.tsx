@@ -1,6 +1,6 @@
 'use client';
 
-import { Trans, t } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 
 import { DocumentCard } from '@/app/(settings)/components/DocumentCard.js';
 import DocumentsIcon from '@/assets/documents.svg';
