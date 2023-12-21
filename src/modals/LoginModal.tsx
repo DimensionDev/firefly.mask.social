@@ -8,7 +8,6 @@ import { useSingletonModal } from '@masknet/shared-base-ui';
 import { useSnackbar } from 'notistack';
 import { forwardRef, Fragment, Suspense, useState } from 'react';
 import { useAsyncFn } from 'react-use';
-import { useAccount } from 'wagmi';
 
 import CloseIcon from '@/assets/close.svg';
 import LeftArrowIcon from '@/assets/left-arrow.svg';
