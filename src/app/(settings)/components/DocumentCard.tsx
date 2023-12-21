@@ -5,7 +5,7 @@ import { Link } from '@/esm/Link.js';
 
 interface DocumentCardProps {
     href: string;
-    title: string;
+    title: React.ReactNode;
     icon: React.ReactNode;
 }
 
@@ -19,9 +19,7 @@ export function DocumentCard({ title, href, icon }: DocumentCardProps) {
         >
             {icon}
             <div className="inline-flex shrink grow basis-0 flex-col items-start justify-center gap-1">
-                <div className=" text-[14px] font-bold leading-[18px] text-main">
-                    <Trans>{title}</Trans>
-                </div>
+                <div className=" text-[14px] font-bold leading-[18px] text-main">{title}</div>
             </div>
             <LinkIcon width={16} height={16} />
         </Link>

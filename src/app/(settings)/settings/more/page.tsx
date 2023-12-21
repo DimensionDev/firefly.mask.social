@@ -9,12 +9,12 @@ import SecurityIcon from '@/assets/security.svg';
 const documents = [
     {
         href: 'https://legal.mask.io/maskbook/privacy-policy-browser.html',
-        title: 'Privacy Policy',
+        title: <Trans>Privacy Policy</Trans>,
         icon: <SecurityIcon width={24} height={24} />,
     },
     {
         href: 'https://legal.mask.io/maskbook/service-agreement-beta-browser.html',
-        title: 'Terms of Service',
+        title: <Trans>Terms of Service</Trans>,
         icon: <DocumentsIcon width={24} height={24} />,
     },
 ];
