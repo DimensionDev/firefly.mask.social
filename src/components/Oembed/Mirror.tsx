@@ -7,6 +7,7 @@ import { mainnet } from 'wagmi/chains';
 
 import MirrorIon from '@/assets/mirror.xyz.svg';
 import { Avatar } from '@/components/Avatar.js';
+import { NakedMarkup } from '@/components/Markup/index.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
 import { Link } from '@/esm/Link.js';
 
@@ -68,7 +69,9 @@ export const Mirror = memo<MirrorProps>(function Mirror({
                             {title}
                         </h4>
                     ) : null}
-                    {description ? <div className="font-sm line-clamp-5 py-2 text-secondary">{description}</div> : null}
+                    {description ? (
+                        <NakedMarkup className="font-sm my-2 line-clamp-3 text-secondary">{description}</NakedMarkup>
+                    ) : null}
                 </div>
             </Link>
         </div>

@@ -1,9 +1,11 @@
-import type { ImgHTMLAttributes, Ref, SyntheticEvent } from 'react';
+import type { ImageProps as NextImageProps } from 'next/image.js';
+import type { Ref, SyntheticEvent } from 'react';
 import { forwardRef, useCallback, useEffect, useState } from 'react';
 
+import { Image as NextImage } from '@/esm/Image.js';
 import { useDarkMode } from '@/hooks/useDarkMode.js';
 
-export interface ImageProps extends ImgHTMLAttributes<HTMLImageElement> {
+export interface ImageProps extends NextImageProps {
     fallback?: string;
 }
 
@@ -33,11 +35,14 @@ export const Image = forwardRef(function Image(
 
     // TODO: replace failed fallback image
     return (
-        // Since next/image requires the domain of the image to be configured in next.cong,
+        // Since next/image requires the domain of the image to be configured in next.config,
         // But we can't predict the origin of all images.
         // eslint-disable-next-line @next/next/no-img-element
-        <img
+        <NextImage
             {...props}
+            unoptimized
+            loading="lazy"
+            priority={false}
             src={
                 imageLoadFailed || !props.src
                     ? fallback || (isDarkMode ? '/image/fallback-dark.png' : '/image/fallback-light.png')

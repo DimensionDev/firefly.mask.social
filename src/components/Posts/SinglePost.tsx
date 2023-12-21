@@ -45,7 +45,7 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
             initial={!disableAnimate ? { opacity: 0 } : false}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="cursor-pointer border-b border-secondaryLine bg-bottom px-4 py-3 hover:bg-bg dark:border-line"
+            className="cursor-pointer border-b border-line bg-bottom px-4 py-3 hover:bg-bg"
             onClick={() => {
                 if (!isPostPage) {
                     router.push(postLink);

@@ -92,7 +92,7 @@ export const PreviewImagesModal = forwardRef<SingletonModalRefCreator<PreviewIma
                                             <Image
                                                 src={state ?? current}
                                                 alt={state ?? current}
-                                                width="auto"
+                                                fill
                                                 className="max-h-[calc(100vh-110px)] max-w-full"
                                             />
 

@@ -12,13 +12,13 @@ import { MentionLink } from './MentionLink.js';
 
 export interface MarkupLinkProps {
     title?: string;
-    post: Post;
+    post?: Post;
 }
 export const MarkupLink = memo<MarkupLinkProps>(function MarkupLink({ title, post }) {
     if (!title) return null;
 
     if (title.startsWith('@')) {
-        if (post.source === SocialPlatform.Farcaster) {
+        if (post?.source === SocialPlatform.Farcaster) {
             const target = post.mentions?.find((x) => x.handle === title.replace('@', ''));
             if (!target) return title;
             const link = getProfileUrl(target);

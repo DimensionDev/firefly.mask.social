@@ -1,4 +1,5 @@
 import { type HTMLProps, memo, useMemo } from 'react';
+import urlcat from 'urlcat';
 
 import { SocialPlatform } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -70,7 +71,7 @@ export const PostActions = memo<PostActionsProps>(function PostActions({
                 disabled={disabled}
             />
             {post.source !== SocialPlatform.Farcaster ? <Views count={views} disabled={disabled} /> : null}
-            <Share url={getPostUrl(post)} disabled={disabled} />
+            <Share url={urlcat(location.origin, getPostUrl(post))} disabled={disabled} />
         </div>
     );
 });

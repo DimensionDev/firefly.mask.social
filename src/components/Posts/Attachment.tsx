@@ -60,7 +60,7 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({ attachm
         };
     }, [attachments]);
 
-    if (isQuote && asset?.type === 'Video') {
+    if (isQuote && asset?.type === 'Video' && asset.cover) {
         return (
             <div className="relative h-[120px] w-[120px] flex-shrink-0 flex-grow-0 basis-[120px]">
                 <div className="absolute left-[calc(50%-16px)] top-[calc(50%-16px)] flex items-center justify-center rounded-xl bg-white/80 p-2 text-[#181818]">
@@ -106,14 +106,21 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({ attachm
     return (
         <div className={isQuote ? '' : 'mt-3'}>
             {asset?.type === 'Image' && !attachmentsHasImage ? (
-                <div className="w-full" onClick={(event) => event.stopPropagation()}>
+                <div
+                    className={classNames({
+                        'w-full': !isQuote,
+                        'w-[120px]': isQuote,
+                    })}
+                    onClick={(event) => event.stopPropagation()}
+                >
                     <ImageAsset
-                        className={classNames('cursor-pointer rounded-lg', {
+                        className={classNames('cursor-pointer rounded-lg object-cover', {
                             'w-full': !isQuote,
                             'w-[120px]': isQuote,
                             'h-[120px]': isQuote,
                         })}
                         loading="lazy"
+                        disableLoadHandler={isQuote}
                         width={isQuote ? 120 : 1000}
                         height={isQuote ? 120 : 1000}
                         onError={({ currentTarget }) => (currentTarget.src = asset.uri)}
@@ -155,8 +162,9 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({ attachm
                                 <Image
                                     className="h-full shrink-0 cursor-pointer rounded-lg object-cover"
                                     loading="lazy"
-                                    width={isQuote ? (isSoloImage ? '100%' : 120) : 1000}
-                                    height={isQuote ? (isSoloImage ? '100%' : 120) : 1000}
+                                    fill={isSoloImage}
+                                    width={isQuote ? 120 : 1000}
+                                    height={isQuote ? 120 : 1000}
                                     style={{
                                         maxHeight: isSoloImage && isQuote ? 288 : undefined,
                                     }}

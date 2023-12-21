@@ -25,7 +25,7 @@ const plugins = [
 
 interface MarkupProps extends Omit<ReactMarkdownOptions, 'children'> {
     children?: ReactMarkdownOptions['children'] | null;
-    post: Post;
+    post?: Post;
 }
 
 export const Markup = memo<MarkupProps>(function Markup({ children, post, ...rest }) {
