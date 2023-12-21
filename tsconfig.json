@@ -143,6 +143,7 @@
     "exclude": [
         "node_modules",
         "src/service-workers",
+        "src/maskbook",
         "src/maskbook/packages/gun-utils",
         "src/maskbook/packages/app",
         "src/maskbook/packages/backup-format",
