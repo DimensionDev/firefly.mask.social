@@ -59,46 +59,42 @@ export async function uploadFilesToIPFS(
     data: File[],
     onProgress?: (percentage: number) => void,
 ): Promise<IPFSResponse[]> {
-    try {
-        const files = Array.from(data);
-        const client = await getS3Client();
-        const attachments = await Promise.all(
-            files.map(async (_: any, i: number) => {
-                const file = data[i];
-                const params = {
-                    Bucket: S3_BUCKET.HEY_MEDIA,
-                    Key: uuid(),
-                    Body: file,
-                    ContentType: file.type,
-                };
-                const task = new Upload({
-                    client,
-                    params,
-                });
-                task.on('httpUploadProgress', (e) => {
-                    const loaded = e.loaded ?? 0;
-                    const total = e.total ?? 0;
-                    const progress = (loaded / total) * 100;
-                    onProgress?.(Math.round(progress));
-                });
-                await task.done();
-                const result = await client.headObject(params);
-                const metadata = result.Metadata;
-                const cid = metadata?.['ipfs-hash'];
+    const files = Array.from(data);
+    const client = await getS3Client();
+    const attachments = await Promise.all(
+        files.map(async (_: any, i: number) => {
+            const file = data[i];
+            const params = {
+                Bucket: S3_BUCKET.HEY_MEDIA,
+                Key: uuid(),
+                Body: file,
+                ContentType: file.type,
+            };
+            const task = new Upload({
+                client,
+                params,
+            });
+            task.on('httpUploadProgress', (e) => {
+                const loaded = e.loaded ?? 0;
+                const total = e.total ?? 0;
+                const progress = (loaded / total) * 100;
+                onProgress?.(Math.round(progress));
+            });
+            await task.done();
+            const result = await client.headObject(params);
+            const metadata = result.Metadata;
+            const cid = metadata?.['ipfs-hash'];
 
-                axios.post(`${HEY_API_URL}/ipfs/pin?cid=${cid}`);
+            axios.post(`${HEY_API_URL}/ipfs/pin?cid=${cid}`);
 
-                return {
-                    uri: `ipfs://${cid}`,
-                    mimeType: file.type || FALLBACK_TYPE,
-                };
-            }),
-        );
+            return {
+                uri: `ipfs://${cid}`,
+                mimeType: file.type || FALLBACK_TYPE,
+            };
+        }),
+    );
 
-        return attachments;
-    } catch {
-        return [];
-    }
+    return attachments;
 }
 
 /**
@@ -107,16 +103,9 @@ export async function uploadFilesToIPFS(
  * @param file File to upload to IPFS.
  * @returns MediaSet object or null if the upload fails.
  */
-export async function uploadFileToIPFS(
-    file: File,
-    onProgress?: (percentage: number) => void,
-): Promise<IPFSResponse | null> {
-    try {
-        const ipfsResponse = await uploadFilesToIPFS([file], onProgress);
-        const metadata = ipfsResponse[0];
+export async function uploadFileToIPFS(file: File, onProgress?: (percentage: number) => void): Promise<IPFSResponse> {
+    const ipfsResponse = await uploadFilesToIPFS([file], onProgress);
+    const metadata = ipfsResponse[0];
 
-        return { uri: metadata.uri, mimeType: file.type || FALLBACK_TYPE };
-    } catch {
-        return null;
-    }
+    return { uri: metadata.uri, mimeType: file.type || FALLBACK_TYPE };
 }

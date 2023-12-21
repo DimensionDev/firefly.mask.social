@@ -5,33 +5,22 @@ import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin.js';
 import { MarkdownShortcutPlugin } from '@lexical/react/LexicalMarkdownShortcutPlugin.js';
 import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin.js';
 import { PlainTextPlugin } from '@lexical/react/LexicalPlainTextPlugin.js';
-import { t } from '@lingui/macro';
-import { useMemo } from 'react';
+import { Select, t } from '@lingui/macro';
+import { memo } from 'react';
 
 import { MentionsPlugin } from '@/components/shared/lexical/plugins/AtMentionsPlugin.js';
 import LexicalAutoLinkPlugin from '@/components/shared/lexical/plugins/AutoLinkPlugin.js';
 import { classNames } from '@/helpers/classNames.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 
-const TRANSFORMERS = [...TEXT_FORMAT_TRANSFORMERS];
-
 function ErrorBoundaryComponent() {
     return <div>Something went wrong!</div>;
 }
 
-interface EditorProps {}
-export default function Editor(props: EditorProps) {
+const Editor = memo(function Editor() {
     const { type, post, video, images, updateChars } = useComposeStateStore();
 
     const hasMediaObject = images.length > 0 || !!video;
-
-    const placeholder = useMemo(() => {
-        return {
-            compose: t`What's happening...`,
-            quote: t`Add a comment`,
-            reply: t`Post your reply`,
-        }[type];
-    }, [type]);
 
     return (
         <div className=" relative">
@@ -46,7 +35,13 @@ export default function Editor(props: EditorProps) {
                 }
                 placeholder={
                     <div className=" pointer-events-none absolute left-0 top-0 text-[15px] leading-5 text-placeholder">
-                        {placeholder}
+                        <Select
+                            value={type}
+                            _compose={t`What's happening...`}
+                            _quote={t`Add a comment`}
+                            _reply={t`Post your reply`}
+                            other={t`What's happening...`}
+                        />
                     </div>
                 }
                 ErrorBoundary={ErrorBoundaryComponent}
@@ -54,7 +49,7 @@ export default function Editor(props: EditorProps) {
             <OnChangePlugin
                 onChange={(editorState) => {
                     editorState.read(() => {
-                        const markdown = $convertToMarkdownString(TRANSFORMERS);
+                        const markdown = $convertToMarkdownString(TEXT_FORMAT_TRANSFORMERS);
                         updateChars(markdown);
                     });
                 }}
@@ -64,7 +59,9 @@ export default function Editor(props: EditorProps) {
             <HistoryPlugin />
             <HashtagPlugin />
             <MentionsPlugin />
-            <MarkdownShortcutPlugin transformers={TRANSFORMERS} />
+            <MarkdownShortcutPlugin transformers={TEXT_FORMAT_TRANSFORMERS} />
         </div>
     );
-}
+});
+
+export default Editor;

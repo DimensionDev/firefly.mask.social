@@ -89,7 +89,7 @@ export function LoginLens({ profiles }: LoginLensProps) {
                             ))}
                         </div>
                         {currentProfile?.signless ||
-                        isSameAddress(currentProfile?.ownedBy?.address, account.address) ? null : (
+                        !isSameAddress(currentProfile?.ownedBy?.address, account.address) ? null : (
                             <div className="flex w-full flex-col gap-[8px] rounded-[8px] bg-lightBg px-[16px] py-[24px]">
                                 <div className="flex items-center justify-between">
                                     <span className="text-[14px] font-bold leading-[18px] text-lightMain">
@@ -152,7 +152,7 @@ export function LoginLens({ profiles }: LoginLensProps) {
                     </button>
                     <button
                         disabled={loading}
-                        className=" flex w-[120px] items-center justify-center gap-[8px] rounded-[99px] bg-lightMain py-[11px] text-sm font-bold text-primaryBottom"
+                        className=" flex h-[40px] w-[120px] items-center justify-center gap-[8px] rounded-[99px] bg-lightMain text-sm font-bold text-primaryBottom"
                         onClick={() => login(signless)}
                     >
                         {loading ? (

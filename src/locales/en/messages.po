@@ -76,6 +76,9 @@ msgstr "Change Wallet"
 msgid "UnLike"
 msgstr "UnLike"
 
+msgid "The page could be found."
+msgstr "The page could be found."
+
 msgid "Missing IPFS hash for image or video"
 msgstr "Missing IPFS hash for image or video"
 
@@ -84,9 +87,6 @@ msgstr "Failed to follow"
 
 msgid "Debug Console"
 msgstr "Debug Console"
-
-msgid "Failed to upload video. Network error"
-msgstr "Failed to upload video. Network error"
 
 msgid "Failed to login"
 msgstr "Failed to login"
@@ -100,14 +100,17 @@ msgstr "Not implemented yet."
 msgid "Copied"
 msgstr "Copied"
 
-msgid "Failed to mirror on Farcaster: {0}"
-msgstr "Failed to mirror on Farcaster: {0}"
-
 msgid "comment"
 msgstr "comment"
 
+msgid "Failed to upload image to imgur"
+msgstr "Failed to upload image to imgur"
+
 msgid "Confirm"
 msgstr "Confirm"
+
+msgid "Failed to reply post on Farcaster"
+msgstr "Failed to reply post on Farcaster"
 
 msgid "Liked"
 msgstr "Liked"
@@ -141,6 +144,9 @@ msgstr "Audio Cover"
 
 msgid "Recent"
 msgstr "Recent"
+
+msgid "{type, select, compose {{0}} quote {{1}} reply {{2}} other {{3}}}"
+msgstr "{type, select, compose {{0}} quote {{1}} reply {{2}} other {{3}}}"
 
 msgid "Connect Wallet"
 msgstr "Connect Wallet"
@@ -181,6 +187,9 @@ msgstr "Hashtag"
 msgid "Search Filter"
 msgstr "Search Filter"
 
+msgid "Try searching for something else."
+msgstr "Try searching for something else."
+
 msgid "and"
 msgstr "and"
 
@@ -208,9 +217,6 @@ msgstr "Post by"
 msgid "Privacy Policy"
 msgstr "Privacy Policy"
 
-msgid "Failed to quote on Lens. @{0}"
-msgstr "Failed to quote on Lens. @{0}"
-
 msgid "No wallet client found"
 msgstr "No wallet client found"
 
@@ -235,6 +241,9 @@ msgstr "{0, plural, one {<0/>} other {{1, plural, one {<1/> and <2/>} other {<3/
 msgid "Comment"
 msgstr "Comment"
 
+msgid "Failed to post on Farcaster"
+msgstr "Failed to post on Farcaster"
+
 msgid "Failed to unmirror post"
 msgstr "Failed to unmirror post"
 
@@ -247,9 +256,6 @@ msgstr "Malformed session."
 msgid "Post has been hidden"
 msgstr "Post has been hidden"
 
-msgid "Failed to upload image. Network error"
-msgstr "Failed to upload image. Network error"
-
 msgid "<0>{0}</0> liked"
 msgstr "<0>{0}</0> liked"
 
@@ -259,11 +265,11 @@ msgstr "{0, select, follow {Failed to followed @{handle} on {source}} unfollow {
 msgid "Failed to unfollow"
 msgstr "Failed to unfollow"
 
+msgid "Followings"
+msgstr "Followings"
+
 msgid "No post found"
 msgstr "No post found"
-
-msgid "Failed to {0} on Farcaster: {1}"
-msgstr "Failed to {0} on Farcaster: {1}"
 
 msgid "UnLiked"
 msgstr "UnLiked"
@@ -316,6 +322,9 @@ msgstr "What's happening..."
 msgid "Like"
 msgstr "Like"
 
+msgid "Failed to quote post on Lens."
+msgstr "Failed to quote post on Lens."
+
 msgid "This can’t be undone and you’ll lose your draft."
 msgstr "This can’t be undone and you’ll lose your draft."
 
@@ -324,6 +333,9 @@ msgstr "Publications"
 
 msgid "Display"
 msgstr "Display"
+
+msgid "No results for \"{keyword}\""
+msgstr "No results for \"{keyword}\""
 
 msgid "Login required"
 msgstr "Login required"
@@ -361,9 +373,6 @@ msgstr "Visit mask.io"
 msgid "No comments found"
 msgstr "No comments found"
 
-msgid "Failed to relay on Lens. @{0}"
-msgstr "Failed to relay on Lens. @{0}"
-
 msgid "Connected in Firefly"
 msgstr "Connected in Firefly"
 
@@ -375,6 +384,9 @@ msgstr "Sign"
 
 msgid "Follow @thefireflyapp on X"
 msgstr "Follow @thefireflyapp on X"
+
+msgid "Failed to upload image to IPFS"
+msgstr "Failed to upload image to IPFS"
 
 msgid "Posted on Lens"
 msgstr "Posted on Lens"
@@ -402,6 +414,9 @@ msgstr "<0>{0}</0> mirrored"
 
 msgid "recasted"
 msgstr "recasted"
+
+msgid "Follower"
+msgstr "Follower"
 
 msgid "Post by {0}"
 msgstr "Post by {0}"
@@ -460,9 +475,6 @@ msgstr "On your mobile device with Warpcast, open the <0>Camera</0> app and scan
 msgid "Unknown session type."
 msgstr "Unknown session type."
 
-msgid "This profile does not exist"
-msgstr "This profile does not exist"
-
 msgid "Online"
 msgstr "Online"
 
@@ -496,8 +508,14 @@ msgstr "Mask Network"
 msgid "Remove"
 msgstr "Remove"
 
+msgid "Failed to mirror post on Farcaster"
+msgstr "Failed to mirror post on Farcaster"
+
 msgid "No matching users"
 msgstr "No matching users"
+
+msgid "Failed to upload video to IPFS"
+msgstr "Failed to upload video to IPFS"
 
 msgid "Log in to Farcaster account"
 msgstr "Log in to Farcaster account"
@@ -543,6 +561,9 @@ msgstr "Mirror"
 
 msgid "Terms of Service"
 msgstr "Terms of Service"
+
+msgid "Failed to relay post on Lens."
+msgstr "Failed to relay post on Lens."
 
 msgid "Post"
 msgstr "Post"

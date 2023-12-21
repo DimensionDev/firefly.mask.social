@@ -4,7 +4,7 @@ import { XMarkIcon } from '@heroicons/react/24/outline';
 import { t } from '@lingui/macro';
 import { encrypt } from '@masknet/encryption';
 import { RedPacketMetaKey } from '@masknet/plugin-redpacket';
-import { type SingletonModalRefCreator } from '@masknet/shared-base';
+import { ProfileIdentifier, type SingletonModalRefCreator } from '@masknet/shared-base';
 import { useSingletonModal } from '@masknet/shared-base-ui';
 import type { TypedMessageTextV1 } from '@masknet/typed-message';
 import { forwardRef, Fragment, useCallback, useState } from 'react';
@@ -18,10 +18,12 @@ import ComposeSend from '@/components/Compose/ComposeSend/index.js';
 import Discard from '@/components/Compose/Discard.js';
 import withLexicalContext from '@/components/shared/lexical/withLexicalContext.js';
 import { SocialPlatform } from '@/constants/enum.js';
+import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { steganographyEncodeImage } from '@/services/steganography.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
+import { useGlobalState } from '@/store/useGlobalStore.js';
 
 async function throws(): Promise<never> {
     throw new Error('Unreachable');
@@ -38,6 +40,8 @@ export interface ComposeModalProps {
 export const ComposeModal = forwardRef<SingletonModalRefCreator<ComposeModalProps>>(function Compose(_, ref) {
     const [discardOpened, setDiscardOpened] = useState(false);
 
+    const currentSource = useGlobalState.use.currentSource();
+    const profile = useCurrentProfile(currentSource);
     const {
         loading,
         type,
@@ -82,8 +86,7 @@ export const ComposeModal = forwardRef<SingletonModalRefCreator<ComposeModalProp
         try {
             const encrypted = await encrypt(
                 {
-                    // TODO: get the current profile data
-                    author: None,
+                    author: ProfileIdentifier.of('mask.social', profile?.handle),
                     authorPublicKey: None,
                     message: typedMessage,
                     network: 'mask.social',
@@ -104,7 +107,8 @@ export const ComposeModal = forwardRef<SingletonModalRefCreator<ComposeModalProp
                 variant: 'error',
             });
         }
-    }, [typedMessage, addImage, enqueueSnackbar]);
+        // each time the typedMessage changes, we need to check if it has a red packet payload
+    }, [typedMessage]);
 
     return (
         <>

@@ -51,7 +51,7 @@ export default function Oembed({ url, onData }: OembedProps) {
                     <Mirror
                         address={payload.address}
                         title={og.title}
-                        description={og.description || ''}
+                        description={payload.body || ''}
                         url={og.url}
                         ens={payload.ens}
                         displayName={payload.displayName}

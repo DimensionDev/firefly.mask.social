@@ -13,6 +13,7 @@ export function getMirrorPayload(document: Document): MirrorPayload | null {
                           string,
                           {
                               publishedAtTimestamp: number;
+                              body: string;
                           }
                       >;
                       digest: string;
@@ -33,13 +34,14 @@ export function getMirrorPayload(document: Document): MirrorPayload | null {
     const timestamp = entry?.publishedAtTimestamp ? entry.publishedAtTimestamp * 1000 : undefined;
     const ens = data?.props?.pageProps?.publicationLayoutProject?.ens;
     const displayName = data?.props?.pageProps?.publicationLayoutProject?.displayName;
-
+    const body = entry?.body;
     return {
         type: OpenGraphPayloadSourceType.Mirror,
         address,
         timestamp,
         ens,
         displayName,
+        body,
     };
 }
 

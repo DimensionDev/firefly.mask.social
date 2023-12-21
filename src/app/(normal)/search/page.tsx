@@ -1,5 +1,6 @@
 'use client';
 
+import { t, Trans } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
 import { createIndicator, createPageable, EMPTY_LIST, type Pageable, type PageIndicator } from '@masknet/shared-base';
 import { attemptUntil } from '@masknet/web3-shared-base';
@@ -96,7 +97,16 @@ export default function Page() {
                     return null;
                 })
             ) : (
-                <NoResultsFallback />
+                <NoResultsFallback
+                    message={
+                        <div className="mx-16">
+                            <div className="text-sm text-main">{t`No results for "${keyword}"`}</div>
+                            <p className="mt-4 text-center text-sm text-second">
+                                <Trans>Try searching for something else.</Trans>
+                            </p>
+                        </div>
+                    }
+                />
             )}
 
             {hasNextPage && results.length ? (

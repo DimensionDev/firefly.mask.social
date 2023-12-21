@@ -76,6 +76,7 @@ export interface Profile {
     profileId: string;
     displayName: string;
     handle: string;
+    fullHandle: string;
     pfp: string;
     bio?: string;
     address?: string;
@@ -295,9 +296,9 @@ export interface Provider {
      *
      * @param postId The ID of the post to comment on.
      * @param comment The comment text. (Review required, not sure what the actual type is)
-     * @returns A promise that resolves to void.
+     * @returns A promise that resolves to comment id.
      */
-    commentPost?: (postId: string, comment: string) => Promise<void>;
+    commentPost?: (postId: string, comment: string) => Promise<string>;
 
     /**
      * Upvotes a post with the specified post ID.

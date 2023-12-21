@@ -60,7 +60,7 @@ export default function PostPage({ params: { id: postId, source: _source } }: Po
                 disablePadding
                 post={data}
                 disabled={data?.isHidden}
-                className="!mt-0 border-b border-secondaryLine px-4 py-3"
+                className="!mt-0 border-b border-line px-4 py-3"
             />
             {/* TODO: Compose Comment Input */}
             <CommentList postId={postId} source={currentSource} />

@@ -73,7 +73,7 @@ export async function digestLink(link: string): Promise<LinkDigest> {
     const { document } = parseHTML(html);
 
     const imageUrl = getImageUrl(document);
-    const image = imageUrl ? await digestImageUrl(imageUrl) : null;
+    const image = imageUrl && URL.canParse(imageUrl) ? await digestImageUrl(imageUrl) : null;
 
     const og: OpenGraph = {
         type: 'website',

@@ -5,7 +5,6 @@ import { useAsyncFn } from 'react-use';
 
 import ImageIcon from '@/assets/image.svg';
 import VideoIcon from '@/assets/video.svg';
-import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
 
@@ -17,27 +16,22 @@ export default function Media({ close }: MediaProps) {
     const videoInputRef = useRef<HTMLInputElement>(null);
 
     const currentFarcasterProfile = useFarcasterStateStore.use.currentProfile();
-    const { video, images, updateVideo, updateImages } = useComposeStateStore();
+    const { video, updateVideo, images, updateImages } = useComposeStateStore();
 
-    const enqueueSnackbar = useCustomSnackbar();
-
+    const maxImageCount = currentFarcasterProfile ? 2 : 4;
     const [, handleImageChange] = useAsyncFn(
         async (event: ChangeEvent<HTMLInputElement>) => {
             const files = event.target.files;
 
             if (files && files.length > 0) {
-                updateImages(
-                    [
-                        ...images,
-                        ...[...files].map((file) => ({
-                            file,
-                        })),
-                    ].slice(0, currentFarcasterProfile ? 2 : 4),
-                );
+                updateImages((images) => {
+                    if (images.length === maxImageCount) return images;
+                    return [...images, ...[...files].map((file) => ({ file }))].slice(0, maxImageCount);
+                });
             }
             close();
         },
-        [currentFarcasterProfile, images, close, updateImages],
+        [maxImageCount, close, updateImages],
     );
 
     const [, handleVideoChange] = useAsyncFn(
@@ -64,7 +58,10 @@ export default function Media({ close }: MediaProps) {
             leaveFrom="opacity-100"
             leaveTo="opacity-0 translate-y-1"
         >
-            <Popover.Panel className=" absolute bottom-full left-0 z-50 flex w-[280px] -translate-y-3 flex-col gap-2 rounded-lg bg-bgModal p-3 text-[15px] text-main shadow-popover">
+            <Popover.Panel
+                static
+                className=" absolute bottom-full left-0 z-50 flex w-[280px] -translate-y-3 flex-col gap-2 rounded-lg bg-bgModal p-3 text-[15px] text-main shadow-popover"
+            >
                 <div
                     className=" flex h-8 cursor-pointer items-center gap-2 hover:bg-bg"
                     onClick={() => {

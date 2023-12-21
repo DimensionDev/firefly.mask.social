@@ -1,4 +1,5 @@
 import { t } from '@lingui/macro';
+import { ImgurClient } from 'imgur';
 
 interface UploadProgress {
     percent: number;
@@ -7,45 +8,28 @@ interface UploadProgress {
     id: string;
 }
 
-export function uploadToImgur(
+export async function uploadToImgur(
     file: File,
     metadata?: { title: string; description?: string },
     onProgress?: (progress: UploadProgress) => void,
 ): Promise<string> {
-    return new Promise((resolve, reject) => {
-        const clientId = process.env.IMGUR_CLIENT_ID;
-        const formData = new FormData();
-        formData.append('image', file);
-
-        metadata?.title && formData.append('title', metadata.title);
-        metadata?.description && formData.append('description', metadata.description);
-
-        const xhr = new XMLHttpRequest();
-        xhr.open('POST', 'https://api.imgur.com/3/upload');
-        xhr.setRequestHeader('Authorization', `Client-ID ${clientId}`);
-
-        xhr.upload.onprogress = function (event) {
-            if (event.lengthComputable && onProgress) {
-                const progress: UploadProgress = {
-                    percent: (event.loaded / event.total) * 100,
-                    transferred: event.loaded,
-                    total: event.total,
-                    id: '',
-                };
-                onProgress(progress);
-            }
-        };
-
-        xhr.onload = function () {
-            if (xhr.status === 200) {
-                const response = JSON.parse(xhr.responseText);
-                const completeUrl = response.data.link;
-                resolve(completeUrl);
-            } else {
-                reject(new Error(t`Upload failed`));
-            }
-        };
-
-        xhr.send(formData);
+    const client = new ImgurClient({
+        clientId: process.env.CLIENT_ID,
+        clientSecret: process.env.CLIENT_SECRET,
     });
+
+    if (onProgress) client.on('uploadProgress', (progress) => onProgress(progress));
+
+    const response = await client.upload({
+        image: file.stream(),
+        type: 'stream',
+        title: metadata?.title ?? file.name,
+        description: metadata?.description,
+    });
+
+    if (!response.success) {
+        throw new Error(t`Failed to upload to Imgur`);
+    }
+
+    return response.data.link;
 }

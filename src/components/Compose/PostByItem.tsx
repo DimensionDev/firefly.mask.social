@@ -60,7 +60,7 @@ export function PostByItem({ source }: PostByItemProps) {
                     <span
                         className={classNames(
                             ' font-bold',
-                            isSameProfile(currentProfile, profile) ? ' text-secondary' : ' text-main',
+                            isSameProfile(currentProfile, profile) ? ' text-main' : ' text-secondary',
                         )}
                     >
                         @{profile.handle}

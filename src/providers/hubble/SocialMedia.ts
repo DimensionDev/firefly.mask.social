@@ -3,7 +3,7 @@ import { t } from '@lingui/macro';
 import type { Pageable, PageIndicator } from '@masknet/shared-base';
 import { toInteger } from 'lodash-es';
 import urlcat from 'urlcat';
-import { bytesToHex, toBytes } from 'viem';
+import { bytesToHex, toBytes, toHex } from 'viem';
 
 import { SocialPlatform } from '@/constants/enum.js';
 import { EMPTY_LIST, FIREFLY_HUBBLE_URL, FIREFLY_ROOT_URL } from '@/constants/index.js';
@@ -39,6 +39,7 @@ export class HubbleSocialMedia implements Provider {
         });
 
         return {
+            fullHandle: user.username,
             profileId: user.fid.toString(),
             handle: user.username,
             displayName: user.display_name,
@@ -68,7 +69,7 @@ export class HubbleSocialMedia implements Provider {
     }
 
     async publishPost(post: Post, parentPost?: Post | null): Promise<Post> {
-        const { bytes } = await encodeMessageData((fid) => ({
+        const { bytes } = await encodeMessageData(() => ({
             type: MessageType.CAST_ADD,
             castAddBody: {
                 embedsDeprecated: [],
@@ -101,6 +102,7 @@ export class HubbleSocialMedia implements Provider {
             parentPostId: '',
             timestamp: data.timestamp,
             author: {
+                fullHandle: post.author.handle,
                 profileId: data.fid.toString(),
                 displayName: post.author.displayName,
                 handle: post.author.handle,
@@ -200,7 +202,7 @@ export class HubbleSocialMedia implements Provider {
             body: bytes,
         });
         if (!data) throw new Error(t`Failed to publish post`);
-        return;
+        return toHex(hash);
     }
 
     async mirrorPost(postId: string) {
