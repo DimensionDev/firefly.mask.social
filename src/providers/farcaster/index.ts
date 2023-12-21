@@ -89,11 +89,7 @@ export class FarcasterSocialMedia implements Provider {
         username: string,
         indicator?: PageIndicator,
     ): Promise<Pageable<Post, PageIndicator>> {
-        const { isCustodyWallet, isGrantByPermission } = getFarcasterSessionType();
-        if (isCustodyWallet)
-            return WarpcastSocialMediaProvider.getPostsByParentPostId(parentPostId, username, indicator);
-        if (isGrantByPermission) return FireflySocialMediaProvider.getPostsByParentPostId(parentPostId, indicator);
-        throw new Error(t`wrong session type`);
+        return WarpcastSocialMediaProvider.getPostsByParentPostId(parentPostId, username, indicator);
     }
 
     async getFollowers(profileId: string, indicator?: PageIndicator) {
