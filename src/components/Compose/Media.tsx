@@ -5,6 +5,7 @@ import { useAsyncFn } from 'react-use';
 
 import ImageIcon from '@/assets/image.svg';
 import VideoIcon from '@/assets/video.svg';
+import { classNames } from '@/helpers/classNames.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
 
@@ -63,9 +64,12 @@ export default function Media({ close }: MediaProps) {
                 className=" absolute bottom-full left-0 z-50 flex w-[280px] -translate-y-3 flex-col gap-2 rounded-lg bg-bgModal p-3 text-[15px] text-main shadow-popover"
             >
                 <div
-                    className=" flex h-8 cursor-pointer items-center gap-2 hover:bg-bg"
+                    className={classNames(
+                        'flex h-8 items-center gap-2',
+                        images.length >= maxImageCount ? 'cursor-not-allowed opacity-75' : 'cursor-pointer hover:bg-bg',
+                    )}
                     onClick={() => {
-                        if (images.length < (currentFarcasterProfile ? 2 : 4)) {
+                        if (images.length < maxImageCount) {
                             imageInputRef.current?.click();
                         }
                     }}
@@ -81,14 +85,17 @@ export default function Media({ close }: MediaProps) {
                     accept="image/*"
                     multiple
                     ref={imageInputRef}
-                    className=" hidden"
+                    className="hidden"
                     onChange={handleImageChange}
                 />
 
                 <div className=" h-px bg-line" />
 
                 <div
-                    className=" flex h-8 cursor-pointer items-center gap-2 hover:bg-bg"
+                    className={classNames(
+                        'flex h-8 items-center gap-2',
+                        video ? 'cursor-not-allowed' : 'cursor-pointer hover:bg-bg',
+                    )}
                     onClick={() => {
                         if (!video && !currentFarcasterProfile) {
                             videoInputRef.current?.click();
