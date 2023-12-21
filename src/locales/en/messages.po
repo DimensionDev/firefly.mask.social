@@ -76,9 +76,6 @@ msgstr "Change Wallet"
 msgid "UnLike"
 msgstr "UnLike"
 
-msgid "The page could be found."
-msgstr "The page could be found."
-
 msgid "Missing IPFS hash for image or video"
 msgstr "Missing IPFS hash for image or video"
 
@@ -312,6 +309,9 @@ msgstr "Replying to"
 
 msgid "commented"
 msgstr "commented"
+
+msgid "The page could not be found."
+msgstr "The page could not be found."
 
 msgid "What's happening..."
 msgstr "What's happening..."

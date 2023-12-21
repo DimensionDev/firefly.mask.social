@@ -1,38 +1,33 @@
 import { i18n, type Messages } from '@lingui/core';
 import dayjs from 'dayjs';
 
-import { LS_LOCALE_KEY } from '@/constants/index.js';
+import { Locale } from '@/types/index.js';
 
 // @ts-ignore
 import { messages as en } from '../locales/en/messages.mjs';
 
-const locales: Record<string, Messages> = {
-    en,
+const locales: Record<Locale, Messages> = {
+    [Locale.en]: en,
 };
 
-export const supportedLocales: Record<string, string> = {
-    en: 'English',
+export const supportedLocales: Record<Locale, string> = {
+    [Locale.en]: 'English',
 };
 
-const defaultLocale = 'en';
+export const defaultLocale = Locale.en;
 
 /**
  * set locale and dynamically import catalog
  * @param locale a supported locale string
  */
-export async function setLocale(locale: string) {
+export async function setLocale(locale: Locale) {
     if (!supportedLocales.hasOwnProperty(locale)) {
-        console.error('warning: unknown locale', locale);
+        console.error(`[i18n]: unknown locale ${locale}`);
         locale = defaultLocale;
+    } else {
+        console.log(`[i18n]: locale ${locale}`);
     }
-    localStorage.setItem(LS_LOCALE_KEY, JSON.stringify(locale));
     i18n.load(locale, locales[locale]);
     i18n.activate(locale);
     dayjs.locale(locale);
-}
-
-export function initLocale() {
-    const storedValue = localStorage.getItem(LS_LOCALE_KEY);
-    const locale = storedValue ? JSON.parse(storedValue) : defaultLocale;
-    setLocale(locale);
 }
