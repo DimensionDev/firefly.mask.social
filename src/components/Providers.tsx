@@ -3,6 +3,7 @@
 import { i18n } from '@lingui/core';
 import { I18nProvider } from '@lingui/react';
 import { LivepeerConfig } from '@livepeer/react';
+import { getCookie } from '@masknet/shared-base';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { ReactQueryStreamedHydration } from '@tanstack/react-query-next-experimental';
@@ -20,7 +21,6 @@ import { useMounted } from '@/hooks/useMounted.js';
 import { setLocale } from '@/i18n/index.js';
 import { useLeafwatchPersistStore } from '@/store/useLeafwatchPersistStore.js';
 import { useThemeModeStore } from '@/store/useThemeModeStore.js';
-import { getCookie } from '@masknet/shared-base';
 import type { Locale } from '@/types/index.js';
 
 export function Providers(props: { children: React.ReactNode }) {

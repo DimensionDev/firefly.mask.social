@@ -7,9 +7,9 @@ import { Polyfills } from '@/components/Polyfills.js';
 import { Providers } from '@/components/Providers.js';
 import { SideBar } from '@/components/SideBar/index.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
-import { Modals } from '@/modals/index.js';
-import { setLocale } from '@/i18n/index.js';
 import { getLocaleFromCookies } from '@/helpers/getLocaleFromCookies.js';
+import { setLocale } from '@/i18n/index.js';
+import { Modals } from '@/modals/index.js';
 
 setLocale(getLocaleFromCookies());
 
