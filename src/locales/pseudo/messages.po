@@ -214,9 +214,6 @@ msgstr ""
 msgid "Post by"
 msgstr ""
 
-msgid "Privacy Policy"
-msgstr ""
-
 msgid "No wallet client found"
 msgstr ""
 
@@ -373,9 +370,6 @@ msgstr ""
 msgid "No comments found"
 msgstr ""
 
-msgid "Connected in Firefly"
-msgstr ""
-
 msgid "Discard"
 msgstr ""
 
@@ -395,9 +389,6 @@ msgid "{0, plural, =0 {Mirror or Quote} zero {Mirror or Quote} one {Mirror or Qu
 msgstr ""
 
 msgid "Mirrored"
-msgstr ""
-
-msgid "Associated Wallets"
 msgstr ""
 
 msgid "Posted on Farcaster"
@@ -481,6 +472,9 @@ msgstr ""
 msgid "Unfollow"
 msgstr ""
 
+msgid "{title}"
+msgstr ""
+
 msgid "Failed to upvote post"
 msgstr ""
 
@@ -557,9 +551,6 @@ msgid "You've hit rock bottom"
 msgstr ""
 
 msgid "Mirror"
-msgstr ""
-
-msgid "Terms of Service"
 msgstr ""
 
 msgid "Failed to relay post on Lens."

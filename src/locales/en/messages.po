@@ -214,9 +214,6 @@ msgstr "Failed to create image payload."
 msgid "Post by"
 msgstr "Post by"
 
-msgid "Privacy Policy"
-msgstr "Privacy Policy"
-
 msgid "No wallet client found"
 msgstr "No wallet client found"
 
@@ -373,9 +370,6 @@ msgstr "Visit mask.io"
 msgid "No comments found"
 msgstr "No comments found"
 
-msgid "Connected in Firefly"
-msgstr "Connected in Firefly"
-
 msgid "Discard"
 msgstr "Discard"
 
@@ -396,9 +390,6 @@ msgstr "{0, plural, =0 {Mirror or Quote} zero {Mirror or Quote} one {Mirror or Q
 
 msgid "Mirrored"
 msgstr "Mirrored"
-
-msgid "Associated Wallets"
-msgstr "Associated Wallets"
 
 msgid "Posted on Farcaster"
 msgstr "Posted on Farcaster"
@@ -481,6 +472,9 @@ msgstr "Online"
 msgid "Unfollow"
 msgstr "Unfollow"
 
+msgid "{title}"
+msgstr "{title}"
+
 msgid "Failed to upvote post"
 msgstr "Failed to upvote post"
 
@@ -558,9 +552,6 @@ msgstr "You've hit rock bottom"
 
 msgid "Mirror"
 msgstr "Mirror"
-
-msgid "Terms of Service"
-msgstr "Terms of Service"
 
 msgid "Failed to relay post on Lens."
 msgstr "Failed to relay post on Lens."
