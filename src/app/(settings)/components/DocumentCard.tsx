@@ -1,4 +1,3 @@
-import { Trans } from '@lingui/macro';
 
 import LinkIcon from '@/assets/link.svg';
 import { Link } from '@/esm/Link.js';
