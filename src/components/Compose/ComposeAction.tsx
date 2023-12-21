@@ -70,11 +70,7 @@ export default function ComposeAction(props: ComposeActionProps) {
 
     const maxImageCount = currentFarcasterProfile ? 2 : 4;
 
-    const mediaDisabled = useMemo(() => {
-        if (video) return true;
-        if (images.length >= maxImageCount) return true;
-        return false;
-    }, [images.length, maxImageCount, video]);
+    const mediaDisabled = !!video || images.length >= maxImageCount;
 
     return (
         <div className=" px-4 pb-4">

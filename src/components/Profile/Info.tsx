@@ -1,5 +1,4 @@
 import { Trans } from '@lingui/macro';
-import { useMemo } from 'react';
 
 import { Avatar } from '@/components/Avatar.js';
 import FollowButton from '@/components/Profile/FollowButton.js';
@@ -15,9 +14,9 @@ interface InfoProps {
 export default function Info({ isMyProfile, profile }: InfoProps) {
     const currentSource = useGlobalState.use.currentSource();
 
-    const followingCount = useMemo(() => profile?.followingCount ?? 0, [profile?.followingCount]);
+    const followingCount = profile?.followingCount ?? 0;
 
-    const followerCount = useMemo(() => profile?.followerCount ?? 0, [profile?.followerCount]);
+    const followerCount = profile?.followerCount ?? 0;
 
     return (
         <div className=" flex gap-3 p-3">

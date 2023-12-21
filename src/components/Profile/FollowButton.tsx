@@ -5,6 +5,7 @@ import LoadingIcon from '@/assets/loading.svg';
 import { classNames } from '@/helpers/classNames.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useToggleFollow } from '@/hooks/useToggleFollow.js';
+import { LoginModalRef } from '@/modals/controls.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 enum FollowLabel {
@@ -39,7 +40,7 @@ const FollowButton = memo(function FollowButton({ profile }: FollowButtonProps) 
             disabled={loading}
             onMouseEnter={() => setFollowHover(true)}
             onMouseLeave={() => setFollowHover(false)}
-            onClick={() => isLogin && handleToggle()}
+            onClick={() => (isLogin ? handleToggle() : LoginModalRef.open({}))}
         >
             {loading ? <LoadingIcon width={16} height={16} className="mr-2 animate-spin" /> : null}
             {buttonText}
