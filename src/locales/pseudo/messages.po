@@ -187,6 +187,9 @@ msgstr ""
 msgid "Search Filter"
 msgstr ""
 
+msgid "Try searching for something else."
+msgstr ""
+
 msgid "and"
 msgstr ""
 
@@ -326,6 +329,9 @@ msgid "Publications"
 msgstr ""
 
 msgid "Display"
+msgstr ""
+
+msgid "No results for \"{keyword}\""
 msgstr ""
 
 msgid "Login required"
