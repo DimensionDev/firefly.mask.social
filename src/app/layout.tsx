@@ -7,13 +7,17 @@ import { Polyfills } from '@/components/Polyfills.js';
 import { Providers } from '@/components/Providers.js';
 import { SideBar } from '@/components/SideBar/index.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
+import { setLocale } from '@/i18n/index.js';
 import { Modals } from '@/modals/index.js';
+import { Locale } from '@/types/index.js';
+
+setLocale(Locale.en);
 
 export const metadata = createSiteMetadata();
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
     return (
-        <html>
+        <html lang="en">
             <head>
                 <Polyfills />
             </head>

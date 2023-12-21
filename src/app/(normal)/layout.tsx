@@ -4,15 +4,11 @@ import { IfPathname } from '@/components/IfPathname.js';
 import { AsideSearchBar, HeaderSearchBar } from '@/components/Search/SearchBar.js';
 import { SearchFilter } from '@/components/Search/SearchFilter.js';
 import { SocialPlatformTabs } from '@/components/SocialPlatformTabs.js';
-import { getLocaleFromCookies } from '@/helpers/getLocaleFromCookies.js';
-import { setLocale } from '@/i18n/index.js';
 
 // @ts-ignore
 const CustomElements = lazy(() => import('@/components/CustomElements.js'));
 
 export default function Layout({ children }: { children: React.ReactNode }) {
-    setLocale(getLocaleFromCookies());
-
     return (
         <>
             {process.env.NODE_ENV !== 'development' ||
