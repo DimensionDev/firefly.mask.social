@@ -61,7 +61,10 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({ post, isQu
                 </div>
             </div>
             <div className="flex items-center space-x-2 self-baseline">
-                <SourceIcon source={post.source} />
+                <SourceIcon
+                    source={post.source}
+                    className={post.source === SocialPlatform.Lens ? 'dark:opacity-70' : undefined}
+                />
                 <span className="text-[13px] leading-4 text-secondary">
                     <TimestampFormatter time={post.timestamp} />
                 </span>
