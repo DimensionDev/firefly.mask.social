@@ -2,13 +2,12 @@
 
 import { t, Trans } from '@lingui/macro';
 
+import { LinkCard } from '@/app/(settings)/components/LinkCard.js';
 import DiscordIcon from '@/assets/discord.svg';
 import FireflyRoundIcon from '@/assets/firefly.round.svg';
 import MaskRoundIcon from '@/assets/mask.round.svg';
 import TelegramIcon from '@/assets/telegram.svg';
 import XLightIcon from '@/assets/x-light.svg';
-
-import { AccountCard } from './AccountCard/index.js';
 
 const fireflyCommunities = [
     {
@@ -70,7 +69,7 @@ export default function Connected() {
                 </span>
             </div>
             {fireflyCommunities.map(({ content, link, logo }) => (
-                <AccountCard key={link} content={content} link={link} logo={logo} />
+                <LinkCard key={link} content={content} link={link} logo={logo} />
             ))}
             <div className="flex w-full items-center justify-between">
                 <span className="text-base font-bold leading-[18px] text-main">
@@ -78,7 +77,7 @@ export default function Connected() {
                 </span>
             </div>
             {maskCommunities.map(({ content, link, logo }) => (
-                <AccountCard key={link} content={content} link={link} logo={logo} />
+                <LinkCard key={link} content={content} link={link} logo={logo} />
             ))}
         </div>
     );

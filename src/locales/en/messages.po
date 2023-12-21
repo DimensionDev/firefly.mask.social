@@ -373,9 +373,6 @@ msgstr "Visit mask.io"
 msgid "No comments found"
 msgstr "No comments found"
 
-msgid "Connected in Firefly"
-msgstr "Connected in Firefly"
-
 msgid "Discard"
 msgstr "Discard"
 
@@ -396,9 +393,6 @@ msgstr "{0, plural, =0 {Mirror or Quote} zero {Mirror or Quote} one {Mirror or Q
 
 msgid "Mirrored"
 msgstr "Mirrored"
-
-msgid "Associated Wallets"
-msgstr "Associated Wallets"
 
 msgid "Posted on Farcaster"
 msgstr "Posted on Farcaster"

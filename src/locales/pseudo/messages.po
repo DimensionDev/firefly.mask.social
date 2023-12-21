@@ -373,9 +373,6 @@ msgstr ""
 msgid "No comments found"
 msgstr ""
 
-msgid "Connected in Firefly"
-msgstr ""
-
 msgid "Discard"
 msgstr ""
 
@@ -395,9 +392,6 @@ msgid "{0, plural, =0 {Mirror or Quote} zero {Mirror or Quote} one {Mirror or Qu
 msgstr ""
 
 msgid "Mirrored"
-msgstr ""
-
-msgid "Associated Wallets"
 msgstr ""
 
 msgid "Posted on Farcaster"

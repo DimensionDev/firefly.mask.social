@@ -1,4 +1,4 @@
-import { SettingList } from '@/app/(settings)/components/SettingList/index.js';
+import { SettingList } from '@/app/(settings)/components/SettingList.js';
 import { getLocaleFromCookies } from '@/helpers/getLocaleFromCookies.js';
 import { setLocale } from '@/i18n/index.js';
 
