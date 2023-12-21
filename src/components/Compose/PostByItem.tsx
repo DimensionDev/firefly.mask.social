@@ -17,6 +17,7 @@ import { ComposeModalRef, LoginModalRef } from '@/modals/controls.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
+import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
 import { useLensStateStore } from '@/store/useLensStore.js';
 
 interface PostByItemProps {
@@ -29,7 +30,9 @@ export function PostByItem({ source }: PostByItemProps) {
     const currentProfiles = useCurrentProfiles(source);
     const currentProfile = useCurrentProfile(source);
     const updateLensCurrentProfile = useLensStateStore.use.updateCurrentProfile();
-    const { images, updateLoading } = useComposeStateStore();
+    const { images, updateLoading, disablePlatform, updateDisablePlatform } = useComposeStateStore();
+    const currentLensProfile = useLensStateStore.use.currentProfile();
+    const currentFarcasterProfile = useFarcasterStateStore.use.currentProfile();
 
     const [{ loading }, login] = useAsyncFn(
         async (profile: Profile) => {
@@ -66,8 +69,17 @@ export function PostByItem({ source }: PostByItemProps) {
                         @{profile.handle}
                     </span>
                 </div>
-                {isSameProfile(currentProfile, profile) ? (
-                    <YesIcon width={40} height={40} className=" relative -right-[10px]" />
+                {isSameProfile(currentProfile, profile) && disablePlatform !== source ? (
+                    <YesIcon
+                        width={40}
+                        height={40}
+                        className=" relative -right-[10px]"
+                        onClick={() => {
+                            if (currentLensProfile && currentFarcasterProfile && !disablePlatform) {
+                                updateDisablePlatform(source);
+                            }
+                        }}
+                    />
                 ) : currentProfile.source === SocialPlatform.Lens ? (
                     <button
                         className=" font-bold text-blueBottom disabled:opacity-50"

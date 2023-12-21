@@ -18,12 +18,13 @@ export function useSendFarcaster() {
         updateImages,
         farcasterPostId,
         updateFarcasterPostId,
+        disablePlatform,
     } = useComposeStateStore();
     const enqueueSnackbar = useCustomSnackbar();
     const currentProfile = useFarcasterStateStore.use.currentProfile();
 
     return useCallback(async () => {
-        if (!currentProfile?.profileId || farcasterPostId) return;
+        if (!currentProfile?.profileId || farcasterPostId || disablePlatform === SocialPlatform.Farcaster) return;
         if (type === 'compose' || type === 'reply') {
             const uploadedImages = await Promise.all(
                 images.map(async (media) => {
@@ -93,12 +94,13 @@ export function useSendFarcaster() {
     }, [
         currentProfile,
         farcasterPostId,
+        disablePlatform,
         type,
         post,
         images,
         updateImages,
+        enqueueSnackbar,
         content,
         updateFarcasterPostId,
-        enqueueSnackbar,
     ]);
 }

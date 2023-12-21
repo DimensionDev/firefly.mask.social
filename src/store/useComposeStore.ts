@@ -25,6 +25,7 @@ interface ComposeState {
     video: MediaObject | null;
     images: MediaObject[];
     loading: boolean;
+    disablePlatform: SocialPlatform | null;
     updateSource: (source: SocialPlatform | null) => void;
     updateType: (type: 'compose' | 'quote' | 'reply') => void;
     updateChars: (chars: string) => void;
@@ -38,6 +39,7 @@ interface ComposeState {
     clear: () => void;
     updateLensPostId: (postId: string | null) => void;
     updateFarcasterPostId: (postId: string | null) => void;
+    updateDisablePlatform: (platform: SocialPlatform | null) => void;
 }
 
 function createInitState() {
@@ -53,6 +55,7 @@ function createInitState() {
         loading: false,
         lensPostId: null,
         farcasterPostId: null,
+        disablePlatform: null,
     } as const;
 }
 
@@ -113,6 +116,10 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
         removeImage: (target) =>
             set((state) => {
                 state.images = state.images.filter((image) => image.file !== target.file);
+            }),
+        updateDisablePlatform: (platform: SocialPlatform | null) =>
+            set((state) => {
+                state.disablePlatform = platform;
             }),
         clear: () =>
             set((state) => {

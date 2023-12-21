@@ -1,6 +1,7 @@
 import { t } from '@lingui/macro';
 import { useCallback } from 'react';
 
+import { SocialPlatform } from '@/constants/enum.js';
 import { commentPostForLens, publishPostForLens, quotePostForLens } from '@/helpers/publishPostForLens.js';
 import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
 import { uploadFileToIPFS } from '@/services/uploadToIPFS.js';
@@ -10,12 +11,22 @@ import type { MediaObject } from '@/types/index.js';
 
 export function useSendLens() {
     const currentProfile = useLensStateStore.use.currentProfile();
-    const { type, post, chars, images, updateImages, video, updateVideo, lensPostId, updateLensPostId } =
-        useComposeStateStore();
+    const {
+        type,
+        post,
+        chars,
+        images,
+        updateImages,
+        video,
+        updateVideo,
+        lensPostId,
+        updateLensPostId,
+        disablePlatform,
+    } = useComposeStateStore();
     const enqueueSnackbar = useCustomSnackbar();
 
     return useCallback(async () => {
-        if (!currentProfile?.profileId || lensPostId) return;
+        if (!currentProfile?.profileId || lensPostId || disablePlatform === SocialPlatform.Lens) return;
         const uploadedImages = await Promise.all(
             images.map(async (media) => {
                 try {
@@ -102,7 +113,8 @@ export function useSendLens() {
         }
     }, [
         chars,
-        currentProfile?.profileId,
+        currentProfile,
+        disablePlatform,
         enqueueSnackbar,
         images,
         lensPostId,
