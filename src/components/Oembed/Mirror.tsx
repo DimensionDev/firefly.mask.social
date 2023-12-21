@@ -47,7 +47,7 @@ export const Mirror = memo<MirrorProps>(function Mirror({
                 <div className="cursor-pointer rounded-2xl border border-solid border-third bg-primaryBottom  px-4 py-3 hover:bg-bg dark:bg-secondaryBottom">
                     <div className="flex items-center justify-between">
                         <div className="flex items-center space-x-2">
-                            <Avatar src={avatar!} size={24} alt={ensName || address} />
+                            <Avatar src={avatar!} size={24} alt={ensName || address || ''} />
 
                             {displayName ? <span className="text-sm font-medium text-main">{displayName}</span> : null}
                             {ensName || address ? (
