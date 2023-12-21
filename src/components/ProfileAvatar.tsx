@@ -26,7 +26,7 @@ export function ProfileAvatar(props: ProfileAvatarProps) {
                         width: size,
                     }}
                 >
-                    <Avatar src={profile.pfp} size={size} />
+                    <Avatar src={profile.pfp} size={size} alt={profile.displayName} />
                 </div>
                 <SourceIcon
                     className="absolute left-[24px] top-[24px] h-[16px] w-[16px] rounded-full border border-white shadow"

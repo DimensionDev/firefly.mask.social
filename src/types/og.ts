@@ -13,6 +13,7 @@ export interface MirrorPayload {
     timestamp?: number;
     ens?: string;
     displayName?: string;
+    body?: string;
 }
 
 export interface FarcasterPayload {

@@ -51,7 +51,7 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({ post, isQu
 
                 <div className="flex max-w-sm items-center">
                     <div className="flex items-center space-x-2">
-                        <Link href={profileLink} className="block text-[15px] font-bold leading-5">
+                        <Link href={profileLink} className="block text-[15px] font-bold leading-5 text-main">
                             {post.author.displayName}
                         </Link>
                         <Link href={profileLink} className="text-[15px] leading-6 text-secondary">
@@ -61,7 +61,10 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({ post, isQu
                 </div>
             </div>
             <div className="flex items-center space-x-2 self-baseline">
-                <SourceIcon source={post.source} />
+                <SourceIcon
+                    source={post.source}
+                    className={post.source === SocialPlatform.Lens ? 'dark:opacity-70' : undefined}
+                />
                 <span className="text-[13px] leading-4 text-secondary">
                     <TimestampFormatter time={post.timestamp} />
                 </span>

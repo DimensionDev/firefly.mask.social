@@ -11,7 +11,7 @@ export async function GET(request: Request) {
             /opensea.io\/assets\/(0x[\dA-Fa-f]{40})\/(\d+)/,
             /rarible.com\/token\/(0x[\dA-Fa-f]{40}):(\d+)/,
             /zora.co\/collections\/(0x[\dA-Fa-f]{40})\/\d+$/,
-            /opensea.io\/assets\/ethereum\/(0x[\dA-Fa-f]{40})\/(\d+)/,
+            /opensea.io\/assets\/(\w+)\/(0x[\dA-Fa-f]{40})\/(\d+)/,
         ].some((x) => x.test(decodeURIComponent(link)))
     ) {
         // For the time being, we do not support og information capture for links in opensea. The simplehash api will be used instead.

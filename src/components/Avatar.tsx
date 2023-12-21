@@ -8,6 +8,7 @@ import { useDarkMode } from '@/hooks/useDarkMode.js';
 
 interface Props extends ImageProps {
     size: number;
+    src: string;
 }
 export const Avatar = memo(function Avatar({ src, size, className, ...rest }: Props) {
     const { isDarkMode } = useDarkMode();
@@ -18,13 +19,13 @@ export const Avatar = memo(function Avatar({ src, size, className, ...rest }: Pr
         <Image
             loading="lazy"
             {...rest}
-            className={classNames('rounded-full object-cover', className)}
+            className={classNames('relative z-10 rounded-full object-cover', className)}
             style={{
                 height: size,
                 width: size,
                 ...rest.style,
             }}
-            src={avatarUrl}
+            src={avatarUrl || fallbackUrl}
             fallback={fallbackUrl}
             width={size}
             height={size}
