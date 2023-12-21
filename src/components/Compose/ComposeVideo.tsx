@@ -12,7 +12,7 @@ export default function ComposeVideo() {
     if (!video) return null;
 
     return (
-        <div className=" relative">
+        <div className=" relative mt-3 overflow-hidden rounded-2xl">
             <video controls src={blobURL} />
             <div className=" absolute right-2 top-2 z-50 h-[18px] w-[18px]">
                 <Tooltip content={t`Remove`} placement="top">

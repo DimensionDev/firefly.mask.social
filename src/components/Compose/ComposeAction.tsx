@@ -17,6 +17,7 @@ import PostBy from '@/components/Compose/PostBy.js';
 import ReplyRestriction from '@/components/Compose/ReplyRestriction.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { SocialPlatform } from '@/constants/enum.js';
+import { classNames } from '@/helpers/classNames.js';
 import { PluginDebuggerMessages } from '@/mask/message-host/index.js';
 import { ComposeModalRef } from '@/modals/controls.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
@@ -30,7 +31,7 @@ export default function ComposeAction(props: ComposeActionProps) {
     const currentLensProfile = useLensStateStore.use.currentProfile();
     const currentFarcasterProfile = useFarcasterStateStore.use.currentProfile();
 
-    const { type, post } = useComposeStateStore();
+    const { type, post, images, video } = useComposeStateStore();
 
     const [editor] = useLexicalComposerContext();
 
@@ -67,6 +68,10 @@ export default function ComposeAction(props: ComposeActionProps) {
         }
     }, [currentFarcasterProfile, currentLensProfile, post]);
 
+    const maxImageCount = currentFarcasterProfile ? 2 : 4;
+
+    const mediaDisabled = !!video || images.length >= maxImageCount;
+
     return (
         <div className=" px-4 pb-4">
             <div className=" relative flex h-9 items-center gap-3">
@@ -75,11 +80,18 @@ export default function ComposeAction(props: ComposeActionProps) {
                         <>
                             <Popover.Button className=" flex cursor-pointer gap-1 text-main focus:outline-none">
                                 <Tooltip content={t`Media`} placement="top">
-                                    <GalleryIcon className=" cursor-pointer text-main" width={24} height={24} />
+                                    <GalleryIcon
+                                        className={classNames(
+                                            ' text-main',
+                                            mediaDisabled ? ' cursor-no-drop opacity-50' : ' cursor-pointer',
+                                        )}
+                                        width={24}
+                                        height={24}
+                                    />
                                 </Tooltip>
                             </Popover.Button>
 
-                            <Media close={close} />
+                            {!mediaDisabled ? <Media close={close} /> : null}
                         </>
                     )}
                 </Popover>

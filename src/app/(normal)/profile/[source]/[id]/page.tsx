@@ -1,12 +1,12 @@
 'use client';
-import { Trans } from '@lingui/macro';
+
 import { safeUnreachable } from '@masknet/kit';
 import { useQuery } from '@tanstack/react-query';
+import { notFound } from 'next/navigation.js';
 import { useMemo } from 'react';
 import { useDocumentTitle } from 'usehooks-ts';
 
 import Loading from '@/components/Loading.js';
-import NotFoundFallback from '@/components/NotFoundFallback.js';
 import ContentTabs from '@/components/Profile/ContentTabs.js';
 import Info from '@/components/Profile/Info.js';
 import Title from '@/components/Profile/Title.js';
@@ -53,11 +53,7 @@ export default function ProfilePage({ params: { source: _source, id: handleOrPro
     }
 
     if (!profile) {
-        return (
-            <NotFoundFallback>
-                <Trans>This profile does not exist</Trans>
-            </NotFoundFallback>
-        );
+        notFound();
     }
 
     return (

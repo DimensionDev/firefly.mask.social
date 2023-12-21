@@ -18,7 +18,7 @@ export default function ComposeContent(props: ComposeContentProps) {
         <div className="p-4">
             <label
                 className={classNames(
-                    'hide-scrollbar border-line2 block h-[338px] overflow-auto rounded-lg border bg-bg px-4 py-[14px]',
+                    ' block h-[338px] overflow-auto rounded-lg border border-secondaryLine bg-bg px-4 py-[14px]',
                 )}
             >
                 <div className="flex min-h-full flex-col justify-between">

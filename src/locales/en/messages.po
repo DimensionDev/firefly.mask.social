@@ -262,6 +262,9 @@ msgstr "{0, select, follow {Failed to followed @{handle} on {source}} unfollow {
 msgid "Failed to unfollow"
 msgstr "Failed to unfollow"
 
+msgid "Followings"
+msgstr "Followings"
+
 msgid "No post found"
 msgstr "No post found"
 
@@ -406,6 +409,9 @@ msgstr "<0>{0}</0> mirrored"
 msgid "recasted"
 msgstr "recasted"
 
+msgid "Follower"
+msgstr "Follower"
+
 msgid "Post by {0}"
 msgstr "Post by {0}"
 
@@ -462,9 +468,6 @@ msgstr "On your mobile device with Warpcast, open the <0>Camera</0> app and scan
 
 msgid "Unknown session type."
 msgstr "Unknown session type."
-
-msgid "This profile does not exist"
-msgstr "This profile does not exist"
 
 msgid "Online"
 msgstr "Online"
