@@ -22,8 +22,10 @@ export const defaultLocale = Locale.en;
  */
 export async function setLocale(locale: Locale) {
     if (!supportedLocales.hasOwnProperty(locale)) {
-        console.error('warning: unknown locale', locale);
+        console.error(`[i18n]: unknown locale ${locale}`);
         locale = defaultLocale;
+    } else {
+        console.log(`[i18n]: locale ${locale}`);
     }
     i18n.load(locale, locales[locale]);
     i18n.activate(locale);
