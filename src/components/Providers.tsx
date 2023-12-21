@@ -17,9 +17,11 @@ import { livepeerClient } from '@/configs/livepeerClient.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { DarkModeContext } from '@/hooks/useDarkMode.js';
 import { useMounted } from '@/hooks/useMounted.js';
-import { initLocale } from '@/i18n/index.js';
+import { setLocale } from '@/i18n/index.js';
 import { useLeafwatchPersistStore } from '@/store/useLeafwatchPersistStore.js';
 import { useThemeModeStore } from '@/store/useThemeModeStore.js';
+import { getCookie } from '@masknet/shared-base';
+import type { Locale } from '@/types/index.js';
 
 export function Providers(props: { children: React.ReactNode }) {
     const isDarkOS = useMediaQuery('(prefers-color-scheme: dark)');
@@ -37,7 +39,7 @@ export function Providers(props: { children: React.ReactNode }) {
     }, [darkModeContext.isDarkMode]);
 
     useEffect(() => {
-        initLocale();
+        setLocale(getCookie('locale') as Locale);
     }, []);
 
     const viewerId = useLeafwatchPersistStore.use.viewerId();

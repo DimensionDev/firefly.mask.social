@@ -31,4 +31,8 @@ export interface MediaObject {
 
 export type ThemeMode = 'light' | 'dark' | 'default';
 
+export enum Locale {
+    en = 'en',
+}
+
 export type PartialWith<T, K extends keyof T> = Partial<Pick<T, K>> & Omit<T, K>;
