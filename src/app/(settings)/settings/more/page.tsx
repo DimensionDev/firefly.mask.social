@@ -1,6 +1,6 @@
 'use client';
 
-import { Trans } from '@lingui/macro';
+import { Trans, t } from '@lingui/macro';
 
 import { DocumentCard } from '@/app/(settings)/components/DocumentCard.js';
 import DocumentsIcon from '@/assets/documents.svg';
@@ -9,12 +9,12 @@ import SecurityIcon from '@/assets/security.svg';
 const documents = [
     {
         href: 'https://legal.mask.io/maskbook/privacy-policy-browser.html',
-        title: <Trans>Privacy Policy</Trans>,
+        title: t`Privacy Policy`,
         icon: <SecurityIcon width={24} height={24} />,
     },
     {
         href: 'https://legal.mask.io/maskbook/service-agreement-beta-browser.html',
-        title: <Trans>Terms of Service</Trans>,
+        title: t`Terms of Service`,
         icon: <DocumentsIcon width={24} height={24} />,
     },
 ];

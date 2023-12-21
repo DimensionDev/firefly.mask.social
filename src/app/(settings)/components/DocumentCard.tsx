@@ -1,10 +1,9 @@
-
 import LinkIcon from '@/assets/link.svg';
 import { Link } from '@/esm/Link.js';
 
 interface DocumentCardProps {
     href: string;
-    title: React.ReactNode;
+    title: string;
     icon: React.ReactNode;
 }
 
