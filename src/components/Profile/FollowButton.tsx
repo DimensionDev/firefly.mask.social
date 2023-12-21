@@ -40,7 +40,7 @@ const FollowButton = memo(function FollowButton({ profile }: FollowButtonProps) 
             disabled={loading}
             onMouseEnter={() => setFollowHover(true)}
             onMouseLeave={() => setFollowHover(false)}
-            onClick={() => (isLogin ? handleToggle() : LoginModalRef.open({}))}
+            onClick={() => (isLogin ? handleToggle() : LoginModalRef.open())}
         >
             {loading ? <LoadingIcon width={16} height={16} className="mr-2 animate-spin" /> : null}
             {buttonText}
