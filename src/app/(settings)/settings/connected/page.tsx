@@ -4,13 +4,12 @@ import { Trans } from '@lingui/macro';
 import { formatEthereumAddress } from '@masknet/web3-shared-evm';
 import { useAccount } from 'wagmi';
 
+import { AccountCard } from '@/app/(settings)/components/AccountCard.js';
 import CopyIcon from '@/assets/copy.svg';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { LogoutModalRef } from '@/modals/controls.js';
 import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
 import { useLensStateStore } from '@/store/useLensStore.js';
-
-import { AccountCard } from './AccountCard/index.js';
 
 export default function Connected() {
     const { address } = useAccount();
@@ -33,12 +32,14 @@ export default function Connected() {
                         <span className="text-base font-bold leading-[18px] text-main">
                             <Trans>Lens</Trans>
                         </span>
-                        <div className="flex items-center gap-[4px]">
-                            <span className="text-base font-bold leading-[18px] text-slate-500">
-                                {address ? formatEthereumAddress(address, 4) : null}
-                            </span>
-                            <CopyIcon width={14} height={14} />
-                        </div>
+                        {address ? (
+                            <div className="flex items-center gap-[4px]">
+                                <span className="text-base font-bold leading-[18px] text-main">
+                                    {formatEthereumAddress(address, 4)}
+                                </span>
+                                <CopyIcon width={14} height={14} />
+                            </div>
+                        ) : null}
                     </div>
                     {lensProfiles.map((profile) => (
                         <AccountCard

@@ -2,10 +2,22 @@
 
 import { Trans } from '@lingui/macro';
 
+import { DocumentCard } from '@/app/(settings)/components/DocumentCard.js';
 import DocumentsIcon from '@/assets/documents.svg';
-import LinkIcon from '@/assets/link.svg';
 import SecurityIcon from '@/assets/security.svg';
-import { Link } from '@/esm/Link.js';
+
+const documents = [
+    {
+        href: 'https://legal.mask.io/maskbook/privacy-policy-browser.html',
+        title: 'Privacy Policy',
+        icon: <SecurityIcon width={24} height={24} />,
+    },
+    {
+        href: 'https://legal.mask.io/maskbook/service-agreement-beta-browser.html',
+        title: 'Terms of Service',
+        icon: <DocumentsIcon width={24} height={24} />,
+    },
+];
 
 export default function More() {
     return (
@@ -15,34 +27,9 @@ export default function More() {
                     <Trans>More</Trans>
                 </span>
             </div>
-            <Link
-                href="https://legal.mask.io/maskbook/privacy-policy-browser.html"
-                target="_blank"
-                className="inline-flex h-[48px] w-full items-center justify-start gap-[8px]  rounded-lg bg-white px-[12px] py-[8px]"
-                style={{ boxShadow: '0px 0px 20px 0px rgba(0, 0, 0, 0.05)', backdropFilter: 'blur(8px)' }}
-            >
-                <SecurityIcon width={24} height={24} />
-                <div className="inline-flex shrink grow basis-0 flex-col items-start justify-center gap-1">
-                    <div className=" text-[14px] font-bold leading-[18px] text-main dark:text-primaryBottom">
-                        <Trans>Privacy Policy</Trans>
-                    </div>
-                </div>
-                <LinkIcon width={16} height={16} />
-            </Link>
-            <Link
-                href="https://legal.mask.io/maskbook/service-agreement-beta-browser.html"
-                target="_blank"
-                className="inline-flex h-[48px] w-full items-center justify-start gap-[8px] rounded-lg bg-white px-[12px] py-[8px]"
-                style={{ boxShadow: '0px 0px 20px 0px rgba(0, 0, 0, 0.05)', backdropFilter: 'blur(8px)' }}
-            >
-                <DocumentsIcon width={24} height={24} />
-                <div className="inline-flex shrink grow basis-0 flex-col items-start justify-center gap-1">
-                    <div className=" text-[14px] font-bold leading-[18px] text-main dark:text-primaryBottom">
-                        <Trans>Terms of Service</Trans>
-                    </div>
-                </div>
-                <LinkIcon width={16} height={16} />
-            </Link>
+            {documents.map((document) => (
+                <DocumentCard key={document.href} {...document} />
+            ))}
         </div>
     );
 }
