@@ -139,14 +139,8 @@
             "@masknet/plugin-calendar/register": ["./src/maskbook/packages/plugins/Calendar/src/register.ts"]
         }
     },
-    "include": [
-        "globals.d.ts",
-        "next-env.d.ts",
-        "**/*.ts",
-        "**/*.tsx",
-        ".next/types/**/*.ts",
-        "src/maskbook/packages/mask/shared-ui/locales/*"
-    ],
+    "files": ["./src/maskbook/packages/mask/shared-ui/locales/languages.ts"],
+    "include": ["globals.d.ts", "next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
     "exclude": [
         "node_modules",
         "src/maskbook",
