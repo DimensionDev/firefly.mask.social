@@ -34,7 +34,7 @@ const FollowButton = memo(function FollowButton({ profile }: FollowButtonProps) 
                 buttonState === FollowLabel.Follow ? ' bg-main text-primaryBottom hover:opacity-80' : '',
                 buttonState === FollowLabel.Following ? ' border-[1.5px] border-lightMain text-lightMain' : '',
                 buttonState === FollowLabel.Unfollow
-                    ? ' border-[1.5px] border-danger border-opacity-50 bg-danger bg-opacity-20 text-danger text-opacity-50'
+                    ? ' border-[1.5px] border-danger border-opacity-50 bg-danger bg-opacity-20 text-danger'
                     : '',
             )}
             disabled={loading}

@@ -187,6 +187,9 @@ msgstr "Hashtag"
 msgid "Search Filter"
 msgstr "Search Filter"
 
+msgid "Try searching for something else."
+msgstr "Try searching for something else."
+
 msgid "and"
 msgstr "and"
 
@@ -330,6 +333,9 @@ msgstr "Publications"
 
 msgid "Display"
 msgstr "Display"
+
+msgid "No results for \"{keyword}\""
+msgstr "No results for \"{keyword}\""
 
 msgid "Login required"
 msgstr "Login required"

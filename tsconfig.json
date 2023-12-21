@@ -20,6 +20,9 @@
             "path": "./src/service-workers/tsconfig.json"
         },
         {
+            "path": "./src/maskbook/packages/mask/tsconfig.json"
+        },
+        {
             "path": "./src/maskbook/packages/shared/tsconfig.json"
         },
         {
@@ -142,8 +145,8 @@
     "include": ["globals.d.ts", "next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
     "exclude": [
         "node_modules",
-        "src/maskbook",
         "src/service-workers",
+        "src/maskbook",
         "src/maskbook/packages/gun-utils",
         "src/maskbook/packages/app",
         "src/maskbook/packages/backup-format",
@@ -177,7 +180,6 @@
         "src/maskbook/packages/plugins/VCent",
         "src/maskbook/packages/plugins/Web3Profile",
         "src/maskbook/packages/plugins/template",
-        "src/maskbook/packages/mask",
         "src/maskbook/packages/mask-sdk",
         "src/maskbook/packages/scripts",
         "src/maskbook/packages/test-serializer",
