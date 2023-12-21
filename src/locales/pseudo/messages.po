@@ -211,6 +211,9 @@ msgstr ""
 msgid "Post by"
 msgstr ""
 
+msgid "Privacy Policy"
+msgstr ""
+
 msgid "No wallet client found"
 msgstr ""
 
@@ -472,9 +475,6 @@ msgstr ""
 msgid "Unfollow"
 msgstr ""
 
-msgid "{title}"
-msgstr ""
-
 msgid "Failed to upvote post"
 msgstr ""
 
@@ -551,6 +551,9 @@ msgid "You've hit rock bottom"
 msgstr ""
 
 msgid "Mirror"
+msgstr ""
+
+msgid "Terms of Service"
 msgstr ""
 
 msgid "Failed to relay post on Lens."
