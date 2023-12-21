@@ -145,6 +145,9 @@ msgstr ""
 msgid "Recent"
 msgstr ""
 
+msgid "{type, select, compose {{0}} quote {{1}} reply {{2}} other {{3}}}"
+msgstr ""
+
 msgid "Connect Wallet"
 msgstr ""
 
