@@ -94,21 +94,15 @@ export class FarcasterSocialMedia implements Provider {
     }
 
     async getPostsLiked(profileId: string, indicator?: PageIndicator) {
-        const { isCustodyWallet } = getFarcasterSessionType();
-        if (isCustodyWallet) return WarpcastSocialMediaProvider.getPostsLiked(profileId, indicator);
-        throw new Error('Method not implemented.');
+        return WarpcastSocialMediaProvider.getPostsLiked(profileId, indicator);
     }
 
     async getPostsReplies(profileId: string, indicator?: PageIndicator) {
-        const { isCustodyWallet } = getFarcasterSessionType();
-        if (isCustodyWallet) return WarpcastSocialMediaProvider.getPostsReplies(profileId, indicator);
-        throw new Error('Method not implemented.');
+        return WarpcastSocialMediaProvider.getPostsReplies(profileId, indicator);
     }
 
     async getPostsBeMentioned(profileId: string, indicator?: PageIndicator) {
-        const { isCustodyWallet } = getFarcasterSessionType();
-        if (isCustodyWallet) return WarpcastSocialMediaProvider.getPostsBeMentioned(profileId, indicator);
-        throw new Error('Method not implemented.');
+        return WarpcastSocialMediaProvider.getPostsBeMentioned(profileId, indicator);
     }
 
     async publishPost(post: Post): Promise<Post> {
