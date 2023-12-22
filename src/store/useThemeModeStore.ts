@@ -12,7 +12,7 @@ interface ThemeModeState {
 
 const useThemeModeStateBase = create<ThemeModeState, [['zustand/persist', unknown], ['zustand/immer', unknown]]>(
     persist(
-        immer((set, get) => ({
+        immer((set) => ({
             themeMode: 'default',
             setThemeMode: (mode) => {
                 set((state) => {
@@ -22,7 +22,6 @@ const useThemeModeStateBase = create<ThemeModeState, [['zustand/persist', unknow
         })),
         {
             name: 'global-theme-state',
-            partialize: (state) => ({ mode: state.themeMode }),
         },
     ),
 );

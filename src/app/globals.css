@@ -9,6 +9,7 @@
     --color-main: 7 16 27;
     --color-link: 142 150 255;
     --color-bottom: 255 255 255;
+    --color-dark-bottom: #181818;
     --color-secondary-success: 24 195 123;
     --color-second: #767676;
     --color-primary-pink: 255 150 142;
@@ -61,6 +62,7 @@
     --color-main: 245 245 245;
     --color-link: 142 150 255;
     --color-bottom: 3 3 3;
+    --color-dark-bottom: #181818;
     --color-second: rgba(255, 255, 255, 0.78);
     --color-secondary-success: 24 195 123;
     --color-primary-pink: 255 150 142;
@@ -110,6 +112,7 @@
     --color-main: 245 245 245;
     --color-link: 142 150 255;
     --color-bottom: 3 3 3;
+    --color-dark-bottom: #181818;
     --color-secondary-success: 24 195 123;
     --color-primary-pink: 255 150 142;
     --color-danger: 255 53 69;
