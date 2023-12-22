@@ -15,7 +15,7 @@ export function AccountCard({ profile, isCurrent }: AccountCardProps) {
             <ProfileAvatar profile={profile} size={36} />
             <ProfileName profile={profile} />
             {isCurrent ? (
-                <button className="font-['Inter'] text-xs font-medium leading-none text-red-500">
+                <button className="font-['Inter'] text-xs font-bold leading-none text-red-500">
                     <Trans>Log out</Trans>
                 </button>
             ) : (

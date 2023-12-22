@@ -76,9 +76,6 @@ msgstr "Change Wallet"
 msgid "UnLike"
 msgstr "UnLike"
 
-msgid "The page could be found."
-msgstr "The page could be found."
-
 msgid "Missing IPFS hash for image or video"
 msgstr "Missing IPFS hash for image or video"
 
@@ -316,6 +313,9 @@ msgstr "Replying to"
 msgid "commented"
 msgstr "commented"
 
+msgid "The page could not be found."
+msgstr "The page could not be found."
+
 msgid "What's happening..."
 msgstr "What's happening..."
 
@@ -373,9 +373,6 @@ msgstr "Visit mask.io"
 msgid "No comments found"
 msgstr "No comments found"
 
-msgid "Connected in Firefly"
-msgstr "Connected in Firefly"
-
 msgid "Discard"
 msgstr "Discard"
 
@@ -396,9 +393,6 @@ msgstr "{0, plural, =0 {Mirror or Quote} zero {Mirror or Quote} one {Mirror or Q
 
 msgid "Mirrored"
 msgstr "Mirrored"
-
-msgid "Associated Wallets"
-msgstr "Associated Wallets"
 
 msgid "Posted on Farcaster"
 msgstr "Posted on Farcaster"
