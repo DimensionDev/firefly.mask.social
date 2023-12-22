@@ -139,7 +139,7 @@ export default function ComposeAction(props: ComposeActionProps) {
                     </>
                 ) : null}
 
-                <Tooltip content={t`Red Packet`} placement="top">
+                <Tooltip content={t`Lucky Drop`} placement="top">
                     <RedPacketIcon
                         className=" cursor-pointer"
                         width={25}
