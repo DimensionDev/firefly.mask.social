@@ -48,12 +48,12 @@ export interface UserResponse {
     data: User;
 }
 
-export interface ReactorsResponse{
+export interface ReactorsResponse {
     code: number;
     data: {
-        items: User[]
+        items: User[];
         nextCursor: string;
-    } 
+    };
 }
 
 export interface CastResponse {

@@ -140,8 +140,8 @@ export class FireflySocialMedia implements Provider {
             source: SocialPlatform.Farcaster,
             viewerContext: {
                 following: user.isFollowing,
-                followedBy: user.isFollowedBack
-            }
+                followedBy: user.isFollowedBack,
+            },
         }));
 
         return createPageable(data, createIndicator(indicator), createNextIndicator(indicator, next_cursor));
@@ -341,7 +341,7 @@ export class FireflySocialMedia implements Provider {
     }
 
     async getLikeReactors(postId: string, indicator?: PageIndicator) {
-        const session = warpcastClient.getSession()
+        const session = warpcastClient.getSession();
         const url = urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/cast/likes', {
             castHash: postId,
             size: 15,
@@ -351,29 +351,30 @@ export class FireflySocialMedia implements Provider {
         const {
             data: { items, nextCursor },
         } = await fetchJSON<ReactorsResponse>(url, {
-            method: 'GET'})
-        
-            const data = items.map((user) => ({
-                fullHandle: user.username,
-                profileId: user.fid.toString(),
-                handle: user.username,
-                displayName: user.display_name,
-                pfp: user.pfp,
-                followerCount: user.followers,
-                followingCount: user.following,
-                status: ProfileStatus.Active,
-                verified: true,
-                source: SocialPlatform.Farcaster,
-                viewerContext: {
-                    following: user.isFollowing,
-                    followedBy: user.isFollowedBack
-                }
-            }));
-            return createPageable(data, createIndicator(indicator), createNextIndicator(indicator, nextCursor));
+            method: 'GET',
+        });
+
+        const data = items.map((user) => ({
+            fullHandle: user.username,
+            profileId: user.fid.toString(),
+            handle: user.username,
+            displayName: user.display_name,
+            pfp: user.pfp,
+            followerCount: user.followers,
+            followingCount: user.following,
+            status: ProfileStatus.Active,
+            verified: true,
+            source: SocialPlatform.Farcaster,
+            viewerContext: {
+                following: user.isFollowing,
+                followedBy: user.isFollowedBack,
+            },
+        }));
+        return createPageable(data, createIndicator(indicator), createNextIndicator(indicator, nextCursor));
     }
 
     async getMirrorReactors(postId: string, indicator?: PageIndicator) {
-        const session = warpcastClient.getSession()
+        const session = warpcastClient.getSession();
         const url = urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/cast/recasters', {
             castHash: postId,
             size: 15,
@@ -383,24 +384,25 @@ export class FireflySocialMedia implements Provider {
         const {
             data: { items, nextCursor },
         } = await fetchJSON<ReactorsResponse>(url, {
-            method: 'GET'})
-        
-            const data = items.map((user) => ({
-                fullHandle: user.username,
-                profileId: user.fid.toString(),
-                handle: user.username,
-                displayName: user.display_name,
-                pfp: user.pfp,
-                followerCount: user.followers,
-                followingCount: user.following,
-                status: ProfileStatus.Active,
-                verified: true,
-                source: SocialPlatform.Farcaster,
-                viewerContext: {
-                    following: user.isFollowing,
-                    followedBy: user.isFollowedBack
-                }
-            }));
+            method: 'GET',
+        });
+
+        const data = items.map((user) => ({
+            fullHandle: user.username,
+            profileId: user.fid.toString(),
+            handle: user.username,
+            displayName: user.display_name,
+            pfp: user.pfp,
+            followerCount: user.followers,
+            followingCount: user.following,
+            status: ProfileStatus.Active,
+            verified: true,
+            source: SocialPlatform.Farcaster,
+            viewerContext: {
+                following: user.isFollowing,
+                followedBy: user.isFollowedBack,
+            },
+        }));
         return createPageable(data, createIndicator(indicator), createNextIndicator(indicator, nextCursor));
     }
 
