@@ -83,8 +83,6 @@ export const ComposeModal = forwardRef<SingletonModalRefCreator<ComposeModalProp
         const hasRedPacketPayload = typedMessage?.meta?.has(RedPacketMetaKey);
         if (!hasRedPacketPayload) return;
 
-        console.log('DEBUG: profile?.handle', profile?.handle);
-
         try {
             const encrypted = await encrypt(
                 {

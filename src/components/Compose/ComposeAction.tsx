@@ -6,10 +6,8 @@ import { delay, safeUnreachable } from '@masknet/kit';
 import { CrossIsolationMessages } from '@masknet/shared-base';
 import { $getSelection } from 'lexical';
 import { compact } from 'lodash-es';
-import { useAsyncFn } from 'react-use';
 import { useCallback, useMemo, useState } from 'react';
-import { EVMWeb3 } from '@masknet/web3-providers';
-import { ChainId, ProviderType } from '@masknet/web3-shared-evm';
+import { useAsyncFn } from 'react-use';
 
 import AtIcon from '@/assets/at.svg';
 import GalleryIcon from '@/assets/gallery.svg';
@@ -21,19 +19,16 @@ import ReplyRestriction from '@/components/Compose/ReplyRestriction.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
+import { connectMaskWithWagmi } from '@/helpers/connectWagmiWithMask.js';
 import { PluginDebuggerMessages } from '@/mask/message-host/index.js';
 import { ComposeModalRef } from '@/modals/controls.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
 import { useLensStateStore } from '@/store/useLensStore.js';
-import { useAccount, useChainId } from 'wagmi';
 
 interface ComposeActionProps {}
 export default function ComposeAction(props: ComposeActionProps) {
     const [restriction, setRestriction] = useState(0);
-
-    const account = useAccount();
-    const chainId = useChainId();
 
     const currentLensProfile = useLensStateStore.use.currentProfile();
     const currentFarcasterProfile = useFarcasterStateStore.use.currentProfile();
@@ -76,17 +71,11 @@ export default function ComposeAction(props: ComposeActionProps) {
     }, [currentFarcasterProfile, currentLensProfile, post]);
 
     const [{ loading }, openRedPacketComposeDialog] = useAsyncFn(async () => {
-        // keep connection fresh
-        if (!account.isConnected) return;
-        await EVMWeb3.connect({
-            chainId,
-            providerType: ProviderType.CustomEvent,
-        });
-
+        await connectMaskWithWagmi()
         ComposeModalRef.close();
         await delay(300);
         CrossIsolationMessages.events.redpacketDialogEvent.sendToLocal({ open: true });
-    }, [account, chainId]);
+    }, []);
 
     const maxImageCount = currentFarcasterProfile ? 2 : 4;
 

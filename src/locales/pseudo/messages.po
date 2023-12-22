@@ -481,6 +481,9 @@ msgstr ""
 msgid "You cannot reply to @{author} on {source}"
 msgstr ""
 
+msgid "Failed to fetch as ArrayBuffer."
+msgstr ""
+
 msgid "Failed to unvote post"
 msgstr ""
 
