@@ -93,6 +93,7 @@
         "@crowdin/cli": "^3.9.1",
         "@lingui/cli": "^4.5.0",
         "@lingui/conf": "^4.5.0",
+        "@lingui/loader": "^4.6.0",
         "@lingui/macro": "^4.5.0",
         "@lingui/swc-plugin": "^4.0.4",
         "@sinonjs/text-encoding": "^0.7.2",

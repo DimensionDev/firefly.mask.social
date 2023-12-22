@@ -4,12 +4,8 @@ import { IfPathname } from '@/components/IfPathname.js';
 import { AsideSearchBar } from '@/components/Search/SearchBar.js';
 import { SearchFilter } from '@/components/Search/SearchFilter.js';
 import { Image } from '@/esm/Image.js';
-import { getLocaleFromCookies } from '@/helpers/getLocaleFromCookies.js';
-import { setLocale } from '@/i18n/index.js';
 
 export default function NotFound() {
-    setLocale(getLocaleFromCookies());
-
     return (
         <>
             <main className="max-w-[888px] flex-[1_1_100%] border-r border-line pl-[289px]">
