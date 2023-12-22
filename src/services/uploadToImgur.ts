@@ -1,5 +1,4 @@
 import { t } from '@lingui/macro';
-import { ImgurClient } from 'imgur';
 
 interface UploadProgress {
     percent: number;
@@ -13,23 +12,22 @@ export async function uploadToImgur(
     metadata?: { title: string; description?: string },
     onProgress?: (progress: UploadProgress) => void,
 ): Promise<string> {
-    const client = new ImgurClient({
-        clientId: process.env.CLIENT_ID,
-        clientSecret: process.env.CLIENT_SECRET,
+    const formData = new FormData();
+    formData.append('image', file);
+    formData.append('title', metadata?.title ?? file.name);
+    if (metadata?.description) formData.append('description', metadata.description);
+
+    const response = await fetch('https://api.imgur.com/3/image', {
+        method: 'POST',
+        headers: {
+            Authorization: `Client-ID ${process.env.IMGUR_CLIENT_ID}`,
+        },
+        body: formData,
     });
-
-    if (onProgress) client.on('uploadProgress', (progress) => onProgress(progress));
-
-    const response = await client.upload({
-        image: file.stream(),
-        type: 'stream',
-        title: metadata?.title ?? file.name,
-        description: metadata?.description,
-    });
-
-    if (!response.success) {
+    if (!response.ok) {
         throw new Error(t`Failed to upload to Imgur`);
     }
+    const json = await response.json();
 
-    return response.data.link;
+    return json.data.link;
 }

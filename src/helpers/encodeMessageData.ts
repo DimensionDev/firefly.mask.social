@@ -14,17 +14,17 @@ export async function encodeMessageData(
     withMessageData: (profileId: number) => PartialWith<MessageData, 'fid' | 'timestamp' | 'network'>,
     withPrivateKey?: string,
 ) {
-    const { token, profileId } = warpcastClient.getSessionRequired();
-    const privateKey = withPrivateKey ?? token;
-    const messageData: MessageData = {
+    var { token, profileId } = warpcastClient.getSessionRequired();
+    var privateKey = withPrivateKey ?? token;
+    var messageData: MessageData = {
         ...withMessageData(Number(profileId)),
         fid: Number(profileId),
         timestamp: getFarcasterTime().unwrapOr(Math.round((Date.now() - FARCASTER_EPOCH) / 1000)),
         network: FarcasterNetwork.MAINNET,
     };
-    const messageDataEncoded = MessageData.encode(messageData).finish();
-    const messageHash = blake3(messageDataEncoded, { dkLen: 20 });
-    const messageSignature = await ed.signAsync(messageHash, toBytes(privateKey));
+    var messageDataEncoded = MessageData.encode(messageData).finish();
+    var messageHash = blake3(messageDataEncoded, { dkLen: 20 });
+    var messageSignature = await ed.signAsync(messageHash, toBytes(privateKey, { size: 32 }));
 
     const bytes = Buffer.from(
         Message.encode({
