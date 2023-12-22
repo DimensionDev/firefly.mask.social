@@ -5,6 +5,7 @@ import '@/mask/setup/locale.js';
 import '@/mask/setup/wallet.js';
 import '@/mask/setup/theme.js';
 import '@/mask/setup/custom-event-provider.js';
+import '@/mask/setup/overwrite-modals.js';
 import '@/mask/plugin-host/enable.js';
 
 // custom elements
