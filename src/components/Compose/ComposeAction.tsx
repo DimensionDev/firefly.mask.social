@@ -72,7 +72,7 @@ export default function ComposeAction(props: ComposeActionProps) {
 
     const [{ loading }, openRedPacketComposeDialog] = useAsyncFn(async () => {
         await connectMaskWithWagmi();
-        // import dynmically to avoid the bootstraping dependency issue of mask packages
+        // import dynamically to avoid the start up dependency issue of mask packages
         await import('@/helpers/setupCurrentVisitingProfile.js').then((module) =>
             module.setupCurrentVisitingProfile(currentLensProfile ?? currentFarcasterProfile),
         );
