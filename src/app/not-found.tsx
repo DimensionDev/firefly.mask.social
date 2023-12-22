@@ -9,7 +9,7 @@ import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 
 export const metadata = createSiteMetadata({
     title: createPageTitle(t`Page not found`),
-})
+});
 
 export default function NotFound() {
     return (
