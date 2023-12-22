@@ -222,3 +222,10 @@ body {
 .SnackbarItem-action {
     margin-left: auto;
 }
+
+.account-settings {
+    background: none !important;
+}
+.account-settings .tippy-content {
+    padding: 0;
+}

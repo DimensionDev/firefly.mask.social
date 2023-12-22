@@ -24,13 +24,13 @@ export function ConnectWalletNav() {
 
     return (
         <div
-            className="flex gap-x-3 px-4 py-3 text-xl/5 hover:cursor-pointer hover:bg-bg"
+            className="flex gap-x-3 text-xl/5 hover:cursor-pointer hover:bg-bg md:rounded-full md:p-2 lg:px-4 lg:py-3"
             onClick={() => {
                 account.isConnected ? AccountModalRef.open() : ConnectWalletModalRef.open();
             }}
         >
             <WalletIcon width={20} height={20} />
-            <span>{text}</span>
+            <span className="hidden lg:inline">{text}</span>
         </div>
     );
 }

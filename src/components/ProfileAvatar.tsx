@@ -11,14 +11,15 @@ interface ProfileAvatarProps extends React.HTMLAttributes<HTMLDivElement> {
 
 export function ProfileAvatar(props: ProfileAvatarProps) {
     const { profile, size = 40, clickable = true, ...divProps } = props;
+
     return (
         <div
-            className={classNames(' flex h-[40px] w-[48px] items-start justify-start', {
+            className={classNames('flex items-start justify-start md:h-[36px] md:w-[36px] lg:h-[40px] lg:w-[48px]', {
                 'cursor-pointer': clickable,
             })}
             {...divProps}
         >
-            <div className="relative h-[40px] w-[40px]">
+            <div className="relative md:h-[36px] md:w-[36px] lg:h-[40px] lg:w-[40px]">
                 <div
                     className="absolute left-0 top-0 rounded-full shadow backdrop-blur-lg"
                     style={{
