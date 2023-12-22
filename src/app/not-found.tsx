@@ -4,8 +4,8 @@ import { IfPathname } from '@/components/IfPathname.js';
 import { AsideSearchBar } from '@/components/Search/SearchBar.js';
 import { SearchFilter } from '@/components/Search/SearchFilter.js';
 import { Image } from '@/esm/Image.js';
-import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { createPageTitle } from '@/helpers/createPageTitle.js';
+import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 
 export const metadata = createSiteMetadata({
     title: createPageTitle(t`Page not found`),
