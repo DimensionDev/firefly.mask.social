@@ -166,7 +166,7 @@ export class FireflySocialMedia implements Provider {
     async getPostsByProfileId(profileId: string, indicator?: PageIndicator) {
         const url = urlcat(FIREFLY_ROOT_URL, '/v2/user/timeline/farcaster');
         const {
-            data: {casts, cursor},
+            data: { casts, cursor },
         } = await fetchJSON<CastsResponse>(url, {
             method: 'POST',
             body: JSON.stringify({
