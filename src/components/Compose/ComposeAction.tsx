@@ -72,6 +72,7 @@ export default function ComposeAction(props: ComposeActionProps) {
 
     const [{ loading }, openRedPacketComposeDialog] = useAsyncFn(async () => {
         await connectMaskWithWagmi();
+        // import dynmically to avoid the bootstraping dependency issue of mask packages
         await import('@/helpers/setupCurrentVisitingProfile.js').then((module) =>
             module.setupCurrentVisitingProfile(currentLensProfile ?? currentFarcasterProfile),
         );
@@ -158,7 +159,10 @@ export default function ComposeAction(props: ComposeActionProps) {
                         })}
                         width={25}
                         height={25}
-                        onClick={openRedPacketComposeDialog}
+                        onClick={() => {
+                            if (loading) return;
+                            openRedPacketComposeDialog();
+                        }}
                     />
                 </Tooltip>
             </div>

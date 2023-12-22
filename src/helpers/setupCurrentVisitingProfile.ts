@@ -1,5 +1,5 @@
 import { __setSiteAdaptorContext__, type IdentityResolved } from '@masknet/plugin-infra/content-script';
-import { createConstantSubscription,ProfileIdentifier } from '@masknet/shared-base';
+import { createConstantSubscription, ProfileIdentifier } from '@masknet/shared-base';
 
 import { SITE_HOSTNAME } from '@/constants/index.js';
 import { createMaskSiteAdaptorContext } from '@/helpers/createMaskContext.js';
