@@ -94,38 +94,33 @@ export class FarcasterSocialMedia implements Provider {
     }
 
     async getFollowers(profileId: string, indicator?: PageIndicator) {
-        const { isCustodyWallet, isGrantByPermission, noSession } = getFarcasterSessionType();
+        const { isCustodyWallet } = getFarcasterSessionType();
         if (isCustodyWallet) return WarpcastSocialMediaProvider.getFollowers(profileId, indicator);
-        if (isGrantByPermission || noSession) return FireflySocialMediaProvider.getFollowers(profileId, indicator);
-        throw new Error(t`No session found.`);
+        return FireflySocialMediaProvider.getFollowers(profileId, indicator);
     }
 
     async getFollowings(profileId: string, indicator?: PageIndicator) {
-        const { isCustodyWallet, isGrantByPermission, noSession } = getFarcasterSessionType();
+        const { isCustodyWallet} = getFarcasterSessionType();
         if (isCustodyWallet) return WarpcastSocialMediaProvider.getFollowings(profileId, indicator);
-        if (isGrantByPermission || noSession) return FireflySocialMediaProvider.getFollowings(profileId, indicator);
-        throw new Error(t`No session found.`);
+        return FireflySocialMediaProvider.getFollowings(profileId, indicator);
     }
 
     async getPostsLiked(profileId: string, indicator?: PageIndicator) {
-        const { isCustodyWallet, isGrantByPermission } = getFarcasterSessionType();
+        const { isCustodyWallet } = getFarcasterSessionType();
         if (isCustodyWallet) return WarpcastSocialMediaProvider.getPostsLiked(profileId, indicator);
-        if (isGrantByPermission) throw new Error('Method not implemented.');
-        throw new Error(t`No session found.`);
+         throw new Error('Method not implemented.');
     }
 
     async getPostsReplies(profileId: string, indicator?: PageIndicator) {
-        const { isCustodyWallet, isGrantByPermission } = getFarcasterSessionType();
+        const { isCustodyWallet} = getFarcasterSessionType();
         if (isCustodyWallet) return WarpcastSocialMediaProvider.getPostsReplies(profileId, indicator);
-        if (isGrantByPermission) throw new Error('Method not implemented.');
-        throw new Error(t`No session found.`);
+        throw new Error('Method not implemented.');
     }
 
     async getPostsBeMentioned(profileId: string, indicator?: PageIndicator) {
-        const { isCustodyWallet, isGrantByPermission } = getFarcasterSessionType();
+        const { isCustodyWallet } = getFarcasterSessionType();
         if (isCustodyWallet) return WarpcastSocialMediaProvider.getPostsBeMentioned(profileId, indicator);
-        if (isGrantByPermission) throw new Error('Method not implemented.');
-        throw new Error(t`No session found.`);
+        throw new Error('Method not implemented.');
     }
 
     async publishPost(post: Post): Promise<Post> {
