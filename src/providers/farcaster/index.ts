@@ -59,7 +59,7 @@ export class FarcasterSocialMedia implements Provider {
     }
 
     async getMirrorReactors(postId: string, indicator?: PageIndicator) {
-        const { isCustodyWallet} = getFarcasterSessionType();
+        const { isCustodyWallet } = getFarcasterSessionType();
         if (isCustodyWallet) return WarpcastSocialMediaProvider.getMirrorReactors(postId, indicator);
         return FireflySocialMediaProvider.getMirrorReactors(postId, indicator);
     }
@@ -69,7 +69,7 @@ export class FarcasterSocialMedia implements Provider {
     }
 
     async isFollowingMe(profileId: string) {
-         return WarpcastSocialMediaProvider.isFollowingMe(profileId);
+        return WarpcastSocialMediaProvider.isFollowingMe(profileId);
     }
 
     // @ts-ignore
