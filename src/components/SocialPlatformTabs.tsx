@@ -2,7 +2,7 @@
 
 import { getEnumAsArray } from '@masknet/kit';
 import { usePathname, useRouter } from 'next/navigation.js';
-import { startTransition } from 'react';
+import { startTransition, useEffect } from 'react';
 
 import { SocialPlatform } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -24,8 +24,8 @@ export function SocialPlatformTabs() {
     if (pathname !== '/profile' && isRoutePathname(pathname, '/profile')) {
         const param = pathname.split('/');
         const handle = param[param.length - 1];
-        if (currentSource === SocialPlatform.Farcaster && lensProfile?.profileId !== handle) return null;
-        if (currentSource === SocialPlatform.Lens && farcasterProfile?.handle !== handle) return null;
+        if (currentSource === SocialPlatform.Farcaster && farcasterProfile?.profileId !== handle) return null;
+        if (currentSource === SocialPlatform.Lens && lensProfile?.handle !== handle) return null;
     }
 
     return (
@@ -42,10 +42,10 @@ export function SocialPlatformTabs() {
                         onClick={() =>
                             startTransition(() => {
                                 if (isRoutePathname(pathname, '/profile')) {
-                                    if (value === SocialPlatform.Lens && lensProfile)
-                                        router.push(getProfileUrl(lensProfile));
-                                    if (value === SocialPlatform.Farcaster && farcasterProfile)
-                                        router.push(getProfileUrl(farcasterProfile))
+                                    if (value === SocialPlatform.Lens)
+                                        router.push(lensProfile ? getProfileUrl(lensProfile) : '/profile');
+                                    if (value === SocialPlatform.Farcaster)
+                                        router.push(farcasterProfile ? getProfileUrl(farcasterProfile) : '/profile')
                                 }
                                 scrollTo(0, 0);
                                 updateCurrentSource(value);
