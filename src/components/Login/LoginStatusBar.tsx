@@ -13,7 +13,7 @@ export function LoginStatusBar() {
     const farcasterProfile = useFarcasterStateStore.use.currentProfile?.();
 
     return (
-        <div className="relative flex md:flex-col md:justify-center md:gap-y-2 lg:gap-x-2 lg:pl-2">
+        <div className="relative flex md:flex-col md:justify-center md:gap-y-2 lg:flex-row lg:justify-start lg:gap-x-2 lg:pl-2">
             {lensProfile ? <AccountSetting source={SocialPlatform.Lens} profile={lensProfile} /> : null}
             {farcasterProfile ? <AccountSetting source={SocialPlatform.Farcaster} profile={farcasterProfile} /> : null}
             {lensProfile ? null : (

@@ -16,7 +16,7 @@ export function ProfileAvatarAdd(props: ProfileAvatarAddProps) {
 
     return (
         <div
-            className="relative cursor-pointer md:mx-auto md:h-[36px] md:w-[36px] lg:h-[40px] lg:w-[48px]"
+            className="relative cursor-pointer md:mx-auto  md:h-[36px] md:w-[36px] lg:m-0 lg:h-[40px] lg:w-[48px]"
             {...divProps}
         >
             <div className="absolute left-0 top-0 rounded-full shadow backdrop-blur-lg  md:h-[36px] md:w-[36px] lg:h-[40px] lg:w-[40px]">
