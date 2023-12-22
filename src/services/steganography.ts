@@ -27,6 +27,7 @@ const libV2AlgrDefaults: Omit<EncodeOptions, 'text'> = {
 
 export enum SteganographyPreset {
     Preset2023 = '2023',
+    Preset202312 = '2023-12',
 }
 
 const PRESET_SETTINGS: Record<
@@ -50,9 +51,18 @@ const PRESET_SETTINGS: Record<
         payload: '/image/payload-2023.png',
         options: libV2AlgrDefaults,
     },
+    [SteganographyPreset.Preset202312]: {
+        preset: SteganographyPreset.Preset202312,
+        description: 'the preset mask network used for payload V37',
+        mask: null,
+        width: 960,
+        height: 672,
+        payload: '/image/payload-202312.png',
+        options: libV2AlgrDefaults,
+    },
 };
 
-export async function steganographyEncodeImage(data: string | ArrayBuffer, preset = SteganographyPreset.Preset2023) {
+export async function steganographyEncodeImage(data: string | ArrayBuffer, preset = SteganographyPreset.Preset202312) {
     const settings = PRESET_SETTINGS[preset];
     if (!settings) throw new Error('Failed to create preset.');
 
