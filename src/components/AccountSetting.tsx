@@ -22,10 +22,10 @@ export function AccountSetting({ source }: AccountSettingProps) {
     const { disconnect } = useDisconnect();
     const { currentProfile, currentProfileSession, profiles, clearCurrentProfile } = useProfiles(source);
     return (
-        <div className="absolute bottom-[36px] hidden rounded-[12px] bg-bgModal group-hover:flex">
-            <div className="flex w-[260px] flex-col gap-[23px] rounded-[16px] p-[24px]">
+        <div className="rounded-3 absolute bottom-6 hidden bg-bgModal group-hover:flex">
+            <div className="rounded-4 flex w-[260px] flex-col gap-[23px] p-6">
                 {profiles.map((profile) => (
-                    <div key={profile.profileId} className="flex items-center justify-between gap-[8px]">
+                    <div key={profile.profileId} className="flex items-center justify-between gap-2">
                         <ProfileAvatar profile={profile} />
                         <ProfileName profile={profile} />
                         <WarpcastSignerRequestIndicator session={currentProfileSession}>
@@ -34,7 +34,7 @@ export function AccountSetting({ source }: AccountSettingProps) {
                     </div>
                 ))}
                 <button
-                    className="flex w-full items-center gap-[8px]"
+                    className="flex w-full items-center gap-2"
                     onClick={() => {
                         if (source === SocialPlatform.Lens) disconnect();
                         clearCurrentProfile();
@@ -47,7 +47,7 @@ export function AccountSetting({ source }: AccountSettingProps) {
                     </div>
                 </button>
                 <button
-                    className="flex items-center gap-[8px]"
+                    className="flex items-center gap-2"
                     onClick={() => {
                         LogoutModalRef.open({ source });
                     }}

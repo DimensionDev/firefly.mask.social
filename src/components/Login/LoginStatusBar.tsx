@@ -16,13 +16,13 @@ export function LoginStatusBar() {
     return (
         <div className="relative flex gap-x-2 pl-2">
             {lensProfile ? (
-                <div className="group relative h-[40px] w-[48px]">
+                <div className="group relative h-10 w-10">
                     <ProfileAvatar profile={lensProfile} />
                     <AccountSetting source={SocialPlatform.Lens} />
                 </div>
             ) : null}
             {farcasterProfile ? (
-                <div className="group relative h-[40px] w-[48px]">
+                <div className="group relative h-10 w-10">
                     <ProfileAvatar profile={farcasterProfile} />
                     <AccountSetting source={SocialPlatform.Farcaster} />
                 </div>
