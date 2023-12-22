@@ -8,8 +8,8 @@ export async function connectMaskWithWagmi() {
 
     const network = getNetwork();
     const chainId = network.chain?.id ?? ChainId.Mainnet;
-
     if (!isValidChainId(chainId)) return;
+
     await EVMWeb3.connect({
         chainId,
         providerType: ProviderType.CustomEvent,
