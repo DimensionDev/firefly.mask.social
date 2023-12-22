@@ -129,7 +129,7 @@ export const SideBar = memo(function SideBar() {
                                                                 : item.href
                                                         }
                                                         className={classNames(
-                                                            'flex flex-grow-0 gap-x-3 text-xl/5 hover:bg-bg md:rounded-full md:p-2 lg:px-4 lg:py-3',
+                                                            'lg: flex flex-grow-0 gap-x-3 rounded-lg text-xl/5 hover:bg-bg md:rounded-full md:p-2 lg:px-4 lg:py-3',
                                                             { 'font-bold': isSelected },
                                                         )}
                                                     >

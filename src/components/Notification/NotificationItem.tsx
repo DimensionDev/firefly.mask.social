@@ -361,7 +361,7 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
                                 ) : null}
                             </div>
                         </div>
-                        <div className="mt-2">{title}</div>
+                        <div className="mt-2 text-[15px]">{title}</div>
                         {content}
                         {actions}
                     </div>

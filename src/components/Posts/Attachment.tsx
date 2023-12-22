@@ -85,7 +85,7 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({ attachm
                         <div className="absolute left-[calc(50%-16px)] top-[calc(50%-16px)] flex items-center justify-center rounded-xl bg-third p-2 text-[#181818]">
                             <Play width={16} height={16} />
                         </div>
-                        <Image src={asset.cover} className="h-[120px] w-[120px] max-w-none" alt={asset.cover} />
+                        <Image width={120} height={120} src={asset.cover} className="h-[120px] w-[120px] max-w-none" alt={asset.cover} />
                     </div>
                 ) : (
                     <div className="flex h-[120px] w-[120px] flex-col items-center justify-center space-y-2 rounded-xl bg-secondaryMain px-[7.5px] py-4">
