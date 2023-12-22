@@ -34,7 +34,7 @@ export default function Connected() {
                             <Trans>Lens</Trans>
                         </span>
                         <div className="flex items-center gap-[4px]">
-                            <span className="text-base font-bold leading-[18px] text-slate-500">
+                            <span className="text-base font-bold leading-[18px] text-second">
                                 {address ? formatEthereumAddress(address, 4) : null}
                             </span>
                             <CopyIcon width={14} height={14} />

@@ -57,6 +57,8 @@ module.exports = {
                 send: '0px 0px 20px 0px #0000000D',
                 popover: '0px 0px 16px 0px #65778633',
                 messageShadow: '0px 0px 16px 0px rgba(101, 119, 134, 0.20)',
+                accountCardShadowLight: '0px 0px 20px 0px rgba(0, 0, 0, 0.05)',
+                accountCardShadowDark: '0px 0px 20px 0px rgba(255, 255, 255, 0.12)',
             },
         },
         screens: {
