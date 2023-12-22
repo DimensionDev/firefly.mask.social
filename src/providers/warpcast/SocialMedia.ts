@@ -154,7 +154,7 @@ export class WarpcastSocialMedia implements Provider {
         const url = urlcat(WARPCAST_ROOT_URL, '/user', { fid: toFid(profileId) });
         const {
             result: { user },
-        } = await warpcastClient.fetchWithSession<UserDetailResponse>(url);
+        } = await warpcastClient.fetch<UserDetailResponse>(url);
 
         if (user.viewerContext?.following) return true;
         else return false;
@@ -164,7 +164,7 @@ export class WarpcastSocialMedia implements Provider {
         const url = urlcat(WARPCAST_ROOT_URL, '/user', { fid: toFid(profileId) });
         const {
             result: { user },
-        } = await warpcastClient.fetchWithSession<UserDetailResponse>(url);
+        } = await warpcastClient.fetch<UserDetailResponse>(url);
 
         if (user.viewerContext?.followedBy) return true;
         else return false;
