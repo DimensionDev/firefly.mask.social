@@ -106,6 +106,9 @@ msgstr "Failed to upload image to imgur"
 msgid "Confirm"
 msgstr "Confirm"
 
+msgid "Page not found"
+msgstr "Page not found"
+
 msgid "Failed to reply post on Farcaster"
 msgstr "Failed to reply post on Farcaster"
 
