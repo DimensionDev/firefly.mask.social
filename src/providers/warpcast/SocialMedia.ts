@@ -115,7 +115,7 @@ export class WarpcastSocialMedia implements Provider {
         const url = urlcat(WARPCAST_ROOT_URL, '/cast', { hash: postId });
         const {
             result: { cast },
-        } = await warpcastClient.fetchWithSession<{ result: { cast: Cast } }>(url, {
+        } = await warpcastClient.fetch<{ result: { cast: Cast } }>(url, {
             method: 'GET',
         });
         return formatWarpcastPost(cast);
