@@ -30,11 +30,10 @@ export function useSendLens() {
                     });
                     // We only care about ipfs for Lens
                     return patchedMedia;
-                } catch {
-                    enqueueSnackbar(t`Failed to upload image to IPFS`, {
-                        variant: 'error',
-                    });
-                    throw new Error(t`Failed to upload image to IPFS`);
+                } catch (err) {
+                    const message = t`Failed to upload image to IPFS: ${(err as Error).message}`;
+                    enqueueSnackbar(message, { variant: 'error' });
+                    throw new Error(message);
                 }
             }),
         );
@@ -48,10 +47,9 @@ export function useSendLens() {
                 };
                 updateVideo(uploadedVideo);
             } else {
-                enqueueSnackbar(t`Failed to upload video to IPFS`, {
-                    variant: 'error',
-                });
-                throw new Error(t`Failed to upload video to IPFS`);
+                const message = t`Failed to upload video to IPFS`;
+                enqueueSnackbar(message, { variant: 'error' });
+                throw new Error(message);
             }
         }
 

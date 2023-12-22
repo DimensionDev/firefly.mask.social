@@ -100,9 +100,6 @@ msgstr ""
 msgid "comment"
 msgstr ""
 
-msgid "Failed to upload image to imgur"
-msgstr ""
-
 msgid "Confirm"
 msgstr ""
 
@@ -137,6 +134,9 @@ msgid "mirror"
 msgstr ""
 
 msgid "Replied on Lens"
+msgstr ""
+
+msgid "Failed to upload image to imgur: {0}"
 msgstr ""
 
 msgid "Audio Cover"
@@ -197,6 +197,9 @@ msgid "Failed to fetch as Text."
 msgstr ""
 
 msgid "Open actions on Lens is coming soon"
+msgstr ""
+
+msgid "Lucky Drop"
 msgstr ""
 
 msgid "Add an existing account"
@@ -382,9 +385,6 @@ msgstr ""
 msgid "Follow @thefireflyapp on X"
 msgstr ""
 
-msgid "Failed to upload image to IPFS"
-msgstr ""
-
 msgid "Please open this link on PC explore."
 msgstr ""
 
@@ -487,6 +487,9 @@ msgstr ""
 msgid "Failed to unvote post"
 msgstr ""
 
+msgid "Failed to upload image to IPFS: {0}"
+msgstr ""
+
 msgid "Confirm to log out these accounts?"
 msgstr ""
 
@@ -578,9 +581,6 @@ msgid "on Lens"
 msgstr ""
 
 msgid "<0/> mentioned you in a <1><2/></1>"
-msgstr ""
-
-msgid "Red Packet"
 msgstr ""
 
 msgid "Login"

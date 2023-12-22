@@ -56,14 +56,12 @@ const getS3Client = async (): Promise<S3> => {
  * @returns Array of MediaSet objects.
  */
 export async function uploadFilesToIPFS(
-    data: File[],
+    files: File[],
     onProgress?: (percentage: number) => void,
 ): Promise<IPFSResponse[]> {
-    const files = Array.from(data);
     const client = await getS3Client();
     const attachments = await Promise.all(
-        files.map(async (_: any, i: number) => {
-            const file = data[i];
+        files.map(async (file) => {
             const params = {
                 Bucket: S3_BUCKET.HEY_MEDIA,
                 Key: uuid(),
