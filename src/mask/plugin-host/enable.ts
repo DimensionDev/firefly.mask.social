@@ -5,16 +5,11 @@ import {
     __setUIContext__,
     startPluginSiteAdaptor,
 } from '@masknet/plugin-infra/content-script';
-import {
-    BooleanPreference,
-    createI18NBundle,
-    EMPTY_ARRAY,
-    EnhanceableSite,
-    i18NextInstance,
-    UNDEFINED,
-} from '@masknet/shared-base';
+import { BooleanPreference, createI18NBundle, EnhanceableSite, i18NextInstance } from '@masknet/shared-base';
 import { setupReactShadowRootEnvironment } from '@masknet/theme';
 import { Emitter } from '@servie/events';
+
+import { createMaskSiteAdaptorContext, createMaskUIContext } from '@/helpers/createMaskContext.js';
 
 import { indexedDBStorage, inMemoryStorage } from '../setup/storage.js';
 
@@ -22,41 +17,8 @@ async function reject(): Promise<never> {
     throw new Error('Not implemented');
 }
 
-__setUIContext__({
-    currentPersona: UNDEFINED,
-    allPersonas: EMPTY_ARRAY,
-    queryPersonaByProfile: reject,
-    queryPersonaAvatar: async (identifiers): Promise<any> => {
-        if (Array.isArray(identifiers)) return new Map();
-        return undefined;
-    },
-    querySocialIdentity: reject,
-    fetchJSON: reject,
-    openDashboard: reject,
-    openPopupWindow: reject,
-    signWithPersona: reject,
-    hasPaymentPassword: reject,
-    attachProfile: undefined,
-    createPersona: reject,
-    hasHostPermission: undefined,
-    requestHostPermission: undefined,
-    setCurrentPersonaIdentifier: undefined,
-    setPluginMinimalModeEnabled: undefined,
-});
-
-__setSiteAdaptorContext__({
-    lastRecognizedProfile: UNDEFINED,
-    currentVisitingProfile: UNDEFINED,
-    currentNextIDPlatform: undefined,
-    currentPersonaIdentifier: UNDEFINED,
-    getPostURL: () => null,
-    share: undefined,
-    connectPersona: reject,
-    getPostIdFromNewPostToast: undefined,
-    getSearchedKeyword: undefined,
-    getUserIdentity: undefined,
-    postMessage: undefined,
-});
+__setUIContext__(createMaskUIContext());
+__setSiteAdaptorContext__(createMaskSiteAdaptorContext());
 
 startPluginSiteAdaptor(EnhanceableSite.App, {
     minimalMode: {

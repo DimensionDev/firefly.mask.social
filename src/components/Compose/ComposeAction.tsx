@@ -71,7 +71,7 @@ export default function ComposeAction(props: ComposeActionProps) {
     }, [currentFarcasterProfile, currentLensProfile, post]);
 
     const [{ loading }, openRedPacketComposeDialog] = useAsyncFn(async () => {
-        await connectMaskWithWagmi()
+        await connectMaskWithWagmi();
         ComposeModalRef.close();
         await delay(300);
         CrossIsolationMessages.events.redpacketDialogEvent.sendToLocal({ open: true });

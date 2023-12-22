@@ -31,6 +31,7 @@ async function throws(): Promise<never> {
 
 export interface ComposeModalProps {
     type?: 'compose' | 'quote' | 'reply';
+    chars?: string;
     source?: SocialPlatform;
     post?: Post;
     typedMessage?: TypedMessageTextV1 | null;
@@ -51,6 +52,7 @@ export const ComposeModal = forwardRef<SingletonModalRefCreator<ComposeModalProp
         updateType,
         updateSource,
         updatePost,
+        updateChars,
         updateTypedMessage,
         clear,
     } = useComposeStateStore();
@@ -63,6 +65,7 @@ export const ComposeModal = forwardRef<SingletonModalRefCreator<ComposeModalProp
             updateSource(props.source || null);
             if (props.typedMessage) updateTypedMessage(props.typedMessage);
             if (props.post) updatePost(props.post);
+            if (props.chars) updateChars(props.chars);
         },
         onClose: () => {
             clear();

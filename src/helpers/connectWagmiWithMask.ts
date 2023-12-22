@@ -1,5 +1,5 @@
 import { EVMWeb3 } from '@masknet/web3-providers';
-import { ChainId, isValidChainId,ProviderType } from '@masknet/web3-shared-evm';
+import { ChainId, isValidChainId, ProviderType } from '@masknet/web3-shared-evm';
 import { getAccount, getNetwork } from 'wagmi/actions';
 
 export async function connectMaskWithWagmi() {
