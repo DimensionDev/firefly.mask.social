@@ -1,10 +1,12 @@
+import { delay } from '@masknet/kit';
 import type { __SiteAdaptorContext__ } from '@masknet/plugin-infra/content-script';
 import type { __UIContext__ } from '@masknet/plugin-infra/dom';
+import { TransactionConfirmModal } from '@masknet/shared';
 import { EMPTY_ARRAY, PostIdentifier, UNDEFINED } from '@masknet/shared-base';
 
+import { SITE_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { ComposeModalRef } from '@/modals/controls.js';
-import { SITE_URL } from '@/constants/index.js';
 
 async function reject(): Promise<never> {
     throw new Error('Not implemented');
@@ -42,7 +44,9 @@ export function createMaskSiteAdaptorContext(context?: Partial<__SiteAdaptorCont
         currentNextIDPlatform: undefined,
         currentPersonaIdentifier: UNDEFINED,
         getPostURL: (identifier: PostIdentifier) => null,
-        share: (text: string) => {
+        share: async (text: string) => {
+            TransactionConfirmModal.close();
+            await delay(300);
             ComposeModalRef.open({
                 chars: text.replaceAll(/mask\.io/gi, SITE_URL),
             });

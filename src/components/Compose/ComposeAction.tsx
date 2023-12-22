@@ -72,10 +72,13 @@ export default function ComposeAction(props: ComposeActionProps) {
 
     const [{ loading }, openRedPacketComposeDialog] = useAsyncFn(async () => {
         await connectMaskWithWagmi();
+        await import('@/helpers/setupCurrentVisitingProfile.js').then((module) =>
+            module.setupCurrentVisitingProfile(currentLensProfile ?? currentFarcasterProfile),
+        );
         ComposeModalRef.close();
         await delay(300);
         CrossIsolationMessages.events.redpacketDialogEvent.sendToLocal({ open: true });
-    }, []);
+    }, [currentLensProfile, currentFarcasterProfile]);
 
     const maxImageCount = currentFarcasterProfile ? 2 : 4;
 
