@@ -2,25 +2,26 @@
 import { t } from '@lingui/macro';
 import { formatEthereumAddress } from '@masknet/web3-shared-evm';
 import { useMemo } from 'react';
-import { useAccount, useEnsName } from 'wagmi';
+import { useEnsName } from 'wagmi';
 import { mainnet } from 'wagmi/chains';
 
 import WalletIcon from '@/assets/wallet.svg';
+import { useMemorizedAccount } from '@/hooks/useMemorizedAccount.js';
 import { useMounted } from '@/hooks/useMounted.js';
 import { AccountModalRef, ConnectWalletModalRef } from '@/modals/controls.js';
 
 export function ConnectWalletNav() {
     const mounted = useMounted();
-    const account = useAccount();
+    const account = useMemorizedAccount();
 
     const { data: ensName } = useEnsName({ address: account.address, chainId: mainnet.id });
 
     const text = useMemo(() => {
-        if (!account.isConnected || !account.address || !mounted) return t`Connect Wallet`;
+        if (!account.address || !mounted) return t`Connect Wallet`;
         if (ensName) return ensName;
 
         return formatEthereumAddress(account.address, 4);
-    }, [account.isConnected, ensName, account.address, mounted]);
+    }, [ensName, account.address, mounted]);
 
     return (
         <div

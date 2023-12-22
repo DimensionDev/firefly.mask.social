@@ -7,13 +7,13 @@ import { isSameAddress } from '@masknet/web3-shared-base';
 import { first } from 'lodash-es';
 import { useEffect, useState } from 'react';
 import { useAsyncFn } from 'react-use';
-import { useAccount } from 'wagmi';
 
 import LoadingIcon from '@/assets/loading.svg';
 import WalletIcon from '@/assets/wallet.svg';
 import { AccountCard } from '@/components/Login/AccountCard.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
+import { useMemorizedAccount } from '@/hooks/useMemorizedAccount.js';
 import { AccountModalRef, ConnectWalletModalRef, LoginModalRef } from '@/modals/controls.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
@@ -27,7 +27,8 @@ export function LoginLens({ profiles }: LoginLensProps) {
     const [selectedProfile, setSelectedProfile] = useState<Profile>();
     const [signless, setSignless] = useState(true);
 
-    const account = useAccount();
+    const account = useMemorizedAccount();
+    console.log('account', account);
 
     const updateProfiles = useLensStateStore.use.updateProfiles();
     const updateCurrentProfile = useLensStateStore.use.updateCurrentProfile();

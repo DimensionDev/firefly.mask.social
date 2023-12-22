@@ -14,12 +14,13 @@ import { ProviderType } from '@masknet/web3-shared-evm';
 import { StyledEngineProvider } from '@mui/material';
 import { type PropsWithChildren, Suspense } from 'react';
 import { I18nextProvider } from 'react-i18next';
-import { useAccount, useChainId } from 'wagmi';
+import { useChainId } from 'wagmi';
 
 import { useMaskTheme } from '@/hooks/useMaskTheme.js';
+import { useMemorizedAccount } from '@/hooks/useMemorizedAccount.js';
 
 export function MaskProviders({ children }: PropsWithChildren<{}>) {
-    const account = useAccount();
+    const account = useMemorizedAccount();
     const chainId = useChainId();
 
     return (

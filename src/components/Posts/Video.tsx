@@ -2,12 +2,12 @@ import 'plyr-react/plyr.css';
 
 import { Player } from '@livepeer/react';
 import { memo } from 'react';
-import { useAccount } from 'wagmi';
 
 import { ARWEAVE_GATEWAY, IPFS_GATEWAY } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatImageUrl } from '@/helpers/formatImageUrl.js';
 import { sanitizeDStorageUrl } from '@/helpers/sanitizeDStorageUrl.js';
+import { useMemorizedAccount } from '@/hooks/useMemorizedAccount.js';
 
 interface VideoProps {
     src: string;
@@ -16,7 +16,7 @@ interface VideoProps {
 }
 
 export const Video = memo<VideoProps>(function Video({ src, poster, className = '' }) {
-    const account = useAccount();
+    const account = useMemorizedAccount();
 
     return (
         <div

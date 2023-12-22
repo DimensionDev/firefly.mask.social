@@ -2,17 +2,17 @@
 
 import { Trans } from '@lingui/macro';
 import { formatEthereumAddress } from '@masknet/web3-shared-evm';
-import { useAccount } from 'wagmi';
 
 import { AccountCard } from '@/app/(settings)/components/AccountCard.js';
 import CopyIcon from '@/assets/copy.svg';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
+import { useMemorizedAccount } from '@/hooks/useMemorizedAccount.js';
 import { LogoutModalRef } from '@/modals/controls.js';
 import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
 import { useLensStateStore } from '@/store/useLensStore.js';
 
 export default function Connected() {
-    const { address } = useAccount();
+    const { address } = useMemorizedAccount();
 
     const lensProfiles = useLensStateStore.use.profiles();
     const farcasterProfiles = useFarcasterStateStore.use.profiles();

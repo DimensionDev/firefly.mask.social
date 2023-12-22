@@ -11,6 +11,7 @@ import CloseIcon from '@/assets/close.svg';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { ProfileName } from '@/components/ProfileName.js';
 import { SocialPlatform } from '@/constants/enum.js';
+import { clearMemorizedAccount } from '@/hooks/useMemorizedAccount.js';
 import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
 import { useLensStateStore } from '@/store/useLensStore.js';
 
@@ -107,6 +108,7 @@ export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps 
                                                     safeUnreachable(source);
                                                     break;
                                             }
+                                            clearMemorizedAccount();
                                             dispatch?.close();
                                         }}
                                     >

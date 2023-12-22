@@ -13,6 +13,7 @@ import { useEffectOnce } from 'react-use';
 import { useMediaQuery } from 'usehooks-ts';
 import { v4 as uuid } from 'uuid';
 
+import { MemorizeAccount } from '@/components/MemorizeAccount.js';
 import { WagmiProvider } from '@/components/WagmiProvider.js';
 import { livepeerClient } from '@/configs/livepeerClient.js';
 import { queryClient } from '@/configs/queryClient.js';
@@ -34,8 +35,7 @@ export function Providers(props: { children: React.ReactNode }) {
     }, [isDarkOS, themeMode]);
 
     useEffect(() => {
-        if (darkModeContext.isDarkMode) document.documentElement.classList.add('dark');
-        else document.documentElement.classList.remove('dark');
+        document.documentElement.classList.toggle('dark', darkModeContext.isDarkMode);
     }, [darkModeContext.isDarkMode]);
 
     useEffect(() => {
@@ -74,6 +74,7 @@ export function Providers(props: { children: React.ReactNode }) {
                         >
                             {/* wagmi depends @tanstack/react-query@4.29.23 */}
                             <WagmiProvider>
+                                <MemorizeAccount />
                                 {/* livepeer depends @tanstack/react-query@4.36.1 */}
                                 <LivepeerConfig client={livepeerClient}>{props.children}</LivepeerConfig>
                             </WagmiProvider>

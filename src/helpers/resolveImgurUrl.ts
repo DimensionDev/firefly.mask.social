@@ -1,6 +1,15 @@
+function canParse(url: string) {
+    try {
+        new URL(url);
+        return true;
+    } catch {
+        return false;
+    }
+}
+
 export function resolveImgurUrl(url: string | undefined) {
     if (!url) return url;
-    if (!URL.canParse(url)) return url;
+    if (!canParse(url)) return url;
 
     const u = new URL(url);
     if (u.protocol !== 'https:') return url;
