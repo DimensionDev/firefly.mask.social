@@ -8,6 +8,7 @@ import { useDocumentTitle } from 'usehooks-ts';
 import { CommentList } from '@/components/Comments/index.js';
 import { SinglePost } from '@/components/Posts/SinglePost.js';
 import { SocialPlatform } from '@/constants/enum.js';
+import { SITE_NAME } from '@/constants/index.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { createPageTitle } from '@/helpers/createPageTitle.js';
 import { resolveSource, type SourceInURL } from '@/helpers/resolveSource.js';
@@ -50,7 +51,7 @@ export default function PostPage({ params: { id: postId, source: _source } }: Po
         },
     });
 
-    useDocumentTitle(data ? createPageTitle(t`Post by ${data?.author.displayName}`) : '');
+    useDocumentTitle(data ? createPageTitle(t`Post by ${data?.author.displayName}`) : SITE_NAME);
 
     if (!data) return;
     return (
