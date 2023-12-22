@@ -27,7 +27,7 @@ export const Audio = memo<AudioProps>(function Audio({ poster, src, title, artis
         >
             <div className="flex space-x-2">
                 {poster ? (
-                    <Image src={poster} className="h-20 w-20 rounded-xl" alt="title" />
+                    <Image width={80} height={80} src={poster} className="h-20 w-20 rounded-xl" alt="title" />
                 ) : (
                     <div className="box-content flex w-20 flex-col items-center justify-center space-y-2 rounded-xl bg-secondaryMain px-[7.5px] py-4">
                         <span className=" text-primaryBottom opacity-50">

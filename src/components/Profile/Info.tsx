@@ -3,17 +3,16 @@ import { Trans } from '@lingui/macro';
 import { Avatar } from '@/components/Avatar.js';
 import FollowButton from '@/components/Profile/FollowButton.js';
 import { SourceIcon } from '@/components/SourceIcon.js';
+import type { SocialPlatform } from '@/constants/enum.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
-import { useGlobalState } from '@/store/useGlobalStore.js';
 
 interface InfoProps {
     isMyProfile: boolean;
     profile?: Profile;
+    source: SocialPlatform;
 }
 
-export default function Info({ isMyProfile, profile }: InfoProps) {
-    const currentSource = useGlobalState.use.currentSource();
-
+export default function Info({ isMyProfile, profile, source }: InfoProps) {
     const followingCount = profile?.followingCount ?? 0;
 
     const followerCount = profile?.followerCount ?? 0;
@@ -23,7 +22,7 @@ export default function Info({ isMyProfile, profile }: InfoProps) {
             {profile?.pfp ? (
                 <Avatar src={profile.pfp} alt="avatar" size={80} className=" h-20 w-20 rounded-full" />
             ) : (
-                <SourceIcon className="rounded-full" source={currentSource} size={80} />
+                <SourceIcon className="rounded-full" source={source} size={80} />
             )}
 
             <div className=" relative flex flex-1 flex-col gap-[6px] pt-4">
@@ -36,7 +35,7 @@ export default function Info({ isMyProfile, profile }: InfoProps) {
                 <div className=" flex flex-col">
                     <div className=" flex items-center gap-2">
                         <span className=" text-xl font-black text-lightMain">{profile?.displayName}</span>
-                        <SourceIcon source={currentSource} size={20} />
+                        <SourceIcon source={source} size={20} />
                     </div>
                     <span className=" text-[15px] text-secondary">@{profile?.handle}</span>
                 </div>
