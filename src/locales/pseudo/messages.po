@@ -106,6 +106,9 @@ msgstr ""
 msgid "Confirm"
 msgstr ""
 
+msgid "Page not found"
+msgstr ""
+
 msgid "Failed to reply post on Farcaster"
 msgstr ""
 
