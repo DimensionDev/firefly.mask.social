@@ -11,7 +11,7 @@ interface AccountCardProps {
 
 export function AccountCard({ profile, isCurrent }: AccountCardProps) {
     return (
-        <div className="inline-flex h-[63px] w-full items-center justify-start gap-[8px] rounded-lg bg-white px-[12px] py-[8px] shadow backdrop-blur-lg dark:bg-bg">
+        <div className="inline-flex h-[63px] w-full items-center justify-start gap-[8px] rounded-lg bg-bottom px-[12px] py-[8px] shadow-accountCardShadowLight backdrop-blur-lg dark:shadow-accountCardShadowDark">
             <ProfileAvatar profile={profile} size={36} />
             <ProfileName profile={profile} />
             {isCurrent ? (
@@ -19,7 +19,7 @@ export function AccountCard({ profile, isCurrent }: AccountCardProps) {
                     <Trans>Log out</Trans>
                 </button>
             ) : (
-                <button className="text-right font-['Inter'] text-xs font-bold leading-none text-neutral-900">
+                <button className="text-right font-['Inter'] text-xs font-medium leading-none text-main">
                     <Trans>Switch</Trans>
                 </button>
             )}

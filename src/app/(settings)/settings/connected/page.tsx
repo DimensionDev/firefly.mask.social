@@ -32,14 +32,12 @@ export default function Connected() {
                         <span className="text-base font-bold leading-[18px] text-main">
                             <Trans>Lens</Trans>
                         </span>
-                        {address ? (
-                            <div className="flex items-center gap-[4px]">
-                                <span className="text-base font-bold leading-[18px] text-main">
-                                    {formatEthereumAddress(address, 4)}
-                                </span>
-                                <CopyIcon width={14} height={14} />
-                            </div>
-                        ) : null}
+                        <div className="flex items-center gap-[4px]">
+                            <span className="text-base font-bold leading-[18px] text-second">
+                                {address ? formatEthereumAddress(address, 4) : null}
+                            </span>
+                            <CopyIcon width={14} height={14} />
+                        </div>
                     </div>
                     {lensProfiles.map((profile) => (
                         <AccountCard

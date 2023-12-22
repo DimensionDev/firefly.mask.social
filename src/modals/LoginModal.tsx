@@ -36,9 +36,9 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | 
     const [{ loading }, handleLogin] = useAsyncFn(
         async (selectedSource: SocialPlatform) => {
             try {
-                const { account } = await getWalletClientRequired();
                 switch (selectedSource) {
                     case SocialPlatform.Lens: {
+                        const { account } = await getWalletClientRequired();
                         const profiles = await queryClient.fetchQuery({
                             queryKey: ['lens', 'profiles', account.address],
                             queryFn: async () => {
