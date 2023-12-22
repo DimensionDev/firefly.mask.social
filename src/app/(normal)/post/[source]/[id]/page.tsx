@@ -19,12 +19,13 @@ import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 const PostActions = dynamic(() => import('@/components/Actions/index.js').then((module) => module.PostActions), {
     ssr: false,
 });
+
 interface PostPageProps {
     params: { id: string; source: SourceInURL };
 }
 
-export default function PostPage({ params: { id: postId, source: _source } }: PostPageProps) {
-    const currentSource = resolveSource(_source);
+export default function PostPage({ params: { id: postId, source } }: PostPageProps) {
+    const currentSource = resolveSource(source);
 
     const fetchAndStoreViews = useImpressionsStore.use.fetchAndStoreViews();
     const { data } = useSuspenseQuery({
