@@ -3,6 +3,7 @@ import './globals.css';
 import { ScrollRestorer } from 'next-scroll-restorer';
 
 import { GA } from '@/components/GA.js';
+import { MobileFallback } from '@/components/MobileFallback.js';
 import { Polyfills } from '@/components/Polyfills.js';
 import { Providers } from '@/components/Providers.js';
 import { SideBar } from '@/components/SideBar/index.js';
@@ -23,10 +24,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </head>
             <body>
                 <Providers>
-                    <div className="m-auto flex min-h-screen sm:w-full lg:w-[1265px] ">
+                    <div className="m-auto hidden min-h-screen md:flex md:w-full lg:w-[1265px]">
                         <SideBar />
                         {children}
                     </div>
+                    <MobileFallback />
                     <Modals />
                 </Providers>
                 <GA />

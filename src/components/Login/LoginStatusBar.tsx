@@ -1,7 +1,6 @@
 'use client';
 
 import { AccountSetting } from '@/components/AccountSetting.js';
-import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { ProfileAvatarAdd } from '@/components/ProfileAvatarAdd.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
@@ -14,19 +13,9 @@ export function LoginStatusBar() {
     const farcasterProfile = useFarcasterStateStore.use.currentProfile?.();
 
     return (
-        <div className="relative flex gap-x-2 pl-2">
-            {lensProfile ? (
-                <div className="group relative h-[40px] w-[48px]">
-                    <ProfileAvatar profile={lensProfile} />
-                    <AccountSetting source={SocialPlatform.Lens} />
-                </div>
-            ) : null}
-            {farcasterProfile ? (
-                <div className="group relative h-[40px] w-[48px]">
-                    <ProfileAvatar profile={farcasterProfile} />
-                    <AccountSetting source={SocialPlatform.Farcaster} />
-                </div>
-            ) : null}
+        <div className="relative flex md:flex-col md:justify-center md:gap-y-2 lg:gap-x-2 lg:pl-2">
+            {lensProfile ? <AccountSetting source={SocialPlatform.Lens} profile={lensProfile} /> : null}
+            {farcasterProfile ? <AccountSetting source={SocialPlatform.Farcaster} profile={farcasterProfile} /> : null}
             {lensProfile ? null : (
                 <ProfileAvatarAdd
                     source={SocialPlatform.Lens}
