@@ -2,7 +2,7 @@
 
 import { getEnumAsArray } from '@masknet/kit';
 import { usePathname, useRouter } from 'next/navigation.js';
-import { startTransition, useEffect } from 'react';
+import { startTransition } from 'react';
 
 import { SocialPlatform } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
