@@ -11,6 +11,7 @@ import ContentTabs from '@/components/Profile/ContentTabs.js';
 import Info from '@/components/Profile/Info.js';
 import Title from '@/components/Profile/Title.js';
 import { SocialPlatform } from '@/constants/enum.js';
+import { SITE_NAME } from '@/constants/index.js';
 import { createPageTitle } from '@/helpers/createPageTitle.js';
 import { resolveSource, type SourceInURL } from '@/helpers/resolveSource.js';
 import { useIsMyProfile } from '@/hooks/useIsMyProfile.js';
@@ -40,7 +41,7 @@ export default function ProfilePage({ params: { source: _source, id: handleOrPro
     });
 
     const title = useMemo(() => {
-        if (!profile) return '';
+        if (!profile) return SITE_NAME;
         const fragments = [profile.displayName];
         if (profile.handle) fragments.push(`(@${profile.handle})`);
         return createPageTitle(fragments.join(' '));
@@ -60,7 +61,7 @@ export default function ProfilePage({ params: { source: _source, id: handleOrPro
         <div>
             {!isMyProfile ? <Title profile={profile} /> : null}
 
-            <Info profile={profile} isMyProfile={isMyProfile} />
+            <Info profile={profile} isMyProfile={isMyProfile} source={currentSource} />
 
             <ContentTabs source={profile.source} profileId={profile.profileId} />
         </div>

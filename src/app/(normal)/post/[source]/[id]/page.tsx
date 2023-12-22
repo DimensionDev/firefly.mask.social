@@ -8,6 +8,7 @@ import { useDocumentTitle } from 'usehooks-ts';
 import { CommentList } from '@/components/Comments/index.js';
 import { SinglePost } from '@/components/Posts/SinglePost.js';
 import { SocialPlatform } from '@/constants/enum.js';
+import { SITE_NAME } from '@/constants/index.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { createPageTitle } from '@/helpers/createPageTitle.js';
 import { resolveSource, type SourceInURL } from '@/helpers/resolveSource.js';
@@ -18,12 +19,13 @@ import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 const PostActions = dynamic(() => import('@/components/Actions/index.js').then((module) => module.PostActions), {
     ssr: false,
 });
+
 interface PostPageProps {
     params: { id: string; source: SourceInURL };
 }
 
-export default function PostPage({ params: { id: postId, source: _source } }: PostPageProps) {
-    const currentSource = resolveSource(_source);
+export default function PostPage({ params: { id: postId, source } }: PostPageProps) {
+    const currentSource = resolveSource(source);
 
     const fetchAndStoreViews = useImpressionsStore.use.fetchAndStoreViews();
     const { data } = useSuspenseQuery({
@@ -50,7 +52,7 @@ export default function PostPage({ params: { id: postId, source: _source } }: Po
         },
     });
 
-    useDocumentTitle(data ? createPageTitle(t`Post by ${data?.author.displayName}`) : '');
+    useDocumentTitle(data ? createPageTitle(t`Post by ${data?.author.displayName}`) : SITE_NAME);
 
     if (!data) return;
     return (

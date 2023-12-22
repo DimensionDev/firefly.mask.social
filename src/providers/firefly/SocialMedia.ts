@@ -22,6 +22,7 @@ import type {
     CastsResponse,
     CommentsResponse,
     NotificationResponse,
+    ReactorsResponse,
     SearchCastsResponse,
     UserResponse,
     UsersResponse,
@@ -54,7 +55,8 @@ export class FireflySocialMedia implements Provider {
     }
 
     async getPostById(postId: string): Promise<Post> {
-        const url = urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/cast', { hash: postId });
+        const session = warpcastClient.getSession();
+        const url = urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/cast', { hash: postId, fid: session?.profileId });
         const { data: cast } = await fetchJSON<CastResponse>(url, {
             method: 'GET',
         });
@@ -137,6 +139,10 @@ export class FireflySocialMedia implements Provider {
             status: ProfileStatus.Active,
             verified: true,
             source: SocialPlatform.Farcaster,
+            viewerContext: {
+                following: user.isFollowing,
+                followedBy: user.isFollowedBack,
+            },
         }));
 
         return createPageable(data, createIndicator(indicator), createNextIndicator(indicator, next_cursor));
@@ -164,15 +170,17 @@ export class FireflySocialMedia implements Provider {
     }
 
     async getPostsByProfileId(profileId: string, indicator?: PageIndicator) {
-        const url = urlcat(FIREFLY_ROOT_URL, '/v2/user/timeline/farcaster', {
-            fids: [profileId],
-            size: 10,
-            cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
-        });
+        const url = urlcat(FIREFLY_ROOT_URL, '/v2/user/timeline/farcaster');
         const {
             data: { casts, cursor },
         } = await fetchJSON<CastsResponse>(url, {
-            method: 'GET',
+            method: 'POST',
+            body: JSON.stringify({
+                fids: [profileId],
+                size: 25,
+                sourceFid: profileId,
+                cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
+            }),
         });
         const data = casts.map((cast) => ({
             type: (cast.parent_hash ? t`Comment` : t`Post`) as PostType,
@@ -333,6 +341,72 @@ export class FireflySocialMedia implements Provider {
             indicator ?? createIndicator(),
             cursor ? createNextIndicator(indicator, cursor) : undefined,
         );
+    }
+
+    async getLikeReactors(postId: string, indicator?: PageIndicator) {
+        const session = warpcastClient.getSession();
+        const url = urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/cast/likes', {
+            castHash: postId,
+            size: 15,
+            sourceFid: session?.profileId,
+            cursor: indicator?.id,
+        });
+        const {
+            data: { items, nextCursor },
+        } = await fetchJSON<ReactorsResponse>(url, {
+            method: 'GET',
+        });
+
+        const data = items.map((user) => ({
+            fullHandle: user.username,
+            profileId: user.fid.toString(),
+            handle: user.username,
+            displayName: user.display_name,
+            pfp: user.pfp,
+            followerCount: user.followers,
+            followingCount: user.following,
+            status: ProfileStatus.Active,
+            verified: true,
+            source: SocialPlatform.Farcaster,
+            viewerContext: {
+                following: user.isFollowing,
+                followedBy: user.isFollowedBack,
+            },
+        }));
+        return createPageable(data, createIndicator(indicator), createNextIndicator(indicator, nextCursor));
+    }
+
+    async getMirrorReactors(postId: string, indicator?: PageIndicator) {
+        const session = warpcastClient.getSession();
+        const url = urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/cast/recasters', {
+            castHash: postId,
+            size: 15,
+            sourceFid: session?.profileId,
+            cursor: indicator?.id,
+        });
+        const {
+            data: { items, nextCursor },
+        } = await fetchJSON<ReactorsResponse>(url, {
+            method: 'GET',
+        });
+
+        const data = items.map((user) => ({
+            fullHandle: user.username,
+            profileId: user.fid.toString(),
+            handle: user.username,
+            displayName: user.display_name,
+            pfp: user.pfp,
+            followerCount: user.followers,
+            followingCount: user.following,
+            status: ProfileStatus.Active,
+            verified: true,
+            source: SocialPlatform.Farcaster,
+            viewerContext: {
+                following: user.isFollowing,
+                followedBy: user.isFollowedBack,
+            },
+        }));
+        return createPageable(data, createIndicator(indicator), createNextIndicator(indicator, nextCursor));
     }
 
     async publishPost(post: Post): Promise<Post> {

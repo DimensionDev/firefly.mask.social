@@ -1,8 +1,10 @@
 'use client';
 
+import { PlusIcon, UserPlusIcon } from '@heroicons/react/24/outline';
 import { Trans } from '@lingui/macro';
 import { usePathname } from 'next/navigation.js';
 import { memo } from 'react';
+import { useMediaQuery } from 'usehooks-ts';
 
 import DiscoverSelectedIcon from '@/assets/discover.selected.svg';
 import DiscoverIcon from '@/assets/discover.svg';
@@ -10,6 +12,7 @@ import FollowingSelectedIcon from '@/assets/following.selected.svg';
 import FollowingIcon from '@/assets/following.svg';
 import DarkLogo from '@/assets/logo.dark.svg';
 import LightLogo from '@/assets/logo.light.svg';
+import MiniLogo from '@/assets/miniLogo.svg';
 import NotificationSelectedIcon from '@/assets/notification.selected.svg';
 import NotificationIcon from '@/assets/notification.svg';
 import ProfileSelectedIcon from '@/assets/profile.selected.svg';
@@ -71,6 +74,7 @@ const items = [
 ];
 
 export const SideBar = memo(function SideBar() {
+    const isLarge = useMediaQuery('(min-width: 1265px)');
     const currentSource = useGlobalState.use.currentSource();
     const currentProfile = useCurrentProfile(currentSource);
 
@@ -88,11 +92,19 @@ export const SideBar = memo(function SideBar() {
 
     return (
         <>
-            <div className="fixed inset-y-0 z-50 flex w-[289px] flex-col">
-                <div className="flex grow flex-col gap-y-5 overflow-y-auto border-r border-line px-6">
-                    <div className="flex h-16 shrink-0 items-center px-4">
+            <div className="fixed inset-y-0 z-50 flex flex-col lg:w-[289px]">
+                <div className="flex grow flex-col gap-y-5 overflow-y-auto border-r border-line md:px-3 lg:px-6">
+                    <div className="flex h-16 shrink-0 items-center lg:px-4">
                         <Link href={PageRoutes.Home}>
-                            {!isDarkMode ? <LightLogo width={134} height={64} /> : <DarkLogo width={134} height={64} />}
+                            {isLarge ? (
+                                !isDarkMode ? (
+                                    <LightLogo width={134} height={64} />
+                                ) : (
+                                    <DarkLogo width={134} height={64} />
+                                )
+                            ) : (
+                                <MiniLogo width={33} height={43} />
+                            )}
                         </Link>
                     </div>
                     <nav className="flex flex-1 flex-col">
@@ -117,34 +129,46 @@ export const SideBar = memo(function SideBar() {
                                                                 : item.href
                                                         }
                                                         className={classNames(
-                                                            'flex flex-grow-0 gap-x-3 px-4 py-3 text-xl/5 hover:bg-bg',
+                                                            'lg: flex flex-grow-0 gap-x-3 rounded-lg text-xl/5 hover:bg-bg md:rounded-full md:p-2 lg:px-4 lg:py-3',
                                                             { 'font-bold': isSelected },
                                                         )}
                                                     >
                                                         <Icon width={20} height={20} />
-                                                        {item.name}
+                                                        <span className="hidden lg:inline">{item.name}</span>
                                                     </Link>
                                                 )}
                                             </li>
                                         );
                                     })}
                                     {isLogin ? (
-                                        <li>
-                                            <button
-                                                type="button"
-                                                className="w-[200px] rounded-2xl bg-main p-2 text-xl font-bold leading-6 text-primaryBottom"
-                                                onClick={() => ComposeModalRef.open({})}
-                                            >
-                                                <Trans>Post</Trans>
-                                            </button>
-                                        </li>
+                                        isLarge ? (
+                                            <li>
+                                                <button
+                                                    type="button"
+                                                    className="w-[200px] rounded-2xl bg-main p-2 text-xl font-bold leading-6 text-primaryBottom"
+                                                    onClick={() => ComposeModalRef.open({})}
+                                                >
+                                                    <Trans>Post</Trans>
+                                                </button>
+                                            </li>
+                                        ) : (
+                                            <li className="text-center">
+                                                <button
+                                                    type="button"
+                                                    className="rounded-full bg-main p-1 text-primaryBottom"
+                                                    onClick={() => ComposeModalRef.open({})}
+                                                >
+                                                    <PlusIcon className="h-5 w-5" aria-hidden="true" />
+                                                </button>
+                                            </li>
+                                        )
                                     ) : null}
                                 </ul>
                             </li>
-                            <li className="-mx-2 mb-20 mt-auto">
+                            <li className="-mx-2 mb-20 mt-auto md:text-center">
                                 {isLogin ? (
                                     <LoginStatusBar />
-                                ) : (
+                                ) : isLarge ? (
                                     <button
                                         onClick={() => {
                                             LoginModalRef.open();
@@ -153,6 +177,16 @@ export const SideBar = memo(function SideBar() {
                                         className="w-[200px] rounded-2xl bg-main p-2 text-xl font-bold leading-6 text-primaryBottom"
                                     >
                                         <Trans>Login</Trans>
+                                    </button>
+                                ) : (
+                                    <button
+                                        onClick={() => {
+                                            LoginModalRef.open();
+                                        }}
+                                        type="button"
+                                        className="rounded-full bg-main p-1 text-primaryBottom"
+                                    >
+                                        <UserPlusIcon className="h-5 w-5" aria-hidden="true" />
                                     </button>
                                 )}
                             </li>

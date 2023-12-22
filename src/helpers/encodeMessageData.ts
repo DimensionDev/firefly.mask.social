@@ -24,7 +24,7 @@ export async function encodeMessageData(
     };
     const messageDataEncoded = MessageData.encode(messageData).finish();
     const messageHash = blake3(messageDataEncoded, { dkLen: 20 });
-    const messageSignature = await ed.signAsync(messageHash, toBytes(privateKey));
+    const messageSignature = await ed.signAsync(messageHash, toBytes(privateKey, { size: 32 }));
 
     const bytes = Buffer.from(
         Message.encode({

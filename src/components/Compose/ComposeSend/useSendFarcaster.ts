@@ -40,10 +40,9 @@ export function useSendFarcaster() {
                         // We only care about imgur for Farcaster
                         return patchedMedia;
                     } catch (error) {
-                        enqueueSnackbar(t`Failed to upload image to imgur`, {
-                            variant: 'error',
-                        });
-                        throw new Error(t`Failed to upload image to imgur`);
+                        const message = t`Failed to upload image to imgur: ${(error as Error).message}`;
+                        enqueueSnackbar(message, { variant: 'error' });
+                        throw new Error(message);
                     }
                 }),
             );

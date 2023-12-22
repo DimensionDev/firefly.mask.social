@@ -100,10 +100,10 @@ msgstr ""
 msgid "comment"
 msgstr ""
 
-msgid "Failed to upload image to imgur"
+msgid "Confirm"
 msgstr ""
 
-msgid "Confirm"
+msgid "Page not found"
 msgstr ""
 
 msgid "Failed to reply post on Farcaster"
@@ -134,6 +134,9 @@ msgid "mirror"
 msgstr ""
 
 msgid "Replied on Lens"
+msgstr ""
+
+msgid "Failed to upload image to imgur: {0}"
 msgstr ""
 
 msgid "Audio Cover"
@@ -194,6 +197,9 @@ msgid "Failed to fetch as Text."
 msgstr ""
 
 msgid "Open actions on Lens is coming soon"
+msgstr ""
+
+msgid "Lucky Drop"
 msgstr ""
 
 msgid "Add an existing account"
@@ -289,9 +295,6 @@ msgstr ""
 msgid "liked"
 msgstr ""
 
-msgid "wrong session type"
-msgstr ""
-
 msgid "Post has been encrypted"
 msgstr ""
 
@@ -382,7 +385,7 @@ msgstr ""
 msgid "Follow @thefireflyapp on X"
 msgstr ""
 
-msgid "Failed to upload image to IPFS"
+msgid "Please open this link on PC explore."
 msgstr ""
 
 msgid "Posted on Lens"
@@ -487,6 +490,9 @@ msgstr ""
 msgid "Failed to unvote post"
 msgstr ""
 
+msgid "Failed to upload image to IPFS: {0}"
+msgstr ""
+
 msgid "Confirm to log out these accounts?"
 msgstr ""
 
@@ -578,9 +584,6 @@ msgid "on Lens"
 msgstr ""
 
 msgid "<0/> mentioned you in a <1><2/></1>"
-msgstr ""
-
-msgid "Red Packet"
 msgstr ""
 
 msgid "Login"

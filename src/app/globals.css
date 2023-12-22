@@ -143,7 +143,7 @@ html {
 
 body {
     /*  These !important rules prevent the overriding of website styles by Maskbook when injecting widgets from it. */
-    font-family: inherit !important;
+    font-family: var(--font-inter);
     line-height: inherit !important;
     color: rgb(var(--color-main)) !important;
     background: rgb(var(--color-bottom)) !important;
@@ -221,4 +221,11 @@ body {
 }
 .SnackbarItem-action {
     margin-left: auto;
+}
+
+.account-settings {
+    background: none !important;
+}
+.account-settings .tippy-content {
+    padding: 0;
 }
