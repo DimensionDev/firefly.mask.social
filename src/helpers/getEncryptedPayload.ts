@@ -1,9 +1,9 @@
 import { safeUnreachable } from '@masknet/kit';
 import { compact, first } from 'lodash-es';
 
-import { fetchBlob } from '@/helpers/fetchBlob.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { steganographyDecodeImage, SteganographyPreset } from '@/services/steganography.js';
+import { fetchBlob } from '@/helpers/fetchBlob.js';
 
 export type EncryptedPayload = [string, '1' | '2'];
 

@@ -6,7 +6,10 @@ import { delay, safeUnreachable } from '@masknet/kit';
 import { CrossIsolationMessages } from '@masknet/shared-base';
 import { $getSelection } from 'lexical';
 import { compact } from 'lodash-es';
+import { useAsyncFn } from 'react-use';
 import { useCallback, useMemo, useState } from 'react';
+import { EVMWeb3 } from '@masknet/web3-providers';
+import { ChainId, ProviderType } from '@masknet/web3-shared-evm';
 
 import AtIcon from '@/assets/at.svg';
 import GalleryIcon from '@/assets/gallery.svg';
@@ -23,10 +26,14 @@ import { ComposeModalRef } from '@/modals/controls.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
 import { useLensStateStore } from '@/store/useLensStore.js';
+import { useAccount, useChainId } from 'wagmi';
 
 interface ComposeActionProps {}
 export default function ComposeAction(props: ComposeActionProps) {
     const [restriction, setRestriction] = useState(0);
+
+    const account = useAccount();
+    const chainId = useChainId();
 
     const currentLensProfile = useLensStateStore.use.currentProfile();
     const currentFarcasterProfile = useFarcasterStateStore.use.currentProfile();
@@ -67,6 +74,19 @@ export default function ComposeAction(props: ComposeActionProps) {
             }
         }
     }, [currentFarcasterProfile, currentLensProfile, post]);
+
+    const [{ loading }, openRedPacketComposeDialog] = useAsyncFn(async () => {
+        // keep connection fresh
+        if (!account.isConnected) return;
+        await EVMWeb3.connect({
+            chainId,
+            providerType: ProviderType.CustomEvent,
+        });
+
+        ComposeModalRef.close();
+        await delay(300);
+        CrossIsolationMessages.events.redpacketDialogEvent.sendToLocal({ open: true });
+    }, [account, chainId]);
 
     const maxImageCount = currentFarcasterProfile ? 2 : 4;
 
@@ -141,14 +161,12 @@ export default function ComposeAction(props: ComposeActionProps) {
 
                 <Tooltip content={t`Red Packet`} placement="top">
                     <RedPacketIcon
-                        className=" cursor-pointer"
+                        className={classNames('cursor-pointer', {
+                            'opacity-50': loading,
+                        })}
                         width={25}
                         height={25}
-                        onClick={async () => {
-                            ComposeModalRef.close();
-                            await delay(300);
-                            CrossIsolationMessages.events.redpacketDialogEvent.sendToLocal({ open: true });
-                        }}
+                        onClick={openRedPacketComposeDialog}
                     />
                 </Tooltip>
             </div>

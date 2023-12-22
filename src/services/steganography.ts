@@ -72,8 +72,8 @@ export async function steganographyEncodeImage(data: string | ArrayBuffer, prese
     return new Blob([secretImage], { type: 'image/png' });
 }
 
-export async function steganographyDecodeImage(image: Blob | ArrayBuffer) {
-    const dimension = getImageDimension(image instanceof Blob ? await image.arrayBuffer() : image);
+export async function steganographyDecodeImage(image: Blob) {
+    const dimension = await getImageDimension(image);
     const settings = Object.values(PRESET_SETTINGS).find(
         (x) => x.width === dimension.width && x.height === dimension.height,
     );

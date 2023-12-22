@@ -34,14 +34,13 @@ if (process.env.NODE_ENV === 'development') {
     );
 }
 
-// use custom event provider if a wallet connected to the wagmi client
+// use custom event provider if a wallet connected
 // if no wallet connected, the rest connection will be monitored in custom-event-provider.ts
 const account = getAccount();
 
 if (account.isConnected) {
-    const network = getNetwork();
-    EVMWeb3.connect({
-        chainId: network.chain?.id ?? ChainId.Mainnet,
+    await EVMWeb3.connect({
+        chainId: getNetwork().chain?.id ?? ChainId.Mainnet,
         providerType: ProviderType.CustomEvent,
     });
 }
