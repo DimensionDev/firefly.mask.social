@@ -48,13 +48,7 @@ export default function Page() {
                     case SocialPlatform.Lens:
                         return LensSocialMediaProvider.searchPosts(keyword, indicator);
                     case SocialPlatform.Farcaster:
-                        return attemptUntil<Pageable<Post, PageIndicator>>(
-                            [
-                                async () => WarpcastSocialMediaProvider.searchPosts(keyword, indicator),
-                                async () => FireflySocialMediaProvider.searchPosts(keyword, indicator),
-                            ],
-                            createPageable<Post>(EMPTY_LIST, createIndicator(indicator)),
-                        );
+                        return FarcasterSocialMediaProvider.searchPosts(keyword, indicator);
                     default:
                         safeUnreachable(currentSource);
                         return;

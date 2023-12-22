@@ -1,5 +1,4 @@
 import { t } from '@lingui/macro';
-import { type Pageable, type PageIndicator } from '@masknet/shared-base';
 import { HubRestAPIClient } from '@standard-crypto/farcaster-js';
 
 import { getFarcasterSessionType } from '@/helpers/getFarcasterSessionType.js';
@@ -13,6 +12,8 @@ import {
     SessionType,
 } from '@/providers/types/SocialMedia.js';
 import { WarpcastSocialMediaProvider } from '@/providers/warpcast/SocialMedia.js';
+import { attemptUntil } from '@masknet/web3-shared-base';
+import { createIndicator, createPageable, EMPTY_LIST, type Pageable, type PageIndicator } from '@masknet/shared-base';
 
 export class FarcasterSocialMedia implements Provider {
     get type() {
@@ -31,56 +32,57 @@ export class FarcasterSocialMedia implements Provider {
         const { isCustodyWallet, isGrantByPermission } = getFarcasterSessionType();
         if (isCustodyWallet) return WarpcastSocialMediaProvider.discoverPostsById(profileId, indicator);
         if (isGrantByPermission) return FireflySocialMediaProvider.discoverPostsById(profileId, indicator);
-        throw new Error(t`wrong session type`);
+        throw new Error(t`No session found.`);
     }
 
     async getPostsByProfileId(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         const { isCustodyWallet, isGrantByPermission } = getFarcasterSessionType();
         if (isCustodyWallet) return WarpcastSocialMediaProvider.getPostsByProfileId(profileId, indicator);
         if (isGrantByPermission) return FireflySocialMediaProvider.getPostsByProfileId(profileId, indicator);
-        throw new Error(t`wrong session type`);
+        throw new Error(t`No session found.`);
     }
 
     async getPostById(postId: string): Promise<Post> {
         const { isCustodyWallet, isGrantByPermission } = getFarcasterSessionType();
         if (isCustodyWallet) return WarpcastSocialMediaProvider.getPostById(postId);
         if (isGrantByPermission) return FireflySocialMediaProvider.getPostById(postId);
-        throw new Error(t`wrong session type`);
+        throw new Error(t`No session found.`);
     }
 
     async getProfileById(profileId: string) {
-        const { isCustodyWallet, isGrantByPermission } = getFarcasterSessionType();
+        const { isCustodyWallet, isGrantByPermission, noSession } = getFarcasterSessionType();
+        console.log(isCustodyWallet, isGrantByPermission, noSession)
         if (isCustodyWallet) return WarpcastSocialMediaProvider.getProfileById(profileId);
-        if (isGrantByPermission) return FireflySocialMediaProvider.getProfileById(profileId);
-        throw new Error(t`wrong session type`);
+        if (isGrantByPermission || noSession) return FireflySocialMediaProvider.getProfileById(profileId);
+        throw new Error(t`No session found.`);
     }
 
     async getLikeReactors(postId: string, indicator?: PageIndicator) {
         const { isCustodyWallet, isGrantByPermission } = getFarcasterSessionType();
         if (isCustodyWallet) return WarpcastSocialMediaProvider.getLikeReactors(postId, indicator);
         if (isGrantByPermission) throw new Error('Method not implemented.');
-        throw new Error(t`wrong session type`);
+        throw new Error(t`No session found.`);
     }
 
     async getMirrorReactors(postId: string, indicator?: PageIndicator) {
         const { isCustodyWallet, isGrantByPermission } = getFarcasterSessionType();
         if (isCustodyWallet) return WarpcastSocialMediaProvider.getMirrorReactors(postId, indicator);
         if (isGrantByPermission) throw new Error('Method not implemented.');
-        throw new Error(t`wrong session type`);
+        throw new Error(t`No session found.`);
     }
 
     async isFollowedByMe(profileId: string) {
         const { isCustodyWallet, isGrantByPermission } = getFarcasterSessionType();
         if (isCustodyWallet) return WarpcastSocialMediaProvider.isFollowedByMe(profileId);
         if (isGrantByPermission) throw new Error('Method not implemented.');
-        throw new Error(t`wrong session type`);
+        throw new Error(t`No session found.`);
     }
 
     async isFollowingMe(profileId: string) {
         const { isCustodyWallet, isGrantByPermission } = getFarcasterSessionType();
         if (isCustodyWallet) return WarpcastSocialMediaProvider.isFollowingMe(profileId);
         if (isGrantByPermission) throw new Error('Method not implemented.');
-        throw new Error(t`wrong session type`);
+        throw new Error(t`No session found.`);
     }
 
     // @ts-ignore
@@ -93,94 +95,94 @@ export class FarcasterSocialMedia implements Provider {
     }
 
     async getFollowers(profileId: string, indicator?: PageIndicator) {
-        const { isCustodyWallet, isGrantByPermission } = getFarcasterSessionType();
+        const { isCustodyWallet, isGrantByPermission, noSession } = getFarcasterSessionType();
         if (isCustodyWallet) return WarpcastSocialMediaProvider.getFollowers(profileId, indicator);
-        if (isGrantByPermission) return FireflySocialMediaProvider.getFollowers(profileId, indicator);
-        throw new Error(t`wrong session type`);
+        if (isGrantByPermission || noSession) return FireflySocialMediaProvider.getFollowers(profileId, indicator);
+        throw new Error(t`No session found.`);
     }
 
     async getFollowings(profileId: string, indicator?: PageIndicator) {
-        const { isCustodyWallet, isGrantByPermission } = getFarcasterSessionType();
+        const { isCustodyWallet, isGrantByPermission, noSession } = getFarcasterSessionType();
         if (isCustodyWallet) return WarpcastSocialMediaProvider.getFollowings(profileId, indicator);
-        if (isGrantByPermission) return FireflySocialMediaProvider.getFollowings(profileId, indicator);
-        throw new Error(t`wrong session type`);
+        if (isGrantByPermission || noSession) return FireflySocialMediaProvider.getFollowings(profileId, indicator);
+        throw new Error(t`No session found.`);
     }
 
     async getPostsLiked(profileId: string, indicator?: PageIndicator) {
         const { isCustodyWallet, isGrantByPermission } = getFarcasterSessionType();
         if (isCustodyWallet) return WarpcastSocialMediaProvider.getPostsLiked(profileId, indicator);
         if (isGrantByPermission) throw new Error('Method not implemented.');
-        throw new Error(t`wrong session type`);
+        throw new Error(t`No session found.`);
     }
 
     async getPostsReplies(profileId: string, indicator?: PageIndicator) {
         const { isCustodyWallet, isGrantByPermission } = getFarcasterSessionType();
         if (isCustodyWallet) return WarpcastSocialMediaProvider.getPostsReplies(profileId, indicator);
         if (isGrantByPermission) throw new Error('Method not implemented.');
-        throw new Error(t`wrong session type`);
+        throw new Error(t`No session found.`);
     }
 
     async getPostsBeMentioned(profileId: string, indicator?: PageIndicator) {
         const { isCustodyWallet, isGrantByPermission } = getFarcasterSessionType();
         if (isCustodyWallet) return WarpcastSocialMediaProvider.getPostsBeMentioned(profileId, indicator);
         if (isGrantByPermission) throw new Error('Method not implemented.');
-        throw new Error(t`wrong session type`);
+        throw new Error(t`No session found.`);
     }
 
     async publishPost(post: Post): Promise<Post> {
         const { isCustodyWallet, isGrantByPermission } = getFarcasterSessionType();
         if (isCustodyWallet) return WarpcastSocialMediaProvider.publishPost(post);
         if (isGrantByPermission) return HubbleSocialMediaProvider.publishPost(post);
-        throw new Error(t`wrong session type`);
+        throw new Error(t`No session found.`);
     }
 
     async upvotePost(postId: string) {
         const { isCustodyWallet, isGrantByPermission } = getFarcasterSessionType();
         if (isCustodyWallet) return WarpcastSocialMediaProvider.upvotePost(postId);
         if (isGrantByPermission) return HubbleSocialMediaProvider.upvotePost(postId);
-        throw new Error(t`wrong session type`);
+        throw new Error(t`No session found.`);
     }
 
     async unvotePost(postId: string) {
         const { isCustodyWallet, isGrantByPermission } = getFarcasterSessionType();
         if (isCustodyWallet) return WarpcastSocialMediaProvider.unvotePost(postId);
         if (isGrantByPermission) return HubbleSocialMediaProvider.unvotePost(postId);
-        throw new Error(t`wrong session type`);
+        throw new Error(t`No session found.`);
     }
 
     async commentPost(postId: string, comment: string) {
         const { isCustodyWallet, isGrantByPermission } = getFarcasterSessionType();
         if (isCustodyWallet) return WarpcastSocialMediaProvider.commentPost(postId, comment);
         if (isGrantByPermission) return HubbleSocialMediaProvider.commentPost(postId, comment);
-        throw new Error(t`wrong session type`);
+        throw new Error(t`No session found.`);
     }
 
     async mirrorPost(postId: string) {
         const { isCustodyWallet, isGrantByPermission } = getFarcasterSessionType();
         if (isCustodyWallet) return WarpcastSocialMediaProvider.mirrorPost(postId);
         if (isGrantByPermission) return HubbleSocialMediaProvider.mirrorPost(postId);
-        throw new Error(t`wrong session type`);
+        throw new Error(t`No session found.`);
     }
 
     async unmirrorPost(postId: string) {
         const { isCustodyWallet, isGrantByPermission } = getFarcasterSessionType();
         if (isCustodyWallet) return WarpcastSocialMediaProvider.unmirrorPost(postId);
         if (isGrantByPermission) return HubbleSocialMediaProvider.unmirrorPost(postId);
-        throw new Error(t`wrong session type`);
+        throw new Error(t`No session found.`);
     }
 
     async follow(profileId: string) {
         const { isCustodyWallet, isGrantByPermission } = getFarcasterSessionType();
         if (isCustodyWallet) return WarpcastSocialMediaProvider.follow(profileId);
         if (isGrantByPermission) return HubbleSocialMediaProvider.follow(profileId);
-        throw new Error(t`wrong session type`);
+        throw new Error(t`No session found.`);
     }
 
     async unfollow(profileId: string) {
         const { isCustodyWallet, isGrantByPermission } = getFarcasterSessionType();
         if (isCustodyWallet) return WarpcastSocialMediaProvider.unfollow(profileId);
         if (isGrantByPermission) return HubbleSocialMediaProvider.unfollow(profileId);
-        throw new Error(t`wrong session type`);
+        throw new Error(t`No session found.`);
     }
 
     async searchProfiles(q: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
@@ -188,10 +190,13 @@ export class FarcasterSocialMedia implements Provider {
     }
 
     async searchPosts(q: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        const { isCustodyWallet, isGrantByPermission } = getFarcasterSessionType();
-        if (isCustodyWallet) return WarpcastSocialMediaProvider.searchPosts(q, indicator);
-        if (isGrantByPermission) return FireflySocialMediaProvider.searchPosts(q, indicator);
-        throw new Error(t`wrong session type`);
+        return attemptUntil<Pageable<Post, PageIndicator>>(
+            [
+                async () => WarpcastSocialMediaProvider.searchPosts(q, indicator),
+                async () => FireflySocialMediaProvider.searchPosts(q, indicator),
+            ],
+            createPageable<Post>(EMPTY_LIST, createIndicator(indicator)),
+        );
     }
 
     async getSuggestedFollows(indicator?: PageIndicator): Promise<Pageable<Profile>> {
@@ -202,7 +207,7 @@ export class FarcasterSocialMedia implements Provider {
         const { isCustodyWallet, isGrantByPermission } = getFarcasterSessionType();
         if (isCustodyWallet) return WarpcastSocialMediaProvider.getNotifications(indicator);
         if (isGrantByPermission) return FireflySocialMediaProvider.getNotifications(indicator);
-        throw new Error(t`wrong session type`);
+        throw new Error(t`No session found.`);
     }
 }
 
