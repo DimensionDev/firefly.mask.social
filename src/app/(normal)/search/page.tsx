@@ -2,8 +2,7 @@
 
 import { t, Trans } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
-import { createIndicator, createPageable, EMPTY_LIST, type Pageable, type PageIndicator } from '@masknet/shared-base';
-import { attemptUntil } from '@masknet/web3-shared-base';
+import { createIndicator } from '@masknet/shared-base';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
 import { useMemo } from 'react';
@@ -16,10 +15,8 @@ import { ProfileInList } from '@/components/Search/ProfileInList.js';
 import { useSearchState } from '@/components/Search/useSearchState.js';
 import { SearchType, SocialPlatform } from '@/constants/enum.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/index.js';
-import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import type { Post, Profile } from '@/providers/types/SocialMedia.js';
-import { WarpcastSocialMediaProvider } from '@/providers/warpcast/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 
 export default function Page() {
@@ -48,13 +45,7 @@ export default function Page() {
                     case SocialPlatform.Lens:
                         return LensSocialMediaProvider.searchPosts(keyword, indicator);
                     case SocialPlatform.Farcaster:
-                        return attemptUntil<Pageable<Post, PageIndicator>>(
-                            [
-                                async () => WarpcastSocialMediaProvider.searchPosts(keyword, indicator),
-                                async () => FireflySocialMediaProvider.searchPosts(keyword, indicator),
-                            ],
-                            createPageable<Post>(EMPTY_LIST, createIndicator(indicator)),
-                        );
+                        return FarcasterSocialMediaProvider.searchPosts(keyword, indicator);
                     default:
                         safeUnreachable(currentSource);
                         return;

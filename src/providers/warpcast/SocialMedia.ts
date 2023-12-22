@@ -127,7 +127,7 @@ export class WarpcastSocialMedia implements Provider {
         const url = urlcat(WARPCAST_ROOT_URL, '/cast', { hash: postId });
         const {
             result: { cast },
-        } = await warpcastClient.fetchWithSession<{ result: { cast: Cast } }>(url, {
+        } = await warpcastClient.fetch<{ result: { cast: Cast } }>(url, {
             method: 'GET',
         });
         return formatWarpcastPost(cast);
@@ -146,7 +146,7 @@ export class WarpcastSocialMedia implements Provider {
             limit: 15,
             cursor: indicator?.id,
         });
-        const { result, next } = await warpcastClient.fetchWithSession<LikesResponse>(url, { method: 'GET' });
+        const { result, next } = await warpcastClient.fetch<LikesResponse>(url, { method: 'GET' });
         const data = result.likes.map((like) => formatWarpcastUser(like.reactor));
         return createPageable(
             data,
@@ -161,7 +161,7 @@ export class WarpcastSocialMedia implements Provider {
             limit: 15,
             cursor: indicator?.id,
         });
-        const { result, next } = await warpcastClient.fetchWithSession<RecastersResponse>(url, { method: 'GET' });
+        const { result, next } = await warpcastClient.fetch<RecastersResponse>(url, { method: 'GET' });
         const data = result.users.map(formatWarpcastUser);
         return createPageable(
             data,
@@ -174,7 +174,7 @@ export class WarpcastSocialMedia implements Provider {
         const url = urlcat(WARPCAST_ROOT_URL, '/user', { fid: toFid(profileId) });
         const {
             result: { user },
-        } = await warpcastClient.fetchWithSession<UserDetailResponse>(url);
+        } = await warpcastClient.fetch<UserDetailResponse>(url);
 
         if (user.viewerContext?.following) return true;
         else return false;
@@ -184,7 +184,7 @@ export class WarpcastSocialMedia implements Provider {
         const url = urlcat(WARPCAST_ROOT_URL, '/user', { fid: toFid(profileId) });
         const {
             result: { user },
-        } = await warpcastClient.fetchWithSession<UserDetailResponse>(url);
+        } = await warpcastClient.fetch<UserDetailResponse>(url);
 
         if (user.viewerContext?.followedBy) return true;
         else return false;
