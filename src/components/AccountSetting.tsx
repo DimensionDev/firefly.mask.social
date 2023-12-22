@@ -32,7 +32,7 @@ export function AccountSetting({ source, profile }: AccountSettingProps) {
             placement="top-start"
             duration={200}
             arrow={false}
-            trigger='click'
+            trigger="click"
             hideOnClick
             interactive
             className="account-settings"
