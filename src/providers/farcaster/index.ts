@@ -100,7 +100,7 @@ export class FarcasterSocialMedia implements Provider {
     }
 
     async getFollowings(profileId: string, indicator?: PageIndicator) {
-        const { isCustodyWallet} = getFarcasterSessionType();
+        const { isCustodyWallet } = getFarcasterSessionType();
         if (isCustodyWallet) return WarpcastSocialMediaProvider.getFollowings(profileId, indicator);
         return FireflySocialMediaProvider.getFollowings(profileId, indicator);
     }
@@ -108,11 +108,11 @@ export class FarcasterSocialMedia implements Provider {
     async getPostsLiked(profileId: string, indicator?: PageIndicator) {
         const { isCustodyWallet } = getFarcasterSessionType();
         if (isCustodyWallet) return WarpcastSocialMediaProvider.getPostsLiked(profileId, indicator);
-         throw new Error('Method not implemented.');
+        throw new Error('Method not implemented.');
     }
 
     async getPostsReplies(profileId: string, indicator?: PageIndicator) {
-        const { isCustodyWallet} = getFarcasterSessionType();
+        const { isCustodyWallet } = getFarcasterSessionType();
         if (isCustodyWallet) return WarpcastSocialMediaProvider.getPostsReplies(profileId, indicator);
         throw new Error('Method not implemented.');
     }
