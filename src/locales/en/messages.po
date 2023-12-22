@@ -289,9 +289,6 @@ msgstr "Post your reply"
 msgid "liked"
 msgstr "liked"
 
-msgid "wrong session type"
-msgstr "wrong session type"
-
 msgid "Post has been encrypted"
 msgstr "Post has been encrypted"
 
