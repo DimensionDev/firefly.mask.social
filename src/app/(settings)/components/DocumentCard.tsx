@@ -1,4 +1,3 @@
-
 import LinkIcon from '@/assets/link.svg';
 import { Link } from '@/esm/Link.js';
 
