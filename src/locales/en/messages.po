@@ -388,6 +388,9 @@ msgstr "Follow @thefireflyapp on X"
 msgid "Failed to upload image to IPFS"
 msgstr "Failed to upload image to IPFS"
 
+msgid "Please open this link on PC explore."
+msgstr "Please open this link on PC explore."
+
 msgid "Posted on Lens"
 msgstr "Posted on Lens"
 

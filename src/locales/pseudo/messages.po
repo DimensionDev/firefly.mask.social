@@ -388,6 +388,9 @@ msgstr ""
 msgid "Failed to upload image to IPFS"
 msgstr ""
 
+msgid "Please open this link on PC explore."
+msgstr ""
+
 msgid "Posted on Lens"
 msgstr ""
 
