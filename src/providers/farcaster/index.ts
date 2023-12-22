@@ -57,11 +57,17 @@ export class FarcasterSocialMedia implements Provider {
     }
 
     async getLikeReactors(postId: string, indicator?: PageIndicator) {
-        return WarpcastSocialMediaProvider.getLikeReactors(postId, indicator);
+        const { isCustodyWallet, isGrantByPermission, noSession } = getFarcasterSessionType();
+        if(isCustodyWallet) return WarpcastSocialMediaProvider.getLikeReactors(postId, indicator);
+        if(isGrantByPermission || noSession) return FireflySocialMediaProvider.getLikeReactors(postId, indicator)
+        throw new Error(t`No session found.`);
     }
 
     async getMirrorReactors(postId: string, indicator?: PageIndicator) {
-        return WarpcastSocialMediaProvider.getMirrorReactors(postId, indicator);
+        const { isCustodyWallet, isGrantByPermission, noSession } = getFarcasterSessionType();
+        if(isCustodyWallet) return WarpcastSocialMediaProvider.getMirrorReactors(postId, indicator);
+        if(isGrantByPermission || noSession) return FireflySocialMediaProvider.getMirrorReactors(postId, indicator)
+        throw new Error(t`No session found.`);
     }
 
     async isFollowedByMe(profileId: string) {
