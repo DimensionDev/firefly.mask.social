@@ -58,17 +58,11 @@ export class FarcasterSocialMedia implements Provider {
     }
 
     async getLikeReactors(postId: string, indicator?: PageIndicator) {
-        const { isCustodyWallet, isGrantByPermission } = getFarcasterSessionType();
-        if (isCustodyWallet) return WarpcastSocialMediaProvider.getLikeReactors(postId, indicator);
-        if (isGrantByPermission) throw new Error('Method not implemented.');
-        throw new Error(t`No session found.`);
+        return WarpcastSocialMediaProvider.getLikeReactors(postId, indicator);
     }
 
     async getMirrorReactors(postId: string, indicator?: PageIndicator) {
-        const { isCustodyWallet, isGrantByPermission } = getFarcasterSessionType();
-        if (isCustodyWallet) return WarpcastSocialMediaProvider.getMirrorReactors(postId, indicator);
-        if (isGrantByPermission) throw new Error('Method not implemented.');
-        throw new Error(t`No session found.`);
+        return WarpcastSocialMediaProvider.getMirrorReactors(postId, indicator);
     }
 
     async isFollowedByMe(profileId: string) {

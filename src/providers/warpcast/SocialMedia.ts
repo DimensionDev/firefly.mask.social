@@ -134,7 +134,7 @@ export class WarpcastSocialMedia implements Provider {
             limit: 15,
             cursor: indicator?.id,
         });
-        const { result, next } = await warpcastClient.fetchWithSession<LikesResponse>(url, { method: 'GET' });
+        const { result, next } = await warpcastClient.fetch<LikesResponse>(url, { method: 'GET' });
         const data = result.likes.map((like) => formatWarpcastUser(like.reactor));
         return createPageable(data, createIndicator(indicator), createNextIndicator(indicator, next?.cursor));
     }
@@ -145,7 +145,7 @@ export class WarpcastSocialMedia implements Provider {
             limit: 15,
             cursor: indicator?.id,
         });
-        const { result, next } = await warpcastClient.fetchWithSession<RecastersResponse>(url, { method: 'GET' });
+        const { result, next } = await warpcastClient.fetch<RecastersResponse>(url, { method: 'GET' });
         const data = result.users.map(formatWarpcastUser);
         return createPageable(data, createIndicator(indicator), createNextIndicator(indicator, next?.cursor));
     }
