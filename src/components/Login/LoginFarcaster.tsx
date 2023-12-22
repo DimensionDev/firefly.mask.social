@@ -25,7 +25,6 @@ export function LoginFarcaster() {
         async (createSession: () => Promise<WarpcastSession>) => {
             try {
                 const session = await createSession();
-                console.log(session, session.profileId);
                 const profile = await FarcasterSocialMediaProvider.getProfileById(session.profileId);
 
                 updateProfiles([profile]);

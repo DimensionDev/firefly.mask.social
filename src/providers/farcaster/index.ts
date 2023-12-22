@@ -51,7 +51,6 @@ export class FarcasterSocialMedia implements Provider {
 
     async getProfileById(profileId: string) {
         const { isCustodyWallet, isGrantByPermission, noSession } = getFarcasterSessionType();
-        console.log(isCustodyWallet, isGrantByPermission, noSession);
         if (isCustodyWallet) return WarpcastSocialMediaProvider.getProfileById(profileId);
         if (isGrantByPermission || noSession) return FireflySocialMediaProvider.getProfileById(profileId);
         throw new Error(t`No session found.`);
