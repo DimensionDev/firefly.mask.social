@@ -1,6 +1,5 @@
 'use client';
 
-
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 

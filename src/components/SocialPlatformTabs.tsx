@@ -14,7 +14,7 @@ import { useGlobalState } from '@/store/useGlobalStore.js';
 export function SocialPlatformTabs() {
     const { currentSource, updateCurrentSource } = useGlobalState();
     const lensProfile = useCurrentProfile(SocialPlatform.Lens);
-    const farcasterProfile = useCurrentProfile(SocialPlatform.Farcaster)
+    const farcasterProfile = useCurrentProfile(SocialPlatform.Farcaster);
 
     const router = useRouter();
     const pathname = usePathname();
@@ -45,7 +45,7 @@ export function SocialPlatformTabs() {
                                     if (value === SocialPlatform.Lens)
                                         router.push(lensProfile ? getProfileUrl(lensProfile) : '/profile');
                                     if (value === SocialPlatform.Farcaster)
-                                        router.push(farcasterProfile ? getProfileUrl(farcasterProfile) : '/profile')
+                                        router.push(farcasterProfile ? getProfileUrl(farcasterProfile) : '/profile');
                                 }
                                 scrollTo(0, 0);
                                 updateCurrentSource(value);
