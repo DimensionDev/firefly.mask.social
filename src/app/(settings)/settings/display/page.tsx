@@ -19,7 +19,7 @@ export default function Display() {
             <button
                 className={`my-[12px] inline-flex h-[60px] w-[250px] items-center justify-center gap-5 rounded-lg px-3 ${
                     isDarkOS
-                        ? ' border border-white bg-slate-950 text-white'
+                        ? 'border border-white bg-darkBottom text-white'
                         : 'border border-neutral-900 bg-white text-slate-950'
                 }`}
                 onClick={() => {
@@ -61,7 +61,7 @@ export default function Display() {
                 </div>
             </button>
             <button
-                className="inline-flex h-[60px] w-[250px] items-center justify-center gap-4 rounded-lg border border-white bg-slate-950 px-3"
+                className="inline-flex h-[60px] w-[250px] items-center justify-center gap-4 rounded-lg border border-white bg-darkBottom px-3"
                 onClick={() => {
                     setThemeMode(Appearance.dark);
                 }}

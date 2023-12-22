@@ -32,6 +32,9 @@ export function AccountSetting({ source, profile }: AccountSettingProps) {
             placement="top-start"
             duration={200}
             arrow={false}
+            trigger="click"
+            hideOnClick
+            interactive
             className="account-settings"
             content={
                 <div className="flex w-[260px] flex-col gap-[23px] rounded-2xl bg-primaryBottom p-6 shadow-[0px_8px_20px_0px_rgba(0,0,0,0.04)] dark:shadow-[0px_8px_20px_0px_rgba(255,255,255,0.04)]">

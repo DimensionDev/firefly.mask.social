@@ -13,18 +13,19 @@ import { useGlobalState } from '@/store/useGlobalStore.js';
 
 export function SocialPlatformTabs() {
     const { currentSource, updateCurrentSource } = useGlobalState();
-    const currentProfile = useCurrentProfile(currentSource);
+    const lensProfile = useCurrentProfile(SocialPlatform.Lens);
+    const farcasterProfile = useCurrentProfile(SocialPlatform.Farcaster);
 
     const router = useRouter();
     const pathname = usePathname();
 
     if (isRoutePathname(pathname, '/settings') || isRoutePathname(pathname, '/post')) return null;
 
-    if (isRoutePathname(pathname, '/profile')) {
+    if (pathname !== '/profile' && isRoutePathname(pathname, '/profile')) {
         const param = pathname.split('/');
         const handle = param[param.length - 1];
-        if (currentSource === SocialPlatform.Farcaster && currentProfile?.profileId !== handle) return null;
-        if (currentSource === SocialPlatform.Lens && currentProfile?.handle !== handle) return null;
+        if (currentSource === SocialPlatform.Farcaster && farcasterProfile?.profileId !== handle) return null;
+        if (currentSource === SocialPlatform.Lens && lensProfile?.handle !== handle) return null;
     }
 
     return (
@@ -40,8 +41,11 @@ export function SocialPlatformTabs() {
                         aria-current={currentSource === value ? 'page' : undefined}
                         onClick={() =>
                             startTransition(() => {
-                                if (isRoutePathname(pathname, '/profile') && currentProfile) {
-                                    router.push(getProfileUrl(currentProfile));
+                                if (isRoutePathname(pathname, '/profile')) {
+                                    if (value === SocialPlatform.Lens)
+                                        router.push(lensProfile ? getProfileUrl(lensProfile) : '/profile');
+                                    if (value === SocialPlatform.Farcaster)
+                                        router.push(farcasterProfile ? getProfileUrl(farcasterProfile) : '/profile');
                                 }
                                 scrollTo(0, 0);
                                 updateCurrentSource(value);

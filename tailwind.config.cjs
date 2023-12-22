@@ -48,6 +48,7 @@ module.exports = {
                 tabLine: 'var(--color-tab-line)',
                 success: 'var(--color-success)',
                 collected: 'rgb(var(--color-collected) / <alpha-value>)',
+                darkBottom: 'var(--color-dark-bottom)',
             },
             backgroundImage: {
                 'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
