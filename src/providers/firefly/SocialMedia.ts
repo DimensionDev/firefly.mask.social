@@ -170,15 +170,17 @@ export class FireflySocialMedia implements Provider {
     }
 
     async getPostsByProfileId(profileId: string, indicator?: PageIndicator) {
-        const url = urlcat(FIREFLY_ROOT_URL, '/v2/user/timeline/farcaster', {
-            fids: [profileId],
-            size: 10,
-            cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
-        });
+        const url = urlcat(FIREFLY_ROOT_URL, '/v2/user/timeline/farcaster');
         const {
             data: { casts, cursor },
         } = await fetchJSON<CastsResponse>(url, {
-            method: 'GET',
+            method: 'POST',
+            body: JSON.stringify({
+                fids: [profileId],
+                size: 25,
+                sourceFid: profileId,
+                cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
+            }),
         });
         const data = casts.map((cast) => ({
             type: (cast.parent_hash ? t`Comment` : t`Post`) as PostType,
