@@ -130,7 +130,7 @@ export function LoginLens({ profiles }: LoginLensProps) {
                 )}
 
                 <div
-                    className=" bottom-0 absolute left-0 flex w-full items-center justify-between rounded-b-[8px] bg-lightBottom80 p-[16px]"
+                    className=" absolute bottom-0 left-0 flex w-full items-center justify-between rounded-b-[8px] bg-lightBottom80 p-[16px]"
                     style={{
                         boxShadow: 'box-shadow: -1px 0px 20px 0px rgba(0, 0, 0, 0.05)',
                         backdropFilter: 'blur(8px)',
