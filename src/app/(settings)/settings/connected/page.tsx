@@ -48,14 +48,18 @@ export default function Connected() {
                             <span className="text-base font-bold leading-[18px] text-second">
                                 {address ? formatEthereumAddress(address, 4) : null}
                             </span>
-                            <Tippy content={'copied'} placement="top"
+                            <Tippy
+                                content={'copied'}
+                                placement="top"
                                 duration={200}
                                 trigger="click"
                                 onShow={(instance) => {
-                                    if (timer) clearTimeout(timer)
-                                    setTimer(setTimeout(() => {
-                                        instance.hide();
-                                    }, 1000));
+                                    if (timer) clearTimeout(timer);
+                                    setTimer(
+                                        setTimeout(() => {
+                                            instance.hide();
+                                        }, 1000),
+                                    );
                                 }}
                             >
                                 <button
