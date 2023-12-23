@@ -44,7 +44,8 @@ export function AccountSetting({ source, profile }: AccountSettingProps) {
                             key={profile.profileId}
                             className="flex items-center justify-between gap-[8px]"
                             onClick={() => {
-                                if (!isSameProfile(currentProfile, profile) && source === SocialPlatform.Lens) login(profile);
+                                if (!isSameProfile(currentProfile, profile) && source === SocialPlatform.Lens)
+                                    login(profile);
                             }}
                         >
                             <ProfileAvatar profile={profile} />
