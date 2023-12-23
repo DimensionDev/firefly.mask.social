@@ -9,8 +9,8 @@ import LoadingIcon from '@/assets/loading.svg';
 import { classNames } from '@/helpers/classNames.js';
 import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
 import { LoginModalRef } from '@/modals/controls.js';
-import { FarcasterSocialMediaProvider } from '@/providers/farcaster/index.js';
-import type { WarpcastSession } from '@/providers/warpcast/Session.js';
+import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
+import type { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { WarpcastSocialMediaProvider } from '@/providers/warpcast/SocialMedia.js';
 import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
 
@@ -22,7 +22,7 @@ export function LoginFarcaster() {
     const updateCurrentProfile = useFarcasterStateStore.use.updateCurrentProfile();
 
     const login = useCallback(
-        async (createSession: () => Promise<WarpcastSession>) => {
+        async (createSession: () => Promise<FarcasterSession>) => {
             try {
                 const session = await createSession();
                 const profile = await FarcasterSocialMediaProvider.getProfileById(session.profileId);

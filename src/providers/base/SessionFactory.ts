@@ -6,7 +6,7 @@ import z from 'zod';
 import { LensSession } from '@/providers/lens/Session.js';
 import type { Session } from '@/providers/types/Session.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
-import { WarpcastSession } from '@/providers/warpcast/Session.js';
+import { FarcasterSession } from '@/providers/farcaster/Session.js';
 
 export class SessionFactory {
     /**
@@ -48,7 +48,7 @@ export class SessionFactory {
                 case SessionType.Lens:
                     return new LensSession(session.profileId, session.token, session.createdAt, session.expiresAt);
                 case SessionType.Warpcast:
-                    return new WarpcastSession(
+                    return new FarcasterSession(
                         session.profileId,
                         session.token,
                         session.createdAt,

@@ -15,7 +15,7 @@ import { SinglePost } from '@/components/Posts/SinglePost.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
-import { FarcasterSocialMediaProvider } from '@/providers/farcaster/index.js';
+import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';

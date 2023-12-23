@@ -17,7 +17,7 @@ import { $createMentionNode } from '@/components/shared/lexical/nodes/MentionsNo
 import { SocialPlatform } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
-import { FarcasterSocialMediaProvider } from '@/providers/farcaster/index.js';
+import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';

@@ -7,7 +7,7 @@ import LoadingIcon from '@/assets/loading.svg';
 import { Tooltip } from '@/components/Tooltip.js';
 import { waitForSignedKeyRequest } from '@/helpers/waitForSignedKeyRequest.js';
 import type { Session } from '@/providers/types/Session.js';
-import { WarpcastSession } from '@/providers/warpcast/Session.js';
+import { FarcasterSession } from '@/providers/farcaster/Session.js';
 
 interface WarpcastSignerRequestIndicatorProps {
     session: Session | null;
@@ -15,7 +15,7 @@ interface WarpcastSignerRequestIndicatorProps {
 }
 
 export function WarpcastSignerRequestIndicator({ session, children }: WarpcastSignerRequestIndicatorProps) {
-    const token = WarpcastSession.isGrantByPermission(session) ? session.signerRequestToken : null;
+    const token = FarcasterSession.isGrantByPermission(session) ? session.signerRequestToken : null;
     const controllerRef = useRef<AbortController>();
 
     useUnmount(() => {

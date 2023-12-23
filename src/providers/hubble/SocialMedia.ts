@@ -13,7 +13,7 @@ import { MessageType, ReactionType } from '@/providers/hubble/proto/message.js';
 import type { UserResponse } from '@/providers/types/Firefly.js';
 import { type Post, type Profile, ProfileStatus, type Provider, SessionType } from '@/providers/types/SocialMedia.js';
 import { ReactionType as ReactionTypeCustom } from '@/providers/types/SocialMedia.js';
-import type { WarpcastSession } from '@/providers/warpcast/Session.js';
+import type { FarcasterSession } from '@/providers/farcaster/Session.js';
 
 // @ts-ignore
 export class HubbleSocialMedia implements Provider {
@@ -21,7 +21,7 @@ export class HubbleSocialMedia implements Provider {
         return SessionType.Firefly;
     }
 
-    async createSession(signal?: AbortSignal): Promise<WarpcastSession> {
+    async createSession(signal?: AbortSignal): Promise<FarcasterSession> {
         throw new Error('Please use createSessionByGrantPermission() instead.');
     }
 

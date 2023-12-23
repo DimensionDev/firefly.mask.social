@@ -10,7 +10,7 @@ import { HubRestAPIClient } from '@standard-crypto/farcaster-js';
 import { compact } from 'lodash-es';
 import urlcat from 'urlcat';
 
-import { warpcastClient } from '@/configs/warpcastClient.js';
+import { farcasterClient } from '@/configs/farcasterClient.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { WARPCAST_CLIENT_URL, WARPCAST_ROOT_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
@@ -45,14 +45,14 @@ import {
 } from '@/providers/types/Warpcast.js';
 import { createSessionByCustodyWallet } from '@/providers/warpcast/createSessionByCustodyWallet.js';
 import { createSessionByGrantPermission } from '@/providers/warpcast/createSessionByGrantPermission.js';
-import { WarpcastSession } from '@/providers/warpcast/Session.js';
+import { FarcasterSession } from '@/providers/farcaster/Session.js';
 
 export class WarpcastSocialMedia implements Provider {
     get type() {
         return SessionType.Warpcast;
     }
 
-    async createSession(signal?: AbortSignal): Promise<WarpcastSession> {
+    async createSession(signal?: AbortSignal): Promise<FarcasterSession> {
         throw new Error('Please use createSessionWithURL() instead.');
     }
 
@@ -64,7 +64,7 @@ export class WarpcastSocialMedia implements Provider {
     async createSessionByGrantPermission(
         setUrl: (url: string) => void,
         signal?: AbortSignal,
-    ): Promise<WarpcastSession> {
+    ): Promise<FarcasterSession> {
         return createSessionByGrantPermission(setUrl, signal);
     }
 
@@ -95,7 +95,7 @@ export class WarpcastSocialMedia implements Provider {
             cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
         });
 
-        const { result, next } = await warpcastClient.fetchWithSession<FeedResponse>(url, {
+        const { result, next } = await farcasterClient.fetchWithSession<FeedResponse>(url, {
             method: 'GET',
         });
 
@@ -114,7 +114,7 @@ export class WarpcastSocialMedia implements Provider {
             cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
         });
 
-        const { result, next } = await warpcastClient.fetch<CastsResponse>(url);
+        const { result, next } = await farcasterClient.fetch<CastsResponse>(url);
         const data = result.casts.map(formatWarpcastPost);
         return createPageable(
             data,
@@ -127,7 +127,7 @@ export class WarpcastSocialMedia implements Provider {
         const url = urlcat(WARPCAST_ROOT_URL, '/cast', { hash: postId });
         const {
             result: { cast },
-        } = await warpcastClient.fetch<{ result: { cast: Cast } }>(url, {
+        } = await farcasterClient.fetch<{ result: { cast: Cast } }>(url, {
             method: 'GET',
         });
         return formatWarpcastPost(cast);
@@ -135,7 +135,7 @@ export class WarpcastSocialMedia implements Provider {
 
     async getProfileById(profileId: string) {
         const url = urlcat(WARPCAST_ROOT_URL, '/user', { fid: toFid(profileId) });
-        const res = await warpcastClient.fetch<UserDetailResponse>(url);
+        const res = await farcasterClient.fetch<UserDetailResponse>(url);
         const user = res.result.user;
         return formatWarpcastUser(user);
     }
@@ -146,7 +146,7 @@ export class WarpcastSocialMedia implements Provider {
             limit: 15,
             cursor: indicator?.id,
         });
-        const { result, next } = await warpcastClient.fetch<LikesResponse>(url, { method: 'GET' });
+        const { result, next } = await farcasterClient.fetch<LikesResponse>(url, { method: 'GET' });
         const data = result.likes.map((like) => formatWarpcastUser(like.reactor));
         return createPageable(
             data,
@@ -161,7 +161,7 @@ export class WarpcastSocialMedia implements Provider {
             limit: 15,
             cursor: indicator?.id,
         });
-        const { result, next } = await warpcastClient.fetch<RecastersResponse>(url, { method: 'GET' });
+        const { result, next } = await farcasterClient.fetch<RecastersResponse>(url, { method: 'GET' });
         const data = result.users.map(formatWarpcastUser);
         return createPageable(
             data,
@@ -174,7 +174,7 @@ export class WarpcastSocialMedia implements Provider {
         const url = urlcat(WARPCAST_ROOT_URL, '/user', { fid: toFid(profileId) });
         const {
             result: { user },
-        } = await warpcastClient.fetch<UserDetailResponse>(url);
+        } = await farcasterClient.fetch<UserDetailResponse>(url);
 
         if (user.viewerContext?.following) return true;
         else return false;
@@ -184,7 +184,7 @@ export class WarpcastSocialMedia implements Provider {
         const url = urlcat(WARPCAST_ROOT_URL, '/user', { fid: toFid(profileId) });
         const {
             result: { user },
-        } = await warpcastClient.fetch<UserDetailResponse>(url);
+        } = await farcasterClient.fetch<UserDetailResponse>(url);
 
         if (user.viewerContext?.followedBy) return true;
         else return false;
@@ -218,7 +218,7 @@ export class WarpcastSocialMedia implements Provider {
             limit: 10,
             cursor: indicator?.id,
         });
-        const { result, next } = await warpcastClient.fetchWithSession<UsersResponse>(url, {
+        const { result, next } = await farcasterClient.fetchWithSession<UsersResponse>(url, {
             method: 'GET',
         });
         const data = result.map(formatWarpcastUser);
@@ -235,7 +235,7 @@ export class WarpcastSocialMedia implements Provider {
             limit: 10,
             cursor: indicator?.id,
         });
-        const { result, next } = await warpcastClient.fetchWithSession<UsersResponse>(url, {
+        const { result, next } = await farcasterClient.fetchWithSession<UsersResponse>(url, {
             method: 'GET',
         });
         const data = result.map(formatWarpcastUser);
@@ -252,7 +252,7 @@ export class WarpcastSocialMedia implements Provider {
             limit: 25,
             cursor: indicator?.id,
         });
-        const { result, next } = await warpcastClient.fetchWithSession<CastsResponse>(url, {
+        const { result, next } = await farcasterClient.fetchWithSession<CastsResponse>(url, {
             method: 'GET',
         });
         const data = result.casts.map(formatWarpcastPost);
@@ -270,7 +270,7 @@ export class WarpcastSocialMedia implements Provider {
             cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
         });
 
-        const { result, next } = await warpcastClient.fetchWithSession<FeedResponse>(url, {
+        const { result, next } = await farcasterClient.fetchWithSession<FeedResponse>(url, {
             method: 'GET',
         });
         const data = result.feed.map(formatWarpcastPostFromFeed).filter((post) => post.type === 'Comment');
@@ -286,7 +286,7 @@ export class WarpcastSocialMedia implements Provider {
             limit: 25,
             cursor: indicator?.id,
         });
-        const { result, next } = await warpcastClient.fetchWithSession<NotificationResponse>(url, {
+        const { result, next } = await farcasterClient.fetchWithSession<NotificationResponse>(url, {
             method: 'GET',
         });
         const data = result.notifications.map((notification) => formatWarpcastPost(notification.content.cast));
@@ -299,7 +299,7 @@ export class WarpcastSocialMedia implements Provider {
 
     async publishPost(post: Post): Promise<Post> {
         const url = urlcat(WARPCAST_ROOT_URL, '/casts');
-        const { result: cast } = await warpcastClient.fetchWithSession<CastResponse>(url, {
+        const { result: cast } = await farcasterClient.fetchWithSession<CastResponse>(url, {
             method: 'POST',
             body: JSON.stringify({ text: post.metadata.content }),
         });
@@ -339,7 +339,7 @@ export class WarpcastSocialMedia implements Provider {
 
     async upvotePost(postId: string) {
         const url = urlcat(WARPCAST_ROOT_URL, '/cast-likes');
-        const { result: reaction } = await warpcastClient.fetchWithSession<ReactionResponse>(url, {
+        const { result: reaction } = await farcasterClient.fetchWithSession<ReactionResponse>(url, {
             method: 'POST',
             body: JSON.stringify({ castHash: postId }),
         });
@@ -353,7 +353,7 @@ export class WarpcastSocialMedia implements Provider {
 
     async unvotePost(postId: string) {
         const url = urlcat(WARPCAST_ROOT_URL, '/cast-likes');
-        await warpcastClient.fetchWithSession<ReactionResponse>(url, {
+        await farcasterClient.fetchWithSession<ReactionResponse>(url, {
             method: 'DELETE',
             body: JSON.stringify({ castHash: postId }),
         });
@@ -361,7 +361,7 @@ export class WarpcastSocialMedia implements Provider {
 
     async commentPost(postId: string, comment: string) {
         const url = urlcat(WARPCAST_ROOT_URL, '/casts', { parent: postId });
-        const response = await warpcastClient.fetchWithSession<CastResponse>(url, {
+        const response = await farcasterClient.fetchWithSession<CastResponse>(url, {
             method: 'POST',
             body: JSON.stringify({ text: comment }),
         });
@@ -370,7 +370,7 @@ export class WarpcastSocialMedia implements Provider {
 
     async mirrorPost(postId: string) {
         const url = urlcat(WARPCAST_ROOT_URL, '/recasts');
-        await warpcastClient.fetchWithSession<{ result: { castHash: string } }>(url, {
+        await farcasterClient.fetchWithSession<{ result: { castHash: string } }>(url, {
             method: 'PUT',
             body: JSON.stringify({ castHash: postId }),
         });
@@ -380,7 +380,7 @@ export class WarpcastSocialMedia implements Provider {
 
     async unmirrorPost(postId: string) {
         const url = urlcat(WARPCAST_ROOT_URL, '/recasts');
-        const { result } = await warpcastClient.fetchWithSession<SuccessResponse>(url, {
+        const { result } = await farcasterClient.fetchWithSession<SuccessResponse>(url, {
             method: 'DELETE',
             body: JSON.stringify({ castHash: postId }),
         });
@@ -389,7 +389,7 @@ export class WarpcastSocialMedia implements Provider {
 
     async followProfile(profileId: string) {
         const url = urlcat(WARPCAST_ROOT_URL, '/follows');
-        await warpcastClient.fetchWithSession<SuccessResponse>(url, {
+        await farcasterClient.fetchWithSession<SuccessResponse>(url, {
             method: 'PUT',
             body: JSON.stringify({ targetFid: Number(profileId) }),
         });
@@ -399,7 +399,7 @@ export class WarpcastSocialMedia implements Provider {
         const url = urlcat(WARPCAST_ROOT_URL, '/follows');
         const {
             result: { success },
-        } = await warpcastClient.fetchWithSession<SuccessResponse>(url, {
+        } = await farcasterClient.fetchWithSession<SuccessResponse>(url, {
             method: 'PUT',
             body: JSON.stringify({ targetFid: Number(profileId) }),
         });
@@ -411,7 +411,7 @@ export class WarpcastSocialMedia implements Provider {
         const url = urlcat(WARPCAST_ROOT_URL, '/follows');
         const {
             result: { success },
-        } = await warpcastClient.fetchWithSession<SuccessResponse>(url, {
+        } = await farcasterClient.fetchWithSession<SuccessResponse>(url, {
             method: 'DELETE',
             body: JSON.stringify({ targetFid: Number(profileId) }),
         });
@@ -459,7 +459,7 @@ export class WarpcastSocialMedia implements Provider {
             limit: 25,
             cursor: indicator?.id,
         });
-        const { result, next } = await warpcastClient.fetchWithSession<UsersResponse>(url, {
+        const { result, next } = await farcasterClient.fetchWithSession<UsersResponse>(url, {
             method: 'GET',
         });
         const data = result.map(formatWarpcastUser);
@@ -475,7 +475,7 @@ export class WarpcastSocialMedia implements Provider {
             limit: 25,
             cursor: indicator?.id,
         });
-        const { result, next } = await warpcastClient.fetchWithSession<NotificationResponse>(url, {
+        const { result, next } = await farcasterClient.fetchWithSession<NotificationResponse>(url, {
             method: 'GET',
         });
         const data = result.notifications.map<Notification | undefined>((notification) => {

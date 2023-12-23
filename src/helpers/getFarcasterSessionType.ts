@@ -1,9 +1,9 @@
-import { warpcastClient } from '@/configs/warpcastClient.js';
-import { WarpcastSession } from '@/providers/warpcast/Session.js';
+import { farcasterClient } from '@/configs/farcasterClient.js';
+import { FarcasterSession } from '@/providers/farcaster/Session.js';
 
 export function getFarcasterSessionType() {
-    const session = warpcastClient.getSession();
-    const isCustodyWallet = WarpcastSession.isCustodyWallet(session);
-    const isGrantByPermission = WarpcastSession.isGrantByPermission(session);
+    const session = farcasterClient.getSession();
+    const isCustodyWallet = FarcasterSession.isCustodyWallet(session);
+    const isGrantByPermission = FarcasterSession.isGrantByPermission(session);
     return { isCustodyWallet, isGrantByPermission };
 }

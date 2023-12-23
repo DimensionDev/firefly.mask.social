@@ -6,7 +6,7 @@ import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { generateCustodyBearer } from '@/helpers/generateCustodyBearer.js';
 import { getWarpcastErrorMessage } from '@/helpers/getWarpcastErrorMessage.js';
 import type { UserResponse } from '@/providers/types/Warpcast.js';
-import { WarpcastSession } from '@/providers/warpcast/Session.js';
+import { FarcasterSession } from '@/providers/farcaster/Session.js';
 
 /**
  * Create a session by signing the challenge with the custody wallet
@@ -41,7 +41,7 @@ export async function createSessionByCustodyWallet(client: Exclude<GetWalletClie
     const errorMessage = getWarpcastErrorMessage(userResponse);
     if (errorMessage) throw new Error(errorMessage);
 
-    return new WarpcastSession(
+    return new FarcasterSession(
         userResponse.result.user.fid.toString(),
         response.result.token.secret,
         payload.params.timestamp,

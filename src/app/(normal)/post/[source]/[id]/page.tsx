@@ -12,7 +12,7 @@ import { SITE_NAME } from '@/constants/index.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { createPageTitle } from '@/helpers/createPageTitle.js';
 import { resolveSource, type SourceInURL } from '@/helpers/resolveSource.js';
-import { FarcasterSocialMediaProvider } from '@/providers/farcaster/index.js';
+import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 

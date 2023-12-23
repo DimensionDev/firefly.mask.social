@@ -1,10 +1,15 @@
 import { t } from '@lingui/macro';
 
 import { fetchJSON } from '@/helpers/fetchJSON.js';
-import type { WarpcastSession } from '@/providers/warpcast/Session.js';
+import type { FarcasterSession } from '@/providers/farcaster/Session.js';
 
-class WarpcastClient {
-    private session: WarpcastSession | null = null;
+/**
+ * This client serves as the global client for all requests to Farcaster.
+ * When a session recover from the storage, it should be stored in this client.
+ * All Farcaster providers should read sessions from this client.
+ */
+class FarcasterClient {
+    private session: FarcasterSession | null = null;
 
     getSession() {
         return this.session;
@@ -15,14 +20,16 @@ class WarpcastClient {
         return this.session;
     }
 
-    resumeSession(session: WarpcastSession) {
+    resumeSession(session: FarcasterSession) {
         if (session.expiresAt > Date.now()) {
             this.session = session;
         }
     }
+
     fetch<T>(url: string, options?: RequestInit) {
         return this.session ? this.fetchWithSession<T>(url, options) : fetchJSON<T>(url, options);
     }
+    
     fetchWithSession<T>(url: string, options?: RequestInit) {
         if (!this.session) throw new Error('No session found');
         return fetchJSON<T>(url, {
@@ -32,4 +39,4 @@ class WarpcastClient {
     }
 }
 
-export const warpcastClient = new WarpcastClient();
+export const farcasterClient = new FarcasterClient();
