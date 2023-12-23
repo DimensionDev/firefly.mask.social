@@ -143,11 +143,12 @@ export function MentionsPlugin(): JSX.Element | null {
 
     const debounceQuery = useDebounce(queryString, 1000);
     const { data } = useQuery({
+        enabled: !!debounceQuery,
         queryKey: [
             'searchProfiles',
             source,
             debounceQuery,
-            post,
+            post?.source,
             currentLensProfile?.profileId,
             currentFarcasterProfile?.profileId,
         ],
