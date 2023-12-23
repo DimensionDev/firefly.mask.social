@@ -18,6 +18,7 @@ import { formatWarpcastPost, formatWarpcastPostFromFeed } from '@/helpers/format
 import { formatWarpcastUser } from '@/helpers/formatWarpcastUser.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { toFid } from '@/helpers/toFid.js';
+import { FarcasterSession } from '@/providers/farcaster/Session.js';
 import {
     type Notification,
     NotificationType,
@@ -45,7 +46,6 @@ import {
 } from '@/providers/types/Warpcast.js';
 import { createSessionByCustodyWallet } from '@/providers/warpcast/createSessionByCustodyWallet.js';
 import { createSessionByGrantPermission } from '@/providers/warpcast/createSessionByGrantPermission.js';
-import { FarcasterSession } from '@/providers/farcaster/Session.js';
 
 export class WarpcastSocialMedia implements Provider {
     get type() {

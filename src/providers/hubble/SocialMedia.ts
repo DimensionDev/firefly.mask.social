@@ -9,11 +9,11 @@ import { SocialPlatform } from '@/constants/enum.js';
 import { EMPTY_LIST, FIREFLY_HUBBLE_URL, FIREFLY_ROOT_URL } from '@/constants/index.js';
 import { encodeMessageData } from '@/helpers/encodeMessageData.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
+import type { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { MessageType, ReactionType } from '@/providers/hubble/proto/message.js';
 import type { UserResponse } from '@/providers/types/Firefly.js';
 import { type Post, type Profile, ProfileStatus, type Provider, SessionType } from '@/providers/types/SocialMedia.js';
 import { ReactionType as ReactionTypeCustom } from '@/providers/types/SocialMedia.js';
-import type { FarcasterSession } from '@/providers/farcaster/Session.js';
 
 // @ts-ignore
 export class HubbleSocialMedia implements Provider {

@@ -17,6 +17,7 @@ import { FIREFLY_ROOT_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { formatFarcasterPostFromFirefly } from '@/helpers/formatFarcasterPostFromFirefly.js';
 import { formatFarcasterProfileFromFirefly } from '@/helpers/formatFarcasterProfileFromFirefly.js';
+import type { FarcasterSession } from '@/providers/farcaster/Session.js';
 import type {
     CastResponse,
     CastsResponse,
@@ -38,7 +39,6 @@ import {
     type Reaction,
     SessionType,
 } from '@/providers/types/SocialMedia.js';
-import type { FarcasterSession } from '@/providers/farcaster/Session.js';
 
 // @ts-ignore
 export class FireflySocialMedia implements Provider {

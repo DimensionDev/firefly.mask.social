@@ -5,8 +5,8 @@ import { WARPCAST_ROOT_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { generateCustodyBearer } from '@/helpers/generateCustodyBearer.js';
 import { getWarpcastErrorMessage } from '@/helpers/getWarpcastErrorMessage.js';
-import type { UserResponse } from '@/providers/types/Warpcast.js';
 import { FarcasterSession } from '@/providers/farcaster/Session.js';
+import type { UserResponse } from '@/providers/types/Warpcast.js';
 
 /**
  * Create a session by signing the challenge with the custody wallet

@@ -6,9 +6,9 @@ import { farcasterClient } from '@/configs/farcasterClient.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 import { createSessionStorage } from '@/helpers/createSessionStorage.js';
+import type { FarcasterSession } from '@/providers/farcaster/Session.js';
 import type { Session } from '@/providers/types/Session.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
-import type { FarcasterSession } from '@/providers/farcaster/Session.js';
 
 interface FarcasterState {
     profiles: Profile[];

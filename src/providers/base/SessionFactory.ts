@@ -3,10 +3,10 @@ import { safeUnreachable } from '@masknet/kit';
 import { parseJSON } from '@masknet/web3-providers/helpers';
 import z from 'zod';
 
+import { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { LensSession } from '@/providers/lens/Session.js';
 import type { Session } from '@/providers/types/Session.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
-import { FarcasterSession } from '@/providers/farcaster/Session.js';
 
 export class SessionFactory {
     /**
