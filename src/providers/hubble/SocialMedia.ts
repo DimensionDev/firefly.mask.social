@@ -68,15 +68,15 @@ export class HubbleSocialMedia implements Provider {
         throw new Error('Method not implemented.');
     }
 
-    async publishPost(post: Post, parentPost?: Post | null): Promise<Post> {
+    async publishPost(post: Post): Promise<Post> {
         const { bytes } = await encodeMessageData(() => ({
             type: MessageType.CAST_ADD,
             castAddBody: {
                 embedsDeprecated: [],
-                parentCastId: parentPost
+                parentCastId: post.commentOn
                     ? {
-                          fid: toInteger(parentPost.author.profileId),
-                          hash: toBytes(parentPost.postId),
+                          fid: toInteger(post.commentOn.author.profileId),
+                          hash: toBytes(post.commentOn.postId),
                       }
                     : undefined,
                 parentUrl: undefined,
