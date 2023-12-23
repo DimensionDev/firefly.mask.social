@@ -2,8 +2,8 @@ import { t } from '@lingui/macro';
 import { useMemo } from 'react';
 
 import CloseIcon from '@/assets/close.svg';
-import { Tooltip } from '@/components/Tooltip.js';
 import { Image } from '@/esm/Image.js';
+import { Tippy } from '@/esm/Tippy.js';
 import { classNames } from '@/helpers/classNames.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 import type { MediaObject } from '@/types/index.js';
@@ -29,11 +29,14 @@ export default function ComposeImage({ index, image }: ComposeImageProps) {
             )}
         >
             <Image src={blobURL} alt={image.file.name} fill className=" object-cover" />
-            <div className=" absolute right-2 top-2 z-50 h-[18px] w-[18px]">
-                <Tooltip content={t`Remove`} placement="top">
-                    <CloseIcon className=" cursor-pointer" width={18} height={18} onClick={() => removeImage(image)} />
-                </Tooltip>
-            </div>
+            <Tippy content={<span>{t`Remove`}</span>} placement="top">
+                <button
+                    className="radius-8 absolute right-1 top-1 z-50 inline-flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-gray-500 hover:bg-opacity-70"
+                    onClick={() => removeImage(image)}
+                >
+                    <CloseIcon width={18} height={18} color="#fff" />
+                </button>
+            </Tippy>
         </div>
     );
 }
