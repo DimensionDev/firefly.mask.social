@@ -469,6 +469,9 @@ msgstr "{0} and others"
 msgid "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code"
 msgstr "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code"
 
+msgid "Confirm to log out {0}?"
+msgstr "Confirm to log out {0}?"
+
 msgid "Unknown session type."
 msgstr "Unknown session type."
 
@@ -492,9 +495,6 @@ msgstr "Failed to unvote post"
 
 msgid "Failed to upload image to IPFS: {0}"
 msgstr "Failed to upload image to IPFS: {0}"
-
-msgid "Confirm to log out these accounts?"
-msgstr "Confirm to log out these accounts?"
 
 msgid "Light mode"
 msgstr "Light mode"
