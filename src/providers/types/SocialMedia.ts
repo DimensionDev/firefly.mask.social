@@ -6,9 +6,7 @@ import type { MetadataAsset } from '@/types/index.js';
 
 export enum SessionType {
     Twitter = 'Twitter',
-    Warpcast = 'Warpcast',
     Lens = 'Lens',
-    Firefly = 'Firefly',
     Farcaster = 'Farcaster',
 }
 

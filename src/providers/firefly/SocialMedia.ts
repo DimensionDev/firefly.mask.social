@@ -11,12 +11,13 @@ import { isZero } from '@masknet/web3-shared-base';
 import { compact } from 'lodash-es';
 import urlcat from 'urlcat';
 
-import { warpcastClient } from '@/configs/warpcastClient.js';
+import { farcasterClient } from '@/configs/farcasterClient.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { FIREFLY_ROOT_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { formatFarcasterPostFromFirefly } from '@/helpers/formatFarcasterPostFromFirefly.js';
 import { formatFarcasterProfileFromFirefly } from '@/helpers/formatFarcasterProfileFromFirefly.js';
+import type { FarcasterSession } from '@/providers/farcaster/Session.js';
 import type {
     CastResponse,
     CastsResponse,
@@ -38,15 +39,14 @@ import {
     type Reaction,
     SessionType,
 } from '@/providers/types/SocialMedia.js';
-import type { WarpcastSession } from '@/providers/warpcast/Session.js';
 
 // @ts-ignore
 export class FireflySocialMedia implements Provider {
     get type() {
-        return SessionType.Firefly;
+        return SessionType.Farcaster;
     }
 
-    async createSession(signal?: AbortSignal): Promise<WarpcastSession> {
+    async createSession(signal?: AbortSignal): Promise<FarcasterSession> {
         throw new Error('Please use createSessionByGrantPermission() instead.');
     }
 
@@ -55,7 +55,7 @@ export class FireflySocialMedia implements Provider {
     }
 
     async getPostById(postId: string): Promise<Post> {
-        const session = warpcastClient.getSession();
+        const session = farcasterClient.getSession();
         const url = urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/cast', { hash: postId, fid: session?.profileId });
         const { data: cast } = await fetchJSON<CastResponse>(url, {
             method: 'GET',
@@ -217,7 +217,7 @@ export class FireflySocialMedia implements Provider {
     }
 
     async getNotifications(indicator?: PageIndicator): Promise<Pageable<Notification, PageIndicator>> {
-        const session = warpcastClient.getSessionRequired();
+        const session = farcasterClient.getSessionRequired();
         const profileId = session.profileId;
         if (!profileId) throw new Error(t`Login required`);
         const url = urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/notifications', {
@@ -290,7 +290,7 @@ export class FireflySocialMedia implements Provider {
         profileId: string,
         indicator?: PageIndicator | undefined,
     ): Promise<Pageable<Post, PageIndicator>> {
-        const session = warpcastClient.getSessionRequired();
+        const session = farcasterClient.getSessionRequired();
         // TODO: replace to prod url
         const url = urlcat('https://api-dev.firefly.land', '/v2/timeline/farcaster_for_fid');
 
@@ -346,7 +346,7 @@ export class FireflySocialMedia implements Provider {
     }
 
     async getLikeReactors(postId: string, indicator?: PageIndicator) {
-        const session = warpcastClient.getSession();
+        const session = farcasterClient.getSession();
         const url = urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/cast/likes', {
             castHash: postId,
             size: 15,
@@ -379,7 +379,7 @@ export class FireflySocialMedia implements Provider {
     }
 
     async getMirrorReactors(postId: string, indicator?: PageIndicator) {
-        const session = warpcastClient.getSession();
+        const session = farcasterClient.getSession();
         const url = urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/cast/recasters', {
             castHash: postId,
             size: 15,

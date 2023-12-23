@@ -14,7 +14,7 @@ import { SinglePost } from '@/components/Posts/SinglePost.js';
 import { ProfileInList } from '@/components/Search/ProfileInList.js';
 import { useSearchState } from '@/components/Search/useSearchState.js';
 import { SearchType, SocialPlatform } from '@/constants/enum.js';
-import { FarcasterSocialMediaProvider } from '@/providers/farcaster/index.js';
+import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import type { Post, Profile } from '@/providers/types/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';

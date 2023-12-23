@@ -4,7 +4,7 @@ import { blake3 } from '@noble/hashes/blake3';
 import { sha512 } from '@noble/hashes/sha512';
 import { toBytes } from 'viem';
 
-import { warpcastClient } from '@/configs/warpcastClient.js';
+import { farcasterClient } from '@/configs/farcasterClient.js';
 import { FarcasterNetwork, MessageData } from '@/providers/hubble/proto/message.js';
 import type { PartialWith } from '@/types/index.js';
 
@@ -14,7 +14,7 @@ export async function encodeMessageData(
     withMessageData: (profileId: number) => PartialWith<MessageData, 'fid' | 'timestamp' | 'network'>,
     withPrivateKey?: string,
 ) {
-    const { token, profileId } = warpcastClient.getSessionRequired();
+    const { token, profileId } = farcasterClient.getSessionRequired();
     const privateKey = withPrivateKey ?? token;
     const messageData: MessageData = {
         ...withMessageData(Number(profileId)),

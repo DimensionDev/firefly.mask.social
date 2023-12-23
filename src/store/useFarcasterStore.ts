@@ -2,13 +2,13 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
 
-import { warpcastClient } from '@/configs/warpcastClient.js';
+import { farcasterClient } from '@/configs/farcasterClient.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 import { createSessionStorage } from '@/helpers/createSessionStorage.js';
+import type { FarcasterSession } from '@/providers/farcaster/Session.js';
 import type { Session } from '@/providers/types/Session.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
-import type { WarpcastSession } from '@/providers/warpcast/Session.js';
 
 interface FarcasterState {
     profiles: Profile[];
@@ -58,7 +58,7 @@ const useFarcasterStateBase = create<FarcasterState, [['zustand/persist', unknow
                     return;
                 }
                 if (session) {
-                    warpcastClient.resumeSession(session as WarpcastSession);
+                    farcasterClient.resumeSession(session as FarcasterSession);
                 }
             },
         },

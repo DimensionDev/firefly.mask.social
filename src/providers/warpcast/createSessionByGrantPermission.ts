@@ -1,6 +1,6 @@
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { waitForSignedKeyRequest } from '@/helpers/waitForSignedKeyRequest.js';
-import { WarpcastSession } from '@/providers/warpcast/Session.js';
+import { FarcasterSession } from '@/providers/farcaster/Session.js';
 import type { ResponseJSON } from '@/types/index.js';
 
 /**
@@ -29,7 +29,7 @@ export async function createSessionByGrantPermission(setUrl?: (url: string) => v
 
     const signedResponse = await waitForSignedKeyRequest(signal)(response.data.token);
 
-    return new WarpcastSession(
+    return new FarcasterSession(
         `${signedResponse.result.signedKeyRequest.userFid}`,
         response.data.privateKey,
         response.data.timestamp,

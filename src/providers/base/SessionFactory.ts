@@ -3,10 +3,10 @@ import { safeUnreachable } from '@masknet/kit';
 import { parseJSON } from '@masknet/web3-providers/helpers';
 import z from 'zod';
 
+import { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { LensSession } from '@/providers/lens/Session.js';
 import type { Session } from '@/providers/types/Session.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
-import { WarpcastSession } from '@/providers/warpcast/Session.js';
 
 export class SessionFactory {
     /**
@@ -47,8 +47,8 @@ export class SessionFactory {
             switch (type) {
                 case SessionType.Lens:
                     return new LensSession(session.profileId, session.token, session.createdAt, session.expiresAt);
-                case SessionType.Warpcast:
-                    return new WarpcastSession(
+                case SessionType.Farcaster:
+                    return new FarcasterSession(
                         session.profileId,
                         session.token,
                         session.createdAt,
@@ -56,10 +56,6 @@ export class SessionFactory {
                         signerRequestToken,
                     );
                 case SessionType.Twitter:
-                    throw new Error(t`Not implemented yet.`);
-                case SessionType.Firefly:
-                    throw new Error(t`Not implemented yet.`);
-                case SessionType.Farcaster:
                     throw new Error(t`Not implemented yet.`);
                 default:
                     safeUnreachable(type);

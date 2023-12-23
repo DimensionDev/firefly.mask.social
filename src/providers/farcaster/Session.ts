@@ -6,7 +6,7 @@ import { BaseSession } from '@/providers/base/Session.js';
 import type { Session } from '@/providers/types/Session.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 
-export class WarpcastSession extends BaseSession implements Session {
+export class FarcasterSession extends BaseSession implements Session {
     constructor(
         profileId: string,
         token: string,
@@ -14,7 +14,7 @@ export class WarpcastSession extends BaseSession implements Session {
         expiresAt: number,
         public signerRequestToken?: string,
     ) {
-        super(SessionType.Warpcast, profileId, token, createdAt, expiresAt);
+        super(SessionType.Farcaster, profileId, token, createdAt, expiresAt);
     }
 
     override serialize(): `${SessionType}:${string}:${string}` {
@@ -50,13 +50,13 @@ export class WarpcastSession extends BaseSession implements Session {
         return;
     }
 
-    static isGrantByPermission(session: Session | null): session is WarpcastSession & { signerRequestToken: string } {
+    static isGrantByPermission(session: Session | null): session is FarcasterSession & { signerRequestToken: string } {
         if (!session) return false;
-        return session.type === SessionType.Warpcast && !(session as WarpcastSession).signerRequestToken;
+        return session.type === SessionType.Farcaster && !(session as FarcasterSession).signerRequestToken;
     }
 
-    static isCustodyWallet(session: Session | null): session is WarpcastSession & { signerRequestToken: undefined } {
+    static isCustodyWallet(session: Session | null): session is FarcasterSession & { signerRequestToken: undefined } {
         if (!session) return false;
-        return session.type === SessionType.Warpcast && !!(session as WarpcastSession).signerRequestToken;
+        return session.type === SessionType.Farcaster && !!(session as FarcasterSession).signerRequestToken;
     }
 }
