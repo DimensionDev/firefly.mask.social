@@ -13,15 +13,14 @@ export default function Display() {
 
     return (
         <div className="flex w-full flex-col items-center p-[24px]">
-            <div className=" w-full gap-[24px] text-[18px] font-bold leading-[24px] text-main">
+            <div className=" w-full gap-[24px] text-[20px] font-bold leading-[24px] text-main">
                 <Trans>Display</Trans>
             </div>
             <button
-                className={`my-[12px] inline-flex h-[60px] w-[250px] items-center justify-center gap-5 rounded-lg px-3 ${
-                    isDarkOS
+                className={`my-[12px] inline-flex h-[60px] w-[250px] items-center justify-center gap-5 rounded-lg px-3 ${isDarkOS
                         ? 'border border-white bg-darkBottom text-white'
                         : 'border border-neutral-900 bg-white text-slate-950'
-                }`}
+                    }`}
                 onClick={() => {
                     setThemeMode(Appearance.default);
                 }}

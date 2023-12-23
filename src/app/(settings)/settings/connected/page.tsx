@@ -32,7 +32,7 @@ export default function Connected() {
     return (
         <div className="flex w-full flex-col items-center gap-[24px] p-[24px]">
             <div className=" flex w-full items-center justify-between gap-[24px]">
-                <span className="text-[18px] font-bold leading-[24px] text-main">
+                <span className="text-[20px] font-bold leading-[24px] text-main">
                     <Trans>Connected Accounts</Trans>
                 </span>
             </div>
@@ -103,7 +103,7 @@ export default function Connected() {
                     }}
                 >
                     <div className="inline-flex h-10 items-center justify-center gap-2 self-stretch rounded-2xl bg-lightMain px-[18px] py-[11px]">
-                        <div className="text-sm font-bold leading-[18px] text-primaryBottom">
+                        <div className="text-[15px] font-bold leading-[18px] text-primaryBottom">
                             <Trans>Add an existing account</Trans>
                         </div>
                     </div>
@@ -116,7 +116,7 @@ export default function Connected() {
                     }}
                 >
                     <div className="inline-flex h-10 items-center justify-center gap-2 self-stretch rounded-2xl bg-danger px-[18px] py-[11px]">
-                        <div className="text-sm font-bold leading-[18px] text-white dark:text-lightMain">
+                        <div className="text-[15px] font-bold leading-[18px] text-white dark:text-lightMain">
                             <Trans>Log out all</Trans>
                         </div>
                     </div>
