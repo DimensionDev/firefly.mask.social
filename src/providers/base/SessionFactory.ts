@@ -47,7 +47,7 @@ export class SessionFactory {
             switch (type) {
                 case SessionType.Lens:
                     return new LensSession(session.profileId, session.token, session.createdAt, session.expiresAt);
-                case SessionType.Warpcast:
+                case SessionType.Farcaster:
                     return new FarcasterSession(
                         session.profileId,
                         session.token,
@@ -56,10 +56,6 @@ export class SessionFactory {
                         signerRequestToken,
                     );
                 case SessionType.Twitter:
-                    throw new Error(t`Not implemented yet.`);
-                case SessionType.Firefly:
-                    throw new Error(t`Not implemented yet.`);
-                case SessionType.Farcaster:
                     throw new Error(t`Not implemented yet.`);
                 default:
                     safeUnreachable(type);

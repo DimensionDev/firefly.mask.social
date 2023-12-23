@@ -49,7 +49,7 @@ import { FarcasterSession } from '@/providers/farcaster/Session.js';
 
 export class WarpcastSocialMedia implements Provider {
     get type() {
-        return SessionType.Warpcast;
+        return SessionType.Farcaster;
     }
 
     async createSession(signal?: AbortSignal): Promise<FarcasterSession> {

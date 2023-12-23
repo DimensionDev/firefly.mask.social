@@ -43,7 +43,7 @@ import type { FarcasterSession } from '@/providers/farcaster/Session.js';
 // @ts-ignore
 export class FireflySocialMedia implements Provider {
     get type() {
-        return SessionType.Firefly;
+        return SessionType.Farcaster;
     }
 
     async createSession(signal?: AbortSignal): Promise<FarcasterSession> {

@@ -14,7 +14,7 @@ export class FarcasterSession extends BaseSession implements Session {
         expiresAt: number,
         public signerRequestToken?: string,
     ) {
-        super(SessionType.Warpcast, profileId, token, createdAt, expiresAt);
+        super(SessionType.Farcaster, profileId, token, createdAt, expiresAt);
     }
 
     override serialize(): `${SessionType}:${string}:${string}` {
@@ -52,11 +52,11 @@ export class FarcasterSession extends BaseSession implements Session {
 
     static isGrantByPermission(session: Session | null): session is FarcasterSession & { signerRequestToken: string } {
         if (!session) return false;
-        return session.type === SessionType.Warpcast && !(session as FarcasterSession).signerRequestToken;
+        return session.type === SessionType.Farcaster && !(session as FarcasterSession).signerRequestToken;
     }
 
     static isCustodyWallet(session: Session | null): session is FarcasterSession & { signerRequestToken: undefined } {
         if (!session) return false;
-        return session.type === SessionType.Warpcast && !!(session as FarcasterSession).signerRequestToken;
+        return session.type === SessionType.Farcaster && !!(session as FarcasterSession).signerRequestToken;
     }
 }
