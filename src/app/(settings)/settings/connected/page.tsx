@@ -2,22 +2,34 @@
 
 import { Trans } from '@lingui/macro';
 import { formatEthereumAddress } from '@masknet/web3-shared-evm';
+import { useCallback, useState } from 'react';
+import { useCopyToClipboard } from 'usehooks-ts';
 import { useAccount } from 'wagmi';
 
 import { AccountCard } from '@/app/(settings)/components/AccountCard.js';
 import CopyIcon from '@/assets/copy.svg';
+import { Tippy } from '@/esm/Tippy.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
+import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
 import { LogoutModalRef } from '@/modals/controls.js';
 import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
 import { useLensStateStore } from '@/store/useLensStore.js';
 
 export default function Connected() {
     const { address } = useAccount();
+    const [timer, setTimer] = useState<NodeJS.Timeout>();
 
     const lensProfiles = useLensStateStore.use.profiles();
     const farcasterProfiles = useFarcasterStateStore.use.profiles();
     const currentLensProfile = useLensStateStore.use.currentProfile();
     const currentFarcasterProfile = useFarcasterStateStore.use.currentProfile();
+    const enqueueSnackbar = useCustomSnackbar();
+    const [, copyToClipboard] = useCopyToClipboard();
+
+    const handleClick = useCallback(() => {
+        if (!address) return;
+        copyToClipboard(address);
+    }, [enqueueSnackbar, address, copyToClipboard]);
 
     return (
         <div className="flex w-full flex-col items-center gap-[24px] p-[24px]">
@@ -36,7 +48,28 @@ export default function Connected() {
                             <span className="text-base font-bold leading-[18px] text-second">
                                 {address ? formatEthereumAddress(address, 4) : null}
                             </span>
-                            <CopyIcon width={14} height={14} />
+                            <Tippy
+                                content={'copied'}
+                                placement="top"
+                                duration={200}
+                                trigger="click"
+                                onShow={(instance) => {
+                                    if (timer) clearTimeout(timer);
+                                    setTimer(
+                                        setTimeout(() => {
+                                            instance.hide();
+                                        }, 1000),
+                                    );
+                                }}
+                            >
+                                <button
+                                    onClick={() => {
+                                        handleClick();
+                                    }}
+                                >
+                                    <CopyIcon width={14} height={14} />
+                                </button>
+                            </Tippy>
                         </div>
                     </div>
                     {lensProfiles.map((profile) => (

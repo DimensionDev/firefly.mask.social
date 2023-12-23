@@ -32,7 +32,11 @@ export default function ComposeImage({ index, image }: ComposeImageProps) {
             <Tippy content={<span>{t`Remove`}</span>} placement="top">
                 <button
                     className="radius-8 absolute right-1 top-1 z-50 inline-flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-gray-500 hover:bg-opacity-70"
-                    onClick={() => removeImage(image)}
+                    onClick={(e) => {
+                        // prevent triggering twice.
+                        e.preventDefault();
+                        removeImage(image);
+                    }}
                 >
                     <CloseIcon width={18} height={18} color="#fff" />
                 </button>
