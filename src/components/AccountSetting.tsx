@@ -2,7 +2,6 @@
 
 import { Trans } from '@lingui/macro';
 import { useMediaQuery } from 'usehooks-ts';
-import { useDisconnect } from 'wagmi';
 
 import LogOutIcon from '@/assets/logout.svg';
 import UserAddIcon from '@/assets/user-add.svg';
@@ -23,8 +22,7 @@ interface AccountSettingProps {
 }
 
 export function AccountSetting({ source, profile }: AccountSettingProps) {
-    const { disconnect } = useDisconnect();
-    const { currentProfile, currentProfileSession, profiles, clearCurrentProfile } = useProfiles(source);
+    const { currentProfile, currentProfileSession, profiles } = useProfiles(source);
 
     const isLarge = useMediaQuery('(min-width: 1265px)');
     return (
@@ -50,8 +48,6 @@ export function AccountSetting({ source, profile }: AccountSettingProps) {
                     <button
                         className="flex w-full items-center gap-[8px]"
                         onClick={() => {
-                            if (source === SocialPlatform.Lens) disconnect();
-                            clearCurrentProfile();
                             LoginModalRef.open();
                         }}
                     >
