@@ -37,8 +37,7 @@ export class FarcasterSocialMedia implements Provider {
     async getPostsByProfileId(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         const { isCustodyWallet } = getFarcasterSessionType();
         if (isCustodyWallet) return WarpcastSocialMediaProvider.getPostsByProfileId(profileId, indicator);
-        // TODO: replace to firefly api
-        return WarpcastSocialMediaProvider.getPostsByProfileId(profileId, indicator);
+        return FireflySocialMediaProvider.getPostsByProfileId(profileId, indicator);
     }
 
     async getPostById(postId: string): Promise<Post> {

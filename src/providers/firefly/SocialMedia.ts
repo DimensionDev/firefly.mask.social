@@ -170,6 +170,7 @@ export class FireflySocialMedia implements Provider {
     }
 
     async getPostsByProfileId(profileId: string, indicator?: PageIndicator) {
+        const session = farcasterClient.getSession();
         const url = urlcat(FIREFLY_ROOT_URL, '/v2/user/timeline/farcaster');
         const {
             data: { casts, cursor },
@@ -178,7 +179,7 @@ export class FireflySocialMedia implements Provider {
             body: JSON.stringify({
                 fids: [profileId],
                 size: 25,
-                sourceFid: profileId,
+                sourceFid: session?.profileId,
                 cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
             }),
         });
