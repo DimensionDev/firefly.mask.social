@@ -270,7 +270,7 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
                 const postLink = getPostUrl(post);
                 return (
                     <Link className="mt-1" href={postLink}>
-                        <Markup post={post} className="markup linkify text-md line-clamp-5 break-words">
+                        <Markup post={post} className="markup linkify line-clamp-5 break-words text-[15px]">
                             {post.metadata.content?.content || ''}
                         </Markup>
                     </Link>
@@ -278,7 +278,10 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
             case NotificationType.Quote:
                 return (
                     <div className="mt-1">
-                        <Markup post={notification.quote} className="markup linkify text-md line-clamp-5 break-words">
+                        <Markup
+                            post={notification.quote}
+                            className="markup linkify line-clamp-5 break-words text-[15px]"
+                        >
                             {notification.quote.metadata.content?.content || ''}
                         </Markup>
                         <Quote className="bg-bg" post={notification.post} />
