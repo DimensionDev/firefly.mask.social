@@ -13,7 +13,7 @@ interface AccountCardProps {
 }
 
 export function AccountCard({ profile, isCurrent }: AccountCardProps) {
-    const { login } = useSwitchLensAccount()
+    const { login } = useSwitchLensAccount();
 
     return (
         <div
@@ -34,7 +34,9 @@ export function AccountCard({ profile, isCurrent }: AccountCardProps) {
             ) : (
                 <button
                     className="text-right font-['Inter'] text-[15px] font-medium leading-none text-main"
-                    onClick={() => { if (profile.source === SocialPlatform.Lens) login(profile) }}
+                    onClick={() => {
+                        if (profile.source === SocialPlatform.Lens) login(profile);
+                    }}
                 >
                     <Trans>Switch</Trans>
                 </button>
