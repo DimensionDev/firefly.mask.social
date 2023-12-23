@@ -15,7 +15,6 @@ import { useCopyToClipboard } from 'usehooks-ts';
 import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
 import { t } from '@lingui/macro';
 
-
 export default function Connected() {
     const { address } = useAccount();
 
@@ -27,7 +26,7 @@ export default function Connected() {
     const [, copyToClipboard] = useCopyToClipboard();
 
     const handleClick = useCallback(() => {
-        if (!address) return
+        if (!address) return;
         copyToClipboard(address);
         enqueueSnackbar(t`Copied`, {
             variant: 'success',
@@ -51,7 +50,11 @@ export default function Connected() {
                             <span className="text-base font-bold leading-[18px] text-second">
                                 {address ? formatEthereumAddress(address, 4) : null}
                             </span>
-                            <button onClick={() => { handleClick() }}>
+                            <button
+                                onClick={() => {
+                                    handleClick();
+                                }}
+                            >
                                 <CopyIcon width={14} height={14} />
                             </button>
                         </div>
