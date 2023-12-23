@@ -218,6 +218,7 @@ export const Mirror = memo<MirrorProps>(function Mirror({
                                                 ComposeModalRef.open({
                                                     type: 'quote',
                                                     post,
+                                                    source,
                                                 });
                                             }}
                                         >

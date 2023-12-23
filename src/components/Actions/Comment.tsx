@@ -50,6 +50,7 @@ export const Comment = memo<CommentProps>(function Comment({
             ComposeModalRef.open({
                 type: 'reply',
                 post,
+                source,
             });
         } else {
             enqueueSnackbar(t`You cannot reply to @${author} on ${source}`, {
