@@ -13,7 +13,7 @@ export const MentionLink = memo<{ title: string; link: string }>(function Mentio
     if (!title) return null;
 
     return (
-        <Link href={link} className="text-link">
+        <Link href={link} className="text-link" onClick={(event) => event.stopPropagation()}>
             {formatMentionTitle(title)}
         </Link>
     );

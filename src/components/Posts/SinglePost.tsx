@@ -3,10 +3,10 @@
 import { motion } from 'framer-motion';
 import { usePathname, useRouter } from 'next/navigation.js';
 import { memo } from 'react';
+import { useInView } from 'react-cool-inview';
 
 import { FeedActionType } from '@/components/Posts/ActionType.js';
 import { dynamic } from '@/esm/dynamic.js';
-import { Link } from '@/esm/Link.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { useObserveLensPost } from '@/hooks/useObserveLensPost.js';
@@ -40,36 +40,37 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
     const isPostPage = isRoutePathname(pathname, '/post');
     const postLink = getPostUrl(post);
 
+    const { observe: observeRef } = useInView({
+        rootMargin: '300px 0px',
+        onChange: async ({ inView }) => {
+            if (!inView || isPostPage) {
+                return;
+            }
+            router.prefetch(postLink);
+        },
+    });
+
     return (
         <motion.article
+            ref={observeRef}
             initial={!disableAnimate ? { opacity: 0 } : false}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="cursor-pointer border-b border-line bg-bottom px-4 py-3 hover:bg-bg"
             onClick={() => {
-                if (!isPostPage) {
+                const selection = window.getSelection();
+                if (selection && selection.toString().length !== 0) return;
+                if (!isPostPage || isComment) {
                     router.push(postLink);
                 }
             }}
         >
             {!isComment ? <FeedActionType post={post} /> : null}
-            {!isPostPage || isComment ? (
-                <Link href={postLink}>
-                    <PostHeader post={post} />
+            <PostHeader post={post} />
 
-                    <PostBody post={post} showMore={showMore} ref={observe} />
+            <PostBody post={post} showMore={showMore} ref={observe} />
 
-                    {!isDetail ? <PostActions post={post} disabled={post.isHidden} /> : null}
-                </Link>
-            ) : (
-                <>
-                    <PostHeader post={post} />
-
-                    <PostBody post={post} showMore={showMore} ref={observe} />
-
-                    {!isDetail ? <PostActions post={post} disabled={post.isHidden} /> : null}
-                </>
-            )}
+            {!isDetail ? <PostActions post={post} disabled={post.isHidden} /> : null}
         </motion.article>
     );
 });

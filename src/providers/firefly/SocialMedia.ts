@@ -290,7 +290,9 @@ export class FireflySocialMedia implements Provider {
         profileId: string,
         indicator?: PageIndicator | undefined,
     ): Promise<Pageable<Post, PageIndicator>> {
-        const url = urlcat(FIREFLY_ROOT_URL, '/v2/timeline/farcaster_for_fid');
+        const session = warpcastClient.getSessionRequired();
+        // TODO: replace to prod url
+        const url = urlcat('https://api-dev.firefly.land', '/v2/timeline/farcaster_for_fid');
 
         const {
             data: { casts, cursor },
@@ -300,7 +302,7 @@ export class FireflySocialMedia implements Provider {
                 fid: profileId,
                 size: 25,
                 needRootParentHash: true,
-                sourceFid: profileId,
+                sourceFid: session?.profileId,
                 cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
             }),
         });
