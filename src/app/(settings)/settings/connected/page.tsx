@@ -1,6 +1,6 @@
 'use client';
 
-import { t, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import { formatEthereumAddress } from '@masknet/web3-shared-evm';
 import { useCallback, useState } from 'react';
 import { useCopyToClipboard } from 'usehooks-ts';
@@ -8,12 +8,12 @@ import { useAccount } from 'wagmi';
 
 import { AccountCard } from '@/app/(settings)/components/AccountCard.js';
 import CopyIcon from '@/assets/copy.svg';
+import { Tippy } from '@/esm/Tippy.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
 import { LogoutModalRef } from '@/modals/controls.js';
 import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
 import { useLensStateStore } from '@/store/useLensStore.js';
-import { Tippy } from '@/esm/Tippy.js';
 
 export default function Connected() {
     const { address } = useAccount();
