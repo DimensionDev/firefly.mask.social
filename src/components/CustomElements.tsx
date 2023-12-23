@@ -11,7 +11,6 @@ export default function CustomElements() {
     const { value } = useAsync(async () => {
         // storage must be imported before custom-elements
         await import('@/mask/setup/storage.js');
-
         await import('@/mask/custom-elements.js');
 
         return true;
