@@ -37,7 +37,7 @@ export function AccountSetting({ source, profile }: AccountSettingProps) {
             interactive
             className="account-settings"
             content={
-                <div className="flex w-[260px] flex-col gap-[23px] rounded-2xl bg-primaryBottom p-6 shadow-[0px_8px_20px_0px_rgba(0,0,0,0.04)] dark:shadow-[0px_8px_20px_0px_rgba(255,255,255,0.04)]">
+                <div className="flex w-[260px] flex-col gap-[23px] rounded-2xl bg-primaryBottom p-6 shadow-[0px_8px_20px_0px_rgba(0,0,0,0.04)] dark:bg-bg dark:shadow-[0px_8px_20px_0px_rgba(255,255,255,0.04)]">
                     {profiles.map((profile) => (
                         <div key={profile.profileId} className="flex items-center justify-between gap-[8px]">
                             <ProfileAvatar profile={profile} />
@@ -56,7 +56,7 @@ export function AccountSetting({ source, profile }: AccountSettingProps) {
                         }}
                     >
                         <UserAddIcon width={24} height={24} />
-                        <div className=" text-[17px] font-bold leading-[22px] text-[#101010] dark:text-gray-400">
+                        <div className=" text-[17px] font-bold leading-[22px] text-main">
                             <Trans>Change account</Trans>
                         </div>
                     </button>
@@ -67,7 +67,7 @@ export function AccountSetting({ source, profile }: AccountSettingProps) {
                         }}
                     >
                         <LogOutIcon width={24} height={24} />
-                        <div className=" text-[17px] font-bold leading-[22px] text-[#f00]">
+                        <div className=" text-[17px] font-bold leading-[22px] text-danger">
                             <Trans>Log out</Trans>
                         </div>
                     </button>

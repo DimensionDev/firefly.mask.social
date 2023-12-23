@@ -11,7 +11,10 @@ interface AccountCardProps {
 
 export function AccountCard({ profile, isCurrent }: AccountCardProps) {
     return (
-        <div className="inline-flex h-[63px] w-full items-center justify-start gap-[8px] rounded-lg bg-bottom px-[12px] py-[8px] shadow-accountCardShadowLight backdrop-blur-lg dark:shadow-accountCardShadowDark">
+        <div
+            className="inline-flex h-[63px] w-full items-center justify-start gap-2 rounded-lg bg-white bg-bottom px-[12px] py-[8px] dark:bg-bg"
+            style={{ boxShadow: '0px 0px 20px 0px rgba(0, 0, 0, 0.05)', backdropFilter: 'blur(8px)' }}
+        >
             <ProfileAvatar profile={profile} size={36} />
             <ProfileName profile={profile} />
             {isCurrent ? (
