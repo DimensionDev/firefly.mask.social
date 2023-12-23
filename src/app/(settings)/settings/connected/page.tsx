@@ -2,7 +2,7 @@
 
 import { t, Trans } from '@lingui/macro';
 import { formatEthereumAddress } from '@masknet/web3-shared-evm';
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import { useCopyToClipboard } from 'usehooks-ts';
 import { useAccount } from 'wagmi';
 
@@ -13,9 +13,11 @@ import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
 import { LogoutModalRef } from '@/modals/controls.js';
 import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
 import { useLensStateStore } from '@/store/useLensStore.js';
+import { Tippy } from '@/esm/Tippy.js';
 
 export default function Connected() {
     const { address } = useAccount();
+    const [timer, setTimer] = useState<NodeJS.Timeout>();
 
     const lensProfiles = useLensStateStore.use.profiles();
     const farcasterProfiles = useFarcasterStateStore.use.profiles();
@@ -27,9 +29,6 @@ export default function Connected() {
     const handleClick = useCallback(() => {
         if (!address) return;
         copyToClipboard(address);
-        enqueueSnackbar(t`Copied`, {
-            variant: 'success',
-        });
     }, [enqueueSnackbar, address, copyToClipboard]);
 
     return (
@@ -49,13 +48,24 @@ export default function Connected() {
                             <span className="text-base font-bold leading-[18px] text-second">
                                 {address ? formatEthereumAddress(address, 4) : null}
                             </span>
-                            <button
-                                onClick={() => {
-                                    handleClick();
+                            <Tippy content={'copied'} placement="top"
+                                duration={200}
+                                trigger="click"
+                                onShow={(instance) => {
+                                    if (timer) clearTimeout(timer)
+                                    setTimer(setTimeout(() => {
+                                        instance.hide();
+                                    }, 1000));
                                 }}
                             >
-                                <CopyIcon width={14} height={14} />
-                            </button>
+                                <button
+                                    onClick={() => {
+                                        handleClick();
+                                    }}
+                                >
+                                    <CopyIcon width={14} height={14} />
+                                </button>
+                            </Tippy>
                         </div>
                     </div>
                     {lensProfiles.map((profile) => (
