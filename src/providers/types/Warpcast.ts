@@ -20,7 +20,7 @@ export interface SearchCastsResponse extends ErrorResponse {
 }
 
 export interface CastResponse extends ErrorResponse {
-    result: Cast;
+    result: { cast: Cast };
 }
 
 export interface FeedResponse extends ErrorResponse {

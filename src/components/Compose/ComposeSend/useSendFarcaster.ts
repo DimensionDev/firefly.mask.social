@@ -3,7 +3,9 @@ import { useCallback } from 'react';
 
 import { SocialPlatform } from '@/constants/enum.js';
 import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
+import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { HubbleSocialMediaProvider } from '@/providers/hubble/SocialMedia.js';
+import { type Post } from '@/providers/types/SocialMedia.js';
 import { uploadToImgur } from '@/services/uploadToImgur.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
@@ -47,22 +49,21 @@ export function useSendFarcaster() {
                 }),
             );
             try {
-                const published = await HubbleSocialMediaProvider.publishPost(
-                    {
-                        type: 'Post',
-                        postId: '',
-                        source: SocialPlatform.Farcaster,
-                        author: currentProfile,
-                        metadata: {
-                            locale: '',
-                            content: {
-                                content,
-                            },
+                const draft: Post = {
+                    type: 'Post',
+                    postId: '',
+                    source: SocialPlatform.Farcaster,
+                    author: currentProfile,
+                    metadata: {
+                        locale: '',
+                        content: {
+                            content,
                         },
-                        mediaObjects: uploadedImages.map((media) => ({ url: media.imgur!, mimeType: media.file.type })),
                     },
-                    type === 'reply' ? post : undefined,
-                );
+                    mediaObjects: uploadedImages.map((media) => ({ url: media.imgur!, mimeType: media.file.type })),
+                    commentOn: type === 'reply' && post ? post : undefined,
+                };
+                const published = await FarcasterSocialMediaProvider.publishPost(draft);
                 enqueueSnackbar(t`Posted on Farcaster`, {
                     variant: 'success',
                 });

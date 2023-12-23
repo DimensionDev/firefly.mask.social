@@ -299,9 +299,11 @@ export class WarpcastSocialMedia implements Provider {
 
     async publishPost(post: Post): Promise<Post> {
         const url = urlcat(WARPCAST_ROOT_URL, '/casts');
-        const { result: cast } = await farcasterClient.fetchWithSession<CastResponse>(url, {
+        const {
+            result: { cast },
+        } = await farcasterClient.fetchWithSession<CastResponse>(url, {
             method: 'POST',
-            body: JSON.stringify({ text: post.metadata.content , embeds:post.mediaObjects?.map((v) => ({ url: v.url })) ?? []}),
+            body: JSON.stringify({ text: post.metadata.content?.content, embeds:post.mediaObjects?.map((v) => ({ url: v.url })) ?? []}),
         });
 
         return {
@@ -365,7 +367,7 @@ export class WarpcastSocialMedia implements Provider {
             method: 'POST',
             body: JSON.stringify({ text: comment }),
         });
-        return response.result.hash;
+        return response.result.cast.hash;
     }
 
     async mirrorPost(postId: string) {
