@@ -27,7 +27,7 @@ export default function ContentTabs({ profileId, source }: ContentTabsProps) {
                         <button
                             className={classNames(
                                 ' flex h-[46px] items-center px-[14px] font-extrabold transition-all',
-                                tab === tabName ? ' text-lightMain' : ' text-secondary',
+                                tab === tabName ? ' text-main' : ' text-third hover:text-main',
                             )}
                             onClick={() => setTab(tabName)}
                         >
@@ -35,7 +35,7 @@ export default function ContentTabs({ profileId, source }: ContentTabsProps) {
                         </button>
                         <span
                             className={classNames(
-                                ' h-1 w-full rounded-full bg-tabLine transition-all',
+                                ' h-1 w-full rounded-full bg-[#9250FF] transition-all',
                                 tab !== tabName ? ' hidden' : '',
                             )}
                         />
