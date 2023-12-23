@@ -27,6 +27,7 @@ const libV2AlgrDefaults: Omit<EncodeOptions, 'text'> = {
 
 export enum SteganographyPreset {
     Preset2023 = '2023',
+    Preset202312 = '2023-12',
 }
 
 const PRESET_SETTINGS: Record<
@@ -50,9 +51,18 @@ const PRESET_SETTINGS: Record<
         payload: '/image/payload-2023.png',
         options: libV2AlgrDefaults,
     },
+    [SteganographyPreset.Preset202312]: {
+        preset: SteganographyPreset.Preset202312,
+        description: 'the preset mask network used for payload V37',
+        mask: null,
+        width: 1200,
+        height: 840,
+        payload: '/image/payload-202312.png',
+        options: libV2AlgrDefaults,
+    },
 };
 
-export async function steganographyEncodeImage(data: string | ArrayBuffer, preset = SteganographyPreset.Preset2023) {
+export async function steganographyEncodeImage(data: string | ArrayBuffer, preset = SteganographyPreset.Preset202312) {
     const settings = PRESET_SETTINGS[preset];
     if (!settings) throw new Error('Failed to create preset.');
 
@@ -72,8 +82,8 @@ export async function steganographyEncodeImage(data: string | ArrayBuffer, prese
     return new Blob([secretImage], { type: 'image/png' });
 }
 
-export async function steganographyDecodeImage(image: Blob | ArrayBuffer) {
-    const dimension = getImageDimension(image instanceof Blob ? await image.arrayBuffer() : image);
+export async function steganographyDecodeImage(image: Blob) {
+    const dimension = await getImageDimension(image);
     const settings = Object.values(PRESET_SETTINGS).find(
         (x) => x.width === dimension.width && x.height === dimension.height,
     );

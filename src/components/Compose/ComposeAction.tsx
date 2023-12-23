@@ -7,6 +7,7 @@ import { CrossIsolationMessages } from '@masknet/shared-base';
 import { $getSelection } from 'lexical';
 import { compact } from 'lodash-es';
 import { useCallback, useMemo, useState } from 'react';
+import { useAsyncFn } from 'react-use';
 
 import AtIcon from '@/assets/at.svg';
 import GalleryIcon from '@/assets/gallery.svg';
@@ -18,6 +19,7 @@ import ReplyRestriction from '@/components/Compose/ReplyRestriction.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
+import { connectMaskWithWagmi } from '@/helpers/connectWagmiWithMask.js';
 import { PluginDebuggerMessages } from '@/mask/message-host/index.js';
 import { ComposeModalRef } from '@/modals/controls.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
@@ -67,6 +69,17 @@ export default function ComposeAction(props: ComposeActionProps) {
             }
         }
     }, [currentFarcasterProfile, currentLensProfile, post]);
+
+    const [{ loading }, openRedPacketComposeDialog] = useAsyncFn(async () => {
+        await connectMaskWithWagmi();
+        // import dynamically to avoid the start up dependency issue of mask packages
+        await import('@/helpers/setupCurrentVisitingProfile.js').then((module) =>
+            module.setupCurrentVisitingProfile(currentLensProfile ?? currentFarcasterProfile),
+        );
+        ComposeModalRef.close();
+        await delay(300);
+        CrossIsolationMessages.events.redpacketDialogEvent.sendToLocal({ open: true });
+    }, [currentLensProfile, currentFarcasterProfile]);
 
     const maxImageCount = currentFarcasterProfile ? 2 : 4;
 
@@ -141,13 +154,14 @@ export default function ComposeAction(props: ComposeActionProps) {
 
                 <Tooltip content={t`Lucky Drop`} placement="top">
                     <RedPacketIcon
-                        className=" cursor-pointer"
+                        className={classNames('cursor-pointer', {
+                            'opacity-50': loading,
+                        })}
                         width={25}
                         height={25}
-                        onClick={async () => {
-                            ComposeModalRef.close();
-                            await delay(300);
-                            CrossIsolationMessages.events.redpacketDialogEvent.sendToLocal({ open: true });
+                        onClick={() => {
+                            if (loading) return;
+                            openRedPacketComposeDialog();
                         }}
                     />
                 </Tooltip>

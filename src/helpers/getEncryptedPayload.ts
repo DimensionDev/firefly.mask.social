@@ -34,11 +34,14 @@ export async function getEncryptedPayloadFromImageAttachment(post: Post): Promis
 
             const [result, preset] = decoded;
 
-            if (preset === SteganographyPreset.Preset2023) {
-                return [result, '2'] as EncryptedPayload;
-            } else {
-                safeUnreachable(preset);
-                return;
+            switch (preset) {
+                case SteganographyPreset.Preset2023:
+                    return [result, '2'] as EncryptedPayload;
+                case SteganographyPreset.Preset202312:
+                    return [result, '2'] as EncryptedPayload;
+                default:
+                    safeUnreachable(preset);
+                    return;
             }
         }) ?? [];
 

@@ -3,7 +3,6 @@ import { Dialog, Transition } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { t } from '@lingui/macro';
 import { encrypt } from '@masknet/encryption';
-import { RedPacketMetaKey } from '@masknet/plugin-redpacket';
 import { ProfileIdentifier, type SingletonModalRefCreator } from '@masknet/shared-base';
 import { useSingletonModal } from '@masknet/shared-base-ui';
 import type { TypedMessageTextV1 } from '@masknet/typed-message';
@@ -20,6 +19,7 @@ import withLexicalContext from '@/components/shared/lexical/withLexicalContext.j
 import { SocialPlatform } from '@/constants/enum.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
+import { hasRedPacketPayload } from '@/modals/hasRedPacketPayload.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { steganographyEncodeImage } from '@/services/steganography.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
@@ -31,6 +31,7 @@ async function throws(): Promise<never> {
 
 export interface ComposeModalProps {
     type?: 'compose' | 'quote' | 'reply';
+    chars?: string;
     source?: SocialPlatform;
     post?: Post;
     typedMessage?: TypedMessageTextV1 | null;
@@ -51,6 +52,7 @@ export const ComposeModal = forwardRef<SingletonModalRefCreator<ComposeModalProp
         updateType,
         updateSource,
         updatePost,
+        updateChars,
         updateTypedMessage,
         clear,
     } = useComposeStateStore();
@@ -63,6 +65,7 @@ export const ComposeModal = forwardRef<SingletonModalRefCreator<ComposeModalProp
             updateSource(props.source || null);
             if (props.typedMessage) updateTypedMessage(props.typedMessage);
             if (props.post) updatePost(props.post);
+            if (props.chars) updateChars(props.chars);
         },
         onClose: () => {
             clear();
@@ -79,9 +82,7 @@ export const ComposeModal = forwardRef<SingletonModalRefCreator<ComposeModalProp
 
     const { loading: encryptRedPacketLoading } = useAsync(async () => {
         if (!typedMessage) return;
-
-        const hasRedPacketPayload = typedMessage?.meta?.has(RedPacketMetaKey);
-        if (!hasRedPacketPayload) return;
+        if (!hasRedPacketPayload(typedMessage)) return;
 
         try {
             const encrypted = await encrypt(
