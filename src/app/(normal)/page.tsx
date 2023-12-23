@@ -4,7 +4,7 @@ import { Trans } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
 import { createIndicator, createPageable } from '@masknet/shared-base';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
-import { useEffect, useMemo } from 'react';
+import { useMemo } from 'react';
 import { useInView } from 'react-cool-inview';
 import { useAccount } from 'wagmi';
 
@@ -19,7 +19,6 @@ import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
-import { useLensStateStore } from '@/store/useLensStore.js';
 
 export default function Home() {
     const currentSource = useGlobalState.use.currentSource();
@@ -60,15 +59,7 @@ export default function Home() {
     const posts = useMemo(() => data?.pages.flatMap((x) => x.data) || EMPTY_LIST, [data?.pages]);
 
     const account = useAccount();
-    const clearLensCurrentProfile = useLensStateStore.use.clearCurrentProfile();
     const clearFarcasterCurrentProfile = useFarcasterStateStore.use.clearCurrentProfile();
-
-    useEffect(() => {
-        if (account.isDisconnected) {
-            clearLensCurrentProfile();
-            clearFarcasterCurrentProfile();
-        }
-    }, [account.isDisconnected, clearFarcasterCurrentProfile, clearLensCurrentProfile]);
 
     return (
         <div>

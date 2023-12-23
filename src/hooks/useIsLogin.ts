@@ -12,7 +12,6 @@ export function useIsLogin(source?: SocialPlatform) {
     const currentFarcasterProfile = useFarcasterStateStore.use.currentProfile();
 
     return useMemo(() => {
-        if (!account.isConnected) return false;
         if (!source) return !!(currentLensProfile?.profileId || currentFarcasterProfile?.profileId);
 
         switch (source) {
@@ -24,5 +23,5 @@ export function useIsLogin(source?: SocialPlatform) {
                 safeUnreachable(source);
                 return false;
         }
-    }, [currentLensProfile, currentFarcasterProfile, source, account]);
+    }, [currentLensProfile, currentFarcasterProfile, source]);
 }
