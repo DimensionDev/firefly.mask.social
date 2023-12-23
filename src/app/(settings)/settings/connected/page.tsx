@@ -10,6 +10,11 @@ import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { LogoutModalRef } from '@/modals/controls.js';
 import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
 import { useLensStateStore } from '@/store/useLensStore.js';
+import { useCallback } from 'react';
+import { useCopyToClipboard } from 'usehooks-ts';
+import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
+import { t } from '@lingui/macro';
+
 
 export default function Connected() {
     const { address } = useAccount();
@@ -18,6 +23,16 @@ export default function Connected() {
     const farcasterProfiles = useFarcasterStateStore.use.profiles();
     const currentLensProfile = useLensStateStore.use.currentProfile();
     const currentFarcasterProfile = useFarcasterStateStore.use.currentProfile();
+    const enqueueSnackbar = useCustomSnackbar();
+    const [, copyToClipboard] = useCopyToClipboard();
+
+    const handleClick = useCallback(() => {
+        if (!address) return
+        copyToClipboard(address);
+        enqueueSnackbar(t`Copied`, {
+            variant: 'success',
+        });
+    }, [enqueueSnackbar, address, copyToClipboard]);
 
     return (
         <div className="flex w-full flex-col items-center gap-[24px] p-[24px]">
@@ -36,7 +51,9 @@ export default function Connected() {
                             <span className="text-base font-bold leading-[18px] text-second">
                                 {address ? formatEthereumAddress(address, 4) : null}
                             </span>
-                            <CopyIcon width={14} height={14} />
+                            <button onClick={() => { handleClick() }}>
+                                <CopyIcon width={14} height={14} />
+                            </button>
                         </div>
                     </div>
                     {lensProfiles.map((profile) => (
