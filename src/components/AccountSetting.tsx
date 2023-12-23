@@ -1,7 +1,6 @@
 'use client';
 
-import { t, Trans } from '@lingui/macro';
-import { useAsyncFn } from 'react-use';
+import { Trans } from '@lingui/macro';
 import { useMediaQuery } from 'usehooks-ts';
 
 import LogOutIcon from '@/assets/logout.svg';
@@ -13,12 +12,10 @@ import { WarpcastSignerRequestIndicator } from '@/components/WarpcastSignerReque
 import { SocialPlatform } from '@/constants/enum.js';
 import { Tippy } from '@/esm/Tippy.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
-import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
 import { useProfiles } from '@/hooks/useProfiles.js';
+import { useSwitchLensAccount } from '@/hooks/useSwitchLensAccount.js';
 import { LoginModalRef, LogoutModalRef } from '@/modals/controls.js';
-import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
-import { useLensStateStore } from '@/store/useLensStore.js';
 
 interface AccountSettingProps {
     source: SocialPlatform;
@@ -27,21 +24,9 @@ interface AccountSettingProps {
 
 export function AccountSetting({ source, profile }: AccountSettingProps) {
     const { currentProfile, currentProfileSession, profiles } = useProfiles(source);
-    const updateCurrentProfile = useLensStateStore.use.updateCurrentProfile();
-    const enqueueSnackbar = useCustomSnackbar();
+    const { login } = useSwitchLensAccount();
 
     const isLarge = useMediaQuery('(min-width: 1265px)');
-
-    const [, login] = useAsyncFn(
-        async (profile: Profile) => {
-            if (source === SocialPlatform.Lens) {
-                const session = await LensSocialMediaProvider.createSessionForProfileId(profile.profileId);
-                updateCurrentProfile(profile, session);
-                enqueueSnackbar(t`Your Lens account is now connected`, { variant: 'success' });
-            }
-        },
-        [source],
-    );
 
     return (
         <Tippy
@@ -59,7 +44,7 @@ export function AccountSetting({ source, profile }: AccountSettingProps) {
                             key={profile.profileId}
                             className="flex items-center justify-between gap-[8px]"
                             onClick={() => {
-                                !isSameProfile(currentProfile, profile) && login(profile);
+                                if (!isSameProfile(currentProfile, profile) && source === SocialPlatform.Lens) login(profile);
                             }}
                         >
                             <ProfileAvatar profile={profile} />

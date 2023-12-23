@@ -11,15 +11,18 @@ import CloseIcon from '@/assets/close.svg';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { ProfileName } from '@/components/ProfileName.js';
 import { SocialPlatform } from '@/constants/enum.js';
+import type { Profile } from '@/providers/types/SocialMedia.js';
 import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
 import { useLensStateStore } from '@/store/useLensStore.js';
 
 export interface LogoutModalProps {
     source?: SocialPlatform;
+    profile?: Profile;
 }
 
 export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps | void>>(function LogoutModal(_, ref) {
     const [source, setSource] = useState<SocialPlatform>();
+    const [profile, setProfile] = useState<Profile>();
 
     const lensProfiles = useLensStateStore.use.profiles();
     const farcasterProfiles = useFarcasterStateStore.use.profiles();
@@ -29,18 +32,18 @@ export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps 
     const [open, dispatch] = useSingletonModal(ref, {
         onOpen(props) {
             setSource(props?.source);
+            setProfile(props?.profile);
         },
     });
 
-    const profiles = useMemo(
-        () =>
-            !source
-                ? lensProfiles.concat(farcasterProfiles)
-                : source === SocialPlatform.Lens
-                  ? lensProfiles
-                  : farcasterProfiles,
-        [lensProfiles, farcasterProfiles, source],
-    );
+    const profiles = useMemo(() => {
+        if (profile) return [profile];
+        return !source
+            ? lensProfiles.concat(farcasterProfiles)
+            : source === SocialPlatform.Lens
+              ? lensProfiles
+              : farcasterProfiles;
+    }, [lensProfiles, farcasterProfiles, source, profile]);
 
     return (
         <Transition appear show={open} as={Fragment}>
@@ -80,7 +83,9 @@ export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps 
                                 </div>
                                 <div className="flex flex-col gap-[12px] p-[24px]">
                                     <div className="text-[15px] font-medium leading-normal text-lightMain">
-                                        <Trans>Confirm to log out these accounts?</Trans>
+                                        <Trans>{`Confirm to log out ${
+                                            profiles.length > 1 ? 'these accounts' : 'this account'
+                                        }?`}</Trans>
                                     </div>
                                     {profiles.map((profile) => (
                                         <div

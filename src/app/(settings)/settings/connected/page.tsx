@@ -10,8 +10,7 @@ import { AccountCard } from '@/app/(settings)/components/AccountCard.js';
 import CopyIcon from '@/assets/copy.svg';
 import { Tippy } from '@/esm/Tippy.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
-import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
-import { LogoutModalRef } from '@/modals/controls.js';
+import { LoginModalRef, LogoutModalRef } from '@/modals/controls.js';
 import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
 import { useLensStateStore } from '@/store/useLensStore.js';
 
@@ -23,7 +22,6 @@ export default function Connected() {
     const farcasterProfiles = useFarcasterStateStore.use.profiles();
     const currentLensProfile = useLensStateStore.use.currentProfile();
     const currentFarcasterProfile = useFarcasterStateStore.use.currentProfile();
-    const enqueueSnackbar = useCustomSnackbar();
     const [, copyToClipboard] = useCopyToClipboard();
 
     const handleClick = useCallback(() => {
@@ -98,7 +96,12 @@ export default function Connected() {
                 </>
             ) : null}
             <div className="flex items-center gap-[16px]">
-                <button className="inline-flex h-10 w-[200px] flex-col items-center justify-center">
+                <button
+                    className="inline-flex h-10 w-[200px] flex-col items-center justify-center"
+                    onClick={() => {
+                        LoginModalRef.open();
+                    }}
+                >
                     <div className="inline-flex h-10 items-center justify-center gap-2 self-stretch rounded-2xl bg-lightMain px-[18px] py-[11px]">
                         <div className="text-sm font-bold leading-[18px] text-primaryBottom">
                             <Trans>Add an existing account</Trans>
