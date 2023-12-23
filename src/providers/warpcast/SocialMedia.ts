@@ -303,7 +303,10 @@ export class WarpcastSocialMedia implements Provider {
             result: { cast },
         } = await farcasterClient.fetchWithSession<CastResponse>(url, {
             method: 'POST',
-            body: JSON.stringify({ text: post.metadata.content?.content || '', embeds:post.mediaObjects?.map((v) => (v.url)) ?? []}),
+            body: JSON.stringify({
+                text: post.metadata.content?.content || '',
+                embeds: post.mediaObjects?.map((v) => v.url) ?? [],
+            }),
         });
 
         return {
