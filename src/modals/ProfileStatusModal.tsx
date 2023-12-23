@@ -105,7 +105,7 @@ export const ProfileStatusModal = forwardRef<SingletonModalRefCreator<ProfileSta
                                             }}
                                         >
                                             <LogoutIcon width={24} height={24} />
-                                            <div className=" text-[17px] font-bold leading-[22px] text-[#f00]">
+                                            <div className=" text-[17px] font-bold leading-[22px] text-danger">
                                                 <Trans>Log out</Trans>
                                             </div>
                                         </button>
