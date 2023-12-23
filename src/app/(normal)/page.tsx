@@ -6,7 +6,6 @@ import { createIndicator, createPageable } from '@masknet/shared-base';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { useMemo } from 'react';
 import { useInView } from 'react-cool-inview';
-import { useAccount } from 'wagmi';
 
 import BlackHoleIcon from '@/assets/BlackHole.svg';
 import LoadingIcon from '@/assets/loading.svg';
@@ -16,7 +15,6 @@ import { SocialPlatform } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
-import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 
@@ -57,9 +55,6 @@ export default function Home() {
     });
 
     const posts = useMemo(() => data?.pages.flatMap((x) => x.data) || EMPTY_LIST, [data?.pages]);
-
-    const account = useAccount();
-    const clearFarcasterCurrentProfile = useFarcasterStateStore.use.clearCurrentProfile();
 
     return (
         <div>

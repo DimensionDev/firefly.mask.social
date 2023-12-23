@@ -74,12 +74,12 @@ export default function ComposeAction(props: ComposeActionProps) {
         await connectMaskWithWagmi();
         // import dynamically to avoid the start up dependency issue of mask packages
         await import('@/helpers/setupCurrentVisitingProfile.js').then((module) =>
-            module.setupCurrentVisitingProfile(currentLensProfile ?? currentFarcasterProfile),
+            module.setupCurrentVisitingProfileAsFireflyApp(),
         );
         ComposeModalRef.close();
         await delay(300);
         CrossIsolationMessages.events.redpacketDialogEvent.sendToLocal({ open: true });
-    }, [currentLensProfile, currentFarcasterProfile]);
+    }, []);
 
     const maxImageCount = currentFarcasterProfile ? 2 : 4;
 

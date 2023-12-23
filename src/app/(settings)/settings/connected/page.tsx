@@ -29,7 +29,7 @@ export default function Connected() {
     const handleClick = useCallback(() => {
         if (!address) return;
         copyToClipboard(address);
-    }, [enqueueSnackbar, address, copyToClipboard]);
+    }, [address, copyToClipboard]);
 
     return (
         <div className="flex w-full flex-col items-center gap-[24px] p-[24px]">
