@@ -6,7 +6,6 @@ import { createInjectHooksRenderer } from '@masknet/plugin-infra/dom';
 import { MaskPostExtraPluginWrapper } from '@masknet/shared';
 import { RegistryContext, TypedMessageRender } from '@masknet/typed-message-react';
 import React, { Suspense, useEffect } from 'react';
-import { useMount } from 'react-use';
 
 import { connectMaskWithWagmi } from '@/helpers/connectWagmiWithMask.js';
 import { useDecrypt } from '@/mask/main/Decrypt/useDecrypt.js';
