@@ -49,7 +49,7 @@ export const PostActions = memo<PostActionsProps>(function PostActions({
                 count={post.stats?.comments}
                 canComment={post.canComment}
                 source={post.source}
-                author={post.author.displayName}
+                author={post.author.handle}
                 post={post}
             />
             <Mirror
