@@ -17,6 +17,7 @@ import ComposeSend from '@/components/Compose/ComposeSend/index.js';
 import Discard from '@/components/Compose/Discard.js';
 import withLexicalContext from '@/components/shared/lexical/withLexicalContext.js';
 import { SocialPlatform } from '@/constants/enum.js';
+import { SITE_HOSTNAME } from '@/constants/index.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
 import { hasRedPacketPayload } from '@/modals/hasRedPacketPayload.js';
@@ -87,10 +88,10 @@ export const ComposeModal = forwardRef<SingletonModalRefCreator<ComposeModalProp
         try {
             const encrypted = await encrypt(
                 {
-                    author: ProfileIdentifier.of('mask.social', profile?.handle),
+                    author: ProfileIdentifier.of(SITE_HOSTNAME, profile?.handle),
                     authorPublicKey: None,
                     message: typedMessage,
-                    network: 'mask.social',
+                    network: SITE_HOSTNAME,
                     target: { type: 'public' },
                     version: -37,
                 },

@@ -11,8 +11,12 @@ export default function CustomElements() {
     const { value } = useAsync(async () => {
         await import('@masknet/flags/build-info').then((module) => {
             module.setupBuildInfoManually({
-                // FIXME: for some unknown reason if we use 'stable' here the wallet connection will fail
-                channel: 'beta',
+                channel:
+                    process.env.NEXT_PUBLIC_VERCEL_ENV === 'preview'
+                        ? 'beta'
+                        : process.env.NODE_ENV === 'production'
+                          ? 'stable'
+                          : 'insider',
             });
         });
 

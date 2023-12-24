@@ -16,7 +16,7 @@ import { compact } from 'lodash-es';
 import { memo, type PropsWithChildren, useMemo } from 'react';
 import urlcat from 'urlcat';
 
-import { SITE_URL } from '@/constants/index.js';
+import { SITE_HOSTNAME, SITE_URL } from '@/constants/index.js';
 import type { EncryptedPayload } from '@/helpers/getEncryptedPayload.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { DecryptMessage } from '@/mask/main/DecryptMessage.js';
@@ -29,7 +29,7 @@ interface Props extends PropsWithChildren<{}> {
 
 export const DecryptPost = memo(function DecryptPost({ post, payload, children }: Props) {
     const postInfo = useMemo((): PostContext => {
-        const author = ProfileIdentifier.of('mask.social', post.author.displayName).unwrapOr(null);
+        const author = ProfileIdentifier.of(SITE_HOSTNAME, post.author.displayName).unwrapOr(null);
         const imageUris: string[] = compact(
             post.metadata.content?.attachments
                 ?.filter((x) => x.type === 'Image')

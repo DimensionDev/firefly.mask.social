@@ -19,9 +19,11 @@ import {
 } from 'wagmi/chains';
 import { publicProvider } from 'wagmi/providers/public';
 
+import { SITE_HOSTNAME, SITE_URL } from '@/constants/index.js';
+
 export const appInfo: Parameters<typeof RainbowKitProvider>[0]['appInfo'] = {
-    appName: 'mask.social',
-    learnMoreUrl: 'https://mask.social',
+    appName: SITE_HOSTNAME,
+    learnMoreUrl: SITE_URL,
 };
 
 export const { chains, publicClient, webSocketPublicClient } = configureChains(
@@ -36,7 +38,7 @@ export const { chains, publicClient, webSocketPublicClient } = configureChains(
 };
 
 const { wallets } = getDefaultWallets({
-    appName: 'mask.social',
+    appName: SITE_HOSTNAME,
     projectId: process.env.NEXT_PUBLIC_W3M_PROJECT_ID,
     chains,
 });
