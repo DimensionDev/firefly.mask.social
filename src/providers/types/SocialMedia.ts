@@ -173,6 +173,13 @@ export interface Post {
     quoteOn?: Post;
     comments?: Post[];
     embedPosts?: Post[];
+    /**
+     * Lens only
+     * To mirror a post on momoka, need to invoke with the client method mirrorOnMomoka
+     */
+    momoka?: {
+        proof: string;
+    };
 }
 
 export interface Comment {
@@ -267,9 +274,10 @@ export interface Provider {
      * Mirrors a post with the specified post ID.
      *
      * @param postId The ID of the post to mirror.
+     * @param onMomoka If the post is created on Momoka. Lens only
      * @returns A promise that resolves to a Post object.
      */
-    mirrorPost?: (postId: string) => Promise<Post>;
+    mirrorPost?: (postId: string, onMomoka?: boolean) => Promise<Post>;
 
     /**
      * Quotes a post with the specified post ID and an introduction.
