@@ -39,7 +39,7 @@ export function AccountSetting({ source, profile }: AccountSettingProps) {
             className="account-settings"
             content={
                 <div className="flex w-[260px] flex-col gap-[23px] rounded-2xl bg-primaryBottom p-6 shadow-[0px_8px_20px_0px_rgba(0,0,0,0.04)] dark:bg-bg dark:shadow-[0px_8px_20px_0px_rgba(255,255,255,0.04)]">
-                    <div className='p-6'>
+                    <div className="p-6">
                         {profiles.map((profile) => (
                             <button
                                 key={profile.profileId}
