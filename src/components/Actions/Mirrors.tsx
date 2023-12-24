@@ -84,7 +84,7 @@ export const Mirror = memo<MirrorProps>(function Mirror({
                         if (!prev) return;
                         return prev + 1;
                     });
-                    const result = await LensSocialMediaProvider.mirrorPost(postId);
+                    const result = await LensSocialMediaProvider.mirrorPost(postId, !!post.momoka?.proof);
                     enqueueSnackbar(t`Mirrored`, {
                         variant: 'success',
                     });

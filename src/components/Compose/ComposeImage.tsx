@@ -1,5 +1,5 @@
 import { t } from '@lingui/macro';
-import { useMemo } from 'react';
+import { memo, useMemo } from 'react';
 
 import CloseIcon from '@/assets/close.svg';
 import { Image } from '@/esm/Image.js';
@@ -12,7 +12,7 @@ interface ComposeImageProps {
     index: number;
     image: MediaObject;
 }
-export default function ComposeImage({ index, image }: ComposeImageProps) {
+const ComposeImage = memo(function ComposeImage({ index, image }: ComposeImageProps) {
     const { images, removeImage } = useComposeStateStore();
     const blobURL = useMemo(() => URL.createObjectURL(image.file), [image.file]);
 
@@ -30,17 +30,16 @@ export default function ComposeImage({ index, image }: ComposeImageProps) {
         >
             <Image src={blobURL} alt={image.file.name} fill className=" object-cover" />
             <Tippy content={<span>{t`Remove`}</span>} placement="top">
-                <button
+                <div
                     className="radius-8 absolute right-1 top-1 z-50 inline-flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-gray-500 hover:bg-opacity-70"
-                    onClick={(e) => {
-                        // prevent triggering twice.
-                        e.preventDefault();
-                        removeImage(image);
-                    }}
+                    onClick={() => removeImage(image)}
+                    role="button"
                 >
                     <CloseIcon width={18} height={18} color="#fff" />
-                </button>
+                </div>
             </Tippy>
         </div>
     );
-}
+});
+
+export default ComposeImage;

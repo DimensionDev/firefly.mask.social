@@ -42,7 +42,8 @@
         "warpcast",
         "zora",
         "zustand",
-        "metas"
+        "metas",
+        "momoka"
     ],
     "ignoreWords": [
         "DEVNET",
