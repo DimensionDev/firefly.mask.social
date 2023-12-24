@@ -26,7 +26,7 @@ export function SettingList() {
             {settings.map(({ name, link }) => {
                 return link === '/connected' && !isLoggedIn ? null : (
                     <Link
-                        className={`mb-[24px] flex items-center justify-between border-b border-line pb-[4px] text-[18px] leading-[24px] text-main ${
+                        className={`mb-[24px] flex items-center justify-between border-b border-line pb-[4px] text-[18px] leading-[24px] text-main hover:font-bold ${
                             isRoutePathname(pathname, `/settings${link}`) ? 'font-bold' : 'font-normal'
                         }`}
                         key={link}
