@@ -95,7 +95,7 @@ export default function Following() {
                     icon={<BlackHoleIcon width={200} height="auto" className="text-secondaryMain" />}
                     message={
                         <div className="mt-10">
-                            <Trans>Follow more friends to continue exploring {resolveSourceName(currentSource)}</Trans>
+                            <Trans>Follow more friends to continue exploring {resolveSourceName(currentSource)}.</Trans>
                         </div>
                     }
                 />

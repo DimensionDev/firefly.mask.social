@@ -30,7 +30,7 @@ export function LoginFarcaster() {
                 updateProfiles([profile]);
                 updateCurrentProfile(profile, session);
 
-                enqueueSnackbar(t`Your Farcaster account is now connected`, {
+                enqueueSnackbar(t`Your Farcaster account is now connected.`, {
                     variant: 'success',
                 });
                 LoginModalRef.close();
@@ -79,7 +79,7 @@ export function LoginFarcaster() {
                         <div className=" text-center text-[12px] leading-[16px] text-lightSecond">
                             <Trans>
                                 On your mobile device with Warpcast, open the <span className="font-bold">Camera</span>{' '}
-                                app and scan the QR code
+                                app and scan the QR code.
                             </Trans>
                         </div>
                         <div

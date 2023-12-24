@@ -34,7 +34,7 @@ interface Attachments {
 
 export function createPayloadAttachments(images: MediaObject[], video: MediaObject | null): Attachments | undefined {
     if (images.some((image) => !image.ipfs) || (video && !video.ipfs)) {
-        throw new Error(t`Missing IPFS hash for image or video`);
+        throw new Error(t`Missing IPFS hash for image or video.`);
     }
 
     const imagesWithIPFS = images as Array<Required<MediaObject>>;

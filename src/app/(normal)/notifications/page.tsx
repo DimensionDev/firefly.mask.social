@@ -69,7 +69,7 @@ export default function Notification() {
                 </div>
             ) : (
                 <div className="flex items-center justify-center p-6 text-base text-secondary">
-                    <Trans>You&apos;ve hit rock bottom</Trans>
+                    <Trans>You&apos;ve hit rock bottom.</Trans>
                 </div>
             )}
         </div>
