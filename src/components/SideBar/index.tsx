@@ -74,7 +74,7 @@ const items = [
 ];
 
 export const SideBar = memo(function SideBar() {
-    const isLarge = useMediaQuery('(min-width: 1265px)');
+    const isLarge = useMediaQuery('(min-width: 1280px)');
     const currentSource = useGlobalState.use.currentSource();
     const currentProfile = useCurrentProfile(currentSource);
 
