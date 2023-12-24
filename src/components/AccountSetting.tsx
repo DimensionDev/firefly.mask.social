@@ -30,7 +30,7 @@ export function AccountSetting({ source, profile }: AccountSettingProps) {
     const updateCurrentProfile = useLensStateStore.use.updateCurrentProfile();
     const enqueueSnackbar = useCustomSnackbar();
 
-    const isLarge = useMediaQuery('(min-width: 1265px)');
+    const isLarge = useMediaQuery('(min-width: 1280px)');
 
     const [, login] = useAsyncFn(
         async (profile: Profile) => {
