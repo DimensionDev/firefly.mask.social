@@ -34,8 +34,9 @@ export function AccountCard({ profile, isCurrent }: AccountCardProps) {
             ) : (
                 <button
                     className="text-right font-['Inter'] text-[15px] font-medium leading-none text-main"
+                    disabled={profile.source === SocialPlatform.Farcaster}
                     onClick={() => {
-                        if (profile.source === SocialPlatform.Lens) login(profile);
+                        login(profile);
                     }}
                 >
                     <Trans>Switch</Trans>
