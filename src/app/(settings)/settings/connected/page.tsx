@@ -103,7 +103,7 @@ export default function Connected() {
                     }}
                 >
                     <div className="inline-flex h-10 items-center justify-center gap-2 self-stretch rounded-2xl bg-lightMain py-[11px]">
-                        <div className="text-[15px] font-bold leading-[18px] text-primaryBottom w-full">
+                        <div className="w-full text-[15px] font-bold leading-[18px] text-primaryBottom">
                             <Trans>Add an existing account</Trans>
                         </div>
                     </div>
