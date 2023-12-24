@@ -13,6 +13,6 @@ export function useSwitchLensAccount() {
         const session = await LensSocialMediaProvider.createSessionForProfileId(profile.profileId);
         updateCurrentProfile(profile, session);
         enqueueSnackbar(t`Your Lens account is now connected`, { variant: 'success' });
-    });
+    }, [enqueueSnackbar, updateCurrentProfile]);
     return { loading, login };
 }
