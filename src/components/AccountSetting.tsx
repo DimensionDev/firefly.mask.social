@@ -43,9 +43,9 @@ export function AccountSetting({ source, profile }: AccountSettingProps) {
                         <button
                             key={profile.profileId}
                             className="flex items-center justify-between gap-[8px]"
+                            disabled={isSameProfile(currentProfile, profile) || source === SocialPlatform.Lens}
                             onClick={() => {
-                                if (!isSameProfile(currentProfile, profile) && source === SocialPlatform.Lens)
-                                    login(profile);
+                                login(profile);
                             }}
                         >
                             <ProfileAvatar profile={profile} />
