@@ -4,6 +4,7 @@ import {
     ExploreProfilesOrderByType,
     ExplorePublicationsOrderByType,
     FeedEventItemType,
+    isCreateMomokaPublicationResult,
     isRelaySuccess,
     LimitType,
     PublicationReactionType,
@@ -148,13 +149,23 @@ export class LensSocialMedia implements Provider {
         }
     }
 
-    async mirrorPost(postId: string): Promise<Post> {
-        const result = await this.client.publication.mirrorOnchain({
-            mirrorOn: postId,
-        });
-        const resultValue = result.unwrap();
+    async mirrorPost(postId: string, onMomoka?: boolean): Promise<Post> {
+        if (onMomoka) {
+            const result = await this.client.publication.mirrorOnMomoka({
+                mirrorOn: postId,
+            });
+            const resultValue = result.unwrap();
 
-        if (!isRelaySuccess(resultValue)) throw new Error(`Something went wrong ${JSON.stringify(resultValue)}`);
+            if (!isCreateMomokaPublicationResult(resultValue))
+                throw new Error(`Something went wrong ${JSON.stringify(resultValue)}`);
+        } else {
+            const result = await this.client.publication.mirrorOnchain({
+                mirrorOn: postId,
+            });
+            const resultValue = result.unwrap();
+
+            if (!isRelaySuccess(resultValue)) throw new Error(`Something went wrong ${JSON.stringify(resultValue)}`);
+        }
 
         const post = await this.getPostById(postId);
         return post;

@@ -24,8 +24,8 @@ export function setupCurrentVisitingProfile(profile: Profile | null) {
 export function setupCurrentVisitingProfileAsFireflyApp() {
     setupCurrentVisitingProfile({
         profileId: 'fireflyapp',
-        handle: 'Firefly App',
-        displayName: 'fireflyapp',
+        handle: 'fireflyapp',
+        displayName: 'Firefly App',
         fullHandle: 'fireflyapp',
         pfp: 'https://firefly.mask.social/image/firefly-light-avatar.png',
         followerCount: 0,

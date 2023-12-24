@@ -70,7 +70,9 @@ export const Mirror = memo<MirrorProps>(function Mirror({
                         </h4>
                     ) : null}
                     {description ? (
-                        <NakedMarkup className="font-sm my-2 line-clamp-3 text-secondary">{description}</NakedMarkup>
+                        <NakedMarkup className="font-sm my-2 line-clamp-3 text-[15px] text-secondary">
+                            {description}
+                        </NakedMarkup>
                     ) : null}
                 </div>
             </Link>

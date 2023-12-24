@@ -52,9 +52,12 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
                 ref={ref}
             >
                 <div
-                    className={classNames('flex items-center gap-1 rounded-lg border-primaryMain px-3 py-[6px]', {
-                        border: !isQuote,
-                    })}
+                    className={classNames(
+                        'flex items-center gap-1 rounded-lg border-primaryMain px-3 py-[6px] text-[15px]',
+                        {
+                            border: !isQuote,
+                        },
+                    )}
                 >
                     <Lock width={16} height={16} />
                     <Trans>Post has been encrypted</Trans>
@@ -71,9 +74,12 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
             ref={ref}
         >
             <div
-                className={classNames('flex items-center gap-1 rounded-lg border-primaryMain px-3 py-[6px]', {
-                    border: !isQuote,
-                })}
+                className={classNames(
+                    'flex items-center gap-1 rounded-lg border-primaryMain px-3 py-[6px] text-[15px]',
+                    {
+                        border: !isQuote,
+                    },
+                )}
             >
                 <EyeSlash width={16} height={16} />
                 <Trans>Post has been hidden</Trans>
@@ -86,7 +92,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
             <div className="my-2 flex items-center space-x-2 break-words text-base text-main">
                 <NakedMarkup
                     post={post}
-                    className="linkify text-md line-clamp-5 w-full self-stretch break-words opacity-75"
+                    className="linkify line-clamp-5 w-full self-stretch break-words text-[15px] opacity-75"
                 >
                     {post.metadata.content?.content}
                 </NakedMarkup>
@@ -121,7 +127,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
             ) : (
                 <Markup
                     post={post}
-                    className={classNames({ 'line-clamp-5': canShowMore }, 'markup linkify text-md break-words')}
+                    className={classNames({ 'line-clamp-5': canShowMore }, 'markup linkify break-words text-[15px]')}
                 >
                     {oembedLoaded
                         ? removeUrlAtEnd(post.metadata.content?.oembedUrl, post.metadata.content?.content)
@@ -130,7 +136,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
             )}
 
             {canShowMore ? (
-                <div className="text-base font-bold text-link">
+                <div className="text-[15px] font-bold text-link">
                     <div
                         onClick={(event) => {
                             router.push(getPostUrl(post));

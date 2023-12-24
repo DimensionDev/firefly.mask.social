@@ -39,24 +39,26 @@ export function AccountSetting({ source, profile }: AccountSettingProps) {
             className="account-settings"
             content={
                 <div className="flex w-[260px] flex-col gap-[23px] rounded-2xl bg-primaryBottom p-6 shadow-[0px_8px_20px_0px_rgba(0,0,0,0.04)] dark:bg-bg dark:shadow-[0px_8px_20px_0px_rgba(255,255,255,0.04)]">
-                    {profiles.map((profile) => (
-                        <button
-                            key={profile.profileId}
-                            className="flex items-center justify-between gap-[8px]"
-                            disabled={isSameProfile(currentProfile, profile) || source === SocialPlatform.Lens}
-                            onClick={() => {
-                                login(profile);
-                            }}
-                        >
-                            <ProfileAvatar profile={profile} />
-                            <ProfileName profile={profile} />
-                            <WarpcastSignerRequestIndicator session={currentProfileSession}>
-                                {isSameProfile(currentProfile, profile) ? <OnlineStatusIndicator /> : null}
-                            </WarpcastSignerRequestIndicator>
-                        </button>
-                    ))}
+                    <div className='p-6'>
+                        {profiles.map((profile) => (
+                            <button
+                                key={profile.profileId}
+                                className="flex items-center justify-between gap-[8px]"
+                                disabled={isSameProfile(currentProfile, profile) || source === SocialPlatform.Lens}
+                                onClick={() => {
+                                    login(profile);
+                                }}
+                            >
+                                <ProfileAvatar profile={profile} />
+                                <ProfileName profile={profile} />
+                                <WarpcastSignerRequestIndicator session={currentProfileSession}>
+                                    {isSameProfile(currentProfile, profile) ? <OnlineStatusIndicator /> : null}
+                                </WarpcastSignerRequestIndicator>
+                            </button>
+                        ))}
+                    </div>
                     <button
-                        className="flex w-full items-center gap-[8px]"
+                        className="flex w-full items-center gap-2 px-6 py-3 text-main hover:bg-bg"
                         onClick={() => {
                             LoginModalRef.open();
                         }}
@@ -67,7 +69,7 @@ export function AccountSetting({ source, profile }: AccountSettingProps) {
                         </div>
                     </button>
                     <button
-                        className="flex items-center gap-[8px]"
+                        className="flex items-center gap-2 px-6 py-3 hover:bg-bg"
                         onClick={() => {
                             LogoutModalRef.open({ source });
                         }}

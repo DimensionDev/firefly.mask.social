@@ -250,6 +250,7 @@ export function formatLensQuoteOrComment(result: CommentBaseFragment | PostFragm
         },
         stats,
         __original__: result,
+        momoka: result.momoka || undefined,
     };
 }
 
@@ -285,6 +286,7 @@ export function formatLensPost(result: AnyPublicationFragment): Post {
             },
             canAct,
             __original__: result,
+            momoka: result.momoka || undefined,
         };
     }
 
@@ -332,6 +334,7 @@ export function formatLensPost(result: AnyPublicationFragment): Post {
             hasActed: result.operations.hasActed.value,
             quoteOn: formatLensQuoteOrComment(result.quoteOn),
             canAct,
+            momoka: result.momoka || undefined,
         };
     } else if (result.__typename === 'Comment') {
         return {
@@ -370,6 +373,7 @@ export function formatLensPost(result: AnyPublicationFragment): Post {
                     ? formatLensPost(result.root as PostFragment)
                     : undefined,
             canAct,
+            momoka: result.momoka || undefined,
         };
     } else {
         return {
@@ -404,6 +408,7 @@ export function formatLensPost(result: AnyPublicationFragment): Post {
             hasLiked: result.operations.hasUpvoted,
             hasActed: result.operations.hasActed.value,
             __original__: result,
+            momoka: result.momoka || undefined,
         };
     }
 }
