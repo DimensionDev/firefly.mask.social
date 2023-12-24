@@ -268,6 +268,9 @@ msgstr ""
 msgid "Failed to unfollow"
 msgstr ""
 
+msgid "Confirm to log out this account?"
+msgstr ""
+
 msgid "Followings"
 msgstr ""
 
@@ -469,9 +472,6 @@ msgstr ""
 msgid "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code"
 msgstr ""
 
-msgid "Confirm to log out {0}?"
-msgstr ""
-
 msgid "Unknown session type."
 msgstr ""
 
@@ -494,6 +494,9 @@ msgid "Failed to unvote post"
 msgstr ""
 
 msgid "Failed to upload image to IPFS: {0}"
+msgstr ""
+
+msgid "Confirm to log out these accounts?"
 msgstr ""
 
 msgid "Light mode"
