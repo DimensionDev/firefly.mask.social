@@ -41,8 +41,8 @@ export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps 
         return !source
             ? lensProfiles.concat(farcasterProfiles)
             : source === SocialPlatform.Lens
-                ? lensProfiles
-                : farcasterProfiles;
+              ? lensProfiles
+              : farcasterProfiles;
     }, [lensProfiles, farcasterProfiles, source, profile]);
 
     return (
@@ -83,9 +83,11 @@ export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps 
                                 </div>
                                 <div className="flex flex-col gap-[12px] p-[24px]">
                                     <div className="text-[15px] font-medium leading-normal text-lightMain">
-                                        {profiles.length > 1 ?
-                                            <Trans>Confirm to log out these accounts?</Trans> : <Trans>Confirm to log out this account?</Trans>
-                                        }
+                                        {profiles.length > 1 ? (
+                                            <Trans>Confirm to log out these accounts?</Trans>
+                                        ) : (
+                                            <Trans>Confirm to log out this account?</Trans>
+                                        )}
                                     </div>
                                     {profiles.map((profile) => (
                                         <div

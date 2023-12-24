@@ -9,10 +9,13 @@ import { useLensStateStore } from '@/store/useLensStore.js';
 export function useSwitchLensAccount() {
     const updateCurrentProfile = useLensStateStore.use.updateCurrentProfile();
     const enqueueSnackbar = useCustomSnackbar();
-    const [{ loading }, login] = useAsyncFn(async (profile: Profile) => {
-        const session = await LensSocialMediaProvider.createSessionForProfileId(profile.profileId);
-        updateCurrentProfile(profile, session);
-        enqueueSnackbar(t`Your Lens account is now connected`, { variant: 'success' });
-    }, [enqueueSnackbar, updateCurrentProfile]);
+    const [{ loading }, login] = useAsyncFn(
+        async (profile: Profile) => {
+            const session = await LensSocialMediaProvider.createSessionForProfileId(profile.profileId);
+            updateCurrentProfile(profile, session);
+            enqueueSnackbar(t`Your Lens account is now connected`, { variant: 'success' });
+        },
+        [enqueueSnackbar, updateCurrentProfile],
+    );
     return { loading, login };
 }
