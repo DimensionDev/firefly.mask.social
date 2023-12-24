@@ -29,7 +29,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <head>
                 <Polyfills />
             </head>
-            <body className={`${inter.variable}`}>
+            <body className={`${inter.variable} font-inter`}>
                 <Providers>
                     <div className="m-auto hidden min-h-screen md:flex md:w-full lg:w-[1265px]">
                         <SideBar />

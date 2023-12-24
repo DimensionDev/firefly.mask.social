@@ -76,7 +76,7 @@ export const FeedActionType = memo<FeedActionType>(function FeedActionType({ pos
             }}
         >
             {combined && !isPostPage ? (
-                <div className="mb-3 flex items-center space-x-2 text-secondary">
+                <div className="mb-3 flex items-center space-x-2 text-[15px] text-secondary">
                     <SparkIcon width={16} height={16} />
                     <span className="flex items-center space-x-1">
                         <strong>{profilesDescription}</strong> <span>{combinedDescription}</span>
@@ -84,7 +84,7 @@ export const FeedActionType = memo<FeedActionType>(function FeedActionType({ pos
                 </div>
             ) : null}
             {post.type === 'Mirror' && !isPostPage ? (
-                <div className="mb-3 flex items-center space-x-2 text-secondary">
+                <div className="mb-3 flex items-center space-x-2 text-[15px] text-secondary">
                     <MirrorIcon width={16} height={16} />
                     <Link href={getProfileUrl(post.author)}>
                         <Trans>
@@ -94,7 +94,7 @@ export const FeedActionType = memo<FeedActionType>(function FeedActionType({ pos
                 </div>
             ) : null}
             {post.mirrors?.length && !isComment && !isPostPage ? (
-                <div className="mb-3 flex items-center space-x-2 text-secondary">
+                <div className="mb-3 flex items-center space-x-2 text-[15px] text-secondary">
                     <MirrorIcon width={16} height={16} />
                     <Link href={getProfileUrl(first(post.mirrors)!)}>
                         <strong>{first(post.mirrors)?.displayName}</strong>{' '}
@@ -103,7 +103,7 @@ export const FeedActionType = memo<FeedActionType>(function FeedActionType({ pos
                 </div>
             ) : null}
             {post.reactions?.length && !isComment && !isPostPage ? (
-                <div className="mb-3 flex items-center space-x-2 text-secondary">
+                <div className="mb-3 flex items-center space-x-2 text-[15px] text-secondary">
                     {post.hasLiked ? <LikedIcon width={17} height={16} /> : <LikeIcon width={17} height={16} />}
                     <Link href={getProfileUrl(first(post.reactions)!)}>
                         <Trans>

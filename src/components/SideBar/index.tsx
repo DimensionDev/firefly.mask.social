@@ -88,7 +88,9 @@ export const SideBar = memo(function SideBar() {
     );
 
     const checkIsSelected = (href: `/${string}`) =>
-        href === PageRoutes.Profile ? isMyProfile : isRoutePathname(pathname, href);
+        href === PageRoutes.Profile
+            ? isMyProfile || (!currentProfile && pathname === PageRoutes.Profile)
+            : isRoutePathname(pathname, href);
 
     return (
         <>

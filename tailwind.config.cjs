@@ -62,7 +62,7 @@ module.exports = {
                 accountCardShadowDark: '0px 0px 20px 0px rgba(255, 255, 255, 0.12)',
             },
             fontFamily: {
-                inter: ['var(--font-latin)'],
+                inter: ['var(--font-inter)'],
             },
         },
         screens: {
