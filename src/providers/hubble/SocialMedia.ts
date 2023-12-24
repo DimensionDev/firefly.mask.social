@@ -94,7 +94,7 @@ export class HubbleSocialMedia implements Provider {
             },
             body: bytes,
         });
-        if (!data) throw new Error(t`Failed to publish post`);
+        if (!data) throw new Error(t`Failed to publish post.`);
 
         return {
             source: SocialPlatform.Farcaster,
@@ -145,7 +145,7 @@ export class HubbleSocialMedia implements Provider {
             headers: { 'Content-Type': 'application/octet-stream' },
             body: bytes,
         });
-        if (!data) throw new Error(t`Failed to upvote post`);
+        if (!data) throw new Error(t`Failed to upvote post.`);
 
         return {
             reactionId: bytesToHex(messageHash),
@@ -171,7 +171,7 @@ export class HubbleSocialMedia implements Provider {
             headers: { 'Content-Type': 'application/octet-stream' },
             body: bytes,
         });
-        if (!data) throw new Error(t`Failed to unvote post`);
+        if (!data) throw new Error(t`Failed to unvote post.`);
         return;
     }
 
@@ -201,7 +201,7 @@ export class HubbleSocialMedia implements Provider {
             headers: { 'Content-Type': 'application/octet-stream' },
             body: bytes,
         });
-        if (!data) throw new Error(t`Failed to publish post`);
+        if (!data) throw new Error(t`Failed to publish post.`);
         return toHex(hash);
     }
 
@@ -222,7 +222,7 @@ export class HubbleSocialMedia implements Provider {
             headers: { 'Content-Type': 'application/octet-stream' },
             body: bytes,
         });
-        if (!data) throw new Error(t`Failed to mirror post`);
+        if (!data) throw new Error(t`Failed to mirror post.`);
         return null!;
     }
 
@@ -243,7 +243,7 @@ export class HubbleSocialMedia implements Provider {
             headers: { 'Content-Type': 'application/octet-stream' },
             body: bytes,
         });
-        if (!data) throw new Error(t`Failed to unmirror post`);
+        if (!data) throw new Error(t`Failed to unmirror post.`);
         return null!;
     }
 
@@ -261,7 +261,7 @@ export class HubbleSocialMedia implements Provider {
             headers: { 'Content-Type': 'application/octet-stream' },
             body: bytes,
         });
-        if (!data) throw new Error(t`Failed to follow`);
+        if (!data) throw new Error(t`Failed to follow.`);
         return null!;
     }
 
@@ -279,7 +279,7 @@ export class HubbleSocialMedia implements Provider {
             headers: { 'Content-Type': 'application/octet-stream' },
             body: bytes,
         });
-        if (!data) throw new Error(t`Failed to unfollow`);
+        if (!data) throw new Error(t`Failed to unfollow.`);
         return null!;
     }
 

@@ -47,7 +47,7 @@ export function useSendLens() {
                 };
                 updateVideo(uploadedVideo);
             } else {
-                const message = t`Failed to upload video to IPFS`;
+                const message = t`Failed to upload video to IPFS.`;
                 enqueueSnackbar(message, { variant: 'error' });
                 throw new Error(message);
             }
@@ -66,7 +66,7 @@ export function useSendLens() {
                 });
                 updateLensPostId(published.postId);
             } catch (error) {
-                enqueueSnackbar(t`Failed to post on Lens`, {
+                enqueueSnackbar(t`Failed to post on Lens.`, {
                     variant: 'error',
                 });
                 throw error;

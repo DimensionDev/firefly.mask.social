@@ -69,7 +69,7 @@ export default function ContentCollected({ profileId, source }: ContentFeedProps
                 icon={<BlackHoleIcon width={200} height="auto" className="text-secondaryMain" />}
                 message={
                     <div className="mt-10">
-                        <Trans>There is no data available for display</Trans>
+                        <Trans>There is no data available for display.</Trans>
                     </div>
                 }
             />

@@ -66,7 +66,7 @@ export default function Home() {
                     icon={<BlackHoleIcon width={200} height="auto" className="text-secondaryMain" />}
                     message={
                         <div className="mt-10">
-                            <Trans>There is no data available for display</Trans>
+                            <Trans>There is no data available for display.</Trans>
                         </div>
                     }
                 />

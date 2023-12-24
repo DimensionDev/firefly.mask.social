@@ -38,7 +38,7 @@ export function PostByItem({ source }: PostByItemProps) {
                 const session = await LensSocialMediaProvider.createSessionForProfileId(profile.profileId);
 
                 updateLensCurrentProfile(profile, session);
-                enqueueSnackbar(t`Your Lens account is now connected`, {
+                enqueueSnackbar(t`Your Lens account is now connected.`, {
                     variant: 'success',
                 });
             } catch (error) {

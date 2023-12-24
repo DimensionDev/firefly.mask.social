@@ -22,9 +22,6 @@ msgstr "Quote Post"
 msgid "Failed to fetch as Blob."
 msgstr "Failed to fetch as Blob."
 
-msgid "Failed to mirror post"
-msgstr "Failed to mirror post"
-
 msgid "Failed to connect wallet."
 msgstr "Failed to connect wallet."
 
@@ -33,9 +30,6 @@ msgstr "Communities"
 
 msgid "Discover"
 msgstr "Discover"
-
-msgid "Failed to publish post"
-msgstr "Failed to publish post"
 
 msgid "{0, select, follow {Followed @{handle} on {source}} unfollow {UnFollowed @{handle} on {source}} other {Followed @{handle} on {source}}}"
 msgstr "{0, select, follow {Followed @{handle} on {source}} unfollow {UnFollowed @{handle} on {source}} other {Followed @{handle} on {source}}}"
@@ -52,8 +46,14 @@ msgstr "Failed to mirror. {0}"
 msgid "Debug Connection"
 msgstr "Debug Connection"
 
+msgid "Allow Lens Manager to perform actions such as posting, liking, and commenting without the need to sign each transaction."
+msgstr "Allow Lens Manager to perform actions such as posting, liking, and commenting without the need to sign each transaction."
+
 msgid "{0} views"
 msgstr "{0} views"
+
+msgid "Failed to post on Farcaster."
+msgstr "Failed to post on Farcaster."
 
 msgid "Act"
 msgstr "Act"
@@ -75,12 +75,6 @@ msgstr "Change Wallet"
 
 msgid "UnLike"
 msgstr "UnLike"
-
-msgid "Missing IPFS hash for image or video"
-msgstr "Missing IPFS hash for image or video"
-
-msgid "Failed to follow"
-msgstr "Failed to follow"
 
 msgid "Debug Console"
 msgstr "Debug Console"
@@ -106,17 +100,17 @@ msgstr "Confirm"
 msgid "Page not found"
 msgstr "Page not found"
 
-msgid "Failed to reply post on Farcaster"
-msgstr "Failed to reply post on Farcaster"
-
 msgid "Liked"
 msgstr "Liked"
 
-msgid "Your Farcaster account is now connected"
-msgstr "Your Farcaster account is now connected"
+msgid "Missing IPFS hash for image or video."
+msgstr "Missing IPFS hash for image or video."
 
 msgid "Failed to unlike. {0}"
 msgstr "Failed to unlike. {0}"
+
+msgid "Failed to mirror post on Farcaster."
+msgstr "Failed to mirror post on Farcaster."
 
 msgid "You need to connect your {source} account to use this feature."
 msgstr "You need to connect your {source} account to use this feature."
@@ -126,6 +120,9 @@ msgstr "Search"
 
 msgid "Connected Accounts"
 msgstr "Connected Accounts"
+
+msgid "Failed to post on Lens."
+msgstr "Failed to post on Lens."
 
 msgid "Select Account"
 msgstr "Select Account"
@@ -154,9 +151,6 @@ msgstr "Connect Wallet"
 msgid "Feed"
 msgstr "Feed"
 
-msgid "Follow more friends to continue exploring {0}"
-msgstr "Follow more friends to continue exploring {0}"
-
 msgid "Change account"
 msgstr "Change account"
 
@@ -172,11 +166,11 @@ msgstr "No results"
 msgid "Join our Telegram"
 msgstr "Join our Telegram"
 
-msgid "Sign the transaction to verify you are the owner of the selected profile"
-msgstr "Sign the transaction to verify you are the owner of the selected profile"
-
 msgid "Log out"
 msgstr "Log out"
+
+msgid "Follow more friends to continue exploring {0}."
+msgstr "Follow more friends to continue exploring {0}."
 
 msgid "post"
 msgstr "post"
@@ -211,11 +205,20 @@ msgstr "Send"
 msgid "Collected"
 msgstr "Collected"
 
+msgid "Failed to upload video to IPFS."
+msgstr "Failed to upload video to IPFS."
+
 msgid "Failed to create image payload."
 msgstr "Failed to create image payload."
 
+msgid "Failed to reply post on Farcaster."
+msgstr "Failed to reply post on Farcaster."
+
 msgid "Post by"
 msgstr "Post by"
+
+msgid "Failed to unvote post."
+msgstr "Failed to unvote post."
 
 msgid "Privacy Policy"
 msgstr "Privacy Policy"
@@ -244,17 +247,14 @@ msgstr "{0, plural, one {<0/>} other {{1, plural, one {<1/> and <2/>} other {<3/
 msgid "Comment"
 msgstr "Comment"
 
-msgid "Failed to post on Farcaster"
-msgstr "Failed to post on Farcaster"
-
-msgid "Failed to unmirror post"
-msgstr "Failed to unmirror post"
-
 msgid "Method not implemented."
 msgstr "Method not implemented."
 
 msgid "Malformed session."
 msgstr "Malformed session."
+
+msgid "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code."
+msgstr "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code."
 
 msgid "Post has been hidden"
 msgstr "Post has been hidden"
@@ -265,8 +265,8 @@ msgstr "<0>{0}</0> liked"
 msgid "{0, select, follow {Failed to followed @{handle} on {source}} unfollow {Failed to unfollowed @{handle} on {source}} other {Failed to followed @{handle} on {source}}}"
 msgstr "{0, select, follow {Failed to followed @{handle} on {source}} unfollow {Failed to unfollowed @{handle} on {source}} other {Failed to followed @{handle} on {source}}}"
 
-msgid "Failed to unfollow"
-msgstr "Failed to unfollow"
+msgid "Failed to follow."
+msgstr "Failed to follow."
 
 msgid "Followings"
 msgstr "Followings"
@@ -289,6 +289,9 @@ msgstr "No session found."
 msgid "Visit firefly.land"
 msgstr "Visit firefly.land"
 
+msgid "Failed to upvote post."
+msgstr "Failed to upvote post."
+
 msgid "Post your reply"
 msgstr "Post your reply"
 
@@ -303,6 +306,9 @@ msgstr "Settings"
 
 msgid "Details"
 msgstr "Details"
+
+msgid "Your Farcaster account is now connected."
+msgstr "Your Farcaster account is now connected."
 
 msgid "Connect to {source}"
 msgstr "Connect to {source}"
@@ -358,6 +364,9 @@ msgstr "Loading..."
 msgid "Share"
 msgstr "Share"
 
+msgid "Failed to unfollow."
+msgstr "Failed to unfollow."
+
 msgid "Select failed: More than 2 images"
 msgstr "Select failed: More than 2 images"
 
@@ -366,9 +375,6 @@ msgstr "{0, plural, one {<0/>} other {{1, plural, one {<1/> and <2/>} other {<3/
 
 msgid "Please switch to the {0} network in your wallet ({1})}"
 msgstr "Please switch to the {0} network in your wallet ({1})}"
-
-msgid "Failed to post on Lens"
-msgstr "Failed to post on Lens"
 
 msgid "Visit mask.io"
 msgstr "Visit mask.io"
@@ -394,17 +400,20 @@ msgstr "Posted on Lens"
 msgid "{0, plural, =0 {Mirror or Quote} zero {Mirror or Quote} one {Mirror or Quote} other {Mirrors or Quotes}}"
 msgstr "{0, plural, =0 {Mirror or Quote} zero {Mirror or Quote} one {Mirror or Quote} other {Mirrors or Quotes}}"
 
+msgid "There is no data available for display."
+msgstr "There is no data available for display."
+
 msgid "Mirrored"
 msgstr "Mirrored"
+
+msgid "Failed to publish post."
+msgstr "Failed to publish post."
 
 msgid "Posted on Farcaster"
 msgstr "Posted on Farcaster"
 
 msgid "Follow @realMaskNetwork on X"
 msgstr "Follow @realMaskNetwork on X"
-
-msgid "Allow Lens Manager to perform actions such as posting, liking, and commenting without the need to sign each transaction"
-msgstr "Allow Lens Manager to perform actions such as posting, liking, and commenting without the need to sign each transaction"
 
 msgid "<0>{0}</0> mirrored"
 msgstr "<0>{0}</0> mirrored"
@@ -448,11 +457,20 @@ msgstr "No profile found"
 msgid "Everyone can reply"
 msgstr "Everyone can reply"
 
+msgid "You've hit rock bottom."
+msgstr "You've hit rock bottom."
+
+msgid "Failed to mirror post."
+msgstr "Failed to mirror post."
+
 msgid "Login with custody wallet"
 msgstr "Login with custody wallet"
 
 msgid "Delegate Signing (Recommend)"
 msgstr "Delegate Signing (Recommend)"
+
+msgid "Sign the transaction to verify you are the owner of the selected profile."
+msgstr "Sign the transaction to verify you are the owner of the selected profile."
 
 msgid "Refresh"
 msgstr "Refresh"
@@ -466,9 +484,6 @@ msgstr "Log out all"
 msgid "{0} and others"
 msgstr "{0} and others"
 
-msgid "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code"
-msgstr "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code"
-
 msgid "Unknown session type."
 msgstr "Unknown session type."
 
@@ -478,17 +493,14 @@ msgstr "Online"
 msgid "Unfollow"
 msgstr "Unfollow"
 
-msgid "Failed to upvote post"
-msgstr "Failed to upvote post"
+msgid "You cannot reply to @{author} on {0}."
+msgstr "You cannot reply to @{author} on {0}."
 
-msgid "You cannot reply to @{author} on {source}"
-msgstr "You cannot reply to @{author} on {source}"
+msgid "Failed to unmirror post."
+msgstr "Failed to unmirror post."
 
 msgid "Failed to fetch as ArrayBuffer."
 msgstr "Failed to fetch as ArrayBuffer."
-
-msgid "Failed to unvote post"
-msgstr "Failed to unvote post"
 
 msgid "Failed to upload image to IPFS: {0}"
 msgstr "Failed to upload image to IPFS: {0}"
@@ -499,32 +511,23 @@ msgstr "Confirm to log out these accounts?"
 msgid "Light mode"
 msgstr "Light mode"
 
-msgid "Your Lens account is now connected"
-msgstr "Your Lens account is now connected"
-
 msgid "Log in"
 msgstr "Log in"
 
 msgid "Mask Network"
 msgstr "Mask Network"
 
+msgid "Your Lens account is now connected."
+msgstr "Your Lens account is now connected."
+
 msgid "Remove"
 msgstr "Remove"
-
-msgid "Failed to mirror post on Farcaster"
-msgstr "Failed to mirror post on Farcaster"
 
 msgid "No matching users"
 msgstr "No matching users"
 
-msgid "Failed to upload video to IPFS"
-msgstr "Failed to upload video to IPFS"
-
 msgid "Log in to Farcaster account"
 msgstr "Log in to Farcaster account"
-
-msgid "There is no data available for display"
-msgstr "There is no data available for display"
 
 msgid "Recasted"
 msgstr "Recasted"
@@ -555,9 +558,6 @@ msgstr "{0, select, follow {Follow} unfollow {Unfollow} other {Follow}}"
 
 msgid "Media"
 msgstr "Media"
-
-msgid "You've hit rock bottom"
-msgstr "You've hit rock bottom"
 
 msgid "Mirror"
 msgstr "Mirror"

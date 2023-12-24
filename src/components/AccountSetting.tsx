@@ -37,7 +37,7 @@ export function AccountSetting({ source, profile }: AccountSettingProps) {
             if (source === SocialPlatform.Lens) {
                 const session = await LensSocialMediaProvider.createSessionForProfileId(profile.profileId);
                 updateCurrentProfile(profile, session);
-                enqueueSnackbar(t`Your Lens account is now connected`, { variant: 'success' });
+                enqueueSnackbar(t`Your Lens account is now connected.`, { variant: 'success' });
             }
         },
         [source],
