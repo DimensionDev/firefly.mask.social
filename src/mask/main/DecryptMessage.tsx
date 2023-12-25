@@ -1,7 +1,6 @@
 'use client';
 
 import { Trans } from '@lingui/macro';
-import { SnackbarContent } from '@mui/material';
 import { useActivatedPluginsSiteAdaptor } from '@masknet/plugin-infra/content-script';
 import { createInjectHooksRenderer } from '@masknet/plugin-infra/dom';
 import { MaskPostExtraPluginWrapper } from '@masknet/shared';
