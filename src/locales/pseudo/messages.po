@@ -124,6 +124,9 @@ msgstr ""
 msgid "Failed to post on Lens."
 msgstr ""
 
+msgid "Please open this link in PC Explorer"
+msgstr ""
+
 msgid "Select Account"
 msgstr ""
 
@@ -389,9 +392,6 @@ msgid "Sign"
 msgstr ""
 
 msgid "Follow @thefireflyapp on X"
-msgstr ""
-
-msgid "Please open this link on PC explore."
 msgstr ""
 
 msgid "Posted on Lens"
