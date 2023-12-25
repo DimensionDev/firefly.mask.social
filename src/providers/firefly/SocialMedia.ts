@@ -183,37 +183,7 @@ export class FireflySocialMedia implements Provider {
                 cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
             }),
         });
-        const data = casts.map((cast) => ({
-            type: (cast.parent_hash ? t`Comment` : t`Post`) as PostType,
-            source: SocialPlatform.Farcaster,
-            postId: cast.hash,
-            parentPostId: cast.parent_hash,
-            timestamp: Number(cast.created_at),
-            author: {
-                fullHandle: cast.author.username,
-                profileId: cast.author.fid,
-                handle: cast.author.username,
-                displayName: cast.author.display_name,
-                pfp: cast.author.pfp,
-                followerCount: cast.author.followers,
-                followingCount: cast.author.following,
-                status: ProfileStatus.Active,
-                verified: true,
-                source: SocialPlatform.Farcaster,
-            },
-            metadata: {
-                locale: '',
-                content: {
-                    content: cast.text,
-                },
-            },
-            stats: {
-                comments: Number(cast.replyCount),
-                mirrors: cast.recastCount,
-                quotes: cast.recastCount,
-                reactions: cast.likeCount,
-            },
-        }));
+        const data = casts.map((cast) => formatFarcasterPostFromFirefly(cast));
         return createPageable(data, createIndicator(indicator), createNextIndicator(indicator, cursor));
     }
 
