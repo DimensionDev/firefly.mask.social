@@ -76,6 +76,8 @@ const SearchBar = memo(function SearchBar(props: SearchBarProps) {
 
     if (props.source === 'header' && !isSearchPage) return null;
     if (props.source === 'secondary' && isSearchPage) return null;
+    const dropdownVisible =
+        showDropdown && ((histories.length && !inputText) || !!inputText || isLoading || !!profiles?.data);
 
     return (
         <div
@@ -121,7 +123,7 @@ const SearchBar = memo(function SearchBar(props: SearchBarProps) {
                         />
                     </label>
                 </form>
-                {showDropdown ? (
+                {dropdownVisible ? (
                     <div className="absolute inset-x-0 top-[40px] z-[1000] mt-2 flex w-full flex-col overflow-hidden rounded-2xl bg-white shadow-[0_4px_30px_0_rgba(0,0,0,0.10)] dark:border dark:border-line dark:bg-primaryBottom">
                         {histories.length && !inputText ? (
                             <>
