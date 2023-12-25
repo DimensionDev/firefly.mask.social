@@ -99,7 +99,7 @@ export function PostByItem({ source }: PostByItemProps) {
                 <YesIcon width={40} height={40} className=" relative -right-[10px]" />
             ) : currentProfile.source === SocialPlatform.Lens ? (
                 <button
-                    className=" font-bold text-blueBottom disabled:opacity-50"
+                    className=" font-bold text-blueBottom disabled:cursor-not-allowed disabled:opacity-50"
                     disabled={loading}
                     onClick={async () => login(profile)}
                 >

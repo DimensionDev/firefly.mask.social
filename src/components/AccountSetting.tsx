@@ -43,7 +43,7 @@ export function AccountSetting({ source, profile }: AccountSettingProps) {
                         {profiles.map((profile) => (
                             <button
                                 key={profile.profileId}
-                                className="flex items-center justify-between gap-[8px]"
+                                className="flex items-center justify-between gap-[8px] disabled:cursor-not-allowed disabled:opacity-50"
                                 disabled={isSameProfile(currentProfile, profile) || source === SocialPlatform.Lens}
                                 onClick={() => {
                                     login(profile);

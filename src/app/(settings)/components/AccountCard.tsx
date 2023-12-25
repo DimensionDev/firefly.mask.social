@@ -24,7 +24,7 @@ export function AccountCard({ profile, isCurrent }: AccountCardProps) {
             <ProfileName profile={profile} />
             {isCurrent ? (
                 <button
-                    className="font-['Inter'] text-[15px] font-bold leading-none text-red-500"
+                    className="text-[15px] font-bold leading-none text-red-500"
                     onClick={() => {
                         LogoutModalRef.open({ profile });
                     }}
@@ -33,7 +33,7 @@ export function AccountCard({ profile, isCurrent }: AccountCardProps) {
                 </button>
             ) : (
                 <button
-                    className="text-right font-['Inter'] text-[15px] font-medium leading-none text-main"
+                    className="text-right text-[15px] font-medium leading-none text-main disabled:cursor-not-allowed disabled:opacity-50"
                     disabled={profile.source === SocialPlatform.Farcaster}
                     onClick={() => {
                         login(profile);
