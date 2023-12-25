@@ -21,9 +21,9 @@ export function getEncryptedPayloadFromText(post: Post): EncryptedPayload | unde
     return;
 }
 
-export async function getEncryptedPayloadFromImageAttachment(post: Post): Promise<EncryptedPayload | undefined> {
+export async function getEncryptedPayloadFromImageAttachment(post: Post): Promise<EncryptedPayload> {
     const result =
-        post.metadata.content?.attachments?.map(async (attachment) => {
+        post.metadata.content?.attachments?.map(async (attachment, index) => {
             if (attachment.type !== 'Image') return;
 
             const image = attachment.uri ? await fetchBlob(attachment.uri) : null;
