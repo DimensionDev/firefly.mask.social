@@ -203,8 +203,9 @@ const SearchBar = memo(function SearchBar(props: SearchBarProps) {
                                     <div
                                         key={profile.handle}
                                         className="space-y-2 px-4 py-2 text-center text-sm font-bold hover:bg-bg"
-                                        onClick={(evt) => {
+                                        onClick={() => {
                                             router.push(getProfileUrl(profile));
+                                            setShowDropdown(false);
                                         }}
                                     >
                                         <div className="flex flex-row items-center">
