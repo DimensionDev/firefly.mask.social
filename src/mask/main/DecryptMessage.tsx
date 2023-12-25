@@ -36,18 +36,15 @@ export function DecryptMessage(props: { text: string; version: string }) {
                 </Trans>
             </p>
         );
+
     if (error)
         return (
             <p className="p-2">
                 <Trans>We encountered an error when try to decrypt this message: {error.message}</Trans>
             </p>
         );
-    if (!message)
-        return (
-            <p className="p-2">
-                <Trans>Decrypting...</Trans>
-            </p>
-        );
+
+    if (!message) return null;
 
     return (
         <RegistryContext.Provider value={registry.getTypedMessageRender}>
