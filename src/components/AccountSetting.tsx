@@ -1,7 +1,6 @@
 'use client';
 
-import { t, Trans } from '@lingui/macro';
-import { useAsyncFn } from 'react-use';
+import { Trans } from '@lingui/macro';
 import { useMediaQuery } from 'usehooks-ts';
 
 import LogOutIcon from '@/assets/logout.svg';
@@ -13,12 +12,10 @@ import { WarpcastSignerRequestIndicator } from '@/components/WarpcastSignerReque
 import { SocialPlatform } from '@/constants/enum.js';
 import { Tippy } from '@/esm/Tippy.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
-import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
 import { useProfiles } from '@/hooks/useProfiles.js';
+import { useSwitchLensAccount } from '@/hooks/useSwitchLensAccount.js';
 import { LoginModalRef, LogoutModalRef } from '@/modals/controls.js';
-import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
-import { useLensStateStore } from '@/store/useLensStore.js';
 
 interface AccountSettingProps {
     source: SocialPlatform;
@@ -27,21 +24,9 @@ interface AccountSettingProps {
 
 export function AccountSetting({ source, profile }: AccountSettingProps) {
     const { currentProfile, currentProfileSession, profiles } = useProfiles(source);
-    const updateCurrentProfile = useLensStateStore.use.updateCurrentProfile();
-    const enqueueSnackbar = useCustomSnackbar();
+    const { login } = useSwitchLensAccount();
 
     const isLarge = useMediaQuery('(min-width: 1280px)');
-
-    const [, login] = useAsyncFn(
-        async (profile: Profile) => {
-            if (source === SocialPlatform.Lens) {
-                const session = await LensSocialMediaProvider.createSessionForProfileId(profile.profileId);
-                updateCurrentProfile(profile, session);
-                enqueueSnackbar(t`Your Lens account is now connected.`, { variant: 'success' });
-            }
-        },
-        [source],
-    );
 
     return (
         <Tippy
@@ -53,14 +38,15 @@ export function AccountSetting({ source, profile }: AccountSettingProps) {
             interactive
             className="account-settings"
             content={
-                <div className="flex w-[260px] flex-col rounded-2xl bg-primaryBottom pb-4 shadow-[0px_8px_20px_0px_rgba(0,0,0,0.04)] dark:border dark:border-line dark:shadow-[0px_8px_20px_0px_rgba(255,255,255,0.04)]">
+                <div className="flex w-[260px] flex-col gap-[23px] rounded-2xl bg-primaryBottom p-6 shadow-[0px_8px_20px_0px_rgba(0,0,0,0.04)] dark:bg-bg dark:shadow-[0px_8px_20px_0px_rgba(255,255,255,0.04)]">
                     <div className="p-6">
                         {profiles.map((profile) => (
                             <button
                                 key={profile.profileId}
-                                className="flex w-full items-center justify-between gap-2"
+                                className="flex items-center justify-between gap-[8px] disabled:cursor-not-allowed disabled:opacity-50"
+                                disabled={isSameProfile(currentProfile, profile) || source === SocialPlatform.Lens}
                                 onClick={() => {
-                                    !isSameProfile(currentProfile, profile) && login(profile);
+                                    login(profile);
                                 }}
                             >
                                 <ProfileAvatar profile={profile} />

@@ -59,12 +59,12 @@ export default function Connected() {
     return (
         <div className="flex w-full flex-col items-center gap-[24px] p-[24px]">
             <div className="flex w-full items-center justify-between gap-[24px]">
-                <span className="text-[18px] font-bold leading-[24px] text-main">
+                <span className="text-[20px] font-bold leading-[24px] text-main">
                     <Trans>Communities</Trans>
                 </span>
             </div>
             <div className="flex w-full items-center justify-between">
-                <span className="text-base font-bold leading-[18px] text-main">
+                <span className="text-[18px] font-bold leading-[18px] text-main">
                     <Trans>Firefly</Trans>
                 </span>
             </div>

@@ -271,6 +271,9 @@ msgstr ""
 msgid "Failed to follow."
 msgstr ""
 
+msgid "Confirm to log out this account?"
+msgstr ""
+
 msgid "Followings"
 msgstr ""
 
@@ -509,6 +512,9 @@ msgid "Confirm to log out these accounts?"
 msgstr ""
 
 msgid "Light mode"
+msgstr ""
+
+msgid "Your Lens account is now connected"
 msgstr ""
 
 msgid "Log in"

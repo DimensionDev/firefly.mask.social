@@ -271,6 +271,9 @@ msgstr "{0, select, follow {Failed to followed @{handle} on {source}} unfollow {
 msgid "Failed to follow."
 msgstr "Failed to follow."
 
+msgid "Confirm to log out this account?"
+msgstr "Confirm to log out this account?"
+
 msgid "Followings"
 msgstr "Followings"
 
@@ -510,6 +513,9 @@ msgstr "Confirm to log out these accounts?"
 
 msgid "Light mode"
 msgstr "Light mode"
+
+msgid "Your Lens account is now connected"
+msgstr "Your Lens account is now connected"
 
 msgid "Log in"
 msgstr "Log in"

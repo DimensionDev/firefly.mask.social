@@ -24,8 +24,9 @@ export function SocialPlatformTabs() {
     if (pathname !== '/profile' && isRoutePathname(pathname, '/profile')) {
         const param = pathname.split('/');
         const handle = param[param.length - 1];
-        if (currentSource === SocialPlatform.Farcaster && farcasterProfile?.profileId !== handle) return null;
-        if (currentSource === SocialPlatform.Lens && lensProfile?.handle !== handle) return null;
+        if (currentSource === SocialPlatform.Farcaster && farcasterProfile && farcasterProfile.profileId !== handle)
+            return null;
+        if (currentSource === SocialPlatform.Lens && lensProfile && lensProfile?.handle !== handle) return null;
     }
 
     return (

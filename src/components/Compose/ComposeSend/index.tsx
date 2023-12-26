@@ -48,7 +48,7 @@ export default function ComposeSend() {
             <button
                 disabled={disabled}
                 className={classNames(
-                    ' flex h-10 w-[120px] items-center justify-center gap-1 rounded-full bg-black text-[15px] font-bold text-white disabled:cursor-no-drop disabled:opacity-50  dark:bg-white dark:text-black',
+                    ' flex h-10 w-[120px] items-center justify-center gap-1 rounded-full bg-black text-[15px] font-bold text-white disabled:cursor-not-allowed disabled:opacity-50 dark:bg-white dark:text-black',
                 )}
                 onClick={() => {
                     if (!disabled) {

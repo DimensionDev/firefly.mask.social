@@ -30,7 +30,7 @@ const FollowButton = memo(function FollowButton({ profile }: FollowButtonProps) 
     return (
         <button
             className={classNames(
-                ' flex h-8 w-[100px] items-center justify-center rounded-full text-[15px] font-semibold transition-all disabled:cursor-not-allowed',
+                ' flex h-8 w-[100px] items-center justify-center rounded-full text-[15px] font-semibold transition-all disabled:cursor-not-allowed disabled:opacity-50',
                 buttonState === FollowLabel.Follow ? ' bg-main text-primaryBottom hover:opacity-80' : '',
                 buttonState === FollowLabel.Following ? ' border-[1.5px] border-lightMain text-lightMain' : '',
                 buttonState === FollowLabel.Unfollow

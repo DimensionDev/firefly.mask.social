@@ -13,7 +13,7 @@ export default function Display() {
 
     return (
         <div className="flex w-full flex-col items-center p-[24px]">
-            <div className=" w-full gap-[24px] text-[18px] font-bold leading-[24px] text-main">
+            <div className=" w-full gap-[24px] text-[20px] font-bold leading-[24px] text-main">
                 <Trans>Display</Trans>
             </div>
             <button

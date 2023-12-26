@@ -100,7 +100,7 @@ export function LoginFarcaster() {
                             ) : null}
                         </div>
                         <button
-                            className="text-sm font-semibold text-lightSecond"
+                            className="text-sm font-semibold text-lightSecond disabled:cursor-not-allowed disabled:opacity-50"
                             disabled={loadingCustodyWallet}
                             onClick={onLoginWithCustodyWallet}
                         >
