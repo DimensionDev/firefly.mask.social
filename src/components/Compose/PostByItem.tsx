@@ -30,7 +30,7 @@ export function PostByItem({ source }: PostByItemProps) {
     const currentProfiles = useCurrentProfiles(source);
     const currentProfile = useCurrentProfile(source);
     const updateLensCurrentProfile = useLensStateStore.use.updateCurrentProfile();
-    const { images, disabledSources, updateLoading, toggleSource } = useComposeStateStore();
+    const { images, availableSources, updateLoading, enableSource, disableSource } = useComposeStateStore();
 
     const [{ loading }, login] = useAsyncFn(
         async (profile: Profile) => {
@@ -85,9 +85,9 @@ export function PostByItem({ source }: PostByItemProps) {
             className="flex h-[40px] items-center justify-between border-b border-secondaryLine last:border-none"
             key={profile.profileId}
             onClick={() => {
-                if (isSameProfile(currentProfile, profile)) {
-                    toggleSource(currentProfile.source);
-                }
+                if (!isSameProfile(currentProfile, profile)) return;
+                if (availableSources.includes(currentProfile.source)) disableSource(currentProfile.source);
+                else enableSource(currentProfile.source);
             }}
         >
             <div className=" flex items-center gap-2">
@@ -102,10 +102,10 @@ export function PostByItem({ source }: PostByItemProps) {
                 </span>
             </div>
             {isSameProfile(currentProfile, profile) ? (
-                disabledSources.includes(currentProfile.source) ? (
-                    <RadioDisableNoIcon width={20} height={20} className=" text-secondaryLine" />
-                ) : (
+                availableSources.includes(currentProfile.source) ? (
                     <YesIcon width={40} height={40} className=" relative -right-[10px]" />
+                ) : (
+                    <RadioDisableNoIcon width={20} height={20} className=" text-secondaryLine" />
                 )
             ) : currentProfile.source === SocialPlatform.Lens ? (
                 <button

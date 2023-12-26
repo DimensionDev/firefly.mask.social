@@ -135,7 +135,7 @@ export function MentionsPlugin(): JSX.Element | null {
     const currentLensProfile = useLensStateStore.use.currentProfile();
     const currentFarcasterProfile = useFarcasterStateStore.use.currentProfile();
 
-    const source = useComposeStateStore.use.source();
+    const currentSource = useComposeStateStore.use.currentSource();
     const post = useComposeStateStore.use.post();
 
     const [queryString, setQueryString] = useState<string | null>(null);
@@ -146,7 +146,7 @@ export function MentionsPlugin(): JSX.Element | null {
         enabled: !!debounceQuery,
         queryKey: [
             'searchProfiles',
-            source,
+            currentSource,
             debounceQuery,
             post?.source,
             currentLensProfile?.profileId,
