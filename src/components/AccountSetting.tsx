@@ -26,7 +26,7 @@ export function AccountSetting({ source, profile }: AccountSettingProps) {
     const { currentProfile, currentProfileSession, profiles } = useProfiles(source);
     const { login } = useSwitchLensAccount();
 
-    const isLarge = useMediaQuery('(min-width: 1265px)');
+    const isLarge = useMediaQuery('(min-width: 1280px)');
 
     return (
         <Tippy

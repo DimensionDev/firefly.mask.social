@@ -33,7 +33,7 @@ export default function ComposeAction(props: ComposeActionProps) {
     const currentLensProfile = useLensStateStore.use.currentProfile();
     const currentFarcasterProfile = useFarcasterStateStore.use.currentProfile();
 
-    const { type, post, images, video } = useComposeStateStore();
+    const { type, post, images, video, availableSources } = useComposeStateStore();
 
     const [editor] = useLexicalComposerContext();
 
@@ -49,12 +49,14 @@ export default function ComposeAction(props: ComposeActionProps) {
         [editor],
     );
 
+    const lensHandle = currentLensProfile?.handle;
+    const farcasterHandle = currentFarcasterProfile?.handle;
     const postByText = useMemo(() => {
-        const lensHandle = currentLensProfile?.handle;
-        const farcasterHandle = currentFarcasterProfile?.handle;
-
         if (!post) {
-            return compact([lensHandle, farcasterHandle])
+            return compact([
+                availableSources.includes(SocialPlatform.Lens) ? lensHandle : null,
+                availableSources.includes(SocialPlatform.Farcaster) ? farcasterHandle : null,
+            ])
                 .map((x) => `@${x}`)
                 .join(', ');
         } else {
@@ -68,7 +70,7 @@ export default function ComposeAction(props: ComposeActionProps) {
                     return '';
             }
         }
-    }, [currentFarcasterProfile, currentLensProfile, post]);
+    }, [lensHandle, farcasterHandle, availableSources, post]);
 
     const [{ loading }, openRedPacketComposeDialog] = useAsyncFn(async () => {
         await connectMaskWithWagmi();

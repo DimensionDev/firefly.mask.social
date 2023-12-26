@@ -39,8 +39,10 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
     const { value: payload, loading } = useAsync(async () => {
         const payloadFromText = getEncryptedPayloadFromText(post);
         const payloadFromImageAttachment = await getEncryptedPayloadFromImageAttachment(post);
-
-        return payloadFromImageAttachment ?? payloadFromText;
+        return {
+            payloadFromImageAttachment,
+            payloadFromText,
+        };
     }, [post]);
 
     if (post.isEncrypted) {
@@ -115,25 +117,25 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
             })}
             ref={ref}
         >
-            {payload ? (
+            <Markup
+                post={post}
+                className={classNames({ 'line-clamp-5': canShowMore }, 'markup linkify break-words text-[15px]')}
+            >
+                {oembedLoaded
+                    ? removeUrlAtEnd(post.metadata.content?.oembedUrl, post.metadata.content?.content)
+                    : post.metadata.content?.content}
+            </Markup>
+
+            {payload?.payloadFromImageAttachment || payload?.payloadFromText ? (
                 <mask-decrypted-post
                     props={encodeURIComponent(
                         JSON.stringify({
                             post,
-                            payload,
+                            payload: payload.payloadFromText || payload.payloadFromImageAttachment,
                         }),
                     )}
                 />
-            ) : (
-                <Markup
-                    post={post}
-                    className={classNames({ 'line-clamp-5': canShowMore }, 'markup linkify break-words text-[15px]')}
-                >
-                    {oembedLoaded
-                        ? removeUrlAtEnd(post.metadata.content?.oembedUrl, post.metadata.content?.content)
-                        : post.metadata.content?.content}
-                </Markup>
-            )}
+            ) : null}
 
             {canShowMore ? (
                 <div className="text-[15px] font-bold text-link">
@@ -146,16 +148,20 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
                     </div>
                 </div>
             ) : null}
-            {showAttachments ? (
+
+            {/* TODO: exclude the payload image from attachments */}
+            {showAttachments && !payload?.payloadFromImageAttachment ? (
                 <Attachments
                     post={post}
                     asset={post.metadata.content?.asset}
                     attachments={post.metadata.content?.attachments ?? EMPTY_LIST}
                 />
             ) : null}
+
             {post.metadata.content?.oembedUrl ? (
                 <Oembed url={post.metadata.content.oembedUrl} onData={() => setOembedLoaded(true)} />
             ) : null}
+
             {!!post.quoteOn && !isQuote ? <Quote post={post.quoteOn} /> : null}
         </div>
     );

@@ -52,7 +52,7 @@ export function LoginLens({ profiles }: LoginLensProps) {
 
                 updateProfiles(profiles);
                 updateCurrentProfile(currentProfile, session);
-                enqueueSnackbar(t`Your Lens account is now connected`, { variant: 'success' });
+                enqueueSnackbar(t`Your Lens account is now connected.`, { variant: 'success' });
                 LoginModalRef.close();
             } catch (error) {
                 enqueueSnackbar(error instanceof Error ? error.message : t`Failed to login`, { variant: 'error' });
@@ -77,7 +77,7 @@ export function LoginLens({ profiles }: LoginLensProps) {
                     <>
                         <div className="flex w-full flex-col gap-[16px] rounded-[8px] bg-lightBg px-[16px] py-[24px]">
                             <div className="w-full text-left text-[14px] leading-[16px] text-second">
-                                <Trans>Sign the transaction to verify you are the owner of the selected profile</Trans>
+                                <Trans>Sign the transaction to verify you are the owner of the selected profile.</Trans>
                             </div>
                             {profiles?.map((profile) => (
                                 <AccountCard
@@ -115,7 +115,7 @@ export function LoginLens({ profiles }: LoginLensProps) {
                                 <div className="w-full text-left text-[14px] leading-[16px] text-second">
                                     <Trans>
                                         Allow Lens Manager to perform actions such as posting, liking, and commenting
-                                        without the need to sign each transaction
+                                        without the need to sign each transaction.
                                     </Trans>
                                 </div>
                             </div>

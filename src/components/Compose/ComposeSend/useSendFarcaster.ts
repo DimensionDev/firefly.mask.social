@@ -72,7 +72,7 @@ export function useSendFarcaster() {
                 }
             } catch (error) {
                 enqueueSnackbar(
-                    type === 'compose' ? t`Failed to post on Farcaster` : t`Failed to reply post on Farcaster`,
+                    type === 'compose' ? t`Failed to post on Farcaster.` : t`Failed to reply post on Farcaster.`,
                     {
                         variant: 'error',
                     },
@@ -84,7 +84,7 @@ export function useSendFarcaster() {
             try {
                 await HubbleSocialMediaProvider.mirrorPost(post.postId);
             } catch (error) {
-                enqueueSnackbar(t`Failed to mirror post on Farcaster`, {
+                enqueueSnackbar(t`Failed to mirror post on Farcaster.`, {
                     variant: 'error',
                 });
                 throw error;
@@ -97,8 +97,8 @@ export function useSendFarcaster() {
         post,
         images,
         updateImages,
+        enqueueSnackbar,
         content,
         updateFarcasterPostId,
-        enqueueSnackbar,
     ]);
 }

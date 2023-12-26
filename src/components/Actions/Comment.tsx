@@ -8,6 +8,7 @@ import { SocialPlatform } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { humanize, nFormatter } from '@/helpers/formatCommentCounts.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
+import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { ComposeModalRef, LoginModalRef } from '@/modals/controls.js';
@@ -53,7 +54,7 @@ export const Comment = memo<CommentProps>(function Comment({
                 source,
             });
         } else {
-            enqueueSnackbar(t`You cannot reply to @${author} on ${source}`, {
+            enqueueSnackbar(t`You cannot reply to @${author} on ${resolveSourceName(source)}.`, {
                 variant: 'error',
             });
         }

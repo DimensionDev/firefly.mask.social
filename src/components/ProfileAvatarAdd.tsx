@@ -12,7 +12,7 @@ interface ProfileAvatarAddProps extends React.HTMLAttributes<HTMLDivElement> {
 export function ProfileAvatarAdd(props: ProfileAvatarAddProps) {
     const { source, size = 40, ...divProps } = props;
 
-    const isLarge = useMediaQuery('(min-width: 1265px)');
+    const isLarge = useMediaQuery('(min-width: 1280px)');
 
     return (
         <div

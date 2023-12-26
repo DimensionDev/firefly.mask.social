@@ -1,4 +1,5 @@
 import type { TypedMessageTextV1 } from '@masknet/typed-message';
+import { uniq } from 'lodash-es';
 import type { Dispatch, SetStateAction } from 'react';
 import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
@@ -14,8 +15,9 @@ type OrphanPost = Omit<Post, 'embedPosts' | 'comments' | 'root' | 'commentOn' | 
 
 interface ComposeState {
     type: 'compose' | 'quote' | 'reply';
+    availableSources: SocialPlatform[];
     // If source is null, it means to post to all platforms.
-    source: SocialPlatform | null;
+    currentSource: SocialPlatform | null;
     /** Parent post */
     lensPostId: string | null;
     farcasterPostId: string | null;
@@ -25,8 +27,10 @@ interface ComposeState {
     video: MediaObject | null;
     images: MediaObject[];
     loading: boolean;
-    updateSource: (source: SocialPlatform | null) => void;
+    enableSource: (source: SocialPlatform) => void;
+    disableSource: (source: SocialPlatform) => void;
     updateType: (type: 'compose' | 'quote' | 'reply') => void;
+    updateCurrentSource: (source: SocialPlatform | null) => void;
     updateChars: (chars: string) => void;
     updateTypedMessage: (typedMessage: TypedMessageTextV1 | null) => void;
     updateLoading: (loading: boolean) => void;
@@ -35,15 +39,16 @@ interface ComposeState {
     updateImages: Dispatch<SetStateAction<MediaObject[]>>;
     addImage: (image: MediaObject) => void;
     removeImage: (image: MediaObject) => void;
-    clear: () => void;
     updateLensPostId: (postId: string | null) => void;
     updateFarcasterPostId: (postId: string | null) => void;
+    clear: () => void;
 }
 
 function createInitState() {
     return {
         type: 'compose',
-        source: null,
+        availableSources: EMPTY_LIST,
+        currentSource: null,
         draft: null,
         post: null,
         chars: '',
@@ -57,23 +62,15 @@ function createInitState() {
 }
 
 const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
-    immer<ComposeState>((set, get) => ({
+    immer<ComposeState>((set) => ({
         ...createInitState(),
-        updateLensPostId: (postId) =>
-            set((state) => {
-                state.lensPostId = postId;
-            }),
-        updateFarcasterPostId: (postId) =>
-            set((state) => {
-                state.farcasterPostId = postId;
-            }),
         updateType: (type: 'compose' | 'quote' | 'reply') =>
             set((state) => {
                 state.type = type;
             }),
-        updateSource: (source: SocialPlatform | null) =>
+        updateCurrentSource: (source: SocialPlatform | null) =>
             set((state) => {
-                state.source = source;
+                state.currentSource = source;
             }),
         updateChars: (chars: string) =>
             set((state) => {
@@ -113,6 +110,22 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
         removeImage: (target) =>
             set((state) => {
                 state.images = state.images.filter((image) => image.file !== target.file);
+            }),
+        updateLensPostId: (postId) =>
+            set((state) => {
+                state.lensPostId = postId;
+            }),
+        updateFarcasterPostId: (postId) =>
+            set((state) => {
+                state.farcasterPostId = postId;
+            }),
+        enableSource: (source) =>
+            set((state) => {
+                state.availableSources = uniq([...state.availableSources, source]);
+            }),
+        disableSource: (source) =>
+            set((state) => {
+                state.availableSources = state.availableSources.filter((s) => s !== source);
             }),
         clear: () =>
             set((state) => {
