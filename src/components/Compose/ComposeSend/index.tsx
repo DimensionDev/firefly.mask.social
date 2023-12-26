@@ -12,7 +12,7 @@ import { ComposeModalRef } from '@/modals/controls.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 
 export default function ComposeSend() {
-    const { chars, images, type, video, source, clear, disabledSources } = useComposeStateStore();
+    const { chars, images, type, video, currentSource, clear, availableSources } = useComposeStateStore();
 
     const charsLength = chars.length;
     const disabled = (charsLength === 0 || charsLength > 280) && images.length === 0 && !video;
@@ -20,21 +20,21 @@ export default function ComposeSend() {
     const sendFarcaster = useSendFarcaster();
 
     const [{ loading }, handleSend] = useAsyncFn(async () => {
-        if (!source && type === 'compose') {
+        if (!currentSource && type === 'compose') {
             const promises: Array<Promise<void>> = [];
-            if (!disabledSources.includes(SocialPlatform.Lens)) promises.push(sendLens());
-            if (!disabledSources.includes(SocialPlatform.Farcaster)) promises.push(sendFarcaster());
+            if (availableSources.includes(SocialPlatform.Lens)) promises.push(sendLens());
+            if (availableSources.includes(SocialPlatform.Farcaster)) promises.push(sendFarcaster());
 
             const result = await Promise.allSettled(promises);
             if (result.some((x) => x.status === 'rejected')) return;
-        } else if (source === SocialPlatform.Lens) {
+        } else if (currentSource === SocialPlatform.Lens) {
             await sendLens();
-        } else if (source === SocialPlatform.Farcaster) {
+        } else if (currentSource === SocialPlatform.Farcaster) {
             await sendFarcaster();
         }
         ComposeModalRef.close();
         clear();
-    }, [source, type, sendLens, sendFarcaster, disabledSources]);
+    }, [currentSource, availableSources, type, sendLens, sendFarcaster]);
 
     return (
         <div className=" flex h-[68px] items-center justify-end gap-4 px-4 shadow-send">
