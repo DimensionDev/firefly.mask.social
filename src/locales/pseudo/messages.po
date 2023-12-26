@@ -514,6 +514,9 @@ msgstr ""
 msgid "Light mode"
 msgstr ""
 
+msgid "Your Lens account is now connected"
+msgstr ""
+
 msgid "Log in"
 msgstr ""
 

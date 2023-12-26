@@ -514,6 +514,9 @@ msgstr "Confirm to log out these accounts?"
 msgid "Light mode"
 msgstr "Light mode"
 
+msgid "Your Lens account is now connected"
+msgstr "Your Lens account is now connected"
+
 msgid "Log in"
 msgstr "Log in"
 
