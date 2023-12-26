@@ -12,7 +12,7 @@ import { ComposeModalRef } from '@/modals/controls.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 
 export default function ComposeSend() {
-    const { chars, images, type, video, source, clear } = useComposeStateStore();
+    const { chars, images, type, video, source, clear, disabledSources } = useComposeStateStore();
 
     const charsLength = chars.length;
     const disabled = (charsLength === 0 || charsLength > 280) && images.length === 0 && !video;
@@ -21,7 +21,11 @@ export default function ComposeSend() {
 
     const [{ loading }, handleSend] = useAsyncFn(async () => {
         if (!source && type === 'compose') {
-            const result = await Promise.allSettled([sendLens(), sendFarcaster()]);
+            const promises: Array<Promise<void>> = [];
+            if (!disabledSources.includes(SocialPlatform.Lens)) promises.push(sendLens());
+            if (!disabledSources.includes(SocialPlatform.Farcaster)) promises.push(sendFarcaster());
+
+            const result = await Promise.allSettled(promises);
             if (result.some((x) => x.status === 'rejected')) return;
         } else if (source === SocialPlatform.Lens) {
             await sendLens();
@@ -30,7 +34,7 @@ export default function ComposeSend() {
         }
         ComposeModalRef.close();
         clear();
-    }, [source, type, sendLens, sendFarcaster]);
+    }, [source, type, sendLens, sendFarcaster, disabledSources]);
 
     return (
         <div className=" flex h-[68px] items-center justify-end gap-4 px-4 shadow-send">

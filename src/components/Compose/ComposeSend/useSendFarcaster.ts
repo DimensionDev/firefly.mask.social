@@ -97,8 +97,8 @@ export function useSendFarcaster() {
         post,
         images,
         updateImages,
+        enqueueSnackbar,
         content,
         updateFarcasterPostId,
-        enqueueSnackbar,
     ]);
 }

@@ -25,6 +25,8 @@ interface ComposeState {
     video: MediaObject | null;
     images: MediaObject[];
     loading: boolean;
+    disabledSources: SocialPlatform[];
+    toggleSource: (source: SocialPlatform) => void;
     updateSource: (source: SocialPlatform | null) => void;
     updateType: (type: 'compose' | 'quote' | 'reply') => void;
     updateChars: (chars: string) => void;
@@ -53,12 +55,20 @@ function createInitState() {
         loading: false,
         lensPostId: null,
         farcasterPostId: null,
+        disabledSources: EMPTY_LIST,
     } as const;
 }
 
 const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
-    immer<ComposeState>((set, get) => ({
+    immer<ComposeState>((set) => ({
         ...createInitState(),
+        toggleSource: (source) =>
+            set((state) => {
+                const { disabledSources: oldList } = state;
+                const list = oldList.includes(source) ? oldList.filter((x) => x !== source) : [...oldList, source];
+                if (list.length >= 2) return;
+                state.disabledSources = list;
+            }),
         updateLensPostId: (postId) =>
             set((state) => {
                 state.lensPostId = postId;
