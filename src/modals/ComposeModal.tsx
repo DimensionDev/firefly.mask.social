@@ -51,7 +51,7 @@ export const ComposeModal = forwardRef<SingletonModalRefCreator<ComposeModalProp
         typedMessage,
         addImage,
         updateType,
-        updateSource,
+        updateCurrentSource,
         updatePost,
         updateChars,
         updateTypedMessage,
@@ -63,7 +63,7 @@ export const ComposeModal = forwardRef<SingletonModalRefCreator<ComposeModalProp
     const [open, dispatch] = useSingletonModal(ref, {
         onOpen: (props) => {
             updateType(props.type || 'compose');
-            updateSource(props.source || null);
+            updateCurrentSource(props.source || null);
             if (props.typedMessage) updateTypedMessage(props.typedMessage);
             if (props.post) updatePost(props.post);
             if (props.chars) updateChars(props.chars);
