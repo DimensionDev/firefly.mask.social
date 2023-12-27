@@ -33,7 +33,7 @@ export function AccountCard({ profile, isCurrent }: AccountCardProps) {
                 </button>
             ) : (
                 <button
-                    className="text-right text-[15px] font-medium leading-none text-main disabled:cursor-not-allowed disabled:opacity-50"
+                    className="text-right text-[15px] font-bold leading-none text-main disabled:cursor-not-allowed disabled:opacity-50"
                     disabled={profile.source === SocialPlatform.Farcaster}
                     onClick={() => {
                         login(profile);
