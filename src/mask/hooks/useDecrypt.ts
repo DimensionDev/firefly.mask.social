@@ -2,7 +2,7 @@ import { DecryptError, DecryptErrorReasons } from '@masknet/encryption';
 import type { TypedMessage } from '@masknet/typed-message';
 import { useAsyncRetry } from 'react-use';
 
-import { decrypt, parsePayloadBinary, parsePayloadText } from '@/mask/main/Decrypt/decrypt.js';
+import { decrypt, parsePayloadBinary, parsePayloadText } from '@/mask/main/decrypt.js';
 
 type DecryptResult = [DecryptError | null, boolean, TypedMessage | null];
 
