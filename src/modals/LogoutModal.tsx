@@ -36,13 +36,18 @@ export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps 
         },
     });
 
+    const profileSource = useMemo(() => {
+        if (source) return source
+        return profile?.source
+    }, [source, profile])
+
     const profiles = useMemo(() => {
         if (profile) return [profile];
         return !source
             ? lensProfiles.concat(farcasterProfiles)
             : source === SocialPlatform.Lens
-              ? lensProfiles
-              : farcasterProfiles;
+                ? lensProfiles
+                : farcasterProfiles;
     }, [lensProfiles, farcasterProfiles, source, profile]);
 
     return (
@@ -102,8 +107,7 @@ export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps 
                                     <button
                                         className=" flex items-center justify-center rounded-full bg-commonDanger py-[11px] text-lightBottom"
                                         onClick={() => {
-                                            if (!source) return;
-                                            switch (source) {
+                                            switch (profileSource) {
                                                 case SocialPlatform.Lens:
                                                     clearLensProfile();
                                                     break;
@@ -111,7 +115,8 @@ export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps 
                                                     clearFarcasterProfile();
                                                     break;
                                                 default:
-                                                    safeUnreachable(source);
+                                                    clearLensProfile();
+                                                    clearFarcasterProfile();
                                                     break;
                                             }
                                             dispatch?.close();
