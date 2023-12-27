@@ -37,17 +37,17 @@ export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps 
     });
 
     const profileSource = useMemo(() => {
-        if (source) return source
-        return profile?.source
-    }, [source, profile])
+        if (source) return source;
+        return profile?.source;
+    }, [source, profile]);
 
     const profiles = useMemo(() => {
         if (profile) return [profile];
         return !source
             ? lensProfiles.concat(farcasterProfiles)
             : source === SocialPlatform.Lens
-                ? lensProfiles
-                : farcasterProfiles;
+              ? lensProfiles
+              : farcasterProfiles;
     }, [lensProfiles, farcasterProfiles, source, profile]);
 
     return (
