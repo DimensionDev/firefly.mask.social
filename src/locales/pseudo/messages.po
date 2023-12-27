@@ -190,6 +190,9 @@ msgstr ""
 msgid "and"
 msgstr ""
 
+msgid "Connect another account"
+msgstr ""
+
 msgid "Failed to fetch as Text."
 msgstr ""
 
