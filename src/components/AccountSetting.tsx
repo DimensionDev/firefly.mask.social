@@ -42,7 +42,7 @@ export function AccountSetting({ source, profile }: AccountSettingProps) {
                     {profiles.map((profile) => (
                         <button
                             key={profile.profileId}
-                            className="flex items-center justify-between gap-[8px] px-[4px] disabled:cursor-not-allowed my-[24px]"
+                            className="my-[24px] flex items-center justify-between gap-[8px] px-[4px] disabled:cursor-not-allowed"
                             disabled={isSameProfile(currentProfile, profile) || source === SocialPlatform.Farcaster}
                             onClick={() => {
                                 login(profile);
@@ -56,7 +56,7 @@ export function AccountSetting({ source, profile }: AccountSettingProps) {
                         </button>
                     ))}
                     <button
-                        className="flex w-full items-center gap-2 px-[4px] py-3 rounded text-main hover:bg-bg"
+                        className="flex w-full items-center gap-2 rounded px-[4px] py-3 text-main hover:bg-bg"
                         onClick={() => {
                             LoginModalRef.open();
                         }}
@@ -67,7 +67,7 @@ export function AccountSetting({ source, profile }: AccountSettingProps) {
                         </div>
                     </button>
                     <button
-                        className="flex items-center gap-2 px-[4px] rounded py-3 hover:bg-bg mb-[12px]"
+                        className="mb-[12px] flex items-center gap-2 rounded px-[4px] py-3 hover:bg-bg"
                         onClick={() => {
                             LogoutModalRef.open({ source });
                         }}
