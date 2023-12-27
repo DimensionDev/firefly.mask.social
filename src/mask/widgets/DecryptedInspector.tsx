@@ -2,21 +2,21 @@
 
 import { MaskProviders } from '@/components/MaskProviders.js';
 import { Providers } from '@/components/Providers.js';
-import { DecryptPost } from '@/mask/main/DecryptPost.js';
+import { DecryptedPost } from '@/mask/widgets/components/DecryptedPost.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
-interface PageInspectorProps {
+interface DecryptedInspectorProps {
     post?: Post;
     payload?: [string, '1' | '2'];
 }
 
-export default function DecryptedPost({ post, payload }: PageInspectorProps) {
+export default function DecryptedInspector({ post, payload }: DecryptedInspectorProps) {
     if (!post || !payload) return null;
 
     return (
         <Providers>
             <MaskProviders>
-                <DecryptPost post={post} payload={payload} />
+                <DecryptedPost post={post} payload={payload} />
             </MaskProviders>
         </Providers>
     );

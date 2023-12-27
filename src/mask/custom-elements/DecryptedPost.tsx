@@ -6,7 +6,7 @@ import { WidgetWithProps } from '@/mask/custom-elements/WidgetWithProps.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 // @ts-ignore
-const DecryptedPost = dynamic(() => import('@/mask/widgets/DecryptedPost.js'), { ssr: false });
+const DecryptedPost = dynamic(() => import('@/mask/widgets/DecryptedInspector.js'), { ssr: false });
 
 class Element extends WidgetWithProps<{
     post?: Post;
