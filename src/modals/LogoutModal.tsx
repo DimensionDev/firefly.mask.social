@@ -40,8 +40,8 @@ export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps 
         return !source
             ? lensProfiles.concat(farcasterProfiles)
             : source === SocialPlatform.Lens
-                ? lensProfiles
-                : farcasterProfiles;
+              ? lensProfiles
+              : farcasterProfiles;
     }, [lensProfiles, farcasterProfiles, source, profile]);
 
     return (
