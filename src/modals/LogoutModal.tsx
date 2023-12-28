@@ -35,10 +35,6 @@ export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps 
         },
     });
 
-    const profileSource = useMemo(() => {
-        return source || profile
-    }, [source, profile]);
-
     const profiles = useMemo(() => {
         if (profile) return [profile];
         return !source
@@ -105,7 +101,7 @@ export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps 
                                     <button
                                         className=" flex items-center justify-center rounded-full bg-commonDanger py-[11px] text-lightBottom"
                                         onClick={() => {
-                                            switch (profileSource) {
+                                            switch (source || profile?.source) {
                                                 case SocialPlatform.Lens:
                                                     clearLensProfile();
                                                     break;
