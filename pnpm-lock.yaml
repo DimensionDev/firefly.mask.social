@@ -309,8 +309,8 @@ importers:
         version: 4.4.4(@types/react@18.2.21)(react@0.0.0-experimental-8039e6d0b-20231026)
     devDependencies:
       '@crowdin/cli':
-        specifier: ^3.9.1
-        version: 3.9.1
+        specifier: ^3.15.0
+        version: 3.15.0
       '@lingui/cli':
         specifier: ^4.5.0
         version: 4.5.0(typescript@5.2.2)
@@ -6752,12 +6752,15 @@ packages:
       chalk: 4.1.2
     dev: true
 
-  /@crowdin/cli@3.9.1:
-    resolution: {integrity: sha512-Ca+mzVvLE9lYmTA4peTHOQdH42+eThwQ0DK6URT7crInQKJRjVJdsA2kkfEwi2mQPruAIG/KIKaPieRWPanlIQ==}
+  /@crowdin/cli@3.15.0:
+    resolution: {integrity: sha512-oQMfC5S5OkVee+ryB56E1g0cr2iL9HFaYMWSwNRODp1KICWo0B/oRQo3MvStiZ3VW9ZkeydEoOgRnXXxw2amOA==}
     hasBin: true
     dependencies:
-      njre: 0.2.0
+      command-exists-promise: 2.0.2
+      node-fetch: 2.6.7
       shelljs: 0.8.5
+      tar: 4.4.19
+      yauzl: 2.10.0
     transitivePeerDependencies:
       - encoding
     dev: true
@@ -28580,18 +28583,6 @@ packages:
       - '@babel/core'
       - babel-plugin-macros
 
-  /njre@0.2.0:
-    resolution: {integrity: sha512-+Wq8R6VmjK+jI8a9NdzfU6Vh50r3tjsdvl5KJE1OyHeH8I/nx5Ptm12qpO3qNUbstXuZfBDgDL0qQZw9JyjhMw==}
-    engines: {node: '>=8'}
-    dependencies:
-      command-exists-promise: 2.0.2
-      node-fetch: 2.7.0
-      tar: 4.4.19
-      yauzl: 2.10.0
-    transitivePeerDependencies:
-      - encoding
-    dev: true
-
   /no-case@3.0.4:
     resolution: {integrity: sha512-fgAN3jGAh+RoxUGZHTSOLJIqUc2wmoBwGR4tbpNAKmmovFoWq0OdRkb0VkldReO2a2iBT/OEulG9XSUc10r3zg==}
     dependencies:
@@ -28619,6 +28610,18 @@ packages:
   /node-fetch-native@1.4.1:
     resolution: {integrity: sha512-NsXBU0UgBxo2rQLOeWNZqS3fvflWePMECr8CoSWoSTqCqGbVVsvl9vZu1HfQicYN0g5piV9Gh8RTEvo/uP752w==}
     dev: false
+
+  /node-fetch@2.6.7:
+    resolution: {integrity: sha512-ZjMPFEfVx5j+y2yF35Kzx5sF7kDzxuDj6ziH4FFbOp87zKDZNx8yExJIb05OGF4Nlt9IHFIMBkRl41VdvcNdbQ==}
+    engines: {node: 4.x || >=6.0.0}
+    peerDependencies:
+      encoding: ^0.1.0
+    peerDependenciesMeta:
+      encoding:
+        optional: true
+    dependencies:
+      whatwg-url: 5.0.0
+    dev: true
 
   /node-fetch@2.7.0:
     resolution: {integrity: sha512-c4FRfUm/dbcWZ7U+1Wq0AwCyFL+3nt2bEw05wfxSz+DWpWsitgmSgYmy2dQdWyKC1694ELPqMs/YzUSNozLt8A==}
@@ -36372,7 +36375,7 @@ time:
   /@changesets/cli@2.26.2: '2023-06-27T08:30:52.503Z'
   /@commitlint/cli@17.7.1: '2023-08-10T05:35:08.844Z'
   /@commitlint/config-conventional@17.7.0: '2023-08-09T08:25:19.990Z'
-  /@crowdin/cli@3.9.1: '2022-11-16T09:59:29.800Z'
+  /@crowdin/cli@3.15.0: '2023-10-25T07:28:15.085Z'
   /@cyberlab/cyberconnect@4.2.2: '2022-02-14T06:33:17.675Z'
   /@dimensiondev/common-protocols@1.6.0-20210723072221-8f46a92: '2021-07-23T07:22:56Z'
   /@dimensiondev/holoflows-kit@0.9.0-20230307045856-46252fb: '2023-03-07T04:58:40Z'
