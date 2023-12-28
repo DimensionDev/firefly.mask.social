@@ -2,7 +2,6 @@
 
 import { Dialog, Transition } from '@headlessui/react';
 import { t, Trans } from '@lingui/macro';
-import { safeUnreachable } from '@masknet/kit';
 import type { SingletonModalRefCreator } from '@masknet/shared-base';
 import { useSingletonModal } from '@masknet/shared-base-ui';
 import { forwardRef, Fragment, useMemo, useState } from 'react';
@@ -37,8 +36,7 @@ export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps 
     });
 
     const profileSource = useMemo(() => {
-        if (source) return source;
-        return profile?.source;
+        return source || profile
     }, [source, profile]);
 
     const profiles = useMemo(() => {
@@ -46,8 +44,8 @@ export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps 
         return !source
             ? lensProfiles.concat(farcasterProfiles)
             : source === SocialPlatform.Lens
-              ? lensProfiles
-              : farcasterProfiles;
+                ? lensProfiles
+                : farcasterProfiles;
     }, [lensProfiles, farcasterProfiles, source, profile]);
 
     return (
