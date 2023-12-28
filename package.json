@@ -14,7 +14,11 @@
         "typecheck": "tsc --noEmit",
         "lingui:compile": "lingui compile",
         "lingui:extract": "NODE_ENV=development lingui extract --clean",
-        "lingui": "pnpm run lingui:extract && pnpm run lingui:compile"
+        "lingui": "pnpm run lingui:extract && pnpm run lingui:compile",
+        "crowdin": "crowdin",
+        "crowdin:sync": "crowdin push && crowdin pull",
+        "crowdin:sync:sources": "crowdin push",
+        "crowdin:sync:translations": "crowdin pull"
     },
     "dependencies": {
         "@aws-sdk/client-s3": "^3.456.0",
