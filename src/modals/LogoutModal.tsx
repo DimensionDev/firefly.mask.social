@@ -2,7 +2,6 @@
 
 import { Dialog, Transition } from '@headlessui/react';
 import { t, Trans } from '@lingui/macro';
-import { safeUnreachable } from '@masknet/kit';
 import type { SingletonModalRefCreator } from '@masknet/shared-base';
 import { useSingletonModal } from '@masknet/shared-base-ui';
 import { forwardRef, Fragment, useMemo, useState } from 'react';
@@ -102,8 +101,7 @@ export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps 
                                     <button
                                         className=" flex items-center justify-center rounded-full bg-commonDanger py-[11px] text-lightBottom"
                                         onClick={() => {
-                                            if (!source) return;
-                                            switch (source) {
+                                            switch (source || profile?.source) {
                                                 case SocialPlatform.Lens:
                                                     clearLensProfile();
                                                     break;
@@ -111,7 +109,8 @@ export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps 
                                                     clearFarcasterProfile();
                                                     break;
                                                 default:
-                                                    safeUnreachable(source);
+                                                    clearLensProfile();
+                                                    clearFarcasterProfile();
                                                     break;
                                             }
                                             dispatch?.close();

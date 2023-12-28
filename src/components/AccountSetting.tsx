@@ -38,38 +38,36 @@ export function AccountSetting({ source, profile }: AccountSettingProps) {
             interactive
             className="account-settings"
             content={
-                <div className="flex w-[260px] flex-col gap-[23px] rounded-2xl bg-primaryBottom p-6 shadow-[0px_8px_20px_0px_rgba(0,0,0,0.04)] dark:bg-bg dark:shadow-[0px_8px_20px_0px_rgba(255,255,255,0.04)]">
-                    <div className="p-6">
-                        {profiles.map((profile) => (
-                            <button
-                                key={profile.profileId}
-                                className="flex items-center justify-between gap-[8px] disabled:cursor-not-allowed disabled:opacity-50"
-                                disabled={isSameProfile(currentProfile, profile) || source === SocialPlatform.Lens}
-                                onClick={() => {
-                                    login(profile);
-                                }}
-                            >
-                                <ProfileAvatar profile={profile} />
-                                <ProfileName profile={profile} />
-                                <WarpcastSignerRequestIndicator session={currentProfileSession}>
-                                    {isSameProfile(currentProfile, profile) ? <OnlineStatusIndicator /> : null}
-                                </WarpcastSignerRequestIndicator>
-                            </button>
-                        ))}
-                    </div>
+                <div className="flex w-[286px] flex-col rounded-2xl bg-primaryBottom px-5 shadow-[0px_8px_20px_0px_rgba(0,0,0,0.04)] dark:shadow-[0px_8px_20px_0px_rgba(255,255,255,0.04)]">
+                    {profiles.map((profile) => (
+                        <button
+                            key={profile.profileId}
+                            className="my-[24px] flex items-center justify-between gap-[8px] px-[4px] disabled:cursor-not-allowed"
+                            disabled={isSameProfile(currentProfile, profile) || source === SocialPlatform.Farcaster}
+                            onClick={() => {
+                                login(profile);
+                            }}
+                        >
+                            <ProfileAvatar profile={profile} />
+                            <ProfileName profile={profile} />
+                            <WarpcastSignerRequestIndicator session={currentProfileSession}>
+                                {isSameProfile(currentProfile, profile) ? <OnlineStatusIndicator /> : null}
+                            </WarpcastSignerRequestIndicator>
+                        </button>
+                    ))}
                     <button
-                        className="flex w-full items-center gap-2 px-6 py-3 text-main hover:bg-bg"
+                        className="flex w-full items-center gap-2 rounded px-[4px] py-3 text-main hover:bg-bg"
                         onClick={() => {
                             LoginModalRef.open();
                         }}
                     >
                         <UserAddIcon width={24} height={24} />
                         <div className=" text-[17px] font-bold leading-[22px] text-main">
-                            <Trans>Change account</Trans>
+                            <Trans>Connect another account</Trans>
                         </div>
                     </button>
                     <button
-                        className="flex items-center gap-2 px-6 py-3 hover:bg-bg"
+                        className="mb-[12px] flex items-center gap-2 rounded px-[4px] py-3 hover:bg-bg"
                         onClick={() => {
                             LogoutModalRef.open({ source });
                         }}
