@@ -9,7 +9,7 @@ import type { Attachment, Post } from '@/providers/types/SocialMedia.js';
 import type { MetadataAsset } from '@/types/index.js';
 
 function formatContent(cast: Cast) {
-    const oembedUrl = last(cast.text.match(URL_REGEX) || []);
+    const oembedUrl = last(cast.text.match(URL_REGEX));
     const defaultContent = { content: cast.text, oembedUrl };
     if (cast.embeds.length) {
         const firstAsset = first(cast.embeds);

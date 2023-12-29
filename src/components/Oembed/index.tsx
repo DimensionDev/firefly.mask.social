@@ -9,6 +9,7 @@ import { PostEmbed } from '@/components/Oembed/Post.js';
 import { Quote } from '@/components/Posts/Quote.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { formatWarpcastPost } from '@/helpers/formatWarpcastPost.js';
+import { isLinkMatchingHost } from '@/helpers/isLinkMatchingHost.js';
 import type { LinkDigest, OpenGraph } from '@/services/digestLink.js';
 import type { ResponseJSON } from '@/types/index.js';
 import { OpenGraphPayloadSourceType } from '@/types/og.js';
@@ -75,7 +76,7 @@ export default function Oembed({ url, onData }: OembedProps) {
     }
 
     return og.html ? (
-        <Player html={og.html} isSpotify={URL.canParse(og.url) && new URL(og.url).host.includes('open.spotify.com')} />
+        <Player html={og.html} isSpotify={isLinkMatchingHost(og.url, 'open.spotify.com')} />
     ) : (
         <Embed og={og} />
     );

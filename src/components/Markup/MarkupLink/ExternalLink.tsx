@@ -5,7 +5,10 @@ import type { LinkProps } from 'next/link.js';
 import { useRouter } from 'next/navigation.js';
 import { memo } from 'react';
 
+import { classNames } from '@/helpers/classNames.js';
 import { formatUrl } from '@/helpers/formatUrl.js';
+import { isSelfReference } from '@/helpers/isLinkMatchingHost.js';
+import { parseURL } from '@/helpers/parseURL.js';
 
 interface ExternalLinkProps extends Omit<LinkProps, 'href'> {
     title: string;
@@ -15,16 +18,22 @@ export const ExternalLink = memo<ExternalLinkProps>(function ExternalLink({ titl
     const router = useRouter();
     if (!title) return null;
 
-    const href = URL.canParse(title) ? title : new URL(`https://${title}`).href;
+    const u = parseURL(title);
+
     return (
         <span
-            className="text-link hover:underline"
+            className={classNames('text-link', {
+                'hover:underline': !!u,
+            })}
             onClick={(event) => {
                 event.stopPropagation();
-                if (href.includes(location.host)) {
-                    router.push(href);
+
+                if (!u) return;
+
+                if (isSelfReference(u.href)) {
+                    router.push(u.href);
                 } else {
-                    openWindow(href, '_blank');
+                    openWindow(u.href, '_blank');
                 }
             }}
         >

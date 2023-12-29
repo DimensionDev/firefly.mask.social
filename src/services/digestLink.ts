@@ -19,6 +19,7 @@ import {
     getTitle,
 } from '@/helpers/getMetadata.js';
 import { getFarcasterPayload, getMirrorPayload } from '@/helpers/getOpenGraphPayload.js';
+import { parseURL } from '@/helpers/parseURL.js';
 import type { SourceInURL } from '@/helpers/resolveSource.js';
 import { type FarcasterPayload, type MirrorPayload, OpenGraphPayloadSourceType, type PostPayload } from '@/types/og.js';
 
@@ -64,7 +65,7 @@ export async function digestImageUrl(url: string): Promise<OpenGraphImage | null
 }
 
 export async function digestLink(link: string): Promise<LinkDigest | null> {
-    const url = URL.canParse(link) ? link : URL.canParse(`https://${link}`) ? `https://${link}` : undefined;
+    const url = parseURL(link);
     if (!url) return null;
 
     const response = await fetch(url, {
@@ -89,23 +90,23 @@ export async function digestLink(link: string): Promise<LinkDigest | null> {
         site: getSite(document),
         image,
         isLarge: getIsLarge(document),
-        html: generateIframe(getEmbedUrl(document), url),
+        html: generateIframe(getEmbedUrl(document), url.href),
         locale: null,
     };
 
-    const u = URL.canParse(url) ? new URL(url) : null;
-
-    if (u && MIRROR_HOSTNAME_REGEXP.test(u.hostname)) {
+    if (MIRROR_HOSTNAME_REGEXP.test(url.hostname)) {
         return {
             og,
             payload: getMirrorPayload(document),
         };
-    } else if (WARPCAST_THREAD_REGEX.test(link) || WARPCAST_CONVERSATIONS_REGEX.test(link)) {
+    }
+    if (WARPCAST_THREAD_REGEX.test(link) || WARPCAST_CONVERSATIONS_REGEX.test(link)) {
         return {
             og,
             payload: getFarcasterPayload(document),
         };
-    } else if (LENS_DETAIL_REGEX.test(link)) {
+    }
+    if (LENS_DETAIL_REGEX.test(link)) {
         const id = link.match(/\/posts\/([^/]+)/)?.[1];
         if (!id) return { og };
         return {
@@ -116,7 +117,8 @@ export async function digestLink(link: string): Promise<LinkDigest | null> {
                 source: 'lens',
             },
         };
-    } else if (MASK_SOCIAL_DETAIL_REGEX.test(link)) {
+    }
+    if (MASK_SOCIAL_DETAIL_REGEX.test(link)) {
         const match = link.match(MASK_SOCIAL_DETAIL_REGEX);
         const source = match ? match[1] : null;
         const id = match ? match[2] : null;

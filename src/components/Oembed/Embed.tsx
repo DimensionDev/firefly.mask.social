@@ -1,5 +1,6 @@
 import { Image } from '@/esm/Image.js';
 import { Link } from '@/esm/Link.js';
+import { isSelfReference } from '@/helpers/isLinkMatchingHost.js';
 import type { OpenGraph } from '@/services/digestLink.js';
 
 interface EmbedProps {
@@ -12,7 +13,7 @@ export default function Embed({ og }: EmbedProps) {
             <Link
                 onClick={(event) => event.stopPropagation()}
                 href={og.url}
-                target={URL.canParse(og.url) && new URL(og.url).host === location.host ? '_self' : '_blank'}
+                target={isSelfReference(og.url) ? '_self' : '_blank'}
                 rel="noreferrer noopener"
             >
                 <div className=" rounded-xl border bg-white dark:border-gray-700 dark:bg-black">

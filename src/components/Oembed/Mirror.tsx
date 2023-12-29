@@ -10,6 +10,7 @@ import { Avatar } from '@/components/Avatar.js';
 import { NakedMarkup } from '@/components/Markup/index.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
 import { Link } from '@/esm/Link.js';
+import { isSelfReference } from '@/helpers/isLinkMatchingHost.js';
 
 interface MirrorProps {
     address?: `0x${string}`;
@@ -46,7 +47,7 @@ export const Mirror = memo<MirrorProps>(function Mirror({
             <Link
                 onClick={(event) => event.stopPropagation()}
                 href={url}
-                target={URL.canParse(url) && new URL(url).host === location.host ? '_self' : '_blank'}
+                target={isSelfReference(url) ? '_self' : '_blank'}
                 rel="noreferrer noopener"
             >
                 <div className="cursor-pointer rounded-2xl border border-solid border-third bg-primaryBottom  px-4 py-3 hover:bg-bg dark:bg-secondaryBottom">
