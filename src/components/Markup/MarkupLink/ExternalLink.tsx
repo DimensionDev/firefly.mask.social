@@ -15,7 +15,7 @@ export const ExternalLink = memo<ExternalLinkProps>(function ExternalLink({ titl
     const router = useRouter();
     if (!title) return null;
 
-    const href = title.includes('://') ? title : new URL(`http://${title}`).href;
+    const href = URL.canParse(title) ? title : new URL(`https://${title}`).href;
     return (
         <span
             className="text-link hover:underline"

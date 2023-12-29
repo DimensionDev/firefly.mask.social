@@ -12,7 +12,7 @@ export default function Embed({ og }: EmbedProps) {
             <Link
                 onClick={(event) => event.stopPropagation()}
                 href={og.url}
-                target={og.url.includes(location.host) ? '_self' : '_blank'}
+                target={URL.canParse(og.url) && new URL(og.url).host === location.host ? '_self' : '_blank'}
                 rel="noreferrer noopener"
             >
                 <div className=" rounded-xl border bg-white dark:border-gray-700 dark:bg-black">

@@ -7,11 +7,11 @@ interface PlayerProps {
     isSpotify?: boolean;
 }
 
-export default function Player({ html, isSpotify }: PlayerProps) {
+export default function Player({ html, isSpotify = false }: PlayerProps) {
     return (
         <div className="mt-4 w-full text-sm">
             <div
-                className={classNames('oembed-player', { 'spotify-player': !!isSpotify })}
+                className={classNames('oembed-player', { 'spotify-player': isSpotify })}
                 dangerouslySetInnerHTML={{ __html: html }}
             />
         </div>
