@@ -10,32 +10,6 @@ export enum SessionType {
     Farcaster = 'Farcaster',
 }
 
-export enum MimeType {
-    AUDIO_WAV = 'audio/wav',
-    AUDIO_MPEG = 'audio/mpeg',
-    AUDIO_OGG = 'audio/ogg',
-    AUDIO_MP4 = 'audio/mp4',
-    AUDIO_AAC = 'audio/aac',
-    AUDIO_WEBM = 'audio/webm',
-    AUDIO_FLAC = 'audio/flac',
-
-    VIDEO_WEBM = 'video/webm',
-    VIDEO_MP4 = 'video/mp4',
-    VIDEO_M4V = 'video/x-m4v',
-    VIDEO_OGV = 'video/ogv',
-    VIDEO_QUICKTIME = 'video/quicktime',
-    VIDEO_MPEG = 'video/mpeg',
-    VIDEO_OGG = 'video/ogg',
-
-    IMAGE_GIF = 'image/gif',
-    IMAGE_JPEG = 'image/jpeg',
-    IMAGE_PNG = 'image/png',
-    IMAGE_TIFF = 'image/tiff',
-    IMAGE_BMP = 'image/x-ms-bmp',
-    IMAGE_SVG = 'image/svg+xml',
-    IMAGE_WEBP = 'image/webp',
-}
-
 export enum NetworkType {
     Ethereum = 'Ethereum',
 }

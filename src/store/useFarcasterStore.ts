@@ -14,8 +14,8 @@ interface FarcasterState {
     profiles: Profile[];
     currentProfile: Profile | null;
     currentProfileSession: Session | null;
-    updateCurrentProfile: (profile: Profile, session: Session) => void;
     updateProfiles: (profiles: Profile[]) => void;
+    updateCurrentProfile: (profile: Profile, session: Session) => void;
     clearCurrentProfile: () => void;
 }
 
