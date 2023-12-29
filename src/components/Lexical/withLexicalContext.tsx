@@ -4,7 +4,7 @@ import { type InitialConfigType, LexicalComposer } from '@lexical/react/LexicalC
 import { $createParagraphNode, $createTextNode, $getRoot } from 'lexical';
 import { type ComponentType, useMemo } from 'react';
 
-import { MentionNode } from '@/components/shared/lexical/nodes/MentionsNode.js';
+import { MentionNode } from '@/components/Lexical/nodes/MentionsNode.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 
 const initialConfig = {
