@@ -2,8 +2,7 @@ import { safeUnreachable } from '@masknet/kit';
 
 import { SocialPlatform } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
-import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
-import { useLensStateStore } from '@/store/useLensStore.js';
+import { useFarcasterStateStore, useLensStateStore } from '@/store/useProfileStore.js';
 
 export function useCurrentProfiles(source: SocialPlatform) {
     const lensProfiles = useLensStateStore.use.profiles();

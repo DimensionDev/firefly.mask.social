@@ -4,7 +4,7 @@ import { useAsyncFn } from 'react-use';
 import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
-import { useLensStateStore } from '@/store/useLensStore.js';
+import { useLensStateStore } from '@/store/useProfileStore.js';
 
 export function useSwitchLensAccount() {
     const updateCurrentProfile = useLensStateStore.use.updateCurrentProfile();

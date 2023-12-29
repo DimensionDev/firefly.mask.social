@@ -11,8 +11,7 @@ import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { ProfileName } from '@/components/ProfileName.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
-import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
-import { useLensStateStore } from '@/store/useLensStore.js';
+import { useFarcasterStateStore, useLensStateStore } from '@/store/useProfileStore.js';
 
 export interface LogoutModalProps {
     source?: SocialPlatform;

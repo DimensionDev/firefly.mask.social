@@ -12,7 +12,7 @@ import { LoginModalRef } from '@/modals/controls.js';
 import type { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { WarpcastSocialMediaProvider } from '@/providers/warpcast/SocialMedia.js';
-import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
+import { useFarcasterStateStore } from '@/store/useProfileStore.js';
 
 export function LoginFarcaster() {
     const [url, setUrl] = useState('');

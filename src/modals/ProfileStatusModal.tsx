@@ -14,8 +14,7 @@ import { ProfileName } from '@/components/ProfileName.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { LoginModalRef, LogoutModalRef } from '@/modals/controls.js';
-import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
-import { useLensStateStore } from '@/store/useLensStore.js';
+import { useFarcasterStateStore, useLensStateStore } from '@/store/useProfileStore.js';
 
 export interface ProfileStatusModalProps {
     source: SocialPlatform;

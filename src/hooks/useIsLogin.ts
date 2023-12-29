@@ -3,8 +3,7 @@ import { useMemo } from 'react';
 import { useAccount } from 'wagmi';
 
 import { SocialPlatform } from '@/constants/enum.js';
-import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
-import { useLensStateStore } from '@/store/useLensStore.js';
+import { useFarcasterStateStore, useLensStateStore } from '@/store/useProfileStore.js';
 
 export function useIsLogin(source?: SocialPlatform) {
     const account = useAccount();

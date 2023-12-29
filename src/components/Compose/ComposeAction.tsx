@@ -23,8 +23,7 @@ import { connectMaskWithWagmi } from '@/helpers/connectWagmiWithMask.js';
 import { PluginDebuggerMessages } from '@/mask/message-host/index.js';
 import { ComposeModalRef } from '@/modals/controls.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
-import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
-import { useLensStateStore } from '@/store/useLensStore.js';
+import { useFarcasterStateStore, useLensStateStore } from '@/store/useProfileStore.js';
 
 interface ComposeActionProps {}
 export default function ComposeAction(props: ComposeActionProps) {
