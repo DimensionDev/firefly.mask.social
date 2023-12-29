@@ -71,7 +71,6 @@ export async function digestLink(link: string): Promise<LinkDigest | null> {
     const response = await fetch(url, {
         headers: { 'User-Agent': 'Twitterbot' },
     });
-
     if (!response.ok || (response.status >= 500 && response.status < 600)) return null;
 
     const html = await response.text();
