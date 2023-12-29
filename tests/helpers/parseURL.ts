@@ -1,6 +1,6 @@
-import { describe, expect, test } from "vitest";
+import { describe, expect, test } from 'vitest';
 
-import { parseURL } from "@/helpers/parseURL.js";
+import { parseURL } from '@/helpers/parseURL.js';
 
 describe('parseURL', () => {
     test('should correctly parse a valid URL', () => {
@@ -19,5 +19,5 @@ describe('parseURL', () => {
             expect(result).not.toBe(null);
             expect(result!.href).toBe(expectedOutput);
         });
-    })
-})
+    });
+});

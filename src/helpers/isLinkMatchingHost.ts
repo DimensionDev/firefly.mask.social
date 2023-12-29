@@ -10,7 +10,7 @@ import { parseURL } from '@/helpers/parseURL.js';
 export function isLinkMatchingHost(link: string, host: string, strict = true) {
     const parsedURL = parseURL(link);
     if (!parsedURL) return false;
-    if (!parsedURL.protocol.startsWith('http')) return false;
+    if (!['https:', 'http:'].includes(parsedURL.protocol)) return false;
     return strict ? parsedURL.host === host : parsedURL.host.endsWith(host);
 }
 

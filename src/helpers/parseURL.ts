@@ -7,5 +7,5 @@
  * @returns {URL | null} - The parsed URL object or null if parsing fails.
  */
 export function parseURL(url: string) {
-    return URL.canParse(url) ? new URL(url) : URL.canParse(`https://${url}`) ? new URL(`https://${url}`) : null;
+    return URL.canParse(url) ? new URL(url) : null;
 }

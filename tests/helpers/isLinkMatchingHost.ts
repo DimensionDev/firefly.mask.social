@@ -14,7 +14,7 @@ describe('isLinkMatchingHost', () => {
         });
     });
 
-    test('should return false for a matching host', () => {
+    test('should return false for a not matching host', () => {
         const cases = [
             ['ftp://www.example.com/page', 'www.example.com', true],
             ['ftp://subdomain.example.com/page', 'example.com', true],
