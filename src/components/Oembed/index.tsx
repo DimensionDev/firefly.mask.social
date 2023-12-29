@@ -74,5 +74,9 @@ export default function Oembed({ url, onData }: OembedProps) {
         }
     }
 
-    return og.html ? <Player html={og.html} isSpotify={og.url.includes('open.spotify.com')} /> : <Embed og={og} />;
+    return og.html ? (
+        <Player html={og.html} isSpotify={URL.canParse(og.url) && new URL(og.url).host.includes('open.spotify.com')} />
+    ) : (
+        <Embed og={og} />
+    );
 }

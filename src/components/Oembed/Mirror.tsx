@@ -46,7 +46,7 @@ export const Mirror = memo<MirrorProps>(function Mirror({
             <Link
                 onClick={(event) => event.stopPropagation()}
                 href={url}
-                target={url.includes(location.host) ? '_self' : '_blank'}
+                target={URL.canParse(url) && new URL(url).host === location.host ? '_self' : '_blank'}
                 rel="noreferrer noopener"
             >
                 <div className="cursor-pointer rounded-2xl border border-solid border-third bg-primaryBottom  px-4 py-3 hover:bg-bg dark:bg-secondaryBottom">

@@ -64,7 +64,8 @@ export async function digestImageUrl(url: string): Promise<OpenGraphImage | null
 }
 
 export async function digestLink(link: string): Promise<LinkDigest | null> {
-    const url = URL.canParse(link) ? link : new URL(`http://${link}`).href;
+    const url = URL.canParse(link) ? link : URL.canParse(`https://${link}`) ? `https://${link}` : undefined;
+    if (!url) return null;
 
     const response = await fetch(url, {
         headers: { 'User-Agent': 'Twitterbot' },
