@@ -4,7 +4,6 @@ import { useCallback } from 'react';
 import { SocialPlatform } from '@/constants/enum.js';
 import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
-import { HubbleSocialMediaProvider } from '@/providers/hubble/SocialMedia.js';
 import { type Post } from '@/providers/types/SocialMedia.js';
 import { uploadToImgur } from '@/services/uploadToImgur.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
@@ -82,7 +81,7 @@ export function useSendFarcaster() {
         }
         if (type === 'quote' && post?.postId) {
             try {
-                await HubbleSocialMediaProvider.mirrorPost(post.postId);
+                await FarcasterSocialMediaProvider.mirrorPost(post.postId);
             } catch (error) {
                 enqueueSnackbar(t`Failed to mirror post on Farcaster.`, {
                     variant: 'error',
