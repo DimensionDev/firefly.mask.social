@@ -5,8 +5,8 @@ import { memo } from 'react';
 import { Quote } from '@/components/Posts/Quote.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { resolveSource, type SourceInURL } from '@/helpers/resolveSource.js';
+import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
-import { WarpcastSocialMediaProvider } from '@/providers/warpcast/SocialMedia.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 
 interface PostEmbedProps {
@@ -29,7 +29,7 @@ export const PostEmbed = memo<PostEmbedProps>(function LensEmbed({ id, source })
                     return post;
                 }
                 case SocialPlatform.Farcaster: {
-                    const post = await WarpcastSocialMediaProvider.getPostById(id);
+                    const post = await FarcasterSocialMediaProvider.getPostById(id);
                     return post;
                 }
                 default:

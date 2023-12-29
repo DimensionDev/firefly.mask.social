@@ -43,6 +43,8 @@ export async function POST(req: NextRequest) {
             requestFid: BigInt(process.env.FARCASTER_SIGNER_FID),
         },
     });
+
+    const url = urlcat(WARPCAST_ROOT_URL, '/signed-key-requests');
     const response = await fetchJSON<{
         result: {
             signedKeyRequest: {
@@ -53,7 +55,7 @@ export async function POST(req: NextRequest) {
                 state: 'pending' | 'completed';
             };
         };
-    }>(urlcat(WARPCAST_ROOT_URL, '/signed-key-requests'), {
+    }>(url, {
         method: 'POST',
         body: JSON.stringify({
             key: publicKey,

@@ -26,11 +26,12 @@ export class FarcasterSession extends BaseSession implements Session {
     }
 
     async destroy(): Promise<void> {
+        const url = urlcat(WARPCAST_ROOT_URL, '/auth');
         const response = await fetchJSON<{
             result: {
                 success: boolean;
             };
-        }>(urlcat(WARPCAST_ROOT_URL, '/auth'), {
+        }>(url, {
             method: 'DELETE',
             headers: {
                 Authorization: `Bearer ${this.token}`,

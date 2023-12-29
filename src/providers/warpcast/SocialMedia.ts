@@ -16,7 +16,6 @@ import { WARPCAST_CLIENT_URL, WARPCAST_ROOT_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { formatWarpcastPost, formatWarpcastPostFromFeed } from '@/helpers/formatWarpcastPost.js';
 import { formatWarpcastUser } from '@/helpers/formatWarpcastUser.js';
-import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { toFid } from '@/helpers/toFid.js';
 import { FarcasterSession } from '@/providers/farcaster/Session.js';
 import {
@@ -44,8 +43,6 @@ import {
     type UserDetailResponse,
     type UsersResponse,
 } from '@/providers/types/Warpcast.js';
-import { createSessionByCustodyWallet } from '@/providers/warpcast/createSessionByCustodyWallet.js';
-import { createSessionByGrantPermission } from '@/providers/warpcast/createSessionByGrantPermission.js';
 
 export class WarpcastSocialMedia implements Provider {
     get type() {
@@ -54,18 +51,6 @@ export class WarpcastSocialMedia implements Provider {
 
     async createSession(signal?: AbortSignal): Promise<FarcasterSession> {
         throw new Error('Please use createSessionWithURL() instead.');
-    }
-
-    async createSessionByCustodyWallet(signal?: AbortSignal) {
-        const client = await getWalletClientRequired();
-        return createSessionByCustodyWallet(client, signal);
-    }
-
-    async createSessionByGrantPermission(
-        setUrl: (url: string) => void,
-        signal?: AbortSignal,
-    ): Promise<FarcasterSession> {
-        return createSessionByGrantPermission(setUrl, signal);
     }
 
     async createClient() {

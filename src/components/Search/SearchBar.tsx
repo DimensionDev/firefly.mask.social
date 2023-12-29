@@ -17,7 +17,7 @@ import { SearchType, SocialPlatform } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
-import { HubbleSocialMediaProvider } from '@/providers/hubble/SocialMedia.js';
+import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 
@@ -54,7 +54,7 @@ const SearchBar = memo(function SearchBar(props: SearchBarProps) {
                 case SocialPlatform.Lens:
                     return LensSocialMediaProvider.searchProfiles(debouncedKeyword);
                 case SocialPlatform.Farcaster:
-                    return HubbleSocialMediaProvider.searchProfiles(debouncedKeyword);
+                    return FarcasterSocialMediaProvider.searchProfiles(debouncedKeyword);
                 default:
                     safeUnreachable(currentSource);
                     return;

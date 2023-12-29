@@ -7,11 +7,13 @@ import { useAsyncFn, useEffectOnce, useUnmount } from 'react-use';
 
 import LoadingIcon from '@/assets/loading.svg';
 import { classNames } from '@/helpers/classNames.js';
+import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
 import { LoginModalRef } from '@/modals/controls.js';
 import type { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
-import { WarpcastSocialMediaProvider } from '@/providers/warpcast/SocialMedia.js';
+import { createSessionByCustodyWallet } from '@/providers/warpcast/createSessionByCustodyWallet.js';
+import { createSessionByGrantPermission } from '@/providers/warpcast/createSessionByGrantPermission.js';
 import { useFarcasterStateStore } from '@/store/useProfileStore.js';
 
 export function LoginFarcaster() {
@@ -50,14 +52,15 @@ export function LoginFarcaster() {
         useAsyncFn(async () => {
             controllerRef.current?.abort();
             controllerRef.current = new AbortController();
-            await login(() =>
-                WarpcastSocialMediaProvider.createSessionByGrantPermission(setUrl, controllerRef.current?.signal),
-            );
+            await login(() => createSessionByGrantPermission(setUrl, controllerRef.current?.signal));
         }, [login, setUrl]);
 
     const [{ loading: loadingCustodyWallet }, onLoginWithCustodyWallet] = useAsyncFn(async () => {
         if (controllerRef.current) controllerRef.current.abort();
-        await login(() => WarpcastSocialMediaProvider.createSessionByCustodyWallet());
+        await login(async () => {
+            const client = await getWalletClientRequired();
+            return createSessionByCustodyWallet(client);
+        });
     }, [login]);
 
     useEffectOnce(() => {
