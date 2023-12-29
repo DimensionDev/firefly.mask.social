@@ -63,12 +63,16 @@ export async function digestImageUrl(url: string): Promise<OpenGraphImage | null
     };
 }
 
-export async function digestLink(link: string): Promise<LinkDigest> {
-    const { html } = await fetch(link, {
+export async function digestLink(link: string): Promise<LinkDigest | null> {
+    const url = link.includes('://') ? link : new URL(`http://${link}`).href;
+
+    const response = await fetch(url, {
         headers: { 'User-Agent': 'Twitterbot' },
-    }).then(async (res) => ({
-        html: await res.text(),
-    }));
+    });
+
+    if (!response.ok || (response.status >= 500 && response.status < 600)) return null;
+
+    const html = await response.text();
 
     const { document } = parseHTML(html);
 
@@ -84,11 +88,11 @@ export async function digestLink(link: string): Promise<LinkDigest> {
         site: getSite(document),
         image,
         isLarge: getIsLarge(document),
-        html: generateIframe(getEmbedUrl(document), link),
+        html: generateIframe(getEmbedUrl(document), url),
         locale: null,
     };
 
-    const u = URL.canParse(link) ? new URL(link) : null;
+    const u = URL.canParse(url) ? new URL(url) : null;
 
     if (u && MIRROR_HOSTNAME_REGEXP.test(u.hostname)) {
         return {

@@ -43,7 +43,12 @@ export const Mirror = memo<MirrorProps>(function Mirror({
 
     return (
         <div className="mt-4 text-sm">
-            <Link href={url} target={url.includes(location.host) ? '_self' : '_blank'} rel="noreferrer noopener">
+            <Link
+                onClick={(event) => event.stopPropagation()}
+                href={url}
+                target={url.includes(location.host) ? '_self' : '_blank'}
+                rel="noreferrer noopener"
+            >
                 <div className="cursor-pointer rounded-2xl border border-solid border-third bg-primaryBottom  px-4 py-3 hover:bg-bg dark:bg-secondaryBottom">
                     <div className="flex items-center justify-between">
                         <div className="flex items-center space-x-2">
