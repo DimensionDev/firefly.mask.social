@@ -11,8 +11,7 @@ import CopyIcon from '@/assets/copy.svg';
 import { Tippy } from '@/esm/Tippy.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { LoginModalRef, LogoutModalRef } from '@/modals/controls.js';
-import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
-import { useLensStateStore } from '@/store/useLensStore.js';
+import { useFarcasterStateStore, useLensStateStore } from '@/store/useProfileStore.js';
 
 export default function Connected() {
     const { address } = useAccount();

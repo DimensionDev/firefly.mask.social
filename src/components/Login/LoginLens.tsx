@@ -17,7 +17,7 @@ import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
 import { AccountModalRef, ConnectWalletModalRef, LoginModalRef } from '@/modals/controls.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
-import { useLensStateStore } from '@/store/useLensStore.js';
+import { useLensStateStore } from '@/store/useProfileStore.js';
 
 interface LoginLensProps {
     profiles: Profile[];

@@ -8,7 +8,7 @@ import { HubbleSocialMediaProvider } from '@/providers/hubble/SocialMedia.js';
 import { type Post } from '@/providers/types/SocialMedia.js';
 import { uploadToImgur } from '@/services/uploadToImgur.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
-import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
+import { useFarcasterStateStore } from '@/store/useProfileStore.js';
 import type { MediaObject } from '@/types/index.js';
 
 export function useSendFarcaster() {

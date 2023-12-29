@@ -5,7 +5,7 @@ import { commentPostForLens, publishPostForLens, quotePostForLens } from '@/help
 import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
 import { uploadFileToIPFS } from '@/services/uploadToIPFS.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
-import { useLensStateStore } from '@/store/useLensStore.js';
+import { useLensStateStore } from '@/store/useProfileStore.js';
 import type { MediaObject } from '@/types/index.js';
 
 export function useSendLens() {

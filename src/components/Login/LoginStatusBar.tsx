@@ -5,8 +5,7 @@ import { ProfileAvatarAdd } from '@/components/ProfileAvatarAdd.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { LoginModalRef } from '@/modals/controls.js';
-import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
-import { useLensStateStore } from '@/store/useLensStore.js';
+import { useFarcasterStateStore, useLensStateStore } from '@/store/useProfileStore.js';
 
 export function LoginStatusBar() {
     const lensProfile = useLensStateStore.use.currentProfile?.();

@@ -18,7 +18,7 @@ import { ComposeModalRef, LoginModalRef } from '@/modals/controls.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
-import { useLensStateStore } from '@/store/useLensStore.js';
+import { useLensStateStore } from '@/store/useProfileStore.js';
 
 interface PostByItemProps {
     source: SocialPlatform;

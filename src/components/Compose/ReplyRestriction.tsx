@@ -5,7 +5,7 @@ import { Fragment, useMemo } from 'react';
 import RadioDisableNoIcon from '@/assets/radio.disable-no.svg';
 import YesIcon from '@/assets/yes.svg';
 import { classNames } from '@/helpers/classNames.js';
-import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
+import { useFarcasterStateStore } from '@/store/useProfileStore.js';
 
 interface ReplyRestrictionProps {
     restriction: number;

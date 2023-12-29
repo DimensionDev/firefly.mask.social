@@ -8,7 +8,7 @@ import VideoIcon from '@/assets/video.svg';
 import { SocialPlatform } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
-import { useFarcasterStateStore } from '@/store/useFarcasterStore.js';
+import { useFarcasterStateStore } from '@/store/useProfileStore.js';
 
 interface MediaProps {
     close: () => void;
