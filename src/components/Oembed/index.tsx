@@ -76,7 +76,7 @@ export default function Oembed({ url, onData }: OembedProps) {
     }
 
     return og.html ? (
-        <Player html={og.html} isSpotify={isLinkMatchingHost(og.url, 'open.spotify.com')} />
+        <Player html={og.html} isSpotify={isLinkMatchingHost(og.url, 'open.spotify.com', false)} />
     ) : (
         <Embed og={og} />
     );
