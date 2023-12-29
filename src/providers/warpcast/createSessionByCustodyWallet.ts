@@ -15,6 +15,8 @@ import type { UserResponse } from '@/providers/types/Warpcast.js';
  */
 export async function createSessionByCustodyWallet(client: Exclude<GetWalletClientResult, null>, signal?: AbortSignal) {
     const { payload, token } = await generateCustodyBearer(client);
+
+    const authUrl = urlcat(WARPCAST_ROOT_URL, '/auth');
     const response = await fetchJSON<{
         result: {
             token: {
@@ -22,7 +24,7 @@ export async function createSessionByCustodyWallet(client: Exclude<GetWalletClie
             };
         };
         errors?: Array<{ message: string; reason: string }>;
-    }>(urlcat(WARPCAST_ROOT_URL, '/auth'), {
+    }>(authUrl, {
         method: 'PUT',
         headers: {
             Authorization: `Bearer ${token}`,
@@ -31,7 +33,8 @@ export async function createSessionByCustodyWallet(client: Exclude<GetWalletClie
     });
     if (response.errors?.length) throw new Error(response.errors[0].message);
 
-    const userResponse = await fetchJSON<UserResponse>(urlcat(WARPCAST_ROOT_URL, '/me'), {
+    const meUrl = urlcat(WARPCAST_ROOT_URL, '/me');
+    const userResponse = await fetchJSON<UserResponse>(meUrl, {
         method: 'GET',
         headers: {
             Authorization: `Bearer ${response.result.token.secret}`,

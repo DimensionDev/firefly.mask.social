@@ -34,7 +34,8 @@ export class HubbleSocialMedia implements Provider {
     }
 
     async getProfileById(profileId: string) {
-        const { data: user } = await fetchJSON<UserResponse>(urlcat(FIREFLY_ROOT_URL, '/user', { fid: profileId }), {
+        const url = urlcat(FIREFLY_ROOT_URL, '/user', { fid: profileId });
+        const { data: user } = await fetchJSON<UserResponse>(url, {
             method: 'GET',
         });
 
@@ -87,7 +88,8 @@ export class HubbleSocialMedia implements Provider {
             },
         }));
 
-        const { data, hash } = await fetchJSON<Message>(urlcat(FIREFLY_HUBBLE_URL, '/v1/submitMessage'), {
+        const url = urlcat(FIREFLY_HUBBLE_URL, '/v1/submitMessage');
+        const { data, hash } = await fetchJSON<Message>(url, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/octet-stream',
@@ -140,7 +142,8 @@ export class HubbleSocialMedia implements Provider {
             },
         }));
 
-        const { data } = await fetchJSON<Message>(urlcat(FIREFLY_HUBBLE_URL, '/v1/submitMessage'), {
+        const url = urlcat(FIREFLY_HUBBLE_URL, '/v1/submitMessage');
+        const { data } = await fetchJSON<Message>(url, {
             method: 'POST',
             headers: { 'Content-Type': 'application/octet-stream' },
             body: bytes,
@@ -166,7 +169,8 @@ export class HubbleSocialMedia implements Provider {
             },
         }));
 
-        const { data, hash } = await fetchJSON<Message>(urlcat(FIREFLY_HUBBLE_URL, '/v1/submitMessage'), {
+        const url = urlcat(FIREFLY_HUBBLE_URL, '/v1/submitMessage');
+        const { data, hash } = await fetchJSON<Message>(url, {
             method: 'POST',
             headers: { 'Content-Type': 'application/octet-stream' },
             body: bytes,
@@ -196,7 +200,8 @@ export class HubbleSocialMedia implements Provider {
             },
         }));
 
-        const { data, hash } = await fetchJSON<Message>(urlcat(FIREFLY_HUBBLE_URL, '/v1/submitMessage'), {
+        const url = urlcat(FIREFLY_HUBBLE_URL, '/v1/submitMessage');
+        const { data, hash } = await fetchJSON<Message>(url, {
             method: 'POST',
             headers: { 'Content-Type': 'application/octet-stream' },
             body: bytes,
@@ -217,7 +222,8 @@ export class HubbleSocialMedia implements Provider {
             },
         }));
 
-        const { data, hash } = await fetchJSON<Message>(urlcat(FIREFLY_HUBBLE_URL, '/v1/submitMessage'), {
+        const url = urlcat(FIREFLY_HUBBLE_URL, '/v1/submitMessage');
+        const { data, hash } = await fetchJSON<Message>(url, {
             method: 'POST',
             headers: { 'Content-Type': 'application/octet-stream' },
             body: bytes,
@@ -238,7 +244,8 @@ export class HubbleSocialMedia implements Provider {
             },
         }));
 
-        const { data, hash } = await fetchJSON<Message>(urlcat(FIREFLY_HUBBLE_URL, '/v1/submitMessage'), {
+        const url = urlcat(FIREFLY_HUBBLE_URL, '/v1/submitMessage');
+        const { data, hash } = await fetchJSON<Message>(url, {
             method: 'POST',
             headers: { 'Content-Type': 'application/octet-stream' },
             body: bytes,
@@ -256,7 +263,8 @@ export class HubbleSocialMedia implements Provider {
             },
         }));
 
-        const { data, hash } = await fetchJSON<Message>(urlcat(FIREFLY_HUBBLE_URL, '/v1/submitMessage'), {
+        const url = urlcat(FIREFLY_HUBBLE_URL, '/v1/submitMessage');
+        const { data, hash } = await fetchJSON<Message>(url, {
             method: 'POST',
             headers: { 'Content-Type': 'application/octet-stream' },
             body: bytes,
@@ -274,7 +282,8 @@ export class HubbleSocialMedia implements Provider {
             },
         }));
 
-        const { data, hash } = await fetchJSON<Message>(urlcat(FIREFLY_HUBBLE_URL, '/v1/submitMessage'), {
+        const url = urlcat(FIREFLY_HUBBLE_URL, '/v1/submitMessage');
+        const { data, hash } = await fetchJSON<Message>(url, {
             method: 'POST',
             headers: { 'Content-Type': 'application/octet-stream' },
             body: bytes,
