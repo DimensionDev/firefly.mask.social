@@ -1,6 +1,7 @@
-import { first } from 'lodash-es';
+import { first, last } from 'lodash-es';
 
 import { SocialPlatform } from '@/constants/enum.js';
+import { URL_REGEX } from '@/constants/regex.js';
 import { formatFarcasterProfileFromFirefly } from '@/helpers/formatFarcasterProfileFromFirefly.js';
 import { getResourceType } from '@/helpers/getResourceType.js';
 import type { Cast } from '@/providers/types/Firefly.js';
@@ -8,7 +9,8 @@ import type { Attachment, Post } from '@/providers/types/SocialMedia.js';
 import type { MetadataAsset } from '@/types/index.js';
 
 function formatContent(cast: Cast) {
-    const defaultContent = { content: cast.text };
+    const oembedUrl = last(cast.text.match(URL_REGEX));
+    const defaultContent = { content: cast.text, oembedUrl };
     if (cast.embeds.length) {
         const firstAsset = first(cast.embeds);
         if (!firstAsset) return defaultContent;
@@ -20,6 +22,7 @@ function formatContent(cast: Cast) {
                 uri: firstAsset!.url,
                 type: getResourceType(firstAsset.url),
             } as MetadataAsset,
+            oembedUrl,
             attachments: cast.embeds
                 .map((x) => {
                     const type = getResourceType(x.url);

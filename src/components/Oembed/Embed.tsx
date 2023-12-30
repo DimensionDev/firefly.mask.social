@@ -1,5 +1,6 @@
 import { Image } from '@/esm/Image.js';
 import { Link } from '@/esm/Link.js';
+import { isSelfReference } from '@/helpers/isLinkMatchingHost.js';
 import type { OpenGraph } from '@/services/digestLink.js';
 
 interface EmbedProps {
@@ -9,7 +10,12 @@ interface EmbedProps {
 export default function Embed({ og }: EmbedProps) {
     return (
         <div className="mt-4 text-sm">
-            <Link href={og.url} target={og.url.includes(location.host) ? '_self' : '_blank'} rel="noreferrer noopener">
+            <Link
+                onClick={(event) => event.stopPropagation()}
+                href={og.url}
+                target={isSelfReference(og.url) ? '_self' : '_blank'}
+                rel="noreferrer noopener"
+            >
                 <div className=" rounded-xl border bg-white dark:border-gray-700 dark:bg-black">
                     {og.isLarge && og.image ? (
                         <Image

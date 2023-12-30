@@ -263,7 +263,7 @@ export class FireflySocialMedia implements Provider {
     ): Promise<Pageable<Post, PageIndicator>> {
         const session = farcasterClient.getSessionRequired();
         // TODO: replace to prod url
-        const url = urlcat('https://api-dev.firefly.land', '/v2/timeline/farcaster_for_fid');
+        const url = urlcat(FIREFLY_ROOT_URL, '/v2/timeline/farcaster_for_fid');
 
         const {
             data: { casts, cursor },

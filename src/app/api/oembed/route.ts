@@ -20,5 +20,7 @@ export async function GET(request: Request) {
 
     const response = await digestLink(decodeURIComponent(link));
 
+    if (!response) return Response.json({ error: 'Unable to request link' }, { status: 500 });
+
     return createSuccessResponseJSON(response);
 }
