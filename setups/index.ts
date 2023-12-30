@@ -33,4 +33,4 @@ Reflect.set(URL, 'canParse', (url: string) => {
     } catch {
         return false;
     }
-})
+});
