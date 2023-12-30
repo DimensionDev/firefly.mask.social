@@ -24,3 +24,13 @@ Reflect.set(globalThis, 'location', {
     pathname: 'nodejs',
     protocol: 'https',
 } as Location);
+
+// Add `URL.canParse` polyfill.
+Reflect.set(URL, 'canParse', (url: string) => {
+    try {
+        new URL(url);
+        return true;
+    } catch {
+        return false;
+    }
+})
