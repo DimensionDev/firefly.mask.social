@@ -12,6 +12,7 @@ import { ProfileName } from '@/components/ProfileName.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { useFarcasterStateStore, useLensStateStore } from '@/store/useProfileStore.js';
+import { useRouter } from 'next/navigation.js';
 
 export interface LogoutModalProps {
     source?: SocialPlatform;
@@ -21,6 +22,8 @@ export interface LogoutModalProps {
 export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps | void>>(function LogoutModal(_, ref) {
     const [source, setSource] = useState<SocialPlatform>();
     const [profile, setProfile] = useState<Profile>();
+
+    const router = useRouter()
 
     const lensProfiles = useLensStateStore.use.profiles();
     const farcasterProfiles = useFarcasterStateStore.use.profiles();
@@ -39,8 +42,8 @@ export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps 
         return !source
             ? lensProfiles.concat(farcasterProfiles)
             : source === SocialPlatform.Lens
-              ? lensProfiles
-              : farcasterProfiles;
+                ? lensProfiles
+                : farcasterProfiles;
     }, [lensProfiles, farcasterProfiles, source, profile]);
 
     return (
@@ -112,6 +115,7 @@ export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps 
                                                     clearFarcasterProfile();
                                                     break;
                                             }
+                                            router.push('/')
                                             dispatch?.close();
                                         }}
                                     >
