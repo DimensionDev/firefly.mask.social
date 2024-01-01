@@ -9,6 +9,7 @@ import {
     LimitType,
     PublicationReactionType,
     PublicationType,
+    type ProfileFragment,
 } from '@lens-protocol/client';
 import { t } from '@lingui/macro';
 import {
@@ -39,6 +40,7 @@ import {
     ReactionType,
     SessionType,
 } from '@/providers/types/SocialMedia.js';
+import { type LastLoggedInProfileRequest, type ProfilesManagedRequest, profilesManagedQuery } from '@/providers/types/LensGraphql/profileManagers.js';
 
 export class LensSocialMedia implements Provider {
     private client = createLensClient();
@@ -286,8 +288,20 @@ export class LensSocialMedia implements Provider {
     }
 
     async getProfilesByAddress(address: string): Promise<Profile[]> {
+        const request: ProfilesManagedRequest | LastLoggedInProfileRequest = {
+            for: address
+          }
+        const {data: {
+            lastLoggedInProfile
+        }} = await profilesManagedQuery(request)
         const profiles = await this.client.wallet.profilesManaged({ for: address });
-        return profiles.items.map(formatLensProfile);
+        const result =  profiles.items.map(formatLensProfile);
+        const index = result.findIndex((profile) => profile.handle === lastLoggedInProfile?.handle?.fullHandle)
+        if (index > -1) {
+            const [value] = result.splice(index, 1);
+            result.unshift(value);
+        }
+        return result
     }
 
     async getProfileById(profileId: string): Promise<Profile> {
