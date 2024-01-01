@@ -4,6 +4,7 @@ import { Dialog, Transition } from '@headlessui/react';
 import { t, Trans } from '@lingui/macro';
 import type { SingletonModalRefCreator } from '@masknet/shared-base';
 import { useSingletonModal } from '@masknet/shared-base-ui';
+import { useRouter } from 'next/navigation.js';
 import { forwardRef, Fragment, useMemo, useState } from 'react';
 
 import CloseIcon from '@/assets/close.svg';
@@ -12,7 +13,6 @@ import { ProfileName } from '@/components/ProfileName.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { useFarcasterStateStore, useLensStateStore } from '@/store/useProfileStore.js';
-import { useRouter } from 'next/navigation.js';
 
 export interface LogoutModalProps {
     source?: SocialPlatform;

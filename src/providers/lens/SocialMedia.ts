@@ -9,7 +9,6 @@ import {
     LimitType,
     PublicationReactionType,
     PublicationType,
-    type ProfileFragment,
 } from '@lens-protocol/client';
 import { t } from '@lingui/macro';
 import {
@@ -30,6 +29,7 @@ import { formatLensPost, formatLensPostByFeed, formatLensQuoteOrComment } from '
 import { formatLensProfile } from '@/helpers/formatLensProfile.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { LensSession } from '@/providers/lens/Session.js';
+import { type LastLoggedInProfileRequest, profilesManagedQuery,type ProfilesManagedRequest } from '@/providers/types/LensGraphql/profileManagers.js';
 import {
     type Notification,
     NotificationType,
@@ -40,7 +40,6 @@ import {
     ReactionType,
     SessionType,
 } from '@/providers/types/SocialMedia.js';
-import { type LastLoggedInProfileRequest, type ProfilesManagedRequest, profilesManagedQuery } from '@/providers/types/LensGraphql/profileManagers.js';
 
 export class LensSocialMedia implements Provider {
     private client = createLensClient();

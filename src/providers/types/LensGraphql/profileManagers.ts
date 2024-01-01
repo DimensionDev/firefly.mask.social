@@ -1,23 +1,22 @@
-import { gql } from '@apollo/client'
+import { ApolloClient, gql , InMemoryCache  } from '@apollo/client'
+
 import {
   type Exact,
-  type Scalars,
-  type InputMaybe,
-  MetadataAttributeType,
+  FollowModuleFieldsFragmentDoc,
   FollowModuleType,
   HandleInfoFieldsFragmentDoc,
-  NetworkAddressFieldsFragmentDoc,
-  ProfileOperationsFieldsFragmentDoc,
-  ProfileMetadataFieldsFragmentDoc,
-  FollowModuleFieldsFragmentDoc,
+  type InputMaybe,
   LimitType,
+  MetadataAttributeType,
+  NetworkAddressFieldsFragmentDoc,
+  ProfileFieldsFragmentDoc,
+  ProfileMetadataFieldsFragmentDoc,
+  ProfileOperationsFieldsFragmentDoc,
+  ProfilesDocument,
   type ProfilesQuery,
   type ProfilesQueryVariables,
-  ProfilesDocument,
   type ProfilesRequest,
-  ProfileFieldsFragmentDoc
-} from './generated.js'
-import { ApolloClient, InMemoryCache  } from '@apollo/client'
+  type Scalars} from './generated.js'
 
 const API_URL = 'https://api-v2.lens.dev/'
 
@@ -55,8 +54,8 @@ export type CreateChangeProfileManagersTypedDataMutation = {
         nonce: any
         deadline: any
         delegatorProfileId: any
-        delegatedExecutors: Array<any>
-        approvals: Array<boolean>
+        delegatedExecutors: any[]
+        approvals: boolean[]
         configNumber: number
         switchToGivenConfig: boolean
       }
@@ -82,7 +81,7 @@ export enum ChangeProfileManagerActionType {
 export type ChangeProfileManagersRequest = {
   /** if you define this true will enable it and false will disable it within the same tx as any other managers you are changing state for. Leave it blank if you do not want to change its current state */
   approveSignless?: InputMaybe<Scalars['Boolean']['input']>
-  changeManagers?: InputMaybe<Array<ChangeProfileManager>>
+  changeManagers?: InputMaybe<ChangeProfileManager[]>
 }
 
 export type CreateChangeProfileManagersTypedDataMutationVariables = Exact<{
@@ -365,7 +364,7 @@ export type CurrentProfileQuery = {
     signless: boolean
     sponsor: boolean
     createdAt: any
-    interests: Array<string>
+    interests: string[]
     invitesLeft: number
     handle?: {
       __typename?: 'HandleInfo'

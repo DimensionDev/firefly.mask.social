@@ -1,5 +1,6 @@
 import { gql } from '@apollo/client'
 import * as Apollo from '@apollo/client'
+
 export type Maybe<T> = T | null
 export type InputMaybe<T> = Maybe<T>
 export type Exact<T extends { [key: string]: unknown }> = {
@@ -291,7 +292,7 @@ export type ProfilesQuery = {
       signless: boolean
       sponsor: boolean
       createdAt: any
-      interests: Array<string>
+      interests: string[]
       invitesLeft: number
       handle?: {
         __typename?: 'HandleInfo'
@@ -626,7 +627,7 @@ export type ProfileMetadata = {
   /** The app that this metadata is displayed on */
   appId?: Maybe<Scalars['AppId']['output']>
   /** Profile Custom attributes */
-  attributes?: Maybe<Array<MetadataAttribute>>
+  attributes?: Maybe<MetadataAttribute[]>
   /** The bio for the profile */
   bio?: Maybe<Scalars['Markdown']['output']>
   /** The cover picture for the profile */
