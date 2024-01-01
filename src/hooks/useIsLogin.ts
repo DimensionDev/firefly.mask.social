@@ -9,18 +9,19 @@ export function useIsLogin(source?: SocialPlatform) {
     const account = useAccount();
     const currentLensProfile = useLensStateStore.use.currentProfile();
     const currentFarcasterProfile = useFarcasterStateStore.use.currentProfile();
+    const isLensLogin = currentLensProfile?.signless ? currentLensProfile.profileId : (currentLensProfile?.profileId && currentLensProfile.ownedBy?.address === account.address)
 
     return useMemo(() => {
-        if (!source) return !!(currentLensProfile?.profileId || currentFarcasterProfile?.profileId);
+        if (!source) return !!(isLensLogin || currentFarcasterProfile?.profileId);
 
         switch (source) {
             case SocialPlatform.Lens:
-                return !!currentLensProfile?.profileId;
+                return !!isLensLogin;
             case SocialPlatform.Farcaster:
                 return !!currentFarcasterProfile?.profileId;
             default:
                 safeUnreachable(source);
                 return false;
         }
-    }, [currentLensProfile, currentFarcasterProfile, source]);
+    }, [isLensLogin, currentFarcasterProfile, source]);
 }
