@@ -10463,6 +10463,7 @@ packages:
 
   /@magic-works/i18n-codegen@0.5.0(typescript@5.3.0-beta):
     resolution: {integrity: sha512-AeJG2cAYXn848PXIiXTpPJofus4hGxvhkaZ/+/yOHzFkD90YqL0TX44GcgxQeMp0Hwvt1YkFm/YJmpiHN7laSg==}
+    hasBin: true
     peerDependencies:
       typescript: ^4.8 || ^5 || 5
     peerDependenciesMeta:
@@ -18040,6 +18041,7 @@ packages:
   /autoprefixer@10.4.16(postcss@8.4.30):
     resolution: {integrity: sha512-7vd3UC6xKp0HLfua5IjZlcXvGAGy7cBAXTg2lyQ/8WpNhd6SiZ8Be+xm3FyBSYJx5GKcpRCzBh7RH4/0dnY+uQ==}
     engines: {node: ^10 || ^12 || >=14}
+    hasBin: true
     peerDependencies:
       postcss: ^8.1.0
     dependencies:
@@ -19786,7 +19788,7 @@ packages:
       normalize-path: 3.0.0
       schema-utils: 4.2.0
       serialize-javascript: 6.0.1
-      webpack: github.com/Jack-Works/webpack/f7244d8e23e799b84a536efb2fdccec5370ac37e(@swc/core@1.3.96)(esbuild@0.19.7)(webpack-cli@5.1.4)
+      webpack: 5.88.2(@swc/core@1.3.96)(esbuild@0.19.7)
     dev: true
 
   /core-js-compat@3.33.0:
@@ -20214,7 +20216,7 @@ packages:
       postcss-modules-values: 4.0.0(postcss@8.4.31)
       postcss-value-parser: 4.2.0
       semver: 7.5.4
-      webpack: github.com/Jack-Works/webpack/f7244d8e23e799b84a536efb2fdccec5370ac37e(@swc/core@1.3.96)(esbuild@0.19.7)(webpack-cli@5.1.4)
+      webpack: 5.88.2(@swc/core@1.3.96)(esbuild@0.19.7)
     dev: true
 
   /css-select@4.3.0:
@@ -24397,7 +24399,7 @@ packages:
       lodash: 4.17.21
       pretty-error: 4.0.0
       tapable: 2.2.1
-      webpack: github.com/Jack-Works/webpack/f7244d8e23e799b84a536efb2fdccec5370ac37e(@swc/core@1.3.96)(esbuild@0.19.7)(webpack-cli@5.1.4)
+      webpack: 5.88.2(@swc/core@1.3.96)(esbuild@0.19.7)
     dev: true
 
   /htmlparser2@6.1.0:
@@ -28176,6 +28178,7 @@ packages:
   /msw@1.2.1(typescript@5.3.0-beta):
     resolution: {integrity: sha512-bF7qWJQSmKn6bwGYVPXOxhexTCGD5oJSZg8yt8IBClxvo3Dx/1W0zqE1nX9BSWmzRsCKWfeGWcB/vpqV6aclpw==}
     engines: {node: '>=14'}
+    hasBin: true
     peerDependencies:
       typescript: '>= 4.4.x <= 5.0.x || 5'
     peerDependenciesMeta:
@@ -28510,6 +28513,7 @@ packages:
   /next@14.0.2(babel-plugin-macros@3.1.0)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026):
     resolution: {integrity: sha512-jsAU2CkYS40GaQYOiLl9m93RTv2DA/tTJ0NRlmZIBIL87YwQ/xR8k796z7IqgM3jydI8G25dXvyYMC9VDIevIg==}
     engines: {node: '>=18.17.0'}
+    hasBin: true
     peerDependencies:
       '@opentelemetry/api': ^1.1.0
       react: ^18.2.0 || 0.0.0-experimental-0a360642d-20230711
@@ -29678,6 +29682,7 @@ packages:
   /postcss-cli@10.1.0(postcss@8.4.30):
     resolution: {integrity: sha512-Zu7PLORkE9YwNdvOeOVKPmWghprOtjFQU3srMUGbdz3pHJiFh7yZ4geiZFMkjMfB0mtTFR3h8RemR62rPkbOPA==}
     engines: {node: '>=14'}
+    hasBin: true
     peerDependencies:
       postcss: ^8.0.0
     dependencies:
@@ -32781,7 +32786,7 @@ packages:
     peerDependencies:
       webpack: ^5.0.0
     dependencies:
-      webpack: github.com/Jack-Works/webpack/f7244d8e23e799b84a536efb2fdccec5370ac37e(@swc/core@1.3.96)(esbuild@0.19.7)(webpack-cli@5.1.4)
+      webpack: 5.88.2(@swc/core@1.3.96)(esbuild@0.19.7)
     dev: true
 
   /style-to-object@0.4.4:
@@ -32929,7 +32934,7 @@ packages:
       webpack: '>=2'
     dependencies:
       '@swc/core': 1.3.96
-      webpack: github.com/Jack-Works/webpack/f7244d8e23e799b84a536efb2fdccec5370ac37e(@swc/core@1.3.96)(esbuild@0.19.7)(webpack-cli@5.1.4)
+      webpack: 5.88.2(@swc/core@1.3.96)(esbuild@0.19.7)
     dev: true
 
   /symbol-observable@4.0.0:
@@ -33040,7 +33045,7 @@ packages:
       schema-utils: 3.3.0
       serialize-javascript: 6.0.1
       terser: 5.24.0
-      webpack: github.com/Jack-Works/webpack/f7244d8e23e799b84a536efb2fdccec5370ac37e(@swc/core@1.3.96)(esbuild@0.19.7)(webpack-cli@5.1.4)
+      webpack: 5.88.2(@swc/core@1.3.96)(esbuild@0.19.7)
     dev: true
 
   /terser@5.24.0:
@@ -33432,6 +33437,7 @@ packages:
   /ts-jest@28.0.8(esbuild@0.19.7)(jest@28.1.3)(typescript@5.2.2):
     resolution: {integrity: sha512-5FaG0lXmRPzApix8oFG8RKjAz4ehtm8yMKOTy5HX3fY6W8kmvOrmcY0hKDElW52FJov+clhUbrKAqofnj4mXTg==}
     engines: {node: ^12.13.0 || ^14.15.0 || ^16.10.0 || >=17.0.0}
+    hasBin: true
     peerDependencies:
       '@babel/core': '>=7.0.0-beta.0 <8'
       '@jest/types': ^28.0.0
@@ -33466,6 +33472,7 @@ packages:
 
   /ts-node@10.9.1(@swc/core@1.3.96)(@types/node@20.5.7)(typescript@5.2.2):
     resolution: {integrity: sha512-NtVysVPkxxrwFGUUxGYhfux8k78pQB3JqYBXlLRZgdGUqTO5wU/UyHop5p70iEbGhB7q5KmiZiU0Y3KlJrScEw==}
+    hasBin: true
     peerDependencies:
       '@swc/core': '>=1.2.50'
       '@swc/wasm': '>=1.2.50'
@@ -33500,6 +33507,7 @@ packages:
 
   /ts-node@10.9.1(@swc/core@1.3.96)(@types/node@20.5.7)(typescript@5.3.0-beta):
     resolution: {integrity: sha512-NtVysVPkxxrwFGUUxGYhfux8k78pQB3JqYBXlLRZgdGUqTO5wU/UyHop5p70iEbGhB7q5KmiZiU0Y3KlJrScEw==}
+    hasBin: true
     peerDependencies:
       '@swc/core': '>=1.2.50'
       '@swc/wasm': '>=1.2.50'
@@ -33744,6 +33752,7 @@ packages:
 
   /typechain@8.3.1(typescript@5.2.2):
     resolution: {integrity: sha512-fA7clol2IP/56yq6vkMTR+4URF1nGjV82Wx6Rf09EsqD4tkzMAvEaqYxVFCavJm/1xaRga/oD55K+4FtuXwQOQ==}
+    hasBin: true
     peerDependencies:
       typescript: '>=4.3.0 || 5'
     peerDependenciesMeta:
@@ -34681,6 +34690,7 @@ packages:
   /vite@4.5.0(@types/node@20.5.7):
     resolution: {integrity: sha512-ulr8rNLA6rkyFAlVWw2q5YJ91v098AFQ2R0PRFwPzREXOUJQPtFUG0t+/ZikhaOCDqFoDhN6/v8Sq0o4araFAw==}
     engines: {node: ^14.18.0 || >=16.0.0}
+    hasBin: true
     peerDependencies:
       '@types/node': '>= 14'
       less: '*'
@@ -34716,6 +34726,7 @@ packages:
   /vitest@0.34.6(@vitest/ui@0.34.3):
     resolution: {integrity: sha512-+5CALsOvbNKnS+ZHMXtuUC7nL8/7F1F2DnHGjSsszX8zCjWSSviphCb/NuS9Nzf4Q03KyyDRBAXhF/8lffME4Q==}
     engines: {node: '>=v14.18.0'}
+    hasBin: true
     peerDependencies:
       '@edge-runtime/vm': '*'
       '@vitest/browser': '*'
@@ -35486,6 +35497,7 @@ packages:
   /webpack-cli@5.1.4(webpack-dev-server@4.15.1)(webpack@5.88.2):
     resolution: {integrity: sha512-pIDJHIEI9LR0yxHXQ+Qh95k2EvXpWzZ5l+d+jIo+RdSm9MiHfzazIxwwni/p7+x4eJZuvG1AJwgC4TNQ7NRgsg==}
     engines: {node: '>=14.15.0'}
+    hasBin: true
     peerDependencies:
       '@webpack-cli/generators': '*'
       webpack: 5.x.x
@@ -35533,6 +35545,7 @@ packages:
   /webpack-dev-server@4.15.1(webpack-cli@5.1.4)(webpack@5.88.2):
     resolution: {integrity: sha512-5hbAst3h3C3L8w6W4P96L5vaV0PxSmJhxZvWKYIdgxOQm8pNZ5dEOmmSLBVpP85ReeyRt6AS1QJNyo/oFFPeVA==}
     engines: {node: '>= 12.13.0'}
+    hasBin: true
     peerDependencies:
       webpack: ^4.37.0 || ^5.0.0
       webpack-cli: '*'
