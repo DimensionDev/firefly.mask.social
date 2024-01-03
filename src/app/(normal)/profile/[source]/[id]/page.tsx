@@ -3,7 +3,7 @@
 import { safeUnreachable } from '@masknet/kit';
 import { useQuery } from '@tanstack/react-query';
 import { notFound } from 'next/navigation.js';
-import { Suspense, useMemo } from 'react';
+import { useMemo } from 'react';
 import { useDocumentTitle } from 'usehooks-ts';
 
 import Loading from '@/components/Loading.js';

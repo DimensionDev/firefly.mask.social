@@ -16,6 +16,7 @@ import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
+import { isSameProfile } from '@/helpers/isSameProfile.js';
 
 export interface FeedActionType {
     post: Post;
@@ -101,7 +102,7 @@ export const FeedActionType = memo<FeedActionType>(function FeedActionType({ pos
                 <div className="mb-3 flex items-center space-x-2 text-[15px] text-secondary">
                     <MirrorIcon width={16} height={16} />
                     <Link href={getProfileUrl(first(post.mirrors)!)}>
-                        <strong>{first(post.mirrors)?.profileId === currentProfile?.profileId ? t`You` : first(post.mirrors)?.displayName}</strong>{' '}
+                        <strong>{isSameProfile(first(post.mirrors), currentProfile) ? t`You` : first(post.mirrors)?.displayName}</strong>{' '}
                         {post.source === SocialPlatform.Farcaster ? t`recasted` : t`mirrored`}
                     </Link>
                 </div>
@@ -111,7 +112,7 @@ export const FeedActionType = memo<FeedActionType>(function FeedActionType({ pos
                     {post.hasLiked ? <LikedIcon width={17} height={16} /> : <LikeIcon width={17} height={16} />}
                     <Link href={getProfileUrl(first(post.reactions)!)}>
                         <Trans>
-                            <strong>{first(post.mirrors)?.profileId === currentProfile?.profileId ? t`You` : first(post.mirrors)?.displayName}</strong> liked
+                            <strong>{isSameProfile(first(post.mirrors), currentProfile) ? t`You` : first(post.mirrors)?.displayName}</strong> liked
                         </Trans>
                     </Link>
                 </div>
