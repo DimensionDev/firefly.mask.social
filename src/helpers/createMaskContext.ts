@@ -5,30 +5,27 @@ import { TransactionConfirmModal } from '@masknet/shared';
 import { EMPTY_ARRAY, PostIdentifier, UNDEFINED } from '@masknet/shared-base';
 
 import { SITE_URL } from '@/constants/index.js';
+import { createRejectCallback } from '@/helpers/createRejectCallback.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { ComposeModalRef } from '@/modals/controls.js';
-
-async function reject(): Promise<never> {
-    throw new Error('Not implemented');
-}
 
 export function createMaskUIContext(context?: Partial<__UIContext__>): __UIContext__ {
     return {
         currentPersona: UNDEFINED,
         allPersonas: EMPTY_ARRAY,
-        queryPersonaByProfile: reject,
+        queryPersonaByProfile: createRejectCallback('queryPersonaByProfile'),
         queryPersonaAvatar: async (identifiers): Promise<any> => {
             if (Array.isArray(identifiers)) return new Map();
             return undefined;
         },
-        querySocialIdentity: reject,
+        querySocialIdentity: createRejectCallback('querySocialIdentity'),
         fetchJSON,
-        openDashboard: reject,
-        openPopupWindow: reject,
-        signWithPersona: reject,
-        hasPaymentPassword: reject,
+        openDashboard: createRejectCallback('openDashboard'),
+        openPopupWindow: createRejectCallback('openPopupWindow'),
+        signWithPersona: createRejectCallback('signWithPersona'),
+        hasPaymentPassword: createRejectCallback('hasPaymentPassword'),
         attachProfile: undefined,
-        createPersona: reject,
+        createPersona: createRejectCallback('createPersona'),
         hasHostPermission: undefined,
         requestHostPermission: undefined,
         setCurrentPersonaIdentifier: undefined,
@@ -51,7 +48,7 @@ export function createMaskSiteAdaptorContext(context?: Partial<__SiteAdaptorCont
                 chars: text.replaceAll(/mask\.io/gi, SITE_URL),
             });
         },
-        connectPersona: reject,
+        connectPersona: createRejectCallback('connectPersona'),
         getPostIdFromNewPostToast: undefined,
         getSearchedKeyword: undefined,
         getUserIdentity: undefined,

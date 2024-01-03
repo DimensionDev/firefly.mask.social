@@ -19,9 +19,7 @@ const STATS_URL = '/api/publicationViews';
 export const useImpressionsBase = create<ImpressionsState>((set) => ({
     publicationViews: EMPTY_LIST,
     fetchAndStoreViews: async (ids) => {
-        if (!ids.length) {
-            return;
-        }
+        if (!ids.length) return;
 
         try {
             const viewsResponse = await fetchJSON<{ data: { success: boolean; views: Views[] } }>(STATS_URL, {
