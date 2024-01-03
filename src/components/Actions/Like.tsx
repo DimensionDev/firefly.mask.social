@@ -41,7 +41,7 @@ export const Like = memo<LikeProps>(function Like({ count, hasLiked, postId, sou
             LoginModalRef.open({ source });
             return;
         }
-        const originalCount = count
+        const originalCount = count;
         setLiked((prev) => !prev);
         setRealCount((prev) => {
             if (liked && prev) return prev - 1;

@@ -83,12 +83,12 @@ export const FeedActionType = memo<FeedActionType>(function FeedActionType({ pos
                     </span>
                 </div>
             ) : null}
-            {post.type === 'Mirror' && post.mirrorer && !isPostPage ? (
+            {post.type === 'Mirror' && post.reporter && !isPostPage ? (
                 <div className="mb-3 flex items-center space-x-2 text-[15px] text-secondary">
                     <MirrorIcon width={16} height={16} />
-                    <Link href={getProfileUrl(post.mirrorer)}>
+                    <Link href={getProfileUrl(post.reporter)}>
                         <Trans>
-                            <strong>{post.mirrorer.displayName}</strong> mirrored
+                            <strong>{post.reporter.displayName}</strong> mirrored
                         </Trans>
                     </Link>
                 </div>

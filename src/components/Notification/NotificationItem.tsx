@@ -349,9 +349,9 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
                 if (!follower) return;
                 return <MoreAction source={notification.source} author={follower} />;
             case NotificationType.Mirror:
-                const mirrorer = first(notification.mirrors);
-                if (!mirrorer) return;
-                return <MoreAction source={notification.source} author={mirrorer} />;
+                const reporter = first(notification.mirrors);
+                if (!reporter) return;
+                return <MoreAction source={notification.source} author={reporter} />;
             case NotificationType.Reaction:
                 const reactor = first(notification.reactors);
                 if (!reactor) return;

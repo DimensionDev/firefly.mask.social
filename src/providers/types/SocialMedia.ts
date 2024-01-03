@@ -93,7 +93,7 @@ export interface Post {
     parentAuthor?: Profile;
     timestamp?: number;
     author: Profile;
-    mirrorer?: Profile;
+    reporter?: Profile;
     mediaObjects?: MediaObject[];
     permalink?: string;
     parentPermalink?: string;

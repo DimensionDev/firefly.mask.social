@@ -273,7 +273,7 @@ export function formatLensPost(result: AnyPublicationFragment): Post {
             postId: result.id,
             timestamp,
             author: formatLensProfile(result.mirrorOn.by),
-            mirrorer: profile,
+            reporter: profile,
             isHidden: result.isHidden,
             source: SocialPlatform.Lens,
             mediaObjects,
