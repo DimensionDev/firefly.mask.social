@@ -23,7 +23,7 @@ export function getImageDimension(file: Blob): Promise<ImageDimension> {
         image.addEventListener(
             'error',
             () => {
-                reject(new Error('Failed to load image'));
+                reject(new Error('Failed to load image.'));
             },
             {
                 once: true,

@@ -10,12 +10,8 @@ import { setupReactShadowRootEnvironment } from '@masknet/theme';
 import { Emitter } from '@servie/events';
 
 import { createMaskSiteAdaptorContext, createMaskUIContext } from '@/helpers/createMaskContext.js';
-
-import { indexedDBStorage, inMemoryStorage } from '../setup/storage.js';
-
-async function reject(): Promise<never> {
-    throw new Error('Not implemented');
-}
+import { createRejectCallback } from '@/helpers/createRejectCallback.js';
+import { indexedDBStorage, inMemoryStorage } from '@/mask/setup/storage.js';
 
 __setUIContext__(createMaskUIContext());
 __setSiteAdaptorContext__(createMaskSiteAdaptorContext());
@@ -37,8 +33,8 @@ startPluginSiteAdaptor(EnhanceableSite.App, {
             setMinimalMode(enabled) {
                 console.warn('setMinimalMode is ignored.');
             },
-            connectPersona: reject,
-            createPersona: reject,
+            connectPersona: createRejectCallback('connectPersona'),
+            createPersona: createRejectCallback('createPersona'),
         };
     },
     permission: {
