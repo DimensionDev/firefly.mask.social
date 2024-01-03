@@ -14,7 +14,7 @@ interface PostEmbedProps {
     source: SourceInURL;
 }
 
-export const PostEmbed = memo<PostEmbedProps>(function LensEmbed({ id, source }) {
+export const PostEmbed = memo<PostEmbedProps>(function PostEmbed({ id, source }) {
     const currentSource = resolveSource(source);
     const fetchAndStoreViews = useImpressionsStore.use.fetchAndStoreViews();
 

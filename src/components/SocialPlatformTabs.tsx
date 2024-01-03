@@ -8,6 +8,7 @@ import { SocialPlatform } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
+import { resolveSource, type SourceInURL } from '@/helpers/resolveSource.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 
@@ -24,9 +25,11 @@ export function SocialPlatformTabs() {
     if (pathname !== '/profile' && isRoutePathname(pathname, '/profile')) {
         const param = pathname.split('/');
         const handle = param[param.length - 1];
-        if (currentSource === SocialPlatform.Farcaster && farcasterProfile && farcasterProfile.profileId !== handle)
-            return null;
-        if (currentSource === SocialPlatform.Lens && lensProfile && lensProfile?.handle !== handle) return null;
+        const sourceString = param[param.length - 2] as SourceInURL;
+        const source = resolveSource(sourceString);
+
+        if (source === SocialPlatform.Farcaster && farcasterProfile?.profileId !== handle) return null;
+        if (source === SocialPlatform.Lens && lensProfile?.handle !== handle) return null;
     }
 
     return (

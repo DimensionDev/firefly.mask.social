@@ -1,6 +1,6 @@
 'use client';
 
-import { Plural, Trans } from '@lingui/macro';
+import { Plural, Select, t, Trans } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
 import { createLookupTableResolver } from '@masknet/shared-base';
 import { motion } from 'framer-motion';
@@ -12,8 +12,8 @@ import FollowIcon from '@/assets/follow.svg';
 import LikeIcon from '@/assets/like-large.svg';
 import MessageIcon from '@/assets/messages.svg';
 import MirrorIcon from '@/assets/mirror-large.svg';
-import More from '@/assets/more.svg';
 import { PostActions } from '@/components/Actions/index.js';
+import { MoreAction } from '@/components/Actions/More.js';
 import { Avatar } from '@/components/Avatar.js';
 import { Markup } from '@/components/Markup/index.js';
 import { Quote } from '@/components/Posts/Quote.js';
@@ -208,7 +208,12 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
                                 />
                             }
                         />{' '}
-                        <span>mirrored your </span>
+                        <Select
+                            value={notification.source}
+                            _Lens={t`mirrored your`}
+                            _Farcaster={t`recasted your`}
+                            other={t`mirrored your`}
+                        />{' '}
                         <strong>
                             <PostTypeI18N type={notification.post.type} />
                         </strong>
@@ -250,10 +255,6 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
                 return null;
         }
     }, [notification]);
-
-    const showMoreAction = useMemo(() => {
-        return profiles && profiles.length <= 1 && notification.timestamp;
-    }, [notification, profiles]);
 
     const content = useMemo(() => {
         const type = notification.type;
@@ -320,6 +321,47 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
         }
     }, [notification]);
 
+    const moreAction = useMemo(() => {
+        const type = notification.type;
+        switch (type) {
+            case NotificationType.Comment:
+                if (!notification.comment) return;
+                return (
+                    <MoreAction
+                        source={notification.source}
+                        author={notification.comment.author}
+                        id={notification.comment.postId}
+                    />
+                );
+            case NotificationType.Mention:
+            case NotificationType.Quote:
+            case NotificationType.Act:
+                if (!notification.post) return;
+                return (
+                    <MoreAction
+                        source={notification.post.source}
+                        author={notification.post.author}
+                        id={notification.post.postId}
+                    />
+                );
+            case NotificationType.Follow:
+                const follower = first(notification.followers);
+                if (!follower) return;
+                return <MoreAction source={notification.source} author={follower} />;
+            case NotificationType.Mirror:
+                const mirrorer = first(notification.mirrors);
+                if (!mirrorer) return;
+                return <MoreAction source={notification.source} author={mirrorer} />;
+            case NotificationType.Reaction:
+                const reactor = first(notification.reactors);
+                if (!reactor) return;
+                return <MoreAction source={notification.source} author={reactor} />;
+            default:
+                safeUnreachable(type);
+                return null;
+        }
+    }, [notification]);
+
     if (!profiles) return;
 
     return (
@@ -352,16 +394,12 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
                             </div>
                             <div className="flex items-center space-x-2">
                                 <SourceIcon source={notification.source} />
-                                {showMoreAction ? (
-                                    <>
-                                        <span className="text-xs leading-4 text-secondary">
-                                            <TimestampFormatter time={notification.timestamp} />
-                                        </span>
-                                        <span className="text-secondary">
-                                            <More width={24} height={24} />
-                                        </span>
-                                    </>
+                                {notification.timestamp ? (
+                                    <span className="text-xs leading-4 text-secondary">
+                                        <TimestampFormatter time={notification.timestamp} />
+                                    </span>
                                 ) : null}
+                                {moreAction}
                             </div>
                         </div>
                         <div className="mt-2 text-[15px]">{title}</div>

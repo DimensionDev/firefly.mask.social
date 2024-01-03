@@ -97,6 +97,7 @@ export function formatWarpcastPost(cast: Cast): Post {
             verified: x.pfp?.verified ?? false,
             source: SocialPlatform.Farcaster,
         })),
+        canComment: true,
         __original__: cast,
     };
 }

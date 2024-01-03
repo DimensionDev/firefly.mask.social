@@ -40,7 +40,7 @@ export default function Info({ isMyProfile, profile, source }: InfoProps) {
                     <span className=" text-[15px] text-secondary">@{profile?.handle}</span>
                 </div>
 
-                <div>{profile?.bio ?? '-'}</div>
+                <div className="text-[15px]">{profile?.bio ?? '-'}</div>
 
                 <div className=" flex gap-3 text-[15px]">
                     <div className=" flex gap-1">
