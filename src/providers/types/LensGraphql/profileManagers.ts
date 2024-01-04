@@ -1,3 +1,5 @@
+/* cspell:disable */
+
 import { ApolloClient, gql, InMemoryCache } from '@apollo/client';
 
 import {

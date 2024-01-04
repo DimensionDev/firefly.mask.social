@@ -2,6 +2,7 @@
 
 import { Dialog, Transition } from '@headlessui/react';
 import { t, Trans } from '@lingui/macro';
+import { delay } from '@masknet/kit';
 import type { SingletonModalRefCreator } from '@masknet/shared-base';
 import { useSingletonModal } from '@masknet/shared-base-ui';
 import { useRouter } from 'next/navigation.js';
@@ -13,7 +14,6 @@ import { ProfileName } from '@/components/ProfileName.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { useFarcasterStateStore, useLensStateStore } from '@/store/useProfileStore.js';
-import { delay } from '@masknet/kit';
 
 export interface LogoutModalProps {
     source?: SocialPlatform;
