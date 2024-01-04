@@ -125,7 +125,7 @@ export const FeedActionType = memo<FeedActionType>(function FeedActionType({ pos
                                 {isSameProfile(first(post.mirrors), currentProfile)
                                     ? `You`
                                     : first(post.mirrors)?.displayName}
-                            </strong>
+                            </strong>{' '}
                             liked
                         </Trans>
                     </Link>
