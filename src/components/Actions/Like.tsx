@@ -16,7 +16,7 @@ import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { LoginModalRef } from '@/modals/controls.js';
-import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
+import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 
 interface LikeProps {
@@ -41,6 +41,7 @@ export const Like = memo<LikeProps>(function Like({ count, hasLiked, postId, sou
             LoginModalRef.open({ source });
             return;
         }
+        const originalCount = count;
         setLiked((prev) => !prev);
         setRealCount((prev) => {
             if (liked && prev) return prev - 1;
@@ -55,8 +56,8 @@ export const Like = memo<LikeProps>(function Like({ count, hasLiked, postId, sou
                     break;
                 case SocialPlatform.Farcaster:
                     await (liked
-                        ? FireflySocialMediaProvider.unvotePost(postId)
-                        : FireflySocialMediaProvider.upvotePost(postId));
+                        ? FarcasterSocialMediaProvider.unvotePost(postId)
+                        : FarcasterSocialMediaProvider.upvotePost(postId));
                     break;
                 default:
                     safeUnreachable(source);
@@ -71,10 +72,7 @@ export const Like = memo<LikeProps>(function Like({ count, hasLiked, postId, sou
             return;
         } catch (error) {
             if (error instanceof Error) {
-                setRealCount((prev) => {
-                    if (!prev) return;
-                    return prev - 1;
-                });
+                setRealCount(originalCount);
                 enqueueSnackbar(liked ? t`Failed to unlike. ${error.message}` : t`Failed to like. ${error.message}`, {
                     variant: 'error',
                 });
@@ -82,7 +80,7 @@ export const Like = memo<LikeProps>(function Like({ count, hasLiked, postId, sou
             }
             return;
         }
-    }, [postId, source, liked, queryClient, isLogin]);
+    }, [postId, source, liked, queryClient, isLogin, realCount]);
 
     return (
         <div

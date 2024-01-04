@@ -73,7 +73,9 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({ post, isQu
                 <span className="text-[13px] leading-4 text-secondary">
                     <TimestampFormatter time={post.timestamp} />
                 </span>
-                {!isQuote && !isMyPost ? <MoreAction post={post} /> : null}
+                {!isQuote && !isMyPost ? (
+                    <MoreAction source={post.source} author={post.author} id={post.postId} />
+                ) : null}
             </div>
         </div>
     );

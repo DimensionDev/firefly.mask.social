@@ -373,13 +373,13 @@ msgstr ""
 msgid "Share"
 msgstr ""
 
+msgid "Cancel recast successfully"
+msgstr ""
+
 msgid "Failed to unfollow."
 msgstr ""
 
 msgid "Select failed: More than 2 images"
-msgstr ""
-
-msgid "{0, plural, one {<0/>} other {{1, plural, one {<1/> and <2/>} other {<3/> and # others mirrored you}}}} <4>mirrored your </4><5><6/></5>"
 msgstr ""
 
 msgid "Please switch to the {0} network in your wallet ({1})}"
@@ -413,6 +413,12 @@ msgid "Mirrored"
 msgstr ""
 
 msgid "Failed to publish post."
+msgstr ""
+
+msgid "recasted your"
+msgstr ""
+
+msgid "{0, plural, one {<0/>} other {{1, plural, one {<1/> and <2/>} other {<3/> and # others mirrored you}}}} {2, select, Lens {{3}} Farcaster {{4}} other {{5}}} <4><5/></4>"
 msgstr ""
 
 msgid "Posted on Farcaster"
@@ -532,6 +538,9 @@ msgstr ""
 msgid "Remove"
 msgstr ""
 
+msgid "Cancel Recast"
+msgstr ""
+
 msgid "No matching users"
 msgstr ""
 
@@ -566,6 +575,9 @@ msgid "{0, select, follow {Follow} unfollow {Unfollow} other {Follow}}"
 msgstr ""
 
 msgid "Media"
+msgstr ""
+
+msgid "mirrored your"
 msgstr ""
 
 msgid "Mirror"

@@ -80,11 +80,15 @@ export default function ContentFeed({ profileId, source }: ContentFeedProps) {
             {results.map((x) => (
                 <SinglePost post={x} key={x.postId} showMore />
             ))}
-            {hasNextPage && results.length > 0 ? (
+            {hasNextPage && results.length ? (
                 <div className="flex items-center justify-center p-2" ref={observe}>
                     <LoadingIcon width={16} height={16} className="animate-spin" />
                 </div>
-            ) : null}
+            ) : (
+                <div className="flex items-center justify-center p-6 text-base text-secondary">
+                    <Trans>You&apos;ve hit rock bottom.</Trans>
+                </div>
+            )}
         </div>
     );
 }

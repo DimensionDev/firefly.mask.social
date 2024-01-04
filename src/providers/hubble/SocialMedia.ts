@@ -258,7 +258,7 @@ export class HubbleSocialMedia implements Provider {
         const { bytes } = await encodeMessageData(() => ({
             type: MessageType.LINK_ADD,
             linkBody: {
-                type: '1',
+                type: 'follow',
                 targetFid: Number(profileId),
             },
         }));
@@ -277,7 +277,7 @@ export class HubbleSocialMedia implements Provider {
         const { bytes } = await encodeMessageData(() => ({
             type: MessageType.LINK_REMOVE,
             linkBody: {
-                type: '1',
+                type: 'unfollow',
                 targetFid: Number(profileId),
             },
         }));
