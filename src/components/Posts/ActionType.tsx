@@ -93,7 +93,9 @@ export const FeedActionType = memo<FeedActionType>(function FeedActionType({ pos
                     <MirrorIcon width={16} height={16} />
                     <Link href={getProfileUrl(post.author)}>
                         <Trans>
-                            <strong>{post.author.displayName}</strong> mirrored
+                            <strong>  {isSameProfile(post.author, currentProfile)
+                                ? 'You'
+                                : post.author.displayName}</strong> mirrored
                         </Trans>
                     </Link>
                 </div>
@@ -108,7 +110,7 @@ export const FeedActionType = memo<FeedActionType>(function FeedActionType({ pos
                                     ? 'You'
                                     : first(post.mirrors)?.displayName}
                             </strong>
-                            {post.source === SocialPlatform.Farcaster ? t`recasted` : t`mirrored`}
+                            {post.source === SocialPlatform.Farcaster ? `recasted` : `mirrored`}
                         </Trans>
                     </Link>
                 </div>
@@ -120,7 +122,7 @@ export const FeedActionType = memo<FeedActionType>(function FeedActionType({ pos
                         <Trans>
                             <strong>
                                 {isSameProfile(first(post.mirrors), currentProfile)
-                                    ? t`You`
+                                    ? `You`
                                     : first(post.mirrors)?.displayName}
                             </strong>
                             liked
