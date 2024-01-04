@@ -13,6 +13,7 @@ import { ProfileName } from '@/components/ProfileName.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { useFarcasterStateStore, useLensStateStore } from '@/store/useProfileStore.js';
+import { delay } from '@masknet/kit';
 
 export interface LogoutModalProps {
     source?: SocialPlatform;
@@ -42,8 +43,8 @@ export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps 
         return !source
             ? lensProfiles.concat(farcasterProfiles)
             : source === SocialPlatform.Lens
-              ? lensProfiles
-              : farcasterProfiles;
+                ? lensProfiles
+                : farcasterProfiles;
     }, [lensProfiles, farcasterProfiles, source, profile]);
 
     return (
@@ -102,7 +103,7 @@ export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps 
                                     ))}
                                     <button
                                         className=" flex items-center justify-center rounded-full bg-commonDanger py-[11px] text-lightBottom"
-                                        onClick={() => {
+                                        onClick={async () => {
                                             switch (source || profile?.source) {
                                                 case SocialPlatform.Lens:
                                                     clearLensProfile();
@@ -115,8 +116,9 @@ export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps 
                                                     clearFarcasterProfile();
                                                     break;
                                             }
-                                            router.push('/');
                                             dispatch?.close();
+                                            await delay(300);
+                                            router.push('/');
                                         }}
                                     >
                                         {t`Confirm`}
