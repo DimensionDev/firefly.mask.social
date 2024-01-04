@@ -49,11 +49,16 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | 
                         if (!profiles.length) {
                             enqueueSnackbar(
                                 <div>
-                                    <span className='font-bold'><Trans>Wrong wallet</Trans></span> <br />
+                                    <span className="font-bold">
+                                        <Trans>Wrong wallet</Trans>
+                                    </span>{' '}
+                                    <br />
                                     <Trans>No Lens profile found. Please change another wallet</Trans>
-                                </div>, {
-                                variant: 'error',
-                            });
+                                </div>,
+                                {
+                                    variant: 'error',
+                                },
+                            );
                             return;
                         }
                         setProfiles(profiles);
@@ -69,12 +74,18 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | 
                         return;
                 }
             } catch (error) {
-                enqueueSnackbar(<div>
-                    <span className='font-bold'><Trans>Connection failed</Trans></span> <br />
-                    <Trans>Oops… Something went wrong. Please try again</Trans>
-                </div>, {
-                    variant: 'error',
-                });
+                enqueueSnackbar(
+                    <div>
+                        <span className="font-bold">
+                            <Trans>Connection failed</Trans>
+                        </span>{' '}
+                        <br />
+                        <Trans>Oops… Something went wrong. Please try again</Trans>
+                    </div>,
+                    {
+                        variant: 'error',
+                    },
+                );
             }
         },
         [enqueueSnackbar],

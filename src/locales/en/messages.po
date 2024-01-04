@@ -22,9 +22,6 @@ msgstr "Quote Post"
 msgid "Failed to fetch as Blob."
 msgstr "Failed to fetch as Blob."
 
-msgid "Failed to connect wallet."
-msgstr "Failed to connect wallet."
-
 msgid "Communities"
 msgstr "Communities"
 
@@ -75,6 +72,9 @@ msgstr "Change Wallet"
 
 msgid "UnLike"
 msgstr "UnLike"
+
+msgid "Wrong wallet"
+msgstr "Wrong wallet"
 
 msgid "Debug Console"
 msgstr "Debug Console"
@@ -166,6 +166,9 @@ msgstr "Follow System"
 msgid "No results"
 msgstr "No results"
 
+msgid "Connection failed"
+msgstr "Connection failed"
+
 msgid "Join our Telegram"
 msgstr "Join our Telegram"
 
@@ -237,6 +240,9 @@ msgstr "Only people you follow can reply"
 
 msgid "Switch"
 msgstr "Switch"
+
+msgid "Oops… Something went wrong. Please try again"
+msgstr "Oops… Something went wrong. Please try again"
 
 msgid "Follow"
 msgstr "Follow"
@@ -471,6 +477,12 @@ msgstr "Failed to mirror post."
 
 msgid "Login with custody wallet"
 msgstr "Login with custody wallet"
+
+msgid "You"
+msgstr "You"
+
+msgid "No Lens profile found. Please change another wallet"
+msgstr "No Lens profile found. Please change another wallet"
 
 msgid "Delegate Signing (Recommend)"
 msgstr "Delegate Signing (Recommend)"

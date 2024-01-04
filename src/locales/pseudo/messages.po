@@ -22,9 +22,6 @@ msgstr ""
 msgid "Failed to fetch as Blob."
 msgstr ""
 
-msgid "Failed to connect wallet."
-msgstr ""
-
 msgid "Communities"
 msgstr ""
 
@@ -74,6 +71,9 @@ msgid "Change Wallet"
 msgstr ""
 
 msgid "UnLike"
+msgstr ""
+
+msgid "Wrong wallet"
 msgstr ""
 
 msgid "Debug Console"
@@ -166,6 +166,9 @@ msgstr ""
 msgid "No results"
 msgstr ""
 
+msgid "Connection failed"
+msgstr ""
+
 msgid "Join our Telegram"
 msgstr ""
 
@@ -236,6 +239,9 @@ msgid "Only people you follow can reply"
 msgstr ""
 
 msgid "Switch"
+msgstr ""
+
+msgid "Oops… Something went wrong. Please try again"
 msgstr ""
 
 msgid "Follow"
@@ -470,6 +476,12 @@ msgid "Failed to mirror post."
 msgstr ""
 
 msgid "Login with custody wallet"
+msgstr ""
+
+msgid "You"
+msgstr ""
+
+msgid "No Lens profile found. Please change another wallet"
 msgstr ""
 
 msgid "Delegate Signing (Recommend)"
