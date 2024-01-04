@@ -124,6 +124,9 @@ msgstr ""
 msgid "Failed to post on Lens."
 msgstr ""
 
+msgid "<0>{0}</0> {1}"
+msgstr ""
+
 msgid "Please open this link in PC Explorer"
 msgstr ""
 
@@ -152,9 +155,6 @@ msgid "Connect Wallet"
 msgstr ""
 
 msgid "Feed"
-msgstr ""
-
-msgid "<0>{0}</0>{1}"
 msgstr ""
 
 msgid "Change account"
@@ -272,6 +272,9 @@ msgid "On your mobile device with Warpcast, open the <0>Camera</0> app and scan 
 msgstr ""
 
 msgid "Post has been hidden"
+msgstr ""
+
+msgid "<0>{0}</0> liked"
 msgstr ""
 
 msgid "{0, select, follow {Failed to followed @{handle} on {source}} unfollow {Failed to unfollowed @{handle} on {source}} other {Failed to followed @{handle} on {source}}}"
@@ -569,9 +572,6 @@ msgid "Profiles"
 msgstr ""
 
 msgid "<0/> commented on your <1><2/></1>"
-msgstr ""
-
-msgid "<0>{0}</0>liked"
 msgstr ""
 
 msgid "Recast"
