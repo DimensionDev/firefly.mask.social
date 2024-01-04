@@ -110,7 +110,7 @@ export const FeedActionType = memo<FeedActionType>(function FeedActionType({ pos
                                 {isSameProfile(first(post.mirrors), currentProfile)
                                     ? 'You'
                                     : first(post.mirrors)?.displayName}
-                            </strong>
+                            </strong>{' '}
                             {post.source === SocialPlatform.Farcaster ? `recasted` : `mirrored`}
                         </Trans>
                     </Link>
