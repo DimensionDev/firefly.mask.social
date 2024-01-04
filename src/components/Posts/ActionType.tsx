@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import { t, Trans } from '@lingui/macro';
 import { compact, first, flatten } from 'lodash-es';
@@ -14,9 +14,9 @@ import { SocialPlatform } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
+import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
-import { isSameProfile } from '@/helpers/isSameProfile.js';
 
 export interface FeedActionType {
     post: Post;
@@ -24,7 +24,7 @@ export interface FeedActionType {
 }
 
 export const FeedActionType = memo<FeedActionType>(function FeedActionType({ post, isThread }) {
-    const currentProfile = useCurrentProfile(post.source)
+    const currentProfile = useCurrentProfile(post.source);
     const isComment = post.type === 'Comment';
     const showThread = isComment || !post.comments?.length;
 
@@ -102,7 +102,11 @@ export const FeedActionType = memo<FeedActionType>(function FeedActionType({ pos
                 <div className="mb-3 flex items-center space-x-2 text-[15px] text-secondary">
                     <MirrorIcon width={16} height={16} />
                     <Link href={getProfileUrl(first(post.mirrors)!)}>
-                        <strong>{isSameProfile(first(post.mirrors), currentProfile) ? t`You` : first(post.mirrors)?.displayName}</strong>{' '}
+                        <strong>
+                            {isSameProfile(first(post.mirrors), currentProfile)
+                                ? t`You`
+                                : first(post.mirrors)?.displayName}
+                        </strong>{' '}
                         {post.source === SocialPlatform.Farcaster ? t`recasted` : t`mirrored`}
                     </Link>
                 </div>
@@ -112,7 +116,12 @@ export const FeedActionType = memo<FeedActionType>(function FeedActionType({ pos
                     {post.hasLiked ? <LikedIcon width={17} height={16} /> : <LikeIcon width={17} height={16} />}
                     <Link href={getProfileUrl(first(post.reactions)!)}>
                         <Trans>
-                            <strong>{isSameProfile(first(post.mirrors), currentProfile) ? t`You` : first(post.mirrors)?.displayName}</strong> liked
+                            <strong>
+                                {isSameProfile(first(post.mirrors), currentProfile)
+                                    ? t`You`
+                                    : first(post.mirrors)?.displayName}
+                            </strong>{' '}
+                            liked
                         </Trans>
                     </Link>
                 </div>

@@ -1,12 +1,12 @@
 import { Trans } from '@lingui/macro';
 import { Suspense, useState } from 'react';
 
+import Loading from '@/components/Loading.js';
 import type { SocialPlatform } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 
 import ContentCollected from './ContentCollected.js';
 import ContentFeed from './ContentFeed.js';
-import Loading from '@/components/Loading.js';
 
 enum TabEnum {
     Feed = 'Feed',
@@ -44,9 +44,19 @@ export default function ContentTabs({ profileId, source }: ContentTabsProps) {
                 ))}
             </div>
 
-            {tab === TabEnum.Feed && <Suspense fallback={<Loading />}> <ContentFeed source={source} profileId={profileId} /> </Suspense>}
+            {tab === TabEnum.Feed && (
+                <Suspense fallback={<Loading />}>
+                    {' '}
+                    <ContentFeed source={source} profileId={profileId} />{' '}
+                </Suspense>
+            )}
 
-            {tab === TabEnum.Collected && <Suspense fallback={<Loading />}> <ContentCollected source={source} profileId={profileId} /> </Suspense>}
+            {tab === TabEnum.Collected && (
+                <Suspense fallback={<Loading />}>
+                    {' '}
+                    <ContentCollected source={source} profileId={profileId} />{' '}
+                </Suspense>
+            )}
         </>
     );
 }

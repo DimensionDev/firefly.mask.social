@@ -23,7 +23,7 @@ export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps 
     const [source, setSource] = useState<SocialPlatform>();
     const [profile, setProfile] = useState<Profile>();
 
-    const router = useRouter()
+    const router = useRouter();
 
     const lensProfiles = useLensStateStore.use.profiles();
     const farcasterProfiles = useFarcasterStateStore.use.profiles();
@@ -42,8 +42,8 @@ export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps 
         return !source
             ? lensProfiles.concat(farcasterProfiles)
             : source === SocialPlatform.Lens
-                ? lensProfiles
-                : farcasterProfiles;
+              ? lensProfiles
+              : farcasterProfiles;
     }, [lensProfiles, farcasterProfiles, source, profile]);
 
     return (
@@ -115,7 +115,7 @@ export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps 
                                                     clearFarcasterProfile();
                                                     break;
                                             }
-                                            router.push('/')
+                                            router.push('/');
                                             dispatch?.close();
                                         }}
                                     >
