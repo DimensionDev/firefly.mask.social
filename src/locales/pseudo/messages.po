@@ -154,6 +154,9 @@ msgstr ""
 msgid "Feed"
 msgstr ""
 
+msgid "<0>{0}</0>{1}"
+msgstr ""
+
 msgid "Change account"
 msgstr ""
 
@@ -388,6 +391,9 @@ msgstr ""
 msgid "Please switch to the {0} network in your wallet ({1})}"
 msgstr ""
 
+msgid "<0>  {0}</0> mirrored"
+msgstr ""
+
 msgid "Visit mask.io"
 msgstr ""
 
@@ -422,12 +428,6 @@ msgid "Posted on Farcaster"
 msgstr ""
 
 msgid "Follow @realMaskNetwork on X"
-msgstr ""
-
-msgid "<0>{0}</0> mirrored"
-msgstr ""
-
-msgid "recasted"
 msgstr ""
 
 msgid "Follower"
@@ -473,9 +473,6 @@ msgid "Failed to mirror post."
 msgstr ""
 
 msgid "Login with custody wallet"
-msgstr ""
-
-msgid "You"
 msgstr ""
 
 msgid "No Lens profile found. Please change another wallet"
