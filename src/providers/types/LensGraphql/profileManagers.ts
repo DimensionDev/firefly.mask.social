@@ -26,101 +26,6 @@ const apolloClient = new ApolloClient({
     cache: new InMemoryCache(),
 });
 
-export type CreateChangeProfileManagersTypedDataMutation = {
-    __typename?: 'Mutation';
-    createChangeProfileManagersTypedData: {
-        __typename?: 'CreateChangeProfileManagersBroadcastItemResult';
-        id: any;
-        expiresAt: any;
-        typedData: {
-            __typename?: 'CreateChangeProfileManagersEIP712TypedData';
-            domain: {
-                __typename?: 'EIP712TypedDataDomain';
-                name: string;
-                chainId: any;
-                version: string;
-                verifyingContract: any;
-            };
-            types: {
-                __typename?: 'CreateChangeProfileManagersEIP712TypedDataTypes';
-                ChangeDelegatedExecutorsConfig: Array<{
-                    __typename?: 'EIP712TypedDataField';
-                    name: string;
-                    type: string;
-                }>;
-            };
-            value: {
-                __typename?: 'CreateChangeProfileManagersEIP712TypedDataValue';
-                nonce: any;
-                deadline: any;
-                delegatorProfileId: any;
-                delegatedExecutors: any[];
-                approvals: boolean[];
-                configNumber: number;
-                switchToGivenConfig: boolean;
-            };
-        };
-    };
-};
-
-export type TypedDataOptions = {
-    /** If you wish to override the nonce for the sig if you want to do some clever stuff in the client */
-    overrideSigNonce: Scalars['Nonce']['input'];
-};
-
-export type ChangeProfileManager = {
-    action: ChangeProfileManagerActionType;
-    address: Scalars['EvmAddress']['input'];
-};
-
-export enum ChangeProfileManagerActionType {
-    Add = 'ADD',
-    Remove = 'REMOVE',
-}
-
-export type ChangeProfileManagersRequest = {
-    /** if you define this true will enable it and false will disable it within the same tx as any other managers you are changing state for. Leave it blank if you do not want to change its current state */
-    approveSignless?: InputMaybe<Scalars['Boolean']['input']>;
-    changeManagers?: InputMaybe<ChangeProfileManager[]>;
-};
-
-export type CreateChangeProfileManagersTypedDataMutationVariables = Exact<{
-    options?: InputMaybe<TypedDataOptions>;
-    request: ChangeProfileManagersRequest;
-}>;
-
-export const CreateChangeProfileManagersTypedDataDocument = gql`
-    mutation CreateChangeProfileManagersTypedData($options: TypedDataOptions, $request: ChangeProfileManagersRequest!) {
-        createChangeProfileManagersTypedData(options: $options, request: $request) {
-            id
-            expiresAt
-            typedData {
-                domain {
-                    name
-                    chainId
-                    version
-                    verifyingContract
-                }
-                types {
-                    ChangeDelegatedExecutorsConfig {
-                        name
-                        type
-                    }
-                }
-                value {
-                    nonce
-                    deadline
-                    delegatorProfileId
-                    delegatedExecutors
-                    approvals
-                    configNumber
-                    switchToGivenConfig
-                }
-            }
-        }
-    }
-`;
-
 export type ProfilesManagedQuery = {
     __typename?: 'Query';
     profilesManaged: {
@@ -508,21 +413,6 @@ export const CurrentProfileDocument = gql`
     }
     ${ProfileFieldsFragmentDoc}
 `;
-
-export const createChangeProfileManagersTypedData = () => {
-    const request: ChangeProfileManagersRequest = {
-        approveSignless: true,
-    };
-    return apolloClient.mutate<
-        CreateChangeProfileManagersTypedDataMutation,
-        CreateChangeProfileManagersTypedDataMutationVariables
-    >({
-        mutation: CreateChangeProfileManagersTypedDataDocument,
-        variables: {
-            request,
-        },
-    });
-};
 
 export const profilesManagedQuery = (request: ProfilesManagedRequest | LastLoggedInProfileRequest) => {
     return apolloClient.query<ProfilesManagedQuery, ProfilesManagedQueryVariables>({

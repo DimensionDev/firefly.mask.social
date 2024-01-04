@@ -51,7 +51,7 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | 
                                 <div>
                                     <span className="font-bold">
                                         <Trans>Wrong wallet</Trans>
-                                    </span>{' '}
+                                    </span>
                                     <br />
                                     <Trans>No Lens profile found. Please change another wallet</Trans>
                                 </div>,
@@ -78,7 +78,7 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | 
                     <div>
                         <span className="font-bold">
                             <Trans>Connection failed</Trans>
-                        </span>{' '}
+                        </span>
                         <br />
                         <Trans>Oops… Something went wrong. Please try again</Trans>
                     </div>,
