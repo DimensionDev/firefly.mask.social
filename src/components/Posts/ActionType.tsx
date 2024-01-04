@@ -93,50 +93,48 @@ export const FeedActionType = memo<FeedActionType>(function FeedActionType({ pos
                     <MirrorIcon width={16} height={16} />
                     <Link href={getProfileUrl(post.reporter)}>
                         <Trans>
-                            <strong>  {isSameProfile(post.reporter, currentProfile)
-                                ? 'You'
-                                : post.reporter.displayName}</strong> mirrored
-                        </Trans >
-                    </Link >
-                </div >
+                            <strong>
+                                {' '}
+                                {isSameProfile(post.reporter, currentProfile) ? 'You' : post.reporter.displayName}
+                            </strong>{' '}
+                            mirrored
+                        </Trans>
+                    </Link>
+                </div>
             ) : null}
-            {
-                post.mirrors?.length && !isComment && !isPostPage ? (
-                    <div className="mb-3 flex items-center space-x-2 text-[15px] text-secondary">
-                        <MirrorIcon width={16} height={16} />
-                        <Link href={getProfileUrl(first(post.mirrors)!)}>
-                            <Trans>
-                                <strong>
-                                    {isSameProfile(first(post.mirrors), currentProfile)
-                                        ? 'You'
-                                        : first(post.mirrors)?.displayName}
-                                </strong>
-                                {post.source === SocialPlatform.Farcaster ? `recasted` : `mirrored`}
-                            </Trans>
-                        </Link>
-                    </div>
-                ) : null
-            }
-            {
-                post.reactions?.length && !isComment && !isPostPage ? (
-                    <div className="mb-3 flex items-center space-x-2 text-[15px] text-secondary">
-                        {post.hasLiked ? <LikedIcon width={17} height={16} /> : <LikeIcon width={17} height={16} />}
-                        <Link href={getProfileUrl(first(post.reactions)!)}>
-                            <Trans>
-                                <strong>
-                                    {isSameProfile(first(post.mirrors), currentProfile)
-                                        ? `You`
-                                        : first(post.mirrors)?.displayName}
-                                </strong>
-                                liked
-                            </Trans>
-                        </Link>
-                    </div>
-                ) : null
-            }
+            {post.mirrors?.length && !isComment && !isPostPage ? (
+                <div className="mb-3 flex items-center space-x-2 text-[15px] text-secondary">
+                    <MirrorIcon width={16} height={16} />
+                    <Link href={getProfileUrl(first(post.mirrors)!)}>
+                        <Trans>
+                            <strong>
+                                {isSameProfile(first(post.mirrors), currentProfile)
+                                    ? 'You'
+                                    : first(post.mirrors)?.displayName}
+                            </strong>
+                            {post.source === SocialPlatform.Farcaster ? `recasted` : `mirrored`}
+                        </Trans>
+                    </Link>
+                </div>
+            ) : null}
+            {post.reactions?.length && !isComment && !isPostPage ? (
+                <div className="mb-3 flex items-center space-x-2 text-[15px] text-secondary">
+                    {post.hasLiked ? <LikedIcon width={17} height={16} /> : <LikeIcon width={17} height={16} />}
+                    <Link href={getProfileUrl(first(post.reactions)!)}>
+                        <Trans>
+                            <strong>
+                                {isSameProfile(first(post.mirrors), currentProfile)
+                                    ? `You`
+                                    : first(post.mirrors)?.displayName}
+                            </strong>
+                            liked
+                        </Trans>
+                    </Link>
+                </div>
+            ) : null}
 
             {showThread && post.root && !isThread ? <ThreadBody post={post.root} /> : null}
             {showThread && post.commentOn && !isThread ? <ThreadBody post={post.commentOn} /> : null}
-        </div >
+        </div>
     );
 });
