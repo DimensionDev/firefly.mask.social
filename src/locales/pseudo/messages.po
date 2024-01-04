@@ -271,9 +271,6 @@ msgstr ""
 msgid "Post has been hidden"
 msgstr ""
 
-msgid "<0>{0}</0> liked"
-msgstr ""
-
 msgid "{0, select, follow {Failed to followed @{handle} on {source}} unfollow {Failed to unfollowed @{handle} on {source}} other {Failed to followed @{handle} on {source}}}"
 msgstr ""
 
@@ -566,6 +563,9 @@ msgid "Profiles"
 msgstr ""
 
 msgid "<0/> commented on your <1><2/></1>"
+msgstr ""
+
+msgid "<0>{0}</0>liked"
 msgstr ""
 
 msgid "Recast"
