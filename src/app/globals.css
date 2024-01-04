@@ -152,6 +152,11 @@ body {
     background: rgb(var(--color-bottom)) !important;
 }
 
+.spotify-player iframe {
+    height: 152px !important;
+    border-radius: 16px !important;
+}
+
 iframe {
     width: 100%;
 }

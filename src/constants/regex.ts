@@ -1,6 +1,5 @@
 export const URL_REGEX =
-    /\b(http|https):\/\/([\p{L}\p{N}_-]+(?:(?:\.[\p{L}\p{N}_-]+)+))([\p{L}\p{N}_.,@?^=%&:/~+#-]*[\p{L}\p{N}_@?^=%&/~+#-])/gu;
-
+    /(https:\/\/|http:\/\/)?(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/gu;
 export const MENTION_REGEX = /@[^\s]+/g;
 
 export const HASHTAG_REGEX = /(#\w*[A-Za-z]\w*)/g;
@@ -13,7 +12,4 @@ export const WARPCAST_CONVERSATIONS_REGEX = /^https:\/\/warpcast\.com\/~\/conver
 
 export const LENS_DETAIL_REGEX = /^https:\/\/hey\.xyz\/posts\/.*$/;
 
-export const MASK_SOCIAL_DETAIL_REGEX =
-    process.env.NODE_ENV === 'development'
-        ? /\/post\/(\w+)\/([\w-]+)/
-        : /^https:\/\/mask\.social\/post\/(\w+)\/([\w-]+)$/;
+export const MASK_SOCIAL_DETAIL_REGEX = /^https:\/\/mask\.social\/post\/(\w+)\/([\w-]+)$/;

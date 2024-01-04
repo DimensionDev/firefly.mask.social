@@ -13,16 +13,18 @@ import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useToggleFollow } from '@/hooks/useToggleFollow.js';
 import { LoginModalRef } from '@/modals/controls.js';
-import type { Post } from '@/providers/types/SocialMedia.js';
+import type { Profile } from '@/providers/types/SocialMedia.js';
 
 interface MoreProps {
-    post: Post;
+    source: SocialPlatform;
+    author: Profile;
+    id?: string;
 }
 
-export const MoreAction = memo<MoreProps>(function MoreAction({ post }) {
-    const isLogin = useIsLogin(post.source);
+export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, id }) {
+    const isLogin = useIsLogin(source);
 
-    const [isFollowed, { loading }, handleToggle] = useToggleFollow(post.author);
+    const [isFollowed, { loading }, handleToggle] = useToggleFollow(author);
     return (
         <Menu as="div">
             <Menu.Button
@@ -34,8 +36,8 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ post }) {
                     if (!isLogin) {
                         event.stopPropagation();
                         event.preventDefault();
-                        if (post.source === SocialPlatform.Lens) await getWalletClientRequired();
-                        LoginModalRef.open({ source: post.source });
+                        if (source === SocialPlatform.Lens) await getWalletClientRequired();
+                        LoginModalRef.open({ source });
                         return;
                     }
                     event.stopPropagation();
@@ -76,7 +78,7 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ post }) {
                                     close();
                                     await handleToggle();
                                     queryClient.invalidateQueries({
-                                        queryKey: [post.source, 'post-detail', post.postId],
+                                        queryKey: [source, 'post-detail', id],
                                     });
                                 }}
                             >
@@ -92,7 +94,7 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ post }) {
                                         _unfollow="Unfollow"
                                         other="Follow"
                                     />{' '}
-                                    @{post.author.handle}
+                                    @{author.handle}
                                 </span>
                             </div>
                         )}

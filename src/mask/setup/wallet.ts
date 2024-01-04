@@ -3,14 +3,12 @@ import { EMPTY_ARRAY } from '@masknet/shared-base';
 import { initWallet } from '@masknet/web3-providers';
 import type { WalletAPI } from '@masknet/web3-providers/types';
 
-async function reject(): Promise<never> {
-    throw new Error('Not implemented');
-}
+import { createRejectCallback } from '@/helpers/createRejectCallback.js';
 
 const WalletIO: WalletAPI.IOContext = {
     wallets: EMPTY_ARRAY,
-    hasPaymentPassword: reject,
-    openPopupWindow: reject,
+    hasPaymentPassword: createRejectCallback('hasPaymentPassword'),
+    openPopupWindow: createRejectCallback('openPopupWindow'),
     openWalletConnectDialog: async (uri: string) => {
         await WalletConnectQRCodeModal.openAndWaitForClose({
             uri,
@@ -19,12 +17,12 @@ const WalletIO: WalletAPI.IOContext = {
     closeWalletConnectDialog: () => {
         WalletConnectQRCodeModal.close();
     },
-    SDK_grantEIP2255Permission: reject,
-    disconnectAllWalletsFromOrigin: reject,
-    selectMaskWalletAccount: reject,
-    addWallet: reject,
-    signWithPersona: reject,
-    send: reject,
+    SDK_grantEIP2255Permission: createRejectCallback('SDK_grantEIP2255Permission'),
+    disconnectAllWalletsFromOrigin: createRejectCallback('disconnectAllWalletsFromOrigin'),
+    selectMaskWalletAccount: createRejectCallback('selectMaskWalletAccount'),
+    addWallet: createRejectCallback('addWallet'),
+    signWithPersona: createRejectCallback('signWithPersona'),
+    send: createRejectCallback('send'),
 };
 
 await initWallet(WalletIO);

@@ -13,7 +13,7 @@ export class MentionNode extends TextNode {
     }
 
     constructor(mentionName: string, key?: NodeKey) {
-        super(`@${mentionName}`, key);
+        super(!mentionName.startsWith('@') ? `@${mentionName}` : mentionName, key);
     }
 
     override createDOM(config: EditorConfig): HTMLElement {

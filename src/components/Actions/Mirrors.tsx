@@ -17,7 +17,7 @@ import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { ComposeModalRef, LoginModalRef } from '@/modals/controls.js';
-import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
+import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
@@ -66,7 +66,7 @@ export const Mirror = memo<MirrorProps>(function Mirror({
             case SocialPlatform.Lens:
                 return mirrored ? t`Mirrored` : t`Mirror`;
             case SocialPlatform.Farcaster:
-                return mirrored ? t`Recasted` : t`Recast`;
+                return mirrored ? t`Cancel Recast` : t`Recast`;
             default:
                 safeUnreachable(source);
                 return '';
@@ -104,13 +104,34 @@ export const Mirror = memo<MirrorProps>(function Mirror({
                     return;
                 }
             case SocialPlatform.Farcaster:
-                // TODO cancel Recast
-                return FireflySocialMediaProvider.mirrorPost(postId);
+                const originalStatus = mirrored;
+                const originalCount = count;
+                try {
+                    setMirrored((prev) => !prev);
+                    setCount((prev) => {
+                        if (mirrored && prev) return prev - 1;
+                        return (prev ?? 0) + 1;
+                    });
+                    await (mirrored
+                        ? FarcasterSocialMediaProvider.unmirrorPost(postId)
+                        : FarcasterSocialMediaProvider.mirrorPost(postId));
+                    enqueueSnackbar(mirrored ? t`Cancel recast successfully` : t`Recasted`, {
+                        variant: 'success',
+                    });
+                    return;
+                } catch (error) {
+                    if (error instanceof Error) {
+                        setMirrored(originalStatus);
+                        setCount(originalCount);
+                    }
+
+                    return;
+                }
             default:
                 safeUnreachable(source);
                 return null;
         }
-    }, [postId, source]);
+    }, [postId, source, count, mirrored]);
 
     return (
         <Menu
