@@ -16,7 +16,6 @@ import { LoginModalRef } from '@/modals/controls.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 interface MoreProps {
-    // post: Post;
     source: SocialPlatform;
     author: Profile;
     id?: string;
