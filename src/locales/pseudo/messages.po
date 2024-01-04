@@ -391,9 +391,6 @@ msgstr ""
 msgid "Please switch to the {0} network in your wallet ({1})}"
 msgstr ""
 
-msgid "<0>  {0}</0> mirrored"
-msgstr ""
-
 msgid "Visit mask.io"
 msgstr ""
 
@@ -434,6 +431,9 @@ msgid "Posted on Farcaster"
 msgstr ""
 
 msgid "Follow @realMaskNetwork on X"
+msgstr ""
+
+msgid "<0>{0}</0> mirrored"
 msgstr ""
 
 msgid "Follower"

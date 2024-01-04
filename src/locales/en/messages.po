@@ -391,9 +391,6 @@ msgstr "Select failed: More than 2 images"
 msgid "Please switch to the {0} network in your wallet ({1})}"
 msgstr "Please switch to the {0} network in your wallet ({1})}"
 
-msgid "<0>  {0}</0> mirrored"
-msgstr "<0>  {0}</0> mirrored"
-
 msgid "Visit mask.io"
 msgstr "Visit mask.io"
 
@@ -435,6 +432,9 @@ msgstr "Posted on Farcaster"
 
 msgid "Follow @realMaskNetwork on X"
 msgstr "Follow @realMaskNetwork on X"
+
+msgid "<0>{0}</0> mirrored"
+msgstr "<0>{0}</0> mirrored"
 
 msgid "Follower"
 msgstr "Follower"
