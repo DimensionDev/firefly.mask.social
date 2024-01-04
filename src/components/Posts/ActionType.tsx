@@ -94,7 +94,6 @@ export const FeedActionType = memo<FeedActionType>(function FeedActionType({ pos
                     <Link href={getProfileUrl(post.reporter)}>
                         <Trans>
                             <strong>
-                                {' '}
                                 {isSameProfile(post.reporter, currentProfile) ? 'You' : post.reporter.displayName}
                             </strong>{' '}
                             mirrored
