@@ -13,7 +13,7 @@ export default function CustomElements() {
             module.setupBuildInfoManually({
                 channel:
                     process.env.NEXT_PUBLIC_VERCEL_ENV === 'preview'
-                        ? 'beta'
+                        ? 'stable'
                         : process.env.NODE_ENV === 'production'
                           ? 'stable'
                           : 'insider',
