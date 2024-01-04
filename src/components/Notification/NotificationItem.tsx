@@ -300,10 +300,10 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
         const type = notification.type;
         switch (type) {
             case NotificationType.Comment:
-                if (!notification.comment) return;
+                if (!notification.comment) return null;
                 return <PostActions post={notification.comment} disablePadding />;
             case NotificationType.Mention:
-                if (!notification.post) return;
+                if (!notification.post) return null;
                 return <PostActions post={notification.post} disablePadding />;
             case NotificationType.Quote:
                 return <PostActions post={notification.quote} disablePadding />;
@@ -325,7 +325,7 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
         const type = notification.type;
         switch (type) {
             case NotificationType.Comment:
-                if (!notification.comment) return;
+                if (!notification.comment) return null;
                 return (
                     <MoreAction
                         source={notification.source}
@@ -336,7 +336,7 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
             case NotificationType.Mention:
             case NotificationType.Quote:
             case NotificationType.Act:
-                if (!notification.post) return;
+                if (!notification.post) return null;
                 return (
                     <MoreAction
                         source={notification.post.source}
@@ -346,15 +346,15 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
                 );
             case NotificationType.Follow:
                 const follower = first(notification.followers);
-                if (!follower) return;
+                if (!follower) return null;
                 return <MoreAction source={notification.source} author={follower} />;
             case NotificationType.Mirror:
                 const reporter = first(notification.mirrors);
-                if (!reporter) return;
+                if (!reporter) return null;
                 return <MoreAction source={notification.source} author={reporter} />;
             case NotificationType.Reaction:
                 const reactor = first(notification.reactors);
-                if (!reactor) return;
+                if (!reactor) return null;
                 return <MoreAction source={notification.source} author={reactor} />;
             default:
                 safeUnreachable(type);
