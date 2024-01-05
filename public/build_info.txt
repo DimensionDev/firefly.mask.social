@@ -1,0 +1,6 @@
+Build Information
+-----------------
+Latest Commit Hash: 43cbbdf252d4f3ad831fd9c8b8247b9bca07140a
+Application Version: v0.1.0
+Node.js Version: v21.1.0
+PNPM Version: 8.10.4
