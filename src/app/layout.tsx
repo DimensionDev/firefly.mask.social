@@ -3,6 +3,7 @@ import './globals.css';
 import { Inter } from 'next/font/google';
 import { ScrollRestorer } from 'next-scroll-restorer';
 
+import { BuildInfo } from '@/components/BuildInfo.js';
 import { GA } from '@/components/GA.js';
 import { MobileFallback } from '@/components/MobileFallback.js';
 import { Polyfills } from '@/components/Polyfills.js';
@@ -39,6 +40,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                     <Modals />
                 </Providers>
                 <GA />
+                <BuildInfo />
             </body>
             <ScrollRestorer />
         </html>
