@@ -62,24 +62,20 @@ export const Comment = memo<CommentProps>(function Comment({
 
     return (
         <div
-            className={classNames('flex items-center space-x-2', {
+            className={classNames('flex cursor-pointer items-center space-x-2', {
                 'cursor-not-allowed': disabled,
                 'opacity-50': disabled,
             })}
             onClick={(event) => {
                 event.preventDefault();
                 event.stopPropagation();
+                if (!disabled) handleClick();
             }}
         >
             <motion.button
                 disabled={disabled}
                 whileTap={{ scale: 0.9 }}
                 className={'rounded-full p-1.5 text-main hover:bg-bg focus:outline-none focus-visible:outline-none'}
-                onClick={(event) => {
-                    event.preventDefault();
-                    event.stopPropagation();
-                    if (!disabled) handleClick();
-                }}
                 aria-label="Comment"
             >
                 <Tooltip disabled={disabled} placement="top" content={tooltip}>

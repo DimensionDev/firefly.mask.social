@@ -59,6 +59,8 @@ export function formatFarcasterPostFromFirefly(result: Cast): Post {
         hasMirrored: result.recasted,
         source: SocialPlatform.Farcaster,
         canComment: true,
+        commentOn: result.parentCast ? formatFarcasterPostFromFirefly(result.parentCast) : undefined,
+        root: result.rootParentCast ? formatFarcasterPostFromFirefly(result.rootParentCast) : undefined,
         __original__: result,
     };
 }
