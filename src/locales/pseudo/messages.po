@@ -31,9 +31,6 @@ msgstr ""
 msgid "Discover"
 msgstr ""
 
-msgid "{0, select, follow {Followed @{handle} on {source}} unfollow {UnFollowed @{handle} on {source}} other {Followed @{handle} on {source}}}"
-msgstr ""
-
 msgid "Click to refresh QRCode"
 msgstr ""
 
@@ -307,6 +304,9 @@ msgstr ""
 msgid "liked"
 msgstr ""
 
+msgid "Can't get the post detail"
+msgstr ""
+
 msgid "Post has been encrypted"
 msgstr ""
 
@@ -323,9 +323,6 @@ msgid "Connect to {source}"
 msgstr ""
 
 msgid "Farcaster"
-msgstr ""
-
-msgid "Replying to"
 msgstr ""
 
 msgid "commented"
@@ -544,6 +541,9 @@ msgstr ""
 msgid "No matching users"
 msgstr ""
 
+msgid "{0, select, follow {Followed @{handle} on {source}} unfollow {Unfollowed @{handle} on {source}} other {Followed @{handle} on {source}}}"
+msgstr ""
+
 msgid "Log in to Farcaster account"
 msgstr ""
 
@@ -601,13 +601,13 @@ msgstr ""
 msgid "Dark mode"
 msgstr ""
 
-msgid "on Lens"
-msgstr ""
-
 msgid "<0/> mentioned you in a <1><2/></1>"
 msgstr ""
 
 msgid "Login"
+msgstr ""
+
+msgid "Replying to <0>@{0}</0> on {1}"
 msgstr ""
 
 msgid "<0/> quoted your <1><2/></1>"

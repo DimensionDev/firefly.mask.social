@@ -1,3 +1,4 @@
+import { t } from '@lingui/macro';
 import {
     createIndicator,
     createNextIndicator,
@@ -7,7 +8,7 @@ import {
 } from '@masknet/shared-base';
 import { isZero } from '@masknet/web3-shared-base';
 import { HubRestAPIClient } from '@standard-crypto/farcaster-js';
-import { compact } from 'lodash-es';
+import { compact, first } from 'lodash-es';
 import urlcat from 'urlcat';
 
 import { farcasterClient } from '@/configs/farcasterClient.js';
@@ -109,13 +110,43 @@ export class WarpcastSocialMedia implements Provider {
     }
 
     async getPostById(postId: string): Promise<Post> {
-        const url = urlcat(WARPCAST_ROOT_URL, '/cast', { hash: postId });
+        const castUrl = urlcat(WARPCAST_ROOT_URL, '/cast', { hash: postId });
         const {
             result: { cast },
-        } = await farcasterClient.fetch<{ result: { cast: Cast } }>(url, {
+        } = await farcasterClient.fetch<{ result: { cast: Cast } }>(castUrl, {
             method: 'GET',
         });
-        return formatWarpcastPost(cast);
+
+        const url = urlcat(WARPCAST_ROOT_URL, '/user-thread-casts', {
+            castHashPrefix: postId.slice(0, 10),
+            limit: 5,
+            username: cast.author.username,
+        });
+        const {
+            result: { casts },
+        } = await farcasterClient.fetch<{ result: { casts: Cast[] } }>(url, {
+            method: 'GET',
+        });
+
+        let result = casts;
+        if (casts.length > 1 && first(casts)?.castType === 'root-embed') result = casts.slice(1);
+
+        const target = result.find((x) => x.hash === postId);
+        if (!target) throw new Error(t`Can't get the post detail`);
+        const index = result.findIndex((x) => x.hash === postId);
+
+        const post = formatWarpcastPost(target);
+
+        if (index === 0) return post;
+        if (index === 1) return { ...post, commentOn: result[0] ? formatWarpcastPost(result[0]) : undefined };
+        if (index === 2)
+            return {
+                ...post,
+                root: result[0] ? formatWarpcastPost(result[0]) : undefined,
+                commentOn: result[1] ? formatWarpcastPost(result[1]) : undefined,
+            };
+
+        return post;
     }
 
     async getProfileById(profileId: string) {
@@ -291,6 +322,7 @@ export class WarpcastSocialMedia implements Provider {
             body: JSON.stringify({
                 text: post.metadata.content?.content || '',
                 embeds: post.mediaObjects?.map((v) => v.url) ?? [],
+                parent: post.commentOn ? { hash: post.commentOn.postId } : undefined,
             }),
         });
 
@@ -330,7 +362,7 @@ export class WarpcastSocialMedia implements Provider {
     async upvotePost(postId: string) {
         const url = urlcat(WARPCAST_ROOT_URL, '/cast-likes');
         const { result: reaction } = await farcasterClient.fetchWithSession<ReactionResponse>(url, {
-            method: 'POST',
+            method: 'PUT',
             body: JSON.stringify({ castHash: postId }),
         });
 

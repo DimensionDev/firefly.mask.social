@@ -112,17 +112,17 @@ export class FarcasterSocialMedia implements Provider {
         throw new Error(t`No session found.`);
     }
 
-    async upvotePost(postId: string) {
+    async upvotePost(postId: string, authorId?: number) {
         const { isCustodyWallet, isGrantByPermission } = getFarcasterSessionType();
         if (isCustodyWallet) return WarpcastSocialMediaProvider.upvotePost(postId);
-        if (isGrantByPermission) return HubbleSocialMediaProvider.upvotePost(postId);
+        if (isGrantByPermission) return HubbleSocialMediaProvider.upvotePost(postId, authorId);
         throw new Error(t`No session found.`);
     }
 
-    async unvotePost(postId: string) {
+    async unvotePost(postId: string, authorId?: number) {
         const { isCustodyWallet, isGrantByPermission } = getFarcasterSessionType();
         if (isCustodyWallet) return WarpcastSocialMediaProvider.unvotePost(postId);
-        if (isGrantByPermission) return HubbleSocialMediaProvider.unvotePost(postId);
+        if (isGrantByPermission) return HubbleSocialMediaProvider.unvotePost(postId, authorId);
         throw new Error(t`No session found.`);
     }
 

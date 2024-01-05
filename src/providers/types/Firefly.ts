@@ -18,6 +18,7 @@ export interface Cast {
     author: User;
     recastedBy?: User;
     timestamp?: string;
+    rootParentCast?: Cast;
 }
 
 export interface User {

@@ -25,9 +25,10 @@ interface LikeProps {
     count?: number;
     hasLiked?: boolean;
     disabled?: boolean;
+    authorId?: string;
 }
 
-export const Like = memo<LikeProps>(function Like({ count, hasLiked, postId, source, disabled = false }) {
+export const Like = memo<LikeProps>(function Like({ count, hasLiked, postId, authorId, source, disabled = false }) {
     const isLogin = useIsLogin(source);
     const queryClient = useQueryClient();
     const [liked, setLiked] = useState(hasLiked);
@@ -57,7 +58,7 @@ export const Like = memo<LikeProps>(function Like({ count, hasLiked, postId, sou
                 case SocialPlatform.Farcaster:
                     await (liked
                         ? FarcasterSocialMediaProvider.unvotePost(postId)
-                        : FarcasterSocialMediaProvider.upvotePost(postId));
+                        : FarcasterSocialMediaProvider.upvotePost(postId, Number(authorId)));
                     break;
                 default:
                     safeUnreachable(source);
@@ -80,27 +81,27 @@ export const Like = memo<LikeProps>(function Like({ count, hasLiked, postId, sou
             }
             return;
         }
-    }, [postId, source, liked, queryClient, isLogin, realCount]);
+    }, [postId, source, liked, queryClient, isLogin, realCount, authorId]);
 
     return (
         <div
-            className={classNames('flex items-center space-x-2 text-main hover:text-danger', {
+            className={classNames('flex cursor-pointer items-center space-x-2 text-main hover:text-danger', {
                 'font-bold': !!liked,
                 'text-danger': !!liked,
                 'opacity-50': disabled,
             })}
+            onClick={(event) => {
+                event.preventDefault();
+                event.stopPropagation();
+                if (disabled) return;
+                handleClick();
+            }}
         >
             <Tooltip content={liked ? t`UnLike` : t`Like`} placement="top" disabled={disabled}>
                 <motion.button
                     disabled={disabled}
                     whileTap={{ scale: 0.9 }}
-                    className="rounded-full p-1.5 hover:bg-danger/[.20] "
-                    onClick={(event) => {
-                        event.preventDefault();
-                        event.stopPropagation();
-                        if (disabled) return;
-                        handleClick();
-                    }}
+                    className="rounded-full p-1.5 hover:bg-danger/[.20]"
                 >
                     {loading ? (
                         <LoadingIcon width={16} height={16} className="animate-spin text-danger" />
