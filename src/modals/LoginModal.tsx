@@ -80,7 +80,7 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | 
                             <Trans>Connection failed</Trans>
                         </span>
                         <br />
-                        <Trans>Oops… Something went wrong. Please try again</Trans>
+                        <Trans>Oops… Something went wrong. Please try again.</Trans>
                     </div>,
                     {
                         variant: 'error',
