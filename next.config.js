@@ -4,8 +4,6 @@ import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 import { createRequire } from 'module';
 import CopyPlugin from 'copy-webpack-plugin';
-import PackageJSON from './package.json' assert { type: 'json' };
-import { execSync } from 'child_process';
 
 const require = createRequire(import.meta.url);
 const __dirname = fileURLToPath(dirname(import.meta.url));
@@ -14,11 +12,6 @@ const polyfillsFolderPath = join(outputPath, './js/polyfills');
 
 /** @type {import('next').NextConfig} */
 export default {
-    env: {
-        BUILD_DATE: new Date().toISOString(),
-        APP_VERSION: PackageJSON.version,
-        COMMIT_HASH: execSync('git log --pretty=format:"%h" -n1').toString().trim(),
-    },
     experimental: {
         esmExternals: true,
         scrollRestoration: true,
