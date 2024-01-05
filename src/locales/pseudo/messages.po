@@ -19,6 +19,9 @@ msgstr ""
 msgid "Quote Post"
 msgstr ""
 
+msgid "<0>You</0>liked"
+msgstr ""
+
 msgid "Failed to fetch as Blob."
 msgstr ""
 
@@ -518,9 +521,6 @@ msgid "Unfollow"
 msgstr ""
 
 msgid "You cannot reply to @{author} on {0}."
-msgstr ""
-
-msgid "<0>You</0>"
 msgstr ""
 
 msgid "Failed to unmirror post."
