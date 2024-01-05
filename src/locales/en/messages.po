@@ -19,9 +19,6 @@ msgstr "Be the first one to comment!"
 msgid "Quote Post"
 msgstr "Quote Post"
 
-msgid "<0>You</0>liked"
-msgstr "<0>You</0>liked"
-
 msgid "Failed to fetch as Blob."
 msgstr "Failed to fetch as Blob."
 
@@ -63,6 +60,9 @@ msgstr "More"
 
 msgid "Searching users"
 msgstr "Searching users"
+
+msgid "No Lens profile found. Please change another wallet."
+msgstr "No Lens profile found. Please change another wallet."
 
 msgid "Join our Discord"
 msgstr "Join our Discord"
@@ -217,8 +217,8 @@ msgstr "Send"
 msgid "Collected"
 msgstr "Collected"
 
-msgid "<0>You</0>mirrored"
-msgstr "<0>You</0>mirrored"
+msgid "<0>You</0> mirrored"
+msgstr "<0>You</0> mirrored"
 
 msgid "Failed to upload video to IPFS."
 msgstr "Failed to upload video to IPFS."
@@ -247,9 +247,6 @@ msgstr "Only people you follow can reply"
 msgid "Switch"
 msgstr "Switch"
 
-msgid "Oops… Something went wrong. Please try again"
-msgstr "Oops… Something went wrong. Please try again"
-
 msgid "Follow"
 msgstr "Follow"
 
@@ -276,6 +273,9 @@ msgstr "On your mobile device with Warpcast, open the <0>Camera</0> app and scan
 
 msgid "Post has been hidden"
 msgstr "Post has been hidden"
+
+msgid "<0>{0}</0> liked"
+msgstr "<0>{0}</0> liked"
 
 msgid "{0, select, follow {Failed to followed @{handle} on {source}} unfollow {Failed to unfollowed @{handle} on {source}} other {Failed to followed @{handle} on {source}}}"
 msgstr "{0, select, follow {Failed to followed @{handle} on {source}} unfollow {Failed to unfollowed @{handle} on {source}} other {Failed to followed @{handle} on {source}}}"
@@ -342,6 +342,9 @@ msgstr "commented"
 
 msgid "The page could not be found."
 msgstr "The page could not be found."
+
+msgid "Oops… Something went wrong. Please try again."
+msgstr "Oops… Something went wrong. Please try again."
 
 msgid "What's happening..."
 msgstr "What's happening..."
@@ -436,6 +439,9 @@ msgstr "Posted on Farcaster"
 msgid "Follow @realMaskNetwork on X"
 msgstr "Follow @realMaskNetwork on X"
 
+msgid "<0>{0}</0> mirrored"
+msgstr "<0>{0}</0> mirrored"
+
 msgid "recasted"
 msgstr "recasted"
 
@@ -475,6 +481,9 @@ msgstr "No profile found"
 msgid "Everyone can reply"
 msgstr "Everyone can reply"
 
+msgid "<0>You</0> liked"
+msgstr "<0>You</0> liked"
+
 msgid "You've hit rock bottom."
 msgstr "You've hit rock bottom."
 
@@ -486,9 +495,6 @@ msgstr "Login with custody wallet"
 
 msgid "You"
 msgstr "You"
-
-msgid "No Lens profile found. Please change another wallet"
-msgstr "No Lens profile found. Please change another wallet"
 
 msgid "Delegate Signing (Recommend)"
 msgstr "Delegate Signing (Recommend)"
@@ -507,9 +513,6 @@ msgstr "Log out all"
 
 msgid "{0} and others"
 msgstr "{0} and others"
-
-msgid "<0>{0}</0>mirrored"
-msgstr "<0>{0}</0>mirrored"
 
 msgid "Unknown session type."
 msgstr "Unknown session type."
@@ -579,9 +582,6 @@ msgstr "Profiles"
 
 msgid "<0/> commented on your <1><2/></1>"
 msgstr "<0/> commented on your <1><2/></1>"
-
-msgid "<0>{0}</0>liked"
-msgstr "<0>{0}</0>liked"
 
 msgid "Recast"
 msgstr "Recast"
