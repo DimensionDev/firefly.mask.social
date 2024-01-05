@@ -313,9 +313,6 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
-msgid "on {0}"
-msgstr ""
-
 msgid "Details"
 msgstr ""
 
@@ -326,9 +323,6 @@ msgid "Connect to {source}"
 msgstr ""
 
 msgid "Farcaster"
-msgstr ""
-
-msgid "Replying to"
 msgstr ""
 
 msgid "commented"
@@ -611,6 +605,9 @@ msgid "<0/> mentioned you in a <1><2/></1>"
 msgstr ""
 
 msgid "Login"
+msgstr ""
+
+msgid "Replying to <0>@{0}</0> on {1}"
 msgstr ""
 
 msgid "<0/> quoted your <1><2/></1>"

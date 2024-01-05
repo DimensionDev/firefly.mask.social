@@ -313,9 +313,6 @@ msgstr "Post has been encrypted"
 msgid "Settings"
 msgstr "Settings"
 
-msgid "on {0}"
-msgstr "on {0}"
-
 msgid "Details"
 msgstr "Details"
 
@@ -327,9 +324,6 @@ msgstr "Connect to {source}"
 
 msgid "Farcaster"
 msgstr "Farcaster"
-
-msgid "Replying to"
-msgstr "Replying to"
 
 msgid "commented"
 msgstr "commented"
@@ -612,6 +606,9 @@ msgstr "<0/> mentioned you in a <1><2/></1>"
 
 msgid "Login"
 msgstr "Login"
+
+msgid "Replying to <0>@{0}</0> on {1}"
+msgstr "Replying to <0>@{0}</0> on {1}"
 
 msgid "<0/> quoted your <1><2/></1>"
 msgstr "<0/> quoted your <1><2/></1>"
