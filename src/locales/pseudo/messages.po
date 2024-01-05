@@ -436,9 +436,6 @@ msgstr ""
 msgid "Follow @realMaskNetwork on X"
 msgstr ""
 
-msgid "<0>{0}</0> mirrored"
-msgstr ""
-
 msgid "Follower"
 msgstr ""
 
@@ -484,6 +481,9 @@ msgstr ""
 msgid "Login with custody wallet"
 msgstr ""
 
+msgid "You"
+msgstr ""
+
 msgid "No Lens profile found. Please change another wallet"
 msgstr ""
 
@@ -503,6 +503,9 @@ msgid "Log out all"
 msgstr ""
 
 msgid "{0} and others"
+msgstr ""
+
+msgid "<0>{0}</0>mirrored"
 msgstr ""
 
 msgid "Unknown session type."
