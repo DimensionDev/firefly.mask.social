@@ -442,9 +442,6 @@ msgstr ""
 msgid "<0>{0}</0> mirrored"
 msgstr ""
 
-msgid "recasted"
-msgstr ""
-
 msgid "Follower"
 msgstr ""
 
@@ -491,9 +488,6 @@ msgid "Failed to mirror post."
 msgstr ""
 
 msgid "Login with custody wallet"
-msgstr ""
-
-msgid "You"
 msgstr ""
 
 msgid "Delegate Signing (Recommend)"
@@ -583,6 +577,9 @@ msgstr ""
 msgid "<0/> commented on your <1><2/></1>"
 msgstr ""
 
+msgid "<0>You</0> recasted"
+msgstr ""
+
 msgid "Recast"
 msgstr ""
 
@@ -617,6 +614,9 @@ msgid "Following"
 msgstr ""
 
 msgid "Dark mode"
+msgstr ""
+
+msgid "<0>{0}</0> recasted"
 msgstr ""
 
 msgid "on Lens"
