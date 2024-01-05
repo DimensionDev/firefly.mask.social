@@ -5,108 +5,108 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: @lingui/cli\n"
-"Language: ja\n"
+"Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
 "PO-Revision-Date: 2024-01-05 03:09\n"
 "Last-Translator: \n"
-"Language-Team: Japanese\n"
+"Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Crowdin-Project: masksocial\n"
 "X-Crowdin-Project-ID: 636622\n"
-"X-Crowdin-Language: ja\n"
+"X-Crowdin-Language: zh-CN\n"
 "X-Crowdin-File: /src/locales/en/messages.po\n"
 "X-Crowdin-File-ID: 836\n"
 
 msgid "Be the first one to comment!"
-msgstr ""
+msgstr "成为第一个评论的人！"
 
 msgid "Quote Post"
-msgstr ""
+msgstr "引用"
 
 msgid "Failed to fetch as Blob."
-msgstr ""
+msgstr "获取 Blob 失败。"
 
 msgid "Failed to connect wallet."
-msgstr ""
+msgstr "连接钱包失败。"
 
 msgid "Communities"
-msgstr ""
+msgstr "社区"
 
 msgid "Discover"
-msgstr ""
+msgstr "发现"
 
 msgid "{0, select, follow {Followed @{handle} on {source}} unfollow {UnFollowed @{handle} on {source}} other {Followed @{handle} on {source}}}"
 msgstr ""
 
 msgid "Click to refresh QRCode"
-msgstr ""
+msgstr "点击后刷新二维码"
 
 msgid "Something went wrong, Please try again."
-msgstr ""
+msgstr "出现错误，请重试。"
 
 msgid "Failed to mirror. {0}"
-msgstr ""
+msgstr "转帖失败 {0}"
 
 msgid "Debug Connection"
-msgstr ""
+msgstr "诊断网络"
 
 msgid "Allow Lens Manager to perform actions such as posting, liking, and commenting without the need to sign each transaction."
 msgstr ""
 
 msgid "{0} views"
-msgstr ""
+msgstr "{0} 查看"
 
 msgid "Failed to post on Farcaster."
-msgstr ""
+msgstr "在 Farcaster 发贴成功。"
 
 msgid "Act"
-msgstr ""
+msgstr "行动"
 
 msgid "More"
-msgstr ""
+msgstr "更多"
 
 msgid "Searching users"
-msgstr ""
+msgstr "查找用户中"
 
 msgid "Join our Discord"
-msgstr ""
+msgstr "加入我们的 Discord"
 
 msgid "Querying the signer request state."
 msgstr ""
 
 msgid "Change Wallet"
-msgstr ""
+msgstr "更换钱包"
 
 msgid "UnLike"
-msgstr ""
+msgstr "取消点赞"
 
 msgid "Debug Console"
-msgstr ""
+msgstr "诊断命令行"
 
 msgid "Failed to login"
-msgstr ""
+msgstr "登录失败"
 
 msgid "Offline"
-msgstr ""
+msgstr "离线"
 
 msgid "Not implemented yet."
-msgstr ""
+msgstr "还未实现"
 
 msgid "Copied"
-msgstr ""
+msgstr "已复制"
 
 msgid "comment"
 msgstr ""
 
 msgid "Confirm"
-msgstr ""
+msgstr "确认"
 
 msgid "Page not found"
-msgstr ""
+msgstr "找不到网页"
 
 msgid "Liked"
-msgstr ""
+msgstr "已点赞"
 
 msgid "Missing IPFS hash for image or video."
 msgstr ""
@@ -121,22 +121,22 @@ msgid "You need to connect your {source} account to use this feature."
 msgstr ""
 
 msgid "Search"
-msgstr ""
+msgstr "搜索"
 
 msgid "Connected Accounts"
-msgstr ""
+msgstr "已链接的账号"
 
 msgid "Failed to post on Lens."
-msgstr ""
+msgstr "在 Lens 上发帖失败。"
 
 msgid "Please open this link in PC Explorer"
 msgstr ""
 
 msgid "Select Account"
-msgstr ""
+msgstr "选择账户"
 
 msgid "mirror"
-msgstr ""
+msgstr "转帖"
 
 msgid "Replied on Lens"
 msgstr ""
@@ -148,61 +148,61 @@ msgid "Audio Cover"
 msgstr ""
 
 msgid "Recent"
-msgstr ""
+msgstr "最近"
 
 msgid "{type, select, compose {{0}} quote {{1}} reply {{2}} other {{3}}}"
 msgstr ""
 
 msgid "Connect Wallet"
-msgstr ""
+msgstr "连接钱包"
 
 msgid "Feed"
-msgstr ""
+msgstr "信息流"
 
 msgid "Change account"
-msgstr ""
+msgstr "切换账号"
 
 msgid "No content URI found"
 msgstr ""
 
 msgid "Follow System"
-msgstr ""
+msgstr "跟随系统"
 
 msgid "No results"
-msgstr ""
+msgstr "没有任何结果。"
 
 msgid "Join our Telegram"
-msgstr ""
+msgstr "加入我们的 Telegram"
 
 msgid "Log out"
-msgstr ""
+msgstr "登出"
 
 msgid "Follow more friends to continue exploring {0}."
 msgstr ""
 
 msgid "post"
-msgstr ""
+msgstr "帖子"
 
 msgid "Hashtag"
 msgstr ""
 
 msgid "Search Filter"
-msgstr ""
+msgstr "查询规则"
 
 msgid "Try searching for something else."
 msgstr ""
 
 msgid "and"
-msgstr ""
+msgstr "和"
 
 msgid "Connect another account"
 msgstr ""
 
 msgid "Failed to fetch as Text."
-msgstr ""
+msgstr "获取内容失败。"
 
 msgid "Open actions on Lens is coming soon"
-msgstr ""
+msgstr "Lens 上的 Open actions 即将推出"
 
 msgid "Lucky Drop"
 msgstr ""
@@ -226,10 +226,10 @@ msgid "Failed to reply post on Farcaster."
 msgstr ""
 
 msgid "Post by"
-msgstr ""
+msgstr "发帖者"
 
 msgid "Failed to unvote post."
-msgstr ""
+msgstr "无法对帖子进行投票。"
 
 msgid "Privacy Policy"
 msgstr ""
@@ -241,10 +241,10 @@ msgid "Only people you follow can reply"
 msgstr ""
 
 msgid "Switch"
-msgstr ""
+msgstr "切换"
 
 msgid "Follow"
-msgstr ""
+msgstr "关注"
 
 msgid "Failed to like. {0}"
 msgstr ""
@@ -256,13 +256,13 @@ msgid "{0, plural, one {<0/>} other {{1, plural, one {<1/> and <2/>} other {<3/>
 msgstr ""
 
 msgid "Comment"
-msgstr ""
+msgstr "备注"
 
 msgid "Method not implemented."
 msgstr ""
 
 msgid "Malformed session."
-msgstr ""
+msgstr "会话格式错误。"
 
 msgid "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code."
 msgstr ""
@@ -271,55 +271,55 @@ msgid "Post has been hidden"
 msgstr ""
 
 msgid "<0>{0}</0> liked"
-msgstr ""
+msgstr "<0>{0}</0> 点赞"
 
 msgid "{0, select, follow {Failed to followed @{handle} on {source}} unfollow {Failed to unfollowed @{handle} on {source}} other {Failed to followed @{handle} on {source}}}"
 msgstr ""
 
 msgid "Failed to follow."
-msgstr ""
+msgstr "关注失败"
 
 msgid "Confirm to log out this account?"
 msgstr ""
 
 msgid "Followings"
-msgstr ""
+msgstr "正在关注"
 
 msgid "No post found"
-msgstr ""
+msgstr "未找到帖子"
 
 msgid "UnLiked"
-msgstr ""
+msgstr "取消点赞"
 
 msgid "Lens"
 msgstr ""
 
 msgid "Reply Restriction"
-msgstr ""
+msgstr "回复限制"
 
 msgid "No session found."
-msgstr ""
+msgstr "未找到会话"
 
 msgid "Visit firefly.land"
-msgstr ""
+msgstr "访问 firefly.land"
 
 msgid "Failed to upvote post."
-msgstr ""
+msgstr "无法对帖子进行投票。"
 
 msgid "Post your reply"
-msgstr ""
+msgstr "发送你的回复"
 
 msgid "liked"
-msgstr ""
+msgstr "点赞"
 
 msgid "Post has been encrypted"
-msgstr ""
+msgstr "帖子已经被加密"
 
 msgid "Settings"
-msgstr ""
+msgstr "设置"
 
 msgid "Details"
-msgstr ""
+msgstr "详情"
 
 msgid "Your Farcaster account is now connected."
 msgstr ""
@@ -331,10 +331,10 @@ msgid "Farcaster"
 msgstr ""
 
 msgid "Replying to"
-msgstr ""
+msgstr "正在回复"
 
 msgid "commented"
-msgstr ""
+msgstr "已回复"
 
 msgid "The page could not be found."
 msgstr ""
@@ -355,19 +355,19 @@ msgid "Publications"
 msgstr ""
 
 msgid "Display"
-msgstr ""
+msgstr "显示"
 
 msgid "No results for \"{keyword}\""
 msgstr ""
 
 msgid "Login required"
-msgstr ""
+msgstr "请先登录"
 
 msgid "Show More"
-msgstr ""
+msgstr "显示更多"
 
 msgid "Failed to parse session."
-msgstr ""
+msgstr "未能解析会话"
 
 msgid "{0, plural, one {<0/>} other {{1, plural, one {<1/> and <2/>} other {<3/> and # others}}}} <4>liked your </4><5><6/></5>"
 msgstr ""
@@ -376,7 +376,7 @@ msgid "Loading..."
 msgstr ""
 
 msgid "Share"
-msgstr ""
+msgstr "分享"
 
 msgid "Cancel recast successfully"
 msgstr ""
@@ -391,22 +391,22 @@ msgid "Please switch to the {0} network in your wallet ({1})}"
 msgstr ""
 
 msgid "Visit mask.io"
-msgstr ""
+msgstr "访问 mask.io"
 
 msgid "No comments found"
 msgstr ""
 
 msgid "Discard"
-msgstr ""
+msgstr "放弃"
 
 msgid "Sign"
-msgstr ""
+msgstr "签名"
 
 msgid "Follow @thefireflyapp on X"
 msgstr ""
 
 msgid "Posted on Lens"
-msgstr ""
+msgstr "发表于 Lens"
 
 msgid "{0, plural, =0 {Mirror or Quote} zero {Mirror or Quote} one {Mirror or Quote} other {Mirrors or Quotes}}"
 msgstr ""
@@ -415,7 +415,7 @@ msgid "There is no data available for display."
 msgstr ""
 
 msgid "Mirrored"
-msgstr ""
+msgstr "已转发"
 
 msgid "Failed to publish post."
 msgstr ""
@@ -448,22 +448,22 @@ msgid "quote"
 msgstr ""
 
 msgid "Image"
-msgstr ""
+msgstr "图片"
 
 msgid "Notifications"
-msgstr ""
+msgstr "通知"
 
 msgid "No Lens profile found. Please change to another wallet."
 msgstr ""
 
 msgid "Connect"
-msgstr ""
+msgstr "连接"
 
 msgid "Mention"
-msgstr ""
+msgstr "提及"
 
 msgid "Search…"
-msgstr ""
+msgstr "查找"
 
 msgid "{0, plural, one {<0/>} other {{1, plural, one {<1/> and <2/>} other {<3/> and # others acted on your}}}} <4>acted on your </4><5><6/></5>"
 msgstr ""
@@ -496,19 +496,19 @@ msgid "Firefly"
 msgstr ""
 
 msgid "Log out all"
-msgstr ""
+msgstr "登出所有"
 
 msgid "{0} and others"
-msgstr ""
+msgstr "{0} 和 其他"
 
 msgid "Unknown session type."
 msgstr ""
 
 msgid "Online"
-msgstr ""
+msgstr "在线"
 
 msgid "Unfollow"
-msgstr ""
+msgstr "取消关注"
 
 msgid "You cannot reply to @{author} on {0}."
 msgstr ""
@@ -571,7 +571,7 @@ msgid "<0/> commented on your <1><2/></1>"
 msgstr ""
 
 msgid "Recast"
-msgstr ""
+msgstr "转推"
 
 msgid "Followers"
 msgstr ""
@@ -580,25 +580,25 @@ msgid "{0, select, follow {Follow} unfollow {Unfollow} other {Follow}}"
 msgstr ""
 
 msgid "Media"
-msgstr ""
+msgstr "多媒体"
 
 msgid "mirrored your"
 msgstr ""
 
 msgid "Mirror"
-msgstr ""
+msgstr "转发"
 
 msgid "Terms of Service"
-msgstr ""
+msgstr "服务条款"
 
 msgid "Failed to relay post on Lens."
-msgstr ""
+msgstr "发送帖子失败"
 
 msgid "Post"
-msgstr ""
+msgstr "帖子"
 
 msgid "mirrored"
-msgstr ""
+msgstr "已转发"
 
 msgid "Following"
 msgstr ""
@@ -613,7 +613,7 @@ msgid "<0/> mentioned you in a <1><2/></1>"
 msgstr ""
 
 msgid "Login"
-msgstr ""
+msgstr "登录"
 
 msgid "<0/> quoted your <1><2/></1>"
 msgstr ""
