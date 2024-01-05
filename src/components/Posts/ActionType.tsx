@@ -112,12 +112,34 @@ export const FeedActionType = memo<FeedActionType>(function FeedActionType({ pos
                 <div className="mb-3 flex items-center space-x-2 text-[15px] text-secondary">
                     <MirrorIcon width={16} height={16} />
                     <Link href={getProfileUrl(first(post.mirrors)!)}>
-                        <strong>
-                            {isSameProfile(first(post.mirrors), currentProfile)
-                                ? t`You`
-                                : first(post.mirrors)?.displayName}
-                        </strong>{" "}
-                        {post.source === SocialPlatform.Farcaster ? t`recasted` : t`mirrored`}
+                        {isSameProfile(first(post.mirrors), currentProfile) ?
+                            post.source === SocialPlatform.Farcaster ?
+                                <Trans>
+                                    <strong>
+                                        You
+                                    </strong>{" "}
+                                    recasted
+                                </Trans> : <Trans>
+                                    <strong>
+                                        You
+                                    </strong>{" "}
+                                    mirrored
+                                </Trans>
+                            :
+                            post.source === SocialPlatform.Farcaster ?
+                                <Trans>
+                                    <strong>
+                                        {first(post.mirrors)?.displayName}
+                                    </strong>{" "}
+                                    recasted
+                                </Trans> :
+                                <Trans>
+                                    <strong>
+                                        {first(post.mirrors)?.displayName}
+                                    </strong>{" "}
+                                    mirrored
+                                </Trans>
+                        }
                     </Link>
                 </div>
             ) : null}
