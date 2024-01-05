@@ -46,13 +46,13 @@ export default function ContentTabs({ profileId, source }: ContentTabsProps) {
 
             {tab === TabEnum.Feed && (
                 <Suspense fallback={<Loading />}>
-                    <ContentFeed source={source} profileId={profileId} />{' '}
+                    <ContentFeed source={source} profileId={profileId} />
                 </Suspense>
             )}
 
             {tab === TabEnum.Collected && (
                 <Suspense fallback={<Loading />}>
-                    <ContentCollected source={source} profileId={profileId} />{' '}
+                    <ContentCollected source={source} profileId={profileId} />
                 </Suspense>
             )}
         </>
