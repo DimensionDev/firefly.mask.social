@@ -15,6 +15,7 @@ const polyfillsFolderPath = join(outputPath, './js/polyfills');
 /** @type {import('next').NextConfig} */
 export default {
     env: {
+        BUILD_DATE: new Date().toISOString(),
         APP_VERSION: PackageJSON.version,
         COMMIT_HASH: execSync('git log --pretty=format:"%h" -n1').toString().trim(),
     },
