@@ -1,0 +1,620 @@
+msgid ""
+msgstr ""
+"POT-Creation-Date: 2023-11-24 21:17+0800\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: @lingui/cli\n"
+"Language: ko\n"
+"Project-Id-Version: masksocial\n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: 2024-01-05 03:09\n"
+"Last-Translator: \n"
+"Language-Team: Korean\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Crowdin-Project: masksocial\n"
+"X-Crowdin-Project-ID: 636622\n"
+"X-Crowdin-Language: ko\n"
+"X-Crowdin-File: /src/locales/en/messages.po\n"
+"X-Crowdin-File-ID: 836\n"
+
+msgid "Be the first one to comment!"
+msgstr ""
+
+msgid "Quote Post"
+msgstr ""
+
+msgid "Failed to fetch as Blob."
+msgstr ""
+
+msgid "Failed to connect wallet."
+msgstr ""
+
+msgid "Communities"
+msgstr ""
+
+msgid "Discover"
+msgstr ""
+
+msgid "{0, select, follow {Followed @{handle} on {source}} unfollow {UnFollowed @{handle} on {source}} other {Followed @{handle} on {source}}}"
+msgstr ""
+
+msgid "Click to refresh QRCode"
+msgstr ""
+
+msgid "Something went wrong, Please try again."
+msgstr ""
+
+msgid "Failed to mirror. {0}"
+msgstr ""
+
+msgid "Debug Connection"
+msgstr ""
+
+msgid "Allow Lens Manager to perform actions such as posting, liking, and commenting without the need to sign each transaction."
+msgstr ""
+
+msgid "{0} views"
+msgstr ""
+
+msgid "Failed to post on Farcaster."
+msgstr ""
+
+msgid "Act"
+msgstr ""
+
+msgid "More"
+msgstr ""
+
+msgid "Searching users"
+msgstr ""
+
+msgid "Join our Discord"
+msgstr ""
+
+msgid "Querying the signer request state."
+msgstr ""
+
+msgid "Change Wallet"
+msgstr ""
+
+msgid "UnLike"
+msgstr ""
+
+msgid "Debug Console"
+msgstr ""
+
+msgid "Failed to login"
+msgstr ""
+
+msgid "Offline"
+msgstr ""
+
+msgid "Not implemented yet."
+msgstr ""
+
+msgid "Copied"
+msgstr ""
+
+msgid "comment"
+msgstr ""
+
+msgid "Confirm"
+msgstr ""
+
+msgid "Page not found"
+msgstr ""
+
+msgid "Liked"
+msgstr ""
+
+msgid "Missing IPFS hash for image or video."
+msgstr ""
+
+msgid "Failed to unlike. {0}"
+msgstr ""
+
+msgid "Failed to mirror post on Farcaster."
+msgstr ""
+
+msgid "You need to connect your {source} account to use this feature."
+msgstr ""
+
+msgid "Search"
+msgstr ""
+
+msgid "Connected Accounts"
+msgstr ""
+
+msgid "Failed to post on Lens."
+msgstr ""
+
+msgid "Please open this link in PC Explorer"
+msgstr ""
+
+msgid "Select Account"
+msgstr ""
+
+msgid "mirror"
+msgstr ""
+
+msgid "Replied on Lens"
+msgstr ""
+
+msgid "Failed to upload image to imgur: {0}"
+msgstr ""
+
+msgid "Audio Cover"
+msgstr ""
+
+msgid "Recent"
+msgstr ""
+
+msgid "{type, select, compose {{0}} quote {{1}} reply {{2}} other {{3}}}"
+msgstr ""
+
+msgid "Connect Wallet"
+msgstr ""
+
+msgid "Feed"
+msgstr ""
+
+msgid "Change account"
+msgstr ""
+
+msgid "No content URI found"
+msgstr ""
+
+msgid "Follow System"
+msgstr ""
+
+msgid "No results"
+msgstr ""
+
+msgid "Join our Telegram"
+msgstr ""
+
+msgid "Log out"
+msgstr ""
+
+msgid "Follow more friends to continue exploring {0}."
+msgstr ""
+
+msgid "post"
+msgstr ""
+
+msgid "Hashtag"
+msgstr ""
+
+msgid "Search Filter"
+msgstr ""
+
+msgid "Try searching for something else."
+msgstr ""
+
+msgid "and"
+msgstr ""
+
+msgid "Connect another account"
+msgstr ""
+
+msgid "Failed to fetch as Text."
+msgstr ""
+
+msgid "Open actions on Lens is coming soon"
+msgstr ""
+
+msgid "Lucky Drop"
+msgstr ""
+
+msgid "Add an existing account"
+msgstr ""
+
+msgid "Send"
+msgstr ""
+
+msgid "Collected"
+msgstr ""
+
+msgid "Failed to upload video to IPFS."
+msgstr ""
+
+msgid "Failed to create image payload."
+msgstr ""
+
+msgid "Failed to reply post on Farcaster."
+msgstr ""
+
+msgid "Post by"
+msgstr ""
+
+msgid "Failed to unvote post."
+msgstr ""
+
+msgid "Privacy Policy"
+msgstr ""
+
+msgid "No wallet client found"
+msgstr ""
+
+msgid "Only people you follow can reply"
+msgstr ""
+
+msgid "Switch"
+msgstr ""
+
+msgid "Follow"
+msgstr ""
+
+msgid "Failed to like. {0}"
+msgstr ""
+
+msgid "{0} Comments"
+msgstr ""
+
+msgid "{0, plural, one {<0/>} other {{1, plural, one {<1/> and <2/>} other {<3/> and # others}}}} <4>followed you</4>"
+msgstr ""
+
+msgid "Comment"
+msgstr ""
+
+msgid "Method not implemented."
+msgstr ""
+
+msgid "Malformed session."
+msgstr ""
+
+msgid "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code."
+msgstr ""
+
+msgid "Post has been hidden"
+msgstr ""
+
+msgid "<0>{0}</0> liked"
+msgstr ""
+
+msgid "{0, select, follow {Failed to followed @{handle} on {source}} unfollow {Failed to unfollowed @{handle} on {source}} other {Failed to followed @{handle} on {source}}}"
+msgstr ""
+
+msgid "Failed to follow."
+msgstr ""
+
+msgid "Confirm to log out this account?"
+msgstr ""
+
+msgid "Followings"
+msgstr ""
+
+msgid "No post found"
+msgstr ""
+
+msgid "UnLiked"
+msgstr ""
+
+msgid "Lens"
+msgstr ""
+
+msgid "Reply Restriction"
+msgstr ""
+
+msgid "No session found."
+msgstr ""
+
+msgid "Visit firefly.land"
+msgstr ""
+
+msgid "Failed to upvote post."
+msgstr ""
+
+msgid "Post your reply"
+msgstr ""
+
+msgid "liked"
+msgstr ""
+
+msgid "Post has been encrypted"
+msgstr ""
+
+msgid "Settings"
+msgstr ""
+
+msgid "Details"
+msgstr ""
+
+msgid "Your Farcaster account is now connected."
+msgstr ""
+
+msgid "Connect to {source}"
+msgstr ""
+
+msgid "Farcaster"
+msgstr ""
+
+msgid "Replying to"
+msgstr ""
+
+msgid "commented"
+msgstr ""
+
+msgid "The page could not be found."
+msgstr ""
+
+msgid "What's happening..."
+msgstr ""
+
+msgid "Like"
+msgstr ""
+
+msgid "Failed to quote post on Lens."
+msgstr ""
+
+msgid "This can’t be undone and you’ll lose your draft."
+msgstr ""
+
+msgid "Publications"
+msgstr ""
+
+msgid "Display"
+msgstr ""
+
+msgid "No results for \"{keyword}\""
+msgstr ""
+
+msgid "Login required"
+msgstr ""
+
+msgid "Show More"
+msgstr ""
+
+msgid "Failed to parse session."
+msgstr ""
+
+msgid "{0, plural, one {<0/>} other {{1, plural, one {<1/> and <2/>} other {<3/> and # others}}}} <4>liked your </4><5><6/></5>"
+msgstr ""
+
+msgid "Loading..."
+msgstr ""
+
+msgid "Share"
+msgstr ""
+
+msgid "Cancel recast successfully"
+msgstr ""
+
+msgid "Failed to unfollow."
+msgstr ""
+
+msgid "Select failed: More than 2 images"
+msgstr ""
+
+msgid "Please switch to the {0} network in your wallet ({1})}"
+msgstr ""
+
+msgid "Visit mask.io"
+msgstr ""
+
+msgid "No comments found"
+msgstr ""
+
+msgid "Discard"
+msgstr ""
+
+msgid "Sign"
+msgstr ""
+
+msgid "Follow @thefireflyapp on X"
+msgstr ""
+
+msgid "Posted on Lens"
+msgstr ""
+
+msgid "{0, plural, =0 {Mirror or Quote} zero {Mirror or Quote} one {Mirror or Quote} other {Mirrors or Quotes}}"
+msgstr ""
+
+msgid "There is no data available for display."
+msgstr ""
+
+msgid "Mirrored"
+msgstr ""
+
+msgid "Failed to publish post."
+msgstr ""
+
+msgid "recasted your"
+msgstr ""
+
+msgid "{0, plural, one {<0/>} other {{1, plural, one {<1/> and <2/>} other {<3/> and # others mirrored you}}}} {2, select, Lens {{3}} Farcaster {{4}} other {{5}}} <4><5/></4>"
+msgstr ""
+
+msgid "Posted on Farcaster"
+msgstr ""
+
+msgid "Follow @realMaskNetwork on X"
+msgstr ""
+
+msgid "<0>{0}</0> mirrored"
+msgstr ""
+
+msgid "recasted"
+msgstr ""
+
+msgid "Follower"
+msgstr ""
+
+msgid "Post by {0}"
+msgstr ""
+
+msgid "quote"
+msgstr ""
+
+msgid "Image"
+msgstr ""
+
+msgid "Notifications"
+msgstr ""
+
+msgid "No Lens profile found. Please change to another wallet."
+msgstr ""
+
+msgid "Connect"
+msgstr ""
+
+msgid "Mention"
+msgstr ""
+
+msgid "Search…"
+msgstr ""
+
+msgid "{0, plural, one {<0/>} other {{1, plural, one {<1/> and <2/>} other {<3/> and # others acted on your}}}} <4>acted on your </4><5><6/></5>"
+msgstr ""
+
+msgid "No profile found"
+msgstr ""
+
+msgid "Everyone can reply"
+msgstr ""
+
+msgid "You've hit rock bottom."
+msgstr ""
+
+msgid "Failed to mirror post."
+msgstr ""
+
+msgid "Login with custody wallet"
+msgstr ""
+
+msgid "Delegate Signing (Recommend)"
+msgstr ""
+
+msgid "Sign the transaction to verify you are the owner of the selected profile."
+msgstr ""
+
+msgid "Refresh"
+msgstr ""
+
+msgid "Firefly"
+msgstr ""
+
+msgid "Log out all"
+msgstr ""
+
+msgid "{0} and others"
+msgstr ""
+
+msgid "Unknown session type."
+msgstr ""
+
+msgid "Online"
+msgstr ""
+
+msgid "Unfollow"
+msgstr ""
+
+msgid "You cannot reply to @{author} on {0}."
+msgstr ""
+
+msgid "Failed to unmirror post."
+msgstr ""
+
+msgid "Failed to fetch as ArrayBuffer."
+msgstr ""
+
+msgid "Failed to upload image to IPFS: {0}"
+msgstr ""
+
+msgid "Confirm to log out these accounts?"
+msgstr ""
+
+msgid "Light mode"
+msgstr ""
+
+msgid "Your Lens account is now connected"
+msgstr ""
+
+msgid "Log in"
+msgstr ""
+
+msgid "Mask Network"
+msgstr ""
+
+msgid "Your Lens account is now connected."
+msgstr ""
+
+msgid "Remove"
+msgstr ""
+
+msgid "Cancel Recast"
+msgstr ""
+
+msgid "No matching users"
+msgstr ""
+
+msgid "Log in to Farcaster account"
+msgstr ""
+
+msgid "Recasted"
+msgstr ""
+
+msgid "Profile"
+msgstr ""
+
+msgid "Video"
+msgstr ""
+
+msgid "Add a comment"
+msgstr ""
+
+msgid "Profiles"
+msgstr ""
+
+msgid "<0/> commented on your <1><2/></1>"
+msgstr ""
+
+msgid "Recast"
+msgstr ""
+
+msgid "Followers"
+msgstr ""
+
+msgid "{0, select, follow {Follow} unfollow {Unfollow} other {Follow}}"
+msgstr ""
+
+msgid "Media"
+msgstr ""
+
+msgid "mirrored your"
+msgstr ""
+
+msgid "Mirror"
+msgstr ""
+
+msgid "Terms of Service"
+msgstr ""
+
+msgid "Failed to relay post on Lens."
+msgstr ""
+
+msgid "Post"
+msgstr ""
+
+msgid "mirrored"
+msgstr ""
+
+msgid "Following"
+msgstr ""
+
+msgid "Dark mode"
+msgstr ""
+
+msgid "on Lens"
+msgstr ""
+
+msgid "<0/> mentioned you in a <1><2/></1>"
+msgstr ""
+
+msgid "Login"
+msgstr ""
+
+msgid "<0/> quoted your <1><2/></1>"
+msgstr ""
+
