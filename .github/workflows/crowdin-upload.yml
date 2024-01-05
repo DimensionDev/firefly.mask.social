@@ -17,7 +17,7 @@ jobs:
 
         # all locales must be extracted before upload on the main branch
         - name: Upload to Crowdin
-          uses: crowdin/github-action@1
+          uses: crowdin/github-action@v1
           with:
             upload_translations: true
             download_translations: false
