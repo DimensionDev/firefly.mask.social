@@ -124,6 +124,9 @@ msgstr "Connected Accounts"
 msgid "Failed to post on Lens."
 msgstr "Failed to post on Lens."
 
+msgid "<0>{0}</0> {1}"
+msgstr "<0>{0}</0> {1}"
+
 msgid "Please open this link in PC Explorer"
 msgstr "Please open this link in PC Explorer"
 
@@ -153,9 +156,6 @@ msgstr "Connect Wallet"
 
 msgid "Feed"
 msgstr "Feed"
-
-msgid "<0>{0}</0>{1}"
-msgstr "<0>{0}</0>{1}"
 
 msgid "Change account"
 msgstr "Change account"
@@ -274,6 +274,9 @@ msgstr "On your mobile device with Warpcast, open the <0>Camera</0> app and scan
 msgid "Post has been hidden"
 msgstr "Post has been hidden"
 
+msgid "<0>{0}</0> liked"
+msgstr "<0>{0}</0> liked"
+
 msgid "{0, select, follow {Failed to followed @{handle} on {source}} unfollow {Failed to unfollowed @{handle} on {source}} other {Failed to followed @{handle} on {source}}}"
 msgstr "{0, select, follow {Failed to followed @{handle} on {source}} unfollow {Failed to unfollowed @{handle} on {source}} other {Failed to followed @{handle} on {source}}}"
 
@@ -391,9 +394,6 @@ msgstr "Select failed: More than 2 images"
 msgid "Please switch to the {0} network in your wallet ({1})}"
 msgstr "Please switch to the {0} network in your wallet ({1})}"
 
-msgid "<0>  {0}</0> mirrored"
-msgstr "<0>  {0}</0> mirrored"
-
 msgid "Visit mask.io"
 msgstr "Visit mask.io"
 
@@ -435,6 +435,9 @@ msgstr "Posted on Farcaster"
 
 msgid "Follow @realMaskNetwork on X"
 msgstr "Follow @realMaskNetwork on X"
+
+msgid "<0>{0}</0> mirrored"
+msgstr "<0>{0}</0> mirrored"
 
 msgid "Follower"
 msgstr "Follower"
@@ -570,9 +573,6 @@ msgstr "Profiles"
 
 msgid "<0/> commented on your <1><2/></1>"
 msgstr "<0/> commented on your <1><2/></1>"
-
-msgid "<0>{0}</0>liked"
-msgstr "<0>{0}</0>liked"
 
 msgid "Recast"
 msgstr "Recast"
