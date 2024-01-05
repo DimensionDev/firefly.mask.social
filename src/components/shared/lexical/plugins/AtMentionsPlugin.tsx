@@ -14,7 +14,7 @@ import { createPortal } from 'react-dom';
 import { useDebounce } from 'usehooks-ts';
 
 import { Avatar } from '@/components/Avatar.js';
-import { $createMentionNode } from '@/components/Lexical/nodes/MentionsNode.js';
+import { $createMentionNode } from '@/components/shared/lexical/nodes/MentionsNode.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';

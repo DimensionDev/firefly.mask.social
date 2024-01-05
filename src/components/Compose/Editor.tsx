@@ -8,8 +8,8 @@ import { PlainTextPlugin } from '@lexical/react/LexicalPlainTextPlugin.js';
 import { Select, t } from '@lingui/macro';
 import { memo } from 'react';
 
-import { MentionsPlugin } from '@/components/Lexical/plugins/AtMentionsPlugin.js';
-import LexicalAutoLinkPlugin from '@/components/Lexical/plugins/AutoLinkPlugin.js';
+import { MentionsPlugin } from '@/components/shared/lexical/plugins/AtMentionsPlugin.js';
+import LexicalAutoLinkPlugin from '@/components/shared/lexical/plugins/AutoLinkPlugin.js';
 import { classNames } from '@/helpers/classNames.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 

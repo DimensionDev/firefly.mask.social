@@ -15,7 +15,7 @@ import ComposeAction from '@/components/Compose/ComposeAction.js';
 import ComposeContent from '@/components/Compose/ComposeContent.js';
 import ComposeSend from '@/components/Compose/ComposeSend/index.js';
 import Discard from '@/components/Compose/Discard.js';
-import withLexicalContext from '@/components/Lexical/withLexicalContext.js';
+import withLexicalContext from '@/components/shared/lexical/withLexicalContext.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { SITE_HOSTNAME } from '@/constants/index.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
