@@ -3,4 +3,4 @@ api_token_env: CROWDIN_PERSONAL_TOKEN
 preserve_hierarchy: 1
 files:
     - source: /src/locales/en/*.po
-      translation: /src/locales/%locale%/%original_file_name%
+      translation: /src/locales/%osx_locale%/%original_file_name%
