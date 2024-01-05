@@ -436,9 +436,6 @@ msgstr "Posted on Farcaster"
 msgid "Follow @realMaskNetwork on X"
 msgstr "Follow @realMaskNetwork on X"
 
-msgid "<0>{0}</0> mirrored"
-msgstr "<0>{0}</0> mirrored"
-
 msgid "Follower"
 msgstr "Follower"
 
@@ -484,6 +481,9 @@ msgstr "Failed to mirror post."
 msgid "Login with custody wallet"
 msgstr "Login with custody wallet"
 
+msgid "You"
+msgstr "You"
+
 msgid "No Lens profile found. Please change another wallet"
 msgstr "No Lens profile found. Please change another wallet"
 
@@ -504,6 +504,9 @@ msgstr "Log out all"
 
 msgid "{0} and others"
 msgstr "{0} and others"
+
+msgid "<0>{0}</0>mirrored"
+msgstr "<0>{0}</0>mirrored"
 
 msgid "Unknown session type."
 msgstr "Unknown session type."
