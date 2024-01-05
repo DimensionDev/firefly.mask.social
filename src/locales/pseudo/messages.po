@@ -19,9 +19,6 @@ msgstr ""
 msgid "Quote Post"
 msgstr ""
 
-msgid "<0>You</0>liked"
-msgstr ""
-
 msgid "Failed to fetch as Blob."
 msgstr ""
 
@@ -62,6 +59,9 @@ msgid "More"
 msgstr ""
 
 msgid "Searching users"
+msgstr ""
+
+msgid "No Lens profile found. Please change another wallet."
 msgstr ""
 
 msgid "Join our Discord"
@@ -217,7 +217,7 @@ msgstr ""
 msgid "Collected"
 msgstr ""
 
-msgid "<0>You</0>mirrored"
+msgid "<0>You</0> mirrored"
 msgstr ""
 
 msgid "Failed to upload video to IPFS."
@@ -247,9 +247,6 @@ msgstr ""
 msgid "Switch"
 msgstr ""
 
-msgid "Oops… Something went wrong. Please try again"
-msgstr ""
-
 msgid "Follow"
 msgstr ""
 
@@ -275,6 +272,9 @@ msgid "On your mobile device with Warpcast, open the <0>Camera</0> app and scan 
 msgstr ""
 
 msgid "Post has been hidden"
+msgstr ""
+
+msgid "<0>{0}</0> liked"
 msgstr ""
 
 msgid "{0, select, follow {Failed to followed @{handle} on {source}} unfollow {Failed to unfollowed @{handle} on {source}} other {Failed to followed @{handle} on {source}}}"
@@ -341,6 +341,9 @@ msgid "commented"
 msgstr ""
 
 msgid "The page could not be found."
+msgstr ""
+
+msgid "Oops… Something went wrong. Please try again."
 msgstr ""
 
 msgid "What's happening..."
@@ -436,6 +439,9 @@ msgstr ""
 msgid "Follow @realMaskNetwork on X"
 msgstr ""
 
+msgid "<0>{0}</0> mirrored"
+msgstr ""
+
 msgid "recasted"
 msgstr ""
 
@@ -475,6 +481,9 @@ msgstr ""
 msgid "Everyone can reply"
 msgstr ""
 
+msgid "<0>You</0> liked"
+msgstr ""
+
 msgid "You've hit rock bottom."
 msgstr ""
 
@@ -485,9 +494,6 @@ msgid "Login with custody wallet"
 msgstr ""
 
 msgid "You"
-msgstr ""
-
-msgid "No Lens profile found. Please change another wallet"
 msgstr ""
 
 msgid "Delegate Signing (Recommend)"
@@ -506,9 +512,6 @@ msgid "Log out all"
 msgstr ""
 
 msgid "{0} and others"
-msgstr ""
-
-msgid "<0>{0}</0>mirrored"
 msgstr ""
 
 msgid "Unknown session type."
@@ -578,9 +581,6 @@ msgid "Profiles"
 msgstr ""
 
 msgid "<0/> commented on your <1><2/></1>"
-msgstr ""
-
-msgid "<0>{0}</0>liked"
 msgstr ""
 
 msgid "Recast"

@@ -92,19 +92,15 @@ export const FeedActionType = memo<FeedActionType>(function FeedActionType({ pos
                 <div className="mb-3 flex items-center space-x-2 text-[15px] text-secondary">
                     <MirrorIcon width={16} height={16} />
                     <Link href={getProfileUrl(post.reporter)}>
-                        {isSameProfile(post.reporter, currentProfile) ?
+                        {isSameProfile(post.reporter, currentProfile) ? (
                             <Trans>
-                                <strong>
-                                    You
-                                </strong>{" "}
-                                mirrored
-                            </Trans> :
+                                <strong>You</strong> mirrored
+                            </Trans>
+                        ) : (
                             <Trans>
-                                <strong>
-                                    {post.reporter.displayName}
-                                </strong>{" "}
-                                mirrored
-                            </Trans>}
+                                <strong>{post.reporter.displayName}</strong> mirrored
+                            </Trans>
+                        )}
                     </Link>
                 </div>
             ) : null}
@@ -147,19 +143,15 @@ export const FeedActionType = memo<FeedActionType>(function FeedActionType({ pos
                 <div className="mb-3 flex items-center space-x-2 text-[15px] text-secondary">
                     {post.hasLiked ? <LikedIcon width={17} height={16} /> : <LikeIcon width={17} height={16} />}
                     <Link href={getProfileUrl(first(post.reactions)!)}>
-                        {isSameProfile(first(post.reactions), currentProfile) ?
+                        {isSameProfile(first(post.reactions), currentProfile) ? (
                             <Trans>
-                                <strong>
-                                    You
-                                </strong> {" "}
-                                liked
-                            </Trans> :
+                                <strong>You</strong> liked
+                            </Trans>
+                        ) : (
                             <Trans>
-                                <strong>
-                                    {first(post.reactions)?.displayName}
-                                </strong>{" "}
-                                liked
-                            </Trans>}
+                                <strong>{first(post.reactions)?.displayName}</strong> liked
+                            </Trans>
+                        )}
                     </Link>
                 </div>
             ) : null}
