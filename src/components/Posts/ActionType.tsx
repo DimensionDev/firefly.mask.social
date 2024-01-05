@@ -130,6 +130,7 @@ export const FeedActionType = memo<FeedActionType>(function FeedActionType({ pos
                                 <strong>
                                     You
                                 </strong>
+                                liked
                             </Trans> :
                             <Trans>
                                 <strong>
