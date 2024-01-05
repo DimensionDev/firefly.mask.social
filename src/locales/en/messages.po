@@ -439,9 +439,6 @@ msgstr "Follow @realMaskNetwork on X"
 msgid "<0>{0}</0> mirrored"
 msgstr "<0>{0}</0> mirrored"
 
-msgid "recasted"
-msgstr "recasted"
-
 msgid "Follower"
 msgstr "Follower"
 
@@ -489,9 +486,6 @@ msgstr "Failed to mirror post."
 
 msgid "Login with custody wallet"
 msgstr "Login with custody wallet"
-
-msgid "You"
-msgstr "You"
 
 msgid "Delegate Signing (Recommend)"
 msgstr "Delegate Signing (Recommend)"
@@ -583,6 +577,9 @@ msgstr "Profiles"
 msgid "<0/> commented on your <1><2/></1>"
 msgstr "<0/> commented on your <1><2/></1>"
 
+msgid "<0>You</0> recasted"
+msgstr "<0>You</0> recasted"
+
 msgid "Recast"
 msgstr "Recast"
 
@@ -619,6 +616,15 @@ msgstr "Following"
 msgid "Dark mode"
 msgstr "Dark mode"
 
+<<<<<<< HEAD
+=======
+msgid "<0>{0}</0> recasted"
+msgstr "<0>{0}</0> recasted"
+
+msgid "on Lens"
+msgstr "on Lens"
+
+>>>>>>> d9bfb5cb58e021304d5011310886435752374a86
 msgid "<0/> mentioned you in a <1><2/></1>"
 msgstr "<0/> mentioned you in a <1><2/></1>"
 
