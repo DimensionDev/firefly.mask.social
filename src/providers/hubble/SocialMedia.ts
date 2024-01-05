@@ -130,14 +130,16 @@ export class HubbleSocialMedia implements Provider {
         };
     }
 
-    async upvotePost(postId: string) {
+    async upvotePost(postId: string, authorId?: number) {
+        if (!authorId) throw new Error(t`Failed to upvote post.`);
+
         const { bytes, messageHash, messageData } = await encodeMessageData((fid) => ({
             type: MessageType.REACTION_ADD,
             reactionBody: {
                 type: ReactionType.LIKE,
                 targetCastId: {
                     hash: toBytes(postId),
-                    fid,
+                    fid: authorId,
                 },
             },
         }));
@@ -157,14 +159,15 @@ export class HubbleSocialMedia implements Provider {
         };
     }
 
-    async unvotePost(postId: string) {
+    async unvotePost(postId: string, authorId?: number) {
+        if (!authorId) throw new Error(t`Failed to unvote post.`);
         const { bytes } = await encodeMessageData((fid) => ({
             type: MessageType.REACTION_REMOVE,
             reactionBody: {
                 type: ReactionType.LIKE,
                 targetCastId: {
                     hash: toBytes(postId),
-                    fid,
+                    fid: authorId,
                 },
             },
         }));

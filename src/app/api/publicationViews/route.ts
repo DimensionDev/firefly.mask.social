@@ -4,7 +4,7 @@ import { NextRequest } from 'next/server.js';
 import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 
-const STATS_URL = 'https://api.hey.xyz/stats/publicationViews';
+const STATS_URL = 'https://api.hey.xyz/stats/publication/views';
 
 export async function POST(req: NextRequest) {
     const body = await req.json();

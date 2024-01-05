@@ -31,9 +31,6 @@ msgstr "Communities"
 msgid "Discover"
 msgstr "Discover"
 
-msgid "{0, select, follow {Followed @{handle} on {source}} unfollow {UnFollowed @{handle} on {source}} other {Followed @{handle} on {source}}}"
-msgstr "{0, select, follow {Followed @{handle} on {source}} unfollow {UnFollowed @{handle} on {source}} other {Followed @{handle} on {source}}}"
-
 msgid "Click to refresh QRCode"
 msgstr "Click to refresh QRCode"
 
@@ -307,11 +304,17 @@ msgstr "Post your reply"
 msgid "liked"
 msgstr "liked"
 
+msgid "Can't get the post detail"
+msgstr "Can't get the post detail"
+
 msgid "Post has been encrypted"
 msgstr "Post has been encrypted"
 
 msgid "Settings"
 msgstr "Settings"
+
+msgid "on {0}"
+msgstr "on {0}"
 
 msgid "Details"
 msgstr "Details"
@@ -544,6 +547,9 @@ msgstr "Cancel Recast"
 msgid "No matching users"
 msgstr "No matching users"
 
+msgid "{0, select, follow {Followed @{handle} on {source}} unfollow {Unfollowed @{handle} on {source}} other {Followed @{handle} on {source}}}"
+msgstr "{0, select, follow {Followed @{handle} on {source}} unfollow {Unfollowed @{handle} on {source}} other {Followed @{handle} on {source}}}"
+
 msgid "Log in to Farcaster account"
 msgstr "Log in to Farcaster account"
 
@@ -600,9 +606,6 @@ msgstr "Following"
 
 msgid "Dark mode"
 msgstr "Dark mode"
-
-msgid "on Lens"
-msgstr "on Lens"
 
 msgid "<0/> mentioned you in a <1><2/></1>"
 msgstr "<0/> mentioned you in a <1><2/></1>"

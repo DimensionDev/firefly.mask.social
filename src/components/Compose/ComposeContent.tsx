@@ -5,6 +5,7 @@ import ComposeVideo from '@/components/Compose/ComposeVideo.js';
 import Editor from '@/components/Compose/Editor.js';
 import { Quote } from '@/components/Posts/Quote.js';
 import { classNames } from '@/helpers/classNames.js';
+import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 
 interface ComposeContentProps {}
@@ -23,7 +24,7 @@ export default function ComposeContent(props: ComposeContentProps) {
                         <div className=" mb-3 text-left text-[15px] text-fourMain">
                             <Trans>Replying to</Trans>
                             <span className="text-link"> @{post.author.handle} </span>
-                            <Trans>on Lens</Trans>
+                            <Trans>on {resolveSourceName(post.source)}</Trans>
                         </div>
                     ) : null}
 

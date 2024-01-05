@@ -62,7 +62,7 @@ export function useToggleFollow(profile: Profile) {
                 <Select
                     value={followStateRef.current ? 'unfollow' : 'follow'}
                     _follow={`Followed @${handle} on ${source}`}
-                    _unfollow={`UnFollowed @${handle} on ${source}`}
+                    _unfollow={`Unfollowed @${handle} on ${source}`}
                     other={`Followed @${handle} on ${source}`}
                 />,
                 {

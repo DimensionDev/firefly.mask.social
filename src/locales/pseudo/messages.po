@@ -31,9 +31,6 @@ msgstr ""
 msgid "Discover"
 msgstr ""
 
-msgid "{0, select, follow {Followed @{handle} on {source}} unfollow {UnFollowed @{handle} on {source}} other {Followed @{handle} on {source}}}"
-msgstr ""
-
 msgid "Click to refresh QRCode"
 msgstr ""
 
@@ -307,10 +304,16 @@ msgstr ""
 msgid "liked"
 msgstr ""
 
+msgid "Can't get the post detail"
+msgstr ""
+
 msgid "Post has been encrypted"
 msgstr ""
 
 msgid "Settings"
+msgstr ""
+
+msgid "on {0}"
 msgstr ""
 
 msgid "Details"
@@ -544,6 +547,9 @@ msgstr ""
 msgid "No matching users"
 msgstr ""
 
+msgid "{0, select, follow {Followed @{handle} on {source}} unfollow {Unfollowed @{handle} on {source}} other {Followed @{handle} on {source}}}"
+msgstr ""
+
 msgid "Log in to Farcaster account"
 msgstr ""
 
@@ -599,9 +605,6 @@ msgid "Following"
 msgstr ""
 
 msgid "Dark mode"
-msgstr ""
-
-msgid "on Lens"
 msgstr ""
 
 msgid "<0/> mentioned you in a <1><2/></1>"
