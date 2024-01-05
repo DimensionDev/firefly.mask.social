@@ -7,10 +7,10 @@ export function BuildInfo() {
         <>
             <Script>
                 {`
-                    console.log('[Build Info]: JSON.stringify({
-                        APP_VERSION: ${process.env.APP_VERSION},
-                        COMMIT_HASH: ${process.env.COMMIT_HASH},
-                    })');
+                    console.log('[Build Info]:', JSON.stringify({
+                        APP_VERSION: "${process.env.APP_VERSION}",
+                        COMMIT_HASH: "${process.env.COMMIT_HASH}",
+                    }));
                 `}
             </Script>
         </>
