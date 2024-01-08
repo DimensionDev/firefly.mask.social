@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-01-05 03:09\n"
+"PO-Revision-Date: 2024-01-06 00:04\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -35,9 +35,6 @@ msgstr "社区"
 
 msgid "Discover"
 msgstr "发现"
-
-msgid "{0, select, follow {Followed @{handle} on {source}} unfollow {UnFollowed @{handle} on {source}} other {Followed @{handle} on {source}}}"
-msgstr ""
 
 msgid "Click to refresh QRCode"
 msgstr "点击后刷新二维码"
@@ -312,6 +309,9 @@ msgstr "发送你的回复"
 msgid "liked"
 msgstr "点赞"
 
+msgid "Can't get the post detail"
+msgstr ""
+
 msgid "Post has been encrypted"
 msgstr "帖子已经被加密"
 
@@ -329,9 +329,6 @@ msgstr ""
 
 msgid "Farcaster"
 msgstr ""
-
-msgid "Replying to"
-msgstr "正在回复"
 
 msgid "commented"
 msgstr "已回复"
@@ -549,6 +546,9 @@ msgstr ""
 msgid "No matching users"
 msgstr ""
 
+msgid "{0, select, follow {Followed @{handle} on {source}} unfollow {Unfollowed @{handle} on {source}} other {Followed @{handle} on {source}}}"
+msgstr ""
+
 msgid "Log in to Farcaster account"
 msgstr ""
 
@@ -606,14 +606,14 @@ msgstr ""
 msgid "Dark mode"
 msgstr ""
 
-msgid "on Lens"
-msgstr ""
-
 msgid "<0/> mentioned you in a <1><2/></1>"
 msgstr ""
 
 msgid "Login"
 msgstr "登录"
+
+msgid "Replying to <0>@{0}</0> on {1}"
+msgstr ""
 
 msgid "<0/> quoted your <1><2/></1>"
 msgstr ""
