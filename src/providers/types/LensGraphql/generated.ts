@@ -196,7 +196,6 @@ export const FollowModuleFieldsFragmentDoc = gql`
     ${AmountFieldsFragmentDoc}
 `;
 
-
 export enum MetadataAttributeType {
     Boolean = 'BOOLEAN',
     Date = 'DATE',

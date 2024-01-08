@@ -183,4 +183,3 @@ export const profilesManagedQuery = (request: ProfilesManagedRequest | LastLogge
         fetchPolicy: 'no-cache',
     });
 };
-
