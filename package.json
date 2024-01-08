@@ -94,6 +94,7 @@
         "zustand": "^4.4.4"
     },
     "devDependencies": {
+        "@apollo/client": "^3.8.8",
         "@crowdin/cli": "^3.15.0",
         "@lingui/cli": "^4.5.0",
         "@lingui/conf": "^4.5.0",
@@ -126,6 +127,7 @@
         "eslint-plugin-simple-import-sort": "^10.0.0",
         "eslint-plugin-unicorn": "^49.0.0",
         "eslint-plugin-unused-imports": "^3.0.0",
+        "graphql": "^16.8.1",
         "html-webpack-plugin": "^5.5.3",
         "https-browserify": "^1.0.0",
         "https-proxy-agent": "^7.0.2",

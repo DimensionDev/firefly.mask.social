@@ -95,7 +95,9 @@ export default function Media({ close }: MediaProps) {
                 <div
                     className={classNames(
                         'flex h-8 items-center gap-2',
-                        video ? 'cursor-not-allowed' : 'cursor-pointer hover:bg-bg',
+                        video || currentFarcasterProfile
+                            ? 'cursor-not-allowed opacity-50'
+                            : 'cursor-pointer hover:bg-bg',
                     )}
                     onClick={() => {
                         if (!video && !currentFarcasterProfile) {

@@ -2,8 +2,10 @@
 
 import { Dialog, Transition } from '@headlessui/react';
 import { t, Trans } from '@lingui/macro';
+import { delay } from '@masknet/kit';
 import type { SingletonModalRefCreator } from '@masknet/shared-base';
 import { useSingletonModal } from '@masknet/shared-base-ui';
+import { useRouter } from 'next/navigation.js';
 import { forwardRef, Fragment, useMemo, useState } from 'react';
 
 import CloseIcon from '@/assets/close.svg';
@@ -21,6 +23,8 @@ export interface LogoutModalProps {
 export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps | void>>(function LogoutModal(_, ref) {
     const [source, setSource] = useState<SocialPlatform>();
     const [profile, setProfile] = useState<Profile>();
+
+    const router = useRouter();
 
     const lensProfiles = useLensStateStore.use.profiles();
     const farcasterProfiles = useFarcasterStateStore.use.profiles();
@@ -99,7 +103,7 @@ export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps 
                                     ))}
                                     <button
                                         className=" flex items-center justify-center rounded-full bg-commonDanger py-[11px] text-lightBottom"
-                                        onClick={() => {
+                                        onClick={async () => {
                                             switch (source || profile?.source) {
                                                 case SocialPlatform.Lens:
                                                     clearLensProfile();
@@ -113,6 +117,8 @@ export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps 
                                                     break;
                                             }
                                             dispatch?.close();
+                                            await delay(300);
+                                            router.push('/');
                                         }}
                                     >
                                         {t`Confirm`}

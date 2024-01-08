@@ -1,3 +1,5 @@
+'use client';
+
 import { t, Trans } from '@lingui/macro';
 import { compact, first, flatten } from 'lodash-es';
 import { usePathname } from 'next/navigation.js';
@@ -12,6 +14,8 @@ import { SocialPlatform } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
+import { isSameProfile } from '@/helpers/isSameProfile.js';
+import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 export interface FeedActionType {
@@ -20,6 +24,7 @@ export interface FeedActionType {
 }
 
 export const FeedActionType = memo<FeedActionType>(function FeedActionType({ post, isThread }) {
+    const currentProfile = useCurrentProfile(post.source);
     const isComment = post.type === 'Comment';
     const showThread = isComment || !post.comments?.length;
 
@@ -87,9 +92,15 @@ export const FeedActionType = memo<FeedActionType>(function FeedActionType({ pos
                 <div className="mb-3 flex items-center space-x-2 text-[15px] text-secondary">
                     <MirrorIcon width={16} height={16} />
                     <Link href={getProfileUrl(post.reporter)}>
-                        <Trans>
-                            <strong>{post.reporter.displayName}</strong> mirrored
-                        </Trans>
+                        {isSameProfile(post.reporter, currentProfile) ? (
+                            <Trans>
+                                <strong>You</strong> mirrored
+                            </Trans>
+                        ) : (
+                            <Trans>
+                                <strong>{post.reporter.displayName}</strong> mirrored
+                            </Trans>
+                        )}
                     </Link>
                 </div>
             ) : null}
@@ -97,8 +108,25 @@ export const FeedActionType = memo<FeedActionType>(function FeedActionType({ pos
                 <div className="mb-3 flex items-center space-x-2 text-[15px] text-secondary">
                     <MirrorIcon width={16} height={16} />
                     <Link href={getProfileUrl(first(post.mirrors)!)}>
-                        <strong>{first(post.mirrors)?.displayName}</strong>{' '}
-                        {post.source === SocialPlatform.Farcaster ? t`recasted` : t`mirrored`}
+                        {isSameProfile(first(post.mirrors), currentProfile) ? (
+                            post.source === SocialPlatform.Farcaster ? (
+                                <Trans>
+                                    <strong>You</strong> recasted
+                                </Trans>
+                            ) : (
+                                <Trans>
+                                    <strong>You</strong> mirrored
+                                </Trans>
+                            )
+                        ) : post.source === SocialPlatform.Farcaster ? (
+                            <Trans>
+                                <strong>{first(post.mirrors)?.displayName}</strong> recasted
+                            </Trans>
+                        ) : (
+                            <Trans>
+                                <strong>{first(post.mirrors)?.displayName}</strong> mirrored
+                            </Trans>
+                        )}
                     </Link>
                 </div>
             ) : null}
@@ -106,9 +134,15 @@ export const FeedActionType = memo<FeedActionType>(function FeedActionType({ pos
                 <div className="mb-3 flex items-center space-x-2 text-[15px] text-secondary">
                     {post.hasLiked ? <LikedIcon width={17} height={16} /> : <LikeIcon width={17} height={16} />}
                     <Link href={getProfileUrl(first(post.reactions)!)}>
-                        <Trans>
-                            <strong>{first(post.reactions)?.displayName}</strong> liked
-                        </Trans>
+                        {isSameProfile(first(post.reactions), currentProfile) ? (
+                            <Trans>
+                                <strong>You</strong> liked
+                            </Trans>
+                        ) : (
+                            <Trans>
+                                <strong>{first(post.reactions)?.displayName}</strong> liked
+                            </Trans>
+                        )}
                     </Link>
                 </div>
             ) : null}
