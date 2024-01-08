@@ -614,7 +614,7 @@ msgid "Following"
 msgstr "Following"
 
 msgid "Dark mode"
-msgstr "Dark mode<<<<<<< HEAD======="
+msgstr "Dark mode"
 
 msgid "<0>{0}</0> recasted"
 msgstr "<0>{0}</0> recasted"
