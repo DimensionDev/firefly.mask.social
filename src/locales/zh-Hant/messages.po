@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-01-06 00:04\n"
+"PO-Revision-Date: 2024-01-09 00:04\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Traditional\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -25,9 +25,6 @@ msgid "Quote Post"
 msgstr ""
 
 msgid "Failed to fetch as Blob."
-msgstr ""
-
-msgid "Failed to connect wallet."
 msgstr ""
 
 msgid "Communities"
@@ -66,6 +63,9 @@ msgstr ""
 msgid "Searching users"
 msgstr ""
 
+msgid "No Lens profile found. Please change another wallet."
+msgstr ""
+
 msgid "Join our Discord"
 msgstr ""
 
@@ -76,6 +76,9 @@ msgid "Change Wallet"
 msgstr ""
 
 msgid "UnLike"
+msgstr ""
+
+msgid "Wrong wallet"
 msgstr ""
 
 msgid "Debug Console"
@@ -168,6 +171,9 @@ msgstr ""
 msgid "No results"
 msgstr ""
 
+msgid "Connection failed"
+msgstr ""
+
 msgid "Join our Telegram"
 msgstr ""
 
@@ -211,6 +217,9 @@ msgid "Send"
 msgstr ""
 
 msgid "Collected"
+msgstr ""
+
+msgid "<0>You</0> mirrored"
 msgstr ""
 
 msgid "Failed to upload video to IPFS."
@@ -336,6 +345,9 @@ msgstr ""
 msgid "The page could not be found."
 msgstr ""
 
+msgid "Oops… Something went wrong. Please try again."
+msgstr ""
+
 msgid "What's happening..."
 msgstr ""
 
@@ -432,9 +444,6 @@ msgstr ""
 msgid "<0>{0}</0> mirrored"
 msgstr ""
 
-msgid "recasted"
-msgstr ""
-
 msgid "Follower"
 msgstr ""
 
@@ -469,6 +478,9 @@ msgid "No profile found"
 msgstr ""
 
 msgid "Everyone can reply"
+msgstr ""
+
+msgid "<0>You</0> liked"
 msgstr ""
 
 msgid "You've hit rock bottom."
@@ -570,6 +582,9 @@ msgstr ""
 msgid "<0/> commented on your <1><2/></1>"
 msgstr ""
 
+msgid "<0>You</0> recasted"
+msgstr ""
+
 msgid "Recast"
 msgstr ""
 
@@ -604,6 +619,9 @@ msgid "Following"
 msgstr ""
 
 msgid "Dark mode"
+msgstr ""
+
+msgid "<0>{0}</0> recasted"
 msgstr ""
 
 msgid "<0/> mentioned you in a <1><2/></1>"
