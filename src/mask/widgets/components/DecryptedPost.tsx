@@ -1,5 +1,4 @@
 'use client';
-
 import { Trans } from '@lingui/macro';
 import { PostInfoProvider, useActivatedPluginsSiteAdaptor } from '@masknet/plugin-infra/content-script';
 import { createInjectHooksRenderer } from '@masknet/plugin-infra/dom';
@@ -7,14 +6,15 @@ import { MaskPostExtraPluginWrapper } from '@masknet/shared';
 import { RegistryContext, TypedMessageRender } from '@masknet/typed-message-react';
 import { memo, type PropsWithChildren } from 'react';
 import React, { Suspense, useEffect } from 'react';
+import { useAsyncRetry } from 'react-use';
 
 import { connectMaskWithWagmi } from '@/helpers/connectWagmiWithMask.js';
 import type { EncryptedPayload } from '@/helpers/getEncryptedPayload.js';
-import { useDecrypt } from '@/mask/hooks/useDecrypt.js';
 import { usePostInfo } from '@/mask/hooks/usePostInfo.js';
 import { registry } from '@/mask/main/registry.js';
 import { hasRedPacketPayload } from '@/modals/hasRedPacketPayload.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
+import { decryptPaylaod } from '@/services/decryptPayload.js';
 
 const Decrypted = createInjectHooksRenderer(
     useActivatedPluginsSiteAdaptor.visibility.useAnyMode,
@@ -30,7 +30,10 @@ interface Props extends PropsWithChildren<{}> {
 export const DecryptedPost = memo(function DecryptedPost({ post, payload, children }: Props) {
     const postInfo = usePostInfo(post);
 
-    const [error, isE2E, message] = useDecrypt(payload);
+    const { value: [error, isE2E, message] = [null, false, null] } = useAsyncRetry(
+        async () => decryptPaylaod(payload),
+        [payload],
+    );
 
     useEffect(() => {
         // TODO: remove this condition when we have a lot of plugins that use web3 connection
