@@ -30,8 +30,7 @@ interface Props extends PropsWithChildren<{}> {
 export const DecryptedPost = memo(function DecryptedPost({ post, payload, children }: Props) {
     const postInfo = usePostInfo(post);
 
-    const [text, version] = payload;
-    const [error, isE2E, message] = useDecrypt(text, version);
+    const [error, isE2E, message] = useDecrypt(payload);
 
     useEffect(() => {
         // TODO: remove this condition when we have a lot of plugins that use web3 connection

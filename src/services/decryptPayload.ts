@@ -1,3 +1,3 @@
-export function decryptPaylaod(text: string, version = '2') {
-    
-}
+import type { EncryptedPayload } from '@/helpers/getEncryptedPayload.js';
+
+export function decryptPaylaod(payload: EncryptedPayload) {}
