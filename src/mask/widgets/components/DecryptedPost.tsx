@@ -11,7 +11,7 @@ import { useAsyncRetry } from 'react-use';
 import { connectMaskWithWagmi } from '@/helpers/connectWagmiWithMask.js';
 import type { EncryptedPayload } from '@/helpers/getEncryptedPayload.js';
 import { usePostInfo } from '@/mask/hooks/usePostInfo.js';
-import { registry } from '@/mask/main/registry.js';
+import { registry } from '@/mask/typed-message/registry.js';
 import { hasRedPacketPayload } from '@/modals/hasRedPacketPayload.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { decryptPayload } from '@/services/decryptPayload.js';
