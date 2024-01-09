@@ -14,7 +14,7 @@ import { usePostInfo } from '@/mask/hooks/usePostInfo.js';
 import { registry } from '@/mask/main/registry.js';
 import { hasRedPacketPayload } from '@/modals/hasRedPacketPayload.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
-import { decryptPaylaod } from '@/services/decryptPayload.js';
+import { decryptPayload } from '@/services/decryptPayload.js';
 
 const Decrypted = createInjectHooksRenderer(
     useActivatedPluginsSiteAdaptor.visibility.useAnyMode,
@@ -31,7 +31,7 @@ export const DecryptedPost = memo(function DecryptedPost({ post, payload, childr
     const postInfo = usePostInfo(post);
 
     const { value: [error, isE2E, message] = [null, false, null] } = useAsyncRetry(
-        async () => decryptPaylaod(payload),
+        async () => decryptPayload(payload),
         [payload],
     );
 

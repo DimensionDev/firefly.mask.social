@@ -75,7 +75,7 @@ async function decrypt(cacheKey: string, payload: PayloadParseResult.Payload): P
 
 export type DecryptResult = [DecryptError | null, boolean, TypedMessage | null];
 
-export async function decryptPaylaod([version, data]: EncryptedPayload): Promise<DecryptResult> {
+export async function decryptPayload([version, data]: EncryptedPayload): Promise<DecryptResult> {
     const getResult = async () => {
         if (version !== '1' && version !== '2') return false;
 
