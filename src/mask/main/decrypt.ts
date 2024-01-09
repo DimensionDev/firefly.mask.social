@@ -22,9 +22,11 @@ export async function parsePayloadText(encoded: string): Promise<PayloadParseRes
     }
     return (await parsePayload(payload)).unwrapOr(null);
 }
+
 export async function parsePayloadBinary(encoded: string) {
     return (await parsePayload(new Uint8Array(decodeArrayBuffer(decodeURIComponent(encoded))))).unwrapOr(null);
 }
+
 export async function decrypt(
     cacheKey: string,
     payload: PayloadParseResult.Payload,

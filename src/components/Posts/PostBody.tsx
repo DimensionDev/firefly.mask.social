@@ -37,11 +37,9 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
     const [oembedLoaded, setOembedLoaded] = useState(false);
 
     const { value: payload, loading } = useAsync(async () => {
-        const payloadFromText = getEncryptedPayloadFromText(post);
-        const payloadFromImageAttachment = await getEncryptedPayloadFromImageAttachment(post);
         return {
-            payloadFromImageAttachment,
-            payloadFromText,
+            payloadFromText: getEncryptedPayloadFromText(post),
+            payloadFromImageAttachment: await getEncryptedPayloadFromImageAttachment(post),
         };
     }, [post]);
 
@@ -131,7 +129,8 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
                     props={encodeURIComponent(
                         JSON.stringify({
                             post,
-                            payload: payload.payloadFromText || payload.payloadFromImageAttachment,
+                            payloadFromText: payload.payloadFromText,
+                            payloadFromImageAttachment: payload.payloadFromImageAttachment,
                         }),
                     )}
                 />
