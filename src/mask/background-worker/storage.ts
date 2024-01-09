@@ -1,4 +1,4 @@
-import './register.js';
+import './plugin-register.js';
 
 import {
     createIndexedDB_KVStorageBackend,
