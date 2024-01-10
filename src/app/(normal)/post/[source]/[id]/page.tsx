@@ -1,10 +1,13 @@
 'use client';
 
-import { t } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
 import { useSuspenseQuery } from '@tanstack/react-query';
+import { useRouter } from 'next/navigation.js';
+import type React from 'react';
 import { useDocumentTitle } from 'usehooks-ts';
 
+import ComeBack from '@/assets/comeback.svg';
 import { CommentList } from '@/components/Comments/index.js';
 import { SinglePost } from '@/components/Posts/SinglePost.js';
 import { SocialPlatform } from '@/constants/enum.js';
@@ -25,6 +28,7 @@ interface PostPageProps {
 }
 
 export default function PostPage({ params: { id: postId, source } }: PostPageProps) {
+    const router = useRouter();
     const currentSource = resolveSource(source);
 
     const fetchAndStoreViews = useImpressionsStore.use.fetchAndStoreViews();
@@ -55,17 +59,26 @@ export default function PostPage({ params: { id: postId, source } }: PostPagePro
     useDocumentTitle(data ? createPageTitle(t`Post by ${data?.author.displayName}`) : SITE_NAME);
 
     if (!data) return;
+
     return (
-        <div>
-            <SinglePost post={data} disableAnimate isDetail />
-            <PostActions
-                disablePadding
-                post={data}
-                disabled={data?.isHidden}
-                className="!mt-0 border-b border-line px-4 py-3"
-            />
-            {/* TODO: Compose Comment Input */}
-            <CommentList postId={postId} source={currentSource} />
+        <div className="min-h-screen">
+            <div className="sticky top-0 z-[98] flex items-center bg-primaryBottom p-4">
+                <ComeBack width={24} height={24} className="mr-8 cursor-pointer" onClick={() => router.back()} />
+                <h2 className="text-xl font-black leading-6">
+                    <Trans>Details</Trans>
+                </h2>
+            </div>
+            <div>
+                <SinglePost post={data} disableAnimate isDetail />
+                <PostActions
+                    disablePadding
+                    post={data}
+                    disabled={data?.isHidden}
+                    className="!mt-0 border-b border-line px-4 py-3"
+                />
+                {/* TODO: Compose Comment Input */}
+                <CommentList postId={postId} source={currentSource} />
+            </div>
         </div>
     );
 }
