@@ -329,7 +329,6 @@ export class LensSocialMedia implements Provider {
         const result = await this.client.publication.fetch({
             forId: postId,
         });
-
         if (!result) throw new Error(t`No post found`);
 
         const post = formatLensPost(result);

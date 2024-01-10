@@ -1,7 +1,6 @@
 'use client';
 
 import { t, Trans } from '@lingui/macro';
-import { safeUnreachable } from '@masknet/kit';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation.js';
 import type React from 'react';
@@ -15,8 +14,7 @@ import { SITE_NAME } from '@/constants/index.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { createPageTitle } from '@/helpers/createPageTitle.js';
 import { resolveSource, type SourceInURL } from '@/helpers/resolveSource.js';
-import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
-import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
+import { getPostById } from '@/services/getPostById.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 
 const PostActions = dynamic(() => import('@/components/Actions/index.js').then((module) => module.PostActions), {
@@ -35,27 +33,17 @@ export default function PostPage({ params: { id: postId, source } }: PostPagePro
     const currentSource = resolveSource(source);
 
     const fetchAndStoreViews = useImpressionsStore.use.fetchAndStoreViews();
+
     const { data } = useSuspenseQuery({
         queryKey: [currentSource, 'post-detail', postId],
         queryFn: async () => {
             if (!postId) return;
-            switch (currentSource) {
-                case SocialPlatform.Lens: {
-                    const post = await LensSocialMediaProvider.getPostById(postId);
 
-                    // TODO: comment views
-                    fetchAndStoreViews([post.postId]);
+            const post = await getPostById(currentSource, postId);
+            if (!post) return;
 
-                    return post;
-                }
-                case SocialPlatform.Farcaster: {
-                    const post = await FarcasterSocialMediaProvider.getPostById(postId);
-                    return post;
-                }
-                default:
-                    safeUnreachable(currentSource);
-                    return;
-            }
+            if (currentSource === SocialPlatform.Lens) fetchAndStoreViews([post.postId]);
+            return post;
         },
     });
 

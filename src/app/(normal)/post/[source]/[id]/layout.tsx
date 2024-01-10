@@ -1,9 +1,11 @@
 import type { Metadata } from 'next';
 import type React from 'react';
 
+import { createPageTitle } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { isBotRequest } from '@/helpers/isBotRequest.js';
-import type { SourceInURL } from '@/helpers/resolveSource.js';
+import { resolveSource, type SourceInURL } from '@/helpers/resolveSource.js';
+import { getPostById } from '@/services/getPostById.js';
 
 interface Props {
     params: {
@@ -14,15 +16,18 @@ interface Props {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-    console.log('DEBUG: generateMetadata - isBotRequest', isBotRequest());
+    if (isBotRequest()) {
+        const post = await getPostById(resolveSource(params.source), params.id);
+        if (!post) return createSiteMetadata();
 
-    if (isBotRequest())
         return createSiteMetadata({
             openGraph: {
-                title: 'For bots only',
-                description: 'Hi! Bots. This page is for you only. Please, go away.',
+                title: createPageTitle(`Post by ${post.author.displayName}`),
+                description: post.metadata.content?.content ?? '',
             },
         });
+    }
+
     return createSiteMetadata();
 }
 
