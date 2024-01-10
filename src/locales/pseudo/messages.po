@@ -157,9 +157,6 @@ msgstr ""
 msgid "Change account"
 msgstr ""
 
-msgid "No content URI found"
-msgstr ""
-
 msgid "Follow System"
 msgstr ""
 
@@ -590,6 +587,9 @@ msgid "{0, select, follow {Follow} unfollow {Unfollow} other {Follow}}"
 msgstr ""
 
 msgid "Media"
+msgstr ""
+
+msgid "No content to publish."
 msgstr ""
 
 msgid "mirrored your"
