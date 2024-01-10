@@ -5,5 +5,7 @@ import { headers } from 'next/headers.js';
  * @returns
  */
 export function isBotRequest() {
-    return headers().get('X-IS-BOT') === 'true';
+    const headers_ = headers();
+    const ua = headers_.get('user-agent');
+    return headers_.get('X-IS-BOT') === 'true' || ua?.match(/TelegramBot|Rocket\.Chat|Googlebot/i);
 }
