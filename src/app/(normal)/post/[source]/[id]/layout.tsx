@@ -1,6 +1,7 @@
 import { headers } from 'next/headers.js';
 import type React from 'react';
 
+import { Head } from '@/esm/Head.js';
 import type { SourceInURL } from '@/helpers/resolveSource.js';
 
 interface Props {
@@ -12,10 +13,15 @@ interface Props {
 }
 
 export default function DetailLayout({ children }: Props) {
-    const headers_ = headers()
+    const isBotRequest = headers().get('X-IS-BOT') === 'true';
 
-    console.log('DEBUG: IS-BOT')
-    console.log(headers_.get('X-IS-BOT'))
+    if (isBotRequest)
+        return (
+            <Head>
+                <meta name="og:title" content="This is for bot!" />
+                <meta name="og:description" content="Hello bot!" />
+            </Head>
+        );
 
     return <>{children}</>;
 }
