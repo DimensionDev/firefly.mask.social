@@ -1,7 +1,8 @@
-import { headers } from 'next/headers.js';
+import type { Metadata } from 'next';
 import type React from 'react';
 
-import { Head } from '@/esm/Head.js';
+import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
+import { isBotRequest } from '@/helpers/isBotRequest.js';
 import type { SourceInURL } from '@/helpers/resolveSource.js';
 
 interface Props {
@@ -12,16 +13,20 @@ interface Props {
     children: React.ReactNode;
 }
 
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+    console.log('DEBUG: generateMetadata - isBotRequest', isBotRequest());
+
+    if (isBotRequest())
+        return createSiteMetadata({
+            openGraph: {
+                title: 'For bots only',
+                description: 'Hi! Bots. This page is for you only. Please, go away.',
+            },
+        });
+    return createSiteMetadata();
+}
+
 export default function DetailLayout({ children }: Props) {
-    const isBotRequest = headers().get('X-IS-BOT') === 'true';
-
-    if (isBotRequest)
-        return (
-            <Head>
-                <meta name="og:title" content="This is for bot!" />
-                <meta name="og:description" content="Hello bot!" />
-            </Head>
-        );
-
+    if (isBotRequest()) return null;
     return <>{children}</>;
 }

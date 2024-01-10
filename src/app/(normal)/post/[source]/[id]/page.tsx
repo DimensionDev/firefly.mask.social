@@ -24,7 +24,10 @@ const PostActions = dynamic(() => import('@/components/Actions/index.js').then((
 });
 
 interface PostPageProps {
-    params: { id: string; source: SourceInURL };
+    params: {
+        id: string;
+        source: SourceInURL;
+    };
 }
 
 export default function PostPage({ params: { id: postId, source } }: PostPageProps) {
