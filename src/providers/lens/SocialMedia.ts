@@ -109,14 +109,14 @@ export class LensSocialMedia implements Provider {
     }
 
     async publishPost(post: Post): Promise<Post> {
-        if (!post.metadata.contentURI) throw new Error(t`No content URI found`);
+        if (!post.metadata.contentURI) throw new Error(t`No content to publish.`);
 
         if (post.author.signless) {
             const result = await this.client.publication.postOnchain({
                 contentURI: post.metadata.contentURI,
             });
             const resultValue = result.unwrap();
-            if (!isRelaySuccess(resultValue)) throw new Error(`Something went wrong ${JSON.stringify(resultValue)}`);
+            if (!isRelaySuccess(resultValue)) throw new Error(`Something went wrong: ${JSON.stringify(resultValue)}`);
 
             return post;
         } else {
@@ -142,7 +142,7 @@ export class LensSocialMedia implements Provider {
             const broadcastValue = broadcastResult.unwrap();
 
             if (!isRelaySuccess(broadcastValue)) {
-                throw new Error(`Something went wrong ${JSON.stringify(broadcastValue)}`);
+                throw new Error(`Something went wrong: ${JSON.stringify(broadcastValue)}`);
             }
 
             return post;
@@ -157,14 +157,14 @@ export class LensSocialMedia implements Provider {
             const resultValue = result.unwrap();
 
             if (!isCreateMomokaPublicationResult(resultValue))
-                throw new Error(`Something went wrong ${JSON.stringify(resultValue)}`);
+                throw new Error(`Something went wrong: ${JSON.stringify(resultValue)}`);
         } else {
             const result = await this.client.publication.mirrorOnchain({
                 mirrorOn: postId,
             });
             const resultValue = result.unwrap();
 
-            if (!isRelaySuccess(resultValue)) throw new Error(`Something went wrong ${JSON.stringify(resultValue)}`);
+            if (!isRelaySuccess(resultValue)) throw new Error(`Something went wrong: ${JSON.stringify(resultValue)}`);
         }
 
         const post = await this.getPostById(postId);
@@ -180,7 +180,7 @@ export class LensSocialMedia implements Provider {
             });
             const resultValue = result.unwrap();
 
-            if (!isRelaySuccess(resultValue)) throw new Error(`Something went wrong ${JSON.stringify(resultValue)}`);
+            if (!isRelaySuccess(resultValue)) throw new Error(`Something went wrong: ${JSON.stringify(resultValue)}`);
         } else {
             const walletClient = await getWalletClientRequired();
             const resultTypedData = await this.client.publication.createOnchainQuoteTypedData({
@@ -205,7 +205,7 @@ export class LensSocialMedia implements Provider {
             const broadcastValue = broadcastResult.unwrap();
 
             if (!isRelaySuccess(broadcastValue)) {
-                throw new Error(`Something went wrong ${JSON.stringify(broadcastValue)}`);
+                throw new Error(`Something went wrong: ${JSON.stringify(broadcastValue)}`);
             }
         }
         const post = await this.getPostById(postId);
@@ -217,7 +217,7 @@ export class LensSocialMedia implements Provider {
             on: postId,
         });
 
-        if (result.isFailure()) throw new Error(`Something went wrong ${JSON.stringify(result.isFailure())}`);
+        if (result.isFailure()) throw new Error(`Something went wrong: ${JSON.stringify(result.isFailure())}`);
     }
 
     // comment is the contentURI of the post
@@ -229,7 +229,7 @@ export class LensSocialMedia implements Provider {
             });
             const resultValue = result.unwrap();
 
-            if (!isRelaySuccess(resultValue)) throw new Error(`Something went wrong ${JSON.stringify(resultValue)}`);
+            if (!isRelaySuccess(resultValue)) throw new Error(`Something went wrong: ${JSON.stringify(resultValue)}`);
             return resultValue.txId;
         } else {
             const walletClient = await getWalletClientRequired();
@@ -255,7 +255,7 @@ export class LensSocialMedia implements Provider {
             const broadcastValue = broadcastResult.unwrap();
 
             if (!isRelaySuccess(broadcastValue)) {
-                throw new Error(`Something went wrong ${JSON.stringify(broadcastValue)}`);
+                throw new Error(`Something went wrong: ${JSON.stringify(broadcastValue)}`);
             }
             return id;
         }
@@ -267,7 +267,7 @@ export class LensSocialMedia implements Provider {
             reaction: PublicationReactionType.Upvote,
         });
 
-        if (result.isFailure()) throw new Error(`Something went wrong ${JSON.stringify(result.isFailure())}`);
+        if (result.isFailure()) throw new Error(`Something went wrong: ${JSON.stringify(result.isFailure())}`);
 
         return {
             reactionId: '',
@@ -282,7 +282,7 @@ export class LensSocialMedia implements Provider {
             reaction: PublicationReactionType.Upvote,
         });
 
-        if (result.isFailure()) throw new Error(`Something went wrong ${JSON.stringify(result.isFailure())}`);
+        if (result.isFailure()) throw new Error(`Something went wrong: ${JSON.stringify(result.isFailure())}`);
     }
 
     async getProfilesByAddress(address: string): Promise<Profile[]> {
@@ -504,7 +504,7 @@ export class LensSocialMedia implements Provider {
 
             const broadcastValue = broadcastResult.unwrap();
             if (!isRelaySuccess(broadcastValue)) {
-                throw new Error(`Something went wrong ${JSON.stringify(broadcastValue)}`);
+                throw new Error(`Something went wrong: ${JSON.stringify(broadcastValue)}`);
             }
         }
     }
@@ -536,7 +536,7 @@ export class LensSocialMedia implements Provider {
 
             const broadcastValue = broadcastResult.unwrap();
             if (!isRelaySuccess(broadcastValue)) {
-                throw new Error(`Something went wrong ${JSON.stringify(broadcastValue)}`);
+                throw new Error(`Something went wrong: ${JSON.stringify(broadcastValue)}`);
             }
         }
     }
