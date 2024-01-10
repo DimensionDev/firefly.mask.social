@@ -8,7 +8,7 @@ msgstr ""
 "Language: ja\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-01-09 00:04\n"
+"PO-Revision-Date: 2024-01-10 02:43\n"
 "Last-Translator: \n"
 "Language-Team: Japanese\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -160,9 +160,6 @@ msgid "Feed"
 msgstr ""
 
 msgid "Change account"
-msgstr ""
-
-msgid "No content URI found"
 msgstr ""
 
 msgid "Follow System"
@@ -595,6 +592,9 @@ msgid "{0, select, follow {Follow} unfollow {Unfollow} other {Follow}}"
 msgstr ""
 
 msgid "Media"
+msgstr ""
+
+msgid "No content to publish."
 msgstr ""
 
 msgid "mirrored your"
