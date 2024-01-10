@@ -8,6 +8,7 @@ import {
 import { safeUnreachable } from '@masknet/kit';
 import { useQuery } from '@tanstack/react-query';
 import type { TextNode } from 'lexical/index.js';
+import { first } from 'lodash-es';
 import { memo, useCallback, useMemo, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { useDebounce } from 'usehooks-ts';
@@ -134,18 +135,19 @@ export function MentionsPlugin(): JSX.Element | null {
     const currentLensProfile = useLensStateStore.use.currentProfile();
     const currentFarcasterProfile = useFarcasterStateStore.use.currentProfile();
 
-    const currentSource = useComposeStateStore.use.currentSource();
+    const availableSources = useComposeStateStore.use.availableSources();
     const post = useComposeStateStore.use.post();
 
     const [queryString, setQueryString] = useState<string | null>(null);
     const [editor] = useLexicalComposerContext();
 
     const debounceQuery = useDebounce(queryString, 1000);
+
     const { data } = useQuery({
         enabled: !!debounceQuery,
         queryKey: [
             'searchProfiles',
-            currentSource,
+            availableSources,
             debounceQuery,
             post?.source,
             currentLensProfile?.profileId,
@@ -154,17 +156,9 @@ export function MentionsPlugin(): JSX.Element | null {
         queryFn: async () => {
             if (!debounceQuery) return;
 
-            let currentSource: SocialPlatform | null = null;
-            if (!post) {
-                // When the default state is to send a multi-platform post, it will not be queried.
-                if (currentLensProfile?.profileId && currentFarcasterProfile?.profileId) return;
-                if (currentLensProfile?.profileId) currentSource = SocialPlatform.Lens;
-                else if (currentFarcasterProfile?.profileId) currentSource = SocialPlatform.Farcaster;
-            } else {
-                currentSource = post.source;
-            }
-
-            if (!currentSource) return;
+            // When the default state is to send a multi-platform post, it will not be queried.
+            if (availableSources.length !== 1) return;
+            const currentSource = first(availableSources)!;
 
             switch (currentSource) {
                 case SocialPlatform.Lens:
@@ -224,7 +218,7 @@ export function MentionsPlugin(): JSX.Element | null {
             menuRenderFn={(anchorElementRef, { selectedIndex, selectOptionAndCleanUp, setHighlightedIndex }) => {
                 return anchorElementRef.current && options.length
                     ? createPortal(
-                          <div className="bg-brand sticky z-[999] mt-8 w-52 min-w-full rounded-xl border bg-white shadow-sm dark:border-gray-700 dark:bg-gray-900">
+                          <div className="bg-brand sticky z-[999] mt-2 w-52 min-w-full rounded-xl border bg-white shadow-sm dark:border-gray-700 dark:bg-gray-900">
                               <ul className="divide-y dark:divide-gray-700">
                                   {options.map((option, i: number) => (
                                       <MentionsTypeaheadMenuItem

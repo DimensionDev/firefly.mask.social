@@ -16,7 +16,7 @@ import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { LoginModalRef } from '@/modals/controls.js';
-import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
+import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 
 interface LikeProps {
@@ -25,9 +25,10 @@ interface LikeProps {
     count?: number;
     hasLiked?: boolean;
     disabled?: boolean;
+    authorId?: string;
 }
 
-export const Like = memo<LikeProps>(function Like({ count, hasLiked, postId, source, disabled = false }) {
+export const Like = memo<LikeProps>(function Like({ count, hasLiked, postId, authorId, source, disabled = false }) {
     const isLogin = useIsLogin(source);
     const queryClient = useQueryClient();
     const [liked, setLiked] = useState(hasLiked);
@@ -41,6 +42,7 @@ export const Like = memo<LikeProps>(function Like({ count, hasLiked, postId, sou
             LoginModalRef.open({ source });
             return;
         }
+        const originalCount = count;
         setLiked((prev) => !prev);
         setRealCount((prev) => {
             if (liked && prev) return prev - 1;
@@ -55,8 +57,8 @@ export const Like = memo<LikeProps>(function Like({ count, hasLiked, postId, sou
                     break;
                 case SocialPlatform.Farcaster:
                     await (liked
-                        ? FireflySocialMediaProvider.unvotePost(postId)
-                        : FireflySocialMediaProvider.upvotePost(postId));
+                        ? FarcasterSocialMediaProvider.unvotePost(postId)
+                        : FarcasterSocialMediaProvider.upvotePost(postId, Number(authorId)));
                     break;
                 default:
                     safeUnreachable(source);
@@ -71,10 +73,7 @@ export const Like = memo<LikeProps>(function Like({ count, hasLiked, postId, sou
             return;
         } catch (error) {
             if (error instanceof Error) {
-                setRealCount((prev) => {
-                    if (!prev) return;
-                    return prev - 1;
-                });
+                setRealCount(originalCount);
                 enqueueSnackbar(liked ? t`Failed to unlike. ${error.message}` : t`Failed to like. ${error.message}`, {
                     variant: 'error',
                 });
@@ -82,27 +81,27 @@ export const Like = memo<LikeProps>(function Like({ count, hasLiked, postId, sou
             }
             return;
         }
-    }, [postId, source, liked, queryClient, isLogin]);
+    }, [postId, source, liked, queryClient, isLogin, realCount, authorId]);
 
     return (
         <div
-            className={classNames('flex items-center space-x-2 text-main hover:text-danger', {
+            className={classNames('flex cursor-pointer items-center space-x-2 text-main hover:text-danger', {
                 'font-bold': !!liked,
                 'text-danger': !!liked,
                 'opacity-50': disabled,
             })}
+            onClick={(event) => {
+                event.preventDefault();
+                event.stopPropagation();
+                if (disabled) return;
+                handleClick();
+            }}
         >
             <Tooltip content={liked ? t`UnLike` : t`Like`} placement="top" disabled={disabled}>
                 <motion.button
                     disabled={disabled}
                     whileTap={{ scale: 0.9 }}
-                    className="rounded-full p-1.5 hover:bg-danger/[.20] "
-                    onClick={(event) => {
-                        event.preventDefault();
-                        event.stopPropagation();
-                        if (disabled) return;
-                        handleClick();
-                    }}
+                    className="rounded-full p-1.5 hover:bg-danger/[.20]"
                 >
                     {loading ? (
                         <LoadingIcon width={16} height={16} className="animate-spin text-danger" />

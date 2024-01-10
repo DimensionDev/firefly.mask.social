@@ -3,7 +3,7 @@ export interface ImageDimension {
     height: number;
 }
 
-export function getImageDimension(file: Blob): Promise<ImageDimension> {
+export function getImageDimension(file: Blob | string): Promise<ImageDimension> {
     return new Promise<ImageDimension>((resolve, reject) => {
         const image = new Image();
 
@@ -23,13 +23,13 @@ export function getImageDimension(file: Blob): Promise<ImageDimension> {
         image.addEventListener(
             'error',
             () => {
-                reject(new Error('Failed to load image'));
+                reject(new Error('Failed to load image.'));
             },
             {
                 once: true,
                 signal: AbortSignal.timeout(60 * 1000),
             },
         );
-        image.src = URL.createObjectURL(file);
+        image.src = typeof file === 'string' ? file : URL.createObjectURL(file);
     });
 }

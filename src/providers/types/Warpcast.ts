@@ -111,6 +111,7 @@ export interface Cast {
     hash: string;
     parentHash: string;
     parentAuthor: Author;
+    castType?: string;
     embeds?: {
         images?: Array<{
             type: string;

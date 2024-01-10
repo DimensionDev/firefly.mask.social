@@ -30,6 +30,11 @@ import { formatLensProfile } from '@/helpers/formatLensProfile.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { LensSession } from '@/providers/lens/Session.js';
 import {
+    type LastLoggedInProfileRequest,
+    profilesManagedQuery,
+    type ProfilesManagedRequest,
+} from '@/providers/types/LensGraphql/profileManagers.js';
+import {
     type Notification,
     NotificationType,
     type Post,
@@ -286,8 +291,20 @@ export class LensSocialMedia implements Provider {
     }
 
     async getProfilesByAddress(address: string): Promise<Profile[]> {
+        const request: ProfilesManagedRequest | LastLoggedInProfileRequest = {
+            for: address,
+        };
+        const {
+            data: { lastLoggedInProfile },
+        } = await profilesManagedQuery(request);
         const profiles = await this.client.wallet.profilesManaged({ for: address });
-        return profiles.items.map(formatLensProfile);
+        const result = profiles.items.map(formatLensProfile);
+        const index = result.findIndex((profile) => profile.handle === lastLoggedInProfile?.handle?.fullHandle);
+        if (index > -1) {
+            const [value] = result.splice(index, 1);
+            result.unshift(value);
+        }
+        return result;
     }
 
     async getProfileById(profileId: string): Promise<Profile> {

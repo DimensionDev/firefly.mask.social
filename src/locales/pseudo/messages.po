@@ -22,16 +22,10 @@ msgstr ""
 msgid "Failed to fetch as Blob."
 msgstr ""
 
-msgid "Failed to connect wallet."
-msgstr ""
-
 msgid "Communities"
 msgstr ""
 
 msgid "Discover"
-msgstr ""
-
-msgid "{0, select, follow {Followed @{handle} on {source}} unfollow {UnFollowed @{handle} on {source}} other {Followed @{handle} on {source}}}"
 msgstr ""
 
 msgid "Click to refresh QRCode"
@@ -64,6 +58,9 @@ msgstr ""
 msgid "Searching users"
 msgstr ""
 
+msgid "No Lens profile found. Please change another wallet."
+msgstr ""
+
 msgid "Join our Discord"
 msgstr ""
 
@@ -74,6 +71,9 @@ msgid "Change Wallet"
 msgstr ""
 
 msgid "UnLike"
+msgstr ""
+
+msgid "Wrong wallet"
 msgstr ""
 
 msgid "Debug Console"
@@ -166,6 +166,9 @@ msgstr ""
 msgid "No results"
 msgstr ""
 
+msgid "Connection failed"
+msgstr ""
+
 msgid "Join our Telegram"
 msgstr ""
 
@@ -209,6 +212,9 @@ msgid "Send"
 msgstr ""
 
 msgid "Collected"
+msgstr ""
+
+msgid "<0>You</0> mirrored"
 msgstr ""
 
 msgid "Failed to upload video to IPFS."
@@ -307,6 +313,9 @@ msgstr ""
 msgid "liked"
 msgstr ""
 
+msgid "Can't get the post detail"
+msgstr ""
+
 msgid "Post has been encrypted"
 msgstr ""
 
@@ -325,13 +334,13 @@ msgstr ""
 msgid "Farcaster"
 msgstr ""
 
-msgid "Replying to"
-msgstr ""
-
 msgid "commented"
 msgstr ""
 
 msgid "The page could not be found."
+msgstr ""
+
+msgid "Oops… Something went wrong. Please try again."
 msgstr ""
 
 msgid "What's happening..."
@@ -373,13 +382,13 @@ msgstr ""
 msgid "Share"
 msgstr ""
 
+msgid "Cancel recast successfully"
+msgstr ""
+
 msgid "Failed to unfollow."
 msgstr ""
 
 msgid "Select failed: More than 2 images"
-msgstr ""
-
-msgid "{0, plural, one {<0/>} other {{1, plural, one {<1/> and <2/>} other {<3/> and # others mirrored you}}}} <4>mirrored your </4><5><6/></5>"
 msgstr ""
 
 msgid "Please switch to the {0} network in your wallet ({1})}"
@@ -415,6 +424,12 @@ msgstr ""
 msgid "Failed to publish post."
 msgstr ""
 
+msgid "recasted your"
+msgstr ""
+
+msgid "{0, plural, one {<0/>} other {{1, plural, one {<1/> and <2/>} other {<3/> and # others mirrored you}}}} {2, select, Lens {{3}} Farcaster {{4}} other {{5}}} <4><5/></4>"
+msgstr ""
+
 msgid "Posted on Farcaster"
 msgstr ""
 
@@ -422,9 +437,6 @@ msgid "Follow @realMaskNetwork on X"
 msgstr ""
 
 msgid "<0>{0}</0> mirrored"
-msgstr ""
-
-msgid "recasted"
 msgstr ""
 
 msgid "Follower"
@@ -461,6 +473,9 @@ msgid "No profile found"
 msgstr ""
 
 msgid "Everyone can reply"
+msgstr ""
+
+msgid "<0>You</0> liked"
 msgstr ""
 
 msgid "You've hit rock bottom."
@@ -532,7 +547,13 @@ msgstr ""
 msgid "Remove"
 msgstr ""
 
+msgid "Cancel Recast"
+msgstr ""
+
 msgid "No matching users"
+msgstr ""
+
+msgid "{0, select, follow {Followed @{handle} on {source}} unfollow {Unfollowed @{handle} on {source}} other {Followed @{handle} on {source}}}"
 msgstr ""
 
 msgid "Log in to Farcaster account"
@@ -556,6 +577,9 @@ msgstr ""
 msgid "<0/> commented on your <1><2/></1>"
 msgstr ""
 
+msgid "<0>You</0> recasted"
+msgstr ""
+
 msgid "Recast"
 msgstr ""
 
@@ -566,6 +590,9 @@ msgid "{0, select, follow {Follow} unfollow {Unfollow} other {Follow}}"
 msgstr ""
 
 msgid "Media"
+msgstr ""
+
+msgid "mirrored your"
 msgstr ""
 
 msgid "Mirror"
@@ -589,13 +616,16 @@ msgstr ""
 msgid "Dark mode"
 msgstr ""
 
-msgid "on Lens"
+msgid "<0>{0}</0> recasted"
 msgstr ""
 
 msgid "<0/> mentioned you in a <1><2/></1>"
 msgstr ""
 
 msgid "Login"
+msgstr ""
+
+msgid "Replying to <0>@{0}</0> on {1}"
 msgstr ""
 
 msgid "<0/> quoted your <1><2/></1>"

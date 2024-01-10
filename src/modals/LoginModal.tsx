@@ -1,7 +1,7 @@
 'use client';
 
 import { Dialog, Transition } from '@headlessui/react';
-import { t, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import { delay, getEnumAsArray, safeUnreachable } from '@masknet/kit';
 import type { SingletonModalRefCreator } from '@masknet/shared-base';
 import { useSingletonModal } from '@masknet/shared-base-ui';
@@ -47,9 +47,18 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | 
                             },
                         });
                         if (!profiles.length) {
-                            enqueueSnackbar(t`No Lens profile found. Please change to another wallet.`, {
-                                variant: 'error',
-                            });
+                            enqueueSnackbar(
+                                <div>
+                                    <span className="font-bold">
+                                        <Trans>Wrong wallet</Trans>
+                                    </span>
+                                    <br />
+                                    <Trans>No Lens profile found. Please change another wallet.</Trans>
+                                </div>,
+                                {
+                                    variant: 'error',
+                                },
+                            );
                             return;
                         }
                         setProfiles(profiles);
@@ -65,9 +74,18 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | 
                         return;
                 }
             } catch (error) {
-                enqueueSnackbar(error instanceof Error ? error.message : t`Failed to connect wallet.`, {
-                    variant: 'error',
-                });
+                enqueueSnackbar(
+                    <div>
+                        <span className="font-bold">
+                            <Trans>Connection failed</Trans>
+                        </span>
+                        <br />
+                        <Trans>Oops… Something went wrong. Please try again.</Trans>
+                    </div>,
+                    {
+                        variant: 'error',
+                    },
+                );
             }
         },
         [enqueueSnackbar],

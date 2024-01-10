@@ -55,7 +55,12 @@ export function formatFarcasterPostFromFirefly(result: Cast): Post {
             reactions: result.likeCount,
             quotes: 0,
         },
+        hasLiked: result.liked,
+        hasMirrored: result.recasted,
         source: SocialPlatform.Farcaster,
+        canComment: true,
+        commentOn: result.parentCast ? formatFarcasterPostFromFirefly(result.parentCast) : undefined,
+        root: result.rootParentCast ? formatFarcasterPostFromFirefly(result.rootParentCast) : undefined,
         __original__: result,
     };
 }

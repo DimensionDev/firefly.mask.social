@@ -1,6 +1,6 @@
 import './message.js';
 import './rpc.js';
-import './register.js';
+import './plugin-register.js';
 
 import { type Plugin, startPluginWorker } from '@masknet/plugin-infra/background-worker';
 import { BooleanPreference, createI18NBundle, createKVStorageHost, i18NextInstance } from '@masknet/shared-base';

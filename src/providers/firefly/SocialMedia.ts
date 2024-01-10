@@ -65,8 +65,12 @@ export class FireflySocialMedia implements Provider {
     }
 
     async getProfileById(profileId: string): Promise<Profile> {
+        const session = farcasterClient.getSession();
         const { data: user } = await fetchJSON<UserResponse>(
-            urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/user/profile', { fid: profileId }),
+            urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/user/profile', {
+                fid: profileId,
+                sourceFid: session?.profileId,
+            }),
             {
                 method: 'GET',
             },
@@ -184,7 +188,11 @@ export class FireflySocialMedia implements Provider {
             }),
         });
         const data = casts.map((cast) => formatFarcasterPostFromFirefly(cast));
-        return createPageable(data, createIndicator(indicator), createNextIndicator(indicator, cursor));
+        return createPageable(
+            data,
+            createIndicator(indicator),
+            cursor ? createNextIndicator(indicator, cursor) : undefined,
+        );
     }
 
     async getNotifications(indicator?: PageIndicator): Promise<Pageable<Notification, PageIndicator>> {
@@ -222,14 +230,20 @@ export class FireflySocialMedia implements Provider {
                     timestamp,
                 };
             } else if (notification.notificationType === 3) {
+                const commentOn = notification.cast?.parentCast
+                    ? formatFarcasterPostFromFirefly(notification.cast.parentCast)
+                    : undefined;
                 return {
                     source: SocialPlatform.Farcaster,
                     notificationId,
                     type: NotificationType.Comment,
-                    comment: post,
-                    post: notification.cast?.parentCast
-                        ? formatFarcasterPostFromFirefly(notification.cast.parentCast)
+                    comment: post
+                        ? {
+                              ...post,
+                              commentOn,
+                          }
                         : undefined,
+                    post: commentOn,
                     timestamp,
                 };
             } else if (notification.notificationType === 4) {
@@ -278,37 +292,7 @@ export class FireflySocialMedia implements Provider {
             }),
         });
 
-        const data = casts.map((cast) => ({
-            type: (cast.parent_hash ? 'Comment' : 'Post') as PostType,
-            source: SocialPlatform.Farcaster,
-            postId: cast.hash,
-            parentPostId: cast.parent_hash,
-            timestamp: Number(cast.created_at),
-            author: {
-                fullHandle: cast.author.username,
-                profileId: cast.author.fid,
-                handle: cast.author.username,
-                displayName: cast.author.display_name,
-                pfp: cast.author.pfp,
-                followerCount: cast.author.followers,
-                followingCount: cast.author.following,
-                status: ProfileStatus.Active,
-                verified: true,
-                source: SocialPlatform.Farcaster,
-            },
-            metadata: {
-                locale: '',
-                content: {
-                    content: cast.text,
-                },
-            },
-            stats: {
-                comments: Number(cast.replyCount),
-                mirrors: cast.recastCount,
-                quotes: cast.recastCount,
-                reactions: cast.likeCount,
-            },
-        }));
+        const data = casts.map(formatFarcasterPostFromFirefly);
         return createPageable(
             data,
             indicator ?? createIndicator(),

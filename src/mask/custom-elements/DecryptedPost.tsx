@@ -2,6 +2,7 @@
 
 import dynamic from 'next/dynamic.js';
 
+import type { EncryptedPayload } from '@/helpers/getEncryptedPayload.js';
 import { WidgetWithProps } from '@/mask/custom-elements/WidgetWithProps.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
@@ -10,7 +11,8 @@ const DecryptedPost = dynamic(() => import('@/mask/widgets/DecryptedInspector.js
 
 class Element extends WidgetWithProps<{
     post?: Post;
-    payload?: [string, '1' | '2'];
+    payloadFromText?: EncryptedPayload;
+    payloadFromImageAttachment?: EncryptedPayload;
 }> {
     constructor() {
         super(DecryptedPost);

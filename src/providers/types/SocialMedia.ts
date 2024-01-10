@@ -93,6 +93,7 @@ export interface Post {
     parentAuthor?: Profile;
     timestamp?: number;
     author: Profile;
+    reporter?: Profile;
     mediaObjects?: MediaObject[];
     permalink?: string;
     parentPermalink?: string;
@@ -284,17 +285,19 @@ export interface Provider {
      * Upvotes a post with the specified post ID.
      *
      * @param postId The ID of the post to upvote.
+     * @param (optional) authorId The ID of the post author, used for hubble
      * @returns A promise that resolves to a Reaction object.
      */
-    upvotePost: (postId: string) => Promise<Reaction>;
+    upvotePost: (postId: string, authorId?: number) => Promise<Reaction>;
 
     /**
      * Removes an upvote from a post with the specified post ID.
      *
      * @param postId The ID of the post to remove the upvote from.
+     * @param (optional) authorId The ID of the post author, used for hubble
      * @returns A promise that resolves to void.
      */
-    unvotePost: (postId: string) => Promise<void>;
+    unvotePost: (postId: string, authorId?: number) => Promise<void>;
 
     /**
      *

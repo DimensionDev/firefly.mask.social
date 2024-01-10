@@ -1,6 +1,7 @@
 import { t } from '@lingui/macro';
 import { useCallback } from 'react';
 
+import { queryClient } from '@/configs/queryClient.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
@@ -66,6 +67,10 @@ export function useSendFarcaster() {
                 enqueueSnackbar(t`Posted on Farcaster`, {
                     variant: 'success',
                 });
+                if (type === 'reply' && post) {
+                    queryClient.invalidateQueries({ queryKey: [post.source, 'post-detail', post.postId] });
+                    queryClient.invalidateQueries({ queryKey: ['post-detail', 'comments', post.source, post.postId] });
+                }
                 if (type === 'compose') {
                     updateFarcasterPostId(published.postId);
                 }

@@ -2,15 +2,23 @@
 
 import { MaskProviders } from '@/components/MaskProviders.js';
 import { Providers } from '@/components/Providers.js';
+import type { EncryptedPayload } from '@/helpers/getEncryptedPayload.js';
 import { DecryptedPost } from '@/mask/widgets/components/DecryptedPost.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 interface DecryptedInspectorProps {
     post?: Post;
-    payload?: [string, '1' | '2'];
+    payloadFromText?: EncryptedPayload;
+    payloadFromImageAttachment?: EncryptedPayload;
 }
 
-export default function DecryptedInspector({ post, payload }: DecryptedInspectorProps) {
+export default function DecryptedInspector({
+    post,
+    payloadFromText,
+    payloadFromImageAttachment,
+}: DecryptedInspectorProps) {
+    const payload = payloadFromText || payloadFromImageAttachment;
+
     if (!post || !payload) return null;
 
     return (

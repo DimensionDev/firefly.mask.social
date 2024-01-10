@@ -73,7 +73,7 @@ export function formatWarpcastPost(cast: Cast): Post {
             quotes: cast.recasts.count,
             reactions: cast.reactions.count,
         },
-        mirrors: cast.recasts.recasters.map((x) => ({
+        mirrors: cast.recasts.recasters?.map((x) => ({
             fullHandle: x.username,
             profileId: x.fid.toString(),
             displayName: x.displayName,
@@ -97,6 +97,9 @@ export function formatWarpcastPost(cast: Cast): Post {
             verified: x.pfp?.verified ?? false,
             source: SocialPlatform.Farcaster,
         })),
+        hasLiked: cast.viewerContext?.reacted,
+        hasMirrored: cast.viewerContext?.recast,
+        canComment: true,
         __original__: cast,
     };
 }
