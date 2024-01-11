@@ -24,30 +24,40 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         const post = await getPostById(resolveSource(params.source), params.id);
         if (!post) return createSiteMetadata();
 
+        const images = compact(
+            post.metadata.content?.attachments?.map((x) => {
+                const url = x.type === 'Image' ? x.uri : x.coverUri;
+                return url ? { url } : undefined;
+            }),
+        );
+        const audios = compact(
+            post.metadata.content?.attachments?.map((x) => {
+                const url = x.type === 'Audio' ? x.uri : undefined;
+                return url ? { url } : undefined;
+            }),
+        );
+        const videos = compact(
+            post.metadata.content?.attachments?.map((x) => {
+                const url = x.type === 'Video' ? x.uri : undefined;
+                return url ? { url } : undefined;
+            }),
+        );
+
         return createSiteMetadata({
             openGraph: {
                 type: 'article',
                 url: urlcat(SITE_URL, getPostUrl(post)),
                 title: createPageTitle(`Post by ${post.author.displayName}`),
                 description: post.metadata.content?.content ?? '',
-                images: compact(
-                    post.metadata.content?.attachments?.map((x) => {
-                        const url = x.type === 'Image' ? x.uri : x.coverUri;
-                        return url ? { url } : undefined;
-                    }),
-                ),
-                audio: compact(
-                    post.metadata.content?.attachments?.map((x) => {
-                        const url = x.type === 'Audio' ? x.uri : undefined;
-                        return url ? { url } : undefined;
-                    }),
-                ),
-                videos: compact(
-                    post.metadata.content?.attachments?.map((x) => {
-                        const url = x.type === 'Video' ? x.uri : undefined;
-                        return url ? { url } : undefined;
-                    }),
-                ),
+                images,
+                audio: audios,
+                videos,
+            },
+            twitter: {
+                card: 'summary_large_image',
+                title: createPageTitle(`Post by ${post.author.displayName}`),
+                description: post.metadata.content?.content ?? '',
+                images,
             },
         });
     }
