@@ -1,6 +1,6 @@
 import { safeUnreachable } from '@masknet/kit';
 
-import { SocialPlatform } from "@/constants/enum.js";
+import { SocialPlatform } from '@/constants/enum.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 
