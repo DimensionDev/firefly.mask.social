@@ -133,7 +133,7 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({ attachm
                     />
                 </div>
             ) : null}
-            {imageAttachments.length ? (
+            {imageAttachments.length > 1 ? (
                 <div
                     className={classNames(getClass(imageAttachments.length)?.row ?? '', 'grid gap-2', {
                         'grid-flow-col': imageAttachments.length === 3,
@@ -158,8 +158,8 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({ attachm
                                     className="h-full shrink-0 cursor-pointer rounded-lg object-cover"
                                     loading="lazy"
                                     fill={isSoloImage}
-                                    width={isQuote ? 120 : 1000}
-                                    height={isQuote ? 120 : 1000}
+                                    width={!isSoloImage ? (isQuote ? 120 : 1000) : undefined}
+                                    height={!isSoloImage ? (isQuote ? 120 : 1000) : undefined}
                                     style={{
                                         maxHeight: isSoloImage && isQuote ? 288 : undefined,
                                     }}
