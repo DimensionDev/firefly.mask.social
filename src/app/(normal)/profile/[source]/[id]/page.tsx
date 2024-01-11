@@ -19,7 +19,10 @@ import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 
 interface ProfilePageProps {
-    params: { id: string; source: SourceInURL };
+    params: {
+        id: string;
+        source: SourceInURL;
+    };
 }
 export default function ProfilePage({ params: { source: _source, id: handleOrProfileId } }: ProfilePageProps) {
     const currentSource = resolveSource(_source);
