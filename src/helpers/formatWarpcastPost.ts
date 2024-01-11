@@ -4,7 +4,6 @@ import { SocialPlatform } from '@/constants/enum.js';
 import { URL_REGEX } from '@/constants/regex.js';
 import { type Attachment, type Post, ProfileStatus } from '@/providers/types/SocialMedia.js';
 import type { Cast, Feed } from '@/providers/types/Warpcast.js';
-import type { MetadataAsset } from '@/types/index.js';
 
 export function getAttachments(cast: Cast) {
     const images = cast.embeds?.images?.map<Attachment>((x) => ({ uri: x.url, type: 'Image' }));
@@ -18,21 +17,21 @@ export function formatContent(cast: Cast) {
     if (cast.embeds?.images?.length) {
         return {
             content: cast.text,
+            oembedUrl,
             asset: {
                 uri: first(cast.embeds.images)!.url,
                 type: 'Image',
-            } as MetadataAsset,
-            oembedUrl,
+            } satisfies Attachment,
             attachments: getAttachments(cast),
         };
     } else if (cast.embeds?.videos?.length) {
         return {
             content: cast.text,
+            oembedUrl,
             asset: {
                 uri: first(cast.embeds.videos)!.url,
                 type: 'Video',
-            } as MetadataAsset,
-            oembedUrl,
+            } satisfies Attachment,
             attachments: getAttachments(cast),
         };
     }
