@@ -100,7 +100,7 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({ attachm
 
     return (
         <div className={isQuote ? '' : 'mt-3'}>
-            {asset?.type === 'Image' && imageAttachments.length === 0 ? (
+            {asset?.type === 'Image' && imageAttachments.length === 1 ? (
                 <div
                     className={classNames({
                         'w-full': !isQuote,

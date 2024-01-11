@@ -22,7 +22,33 @@ interface Props {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
     if (isBotRequest()) {
         const post = await getPostById(resolveSource(params.source), params.id);
+
         if (!post) return createSiteMetadata();
+
+        console.log({
+            type: 'article',
+            url: urlcat(SITE_URL, getPostUrl(post)),
+            title: createPageTitle(`Post by ${post.author.displayName}`),
+            description: post.metadata.content?.content ?? '',
+            images: compact(
+                post.metadata.content?.attachments?.map((x) => {
+                    const url = x.type === 'Image' ? x.uri : x.coverUri;
+                    return url ? { url } : undefined;
+                }),
+            ),
+            audio: compact(
+                post.metadata.content?.attachments?.map((x) => {
+                    const url = x.type === 'Audio' ? x.uri : undefined;
+                    return url ? { url } : undefined;
+                }),
+            ),
+            videos: compact(
+                post.metadata.content?.attachments?.map((x) => {
+                    const url = x.type === 'Video' ? x.uri : undefined;
+                    return url ? { url } : undefined;
+                }),
+            ),
+        });
 
         return createSiteMetadata({
             openGraph: {

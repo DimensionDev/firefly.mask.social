@@ -22,7 +22,7 @@ function formatContent(cast: Cast) {
             oembedUrl,
             asset: {
                 type: assetType,
-                uri: firstAsset!.url,
+                uri: firstAsset.url,
             } satisfies Attachment,
             attachments: compact<Attachment>(
                 cast.embeds.map((x) => {
