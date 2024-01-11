@@ -18,12 +18,11 @@ interface Props {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
     console.log('DEBUG: generateMetadata', isBotRequest());
-    
-    if (isBotRequest()) {
 
+    if (isBotRequest()) {
         const post = await getPostById(resolveSource(params.source), params.id);
 
-        console.log('DEBUG: post', !!post)
+        console.log('DEBUG: post', !!post);
 
         if (!post) return createSiteMetadata();
 
