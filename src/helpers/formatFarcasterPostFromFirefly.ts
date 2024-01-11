@@ -1,4 +1,4 @@
-import { first, last } from 'lodash-es';
+import { compact, first, last } from 'lodash-es';
 
 import { SocialPlatform } from '@/constants/enum.js';
 import { URL_REGEX } from '@/constants/regex.js';
@@ -6,7 +6,6 @@ import { formatFarcasterProfileFromFirefly } from '@/helpers/formatFarcasterProf
 import { getResourceType } from '@/helpers/getResourceType.js';
 import type { Cast } from '@/providers/types/Firefly.js';
 import type { Attachment, Post } from '@/providers/types/SocialMedia.js';
-import type { MetadataAsset } from '@/types/index.js';
 
 function formatContent(cast: Cast) {
     const oembedUrl = last(cast.text.match(URL_REGEX));
@@ -14,24 +13,28 @@ function formatContent(cast: Cast) {
     if (cast.embeds.length) {
         const firstAsset = first(cast.embeds);
         if (!firstAsset) return defaultContent;
+
         const assetType = getResourceType(firstAsset.url);
         if (!assetType) return defaultContent;
+
         return {
             content: cast.text,
-            asset: {
-                uri: firstAsset!.url,
-                type: getResourceType(firstAsset.url),
-            } as MetadataAsset,
             oembedUrl,
-            attachments: cast.embeds
-                .map((x) => {
+            asset: {
+                type: assetType,
+                uri: firstAsset.url,
+            } satisfies Attachment,
+            attachments: compact<Attachment>(
+                cast.embeds.map((x) => {
                     const type = getResourceType(x.url);
+                    if (!type) return;
+
                     return {
+                        type: assetType,
                         uri: x.url,
-                        type,
                     };
-                })
-                .filter((x) => !!x.type) as Attachment[],
+                }),
+            ),
         };
     }
     return defaultContent;

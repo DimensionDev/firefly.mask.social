@@ -14,14 +14,6 @@ export type ResponseJSON<T> =
           };
       };
 
-export interface MetadataAsset {
-    type: 'Image' | 'Video' | 'Audio';
-    uri: string;
-    cover?: string;
-    artist?: string;
-    title?: string;
-}
-
 export interface MediaObject {
     file: File;
     ipfs?: IPFSResponse;

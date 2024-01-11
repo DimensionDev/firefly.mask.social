@@ -11,39 +11,11 @@ export function createSiteMetadata(metadata?: Partial<Metadata>) {
             title: SITE_NAME,
             description: SITE_DESCRIPTION,
             url: SITE_URL,
-            images: [
-                {
-                    url: '/android-chrome-192x192.png',
-                    width: 192,
-                    height: 192,
-                    type: 'image/png',
-                },
-                {
-                    url: '/android-chrome-384x384.png',
-                    width: 384,
-                    height: 384,
-                    type: 'image/png',
-                },
-            ],
         },
         twitter: {
             title: SITE_NAME,
             description: SITE_DESCRIPTION,
             creator: 'thefireflyapp',
-            images: [
-                {
-                    url: '/android-chrome-192x192.png',
-                    width: 192,
-                    height: 192,
-                    type: 'image/png',
-                },
-                {
-                    url: '/android-chrome-384x384.png',
-                    width: 384,
-                    height: 384,
-                    type: 'image/png',
-                },
-            ],
         },
         manifest: '/site.webmanifest',
         icons: [

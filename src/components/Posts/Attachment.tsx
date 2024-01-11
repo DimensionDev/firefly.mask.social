@@ -1,6 +1,6 @@
 import { Trans } from '@lingui/macro';
 import { compact } from 'lodash-es';
-import { memo, useMemo } from 'react';
+import { memo } from 'react';
 
 import Music from '@/assets/music.svg';
 import Play from '@/assets/play.svg';
@@ -12,7 +12,6 @@ import { classNames } from '@/helpers/classNames.js';
 import { formatImageUrl } from '@/helpers/formatImageUrl.js';
 import { PreviewImageModalRef } from '@/modals/controls.js';
 import type { Attachment, Post } from '@/providers/types/SocialMedia.js';
-import type { MetadataAsset } from '@/types/index.js';
 
 const Video = dynamic(() => import('@/components/Posts/Video.js').then((module) => module.Video), { ssr: false });
 const Audio = dynamic(() => import('@/components/Posts/Audio.js').then((module) => module.Audio), { ssr: false });
@@ -42,25 +41,15 @@ const getClass = (attachments: number) => {
 
 interface AttachmentsProps {
     post?: Post;
+    asset?: Attachment;
     attachments: Attachment[];
-    asset?: MetadataAsset;
     isQuote?: boolean;
 }
 
 export const Attachments = memo<AttachmentsProps>(function Attachments({ attachments, asset, post, isQuote = false }) {
-    const { attachmentsHasImage, imageAttachments } = useMemo(() => {
-        // TODO: farcaster only support 2 attachment
-        const processedAttachments = attachments.slice(0, 4);
-        const imageAttachments = processedAttachments.filter((x) => x.type === 'Image' && x.uri);
-        const attachmentsHasImage = attachments.some((x) => x.type === 'Image') && imageAttachments.length > 1;
-        return {
-            processedAttachments,
-            attachmentsHasImage,
-            imageAttachments,
-        };
-    }, [attachments]);
+    const imageAttachments = attachments.slice(0, 4).filter((x) => x.type === 'Image');
 
-    if (isQuote && asset?.type === 'Video' && asset.cover) {
+    if (isQuote && asset?.type === 'Video' && asset.coverUri) {
         return (
             <div className="relative h-[120px] w-[120px] flex-shrink-0 flex-grow-0 basis-[120px]">
                 <div className="absolute left-[calc(50%-16px)] top-[calc(50%-16px)] flex items-center justify-center rounded-xl bg-white/80 p-2 text-[#181818]">
@@ -70,8 +59,8 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({ attachm
                     width={120}
                     height={120}
                     className="h-[120px] w-[120px] rounded-xl object-cover"
-                    src={asset.cover}
-                    alt={asset.cover}
+                    src={asset.coverUri}
+                    alt={asset.coverUri}
                 />
             </div>
         );
@@ -80,7 +69,7 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({ attachm
     if (isQuote && asset?.type === 'Audio') {
         return (
             <div className="h-[120px] w-[120px]">
-                {asset.cover ? (
+                {asset.coverUri ? (
                     <div className="relative">
                         <div className="absolute left-[calc(50%-16px)] top-[calc(50%-16px)] flex items-center justify-center rounded-xl bg-third p-2 text-[#181818]">
                             <Play width={16} height={16} />
@@ -88,9 +77,9 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({ attachm
                         <Image
                             width={120}
                             height={120}
-                            src={asset.cover}
+                            src={asset.coverUri}
                             className="h-[120px] w-[120px] max-w-none"
-                            alt={asset.cover}
+                            alt={asset.coverUri}
                         />
                     </div>
                 ) : (
@@ -107,11 +96,11 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({ attachm
         );
     }
     const noText = !post?.metadata.content?.content;
-    const isSoloImage = noText && attachmentsHasImage && imageAttachments.length === 1;
+    const isSoloImage = noText && imageAttachments.length === 1;
 
     return (
         <div className={isQuote ? '' : 'mt-3'}>
-            {asset?.type === 'Image' && !attachmentsHasImage ? (
+            {asset?.type === 'Image' && imageAttachments.length === 1 ? (
                 <div
                     className={classNames({
                         'w-full': !isQuote,
@@ -144,7 +133,7 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({ attachm
                     />
                 </div>
             ) : null}
-            {attachmentsHasImage ? (
+            {imageAttachments.length > 1 ? (
                 <div
                     className={classNames(getClass(imageAttachments.length)?.row ?? '', 'grid gap-2', {
                         'grid-flow-col': imageAttachments.length === 3,
@@ -169,8 +158,8 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({ attachm
                                     className="h-full shrink-0 cursor-pointer rounded-lg object-cover"
                                     loading="lazy"
                                     fill={isSoloImage}
-                                    width={isQuote ? 120 : 1000}
-                                    height={isQuote ? 120 : 1000}
+                                    width={!isSoloImage ? (isQuote ? 120 : 1000) : undefined}
+                                    height={!isSoloImage ? (isQuote ? 120 : 1000) : undefined}
                                     style={{
                                         maxHeight: isSoloImage && isQuote ? 288 : undefined,
                                     }}
@@ -192,9 +181,9 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({ attachm
                     })}
                 </div>
             ) : null}
-            {asset?.type === 'Video' && !isQuote ? <Video src={asset.uri} poster={asset.cover} /> : null}
+            {asset?.type === 'Video' && !isQuote ? <Video src={asset.uri} poster={asset.coverUri} /> : null}
             {asset?.type === 'Audio' && !isQuote ? (
-                <Audio src={asset.uri} poster={asset.cover} artist={asset.artist} title={asset.title} />
+                <Audio src={asset.uri} poster={asset.coverUri} artist={asset.artist} title={asset.title} />
             ) : null}
         </div>
     );

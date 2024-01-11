@@ -1,22 +1,71 @@
-'use client';
-
-import { Trans } from '@lingui/macro';
-import { useRouter } from 'next/navigation.js';
+import { compact } from 'lodash-es';
+import type { Metadata } from 'next';
 import type React from 'react';
+import urlcat from 'urlcat';
 
-import ComeBack from '@/assets/comeback.svg';
+import { SITE_URL } from '@/constants/index.js';
+import { createPageTitle } from '@/helpers/createPageTitle.js';
+import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
+import { getPostUrl } from '@/helpers/getPostUrl.js';
+import { isBotRequest } from '@/helpers/isBotRequest.js';
+import { resolveSource, type SourceInURL } from '@/helpers/resolveSource.js';
+import { getPostById } from '@/services/getPostById.js';
 
-export default function DetailLayout({ children }: { children: React.ReactNode }) {
-    const router = useRouter();
-    return (
-        <div className="min-h-screen">
-            <div className="sticky top-0 z-[98] flex items-center bg-primaryBottom p-4">
-                <ComeBack width={24} height={24} className="mr-8 cursor-pointer" onClick={() => router.back()} />
-                <h2 className="text-xl font-black leading-6">
-                    <Trans>Details</Trans>
-                </h2>
-            </div>
-            {children}
-        </div>
-    );
+interface Props {
+    params: {
+        id: string;
+        source: SourceInURL;
+    };
+    children: React.ReactNode;
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+    if (isBotRequest()) {
+        const post = await getPostById(resolveSource(params.source), params.id);
+        if (!post) return createSiteMetadata();
+
+        const images = compact(
+            post.metadata.content?.attachments?.map((x) => {
+                const url = x.type === 'Image' ? x.uri : x.coverUri;
+                return url ? { url } : undefined;
+            }),
+        );
+        const audios = compact(
+            post.metadata.content?.attachments?.map((x) => {
+                const url = x.type === 'Audio' ? x.uri : undefined;
+                return url ? { url } : undefined;
+            }),
+        );
+        const videos = compact(
+            post.metadata.content?.attachments?.map((x) => {
+                const url = x.type === 'Video' ? x.uri : undefined;
+                return url ? { url } : undefined;
+            }),
+        );
+
+        return createSiteMetadata({
+            openGraph: {
+                type: 'article',
+                url: urlcat(SITE_URL, getPostUrl(post)),
+                title: createPageTitle(`Post by ${post.author.displayName}`),
+                description: post.metadata.content?.content ?? '',
+                images,
+                audio: audios,
+                videos,
+            },
+            twitter: {
+                card: 'summary_large_image',
+                title: createPageTitle(`Post by ${post.author.displayName}`),
+                description: post.metadata.content?.content ?? '',
+                images,
+            },
+        });
+    }
+
+    return createSiteMetadata();
+}
+
+export default function DetailLayout({ children }: Props) {
+    if (isBotRequest()) return null;
+    return <>{children}</>;
 }
