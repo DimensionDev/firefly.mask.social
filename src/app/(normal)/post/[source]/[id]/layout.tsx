@@ -2,7 +2,6 @@ import { compact } from 'lodash-es';
 import type { Metadata } from 'next';
 import type React from 'react';
 
-import { attachmentToOpenGraphImage } from '@/helpers/attachmentToOpenGraphImage.js';
 import { createPageTitle } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { isBotRequest } from '@/helpers/isBotRequest.js';
@@ -18,21 +17,38 @@ interface Props {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
+    console.log('DEBUG: generateMetadata', isBotRequest());
+    
     if (isBotRequest()) {
-        console.log('DEBUG: generateMetadata', isBotRequest());
 
         const post = await getPostById(resolveSource(params.source), params.id);
-        if (!post) return createSiteMetadata();
 
-        const allSettled = await Promise.allSettled(
-            post.metadata.content?.attachments?.map(attachmentToOpenGraphImage) ?? [],
-        );
+        console.log('DEBUG: post', !!post)
+
+        if (!post) return createSiteMetadata();
 
         return createSiteMetadata({
             openGraph: {
                 title: createPageTitle(`Post by ${post.author.displayName}`),
                 description: post.metadata.content?.content ?? '',
-                images: compact(allSettled.map((x) => (x.status === 'fulfilled' && !!x.value ? x.value : undefined))),
+                images: compact(
+                    post.metadata.content?.attachments?.map((x) => {
+                        const url = x.type === 'Image' ? x.uri : x.coverUri;
+                        return url ? { url } : undefined;
+                    }),
+                ),
+                audio: compact(
+                    post.metadata.content?.attachments?.map((x) => {
+                        const url = x.type === 'Audio' ? x.uri : undefined;
+                        return url ? { url } : undefined;
+                    }),
+                ),
+                videos: compact(
+                    post.metadata.content?.attachments?.map((x) => {
+                        const url = x.type === 'Video' ? x.uri : undefined;
+                        return url ? { url } : undefined;
+                    }),
+                ),
             },
         });
     }
