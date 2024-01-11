@@ -1,6 +1,8 @@
+import { compact } from 'lodash-es';
 import type { Metadata } from 'next';
 import type React from 'react';
 
+import { attachmentToOpenGraphImage } from '@/helpers/attachmentToOpenGraphImage.js';
 import { createPageTitle } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { isBotRequest } from '@/helpers/isBotRequest.js';
@@ -20,10 +22,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         const post = await getPostById(resolveSource(params.source), params.id);
         if (!post) return createSiteMetadata();
 
+        const allSettled = await Promise.allSettled(
+            post.metadata.content?.attachments?.map(attachmentToOpenGraphImage) ?? [],
+        );
+
         return createSiteMetadata({
             openGraph: {
                 title: createPageTitle(`Post by ${post.author.displayName}`),
                 description: post.metadata.content?.content ?? '',
+                images: compact(allSettled.map((x) => (x.status === 'fulfilled' && !!x.value ? x.value : undefined))),
             },
         });
     }
