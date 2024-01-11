@@ -8,7 +8,7 @@
 
 Closes FW-0000
 
-<!-- Find your link from: https://mask.atlassian.net/jira/software/c/projects/FW/boards/33/backlog -->
+<!-- Find your issue from: https://mask.atlassian.net/jira/software/c/projects/FW/boards/33/backlog -->
 
 ## Checklist
 
