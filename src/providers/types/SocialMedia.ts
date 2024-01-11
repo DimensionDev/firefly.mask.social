@@ -110,7 +110,7 @@ export interface Post {
              */
             asset?: Attachment;
             /**
-             * The full list of attachments of the post.
+             * The full list of attachments of the post. (must include the primary asset)
              */
             attachments?: Attachment[];
             oembedUrl?: string;
