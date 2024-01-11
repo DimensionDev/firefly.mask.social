@@ -1,6 +1,7 @@
 {
     "extends": "next/core-web-vitals",
     "plugins": [
+        "no-relative-import-paths",
         "eslint-plugin-simple-import-sort",
         "@typescript-eslint/eslint-plugin",
         "eslint-plugin-react",
@@ -154,7 +155,14 @@
         "simple-import-sort/exports": "error",
         "import/first": "error",
         "import/newline-after-import": "error",
-        "import/no-duplicates": "error"
+        "import/no-duplicates": "error",
+        "no-relative-import-paths/no-relative-import-paths": [
+            "warn",
+            {
+                "prefix": "@",
+                "rootDir": "src"
+            }
+        ]
     },
     "parser": "@typescript-eslint/parser",
     "parserOptions": {

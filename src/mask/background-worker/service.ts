@@ -1,4 +1,4 @@
-import { indexedDBStorageBackend, inMemoryStorageBackend } from './storage.js';
+import { indexedDBStorageBackend, inMemoryStorageBackend } from '@/mask/background-worker/storage.js';
 
 export async function memoryWrite(key: string, value: unknown) {
     return inMemoryStorageBackend.setValue(key, value);

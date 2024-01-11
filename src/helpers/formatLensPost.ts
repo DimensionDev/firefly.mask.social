@@ -28,9 +28,8 @@ import { compact, first, isEmpty, last } from 'lodash-es';
 import { SocialPlatform } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { URL_REGEX } from '@/constants/regex.js';
+import { formatLensProfile } from '@/helpers/formatLensProfile.js';
 import type { Attachment, Post } from '@/providers/types/SocialMedia.js';
-
-import { formatLensProfile } from './formatLensProfile.js';
 
 const PLACEHOLDER_IMAGE = 'https://static-assets.hey.xyz/images/placeholder.webp';
 const allowedTypes = [

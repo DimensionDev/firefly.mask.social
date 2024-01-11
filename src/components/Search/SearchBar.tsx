@@ -12,6 +12,8 @@ import LeftArrowIcon from '@/assets/left-arrow.svg';
 import LoadingIcon from '@/assets/loading.svg';
 import SearchIcon from '@/assets/search.svg';
 import { Avatar } from '@/components/Avatar.js';
+import { useSearchHistories } from '@/components/Search/useSearchHistories.js';
+import { useSearchState } from '@/components/Search/useSearchState.js';
 import { SourceIcon } from '@/components/SourceIcon.js';
 import { SearchType, SocialPlatform } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -20,9 +22,6 @@ import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
-
-import { useSearchHistories } from './useSearchHistories.js';
-import { useSearchState } from './useSearchState.js';
 
 interface SearchBarProps {
     source: 'header' | 'secondary';

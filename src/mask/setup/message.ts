@@ -11,7 +11,7 @@ import {
     serializer,
 } from '@masknet/shared-base';
 
-import type { InternalMessage_PluginMessage } from '../background-worker/message-port.js';
+import type { InternalMessage_PluginMessage } from '@/mask/background-worker/message-port.js';
 
 type MessageHandler = (message: any) => void;
 

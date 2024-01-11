@@ -14,7 +14,7 @@ import {
     ProfileMetadataFieldsFragmentDoc,
     ProfileOperationsFieldsFragmentDoc,
     type Scalars,
-} from './generated.js';
+} from '@/providers/types/LensGraphql/generated.js';
 
 const API_URL = 'https://api-v2.lens.dev/';
 

@@ -1,18 +1,17 @@
 import { type HTMLProps, memo, useMemo } from 'react';
 import urlcat from 'urlcat';
 
+import { Collect } from '@/components/Actions/Collect.js';
+import { Comment } from '@/components/Actions/Comment.js';
+import { Like } from '@/components/Actions/Like.js';
+import { Mirror } from '@/components/Actions/Mirrors.js';
+import { Share } from '@/components/Actions/Share.js';
+import { Views } from '@/components/Actions/Views.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
-
-import { Collect } from './Collect.js';
-import { Comment } from './Comment.js';
-import { Like } from './Like.js';
-import { Mirror } from './Mirrors.js';
-import { Share } from './Share.js';
-import { Views } from './Views.js';
 
 interface PostActionsProps extends HTMLProps<HTMLDivElement> {
     post: Post;

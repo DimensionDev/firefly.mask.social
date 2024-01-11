@@ -3,9 +3,8 @@ import { SingletonModal } from '@masknet/shared-base';
 import type { ComposeModalProps } from '@/modals/ComposeModal.js';
 import type { LoginModalProps } from '@/modals/LoginModal.js';
 import type { LogoutModalProps } from '@/modals/LogoutModal.js';
+import type { PreviewImagesModalOpenProps } from '@/modals/PreviewImagesModal.js';
 import type { ProfileStatusModalProps } from '@/modals/ProfileStatusModal.js';
-
-import type { PreviewImagesModalOpenProps } from './PreviewImagesModal.js';
 
 export const AccountModalRef = new SingletonModal();
 export const ConnectWalletModalRef = new SingletonModal();

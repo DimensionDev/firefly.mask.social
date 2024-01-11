@@ -2,11 +2,10 @@ import { Trans } from '@lingui/macro';
 import { Suspense, useState } from 'react';
 
 import Loading from '@/components/Loading.js';
+import ContentCollected from '@/components/Profile/ContentCollected.js';
+import ContentFeed from '@/components/Profile/ContentFeed.js';
 import type { SocialPlatform } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
-
-import ContentCollected from './ContentCollected.js';
-import ContentFeed from './ContentFeed.js';
 
 enum TabEnum {
     Feed = 'Feed',

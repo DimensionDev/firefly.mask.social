@@ -1,4 +1,4 @@
-import { pluginWorkerReadyPromise } from './ready.js';
+import { pluginWorkerReadyPromise } from '@/mask/background-worker/ready.js';
 
 const ports = new Set<MessagePort>();
 const messageHandlers = new Map<string, Set<TargetAwareHandler>>();

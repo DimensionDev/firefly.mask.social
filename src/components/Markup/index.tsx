@@ -8,10 +8,9 @@ import linkifyRegex from 'remark-linkify-regex';
 import stripMarkdown from 'strip-markdown';
 
 import { Code } from '@/components/Code.js';
+import { MarkupLink } from '@/components/Markup/MarkupLink/index.js';
 import { HASHTAG_REGEX, MENTION_REGEX, URL_REGEX } from '@/constants/regex.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
-
-import { MarkupLink } from './MarkupLink/index.js';
 
 const trimify = (value: string): string => value?.replace(/\n\n\s*\n/g, '\n\n').trim();
 

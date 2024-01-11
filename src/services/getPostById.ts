@@ -12,6 +12,6 @@ export async function getPostById(source: SocialPlatform, postId: string) {
             return FarcasterSocialMediaProvider.getPostById(postId);
         default:
             safeUnreachable(source);
-            return;
+            return null;
     }
 }

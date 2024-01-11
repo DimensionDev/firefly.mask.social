@@ -1,7 +1,7 @@
 import { serializer } from '@masknet/shared-base';
 import { AsyncCall, type EventBasedChannel } from 'async-call-rpc/full';
 
-import { addListener, postMessage } from './message.js';
+import { addListener, postMessage } from '@/mask/setup/message.js';
 
 const channel: EventBasedChannel = {
     on(listener) {
