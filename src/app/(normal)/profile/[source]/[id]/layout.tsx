@@ -13,10 +13,10 @@ interface Props {
     children: React.ReactNode;
 }
 
-export async function generateMetadata({ params}: Props): Promise<Metadata> {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
     console.log('DEBUG: profile generateMetadata', isBotRequest());
 
-    if (isBotRequest() ) {
+    if (isBotRequest()) {
         return createSiteMetadata();
     }
 

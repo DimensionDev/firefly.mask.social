@@ -41,19 +41,7 @@ const allowedTypes = [
     'UnknownOpenActionModule',
 ];
 
-const removeUrlsByHostnames = (content: string, hostnames: Set<string>) => {
-    const regexPattern = Array.from(hostnames)
-        .map((hostname) => `https?:\\/\\/(www\\.)?${hostname.replace('.', '\\.')}[\\S]+`)
-        .join('|');
-    const regex = new RegExp(regexPattern, 'g');
-
-    return content
-        .replace(regex, '')
-        .replace(/\s{2,}/g, ' ')
-        .trim();
-};
-
-function getAttachmentsData(attachments?: PublicationMetadataMediaFragment[] | null): Attachment[] {
+function getAttachments(attachments?: PublicationMetadataMediaFragment[] | null): Attachment[] {
     if (!attachments) return EMPTY_LIST;
 
     return compact<Attachment>(
@@ -101,7 +89,7 @@ function formatContent(metadata: PublicationMetadataFragment) {
         case 'ArticleMetadataV3':
             return {
                 content: metadata.content,
-                attachments: getAttachmentsData(metadata.attachments),
+                attachments: getAttachments(metadata.attachments),
             };
         case 'TextOnlyMetadataV3':
         case 'LinkMetadataV3':
@@ -119,11 +107,11 @@ function formatContent(metadata: PublicationMetadataFragment) {
             return {
                 content: metadata.content,
                 asset,
-                attachments: getAttachmentsData(metadata.attachments),
+                attachments: metadata.attachments?.length ? getAttachments(metadata.attachments) : asset ? [asset] : [],
             };
         }
         case 'AudioMetadataV3': {
-            const audioAttachments = getAttachmentsData(metadata.attachments)[0];
+            const audioAttachments = getAttachments(metadata.attachments)[0];
             const asset = {
                 uri: metadata.asset.audio.optimized?.uri || audioAttachments?.uri,
                 coverUri: metadata.asset.cover?.optimized?.uri || audioAttachments?.coverUri || PLACEHOLDER_IMAGE,
@@ -139,7 +127,7 @@ function formatContent(metadata: PublicationMetadataFragment) {
             };
         }
         case 'VideoMetadataV3': {
-            const videoAttachments = getAttachmentsData(metadata.attachments)[0];
+            const videoAttachments = getAttachments(metadata.attachments)[0];
             const asset = {
                 uri: metadata.asset.video.optimized?.uri || videoAttachments?.uri,
                 coverUri: metadata.asset.cover?.optimized?.uri || videoAttachments?.coverUri || PLACEHOLDER_IMAGE,
@@ -155,17 +143,17 @@ function formatContent(metadata: PublicationMetadataFragment) {
         case 'MintMetadataV3':
             return {
                 content: metadata.content,
-                attachments: getAttachmentsData(metadata.attachments),
+                attachments: getAttachments(metadata.attachments),
             };
         case 'EmbedMetadataV3':
             return {
                 content: metadata.content,
-                attachments: getAttachmentsData(metadata.attachments),
+                attachments: getAttachments(metadata.attachments),
             };
         case 'LiveStreamMetadataV3':
             return {
                 content: metadata.content,
-                attachments: getAttachmentsData(metadata.attachments),
+                attachments: getAttachments(metadata.attachments),
             };
         case 'CheckingInMetadataV3':
             return null;
