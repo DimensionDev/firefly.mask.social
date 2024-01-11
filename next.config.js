@@ -57,6 +57,15 @@ export default {
                     },
                 ],
             },
+            {
+                source: '/next-debug.log',
+                headers: [
+                    {
+                        key: 'Cache-Control',
+                        value: 'public, max-age=0, must-revalidate',
+                    },
+                ],
+            },
         ];
     },
     webpack: (config, context) => {
