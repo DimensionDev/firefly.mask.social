@@ -11,7 +11,11 @@ import {
     serializer,
 } from '@masknet/shared-base';
 
-import { addListener, broadcastMessage, type InternalMessage_PluginMessage } from './message-port.js';
+import {
+    addListener,
+    broadcastMessage,
+    type InternalMessage_PluginMessage,
+} from '@/mask/background-worker/message-port.js';
 
 // Plugin Message
 function createProxy(initValue: (key: string) => any): any {

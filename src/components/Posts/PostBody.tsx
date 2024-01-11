@@ -9,15 +9,14 @@ import EyeSlash from '@/assets/eye-slash.svg';
 import Lock from '@/assets/lock.svg';
 import { Markup, NakedMarkup } from '@/components/Markup/index.js';
 import Oembed from '@/components/Oembed/index.js';
+import { Attachments } from '@/components/Posts/Attachment.js';
+import { Quote } from '@/components/Posts/Quote.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getEncryptedPayloadFromImageAttachment, getEncryptedPayloadFromText } from '@/helpers/getEncryptedPayload.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import removeUrlAtEnd from '@/helpers/removeUrlAtEnd.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
-
-import { Attachments } from './Attachment.js';
-import { Quote } from './Quote.js';
 
 interface PostBodyProps {
     post: Post;

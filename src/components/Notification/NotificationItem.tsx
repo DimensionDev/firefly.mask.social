@@ -16,6 +16,7 @@ import { PostActions } from '@/components/Actions/index.js';
 import { MoreAction } from '@/components/Actions/More.js';
 import { Avatar } from '@/components/Avatar.js';
 import { Markup } from '@/components/Markup/index.js';
+import { ProfileLink } from '@/components/Notification/ProfileLink.js';
 import { Quote } from '@/components/Posts/Quote.js';
 import { SourceIcon } from '@/components/SourceIcon.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
@@ -24,8 +25,6 @@ import { classNames } from '@/helpers/classNames.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { type Notification, NotificationType, type PostType } from '@/providers/types/SocialMedia.js';
-
-import { ProfileLink } from './ProfileLink.js';
 
 const resolveNotificationIcon = createLookupTableResolver<
     NotificationType,

@@ -1,10 +1,9 @@
 import { i18n, type Messages } from '@lingui/core';
 import dayjs from 'dayjs';
 
-import { Locale } from '@/types/index.js';
-
 // @ts-ignore
-import { messages as en } from '../locales/en/messages.mjs';
+import { messages as en } from '@/locales/en/messages.mjs';
+import { Locale } from '@/types/index.js';
 
 const locales: Record<Locale, Messages> = {
     [Locale.en]: en,

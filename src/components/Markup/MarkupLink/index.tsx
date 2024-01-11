@@ -2,13 +2,12 @@
 
 import { memo } from 'react';
 
+import { ExternalLink } from '@/components/Markup/MarkupLink/ExternalLink.js';
+import { Hashtag } from '@/components/Markup/MarkupLink/Hashtag.js';
+import { MentionLink } from '@/components/Markup/MarkupLink/MentionLink.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { type Post, ProfileStatus } from '@/providers/types/SocialMedia.js';
-
-import { ExternalLink } from './ExternalLink.js';
-import { Hashtag } from './Hashtag.js';
-import { MentionLink } from './MentionLink.js';
 
 export interface MarkupLinkProps {
     title?: string;

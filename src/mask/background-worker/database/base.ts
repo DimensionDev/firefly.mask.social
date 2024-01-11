@@ -1,6 +1,6 @@
 import { type DBSchema, openDB } from 'idb/with-async-ittr';
 
-import { createDBAccess } from './openDB.js';
+import { createDBAccess } from '@/mask/background-worker/database/openDB.js';
 
 type InStore = {
     plugin_id: string;

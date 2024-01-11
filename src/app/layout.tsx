@@ -1,4 +1,4 @@
-import './globals.css';
+import '@/app/globals.css';
 
 import { Inter } from 'next/font/google';
 import { ScrollRestorer } from 'next-scroll-restorer';

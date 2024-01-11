@@ -1,4 +1,4 @@
-import /* webpackSync: true */ './message-port.js';
+import /* webpackSync: true */ '@/mask/background-worker/message-port.js';
 
 import { setupBuildInfo } from '@masknet/flags/build-info';
 

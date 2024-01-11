@@ -1,4 +1,4 @@
-import './register.js';
+import '@/mask/plugin-host/register.js';
 
 import {
     __setSiteAdaptorContext__,

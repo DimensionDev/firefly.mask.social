@@ -4,6 +4,7 @@ import { Suspense } from 'react';
 import urlcat from 'urlcat';
 
 import Embed from '@/components/Oembed/Embed.js';
+import { Mirror } from '@/components/Oembed/Mirror.js';
 import Player from '@/components/Oembed/Player.js';
 import { PostEmbed } from '@/components/Oembed/Post.js';
 import { Quote } from '@/components/Posts/Quote.js';
@@ -13,8 +14,6 @@ import { isLinkMatchingHost } from '@/helpers/isLinkMatchingHost.js';
 import type { LinkDigest, OpenGraph } from '@/services/digestLink.js';
 import type { ResponseJSON } from '@/types/index.js';
 import { OpenGraphPayloadSourceType } from '@/types/og.js';
-
-import { Mirror } from './Mirror.js';
 
 interface OembedProps {
     url?: string;

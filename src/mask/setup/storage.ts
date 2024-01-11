@@ -1,6 +1,6 @@
 // eslint-disable-next-line simple-import-sort/imports
-import { BackgroundWorker } from './rpc.js';
-import { addListener } from './message.js';
+import { BackgroundWorker } from '@/mask/setup/rpc.js';
+import { addListener } from '@/mask/setup/message.js';
 
 import { createKVStorageHost, setupMaskKVStorageBackend } from '@masknet/shared-base';
 
