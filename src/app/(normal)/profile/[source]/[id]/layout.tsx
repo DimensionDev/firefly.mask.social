@@ -1,14 +1,10 @@
 import type { Metadata } from 'next';
 import type React from 'react';
-import urlcat from 'urlcat';
 
-import { SITE_URL } from '@/constants/index.js';
-import { createPageTitle } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
-import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isBotRequest } from '@/helpers/isBotRequest.js';
-import { resolveSource, type SourceInURL } from '@/helpers/resolveSource.js';
-import { getProfileById } from '@/services/getProfileById.js';
+import { type SourceInURL } from '@/helpers/resolveSource.js';
+import { getProfileOGById } from '@/services/getProfileOGById.js';
 
 interface Props {
     params: {
@@ -18,38 +14,8 @@ interface Props {
     children: React.ReactNode;
 }
 
-async function createProfileOG(source: SourceInURL, profileId: string) {
-    const profile = await getProfileById(resolveSource(source), profileId);
-    if (!profile) return createSiteMetadata();
-
-    const images = [
-        {
-            url: profile.pfp,
-        },
-    ];
-
-    const title = createPageTitle(`${profile.displayName} (@${profile.handle})`);
-    const description = profile.bio ?? '';
-
-    return createSiteMetadata({
-        openGraph: {
-            type: 'profile',
-            url: urlcat(SITE_URL, getProfileUrl(profile)),
-            title,
-            description,
-            images,
-        },
-        twitter: {
-            card: 'summary',
-            title,
-            description,
-            images,
-        },
-    });
-}
-
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-    if (isBotRequest()) return createProfileOG(params.source, params.id);
+    if (isBotRequest()) return getProfileOGById(params.source, params.id);
     return createSiteMetadata();
 }
 
