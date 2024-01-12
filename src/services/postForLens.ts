@@ -2,7 +2,11 @@ import { image, MediaImageMimeType, MediaVideoMimeType, textOnly, video } from '
 import { t } from '@lingui/macro';
 import { v4 as uuid } from 'uuid';
 
+import { SocialPlatform } from '@/constants/enum.js';
+import { SITE_URL } from '@/constants/index.js';
 import { getUserLocale } from '@/helpers/getUserLocale.js';
+import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
+import { uploadToArweave } from '@/services/uploadToArweave.js';
 import type { MediaObject } from '@/types/index.js';
 
 interface BaseMetadata {
@@ -32,7 +36,7 @@ interface Attachments {
     }>;
 }
 
-export function createPayloadAttachments(images: MediaObject[], video: MediaObject | null): Attachments | undefined {
+function createPayloadAttachments(images: MediaObject[], video: MediaObject | null): Attachments | undefined {
     if (images.some((image) => !image.ipfs) || (video && !video.ipfs)) {
         throw new Error(t`Missing IPFS hash for image or video.`);
     }
@@ -72,7 +76,7 @@ export function createPayloadAttachments(images: MediaObject[], video: MediaObje
         : undefined;
 }
 
-export function createPostMetadata(baseMetadata: BaseMetadata, attachments?: Attachments) {
+function createPostMetadata(baseMetadata: BaseMetadata, attachments?: Attachments) {
     const localBaseMetadata = {
         id: uuid(),
         locale: getUserLocale(),
@@ -121,3 +125,91 @@ export function createPostMetadata(baseMetadata: BaseMetadata, attachments?: Att
 }
 
 export type GetPostMetaData = ReturnType<typeof createPostMetadata>;
+
+export async function publishPostForLens(
+    profileId: string,
+    characters: string,
+    images: MediaObject[],
+    video: MediaObject | null,
+) {
+    const profile = await LensSocialMediaProvider.getProfileById(profileId);
+
+    const title = `Post by #${profile.handle}`;
+    const metadata = createPostMetadata(
+        {
+            title,
+            content: characters,
+            marketplace: {
+                name: title,
+                description: characters,
+                external_url: SITE_URL,
+            },
+        },
+        createPayloadAttachments(images, video),
+    );
+    const arweaveId = await uploadToArweave(metadata);
+    const post = await LensSocialMediaProvider.publishPost({
+        postId: metadata.lens.id,
+        author: profile,
+        metadata: {
+            locale: metadata.lens.locale,
+            contentURI: `ar://${arweaveId}`,
+            content: null,
+        },
+        source: SocialPlatform.Lens,
+    });
+    return post;
+}
+
+export async function commentPostForLens(
+    profileId: string,
+    postId: string,
+    characters: string,
+    images: MediaObject[],
+    video: MediaObject | null,
+) {
+    const profile = await LensSocialMediaProvider.getProfileById(profileId);
+
+    const title = `Post by #${profile.handle}`;
+    const metadata = createPostMetadata(
+        {
+            title,
+            content: characters,
+            marketplace: {
+                name: title,
+                description: characters,
+                external_url: SITE_URL,
+            },
+        },
+        createPayloadAttachments(images, video),
+    );
+    const arweaveId = await uploadToArweave(metadata);
+    return LensSocialMediaProvider.commentPost(postId, `ar://${arweaveId}`, profile.signless);
+}
+
+export async function quotePostForLens(
+    profileId: string,
+    postId: string,
+    characters: string,
+    images: MediaObject[],
+    video: MediaObject | null,
+) {
+    const profile = await LensSocialMediaProvider.getProfileById(profileId);
+
+    const title = `Post by #${profile.handle}`;
+    const metadata = createPostMetadata(
+        {
+            title,
+            content: characters,
+            marketplace: {
+                name: title,
+                description: characters,
+                external_url: SITE_URL,
+            },
+        },
+        createPayloadAttachments(images, video),
+    );
+    const arweaveId = await uploadToArweave(metadata);
+    const post = await LensSocialMediaProvider.quotePost(postId, `ar://${arweaveId}`, profile.signless);
+    return post;
+}
