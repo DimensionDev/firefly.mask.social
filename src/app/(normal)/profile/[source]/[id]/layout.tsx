@@ -18,39 +18,38 @@ interface Props {
     children: React.ReactNode;
 }
 
+async function createProfileOG(source: SourceInURL, profileId: string) {
+    const profile = await getProfileById(resolveSource(source), profileId);
+    if (!profile) return createSiteMetadata();
+
+    const images = [
+        {
+            url: profile.pfp,
+        },
+    ];
+
+    const title = createPageTitle(`${profile.displayName} (@${profile.handle})`);
+    const description = profile.bio ?? '';
+
+    return createSiteMetadata({
+        openGraph: {
+            type: 'profile',
+            url: urlcat(SITE_URL, getProfileUrl(profile)),
+            title,
+            description,
+            images,
+        },
+        twitter: {
+            card: 'summary',
+            title,
+            description,
+            images,
+        },
+    });
+}
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-    console.log('DEBUG: profile generateMetadata', isBotRequest());
-
-    if (isBotRequest()) {
-        const profile = await getProfileById(resolveSource(params.source), params.id);
-        if (!profile) return createSiteMetadata();
-
-        const images = [
-            {
-                url: profile.pfp,
-            },
-        ];
-
-        const title = createPageTitle(`${profile.displayName} (@${profile.handle})`);
-        const description = profile.bio ?? '';
-
-        return createSiteMetadata({
-            openGraph: {
-                type: 'profile',
-                url: urlcat(SITE_URL, getProfileUrl(profile)),
-                title,
-                description,
-                images,
-            },
-            twitter: {
-                card: 'summary',
-                title,
-                description,
-                images,
-            },
-        });
-    }
-
+    if (isBotRequest()) return createProfileOG(params.source, params.id);
     return createSiteMetadata();
 }
 

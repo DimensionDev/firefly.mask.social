@@ -1,7 +1,6 @@
 import { compact } from 'lodash-es';
 import type { Metadata } from 'next';
 import type React from 'react';
-import { cache } from 'react';
 import urlcat from 'urlcat';
 
 import { SITE_URL } from '@/constants/index.js';
@@ -20,7 +19,7 @@ interface Props {
     children: React.ReactNode;
 }
 
-const createPageOG = cache(async (source: SourceInURL, postId: string) => {
+async function createPostOG(source: SourceInURL, postId: string) {
     const post = await getPostById(resolveSource(source), postId);
     if (!post) return createSiteMetadata();
 
@@ -60,10 +59,10 @@ const createPageOG = cache(async (source: SourceInURL, postId: string) => {
             images,
         },
     });
-});
+}
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-    if (isBotRequest()) return createPageOG(params.source, params.id);
+    if (isBotRequest()) return createPostOG(params.source, params.id);
     return createSiteMetadata();
 }
 
