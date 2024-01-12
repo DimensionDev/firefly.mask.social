@@ -1,3 +1,4 @@
+/* cspell:disable */
 import { kv } from '@vercel/kv';
 
 interface MemoizedFunction {
