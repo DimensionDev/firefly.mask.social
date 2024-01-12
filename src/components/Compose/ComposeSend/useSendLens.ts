@@ -1,8 +1,8 @@
 import { t } from '@lingui/macro';
 import { useCallback } from 'react';
 
-import { commentPostForLens, publishPostForLens, quotePostForLens } from '@/helpers/publishPostForLens.js';
 import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
+import { commentPostForLens, publishPostForLens, quotePostForLens } from '@/services/postForLens.js';
 import { uploadFileToIPFS } from '@/services/uploadToIPFS.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 import { useLensStateStore } from '@/store/useProfileStore.js';

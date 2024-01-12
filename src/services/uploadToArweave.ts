@@ -1,5 +1,5 @@
 import { fetchJSON } from '@/helpers/fetchJSON.js';
-import type { GetPostMetaData } from '@/helpers/publishPostForLens.js';
+import type { GetPostMetaData } from '@/services/postForLens.js';
 
 interface IUploadToArweaveResponse {
     data: {
