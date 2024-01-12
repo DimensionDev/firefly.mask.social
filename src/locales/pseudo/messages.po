@@ -103,9 +103,6 @@ msgstr ""
 msgid "Liked"
 msgstr ""
 
-msgid "Missing IPFS hash for image or video."
-msgstr ""
-
 msgid "Failed to unlike. {0}"
 msgstr ""
 

@@ -103,9 +103,6 @@ msgstr "Page not found"
 msgid "Liked"
 msgstr "Liked"
 
-msgid "Missing IPFS hash for image or video."
-msgstr "Missing IPFS hash for image or video."
-
 msgid "Failed to unlike. {0}"
 msgstr "Failed to unlike. {0}"
 
