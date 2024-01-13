@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-01-10 02:43\n"
+"PO-Revision-Date: 2024-01-13 00:04\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Traditional\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -106,9 +106,6 @@ msgid "Page not found"
 msgstr ""
 
 msgid "Liked"
-msgstr ""
-
-msgid "Missing IPFS hash for image or video."
 msgstr ""
 
 msgid "Failed to unlike. {0}"
