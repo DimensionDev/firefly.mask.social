@@ -40,7 +40,7 @@ export function SocialPlatformTabs() {
                         key={key}
                         className={classNames(
                             currentSource === value ? 'border-b-2 border-[#9250FF] text-main' : 'text-third',
-                            'px-4 py-5 text-xl font-bold leading-6 hover:cursor-pointer hover:text-main',
+                            'h-[60px] px-4 py-[18px] text-xl font-bold leading-6 hover:cursor-pointer hover:text-main',
                         )}
                         aria-current={currentSource === value ? 'page' : undefined}
                         onClick={() =>
