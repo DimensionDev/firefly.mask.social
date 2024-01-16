@@ -36,7 +36,6 @@ export default function PostPage({ params: { id: postId, source } }: PostPagePro
     const fetchAndStoreViews = useImpressionsStore.use.fetchAndStoreViews();
 
     const routeChanged = useGlobalState.use.routeChanged();
-    console.log(routeChanged);
     const { data } = useSuspenseQuery({
         queryKey: [currentSource, 'post-detail', postId],
         queryFn: async () => {
