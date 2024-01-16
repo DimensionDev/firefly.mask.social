@@ -41,7 +41,7 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({ post, isQu
                             'h-6 w-6': isQuote,
                         })}
                         src={post.author.pfp}
-                        size={40}
+                        size={isQuote ? 24 : 40}
                         alt={post.author.profileId}
                     />
                 </Link>

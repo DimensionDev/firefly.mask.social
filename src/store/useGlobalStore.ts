@@ -8,11 +8,13 @@ import { createSelectors } from '@/helpers/createSelector.js';
 const restore_scroll_prefix = 'rusted_labs_nextjs_scroll_restoration';
 interface GlobalState {
     currentSource: SocialPlatform;
+    routeChanged: boolean;
     updateCurrentSource: (source: SocialPlatform) => void;
 }
 
 const useGlobalStateBase = create<GlobalState, [['zustand/immer', never]]>(
     immer((set) => ({
+        routeChanged: false,
         currentSource: SocialPlatform.Lens,
         updateCurrentSource: (source: SocialPlatform) =>
             set((state) => {

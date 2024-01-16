@@ -81,7 +81,7 @@ const SearchBar = memo(function SearchBar(props: SearchBarProps) {
     return (
         <div
             className={classNames('flex items-center px-4 pt-6', {
-                'pb-5 pl-0 pr-0': props.source === 'secondary',
+                'pl-0 pr-0': props.source === 'secondary',
             })}
             ref={rootRef}
         >

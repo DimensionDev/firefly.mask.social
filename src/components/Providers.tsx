@@ -7,8 +7,9 @@ import { getCookie } from '@masknet/shared-base';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { ReactQueryStreamedHydration } from '@tanstack/react-query-next-experimental';
+import { usePathname } from 'next/navigation.js';
 import { SnackbarProvider } from 'notistack';
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import { useEffectOnce } from 'react-use';
 import { useMediaQuery } from 'usehooks-ts';
 import { v4 as uuid } from 'uuid';
@@ -19,13 +20,16 @@ import { queryClient } from '@/configs/queryClient.js';
 import { DarkModeContext } from '@/hooks/useDarkMode.js';
 import { useMounted } from '@/hooks/useMounted.js';
 import { setLocale } from '@/i18n/index.js';
+import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useLeafwatchPersistStore } from '@/store/useLeafwatchPersistStore.js';
 import { useThemeModeStore } from '@/store/useThemeModeStore.js';
 import type { Locale } from '@/types/index.js';
 
 export function Providers(props: { children: React.ReactNode }) {
+    const entryPathname = useRef('');
     const isDarkOS = useMediaQuery('(prefers-color-scheme: dark)');
     const themeMode = useThemeModeStore.use.themeMode();
+    const pathname = usePathname();
 
     const darkModeContext = useMemo(() => {
         return {
@@ -54,6 +58,20 @@ export function Providers(props: { children: React.ReactNode }) {
             (navigator.serviceWorker as ServiceWorkerContainer).register('/sw.js', { scope: '/' }).catch(console.error);
         }
     });
+
+    useEffect(() => {
+        if (!entryPathname.current || pathname === entryPathname.current) {
+            entryPathname.current = pathname;
+            return;
+        }
+
+        useGlobalState.setState((state) => {
+            return {
+                ...state,
+                routeChanged: true,
+            };
+        });
+    }, [pathname]);
 
     const mounted = useMounted();
     if (!mounted) return null;
