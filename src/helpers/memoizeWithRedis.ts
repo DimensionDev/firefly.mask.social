@@ -18,25 +18,53 @@ export function memoizeWithRedis<T extends (...args: any) => Promise<any>>(
     const memoized = async (...args: any) => {
         const fieldKey = resolver ? resolver.apply(null, args) : [...args].join('_');
 
+        console.log('DEBUG: fieldKey');
+        console.log({
+            key,
+            fieldKey,
+        });
+
         try {
             const fieldExists = await kv.hexists(key, fieldKey);
 
             // Cache hit, return the cached value
-            if (fieldExists) return kv.hget(key, fieldKey);
-        } catch {
+            if (fieldExists) {
+                const fieldValue = await kv.hget(key, fieldKey);
+
+                console.log('DEBUG: fieldValue - cache hit');
+                console.log({
+                    fieldKey,
+                    fieldValue,
+                });
+            }
+        } catch (error) {
             // Ignore
+            console.log('DEBUG: cache hit error');
+            console.log({
+                error,
+            });
         }
 
         // Cache miss, call the original function
         const fieldValue = await func.apply(null, args);
+
+        console.log('DEBUG: fieldValue - cache miss');
+        console.log({
+            fieldKey,
+            fieldValue,
+        });
 
         try {
             // Set the value in Redis
             await kv.hset(key, {
                 [fieldKey]: fieldValue,
             });
-        } catch {
+        } catch (error) {
             // Ignore
+            console.log('DEBUG: cache miss error');
+            console.log({
+                error,
+            });
         }
 
         return fieldValue;
