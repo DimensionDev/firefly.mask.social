@@ -9,7 +9,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { ReactQueryStreamedHydration } from '@tanstack/react-query-next-experimental';
 import { usePathname } from 'next/navigation.js';
 import { SnackbarProvider } from 'notistack';
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import { useEffectOnce } from 'react-use';
 import { useMediaQuery } from 'usehooks-ts';
 import { v4 as uuid } from 'uuid';
@@ -26,6 +26,7 @@ import { useThemeModeStore } from '@/store/useThemeModeStore.js';
 import type { Locale } from '@/types/index.js';
 
 export function Providers(props: { children: React.ReactNode }) {
+    const entryPathname = useRef('');
     const isDarkOS = useMediaQuery('(prefers-color-scheme: dark)');
     const themeMode = useThemeModeStore.use.themeMode();
     const pathname = usePathname();
@@ -48,8 +49,6 @@ export function Providers(props: { children: React.ReactNode }) {
     const viewerId = useLeafwatchPersistStore.use.viewerId();
     const setViewerId = useLeafwatchPersistStore.use.setViewerId();
 
-    const updateUrl = useGlobalState.use.updateUrl();
-
     useEffectOnce(() => {
         if (!viewerId) setViewerId(uuid());
     });
@@ -61,8 +60,18 @@ export function Providers(props: { children: React.ReactNode }) {
     });
 
     useEffect(() => {
-        updateUrl(pathname);
-    }, [pathname, updateUrl]);
+        if (!entryPathname.current || pathname === entryPathname.current) {
+            entryPathname.current = pathname;
+            return;
+        }
+
+        useGlobalState.setState((state) => {
+            return {
+                ...state,
+                routeChanged: true,
+            };
+        });
+    }, [pathname]);
 
     const mounted = useMounted();
     if (!mounted) return null;

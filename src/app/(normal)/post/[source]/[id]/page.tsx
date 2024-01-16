@@ -35,8 +35,8 @@ export default function PostPage({ params: { id: postId, source } }: PostPagePro
 
     const fetchAndStoreViews = useImpressionsStore.use.fetchAndStoreViews();
 
-    const previousUrl = useGlobalState.use.previousUrl?.();
-
+    const routeChanged = useGlobalState.use.routeChanged();
+    console.log(routeChanged);
     const { data } = useSuspenseQuery({
         queryKey: [currentSource, 'post-detail', postId],
         queryFn: async () => {
@@ -62,7 +62,7 @@ export default function PostPage({ params: { id: postId, source } }: PostPagePro
                     height={24}
                     className="mr-8 cursor-pointer"
                     onClick={() => {
-                        if (!previousUrl) {
+                        if (!routeChanged) {
                             router.push(PageRoutes.Home);
                             return;
                         }
