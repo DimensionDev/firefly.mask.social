@@ -2,7 +2,7 @@
 
 import { Trans } from '@lingui/macro';
 import { useRouter } from 'next/navigation.js';
-import { forwardRef, useState } from 'react';
+import { forwardRef, useMemo, useState } from 'react';
 import { useAsync } from 'react-use';
 
 import EyeSlash from '@/assets/eye-slash.svg';
@@ -12,6 +12,7 @@ import Oembed from '@/components/Oembed/index.js';
 import { Attachments } from '@/components/Posts/Attachment.js';
 import { Quote } from '@/components/Posts/Quote.js';
 import { EMPTY_LIST } from '@/constants/index.js';
+import { SNAPSHOT_REGEX } from '@/constants/regex.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getEncryptedPayloadFromImageAttachment, getEncryptedPayloadFromText } from '@/helpers/getEncryptedPayload.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
@@ -34,6 +35,11 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
     const showAttachments = !!post.metadata.content?.attachments?.length || !!post.metadata.content?.asset;
 
     const [oembedLoaded, setOembedLoaded] = useState(false);
+
+    const isSnapshot = useMemo(() => {
+        if (!post.metadata.content?.oembedUrl) return false;
+        return SNAPSHOT_REGEX.test(post.metadata.content.oembedUrl);
+    }, [post.metadata.content?.oembedUrl]);
 
     const { value: payload, loading } = useAsync(async () => {
         return {
@@ -107,6 +113,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
         );
     }
 
+    console.log(isSnapshot);
     return (
         <div
             className={classNames('-mt-2 mb-2 break-words text-base text-main', {
@@ -157,7 +164,13 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
             ) : null}
 
             {post.metadata.content?.oembedUrl ? (
-                <Oembed url={post.metadata.content.oembedUrl} onData={() => setOembedLoaded(true)} />
+                isSnapshot ? (
+                    <mask-snapshot-widget
+                        props={encodeURIComponent(JSON.stringify({ url: post.metadata.content.oembedUrl }))}
+                    />
+                ) : (
+                    <Oembed url={post.metadata.content.oembedUrl} onData={() => setOembedLoaded(true)} />
+                )
             ) : null}
 
             {!!post.quoteOn && !isQuote ? <Quote post={post.quoteOn} /> : null}

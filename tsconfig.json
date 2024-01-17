@@ -11,6 +11,9 @@
             "path": "./src/maskbook/packages/plugins/Calendar/tsconfig.json"
         },
         {
+            "path": "./src/maskbook/packages/plugins/Snapshot/tsconfig.json"
+        },
+        {
             "path": "./src/maskbook/packages/plugins/RedPacket/tsconfig.json"
         },
         {
@@ -137,6 +140,7 @@
             "@masknet/plugin-profilecard": ["./src/maskbook/packages/plugins/ProfileCard/src/index.ts"],
             "@masknet/plugin-savings": ["./src/maskbook/packages/plugins/Savings/src/index.ts"],
             "@masknet/plugin-snapshot": ["./src/maskbook/packages/plugins/Snapshot/src/index.ts"],
+            "@masknet/plugin-snapshot/register": ["./src/maskbook/packages/plugins/Snapshot/src/register.ts"],
             "@masknet/plugin-switch-logo": ["./src/maskbook/packages/plugins/SwitchLogo/src/index.ts"],
             "@masknet/plugin-calendar": ["./src/maskbook/packages/plugins/Calendar/src/index.ts"],
             "@masknet/plugin-calendar/register": ["./src/maskbook/packages/plugins/Calendar/src/register.ts"]
