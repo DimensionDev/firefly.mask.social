@@ -8,23 +8,16 @@ import type { Post } from '@/providers/types/SocialMedia.js';
 
 interface DecryptedInspectorProps {
     post?: Post;
-    payloadFromText?: EncryptedPayload;
-    payloadFromImageAttachment?: EncryptedPayload;
+    payloads?: EncryptedPayload[];
 }
 
-export default function DecryptedInspector({
-    post,
-    payloadFromText,
-    payloadFromImageAttachment,
-}: DecryptedInspectorProps) {
-    const payload = payloadFromImageAttachment ?? payloadFromText;
-
-    if (!post || !payload) return null;
+export default function DecryptedInspector({ post, payloads }: DecryptedInspectorProps) {
+    if (!post || !payloads?.length) return null;
 
     return (
         <Providers>
             <MaskProviders>
-                <DecryptedPost post={post} payload={payload} />
+                <DecryptedPost post={post} payloads={payloads} />
             </MaskProviders>
         </Providers>
     );
