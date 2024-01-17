@@ -24,14 +24,20 @@ const Decrypted = createInjectHooksRenderer(
 
 interface Props extends PropsWithChildren<{}> {
     post: Post;
-    payload: EncryptedPayload;
+    payloadFromText?: EncryptedPayload;
+    payloadFromImageAttachment?: EncryptedPayload;
 }
 
-export const DecryptedPost = memo(function DecryptedPost({ post, payload, children }: Props) {
+export const DecryptedPost = memo(function DecryptedPost({ post, payloadFromText, payloadFromImageAttachment, children }: Props) {
+    const payload = payloadFromImageAttachment ?? payloadFromText
+
     const postInfo = usePostInfo(post);
 
     const { value: [error, isE2E, message] = [null, false, null] } = useAsyncRetry(
-        async () => decryptPayload(payload),
+        async () => {
+            if (!payload) return
+            return decryptPayload(payload)
+        },
         [payload],
     );
 

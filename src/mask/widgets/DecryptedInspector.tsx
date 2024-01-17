@@ -17,7 +17,7 @@ export default function DecryptedInspector({
     payloadFromText,
     payloadFromImageAttachment,
 }: DecryptedInspectorProps) {
-    const payload = payloadFromText || payloadFromImageAttachment;
+    const payload = payloadFromImageAttachment ?? payloadFromText;
 
     if (!post || !payload) return null;
 
