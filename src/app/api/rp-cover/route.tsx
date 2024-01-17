@@ -1,6 +1,7 @@
-import { z } from 'zod';
 import { ImageResponse } from '@vercel/og';
 import { type NextRequest } from 'next/server.js';
+import { z } from 'zod';
+
 import { Locale } from '@/types/index.js';
 
 export enum Theme {
