@@ -1,6 +1,7 @@
 'use client';
 
 import { Trans } from '@lingui/macro';
+import { compact } from 'lodash-es';
 import { useRouter } from 'next/navigation.js';
 import { forwardRef, useState } from 'react';
 import { useAsync } from 'react-use';
@@ -35,7 +36,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
 
     const [oembedLoaded, setOembedLoaded] = useState(false);
 
-    const { value: payload, loading } = useAsync(async () => {
+    const { value: payloads, loading } = useAsync(async () => {
         return {
             payloadFromText: getEncryptedPayloadFromText(post),
             payloadFromImageAttachment: await getEncryptedPayloadFromImageAttachment(post),
@@ -123,13 +124,12 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
                     : post.metadata.content?.content}
             </Markup>
 
-            {payload?.payloadFromImageAttachment || payload?.payloadFromText ? (
+            {payloads?.payloadFromImageAttachment || payloads?.payloadFromText ? (
                 <mask-decrypted-post
                     props={encodeURIComponent(
                         JSON.stringify({
                             post,
-                            payloadFromText: payload.payloadFromText,
-                            payloadFromImageAttachment: payload.payloadFromImageAttachment,
+                            payloads: compact([payloads?.payloadFromImageAttachment, payloads?.payloadFromText]),
                         }),
                     )}
                 />
@@ -148,7 +148,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
             ) : null}
 
             {/* TODO: exclude the payload image from attachments */}
-            {showAttachments && !payload?.payloadFromImageAttachment ? (
+            {showAttachments && !payloads?.payloadFromImageAttachment ? (
                 <Attachments
                     post={post}
                     asset={post.metadata.content?.asset}

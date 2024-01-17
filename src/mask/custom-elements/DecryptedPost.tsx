@@ -11,8 +11,7 @@ const DecryptedPost = dynamic(() => import('@/mask/widgets/DecryptedInspector.js
 
 class Element extends WidgetWithProps<{
     post?: Post;
-    payloadFromText?: EncryptedPayload;
-    payloadFromImageAttachment?: EncryptedPayload;
+    payloads?: EncryptedPayload[];
 }> {
     constructor() {
         super(DecryptedPost);
