@@ -15,6 +15,7 @@ import { useMemo } from 'react';
 import urlcat from 'urlcat';
 
 import { SITE_HOSTNAME, SITE_URL } from '@/constants/index.js';
+import { URL_REGEX } from '@/constants/regex.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
@@ -27,6 +28,9 @@ export function usePostInfo(post: Post) {
                 .map((x) => x.uri)
                 .filter(Boolean) ?? EMPTY_LIST,
         );
+
+        const mentionedLinks = post.metadata.content?.content?.match(URL_REGEX) || EMPTY_LIST;
+
         return {
             author: createConstantSubscription(author),
             coAuthors: EMPTY_ARRAY,
@@ -45,7 +49,7 @@ export function usePostInfo(post: Post) {
             comment: undefined,
             identifier: createConstantSubscription(author ? new PostIdentifier(author, post.postId) : null),
             url: createConstantSubscription(new URL(urlcat(SITE_URL, getPostUrl(post)))),
-            mentionedLinks: createConstantSubscription([]),
+            mentionedLinks: createConstantSubscription(mentionedLinks),
             postMetadataImages: createConstantSubscription(imageUris),
             rawMessage: createConstantSubscription(makeTypedMessageTuple([makeTypedMessageEmpty()])),
             encryptComment: new ValueRef<null | ((commentToEncrypt: string) => Promise<string>)>(null),

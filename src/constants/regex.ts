@@ -13,5 +13,3 @@ export const WARPCAST_CONVERSATIONS_REGEX = /^https:\/\/warpcast\.com\/~\/conver
 export const LENS_DETAIL_REGEX = /^https:\/\/hey\.xyz\/posts\/.*$/;
 
 export const MASK_SOCIAL_DETAIL_REGEX = /^https:\/\/mask\.social\/post\/(\w+)\/([\w-]+)$/;
-
-export const SNAPSHOT_REGEX = /^https:\/\/(?:www.)?snapshot.(org|page)\/#\/(.*?)\/proposal\/[\dA-Za-z]+$/;
