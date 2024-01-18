@@ -6,14 +6,12 @@ import { MaskPostExtraPluginWrapper } from '@masknet/shared';
 import { RegistryContext, TypedMessageRender } from '@masknet/typed-message-react';
 import { first } from 'lodash-es';
 import { memo, type PropsWithChildren } from 'react';
-import React, { Suspense, useEffect } from 'react';
+import React, { Suspense } from 'react';
 import { useAsyncRetry } from 'react-use';
 
-import { connectMaskWithWagmi } from '@/helpers/connectWagmiWithMask.js';
 import type { EncryptedPayload } from '@/helpers/getEncryptedPayload.js';
 import { usePostInfo } from '@/mask/hooks/usePostInfo.js';
 import { registry } from '@/mask/typed-message/registry.js';
-import { hasRedPacketPayload } from '@/modals/hasRedPacketPayload.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { decryptPayload } from '@/services/decryptPayload.js';
 
@@ -38,11 +36,6 @@ export const DecryptedPost = memo(function DecryptedPost({ post, payloads, child
         if (!payload) return;
         return decryptPayload(payload);
     }, [payload]);
-
-    useEffect(() => {
-        // TODO: remove this condition when we have a lot of plugins that use web3 connection
-        if (hasRedPacketPayload(message)) connectMaskWithWagmi();
-    }, [message]);
 
     if (isE2E)
         return (

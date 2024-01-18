@@ -1,6 +1,6 @@
 import { safeUnreachable } from '@masknet/kit';
 import { useQuery } from '@tanstack/react-query';
-import { Suspense } from 'react';
+import { Suspense, useEffect } from 'react';
 import urlcat from 'urlcat';
 
 import Embed from '@/components/Oembed/Embed.js';
@@ -34,9 +34,12 @@ export default function Oembed({ url, onData }: OembedProps) {
         enabled: !!url,
     });
 
-    if (isLoading || error || !data?.success) return null;
+    useEffect(() => {
+        if (!data?.success || !data?.data?.og) return;
+        onData?.(data.data.og);
+    }, [data, onData]);
 
-    onData?.(data.data.og);
+    if (isLoading || error || !data?.success) return null;
 
     const og: OpenGraph = data.data.og;
     if (!og.title) return null;

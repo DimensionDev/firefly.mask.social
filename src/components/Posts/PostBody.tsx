@@ -135,6 +135,8 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
                 />
             ) : null}
 
+            <mask-post-inspector props={encodeURIComponent(JSON.stringify({ post }))} />
+
             {canShowMore ? (
                 <div className="text-[15px] font-bold text-link">
                     <div

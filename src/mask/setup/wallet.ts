@@ -3,6 +3,7 @@ import { EMPTY_ARRAY } from '@masknet/shared-base';
 import { initWallet } from '@masknet/web3-providers';
 import type { WalletAPI } from '@masknet/web3-providers/types';
 
+import { connectMaskWithWagmi } from '@/helpers/connectWagmiWithMask.js';
 import { createRejectCallback } from '@/helpers/createRejectCallback.js';
 
 const WalletIO: WalletAPI.IOContext = {
@@ -26,3 +27,4 @@ const WalletIO: WalletAPI.IOContext = {
 };
 
 await initWallet(WalletIO);
+await connectMaskWithWagmi();

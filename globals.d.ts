@@ -30,5 +30,9 @@ namespace JSX {
             React.HTMLAttributes<HTMLElement> & { props: string },
             HTMLElement
         >;
+        'mask-post-inspector': React.DetailedHTMLProps<
+            React.HTMLAttributes<HTMLElement> & { props: string },
+            HTMLElement
+        >;
     }
 }
