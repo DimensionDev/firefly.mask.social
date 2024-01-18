@@ -48,7 +48,7 @@ const PRESET_SETTINGS: Record<
         mask: null,
         width: 1200,
         height: 671,
-        payload: '/image/payload-2023.png',
+        payload: '/rp/payload-2023.png',
         options: libV2AlgrDefaults,
     },
     [SteganographyPreset.Preset202312]: {
@@ -57,7 +57,7 @@ const PRESET_SETTINGS: Record<
         mask: null,
         width: 1200,
         height: 840,
-        payload: '/image/payload-202312.png',
+        payload: '/rp/payload-202312.png',
         options: libV2AlgrDefaults,
     },
 };
