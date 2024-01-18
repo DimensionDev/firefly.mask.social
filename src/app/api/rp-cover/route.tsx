@@ -61,7 +61,7 @@ const DIMENSION_SETTINGS: Record<Theme, { cover: Dimension }> = {
 };
 
 export async function GET(req: NextRequest) {
-    // If no params, return the usage message.
+    // If no params, throw the usage message.
     if (req.nextUrl.searchParams.size === 0) {
         const result = ParamsSchema.safeParse({
             locale: Locale.en,
