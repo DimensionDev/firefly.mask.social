@@ -4,6 +4,7 @@ import { PostInfoProvider, useActivatedPluginsSiteAdaptor } from '@masknet/plugi
 import { createInjectHooksRenderer } from '@masknet/plugin-infra/dom';
 import { MaskPostExtraPluginWrapper } from '@masknet/shared';
 import { RegistryContext, TypedMessageRender } from '@masknet/typed-message-react';
+import { first } from 'lodash-es';
 import { memo, type PropsWithChildren } from 'react';
 import React, { Suspense, useEffect } from 'react';
 import { useAsyncRetry } from 'react-use';
@@ -24,16 +25,19 @@ const Decrypted = createInjectHooksRenderer(
 
 interface Props extends PropsWithChildren<{}> {
     post: Post;
-    payload: EncryptedPayload;
+    payloads?: EncryptedPayload[];
 }
 
-export const DecryptedPost = memo(function DecryptedPost({ post, payload, children }: Props) {
+export const DecryptedPost = memo(function DecryptedPost({ post, payloads, children }: Props) {
+    // TODO: support multiple payloads
+    const payload = first(payloads);
+
     const postInfo = usePostInfo(post);
 
-    const { value: [error, isE2E, message] = [null, false, null] } = useAsyncRetry(
-        async () => decryptPayload(payload),
-        [payload],
-    );
+    const { value: [error, isE2E, message] = [null, false, null] } = useAsyncRetry(async () => {
+        if (!payload) return;
+        return decryptPayload(payload);
+    }, [payload]);
 
     useEffect(() => {
         // TODO: remove this condition when we have a lot of plugins that use web3 connection
