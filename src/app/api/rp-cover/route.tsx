@@ -2,25 +2,9 @@ import { ImageResponse } from '@vercel/og';
 import { type NextRequest } from 'next/server.js';
 import { z } from 'zod';
 
+import { RedPacketCover } from '@/components/RedPacket/Cover.js';
 import { Locale } from '@/types/index.js';
-
-export enum Theme {
-    Mask = 'mask',
-    GoldenFlower = 'golden-flower',
-    LuckyFlower = 'lucky-flower',
-    LuckyFirefly = 'lucky-firefly',
-    CoBranding = 'co-branding',
-}
-
-export enum TokenType {
-    Fungible = 'fungible',
-    NonFungible = 'non-fungible',
-}
-
-export enum UsageType {
-    Cover = 'cover',
-    Payload = 'payload',
-}
+import { type Dimension, Theme, TokenType, UsageType } from '@/types/rp.js';
 
 const ParamsSchema = z.object({
     locale: z.nativeEnum(Locale),
@@ -41,14 +25,6 @@ const ParamsSchema = z.object({
     usage: z.nativeEnum(UsageType),
 });
 
-const SETTINGS: Record<Theme, { width: number; height: number }> = {
-    [Theme.Mask]: { width: 1200, height: 671 },
-    [Theme.GoldenFlower]: { width: 1200, height: 840 },
-    [Theme.LuckyFlower]: { width: 1200, height: 840 },
-    [Theme.LuckyFirefly]: { width: 1200, height: 840 },
-    [Theme.CoBranding]: { width: 1200, height: 840 },
-};
-
 function parseParams(params: URLSearchParams) {
     return {
         locale: params.get('locale') ?? Locale.en,
@@ -63,6 +39,24 @@ function parseParams(params: URLSearchParams) {
         usage: params.get('usage') ?? UsageType.Cover,
     };
 }
+
+const DIMENSION_SETTINGS: Record<Theme, { cover: Dimension }> = {
+    [Theme.Mask]: {
+        cover: { width: 1200, height: 794 },
+    },
+    [Theme.GoldenFlower]: {
+        cover: { width: 1200, height: 840 },
+    },
+    [Theme.LuckyFlower]: {
+        cover: { width: 1200, height: 840 },
+    },
+    [Theme.LuckyFirefly]: {
+        cover: { width: 1200, height: 840 },
+    },
+    [Theme.CoBranding]: {
+        cover: { width: 1200, height: 840 },
+    },
+};
 
 export async function GET(req: NextRequest) {
     // If no params, return the usage message.
@@ -80,5 +74,9 @@ export async function GET(req: NextRequest) {
 
     const params = result.data;
 
-    return new ImageResponse(<div>{JSON.stringify(params)}</div>, { width: 2032, height: 1344 });
+    return new ImageResponse(
+        <RedPacketCover {...params} />,
+
+        DIMENSION_SETTINGS[params.theme].cover,
+    );
 }
