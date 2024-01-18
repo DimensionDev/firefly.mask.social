@@ -38,23 +38,23 @@ function RedPacketCoverForMask({ amount, remaining = 0, message = 'Best Wishes!'
     return (
         <div
             style={{
-                height: '100%',
                 width: '100%',
+                height: '100%',
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
                 justifyContent: 'center',
                 color: '#fff',
                 fontSize: 30,
+                fontWeight: 400,
+                fontFamily: 'Inter',
                 backgroundSize: '100% 100%',
                 backgroundImage: preset.backgroundImage ? `url("${preset.backgroundImage}")` : 'none',
                 backgroundColor: preset.backgroundColor ?? 'transparent',
                 backgroundRepeat: 'no-repeat',
             }}
         >
-            <div style={{ fontSize: 60, fontWeight: 'bold', width: 625, position: 'absolute', left: 40 }}>
-                {message}
-            </div>
+            <div style={{ fontSize: 60, fontWeight: 700, width: 625, position: 'absolute', left: 40 }}>{message}</div>
             <div style={{ position: 'absolute', left: 40, bottom: 40 }}>{claimProgressText}</div>
             <div style={{ position: 'absolute', right: 40, bottom: 40 }}>{authorText}</div>
         </div>

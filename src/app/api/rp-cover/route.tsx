@@ -1,8 +1,11 @@
 import { ImageResponse } from '@vercel/og';
 import { type NextRequest } from 'next/server.js';
+import urlcat from 'urlcat';
 import { z } from 'zod';
 
 import { RedPacketCover } from '@/components/RedPacket/Cover.js';
+import { SITE_URL } from '@/constants/index.js';
+import { fetchArrayBuffer } from '@/helpers/fetchArrayBuffer.js';
 import { Locale } from '@/types/index.js';
 import { type Dimension, Theme, TokenType, UsageType } from '@/types/rp.js';
 
@@ -61,7 +64,7 @@ const DIMENSION_SETTINGS: Record<Theme, { cover: Dimension }> = {
 };
 
 export async function GET(req: NextRequest) {
-    // If no params, return the usage message.
+    // If no params, throw the usage message.
     if (req.nextUrl.searchParams.size === 0) {
         const result = ParamsSchema.safeParse({
             locale: Locale.en,
@@ -76,9 +79,21 @@ export async function GET(req: NextRequest) {
 
     const params = result.data;
 
-    return new ImageResponse(
-        <RedPacketCover {...params} />,
-
-        DIMENSION_SETTINGS[params.theme].cover,
-    );
+    return new ImageResponse(<RedPacketCover {...params} />, {
+        ...DIMENSION_SETTINGS[params.theme].cover,
+        fonts: [
+            {
+                name: 'Inter',
+                data: await fetchArrayBuffer(urlcat(SITE_URL, '/fonts/Inter-Regular.ttf'), { cache: 'force-cache' }),
+                weight: 400,
+                style: 'normal',
+            },
+            {
+                name: 'Inter',
+                data: await fetchArrayBuffer(urlcat(SITE_URL, '/fonts/Inter-Bold.ttf'), { cache: 'force-cache' }),
+                weight: 700,
+                style: 'normal',
+            },
+        ],
+    });
 }
