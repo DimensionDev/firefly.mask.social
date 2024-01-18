@@ -26,6 +26,8 @@ declare namespace NodeJS {
         IMGUR_CLIENT_ID: string;
         IMGUR_CLIENT_SECRET: string;
 
+        NEXT_PUBLIC_SITE_URL?: string;
+
         NEXT_PUBLIC_MASK_WEB_COMPONENTS: 'enabled' | 'disabled';
     }
 }

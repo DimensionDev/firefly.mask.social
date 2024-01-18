@@ -54,9 +54,7 @@ function RedPacketCoverForMask({ amount, remaining = 0, message = 'Best Wishes!'
                 backgroundRepeat: 'no-repeat',
             }}
         >
-            <div style={{ fontSize: 60, fontWeight: 700, width: 625, position: 'absolute', left: 40 }}>
-                {message}
-            </div>
+            <div style={{ fontSize: 60, fontWeight: 700, width: 625, position: 'absolute', left: 40 }}>{message}</div>
             <div style={{ position: 'absolute', left: 40, bottom: 40 }}>{claimProgressText}</div>
             <div style={{ position: 'absolute', right: 40, bottom: 40 }}>{authorText}</div>
         </div>
