@@ -84,13 +84,13 @@ export async function GET(req: NextRequest) {
         fonts: [
             {
                 name: 'Inter',
-                data: await fetchArrayBuffer(urlcat(SITE_URL, '/fonts/Inter-Regular.ttf'), { cache: 'force-cache' }),
+                data: await fetchArrayBuffer(urlcat(SITE_URL, '/font/Inter-Regular.ttf'), { cache: 'force-cache' }),
                 weight: 400,
                 style: 'normal',
             },
             {
                 name: 'Inter',
-                data: await fetchArrayBuffer(urlcat(SITE_URL, '/fonts/Inter-Bold.ttf'), { cache: 'force-cache' }),
+                data: await fetchArrayBuffer(urlcat(SITE_URL, '/font/Inter-Bold.ttf'), { cache: 'force-cache' }),
                 weight: 700,
                 style: 'normal',
             },

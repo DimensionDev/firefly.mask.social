@@ -5,10 +5,10 @@ import { Theme } from '@/types/rp.js';
 
 const COVER_PRESETS: Record<Theme, { backgroundImage?: string; backgroundColor?: string }> = {
     [Theme.Mask]: {
-        backgroundImage: urlcat(SITE_URL, '/rp-cover/mask-background.png'),
+        backgroundImage: urlcat(SITE_URL, '/rp/mask-background.png'),
     },
     [Theme.CoBranding]: {
-        backgroundImage: urlcat(SITE_URL, '/rp-cover/co-branding-background.png'),
+        backgroundImage: urlcat(SITE_URL, '/rp/co-branding-background.png'),
         backgroundColor: '#f7413d',
     },
     [Theme.GoldenFlower]: {
