@@ -114,7 +114,7 @@ function RedPacketCoverForFirefly({
             {theme === Theme.LuckyFirefly ? (
                 <img
                     style={{ position: 'absolute', top: 80 }}
-                    src={urlcat(SITE_URL, '/rp-cover/logo-firefly.png')}
+                    src={urlcat(SITE_URL, '/rp/logo-firefly.png')}
                     alt="Hero Image"
                     width={255}
                     height={340}
@@ -122,7 +122,7 @@ function RedPacketCoverForFirefly({
             ) : (
                 <img
                     style={{ position: 'absolute', top: 80 }}
-                    src={urlcat(SITE_URL, '/rp-cover/golden-flower.png')}
+                    src={urlcat(SITE_URL, '/rp/golden-flower.png')}
                     alt="Hero Image"
                     width={430}
                     height={430}

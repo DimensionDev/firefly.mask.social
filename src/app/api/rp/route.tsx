@@ -4,6 +4,7 @@ import urlcat from 'urlcat';
 import { z } from 'zod';
 
 import { RedPacketCover } from '@/components/RedPacket/Cover.js';
+import { RedPacketPayload } from '@/components/RedPacket/Payload.js';
 import { SITE_URL } from '@/constants/index.js';
 import { fetchArrayBuffer } from '@/helpers/fetchArrayBuffer.js';
 import { Locale } from '@/types/index.js';
@@ -55,21 +56,26 @@ function parseParams(params: URLSearchParams) {
     };
 }
 
-const DIMENSION_SETTINGS: Record<Theme, { cover: Dimension }> = {
+const DIMENSION_SETTINGS: Record<Theme, { cover: Dimension; payload: Dimension }> = {
     [Theme.Mask]: {
         cover: { width: 1200, height: 794 },
+        payload: { width: 1200, height: 671 },
     },
     [Theme.GoldenFlower]: {
         cover: { width: 1200, height: 840 },
+        payload: { width: 1200, height: 840 },
     },
     [Theme.LuckyFlower]: {
         cover: { width: 1200, height: 840 },
+        payload: { width: 1200, height: 840 },
     },
     [Theme.LuckyFirefly]: {
         cover: { width: 1200, height: 840 },
+        payload: { width: 1200, height: 840 },
     },
     [Theme.CoBranding]: {
         cover: { width: 1200, height: 840 },
+        payload: { width: 1200, height: 840 },
     },
 };
 
@@ -89,21 +95,31 @@ export async function GET(req: NextRequest) {
 
     const params = result.data;
 
-    return new ImageResponse(<RedPacketCover {...params} />, {
-        ...DIMENSION_SETTINGS[params.theme].cover,
-        fonts: [
-            {
-                name: 'Inter',
-                data: await fetchArrayBuffer(urlcat(SITE_URL, '/font/Inter-Regular.ttf'), { cache: 'force-cache' }),
-                weight: 400,
-                style: 'normal',
-            },
-            {
-                name: 'Inter',
-                data: await fetchArrayBuffer(urlcat(SITE_URL, '/font/Inter-Bold.ttf'), { cache: 'force-cache' }),
-                weight: 700,
-                style: 'normal',
-            },
-        ],
-    });
+    const fonts = [
+        {
+            name: 'Inter',
+            data: await fetchArrayBuffer(urlcat(SITE_URL, '/font/Inter-Regular.ttf'), { cache: 'force-cache' }),
+            weight: 400,
+            style: 'normal',
+        },
+        {
+            name: 'Inter',
+            data: await fetchArrayBuffer(urlcat(SITE_URL, '/font/Inter-Bold.ttf'), { cache: 'force-cache' }),
+            weight: 700,
+            style: 'normal',
+        },
+    ];
+
+    switch (params.usage) {
+        case UsageType.Cover:
+            return new ImageResponse(<RedPacketCover {...params} />, {
+                ...DIMENSION_SETTINGS[params.theme].cover,
+                fonts,
+            });
+        case UsageType.Payload:
+            return new ImageResponse(<RedPacketPayload {...params} />, {
+                ...DIMENSION_SETTINGS[params.theme].payload,
+                fonts,
+            });
+    }
 }
