@@ -20,7 +20,7 @@ const ParamsSchema = z.object({
         .refine((x) => (x ? x.length < 50 : true), { message: 'Message cannot be longer than 50 characters' }),
     amount: z.coerce
         .bigint()
-        .positive()
+        .nonnegative()
         .transform((x) => x.toString(10)),
     remainingAmount: z.coerce
         .bigint()
