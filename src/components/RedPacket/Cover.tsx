@@ -1,3 +1,6 @@
+/* eslint-disable @next/next/no-img-element */
+
+import { formatBalance, minus } from '@masknet/web3-shared-base';
 import urlcat from 'urlcat';
 
 import { SITE_URL } from '@/constants/index.js';
@@ -23,17 +26,21 @@ const COVER_PRESETS: Record<Theme, { backgroundImage?: string; backgroundColor?:
 };
 
 interface RedPacketCoverProps {
-    amount: number;
-    remaining?: number;
-    message?: string;
-    from?: string;
+    shares: number;
+    remainingShares: number;
+    amount: string; // bigint in str
+    remainingAmount: string; // bigint in str
+    symbol: string;
+    decimals: number;
+    message: string;
+    from: string;
 }
 
-function RedPacketCoverForMask({ amount, remaining = 0, message = 'Best Wishes!', from }: RedPacketCoverProps) {
+function RedPacketCoverForMask({ shares, remainingShares = 0, message, from }: RedPacketCoverProps) {
     const preset = COVER_PRESETS[Theme.Mask];
 
-    const claimProgressText = `Claimed ${amount - remaining} / ${amount}`;
-    const authorText = `From: ${from ? `@${from}` : 'unknown'}`;
+    const claimProgressText = `Claimed ${shares - remainingShares} / ${shares}`;
+    const authorText = `From: @${from}`;
 
     return (
         <div
@@ -61,10 +68,108 @@ function RedPacketCoverForMask({ amount, remaining = 0, message = 'Best Wishes!'
     );
 }
 
+function RedPacketCoverForFirefly({
+    theme,
+    shares,
+    remainingShares = 0,
+    amount,
+    remainingAmount,
+    symbol,
+    decimals,
+    message = 'Best Wishes!',
+    from,
+}: RedPacketCoverProps & { theme: Theme }) {
+    const preset = COVER_PRESETS[theme];
+
+    const claimedAmountText = formatBalance(minus(amount, remainingAmount), decimals, {
+        isFixed: true,
+        significant: 0,
+        fixedDecimals: 0,
+    });
+    const totalAmountText = formatBalance(amount, decimals, {
+        isFixed: true,
+        significant: 0,
+        fixedDecimals: 0,
+    });
+    const claimProgressText = `${shares - remainingShares} of ${shares} Claimed`;
+    const authorText = `From ${from}`;
+
+    return (
+        <div
+            style={{
+                width: '100%',
+                height: '100%',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+                color: '#000',
+                fontSize: 30,
+                fontWeight: 400,
+                fontFamily: 'Inter',
+                backgroundColor: preset.backgroundColor ?? 'transparent',
+                backgroundRepeat: 'no-repeat',
+            }}
+        >
+            {theme === Theme.LuckyFirefly ? (
+                <img
+                    style={{ position: 'absolute', top: 80 }}
+                    src={urlcat(SITE_URL, '/rp-cover/logo-firefly.png')}
+                    alt="Hero Image"
+                    width={255}
+                    height={340}
+                />
+            ) : (
+                <img
+                    style={{ position: 'absolute', top: 80 }}
+                    src={urlcat(SITE_URL, '/rp-cover/golden-flower.png')}
+                    alt="Hero Image"
+                    width={430}
+                    height={430}
+                />
+            )}
+
+            <div style={{ fontSize: 50, fontWeight: 400, position: 'absolute', top: 520 }}>{message}</div>
+
+            <div
+                style={{
+                    display: 'flex',
+                    alignItems: 'baseline',
+                    top: 608,
+                    position: 'absolute',
+                }}
+            >
+                <div style={{ fontSize: 70, fontWeight: 700 }}>{claimedAmountText}</div>
+                <div style={{ fontSize: 45, fontWeight: 700, marginLeft: 8 }}>{symbol}</div>
+                <div style={{ fontSize: 70, fontWeight: 700, marginLeft: 8 }}>/</div>
+                <div style={{ fontSize: 70, fontWeight: 700, marginLeft: 8 }}>{totalAmountText}</div>
+                <div style={{ fontSize: 45, fontWeight: 700, marginLeft: 8 }}>{symbol}</div>
+            </div>
+
+            <div style={{ position: 'absolute', left: 60, bottom: 37.5 }}>{claimProgressText}</div>
+            <div
+                style={{
+                    position: 'absolute',
+                    right: 60,
+                    bottom: 37.5,
+                    fontWeight: theme === Theme.GoldenFlower ? 400 : 700,
+                    color: theme === Theme.GoldenFlower ? '#000' : '#f1d590',
+                }}
+            >
+                {authorText}
+            </div>
+        </div>
+    );
+}
+
 export function RedPacketCover({ theme, ...props }: RedPacketCoverProps & { theme: Theme }) {
     switch (theme) {
         case Theme.Mask:
             return <RedPacketCoverForMask {...props} />;
+        case Theme.GoldenFlower:
+        case Theme.LuckyFlower:
+        case Theme.LuckyFirefly:
+            return <RedPacketCoverForFirefly {...props} theme={theme} />;
         default:
             return null;
     }

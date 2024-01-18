@@ -18,14 +18,22 @@ const ParamsSchema = z.object({
         .string()
         .transform((x) => (x ? decodeURIComponent(x) : x))
         .refine((x) => (x ? x.length < 50 : true), { message: 'Message cannot be longer than 50 characters' }),
-    amount: z.coerce.number().positive(),
-    remaining: z.coerce.number().positive(),
+    amount: z.coerce
+        .bigint()
+        .positive()
+        .transform((x) => x.toString(10)),
+    remainingAmount: z.coerce
+        .bigint()
+        .nonnegative()
+        .transform((x) => x.toString(10)),
     shares: z.coerce
         .number()
         .positive()
         .refine((x) => x < 100, { message: 'Shares cannot be more than 100' }),
-    claimed: z.coerce.number().nonnegative(),
+    remainingShares: z.coerce.number().nonnegative(),
     from: z.string().refine((x) => (x ? x.length < 50 : true), { message: 'From cannot be longer than 50 characters' }),
+    symbol: z.string(),
+    decimals: z.coerce.number().int().nonnegative(),
     type: z.nativeEnum(TokenType),
     usage: z.nativeEnum(UsageType),
 });
@@ -36,10 +44,12 @@ function parseParams(params: URLSearchParams) {
         theme: params.get('theme') ?? Theme.Mask,
         message: params.get('message') ?? 'Best Wishes!',
         amount: params.get('amount') ?? '0',
-        remaining: params.get('remaining') ?? params.get('amount') ?? '0',
+        remainingAmount: params.get('remaining-amount') ?? params.get('amount') ?? '0',
         shares: params.get('shares') ?? '0',
-        claimed: params.get('claimed') ?? '0',
+        remainingShares: params.get('remaining-shares') ?? params.get('shares') ?? '0',
         from: params.get('from') ?? 'unknown',
+        symbol: params.get('symbol') ?? '?',
+        decimals: params.get('decimals') ?? '0',
         type: params.get('type') ?? TokenType.Fungible,
         usage: params.get('usage') ?? UsageType.Cover,
     };
