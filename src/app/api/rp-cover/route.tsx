@@ -6,6 +6,8 @@ import { RedPacketCover } from '@/components/RedPacket/Cover.js';
 import { Locale } from '@/types/index.js';
 import { type Dimension, Theme, TokenType, UsageType } from '@/types/rp.js';
 
+export const runtime = 'edge';
+
 const ParamsSchema = z.object({
     locale: z.nativeEnum(Locale),
     theme: z.nativeEnum(Theme),
