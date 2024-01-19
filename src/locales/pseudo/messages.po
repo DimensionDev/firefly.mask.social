@@ -67,6 +67,9 @@ msgstr ""
 msgid "Querying the signer request state."
 msgstr ""
 
+msgid "<0>You</0> and {0} others recasted"
+msgstr ""
+
 msgid "Change Wallet"
 msgstr ""
 
