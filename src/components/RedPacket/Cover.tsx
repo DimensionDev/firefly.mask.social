@@ -76,7 +76,7 @@ function RedPacketCoverForFirefly({
     remainingAmount,
     symbol,
     decimals,
-    message = 'Best Wishes!',
+    message,
     from,
 }: RedPacketCoverProps & { theme: Theme }) {
     const preset = COVER_PRESETS[theme];
@@ -162,6 +162,161 @@ function RedPacketCoverForFirefly({
     );
 }
 
+function RedPacketCoverForCoBranding({
+    shares,
+    remainingShares = 0,
+    amount,
+    remainingAmount,
+    symbol,
+    decimals,
+    message,
+    from,
+}: RedPacketCoverProps) {
+    const preset = COVER_PRESETS[Theme.CoBranding];
+
+    const claimedAmountText = formatBalance(minus(amount, remainingAmount), decimals, {
+        isFixed: true,
+        significant: 0,
+        fixedDecimals: 0,
+    });
+    const totalAmountText = formatBalance(amount, decimals, {
+        isFixed: true,
+        significant: 0,
+        fixedDecimals: 0,
+    });
+    const claimProgressText = `${shares - remainingShares} of ${shares} Claimed`;
+    const authorText = `From ${from}`;
+
+    return (
+        <div
+            style={{
+                width: '100%',
+                height: '100%',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+                color: '#dbcca1',
+                fontSize: 30,
+                fontWeight: 400,
+                fontFamily: 'Inter',
+                backgroundSize: '100% 100%',
+                backgroundImage: preset.backgroundImage ? `url("${preset.backgroundImage}")` : 'none',
+                backgroundColor: preset.backgroundColor ?? 'transparent',
+                backgroundRepeat: 'no-repeat',
+            }}
+        >
+            {/* left logos */}
+            <img
+                style={{ position: 'absolute', top: 170, left: 0, opacity: 0.1 }}
+                src={urlcat(SITE_URL, '/rp/logo-firefly-lighter.png')}
+                alt="Firefly"
+                width={190}
+                height={250}
+            />
+            <img
+                style={{ position: 'absolute', top: 170, left: 61.5, opacity: 0.2 }}
+                src={urlcat(SITE_URL, '/rp/logo-firefly-lighter.png')}
+                alt="Firefly"
+                width={190}
+                height={250}
+            />
+            <img
+                style={{ position: 'absolute', top: 170, left: 61.5 * 2, opacity: 0.3 }}
+                src={urlcat(SITE_URL, '/rp/logo-firefly-lighter.png')}
+                alt="Firefly"
+                width={190}
+                height={250}
+            />
+            <img
+                style={{ position: 'absolute', top: 170, left: 61.5 * 3, opacity: 0.6 }}
+                src={urlcat(SITE_URL, '/rp/logo-firefly-lighter.png')}
+                alt="Firefly"
+                width={190}
+                height={250}
+            />
+
+            {/* right logos */}
+            <img
+                style={{ position: 'absolute', top: 170, right: 185 - 61.5 * 3, opacity: 0.1 }}
+                src={urlcat(SITE_URL, '/rp/logo-firefly-lighter.png')}
+                alt="Firefly"
+                width={190}
+                height={250}
+            />
+            <img
+                style={{ position: 'absolute', top: 170, right: 185 - 61.5 * 2, opacity: 0.2 }}
+                src={urlcat(SITE_URL, '/rp/logo-firefly-lighter.png')}
+                alt="Firefly"
+                width={190}
+                height={250}
+            />
+
+            <img
+                style={{ position: 'absolute', top: 170, right: 185 - 61.5, opacity: 0.3 }}
+                src={urlcat(SITE_URL, '/rp/logo-firefly-lighter.png')}
+                alt="Firefly"
+                width={190}
+                height={250}
+            />
+            <img
+                style={{ position: 'absolute', top: 170, right: 185, opacity: 0.6 }}
+                src={urlcat(SITE_URL, '/rp/logo-firefly-lighter.png')}
+                alt="Firefly"
+                width={190}
+                height={250}
+            />
+
+            <div
+                style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    top: 170,
+                    position: 'absolute',
+                }}
+            >
+                <img src={urlcat(SITE_URL, '/rp/logo-firefly-lighter.png')} alt="Firefly" width={190} height={250} />
+                <img
+                    style={{ marginLeft: 132, marginRight: 132 }}
+                    src={urlcat(SITE_URL, '/rp/x.png')}
+                    alt="X"
+                    width={60}
+                    height={60}
+                />
+                <img src={urlcat(SITE_URL, '/rp/logo-firefly-lighter.png')} alt="Firefly" width={190} height={250} />
+            </div>
+
+            <div style={{ fontSize: 50, fontWeight: 400, position: 'absolute', top: 520 }}>{message}</div>
+
+            <div
+                style={{
+                    display: 'flex',
+                    alignItems: 'baseline',
+                    top: 608,
+                    position: 'absolute',
+                }}
+            >
+                <div style={{ fontSize: 70, fontWeight: 700 }}>{claimedAmountText}</div>
+                <div style={{ fontSize: 45, fontWeight: 700, marginLeft: 8 }}>{symbol}</div>
+                <div style={{ fontSize: 70, fontWeight: 700, marginLeft: 8 }}>/</div>
+                <div style={{ fontSize: 70, fontWeight: 700, marginLeft: 8 }}>{totalAmountText}</div>
+                <div style={{ fontSize: 45, fontWeight: 700, marginLeft: 8 }}>{symbol}</div>
+            </div>
+
+            <div style={{ position: 'absolute', left: 60, bottom: 37.5 }}>{claimProgressText}</div>
+            <div
+                style={{
+                    position: 'absolute',
+                    right: 60,
+                    bottom: 37.5,
+                }}
+            >
+                {authorText}
+            </div>
+        </div>
+    );
+}
+
 export function RedPacketCover({ theme, ...props }: RedPacketCoverProps & { theme: Theme }) {
     switch (theme) {
         case Theme.Mask:
@@ -170,6 +325,8 @@ export function RedPacketCover({ theme, ...props }: RedPacketCoverProps & { them
         case Theme.LuckyFlower:
         case Theme.LuckyFirefly:
             return <RedPacketCoverForFirefly {...props} theme={theme} />;
+        case Theme.CoBranding:
+            return <RedPacketCoverForCoBranding {...props} />;
         default:
             return null;
     }
