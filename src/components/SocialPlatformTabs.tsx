@@ -45,12 +45,6 @@ export function SocialPlatformTabs() {
                         aria-current={currentSource === value ? 'page' : undefined}
                         onClick={() =>
                             startTransition(() => {
-                                if (isRoutePathname(pathname, '/profile')) {
-                                    if (value === SocialPlatform.Lens)
-                                        router.push(lensProfile ? getProfileUrl(lensProfile) : '/profile');
-                                    if (value === SocialPlatform.Farcaster)
-                                        router.push(farcasterProfile ? getProfileUrl(farcasterProfile) : '/profile');
-                                }
                                 scrollTo(0, 0);
                                 updateCurrentSource(value);
                             })

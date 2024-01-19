@@ -14,15 +14,15 @@ import { createPageTitle } from '@/helpers/createPageTitle.js';
 import { resolveSource, type SourceInURL } from '@/helpers/resolveSource.js';
 import { useIsMyProfile } from '@/hooks/useIsMyProfile.js';
 import { getProfileById } from '@/services/getProfileById.js';
+import type { SocialPlatform } from '@/constants/enum.js';
 
 interface ProfilePageProps {
     params: {
         id: string;
-        source: SourceInURL;
+        currentSource: SocialPlatform;
     };
 }
-export default function ProfilePage({ params: { source: _source, id: handleOrProfileId } }: ProfilePageProps) {
-    const currentSource = resolveSource(_source);
+export default function ProfilePage({ params: { currentSource, id: handleOrProfileId } }: ProfilePageProps) {
     const isMyProfile = useIsMyProfile(currentSource, handleOrProfileId);
 
     const { data: profile, isLoading } = useQuery({
