@@ -1,70 +1,46 @@
 /* eslint-disable @next/next/no-img-element */
 
-import { formatBalance, minus } from '@masknet/web3-shared-base';
 import urlcat from 'urlcat';
 
+import { AmountProgressText } from '@/components/RedPacket/AmountProgressText.js';
+import { AuthorText } from '@/components/RedPacket/AuthorText.js';
+import { ClaimProgressText } from '@/components/RedPacket/ClaimProgressText.js';
+import { CornerMark } from '@/components/RedPacket/CornerMark.js';
+import { CoverContainer } from '@/components/RedPacket/CoverContainer.js';
+import { MessageText } from '@/components/RedPacket/MessageText.js';
 import { SITE_URL } from '@/constants/index.js';
-import { Theme } from '@/types/rp.js';
-
-const COVER_PRESETS: Record<Theme, { backgroundImage?: string; backgroundColor?: string }> = {
-    [Theme.Mask]: {
-        backgroundImage: urlcat(SITE_URL, '/rp/mask-background.png'),
-    },
-    [Theme.CoBranding]: {
-        backgroundImage: urlcat(SITE_URL, '/rp/co-branding-background.png'),
-        backgroundColor: '#f7413d',
-    },
-    [Theme.GoldenFlower]: {
-        backgroundColor: '#ffc37c',
-    },
-    [Theme.LuckyFlower]: {
-        backgroundColor: '#ec5a3d',
-    },
-    [Theme.LuckyFirefly]: {
-        backgroundColor: '#ec5a3d',
-    },
-};
+import { Theme, TokenType } from '@/types/rp.js';
 
 interface RedPacketCoverProps {
+    message: string;
+    from: string;
     shares: number;
     remainingShares: number;
     amount: string; // bigint in str
     remainingAmount: string; // bigint in str
-    symbol: string;
-    decimals: number;
-    message: string;
-    from: string;
+    token: {
+        type: TokenType;
+        symbol: string;
+        decimals?: number;
+    };
 }
 
-function RedPacketCoverForMask({ shares, remainingShares = 0, message, from }: RedPacketCoverProps) {
-    const preset = COVER_PRESETS[Theme.Mask];
-
-    const claimProgressText = `Claimed ${shares - remainingShares} / ${shares}`;
-    const authorText = `From: @${from}`;
-
+function RedPacketCoverForMask({ shares, remainingShares = 0, message, from, token }: RedPacketCoverProps) {
     return (
-        <div
-            style={{
-                width: '100%',
-                height: '100%',
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'center',
+        <CoverContainer
+            theme={Theme.Mask}
+            ContainerStyle={{
                 color: '#fff',
-                fontSize: 30,
-                fontWeight: 400,
-                fontFamily: 'Inter',
-                backgroundSize: '100% 100%',
-                backgroundImage: preset.backgroundImage ? `url("${preset.backgroundImage}")` : 'none',
-                backgroundColor: preset.backgroundColor ?? 'transparent',
-                backgroundRepeat: 'no-repeat',
             }}
         >
-            <div style={{ fontSize: 60, fontWeight: 700, width: 625, position: 'absolute', left: 40 }}>{message}</div>
-            <div style={{ position: 'absolute', left: 40, bottom: 40 }}>{claimProgressText}</div>
-            <div style={{ position: 'absolute', right: 40, bottom: 40 }}>{authorText}</div>
-        </div>
+            <CornerMark type={token.type} />
+
+            <MessageText message={message} ContainerStyle={{ fontSize: 60, fontWeight: 700, width: 625, left: 40 }} />
+
+            <ClaimProgressText shares={shares} remainingShares={remainingShares} />
+
+            <AuthorText from={from} />
+        </CoverContainer>
     );
 }
 
@@ -74,43 +50,19 @@ function RedPacketCoverForFirefly({
     remainingShares = 0,
     amount,
     remainingAmount,
-    symbol,
-    decimals,
     message,
     from,
+    token,
 }: RedPacketCoverProps & { theme: Theme }) {
-    const preset = COVER_PRESETS[theme];
-
-    const claimedAmountText = formatBalance(minus(amount, remainingAmount), decimals, {
-        isFixed: true,
-        significant: 0,
-        fixedDecimals: 0,
-    });
-    const totalAmountText = formatBalance(amount, decimals, {
-        isFixed: true,
-        significant: 0,
-        fixedDecimals: 0,
-    });
-    const claimProgressText = `${shares - remainingShares} of ${shares} Claimed`;
-    const authorText = `From ${from}`;
-
     return (
-        <div
-            style={{
-                width: '100%',
-                height: '100%',
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'center',
+        <CoverContainer
+            theme={theme}
+            ContainerStyle={{
                 color: '#000',
-                fontSize: 30,
-                fontWeight: 400,
-                fontFamily: 'Inter',
-                backgroundColor: preset.backgroundColor ?? 'transparent',
-                backgroundRepeat: 'no-repeat',
             }}
         >
+            <CornerMark type={token.type} />
+
             {theme === Theme.LuckyFirefly ? (
                 <img
                     style={{ position: 'absolute', top: 80 }}
@@ -129,36 +81,26 @@ function RedPacketCoverForFirefly({
                 />
             )}
 
-            <div style={{ fontSize: 50, fontWeight: 400, position: 'absolute', top: 520 }}>{message}</div>
+            <MessageText message={message} ContainerStyle={{ top: 520 }} />
 
-            <div
-                style={{
-                    display: 'flex',
-                    alignItems: 'baseline',
-                    top: 608,
-                    position: 'absolute',
-                }}
-            >
-                <div style={{ fontSize: 70, fontWeight: 700 }}>{claimedAmountText}</div>
-                <div style={{ fontSize: 45, fontWeight: 700, marginLeft: 8 }}>{symbol}</div>
-                <div style={{ fontSize: 70, fontWeight: 700, marginLeft: 8 }}>/</div>
-                <div style={{ fontSize: 70, fontWeight: 700, marginLeft: 8 }}>{totalAmountText}</div>
-                <div style={{ fontSize: 45, fontWeight: 700, marginLeft: 8 }}>{symbol}</div>
-            </div>
+            <AmountProgressText amount={amount} remainingAmount={remainingAmount} token={token} />
 
-            <div style={{ position: 'absolute', left: 60, bottom: 37.5 }}>{claimProgressText}</div>
-            <div
-                style={{
-                    position: 'absolute',
+            <ClaimProgressText
+                shares={shares}
+                remainingShares={remainingShares}
+                ContainerStyle={{ left: 60, bottom: 37.5 }}
+            />
+
+            <AuthorText
+                from={from}
+                ContainerStyle={{
                     right: 60,
                     bottom: 37.5,
                     fontWeight: theme === Theme.GoldenFlower ? 400 : 700,
                     color: theme === Theme.GoldenFlower ? '#000' : '#f1d590',
                 }}
-            >
-                {authorText}
-            </div>
-        </div>
+            />
+        </CoverContainer>
     );
 }
 
@@ -167,45 +109,14 @@ function RedPacketCoverForCoBranding({
     remainingShares = 0,
     amount,
     remainingAmount,
-    symbol,
-    decimals,
     message,
     from,
+    token,
 }: RedPacketCoverProps) {
-    const preset = COVER_PRESETS[Theme.CoBranding];
-
-    const claimedAmountText = formatBalance(minus(amount, remainingAmount), decimals, {
-        isFixed: true,
-        significant: 0,
-        fixedDecimals: 0,
-    });
-    const totalAmountText = formatBalance(amount, decimals, {
-        isFixed: true,
-        significant: 0,
-        fixedDecimals: 0,
-    });
-    const claimProgressText = `${shares - remainingShares} of ${shares} Claimed`;
-    const authorText = `From ${from}`;
-
     return (
-        <div
-            style={{
-                width: '100%',
-                height: '100%',
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'center',
-                color: '#dbcca1',
-                fontSize: 30,
-                fontWeight: 400,
-                fontFamily: 'Inter',
-                backgroundSize: '100% 100%',
-                backgroundImage: preset.backgroundImage ? `url("${preset.backgroundImage}")` : 'none',
-                backgroundColor: preset.backgroundColor ?? 'transparent',
-                backgroundRepeat: 'no-repeat',
-            }}
-        >
+        <CoverContainer theme={Theme.CoBranding}>
+            <CornerMark type={token.type} />
+
             {/* left logos */}
             <img
                 style={{ position: 'absolute', top: 170, left: 0, opacity: 0.1 }}
@@ -251,7 +162,6 @@ function RedPacketCoverForCoBranding({
                 width={190}
                 height={250}
             />
-
             <img
                 style={{ position: 'absolute', top: 170, right: 185 - 61.5, opacity: 0.3 }}
                 src={urlcat(SITE_URL, '/rp/logo-firefly-lighter.png')}
@@ -286,34 +196,24 @@ function RedPacketCoverForCoBranding({
                 <img src={urlcat(SITE_URL, '/rp/logo-firefly-lighter.png')} alt="Firefly" width={190} height={250} />
             </div>
 
-            <div style={{ fontSize: 50, fontWeight: 400, position: 'absolute', top: 520 }}>{message}</div>
+            <MessageText message={message} ContainerStyle={{ top: 520 }} />
 
-            <div
-                style={{
-                    display: 'flex',
-                    alignItems: 'baseline',
-                    top: 608,
-                    position: 'absolute',
-                }}
-            >
-                <div style={{ fontSize: 70, fontWeight: 700 }}>{claimedAmountText}</div>
-                <div style={{ fontSize: 45, fontWeight: 700, marginLeft: 8 }}>{symbol}</div>
-                <div style={{ fontSize: 70, fontWeight: 700, marginLeft: 8 }}>/</div>
-                <div style={{ fontSize: 70, fontWeight: 700, marginLeft: 8 }}>{totalAmountText}</div>
-                <div style={{ fontSize: 45, fontWeight: 700, marginLeft: 8 }}>{symbol}</div>
-            </div>
+            <AmountProgressText amount={amount} remainingAmount={remainingAmount} token={token} />
 
-            <div style={{ position: 'absolute', left: 60, bottom: 37.5 }}>{claimProgressText}</div>
-            <div
-                style={{
-                    position: 'absolute',
+            <ClaimProgressText
+                shares={shares}
+                remainingShares={remainingShares}
+                ContainerStyle={{ left: 60, bottom: 37.5 }}
+            />
+
+            <AuthorText
+                from={from}
+                ContainerStyle={{
                     right: 60,
                     bottom: 37.5,
                 }}
-            >
-                {authorText}
-            </div>
-        </div>
+            />
+        </CoverContainer>
     );
 }
 

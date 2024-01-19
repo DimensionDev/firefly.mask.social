@@ -16,6 +16,10 @@ export enum UsageType {
     Payload = 'payload',
 }
 
+export enum BrandingType {
+    Firefly = 'firefly',
+}
+
 export interface Dimension {
     width: number;
     height: number;

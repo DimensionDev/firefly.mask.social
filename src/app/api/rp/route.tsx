@@ -8,13 +8,21 @@ import { RedPacketPayload } from '@/components/RedPacket/Payload.js';
 import { SITE_URL } from '@/constants/index.js';
 import { fetchArrayBuffer } from '@/helpers/fetchArrayBuffer.js';
 import { Locale } from '@/types/index.js';
-import { type Dimension, Theme, TokenType, UsageType } from '@/types/rp.js';
+import { BrandingType, type Dimension, Theme, TokenType, UsageType } from '@/types/rp.js';
 
 export const runtime = 'edge';
 
-const ParamsSchema = z.object({
+const TokenSchema = z.object({
+    type: z.nativeEnum(TokenType),
+    symbol: z.string(),
+    decimals: z.coerce.number().int().nonnegative().optional(),
+});
+
+const CoverSchema = z.object({
     locale: z.nativeEnum(Locale),
     theme: z.nativeEnum(Theme),
+    usage: z.literal(UsageType.Cover),
+    from: z.string().refine((x) => (x ? x.length < 50 : true), { message: 'From cannot be longer than 50 characters' }),
     message: z
         .string()
         .transform((x) => (x ? decodeURIComponent(x) : x))
@@ -32,28 +40,57 @@ const ParamsSchema = z.object({
         .positive()
         .refine((x) => x < 100, { message: 'Shares cannot be more than 100' }),
     remainingShares: z.coerce.number().nonnegative(),
-    from: z.string().refine((x) => (x ? x.length < 50 : true), { message: 'From cannot be longer than 50 characters' }),
-    symbol: z.string(),
-    decimals: z.coerce.number().int().nonnegative(),
-    type: z.nativeEnum(TokenType),
-    usage: z.nativeEnum(UsageType),
+    token: TokenSchema,
+});
+
+const PayloadSchema = z.object({
+    locale: z.nativeEnum(Locale),
+    theme: z.nativeEnum(Theme),
+    usage: z.literal(UsageType.Payload),
+    from: z.string(),
+    amount: z.coerce
+        .bigint()
+        .nonnegative()
+        .transform((x) => x.toString(10)),
+    branding: z.nativeEnum(BrandingType),
+    token: TokenSchema,
 });
 
 function parseParams(params: URLSearchParams) {
-    return {
-        locale: params.get('locale') ?? Locale.en,
-        theme: params.get('theme') ?? Theme.Mask,
-        message: params.get('message') ?? 'Best Wishes!',
-        amount: params.get('amount') ?? '0',
-        remainingAmount: params.get('remaining-amount') ?? params.get('amount') ?? '0',
-        shares: params.get('shares') ?? '0',
-        remainingShares: params.get('remaining-shares') ?? params.get('shares') ?? '0',
-        from: params.get('from') ?? 'unknown',
+    const usage = params.get('usage') ?? UsageType.Cover;
+    const from = params.get('from') ?? 'unknown';
+    const token = {
+        type: params.get('type') ?? TokenType.Fungible,
         symbol: params.get('symbol') ?? '?',
         decimals: params.get('decimals') ?? '0',
-        type: params.get('type') ?? TokenType.Fungible,
-        usage: params.get('usage') ?? UsageType.Cover,
     };
+
+    switch (usage) {
+        case UsageType.Cover:
+            return CoverSchema.safeParse({
+                usage,
+                locale: params.get('locale') ?? Locale.en,
+                theme: params.get('theme') ?? Theme.Mask,
+                amount: params.get('amount') ?? '0',
+                remainingAmount: params.get('remaining-amount') ?? params.get('amount') ?? '0',
+                shares: params.get('shares') ?? '0',
+                remainingShares: params.get('remaining-shares') ?? params.get('shares') ?? '0',
+                message: params.get('message') ?? 'Best Wishes!',
+                from,
+                token,
+            });
+        case UsageType.Payload:
+            return PayloadSchema.safeParse({
+                usage,
+                locale: params.get('locale') ?? Locale.en,
+                theme: params.get('theme') ?? Theme.Mask,
+                amount: params.get('amount') ?? '0',
+                from,
+                token,
+            });
+        default:
+            return;
+    }
 }
 
 const DIMENSION_SETTINGS: Record<Theme, { cover: Dimension; payload: Dimension }> = {
@@ -82,7 +119,7 @@ const DIMENSION_SETTINGS: Record<Theme, { cover: Dimension; payload: Dimension }
 export async function GET(req: NextRequest) {
     // If no params, throw the usage message.
     if (req.nextUrl.searchParams.size === 0) {
-        const result = ParamsSchema.safeParse({
+        const result = CoverSchema.safeParse({
             locale: Locale.en,
         });
         return new Response(result.success ? 'Invalid Params.' : `Full Params: ${result.error.message}`, {
@@ -90,8 +127,8 @@ export async function GET(req: NextRequest) {
         });
     }
 
-    const result = ParamsSchema.safeParse(parseParams(req.nextUrl.searchParams));
-    if (!result.success) return new Response(`Invalid Params: ${result.error.message}`, { status: 400 });
+    const result = parseParams(req.nextUrl.searchParams);
+    if (!result?.success) return new Response(`Invalid Params: ${result?.error.message}`, { status: 400 });
 
     const params = result.data;
 
