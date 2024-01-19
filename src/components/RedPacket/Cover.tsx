@@ -9,9 +9,9 @@ import { CornerMark } from '@/components/RedPacket/CornerMark.js';
 import { CoverContainer } from '@/components/RedPacket/CoverContainer.js';
 import { MessageText } from '@/components/RedPacket/MessageText.js';
 import { SITE_URL } from '@/constants/index.js';
-import { Theme, TokenType } from '@/types/rp.js';
+import { Theme, TokenType, UsageType } from '@/types/rp.js';
 
-interface RedPacketCoverProps {
+interface CoverProps {
     message: string;
     from: string;
     shares: number;
@@ -25,7 +25,7 @@ interface RedPacketCoverProps {
     };
 }
 
-function RedPacketCoverForMask({ shares, remainingShares = 0, message, from, token }: RedPacketCoverProps) {
+function CoverForMask({ shares, remainingShares = 0, message, from, token }: CoverProps) {
     return (
         <CoverContainer
             theme={Theme.Mask}
@@ -39,12 +39,12 @@ function RedPacketCoverForMask({ shares, remainingShares = 0, message, from, tok
 
             <ClaimProgressText shares={shares} remainingShares={remainingShares} />
 
-            <AuthorText from={from} />
+            <AuthorText theme={Theme.Mask} usage={UsageType.Cover} from={from} />
         </CoverContainer>
     );
 }
 
-function RedPacketCoverForFirefly({
+function CoverForFirefly({
     theme,
     shares,
     remainingShares = 0,
@@ -53,7 +53,7 @@ function RedPacketCoverForFirefly({
     message,
     from,
     token,
-}: RedPacketCoverProps & { theme: Theme }) {
+}: CoverProps & { theme: Theme }) {
     return (
         <CoverContainer
             theme={theme}
@@ -92,6 +92,8 @@ function RedPacketCoverForFirefly({
             />
 
             <AuthorText
+                theme={theme}
+                usage={UsageType.Cover}
                 from={from}
                 ContainerStyle={{
                     right: 60,
@@ -104,7 +106,7 @@ function RedPacketCoverForFirefly({
     );
 }
 
-function RedPacketCoverForCoBranding({
+function CoverForCoBranding({
     shares,
     remainingShares = 0,
     amount,
@@ -112,7 +114,7 @@ function RedPacketCoverForCoBranding({
     message,
     from,
     token,
-}: RedPacketCoverProps) {
+}: CoverProps) {
     return (
         <CoverContainer theme={Theme.CoBranding}>
             <CornerMark type={token.type} />
@@ -207,6 +209,8 @@ function RedPacketCoverForCoBranding({
             />
 
             <AuthorText
+                theme={Theme.CoBranding}
+                usage={UsageType.Cover}
                 from={from}
                 ContainerStyle={{
                     right: 60,
@@ -217,16 +221,16 @@ function RedPacketCoverForCoBranding({
     );
 }
 
-export function RedPacketCover({ theme, ...props }: RedPacketCoverProps & { theme: Theme }) {
+export function RedPacketCover({ theme, ...props }: CoverProps & { theme: Theme }) {
     switch (theme) {
         case Theme.Mask:
-            return <RedPacketCoverForMask {...props} />;
+            return <CoverForMask {...props} />;
         case Theme.GoldenFlower:
         case Theme.LuckyFlower:
         case Theme.LuckyFirefly:
-            return <RedPacketCoverForFirefly {...props} theme={theme} />;
+            return <CoverForFirefly {...props} theme={theme} />;
         case Theme.CoBranding:
-            return <RedPacketCoverForCoBranding {...props} />;
+            return <CoverForCoBranding {...props} />;
         default:
             return null;
     }

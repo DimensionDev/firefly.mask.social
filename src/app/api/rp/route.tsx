@@ -8,7 +8,7 @@ import { RedPacketPayload } from '@/components/RedPacket/Payload.js';
 import { SITE_URL } from '@/constants/index.js';
 import { fetchArrayBuffer } from '@/helpers/fetchArrayBuffer.js';
 import { Locale } from '@/types/index.js';
-import { BrandingType, type Dimension, Theme, TokenType, UsageType } from '@/types/rp.js';
+import { CoBrandType, type Dimension, Theme, TokenType, UsageType } from '@/types/rp.js';
 
 export const runtime = 'edge';
 
@@ -40,6 +40,7 @@ const CoverSchema = z.object({
         .positive()
         .refine((x) => x < 100, { message: 'Shares cannot be more than 100' }),
     remainingShares: z.coerce.number().nonnegative(),
+    coBrand: z.nativeEnum(CoBrandType),
     token: TokenSchema,
 });
 
@@ -52,7 +53,7 @@ const PayloadSchema = z.object({
         .bigint()
         .nonnegative()
         .transform((x) => x.toString(10)),
-    branding: z.nativeEnum(BrandingType),
+    coBrand: z.nativeEnum(CoBrandType),
     token: TokenSchema,
 });
 
@@ -76,6 +77,7 @@ function parseParams(params: URLSearchParams) {
                 shares: params.get('shares') ?? '0',
                 remainingShares: params.get('remaining-shares') ?? params.get('shares') ?? '0',
                 message: params.get('message') ?? 'Best Wishes!',
+                coBrand: params.get('co-brand') ?? CoBrandType.None,
                 from,
                 token,
             });
@@ -85,6 +87,7 @@ function parseParams(params: URLSearchParams) {
                 locale: params.get('locale') ?? Locale.en,
                 theme: params.get('theme') ?? Theme.Mask,
                 amount: params.get('amount') ?? '0',
+                coBrand: params.get('co-brand') ?? CoBrandType.None,
                 from,
                 token,
             });
@@ -130,8 +133,6 @@ export async function GET(req: NextRequest) {
     const result = parseParams(req.nextUrl.searchParams);
     if (!result?.success) return new Response(`Invalid Params: ${result?.error.message}`, { status: 400 });
 
-    const params = result.data;
-
     const fonts = [
         {
             name: 'Inter',
@@ -146,6 +147,8 @@ export async function GET(req: NextRequest) {
             style: 'normal',
         },
     ];
+
+    const params = result.data;
 
     switch (params.usage) {
         case UsageType.Cover:

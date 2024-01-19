@@ -16,8 +16,8 @@ export enum UsageType {
     Payload = 'payload',
 }
 
-export enum BrandingType {
-    Firefly = 'firefly',
+export enum CoBrandType {
+    None = 'none',
 }
 
 export interface Dimension {

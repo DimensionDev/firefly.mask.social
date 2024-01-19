@@ -14,12 +14,15 @@ const PAYLOAD_PRESETS: Record<Theme, { backgroundImage?: string; backgroundColor
         backgroundColor: '#f7413d',
     },
     [Theme.GoldenFlower]: {
+        backgroundImage: urlcat(SITE_URL, '/rp/golden-flower-background.png'),
         backgroundColor: '#ffc37c',
     },
     [Theme.LuckyFlower]: {
+        backgroundImage: urlcat(SITE_URL, '/rp/lucky-flower-background.png'),
         backgroundColor: '#ec5a3d',
     },
     [Theme.LuckyFirefly]: {
+        backgroundImage: urlcat(SITE_URL, '/rp/lucky-firefly-background.png'),
         backgroundColor: '#ec5a3d',
     },
 };
@@ -49,7 +52,6 @@ export function PayloadContainer({ theme, children, ...props }: PayloadContainer
                 backgroundImage: preset.backgroundImage ? `url("${preset.backgroundImage}")` : '',
                 backgroundColor: preset.backgroundColor ?? 'transparent',
                 backgroundRepeat: 'no-repeat',
-                borderRadius: 45,
                 ...props.ContainerStyle,
             }}
         >
