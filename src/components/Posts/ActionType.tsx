@@ -109,18 +109,21 @@ export const FeedActionType = memo<FeedActionType>(function FeedActionType({ pos
                     <MirrorIcon width={16} height={16} />
                     <Link href={getProfileUrl(first(post.mirrors)!)}>
                         {post.mirrors.some((profile) => isSameProfile(profile, currentProfile)) ? (
-                            post.source === SocialPlatform.Farcaster ? post.mirrors.length > 1 ? (
-                                <Trans>
-                                    <strong>You</strong> recasted
-                                </Trans>
-                            ) : <Trans>
-                                <strong>You</strong> and {post.mirrors.length - 1} others recasted
-                            </Trans>
-                                : (
+                            post.source === SocialPlatform.Farcaster ? (
+                                post.mirrors.length > 1 ? (
                                     <Trans>
-                                        <strong>You</strong> mirrored
+                                        <strong>You</strong> recasted
+                                    </Trans>
+                                ) : (
+                                    <Trans>
+                                        <strong>You</strong> and {post.mirrors.length - 1} others recasted
                                     </Trans>
                                 )
+                            ) : (
+                                <Trans>
+                                    <strong>You</strong> mirrored
+                                </Trans>
+                            )
                         ) : post.source === SocialPlatform.Farcaster ? (
                             <Trans>
                                 <strong>{first(post.mirrors)?.displayName}</strong> recasted
