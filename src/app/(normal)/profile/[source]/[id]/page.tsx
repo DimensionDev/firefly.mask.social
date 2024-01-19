@@ -9,19 +9,20 @@ import Loading from '@/components/Loading.js';
 import ContentTabs from '@/components/Profile/ContentTabs.js';
 import Info from '@/components/Profile/Info.js';
 import Title from '@/components/Profile/Title.js';
-import type { SocialPlatform } from '@/constants/enum.js';
 import { SITE_NAME } from '@/constants/index.js';
 import { createPageTitle } from '@/helpers/createPageTitle.js';
+import { resolveSource, type SourceInURL } from '@/helpers/resolveSource.js';
 import { useIsMyProfile } from '@/hooks/useIsMyProfile.js';
 import { getProfileById } from '@/services/getProfileById.js';
 
 interface ProfilePageProps {
     params: {
         id: string;
-        currentSource: SocialPlatform;
+        source: SourceInURL;
     };
 }
-export default function ProfilePage({ params: { currentSource, id: handleOrProfileId } }: ProfilePageProps) {
+export default function ProfilePage({ params: { source: _source, id: handleOrProfileId } }: ProfilePageProps) {
+    const currentSource = resolveSource(_source);
     const isMyProfile = useIsMyProfile(currentSource, handleOrProfileId);
 
     const { data: profile, isLoading } = useQuery({

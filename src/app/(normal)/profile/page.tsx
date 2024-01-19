@@ -18,7 +18,7 @@ export default function ProfileHome() {
         <ProfilePage
             params={{
                 id: currentSource === SocialPlatform.Lens ? currentProfile.handle : currentProfile.profileId,
-                currentSource,
+                source: currentSource === SocialPlatform.Lens ? 'lens' : 'farcaster',
             }}
         />
     );
