@@ -1,10 +1,10 @@
 'use client';
 
+import ProfilePage from '@/app/(normal)/profile/[source]/[id]/page.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
+import { SocialPlatform } from '@/constants/enum.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
-import ProfilePage from '@/app/(normal)/profile/[source]/[id]/page.js';
-import { SocialPlatform } from '@/constants/enum.js';
 
 export default function ProfileHome() {
     const currentSource = useGlobalState.use.currentSource();

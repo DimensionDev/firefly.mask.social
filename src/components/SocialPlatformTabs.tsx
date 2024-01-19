@@ -6,7 +6,6 @@ import { startTransition } from 'react';
 
 import { SocialPlatform } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
-import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { resolveSource, type SourceInURL } from '@/helpers/resolveSource.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
