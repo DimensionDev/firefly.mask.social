@@ -14,6 +14,12 @@ export default function ProfileHome() {
         return <NotLoginFallback source={currentSource} />;
     }
 
-    return <ProfilePage params={{ id: currentSource === SocialPlatform.Lens ? currentProfile.handle : currentProfile.profileId, currentSource }} />
-
+    return (
+        <ProfilePage
+            params={{
+                id: currentSource === SocialPlatform.Lens ? currentProfile.handle : currentProfile.profileId,
+                currentSource,
+            }}
+        />
+    );
 }

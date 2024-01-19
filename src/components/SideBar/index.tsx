@@ -125,9 +125,7 @@ export const SideBar = memo(function SideBar() {
                                                     <ConnectWalletNav />
                                                 ) : (
                                                     <Link
-                                                        href={
-                                                            item.href
-                                                        }
+                                                        href={item.href}
                                                         className={classNames(
                                                             'lg: flex flex-grow-0 gap-x-3 rounded-lg text-xl/5 hover:bg-bg md:rounded-full md:p-2 lg:px-4 lg:py-3',
                                                             { 'font-bold': isSelected },
