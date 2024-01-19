@@ -108,16 +108,19 @@ export const FeedActionType = memo<FeedActionType>(function FeedActionType({ pos
                 <div className="mb-3 flex items-center space-x-2 text-[15px] text-secondary">
                     <MirrorIcon width={16} height={16} />
                     <Link href={getProfileUrl(first(post.mirrors)!)}>
-                        {isSameProfile(first(post.mirrors), currentProfile) ? (
-                            post.source === SocialPlatform.Farcaster ? (
+                        {post.mirrors.some((profile) => isSameProfile(profile, currentProfile)) ? (
+                            post.source === SocialPlatform.Farcaster ? post.mirrors.length > 1 ? (
                                 <Trans>
                                     <strong>You</strong> recasted
                                 </Trans>
-                            ) : (
-                                <Trans>
-                                    <strong>You</strong> mirrored
-                                </Trans>
-                            )
+                            ) : <Trans>
+                                <strong>You</strong> and {post.mirrors.length - 1} others recasted
+                            </Trans>
+                                : (
+                                    <Trans>
+                                        <strong>You</strong> mirrored
+                                    </Trans>
+                                )
                         ) : post.source === SocialPlatform.Farcaster ? (
                             <Trans>
                                 <strong>{first(post.mirrors)?.displayName}</strong> recasted
@@ -134,7 +137,7 @@ export const FeedActionType = memo<FeedActionType>(function FeedActionType({ pos
                 <div className="mb-3 flex items-center space-x-2 text-[15px] text-secondary">
                     {post.hasLiked ? <LikedIcon width={17} height={16} /> : <LikeIcon width={17} height={16} />}
                     <Link href={getProfileUrl(first(post.reactions)!)}>
-                        {isSameProfile(first(post.reactions), currentProfile) ? (
+                        {post.reactions.some((profile) => isSameProfile(profile, currentProfile)) ? (
                             <Trans>
                                 <strong>You</strong> liked
                             </Trans>
