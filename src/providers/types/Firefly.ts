@@ -39,42 +39,6 @@ export interface UsersData {
     next_cursor: string;
 }
 
-export interface UsersResponse {
-    code: number;
-    data: UsersData;
-}
-
-export interface UserResponse {
-    code: number;
-    data: User;
-}
-
-export interface ReactorsResponse {
-    code: number;
-    data: {
-        items: User[];
-        nextCursor: string;
-    };
-}
-
-export interface CastResponse {
-    code: number;
-    data: Cast;
-}
-
-export interface CastsResponse {
-    code: number;
-    data: {
-        casts: Cast[];
-        cursor: string;
-    };
-}
-
-export interface SearchCastsResponse {
-    code: number;
-    data: Cast[];
-}
-
 export interface Notification {
     cast: Cast | null;
     notificationType: number;
@@ -82,15 +46,32 @@ export interface Notification {
     timestamp: string;
 }
 
-export interface NotificationResponse {
+interface Response<T> {
     code: number;
-    data: { notifications: Notification[]; cursor: string };
+    data: T;
 }
 
-export interface CommentsResponse {
-    code: number;
-    data: {
-        comments: Cast[];
-        cursor: string;
-    };
-}
+export type UsersResponse = Response<UsersData>;
+
+export type UserResponse = Response<User>;
+
+export type ReactorsResponse = Response<{
+    items: User[];
+    nextCursor: string;
+}>;
+
+export type CastResponse = Response<Cast>;
+
+export type CastsResponse = Response<{
+    casts: Cast[];
+    cursor: string;
+}>;
+
+export type SearchCastsResponse = Response<Cast[]>;
+
+export type NotificationResponse = Response<{ notifications: Notification[]; cursor: string }>;
+
+export type CommentsResponse = Response<{
+    comments: Cast[];
+    cursor: string;
+}>;
