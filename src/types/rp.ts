@@ -16,6 +16,10 @@ export enum UsageType {
     Payload = 'payload',
 }
 
+export enum CoBrandType {
+    None = 'none',
+}
+
 export interface Dimension {
     width: number;
     height: number;
