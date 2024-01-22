@@ -5,7 +5,6 @@ import urlcat from 'urlcat';
 import { AmountProgressText } from '@/components/RedPacket/AmountProgressText.js';
 import { AuthorText } from '@/components/RedPacket/AuthorText.js';
 import { ClaimProgressText } from '@/components/RedPacket/ClaimProgressText.js';
-import { CornerMark } from '@/components/RedPacket/CornerMark.js';
 import { CoverContainer } from '@/components/RedPacket/CoverContainer.js';
 import { MessageText } from '@/components/RedPacket/MessageText.js';
 import { SITE_URL } from '@/constants/index.js';
@@ -33,8 +32,6 @@ function CoverForMask({ shares, remainingShares = 0, message, from, token }: Cov
                 color: '#fff',
             }}
         >
-            <CornerMark type={token.type} />
-
             <MessageText message={message} ContainerStyle={{ fontSize: 60, fontWeight: 700, width: 625, left: 40 }} />
 
             <ClaimProgressText shares={shares} remainingShares={remainingShares} />
@@ -61,8 +58,6 @@ function CoverForFirefly({
                 color: '#000',
             }}
         >
-            <CornerMark type={token.type} />
-
             {theme === Theme.LuckyFirefly ? (
                 <img
                     style={{ position: 'absolute', top: 80 }}
@@ -117,8 +112,6 @@ function CoverForCoBranding({
 }: CoverProps) {
     return (
         <CoverContainer theme={Theme.CoBranding}>
-            <CornerMark type={token.type} />
-
             {/* left logos */}
             <img
                 style={{ position: 'absolute', top: 170, left: 0, opacity: 0.1 }}
@@ -198,14 +191,19 @@ function CoverForCoBranding({
                 <img src={urlcat(SITE_URL, '/rp/logo-firefly-lighter.png')} alt="Firefly" width={190} height={250} />
             </div>
 
-            <MessageText message={message} ContainerStyle={{ top: 520 }} />
+            <MessageText message={message} ContainerStyle={{ color: '#dbcca1', top: 520 }} />
 
-            <AmountProgressText amount={amount} remainingAmount={remainingAmount} token={token} />
+            <AmountProgressText
+                amount={amount}
+                remainingAmount={remainingAmount}
+                token={token}
+                ContainerStyle={{ color: '#dbcca1' }}
+            />
 
             <ClaimProgressText
                 shares={shares}
                 remainingShares={remainingShares}
-                ContainerStyle={{ left: 60, bottom: 37.5 }}
+                ContainerStyle={{ color: '#dbcca1', left: 60, bottom: 37.5 }}
             />
 
             <AuthorText
@@ -213,6 +211,7 @@ function CoverForCoBranding({
                 usage={UsageType.Cover}
                 from={from}
                 ContainerStyle={{
+                    color: '#dbcca1',
                     right: 60,
                     bottom: 37.5,
                 }}
