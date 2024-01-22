@@ -18,11 +18,11 @@ const PAYLOAD_PRESETS: Record<Theme, { backgroundImage?: string; backgroundColor
         backgroundColor: '#ffc37c',
     },
     [Theme.LuckyFlower]: {
-        backgroundImage: urlcat(SITE_URL, '/rp/lucky-flower-background.png'),
+        backgroundImage: urlcat(SITE_URL, '/rp/lucky-drop-background.png'),
         backgroundColor: '#ec5a3d',
     },
     [Theme.LuckyFirefly]: {
-        backgroundImage: urlcat(SITE_URL, '/rp/lucky-firefly-background.png'),
+        backgroundImage: urlcat(SITE_URL, '/rp/lucky-drop-background.png'),
         backgroundColor: '#ec5a3d',
     },
 };

@@ -6,6 +6,7 @@ import { AmountProgressText } from '@/components/RedPacket/AmountProgressText.js
 import { AuthorText } from '@/components/RedPacket/AuthorText.js';
 import { ClaimProgressText } from '@/components/RedPacket/ClaimProgressText.js';
 import { CoverContainer } from '@/components/RedPacket/CoverContainer.js';
+import { FireflyVsFireflyBranding } from '@/components/RedPacket/FireflyVsFireflyBranding.js';
 import { MessageText } from '@/components/RedPacket/MessageText.js';
 import { SITE_URL } from '@/constants/index.js';
 import { Theme, TokenType, UsageType } from '@/types/rp.js';
@@ -58,6 +59,8 @@ function CoverForFirefly({
                 color: '#000',
             }}
         >
+            <FireflyVsFireflyBranding />
+
             {theme === Theme.LuckyFirefly ? (
                 <img
                     style={{ position: 'absolute', top: 80 }}
@@ -112,84 +115,7 @@ function CoverForCoBranding({
 }: CoverProps) {
     return (
         <CoverContainer theme={Theme.CoBranding}>
-            {/* left logos */}
-            <img
-                style={{ position: 'absolute', top: 170, left: 0, opacity: 0.1 }}
-                src={urlcat(SITE_URL, '/rp/logo-firefly-lighter.png')}
-                alt="Firefly"
-                width={190}
-                height={250}
-            />
-            <img
-                style={{ position: 'absolute', top: 170, left: 61.5, opacity: 0.2 }}
-                src={urlcat(SITE_URL, '/rp/logo-firefly-lighter.png')}
-                alt="Firefly"
-                width={190}
-                height={250}
-            />
-            <img
-                style={{ position: 'absolute', top: 170, left: 61.5 * 2, opacity: 0.3 }}
-                src={urlcat(SITE_URL, '/rp/logo-firefly-lighter.png')}
-                alt="Firefly"
-                width={190}
-                height={250}
-            />
-            <img
-                style={{ position: 'absolute', top: 170, left: 61.5 * 3, opacity: 0.6 }}
-                src={urlcat(SITE_URL, '/rp/logo-firefly-lighter.png')}
-                alt="Firefly"
-                width={190}
-                height={250}
-            />
-
-            {/* right logos */}
-            <img
-                style={{ position: 'absolute', top: 170, right: 185 - 61.5 * 3, opacity: 0.1 }}
-                src={urlcat(SITE_URL, '/rp/logo-firefly-lighter.png')}
-                alt="Firefly"
-                width={190}
-                height={250}
-            />
-            <img
-                style={{ position: 'absolute', top: 170, right: 185 - 61.5 * 2, opacity: 0.2 }}
-                src={urlcat(SITE_URL, '/rp/logo-firefly-lighter.png')}
-                alt="Firefly"
-                width={190}
-                height={250}
-            />
-            <img
-                style={{ position: 'absolute', top: 170, right: 185 - 61.5, opacity: 0.3 }}
-                src={urlcat(SITE_URL, '/rp/logo-firefly-lighter.png')}
-                alt="Firefly"
-                width={190}
-                height={250}
-            />
-            <img
-                style={{ position: 'absolute', top: 170, right: 185, opacity: 0.6 }}
-                src={urlcat(SITE_URL, '/rp/logo-firefly-lighter.png')}
-                alt="Firefly"
-                width={190}
-                height={250}
-            />
-
-            <div
-                style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    top: 170,
-                    position: 'absolute',
-                }}
-            >
-                <img src={urlcat(SITE_URL, '/rp/logo-firefly-lighter.png')} alt="Firefly" width={190} height={250} />
-                <img
-                    style={{ marginLeft: 132, marginRight: 132 }}
-                    src={urlcat(SITE_URL, '/rp/x.png')}
-                    alt="X"
-                    width={60}
-                    height={60}
-                />
-                <img src={urlcat(SITE_URL, '/rp/logo-firefly-lighter.png')} alt="Firefly" width={190} height={250} />
-            </div>
+            <FireflyVsFireflyBranding />
 
             <MessageText message={message} ContainerStyle={{ color: '#dbcca1', top: 520 }} />
 

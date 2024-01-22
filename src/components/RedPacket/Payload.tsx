@@ -4,6 +4,7 @@ import urlcat from 'urlcat';
 
 import { AmountText } from '@/components/RedPacket/AmountText.js';
 import { AuthorText } from '@/components/RedPacket/AuthorText.js';
+import { FireflyVsFireflyBranding } from '@/components/RedPacket/FireflyVsFireflyBranding.js';
 import { PayloadContainer } from '@/components/RedPacket/PayloadContainer.js';
 import { QuoteText } from '@/components/RedPacket/QuoteText.js';
 import { SITE_URL } from '@/constants/index.js';
@@ -67,6 +68,8 @@ function PayloadForCoBranding({ amount, token, from }: PayloadProps) {
                 color: '#dbcca1',
             }}
         >
+            <FireflyVsFireflyBranding />
+
             <AuthorText theme={Theme.CoBranding} usage={UsageType.Payload} from={from} />
 
             <AmountText amount={amount} token={token} theme={Theme.CoBranding} />
