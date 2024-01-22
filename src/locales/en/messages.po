@@ -67,6 +67,9 @@ msgstr "Join our Discord"
 msgid "Querying the signer request state."
 msgstr "Querying the signer request state."
 
+msgid "<0>You</0> and {0} others recasted"
+msgstr "<0>You</0> and {0} others recasted"
+
 msgid "Change Wallet"
 msgstr "Change Wallet"
 
