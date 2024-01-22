@@ -62,9 +62,12 @@ const PRESET_SETTINGS: Record<
     },
 };
 
-export async function steganographyEncodeImage(data: string | ArrayBuffer, preset = SteganographyPreset.Preset202312) {
+export async function steganographyEncodeImage(data: string | ArrayBuffer, preset = SteganographyPreset.Preset2023) {
     const settings = PRESET_SETTINGS[preset];
     if (!settings) throw new Error('Failed to create preset.');
+
+    if (preset === SteganographyPreset.Preset202312)
+        throw new Error('TODO: Please update the payload to use /api/rp instead.');
 
     const blankImage = await fetchBlob(settings.payload).then((x) => x.arrayBuffer());
     const maskImage = settings.mask
