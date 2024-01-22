@@ -15,7 +15,7 @@ export default {
     logging: {
         fetches: {
             fullUrl: true,
-        }
+        },
     },
     experimental: {
         esmExternals: true,
