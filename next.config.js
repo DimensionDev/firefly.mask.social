@@ -12,6 +12,11 @@ const polyfillsFolderPath = join(outputPath, './js/polyfills');
 
 /** @type {import('next').NextConfig} */
 export default {
+    logging: {
+        fetches: {
+            fullUrl: true,
+        },
+    },
     experimental: {
         esmExternals: true,
         scrollRestoration: true,
