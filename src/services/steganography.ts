@@ -48,7 +48,7 @@ const PRESET_SETTINGS: Record<
         mask: null,
         width: 1200,
         height: 671,
-        payload: '/rp/payload-2023.png',
+        payload: '/api/rp?usage=payload&theme=mask',
         options: libV2AlgrDefaults,
     },
     [SteganographyPreset.Preset202312]: {
@@ -57,14 +57,17 @@ const PRESET_SETTINGS: Record<
         mask: null,
         width: 1200,
         height: 840,
-        payload: '/rp/payload-202312.png',
+        payload: '/api/rp?usage=payload&theme=mask',
         options: libV2AlgrDefaults,
     },
 };
 
-export async function steganographyEncodeImage(data: string | ArrayBuffer, preset = SteganographyPreset.Preset202312) {
+export async function steganographyEncodeImage(data: string | ArrayBuffer, preset = SteganographyPreset.Preset2023) {
     const settings = PRESET_SETTINGS[preset];
     if (!settings) throw new Error('Failed to create preset.');
+
+    if (preset === SteganographyPreset.Preset202312)
+        throw new Error('TODO: Please update the payload to use /api/rp instead.');
 
     const blankImage = await fetchBlob(settings.payload).then((x) => x.arrayBuffer());
     const maskImage = settings.mask
