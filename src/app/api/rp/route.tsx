@@ -1,3 +1,4 @@
+import { safeUnreachable } from '@masknet/kit';
 import { ImageResponse } from '@vercel/og';
 import { type NextRequest } from 'next/server.js';
 import urlcat from 'urlcat';
@@ -149,17 +150,21 @@ export async function GET(req: NextRequest) {
     ];
 
     const params = result.data;
+    const { usage, theme } = params;
 
-    switch (params.usage) {
+    switch (usage) {
         case UsageType.Cover:
             return new ImageResponse(<RedPacketCover {...params} />, {
-                ...DIMENSION_SETTINGS[params.theme].cover,
+                ...DIMENSION_SETTINGS[theme].cover,
                 fonts,
             });
         case UsageType.Payload:
             return new ImageResponse(<RedPacketPayload {...params} />, {
-                ...DIMENSION_SETTINGS[params.theme].payload,
+                ...DIMENSION_SETTINGS[theme].payload,
                 fonts,
             });
+        default:
+            safeUnreachable(usage);
+            return new Response('Invalid usage', { status: 400 });
     }
 }
