@@ -25,7 +25,6 @@ import { ConnectWalletNav } from '@/components/SideBar/ConnectWalletNav.js';
 import { PageRoutes } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
-import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useDarkMode } from '@/hooks/useDarkMode.js';
@@ -125,11 +124,7 @@ export const SideBar = memo(function SideBar() {
                                                     <ConnectWalletNav />
                                                 ) : (
                                                     <Link
-                                                        href={
-                                                            item.href === PageRoutes.Profile && currentProfile
-                                                                ? getProfileUrl(currentProfile)
-                                                                : item.href
-                                                        }
+                                                        href={item.href}
                                                         className={classNames(
                                                             'lg: flex flex-grow-0 gap-x-3 rounded-lg text-xl/5 hover:bg-bg md:rounded-full md:p-2 lg:px-4 lg:py-3',
                                                             { 'font-bold': isSelected },

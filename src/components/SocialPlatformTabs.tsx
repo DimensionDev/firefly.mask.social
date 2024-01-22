@@ -6,7 +6,6 @@ import { startTransition } from 'react';
 
 import { SocialPlatform } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
-import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { resolveSource, type SourceInURL } from '@/helpers/resolveSource.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
@@ -45,12 +44,6 @@ export function SocialPlatformTabs() {
                         aria-current={currentSource === value ? 'page' : undefined}
                         onClick={() =>
                             startTransition(() => {
-                                if (isRoutePathname(pathname, '/profile')) {
-                                    if (value === SocialPlatform.Lens)
-                                        router.push(lensProfile ? getProfileUrl(lensProfile) : '/profile');
-                                    if (value === SocialPlatform.Farcaster)
-                                        router.push(farcasterProfile ? getProfileUrl(farcasterProfile) : '/profile');
-                                }
                                 scrollTo(0, 0);
                                 updateCurrentSource(value);
                             })
