@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-01-13 00:04\n"
+"PO-Revision-Date: 2024-01-23 00:04\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -19,7 +19,7 @@ msgstr ""
 "X-Crowdin-File-ID: 836\n"
 
 msgid "Be the first one to comment!"
-msgstr "成为第一个评论的人！"
+msgstr "还没有人评论哦～快来抢沙发！"
 
 msgid "Quote Post"
 msgstr "引用"
@@ -49,13 +49,13 @@ msgid "Allow Lens Manager to perform actions such as posting, liking, and commen
 msgstr "允许 Lens 管理员执行发帖、点赞和评论等操作，而无需签署每笔交易。"
 
 msgid "{0} views"
-msgstr "{0} 查看"
+msgstr "{0} 浏览数"
 
 msgid "Failed to post on Farcaster."
 msgstr "在 Farcaster 发贴成功。"
 
 msgid "Act"
-msgstr "行动"
+msgstr "收藏"
 
 msgid "More"
 msgstr "更多"
@@ -71,6 +71,9 @@ msgstr "加入我们的 Discord"
 
 msgid "Querying the signer request state."
 msgstr "正在查询签名者请求状态"
+
+msgid "<0>You</0> and {0} others recasted"
+msgstr "<0> 你 </0> 和 {0} 人都转发了"
 
 msgid "Change Wallet"
 msgstr "更换钱包"
@@ -148,7 +151,7 @@ msgid "Recent"
 msgstr "最近"
 
 msgid "{type, select, compose {{0}} quote {{1}} reply {{2}} other {{3}}}"
-msgstr ""
+msgstr "{type, select, compose {{0}} quote {{1}} reply {{2}} other {{3}}}"
 
 msgid "Connect Wallet"
 msgstr "连接钱包"
@@ -175,7 +178,7 @@ msgid "Log out"
 msgstr "登出"
 
 msgid "Follow more friends to continue exploring {0}."
-msgstr ""
+msgstr "去关注更多有趣的人来继续浏览你的 {0} 信息流吧"
 
 msgid "post"
 msgstr "帖子"
@@ -214,7 +217,7 @@ msgid "Collected"
 msgstr "已收藏"
 
 msgid "<0>You</0> mirrored"
-msgstr "<0>你</0> 转推"
+msgstr "<0>你</0> 已转发"
 
 msgid "Failed to upload video to IPFS."
 msgstr "未能上传图片到 IPFS。 "
@@ -247,13 +250,13 @@ msgid "Follow"
 msgstr "关注"
 
 msgid "Failed to like. {0}"
-msgstr "取消点赞失败 {0}"
+msgstr "点赞失败 {0}"
 
 msgid "{0} Comments"
 msgstr "{0} 评论"
 
 msgid "{0, plural, one {<0/>} other {{1, plural, one {<1/> and <2/>} other {<3/> and # others}}}} <4>followed you</4>"
-msgstr ""
+msgstr "{0, plural, one {<0/>} other {{1, plural, one {<1/> 和 <2/>} other {<3/> 和 # 其他人}}}} <4> 关注了你 </4>"
 
 msgid "Comment"
 msgstr "评论"
@@ -265,7 +268,7 @@ msgid "Malformed session."
 msgstr "会话格式错误。"
 
 msgid "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code."
-msgstr ""
+msgstr "在你装有 Warpcast 的手机上，打开 <0> 相机 </0>，扫描二维码。"
 
 msgid "Post has been hidden"
 msgstr "帖子已经被隐藏"
@@ -274,7 +277,7 @@ msgid "<0>{0}</0> liked"
 msgstr "<0>{0}</0> 点赞"
 
 msgid "{0, select, follow {Failed to followed @{handle} on {source}} unfollow {Failed to unfollowed @{handle} on {source}} other {Failed to followed @{handle} on {source}}}"
-msgstr ""
+msgstr "{0, select, follow {在 {source} 关注 @{handle} 失败} unfollow {在 {source} 取消关注 @{handle} 失败} other {在 {source} 关注 @{handle} 失败}}"
 
 msgid "Failed to follow."
 msgstr "关注失败"
@@ -346,22 +349,22 @@ msgid "What's happening..."
 msgstr "正在发生..."
 
 msgid "Like"
-msgstr "已点赞"
+msgstr "点赞"
 
 msgid "Failed to quote post on Lens."
 msgstr "未能在 Lens 上引用帖子。"
 
 msgid "This can’t be undone and you’ll lose your draft."
-msgstr ""
+msgstr "此操作无法撤销，您将丢失您的草稿。"
 
 msgid "Publications"
-msgstr ""
+msgstr "帖子"
 
 msgid "Display"
 msgstr "显示"
 
 msgid "No results for \"{keyword}\""
-msgstr ""
+msgstr "\"{keyword}\" 没有结果"
 
 msgid "Login required"
 msgstr "请先登录"
@@ -373,7 +376,7 @@ msgid "Failed to parse session."
 msgstr "未能解析会话"
 
 msgid "{0, plural, one {<0/>} other {{1, plural, one {<1/> and <2/>} other {<3/> and # others}}}} <4>liked your </4><5><6/></5>"
-msgstr ""
+msgstr "{0, plural, one {<0/>} other {{1, plural, one {<1/> 和 <2/>} other {<3/> 和 # 其他人}}}} <4>点赞了你的 </4><5><6/></5>"
 
 msgid "Loading..."
 msgstr "加载中..."
@@ -382,16 +385,16 @@ msgid "Share"
 msgstr "分享"
 
 msgid "Cancel recast successfully"
-msgstr ""
+msgstr "成功取消转发"
 
 msgid "Failed to unfollow."
 msgstr "取消关注失败"
 
 msgid "Select failed: More than 2 images"
-msgstr "选择失败：多余2张图片"
+msgstr "选择失败：超过 2 张图片"
 
 msgid "Please switch to the {0} network in your wallet ({1})}"
-msgstr ""
+msgstr "请在你的钱包 ({1}) 里切换 {0} 网络}"
 
 msgid "Visit mask.io"
 msgstr "访问 mask.io"
@@ -412,7 +415,7 @@ msgid "Posted on Lens"
 msgstr "发表于 Lens"
 
 msgid "{0, plural, =0 {Mirror or Quote} zero {Mirror or Quote} one {Mirror or Quote} other {Mirrors or Quotes}}"
-msgstr ""
+msgstr "{0, plural, =0 {转发或引用} zero {转发或引用} one {转发或引用} other {转发或引用}}"
 
 msgid "There is no data available for display."
 msgstr "没有可显示的数据。"
@@ -427,7 +430,7 @@ msgid "recasted your"
 msgstr "转帖了你的"
 
 msgid "{0, plural, one {<0/>} other {{1, plural, one {<1/> and <2/>} other {<3/> and # others mirrored you}}}} {2, select, Lens {{3}} Farcaster {{4}} other {{5}}} <4><5/></4>"
-msgstr ""
+msgstr "{0, plural, one {<0/>} other {{1, plural, one {<1/> 和 <2/>} other {<3/> 和 # 其他人转发了你}}}} {2, select, Lens {{3}} Farcaster {{4}} other {{5}}} <4><5/></4>"
 
 msgid "Posted on Farcaster"
 msgstr "在 Farcaster 上发帖成功"
@@ -436,7 +439,7 @@ msgid "Follow @realMaskNetwork on X"
 msgstr "在 X 上关注 @realMaskNetwork"
 
 msgid "<0>{0}</0> mirrored"
-msgstr "<0>{0}</0> 转帖"
+msgstr "<0>{0}</0> 已转发"
 
 msgid "Follower"
 msgstr "粉丝"
@@ -454,7 +457,7 @@ msgid "Notifications"
 msgstr "通知"
 
 msgid "No Lens profile found. Please change to another wallet."
-msgstr ""
+msgstr "没有找到 Lens 账号，请连接另一个钱包。"
 
 msgid "Connect"
 msgstr "连接"
@@ -466,7 +469,7 @@ msgid "Search…"
 msgstr "查找"
 
 msgid "{0, plural, one {<0/>} other {{1, plural, one {<1/> and <2/>} other {<3/> and # others acted on your}}}} <4>acted on your </4><5><6/></5>"
-msgstr ""
+msgstr "{0, plural, one {<0/>} other {{1, plural, one {<1/> 和 <2/>} other {<3/> 和 # 其他人收藏了你的}}}} <4> 收藏了你的 </4><5><6/></5>"
 
 msgid "No profile found"
 msgstr "未发现个人信息"
@@ -475,19 +478,19 @@ msgid "Everyone can reply"
 msgstr "所有人可评论"
 
 msgid "<0>You</0> liked"
-msgstr "<0>你</0> 点赞"
+msgstr "<0>你</0> 已点赞"
 
 msgid "You've hit rock bottom."
-msgstr ""
+msgstr "你已经滑到底部啦～"
 
 msgid "Failed to mirror post."
-msgstr "转帖失败"
+msgstr "转发失败"
 
 msgid "Login with custody wallet"
 msgstr "使用托管钱包登录"
 
 msgid "Delegate Signing (Recommend)"
-msgstr "委托签名中（推荐）"
+msgstr "委托签名（推荐）"
 
 msgid "Sign the transaction to verify you are the owner of the selected profile."
 msgstr "签署交易以验证你是所选账号的所有者。"
@@ -526,7 +529,7 @@ msgid "Failed to upload image to IPFS: {0}"
 msgstr "未能上传图片到 IPFS: {0}"
 
 msgid "Confirm to log out these accounts?"
-msgstr "确认登陆这些账号？"
+msgstr "确认登出这些账号？"
 
 msgid "Light mode"
 msgstr "明亮模式"
@@ -553,13 +556,13 @@ msgid "No matching users"
 msgstr "未找到匹配用户"
 
 msgid "{0, select, follow {Followed @{handle} on {source}} unfollow {Unfollowed @{handle} on {source}} other {Followed @{handle} on {source}}}"
-msgstr ""
+msgstr "{0, select, follow {在 {source} 关注 @{handle}} unfollow {在 {source} 取消关注 @{handle}} other {在 {source} 关注 @{handle}}}"
 
 msgid "Log in to Farcaster account"
 msgstr "登录到 Farcaster 账号"
 
 msgid "Recasted"
-msgstr "已转推"
+msgstr "已转发"
 
 msgid "Profile"
 msgstr "个人信息"
@@ -574,7 +577,7 @@ msgid "Profiles"
 msgstr "个人信息"
 
 msgid "<0/> commented on your <1><2/></1>"
-msgstr ""
+msgstr "<0/> 评论了你的 <1><2/></1>"
 
 msgid "<0>You</0> recasted"
 msgstr "<0>你</0> 已转帖"
@@ -586,7 +589,7 @@ msgid "Followers"
 msgstr "粉丝"
 
 msgid "{0, select, follow {Follow} unfollow {Unfollow} other {Follow}}"
-msgstr ""
+msgstr "{0, select, follow {关注} unfollow {取消关注} other {关注}}"
 
 msgid "Media"
 msgstr "多媒体"
@@ -616,20 +619,20 @@ msgid "Following"
 msgstr "已关注"
 
 msgid "Dark mode"
-msgstr "黑暗模式"
+msgstr "深色模式"
 
 msgid "<0>{0}</0> recasted"
-msgstr "<0>{0}</0> 已转推"
+msgstr "<0>{0}</0> 已转发"
 
 msgid "<0/> mentioned you in a <1><2/></1>"
-msgstr ""
+msgstr "<0/> 在 <1><2/></1> 提及了你"
 
 msgid "Login"
 msgstr "登录"
 
 msgid "Replying to <0>@{0}</0> on {1}"
-msgstr ""
+msgstr "在 {1} 上回复 <0>@{0}</0>"
 
 msgid "<0/> quoted your <1><2/></1>"
-msgstr ""
+msgstr "<0/> 引用了你的 <1><2/></1>"
 
