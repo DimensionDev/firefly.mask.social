@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-01-13 00:04\n"
+"PO-Revision-Date: 2024-01-23 00:04\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Traditional\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -70,6 +70,9 @@ msgid "Join our Discord"
 msgstr ""
 
 msgid "Querying the signer request state."
+msgstr ""
+
+msgid "<0>You</0> and {0} others recasted"
 msgstr ""
 
 msgid "Change Wallet"
