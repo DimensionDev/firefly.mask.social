@@ -7,23 +7,33 @@ import { connectMaskWithWagmi } from '@/helpers/connectWagmiWithMask.js';
 import { createRejectCallback } from '@/helpers/createRejectCallback.js';
 
 const WalletIO: WalletAPI.IOContext = {
-    wallets: EMPTY_ARRAY,
-    hasPaymentPassword: createRejectCallback('hasPaymentPassword'),
-    openPopupWindow: createRejectCallback('openPopupWindow'),
-    openWalletConnectDialog: async (uri: string) => {
-        await WalletConnectQRCodeModal.openAndWaitForClose({
-            uri,
-        });
+    MaskWalletContext: {
+        wallets: EMPTY_ARRAY,
+        allPersonas: EMPTY_ARRAY,
+        resetAllWallets: createRejectCallback('resetAllWallets'),
+        removeWallet: createRejectCallback('removeWallet'),
+        renameWallet: createRejectCallback('renameWallet'),
+        addWallet: createRejectCallback('addWallet'),
+        sdk_grantEIP2255Permission: createRejectCallback('sdk_grantEIP2255Permission'),
+        selectMaskWalletAccount: createRejectCallback('selectMaskWalletAccount'),
+        disconnectAllWalletsFromOrigin: createRejectCallback('disconnectAllWalletsFromOrigin'),
     },
-    closeWalletConnectDialog: () => {
-        WalletConnectQRCodeModal.close();
+    MessageContext: {
+        send: createRejectCallback('send'),
+        openPopupWindow: createRejectCallback('openPopupWindow'),
+        hasPaymentPassword: createRejectCallback('hasPaymentPassword'),
     },
-    SDK_grantEIP2255Permission: createRejectCallback('SDK_grantEIP2255Permission'),
-    disconnectAllWalletsFromOrigin: createRejectCallback('disconnectAllWalletsFromOrigin'),
-    selectMaskWalletAccount: createRejectCallback('selectMaskWalletAccount'),
-    addWallet: createRejectCallback('addWallet'),
+    WalletConnectContext: {
+        openWalletConnectDialog: async (uri: string) => {
+            await WalletConnectQRCodeModal.openAndWaitForClose({
+                uri,
+            });
+        },
+        closeWalletConnectDialog: () => {
+            WalletConnectQRCodeModal.close();
+        },
+    },
     signWithPersona: createRejectCallback('signWithPersona'),
-    send: createRejectCallback('send'),
 };
 
 await initWallet(WalletIO);
