@@ -1,11 +1,9 @@
-import { safeUnreachable } from '@masknet/kit';
 import { compact, first } from 'lodash-es';
 
-import { fetchBlob } from '@/helpers/fetchBlob.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
-import { steganographyDecodeImage, SteganographyPreset } from '@/services/steganography.js';
+import { steganographyDecodeImage } from '@/services/steganography.js';
 
-export type EncryptedPayload = [string, '1' | '2'];
+export type EncryptedPayload = readonly [string | Uint8Array, '1' | '2'];
 
 export function getEncryptedPayloadFromText(post: Post): EncryptedPayload | undefined {
     const raw = post.metadata.content?.content;
@@ -25,24 +23,12 @@ export async function getEncryptedPayloadFromImageAttachment(post: Post): Promis
     const result =
         post.metadata.content?.attachments?.map(async (attachment) => {
             if (attachment.type !== 'Image') return;
+            if (!attachment.uri) return;
 
-            const image = attachment.uri ? await fetchBlob(attachment.uri) : null;
-            if (!image) return;
-
-            const decoded = await steganographyDecodeImage(image);
+            const decoded = await steganographyDecodeImage(attachment.uri);
             if (!decoded) return;
 
-            const [result, preset] = decoded;
-
-            switch (preset) {
-                case SteganographyPreset.Preset2023:
-                    return [result, '2'] as EncryptedPayload;
-                case SteganographyPreset.Preset202312:
-                    return [result, '2'] as EncryptedPayload;
-                default:
-                    safeUnreachable(preset);
-                    return;
-            }
+            return [decoded, '2'] as const;
         }) ?? [];
 
     const allSettled = await Promise.allSettled(result);

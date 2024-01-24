@@ -39,10 +39,7 @@ export default function ComposeAction(props: ComposeActionProps) {
     const insertText = useCallback(
         (text: string) => {
             editor.update(() => {
-                const selection = $getSelection();
-                if (selection) {
-                    selection.insertText(text);
-                }
+                $getSelection()?.insertText(text);
             });
         },
         [editor],
@@ -160,7 +157,7 @@ export default function ComposeAction(props: ComposeActionProps) {
                         })}
                         width={25}
                         height={25}
-                        onClick={() => {
+                        onClick={async () => {
                             if (loading) return;
                             openRedPacketComposeDialog();
                         }}

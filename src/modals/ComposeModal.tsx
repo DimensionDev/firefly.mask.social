@@ -2,13 +2,14 @@
 import { Dialog, Transition } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { t } from '@lingui/macro';
-import { encrypt } from '@masknet/encryption';
+import { encrypt, SteganographyPreset } from '@masknet/encryption';
 import { ProfileIdentifier, type SingletonModalRefCreator } from '@masknet/shared-base';
 import { useSingletonModal } from '@masknet/shared-base-ui';
 import type { TypedMessageTextV1 } from '@masknet/typed-message';
 import { forwardRef, Fragment, useCallback, useState } from 'react';
 import { useAsync } from 'react-use';
 import { None } from 'ts-results-es';
+import urlcat from 'urlcat';
 
 import LoadingIcon from '@/assets/loading.svg';
 import ComposeAction from '@/components/Compose/ComposeAction.js';
@@ -17,7 +18,8 @@ import ComposeSend from '@/components/Compose/ComposeSend/index.js';
 import Discard from '@/components/Compose/Discard.js';
 import withLexicalContext from '@/components/Lexical/withLexicalContext.js';
 import { SocialPlatform } from '@/constants/enum.js';
-import { SITE_HOSTNAME } from '@/constants/index.js';
+import { SITE_HOSTNAME, SITE_URL } from '@/constants/index.js';
+import { throws } from '@/helpers/throws.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
 import { hasRedPacketPayload } from '@/modals/hasRedPacketPayload.js';
@@ -25,10 +27,7 @@ import type { Post } from '@/providers/types/SocialMedia.js';
 import { steganographyEncodeImage } from '@/services/steganography.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
-
-async function throws(): Promise<never> {
-    throw new Error('Unreachable');
-}
+import { Theme, UsageType } from '@/types/rp.js';
 
 export interface ComposeModalProps {
     type?: 'compose' | 'quote' | 'reply';
@@ -97,12 +96,18 @@ export const ComposeModal = forwardRef<SingletonModalRefCreator<ComposeModalProp
                 },
                 { deriveAESKey: throws, encryptByLocalKey: throws },
             );
+            if (typeof encrypted.output === 'string') throw new Error('Expected binary data.');
 
-            const secretImage = await steganographyEncodeImage(encrypted.output);
-            const secretImageFile = new File([secretImage], 'image.png', { type: 'image/png' });
-
+            const secretImage = await steganographyEncodeImage(
+                urlcat(SITE_URL, '/api/rp', {
+                    usage: UsageType.Payload,
+                    theme: Theme.Mask,
+                }),
+                encrypted.output,
+                SteganographyPreset.Preset2023,
+            );
             addImage({
-                file: secretImageFile,
+                file: new File([secretImage], 'image.png', { type: 'image/png' }),
             });
         } catch (error) {
             enqueueSnackbar(t`Failed to create image payload.`, {
