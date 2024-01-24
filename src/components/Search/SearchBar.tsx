@@ -75,6 +75,7 @@ const SearchBar = memo(function SearchBar(props: SearchBarProps) {
 
     if (props.source === 'header' && !isSearchPage) return null;
     if (props.source === 'secondary' && isSearchPage) return null;
+
     const dropdownVisible =
         showDropdown && ((histories.length && !inputText) || !!inputText || isLoading || !!profiles?.data);
 
@@ -82,6 +83,7 @@ const SearchBar = memo(function SearchBar(props: SearchBarProps) {
         <div
             className={classNames('flex items-center px-4 pt-6', {
                 'pl-0 pr-0': props.source === 'secondary',
+                'mb-4': props.source === 'secondary',
             })}
             ref={rootRef}
         >
