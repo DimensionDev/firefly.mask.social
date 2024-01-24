@@ -7,6 +7,7 @@ import { immer } from 'zustand/middleware/immer';
 import { SocialPlatform } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { createSelectors } from '@/helpers/createSelector.js';
+import type { Chars } from '@/helpers/readChars.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import type { MediaObject } from '@/types/index.js';
 
@@ -22,7 +23,7 @@ interface ComposeState {
     lensPostId: string | null;
     farcasterPostId: string | null;
     post: OrphanPost | null;
-    chars: string;
+    chars: Chars;
     typedMessage: TypedMessageTextV1 | null;
     video: MediaObject | null;
     images: MediaObject[];
@@ -31,7 +32,7 @@ interface ComposeState {
     disableSource: (source: SocialPlatform) => void;
     updateType: (type: 'compose' | 'quote' | 'reply') => void;
     updateCurrentSource: (source: SocialPlatform | null) => void;
-    updateChars: (chars: string) => void;
+    updateChars: Dispatch<SetStateAction<Chars>>;
     updateTypedMessage: (typedMessage: TypedMessageTextV1 | null) => void;
     updateLoading: (loading: boolean) => void;
     updatePost: (post: OrphanPost | null) => void;
@@ -72,9 +73,9 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
             set((state) => {
                 state.currentSource = source;
             }),
-        updateChars: (chars: string) =>
+        updateChars: (chars) =>
             set((state) => {
-                state.chars = chars;
+                state.chars = typeof chars === 'function' ? chars(state.chars) : chars;
             }),
         updateTypedMessage: (typedMessage: TypedMessageTextV1 | null) =>
             set((state) => {
@@ -91,7 +92,7 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
             set((state) => {
                 state.images = typeof images === 'function' ? images(state.images) : images;
             }),
-        updatePost: (post: OrphanPost | null) =>
+        updatePost: (post) =>
             set((state) => {
                 state.post = post;
             }),
@@ -99,11 +100,11 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
             set((state) => {
                 state.post = null;
             }),
-        addImage: (image: MediaObject) =>
+        addImage: (image) =>
             set((state) => {
                 state.images = [...state.images, image];
             }),
-        updateVideo: (video: MediaObject | null) =>
+        updateVideo: (video) =>
             set((state) => {
                 state.video = video;
             }),

@@ -7,15 +7,17 @@ import { useSendFarcaster } from '@/components/Compose/ComposeSend/useSendFarcas
 import { useSendLens } from '@/components/Compose/ComposeSend/useSendLens.js';
 import { CountdownCircle } from '@/components/Compose/CountdownCircle.js';
 import { SocialPlatform } from '@/constants/enum.js';
+import { MAX_POST_SIZE } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
+import { measureChars } from '@/helpers/readChars.js';
 import { ComposeModalRef } from '@/modals/controls.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 
 export default function ComposeSend() {
     const { chars, images, type, video, currentSource, clear, availableSources } = useComposeStateStore();
 
-    const charsLength = chars.length;
-    const disabled = (charsLength === 0 || charsLength > 280) && images.length === 0 && !video;
+    const { length, visibleLength, invisibleLength } = measureChars(chars);
+    const disabled = (length === 0 || length > MAX_POST_SIZE) && images.length === 0 && !video;
     const sendLens = useSendLens();
     const sendFarcaster = useSendFarcaster();
 
@@ -38,10 +40,12 @@ export default function ComposeSend() {
 
     return (
         <div className=" flex h-[68px] items-center justify-end gap-4 px-4 shadow-send">
-            {charsLength ? (
+            {visibleLength ? (
                 <div className=" flex items-center gap-[10px] whitespace-nowrap text-[15px] text-main">
-                    <CountdownCircle count={charsLength} width={24} height={24} className="flex-shrink-0" />
-                    <span className={classNames(disabled ? ' text-danger' : '')}>{charsLength} / 280</span>
+                    <CountdownCircle count={visibleLength} width={24} height={24} className="flex-shrink-0" />
+                    <span className={classNames(disabled ? ' text-danger' : '')}>
+                        {visibleLength} / {MAX_POST_SIZE - invisibleLength}
+                    </span>
                 </div>
             ) : null}
 

@@ -128,7 +128,7 @@ export type GetPostMetaData = ReturnType<typeof createPostMetadata>;
 
 export async function publishPostForLens(
     profileId: string,
-    characters: string,
+    content: string,
     images: MediaObject[],
     video: MediaObject | null,
 ) {
@@ -138,10 +138,10 @@ export async function publishPostForLens(
     const metadata = createPostMetadata(
         {
             title,
-            content: characters,
+            content,
             marketplace: {
                 name: title,
-                description: characters,
+                description: content,
                 external_url: SITE_URL,
             },
         },
@@ -164,7 +164,7 @@ export async function publishPostForLens(
 export async function commentPostForLens(
     profileId: string,
     postId: string,
-    characters: string,
+    content: string,
     images: MediaObject[],
     video: MediaObject | null,
 ) {
@@ -174,10 +174,10 @@ export async function commentPostForLens(
     const metadata = createPostMetadata(
         {
             title,
-            content: characters,
+            content,
             marketplace: {
                 name: title,
-                description: characters,
+                description: content,
                 external_url: SITE_URL,
             },
         },
@@ -190,7 +190,7 @@ export async function commentPostForLens(
 export async function quotePostForLens(
     profileId: string,
     postId: string,
-    characters: string,
+    content: string,
     images: MediaObject[],
     video: MediaObject | null,
 ) {
@@ -200,10 +200,10 @@ export async function quotePostForLens(
     const metadata = createPostMetadata(
         {
             title,
-            content: characters,
+            content,
             marketplace: {
                 name: title,
-                description: characters,
+                description: content,
                 external_url: SITE_URL,
             },
         },

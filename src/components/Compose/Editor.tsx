@@ -11,6 +11,7 @@ import { memo } from 'react';
 import { MentionsPlugin } from '@/components/Lexical/plugins/AtMentionsPlugin.js';
 import LexicalAutoLinkPlugin from '@/components/Lexical/plugins/AutoLinkPlugin.js';
 import { classNames } from '@/helpers/classNames.js';
+import { writeChars } from '@/helpers/readChars.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 
 function ErrorBoundaryComponent() {
@@ -50,7 +51,7 @@ const Editor = memo(function Editor() {
                 onChange={(editorState) => {
                     editorState.read(() => {
                         const markdown = $convertToMarkdownString(TEXT_FORMAT_TRANSFORMERS);
-                        updateChars(markdown);
+                        updateChars((chars) => writeChars(chars, markdown));
                     });
                 }}
             />

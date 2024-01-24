@@ -40,3 +40,8 @@ export const EVER_API = 'https://endpoint.4everland.co';
 export const S3_BUCKET = {
     HEY_MEDIA: 'hey-media',
 };
+
+// Compose Dialog
+export const MAX_POST_SIZE = 280;
+export const DANGER_POST_SIZE = 260;
+export const SAFE_POST_SIZE = 200;
