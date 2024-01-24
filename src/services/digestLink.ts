@@ -48,9 +48,11 @@ export interface LinkDigest {
     payload?: MirrorPayload | FarcasterPayload | PostPayload | null;
 }
 
-export async function digestImageUrl(url: string): Promise<OpenGraphImage | null> {
+export async function digestImageUrl(url: string, signal?: AbortSignal): Promise<OpenGraphImage | null> {
     // TODO: verify link
-    const response = await fetch(url);
+    const response = await fetch(url, {
+        signal,
+    });
     if (!response.ok) return null;
 
     const buffer = Buffer.from(await response.arrayBuffer());
@@ -64,12 +66,13 @@ export async function digestImageUrl(url: string): Promise<OpenGraphImage | null
     };
 }
 
-export async function digestLink(link: string): Promise<LinkDigest | null> {
+export async function digestLink(link: string, signal?: AbortSignal): Promise<LinkDigest | null> {
     const url = parseURL(link);
     if (!url) return null;
 
     const response = await fetch(url, {
         headers: { 'User-Agent': 'Twitterbot' },
+        signal,
     });
     if (!response.ok || (response.status >= 500 && response.status < 600)) return null;
 
@@ -78,7 +81,7 @@ export async function digestLink(link: string): Promise<LinkDigest | null> {
     const { document } = parseHTML(html);
 
     const imageUrl = getImageUrl(document);
-    const image = imageUrl && URL.canParse(imageUrl) ? await digestImageUrl(imageUrl) : null;
+    const image = imageUrl && URL.canParse(imageUrl) ? await digestImageUrl(imageUrl, signal) : null;
 
     const og: OpenGraph = {
         type: 'website',

@@ -24,7 +24,7 @@ const SIGNED_KEY_REQUEST_TYPE = [
     { name: 'deadline', type: 'uint256' },
 ] as const;
 
-export async function POST(req: NextRequest) {
+export async function POST(request: NextRequest) {
     const privateKey = utils.randomPrivateKey();
     const publicKey: `0x${string}` = `0x${Buffer.from(await getPublicKeyAsync(privateKey)).toString('hex')}`;
 
@@ -63,6 +63,7 @@ export async function POST(req: NextRequest) {
             signature,
             deadline,
         }),
+        signal: request.signal,
     });
 
     return createSuccessResponseJSON(

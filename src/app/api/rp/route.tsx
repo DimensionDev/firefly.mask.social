@@ -120,9 +120,9 @@ const DIMENSION_SETTINGS: Record<Theme, { cover: Dimension; payload: Dimension }
     },
 };
 
-export async function GET(req: NextRequest) {
+export async function GET(request: NextRequest) {
     // If no params, throw the usage message.
-    if (req.nextUrl.searchParams.size === 0) {
+    if (request.nextUrl.searchParams.size === 0) {
         const result = CoverSchema.safeParse({
             locale: Locale.en,
         });
@@ -131,19 +131,25 @@ export async function GET(req: NextRequest) {
         });
     }
 
-    const result = parseParams(req.nextUrl.searchParams);
+    const result = parseParams(request.nextUrl.searchParams);
     if (!result?.success) return new Response(`Invalid Params: ${result?.error.message}`, { status: 400 });
 
     const fonts = [
         {
             name: 'Inter',
-            data: await fetchArrayBuffer(urlcat(SITE_URL, '/font/Inter-Regular.ttf'), { cache: 'force-cache' }),
+            data: await fetchArrayBuffer(urlcat(SITE_URL, '/font/Inter-Regular.ttf'), {
+                cache: 'force-cache',
+                signal: request.signal,
+            }),
             weight: 400,
             style: 'normal',
         },
         {
             name: 'Inter',
-            data: await fetchArrayBuffer(urlcat(SITE_URL, '/font/Inter-Bold.ttf'), { cache: 'force-cache' }),
+            data: await fetchArrayBuffer(urlcat(SITE_URL, '/font/Inter-Bold.ttf'), {
+                cache: 'force-cache',
+                signal: request.signal,
+            }),
             weight: 700,
             style: 'normal',
         },
