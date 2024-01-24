@@ -9,6 +9,7 @@ import type { TypedMessageTextV1 } from '@masknet/typed-message';
 import { forwardRef, Fragment, useCallback, useState } from 'react';
 import { useAsync } from 'react-use';
 import { None } from 'ts-results-es';
+import urlcat from 'urlcat';
 
 import LoadingIcon from '@/assets/loading.svg';
 import ComposeAction from '@/components/Compose/ComposeAction.js';
@@ -17,7 +18,7 @@ import ComposeSend from '@/components/Compose/ComposeSend/index.js';
 import Discard from '@/components/Compose/Discard.js';
 import withLexicalContext from '@/components/Lexical/withLexicalContext.js';
 import { SocialPlatform } from '@/constants/enum.js';
-import { SITE_HOSTNAME } from '@/constants/index.js';
+import { SITE_HOSTNAME, SITE_URL } from '@/constants/index.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
 import { hasRedPacketPayload } from '@/modals/hasRedPacketPayload.js';
@@ -98,7 +99,10 @@ export const ComposeModal = forwardRef<SingletonModalRefCreator<ComposeModalProp
                 { deriveAESKey: throws, encryptByLocalKey: throws },
             );
 
-            const secretImage = await steganographyEncodeImage(encrypted.output);
+            const secretImage = await steganographyEncodeImage(
+                urlcat(SITE_URL, '/api/rp?usage=payload&theme=mask'),
+                encrypted.output,
+            );
             const secretImageFile = new File([secretImage], 'image.png', { type: 'image/png' });
 
             addImage({

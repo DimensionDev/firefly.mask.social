@@ -8,7 +8,7 @@ import {
     type PayloadParseResult,
     TwitterDecoder,
 } from '@masknet/encryption';
-import { decodeArrayBuffer } from '@masknet/kit';
+import { decodeArrayBuffer, encodeArrayBuffer } from '@masknet/kit';
 import type { TypedMessage } from '@masknet/typed-message';
 
 import type { EncryptedPayload } from '@/helpers/getEncryptedPayload.js';
@@ -26,8 +26,10 @@ async function parsePayloadText(encoded: string): Promise<PayloadParseResult.Pay
     return (await parsePayload(payload)).unwrapOr(null);
 }
 
-async function parsePayloadBinary(encoded: string) {
-    return (await parsePayload(new Uint8Array(decodeArrayBuffer(decodeURIComponent(encoded))))).unwrapOr(null);
+async function parsePayloadBinary(encoded: string | Uint8Array) {
+    const buffer =
+        typeof encoded === 'string' ? new Uint8Array(decodeArrayBuffer(decodeURIComponent(encoded))) : encoded;
+    return (await parsePayload(buffer)).unwrapOr(null);
 }
 
 async function decrypt(cacheKey: string, payload: PayloadParseResult.Payload): Promise<TypedMessage | DecryptError> {
@@ -79,13 +81,14 @@ export async function decryptPayload([data, version]: EncryptedPayload): Promise
     const getResult = async () => {
         if (version !== '1' && version !== '2') return false;
 
-        const payload = version === '1' ? await parsePayloadText(data) : await parsePayloadBinary(data);
+        const payload =
+            version === '1' && typeof data === 'string' ? await parsePayloadText(data) : await parsePayloadBinary(data);
         if (!payload) return false;
 
         if (payload.encryption.isOk() && payload.encryption.value.type === 'E2E')
             return new DecryptError(DecryptErrorReasons.PrivateKeyNotFound, undefined);
 
-        return decrypt(data, payload);
+        return decrypt(typeof data === 'string' ? data : encodeArrayBuffer(data), payload);
     };
 
     const result = await getResult();
