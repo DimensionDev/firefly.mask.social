@@ -5,6 +5,7 @@ import { $createParagraphNode, $createTextNode, $getRoot } from 'lexical';
 import { type ComponentType, useMemo } from 'react';
 
 import { MentionNode } from '@/components/Lexical/nodes/MentionsNode.js';
+import { readChars } from '@/helpers/readChars.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 
 const initialConfig = {
@@ -23,15 +24,16 @@ const withLexicalContext = (Component: ComponentType<any>) => {
     function LexicalContext(props: any) {
         const { chars } = useComposeStateStore();
         const config = useMemo<InitialConfigType>(() => {
+            const content = readChars(chars, true);
             return {
                 ...initialConfig,
-                editorState: chars
+                editorState: content
                     ? (editor) => {
-                          if (!chars) return;
+                          if (!content) return;
                           editor.update(() => {
                               const root = $getRoot();
                               const paragraph = $createParagraphNode();
-                              const text = $createTextNode(chars);
+                              const text = $createTextNode(content);
                               paragraph.append(text);
                               root.append(paragraph);
                               root.selectEnd();

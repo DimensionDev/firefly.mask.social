@@ -1,6 +1,7 @@
 import { t } from '@lingui/macro';
 import { useCallback } from 'react';
 
+import { readChars } from '@/helpers/readChars.js';
 import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
 import { commentPostForLens, publishPostForLens, quotePostForLens } from '@/services/postForLens.js';
 import { uploadFileToIPFS } from '@/services/uploadToIPFS.js';
@@ -57,7 +58,7 @@ export function useSendLens() {
             try {
                 const published = await publishPostForLens(
                     currentProfile.profileId,
-                    chars,
+                    readChars(chars),
                     uploadedImages,
                     uploadedVideo,
                 );
@@ -74,7 +75,13 @@ export function useSendLens() {
         } else if (type === 'reply') {
             try {
                 if (!post) throw new Error('No post found.');
-                await commentPostForLens(currentProfile.profileId, post.postId, chars, uploadedImages, uploadedVideo);
+                await commentPostForLens(
+                    currentProfile.profileId,
+                    post.postId,
+                    readChars(chars),
+                    uploadedImages,
+                    uploadedVideo,
+                );
                 enqueueSnackbar(t`Replied on Lens`, {
                     variant: 'success',
                 });
@@ -87,7 +94,13 @@ export function useSendLens() {
         } else if (type === 'quote') {
             try {
                 if (!post) throw new Error('No post found.');
-                await quotePostForLens(currentProfile.profileId, post.postId, chars, uploadedImages, uploadedVideo);
+                await quotePostForLens(
+                    currentProfile.profileId,
+                    post.postId,
+                    readChars(chars),
+                    uploadedImages,
+                    uploadedVideo,
+                );
                 enqueueSnackbar(t`Posted on Lens`, {
                     variant: 'success',
                 });

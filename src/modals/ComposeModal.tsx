@@ -19,6 +19,7 @@ import Discard from '@/components/Compose/Discard.js';
 import withLexicalContext from '@/components/Lexical/withLexicalContext.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { SITE_HOSTNAME, SITE_URL } from '@/constants/index.js';
+import { type Chars, readChars } from '@/helpers/readChars.js';
 import { throws } from '@/helpers/throws.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
@@ -31,7 +32,7 @@ import { Theme, UsageType } from '@/types/rp.js';
 
 export interface ComposeModalProps {
     type?: 'compose' | 'quote' | 'reply';
-    chars?: string;
+    chars?: Chars;
     source?: SocialPlatform;
     post?: Post;
     typedMessage?: TypedMessageTextV1 | null;
@@ -73,7 +74,7 @@ export const ComposeModal = forwardRef<SingletonModalRefCreator<ComposeModalProp
     });
 
     const checkClose = useCallback(() => {
-        if (chars) {
+        if (readChars(chars, true).length) {
             setDiscardOpened(true);
         } else {
             dispatch?.close();
@@ -106,6 +107,15 @@ export const ComposeModal = forwardRef<SingletonModalRefCreator<ComposeModalProp
                 encrypted.output,
                 SteganographyPreset.Preset2023,
             );
+
+            updateChars([
+                '',
+                {
+                    tag: 'ff_rp',
+                    content: '#FireflyLuckyDrop',
+                    visible: false,
+                },
+            ]);
             addImage({
                 file: new File([secretImage], 'image.png', { type: 'image/png' }),
             });

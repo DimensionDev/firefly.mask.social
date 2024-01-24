@@ -26,6 +26,7 @@ import { useComposeStateStore } from '@/store/useComposeStore.js';
 import { useFarcasterStateStore, useLensStateStore } from '@/store/useProfileStore.js';
 
 interface ComposeActionProps {}
+
 export default function ComposeAction(props: ComposeActionProps) {
     const [restriction, setRestriction] = useState(0);
 

@@ -3,6 +3,7 @@ import { useCallback } from 'react';
 
 import { queryClient } from '@/configs/queryClient.js';
 import { SocialPlatform } from '@/constants/enum.js';
+import { readChars } from '@/helpers/readChars.js';
 import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { type Post } from '@/providers/types/SocialMedia.js';
@@ -12,15 +13,7 @@ import { useFarcasterStateStore } from '@/store/useProfileStore.js';
 import type { MediaObject } from '@/types/index.js';
 
 export function useSendFarcaster() {
-    const {
-        type,
-        chars: content,
-        post,
-        images,
-        updateImages,
-        farcasterPostId,
-        updateFarcasterPostId,
-    } = useComposeStateStore();
+    const { type, chars, post, images, updateImages, farcasterPostId, updateFarcasterPostId } = useComposeStateStore();
     const enqueueSnackbar = useCustomSnackbar();
     const currentProfile = useFarcasterStateStore.use.currentProfile();
 
@@ -57,7 +50,7 @@ export function useSendFarcaster() {
                     metadata: {
                         locale: '',
                         content: {
-                            content,
+                            content: readChars(chars),
                         },
                     },
                     mediaObjects: uploadedImages.map((media) => ({ url: media.imgur!, mimeType: media.file.type })),
@@ -99,10 +92,10 @@ export function useSendFarcaster() {
         farcasterPostId,
         type,
         post,
+        chars,
         images,
         updateImages,
         enqueueSnackbar,
-        content,
         updateFarcasterPostId,
     ]);
 }
