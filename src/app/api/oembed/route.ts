@@ -1,4 +1,4 @@
-import { digestLink } from "@/services/digestLink.js";
+import { digestLink } from '@/services/digestLink.js';
 
 export async function GET(request: Request) {
     const { searchParams } = new URL(request.url);
