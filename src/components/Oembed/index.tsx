@@ -27,7 +27,7 @@ export default function Oembed({ url, onData }: OembedProps) {
             if (!url) return;
             return fetchJSON<ResponseJSON<LinkDigest>>(
                 urlcat('/api/oembed', {
-                    link: encodeURIComponent(url),
+                    link: url,
                 }),
             );
         },
