@@ -1,3 +1,5 @@
+/* cspell:disable */
+
 export const LensHub = [
     {
         inputs: [
