@@ -61,9 +61,6 @@ export const CACHE_AGE_INDEFINITE = 'public, max-age=31536000, immutable';
 // Cache indefinitely on Disk
 export const CACHE_AGE_INDEFINITE_ON_DISK = 'public, s-maxage=31536000, max-age=31536000, must-revalidate';
 
-// RPC
-export const RPC_URL = 'https://polygon-rpc.com';
-
 // Contracts
 export const DEFAULT_TOKEN_ADDRESS = '0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270';
 export const LENS_HUB_PROXY_ADDRESS = '0xDb46d1Dc155634FbC732f92E853b10B288AD5a1d';

@@ -1,19 +1,16 @@
-import { createPublicClient, http } from 'viem';
 import { polygon } from 'viem/chains';
 
 import { LensHub } from '@/abis/LensHub.js';
-import { CACHE_AGE_INDEFINITE_ON_DISK, LENS_HUB_PROXY_ADDRESS, RPC_URL } from '@/constants/index.js';
-
-const client = createPublicClient({
-    chain: polygon,
-    transport: http(RPC_URL),
-});
+import { CACHE_AGE_INDEFINITE_ON_DISK, LENS_HUB_PROXY_ADDRESS } from '@/constants/index.js';
+import { createWagmiPublicClient } from '@/helpers/createWagmiPublicClient.js';
 
 export async function GET(request: Request) {
     const { searchParams } = new URL(request.url);
 
     const id = searchParams.get('id');
     if (!id) return Response.json({ error: 'Missing id' }, { status: 400 });
+
+    const client = createWagmiPublicClient(polygon);
 
     try {
         const data = await client.readContract({
