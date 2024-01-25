@@ -10,9 +10,8 @@ export async function GET(request: Request) {
     const id = searchParams.get('id');
     if (!id) return Response.json({ error: 'Missing id' }, { status: 400 });
 
-    const client = createWagmiPublicClient(polygon);
-
     try {
+        const client = createWagmiPublicClient(polygon);
         const data = await client.readContract({
             abi: LensHub,
             address: LENS_HUB_PROXY_ADDRESS,
