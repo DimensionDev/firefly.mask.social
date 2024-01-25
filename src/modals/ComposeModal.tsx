@@ -102,7 +102,7 @@ export const ComposeModal = forwardRef<SingletonModalRefCreator<ComposeModalProp
             const secretImage = await steganographyEncodeImage(
                 urlcat(SITE_URL, '/api/rp', {
                     usage: UsageType.Payload,
-                    theme: Theme.Mask,
+                    theme: Theme.GoldenFlower,
                 }),
                 encrypted.output,
                 SteganographyPreset.Preset2023,
