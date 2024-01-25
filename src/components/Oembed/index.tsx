@@ -32,6 +32,9 @@ export default function Oembed({ url, onData }: OembedProps) {
             );
         },
         enabled: !!url,
+        refetchOnMount: false,
+        refetchOnWindowFocus: false,
+        retry: false,
     });
 
     useEffect(() => {
