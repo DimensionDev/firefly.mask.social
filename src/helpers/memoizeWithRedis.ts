@@ -1,4 +1,5 @@
 /* cspell:disable */
+
 import { kv } from '@vercel/kv';
 
 interface MemoizedFunction {
@@ -11,18 +12,19 @@ interface MemoizedFunction {
 }
 
 export function memoizeWithRedis<T extends (...args: any) => Promise<any>>(
-    key: string,
     func: T,
-    resolver?: (...args: Parameters<T>) => string,
+    {
+        key,
+        resolver,
+    }: {
+        /** the name of KV store in redis */
+        key: string;
+        /** the resolver returns the field key */
+        resolver?: (...args: Parameters<T>) => string;
+    },
 ): T & MemoizedFunction {
     const memoized = async (...args: any) => {
         const fieldKey = resolver ? resolver.apply(null, args) : [...args].join('_');
-
-        console.log('DEBUG: fieldKey');
-        console.log({
-            key,
-            fieldKey,
-        });
 
         try {
             const fieldExists = await kv.hexists(key, fieldKey);
@@ -30,29 +32,14 @@ export function memoizeWithRedis<T extends (...args: any) => Promise<any>>(
             // Cache hit, return the cached value
             if (fieldExists) {
                 const fieldValue = await kv.hget(key, fieldKey);
-
-                console.log('DEBUG: fieldValue - cache hit');
-                console.log({
-                    fieldKey,
-                    fieldValue,
-                });
+                return fieldValue;
             }
         } catch (error) {
             // Ignore
-            console.log('DEBUG: cache hit error');
-            console.log({
-                error,
-            });
         }
 
         // Cache miss, call the original function
         const fieldValue = await func.apply(null, args);
-
-        console.log('DEBUG: fieldValue - cache miss');
-        console.log({
-            fieldKey,
-            fieldValue,
-        });
 
         try {
             // Set the value in Redis
@@ -61,10 +48,6 @@ export function memoizeWithRedis<T extends (...args: any) => Promise<any>>(
             });
         } catch (error) {
             // Ignore
-            console.log('DEBUG: cache miss error');
-            console.log({
-                error,
-            });
         }
 
         return fieldValue;

@@ -6,7 +6,7 @@ import { z } from 'zod';
 
 import { RedPacketCover } from '@/components/RedPacket/Cover.js';
 import { RedPacketPayload } from '@/components/RedPacket/Payload.js';
-import { SITE_URL } from '@/constants/index.js';
+import { CACHE_AGE_INDEFINITE_ON_DISK, SITE_URL } from '@/constants/index.js';
 import { fetchArrayBuffer } from '@/helpers/fetchArrayBuffer.js';
 import { Locale } from '@/types/index.js';
 import { CoBrandType, type Dimension, Theme, TokenType, UsageType } from '@/types/rp.js';
@@ -163,11 +163,17 @@ export async function GET(request: NextRequest) {
             return new ImageResponse(<RedPacketCover {...params} />, {
                 ...DIMENSION_SETTINGS[theme].cover,
                 fonts,
+                headers: {
+                    'Cache-Control': CACHE_AGE_INDEFINITE_ON_DISK,
+                },
             });
         case UsageType.Payload:
             return new ImageResponse(<RedPacketPayload {...params} />, {
                 ...DIMENSION_SETTINGS[theme].payload,
                 fonts,
+                headers: {
+                    'Cache-Control': CACHE_AGE_INDEFINITE_ON_DISK,
+                },
             });
         default:
             safeUnreachable(usage);

@@ -4,6 +4,7 @@ import { Trans } from '@lingui/macro';
 import { compact } from 'lodash-es';
 import { useRouter } from 'next/navigation.js';
 import { forwardRef, useState } from 'react';
+import { useInView } from 'react-cool-inview';
 import { useAsync } from 'react-use';
 
 import EyeSlash from '@/assets/eye-slash.svg';
@@ -35,6 +36,14 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
     const showAttachments = !!post.metadata.content?.attachments?.length || !!post.metadata.content?.asset;
 
     const [oembedLoaded, setOembedLoaded] = useState(false);
+    const [postViewed, setPostViewed] = useState(false);
+
+    const { observe } = useInView({
+        rootMargin: '300px 0px',
+        onChange: async ({ inView }) => {
+            if (inView && !postViewed) setPostViewed(true);
+        },
+    });
 
     const { value: payloads, loading } = useAsync(async () => {
         return {
@@ -115,6 +124,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
             })}
             ref={ref}
         >
+            <div ref={observe} />
             <Markup
                 post={post}
                 className={classNames({ 'line-clamp-5': canShowMore }, 'markup linkify break-words text-[15px]')}
@@ -124,18 +134,20 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
                     : post.metadata.content?.content}
             </Markup>
 
-            {payloads?.payloadFromImageAttachment || payloads?.payloadFromText ? (
-                <mask-decrypted-post
-                    props={encodeURIComponent(
-                        JSON.stringify({
-                            post,
-                            payloads: compact([payloads?.payloadFromImageAttachment, payloads?.payloadFromText]),
-                        }),
-                    )}
-                />
+            {postViewed ? (
+                payloads?.payloadFromImageAttachment || payloads?.payloadFromText ? (
+                    <mask-decrypted-post
+                        props={encodeURIComponent(
+                            JSON.stringify({
+                                post,
+                                payloads: compact([payloads?.payloadFromImageAttachment, payloads?.payloadFromText]),
+                            }),
+                        )}
+                    />
+                ) : (
+                    <mask-post-inspector props={encodeURIComponent(JSON.stringify({ post }))} />
+                )
             ) : null}
-
-            <mask-post-inspector props={encodeURIComponent(JSON.stringify({ post }))} />
 
             {canShowMore ? (
                 <div className="text-[15px] font-bold text-link">
