@@ -3,8 +3,11 @@ import type React from 'react';
 
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { isBotRequest } from '@/helpers/isBotRequest.js';
+import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
 import { type SourceInURL } from '@/helpers/resolveSource.js';
 import { getPostOGById } from '@/services/getPostOGById.js';
+
+const getPostOGById_ = memoizeWithRedis('POST_OG', getPostOGById);
 
 interface Props {
     params: {
@@ -15,7 +18,7 @@ interface Props {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-    if (isBotRequest()) return getPostOGById(params.source, params.id);
+    if (isBotRequest()) return getPostOGById_(params.source, params.id);
     return createSiteMetadata();
 }
 

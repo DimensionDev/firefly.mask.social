@@ -6,8 +6,8 @@ import { fetchJSON } from '@/helpers/fetchJSON.js';
 
 const impressionsEndpoint = 'https://api.hey.xyz/leafwatch/impressions';
 
-export async function POST(req: NextRequest) {
-    const body = await req.json();
+export async function POST(request: NextRequest) {
+    const body = await request.json();
     await fetchJSON(impressionsEndpoint, {
         method: 'POST',
         body: JSON.stringify(body),
@@ -16,6 +16,7 @@ export async function POST(req: NextRequest) {
             'Content-Type': 'application/json',
             Referer: 'https://hey.xyz',
         },
+        signal: request.signal,
     });
 
     return createSuccessResponseJSON({}, { status: StatusCodes.OK });

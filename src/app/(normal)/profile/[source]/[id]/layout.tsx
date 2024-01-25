@@ -3,8 +3,11 @@ import type React from 'react';
 
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { isBotRequest } from '@/helpers/isBotRequest.js';
+import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
 import { type SourceInURL } from '@/helpers/resolveSource.js';
 import { getProfileOGById } from '@/services/getProfileOGById.js';
+
+const getProfileOGById_ = memoizeWithRedis('PROFILE_OG', getProfileOGById);
 
 interface Props {
     params: {
@@ -15,7 +18,7 @@ interface Props {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-    if (isBotRequest()) return getProfileOGById(params.source, params.id);
+    if (isBotRequest()) return getProfileOGById_(params.source, params.id);
     return createSiteMetadata();
 }
 
