@@ -11,16 +11,23 @@ interface MemoizedFunction {
 }
 
 export function memoizeWithRedis<T extends (...args: any) => Promise<any>>(
-    key: string,
     func: T,
-    resolver?: (...args: Parameters<T>) => string,
+    {
+        key,
+        resolver,
+    }: {
+        /** the name of hash table */
+        key: string;
+        /** the resolver returns the field key */
+        resolver?: (...args: Parameters<T>) => string;
+    },
 ): T & MemoizedFunction {
     const memoized = async (...args: any) => {
         const fieldKey = resolver ? resolver.apply(null, args) : [...args].join('_');
 
         console.log('DEBUG: fieldKey');
         console.log({
-            key,
+            tag: key,
             fieldKey,
         });
 

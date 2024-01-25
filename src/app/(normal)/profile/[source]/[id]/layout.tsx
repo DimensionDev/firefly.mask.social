@@ -7,7 +7,9 @@ import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
 import { type SourceInURL } from '@/helpers/resolveSource.js';
 import { getProfileOGById } from '@/services/getProfileOGById.js';
 
-const getProfileOGById_ = memoizeWithRedis('PROFILE_OG', getProfileOGById);
+const getProfileOGByIdRedis = memoizeWithRedis(getProfileOGById, {
+    key: 'profile_og',
+});
 
 interface Props {
     params: {
@@ -18,7 +20,7 @@ interface Props {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-    if (isBotRequest()) return getProfileOGById_(params.source, params.id);
+    if (isBotRequest()) return getProfileOGByIdRedis(params.source, params.id);
     return createSiteMetadata();
 }
 
