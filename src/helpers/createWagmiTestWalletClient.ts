@@ -7,7 +7,7 @@ import type { WalletClient } from 'wagmi';
  * @param request
  * @returns
  */
-export function createTestWalletClient(request: (payload: EIP1193Parameters) => Promise<unknown>): WalletClient {
+export function createWagmiTestWalletClient(request: (payload: EIP1193Parameters) => Promise<unknown>): WalletClient {
     return createWalletClient({
         transport: custom({
             request,

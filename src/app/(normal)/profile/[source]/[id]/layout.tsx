@@ -8,7 +8,7 @@ import { type SourceInURL } from '@/helpers/resolveSource.js';
 import { getProfileOGById } from '@/services/getProfileOGById.js';
 
 const getProfileOGByIdRedis = memoizeWithRedis(getProfileOGById, {
-    key: 'profile_og',
+    key: 'getProfileOGById',
 });
 
 interface Props {
