@@ -3,6 +3,7 @@ import { digestLink } from '@/services/digestLink.js';
 
 const digestLinkRedis = memoizeWithRedis(digestLink, {
     key: 'digestLink',
+    resolver: (link) => link,
 });
 
 export async function GET(request: Request) {
