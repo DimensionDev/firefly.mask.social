@@ -146,8 +146,8 @@ importers:
         specifier: ^3.0.5
         version: 3.0.5(@types/react-dom@18.2.15)(@types/react@18.2.21)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       '@masknet/kit':
-        specifier: ^0.1.3
-        version: 0.1.3
+        specifier: ^0.3.0
+        version: 0.3.0
       '@masknet/stego-js':
         specifier: 0.14.2
         version: 0.14.2
@@ -10550,10 +10550,6 @@ packages:
     dependencies:
       eslint: 8.48.0
     dev: true
-
-  /@masknet/kit@0.1.3:
-    resolution: {integrity: sha512-YnA565VjDmja5jK2wkJNiQ6T36+/PvphnwtYsPDtWvJjGeVtUsPfpaOgRWNbYkf/6wLGoGR5YlIDmOQCOhqvKg==}
-    dev: false
 
   /@masknet/kit@0.3.0:
     resolution: {integrity: sha512-/7kJ/i0R5QXU1VMjY//vCkH2tnBhw5ffDTECT8zh40WfSedema0K4XriYrVa5IAI1VwHJMMqqCcRPnqCJ7nZZA==}
@@ -36654,7 +36650,6 @@ time:
   /@magic-works/i18n-codegen@0.5.0: '2023-02-17T06:35:05.095Z'
   /@masknet/compartment@0.4.2: '2022-10-31T05:24:41.592Z'
   /@masknet/eslint-plugin@0.2.0: '2023-07-11T06:07:32.873Z'
-  /@masknet/kit@0.1.3: '2023-10-09T06:46:42.487Z'
   /@masknet/kit@0.3.0: '2024-01-25T08:08:18.361Z'
   /@masknet/membrane@0.1.5: '2022-10-31T04:33:00.047Z'
   /@masknet/secp256k1-webcrypto@1.0.0: '2022-11-01T07:12:50.321Z'
