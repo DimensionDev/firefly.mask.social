@@ -1,0 +1,39 @@
+import { createPublicClient, http } from 'viem';
+import { polygon } from 'viem/chains';
+
+import { LensHub } from '@/abis/LensHub.js';
+import { CACHE_AGE_INDEFINITE_ON_DISK, LENS_HUB_PROXY_ADDRESS, RPC_URL } from '@/constants/index.js';
+
+const client = createPublicClient({
+    chain: polygon,
+    transport: http(RPC_URL),
+});
+
+export async function GET(request: Request) {
+    const { searchParams } = new URL(request.url);
+
+    const id = searchParams.get('id');
+    if (!id) return Response.json({ error: 'Missing id' }, { status: 400 });
+
+    try {
+        const data = await client.readContract({
+            abi: LensHub,
+            address: LENS_HUB_PROXY_ADDRESS,
+            args: [id],
+            functionName: 'tokenURI',
+        });
+
+        const jsonData = JSON.parse(Buffer.from((data as string).split(',')[1], 'base64').toString());
+        const base64Image = jsonData.image.split(';base64,').pop();
+        const svgImage = Buffer.from(base64Image, 'base64').toString('utf-8');
+
+        return new Response(svgImage, {
+            headers: {
+                'Content-Type': 'image/svg+xml',
+                'Cache-Control': CACHE_AGE_INDEFINITE_ON_DISK,
+            },
+        });
+    } catch {
+        return Response.json({ error: 'Failed to read tokenURI' }, { status: 400 });
+    }
+}

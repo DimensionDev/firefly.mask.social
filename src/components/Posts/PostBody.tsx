@@ -9,7 +9,6 @@ import { useAsync } from 'react-use';
 import EyeSlash from '@/assets/eye-slash.svg';
 import Lock from '@/assets/lock.svg';
 import { Markup, NakedMarkup } from '@/components/Markup/index.js';
-import Oembed from '@/components/Oembed/index.js';
 import { Attachments } from '@/components/Posts/Attachment.js';
 import { Quote } from '@/components/Posts/Quote.js';
 import { EMPTY_LIST } from '@/constants/index.js';
@@ -158,9 +157,9 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
                 />
             ) : null}
 
-            {post.metadata.content?.oembedUrl ? (
+            {/* {post.metadata.content?.oembedUrl ? (
                 <Oembed url={post.metadata.content.oembedUrl} onData={() => setOembedLoaded(true)} />
-            ) : null}
+            ) : null} */}
 
             {!!post.quoteOn && !isQuote ? <Quote post={post.quoteOn} /> : null}
         </div>

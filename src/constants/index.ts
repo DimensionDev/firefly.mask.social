@@ -22,6 +22,7 @@ export const EIP_712_FARCASTER_DOMAIN = {
 export const IPFS_GATEWAY = 'https://gw.ipfs-lens.dev/ipfs/';
 export const ARWEAVE_GATEWAY = 'https://arweave.net/';
 export const LENS_MEDIA_SNAPSHOT_URL = 'https://ik.imagekit.io/lens/media-snapshot';
+export const HEY_URL = 'https://hey.xyz';
 export const HEY_API_URL = 'https://api.hey.xyz';
 
 // Named transforms for ImageKit
@@ -45,3 +46,24 @@ export const S3_BUCKET = {
 export const MAX_POST_SIZE = 280;
 export const DANGER_POST_SIZE = 260;
 export const SAFE_POST_SIZE = 200;
+
+// HTTP Cache headers
+// Cache for 1 minute, stale for 30 days
+export const SWR_CACHE_AGE_1_MIN_30_DAYS = 'public, s-maxage=1, stale-while-revalidate=2592000';
+// Cache for 10 minutes, stale for 30 days
+export const SWR_CACHE_AGE_10_MINS_30_DAYS = 'public, s-maxage=600, stale-while-revalidate=2592000';
+// Cache for 30 days
+export const CACHE_AGE_30_DAYS = 'public, s-maxage=2592000';
+// Cache indefinitely
+export const CACHE_AGE_INDEFINITE = 'public, max-age=31536000, immutable';
+// Cache indefinitely on Disk
+export const CACHE_AGE_INDEFINITE_ON_DISK = 'public, s-maxage=31536000, max-age=31536000, must-revalidate';
+
+// RPC
+export const RPC_URL = 'https://polygon-rpc.com';
+
+// Contracts
+export const DEFAULT_TOKEN_ADDRESS = '0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270';
+export const LENS_HUB_PROXY_ADDRESS = '0xDb46d1Dc155634FbC732f92E853b10B288AD5a1d';
+export const PUBLIC_ACT_PROXY_ADDRESS = '0x53582b1b7BE71622E7386D736b6baf87749B7a2B';
+export const TOKEN_HANDLE_REGISTRY = '0xD4F2F33680FCCb36748FA9831851643781608844';

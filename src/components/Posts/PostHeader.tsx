@@ -7,6 +7,7 @@ import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
+import { getLennyURL } from '@/helpers/getLennyURL.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
@@ -43,6 +44,7 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({ post, isQu
                         src={post.author.pfp}
                         size={isQuote ? 24 : 40}
                         alt={post.author.profileId}
+                        fallbackUrl={post.source === SocialPlatform.Lens ? getLennyURL(post.author.handle) : undefined}
                     />
                 </Link>
 
