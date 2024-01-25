@@ -1,10 +1,12 @@
 import { StatusCodes } from 'http-status-codes';
 import type { NextRequest } from 'next/server.js';
+import urlcat from 'urlcat';
 
+import { HEY_API_URL, HEY_URL } from '@/constants/index.js';
 import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 
-const impressionsEndpoint = 'https://api.hey.xyz/leafwatch/impressions';
+const impressionsEndpoint = urlcat(HEY_API_URL, '/leafwatch/impressions');
 
 export async function POST(request: NextRequest) {
     const body = await request.json();
@@ -14,7 +16,7 @@ export async function POST(request: NextRequest) {
         keepalive: true,
         headers: {
             'Content-Type': 'application/json',
-            Referer: 'https://hey.xyz',
+            Referer: HEY_URL,
         },
         signal: request.signal,
     });
