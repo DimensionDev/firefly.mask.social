@@ -8,7 +8,7 @@ import { sanitizeDStorageUrl } from '@/helpers/sanitizeDStorageUrl.js';
 import { NetworkType, type Profile, ProfileStatus } from '@/providers/types/SocialMedia.js';
 
 function getAvatar(profile: ProfileFragment, namedTransform = AVATAR) {
-    let avatarUrl = profile.avatar;
+    let avatarUrl = (profile as { avatar?: string }).avatar;
 
     if (profile?.metadata?.picture?.__typename === 'NftImage') {
         avatarUrl = profile.metadata.picture.image.optimized?.uri ?? profile.metadata.picture.image.raw.uri;
