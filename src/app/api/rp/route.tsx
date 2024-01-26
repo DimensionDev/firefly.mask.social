@@ -173,9 +173,7 @@ export async function GET(request: NextRequest) {
 
     // Check if the image exists in KV
     const url = await kv.hget(KeyType.UploadToBlob, `${filename}.png`);
-    if (typeof url === 'string' && URL.canParse(url)) {
-        return NextResponse.redirect(url, 302);
-    }
+    if (typeof url === 'string' && URL.canParse(url)) return NextResponse.redirect(url, 302);
 
     const params = result.data;
     const { usage, theme } = params;
