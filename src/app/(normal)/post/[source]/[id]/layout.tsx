@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import type React from 'react';
 
+import { KeyType } from '@/constants/enum.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { isBotRequest } from '@/helpers/isBotRequest.js';
 import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
@@ -8,7 +9,7 @@ import { type SourceInURL } from '@/helpers/resolveSource.js';
 import { getPostOGById } from '@/services/getPostOGById.js';
 
 const getPostOGByIdRedis = memoizeWithRedis(getPostOGById, {
-    key: 'getPostOGById',
+    key: KeyType.GetPostOGById,
 });
 
 interface Props {

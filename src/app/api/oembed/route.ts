@@ -1,8 +1,9 @@
+import { KeyType } from '@/constants/enum.js';
 import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
 import { digestLink } from '@/services/digestLink.js';
 
 const digestLinkRedis = memoizeWithRedis(digestLink, {
-    key: 'digestLink',
+    key: KeyType.DigestLink,
     resolver: (link) => link,
 });
 

@@ -2,6 +2,8 @@
 
 import { kv } from '@vercel/kv';
 
+import type { KeyType } from '@/constants/enum.js';
+
 interface MemoizedFunction {
     cache: {
         get: (fieldKey: string) => Promise<string>;
@@ -18,7 +20,7 @@ export function memoizeWithRedis<T extends (...args: any) => Promise<any>>(
         resolver,
     }: {
         /** the name of KV store in redis */
-        key: string;
+        key: KeyType;
         /** the resolver returns the field key */
         resolver?: (...args: Parameters<T>) => string;
     },

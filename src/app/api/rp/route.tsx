@@ -1,13 +1,17 @@
 import { safeUnreachable } from '@masknet/kit';
+import { kv } from '@vercel/kv';
 import { ImageResponse } from '@vercel/og';
-import { type NextRequest } from 'next/server.js';
+import { type NextRequest, NextResponse } from 'next/server.js';
 import urlcat from 'urlcat';
+import { keccak256, toHex } from 'viem';
 import { z } from 'zod';
 
 import { RedPacketCover } from '@/components/RedPacket/Cover.js';
 import { RedPacketPayload } from '@/components/RedPacket/Payload.js';
+import { KeyType } from '@/constants/enum.js';
 import { CACHE_AGE_INDEFINITE_ON_DISK, SITE_URL } from '@/constants/index.js';
 import { fetchArrayBuffer } from '@/helpers/fetchArrayBuffer.js';
+import { uploadToBlob } from '@/services/uploadToBlob.js';
 import { Locale } from '@/types/index.js';
 import { CoBrandType, type Dimension, Theme, TokenType, UsageType } from '@/types/rp.js';
 
@@ -97,6 +101,35 @@ function parseParams(params: URLSearchParams) {
     }
 }
 
+function stringifyParams(params: ReturnType<typeof parseParams>) {
+    if (!params?.success) return;
+    const json = JSON.stringify(params.data, Object.keys(params.data).sort());
+    return keccak256(toHex(json));
+}
+
+async function getFonts(signal?: AbortSignal) {
+    return [
+        {
+            name: 'Inter',
+            data: await fetchArrayBuffer(urlcat(SITE_URL, '/font/Inter-Regular.ttf'), {
+                cache: 'force-cache',
+                signal,
+            }),
+            weight: 400,
+            style: 'normal',
+        },
+        {
+            name: 'Inter',
+            data: await fetchArrayBuffer(urlcat(SITE_URL, '/font/Inter-Bold.ttf'), {
+                cache: 'force-cache',
+                signal,
+            }),
+            weight: 700,
+            style: 'normal',
+        },
+    ];
+}
+
 const DIMENSION_SETTINGS: Record<Theme, { cover: Dimension; payload: Dimension }> = {
     [Theme.Mask]: {
         cover: { width: 1200, height: 794 },
@@ -134,47 +167,42 @@ export async function GET(request: NextRequest) {
     const result = parseParams(request.nextUrl.searchParams);
     if (!result?.success) return new Response(`Invalid Params: ${result?.error.message}`, { status: 400 });
 
-    const fonts = [
-        {
-            name: 'Inter',
-            data: await fetchArrayBuffer(urlcat(SITE_URL, '/font/Inter-Regular.ttf'), {
-                cache: 'force-cache',
-                signal: request.signal,
-            }),
-            weight: 400,
-            style: 'normal',
-        },
-        {
-            name: 'Inter',
-            data: await fetchArrayBuffer(urlcat(SITE_URL, '/font/Inter-Bold.ttf'), {
-                cache: 'force-cache',
-                signal: request.signal,
-            }),
-            weight: 700,
-            style: 'normal',
-        },
-    ];
+    // Generate filename from params
+    const filename = stringifyParams(result);
+    if (!filename) return new Response(`Failed to generate filename: ${JSON.stringify(result.data)}`, { status: 400 });
+
+    // Check if the image exists in KV
+    const url = await kv.hget(KeyType.UploadToBlob, `${filename}.png`);
+    if (typeof url === 'string' && URL.canParse(url)) {
+        return NextResponse.redirect(url, 302);
+    }
 
     const params = result.data;
     const { usage, theme } = params;
 
+    const fonts = await getFonts(request.signal);
+
     switch (usage) {
-        case UsageType.Cover:
-            return new ImageResponse(<RedPacketCover {...params} />, {
+        case UsageType.Cover: {
+            const response = new ImageResponse(<RedPacketCover {...params} />, {
                 ...DIMENSION_SETTINGS[theme].cover,
                 fonts,
                 headers: {
                     'Cache-Control': CACHE_AGE_INDEFINITE_ON_DISK,
                 },
             });
-        case UsageType.Payload:
-            return new ImageResponse(<RedPacketPayload {...params} />, {
+            return NextResponse.redirect(await uploadToBlob(`${filename}.png`, await response.clone().blob()), 302);
+        }
+        case UsageType.Payload: {
+            const response = new ImageResponse(<RedPacketPayload {...params} />, {
                 ...DIMENSION_SETTINGS[theme].payload,
                 fonts,
                 headers: {
                     'Cache-Control': CACHE_AGE_INDEFINITE_ON_DISK,
                 },
             });
+            return NextResponse.redirect(await uploadToBlob(`${filename}.png`, await response.clone().blob()), 302);
+        }
         default:
             safeUnreachable(usage);
             return new Response('Invalid usage', { status: 400 });
