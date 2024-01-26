@@ -1,3 +1,5 @@
+/* cspell:disable */
+
 import { put } from '@vercel/blob';
 import { kv } from '@vercel/kv';
 

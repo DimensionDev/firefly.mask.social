@@ -1,3 +1,5 @@
+/* cspell:disable */
+
 import { safeUnreachable } from '@masknet/kit';
 import { kv } from '@vercel/kv';
 import { ImageResponse } from '@vercel/og';
@@ -103,7 +105,13 @@ function parseParams(params: URLSearchParams) {
 
 function stringifyParams(params: ReturnType<typeof parseParams>) {
     if (!params?.success) return;
-    const json = JSON.stringify(params.data, Object.keys(params.data).sort());
+
+    const json = JSON.stringify(
+        params.data,
+        Object.entries(params.data)
+            .flatMap(([key, value]) => (typeof value === 'object' ? [key, ...Object.keys(value)] : [key]))
+            .sort(),
+    );
     return keccak256(toHex(json));
 }
 
@@ -185,11 +193,18 @@ export async function GET(request: NextRequest) {
             const response = new ImageResponse(<RedPacketCover {...params} />, {
                 ...DIMENSION_SETTINGS[theme].cover,
                 fonts,
+                
                 headers: {
                     'Cache-Control': CACHE_AGE_INDEFINITE_ON_DISK,
                 },
             });
-            return NextResponse.redirect(await uploadToBlob(`${filename}.png`, await response.clone().blob()), 302);
+
+            response
+                .clone()
+                .blob()
+                .then((file) => uploadToBlob(`${filename}.png`, file));
+
+            return response;
         }
         case UsageType.Payload: {
             const response = new ImageResponse(<RedPacketPayload {...params} />, {
@@ -199,7 +214,13 @@ export async function GET(request: NextRequest) {
                     'Cache-Control': CACHE_AGE_INDEFINITE_ON_DISK,
                 },
             });
-            return NextResponse.redirect(await uploadToBlob(`${filename}.png`, await response.clone().blob()), 302);
+
+            response
+                .clone()
+                .blob()
+                .then((file) => uploadToBlob(`${filename}.png`, file));
+
+            return response;
         }
         default:
             safeUnreachable(usage);
