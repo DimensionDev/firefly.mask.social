@@ -193,7 +193,7 @@ export async function GET(request: NextRequest) {
             const response = new ImageResponse(<RedPacketCover {...params} />, {
                 ...DIMENSION_SETTINGS[theme].cover,
                 fonts,
-                
+
                 headers: {
                     'Cache-Control': CACHE_AGE_INDEFINITE_ON_DISK,
                 },
