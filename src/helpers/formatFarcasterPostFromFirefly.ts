@@ -14,6 +14,8 @@ function formatContent(cast: Cast) {
         const firstAsset = first(cast.embeds);
         if (!firstAsset) return defaultContent;
 
+        if (!firstAsset.url) return defaultContent;
+
         const assetType = getResourceType(firstAsset.url);
         if (!assetType) return defaultContent;
 
@@ -26,6 +28,8 @@ function formatContent(cast: Cast) {
             } satisfies Attachment,
             attachments: compact<Attachment>(
                 cast.embeds.map((x) => {
+                    if (!x.url) return;
+
                     const type = getResourceType(x.url);
                     if (!type) return;
 
