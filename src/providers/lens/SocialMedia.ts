@@ -348,7 +348,7 @@ export class LensSocialMedia implements Provider {
         if (!result) throw new Error(t`No comments found`);
 
         return createPageable(
-            result.items.map((item) => formatLensPost(item)),
+            result.items.map(formatLensPost),
             indicator ?? createIndicator(),
             result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );
@@ -362,7 +362,7 @@ export class LensSocialMedia implements Provider {
         });
 
         return createPageable(
-            result.items.map((item) => formatLensPost(item)),
+            result.items.map(formatLensPost),
             createIndicator(indicator),
             result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );
@@ -381,7 +381,7 @@ export class LensSocialMedia implements Provider {
 
         const result = data.unwrap();
         return createPageable(
-            result.items.map((item) => formatLensPostByFeed(item)),
+            result.items.map(formatLensPostByFeed),
             indicator ?? createIndicator(),
             result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );
@@ -397,7 +397,7 @@ export class LensSocialMedia implements Provider {
         });
 
         return createPageable(
-            result.items.map((item) => formatLensPost(item)),
+            result.items.map(formatLensPost),
             createIndicator(indicator),
             result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );
@@ -414,7 +414,7 @@ export class LensSocialMedia implements Provider {
         });
 
         return createPageable(
-            result.items.map((item) => formatLensPost(item)),
+            result.items.map(formatLensPost),
             createIndicator(indicator),
             result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );
@@ -429,7 +429,7 @@ export class LensSocialMedia implements Provider {
         });
 
         return createPageable(
-            result.items.map((item) => formatLensPost(item)),
+            result.items.map(formatLensPost),
             createIndicator(indicator),
             result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );
@@ -444,7 +444,7 @@ export class LensSocialMedia implements Provider {
         });
 
         return createPageable(
-            result.items.map((item) => formatLensPost(item)),
+            result.items.map(formatLensPost),
             createIndicator(indicator),
             result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );
@@ -460,7 +460,7 @@ export class LensSocialMedia implements Provider {
         });
 
         return createPageable(
-            result.items.map((item) => formatLensPost(item)),
+            result.items.map(formatLensPost),
             createIndicator(indicator),
             result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );
@@ -477,7 +477,7 @@ export class LensSocialMedia implements Provider {
         });
 
         return createPageable(
-            result.items.map((item) => formatLensPost(item)),
+            result.items.map(formatLensPost),
             createIndicator(indicator),
             result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );
@@ -564,7 +564,7 @@ export class LensSocialMedia implements Provider {
         });
 
         return createPageable(
-            result.items.map((item) => formatLensProfile(item)),
+            result.items.map(formatLensProfile),
             createIndicator(indicator),
             result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );
@@ -577,7 +577,7 @@ export class LensSocialMedia implements Provider {
         });
 
         return createPageable(
-            result.items.map((item) => formatLensProfile(item)),
+            result.items.map(formatLensProfile),
             createIndicator(indicator),
             result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );
@@ -713,7 +713,7 @@ export class LensSocialMedia implements Provider {
         });
 
         return createPageable(
-            result.items.map((item) => formatLensProfile(item)),
+            result.items.map(formatLensProfile),
             createIndicator(indicator),
             result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );
@@ -730,7 +730,7 @@ export class LensSocialMedia implements Provider {
             },
         });
         return createPageable(
-            result.items.map((item) => formatLensProfile(item)),
+            result.items.map(formatLensProfile),
             createIndicator(indicator),
             result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );
@@ -743,7 +743,7 @@ export class LensSocialMedia implements Provider {
             limit: LimitType.TwentyFive,
         });
         return createPageable(
-            result.items.map((item) => formatLensPost(item)),
+            result.items.map(formatLensPost),
             createIndicator(indicator),
             result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );
