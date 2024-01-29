@@ -24,7 +24,7 @@ export default function ContentFeed({ profileId, source }: ContentFeedProps) {
         queryKey: ['getPostsByProfileId', source, profileId],
 
         queryFn: async ({ pageParam }) => {
-            if (!profileId) return createPageable([], undefined);
+            if (!profileId) return createPageable(EMPTY_LIST, undefined);
 
             switch (source) {
                 case SocialPlatform.Lens:

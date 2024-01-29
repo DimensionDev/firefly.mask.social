@@ -14,7 +14,6 @@ interface InfoProps {
 
 export default function Info({ isMyProfile, profile, source }: InfoProps) {
     const followingCount = profile?.followingCount ?? 0;
-
     const followerCount = profile?.followerCount ?? 0;
 
     return (

@@ -5,7 +5,7 @@ export interface Cast {
     parent_hash?: string;
     parent_fid?: string;
     parent_url?: string;
-    embeds: Array<{ url: string }>;
+    embeds: Array<{ url?: string }>;
     mentions: string[];
     mentions_positions: number[];
     created_at: string;
