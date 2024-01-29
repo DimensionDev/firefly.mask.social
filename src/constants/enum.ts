@@ -16,3 +16,10 @@ export enum SearchType {
     Profiles = 'profiles',
     Posts = 'posts',
 }
+
+export enum KeyType {
+    DigestLink = 'digestLink',
+    GetPostOGById = 'getPostOGById',
+    GetProfileOGById = 'getProfileOGById',
+    UploadToBlob = 'uploadToBlob',
+}

@@ -7,22 +7,22 @@ import { Theme } from '@/types/rp.js';
 
 const PAYLOAD_PRESETS: Record<Theme, { backgroundImage?: string; backgroundColor?: string }> = {
     [Theme.Mask]: {
-        backgroundImage: urlcat(SITE_URL, '/rp/payload-2023.png'),
+        backgroundImage: urlcat(SITE_URL, '/rp/payload-2023.jpg'),
     },
     [Theme.CoBranding]: {
         backgroundImage: urlcat(SITE_URL, '/rp/co-branding-background.png'),
         backgroundColor: '#f7413d',
     },
     [Theme.GoldenFlower]: {
-        backgroundImage: urlcat(SITE_URL, '/rp/golden-flower-background.png'),
+        backgroundImage: urlcat(SITE_URL, '/rp/golden-flower-background.jpg'),
         backgroundColor: '#ffc37c',
     },
     [Theme.LuckyFlower]: {
-        backgroundImage: urlcat(SITE_URL, '/rp/lucky-drop-background.png'),
+        backgroundImage: urlcat(SITE_URL, '/rp/lucky-drop-background.jpg'),
         backgroundColor: '#ec5a3d',
     },
     [Theme.LuckyFirefly]: {
-        backgroundImage: urlcat(SITE_URL, '/rp/lucky-drop-background.png'),
+        backgroundImage: urlcat(SITE_URL, '/rp/lucky-drop-background.jpg'),
         backgroundColor: '#ec5a3d',
     },
 };

@@ -25,7 +25,7 @@ interface CoverProps {
     };
 }
 
-function CoverForMask({ shares, remainingShares = 0, message, from, token }: CoverProps) {
+function CoverForMask({ shares, remainingShares = 0, message, from }: CoverProps) {
     return (
         <CoverContainer
             theme={Theme.Mask}
@@ -59,7 +59,7 @@ function CoverForFirefly({
                 color: '#000',
             }}
         >
-            <FireflyVsFireflyBranding />
+            {theme === Theme.CoBranding ? <FireflyVsFireflyBranding /> : null}
 
             {theme === Theme.LuckyFirefly ? (
                 <img

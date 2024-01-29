@@ -7,7 +7,7 @@ import { Theme } from '@/types/rp.js';
 
 const COVER_PRESETS: Record<Theme, { backgroundImage?: string; backgroundColor?: string }> = {
     [Theme.Mask]: {
-        backgroundImage: urlcat(SITE_URL, '/rp/mask-background.png'),
+        backgroundImage: urlcat(SITE_URL, '/rp/mask-background.jpg'),
     },
     [Theme.CoBranding]: {
         backgroundImage: urlcat(SITE_URL, '/rp/co-branding-background.png'),
