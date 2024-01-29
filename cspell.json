@@ -18,6 +18,8 @@
         "lingui",
         "linkedom",
         "merkle",
+        "metas",
+        "momoka",
         "nextid",
         "Oembed",
         "pageable",
@@ -28,6 +30,7 @@
         "solana",
         "Steganography",
         "stego",
+        "Thirdweb",
         "Twitterbot",
         "unfollow",
         "unfollowed",
@@ -41,9 +44,7 @@
         "wagmi",
         "warpcast",
         "zora",
-        "zustand",
-        "metas",
-        "momoka"
+        "zustand"
     ],
     "ignoreWords": [
         "DEVNET",
