@@ -55,7 +55,6 @@
         "@vercel/og": "^0.6.2",
         "async-call-rpc": "^6.3.1",
         "autoprefixer": "10.4.16",
-        "axios": "^1.6.2",
         "canonicalize": "^2.0.0",
         "dayjs": "^1.11.10",
         "dayjs-twitter": "^0.5.0",

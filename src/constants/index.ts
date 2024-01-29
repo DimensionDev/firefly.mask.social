@@ -42,6 +42,7 @@ export const EVER_API = 'https://endpoint.4everland.co';
 // S3 bucket
 export const S3_BUCKET = {
     HEY_MEDIA: 'hey-media',
+    FIREFLY_LENS_MEDIA: 'firefly-lens-media',
 };
 
 // Compose Dialog
