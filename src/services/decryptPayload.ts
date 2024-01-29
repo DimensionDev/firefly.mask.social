@@ -8,14 +8,14 @@ import {
     type PayloadParseResult,
     TwitterDecoder,
 } from '@masknet/encryption';
-import { encodeArrayBuffer } from '@masknet/kit';
+import { decodeArrayBuffer, encodeArrayBuffer } from '@masknet/kit';
 import type { TypedMessage } from '@masknet/typed-message';
 
 import type { EncryptedPayload } from '@/helpers/getEncryptedPayload.js';
 
 const cache = new Map<string, AESCryptoKey>();
 
-async function parsePayloadText(encoded: string) {
+async function parsePayloadText(encoded: string): Promise<PayloadParseResult.Payload | null> {
     let payload = TwitterDecoder(
         'https://mask.io/?PostData_v1=' +
             encodeURI(encoded).replaceAll(/@$/g, '%40').replaceAll('%2F', '/').replaceAll('%3D', '='),
@@ -26,8 +26,10 @@ async function parsePayloadText(encoded: string) {
     return (await parsePayload(payload)).unwrapOr(null);
 }
 
-async function parsePayloadBinary(encoded: Uint8Array) {
-    return (await parsePayload(encoded)).unwrapOr(null);
+async function parsePayloadBinary(encoded: string | Uint8Array) {
+    const buffer =
+        typeof encoded === 'string' ? new Uint8Array(decodeArrayBuffer(decodeURIComponent(encoded))) : encoded;
+    return (await parsePayload(buffer)).unwrapOr(null);
 }
 
 async function decrypt(cacheKey: string, payload: PayloadParseResult.Payload): Promise<TypedMessage | DecryptError> {
@@ -77,27 +79,16 @@ export type DecryptResult = [DecryptError | null, boolean, TypedMessage | null];
 
 export async function decryptPayload([data, version]: EncryptedPayload): Promise<DecryptResult> {
     const getResult = async () => {
-        try {
-            if (version !== '1' && version !== '2') return false;
+        if (version !== '1' && version !== '2') return false;
 
-            const payload =
-                version === '1' && typeof data === 'string'
-                    ? await parsePayloadText(data)
-                    : version === '2' && data instanceof Uint8Array
-                      ? await parsePayloadBinary(data)
-                      : null;
-            if (!payload) return false;
+        const payload =
+            version === '1' && typeof data === 'string' ? await parsePayloadText(data) : await parsePayloadBinary(data);
+        if (!payload) return false;
 
-            console.log('DEBUG: decryptPayload', payload);
+        if (payload.encryption.isOk() && payload.encryption.value.type === 'E2E')
+            return new DecryptError(DecryptErrorReasons.PrivateKeyNotFound, undefined);
 
-            if (payload.encryption.isOk() && payload.encryption.value.type === 'E2E')
-                return new DecryptError(DecryptErrorReasons.PrivateKeyNotFound, undefined);
-
-            return decrypt(typeof data === 'string' ? data : encodeArrayBuffer(data), payload);
-        } catch (error) {
-            console.log('DEBUG: decryptPayload', error);
-            throw error;
-        }
+        return decrypt(typeof data === 'string' ? data : encodeArrayBuffer(data), payload);
     };
 
     const result = await getResult();
