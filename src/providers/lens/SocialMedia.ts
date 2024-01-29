@@ -750,6 +750,9 @@ export class LensSocialMedia implements Provider {
             result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );
     }
+    getAccessToken() {
+        return this.client.authentication.getAccessToken();
+    }
 }
 
 export const LensSocialMediaProvider = new LensSocialMedia();

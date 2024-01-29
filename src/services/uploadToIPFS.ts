@@ -1,9 +1,56 @@
+import { S3 } from '@aws-sdk/client-s3';
+import { Upload } from '@aws-sdk/lib-storage';
+import { v4 as uuid } from 'uuid';
+
+import { EVER_API, S3_BUCKET } from '@/constants/index.js';
+import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
+import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
+
 export interface IPFSResponse {
     uri: string;
     mimeType: string;
 }
 
 const FALLBACK_TYPE = 'image/jpeg';
+
+/**
+ * Returns an S3 client with temporary credentials obtained from the STS service.
+ *
+ * @returns S3 client instance.
+ */
+const getS3Client = async (): Promise<S3> => {
+    const tokenRes = await LensSocialMediaProvider.getAccessToken();
+    const token = tokenRes.unwrap();
+    const mediaToken = await FireflySocialMediaProvider.getUploadMediaToken(token);
+    const client = new S3({
+        endpoint: EVER_API,
+        credentials: {
+            accessKeyId: mediaToken.accessKeyId,
+            secretAccessKey: mediaToken.secretAccessKey,
+            sessionToken: mediaToken.sessionToken,
+        },
+        region: 'us-west-2',
+        maxAttempts: 10,
+    });
+
+    client.middlewareStack.addRelativeTo(
+        (next: (args: any) => Promise<{ response: any }>) => async (args: any) => {
+            const { response } = await next(args);
+            if (response.body === null) {
+                response.body = new Uint8Array();
+            }
+            return { response };
+        },
+        {
+            name: 'nullFetchResponseBodyMiddleware',
+            toMiddleware: 'deserializerMiddleware',
+            relation: 'after',
+            override: true,
+        },
+    );
+
+    return client;
+};
 
 /**
  * Uploads a set of files to the IPFS network via S3 and returns an array of MediaSet objects.
@@ -15,18 +62,32 @@ export async function uploadFilesToIPFS(
     files: File[],
     onProgress?: (percentage: number) => void,
 ): Promise<IPFSResponse[]> {
+    const client = await getS3Client();
     const attachments = await Promise.all(
         files.map(async (file) => {
-            const form = new FormData();
-            form.append('file', file);
-            const res = await fetch('/api/file', {
-                method: 'POST',
-                body: form,
+            const params = {
+                Bucket: S3_BUCKET.FIREFLY_LENS_MEDIA,
+                Key: uuid(),
+                Body: file,
+                ContentType: file.type,
+            };
+            const task = new Upload({
+                client,
+                params,
             });
-            const json = await res.json();
+            task.on('httpUploadProgress', (e) => {
+                const loaded = e.loaded ?? 0;
+                const total = e.total ?? 0;
+                const progress = (loaded / total) * 100;
+                onProgress?.(Math.round(progress));
+            });
+            await task.done();
+            const result = await client.headObject(params);
+            const metadata = result.Metadata;
+            const cid = metadata?.['ipfs-hash'];
 
             return {
-                uri: json.data.uri as string,
+                uri: `ipfs://${cid}`,
                 mimeType: file.type || FALLBACK_TYPE,
             };
         }),

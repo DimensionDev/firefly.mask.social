@@ -75,3 +75,9 @@ export type CommentsResponse = Response<{
     comments: Cast[];
     cursor: string;
 }>;
+
+export type UploadMediaTokenResponse = Response<{
+    accessKeyId: string;
+    secretAccessKey: string;
+    sessionToken: string;
+}>;

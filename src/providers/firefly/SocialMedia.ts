@@ -25,6 +25,7 @@ import type {
     NotificationResponse,
     ReactorsResponse,
     SearchCastsResponse,
+    UploadMediaTokenResponse,
     UserResponse,
     UsersResponse,
 } from '@/providers/types/Firefly.js';
@@ -442,6 +443,18 @@ export class FireflySocialMedia implements Provider {
             },
         }));
         return createPageable(data, createIndicator(indicator), createNextIndicator(indicator, ''));
+    }
+
+    async getUploadMediaToken(token: string) {
+        if (!token) throw new Error('Need to login with Lens');
+        const url = urlcat(FIREFLY_ROOT_URL, '/v1/lens/public_uploadMediaToken');
+        const res = await fetchJSON<UploadMediaTokenResponse>(url, {
+            headers: {
+                'x-access-token': token,
+            },
+        });
+
+        return res.data;
     }
 }
 
