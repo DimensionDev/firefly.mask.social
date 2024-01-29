@@ -2,12 +2,16 @@ import { Popover } from '@headlessui/react';
 import { BugAntIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext.js';
 import { t, Trans } from '@lingui/macro';
+import { encrypt, SteganographyPreset } from '@masknet/encryption';
 import { delay, safeUnreachable } from '@masknet/kit';
-import { CrossIsolationMessages } from '@masknet/shared-base';
+import { ProfileIdentifier } from '@masknet/shared-base';
+import { makeTypedMessageText } from '@masknet/typed-message';
 import { $getSelection } from 'lexical';
 import { compact } from 'lodash-es';
 import { useCallback, useMemo, useState } from 'react';
 import { useAsyncFn } from 'react-use';
+import { None } from 'ts-results-es';
+import urlcat from 'urlcat';
 
 import AtIcon from '@/assets/at.svg';
 import GalleryIcon from '@/assets/gallery.svg';
@@ -18,12 +22,15 @@ import PostBy from '@/components/Compose/PostBy.js';
 import ReplyRestriction from '@/components/Compose/ReplyRestriction.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { SocialPlatform } from '@/constants/enum.js';
+import { SITE_HOSTNAME, SITE_URL } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
-import { connectMaskWithWagmi } from '@/helpers/connectWagmiWithMask.js';
+import { throws } from '@/helpers/throws.js';
 import { PluginDebuggerMessages } from '@/mask/message-host/index.js';
 import { ComposeModalRef } from '@/modals/controls.js';
+import { steganographyEncodeImage } from '@/services/steganography.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 import { useFarcasterStateStore, useLensStateStore } from '@/store/useProfileStore.js';
+import { Theme, UsageType } from '@/types/rp.js';
 
 interface ComposeActionProps {}
 
@@ -33,7 +40,7 @@ export default function ComposeAction(props: ComposeActionProps) {
     const currentLensProfile = useLensStateStore.use.currentProfile();
     const currentFarcasterProfile = useFarcasterStateStore.use.currentProfile();
 
-    const { type, post, images, video, availableSources } = useComposeStateStore();
+    const { type, post, images, video, availableSources, addImage } = useComposeStateStore();
 
     const [editor] = useLexicalComposerContext();
 
@@ -70,14 +77,42 @@ export default function ComposeAction(props: ComposeActionProps) {
     }, [lensHandle, farcasterHandle, availableSources, post]);
 
     const [{ loading }, openRedPacketComposeDialog] = useAsyncFn(async () => {
-        await connectMaskWithWagmi();
-        // import dynamically to avoid the start up dependency issue of mask packages
-        await import('@/helpers/setupCurrentVisitingProfile.js').then((module) =>
-            module.setupCurrentVisitingProfileAsFireflyApp(),
+        // await connectMaskWithWagmi();
+        // // import dynamically to avoid the start up dependency issue of mask packages
+        // await import('@/helpers/setupCurrentVisitingProfile.js').then((module) =>
+        //     module.setupCurrentVisitingProfileAsFireflyApp(),
+        // );
+        // ComposeModalRef.close();
+        // await delay(300);
+        // CrossIsolationMessages.events.redpacketDialogEvent.sendToLocal({ open: true });
+        const message = makeTypedMessageText('hello world');
+
+        const encrypted = await encrypt(
+            {
+                author: ProfileIdentifier.of(SITE_HOSTNAME, 'test'),
+                authorPublicKey: None,
+                message,
+                network: SITE_HOSTNAME,
+                target: { type: 'public' },
+                version: -37,
+            },
+            { deriveAESKey: throws, encryptByLocalKey: throws },
         );
-        ComposeModalRef.close();
-        await delay(300);
-        CrossIsolationMessages.events.redpacketDialogEvent.sendToLocal({ open: true });
+
+        if (typeof encrypted.output === 'string') throw new Error('Expected binary data.');
+
+        const secretImage = await steganographyEncodeImage(
+            urlcat(SITE_URL, '/api/rp', {
+                usage: UsageType.Payload,
+                theme: Theme.GoldenFlower,
+            }),
+            encrypted.output,
+            SteganographyPreset.Preset2023_Firefly,
+        );
+
+        addImage({
+            file: new File([secretImage], 'secret.png', { type: 'image/png' }),
+        });
     }, []);
 
     const maxImageCount = currentFarcasterProfile ? 2 : 4;
