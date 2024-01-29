@@ -1,6 +1,6 @@
 'use client';
 
-import { AccountSetting } from '@/components/AccountSetting.js';
+import { AccountSettings } from '@/components/AccountSettings.js';
 import { ProfileAvatarAdd } from '@/components/ProfileAvatarAdd.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
@@ -13,8 +13,8 @@ export function LoginStatusBar() {
 
     return (
         <div className="relative flex md:flex-col md:justify-center md:gap-y-2 lg:flex-row lg:justify-start lg:gap-x-2 lg:pl-2">
-            {lensProfile ? <AccountSetting source={SocialPlatform.Lens} profile={lensProfile} /> : null}
-            {farcasterProfile ? <AccountSetting source={SocialPlatform.Farcaster} profile={farcasterProfile} /> : null}
+            {lensProfile ? <AccountSettings source={SocialPlatform.Lens} profile={lensProfile} /> : null}
+            {farcasterProfile ? <AccountSettings source={SocialPlatform.Farcaster} profile={farcasterProfile} /> : null}
             {lensProfile ? null : (
                 <ProfileAvatarAdd
                     source={SocialPlatform.Lens}

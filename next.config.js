@@ -49,6 +49,9 @@ export default {
             {
                 hostname: 'ik.imagekit.io',
             },
+            {
+                hostname: '*.mask.social',
+            },
         ],
     },
     async headers() {
