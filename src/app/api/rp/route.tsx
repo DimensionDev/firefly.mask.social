@@ -199,10 +199,7 @@ export async function GET(request: NextRequest) {
                 },
             });
 
-            response
-                .clone()
-                .blob()
-                .then((file) => uploadToBlob(`${filename}.png`, file));
+            await uploadToBlob(`${filename}.png`, await response.clone().blob());
 
             return response;
         }
@@ -215,10 +212,7 @@ export async function GET(request: NextRequest) {
                 },
             });
 
-            response
-                .clone()
-                .blob()
-                .then((file) => uploadToBlob(`${filename}.png`, file));
+            await uploadToBlob(`${filename}.png`, await response.clone().blob());
 
             return response;
         }

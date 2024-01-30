@@ -149,7 +149,7 @@ export async function publishPostForLens(
     );
     const tokenRes = await LensSocialMediaProvider.getAccessToken();
     const token = tokenRes.unwrap();
-    const arweaveId = await uploadToArweave(metadata,token);
+    const arweaveId = await uploadToArweave(metadata, token);
     const post = await LensSocialMediaProvider.publishPost({
         postId: metadata.lens.id,
         author: profile,
@@ -187,7 +187,7 @@ export async function commentPostForLens(
     );
     const tokenRes = await LensSocialMediaProvider.getAccessToken();
     const token = tokenRes.unwrap();
-    const arweaveId = await uploadToArweave(metadata,token);
+    const arweaveId = await uploadToArweave(metadata, token);
     return LensSocialMediaProvider.commentPost(postId, `ar://${arweaveId}`, profile.signless);
 }
 
@@ -215,7 +215,7 @@ export async function quotePostForLens(
     );
     const tokenRes = await LensSocialMediaProvider.getAccessToken();
     const token = tokenRes.unwrap();
-    const arweaveId = await uploadToArweave(metadata,token);
+    const arweaveId = await uploadToArweave(metadata, token);
     const post = await LensSocialMediaProvider.quotePost(postId, `ar://${arweaveId}`, profile.signless);
     return post;
 }
