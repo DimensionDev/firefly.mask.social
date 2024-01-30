@@ -5,7 +5,9 @@ import { fetchJSON } from '@/helpers/fetchJSON.js';
 import type { GetPostMetaData } from '@/services/postForLens.js';
 
 interface IUploadToArweaveResponse {
-    data: string 
+    data: {
+        arweaveTxId: string;
+    };
 }
 
 /**
@@ -17,22 +19,22 @@ interface IUploadToArweaveResponse {
  */
 export async function uploadToArweave(data: GetPostMetaData, token: string): Promise<string> {
     try {
-        const url = urlcat(FIREFLY_ROOT_URL, '/v1/lens/public_metadata')
+        const url = urlcat(FIREFLY_ROOT_URL, '/v1/lens/public_metadata');
         const {
-            data: id,
+            data: { arweaveTxId },
         } = await fetchJSON<IUploadToArweaveResponse>(url, {
             method: 'POST',
-            headers:{
-                'x-access-token': token
+            headers: {
+                'x-access-token': token,
             },
             body: JSON.stringify(data),
         });
 
-        if (!id) {
+        if (!arweaveTxId) {
             throw new Error('Upload failed!');
         }
 
-        return id;
+        return arweaveTxId;
     } catch {
         throw new Error('Something went wrong!');
     }

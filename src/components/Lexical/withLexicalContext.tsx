@@ -1,12 +1,9 @@
 import { HashtagNode } from '@lexical/hashtag';
 import { AutoLinkNode, LinkNode } from '@lexical/link';
 import { type InitialConfigType, LexicalComposer } from '@lexical/react/LexicalComposer.js';
-import { $createParagraphNode, $createTextNode, $getRoot } from 'lexical';
 import { type ComponentType, useMemo } from 'react';
 
 import { MentionNode } from '@/components/Lexical/nodes/MentionsNode.js';
-import { readChars } from '@/helpers/readChars.js';
-import { useComposeStateStore } from '@/store/useComposeStore.js';
 
 const initialConfig = {
     namespace: 'composer',
@@ -22,26 +19,11 @@ const initialConfig = {
 
 const withLexicalContext = (Component: ComponentType<any>) => {
     function LexicalContext(props: any) {
-        const { chars } = useComposeStateStore();
         const config = useMemo<InitialConfigType>(() => {
-            const content = readChars(chars, true);
             return {
                 ...initialConfig,
-                editorState: content
-                    ? (editor) => {
-                          if (!content) return;
-                          editor.update(() => {
-                              const root = $getRoot();
-                              const paragraph = $createParagraphNode();
-                              const text = $createTextNode(content);
-                              paragraph.append(text);
-                              root.append(paragraph);
-                              root.selectEnd();
-                          });
-                      }
-                    : null,
             };
-        }, [chars]);
+        }, []);
 
         return (
             <LexicalComposer initialConfig={config}>

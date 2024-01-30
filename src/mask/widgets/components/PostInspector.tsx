@@ -2,8 +2,8 @@ import { PostInfoProvider, useActivatedPluginsSiteAdaptor } from '@masknet/plugi
 import { memo } from 'react';
 
 import { usePostInfo } from '@/mask/hooks/usePostInfo.js';
-import { createInjectHooksRenderer } from '@/maskbook/packages/plugin-infra/src/entry-dom.js';
-import { MaskPostExtraPluginWrapper } from '@/maskbook/packages/shared/src/index.js';
+import { createInjectHooksRenderer } from '@masknet/plugin-infra/dom';
+import { MaskPostExtraPluginWrapper } from '@masknet/shared';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 const PluginHooksRenderer = createInjectHooksRenderer(
