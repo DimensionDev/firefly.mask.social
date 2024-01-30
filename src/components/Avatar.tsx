@@ -6,7 +6,7 @@ import { useAsync } from 'react-use';
 import { Image as NextImage } from '@/esm/Image.js';
 import { classNames } from '@/helpers/classNames.js';
 import { resolveAvatarFallbackUrl } from '@/helpers/resolveAvatarFallbackUrl.js';
-import { resolveFirstAvailableResource } from '@/helpers/resolveFirstAvailableResource.js';
+import { resolveFirstAvailableUrl } from '@/helpers/resolveFirstAvailableUrl.js';
 import { resolveImgurUrl } from '@/helpers/resolveImgurUrl.js';
 import { useDarkMode } from '@/hooks/useDarkMode.js';
 
@@ -20,8 +20,7 @@ export const Avatar = memo(function Avatar({ src, size, className, fallbackUrl, 
     const { isDarkMode } = useDarkMode();
 
     const { value: url, loading } = useAsync(
-        async () =>
-            resolveFirstAvailableResource(compact([resolveImgurUrl(resolveAvatarFallbackUrl(src)), fallbackUrl])),
+        async () => resolveFirstAvailableUrl(compact([resolveImgurUrl(resolveAvatarFallbackUrl(src)), fallbackUrl])),
         [src, fallbackUrl],
     );
 
