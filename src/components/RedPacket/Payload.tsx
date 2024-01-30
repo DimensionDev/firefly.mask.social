@@ -36,7 +36,7 @@ function PayloadForFirefly({ amount, token, theme, from }: PayloadProps) {
             {theme === Theme.LuckyFirefly ? (
                 <img
                     style={{ position: 'absolute', top: 100 }}
-                    src={urlcat(SITE_URL, '/rp/logo-firefly.png')}
+                    src={urlcat(SITE_URL, '/rp/logo-firefly.svg')}
                     width={200}
                     height={265}
                     alt="Firefly"

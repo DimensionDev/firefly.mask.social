@@ -190,9 +190,6 @@ importers:
       '@vercel/kv':
         specifier: ^1.0.1
         version: 1.0.1
-      '@vercel/og':
-        specifier: ^0.6.2
-        version: 0.6.2
       async-call-rpc:
         specifier: ^6.3.1
         version: 6.3.1
@@ -283,6 +280,9 @@ importers:
       remark-linkify-regex:
         specifier: ^1.2.1
         version: 1.2.1
+      satori:
+        specifier: ^0.10.13
+        version: 0.10.13
       strip-markdown:
         specifier: ^6.0.0
         version: 6.0.0
@@ -13088,11 +13088,6 @@ packages:
     engines: {node: '>=14.0.0'}
     dev: false
 
-  /@resvg/resvg-wasm@2.4.0:
-    resolution: {integrity: sha512-C7c51Nn4yTxXFKvgh2txJFNweaVcfUPQxwEUFw4aWsCmfiBDJsTSwviIF8EcwjQ6k8bPyMWCl1vw4BdxE569Cg==}
-    engines: {node: '>= 10'}
-    dev: false
-
   /@rgba-image/common@0.1.13:
     resolution: {integrity: sha512-AnOBmBpjSgcymTuVhTGy+RB4FfmEQqR2GeJY3d3xfvR9fl3HfhzwgVqopuh3bKSAT6KRpJr7wNmug0qr3oI7bA==}
     dev: false
@@ -16129,15 +16124,6 @@ packages:
     engines: {node: '>=14.6'}
     dependencies:
       '@upstash/redis': 1.25.1
-    dev: false
-
-  /@vercel/og@0.6.2:
-    resolution: {integrity: sha512-OTe0KE37F5Y2eTys6eMnfopC+P4qr2ooXUTFyFPTplYSPwowmFk/HLD1FXtbKLjqsIH0SgekcJWad+C5uX4nkg==}
-    engines: {node: '>=16'}
-    dependencies:
-      '@resvg/resvg-wasm': 2.4.0
-      satori: 0.10.9
-      yoga-wasm-web: 0.3.3
     dev: false
 
   /@vitest/expect@0.34.6:
@@ -31958,8 +31944,8 @@ packages:
   /safer-buffer@2.1.2:
     resolution: {integrity: sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==}
 
-  /satori@0.10.9:
-    resolution: {integrity: sha512-XU9EELUEZuioT4acLIpCXxHcFzrsC8muvg0MY28d+TlqwxbkTzBmWbw+3+hnCzXT7YZ0Qm8k3eXktDaEu+qmEw==}
+  /satori@0.10.13:
+    resolution: {integrity: sha512-klCwkVYMQ/ZN5inJLHzrUmGwoRfsdP7idB5hfpJ1jfiJk1ErDitK8Hkc6Kll1+Ox2WtqEuGecSZLnmup3CGzvQ==}
     engines: {node: '>=16'}
     dependencies:
       '@shuding/opentype.js': 1.4.0-beta.0
@@ -36767,7 +36753,6 @@ time:
   /@uniswap/v3-sdk@3.9.0: '2022-07-06T21:49:29.954Z'
   /@vercel/blob@0.19.0: '2024-01-18T17:23:11.259Z'
   /@vercel/kv@1.0.1: '2023-12-08T09:14:03.153Z'
-  /@vercel/og@0.6.2: '2024-01-04T11:28:42.138Z'
   /@vitest/ui@0.34.3: '2023-08-25T07:30:41.528Z'
   /@walletconnect/client@1.8.0: '2022-08-02T15:32:25.480Z'
   /@walletconnect/sign-client@2.10.5: '2023-11-15T14:53:29.849Z'
@@ -36910,6 +36895,7 @@ time:
   /rollup-plugin-terser@7.0.2: '2020-09-04T18:39:17.900Z'
   /rollup@3.28.1: '2023-08-22T05:46:12.354Z'
   /rss3-next@0.6.17: '2021-10-01T02:58:14.839Z'
+  /satori@0.10.13: '2024-01-30T01:22:29.349Z'
   /ses@0.18.7: '2023-08-07T21:38:49.283Z'
   /socket.io-client@2.4.0: '2021-01-04T22:41:40.900Z'
   /source-map-loader@4.0.1: '2022-10-07T16:54:15.119Z'
