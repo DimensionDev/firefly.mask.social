@@ -1,17 +1,6 @@
 import { t } from '@lingui/macro';
 
-interface UploadProgress {
-    percent: number;
-    transferred: number;
-    total: number;
-    id: string;
-}
-
-export async function uploadToImgur(
-    file: File,
-    metadata?: { title: string; description?: string },
-    onProgress?: (progress: UploadProgress) => void,
-): Promise<string> {
+export async function uploadToImgur(file: File, metadata?: { title: string; description?: string }): Promise<string> {
     const formData = new FormData();
     formData.append('image', file);
     formData.append('title', metadata?.title ?? file.name);
