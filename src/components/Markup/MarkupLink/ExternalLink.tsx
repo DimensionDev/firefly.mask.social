@@ -23,6 +23,7 @@ export const ExternalLink = memo<ExternalLinkProps>(function ExternalLink({ titl
         <Link
             onClick={(event) => event.stopPropagation()}
             href={u.href}
+            title={u.href}
             className={classNames('text-link', {
                 'hover:underline': !!u,
             })}
