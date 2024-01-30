@@ -48,6 +48,10 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
     const { value: payloads, loading } = useAsync(async () => {
         // decode the image upon post viewing, to reduce unnecessary load of images
         if (!postViewed) return;
+
+        // mask web components are disabled
+        if (process.env.NEXT_PUBLIC_MASK_WEB_COMPONENTS === 'disabled') return;
+
         return {
             payloadFromText: getEncryptedPayloadFromText(post),
             payloadFromImageAttachment: await getEncryptedPayloadFromImageAttachment(post),
@@ -164,7 +168,8 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
             ) : null}
 
             {/* TODO: exclude the payload image from attachments */}
-            {showAttachments && !payloads?.payloadFromImageAttachment ? (
+            {showAttachments &&
+            (!payloads?.payloadFromImageAttachment || process.env.NEXT_PUBLIC_MASK_WEB_COMPONENTS === 'disabled') ? (
                 <Attachments
                     post={post}
                     asset={post.metadata.content?.asset}
