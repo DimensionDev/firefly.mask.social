@@ -1,3 +1,5 @@
+import { formatEthereumAddress, isValidAddress } from '@masknet/web3-shared-evm';
+
 import { Theme, UsageType } from '@/types/rp.js';
 
 interface AuthorTextProps {
@@ -8,7 +10,7 @@ interface AuthorTextProps {
 }
 
 export function AuthorText({ theme, usage, from = 'unknown', ...props }: AuthorTextProps) {
-    const authorText = `From ${from}`;
+    const authorText = `From ${isValidAddress(from) ? formatEthereumAddress(from, 2) : from}`;
 
     switch (usage) {
         case UsageType.Cover:
