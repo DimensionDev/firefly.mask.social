@@ -35,7 +35,6 @@ import {
     type Post,
     type PostType,
     type Profile,
-    ProfileStatus,
     type Provider,
     type Reaction,
     SessionType,
@@ -77,18 +76,7 @@ export class FireflySocialMedia implements Provider {
             },
         );
 
-        return {
-            fullHandle: user.username || user.display_name,
-            profileId: user.fid.toString(),
-            handle: user.username || user.display_name,
-            displayName: user.display_name,
-            pfp: user.pfp,
-            followerCount: user.followers,
-            followingCount: user.following,
-            status: ProfileStatus.Active,
-            verified: true,
-            source: SocialPlatform.Farcaster,
-        };
+        return formatFarcasterProfileFromFirefly(user);
     }
 
     async getPostsByParentPostId(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
@@ -106,18 +94,7 @@ export class FireflySocialMedia implements Provider {
         } = await fetchJSON<UsersResponse>(url, {
             method: 'GET',
         });
-        const data = list.map((user) => ({
-            fullHandle: user.username,
-            profileId: user.fid.toString(),
-            handle: user.username,
-            displayName: user.display_name,
-            pfp: user.pfp,
-            followerCount: user.followers,
-            followingCount: user.following,
-            status: ProfileStatus.Active,
-            verified: true,
-            source: SocialPlatform.Farcaster,
-        }));
+        const data = list.map(formatFarcasterProfileFromFirefly);
 
         return createPageable(data, createIndicator(indicator), createNextIndicator(indicator, next_cursor));
     }
@@ -133,22 +110,7 @@ export class FireflySocialMedia implements Provider {
         } = await fetchJSON<UsersResponse>(url, {
             method: 'GET',
         });
-        const data = list.map((user) => ({
-            fullHandle: user.username,
-            profileId: user.fid.toString(),
-            handle: user.username,
-            displayName: user.display_name,
-            pfp: user.pfp,
-            followerCount: user.followers,
-            followingCount: user.following,
-            status: ProfileStatus.Active,
-            verified: true,
-            source: SocialPlatform.Farcaster,
-            viewerContext: {
-                following: user.isFollowing,
-                followedBy: user.isFollowedBack,
-            },
-        }));
+        const data = list.map(formatFarcasterProfileFromFirefly);
 
         return createPageable(data, createIndicator(indicator), createNextIndicator(indicator, next_cursor));
     }
@@ -315,22 +277,7 @@ export class FireflySocialMedia implements Provider {
             method: 'GET',
         });
 
-        const data = items.map((user) => ({
-            fullHandle: user.username,
-            profileId: user.fid.toString(),
-            handle: user.username,
-            displayName: user.display_name,
-            pfp: user.pfp,
-            followerCount: user.followers,
-            followingCount: user.following,
-            status: ProfileStatus.Active,
-            verified: true,
-            source: SocialPlatform.Farcaster,
-            viewerContext: {
-                following: user.isFollowing,
-                followedBy: user.isFollowedBack,
-            },
-        }));
+        const data = items.map(formatFarcasterProfileFromFirefly);
         return createPageable(data, createIndicator(indicator), createNextIndicator(indicator, nextCursor));
     }
 
@@ -348,22 +295,7 @@ export class FireflySocialMedia implements Provider {
             method: 'GET',
         });
 
-        const data = items.map((user) => ({
-            fullHandle: user.username,
-            profileId: user.fid.toString(),
-            handle: user.username,
-            displayName: user.display_name,
-            pfp: user.pfp,
-            followerCount: user.followers,
-            followingCount: user.following,
-            status: ProfileStatus.Active,
-            verified: true,
-            source: SocialPlatform.Farcaster,
-            viewerContext: {
-                following: user.isFollowing,
-                followedBy: user.isFollowedBack,
-            },
-        }));
+        const data = items.map(formatFarcasterProfileFromFirefly);
         return createPageable(data, createIndicator(indicator), createNextIndicator(indicator, nextCursor));
     }
 
@@ -417,18 +349,7 @@ export class FireflySocialMedia implements Provider {
             postId: cast.hash,
             parentPostId: cast.parent_hash,
             timestamp: Number(cast.created_at),
-            author: {
-                fullHandle: cast.author.username,
-                profileId: cast.author.fid,
-                handle: cast.author.username,
-                displayName: cast.author.display_name,
-                pfp: cast.author.pfp,
-                followerCount: cast.author.followers,
-                followingCount: cast.author.following,
-                status: ProfileStatus.Active,
-                verified: true,
-                source: SocialPlatform.Farcaster,
-            },
+            author: formatFarcasterProfileFromFirefly(cast.author),
             metadata: {
                 locale: '',
                 content: {

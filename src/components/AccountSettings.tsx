@@ -17,12 +17,12 @@ import { useSwitchLensAccount } from '@/hooks/useSwitchLensAccount.js';
 import { LoginModalRef, LogoutModalRef } from '@/modals/controls.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
-interface AccountSettingProps {
+interface AccountSettingsProps {
     source: SocialPlatform;
     profile: Profile;
 }
 
-export function AccountSetting({ source, profile }: AccountSettingProps) {
+export function AccountSettings({ source, profile }: AccountSettingsProps) {
     const { currentProfile, currentProfileSession, profiles } = useProfiles(source);
     const { login } = useSwitchLensAccount();
 

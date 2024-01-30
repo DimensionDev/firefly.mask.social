@@ -348,7 +348,7 @@ export class LensSocialMedia implements Provider {
         if (!result) throw new Error(t`No comments found`);
 
         return createPageable(
-            result.items.map((item) => formatLensPost(item)),
+            result.items.map(formatLensPost),
             indicator ?? createIndicator(),
             result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );
@@ -362,7 +362,7 @@ export class LensSocialMedia implements Provider {
         });
 
         return createPageable(
-            result.items.map((item) => formatLensPost(item)),
+            result.items.map(formatLensPost),
             createIndicator(indicator),
             result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );
@@ -381,7 +381,7 @@ export class LensSocialMedia implements Provider {
 
         const result = data.unwrap();
         return createPageable(
-            result.items.map((item) => formatLensPostByFeed(item)),
+            result.items.map(formatLensPostByFeed),
             indicator ?? createIndicator(),
             result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );
@@ -397,7 +397,7 @@ export class LensSocialMedia implements Provider {
         });
 
         return createPageable(
-            result.items.map((item) => formatLensPost(item)),
+            result.items.map(formatLensPost),
             createIndicator(indicator),
             result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );
@@ -414,7 +414,7 @@ export class LensSocialMedia implements Provider {
         });
 
         return createPageable(
-            result.items.map((item) => formatLensPost(item)),
+            result.items.map(formatLensPost),
             createIndicator(indicator),
             result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );
@@ -429,7 +429,7 @@ export class LensSocialMedia implements Provider {
         });
 
         return createPageable(
-            result.items.map((item) => formatLensPost(item)),
+            result.items.map(formatLensPost),
             createIndicator(indicator),
             result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );
@@ -444,7 +444,7 @@ export class LensSocialMedia implements Provider {
         });
 
         return createPageable(
-            result.items.map((item) => formatLensPost(item)),
+            result.items.map(formatLensPost),
             createIndicator(indicator),
             result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );
@@ -460,7 +460,7 @@ export class LensSocialMedia implements Provider {
         });
 
         return createPageable(
-            result.items.map((item) => formatLensPost(item)),
+            result.items.map(formatLensPost),
             createIndicator(indicator),
             result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );
@@ -477,7 +477,7 @@ export class LensSocialMedia implements Provider {
         });
 
         return createPageable(
-            result.items.map((item) => formatLensPost(item)),
+            result.items.map(formatLensPost),
             createIndicator(indicator),
             result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );
@@ -564,7 +564,7 @@ export class LensSocialMedia implements Provider {
         });
 
         return createPageable(
-            result.items.map((item) => formatLensProfile(item)),
+            result.items.map(formatLensProfile),
             createIndicator(indicator),
             result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );
@@ -577,7 +577,7 @@ export class LensSocialMedia implements Provider {
         });
 
         return createPageable(
-            result.items.map((item) => formatLensProfile(item)),
+            result.items.map(formatLensProfile),
             createIndicator(indicator),
             result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );
@@ -609,97 +609,95 @@ export class LensSocialMedia implements Provider {
 
         const result = response.unwrap();
 
-        const data = await Promise.all(
-            result.items.map(async (item) => {
-                if (item.__typename === 'MirrorNotification') {
-                    if (item.mirrors.length === 0) throw new Error('No mirror found');
+        const data = result.items.map((item) => {
+            if (item.__typename === 'MirrorNotification') {
+                if (item.mirrors.length === 0) throw new Error('No mirror found');
 
-                    const time = first(item.mirrors)?.mirroredAt;
-                    return {
-                        source: SocialPlatform.Lens,
-                        notificationId: item.id,
-                        type: NotificationType.Mirror,
-                        mirrors: item.mirrors.map((x) => formatLensProfile(x.profile)),
-                        post: formatLensPost(item.publication),
-                        timestamp: time ? new Date(time).getTime() : undefined,
-                    };
-                }
+                const time = first(item.mirrors)?.mirroredAt;
+                return {
+                    source: SocialPlatform.Lens,
+                    notificationId: item.id,
+                    type: NotificationType.Mirror,
+                    mirrors: item.mirrors.map((x) => formatLensProfile(x.profile)),
+                    post: formatLensPost(item.publication),
+                    timestamp: time ? new Date(time).getTime() : undefined,
+                };
+            }
 
-                if (item.__typename === 'QuoteNotification') {
-                    const time = item.quote.createdAt;
-                    return {
-                        source: SocialPlatform.Lens,
-                        notificationId: item.id,
-                        type: NotificationType.Quote,
-                        quote: formatLensPost(item.quote),
-                        post: formatLensQuoteOrComment(item.quote.quoteOn),
-                        timestamp: time ? new Date(time).getTime() : undefined,
-                    };
-                }
+            if (item.__typename === 'QuoteNotification') {
+                const time = item.quote.createdAt;
+                return {
+                    source: SocialPlatform.Lens,
+                    notificationId: item.id,
+                    type: NotificationType.Quote,
+                    quote: formatLensPost(item.quote),
+                    post: formatLensQuoteOrComment(item.quote.quoteOn),
+                    timestamp: time ? new Date(time).getTime() : undefined,
+                };
+            }
 
-                if (item.__typename === 'ReactionNotification') {
-                    if (item.reactions.length === 0) throw new Error('No reaction found');
-                    const time = first(flatMap(item.reactions.map((x) => x.reactions)))?.reactedAt;
-                    return {
-                        source: SocialPlatform.Lens,
-                        notificationId: item.id,
-                        type: NotificationType.Reaction,
-                        reaction: ReactionType.Upvote,
-                        reactors: item.reactions.map((x) => formatLensProfile(x.profile)),
-                        post: formatLensPost(item.publication),
-                        timestamp: time ? new Date(time).getTime() : undefined,
-                    };
-                }
+            if (item.__typename === 'ReactionNotification') {
+                if (item.reactions.length === 0) throw new Error('No reaction found');
+                const time = first(flatMap(item.reactions.map((x) => x.reactions)))?.reactedAt;
+                return {
+                    source: SocialPlatform.Lens,
+                    notificationId: item.id,
+                    type: NotificationType.Reaction,
+                    reaction: ReactionType.Upvote,
+                    reactors: item.reactions.map((x) => formatLensProfile(x.profile)),
+                    post: formatLensPost(item.publication),
+                    timestamp: time ? new Date(time).getTime() : undefined,
+                };
+            }
 
-                if (item.__typename === 'CommentNotification') {
-                    return {
-                        source: SocialPlatform.Lens,
-                        notificationId: item.id,
-                        type: NotificationType.Comment,
-                        comment: formatLensPost(item.comment),
-                        post: formatLensQuoteOrComment(item.comment.commentOn),
-                        timestamp: new Date(item.comment.createdAt).getTime(),
-                    };
-                }
+            if (item.__typename === 'CommentNotification') {
+                return {
+                    source: SocialPlatform.Lens,
+                    notificationId: item.id,
+                    type: NotificationType.Comment,
+                    comment: formatLensPost(item.comment),
+                    post: formatLensQuoteOrComment(item.comment.commentOn),
+                    timestamp: new Date(item.comment.createdAt).getTime(),
+                };
+            }
 
-                if (item.__typename === 'FollowNotification') {
-                    if (item.followers.length === 0) throw new Error('No follower found');
+            if (item.__typename === 'FollowNotification') {
+                if (item.followers.length === 0) throw new Error('No follower found');
 
-                    return {
-                        source: SocialPlatform.Lens,
-                        notificationId: item.id,
-                        type: NotificationType.Follow,
-                        followers: item.followers.map(formatLensProfile),
-                    };
-                }
+                return {
+                    source: SocialPlatform.Lens,
+                    notificationId: item.id,
+                    type: NotificationType.Follow,
+                    followers: item.followers.map(formatLensProfile),
+                };
+            }
 
-                if (item.__typename === 'MentionNotification') {
-                    const post = formatLensPost(item.publication);
+            if (item.__typename === 'MentionNotification') {
+                const post = formatLensPost(item.publication);
 
-                    return {
-                        source: SocialPlatform.Lens,
-                        notificationId: item.id,
-                        type: NotificationType.Mention,
-                        post,
-                        timestamp: new Date(item.publication.createdAt).getTime(),
-                    };
-                }
+                return {
+                    source: SocialPlatform.Lens,
+                    notificationId: item.id,
+                    type: NotificationType.Mention,
+                    post,
+                    timestamp: new Date(item.publication.createdAt).getTime(),
+                };
+            }
 
-                if (item.__typename === 'ActedNotification') {
-                    const time = first(item.actions)?.actedAt;
-                    return {
-                        source: SocialPlatform.Lens,
-                        notificationId: item.id,
-                        type: NotificationType.Act,
-                        post: formatLensPost(item.publication),
-                        actions: item.actions.map((x) => formatLensProfile(x.by)),
-                        timestamp: time ? new Date(time).getTime() : undefined,
-                    };
-                }
+            if (item.__typename === 'ActedNotification') {
+                const time = first(item.actions)?.actedAt;
+                return {
+                    source: SocialPlatform.Lens,
+                    notificationId: item.id,
+                    type: NotificationType.Act,
+                    post: formatLensPost(item.publication),
+                    actions: item.actions.map((x) => formatLensProfile(x.by)),
+                    timestamp: time ? new Date(time).getTime() : undefined,
+                };
+            }
 
-                return;
-            }),
-        );
+            return;
+        });
 
         return createPageable(
             data.filter((item) => typeof item !== 'undefined') as Notification[],
@@ -715,7 +713,7 @@ export class LensSocialMedia implements Provider {
         });
 
         return createPageable(
-            result.items.map((item) => formatLensProfile(item)),
+            result.items.map(formatLensProfile),
             createIndicator(indicator),
             result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );
@@ -732,7 +730,7 @@ export class LensSocialMedia implements Provider {
             },
         });
         return createPageable(
-            result.items.map((item) => formatLensProfile(item)),
+            result.items.map(formatLensProfile),
             createIndicator(indicator),
             result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );
@@ -745,7 +743,7 @@ export class LensSocialMedia implements Provider {
             limit: LimitType.TwentyFive,
         });
         return createPageable(
-            result.items.map((item) => formatLensPost(item)),
+            result.items.map(formatLensPost),
             createIndicator(indicator),
             result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );

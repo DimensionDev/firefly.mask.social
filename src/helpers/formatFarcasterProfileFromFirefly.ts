@@ -4,19 +4,23 @@ import { SocialPlatform } from '@/constants/enum.js';
 import type { User } from '@/providers/types/Firefly.js';
 import { type Profile, ProfileStatus } from '@/providers/types/SocialMedia.js';
 
-export function formatFarcasterProfileFromFirefly(result: User): Profile {
+export function formatFarcasterProfileFromFirefly(user: User): Profile {
     return {
-        fullHandle: result.username,
-        profileId: result.fid,
-        displayName: result.display_name,
-        handle: result.username,
-        pfp: result.pfp,
-        bio: result.bio,
-        address: first(result.addresses),
-        followerCount: result.followers,
-        followingCount: result.following,
+        fullHandle: user.username || user.display_name,
+        profileId: user.fid.toString(),
+        handle: user.username || user.display_name,
+        displayName: user.display_name,
+        pfp: user.pfp,
+        bio: user.bio,
+        address: first(user.addresses),
+        followerCount: user.followers,
+        followingCount: user.following,
         status: ProfileStatus.Active,
         verified: true,
         source: SocialPlatform.Farcaster,
+        viewerContext: {
+            following: user.isFollowing,
+            followedBy: user.isFollowedBack,
+        },
     };
 }
