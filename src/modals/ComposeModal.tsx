@@ -105,7 +105,7 @@ export const ComposeModal = forwardRef<SingletonModalRefCreator<ComposeModalProp
                     theme: Theme.GoldenFlower,
                 }),
                 encrypted.output,
-                SteganographyPreset.Preset2023,
+                SteganographyPreset.Preset2023_Firefly,
             );
 
             updateChars([

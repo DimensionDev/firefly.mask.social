@@ -28,7 +28,7 @@ export async function getEncryptedPayloadFromImageAttachment(post: Post): Promis
             const decoded = await steganographyDecodeImage(attachment.uri);
             if (!decoded) return;
 
-            return [decoded, '2'] as const;
+            return [decoded, '2'] as EncryptedPayload;
         }) ?? [];
 
     const allSettled = await Promise.allSettled(result);

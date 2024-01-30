@@ -8,14 +8,14 @@ import {
     type PayloadParseResult,
     TwitterDecoder,
 } from '@masknet/encryption';
-import { decodeArrayBuffer, encodeArrayBuffer } from '@masknet/kit';
+import { encodeArrayBuffer } from '@masknet/kit';
 import type { TypedMessage } from '@masknet/typed-message';
 
 import type { EncryptedPayload } from '@/helpers/getEncryptedPayload.js';
 
 const cache = new Map<string, AESCryptoKey>();
 
-async function parsePayloadText(encoded: string): Promise<PayloadParseResult.Payload | null> {
+async function parsePayloadText(encoded: string) {
     let payload = TwitterDecoder(
         'https://mask.io/?PostData_v1=' +
             encodeURI(encoded).replaceAll(/@$/g, '%40').replaceAll('%2F', '/').replaceAll('%3D', '='),
