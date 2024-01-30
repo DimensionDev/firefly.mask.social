@@ -64,7 +64,7 @@ function CoverForFirefly({
             {theme === Theme.LuckyFirefly ? (
                 <img
                     style={{ position: 'absolute', top: 80 }}
-                    src={urlcat(SITE_URL, '/rp/logo-firefly.png')}
+                    src={urlcat(SITE_URL, '/rp/logo-firefly.svg')}
                     alt="Hero Image"
                     width={255}
                     height={340}

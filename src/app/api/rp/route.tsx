@@ -1,23 +1,17 @@
 /* cspell:disable */
 
 import { safeUnreachable } from '@masknet/kit';
-import { kv } from '@vercel/kv';
-import { ImageResponse } from '@vercel/og';
-import { type NextRequest, NextResponse } from 'next/server.js';
+import { type NextRequest } from 'next/server.js';
+import satori, { type Font } from 'satori';
 import urlcat from 'urlcat';
-import { keccak256, toHex } from 'viem';
 import { z } from 'zod';
 
 import { RedPacketCover } from '@/components/RedPacket/Cover.js';
 import { RedPacketPayload } from '@/components/RedPacket/Payload.js';
-import { KeyType } from '@/constants/enum.js';
 import { CACHE_AGE_INDEFINITE_ON_DISK, SITE_URL } from '@/constants/index.js';
 import { fetchArrayBuffer } from '@/helpers/fetchArrayBuffer.js';
-import { uploadToBlob } from '@/services/uploadToBlob.js';
 import { Locale } from '@/types/index.js';
 import { CoBrandType, type Dimension, Theme, TokenType, UsageType } from '@/types/rp.js';
-
-export const runtime = 'edge';
 
 const TokenSchema = z.object({
     type: z.nativeEnum(TokenType),
@@ -103,18 +97,6 @@ function parseParams(params: URLSearchParams) {
     }
 }
 
-function stringifyParams(params: ReturnType<typeof parseParams>) {
-    if (!params?.success) return;
-
-    const json = JSON.stringify(
-        params.data,
-        Object.entries(params.data)
-            .flatMap(([key, value]) => (typeof value === 'object' ? [key, ...Object.keys(value)] : [key]))
-            .sort(),
-    );
-    return keccak256(toHex(json));
-}
-
 async function getFonts(signal?: AbortSignal) {
     return [
         {
@@ -135,7 +117,7 @@ async function getFonts(signal?: AbortSignal) {
             weight: 700,
             style: 'normal',
         },
-    ];
+    ] satisfies Font[];
 }
 
 const DIMENSION_SETTINGS: Record<Theme, { cover: Dimension; payload: Dimension }> = {
@@ -161,6 +143,30 @@ const DIMENSION_SETTINGS: Record<Theme, { cover: Dimension; payload: Dimension }
     },
 };
 
+async function createImage(params: z.infer<typeof CoverSchema> | z.infer<typeof PayloadSchema>, signal?: AbortSignal) {
+    const { usage, theme } = params;
+
+    const fonts = await getFonts(signal);
+
+    switch (usage) {
+        case UsageType.Cover: {
+            return satori(<RedPacketCover {...params} />, {
+                ...DIMENSION_SETTINGS[theme].cover,
+                fonts,
+            });
+        }
+        case UsageType.Payload: {
+            return satori(<RedPacketPayload {...params} />, {
+                ...DIMENSION_SETTINGS[theme].payload,
+                fonts,
+            });
+        }
+        default:
+            safeUnreachable(usage);
+            return;
+    }
+}
+
 export async function GET(request: NextRequest) {
     // If no params, throw the usage message.
     if (request.nextUrl.searchParams.size === 0) {
@@ -172,52 +178,16 @@ export async function GET(request: NextRequest) {
         });
     }
 
-    const result = parseParams(request.nextUrl.searchParams);
-    if (!result?.success) return new Response(`Invalid Params: ${result?.error.message}`, { status: 400 });
+    const parsedParams = parseParams(request.nextUrl.searchParams);
+    if (!parsedParams?.success) return new Response(`Invalid Params: ${parsedParams?.error.message}`, { status: 400 });
 
-    // Generate filename from params
-    const filename = stringifyParams(result);
-    if (!filename) return new Response(`Failed to generate filename: ${JSON.stringify(result.data)}`, { status: 400 });
+    const image = await createImage(parsedParams.data, request.signal);
+    if (!image) return new Response('Failed to create image', { status: 500 });
 
-    // Check if the image exists in KV
-    const url = await kv.hget(KeyType.UploadToBlob, `${filename}.png`);
-    if (typeof url === 'string' && URL.canParse(url)) return NextResponse.redirect(url, 302);
-
-    const params = result.data;
-    const { usage, theme } = params;
-
-    const fonts = await getFonts(request.signal);
-
-    switch (usage) {
-        case UsageType.Cover: {
-            const response = new ImageResponse(<RedPacketCover {...params} />, {
-                ...DIMENSION_SETTINGS[theme].cover,
-                fonts,
-
-                headers: {
-                    'Cache-Control': CACHE_AGE_INDEFINITE_ON_DISK,
-                },
-            });
-
-            await uploadToBlob(`${filename}.png`, await response.clone().blob());
-
-            return response;
-        }
-        case UsageType.Payload: {
-            const response = new ImageResponse(<RedPacketPayload {...params} />, {
-                ...DIMENSION_SETTINGS[theme].payload,
-                fonts,
-                headers: {
-                    'Cache-Control': CACHE_AGE_INDEFINITE_ON_DISK,
-                },
-            });
-
-            await uploadToBlob(`${filename}.png`, await response.clone().blob());
-
-            return response;
-        }
-        default:
-            safeUnreachable(usage);
-            return new Response('Invalid usage', { status: 400 });
-    }
+    return new Response(image, {
+        headers: {
+            'Content-Type': 'image/svg+xml',
+            'Cache-Control': CACHE_AGE_INDEFINITE_ON_DISK,
+        },
+    });
 }
