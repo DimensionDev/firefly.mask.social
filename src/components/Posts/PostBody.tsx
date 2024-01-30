@@ -46,11 +46,13 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
     });
 
     const { value: payloads, loading } = useAsync(async () => {
+        // decode the image upon post viewing, to reduce unnecessary load of images
+        if (!postViewed) return;
         return {
             payloadFromText: getEncryptedPayloadFromText(post),
             payloadFromImageAttachment: await getEncryptedPayloadFromImageAttachment(post),
         };
-    }, [post]);
+    }, [post, postViewed]);
 
     if (post.isEncrypted) {
         return (
