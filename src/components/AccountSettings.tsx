@@ -38,7 +38,7 @@ export function AccountSettings({ source, profile }: AccountSettingsProps) {
             interactive
             className="account-settings"
             content={
-                <div className=" flex w-[290px] flex-col rounded-2xl dark:border dark:border-line bg-primaryBottom px-5 shadow-[0px_8px_20px_0px_rgba(0,0,0,0.04)] dark:shadow-[0px_8px_20px_0px_rgba(255,255,255,0.04)]">
+                <div className=" flex w-[290px] flex-col rounded-2xl bg-primaryBottom px-5 shadow-[0px_8px_20px_0px_rgba(0,0,0,0.04)] dark:border dark:border-line dark:shadow-[0px_8px_20px_0px_rgba(255,255,255,0.04)]">
                     {profiles.map((profile) => (
                         <button
                             key={profile.profileId}

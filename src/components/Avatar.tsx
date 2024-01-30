@@ -1,10 +1,12 @@
 import { compact } from 'lodash-es';
 import type { ImageProps as NextImageProps } from 'next/image.js';
-import { memo, useMemo, useState } from 'react';
+import { memo } from 'react';
+import { useAsync } from 'react-use';
 
 import { Image as NextImage } from '@/esm/Image.js';
 import { classNames } from '@/helpers/classNames.js';
 import { resolveAvatarFallbackUrl } from '@/helpers/resolveAvatarFallbackUrl.js';
+import { resolveFirstAvailableResource } from '@/helpers/resolveFirstAvailableResource.js';
 import { resolveImgurUrl } from '@/helpers/resolveImgurUrl.js';
 import { useDarkMode } from '@/hooks/useDarkMode.js';
 
@@ -13,18 +15,17 @@ interface Props extends NextImageProps {
     src: string;
     fallbackUrl?: string;
 }
+
 export const Avatar = memo(function Avatar({ src, size, className, fallbackUrl, ...rest }: Props) {
     const { isDarkMode } = useDarkMode();
 
-    const [index, setIndex] = useState(0);
+    const { value: url, loading } = useAsync(
+        async () =>
+            resolveFirstAvailableResource(compact([resolveImgurUrl(resolveAvatarFallbackUrl(src)), fallbackUrl])),
+        [src, fallbackUrl],
+    );
 
-    const fallbacks = useMemo(() => {
-        return compact([
-            resolveImgurUrl(resolveAvatarFallbackUrl(src)),
-            fallbackUrl,
-            isDarkMode ? '/image/firefly-dark-avatar.png' : '/image/firefly-light-avatar.png',
-        ]);
-    }, [src, fallbackUrl, isDarkMode]);
+    const defaultFallbackUrl = isDarkMode ? '/image/firefly-dark-avatar.png' : '/image/firefly-light-avatar.png';
 
     return (
         <NextImage
@@ -32,19 +33,16 @@ export const Avatar = memo(function Avatar({ src, size, className, fallbackUrl, 
             loading="lazy"
             unoptimized
             priority={false}
-            className={classNames('relative z-10 rounded-full object-cover', className)}
+            className={classNames('relative z-10 rounded-full bg-secondary object-cover', className)}
             style={{
                 height: size,
                 width: size,
                 ...rest.style,
             }}
-            src={fallbacks[index]}
+            src={loading ? defaultFallbackUrl : url ?? defaultFallbackUrl}
             width={size}
             height={size}
             alt={rest.alt}
-            onError={({ currentTarget }) => {
-                if (index < fallbacks.length - 1) setIndex((index) => index + 1);
-            }}
         />
     );
 });
