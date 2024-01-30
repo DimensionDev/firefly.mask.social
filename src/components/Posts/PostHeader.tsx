@@ -37,7 +37,7 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({ post, isQu
             <div className="flex items-start space-x-3">
                 <Link href={profileLink} className="z-[1]" onClick={(event) => event.stopPropagation()}>
                     <Avatar
-                        className={classNames('rounded-full bg-secondary', {
+                        className={classNames({
                             'h-10 w-10': !isQuote,
                             'h-6 w-6': isQuote,
                         })}
