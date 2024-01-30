@@ -1,7 +1,8 @@
+import urlcat from 'urlcat';
+
+import { FIREFLY_ROOT_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import type { GetPostMetaData } from '@/services/postForLens.js';
-import { FIREFLY_ROOT_URL } from '@/constants/index.js';
-import urlcat from 'urlcat';
 
 interface IUploadToArweaveResponse {
     data: string 
