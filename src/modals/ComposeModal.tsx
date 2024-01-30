@@ -144,11 +144,11 @@ export const ComposeModalComponent = forwardRef<SingletonModalRefCreator<Compose
                 const lensProfileLink = currentLensProfile ? getProfileUrl(currentLensProfile) : null;
                 const farcasterProfileLink = currentFarcasterProfile ? getProfileUrl(currentFarcasterProfile) : null;
 
-                hashTagParagraph.append($createTextNode('#FireflyLuckfyDrop'));
+                hashTagParagraph.append($createTextNode('#FireflyLuckyDrop'));
 
                 paragraph.append($createTextNode(t`Check out my LuckyDrop 🧧💰✨ on Firefly mobile app or `));
                 paragraph.append(
-                    $createLinkNode(`https://firefly.mask.socical`).append($createTextNode(' firefly.mask.socical')),
+                    $createLinkNode(`https://firefly.mask.social`).append($createTextNode(' firefly.mask.social')),
                 );
                 paragraph.append($createTextNode('!'));
 

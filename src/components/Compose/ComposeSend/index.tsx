@@ -67,13 +67,13 @@ export default function ComposeSend() {
                 lensPostId && currentLensProfile
                     ? {
                           platformId: currentLensProfile.profileId,
-                          platformName: FireflyRedPacketAPI.PlatformType.lens,
+                          platform: FireflyRedPacketAPI.PlatformType.lens,
                       }
                     : undefined,
                 farcasterPostId && currentFarcasterProfile
                     ? {
                           platformId: currentFarcasterProfile.profileId,
-                          platformName: FireflyRedPacketAPI.PlatformType.farcaster,
+                          platform: FireflyRedPacketAPI.PlatformType.farcaster,
                       }
                     : undefined,
             ]);
