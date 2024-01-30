@@ -26,9 +26,25 @@ async function parsePayloadText(encoded: string): Promise<PayloadParseResult.Pay
     return (await parsePayload(payload)).unwrapOr(null);
 }
 
+function toUint8Array(data: Record<number, number> | Uint8Array) {
+    if (data instanceof Uint8Array) return data;
+    const hasLength = 'length' in data;
+    const length = Object.keys(data).length;
+    const size = hasLength ? length - 1 : length;
+    const u8 = new Uint8Array(hasLength ? length - 1 : length);
+    u8.set({
+        ...data,
+        length: size,
+    });
+
+    return u8;
+}
+
 async function parsePayloadBinary(encoded: string | Uint8Array) {
     const buffer =
-        typeof encoded === 'string' ? new Uint8Array(decodeArrayBuffer(decodeURIComponent(encoded))) : encoded;
+        typeof encoded === 'string'
+            ? new Uint8Array(decodeArrayBuffer(decodeURIComponent(encoded)))
+            : toUint8Array(encoded);
     return (await parsePayload(buffer)).unwrapOr(null);
 }
 
