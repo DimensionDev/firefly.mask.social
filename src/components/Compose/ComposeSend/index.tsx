@@ -1,4 +1,7 @@
 import { Trans } from '@lingui/macro';
+import { FireflyRedPacket } from '@masknet/web3-providers';
+import { FireflyRedPacketAPI, type RedPacketJSONPayload } from '@masknet/web3-providers/types';
+import { compact } from 'lodash-es';
 import { useAsyncFn } from 'react-use';
 
 import LoadingIcon from '@/assets/loading.svg';
@@ -10,8 +13,11 @@ import { SocialPlatform } from '@/constants/enum.js';
 import { MAX_POST_SIZE } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { measureChars } from '@/helpers/readChars.js';
+import { RedPacketMetaKey } from '@/maskbook/packages/plugins/RedPacket/src/constants.js';
 import { ComposeModalRef } from '@/modals/controls.js';
+import { hasRedPacketPayload } from '@/modals/hasRedPacketPayload.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
+import { useFarcasterStateStore, useLensStateStore } from '@/store/useProfileStore.js';
 
 export default function ComposeSend() {
     const { chars, images, type, video, currentSource, clear, availableSources } = useComposeStateStore();
@@ -21,6 +27,8 @@ export default function ComposeSend() {
     const sendLens = useSendLens();
     const sendFarcaster = useSendFarcaster();
 
+    const currentLensProfile = useLensStateStore.use.currentProfile();
+    const currentFarcasterProfile = useFarcasterStateStore.use.currentProfile();
     const [{ loading }, handleSend] = useAsyncFn(async () => {
         if (!currentSource && type === 'compose') {
             const promises: Array<Promise<void>> = [];
@@ -34,9 +42,46 @@ export default function ComposeSend() {
         } else if (currentSource === SocialPlatform.Farcaster) {
             await sendFarcaster();
         }
+        const { lensPostId, farcasterPostId, typedMessage } = useComposeStateStore.getState();
+
+        if (hasRedPacketPayload(typedMessage)) {
+            const rpPayload = typedMessage?.meta?.get(RedPacketMetaKey) as RedPacketJSONPayload;
+
+            const reactions = compact([
+                lensPostId
+                    ? {
+                          platform: FireflyRedPacketAPI.PlatformType.lens,
+                          postId: lensPostId,
+                      }
+                    : undefined,
+                farcasterPostId
+                    ? {
+                          platform: FireflyRedPacketAPI.PlatformType.farcaster,
+                          postId: farcasterPostId,
+                          handle: currentFarcasterProfile?.handle,
+                      }
+                    : undefined,
+            ]);
+
+            const claimPlatform = compact([
+                lensPostId && currentLensProfile
+                    ? {
+                          platformId: currentLensProfile.profileId,
+                          platform: FireflyRedPacketAPI.PlatformType.lens,
+                      }
+                    : undefined,
+                farcasterPostId && currentFarcasterProfile
+                    ? {
+                          platformId: currentFarcasterProfile.profileId,
+                          platform: FireflyRedPacketAPI.PlatformType.farcaster,
+                      }
+                    : undefined,
+            ]);
+            await FireflyRedPacket.updateClaimStrategy(rpPayload.rpid, reactions, claimPlatform);
+        }
         ComposeModalRef.close();
         clear();
-    }, [currentSource, availableSources, type, sendLens, sendFarcaster]);
+    }, [currentSource, availableSources, type, sendLens, sendFarcaster, currentFarcasterProfile, currentLensProfile]);
 
     return (
         <div className=" flex h-[68px] items-center justify-end gap-4 px-4 shadow-send">

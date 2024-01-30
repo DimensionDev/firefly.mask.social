@@ -32,6 +32,8 @@ export default function ComposeAction(props: ComposeActionProps) {
 
     const currentLensProfile = useLensStateStore.use.currentProfile();
     const currentFarcasterProfile = useFarcasterStateStore.use.currentProfile();
+    const lensProfiles = useLensStateStore.use.profiles();
+    const farcasterProfiles = useFarcasterStateStore.use.profiles();
 
     const { type, post, images, video, availableSources } = useComposeStateStore();
 
@@ -77,8 +79,24 @@ export default function ComposeAction(props: ComposeActionProps) {
         );
         ComposeModalRef.close();
         await delay(300);
-        CrossIsolationMessages.events.redpacketDialogEvent.sendToLocal({ open: true });
-    }, []);
+        CrossIsolationMessages.events.redpacketDialogEvent.sendToLocal({
+            open: true,
+            fireflyContext: {
+                currentLensProfile: currentLensProfile
+                    ? {
+                          ...currentLensProfile,
+                          ownedBy: currentLensProfile.ownedBy?.address,
+                      }
+                    : undefined,
+                currentFarcasterProfile: currentFarcasterProfile
+                    ? {
+                          ...currentFarcasterProfile,
+                          ownedBy: currentFarcasterProfile.ownedBy?.address,
+                      }
+                    : undefined,
+            },
+        });
+    }, [currentLensProfile, currentFarcasterProfile, lensProfiles, farcasterProfiles]);
 
     const maxImageCount = currentFarcasterProfile ? 2 : 4;
 
@@ -168,7 +186,7 @@ export default function ComposeAction(props: ComposeActionProps) {
 
             <div className=" flex h-9 items-center justify-between">
                 <span className=" text-[15px] text-secondary">
-                    <Trans>Post by</Trans>
+                    <Trans>Share to</Trans>
                 </span>
                 <Popover as="div" className="relative">
                     {(_) => (

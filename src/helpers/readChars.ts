@@ -13,12 +13,12 @@ interface ComplexChars {
 
 interface RP_Chars extends ComplexChars {
     tag: 'ff_rp';
-    visible: false;
+    visible: boolean;
     content: '#FireflyLuckyDrop';
 }
 
 // the RP_Chars is invisible and always stay at the end of the string
-export type Chars = string | [string, RP_Chars];
+export type Chars = string | [RP_Chars, string];
 
 export function readChars(chars: Chars, visibleOnly = false) {
     return (Array.isArray(chars) ? chars : [chars])
@@ -29,18 +29,18 @@ export function readChars(chars: Chars, visibleOnly = false) {
 export function writeChars(chars: Chars, newChars: Chars): Chars {
     const getTextKind = (chars: Chars) => {
         if (typeof chars === 'string') return chars;
-        if (Array.isArray(chars)) return chars[0];
+        if (Array.isArray(chars)) return chars[1];
         return;
     };
     const getRP_Kind = (chars: Chars) => {
-        if (Array.isArray(chars)) return chars[1];
+        if (Array.isArray(chars)) return chars[0];
         return;
     };
 
     const textKind = getTextKind(newChars) ?? getTextKind(chars) ?? '';
     const RP_Kind = getRP_Kind(newChars) ?? getRP_Kind(chars);
 
-    if (RP_Kind) return [textKind, RP_Kind];
+    if (RP_Kind) return [RP_Kind, textKind];
     return textKind;
 }
 

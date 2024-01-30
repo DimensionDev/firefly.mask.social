@@ -124,6 +124,9 @@ msgstr ""
 msgid "Failed to post on Lens."
 msgstr ""
 
+msgid "Claim on Lens:"
+msgstr ""
+
 msgid "Please open this link in PC Explorer"
 msgstr ""
 
@@ -170,6 +173,9 @@ msgid "Join our Telegram"
 msgstr ""
 
 msgid "Log out"
+msgstr ""
+
+msgid "Check out my LuckyDrop 🧧💰✨ on Firefly mobile app or"
 msgstr ""
 
 msgid "Follow more friends to continue exploring {0}."
@@ -223,13 +229,13 @@ msgstr ""
 msgid "Failed to reply post on Farcaster."
 msgstr ""
 
-msgid "Post by"
-msgstr ""
-
 msgid "Failed to unvote post."
 msgstr ""
 
 msgid "Privacy Policy"
+msgstr ""
+
+msgid "Claim on Farcaster:"
 msgstr ""
 
 msgid "No wallet client found"
@@ -500,6 +506,9 @@ msgid "Log out all"
 msgstr ""
 
 msgid "{0} and others"
+msgstr ""
+
+msgid "Share to"
 msgstr ""
 
 msgid "Unknown session type."

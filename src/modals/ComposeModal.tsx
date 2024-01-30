@@ -1,11 +1,16 @@
 'use client';
 import { Dialog, Transition } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
+import { HashtagNode } from '@lexical/hashtag';
+import { $createLinkNode, AutoLinkNode, LinkNode } from '@lexical/link';
+import { LexicalComposer } from '@lexical/react/LexicalComposer.js';
+import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext.js';
 import { t } from '@lingui/macro';
 import { encrypt, SteganographyPreset } from '@masknet/encryption';
 import { ProfileIdentifier, type SingletonModalRefCreator } from '@masknet/shared-base';
 import { useSingletonModal } from '@masknet/shared-base-ui';
 import type { TypedMessageTextV1 } from '@masknet/typed-message';
+import { $createParagraphNode, $createTextNode, $getRoot } from 'lexical';
 import { forwardRef, Fragment, useCallback, useState } from 'react';
 import { useAsync } from 'react-use';
 import { None } from 'ts-results-es';
@@ -16,19 +21,33 @@ import ComposeAction from '@/components/Compose/ComposeAction.js';
 import ComposeContent from '@/components/Compose/ComposeContent.js';
 import ComposeSend from '@/components/Compose/ComposeSend/index.js';
 import Discard from '@/components/Compose/Discard.js';
-import withLexicalContext from '@/components/Lexical/withLexicalContext.js';
+import { MentionNode } from '@/components/Lexical/nodes/MentionsNode.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { SITE_HOSTNAME, SITE_URL } from '@/constants/index.js';
+import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { type Chars, readChars } from '@/helpers/readChars.js';
 import { throws } from '@/helpers/throws.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
+import type { FireflyRedPacketAPI } from '@/maskbook/packages/web3-providers/src/entry-types.js';
 import { hasRedPacketPayload } from '@/modals/hasRedPacketPayload.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { steganographyEncodeImage } from '@/services/steganography.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
-import { Theme, UsageType } from '@/types/rp.js';
+import { useFarcasterStateStore, useLensStateStore } from '@/store/useProfileStore.js';
+
+const initialConfig = {
+    namespace: 'composer',
+    theme: {
+        link: 'text-link',
+        hashtag: 'text-link',
+        mention: 'text-link',
+    },
+    nodes: [MentionNode, HashtagNode, AutoLinkNode, LinkNode],
+    editorState: null,
+    onError: () => {},
+};
 
 export interface ComposeModalProps {
     type?: 'compose' | 'quote' | 'reply';
@@ -36,13 +55,21 @@ export interface ComposeModalProps {
     source?: SocialPlatform;
     post?: Post;
     typedMessage?: TypedMessageTextV1 | null;
+    redpacketProps?: {
+        payloadImage: string;
+        claimRequirements: FireflyRedPacketAPI.StrategyPayload[];
+    };
 }
 
 // { type = 'compose', post, opened, setOpened }: ComposeModalProps
-export const ComposeModal = forwardRef<SingletonModalRefCreator<ComposeModalProps>>(function Compose(_, ref) {
+export const ComposeModalComponent = forwardRef<SingletonModalRefCreator<ComposeModalProps>>(function Compose(_, ref) {
     const [discardOpened, setDiscardOpened] = useState(false);
 
     const currentSource = useGlobalState.use.currentSource();
+
+    const currentLensProfile = useLensStateStore.use.currentProfile();
+    const currentFarcasterProfile = useFarcasterStateStore.use.currentProfile();
+
     const profile = useCurrentProfile(currentSource);
     const {
         loading,
@@ -55,9 +82,12 @@ export const ComposeModal = forwardRef<SingletonModalRefCreator<ComposeModalProp
         updatePost,
         updateChars,
         updateTypedMessage,
+        updateRedpacketProps,
         clear,
+        redpacketProps,
     } = useComposeStateStore();
 
+    const [editor] = useLexicalComposerContext();
     const enqueueSnackbar = useCustomSnackbar();
 
     const [open, dispatch] = useSingletonModal(ref, {
@@ -67,6 +97,7 @@ export const ComposeModal = forwardRef<SingletonModalRefCreator<ComposeModalProp
             if (props.typedMessage) updateTypedMessage(props.typedMessage);
             if (props.post) updatePost(props.post);
             if (props.chars) updateChars(props.chars);
+            if (props.redpacketProps) updateRedpacketProps(props.redpacketProps);
         },
         onClose: () => {
             clear();
@@ -98,24 +129,57 @@ export const ComposeModal = forwardRef<SingletonModalRefCreator<ComposeModalProp
                 { deriveAESKey: throws, encryptByLocalKey: throws },
             );
             if (typeof encrypted.output === 'string') throw new Error('Expected binary data.');
+            if (!redpacketProps?.payloadImage) return;
 
             const secretImage = await steganographyEncodeImage(
-                urlcat(SITE_URL, '/api/rp', {
-                    usage: UsageType.Payload,
-                    theme: Theme.GoldenFlower,
-                }),
+                redpacketProps.payloadImage,
                 encrypted.output,
                 SteganographyPreset.Preset2023_Firefly,
             );
+            editor.update(() => {
+                const root = $getRoot();
+                const hashTagParagraph = $createParagraphNode();
+                const paragraph = $createParagraphNode();
 
-            updateChars([
-                '',
-                {
-                    tag: 'ff_rp',
-                    content: '#FireflyLuckyDrop',
-                    visible: false,
-                },
-            ]);
+                const lensProfileLink = currentLensProfile ? getProfileUrl(currentLensProfile) : null;
+                const farcasterProfileLink = currentFarcasterProfile ? getProfileUrl(currentFarcasterProfile) : null;
+
+                hashTagParagraph.append($createTextNode('#FireflyLuckyDrop'));
+
+                paragraph.append($createTextNode(t`Check out my LuckyDrop 🧧💰✨ on Firefly mobile app or `));
+                paragraph.append(
+                    $createLinkNode(`https://firefly.mask.social`).append($createTextNode(' firefly.mask.social')),
+                );
+                paragraph.append($createTextNode('!'));
+
+                root.append(hashTagParagraph);
+                root.append(paragraph);
+
+                if (lensProfileLink) {
+                    const lensParagraph = $createParagraphNode();
+                    lensParagraph.append($createTextNode(t`Claim on Lens: `));
+                    lensParagraph.append(
+                        $createLinkNode(lensProfileLink).append(
+                            $createTextNode(` ${urlcat(SITE_URL, lensProfileLink)}`),
+                        ),
+                    );
+                    root.append(lensParagraph);
+                }
+
+                if (farcasterProfileLink) {
+                    const farcasterParagraph = $createParagraphNode();
+                    farcasterParagraph.append($createTextNode(t`Claim on Farcaster: `));
+                    farcasterParagraph.append(
+                        $createLinkNode(farcasterProfileLink).append(
+                            $createTextNode(` ${urlcat(SITE_URL, farcasterProfileLink)}`),
+                        ),
+                    );
+                    root.append(farcasterParagraph);
+                }
+
+                root.selectEnd();
+            });
+
             addImage({
                 file: new File([secretImage], 'image.png', { type: 'image/png' }),
             });
@@ -125,7 +189,7 @@ export const ComposeModal = forwardRef<SingletonModalRefCreator<ComposeModalProp
             });
         }
         // each time the typedMessage changes, we need to check if it has a red packet payload
-    }, [typedMessage]);
+    }, [typedMessage, redpacketProps, currentLensProfile, currentFarcasterProfile]);
 
     return (
         <>
@@ -177,7 +241,8 @@ export const ComposeModal = forwardRef<SingletonModalRefCreator<ComposeModalProp
                                         </span>
                                     </Dialog.Title>
 
-                                    <WithLexicalContextWrapper />
+                                    <ComposeContent />
+                                    <ComposeAction />
 
                                     {/* Send */}
                                     <ComposeSend />
@@ -191,9 +256,10 @@ export const ComposeModal = forwardRef<SingletonModalRefCreator<ComposeModalProp
     );
 });
 
-const WithLexicalContextWrapper = withLexicalContext(() => (
-    <>
-        <ComposeContent />
-        <ComposeAction />
-    </>
-));
+export const ComposeModal = forwardRef<SingletonModalRefCreator<ComposeModalProps>>(function ComposeModal(props, ref) {
+    return (
+        <LexicalComposer initialConfig={initialConfig}>
+            <ComposeModalComponent {...props} ref={ref} />
+        </LexicalComposer>
+    );
+});

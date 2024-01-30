@@ -1,4 +1,5 @@
 import { ServerErrorCodes } from '@/helpers/createErrorResponseJSON.js';
+import type { FireflyRedPacketAPI } from '@/maskbook/packages/web3-providers/src/entry-types.js';
 import type { IPFSResponse } from '@/services/uploadToIPFS.js';
 
 export type ResponseJSON<T> =
@@ -28,3 +29,8 @@ export enum Locale {
 }
 
 export type PartialWith<T, K extends keyof T> = Partial<Pick<T, K>> & Omit<T, K>;
+
+export interface RedpacketProps {
+    payloadImage: string;
+    claimRequirements: FireflyRedPacketAPI.StrategyPayload[];
+}

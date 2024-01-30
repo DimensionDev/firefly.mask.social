@@ -29,7 +29,7 @@ const Editor = memo(function Editor() {
                 contentEditable={
                     <ContentEditable
                         className={classNames(
-                            ' cursor-text resize-none appearance-none border-none bg-transparent p-0 text-left text-[15px] leading-5 text-main outline-0 focus:ring-0',
+                            'cursor-text resize-none appearance-none border-none bg-transparent p-0 text-left text-[15px] leading-5 text-main outline-0 focus:ring-0',
                             hasMediaObject ? '' : post ? 'min-h-[200px]' : 'min-h-[308px]',
                         )}
                     />

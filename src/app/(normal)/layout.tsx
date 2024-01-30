@@ -30,7 +30,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                     <SearchFilter />
                 </IfPathname>
 
-                <mask-calendar-widget />
+                <div className="mt-6">
+                    <mask-calendar-widget />
+                </div>
                 <mask-page-inspector />
             </aside>
         </>

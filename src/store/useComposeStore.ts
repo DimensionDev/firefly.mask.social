@@ -9,7 +9,7 @@ import { EMPTY_LIST } from '@/constants/index.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 import type { Chars } from '@/helpers/readChars.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
-import type { MediaObject } from '@/types/index.js';
+import type { MediaObject, RedpacketProps } from '@/types/index.js';
 
 // A recursive version of Post will cause typescript failed to infer the type of the final exports.
 type OrphanPost = Omit<Post, 'embedPosts' | 'comments' | 'root' | 'commentOn' | 'quoteOn'>;
@@ -28,6 +28,7 @@ interface ComposeState {
     video: MediaObject | null;
     images: MediaObject[];
     loading: boolean;
+    redpacketProps: RedpacketProps | null;
     enableSource: (source: SocialPlatform) => void;
     disableSource: (source: SocialPlatform) => void;
     updateType: (type: 'compose' | 'quote' | 'reply') => void;
@@ -42,6 +43,7 @@ interface ComposeState {
     removeImage: (image: MediaObject) => void;
     updateLensPostId: (postId: string | null) => void;
     updateFarcasterPostId: (postId: string | null) => void;
+    updateRedpacketProps: (value: RedpacketProps) => void;
     clear: () => void;
 }
 
@@ -59,6 +61,7 @@ function createInitState() {
         loading: false,
         lensPostId: null,
         farcasterPostId: null,
+        redpacketProps: null,
     } as const;
 }
 
@@ -119,6 +122,10 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
         updateFarcasterPostId: (postId) =>
             set((state) => {
                 state.farcasterPostId = postId;
+            }),
+        updateRedpacketProps: (value) =>
+            set((state) => {
+                state.redpacketProps = value;
             }),
         enableSource: (source) =>
             set((state) => {
