@@ -8,7 +8,7 @@ import {
     type PayloadParseResult,
     TwitterDecoder,
 } from '@masknet/encryption';
-import { encodeArrayBuffer } from '@masknet/kit';
+import { decodeArrayBuffer, encodeArrayBuffer } from '@masknet/kit';
 import type { TypedMessage } from '@masknet/typed-message';
 
 import type { EncryptedPayload } from '@/helpers/getEncryptedPayload.js';
