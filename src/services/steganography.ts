@@ -9,7 +9,7 @@ import { fetchArrayBuffer } from '@/helpers/fetchArrayBuffer.js';
 export async function steganographyEncodeImage(
     image: Blob | string,
     data: Uint8Array | string,
-    preset = SteganographyPreset.Preset2023,
+    preset = SteganographyPreset.Preset2023_Firefly,
 ) {
     const blankImage = typeof image === 'string' ? await fetchArrayBuffer(image) : await image.arrayBuffer();
     const secretImage = await encodeImage(blankImage, {
