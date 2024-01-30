@@ -10,7 +10,7 @@ interface AuthorTextProps {
 }
 
 export function AuthorText({ theme, usage, from = 'unknown', ...props }: AuthorTextProps) {
-    const authorText = `From ${isValidAddress(from) ? formatEthereumAddress(from, 2) : from}`;
+    const authorText = `From ${isValidAddress(from) ? formatEthereumAddress(from, 4) : from}`;
 
     switch (usage) {
         case UsageType.Cover:
@@ -55,7 +55,7 @@ export function AuthorText({ theme, usage, from = 'unknown', ...props }: AuthorT
                                       : '#f1d590',
                         }}
                     >
-                        {from}
+                        {isValidAddress(from) ? formatEthereumAddress(from, 4) : from}
                     </div>
                 </div>
             );
