@@ -38,11 +38,11 @@ export function AccountSettings({ source, profile }: AccountSettingsProps) {
             interactive
             className="account-settings"
             content={
-                <div className="flex w-[290px] flex-col rounded-2xl bg-primaryBottom px-5 shadow-[0px_8px_20px_0px_rgba(0,0,0,0.04)] dark:shadow-[0px_8px_20px_0px_rgba(255,255,255,0.04)]">
+                <div className=" flex w-[290px] flex-col rounded-2xl dark:border dark:border-line bg-primaryBottom px-5 shadow-[0px_8px_20px_0px_rgba(0,0,0,0.04)] dark:shadow-[0px_8px_20px_0px_rgba(255,255,255,0.04)]">
                     {profiles.map((profile) => (
                         <button
                             key={profile.profileId}
-                            className="my-[24px] flex items-center justify-between gap-[8px] px-[4px] disabled:cursor-not-allowed"
+                            className="my-[24px] flex items-center justify-between gap-[8px] disabled:cursor-not-allowed"
                             disabled={isSameProfile(currentProfile, profile) || source === SocialPlatform.Farcaster}
                             onClick={() => {
                                 login(profile);
@@ -62,7 +62,7 @@ export function AccountSettings({ source, profile }: AccountSettingsProps) {
                         }}
                     >
                         <UserAddIcon width={24} height={24} />
-                        <div className=" text-[17px] font-bold leading-[22px] text-main">
+                        <div className=" whitespace-nowrap text-[17px] font-bold leading-[22px] text-main">
                             <Trans>Connect another account</Trans>
                         </div>
                     </button>
