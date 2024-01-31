@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-01-23 00:04\n"
+"PO-Revision-Date: 2024-01-31 00:04\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -129,6 +129,9 @@ msgstr "已链接的账号"
 msgid "Failed to post on Lens."
 msgstr "在 Lens 上发帖失败。"
 
+msgid "Claim on Lens:"
+msgstr ""
+
 msgid "Please open this link in PC Explorer"
 msgstr "请在电脑浏览器中打开链接"
 
@@ -176,6 +179,9 @@ msgstr "加入我们的 Telegram"
 
 msgid "Log out"
 msgstr "登出"
+
+msgid "Check out my LuckyDrop 🧧💰✨ on Firefly mobile app or"
+msgstr ""
 
 msgid "Follow more friends to continue exploring {0}."
 msgstr "去关注更多有趣的人来继续浏览你的 {0} 信息流吧"
@@ -228,14 +234,14 @@ msgstr "创建图片内容失败"
 msgid "Failed to reply post on Farcaster."
 msgstr "在 Farcaster 上评论失败"
 
-msgid "Post by"
-msgstr "发帖者"
-
 msgid "Failed to unvote post."
 msgstr "无法对帖子进行投票。"
 
 msgid "Privacy Policy"
 msgstr "隐私条款"
+
+msgid "Claim on Farcaster:"
+msgstr ""
 
 msgid "No wallet client found"
 msgstr "未找到钱包客户端"
@@ -506,6 +512,9 @@ msgstr "登出所有"
 
 msgid "{0} and others"
 msgstr "{0} 和 其他"
+
+msgid "Share to"
+msgstr ""
 
 msgid "Unknown session type."
 msgstr "未知会话类型。"
