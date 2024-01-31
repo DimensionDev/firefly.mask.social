@@ -30,6 +30,7 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | 
     const [source, setSource] = useState<SocialPlatform>();
     const [profiles, setProfiles] = useState<Profile[]>(EMPTY_LIST);
     const [isDirectly, setIsDirectly] = useState(false);
+    const [currentAccount, setCurrentAccount] = useState<string>('');
 
     const { enqueueSnackbar } = useSnackbar();
 
@@ -62,6 +63,7 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | 
                             return;
                         }
                         setProfiles(profiles);
+                        setCurrentAccount(account.address);
                         setSource(selectedSource);
                         return;
                     }
@@ -80,7 +82,7 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | 
                             <Trans>Connection failed</Trans>
                         </span>
                         <br />
-                        <Trans>Oops… Something went wrong. Please try again.</Trans>
+                        <Trans>User rejected the request.</Trans>
                     </div>,
                     {
                         variant: 'error',
@@ -190,7 +192,7 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | 
                                             </div>
                                         }
                                     >
-                                        {source === SocialPlatform.Lens ? <LoginLens profiles={profiles} /> : null}
+                                        {source === SocialPlatform.Lens ? <LoginLens profiles={profiles} currentAccount={currentAccount} /> : null}
                                         {source === SocialPlatform.Farcaster ? <LoginFarcaster /> : null}
                                     </Suspense>
                                 )}

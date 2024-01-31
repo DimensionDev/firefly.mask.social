@@ -6,9 +6,9 @@ import { Tooltip } from '@/components/Tooltip.js';
 export function OnlineStatusIndicator() {
     const { online } = useNetworkState();
     return (
-        <Tooltip content={online ? t`Online` : t`Offline`} placement="top">
+        <Tooltip content={online ? t`Online` : t`Offline`} placement="top" >
             <div
-                className={` h-[8px] w-[8px] cursor-pointer rounded-full ${online ? 'bg-success' : 'bg-danger'}`}
+                className={` h-2 w-2 cursor-pointer rounded-full ${online ? 'bg-success' : 'bg-danger'}`}
                 style={{ filter: `drop-shadow(0px 4px 10px var(${online ? '--color-success' : '--color-danger'}))` }}
             />
         </Tooltip>

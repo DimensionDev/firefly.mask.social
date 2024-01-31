@@ -68,7 +68,6 @@ export function useSendFarcaster() {
                     updateFarcasterPostId(published.postId);
                 }
             } catch (error) {
-                console.log(error)
                 enqueueSnackbar(
                     type === 'compose' ? t`Failed to post on Farcaster.` : t`Failed to reply post on Farcaster.`,
                     {
