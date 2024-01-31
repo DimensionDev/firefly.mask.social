@@ -2,12 +2,15 @@ import { Popover } from '@headlessui/react';
 import { BugAntIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext.js';
 import { t, Trans } from '@lingui/macro';
+import { encrypt, SteganographyPreset } from '@masknet/encryption';
 import { delay, safeUnreachable } from '@masknet/kit';
-import { CrossIsolationMessages } from '@masknet/shared-base';
+import { ProfileIdentifier } from '@masknet/shared-base';
+import { makeTypedMessageText } from '@masknet/typed-message';
 import { $getSelection } from 'lexical';
 import { compact } from 'lodash-es';
 import { useCallback, useMemo, useState } from 'react';
 import { useAsyncFn } from 'react-use';
+import { None } from 'ts-results-es';
 
 import AtIcon from '@/assets/at.svg';
 import GalleryIcon from '@/assets/gallery.svg';
@@ -18,10 +21,12 @@ import PostBy from '@/components/Compose/PostBy.js';
 import ReplyRestriction from '@/components/Compose/ReplyRestriction.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { SocialPlatform } from '@/constants/enum.js';
+import { SITE_HOSTNAME } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
-import { connectMaskWithWagmi } from '@/helpers/connectWagmiWithMask.js';
+import { throws } from '@/helpers/throws.js';
 import { PluginDebuggerMessages } from '@/mask/message-host/index.js';
 import { ComposeModalRef } from '@/modals/controls.js';
+import { steganographyEncodeImage } from '@/services/steganography.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 import { useFarcasterStateStore, useLensStateStore } from '@/store/useProfileStore.js';
 
@@ -35,7 +40,7 @@ export default function ComposeAction(props: ComposeActionProps) {
     const lensProfiles = useLensStateStore.use.profiles();
     const farcasterProfiles = useFarcasterStateStore.use.profiles();
 
-    const { type, post, images, video, availableSources } = useComposeStateStore();
+    const { type, post, images, video, availableSources, addImage } = useComposeStateStore();
 
     const [editor] = useLexicalComposerContext();
 
@@ -72,30 +77,54 @@ export default function ComposeAction(props: ComposeActionProps) {
     }, [lensHandle, farcasterHandle, availableSources, post]);
 
     const [{ loading }, openRedPacketComposeDialog] = useAsyncFn(async () => {
-        await connectMaskWithWagmi();
-        // import dynamically to avoid the start up dependency issue of mask packages
-        await import('@/helpers/setupCurrentVisitingProfile.js').then((module) =>
-            module.setupCurrentVisitingProfileAsFireflyApp(),
-        );
-        ComposeModalRef.close();
-        await delay(300);
-        CrossIsolationMessages.events.redpacketDialogEvent.sendToLocal({
-            open: true,
-            fireflyContext: {
-                currentLensProfile: currentLensProfile
-                    ? {
-                          ...currentLensProfile,
-                          ownedBy: currentLensProfile.ownedBy?.address,
-                      }
-                    : undefined,
-                currentFarcasterProfile: currentFarcasterProfile
-                    ? {
-                          ...currentFarcasterProfile,
-                          ownedBy: currentFarcasterProfile.ownedBy?.address,
-                      }
-                    : undefined,
+        const message = makeTypedMessageText('message');
+
+        const encrypted = await encrypt(
+            {
+                author: ProfileIdentifier.of(SITE_HOSTNAME, 'test'),
+                authorPublicKey: None,
+                message,
+                network: SITE_HOSTNAME,
+                target: { type: 'public' },
+                version: -37,
             },
+            { deriveAESKey: throws, encryptByLocalKey: throws },
+        );
+
+        const secretImage = await steganographyEncodeImage(
+            '',
+            encrypted.output,
+            SteganographyPreset.Preset2023_Firefly,
+        );
+
+        addImage({
+            file: new File([secretImage], 'image.png', { type: 'image/png' }),
         });
+
+        // await connectMaskWithWagmi();
+        // // import dynamically to avoid the start up dependency issue of mask packages
+        // await import('@/helpers/setupCurrentVisitingProfile.js').then((module) =>
+        //     module.setupCurrentVisitingProfileAsFireflyApp(),
+        // );
+        // ComposeModalRef.close();
+        // await delay(300);
+        // CrossIsolationMessages.events.redpacketDialogEvent.sendToLocal({
+        //     open: true,
+        //     fireflyContext: {
+        //         currentLensProfile: currentLensProfile
+        //             ? {
+        //                   ...currentLensProfile,
+        //                   ownedBy: currentLensProfile.ownedBy?.address,
+        //               }
+        //             : undefined,
+        //         currentFarcasterProfile: currentFarcasterProfile
+        //             ? {
+        //                   ...currentFarcasterProfile,
+        //                   ownedBy: currentFarcasterProfile.ownedBy?.address,
+        //               }
+        //             : undefined,
+        //     },
+        // });
     }, [currentLensProfile, currentFarcasterProfile, lensProfiles, farcasterProfiles]);
 
     const maxImageCount = currentFarcasterProfile ? 2 : 4;

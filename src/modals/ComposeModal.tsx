@@ -131,11 +131,15 @@ export const ComposeModalComponent = forwardRef<SingletonModalRefCreator<Compose
             if (typeof encrypted.output === 'string') throw new Error('Expected binary data.');
             if (!redpacketProps?.payloadImage) return;
 
+            console.log('DEBUG: payloadImage');
+            console.log(redpacketProps);
+
             const secretImage = await steganographyEncodeImage(
                 redpacketProps.payloadImage,
                 encrypted.output,
                 SteganographyPreset.Preset2023_Firefly,
             );
+
             editor.update(() => {
                 const root = $getRoot();
                 const hashTagParagraph = $createParagraphNode();
