@@ -157,6 +157,9 @@ msgstr ""
 msgid "Feed"
 msgstr ""
 
+msgid "User rejected the request."
+msgstr ""
+
 msgid "Change account"
 msgstr ""
 
@@ -341,9 +344,6 @@ msgid "commented"
 msgstr ""
 
 msgid "The page could not be found."
-msgstr ""
-
-msgid "Oops… Something went wrong. Please try again."
 msgstr ""
 
 msgid "What's happening..."

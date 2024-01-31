@@ -157,6 +157,9 @@ msgstr "Connect Wallet"
 msgid "Feed"
 msgstr "Feed"
 
+msgid "User rejected the request."
+msgstr "User rejected the request."
+
 msgid "Change account"
 msgstr "Change account"
 
@@ -342,9 +345,6 @@ msgstr "commented"
 
 msgid "The page could not be found."
 msgstr "The page could not be found."
-
-msgid "Oops… Something went wrong. Please try again."
-msgstr "Oops… Something went wrong. Please try again."
 
 msgid "What's happening..."
 msgstr "What's happening..."
