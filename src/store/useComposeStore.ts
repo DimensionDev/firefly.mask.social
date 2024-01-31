@@ -50,7 +50,7 @@ interface ComposeState {
 function createInitState() {
     return {
         type: 'compose',
-        availableSources: EMPTY_LIST,
+        availableSources: [SocialPlatform.Lens, SocialPlatform.Farcaster] as SocialPlatform[],
         currentSource: null,
         draft: null,
         post: null,
