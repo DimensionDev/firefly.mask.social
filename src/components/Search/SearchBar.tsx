@@ -194,11 +194,11 @@ const SearchBar = memo(function SearchBar(props: SearchBarProps) {
                         {isLoading ? (
                             <div className="flex flex-col items-center space-y-2 px-4 pb-5 pt-2 text-center text-sm font-bold">
                                 <LoadingIcon className="animate-spin" width={24} height={24} />
-                                <div className="text-bold">{t`Searching users`}</div>
+                                <div className="font-bold">{t`Searching users`}</div>
                             </div>
                         ) : profiles?.data.length === 0 ? (
                             <div className="space-y-2 px-4 py-4 text-center text-sm font-bold">
-                                <div className="text-bold">{t`No matching users`}</div>
+                                <div className="font-bold">{t`No matching users`}</div>
                             </div>
                         ) : profiles?.data.length ? (
                             <div className="py-2 ">

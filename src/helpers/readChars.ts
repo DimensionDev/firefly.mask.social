@@ -1,3 +1,5 @@
+import type { RP_HASH_TAG } from '@/constants/index.js';
+
 /**
  * chars with metadata
  */
@@ -14,7 +16,7 @@ interface ComplexChars {
 interface RP_Chars extends ComplexChars {
     tag: 'ff_rp';
     visible: boolean;
-    content: '#FireflyLuckyDrop';
+    content: typeof RP_HASH_TAG;
 }
 
 // the RP_Chars is invisible and always stay at the end of the string
