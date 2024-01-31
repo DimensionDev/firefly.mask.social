@@ -102,7 +102,7 @@ export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps 
                                         </div>
                                     ))}
                                     <button
-                                        className=" flex items-center justify-center rounded-full bg-commonDanger py-[11px] text-lightBottom"
+                                        className=" flex items-center justify-center rounded-full bg-commonDanger py-[11px] font-bold text-lightBottom"
                                         onClick={async () => {
                                             switch (source || profile?.source) {
                                                 case SocialPlatform.Lens:
