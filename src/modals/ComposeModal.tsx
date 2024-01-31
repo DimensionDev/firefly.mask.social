@@ -23,7 +23,8 @@ import ComposeSend from '@/components/Compose/ComposeSend/index.js';
 import Discard from '@/components/Compose/Discard.js';
 import { MentionNode } from '@/components/Lexical/nodes/MentionsNode.js';
 import { SocialPlatform } from '@/constants/enum.js';
-import { SITE_HOSTNAME, SITE_URL } from '@/constants/index.js';
+import { RP_HASH_TAG, SITE_HOSTNAME, SITE_URL } from '@/constants/index.js';
+import { fetchImageAsPNG } from '@/helpers/fetchImageAsPNG.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { type Chars, readChars } from '@/helpers/readChars.js';
 import { throws } from '@/helpers/throws.js';
@@ -131,11 +132,8 @@ export const ComposeModalComponent = forwardRef<SingletonModalRefCreator<Compose
             if (typeof encrypted.output === 'string') throw new Error('Expected binary data.');
             if (!redpacketProps?.payloadImage) return;
 
-            console.log('DEBUG: payloadImage');
-            console.log(redpacketProps);
-
             const secretImage = await steganographyEncodeImage(
-                redpacketProps.payloadImage,
+                await fetchImageAsPNG(redpacketProps.payloadImage.replace('https://firefly-staging.mask.social', SITE_URL)),
                 encrypted.output,
                 SteganographyPreset.Preset2023_Firefly,
             );
@@ -148,12 +146,10 @@ export const ComposeModalComponent = forwardRef<SingletonModalRefCreator<Compose
                 const lensProfileLink = currentLensProfile ? getProfileUrl(currentLensProfile) : null;
                 const farcasterProfileLink = currentFarcasterProfile ? getProfileUrl(currentFarcasterProfile) : null;
 
-                hashTagParagraph.append($createTextNode('#FireflyLuckyDrop'));
+                hashTagParagraph.append($createTextNode(RP_HASH_TAG));
 
                 paragraph.append($createTextNode(t`Check out my LuckyDrop 🧧💰✨ on Firefly mobile app or `));
-                paragraph.append(
-                    $createLinkNode(`https://firefly.mask.social`).append($createTextNode(' firefly.mask.social')),
-                );
+                paragraph.append($createLinkNode(SITE_URL).append($createTextNode(` ${SITE_HOSTNAME}`)));
                 paragraph.append($createTextNode('!'));
 
                 root.append(hashTagParagraph);

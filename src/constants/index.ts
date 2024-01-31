@@ -3,13 +3,15 @@
 export const SITE_NAME = 'Firefly: Web3 & NFT Explorer';
 export const SITE_DESCRIPTION =
     "Firefly is a social app for exploring what's happening in the world of Web3, NFTs, AI, and more.";
-export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://api-dev.firefly.land';
+export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://firefly.mask.social';
 export const SITE_HOSTNAME = 'firefly.mask.social';
 
 export const WARPCAST_ROOT_URL = 'https://api.warpcast.com/v2';
 export const WARPCAST_CLIENT_URL = 'https://client.warpcast.com/v2';
 export const FIREFLY_ROOT_URL = process.env.NEXT_PUBLIC_FIREFLY_API_URL;
 export const FIREFLY_HUBBLE_URL = process.env.NEXT_PUBLIC_FIREFLY_HUBBLE_URL;
+
+export const RP_HASH_TAG = '#FireflyLuckyDrop';
 
 export const EMPTY_LIST = Object.freeze([]) as never[];
 export const EMPTY_OBJECT = Object.freeze({}) as Record<string, never>;
