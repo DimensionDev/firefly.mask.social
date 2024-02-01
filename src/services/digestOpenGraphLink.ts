@@ -17,7 +17,7 @@ import {
     getIsLarge,
     getSite,
     getTitle,
-} from '@/helpers/getMetadata.js';
+} from '@/helpers/getOpenGraphMetadata.js';
 import { getFarcasterPayload, getMirrorPayload } from '@/helpers/getOpenGraphPayload.js';
 import { parseURL } from '@/helpers/parseURL.js';
 import type { SourceInURL } from '@/helpers/resolveSource.js';
