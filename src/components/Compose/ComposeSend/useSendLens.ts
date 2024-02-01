@@ -75,7 +75,7 @@ export function useSendLens() {
         } else if (type === 'reply') {
             try {
                 if (!post) throw new Error('No post found.');
-                await commentPostForLens(
+                const comment = await commentPostForLens(
                     currentProfile.profileId,
                     post.postId,
                     readChars(chars),
@@ -85,6 +85,7 @@ export function useSendLens() {
                 enqueueSnackbar(t`Replied on Lens`, {
                     variant: 'success',
                 });
+                updateLensPostId(comment);
             } catch (error) {
                 enqueueSnackbar(t`Failed to relay post on Lens.`, {
                     variant: 'error',
@@ -94,7 +95,7 @@ export function useSendLens() {
         } else if (type === 'quote') {
             try {
                 if (!post) throw new Error('No post found.');
-                await quotePostForLens(
+                const quote = await quotePostForLens(
                     currentProfile.profileId,
                     post.postId,
                     readChars(chars),
@@ -104,6 +105,8 @@ export function useSendLens() {
                 enqueueSnackbar(t`Posted on Lens`, {
                     variant: 'success',
                 });
+
+                updateLensPostId(quote.postId);
             } catch (error) {
                 enqueueSnackbar(t`Failed to quote post on Lens.`, {
                     variant: 'error',
