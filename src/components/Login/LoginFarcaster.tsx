@@ -39,15 +39,18 @@ export function LoginFarcaster() {
             } catch (error) {
                 if (error instanceof Error && error.message === 'Aborted') return;
 
-                enqueueSnackbar(<div>
-                    <span className="font-bold">
-                        <Trans>Connection failed</Trans>
-                    </span>
-                    <br />
-                    <Trans>The user declined the request.</Trans>
-                </div>, {
-                    variant: 'error',
-                });
+                enqueueSnackbar(
+                    <div>
+                        <span className="font-bold">
+                            <Trans>Connection failed</Trans>
+                        </span>
+                        <br />
+                        <Trans>The user declined the request.</Trans>
+                    </div>,
+                    {
+                        variant: 'error',
+                    },
+                );
                 LoginModalRef.close();
             }
         },
