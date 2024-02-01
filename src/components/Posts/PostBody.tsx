@@ -9,6 +9,7 @@ import { useAsync } from 'react-use';
 
 import EyeSlash from '@/assets/eye-slash.svg';
 import Lock from '@/assets/lock.svg';
+import { Frame } from '@/components/Frame/index.js';
 import { Markup, NakedMarkup } from '@/components/Markup/index.js';
 import Oembed from '@/components/Oembed/index.js';
 import { Attachments } from '@/components/Posts/Attachment.js';
@@ -35,7 +36,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
     const canShowMore = !!(post.metadata.content?.content && post.metadata.content.content.length > 450) && showMore;
     const showAttachments = !!post.metadata.content?.attachments?.length || !!post.metadata.content?.asset;
 
-    const [oembedLoaded, setOembedLoaded] = useState(false);
+    const [endingLinkCollapsed, setEndingLinkCollapsed] = useState(false);
     const [postViewed, setPostViewed] = useState(false);
 
     const { observe } = useInView({
@@ -135,7 +136,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
                 post={post}
                 className={classNames({ 'line-clamp-5': canShowMore }, 'markup linkify break-words text-[15px]')}
             >
-                {oembedLoaded
+                {endingLinkCollapsed
                     ? removeUrlAtEnd(post.metadata.content?.oembedUrl, post.metadata.content?.content)
                     : post.metadata.content?.content}
             </Markup>
@@ -178,7 +179,9 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
             ) : null}
 
             {post.metadata.content?.oembedUrl ? (
-                <Oembed url={post.metadata.content.oembedUrl} onData={() => setOembedLoaded(true)} />
+                <Frame url={post.metadata.content.oembedUrl} onData={() => setEndingLinkCollapsed(true)}>
+                    <Oembed url={post.metadata.content.oembedUrl} onData={() => setEndingLinkCollapsed(true)} />
+                </Frame>
             ) : null}
 
             {!!post.quoteOn && !isQuote ? <Quote post={post.quoteOn} /> : null}
