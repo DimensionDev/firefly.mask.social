@@ -151,9 +151,6 @@ msgstr ""
 msgid "Feed"
 msgstr ""
 
-msgid "User rejected the request."
-msgstr ""
-
 msgid "Follow more friends to continue exploring on {0}."
 msgstr ""
 
@@ -272,6 +269,9 @@ msgid "Unlike"
 msgstr ""
 
 msgid "Post has been hidden"
+msgstr ""
+
+msgid "The user declined the request."
 msgstr ""
 
 msgid "<0>{0}</0> liked"

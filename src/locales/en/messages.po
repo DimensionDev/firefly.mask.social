@@ -151,9 +151,6 @@ msgstr "Connect Wallet"
 msgid "Feed"
 msgstr "Feed<<<<<<< HEAD"
 
-msgid "User rejected the request."
-msgstr "User rejected the request.======="
-
 msgid "Follow more friends to continue exploring on {0}."
 msgstr "Follow more friends to continue exploring on {0}.>>>>>>> 4799071191e72056846bd4bf7d761a65cc717f37"
 
@@ -273,6 +270,9 @@ msgstr "Unlike"
 
 msgid "Post has been hidden"
 msgstr "Post has been hidden"
+
+msgid "The user declined the request."
+msgstr "The user declined the request."
 
 msgid "<0>{0}</0> liked"
 msgstr "<0>{0}</0> liked"
