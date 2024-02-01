@@ -65,7 +65,7 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
 
     useEffect(() => {
         if (!currentProfile) return;
-        if (isSameAddress(account.address, currentAccount)) LoginModalRef.close();
+        if (!isSameAddress(account.address, currentAccount)) LoginModalRef.close();
         if (!currentProfile.signless) setSignless(false);
     }, [currentProfile, account, currentAccount]);
 
