@@ -149,10 +149,10 @@ msgid "Connect Wallet"
 msgstr "Connect Wallet"
 
 msgid "Feed"
-msgstr "Feed<<<<<<< HEAD"
+msgstr "Feed"
 
 msgid "Follow more friends to continue exploring on {0}."
-msgstr "Follow more friends to continue exploring on {0}.>>>>>>> 4799071191e72056846bd4bf7d761a65cc717f37"
+msgstr "Follow more friends to continue exploring on {0}."
 
 msgid "Change account"
 msgstr "Change account"
