@@ -21,7 +21,7 @@ import type { Post } from '@/providers/types/SocialMedia.js';
 
 export function usePostInfo(post: Post) {
     return useMemo((): PostContext => {
-        const author = ProfileIdentifier.of(SITE_HOSTNAME, post.author.displayName).unwrapOr(null);
+        const author = ProfileIdentifier.of(SITE_HOSTNAME, post.author.profileId).unwrapOr(null);
         const imageUris: string[] = compact(
             post.metadata.content?.attachments
                 ?.filter((x) => x.type === 'Image')

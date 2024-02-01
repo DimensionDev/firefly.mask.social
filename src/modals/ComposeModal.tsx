@@ -21,6 +21,7 @@ import ComposeAction from '@/components/Compose/ComposeAction.js';
 import ComposeContent from '@/components/Compose/ComposeContent.js';
 import ComposeSend from '@/components/Compose/ComposeSend/index.js';
 import Discard from '@/components/Compose/Discard.js';
+import { useSetEditorContent } from '@/components/Compose/useSetEditorContent.js';
 import { MentionNode } from '@/components/Lexical/nodes/MentionsNode.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { RP_HASH_TAG, SITE_HOSTNAME, SITE_URL } from '@/constants/index.js';
@@ -81,7 +82,6 @@ export const ComposeModalComponent = forwardRef<SingletonModalRefCreator<Compose
         updateType,
         updateCurrentSource,
         updatePost,
-        updateChars,
         updateTypedMessage,
         updateRedpacketProps,
         clear,
@@ -91,13 +91,16 @@ export const ComposeModalComponent = forwardRef<SingletonModalRefCreator<Compose
     const [editor] = useLexicalComposerContext();
     const enqueueSnackbar = useCustomSnackbar();
 
+    const setEditorContent = useSetEditorContent();
     const [open, dispatch] = useSingletonModal(ref, {
         onOpen: (props) => {
             updateType(props.type || 'compose');
             updateCurrentSource(props.source || null);
             if (props.typedMessage) updateTypedMessage(props.typedMessage);
             if (props.post) updatePost(props.post);
-            if (props.chars) updateChars(props.chars);
+            if (props.chars && typeof props.chars === 'string') {
+                setEditorContent(props.chars);
+            }
             if (props.redpacketProps) updateRedpacketProps(props.redpacketProps);
         },
         onClose: () => {
