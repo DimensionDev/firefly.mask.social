@@ -64,7 +64,7 @@ export const Like = memo<LikeProps>(function Like({ count, hasLiked, postId, aut
                     safeUnreachable(source);
                     break;
             }
-            enqueueSnackbar(liked ? t`UnLiked` : t`Liked`, {
+            enqueueSnackbar(liked ? t`Unliked` : t`Liked`, {
                 variant: 'success',
             });
             queryClient.invalidateQueries({ queryKey: [source, 'post-detail', postId] });
@@ -97,7 +97,7 @@ export const Like = memo<LikeProps>(function Like({ count, hasLiked, postId, aut
                 handleClick();
             }}
         >
-            <Tooltip content={liked ? t`UnLike` : t`Like`} placement="top" disabled={disabled}>
+            <Tooltip content={liked ? t`Unlike` : t`Like`} placement="top" disabled={disabled}>
                 <motion.button
                     disabled={disabled}
                     whileTap={{ scale: 0.9 }}
