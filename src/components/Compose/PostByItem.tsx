@@ -43,7 +43,13 @@ export function PostByItem({ source }: PostByItemProps) {
                     variant: 'success',
                 });
             } catch (error) {
-                enqueueSnackbar(error instanceof Error ? error.message : t`Failed to login`, { variant: 'error' });
+                enqueueSnackbar(<div>
+                    <span className="font-bold">
+                        <Trans>Connection failed</Trans>
+                    </span>
+                    <br />
+                    <Trans>The user declined the request.</Trans>
+                </div>, { variant: 'error' });
             }
             updateLoading(false);
         },

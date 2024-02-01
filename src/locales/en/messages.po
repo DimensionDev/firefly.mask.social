@@ -119,7 +119,7 @@ msgid "Connected Accounts"
 msgstr "Connected Accounts"
 
 msgid "Failed to post on Lens."
-msgstr "Failed to post on Lens.<<<<<<< HEAD"
+msgstr "Failed to post on Lens."
 
 msgid "Claim on Lens:"
 msgstr "Claim on Lens:"
@@ -170,7 +170,7 @@ msgid "Join our Telegram"
 msgstr "Join our Telegram"
 
 msgid "Log out"
-msgstr "Log out<<<<<<< HEAD"
+msgstr "Log out"
 
 msgid "Check out my LuckyDrop 🧧💰✨ on Firefly mobile app or"
 msgstr "Check out my LuckyDrop 🧧💰✨ on Firefly mobile app or"
