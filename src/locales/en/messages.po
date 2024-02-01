@@ -271,6 +271,9 @@ msgstr "Unlike"
 msgid "Post has been hidden"
 msgstr "Post has been hidden"
 
+msgid "The user declined the request."
+msgstr "The user declined the request."
+
 msgid "<0>{0}</0> liked"
 msgstr "<0>{0}</0> liked"
 

@@ -21,9 +21,10 @@ import { useLensStateStore } from '@/store/useProfileStore.js';
 
 interface LoginLensProps {
     profiles: Profile[];
+    currentAccount: string;
 }
 
-export function LoginLens({ profiles }: LoginLensProps) {
+export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
     const [selectedProfile, setSelectedProfile] = useState<Profile>();
     const [signless, setSignless] = useState(true);
 
@@ -64,8 +65,9 @@ export function LoginLens({ profiles }: LoginLensProps) {
 
     useEffect(() => {
         if (!currentProfile) return;
+        if (!isSameAddress(account.address, currentAccount)) LoginModalRef.close();
         if (!currentProfile.signless) setSignless(false);
-    }, [currentProfile]);
+    }, [currentProfile, account, currentAccount]);
 
     return (
         <div
