@@ -44,7 +44,7 @@ export default function ComposeSend() {
         }
         const { lensPostId, farcasterPostId, typedMessage } = useComposeStateStore.getState();
 
-        if (hasRedPacketPayload(typedMessage)) {
+        if (hasRedPacketPayload(typedMessage) && (lensPostId || farcasterPostId)) {
             const rpPayload = typedMessage?.meta?.get(RedPacketMetaKey) as RedPacketJSONPayload;
 
             const reactions = compact([
@@ -67,13 +67,13 @@ export default function ComposeSend() {
                 lensPostId && currentLensProfile
                     ? {
                           platformId: currentLensProfile.profileId,
-                          platform: FireflyRedPacketAPI.PlatformType.lens,
+                          platformName: FireflyRedPacketAPI.PlatformType.lens,
                       }
                     : undefined,
                 farcasterPostId && currentFarcasterProfile
                     ? {
                           platformId: currentFarcasterProfile.profileId,
-                          platform: FireflyRedPacketAPI.PlatformType.farcaster,
+                          platformName: FireflyRedPacketAPI.PlatformType.farcaster,
                       }
                     : undefined,
             ]);
