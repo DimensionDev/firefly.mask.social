@@ -11,7 +11,6 @@ import {
     PublicationType,
 } from '@lens-protocol/client';
 import { t } from '@lingui/macro';
-import { delay } from '@masknet/kit';
 import {
     createIndicator,
     createNextIndicator,
