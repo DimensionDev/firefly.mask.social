@@ -6,7 +6,7 @@ import { delay, safeUnreachable } from '@masknet/kit';
 import { CrossIsolationMessages } from '@masknet/shared-base';
 import { $getSelection } from 'lexical';
 import { compact } from 'lodash-es';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 
 import AtIcon from '@/assets/at.svg';
@@ -25,7 +25,7 @@ import { ComposeModalRef } from '@/modals/controls.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 import { useFarcasterStateStore, useLensStateStore } from '@/store/useProfileStore.js';
 
-interface ComposeActionProps { }
+interface ComposeActionProps {}
 
 export default function ComposeAction(props: ComposeActionProps) {
     const [restriction, setRestriction] = useState(0);
@@ -84,15 +84,15 @@ export default function ComposeAction(props: ComposeActionProps) {
             fireflyContext: {
                 currentLensProfile: currentLensProfile
                     ? {
-                        ...currentLensProfile,
-                        ownedBy: currentLensProfile.ownedBy?.address,
-                    }
+                          ...currentLensProfile,
+                          ownedBy: currentLensProfile.ownedBy?.address,
+                      }
                     : undefined,
                 currentFarcasterProfile: currentFarcasterProfile
                     ? {
-                        ...currentFarcasterProfile,
-                        ownedBy: currentFarcasterProfile.ownedBy?.address,
-                    }
+                          ...currentFarcasterProfile,
+                          ownedBy: currentFarcasterProfile.ownedBy?.address,
+                      }
                     : undefined,
             },
         });

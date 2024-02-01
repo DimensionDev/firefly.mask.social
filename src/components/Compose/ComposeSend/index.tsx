@@ -50,31 +50,31 @@ export default function ComposeSend() {
             const reactions = compact([
                 lensPostId
                     ? {
-                        platform: FireflyRedPacketAPI.PlatformType.lens,
-                        postId: lensPostId,
-                    }
+                          platform: FireflyRedPacketAPI.PlatformType.lens,
+                          postId: lensPostId,
+                      }
                     : undefined,
                 farcasterPostId
                     ? {
-                        platform: FireflyRedPacketAPI.PlatformType.farcaster,
-                        postId: farcasterPostId,
-                        handle: currentFarcasterProfile?.handle,
-                    }
+                          platform: FireflyRedPacketAPI.PlatformType.farcaster,
+                          postId: farcasterPostId,
+                          handle: currentFarcasterProfile?.handle,
+                      }
                     : undefined,
             ]);
 
             const claimPlatform = compact([
                 lensPostId && currentLensProfile
                     ? {
-                        platformId: currentLensProfile.profileId,
-                        platform: FireflyRedPacketAPI.PlatformType.lens,
-                    }
+                          platformId: currentLensProfile.profileId,
+                          platform: FireflyRedPacketAPI.PlatformType.lens,
+                      }
                     : undefined,
                 farcasterPostId && currentFarcasterProfile
                     ? {
-                        platformId: currentFarcasterProfile.profileId,
-                        platform: FireflyRedPacketAPI.PlatformType.farcaster,
-                    }
+                          platformId: currentFarcasterProfile.profileId,
+                          platform: FireflyRedPacketAPI.PlatformType.farcaster,
+                      }
                     : undefined,
             ]);
             await FireflyRedPacket.updateClaimStrategy(rpPayload.rpid, reactions, claimPlatform);
