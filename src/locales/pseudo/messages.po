@@ -152,6 +152,8 @@ msgid "Feed"
 msgstr ""
 
 msgid "User rejected the request."
+msgstr ""
+
 msgid "Follow more friends to continue exploring on {0}."
 msgstr ""
 
