@@ -73,9 +73,6 @@ msgstr ""
 msgid "Debug Console"
 msgstr ""
 
-msgid "Failed to login"
-msgstr ""
-
 msgid "Offline"
 msgstr ""
 
