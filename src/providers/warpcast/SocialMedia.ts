@@ -132,7 +132,7 @@ export class WarpcastSocialMedia implements Provider {
         if (casts.length > 1 && first(casts)?.castType === 'root-embed') result = casts.slice(1);
 
         const target = result.find((x) => x.hash === postId);
-        if (!target) throw new Error(t`Can't get the post detail`);
+        if (!target) throw new Error(t`Unable to retrieve post details.`);
         const index = result.findIndex((x) => x.hash === postId);
 
         const post = formatWarpcastPost(target);

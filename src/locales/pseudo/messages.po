@@ -31,9 +31,6 @@ msgstr ""
 msgid "Click to refresh QRCode"
 msgstr ""
 
-msgid "Something went wrong, Please try again."
-msgstr ""
-
 msgid "Failed to mirror. {0}"
 msgstr ""
 
@@ -58,9 +55,6 @@ msgstr ""
 msgid "Searching users"
 msgstr ""
 
-msgid "No Lens profile found. Please change another wallet."
-msgstr ""
-
 msgid "Join our Discord"
 msgstr ""
 
@@ -68,9 +62,6 @@ msgid "Querying the signer request state."
 msgstr ""
 
 msgid "Change Wallet"
-msgstr ""
-
-msgid "UnLike"
 msgstr ""
 
 msgid "Wrong wallet"
@@ -103,6 +94,12 @@ msgstr ""
 msgid "Liked"
 msgstr ""
 
+msgid "Please switch to the correct network in your wallet."
+msgstr ""
+
+msgid "Only up to 2 images can be chosen."
+msgstr ""
+
 msgid "Failed to unlike. {0}"
 msgstr ""
 
@@ -119,9 +116,6 @@ msgid "Connected Accounts"
 msgstr ""
 
 msgid "Failed to post on Lens."
-msgstr ""
-
-msgid "Please open this link in PC Explorer"
 msgstr ""
 
 msgid "Select Account"
@@ -151,6 +145,9 @@ msgstr ""
 msgid "Feed"
 msgstr ""
 
+msgid "Follow more friends to continue exploring on {0}."
+msgstr ""
+
 msgid "Change account"
 msgstr ""
 
@@ -167,9 +164,6 @@ msgid "Join our Telegram"
 msgstr ""
 
 msgid "Log out"
-msgstr ""
-
-msgid "Follow more friends to continue exploring {0}."
 msgstr ""
 
 msgid "post"
@@ -262,6 +256,9 @@ msgstr ""
 msgid "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code."
 msgstr ""
 
+msgid "Unlike"
+msgstr ""
+
 msgid "Post has been hidden"
 msgstr ""
 
@@ -283,9 +280,6 @@ msgstr ""
 msgid "No post found"
 msgstr ""
 
-msgid "UnLiked"
-msgstr ""
-
 msgid "Lens"
 msgstr ""
 
@@ -305,9 +299,6 @@ msgid "Post your reply"
 msgstr ""
 
 msgid "liked"
-msgstr ""
-
-msgid "Can't get the post detail"
 msgstr ""
 
 msgid "Post has been encrypted"
@@ -332,9 +323,6 @@ msgid "commented"
 msgstr ""
 
 msgid "The page could not be found."
-msgstr ""
-
-msgid "Oops… Something went wrong. Please try again."
 msgstr ""
 
 msgid "What's happening..."
@@ -382,16 +370,16 @@ msgstr ""
 msgid "Failed to unfollow."
 msgstr ""
 
-msgid "Select failed: More than 2 images"
-msgstr ""
-
-msgid "Please switch to the {0} network in your wallet ({1})}"
+msgid "Unliked"
 msgstr ""
 
 msgid "Visit mask.io"
 msgstr ""
 
 msgid "No comments found"
+msgstr ""
+
+msgid "Please visit from a desktop browser."
 msgstr ""
 
 msgid "Discard"
@@ -401,6 +389,9 @@ msgid "Sign"
 msgstr ""
 
 msgid "Follow @thefireflyapp on X"
+msgstr ""
+
+msgid "Please switch to the {chainName} network in your wallet."
 msgstr ""
 
 msgid "Posted on Lens"
@@ -415,6 +406,9 @@ msgstr ""
 msgid "Mirrored"
 msgstr ""
 
+msgid "Unable to retrieve post details."
+msgstr ""
+
 msgid "Failed to publish post."
 msgstr ""
 
@@ -427,7 +421,13 @@ msgstr ""
 msgid "Posted on Farcaster"
 msgstr ""
 
+msgid "Something went wrong. Please try again."
+msgstr ""
+
 msgid "Follow @realMaskNetwork on X"
+msgstr ""
+
+msgid "No Lens profile was found. Please try using a different wallet."
 msgstr ""
 
 msgid "<0>{0}</0> mirrored"

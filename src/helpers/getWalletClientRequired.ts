@@ -15,12 +15,12 @@ export async function getWalletClientRequired(
 
     if (args?.chainId && args.chainId !== secondTryResult.chain.id) {
         await ChainModalRef.openAndWaitForClose();
-        if (args?.chainId !== secondTryResult.chain.id)
-            throw new Error(
-                t`Please switch to the ${
-                    chains.find((x) => x.id === args?.chainId)?.name ?? 'correct'
-                } network in your wallet (${secondTryResult.chain.name})}`,
-            );
+        if (args?.chainId !== secondTryResult.chain.id) {
+            const chainName = chains.find((x) => x.id === args?.chainId)?.name;
+
+            if (chainName) throw new Error(t`Please switch to the ${chainName} network in your wallet.`);
+            else throw new Error(t`Please switch to the correct network in your wallet.`);
+        }
     }
 
     return secondTryResult;
