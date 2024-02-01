@@ -192,7 +192,9 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | 
                                             </div>
                                         }
                                     >
-                                        {source === SocialPlatform.Lens ? <LoginLens profiles={profiles} currentAccount={currentAccount} /> : null}
+                                        {source === SocialPlatform.Lens ? (
+                                            <LoginLens profiles={profiles} currentAccount={currentAccount} />
+                                        ) : null}
                                         {source === SocialPlatform.Farcaster ? <LoginFarcaster /> : null}
                                     </Suspense>
                                 )}

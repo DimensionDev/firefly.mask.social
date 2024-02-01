@@ -25,7 +25,7 @@ import { ComposeModalRef } from '@/modals/controls.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 import { useFarcasterStateStore, useLensStateStore } from '@/store/useProfileStore.js';
 
-interface ComposeActionProps { }
+interface ComposeActionProps {}
 
 export default function ComposeAction(props: ComposeActionProps) {
     const [restriction, setRestriction] = useState(0);
@@ -84,15 +84,15 @@ export default function ComposeAction(props: ComposeActionProps) {
             fireflyContext: {
                 currentLensProfile: currentLensProfile
                     ? {
-                        ...currentLensProfile,
-                        ownedBy: currentLensProfile.ownedBy?.address,
-                    }
+                          ...currentLensProfile,
+                          ownedBy: currentLensProfile.ownedBy?.address,
+                      }
                     : undefined,
                 currentFarcasterProfile: currentFarcasterProfile
                     ? {
-                        ...currentFarcasterProfile,
-                        ownedBy: currentFarcasterProfile.ownedBy?.address,
-                    }
+                          ...currentFarcasterProfile,
+                          ownedBy: currentFarcasterProfile.ownedBy?.address,
+                      }
                     : undefined,
             },
         });
