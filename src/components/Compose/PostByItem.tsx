@@ -62,7 +62,7 @@ export function PostByItem({ source }: PostByItemProps) {
                     className=" font-bold text-blueBottom"
                     onClick={async () => {
                         if (source === SocialPlatform.Farcaster && images.length > 2) {
-                            enqueueSnackbar(t`Select failed: More than 2 images`, {
+                            enqueueSnackbar(t`Only up to 2 images can be chosen.`, {
                                 variant: 'error',
                             });
                             return;

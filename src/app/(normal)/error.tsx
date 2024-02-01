@@ -8,9 +8,9 @@ import { Image } from '@/esm/Image.js';
 export default function Error({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) {
     return (
         <div className="flex h-screen flex-col items-center justify-center">
-            <Image src="/image/radar.png" width={200} height={106} alt="Something went wrong, Please try again." />
+            <Image src="/image/radar.png" width={200} height={106} alt="Something went wrong. Please try again." />
             <div className="mt-11 text-sm font-bold">
-                <Trans>Something went wrong, Please try again.</Trans>
+                <Trans>Something went wrong. Please try again.</Trans>
             </div>
             <button
                 className="mt-6 whitespace-nowrap rounded-2xl bg-main px-4 py-1 text-sm font-semibold leading-6 text-primaryBottom"
