@@ -82,7 +82,7 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | 
                             <Trans>Connection failed</Trans>
                         </span>
                         <br />
-                        <Trans>User rejected the request.</Trans>
+                        <Trans>The user declined the request.</Trans>
                     </div>,
                     {
                         variant: 'error',
