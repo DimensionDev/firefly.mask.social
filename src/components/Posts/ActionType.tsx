@@ -114,11 +114,13 @@ export const FeedActionType = memo<FeedActionType>(function FeedActionType({ pos
                                     <Trans>
                                         <strong>You</strong> recasted
                                     </Trans>
-                                ) : (
+                                ) : post.mirrors.length === 2 ? (
                                     <Trans>
-                                        <strong>You</strong> and {post.mirrors.length - 1} others recasted
+                                        <strong>You</strong> and {post.mirrors.find((profile) => !isSameProfile(profile, currentProfile))?.displayName} recasted
                                     </Trans>
-                                )
+                                ) : (<Trans>
+                                    <strong>You</strong> and {post.mirrors.length - 1} others recasted
+                                </Trans>)
                             ) : (
                                 <Trans>
                                     <strong>You</strong> mirrored
