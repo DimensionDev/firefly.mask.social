@@ -234,7 +234,7 @@ export class LensSocialMedia implements Provider {
     }
 
     // comment is the contentURI of the post
-    async commentPost(postId: string, comment: string, signless?: boolean): Promise<Post> {
+    async commentPost(postId: string, comment: string, signless?: boolean): Promise<string> {
         if (signless) {
             const result = await this.client.publication.commentOnMomoka({
                 commentOn: postId,
@@ -245,7 +245,7 @@ export class LensSocialMedia implements Provider {
             if (result.isFailure() || resultValue.__typename === 'LensProfileManagerRelayError')
                 throw new Error(`Something went wrong: ${JSON.stringify(resultValue)}`);
 
-            return this.getPostById(resultValue.id);
+            return resultValue.id;
         } else {
             const walletClient = await getWalletClientRequired();
             const resultTypedData = await this.client.publication.createMomokaCommentTypedData({
@@ -272,7 +272,7 @@ export class LensSocialMedia implements Provider {
             if (broadcastResult.isFailure() || broadcastValue.__typename === 'RelayError') {
                 throw new Error(`Something went wrong: ${JSON.stringify(broadcastValue)}`);
             }
-            return this.getPostById(broadcastValue.id);
+            return broadcastValue.id;
         }
     }
 

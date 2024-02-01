@@ -85,7 +85,7 @@ export function useSendLens() {
                 enqueueSnackbar(t`Replied on Lens`, {
                     variant: 'success',
                 });
-                updateLensPostId(comment.postId);
+                updateLensPostId(comment);
             } catch (error) {
                 enqueueSnackbar(t`Failed to relay post on Lens.`, {
                     variant: 'error',
