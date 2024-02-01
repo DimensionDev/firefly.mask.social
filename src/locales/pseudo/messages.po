@@ -514,6 +514,9 @@ msgstr ""
 msgid "Unknown session type."
 msgstr ""
 
+msgid "<0>You</0> and {0} recasted"
+msgstr ""
+
 msgid "Online"
 msgstr ""
 
