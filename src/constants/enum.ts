@@ -18,7 +18,8 @@ export enum SearchType {
 }
 
 export enum KeyType {
-    DigestLink = 'digestLink',
+    DigestOpenGraphLink = 'digestOpenGraphLink',
+    DigestFrameLink = 'digestFrameLink',
     GetPostOGById = 'getPostOGById',
     GetProfileOGById = 'getProfileOGById',
     UploadToBlob = 'uploadToBlob',

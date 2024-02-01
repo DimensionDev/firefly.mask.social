@@ -66,7 +66,7 @@ export async function digestImageUrl(url: string, signal?: AbortSignal): Promise
     };
 }
 
-export async function digestLink(link: string, signal?: AbortSignal): Promise<LinkDigest | null> {
+export async function digestOpenGraphLink(link: string, signal?: AbortSignal): Promise<LinkDigest | null> {
     const url = parseURL(link);
     if (!url) return null;
 

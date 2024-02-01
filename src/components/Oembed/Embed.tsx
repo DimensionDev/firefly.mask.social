@@ -1,7 +1,7 @@
 import { Image } from '@/esm/Image.js';
 import { Link } from '@/esm/Link.js';
 import { isSelfReference } from '@/helpers/isLinkMatchingHost.js';
-import type { OpenGraph } from '@/services/digestLink.js';
+import type { OpenGraph } from '@/services/digestOpenGraphLink.js';
 
 interface EmbedProps {
     og: OpenGraph;

@@ -11,7 +11,7 @@ import { Quote } from '@/components/Posts/Quote.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { formatWarpcastPost } from '@/helpers/formatWarpcastPost.js';
 import { isLinkMatchingHost } from '@/helpers/isLinkMatchingHost.js';
-import type { LinkDigest, OpenGraph } from '@/services/digestLink.js';
+import type { LinkDigest, OpenGraph } from '@/services/digestOpenGraphLink.js';
 import type { ResponseJSON } from '@/types/index.js';
 import { OpenGraphPayloadSourceType } from '@/types/og.js';
 
