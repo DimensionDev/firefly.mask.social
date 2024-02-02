@@ -12,6 +12,7 @@ import { useAccount } from 'wagmi';
 import LoadingIcon from '@/assets/loading.svg';
 import WalletIcon from '@/assets/wallet.svg';
 import { AccountCard } from '@/components/Login/AccountCard.js';
+import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.jsx';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
 import { AccountModalRef, ConnectWalletModalRef, LoginModalRef } from '@/modals/controls.js';
@@ -56,7 +57,7 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
                 enqueueSnackbar(t`Your Lens account is now connected.`, { variant: 'success' });
                 LoginModalRef.close();
             } catch (error) {
-                enqueueSnackbar(error instanceof Error ? error.message : t`Failed to login`, { variant: 'error' });
+                enqueueSnackbar(getSnackbarMessageFromError(error, t`Failed to login`), { variant: 'error' });
                 return;
             }
         },

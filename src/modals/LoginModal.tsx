@@ -141,7 +141,7 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | 
                                 >
                                     <button
                                         onClick={() => {
-                                            source === SocialPlatform.Farcaster
+                                            source === SocialPlatform.Farcaster && !isDirectly
                                                 ? setSource(undefined)
                                                 : dispatch?.close();
                                         }}

@@ -9,6 +9,7 @@ import { Avatar } from '@/components/Avatar.js';
 import { SourceIcon } from '@/components/SourceIcon.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
+import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
@@ -43,7 +44,7 @@ export function PostByItem({ source }: PostByItemProps) {
                     variant: 'success',
                 });
             } catch (error) {
-                enqueueSnackbar(error instanceof Error ? error.message : t`Failed to login`, { variant: 'error' });
+                enqueueSnackbar(getSnackbarMessageFromError(error, t`Failed to login`), { variant: 'error' });
             }
             updateLoading(false);
         },

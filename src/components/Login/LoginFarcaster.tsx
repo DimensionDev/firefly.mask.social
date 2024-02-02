@@ -7,6 +7,7 @@ import { useAsyncFn, useEffectOnce, useUnmount } from 'react-use';
 
 import LoadingIcon from '@/assets/loading.svg';
 import { classNames } from '@/helpers/classNames.js';
+import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
 import { LoginModalRef } from '@/modals/controls.js';
@@ -38,8 +39,7 @@ export function LoginFarcaster() {
                 LoginModalRef.close();
             } catch (error) {
                 if (error instanceof Error && error.message === 'Aborted') return;
-
-                enqueueSnackbar(error instanceof Error ? error.message : t`Failed to login`, {
+                enqueueSnackbar(getSnackbarMessageFromError(error, t`Failed to login`), {
                     variant: 'error',
                 });
                 LoginModalRef.close();
