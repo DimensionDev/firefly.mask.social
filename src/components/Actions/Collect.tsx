@@ -17,7 +17,7 @@ export const Collect = memo<CollectProps>(function Collect({ count, disabled = f
     const enqueueSnackbar = useCustomSnackbar();
 
     const handleClick = useCallback(() => {
-        enqueueSnackbar(t`Open actions on Lens is coming soon`, {
+        enqueueSnackbar(t`Collect Action is not supported yet.`, {
             variant: 'error',
         });
     }, [enqueueSnackbar]);
