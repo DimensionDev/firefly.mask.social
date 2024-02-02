@@ -73,6 +73,9 @@ msgstr "Wrong wallet"
 msgid "Debug Console"
 msgstr "Debug Console"
 
+msgid "Failed to login"
+msgstr "Failed to login"
+
 msgid "Offline"
 msgstr "Offline"
 
