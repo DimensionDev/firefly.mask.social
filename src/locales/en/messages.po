@@ -55,6 +55,9 @@ msgstr "More"
 msgid "Searching users"
 msgstr "Searching users"
 
+msgid "Collect Action is not supported yet."
+msgstr "Collect Action is not supported yet."
+
 msgid "Join our Discord"
 msgstr "Join our Discord"
 
@@ -195,9 +198,6 @@ msgstr "Connect another account"
 
 msgid "Failed to fetch as Text."
 msgstr "Failed to fetch as Text."
-
-msgid "Open actions on Lens is coming soon"
-msgstr "Open actions on Lens is coming soon"
 
 msgid "Lucky Drop"
 msgstr "Lucky Drop"
