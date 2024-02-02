@@ -35,7 +35,9 @@ export function Frame({ url, onData, children }: FrameProps) {
         onData?.(data.data.frame);
     }, [data, onData]);
 
-    if (isLoading || error || !data?.success) return children;
+    if (isLoading) return null;
+
+    if (error || !data?.success) return children;
 
     const frame: Frame = data.data.frame;
 

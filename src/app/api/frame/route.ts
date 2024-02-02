@@ -1,4 +1,5 @@
 import { KeyType } from '@/constants/enum.js';
+import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
 import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
 import { FrameProcessor } from '@/libs/frame/Processor.js';
 
@@ -13,8 +14,8 @@ export async function GET(request: Request) {
     const link = searchParams.get('link');
     if (!link) return Response.json({ error: 'Missing link' }, { status: 400 });
 
-    const response = await digestLinkRedis(decodeURIComponent(link), request.signal);
-    if (!response) return Response.json({ error: 'Unable to digest link' }, { status: 500 });
+    const linkDigested = await digestLinkRedis(decodeURIComponent(link), request.signal);
+    if (!linkDigested) return Response.json({ error: 'Unable to digest link' }, { status: 500 });
 
-    return Response.json(response);
+    return createSuccessResponseJSON(linkDigested);
 }
