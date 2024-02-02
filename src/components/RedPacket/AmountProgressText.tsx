@@ -1,7 +1,7 @@
 import { formatBalance, isEqual, minus } from '@masknet/web3-shared-base';
+import { Fragment } from 'react';
 
 import type { TokenType } from '@/types/rp.js';
-import { Fragment } from 'react';
 
 interface AmountProgressTextProps {
     amount: string; // bigint in str
