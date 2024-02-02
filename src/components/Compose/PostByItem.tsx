@@ -43,6 +43,7 @@ export function PostByItem({ source }: PostByItemProps) {
                     variant: 'success',
                 });
             } catch (error) {
+                console.log(error)
                 enqueueSnackbar(
                     <div>
                         <span className="font-bold">
