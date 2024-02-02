@@ -3,6 +3,15 @@ import { compact, last } from 'lodash-es';
 import { q, qsAll } from '@/helpers/q.js';
 import type { FrameButton } from '@/types/frame.js';
 
+export function getTitle(document: Document): string | null {
+    return (
+        q(document, 'fc:frame:title')?.getAttribute('content') ??
+        q(document, 'og:title')?.getAttribute('content') ??
+        document.querySelector('title')?.textContent ??
+        document.domain
+    );
+}
+
 export function getVersion(document: Document): 'vNext' | null {
     const version = q(document, 'fc:frame')?.getAttribute('content');
     return version === 'vNext' ? 'vNext' : null;

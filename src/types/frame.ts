@@ -11,17 +11,19 @@ export interface FrameImage {
 }
 
 export interface Frame {
+    url: string;
+    // frame title
     title: string;
     // fc:frame
     version: 'vNext';
     // fc:frame:image or og:image
     image: FrameImage;
     // fc:frame:post_url
-    postUrl?: string;
+    postUrl: string;
     // fc:frame:button:$idx and fc:frame:button:$idx:action
-    buttons?: FrameButton[];
+    buttons: FrameButton[];
     // fc:frame:refresh_period
-    refreshPeriod?: number;
+    refreshPeriod: number;
 }
 
 export interface LinkDigested {
