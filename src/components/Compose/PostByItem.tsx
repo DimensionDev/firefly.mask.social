@@ -9,6 +9,7 @@ import { Avatar } from '@/components/Avatar.js';
 import { SourceIcon } from '@/components/SourceIcon.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
+import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
@@ -43,24 +44,7 @@ export function PostByItem({ source }: PostByItemProps) {
                     variant: 'success',
                 });
             } catch (error) {
-                enqueueSnackbar(
-                    error instanceof Error ? (
-                        error.name === 'UserRejectedRequestError' ? (
-                            <div>
-                                <span className="font-bold">
-                                    <Trans>Connection failed</Trans>
-                                </span>
-                                <br />
-                                <Trans>The user declined the request.</Trans>
-                            </div>
-                        ) : (
-                            error.message
-                        )
-                    ) : (
-                        t`Failed to login`
-                    ),
-                    { variant: 'error' },
-                );
+                enqueueSnackbar(getSnackbarMessageFromError(error, t`Failed to login`), { variant: 'error' });
             }
             updateLoading(false);
         },
