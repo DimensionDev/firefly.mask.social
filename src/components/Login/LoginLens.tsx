@@ -57,14 +57,21 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
                 LoginModalRef.close();
             } catch (error) {
                 enqueueSnackbar(
-                    <div>
-                        <span className="font-bold">
-                            <Trans>Connection failed</Trans>
-                        </span>
-                        <br />
-                        <Trans>The user declined the request.</Trans>
-                    </div>,
-                    { variant: 'error' },
+                    error instanceof Error ? (
+                        error.name === 'UserRejectedRequestError' ? (
+                            <div>
+                                <span className="font-bold">
+                                    <Trans>Connection failed</Trans>
+                                </span>
+                                <br />
+                                <Trans>The user declined the request.</Trans>
+                            </div>
+                        ) : (
+                            error.message
+                        )
+                    ) : (
+                        t`Failed to login`
+                    ),
                 );
                 return;
             }
