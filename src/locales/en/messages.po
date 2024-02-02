@@ -514,6 +514,9 @@ msgstr "Share to"
 msgid "Unknown session type."
 msgstr "Unknown session type."
 
+msgid "<0>You</0> and {0} recasted"
+msgstr "<0>You</0> and {0} recasted"
+
 msgid "Online"
 msgstr "Online"
 
