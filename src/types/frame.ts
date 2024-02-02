@@ -1,5 +1,5 @@
 export interface FrameButton {
-    index: 0 | 1 | 2 | 3;
+    index: 1 | 2 | 3 | 4;
     text: string;
     action: 'post' | 'post_redirect';
 }
