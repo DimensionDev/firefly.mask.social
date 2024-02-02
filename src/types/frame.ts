@@ -23,3 +23,7 @@ export interface Frame {
     // fc:frame:refresh_period
     refreshPeriod?: number;
 }
+
+export interface LinkDigested {
+    frame: Frame;
+}

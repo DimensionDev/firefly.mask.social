@@ -1,8 +1,8 @@
 import { KeyType } from '@/constants/enum.js';
 import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
-import { digestOpenGraphLink } from '@/services/digestOpenGraphLink.js';
+import { OpenGraphProcessor } from '@/libs/og/Processor.js';
 
-const digestOpenGraphLinkRedis = memoizeWithRedis(digestOpenGraphLink, {
+const digestLinkRedis = memoizeWithRedis(OpenGraphProcessor.digestDocumentUrl, {
     key: KeyType.DigestOpenGraphLink,
     resolver: (link) => link,
 });
@@ -25,8 +25,8 @@ export async function GET(request: Request) {
         return Response.json({ error: 'Unsupported' }, { status: 400 });
     }
 
-    const response = await digestOpenGraphLinkRedis(decodeURIComponent(link), request.signal);
-    if (!response) return Response.json({ error: 'Unable to request link' }, { status: 500 });
+    const response = await digestLinkRedis(decodeURIComponent(link), request.signal);
+    if (!response) return Response.json({ error: 'Unable to digest link' }, { status: 500 });
 
     return Response.json(response);
 }

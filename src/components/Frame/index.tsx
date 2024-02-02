@@ -4,7 +4,7 @@ import urlcat from 'urlcat';
 
 import { Image } from '@/esm/Image.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
-import type { Frame, LinkDigest } from '@/services/digestFrameLink.js';
+import type { Frame, LinkDigested } from '@/types/frame.js';
 import type { ResponseJSON } from '@/types/index.js';
 
 interface FrameProps {
@@ -18,7 +18,7 @@ export function Frame({ url, onData, children }: FrameProps) {
         queryKey: ['frame', url],
         queryFn: () => {
             if (!url) return;
-            return fetchJSON<ResponseJSON<LinkDigest>>(
+            return fetchJSON<ResponseJSON<LinkDigested>>(
                 urlcat('/api/frame', {
                     link: url,
                 }),

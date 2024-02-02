@@ -11,9 +11,8 @@ import { Quote } from '@/components/Posts/Quote.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { formatWarpcastPost } from '@/helpers/formatWarpcastPost.js';
 import { isLinkMatchingHost } from '@/helpers/isLinkMatchingHost.js';
-import type { LinkDigest, OpenGraph } from '@/services/digestOpenGraphLink.js';
 import type { ResponseJSON } from '@/types/index.js';
-import { OpenGraphPayloadSourceType } from '@/types/og.js';
+import { type LinkDigested, type OpenGraph, PayloadType } from '@/types/og.js';
 
 interface OembedProps {
     url?: string;
@@ -25,7 +24,7 @@ export default function Oembed({ url, onData }: OembedProps) {
         queryKey: ['oembed', url],
         queryFn: () => {
             if (!url) return;
-            return fetchJSON<ResponseJSON<LinkDigest>>(
+            return fetchJSON<ResponseJSON<LinkDigested>>(
                 urlcat('/api/oembed', {
                     link: url,
                 }),
@@ -52,7 +51,7 @@ export default function Oembed({ url, onData }: OembedProps) {
     if (payload?.type) {
         const type = payload.type;
         switch (type) {
-            case OpenGraphPayloadSourceType.Mirror:
+            case PayloadType.Mirror:
                 return (
                     <Mirror
                         address={payload.address}
@@ -64,10 +63,10 @@ export default function Oembed({ url, onData }: OembedProps) {
                         timestamp={payload.timestamp}
                     />
                 );
-            case OpenGraphPayloadSourceType.Farcaster:
+            case PayloadType.Farcaster:
                 const post = formatWarpcastPost(payload.cast);
                 return <Quote post={post} />;
-            case OpenGraphPayloadSourceType.Post:
+            case PayloadType.Post:
                 const id = payload.id;
                 return (
                     <Suspense fallback={null}>

@@ -1,7 +1,7 @@
 import { parseJSON } from '@masknet/web3-providers/helpers';
 
 import type { Cast } from '@/providers/types/Warpcast.js';
-import { type FarcasterPayload, type MirrorPayload, OpenGraphPayloadSourceType } from '@/types/og.js';
+import { type FarcasterPayload, type MirrorPayload, PayloadType } from '@/types/og.js';
 
 export function getMirrorPayload(document: Document): MirrorPayload | null {
     const dataScript = document.getElementById('__NEXT_DATA__');
@@ -36,7 +36,7 @@ export function getMirrorPayload(document: Document): MirrorPayload | null {
     const displayName = data?.props?.pageProps?.publicationLayoutProject?.displayName;
     const body = entry?.body;
     return {
-        type: OpenGraphPayloadSourceType.Mirror,
+        type: PayloadType.Mirror,
         address,
         timestamp,
         ens,
@@ -66,7 +66,7 @@ export function getFarcasterPayload(document: Document): FarcasterPayload | null
     const cast = data?.props?.pageProps?.focusedCast;
     if (!cast) return null;
     return {
-        type: OpenGraphPayloadSourceType.Farcaster,
+        type: PayloadType.Farcaster,
         cast,
     };
 }
