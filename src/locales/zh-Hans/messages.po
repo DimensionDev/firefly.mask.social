@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-01-31 00:04\n"
+"PO-Revision-Date: 2024-02-02 00:04\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -36,9 +36,6 @@ msgstr "发现"
 msgid "Click to refresh QRCode"
 msgstr "点击后刷新二维码"
 
-msgid "Something went wrong, Please try again."
-msgstr "出现错误，请重试。"
-
 msgid "Failed to mirror. {0}"
 msgstr "转帖失败 {0}"
 
@@ -63,9 +60,6 @@ msgstr "更多"
 msgid "Searching users"
 msgstr "查找用户中"
 
-msgid "No Lens profile found. Please change another wallet."
-msgstr "未能找到 Lens 个人信息。请连接另一个钱包。"
-
 msgid "Join our Discord"
 msgstr "加入我们的 Discord"
 
@@ -77,9 +71,6 @@ msgstr "<0> 你 </0> 和 {0} 人都转发了"
 
 msgid "Change Wallet"
 msgstr "更换钱包"
-
-msgid "UnLike"
-msgstr "取消点赞"
 
 msgid "Wrong wallet"
 msgstr "错误的钱包"
@@ -111,6 +102,12 @@ msgstr "找不到网页"
 msgid "Liked"
 msgstr "已点赞"
 
+msgid "Please switch to the correct network in your wallet."
+msgstr ""
+
+msgid "Only up to 2 images can be chosen."
+msgstr ""
+
 msgid "Failed to unlike. {0}"
 msgstr "取消点赞失败 {0}"
 
@@ -131,9 +128,6 @@ msgstr "在 Lens 上发帖失败。"
 
 msgid "Claim on Lens:"
 msgstr ""
-
-msgid "Please open this link in PC Explorer"
-msgstr "请在电脑浏览器中打开链接"
 
 msgid "Select Account"
 msgstr "选择账号"
@@ -162,6 +156,9 @@ msgstr "连接钱包"
 msgid "Feed"
 msgstr "信息流"
 
+msgid "Follow more friends to continue exploring on {0}."
+msgstr ""
+
 msgid "Change account"
 msgstr "切换账号"
 
@@ -182,9 +179,6 @@ msgstr "登出"
 
 msgid "Check out my LuckyDrop 🧧💰✨ on Firefly mobile app or"
 msgstr ""
-
-msgid "Follow more friends to continue exploring {0}."
-msgstr "去关注更多有趣的人来继续浏览你的 {0} 信息流吧"
 
 msgid "post"
 msgstr "帖子"
@@ -276,8 +270,14 @@ msgstr "会话格式错误。"
 msgid "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code."
 msgstr "在你装有 Warpcast 的手机上，打开 <0> 相机 </0>，扫描二维码。"
 
+msgid "Unlike"
+msgstr ""
+
 msgid "Post has been hidden"
 msgstr "帖子已经被隐藏"
+
+msgid "The user declined the request."
+msgstr ""
 
 msgid "<0>{0}</0> liked"
 msgstr "<0>{0}</0> 点赞"
@@ -296,9 +296,6 @@ msgstr "正在关注"
 
 msgid "No post found"
 msgstr "未找到帖子"
-
-msgid "UnLiked"
-msgstr "取消点赞"
 
 msgid "Lens"
 msgstr "Lens"
@@ -320,9 +317,6 @@ msgstr "发送你的回复"
 
 msgid "liked"
 msgstr "点赞"
-
-msgid "Can't get the post detail"
-msgstr "获取明细失败"
 
 msgid "Post has been encrypted"
 msgstr "帖子已经被加密"
@@ -347,9 +341,6 @@ msgstr "已回复"
 
 msgid "The page could not be found."
 msgstr "找不到该页面。"
-
-msgid "Oops… Something went wrong. Please try again."
-msgstr "哎呀！出错了。 请再试一次。"
 
 msgid "What's happening..."
 msgstr "正在发生..."
@@ -396,17 +387,17 @@ msgstr "成功取消转发"
 msgid "Failed to unfollow."
 msgstr "取消关注失败"
 
-msgid "Select failed: More than 2 images"
-msgstr "选择失败：超过 2 张图片"
-
-msgid "Please switch to the {0} network in your wallet ({1})}"
-msgstr "请在你的钱包 ({1}) 里切换 {0} 网络}"
+msgid "Unliked"
+msgstr ""
 
 msgid "Visit mask.io"
 msgstr "访问 mask.io"
 
 msgid "No comments found"
 msgstr "未发现评论"
+
+msgid "Please visit from a desktop browser."
+msgstr ""
 
 msgid "Discard"
 msgstr "放弃"
@@ -416,6 +407,9 @@ msgstr "签名"
 
 msgid "Follow @thefireflyapp on X"
 msgstr "在 X 上关注 @thefireflyapp"
+
+msgid "Please switch to the {chainName} network in your wallet."
+msgstr ""
 
 msgid "Posted on Lens"
 msgstr "发表于 Lens"
@@ -429,6 +423,9 @@ msgstr "没有可显示的数据。"
 msgid "Mirrored"
 msgstr "已转发"
 
+msgid "Unable to retrieve post details."
+msgstr ""
+
 msgid "Failed to publish post."
 msgstr "发布帖子失败"
 
@@ -441,8 +438,14 @@ msgstr "{0, plural, one {<0/>} other {{1, plural, one {<1/> 和 <2/>} other {<3/
 msgid "Posted on Farcaster"
 msgstr "在 Farcaster 上发帖成功"
 
+msgid "Something went wrong. Please try again."
+msgstr ""
+
 msgid "Follow @realMaskNetwork on X"
 msgstr "在 X 上关注 @realMaskNetwork"
+
+msgid "No Lens profile was found. Please try using a different wallet."
+msgstr ""
 
 msgid "<0>{0}</0> mirrored"
 msgstr "<0>{0}</0> 已转发"
