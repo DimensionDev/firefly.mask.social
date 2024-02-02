@@ -1,4 +1,5 @@
-import { formatBalance, minus } from '@masknet/web3-shared-base';
+import { formatBalance, isZero, minus } from '@masknet/web3-shared-base';
+import { Fragment } from 'react';
 
 import type { TokenType } from '@/types/rp.js';
 
@@ -39,9 +40,15 @@ export function AmountProgressText({ amount, remainingAmount, token, ...props }:
                 ...props.ContainerStyle,
             }}
         >
-            <div style={{ fontSize: 70, fontWeight: 700, ...props.AmountTextStyle }}>{claimedAmountText}</div>
-            <div style={{ fontSize: 45, fontWeight: 700, marginLeft: 8, ...props.SymbolTextStyle }}>{symbol}</div>
-            <div style={{ fontSize: 70, fontWeight: 700, marginLeft: 8, ...props.AmountTextStyle }}>/</div>
+            {!isZero(claimedAmountText) ? (
+                <Fragment>
+                    <div style={{ fontSize: 70, fontWeight: 700, ...props.AmountTextStyle }}>{claimedAmountText}</div>
+                    <div style={{ fontSize: 45, fontWeight: 700, marginLeft: 8, ...props.SymbolTextStyle }}>
+                        {symbol}
+                    </div>
+                    <div style={{ fontSize: 70, fontWeight: 700, marginLeft: 8, ...props.AmountTextStyle }}>/</div>
+                </Fragment>
+            ) : null}
             <div style={{ fontSize: 70, fontWeight: 700, marginLeft: 8, ...props.AmountTextStyle }}>
                 {totalAmountText}
             </div>

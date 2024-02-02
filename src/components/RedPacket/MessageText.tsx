@@ -1,10 +1,10 @@
 interface MessageTextProps {
-    message?: string;
+    message: string;
     ContainerStyle?: React.CSSProperties;
 }
 
-export function MessageText({ message = 'Best Wishes!', ...props }: MessageTextProps) {
+export function MessageText({ message, ...props }: MessageTextProps) {
     return (
-        <div style={{ fontSize: 50, fontWeight: 400, position: 'absolute', ...props.ContainerStyle }}>{message}</div>
+        <div style={{ fontSize: 50, fontWeight: 700, position: 'absolute', ...props.ContainerStyle }}>{message}</div>
     );
 }
