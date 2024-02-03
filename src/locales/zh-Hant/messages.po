@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-02-02 00:04\n"
+"PO-Revision-Date: 2024-02-03 00:04\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Traditional\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -58,6 +58,9 @@ msgid "More"
 msgstr ""
 
 msgid "Searching users"
+msgstr ""
+
+msgid "Collect Action is not supported yet."
 msgstr ""
 
 msgid "Join our Discord"
@@ -199,9 +202,6 @@ msgid "Connect another account"
 msgstr ""
 
 msgid "Failed to fetch as Text."
-msgstr ""
-
-msgid "Open actions on Lens is coming soon"
 msgstr ""
 
 msgid "Lucky Drop"
@@ -520,6 +520,9 @@ msgid "Share to"
 msgstr ""
 
 msgid "Unknown session type."
+msgstr ""
+
+msgid "<0>You</0> and {0} recasted"
 msgstr ""
 
 msgid "Online"
