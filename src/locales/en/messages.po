@@ -256,6 +256,9 @@ msgstr "{0, plural, one {<0/>} other {{1, plural, one {<1/> and <2/>} other {<3/
 msgid "Comment"
 msgstr "Comment"
 
+msgid "Allow replies from"
+msgstr "Allow replies from"
+
 msgid "Method not implemented."
 msgstr "Method not implemented."
 
@@ -270,6 +273,9 @@ msgstr "Unlike"
 
 msgid "Post has been hidden"
 msgstr "Post has been hidden"
+
+msgid "Everyone"
+msgstr "Everyone"
 
 msgid "The user declined the request."
 msgstr "The user declined the request."
@@ -294,9 +300,6 @@ msgstr "No post found"
 
 msgid "Lens"
 msgstr "Lens"
-
-msgid "Reply Restriction"
-msgstr "Reply Restriction"
 
 msgid "No session found."
 msgstr "No session found."
@@ -508,6 +511,9 @@ msgstr "Firefly"
 msgid "Log out all"
 msgstr "Log out all"
 
+msgid "LuckyDrop"
+msgstr "LuckyDrop"
+
 msgid "{0} and others"
 msgstr "{0} and others"
 
@@ -516,6 +522,9 @@ msgstr "Share to"
 
 msgid "Unknown session type."
 msgstr "Unknown session type."
+
+msgid "Only people you follow"
+msgstr "Only people you follow"
 
 msgid "<0>You</0> and {0} recasted"
 msgstr "<0>You</0> and {0} recasted"
