@@ -1,5 +1,4 @@
 import { formatBalance, isZero, minus } from '@masknet/web3-shared-base';
-import { Fragment } from 'react';
 
 import type { TokenType } from '@/types/rp.js';
 
