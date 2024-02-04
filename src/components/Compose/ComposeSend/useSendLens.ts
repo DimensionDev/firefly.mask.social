@@ -64,7 +64,7 @@ export function useSendLens() {
                 );
                 enqueueSnackbar(t`Posted on Lens`, {
                     variant: 'success',
-                });
+            });
                 updateLensPostId(published.postId);
             } catch (error) {
                 enqueueSnackbar(t`Failed to post on Lens.`, {
