@@ -3,6 +3,7 @@
 import { i18n } from '@lingui/core';
 import { I18nProvider } from '@lingui/react';
 import { LivepeerConfig } from '@livepeer/react';
+import { getCookie } from '@masknet/shared-base';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { ReactQueryStreamedHydration } from '@tanstack/react-query-next-experimental';
@@ -16,7 +17,7 @@ import { v4 as uuid } from 'uuid';
 import { WagmiProvider } from '@/components/WagmiProvider.js';
 import { livepeerClient } from '@/configs/livepeerClient.js';
 import { queryClient } from '@/configs/queryClient.js';
-import { getLocaleFromCookies } from '@/helpers/getLocaleFromCookies.js';
+import { resolveLocale } from '@/helpers/resolveLocale.js';
 import { DarkModeContext } from '@/hooks/useDarkMode.js';
 import { useMounted } from '@/hooks/useMounted.js';
 import { setLocale } from '@/i18n/index.js';
@@ -42,7 +43,7 @@ export function Providers(props: { children: React.ReactNode }) {
     }, [darkModeContext.isDarkMode]);
 
     useEffect(() => {
-        setLocale(getLocaleFromCookies());
+        setLocale(resolveLocale(getCookie('locale')));
     }, []);
 
     const viewerId = useLeafwatchPersistStore.use.viewerId();

@@ -1,6 +1,7 @@
 import '@/app/globals.css';
 
 import { Inter } from 'next/font/google';
+import { cookies } from 'next/headers.js';
 import { ScrollRestorer } from 'next-scroll-restorer';
 import { lazy } from 'react';
 
@@ -10,7 +11,7 @@ import { Polyfills } from '@/components/Polyfills.js';
 import { Providers } from '@/components/Providers.js';
 import { SideBar } from '@/components/SideBar/index.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
-import { getLocaleFromCookies } from '@/helpers/getLocaleFromCookies.js';
+import { resolveLocale } from '@/helpers/resolveLocale.js';
 import { setLocale } from '@/i18n/index.js';
 import { Modals } from '@/modals/index.js';
 
@@ -23,7 +24,7 @@ const inter = Inter({
     variable: '--font-inter',
 });
 
-setLocale(getLocaleFromCookies());
+setLocale(resolveLocale(cookies().get('locale')?.value));
 
 export const metadata = createSiteMetadata();
 
