@@ -15,9 +15,10 @@ const settings = [
     { name: <Trans>More</Trans>, link: '/more' },
 ];
 
-export function SettingList() {
+export function SettingsList() {
     const isLoggedIn = useIsLogin();
     const pathname = usePathname();
+
     return (
         <div className="flex min-h-full min-w-[280px] flex-col border-r border-line p-[24px]">
             <div className=" pb-[24px] text-[20px] font-bold leading-[24px] text-lightMain">
