@@ -12,10 +12,6 @@ interface OptionButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 export function OptionButton({ darkMode = false, selected, label, onClick, ...props }: OptionButtonProps) {
-    console.log('DEBUG: OptionButton');
-    console.log({
-        darkMode,
-    });
     return (
         <button
             className={classNames(

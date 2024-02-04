@@ -261,6 +261,9 @@ msgstr "{0, plural, one {<0/>} other {{1, plural, one {<1/> 和 <2/>} other {<3/
 msgid "Comment"
 msgstr "评论"
 
+msgid "Allow replies from"
+msgstr ""
+
 msgid "Method not implemented."
 msgstr "方法未实现。"
 
@@ -275,6 +278,9 @@ msgstr ""
 
 msgid "Post has been hidden"
 msgstr "帖子已经被隐藏"
+
+msgid "Everyone"
+msgstr ""
 
 msgid "The user declined the request."
 msgstr ""
@@ -299,9 +305,6 @@ msgstr "未找到帖子"
 
 msgid "Lens"
 msgstr "Lens"
-
-msgid "Reply Restriction"
-msgstr "回复限制"
 
 msgid "No session found."
 msgstr "未找到会话"
@@ -408,6 +411,9 @@ msgstr "签名"
 msgid "Follow @thefireflyapp on X"
 msgstr "在 X 上关注 @thefireflyapp"
 
+msgid "Light Mode"
+msgstr ""
+
 msgid "Please switch to the {chainName} network in your wallet."
 msgstr ""
 
@@ -513,6 +519,9 @@ msgstr "Firefly"
 msgid "Log out all"
 msgstr "登出所有"
 
+msgid "LuckyDrop"
+msgstr ""
+
 msgid "{0} and others"
 msgstr "{0} 和 其他"
 
@@ -522,7 +531,13 @@ msgstr ""
 msgid "Unknown session type."
 msgstr "未知会话类型。"
 
+msgid "Only people you follow"
+msgstr ""
+
 msgid "<0>You</0> and {0} recasted"
+msgstr ""
+
+msgid "Dark Mode"
 msgstr ""
 
 msgid "Online"
@@ -545,9 +560,6 @@ msgstr "未能上传图片到 IPFS: {0}"
 
 msgid "Confirm to log out these accounts?"
 msgstr "确认登出这些账号？"
-
-msgid "Light mode"
-msgstr "明亮模式"
 
 msgid "Your Lens account is now connected"
 msgstr "你的 Lens 账号已经连接。"
@@ -584,6 +596,9 @@ msgstr "个人信息"
 
 msgid "Video"
 msgstr "视频"
+
+msgid "Language"
+msgstr ""
 
 msgid "Add a comment"
 msgstr "添加一个评论"
@@ -633,9 +648,6 @@ msgstr "已转发"
 msgid "Following"
 msgstr "已关注"
 
-msgid "Dark mode"
-msgstr "深色模式"
-
 msgid "<0>{0}</0> recasted"
 msgstr "<0>{0}</0> 已转发"
 
@@ -650,4 +662,3 @@ msgstr "在 {1} 上回复 <0>@{0}</0>"
 
 msgid "<0/> quoted your <1><2/></1>"
 msgstr "<0/> 引用了你的 <1><2/></1>"
-

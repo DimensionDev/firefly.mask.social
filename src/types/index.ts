@@ -26,6 +26,7 @@ export type ThemeMode = 'light' | 'dark' | 'default';
 
 export enum Locale {
     en = 'en',
+    zhHans = 'zh-Hans',
 }
 
 export type PartialWith<T, K extends keyof T> = Partial<Pick<T, K>> & Omit<T, K>;

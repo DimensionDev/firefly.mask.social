@@ -406,6 +406,9 @@ msgstr "Sign"
 msgid "Follow @thefireflyapp on X"
 msgstr "Follow @thefireflyapp on X"
 
+msgid "Light Mode"
+msgstr "Light Mode"
+
 msgid "Please switch to the {chainName} network in your wallet."
 msgstr "Please switch to the {chainName} network in your wallet."
 
@@ -529,6 +532,9 @@ msgstr "Only people you follow"
 msgid "<0>You</0> and {0} recasted"
 msgstr "<0>You</0> and {0} recasted"
 
+msgid "Dark Mode"
+msgstr "Dark Mode"
+
 msgid "Online"
 msgstr "Online"
 
@@ -549,9 +555,6 @@ msgstr "Failed to upload image to IPFS: {0}"
 
 msgid "Confirm to log out these accounts?"
 msgstr "Confirm to log out these accounts?"
-
-msgid "Light mode"
-msgstr "Light mode"
 
 msgid "Your Lens account is now connected"
 msgstr "Your Lens account is now connected"
@@ -588,6 +591,9 @@ msgstr "Profile"
 
 msgid "Video"
 msgstr "Video"
+
+msgid "Language"
+msgstr "Language"
 
 msgid "Add a comment"
 msgstr "Add a comment"
@@ -636,9 +642,6 @@ msgstr "mirrored"
 
 msgid "Following"
 msgstr "Following"
-
-msgid "Dark mode"
-msgstr "Dark mode"
 
 msgid "<0>{0}</0> recasted"
 msgstr "<0>{0}</0> recasted"
