@@ -20,8 +20,8 @@ export function AmountText({ amount, token, theme, ...props }: AmountTextProps) 
 
     const amountText = formatBalance(amount, decimals, {
         isFixed: true,
-        significant: 0,
-        fixedDecimals: 0,
+        significant: 6,
+        fixedDecimals: 6,
     });
 
     return (

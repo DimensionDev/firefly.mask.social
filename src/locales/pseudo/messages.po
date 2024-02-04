@@ -256,6 +256,9 @@ msgstr ""
 msgid "Comment"
 msgstr ""
 
+msgid "Allow replies from"
+msgstr ""
+
 msgid "Method not implemented."
 msgstr ""
 
@@ -269,6 +272,9 @@ msgid "Unlike"
 msgstr ""
 
 msgid "Post has been hidden"
+msgstr ""
+
+msgid "Everyone"
 msgstr ""
 
 msgid "The user declined the request."
@@ -293,9 +299,6 @@ msgid "No post found"
 msgstr ""
 
 msgid "Lens"
-msgstr ""
-
-msgid "Reply Restriction"
 msgstr ""
 
 msgid "No session found."
@@ -508,6 +511,9 @@ msgstr ""
 msgid "Log out all"
 msgstr ""
 
+msgid "LuckyDrop"
+msgstr ""
+
 msgid "{0} and others"
 msgstr ""
 
@@ -515,6 +521,9 @@ msgid "Share to"
 msgstr ""
 
 msgid "Unknown session type."
+msgstr ""
+
+msgid "Only people you follow"
 msgstr ""
 
 msgid "<0>You</0> and {0} recasted"
