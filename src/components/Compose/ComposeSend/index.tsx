@@ -105,6 +105,8 @@ export default function ComposeSend() {
             : [post.source];
 
         if (postBy.length === 0) return true;
+
+        return false;
     }, [length, images, video, post, availableSources, currentLensProfile, currentFarcasterProfile]);
 
     return (
