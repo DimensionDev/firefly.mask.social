@@ -271,9 +271,6 @@ msgstr ""
 msgid "Post has been hidden"
 msgstr ""
 
-msgid "Everyone"
-msgstr ""
-
 msgid "The user declined the request."
 msgstr ""
 
@@ -521,9 +518,6 @@ msgid "Share to"
 msgstr ""
 
 msgid "Unknown session type."
-msgstr ""
-
-msgid "Only people you follow"
 msgstr ""
 
 msgid "<0>You</0> and {0} recasted"

@@ -276,9 +276,6 @@ msgstr ""
 msgid "Post has been hidden"
 msgstr "帖子已经被隐藏"
 
-msgid "Everyone"
-msgstr ""
-
 msgid "The user declined the request."
 msgstr ""
 
@@ -527,9 +524,6 @@ msgstr ""
 
 msgid "Unknown session type."
 msgstr "未知会话类型。"
-
-msgid "Only people you follow"
-msgstr ""
 
 msgid "<0>You</0> and {0} recasted"
 msgstr ""
