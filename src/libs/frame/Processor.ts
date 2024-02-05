@@ -15,7 +15,7 @@ import { OpenGraphProcessor } from '@/libs/og/Processor.js';
 import type { Frame, LinkDigested } from '@/types/frame.js';
 
 class Processor {
-    digestDocuement = async (url: string, html: string, signal?: AbortSignal): Promise<LinkDigested | null> => {
+    digestDocument = async (url: string, html: string, signal?: AbortSignal): Promise<LinkDigested | null> => {
         const { document } = parseHTML(html);
 
         const version = getVersion(document);
@@ -67,7 +67,7 @@ class Processor {
         });
         if (!response.ok || (response.status >= 500 && response.status < 600)) return null;
 
-        return this.digestDocuement(documentUrl, await response.text(), signal);
+        return this.digestDocument(documentUrl, await response.text(), signal);
     };
 }
 

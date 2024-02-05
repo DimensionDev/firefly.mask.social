@@ -40,8 +40,8 @@ export function getRefreshPeriod(document: Document): number | null {
 }
 
 export function getInput(document: Document): FrameInput | null {
-    const placeholder = q(document, 'fc:frame:input:text')?.getAttribute('content') ?? '';
-    if (placeholder) return { placeholder };
+    const label = q(document, 'fc:frame:input:text')?.getAttribute('content') ?? '';
+    if (label) return { label };
     return null;
 }
 

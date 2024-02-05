@@ -1,11 +1,12 @@
 import { t } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 import urlcat from 'urlcat';
 
 import LinkIcon from '@/assets/link.svg';
 import { Image } from '@/esm/Image.js';
+import { classNames } from '@/helpers/classNames.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
 import { HubbleSocialMediaProvider } from '@/providers/hubble/SocialMedia.js';
@@ -22,6 +23,7 @@ interface FrameProps {
 export function Frame({ postId, url, onData, children }: FrameProps) {
     const enqueueSnackbar = useCustomSnackbar();
 
+    const inputRef = useRef<HTMLInputElement>(null);
     const [latestFrame, setLatestFrame] = useState<Frame | null>(null);
 
     const { isLoading, error, data } = useQuery({
@@ -47,24 +49,44 @@ export function Frame({ postId, url, onData, children }: FrameProps) {
 
     const [{ loading }, handleClick] = useAsyncFn(
         async (button: FrameButton, input?: string) => {
-            const frame = data?.success ? data.data.frame : null;
-            if (!frame) return;
+            try {
+                const frame = data?.success ? data.data.frame : null;
+                if (!frame) return;
 
-            const url = urlcat('/api/frame', {
-                url: frame.url,
-                type: button.action,
-                'post-url': frame.postUrl,
-            });
-            const response = await fetchJSON<ResponseJSON<LinkDigested>>(url, {
-                method: 'POST',
-                body: JSON.stringify(
-                    await HubbleSocialMediaProvider.generateFrameActionForPost(postId, frame, button.index, input),
-                ),
-            });
-            const nextFrame = response.success ? response.data.frame : null;
-            if (!nextFrame) return enqueueSnackbar(t`There is something wrong with the frame. Please try again.`);
+                const url = urlcat('/api/frame', {
+                    url: frame.url,
+                    action: button.action,
+                    'post-url': frame.postUrl,
+                });
 
-            setLatestFrame(nextFrame);
+                const packet = await HubbleSocialMediaProvider.generateFrameSignaturePacket(
+                    postId,
+                    frame,
+                    button.index,
+                    input,
+                );
+                const response = await fetchJSON<ResponseJSON<LinkDigested>>(url, {
+                    method: 'POST',
+                    body: JSON.stringify(packet),
+                });
+
+                const nextFrame = response.success ? response.data.frame : null;
+                if (!nextFrame)
+                    return enqueueSnackbar(t`There is something wrong with the frame. Please try again.`, {
+                        variant: 'error',
+                    });
+
+                setLatestFrame(nextFrame);
+            } catch (error) {
+                enqueueSnackbar(
+                    error instanceof Error
+                        ? error.message
+                        : t`There is something wrong with the frame. Please try again.`,
+                    {
+                        variant: 'error',
+                    },
+                );
+            }
             return;
         },
         [data, postId, enqueueSnackbar],
@@ -77,13 +99,14 @@ export function Frame({ postId, url, onData, children }: FrameProps) {
     const frame: Frame = latestFrame ?? data.data.frame;
 
     return (
-        <div
-            className="mt-4 text-sm"
-            style={
-                loading ? { boxShadow: '0px 0px 20px 0px rgba(0, 0, 0, 0.05)', backdropFilter: 'blur(8px)' } : undefined
-            }
-        >
-            <div>
+        <div className=" mt-4 rounded-md text-sm">
+            <div className="relative">
+                {loading ? (
+                    <div
+                        className=" z10 absolute inset-0 overflow-hidden rounded-md bg-white dark:bg-bg"
+                        style={{ boxShadow: '0px 0px 20px 0px rgba(0, 0, 0, 0.05)', backdropFilter: 'blur(4px)' }}
+                    />
+                ) : null}
                 <Image
                     className="divider aspect-2 w-full rounded-t-xl object-cover"
                     unoptimized
@@ -96,20 +119,28 @@ export function Frame({ postId, url, onData, children }: FrameProps) {
             </div>
             {frame.input ? (
                 <div className="mt-2 flex">
-                    <input className="w-full" type="text" placeholder={frame.input.label} />
+                    <input className="w-full" type="text" placeholder={frame.input.label} ref={inputRef} />
                 </div>
             ) : null}
             {frame.buttons.length ? (
-                <div className="mt-2">
+                <div className="mt-2 flex gap-2">
                     {frame.buttons
                         .slice(0)
                         .sort((a, z) => a.index - z.index)
                         ?.map((button) => {
                             return (
                                 <button
+                                    className={classNames(
+                                        'flex-1 rounded-md border border-neutral-900 bg-white py-2 text-slate-950 disabled:opacity-70 dark:border-line dark:bg-darkBottom dark:text-white',
+                                        {
+                                            'hover:bg-bg': !loading,
+                                            'hover:cursor-pointer': !loading,
+                                        },
+                                    )}
+                                    disabled={loading}
                                     key={button.index}
                                     onClick={() => {
-                                        if (!loading) handleClick(button);
+                                        if (!loading) handleClick(button, inputRef.current?.value);
                                     }}
                                 >
                                     <span>{button.text}</span>

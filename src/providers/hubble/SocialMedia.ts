@@ -13,7 +13,7 @@ import type { FarcasterSession } from '@/providers/farcaster/Session.js';
 import type { UserResponse } from '@/providers/types/Firefly.js';
 import { type Post, type Profile, ProfileStatus, type Provider, SessionType } from '@/providers/types/SocialMedia.js';
 import { ReactionType as ReactionTypeCustom } from '@/providers/types/SocialMedia.js';
-import type { Frame, Index } from '@/types/frame.js';
+import type { Frame, FrameSignaturePacket, Index } from '@/types/frame.js';
 
 // @ts-ignore
 export class HubbleSocialMedia implements Provider {
@@ -307,8 +307,13 @@ export class HubbleSocialMedia implements Provider {
         return false;
     }
 
-    async generateFrameActionForPost(postId: string, frame: Frame, index: Index, input?: string) {
-        return encodeMessageData((fid) => ({
+    async generateFrameSignaturePacket(
+        postId: string,
+        frame: Frame,
+        index: Index,
+        input?: string,
+    ): Promise<FrameSignaturePacket> {
+        const { bytes, messageHash, messageData } = await encodeMessageData((fid) => ({
             type: MessageType.FRAME_ACTION,
             frameActionBody: {
                 url: toBytes(frame.url),
@@ -320,6 +325,25 @@ export class HubbleSocialMedia implements Provider {
                 inputText: input ? toBytes(input) : new Uint8Array([]),
             },
         }));
+
+        return {
+            untrustedData: {
+                fid: messageData.fid,
+                url: frame.url,
+                messageHash: bytesToHex(messageHash),
+                timestamp: messageData.timestamp,
+                network: messageData.network,
+                buttonIndex: index,
+                inputText: input,
+                castId: {
+                    fid: messageData.fid,
+                    hash: postId,
+                },
+            },
+            trustedData: {
+                messageBytes: bytesToHex(bytes),
+            },
+        };
     }
 }
 

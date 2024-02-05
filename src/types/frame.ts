@@ -1,3 +1,5 @@
+import type { FarcasterNetwork } from '@farcaster/hub-web';
+
 export type Index = 1 | 2 | 3 | 4;
 
 export enum ActionType {
@@ -42,4 +44,23 @@ export interface Frame {
 
 export interface LinkDigested {
     frame: Frame;
+}
+
+export interface FrameSignaturePacket {
+    untrustedData: {
+        fid: number;
+        url: string;
+        messageHash: string;
+        timestamp: number;
+        network: FarcasterNetwork;
+        buttonIndex: number;
+        inputText?: string;
+        castId: {
+            fid: number;
+            hash: string;
+        };
+    };
+    trustedData: {
+        messageBytes: string;
+    };
 }
