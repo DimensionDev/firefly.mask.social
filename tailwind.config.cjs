@@ -43,7 +43,7 @@ module.exports = {
                 commonDanger: 'var(--m-common-danger)',
                 lightSecond: '#767F8D',
                 lightLineSecond: '#E6E7E8',
-                foreground: 'rgba(var(--foreground-rgb))',
+                foreground: 'rgb(var(--foreground-rgb) / <alpha-value>)',
                 placeholder: 'var(--plyr-range-fill-background)',
                 tabLine: 'var(--color-tab-line)',
                 success: 'var(--color-success)',

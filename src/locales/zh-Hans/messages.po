@@ -204,9 +204,6 @@ msgstr "连接另一个账号"
 msgid "Failed to fetch as Text."
 msgstr "获取内容失败。"
 
-msgid "Lucky Drop"
-msgstr "红包"
-
 msgid "Add an existing account"
 msgstr "添加一个已经存在的账号"
 
@@ -330,9 +327,6 @@ msgstr "设置"
 msgid "Details"
 msgstr "详情"
 
-msgid "Light Mod e"
-msgstr ""
-
 msgid "Your Farcaster account is now connected."
 msgstr "你的 Farcaster 账号已经连接。"
 
@@ -413,6 +407,9 @@ msgstr "签名"
 
 msgid "Follow @thefireflyapp on X"
 msgstr "在 X 上关注 @thefireflyapp"
+
+msgid "Light Mode"
+msgstr ""
 
 msgid "Please switch to the {chainName} network in your wallet."
 msgstr ""

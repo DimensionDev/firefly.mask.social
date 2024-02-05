@@ -1,7 +1,9 @@
 import { Trans } from '@lingui/macro';
+import { safeUnreachable } from '@masknet/kit';
 import { FireflyRedPacket } from '@masknet/web3-providers';
 import { FireflyRedPacketAPI, type RedPacketJSONPayload } from '@masknet/web3-providers/types';
 import { compact } from 'lodash-es';
+import { useMemo } from 'react';
 import { useAsyncFn } from 'react-use';
 
 import LoadingIcon from '@/assets/loading.svg';
@@ -20,10 +22,10 @@ import { useComposeStateStore } from '@/store/useComposeStore.js';
 import { useFarcasterStateStore, useLensStateStore } from '@/store/useProfileStore.js';
 
 export default function ComposeSend() {
-    const { chars, images, type, video, currentSource, clear, availableSources } = useComposeStateStore();
+    const { chars, images, type, video, currentSource, clear, availableSources, post } = useComposeStateStore();
 
     const { length, visibleLength, invisibleLength } = measureChars(chars);
-    const disabled = (length === 0 || length > MAX_POST_SIZE) && images.length === 0 && !video;
+
     const sendLens = useSendLens();
     const sendFarcaster = useSendFarcaster();
 
@@ -83,6 +85,28 @@ export default function ComposeSend() {
         clear();
     }, [currentSource, availableSources, type, sendLens, sendFarcaster, currentFarcasterProfile, currentLensProfile]);
 
+    const disabled = useMemo(() => {
+        if ((length === 0 || length > MAX_POST_SIZE) && images.length === 0 && !video) return true;
+
+        const postBy = !post
+            ? compact(
+                  availableSources.map((x) => {
+                      switch (x) {
+                          case SocialPlatform.Lens:
+                              return currentLensProfile?.source;
+                          case SocialPlatform.Farcaster:
+                              return currentFarcasterProfile?.source;
+                          default:
+                              safeUnreachable(x);
+                              return;
+                      }
+                  }),
+              )
+            : [post.source];
+
+        if (postBy.length === 0) return true;
+    }, [length, images, video, post, availableSources, currentLensProfile, currentFarcasterProfile]);
+
     return (
         <div className=" flex h-[68px] items-center justify-end gap-4 px-4 shadow-send">
             {visibleLength ? (
@@ -109,7 +133,7 @@ export default function ComposeSend() {
                     <LoadingIcon width={16} height={16} className="animate-spin" />
                 ) : (
                     <>
-                        <SendIcon width={18} height={18} className=" text-foreground" />
+                        <SendIcon width={18} height={18} className="text-primaryBottom" />
                         <span>
                             <Trans>Send</Trans>
                         </span>
