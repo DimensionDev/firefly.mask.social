@@ -1,7 +1,6 @@
 import { t } from '@lingui/macro';
 import { createIndicator, createPageable, EMPTY_LIST, type Pageable, type PageIndicator } from '@masknet/shared-base';
 import { attemptUntil } from '@masknet/web3-shared-base';
-import { HubRestAPIClient } from '@standard-crypto/farcaster-js';
 
 import { getFarcasterSessionType } from '@/helpers/getFarcasterSessionType.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
@@ -18,10 +17,6 @@ import { WarpcastSocialMediaProvider } from '@/providers/warpcast/SocialMedia.js
 export class FarcasterSocialMedia implements Provider {
     get type() {
         return SessionType.Farcaster;
-    }
-
-    async createClient() {
-        return new HubRestAPIClient();
     }
 
     async discoverPosts(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {

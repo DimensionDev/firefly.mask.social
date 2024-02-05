@@ -60,7 +60,7 @@ export class FireflySocialMedia implements Provider {
         const { data: cast } = await fetchJSON<CastResponse>(url, {
             method: 'GET',
         });
-
+        if (!cast) throw new Error('Post not found');
         return formatFarcasterPostFromFirefly(cast);
     }
 

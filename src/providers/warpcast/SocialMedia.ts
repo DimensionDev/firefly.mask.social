@@ -7,7 +7,6 @@ import {
     type PageIndicator,
 } from '@masknet/shared-base';
 import { isZero } from '@masknet/web3-shared-base';
-import { HubRestAPIClient } from '@standard-crypto/farcaster-js';
 import { compact, first } from 'lodash-es';
 import urlcat from 'urlcat';
 
@@ -52,10 +51,6 @@ export class WarpcastSocialMedia implements Provider {
 
     async createSession(signal?: AbortSignal): Promise<FarcasterSession> {
         throw new Error('Please use createSessionWithURL() instead.');
-    }
-
-    async createClient() {
-        return new HubRestAPIClient();
     }
 
     async discoverPosts(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {

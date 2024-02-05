@@ -396,6 +396,9 @@ msgstr "未发现评论"
 msgid "Please visit from a desktop browser."
 msgstr ""
 
+msgid "There is something wrong with the frame. Please try again."
+msgstr ""
+
 msgid "Discard"
 msgstr "放弃"
 

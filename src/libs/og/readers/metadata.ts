@@ -1,12 +1,11 @@
 /* cspell:disable */
 
+import { q } from '@/helpers/q.js';
+
 export function getTitle(document: Document): string | null {
-    const lens =
-        document.querySelector('meta[name="lens:title"]') || document.querySelector('meta[property="lens:title"]');
-    const og = document.querySelector('meta[name="og:title"]') || document.querySelector('meta[property="og:title"]');
-    const twitter =
-        document.querySelector('meta[name="twitter:title"]') ||
-        document.querySelector('meta[property="twitter:title"]');
+    const lens = q(document, 'lens:title');
+    const og = q(document, 'og:title');
+    const twitter = q(document, 'twitter:title');
     const other = document.querySelector('title');
     const domain = document.domain;
 
@@ -24,15 +23,9 @@ export function getTitle(document: Document): string | null {
 }
 
 export function getDescription(document: Document): string | null {
-    const lens =
-        document.querySelector('meta[name="lens:description"]') ||
-        document.querySelector('meta[property="lens:description"]');
-    const og =
-        document.querySelector('meta[name="og:description"]') ||
-        document.querySelector('meta[property="og:description"]');
-    const twitter =
-        document.querySelector('meta[name="twitter:description"]') ||
-        document.querySelector('meta[property="twitter:description"]');
+    const lens = q(document, 'lens:description');
+    const og = q(document, 'og:description');
+    const twitter = q(document, 'twitter:description');
 
     if (lens) {
         return lens.getAttribute('content');
@@ -46,12 +39,9 @@ export function getDescription(document: Document): string | null {
 }
 
 export function getSite(document: Document): string | null {
-    const lens =
-        document.querySelector('meta[name="lens:site"]') || document.querySelector('meta[property="lens:site"]');
-    const og =
-        document.querySelector('meta[name="og:site_name"]') || document.querySelector('meta[property="og:site_name"]');
-    const twitter =
-        document.querySelector('meta[name="twitter:site"]') || document.querySelector('meta[property="twitter:site"]');
+    const lens = q(document, 'lens:site');
+    const og = q(document, 'og:site_name');
+    const twitter = q(document, 'twitter:site');
 
     if (lens) {
         return lens.getAttribute('content');
@@ -65,14 +55,9 @@ export function getSite(document: Document): string | null {
 }
 
 export function getImageUrl(document: Document): string | null {
-    const lens =
-        document.querySelector('meta[name="lens:image"]') || document.querySelector('meta[property="lens:image"]');
-    const og = document.querySelector('meta[name="og:image"]') || document.querySelector('meta[property="og:image"]');
-    const twitter =
-        document.querySelector('meta[name="twitter:image"]') ||
-        document.querySelector('meta[name="twitter:image:src"]') ||
-        document.querySelector('meta[property="twitter:image"]') ||
-        document.querySelector('meta[property="twitter:image:src"]');
+    const lens = q(document, 'lens:image');
+    const og = q(document, 'og:image');
+    const twitter = q(document, 'twitter:image') || q(document, 'twitter:image:src');
 
     if (lens) {
         return lens.getAttribute('content');
@@ -86,16 +71,9 @@ export function getImageUrl(document: Document): string | null {
 }
 
 export function getEmbedUrl(document: Document): string | null {
-    const lens =
-        document.querySelector('meta[name="lens:player"]') || document.querySelector('meta[property="lens:player"]');
-    const og =
-        document.querySelector('meta[name="og:video:url"]') ||
-        document.querySelector('meta[name="og:video:secure_url"]') ||
-        document.querySelector('meta[property="og:video:url"]') ||
-        document.querySelector('meta[property="og:video:secure_url"]');
-    const twitter =
-        document.querySelector('meta[name="twitter:player"]') ||
-        document.querySelector('meta[property="twitter:player"]');
+    const lens = q(document, 'lens:player');
+    const og = q(document, 'og:video:url') || q(document, 'og:video:secure_url');
+    const twitter = q(document, 'twitter:player');
 
     if (lens) {
         return lens.getAttribute('content');
@@ -109,10 +87,8 @@ export function getEmbedUrl(document: Document): string | null {
 }
 
 export function getIsLarge(document: Document): boolean {
-    const lens =
-        document.querySelector('meta[name="lens:card"]') || document.querySelector('meta[property="lens:card"]');
-    const twitter =
-        document.querySelector('meta[name="twitter:card"]') || document.querySelector('meta[property="twitter:card"]');
+    const lens = q(document, 'lens:card');
+    const twitter = q(document, 'twitter:card');
 
     const largeTypes = ['summary_large_image', 'player'];
 

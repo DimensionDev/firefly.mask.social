@@ -1,14 +1,34 @@
 import type { SourceInURL } from '@/helpers/resolveSource.js';
 import type { Cast } from '@/providers/types/Warpcast.js';
 
-export enum OpenGraphPayloadSourceType {
+export interface OpenGraphImage {
+    url: string;
+    base64?: string;
+    width?: number;
+    height?: number;
+}
+
+export interface OpenGraph {
+    type: 'website';
+    url: string;
+    favicon: string;
+    title: string | null;
+    description: string | null;
+    site: string | null;
+    image: OpenGraphImage | null;
+    isLarge: boolean;
+    html: string | null;
+    locale: string | null;
+}
+
+export enum PayloadType {
     Mirror = 'Mirror',
     Farcaster = 'Farcaster',
     Post = 'Post',
 }
 
 export interface MirrorPayload {
-    type: OpenGraphPayloadSourceType.Mirror;
+    type: PayloadType.Mirror;
     address?: `0x${string}`;
     timestamp?: number;
     ens?: string;
@@ -17,12 +37,24 @@ export interface MirrorPayload {
 }
 
 export interface FarcasterPayload {
-    type: OpenGraphPayloadSourceType.Farcaster;
+    type: PayloadType.Farcaster;
     cast: Cast;
 }
 
 export interface PostPayload {
-    type: OpenGraphPayloadSourceType.Post;
+    type: PayloadType.Post;
     id: string;
     source: SourceInURL;
+}
+
+export interface ImageDigested {
+    url: string;
+    width: number;
+    height: number;
+    base64: string;
+}
+
+export interface LinkDigested {
+    og: OpenGraph;
+    payload?: MirrorPayload | FarcasterPayload | PostPayload | null;
 }
