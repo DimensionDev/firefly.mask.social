@@ -18,7 +18,7 @@ const DisplayOptions = [
     },
     {
         value: Appearance.light,
-        label: <Trans>Light Mod e</Trans>,
+        label: <Trans>Light Mode</Trans>,
     },
     {
         value: Appearance.dark,
@@ -69,6 +69,7 @@ export default function Display() {
                 <OptionButton
                     key={index}
                     selected={option.value === locale}
+                    darkMode={mode === Appearance.dark ? true : false}
                     label={option.label}
                     onClick={async () => {
                         const data = new FormData();
