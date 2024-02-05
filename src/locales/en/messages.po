@@ -256,6 +256,9 @@ msgstr "{0, plural, one {<0/>} other {{1, plural, one {<1/> and <2/>} other {<3/
 msgid "Comment"
 msgstr "Comment"
 
+msgid "Allow replies from"
+msgstr "Allow replies from"
+
 msgid "Method not implemented."
 msgstr "Method not implemented."
 
@@ -270,6 +273,9 @@ msgstr "Unlike"
 
 msgid "Post has been hidden"
 msgstr "Post has been hidden"
+
+msgid "Everyone"
+msgstr "Everyone"
 
 msgid "The user declined the request."
 msgstr "The user declined the request."
@@ -295,9 +301,6 @@ msgstr "No post found"
 msgid "Lens"
 msgstr "Lens"
 
-msgid "Reply Restriction"
-msgstr "Reply Restriction"
-
 msgid "No session found."
 msgstr "No session found."
 
@@ -321,6 +324,9 @@ msgstr "Settings"
 
 msgid "Details"
 msgstr "Details"
+
+msgid "Light Mod e"
+msgstr "Light Mod e"
 
 msgid "Your Farcaster account is now connected."
 msgstr "Your Farcaster account is now connected."
@@ -508,6 +514,9 @@ msgstr "Firefly"
 msgid "Log out all"
 msgstr "Log out all"
 
+msgid "LuckyDrop"
+msgstr "LuckyDrop"
+
 msgid "{0} and others"
 msgstr "{0} and others"
 
@@ -517,8 +526,14 @@ msgstr "Share to"
 msgid "Unknown session type."
 msgstr "Unknown session type."
 
+msgid "Only people you follow"
+msgstr "Only people you follow"
+
 msgid "<0>You</0> and {0} recasted"
 msgstr "<0>You</0> and {0} recasted"
+
+msgid "Dark Mode"
+msgstr "Dark Mode"
 
 msgid "Online"
 msgstr "Online"
@@ -540,9 +555,6 @@ msgstr "Failed to upload image to IPFS: {0}"
 
 msgid "Confirm to log out these accounts?"
 msgstr "Confirm to log out these accounts?"
-
-msgid "Light mode"
-msgstr "Light mode"
 
 msgid "Your Lens account is now connected"
 msgstr "Your Lens account is now connected"
@@ -579,6 +591,9 @@ msgstr "Profile"
 
 msgid "Video"
 msgstr "Video"
+
+msgid "Language"
+msgstr "Language"
 
 msgid "Add a comment"
 msgstr "Add a comment"
@@ -627,9 +642,6 @@ msgstr "mirrored"
 
 msgid "Following"
 msgstr "Following"
-
-msgid "Dark mode"
-msgstr "Dark mode"
 
 msgid "<0>{0}</0> recasted"
 msgstr "<0>{0}</0> recasted"

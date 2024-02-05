@@ -3,14 +3,18 @@ import dayjs from 'dayjs';
 
 // @ts-ignore
 import { messages as en } from '@/locales/en/messages.mjs';
+// @ts-ignore
+import { messages as zhHans } from '@/locales/zh-Hans/messages.mjs';
 import { Locale } from '@/types/index.js';
 
 const locales: Record<Locale, Messages> = {
     [Locale.en]: en,
+    [Locale.zhHans]: zhHans,
 };
 
 export const supportedLocales: Record<Locale, string> = {
     [Locale.en]: 'English',
+    [Locale.zhHans]: '简体中文',
 };
 
 export const defaultLocale = Locale.en;

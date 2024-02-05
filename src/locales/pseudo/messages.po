@@ -256,6 +256,9 @@ msgstr ""
 msgid "Comment"
 msgstr ""
 
+msgid "Allow replies from"
+msgstr ""
+
 msgid "Method not implemented."
 msgstr ""
 
@@ -269,6 +272,9 @@ msgid "Unlike"
 msgstr ""
 
 msgid "Post has been hidden"
+msgstr ""
+
+msgid "Everyone"
 msgstr ""
 
 msgid "The user declined the request."
@@ -295,9 +301,6 @@ msgstr ""
 msgid "Lens"
 msgstr ""
 
-msgid "Reply Restriction"
-msgstr ""
-
 msgid "No session found."
 msgstr ""
 
@@ -320,6 +323,9 @@ msgid "Settings"
 msgstr ""
 
 msgid "Details"
+msgstr ""
+
+msgid "Light Mod e"
 msgstr ""
 
 msgid "Your Farcaster account is now connected."
@@ -508,6 +514,9 @@ msgstr ""
 msgid "Log out all"
 msgstr ""
 
+msgid "LuckyDrop"
+msgstr ""
+
 msgid "{0} and others"
 msgstr ""
 
@@ -517,7 +526,13 @@ msgstr ""
 msgid "Unknown session type."
 msgstr ""
 
+msgid "Only people you follow"
+msgstr ""
+
 msgid "<0>You</0> and {0} recasted"
+msgstr ""
+
+msgid "Dark Mode"
 msgstr ""
 
 msgid "Online"
@@ -539,9 +554,6 @@ msgid "Failed to upload image to IPFS: {0}"
 msgstr ""
 
 msgid "Confirm to log out these accounts?"
-msgstr ""
-
-msgid "Light mode"
 msgstr ""
 
 msgid "Your Lens account is now connected"
@@ -578,6 +590,9 @@ msgid "Profile"
 msgstr ""
 
 msgid "Video"
+msgstr ""
+
+msgid "Language"
 msgstr ""
 
 msgid "Add a comment"
@@ -626,9 +641,6 @@ msgid "mirrored"
 msgstr ""
 
 msgid "Following"
-msgstr ""
-
-msgid "Dark mode"
 msgstr ""
 
 msgid "<0>{0}</0> recasted"

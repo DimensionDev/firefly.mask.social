@@ -16,6 +16,7 @@ import RedPacketIcon from '@/assets/red-packet.svg';
 import Media from '@/components/Compose/Media.js';
 import PostBy from '@/components/Compose/PostBy.js';
 import ReplyRestriction from '@/components/Compose/ReplyRestriction.js';
+import { SourceIcon } from '@/components/SourceIcon.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -48,28 +49,25 @@ export default function ComposeAction(props: ComposeActionProps) {
         [editor],
     );
 
-    const lensHandle = currentLensProfile?.handle;
-    const farcasterHandle = currentFarcasterProfile?.handle;
-    const postByText = useMemo(() => {
+    const postBy = useMemo(() => {
         if (!post) {
-            return compact([
-                availableSources.includes(SocialPlatform.Lens) ? lensHandle : null,
-                availableSources.includes(SocialPlatform.Farcaster) ? farcasterHandle : null,
-            ])
-                .map((x) => `@${x}`)
-                .join(', ');
+            return compact(
+                availableSources.map((x) => {
+                    switch (x) {
+                        case SocialPlatform.Lens:
+                            return currentLensProfile?.source;
+                        case SocialPlatform.Farcaster:
+                            return currentFarcasterProfile?.source;
+                        default:
+                            safeUnreachable(x);
+                            return;
+                    }
+                }),
+            );
         } else {
-            switch (post.source) {
-                case SocialPlatform.Lens:
-                    return `@${lensHandle}`;
-                case SocialPlatform.Farcaster:
-                    return `@${farcasterHandle}`;
-                default:
-                    safeUnreachable(post.source);
-                    return '';
-            }
+            return [post.source];
         }
-    }, [lensHandle, farcasterHandle, availableSources, post]);
+    }, [availableSources, post, currentLensProfile, currentFarcasterProfile]);
 
     const [{ loading }, openRedPacketComposeDialog] = useAsyncFn(async () => {
         await connectMaskWithWagmi();
@@ -170,17 +168,23 @@ export default function ComposeAction(props: ComposeActionProps) {
                 ) : null}
 
                 <Tooltip content={t`Lucky Drop`} placement="top">
-                    <RedPacketIcon
-                        className={classNames('cursor-pointer', {
-                            'opacity-50': loading,
-                        })}
-                        width={25}
-                        height={25}
+                    <div
+                        className={classNames(
+                            'flex cursor-pointer items-center gap-x-2 rounded-[32px] border border-foreground px-3 py-1',
+                            {
+                                'opacity-50': loading,
+                            },
+                        )}
                         onClick={async () => {
                             if (loading) return;
                             openRedPacketComposeDialog();
                         }}
-                    />
+                    >
+                        <RedPacketIcon width={16} height={16} />
+                        <span className="text-[13px] font-medium leading-6 text-lightMain">
+                            <Trans>LuckyDrop</Trans>
+                        </span>
+                    </div>
                 </Tooltip>
             </div>
 
@@ -192,7 +196,11 @@ export default function ComposeAction(props: ComposeActionProps) {
                     {(_) => (
                         <>
                             <Popover.Button className=" flex cursor-pointer gap-1 text-main focus:outline-none">
-                                <span className=" text-[15px] font-bold">{postByText}</span>
+                                <span className="flex items-center gap-x-1 font-bold">
+                                    {postBy.map((x) => (
+                                        <SourceIcon key={x} source={x} size={20} />
+                                    ))}
+                                </span>
                                 {type === 'compose' && <ChevronRightIcon className="h-5 w-5" aria-hidden="true" />}
                             </Popover.Button>
                             {!post ? <PostBy /> : null}
@@ -203,7 +211,7 @@ export default function ComposeAction(props: ComposeActionProps) {
 
             <div className=" flex h-9 items-center justify-between">
                 <span className=" text-[15px] text-secondary">
-                    <Trans>Reply Restriction</Trans>
+                    <Trans>Allow replies from</Trans>
                 </span>
                 <Popover as="div" className="relative">
                     {(_) => (
@@ -211,9 +219,9 @@ export default function ComposeAction(props: ComposeActionProps) {
                             <Popover.Button className=" flex cursor-pointer gap-1 text-main focus:outline-none">
                                 <span className=" text-[15px] font-bold">
                                     {restriction === 0 ? (
-                                        <Trans>Everyone can reply</Trans>
+                                        <Trans>Everyone</Trans>
                                     ) : (
-                                        <Trans>Only people you follow can reply</Trans>
+                                        <Trans>Only people you follow</Trans>
                                     )}
                                 </span>
                                 <ChevronRightIcon className="h-5 w-5" aria-hidden="true" />
