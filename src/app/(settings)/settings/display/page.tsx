@@ -2,13 +2,12 @@
 
 import { Trans } from '@lingui/macro';
 import { Appearance } from '@masknet/public-api';
-import { getCookie } from '@masknet/shared-base';
 import { useMemo } from 'react';
 import { useMediaQuery } from 'usehooks-ts';
 
 import { OptionButton } from '@/app/(settings)/components/OptionButton.js';
 import { changeLocale } from '@/app/actions.js';
-import { resolveLocale } from '@/helpers/resolveLocale.js';
+import { getLocaleFromCookies } from '@/helpers/getLocaleFromCookies.js';
 import { useThemeModeStore } from '@/store/useThemeModeStore.js';
 import { Locale } from '@/types/index.js';
 
@@ -42,7 +41,7 @@ export default function Display() {
     const setThemeMode = useThemeModeStore.use.setThemeMode();
     const mode = useThemeModeStore.use.themeMode();
     const isDarkOS = useMediaQuery('(prefers-color-scheme: dark)');
-    const locale = useMemo(() => resolveLocale(getCookie('locale')), []);
+    const locale = useMemo(() => getLocaleFromCookies(), []);
 
     return (
         <div className="flex w-full flex-col items-center p-[24px]">
