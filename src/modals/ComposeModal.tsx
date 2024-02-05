@@ -82,6 +82,7 @@ export const ComposeModalComponent = forwardRef<SingletonModalRefCreator<Compose
         updateType,
         updateCurrentSource,
         updatePost,
+        updateChars,
         updateTypedMessage,
         updateRedpacketProps,
         clear,
@@ -99,6 +100,7 @@ export const ComposeModalComponent = forwardRef<SingletonModalRefCreator<Compose
             if (props.typedMessage) updateTypedMessage(props.typedMessage);
             if (props.post) updatePost(props.post);
             if (props.chars && typeof props.chars === 'string') {
+                updateChars(props.chars);
                 setEditorContent(props.chars);
             }
             if (props.redpacketProps) updateRedpacketProps(props.redpacketProps);
@@ -145,6 +147,7 @@ export const ComposeModalComponent = forwardRef<SingletonModalRefCreator<Compose
 
             editor.update(() => {
                 const root = $getRoot();
+                root.clear();
                 const hashTagParagraph = $createParagraphNode();
                 const paragraph = $createParagraphNode();
 
