@@ -397,6 +397,9 @@ msgstr "No comments found"
 msgid "Please visit from a desktop browser."
 msgstr "Please visit from a desktop browser."
 
+msgid "There is something wrong with the frame. Please try again."
+msgstr "There is something wrong with the frame. Please try again."
+
 msgid "Discard"
 msgstr "Discard"
 

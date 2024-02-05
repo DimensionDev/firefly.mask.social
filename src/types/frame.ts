@@ -1,7 +1,19 @@
+export type Index = 1 | 2 | 3 | 4;
+
+export enum ActionType {
+    Post = 'post',
+    PostRedirect = 'post_redirect',
+}
+
+export interface FrameInput {
+    label: string;
+    placeholder?: string;
+}
+
 export interface FrameButton {
-    index: 1 | 2 | 3 | 4;
+    index: Index;
     text: string;
-    action: 'post' | 'post_redirect';
+    action: ActionType;
 }
 
 export interface FrameImage {
@@ -20,6 +32,8 @@ export interface Frame {
     image: FrameImage;
     // fc:frame:post_url
     postUrl: string;
+    // fc:frame:input:text
+    input: FrameInput | null;
     // fc:frame:button:$idx and fc:frame:button:$idx:action
     buttons: FrameButton[];
     // fc:frame:refresh_period

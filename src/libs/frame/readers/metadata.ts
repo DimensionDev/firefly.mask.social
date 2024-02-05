@@ -1,7 +1,7 @@
 import { compact, last } from 'lodash-es';
 
 import { q, qsAll } from '@/helpers/q.js';
-import type { FrameButton } from '@/types/frame.js';
+import type { FrameButton, FrameInput } from '@/types/frame.js';
 
 export function getTitle(document: Document): string | null {
     return (
@@ -37,6 +37,12 @@ export function getRefreshPeriod(document: Document): number | null {
     if (Number.isNaN(parsedPeriod) || parsedPeriod < 0) return null;
 
     return parsedPeriod;
+}
+
+export function getInput(document: Document): FrameInput | null {
+    const placeholder = q(document, 'fc:frame:input:text')?.getAttribute('content') ?? '';
+    if (placeholder) return { placeholder };
+    return null;
 }
 
 export function getButtons(document: Document): FrameButton[] {

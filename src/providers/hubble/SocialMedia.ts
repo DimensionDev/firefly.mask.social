@@ -1,4 +1,4 @@
-import { Message } from '@farcaster/hub-web';
+import { Message, MessageType, ReactionType } from '@farcaster/hub-web';
 import { t } from '@lingui/macro';
 import type { Pageable, PageIndicator } from '@masknet/shared-base';
 import { toInteger } from 'lodash-es';
@@ -10,10 +10,10 @@ import { EMPTY_LIST, FIREFLY_HUBBLE_URL, FIREFLY_ROOT_URL } from '@/constants/in
 import { encodeMessageData } from '@/helpers/encodeMessageData.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import type { FarcasterSession } from '@/providers/farcaster/Session.js';
-import { MessageType, ReactionType } from '@/providers/hubble/proto/message.js';
 import type { UserResponse } from '@/providers/types/Firefly.js';
 import { type Post, type Profile, ProfileStatus, type Provider, SessionType } from '@/providers/types/SocialMedia.js';
 import { ReactionType as ReactionTypeCustom } from '@/providers/types/SocialMedia.js';
+import type { Frame, Index } from '@/types/frame.js';
 
 // @ts-ignore
 export class HubbleSocialMedia implements Provider {
@@ -295,12 +295,31 @@ export class HubbleSocialMedia implements Provider {
         return null!;
     }
 
-    searchProfiles(q: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
-        throw new Error(t`Method not implemented.`);
+    async validateMessage(bytes: Buffer) {
+        const url = urlcat(FIREFLY_HUBBLE_URL, '/v1/validateMessage');
+        const { valid, message } = await fetchJSON<{ valid: boolean; message: Message }>(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/octet-stream' },
+            body: bytes,
+        });
+
+        if (valid) return true;
+        return false;
     }
 
-    searchPosts(q: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        throw new Error(t`Method not implemented.`);
+    async generateFrameActionForPost(postId: string, frame: Frame, index: Index, input?: string) {
+        return encodeMessageData((fid) => ({
+            type: MessageType.FRAME_ACTION,
+            frameActionBody: {
+                url: toBytes(frame.url),
+                buttonIndex: index,
+                castId: {
+                    fid,
+                    hash: toBytes(postId),
+                },
+                inputText: input ? toBytes(input) : new Uint8Array([]),
+            },
+        }));
     }
 }
 
