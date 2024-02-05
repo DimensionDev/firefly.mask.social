@@ -23,11 +23,11 @@ const inter = Inter({
     variable: '--font-inter',
 });
 
-setLocale(getLocaleFromCookies());
-
 export const metadata = createSiteMetadata();
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+    setLocale(getLocaleFromCookies());
+
     return (
         <html lang="en">
             <head>

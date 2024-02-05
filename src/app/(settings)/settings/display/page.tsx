@@ -5,8 +5,8 @@ import { Appearance } from '@masknet/public-api';
 import { useMemo } from 'react';
 import { useMediaQuery } from 'usehooks-ts';
 
+import { changeLocale } from '@/actions/changeLocale.js';
 import { OptionButton } from '@/app/(settings)/components/OptionButton.js';
-import { changeLocale } from '@/app/actions.js';
 import { getLocaleFromCookies } from '@/helpers/getLocaleFromCookies.js';
 import { useThemeModeStore } from '@/store/useThemeModeStore.js';
 import { Locale } from '@/types/index.js';
@@ -18,7 +18,7 @@ const DisplayOptions = [
     },
     {
         value: Appearance.light,
-        label: <Trans>Light Mode</Trans>,
+        label: <Trans>Light Mod e</Trans>,
     },
     {
         value: Appearance.dark,
