@@ -330,6 +330,9 @@ msgstr "设置"
 msgid "Details"
 msgstr "详情"
 
+msgid "Light Mod e"
+msgstr ""
+
 msgid "Your Farcaster account is now connected."
 msgstr "你的 Farcaster 账号已经连接。"
 
@@ -534,6 +537,9 @@ msgstr ""
 msgid "<0>You</0> and {0} recasted"
 msgstr ""
 
+msgid "Dark Mode"
+msgstr ""
+
 msgid "Online"
 msgstr "在线"
 
@@ -554,9 +560,6 @@ msgstr "未能上传图片到 IPFS: {0}"
 
 msgid "Confirm to log out these accounts?"
 msgstr "确认登出这些账号？"
-
-msgid "Light mode"
-msgstr "明亮模式"
 
 msgid "Your Lens account is now connected"
 msgstr "你的 Lens 账号已经连接。"
@@ -593,6 +596,9 @@ msgstr "个人信息"
 
 msgid "Video"
 msgstr "视频"
+
+msgid "Language"
+msgstr ""
 
 msgid "Add a comment"
 msgstr "添加一个评论"
@@ -642,9 +648,6 @@ msgstr "已转发"
 msgid "Following"
 msgstr "已关注"
 
-msgid "Dark mode"
-msgstr "深色模式"
-
 msgid "<0>{0}</0> recasted"
 msgstr "<0>{0}</0> 已转发"
 
@@ -659,4 +662,3 @@ msgstr "在 {1} 上回复 <0>@{0}</0>"
 
 msgid "<0/> quoted your <1><2/></1>"
 msgstr "<0/> 引用了你的 <1><2/></1>"
-
