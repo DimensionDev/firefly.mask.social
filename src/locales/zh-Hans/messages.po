@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-02-03 00:04\n"
+"PO-Revision-Date: 2024-02-05 00:04\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -261,6 +261,9 @@ msgstr "{0, plural, one {<0/>} other {{1, plural, one {<1/> 和 <2/>} other {<3/
 msgid "Comment"
 msgstr "评论"
 
+msgid "Allow replies from"
+msgstr ""
+
 msgid "Method not implemented."
 msgstr "方法未实现。"
 
@@ -275,6 +278,9 @@ msgstr ""
 
 msgid "Post has been hidden"
 msgstr "帖子已经被隐藏"
+
+msgid "Everyone"
+msgstr ""
 
 msgid "The user declined the request."
 msgstr ""
@@ -299,9 +305,6 @@ msgstr "未找到帖子"
 
 msgid "Lens"
 msgstr "Lens"
-
-msgid "Reply Restriction"
-msgstr "回复限制"
 
 msgid "No session found."
 msgstr "未找到会话"
@@ -513,6 +516,9 @@ msgstr "Firefly"
 msgid "Log out all"
 msgstr "登出所有"
 
+msgid "LuckyDrop"
+msgstr ""
+
 msgid "{0} and others"
 msgstr "{0} 和 其他"
 
@@ -521,6 +527,9 @@ msgstr ""
 
 msgid "Unknown session type."
 msgstr "未知会话类型。"
+
+msgid "Only people you follow"
+msgstr ""
 
 msgid "<0>You</0> and {0} recasted"
 msgstr ""
