@@ -330,9 +330,6 @@ msgstr "设置"
 msgid "Details"
 msgstr "详情"
 
-msgid "Light Mod e"
-msgstr ""
-
 msgid "Your Farcaster account is now connected."
 msgstr "你的 Farcaster 账号已经连接。"
 
@@ -413,6 +410,9 @@ msgstr "签名"
 
 msgid "Follow @thefireflyapp on X"
 msgstr "在 X 上关注 @thefireflyapp"
+
+msgid "Light Mode"
+msgstr ""
 
 msgid "Please switch to the {chainName} network in your wallet."
 msgstr ""

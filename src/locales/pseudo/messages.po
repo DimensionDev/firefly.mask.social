@@ -325,9 +325,6 @@ msgstr ""
 msgid "Details"
 msgstr ""
 
-msgid "Light Mod e"
-msgstr ""
-
 msgid "Your Farcaster account is now connected."
 msgstr ""
 
@@ -407,6 +404,9 @@ msgid "Sign"
 msgstr ""
 
 msgid "Follow @thefireflyapp on X"
+msgstr ""
+
+msgid "Light Mode"
 msgstr ""
 
 msgid "Please switch to the {chainName} network in your wallet."
