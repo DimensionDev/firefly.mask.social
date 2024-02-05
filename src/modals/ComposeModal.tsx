@@ -147,6 +147,7 @@ export const ComposeModalComponent = forwardRef<SingletonModalRefCreator<Compose
 
             editor.update(() => {
                 const root = $getRoot();
+                root.clear();
                 const hashTagParagraph = $createParagraphNode();
                 const paragraph = $createParagraphNode();
 
