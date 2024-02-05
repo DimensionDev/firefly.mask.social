@@ -199,9 +199,6 @@ msgstr ""
 msgid "Failed to fetch as Text."
 msgstr ""
 
-msgid "Lucky Drop"
-msgstr ""
-
 msgid "Add an existing account"
 msgstr ""
 
@@ -274,9 +271,6 @@ msgstr ""
 msgid "Post has been hidden"
 msgstr ""
 
-msgid "Everyone"
-msgstr ""
-
 msgid "The user declined the request."
 msgstr ""
 
@@ -323,9 +317,6 @@ msgid "Settings"
 msgstr ""
 
 msgid "Details"
-msgstr ""
-
-msgid "Light Mod e"
 msgstr ""
 
 msgid "Your Farcaster account is now connected."
@@ -407,6 +398,9 @@ msgid "Sign"
 msgstr ""
 
 msgid "Follow @thefireflyapp on X"
+msgstr ""
+
+msgid "Light Mode"
 msgstr ""
 
 msgid "Please switch to the {chainName} network in your wallet."
@@ -524,9 +518,6 @@ msgid "Share to"
 msgstr ""
 
 msgid "Unknown session type."
-msgstr ""
-
-msgid "Only people you follow"
 msgstr ""
 
 msgid "<0>You</0> and {0} recasted"

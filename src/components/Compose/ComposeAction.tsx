@@ -167,25 +167,23 @@ export default function ComposeAction(props: ComposeActionProps) {
                     </>
                 ) : null}
 
-                <Tooltip content={t`Lucky Drop`} placement="top">
-                    <div
-                        className={classNames(
-                            'flex cursor-pointer items-center gap-x-2 rounded-[32px] border border-foreground px-3 py-1',
-                            {
-                                'opacity-50': loading,
-                            },
-                        )}
-                        onClick={async () => {
-                            if (loading) return;
-                            openRedPacketComposeDialog();
-                        }}
-                    >
-                        <RedPacketIcon width={16} height={16} />
-                        <span className="text-[13px] font-medium leading-6 text-lightMain">
-                            <Trans>LuckyDrop</Trans>
-                        </span>
-                    </div>
-                </Tooltip>
+                <div
+                    className={classNames(
+                        'flex cursor-pointer items-center gap-x-2 rounded-[32px] border border-foreground px-3 py-1',
+                        {
+                            'opacity-50': loading,
+                        },
+                    )}
+                    onClick={async () => {
+                        if (loading) return;
+                        openRedPacketComposeDialog();
+                    }}
+                >
+                    <RedPacketIcon width={16} height={16} />
+                    <span className="text-[13px] font-medium leading-6 text-lightMain">
+                        <Trans>LuckyDrop</Trans>
+                    </span>
+                </div>
             </div>
 
             <div className=" flex h-9 items-center justify-between">
@@ -219,9 +217,9 @@ export default function ComposeAction(props: ComposeActionProps) {
                             <Popover.Button className=" flex cursor-pointer gap-1 text-main focus:outline-none">
                                 <span className=" text-[15px] font-bold">
                                     {restriction === 0 ? (
-                                        <Trans>Everyone</Trans>
+                                        <Trans>Everyone can reply</Trans>
                                     ) : (
-                                        <Trans>Only people you follow</Trans>
+                                        <Trans>Only people you follow can reply</Trans>
                                     )}
                                 </span>
                                 <ChevronRightIcon className="h-5 w-5" aria-hidden="true" />
