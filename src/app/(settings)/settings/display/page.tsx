@@ -69,7 +69,7 @@ export default function Display() {
                 <OptionButton
                     key={index}
                     selected={option.value === locale}
-                    darkMode={mode === Appearance.dark ? true : false}
+                    darkMode={mode === Appearance.dark}
                     label={option.label}
                     onClick={async () => {
                         const data = new FormData();
