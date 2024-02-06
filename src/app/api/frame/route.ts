@@ -60,11 +60,20 @@ export async function POST(request: Request) {
                 body: JSON.stringify(packet),
             });
 
+            console.log('DEBUG: response code');
+            console.log({
+                postUrl,
+                status: response.status,
+                ok: response.ok,
+                data: await response.text(),
+            });
+
             if (!response.ok || response.status !== 200)
                 return Response.json(
                     { error: 'The frame server cannot handle the post request correctly.' },
                     { status: 500 },
                 );
+
             return createSuccessResponseJSON(
                 await FrameProcessor.digestDocument(url, await response.text(), request.signal),
             );
@@ -75,6 +84,15 @@ export async function POST(request: Request) {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(packet),
             });
+
+            console.log('DEBUG: response');
+            console.log({
+                postUrl,
+                status: response.status,
+                ok: response.ok,
+                data: await response.text(),
+            });
+
             if (!response.ok || response.status !== 302)
                 return Response.json(
                     { error: 'The frame server cannot handle the post_redirect request correctly.' },
