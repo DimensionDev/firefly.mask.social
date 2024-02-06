@@ -99,16 +99,16 @@ export function Frame({ postId, url, onData, children }: FrameProps) {
     const frame: Frame = latestFrame ?? data.data.frame;
 
     return (
-        <div className=" mt-4 rounded-md text-sm">
+        <div className=" mt-4 rounded-xl text-sm">
             <div className="relative">
                 {loading ? (
                     <div
-                        className=" z10 absolute inset-0 overflow-hidden rounded-md bg-white dark:bg-bg"
+                        className=" z10 absolute inset-0 overflow-hidden rounded-xl bg-white dark:bg-bg"
                         style={{ boxShadow: '0px 0px 20px 0px rgba(0, 0, 0, 0.05)', backdropFilter: 'blur(4px)' }}
                     />
                 ) : null}
                 <Image
-                    className="divider aspect-2 w-full rounded-t-xl object-cover"
+                    className="divider aspect-2 w-full rounded-xl object-cover"
                     unoptimized
                     priority={false}
                     src={frame.image.url}
