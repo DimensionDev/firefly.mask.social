@@ -46,6 +46,7 @@ export async function POST(request: Request) {
     if (!parsedFrameAction.success) return Response.json({ error: parsedFrameAction.error.message }, { status: 400 });
 
     const { action, url, postUrl } = parsedFrameAction.data;
+
     const packet = await request.clone().json();
 
     switch (action) {

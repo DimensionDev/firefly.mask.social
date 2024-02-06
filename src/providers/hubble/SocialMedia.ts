@@ -138,8 +138,8 @@ export class HubbleSocialMedia implements Provider {
             reactionBody: {
                 type: ReactionType.LIKE,
                 targetCastId: {
-                    hash: toBytes(postId),
                     fid: authorId,
+                    hash: toBytes(postId),
                 },
             },
         }));
@@ -166,8 +166,8 @@ export class HubbleSocialMedia implements Provider {
             reactionBody: {
                 type: ReactionType.LIKE,
                 targetCastId: {
-                    hash: toBytes(postId),
                     fid: authorId,
+                    hash: toBytes(postId),
                 },
             },
         }));
@@ -330,7 +330,7 @@ export class HubbleSocialMedia implements Provider {
             untrustedData: {
                 fid: messageData.fid,
                 url: frame.url,
-                messageHash: bytesToHex(messageHash),
+                messageHash: `0x${Buffer.from(messageHash).toString('hex')}`,
                 timestamp: messageData.timestamp,
                 network: messageData.network,
                 buttonIndex: index,
@@ -341,7 +341,7 @@ export class HubbleSocialMedia implements Provider {
                 },
             },
             trustedData: {
-                messageBytes: bytesToHex(bytes),
+                messageBytes: `0x${Buffer.from(bytes).toString('hex')}`,
             },
         };
     }
