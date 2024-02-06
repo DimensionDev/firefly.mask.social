@@ -4,13 +4,13 @@ import { useEffect, useRef, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 import urlcat from 'urlcat';
 
-import LinkIcon from '@/assets/link.svg';
+import { Button } from '@/components/Frame/Button.js';
+import { Input } from '@/components/Frame/Input.js';
 import { Image } from '@/esm/Image.js';
-import { classNames } from '@/helpers/classNames.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
 import { HubbleSocialMediaProvider } from '@/providers/hubble/SocialMedia.js';
-import { ActionType, type Frame, type FrameButton, type LinkDigested } from '@/types/frame.js';
+import { type Frame, type FrameButton, type LinkDigested } from '@/types/frame.js';
 import type { ResponseJSON } from '@/types/index.js';
 
 interface FrameProps {
@@ -120,12 +120,7 @@ export function Frame({ postId, url, onData, children }: FrameProps) {
             </div>
             {frame.input ? (
                 <div className="mt-2 flex">
-                    <input
-                        className="w-full rounded-md border border-line bg-white px-2 py-1.5 dark:bg-darkBottom dark:text-white"
-                        type="text"
-                        placeholder={frame.input.placeholder}
-                        ref={inputRef}
-                    />
+                    <Input input={frame.input} ref={inputRef} />
                 </div>
             ) : null}
             {frame.buttons.length ? (
@@ -135,28 +130,14 @@ export function Frame({ postId, url, onData, children }: FrameProps) {
                         .sort((a, z) => a.index - z.index)
                         ?.map((button) => {
                             return (
-                                <button
-                                    className={classNames(
-                                        'flex flex-1 justify-center rounded-md border border-line bg-white py-2 text-main disabled:opacity-70 dark:bg-darkBottom dark:text-white',
-                                        {
-                                            'hover:bg-bg': !loading,
-                                            'hover:cursor-pointer': !loading,
-                                        },
-                                    )}
-                                    disabled={loading}
+                                <Button
                                     key={button.index}
-                                    onClick={(ev) => {
-                                        ev.stopPropagation();
-                                        ev.preventDefault();
-
+                                    button={button}
+                                    disabled={loading}
+                                    onClick={() => {
                                         if (!loading) handleClick(button, inputRef.current?.value);
                                     }}
-                                >
-                                    <span>{button.text}</span>
-                                    {button.action === ActionType.PostRedirect ? (
-                                        <LinkIcon width={20} height={20} />
-                                    ) : null}
-                                </button>
+                                />
                             );
                         })}
                 </div>

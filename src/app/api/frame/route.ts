@@ -49,17 +49,19 @@ export async function POST(request: Request) {
 
     const { action, url, postUrl } = parsedFrameAction.data;
 
-    const packet = await request.clone().json()
+    const packet = await request.clone().json();
 
     try {
-        const result = await HubbleSocialMediaProvider.validateMessage(Buffer.from((packet as FrameSignaturePacket).trustedData.messageBytes))
-        console.log('DEBUG: result')
+        const result = await HubbleSocialMediaProvider.validateMessage(
+            Buffer.from((packet as FrameSignaturePacket).trustedData.messageBytes),
+        );
+        console.log('DEBUG: result');
         console.log({
             result,
-        })
+        });
     } catch (error) {
-        console.log('DEBUG: error')
-        console.log(error)
+        console.log('DEBUG: error');
+        console.log(error);
     }
 
     switch (action) {
