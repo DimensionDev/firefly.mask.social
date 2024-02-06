@@ -1,31 +1,45 @@
-name: Sync Submodules
+name: Sync Submodule
 
 on:
-    schedule:
-        - cron: '0 0 * * *' # Run at midnight every day
+  schedule:
+    - cron: '0 0 * * *' # every day at 00:00 (midnight)
+    - cron: '0 12 * * *' # every day at 12:00 PM (noon)
+  workflow_dispatch:
 
 jobs:
-    sync-submodules:
-        runs-on: ubuntu-latest
+  sync-submodule:
+    runs-on: ubuntu-latest
 
-        steps:
-            - name: Checkout repository
-              uses: actions/checkout@v2
+    env:
+      SUBMODULE_BRANCH: ${{ secrets.SUBMODULE_BRANCH }}
 
-            - name: Update submodules
-              run: |
-                  git submodule update --recursive --remote
-
-            - name: Check for changes
-              id: submodule_changes
-              run: |
-                  git diff-index --quiet HEAD || echo "Submodules have changes"
-
-            - name: Create pull request
-              if: steps.submodule_changes.outputs.submodules == 'Submodules have changes'
-              uses: peter-evans/create-pull-request@v4
-              with:
-                  branch: sync-submodules
-                  commit-message: 'Sync submodules'
-                  title: 'Sync submodules'
-                  body: 'This pull request updates submodules to the latest commit.'
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        
+      - name: Checkout submodule
+        run: git submodule update --init --recursive
+        
+      - name: Fetch latest changes in submodule branch
+        run: git -C /src/maskbook fetch origin $SUBMODULE_BRANCH
+        
+      - name: Check for changes
+        run: |
+          if [[ $(git -C /src/maskbook rev-parse HEAD) != $(git -C /src/maskbook rev-parse origin/$SUBMODULE_BRANCH) ]]; then
+            echo "::set-output name=changes::true"
+          else
+            echo "::set-output name=changes::false"
+          fi
+        id: check_changes
+        
+      - name: Create pull request
+        if: steps.check_changes.outputs.changes == 'true'
+        uses: peter-evans/create-pull-request@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: sync-submodule-changes
+          title: 'Sync changes from submodule'
+          body: 'This pull request syncs the changes from the submodule.'
+          commit-message: 'chore: Sync submodule changes'
+          base: main
+          labels: 'automated'
