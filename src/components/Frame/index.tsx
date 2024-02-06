@@ -119,7 +119,12 @@ export function Frame({ postId, url, onData, children }: FrameProps) {
             </div>
             {frame.input ? (
                 <div className="mt-2 flex">
-                    <input className="w-full" type="text" placeholder={frame.input.label} ref={inputRef} />
+                    <input
+                        className="w-full rounded-md border border-line bg-white px-2 py-1.5 dark:bg-darkBottom dark:text-white"
+                        type="text"
+                        placeholder={frame.input.placeholder}
+                        ref={inputRef}
+                    />
                 </div>
             ) : null}
             {frame.buttons.length ? (
@@ -131,7 +136,7 @@ export function Frame({ postId, url, onData, children }: FrameProps) {
                             return (
                                 <button
                                     className={classNames(
-                                        'flex-1 rounded-md border border-neutral-900 bg-white py-2 text-slate-950 disabled:opacity-70 dark:border-line dark:bg-darkBottom dark:text-white',
+                                        'flex-1 rounded-md border border-line bg-white py-2 text-main disabled:opacity-70 dark:bg-darkBottom dark:text-white',
                                         {
                                             'hover:bg-bg': !loading,
                                             'hover:cursor-pointer': !loading,
