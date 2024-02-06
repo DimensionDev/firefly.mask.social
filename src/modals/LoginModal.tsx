@@ -103,6 +103,7 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | 
         onClose: async () => {
             // setSource will trigger a re-render, so we need to delay the setSource(undefined) to avoid the re-render
             await delay(500);
+            setIsDirectly(false);
             setSource(undefined);
         },
     });
