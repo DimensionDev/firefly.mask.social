@@ -1,4 +1,5 @@
 import { t } from '@lingui/macro';
+import { openWindow } from '@masknet/shared-base-ui';
 import { useQuery } from '@tanstack/react-query';
 import { useEffect, useRef, useState } from 'react';
 import { useAsyncFn } from 'react-use';
@@ -9,8 +10,9 @@ import { Input } from '@/components/Frame/Input.js';
 import { Image } from '@/esm/Image.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
+import { ConfirmModalRef } from '@/modals/controls.js';
 import { HubbleSocialMediaProvider } from '@/providers/hubble/SocialMedia.js';
-import { type Frame, type FrameButton, type LinkDigested } from '@/types/frame.js';
+import { ActionType, type Frame, type FrameButton, type LinkDigested } from '@/types/frame.js';
 import type { ResponseJSON } from '@/types/index.js';
 
 interface FrameProps {
@@ -65,7 +67,7 @@ export function Frame({ postId, url, onData, children }: FrameProps) {
                     button.index,
                     input,
                 );
-                const response = await fetchJSON<ResponseJSON<LinkDigested>>(url, {
+                const response = await fetchJSON<ResponseJSON<LinkDigested | { redirectUrl: string }>>(url, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -73,22 +75,38 @@ export function Frame({ postId, url, onData, children }: FrameProps) {
                     body: JSON.stringify(packet),
                 });
 
-                const nextFrame = response.success ? response.data.frame : null;
-                if (!nextFrame)
-                    return enqueueSnackbar(t`There is something wrong with the frame. Please try again.`, {
-                        variant: 'error',
-                    });
+                switch (button.action) {
+                    case ActionType.Post:
+                        const nextFrame = response.success ? (response.data as LinkDigested).frame : null;
+                        if (!nextFrame)
+                            return enqueueSnackbar(t`The frame server failed to process the request.`, {
+                                variant: 'error',
+                            });
 
-                setLatestFrame(nextFrame);
+                        setLatestFrame(nextFrame);
+                        break;
+                    case ActionType.PostRedirect:
+                        const redirectUrl = response.success
+                            ? (response.data as { redirectUrl: string }).redirectUrl
+                            : null;
+                        if (!redirectUrl)
+                            return enqueueSnackbar(t`The frame server failed to process the request.`, {
+                                variant: 'error',
+                            });
+
+                        const confirmed = await ConfirmModalRef.openAndWaitForClose({
+                            title: t`Leaving Firefly`,
+                            content: t`Please be cautious when connecting your wallet, as malicious websites may attempt to access your funds.`,
+                        });
+                        if (!confirmed) return;
+
+                        openWindow(redirectUrl, '_blank');
+                        break;
+                }
             } catch (error) {
-                enqueueSnackbar(
-                    error instanceof Error
-                        ? error.message
-                        : t`There is something wrong with the frame. Please try again.`,
-                    {
-                        variant: 'error',
-                    },
-                );
+                enqueueSnackbar(error instanceof Error ? error.message : t`Something went wrong. Please try again.`, {
+                    variant: 'error',
+                });
             }
             return;
         },

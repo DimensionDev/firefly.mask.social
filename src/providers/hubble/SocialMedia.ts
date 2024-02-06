@@ -296,12 +296,12 @@ export class HubbleSocialMedia implements Provider {
         return null!;
     }
 
-    async validateMessage(bytes: Buffer) {
+    async validateMessage(messageBytes: string) {
         const url = urlcat(FIREFLY_HUBBLE_URL, '/v1/validateMessage');
         const { valid, message } = await fetchJSON<{ valid: boolean; message: Message }>(url, {
             method: 'POST',
             headers: { 'Content-Type': 'application/octet-stream' },
-            body: bytes,
+            body: Buffer.from(messageBytes, 'hex'),
         });
 
         if (valid) return true;

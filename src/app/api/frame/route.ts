@@ -5,8 +5,6 @@ import { KeyType } from '@/constants/enum.js';
 import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
 import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
 import { FrameProcessor } from '@/libs/frame/Processor.js';
-import { HubbleSocialMediaProvider } from '@/providers/hubble/SocialMedia.js';
-import type { FrameSignaturePacket } from '@/providers/types/Hubble.js';
 import { ActionType } from '@/types/frame.js';
 
 const digestLinkRedis = memoizeWithRedis(FrameProcessor.digestDocumentUrl, {
@@ -50,37 +48,28 @@ export async function POST(request: Request) {
     const { action, url, postUrl } = parsedFrameAction.data;
 
     const packet = await request.clone().json();
+    const response = await fetch(postUrl, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(packet),
+    });
 
-    try {
-        const result = await HubbleSocialMediaProvider.validateMessage(
-            Buffer.from((packet as FrameSignaturePacket).trustedData.messageBytes),
-        );
-        console.log('DEBUG: result');
-        console.log({
-            result,
-        });
-    } catch (error) {
-        console.log('DEBUG: error');
-        console.log(error);
-    }
+    console.log('DEBUG: response');
+    console.log({
+        url,
+        postUrl,
+        action,
+        packet,
+        code: response.status,
+        statusText: response.statusText,
+        location: response.headers.get('Location'),
+        data: await response.clone().text(),
+    });
 
     switch (action) {
-        case ActionType.Post: {
-            const response = await fetch(postUrl, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(packet),
-            });
-
-            console.log('DEBUG: response');
-            console.log({
-                postUrl,
-                packet,
-                data: await response.clone().text(),
-            });
-
+        case ActionType.Post:
             if (!response.ok || response.status !== 200)
                 return Response.json(
                     { error: 'The frame server cannot handle the post request correctly.' },
@@ -90,33 +79,20 @@ export async function POST(request: Request) {
             return createSuccessResponseJSON(
                 await FrameProcessor.digestDocument(url, await response.text(), request.signal),
             );
-        }
-        case ActionType.PostRedirect: {
-            const response = await fetch(postUrl, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(packet),
-            });
-
-            console.log('DEBUG: response');
-            console.log({
-                postUrl,
-                packet,
-                data: await response.clone().text(),
-            });
-
+        case ActionType.PostRedirect:
             if (!response.ok || response.status !== 302)
                 return Response.json(
                     { error: 'The frame server cannot handle the post_redirect request correctly.' },
                     { status: 500 },
                 );
 
-            const nextUrl = response.headers.get('Location');
-            if (!nextUrl || !HttpUrlSchema.safeParse(nextUrl).success)
+            const redirectUrl = response.headers.get('Location');
+            if (!redirectUrl || !HttpUrlSchema.safeParse(redirectUrl).success)
                 return Response.json({ error: 'The frame server does not return a Location header.' }, { status: 500 });
 
-            return createSuccessResponseJSON(await digestLinkRedis(nextUrl, request.signal));
-        }
+            return createSuccessResponseJSON({
+                redirectUrl,
+            });
         default:
             safeUnreachable(action);
             return Response.json({ error: `Unknown action: ${action}` }, { status: 400 });
