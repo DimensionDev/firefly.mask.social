@@ -11,9 +11,10 @@ import { encodeMessageData } from '@/helpers/encodeMessageData.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import type { FarcasterSession } from '@/providers/farcaster/Session.js';
 import type { UserResponse } from '@/providers/types/Firefly.js';
+import type { FrameSignaturePacket, SignaturePacket } from '@/providers/types/Hubble.js';
 import { type Post, type Profile, ProfileStatus, type Provider, SessionType } from '@/providers/types/SocialMedia.js';
 import { ReactionType as ReactionTypeCustom } from '@/providers/types/SocialMedia.js';
-import type { Frame, FrameSignaturePacket, Index } from '@/types/frame.js';
+import type { Frame, Index } from '@/types/frame.js';
 
 // @ts-ignore
 export class HubbleSocialMedia implements Provider {
@@ -307,7 +308,7 @@ export class HubbleSocialMedia implements Provider {
         return false;
     }
 
-    async generateSignaturePacket() {
+    async generateSignaturePacket(): Promise<SignaturePacket> {
         const { signer, messageHash, messageSignature } = await encodeMessageData(() => {
             return {
                 type: MessageType.CAST_ADD,
@@ -316,8 +317,8 @@ export class HubbleSocialMedia implements Provider {
         });
         return {
             signer: `0x${Buffer.from(signer).toString('hex')}`,
-            message: `0x${Buffer.from(messageHash).toString('hex')}`,
-            signature: `0x${Buffer.from(messageSignature).toString('hex')}`,
+            messageHash: `0x${Buffer.from(messageHash).toString('hex')}`,
+            messageSignature: `0x${Buffer.from(messageSignature).toString('hex')}`,
         };
     }
 
