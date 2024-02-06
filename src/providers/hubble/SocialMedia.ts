@@ -356,7 +356,8 @@ export class HubbleSocialMedia implements Provider {
                 },
             },
             trustedData: {
-                messageBytes: `0x${Buffer.from(bytes).toString('hex')}`,
+                // no 0x prefix
+                messageBytes: Buffer.from(bytes).toString('hex'),
             },
         };
     }
