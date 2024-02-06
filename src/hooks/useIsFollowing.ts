@@ -20,7 +20,7 @@ export function useIsFollowing({ profile, placeholder, enabled }: Options) {
     const identifier = platform === SocialPlatform.Lens ? profile.handle : profile.profileId;
     const { data: isFollowing, refetch } = useQuery({
         enabled,
-        queryKey: ['profile', platform, identifier],
+        queryKey: ['profile', 'is-following', platform, identifier],
         queryFn: () => {
             switch (platform) {
                 case SocialPlatform.Lens:
