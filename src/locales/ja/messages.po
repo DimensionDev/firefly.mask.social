@@ -8,7 +8,7 @@ msgstr ""
 "Language: ja\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-02-05 00:04\n"
+"PO-Revision-Date: 2024-02-06 00:04\n"
 "Last-Translator: \n"
 "Language-Team: Japanese\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -204,9 +204,6 @@ msgstr ""
 msgid "Failed to fetch as Text."
 msgstr ""
 
-msgid "Lucky Drop"
-msgstr ""
-
 msgid "Add an existing account"
 msgstr ""
 
@@ -277,9 +274,6 @@ msgid "Unlike"
 msgstr ""
 
 msgid "Post has been hidden"
-msgstr ""
-
-msgid "Everyone"
 msgstr ""
 
 msgid "The user declined the request."
@@ -402,6 +396,9 @@ msgstr ""
 msgid "Please visit from a desktop browser."
 msgstr ""
 
+msgid "There is something wrong with the frame. Please try again."
+msgstr ""
+
 msgid "Discard"
 msgstr ""
 
@@ -409,6 +406,9 @@ msgid "Sign"
 msgstr ""
 
 msgid "Follow @thefireflyapp on X"
+msgstr ""
+
+msgid "Light Mode"
 msgstr ""
 
 msgid "Please switch to the {chainName} network in your wallet."
@@ -528,10 +528,10 @@ msgstr ""
 msgid "Unknown session type."
 msgstr ""
 
-msgid "Only people you follow"
+msgid "<0>You</0> and {0} recasted"
 msgstr ""
 
-msgid "<0>You</0> and {0} recasted"
+msgid "Dark Mode"
 msgstr ""
 
 msgid "Online"
@@ -553,9 +553,6 @@ msgid "Failed to upload image to IPFS: {0}"
 msgstr ""
 
 msgid "Confirm to log out these accounts?"
-msgstr ""
-
-msgid "Light mode"
 msgstr ""
 
 msgid "Your Lens account is now connected"
@@ -592,6 +589,9 @@ msgid "Profile"
 msgstr ""
 
 msgid "Video"
+msgstr ""
+
+msgid "Language"
 msgstr ""
 
 msgid "Add a comment"
@@ -640,9 +640,6 @@ msgid "mirrored"
 msgstr ""
 
 msgid "Following"
-msgstr ""
-
-msgid "Dark mode"
 msgstr ""
 
 msgid "<0>{0}</0> recasted"
