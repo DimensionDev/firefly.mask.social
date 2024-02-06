@@ -2,6 +2,7 @@ import urlcat from 'urlcat';
 
 import { WARPCAST_ROOT_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { signWithED25519 } from '@/helpers/signWithED25519.js';
 import { BaseSession } from '@/providers/base/Session.js';
 import type { Session } from '@/providers/types/Session.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
@@ -19,6 +20,13 @@ export class FarcasterSession extends BaseSession implements Session {
 
     override serialize(): `${SessionType}:${string}:${string}` {
         return `${super.serialize()}:${this.signerRequestToken ?? ''}`;
+    }
+
+    sign(message: string) {
+        if (FarcasterSession.isCustodyWallet(this)) throw new Error('Sign with custody wallet is not allowed');
+        if (FarcasterSession.isGrantByPermission(this)) return signWithED25519(message, this.token);
+
+        throw new Error('Invalid session type');
     }
 
     refresh(): Promise<void> {
