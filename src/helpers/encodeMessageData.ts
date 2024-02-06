@@ -22,17 +22,18 @@ export async function encodeMessageData(
     withPrivateKey?: string,
 ) {
     const { token, profileId } = farcasterClient.getSessionRequired();
-    const privateKey = withPrivateKey ?? token;
     const messageData: MessageData = {
         ...withMessageData(Number(profileId)),
         fid: Number(profileId),
         timestamp: getFarcasterTime().unwrapOr(Math.round((Date.now() - FARCASTER_EPOCH) / 1000)),
         network: FarcasterNetwork.MAINNET,
     };
+    const privateKey = withPrivateKey ?? token;
     const messageDataEncoded = MessageData.encode(messageData).finish();
     const messageHash = blake3(messageDataEncoded, { dkLen: 20 });
     const messageSignature = await ed.signAsync(messageHash, toBytes(privateKey, { size: 32 }));
 
+    const signer = ed.getPublicKey(toBytes(privateKey));
     const bytes = Buffer.from(
         Message.encode({
             data: messageData,
@@ -40,14 +41,15 @@ export async function encodeMessageData(
             hashScheme: HashScheme.BLAKE3,
             signature: messageSignature,
             signatureScheme: SignatureScheme.ED25519,
-            signer: ed.getPublicKey(toBytes(privateKey)),
+            signer,
         }).finish(),
     );
 
     return {
         bytes,
+        signer,
+        messageHash,
         messageData,
         messageSignature,
-        messageHash,
     };
 }

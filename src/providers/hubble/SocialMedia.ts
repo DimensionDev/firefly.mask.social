@@ -307,6 +307,20 @@ export class HubbleSocialMedia implements Provider {
         return false;
     }
 
+    async generateSignaturePacket() {
+        const { signer, messageHash, messageSignature } = await encodeMessageData(() => {
+            return {
+                type: MessageType.CAST_ADD,
+                castAddBody: undefined,
+            };
+        });
+        return {
+            signer: `0x${Buffer.from(signer).toString('hex')}`,
+            message: `0x${Buffer.from(messageHash).toString('hex')}`,
+            signature: `0x${Buffer.from(messageSignature).toString('hex')}`,
+        };
+    }
+
     async generateFrameSignaturePacket(
         postId: string,
         frame: Frame,
