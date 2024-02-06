@@ -19,7 +19,7 @@ export default function Embed({ og }: EmbedProps) {
                 <div className=" rounded-xl border bg-white dark:border-gray-700 dark:bg-black">
                     {og.isLarge && og.image ? (
                         <Image
-                            className="divider aspect-2 w-full rounded-t-xl object-cover"
+                            className="divider aspect-2 w-full rounded-xl object-cover"
                             src={og.image.base64 || og.image.url}
                             alt="Thumbnail"
                             width={og.image.width}

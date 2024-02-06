@@ -33,7 +33,6 @@ const FrameActionSchema = z.object({
     action: z.nativeEnum(ActionType),
     url: HttpUrlSchema,
     postUrl: HttpUrlSchema,
-    packet: z.object({}),
 });
 
 export async function POST(request: Request) {
@@ -43,12 +42,12 @@ export async function POST(request: Request) {
         url: searchParams.get('url'),
         postUrl: searchParams.get('post-url'),
         action: searchParams.get('action'),
-        // frame signature packet
-        packet: await request.json(),
     });
     if (!parsedFrameAction.success) return Response.json({ error: parsedFrameAction.error.message }, { status: 400 });
 
-    const { action, url, postUrl, packet } = parsedFrameAction.data;
+    const { action, url, postUrl } = parsedFrameAction.data;
+
+    const packet = await request.clone().json();
 
     switch (action) {
         case ActionType.Post: {
@@ -60,11 +59,19 @@ export async function POST(request: Request) {
                 body: JSON.stringify(packet),
             });
 
+            console.log('DEBUG: response');
+            console.log({
+                postUrl,
+                packet,
+                data: await response.clone().text(),
+            });
+
             if (!response.ok || response.status !== 200)
                 return Response.json(
                     { error: 'The frame server cannot handle the post request correctly.' },
                     { status: 500 },
                 );
+
             return createSuccessResponseJSON(
                 await FrameProcessor.digestDocument(url, await response.text(), request.signal),
             );
@@ -75,6 +82,14 @@ export async function POST(request: Request) {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(packet),
             });
+
+            console.log('DEBUG: response');
+            console.log({
+                postUrl,
+                packet,
+                data: await response.clone().text(),
+            });
+
             if (!response.ok || response.status !== 302)
                 return Response.json(
                     { error: 'The frame server cannot handle the post_redirect request correctly.' },

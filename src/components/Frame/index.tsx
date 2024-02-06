@@ -47,10 +47,11 @@ export function Frame({ postId, url, onData, children }: FrameProps) {
         onData?.(data.data.frame);
     }, [data, onData]);
 
+    const frame: Frame | null = latestFrame ?? (data?.success ? data.data.frame : null);
+
     const [{ loading }, handleClick] = useAsyncFn(
         async (button: FrameButton, input?: string) => {
             try {
-                const frame = data?.success ? data.data.frame : null;
                 if (!frame) return;
 
                 const url = urlcat('/api/frame', {
@@ -58,7 +59,6 @@ export function Frame({ postId, url, onData, children }: FrameProps) {
                     action: button.action,
                     'post-url': frame.postUrl,
                 });
-
                 const packet = await HubbleSocialMediaProvider.generateFrameSignaturePacket(
                     postId,
                     frame,
@@ -67,6 +67,9 @@ export function Frame({ postId, url, onData, children }: FrameProps) {
                 );
                 const response = await fetchJSON<ResponseJSON<LinkDigested>>(url, {
                     method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
                     body: JSON.stringify(packet),
                 });
 
@@ -89,26 +92,24 @@ export function Frame({ postId, url, onData, children }: FrameProps) {
             }
             return;
         },
-        [data, postId, enqueueSnackbar],
+        [frame, postId, enqueueSnackbar],
     );
 
     if (isLoading) return null;
 
-    if (error || !data?.success) return children;
-
-    const frame: Frame = latestFrame ?? data.data.frame;
+    if (error || !frame) return children;
 
     return (
-        <div className=" mt-4 rounded-md text-sm">
+        <div className=" mt-4 rounded-xl text-sm">
             <div className="relative">
                 {loading ? (
                     <div
-                        className=" z10 absolute inset-0 overflow-hidden rounded-md bg-white dark:bg-bg"
+                        className=" z10 absolute inset-0 overflow-hidden rounded-xl bg-white dark:bg-bg"
                         style={{ boxShadow: '0px 0px 20px 0px rgba(0, 0, 0, 0.05)', backdropFilter: 'blur(4px)' }}
                     />
                 ) : null}
                 <Image
-                    className="divider aspect-2 w-full rounded-t-xl object-cover"
+                    className="divider aspect-2 w-full rounded-xl object-cover"
                     unoptimized
                     priority={false}
                     src={frame.image.url}
@@ -119,7 +120,12 @@ export function Frame({ postId, url, onData, children }: FrameProps) {
             </div>
             {frame.input ? (
                 <div className="mt-2 flex">
-                    <input className="w-full" type="text" placeholder={frame.input.label} ref={inputRef} />
+                    <input
+                        className="w-full rounded-md border border-line bg-white px-2 py-1.5 dark:bg-darkBottom dark:text-white"
+                        type="text"
+                        placeholder={frame.input.placeholder}
+                        ref={inputRef}
+                    />
                 </div>
             ) : null}
             {frame.buttons.length ? (
@@ -131,7 +137,7 @@ export function Frame({ postId, url, onData, children }: FrameProps) {
                             return (
                                 <button
                                     className={classNames(
-                                        'flex-1 rounded-md border border-neutral-900 bg-white py-2 text-slate-950 disabled:opacity-70 dark:border-line dark:bg-darkBottom dark:text-white',
+                                        'flex-1 rounded-md border border-line bg-white py-2 text-main disabled:opacity-70 dark:bg-darkBottom dark:text-white',
                                         {
                                             'hover:bg-bg': !loading,
                                             'hover:cursor-pointer': !loading,
