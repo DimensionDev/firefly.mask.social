@@ -5,6 +5,8 @@ import { KeyType } from '@/constants/enum.js';
 import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
 import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
 import { FrameProcessor } from '@/libs/frame/Processor.js';
+import { HubbleSocialMediaProvider } from '@/providers/hubble/SocialMedia.js';
+import type { FrameSignaturePacket } from '@/providers/types/Hubble.js';
 import { ActionType } from '@/types/frame.js';
 
 const digestLinkRedis = memoizeWithRedis(FrameProcessor.digestDocumentUrl, {
@@ -47,7 +49,18 @@ export async function POST(request: Request) {
 
     const { action, url, postUrl } = parsedFrameAction.data;
 
-    const packet = await request.clone().json();
+    const packet = await request.clone().json()
+
+    try {
+        const result = await HubbleSocialMediaProvider.validateMessage(Buffer.from((packet as FrameSignaturePacket).trustedData.messageBytes))
+        console.log('DEBUG: result')
+        console.log({
+            result,
+        })
+    } catch (error) {
+        console.log('DEBUG: error')
+        console.log(error)
+    }
 
     switch (action) {
         case ActionType.Post: {

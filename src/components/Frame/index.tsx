@@ -137,7 +137,7 @@ export function Frame({ postId, url, onData, children }: FrameProps) {
                             return (
                                 <button
                                     className={classNames(
-                                        'flex-1 rounded-md border border-line bg-white py-2 text-main disabled:opacity-70 dark:bg-darkBottom dark:text-white',
+                                        'flex flex-1 justify-center rounded-md border border-line bg-white py-2 text-main disabled:opacity-70 dark:bg-darkBottom dark:text-white',
                                         {
                                             'hover:bg-bg': !loading,
                                             'hover:cursor-pointer': !loading,
@@ -145,7 +145,10 @@ export function Frame({ postId, url, onData, children }: FrameProps) {
                                     )}
                                     disabled={loading}
                                     key={button.index}
-                                    onClick={() => {
+                                    onClick={(ev) => {
+                                        ev.stopPropagation();
+                                        ev.preventDefault();
+
                                         if (!loading) handleClick(button, inputRef.current?.value);
                                     }}
                                 >
