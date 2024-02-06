@@ -47,10 +47,11 @@ export function Frame({ postId, url, onData, children }: FrameProps) {
         onData?.(data.data.frame);
     }, [data, onData]);
 
+    const frame: Frame | null = latestFrame ?? (data?.success ? data.data.frame : null);
+
     const [{ loading }, handleClick] = useAsyncFn(
         async (button: FrameButton, input?: string) => {
             try {
-                const frame = data?.success ? data.data.frame : null;
                 if (!frame) return;
 
                 const url = urlcat('/api/frame', {
@@ -58,7 +59,6 @@ export function Frame({ postId, url, onData, children }: FrameProps) {
                     action: button.action,
                     'post-url': frame.postUrl,
                 });
-
                 const packet = await HubbleSocialMediaProvider.generateFrameSignaturePacket(
                     postId,
                     frame,
@@ -67,6 +67,9 @@ export function Frame({ postId, url, onData, children }: FrameProps) {
                 );
                 const response = await fetchJSON<ResponseJSON<LinkDigested>>(url, {
                     method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
                     body: JSON.stringify(packet),
                 });
 
@@ -89,14 +92,12 @@ export function Frame({ postId, url, onData, children }: FrameProps) {
             }
             return;
         },
-        [data, postId, enqueueSnackbar],
+        [frame, postId, enqueueSnackbar],
     );
 
     if (isLoading) return null;
 
-    if (error || !data?.success) return children;
-
-    const frame: Frame = latestFrame ?? data.data.frame;
+    if (error || !frame) return children;
 
     return (
         <div className=" mt-4 rounded-xl text-sm">
