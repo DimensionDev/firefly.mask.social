@@ -33,7 +33,6 @@ const FrameActionSchema = z.object({
     action: z.nativeEnum(ActionType),
     url: HttpUrlSchema,
     postUrl: HttpUrlSchema,
-    packet: z.object({}),
 });
 
 export async function POST(request: Request) {
@@ -43,12 +42,11 @@ export async function POST(request: Request) {
         url: searchParams.get('url'),
         postUrl: searchParams.get('post-url'),
         action: searchParams.get('action'),
-        // frame signature packet
-        packet: await request.json(),
     });
     if (!parsedFrameAction.success) return Response.json({ error: parsedFrameAction.error.message }, { status: 400 });
 
-    const { action, url, postUrl, packet } = parsedFrameAction.data;
+    const { action, url, postUrl } = parsedFrameAction.data;
+    const packet = await request.clone().json();
 
     switch (action) {
         case ActionType.Post: {
@@ -60,12 +58,11 @@ export async function POST(request: Request) {
                 body: JSON.stringify(packet),
             });
 
-            console.log('DEBUG: response code');
+            console.log('DEBUG: response');
             console.log({
                 postUrl,
-                status: response.status,
-                ok: response.ok,
-                data: await response.text(),
+                packet,
+                data: await response.clone().text(),
             });
 
             if (!response.ok || response.status !== 200)
@@ -88,9 +85,8 @@ export async function POST(request: Request) {
             console.log('DEBUG: response');
             console.log({
                 postUrl,
-                status: response.status,
-                ok: response.ok,
-                data: await response.text(),
+                packet,
+                data: await response.clone().text(),
             });
 
             if (!response.ok || response.status !== 302)
