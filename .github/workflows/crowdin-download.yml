@@ -2,7 +2,8 @@ name: Crowdin Download
 
 on:
   schedule:
-    - cron: '0 0 * * *' # every day at 00:00
+    - cron: '0 0 * * *' # every day at 00:00 (midnight)
+    - cron: '0 12 * * *' # every day at 12:00 PM (noon)
 
   # start via Actions tab in Github UI
   workflow_dispatch:
