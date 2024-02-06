@@ -18,8 +18,7 @@ export function getTypedMessageRedPacket(metas?: Record<string, unknown>) {
     const message = getTypedMessageText(metas);
     if (!message) return null;
 
-    const hasRedPacketPayload = message?.meta?.has(RedPacketMetaKey);
-    if (!hasRedPacketPayload) return null;
+    if (!message?.meta?.has(RedPacketMetaKey)) return null;
 
     editTypedMessageMeta(message, (map) => {
         map.forEach((_, key) => {

@@ -7,6 +7,7 @@ import { LexicalComposer } from '@lexical/react/LexicalComposer.js';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext.js';
 import { t } from '@lingui/macro';
 import { encrypt, SteganographyPreset } from '@masknet/encryption';
+import { RedPacketMetaKey } from '@masknet/plugin-redpacket';
 import { ProfileIdentifier, type SingletonModalRefCreator } from '@masknet/shared-base';
 import { useSingletonModal } from '@masknet/shared-base-ui';
 import type { TypedMessageTextV1 } from '@masknet/typed-message';
@@ -32,7 +33,6 @@ import { throws } from '@/helpers/throws.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
 import type { FireflyRedPacketAPI } from '@/maskbook/packages/web3-providers/src/entry-types.js';
-import { hasRedPacketPayload } from '@/modals/hasRedPacketPayload.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { steganographyEncodeImage } from '@/services/steganography.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
@@ -120,7 +120,7 @@ export const ComposeModalComponent = forwardRef<SingletonModalRefCreator<Compose
 
     const { loading: encryptRedPacketLoading } = useAsync(async () => {
         if (!typedMessage) return;
-        if (!hasRedPacketPayload(typedMessage)) return;
+        if (!typedMessage.meta?.has(RedPacketMetaKey)) return;
 
         try {
             const encrypted = await encrypt(

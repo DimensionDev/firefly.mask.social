@@ -13,7 +13,7 @@ export function Button({ button, disabled = false, onClick }: Props) {
     return (
         <button
             className={classNames(
-                'flex flex-1 justify-center rounded-md border border-line bg-white py-2 text-main disabled:opacity-70 dark:bg-darkBottom dark:text-white',
+                'flex flex-1 items-center justify-center rounded-md border border-line bg-white py-2 text-main disabled:opacity-70 dark:bg-darkBottom dark:text-white',
                 {
                     'hover:bg-bg': !disabled,
                     'hover:cursor-pointer': !disabled,
