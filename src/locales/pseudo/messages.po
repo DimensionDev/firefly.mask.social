@@ -28,6 +28,9 @@ msgstr ""
 msgid "Discover"
 msgstr ""
 
+msgid "Please be cautious when connecting your wallet, as malicious websites may attempt to access your funds."
+msgstr ""
+
 msgid "Click to refresh QRCode"
 msgstr ""
 
@@ -152,6 +155,9 @@ msgid "Connect Wallet"
 msgstr ""
 
 msgid "Feed"
+msgstr ""
+
+msgid "Confirmation"
 msgstr ""
 
 msgid "Follow more friends to continue exploring on {0}."
@@ -391,9 +397,6 @@ msgstr ""
 msgid "Please visit from a desktop browser."
 msgstr ""
 
-msgid "There is something wrong with the frame. Please try again."
-msgstr ""
-
 msgid "Discard"
 msgstr ""
 
@@ -442,6 +445,9 @@ msgstr ""
 msgid "Follow @realMaskNetwork on X"
 msgstr ""
 
+msgid "Leaving Firefly"
+msgstr ""
+
 msgid "No Lens profile was found. Please try using a different wallet."
 msgstr ""
 
@@ -449,6 +455,9 @@ msgid "<0>{0}</0> mirrored"
 msgstr ""
 
 msgid "Follower"
+msgstr ""
+
+msgid "The frame server failed to process the request."
 msgstr ""
 
 msgid "Post by {0}"
