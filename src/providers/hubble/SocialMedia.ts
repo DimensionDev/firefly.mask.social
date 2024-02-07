@@ -2,7 +2,7 @@ import { Factories, Message, MessageType, ReactionType } from '@farcaster/core';
 import { t } from '@lingui/macro';
 import { toInteger } from 'lodash-es';
 import urlcat from 'urlcat';
-import { bytesToHex, toBytes, toHex } from 'viem';
+import { toBytes, toHex } from 'viem';
 
 import { SocialPlatform } from '@/constants/enum.js';
 import { EMPTY_LIST, HUBBLE_URL } from '@/constants/index.js';
@@ -127,7 +127,7 @@ export class HubbleSocialMedia implements Provider {
         if (!data) throw new Error(t`Failed to upvote post.`);
 
         return {
-            reactionId: bytesToHex(messageHash),
+            reactionId: messageHash,
             type: ReactionTypeCustom.Upvote,
             timestamp: messageData.timestamp,
         };
@@ -373,9 +373,9 @@ export class HubbleSocialMedia implements Provider {
             },
         );
         return {
-            signer: `0x${Buffer.from(signer).toString('hex')}`,
-            messageHash: `0x${Buffer.from(messageHash).toString('hex')}`,
-            messageSignature: `0x${Buffer.from(messageSignature).toString('hex')}`,
+            signer,
+            messageHash,
+            messageSignature,
         };
     }
 
@@ -389,7 +389,7 @@ export class HubbleSocialMedia implements Provider {
             (fid) => ({
                 type: MessageType.FRAME_ACTION,
                 frameActionBody: {
-                    url: toBytes(frame.postUrl),
+                    url: toBytes(frame.url),
                     buttonIndex: index,
                     castId: {
                         fid,
@@ -413,7 +413,7 @@ export class HubbleSocialMedia implements Provider {
         return {
             untrustedData: {
                 fid: messageData.fid,
-                url: frame.postUrl,
+                url: frame.url,
                 messageHash: `0x${Buffer.from(messageHash).toString('hex')}`,
                 timestamp: messageData.timestamp,
                 network: messageData.network,

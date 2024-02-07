@@ -19,16 +19,14 @@ export function AmountProgressText({ amount, remainingAmount, token, ...props }:
     const { symbol, decimals = 0 } = token;
 
     const claimedAmountText = formatBalance(minus(amount, remainingAmount), decimals, {
-        isFixed: false,
-        isPrecise: false,
-        significant: 0,
-        fixedDecimals: 0,
+        isFixed: true,
+        significant: 6,
+        fixedDecimals: 6,
     });
     const totalAmountText = formatBalance(amount, decimals, {
-        isFixed: false,
-        isPrecise: false,
-        significant: 0,
-        fixedDecimals: 0,
+        isFixed: true,
+        significant: 6,
+        fixedDecimals: 6,
     });
 
     return (

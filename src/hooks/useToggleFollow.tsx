@@ -95,15 +95,17 @@ export function useToggleFollow(profile: Profile) {
         if (unmountRef.current) return;
         setReceived(true);
 
-        // Await for API gets updated
-        await delay(7000);
-        if (unmountRef.current) return;
-        setTouched(true);
-        await refresh();
+        if (isLogin) {
+            // Await for API gets updated
+            await delay(7000);
+            if (unmountRef.current) return;
+            setTouched(true);
+            await refresh();
+        }
 
         if (unmountRef.current) return;
         setReceived(false);
-    }, [handleToggleFollow, refresh]);
+    }, [handleToggleFollow, refresh, isLogin]);
 
     // Update optimistically after follow/unfollow request gets received
     return [followState, state, handleToggle] as const;

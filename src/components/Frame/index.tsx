@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
 import { openWindow } from '@masknet/shared-base-ui';
 import { useQuery } from '@tanstack/react-query';
@@ -99,7 +99,14 @@ export function Frame({ postId, url, onData, children }: FrameProps) {
 
                         const confirmed = await ConfirmModalRef.openAndWaitForClose({
                             title: t`Leaving Firefly`,
-                            content: t`Please be cautious when connecting your wallet, as malicious websites may attempt to access your funds.`,
+                            content: (
+                                <div className=" text-main">
+                                    <Trans>
+                                        Please be cautious when connecting your wallet, as malicious websites may
+                                        attempt to access your funds.
+                                    </Trans>
+                                </div>
+                            ),
                         });
                         if (!confirmed) return;
 

@@ -21,16 +21,16 @@ export async function encodeMessageData(
         network: FarcasterNetwork.MAINNET,
     };
     const message = await withMessage(messageData, signer);
-    const messageBytes = Buffer.from(Message.encode(message).finish());
+    const messageBytes = Message.encode(message).finish();
     const messageHash = blake3(messageBytes, { dkLen: 20 });
 
     return {
         signer: `0x${Buffer.from((await signer.getSignerKey())._unsafeUnwrap()).toString('hex')}`,
         messageBytes,
-        messageHash,
         messageData,
+        messageHash: `0x${Buffer.from(messageHash).toString('hex')}`,
         messageSignature: `0x${Buffer.from((await signer.signMessageHash(messageHash))._unsafeUnwrap()).toString(
             'hex',
         )}`,
-    };
+    } as const;
 }

@@ -39,7 +39,7 @@ const CoverSchema = z.object({
     shares: z.coerce
         .number()
         .positive()
-        .refine((x) => x < 100, { message: 'Shares cannot be more than 100' }),
+        .refine((x) => x < 256, { message: 'Shares cannot be more than 256' }),
     remainingShares: z.coerce.number().nonnegative(),
     coBrand: z.nativeEnum(CoBrandType),
     token: TokenSchema,
@@ -111,6 +111,24 @@ async function getFonts(signal?: AbortSignal) {
         {
             name: 'Inter',
             data: await fetchArrayBuffer(urlcat(SITE_URL, '/font/Inter-Bold.ttf'), {
+                cache: 'force-cache',
+                signal,
+            }),
+            weight: 700,
+            style: 'normal',
+        },
+        {
+            name: 'sans-serif',
+            data: await fetchArrayBuffer(urlcat(SITE_URL, '/font/NotoSansSC-Regular.ttf'), {
+                cache: 'force-cache',
+                signal,
+            }),
+            weight: 400,
+            style: 'normal',
+        },
+        {
+            name: 'sans-serif',
+            data: await fetchArrayBuffer(urlcat(SITE_URL, '/font/NotoSansSC-Bold.ttf'), {
                 cache: 'force-cache',
                 signal,
             }),
