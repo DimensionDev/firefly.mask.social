@@ -39,7 +39,7 @@ const CoverSchema = z.object({
     shares: z.coerce
         .number()
         .positive()
-        .refine((x) => x < 100, { message: 'Shares cannot be more than 100' }),
+        .refine((x) => x < 256, { message: 'Shares cannot be more than 256' }),
     remainingShares: z.coerce.number().nonnegative(),
     coBrand: z.nativeEnum(CoBrandType),
     token: TokenSchema,
