@@ -22,7 +22,7 @@ import { useComposeStateStore } from '@/store/useComposeStore.js';
 import { useFarcasterStateStore, useLensStateStore } from '@/store/useProfileStore.js';
 
 export default function ComposeSend() {
-    const { chars, images, type, video, currentSource, clear, availableSources, post } = useComposeStateStore();
+    const { chars, images, type, video, currentSource, availableSources, post } = useComposeStateStore();
 
     const { length, visibleLength, invisibleLength } = measureChars(chars);
 
@@ -38,12 +38,25 @@ export default function ComposeSend() {
             if (availableSources.includes(SocialPlatform.Farcaster)) promises.push(sendFarcaster());
 
             const result = await Promise.allSettled(promises);
-            if (result.some((x) => x.status === 'rejected')) return;
-        } else if (currentSource === SocialPlatform.Lens) {
-            await sendLens();
-        } else if (currentSource === SocialPlatform.Farcaster) {
-            await sendFarcaster();
+            if (result.every((x) => x.status === 'rejected')) return;
+
+            // The modal will be closed when a platform sends a successful post.
+            ComposeModalRef.close();
+        } else if (currentSource) {
+            switch (currentSource) {
+                case SocialPlatform.Lens:
+                    await sendLens();
+                    break;
+                case SocialPlatform.Farcaster:
+                    await sendFarcaster();
+                    break;
+                default:
+                    safeUnreachable(currentSource);
+            }
+
+            ComposeModalRef.close();
         }
+
         const { lensPostId, farcasterPostId, typedMessage } = useComposeStateStore.getState();
 
         if (hasRedPacketPayload(typedMessage) && (lensPostId || farcasterPostId)) {
@@ -81,8 +94,6 @@ export default function ComposeSend() {
             ]);
             await FireflyRedPacket.updateClaimStrategy(rpPayload.rpid, reactions, claimPlatform);
         }
-        ComposeModalRef.close();
-        clear();
     }, [currentSource, availableSources, type, sendLens, sendFarcaster, currentFarcasterProfile, currentLensProfile]);
 
     const disabled = useMemo(() => {
