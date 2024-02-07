@@ -117,6 +117,24 @@ async function getFonts(signal?: AbortSignal) {
             weight: 700,
             style: 'normal',
         },
+        {
+            name: 'sans-serif',
+            data: await fetchArrayBuffer(urlcat(SITE_URL, '/font/NotoSansSC-Regular.ttf'), {
+                cache: 'force-cache',
+                signal,
+            }),
+            weight: 400,
+            style: 'normal',
+        },
+        {
+            name: 'sans-serif',
+            data: await fetchArrayBuffer(urlcat(SITE_URL, '/font/NotoSansSC-Bold.ttf'), {
+                cache: 'force-cache',
+                signal,
+            }),
+            weight: 700,
+            style: 'normal',
+        },
     ] satisfies Font[];
 }
 

@@ -63,7 +63,7 @@ export interface ComposeModalProps {
     };
 }
 export type ComposeModalCloseProps = {
-    isRedpacket?: boolean;
+    disableClear?: boolean;
 } | void;
 
 // { type = 'compose', post, opened, setOpened }: ComposeModalProps
@@ -110,7 +110,13 @@ export const ComposeModalComponent = forwardRef<SingletonModalRefCreator<Compose
                 if (props.redpacketProps) updateRedpacketProps(props.redpacketProps);
             },
             onClose: (props) => {
-                if (!props?.isRedpacket) clear();
+                if (!props?.disableClear) {
+                    clear();
+                    editor.update(() => {
+                        const root = $getRoot();
+                        root.clear();
+                    });
+                }
             },
         });
 
