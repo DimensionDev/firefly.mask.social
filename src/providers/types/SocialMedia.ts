@@ -44,6 +44,7 @@ export interface Tag {
 }
 
 export interface Profile {
+    /** fid for Farcaster */
     profileId: string;
     displayName: string;
     handle: string;
@@ -91,6 +92,7 @@ export interface Post {
     postId: string;
     parentPostId?: string;
     parentAuthor?: Profile;
+    /** time in milliseconds */
     timestamp?: number;
     author: Profile;
     reporter?: Profile;

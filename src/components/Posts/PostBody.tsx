@@ -46,7 +46,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
         },
     });
 
-    const { value: payloads, loading } = useAsync(async () => {
+    const { value: payloads } = useAsync(async () => {
         // decode the image upon post viewing, to reduce unnecessary load of images
         if (!postViewed) return;
 
@@ -147,7 +147,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
                         props={encodeURIComponent(
                             JSON.stringify({
                                 post,
-                                payloads: compact([payloads?.payloadFromImageAttachment, payloads?.payloadFromText]),
+                                payloads: compact([payloads.payloadFromImageAttachment, payloads.payloadFromText]),
                             }),
                         )}
                     />

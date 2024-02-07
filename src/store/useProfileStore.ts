@@ -4,6 +4,8 @@ import { immer } from 'zustand/middleware/immer';
 
 import { farcasterClient } from '@/configs/farcasterClient.js';
 import { createLensClient } from '@/configs/lensClient.js';
+import { queryClient } from '@/configs/queryClient.js';
+import { SocialPlatform } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 import { createSessionStorage } from '@/helpers/createSessionStorage.js';
@@ -37,6 +39,9 @@ const useFarcasterStateBase = create<ProfileState, [['zustand/persist', unknown]
                 }),
             clearCurrentProfile: () =>
                 set((state) => {
+                    queryClient.resetQueries({
+                        queryKey: ['profile', 'is-following', SocialPlatform.Farcaster],
+                    });
                     state.currentProfile = null;
                 }),
         })),
@@ -83,6 +88,9 @@ const useLensStateBase = create<ProfileState, [['zustand/persist', unknown], ['z
                 }),
             clearCurrentProfile: () =>
                 set((state) => {
+                    queryClient.resetQueries({
+                        queryKey: ['profile', 'is-following', SocialPlatform.Lens],
+                    });
                     state.currentProfile = null;
                 }),
         })),
