@@ -23,8 +23,11 @@ const CoverSchema = z.object({
     locale: z.nativeEnum(Locale),
     theme: z.nativeEnum(Theme),
     usage: z.literal(UsageType.Cover),
-    from: z.string(),
-    message: z.string().transform((x) => (x ? decodeURIComponent(x) : x)),
+    from: z.string().refine((x) => (x ? x.length < 50 : true), { message: 'From cannot be longer than 50 characters' }),
+    message: z
+        .string()
+        .transform((x) => (x ? decodeURIComponent(x) : x))
+        .refine((x) => (x ? x.length < 50 : true), { message: 'Message cannot be longer than 50 characters' }),
     amount: z.coerce
         .bigint()
         .nonnegative()
@@ -33,7 +36,10 @@ const CoverSchema = z.object({
         .bigint()
         .nonnegative()
         .transform((x) => x.toString(10)),
-    shares: z.coerce.number().positive(),
+    shares: z.coerce
+        .number()
+        .positive()
+        .refine((x) => x < 100, { message: 'Shares cannot be more than 100' }),
     remainingShares: z.coerce.number().nonnegative(),
     coBrand: z.nativeEnum(CoBrandType),
     token: TokenSchema,
