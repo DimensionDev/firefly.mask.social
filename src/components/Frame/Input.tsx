@@ -1,3 +1,4 @@
+import { t } from '@lingui/macro';
 import React, { forwardRef } from 'react';
 
 import type { FrameInput } from '@/types/frame.js';
@@ -12,7 +13,7 @@ export const Input = forwardRef<HTMLInputElement, Props>(function FrameInput({ i
             ref={ref}
             className="w-full rounded-md border border-line bg-white px-2 py-1.5 dark:bg-darkBottom dark:text-white"
             type="text"
-            placeholder={input.placeholder}
+            placeholder={input.label || t`Type something here...`}
         />
     );
 });
