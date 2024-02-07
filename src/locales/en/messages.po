@@ -106,6 +106,9 @@ msgstr "Liked"
 msgid "Please switch to the correct network in your wallet."
 msgstr "Please switch to the correct network in your wallet."
 
+msgid "Type something here..."
+msgstr "Type something here..."
+
 msgid "Only up to 2 images can be chosen."
 msgstr "Only up to 2 images can be chosen."
 

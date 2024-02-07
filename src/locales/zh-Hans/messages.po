@@ -111,6 +111,9 @@ msgstr "已点赞"
 msgid "Please switch to the correct network in your wallet."
 msgstr ""
 
+msgid "Type something here..."
+msgstr ""
+
 msgid "Only up to 2 images can be chosen."
 msgstr ""
 
