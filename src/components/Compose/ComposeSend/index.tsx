@@ -22,7 +22,7 @@ import { useComposeStateStore } from '@/store/useComposeStore.js';
 import { useFarcasterStateStore, useLensStateStore } from '@/store/useProfileStore.js';
 
 export default function ComposeSend() {
-    const { chars, images, type, video, currentSource, clear, availableSources, post } = useComposeStateStore();
+    const { chars, images, type, video, currentSource, availableSources, post } = useComposeStateStore();
 
     const { length, visibleLength, invisibleLength } = measureChars(chars);
 
@@ -32,69 +32,67 @@ export default function ComposeSend() {
     const currentLensProfile = useLensStateStore.use.currentProfile();
     const currentFarcasterProfile = useFarcasterStateStore.use.currentProfile();
     const [{ loading }, handleSend] = useAsyncFn(async () => {
-        try {
-            if (!currentSource && type === 'compose') {
-                const promises: Array<Promise<void>> = [];
-                if (availableSources.includes(SocialPlatform.Lens)) promises.push(sendLens());
-                if (availableSources.includes(SocialPlatform.Farcaster)) promises.push(sendFarcaster());
+        if (!currentSource && type === 'compose') {
+            const promises: Array<Promise<void>> = [];
+            if (availableSources.includes(SocialPlatform.Lens)) promises.push(sendLens());
+            if (availableSources.includes(SocialPlatform.Farcaster)) promises.push(sendFarcaster());
 
-                const result = await Promise.allSettled(promises);
-                if (result.every((x) => x.status === 'rejected')) return;
+            const result = await Promise.allSettled(promises);
+            if (result.every((x) => x.status === 'rejected')) return;
 
-                // The modal will be closed when a platform sends a successful post.
-                ComposeModalRef.close();
-            } else if (currentSource) {
-                switch (currentSource) {
-                    case SocialPlatform.Lens:
-                        await sendLens();
-                        break;
-                    case SocialPlatform.Farcaster:
-                        await sendFarcaster();
-                        break;
-                    default:
-                        safeUnreachable(currentSource);
-                }
-
-                ComposeModalRef.close();
+            // The modal will be closed when a platform sends a successful post.
+            ComposeModalRef.close();
+        } else if (currentSource) {
+            switch (currentSource) {
+                case SocialPlatform.Lens:
+                    await sendLens();
+                    break;
+                case SocialPlatform.Farcaster:
+                    await sendFarcaster();
+                    break;
+                default:
+                    safeUnreachable(currentSource);
             }
-        } finally {
-            const { lensPostId, farcasterPostId, typedMessage } = useComposeStateStore.getState();
 
-            if (hasRedPacketPayload(typedMessage) && (lensPostId || farcasterPostId)) {
-                const rpPayload = typedMessage?.meta?.get(RedPacketMetaKey) as RedPacketJSONPayload;
+            ComposeModalRef.close();
+        }
 
-                const reactions = compact([
-                    lensPostId
-                        ? {
-                              platform: FireflyRedPacketAPI.PlatformType.lens,
-                              postId: lensPostId,
-                          }
-                        : undefined,
-                    farcasterPostId
-                        ? {
-                              platform: FireflyRedPacketAPI.PlatformType.farcaster,
-                              postId: farcasterPostId,
-                              handle: currentFarcasterProfile?.handle,
-                          }
-                        : undefined,
-                ]);
+        const { lensPostId, farcasterPostId, typedMessage } = useComposeStateStore.getState();
 
-                const claimPlatform = compact([
-                    lensPostId && currentLensProfile
-                        ? {
-                              platformId: currentLensProfile.profileId,
-                              platformName: FireflyRedPacketAPI.PlatformType.lens,
-                          }
-                        : undefined,
-                    farcasterPostId && currentFarcasterProfile
-                        ? {
-                              platformId: currentFarcasterProfile.profileId,
-                              platformName: FireflyRedPacketAPI.PlatformType.farcaster,
-                          }
-                        : undefined,
-                ]);
-                await FireflyRedPacket.updateClaimStrategy(rpPayload.rpid, reactions, claimPlatform);
-            }
+        if (hasRedPacketPayload(typedMessage) && (lensPostId || farcasterPostId)) {
+            const rpPayload = typedMessage?.meta?.get(RedPacketMetaKey) as RedPacketJSONPayload;
+
+            const reactions = compact([
+                lensPostId
+                    ? {
+                          platform: FireflyRedPacketAPI.PlatformType.lens,
+                          postId: lensPostId,
+                      }
+                    : undefined,
+                farcasterPostId
+                    ? {
+                          platform: FireflyRedPacketAPI.PlatformType.farcaster,
+                          postId: farcasterPostId,
+                          handle: currentFarcasterProfile?.handle,
+                      }
+                    : undefined,
+            ]);
+
+            const claimPlatform = compact([
+                lensPostId && currentLensProfile
+                    ? {
+                          platformId: currentLensProfile.profileId,
+                          platformName: FireflyRedPacketAPI.PlatformType.lens,
+                      }
+                    : undefined,
+                farcasterPostId && currentFarcasterProfile
+                    ? {
+                          platformId: currentFarcasterProfile.profileId,
+                          platformName: FireflyRedPacketAPI.PlatformType.farcaster,
+                      }
+                    : undefined,
+            ]);
+            await FireflyRedPacket.updateClaimStrategy(rpPayload.rpid, reactions, claimPlatform);
         }
     }, [currentSource, availableSources, type, sendLens, sendFarcaster, currentFarcasterProfile, currentLensProfile]);
 
