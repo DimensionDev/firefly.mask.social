@@ -13,11 +13,6 @@ import { useComposeStateStore } from '@/store/useComposeStore.js';
 import { useFarcasterStateStore } from '@/store/useProfileStore.js';
 import type { MediaObject } from '@/types/index.js';
 
-export interface SendFarcasterOptions {
-    channelKey?: string;
-    parentUrl?: string;
-}
-
 export function useSendFarcaster() {
     const { type, chars, post, images, updateImages, farcasterPostId, updateFarcasterPostId, typedMessage } =
         useComposeStateStore();
@@ -63,8 +58,8 @@ export function useSendFarcaster() {
                     },
                     mediaObjects: uploadedImages.map((media) => ({ url: media.imgur!, mimeType: media.file.type })),
                     commentOn: type === 'reply' && post ? post : undefined,
-                    channelKey: hasRedPacket ? 'firefly-garden' : undefined,
-                    parentUrl: hasRedPacket ? 'https://warpcast.com/~/channel/firefly-garden' : undefined,
+                    parentChannelKey: hasRedPacket ? 'firefly-garden' : undefined,
+                    parentChannelUrl: hasRedPacket ? 'https://warpcast.com/~/channel/firefly-garden' : undefined,
                 };
                 const published = await FarcasterSocialMediaProvider.publishPost(draft);
                 enqueueSnackbar(t`Posted on Farcaster`, {

@@ -167,8 +167,8 @@ export interface Post {
      * Farcaster Only
      * Used to add a post to the corresponding channel
      */
-    channelKey?: string;
-    parentUrl?: string;
+    parentChannelKey?: string;
+    parentChannelUrl?: string;
 }
 
 export interface Comment {
