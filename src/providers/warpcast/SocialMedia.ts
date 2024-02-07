@@ -318,6 +318,7 @@ export class WarpcastSocialMedia implements Provider {
                 text: post.metadata.content?.content || '',
                 embeds: post.mediaObjects?.map((v) => v.url) ?? [],
                 parent: post.commentOn ? { hash: post.commentOn.postId } : undefined,
+                channelKey: post.channelKey,
             }),
         });
 

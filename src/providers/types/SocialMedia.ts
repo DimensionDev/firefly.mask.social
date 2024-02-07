@@ -163,6 +163,12 @@ export interface Post {
     momoka?: {
         proof: string;
     };
+    /**
+     * Farcaster Only
+     * Used to add a post to the corresponding channel
+     */
+    channelKey?: string;
+    parentUrl?: string;
 }
 
 export interface Comment {
