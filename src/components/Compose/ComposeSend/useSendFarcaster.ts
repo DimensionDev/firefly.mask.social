@@ -5,6 +5,7 @@ import { queryClient } from '@/configs/queryClient.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { readChars } from '@/helpers/readChars.js';
 import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
+import { hasRedPacketPayload } from '@/modals/hasRedPacketPayload.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { type Post } from '@/providers/types/SocialMedia.js';
 import { uploadToImgur } from '@/services/uploadToImgur.js';
@@ -13,7 +14,8 @@ import { useFarcasterStateStore } from '@/store/useProfileStore.js';
 import type { MediaObject } from '@/types/index.js';
 
 export function useSendFarcaster() {
-    const { type, chars, post, images, updateImages, farcasterPostId, updateFarcasterPostId } = useComposeStateStore();
+    const { type, chars, post, images, updateImages, farcasterPostId, updateFarcasterPostId, typedMessage } =
+        useComposeStateStore();
     const enqueueSnackbar = useCustomSnackbar();
     const currentProfile = useFarcasterStateStore.use.currentProfile();
 
@@ -42,6 +44,7 @@ export function useSendFarcaster() {
                 }),
             );
             try {
+                const hasRedPacket = hasRedPacketPayload(typedMessage);
                 const draft: Post = {
                     type: 'Post',
                     postId: '',
@@ -55,6 +58,8 @@ export function useSendFarcaster() {
                     },
                     mediaObjects: uploadedImages.map((media) => ({ url: media.imgur!, mimeType: media.file.type })),
                     commentOn: type === 'reply' && post ? post : undefined,
+                    parentChannelKey: hasRedPacket ? 'firefly-garden' : undefined,
+                    parentChannelUrl: hasRedPacket ? 'https://warpcast.com/~/channel/firefly-garden' : undefined,
                 };
                 const published = await FarcasterSocialMediaProvider.publishPost(draft);
                 enqueueSnackbar(t`Posted on Farcaster`, {
@@ -62,7 +67,9 @@ export function useSendFarcaster() {
                 });
                 if (type === 'reply' && post) {
                     queryClient.invalidateQueries({ queryKey: [post.source, 'post-detail', post.postId] });
-                    queryClient.invalidateQueries({ queryKey: ['post-detail', 'comments', post.source, post.postId] });
+                    queryClient.invalidateQueries({
+                        queryKey: ['post-detail', 'comments', post.source, post.postId],
+                    });
                 }
                 if (type === 'compose') {
                     updateFarcasterPostId(published.postId);
@@ -88,6 +95,7 @@ export function useSendFarcaster() {
             }
         }
     }, [
+        typedMessage,
         currentProfile,
         farcasterPostId,
         type,
