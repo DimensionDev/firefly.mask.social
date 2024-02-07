@@ -1,11 +1,15 @@
+import { getSSLHubRpcClient, Message } from '@farcaster/hub-nodejs';
 import { safeUnreachable } from '@masknet/kit';
 import { z } from 'zod';
 
 import { KeyType } from '@/constants/enum.js';
+import { HUBBLE_URL } from '@/constants/index.js';
 import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
 import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
 import { FrameProcessor } from '@/libs/frame/Processor.js';
 import { ActionType } from '@/types/frame.js';
+
+const hubClient = getSSLHubRpcClient(HUBBLE_URL);
 
 const digestLinkRedis = memoizeWithRedis(FrameProcessor.digestDocumentUrl, {
     key: KeyType.DigestFrameLink,
@@ -48,6 +52,13 @@ export async function POST(request: Request) {
     const { action, url, postUrl } = parsedFrameAction.data;
 
     const packet = await request.clone().json();
+    const message = Message.decode(Buffer.from(packet.trustedData.messageBytes, 'hex'));
+    const validated = await hubClient.validateMessage(message);
+    if (validated.isErr()) {
+        console.log('DEBUG: validateMessage error');
+        console.log(validated.error.message);
+    }
+
     const response = await fetch(postUrl, {
         method: 'POST',
         headers: {

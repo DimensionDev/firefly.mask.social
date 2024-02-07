@@ -6,11 +6,10 @@ import urlcat from 'urlcat';
 import { bytesToHex, toBytes, toHex } from 'viem';
 
 import { SocialPlatform } from '@/constants/enum.js';
-import { EMPTY_LIST, FIREFLY_HUBBLE_URL, FIREFLY_ROOT_URL } from '@/constants/index.js';
+import { EMPTY_LIST, HUBBLE_URL } from '@/constants/index.js';
 import { encodeMessageData } from '@/helpers/encodeMessageData.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import type { FarcasterSession } from '@/providers/farcaster/Session.js';
-import type { UserResponse } from '@/providers/types/Firefly.js';
 import type { FrameSignaturePacket, SignaturePacket } from '@/providers/types/Hubble.js';
 import { type Post, type Profile, ProfileStatus, type Provider, SessionType } from '@/providers/types/SocialMedia.js';
 import { ReactionType as ReactionTypeCustom } from '@/providers/types/SocialMedia.js';
@@ -34,24 +33,8 @@ export class HubbleSocialMedia implements Provider {
         throw new Error('Method not implemented.');
     }
 
-    async getProfileById(profileId: string) {
-        const url = urlcat(FIREFLY_ROOT_URL, '/user', { fid: profileId });
-        const { data: user } = await fetchJSON<UserResponse>(url, {
-            method: 'GET',
-        });
-
-        return {
-            fullHandle: user.username,
-            profileId: user.fid.toString(),
-            handle: user.username,
-            displayName: user.display_name,
-            pfp: user.pfp,
-            followerCount: user.followers,
-            followingCount: user.following,
-            status: ProfileStatus.Active,
-            verified: true,
-            source: SocialPlatform.Farcaster,
-        };
+    async getProfileById(profileId: string): Promise<Profile> {
+        throw new Error('Method not implemented.');
     }
 
     async getPostsByParentPostId(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
@@ -89,7 +72,7 @@ export class HubbleSocialMedia implements Provider {
             },
         }));
 
-        const url = urlcat(FIREFLY_HUBBLE_URL, '/v1/submitMessage');
+        const url = urlcat(HUBBLE_URL, '/v1/submitMessage');
         const { data, hash } = await fetchJSON<Message>(url, {
             method: 'POST',
             headers: {
@@ -145,7 +128,7 @@ export class HubbleSocialMedia implements Provider {
             },
         }));
 
-        const url = urlcat(FIREFLY_HUBBLE_URL, '/v1/submitMessage');
+        const url = urlcat(HUBBLE_URL, '/v1/submitMessage');
         const { data } = await fetchJSON<Message>(url, {
             method: 'POST',
             headers: { 'Content-Type': 'application/octet-stream' },
@@ -173,7 +156,7 @@ export class HubbleSocialMedia implements Provider {
             },
         }));
 
-        const url = urlcat(FIREFLY_HUBBLE_URL, '/v1/submitMessage');
+        const url = urlcat(HUBBLE_URL, '/v1/submitMessage');
         const { data, hash } = await fetchJSON<Message>(url, {
             method: 'POST',
             headers: { 'Content-Type': 'application/octet-stream' },
@@ -204,7 +187,7 @@ export class HubbleSocialMedia implements Provider {
             },
         }));
 
-        const url = urlcat(FIREFLY_HUBBLE_URL, '/v1/submitMessage');
+        const url = urlcat(HUBBLE_URL, '/v1/submitMessage');
         const { data, hash } = await fetchJSON<Message>(url, {
             method: 'POST',
             headers: { 'Content-Type': 'application/octet-stream' },
@@ -226,7 +209,7 @@ export class HubbleSocialMedia implements Provider {
             },
         }));
 
-        const url = urlcat(FIREFLY_HUBBLE_URL, '/v1/submitMessage');
+        const url = urlcat(HUBBLE_URL, '/v1/submitMessage');
         const { data, hash } = await fetchJSON<Message>(url, {
             method: 'POST',
             headers: { 'Content-Type': 'application/octet-stream' },
@@ -248,7 +231,7 @@ export class HubbleSocialMedia implements Provider {
             },
         }));
 
-        const url = urlcat(FIREFLY_HUBBLE_URL, '/v1/submitMessage');
+        const url = urlcat(HUBBLE_URL, '/v1/submitMessage');
         const { data, hash } = await fetchJSON<Message>(url, {
             method: 'POST',
             headers: { 'Content-Type': 'application/octet-stream' },
@@ -267,7 +250,7 @@ export class HubbleSocialMedia implements Provider {
             },
         }));
 
-        const url = urlcat(FIREFLY_HUBBLE_URL, '/v1/submitMessage');
+        const url = urlcat(HUBBLE_URL, '/v1/submitMessage');
         const { data, hash } = await fetchJSON<Message>(url, {
             method: 'POST',
             headers: { 'Content-Type': 'application/octet-stream' },
@@ -286,7 +269,7 @@ export class HubbleSocialMedia implements Provider {
             },
         }));
 
-        const url = urlcat(FIREFLY_HUBBLE_URL, '/v1/submitMessage');
+        const url = urlcat(HUBBLE_URL, '/v1/submitMessage');
         const { data, hash } = await fetchJSON<Message>(url, {
             method: 'POST',
             headers: { 'Content-Type': 'application/octet-stream' },
@@ -297,7 +280,7 @@ export class HubbleSocialMedia implements Provider {
     }
 
     async validateMessage(messageBytes: string) {
-        const url = urlcat(FIREFLY_HUBBLE_URL, '/v1/validateMessage');
+        const url = urlcat(HUBBLE_URL, '/v1/validateMessage');
         const { valid, message } = await fetchJSON<{ valid: boolean; message: Message }>(url, {
             method: 'POST',
             headers: { 'Content-Type': 'application/octet-stream' },
