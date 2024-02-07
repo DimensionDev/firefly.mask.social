@@ -15,6 +15,11 @@ get_latest_commit_message() {
   git log -1 --pretty=%B | sed 's/^/    /'
 }
 
+# Function to check if the latest commit has a tag and get the tag name
+get_latest_commit_tag() {
+  git describe --tags --exact-match 2>/dev/null
+}
+
 # Function to get the version from package.json
 get_package_version() {
   cat package.json \
@@ -46,6 +51,7 @@ if [ -f "package.json" ]; then
   # Get build information
   commit_hash=$(get_latest_commit_hash)
   commit_message=$(get_latest_commit_message)
+  commit_tag=$(get_latest_commit_tag)
   version=$(get_package_version)
   node_version=$(get_node_version)
   pnpm_version=$(get_pnpm_version)
@@ -60,6 +66,9 @@ if [ -f "package.json" ]; then
   echo "Application Version: v$version" >> "$output_file"
   echo "Latest Commit Hash: $commit_hash" >> "$output_file"
   echo "Latest Commit Message:" >> "$output_file"
+  if [ -n "$commit_tag" ]; then
+    echo "Latest Commit Tag: $commit_tag" >> "$output_file"
+  fi
   echo "" >> "$output_file"
   echo "$commit_message" >> "$output_file"
 
