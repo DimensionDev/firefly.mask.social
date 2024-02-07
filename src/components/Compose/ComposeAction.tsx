@@ -75,7 +75,7 @@ export default function ComposeAction(props: ComposeActionProps) {
         await import('@/helpers/setupCurrentVisitingProfile.js').then((module) =>
             module.setupCurrentVisitingProfileAsFireflyApp(),
         );
-        ComposeModalRef.close();
+        ComposeModalRef.close({ isRedpacket: true });
         await delay(300);
         CrossIsolationMessages.events.redpacketDialogEvent.sendToLocal({
             open: true,
