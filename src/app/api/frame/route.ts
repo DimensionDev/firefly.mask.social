@@ -56,7 +56,10 @@ export async function POST(request: Request) {
     const validated = await hubClient.validateMessage(message);
     if (validated.isErr()) {
         console.log('DEBUG: validateMessage error');
-        console.log(validated.error.message);
+        console.log(validated.error);
+    } else {
+        console.log('DEBUG: validateMessage success');
+        console.log(validated.value);
     }
 
     const response = await fetch(postUrl, {
@@ -81,7 +84,7 @@ export async function POST(request: Request) {
 
     switch (action) {
         case ActionType.Post:
-            if (!response.ok || response.status !== 200)
+            if (!response.ok || response.status < 200 || response.status >= 300)
                 return Response.json(
                     { error: 'The frame server cannot handle the post request correctly.' },
                     { status: 500 },
@@ -91,7 +94,7 @@ export async function POST(request: Request) {
                 await FrameProcessor.digestDocument(url, await response.text(), request.signal),
             );
         case ActionType.PostRedirect:
-            if (!response.ok || response.status !== 302)
+            if (!response.ok || response.status < 300 || response.status >= 400)
                 return Response.json(
                     { error: 'The frame server cannot handle the post_redirect request correctly.' },
                     { status: 500 },

@@ -8,7 +8,13 @@ import { SessionType } from '@/providers/types/SocialMedia.js';
 
 export class FarcasterSession extends BaseSession implements Session {
     constructor(
+        /**
+         * Fid
+         */
         profileId: string,
+        /**
+         * the private key
+         */
         token: string,
         createdAt: number,
         expiresAt: number,

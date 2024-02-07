@@ -1,6 +1,5 @@
-import { Message, MessageType, ReactionType } from '@farcaster/hub-web';
+import { Factories, Message, MessageType, ReactionType } from '@farcaster/core';
 import { t } from '@lingui/macro';
-import type { Pageable, PageIndicator } from '@masknet/shared-base';
 import { toInteger } from 'lodash-es';
 import urlcat from 'urlcat';
 import { bytesToHex, toBytes, toHex } from 'viem';
@@ -9,9 +8,8 @@ import { SocialPlatform } from '@/constants/enum.js';
 import { EMPTY_LIST, HUBBLE_URL } from '@/constants/index.js';
 import { encodeMessageData } from '@/helpers/encodeMessageData.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
-import type { FarcasterSession } from '@/providers/farcaster/Session.js';
 import type { FrameSignaturePacket, SignaturePacket } from '@/providers/types/Hubble.js';
-import { type Post, type Profile, ProfileStatus, type Provider, SessionType } from '@/providers/types/SocialMedia.js';
+import { type Post, ProfileStatus, type Provider, SessionType } from '@/providers/types/SocialMedia.js';
 import { ReactionType as ReactionTypeCustom } from '@/providers/types/SocialMedia.js';
 import type { Frame, Index } from '@/types/frame.js';
 
@@ -21,56 +19,36 @@ export class HubbleSocialMedia implements Provider {
         return SessionType.Farcaster;
     }
 
-    async createSession(signal?: AbortSignal): Promise<FarcasterSession> {
-        throw new Error('Please use createSessionByGrantPermission() instead.');
-    }
-
-    async discoverPosts(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        throw new Error('Method not implemented.');
-    }
-
-    async getPostById(postId: string): Promise<Post> {
-        throw new Error('Method not implemented.');
-    }
-
-    async getProfileById(profileId: string): Promise<Profile> {
-        throw new Error('Method not implemented.');
-    }
-
-    async getPostsByParentPostId(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        throw new Error('Method not implemented.');
-    }
-
-    async getFollowers(profileId: string, indicator?: PageIndicator): Promise<Pageable<Profile>> {
-        throw new Error('Method not implemented.');
-    }
-
-    async getFollowings(profileId: string, indicator?: PageIndicator): Promise<Pageable<Profile>> {
-        throw new Error('Method not implemented.');
-    }
-
-    async getPostsByProfileId(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post>> {
-        throw new Error('Method not implemented.');
-    }
-
     async publishPost(post: Post): Promise<Post> {
-        const { bytes } = await encodeMessageData(() => ({
-            type: MessageType.CAST_ADD,
-            castAddBody: {
-                embedsDeprecated: [],
-                parentCastId: post.commentOn
-                    ? {
-                          fid: toInteger(post.commentOn.author.profileId),
-                          hash: toBytes(post.commentOn.postId),
-                      }
-                    : undefined,
-                parentUrl: undefined,
-                mentions: [],
-                text: post.metadata.content?.content ?? '',
-                mentionsPositions: [],
-                embeds: post.mediaObjects?.map((v) => ({ url: v.url })) ?? [],
+        const { messageBytes } = await encodeMessageData(
+            () => ({
+                type: MessageType.CAST_ADD,
+                castAddBody: {
+                    embedsDeprecated: [],
+                    parentCastId: post.commentOn
+                        ? {
+                              fid: toInteger(post.commentOn.author.profileId),
+                              hash: toBytes(post.commentOn.postId),
+                          }
+                        : undefined,
+                    parentUrl: undefined,
+                    mentions: [],
+                    text: post.metadata.content?.content ?? '',
+                    mentionsPositions: [],
+                    embeds: post.mediaObjects?.map((v) => ({ url: v.url })) ?? [],
+                },
+            }),
+            async (messageData, signer) => {
+                return Factories.CastAddMessage.create(
+                    {
+                        data: messageData,
+                    },
+                    {
+                        transient: { signer },
+                    },
+                );
             },
-        }));
+        );
 
         const url = urlcat(HUBBLE_URL, '/v1/submitMessage');
         const { data, hash } = await fetchJSON<Message>(url, {
@@ -78,7 +56,7 @@ export class HubbleSocialMedia implements Provider {
             headers: {
                 'Content-Type': 'application/octet-stream',
             },
-            body: bytes,
+            body: messageBytes,
         });
         if (!data) throw new Error(t`Failed to publish post.`);
 
@@ -117,22 +95,34 @@ export class HubbleSocialMedia implements Provider {
     async upvotePost(postId: string, authorId?: number) {
         if (!authorId) throw new Error(t`Failed to upvote post.`);
 
-        const { bytes, messageHash, messageData } = await encodeMessageData((fid) => ({
-            type: MessageType.REACTION_ADD,
-            reactionBody: {
-                type: ReactionType.LIKE,
-                targetCastId: {
-                    fid: authorId,
-                    hash: toBytes(postId),
+        const { messageBytes, messageHash, messageData } = await encodeMessageData(
+            (fid) => ({
+                type: MessageType.REACTION_ADD,
+                reactionBody: {
+                    type: ReactionType.LIKE,
+                    targetCastId: {
+                        fid: authorId,
+                        hash: toBytes(postId),
+                    },
                 },
+            }),
+            async (messageData, signer) => {
+                return Factories.ReactionAddMessage.create(
+                    {
+                        data: messageData,
+                    },
+                    {
+                        transient: { signer },
+                    },
+                );
             },
-        }));
+        );
 
         const url = urlcat(HUBBLE_URL, '/v1/submitMessage');
         const { data } = await fetchJSON<Message>(url, {
             method: 'POST',
             headers: { 'Content-Type': 'application/octet-stream' },
-            body: bytes,
+            body: messageBytes,
         });
         if (!data) throw new Error(t`Failed to upvote post.`);
 
@@ -145,22 +135,34 @@ export class HubbleSocialMedia implements Provider {
 
     async unvotePost(postId: string, authorId?: number) {
         if (!authorId) throw new Error(t`Failed to unvote post.`);
-        const { bytes } = await encodeMessageData((fid) => ({
-            type: MessageType.REACTION_REMOVE,
-            reactionBody: {
-                type: ReactionType.LIKE,
-                targetCastId: {
-                    fid: authorId,
-                    hash: toBytes(postId),
+        const { messageBytes } = await encodeMessageData(
+            (fid) => ({
+                type: MessageType.REACTION_REMOVE,
+                reactionBody: {
+                    type: ReactionType.LIKE,
+                    targetCastId: {
+                        fid: authorId,
+                        hash: toBytes(postId),
+                    },
                 },
+            }),
+            async (messageData, signer) => {
+                return Factories.ReactionRemoveMessage.create(
+                    {
+                        data: messageData,
+                    },
+                    {
+                        transient: { signer },
+                    },
+                );
             },
-        }));
+        );
 
         const url = urlcat(HUBBLE_URL, '/v1/submitMessage');
         const { data, hash } = await fetchJSON<Message>(url, {
             method: 'POST',
             headers: { 'Content-Type': 'application/octet-stream' },
-            body: bytes,
+            body: messageBytes,
         });
         if (!data) throw new Error(t`Failed to unvote post.`);
         return;
@@ -171,109 +173,169 @@ export class HubbleSocialMedia implements Provider {
      * Use publishPost with parent post instead
      */
     async commentPost(postId: string, comment: string) {
-        const { bytes } = await encodeMessageData((fid) => ({
-            type: MessageType.CAST_ADD,
-            castAddBody: {
-                parentCastId: {
-                    hash: toBytes(postId),
-                    // TODO wrong fid, should be one of the parent cast
-                    fid,
+        const { messageBytes } = await encodeMessageData(
+            (fid) => ({
+                type: MessageType.CAST_ADD,
+                castAddBody: {
+                    parentCastId: {
+                        hash: toBytes(postId),
+                        // TODO wrong fid, should be one of the parent cast
+                        fid,
+                    },
+                    embedsDeprecated: EMPTY_LIST,
+                    mentions: EMPTY_LIST,
+                    text: comment,
+                    mentionsPositions: EMPTY_LIST,
+                    embeds: EMPTY_LIST,
                 },
-                embedsDeprecated: EMPTY_LIST,
-                mentions: EMPTY_LIST,
-                text: comment,
-                mentionsPositions: EMPTY_LIST,
-                embeds: EMPTY_LIST,
+            }),
+            async (messageData, signer) => {
+                return Factories.CastAddMessage.create(
+                    {
+                        data: messageData,
+                    },
+                    {
+                        transient: { signer },
+                    },
+                );
             },
-        }));
+        );
 
         const url = urlcat(HUBBLE_URL, '/v1/submitMessage');
         const { data, hash } = await fetchJSON<Message>(url, {
             method: 'POST',
             headers: { 'Content-Type': 'application/octet-stream' },
-            body: bytes,
+            body: messageBytes,
         });
         if (!data) throw new Error(t`Failed to publish post.`);
         return toHex(hash);
     }
 
     async mirrorPost(postId: string) {
-        const { bytes } = await encodeMessageData((fid) => ({
-            type: MessageType.REACTION_ADD,
-            reactionBody: {
-                type: ReactionType.RECAST,
-                targetCastId: {
-                    hash: toBytes(postId),
-                    fid,
+        const { messageBytes } = await encodeMessageData(
+            (fid) => ({
+                type: MessageType.REACTION_ADD,
+                reactionBody: {
+                    type: ReactionType.RECAST,
+                    targetCastId: {
+                        hash: toBytes(postId),
+                        fid,
+                    },
                 },
+            }),
+            async (messageData, signer) => {
+                return Factories.ReactionAddMessage.create(
+                    {
+                        data: messageData,
+                    },
+                    {
+                        transient: { signer },
+                    },
+                );
             },
-        }));
+        );
 
         const url = urlcat(HUBBLE_URL, '/v1/submitMessage');
         const { data, hash } = await fetchJSON<Message>(url, {
             method: 'POST',
             headers: { 'Content-Type': 'application/octet-stream' },
-            body: bytes,
+            body: messageBytes,
         });
         if (!data) throw new Error(t`Failed to mirror post.`);
         return null!;
     }
 
     async unmirrorPost(postId: string) {
-        const { bytes } = await encodeMessageData((fid) => ({
-            type: MessageType.REACTION_REMOVE,
-            reactionBody: {
-                type: ReactionType.RECAST,
-                targetCastId: {
-                    hash: toBytes(postId),
-                    fid,
+        const { messageBytes } = await encodeMessageData(
+            (fid) => ({
+                type: MessageType.REACTION_REMOVE,
+                reactionBody: {
+                    type: ReactionType.RECAST,
+                    targetCastId: {
+                        hash: toBytes(postId),
+                        fid,
+                    },
                 },
+            }),
+            async (messageData, signer) => {
+                return Factories.ReactionRemoveMessage.create(
+                    {
+                        data: messageData,
+                    },
+                    {
+                        transient: { signer },
+                    },
+                );
             },
-        }));
+        );
 
         const url = urlcat(HUBBLE_URL, '/v1/submitMessage');
         const { data, hash } = await fetchJSON<Message>(url, {
             method: 'POST',
             headers: { 'Content-Type': 'application/octet-stream' },
-            body: bytes,
+            body: messageBytes,
         });
         if (!data) throw new Error(t`Failed to unmirror post.`);
         return null!;
     }
 
     async follow(profileId: string) {
-        const { bytes } = await encodeMessageData(() => ({
-            type: MessageType.LINK_ADD,
-            linkBody: {
-                type: 'follow',
-                targetFid: Number(profileId),
+        const { messageBytes } = await encodeMessageData(
+            () => ({
+                type: MessageType.LINK_ADD,
+                linkBody: {
+                    type: 'follow',
+                    targetFid: Number(profileId),
+                },
+            }),
+            async (messageData, signer) => {
+                return Factories.LinkAddMessage.create(
+                    {
+                        data: messageData,
+                    },
+                    {
+                        transient: { signer },
+                    },
+                );
             },
-        }));
+        );
 
         const url = urlcat(HUBBLE_URL, '/v1/submitMessage');
         const { data, hash } = await fetchJSON<Message>(url, {
             method: 'POST',
             headers: { 'Content-Type': 'application/octet-stream' },
-            body: bytes,
+            body: messageBytes,
         });
         if (!data) throw new Error(t`Failed to follow.`);
         return null!;
     }
 
     async unfollow(profileId: string) {
-        const { bytes } = await encodeMessageData(() => ({
-            type: MessageType.LINK_REMOVE,
-            linkBody: {
-                type: 'unfollow',
-                targetFid: Number(profileId),
+        const { messageBytes } = await encodeMessageData(
+            () => ({
+                type: MessageType.LINK_REMOVE,
+                linkBody: {
+                    type: 'unfollow',
+                    targetFid: Number(profileId),
+                },
+            }),
+            async (messageData, signer) => {
+                return Factories.LinkRemoveMessage.create(
+                    {
+                        data: messageData,
+                    },
+                    {
+                        transient: { signer },
+                    },
+                );
             },
-        }));
+        );
 
         const url = urlcat(HUBBLE_URL, '/v1/submitMessage');
         const { data, hash } = await fetchJSON<Message>(url, {
             method: 'POST',
             headers: { 'Content-Type': 'application/octet-stream' },
-            body: bytes,
+            body: messageBytes,
         });
         if (!data) throw new Error(t`Failed to unfollow.`);
         return null!;
@@ -292,12 +354,24 @@ export class HubbleSocialMedia implements Provider {
     }
 
     async generateSignaturePacket(): Promise<SignaturePacket> {
-        const { signer, messageHash, messageSignature } = await encodeMessageData(() => {
-            return {
-                type: MessageType.CAST_ADD,
-                castAddBody: undefined,
-            };
-        });
+        const { signer, messageHash, messageSignature } = await encodeMessageData(
+            () => {
+                return {
+                    type: MessageType.CAST_ADD,
+                    castAddBody: undefined,
+                };
+            },
+            async (messageData, signer) => {
+                return Factories.CastAddMessage.create(
+                    {
+                        data: messageData,
+                    },
+                    {
+                        transient: { signer },
+                    },
+                );
+            },
+        );
         return {
             signer: `0x${Buffer.from(signer).toString('hex')}`,
             messageHash: `0x${Buffer.from(messageHash).toString('hex')}`,
@@ -311,23 +385,35 @@ export class HubbleSocialMedia implements Provider {
         index: Index,
         input?: string,
     ): Promise<FrameSignaturePacket> {
-        const { bytes, messageHash, messageData } = await encodeMessageData((fid) => ({
-            type: MessageType.FRAME_ACTION,
-            frameActionBody: {
-                url: toBytes(frame.url),
-                buttonIndex: index,
-                castId: {
-                    fid,
-                    hash: toBytes(postId),
+        const { messageBytes, messageHash, messageData } = await encodeMessageData(
+            (fid) => ({
+                type: MessageType.FRAME_ACTION,
+                frameActionBody: {
+                    url: toBytes(frame.postUrl),
+                    buttonIndex: index,
+                    castId: {
+                        fid,
+                        hash: toBytes(postId),
+                    },
+                    inputText: input ? toBytes(input) : new Uint8Array([]),
                 },
-                inputText: input ? toBytes(input) : new Uint8Array([]),
+            }),
+            async (messageData, signer) => {
+                return Factories.FrameActionMessage.create(
+                    {
+                        data: messageData,
+                    },
+                    {
+                        transient: { signer },
+                    },
+                );
             },
-        }));
+        );
 
         return {
             untrustedData: {
                 fid: messageData.fid,
-                url: frame.url,
+                url: frame.postUrl,
                 messageHash: `0x${Buffer.from(messageHash).toString('hex')}`,
                 timestamp: messageData.timestamp,
                 network: messageData.network,
@@ -340,7 +426,7 @@ export class HubbleSocialMedia implements Provider {
             },
             trustedData: {
                 // no 0x prefix
-                messageBytes: Buffer.from(bytes).toString('hex'),
+                messageBytes: Buffer.from(messageBytes).toString('hex'),
             },
         };
     }

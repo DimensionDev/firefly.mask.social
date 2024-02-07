@@ -1,55 +1,36 @@
-import {
-    FARCASTER_EPOCH,
-    FarcasterNetwork,
-    getFarcasterTime,
-    HashScheme,
-    Message,
-    MessageData,
-    SignatureScheme,
-} from '@farcaster/hub-web';
-import * as ed from '@noble/ed25519';
+import { FarcasterNetwork, fromFarcasterTime, Message, MessageData, NobleEd25519Signer } from '@farcaster/core';
 import { blake3 } from '@noble/hashes/blake3';
-import { sha512 } from '@noble/hashes/sha512';
 import { toBytes } from 'viem';
 
 import { farcasterClient } from '@/configs/farcasterClient.js';
 import type { PartialWith } from '@/types/index.js';
 
-ed.etc.sha512Sync = (...m: any) => sha512(ed.etc.concatBytes(...m));
-
 export async function encodeMessageData(
     withMessageData: (profileId: number) => PartialWith<MessageData, 'fid' | 'timestamp' | 'network'>,
+    withMessage: (messageData: MessageData, signer: NobleEd25519Signer) => Promise<Message>,
     withPrivateKey?: string,
 ) {
     const { token, profileId } = farcasterClient.getSessionRequired();
+    const privateKey = withPrivateKey || token;
+    const signer = new NobleEd25519Signer(toBytes(privateKey));
+
     const messageData: MessageData = {
-        ...withMessageData(Number(profileId)),
-        fid: Number(profileId),
-        timestamp: getFarcasterTime().unwrapOr(Math.round((Date.now() - FARCASTER_EPOCH) / 1000)),
+        ...withMessageData(Number.parseInt(profileId, 10)),
+        fid: Number.parseInt(profileId, 10),
+        timestamp: fromFarcasterTime(Date.now())._unsafeUnwrap(),
         network: FarcasterNetwork.MAINNET,
     };
-    const privateKey = withPrivateKey ?? token;
-    const messageDataEncoded = MessageData.encode(messageData).finish();
-    const messageHash = blake3(messageDataEncoded, { dkLen: 20 });
-    const messageSignature = await ed.signAsync(messageHash, toBytes(privateKey, { size: 32 }));
-
-    const signer = ed.getPublicKey(toBytes(privateKey));
-    const bytes = Buffer.from(
-        Message.encode({
-            data: messageData,
-            hash: messageHash,
-            hashScheme: HashScheme.BLAKE3,
-            signature: messageSignature,
-            signatureScheme: SignatureScheme.ED25519,
-            signer,
-        }).finish(),
-    );
+    const message = await withMessage(messageData, signer);
+    const messageBytes = Buffer.from(Message.encode(message).finish());
+    const messageHash = blake3(messageBytes, { dkLen: 20 });
 
     return {
-        bytes,
-        signer,
+        signer: `0x${Buffer.from((await signer.getSignerKey())._unsafeUnwrap()).toString('hex')}`,
+        messageBytes,
         messageHash,
         messageData,
-        messageSignature,
+        messageSignature: `0x${Buffer.from((await signer.signMessageHash(messageHash))._unsafeUnwrap()).toString(
+            'hex',
+        )}`,
     };
 }

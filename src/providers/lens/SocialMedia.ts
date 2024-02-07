@@ -52,10 +52,6 @@ export class LensSocialMedia implements Provider {
         return SessionType.Lens;
     }
 
-    async createSession(): Promise<LensSession> {
-        throw new Error('Please use createSessionForProfileId() instead.');
-    }
-
     async createSessionForProfileId(profileId: string): Promise<LensSession> {
         const walletClient = await getWalletClientRequired({
             chainId: polygon.id,

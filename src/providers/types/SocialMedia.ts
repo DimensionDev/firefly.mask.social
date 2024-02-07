@@ -1,7 +1,6 @@
 import type { Pageable, PageIndicator } from '@masknet/shared-base';
 
 import type { SocialPlatform } from '@/constants/enum.js';
-import type { Session } from '@/providers/types/Session.js';
 
 export enum SessionType {
     Twitter = 'Twitter',
@@ -234,15 +233,7 @@ export type Notification =
 
 export interface Provider {
     type: SessionType;
-
-    /**
-     * Initiates the login process for the provider.
-     *
-     * @param signal Optional AbortSignal for cancellation.
-     * @returns A promise that resolves to an Auth object upon successful login.
-     */
-    createSession: (signal?: AbortSignal) => Promise<Session>;
-
+    
     /**
      * Publishes a post.
      *
