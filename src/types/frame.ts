@@ -3,6 +3,7 @@ export type Index = 1 | 2 | 3 | 4;
 export enum ActionType {
     Post = 'post',
     PostRedirect = 'post_redirect',
+    Link = 'Link',
 }
 
 export interface FrameInput {
@@ -10,11 +11,22 @@ export interface FrameInput {
     placeholder?: string;
 }
 
-export interface FrameButton {
+interface FrameButtonBase {
     index: Index;
     text: string;
-    action: ActionType;
 }
+
+interface FrameButtonPost extends FrameButtonBase {
+    action: ActionType.Post | ActionType.PostRedirect;
+}
+
+interface FrameButtonLink extends FrameButtonBase {
+    action: ActionType.Link;
+    // action target URL
+    target: string;
+}
+
+export type FrameButton = FrameButtonPost | FrameButtonLink;
 
 export interface FrameImage {
     url: string;

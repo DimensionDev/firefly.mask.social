@@ -233,7 +233,7 @@ export type Notification =
 
 export interface Provider {
     type: SessionType;
-    
+
     /**
      * Publishes a post.
      *

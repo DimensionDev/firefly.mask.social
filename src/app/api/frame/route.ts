@@ -43,9 +43,9 @@ export async function POST(request: Request) {
     const { searchParams } = new URL(request.url);
 
     const parsedFrameAction = FrameActionSchema.safeParse({
+        action: searchParams.get('action'),
         url: searchParams.get('url'),
         postUrl: searchParams.get('post-url'),
-        action: searchParams.get('action'),
     });
     if (!parsedFrameAction.success) return Response.json({ error: parsedFrameAction.error.message }, { status: 400 });
 
@@ -94,19 +94,26 @@ export async function POST(request: Request) {
                 await FrameProcessor.digestDocument(url, await response.text(), request.signal),
             );
         case ActionType.PostRedirect:
-            if (!response.ok || response.status < 300 || response.status >= 400)
-                return Response.json(
-                    { error: 'The frame server cannot handle the post_redirect request correctly.' },
-                    { status: 500 },
-                );
-
-            const redirectUrl = response.headers.get('Location');
-            if (!redirectUrl || !HttpUrlSchema.safeParse(redirectUrl).success)
-                return Response.json({ error: 'The frame server does not return a Location header.' }, { status: 500 });
-
+            if (response.ok && response.status >= 300 && response.status < 400) {
+                const locationUrl = response.headers.get('Location');
+                if (locationUrl && HttpUrlSchema.safeParse(locationUrl).success)
+                    return createSuccessResponseJSON({
+                        redirectUrl: locationUrl,
+                    });
+            }
             return createSuccessResponseJSON({
-                redirectUrl,
+                redirectUrl: postUrl,
             });
+
+        case ActionType.Link:
+            return Response.json(
+                {
+                    error: 'Not available',
+                },
+                {
+                    status: 400,
+                },
+            );
         default:
             safeUnreachable(action);
             return Response.json({ error: `Unknown action: ${action}` }, { status: 400 });

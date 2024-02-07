@@ -1,4 +1,4 @@
-import type { FarcasterNetwork } from '@farcaster/hub-web';
+import type { FarcasterNetwork } from '@farcaster/core';
 
 export interface SignaturePacket {
     signer: `0x${string}`;

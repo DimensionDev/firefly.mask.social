@@ -1,4 +1,5 @@
 import { t } from '@lingui/macro';
+import { safeUnreachable } from '@masknet/kit';
 import { openWindow } from '@masknet/shared-base-ui';
 import { useQuery } from '@tanstack/react-query';
 import { useEffect, useRef, useState } from 'react';
@@ -56,15 +57,17 @@ export function Frame({ postId, url, onData, children }: FrameProps) {
             try {
                 if (!frame) return;
 
+                const { action, index } = button;
+
                 const url = urlcat('/api/frame', {
                     url: frame.url,
-                    action: button.action,
+                    action,
                     'post-url': frame.postUrl,
                 });
                 const packet = await HubbleSocialMediaProvider.generateFrameSignaturePacket(
                     postId,
                     frame,
-                    button.index,
+                    index,
                     input,
                 );
                 const response = await fetchJSON<ResponseJSON<LinkDigested | { redirectUrl: string }>>(url, {
@@ -75,7 +78,7 @@ export function Frame({ postId, url, onData, children }: FrameProps) {
                     body: JSON.stringify(packet),
                 });
 
-                switch (button.action) {
+                switch (action) {
                     case ActionType.Post:
                         const nextFrame = response.success ? (response.data as LinkDigested).frame : null;
                         if (!nextFrame)
@@ -101,6 +104,12 @@ export function Frame({ postId, url, onData, children }: FrameProps) {
                         if (!confirmed) return;
 
                         openWindow(redirectUrl, '_blank');
+                        break;
+                    case ActionType.Link:
+                        openWindow(button.target, '_blank');
+                        break;
+                    default:
+                        safeUnreachable(action);
                         break;
                 }
             } catch (error) {
