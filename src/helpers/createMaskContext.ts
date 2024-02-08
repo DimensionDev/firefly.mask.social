@@ -4,6 +4,7 @@ import type { __UIContext__ } from '@masknet/plugin-infra/dom';
 import { TransactionConfirmModal } from '@masknet/shared';
 import { EMPTY_ARRAY, PostIdentifier, UNDEFINED } from '@masknet/shared-base';
 
+import type { SocialPlatform } from '@/constants/enum.js';
 import { SITE_URL } from '@/constants/index.js';
 import { createRejectCallback } from '@/helpers/createRejectCallback.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
@@ -41,11 +42,12 @@ export function createMaskSiteAdaptorContext(context?: Partial<__SiteAdaptorCont
         currentNextIDPlatform: undefined,
         currentPersonaIdentifier: UNDEFINED,
         getPostURL: (identifier: PostIdentifier) => null,
-        share: async (text: string) => {
+        share: async (text: string, source?: string) => {
             TransactionConfirmModal.close();
             await delay(300);
             ComposeModalRef.open({
                 chars: text.replaceAll(/mask\.io/gi, SITE_URL),
+                source: source as SocialPlatform,
             });
         },
         connectPersona: createRejectCallback('connectPersona'),

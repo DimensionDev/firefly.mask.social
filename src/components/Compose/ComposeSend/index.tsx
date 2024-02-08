@@ -2,8 +2,9 @@ import { Trans } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
 import { FireflyRedPacket } from '@masknet/web3-providers';
 import { FireflyRedPacketAPI, type RedPacketJSONPayload } from '@masknet/web3-providers/types';
+import { useQueryClient } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
-import { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 import { useAsyncFn } from 'react-use';
 
 import LoadingIcon from '@/assets/loading.svg';
@@ -28,9 +29,36 @@ export default function ComposeSend() {
 
     const sendLens = useSendLens();
     const sendFarcaster = useSendFarcaster();
-
+    const queryClient = useQueryClient();
     const currentLensProfile = useLensStateStore.use.currentProfile();
     const currentFarcasterProfile = useFarcasterStateStore.use.currentProfile();
+
+    const refreshProfileFeed = useCallback(
+        async (source: SocialPlatform) => {
+            switch (source) {
+                case SocialPlatform.Lens:
+                    await queryClient.invalidateQueries({
+                        queryKey: ['getPostsByProfileId', SocialPlatform.Lens, currentLensProfile?.profileId],
+                    });
+                    queryClient.removeQueries({
+                        queryKey: ['getPostsByProfileId', SocialPlatform.Lens, currentLensProfile?.profileId],
+                    });
+                    break;
+                case SocialPlatform.Farcaster:
+                    await queryClient.invalidateQueries({
+                        queryKey: ['getPostsByProfileId', SocialPlatform.Farcaster, currentFarcasterProfile?.profileId],
+                    });
+                    queryClient.removeQueries({
+                        queryKey: ['getPostsByProfileId', SocialPlatform.Farcaster, currentFarcasterProfile?.profileId],
+                    });
+                    break;
+                default:
+                    safeUnreachable(source);
+                    return;
+            }
+        },
+        [currentLensProfile, currentFarcasterProfile, queryClient],
+    );
     const [{ loading }, handleSend] = useAsyncFn(async () => {
         if (!currentSource && type === 'compose') {
             const promises: Array<Promise<void>> = [];
@@ -40,8 +68,10 @@ export default function ComposeSend() {
             const result = await Promise.allSettled(promises);
             if (result.every((x) => x.status === 'rejected')) return;
 
+            if (availableSources.includes(SocialPlatform.Lens)) await refreshProfileFeed(SocialPlatform.Lens);
+            if (availableSources.includes(SocialPlatform.Farcaster)) await refreshProfileFeed(SocialPlatform.Farcaster);
+
             // The modal will be closed when a platform sends a successful post.
-            ComposeModalRef.close();
         } else if (currentSource) {
             switch (currentSource) {
                 case SocialPlatform.Lens:
@@ -53,48 +83,61 @@ export default function ComposeSend() {
                 default:
                     safeUnreachable(currentSource);
             }
+            refreshProfileFeed(currentSource);
+        }
 
+        try {
+            const { lensPostId, farcasterPostId, typedMessage } = useComposeStateStore.getState();
+
+            if (hasRedPacketPayload(typedMessage) && (lensPostId || farcasterPostId)) {
+                const rpPayload = typedMessage?.meta?.get(RedPacketMetaKey) as RedPacketJSONPayload;
+
+                const reactions = compact([
+                    lensPostId
+                        ? {
+                              platform: FireflyRedPacketAPI.PlatformType.lens,
+                              postId: lensPostId,
+                          }
+                        : undefined,
+                    farcasterPostId
+                        ? {
+                              platform: FireflyRedPacketAPI.PlatformType.farcaster,
+                              postId: farcasterPostId,
+                              handle: currentFarcasterProfile?.handle,
+                          }
+                        : undefined,
+                ]);
+
+                const claimPlatform = compact([
+                    lensPostId && currentLensProfile
+                        ? {
+                              platformId: currentLensProfile.profileId,
+                              platformName: FireflyRedPacketAPI.PlatformType.lens,
+                          }
+                        : undefined,
+                    farcasterPostId && currentFarcasterProfile
+                        ? {
+                              platformId: currentFarcasterProfile.profileId,
+                              platformName: FireflyRedPacketAPI.PlatformType.farcaster,
+                          }
+                        : undefined,
+                ]);
+                await FireflyRedPacket.updateClaimStrategy(rpPayload.rpid, reactions, claimPlatform);
+            }
+        } finally {
+            // Whether or not the update succeeds, you need to close the modal
             ComposeModalRef.close();
         }
-
-        const { lensPostId, farcasterPostId, typedMessage } = useComposeStateStore.getState();
-
-        if (hasRedPacketPayload(typedMessage) && (lensPostId || farcasterPostId)) {
-            const rpPayload = typedMessage?.meta?.get(RedPacketMetaKey) as RedPacketJSONPayload;
-
-            const reactions = compact([
-                lensPostId
-                    ? {
-                          platform: FireflyRedPacketAPI.PlatformType.lens,
-                          postId: lensPostId,
-                      }
-                    : undefined,
-                farcasterPostId
-                    ? {
-                          platform: FireflyRedPacketAPI.PlatformType.farcaster,
-                          postId: farcasterPostId,
-                          handle: currentFarcasterProfile?.handle,
-                      }
-                    : undefined,
-            ]);
-
-            const claimPlatform = compact([
-                lensPostId && currentLensProfile
-                    ? {
-                          platformId: currentLensProfile.profileId,
-                          platformName: FireflyRedPacketAPI.PlatformType.lens,
-                      }
-                    : undefined,
-                farcasterPostId && currentFarcasterProfile
-                    ? {
-                          platformId: currentFarcasterProfile.profileId,
-                          platformName: FireflyRedPacketAPI.PlatformType.farcaster,
-                      }
-                    : undefined,
-            ]);
-            await FireflyRedPacket.updateClaimStrategy(rpPayload.rpid, reactions, claimPlatform);
-        }
-    }, [currentSource, availableSources, type, sendLens, sendFarcaster, currentFarcasterProfile, currentLensProfile]);
+    }, [
+        currentSource,
+        availableSources,
+        type,
+        sendLens,
+        sendFarcaster,
+        currentFarcasterProfile,
+        currentLensProfile,
+        refreshProfileFeed,
+    ]);
 
     const disabled = useMemo(() => {
         if ((length === 0 || length > MAX_POST_SIZE) && images.length === 0 && !video) return true;

@@ -33,6 +33,7 @@ export function usePostInfo(post: Post) {
 
         return {
             author: createConstantSubscription(author),
+            handle: createConstantSubscription(post.author.fullHandle),
             source: post.source,
             coAuthors: EMPTY_ARRAY,
             avatarURL: createConstantSubscription(new URL(post.author.pfp)),

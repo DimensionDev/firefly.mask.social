@@ -2,7 +2,7 @@
 import { Dialog, Transition } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { HashtagNode } from '@lexical/hashtag';
-import { $createLinkNode, AutoLinkNode, LinkNode } from '@lexical/link';
+import { AutoLinkNode, LinkNode } from '@lexical/link';
 import { LexicalComposer } from '@lexical/react/LexicalComposer.js';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext.js';
 import { t } from '@lingui/macro';
@@ -10,7 +10,7 @@ import { encrypt, SteganographyPreset } from '@masknet/encryption';
 import { ProfileIdentifier, type SingletonModalRefCreator } from '@masknet/shared-base';
 import { useSingletonModal } from '@masknet/shared-base-ui';
 import type { TypedMessageTextV1 } from '@masknet/typed-message';
-import { $createParagraphNode, $createTextNode, $getRoot } from 'lexical';
+import { $getRoot } from 'lexical';
 import { forwardRef, Fragment, useCallback, useState } from 'react';
 import { useAsync } from 'react-use';
 import { None } from 'ts-results-es';
@@ -24,7 +24,7 @@ import Discard from '@/components/Compose/Discard.js';
 import { useSetEditorContent } from '@/components/Compose/useSetEditorContent.js';
 import { MentionNode } from '@/components/Lexical/nodes/MentionsNode.js';
 import { SocialPlatform } from '@/constants/enum.js';
-import { RP_HASH_TAG, SITE_HOSTNAME, SITE_URL } from '@/constants/index.js';
+import { SITE_HOSTNAME, SITE_URL } from '@/constants/index.js';
 import { fetchImageAsPNG } from '@/helpers/fetchImageAsPNG.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { type Chars, readChars } from '@/helpers/readChars.js';
@@ -85,6 +85,7 @@ export const ComposeModalComponent = forwardRef<SingletonModalRefCreator<Compose
             addImage,
             updateType,
             updateCurrentSource,
+            updateSources,
             updatePost,
             updateChars,
             updateTypedMessage,
@@ -100,7 +101,10 @@ export const ComposeModalComponent = forwardRef<SingletonModalRefCreator<Compose
         const [open, dispatch] = useSingletonModal(ref, {
             onOpen: (props) => {
                 updateType(props.type || 'compose');
-                updateCurrentSource(props.source || null);
+                if (props.source) {
+                    updateCurrentSource(props.source);
+                    updateSources([props.source]);
+                }
                 if (props.typedMessage) updateTypedMessage(props.typedMessage);
                 if (props.post) updatePost(props.post);
                 if (props.chars && typeof props.chars === 'string') {
@@ -155,49 +159,23 @@ export const ComposeModalComponent = forwardRef<SingletonModalRefCreator<Compose
                     SteganographyPreset.Preset2023_Firefly,
                 );
 
-                editor.update(() => {
-                    const root = $getRoot();
-                    const hashTagParagraph = $createParagraphNode();
-                    const paragraph = $createParagraphNode();
+                const lensProfileLink = currentLensProfile ? getProfileUrl(currentLensProfile) : null;
+                const farcasterProfileLink = currentFarcasterProfile ? getProfileUrl(currentFarcasterProfile) : null;
 
-                    const lensProfileLink = currentLensProfile ? getProfileUrl(currentLensProfile) : null;
-                    const farcasterProfileLink = currentFarcasterProfile
-                        ? getProfileUrl(currentFarcasterProfile)
-                        : null;
+                const chars = t`Check out my LuckyDrop 🧧💰✨ on Firefly mobile app or ${SITE_URL} !
+                ${lensProfileLink ? t`Claim on Lens: ${urlcat(SITE_URL, lensProfileLink)}` : ''}
+                ${farcasterProfileLink ? t`Claim on Farcaster: ${urlcat(SITE_URL, farcasterProfileLink)}` : ''}
+                `;
 
-                    hashTagParagraph.append($createTextNode(RP_HASH_TAG));
-
-                    paragraph.append($createTextNode(t`Check out my LuckyDrop 🧧💰✨ on Firefly mobile app or `));
-                    paragraph.append($createLinkNode(SITE_URL).append($createTextNode(` ${SITE_HOSTNAME}`)));
-                    paragraph.append($createTextNode('!'));
-
-                    root.append(hashTagParagraph);
-                    root.append(paragraph);
-
-                    if (lensProfileLink) {
-                        const lensParagraph = $createParagraphNode();
-                        lensParagraph.append($createTextNode(t`Claim on Lens: `));
-                        lensParagraph.append(
-                            $createLinkNode(lensProfileLink).append(
-                                $createTextNode(` ${urlcat(SITE_URL, lensProfileLink)}`),
-                            ),
-                        );
-                        root.append(lensParagraph);
-                    }
-
-                    if (farcasterProfileLink) {
-                        const farcasterParagraph = $createParagraphNode();
-                        farcasterParagraph.append($createTextNode(t`Claim on Farcaster: `));
-                        farcasterParagraph.append(
-                            $createLinkNode(farcasterProfileLink).append(
-                                $createTextNode(` ${urlcat(SITE_URL, farcasterProfileLink)}`),
-                            ),
-                        );
-                        root.append(farcasterParagraph);
-                    }
-
-                    root.selectEnd();
-                });
+                updateChars([
+                    {
+                        tag: 'ff_rp',
+                        content: '#FireflyLuckyDrop',
+                        visible: true,
+                    },
+                    chars,
+                ]);
+                setEditorContent(chars);
 
                 addImage({
                     file: new File([secretImage], 'image.png', { type: 'image/png' }),

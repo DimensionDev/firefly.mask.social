@@ -46,6 +46,12 @@ msgstr ""
 msgid "Failed to post on Farcaster."
 msgstr ""
 
+msgid ""
+"Check out my LuckyDrop 🧧💰✨ on Firefly mobile app or {SITE_URL} !\n"
+"{0}\n"
+"{1}"
+msgstr ""
+
 msgid "Act"
 msgstr ""
 
@@ -124,9 +130,6 @@ msgstr ""
 msgid "Failed to post on Lens."
 msgstr ""
 
-msgid "Claim on Lens:"
-msgstr ""
-
 msgid "Select Account"
 msgstr ""
 
@@ -175,9 +178,6 @@ msgstr ""
 msgid "Log out"
 msgstr ""
 
-msgid "Check out my LuckyDrop 🧧💰✨ on Firefly mobile app or"
-msgstr ""
-
 msgid "post"
 msgstr ""
 
@@ -224,9 +224,6 @@ msgid "Failed to unvote post."
 msgstr ""
 
 msgid "Privacy Policy"
-msgstr ""
-
-msgid "Claim on Farcaster:"
 msgstr ""
 
 msgid "No wallet client found"

@@ -25,7 +25,7 @@ export type Chars = string | [RP_Chars, string];
 export function readChars(chars: Chars, visibleOnly = false) {
     return (Array.isArray(chars) ? chars : [chars])
         .map((x) => (typeof x === 'string' ? x : x.visible || !visibleOnly ? x.content : ''))
-        .join('');
+        .join('\n');
 }
 
 export function writeChars(chars: Chars, newChars: Chars): Chars {

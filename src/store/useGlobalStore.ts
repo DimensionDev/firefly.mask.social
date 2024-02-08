@@ -15,7 +15,7 @@ interface GlobalState {
 const useGlobalStateBase = create<GlobalState, [['zustand/immer', never]]>(
     immer((set) => ({
         routeChanged: false,
-        currentSource: SocialPlatform.Lens,
+        currentSource: SocialPlatform.Farcaster,
         updateCurrentSource: (source: SocialPlatform) =>
             set((state) => {
                 state.currentSource = source;
