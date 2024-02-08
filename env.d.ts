@@ -18,9 +18,9 @@ declare namespace NodeJS {
         FARCASTER_SIGNER_FID: string;
         FARCASTER_SIGNER_MNEMONIC: string;
 
-        NEXT_PUBLIC_HUBBLE_URL: string;
-        NEXT_PUBLIC_FIREFLY_HUBBLE_URL: string;
-        NEXT_PUBLIC_FIREFLY_API_URL: string;
+        HUBBLE_URL: string;
+        HUBBLE_TOKEN?: string;
+
         WEB3_CONSTANTS_RPC: string;
         MASK_SENTRY_DSN: string;
 
@@ -28,6 +28,7 @@ declare namespace NodeJS {
         IMGUR_CLIENT_SECRET: string;
 
         NEXT_PUBLIC_SITE_URL?: string;
+        NEXT_PUBLIC_FIREFLY_API_URL: string;
 
         NEXT_PUBLIC_FRAMES: 'enabled' | 'disabled';
         NEXT_PUBLIC_MASK_WEB_COMPONENTS: 'enabled' | 'disabled';

@@ -1,5 +1,7 @@
 /* cspell:disable */
 
+import urlcat from 'urlcat';
+
 export const SITE_NAME = 'Firefly: Web3 & NFT Explorer';
 export const SITE_DESCRIPTION =
     "Firefly is a social app for exploring what's happening in the world of Web3, NFTs, AI, and more.";
@@ -9,7 +11,8 @@ export const SITE_HOSTNAME = 'firefly.mask.social';
 export const WARPCAST_ROOT_URL = 'https://api.warpcast.com/v2';
 export const WARPCAST_CLIENT_URL = 'https://client.warpcast.com/v2';
 export const FIREFLY_ROOT_URL = process.env.NEXT_PUBLIC_FIREFLY_API_URL;
-export const HUBBLE_URL = process.env.NEXT_PUBLIC_HUBBLE_URL || process.env.NEXT_PUBLIC_FIREFLY_HUBBLE_URL;
+
+export const HUBBLE_URL = urlcat(SITE_URL, '/api/hubble');
 
 export const RP_HASH_TAG = '#FireflyLuckyDrop';
 

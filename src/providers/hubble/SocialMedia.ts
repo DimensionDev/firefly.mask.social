@@ -13,6 +13,16 @@ import { type Post, ProfileStatus, type Provider, SessionType } from '@/provider
 import { ReactionType as ReactionTypeCustom } from '@/providers/types/SocialMedia.js';
 import type { Frame, Index } from '@/types/frame.js';
 
+function fetchHubbleJSON<T>(url: string, options: RequestInit): Promise<T> {
+    return fetchJSON(url, {
+        ...options,
+        headers: new Headers({
+            'Content-Type': 'application/octet-stream',
+            ...options.headers,
+        }),
+    });
+}
+
 // @ts-ignore
 export class HubbleSocialMedia implements Provider {
     get type() {
@@ -51,11 +61,8 @@ export class HubbleSocialMedia implements Provider {
         );
 
         const url = urlcat(HUBBLE_URL, '/v1/submitMessage');
-        const { data, hash } = await fetchJSON<Message>(url, {
+        const { data, hash } = await fetchHubbleJSON<Message>(url, {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/octet-stream',
-            },
             body: messageBytes,
         });
         if (!data) throw new Error(t`Failed to publish post.`);
@@ -119,9 +126,8 @@ export class HubbleSocialMedia implements Provider {
         );
 
         const url = urlcat(HUBBLE_URL, '/v1/submitMessage');
-        const { data } = await fetchJSON<Message>(url, {
+        const { data } = await fetchHubbleJSON<Message>(url, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/octet-stream' },
             body: messageBytes,
         });
         if (!data) throw new Error(t`Failed to upvote post.`);
@@ -159,9 +165,8 @@ export class HubbleSocialMedia implements Provider {
         );
 
         const url = urlcat(HUBBLE_URL, '/v1/submitMessage');
-        const { data, hash } = await fetchJSON<Message>(url, {
+        const { data, hash } = await fetchHubbleJSON<Message>(url, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/octet-stream' },
             body: messageBytes,
         });
         if (!data) throw new Error(t`Failed to unvote post.`);
@@ -202,9 +207,8 @@ export class HubbleSocialMedia implements Provider {
         );
 
         const url = urlcat(HUBBLE_URL, '/v1/submitMessage');
-        const { data, hash } = await fetchJSON<Message>(url, {
+        const { data, hash } = await fetchHubbleJSON<Message>(url, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/octet-stream' },
             body: messageBytes,
         });
         if (!data) throw new Error(t`Failed to publish post.`);
@@ -236,9 +240,8 @@ export class HubbleSocialMedia implements Provider {
         );
 
         const url = urlcat(HUBBLE_URL, '/v1/submitMessage');
-        const { data, hash } = await fetchJSON<Message>(url, {
+        const { data, hash } = await fetchHubbleJSON<Message>(url, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/octet-stream' },
             body: messageBytes,
         });
         if (!data) throw new Error(t`Failed to mirror post.`);
@@ -270,9 +273,8 @@ export class HubbleSocialMedia implements Provider {
         );
 
         const url = urlcat(HUBBLE_URL, '/v1/submitMessage');
-        const { data, hash } = await fetchJSON<Message>(url, {
+        const { data, hash } = await fetchHubbleJSON<Message>(url, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/octet-stream' },
             body: messageBytes,
         });
         if (!data) throw new Error(t`Failed to unmirror post.`);
@@ -301,9 +303,8 @@ export class HubbleSocialMedia implements Provider {
         );
 
         const url = urlcat(HUBBLE_URL, '/v1/submitMessage');
-        const { data, hash } = await fetchJSON<Message>(url, {
+        const { data, hash } = await fetchHubbleJSON<Message>(url, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/octet-stream' },
             body: messageBytes,
         });
         if (!data) throw new Error(t`Failed to follow.`);
@@ -332,9 +333,8 @@ export class HubbleSocialMedia implements Provider {
         );
 
         const url = urlcat(HUBBLE_URL, '/v1/submitMessage');
-        const { data, hash } = await fetchJSON<Message>(url, {
+        const { data, hash } = await fetchHubbleJSON<Message>(url, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/octet-stream' },
             body: messageBytes,
         });
         if (!data) throw new Error(t`Failed to unfollow.`);
@@ -343,9 +343,8 @@ export class HubbleSocialMedia implements Provider {
 
     async validateMessage(messageBytes: string) {
         const url = urlcat(HUBBLE_URL, '/v1/validateMessage');
-        const { valid, message } = await fetchJSON<{ valid: boolean; message: Message }>(url, {
+        const { valid, message } = await fetchHubbleJSON<{ valid: boolean; message: Message }>(url, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/octet-stream' },
             body: Buffer.from(messageBytes, 'hex'),
         });
 
