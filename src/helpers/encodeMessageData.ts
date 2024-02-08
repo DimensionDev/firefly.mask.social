@@ -14,7 +14,7 @@ export async function encodeMessageData(
     const privateKey = withPrivateKey || token;
     const signer = new NobleEd25519Signer(toBytes(privateKey));
 
-    // @ts-ignore timestmap is not needed
+    // @ts-ignore timestamp is not needed
     const messageData: MessageData = {
         ...withMessageData(Number.parseInt(profileId, 10)),
         fid: Number.parseInt(profileId, 10),
