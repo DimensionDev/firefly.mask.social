@@ -23,17 +23,19 @@ jobs:
       - name: Fetch latest changes in submodule branch
         run: git -C src/maskbook fetch origin $SUBMODULE_BRANCH
         
-      - name: Check for changes
+      - name: Get latest commit hash of submodule branch
+        id: get_latest_commit
         run: |
-          if [[ $(git -C src/maskbook rev-parse HEAD) != $(git -C src/maskbook rev-parse origin/$SUBMODULE_BRANCH) ]]; then
-            echo "::set-output name=changes::true"
-          else
-            echo "::set-output name=changes::false"
-          fi
-        id: check_changes
+          latest_commit=$(git -C src/maskbook rev-parse origin/$SUBMODULE_BRANCH)
+          echo "::set-output name=latest_commit::$latest_commit"
+      
+      - name: Update submodule to latest commit
+        if: steps.get_latest_commit.outputs.latest_commit != ''
+        run: |
+          git -C src/maskbook checkout ${{ steps.get_latest_commit.outputs.latest_commit }}
         
       - name: Create pull request
-        if: steps.check_changes.outputs.changes == 'true'
+        if: steps.get_latest_commit.outputs.latest_commit != ''
         uses: peter-evans/create-pull-request@v3
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
