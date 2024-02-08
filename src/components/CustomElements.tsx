@@ -1,13 +1,19 @@
 'use client';
 
 import { CrossIsolationMessages } from '@masknet/shared-base';
-import { useEffect } from 'react';
-import { useAsync } from 'react-use';
+import { useEffect, useRef } from 'react';
+import { useAsync, useUpdateEffect } from 'react-use';
 
 import { getTypedMessageRedPacket } from '@/helpers/getTypedMessage.js';
 import { ComposeModalRef } from '@/modals/controls.js';
+import { useAccount, useChainId } from 'wagmi';
+import { connectMaskWithWagmi } from '@/helpers/connectWagmiWithMask.js';
+import { isSameAddress } from '@/maskbook/packages/web3-shared/base/src/index.js';
 
 export default function CustomElements() {
+    const account = useAccount();
+    const chainId = useChainId();
+
     const { value } = useAsync(async () => {
         await import('@masknet/flags/build-info').then((module) => {
             module.setupBuildInfoManually({
@@ -39,6 +45,11 @@ export default function CustomElements() {
             });
         });
     }, [value]);
+
+    useUpdateEffect(() => {
+        if (!account.address || !chainId || !value) return;
+        connectMaskWithWagmi();
+    }, [account.address, chainId, value]);
 
     return null;
 }

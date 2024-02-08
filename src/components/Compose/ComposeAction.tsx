@@ -36,7 +36,7 @@ export default function ComposeAction(props: ComposeActionProps) {
     const lensProfiles = useLensStateStore.use.profiles();
     const farcasterProfiles = useFarcasterStateStore.use.profiles();
 
-    const { type, post, images, video, availableSources } = useComposeStateStore();
+    const { type, post, images, video, availableSources, currentSource } = useComposeStateStore();
 
     const [editor] = useLexicalComposerContext();
 
@@ -75,7 +75,6 @@ export default function ComposeAction(props: ComposeActionProps) {
         await import('@/helpers/setupCurrentVisitingProfile.js').then((module) =>
             module.setupCurrentVisitingProfileAsFireflyApp(),
         );
-        ComposeModalRef.close({ disableClear: true });
         await delay(300);
         CrossIsolationMessages.events.redpacketDialogEvent.sendToLocal({
             open: true,
@@ -199,7 +198,9 @@ export default function ComposeAction(props: ComposeActionProps) {
                                         <SourceIcon key={x} source={x} size={20} />
                                     ))}
                                 </span>
-                                {type === 'compose' && <ChevronRightIcon className="h-5 w-5" aria-hidden="true" />}
+                                {type === 'compose' && !currentSource && (
+                                    <ChevronRightIcon className="h-5 w-5" aria-hidden="true" />
+                                )}
                             </Popover.Button>
                             {!post ? <PostBy /> : null}
                         </>
