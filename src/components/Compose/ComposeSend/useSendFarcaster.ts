@@ -1,4 +1,5 @@
 import { t } from '@lingui/macro';
+import { RedPacketMetaKey } from '@masknet/plugin-redpacket';
 import { useCallback } from 'react';
 
 import { queryClient } from '@/configs/queryClient.js';
@@ -11,7 +12,6 @@ import { uploadToImgur } from '@/services/uploadToImgur.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 import { useFarcasterStateStore } from '@/store/useProfileStore.js';
 import type { MediaObject } from '@/types/index.js';
-import { RedPacketMetaKey } from '@masknet/plugin-redpacket';
 
 export function useSendFarcaster() {
     const { type, chars, post, images, updateImages, farcasterPostId, updateFarcasterPostId, typedMessage } =
