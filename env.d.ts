@@ -18,8 +18,8 @@ declare namespace NodeJS {
         FARCASTER_SIGNER_FID: string;
         FARCASTER_SIGNER_MNEMONIC: string;
 
-        NEXT_PUBLIC_HUBBLE_URL: string;
-        HUBBLE_API_TOKEN?: string;
+        HUBBLE_URL: string;
+        HUBBLE_TOKEN?: string;
 
         WEB3_CONSTANTS_RPC: string;
         MASK_SENTRY_DSN: string;

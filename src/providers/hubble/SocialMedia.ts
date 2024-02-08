@@ -5,30 +5,21 @@ import urlcat from 'urlcat';
 import { toBytes, toHex } from 'viem';
 
 import { SocialPlatform } from '@/constants/enum.js';
-import { EMPTY_LIST, HUBBLE_API_TOKEN, HUBBLE_URL } from '@/constants/index.js';
+import { EMPTY_LIST, HUBBLE_URL } from '@/constants/index.js';
 import { encodeMessageData } from '@/helpers/encodeMessageData.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
-import { expectRuntime, Runtime } from '@/helpers/isRuntime.js';
 import type { FrameSignaturePacket, SignaturePacket } from '@/providers/types/Hubble.js';
 import { type Post, ProfileStatus, type Provider, SessionType } from '@/providers/types/SocialMedia.js';
 import { ReactionType as ReactionTypeCustom } from '@/providers/types/SocialMedia.js';
 import type { Frame, Index } from '@/types/frame.js';
 
 function fetchHubbleJSON<T>(url: string, options: RequestInit): Promise<T> {
-    // Hubble fetch is only available in NodeJS
-    expectRuntime(Runtime.NodeJS);
-
-    const headers = new Headers({
-        'Content-Type': 'application/octet-stream',
-        ...options.headers,
-    });
-
-    // Add API token if available
-    if (HUBBLE_API_TOKEN) headers.set('api_key', HUBBLE_API_TOKEN);
-
     return fetchJSON(url, {
         ...options,
-        headers,
+        headers: new Headers({
+            'Content-Type': 'application/octet-stream',
+            ...options.headers,
+        }),
     });
 }
 

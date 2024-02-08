@@ -10,14 +10,14 @@ export enum Runtime {
 }
 
 export function getRuntime() {
-    if (typeof document !== 'undefined') return Runtime.Browser
+    if (typeof document !== 'undefined') return Runtime.Browser;
     // TODO: Check if it's serverless or Edge runtime
-    return Runtime.NodeJS
+    return Runtime.NodeJS;
 }
 
 /**
  * To throw an error if the runtime is not the expected runtime.
- * @param runtime 
+ * @param runtime
  */
 export function expectRuntime(runtime: Runtime) {
     if (getRuntime() !== runtime) {
@@ -27,7 +27,7 @@ export function expectRuntime(runtime: Runtime) {
 
 /**
  * To log a warning if the runtime is not the expected runtime.
- * @param runtime 
+ * @param runtime
  */
 export function safeExpectRuntime(runtime: Runtime) {
     if (getRuntime() !== runtime) {
