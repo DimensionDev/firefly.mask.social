@@ -69,7 +69,7 @@ export default function ComposeSend() {
             if (result.every((x) => x.status === 'rejected')) return;
 
             if (availableSources.includes(SocialPlatform.Lens)) await refreshProfileFeed(SocialPlatform.Lens);
-            if (availableSources.includes(SocialPlatform.Lens)) await refreshProfileFeed(SocialPlatform.Farcaster);
+            if (availableSources.includes(SocialPlatform.Farcaster)) await refreshProfileFeed(SocialPlatform.Farcaster);
 
             // The modal will be closed when a platform sends a successful post.
         } else if (currentSource) {
