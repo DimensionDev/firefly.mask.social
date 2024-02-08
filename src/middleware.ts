@@ -1,19 +1,22 @@
 import { NextRequest, NextResponse, userAgent } from 'next/server.js';
 import urlcat from 'urlcat';
 
-export function middleware(request: NextRequest) {
+export async function middleware(request: NextRequest) {
     if (request.nextUrl.pathname.startsWith('/api/hubble')) {
         const u = new URL(request.url);
 
         const newHeaders = new Headers(request.headers);
-        if (process.env.HUBBLE_TOKEN) newHeaders.set('api_token', process.env.HUBBLE_TOKEN);
+        if (process.env.HUBBLE_TOKEN) newHeaders.set('api_key', process.env.HUBBLE_TOKEN);
 
-        return NextResponse.next({
-            request: new Request(urlcat(process.env.HUBBLE_URL, u.pathname.replace('/api/hubble', '') + u.search), {
+        const newUrl = urlcat(process.env.HUBBLE_URL, u.pathname.replace('/api/hubble', '') + u.search);
+
+        const response = await fetch(
+            new Request(newUrl, {
                 ...request,
                 headers: newHeaders,
             }),
-        });
+        );
+        return response;
     }
 
     if (request.nextUrl.pathname.startsWith('/post') || request.nextUrl.pathname.startsWith('/profile')) {
