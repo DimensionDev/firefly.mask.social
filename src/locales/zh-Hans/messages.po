@@ -54,6 +54,12 @@ msgstr "{0} 浏览数"
 msgid "Failed to post on Farcaster."
 msgstr "在 Farcaster 发贴成功。"
 
+msgid ""
+"Check out my LuckyDrop 🧧💰✨ on Firefly mobile app or {SITE_URL} !\n"
+"{0}\n"
+"{1}"
+msgstr ""
+
 msgid "Act"
 msgstr "收藏"
 
@@ -135,9 +141,6 @@ msgstr "已链接的账号"
 msgid "Failed to post on Lens."
 msgstr "在 Lens 上发帖失败。"
 
-msgid "Claim on Lens:"
-msgstr ""
-
 msgid "Select Account"
 msgstr "选择账号"
 
@@ -189,9 +192,6 @@ msgstr "加入我们的 Telegram"
 msgid "Log out"
 msgstr "登出"
 
-msgid "Check out my LuckyDrop 🧧💰✨ on Firefly mobile app or"
-msgstr ""
-
 msgid "post"
 msgstr "帖子"
 
@@ -239,9 +239,6 @@ msgstr "无法对帖子进行投票。"
 
 msgid "Privacy Policy"
 msgstr "隐私条款"
-
-msgid "Claim on Farcaster:"
-msgstr ""
 
 msgid "No wallet client found"
 msgstr "未找到钱包客户端"

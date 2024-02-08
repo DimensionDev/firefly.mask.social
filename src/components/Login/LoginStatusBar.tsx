@@ -13,8 +13,14 @@ export function LoginStatusBar() {
 
     return (
         <div className="relative flex md:flex-col md:justify-center md:gap-y-2 lg:flex-row lg:justify-start lg:gap-x-2 lg:pl-2">
-            {lensProfile ? <AccountSettings source={SocialPlatform.Lens} profile={lensProfile} /> : null}
             {farcasterProfile ? <AccountSettings source={SocialPlatform.Farcaster} profile={farcasterProfile} /> : null}
+            {lensProfile ? <AccountSettings source={SocialPlatform.Lens} profile={lensProfile} /> : null}
+            {farcasterProfile ? null : (
+                <ProfileAvatarAdd
+                    source={SocialPlatform.Farcaster}
+                    onClick={() => LoginModalRef.open({ source: SocialPlatform.Farcaster })}
+                />
+            )}
             {lensProfile ? null : (
                 <ProfileAvatarAdd
                     source={SocialPlatform.Lens}
@@ -22,12 +28,6 @@ export function LoginStatusBar() {
                         await getWalletClientRequired();
                         LoginModalRef.open({ source: SocialPlatform.Lens });
                     }}
-                />
-            )}
-            {farcasterProfile ? null : (
-                <ProfileAvatarAdd
-                    source={SocialPlatform.Farcaster}
-                    onClick={() => LoginModalRef.open({ source: SocialPlatform.Farcaster })}
                 />
             )}
         </div>

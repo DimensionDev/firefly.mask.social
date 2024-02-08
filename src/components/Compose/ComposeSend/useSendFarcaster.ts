@@ -1,9 +1,9 @@
 import { t } from '@lingui/macro';
-import { RedPacketMetaKey } from '@masknet/plugin-redpacket';
 import { useCallback } from 'react';
 
 import { queryClient } from '@/configs/queryClient.js';
 import { SocialPlatform } from '@/constants/enum.js';
+import { hasRedPacketPayload } from '@/helpers/hasRedPacketPayload.js';
 import { readChars } from '@/helpers/readChars.js';
 import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
@@ -44,7 +44,7 @@ export function useSendFarcaster() {
                 }),
             );
             try {
-                const hasRedPacket = typedMessage?.meta?.has(RedPacketMetaKey);
+                const hasRedPacket = hasRedPacketPayload(typedMessage);
                 const draft: Post = {
                     type: 'Post',
                     postId: '',

@@ -164,9 +164,13 @@ export interface Post {
     };
     /**
      * Farcaster Only
-     * Used to add a post to the corresponding channel
+     * Used to add a post to the corresponding channel, like 'firefly-garden'
      */
     parentChannelKey?: string;
+    /**
+     * Farcaster Only
+     * Used to add a post to the corresponding channel, like channel
+     */
     parentChannelUrl?: string;
 }
 

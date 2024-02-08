@@ -31,6 +31,7 @@ interface ComposeState {
     redpacketProps: RedpacketProps | null;
     enableSource: (source: SocialPlatform) => void;
     disableSource: (source: SocialPlatform) => void;
+    updateSources: (sources: SocialPlatform[]) => void;
     updateType: (type: 'compose' | 'quote' | 'reply') => void;
     updateCurrentSource: (source: SocialPlatform | null) => void;
     updateChars: Dispatch<SetStateAction<Chars>>;
@@ -50,7 +51,7 @@ interface ComposeState {
 function createInitState() {
     return {
         type: 'compose',
-        availableSources: [SocialPlatform.Lens, SocialPlatform.Farcaster] as SocialPlatform[],
+        availableSources: [SocialPlatform.Farcaster, SocialPlatform.Lens] as SocialPlatform[],
         currentSource: null,
         draft: null,
         post: null,
@@ -134,6 +135,10 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
         disableSource: (source) =>
             set((state) => {
                 state.availableSources = state.availableSources.filter((s) => s !== source);
+            }),
+        updateSources: (sources) =>
+            set((state) => {
+                state.availableSources = sources;
             }),
         clear: () =>
             set((state) => {

@@ -8,8 +8,8 @@ export enum PageRoutes {
 }
 
 export enum SocialPlatform {
-    Lens = 'Lens',
     Farcaster = 'Farcaster',
+    Lens = 'Lens',
 }
 
 export enum SearchType {
