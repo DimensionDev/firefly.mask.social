@@ -103,7 +103,7 @@ export class LensSocialMedia implements Provider {
 
         if (onchainRelayResult.__typename === 'RelayError') {
             // TODO: read error message from onchainRelayResult and show it to user
-            console.log("Couldn't update signless", onchainRelayResult);
+            console.warn("Couldn't update signless", onchainRelayResult);
             throw new Error("Couldn't update signless");
         }
         return;

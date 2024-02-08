@@ -25,7 +25,6 @@
         "@aws-sdk/lib-storage": "^3.456.0",
         "@dimensiondev/holoflows-kit": "0.9.0-20240104084316-88642f9",
         "@farcaster/core": "^0.13.5",
-        "@farcaster/hub-nodejs": "^0.10.23",
         "@headlessui/react": "^1.7.17",
         "@heroicons/react": "^2.0.18",
         "@lens-protocol/client": "^2.0.0-alpha.20",

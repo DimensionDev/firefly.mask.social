@@ -70,16 +70,6 @@ export function Frame({ postId, url, onData, children }: FrameProps) {
                     index,
                     input,
                 );
-
-                const responseValidation = await HubbleSocialMediaProvider.validateMessage(
-                    packet.trustedData.messageBytes,
-                );
-
-                console.log('DEBUG: responseValidation');
-                console.log(responseValidation);
-
-                if (!responseValidation) throw new Error('Invalid response from the frame server');
-
                 const response = await fetchJSON<ResponseJSON<LinkDigested | { redirectUrl: string }>>(url, {
                     method: 'POST',
                     headers: {

@@ -56,18 +56,6 @@ export async function POST(request: Request) {
         body: JSON.stringify(packet),
     });
 
-    console.log('DEBUG: response');
-    console.log({
-        url,
-        postUrl,
-        action,
-        packet,
-        code: response.status,
-        statusText: response.statusText,
-        location: response.headers.get('Location'),
-        data: await response.clone().text(),
-    });
-
     switch (action) {
         case ActionType.Post:
             if (!response.ok || response.status < 200 || response.status >= 300)

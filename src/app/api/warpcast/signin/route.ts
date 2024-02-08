@@ -26,7 +26,7 @@ const SIGNED_KEY_REQUEST_TYPE = [
 
 export async function POST(request: NextRequest) {
     const privateKey = utils.randomPrivateKey();
-    const publicKey: `0x${string}` = `0x${Buffer.from(getPublicKey(privateKey)).toString('hex')}`;
+    const publicKey: `0x${string}` = `0x${Buffer.from(await getPublicKey(privateKey)).toString('hex')}`;
 
     // valid for one year
     const deadline = Math.floor(Date.now() / 1000) + ONE_YEAR;
