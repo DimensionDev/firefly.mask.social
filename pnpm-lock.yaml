@@ -106,9 +106,9 @@ importers:
       '@dimensiondev/holoflows-kit':
         specifier: 0.9.0-20240104084316-88642f9
         version: 0.9.0-20240104084316-88642f9
-      '@farcaster/hub-web':
-        specifier: ^0.7.5
-        version: 0.7.5(google-protobuf@3.21.2)(typescript@5.3.0-beta)(zod@3.22.4)
+      '@farcaster/core':
+        specifier: ^0.13.5
+        version: 0.13.5(typescript@5.3.0-beta)(zod@3.22.4)
       '@headlessui/react':
         specifier: ^1.7.17
         version: 1.7.17(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
@@ -155,8 +155,8 @@ importers:
         specifier: 5.10.8
         version: 5.10.8(@emotion/react@11.11.1)(@emotion/styled@11.11.0)(@types/react@18.2.21)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       '@noble/ed25519':
-        specifier: ^2.0.0
-        version: 2.0.0
+        specifier: ^1.7.3
+        version: 1.7.3
       '@noble/hashes':
         specifier: ^1.3.2
         version: 1.3.2
@@ -9004,8 +9004,8 @@ packages:
       '@ethersproject/strings': 5.7.0
     dev: false
 
-  /@farcaster/core@0.13.7(typescript@5.3.0-beta)(zod@3.22.4):
-    resolution: {integrity: sha512-TMvVrlnGAWdHWCe36doFIMT7oj7HdN94rxdME5MDM+EKQyj4E9bgMghh/3il0waMr6PPG5ZlE4rJrhnTYqaIAw==}
+  /@farcaster/core@0.13.5(typescript@5.3.0-beta)(zod@3.22.4):
+    resolution: {integrity: sha512-F1+aELiNFUCm12IsG4uipbTfZ47bDhPkVyc4tgE2shSOZfVHMUpAkX+XLFIpU0ty2eus1/f0MJNBEWRss1Jq6g==}
     dependencies:
       '@noble/curves': 1.2.0
       '@noble/hashes': 1.3.2
@@ -9015,21 +9015,6 @@ packages:
       viem: 1.16.2(typescript@5.3.0-beta)(zod@3.22.4)
     transitivePeerDependencies:
       - bufferutil
-      - supports-color
-      - typescript
-      - utf-8-validate
-      - zod
-    dev: false
-
-  /@farcaster/hub-web@0.7.5(google-protobuf@3.21.2)(typescript@5.3.0-beta)(zod@3.22.4):
-    resolution: {integrity: sha512-dcm4RI8LEjG38oybbqYnimERg1s7NirHXbRgN4ZEoLkBC2agMM3sk36ACzyn7NqB5AFhL/lBVCTKp1XelDKbfA==}
-    dependencies:
-      '@farcaster/core': 0.13.7(typescript@5.3.0-beta)(zod@3.22.4)
-      '@improbable-eng/grpc-web': 0.15.0(google-protobuf@3.21.2)
-      rxjs: 7.8.1
-    transitivePeerDependencies:
-      - bufferutil
-      - google-protobuf
       - supports-color
       - typescript
       - utf-8-validate
@@ -9142,15 +9127,6 @@ packages:
 
   /@humanwhocodes/object-schema@2.0.1:
     resolution: {integrity: sha512-dvuCeX5fC9dXgJn9t+X5atfmgQAzUOWqS1254Gh0m6i8wKd10ebXkfNKiRK+1GWi/yTvvLDHpoxLr0xxxeslWw==}
-
-  /@improbable-eng/grpc-web@0.15.0(google-protobuf@3.21.2):
-    resolution: {integrity: sha512-ERft9/0/8CmYalqOVnJnpdDry28q+j+nAlFFARdjyxXDJ+Mhgv9+F600QC8BR9ygOfrXRlAk6CvST2j+JCpQPg==}
-    peerDependencies:
-      google-protobuf: ^3.14.0
-    dependencies:
-      browser-headers: 0.4.1
-      google-protobuf: 3.21.2
-    dev: false
 
   /@ioredis/commands@1.2.0:
     resolution: {integrity: sha512-Sx1pU8EM64o2BrqNpEO1CNLtKQwyhuXuqyfH7oGKCk+1a33d2r5saW8zNwm3j6BTExtjrv2BxTgzzkMwts6vGg==}
@@ -11488,8 +11464,8 @@ packages:
       '@noble/hashes': 1.3.2
     dev: false
 
-  /@noble/ed25519@2.0.0:
-    resolution: {integrity: sha512-/extjhkwFupyopDrt80OMWKdLgP429qLZj+z6sYJz90rF2Iz0gjZh2ArMKPImUl13Kx+0EXI2hN9T/KJV0/Zng==}
+  /@noble/ed25519@1.7.3:
+    resolution: {integrity: sha512-iR8GBkDt0Q3GyaVcIu7mSsVIqnFbkbRzGLWlvhwunacoLwt4J3swfKhfaM6rN6WY+TBGoYT1GtT1mIh2/jGbRQ==}
     dev: false
 
   /@noble/hashes@1.2.0:
@@ -18630,10 +18606,6 @@ packages:
   /brorand@1.1.0:
     resolution: {integrity: sha512-cKV8tMCEpQs4hK/ik71d6LrPOnpkpGBR0wzxqr68g2m/LB2GxVYQroAjMJZRVM1Y4BCjCKc3vAamxSzOY2RP+w==}
 
-  /browser-headers@0.4.1:
-    resolution: {integrity: sha512-CA9hsySZVo9371qEHjHZtYxV2cFtVj5Wj/ZHi8ooEsrtm4vOnl9Y9HmyYWk9q+05d7K3rdoAE0j3MVEFVvtQtg==}
-    dev: false
-
   /browser-level@1.0.1:
     resolution: {integrity: sha512-XECYKJ+Dbzw0lbydyQuJzwNXtOpbMSq737qxJN11sIRTErOMShvDpbzTlgju7orJKvx4epULolZAuJGLzCmWRQ==}
     dependencies:
@@ -23920,10 +23892,6 @@ packages:
     dependencies:
       sparkles: 1.0.1
     dev: true
-
-  /google-protobuf@3.21.2:
-    resolution: {integrity: sha512-3MSOYFO5U9mPGikIYCzK0SaThypfGgS6bHqrUGXG3DPHCrb+txNqeEcns1W0lkGfk0rCyNXm7xB9rMxnCiZOoA==}
-    dev: false
 
   /gopd@1.0.1:
     resolution: {integrity: sha512-d65bNlIadxvpb/A2abVdlqKqV563juRnZ1Wtk6s1sIR8uNsXR70xqIzVqxVf1eTqDunwT2MkczEeaezCKTZhwA==}
@@ -36583,7 +36551,7 @@ time:
   /@emotion/serialize@1.1.2: '2023-05-06T08:49:15.377Z'
   /@emotion/styled@11.11.0: '2023-05-06T08:49:15.982Z'
   /@ethereumjs/util@8.0.5: '2023-02-27T14:07:47.825Z'
-  /@farcaster/hub-web@0.7.5: '2024-02-02T17:21:24.630Z'
+  /@farcaster/core@0.13.5: '2024-01-26T00:44:57.205Z'
   /@headlessui/react@1.7.17: '2023-08-17T15:09:23.806Z'
   /@heroicons/react@2.0.18: '2023-05-09T19:41:26.731Z'
   /@hookform/resolvers@3.1.1: '2023-06-12T17:05:20.706Z'
@@ -36623,7 +36591,7 @@ time:
   /@mui/system@5.10.8: '2022-10-03T16:21:59.688Z'
   /@nice-labs/emit-file-webpack-plugin@1.1.4: '2023-06-08T14:34:13.568Z'
   /@nice-labs/git-rev@3.5.1: '2022-09-17T04:11:47.528Z'
-  /@noble/ed25519@2.0.0: '2023-03-24T09:58:39.711Z'
+  /@noble/ed25519@1.7.3: '2023-02-07T10:01:32.815Z'
   /@noble/hashes@1.3.2: '2023-08-23T17:45:17.079Z'
   /@pmmmwh/react-refresh-webpack-plugin@0.5.11: '2023-08-15T02:38:25.368Z'
   /@project-serum/sol-wallet-adapter@0.2.6: '2021-10-15T03:20:58.452Z'

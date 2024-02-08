@@ -28,6 +28,9 @@ msgstr "Communities"
 msgid "Discover"
 msgstr "Discover"
 
+msgid "Please be cautious when connecting your wallet, as malicious websites may attempt to access your funds."
+msgstr "Please be cautious when connecting your wallet, as malicious websites may attempt to access your funds."
+
 msgid "Click to refresh QRCode"
 msgstr "Click to refresh QRCode"
 
@@ -112,6 +115,9 @@ msgstr "Liked"
 msgid "Please switch to the correct network in your wallet."
 msgstr "Please switch to the correct network in your wallet."
 
+msgid "Type something here..."
+msgstr "Type something here..."
+
 msgid "Only up to 2 images can be chosen."
 msgstr "Only up to 2 images can be chosen."
 
@@ -159,6 +165,9 @@ msgstr "Connect Wallet"
 
 msgid "Feed"
 msgstr "Feed"
+
+msgid "Confirmation"
+msgstr "Confirmation"
 
 msgid "Follow more friends to continue exploring on {0}."
 msgstr "Follow more friends to continue exploring on {0}."
@@ -391,9 +400,6 @@ msgstr "No comments found"
 msgid "Please visit from a desktop browser."
 msgstr "Please visit from a desktop browser."
 
-msgid "There is something wrong with the frame. Please try again."
-msgstr "There is something wrong with the frame. Please try again."
-
 msgid "Discard"
 msgstr "Discard"
 
@@ -442,6 +448,9 @@ msgstr "Something went wrong. Please try again."
 msgid "Follow @realMaskNetwork on X"
 msgstr "Follow @realMaskNetwork on X"
 
+msgid "Leaving Firefly"
+msgstr "Leaving Firefly"
+
 msgid "No Lens profile was found. Please try using a different wallet."
 msgstr "No Lens profile was found. Please try using a different wallet."
 
@@ -450,6 +459,9 @@ msgstr "<0>{0}</0> mirrored"
 
 msgid "Follower"
 msgstr "Follower"
+
+msgid "The frame server failed to process the request."
+msgstr "The frame server failed to process the request."
 
 msgid "Post by {0}"
 msgstr "Post by {0}"

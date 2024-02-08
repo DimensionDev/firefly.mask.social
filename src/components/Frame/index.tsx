@@ -1,14 +1,17 @@
-import { t } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
+import { safeUnreachable } from '@masknet/kit';
+import { openWindow } from '@masknet/shared-base-ui';
 import { useQuery } from '@tanstack/react-query';
 import { useEffect, useRef, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 import urlcat from 'urlcat';
 
-import LinkIcon from '@/assets/link.svg';
+import { Button } from '@/components/Frame/Button.js';
+import { Input } from '@/components/Frame/Input.js';
 import { Image } from '@/esm/Image.js';
-import { classNames } from '@/helpers/classNames.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
+import { ConfirmModalRef } from '@/modals/controls.js';
 import { HubbleSocialMediaProvider } from '@/providers/hubble/SocialMedia.js';
 import { ActionType, type Frame, type FrameButton, type LinkDigested } from '@/types/frame.js';
 import type { ResponseJSON } from '@/types/index.js';
@@ -54,18 +57,20 @@ export function Frame({ postId, url, onData, children }: FrameProps) {
             try {
                 if (!frame) return;
 
+                const { action, index } = button;
+
                 const url = urlcat('/api/frame', {
                     url: frame.url,
-                    action: button.action,
+                    action,
                     'post-url': frame.postUrl,
                 });
                 const packet = await HubbleSocialMediaProvider.generateFrameSignaturePacket(
                     postId,
                     frame,
-                    button.index,
+                    index,
                     input,
                 );
-                const response = await fetchJSON<ResponseJSON<LinkDigested>>(url, {
+                const response = await fetchJSON<ResponseJSON<LinkDigested | { redirectUrl: string }>>(url, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -73,22 +78,51 @@ export function Frame({ postId, url, onData, children }: FrameProps) {
                     body: JSON.stringify(packet),
                 });
 
-                const nextFrame = response.success ? response.data.frame : null;
-                if (!nextFrame)
-                    return enqueueSnackbar(t`There is something wrong with the frame. Please try again.`, {
-                        variant: 'error',
-                    });
+                switch (action) {
+                    case ActionType.Post:
+                        const nextFrame = response.success ? (response.data as LinkDigested).frame : null;
+                        if (!nextFrame)
+                            return enqueueSnackbar(t`The frame server failed to process the request.`, {
+                                variant: 'error',
+                            });
 
-                setLatestFrame(nextFrame);
+                        setLatestFrame(nextFrame);
+                        break;
+                    case ActionType.PostRedirect:
+                        const redirectUrl = response.success
+                            ? (response.data as { redirectUrl: string }).redirectUrl
+                            : null;
+                        if (!redirectUrl)
+                            return enqueueSnackbar(t`The frame server failed to process the request.`, {
+                                variant: 'error',
+                            });
+
+                        const confirmed = await ConfirmModalRef.openAndWaitForClose({
+                            title: t`Leaving Firefly`,
+                            content: (
+                                <div className=" text-main">
+                                    <Trans>
+                                        Please be cautious when connecting your wallet, as malicious websites may
+                                        attempt to access your funds.
+                                    </Trans>
+                                </div>
+                            ),
+                        });
+                        if (!confirmed) return;
+
+                        openWindow(redirectUrl, '_blank');
+                        break;
+                    case ActionType.Link:
+                        openWindow(button.target, '_blank');
+                        break;
+                    default:
+                        safeUnreachable(action);
+                        break;
+                }
             } catch (error) {
-                enqueueSnackbar(
-                    error instanceof Error
-                        ? error.message
-                        : t`There is something wrong with the frame. Please try again.`,
-                    {
-                        variant: 'error',
-                    },
-                );
+                enqueueSnackbar(error instanceof Error ? error.message : t`Something went wrong. Please try again.`, {
+                    variant: 'error',
+                });
             }
             return;
         },
@@ -120,12 +154,7 @@ export function Frame({ postId, url, onData, children }: FrameProps) {
             </div>
             {frame.input ? (
                 <div className="mt-2 flex">
-                    <input
-                        className="w-full rounded-md border border-line bg-white px-2 py-1.5 dark:bg-darkBottom dark:text-white"
-                        type="text"
-                        placeholder={frame.input.placeholder}
-                        ref={inputRef}
-                    />
+                    <Input input={frame.input} ref={inputRef} />
                 </div>
             ) : null}
             {frame.buttons.length ? (
@@ -135,25 +164,14 @@ export function Frame({ postId, url, onData, children }: FrameProps) {
                         .sort((a, z) => a.index - z.index)
                         ?.map((button) => {
                             return (
-                                <button
-                                    className={classNames(
-                                        'flex-1 rounded-md border border-line bg-white py-2 text-main disabled:opacity-70 dark:bg-darkBottom dark:text-white',
-                                        {
-                                            'hover:bg-bg': !loading,
-                                            'hover:cursor-pointer': !loading,
-                                        },
-                                    )}
-                                    disabled={loading}
+                                <Button
                                     key={button.index}
+                                    button={button}
+                                    disabled={loading}
                                     onClick={() => {
                                         if (!loading) handleClick(button, inputRef.current?.value);
                                     }}
-                                >
-                                    <span>{button.text}</span>
-                                    {button.action === ActionType.PostRedirect ? (
-                                        <LinkIcon width={20} height={20} />
-                                    ) : null}
-                                </button>
+                                />
                             );
                         })}
                 </div>

@@ -1,5 +1,6 @@
 import { Trans } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
+import { RedPacketMetaKey } from '@masknet/plugin-redpacket';
 import { FireflyRedPacket } from '@masknet/web3-providers';
 import { FireflyRedPacketAPI, type RedPacketJSONPayload } from '@masknet/web3-providers/types';
 import { useQueryClient } from '@tanstack/react-query';
@@ -15,10 +16,9 @@ import { CountdownCircle } from '@/components/Compose/CountdownCircle.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { MAX_POST_SIZE } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
+import { hasRedPacketPayload } from '@/helpers/hasRedPacketPayload.js';
 import { measureChars } from '@/helpers/readChars.js';
-import { RedPacketMetaKey } from '@/maskbook/packages/plugins/RedPacket/src/constants.js';
 import { ComposeModalRef } from '@/modals/controls.js';
-import { hasRedPacketPayload } from '@/modals/hasRedPacketPayload.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 import { useFarcasterStateStore, useLensStateStore } from '@/store/useProfileStore.js';
 

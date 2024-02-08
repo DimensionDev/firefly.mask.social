@@ -39,34 +39,26 @@ export async function POST(request: Request) {
     const { searchParams } = new URL(request.url);
 
     const parsedFrameAction = FrameActionSchema.safeParse({
+        action: searchParams.get('action'),
         url: searchParams.get('url'),
         postUrl: searchParams.get('post-url'),
-        action: searchParams.get('action'),
     });
     if (!parsedFrameAction.success) return Response.json({ error: parsedFrameAction.error.message }, { status: 400 });
 
     const { action, url, postUrl } = parsedFrameAction.data;
 
     const packet = await request.clone().json();
+    const response = await fetch(postUrl, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(packet),
+    });
 
     switch (action) {
-        case ActionType.Post: {
-            const response = await fetch(postUrl, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(packet),
-            });
-
-            console.log('DEBUG: response');
-            console.log({
-                postUrl,
-                packet,
-                data: await response.clone().text(),
-            });
-
-            if (!response.ok || response.status !== 200)
+        case ActionType.Post:
+            if (!response.ok || response.status < 200 || response.status >= 300)
                 return Response.json(
                     { error: 'The frame server cannot handle the post request correctly.' },
                     { status: 500 },
@@ -75,33 +67,27 @@ export async function POST(request: Request) {
             return createSuccessResponseJSON(
                 await FrameProcessor.digestDocument(url, await response.text(), request.signal),
             );
-        }
-        case ActionType.PostRedirect: {
-            const response = await fetch(postUrl, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(packet),
+        case ActionType.PostRedirect:
+            if (response.ok && response.status >= 300 && response.status < 400) {
+                const locationUrl = response.headers.get('Location');
+                if (locationUrl && HttpUrlSchema.safeParse(locationUrl).success)
+                    return createSuccessResponseJSON({
+                        redirectUrl: locationUrl,
+                    });
+            }
+            return createSuccessResponseJSON({
+                redirectUrl: postUrl,
             });
 
-            console.log('DEBUG: response');
-            console.log({
-                postUrl,
-                packet,
-                data: await response.clone().text(),
-            });
-
-            if (!response.ok || response.status !== 302)
-                return Response.json(
-                    { error: 'The frame server cannot handle the post_redirect request correctly.' },
-                    { status: 500 },
-                );
-
-            const nextUrl = response.headers.get('Location');
-            if (!nextUrl || !HttpUrlSchema.safeParse(nextUrl).success)
-                return Response.json({ error: 'The frame server does not return a Location header.' }, { status: 500 });
-
-            return createSuccessResponseJSON(await digestLinkRedis(nextUrl, request.signal));
-        }
+        case ActionType.Link:
+            return Response.json(
+                {
+                    error: 'Not available',
+                },
+                {
+                    status: 400,
+                },
+            );
         default:
             safeUnreachable(action);
             return Response.json({ error: `Unknown action: ${action}` }, { status: 400 });

@@ -52,10 +52,6 @@ export class LensSocialMedia implements Provider {
         return SessionType.Lens;
     }
 
-    async createSession(): Promise<LensSession> {
-        throw new Error('Please use createSessionForProfileId() instead.');
-    }
-
     async createSessionForProfileId(profileId: string): Promise<LensSession> {
         const walletClient = await getWalletClientRequired({
             chainId: polygon.id,
@@ -107,7 +103,7 @@ export class LensSocialMedia implements Provider {
 
         if (onchainRelayResult.__typename === 'RelayError') {
             // TODO: read error message from onchainRelayResult and show it to user
-            console.log("Couldn't update signless", onchainRelayResult);
+            console.warn("Couldn't update signless", onchainRelayResult);
             throw new Error("Couldn't update signless");
         }
         return;

@@ -17,7 +17,6 @@ import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { formatWarpcastPost, formatWarpcastPostFromFeed } from '@/helpers/formatWarpcastPost.js';
 import { formatWarpcastUser } from '@/helpers/formatWarpcastUser.js';
 import { toFid } from '@/helpers/toFid.js';
-import { FarcasterSession } from '@/providers/farcaster/Session.js';
 import {
     type Notification,
     NotificationType,
@@ -47,10 +46,6 @@ import {
 export class WarpcastSocialMedia implements Provider {
     get type() {
         return SessionType.Farcaster;
-    }
-
-    async createSession(signal?: AbortSignal): Promise<FarcasterSession> {
-        throw new Error('Please use createSessionWithURL() instead.');
     }
 
     async discoverPosts(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {

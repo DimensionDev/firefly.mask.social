@@ -3,9 +3,9 @@ import { useCallback } from 'react';
 
 import { queryClient } from '@/configs/queryClient.js';
 import { SocialPlatform } from '@/constants/enum.js';
+import { hasRedPacketPayload } from '@/helpers/hasRedPacketPayload.js';
 import { readChars } from '@/helpers/readChars.js';
 import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
-import { hasRedPacketPayload } from '@/modals/hasRedPacketPayload.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { type Post } from '@/providers/types/SocialMedia.js';
 import { uploadToImgur } from '@/services/uploadToImgur.js';

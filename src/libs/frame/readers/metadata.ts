@@ -1,7 +1,7 @@
 import { compact, last } from 'lodash-es';
 
 import { q, qsAll } from '@/helpers/q.js';
-import type { FrameButton, FrameInput } from '@/types/frame.js';
+import { ActionType, type FrameButton, type FrameInput } from '@/types/frame.js';
 
 export function getTitle(document: Document): string | null {
     return (
@@ -60,10 +60,29 @@ export function getButtons(document: Document): FrameButton[] {
 
             const action = q(document, `fc:frame:button:${parsedIndex}:action`)?.getAttribute('content');
 
+            const target =
+                action === ActionType.Link
+                    ? q(document, `fc:frame:button:${parsedIndex}:target`)?.getAttribute('content')
+                    : undefined;
+
+            if (action === ActionType.Link) {
+                return target
+                    ? ({
+                          index: parsedIndex,
+                          text,
+                          action,
+                          target,
+                      } as FrameButton)
+                    : null;
+            }
+
             return {
                 index: parsedIndex,
                 text,
-                action: action && ['post', 'post_redirect'].includes(action) ? action : 'post',
+                action:
+                    action && [ActionType.Post, ActionType.PostRedirect].includes(action as ActionType)
+                        ? action
+                        : ActionType.Post,
             } as FrameButton;
         }),
     ).sort((a, z) => a.index - z.index);

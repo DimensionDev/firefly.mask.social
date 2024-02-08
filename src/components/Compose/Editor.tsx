@@ -5,7 +5,7 @@ import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin.js';
 import { MarkdownShortcutPlugin } from '@lexical/react/LexicalMarkdownShortcutPlugin.js';
 import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin.js';
 import { PlainTextPlugin } from '@lexical/react/LexicalPlainTextPlugin.js';
-import { Select, t } from '@lingui/macro';
+import { Select, t, Trans } from '@lingui/macro';
 import { memo } from 'react';
 
 import { MentionsPlugin } from '@/components/Lexical/plugins/AtMentionsPlugin.js';
@@ -15,7 +15,11 @@ import { writeChars } from '@/helpers/readChars.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 
 function ErrorBoundaryComponent() {
-    return <div>Something went wrong!</div>;
+    return (
+        <div>
+            <Trans>Something went wrong. Please try again.</Trans>
+        </div>
+    );
 }
 
 const Editor = memo(function Editor() {

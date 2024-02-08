@@ -33,6 +33,9 @@ msgstr "社区"
 msgid "Discover"
 msgstr "发现"
 
+msgid "Please be cautious when connecting your wallet, as malicious websites may attempt to access your funds."
+msgstr ""
+
 msgid "Click to refresh QRCode"
 msgstr "点击后刷新二维码"
 
@@ -114,6 +117,9 @@ msgstr "已点赞"
 msgid "Please switch to the correct network in your wallet."
 msgstr ""
 
+msgid "Type something here..."
+msgstr ""
+
 msgid "Only up to 2 images can be chosen."
 msgstr ""
 
@@ -161,6 +167,9 @@ msgstr "连接钱包"
 
 msgid "Feed"
 msgstr "信息流"
+
+msgid "Confirmation"
+msgstr ""
 
 msgid "Follow more friends to continue exploring on {0}."
 msgstr ""
@@ -393,9 +402,6 @@ msgstr "未发现评论"
 msgid "Please visit from a desktop browser."
 msgstr ""
 
-msgid "There is something wrong with the frame. Please try again."
-msgstr ""
-
 msgid "Discard"
 msgstr "放弃"
 
@@ -444,6 +450,9 @@ msgstr ""
 msgid "Follow @realMaskNetwork on X"
 msgstr "在 X 上关注 @realMaskNetwork"
 
+msgid "Leaving Firefly"
+msgstr ""
+
 msgid "No Lens profile was found. Please try using a different wallet."
 msgstr ""
 
@@ -452,6 +461,9 @@ msgstr "<0>{0}</0> 已转发"
 
 msgid "Follower"
 msgstr "粉丝"
+
+msgid "The frame server failed to process the request."
+msgstr ""
 
 msgid "Post by {0}"
 msgstr "由 {0} 发帖"

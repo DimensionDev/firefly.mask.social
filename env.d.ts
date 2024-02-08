@@ -18,6 +18,7 @@ declare namespace NodeJS {
         FARCASTER_SIGNER_FID: string;
         FARCASTER_SIGNER_MNEMONIC: string;
 
+        NEXT_PUBLIC_HUBBLE_URL: string;
         NEXT_PUBLIC_FIREFLY_HUBBLE_URL: string;
         NEXT_PUBLIC_FIREFLY_API_URL: string;
         WEB3_CONSTANTS_RPC: string;
