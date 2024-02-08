@@ -5,13 +5,13 @@ import { queryClient } from '@/configs/queryClient.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { readChars } from '@/helpers/readChars.js';
 import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
-import { hasRedPacketPayload } from '@/modals/hasRedPacketPayload.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { type Post } from '@/providers/types/SocialMedia.js';
 import { uploadToImgur } from '@/services/uploadToImgur.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 import { useFarcasterStateStore } from '@/store/useProfileStore.js';
 import type { MediaObject } from '@/types/index.js';
+import { RedPacketMetaKey } from '@masknet/plugin-redpacket';
 
 export function useSendFarcaster() {
     const { type, chars, post, images, updateImages, farcasterPostId, updateFarcasterPostId, typedMessage } =
@@ -44,7 +44,7 @@ export function useSendFarcaster() {
                 }),
             );
             try {
-                const hasRedPacket = hasRedPacketPayload(typedMessage);
+                const hasRedPacket = typedMessage?.meta?.has(RedPacketMetaKey);
                 const draft: Post = {
                     type: 'Post',
                     postId: '',
