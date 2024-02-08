@@ -31,7 +31,7 @@ export class HubbleSocialMedia implements Provider {
                               hash: toBytes(post.commentOn.postId),
                           }
                         : undefined,
-                    parentUrl: undefined,
+                    parentUrl: post.parentChannelUrl,
                     mentions: [],
                     text: post.metadata.content?.content ?? '',
                     mentionsPositions: [],
