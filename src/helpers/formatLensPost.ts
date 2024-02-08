@@ -274,11 +274,11 @@ export function formatLensPost(result: AnyPublicationFragment): Post {
             result.mirrorOn.openActionModules?.some((openAction) => allowedTypes.includes(openAction.type));
         return {
             type: result.__typename,
-            postId: result.id,
+            postId: result.mirrorOn.id,
             timestamp,
             author: formatLensProfile(result.mirrorOn.by),
             reporter: profile,
-            isHidden: result.isHidden,
+            isHidden: result.mirrorOn.isHidden,
             source: SocialPlatform.Lens,
             mediaObjects,
             metadata: {
@@ -291,7 +291,7 @@ export function formatLensPost(result: AnyPublicationFragment): Post {
             },
             canAct,
             __original__: result,
-            momoka: result.momoka || undefined,
+            momoka: result.mirrorOn.momoka || undefined,
         };
     }
 
