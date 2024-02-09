@@ -14,12 +14,22 @@ import { ReactionType as ReactionTypeCustom } from '@/providers/types/SocialMedi
 import type { Frame, Index } from '@/types/frame.js';
 
 function fetchHubbleJSON<T>(url: string, options: RequestInit): Promise<T> {
+    const headers = {
+        'Content-Type': 'application/octet-stream',
+        ...options.headers,
+    };
+
+    if (process.env.HUBBLE_TOKEN) {
+        // @ts-ignore - api_key is not in the type definition
+        headers.api_key = process.env.HUBBLE_TOKEN;
+    } else if (process.env.NEXT_PUBLIC_HUBBLE_TOKEN) {
+        // @ts-ignore - api_key is not in the type definition
+        headers.api_key = process.env.NEXT_PUBLIC_HUBBLE_TOKEN;
+    }
+
     return fetchJSON(url, {
         ...options,
-        headers: {
-            'Content-Type': 'application/octet-stream',
-            ...options.headers,
-        },
+        headers,
     });
 }
 
