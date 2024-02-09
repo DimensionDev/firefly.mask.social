@@ -32,7 +32,7 @@ export default function ReplyRestriction({ restriction, setRestriction }: ReplyR
                     onClick={() => setRestriction(0)}
                 >
                     <span className={classNames(' font-bold text-main')}>
-                        <Trans>Everyone can reply</Trans>
+                        <Trans>Everyone</Trans>
                     </span>
                     {restriction === 0 ? (
                         <YesIcon width={40} height={40} className=" relative -right-[10px]" />
@@ -51,7 +51,7 @@ export default function ReplyRestriction({ restriction, setRestriction }: ReplyR
                     onClick={() => !disabled && setRestriction(1)}
                 >
                     <span className={classNames(' font-bold text-main', disabled ? ' opacity-50' : '')}>
-                        <Trans>Only people you follow can reply</Trans>
+                        <Trans>Only people you follow</Trans>
                     </span>
                     {restriction === 1 ? (
                         <YesIcon width={40} height={40} className=" relative -right-[10px]" />
