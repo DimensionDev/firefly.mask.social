@@ -2,7 +2,7 @@ import { CastAddBody, Factories, fromFarcasterTime, Message, MessageType, Reacti
 import { t } from '@lingui/macro';
 import { toInteger } from 'lodash-es';
 import urlcat from 'urlcat';
-import { toBytes, toHex } from 'viem';
+import { toBytes } from 'viem';
 
 import { SocialPlatform } from '@/constants/enum.js';
 import { EMPTY_LIST, HUBBLE_URL } from '@/constants/index.js';
@@ -79,7 +79,7 @@ export class HubbleSocialMedia implements Provider {
         );
 
         const url = urlcat(HUBBLE_URL, '/v1/submitMessage');
-        const { data, hash } = await fetchHubbleJSON<Message>(url, {
+        const { data, hash } = await fetchHubbleJSON<Pick<Message, 'data'> & { hash: string }>(url, {
             method: 'POST',
             body: messageBytes,
         });
@@ -87,7 +87,7 @@ export class HubbleSocialMedia implements Provider {
 
         return {
             source: SocialPlatform.Farcaster,
-            postId: `0x${Buffer.from(hash).toString('hex')}`,
+            postId: hash,
             parentPostId: '',
             timestamp: data.timestamp,
             author: {
@@ -182,7 +182,7 @@ export class HubbleSocialMedia implements Provider {
         );
 
         const url = urlcat(HUBBLE_URL, '/v1/submitMessage');
-        const { data, hash } = await fetchHubbleJSON<Message>(url, {
+        const { data } = await fetchHubbleJSON<Message>(url, {
             method: 'POST',
             body: messageBytes,
         });
@@ -223,12 +223,12 @@ export class HubbleSocialMedia implements Provider {
         );
 
         const url = urlcat(HUBBLE_URL, '/v1/submitMessage');
-        const { data, hash } = await fetchHubbleJSON<Message>(url, {
+        const { data, hash } = await fetchHubbleJSON<Pick<Message, 'data'> & { hash: string }>(url, {
             method: 'POST',
             body: messageBytes,
         });
         if (!data) throw new Error(t`Failed to publish post.`);
-        return toHex(hash);
+        return hash;
     }
 
     async mirrorPost(postId: string) {
@@ -255,7 +255,7 @@ export class HubbleSocialMedia implements Provider {
         );
 
         const url = urlcat(HUBBLE_URL, '/v1/submitMessage');
-        const { data, hash } = await fetchHubbleJSON<Message>(url, {
+        const { data } = await fetchHubbleJSON<Message>(url, {
             method: 'POST',
             body: messageBytes,
         });
@@ -287,7 +287,7 @@ export class HubbleSocialMedia implements Provider {
         );
 
         const url = urlcat(HUBBLE_URL, '/v1/submitMessage');
-        const { data, hash } = await fetchHubbleJSON<Message>(url, {
+        const { data } = await fetchHubbleJSON<Message>(url, {
             method: 'POST',
             body: messageBytes,
         });
@@ -316,7 +316,7 @@ export class HubbleSocialMedia implements Provider {
         );
 
         const url = urlcat(HUBBLE_URL, '/v1/submitMessage');
-        const { data, hash } = await fetchHubbleJSON<Message>(url, {
+        const { data } = await fetchHubbleJSON<Message>(url, {
             method: 'POST',
             body: messageBytes,
         });
@@ -345,7 +345,7 @@ export class HubbleSocialMedia implements Provider {
         );
 
         const url = urlcat(HUBBLE_URL, '/v1/submitMessage');
-        const { data, hash } = await fetchHubbleJSON<Message>(url, {
+        const { data } = await fetchHubbleJSON<Message>(url, {
             method: 'POST',
             body: messageBytes,
         });
