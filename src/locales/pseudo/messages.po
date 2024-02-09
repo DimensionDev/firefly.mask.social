@@ -352,13 +352,13 @@ msgstr ""
 msgid "Failed to quote post on Lens."
 msgstr ""
 
+msgid "General"
+msgstr ""
+
 msgid "This can’t be undone and you’ll lose your draft."
 msgstr ""
 
 msgid "Publications"
-msgstr ""
-
-msgid "Genenal"
 msgstr ""
 
 msgid "Display"
