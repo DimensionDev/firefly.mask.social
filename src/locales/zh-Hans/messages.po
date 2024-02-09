@@ -240,9 +240,6 @@ msgstr "隐私条款"
 msgid "No wallet client found"
 msgstr "未找到钱包客户端"
 
-msgid "Only people you follow can reply"
-msgstr "只有你关注的人可以回复"
-
 msgid "Switch"
 msgstr "切换"
 
@@ -278,6 +275,9 @@ msgstr ""
 
 msgid "Post has been hidden"
 msgstr "帖子已经被隐藏"
+
+msgid "Everyone"
+msgstr ""
 
 msgid "The user declined the request."
 msgstr ""
@@ -498,9 +498,6 @@ msgstr "{0, plural, one {<0/>} other {{1, plural, one {<1/> 和 <2/>} other {<3/
 msgid "No profile found"
 msgstr "未发现个人信息"
 
-msgid "Everyone can reply"
-msgstr "所有人可评论"
-
 msgid "<0>You</0> liked"
 msgstr "<0>你</0> 已点赞"
 
@@ -539,6 +536,9 @@ msgstr ""
 
 msgid "Unknown session type."
 msgstr "未知会话类型。"
+
+msgid "Only people you follow"
+msgstr ""
 
 msgid "<0>You</0> and {0} recasted"
 msgstr ""

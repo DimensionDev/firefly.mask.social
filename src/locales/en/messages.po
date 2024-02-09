@@ -235,9 +235,6 @@ msgstr "Privacy Policy"
 msgid "No wallet client found"
 msgstr "No wallet client found"
 
-msgid "Only people you follow can reply"
-msgstr "Only people you follow can reply"
-
 msgid "Switch"
 msgstr "Switch"
 
@@ -273,6 +270,9 @@ msgstr "Unlike"
 
 msgid "Post has been hidden"
 msgstr "Post has been hidden"
+
+msgid "Everyone"
+msgstr "Everyone"
 
 msgid "The user declined the request."
 msgstr "The user declined the request."
@@ -493,9 +493,6 @@ msgstr "{0, plural, one {<0/>} other {{1, plural, one {<1/> and <2/>} other {<3/
 msgid "No profile found"
 msgstr "No profile found"
 
-msgid "Everyone can reply"
-msgstr "Everyone can reply"
-
 msgid "<0>You</0> liked"
 msgstr "<0>You</0> liked"
 
@@ -534,6 +531,9 @@ msgstr "Share to"
 
 msgid "Unknown session type."
 msgstr "Unknown session type."
+
+msgid "Only people you follow"
+msgstr "Only people you follow"
 
 msgid "<0>You</0> and {0} recasted"
 msgstr "<0>You</0> and {0} recasted"
