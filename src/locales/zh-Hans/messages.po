@@ -417,6 +417,9 @@ msgstr "放弃"
 msgid "Sign"
 msgstr "签名"
 
+msgid "Failed to recast post"
+msgstr ""
+
 msgid "Follow @thefireflyapp on X"
 msgstr "在 X 上关注 @thefireflyapp"
 
