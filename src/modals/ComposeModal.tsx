@@ -162,10 +162,14 @@ export const ComposeModalComponent = forwardRef<SingletonModalRefCreator<Compose
                 const lensProfileLink = currentLensProfile ? getProfileUrl(currentLensProfile) : null;
                 const farcasterProfileLink = currentFarcasterProfile ? getProfileUrl(currentFarcasterProfile) : null;
 
-                const chars = t`Check out my LuckyDrop 🧧💰✨ on Firefly mobile app or ${SITE_URL} !
-                ${lensProfileLink ? t`Claim on Lens: ${urlcat(SITE_URL, lensProfileLink)}` : ''}
-                ${farcasterProfileLink ? t`Claim on Farcaster: ${urlcat(SITE_URL, farcasterProfileLink)}` : ''}
-                `;
+                const message = t`Check out my LuckyDrop 🧧💰✨ on Firefly mobile app or ${SITE_URL} !`;
+
+                const lensClaimMessage = lensProfileLink ? t`Claim on Lens: ${urlcat(SITE_URL, lensProfileLink)}` : '';
+                const farcasterClaimMessage = farcasterProfileLink
+                    ? t`Claim on Farcaster: ${urlcat(SITE_URL, farcasterProfileLink)}`
+                    : '';
+
+                const fullMessage = `${message}\n${lensClaimMessage}\n${farcasterClaimMessage}`;
 
                 updateChars([
                     {
@@ -173,9 +177,9 @@ export const ComposeModalComponent = forwardRef<SingletonModalRefCreator<Compose
                         content: '#FireflyLuckyDrop',
                         visible: true,
                     },
-                    chars,
+                    fullMessage,
                 ]);
-                setEditorContent(chars);
+                setEditorContent(fullMessage);
 
                 addImage({
                     file: new File([secretImage], 'image.png', { type: 'image/png' }),
