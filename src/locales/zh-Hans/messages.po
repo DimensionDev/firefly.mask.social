@@ -357,6 +357,9 @@ msgstr "点赞"
 msgid "Failed to quote post on Lens."
 msgstr "未能在 Lens 上引用帖子。"
 
+msgid "General"
+msgstr ""
+
 msgid "This can’t be undone and you’ll lose your draft."
 msgstr "此操作无法撤销，您将丢失您的草稿。"
 

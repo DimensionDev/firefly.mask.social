@@ -20,6 +20,7 @@ interface ContentFeedProps {
 }
 export default function ContentFeed({ profileId, source }: ContentFeedProps) {
     const fetchAndStoreViews = useImpressionsStore.use.fetchAndStoreViews();
+
     const { data, hasNextPage, fetchNextPage, isFetchingNextPage, isFetching } = useSuspenseInfiniteQuery({
         queryKey: ['getPostsByProfileId', source, profileId],
 
@@ -76,7 +77,7 @@ export default function ContentFeed({ profileId, source }: ContentFeedProps) {
         );
 
     return (
-        <div>
+        <div key={source}>
             {results.map((x) => (
                 <SinglePost post={x} key={x.postId} showMore />
             ))}
