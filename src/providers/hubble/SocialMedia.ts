@@ -16,10 +16,10 @@ import type { Frame, Index } from '@/types/frame.js';
 function fetchHubbleJSON<T>(url: string, options: RequestInit): Promise<T> {
     return fetchJSON(url, {
         ...options,
-        headers: new Headers({
+        headers: {
             'Content-Type': 'application/octet-stream',
             ...options.headers,
-        }),
+        },
     });
 }
 
