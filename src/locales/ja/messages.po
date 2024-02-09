@@ -8,7 +8,7 @@ msgstr ""
 "Language: ja\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-02-06 00:04\n"
+"PO-Revision-Date: 2024-02-08 12:01\n"
 "Last-Translator: \n"
 "Language-Team: Japanese\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -33,6 +33,9 @@ msgstr ""
 msgid "Discover"
 msgstr ""
 
+msgid "Please be cautious when connecting your wallet, as malicious websites may attempt to access your funds."
+msgstr ""
+
 msgid "Click to refresh QRCode"
 msgstr ""
 
@@ -49,6 +52,11 @@ msgid "{0} views"
 msgstr ""
 
 msgid "Failed to post on Farcaster."
+msgstr ""
+
+msgid "Check out my LuckyDrop 🧧💰✨ on Firefly mobile app or {SITE_URL} !\n"
+"{0}\n"
+"{1}"
 msgstr ""
 
 msgid "Act"
@@ -108,6 +116,9 @@ msgstr ""
 msgid "Please switch to the correct network in your wallet."
 msgstr ""
 
+msgid "Type something here..."
+msgstr ""
+
 msgid "Only up to 2 images can be chosen."
 msgstr ""
 
@@ -127,9 +138,6 @@ msgid "Connected Accounts"
 msgstr ""
 
 msgid "Failed to post on Lens."
-msgstr ""
-
-msgid "Claim on Lens:"
 msgstr ""
 
 msgid "Select Account"
@@ -159,6 +167,9 @@ msgstr ""
 msgid "Feed"
 msgstr ""
 
+msgid "Confirmation"
+msgstr ""
+
 msgid "Follow more friends to continue exploring on {0}."
 msgstr ""
 
@@ -178,9 +189,6 @@ msgid "Join our Telegram"
 msgstr ""
 
 msgid "Log out"
-msgstr ""
-
-msgid "Check out my LuckyDrop 🧧💰✨ on Firefly mobile app or"
 msgstr ""
 
 msgid "post"
@@ -229,9 +237,6 @@ msgid "Failed to unvote post."
 msgstr ""
 
 msgid "Privacy Policy"
-msgstr ""
-
-msgid "Claim on Farcaster:"
 msgstr ""
 
 msgid "No wallet client found"
@@ -396,9 +401,6 @@ msgstr ""
 msgid "Please visit from a desktop browser."
 msgstr ""
 
-msgid "There is something wrong with the frame. Please try again."
-msgstr ""
-
 msgid "Discard"
 msgstr ""
 
@@ -447,6 +449,9 @@ msgstr ""
 msgid "Follow @realMaskNetwork on X"
 msgstr ""
 
+msgid "Leaving Firefly"
+msgstr ""
+
 msgid "No Lens profile was found. Please try using a different wallet."
 msgstr ""
 
@@ -454,6 +459,9 @@ msgid "<0>{0}</0> mirrored"
 msgstr ""
 
 msgid "Follower"
+msgstr ""
+
+msgid "The frame server failed to process the request."
 msgstr ""
 
 msgid "Post by {0}"
