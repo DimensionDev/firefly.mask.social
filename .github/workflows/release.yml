@@ -25,9 +25,6 @@ jobs:
         with:
           node-version: '14'
 
-      - name: Install dependencies
-        run: npm install
-
       - name: Determine version
         id: version
         run: echo ::set-output name=VERSION::$(node -p "require('./package.json').version")
@@ -36,18 +33,17 @@ jobs:
         id: bump_version
         run: |
           npm version ${{ github.event.inputs.release_kind }} --no-git-tag-version
-          echo ::set-output name=NEW_VERSION::$(node -p "require('./package.json').version")
+          echo ::set-output name=NEW_VERSION::$(node -p "require('./package.json').version")      
 
       - name: Create pull request
-        if: steps.get_latest_commit.outputs.latest_commit != ''
         uses: peter-evans/create-pull-request@v3
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           branch: new-release
-          title: "[Release] ${{ github.event.inputs.release_kind }} ${{ steps.version.outputs.VERSION }} => ${{ steps.bump_version.outputs.NEW_VERSION }}"
-          commit-message: "chore: bump version to ${{ steps.bump_version.outputs.NEW_VERSION }}"
+          title: "[Release] ${{ github.event.inputs.release_kind }} v${{ steps.version.outputs.VERSION }} => v${{ steps.bump_version.outputs.NEW_VERSION }}"
+          commit-message: "chore: bump version to v${{ steps.bump_version.outputs.NEW_VERSION }}"
           base: released
           labels: 'automated'
           body: |
             This pull request was automatically created by the release workflow.
-            It bumps the version from ${{ steps.version.outputs.VERSION }} to ${{ steps.bump_version.outputs.NEW_VERSION }}.
+            It bumps the version from v${{ steps.version.outputs.VERSION }} to v${{ steps.bump_version.outputs.NEW_VERSION }}.
