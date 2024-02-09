@@ -412,6 +412,9 @@ msgstr ""
 msgid "Sign"
 msgstr ""
 
+msgid "Failed to recast post"
+msgstr ""
+
 msgid "Follow @thefireflyapp on X"
 msgstr ""
 

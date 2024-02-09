@@ -412,6 +412,9 @@ msgstr "Discard"
 msgid "Sign"
 msgstr "Sign"
 
+msgid "Failed to recast post"
+msgstr "Failed to recast post"
+
 msgid "Follow @thefireflyapp on X"
 msgstr "Follow @thefireflyapp on X"
 

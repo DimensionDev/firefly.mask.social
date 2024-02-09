@@ -84,7 +84,7 @@ export const Mirror = memo<MirrorProps>(function Mirror({
                         if (!prev) return;
                         return prev + 1;
                     });
-                    const result = await LensSocialMediaProvider.mirrorPost(postId, !!post.momoka?.proof);
+                    const result = await LensSocialMediaProvider.mirrorPost(postId, { onMomoka: !!post.momoka?.proof });
                     enqueueSnackbar(t`Mirrored`, {
                         variant: 'success',
                     });
@@ -113,8 +113,8 @@ export const Mirror = memo<MirrorProps>(function Mirror({
                         return (prev ?? 0) + 1;
                     });
                     await (mirrored
-                        ? FarcasterSocialMediaProvider.unmirrorPost(postId)
-                        : FarcasterSocialMediaProvider.mirrorPost(postId));
+                        ? FarcasterSocialMediaProvider.unmirrorPost(postId, Number(post.author.profileId))
+                        : FarcasterSocialMediaProvider.mirrorPost(postId, { authorId: Number(post.author.profileId) }));
                     enqueueSnackbar(mirrored ? t`Cancel recast successfully` : t`Recasted`, {
                         variant: 'success',
                     });
@@ -131,7 +131,7 @@ export const Mirror = memo<MirrorProps>(function Mirror({
                 safeUnreachable(source);
                 return null;
         }
-    }, [postId, source, count, mirrored]);
+    }, [postId, source, count, mirrored, post.author.profileId]);
 
     return (
         <Menu

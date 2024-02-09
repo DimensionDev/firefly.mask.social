@@ -157,8 +157,8 @@ export class LensSocialMedia implements Provider {
         }
     }
 
-    async mirrorPost(postId: string, onMomoka?: boolean): Promise<Post> {
-        if (onMomoka) {
+    async mirrorPost(postId: string, options?: { onMomoka?: boolean }): Promise<Post> {
+        if (options?.onMomoka) {
             const result = await this.client.publication.mirrorOnMomoka({
                 mirrorOn: postId,
             });
