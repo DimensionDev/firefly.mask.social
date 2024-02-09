@@ -44,14 +44,12 @@ export class HubbleSocialMedia implements Provider {
                     },
                 };
 
-                if (post.commentOn) {
+                if (post.commentOn?.postId && post.commentOn?.author.profileId) {
                     data.castAddBody.parentCastId = {
                         fid: toInteger(post.commentOn.author.profileId),
                         hash: toBytes(post.commentOn.postId),
                     };
-                }
-
-                if (post.parentChannelUrl) {
+                } else if (post.parentChannelUrl) {
                     data.castAddBody.parentUrl = post.parentChannelUrl;
                 }
                 return data;
