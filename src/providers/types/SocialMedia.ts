@@ -258,10 +258,19 @@ export interface Provider {
      * Mirrors a post with the specified post ID.
      *
      * @param postId The ID of the post to mirror.
-     * @param onMomoka If the post is created on Momoka. Lens only
+     * @param options {
+     *   onMomoka: If the post is created on Momoka. Lens only
+     *   authorId: The id of the cast author. Farcaster only
+     * }
      * @returns A promise that resolves to a Post object.
      */
-    mirrorPost?: (postId: string, onMomoka?: boolean) => Promise<Post>;
+    mirrorPost?: (
+        postId: string,
+        options?: {
+            onMomoka?: boolean;
+            authorId?: number;
+        },
+    ) => Promise<Post>;
 
     /**
      * Quotes a post with the specified post ID and an introduction.

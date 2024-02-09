@@ -5,7 +5,7 @@ import urlcat from 'urlcat';
 import { toBytes } from 'viem';
 
 import { SocialPlatform } from '@/constants/enum.js';
-import { EMPTY_LIST, HUBBLE_URL } from '@/constants/index.js';
+import { HUBBLE_URL } from '@/constants/index.js';
 import { encodeMessageData } from '@/helpers/encodeMessageData.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import type { FrameSignaturePacket, SignaturePacket } from '@/providers/types/Hubble.js';
@@ -190,57 +190,19 @@ export class HubbleSocialMedia implements Provider {
         return;
     }
 
-    /**
-     * @deprecated
-     * Use publishPost with parent post instead
-     */
-    async commentPost(postId: string, comment: string) {
-        const { messageBytes } = await encodeMessageData(
-            (fid) => ({
-                castAddBody: {
-                    parentCastId: {
-                        // TODO wrong fid, should be one of the parent cast
-                        fid,
-                        hash: toBytes(postId),
-                    },
-                    embedsDeprecated: EMPTY_LIST,
-                    mentions: EMPTY_LIST,
-                    text: comment,
-                    mentionsPositions: EMPTY_LIST,
-                    embeds: EMPTY_LIST,
-                },
-            }),
-            async (messageData, signer) => {
-                return Factories.CastAddMessage.create(
-                    {
-                        data: messageData,
-                    },
-                    {
-                        transient: { signer },
-                    },
-                );
+    async mirrorPost(postId: string, options?: { authorId?: number }) {
+        if (!options?.authorId) throw new Error(t`Failed to recast post`);
+        const reactionBody = {
+            type: ReactionType.RECAST,
+            targetCastId: {
+                fid: options.authorId,
+                hash: toBytes(postId),
             },
-        );
+        };
 
-        const url = urlcat(HUBBLE_URL, '/v1/submitMessage');
-        const { data, hash } = await fetchHubbleJSON<Pick<Message, 'data'> & { hash: string }>(url, {
-            method: 'POST',
-            body: messageBytes,
-        });
-        if (!data) throw new Error(t`Failed to publish post.`);
-        return hash;
-    }
-
-    async mirrorPost(postId: string) {
         const { messageBytes } = await encodeMessageData(
             (fid) => ({
-                reactionBody: {
-                    type: ReactionType.RECAST,
-                    targetCastId: {
-                        fid,
-                        hash: toBytes(postId),
-                    },
-                },
+                reactionBody,
             }),
             async (messageData, signer) => {
                 return Factories.ReactionAddMessage.create(
@@ -263,13 +225,13 @@ export class HubbleSocialMedia implements Provider {
         return null!;
     }
 
-    async unmirrorPost(postId: string) {
+    async unmirrorPost(postId: string, authorId: number) {
         const { messageBytes } = await encodeMessageData(
             (fid) => ({
                 reactionBody: {
                     type: ReactionType.RECAST,
                     targetCastId: {
-                        fid,
+                        fid: authorId,
                         hash: toBytes(postId),
                     },
                 },
