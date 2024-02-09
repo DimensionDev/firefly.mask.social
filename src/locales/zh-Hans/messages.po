@@ -363,6 +363,9 @@ msgstr "此操作无法撤销，您将丢失您的草稿。"
 msgid "Publications"
 msgstr "帖子"
 
+msgid "Genenal"
+msgstr ""
+
 msgid "Display"
 msgstr "显示"
 

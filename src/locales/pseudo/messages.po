@@ -358,6 +358,9 @@ msgstr ""
 msgid "Publications"
 msgstr ""
 
+msgid "Genenal"
+msgstr ""
+
 msgid "Display"
 msgstr ""
 

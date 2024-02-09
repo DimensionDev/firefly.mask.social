@@ -358,6 +358,9 @@ msgstr "This can’t be undone and you’ll lose your draft."
 msgid "Publications"
 msgstr "Publications"
 
+msgid "Genenal"
+msgstr "Genenal"
+
 msgid "Display"
 msgstr "Display"
 
