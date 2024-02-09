@@ -416,7 +416,7 @@ export class HubbleSocialMedia implements Provider {
             untrustedData: {
                 fid: messageData.fid,
                 url: frame.url,
-                messageHash: `0x${Buffer.from(messageDataHash).toString('hex')}`,
+                messageHash: messageDataHash,
                 timestamp: messageData.timestamp,
                 network: messageData.network,
                 buttonIndex: index,
