@@ -22,6 +22,9 @@ msgstr ""
 msgid "Failed to fetch as Blob."
 msgstr ""
 
+msgid "Failed to upload image to imgur."
+msgstr ""
+
 msgid "Communities"
 msgstr ""
 
@@ -97,6 +100,9 @@ msgstr ""
 msgid "Confirm"
 msgstr ""
 
+msgid "Failed to upload image to IPFS."
+msgstr ""
+
 msgid "Page not found"
 msgstr ""
 
@@ -137,9 +143,6 @@ msgid "mirror"
 msgstr ""
 
 msgid "Replied on Lens"
-msgstr ""
-
-msgid "Failed to upload image to imgur: {0}"
 msgstr ""
 
 msgid "Audio Cover"
@@ -554,9 +557,6 @@ msgid "Failed to unmirror post."
 msgstr ""
 
 msgid "Failed to fetch as ArrayBuffer."
-msgstr ""
-
-msgid "Failed to upload image to IPFS: {0}"
 msgstr ""
 
 msgid "Confirm to log out these accounts?"

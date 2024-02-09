@@ -27,6 +27,9 @@ msgstr "引用"
 msgid "Failed to fetch as Blob."
 msgstr "获取 Blob 失败。"
 
+msgid "Failed to upload image to imgur."
+msgstr ""
+
 msgid "Communities"
 msgstr "社区"
 
@@ -102,6 +105,9 @@ msgstr "评论"
 msgid "Confirm"
 msgstr "确认"
 
+msgid "Failed to upload image to IPFS."
+msgstr ""
+
 msgid "Page not found"
 msgstr "找不到网页"
 
@@ -143,9 +149,6 @@ msgstr "转帖"
 
 msgid "Replied on Lens"
 msgstr "在 Lens 上评论"
-
-msgid "Failed to upload image to imgur: {0}"
-msgstr "未能上传图片到 imgur: {0}"
 
 msgid "Audio Cover"
 msgstr "音频封面"
@@ -560,9 +563,6 @@ msgstr "未能取消转帖。"
 
 msgid "Failed to fetch as ArrayBuffer."
 msgstr "Failed to fetch as ArrayBuffer."
-
-msgid "Failed to upload image to IPFS: {0}"
-msgstr "未能上传图片到 IPFS: {0}"
 
 msgid "Confirm to log out these accounts?"
 msgstr "确认登出这些账号？"
