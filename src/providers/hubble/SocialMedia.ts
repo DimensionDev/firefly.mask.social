@@ -1,4 +1,4 @@
-import { CastAddBody, Factories, Message, MessageType, ReactionType } from '@farcaster/core';
+import { CastAddBody, Factories, fromFarcasterTime, Message, MessageType, ReactionType } from '@farcaster/core';
 import { t } from '@lingui/macro';
 import { toInteger } from 'lodash-es';
 import urlcat from 'urlcat';
@@ -110,7 +110,7 @@ export class HubbleSocialMedia implements Provider {
     async upvotePost(postId: string, authorId?: number) {
         if (!authorId) throw new Error(t`Failed to upvote post.`);
 
-        const { messageBytes, messageHash, messageData } = await encodeMessageData(
+        const { messageBytes, messageDataHash, messageData } = await encodeMessageData(
             (fid) => ({
                 reactionBody: {
                     type: ReactionType.LIKE,
@@ -140,7 +140,7 @@ export class HubbleSocialMedia implements Provider {
         if (!data) throw new Error(t`Failed to upvote post.`);
 
         return {
-            reactionId: messageHash,
+            reactionId: messageDataHash,
             type: ReactionTypeCustom.Upvote,
             timestamp: messageData.timestamp,
         };
@@ -355,10 +355,11 @@ export class HubbleSocialMedia implements Provider {
     }
 
     async generateSignaturePacket(): Promise<SignaturePacket> {
-        const { signer, messageHash, messageSignature } = await encodeMessageData(
+        const { signer, messageDataHash, messageDataSignature } = await encodeMessageData(
             () => {
                 return {
                     type: MessageType.CAST_ADD,
+                    timestamp: fromFarcasterTime(Date.now())._unsafeUnwrap(),
                     castAddBody: undefined,
                 };
             },
@@ -375,8 +376,8 @@ export class HubbleSocialMedia implements Provider {
         );
         return {
             signer,
-            messageHash,
-            messageSignature,
+            messageHash: messageDataHash,
+            messageSignature: messageDataSignature,
         };
     }
 
@@ -386,7 +387,7 @@ export class HubbleSocialMedia implements Provider {
         index: Index,
         input?: string,
     ): Promise<FrameSignaturePacket> {
-        const { messageBytes, messageHash, messageData } = await encodeMessageData(
+        const { messageBytes, messageData, messageDataHash } = await encodeMessageData(
             (fid) => ({
                 type: MessageType.FRAME_ACTION,
                 frameActionBody: {
@@ -415,7 +416,7 @@ export class HubbleSocialMedia implements Provider {
             untrustedData: {
                 fid: messageData.fid,
                 url: frame.url,
-                messageHash: `0x${Buffer.from(messageHash).toString('hex')}`,
+                messageHash: `0x${Buffer.from(messageDataHash).toString('hex')}`,
                 timestamp: messageData.timestamp,
                 network: messageData.network,
                 buttonIndex: index,
