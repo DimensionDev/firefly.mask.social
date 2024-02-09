@@ -66,22 +66,26 @@ export default function ComposeSend() {
             if (availableSources.includes(SocialPlatform.Farcaster)) promises.push(sendFarcaster());
 
             const result = await Promise.allSettled(promises);
+
+            // If all requests fail, abort execution
             if (result.every((x) => x.status === 'rejected')) return;
 
             if (availableSources.includes(SocialPlatform.Lens)) await refreshProfileFeed(SocialPlatform.Lens);
             if (availableSources.includes(SocialPlatform.Farcaster)) await refreshProfileFeed(SocialPlatform.Farcaster);
-
-            // The modal will be closed when a platform sends a successful post.
         } else if (currentSource) {
-            switch (currentSource) {
-                case SocialPlatform.Lens:
-                    await sendLens();
-                    break;
-                case SocialPlatform.Farcaster:
-                    await sendFarcaster();
-                    break;
-                default:
-                    safeUnreachable(currentSource);
+            try {
+                switch (currentSource) {
+                    case SocialPlatform.Lens:
+                        await sendLens();
+                        break;
+                    case SocialPlatform.Farcaster:
+                        await sendFarcaster();
+                        break;
+                    default:
+                        safeUnreachable(currentSource);
+                }
+            } catch {
+                return;
             }
             refreshProfileFeed(currentSource);
         }
