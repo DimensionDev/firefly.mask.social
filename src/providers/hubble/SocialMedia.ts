@@ -141,6 +141,7 @@ export class HubbleSocialMedia implements Provider {
 
     async unvotePost(postId: string, authorId?: number) {
         if (!authorId) throw new Error(t`Failed to unvote post.`);
+
         const { messageBytes } = await encodeMessageData(
             (fid) => ({
                 type: MessageType.REACTION_REMOVE,
