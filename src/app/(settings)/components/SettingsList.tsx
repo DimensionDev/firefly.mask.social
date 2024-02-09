@@ -9,7 +9,7 @@ import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 
 const settings = [
-    { name: <Trans>Genenal</Trans>, link: '/display' },
+    { name: <Trans>General</Trans>, link: '/display' },
     { name: <Trans>Connected Accounts</Trans>, link: '/connected' },
     { name: <Trans>Communities</Trans>, link: '/communities' },
     { name: <Trans>More</Trans>, link: '/more' },
