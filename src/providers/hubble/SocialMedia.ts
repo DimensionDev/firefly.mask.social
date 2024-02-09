@@ -32,7 +32,6 @@ export class HubbleSocialMedia implements Provider {
     async publishPost(post: Post): Promise<Post> {
         const { messageBytes } = await encodeMessageData(
             () => ({
-                type: MessageType.CAST_ADD,
                 castAddBody: {
                     embedsDeprecated: [],
                     parentCastId: post.commentOn
@@ -104,7 +103,6 @@ export class HubbleSocialMedia implements Provider {
 
         const { messageBytes, messageHash, messageData } = await encodeMessageData(
             (fid) => ({
-                type: MessageType.REACTION_ADD,
                 reactionBody: {
                     type: ReactionType.LIKE,
                     targetCastId: {
@@ -144,7 +142,6 @@ export class HubbleSocialMedia implements Provider {
 
         const { messageBytes } = await encodeMessageData(
             (fid) => ({
-                type: MessageType.REACTION_REMOVE,
                 reactionBody: {
                     type: ReactionType.LIKE,
                     targetCastId: {
@@ -181,12 +178,11 @@ export class HubbleSocialMedia implements Provider {
     async commentPost(postId: string, comment: string) {
         const { messageBytes } = await encodeMessageData(
             (fid) => ({
-                type: MessageType.CAST_ADD,
                 castAddBody: {
                     parentCastId: {
-                        hash: toBytes(postId),
                         // TODO wrong fid, should be one of the parent cast
                         fid,
+                        hash: toBytes(postId),
                     },
                     embedsDeprecated: EMPTY_LIST,
                     mentions: EMPTY_LIST,
@@ -219,12 +215,11 @@ export class HubbleSocialMedia implements Provider {
     async mirrorPost(postId: string) {
         const { messageBytes } = await encodeMessageData(
             (fid) => ({
-                type: MessageType.REACTION_ADD,
                 reactionBody: {
                     type: ReactionType.RECAST,
                     targetCastId: {
-                        hash: toBytes(postId),
                         fid,
+                        hash: toBytes(postId),
                     },
                 },
             }),
@@ -252,12 +247,11 @@ export class HubbleSocialMedia implements Provider {
     async unmirrorPost(postId: string) {
         const { messageBytes } = await encodeMessageData(
             (fid) => ({
-                type: MessageType.REACTION_REMOVE,
                 reactionBody: {
                     type: ReactionType.RECAST,
                     targetCastId: {
-                        hash: toBytes(postId),
                         fid,
+                        hash: toBytes(postId),
                     },
                 },
             }),
@@ -285,7 +279,6 @@ export class HubbleSocialMedia implements Provider {
     async follow(profileId: string) {
         const { messageBytes } = await encodeMessageData(
             () => ({
-                type: MessageType.LINK_ADD,
                 linkBody: {
                     type: 'follow',
                     targetFid: Number(profileId),
@@ -315,7 +308,6 @@ export class HubbleSocialMedia implements Provider {
     async unfollow(profileId: string) {
         const { messageBytes } = await encodeMessageData(
             () => ({
-                type: MessageType.LINK_REMOVE,
                 linkBody: {
                     type: 'unfollow',
                     targetFid: Number(profileId),
