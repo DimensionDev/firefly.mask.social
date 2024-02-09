@@ -26,7 +26,7 @@ export async function encodeMessageData(
 
     return {
         signer: `0x${Buffer.from((await signer.getSignerKey())._unsafeUnwrap()).toString('hex')}`,
-        messageBytes,
+        messageBytes: Buffer.from(messageBytes),
         messageData,
         messageHash: `0x${Buffer.from(messageHash).toString('hex')}`,
         messageSignature: `0x${Buffer.from((await signer.signMessageHash(messageHash))._unsafeUnwrap()).toString(

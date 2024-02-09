@@ -28,6 +28,7 @@ declare namespace NodeJS {
         IMGUR_CLIENT_SECRET: string;
 
         NEXT_PUBLIC_SITE_URL?: string;
+        NEXT_PUBLIC_HUBBLE_URL: string;
         NEXT_PUBLIC_FIREFLY_API_URL: string;
 
         NEXT_PUBLIC_FRAMES: 'enabled' | 'disabled';
