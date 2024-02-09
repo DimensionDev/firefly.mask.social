@@ -1,4 +1,4 @@
-import { Factories, Message, MessageType, ReactionType } from '@farcaster/core';
+import { CastAddBody, Factories, Message, MessageType, ReactionType } from '@farcaster/core';
 import { t } from '@lingui/macro';
 import { toInteger } from 'lodash-es';
 import urlcat from 'urlcat';
@@ -31,22 +31,31 @@ export class HubbleSocialMedia implements Provider {
 
     async publishPost(post: Post): Promise<Post> {
         const { messageBytes } = await encodeMessageData(
-            () => ({
-                castAddBody: {
-                    embedsDeprecated: [],
-                    parentCastId: post.commentOn
-                        ? {
-                              fid: toInteger(post.commentOn.author.profileId),
-                              hash: toBytes(post.commentOn.postId),
-                          }
-                        : undefined,
-                    parentUrl: post.parentChannelUrl,
-                    mentions: [],
-                    text: post.metadata.content?.content ?? '',
-                    mentionsPositions: [],
-                    embeds: post.mediaObjects?.map((v) => ({ url: v.url })) ?? [],
-                },
-            }),
+            () => {
+                const data: {
+                    castAddBody: CastAddBody;
+                } = {
+                    castAddBody: {
+                        embedsDeprecated: [],
+                        mentions: [],
+                        mentionsPositions: [],
+                        text: post.metadata.content?.content ?? '',
+                        embeds: post.mediaObjects?.map((v) => ({ url: v.url })) ?? [],
+                    },
+                };
+
+                if (post.commentOn) {
+                    data.castAddBody.parentCastId = {
+                        fid: toInteger(post.commentOn.author.profileId),
+                        hash: toBytes(post.commentOn.postId),
+                    };
+                }
+
+                if (post.parentChannelUrl) {
+                    data.castAddBody.parentUrl = post.parentChannelUrl;
+                }
+                return data;
+            },
             async (messageData, signer) => {
                 return Factories.CastAddMessage.create(
                     {
