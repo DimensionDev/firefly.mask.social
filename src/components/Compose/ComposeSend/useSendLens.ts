@@ -32,7 +32,7 @@ export function useSendLens() {
                     // We only care about ipfs for Lens
                     return patchedMedia;
                 } catch (err) {
-                    const message = t`Failed to upload image to IPFS: ${(err as Error).message}`;
+                    const message = t`Failed to upload image to IPFS.`;
                     enqueueSnackbar(message, { variant: 'error' });
                     throw new Error(message);
                 }
