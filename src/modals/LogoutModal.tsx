@@ -5,7 +5,7 @@ import { delay } from '@masknet/kit';
 import type { SingletonModalRefCreator } from '@masknet/shared-base';
 import { useSingletonModal } from '@masknet/shared-base-ui';
 import { useRouter } from 'next/navigation.js';
-import { forwardRef, Fragment, useMemo, useState } from 'react';
+import { forwardRef, Fragment } from 'react';
 
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { ProfileName } from '@/components/ProfileName.js';
@@ -20,9 +20,6 @@ export interface LogoutModalProps {
 }
 
 export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps | void>>(function LogoutModal(_, ref) {
-    const [source, setSource] = useState<SocialPlatform>();
-    const [profile, setProfile] = useState<Profile>();
-
     const router = useRouter();
 
     const lensProfiles = useLensStateStore.use.profiles();
@@ -30,20 +27,25 @@ export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps 
     const clearLensProfile = useLensStateStore.use.clearCurrentProfile();
     const clearFarcasterProfile = useFarcasterStateStore.use.clearCurrentProfile();
 
-    const profiles = useMemo(() => {
-        if (profile) return [profile];
-        return !source
-            ? lensProfiles.concat(farcasterProfiles)
-            : source === SocialPlatform.Lens
-              ? lensProfiles
-              : farcasterProfiles;
-    }, [lensProfiles, farcasterProfiles, source, profile]);
-
     const [open, dispatch] = useSingletonModal(ref, {
         async onOpen(props) {
-            setSource(props?.source);
-            setProfile(props?.profile);
+            let profiles: Profile[] = [];
 
+            if (props?.profile) {
+                profiles = [props.profile];
+            } else {
+                switch (props?.source) {
+                    case SocialPlatform.Lens:
+                        profiles = lensProfiles;
+                        break;
+                    case SocialPlatform.Farcaster:
+                        profiles = farcasterProfiles;
+                        break;
+                    default:
+                        profiles = [...lensProfiles, ...farcasterProfiles];
+                        break;
+                }
+            }
             const confirmed = await ConfirmModalRef.openAndWaitForClose({
                 title: t`Log out`,
                 content: (
@@ -70,7 +72,7 @@ export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps 
             });
             if (!confirmed) return;
 
-            switch (source || profile?.source) {
+            switch (props?.source || props?.profile?.source) {
                 case SocialPlatform.Lens:
                     clearLensProfile();
                     break;

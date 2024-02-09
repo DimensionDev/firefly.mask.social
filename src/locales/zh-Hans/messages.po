@@ -54,12 +54,6 @@ msgstr "{0} 浏览数"
 msgid "Failed to post on Farcaster."
 msgstr "在 Farcaster 发贴成功。"
 
-msgid ""
-"Check out my LuckyDrop 🧧💰✨ on Firefly mobile app or {SITE_URL} !\n"
-"{0}\n"
-"{1}"
-msgstr ""
-
 msgid "Act"
 msgstr "收藏"
 
@@ -167,6 +161,9 @@ msgstr "连接钱包"
 
 msgid "Feed"
 msgstr "信息流"
+
+msgid "Check out my LuckyDrop 🧧💰✨ on Firefly mobile app or {SITE_URL} !"
+msgstr ""
 
 msgid "Confirmation"
 msgstr ""
@@ -327,8 +324,14 @@ msgstr "帖子已经被加密"
 msgid "Settings"
 msgstr "设置"
 
+msgid "Claim on Lens: {0}"
+msgstr ""
+
 msgid "Details"
 msgstr "详情"
+
+msgid "Claim on Farcaster: {0}"
+msgstr ""
 
 msgid "Your Farcaster account is now connected."
 msgstr "你的 Farcaster 账号已经连接。"

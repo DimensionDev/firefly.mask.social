@@ -289,6 +289,19 @@ export function formatLensPost(result: AnyPublicationFragment): Post {
                 },
                 contentURI: result.mirrorOn.metadata.rawURI,
             },
+            stats: {
+                comments: result.mirrorOn.stats.comments,
+                mirrors: result.mirrorOn.stats.mirrors,
+                quotes: result.mirrorOn.stats.quotes,
+                reactions: result.mirrorOn.stats.upvoteReactions,
+                bookmarks: result.mirrorOn.stats.bookmarks,
+                countOpenActions: result.mirrorOn.stats.countOpenActions,
+            },
+            canComment: result.mirrorOn.operations.canComment === 'YES',
+            canMirror: result.mirrorOn.operations.canMirror === 'YES',
+            hasMirrored: result.mirrorOn.operations.hasMirrored,
+            hasActed: result.mirrorOn.operations.hasActed.value,
+            hasLiked: result.mirrorOn.operations.hasUpvoted,
             canAct,
             __original__: result,
             momoka: result.mirrorOn.momoka || undefined,
@@ -337,6 +350,7 @@ export function formatLensPost(result: AnyPublicationFragment): Post {
             canMirror: result.operations.canMirror === 'YES',
             hasMirrored: result.operations.hasMirrored,
             hasActed: result.operations.hasActed.value,
+            hasLiked: result.operations.hasUpvoted,
             quoteOn: formatLensQuoteOrComment(result.quoteOn),
             canAct,
             momoka: result.momoka || undefined,
@@ -373,6 +387,7 @@ export function formatLensPost(result: AnyPublicationFragment): Post {
             hasMirrored: result.operations.hasMirrored,
             hasActed: result.operations.hasActed.value,
             commentOn: formatLensQuoteOrComment(result.commentOn),
+            hasLiked: result.operations.hasUpvoted,
             root:
                 result.root && !isEmpty(result.root) && (result.root as PostFragment).id !== result.commentOn.id
                     ? formatLensPost(result.root as PostFragment)

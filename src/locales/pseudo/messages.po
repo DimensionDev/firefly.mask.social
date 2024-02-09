@@ -49,12 +49,6 @@ msgstr ""
 msgid "Failed to post on Farcaster."
 msgstr ""
 
-msgid ""
-"Check out my LuckyDrop 🧧💰✨ on Firefly mobile app or {SITE_URL} !\n"
-"{0}\n"
-"{1}"
-msgstr ""
-
 msgid "Act"
 msgstr ""
 
@@ -161,6 +155,9 @@ msgid "Connect Wallet"
 msgstr ""
 
 msgid "Feed"
+msgstr ""
+
+msgid "Check out my LuckyDrop 🧧💰✨ on Firefly mobile app or {SITE_URL} !"
 msgstr ""
 
 msgid "Confirmation"
@@ -322,7 +319,13 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
+msgid "Claim on Lens: {0}"
+msgstr ""
+
 msgid "Details"
+msgstr ""
+
+msgid "Claim on Farcaster: {0}"
 msgstr ""
 
 msgid "Your Farcaster account is now connected."
