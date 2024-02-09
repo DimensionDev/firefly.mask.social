@@ -218,9 +218,9 @@ export default function ComposeAction(props: ComposeActionProps) {
                             <Popover.Button className=" flex cursor-pointer gap-1 text-main focus:outline-none">
                                 <span className=" text-[15px] font-bold">
                                     {restriction === 0 ? (
-                                        <Trans>Everyone can reply</Trans>
+                                        <Trans>Everyone</Trans>
                                     ) : (
-                                        <Trans>Only people you follow can reply</Trans>
+                                        <Trans>Only people you follow</Trans>
                                     )}
                                 </span>
                                 <ChevronRightIcon className="h-5 w-5" aria-hidden="true" />
