@@ -57,7 +57,7 @@ export const Like = memo<LikeProps>(function Like({ count, hasLiked, postId, aut
                     break;
                 case SocialPlatform.Farcaster:
                     await (liked
-                        ? FarcasterSocialMediaProvider.unvotePost(postId)
+                        ? FarcasterSocialMediaProvider.unvotePost(postId, Number(authorId))
                         : FarcasterSocialMediaProvider.upvotePost(postId, Number(authorId)));
                     break;
                 default:

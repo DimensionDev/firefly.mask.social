@@ -32,7 +32,7 @@ jobs:
       - name: Bump version
         id: bump_version
         run: |
-          npm version ${{ github.event.inputs.release_kind }} --no-git-tag-version
+          npm version ${{ inputs.release_kind }} --no-git-tag-version
           echo ::set-output name=NEW_VERSION::$(node -p "require('./package.json').version")      
 
       - name: Create pull request
@@ -40,7 +40,7 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           branch: new-release
-          title: "[Release] ${{ github.event.inputs.release_kind }} v${{ steps.version.outputs.VERSION }} => v${{ steps.bump_version.outputs.NEW_VERSION }}"
+          title: "[Release] ${{ inputs.release_kind }} v${{ steps.version.outputs.VERSION }} => v${{ steps.bump_version.outputs.NEW_VERSION }}"
           commit-message: "chore: bump version to v${{ steps.bump_version.outputs.NEW_VERSION }}"
           base: released
           labels: 'automated'
