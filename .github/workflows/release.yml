@@ -1,0 +1,53 @@
+name: Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      release_kind:
+        description: 'Select the release kind: major, minor, or patch'
+        required: true
+        default: 'minor'
+        type: choice
+        options:
+          - major
+          - minor
+          - patch
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Determine version
+        id: version
+        run: echo ::set-output name=VERSION::$(node -p "require('./package.json').version")
+
+      - name: Bump version
+        id: bump_version
+        run: |
+          npm version ${{ github.event.inputs.release_kind }} --no-git-tag-version
+          echo ::set-output name=NEW_VERSION::$(node -p "require('./package.json').version")
+
+      - name: Create pull request
+        if: steps.get_latest_commit.outputs.latest_commit != ''
+        uses: peter-evans/create-pull-request@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: new-release
+          title: "[Release] ${{ github.event.inputs.release_kind }} ${{ steps.version.outputs.VERSION }} => ${{ steps.bump_version.outputs.NEW_VERSION }}"
+          commit-message: "chore: bump version to ${{ steps.bump_version.outputs.NEW_VERSION }}"
+          base: released
+          labels: 'automated'
+          body: |
+            This pull request was automatically created by the release workflow.
+            It bumps the version from ${{ steps.version.outputs.VERSION }} to ${{ steps.bump_version.outputs.NEW_VERSION }}.
