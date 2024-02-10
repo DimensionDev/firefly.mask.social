@@ -133,3 +133,11 @@ export const useFarcasterStateStore = createSelectors(useFarcasterStateBase);
 export function getLensToken() {
     return useLensStateBase.getState().currentProfileSession?.token;
 }
+
+export function getLensProfileId() {
+    return useLensStateBase.getState().currentProfile?.profileId;
+}
+
+export function getFarcasterProfileId() {
+    return useFarcasterStateBase.getState().currentProfile?.profileId;
+}

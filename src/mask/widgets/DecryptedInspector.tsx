@@ -12,6 +12,7 @@ import { DecryptedPost } from '@/mask/widgets/components/DecryptedPost.js';
 import { HubbleSocialMediaProvider } from '@/providers/hubble/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
+import { getFarcasterProfileId, getLensProfileId } from '@/store/useProfileStore.js';
 
 interface DecryptedInspectorProps {
     post?: Post;
@@ -23,13 +24,17 @@ export default function DecryptedInspector({ post, payloads }: DecryptedInspecto
         const identity: IdentityResolved = {};
         if (post?.source === SocialPlatform.Lens) {
             const lensToken = await LensSocialMediaProvider.getAccessToken();
-            identity.lensToken = lensToken.unwrap();
+            Object.assign(identity, {
+                lensToken: lensToken.unwrap(),
+                profileId: getLensProfileId(),
+            } satisfies IdentityResolved);
         } else if (post?.source === SocialPlatform.Farcaster) {
             const session = farcasterClient.getSession();
             if (session) {
                 const { messageHash, messageSignature, signer } =
                     await HubbleSocialMediaProvider.generateSignaturePacket();
                 Object.assign(identity, {
+                    profileId: getFarcasterProfileId(),
                     farcasterMessage: messageHash,
                     farcasterSignature: messageSignature,
                     farcasterSigner: signer,
