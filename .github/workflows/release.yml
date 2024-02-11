@@ -10,7 +10,7 @@ on:
       release_kind:
         description: 'Select the release kind: major, minor, or patch'
         required: true
-        default: 'minor'
+        default: 'patch'
         type: choice
         options:
           - major
