@@ -31,6 +31,8 @@ jobs:
 
       - name: Checkout code
         uses: actions/checkout@v2
+        fetch-depth: 0  # Fetch all history for tags
+        ref: 'refs/tags/*:refs/tags/*'  # Fetch all tags
 
       - name: Check if version exists
         id: check_version
