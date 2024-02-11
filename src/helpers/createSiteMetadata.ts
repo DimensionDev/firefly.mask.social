@@ -6,6 +6,9 @@ export function createSiteMetadata(metadata?: Partial<Metadata>) {
     return {
         metadataBase: new URL(SITE_URL),
         title: SITE_NAME,
+        itunes: {
+            appId: '1640183078',
+        },
         description: SITE_DESCRIPTION,
         openGraph: {
             title: SITE_NAME,
