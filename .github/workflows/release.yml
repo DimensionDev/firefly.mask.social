@@ -3,6 +3,10 @@ name: Release
 on:
   workflow_dispatch:
     inputs:
+      version:
+        description: 'The next version to release, e.g. 0.1.0'
+        required: true
+        type: string
       release_kind:
         description: 'Select the release kind: major, minor, or patch'
         required: true
@@ -25,10 +29,6 @@ jobs:
         with:
           node-version: '14'
 
-      - name: Determine version
-        id: version
-        run: echo ::set-output name=VERSION::$(node -p "require('./package.json').version")
-
       - name: Bump version
         id: bump_version
         run: |
@@ -40,7 +40,7 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add package.json
-          git commit -m "[Release] ${{ inputs.release_kind }} v${{ steps.version.outputs.VERSION }} => v${{ steps.bump_version.outputs.NEW_VERSION }}"
+          git commit -m "[Release] ${{ inputs.release_kind }} v${{ inputs.version }} => v${{ steps.bump_version.outputs.NEW_VERSION }}"
         
       - name: Tag version
         run: |

@@ -5,13 +5,19 @@ on:
     - cron: '0 0 * * *' # every day at 00:00 (midnight)
     - cron: '0 12 * * *' # every day at 12:00 PM (noon)
   workflow_dispatch:
+    inputs:
+      submodule_branch:
+        description: 'The branch to sync the submodule with'
+        required: true
+        type: string
+        default: 'master'
 
 jobs:
   sync-submodule:
     runs-on: ubuntu-latest
 
     env:
-      SUBMODULE_BRANCH: ${{ secrets.SUBMODULE_BRANCH }}
+      SUBMODULE_BRANCH: ${{ inputs.submodule_branch }}
 
     steps:
       - name: Checkout repository
