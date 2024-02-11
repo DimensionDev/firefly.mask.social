@@ -32,19 +32,18 @@ jobs:
       - name: Bump version
         id: bump_version
         run: |
-          npm version ${{ inputs.release_kind }} --no-git-tag-version
-          echo ::set-output name=NEW_VERSION::$(node -p "require('./package.json').version")
+          npm version ${{ inputs.version }} --no-git-tag-version
         
       - name: Commit version
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add package.json
-          git commit -m "[Release] ${{ inputs.release_kind }} v${{ inputs.version }} => v${{ steps.bump_version.outputs.NEW_VERSION }}"
+          git commit -m "[Release] ${{ inputs.release_kind }} v${{ inputs.version }}"
         
       - name: Tag version
         run: |
-          git tag v${{ steps.bump_version.outputs.NEW_VERSION }}
+          git tag v${{ inputs.version }}
         
       - name: Push version
         run: |
