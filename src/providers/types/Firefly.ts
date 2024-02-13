@@ -8,6 +8,10 @@ export interface Cast {
     embeds: Array<{ url?: string }>;
     mentions: string[];
     mentions_positions: number[];
+    mentions_user: Array<{
+        fid: string;
+        handle: string;
+    }>;
     created_at: string;
     likeCount: number;
     recastCount: number;

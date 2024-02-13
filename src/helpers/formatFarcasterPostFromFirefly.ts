@@ -5,7 +5,7 @@ import { URL_REGEX } from '@/constants/regex.js';
 import { formatFarcasterProfileFromFirefly } from '@/helpers/formatFarcasterProfileFromFirefly.js';
 import { getResourceType } from '@/helpers/getResourceType.js';
 import type { Cast } from '@/providers/types/Firefly.js';
-import type { Attachment, Post } from '@/providers/types/SocialMedia.js';
+import { type Attachment, type Post, type Profile, ProfileStatus } from '@/providers/types/SocialMedia.js';
 
 function formatContent(cast: Cast) {
     const oembedUrl = last(cast.text.match(URL_REGEX));
@@ -62,6 +62,20 @@ export function formatFarcasterPostFromFirefly(result: Cast): Post {
             reactions: result.likeCount,
             quotes: 0,
         },
+        mentions: result.mentions_user.map<Profile>((x) => {
+            return {
+                profileId: x.fid,
+                displayName: x.handle,
+                handle: x.handle,
+                fullHandle: x.handle,
+                pfp: '',
+                source: SocialPlatform.Farcaster,
+                followerCount: 0,
+                followingCount: 0,
+                status: ProfileStatus.Active,
+                verified: true,
+            };
+        }),
         hasLiked: result.liked,
         hasMirrored: result.recasted,
         source: SocialPlatform.Farcaster,
