@@ -17,9 +17,9 @@ const trimify = (value: string): string => value?.replace(/\n\n\s*\n/g, '\n\n').
 const plugins = [
     [stripMarkdown, { keep: ['strong', 'emphasis', 'inlineCode'] }],
     remarkBreaks,
-    linkifyRegex(URL_REGEX),
     linkifyRegex(MENTION_REGEX),
     linkifyRegex(HASHTAG_REGEX),
+    linkifyRegex(URL_REGEX),
 ];
 
 interface MarkupProps extends Omit<ReactMarkdownOptions, 'children'> {
