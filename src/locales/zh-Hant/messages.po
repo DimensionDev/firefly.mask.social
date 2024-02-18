@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-02-06 00:04\n"
+"PO-Revision-Date: 2024-02-10 00:04\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Traditional\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -27,10 +27,16 @@ msgstr ""
 msgid "Failed to fetch as Blob."
 msgstr ""
 
+msgid "Failed to upload image to imgur."
+msgstr ""
+
 msgid "Communities"
 msgstr ""
 
 msgid "Discover"
+msgstr ""
+
+msgid "Please be cautious when connecting your wallet, as malicious websites may attempt to access your funds."
 msgstr ""
 
 msgid "Click to refresh QRCode"
@@ -99,6 +105,9 @@ msgstr ""
 msgid "Confirm"
 msgstr ""
 
+msgid "Failed to upload image to IPFS."
+msgstr ""
+
 msgid "Page not found"
 msgstr ""
 
@@ -106,6 +115,9 @@ msgid "Liked"
 msgstr ""
 
 msgid "Please switch to the correct network in your wallet."
+msgstr ""
+
+msgid "Type something here..."
 msgstr ""
 
 msgid "Only up to 2 images can be chosen."
@@ -129,9 +141,6 @@ msgstr ""
 msgid "Failed to post on Lens."
 msgstr ""
 
-msgid "Claim on Lens:"
-msgstr ""
-
 msgid "Select Account"
 msgstr ""
 
@@ -139,9 +148,6 @@ msgid "mirror"
 msgstr ""
 
 msgid "Replied on Lens"
-msgstr ""
-
-msgid "Failed to upload image to imgur: {0}"
 msgstr ""
 
 msgid "Audio Cover"
@@ -157,6 +163,12 @@ msgid "Connect Wallet"
 msgstr ""
 
 msgid "Feed"
+msgstr ""
+
+msgid "Check out my LuckyDrop 🧧💰✨ on Firefly mobile app or {SITE_URL} !"
+msgstr ""
+
+msgid "Confirmation"
 msgstr ""
 
 msgid "Follow more friends to continue exploring on {0}."
@@ -178,9 +190,6 @@ msgid "Join our Telegram"
 msgstr ""
 
 msgid "Log out"
-msgstr ""
-
-msgid "Check out my LuckyDrop 🧧💰✨ on Firefly mobile app or"
 msgstr ""
 
 msgid "post"
@@ -231,13 +240,7 @@ msgstr ""
 msgid "Privacy Policy"
 msgstr ""
 
-msgid "Claim on Farcaster:"
-msgstr ""
-
 msgid "No wallet client found"
-msgstr ""
-
-msgid "Only people you follow can reply"
 msgstr ""
 
 msgid "Switch"
@@ -274,6 +277,9 @@ msgid "Unlike"
 msgstr ""
 
 msgid "Post has been hidden"
+msgstr ""
+
+msgid "Everyone"
 msgstr ""
 
 msgid "The user declined the request."
@@ -321,7 +327,13 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
+msgid "Claim on Lens: {0}"
+msgstr ""
+
 msgid "Details"
+msgstr ""
+
+msgid "Claim on Farcaster: {0}"
 msgstr ""
 
 msgid "Your Farcaster account is now connected."
@@ -346,6 +358,9 @@ msgid "Like"
 msgstr ""
 
 msgid "Failed to quote post on Lens."
+msgstr ""
+
+msgid "General"
 msgstr ""
 
 msgid "This can’t be undone and you’ll lose your draft."
@@ -396,13 +411,13 @@ msgstr ""
 msgid "Please visit from a desktop browser."
 msgstr ""
 
-msgid "There is something wrong with the frame. Please try again."
-msgstr ""
-
 msgid "Discard"
 msgstr ""
 
 msgid "Sign"
+msgstr ""
+
+msgid "Failed to recast post"
 msgstr ""
 
 msgid "Follow @thefireflyapp on X"
@@ -447,6 +462,9 @@ msgstr ""
 msgid "Follow @realMaskNetwork on X"
 msgstr ""
 
+msgid "Leaving Firefly"
+msgstr ""
+
 msgid "No Lens profile was found. Please try using a different wallet."
 msgstr ""
 
@@ -454,6 +472,9 @@ msgid "<0>{0}</0> mirrored"
 msgstr ""
 
 msgid "Follower"
+msgstr ""
+
+msgid "The frame server failed to process the request."
 msgstr ""
 
 msgid "Post by {0}"
@@ -484,9 +505,6 @@ msgid "{0, plural, one {<0/>} other {{1, plural, one {<1/> and <2/>} other {<3/>
 msgstr ""
 
 msgid "No profile found"
-msgstr ""
-
-msgid "Everyone can reply"
 msgstr ""
 
 msgid "<0>You</0> liked"
@@ -528,6 +546,9 @@ msgstr ""
 msgid "Unknown session type."
 msgstr ""
 
+msgid "Only people you follow"
+msgstr ""
+
 msgid "<0>You</0> and {0} recasted"
 msgstr ""
 
@@ -547,9 +568,6 @@ msgid "Failed to unmirror post."
 msgstr ""
 
 msgid "Failed to fetch as ArrayBuffer."
-msgstr ""
-
-msgid "Failed to upload image to IPFS: {0}"
 msgstr ""
 
 msgid "Confirm to log out these accounts?"
