@@ -10,7 +10,7 @@ on:
         description: 'The branch to sync the submodule with'
         required: true
         type: string
-        default: 'master'
+        default: 'develop'
 
 jobs:
   sync-submodule:
@@ -32,7 +32,7 @@ jobs:
       - name: Get latest commit hash of submodule branch
         id: get_latest_commit
         run: |
-          latest_commit=$(git -C src/maskbook rev-parse origin/$SUBMODULE_BRANCH)
+          latest_commit=$(git -C src/maskbook rev-parse $SUBMODULE_BRANCH)
           echo "::set-output name=latest_commit::$latest_commit"
       
       - name: Update submodule to latest commit
