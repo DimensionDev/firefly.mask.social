@@ -46,8 +46,8 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           branch: sync-submodule-changes
-          title: 'Sync changes from submodule'
-          body: 'This pull request syncs the changes from the submodule.'
+          title: 'Sync changes from submodule to target the ${{ inputs.submodule_branch }}'
+          body: 'This pull request syncs the changes from the submodule to target the ${{ inputs.submodule_branch }}.'
           commit-message: 'chore: Sync submodule changes'
           base: main
           labels: 'automated'
