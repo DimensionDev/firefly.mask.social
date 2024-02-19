@@ -26,7 +26,7 @@ export function AccountCard({ profile, isCurrent }: AccountCardProps) {
                 <button
                     className="text-[15px] font-bold leading-none text-red-500"
                     onClick={() => {
-                        LogoutModalRef.open({ source: profile.source, profile });
+                        LogoutModalRef.open({ source: profile.source });
                     }}
                 >
                     <Trans>Log out</Trans>

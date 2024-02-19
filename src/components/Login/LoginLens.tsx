@@ -27,7 +27,7 @@ interface LoginLensProps {
 
 export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
     const [selectedProfile, setSelectedProfile] = useState<Profile>();
-    const [signless, setSignless] = useState(true);
+    const [signless, setSignless] = useState(false);
 
     const account = useAccount();
 
@@ -48,9 +48,6 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
                 if (!currentProfile.signless && signless) {
                     await LensSocialMediaProvider.updateSignless(true);
                 }
-                if (currentProfile.signless && !signless) {
-                    await LensSocialMediaProvider.updateSignless(false);
-                }
 
                 updateProfiles(profiles);
                 updateCurrentProfile(currentProfile, session);
@@ -67,7 +64,6 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
     useEffect(() => {
         if (!currentProfile) return;
         if (!isSameAddress(account.address, currentAccount)) LoginModalRef.close();
-        if (!currentProfile.signless) setSignless(false);
     }, [currentProfile, account, currentAccount]);
 
     return (
