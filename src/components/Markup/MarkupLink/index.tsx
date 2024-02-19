@@ -41,14 +41,14 @@ export const MarkupLink = memo<MarkupLinkProps>(function MarkupLink({ title, pos
         switch (source) {
             case SocialPlatform.Lens: {
                 const link = getProfileUrl(createLensProfileFromMentionTitle(title));
-                return <MentionLink title={title} link={link} />;
+                return <MentionLink handle={getLensHandleFromMentionTitle(title)} link={link} />;
             }
 
             case SocialPlatform.Farcaster: {
                 const target = post.mentions?.find((x) => x.handle === title.replace(/^@/, ''));
                 if (!target) return title;
                 const link = getProfileUrl(target);
-                return <MentionLink title={title} link={link} />;
+                return <MentionLink handle={target.handle} link={link} />;
             }
             default:
                 safeUnreachable(source);

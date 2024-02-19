@@ -134,7 +134,7 @@ export function Frame({ postId, url, onData, children }: FrameProps) {
     if (error || !frame) return children;
 
     return (
-        <div className=" mt-4 rounded-xl text-sm">
+        <div className=" mt-4 rounded-xl border border-line bg-bg p-2 text-sm">
             <div className="relative">
                 {loading ? (
                     <div
