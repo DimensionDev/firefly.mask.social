@@ -166,6 +166,9 @@ msgstr ""
 msgid "Confirmation"
 msgstr ""
 
+msgid "Not the wallet associated with your account"
+msgstr ""
+
 msgid "Follow more friends to continue exploring on {0}."
 msgstr ""
 
