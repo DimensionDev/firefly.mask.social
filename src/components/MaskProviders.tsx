@@ -12,20 +12,20 @@ import {
 import { EVMWeb3ContextProvider } from '@masknet/web3-hooks-base';
 import { ProviderType } from '@masknet/web3-shared-evm';
 import { StyledEngineProvider } from '@mui/material';
-import React, { Suspense } from 'react';
+import { type PropsWithChildren, Suspense } from 'react';
 import { I18nextProvider } from 'react-i18next';
 import { useAccount, useChainId } from 'wagmi';
 
 import { useMaskTheme } from '@/hooks/useMaskTheme.js';
 
-export function MaskProviders({ children }: { children: React.ReactNode | JSX.Element }) {
+export function MaskProviders({ children }: PropsWithChildren<{}>) {
     const account = useAccount();
     const chainId = useChainId();
 
     return (
-        <DialogStackingProvider hasGlobalBackdrop={false}>
-            <StyledEngineProvider injectFirst>
-                <DisableShadowRootContext.Provider value>
+        <DisableShadowRootContext.Provider value>
+            <DialogStackingProvider hasGlobalBackdrop={false}>
+                <StyledEngineProvider injectFirst>
                     <MaskThemeProvider useMaskIconPalette={(theme) => theme.palette.mode} useTheme={useMaskTheme}>
                         <I18nextProvider i18n={i18NextInstance}>
                             <EVMWeb3ContextProvider
@@ -45,8 +45,8 @@ export function MaskProviders({ children }: { children: React.ReactNode | JSX.El
                             </EVMWeb3ContextProvider>
                         </I18nextProvider>
                     </MaskThemeProvider>
-                </DisableShadowRootContext.Provider>
-            </StyledEngineProvider>
-        </DialogStackingProvider>
+                </StyledEngineProvider>
+            </DialogStackingProvider>
+        </DisableShadowRootContext.Provider>
     );
 }
