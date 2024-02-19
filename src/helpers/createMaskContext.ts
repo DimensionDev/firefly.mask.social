@@ -2,7 +2,7 @@ import { delay } from '@masknet/kit';
 import type { __SiteAdaptorContext__ } from '@masknet/plugin-infra/content-script';
 import type { __UIContext__ } from '@masknet/plugin-infra/dom';
 import { TransactionConfirmModal } from '@masknet/shared';
-import { EMPTY_ARRAY, PostIdentifier, UNDEFINED } from '@masknet/shared-base';
+import { EMPTY_ARRAY, PostIdentifier, ProfileIdentifier, UNDEFINED } from '@masknet/shared-base';
 
 import type { SocialPlatform } from '@/constants/enum.js';
 import { SITE_URL } from '@/constants/index.js';
@@ -42,6 +42,7 @@ export function createMaskSiteAdaptorContext(context?: Partial<__SiteAdaptorCont
         currentNextIDPlatform: undefined,
         currentPersonaIdentifier: UNDEFINED,
         getPostURL: (identifier: PostIdentifier) => null,
+        getProfileURL: (identifier: ProfileIdentifier) => null,
         share: async (text: string, source?: string) => {
             TransactionConfirmModal.close();
             await delay(300);
