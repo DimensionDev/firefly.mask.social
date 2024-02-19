@@ -1,5 +1,5 @@
 /**
- * Examples in the returned post:
+ * Examples of mention titles in the returned post:
  * - @lens/handle
  * - @handle.lens
  *
