@@ -56,7 +56,6 @@ export class LensSocialMedia implements Provider {
         const walletClient = await getWalletClientRequired({
             chainId: polygon.id,
         });
-
         const { id, text } = await this.client.authentication.generateChallenge({
             for: profileId,
             signedBy: walletClient.account.address,

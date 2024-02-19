@@ -27,7 +27,7 @@ interface LoginLensProps {
 
 export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
     const [selectedProfile, setSelectedProfile] = useState<Profile>();
-    const [signless, setSignless] = useState(true);
+    const [signless, setSignless] = useState(false);
 
     const account = useAccount();
 
@@ -48,9 +48,6 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
                 if (!currentProfile.signless && signless) {
                     await LensSocialMediaProvider.updateSignless(true);
                 }
-                if (currentProfile.signless && !signless) {
-                    await LensSocialMediaProvider.updateSignless(false);
-                }
 
                 updateProfiles(profiles);
                 updateCurrentProfile(currentProfile, session);
@@ -67,7 +64,6 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
     useEffect(() => {
         if (!currentProfile) return;
         if (!isSameAddress(account.address, currentAccount)) LoginModalRef.close();
-        if (!currentProfile.signless) setSignless(false);
     }, [currentProfile, account, currentAccount]);
 
     return (
@@ -92,7 +88,7 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
                             ))}
                         </div>
                         {currentProfile?.signless ||
-                        !isSameAddress(currentProfile?.ownedBy?.address, account.address) ? null : (
+                            !isSameAddress(currentProfile?.ownedBy?.address, account.address) ? null : (
                             <div className="flex w-full flex-col gap-[8px] rounded-[8px] bg-lightBg px-[16px] py-[24px]">
                                 <div className="flex items-center justify-between">
                                     <span className="text-[14px] font-bold leading-[18px] text-lightMain">
@@ -101,15 +97,13 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
                                     <Switch checked={signless} onChange={setSignless}>
                                         {({ checked }) => (
                                             <button
-                                                className={`${
-                                                    checked ? 'bg-success' : 'bg-gray-200'
-                                                } relative inline-flex h-[22px] w-[43px] items-center rounded-full`}
+                                                className={`${checked ? 'bg-success' : 'bg-gray-200'
+                                                    } relative inline-flex h-[22px] w-[43px] items-center rounded-full`}
                                             >
                                                 <span className="sr-only">Enable signless</span>
                                                 <span
-                                                    className={`${
-                                                        checked ? 'translate-x-6' : 'translate-x-1'
-                                                    } inline-block h-3 w-3 transform rounded-full bg-white transition`}
+                                                    className={`${checked ? 'translate-x-6' : 'translate-x-1'
+                                                        } inline-block h-3 w-3 transform rounded-full bg-white transition`}
                                                 />
                                             </button>
                                         )}
