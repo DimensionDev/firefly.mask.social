@@ -45,7 +45,7 @@ export const MarkupLink = memo<MarkupLinkProps>(function MarkupLink({ title, pos
             }
 
             case SocialPlatform.Farcaster: {
-                const target = post.mentions?.find((x) => x.handle === title.replace('@', ''));
+                const target = post.mentions?.find((x) => x.handle === title.replace(/^@/, ''));
                 if (!target) return title;
                 const link = getProfileUrl(target);
                 return <MentionLink title={title} link={link} />;
