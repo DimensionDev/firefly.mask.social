@@ -24,7 +24,7 @@ import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useLeafwatchPersistStore } from '@/store/useLeafwatchPersistStore.js';
 import { useThemeModeStore } from '@/store/useThemeModeStore.js';
 
-export function Providers(props: { children: React.ReactNode }) {
+export function Providers({ children }: { children: React.ReactNode | JSX.Element }) {
     const entryPathname = useRef('');
     const isDarkOS = useMediaQuery('(prefers-color-scheme: dark)');
     const themeMode = useThemeModeStore.use.themeMode();
@@ -92,7 +92,7 @@ export function Providers(props: { children: React.ReactNode }) {
                             {/* wagmi depends @tanstack/react-query@4.29.23 */}
                             <WagmiProvider>
                                 {/* livepeer depends @tanstack/react-query@4.36.1 */}
-                                <LivepeerConfig client={livepeerClient}>{props.children}</LivepeerConfig>
+                                <LivepeerConfig client={livepeerClient}>{children}</LivepeerConfig>
                             </WagmiProvider>
                         </SnackbarProvider>
                     </DarkModeContext.Provider>
