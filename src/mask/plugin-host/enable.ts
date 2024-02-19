@@ -16,7 +16,7 @@ import { indexedDBStorage, inMemoryStorage } from '@/mask/setup/storage.js';
 __setUIContext__(createMaskUIContext());
 __setSiteAdaptorContext__(createMaskSiteAdaptorContext());
 
-startPluginSiteAdaptor(EnhanceableSite.App, {
+startPluginSiteAdaptor(EnhanceableSite.Firefly, {
     minimalMode: {
         events: new Emitter(),
         isEnabled: () => BooleanPreference.False,
