@@ -6,9 +6,6 @@ on:
             - opened
             - edited
             - synchronize
-        branches:
-            - '!main'
-            - '!released'
 
 jobs:
     main:

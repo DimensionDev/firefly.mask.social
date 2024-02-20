@@ -3,6 +3,7 @@ name: Prettier
 on:
     push:
         branhces:
+            - '**'
             - '!main'
             - '!released'
 

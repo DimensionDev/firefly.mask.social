@@ -3,6 +3,7 @@ name: ESLint
 on:
     push:
         branches:
+            - '**'
             - '!main'
             - '!released'
 jobs:

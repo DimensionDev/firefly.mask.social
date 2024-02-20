@@ -6,9 +6,6 @@ on:
       - opened
       - edited
       - synchronize
-    branches:
-      - '!main'
-      - '!released'
   merge_group:
     types: [checks_requested]
 
