@@ -301,6 +301,9 @@ msgstr "Followings"
 msgid "No post found"
 msgstr "No post found"
 
+msgid "Clear All"
+msgstr "Clear All"
+
 msgid "Lens"
 msgstr "Lens"
 

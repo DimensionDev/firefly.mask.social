@@ -306,6 +306,9 @@ msgstr "正在关注"
 msgid "No post found"
 msgstr "未找到帖子"
 
+msgid "Clear All"
+msgstr ""
+
 msgid "Lens"
 msgstr "Lens"
 
