@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-02-19 12:01\n"
+"PO-Revision-Date: 2024-02-20 11:20\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -169,7 +169,7 @@ msgid "Check out my LuckyDrop 🧧💰✨ on Firefly mobile app or {SITE_URL} !"
 msgstr ""
 
 msgid "Confirmation"
-msgstr ""
+msgstr "确认"
 
 msgid "Not the wallet associated with your account"
 msgstr ""
@@ -277,7 +277,7 @@ msgid "On your mobile device with Warpcast, open the <0>Camera</0> app and scan 
 msgstr "在你装有 Warpcast 的手机上，打开 <0> 相机 </0>，扫描二维码。"
 
 msgid "Unlike"
-msgstr ""
+msgstr "取消点赞"
 
 msgid "Post has been hidden"
 msgstr "帖子已经被隐藏"
@@ -286,7 +286,7 @@ msgid "Everyone"
 msgstr ""
 
 msgid "The user declined the request."
-msgstr ""
+msgstr "用户取消了请求。"
 
 msgid "<0>{0}</0> liked"
 msgstr "<0>{0}</0> 点赞"
@@ -367,7 +367,7 @@ msgid "Failed to quote post on Lens."
 msgstr "未能在 Lens 上引用帖子。"
 
 msgid "General"
-msgstr ""
+msgstr "通用"
 
 msgid "This can’t be undone and you’ll lose your draft."
 msgstr "此操作无法撤销，您将丢失您的草稿。"
@@ -406,7 +406,7 @@ msgid "Failed to unfollow."
 msgstr "取消关注失败"
 
 msgid "Unliked"
-msgstr ""
+msgstr "已取消点赞"
 
 msgid "Visit mask.io"
 msgstr "访问 mask.io"
@@ -430,7 +430,7 @@ msgid "Follow @thefireflyapp on X"
 msgstr "在 X 上关注 @thefireflyapp"
 
 msgid "Light Mode"
-msgstr ""
+msgstr "浅色模式"
 
 msgid "Please switch to the {chainName} network in your wallet."
 msgstr ""
@@ -448,7 +448,7 @@ msgid "Mirrored"
 msgstr "已转发"
 
 msgid "Unable to retrieve post details."
-msgstr ""
+msgstr "数据获取失败。"
 
 msgid "Failed to publish post."
 msgstr "发布帖子失败"
@@ -463,13 +463,13 @@ msgid "Posted on Farcaster"
 msgstr "在 Farcaster 上发帖成功"
 
 msgid "Something went wrong. Please try again."
-msgstr ""
+msgstr "出现错误，请重试。"
 
 msgid "Follow @realMaskNetwork on X"
 msgstr "在 X 上关注 @realMaskNetwork"
 
 msgid "Leaving Firefly"
-msgstr ""
+msgstr "即将离开 Firefly"
 
 msgid "No Lens profile was found. Please try using a different wallet."
 msgstr ""
@@ -559,7 +559,7 @@ msgid "<0>You</0> and {0} recasted"
 msgstr ""
 
 msgid "Dark Mode"
-msgstr ""
+msgstr "深色模式"
 
 msgid "Online"
 msgstr "在线"
@@ -616,7 +616,7 @@ msgid "Video"
 msgstr "视频"
 
 msgid "Language"
-msgstr ""
+msgstr "语言"
 
 msgid "Add a comment"
 msgstr "添加一个评论"
@@ -664,7 +664,7 @@ msgid "mirrored"
 msgstr "已转发"
 
 msgid "Following"
-msgstr "已关注"
+msgstr "关注"
 
 msgid "<0>{0}</0> recasted"
 msgstr "<0>{0}</0> 已转发"
