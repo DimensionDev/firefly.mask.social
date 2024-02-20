@@ -3,6 +3,7 @@ import { i18NextInstance } from '@masknet/shared-base';
 import { addShareBaseI18N } from '@masknet/shared-base-ui';
 import { initReactI18next } from 'react-i18next';
 
+// eslint-disable-next-line no-restricted-imports
 import { addMaskI18N } from '@/maskbook/packages/mask/shared-ui/locales/languages.js';
 
 addMaskI18N(i18NextInstance);

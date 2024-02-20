@@ -1,5 +1,6 @@
+import type { FireflyRedPacketAPI } from '@masknet/web3-providers/types';
+
 import { ServerErrorCodes } from '@/helpers/createErrorResponseJSON.js';
-import type { FireflyRedPacketAPI } from '@/maskbook/packages/web3-providers/src/entry-types.js';
 import type { IPFSResponse } from '@/services/uploadToIPFS.js';
 
 export type ResponseJSON<T> =
