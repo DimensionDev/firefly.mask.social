@@ -21,6 +21,7 @@ import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
+import type { Profile } from '@/providers/types/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 
 interface SearchBarProps {
@@ -49,15 +50,15 @@ const SearchBar = memo(function SearchBar(props: SearchBarProps) {
     const { data: profiles, isLoading } = useQuery({
         queryKey: ['searchText', currentSource, debouncedKeyword],
         queryFn: async () => {
-            switch (currentSource) {
-                case SocialPlatform.Lens:
-                    return LensSocialMediaProvider.searchProfiles(debouncedKeyword);
-                case SocialPlatform.Farcaster:
-                    return FarcasterSocialMediaProvider.searchProfiles(debouncedKeyword);
-                default:
-                    safeUnreachable(currentSource);
-                    return;
-            }
+            const queriers: Record<SocialPlatform, Promise<Pageable<Profile, PageIndicator>>> = {
+                [SocialPlatform.Lens]: LensSocialMediaProvider.searchProfiles(debouncedKeyword),
+                [SocialPlatform.Farcaster]: FarcasterSocialMediaProvider.searchProfiles(debouncedKeyword),
+            };
+            const allSettled = await Promise.allSettled(Object.values(queriers));
+
+            return {
+                data: allSettled.flatMap((x) => (x.status === 'fulfilled' ? x.value.data.slice(0, 5) : [])),
+            };
         },
         enabled: !isSearchPage && Boolean(debouncedKeyword),
     });
