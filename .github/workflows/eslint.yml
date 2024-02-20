@@ -2,7 +2,10 @@ name: ESLint
 
 on:
     push:
-
+        branches:
+            - '**'
+            - '!main'
+            - '!released'
 jobs:
     eslint:
         runs-on: ubuntu-latest

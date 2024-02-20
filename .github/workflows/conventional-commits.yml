@@ -6,9 +6,6 @@ on:
             - opened
             - edited
             - synchronize
-        branches:
-            - '!release/*'
-            - '!hotfix/*'
 
 jobs:
     main:

@@ -2,6 +2,10 @@ name: Lingui
 
 on:
     push:
+        branches:
+            - '**'
+            - '!main'
+            - '!released'
 
 jobs:
     extract:
