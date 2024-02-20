@@ -301,6 +301,9 @@ msgstr ""
 msgid "No post found"
 msgstr ""
 
+msgid "Clear All"
+msgstr ""
+
 msgid "Lens"
 msgstr ""
 

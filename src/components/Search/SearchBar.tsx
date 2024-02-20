@@ -1,7 +1,7 @@
 'use client';
 
 import { t, Trans } from '@lingui/macro';
-import { safeUnreachable } from '@masknet/kit';
+import { createIndicator, type Pageable, type PageIndicator } from '@masknet/shared-base';
 import { useQuery } from '@tanstack/react-query';
 import { usePathname, useRouter } from 'next/navigation.js';
 import { type ChangeEvent, memo, useRef, useState } from 'react';
@@ -21,6 +21,7 @@ import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
+import type { Profile } from '@/providers/types/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 
 interface SearchBarProps {
@@ -49,15 +50,19 @@ const SearchBar = memo(function SearchBar(props: SearchBarProps) {
     const { data: profiles, isLoading } = useQuery({
         queryKey: ['searchText', currentSource, debouncedKeyword],
         queryFn: async () => {
-            switch (currentSource) {
-                case SocialPlatform.Lens:
-                    return LensSocialMediaProvider.searchProfiles(debouncedKeyword);
-                case SocialPlatform.Farcaster:
-                    return FarcasterSocialMediaProvider.searchProfiles(debouncedKeyword);
-                default:
-                    safeUnreachable(currentSource);
-                    return;
-            }
+            // cause new platforms might be added in the future
+            // utilize the prefix number to maintain key order
+            const queriers: Record<`${number}_${SocialPlatform}`, Promise<Pageable<Profile, PageIndicator>>> = {
+                [`0_${SocialPlatform.Farcaster}`]: FarcasterSocialMediaProvider.searchProfiles(debouncedKeyword),
+                [`1_${SocialPlatform.Lens}`]: LensSocialMediaProvider.searchProfiles(debouncedKeyword),
+            };
+            const allSettled = await Promise.allSettled(Object.values(queriers));
+
+            return {
+                // Only the first 5 results are displayed
+                indicator: createIndicator(),
+                data: allSettled.flatMap((x) => (x.status === 'fulfilled' ? x.value.data.slice(0, 5) : [])),
+            };
         },
         enabled: !isSearchPage && Boolean(debouncedKeyword),
     });
@@ -137,7 +142,7 @@ const SearchBar = memo(function SearchBar(props: SearchBarProps) {
                                             inputRef.current?.focus();
                                         }}
                                     >
-                                        Clear All
+                                        <Trans>Clear All</Trans>
                                     </button>
                                 </h2>
                                 <ul className="my-4">
