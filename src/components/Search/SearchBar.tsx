@@ -1,7 +1,7 @@
 'use client';
 
 import { t, Trans } from '@lingui/macro';
-import { safeUnreachable } from '@masknet/kit';
+import type { Pageable, PageIndicator } from '@masknet/shared-base';
 import { useQuery } from '@tanstack/react-query';
 import { usePathname, useRouter } from 'next/navigation.js';
 import { type ChangeEvent, memo, useRef, useState } from 'react';
