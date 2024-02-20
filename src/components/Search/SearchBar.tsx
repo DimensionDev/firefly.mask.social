@@ -138,7 +138,7 @@ const SearchBar = memo(function SearchBar(props: SearchBarProps) {
                                             inputRef.current?.focus();
                                         }}
                                     >
-                                        Clear All
+                                        <Trans>Clear All</Trans>
                                     </button>
                                 </h2>
                                 <ul className="my-4">
