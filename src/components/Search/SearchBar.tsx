@@ -1,7 +1,7 @@
 'use client';
 
 import { t, Trans } from '@lingui/macro';
-import type { Pageable, PageIndicator } from '@masknet/shared-base';
+import { createIndicator, type Pageable, type PageIndicator } from '@masknet/shared-base';
 import { useQuery } from '@tanstack/react-query';
 import { usePathname, useRouter } from 'next/navigation.js';
 import { type ChangeEvent, memo, useRef, useState } from 'react';
@@ -50,13 +50,17 @@ const SearchBar = memo(function SearchBar(props: SearchBarProps) {
     const { data: profiles, isLoading } = useQuery({
         queryKey: ['searchText', currentSource, debouncedKeyword],
         queryFn: async () => {
-            const queriers: Record<SocialPlatform, Promise<Pageable<Profile, PageIndicator>>> = {
-                [SocialPlatform.Lens]: LensSocialMediaProvider.searchProfiles(debouncedKeyword),
-                [SocialPlatform.Farcaster]: FarcasterSocialMediaProvider.searchProfiles(debouncedKeyword),
+            // cause new platforms might be added in the future
+            // utilize the prefix number to maintain key order
+            const queriers: Record<`${number}_${SocialPlatform}`, Promise<Pageable<Profile, PageIndicator>>> = {
+                [`0_${SocialPlatform.Farcaster}`]: FarcasterSocialMediaProvider.searchProfiles(debouncedKeyword),
+                [`1_${SocialPlatform.Lens}`]: LensSocialMediaProvider.searchProfiles(debouncedKeyword),
             };
             const allSettled = await Promise.allSettled(Object.values(queriers));
 
             return {
+                // Only the first 5 results are displayed
+                indicator: createIndicator(),
                 data: allSettled.flatMap((x) => (x.status === 'fulfilled' ? x.value.data.slice(0, 5) : [])),
             };
         },
