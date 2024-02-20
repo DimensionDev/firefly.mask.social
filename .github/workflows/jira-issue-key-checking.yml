@@ -7,8 +7,8 @@ on:
       - edited
       - synchronize
     branches:
-      - '!release/*'
-      - '!hotfix/*'
+      - '!main'
+      - '!released'
   merge_group:
     types: [checks_requested]
 
