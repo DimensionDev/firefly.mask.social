@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-02-20 11:20\n"
+"PO-Revision-Date: 2024-02-21 05:07\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -259,7 +259,7 @@ msgid "{0} Comments"
 msgstr "{0} 评论"
 
 msgid "{0, plural, one {<0/>} other {{1, plural, one {<1/> and <2/>} other {<3/> and # others}}}} <4>followed you</4>"
-msgstr "{0, plural, one {<0/>} other {{1, plural, one {<1/> 和 <2/>} other {<3/> 和 # 其他人}}}} <4> 关注了你 </4>"
+msgstr "{0, plural, one {<0/>} other {{1, plural, one {<1/> 和 <2/>} other {<3/> 和其他 # 人}}}} <4> 关注了你 </4>"
 
 msgid "Comment"
 msgstr "评论"
@@ -391,7 +391,7 @@ msgid "Failed to parse session."
 msgstr "未能解析会话"
 
 msgid "{0, plural, one {<0/>} other {{1, plural, one {<1/> and <2/>} other {<3/> and # others}}}} <4>liked your </4><5><6/></5>"
-msgstr "{0, plural, one {<0/>} other {{1, plural, one {<1/> 和 <2/>} other {<3/> 和 # 其他人}}}} <4>点赞了你的 </4><5><6/></5>"
+msgstr "{0, plural, one {<0/>} other {{1, plural, one {<1/> 和 <2/>} other {<3/> 和其他 # 人}}}} <4>点赞了你的 </4><5><6/></5>"
 
 msgid "Loading..."
 msgstr "加载中..."
@@ -457,7 +457,7 @@ msgid "recasted your"
 msgstr "转帖了你的"
 
 msgid "{0, plural, one {<0/>} other {{1, plural, one {<1/> and <2/>} other {<3/> and # others mirrored you}}}} {2, select, Lens {{3}} Farcaster {{4}} other {{5}}} <4><5/></4>"
-msgstr "{0, plural, one {<0/>} other {{1, plural, one {<1/> 和 <2/>} other {<3/> 和 # 其他人转发了你}}}} {2, select, Lens {{3}} Farcaster {{4}} other {{5}}} <4><5/></4>"
+msgstr "{0, plural, one {<0/>} other {{1, plural, one {<1/> 和 <2/>} other {<3/> 和其他 # 人}}}} {2, select, Lens {{3}} Farcaster {{4}} other {{5}}} <4><5/></4>"
 
 msgid "Posted on Farcaster"
 msgstr "在 Farcaster 上发帖成功"
@@ -508,7 +508,7 @@ msgid "Search…"
 msgstr "查找"
 
 msgid "{0, plural, one {<0/>} other {{1, plural, one {<1/> and <2/>} other {<3/> and # others acted on your}}}} <4>acted on your </4><5><6/></5>"
-msgstr "{0, plural, one {<0/>} other {{1, plural, one {<1/> 和 <2/>} other {<3/> 和 # 其他人收藏了你的}}}} <4> 收藏了你的 </4><5><6/></5>"
+msgstr "{0, plural, one {<0/>} other {{1, plural, one {<1/> 和 <2/>} other {<3/> 和其他 # 人收藏了你的}}}} <4> 收藏了你的 </4><5><6/></5>"
 
 msgid "No profile found"
 msgstr "未发现个人信息"
@@ -680,3 +680,4 @@ msgstr "在 {1} 上回复 <0>@{0}</0>"
 
 msgid "<0/> quoted your <1><2/></1>"
 msgstr "<0/> 引用了你的 <1><2/></1>"
+
