@@ -1,14 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
 
-import urlcat from 'urlcat';
-
 import { AmountProgressText } from '@/components/RedPacket/AmountProgressText.js';
 import { AuthorText } from '@/components/RedPacket/AuthorText.js';
 import { ClaimProgressText } from '@/components/RedPacket/ClaimProgressText.js';
 import { CoverContainer } from '@/components/RedPacket/CoverContainer.js';
 import { FireflyVsFireflyBranding } from '@/components/RedPacket/FireflyVsFireflyBranding.js';
 import { MessageText } from '@/components/RedPacket/MessageText.js';
-import { SITE_URL } from '@/constants/index.js';
 import { Theme, TokenType, UsageType } from '@/types/rp.js';
 
 interface CoverProps {
@@ -59,26 +56,6 @@ function CoverForFirefly({
                 color: '#000',
             }}
         >
-            {theme === Theme.CoBranding ? <FireflyVsFireflyBranding /> : null}
-
-            {theme === Theme.LuckyFirefly ? (
-                <img
-                    style={{ position: 'absolute', top: 80 }}
-                    src={urlcat(SITE_URL, '/rp/logo-firefly.svg')}
-                    alt="Hero Image"
-                    width={255}
-                    height={340}
-                />
-            ) : (
-                <img
-                    style={{ position: 'absolute', top: 80 }}
-                    src={urlcat(SITE_URL, '/rp/golden-flower.png')}
-                    alt="Hero Image"
-                    width={430}
-                    height={430}
-                />
-            )}
-
             <MessageText message={message} ContainerStyle={{ top: 520 }} />
 
             <AmountProgressText amount={amount} remainingAmount={remainingAmount} token={token} />
@@ -114,7 +91,7 @@ function CoverForCoBranding({
     token,
 }: CoverProps) {
     return (
-        <CoverContainer theme={Theme.CoBranding}>
+        <CoverContainer theme={Theme.FireflyCoBranding}>
             <FireflyVsFireflyBranding />
 
             <MessageText message={message} ContainerStyle={{ color: '#dbcca1', top: 520 }} />
@@ -133,7 +110,7 @@ function CoverForCoBranding({
             />
 
             <AuthorText
-                theme={Theme.CoBranding}
+                theme={Theme.FireflyCoBranding}
                 usage={UsageType.Cover}
                 from={from}
                 ContainerStyle={{
@@ -150,11 +127,9 @@ export function RedPacketCover({ theme, ...props }: CoverProps & { theme: Theme 
     switch (theme) {
         case Theme.Mask:
             return <CoverForMask {...props} />;
-        case Theme.GoldenFlower:
-        case Theme.LuckyFlower:
-        case Theme.LuckyFirefly:
+        case Theme.Firefly:
             return <CoverForFirefly {...props} theme={theme} />;
-        case Theme.CoBranding:
+        case Theme.FireflyCoBranding:
             return <CoverForCoBranding {...props} />;
         default:
             return null;

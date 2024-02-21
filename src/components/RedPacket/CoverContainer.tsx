@@ -1,38 +1,14 @@
-/* eslint-disable @next/next/no-img-element */
-
-import urlcat from 'urlcat';
-
-import { SITE_URL } from '@/constants/index.js';
 import { Theme } from '@/types/rp.js';
-
-const COVER_PRESETS: Record<Theme, { backgroundImage?: string; backgroundColor?: string }> = {
-    [Theme.Mask]: {
-        backgroundImage: urlcat(SITE_URL, '/rp/mask-background.jpg'),
-    },
-    [Theme.CoBranding]: {
-        backgroundImage: urlcat(SITE_URL, '/rp/co-branding-background.png'),
-        backgroundColor: '#f7413d',
-    },
-    [Theme.GoldenFlower]: {
-        backgroundColor: '#ffc37c',
-    },
-    [Theme.LuckyFlower]: {
-        backgroundColor: '#ec5a3d',
-    },
-    [Theme.LuckyFirefly]: {
-        backgroundColor: '#ec5a3d',
-    },
-};
 
 interface CoverContainerProps {
     theme: Theme;
+    backgroundColor?: string;
+    backgroundImage?: string;
     children: React.ReactNode;
     ContainerStyle?: React.CSSProperties;
 }
 
-export function CoverContainer({ theme, children, ...props }: CoverContainerProps) {
-    const preset = COVER_PRESETS[theme];
-
+export function CoverContainer({ theme, backgroundColor, backgroundImage, children, ...props }: CoverContainerProps) {
     return (
         <div
             style={{
@@ -46,8 +22,8 @@ export function CoverContainer({ theme, children, ...props }: CoverContainerProp
                 fontWeight: 400,
                 fontFamily: 'Inter',
                 backgroundSize: '100% 100%',
-                backgroundImage: preset.backgroundImage ? `url("${preset.backgroundImage}")` : '',
-                backgroundColor: preset.backgroundColor ?? 'transparent',
+                backgroundImage: backgroundImage ? `url("${backgroundImage}")` : '',
+                backgroundColor: backgroundColor ?? 'transparent',
                 backgroundRepeat: 'no-repeat',
                 borderRadius: 45,
                 ...props.ContainerStyle,
