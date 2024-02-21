@@ -5,6 +5,7 @@ import urlcat from 'urlcat';
 import {
     LENS_DETAIL_REGEX,
     MASK_SOCIAL_DETAIL_REGEX,
+    MASK_SOCIAL_POST_PATH_REGEX,
     MIRROR_HOSTNAME_REGEXP,
     WARPCAST_CONVERSATIONS_REGEX,
     WARPCAST_THREAD_REGEX,
@@ -97,7 +98,7 @@ class Processor {
             };
         }
         if (MASK_SOCIAL_DETAIL_REGEX.test(documentUrl)) {
-            const match = documentUrl.match(MASK_SOCIAL_DETAIL_REGEX);
+            const match = documentUrl.match(MASK_SOCIAL_POST_PATH_REGEX);
             const source = match ? match[1] : null;
             const id = match ? match[2] : null;
 

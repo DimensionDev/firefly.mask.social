@@ -1,6 +1,7 @@
 'use client';
 
 import { safeUnreachable } from '@masknet/kit';
+import { isValidDomain } from '@masknet/web3-shared-evm';
 import { memo } from 'react';
 
 import { ExternalLink } from '@/components/Markup/MarkupLink/ExternalLink.js';
@@ -48,6 +49,8 @@ export const MarkupLink = memo<MarkupLinkProps>(function MarkupLink({ title, pos
     }
 
     if (title.startsWith('#')) return <Hashtag title={title} />;
+
+    if (isValidDomain(title)) return title;
 
     return <ExternalLink title={title} />;
 });
