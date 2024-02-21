@@ -76,6 +76,7 @@ export function formatFarcasterPostFromFirefly(result: Cast): Post {
                 verified: true,
             };
         }),
+        mirrors: result.recastedBy ? [formatFarcasterProfileFromFirefly(result.recastedBy)] : undefined,
         hasLiked: result.liked,
         hasMirrored: result.recasted,
         source: SocialPlatform.Farcaster,
