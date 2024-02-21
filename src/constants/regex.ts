@@ -1,6 +1,7 @@
 export const URL_REGEX =
     /(https:\/\/|http:\/\/)?(www\.)?[-a-zA-Z0-9]{1,256}\.[a-zA-Z]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/gu;
-export const MENTION_REGEX = /@[^\s!?]+/g;
+
+export const MENTION_REGEX = /@[^\s!?’]+/g;
 
 export const HASHTAG_REGEX = /(#\w*[A-Za-z]\w*)/g;
 

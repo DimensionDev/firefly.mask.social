@@ -1,14 +1,13 @@
 import { SocialPlatform } from '@/constants/enum.js';
-import { getLensHandleFromMentionTitle } from '@/helpers/getLensHandleFromMentionTitle.js';
 import { ProfileStatus } from '@/providers/types/SocialMedia.js';
 
-export function createLensProfileFromMentionTitle(mentionTitle: string) {
+export function createLensProfileFromHandle(handle: string) {
     return {
-        fullHandle: mentionTitle,
+        fullHandle: handle,
         source: SocialPlatform.Lens,
-        handle: getLensHandleFromMentionTitle(mentionTitle),
+        handle,
         profileId: '',
-        displayName: mentionTitle,
+        displayName: handle,
         pfp: '',
         followerCount: 0,
         followingCount: 0,
