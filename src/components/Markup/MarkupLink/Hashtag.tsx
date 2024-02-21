@@ -24,7 +24,7 @@ export const Hashtag = memo<Omit<MarkupLinkProps, 'post'>>(function Hashtag({ ti
             onClick={(event) => {
                 event.stopPropagation();
                 event.preventDefault();
-                router.push(urlcat(PageRoutes.Search, { q: tag, type: SearchType.Posts }));
+                router.push(urlcat(PageRoutes.Search, { q: `#${tag}`, type: SearchType.Posts }));
             }}
         >
             {title}
