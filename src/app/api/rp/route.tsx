@@ -11,7 +11,7 @@ import { RedPacketPayload } from '@/components/RedPacket/Payload.js';
 import { CACHE_AGE_INDEFINITE_ON_DISK, SITE_URL } from '@/constants/index.js';
 import { fetchArrayBuffer } from '@/helpers/fetchArrayBuffer.js';
 import { Locale } from '@/types/index.js';
-import { CoBrandType, type Dimension, Theme, TokenType, UsageType } from '@/types/rp.js';
+import { CoBrandType, Theme, TokenType, UsageType } from '@/types/rp.js';
 
 const TokenSchema = z.object({
     type: z.nativeEnum(TokenType),
@@ -21,7 +21,7 @@ const TokenSchema = z.object({
 
 const CoverSchema = z.object({
     locale: z.nativeEnum(Locale),
-    theme: z.nativeEnum(Theme),
+    themeId: z.string(),
     usage: z.literal(UsageType.Cover),
     from: z.string().refine((x) => (x ? x.length < 50 : true), { message: 'From cannot be longer than 50 characters' }),
     message: z
@@ -47,7 +47,7 @@ const CoverSchema = z.object({
 
 const PayloadSchema = z.object({
     locale: z.nativeEnum(Locale),
-    theme: z.nativeEnum(Theme),
+    themeId: z.string(),
     usage: z.literal(UsageType.Payload),
     from: z.string(),
     amount: z.coerce
@@ -138,44 +138,23 @@ async function getFonts(signal?: AbortSignal) {
     ] satisfies Font[];
 }
 
-const DIMENSION_SETTINGS: Record<Theme, { cover: Dimension; payload: Dimension }> = {
-    [Theme.Mask]: {
-        cover: { width: 1200, height: 794 },
-        payload: { width: 1200, height: 671 },
-    },
-    [Theme.GoldenFlower]: {
-        cover: { width: 1200, height: 840 },
-        payload: { width: 1200, height: 840 },
-    },
-    [Theme.LuckyFlower]: {
-        cover: { width: 1200, height: 840 },
-        payload: { width: 1200, height: 840 },
-    },
-    [Theme.LuckyFirefly]: {
-        cover: { width: 1200, height: 840 },
-        payload: { width: 1200, height: 840 },
-    },
-    [Theme.CoBranding]: {
-        cover: { width: 1200, height: 840 },
-        payload: { width: 1200, height: 840 },
-    },
-};
-
 async function createImage(params: z.infer<typeof CoverSchema> | z.infer<typeof PayloadSchema>, signal?: AbortSignal) {
-    const { usage, theme } = params;
+    const { usage, themeId } = params;
 
     const fonts = await getFonts(signal);
 
     switch (usage) {
         case UsageType.Cover: {
             return satori(<RedPacketCover {...params} />, {
-                ...DIMENSION_SETTINGS[theme].cover,
+                width: 1200,
+                height: 840,
                 fonts,
             });
         }
         case UsageType.Payload: {
             return satori(<RedPacketPayload {...params} />, {
-                ...DIMENSION_SETTINGS[theme].payload,
+                width: 1200,
+                height: 840,
                 fonts,
             });
         }
