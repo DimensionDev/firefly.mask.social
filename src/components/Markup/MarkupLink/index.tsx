@@ -7,24 +7,10 @@ import { ExternalLink } from '@/components/Markup/MarkupLink/ExternalLink.js';
 import { Hashtag } from '@/components/Markup/MarkupLink/Hashtag.js';
 import { MentionLink } from '@/components/Markup/MarkupLink/MentionLink.js';
 import { SocialPlatform } from '@/constants/enum.js';
+import { createLensProfileFromHandle } from '@/helpers/createLensProfileFromHandle.js';
 import { getLensHandleFromMentionTitle } from '@/helpers/getLensHandleFromMentionTitle.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
-import { type Post, ProfileStatus } from '@/providers/types/SocialMedia.js';
-
-function createLensProfileFromMentionTitle(mentionTitle: string) {
-    return {
-        fullHandle: mentionTitle,
-        source: SocialPlatform.Lens,
-        handle: getLensHandleFromMentionTitle(mentionTitle),
-        profileId: '',
-        displayName: mentionTitle,
-        pfp: '',
-        followerCount: 0,
-        followingCount: 0,
-        status: ProfileStatus.Active,
-        verified: true,
-    };
-}
+import { type Post } from '@/providers/types/SocialMedia.js';
 
 export interface MarkupLinkProps {
     title?: string;
@@ -40,15 +26,20 @@ export const MarkupLink = memo<MarkupLinkProps>(function MarkupLink({ title, pos
 
         switch (source) {
             case SocialPlatform.Lens: {
-                const link = getProfileUrl(createLensProfileFromMentionTitle(title));
-                return <MentionLink handle={getLensHandleFromMentionTitle(title)} link={link} />;
+                const handle = getLensHandleFromMentionTitle(title);
+                if (!handle) return title;
+
+                const link = getProfileUrl(createLensProfileFromHandle(handle));
+
+                return <MentionLink handle={handle} link={link} />;
             }
 
             case SocialPlatform.Farcaster: {
-                const target = post.mentions?.find((x) => x.handle === title.replace(/^@/, ''));
-                if (!target) return title;
-                const link = getProfileUrl(target);
-                return <MentionLink handle={target.handle} link={link} />;
+                const profile = post.mentions?.find((x) => x.handle === title.replace(/^@/, ''));
+                if (!profile) return title;
+
+                const link = getProfileUrl(profile);
+                return <MentionLink handle={profile.handle} link={link} />;
             }
             default:
                 safeUnreachable(source);
