@@ -1,7 +1,7 @@
 export const URL_REGEX =
     /(https:\/\/www\.|http:\/\/www\.|https:\/\/|http:\/\/)?[a-zA-Z-]{2,}(\.[a-zA-Z-]{2,})(\.[a-zA-Z-]{2,})?\b([-a-zA-Z0-9()@:%_+~#?&//=]*)|((https:\/\/www\.|http:\/\/www\.|https:\/\/|http:\/\/)?[a-zA-Z-]{2,}(\.[a-zA-Z-]{2,})(\.[a-zA-Z-]{2,})?)|(https:\/\/www\.|http:\/\/www\.|https:\/\/|http:\/\/)?[a-zA-Z0-9-]{2,}\.[a-zA-Z0-9-]{2,}\.[a-zA-Z0-9-]{2,}(\.[a-zA-Z0-9-]{2,})?/gu;
 
-export const MENTION_REGEX = /@[^\s!?’]+/g;
+export const MENTION_REGEX = /@[^\s()@:%_+~#?&//=,!?']+/g;
 
 export const HASHTAG_REGEX = /(#\w*[A-Za-z]\w*)/g;
 
