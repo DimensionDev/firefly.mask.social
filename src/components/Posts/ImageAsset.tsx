@@ -16,12 +16,12 @@ export const ImageAsset = memo<ImageAssetProps>(function ImageAsset({ disableLoa
         (event: SyntheticEvent<HTMLImageElement>) => {
             if (disableLoadHandler) return;
             const height = event.currentTarget.height;
-            if (height < 288 || height > 682) {
+            if (height < 50 || height > 682) {
                 setImageProps({
                     style: {
                         aspectRatio: '16 / 9',
                         objectFit: 'cover',
-                        minHeight: 288,
+                        minHeight: 50,
                         maxHeight: 682,
                     },
                 });
@@ -30,7 +30,7 @@ export const ImageAsset = memo<ImageAssetProps>(function ImageAsset({ disableLoa
 
             setImageProps({
                 style: {
-                    minHeight: 288,
+                    minHeight: 50,
                     maxHeight: 682,
                 },
             });

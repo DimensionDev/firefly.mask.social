@@ -1,5 +1,5 @@
 export const URL_REGEX =
-    /(https:\/\/|http:\/\/)?(www\.)?[-a-zA-Z0-9]{1,256}\.[a-zA-Z]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/gu;
+    /(https:\/\/www\.|http:\/\/www\.|https:\/\/|http:\/\/)?[a-zA-Z-]{2,}(\.[a-zA-Z-]{2,})(\.[a-zA-Z-]{2,})?\b([-a-zA-Z0-9()@:%_+~#?&//=]*)|((https:\/\/www\.|http:\/\/www\.|https:\/\/|http:\/\/)?[a-zA-Z-]{2,}(\.[a-zA-Z-]{2,})(\.[a-zA-Z-]{2,})?)|(https:\/\/www\.|http:\/\/www\.|https:\/\/|http:\/\/)?[a-zA-Z0-9-]{2,}\.[a-zA-Z0-9-]{2,}\.[a-zA-Z0-9-]{2,}(\.[a-zA-Z0-9-]{2,})?/gu;
 export const MENTION_REGEX = /@[^\s]+/g;
 
 export const HASHTAG_REGEX = /(#\w*[A-Za-z]\w*)/g;
@@ -12,4 +12,7 @@ export const WARPCAST_CONVERSATIONS_REGEX = /^https:\/\/warpcast\.com\/~\/conver
 
 export const LENS_DETAIL_REGEX = /^https:\/\/hey\.xyz\/posts\/.*$/;
 
-export const MASK_SOCIAL_DETAIL_REGEX = /^https:\/\/mask\.social\/post\/(\w+)\/([\w-]+)$/;
+export const MASK_SOCIAL_DETAIL_REGEX =
+    /((https:\/\/|http:\/\/)?(?:firefly\.|firefly-staging\.)?mask\.social|\.vercel\.app)\/post\/(\w+)\/([\w-]+)$/i;
+
+export const MASK_SOCIAL_POST_PATH_REGEX = /\/post\/(\w+)\/([\w-]+)/i;

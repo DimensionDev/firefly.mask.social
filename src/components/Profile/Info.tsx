@@ -1,6 +1,7 @@
 import { Trans } from '@lingui/macro';
 
 import { Avatar } from '@/components/Avatar.js';
+import { Markup } from '@/components/Markup/index.js';
 import FollowButton from '@/components/Profile/FollowButton.js';
 import { SourceIcon } from '@/components/SourceIcon.js';
 import type { SocialPlatform } from '@/constants/enum.js';
@@ -39,7 +40,7 @@ export default function Info({ isMyProfile, profile, source }: InfoProps) {
                     <span className=" text-[15px] text-secondary">@{profile?.handle}</span>
                 </div>
 
-                <div className="text-[15px]">{profile?.bio ?? '-'}</div>
+                <Markup className="text-[15px]">{profile?.bio ?? '-'}</Markup>
 
                 <div className=" flex gap-3 text-[15px]">
                     <div className=" flex gap-1">

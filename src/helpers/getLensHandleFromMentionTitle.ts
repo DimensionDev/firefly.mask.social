@@ -7,5 +7,8 @@
  * @returns
  */
 export function getLensHandleFromMentionTitle(mentionTitle: string) {
-    return mentionTitle.replace(/^@lens\//i, '').replace(/^@([^\s]+)\.lens/i, '$1');
+    return mentionTitle
+        .replace(/^@lens\//i, '')
+        .replace(/^@([^\s]+)\.lens/i, '$1')
+        .replace('@', '');
 }
