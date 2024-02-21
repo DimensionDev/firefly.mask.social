@@ -1,4 +1,4 @@
-/* eslint-disable @next/next/no-img-element */
+import type { FireflyRedPacketAPI } from '@masknet/web3-providers/types';
 import { formatBalance } from '@masknet/web3-shared-base';
 import urlcat from 'urlcat';
 
@@ -6,7 +6,7 @@ import { SITE_URL } from '@/constants/index.js';
 import { Theme, TokenType } from '@/types/rp.js';
 
 interface AmountTextProps {
-    theme: Theme;
+    theme: FireflyRedPacketAPI.ThemeGroupSettings;
     amount: string; // bigint in str
     token: {
         type: TokenType;

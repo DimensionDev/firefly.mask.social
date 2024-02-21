@@ -1,6 +1,7 @@
 /* cspell:disable */
 
 import { safeUnreachable } from '@masknet/kit';
+import type { FireflyRedPacketAPI } from '@masknet/web3-providers/types';
 import { type NextRequest } from 'next/server.js';
 import satori, { type Font } from 'satori';
 import urlcat from 'urlcat';
@@ -8,10 +9,11 @@ import { z } from 'zod';
 
 import { RedPacketCover } from '@/components/RedPacket/Cover.js';
 import { RedPacketPayload } from '@/components/RedPacket/Payload.js';
-import { CACHE_AGE_INDEFINITE_ON_DISK, SITE_URL } from '@/constants/index.js';
+import { CACHE_AGE_INDEFINITE_ON_DISK, FIREFLY_ROOT_URL, SITE_URL } from '@/constants/index.js';
 import { fetchArrayBuffer } from '@/helpers/fetchArrayBuffer.js';
+import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { Locale } from '@/types/index.js';
-import { CoBrandType, Theme, TokenType, UsageType } from '@/types/rp.js';
+import { CoBrandType, TokenType, UsageType } from '@/types/rp.js';
 
 const TokenSchema = z.object({
     type: z.nativeEnum(TokenType),
@@ -72,7 +74,7 @@ function parseParams(params: URLSearchParams) {
             return CoverSchema.safeParse({
                 usage,
                 locale: params.get('locale') ?? Locale.en,
-                theme: params.get('theme') ?? Theme.Mask,
+                themeId: params.get('themeId'),
                 amount: params.get('amount') ?? '0',
                 remainingAmount: params.get('remaining-amount') ?? params.get('amount') ?? '0',
                 shares: params.get('shares') ?? '0',
@@ -86,7 +88,7 @@ function parseParams(params: URLSearchParams) {
             return PayloadSchema.safeParse({
                 usage,
                 locale: params.get('locale') ?? Locale.en,
-                theme: params.get('theme') ?? Theme.Mask,
+                themeId: params.get('themeId'),
                 amount: params.get('amount') ?? '0',
                 coBrand: params.get('co-brand') ?? CoBrandType.None,
                 from,
@@ -138,10 +140,18 @@ async function getFonts(signal?: AbortSignal) {
     ] satisfies Font[];
 }
 
+async function getTheme(themeId: string, signal?: AbortSignal) {
+    const url = urlcat(FIREFLY_ROOT_URL, '/v1/redpacket/themeById', {
+        themeId,
+    });
+    return fetchJSON<FireflyRedPacketAPI.ThemeGroupSettings>(url);
+}
+
 async function createImage(params: z.infer<typeof CoverSchema> | z.infer<typeof PayloadSchema>, signal?: AbortSignal) {
     const { usage, themeId } = params;
 
     const fonts = await getFonts(signal);
+    const theme = await getTheme(themeId, signal);
 
     switch (usage) {
         case UsageType.Cover: {

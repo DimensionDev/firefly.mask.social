@@ -1,9 +1,10 @@
+import type { FireflyRedPacketAPI } from '@masknet/web3-providers/types';
 import { formatEthereumAddress, isValidAddress } from '@masknet/web3-shared-evm';
 
 import { Theme, UsageType } from '@/types/rp.js';
 
 interface AuthorTextProps {
-    theme: Theme;
+    theme: FireflyRedPacketAPI.ThemeGroupSettings;
     usage: UsageType;
     from?: string;
     ContainerStyle?: React.CSSProperties;

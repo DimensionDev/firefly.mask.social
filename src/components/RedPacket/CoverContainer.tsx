@@ -1,14 +1,12 @@
-import { Theme } from '@/types/rp.js';
+import type { FireflyRedPacketAPI } from '@masknet/web3-providers/types';
 
 interface CoverContainerProps {
-    theme: Theme;
-    backgroundColor?: string;
-    backgroundImage?: string;
+    theme: FireflyRedPacketAPI.ThemeGroupSettings;
     children: React.ReactNode;
     ContainerStyle?: React.CSSProperties;
 }
 
-export function CoverContainer({ theme, backgroundColor, backgroundImage, children, ...props }: CoverContainerProps) {
+export function CoverContainer({ children, ...props }: CoverContainerProps) {
     return (
         <div
             style={{

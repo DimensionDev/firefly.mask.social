@@ -1,14 +1,14 @@
-/* eslint-disable @next/next/no-img-element */
+import type { FireflyRedPacketAPI } from '@masknet/web3-providers/types';
 
 import { AmountProgressText } from '@/components/RedPacket/AmountProgressText.js';
 import { AuthorText } from '@/components/RedPacket/AuthorText.js';
 import { ClaimProgressText } from '@/components/RedPacket/ClaimProgressText.js';
 import { CoverContainer } from '@/components/RedPacket/CoverContainer.js';
-import { FireflyVsFireflyBranding } from '@/components/RedPacket/FireflyVsFireflyBranding.js';
 import { MessageText } from '@/components/RedPacket/MessageText.js';
 import { Theme, TokenType, UsageType } from '@/types/rp.js';
 
 interface CoverProps {
+    theme: FireflyRedPacketAPI.ThemeGroupSettings;
     message: string;
     from: string;
     shares: number;
@@ -22,23 +22,6 @@ interface CoverProps {
     };
 }
 
-function CoverForMask({ shares, remainingShares = 0, message, from }: CoverProps) {
-    return (
-        <CoverContainer
-            theme={Theme.Mask}
-            ContainerStyle={{
-                color: '#fff',
-            }}
-        >
-            <MessageText message={message} ContainerStyle={{ fontSize: 60, fontWeight: 700, width: 625, left: 40 }} />
-
-            <ClaimProgressText shares={shares} remainingShares={remainingShares} />
-
-            <AuthorText theme={Theme.Mask} usage={UsageType.Cover} from={from} />
-        </CoverContainer>
-    );
-}
-
 function CoverForFirefly({
     theme,
     shares,
@@ -48,7 +31,7 @@ function CoverForFirefly({
     message,
     from,
     token,
-}: CoverProps & { theme: Theme }) {
+}: CoverProps) {
     return (
         <CoverContainer
             theme={theme}
@@ -81,57 +64,6 @@ function CoverForFirefly({
     );
 }
 
-function CoverForCoBranding({
-    shares,
-    remainingShares = 0,
-    amount,
-    remainingAmount,
-    message,
-    from,
-    token,
-}: CoverProps) {
-    return (
-        <CoverContainer theme={Theme.FireflyCoBranding}>
-            <FireflyVsFireflyBranding />
-
-            <MessageText message={message} ContainerStyle={{ color: '#dbcca1', top: 520 }} />
-
-            <AmountProgressText
-                amount={amount}
-                remainingAmount={remainingAmount}
-                token={token}
-                ContainerStyle={{ color: '#dbcca1' }}
-            />
-
-            <ClaimProgressText
-                shares={shares}
-                remainingShares={remainingShares}
-                ContainerStyle={{ color: '#dbcca1', left: 60, bottom: 37.5 }}
-            />
-
-            <AuthorText
-                theme={Theme.FireflyCoBranding}
-                usage={UsageType.Cover}
-                from={from}
-                ContainerStyle={{
-                    color: '#dbcca1',
-                    right: 60,
-                    bottom: 37.5,
-                }}
-            />
-        </CoverContainer>
-    );
-}
-
-export function RedPacketCover({ theme, ...props }: CoverProps & { theme: Theme }) {
-    switch (theme) {
-        case Theme.Mask:
-            return <CoverForMask {...props} />;
-        case Theme.Firefly:
-            return <CoverForFirefly {...props} theme={theme} />;
-        case Theme.FireflyCoBranding:
-            return <CoverForCoBranding {...props} />;
-        default:
-            return null;
-    }
+export function RedPacketCover(props: CoverProps) {
+    return <CoverForFirefly {...props} />;
 }

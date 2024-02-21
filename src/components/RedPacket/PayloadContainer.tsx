@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 
+import type { FireflyRedPacketAPI } from '@masknet/web3-providers/types';
 import urlcat from 'urlcat';
 
 import { SITE_URL } from '@/constants/index.js';
@@ -28,7 +29,7 @@ export const PAYLOAD_PRESETS: Record<Theme, { backgroundImage?: string; backgrou
 };
 
 interface PayloadContainerProps {
-    theme: Theme;
+    theme: FireflyRedPacketAPI.ThemeGroupSettings;
     children: React.ReactNode;
     ContainerStyle?: React.CSSProperties;
 }
