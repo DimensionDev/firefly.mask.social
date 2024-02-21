@@ -64,6 +64,9 @@ msgstr ""
 msgid "Collect Action is not supported yet."
 msgstr ""
 
+msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} <5>followed you</5>"
+msgstr ""
+
 msgid "Join our Discord"
 msgstr ""
 
@@ -106,6 +109,9 @@ msgstr ""
 msgid "Page not found"
 msgstr ""
 
+msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/> and # others}} <4>liked your </4><5><6/></5>"
+msgstr ""
+
 msgid "Liked"
 msgstr ""
 
@@ -116,6 +122,9 @@ msgid "Type something here..."
 msgstr ""
 
 msgid "Only up to 2 images can be chosen."
+msgstr ""
+
+msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} {1, select, Lens {{2}} Farcaster {{3}} other {{4}}} <5><6/></5>"
 msgstr ""
 
 msgid "Failed to unlike. {0}"
@@ -253,9 +262,6 @@ msgstr ""
 msgid "{0} Comments"
 msgstr ""
 
-msgid "{0, plural, one {<0/>} other {{1, plural, one {<1/> and <2/>} other {<3/> and # others}}}} <4>followed you</4>"
-msgstr ""
-
 msgid "Comment"
 msgstr ""
 
@@ -328,6 +334,9 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
+msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others acted on your}} <5>acted on your </5><6><7/></6>"
+msgstr ""
+
 msgid "Claim on Lens: {0}"
 msgstr ""
 
@@ -383,9 +392,6 @@ msgid "Show More"
 msgstr ""
 
 msgid "Failed to parse session."
-msgstr ""
-
-msgid "{0, plural, one {<0/>} other {{1, plural, one {<1/> and <2/>} other {<3/> and # others}}}} <4>liked your </4><5><6/></5>"
 msgstr ""
 
 msgid "Loading..."
@@ -451,9 +457,6 @@ msgstr ""
 msgid "recasted your"
 msgstr ""
 
-msgid "{0, plural, one {<0/>} other {{1, plural, one {<1/> and <2/>} other {<3/> and # others mirrored you}}}} {2, select, Lens {{3}} Farcaster {{4}} other {{5}}} <4><5/></4>"
-msgstr ""
-
 msgid "Posted on Farcaster"
 msgstr ""
 
@@ -500,9 +503,6 @@ msgid "Mention"
 msgstr ""
 
 msgid "Search…"
-msgstr ""
-
-msgid "{0, plural, one {<0/>} other {{1, plural, one {<1/> and <2/>} other {<3/> and # others acted on your}}}} <4>acted on your </4><5><6/></5>"
 msgstr ""
 
 msgid "No profile found"

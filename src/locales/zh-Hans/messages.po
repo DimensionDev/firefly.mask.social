@@ -69,6 +69,9 @@ msgstr "查找用户中"
 msgid "Collect Action is not supported yet."
 msgstr ""
 
+msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} <5>followed you</5>"
+msgstr ""
+
 msgid "Join our Discord"
 msgstr "加入我们的 Discord"
 
@@ -111,6 +114,9 @@ msgstr ""
 msgid "Page not found"
 msgstr "找不到网页"
 
+msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/> and # others}} <4>liked your </4><5><6/></5>"
+msgstr ""
+
 msgid "Liked"
 msgstr "已点赞"
 
@@ -121,6 +127,9 @@ msgid "Type something here..."
 msgstr ""
 
 msgid "Only up to 2 images can be chosen."
+msgstr ""
+
+msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} {1, select, Lens {{2}} Farcaster {{3}} other {{4}}} <5><6/></5>"
 msgstr ""
 
 msgid "Failed to unlike. {0}"
@@ -258,9 +267,6 @@ msgstr "点赞失败 {0}"
 msgid "{0} Comments"
 msgstr "{0} 评论"
 
-msgid "{0, plural, one {<0/>} other {{1, plural, one {<1/> and <2/>} other {<3/> and # others}}}} <4>followed you</4>"
-msgstr "{0, plural, one {<0/>} other {{1, plural, one {<1/> 和 <2/>} other {<3/> 和其他 # 人}}}} <4> 关注了你 </4>"
-
 msgid "Comment"
 msgstr "评论"
 
@@ -333,6 +339,9 @@ msgstr "帖子已经被加密"
 msgid "Settings"
 msgstr "设置"
 
+msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others acted on your}} <5>acted on your </5><6><7/></6>"
+msgstr ""
+
 msgid "Claim on Lens: {0}"
 msgstr ""
 
@@ -389,9 +398,6 @@ msgstr "显示更多"
 
 msgid "Failed to parse session."
 msgstr "未能解析会话"
-
-msgid "{0, plural, one {<0/>} other {{1, plural, one {<1/> and <2/>} other {<3/> and # others}}}} <4>liked your </4><5><6/></5>"
-msgstr "{0, plural, one {<0/>} other {{1, plural, one {<1/> 和 <2/>} other {<3/> 和其他 # 人}}}} <4>点赞了你的 </4><5><6/></5>"
 
 msgid "Loading..."
 msgstr "加载中..."
@@ -456,9 +462,6 @@ msgstr "发布帖子失败"
 msgid "recasted your"
 msgstr "转帖了你的"
 
-msgid "{0, plural, one {<0/>} other {{1, plural, one {<1/> and <2/>} other {<3/> and # others mirrored you}}}} {2, select, Lens {{3}} Farcaster {{4}} other {{5}}} <4><5/></4>"
-msgstr "{0, plural, one {<0/>} other {{1, plural, one {<1/> 和 <2/>} other {<3/> 和其他 # 人}}}} {2, select, Lens {{3}} Farcaster {{4}} other {{5}}} <4><5/></4>"
-
 msgid "Posted on Farcaster"
 msgstr "在 Farcaster 上发帖成功"
 
@@ -506,9 +509,6 @@ msgstr "提及"
 
 msgid "Search…"
 msgstr "查找"
-
-msgid "{0, plural, one {<0/>} other {{1, plural, one {<1/> and <2/>} other {<3/> and # others acted on your}}}} <4>acted on your </4><5><6/></5>"
-msgstr "{0, plural, one {<0/>} other {{1, plural, one {<1/> 和 <2/>} other {<3/> 和其他 # 人收藏了你的}}}} <4> 收藏了你的 </4><5><6/></5>"
 
 msgid "No profile found"
 msgstr "未发现个人信息"
@@ -680,4 +680,3 @@ msgstr "在 {1} 上回复 <0>@{0}</0>"
 
 msgid "<0/> quoted your <1><2/></1>"
 msgstr "<0/> 引用了你的 <1><2/></1>"
-
