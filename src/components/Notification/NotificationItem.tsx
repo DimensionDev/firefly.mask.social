@@ -97,22 +97,18 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
                     <Trans>
                         <Plural
                             value={notification.reactors.length}
-                            one={<ProfileLink profile={firstReactor} />}
+                            offset={1}
+                            _1={<ProfileLink profile={firstReactor} />}
+                            _2={
+                                <Trans>
+                                    <ProfileLink profile={firstReactor} /> and{' '}
+                                    <ProfileLink profile={notification.reactors[1]} />
+                                </Trans>
+                            }
                             other={
-                                <Plural
-                                    value={notification.reactors.length - 1}
-                                    one={
-                                        <Trans>
-                                            <ProfileLink profile={firstReactor} /> and{' '}
-                                            <ProfileLink profile={notification.reactors[1]} />
-                                        </Trans>
-                                    }
-                                    other={
-                                        <Trans>
-                                            <ProfileLink profile={firstReactor} /> and # others
-                                        </Trans>
-                                    }
-                                />
+                                <Trans>
+                                    <ProfileLink profile={firstReactor} /> and # others
+                                </Trans>
                             }
                         />{' '}
                         <span>liked your </span>
@@ -139,22 +135,19 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
                     <Trans>
                         <Plural
                             value={notification.followers.length}
-                            one={<ProfileLink profile={firstFollower} />}
+                            offset={1}
+                            _1={<ProfileLink profile={firstFollower} />}
+                            _2={
+                                <Trans>
+                                    <ProfileLink profile={firstFollower} /> and{' '}
+                                    <ProfileLink profile={notification.followers[1]} />
+                                </Trans>
+                            }
                             other={
-                                <Plural
-                                    value={notification.followers.length - 1}
-                                    one={
-                                        <Trans>
-                                            <ProfileLink profile={firstFollower} /> and{' '}
-                                            <ProfileLink profile={notification.followers[1]} />
-                                        </Trans>
-                                    }
-                                    other={
-                                        <Trans>
-                                            <ProfileLink profile={firstFollower} /> and # others
-                                        </Trans>
-                                    }
-                                />
+                                <Trans>
+                                    <ProfileLink profile={firstFollower} />
+                                    <ProfileLink profile={firstFollower} /> and # others
+                                </Trans>
                             }
                         />{' '}
                         <span>followed you</span>
@@ -189,22 +182,19 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
                     <Trans>
                         <Plural
                             value={notification.mirrors.length}
-                            one={<ProfileLink profile={firstMirror} />}
+                            offset={1}
+                            _1={<ProfileLink profile={firstMirror} />}
+                            _2={
+                                <Trans>
+                                    <ProfileLink profile={firstMirror} /> and{' '}
+                                    <ProfileLink profile={notification.mirrors[1]} />
+                                </Trans>
+                            }
                             other={
-                                <Plural
-                                    value={notification.mirrors.length - 1}
-                                    one={
-                                        <Trans>
-                                            <ProfileLink profile={firstMirror} /> and{' '}
-                                            <ProfileLink profile={notification.mirrors[1]} />
-                                        </Trans>
-                                    }
-                                    other={
-                                        <Trans>
-                                            <ProfileLink profile={firstMirror} /> and # others mirrored you
-                                        </Trans>
-                                    }
-                                />
+                                <Trans>
+                                    <ProfileLink profile={firstMirror} />
+                                    <ProfileLink profile={firstMirror} /> and # others
+                                </Trans>
                             }
                         />{' '}
                         <Select
@@ -225,22 +215,19 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
                     <Trans>
                         <Plural
                             value={notification.actions.length}
-                            one={<ProfileLink profile={firstActed} />}
+                            offset={1}
+                            _1={<ProfileLink profile={firstActed} />}
+                            _2={
+                                <Trans>
+                                    <ProfileLink profile={firstActed} /> and{' '}
+                                    <ProfileLink profile={notification.actions[1]} />
+                                </Trans>
+                            }
                             other={
-                                <Plural
-                                    value={notification.actions.length - 1}
-                                    one={
-                                        <Trans>
-                                            <ProfileLink profile={firstActed} /> and{' '}
-                                            <ProfileLink profile={notification.actions[1]} />
-                                        </Trans>
-                                    }
-                                    other={
-                                        <Trans>
-                                            <ProfileLink profile={firstActed} /> and # others acted on your
-                                        </Trans>
-                                    }
-                                />
+                                <Trans>
+                                    <ProfileLink profile={firstActed} />
+                                    <ProfileLink profile={firstActed} /> and # others acted on your
+                                </Trans>
                             }
                         />{' '}
                         <span>acted on your </span>
