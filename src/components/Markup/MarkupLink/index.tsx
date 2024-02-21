@@ -7,24 +7,10 @@ import { ExternalLink } from '@/components/Markup/MarkupLink/ExternalLink.js';
 import { Hashtag } from '@/components/Markup/MarkupLink/Hashtag.js';
 import { MentionLink } from '@/components/Markup/MarkupLink/MentionLink.js';
 import { SocialPlatform } from '@/constants/enum.js';
+import { createLensProfileFromMentionTitle } from '@/helpers/createLensProfileFromMentionTitle.js';
 import { getLensHandleFromMentionTitle } from '@/helpers/getLensHandleFromMentionTitle.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
-import { type Post, ProfileStatus } from '@/providers/types/SocialMedia.js';
-
-function createLensProfileFromMentionTitle(mentionTitle: string) {
-    return {
-        fullHandle: mentionTitle,
-        source: SocialPlatform.Lens,
-        handle: getLensHandleFromMentionTitle(mentionTitle),
-        profileId: '',
-        displayName: mentionTitle,
-        pfp: '',
-        followerCount: 0,
-        followingCount: 0,
-        status: ProfileStatus.Active,
-        verified: true,
-    };
-}
+import { type Post } from '@/providers/types/SocialMedia.js';
 
 export interface MarkupLinkProps {
     title?: string;
@@ -41,6 +27,15 @@ export const MarkupLink = memo<MarkupLinkProps>(function MarkupLink({ title, pos
         switch (source) {
             case SocialPlatform.Lens: {
                 const link = getProfileUrl(createLensProfileFromMentionTitle(title));
+
+                console.log('DEBUG: markuplink');
+                console.log({
+                    source,
+                    title,
+                    post,
+                    handle: getLensHandleFromMentionTitle(title),
+                });
+
                 return <MentionLink handle={getLensHandleFromMentionTitle(title)} link={link} />;
             }
 
