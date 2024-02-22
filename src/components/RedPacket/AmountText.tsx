@@ -1,3 +1,5 @@
+/* eslint-disable @next/next/no-img-element */
+
 import type { FireflyRedPacketAPI } from '@masknet/web3-providers/types';
 import { formatBalance } from '@masknet/web3-shared-base';
 import urlcat from 'urlcat';

@@ -18,7 +18,7 @@ interface PayloadProps {
     };
 }
 
-function PayloadForFirefly({ amount, token, theme, from }: PayloadProps) {
+export function RedPacketPayload({ amount, token, theme, from }: PayloadProps) {
     return (
         <PayloadContainer theme={theme}>
             <AuthorText theme={theme} usage={UsageType.Payload} from={from} />
@@ -28,8 +28,4 @@ function PayloadForFirefly({ amount, token, theme, from }: PayloadProps) {
             <QuoteText />
         </PayloadContainer>
     );
-}
-
-export function RedPacketPayload(props: PayloadProps) {
-    return <PayloadForFirefly {...props} />;
 }

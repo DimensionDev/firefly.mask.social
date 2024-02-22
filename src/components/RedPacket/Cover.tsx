@@ -22,7 +22,7 @@ interface CoverProps {
     };
 }
 
-function CoverForFirefly({
+export function RedPacketCover({
     theme,
     shares,
     remainingShares = 0,
@@ -62,8 +62,4 @@ function CoverForFirefly({
             />
         </CoverContainer>
     );
-}
-
-export function RedPacketCover(props: CoverProps) {
-    return <CoverForFirefly {...props} />;
 }

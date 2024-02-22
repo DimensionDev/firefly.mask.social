@@ -144,7 +144,10 @@ async function getTheme(themeId: string, signal?: AbortSignal) {
     const url = urlcat(FIREFLY_ROOT_URL, '/v1/redpacket/themeById', {
         themeId,
     });
-    return fetchJSON<FireflyRedPacketAPI.ThemeGroupSettings>(url);
+    return fetchJSON<FireflyRedPacketAPI.ThemeGroupSettings>(url, {
+        cache: 'force-cache',
+        signal,
+    });
 }
 
 async function createImage(params: z.infer<typeof CoverSchema> | z.infer<typeof PayloadSchema>, signal?: AbortSignal) {
@@ -155,14 +158,14 @@ async function createImage(params: z.infer<typeof CoverSchema> | z.infer<typeof 
 
     switch (usage) {
         case UsageType.Cover: {
-            return satori(<RedPacketCover {...params} />, {
+            return satori(<RedPacketCover theme={theme} {...params} />, {
                 width: 1200,
                 height: 840,
                 fonts,
             });
         }
         case UsageType.Payload: {
-            return satori(<RedPacketPayload {...params} />, {
+            return satori(<RedPacketPayload theme={theme} {...params} />, {
                 width: 1200,
                 height: 840,
                 fonts,
