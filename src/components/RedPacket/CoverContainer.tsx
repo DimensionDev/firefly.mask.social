@@ -6,7 +6,7 @@ interface CoverContainerProps {
     ContainerStyle?: React.CSSProperties;
 }
 
-export function CoverContainer({ children, ...props }: CoverContainerProps) {
+export function CoverContainer({ theme, children, ...props }: CoverContainerProps) {
     return (
         <div
             style={{
@@ -20,8 +20,8 @@ export function CoverContainer({ children, ...props }: CoverContainerProps) {
                 fontWeight: 400,
                 fontFamily: 'Inter',
                 backgroundSize: '100% 100%',
-                backgroundImage: backgroundImage ? `url("${backgroundImage}")` : '',
-                backgroundColor: backgroundColor ?? 'transparent',
+                backgroundImage: theme.normal.bg_image ? `url("${theme.normal.bg_image}")` : '',
+                backgroundColor: theme.normal.bg_color ?? 'transparent',
                 backgroundRepeat: 'no-repeat',
                 borderRadius: 45,
                 ...props.ContainerStyle,

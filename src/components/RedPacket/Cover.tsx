@@ -5,7 +5,7 @@ import { AuthorText } from '@/components/RedPacket/AuthorText.js';
 import { ClaimProgressText } from '@/components/RedPacket/ClaimProgressText.js';
 import { CoverContainer } from '@/components/RedPacket/CoverContainer.js';
 import { MessageText } from '@/components/RedPacket/MessageText.js';
-import { Theme, TokenType, UsageType } from '@/types/rp.js';
+import { TokenType, UsageType } from '@/types/rp.js';
 
 interface CoverProps {
     theme: FireflyRedPacketAPI.ThemeGroupSettings;
@@ -39,11 +39,12 @@ export function RedPacketCover({
                 color: '#000',
             }}
         >
-            <MessageText message={message} ContainerStyle={{ top: 520 }} />
+            <MessageText theme={theme} message={message} ContainerStyle={{ top: 520 }} />
 
-            <AmountProgressText amount={amount} remainingAmount={remainingAmount} token={token} />
+            <AmountProgressText theme={theme} amount={amount} remainingAmount={remainingAmount} token={token} />
 
             <ClaimProgressText
+                theme={theme}
                 shares={shares}
                 remainingShares={remainingShares}
                 ContainerStyle={{ left: 60, bottom: 37.5 }}
@@ -56,8 +57,6 @@ export function RedPacketCover({
                 ContainerStyle={{
                     right: 60,
                     bottom: 37.5,
-                    fontWeight: theme === Theme.GoldenFlower ? 400 : 700,
-                    color: theme === Theme.GoldenFlower ? '#000' : '#f1d590',
                 }}
             />
         </CoverContainer>

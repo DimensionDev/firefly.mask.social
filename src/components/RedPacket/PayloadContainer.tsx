@@ -1,32 +1,4 @@
-/* eslint-disable @next/next/no-img-element */
-
 import type { FireflyRedPacketAPI } from '@masknet/web3-providers/types';
-import urlcat from 'urlcat';
-
-import { SITE_URL } from '@/constants/index.js';
-import { Theme } from '@/types/rp.js';
-
-export const PAYLOAD_PRESETS: Record<Theme, { backgroundImage?: string; backgroundColor?: string }> = {
-    [Theme.Mask]: {
-        backgroundImage: urlcat(SITE_URL, '/rp/payload-2023.jpg'),
-    },
-    [Theme.CoBranding]: {
-        backgroundImage: urlcat(SITE_URL, '/rp/co-branding-background.png'),
-        backgroundColor: '#f7413d',
-    },
-    [Theme.GoldenFlower]: {
-        backgroundImage: urlcat(SITE_URL, '/rp/golden-flower-background.svg'),
-        backgroundColor: '#ffc37c',
-    },
-    [Theme.LuckyFlower]: {
-        backgroundImage: urlcat(SITE_URL, '/rp/lucky-drop-background.svg'),
-        backgroundColor: '#ec5a3d',
-    },
-    [Theme.LuckyFirefly]: {
-        backgroundImage: urlcat(SITE_URL, '/rp/lucky-drop-background.svg'),
-        backgroundColor: '#ec5a3d',
-    },
-};
 
 interface PayloadContainerProps {
     theme: FireflyRedPacketAPI.ThemeGroupSettings;
@@ -35,8 +7,6 @@ interface PayloadContainerProps {
 }
 
 export function PayloadContainer({ theme, children, ...props }: PayloadContainerProps) {
-    const preset = PAYLOAD_PRESETS[theme];
-
     return (
         <div
             style={{
@@ -50,8 +20,8 @@ export function PayloadContainer({ theme, children, ...props }: PayloadContainer
                 fontWeight: 400,
                 fontFamily: 'Inter',
                 backgroundSize: '100% 100%',
-                backgroundImage: preset.backgroundImage ? `url("${preset.backgroundImage}")` : '',
-                backgroundColor: preset.backgroundColor ?? 'transparent',
+                backgroundImage: theme.cover.bg_image ? `url("${theme.cover.bg_image}")` : '',
+                backgroundColor: theme.cover.bg_color ?? 'transparent',
                 backgroundRepeat: 'no-repeat',
                 ...props.ContainerStyle,
             }}

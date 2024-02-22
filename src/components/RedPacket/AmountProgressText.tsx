@@ -1,8 +1,10 @@
+import type { FireflyRedPacketAPI } from '@masknet/web3-providers/types';
 import { formatBalance, isZero, minus } from '@masknet/web3-shared-base';
 
 import type { TokenType } from '@/types/rp.js';
 
 interface AmountProgressTextProps {
+    theme: FireflyRedPacketAPI.ThemeGroupSettings;
     amount: string; // bigint in str
     remainingAmount: string; // bigint in str
     token: {
@@ -15,7 +17,7 @@ interface AmountProgressTextProps {
     SymbolTextStyle?: React.CSSProperties;
 }
 
-export function AmountProgressText({ amount, remainingAmount, token, ...props }: AmountProgressTextProps) {
+export function AmountProgressText({ theme, amount, remainingAmount, token, ...props }: AmountProgressTextProps) {
     const { symbol, decimals = 0 } = token;
 
     const claimedAmountText = formatBalance(minus(amount, remainingAmount), decimals, {
@@ -41,11 +43,23 @@ export function AmountProgressText({ amount, remainingAmount, token, ...props }:
         >
             {!isZero(claimedAmountText) ? (
                 <div style={{ display: 'flex', alignItems: 'flex-end' }}>
-                    <div style={{ fontSize: 70, fontWeight: 700, ...props.AmountTextStyle }}>{claimedAmountText}</div>
                     <div
                         style={{
-                            fontSize: 45,
-                            fontWeight: 700,
+                            color: theme.normal.title2.color,
+                            fontSize: theme.normal.title2.font_size,
+                            fontWeight: theme.normal.title2.font_weight,
+                            lineHeight: `${theme.normal.title2.line_height}`,
+                            ...props.AmountTextStyle,
+                        }}
+                    >
+                        {claimedAmountText}
+                    </div>
+                    <div
+                        style={{
+                            color: theme.normal.title_symbol.color,
+                            fontSize: theme.normal.title_symbol.font_size,
+                            fontWeight: theme.normal.title_symbol.font_weight,
+                            lineHeight: `${theme.normal.title_symbol.line_height}`,
                             marginLeft: 8,
                             position: 'relative',
                             top: -6,
@@ -54,16 +68,38 @@ export function AmountProgressText({ amount, remainingAmount, token, ...props }:
                     >
                         {symbol}
                     </div>
-                    <div style={{ fontSize: 70, fontWeight: 700, marginLeft: 8, ...props.AmountTextStyle }}>/</div>
+                    <div
+                        style={{
+                            color: theme.normal.title2.color,
+                            fontSize: theme.normal.title2.font_size,
+                            fontWeight: theme.normal.title2.font_weight,
+                            lineHeight: `${theme.normal.title2.line_height}`,
+                            marginLeft: 8,
+                            ...props.AmountTextStyle,
+                        }}
+                    >
+                        /
+                    </div>
                 </div>
             ) : null}
-            <div style={{ fontSize: 70, fontWeight: 700, marginLeft: 8, ...props.AmountTextStyle }}>
+            <div
+                style={{
+                    color: theme.normal.title2.color,
+                    fontSize: theme.normal.title2.font_size,
+                    fontWeight: theme.normal.title2.font_weight,
+                    lineHeight: `${theme.normal.title2.line_height}`,
+                    marginLeft: 8,
+                    ...props.AmountTextStyle,
+                }}
+            >
                 {totalAmountText}
             </div>
             <div
                 style={{
-                    fontSize: 45,
-                    fontWeight: 700,
+                    color: theme.normal.title_symbol.color,
+                    fontSize: theme.normal.title_symbol.font_size,
+                    fontWeight: theme.normal.title_symbol.font_weight,
+                    lineHeight: `${theme.normal.title_symbol.line_height}`,
                     marginLeft: 8,
                     position: 'relative',
                     top: -6,

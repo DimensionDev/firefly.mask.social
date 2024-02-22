@@ -25,7 +25,7 @@ export function RedPacketPayload({ amount, token, theme, from }: PayloadProps) {
 
             <AmountText amount={amount} token={token} theme={theme} />
 
-            <QuoteText />
+            <QuoteText theme={theme} />
         </PayloadContainer>
     );
 }
