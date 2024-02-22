@@ -8,7 +8,7 @@ msgstr ""
 "Language: ja\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-02-21 12:01\n"
+"PO-Revision-Date: 2024-02-22 09:04\n"
 "Last-Translator: \n"
 "Language-Team: Japanese\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -339,9 +339,6 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
-msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others acted on your}} <5>acted on your </5><6><7/></6>"
-msgstr ""
-
 msgid "Claim on Lens: {0}"
 msgstr ""
 
@@ -604,6 +601,9 @@ msgid "{0, select, follow {Followed @{handle} on {source}} unfollow {Unfollowed 
 msgstr ""
 
 msgid "Log in to Farcaster account"
+msgstr ""
+
+msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} <5>acted on your </5><6><7/></6>"
 msgstr ""
 
 msgid "Recasted"
