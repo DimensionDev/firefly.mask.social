@@ -10,6 +10,7 @@ import { Polyfills } from '@/components/Polyfills.js';
 import { Providers } from '@/components/Providers.js';
 import { SideBar } from '@/components/SideBar/index.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
+import { createSiteViewport } from '@/helpers/createSiteViewport.js';
 import { getLocaleFromCookies } from '@/helpers/getLocaleFromCookies.js';
 import { setLocale } from '@/i18n/index.js';
 import { Modals } from '@/modals/index.js';
@@ -24,6 +25,8 @@ const inter = Inter({
 });
 
 export const metadata = createSiteMetadata();
+
+export const viewport = createSiteViewport();
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
     setLocale(getLocaleFromCookies());
