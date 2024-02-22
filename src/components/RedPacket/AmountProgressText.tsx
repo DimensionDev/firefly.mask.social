@@ -1,6 +1,7 @@
 import type { FireflyRedPacketAPI } from '@masknet/web3-providers/types';
 import { formatBalance, isZero, minus } from '@masknet/web3-shared-base';
 
+import { getCSSPropertiesFromThemeSettings } from '@/helpers/getCSSPropertiesFromThemeSettings.js';
 import type { TokenType } from '@/types/rp.js';
 
 interface AmountProgressTextProps {
@@ -45,10 +46,7 @@ export function AmountProgressText({ theme, amount, remainingAmount, token, ...p
                 <div style={{ display: 'flex', alignItems: 'flex-end' }}>
                     <div
                         style={{
-                            color: theme.normal.title2.color,
-                            fontSize: theme.normal.title2.font_size,
-                            fontWeight: theme.normal.title2.font_weight,
-                            lineHeight: `${theme.normal.title2.line_height}`,
+                            ...getCSSPropertiesFromThemeSettings(theme, 'normal', 'title2'),
                             ...props.AmountTextStyle,
                         }}
                     >
@@ -56,10 +54,7 @@ export function AmountProgressText({ theme, amount, remainingAmount, token, ...p
                     </div>
                     <div
                         style={{
-                            color: theme.normal.title_symbol.color,
-                            fontSize: theme.normal.title_symbol.font_size,
-                            fontWeight: theme.normal.title_symbol.font_weight,
-                            lineHeight: `${theme.normal.title_symbol.line_height}`,
+                            ...getCSSPropertiesFromThemeSettings(theme, 'normal', 'title_symbol'),
                             marginLeft: 8,
                             position: 'relative',
                             top: -6,
@@ -70,10 +65,7 @@ export function AmountProgressText({ theme, amount, remainingAmount, token, ...p
                     </div>
                     <div
                         style={{
-                            color: theme.normal.title2.color,
-                            fontSize: theme.normal.title2.font_size,
-                            fontWeight: theme.normal.title2.font_weight,
-                            lineHeight: `${theme.normal.title2.line_height}`,
+                            ...getCSSPropertiesFromThemeSettings(theme, 'normal', 'title2'),
                             marginLeft: 8,
                             ...props.AmountTextStyle,
                         }}
@@ -84,10 +76,7 @@ export function AmountProgressText({ theme, amount, remainingAmount, token, ...p
             ) : null}
             <div
                 style={{
-                    color: theme.normal.title2.color,
-                    fontSize: theme.normal.title2.font_size,
-                    fontWeight: theme.normal.title2.font_weight,
-                    lineHeight: `${theme.normal.title2.line_height}`,
+                    ...getCSSPropertiesFromThemeSettings(theme, 'normal', 'title2'),
                     marginLeft: 8,
                     ...props.AmountTextStyle,
                 }}
@@ -96,10 +85,7 @@ export function AmountProgressText({ theme, amount, remainingAmount, token, ...p
             </div>
             <div
                 style={{
-                    color: theme.normal.title_symbol.color,
-                    fontSize: theme.normal.title_symbol.font_size,
-                    fontWeight: theme.normal.title_symbol.font_weight,
-                    lineHeight: `${theme.normal.title_symbol.line_height}`,
+                    ...getCSSPropertiesFromThemeSettings(theme, 'normal', 'title_symbol'),
                     marginLeft: 8,
                     position: 'relative',
                     top: -6,

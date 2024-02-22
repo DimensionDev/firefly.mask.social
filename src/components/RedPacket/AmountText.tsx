@@ -3,6 +3,7 @@
 import type { FireflyRedPacketAPI } from '@masknet/web3-providers/types';
 import { formatBalance } from '@masknet/web3-shared-base';
 
+import { getCSSPropertiesFromThemeSettings } from '@/helpers/getCSSPropertiesFromThemeSettings.js';
 import { TokenType } from '@/types/rp.js';
 
 interface AmountTextProps {
@@ -34,22 +35,10 @@ export function AmountText({ amount, token, theme, ...props }: AmountTextProps) 
                 position: 'absolute',
             }}
         >
+            <div style={getCSSPropertiesFromThemeSettings(theme, 'cover', 'title3')}>{amountText}</div>
             <div
                 style={{
-                    color: theme.cover.title3.color,
-                    fontSize: theme.cover.title3.font_size,
-                    fontWeight: theme.cover.title3.font_weight,
-                    lineHeight: `${theme.cover.title3.line_height}px`,
-                }}
-            >
-                {amountText}
-            </div>
-            <div
-                style={{
-                    color: theme.cover.title3.color,
-                    fontSize: theme.cover.title3.font_size,
-                    fontWeight: theme.cover.title3.font_weight,
-                    lineHeight: `${theme.cover.title3.line_height}px`,
+                    ...getCSSPropertiesFromThemeSettings(theme, 'cover', 'title3'),
                     marginLeft: 8,
                 }}
             >

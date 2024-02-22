@@ -1,6 +1,7 @@
 import type { FireflyRedPacketAPI } from '@masknet/web3-providers/types';
 import { formatEthereumAddress, isValidAddress } from '@masknet/web3-shared-evm';
 
+import { getCSSPropertiesFromThemeSettings } from '@/helpers/getCSSPropertiesFromThemeSettings.js';
 import { UsageType } from '@/types/rp.js';
 
 interface AuthorTextProps {
@@ -18,10 +19,7 @@ export function AuthorText({ theme, usage, from = 'unknown', ...props }: AuthorT
             return (
                 <div
                     style={{
-                        fontSize: theme.normal.title1.font_size,
-                        fontWeight: theme.normal.title1.font_weight,
-                        color: theme.normal.title1.color,
-                        lineHeight: `${theme.normal.title1.line_height}px`,
+                        ...getCSSPropertiesFromThemeSettings(theme, 'normal', 'title1'),
                         position: 'absolute',
                         right: 40,
                         bottom: 40,
@@ -43,24 +41,8 @@ export function AuthorText({ theme, usage, from = 'unknown', ...props }: AuthorT
                         ...props.ContainerStyle,
                     }}
                 >
-                    <div
-                        style={{
-                            fontSize: theme.cover.title1.font_size,
-                            fontWeight: theme.cover.title1.font_weight,
-                            color: theme.cover.title1.color,
-                            lineHeight: `${theme.cover.title1.line_height}px`,
-                        }}
-                    >
-                        From
-                    </div>
-                    <div
-                        style={{
-                            fontSize: theme.cover.title2.font_size,
-                            fontWeight: theme.cover.title2.font_weight,
-                            color: theme.cover.title2.color,
-                            lineHeight: `${theme.cover.title2.line_height}px`,
-                        }}
-                    >
+                    <div style={getCSSPropertiesFromThemeSettings(theme, 'cover', 'title1')}>From</div>
+                    <div style={getCSSPropertiesFromThemeSettings(theme, 'cover', 'title2')}>
                         {isValidAddress(from) ? formatEthereumAddress(from, 4) : from}
                     </div>
                 </div>

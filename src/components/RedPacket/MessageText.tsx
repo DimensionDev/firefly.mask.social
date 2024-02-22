@@ -1,5 +1,7 @@
 import type { FireflyRedPacketAPI } from '@masknet/web3-providers/types';
 
+import { getCSSPropertiesFromThemeSettings } from '@/helpers/getCSSPropertiesFromThemeSettings.js';
+
 interface MessageTextProps {
     theme: FireflyRedPacketAPI.ThemeGroupSettings;
     message: string;
@@ -10,10 +12,7 @@ export function MessageText({ theme, message, ...props }: MessageTextProps) {
     return (
         <div
             style={{
-                color: theme.normal.title1.color,
-                fontSize: theme.normal.title1.font_size,
-                fontWeight: theme.normal.title1.font_weight,
-                lineHeight: `${theme.normal.title1.line_height}px`,
+                ...getCSSPropertiesFromThemeSettings(theme, 'normal', 'title1'),
                 position: 'absolute',
                 ...props.ContainerStyle,
             }}

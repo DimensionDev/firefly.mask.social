@@ -1,5 +1,7 @@
 import type { FireflyRedPacketAPI } from '@masknet/web3-providers/types';
 
+import { getCSSPropertiesFromThemeSettings } from '@/helpers/getCSSPropertiesFromThemeSettings.js';
+
 interface ClaimProgressTextProps {
     theme: FireflyRedPacketAPI.ThemeGroupSettings;
     shares: number;
@@ -13,10 +15,7 @@ export function ClaimProgressText({ theme, shares, remainingShares, ...props }: 
     return (
         <div
             style={{
-                color: theme.normal.title3.color,
-                fontSize: theme.normal.title3.font_size,
-                fontWeight: theme.normal.title3.font_weight,
-                lineHeight: `${theme.normal.title3.line_height}`,
+                ...getCSSPropertiesFromThemeSettings(theme, 'normal', 'title3'),
                 position: 'absolute',
                 left: 40,
                 bottom: 40,
