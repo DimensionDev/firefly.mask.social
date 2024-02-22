@@ -74,7 +74,7 @@ function parseParams(params: URLSearchParams) {
             return CoverSchema.safeParse({
                 usage,
                 locale: params.get('locale') ?? Locale.en,
-                themeId: params.get('themeId'),
+                themeId: params.get('theme-id'),
                 amount: params.get('amount') ?? '0',
                 remainingAmount: params.get('remaining-amount') ?? params.get('amount') ?? '0',
                 shares: params.get('shares') ?? '0',
@@ -88,7 +88,7 @@ function parseParams(params: URLSearchParams) {
             return PayloadSchema.safeParse({
                 usage,
                 locale: params.get('locale') ?? Locale.en,
-                themeId: params.get('themeId'),
+                themeId: params.get('theme-id'),
                 amount: params.get('amount') ?? '0',
                 coBrand: params.get('co-brand') ?? CoBrandType.None,
                 from,
@@ -144,10 +144,11 @@ async function getTheme(themeId: string, signal?: AbortSignal) {
     const url = urlcat(FIREFLY_ROOT_URL, '/v1/redpacket/themeById', {
         themeId,
     });
-    return fetchJSON<FireflyRedPacketAPI.ThemeGroupSettings>(url, {
+    const response = await fetchJSON<FireflyRedPacketAPI.ThemeByIdResponse>(url, {
         cache: 'force-cache',
         signal,
     });
+    return response.data;
 }
 
 async function createImage(params: z.infer<typeof CoverSchema> | z.infer<typeof PayloadSchema>, signal?: AbortSignal) {
