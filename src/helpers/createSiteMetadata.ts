@@ -34,11 +34,6 @@ export function createSiteMetadata(metadata?: Partial<Metadata>) {
                 type: 'image/png',
             },
         ],
-        viewport: {
-            width: 'device-width',
-            initialScale: 1,
-            maximumScale: 1,
-        },
         ...metadata,
     } satisfies Metadata;
 }
