@@ -339,9 +339,6 @@ msgstr "帖子已经被加密"
 msgid "Settings"
 msgstr "设置"
 
-msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others acted on your}} <5>acted on your </5><6><7/></6>"
-msgstr ""
-
 msgid "Claim on Lens: {0}"
 msgstr ""
 
@@ -606,6 +603,9 @@ msgstr "{0, select, follow {在 {source} 关注 @{handle}} unfollow {在 {source
 msgid "Log in to Farcaster account"
 msgstr "登录到 Farcaster 账号"
 
+msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} <5>acted on your </5><6><7/></6>"
+msgstr ""
+
 msgid "Recasted"
 msgstr "已转发"
 
@@ -680,4 +680,3 @@ msgstr "在 {1} 上回复 <0>@{0}</0>"
 
 msgid "<0/> quoted your <1><2/></1>"
 msgstr "<0/> 引用了你的 <1><2/></1>"
-
