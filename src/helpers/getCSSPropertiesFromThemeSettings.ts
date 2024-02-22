@@ -3,10 +3,10 @@ import type { CSSProperties } from 'react';
 
 /**
  * Get CSS font properties from theme settings
- * @param theme 
- * @param type 
- * @param elementType 
- * @returns 
+ * @param theme
+ * @param type
+ * @param elementType
+ * @returns
  */
 export function getCSSPropertiesFromThemeSettings(
     theme: FireflyRedPacketAPI.ThemeGroupSettings,
