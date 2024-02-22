@@ -19,7 +19,7 @@ export function AuthorText({ theme, usage, from = 'unknown', ...props }: AuthorT
             return (
                 <div
                     style={{
-                        ...getCSSPropertiesFromThemeSettings(theme, 'normal', 'title1'),
+                        ...getCSSPropertiesFromThemeSettings(theme, 'normal', 'title3'),
                         position: 'absolute',
                         right: 40,
                         bottom: 40,
