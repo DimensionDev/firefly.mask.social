@@ -226,7 +226,7 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
                             other={
                                 <Trans>
                                     <ProfileLink profile={firstActed} />
-                                    <ProfileLink profile={firstActed} /> and # others acted on your
+                                    <ProfileLink profile={firstActed} /> and # others
                                 </Trans>
                             }
                         />{' '}

@@ -334,9 +334,6 @@ msgstr "Post has been encrypted"
 msgid "Settings"
 msgstr "Settings"
 
-msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others acted on your}} <5>acted on your </5><6><7/></6>"
-msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others acted on your}} <5>acted on your </5><6><7/></6>"
-
 msgid "Claim on Lens: {0}"
 msgstr "Claim on Lens: {0}"
 
@@ -600,6 +597,9 @@ msgstr "{0, select, follow {Followed @{handle} on {source}} unfollow {Unfollowed
 
 msgid "Log in to Farcaster account"
 msgstr "Log in to Farcaster account"
+
+msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} <5>acted on your </5><6><7/></6>"
+msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} <5>acted on your </5><6><7/></6>"
 
 msgid "Recasted"
 msgstr "Recasted"
