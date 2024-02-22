@@ -1,12 +1,13 @@
 /* eslint-disable @next/next/no-img-element */
-import { formatBalance } from '@masknet/web3-shared-base';
-import urlcat from 'urlcat';
 
-import { SITE_URL } from '@/constants/index.js';
-import { Theme, TokenType } from '@/types/rp.js';
+import type { FireflyRedPacketAPI } from '@masknet/web3-providers/types';
+import { formatBalance } from '@masknet/web3-shared-base';
+
+import { getCSSPropertiesFromThemeSettings } from '@/helpers/getCSSPropertiesFromThemeSettings.js';
+import { TokenType } from '@/types/rp.js';
 
 interface AmountTextProps {
-    theme: Theme;
+    theme: FireflyRedPacketAPI.ThemeGroupSettings;
     amount: string; // bigint in str
     token: {
         type: TokenType;
@@ -32,34 +33,17 @@ export function AmountText({ amount, token, theme, ...props }: AmountTextProps) 
                 display: 'flex',
                 alignItems: 'center',
                 position: 'absolute',
-                borderTop: theme === Theme.CoBranding ? '4px solid' : '4px solid transparent',
-                borderBottom: theme === Theme.CoBranding ? '4px solid' : '4px solid transparent',
             }}
         >
-            {theme === Theme.CoBranding ? (
-                <img
-                    style={{ marginRight: 40, marginTop: 14, marginBottom: 14 }}
-                    src={urlcat(SITE_URL, '/rp/stars-left.png')}
-                    width={84}
-                    height={64}
-                    alt="starts"
-                />
-            ) : null}
-
-            <div style={{ fontSize: 60, fontWeight: theme === Theme.CoBranding ? 400 : 700 }}>{amountText}</div>
-            <div style={{ fontSize: 60, fontWeight: theme === Theme.CoBranding ? 400 : 700, marginLeft: 8 }}>
+            <div style={getCSSPropertiesFromThemeSettings(theme, 'cover', 'title3')}>{amountText}</div>
+            <div
+                style={{
+                    ...getCSSPropertiesFromThemeSettings(theme, 'cover', 'title3'),
+                    marginLeft: 8,
+                }}
+            >
                 {symbol}
             </div>
-
-            {theme === Theme.CoBranding ? (
-                <img
-                    style={{ marginLeft: 40, marginTop: 14, marginBottom: 14 }}
-                    src={urlcat(SITE_URL, '/rp/stars-right.png')}
-                    width={84}
-                    height={64}
-                    alt="starts"
-                />
-            ) : null}
         </div>
     );
 }

@@ -1,12 +1,23 @@
-/* eslint-disable react/no-unescaped-entities */
+import type { FireflyRedPacketAPI } from '@masknet/web3-providers/types';
+
+import { getCSSPropertiesFromThemeSettings } from '@/helpers/getCSSPropertiesFromThemeSettings.js';
 
 interface QuoteTextProps {
+    theme: FireflyRedPacketAPI.ThemeGroupSettings;
     ContainerStyle?: React.CSSProperties;
 }
 
-export function QuoteText(props: QuoteTextProps) {
+export function QuoteText({ theme, ContainerStyle }: QuoteTextProps) {
     return (
-        <div style={{ position: 'absolute', fontSize: 30, fontWeight: 400, bottom: 30, ...props.ContainerStyle }}>
+        <div
+            style={{
+                ...getCSSPropertiesFromThemeSettings(theme, 'cover', 'title4'),
+                position: 'absolute',
+                bottom: 30,
+                ...ContainerStyle,
+            }}
+        >
+            {/* eslint-disable-next-line react/no-unescaped-entities */}
             "The lack of money is the root of all evil." - Mark Twain
         </div>
     );

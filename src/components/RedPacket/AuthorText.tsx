@@ -1,9 +1,11 @@
+import type { FireflyRedPacketAPI } from '@masknet/web3-providers/types';
 import { formatEthereumAddress, isValidAddress } from '@masknet/web3-shared-evm';
 
-import { Theme, UsageType } from '@/types/rp.js';
+import { getCSSPropertiesFromThemeSettings } from '@/helpers/getCSSPropertiesFromThemeSettings.js';
+import { UsageType } from '@/types/rp.js';
 
 interface AuthorTextProps {
-    theme: Theme;
+    theme: FireflyRedPacketAPI.ThemeGroupSettings;
     usage: UsageType;
     from?: string;
     ContainerStyle?: React.CSSProperties;
@@ -15,14 +17,22 @@ export function AuthorText({ theme, usage, from = 'unknown', ...props }: AuthorT
     switch (usage) {
         case UsageType.Cover:
             return (
-                <div style={{ position: 'absolute', right: 40, bottom: 40, ...props.ContainerStyle }}>{authorText}</div>
+                <div
+                    style={{
+                        ...getCSSPropertiesFromThemeSettings(theme, 'normal', 'title1'),
+                        position: 'absolute',
+                        right: 40,
+                        bottom: 40,
+                        ...props.ContainerStyle,
+                    }}
+                >
+                    {authorText}
+                </div>
             );
         case UsageType.Payload:
             return (
                 <div
                     style={{
-                        fontWeight: 700,
-                        textShadow: theme === Theme.CoBranding ? '0 0 0 transparent' : '0 4px 4px rgba(0, 0, 0, 0.25)',
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
@@ -31,30 +41,8 @@ export function AuthorText({ theme, usage, from = 'unknown', ...props }: AuthorT
                         ...props.ContainerStyle,
                     }}
                 >
-                    <div
-                        style={{
-                            fontSize: 55,
-                            color:
-                                theme === Theme.GoldenFlower
-                                    ? '#000'
-                                    : theme === Theme.CoBranding
-                                      ? '#dbcca1'
-                                      : '#f1d590',
-                        }}
-                    >
-                        From
-                    </div>
-                    <div
-                        style={{
-                            fontSize: 80,
-                            color:
-                                theme === Theme.GoldenFlower
-                                    ? '#000'
-                                    : theme === Theme.CoBranding
-                                      ? '#dbcca1'
-                                      : '#f1d590',
-                        }}
-                    >
+                    <div style={getCSSPropertiesFromThemeSettings(theme, 'cover', 'title1')}>From</div>
+                    <div style={getCSSPropertiesFromThemeSettings(theme, 'cover', 'title2')}>
                         {isValidAddress(from) ? formatEthereumAddress(from, 4) : from}
                     </div>
                 </div>

@@ -1,10 +1,23 @@
+import type { FireflyRedPacketAPI } from '@masknet/web3-providers/types';
+
+import { getCSSPropertiesFromThemeSettings } from '@/helpers/getCSSPropertiesFromThemeSettings.js';
+
 interface MessageTextProps {
+    theme: FireflyRedPacketAPI.ThemeGroupSettings;
     message: string;
     ContainerStyle?: React.CSSProperties;
 }
 
-export function MessageText({ message, ...props }: MessageTextProps) {
+export function MessageText({ theme, message, ...props }: MessageTextProps) {
     return (
-        <div style={{ fontSize: 50, fontWeight: 700, position: 'absolute', ...props.ContainerStyle }}>{message}</div>
+        <div
+            style={{
+                ...getCSSPropertiesFromThemeSettings(theme, 'normal', 'title1'),
+                position: 'absolute',
+                ...props.ContainerStyle,
+            }}
+        >
+            {message}
+        </div>
     );
 }

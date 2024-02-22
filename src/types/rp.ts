@@ -1,9 +1,7 @@
 export enum Theme {
     Mask = 'mask',
-    GoldenFlower = 'golden-flower',
-    LuckyFlower = 'lucky-flower',
-    LuckyFirefly = 'lucky-firefly',
-    CoBranding = 'co-branding',
+    Firefly = 'firefly',
+    FireflyCoBranding = 'firefly-co-branding',
 }
 
 export enum TokenType {
