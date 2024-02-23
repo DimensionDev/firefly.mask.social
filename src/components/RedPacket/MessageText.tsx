@@ -13,7 +13,16 @@ export function MessageText({ theme, message, ...props }: MessageTextProps) {
         <div
             style={{
                 ...getCSSPropertiesFromThemeSettings(theme, 'normal', 'title1'),
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
                 position: 'absolute',
+                width: '100%',
+                paddingLeft: 60,
+                paddingRight: 60,
+                overflow: 'hidden',
+                whiteSpace: 'nowrap',
+                textOverflow: 'ellipsis',
                 ...props.ContainerStyle,
             }}
         >

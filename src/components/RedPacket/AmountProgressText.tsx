@@ -37,8 +37,15 @@ export function AmountProgressText({ theme, amount, remainingAmount, token, ...p
             style={{
                 display: 'flex',
                 alignItems: 'flex-end',
+                justifyContent: 'center',
+                flexWrap: 'wrap',
                 top: 608,
+                width: '100%',
                 position: 'absolute',
+                paddingLeft: 60,
+                paddingRight: 60,
+                overflow: 'hidden',
+                maxHeight: 160,
                 ...props.ContainerStyle,
             }}
         >

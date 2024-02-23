@@ -12,6 +12,7 @@ import { RedPacketPayload } from '@/components/RedPacket/Payload.js';
 import { CACHE_AGE_INDEFINITE_ON_DISK, FIREFLY_ROOT_URL, SITE_URL } from '@/constants/index.js';
 import { fetchArrayBuffer } from '@/helpers/fetchArrayBuffer.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { getTwemojiUrls } from '@/helpers/getTwemojiUrls.js';
 import { Locale } from '@/types/index.js';
 import { CoBrandType, TokenType, UsageType } from '@/types/rp.js';
 
@@ -163,6 +164,7 @@ async function createImage(params: z.infer<typeof CoverSchema> | z.infer<typeof 
                 width: 1200,
                 height: 840,
                 fonts,
+                graphemeImages: getTwemojiUrls(params.message),
             });
         }
         case UsageType.Payload: {
