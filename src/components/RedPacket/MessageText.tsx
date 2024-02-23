@@ -13,6 +13,9 @@ export function MessageText({ theme, message, ...props }: MessageTextProps) {
         <div
             style={{
                 ...getCSSPropertiesFromThemeSettings(theme, 'normal', 'title1'),
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
                 position: 'absolute',
                 width: '100%',
                 paddingLeft: 60,
