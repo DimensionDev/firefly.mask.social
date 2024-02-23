@@ -126,7 +126,12 @@ export default function ComposeSend() {
                           }
                         : undefined,
                 ]);
-                await FireflyRedPacket.updateClaimStrategy(rpPayload.rpid, reactions, claimPlatform, redpacketProps.publicKey);
+                await FireflyRedPacket.updateClaimStrategy(
+                    rpPayload.rpid,
+                    reactions,
+                    claimPlatform,
+                    redpacketProps.publicKey,
+                );
             }
         } finally {
             // Whether or not the update succeeds, you need to close the modal
