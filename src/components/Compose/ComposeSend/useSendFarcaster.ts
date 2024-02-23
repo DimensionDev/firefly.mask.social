@@ -37,7 +37,7 @@ export function useSendFarcaster() {
                         // We only care about imgur for Farcaster
                         return patchedMedia;
                     } catch (error) {
-                        const message = t`Failed to upload image to imgur.`;
+                        const message = error instanceof Error ? error.message : t`Failed to upload image to imgur.`;
                         enqueueSnackbar(message, { variant: 'error' });
                         throw new Error(message);
                     }

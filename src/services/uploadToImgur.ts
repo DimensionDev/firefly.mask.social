@@ -14,6 +14,7 @@ export async function uploadToImgur(file: File, metadata?: { title: string; desc
         body: formData,
     });
     if (!response.ok) {
+        if (response.status === 400) throw new Error(t`Unsupported file type!`);
         throw new Error(t`Failed to upload to Imgur`);
     }
     const json = await response.json();
