@@ -1387,6 +1387,9 @@ importers:
       '@masknet/web3-providers':
         specifier: workspace:^
         version: link:../../web3-providers
+      '@masknet/web3-shared-base':
+        specifier: workspace:^
+        version: link:../../web3-shared/base
       date-fns:
         specifier: ^2.30.0
         version: 2.30.0
@@ -2822,6 +2825,9 @@ importers:
       '@hookform/resolvers':
         specifier: ^3.1.1
         version: 3.1.1(react-hook-form@7.45.2)
+      '@masknet/encryption':
+        specifier: workspace:^
+        version: link:../encryption
       '@masknet/icons':
         specifier: workspace:^
         version: link:../icons
