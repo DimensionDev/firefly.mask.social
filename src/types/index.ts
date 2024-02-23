@@ -35,4 +35,5 @@ export type PartialWith<T, K extends keyof T> = Partial<Pick<T, K>> & Omit<T, K>
 export interface RedpacketProps {
     payloadImage: string;
     claimRequirements: FireflyRedPacketAPI.StrategyPayload[];
+    publicKey?: string;
 }

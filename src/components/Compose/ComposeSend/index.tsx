@@ -91,9 +91,9 @@ export default function ComposeSend() {
         }
 
         try {
-            const { lensPostId, farcasterPostId, typedMessage } = useComposeStateStore.getState();
+            const { lensPostId, farcasterPostId, typedMessage, redpacketProps } = useComposeStateStore.getState();
 
-            if (hasRedPacketPayload(typedMessage) && (lensPostId || farcasterPostId)) {
+            if (hasRedPacketPayload(typedMessage) && (lensPostId || farcasterPostId) && redpacketProps?.publicKey) {
                 const rpPayload = typedMessage?.meta?.get(RedPacketMetaKey) as RedPacketJSONPayload;
 
                 const reactions = compact([
@@ -126,7 +126,7 @@ export default function ComposeSend() {
                           }
                         : undefined,
                 ]);
-                await FireflyRedPacket.updateClaimStrategy(rpPayload.rpid, reactions, claimPlatform);
+                await FireflyRedPacket.updateClaimStrategy(rpPayload.rpid, reactions, claimPlatform, redpacketProps.publicKey);
             }
         } finally {
             // Whether or not the update succeeds, you need to close the modal
