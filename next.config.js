@@ -21,7 +21,6 @@ export default {
         esmExternals: true,
         scrollRestoration: true,
         swcPlugins: [['@lingui/swc-plugin', {}]],
-        serverComponentsExternalPackages: ['@napi-rs/image'],
     },
     images: {
         dangerouslyAllowSVG: false,
