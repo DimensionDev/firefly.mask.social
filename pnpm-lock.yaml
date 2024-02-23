@@ -151,6 +151,9 @@ importers:
       '@mui/material':
         specifier: 5.10.8
         version: 5.10.8(@emotion/react@11.11.1)(@emotion/styled@11.11.0)(@types/react@18.2.48)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+      '@napi-rs/image':
+        specifier: 1.7.0
+        version: 1.7.0
       '@noble/ed25519':
         specifier: ^1.7.3
         version: 1.7.3
@@ -10969,7 +10972,6 @@ packages:
       '@napi-rs/image-win32-ia32-msvc': 1.7.0
       '@napi-rs/image-win32-x64-msvc': 1.7.0
     dev: false
-    optional: true
 
   /@napi-rs/magic-string-android-arm-eabi@0.3.4:
     resolution: {integrity: sha512-sszAYxqtzzJ4FDerDNHcqL9NhqPhj8W4DNiOanXYy50mA5oojlRtaAFPiB5ZMrWDBM32v5Q30LrmxQ4eTtu2Dg==}
@@ -36062,6 +36064,7 @@ time:
   /@mui/lab@5.0.0-alpha.102: '2022-10-03T16:22:19.340Z'
   /@mui/material@5.10.8: '2022-10-03T16:22:57.228Z'
   /@mui/system@5.10.8: '2022-10-03T16:21:59.688Z'
+  /@napi-rs/image@1.7.0: '2023-09-27T03:49:48.940Z'
   /@nice-labs/emit-file-webpack-plugin@1.1.4: '2023-06-08T14:34:13.568Z'
   /@nice-labs/git-rev@3.5.1: '2022-09-17T04:11:47.528Z'
   /@noble/ed25519@1.7.3: '2023-02-07T10:01:32.815Z'

@@ -24,6 +24,7 @@ export default {
     },
     images: {
         dangerouslyAllowSVG: false,
+        unoptimized: process.env.NODE_ENV === 'development' ? true : false,
         remotePatterns: [
             {
                 hostname: 'images.unsplash.com',
