@@ -148,9 +148,6 @@ importers:
       '@masknet/kit':
         specifier: ^0.3.0
         version: 0.3.0
-      '@masknet/stego-js':
-        specifier: 0.14.2
-        version: 0.14.2
       '@mui/material':
         specifier: 5.10.8
         version: 5.10.8(@emotion/react@11.11.1)(@emotion/styled@11.11.0)(@types/react@18.2.48)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
@@ -2822,9 +2819,6 @@ importers:
       '@hookform/resolvers':
         specifier: ^3.1.1
         version: 3.1.1(react-hook-form@7.45.2)
-      '@masknet/encryption':
-        specifier: workspace:^
-        version: link:../encryption
       '@masknet/icons':
         specifier: workspace:^
         version: link:../icons
