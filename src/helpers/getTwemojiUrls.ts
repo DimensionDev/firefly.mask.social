@@ -46,7 +46,7 @@ export function getTwemojiUrls(content: string) {
     const codes: Record<string, string> = {};
     for (const match of content.matchAll(re)) {
         const code = grabTheRightIcon(match[0]);
-        codes[match[0]] = `https://twemoji.maxcdn.com/v/13.1.0/svg/${code}.svg`;
+        codes[match[0]] = `https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/${code}.svg`;
     }
     return codes;
 }
