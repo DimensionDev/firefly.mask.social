@@ -1,7 +1,6 @@
 import type { AESCryptoKey } from '@masknet/base';
 import {
     decrypt as lib_decrypt,
-    DecryptError,
     DecryptErrorReasons,
     DecryptProgressKind,
     parsePayload,
@@ -48,7 +47,7 @@ async function parsePayloadBinary(encoded: string | Uint8Array) {
     return (await parsePayload(buffer)).unwrapOr(null);
 }
 
-async function decrypt(cacheKey: string, payload: PayloadParseResult.Payload): Promise<TypedMessage | DecryptError> {
+async function decrypt(cacheKey: string, payload: PayloadParseResult.Payload): Promise<TypedMessage | Error> {
     const decryptProgress = lib_decrypt(
         { message: payload },
         {
@@ -91,7 +90,7 @@ async function decrypt(cacheKey: string, payload: PayloadParseResult.Payload): P
     throw new TypeError('unreachable');
 }
 
-export type DecryptResult = [DecryptError | null, boolean, TypedMessage | null];
+export type DecryptResult = [Error | null, boolean, TypedMessage | null];
 
 export async function decryptPayload([data, version]: EncryptedPayload): Promise<DecryptResult> {
     const getResult = async () => {
@@ -102,16 +101,14 @@ export async function decryptPayload([data, version]: EncryptedPayload): Promise
         if (!payload) return false;
 
         if (payload.encryption.isOk() && payload.encryption.value.type === 'E2E')
-            return new DecryptError(DecryptErrorReasons.PrivateKeyNotFound, undefined);
+            return new Error(DecryptErrorReasons.PrivateKeyNotFound);
 
         return decrypt(typeof data === 'string' ? data : encodeArrayBuffer(data), payload);
     };
 
     const result = await getResult();
 
-    if (typeof result === 'boolean')
-        return [new DecryptError(DecryptErrorReasons.PayloadBroken, undefined), false, null];
-    if (result instanceof DecryptError)
-        return [result, result.message === DecryptErrorReasons.PrivateKeyNotFound, null];
+    if (typeof result === 'boolean') return [new Error(DecryptErrorReasons.PayloadBroken), false, null];
+    if (result instanceof Error) return [result, result.message === DecryptErrorReasons.PrivateKeyNotFound, null];
     return [null, false, result];
 }
