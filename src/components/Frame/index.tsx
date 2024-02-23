@@ -1,6 +1,7 @@
 import { t, Trans } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
 import { openWindow } from '@masknet/shared-base-ui';
+import { isValidDomain } from '@masknet/web3-shared-evm';
 import { useQuery } from '@tanstack/react-query';
 import { useEffect, useRef, useState } from 'react';
 import { useAsyncFn } from 'react-use';
@@ -32,7 +33,7 @@ export function Frame({ postId, url, onData, children }: FrameProps) {
     const { isLoading, error, data } = useQuery({
         queryKey: ['frame', url],
         queryFn: () => {
-            if (!url) return;
+            if (!url || isValidDomain(url)) return;
             return fetchJSON<ResponseJSON<LinkDigested>>(
                 urlcat('/api/frame', {
                     link: url,
