@@ -21,9 +21,11 @@ export default {
         esmExternals: true,
         scrollRestoration: true,
         swcPlugins: [['@lingui/swc-plugin', {}]],
+        serverComponentsExternalPackages: ['@napi-rs/image'],
     },
     images: {
         dangerouslyAllowSVG: false,
+        unoptimized: process.env.NODE_ENV === 'development' ? true : false,
         remotePatterns: [
             {
                 hostname: 'images.unsplash.com',
