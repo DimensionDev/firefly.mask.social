@@ -331,10 +331,12 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
                     />
                 );
             case NotificationType.Follow:
+                if (notification.followers.length > 1) return null;
                 const follower = first(notification.followers);
                 if (!follower) return null;
                 return <MoreAction source={notification.source} author={follower} />;
             case NotificationType.Mirror:
+                if (notification.mirrors.length > 1) return null;
                 const reporter = first(notification.mirrors);
                 if (!reporter) return null;
                 return <MoreAction source={notification.source} author={reporter} />;
