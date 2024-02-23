@@ -163,15 +163,60 @@ export class LensSocialMedia implements Provider {
             });
             const resultValue = result.unwrap();
 
-            if (!isCreateMomokaPublicationResult(resultValue))
-                throw new Error(`Something went wrong: ${JSON.stringify(resultValue)}`);
+            if (!isCreateMomokaPublicationResult(resultValue)) {
+                const walletClient = await getWalletClientRequired();
+                const resultTypedData = await this.client.publication.createMomokaMirrorTypedData({ mirrorOn: postId });
+                const { id, typedData } = resultTypedData.unwrap();
+                const signedTypedData = await walletClient.signTypedData({
+                    domain: typedData.domain as TypedDataDomain,
+                    types: typedData.types,
+                    primaryType: 'Mirror',
+                    message: typedData.value,
+                });
+
+                const broadcastResult = await this.client.transaction.broadcastOnMomoka({
+                    id,
+                    signature: signedTypedData,
+                });
+
+                const broadcastValue = broadcastResult.unwrap();
+
+                if (broadcastResult.isFailure() || broadcastValue.__typename === 'RelayError') {
+                    throw new Error(`Something went wrong: ${JSON.stringify(broadcastValue)}`);
+                }
+            }
         } else {
             const result = await this.client.publication.mirrorOnchain({
                 mirrorOn: postId,
             });
             const resultValue = result.unwrap();
 
-            if (!isRelaySuccess(resultValue)) throw new Error(`Something went wrong: ${JSON.stringify(resultValue)}`);
+            if (!isRelaySuccess(resultValue)) {
+                const walletClient = await getWalletClientRequired();
+                const resultTypedData = await this.client.publication.createOnchainMirrorTypedData({
+                    mirrorOn: postId,
+                });
+
+                const { id, typedData } = resultTypedData.unwrap();
+
+                const signedTypedData = await walletClient.signTypedData({
+                    domain: typedData.domain as TypedDataDomain,
+                    types: typedData.types,
+                    primaryType: 'Mirror',
+                    message: typedData.value,
+                });
+
+                const broadcastResult = await this.client.transaction.broadcastOnchain({
+                    id,
+                    signature: signedTypedData,
+                });
+
+                const broadcastValue = broadcastResult.unwrap();
+
+                if (broadcastResult.isFailure() || broadcastValue.__typename === 'RelayError') {
+                    throw new Error(`Something went wrong: ${JSON.stringify(broadcastValue)}`);
+                }
+            }
         }
 
         const post = await this.getPostById(postId);
