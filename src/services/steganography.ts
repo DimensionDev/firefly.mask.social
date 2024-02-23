@@ -24,6 +24,15 @@ export async function steganographyEncodeImage(
 export async function steganographyDecodeImage(image: Blob | string) {
     return decodeImage(image, {
         password: 'mask',
-        downloadImage: fetchArrayBuffer,
+        downloadImage: (originUrl) => {
+            const isS3 = new URL(originUrl).host === 's3.amazonaws.com';
+            const url = isS3 && !originUrl.includes('?') ? `${originUrl}?new-cache` : originUrl;
+
+            // cached image stored on s3 could cause cors error
+            const headers = url === originUrl && isS3 ? { pragma: 'no-cache', 'cache-control': 'no-cache' } : undefined;
+            return fetchArrayBuffer(url, {
+                headers,
+            });
+        },
     });
 }
