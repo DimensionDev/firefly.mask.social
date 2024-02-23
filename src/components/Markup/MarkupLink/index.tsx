@@ -8,7 +8,7 @@ import { ExternalLink } from '@/components/Markup/MarkupLink/ExternalLink.js';
 import { Hashtag } from '@/components/Markup/MarkupLink/Hashtag.js';
 import { MentionLink } from '@/components/Markup/MarkupLink/MentionLink.js';
 import { SocialPlatform } from '@/constants/enum.js';
-import { BIO_TWITTER_PROFILE_REGE } from '@/constants/regex.js';
+import { BIO_TWITTER_PROFILE_REGEX } from '@/constants/regex.js';
 import { Link } from '@/esm/Link.js';
 import { createLensProfileFromHandle } from '@/helpers/createLensProfileFromHandle.js';
 import { getLensHandleFromMentionTitle } from '@/helpers/getLensHandleFromMentionTitle.js';
@@ -55,8 +55,8 @@ export const MarkupLink = memo<MarkupLinkProps>(function MarkupLink({ title, pos
 
     if (isValidDomain(title)) return title;
 
-    if (BIO_TWITTER_PROFILE_REGE.test(title)) {
-        const match = title.match(BIO_TWITTER_PROFILE_REGE);
+    if (BIO_TWITTER_PROFILE_REGEX.test(title)) {
+        const match = title.match(BIO_TWITTER_PROFILE_REGEX);
         if (!match) return title;
         const href = getTwitterProfileUrl(match[1]);
         return (

@@ -21,4 +21,4 @@ export const MASK_SOCIAL_DETAIL_REGEX =
 
 export const MASK_SOCIAL_POST_PATH_REGEX = /\/post\/(\w+)\/([\w-]+)/i;
 
-export const BIO_TWITTER_PROFILE_REGE = /([^\s]+)\.twitter/;
+export const BIO_TWITTER_PROFILE_REGEX = /([^\s]+)\.twitter/;
