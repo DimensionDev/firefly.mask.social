@@ -192,7 +192,15 @@ export default function ComposeAction(props: ComposeActionProps) {
                 <Popover as="div" className="relative">
                     {(_) => (
                         <>
-                            <Popover.Button className=" flex cursor-pointer gap-1 text-main focus:outline-none">
+                            <Popover.Button
+                                className=" flex cursor-pointer gap-1 text-main focus:outline-none"
+                                onClick={(event) => {
+                                    if (currentSource) {
+                                        event.stopPropagation();
+                                        event.preventDefault();
+                                    }
+                                }}
+                            >
                                 <span className="flex items-center gap-x-1 font-bold">
                                     {postBy.map((x) => (
                                         <SourceIcon key={x} source={x} size={20} />
