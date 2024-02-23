@@ -339,6 +339,7 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
                 if (!reporter) return null;
                 return <MoreAction source={notification.source} author={reporter} />;
             case NotificationType.Reaction:
+                if (notification.reactors.length > 1) return null;
                 const reactor = first(notification.reactors);
                 if (!reactor) return null;
                 return <MoreAction source={notification.source} author={reactor} />;
