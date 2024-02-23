@@ -157,7 +157,9 @@
             "reflect-metadata": "0.1.13",
             "webpack@5": "Jack-Works/webpack#528c91e564d5756e21c9c462b607d913452af770",
             "react": "0.0.0-experimental-8039e6d0b-20231026",
-            "react-dom": "0.0.0-experimental-8039e6d0b-20231026"
+            "react-dom": "0.0.0-experimental-8039e6d0b-20231026",
+            "crypto-js@<4.2.0": ">=4.2.0",
+            "@openzeppelin/contracts@<4.8.3": ">=4.8.3"
         },
         "override comments": {
             "i18next-translation-parser": "see https://github.com/i18next/i18next-translation-parser/issues/11 we manually pin the commit"
