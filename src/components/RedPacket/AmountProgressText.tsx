@@ -59,7 +59,7 @@ export function AmountProgressText({ theme, amount, remainingAmount, token, ...p
                     >
                         <div
                             style={{
-                                ...getCSSPropertiesFromThemeSettings(theme, 'normal', 'title2'),
+                                ...getCSSPropertiesFromThemeSettings(theme.normal.title2),
                                 ...props.AmountTextStyle,
                             }}
                         >
@@ -67,7 +67,7 @@ export function AmountProgressText({ theme, amount, remainingAmount, token, ...p
                         </div>
                         <div
                             style={{
-                                ...getCSSPropertiesFromThemeSettings(theme, 'normal', 'title_symbol'),
+                                ...getCSSPropertiesFromThemeSettings(theme.normal.title_symbol),
                                 marginLeft: 8,
                                 position: 'relative',
                                 top: -6,
@@ -77,17 +77,17 @@ export function AmountProgressText({ theme, amount, remainingAmount, token, ...p
                             {symbol}
                         </div>
                     </div>
+                    <div
+                        style={{
+                            ...getCSSPropertiesFromThemeSettings(theme.normal.title2),
+                            marginLeft: 8,
+                            ...props.AmountTextStyle,
+                        }}
+                    >
+                        /
+                    </div>
                 </div>
             ) : null}
-            <div
-                style={{
-                    ...getCSSPropertiesFromThemeSettings(theme, 'normal', 'title2'),
-                    marginLeft: 8,
-                    ...props.AmountTextStyle,
-                }}
-            >
-                /
-            </div>
             <div
                 style={{
                     display: 'flex',
@@ -97,7 +97,7 @@ export function AmountProgressText({ theme, amount, remainingAmount, token, ...p
             >
                 <div
                     style={{
-                        ...getCSSPropertiesFromThemeSettings(theme, 'normal', 'title2'),
+                        ...getCSSPropertiesFromThemeSettings(theme.normal.title2),
                         marginLeft: 8,
                         ...props.AmountTextStyle,
                     }}
@@ -106,7 +106,7 @@ export function AmountProgressText({ theme, amount, remainingAmount, token, ...p
                 </div>
                 <div
                     style={{
-                        ...getCSSPropertiesFromThemeSettings(theme, 'normal', 'title_symbol'),
+                        ...getCSSPropertiesFromThemeSettings(theme.normal.title_symbol),
                         marginLeft: 8,
                         position: 'relative',
                         top: -6,

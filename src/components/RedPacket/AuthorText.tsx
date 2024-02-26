@@ -19,7 +19,7 @@ export function AuthorText({ theme, usage, from = 'unknown', ...props }: AuthorT
             return (
                 <div
                     style={{
-                        ...getCSSPropertiesFromThemeSettings(theme, 'normal', 'title3'),
+                        ...getCSSPropertiesFromThemeSettings(theme.normal.title3),
                         position: 'absolute',
                         right: 40,
                         bottom: 40,
@@ -41,8 +41,8 @@ export function AuthorText({ theme, usage, from = 'unknown', ...props }: AuthorT
                         ...props.ContainerStyle,
                     }}
                 >
-                    <div style={getCSSPropertiesFromThemeSettings(theme, 'cover', 'title1')}>From</div>
-                    <div style={getCSSPropertiesFromThemeSettings(theme, 'cover', 'title2')}>
+                    <div style={getCSSPropertiesFromThemeSettings(theme.cover.title1)}>From</div>
+                    <div style={getCSSPropertiesFromThemeSettings(theme.cover.title2)}>
                         {isValidAddress(from) ? formatEthereumAddress(from, 4) : from}
                     </div>
                 </div>

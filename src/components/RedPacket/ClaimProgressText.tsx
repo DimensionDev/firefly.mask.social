@@ -15,7 +15,7 @@ export function ClaimProgressText({ theme, shares, remainingShares, ...props }: 
     return (
         <div
             style={{
-                ...getCSSPropertiesFromThemeSettings(theme, 'normal', 'title3'),
+                ...getCSSPropertiesFromThemeSettings(theme.normal.title3),
                 position: 'absolute',
                 left: 40,
                 bottom: 40,

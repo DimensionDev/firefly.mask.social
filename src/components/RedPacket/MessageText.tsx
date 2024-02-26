@@ -12,7 +12,7 @@ export function MessageText({ theme, message, ...props }: MessageTextProps) {
     return (
         <div
             style={{
-                ...getCSSPropertiesFromThemeSettings(theme, 'normal', 'title1'),
+                ...getCSSPropertiesFromThemeSettings(theme.normal.title1),
                 display: 'flex',
                 textAlign: 'center',
                 alignItems: 'center',

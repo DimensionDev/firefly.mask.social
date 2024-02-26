@@ -35,10 +35,10 @@ export function AmountText({ amount, token, theme, ...props }: AmountTextProps) 
                 position: 'absolute',
             }}
         >
-            <div style={getCSSPropertiesFromThemeSettings(theme, 'cover', 'title3')}>{amountText}</div>
+            <div style={getCSSPropertiesFromThemeSettings(theme.cover.title3)}>{amountText}</div>
             <div
                 style={{
-                    ...getCSSPropertiesFromThemeSettings(theme, 'cover', 'title3'),
+                    ...getCSSPropertiesFromThemeSettings(theme.cover.title3),
                     marginLeft: 8,
                 }}
             >
