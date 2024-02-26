@@ -8,7 +8,7 @@ import {
 import {
     __workaround__replaceImplementationOfCrossIsolationMessage__,
     __workaround__replaceImplementationOfMaskMessage__,
-    serializer,
+    encoder,
 } from '@masknet/shared-base';
 
 import type { InternalMessage_PluginMessage } from '@/mask/background-worker/message-port.js';
@@ -71,7 +71,7 @@ function createProxy(initValue: (key: string) => any): any {
 
 const cache = new Map<string, PluginMessageEmitter<unknown>>();
 
-function createEmitter(domain: string, serializer: Serialization | undefined): PluginMessageEmitter<unknown> {
+function createEmitter(domain: string, encoder: Serialization | undefined): PluginMessageEmitter<unknown> {
     if (cache.has(domain)) return cache.get(domain)! as PluginMessageEmitter<unknown>;
 
     const listeners = new Map<string, Set<(data: unknown) => void>>();
@@ -95,11 +95,11 @@ function createEmitter(domain: string, serializer: Serialization | undefined): P
         }
     }
     function ser(data: unknown) {
-        if (serializer) return serializer.serialization(data);
+        if (encoder) return encoder.serialization(data);
         return data;
     }
     function de_ser(data: unknown) {
-        if (serializer) return serializer.deserialization(data);
+        if (encoder) return encoder.deserialization(data);
         return data;
     }
     const emitter = createProxy((eventName) => {
@@ -136,10 +136,10 @@ function createEmitter(domain: string, serializer: Serialization | undefined): P
     return emitter;
 }
 __workaround__replaceImplementationOfCreatePluginMessage__((pluginID: string) =>
-    createEmitter('plugin:' + pluginID, serializer),
+    createEmitter('plugin:' + pluginID, encoder),
 );
 __workaround__replaceImplementationOfCrossIsolationMessage__(createEmitter('cross-isolation', undefined));
-__workaround__replaceImplementationOfMaskMessage__(createEmitter('mask', serializer));
+__workaround__replaceImplementationOfMaskMessage__(createEmitter('mask', encoder));
 
 // Ensure plugin host is ready by blocking this file
 const [promise, resolve] = defer<void>();

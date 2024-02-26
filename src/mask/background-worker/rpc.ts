@@ -1,4 +1,4 @@
-import { serializer } from '@masknet/shared-base';
+import { encoder } from '@masknet/shared-base';
 import { AsyncCall, type CallbackBasedChannel } from 'async-call-rpc/full';
 
 import { addListener } from '@/mask/background-worker/message-port.js';
@@ -12,4 +12,4 @@ const channel: CallbackBasedChannel = {
         });
     },
 };
-AsyncCall(Service, { channel, log: true, serializer });
+AsyncCall(Service, { channel, log: true, serializer: encoder });
