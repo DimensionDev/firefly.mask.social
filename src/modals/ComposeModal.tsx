@@ -153,6 +153,7 @@ export const ComposeModalComponent = forwardRef<SingletonModalRefCreator<Compose
 
                 const secretImage = await steganographyEncodeImage(
                     await fetchImageAsPNG(
+                        // TODO: remove the replacement when the staging url is no longer used
                         redpacketProps.payloadImage.replace('https://firefly-staging.mask.social', SITE_URL),
                     ),
                     encrypted.output,
