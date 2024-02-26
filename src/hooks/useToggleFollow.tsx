@@ -39,7 +39,7 @@ export function useToggleFollow(profile: Profile) {
     const handleToggleFollow = useCallback(async () => {
         if (!profileId || isMyProfile) return;
         if (!isLogin) {
-            LoginModalRef.open();
+            LoginModalRef.open({ source });
             return;
         }
         try {
