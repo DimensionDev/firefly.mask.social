@@ -11,7 +11,7 @@ export function QuoteText({ theme, ContainerStyle }: QuoteTextProps) {
     return (
         <div
             style={{
-                ...getCSSPropertiesFromThemeSettings(theme, 'cover', 'title4'),
+                ...getCSSPropertiesFromThemeSettings(theme.cover.title4),
                 position: 'absolute',
                 bottom: 30,
                 ...ContainerStyle,
