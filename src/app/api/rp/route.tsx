@@ -155,11 +155,6 @@ async function getTheme(themeId: string, signal?: AbortSignal) {
     return response.data;
 }
 
-async function compressImage(image: string, backgroundImageUrl?: string) {
-    if (!backgroundImageUrl) return;
-    return image.replace(/data:image\/.+;base64,[^"]+/, backgroundImageUrl);
-}
-
 async function createImage(params: z.infer<typeof CoverSchema> | z.infer<typeof PayloadSchema>, signal?: AbortSignal) {
     const { usage, themeId } = params;
 
@@ -167,25 +162,19 @@ async function createImage(params: z.infer<typeof CoverSchema> | z.infer<typeof 
 
     switch (usage) {
         case UsageType.Cover: {
-            return compressImage(
-                await satori(<RedPacketCover theme={theme} {...params} />, {
-                    width: 1200,
-                    height: 840,
-                    fonts,
-                    graphemeImages: getTwemojiUrls(params.message),
-                }),
-                theme.normal.bg_image,
-            );
+            return satori(<RedPacketCover theme={theme} {...params} />, {
+                width: 1200,
+                height: 840,
+                fonts,
+                graphemeImages: getTwemojiUrls(params.message),
+            });
         }
         case UsageType.Payload: {
-            return compressImage(
-                await satori(<RedPacketPayload theme={theme} {...params} />, {
-                    width: 1200,
-                    height: 840,
-                    fonts,
-                }),
-                theme.cover.bg_image,
-            );
+            return satori(<RedPacketPayload theme={theme} {...params} />, {
+                width: 1200,
+                height: 840,
+                fonts,
+            });
         }
         default:
             safeUnreachable(usage);
