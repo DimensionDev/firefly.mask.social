@@ -146,7 +146,10 @@ async function getTheme(themeId: string, signal?: AbortSignal) {
         themeId,
     });
     const response = await fetchJSON<FireflyRedPacketAPI.ThemeByIdResponse>(url, {
-        cache: 'force-cache',
+        next: {
+            // revalidate at most every hour
+            revalidate: 60 * 60,
+        },
         signal,
     });
     return response.data;
