@@ -26,8 +26,23 @@ export const appInfo: Parameters<typeof RainbowKitProvider>[0]['appInfo'] = {
     learnMoreUrl: SITE_URL,
 };
 
+const x1test = {
+    id: 195,
+    name: 'X1 Testnet',
+    nativeCurrency: {
+        name: 'OKB',
+        symbol: 'OKB',
+        decimals: 18,
+    },
+    rpcUrls: {
+        default: { http: ['https://testrpc.x1.tech'] },
+        public: { http: ['https://testrpc.x1.tech'] },
+    },
+    network: 'X1Test',
+} as const satisfies Chain;
+
 export const { chains, publicClient, webSocketPublicClient } = configureChains(
-    [mainnet, base, polygon, optimism, bsc, arbitrum, gnosis, avalanche, aurora, confluxESpace, fantom],
+    [mainnet, base, polygon, optimism, bsc, arbitrum, gnosis, avalanche, aurora, confluxESpace, fantom, x1test],
     [publicProvider()],
 ) as {
     readonly chains: Chain[];
