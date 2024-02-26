@@ -170,7 +170,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
 
             {/* TODO: exclude the payload image from attachments */}
             {showAttachments &&
-            (!payloads?.payloadFromImageAttachment || process.env.NEXT_PUBLIC_MASK_WEB_COMPONENTS === 'disabled') ? (
+                (!payloads?.payloadFromImageAttachment || process.env.NEXT_PUBLIC_MASK_WEB_COMPONENTS === 'disabled') ? (
                 <Attachments
                     post={post}
                     asset={post.metadata.content?.asset}

@@ -15,7 +15,9 @@ import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { useProfiles } from '@/hooks/useProfiles.js';
 import { useSwitchLensAccount } from '@/hooks/useSwitchLensAccount.js';
 import { LoginModalRef, LogoutModalRef } from '@/modals/controls.js';
+import { useQuery } from '@tanstack/react-query';
 import type { Profile } from '@/providers/types/SocialMedia.js';
+import { getProfileById } from '@/services/getProfileById.js';
 
 interface AccountSettingsProps {
     source: SocialPlatform;
@@ -25,6 +27,14 @@ interface AccountSettingsProps {
 export function AccountSettings({ source, profile }: AccountSettingsProps) {
     const { currentProfile, currentProfileSession, profiles } = useProfiles(source);
     const { login } = useSwitchLensAccount();
+    const { data: fetchedProfiles } = useQuery({
+        queryKey: ['profiles', source, profiles],
+        queryFn: () => Promise.all(profiles.map((profile) => getProfileById(source, source === SocialPlatform.Lens ? profile.handle : profile.profileId) as Promise<Profile>)),
+    });
+    const { data: fetchedProfile } = useQuery({
+        queryKey: ['profile', source, profile.profileId],
+        queryFn: () => getProfileById(source, source === SocialPlatform.Lens ? profile.handle : profile.profileId),
+    })
 
     const isLarge = useMediaQuery('(min-width: 1280px)');
 
@@ -39,7 +49,7 @@ export function AccountSettings({ source, profile }: AccountSettingsProps) {
             className="account-settings"
             content={
                 <div className=" flex w-[290px] flex-col rounded-2xl bg-primaryBottom px-5 shadow-[0px_8px_20px_0px_rgba(0,0,0,0.04)] dark:border dark:border-line dark:shadow-[0px_8px_20px_0px_rgba(255,255,255,0.04)]">
-                    {profiles.map((profile) => (
+                    {(fetchedProfiles || profiles).map((profile) => (
                         <button
                             key={profile.profileId}
                             className="my-[24px] flex items-center justify-between gap-[8px] disabled:cursor-not-allowed"
@@ -81,7 +91,7 @@ export function AccountSettings({ source, profile }: AccountSettingsProps) {
             }
         >
             <div className="flex justify-center">
-                <ProfileAvatar profile={profile} size={isLarge ? 40 : 36} />
+                <ProfileAvatar profile={fetchedProfile || profile} size={isLarge ? 40 : 36} />
             </div>
         </Tippy>
     );
