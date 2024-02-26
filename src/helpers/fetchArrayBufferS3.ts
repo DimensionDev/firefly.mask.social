@@ -3,7 +3,7 @@ import type { NextFetchersOptions } from '@/helpers/getNextFetchers.js';
 
 /**
  * S3 cached some assets before CORS response headers are set
- * for those cache assets, it responses w/o CORS headers
+ * for those cached assets, S3 responses w/o CORS headers
  * so we need to add no-cache headers to bypass the cache
  * @param originUrl
  * @returns
