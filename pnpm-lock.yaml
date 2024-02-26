@@ -187,8 +187,8 @@ importers:
         specifier: ^1.0.1
         version: 1.0.1
       async-call-rpc:
-        specifier: ^6.3.1
-        version: 6.3.1
+        specifier: ^6.4.0
+        version: 6.4.0
       autoprefixer:
         specifier: 10.4.16
         version: 10.4.16(postcss@8.4.31)
@@ -17716,10 +17716,6 @@ packages:
   /ast-types-flow@0.0.8:
     resolution: {integrity: sha512-OH/2E5Fg20h2aPrbe+QL8JZQFko0YZaF+j4mnQ7BGhfavO7OpSLa8a0y9sBwomHdSbkhTS8TQNayBfnW5DwbvQ==}
     dev: true
-
-  /async-call-rpc@6.3.1:
-    resolution: {integrity: sha512-i9R46goYZIi0WPkd5X12O6rOsA1GFUiZ/71GOafdQaZtbytXjQ6VevODXDu5hAI5vn2/BQqbC6NznHV+TAC1QA==}
-    dev: false
 
   /async-call-rpc@6.4.0:
     resolution: {integrity: sha512-FcDtjC6/C5rlIqvi+wSggoxvraBJR2bf5cw2ih8XtLPY3fKbyznVm2KWS7ZnymCALvwa7pEtE4Vfy9l68ggFtw==}
@@ -36346,7 +36342,6 @@ time:
   /anchorme@2.1.2: '2020-05-08T13:17:56.752Z'
   /arweave@1.13.6: '2023-04-17T13:00:31.872Z'
   /assert@2.1.0: '2023-09-07T18:24:30.341Z'
-  /async-call-rpc@6.3.1: '2023-05-31T14:38:02.038Z'
   /async-call-rpc@6.4.0: '2024-02-12T10:17:20.038Z'
   /autoprefixer@10.4.16: '2023-09-20T21:22:00.269Z'
   /bignumber.js@9.1.2: '2023-08-28T12:15:45.587Z'

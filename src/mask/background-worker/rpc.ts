@@ -12,4 +12,4 @@ const channel: CallbackBasedChannel = {
         });
     },
 };
-AsyncCall(Service, { channel, log: true, serializer: encoder });
+AsyncCall(Service, { channel, log: true, encoder });

@@ -14,5 +14,5 @@ const channel: EventBasedChannel = {
 
 export const BackgroundWorker = AsyncCall<typeof import('../background-worker/service.js')>(
     {},
-    { channel, log: true, serializer: encoder },
+    { channel, log: true, encoder },
 );

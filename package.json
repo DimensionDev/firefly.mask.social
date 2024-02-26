@@ -51,7 +51,7 @@
         "@tippyjs/react": "^4.2.6",
         "@vercel/blob": "^0.19.0",
         "@vercel/kv": "^1.0.1",
-        "async-call-rpc": "^6.3.1",
+        "async-call-rpc": "^6.4.0",
         "autoprefixer": "10.4.16",
         "canonicalize": "^2.0.0",
         "dayjs": "^1.11.10",
