@@ -130,6 +130,10 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({ attachm
                         }}
                         src={formatImageUrl(asset.uri, ATTACHMENT)}
                         alt={formatImageUrl(asset.uri, ATTACHMENT)}
+                        // To decode image steganography encoded image, we get
+                        // the image blob from the element by drawing it to a
+                        // canvas, which needs to set crossOrigin='anonymous'
+                        crossOrigin="anonymous"
                     />
                 </div>
             ) : null}
