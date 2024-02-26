@@ -36,7 +36,6 @@ export function AmountProgressText({ theme, amount, remainingAmount, token, ...p
         <div
             style={{
                 display: 'flex',
-                alignItems: 'flex-end',
                 justifyContent: 'center',
                 flexWrap: 'wrap',
                 top: 608,
@@ -53,31 +52,30 @@ export function AmountProgressText({ theme, amount, remainingAmount, token, ...p
                 <div style={{ display: 'flex', alignItems: 'flex-end' }}>
                     <div
                         style={{
-                            ...getCSSPropertiesFromThemeSettings(theme, 'normal', 'title2'),
-                            ...props.AmountTextStyle,
+                            display: 'flex',
+                            alignItems: 'flex-end',
+                            whiteSpace: 'nowrap',
                         }}
                     >
-                        {claimedAmountText}
-                    </div>
-                    <div
-                        style={{
-                            ...getCSSPropertiesFromThemeSettings(theme, 'normal', 'title_symbol'),
-                            marginLeft: 8,
-                            position: 'relative',
-                            top: -6,
-                            ...props.SymbolTextStyle,
-                        }}
-                    >
-                        {symbol}
-                    </div>
-                    <div
-                        style={{
-                            ...getCSSPropertiesFromThemeSettings(theme, 'normal', 'title2'),
-                            marginLeft: 8,
-                            ...props.AmountTextStyle,
-                        }}
-                    >
-                        /
+                        <div
+                            style={{
+                                ...getCSSPropertiesFromThemeSettings(theme, 'normal', 'title2'),
+                                ...props.AmountTextStyle,
+                            }}
+                        >
+                            {claimedAmountText}
+                        </div>
+                        <div
+                            style={{
+                                ...getCSSPropertiesFromThemeSettings(theme, 'normal', 'title_symbol'),
+                                marginLeft: 8,
+                                position: 'relative',
+                                top: -6,
+                                ...props.SymbolTextStyle,
+                            }}
+                        >
+                            {symbol}
+                        </div>
                     </div>
                 </div>
             ) : null}
@@ -88,18 +86,35 @@ export function AmountProgressText({ theme, amount, remainingAmount, token, ...p
                     ...props.AmountTextStyle,
                 }}
             >
-                {totalAmountText}
+                /
             </div>
             <div
                 style={{
-                    ...getCSSPropertiesFromThemeSettings(theme, 'normal', 'title_symbol'),
-                    marginLeft: 8,
-                    position: 'relative',
-                    top: -6,
-                    ...props.SymbolTextStyle,
+                    display: 'flex',
+                    alignItems: 'flex-end',
+                    whiteSpace: 'nowrap',
                 }}
             >
-                {symbol}
+                <div
+                    style={{
+                        ...getCSSPropertiesFromThemeSettings(theme, 'normal', 'title2'),
+                        marginLeft: 8,
+                        ...props.AmountTextStyle,
+                    }}
+                >
+                    {totalAmountText}
+                </div>
+                <div
+                    style={{
+                        ...getCSSPropertiesFromThemeSettings(theme, 'normal', 'title_symbol'),
+                        marginLeft: 8,
+                        position: 'relative',
+                        top: -6,
+                        ...props.SymbolTextStyle,
+                    }}
+                >
+                    {symbol}
+                </div>
             </div>
         </div>
     );
