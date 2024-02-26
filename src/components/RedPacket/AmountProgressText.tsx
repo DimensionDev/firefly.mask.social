@@ -77,17 +77,17 @@ export function AmountProgressText({ theme, amount, remainingAmount, token, ...p
                             {symbol}
                         </div>
                     </div>
+                    <div
+                        style={{
+                            ...getCSSPropertiesFromThemeSettings(theme, 'normal', 'title2'),
+                            marginLeft: 8,
+                            ...props.AmountTextStyle,
+                        }}
+                    >
+                        /
+                    </div>
                 </div>
             ) : null}
-            <div
-                style={{
-                    ...getCSSPropertiesFromThemeSettings(theme, 'normal', 'title2'),
-                    marginLeft: 8,
-                    ...props.AmountTextStyle,
-                }}
-            >
-                /
-            </div>
             <div
                 style={{
                     display: 'flex',
