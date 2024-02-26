@@ -2,7 +2,7 @@ import { fetchArrayBuffer } from '@/helpers/fetchArrayBuffer.js';
 import type { NextFetchersOptions } from '@/helpers/getNextFetchers.js';
 
 /**
- * S3 incorrectly assets before CORS response headers are set
+ * S3 cached some assets before CORS response headers are set
  * for those cache assets, it responses w/o CORS headers
  * so we need to add no-cache headers to bypass the cache
  * @param originUrl
