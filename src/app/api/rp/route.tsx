@@ -158,8 +158,7 @@ async function getTheme(themeId: string, signal?: AbortSignal) {
 async function createImage(params: z.infer<typeof CoverSchema> | z.infer<typeof PayloadSchema>, signal?: AbortSignal) {
     const { usage, themeId } = params;
 
-    const fonts = await getFonts(signal);
-    const theme = await getTheme(themeId, signal);
+    const [fonts, theme] = await Promise.all([getFonts(signal), getTheme(themeId, signal)]);
 
     switch (usage) {
         case UsageType.Cover: {
