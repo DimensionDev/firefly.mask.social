@@ -19,9 +19,6 @@ export function PayloadContainer({ theme, children, ...props }: PayloadContainer
                 fontSize: 30,
                 fontWeight: 400,
                 fontFamily: 'Inter',
-                backgroundSize: '100% 100%',
-                backgroundImage: theme.cover.bg_image ? `url("${theme.cover.bg_image}")` : '',
-                backgroundColor: theme.cover.bg_color ?? 'transparent',
                 backgroundRepeat: 'no-repeat',
                 ...props.ContainerStyle,
             }}
