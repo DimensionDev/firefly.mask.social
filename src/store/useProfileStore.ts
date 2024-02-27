@@ -9,7 +9,10 @@ import { SocialPlatform } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 import { createSessionStorage } from '@/helpers/createSessionStorage.js';
+import { isSameProfile } from '@/helpers/isSameProfile.js';
 import type { FarcasterSession } from '@/providers/farcaster/Session.js';
+import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
+import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import type { Session } from '@/providers/types/Session.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
@@ -19,6 +22,8 @@ interface ProfileState {
     currentProfileSession: Session | null;
     updateProfiles: (profiles: Profile[]) => void;
     updateCurrentProfile: (profile: Profile, session: Session) => void;
+    refreshCurrentProfile: () => void;
+    refreshProfiles: () => void;
     clearCurrentProfile: () => void;
 }
 
@@ -37,6 +42,29 @@ const useFarcasterStateBase = create<ProfileState, [['zustand/persist', unknown]
                     state.currentProfile = profile;
                     state.currentProfileSession = session;
                 }),
+            refreshCurrentProfile: async () => {
+                const profile = get().currentProfile;
+                if (!profile) return;
+                const updatedProfile = await FarcasterSocialMediaProvider.getProfileById(profile.profileId);
+                set((state) => {
+                    state.currentProfile = updatedProfile;
+                });
+            },
+            refreshProfiles: async () => {
+                const profile = get().currentProfile;
+                const profiles = get().profiles;
+
+                const updatedProfiles = await Promise.all(
+                    profiles.map((profile) => FarcasterSocialMediaProvider.getProfileById(profile.profileId)),
+                );
+
+                set((state) => {
+                    state.profiles = updatedProfiles;
+
+                    const currentProfile = profiles.find((p) => isSameProfile(p, profile));
+                    if (currentProfile) state.currentProfile = currentProfile;
+                });
+            },
             clearCurrentProfile: () =>
                 set((state) => {
                     queryClient.resetQueries({
@@ -86,6 +114,29 @@ const useLensStateBase = create<ProfileState, [['zustand/persist', unknown], ['z
                     state.currentProfile = profile;
                     state.currentProfileSession = session;
                 }),
+            refreshCurrentProfile: async () => {
+                const profile = get().currentProfile;
+                if (!profile) return;
+                const updatedProfile = await LensSocialMediaProvider.getProfileByHandle(profile.handle);
+                set((state) => {
+                    state.currentProfile = updatedProfile;
+                });
+            },
+            refreshProfiles: async () => {
+                const profile = get().currentProfile;
+                const profiles = get().profiles;
+
+                const updatedProfiles = await Promise.all(
+                    profiles.map((profile) => LensSocialMediaProvider.getProfileByHandle(profile.handle)),
+                );
+
+                set((state) => {
+                    state.profiles = updatedProfiles;
+
+                    const currentProfile = profiles.find((p) => isSameProfile(p, profile));
+                    if (currentProfile) state.currentProfile = currentProfile;
+                });
+            },
             clearCurrentProfile: () =>
                 set((state) => {
                     queryClient.resetQueries({

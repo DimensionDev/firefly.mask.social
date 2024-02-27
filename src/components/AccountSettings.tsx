@@ -1,6 +1,7 @@
 'use client';
 
 import { Trans } from '@lingui/macro';
+import { useEffect } from 'react';
 import { useMediaQuery } from 'usehooks-ts';
 
 import LogOutIcon from '@/assets/logout.svg';
@@ -23,10 +24,13 @@ interface AccountSettingsProps {
 }
 
 export function AccountSettings({ source, profile }: AccountSettingsProps) {
-    const { currentProfile, currentProfileSession, profiles } = useProfiles(source);
+    const { currentProfile, currentProfileSession, profiles, refreshProfiles } = useProfiles(source);
     const { login } = useSwitchLensAccount();
-
     const isLarge = useMediaQuery('(min-width: 1280px)');
+
+    useEffect(() => {
+        refreshProfiles();
+    }, [refreshProfiles]);
 
     return (
         <Tippy
