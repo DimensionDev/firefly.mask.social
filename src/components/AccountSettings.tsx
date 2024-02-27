@@ -26,7 +26,7 @@ interface AccountSettingsProps {
 }
 
 export function AccountSettings({ source, profile }: AccountSettingsProps) {
-    const { currentProfile, currentProfileSession, profiles, updateProfiles, refreshCurrentProfile } =
+    const { currentProfile, currentProfileSession, profiles } =
         useProfiles(source);
     const { login } = useSwitchLensAccount();
     const { data: fetchedProfiles } = useQuery({
