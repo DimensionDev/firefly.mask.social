@@ -12,7 +12,7 @@ import { RedPacketPayload } from '@/components/RedPacket/Payload.js';
 import { CACHE_AGE_INDEFINITE_ON_DISK, FIREFLY_ROOT_URL, SITE_URL } from '@/constants/index.js';
 import { fetchArrayBuffer } from '@/helpers/fetchArrayBuffer.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
-import { getTwemojiUrls } from '@/helpers/getTwemojiUrls.js';
+import { loadTwmojiUrls } from '@/helpers/getTwemojiUrls.js';
 import { Locale } from '@/types/index.js';
 import { CoBrandType, TokenType, UsageType } from '@/types/rp.js';
 
@@ -30,7 +30,7 @@ const CoverSchema = z.object({
     message: z
         .string()
         .transform((x) => (x ? decodeURIComponent(x) : x))
-        .refine((x) => (x ? x.length < 50 : true), { message: 'Message cannot be longer than 50 characters' }),
+        .refine((x) => (x ? x.length < 100 : true), { message: 'Message cannot be longer than 100 characters' }),
     amount: z.coerce
         .bigint()
         .nonnegative()
@@ -166,7 +166,7 @@ async function createImage(params: z.infer<typeof CoverSchema> | z.infer<typeof 
                 width: 1200,
                 height: 840,
                 fonts,
-                graphemeImages: getTwemojiUrls(params.message),
+                graphemeImages: await loadTwmojiUrls(params.message),
             });
         }
         case UsageType.Payload: {

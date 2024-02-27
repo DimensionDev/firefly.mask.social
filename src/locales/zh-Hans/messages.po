@@ -54,6 +54,9 @@ msgstr "允许 Lens 管理员执行发帖、点赞和评论等操作，而无需
 msgid "{0} views"
 msgstr "{0} 浏览数"
 
+msgid "Failed to upload. File type is not supported"
+msgstr ""
+
 msgid "Failed to post on Farcaster."
 msgstr "在 Farcaster 发贴成功。"
 
@@ -102,6 +105,9 @@ msgstr "还未实现"
 msgid "Copied"
 msgstr "已复制"
 
+msgid "Failed to upload to Imgur"
+msgstr ""
+
 msgid "comment"
 msgstr "评论"
 
@@ -124,6 +130,9 @@ msgid "Please switch to the correct network in your wallet."
 msgstr ""
 
 msgid "Type something here..."
+msgstr ""
+
+msgid "Missing IPFS hash for image or video."
 msgstr ""
 
 msgid "Only up to 2 images can be chosen."

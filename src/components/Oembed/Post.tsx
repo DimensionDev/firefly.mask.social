@@ -21,20 +21,24 @@ export const PostEmbed = memo<PostEmbedProps>(function PostEmbed({ id, source })
     const { data } = useSuspenseQuery({
         queryKey: [currentSource, 'post-detail', id],
         queryFn: async () => {
-            if (!id) return;
-            switch (currentSource) {
-                case SocialPlatform.Lens: {
-                    const post = await LensSocialMediaProvider.getPostById(id);
-                    fetchAndStoreViews([post.postId]);
-                    return post;
+            if (!id) return null;
+            try {
+                switch (currentSource) {
+                    case SocialPlatform.Lens: {
+                        const post = await LensSocialMediaProvider.getPostById(id);
+                        fetchAndStoreViews([post.postId]);
+                        return post;
+                    }
+                    case SocialPlatform.Farcaster: {
+                        const post = await FarcasterSocialMediaProvider.getPostById(id);
+                        return post;
+                    }
+                    default:
+                        safeUnreachable(currentSource);
+                        return null;
                 }
-                case SocialPlatform.Farcaster: {
-                    const post = await FarcasterSocialMediaProvider.getPostById(id);
-                    return post;
-                }
-                default:
-                    safeUnreachable(currentSource);
-                    return;
+            } catch {
+                return null;
             }
         },
     });

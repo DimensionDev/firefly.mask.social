@@ -49,6 +49,9 @@ msgstr "Allow Lens Manager to perform actions such as posting, liking, and comme
 msgid "{0} views"
 msgstr "{0} views"
 
+msgid "Failed to upload. File type is not supported"
+msgstr "Failed to upload. File type is not supported"
+
 msgid "Failed to post on Farcaster."
 msgstr "Failed to post on Farcaster."
 
@@ -97,6 +100,9 @@ msgstr "Not implemented yet."
 msgid "Copied"
 msgstr "Copied"
 
+msgid "Failed to upload to Imgur"
+msgstr "Failed to upload to Imgur"
+
 msgid "comment"
 msgstr "comment"
 
@@ -120,6 +126,9 @@ msgstr "Please switch to the correct network in your wallet."
 
 msgid "Type something here..."
 msgstr "Type something here..."
+
+msgid "Missing IPFS hash for image or video."
+msgstr "Missing IPFS hash for image or video."
 
 msgid "Only up to 2 images can be chosen."
 msgstr "Only up to 2 images can be chosen."
