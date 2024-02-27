@@ -69,14 +69,10 @@ export function Frame({ postId, url, onData, children }: FrameProps) {
                             input,
                         );
 
-                        try {
-                            await HubbleSocialMediaProvider.validateMessage(packet.trustedData.messageBytes);
+                        console.log('DEBUG: packet');
+                        console.log(packet);
 
-                            console.log('DEBUG: packet');
-                            console.log(packet);
-                        } catch (error) {
-                            console.log(error);
-                        }
+                        await HubbleSocialMediaProvider.validateMessage(packet.trustedData.messageBytes);
 
                         const url = urlcat('/api/frame', {
                             url: frame.url,
@@ -91,13 +87,25 @@ export function Frame({ postId, url, onData, children }: FrameProps) {
                             body: JSON.stringify(packet),
                         });
 
-                        const nextFrame = response.success ? (response.data as LinkDigested).frame : null;
-                        if (!nextFrame)
-                            return enqueueSnackbar(t`The frame server failed to process the request.`, {
-                                variant: 'error',
-                            });
+                        if (action === ActionType.Post) {
+                            const nextFrame = response.success ? (response.data as LinkDigested).frame : null;
+                            if (!nextFrame)
+                                return enqueueSnackbar(t`The frame server failed to process the request.`, {
+                                    variant: 'error',
+                                });
 
-                        setLatestFrame(nextFrame);
+                            setLatestFrame(nextFrame);
+                        } else if (action === ActionType.PostRedirect) {
+                            const redirectUrl = response.success
+                                ? (response.data as { redirectUrl: string }).redirectUrl
+                                : null;
+                            if (!redirectUrl)
+                                return enqueueSnackbar(t`The frame server failed to process the request.`, {
+                                    variant: 'error',
+                                });
+
+                            openWindow(redirectUrl, '_blank');
+                        }
                         break;
                     case ActionType.Link:
                         if (button.target) openWindow(button.target, '_blank');

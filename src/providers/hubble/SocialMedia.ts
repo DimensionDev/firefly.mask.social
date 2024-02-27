@@ -1,4 +1,4 @@
-import { CastAddBody, Factories, Message, MessageType, ReactionType } from '@farcaster/core';
+import { CastAddBody, Factories, Message, MessageType, ReactionType, toFarcasterTime } from '@farcaster/core';
 import { t } from '@lingui/macro';
 import { toInteger } from 'lodash-es';
 import urlcat from 'urlcat';
@@ -337,6 +337,7 @@ export class HubbleSocialMedia implements Provider {
             () => {
                 return {
                     type: MessageType.CAST_ADD,
+                    timestamp: toFarcasterTime(Date.now())._unsafeUnwrap(),
                     castAddBody: undefined,
                 };
             },
@@ -365,28 +366,19 @@ export class HubbleSocialMedia implements Provider {
         input?: string,
     ): Promise<FrameSignaturePacket> {
         const { messageBytes, messageData, messageDataHash } = await encodeMessageData(
-            (fid) => {
-                const messageData = {
-                    type: MessageType.FRAME_ACTION,
-                    frameActionBody: {
-                        url: toBytes(frame.url),
-                        buttonIndex: index,
-                        castId: {
-                            fid,
-                            hash: toBytes(postId),
-                        },
-                        inputText: input ? toBytes(input) : undefined,
-                        state: frame.state ? toBytes(frame.state) : undefined,
+            (fid) => ({
+                type: MessageType.FRAME_ACTION,
+                frameActionBody: {
+                    url: toBytes(frame.url),
+                    buttonIndex: index,
+                    castId: {
+                        fid,
+                        hash: toBytes(postId),
                     },
-                };
-
-                // clean up undefined fields
-                if (typeof messageData.frameActionBody.inputText === 'undefined')
-                    delete messageData.frameActionBody.inputText;
-                if (typeof messageData.frameActionBody.state === 'undefined') delete messageData.frameActionBody.state;
-
-                return messageData;
-            },
+                    inputText: input ? toBytes(input) : new Uint8Array([]),
+                    state: frame.state ? toBytes(frame.state) : new Uint8Array([]),
+                },
+            }),
             async (messageData, signer) => {
                 return Factories.FrameActionMessage.create(
                     {
@@ -399,7 +391,7 @@ export class HubbleSocialMedia implements Provider {
             },
         );
 
-        const packet = {
+        return {
             untrustedData: {
                 fid: messageData.fid,
                 url: frame.url,
@@ -407,24 +399,18 @@ export class HubbleSocialMedia implements Provider {
                 timestamp: messageData.timestamp,
                 network: messageData.network,
                 buttonIndex: index,
-                inputText: input,
+                inputText: input || '',
+                state: frame.state || '',
                 castId: {
                     fid: messageData.fid,
                     hash: postId,
                 },
-                state: frame.state,
             },
             trustedData: {
                 // no 0x prefix
                 messageBytes: Buffer.from(messageBytes).toString('hex'),
             },
         };
-
-        // clean up undefined fields
-        if (typeof packet.untrustedData.inputText === 'undefined') delete packet.untrustedData.inputText;
-        if (typeof packet.untrustedData.state === 'undefined') delete packet.untrustedData.state;
-
-        return packet;
     }
 }
 

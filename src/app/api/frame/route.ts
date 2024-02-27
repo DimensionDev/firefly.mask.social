@@ -56,6 +56,10 @@ export async function POST(request: Request) {
         body: JSON.stringify(packet),
     });
 
+    console.log('DEBUG: frame/route.ts');
+    console.log(packet);
+    console.log(response);
+
     switch (action) {
         case ActionType.Post:
             if (!response.ok || response.status < 200 || response.status >= 300)
