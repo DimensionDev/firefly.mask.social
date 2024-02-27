@@ -5,6 +5,7 @@ import {
 } from '@masknet/encryption';
 
 import { fetchArrayBuffer } from '@/helpers/fetchArrayBuffer.js';
+import { fetchArrayBufferS3 } from '@/helpers/fetchArrayBufferS3.js';
 
 export async function steganographyEncodeImage(
     image: Blob | string,
@@ -24,6 +25,6 @@ export async function steganographyEncodeImage(
 export async function steganographyDecodeImage(image: Blob | string) {
     return decodeImage(image, {
         password: 'mask',
-        downloadImage: fetchArrayBuffer,
+        downloadImage: fetchArrayBufferS3,
     });
 }

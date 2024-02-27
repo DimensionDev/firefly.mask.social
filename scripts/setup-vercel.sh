@@ -25,7 +25,7 @@ cd -
 ./scripts/setup-packages.sh ./src/maskbook/node_modules ./node_modules "react-use@17.4.0"
 ./scripts/setup-packages.sh ./src/maskbook/node_modules ./node_modules "react-i18next@13.0.2"
 ./scripts/setup-packages.sh ./src/maskbook/node_modules ./node_modules "react-markdown@8.0.7"
-./scripts/setup-packages.sh ./src/maskbook/node_modules ./node_modules "async-call-rpc@6.3.1"
+./scripts/setup-packages.sh ./src/maskbook/node_modules ./node_modules "async-call-rpc@6.4.0"
 ./scripts/setup-packages.sh ./src/maskbook/node_modules ./node_modules "idb@7.1.1"
 ./scripts/setup-packages.sh ./src/maskbook/node_modules ./node_modules "lodash-es@4.17.21"
 ./scripts/setup-packages.sh ./src/maskbook/node_modules ./node_modules "notistack@2.0.8"

@@ -12,12 +12,27 @@ export function MessageText({ theme, message, ...props }: MessageTextProps) {
     return (
         <div
             style={{
-                ...getCSSPropertiesFromThemeSettings(theme, 'normal', 'title1'),
+                ...getCSSPropertiesFromThemeSettings(theme.normal.title1),
+                display: 'flex',
+                textAlign: 'center',
+                alignItems: 'center',
+                justifyContent: 'center',
                 position: 'absolute',
                 ...props.ContainerStyle,
             }}
         >
-            {message}
+            <div
+                style={{
+                    maxWidth: '100%',
+                    paddingLeft: 60,
+                    paddingRight: 60,
+                    overflow: 'hidden',
+                    whiteSpace: 'nowrap',
+                    textOverflow: 'ellipsis',
+                }}
+            >
+                {message}
+            </div>
         </div>
     );
 }

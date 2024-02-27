@@ -1,7 +1,7 @@
 'use client';
 
 import { getEnumAsArray } from '@masknet/kit';
-import { usePathname, useRouter } from 'next/navigation.js';
+import { usePathname } from 'next/navigation.js';
 import { startTransition } from 'react';
 
 import { SocialPlatform } from '@/constants/enum.js';
@@ -16,7 +16,6 @@ export function SocialPlatformTabs() {
     const lensProfile = useCurrentProfile(SocialPlatform.Lens);
     const farcasterProfile = useCurrentProfile(SocialPlatform.Farcaster);
 
-    const router = useRouter();
     const pathname = usePathname();
 
     if (isRoutePathname(pathname, '/settings') || isRoutePathname(pathname, '/post')) return null;

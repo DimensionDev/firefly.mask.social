@@ -12,6 +12,7 @@ import { RedPacketPayload } from '@/components/RedPacket/Payload.js';
 import { CACHE_AGE_INDEFINITE_ON_DISK, FIREFLY_ROOT_URL, SITE_URL } from '@/constants/index.js';
 import { fetchArrayBuffer } from '@/helpers/fetchArrayBuffer.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { getTwemojiUrls } from '@/helpers/getTwemojiUrls.js';
 import { Locale } from '@/types/index.js';
 import { CoBrandType, TokenType, UsageType } from '@/types/rp.js';
 
@@ -145,7 +146,10 @@ async function getTheme(themeId: string, signal?: AbortSignal) {
         themeId,
     });
     const response = await fetchJSON<FireflyRedPacketAPI.ThemeByIdResponse>(url, {
-        cache: 'force-cache',
+        next: {
+            // revalidate at most every hour
+            revalidate: 60 * 60,
+        },
         signal,
     });
     return response.data;
@@ -154,8 +158,7 @@ async function getTheme(themeId: string, signal?: AbortSignal) {
 async function createImage(params: z.infer<typeof CoverSchema> | z.infer<typeof PayloadSchema>, signal?: AbortSignal) {
     const { usage, themeId } = params;
 
-    const fonts = await getFonts(signal);
-    const theme = await getTheme(themeId, signal);
+    const [fonts, theme] = await Promise.all([getFonts(signal), getTheme(themeId, signal)]);
 
     switch (usage) {
         case UsageType.Cover: {
@@ -163,6 +166,7 @@ async function createImage(params: z.infer<typeof CoverSchema> | z.infer<typeof 
                 width: 1200,
                 height: 840,
                 fonts,
+                graphemeImages: getTwemojiUrls(params.message),
             });
         }
         case UsageType.Payload: {
