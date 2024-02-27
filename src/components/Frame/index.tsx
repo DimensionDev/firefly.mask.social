@@ -109,6 +109,7 @@ export function Frame({ postId, url, onData, children }: FrameProps) {
                             });
 
                         setLatestFrame(nextFrame);
+                        if (inputRef.current) inputRef.current.value = '';
                         break;
                     case ActionType.PostRedirect:
                         const postRedirectResponse = await post();
