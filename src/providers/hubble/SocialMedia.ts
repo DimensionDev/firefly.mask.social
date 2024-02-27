@@ -322,6 +322,12 @@ export class HubbleSocialMedia implements Provider {
             body: Buffer.from(messageBytes, 'hex'),
         });
 
+        console.log('DEBUG: valid');
+        console.log({
+            valid,
+            message,
+        });
+
         if (valid) return true;
         return false;
     }
@@ -359,20 +365,28 @@ export class HubbleSocialMedia implements Provider {
         input?: string,
     ): Promise<FrameSignaturePacket> {
         const { messageBytes, messageData, messageDataHash } = await encodeMessageData(
-            (fid, timestamp) => ({
-                type: MessageType.FRAME_ACTION,
-                frameActionBody: {
-                    url: toBytes(frame.url),
-                    buttonIndex: index,
-                    castId: {
-                        fid,
-                        hash: toBytes(postId),
+            (fid) => {
+                const messageData = {
+                    type: MessageType.FRAME_ACTION,
+                    frameActionBody: {
+                        url: toBytes(frame.url),
+                        buttonIndex: index,
+                        castId: {
+                            fid,
+                            hash: toBytes(postId),
+                        },
+                        inputText: input ? toBytes(input) : undefined,
+                        state: frame.state ? toBytes(frame.state) : undefined,
                     },
-                    timestamp,
-                    inputText: input ? toBytes(input) : new Uint8Array([]),
-                    state: frame.state ? toBytes(frame.state) : new Uint8Array([]),
-                },
-            }),
+                };
+
+                // clean up undefined fields
+                if (typeof messageData.frameActionBody.inputText === 'undefined')
+                    delete messageData.frameActionBody.inputText;
+                if (typeof messageData.frameActionBody.state === 'undefined') delete messageData.frameActionBody.state;
+
+                return messageData;
+            },
             async (messageData, signer) => {
                 return Factories.FrameActionMessage.create(
                     {
@@ -385,7 +399,7 @@ export class HubbleSocialMedia implements Provider {
             },
         );
 
-        return {
+        const packet = {
             untrustedData: {
                 fid: messageData.fid,
                 url: frame.url,
@@ -405,6 +419,12 @@ export class HubbleSocialMedia implements Provider {
                 messageBytes: Buffer.from(messageBytes).toString('hex'),
             },
         };
+
+        // clean up undefined fields
+        if (typeof packet.untrustedData.inputText === 'undefined') delete packet.untrustedData.inputText;
+        if (typeof packet.untrustedData.state === 'undefined') delete packet.untrustedData.state;
+
+        return packet;
     }
 }
 

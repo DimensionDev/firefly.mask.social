@@ -4,6 +4,7 @@ export enum ActionType {
     Post = 'post',
     PostRedirect = 'post_redirect',
     Link = 'Link',
+    Mint = 'Mint',
 }
 
 export interface FrameInput {
@@ -11,22 +12,13 @@ export interface FrameInput {
     placeholder?: string;
 }
 
-interface FrameButtonBase {
+export interface FrameButton {
     index: Index;
     text: string;
-}
-
-interface FrameButtonPost extends FrameButtonBase {
-    action: ActionType.Post | ActionType.PostRedirect;
-}
-
-interface FrameButtonLink extends FrameButtonBase {
-    action: ActionType.Link;
+    action: ActionType;
     // action target URL
-    target: string;
+    target?: string;
 }
-
-export type FrameButton = FrameButtonPost | FrameButtonLink;
 
 export interface FrameImage {
     url: string;

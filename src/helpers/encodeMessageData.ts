@@ -7,10 +7,7 @@ import { farcasterClient } from '@/configs/farcasterClient.js';
 import type { PartialWith } from '@/types/index.js';
 
 export async function encodeMessageData(
-    withMessageData: (
-        profileId: number,
-        timestamp: number,
-    ) => PartialWith<MessageData, 'type' | 'fid' | 'timestamp' | 'network'>,
+    withMessageData: (profileId: number) => PartialWith<MessageData, 'type' | 'fid' | 'timestamp' | 'network'>,
     withMessage: (messageData: MessageData, signer: NobleEd25519Signer) => Promise<Message>,
     withPrivateKey?: string,
 ) {
@@ -26,7 +23,7 @@ export async function encodeMessageData(
         fid,
         timestamp,
         network: FarcasterNetwork.MAINNET,
-        ...withMessageData(fid, timestamp),
+        ...withMessageData(fid),
     };
     const messageDataBytes = MessageData.encode(messageData).finish();
     const messageDataHash = blake3(messageDataBytes, { dkLen: 20 });

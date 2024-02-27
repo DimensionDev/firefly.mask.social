@@ -29,7 +29,9 @@ export function Button({ button, disabled = false, onClick }: Props) {
             }}
         >
             <span>{button.text}</span>
-            {button.action === ActionType.PostRedirect ? <LinkIcon className=" ml-1" width={20} height={20} /> : null}
+            {[ActionType.PostRedirect, ActionType.Link].includes(button.action) ? (
+                <LinkIcon className=" ml-1" width={20} height={20} />
+            ) : null}
         </button>
     );
 }

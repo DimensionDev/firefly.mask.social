@@ -1,4 +1,4 @@
-import { t, Trans } from '@lingui/macro';
+import { t } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
 import { openWindow } from '@masknet/shared-base-ui';
 import { isValidDomain } from '@masknet/web3-shared-evm';
@@ -12,7 +12,6 @@ import { Input } from '@/components/Frame/Input.js';
 import { Image } from '@/esm/Image.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
-import { ConfirmModalRef } from '@/modals/controls.js';
 import { HubbleSocialMediaProvider } from '@/providers/hubble/SocialMedia.js';
 import { ActionType, type Frame, type FrameButton, type LinkDigested } from '@/types/frame.js';
 import type { ResponseJSON } from '@/types/index.js';
@@ -58,29 +57,40 @@ export function Frame({ postId, url, onData, children }: FrameProps) {
             try {
                 if (!frame) return;
 
-                const { action, index } = button;
-
-                const url = urlcat('/api/frame', {
-                    url: frame.url,
-                    action,
-                    'post-url': frame.postUrl,
-                });
-                const packet = await HubbleSocialMediaProvider.generateFrameSignaturePacket(
-                    postId,
-                    frame,
-                    index,
-                    input,
-                );
-                const response = await fetchJSON<ResponseJSON<LinkDigested | { redirectUrl: string }>>(url, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(packet),
-                });
+                const { action, index, target } = button;
 
                 switch (action) {
                     case ActionType.Post:
+                    case ActionType.PostRedirect:
+                        const packet = await HubbleSocialMediaProvider.generateFrameSignaturePacket(
+                            postId,
+                            frame,
+                            index,
+                            input,
+                        );
+
+                        try {
+                            await HubbleSocialMediaProvider.validateMessage(packet.trustedData.messageBytes);
+
+                            console.log('DEBUG: packet');
+                            console.log(packet);
+                        } catch (error) {
+                            console.log(error);
+                        }
+
+                        const url = urlcat('/api/frame', {
+                            url: frame.url,
+                            action,
+                            'post-url': target || frame.postUrl || frame.url,
+                        });
+                        const response = await fetchJSON<ResponseJSON<LinkDigested | { redirectUrl: string }>>(url, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify(packet),
+                        });
+
                         const nextFrame = response.success ? (response.data as LinkDigested).frame : null;
                         if (!nextFrame)
                             return enqueueSnackbar(t`The frame server failed to process the request.`, {
@@ -89,32 +99,11 @@ export function Frame({ postId, url, onData, children }: FrameProps) {
 
                         setLatestFrame(nextFrame);
                         break;
-                    case ActionType.PostRedirect:
-                        const redirectUrl = response.success
-                            ? (response.data as { redirectUrl: string }).redirectUrl
-                            : null;
-                        if (!redirectUrl)
-                            return enqueueSnackbar(t`The frame server failed to process the request.`, {
-                                variant: 'error',
-                            });
-
-                        const confirmed = await ConfirmModalRef.openAndWaitForClose({
-                            title: t`Leaving Firefly`,
-                            content: (
-                                <div className=" text-main">
-                                    <Trans>
-                                        Please be cautious when connecting your wallet, as malicious websites may
-                                        attempt to access your funds.
-                                    </Trans>
-                                </div>
-                            ),
-                        });
-                        if (!confirmed) return;
-
-                        openWindow(redirectUrl, '_blank');
-                        break;
                     case ActionType.Link:
-                        openWindow(button.target, '_blank');
+                        if (button.target) openWindow(button.target, '_blank');
+                        break;
+                    case ActionType.Mint:
+                        enqueueSnackbar(t`Mint button is not available yet.`);
                         break;
                     default:
                         safeUnreachable(action);
@@ -163,18 +152,16 @@ export function Frame({ postId, url, onData, children }: FrameProps) {
                     {frame.buttons
                         .slice(0)
                         .sort((a, z) => a.index - z.index)
-                        ?.map((button) => {
-                            return (
-                                <Button
-                                    key={button.index}
-                                    button={button}
-                                    disabled={loading}
-                                    onClick={() => {
-                                        if (!loading) handleClick(button, inputRef.current?.value);
-                                    }}
-                                />
-                            );
-                        })}
+                        ?.map((button) => (
+                            <Button
+                                key={button.index}
+                                button={button}
+                                disabled={loading}
+                                onClick={() => {
+                                    if (!loading) handleClick(button, inputRef.current?.value);
+                                }}
+                            />
+                        ))}
                 </div>
             ) : null}
         </div>

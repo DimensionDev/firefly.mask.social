@@ -88,6 +88,15 @@ export async function POST(request: Request) {
                     status: 400,
                 },
             );
+        case ActionType.Mint:
+            return Response.json(
+                {
+                    error: 'Not available',
+                },
+                {
+                    status: 400,
+                },
+            );
         default:
             safeUnreachable(action);
             return Response.json({ error: `Unknown action: ${action}` }, { status: 400 });
