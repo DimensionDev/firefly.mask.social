@@ -1,4 +1,4 @@
-import { CastAddBody, Factories, fromFarcasterTime, Message, MessageType, ReactionType } from '@farcaster/core';
+import { CastAddBody, Factories, Message, MessageType, ReactionType, toFarcasterTime } from '@farcaster/core';
 import { t } from '@lingui/macro';
 import { toInteger } from 'lodash-es';
 import urlcat from 'urlcat';
@@ -321,7 +321,6 @@ export class HubbleSocialMedia implements Provider {
             method: 'POST',
             body: Buffer.from(messageBytes, 'hex'),
         });
-
         if (valid) return true;
         return false;
     }
@@ -331,7 +330,7 @@ export class HubbleSocialMedia implements Provider {
             () => {
                 return {
                     type: MessageType.CAST_ADD,
-                    timestamp: fromFarcasterTime(Date.now())._unsafeUnwrap(),
+                    timestamp: toFarcasterTime(Date.now())._unsafeUnwrap(),
                     castAddBody: undefined,
                 };
             },
@@ -358,6 +357,8 @@ export class HubbleSocialMedia implements Provider {
         frame: Frame,
         index: Index,
         input?: string,
+        // the state is not read from frame, for initial frame it should not provide state
+        state?: string,
     ): Promise<FrameSignaturePacket> {
         const { messageBytes, messageData, messageDataHash } = await encodeMessageData(
             (fid) => ({
@@ -370,6 +371,7 @@ export class HubbleSocialMedia implements Provider {
                         hash: toBytes(postId),
                     },
                     inputText: input ? toBytes(input) : new Uint8Array([]),
+                    state: state ? toBytes(state) : new Uint8Array([]),
                 },
             }),
             async (messageData, signer) => {
@@ -384,7 +386,7 @@ export class HubbleSocialMedia implements Provider {
             },
         );
 
-        return {
+        const packet = {
             untrustedData: {
                 fid: messageData.fid,
                 url: frame.url,
@@ -393,6 +395,7 @@ export class HubbleSocialMedia implements Provider {
                 network: messageData.network,
                 buttonIndex: index,
                 inputText: input,
+                state,
                 castId: {
                     fid: messageData.fid,
                     hash: postId,
@@ -403,6 +406,10 @@ export class HubbleSocialMedia implements Provider {
                 messageBytes: Buffer.from(messageBytes).toString('hex'),
             },
         };
+
+        if (typeof packet.untrustedData.state === 'undefined') delete packet.untrustedData.state;
+
+        return packet;
     }
 }
 

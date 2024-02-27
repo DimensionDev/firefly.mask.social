@@ -19,6 +19,7 @@ export interface FrameSignaturePacket {
             fid: number;
             hash: string;
         };
+        state?: string;
     };
     trustedData: {
         messageBytes: string;

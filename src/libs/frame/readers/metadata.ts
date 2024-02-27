@@ -1,7 +1,7 @@
 import { compact, last } from 'lodash-es';
 
 import { q, qsAll } from '@/helpers/q.js';
-import { ActionType, type FrameButton, type FrameInput } from '@/types/frame.js';
+import { type FrameButton, type FrameInput } from '@/types/frame.js';
 
 export function getTitle(document: Document): string | null {
     return (
@@ -59,31 +59,23 @@ export function getButtons(document: Document): FrameButton[] {
             if (Number.isNaN(parsedIndex) || parsedIndex < 1 || parsedIndex > 4) return null;
 
             const action = q(document, `fc:frame:button:${parsedIndex}:action`)?.getAttribute('content');
-
-            const target =
-                action === ActionType.Link
-                    ? q(document, `fc:frame:button:${parsedIndex}:target`)?.getAttribute('content')
-                    : undefined;
-
-            if (action === ActionType.Link) {
-                return target
-                    ? ({
-                          index: parsedIndex,
-                          text,
-                          action,
-                          target,
-                      } as FrameButton)
-                    : null;
-            }
+            const target = q(document, `fc:frame:button:${parsedIndex}:target`)?.getAttribute('content');
 
             return {
                 index: parsedIndex,
                 text,
-                action:
-                    action && [ActionType.Post, ActionType.PostRedirect].includes(action as ActionType)
-                        ? action
-                        : ActionType.Post,
+                action,
+                target,
             } as FrameButton;
         }),
     ).sort((a, z) => a.index - z.index);
+}
+
+export function getAspectRatio(document: Document): '1.91:1' | '1:1' {
+    const aspect = q(document, 'fc:frame:aspect_ratio')?.getAttribute('content') ?? '1.91:1';
+    return aspect === '1:1' ? '1:1' : '1.91:1';
+}
+
+export function getState(document: Document) {
+    return q(document, 'fc:frame:state')?.getAttribute('content') ?? null;
 }

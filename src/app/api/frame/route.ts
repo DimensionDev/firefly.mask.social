@@ -75,11 +75,24 @@ export async function POST(request: Request) {
                         redirectUrl: locationUrl,
                     });
             }
-            return createSuccessResponseJSON({
-                redirectUrl: postUrl,
-            });
-
+            return Response.json(
+                {
+                    error: 'The frame server cannot handle the post-redirect request correctly.',
+                },
+                {
+                    status: 500,
+                },
+            );
         case ActionType.Link:
+            return Response.json(
+                {
+                    error: 'Not available',
+                },
+                {
+                    status: 400,
+                },
+            );
+        case ActionType.Mint:
             return Response.json(
                 {
                     error: 'Not available',

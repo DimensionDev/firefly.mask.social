@@ -3,11 +3,13 @@ import { parseHTML } from 'linkedom';
 import { anySignal } from '@/helpers/anySignal.js';
 import { parseURL } from '@/helpers/parseURL.js';
 import {
+    getAspectRatio,
     getButtons,
     getImageUrl,
     getInput,
     getPostUrl,
     getRefreshPeriod,
+    getState,
     getTitle,
     getVersion,
 } from '@/libs/frame/readers/metadata.js';
@@ -45,11 +47,15 @@ class Processor {
         const input = getInput(document);
         const buttons = getButtons(document);
         const refreshPeriod = getRefreshPeriod(document);
+        const aspectRatio = getAspectRatio(document);
+        const state = getState(document);
 
         if (postUrl) frame.postUrl = postUrl;
         if (input) frame.input = input;
         if (buttons.length) frame.buttons = buttons;
         if (refreshPeriod) frame.refreshPeriod = refreshPeriod;
+        if (aspectRatio) frame.aspectRatio = aspectRatio;
+        if (state) frame.state = state;
 
         return {
             frame,

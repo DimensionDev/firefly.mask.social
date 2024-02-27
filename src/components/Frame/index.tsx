@@ -58,30 +58,51 @@ export function Frame({ postId, url, onData, children }: FrameProps) {
             try {
                 if (!frame) return;
 
-                const { action, index } = button;
+                const { action, index, target } = button;
 
-                const url = urlcat('/api/frame', {
-                    url: frame.url,
-                    action,
-                    'post-url': frame.postUrl,
-                });
-                const packet = await HubbleSocialMediaProvider.generateFrameSignaturePacket(
-                    postId,
-                    frame,
-                    index,
-                    input,
-                );
-                const response = await fetchJSON<ResponseJSON<LinkDigested | { redirectUrl: string }>>(url, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(packet),
-                });
+                const confirm = () =>
+                    ConfirmModalRef.openAndWaitForClose({
+                        title: t`Leaving Firefly`,
+                        content: (
+                            <div className=" text-main">
+                                <Trans>
+                                    Please be cautious when connecting your wallet, as malicious websites may attempt to
+                                    access your funds.
+                                </Trans>
+                            </div>
+                        ),
+                    });
+
+                const post = async () => {
+                    const url = urlcat('/api/frame', {
+                        url: frame.url,
+                        action,
+                        'post-url': target || frame.postUrl || frame.url,
+                    });
+                    const packet = await HubbleSocialMediaProvider.generateFrameSignaturePacket(
+                        postId,
+                        frame,
+                        index,
+                        input,
+                        // for initial frame should not provide state
+                        latestFrame && frame.state ? frame.state : undefined,
+                    );
+
+                    await HubbleSocialMediaProvider.validateMessage(packet.trustedData.messageBytes);
+
+                    return fetchJSON<ResponseJSON<LinkDigested | { redirectUrl: string }>>(url, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(packet),
+                    });
+                };
 
                 switch (action) {
                     case ActionType.Post:
-                        const nextFrame = response.success ? (response.data as LinkDigested).frame : null;
+                        const postResponse = await post();
+                        const nextFrame = postResponse.success ? (postResponse.data as LinkDigested).frame : null;
                         if (!nextFrame)
                             return enqueueSnackbar(t`The frame server failed to process the request.`, {
                                 variant: 'error',
@@ -90,31 +111,23 @@ export function Frame({ postId, url, onData, children }: FrameProps) {
                         setLatestFrame(nextFrame);
                         break;
                     case ActionType.PostRedirect:
-                        const redirectUrl = response.success
-                            ? (response.data as { redirectUrl: string }).redirectUrl
+                        const postRedirectResponse = await post();
+                        const redirectUrl = postRedirectResponse.success
+                            ? (postRedirectResponse.data as { redirectUrl: string }).redirectUrl
                             : null;
                         if (!redirectUrl)
                             return enqueueSnackbar(t`The frame server failed to process the request.`, {
                                 variant: 'error',
                             });
 
-                        const confirmed = await ConfirmModalRef.openAndWaitForClose({
-                            title: t`Leaving Firefly`,
-                            content: (
-                                <div className=" text-main">
-                                    <Trans>
-                                        Please be cautious when connecting your wallet, as malicious websites may
-                                        attempt to access your funds.
-                                    </Trans>
-                                </div>
-                            ),
-                        });
-                        if (!confirmed) return;
-
-                        openWindow(redirectUrl, '_blank');
+                        if (await confirm()) openWindow(redirectUrl, '_blank');
                         break;
                     case ActionType.Link:
-                        openWindow(button.target, '_blank');
+                        if (!button.target) return;
+                        if (await confirm()) openWindow(button.target, '_blank');
+                        break;
+                    case ActionType.Mint:
+                        enqueueSnackbar(t`Mint button is not available yet.`);
                         break;
                     default:
                         safeUnreachable(action);
@@ -127,7 +140,7 @@ export function Frame({ postId, url, onData, children }: FrameProps) {
             }
             return;
         },
-        [frame, postId, enqueueSnackbar],
+        [frame, latestFrame, postId, enqueueSnackbar],
     );
 
     if (isLoading) return null;
@@ -163,18 +176,16 @@ export function Frame({ postId, url, onData, children }: FrameProps) {
                     {frame.buttons
                         .slice(0)
                         .sort((a, z) => a.index - z.index)
-                        ?.map((button) => {
-                            return (
-                                <Button
-                                    key={button.index}
-                                    button={button}
-                                    disabled={loading}
-                                    onClick={() => {
-                                        if (!loading) handleClick(button, inputRef.current?.value);
-                                    }}
-                                />
-                            );
-                        })}
+                        ?.map((button) => (
+                            <Button
+                                key={button.index}
+                                button={button}
+                                disabled={loading}
+                                onClick={() => {
+                                    if (!loading) handleClick(button, inputRef.current?.value);
+                                }}
+                            />
+                        ))}
                 </div>
             ) : null}
         </div>

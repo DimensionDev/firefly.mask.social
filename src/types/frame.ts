@@ -3,7 +3,8 @@ export type Index = 1 | 2 | 3 | 4;
 export enum ActionType {
     Post = 'post',
     PostRedirect = 'post_redirect',
-    Link = 'Link',
+    Link = 'link',
+    Mint = 'mint',
 }
 
 export interface FrameInput {
@@ -11,22 +12,13 @@ export interface FrameInput {
     placeholder?: string;
 }
 
-interface FrameButtonBase {
+export interface FrameButton {
     index: Index;
     text: string;
-}
-
-interface FrameButtonPost extends FrameButtonBase {
-    action: ActionType.Post | ActionType.PostRedirect;
-}
-
-interface FrameButtonLink extends FrameButtonBase {
-    action: ActionType.Link;
+    action: ActionType;
     // action target URL
-    target: string;
+    target?: string;
 }
-
-export type FrameButton = FrameButtonPost | FrameButtonLink;
 
 export interface FrameImage {
     url: string;
@@ -50,6 +42,10 @@ export interface Frame {
     buttons: FrameButton[];
     // fc:frame:refresh_period
     refreshPeriod: number;
+    // fc:frame:aspect_ratio
+    aspectRatio?: '1.91:1' | '1:1';
+    // fc:frame:state
+    state?: string;
 }
 
 export interface LinkDigested {

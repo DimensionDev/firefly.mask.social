@@ -1,4 +1,4 @@
-import { LinkIcon } from '@heroicons/react/24/outline';
+import { ArrowTopRightOnSquareIcon } from '@heroicons/react/24/outline';
 
 import { classNames } from '@/helpers/classNames.js';
 import { ActionType, type FrameButton } from '@/types/frame.js';
@@ -29,7 +29,9 @@ export function Button({ button, disabled = false, onClick }: Props) {
             }}
         >
             <span>{button.text}</span>
-            {button.action === ActionType.PostRedirect ? <LinkIcon className=" ml-1" width={20} height={20} /> : null}
+            {[ActionType.PostRedirect, ActionType.Link].includes(button.action) ? (
+                <ArrowTopRightOnSquareIcon className=" ml-1" width={20} height={20} />
+            ) : null}
         </button>
     );
 }

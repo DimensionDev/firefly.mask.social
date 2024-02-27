@@ -19,9 +19,9 @@ export async function encodeMessageData(
 
     // @ts-ignore timestamp is not needed
     const messageData: MessageData = {
-        ...withMessageData(fid),
         fid,
         network: FarcasterNetwork.MAINNET,
+        ...withMessageData(fid),
     };
     const messageDataBytes = MessageData.encode(messageData).finish();
     const messageDataHash = blake3(messageDataBytes, { dkLen: 20 });
