@@ -30,7 +30,6 @@ export function useProfiles(source: SocialPlatform): UseProfilesReturnType {
     const refreshLensProfile = useLensStateStore.use.refreshCurrentProfile();
     const refreshFarcasterProfile = useFarcasterStateStore.use.refreshCurrentProfile();
 
-
     return useMemo(() => {
         switch (source) {
             case SocialPlatform.Lens:

@@ -29,11 +29,11 @@ export function AccountSettings({ source, profile }: AccountSettingsProps) {
     const { login } = useSwitchLensAccount();
     const isLarge = useMediaQuery('(min-width: 1280px)');
     useEffect(() => {
-        refreshCurrentProfile()
-    }, [refreshCurrentProfile])
+        refreshCurrentProfile();
+    }, [refreshCurrentProfile]);
     useEffect(() => {
-        refreshProfiles()
-    }, [refreshProfiles])
+        refreshProfiles();
+    }, [refreshProfiles]);
 
     return (
         <Tippy
