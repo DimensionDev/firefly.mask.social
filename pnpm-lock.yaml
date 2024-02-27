@@ -116,10 +116,10 @@ importers:
         version: 2.0.18(react@0.0.0-experimental-8039e6d0b-20231026)
       '@lens-protocol/client':
         specifier: ^2.0.0-alpha.34
-        version: 2.0.0-alpha.34(@lens-protocol/metadata@1.0.5)(@vercel/kv@1.0.1)(ethers@5.7.2)
+        version: 2.0.0-alpha.34(@lens-protocol/metadata@1.1.5)(@vercel/kv@1.0.1)(ethers@5.7.2)
       '@lens-protocol/metadata':
-        specifier: ^1.0.5
-        version: 1.0.5(zod@3.22.4)
+        specifier: ^1.1.5
+        version: 1.1.5(zod@3.22.4)
       '@lexical/hashtag':
         specifier: ^0.12.5
         version: 0.12.5(lexical@0.12.5)
@@ -8940,7 +8940,7 @@ packages:
       - wait-for-expect
     dev: false
 
-  /@lens-protocol/client@2.0.0-alpha.34(@lens-protocol/metadata@1.0.5)(@vercel/kv@1.0.1)(ethers@5.7.2):
+  /@lens-protocol/client@2.0.0-alpha.34(@lens-protocol/metadata@1.1.5)(@vercel/kv@1.0.1)(ethers@5.7.2):
     resolution: {integrity: sha512-C+dPbIgA8f9+VqZRWRwUWQtX+CA7XZICOmmyV45mozGWwAU3GJaTFe/hRp0gWmA+DnCwhaYlWyFi/3Lz/Jhrmw==}
     engines: {node: '>=18 <21'}
     peerDependencies:
@@ -8958,8 +8958,8 @@ packages:
       '@ethersproject/providers': 5.7.2
       '@ethersproject/wallet': 5.7.0
       '@lens-protocol/blockchain-bindings': 0.10.0-alpha.24
-      '@lens-protocol/gated-content': 0.4.0-alpha.22(@ethersproject/abi@5.7.0)(@ethersproject/address@5.7.0)(@ethersproject/bignumber@5.7.0)(@ethersproject/contracts@5.7.0)(@ethersproject/hash@5.7.0)(@ethersproject/providers@5.7.2)(@ethersproject/wallet@5.7.0)(@lens-protocol/metadata@1.0.5)(@vercel/kv@1.0.1)(ethers@5.7.2)(zod@3.22.4)
-      '@lens-protocol/metadata': 1.0.5(zod@3.22.4)
+      '@lens-protocol/gated-content': 0.4.0-alpha.22(@ethersproject/abi@5.7.0)(@ethersproject/address@5.7.0)(@ethersproject/bignumber@5.7.0)(@ethersproject/contracts@5.7.0)(@ethersproject/hash@5.7.0)(@ethersproject/providers@5.7.2)(@ethersproject/wallet@5.7.0)(@lens-protocol/metadata@1.1.5)(@vercel/kv@1.0.1)(ethers@5.7.2)(zod@3.22.4)
+      '@lens-protocol/metadata': 1.1.5(zod@3.22.4)
       '@lens-protocol/shared-kernel': 0.11.0-alpha.11
       '@lens-protocol/storage': 0.8.0-alpha.10
       graphql: 16.8.1
@@ -9017,7 +9017,7 @@ packages:
       tslib: 2.6.2
     dev: false
 
-  /@lens-protocol/gated-content@0.4.0-alpha.22(@ethersproject/abi@5.7.0)(@ethersproject/address@5.7.0)(@ethersproject/bignumber@5.7.0)(@ethersproject/contracts@5.7.0)(@ethersproject/hash@5.7.0)(@ethersproject/providers@5.7.2)(@ethersproject/wallet@5.7.0)(@lens-protocol/metadata@1.0.5)(@vercel/kv@1.0.1)(ethers@5.7.2)(zod@3.22.4):
+  /@lens-protocol/gated-content@0.4.0-alpha.22(@ethersproject/abi@5.7.0)(@ethersproject/address@5.7.0)(@ethersproject/bignumber@5.7.0)(@ethersproject/contracts@5.7.0)(@ethersproject/hash@5.7.0)(@ethersproject/providers@5.7.2)(@ethersproject/wallet@5.7.0)(@lens-protocol/metadata@1.1.5)(@vercel/kv@1.0.1)(ethers@5.7.2)(zod@3.22.4):
     resolution: {integrity: sha512-+co2r5TEy85EUOhI7vQu+UaL5GIcpxn4VTkvxZkfuFWUBKTpULl210NrIg2zN2UiXaU387tQZA03MyBicW6SsA==}
     peerDependencies:
       '@ethersproject/abi': ^5.7.0
@@ -9037,7 +9037,7 @@ packages:
       '@ethersproject/hash': 5.7.0
       '@ethersproject/providers': 5.7.2
       '@ethersproject/wallet': 5.7.0
-      '@lens-protocol/metadata': 1.0.5(zod@3.22.4)
+      '@lens-protocol/metadata': 1.1.5(zod@3.22.4)
       '@lens-protocol/shared-kernel': 0.11.0-alpha.11
       '@lens-protocol/storage': 0.8.0-alpha.10
       '@lit-protocol/constants': 2.1.62
@@ -9069,8 +9069,8 @@ packages:
       - utf-8-validate
     dev: false
 
-  /@lens-protocol/metadata@1.0.5(zod@3.22.4):
-    resolution: {integrity: sha512-ZRy4rg6QlYe8d4FlpEMHAHJGQaAsxrf4BSps3XspBkTkiOx0rBTn0aMxLxPndJ7IJFoSj425xmg6wRbdcdewrg==}
+  /@lens-protocol/metadata@1.1.5(zod@3.22.4):
+    resolution: {integrity: sha512-leO6Vq4VCV8jkfB2uHwVuyHjz1kwse2JB0avFXhGm3ZBYsQ7Hazw7IlR58wlcn3TEqg5a4DkQ9uG6l/idkbSPQ==}
     engines: {node: ^v18.12.1}
     peerDependencies:
       zod: ^3.22.3
@@ -35938,7 +35938,7 @@ time:
   /@hookform/resolvers@3.1.1: '2023-06-12T17:05:20.706Z'
   /@json2csv/plainjs@7.0.1: '2023-05-31T09:42:24.217Z'
   /@lens-protocol/client@2.0.0-alpha.34: '2024-02-26T14:30:58.061Z'
-  /@lens-protocol/metadata@1.0.5: '2023-11-08T08:46:44.189Z'
+  /@lens-protocol/metadata@1.1.5: '2023-12-14T09:26:18.439Z'
   /@lexical/hashtag@0.12.5: '2023-12-06T20:09:50.380Z'
   /@lexical/link@0.12.5: '2023-12-06T20:10:25.433Z'
   /@lexical/markdown@0.12.5: '2023-12-06T20:10:35.387Z'
