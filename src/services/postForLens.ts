@@ -169,6 +169,7 @@ export async function commentPostForLens(
     content: string,
     images: MediaObject[],
     video: MediaObject | null,
+    onMomoka?: boolean,
 ) {
     const profile = await LensSocialMediaProvider.getProfileById(profileId);
 
@@ -188,7 +189,7 @@ export async function commentPostForLens(
     const tokenRes = await LensSocialMediaProvider.getAccessToken();
     const token = tokenRes.unwrap();
     const arweaveId = await uploadToArweave(metadata, token);
-    return LensSocialMediaProvider.commentPost(postId, `ar://${arweaveId}`, profile.signless);
+    return LensSocialMediaProvider.commentPost(postId, `ar://${arweaveId}`, profile.signless, onMomoka);
 }
 
 export async function quotePostForLens(
@@ -197,6 +198,7 @@ export async function quotePostForLens(
     content: string,
     images: MediaObject[],
     video: MediaObject | null,
+    onMomoka?: boolean,
 ) {
     const profile = await LensSocialMediaProvider.getProfileById(profileId);
 
@@ -216,6 +218,6 @@ export async function quotePostForLens(
     const tokenRes = await LensSocialMediaProvider.getAccessToken();
     const token = tokenRes.unwrap();
     const arweaveId = await uploadToArweave(metadata, token);
-    const post = await LensSocialMediaProvider.quotePost(postId, `ar://${arweaveId}`, profile.signless);
+    const post = await LensSocialMediaProvider.quotePost(postId, `ar://${arweaveId}`, profile.signless, onMomoka);
     return post;
 }
