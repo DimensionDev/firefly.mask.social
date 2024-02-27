@@ -26,28 +26,16 @@ interface AccountSettingsProps {
 }
 
 export function AccountSettings({ source, profile }: AccountSettingsProps) {
-    const { currentProfile, currentProfileSession, profiles } =
+    const { currentProfile, currentProfileSession, profiles, refreshCurrentProfile, refreshProfiles } =
         useProfiles(source);
     const { login } = useSwitchLensAccount();
-    const { data: fetchedProfiles } = useQuery({
-        queryKey: ['profiles', source, profiles],
-        queryFn: () =>
-            Promise.all(
-                profiles.map(
-                    (profile) =>
-                        getProfileById(
-                            source,
-                            source === SocialPlatform.Lens ? profile.handle : profile.profileId,
-                        ) as Promise<Profile>,
-                ),
-            ),
-    });
-    const { data: fetchedProfile } = useQuery({
-        queryKey: ['profile', source, profile.profileId],
-        queryFn: () => getProfileById(source, source === SocialPlatform.Lens ? profile.handle : profile.profileId),
-    });
-
     const isLarge = useMediaQuery('(min-width: 1280px)');
+    useEffect(() => {
+        refreshCurrentProfile()
+    }, [refreshCurrentProfile])
+    useEffect(() => {
+        refreshProfiles()
+    }, [refreshProfiles])
 
     return (
         <Tippy

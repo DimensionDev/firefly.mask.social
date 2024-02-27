@@ -12,6 +12,8 @@ interface UseProfilesReturnType {
     currentProfileSession: Session | null;
     profiles: Profile[];
     clearCurrentProfile: () => void;
+    refreshProfiles: () => void;
+    refreshCurrentProfile: () => void;
 }
 
 export function useProfiles(source: SocialPlatform): UseProfilesReturnType {
@@ -23,6 +25,11 @@ export function useProfiles(source: SocialPlatform): UseProfilesReturnType {
     const farcasterProfiles = useFarcasterStateStore.use.profiles();
     const clearFarcasterCurrentProfile = useFarcasterStateStore.use.clearCurrentProfile();
     const clearLensCurrentProfile = useLensStateStore.use.clearCurrentProfile();
+    const refreshLensProfiles = useLensStateStore.use.refreshProfiles();
+    const refreshFarcasterProfiles = useFarcasterStateStore.use.refreshProfiles();
+    const refreshLensProfile = useLensStateStore.use.refreshCurrentProfile();
+    const refreshFarcasterProfile = useFarcasterStateStore.use.refreshCurrentProfile();
+
 
     return useMemo(() => {
         switch (source) {
@@ -32,6 +39,8 @@ export function useProfiles(source: SocialPlatform): UseProfilesReturnType {
                     currentProfileSession: currentLensProfileSession,
                     profiles: lensProfiles,
                     clearCurrentProfile: clearLensCurrentProfile,
+                    refreshProfiles: refreshLensProfiles,
+                    refreshCurrentProfile: refreshLensProfile,
                 };
             case SocialPlatform.Farcaster:
                 return {
@@ -39,6 +48,8 @@ export function useProfiles(source: SocialPlatform): UseProfilesReturnType {
                     currentProfileSession: currentFarcasterProfileSession,
                     profiles: farcasterProfiles,
                     clearCurrentProfile: clearFarcasterCurrentProfile,
+                    refreshProfiles: refreshFarcasterProfiles,
+                    refreshCurrentProfile: refreshFarcasterProfile,
                 };
             default:
                 safeUnreachable(source);
@@ -47,6 +58,8 @@ export function useProfiles(source: SocialPlatform): UseProfilesReturnType {
                     currentProfileSession: null,
                     profiles: EMPTY_LIST,
                     clearCurrentProfile: () => {},
+                    refreshCurrentProfile: () => {},
+                    refreshProfiles: () => {},
                 };
         }
     }, [
@@ -61,7 +74,7 @@ export function useProfiles(source: SocialPlatform): UseProfilesReturnType {
         clearLensCurrentProfile,
         refreshFarcasterProfile,
         refreshLensProfile,
-        updateLensProfiles,
-        updateFarcasterProfiles,
+        refreshFarcasterProfiles,
+        refreshLensProfiles,
     ]);
 }
