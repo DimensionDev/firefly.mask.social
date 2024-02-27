@@ -38,10 +38,10 @@ const useFarcasterStateBase = create<ProfileState, [['zustand/persist', unknown]
                     state.currentProfile = profile;
                     state.currentProfileSession = session;
                 }),
-            refreshCurrentProfile: (profile: Profile) =>{
+            refreshCurrentProfile: (profile: Profile) => {
                 set((state) => {
                     state.currentProfile = profile;
-                })
+                });
             },
             clearCurrentProfile: () =>
                 set((state) => {
@@ -92,10 +92,10 @@ const useLensStateBase = create<ProfileState, [['zustand/persist', unknown], ['z
                     state.currentProfile = profile;
                     state.currentProfileSession = session;
                 }),
-            refreshCurrentProfile: (profile: Profile) =>{
+            refreshCurrentProfile: (profile: Profile) => {
                 set((state) => {
                     state.currentProfile = profile;
-                })
+                });
             },
             clearCurrentProfile: () =>
                 set((state) => {

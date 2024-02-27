@@ -13,7 +13,7 @@ interface UseProfilesReturnType {
     profiles: Profile[];
     clearCurrentProfile: () => void;
     refreshCurrentProfile: (profile: Profile) => void;
-    updateProfiles: (profiles: Profile[]) => void;  
+    updateProfiles: (profiles: Profile[]) => void;
 }
 
 export function useProfiles(source: SocialPlatform): UseProfilesReturnType {
@@ -57,7 +57,7 @@ export function useProfiles(source: SocialPlatform): UseProfilesReturnType {
                     currentProfileSession: null,
                     profiles: EMPTY_LIST,
                     clearCurrentProfile: () => {},
-                    refreshCurrentProfile: (profile :Profile) => {},
+                    refreshCurrentProfile: (profile: Profile) => {},
                     updateProfiles: (profiles: Profile[]) => {},
                 };
         }

@@ -26,7 +26,8 @@ interface AccountSettingsProps {
 }
 
 export function AccountSettings({ source, profile }: AccountSettingsProps) {
-    const { currentProfile, currentProfileSession, profiles, updateProfiles, refreshCurrentProfile } = useProfiles(source);
+    const { currentProfile, currentProfileSession, profiles, updateProfiles, refreshCurrentProfile } =
+        useProfiles(source);
     const { login } = useSwitchLensAccount();
     const { data: fetchedProfiles } = useQuery({
         queryKey: ['profiles', source, profiles],
@@ -50,12 +51,12 @@ export function AccountSettings({ source, profile }: AccountSettingsProps) {
         if (fetchedProfiles) {
             updateProfiles(fetchedProfiles);
         }
-    }, [fetchedProfiles, updateProfiles])
+    }, [fetchedProfiles, updateProfiles]);
     useEffect(() => {
         if (fetchedProfile) {
-            refreshCurrentProfile(fetchedProfile)
+            refreshCurrentProfile(fetchedProfile);
         }
-    }, [fetchedProfile, refreshCurrentProfile])
+    }, [fetchedProfile, refreshCurrentProfile]);
 
     const isLarge = useMediaQuery('(min-width: 1280px)');
 
