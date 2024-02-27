@@ -305,12 +305,10 @@ export class LensSocialMedia implements Provider {
                     throw new Error(`Something went wrong: ${JSON.stringify(broadcastValue)}`);
                 }
 
-                const hash = broadcastValue.txHash;
-                return pollingWithRetry(() => this.getPostByTxHash(hash), 10, 2000);
+                return this.getPostByTxHashWithPolling(broadcastValue.txHash);
             }
 
-            const hash = resultValue.txHash;
-            return pollingWithRetry(() => this.getPostByTxHash(hash), 10, 2000);
+            return this.getPostByTxHashWithPolling(resultValue.txHash);
         }
     }
 
@@ -404,13 +402,11 @@ export class LensSocialMedia implements Provider {
                     throw new Error(`Something went wrong: ${JSON.stringify(broadcastValue)}`);
                 }
 
-                const hash = broadcastValue.txHash;
-                const post = await pollingWithRetry(() => this.getPostByTxHash(hash), 10, 2000);
+                const post = await this.getPostByTxHashWithPolling(broadcastValue.txHash);
                 return post.postId;
             }
 
-            const hash = resultValue.txHash;
-            const post = await pollingWithRetry(() => this.getPostByTxHash(hash), 10, 2000);
+            const post = await this.getPostByTxHashWithPolling(resultValue.txHash);
 
             return post.postId;
         }
@@ -493,6 +489,10 @@ export class LensSocialMedia implements Provider {
 
         const post = formatLensPost(result);
         return post;
+    }
+
+    private async getPostByTxHashWithPolling(txHash: string): Promise<Post> {
+        return pollingWithRetry(this.getPostByTxHash.bind(this, txHash), 10, 2000);
     }
 
     async getCommentsById(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
