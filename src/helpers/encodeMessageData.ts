@@ -1,4 +1,4 @@
-import { FarcasterNetwork, Message, MessageData, NobleEd25519Signer } from '@farcaster/core';
+import { FarcasterNetwork, Message, MessageData, NobleEd25519Signer, toFarcasterTime } from '@farcaster/core';
 import { blake3 } from '@noble/hashes/blake3';
 import { bytesToHex } from '@noble/hashes/utils';
 import { toBytes } from 'viem';
@@ -21,6 +21,7 @@ export async function encodeMessageData(
     const messageData: MessageData = {
         ...withMessageData(fid),
         fid,
+        timestamp: toFarcasterTime(Date.now())._unsafeUnwrap(),
         network: FarcasterNetwork.MAINNET,
     };
     const messageDataBytes = MessageData.encode(messageData).finish();

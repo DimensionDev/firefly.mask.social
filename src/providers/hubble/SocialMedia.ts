@@ -1,4 +1,4 @@
-import { CastAddBody, Factories, fromFarcasterTime, Message, MessageType, ReactionType } from '@farcaster/core';
+import { CastAddBody, Factories, Message, MessageType, ReactionType } from '@farcaster/core';
 import { t } from '@lingui/macro';
 import { toInteger } from 'lodash-es';
 import urlcat from 'urlcat';
@@ -331,7 +331,6 @@ export class HubbleSocialMedia implements Provider {
             () => {
                 return {
                     type: MessageType.CAST_ADD,
-                    timestamp: fromFarcasterTime(Date.now())._unsafeUnwrap(),
                     castAddBody: undefined,
                 };
             },
@@ -370,6 +369,7 @@ export class HubbleSocialMedia implements Provider {
                         hash: toBytes(postId),
                     },
                     inputText: input ? toBytes(input) : new Uint8Array([]),
+                    state: frame.state ? toBytes(frame.state) : new Uint8Array([]),
                 },
             }),
             async (messageData, signer) => {
@@ -397,6 +397,7 @@ export class HubbleSocialMedia implements Provider {
                     fid: messageData.fid,
                     hash: postId,
                 },
+                state: frame.state,
             },
             trustedData: {
                 // no 0x prefix

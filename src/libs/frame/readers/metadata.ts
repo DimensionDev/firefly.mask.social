@@ -87,3 +87,12 @@ export function getButtons(document: Document): FrameButton[] {
         }),
     ).sort((a, z) => a.index - z.index);
 }
+
+export function getAspectRatio(document: Document): '1.91:1' | '1:1' {
+    const aspect = q(document, 'fc:frame:aspect_ratio')?.getAttribute('content') ?? '1.91:1';
+    return aspect === '1:1' ? '1:1' : '1.91:1';
+}
+
+export function getState(document: Document) {
+    return q(document, 'fc:frame:state')?.getAttribute('content') ?? null;
+}

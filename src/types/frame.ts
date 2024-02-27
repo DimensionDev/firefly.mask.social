@@ -50,6 +50,10 @@ export interface Frame {
     buttons: FrameButton[];
     // fc:frame:refresh_period
     refreshPeriod: number;
+    // fc:frame:aspect_ratio
+    aspectRatio?: '1.91:1' | '1:1';
+    // fc:frame:state
+    state?: string;
 }
 
 export interface LinkDigested {
