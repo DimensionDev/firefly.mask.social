@@ -47,17 +47,6 @@ export function AccountSettings({ source, profile }: AccountSettingsProps) {
         queryFn: () => getProfileById(source, source === SocialPlatform.Lens ? profile.handle : profile.profileId),
     });
 
-    useEffect(() => {
-        if (fetchedProfiles) {
-            updateProfiles(fetchedProfiles);
-        }
-    }, [fetchedProfiles, updateProfiles]);
-    useEffect(() => {
-        if (fetchedProfile) {
-            refreshCurrentProfile(fetchedProfile);
-        }
-    }, [fetchedProfile, refreshCurrentProfile]);
-
     const isLarge = useMediaQuery('(min-width: 1280px)');
 
     return (
