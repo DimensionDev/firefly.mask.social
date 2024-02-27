@@ -1,5 +1,7 @@
 /* cspell:disable */
 
+import { fetchText } from '@/helpers/fetchText.js';
+
 /**
  * Modified version of https://unpkg.com/twemoji@13.1.0/dist/twemoji.esm.js.
  */
@@ -49,4 +51,21 @@ export function getTwemojiUrls(content: string) {
         codes[match[0]] = `https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/${code}.svg`;
     }
     return codes;
+}
+
+export async function loadTwmojiUrls(content: string) {
+    const codes = getTwemojiUrls(content);
+    const allSettled = await Promise.allSettled(
+        Object.entries(codes).map(async ([emoji, url]) => {
+            return [
+                emoji,
+                `data:image/svg+xml;base64,${btoa(
+                    await fetchText(url, {
+                        cache: 'force-cache',
+                    }),
+                )}`,
+            ];
+        }),
+    );
+    return Object.fromEntries(allSettled.map((x) => (x.status === 'fulfilled' ? x.value : [])));
 }
