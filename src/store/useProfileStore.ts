@@ -50,19 +50,19 @@ const useFarcasterStateBase = create<ProfileState, [['zustand/persist', unknown]
                     state.currentProfile = updatedProfile;
                 });
             },
-            refreshProfiles: () => {
+            refreshProfiles: async () => {
                 const profile = get().currentProfile;
                 const profiles = get().profiles;
 
-                Promise.all(
+                const updatedProfiles = await Promise.all(
                     profiles.map((profile) => FarcasterSocialMediaProvider.getProfileById(profile.profileId)),
-                ).then((profiles) => {
-                    set((state) => {
-                        state.profiles = profiles;
+                );
 
-                        const currentProfile = profiles.find((p) => isSameProfile(p, profile));
-                        if (currentProfile) state.currentProfile = currentProfile;
-                    });
+                set((state) => {
+                    state.profiles = updatedProfiles;
+
+                    const currentProfile = profiles.find((p) => isSameProfile(p, profile));
+                    if (currentProfile) state.currentProfile = currentProfile;
                 });
             },
             clearCurrentProfile: () =>
@@ -122,19 +122,20 @@ const useLensStateBase = create<ProfileState, [['zustand/persist', unknown], ['z
                     state.currentProfile = updatedProfile;
                 });
             },
-            refreshProfiles: () => {
+            refreshProfiles: async () => {
                 const profile = get().currentProfile;
                 const profiles = get().profiles;
-                Promise.all(profiles.map((profile) => LensSocialMediaProvider.getProfileByHandle(profile.handle))).then(
-                    (profiles) => {
-                        set((state) => {
-                            state.profiles = profiles;
 
-                            const currentProfile = profiles.find((p) => isSameProfile(p, profile));
-                            if (currentProfile) state.currentProfile = currentProfile;
-                        });
-                    },
+                const updatedProfiles = await Promise.all(
+                    profiles.map((profile) => LensSocialMediaProvider.getProfileByHandle(profile.handle)),
                 );
+
+                set((state) => {
+                    state.profiles = updatedProfiles;
+
+                    const currentProfile = profiles.find((p) => isSameProfile(p, profile));
+                    if (currentProfile) state.currentProfile = currentProfile;
+                });
             },
             clearCurrentProfile: () =>
                 set((state) => {
