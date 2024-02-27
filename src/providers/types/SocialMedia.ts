@@ -135,6 +135,7 @@ export interface Post {
     hasMirrored?: boolean;
     hasLiked?: boolean;
     hasActed?: boolean;
+    hasQuoted?: boolean;
     __original__?: unknown;
     source: SocialPlatform;
 

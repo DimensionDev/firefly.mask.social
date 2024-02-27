@@ -1,6 +1,7 @@
 import { t } from '@lingui/macro';
 import { useCallback } from 'react';
 
+import { queryClient } from '@/configs/queryClient.js';
 import { readChars } from '@/helpers/readChars.js';
 import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
 import { commentPostForLens, publishPostForLens, quotePostForLens } from '@/services/postForLens.js';
@@ -86,6 +87,9 @@ export function useSendLens() {
                     variant: 'success',
                 });
                 updateLensPostId(comment);
+
+                queryClient.invalidateQueries({ queryKey: [post.source, 'post-detail', post.postId] });
+                queryClient.invalidateQueries({ queryKey: ['post-detail', 'comments', post.source, post.postId] });
             } catch (error) {
                 enqueueSnackbar(t`Failed to relay post on Lens.`, {
                     variant: 'error',
