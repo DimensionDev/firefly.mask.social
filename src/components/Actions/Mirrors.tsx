@@ -23,7 +23,7 @@ import type { Post } from '@/providers/types/SocialMedia.js';
 
 interface MirrorProps {
     shares?: number;
-    hasMirrored?: boolean;
+
     source: SocialPlatform;
     postId: string;
     disabled?: boolean;
@@ -33,7 +33,7 @@ interface MirrorProps {
 export const Mirror = memo<MirrorProps>(function Mirror({
     shares,
     source,
-    hasMirrored,
+
     postId,
     disabled = false,
     post,
@@ -41,7 +41,7 @@ export const Mirror = memo<MirrorProps>(function Mirror({
     const isLogin = useIsLogin(source);
 
     const enqueueSnackbar = useCustomSnackbar();
-    const [mirrored, setMirrored] = useState(hasMirrored);
+    const [mirrored, setMirrored] = useState(post.hasMirrored);
     const [count, setCount] = useState(shares);
 
     const content = useMemo(() => {
@@ -181,16 +181,16 @@ export const Mirror = memo<MirrorProps>(function Mirror({
                                 <MirrorIcon
                                     width={16}
                                     height={16}
-                                    className={mirrored ? 'text-secondarySuccess' : ''}
+                                    className={mirrored || post.hasQuoted ? 'text-secondarySuccess' : ''}
                                 />
                             )}
                         </Tooltip>
                         {count ? (
                             <span
                                 className={classNames('text-xs', {
-                                    'font-medium': !mirrored,
-                                    'font-bold': !!mirrored,
-                                    'text-secondarySuccess': !!mirrored,
+                                    'font-medium': !mirrored && !post.hasQuoted,
+                                    'font-bold': !!mirrored || !!post.hasQuoted,
+                                    'text-secondarySuccess': !!mirrored || !!post.hasQuoted,
                                 })}
                             >
                                 {nFormatter(count)}

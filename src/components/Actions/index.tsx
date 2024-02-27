@@ -57,7 +57,6 @@ export const PostActions = memo<PostActionsProps>(function PostActions({
                 shares={(post.stats?.mirrors ?? 0) + (post.stats?.quotes ?? 0)}
                 source={post.source}
                 postId={post.postId}
-                hasMirrored={post.hasMirrored}
                 post={post}
             />
             {post.source !== SocialPlatform.Farcaster && post.canAct ? (

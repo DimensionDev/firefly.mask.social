@@ -28,6 +28,7 @@ import { SocialPlatform } from '@/constants/enum.js';
 import { formatLensPost, formatLensPostByFeed, formatLensQuoteOrComment } from '@/helpers/formatLensPost.js';
 import { formatLensProfile } from '@/helpers/formatLensProfile.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
+import { pollingWithRetry } from '@/helpers/pollWithRetry.js';
 import { LensSession } from '@/providers/lens/Session.js';
 import {
     type LastLoggedInProfileRequest,
@@ -224,44 +225,90 @@ export class LensSocialMedia implements Provider {
     }
 
     // intro is the contentURI of the post
-    async quotePost(postId: string, intro: string, signless?: boolean): Promise<Post> {
-        if (signless) {
-            const result = await this.client.publication.quoteOnMomoka({
+    async quotePost(postId: string, intro: string, signless?: boolean, onMomoka?: boolean): Promise<Post> {
+        if (onMomoka) {
+            if (signless) {
+                const result = await this.client.publication.quoteOnMomoka({
+                    quoteOn: postId,
+                    contentURI: intro,
+                });
+                const resultValue = result.unwrap();
+
+                if (result.isFailure() || resultValue.__typename === 'LensProfileManagerRelayError')
+                    throw new Error(`Something went wrong: ${JSON.stringify(resultValue)}`);
+                return this.getPostById(resultValue.id);
+            } else {
+                const walletClient = await getWalletClientRequired();
+                const resultTypedData = await this.client.publication.createMomokaQuoteTypedData({
+                    quoteOn: postId,
+                    contentURI: intro,
+                });
+
+                const { id, typedData } = resultTypedData.unwrap();
+
+                const signedTypedData = await walletClient.signTypedData({
+                    domain: typedData.domain as TypedDataDomain,
+                    types: typedData.types,
+                    primaryType: 'Quote',
+                    message: typedData.value,
+                });
+
+                const broadcastResult = await this.client.transaction.broadcastOnMomoka({
+                    id,
+                    signature: signedTypedData,
+                });
+
+                const broadcastValue = broadcastResult.unwrap();
+
+                if (broadcastResult.isFailure() || broadcastValue.__typename === 'RelayError') {
+                    throw new Error(`Something went wrong: ${JSON.stringify(broadcastValue)}`);
+                }
+                return this.getPostById(broadcastValue.id);
+            }
+        } else {
+            const result = await this.client.publication.quoteOnchain({
                 quoteOn: postId,
                 contentURI: intro,
             });
+
             const resultValue = result.unwrap();
 
-            if (result.isFailure() || resultValue.__typename === 'LensProfileManagerRelayError')
-                throw new Error(`Something went wrong: ${JSON.stringify(resultValue)}`);
-            return this.getPostById(resultValue.id);
-        } else {
-            const walletClient = await getWalletClientRequired();
-            const resultTypedData = await this.client.publication.createMomokaQuoteTypedData({
-                quoteOn: postId,
-                contentURI: intro,
-            });
+            if (!isRelaySuccess(resultValue) || !resultValue.txHash) {
+                const walletClient = await getWalletClientRequired();
 
-            const { id, typedData } = resultTypedData.unwrap();
+                const resultTypedData = await this.client.publication.createOnchainQuoteTypedData({
+                    quoteOn: postId,
+                    contentURI: intro,
+                });
 
-            const signedTypedData = await walletClient.signTypedData({
-                domain: typedData.domain as TypedDataDomain,
-                types: typedData.types,
-                primaryType: 'Quote',
-                message: typedData.value,
-            });
+                const { id, typedData } = resultTypedData.unwrap();
 
-            const broadcastResult = await this.client.transaction.broadcastOnMomoka({
-                id,
-                signature: signedTypedData,
-            });
+                const signedTypedData = await walletClient.signTypedData({
+                    domain: typedData.domain as TypedDataDomain,
+                    types: typedData.types,
+                    primaryType: 'Quote',
+                    message: typedData.value,
+                });
 
-            const broadcastValue = broadcastResult.unwrap();
+                const broadcastResult = await this.client.transaction.broadcastOnchain({
+                    id,
+                    signature: signedTypedData,
+                });
 
-            if (broadcastResult.isFailure() || broadcastValue.__typename === 'RelayError') {
-                throw new Error(`Something went wrong: ${JSON.stringify(broadcastValue)}`);
+                const broadcastValue = broadcastResult.unwrap();
+
+                if (
+                    broadcastResult.isFailure() ||
+                    broadcastValue.__typename === 'RelayError' ||
+                    !broadcastValue.txHash
+                ) {
+                    throw new Error(`Something went wrong: ${JSON.stringify(broadcastValue)}`);
+                }
+
+                return this.getPostByTxHashWithPolling(broadcastValue.txHash);
             }
-            return this.getPostById(broadcastValue.id);
+
+            return this.getPostByTxHashWithPolling(resultValue.txHash);
         }
     }
 
@@ -274,45 +321,94 @@ export class LensSocialMedia implements Provider {
     }
 
     // comment is the contentURI of the post
-    async commentPost(postId: string, comment: string, signless?: boolean): Promise<string> {
-        if (signless) {
-            const result = await this.client.publication.commentOnMomoka({
+    async commentPost(postId: string, comment: string, signless?: boolean, onMomoka?: boolean): Promise<string> {
+        if (onMomoka) {
+            if (signless) {
+                const result = await this.client.publication.commentOnMomoka({
+                    commentOn: postId,
+                    contentURI: comment,
+                });
+                const resultValue = result.unwrap();
+
+                if (result.isFailure() || resultValue.__typename === 'LensProfileManagerRelayError')
+                    throw new Error(`Something went wrong: ${JSON.stringify(resultValue)}`);
+
+                return resultValue.id;
+            } else {
+                const walletClient = await getWalletClientRequired();
+                const resultTypedData = await this.client.publication.createMomokaCommentTypedData({
+                    commentOn: postId,
+                    contentURI: comment,
+                });
+
+                const { id, typedData } = resultTypedData.unwrap();
+
+                const signedTypedData = await walletClient.signTypedData({
+                    domain: typedData.domain as TypedDataDomain,
+                    types: typedData.types,
+                    primaryType: 'Comment',
+                    message: typedData.value,
+                });
+
+                const broadcastResult = await this.client.transaction.broadcastOnMomoka({
+                    id,
+                    signature: signedTypedData,
+                });
+
+                const broadcastValue = broadcastResult.unwrap();
+
+                if (broadcastResult.isFailure() || broadcastValue.__typename === 'RelayError') {
+                    throw new Error(`Something went wrong: ${JSON.stringify(broadcastValue)}`);
+                }
+                return broadcastValue.id;
+            }
+        } else {
+            const result = await this.client.publication.commentOnchain({
                 commentOn: postId,
                 contentURI: comment,
             });
+
             const resultValue = result.unwrap();
 
-            if (result.isFailure() || resultValue.__typename === 'LensProfileManagerRelayError')
-                throw new Error(`Something went wrong: ${JSON.stringify(resultValue)}`);
+            if (!isRelaySuccess(resultValue) || !resultValue.txHash) {
+                const walletClient = await getWalletClientRequired();
 
-            return resultValue.id;
-        } else {
-            const walletClient = await getWalletClientRequired();
-            const resultTypedData = await this.client.publication.createMomokaCommentTypedData({
-                commentOn: postId,
-                contentURI: comment,
-            });
+                const resultTypedData = await this.client.publication.createOnchainCommentTypedData({
+                    commentOn: postId,
+                    contentURI: comment,
+                });
 
-            const { id, typedData } = resultTypedData.unwrap();
+                const { id, typedData } = resultTypedData.unwrap();
 
-            const signedTypedData = await walletClient.signTypedData({
-                domain: typedData.domain as TypedDataDomain,
-                types: typedData.types,
-                primaryType: 'Comment',
-                message: typedData.value,
-            });
+                const signedTypedData = await walletClient.signTypedData({
+                    domain: typedData.domain as TypedDataDomain,
+                    types: typedData.types,
+                    primaryType: 'Comment',
+                    message: typedData.value,
+                });
 
-            const broadcastResult = await this.client.transaction.broadcastOnMomoka({
-                id,
-                signature: signedTypedData,
-            });
+                const broadcastResult = await this.client.transaction.broadcastOnchain({
+                    id,
+                    signature: signedTypedData,
+                });
 
-            const broadcastValue = broadcastResult.unwrap();
+                const broadcastValue = broadcastResult.unwrap();
 
-            if (broadcastResult.isFailure() || broadcastValue.__typename === 'RelayError') {
-                throw new Error(`Something went wrong: ${JSON.stringify(broadcastValue)}`);
+                if (
+                    broadcastResult.isFailure() ||
+                    broadcastValue.__typename === 'RelayError' ||
+                    !broadcastValue.txHash
+                ) {
+                    throw new Error(`Something went wrong: ${JSON.stringify(broadcastValue)}`);
+                }
+
+                const post = await this.getPostByTxHashWithPolling(broadcastValue.txHash);
+                return post.postId;
             }
-            return broadcastValue.id;
+
+            const post = await this.getPostByTxHashWithPolling(resultValue.txHash);
+
+            return post.postId;
         }
     }
 
@@ -393,6 +489,10 @@ export class LensSocialMedia implements Provider {
 
         const post = formatLensPost(result);
         return post;
+    }
+
+    private async getPostByTxHashWithPolling(txHash: string): Promise<Post> {
+        return pollingWithRetry(this.getPostByTxHash.bind(this, txHash), 10, 2000);
     }
 
     async getCommentsById(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {

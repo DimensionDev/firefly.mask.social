@@ -82,6 +82,7 @@ export function useSendLens() {
                     readChars(chars),
                     uploadedImages,
                     uploadedVideo,
+                    !!post.momoka?.proof,
                 );
                 enqueueSnackbar(t`Replied on Lens`, {
                     variant: 'success',
@@ -105,12 +106,18 @@ export function useSendLens() {
                     readChars(chars),
                     uploadedImages,
                     uploadedVideo,
+                    !!post.momoka?.proof,
                 );
                 enqueueSnackbar(t`Posted on Lens`, {
                     variant: 'success',
                 });
 
                 updateLensPostId(quote.postId);
+
+                await queryClient.setQueryData([post.source, 'post-detail', post.postId], {
+                    ...post,
+                    hasQuoted: true,
+                });
             } catch (error) {
                 enqueueSnackbar(t`Failed to quote post on Lens.`, {
                     variant: 'error',
