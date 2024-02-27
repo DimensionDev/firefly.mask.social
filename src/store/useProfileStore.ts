@@ -19,6 +19,7 @@ interface ProfileState {
     currentProfileSession: Session | null;
     updateProfiles: (profiles: Profile[]) => void;
     updateCurrentProfile: (profile: Profile, session: Session) => void;
+    refreshCurrentProfile: (profile: Profile) => void;
     clearCurrentProfile: () => void;
 }
 
@@ -37,6 +38,11 @@ const useFarcasterStateBase = create<ProfileState, [['zustand/persist', unknown]
                     state.currentProfile = profile;
                     state.currentProfileSession = session;
                 }),
+            refreshCurrentProfile: (profile: Profile) =>{
+                set((state) => {
+                    state.currentProfile = profile;
+                })
+            },
             clearCurrentProfile: () =>
                 set((state) => {
                     queryClient.resetQueries({
@@ -86,6 +92,11 @@ const useLensStateBase = create<ProfileState, [['zustand/persist', unknown], ['z
                     state.currentProfile = profile;
                     state.currentProfileSession = session;
                 }),
+            refreshCurrentProfile: (profile: Profile) =>{
+                set((state) => {
+                    state.currentProfile = profile;
+                })
+            },
             clearCurrentProfile: () =>
                 set((state) => {
                     queryClient.resetQueries({
