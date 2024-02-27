@@ -1,7 +1,6 @@
 'use client';
 
 import { Trans } from '@lingui/macro';
-import { useQuery } from '@tanstack/react-query';
 import { useMediaQuery } from 'usehooks-ts';
 
 import LogOutIcon from '@/assets/logout.svg';
@@ -17,7 +16,7 @@ import { useProfiles } from '@/hooks/useProfiles.js';
 import { useSwitchLensAccount } from '@/hooks/useSwitchLensAccount.js';
 import { LoginModalRef, LogoutModalRef } from '@/modals/controls.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
-import { getProfileById } from '@/services/getProfileById.js';
+import { useEffect } from 'react';
 
 interface AccountSettingsProps {
     source: SocialPlatform;
