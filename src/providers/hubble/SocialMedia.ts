@@ -368,6 +368,7 @@ export class HubbleSocialMedia implements Provider {
                         fid,
                         hash: toBytes(postId),
                     },
+                    timestamp: messageData.timestamp,
                     inputText: input ? toBytes(input) : new Uint8Array([]),
                     state: frame.state ? toBytes(frame.state) : new Uint8Array([]),
                 },
