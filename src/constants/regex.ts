@@ -1,7 +1,4 @@
-/* eslint-disable no-useless-escape */
-
-export const URL_REGEX =
-    /(https:\/\/www\.|http:\/\/www\.|https:\/\/|http:\/\/)?[a-zA-Z-]{2,}(\.[a-zA-Z-]{2,})(\.[a-zA-Z-]{2,})?\b([-a-zA-Z0-9()@:%_+~#?&//=]*)|((https:\/\/www\.|http:\/\/www\.|https:\/\/|http:\/\/)?[a-zA-Z-]{2,}(\.[a-zA-Z-]{2,})(\.[a-zA-Z-]{2,})?)|(https?:\/\/)?[a-zA-Z0-9-]{2,}(\.[a-zA-Z0-9-]{2,})+(\.[a-zA-Z0-9-]{2,})(\/[-a-zA-Z0-9()@:%_\+.~#?&//=]*)?/gu;
+export const URL_REGEX = /((https?:\/\/)?[a-zA-Z0-9]+([-.]{1}[a-zA-Z0-9]+)*\.[a-zA-Z]{2,}(:[0-9]{1,5})?(\/.*)?)/gi;
 
 export const EMAIL_REGEX =
     /(([^\s"(),.:;<>@[\\\]]+(\.[^\s"(),.:;<>@[\\\]]+)*)|(".+"))@((\[(?:\d{1,3}\.){3}\d{1,3}])|(([\dA-Za-z-]+\.)+[A-Za-z]{2,}))/;
