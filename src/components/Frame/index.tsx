@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
 import { openWindow } from '@masknet/shared-base-ui';
 import { isValidDomain } from '@masknet/web3-shared-evm';
@@ -12,6 +12,7 @@ import { Input } from '@/components/Frame/Input.js';
 import { Image } from '@/esm/Image.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
+import { ConfirmModalRef } from '@/modals/controls.js';
 import { HubbleSocialMediaProvider } from '@/providers/hubble/SocialMedia.js';
 import { ActionType, type Frame, type FrameButton, type LinkDigested } from '@/types/frame.js';
 import type { ResponseJSON } from '@/types/index.js';
@@ -59,56 +60,71 @@ export function Frame({ postId, url, onData, children }: FrameProps) {
 
                 const { action, index, target } = button;
 
+                const confirm = () =>
+                    ConfirmModalRef.openAndWaitForClose({
+                        title: t`Leaving Firefly`,
+                        content: (
+                            <div className=" text-main">
+                                <Trans>
+                                    Please be cautious when connecting your wallet, as malicious websites may attempt to
+                                    access your funds.
+                                </Trans>
+                            </div>
+                        ),
+                    });
+
+                const post = async () => {
+                    const url = urlcat('/api/frame', {
+                        url: frame.url,
+                        action,
+                        'post-url': target || frame.postUrl || frame.url,
+                    });
+                    const packet = await HubbleSocialMediaProvider.generateFrameSignaturePacket(
+                        postId,
+                        frame,
+                        index,
+                        input,
+                        // for initial frame should not provide state
+                        latestFrame && frame.state ? frame.state : undefined,
+                    );
+
+                    await HubbleSocialMediaProvider.validateMessage(packet.trustedData.messageBytes);
+
+                    return fetchJSON<ResponseJSON<LinkDigested | { redirectUrl: string }>>(url, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(packet),
+                    });
+                };
+
                 switch (action) {
                     case ActionType.Post:
+                        const postResponse = await post();
+                        const nextFrame = postResponse.success ? (postResponse.data as LinkDigested).frame : null;
+                        if (!nextFrame)
+                            return enqueueSnackbar(t`The frame server failed to process the request.`, {
+                                variant: 'error',
+                            });
+
+                        setLatestFrame(nextFrame);
+                        break;
                     case ActionType.PostRedirect:
-                        const packet = await HubbleSocialMediaProvider.generateFrameSignaturePacket(
-                            postId,
-                            frame,
-                            index,
-                            input,
-                        );
+                        const postRedirectResponse = await post();
+                        const redirectUrl = postRedirectResponse.success
+                            ? (postRedirectResponse.data as { redirectUrl: string }).redirectUrl
+                            : null;
+                        if (!redirectUrl)
+                            return enqueueSnackbar(t`The frame server failed to process the request.`, {
+                                variant: 'error',
+                            });
 
-                        console.log('DEBUG: packet');
-                        console.log(packet);
-
-                        await HubbleSocialMediaProvider.validateMessage(packet.trustedData.messageBytes);
-
-                        const url = urlcat('/api/frame', {
-                            url: frame.url,
-                            action,
-                            'post-url': target || frame.postUrl || frame.url,
-                        });
-                        const response = await fetchJSON<ResponseJSON<LinkDigested | { redirectUrl: string }>>(url, {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                            },
-                            body: JSON.stringify(packet),
-                        });
-
-                        if (action === ActionType.Post) {
-                            const nextFrame = response.success ? (response.data as LinkDigested).frame : null;
-                            if (!nextFrame)
-                                return enqueueSnackbar(t`The frame server failed to process the request.`, {
-                                    variant: 'error',
-                                });
-
-                            setLatestFrame(nextFrame);
-                        } else if (action === ActionType.PostRedirect) {
-                            const redirectUrl = response.success
-                                ? (response.data as { redirectUrl: string }).redirectUrl
-                                : null;
-                            if (!redirectUrl)
-                                return enqueueSnackbar(t`The frame server failed to process the request.`, {
-                                    variant: 'error',
-                                });
-
-                            openWindow(redirectUrl, '_blank');
-                        }
+                        if (await confirm()) openWindow(redirectUrl, '_blank');
                         break;
                     case ActionType.Link:
-                        if (button.target) openWindow(button.target, '_blank');
+                        if (!button.target) return;
+                        if (await confirm()) openWindow(button.target, '_blank');
                         break;
                     case ActionType.Mint:
                         enqueueSnackbar(t`Mint button is not available yet.`);
@@ -124,7 +140,7 @@ export function Frame({ postId, url, onData, children }: FrameProps) {
             }
             return;
         },
-        [frame, postId, enqueueSnackbar],
+        [frame, latestFrame, postId, enqueueSnackbar],
     );
 
     if (isLoading) return null;

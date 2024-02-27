@@ -56,10 +56,6 @@ export async function POST(request: Request) {
         body: JSON.stringify(packet),
     });
 
-    console.log('DEBUG: frame/route.ts');
-    console.log(packet);
-    console.log(response);
-
     switch (action) {
         case ActionType.Post:
             if (!response.ok || response.status < 200 || response.status >= 300)
@@ -79,10 +75,14 @@ export async function POST(request: Request) {
                         redirectUrl: locationUrl,
                     });
             }
-            return createSuccessResponseJSON({
-                redirectUrl: postUrl,
-            });
-
+            return Response.json(
+                {
+                    error: 'The frame server cannot handle the post-redirect request correctly.',
+                },
+                {
+                    status: 500,
+                },
+            );
         case ActionType.Link:
             return Response.json(
                 {

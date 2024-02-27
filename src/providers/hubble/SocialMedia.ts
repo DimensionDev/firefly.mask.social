@@ -321,13 +321,6 @@ export class HubbleSocialMedia implements Provider {
             method: 'POST',
             body: Buffer.from(messageBytes, 'hex'),
         });
-
-        console.log('DEBUG: valid');
-        console.log({
-            valid,
-            message,
-        });
-
         if (valid) return true;
         return false;
     }
@@ -364,6 +357,8 @@ export class HubbleSocialMedia implements Provider {
         frame: Frame,
         index: Index,
         input?: string,
+        // the state is not read from frame, for initial frame it should not provide state
+        state?: string,
     ): Promise<FrameSignaturePacket> {
         const { messageBytes, messageData, messageDataHash } = await encodeMessageData(
             (fid) => ({
@@ -376,7 +371,7 @@ export class HubbleSocialMedia implements Provider {
                         hash: toBytes(postId),
                     },
                     inputText: input ? toBytes(input) : new Uint8Array([]),
-                    state: frame.state ? toBytes(frame.state) : new Uint8Array([]),
+                    state: state ? toBytes(state) : new Uint8Array([]),
                 },
             }),
             async (messageData, signer) => {
@@ -391,7 +386,7 @@ export class HubbleSocialMedia implements Provider {
             },
         );
 
-        return {
+        const packet = {
             untrustedData: {
                 fid: messageData.fid,
                 url: frame.url,
@@ -399,8 +394,8 @@ export class HubbleSocialMedia implements Provider {
                 timestamp: messageData.timestamp,
                 network: messageData.network,
                 buttonIndex: index,
-                inputText: input || '',
-                state: frame.state || '',
+                inputText: input,
+                state,
                 castId: {
                     fid: messageData.fid,
                     hash: postId,
@@ -411,6 +406,10 @@ export class HubbleSocialMedia implements Provider {
                 messageBytes: Buffer.from(messageBytes).toString('hex'),
             },
         };
+
+        if (typeof packet.untrustedData.state === 'undefined') delete packet.untrustedData.state;
+
+        return packet;
     }
 }
 

@@ -3,8 +3,8 @@ export type Index = 1 | 2 | 3 | 4;
 export enum ActionType {
     Post = 'post',
     PostRedirect = 'post_redirect',
-    Link = 'Link',
-    Mint = 'Mint',
+    Link = 'link',
+    Mint = 'mint',
 }
 
 export interface FrameInput {
