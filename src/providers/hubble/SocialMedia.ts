@@ -359,7 +359,7 @@ export class HubbleSocialMedia implements Provider {
         input?: string,
     ): Promise<FrameSignaturePacket> {
         const { messageBytes, messageData, messageDataHash } = await encodeMessageData(
-            (fid) => ({
+            (fid, timestamp) => ({
                 type: MessageType.FRAME_ACTION,
                 frameActionBody: {
                     url: toBytes(frame.url),
@@ -368,7 +368,7 @@ export class HubbleSocialMedia implements Provider {
                         fid,
                         hash: toBytes(postId),
                     },
-                    timestamp: messageData.timestamp,
+                    timestamp,
                     inputText: input ? toBytes(input) : new Uint8Array([]),
                     state: frame.state ? toBytes(frame.state) : new Uint8Array([]),
                 },
