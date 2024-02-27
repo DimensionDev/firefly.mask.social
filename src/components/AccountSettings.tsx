@@ -1,6 +1,7 @@
 'use client';
 
 import { Trans } from '@lingui/macro';
+import { useEffect } from 'react';
 import { useMediaQuery } from 'usehooks-ts';
 
 import LogOutIcon from '@/assets/logout.svg';
@@ -16,7 +17,6 @@ import { useProfiles } from '@/hooks/useProfiles.js';
 import { useSwitchLensAccount } from '@/hooks/useSwitchLensAccount.js';
 import { LoginModalRef, LogoutModalRef } from '@/modals/controls.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
-import { useEffect } from 'react';
 
 interface AccountSettingsProps {
     source: SocialPlatform;
@@ -24,13 +24,10 @@ interface AccountSettingsProps {
 }
 
 export function AccountSettings({ source, profile }: AccountSettingsProps) {
-    const { currentProfile, currentProfileSession, profiles, refreshCurrentProfile, refreshProfiles } =
-        useProfiles(source);
+    const { currentProfile, currentProfileSession, profiles, refreshProfiles } = useProfiles(source);
     const { login } = useSwitchLensAccount();
     const isLarge = useMediaQuery('(min-width: 1280px)');
-    useEffect(() => {
-        refreshCurrentProfile();
-    }, [refreshCurrentProfile]);
+
     useEffect(() => {
         refreshProfiles();
     }, [refreshProfiles]);

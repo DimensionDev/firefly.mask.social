@@ -9,11 +9,12 @@ import { SocialPlatform } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 import { createSessionStorage } from '@/helpers/createSessionStorage.js';
+import { isSameProfile } from '@/helpers/isSameProfile.js';
 import type { FarcasterSession } from '@/providers/farcaster/Session.js';
+import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
+import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import type { Session } from '@/providers/types/Session.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
-import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
-import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 
 interface ProfileState {
     profiles: Profile[];
@@ -50,12 +51,17 @@ const useFarcasterStateBase = create<ProfileState, [['zustand/persist', unknown]
                 });
             },
             refreshProfiles: () => {
+                const profile = get().currentProfile;
                 const profiles = get().profiles;
+
                 Promise.all(
                     profiles.map((profile) => FarcasterSocialMediaProvider.getProfileById(profile.profileId)),
                 ).then((profiles) => {
                     set((state) => {
                         state.profiles = profiles;
+
+                        const currentProfile = profiles.find((p) => isSameProfile(p, profile));
+                        if (currentProfile) state.currentProfile = currentProfile;
                     });
                 });
             },
@@ -117,11 +123,15 @@ const useLensStateBase = create<ProfileState, [['zustand/persist', unknown], ['z
                 });
             },
             refreshProfiles: () => {
+                const profile = get().currentProfile;
                 const profiles = get().profiles;
                 Promise.all(profiles.map((profile) => LensSocialMediaProvider.getProfileByHandle(profile.handle))).then(
                     (profiles) => {
                         set((state) => {
                             state.profiles = profiles;
+
+                            const currentProfile = profiles.find((p) => isSameProfile(p, profile));
+                            if (currentProfile) state.currentProfile = currentProfile;
                         });
                     },
                 );
