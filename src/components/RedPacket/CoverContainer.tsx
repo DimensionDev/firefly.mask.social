@@ -19,6 +19,11 @@ export function CoverContainer({ theme, children, ...props }: CoverContainerProp
                 fontSize: 30,
                 fontWeight: 400,
                 fontFamily: 'Inter',
+                // Disabled because of reduced performance
+                // backgroundSize: '100% 100%',
+                // backgroundImage: theme.normal.bg_image ? `url("${theme.normal.bg_image}")` : '',
+                // backgroundColor: theme.normal.bg_color ?? 'transparent',
+                backgroundRepeat: 'no-repeat',
                 borderRadius: 45,
                 ...props.ContainerStyle,
             }}
