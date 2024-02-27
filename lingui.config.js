@@ -21,6 +21,7 @@ export default {
                 'src/providers/**',
                 'src/modals/**',
                 'src/store/**',
+                'src/services/**',
             ],
             exclude: ['src/maskbook/**'],
         },
