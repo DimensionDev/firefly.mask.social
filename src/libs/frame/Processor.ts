@@ -50,9 +50,6 @@ class Processor {
         const aspectRatio = getAspectRatio(document);
         const state = getState(document);
 
-        console.log('DEBUG: buttons');
-        console.log(buttons);
-
         if (postUrl) frame.postUrl = postUrl;
         if (input) frame.input = input;
         if (buttons.length) frame.buttons = buttons;
