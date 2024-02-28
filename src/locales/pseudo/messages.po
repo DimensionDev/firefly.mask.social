@@ -184,9 +184,6 @@ msgstr ""
 msgid "Confirmation"
 msgstr ""
 
-msgid "Not the wallet associated with your account"
-msgstr ""
-
 msgid "Follow more friends to continue exploring on {0}."
 msgstr ""
 
@@ -329,6 +326,9 @@ msgid "Visit firefly.land"
 msgstr ""
 
 msgid "Failed to upvote post."
+msgstr ""
+
+msgid "Please switch to the wallet used for login"
 msgstr ""
 
 msgid "Post your reply"

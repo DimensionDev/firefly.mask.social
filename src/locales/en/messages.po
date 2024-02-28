@@ -184,9 +184,6 @@ msgstr "Check out my LuckyDrop 🧧💰✨ on Firefly mobile app or {SITE_URL} !
 msgid "Confirmation"
 msgstr "Confirmation"
 
-msgid "Not the wallet associated with your account"
-msgstr "Not the wallet associated with your account"
-
 msgid "Follow more friends to continue exploring on {0}."
 msgstr "Follow more friends to continue exploring on {0}."
 
@@ -330,6 +327,9 @@ msgstr "Visit firefly.land"
 
 msgid "Failed to upvote post."
 msgstr "Failed to upvote post."
+
+msgid "Please switch to the wallet used for login"
+msgstr "Please switch to the wallet used for login"
 
 msgid "Post your reply"
 msgstr "Post your reply"
