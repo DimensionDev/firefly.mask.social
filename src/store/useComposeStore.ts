@@ -23,7 +23,7 @@ interface ComposeState {
     // the parent post id
     lensPostId: string | null;
     farcasterPostId: string | null;
-    frame: Frame | null;
+    frames: Frame[];
     post: OrphanPost | null;
     chars: Chars;
     typedMessage: TypedMessageTextV1 | null;
@@ -39,13 +39,14 @@ interface ComposeState {
     updateChars: Dispatch<SetStateAction<Chars>>;
     updateTypedMessage: (typedMessage: TypedMessageTextV1 | null) => void;
     updateLoading: (loading: boolean) => void;
-    updateFrame: (frame: Frame | null) => void;
+    updateFrames: Dispatch<SetStateAction<Frame[]>>;
     updatePost: (post: OrphanPost | null) => void;
     updateVideo: (video: MediaObject | null) => void;
     updateImages: Dispatch<SetStateAction<MediaObject[]>>;
     addImage: (image: MediaObject) => void;
-    // remove a single image
     removeImage: (image: MediaObject) => void;
+    addFrame: (frame: Frame) => void;
+    removeFrame: (frame: Frame) => void;
     updateLensPostId: (postId: string | null) => void;
     updateFarcasterPostId: (postId: string | null) => void;
     updateRedpacketProps: (value: RedpacketProps) => void;
@@ -58,7 +59,7 @@ function createInitState() {
         availableSources: [SocialPlatform.Farcaster, SocialPlatform.Lens] as SocialPlatform[],
         currentSource: null,
         draft: null,
-        frame: null,
+        frames: EMPTY_LIST,
         post: null,
         chars: '',
         typedMessage: null,
@@ -101,25 +102,33 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
             set((state) => {
                 state.images = typeof images === 'function' ? images(state.images) : images;
             }),
-        updateFrame: (frame) =>
+        updateFrames: (frames) =>
             set((state) => {
-                state.frame = frame;
+                state.frames = typeof frames === 'function' ? frames(state.frames) : frames;
             }),
         updatePost: (post) =>
             set((state) => {
                 state.post = post;
             }),
-        addImage: (image) =>
-            set((state) => {
-                state.images = [...state.images, image];
-            }),
         updateVideo: (video) =>
             set((state) => {
                 state.video = video;
             }),
+        addImage: (image) =>
+            set((state) => {
+                state.images = [...state.images, image];
+            }),
         removeImage: (target) =>
             set((state) => {
                 state.images = state.images.filter((image) => image.file !== target.file);
+            }),
+        addFrame: (frame) =>
+            set((state) => {
+                state.frames = state.frames ? [...state.frames, frame] : [frame];
+            }),
+        removeFrame: (target) =>
+            set((state) => {
+                state.frames = state.frames?.filter((frame) => frame !== target);
             }),
         updateLensPostId: (postId) =>
             set((state) => {
