@@ -92,7 +92,14 @@ export function PostByItem({ source }: PostByItemProps) {
             }}
         >
             <div className=" flex items-center gap-2">
-                <Avatar src={profile.pfp} size={24} alt={profile.handle} style={{ height: 24 }} />
+                <div className="relative">
+                    <Avatar src={profile.pfp} size={24} alt={profile.handle} />
+                    <SourceIcon
+                        className="absolute -bottom-1 -right-1 z-10 rounded-full border border-white dark:border-gray-900"
+                        source={profile.source}
+                        size={12}
+                    />
+                </div>
                 <span
                     className={classNames(
                         ' font-bold',
