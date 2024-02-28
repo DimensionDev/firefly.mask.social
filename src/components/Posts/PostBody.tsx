@@ -14,7 +14,7 @@ import { Markup, NakedMarkup } from '@/components/Markup/index.js';
 import Oembed from '@/components/Oembed/index.js';
 import { Attachments } from '@/components/Posts/Attachment.js';
 import { Quote } from '@/components/Posts/Quote.js';
-import { EMPTY_LIST } from '@/constants/index.js';
+import { EMPTY_LIST, MAX_FRAME_SIZE_PER_POST } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getEncryptedPayloadFromImageAttachment, getEncryptedPayloadFromText } from '@/helpers/getEncryptedPayload.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
@@ -178,18 +178,17 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
                 />
             ) : null}
 
-            {post.metadata.content?.oembedUrl ? (
-                process.env.NEXT_PUBLIC_FRAMES === 'enabled' ? (
-                    <Frame
-                        postId={post.postId}
-                        url={post.metadata.content.oembedUrl}
-                        onData={() => setEndingLinkCollapsed(true)}
-                    >
-                        <Oembed url={post.metadata.content.oembedUrl} onData={() => setEndingLinkCollapsed(true)} />
+            {post.metadata.content?.oembedUrls?.length && process.env.NEXT_PUBLIC_FRAMES === 'enabled' ? (
+                post.metadata.content.oembedUrls.slice(MAX_FRAME_SIZE_PER_POST * -1).map((oembedUrl, i, urls) => (
+                    <Frame key={oembedUrl} url={oembedUrl} postId={post.postId}>
+                        {/* oembed for the last url */}
+                        {i === urls.length - 1 ? (
+                            <Oembed url={oembedUrl} onData={() => setEndingLinkCollapsed(true)} />
+                        ) : null}
                     </Frame>
-                ) : (
-                    <Oembed url={post.metadata.content.oembedUrl} onData={() => setEndingLinkCollapsed(true)} />
-                )
+                ))
+            ) : post.metadata.content?.oembedUrl ? (
+                <Oembed url={post.metadata.content.oembedUrl} onData={() => setEndingLinkCollapsed(true)} />
             ) : null}
 
             {!!post.quoteOn && !isQuote ? <Quote post={post.quoteOn} /> : null}

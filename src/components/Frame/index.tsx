@@ -83,8 +83,8 @@ export function FrameUI({ frame, readonly = false, loading = false, onButtonClic
 interface FrameProps {
     url: string;
     postId: string;
-    onData?: (frame: Frame) => void;
     children?: React.ReactNode;
+    onData?: (frame: Frame) => void;
 }
 
 export function Frame({ postId, url, onData, children }: FrameProps) {

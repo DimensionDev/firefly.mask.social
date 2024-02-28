@@ -53,6 +53,9 @@ export const MAX_POST_SIZE = 280;
 export const DANGER_POST_SIZE = 260;
 export const SAFE_POST_SIZE = 200;
 
+// POST
+export const MAX_FRAME_SIZE_PER_POST = 3
+
 // HTTP Cache headers
 // Cache for 1 minute, stale for 30 days
 export const SWR_CACHE_AGE_1_MIN_30_DAYS = 'public, s-maxage=1, stale-while-revalidate=2592000';

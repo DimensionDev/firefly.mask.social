@@ -11,7 +11,7 @@ import { useComposeStateStore } from '@/store/useComposeStore.js';
 
 interface ComposeContentProps {}
 export default function ComposeContent(props: ComposeContentProps) {
-    const { type, post, images, video, frame } = useComposeStateStore();
+    const { type, post, images, video, frames } = useComposeStateStore();
 
     return (
         <div className="p-4">
@@ -52,7 +52,7 @@ export default function ComposeContent(props: ComposeContentProps) {
                     ) : null}
 
                     {/* frame */}
-                    {frame ? <FrameUI frame={frame} readonly /> : null}
+                    {frames.length ? frames.map((f) => <FrameUI key={f.url} frame={f} readonly />) : null}
                 </div>
             </label>
         </div>
