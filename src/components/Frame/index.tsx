@@ -19,13 +19,15 @@ import { ActionType, type Frame, type FrameButton, type LinkDigested } from '@/t
 import type { ResponseJSON } from '@/types/index.js';
 
 interface FrameProps {
+    // if a frame is readonly, its not possible to interact with it
+    readonly?: boolean;
     postId: string;
     url: string;
     onData?: (frame: Frame) => void;
     children?: React.ReactNode;
 }
 
-export function Frame({ postId, url, onData, children }: FrameProps) {
+export function Frame({ readonly = false, postId, url, onData, children }: FrameProps) {
     const enqueueSnackbar = useCustomSnackbar();
 
     const inputRef = useRef<HTMLInputElement>(null);
@@ -197,8 +199,9 @@ export function Frame({ postId, url, onData, children }: FrameProps) {
                             <Button
                                 key={button.index}
                                 button={button}
-                                disabled={isLoadingNextFrame}
+                                disabled={isLoadingNextFrame || readonly}
                                 onClick={() => {
+                                    if (readonly) return;
                                     if (!isLoadingNextFrame) handleClick(button, inputRef.current?.value);
                                 }}
                             />
