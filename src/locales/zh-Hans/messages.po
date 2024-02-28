@@ -673,7 +673,7 @@ msgid "mirrored"
 msgstr "已转发"
 
 msgid "Following"
-msgstr "关注"
+msgstr "正在关注"
 
 msgid "<0>{0}</0> recasted"
 msgstr "<0>{0}</0> 已转发"

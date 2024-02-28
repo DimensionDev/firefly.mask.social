@@ -439,7 +439,7 @@ export class WarpcastSocialMedia implements Provider {
             limit: 25,
             cursor: indicator?.id,
         });
-        const { result, next } = await fetchJSON<SearchUsersResponse>(url, {
+        const { result, next } = await farcasterClient.fetch<SearchUsersResponse>(url, {
             method: 'GET',
         });
         const data = result.users.map(formatWarpcastUser);
@@ -456,7 +456,7 @@ export class WarpcastSocialMedia implements Provider {
             limit: 25,
             cursor: indicator?.id,
         });
-        const { result, next } = await fetchJSON<SearchCastsResponse>(url, {
+        const { result, next } = await farcasterClient.fetch<SearchCastsResponse>(url, {
             method: 'GET',
         });
         const data = result.casts.map(formatWarpcastPost);
