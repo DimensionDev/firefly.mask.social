@@ -12,7 +12,8 @@ import { RedPacketPayload } from '@/components/RedPacket/Payload.js';
 import { CACHE_AGE_INDEFINITE_ON_DISK, FIREFLY_ROOT_URL, SITE_URL } from '@/constants/index.js';
 import { fetchArrayBuffer } from '@/helpers/fetchArrayBuffer.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
-import { loadTwmojiUrls } from '@/helpers/getTwemojiUrls.js';
+import { loadTwmojiUrls } from '@/helpers/loadTwemojiUrls.js';
+import { removeVS16s } from '@/helpers/removeVS16s.js';
 import { Locale } from '@/types/index.js';
 import { CoBrandType, TokenType, UsageType } from '@/types/rp.js';
 
@@ -161,21 +162,22 @@ async function createImage(params: z.infer<typeof CoverSchema> | z.infer<typeof 
     const [fonts, theme] = await Promise.all([getFonts(signal), getTheme(themeId, signal)]);
 
     switch (usage) {
-        case UsageType.Cover: {
+        case UsageType.Cover:
+            // satori might not support VS16s, so we remove them here
+            params.message = removeVS16s(params.message);
+
             return satori(<RedPacketCover theme={theme} {...params} />, {
                 width: 1200,
                 height: 840,
                 fonts,
                 graphemeImages: await loadTwmojiUrls(params.message),
             });
-        }
-        case UsageType.Payload: {
+        case UsageType.Payload:
             return satori(<RedPacketPayload theme={theme} {...params} />, {
                 width: 1200,
                 height: 840,
                 fonts,
             });
-        }
         default:
             safeUnreachable(usage);
             return;
