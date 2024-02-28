@@ -288,6 +288,9 @@ importers:
       ts-results-es:
         specifier: ^4.0.0
         version: 4.0.0
+      twemoji-parser:
+        specifier: ^14.0.0
+        version: 14.0.0
       typescript:
         specifier: 5.3.0-beta
         version: 5.3.0-beta
@@ -352,6 +355,9 @@ importers:
       '@types/react-dom':
         specifier: ^18.2.18
         version: 18.2.18
+      '@types/twemoji-parser':
+        specifier: ^13.1.4
+        version: 13.1.4
       '@types/uuid':
         specifier: ^9.0.3
         version: 9.0.3
@@ -15057,6 +15063,10 @@ packages:
   /@types/trusted-types@2.0.6:
     resolution: {integrity: sha512-HYtNooPvUY9WAVRBr4u+4Qa9fYD1ze2IUlAD3HoA6oehn1taGwBx3Oa52U4mTslTS+GAExKpaFu39Y5xUEwfjg==}
     dev: false
+
+  /@types/twemoji-parser@13.1.4:
+    resolution: {integrity: sha512-pDZcn6irxV/CD8C9cAEyZeECKFGZud8R5Zvs9PLO+5361GXu8khZ2peEwidMwq1dqYFSAbSQCUNkWDl87DsX2g==}
+    dev: true
 
   /@types/twitter-text@3.1.7:
     resolution: {integrity: sha512-8I5BMG2vSMV6pCL3X+aseuCUX6YpXeb2dBErA4p0dOi18fXNpy2401ovJk+jF8unIpXKO2MhWdJV3obrqo8C8A==}
@@ -33159,6 +33169,10 @@ packages:
     resolution: {integrity: sha512-5kO2XCcpAql6zjdLwRwJjYvAZyDy3+Uj7v1ipBzLthQmDL7Ce19bEqHr3ImSNeoSW2OA8u02XmARbXHaNO8GhA==}
     dev: false
 
+  /twemoji-parser@14.0.0:
+    resolution: {integrity: sha512-9DUOTGLOWs0pFWnh1p6NF+C3CkQ96PWmEFwhOVmT3WbecRC+68AIqpsnJXygfkFcp4aXbOp8Dwbhh/HQgvoRxA==}
+    dev: false
+
   /twitter-text@3.1.0:
     resolution: {integrity: sha512-nulfUi3FN6z0LUjYipJid+eiwXvOLb8Ass7Jy/6zsXmZK3URte043m8fL3FyDzrK+WLpyqhHuR/TcARTN/iuGQ==}
     dependencies:
@@ -36004,6 +36018,7 @@ time:
   /@types/react@18.2.48: '2024-01-15T09:07:06.676Z'
   /@types/socket.io-client@1.4.36: '2021-03-12T14:48:11.667Z'
   /@types/tinycolor2@1.4.3: '2021-07-02T19:42:46.758Z'
+  /@types/twemoji-parser@13.1.4: '2023-11-07T18:13:43.442Z'
   /@types/twitter-text@3.1.7: '2023-10-18T16:50:37.249Z'
   /@types/use-subscription@1.0.0: '2019-09-24T21:49:42.206Z'
   /@types/uuid@9.0.3: '2023-08-30T20:17:13.185Z'
@@ -36177,6 +36192,7 @@ time:
   /ts-results-es@4.0.0: '2023-08-08T10:13:15.427Z'
   /tslib@2.6.2: '2023-08-18T17:41:58.755Z'
   /tss-react@4.9.0: '2023-08-18T06:18:25.345Z'
+  /twemoji-parser@14.0.0: '2022-03-11T07:32:07.545Z'
   /twitter-text@3.1.0: '2020-03-31T18:30:37.518Z'
   /typechain@8.3.1: '2023-07-24T07:52:39.458Z'
   /typescript-eslint@7.0.2: '2024-02-19T17:16:45.821Z'
