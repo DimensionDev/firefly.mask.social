@@ -8,7 +8,7 @@ import type { Cast } from '@/providers/types/Firefly.js';
 import { type Attachment, type Post, type Profile, ProfileStatus } from '@/providers/types/SocialMedia.js';
 
 function formatContent(cast: Cast) {
-    const matchedUrl = last(cast.text.match(URL_REGEX));
+    const matchedUrl = last(cast.text.match(URL_REGEX)) || first(cast.embeds)?.url;
     const oembedUrl = matchedUrl ? (matchedUrl.startsWith('http') ? matchedUrl : `https://${matchedUrl}`) : undefined;
     const defaultContent = { content: cast.text, oembedUrl };
     if (cast.embeds.length) {
