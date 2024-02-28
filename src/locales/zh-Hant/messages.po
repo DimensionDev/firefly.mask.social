@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-02-27 12:01\n"
+"PO-Revision-Date: 2024-02-28 00:04\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Traditional\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -685,6 +685,9 @@ msgid "Login"
 msgstr ""
 
 msgid "Replying to <0>@{0}</0> on {1}"
+msgstr ""
+
+msgid "Mint button is not available yet."
 msgstr ""
 
 msgid "<0/> quoted your <1><2/></1>"
