@@ -20,7 +20,7 @@ interface ComposeState {
     availableSources: SocialPlatform[];
     // If source is null, it means to post to all platforms.
     currentSource: SocialPlatform | null;
-    /** Parent post */
+    // the parent post id
     lensPostId: string | null;
     farcasterPostId: string | null;
     frame: Frame | null;
@@ -44,9 +44,8 @@ interface ComposeState {
     updateVideo: (video: MediaObject | null) => void;
     updateImages: Dispatch<SetStateAction<MediaObject[]>>;
     addImage: (image: MediaObject) => void;
+    // remove a singal image
     removeImage: (image: MediaObject) => void;
-    removePost: () => void;
-    removeFrame: () => void;
     updateLensPostId: (postId: string | null) => void;
     updateFarcasterPostId: (postId: string | null) => void;
     updateRedpacketProps: (value: RedpacketProps) => void;
@@ -109,14 +108,6 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
         updatePost: (post) =>
             set((state) => {
                 state.post = post;
-            }),
-        removeFrame: () =>
-            set((state) => {
-                state.frame = null;
-            }),
-        removePost: () =>
-            set((state) => {
-                state.post = null;
             }),
         addImage: (image) =>
             set((state) => {
