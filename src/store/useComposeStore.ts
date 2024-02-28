@@ -44,7 +44,7 @@ interface ComposeState {
     updateVideo: (video: MediaObject | null) => void;
     updateImages: Dispatch<SetStateAction<MediaObject[]>>;
     addImage: (image: MediaObject) => void;
-    // remove a singal image
+    // remove a single image
     removeImage: (image: MediaObject) => void;
     updateLensPostId: (postId: string | null) => void;
     updateFarcasterPostId: (postId: string | null) => void;
