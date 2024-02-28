@@ -93,8 +93,6 @@ export function Frame({ postId, url, onData, children }: FrameProps) {
                         latestFrame && frame.state ? frame.state : undefined,
                     );
 
-                    await HubbleSocialMediaProvider.validateMessage(packet.trustedData.messageBytes);
-
                     return fetchJSON<ResponseJSON<LinkDigested | { redirectUrl: string }>>(url, {
                         method: 'POST',
                         headers: {
@@ -113,14 +111,21 @@ export function Frame({ postId, url, onData, children }: FrameProps) {
                                 variant: 'error',
                             });
 
+                        // in case the image loaded after loading state is set to false
+                        if (nextFrame.image.url) {
+                            try {
+                                await untilImageUrlLoaded(nextFrame.image.url, AbortSignal.timeout(3_000));
+                            } catch {
+                                // ignore
+                            }
+                        }
+
                         setLatestFrame(nextFrame);
 
                         // there is only one input field in the frame
                         // when a new frame arrives, clear the input field
                         if (inputRef.current) inputRef.current.value = '';
 
-                        // in case the image loaded after loading state is set to false
-                        await untilImageUrlLoaded(nextFrame.image.url);
                         break;
                     case ActionType.PostRedirect:
                         const postRedirectResponse = await post();
@@ -152,7 +157,7 @@ export function Frame({ postId, url, onData, children }: FrameProps) {
             }
             return;
         },
-        [frame, latestFrame, nextFrame?.image.url, postId, enqueueSnackbar],
+        [frame, latestFrame, postId, enqueueSnackbar],
     );
 
     if (isLoadingFrame) return null;
