@@ -9,6 +9,7 @@ import { EMPTY_LIST } from '@/constants/index.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 import type { Chars } from '@/helpers/readChars.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
+import type { Frame } from '@/types/frame.js';
 import type { MediaObject, RedpacketProps } from '@/types/index.js';
 
 // A recursive version of Post will cause typescript failed to infer the type of the final exports.
@@ -22,6 +23,7 @@ interface ComposeState {
     /** Parent post */
     lensPostId: string | null;
     farcasterPostId: string | null;
+    frame: Frame | null;
     post: OrphanPost | null;
     chars: Chars;
     typedMessage: TypedMessageTextV1 | null;
@@ -37,11 +39,14 @@ interface ComposeState {
     updateChars: Dispatch<SetStateAction<Chars>>;
     updateTypedMessage: (typedMessage: TypedMessageTextV1 | null) => void;
     updateLoading: (loading: boolean) => void;
+    updateFrame: (frame: Frame | null) => void;
     updatePost: (post: OrphanPost | null) => void;
     updateVideo: (video: MediaObject | null) => void;
     updateImages: Dispatch<SetStateAction<MediaObject[]>>;
     addImage: (image: MediaObject) => void;
     removeImage: (image: MediaObject) => void;
+    removePost: () => void;
+    removeFrame: () => void;
     updateLensPostId: (postId: string | null) => void;
     updateFarcasterPostId: (postId: string | null) => void;
     updateRedpacketProps: (value: RedpacketProps) => void;
@@ -54,6 +59,7 @@ function createInitState() {
         availableSources: [SocialPlatform.Farcaster, SocialPlatform.Lens] as SocialPlatform[],
         currentSource: null,
         draft: null,
+        frame: null,
         post: null,
         chars: '',
         typedMessage: null,
@@ -96,9 +102,17 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
             set((state) => {
                 state.images = typeof images === 'function' ? images(state.images) : images;
             }),
+        updateFrame: (frame) =>
+            set((state) => {
+                state.frame = frame;
+            }),
         updatePost: (post) =>
             set((state) => {
                 state.post = post;
+            }),
+        removeFrame: () =>
+            set((state) => {
+                state.frame = null;
             }),
         removePost: () =>
             set((state) => {

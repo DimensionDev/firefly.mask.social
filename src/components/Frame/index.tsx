@@ -18,19 +18,78 @@ import { HubbleSocialMediaProvider } from '@/providers/hubble/SocialMedia.js';
 import { ActionType, type Frame, type FrameButton, type LinkDigested } from '@/types/frame.js';
 import type { ResponseJSON } from '@/types/index.js';
 
-interface FrameProps {
-    // if a frame is readonly, its not possible to interact with it
+interface FrameUIProps {
+    frame: Frame;
     readonly?: boolean;
-    postId: string;
+    loading?: boolean;
+    onButtonClick?: (button: FrameButton, input?: string) => Promise<void>;
+}
+
+export function FrameUI({ frame, readonly = false, loading = false, onButtonClick }: FrameUIProps) {
+    const inputRef = useRef<HTMLInputElement>(null);
+
+    return (
+        <div className=" mt-4 rounded-xl border border-line bg-bg p-2 text-sm">
+            <div className="relative">
+                {loading ? (
+                    <div
+                        className=" z10 absolute inset-0 overflow-hidden rounded-xl bg-white dark:bg-bg"
+                        style={{ boxShadow: '0px 0px 20px 0px rgba(0, 0, 0, 0.05)', backdropFilter: 'blur(4px)' }}
+                    />
+                ) : null}
+                <Image
+                    className="divider aspect-2 w-full rounded-xl object-cover"
+                    unoptimized
+                    priority={false}
+                    src={frame.image.url}
+                    alt={frame.title}
+                    width={frame.image.width}
+                    height={frame.image.height}
+                />
+            </div>
+            {frame.input ? (
+                <div className="mt-2 flex">
+                    <Input input={frame.input} ref={inputRef} />
+                </div>
+            ) : null}
+            {frame.buttons.length ? (
+                <div className="mt-2 flex gap-2">
+                    {frame.buttons
+                        .slice(0)
+                        .sort((a, z) => a.index - z.index)
+                        ?.map((button) => (
+                            <Button
+                                key={button.index}
+                                button={button}
+                                disabled={loading || readonly}
+                                onClick={async () => {
+                                    if (readonly) return;
+                                    if (loading) return;
+
+                                    // there is only one input field in the frame
+                                    // when a new frame arrives, clear the input field
+                                    if (inputRef.current) inputRef.current.value = '';
+
+                                    await onButtonClick?.(button, inputRef.current?.value);
+                                }}
+                            />
+                        ))}
+                </div>
+            ) : null}
+        </div>
+    );
+}
+
+interface FrameProps {
     url: string;
+    postId: string;
     onData?: (frame: Frame) => void;
     children?: React.ReactNode;
 }
 
-export function Frame({ readonly = false, postId, url, onData, children }: FrameProps) {
+export function Frame({ postId, url, onData, children }: FrameProps) {
     const enqueueSnackbar = useCustomSnackbar();
 
-    const inputRef = useRef<HTMLInputElement>(null);
     const [latestFrame, setLatestFrame] = useState<Frame | null>(null);
 
     const {
@@ -108,10 +167,12 @@ export function Frame({ readonly = false, postId, url, onData, children }: Frame
                     case ActionType.Post:
                         const postResponse = await post();
                         const nextFrame = postResponse.success ? (postResponse.data as LinkDigested).frame : null;
-                        if (!nextFrame)
-                            return enqueueSnackbar(t`The frame server failed to process the request.`, {
+                        if (!nextFrame) {
+                            enqueueSnackbar(t`The frame server failed to process the request.`, {
                                 variant: 'error',
                             });
+                            return;
+                        }
 
                         // in case the image loaded after loading state is set to false
                         if (nextFrame.image.url) {
@@ -123,21 +184,18 @@ export function Frame({ readonly = false, postId, url, onData, children }: Frame
                         }
 
                         setLatestFrame(nextFrame);
-
-                        // there is only one input field in the frame
-                        // when a new frame arrives, clear the input field
-                        if (inputRef.current) inputRef.current.value = '';
-
                         break;
                     case ActionType.PostRedirect:
                         const postRedirectResponse = await post();
                         const redirectUrl = postRedirectResponse.success
                             ? (postRedirectResponse.data as { redirectUrl: string }).redirectUrl
                             : null;
-                        if (!redirectUrl)
-                            return enqueueSnackbar(t`The frame server failed to process the request.`, {
+                        if (!redirectUrl) {
+                            enqueueSnackbar(t`The frame server failed to process the request.`, {
                                 variant: 'error',
                             });
+                            return;
+                        }
 
                         if (await confirm()) openWindow(redirectUrl, '_blank');
                         break;
@@ -166,48 +224,5 @@ export function Frame({ readonly = false, postId, url, onData, children }: Frame
 
     if (error || !frame) return children;
 
-    return (
-        <div className=" mt-4 rounded-xl border border-line bg-bg p-2 text-sm">
-            <div className="relative">
-                {isLoadingNextFrame ? (
-                    <div
-                        className=" z10 absolute inset-0 overflow-hidden rounded-xl bg-white dark:bg-bg"
-                        style={{ boxShadow: '0px 0px 20px 0px rgba(0, 0, 0, 0.05)', backdropFilter: 'blur(4px)' }}
-                    />
-                ) : null}
-                <Image
-                    className="divider aspect-2 w-full rounded-xl object-cover"
-                    unoptimized
-                    priority={false}
-                    src={frame.image.url}
-                    alt={frame.title}
-                    width={frame.image.width}
-                    height={frame.image.height}
-                />
-            </div>
-            {frame.input ? (
-                <div className="mt-2 flex">
-                    <Input input={frame.input} ref={inputRef} />
-                </div>
-            ) : null}
-            {frame.buttons.length ? (
-                <div className="mt-2 flex gap-2">
-                    {frame.buttons
-                        .slice(0)
-                        .sort((a, z) => a.index - z.index)
-                        ?.map((button) => (
-                            <Button
-                                key={button.index}
-                                button={button}
-                                disabled={isLoadingNextFrame || readonly}
-                                onClick={() => {
-                                    if (readonly) return;
-                                    if (!isLoadingNextFrame) handleClick(button, inputRef.current?.value);
-                                }}
-                            />
-                        ))}
-                </div>
-            ) : null}
-        </div>
-    );
+    return <FrameUI frame={frame} loading={isLoadingNextFrame} onButtonClick={handleClick} />;
 }
