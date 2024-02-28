@@ -28,11 +28,11 @@ export default function Embed({ og }: EmbedProps) {
                     ) : null}
                     <div className="flex items-center">
                         {!og.isLarge && og.image ? (
-                            <div className='h-36 w-36'>
+                            <div className="h-36 w-36">
                                 <Image
                                     className="rounded-l-xl border-r dark:border-gray-700"
-                                    layout='fill'
-                                    objectFit='contain'
+                                    layout="fill"
+                                    objectFit="contain"
                                     src={og.image.base64 || og.image.url}
                                     alt="Thumbnail"
                                 />
