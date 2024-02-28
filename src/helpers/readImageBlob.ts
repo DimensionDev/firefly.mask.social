@@ -1,13 +1,4 @@
-function untilImageLoaded(img: HTMLImageElement) {
-    return new Promise<HTMLImageElement>((resolve, reject) => {
-        if (img.complete) {
-            resolve(img);
-        } else {
-            img.onload = () => resolve(img);
-            img.onerror = () => reject(new Error('Failed to load image'));
-        }
-    });
-}
+import { untilImageLoaded } from '@/helpers/untilImageLoaded.js';
 
 /**
  * Read an image blob from an image element

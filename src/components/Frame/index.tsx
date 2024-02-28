@@ -11,6 +11,7 @@ import { Button } from '@/components/Frame/Button.js';
 import { Input } from '@/components/Frame/Input.js';
 import { Image } from '@/esm/Image.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { untilImageUrlLoaded } from '@/helpers/untilImageLoaded.js';
 import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
 import { ConfirmModalRef } from '@/modals/controls.js';
 import { HubbleSocialMediaProvider } from '@/providers/hubble/SocialMedia.js';
@@ -30,7 +31,11 @@ export function Frame({ postId, url, onData, children }: FrameProps) {
     const inputRef = useRef<HTMLInputElement>(null);
     const [latestFrame, setLatestFrame] = useState<Frame | null>(null);
 
-    const { isLoading, error, data } = useQuery({
+    const {
+        isLoading: isLoadingFrame,
+        error,
+        data,
+    } = useQuery({
         queryKey: ['frame', url],
         queryFn: () => {
             if (!url || isValidDomain(url)) return;
@@ -53,7 +58,7 @@ export function Frame({ postId, url, onData, children }: FrameProps) {
 
     const frame: Frame | null = latestFrame ?? (data?.success ? data.data.frame : null);
 
-    const [{ loading }, handleClick] = useAsyncFn(
+    const [{ loading: isLoadingNextFrame }, handleClick] = useAsyncFn(
         async (button: FrameButton, input?: string) => {
             try {
                 if (!frame) return;
@@ -88,8 +93,6 @@ export function Frame({ postId, url, onData, children }: FrameProps) {
                         latestFrame && frame.state ? frame.state : undefined,
                     );
 
-                    await HubbleSocialMediaProvider.validateMessage(packet.trustedData.messageBytes);
-
                     return fetchJSON<ResponseJSON<LinkDigested | { redirectUrl: string }>>(url, {
                         method: 'POST',
                         headers: {
@@ -108,8 +111,21 @@ export function Frame({ postId, url, onData, children }: FrameProps) {
                                 variant: 'error',
                             });
 
+                        // in case the image loaded after loading state is set to false
+                        if (nextFrame.image.url) {
+                            try {
+                                await untilImageUrlLoaded(nextFrame.image.url, AbortSignal.timeout(3_000));
+                            } catch {
+                                // ignore
+                            }
+                        }
+
                         setLatestFrame(nextFrame);
+
+                        // there is only one input field in the frame
+                        // when a new frame arrives, clear the input field
                         if (inputRef.current) inputRef.current.value = '';
+
                         break;
                     case ActionType.PostRedirect:
                         const postRedirectResponse = await post();
@@ -144,14 +160,14 @@ export function Frame({ postId, url, onData, children }: FrameProps) {
         [frame, latestFrame, postId, enqueueSnackbar],
     );
 
-    if (isLoading) return null;
+    if (isLoadingFrame) return null;
 
     if (error || !frame) return children;
 
     return (
         <div className=" mt-4 rounded-xl border border-line bg-bg p-2 text-sm">
             <div className="relative">
-                {loading ? (
+                {isLoadingNextFrame ? (
                     <div
                         className=" z10 absolute inset-0 overflow-hidden rounded-xl bg-white dark:bg-bg"
                         style={{ boxShadow: '0px 0px 20px 0px rgba(0, 0, 0, 0.05)', backdropFilter: 'blur(4px)' }}
@@ -181,9 +197,9 @@ export function Frame({ postId, url, onData, children }: FrameProps) {
                             <Button
                                 key={button.index}
                                 button={button}
-                                disabled={loading}
+                                disabled={isLoadingNextFrame}
                                 onClick={() => {
-                                    if (!loading) handleClick(button, inputRef.current?.value);
+                                    if (!isLoadingNextFrame) handleClick(button, inputRef.current?.value);
                                 }}
                             />
                         ))}

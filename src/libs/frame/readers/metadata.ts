@@ -1,7 +1,7 @@
 import { compact, last } from 'lodash-es';
 
 import { q, qsAll } from '@/helpers/q.js';
-import { type FrameButton, type FrameInput } from '@/types/frame.js';
+import { ActionType, type FrameButton, type FrameInput } from '@/types/frame.js';
 
 export function getTitle(document: Document): string | null {
     return (
@@ -58,7 +58,8 @@ export function getButtons(document: Document): FrameButton[] {
             const parsedIndex = Number.parseInt(index, 10);
             if (Number.isNaN(parsedIndex) || parsedIndex < 1 || parsedIndex > 4) return null;
 
-            const action = q(document, `fc:frame:button:${parsedIndex}:action`)?.getAttribute('content');
+            const action =
+                q(document, `fc:frame:button:${parsedIndex}:action`)?.getAttribute('content') ?? ActionType.Post;
             const target = q(document, `fc:frame:button:${parsedIndex}:target`)?.getAttribute('content');
 
             return {
