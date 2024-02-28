@@ -1,3 +1,5 @@
+/* cspell:disable */
+
 // Learn more:
 // https://github.com/twitter/twemoji-parser/blob/f8312f35fdee0e79874bb50213c4544c14fa759b/src/index.js
 
