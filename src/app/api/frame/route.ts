@@ -24,6 +24,17 @@ export async function GET(request: Request) {
     return createSuccessResponseJSON(linkDigested);
 }
 
+export async function DELETE(request: Request) {
+    const { searchParams } = new URL(request.url);
+
+    const link = searchParams.get('link');
+    if (!link) return Response.json({ error: 'Missing link' }, { status: 400 });
+
+    await digestLinkRedis.cache.delete(link);
+
+    return createSuccessResponseJSON(null);
+}
+
 const HttpUrlSchema = z
     .string()
     .url()
