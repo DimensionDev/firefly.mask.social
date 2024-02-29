@@ -1,4 +1,4 @@
-import { canParseURL } from '@/helpers/canParseURL';
+import { canParseURL } from '@/helpers/canParseURL.js';
 
 export function resolveImgurUrl(url: string | undefined) {
     if (!url) return url;
