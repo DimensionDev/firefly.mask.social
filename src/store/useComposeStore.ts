@@ -9,6 +9,7 @@ import { EMPTY_LIST } from '@/constants/index.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 import type { Chars } from '@/helpers/readChars.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
+import type { Frame } from '@/types/frame.js';
 import type { MediaObject, RedpacketProps } from '@/types/index.js';
 
 // A recursive version of Post will cause typescript failed to infer the type of the final exports.
@@ -19,9 +20,10 @@ interface ComposeState {
     availableSources: SocialPlatform[];
     // If source is null, it means to post to all platforms.
     currentSource: SocialPlatform | null;
-    /** Parent post */
+    // the parent post id
     lensPostId: string | null;
     farcasterPostId: string | null;
+    frames: Frame[];
     post: OrphanPost | null;
     chars: Chars;
     typedMessage: TypedMessageTextV1 | null;
@@ -37,11 +39,14 @@ interface ComposeState {
     updateChars: Dispatch<SetStateAction<Chars>>;
     updateTypedMessage: (typedMessage: TypedMessageTextV1 | null) => void;
     updateLoading: (loading: boolean) => void;
+    updateFrames: Dispatch<SetStateAction<Frame[]>>;
     updatePost: (post: OrphanPost | null) => void;
     updateVideo: (video: MediaObject | null) => void;
     updateImages: Dispatch<SetStateAction<MediaObject[]>>;
     addImage: (image: MediaObject) => void;
     removeImage: (image: MediaObject) => void;
+    addFrame: (frame: Frame) => void;
+    removeFrame: (frame: Frame) => void;
     updateLensPostId: (postId: string | null) => void;
     updateFarcasterPostId: (postId: string | null) => void;
     updateRedpacketProps: (value: RedpacketProps) => void;
@@ -54,6 +59,7 @@ function createInitState() {
         availableSources: [SocialPlatform.Farcaster, SocialPlatform.Lens] as SocialPlatform[],
         currentSource: null,
         draft: null,
+        frames: EMPTY_LIST,
         post: null,
         chars: '',
         typedMessage: null,
@@ -96,25 +102,33 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
             set((state) => {
                 state.images = typeof images === 'function' ? images(state.images) : images;
             }),
+        updateFrames: (frames) =>
+            set((state) => {
+                state.frames = typeof frames === 'function' ? frames(state.frames) : frames;
+            }),
         updatePost: (post) =>
             set((state) => {
                 state.post = post;
-            }),
-        removePost: () =>
-            set((state) => {
-                state.post = null;
-            }),
-        addImage: (image) =>
-            set((state) => {
-                state.images = [...state.images, image];
             }),
         updateVideo: (video) =>
             set((state) => {
                 state.video = video;
             }),
+        addImage: (image) =>
+            set((state) => {
+                state.images = [...state.images, image];
+            }),
         removeImage: (target) =>
             set((state) => {
                 state.images = state.images.filter((image) => image.file !== target.file);
+            }),
+        addFrame: (frame) =>
+            set((state) => {
+                state.frames = state.frames ? [...state.frames, frame] : [frame];
+            }),
+        removeFrame: (target) =>
+            set((state) => {
+                state.frames = state.frames?.filter((frame) => frame !== target);
             }),
         updateLensPostId: (postId) =>
             set((state) => {

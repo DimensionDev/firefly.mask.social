@@ -114,7 +114,14 @@ export interface Post {
              * The full list of attachments of the post. (must include the primary asset)
              */
             attachments?: Attachment[];
+            /**
+             * The oembed url at the bottom of the post.
+             */
             oembedUrl?: string;
+            /**
+             * The full list of oembed urls of the post.
+             */
+            oembedUrls?: string[];
         } | null;
         contentURI?: string;
     };

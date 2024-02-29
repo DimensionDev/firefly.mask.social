@@ -56,6 +56,8 @@ const Editor = memo(function Editor() {
                     editorState.read(() => {
                         const markdown = $convertToMarkdownString(TEXT_FORMAT_TRANSFORMERS);
                         updateChars((chars) => writeChars(chars, markdown));
+
+                        // TODO: figure oembedUrls from chars
                     });
                 }}
             />

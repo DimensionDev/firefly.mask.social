@@ -3,6 +3,7 @@ import { Trans } from '@lingui/macro';
 import ComposeImage from '@/components/Compose/ComposeImage.js';
 import ComposeVideo from '@/components/Compose/ComposeVideo.js';
 import Editor from '@/components/Compose/Editor.js';
+import { FrameUI } from '@/components/Frame/index.js';
 import { Quote } from '@/components/Posts/Quote.js';
 import { classNames } from '@/helpers/classNames.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
@@ -10,7 +11,7 @@ import { useComposeStateStore } from '@/store/useComposeStore.js';
 
 interface ComposeContentProps {}
 export default function ComposeContent(props: ComposeContentProps) {
-    const { type, post, images, video } = useComposeStateStore();
+    const { type, post, images, video, frames } = useComposeStateStore();
 
     return (
         <div className="p-4">
@@ -49,6 +50,9 @@ export default function ComposeContent(props: ComposeContentProps) {
                     {(type === 'quote' || type === 'reply') && post ? (
                         <Quote post={post} className="text-left" />
                     ) : null}
+
+                    {/* frame */}
+                    {frames.length ? frames.map((f) => <FrameUI key={f.url} frame={f} readonly />) : null}
                 </div>
             </label>
         </div>
