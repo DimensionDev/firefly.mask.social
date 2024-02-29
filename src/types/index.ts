@@ -1,5 +1,3 @@
-import type { FireflyRedPacketAPI } from '@masknet/web3-providers/types';
-
 import { ServerErrorCodes } from '@/helpers/createErrorResponseJSON.js';
 import type { IPFSResponse } from '@/services/uploadToIPFS.js';
 
@@ -31,9 +29,3 @@ export enum Locale {
 }
 
 export type PartialWith<T, K extends keyof T> = Partial<Pick<T, K>> & Omit<T, K>;
-
-export interface RedpacketProps {
-    payloadImage: string;
-    claimRequirements: FireflyRedPacketAPI.StrategyPayload[];
-    publicKey?: string;
-}

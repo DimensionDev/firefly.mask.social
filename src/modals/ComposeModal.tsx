@@ -57,7 +57,7 @@ export interface ComposeModalProps {
     source?: SocialPlatform;
     post?: Post;
     typedMessage?: TypedMessageTextV1 | null;
-    redpacketProps?: {
+    redPacketPayload?: {
         payloadImage: string;
         claimRequirements: FireflyRedPacketAPI.StrategyPayload[];
     };
@@ -89,9 +89,9 @@ export const ComposeModalComponent = forwardRef<SingletonModalRefCreator<Compose
             updatePost,
             updateChars,
             updateTypedMessage,
-            updateRedpacketProps,
+            updateRedPacketPayload: updateRedPacketPayload,
             clear,
-            redpacketProps,
+            redPacketPayload,
         } = useComposeStateStore();
 
         const [editor] = useLexicalComposerContext();
@@ -111,7 +111,7 @@ export const ComposeModalComponent = forwardRef<SingletonModalRefCreator<Compose
                     updateChars(props.chars);
                     setEditorContent(props.chars);
                 }
-                if (props.redpacketProps) updateRedpacketProps(props.redpacketProps);
+                if (props.redPacketPayload) updateRedPacketPayload(props.redPacketPayload);
             },
             onClose: (props) => {
                 if (!props?.disableClear) {
@@ -149,10 +149,10 @@ export const ComposeModalComponent = forwardRef<SingletonModalRefCreator<Compose
                     { deriveAESKey: throws, encryptByLocalKey: throws },
                 );
                 if (typeof encrypted.output === 'string') throw new Error('Expected binary data.');
-                if (!redpacketProps?.payloadImage) return;
+                if (!redPacketPayload?.payloadImage) return;
 
                 const secretImage = await steganographyEncodeImage(
-                    await fetchImageAsPNG(redpacketProps.payloadImage),
+                    await fetchImageAsPNG(redPacketPayload.payloadImage),
                     encrypted.output,
                     SteganographyPreset.Preset2023_Firefly,
                 );
@@ -188,7 +188,7 @@ export const ComposeModalComponent = forwardRef<SingletonModalRefCreator<Compose
                 });
             }
             // each time the typedMessage changes, we need to check if it has a red packet payload
-        }, [typedMessage, redpacketProps, currentLensProfile, currentFarcasterProfile]);
+        }, [typedMessage, redPacketPayload, currentLensProfile, currentFarcasterProfile]);
 
         return (
             <>

@@ -1,3 +1,5 @@
+import type { FireflyRedPacketAPI } from '@masknet/web3-providers/types';
+
 export enum Theme {
     Mask = 'mask',
     Firefly = 'firefly',
@@ -21,4 +23,10 @@ export enum CoBrandType {
 export interface Dimension {
     width: number;
     height: number;
+}
+
+export interface RedPacketPayload {
+    publicKey?: string;
+    payloadImage: string;
+    claimRequirements: FireflyRedPacketAPI.StrategyPayload[];
 }

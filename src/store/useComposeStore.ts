@@ -10,7 +10,8 @@ import { createSelectors } from '@/helpers/createSelector.js';
 import type { Chars } from '@/helpers/readChars.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import type { Frame } from '@/types/frame.js';
-import type { MediaObject, RedpacketProps } from '@/types/index.js';
+import type { MediaObject } from '@/types/index.js';
+import type { RedPacketPayload } from '@/types/rp.js';
 
 // A recursive version of Post will cause typescript failed to infer the type of the final exports.
 type OrphanPost = Omit<Post, 'embedPosts' | 'comments' | 'root' | 'commentOn' | 'quoteOn'>;
@@ -30,7 +31,7 @@ interface ComposeState {
     images: MediaObject[];
     frames: Frame[];
     loading: boolean;
-    redpacketProps: RedpacketProps | null;
+    redPacketPayload: RedPacketPayload | null;
     enableSource: (source: SocialPlatform) => void;
     disableSource: (source: SocialPlatform) => void;
     updateSources: (sources: SocialPlatform[]) => void;
@@ -49,7 +50,7 @@ interface ComposeState {
     removeFrame: (frame: Frame) => void;
     updateLensPostId: (postId: string | null) => void;
     updateFarcasterPostId: (postId: string | null) => void;
-    updateRedpacketProps: (value: RedpacketProps) => void;
+    updateRedPacketPayload: (value: RedPacketPayload) => void;
     clear: () => void;
 }
 
@@ -68,7 +69,7 @@ function createInitState() {
         loading: false,
         lensPostId: null,
         farcasterPostId: null,
-        redpacketProps: null,
+        redPacketPayload: null,
     } as const;
 }
 
@@ -138,9 +139,9 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
             set((state) => {
                 state.farcasterPostId = postId;
             }),
-        updateRedpacketProps: (value) =>
+        updateRedPacketPayload: (value) =>
             set((state) => {
-                state.redpacketProps = value;
+                state.redPacketPayload = value;
             }),
         enableSource: (source) =>
             set((state) => {

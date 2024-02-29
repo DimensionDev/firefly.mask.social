@@ -91,9 +91,9 @@ export default function ComposeSend() {
         }
 
         try {
-            const { lensPostId, farcasterPostId, typedMessage, redpacketProps } = useComposeStateStore.getState();
+            const { lensPostId, farcasterPostId, typedMessage, redPacketPayload } = useComposeStateStore.getState();
 
-            if (hasRedPacketPayload(typedMessage) && (lensPostId || farcasterPostId) && redpacketProps?.publicKey) {
+            if (hasRedPacketPayload(typedMessage) && (lensPostId || farcasterPostId) && redPacketPayload?.publicKey) {
                 const rpPayload = typedMessage?.meta?.get(RedPacketMetaKey) as RedPacketJSONPayload;
 
                 const reactions = compact([
@@ -130,7 +130,7 @@ export default function ComposeSend() {
                     rpPayload.rpid,
                     reactions,
                     claimPlatform,
-                    redpacketProps.publicKey,
+                    redPacketPayload.publicKey,
                 );
             }
         } finally {
