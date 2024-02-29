@@ -23,12 +23,12 @@ interface ComposeState {
     // the parent post id
     lensPostId: string | null;
     farcasterPostId: string | null;
-    frames: Frame[];
     post: OrphanPost | null;
     chars: Chars;
     typedMessage: TypedMessageTextV1 | null;
     video: MediaObject | null;
     images: MediaObject[];
+    frames: Frame[];
     loading: boolean;
     redpacketProps: RedpacketProps | null;
     enableSource: (source: SocialPlatform) => void;
@@ -39,10 +39,10 @@ interface ComposeState {
     updateChars: Dispatch<SetStateAction<Chars>>;
     updateTypedMessage: (typedMessage: TypedMessageTextV1 | null) => void;
     updateLoading: (loading: boolean) => void;
-    updateFrames: Dispatch<SetStateAction<Frame[]>>;
     updatePost: (post: OrphanPost | null) => void;
     updateVideo: (video: MediaObject | null) => void;
     updateImages: Dispatch<SetStateAction<MediaObject[]>>;
+    updateFrames: Dispatch<SetStateAction<Frame[]>>;
     addImage: (image: MediaObject) => void;
     removeImage: (image: MediaObject) => void;
     addFrame: (frame: Frame) => void;
@@ -59,11 +59,11 @@ function createInitState() {
         availableSources: [SocialPlatform.Farcaster, SocialPlatform.Lens] as SocialPlatform[],
         currentSource: null,
         draft: null,
-        frames: EMPTY_LIST,
         post: null,
         chars: '',
         typedMessage: null,
         images: EMPTY_LIST,
+        frames: EMPTY_LIST,
         video: null,
         loading: false,
         lensPostId: null,
@@ -124,7 +124,7 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
             }),
         addFrame: (frame) =>
             set((state) => {
-                state.frames = state.frames ? [...state.frames, frame] : [frame];
+                state.frames = [...state.frames, frame];
             }),
         removeFrame: (target) =>
             set((state) => {
