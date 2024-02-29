@@ -71,8 +71,8 @@ export interface Profile {
 
 export interface MediaObject {
     title?: string;
+    mimeType?: string;
     url: string;
-    mimeType: string;
 }
 
 export interface Attachment {
