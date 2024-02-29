@@ -1,12 +1,9 @@
 export function canParseURL(url: string) {
+    if (typeof URL.canParse === 'function') return URL.canParse(url);
     try {
-        return URL.canParse(url);
+        new URL(url);
+        return true;
     } catch {
-        try {
-            new URL(url);
-            return true;
-        } catch {
-            return false;
-        }
+        return false;
     }
 }
