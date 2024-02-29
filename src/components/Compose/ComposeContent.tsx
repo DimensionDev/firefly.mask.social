@@ -53,9 +53,11 @@ export default function ComposeContent(props: ComposeContentProps) {
 
                     {/* frame */}
                     {frames.length ? (
-                        <div className=" flex gap-2">
+                        <div className=" flex flex-nowrap gap-2">
                             {frames.map((f) => (
-                                <FrameUI key={f.url} frame={f} readonly />
+                                <div className=" flex-1" key={f.url}>
+                                    <FrameUI frame={f} readonly />
+                                </div>
                             ))}
                         </div>
                     ) : null}
