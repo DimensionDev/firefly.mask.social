@@ -24,7 +24,7 @@ function ErrorBoundaryComponent() {
 }
 
 const Editor = memo(function Editor() {
-    const { type, post, video, images, chars, updateChars, loadFramesFromChars, loadOpenGraphFromChars } =
+    const { type, post, video, images, frames, chars, updateChars, loadFramesFromChars, loadOpenGraphFromChars } =
         useComposeStateStore();
 
     const hasMediaObject = images.length > 0 || !!video;
@@ -35,7 +35,7 @@ const Editor = memo(function Editor() {
             loadOpenGraphFromChars();
         },
         300,
-        [chars],
+        [chars, loadFramesFromChars, loadOpenGraphFromChars],
     );
 
     return (
@@ -45,7 +45,7 @@ const Editor = memo(function Editor() {
                     <ContentEditable
                         className={classNames(
                             'cursor-text resize-none appearance-none border-none bg-transparent p-0 text-left text-[15px] leading-5 text-main outline-0 focus:ring-0',
-                            hasMediaObject ? '' : post ? 'min-h-[200px]' : 'min-h-[308px]',
+                            hasMediaObject ? '' : post || frames.length ? 'min-h-[200px]' : 'min-h-[308px]',
                         )}
                     />
                 }

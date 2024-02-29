@@ -19,6 +19,7 @@ export async function fetchJSON<T = unknown>(
         },
         getNextFetchers(options),
     );
+    if (options?.throwIfNotOK && !response.ok) throw new Error('Failed to fetch JSON.');
     return response.json();
 }
 

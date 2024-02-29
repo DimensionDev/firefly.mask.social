@@ -1,12 +1,12 @@
 import type { OpenGraph } from '@/types/og.js';
 
 class Loader {
-    load(content: string): Promise<OpenGraph | null> {
-        throw new Error('To be implemented.');
+    async load(content: string): Promise<OpenGraph | null> {
+        return null;
     }
 
-    occupancyLoad(content: string): Promise<OpenGraph | null> {
-        throw new Error('To be implemented.');
+    async occupancyLoad(content: string): Promise<OpenGraph | null> {
+        return null;
     }
 }
 

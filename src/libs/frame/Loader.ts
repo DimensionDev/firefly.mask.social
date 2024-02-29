@@ -1,4 +1,4 @@
-import { compact } from 'lodash-es';
+import { compact, uniqBy } from 'lodash-es';
 import urlcat from 'urlcat';
 
 import { URL_REGEX } from '@/constants/regex.js';
@@ -12,11 +12,23 @@ class Loader {
     private map = new Map<string, Promise<Frame | null>>();
 
     private fetchFrame = (url: string) => {
-        return new Promise<Frame | null>((resolve) => {
+        return new Promise<Frame | null>((resolve, reject) => {
             requestIdleCallback(async () => {
-                const response = await fetchCachedJSON<ResponseJSON<LinkDigested>>(urlcat('/api/frame', { link: url }));
-                if (response.success) resolve(response.data.frame);
-                else resolve(null);
+                try {
+                    const response = await fetchCachedJSON<ResponseJSON<LinkDigested>>(
+                        urlcat('/api/frame', { link: url }),
+                        {
+                            signal: AbortSignal.timeout(30_000),
+                        },
+                        {
+                            throwIfNotOK: true,
+                        },
+                    );
+                    if (response.success) resolve(response.data.frame);
+                    else resolve(null);
+                } catch {
+                    reject(new Error('Failed to fetch frame'));
+                }
             });
         });
     };
@@ -36,7 +48,14 @@ class Loader {
      * @returns
      */
     async load(content: string): Promise<Frame[]> {
-        const urls = [...content.matchAll(URL_REGEX)].map((x) => fixUrlProtocol(x[0]));
+        if (!content) return [];
+
+        URL_REGEX.lastIndex = 0;
+
+        const urls = uniqBy(
+            [...content.matchAll(URL_REGEX)].map((x) => fixUrlProtocol(x[0])),
+            (x) => x.toLowerCase(),
+        );
         const allSettled = await Promise.allSettled(urls.map((x) => this.fetchFrameCached(x)));
         return compact(allSettled.map((x) => (x.status === 'fulfilled' && x.value ? x.value : null)));
     }
