@@ -22,12 +22,24 @@ interface RP_Chars extends ComplexChars {
 // the RP_Chars is invisible and always stay at the end of the string
 export type Chars = string | [RP_Chars, string];
 
+/**
+ * Stringify chars into plain text
+ * @param chars
+ * @param visibleOnly
+ * @returns
+ */
 export function readChars(chars: Chars, visibleOnly = false) {
     return (Array.isArray(chars) ? chars : [chars])
         .map((x) => (typeof x === 'string' ? x : x.visible || !visibleOnly ? x.content : ''))
         .join('\n');
 }
 
+/**
+ * Write new chars to chars
+ * @param chars
+ * @param newChars
+ * @returns
+ */
 export function writeChars(chars: Chars, newChars: Chars): Chars {
     const getTextKind = (chars: Chars) => {
         if (typeof chars === 'string') return chars;

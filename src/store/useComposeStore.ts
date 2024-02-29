@@ -7,10 +7,13 @@ import { immer } from 'zustand/middleware/immer';
 import { SocialPlatform } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { createSelectors } from '@/helpers/createSelector.js';
-import type { Chars } from '@/helpers/readChars.js';
+import { type Chars, readChars } from '@/helpers/readChars.js';
+import { FrameLoader } from '@/libs/frame/Loader.js';
+import { OpenGraphLoader } from '@/libs/og/Loader.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import type { Frame } from '@/types/frame.js';
 import type { MediaObject } from '@/types/index.js';
+import type { OpenGraph } from '@/types/og.js';
 import type { RedPacketPayload } from '@/types/rp.js';
 
 // A recursive version of Post will cause typescript failed to infer the type of the final exports.
@@ -29,6 +32,9 @@ interface ComposeState {
     typedMessage: TypedMessageTextV1 | null;
     video: MediaObject | null;
     images: MediaObject[];
+    // parsed open graph from urls in chars
+    og: OpenGraph | null;
+    // parsed frames from urls in chars
     frames: Frame[];
     loading: boolean;
     redPacketPayload: RedPacketPayload | null;
@@ -43,6 +49,7 @@ interface ComposeState {
     updatePost: (post: OrphanPost | null) => void;
     updateVideo: (video: MediaObject | null) => void;
     updateImages: Dispatch<SetStateAction<MediaObject[]>>;
+    updateOg: (og: OpenGraph | null) => void;
     updateFrames: Dispatch<SetStateAction<Frame[]>>;
     addImage: (image: MediaObject) => void;
     removeImage: (image: MediaObject) => void;
@@ -51,6 +58,8 @@ interface ComposeState {
     updateLensPostId: (postId: string | null) => void;
     updateFarcasterPostId: (postId: string | null) => void;
     updateRedPacketPayload: (value: RedPacketPayload) => void;
+    loadFramesFromChars: () => Promise<void>;
+    loadOgFromChars: () => Promise<void>;
     clear: () => void;
 }
 
@@ -64,6 +73,7 @@ function createInitState() {
         chars: '',
         typedMessage: null,
         images: EMPTY_LIST,
+        og: null,
         frames: EMPTY_LIST,
         video: null,
         loading: false,
@@ -74,7 +84,7 @@ function createInitState() {
 }
 
 const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
-    immer<ComposeState>((set) => ({
+    immer<ComposeState>((set, get) => ({
         ...createInitState(),
         updateType: (type: 'compose' | 'quote' | 'reply') =>
             set((state) => {
@@ -102,6 +112,10 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
         updateImages: (images) =>
             set((state) => {
                 state.images = typeof images === 'function' ? images(state.images) : images;
+            }),
+        updateOg: (og) =>
+            set((state) => {
+                state.og = og;
             }),
         updateFrames: (frames) =>
             set((state) => {
@@ -155,6 +169,22 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
             set((state) => {
                 state.availableSources = sources;
             }),
+        loadFramesFromChars: async () => {
+            const chars = get().chars;
+            const frames = await FrameLoader.load(readChars(chars, true));
+
+            set((state) => {
+                state.frames = frames;
+            });
+        },
+        loadOgFromChars: async () => {
+            const chars = get().chars;
+            const og = await OpenGraphLoader.load(readChars(chars, true));
+
+            set((state) => {
+                state.og = og;
+            });
+        },
         clear: () =>
             set((state) => {
                 Object.assign(state, createInitState());

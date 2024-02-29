@@ -23,7 +23,8 @@ function ErrorBoundaryComponent() {
 }
 
 const Editor = memo(function Editor() {
-    const { type, post, video, images, updateChars } = useComposeStateStore();
+    const { type, post, video, images, updateChars, loadFramesFromChars, loadOembedsFromChars } =
+        useComposeStateStore();
 
     const hasMediaObject = images.length > 0 || !!video;
 
@@ -56,6 +57,8 @@ const Editor = memo(function Editor() {
                     editorState.read(async () => {
                         const markdown = $convertToMarkdownString(TEXT_FORMAT_TRANSFORMERS);
                         updateChars((chars) => writeChars(chars, markdown));
+                        loadFramesFromChars();
+                        loadOembedsFromChars();
 
                         // TODO: figure oembedUrls from chars
                         // const urls = [...markdown.matchAll(URL_REGEX)].map((x) => fixUrlProtocol(x[0]));
