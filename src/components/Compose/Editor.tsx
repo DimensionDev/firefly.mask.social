@@ -13,7 +13,7 @@ import { MentionsPlugin } from '@/components/Lexical/plugins/AtMentionsPlugin.js
 import LexicalAutoLinkPlugin from '@/components/Lexical/plugins/AutoLinkPlugin.js';
 import { classNames } from '@/helpers/classNames.js';
 import { writeChars } from '@/helpers/readChars.js';
-import { useComposeStateStore } from '@/store/useComposeStore.js';
+import { useComposeLink, useComposeStateStore } from '@/store/useComposeStore.js';
 
 function ErrorBoundaryComponent() {
     return (
@@ -27,7 +27,8 @@ const Editor = memo(function Editor() {
     const { type, post, video, images, frames, chars, updateChars, loadFramesFromChars, loadOpenGraphFromChars } =
         useComposeStateStore();
 
-    const hasMediaObject = images.length > 0 || !!video;
+    const link = useComposeLink();
+    const hasMediaObject = images.length > 0 || !!video || !!link;
 
     useDebounce(
         () => {

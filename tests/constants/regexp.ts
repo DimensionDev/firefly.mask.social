@@ -1,7 +1,7 @@
 import { first } from 'lodash-es';
 import { describe, expect, test } from 'vitest';
 
-import { HASHTAG_REGEX, MENTION_REGEX, URL_REGEX } from '@/constants/regex.js';
+import { HASHTAG_REGEX, MENTION_REGEX, URL_REGEX } from '@/constants/regex.ts';
 
 describe('MENTION_REGEXP', () => {
     test('should match a mention', () => {
@@ -116,7 +116,7 @@ describe('URL_REGEX', () => {
             
                     TLDR I tried to capture all my pain, seethe, mistakes & cope from the last crypto cycle in one spot
             
-                    Check it out 👇 https://benroy.beehiiv.com/p/parttime-degen-notes-speculation-crypto-markets-20192022
+                    Check it out 👇 https://benroy.beehiiv.com/p/parttime-degen-notes-speculation-crypto-markets-20192022 some text after link
                 `,
                 'https://benroy.beehiiv.com/p/parttime-degen-notes-speculation-crypto-markets-20192022',
             ],

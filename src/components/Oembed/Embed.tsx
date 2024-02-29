@@ -16,7 +16,7 @@ export default function Embed({ og }: EmbedProps) {
                 target={isSelfReference(og.url) ? '_self' : '_blank'}
                 rel="noreferrer noopener"
             >
-                <div className=" rounded-xl border bg-white dark:border-gray-700 dark:bg-black">
+                <div className=" rounded-xl border bg-white text-main dark:border-gray-700 dark:bg-black">
                     {og.isLarge && og.image ? (
                         <Image
                             className="divider aspect-2 w-full rounded-xl object-cover"
@@ -38,7 +38,7 @@ export default function Embed({ og }: EmbedProps) {
                                 />
                             </div>
                         ) : null}
-                        <div className="truncate p-5">
+                        <div className="truncate p-5 text-second">
                             <div className="space-y-1.5">
                                 {og.title ? <div className="truncate font-bold">{og.title}</div> : null}
                                 {og.description ? (

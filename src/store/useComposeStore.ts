@@ -1,11 +1,12 @@
 import type { TypedMessageTextV1 } from '@masknet/typed-message';
 import { uniq } from 'lodash-es';
-import type { Dispatch, SetStateAction } from 'react';
+import { type Dispatch, type SetStateAction, useMemo } from 'react';
 import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
 
 import { SocialPlatform } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
+import { URL_REGEX } from '@/constants/regex.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 import { type Chars, readChars } from '@/helpers/readChars.js';
 import { FrameLoader } from '@/libs/frame/Loader.js';
@@ -193,3 +194,15 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
 );
 
 export const useComposeStateStore = createSelectors(useComposeStateBase);
+
+/**
+ * The first link in plain post.
+ */
+export function useComposeLink() {
+    const { chars, images, video } = useComposeStateStore();
+    return useMemo(() => {
+        if (images.length || video) return null;
+        const match = chars.toString().match(URL_REGEX);
+        return match ? match[0] : null;
+    }, [chars, images.length, !!video]);
+}
