@@ -7,6 +7,7 @@ import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin.js';
 import { PlainTextPlugin } from '@lexical/react/LexicalPlainTextPlugin.js';
 import { Select, t, Trans } from '@lingui/macro';
 import { memo } from 'react';
+import { useDebounce } from 'react-use';
 
 import { MentionsPlugin } from '@/components/Lexical/plugins/AtMentionsPlugin.js';
 import LexicalAutoLinkPlugin from '@/components/Lexical/plugins/AutoLinkPlugin.js';
@@ -23,10 +24,19 @@ function ErrorBoundaryComponent() {
 }
 
 const Editor = memo(function Editor() {
-    const { type, post, video, images, updateChars, loadFramesFromChars, loadOembedsFromChars } =
+    const { type, post, video, images, chars, updateChars, loadFramesFromChars, loadOpenGraphFromChars } =
         useComposeStateStore();
 
     const hasMediaObject = images.length > 0 || !!video;
+
+    useDebounce(
+        () => {
+            loadFramesFromChars();
+            loadOpenGraphFromChars();
+        },
+        300,
+        [chars],
+    );
 
     return (
         <div className=" relative">
@@ -57,21 +67,6 @@ const Editor = memo(function Editor() {
                     editorState.read(async () => {
                         const markdown = $convertToMarkdownString(TEXT_FORMAT_TRANSFORMERS);
                         updateChars((chars) => writeChars(chars, markdown));
-                        loadFramesFromChars();
-                        loadOembedsFromChars();
-
-                        // TODO: figure oembedUrls from chars
-                        // const urls = [...markdown.matchAll(URL_REGEX)].map((x) => fixUrlProtocol(x[0]));
-
-                        // const allSettled = await Promise.allSettled(
-                        //     urls.map((url) =>
-                        //         fetchJSON<ResponseJSON<LinkDigested>>(
-                        //             urlcat(SITE_URL, '/api/frame', {
-                        //                 link: url,
-                        //             }),
-                        //         ),
-                        //     ),
-                        // );
                     });
                 }}
             />

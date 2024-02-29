@@ -5,7 +5,7 @@ class Loader {
         throw new Error('To be implemented.');
     }
 
-    linearLoad(content: string): OpenGraph | null {
+    occupancyLoad(content: string): Promise<OpenGraph | null> {
         throw new Error('To be implemented.');
     }
 }

@@ -32,8 +32,8 @@ interface ComposeState {
     typedMessage: TypedMessageTextV1 | null;
     video: MediaObject | null;
     images: MediaObject[];
-    // parsed open graph from urls in chars
-    og: OpenGraph | null;
+    // parsed open graph from url in chars
+    openGraph: OpenGraph | null;
     // parsed frames from urls in chars
     frames: Frame[];
     loading: boolean;
@@ -49,7 +49,7 @@ interface ComposeState {
     updatePost: (post: OrphanPost | null) => void;
     updateVideo: (video: MediaObject | null) => void;
     updateImages: Dispatch<SetStateAction<MediaObject[]>>;
-    updateOg: (og: OpenGraph | null) => void;
+    updateOpenGraph: (og: OpenGraph | null) => void;
     updateFrames: Dispatch<SetStateAction<Frame[]>>;
     addImage: (image: MediaObject) => void;
     removeImage: (image: MediaObject) => void;
@@ -59,7 +59,7 @@ interface ComposeState {
     updateFarcasterPostId: (postId: string | null) => void;
     updateRedPacketPayload: (value: RedPacketPayload) => void;
     loadFramesFromChars: () => Promise<void>;
-    loadOgFromChars: () => Promise<void>;
+    loadOpenGraphFromChars: () => Promise<void>;
     clear: () => void;
 }
 
@@ -73,7 +73,7 @@ function createInitState() {
         chars: '',
         typedMessage: null,
         images: EMPTY_LIST,
-        og: null,
+        openGraph: null,
         frames: EMPTY_LIST,
         video: null,
         loading: false,
@@ -113,9 +113,9 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
             set((state) => {
                 state.images = typeof images === 'function' ? images(state.images) : images;
             }),
-        updateOg: (og) =>
+        updateOpenGraph: (og) =>
             set((state) => {
-                state.og = og;
+                state.openGraph = og;
             }),
         updateFrames: (frames) =>
             set((state) => {
@@ -171,18 +171,18 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
             }),
         loadFramesFromChars: async () => {
             const chars = get().chars;
-            const frames = await FrameLoader.load(readChars(chars, true));
+            const frames = await FrameLoader.occupancyLoad(readChars(chars, true));
 
             set((state) => {
                 state.frames = frames;
             });
         },
-        loadOgFromChars: async () => {
+        loadOpenGraphFromChars: async () => {
             const chars = get().chars;
-            const og = await OpenGraphLoader.load(readChars(chars, true));
+            const og = await OpenGraphLoader.occupancyLoad(readChars(chars, true));
 
             set((state) => {
-                state.og = og;
+                state.openGraph = og;
             });
         },
         clear: () =>
