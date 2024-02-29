@@ -53,11 +53,22 @@ const Editor = memo(function Editor() {
             />
             <OnChangePlugin
                 onChange={(editorState) => {
-                    editorState.read(() => {
+                    editorState.read(async () => {
                         const markdown = $convertToMarkdownString(TEXT_FORMAT_TRANSFORMERS);
                         updateChars((chars) => writeChars(chars, markdown));
 
                         // TODO: figure oembedUrls from chars
+                        // const urls = [...markdown.matchAll(URL_REGEX)].map((x) => fixUrlProtocol(x[0]));
+
+                        // const allSettled = await Promise.allSettled(
+                        //     urls.map((url) =>
+                        //         fetchJSON<ResponseJSON<LinkDigested>>(
+                        //             urlcat(SITE_URL, '/api/frame', {
+                        //                 link: url,
+                        //             }),
+                        //         ),
+                        //     ),
+                        // );
                     });
                 }}
             />
