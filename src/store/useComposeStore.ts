@@ -7,10 +7,14 @@ import { immer } from 'zustand/middleware/immer';
 import { SocialPlatform } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { createSelectors } from '@/helpers/createSelector.js';
-import type { Chars } from '@/helpers/readChars.js';
+import { type Chars, readChars } from '@/helpers/readChars.js';
+import { FrameLoader } from '@/libs/frame/Loader.js';
+import { OpenGraphLoader } from '@/libs/og/Loader.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import type { Frame } from '@/types/frame.js';
-import type { MediaObject, RedpacketProps } from '@/types/index.js';
+import type { MediaObject } from '@/types/index.js';
+import type { OpenGraph } from '@/types/og.js';
+import type { RedPacketPayload } from '@/types/rp.js';
 
 // A recursive version of Post will cause typescript failed to infer the type of the final exports.
 type OrphanPost = Omit<Post, 'embedPosts' | 'comments' | 'root' | 'commentOn' | 'quoteOn'>;
@@ -23,14 +27,17 @@ interface ComposeState {
     // the parent post id
     lensPostId: string | null;
     farcasterPostId: string | null;
-    frames: Frame[];
     post: OrphanPost | null;
     chars: Chars;
     typedMessage: TypedMessageTextV1 | null;
     video: MediaObject | null;
     images: MediaObject[];
+    // parsed open graph from url in chars
+    openGraph: OpenGraph | null;
+    // parsed frames from urls in chars
+    frames: Frame[];
     loading: boolean;
-    redpacketProps: RedpacketProps | null;
+    redPacketPayload: RedPacketPayload | null;
     enableSource: (source: SocialPlatform) => void;
     disableSource: (source: SocialPlatform) => void;
     updateSources: (sources: SocialPlatform[]) => void;
@@ -39,17 +46,20 @@ interface ComposeState {
     updateChars: Dispatch<SetStateAction<Chars>>;
     updateTypedMessage: (typedMessage: TypedMessageTextV1 | null) => void;
     updateLoading: (loading: boolean) => void;
-    updateFrames: Dispatch<SetStateAction<Frame[]>>;
     updatePost: (post: OrphanPost | null) => void;
     updateVideo: (video: MediaObject | null) => void;
     updateImages: Dispatch<SetStateAction<MediaObject[]>>;
+    updateOpenGraph: (og: OpenGraph | null) => void;
+    updateFrames: Dispatch<SetStateAction<Frame[]>>;
     addImage: (image: MediaObject) => void;
     removeImage: (image: MediaObject) => void;
     addFrame: (frame: Frame) => void;
     removeFrame: (frame: Frame) => void;
     updateLensPostId: (postId: string | null) => void;
     updateFarcasterPostId: (postId: string | null) => void;
-    updateRedpacketProps: (value: RedpacketProps) => void;
+    updateRedPacketPayload: (value: RedPacketPayload) => void;
+    loadFramesFromChars: () => Promise<void>;
+    loadOpenGraphFromChars: () => Promise<void>;
     clear: () => void;
 }
 
@@ -59,21 +69,22 @@ function createInitState() {
         availableSources: [SocialPlatform.Farcaster, SocialPlatform.Lens] as SocialPlatform[],
         currentSource: null,
         draft: null,
-        frames: EMPTY_LIST,
         post: null,
         chars: '',
         typedMessage: null,
         images: EMPTY_LIST,
+        openGraph: null,
+        frames: EMPTY_LIST,
         video: null,
         loading: false,
         lensPostId: null,
         farcasterPostId: null,
-        redpacketProps: null,
+        redPacketPayload: null,
     } as const;
 }
 
 const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
-    immer<ComposeState>((set) => ({
+    immer<ComposeState>((set, get) => ({
         ...createInitState(),
         updateType: (type: 'compose' | 'quote' | 'reply') =>
             set((state) => {
@@ -102,6 +113,10 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
             set((state) => {
                 state.images = typeof images === 'function' ? images(state.images) : images;
             }),
+        updateOpenGraph: (og) =>
+            set((state) => {
+                state.openGraph = og;
+            }),
         updateFrames: (frames) =>
             set((state) => {
                 state.frames = typeof frames === 'function' ? frames(state.frames) : frames;
@@ -124,7 +139,7 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
             }),
         addFrame: (frame) =>
             set((state) => {
-                state.frames = state.frames ? [...state.frames, frame] : [frame];
+                state.frames = [...state.frames, frame];
             }),
         removeFrame: (target) =>
             set((state) => {
@@ -138,9 +153,9 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
             set((state) => {
                 state.farcasterPostId = postId;
             }),
-        updateRedpacketProps: (value) =>
+        updateRedPacketPayload: (value) =>
             set((state) => {
-                state.redpacketProps = value;
+                state.redPacketPayload = value;
             }),
         enableSource: (source) =>
             set((state) => {
@@ -154,6 +169,22 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
             set((state) => {
                 state.availableSources = sources;
             }),
+        loadFramesFromChars: async () => {
+            const chars = get().chars;
+            const frames = await FrameLoader.occupancyLoad(readChars(chars, true));
+
+            set((state) => {
+                state.frames = frames;
+            });
+        },
+        loadOpenGraphFromChars: async () => {
+            const chars = get().chars;
+            const og = await OpenGraphLoader.occupancyLoad(readChars(chars, true));
+
+            set((state) => {
+                state.openGraph = og;
+            });
+        },
         clear: () =>
             set((state) => {
                 Object.assign(state, createInitState());

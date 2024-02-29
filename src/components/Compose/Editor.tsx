@@ -7,6 +7,7 @@ import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin.js';
 import { PlainTextPlugin } from '@lexical/react/LexicalPlainTextPlugin.js';
 import { Select, t, Trans } from '@lingui/macro';
 import { memo } from 'react';
+import { useDebounce } from 'react-use';
 
 import { MentionsPlugin } from '@/components/Lexical/plugins/AtMentionsPlugin.js';
 import LexicalAutoLinkPlugin from '@/components/Lexical/plugins/AutoLinkPlugin.js';
@@ -23,9 +24,19 @@ function ErrorBoundaryComponent() {
 }
 
 const Editor = memo(function Editor() {
-    const { type, post, video, images, updateChars } = useComposeStateStore();
+    const { type, post, video, images, frames, chars, updateChars, loadFramesFromChars, loadOpenGraphFromChars } =
+        useComposeStateStore();
 
     const hasMediaObject = images.length > 0 || !!video;
+
+    useDebounce(
+        () => {
+            loadFramesFromChars();
+            loadOpenGraphFromChars();
+        },
+        300,
+        [chars, loadFramesFromChars, loadOpenGraphFromChars],
+    );
 
     return (
         <div className=" relative">
@@ -34,7 +45,7 @@ const Editor = memo(function Editor() {
                     <ContentEditable
                         className={classNames(
                             'cursor-text resize-none appearance-none border-none bg-transparent p-0 text-left text-[15px] leading-5 text-main outline-0 focus:ring-0',
-                            hasMediaObject ? '' : post ? 'min-h-[200px]' : 'min-h-[308px]',
+                            hasMediaObject ? '' : post || frames.length ? 'min-h-[200px]' : 'min-h-[308px]',
                         )}
                     />
                 }
@@ -53,11 +64,9 @@ const Editor = memo(function Editor() {
             />
             <OnChangePlugin
                 onChange={(editorState) => {
-                    editorState.read(() => {
+                    editorState.read(async () => {
                         const markdown = $convertToMarkdownString(TEXT_FORMAT_TRANSFORMERS);
                         updateChars((chars) => writeChars(chars, markdown));
-
-                        // TODO: figure oembedUrls from chars
                     });
                 }}
             />

@@ -2,6 +2,7 @@ import { compact, first, last, uniqBy } from 'lodash-es';
 
 import { SocialPlatform } from '@/constants/enum.js';
 import { URL_REGEX } from '@/constants/regex.js';
+import { fixUrlProtocol } from '@/helpers/fixUrlProtocol.js';
 import { formatFarcasterProfileFromFirefly } from '@/helpers/formatFarcasterProfileFromFirefly.js';
 import { getResourceType } from '@/helpers/getResourceType.js';
 import type { Cast } from '@/providers/types/Firefly.js';
@@ -10,10 +11,11 @@ import { type Attachment, type Post, type Profile, ProfileStatus } from '@/provi
 function formatContent(cast: Cast): Post['metadata']['content'] {
     const matchedUrls = [...cast.text.matchAll(URL_REGEX)].map((x) => x[0]);
     const oembedUrls = uniqBy(compact([...matchedUrls, ...cast.embeds.map((x) => x.url)]), (x) => x?.toLowerCase()).map(
-        (x) => (x.startsWith('http') ? x : `https://${x}`),
+        fixUrlProtocol,
     );
     const oembedUrl = last(oembedUrls);
     const defaultContent = { content: cast.text, oembedUrl, oembedUrls };
+
     if (cast.embeds.length) {
         const firstAsset = first(cast.embeds);
         if (!firstAsset) return defaultContent;
