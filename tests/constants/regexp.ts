@@ -99,10 +99,9 @@ describe('URL_REGEX', () => {
         ] as Array<[string, boolean]>;
 
         cases.forEach(([input, expectedOutput]) => {
-            // reset the regex
             URL_REGEX.lastIndex = 0;
 
-            const result = HASHTAG_REGEX.test(input);
+            const result = URL_REGEX.test(input);
             expect(result).toBe(expectedOutput);
         });
     });
@@ -144,8 +143,8 @@ describe('URL_REGEX', () => {
 
         cases.forEach(([input, expectedOutput]) => {
             URL_REGEX.lastIndex = 0;
-            const result = first(input.match(URL_REGEX) || []);
 
+            const result = first(input.match(URL_REGEX) || []);
             expect(result).toBe(expectedOutput);
         });
     });
