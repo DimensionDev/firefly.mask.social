@@ -1,4 +1,4 @@
-import { canParseURL } from '@/helpers/canParseURL';
+import { canParseURL } from '@/helpers/canParseURL.js';
 
 /**
  * Parses the input URL string and returns a URL object.
