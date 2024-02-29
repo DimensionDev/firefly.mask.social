@@ -28,13 +28,15 @@ export default function Embed({ og }: EmbedProps) {
                     ) : null}
                     <div className="flex items-center">
                         {!og.isLarge && og.image ? (
-                            <Image
-                                className="h-36 w-36 rounded-l-xl border-r dark:border-gray-700"
-                                height={144}
-                                width={144}
-                                src={og.image.base64 || og.image.url}
-                                alt="Thumbnail"
-                            />
+                            <div className="h-36 w-36">
+                                <Image
+                                    className="rounded-l-xl border-r dark:border-gray-700"
+                                    layout="fill"
+                                    objectFit="contain"
+                                    src={og.image.base64 || og.image.url}
+                                    alt="Thumbnail"
+                                />
+                            </div>
                         ) : null}
                         <div className="truncate p-5">
                             <div className="space-y-1.5">
