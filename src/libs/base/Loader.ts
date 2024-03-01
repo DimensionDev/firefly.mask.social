@@ -9,6 +9,17 @@ export abstract class BaseLoader<T> {
 
     protected abstract fetch(url: string): Promise<T | null>;
 
+    protected parse(content: string): string[] {
+        if (!content) return [];
+
+        URL_REGEX.lastIndex = 0;
+
+        return uniqBy(
+            [...content.matchAll(URL_REGEX)].map((x) => fixUrlProtocol(x[0])),
+            (x) => x.toLowerCase(),
+        );
+    }
+
     protected fetchCached(url: string): Promise<T | null> {
         if (!this.map?.has(url)) {
             const p = this.fetch(url);
@@ -24,14 +35,7 @@ export abstract class BaseLoader<T> {
      * @returns
      */
     async load(content: string): Promise<T[]> {
-        if (!content) return [];
-
-        URL_REGEX.lastIndex = 0;
-
-        const urls = uniqBy(
-            [...content.matchAll(URL_REGEX)].map((x) => fixUrlProtocol(x[0])),
-            (x) => x.toLowerCase(),
-        );
+        const urls = this.parse(content);
         if (!urls.length) return [];
 
         const allSettled = await Promise.allSettled(urls.map((x) => this.fetchCached(x)));
