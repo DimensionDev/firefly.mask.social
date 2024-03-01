@@ -82,6 +82,9 @@ msgstr "<0>You</0> and {0} others recasted"
 msgid "Change Wallet"
 msgstr "Change Wallet"
 
+msgid "OpenGraph"
+msgstr "OpenGraph"
+
 msgid "Wrong wallet"
 msgstr "Wrong wallet"
 
@@ -169,6 +172,9 @@ msgstr "Audio Cover"
 msgid "Recent"
 msgstr "Recent"
 
+msgid "OpenGraph Validator"
+msgstr "OpenGraph Validator"
+
 msgid "{type, select, compose {{0}} quote {{1}} reply {{2}} other {{3}}}"
 msgstr "{type, select, compose {{0}} quote {{1}} reply {{2}} other {{3}}}"
 
@@ -187,6 +193,9 @@ msgstr "Confirmation"
 msgid "Follow more friends to continue exploring on {0}."
 msgstr "Follow more friends to continue exploring on {0}."
 
+msgid "Frame Validator"
+msgstr "Frame Validator"
+
 msgid "Change account"
 msgstr "Change account"
 
@@ -195,6 +204,9 @@ msgstr "Follow System"
 
 msgid "No results"
 msgstr "No results"
+
+msgid "URL is required."
+msgstr "URL is required."
 
 msgid "Connection failed"
 msgstr "Connection failed"
@@ -210,6 +222,9 @@ msgstr "post"
 
 msgid "Hashtag"
 msgstr "Hashtag"
+
+msgid "Frame"
+msgstr "Frame"
 
 msgid "Search Filter"
 msgstr "Search Filter"
@@ -337,6 +352,9 @@ msgstr "Post your reply"
 msgid "liked"
 msgstr "liked"
 
+msgid "Invalid URL."
+msgstr "Invalid URL."
+
 msgid "Post has been encrypted"
 msgstr "Post has been encrypted"
 
@@ -373,6 +391,9 @@ msgstr "What's happening..."
 msgid "Like"
 msgstr "Like"
 
+msgid "Please input the frame url to be revalidated."
+msgstr "Please input the frame url to be revalidated."
+
 msgid "Failed to quote post on Lens."
 msgstr "Failed to quote post on Lens."
 
@@ -384,6 +405,9 @@ msgstr "This can’t be undone and you’ll lose your draft."
 
 msgid "Publications"
 msgstr "Publications"
+
+msgid "Your website URL."
+msgstr "Your website URL."
 
 msgid "Display"
 msgstr "Display"
@@ -405,6 +429,9 @@ msgstr "Loading..."
 
 msgid "Share"
 msgstr "Share"
+
+msgid "Your frame URL."
+msgstr "Your frame URL."
 
 msgid "Cancel recast successfully"
 msgstr "Cancel recast successfully"
@@ -462,6 +489,9 @@ msgstr "Failed to publish post."
 
 msgid "recasted your"
 msgstr "recasted your"
+
+msgid "Please input the url to be revalidated."
+msgstr "Please input the url to be revalidated."
 
 msgid "Posted on Farcaster"
 msgstr "Posted on Farcaster"
@@ -546,6 +576,9 @@ msgstr "LuckyDrop"
 
 msgid "{0} and others"
 msgstr "{0} and others"
+
+msgid "Developers"
+msgstr "Developers"
 
 msgid "Share to"
 msgstr "Share to"

@@ -4,6 +4,7 @@ export enum PageRoutes {
     Notifications = '/notifications',
     Profile = '/profile',
     Settings = '/settings',
+    Developers = '/developers',
     Search = '/search',
 }
 

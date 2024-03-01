@@ -3,6 +3,6 @@ import urlcat from 'urlcat';
 
 import { PageRoutes } from '@/constants/enum.js';
 
-export default async function Settings() {
-    redirect(urlcat(PageRoutes.Settings, '/display'));
+export default async function Developers() {
+    redirect(urlcat(PageRoutes.Developers, '/frame'));
 }
