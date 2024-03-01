@@ -13,7 +13,7 @@ import { MentionsPlugin } from '@/components/Lexical/plugins/AtMentionsPlugin.js
 import LexicalAutoLinkPlugin from '@/components/Lexical/plugins/AutoLinkPlugin.js';
 import { classNames } from '@/helpers/classNames.js';
 import { writeChars } from '@/helpers/readChars.js';
-import { useComposeLink, useComposeStateStore } from '@/store/useComposeStore.js';
+import { useComposeStateStore } from '@/store/useComposeStore.js';
 
 function ErrorBoundaryComponent() {
     return (
@@ -24,19 +24,28 @@ function ErrorBoundaryComponent() {
 }
 
 const Editor = memo(function Editor() {
-    const { type, post, video, images, frames, chars, updateChars, loadFramesFromChars, loadOpenGraphFromChars } =
-        useComposeStateStore();
+    const {
+        type,
+        post,
+        video,
+        images,
+        frames,
+        openGraphes,
+        chars,
+        updateChars,
+        loadFramesFromChars,
+        loadOpenGraphesFromChars,
+    } = useComposeStateStore();
 
-    const link = useComposeLink();
-    const hasMediaObject = images.length > 0 || !!video || !!link;
+    const hasMediaObject = images.length > 0 || !!video || frames.length || openGraphes.length;
 
     useDebounce(
         () => {
             loadFramesFromChars();
-            loadOpenGraphFromChars();
+            loadOpenGraphesFromChars();
         },
         300,
-        [chars, loadFramesFromChars, loadOpenGraphFromChars],
+        [chars, loadFramesFromChars, loadOpenGraphesFromChars],
     );
 
     return (

@@ -4,16 +4,16 @@ import ComposeImage from '@/components/Compose/ComposeImage.js';
 import ComposeVideo from '@/components/Compose/ComposeVideo.js';
 import Editor from '@/components/Compose/Editor.js';
 import { FrameUI } from '@/components/Frame/index.js';
-import { Oembed } from '@/components/Oembed/index.js';
+import { OembedUI } from '@/components/Oembed/index.js';
 import { Quote } from '@/components/Posts/Quote.js';
 import { classNames } from '@/helpers/classNames.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
-import { useComposeLink, useComposeStateStore } from '@/store/useComposeStore.js';
+import { useComposeStateStore } from '@/store/useComposeStore.js';
 
 interface ComposeContentProps {}
+
 export default function ComposeContent(props: ComposeContentProps) {
-    const { type, post, images, video, frames } = useComposeStateStore();
-    const link = useComposeLink();
+    const { type, post, images, video, frames, openGraphes } = useComposeStateStore();
 
     return (
         <div className="p-4">
@@ -36,8 +36,6 @@ export default function ComposeContent(props: ComposeContentProps) {
 
                     <Editor />
 
-                    {link ? <Oembed url={link} /> : null}
-
                     {/* image */}
                     {images.length > 0 && (
                         <div className=" relative grid grid-cols-2 gap-2 p-3">
@@ -55,13 +53,20 @@ export default function ComposeContent(props: ComposeContentProps) {
                         <Quote post={post} className="text-left" />
                     ) : null}
 
+                    {/* open graphes */}
+                    {openGraphes.length ? (
+                        <div className=" flex gap-2">
+                            {openGraphes.map((o) => (
+                                <OembedUI key={o.url} og={o} />
+                            ))}
+                        </div>
+                    ) : null}
+
                     {/* frame */}
                     {frames.length ? (
-                        <div className=" flex flex-nowrap gap-2">
+                        <div className=" flex gap-2">
                             {frames.map((f) => (
-                                <div className=" flex-1" key={f.url}>
-                                    <FrameUI frame={f} readonly />
-                                </div>
+                                <FrameUI key={f.url} frame={f} readonly />
                             ))}
                         </div>
                     ) : null}

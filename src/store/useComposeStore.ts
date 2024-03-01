@@ -1,12 +1,11 @@
 import type { TypedMessageTextV1 } from '@masknet/typed-message';
 import { uniq } from 'lodash-es';
-import { type Dispatch, type SetStateAction, useMemo } from 'react';
+import { type Dispatch, type SetStateAction } from 'react';
 import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
 
 import { SocialPlatform } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
-import { URL_REGEX } from '@/constants/regex.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 import { type Chars, readChars } from '@/helpers/readChars.js';
 import { FrameLoader } from '@/libs/frame/Loader.js';
@@ -33,10 +32,10 @@ interface ComposeState {
     typedMessage: TypedMessageTextV1 | null;
     video: MediaObject | null;
     images: MediaObject[];
-    // parsed open graph from url in chars
-    openGraph: OpenGraph | null;
     // parsed frames from urls in chars
     frames: Frame[];
+    // parsed open graphes from url in chars
+    openGraphes: OpenGraph[];
     loading: boolean;
     redPacketPayload: RedPacketPayload | null;
     enableSource: (source: SocialPlatform) => void;
@@ -50,17 +49,16 @@ interface ComposeState {
     updatePost: (post: OrphanPost | null) => void;
     updateVideo: (video: MediaObject | null) => void;
     updateImages: Dispatch<SetStateAction<MediaObject[]>>;
-    updateOpenGraph: (og: OpenGraph | null) => void;
-    updateFrames: Dispatch<SetStateAction<Frame[]>>;
     addImage: (image: MediaObject) => void;
     removeImage: (image: MediaObject) => void;
     addFrame: (frame: Frame) => void;
     removeFrame: (frame: Frame) => void;
+    removeOpenGraph: (og: OpenGraph) => void;
     updateLensPostId: (postId: string | null) => void;
     updateFarcasterPostId: (postId: string | null) => void;
     updateRedPacketPayload: (value: RedPacketPayload) => void;
     loadFramesFromChars: () => Promise<void>;
-    loadOpenGraphFromChars: () => Promise<void>;
+    loadOpenGraphesFromChars: () => Promise<void>;
     clear: () => void;
 }
 
@@ -74,8 +72,8 @@ function createInitState() {
         chars: '',
         typedMessage: null,
         images: EMPTY_LIST,
-        openGraph: null,
         frames: EMPTY_LIST,
+        openGraphes: EMPTY_LIST,
         video: null,
         loading: false,
         lensPostId: null,
@@ -114,14 +112,6 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
             set((state) => {
                 state.images = typeof images === 'function' ? images(state.images) : images;
             }),
-        updateOpenGraph: (og) =>
-            set((state) => {
-                state.openGraph = og;
-            }),
-        updateFrames: (frames) =>
-            set((state) => {
-                state.frames = typeof frames === 'function' ? frames(state.frames) : frames;
-            }),
         updatePost: (post) =>
             set((state) => {
                 state.post = post;
@@ -145,6 +135,10 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
         removeFrame: (target) =>
             set((state) => {
                 state.frames = state.frames?.filter((frame) => frame !== target);
+            }),
+        removeOpenGraph: (target) =>
+            set((state) => {
+                state.openGraphes = state.openGraphes.filter((og) => og !== target);
             }),
         updateLensPostId: (postId) =>
             set((state) => {
@@ -178,12 +172,12 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
                 state.frames = frames;
             });
         },
-        loadOpenGraphFromChars: async () => {
+        loadOpenGraphesFromChars: async () => {
             const chars = get().chars;
             const og = await OpenGraphLoader.occupancyLoad(readChars(chars, true));
 
             set((state) => {
-                state.openGraph = og;
+                state.openGraphes = og;
             });
         },
         clear: () =>
@@ -194,15 +188,3 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
 );
 
 export const useComposeStateStore = createSelectors(useComposeStateBase);
-
-/**
- * The first link in plain post.
- */
-export function useComposeLink() {
-    const { chars, images, video } = useComposeStateStore();
-    return useMemo(() => {
-        if (images.length || video) return null;
-        const match = chars.toString().match(URL_REGEX);
-        return match ? match[0] : null;
-    }, [chars, images.length, !!video]);
-}
