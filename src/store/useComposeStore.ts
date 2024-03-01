@@ -34,8 +34,8 @@ interface ComposeState {
     images: MediaObject[];
     // parsed frames from urls in chars
     frames: Frame[];
-    // parsed open graphes from url in chars
-    openGraphes: OpenGraph[];
+    // parsed open graphs from url in chars
+    openGraphs: OpenGraph[];
     loading: boolean;
     redPacketPayload: RedPacketPayload | null;
     enableSource: (source: SocialPlatform) => void;
@@ -73,7 +73,7 @@ function createInitState() {
         typedMessage: null,
         images: EMPTY_LIST,
         frames: EMPTY_LIST,
-        openGraphes: EMPTY_LIST,
+        openGraphs: EMPTY_LIST,
         video: null,
         loading: false,
         lensPostId: null,
@@ -138,7 +138,7 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
             }),
         removeOpenGraph: (target) =>
             set((state) => {
-                state.openGraphes = state.openGraphes.filter((openGraph) => openGraph !== target);
+                state.openGraphs = state.openGraphs.filter((openGraph) => openGraph !== target);
             }),
         updateLensPostId: (postId) =>
             set((state) => {
@@ -174,10 +174,10 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
         },
         loadOpenGraphesFromChars: async () => {
             const chars = get().chars;
-            const openGraphes = await OpenGraphLoader.occupancyLoad(readChars(chars, true));
+            const openGraphs = await OpenGraphLoader.occupancyLoad(readChars(chars, true));
 
             set((state) => {
-                state.openGraphes = openGraphes;
+                state.openGraphs = openGraphs;
             });
         },
         clear: () =>

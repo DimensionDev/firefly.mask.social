@@ -13,7 +13,7 @@ import { useComposeStateStore } from '@/store/useComposeStore.js';
 interface ComposeContentProps {}
 
 export default function ComposeContent(props: ComposeContentProps) {
-    const { type, post, images, video, frames, openGraphes } = useComposeStateStore();
+    const { type, post, images, video, frames, openGraphs } = useComposeStateStore();
 
     return (
         <div className="p-4">
@@ -53,10 +53,10 @@ export default function ComposeContent(props: ComposeContentProps) {
                         <Quote post={post} className="text-left" />
                     ) : null}
 
-                    {/* open graphes */}
-                    {openGraphes.length ? (
+                    {/* open graphs */}
+                    {openGraphs.length ? (
                         <div className=" flex gap-2">
-                            {openGraphes.map((o) => (
+                            {openGraphs.map((o) => (
                                 <OembedUI key={o.url} og={o} />
                             ))}
                         </div>

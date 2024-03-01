@@ -30,14 +30,14 @@ const Editor = memo(function Editor() {
         video,
         images,
         frames,
-        openGraphes,
+        openGraphs,
         chars,
         updateChars,
         loadFramesFromChars,
         loadOpenGraphesFromChars,
     } = useComposeStateStore();
 
-    const hasMediaObject = images.length > 0 || !!video || frames.length || openGraphes.length;
+    const hasMediaObject = images.length > 0 || !!video || frames.length || openGraphs.length;
 
     useDebounce(
         () => {
