@@ -138,7 +138,7 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
             }),
         removeOpenGraph: (target) =>
             set((state) => {
-                state.openGraphes = state.openGraphes.filter((og) => og !== target);
+                state.openGraphes = state.openGraphes.filter((openGraph) => openGraph !== target);
             }),
         updateLensPostId: (postId) =>
             set((state) => {
@@ -174,10 +174,10 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
         },
         loadOpenGraphesFromChars: async () => {
             const chars = get().chars;
-            const og = await OpenGraphLoader.occupancyLoad(readChars(chars, true));
+            const openGraphes = await OpenGraphLoader.occupancyLoad(readChars(chars, true));
 
             set((state) => {
-                state.openGraphes = og;
+                state.openGraphes = openGraphes;
             });
         },
         clear: () =>
