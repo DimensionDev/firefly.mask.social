@@ -8,7 +8,7 @@ msgstr ""
 "Language: ja\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-02-29 12:02\n"
+"PO-Revision-Date: 2024-03-01 11:03\n"
 "Last-Translator: \n"
 "Language-Team: Japanese\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -85,6 +85,9 @@ msgid "<0>You</0> and {0} others recasted"
 msgstr ""
 
 msgid "Change Wallet"
+msgstr ""
+
+msgid "OpenGraph"
 msgstr ""
 
 msgid "Wrong wallet"
@@ -174,6 +177,9 @@ msgstr ""
 msgid "Recent"
 msgstr ""
 
+msgid "OpenGraph Validator"
+msgstr ""
+
 msgid "{type, select, compose {{0}} quote {{1}} reply {{2}} other {{3}}}"
 msgstr ""
 
@@ -192,6 +198,9 @@ msgstr ""
 msgid "Follow more friends to continue exploring on {0}."
 msgstr ""
 
+msgid "Frame Validator"
+msgstr ""
+
 msgid "Change account"
 msgstr ""
 
@@ -199,6 +208,9 @@ msgid "Follow System"
 msgstr ""
 
 msgid "No results"
+msgstr ""
+
+msgid "URL is required."
 msgstr ""
 
 msgid "Connection failed"
@@ -214,6 +226,9 @@ msgid "post"
 msgstr ""
 
 msgid "Hashtag"
+msgstr ""
+
+msgid "Frame"
 msgstr ""
 
 msgid "Search Filter"
@@ -342,6 +357,9 @@ msgstr ""
 msgid "liked"
 msgstr ""
 
+msgid "Invalid URL."
+msgstr ""
+
 msgid "Post has been encrypted"
 msgstr ""
 
@@ -378,6 +396,9 @@ msgstr ""
 msgid "Like"
 msgstr ""
 
+msgid "Please input the frame url to be revalidated."
+msgstr ""
+
 msgid "Failed to quote post on Lens."
 msgstr ""
 
@@ -388,6 +409,9 @@ msgid "This can’t be undone and you’ll lose your draft."
 msgstr ""
 
 msgid "Publications"
+msgstr ""
+
+msgid "Your website URL."
 msgstr ""
 
 msgid "Display"
@@ -409,6 +433,9 @@ msgid "Loading..."
 msgstr ""
 
 msgid "Share"
+msgstr ""
+
+msgid "Your frame URL."
 msgstr ""
 
 msgid "Cancel recast successfully"
@@ -466,6 +493,9 @@ msgid "Failed to publish post."
 msgstr ""
 
 msgid "recasted your"
+msgstr ""
+
+msgid "Please input the url to be revalidated."
 msgstr ""
 
 msgid "Posted on Farcaster"
@@ -550,6 +580,9 @@ msgid "LuckyDrop"
 msgstr ""
 
 msgid "{0} and others"
+msgstr ""
+
+msgid "Developers"
 msgstr ""
 
 msgid "Share to"
