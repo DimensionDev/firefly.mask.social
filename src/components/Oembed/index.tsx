@@ -14,12 +14,24 @@ import { isLinkMatchingHost } from '@/helpers/isLinkMatchingHost.js';
 import type { ResponseJSON } from '@/types/index.js';
 import { type LinkDigested, type OpenGraph, PayloadType } from '@/types/og.js';
 
+interface OembedUIProps {
+    og: OpenGraph;
+}
+
+export function OembedUI({ og }: OembedUIProps) {
+    return og.html ? (
+        <Player html={og.html} isSpotify={isLinkMatchingHost(og.url, 'open.spotify.com', false)} />
+    ) : (
+        <Embed og={og} />
+    );
+}
+
 interface OembedProps {
     url?: string;
     onData?: (data: OpenGraph) => void;
 }
 
-export default function Oembed({ url, onData }: OembedProps) {
+export function Oembed({ url, onData }: OembedProps) {
     const { isLoading, error, data } = useQuery({
         queryKey: ['oembed', url],
         queryFn: () => {
@@ -79,9 +91,5 @@ export default function Oembed({ url, onData }: OembedProps) {
         }
     }
 
-    return og.html ? (
-        <Player html={og.html} isSpotify={isLinkMatchingHost(og.url, 'open.spotify.com', false)} />
-    ) : (
-        <Embed og={og} />
-    );
+    return <OembedUI og={og} />;
 }

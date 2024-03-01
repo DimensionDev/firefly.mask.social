@@ -54,7 +54,8 @@ export const DANGER_POST_SIZE = 260;
 export const SAFE_POST_SIZE = 200;
 
 // POST
-export const MAX_FRAME_SIZE_PER_POST = 2;
+export const MAX_OPENGRAPH_SIZE = 1;
+export const MAX_FRAME_SIZE_PER_POST = 1;
 
 // HTTP Cache headers
 // Cache for 1 minute, stale for 30 days

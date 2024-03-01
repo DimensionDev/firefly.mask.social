@@ -4,7 +4,7 @@ import ComposeImage from '@/components/Compose/ComposeImage.js';
 import ComposeVideo from '@/components/Compose/ComposeVideo.js';
 import Editor from '@/components/Compose/Editor.js';
 import { FrameUI } from '@/components/Frame/index.js';
-import Oembed from '@/components/Oembed/index.js';
+import { Oembed } from '@/components/Oembed/index.js';
 import { Quote } from '@/components/Posts/Quote.js';
 import { classNames } from '@/helpers/classNames.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
