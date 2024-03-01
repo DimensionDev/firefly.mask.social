@@ -121,6 +121,7 @@ export function useSendFarcaster() {
         chars,
         images,
         frames,
+        openGraphs,
         updateImages,
         enqueueSnackbar,
         updateFarcasterPostId,
