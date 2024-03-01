@@ -1,5 +1,6 @@
 import urlcat from 'urlcat';
 
+import { MAX_FRAME_SIZE_PER_POST } from '@/constants/index.js';
 import { fetchCachedJSON } from '@/helpers/fetchJSON.js';
 import { BaseLoader } from '@/libs/base/Loader.js';
 import type { Frame, LinkDigested } from '@/types/frame.js';
@@ -26,6 +27,10 @@ class Loader extends BaseLoader<Frame> {
                 }
             });
         });
+    }
+
+    protected override parse(content: string) {
+        return super.parse(content).slice(0, MAX_FRAME_SIZE_PER_POST);
     }
 }
 

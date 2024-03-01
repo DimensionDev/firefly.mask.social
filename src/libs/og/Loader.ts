@@ -1,5 +1,6 @@
 import urlcat from 'urlcat';
 
+import { MAX_OG_SIZE_PER_POST } from '@/constants/index.js';
 import { fetchCachedJSON } from '@/helpers/fetchJSON.js';
 import { BaseLoader } from '@/libs/base/Loader.js';
 import type { ResponseJSON } from '@/types/index.js';
@@ -22,10 +23,14 @@ class Loader extends BaseLoader<OpenGraph> {
                     if (response.success) resolve(response.data.og);
                     else resolve(null);
                 } catch {
-                    reject(new Error('Failed to fetch OpenGraph'));
+                    reject(new Error('Failed to fetch open graph'));
                 }
             });
         });
+    }
+
+    protected override parse(content: string) {
+        return super.parse(content).slice(0, MAX_OG_SIZE_PER_POST);
     }
 }
 
