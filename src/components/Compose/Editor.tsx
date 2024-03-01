@@ -24,18 +24,28 @@ function ErrorBoundaryComponent() {
 }
 
 const Editor = memo(function Editor() {
-    const { type, post, video, images, frames, chars, updateChars, loadFramesFromChars, loadOpenGraphFromChars } =
-        useComposeStateStore();
+    const {
+        type,
+        post,
+        video,
+        images,
+        frames,
+        openGraphs,
+        chars,
+        updateChars,
+        loadFramesFromChars,
+        loadOpenGraphsFromChars,
+    } = useComposeStateStore();
 
-    const hasMediaObject = images.length > 0 || !!video;
+    const hasMediaObject = images.length > 0 || !!video || frames.length || openGraphs.length;
 
     useDebounce(
         () => {
             loadFramesFromChars();
-            loadOpenGraphFromChars();
+            loadOpenGraphsFromChars();
         },
         300,
-        [chars, loadFramesFromChars, loadOpenGraphFromChars],
+        [chars, loadFramesFromChars, loadOpenGraphsFromChars],
     );
 
     return (

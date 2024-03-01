@@ -116,7 +116,7 @@ describe('URL_REGEX', () => {
             
                     TLDR I tried to capture all my pain, seethe, mistakes & cope from the last crypto cycle in one spot
             
-                    Check it out 👇 https://benroy.beehiiv.com/p/parttime-degen-notes-speculation-crypto-markets-20192022
+                    Check it out 👇 https://benroy.beehiiv.com/p/parttime-degen-notes-speculation-crypto-markets-20192022 some text after link
                 `,
                 'https://benroy.beehiiv.com/p/parttime-degen-notes-speculation-crypto-markets-20192022',
             ],
