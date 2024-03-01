@@ -11,7 +11,7 @@ import EyeSlash from '@/assets/eye-slash.svg';
 import Lock from '@/assets/lock.svg';
 import { Frame } from '@/components/Frame/index.js';
 import { Markup, NakedMarkup } from '@/components/Markup/index.js';
-import Oembed from '@/components/Oembed/index.js';
+import { Oembed } from '@/components/Oembed/index.js';
 import { Attachments } from '@/components/Posts/Attachment.js';
 import { Quote } from '@/components/Posts/Quote.js';
 import { EMPTY_LIST, MAX_FRAME_SIZE_PER_POST } from '@/constants/index.js';
