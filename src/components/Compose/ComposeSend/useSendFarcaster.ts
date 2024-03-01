@@ -1,4 +1,5 @@
 import { t } from '@lingui/macro';
+import { uniqBy } from 'lodash-es';
 import { useCallback } from 'react';
 
 import { queryClient } from '@/configs/queryClient.js';
@@ -14,8 +15,18 @@ import { useFarcasterStateStore } from '@/store/useProfileStore.js';
 import type { MediaObject } from '@/types/index.js';
 
 export function useSendFarcaster() {
-    const { type, chars, post, images, frames, updateImages, farcasterPostId, updateFarcasterPostId, typedMessage } =
-        useComposeStateStore();
+    const {
+        type,
+        chars,
+        post,
+        images,
+        frames,
+        openGraphs,
+        updateImages,
+        farcasterPostId,
+        updateFarcasterPostId,
+        typedMessage,
+    } = useComposeStateStore();
     const enqueueSnackbar = useCustomSnackbar();
     const currentProfile = useFarcasterStateStore.use.currentProfile();
 
@@ -56,10 +67,14 @@ export function useSendFarcaster() {
                             content: readChars(chars),
                         },
                     },
-                    mediaObjects: [
-                        ...uploadedImages.map((media) => ({ url: media.imgur!, mimeType: media.file.type })),
-                        ...frames.map((frame) => ({ title: frame.title, url: frame.url })),
-                    ],
+                    mediaObjects: uniqBy(
+                        [
+                            ...uploadedImages.map((media) => ({ url: media.imgur!, mimeType: media.file.type })),
+                            ...frames.map((frame) => ({ title: frame.title, url: frame.url })),
+                            ...openGraphs.map((openGraph) => ({ title: openGraph.title!, url: openGraph.url })),
+                        ],
+                        (x) => x.url.toLowerCase(),
+                    ),
                     commentOn: type === 'reply' && post ? post : undefined,
                     parentChannelKey: hasRedPacket ? 'firefly-garden' : undefined,
                     parentChannelUrl: hasRedPacket ? 'https://warpcast.com/~/channel/firefly-garden' : undefined,
