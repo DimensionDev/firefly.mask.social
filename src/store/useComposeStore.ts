@@ -58,7 +58,7 @@ interface ComposeState {
     updateFarcasterPostId: (postId: string | null) => void;
     updateRedPacketPayload: (value: RedPacketPayload) => void;
     loadFramesFromChars: () => Promise<void>;
-    loadOpenGraphesFromChars: () => Promise<void>;
+    loadOpenGraphsFromChars: () => Promise<void>;
     clear: () => void;
 }
 
@@ -172,7 +172,7 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
                 state.frames = frames;
             });
         },
-        loadOpenGraphesFromChars: async () => {
+        loadOpenGraphsFromChars: async () => {
             const chars = get().chars;
             const openGraphs = await OpenGraphLoader.occupancyLoad(readChars(chars, true));
 
