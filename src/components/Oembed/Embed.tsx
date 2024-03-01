@@ -21,20 +21,20 @@ export default function Embed({ og }: EmbedProps) {
                         <Image
                             className="divider aspect-2 w-full rounded-xl object-cover"
                             src={og.image.base64 || og.image.url}
-                            alt="Thumbnail"
+                            alt={og.description || og.title || 'Thumbnail'}
                             width={og.image.width}
                             height={og.image.height}
                         />
                     ) : null}
                     <div className="flex items-center">
                         {!og.isLarge && og.image ? (
-                            <div className="h-36 w-36">
+                            <div className="relative aspect-square h-36 shrink-0">
                                 <Image
                                     className="rounded-l-xl border-r dark:border-gray-700"
                                     layout="fill"
                                     objectFit="contain"
                                     src={og.image.base64 || og.image.url}
-                                    alt="Thumbnail"
+                                    alt={og.description || og.title || 'Thumbnail'}
                                 />
                             </div>
                         ) : null}
