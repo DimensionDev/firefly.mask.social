@@ -11,7 +11,7 @@ class Loader extends BaseLoader<OpenGraph> {
             requestIdleCallback(async () => {
                 try {
                     const response = await fetchCachedJSON<ResponseJSON<LinkDigested>>(
-                        urlcat('/api/og', { link: url }),
+                        urlcat('/api/oembed', { link: url }),
                         {
                             signal: AbortSignal.timeout(30_000),
                         },

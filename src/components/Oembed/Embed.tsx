@@ -38,7 +38,7 @@ export default function Embed({ og }: EmbedProps) {
                                 />
                             </div>
                         ) : null}
-                        <div className="truncate p-5 text-second">
+                        <div className="truncate p-5 text-left text-second">
                             <div className="space-y-1.5">
                                 {og.title ? <div className="truncate font-bold">{og.title}</div> : null}
                                 {og.description ? (
