@@ -1,6 +1,7 @@
 'use client';
 
 import { connectorsForWallets, getDefaultWallets, RainbowKitProvider } from '@rainbow-me/rainbowkit';
+import { rabbyWallet } from '@rainbow-me/rainbowkit/wallets';
 import { type FallbackTransport } from 'viem';
 import { type Config, configureChains, createConfig, type PublicClient, type WebSocketPublicClient } from 'wagmi';
 import {
@@ -58,7 +59,7 @@ const { wallets } = getDefaultWallets({
     chains,
 });
 
-export const connectors = connectorsForWallets([...wallets]);
+export const connectors = connectorsForWallets([...wallets, rabbyWallet]);
 
 export const config = createConfig({
     autoConnect: process.env.NODE_ENV !== 'test',
