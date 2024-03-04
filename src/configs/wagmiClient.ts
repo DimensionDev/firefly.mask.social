@@ -1,7 +1,7 @@
 'use client';
 
-import { connectorsForWallets, getDefaultWallets, RainbowKitProvider } from '@rainbow-me/rainbowkit';
-import { rabbyWallet } from '@rainbow-me/rainbowkit/wallets';
+import { connectorsForWallets, RainbowKitProvider } from '@rainbow-me/rainbowkit';
+import { coinbaseWallet, metaMaskWallet, rabbyWallet, walletConnectWallet } from '@rainbow-me/rainbowkit/wallets';
 import { type FallbackTransport } from 'viem';
 import { type Config, configureChains, createConfig, type PublicClient, type WebSocketPublicClient } from 'wagmi';
 import {
@@ -53,13 +53,29 @@ export const { chains, publicClient, webSocketPublicClient } = configureChains(
     }) => WebSocketPublicClient<FallbackTransport> | undefined;
 };
 
-const { wallets } = getDefaultWallets({
-    appName: SITE_HOSTNAME,
-    projectId: process.env.NEXT_PUBLIC_W3M_PROJECT_ID,
-    chains,
-});
-
-export const connectors = connectorsForWallets([...wallets, rabbyWallet]);
+export const connectors = connectorsForWallets([
+    {
+        groupName: 'Recommended',
+        wallets: [
+            metaMaskWallet({
+                projectId: process.env.NEXT_PUBLIC_W3M_PROJECT_ID,
+                chains,
+            }),
+            walletConnectWallet({
+                projectId: process.env.NEXT_PUBLIC_W3M_PROJECT_ID,
+                chains,
+            }),
+            coinbaseWallet({
+                appName: SITE_HOSTNAME,
+                chains,
+            }),
+            rabbyWallet({
+                name: SITE_HOSTNAME,
+                chains,
+            }),
+        ],
+    },
+]);
 
 export const config = createConfig({
     autoConnect: process.env.NODE_ENV !== 'test',
