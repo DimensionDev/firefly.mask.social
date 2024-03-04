@@ -20,31 +20,32 @@ interface DecryptedInspectorProps {
 }
 
 export default function DecryptedInspector({ post, payloads }: DecryptedInspectorProps) {
+    const lensProfile = useLensStateStore.use.currentProfile();
+    const farcasterProfile = useFarcasterStateStore.use.currentProfile();
     useAsync(async () => {
         const identity: IdentityResolved = {};
         if (post?.source === SocialPlatform.Lens) {
             const lensToken = await LensSocialMediaProvider.getAccessToken();
-            const { currentProfile } = useLensStateStore.getState();
             identity.lensToken = lensToken.unwrap();
-            identity.profileId = currentProfile?.profileId;
+            identity.profileId = lensProfile?.profileId;
         } else if (post?.source === SocialPlatform.Farcaster) {
             const session = farcasterClient.getSession();
             if (session) {
-                const { currentProfile } = useFarcasterStateStore.getState();
                 const { messageHash, messageSignature, signer } =
                     await HubbleSocialMediaProvider.generateSignaturePacket();
                 Object.assign(identity, {
                     farcasterMessage: messageHash,
                     farcasterSignature: messageSignature,
                     farcasterSigner: signer,
-                    profileId: currentProfile?.profileId,
+                    profileId: farcasterProfile?.profileId,
                 } satisfies IdentityResolved);
             }
         }
         import('@/helpers/setupCurrentVisitingProfile.js').then((module) => {
             module.setupMyProfile(identity);
         });
-    }, []);
+    }, [lensProfile?.profileId, farcasterProfile?.profileId]);
+
     if (!post || !payloads?.length) return null;
 
     return (
