@@ -96,6 +96,7 @@
         "usehooks",
         "typeahead",
         "punc",
+        "rabby",
         "rarible",
         "rpid",
         "simplehash"
@@ -104,6 +105,8 @@
     "ignorePaths": [
         "pnpm-lock.yaml",
         "scripts/**",
+        "patches/**",
+        "tests/**",
         "package.json",
         "cspell.json",
         "tsconfig.tsbuildinfo",
@@ -115,8 +118,7 @@
         "src/maskbook",
         "src/providers/hubble/proto",
         "src/assets/**",
-        "src/locales/**",
-        "tests/**"
+        "src/locales/**"
     ],
     "overrides": []
 }
