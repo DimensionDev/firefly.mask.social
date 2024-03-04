@@ -139,6 +139,16 @@ describe('URL_REGEX', () => {
                 `Update not critical, but recommended. https://github.com/ethereum/go-ethereum/releases/tag/v1.13.14`,
                 'https://github.com/ethereum/go-ethereum/releases/tag/v1.13.14',
             ],
+            [
+                `jesse just called this the most consequential consumer web3 product in last five years. 
+
+                "- fully non-custodial
+                - fully open source (http://github.com/coinbase/smart-wallet)
+                - supporting best-in-class standards (e.g. 4337)"
+                
+                thank u @wilsoncusack`,
+                'http://github.com/coinbase/smart-wallet',
+            ],
         ];
 
         cases.forEach(([input, expectedOutput]) => {

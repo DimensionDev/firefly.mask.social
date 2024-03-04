@@ -1,4 +1,5 @@
 import { safeUnreachable } from '@masknet/kit';
+import { isValidDomain } from '@masknet/web3-shared-evm';
 import { useQuery } from '@tanstack/react-query';
 import { Suspense, useEffect } from 'react';
 import urlcat from 'urlcat';
@@ -35,7 +36,7 @@ export function Oembed({ url, onData }: OembedProps) {
     const { isLoading, error, data } = useQuery({
         queryKey: ['oembed', url],
         queryFn: () => {
-            if (!url) return;
+            if (!url || isValidDomain(url)) return;
             return fetchJSON<ResponseJSON<LinkDigested>>(
                 urlcat('/api/oembed', {
                     link: url,
