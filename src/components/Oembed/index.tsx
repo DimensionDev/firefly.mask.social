@@ -9,7 +9,6 @@ import { Mirror } from '@/components/Oembed/Mirror.js';
 import Player from '@/components/Oembed/Player.js';
 import { PostEmbed } from '@/components/Oembed/Post.js';
 import { Quote } from '@/components/Posts/Quote.js';
-import { MASK_SOCIAL_DETAIL_REGEX } from '@/constants/regex.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { formatWarpcastPost } from '@/helpers/formatWarpcastPost.js';
 import { isLinkMatchingHost } from '@/helpers/isLinkMatchingHost.js';
@@ -37,7 +36,7 @@ export function Oembed({ url, onData }: OembedProps) {
     const { isLoading, error, data } = useQuery({
         queryKey: ['oembed', url],
         queryFn: () => {
-            if (!url || isValidDomain(url) || !MASK_SOCIAL_DETAIL_REGEX.test(url)) return;
+            if (!url || isValidDomain(url)) return;
             return fetchJSON<ResponseJSON<LinkDigested>>(
                 urlcat('/api/oembed', {
                     link: url,
