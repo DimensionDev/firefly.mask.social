@@ -6,6 +6,7 @@ import QRCode from 'react-qr-code';
 import { useAsyncFn, useEffectOnce, useUnmount } from 'react-use';
 
 import LoadingIcon from '@/assets/loading.svg';
+import { IS_PRODUCTION } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
@@ -102,17 +103,19 @@ export function LoginFarcaster() {
                                 </button>
                             ) : null}
                         </div>
-                        <button
-                            className="text-sm font-semibold text-lightSecond disabled:cursor-not-allowed disabled:opacity-50"
-                            disabled={loadingCustodyWallet}
-                            onClick={onLoginWithCustodyWallet}
-                        >
-                            {loadingCustodyWallet ? (
-                                <Trans>Loading...</Trans>
-                            ) : (
-                                <Trans>Login with custody wallet</Trans>
-                            )}
-                        </button>
+                        {!IS_PRODUCTION ? (
+                            <button
+                                className="text-sm font-semibold text-lightSecond disabled:cursor-not-allowed disabled:opacity-50"
+                                disabled={loadingCustodyWallet}
+                                onClick={onLoginWithCustodyWallet}
+                            >
+                                {loadingCustodyWallet ? (
+                                    <Trans>Loading...</Trans>
+                                ) : (
+                                    <Trans>Login with custody wallet</Trans>
+                                )}
+                            </button>
+                        ) : null}
                     </>
                 ) : (
                     <div className="flex w-full flex-1 flex-col items-center justify-center">

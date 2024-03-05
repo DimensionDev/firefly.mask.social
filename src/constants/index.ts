@@ -36,8 +36,8 @@ export const EXPANDED_AVATAR = 'tr:w-1000,h-1000';
 export const COVER = 'tr:w-1500,h-500';
 export const ATTACHMENT = 'tr:w-1000';
 
-export const IS_PRODUCTION = process.env.NODE_ENV === 'production';
-export const IS_DEVELOPMENT = process.env.NODE_ENV === 'development';
+export const IS_PRODUCTION = process.env.NEXT_PUBLIC_VERCEL_ENV === 'production';
+export const IS_DEVELOPMENT = process.env.NEXT_PUBLIC_VERCEL_ENV === 'development';
 export const IS_PREVIEW = process.env.NEXT_PUBLIC_VERCEL_ENV === 'preview';
 
 export const EVER_API = 'https://endpoint.4everland.co';
