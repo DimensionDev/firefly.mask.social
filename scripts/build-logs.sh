@@ -56,6 +56,7 @@ if [ -f "package.json" ]; then
   node_version=$(get_node_version)
   pnpm_version=$(get_pnpm_version)
   build_time=$(date +"%Y-%m-%d %H:%M:%S")
+  submodule_commit_hash=$(git submodule status)
 
   # Create or overwrite the output file
   echo "Build Information" > "$output_file"
@@ -68,6 +69,7 @@ if [ -f "package.json" ]; then
   echo "Node.js Version: $node_version" >> "$output_file"
   echo "PNPM Version: $pnpm_version" >> "$output_file"
   echo "Application Version: v$version" >> "$output_file"
+  echo "Submodule Status: $submodule_commit_hash" >> "$output_file"
   if [ -n "$commit_tag" ]; then
     echo "Latest Commit Tag: $commit_tag" >> "$output_file"
   fi
