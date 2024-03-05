@@ -4,7 +4,7 @@ export const URL_REGEX =
 export const EMAIL_REGEX =
     /(([^\s"(),.:;<>@[\\\]]+(\.[^\s"(),.:;<>@[\\\]]+)*)|(".+"))@((\[(?:\d{1,3}\.){3}\d{1,3}])|(([\dA-Za-z-]+\.)+[A-Za-z]{2,}))/;
 
-export const MENTION_REGEX = /@[^\s()@:%_+~#?&=,!?']+/g;
+export const MENTION_REGEX = /@[^\s()@:%+~#?&=,!?']+/g;
 
 export const HASHTAG_REGEX = /(#\w*[A-Za-z]\w*)/g;
 
