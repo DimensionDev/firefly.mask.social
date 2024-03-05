@@ -15,6 +15,7 @@ describe('MENTION_REGEXP', () => {
             ['@handle.lens', true],
             ['@lens/handle', true],
             ['@club/handle', true],
+            ['@yup_io', true],
             [['This is message', 'with a @mention'].join('\n'), true],
         ] as Array<[string, boolean]>;
 
