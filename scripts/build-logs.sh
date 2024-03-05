@@ -66,6 +66,10 @@ if [ -f "package.json" ]; then
   echo "Application Version: v$version" >> "$output_file"
   echo "Latest Commit Hash: $commit_hash" >> "$output_file"
   echo "Latest Commit Message:" >> "$output_file"
+  echo "Vercel ENV: $VERCEL_ENV" >> "$output_file"
+  echo "Site URL: $NEXT_PUBLIC_SITE_URL" >> "$output_file"
+  echo "Frames: $NEXT_PUBLIC_FRAMES" >> "$output_file"
+  echo "Mask Web Components: $NEXT_PUBLIC_MASK_WEB_COMPONENTS" >> "$output_file"
   if [ -n "$commit_tag" ]; then
     echo "Latest Commit Tag: $commit_tag" >> "$output_file"
   fi
