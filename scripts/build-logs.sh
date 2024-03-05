@@ -60,19 +60,19 @@ if [ -f "package.json" ]; then
   # Create or overwrite the output file
   echo "Build Information" > "$output_file"
   echo "-----------------" >> "$output_file"
-  echo "Build Time: $build_time" >> "$output_file"
-  echo "Node.js Version: $node_version" >> "$output_file"
-  echo "PNPM Version: $pnpm_version" >> "$output_file"
-  echo "Application Version: v$version" >> "$output_file"
-  echo "Latest Commit Hash: $commit_hash" >> "$output_file"
-  echo "Latest Commit Message:" >> "$output_file"
   echo "Vercel ENV: $VERCEL_ENV" >> "$output_file"
   echo "Site URL: $NEXT_PUBLIC_SITE_URL" >> "$output_file"
   echo "Frames: $NEXT_PUBLIC_FRAMES" >> "$output_file"
   echo "Mask Web Components: $NEXT_PUBLIC_MASK_WEB_COMPONENTS" >> "$output_file"
+  echo "Build Time: $build_time" >> "$output_file"
+  echo "Node.js Version: $node_version" >> "$output_file"
+  echo "PNPM Version: $pnpm_version" >> "$output_file"
+  echo "Application Version: v$version" >> "$output_file"
   if [ -n "$commit_tag" ]; then
     echo "Latest Commit Tag: $commit_tag" >> "$output_file"
   fi
+  echo "Latest Commit Hash: $commit_hash" >> "$output_file"
+  echo "Latest Commit Message:" >> "$output_file"
   echo "" >> "$output_file"
   echo "$commit_message" >> "$output_file"
 
