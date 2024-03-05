@@ -30,15 +30,21 @@ export default function DecryptedInspector({ post, payloads }: DecryptedInspecto
             identity.profileId = lensProfile?.profileId;
         } else if (post?.source === SocialPlatform.Farcaster) {
             const session = farcasterClient.getSession();
+            Object.assign(identity, {
+                profileId: farcasterProfile?.profileId,
+            } satisfies IdentityResolved);
             if (session) {
-                const { messageHash, messageSignature, signer } =
-                    await HubbleSocialMediaProvider.generateSignaturePacket();
-                Object.assign(identity, {
-                    farcasterMessage: messageHash,
-                    farcasterSignature: messageSignature,
-                    farcasterSigner: signer,
-                    profileId: farcasterProfile?.profileId,
-                } satisfies IdentityResolved);
+                try {
+                    const { messageHash, messageSignature, signer } =
+                        await HubbleSocialMediaProvider.generateSignaturePacket();
+                    Object.assign(identity, {
+                        farcasterMessage: messageHash,
+                        farcasterSignature: messageSignature,
+                        farcasterSigner: signer,
+                    } satisfies IdentityResolved);
+                } catch (err) {
+                    console.error('Failed to generateSignaturePacket', err);
+                }
             }
         }
         import('@/helpers/setupCurrentVisitingProfile.js').then((module) => {
