@@ -1,7 +1,7 @@
 import { defineConfig } from 'vitest/config';
 
 function createURL(pathToFile: string) {
-    return new URL(pathToFile, import.meta.url).toString();
+    return new URL(pathToFile, import.meta.url).pathname;
 }
 
 export default defineConfig({
