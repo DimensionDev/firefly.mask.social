@@ -1,7 +1,33 @@
 {
     "name": "Firefly: Web3 & NFT Explorer",
-    "short_name": "Firefly is a social app for exploring what's happening in the world of Web3, NFTs, AI, and more.",
+    "short_name": "Firefly",
+    "description": "Firefly is a social app for exploring what's happening in the world of Web3, NFTs, AI, and more.",
     "icons": [
+        {
+            "src": "/android-chrome-36x36.png",
+            "sizes": "36x36",
+            "type": "image/png"
+        },
+        {
+            "src": "/android-chrome-48x48.png",
+            "sizes": "48x48",
+            "type": "image/png"
+        },
+        {
+            "src": "/android-chrome-72x72.png",
+            "sizes": "72x72",
+            "type": "image/png"
+        },
+        {
+            "src": "/android-chrome-96x96.png",
+            "sizes": "96x96",
+            "type": "image/png"
+        },
+        {
+            "src": "/android-chrome-144x144.png",
+            "sizes": "144x144",
+            "type": "image/png"
+        },
         {
             "src": "/android-chrome-192x192.png",
             "sizes": "192x192",
@@ -12,6 +38,13 @@
             "sizes": "384x384",
             "type": "image/png"
         }
+    ],
+    "prefer_related_applications": true,
+    "related_applications": [
+      {
+        "platform": "play",
+        "id": "io.dimension.firefly"
+      }
     ],
     "theme_color": "#ffffff",
     "background_color": "#ffffff",
