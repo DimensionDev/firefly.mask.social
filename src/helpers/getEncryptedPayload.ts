@@ -1,6 +1,6 @@
 import { compact, first } from 'lodash-es';
 
-import { readImageBlob } from '@/helpers/readImageBlob.js';
+import { readImageAsBlob } from '@/helpers/readImageAsBlob.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { steganographyDecodeImage } from '@/services/steganography.js';
 
@@ -27,7 +27,7 @@ export async function getEncryptedPayloadFromImageAttachment(post: Post): Promis
             if (!attachment.uri) return;
 
             const image = document.querySelector<HTMLImageElement>(`img[src="${attachment.uri}"]`);
-            const payload = image ? await readImageBlob(image) : attachment.uri;
+            const payload = image ? await readImageAsBlob(image) : attachment.uri;
             const decoded = await steganographyDecodeImage(payload || attachment.uri);
             if (!decoded) return;
 
