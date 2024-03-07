@@ -21,7 +21,6 @@ import LoadingIcon from '@/assets/loading.svg';
 import ComposeAction from '@/components/Compose/ComposeAction.js';
 import ComposeContent from '@/components/Compose/ComposeContent.js';
 import ComposeSend from '@/components/Compose/ComposeSend/index.js';
-import Discard from '@/components/Compose/Discard.js';
 import { useSetEditorContent } from '@/components/Compose/useSetEditorContent.js';
 import { MentionNode } from '@/components/Lexical/nodes/MentionsNode.js';
 import { Modal } from '@/components/Modal.js';
@@ -39,6 +38,7 @@ import { steganographyEncodeImage } from '@/services/steganography.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useFarcasterStateStore, useLensStateStore } from '@/store/useProfileStore.js';
+import { DiscardModalRef } from '@/modals/controls.js';
 
 const initialConfig = {
     namespace: 'composer',
@@ -70,8 +70,6 @@ export type ComposeModalCloseProps = {
 // { type = 'compose', post, opened, setOpened }: ComposeModalProps
 export const ComposeModalComponent = forwardRef<SingletonModalRefCreator<ComposeModalProps, ComposeModalCloseProps>>(
     function Compose(_, ref) {
-        const [discardOpened, setDiscardOpened] = useState(false);
-
         const currentSource = useGlobalState.use.currentSource();
 
         const currentLensProfile = useLensStateStore.use.currentProfile();
@@ -127,7 +125,7 @@ export const ComposeModalComponent = forwardRef<SingletonModalRefCreator<Compose
 
         const checkClose = useCallback(() => {
             if (readChars(chars, true).length) {
-                setDiscardOpened(true);
+                DiscardModalRef.open();
             } else {
                 dispatch?.close();
             }
@@ -193,8 +191,6 @@ export const ComposeModalComponent = forwardRef<SingletonModalRefCreator<Compose
 
         return (
             <>
-                <Discard opened={discardOpened} setOpened={setDiscardOpened} />
-
                 <Modal open={open} onClose={checkClose}>
                     <Dialog.Panel className="relative w-[600px] rounded-xl bg-bgModal shadow-popover transition-all dark:text-gray-950">
                         {/* Loading */}
