@@ -2,6 +2,7 @@ import { SingletonModal } from '@masknet/shared-base';
 
 import type { ComposeModalCloseProps, ComposeModalProps } from '@/modals/ComposeModal.js';
 import type { ConfirmModalCloseProps, ConfirmModalOpenProps } from '@/modals/ConfirmModal.js';
+import type { DiscardModalProps } from '@/modals/DiscardModal.js';
 import type { LoginModalProps } from '@/modals/LoginModal.js';
 import type { LogoutModalProps } from '@/modals/LogoutModal.js';
 import type { PreviewImagesModalOpenProps } from '@/modals/PreviewImagesModal.js';
@@ -15,4 +16,5 @@ export const LogoutModalRef = new SingletonModal<LogoutModalProps | void>();
 export const ProfileStatusModal = new SingletonModal<ProfileStatusModalProps>();
 export const PreviewImageModalRef = new SingletonModal<PreviewImagesModalOpenProps>();
 export const ComposeModalRef = new SingletonModal<ComposeModalProps, ComposeModalCloseProps>();
+export const DiscardModalRef = new SingletonModal<DiscardModalProps>();
 export const ConfirmModalRef = new SingletonModal<ConfirmModalOpenProps, ConfirmModalCloseProps>();
