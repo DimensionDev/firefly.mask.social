@@ -1,3 +1,5 @@
+/* cspell:disable */
+
 import type { Font } from 'satori';
 import urlcat from 'urlcat';
 
