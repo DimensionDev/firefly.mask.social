@@ -12,7 +12,7 @@ import { useSingletonModal } from '@masknet/shared-base-ui';
 import type { TypedMessageTextV1 } from '@masknet/typed-message';
 import type { FireflyRedPacketAPI } from '@masknet/web3-providers/types';
 import { $getRoot } from 'lexical';
-import { forwardRef, Fragment, useCallback, useState } from 'react';
+import { forwardRef, useCallback, useState } from 'react';
 import { useAsync } from 'react-use';
 import { None } from 'ts-results-es';
 import urlcat from 'urlcat';
