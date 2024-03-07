@@ -1,5 +1,5 @@
 'use client';
-import { Dialog, Transition } from '@headlessui/react';
+import { Dialog } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { HashtagNode } from '@lexical/hashtag';
 import { AutoLinkNode, LinkNode } from '@lexical/link';
@@ -24,6 +24,7 @@ import ComposeSend from '@/components/Compose/ComposeSend/index.js';
 import Discard from '@/components/Compose/Discard.js';
 import { useSetEditorContent } from '@/components/Compose/useSetEditorContent.js';
 import { MentionNode } from '@/components/Lexical/nodes/MentionsNode.js';
+import { Modal } from '@/components/Modal.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { SITE_HOSTNAME, SITE_URL } from '@/constants/index.js';
 import { fetchImageAsPNG } from '@/helpers/fetchImageAsPNG.js';
@@ -194,63 +195,35 @@ export const ComposeModalComponent = forwardRef<SingletonModalRefCreator<Compose
             <>
                 <Discard opened={discardOpened} setOpened={setDiscardOpened} />
 
-                <Transition appear show={open} as={Fragment}>
-                    <Dialog as="div" className="relative z-[100]" onClose={checkClose}>
-                        <Transition.Child
-                            as={Fragment}
-                            enter="ease-out duration-300"
-                            enterFrom="opacity-0"
-                            enterTo="opacity-100"
-                            leave="ease-in duration-200"
-                            leaveFrom="opacity-100"
-                            leaveTo="opacity-0"
-                        >
-                            <div className="fixed inset-0 bg-main/25 bg-opacity-30" />
-                        </Transition.Child>
-
-                        <div className="fixed inset-0 overflow-y-auto">
-                            <div className=" flex min-h-full items-center justify-center p-4 text-center">
-                                <Transition.Child
-                                    as={Fragment}
-                                    enter="ease-out duration-300"
-                                    enterFrom="opacity-0 scale-95"
-                                    enterTo="opacity-100 scale-100"
-                                    leave="ease-in duration-200"
-                                    leaveFrom="opacity-100 scale-100"
-                                    leaveTo="opacity-0 scale-95"
-                                >
-                                    <Dialog.Panel className="relative w-[600px] rounded-xl bg-bgModal shadow-popover transition-all dark:text-gray-950">
-                                        {/* Loading */}
-                                        {loading || encryptRedPacketLoading ? (
-                                            <div className=" absolute bottom-0 left-0 right-0 top-0 z-50 flex items-center justify-center">
-                                                <LoadingIcon className="animate-spin" width={24} height={24} />
-                                            </div>
-                                        ) : null}
-
-                                        {/* Title */}
-                                        <Dialog.Title as="h3" className=" relative h-14">
-                                            <XMarkIcon
-                                                className="absolute left-4 top-1/2 h-6 w-6 -translate-y-1/2 cursor-pointer text-main"
-                                                aria-hidden="true"
-                                                onClick={checkClose}
-                                            />
-
-                                            <span className=" flex h-full w-full items-center justify-center text-lg font-bold capitalize text-main">
-                                                {type}
-                                            </span>
-                                        </Dialog.Title>
-
-                                        <ComposeContent />
-                                        <ComposeAction />
-
-                                        {/* Send */}
-                                        <ComposeSend />
-                                    </Dialog.Panel>
-                                </Transition.Child>
+                <Modal open={open} onClose={checkClose}>
+                    <Dialog.Panel className="relative w-[600px] rounded-xl bg-bgModal shadow-popover transition-all dark:text-gray-950">
+                        {/* Loading */}
+                        {loading || encryptRedPacketLoading ? (
+                            <div className=" absolute bottom-0 left-0 right-0 top-0 z-50 flex items-center justify-center">
+                                <LoadingIcon className="animate-spin" width={24} height={24} />
                             </div>
-                        </div>
-                    </Dialog>
-                </Transition>
+                        ) : null}
+
+                        {/* Title */}
+                        <Dialog.Title as="h3" className=" relative h-14">
+                            <XMarkIcon
+                                className="absolute left-4 top-1/2 h-6 w-6 -translate-y-1/2 cursor-pointer text-main"
+                                aria-hidden="true"
+                                onClick={checkClose}
+                            />
+
+                            <span className=" flex h-full w-full items-center justify-center text-lg font-bold capitalize text-main">
+                                {type}
+                            </span>
+                        </Dialog.Title>
+
+                        <ComposeContent />
+                        <ComposeAction />
+
+                        {/* Send */}
+                        <ComposeSend />
+                    </Dialog.Panel>
+                </Modal>
             </>
         );
     },
