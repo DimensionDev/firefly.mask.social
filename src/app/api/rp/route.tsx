@@ -3,15 +3,15 @@
 import { safeUnreachable } from '@masknet/kit';
 import type { FireflyRedPacketAPI } from '@masknet/web3-providers/types';
 import { type NextRequest } from 'next/server.js';
-import satori, { type Font } from 'satori';
+import satori from 'satori';
 import urlcat from 'urlcat';
 import { z } from 'zod';
 
 import { RedPacketCover } from '@/components/RedPacket/Cover.js';
 import { RedPacketPayload } from '@/components/RedPacket/Payload.js';
-import { CACHE_AGE_INDEFINITE_ON_DISK, FIREFLY_ROOT_URL, SITE_URL } from '@/constants/index.js';
-import { fetchArrayBuffer } from '@/helpers/fetchArrayBuffer.js';
+import { CACHE_AGE_INDEFINITE_ON_DISK, FIREFLY_ROOT_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { getSatoriFonts } from '@/helpers/getSatoriFonts.js';
 import { loadTwmojiUrls } from '@/helpers/loadTwemojiUrls.js';
 import { removeVS16s } from '@/helpers/removeVS16s.js';
 import { Locale } from '@/types/index.js';
@@ -101,47 +101,6 @@ function parseParams(params: URLSearchParams) {
     }
 }
 
-async function getFonts(signal?: AbortSignal) {
-    return [
-        {
-            name: 'Inter',
-            data: await fetchArrayBuffer(urlcat(SITE_URL, '/font/Inter-Regular.ttf'), {
-                cache: 'force-cache',
-                signal,
-            }),
-            weight: 400,
-            style: 'normal',
-        },
-        {
-            name: 'Inter',
-            data: await fetchArrayBuffer(urlcat(SITE_URL, '/font/Inter-Bold.ttf'), {
-                cache: 'force-cache',
-                signal,
-            }),
-            weight: 700,
-            style: 'normal',
-        },
-        {
-            name: 'sans-serif',
-            data: await fetchArrayBuffer(urlcat(SITE_URL, '/font/NotoSansSC-Regular.ttf'), {
-                cache: 'force-cache',
-                signal,
-            }),
-            weight: 400,
-            style: 'normal',
-        },
-        {
-            name: 'sans-serif',
-            data: await fetchArrayBuffer(urlcat(SITE_URL, '/font/NotoSansSC-Bold.ttf'), {
-                cache: 'force-cache',
-                signal,
-            }),
-            weight: 700,
-            style: 'normal',
-        },
-    ] satisfies Font[];
-}
-
 async function getTheme(themeId: string, signal?: AbortSignal) {
     const url = urlcat(FIREFLY_ROOT_URL, '/v1/redpacket/themeById', {
         themeId,
@@ -159,7 +118,7 @@ async function getTheme(themeId: string, signal?: AbortSignal) {
 async function createImage(params: z.infer<typeof CoverSchema> | z.infer<typeof PayloadSchema>, signal?: AbortSignal) {
     const { usage, themeId } = params;
 
-    const [fonts, theme] = await Promise.all([getFonts(signal), getTheme(themeId, signal)]);
+    const [fonts, theme] = await Promise.all([getSatoriFonts(signal), getTheme(themeId, signal)]);
 
     switch (usage) {
         case UsageType.Cover:
