@@ -12,7 +12,7 @@ import { useSingletonModal } from '@masknet/shared-base-ui';
 import type { TypedMessageTextV1 } from '@masknet/typed-message';
 import type { FireflyRedPacketAPI } from '@masknet/web3-providers/types';
 import { $getRoot } from 'lexical';
-import { forwardRef, useCallback, useState } from 'react';
+import { forwardRef, useCallback } from 'react';
 import { useAsync } from 'react-use';
 import { None } from 'ts-results-es';
 import urlcat from 'urlcat';
@@ -33,12 +33,12 @@ import { type Chars, readChars } from '@/helpers/readChars.js';
 import { throws } from '@/helpers/throws.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
+import { DiscardModalRef } from '@/modals/controls.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { steganographyEncodeImage } from '@/services/steganography.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useFarcasterStateStore, useLensStateStore } from '@/store/useProfileStore.js';
-import { DiscardModalRef } from '@/modals/controls.js';
 
 const initialConfig = {
     namespace: 'composer',

@@ -1,16 +1,16 @@
-import { Dialog, Transition } from '@headlessui/react';
+import { Dialog } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { Trans } from '@lingui/macro';
-
-import { ComposeModalRef, DiscardModalRef } from '@/modals/controls.js';
-import { Modal } from '@/components/Modal.js';
+import type { SingletonModalRefCreator } from '@masknet/shared-base';
 import { useSingletonModal } from '@masknet/shared-base-ui';
 import { forwardRef } from 'react';
-import type { SingletonModalRefCreator } from '@masknet/shared-base';
+
+import { Modal } from '@/components/Modal.js';
+import { ComposeModalRef, DiscardModalRef } from '@/modals/controls.js';
 
 export type DiscardModalProps = void;
 
-export const DiscardModal = forwardRef<SingletonModalRefCreator<DiscardModalProps>>(function DiscardModal(_, ref) {
+export const DiscardModal = forwardRef<SingletonModalRefCreator>(function DiscardModal(_, ref) {
     const [open, dispatch] = useSingletonModal(ref);
 
     return (
