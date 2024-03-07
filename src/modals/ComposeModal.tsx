@@ -123,7 +123,7 @@ export const ComposeModalComponent = forwardRef<SingletonModalRefCreator<Compose
             },
         });
 
-        const checkClose = useCallback(() => {
+        const onClose = useCallback(() => {
             if (readChars(chars, true).length) {
                 DiscardModalRef.open();
             } else {
@@ -190,37 +190,35 @@ export const ComposeModalComponent = forwardRef<SingletonModalRefCreator<Compose
         }, [typedMessage, redPacketPayload, currentLensProfile, currentFarcasterProfile]);
 
         return (
-            <>
-                <Modal open={open} onClose={checkClose}>
-                    <Dialog.Panel className="relative w-[600px] rounded-xl bg-bgModal shadow-popover transition-all dark:text-gray-950">
-                        {/* Loading */}
-                        {loading || encryptRedPacketLoading ? (
-                            <div className=" absolute bottom-0 left-0 right-0 top-0 z-50 flex items-center justify-center">
-                                <LoadingIcon className="animate-spin" width={24} height={24} />
-                            </div>
-                        ) : null}
+            <Modal open={open} onClose={onClose}>
+                <Dialog.Panel className="relative w-[600px] rounded-xl bg-bgModal shadow-popover transition-all dark:text-gray-950">
+                    {/* Loading */}
+                    {loading || encryptRedPacketLoading ? (
+                        <div className=" absolute bottom-0 left-0 right-0 top-0 z-50 flex items-center justify-center">
+                            <LoadingIcon className="animate-spin" width={24} height={24} />
+                        </div>
+                    ) : null}
 
-                        {/* Title */}
-                        <Dialog.Title as="h3" className=" relative h-14">
-                            <XMarkIcon
-                                className="absolute left-4 top-1/2 h-6 w-6 -translate-y-1/2 cursor-pointer text-main"
-                                aria-hidden="true"
-                                onClick={checkClose}
-                            />
+                    {/* Title */}
+                    <Dialog.Title as="h3" className=" relative h-14">
+                        <XMarkIcon
+                            className="absolute left-4 top-1/2 h-6 w-6 -translate-y-1/2 cursor-pointer text-main"
+                            aria-hidden="true"
+                            onClick={onClose}
+                        />
 
-                            <span className=" flex h-full w-full items-center justify-center text-lg font-bold capitalize text-main">
-                                {type}
-                            </span>
-                        </Dialog.Title>
+                        <span className=" flex h-full w-full items-center justify-center text-lg font-bold capitalize text-main">
+                            {type}
+                        </span>
+                    </Dialog.Title>
 
-                        <ComposeContent />
-                        <ComposeAction />
+                    <ComposeContent />
+                    <ComposeAction />
 
-                        {/* Send */}
-                        <ComposeSend />
-                    </Dialog.Panel>
-                </Modal>
-            </>
+                    {/* Send */}
+                    <ComposeSend />
+                </Dialog.Panel>
+            </Modal>
         );
     },
 );
