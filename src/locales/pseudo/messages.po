@@ -196,9 +196,6 @@ msgstr ""
 msgid "Frame Validator"
 msgstr ""
 
-msgid "Change account"
-msgstr ""
-
 msgid "Follow System"
 msgstr ""
 
