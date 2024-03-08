@@ -9,9 +9,10 @@ import Loading from '@/components/Loading.js';
 import ContentTabs from '@/components/Profile/ContentTabs.js';
 import Info from '@/components/Profile/Info.js';
 import Title from '@/components/Profile/Title.js';
+import type { SourceInURL } from '@/constants/enum.js';
 import { SITE_NAME } from '@/constants/index.js';
 import { createPageTitle } from '@/helpers/createPageTitle.js';
-import { resolveSource, type SourceInURL } from '@/helpers/resolveSource.js';
+import { resolveSource } from '@/helpers/resolveSource.js';
 import { useIsMyProfile } from '@/hooks/useIsMyProfile.js';
 import { getProfileById } from '@/services/getProfileById.js';
 

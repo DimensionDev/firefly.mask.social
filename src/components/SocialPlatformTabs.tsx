@@ -4,10 +4,10 @@ import { getEnumAsArray } from '@masknet/kit';
 import { usePathname } from 'next/navigation.js';
 import { startTransition } from 'react';
 
-import { SocialPlatform } from '@/constants/enum.js';
+import { SocialPlatform, SourceInURL } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
-import { resolveSource, type SourceInURL } from '@/helpers/resolveSource.js';
+import { resolveSource } from '@/helpers/resolveSource.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 

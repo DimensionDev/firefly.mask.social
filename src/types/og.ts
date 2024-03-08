@@ -1,4 +1,4 @@
-import type { SourceInURL } from '@/helpers/resolveSource.js';
+import type { SourceInURL } from '@/constants/enum.js';
 import type { Cast } from '@/providers/types/Warpcast.js';
 
 export interface OpenGraphImage {
