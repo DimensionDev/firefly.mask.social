@@ -46,13 +46,13 @@ export function AccountSettings({ source, profile }: AccountSettingsProps) {
                     {profiles.map((profile) => (
                         <button
                             key={profile.profileId}
-                            className="my-[24px] flex items-center justify-between gap-[8px] disabled:cursor-not-allowed"
+                            className="my-[24px] flex items-center justify-between gap-[8px]"
                             disabled={isSameProfile(currentProfile, profile) || source === SocialPlatform.Farcaster}
                             onClick={() => {
                                 login(profile);
                             }}
                         >
-                            <ProfileAvatar profile={profile} />
+                            <ProfileAvatar profile={profile} clickable linkable />
                             <ProfileName profile={profile} />
                             <WarpcastSignerRequestIndicator session={currentProfileSession}>
                                 {isSameProfile(currentProfile, profile) ? <OnlineStatusIndicator /> : null}
@@ -85,7 +85,7 @@ export function AccountSettings({ source, profile }: AccountSettingsProps) {
             }
         >
             <div className="flex justify-center">
-                <ProfileAvatar profile={profile} size={isLarge ? 40 : 36} />
+                <ProfileAvatar profile={profile} size={isLarge ? 40 : 36} clickable />
             </div>
         </Tippy>
     );

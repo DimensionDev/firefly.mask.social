@@ -196,9 +196,6 @@ msgstr "Follow more friends to continue exploring on {0}."
 msgid "Frame Validator"
 msgstr "Frame Validator"
 
-msgid "Change account"
-msgstr "Change account"
-
 msgid "Follow System"
 msgstr "Follow System"
 

@@ -1,5 +1,5 @@
 'use client';
-import { Dialog, Transition } from '@headlessui/react';
+import { Dialog } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { HashtagNode } from '@lexical/hashtag';
 import { AutoLinkNode, LinkNode } from '@lexical/link';
@@ -12,7 +12,7 @@ import { useSingletonModal } from '@masknet/shared-base-ui';
 import type { TypedMessageTextV1 } from '@masknet/typed-message';
 import type { FireflyRedPacketAPI } from '@masknet/web3-providers/types';
 import { $getRoot } from 'lexical';
-import { forwardRef, Fragment, useCallback, useState } from 'react';
+import { forwardRef, useCallback } from 'react';
 import { useAsync } from 'react-use';
 import { None } from 'ts-results-es';
 import urlcat from 'urlcat';
@@ -21,9 +21,9 @@ import LoadingIcon from '@/assets/loading.svg';
 import ComposeAction from '@/components/Compose/ComposeAction.js';
 import ComposeContent from '@/components/Compose/ComposeContent.js';
 import ComposeSend from '@/components/Compose/ComposeSend/index.js';
-import Discard from '@/components/Compose/Discard.js';
 import { useSetEditorContent } from '@/components/Compose/useSetEditorContent.js';
 import { MentionNode } from '@/components/Lexical/nodes/MentionsNode.js';
+import { Modal } from '@/components/Modal.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { SITE_HOSTNAME, SITE_URL } from '@/constants/index.js';
 import { fetchImageAsPNG } from '@/helpers/fetchImageAsPNG.js';
@@ -33,6 +33,7 @@ import { type Chars, readChars } from '@/helpers/readChars.js';
 import { throws } from '@/helpers/throws.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
+import { DiscardModalRef } from '@/modals/controls.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { steganographyEncodeImage } from '@/services/steganography.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
@@ -69,8 +70,6 @@ export type ComposeModalCloseProps = {
 // { type = 'compose', post, opened, setOpened }: ComposeModalProps
 export const ComposeModalComponent = forwardRef<SingletonModalRefCreator<ComposeModalProps, ComposeModalCloseProps>>(
     function Compose(_, ref) {
-        const [discardOpened, setDiscardOpened] = useState(false);
-
         const currentSource = useGlobalState.use.currentSource();
 
         const currentLensProfile = useLensStateStore.use.currentProfile();
@@ -124,9 +123,9 @@ export const ComposeModalComponent = forwardRef<SingletonModalRefCreator<Compose
             },
         });
 
-        const checkClose = useCallback(() => {
+        const onClose = useCallback(() => {
             if (readChars(chars, true).length) {
-                setDiscardOpened(true);
+                DiscardModalRef.open();
             } else {
                 dispatch?.close();
             }
@@ -191,67 +190,35 @@ export const ComposeModalComponent = forwardRef<SingletonModalRefCreator<Compose
         }, [typedMessage, redPacketPayload, currentLensProfile, currentFarcasterProfile]);
 
         return (
-            <>
-                <Discard opened={discardOpened} setOpened={setDiscardOpened} />
-
-                <Transition appear show={open} as={Fragment}>
-                    <Dialog as="div" className="relative z-[100]" onClose={checkClose}>
-                        <Transition.Child
-                            as={Fragment}
-                            enter="ease-out duration-300"
-                            enterFrom="opacity-0"
-                            enterTo="opacity-100"
-                            leave="ease-in duration-200"
-                            leaveFrom="opacity-100"
-                            leaveTo="opacity-0"
-                        >
-                            <div className="fixed inset-0 bg-main/25 bg-opacity-30" />
-                        </Transition.Child>
-
-                        <div className="fixed inset-0 overflow-y-auto">
-                            <div className=" flex min-h-full items-center justify-center p-4 text-center">
-                                <Transition.Child
-                                    as={Fragment}
-                                    enter="ease-out duration-300"
-                                    enterFrom="opacity-0 scale-95"
-                                    enterTo="opacity-100 scale-100"
-                                    leave="ease-in duration-200"
-                                    leaveFrom="opacity-100 scale-100"
-                                    leaveTo="opacity-0 scale-95"
-                                >
-                                    <Dialog.Panel className="relative w-[600px] rounded-xl bg-bgModal shadow-popover transition-all dark:text-gray-950">
-                                        {/* Loading */}
-                                        {loading || encryptRedPacketLoading ? (
-                                            <div className=" absolute bottom-0 left-0 right-0 top-0 z-50 flex items-center justify-center">
-                                                <LoadingIcon className="animate-spin" width={24} height={24} />
-                                            </div>
-                                        ) : null}
-
-                                        {/* Title */}
-                                        <Dialog.Title as="h3" className=" relative h-14">
-                                            <XMarkIcon
-                                                className="absolute left-4 top-1/2 h-6 w-6 -translate-y-1/2 cursor-pointer text-main"
-                                                aria-hidden="true"
-                                                onClick={checkClose}
-                                            />
-
-                                            <span className=" flex h-full w-full items-center justify-center text-lg font-bold capitalize text-main">
-                                                {type}
-                                            </span>
-                                        </Dialog.Title>
-
-                                        <ComposeContent />
-                                        <ComposeAction />
-
-                                        {/* Send */}
-                                        <ComposeSend />
-                                    </Dialog.Panel>
-                                </Transition.Child>
-                            </div>
+            <Modal open={open} onClose={onClose}>
+                <Dialog.Panel className="relative w-[600px] rounded-xl bg-bgModal shadow-popover transition-all dark:text-gray-950">
+                    {/* Loading */}
+                    {loading || encryptRedPacketLoading ? (
+                        <div className=" absolute bottom-0 left-0 right-0 top-0 z-50 flex items-center justify-center">
+                            <LoadingIcon className="animate-spin" width={24} height={24} />
                         </div>
-                    </Dialog>
-                </Transition>
-            </>
+                    ) : null}
+
+                    {/* Title */}
+                    <Dialog.Title as="h3" className=" relative h-14">
+                        <XMarkIcon
+                            className="absolute left-4 top-1/2 h-6 w-6 -translate-y-1/2 cursor-pointer text-main"
+                            aria-hidden="true"
+                            onClick={onClose}
+                        />
+
+                        <span className=" flex h-full w-full items-center justify-center text-lg font-bold capitalize text-main">
+                            {type}
+                        </span>
+                    </Dialog.Title>
+
+                    <ComposeContent />
+                    <ComposeAction />
+
+                    {/* Send */}
+                    <ComposeSend />
+                </Dialog.Panel>
+            </Modal>
         );
     },
 );

@@ -1,6 +1,6 @@
+import { PlusIcon } from '@heroicons/react/24/outline';
 import { useMediaQuery } from 'usehooks-ts';
 
-import PlusIcon from '@/assets/plus.svg';
 import { SourceIcon } from '@/components/SourceIcon.js';
 import type { SocialPlatform } from '@/constants/enum.js';
 
@@ -23,7 +23,7 @@ export function ProfileAvatarAdd(props: ProfileAvatarAddProps) {
                 <SourceIcon source={source} size={isLarge ? 40 : 36} />
             </div>
             <PlusIcon
-                className="absolute rounded-[99px] shadow md:left-[24px] md:top-[20px] lg:left-[32px] lg:top-[24px]"
+                className="absolute rounded-full bg-white text-black shadow md:left-[24px] md:top-[20px] lg:left-[32px] lg:top-[24px]"
                 width={16}
                 height={16}
             />

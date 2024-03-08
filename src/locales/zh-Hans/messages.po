@@ -201,9 +201,6 @@ msgstr ""
 msgid "Frame Validator"
 msgstr ""
 
-msgid "Change account"
-msgstr "切换账号"
-
 msgid "Follow System"
 msgstr "跟随系统"
 
