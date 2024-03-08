@@ -52,7 +52,7 @@ export function AccountSettings({ source, profile }: AccountSettingsProps) {
                                 login(profile);
                             }}
                         >
-                            <ProfileAvatar profile={profile} clickable linkable/>
+                            <ProfileAvatar profile={profile} clickable linkable />
                             <ProfileName profile={profile} />
                             <WarpcastSignerRequestIndicator session={currentProfileSession}>
                                 {isSameProfile(currentProfile, profile) ? <OnlineStatusIndicator /> : null}
@@ -85,7 +85,7 @@ export function AccountSettings({ source, profile }: AccountSettingsProps) {
             }
         >
             <div className="flex justify-center">
-                <ProfileAvatar profile={profile} size={isLarge ? 40 : 36} />
+                <ProfileAvatar profile={profile} size={isLarge ? 40 : 36} clickable />
             </div>
         </Tippy>
     );
