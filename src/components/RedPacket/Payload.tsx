@@ -4,12 +4,11 @@ import { AmountText } from '@/components/RedPacket/AmountText.js';
 import { AuthorText } from '@/components/RedPacket/AuthorText.js';
 import { PayloadContainer } from '@/components/RedPacket/PayloadContainer.js';
 import { QuoteText } from '@/components/RedPacket/QuoteText.js';
-import { CoBrandType, TokenType, UsageType } from '@/types/rp.js';
+import { TokenType, UsageType } from '@/types/rp.js';
 
 interface PayloadProps {
     theme: FireflyRedPacketAPI.ThemeGroupSettings;
     amount: string; // bigint in str
-    coBrand: CoBrandType;
     from?: string;
     token: {
         type: TokenType;

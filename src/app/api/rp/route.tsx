@@ -1,26 +1,17 @@
 /* cspell:disable */
 
-import { safeUnreachable } from '@masknet/kit';
-import type { FireflyRedPacketAPI } from '@masknet/web3-providers/types';
 import { type NextRequest } from 'next/server.js';
-import satori from 'satori';
-import urlcat from 'urlcat';
 import { z } from 'zod';
 
-import { RedPacketCover } from '@/components/RedPacket/Cover.js';
-import { RedPacketPayload } from '@/components/RedPacket/Payload.js';
-import { CACHE_AGE_INDEFINITE_ON_DISK, FIREFLY_ROOT_URL } from '@/constants/index.js';
-import { fetchJSON } from '@/helpers/fetchJSON.js';
-import { getSatoriFonts } from '@/helpers/getSatoriFonts.js';
-import { loadTwmojiUrls } from '@/helpers/loadTwemojiUrls.js';
-import { removeVS16s } from '@/helpers/removeVS16s.js';
+import { CACHE_AGE_INDEFINITE_ON_DISK } from '@/constants/index.js';
+import { createRedPacketImage } from '@/services/createRedPacketImage.js';
 import { Locale } from '@/types/index.js';
-import { CoBrandType, TokenType, UsageType } from '@/types/rp.js';
+import { TokenType, UsageType } from '@/types/rp.js';
 
 const TokenSchema = z.object({
     type: z.nativeEnum(TokenType),
     symbol: z.string(),
-    decimals: z.coerce.number().int().nonnegative().optional(),
+    decimals: z.coerce.number().int().nonnegative(),
 });
 
 const CoverSchema = z.object({
@@ -45,7 +36,6 @@ const CoverSchema = z.object({
         .positive()
         .refine((x) => x < 256, { message: 'Shares cannot be more than 256' }),
     remainingShares: z.coerce.number().nonnegative(),
-    coBrand: z.nativeEnum(CoBrandType),
     token: TokenSchema,
 });
 
@@ -58,7 +48,6 @@ const PayloadSchema = z.object({
         .bigint()
         .nonnegative()
         .transform((x) => x.toString(10)),
-    coBrand: z.nativeEnum(CoBrandType),
     token: TokenSchema,
 });
 
@@ -82,7 +71,6 @@ function parseParams(params: URLSearchParams) {
                 shares: params.get('shares') ?? '0',
                 remainingShares: params.get('remaining-shares') ?? params.get('shares') ?? '0',
                 message: params.get('message') ?? 'Best Wishes!',
-                coBrand: params.get('co-brand') ?? CoBrandType.None,
                 from,
                 token,
             });
@@ -92,53 +80,10 @@ function parseParams(params: URLSearchParams) {
                 locale: params.get('locale') ?? Locale.en,
                 themeId: params.get('theme-id'),
                 amount: params.get('amount') ?? '0',
-                coBrand: params.get('co-brand') ?? CoBrandType.None,
                 from,
                 token,
             });
         default:
-            return;
-    }
-}
-
-async function getTheme(themeId: string, signal?: AbortSignal) {
-    const url = urlcat(FIREFLY_ROOT_URL, '/v1/redpacket/themeById', {
-        themeId,
-    });
-    const response = await fetchJSON<FireflyRedPacketAPI.ThemeByIdResponse>(url, {
-        next: {
-            // revalidate at most every hour
-            revalidate: 60 * 60,
-        },
-        signal,
-    });
-    return response.data;
-}
-
-async function createImage(params: z.infer<typeof CoverSchema> | z.infer<typeof PayloadSchema>, signal?: AbortSignal) {
-    const { usage, themeId } = params;
-
-    const [fonts, theme] = await Promise.all([getSatoriFonts(signal), getTheme(themeId, signal)]);
-
-    switch (usage) {
-        case UsageType.Cover:
-            // satori might not support VS16s, so we remove them here
-            params.message = removeVS16s(params.message);
-
-            return satori(<RedPacketCover theme={theme} {...params} />, {
-                width: 1200,
-                height: 840,
-                fonts,
-                graphemeImages: await loadTwmojiUrls(params.message),
-            });
-        case UsageType.Payload:
-            return satori(<RedPacketPayload theme={theme} {...params} />, {
-                width: 1200,
-                height: 840,
-                fonts,
-            });
-        default:
-            safeUnreachable(usage);
             return;
     }
 }
@@ -157,7 +102,7 @@ export async function GET(request: NextRequest) {
     const parsedParams = parseParams(request.nextUrl.searchParams);
     if (!parsedParams?.success) return new Response(`Invalid Params: ${parsedParams?.error.message}`, { status: 400 });
 
-    const image = await createImage(parsedParams.data, request.signal);
+    const image = await createRedPacketImage(parsedParams.data, request.signal);
     if (!image) return new Response('Failed to create image', { status: 500 });
 
     return new Response(image, {
