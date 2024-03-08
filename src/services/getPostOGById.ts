@@ -8,6 +8,11 @@ import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { resolveSource } from '@/helpers/resolveSource.js';
 import { getPostById } from '@/services/getPostById.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
+
+function getPostOGImage(post: Post) {
+    return [];
+}
 
 export async function getPostOGById(source: SourceInURL, postId: string) {
     const post = await getPostById(resolveSource(source), postId);
