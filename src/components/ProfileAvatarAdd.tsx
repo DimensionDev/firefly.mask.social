@@ -1,8 +1,8 @@
+import { PlusIcon } from '@heroicons/react/24/outline';
 import { useMediaQuery } from 'usehooks-ts';
 
 import { SourceIcon } from '@/components/SourceIcon.js';
 import type { SocialPlatform } from '@/constants/enum.js';
-import { PlusIcon } from '@heroicons/react/24/outline';
 
 interface ProfileAvatarAddProps extends React.HTMLAttributes<HTMLDivElement> {
     source: SocialPlatform;

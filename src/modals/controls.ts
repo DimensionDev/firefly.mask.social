@@ -6,7 +6,6 @@ import type { DiscardModalProps } from '@/modals/DiscardModal.js';
 import type { LoginModalProps } from '@/modals/LoginModal.js';
 import type { LogoutModalProps } from '@/modals/LogoutModal.js';
 import type { PreviewImagesModalOpenProps } from '@/modals/PreviewImagesModal.js';
-import type { ProfileStatusModalProps } from '@/modals/ProfileStatusModal.js';
 
 export const AccountModalRef = new SingletonModal();
 export const ConnectWalletModalRef = new SingletonModal();
