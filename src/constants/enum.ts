@@ -13,6 +13,11 @@ export enum SocialPlatform {
     Lens = 'Lens',
 }
 
+export enum SourceInURL {
+    Farcaster = 'farcaster',
+    Lens = 'lens',
+}
+
 export enum SearchType {
     Profiles = 'profiles',
     Posts = 'posts',

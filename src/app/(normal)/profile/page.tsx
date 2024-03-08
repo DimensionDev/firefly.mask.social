@@ -2,7 +2,7 @@
 
 import ProfilePage from '@/app/(normal)/profile/[source]/[id]/page.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
-import { SocialPlatform } from '@/constants/enum.js';
+import { SocialPlatform, SourceInURL } from '@/constants/enum.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 
@@ -18,7 +18,7 @@ export default function ProfileHome() {
         <ProfilePage
             params={{
                 id: currentSource === SocialPlatform.Lens ? currentProfile.handle : currentProfile.profileId,
-                source: currentSource === SocialPlatform.Lens ? 'lens' : 'farcaster',
+                source: currentSource === SocialPlatform.Lens ? SourceInURL.Lens : SourceInURL.Farcaster,
             }}
         />
     );

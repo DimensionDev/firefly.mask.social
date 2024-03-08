@@ -2,6 +2,7 @@ import sizeOf from 'image-size';
 import { parseHTML } from 'linkedom';
 import urlcat from 'urlcat';
 
+import { SourceInURL } from '@/constants/enum.js';
 import {
     LENS_DETAIL_REGEX,
     MASK_SOCIAL_DETAIL_REGEX,
@@ -11,7 +12,6 @@ import {
     WARPCAST_THREAD_REGEX,
 } from '@/constants/regex.js';
 import { parseURL } from '@/helpers/parseURL.js';
-import type { SourceInURL } from '@/helpers/resolveSource.js';
 import {
     generateIframe,
     getDescription,
@@ -93,7 +93,7 @@ class Processor {
                 payload: {
                     type: PayloadType.Post,
                     id,
-                    source: 'lens',
+                    source: SourceInURL.Lens,
                 },
             };
         }

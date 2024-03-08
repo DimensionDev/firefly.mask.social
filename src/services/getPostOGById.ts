@@ -1,11 +1,12 @@
 import { compact } from 'lodash-es';
 import urlcat from 'urlcat';
 
+import type { SourceInURL } from '@/constants/enum.js';
 import { SITE_URL } from '@/constants/index.js';
 import { createPageTitle } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
-import { resolveSource, type SourceInURL } from '@/helpers/resolveSource.js';
+import { resolveSource } from '@/helpers/resolveSource.js';
 import { getPostById } from '@/services/getPostById.js';
 
 export async function getPostOGById(source: SourceInURL, postId: string) {
