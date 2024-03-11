@@ -6,7 +6,7 @@ import { defaultLocale } from '@/i18n/index.js';
 import { Locale } from '@/types/index.js';
 
 function resolveLocale(locale: string): Locale {
-    return getEnumAsArray(Locale).some(({ value }) => value === locale) ? (locale as Locale) : defaultLocale;
+    return getEnumAsArray(Locale).find(({ value }) => value === locale)?.value ?? defaultLocale;
 }
 
 export function getLocaleFromCookies() {
