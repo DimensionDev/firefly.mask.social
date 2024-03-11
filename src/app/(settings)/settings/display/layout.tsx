@@ -4,7 +4,7 @@ import { createPageTitle } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 
 export const metadata = createSiteMetadata({
-    title: createPageTitle(t`Display`),
+    title: createPageTitle(t`General`),
 });
 
 export default function DetailLayout({ children }: { children: React.ReactNode }) {
