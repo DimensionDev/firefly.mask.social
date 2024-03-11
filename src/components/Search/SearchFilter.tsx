@@ -6,17 +6,6 @@ import { memo } from 'react';
 import { useSearchState } from '@/components/Search/useSearchState.js';
 import { SearchType } from '@/constants/enum.js';
 
-const Filters = [
-    {
-        type: SearchType.Posts,
-        label: <Trans>Publications</Trans>,
-    },
-    {
-        type: SearchType.Profiles,
-        label: <Trans>Profiles</Trans>,
-    },
-];
-
 export const SearchFilter = memo(function SearchFilter() {
     const { searchType, updateParams } = useSearchState();
 
@@ -29,7 +18,16 @@ export const SearchFilter = memo(function SearchFilter() {
             </div>
             <div className=" my-4 rounded-xl border border-line">
                 <fieldset className=" px-4 pb-1 pt-2">
-                    {Filters.map((filter) => (
+                    {[
+                        {
+                            type: SearchType.Posts,
+                            label: <Trans>Publications</Trans>,
+                        },
+                        {
+                            type: SearchType.Profiles,
+                            label: <Trans>Profiles</Trans>,
+                        },
+                    ].map((filter) => (
                         <div key={filter.type} className="flex items-center">
                             <label
                                 htmlFor={filter.type}

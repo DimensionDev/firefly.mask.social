@@ -33,45 +33,6 @@ import { useIsMyProfile } from '@/hooks/useIsMyProfile.js';
 import { ComposeModalRef, LoginModalRef } from '@/modals/controls.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 
-const items = [
-    {
-        href: PageRoutes.Home,
-        name: <Trans>Discover</Trans>,
-        icon: DiscoverIcon,
-        selectedIcon: DiscoverSelectedIcon,
-    },
-    {
-        href: PageRoutes.Following,
-        name: <Trans>Following</Trans>,
-        icon: FollowingIcon,
-        selectedIcon: FollowingSelectedIcon,
-    },
-    {
-        href: PageRoutes.Notifications,
-        name: <Trans>Notifications</Trans>,
-        icon: NotificationIcon,
-        selectedIcon: NotificationSelectedIcon,
-    },
-    {
-        href: PageRoutes.Profile,
-        name: <Trans>Profile</Trans>,
-        icon: ProfileIcon,
-        selectedIcon: ProfileSelectedIcon,
-    },
-    {
-        href: '/connect-wallet',
-        name: <Trans>Connect</Trans>,
-        icon: WalletIcon,
-        selectedIcon: WalletIcon,
-    },
-    {
-        href: PageRoutes.Settings,
-        name: <Trans>Settings</Trans>,
-        icon: SettingsIcon,
-        selectedIcon: SettingsSelectedIcon,
-    },
-];
-
 export const SideBar = memo(function SideBar() {
     const isLarge = useMediaQuery('(min-width: 1280px)');
     const currentSource = useGlobalState.use.currentSource();
@@ -110,7 +71,44 @@ export const SideBar = memo(function SideBar() {
                         <ul role="list" className="flex flex-1 flex-col gap-y-7">
                             <li className="flex">
                                 <ul role="list" className="space-y-1">
-                                    {items.map((item) => {
+                                    {[
+                                        {
+                                            href: PageRoutes.Home,
+                                            name: <Trans>Discover</Trans>,
+                                            icon: DiscoverIcon,
+                                            selectedIcon: DiscoverSelectedIcon,
+                                        },
+                                        {
+                                            href: PageRoutes.Following,
+                                            name: <Trans>Following</Trans>,
+                                            icon: FollowingIcon,
+                                            selectedIcon: FollowingSelectedIcon,
+                                        },
+                                        {
+                                            href: PageRoutes.Notifications,
+                                            name: <Trans>Notifications</Trans>,
+                                            icon: NotificationIcon,
+                                            selectedIcon: NotificationSelectedIcon,
+                                        },
+                                        {
+                                            href: PageRoutes.Profile,
+                                            name: <Trans>Profile</Trans>,
+                                            icon: ProfileIcon,
+                                            selectedIcon: ProfileSelectedIcon,
+                                        },
+                                        {
+                                            href: '/connect-wallet',
+                                            name: <Trans>Connect</Trans>,
+                                            icon: WalletIcon,
+                                            selectedIcon: WalletIcon,
+                                        },
+                                        {
+                                            href: PageRoutes.Settings,
+                                            name: <Trans>Settings</Trans>,
+                                            icon: SettingsIcon,
+                                            selectedIcon: SettingsSelectedIcon,
+                                        },
+                                    ].map((item) => {
                                         const isSelected =
                                             item.href === '/'
                                                 ? pathname === '/'
