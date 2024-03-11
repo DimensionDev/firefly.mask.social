@@ -1,11 +1,13 @@
 import { t } from '@lingui/macro';
 
-import { createPageTitle } from '@/helpers/createPageTitle.js';
+import { createPageTitleSSR } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 
-export const metadata = createSiteMetadata({
-    title: createPageTitle(t`Display`),
-});
+export async function generateMetadata() {
+    return createSiteMetadata({
+        title: createPageTitleSSR(t`General`),
+    });
+}
 
 export default function DetailLayout({ children }: { children: React.ReactNode }) {
     return <>{children}</>;

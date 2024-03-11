@@ -11,32 +11,6 @@ import { getLocaleFromCookies } from '@/helpers/getLocaleFromCookies.js';
 import { useThemeModeStore } from '@/store/useThemeModeStore.js';
 import { Locale } from '@/types/index.js';
 
-const DisplayOptions = [
-    {
-        value: Appearance.default,
-        label: <Trans>Follow System</Trans>,
-    },
-    {
-        value: Appearance.light,
-        label: <Trans>Light Mode</Trans>,
-    },
-    {
-        value: Appearance.dark,
-        label: <Trans>Dark Mode</Trans>,
-    },
-];
-
-const LanguageOptions = [
-    {
-        value: Locale.en,
-        label: 'English',
-    },
-    {
-        value: Locale.zhHans,
-        label: '简体中文',
-    },
-];
-
 export default function Display() {
     const setThemeMode = useThemeModeStore.use.setThemeMode();
     const mode = useThemeModeStore.use.themeMode();
@@ -49,7 +23,20 @@ export default function Display() {
                 <Trans>Display</Trans>
             </div>
 
-            {DisplayOptions.map((option, index) => (
+            {[
+                {
+                    value: Appearance.default,
+                    label: <Trans>Follow System</Trans>,
+                },
+                {
+                    value: Appearance.light,
+                    label: <Trans>Light Mode</Trans>,
+                },
+                {
+                    value: Appearance.dark,
+                    label: <Trans>Dark Mode</Trans>,
+                },
+            ].map((option, index) => (
                 <OptionButton
                     key={index}
                     darkMode={option.value === Appearance.default ? isDarkOS : option.value === Appearance.dark}
@@ -65,7 +52,16 @@ export default function Display() {
                 <Trans>Language</Trans>
             </div>
 
-            {LanguageOptions.map((option, index) => (
+            {[
+                {
+                    value: Locale.en,
+                    label: 'English',
+                },
+                {
+                    value: Locale.zhHans,
+                    label: '简体中文',
+                },
+            ].map((option, index) => (
                 <OptionButton
                     key={index}
                     selected={option.value === locale}

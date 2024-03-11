@@ -32,7 +32,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     setLocale(getLocaleFromCookies());
 
     return (
-        <html lang="en">
+        <html>
             <head>
                 <Polyfills />
             </head>

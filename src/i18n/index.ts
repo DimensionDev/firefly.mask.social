@@ -23,19 +23,19 @@ export const defaultLocale = Locale.en;
  * set locale and dynamically import catalog
  * @param locale a supported locale string
  */
-export async function setLocale(locale: Locale) {
+export function setLocale(locale: Locale) {
     if (!supportedLocales.hasOwnProperty(locale)) {
         console.error(`[i18n]: unknown locale ${locale}`);
         locale = defaultLocale;
     } else {
         console.log(`[i18n]: locale ${locale}`);
     }
+
     i18n.load(locale, locales[locale]);
-    i18n.activate(locale);
+    i18n.activate(locale, [Locale.en, Locale.zhHans]);
     dayjs.locale(locale);
 }
 
-export async function loadCatalog(locale: string) {
-    const { messages } = await import(`@lingui/loader!@/locales/${locale}/messages.po`);
-    return messages;
+export function getLocale(locale: Locale) {
+    return locales[locale];
 }

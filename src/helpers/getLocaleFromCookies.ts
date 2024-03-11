@@ -6,11 +6,10 @@ import { defaultLocale } from '@/i18n/index.js';
 import { Locale } from '@/types/index.js';
 
 function resolveLocale(locale: string): Locale {
-    return getEnumAsArray(Locale).some(({ value }) => value === locale) ? (locale as Locale) : defaultLocale;
+    return getEnumAsArray(Locale).find(({ value }) => value === locale)?.value ?? defaultLocale;
 }
 
 export function getLocaleFromCookies() {
-    const localeFromCookies =
-        typeof document === 'undefined' ? cookies().get('locale')?.value : (getCookie('locale') as Locale | undefined);
-    return localeFromCookies ? resolveLocale(localeFromCookies) : defaultLocale;
+    const locale = typeof document === 'undefined' ? cookies().get('locale')?.value : getCookie('locale');
+    return locale ? resolveLocale(locale) : defaultLocale;
 }
