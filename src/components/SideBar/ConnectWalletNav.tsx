@@ -6,9 +6,9 @@ import { useAccount, useEnsName } from 'wagmi';
 import { mainnet } from 'wagmi/chains';
 
 import WalletIcon from '@/assets/wallet.svg';
+import { resolve } from '@/helpers/resolve.js';
 import { useMounted } from '@/hooks/useMounted.js';
 import { AccountModalRef, ConnectWalletModalRef } from '@/modals/controls.js';
-import { resolve } from '@/helpers/resolve.js';
 
 export function ConnectWalletNav() {
     const mounted = useMounted();

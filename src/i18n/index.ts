@@ -30,6 +30,7 @@ export async function setLocale(locale: Locale) {
     } else {
         console.log(`[i18n]: locale ${locale}`);
     }
+
     i18n.load(locale, locales[locale]);
     i18n.activate(locale, [Locale.en, Locale.zhHans]);
     dayjs.locale(locale);
