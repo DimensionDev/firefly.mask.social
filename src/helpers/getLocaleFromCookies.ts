@@ -10,7 +10,6 @@ function resolveLocale(locale: string): Locale {
 }
 
 export function getLocaleFromCookies() {
-    const localeFromCookies =
-        typeof document === 'undefined' ? cookies().get('locale')?.value : (getCookie('locale') as Locale | undefined);
-    return localeFromCookies ? resolveLocale(localeFromCookies) : defaultLocale;
+    const locale = typeof document === 'undefined' ? cookies().get('locale')?.value : getCookie('locale');
+    return locale ? resolveLocale(locale) : defaultLocale;
 }
