@@ -2,10 +2,12 @@ import { t } from '@lingui/macro';
 
 import { createPageTitle } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
+import { getLocale } from '@/i18n/index.js';
+import { getLocaleFromCookies } from '@/helpers/getLocaleFromCookies.js';
 
 export async function generateMetadata() {
     return createSiteMetadata({
-        title: createPageTitle(t`More`),
+        title: createPageTitle(getLocale(getLocaleFromCookies(), t`More`)),
     });
 }
 

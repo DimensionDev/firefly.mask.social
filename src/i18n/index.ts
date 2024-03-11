@@ -23,7 +23,7 @@ export const defaultLocale = Locale.en;
  * set locale and dynamically import catalog
  * @param locale a supported locale string
  */
-export async function setLocale(locale: Locale) {
+export function setLocale(locale: Locale) {
     if (!supportedLocales.hasOwnProperty(locale)) {
         console.error(`[i18n]: unknown locale ${locale}`);
         locale = defaultLocale;
@@ -31,10 +31,12 @@ export async function setLocale(locale: Locale) {
         console.log(`[i18n]: locale ${locale}`);
     }
 
-    console.log('DEBUG: messages');
-    console.log(locales[locale].c4FFU8);
-
     i18n.load(locale, locales[locale]);
     i18n.activate(locale, [Locale.en, Locale.zhHans]);
     dayjs.locale(locale);
+}
+
+export function getLocale(locale: Locale, msgId: string): string {
+    const trans = locales[locale][msgId] as string | undefined;
+    return trans || msgId;
 }
