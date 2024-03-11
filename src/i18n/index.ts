@@ -32,7 +32,7 @@ export async function setLocale(locale: Locale) {
     }
 
     console.log('DEBUG: messages');
-    console.log(locales[locale]['c4FFU8']);
+    console.log(locales[locale].c4FFU8);
 
     i18n.load(locale, locales[locale]);
     i18n.activate(locale, [Locale.en, Locale.zhHans]);
