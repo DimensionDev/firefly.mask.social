@@ -36,7 +36,6 @@ export function setLocale(locale: Locale) {
     dayjs.locale(locale);
 }
 
-export function getLocale(locale: Locale, msgId: string): string {
-    const trans = locales[locale][msgId] as string | undefined;
-    return trans || msgId;
+export function getLocale(locale: Locale) {
+    return locales[locale];
 }
