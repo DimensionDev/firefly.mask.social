@@ -3,7 +3,7 @@ import { t } from '@lingui/macro';
 import { createPageTitle } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 
-export function generateMetadata() {
+export async function generateMetadata() {
     return createSiteMetadata({
         title: createPageTitle(t`Connected Accounts`),
     });
