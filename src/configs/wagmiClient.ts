@@ -1,3 +1,5 @@
+/* cspell:disable */
+
 'use client';
 
 import { connectorsForWallets, RainbowKitProvider } from '@rainbow-me/rainbowkit';
