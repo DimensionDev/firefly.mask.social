@@ -1,7 +1,7 @@
 'use client';
 
 import { connectorsForWallets, RainbowKitProvider } from '@rainbow-me/rainbowkit';
-import { coinbaseWallet, metaMaskWallet, rabbyWallet, walletConnectWallet } from '@rainbow-me/rainbowkit/wallets';
+import { coinbaseWallet, metaMaskWallet, rabbyWallet, walletConnectWallet, okxWallet } from '@rainbow-me/rainbowkit/wallets';
 import { type FallbackTransport } from 'viem';
 import { type Config, configureChains, createConfig, type PublicClient, type WebSocketPublicClient } from 'wagmi';
 import {
@@ -71,6 +71,10 @@ export const connectors = connectorsForWallets([
             }),
             rabbyWallet({
                 name: SITE_HOSTNAME,
+                chains,
+            }),
+            okxWallet({
+                projectId: process.env.NEXT_PUBLIC_W3M_PROJECT_ID,
                 chains,
             }),
         ],
