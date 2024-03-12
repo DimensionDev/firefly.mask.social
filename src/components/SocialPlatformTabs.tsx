@@ -34,22 +34,27 @@ export function SocialPlatformTabs() {
         <div className="border-b border-line bg-primaryBottom px-4">
             <nav className="-mb-px flex space-x-4" aria-label="Tabs">
                 {getEnumAsArray(SocialPlatform).map(({ key, value }) => (
-                    <a
+                    <li
                         key={key}
-                        className={classNames(
-                            currentSource === value ? 'border-b-2 border-[#9250FF] text-main' : 'text-third',
-                            'h-[60px] px-4 py-[18px] text-xl font-bold leading-6 hover:cursor-pointer hover:text-main',
-                        )}
-                        aria-current={currentSource === value ? 'page' : undefined}
-                        onClick={() =>
-                            startTransition(() => {
-                                scrollTo(0, 0);
-                                updateCurrentSource(value);
-                            })
-                        }
+                        className={classNames('flex flex-1 list-none justify-center', 'lg:flex-auto lg:justify-start')}
                     >
-                        {value}
-                    </a>
+                        <a
+                            className={classNames(
+                                currentSource === value ? 'border-b-2 border-[#9250FF] text-main' : 'text-third',
+                                'h-[43px] px-4 text-center text-xl font-bold leading-[43px] hover:cursor-pointer hover:text-main',
+                                'md:h-[60px] md:py-[18px] md:leading-6',
+                            )}
+                            aria-current={currentSource === value ? 'page' : undefined}
+                            onClick={() =>
+                                startTransition(() => {
+                                    scrollTo(0, 0);
+                                    updateCurrentSource(value);
+                                })
+                            }
+                        >
+                            {value}
+                        </a>
+                    </li>
                 ))}
             </nav>
         </div>

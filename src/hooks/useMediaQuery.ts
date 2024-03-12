@@ -1,18 +1,15 @@
 import { useMediaQuery } from 'usehooks-ts';
 
-export function useIsLarge() {
-    return useMediaQuery('(min-width: 1280px)');
+export function useIsLarge(constraintType: 'min' | 'max' = 'min') {
+    return useMediaQuery(`(${constraintType}-width: 1280px)`);
 }
 
-export function useIsMedium(exlusive = false) {
-    const isLargeMatched = useIsLarge();
-    const isMediumMatched = useMediaQuery('(min-width: 990px)');
-    return exlusive ? isMediumMatched && !isLargeMatched : isMediumMatched;
+export function useIsMedium(constraintType: 'min' | 'max' = 'min') {
+    const isMediumMatched = useMediaQuery(`(${constraintType}-width: 990px)`);
+    return isMediumMatched;
 }
 
-export function useIsSmall(exlusive = false) {
-    const isLargeMatched = useIsLarge();
-    const isMediumMatched = useIsMedium();
-    const isSmallMatched = useMediaQuery('(min-width: 640px)');
-    return exlusive ? isSmallMatched && !isMediumMatched && !isLargeMatched : isSmallMatched;
+export function useIsSmall(constraintType: 'min' | 'max' = 'min') {
+    const isSmallMatched = useMediaQuery(`(${constraintType}-width: 640px)`);
+    return isSmallMatched;
 }

@@ -4,10 +4,9 @@ import { memo } from 'react';
 
 import { SideBarForDesktop } from '@/components/SideBar/SideBarForDesktop.js';
 import { SideBarForMobile } from '@/components/SideBar/SideBarForMobile.js';
-import { useIsSmall } from '@/hooks/useMediaQuery.js';
+import { useIsMedium } from '@/hooks/useMediaQuery.js';
 
 export const SideBar = memo(function SideBar() {
-    const isSmall = useIsSmall();
-
-    return isSmall ? <SideBarForDesktop /> : <SideBarForMobile />;
+    const isMedium = useIsMedium();
+    return isMedium ? <SideBarForDesktop /> : <SideBarForMobile />;
 });
