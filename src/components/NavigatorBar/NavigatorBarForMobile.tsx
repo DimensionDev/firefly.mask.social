@@ -6,7 +6,11 @@ import MenuIcon from '@/assets/menu.svg';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { useFarcasterStateStore, useLensStateStore } from '@/store/useProfileStore.js';
 
-export const NavigatorBarForMobile = memo(function NavigatorBarForMobile() {
+interface NavigatorBarForMobileProps {
+    title: string;
+}
+
+export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({ title }: NavigatorBarForMobileProps) {
     const lensProfile = useLensStateStore.use.currentProfile?.();
     const farcasterProfile = useFarcasterStateStore.use.currentProfile?.();
 
@@ -30,7 +34,11 @@ export const NavigatorBarForMobile = memo(function NavigatorBarForMobile() {
                 {farcasterProfile || lensProfile ? null : <MenuIcon />}
             </div>
             <h1 className=" flex flex-1 justify-center">
-                <FireflyIcon />
+                {farcasterProfile || lensProfile ? (
+                    <span className=" text-[20px] font-bold leading-[24px]">{title}</span>
+                ) : (
+                    <FireflyIcon />
+                )}
             </h1>
             <div className=" flex h-[30px] w-[30px]">
                 <MagnifierIcon />
