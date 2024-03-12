@@ -17,7 +17,7 @@ import SettingsSelectedIcon from '@/assets/setting.selected.svg';
 import SettingsIcon from '@/assets/setting.svg';
 import WalletIcon from '@/assets/wallet.svg';
 import { LoginStatusBar } from '@/components/Login/LoginStatusBar.js';
-import { ConnectWalletNav } from '@/components/SideBar/ConnectWalletNav.js';
+import { ConnectWallet } from '@/components/SideBar/ConnectWallet.js';
 import { PageRoutes } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -28,7 +28,7 @@ import { useIsLarge } from '@/hooks/useMediaQuery.js';
 import { ComposeModalRef, LoginModalRef } from '@/modals/controls.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 
-export const NavigatorMenu = memo(function NavigatorMenu() {
+export const Menu = memo(function Menu() {
     const isLarge = useIsLarge();
 
     const currentSource = useGlobalState.use.currentSource();
@@ -93,7 +93,7 @@ export const NavigatorMenu = memo(function NavigatorMenu() {
                             return (
                                 <li className="flex rounded-lg text-main" key={item.href}>
                                     {item.href === '/connect-wallet' ? (
-                                        <ConnectWalletNav />
+                                        <ConnectWallet />
                                     ) : (
                                         <Link
                                             href={item.href}

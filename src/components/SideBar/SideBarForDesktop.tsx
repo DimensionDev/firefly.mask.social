@@ -5,7 +5,7 @@ import { memo } from 'react';
 import DarkLogo from '@/assets/logo.dark.svg';
 import LightLogo from '@/assets/logo.light.svg';
 import MiniLogo from '@/assets/miniLogo.svg';
-import { NavigatorMenu } from '@/components/SideBar/NavigatorMenu.js';
+import { Menu } from '@/components/SideBar/Menu.js';
 import { PageRoutes } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { useDarkMode } from '@/hooks/useDarkMode.js';
@@ -31,7 +31,7 @@ export const SideBarForDesktop = memo(function SideBarForDesktop() {
                         )}
                     </Link>
                 </div>
-                <NavigatorMenu />
+                <Menu />
             </div>
         </div>
     );

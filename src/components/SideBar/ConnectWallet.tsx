@@ -10,7 +10,7 @@ import { resolve } from '@/helpers/resolve.js';
 import { useMounted } from '@/hooks/useMounted.js';
 import { AccountModalRef, ConnectWalletModalRef } from '@/modals/controls.js';
 
-export function ConnectWalletNav() {
+export function ConnectWallet() {
     const mounted = useMounted();
     const account = useAccount();
 
