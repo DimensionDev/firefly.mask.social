@@ -4,9 +4,9 @@ import { connectorsForWallets, RainbowKitProvider } from '@rainbow-me/rainbowkit
 import {
     coinbaseWallet,
     metaMaskWallet,
+    okxWallet,
     rabbyWallet,
     walletConnectWallet,
-    okxWallet,
 } from '@rainbow-me/rainbowkit/wallets';
 import { type FallbackTransport } from 'viem';
 import { type Config, configureChains, createConfig, type PublicClient, type WebSocketPublicClient } from 'wagmi';
