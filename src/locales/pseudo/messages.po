@@ -445,9 +445,6 @@ msgstr ""
 msgid "No comments found"
 msgstr ""
 
-msgid "Please visit from a desktop browser."
-msgstr ""
-
 msgid "Discard"
 msgstr ""
 

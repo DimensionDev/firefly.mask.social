@@ -450,9 +450,6 @@ msgstr "访问 mask.io"
 msgid "No comments found"
 msgstr "未发现评论"
 
-msgid "Please visit from a desktop browser."
-msgstr ""
-
 msgid "Discard"
 msgstr "放弃"
 
@@ -722,4 +719,3 @@ msgstr ""
 
 msgid "<0/> quoted your <1><2/></1>"
 msgstr "<0/> 引用了你的 <1><2/></1>"
-

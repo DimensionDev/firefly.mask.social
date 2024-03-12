@@ -5,7 +5,6 @@ import { ScrollRestorer } from 'next-scroll-restorer';
 import { lazy } from 'react';
 
 import { GA } from '@/components/GA.js';
-import { MobileFallback } from '@/components/MobileFallback.js';
 import { Polyfills } from '@/components/Polyfills.js';
 import { Providers } from '@/components/Providers.js';
 import { SideBar } from '@/components/SideBar/index.js';
@@ -38,7 +37,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </head>
             <body className={`${inter.variable} font-inter`}>
                 <Providers>
-                    <div className="m-auto hidden min-h-screen md:flex md:w-full lg:w-[1265px]">
+                    <div className="m-auto flex min-h-screen w-full lg:w-[1265px]">
                         {process.env.NODE_ENV !== 'development' ||
                         (process.env.NODE_ENV === 'development' &&
                             process.env.NEXT_PUBLIC_MASK_WEB_COMPONENTS === 'enabled') ? (
@@ -48,7 +47,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                         {children}
                         <mask-page-inspector />
                     </div>
-                    <MobileFallback />
                     <Modals />
                 </Providers>
                 <GA />

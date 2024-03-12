@@ -1,8 +1,8 @@
 import { PlusIcon } from '@heroicons/react/24/outline';
-import { useMediaQuery } from 'usehooks-ts';
 
 import { SourceIcon } from '@/components/SourceIcon.js';
 import type { SocialPlatform } from '@/constants/enum.js';
+import { useIsLarge } from '@/hooks/useMediaQuery.js';
 
 interface ProfileAvatarAddProps extends React.HTMLAttributes<HTMLDivElement> {
     source: SocialPlatform;
@@ -12,7 +12,7 @@ interface ProfileAvatarAddProps extends React.HTMLAttributes<HTMLDivElement> {
 export function ProfileAvatarAdd(props: ProfileAvatarAddProps) {
     const { source, size = 40, ...divProps } = props;
 
-    const isLarge = useMediaQuery('(min-width: 1280px)');
+    const isLarge = useIsLarge();
 
     return (
         <div

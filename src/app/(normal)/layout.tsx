@@ -6,14 +6,14 @@ import { SocialPlatformTabs } from '@/components/SocialPlatformTabs.js';
 export default function Layout({ children }: { children: React.ReactNode }) {
     return (
         <>
-            <main className="flex-[1_1_100%] border-r border-line md:max-w-[calc(100%-384px)] md:pl-[61px] lg:w-[888px] lg:pl-[289px]">
+            <main className="flex-[1_1_100%] border-r border-line md:pl-[61px] lg:w-[888px] lg:max-w-[calc(100%-384px)] lg:pl-[289px]">
                 <div className="sticky top-0 z-[98] bg-primaryBottom pb-[1px]">
                     <HeaderSearchBar />
                     <SocialPlatformTabs />
                 </div>
                 {children}
             </main>
-            <aside className="sticky top-0 z-[1] h-full w-96 px-4 md:min-w-[384px] lg:block">
+            <aside className="sticky top-0 z-[1] hidden h-full w-96 px-4 md:min-w-[384px] lg:block">
                 <IfPathname isNotOneOf={['/settings']}>
                     <AsideSearchBar />
                 </IfPathname>
