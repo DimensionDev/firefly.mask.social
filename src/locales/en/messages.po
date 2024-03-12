@@ -445,9 +445,6 @@ msgstr "Visit mask.io"
 msgid "No comments found"
 msgstr "No comments found"
 
-msgid "Please visit from a desktop browser."
-msgstr "Please visit from a desktop browser."
-
 msgid "Discard"
 msgstr "Discard"
 

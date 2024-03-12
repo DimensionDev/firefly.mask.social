@@ -2,7 +2,6 @@
 
 import { Trans } from '@lingui/macro';
 import { useEffect } from 'react';
-import { useMediaQuery } from 'usehooks-ts';
 
 import LogOutIcon from '@/assets/logout.svg';
 import UserAddIcon from '@/assets/user-add.svg';
@@ -13,6 +12,7 @@ import { WarpcastSignerRequestIndicator } from '@/components/WarpcastSignerReque
 import { SocialPlatform } from '@/constants/enum.js';
 import { Tippy } from '@/esm/Tippy.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
+import { useIsLarge } from '@/hooks/useMediaQuery.js';
 import { useProfiles } from '@/hooks/useProfiles.js';
 import { useSwitchLensAccount } from '@/hooks/useSwitchLensAccount.js';
 import { LoginModalRef, LogoutModalRef } from '@/modals/controls.js';
@@ -26,7 +26,7 @@ interface AccountSettingsProps {
 export function AccountSettings({ source, profile }: AccountSettingsProps) {
     const { currentProfile, currentProfileSession, profiles, refreshProfiles } = useProfiles(source);
     const { login } = useSwitchLensAccount();
-    const isLarge = useMediaQuery('(min-width: 1280px)');
+    const isLarge = useIsLarge();
 
     useEffect(() => {
         refreshProfiles();
