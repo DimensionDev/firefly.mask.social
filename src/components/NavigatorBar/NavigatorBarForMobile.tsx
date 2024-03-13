@@ -1,38 +1,50 @@
 import { t } from '@lingui/macro';
+import { usePathname, useRouter } from 'next/navigation.js';
 import { type ChangeEvent, memo, useRef, useState } from 'react';
-import { useOnClickOutside } from 'usehooks-ts';
 
 import AdjustmentsIcon from '@/assets/adjustments.svg';
-import ComebackIcon from '@/assets/comeback.svg';
+import CloseIcon from '@/assets/close-circle.svg';
 import FireflyIcon from '@/assets/firefly.svg';
+import LeftArrowIcon from '@/assets/left-arrow.svg';
 import MagnifierIcon from '@/assets/magnifier.svg';
 import MenuIcon from '@/assets/menu.svg';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { SearchRecommendation } from '@/components/Search/SearchRecommendation.js';
+import { classNames } from '@/helpers/classNames.js';
+import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { useFarcasterStateStore, useLensStateStore } from '@/store/useProfileStore.js';
+import { useSearchHistoryStateStore } from '@/store/useSearchHistoryStore.js';
+import { type SearchState, useSearchState } from '@/store/useSearchState.js';
 
 interface NavigatorBarForMobileProps {
     title: string;
 }
 
 export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({ title }: NavigatorBarForMobileProps) {
-    const rootRef = useRef(null);
+    const router = useRouter();
 
-    const [searchMode, setSearchMode] = useState(false);
+    const pathname = usePathname();
+    const isSearchPage = isRoutePathname(pathname, '/search');
+
+    const [searchMode, setSearchMode] = useState(isSearchPage);
     const [showRecommendation, setShowRecommendation] = useState(false);
 
     const lensProfile = useLensStateStore.use.currentProfile?.();
     const farcasterProfile = useFarcasterStateStore.use.currentProfile?.();
-
-    useOnClickOutside(rootRef, () => {
-        setShowRecommendation(false);
-    });
+    const { updateState } = useSearchState();
+    const { addRecord } = useSearchHistoryStateStore();
 
     const inputRef = useRef<HTMLInputElement>(null);
     const [inputText, setInputText] = useState('');
 
     const handleInputChange = (evt: ChangeEvent<HTMLInputElement>) => {
         setInputText(evt.target.value);
+    };
+
+    const handleInputSubmit = (state: SearchState) => {
+        if (state.q) addRecord(state.q);
+        updateState(state);
+        setShowRecommendation(false);
     };
 
     return (
@@ -42,11 +54,15 @@ export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({ title
                     {searchMode ? (
                         <button
                             onClick={() => {
-                                setSearchMode(false);
-                                setShowRecommendation(false);
+                                if (isSearchPage) {
+                                    router.back();
+                                } else {
+                                    setSearchMode(false);
+                                    setShowRecommendation(false);
+                                }
                             }}
                         >
-                            <ComebackIcon />
+                            <LeftArrowIcon />
                         </button>
                     ) : (
                         <>
@@ -70,7 +86,13 @@ export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({ title
                 </div>
                 <h1 className=" flex h-10 flex-1 items-center justify-center">
                     {searchMode ? (
-                        <div className=" relative flex flex-1 items-center">
+                        <form
+                            className=" relative flex flex-1 items-center"
+                            onSubmit={(evt) => {
+                                evt.preventDefault();
+                                handleInputSubmit({ q: inputText });
+                            }}
+                        >
                             <MagnifierIcon className=" absolute left-3" width={18} height={18} />
                             <input
                                 type="search"
@@ -83,7 +105,21 @@ export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({ title
                                 onChange={handleInputChange}
                                 onFocus={() => setShowRecommendation(true)}
                             />
-                        </div>
+                            <CloseIcon
+                                className={classNames(
+                                    'absolute right-3 cursor-pointer',
+                                    inputText ? 'visible' : 'invisible',
+                                )}
+                                width={16}
+                                height={16}
+                                onClick={(evt) => {
+                                    evt.preventDefault();
+                                    evt.stopPropagation();
+                                    setInputText('');
+                                    inputRef.current?.focus();
+                                }}
+                            />
+                        </form>
                     ) : (
                         <>
                             {(farcasterProfile || lensProfile) && title ? (
@@ -101,21 +137,24 @@ export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({ title
                         </button>
                     ) : (
                         <button>
-                            <MagnifierIcon onClick={() => setSearchMode(true)} />
+                            <MagnifierIcon
+                                onClick={() => {
+                                    inputRef.current?.focus();
+                                    setSearchMode(true);
+                                }}
+                            />
                         </button>
                     )}
                 </div>
             </header>
-            {showRecommendation ? (
-                <main ref={rootRef}>
-                    <SearchRecommendation
-                        fullScreen
-                        keyword={inputText}
-                        onSearch={() => setShowRecommendation(false)}
-                        onSelect={() => setShowRecommendation(false)}
-                        onClear={() => inputRef.current?.focus()}
-                    />
-                </main>
+            {showRecommendation && !isSearchPage ? (
+                <SearchRecommendation
+                    fullScreen
+                    keyword={inputText}
+                    onSearch={() => setShowRecommendation(false)}
+                    onSelect={() => setShowRecommendation(false)}
+                    onClear={() => inputRef.current?.focus()}
+                />
             ) : null}
         </>
     );

@@ -3,6 +3,7 @@ import FollowButton from '@/components/Profile/FollowButton.js';
 import { SourceIcon } from '@/components/SourceIcon.js';
 import { Link } from '@/esm/Link.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
+import { useIsSmall } from '@/hooks/useMediaQuery.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 interface ProfileInListProps {
@@ -11,18 +12,20 @@ interface ProfileInListProps {
 }
 
 export function ProfileInList({ profile, noFollowButton }: ProfileInListProps) {
+    const isSmall = useIsSmall('max');
+
     return (
         <div className="flex-start flex cursor-pointer border-b border-secondaryLine px-4 py-6 hover:bg-bg dark:border-line">
             <Link className="flex-start flex flex-1" href={getProfileUrl(profile)}>
                 <Avatar
-                    className="mr-3 h-[78px] w-[78px] rounded-full border"
+                    className="mr-3 rounded-full border"
                     src={profile.pfp}
-                    size={78}
+                    size={isSmall ? 40 : 78}
                     alt={profile.displayName}
                 />
 
                 <div className="flex-start flex flex-1 flex-col">
-                    <span className="flex-start mt-2 flex items-center text-sm font-bold leading-5">
+                    <span className="flex-start flex items-center text-sm font-bold leading-5 md:mt-2">
                         <span className="mr-2 text-xl">{profile.displayName}</span>
                         <SourceIcon source={profile.source} />
                     </span>

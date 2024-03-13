@@ -13,6 +13,7 @@ import { Avatar } from '@/components/Avatar.js';
 import { SourceIcon } from '@/components/SourceIcon.js';
 import { SearchType, SocialPlatform } from '@/constants/enum.js';
 import { MAX_RECOMMEND_PROFILE_SIZE } from '@/constants/index.js';
+import { classNames } from '@/helpers/classNames.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
@@ -30,10 +31,11 @@ interface SearchRecommendationProps {
 }
 
 export function SearchRecommendation(props: SearchRecommendationProps) {
-    const { keyword, onSearch, onSelect, onClear } = props;
+    const { keyword, fullScreen = false, onSearch, onSelect, onClear } = props;
 
     const router = useRouter();
     const debouncedKeyword = useDebounce(keyword, 300);
+
     const { currentSource } = useGlobalState();
     const { updateState } = useSearchState();
     const { records, addRecord, removeRecord, clearAll } = useSearchHistoryStateStore();
@@ -61,7 +63,14 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
     if (!visible) return null;
 
     return (
-        <div className="absolute inset-x-0 top-[40px] z-[1000] mt-2 flex w-full flex-col overflow-hidden rounded-2xl bg-white shadow-[0_4px_30px_0_rgba(0,0,0,0.10)] dark:border dark:border-line dark:bg-primaryBottom">
+        <div
+            className={classNames(
+                'absolute inset-x-0 top-[40px] z-[1000] mt-2 flex w-full flex-col overflow-hidden rounded-2xl bg-white shadow-[0_4px_30px_0_rgba(0,0,0,0.10)] dark:border dark:border-line dark:bg-primaryBottom',
+                {
+                    ['bottom-0 h-[calc(100vh-40px)] border-none']: fullScreen,
+                },
+            )}
+        >
             {records.length && !keyword ? (
                 <>
                     <h2 className=" flex p-3 pb-2 text-sm">
@@ -127,7 +136,7 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
                 </>
             ) : null}
 
-            {isLoading || profiles?.data ? (
+            {isLoading || (keyword && profiles?.data) ? (
                 <>
                     {records.length ? <hr className=" border-b border-t-0 border-line" /> : null}
                     <h2 className=" p-3 pb-2 text-sm">
@@ -145,7 +154,7 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
                 <div className="space-y-2 px-4 py-4 text-center text-sm font-bold">
                     <div className="font-bold">{t`No matching users`}</div>
                 </div>
-            ) : profiles?.data.length ? (
+            ) : keyword && profiles?.data.length ? (
                 <div className="py-2">
                     {profiles.data.slice(0, MAX_RECOMMEND_PROFILE_SIZE).map((profile) => (
                         <div

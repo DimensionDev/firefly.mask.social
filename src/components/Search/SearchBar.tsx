@@ -20,9 +20,10 @@ interface SearchBarProps {
 
 const SearchBar = memo(function SearchBar(props: SearchBarProps) {
     const router = useRouter();
+    const [showRecommendation, setShowRecommendation] = useState(false);
+
     const { searchKeyword, updateState } = useSearchState();
     const { addRecord } = useSearchHistoryStateStore();
-    const [showRecommendation, setShowRecommendation] = useState(false);
 
     const pathname = usePathname();
     const isSearchPage = isRoutePathname(pathname, '/search');
@@ -51,7 +52,7 @@ const SearchBar = memo(function SearchBar(props: SearchBarProps) {
 
     return (
         <div
-            className={classNames('flex items-center px-4 pt-6', {
+            className={classNames('hidden items-center px-4 pt-6 md:flex', {
                 'pl-0 pr-0': props.source === 'secondary',
                 'mb-4': props.source === 'secondary',
             })}
@@ -75,7 +76,7 @@ const SearchBar = memo(function SearchBar(props: SearchBarProps) {
                             name="searchText"
                             autoComplete="off"
                             value={inputText}
-                            className=" w-full border-0 bg-transparent py-2 text-[10px] placeholder-secondary focus:border-0 focus:outline-0 focus:ring-0 sm:text-sm sm:leading-6"
+                            className=" w-full border-0 bg-transparent py-2 placeholder-secondary focus:border-0 focus:outline-0 focus:ring-0 sm:text-sm sm:leading-6"
                             placeholder={t`Search…`}
                             ref={inputRef}
                             onChange={handleInputChange}
