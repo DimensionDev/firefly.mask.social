@@ -1,6 +1,6 @@
 'use client';
 
-import { Trans } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
 import { createIndicator, createPageable } from '@masknet/shared-base';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
@@ -13,6 +13,7 @@ import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { SinglePost } from '@/components/Posts/SinglePost.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
+import { useTitle } from '@/hooks/useTitle.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
@@ -20,6 +21,7 @@ import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 
 export default function Home() {
     const currentSource = useGlobalState.use.currentSource();
+
     const fetchAndStoreViews = useImpressionsStore.use.fetchAndStoreViews();
     const { data, hasNextPage, fetchNextPage, isFetchingNextPage, isFetching } = useSuspenseInfiniteQuery({
         queryKey: ['discover', currentSource],
@@ -55,6 +57,8 @@ export default function Home() {
     });
 
     const posts = useMemo(() => data?.pages.flatMap((x) => x.data) || EMPTY_LIST, [data?.pages]);
+
+    useTitle(t`Discover`);
 
     return (
         <div>

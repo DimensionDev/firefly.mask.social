@@ -14,6 +14,7 @@ import { SinglePost } from '@/components/Posts/SinglePost.js';
 import { ProfileInList } from '@/components/Search/ProfileInList.js';
 import { useSearchState } from '@/components/Search/useSearchState.js';
 import { SearchType, SocialPlatform } from '@/constants/enum.js';
+import { useTitle } from '@/hooks/useTitle.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import type { Post, Profile } from '@/providers/types/SocialMedia.js';
@@ -72,6 +73,8 @@ export default function Page() {
     const results = useMemo(() => {
         return compact(data.pages.flatMap((x) => x?.data as Array<Profile | Post>));
     }, [data.pages]);
+
+    useTitle(t`Search`);
 
     return (
         <div>

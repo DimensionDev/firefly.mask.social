@@ -34,7 +34,7 @@ export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({ title
                 {farcasterProfile || lensProfile ? null : <MenuIcon />}
             </div>
             <h1 className=" flex flex-1 justify-center">
-                {farcasterProfile || lensProfile ? (
+                {(farcasterProfile || lensProfile) && title ? (
                     <span className=" text-[20px] font-bold leading-[24px]">{title}</span>
                 ) : (
                     <FireflyIcon />

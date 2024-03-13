@@ -10,7 +10,7 @@ interface NavigatorState {
 
 const useNavigatorStateBase = create<NavigatorState, [['zustand/immer', never]]>(
     immer((set) => ({
-        title: 'Firefly',
+        title: '',
         updateTitle: (title: string) =>
             set((state) => {
                 state.title = title;
