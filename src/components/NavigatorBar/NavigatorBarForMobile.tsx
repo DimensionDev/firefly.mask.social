@@ -54,12 +54,9 @@ export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({ title
                     {searchMode ? (
                         <button
                             onClick={() => {
-                                if (isSearchPage) {
-                                    router.back();
-                                } else {
-                                    setSearchMode(false);
-                                    setShowRecommendation(false);
-                                }
+                                if (isSearchPage) router.back();
+                                setSearchMode(false);
+                                setShowRecommendation(false);
                             }}
                         >
                             <LeftArrowIcon />
