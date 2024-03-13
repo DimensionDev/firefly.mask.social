@@ -12,8 +12,6 @@ import LeftArrowIcon from '@/assets/left-arrow.svg';
 import LoadingIcon from '@/assets/loading.svg';
 import SearchIcon from '@/assets/search.svg';
 import { Avatar } from '@/components/Avatar.js';
-import { useSearchHistories } from '@/components/Search/useSearchHistories.js';
-import { useSearchState } from '@/components/Search/useSearchState.js';
 import { SourceIcon } from '@/components/SourceIcon.js';
 import { SearchType, SocialPlatform } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -23,6 +21,8 @@ import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
+import { useSearchHistoryStateStore } from '@/store/useSearchHistoryStore.js';
+import { useSearchState } from '@/store/useSearchState.js';
 
 interface SearchBarProps {
     source: 'header' | 'secondary';
@@ -31,16 +31,17 @@ interface SearchBarProps {
 const SearchBar = memo(function SearchBar(props: SearchBarProps) {
     const router = useRouter();
     const { currentSource } = useGlobalState();
-    const { keyword: queryKeyword, updateParams } = useSearchState();
-    const inputRef = useRef<HTMLInputElement>(null);
+    const { searchKeyword, updateParams } = useSearchState();
+    const { records, addRecord, removeRecord, clearAll } = useSearchHistoryStateStore();
     const [showDropdown, setShowDropdown] = useState(false);
 
     const pathname = usePathname();
     const isSearchPage = isRoutePathname(pathname, '/search');
 
-    const [inputText, setInputText] = useState(queryKeyword);
+    const inputRef = useRef<HTMLInputElement>(null);
+    const [inputText, setInputText] = useState(searchKeyword);
+
     const debouncedKeyword = useDebounce(inputText, 300);
-    const { histories, addRecord, removeRecord, clearAll } = useSearchHistories();
 
     const rootRef = useRef(null);
     useOnClickOutside(rootRef, () => {
@@ -73,7 +74,6 @@ const SearchBar = memo(function SearchBar(props: SearchBarProps) {
 
     const selectKeyword = (keyword: string, searchType?: SearchType) => {
         addRecord(keyword);
-
         updateParams({ q: keyword, type: searchType });
         setShowDropdown(false);
     };
@@ -82,7 +82,7 @@ const SearchBar = memo(function SearchBar(props: SearchBarProps) {
     if (props.source === 'secondary' && isSearchPage) return null;
 
     const dropdownVisible =
-        showDropdown && ((histories.length && !inputText) || !!inputText || isLoading || !!profiles?.data);
+        showDropdown && ((records.length && !inputText) || !!inputText || isLoading || !!profiles?.data);
 
     return (
         <div
@@ -131,7 +131,7 @@ const SearchBar = memo(function SearchBar(props: SearchBarProps) {
                 </form>
                 {dropdownVisible ? (
                     <div className="absolute inset-x-0 top-[40px] z-[1000] mt-2 flex w-full flex-col overflow-hidden rounded-2xl bg-white shadow-[0_4px_30px_0_rgba(0,0,0,0.10)] dark:border dark:border-line dark:bg-primaryBottom">
-                        {histories.length && !inputText ? (
+                        {records.length && !inputText ? (
                             <>
                                 <h2 className=" flex p-3 pb-2 text-sm">
                                     <Trans>Recent</Trans>
@@ -146,7 +146,7 @@ const SearchBar = memo(function SearchBar(props: SearchBarProps) {
                                     </button>
                                 </h2>
                                 <ul className="my-4">
-                                    {histories.map((history) => (
+                                    {records.map((history) => (
                                         <li
                                             key={history}
                                             className="flex cursor-pointer items-center text-ellipsis px-4 hover:bg-bg"

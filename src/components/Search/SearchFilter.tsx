@@ -3,8 +3,8 @@
 import { Trans } from '@lingui/macro';
 import { memo } from 'react';
 
-import { useSearchState } from '@/components/Search/useSearchState.js';
 import { SearchType } from '@/constants/enum.js';
+import { useSearchState } from '@/store/useSearchState.js';
 
 export const SearchFilter = memo(function SearchFilter() {
     const { searchType, updateParams } = useSearchState();

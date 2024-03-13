@@ -1,5 +1,5 @@
 import { t } from '@lingui/macro';
-import { memo, useState } from 'react';
+import { type ChangeEvent, memo, useRef, useState } from 'react';
 
 import AdjustmentsIcon from '@/assets/adjustments.svg';
 import ComebackIcon from '@/assets/comeback.svg';
@@ -18,6 +18,13 @@ export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({ title
 
     const lensProfile = useLensStateStore.use.currentProfile?.();
     const farcasterProfile = useFarcasterStateStore.use.currentProfile?.();
+
+    const inputRef = useRef<HTMLInputElement>(null);
+    const [inputText, setInputText] = useState('');
+
+    const handleInputChange = (evt: ChangeEvent<HTMLInputElement>) => {
+        setInputText(evt.target.value);
+    };
 
     return (
         <header className=" flex items-center gap-4 px-4 py-[7px] text-main">
@@ -46,13 +53,19 @@ export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({ title
                     </>
                 )}
             </div>
-            <h1 className=" flex flex-1 justify-center items-center h-10">
+            <h1 className=" flex h-10 flex-1 items-center justify-center">
                 {searchMode ? (
                     <div className=" relative flex flex-1 items-center">
                         <MagnifierIcon className=" absolute left-3" width={18} height={18} />
                         <input
+                            type="search"
+                            name="searchText"
+                            autoComplete="off"
+                            value={inputText}
                             className=" flex-1 rounded-xl border-none bg-bg px-0 py-[11px] pl-10 text-sm leading-[18px]"
                             placeholder={t`Search…`}
+                            ref={inputRef}
+                            onChange={handleInputChange}
                         />
                     </div>
                 ) : (

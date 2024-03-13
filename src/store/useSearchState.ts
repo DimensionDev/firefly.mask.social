@@ -5,9 +5,9 @@ import { SearchType } from '@/constants/enum.js';
 
 export function useSearchState() {
     const params = useSearchParams();
-    const keyword = params.get('q') || '';
-    const searchType: SearchType = (params.get('type') ?? SearchType.Profiles) as SearchType;
     const router = useRouter();
+    const searchKeyword = params.get('q') || '';
+    const searchType = (params.get('type') ?? SearchType.Profiles) as SearchType;
 
     const updateParams = useCallback(
         (obj: Partial<Record<string, string>>, replace?: boolean) => {
@@ -23,7 +23,7 @@ export function useSearchState() {
     );
 
     return {
-        keyword,
+        searchKeyword,
         searchType,
         updateParams,
     };

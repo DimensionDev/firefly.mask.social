@@ -12,31 +12,31 @@ import LoadingIcon from '@/assets/loading.svg';
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { SinglePost } from '@/components/Posts/SinglePost.js';
 import { ProfileInList } from '@/components/Search/ProfileInList.js';
-import { useSearchState } from '@/components/Search/useSearchState.js';
 import { SearchType, SocialPlatform } from '@/constants/enum.js';
 import { useTitle } from '@/hooks/useTitle.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import type { Post, Profile } from '@/providers/types/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
+import { useSearchState } from '@/store/useSearchState.js';
 
 export default function Page() {
-    const { keyword, searchType } = useSearchState();
+    const { searchKeyword, searchType } = useSearchState();
     const { currentSource } = useGlobalState();
 
     const { data, hasNextPage, fetchNextPage, isFetchingNextPage, isFetching } = useSuspenseInfiniteQuery({
-        queryKey: ['search', searchType, keyword, currentSource],
+        queryKey: ['search', searchType, searchKeyword, currentSource],
         queryFn: async ({ pageParam }) => {
-            if (!keyword) return;
+            if (!searchKeyword) return;
 
             const indicator = pageParam ? createIndicator(undefined, pageParam) : undefined;
 
             if (searchType === SearchType.Profiles) {
                 switch (currentSource) {
                     case SocialPlatform.Lens:
-                        return LensSocialMediaProvider.searchProfiles(keyword, indicator);
+                        return LensSocialMediaProvider.searchProfiles(searchKeyword, indicator);
                     case SocialPlatform.Farcaster:
-                        return FarcasterSocialMediaProvider.searchProfiles(keyword, indicator);
+                        return FarcasterSocialMediaProvider.searchProfiles(searchKeyword, indicator);
                     default:
                         safeUnreachable(currentSource);
                         return;
@@ -44,9 +44,9 @@ export default function Page() {
             } else if (searchType === SearchType.Posts) {
                 switch (currentSource) {
                     case SocialPlatform.Lens:
-                        return LensSocialMediaProvider.searchPosts(keyword, indicator);
+                        return LensSocialMediaProvider.searchPosts(searchKeyword, indicator);
                     case SocialPlatform.Farcaster:
-                        return FarcasterSocialMediaProvider.searchPosts(keyword, indicator);
+                        return FarcasterSocialMediaProvider.searchPosts(searchKeyword, indicator);
                     default:
                         safeUnreachable(currentSource);
                         return;
@@ -94,7 +94,7 @@ export default function Page() {
                 <NoResultsFallback
                     message={
                         <div className="mx-16">
-                            <div className="text-sm text-main">{t`No results for "${keyword}"`}</div>
+                            <div className="text-sm text-main">{t`No results for "${searchKeyword}"`}</div>
                             <p className="mt-4 text-center text-sm text-second">
                                 <Trans>Try searching for something else.</Trans>
                             </p>

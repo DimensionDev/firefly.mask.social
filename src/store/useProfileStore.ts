@@ -180,7 +180,3 @@ const useLensStateBase = create<ProfileState, [['zustand/persist', unknown], ['z
 
 export const useLensStateStore = createSelectors(useLensStateBase);
 export const useFarcasterStateStore = createSelectors(useFarcasterStateBase);
-
-export function getLensToken() {
-    return useLensStateBase.getState().currentProfileSession?.token;
-}
