@@ -13,7 +13,7 @@ import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { SinglePost } from '@/components/Posts/SinglePost.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
-import { useTitle } from '@/hooks/useTitle.js';
+import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
@@ -58,7 +58,7 @@ export default function Home() {
 
     const posts = useMemo(() => data?.pages.flatMap((x) => x.data) || EMPTY_LIST, [data?.pages]);
 
-    useTitle(t`Discover`);
+    useNavigatorTitle(t`Discover`);
 
     return (
         <div>

@@ -15,7 +15,7 @@ import { SinglePost } from '@/components/Posts/SinglePost.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
-import { useTitle } from '@/hooks/useTitle.js';
+import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
@@ -81,7 +81,7 @@ export default function Following() {
 
     const results = useMemo(() => data.pages?.flatMap((x) => x?.data ?? []) ?? [], [data]);
 
-    useTitle(t`Following`);
+    useNavigatorTitle(t`Following`);
 
     if (!isLogin) {
         return <NotLoginFallback source={currentSource} />;

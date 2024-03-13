@@ -54,7 +54,8 @@ export const DANGER_POST_SIZE = 260;
 export const SAFE_POST_SIZE = 200;
 
 // Search Bar
-export const MAX_SEARCH_RECORDS = 5;
+export const MAX_SEARCH_RECORD_SIZE = 5;
+export const MAX_RECOMMEND_PROFILE_SIZE = 10;
 
 // POST
 export const MAX_OG_SIZE_PER_POST = 1;

@@ -2,7 +2,7 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
 
-import { MAX_SEARCH_RECORDS } from '@/constants/index.js';
+import { MAX_SEARCH_RECORD_SIZE } from '@/constants/index.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 
 interface SearchHistoryState {
@@ -22,7 +22,7 @@ const useSearchHistoryStateBase = create<
             addRecord: (record: string) =>
                 set((state) => {
                     if (!record) return;
-                    state.records = [...new Set([record, ...state.records])].slice(0, MAX_SEARCH_RECORDS);
+                    state.records = [...new Set([record, ...state.records])].slice(0, MAX_SEARCH_RECORD_SIZE);
                 }),
             removeRecord: (record: string) =>
                 set((state) => {
