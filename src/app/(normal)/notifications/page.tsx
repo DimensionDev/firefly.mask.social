@@ -1,6 +1,6 @@
 'use client';
 
-import { Trans } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
 import { createIndicator } from '@masknet/shared-base';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
@@ -14,6 +14,7 @@ import { NotificationItem } from '@/components/Notification/NotificationItem.js'
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
+import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
@@ -51,6 +52,8 @@ export default function Notification() {
     });
 
     const results = useMemo(() => compact(data.pages.flatMap((x) => x?.data)), [data.pages]);
+
+    useNavigatorTitle(t`Notifications`);
 
     if (!isLogin) {
         return <NotLoginFallback source={currentSource} />;

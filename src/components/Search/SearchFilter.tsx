@@ -3,11 +3,11 @@
 import { Trans } from '@lingui/macro';
 import { memo } from 'react';
 
-import { useSearchState } from '@/components/Search/useSearchState.js';
 import { SearchType } from '@/constants/enum.js';
+import { useSearchState } from '@/store/useSearchState.js';
 
 export const SearchFilter = memo(function SearchFilter() {
-    const { searchType, updateParams } = useSearchState();
+    const { searchType, updateState } = useSearchState();
 
     return (
         <div>
@@ -41,7 +41,7 @@ export const SearchFilter = memo(function SearchFilter() {
                                 type="radio"
                                 defaultChecked={filter.type === searchType}
                                 className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
-                                onClick={() => updateParams({ type: filter.type })}
+                                onClick={() => updateState({ type: filter.type })}
                             />
                         </div>
                     ))}

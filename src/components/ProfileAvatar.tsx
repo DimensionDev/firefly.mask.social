@@ -10,10 +10,11 @@ interface ProfileAvatarProps extends React.HTMLAttributes<HTMLElement> {
     size?: number;
     linkable?: boolean;
     clickable?: boolean;
+    enableSourceIcon?: boolean;
 }
 
 export function ProfileAvatar(props: ProfileAvatarProps) {
-    const { profile, size = 40, clickable = false, linkable = false, ...elementProps } = props;
+    const { profile, size = 40, clickable = false, linkable = false, enableSourceIcon = true, ...elementProps } = props;
 
     const content = (
         <div className="relative md:h-[36px] md:w-[36px] lg:h-[40px] lg:w-[40px]">
@@ -26,11 +27,13 @@ export function ProfileAvatar(props: ProfileAvatarProps) {
             >
                 <Avatar src={profile.pfp} size={size} alt={profile.displayName} />
             </div>
-            <SourceIcon
-                className="absolute left-[24px] top-[24px] h-[16px] w-[16px] rounded-full border border-white shadow"
-                source={profile.source}
-                size={16}
-            />
+            {enableSourceIcon ? (
+                <SourceIcon
+                    className="absolute left-[24px] top-[24px] h-[16px] w-[16px] rounded-full border border-white shadow"
+                    source={profile.source}
+                    size={16}
+                />
+            ) : null}
         </div>
     );
 

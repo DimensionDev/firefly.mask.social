@@ -120,6 +120,9 @@ msgstr "确认"
 msgid "Failed to upload image to IPFS."
 msgstr ""
 
+msgid "No results for \"{searchKeyword}\""
+msgstr ""
+
 msgid "Page not found"
 msgstr "找不到网页"
 
@@ -413,9 +416,6 @@ msgstr ""
 
 msgid "Display"
 msgstr "显示"
-
-msgid "No results for \"{keyword}\""
-msgstr "\"{keyword}\" 没有结果"
 
 msgid "Login required"
 msgstr "请先登录"
