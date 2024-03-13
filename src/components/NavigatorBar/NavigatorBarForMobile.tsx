@@ -1,5 +1,6 @@
 import { t } from '@lingui/macro';
 import { type ChangeEvent, memo, useRef, useState } from 'react';
+import { useOnClickOutside } from 'usehooks-ts';
 
 import AdjustmentsIcon from '@/assets/adjustments.svg';
 import ComebackIcon from '@/assets/comeback.svg';
@@ -15,10 +16,17 @@ interface NavigatorBarForMobileProps {
 }
 
 export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({ title }: NavigatorBarForMobileProps) {
+    const rootRef = useRef(null);
+
     const [searchMode, setSearchMode] = useState(false);
+    const [showRecommendation, setShowRecommendation] = useState(false);
 
     const lensProfile = useLensStateStore.use.currentProfile?.();
     const farcasterProfile = useFarcasterStateStore.use.currentProfile?.();
+
+    useOnClickOutside(rootRef, () => {
+        setShowRecommendation(false);
+    });
 
     const inputRef = useRef<HTMLInputElement>(null);
     const [inputText, setInputText] = useState('');
@@ -32,7 +40,12 @@ export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({ title
             <header className=" flex items-center gap-4 px-4 py-[7px] text-main">
                 <div className=" flex h-[30px] w-[30px] justify-center">
                     {searchMode ? (
-                        <button onClick={() => setSearchMode(false)}>
+                        <button
+                            onClick={() => {
+                                setSearchMode(false);
+                                setShowRecommendation(false);
+                            }}
+                        >
                             <ComebackIcon />
                         </button>
                     ) : (
@@ -68,6 +81,7 @@ export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({ title
                                 placeholder={t`Search…`}
                                 ref={inputRef}
                                 onChange={handleInputChange}
+                                onFocus={() => setShowRecommendation(true)}
                             />
                         </div>
                     ) : (
@@ -92,9 +106,17 @@ export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({ title
                     )}
                 </div>
             </header>
-            <main>
-                <SearchRecommendation keyword={inputText} />
-            </main>
+            {showRecommendation ? (
+                <main ref={rootRef}>
+                    <SearchRecommendation
+                        fullScreen
+                        keyword={inputText}
+                        onSearch={() => setShowRecommendation(false)}
+                        onSelect={() => setShowRecommendation(false)}
+                        onClear={() => inputRef.current?.focus()}
+                    />
+                </main>
+            ) : null}
         </>
     );
 });

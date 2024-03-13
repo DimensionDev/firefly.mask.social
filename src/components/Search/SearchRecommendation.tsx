@@ -23,6 +23,7 @@ import { type SearchState, useSearchState } from '@/store/useSearchState.js';
 
 interface SearchRecommendationProps {
     keyword: string;
+    fullScreen?: boolean;
     onSearch?: (state: SearchState) => void;
     onSelect?: (profile: Profile) => void;
     onClear?: () => void;
