@@ -54,7 +54,7 @@ export class WarpcastSocialMedia implements Provider {
             cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
         });
 
-        const { result, next } = await fetchJSON<CastsResponse>(url, {
+        const { result, next } = await fetchJSON<CastsResponse>(`https://cors-next.r2d2.to/?${url}`, {
             method: 'GET',
         });
         const data = result.casts.map(formatWarpcastPost);
