@@ -19,7 +19,7 @@ import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useSearchHistoryStateStore } from '@/store/useSearchHistoryStore.js';
-import type { SearchState } from '@/store/useSearchState.js';
+import { type SearchState, useSearchState } from '@/store/useSearchState.js';
 
 interface SearchRecommendationProps {
     keyword: string;
@@ -34,7 +34,8 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
     const router = useRouter();
     const debouncedKeyword = useDebounce(keyword, 300);
     const { currentSource } = useGlobalState();
-    const { records, removeRecord, clearAll } = useSearchHistoryStateStore();
+    const { updateState } = useSearchState();
+    const { records, addRecord, removeRecord, clearAll } = useSearchHistoryStateStore();
 
     const { data: profiles, isLoading } = useQuery({
         queryKey: ['searchText', currentSource, debouncedKeyword],
@@ -55,11 +56,11 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
         enabled: !!debouncedKeyword,
     });
 
-    const visible = (records.length && !keyword) || !!keyword || isLoading || !!profiles?.data;
+    const visible = (records.length && !keyword) || !!keyword || isLoading || (!!profiles?.data && !!keyword);
     if (!visible) return null;
 
     return (
-        <>
+        <div className="absolute inset-x-0 top-[40px] z-[1000] mt-2 flex w-full flex-col overflow-hidden rounded-2xl bg-white shadow-[0_4px_30px_0_rgba(0,0,0,0.10)] dark:border dark:border-line dark:bg-primaryBottom">
             {records.length && !keyword ? (
                 <>
                     <h2 className=" flex p-3 pb-2 text-sm">
@@ -81,6 +82,8 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
                                     key={record}
                                     className="flex cursor-pointer items-center text-ellipsis px-4 hover:bg-bg"
                                     onClick={() => {
+                                        addRecord(record);
+                                        updateState({ q: record });
                                         onSearch?.({ q: record });
                                     }}
                                 >
@@ -125,7 +128,7 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
 
             {isLoading || profiles?.data ? (
                 <>
-                    <hr className=" border-b border-t-0 border-line" />
+                    {records.length ? <hr className=" border-b border-t-0 border-line" /> : null}
                     <h2 className=" p-3 pb-2 text-sm">
                         <Trans>Profiles</Trans>
                     </h2>
@@ -172,6 +175,6 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
                     ))}
                 </div>
             ) : null}
-        </>
+        </div>
     );
 }
