@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-03-08 12:01\n"
+"PO-Revision-Date: 2024-03-13 00:04\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -220,7 +220,7 @@ msgid "Log out"
 msgstr "登出"
 
 msgid "post"
-msgstr "帖子"
+msgstr "发帖"
 
 msgid "Hashtag"
 msgstr "#"
@@ -694,7 +694,7 @@ msgid "Failed to relay post on Lens."
 msgstr "发送帖子失败"
 
 msgid "Post"
-msgstr "帖子"
+msgstr "发帖"
 
 msgid "mirrored"
 msgstr "已转发"
@@ -719,3 +719,4 @@ msgstr ""
 
 msgid "<0/> quoted your <1><2/></1>"
 msgstr "<0/> 引用了你的 <1><2/></1>"
+
