@@ -115,6 +115,9 @@ msgstr ""
 msgid "Failed to upload image to IPFS."
 msgstr ""
 
+msgid "No results for \"{searchKeyword}\""
+msgstr ""
+
 msgid "Page not found"
 msgstr ""
 
@@ -407,9 +410,6 @@ msgid "Your website URL."
 msgstr ""
 
 msgid "Display"
-msgstr ""
-
-msgid "No results for \"{keyword}\""
 msgstr ""
 
 msgid "Login required"
