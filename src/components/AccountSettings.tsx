@@ -85,7 +85,7 @@ export function AccountSettings({ source, profile }: AccountSettingsProps) {
             }
         >
             <div className="flex justify-center">
-                <ProfileAvatar profile={profile} size={isLarge ? 40 : 36} clickable />
+                <ProfileAvatar profile={profile} clickable />
             </div>
         </Tippy>
     );

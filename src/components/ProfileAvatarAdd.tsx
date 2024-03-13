@@ -6,18 +6,32 @@ import { useIsLarge } from '@/hooks/useMediaQuery.js';
 
 interface ProfileAvatarAddProps extends React.HTMLAttributes<HTMLDivElement> {
     source: SocialPlatform;
-    size?: number;
 }
 
 export function ProfileAvatarAdd(props: ProfileAvatarAddProps) {
-    const { source, size = 40, ...divProps } = props;
+    const { source, ...divProps } = props;
 
     const isLarge = useIsLarge();
 
+    const size = isLarge ? 40 : 36;
+
     return (
-        <div className="relative mx-auto h-[36px] w-[36px] cursor-pointer lg:m-0 lg:h-[40px] lg:w-[48px]" {...divProps}>
-            <div className="absolute left-0 top-0 h-[36px] w-[36px] rounded-full shadow backdrop-blur-lg lg:h-[40px] lg:w-[40px]">
-                <SourceIcon source={source} size={isLarge ? 40 : 36} />
+        <div
+            className="relative mx-auto cursor-pointer lg:m-0 "
+            style={{
+                width: size,
+                height: size,
+            }}
+            {...divProps}
+        >
+            <div
+                className="absolute left-0 top-0 rounded-full shadow backdrop-blur-lg "
+                style={{
+                    width: size,
+                    height: size,
+                }}
+            >
+                <SourceIcon source={source} size={size} />
             </div>
             <PlusIcon
                 className="absolute left-[24px] top-[20px] rounded-full bg-white text-black shadow lg:left-[32px] lg:top-[24px]"
