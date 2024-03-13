@@ -24,13 +24,14 @@ import { classNames } from '@/helpers/classNames.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useIsMyProfile } from '@/hooks/useIsMyProfile.js';
-import { useIsLarge } from '@/hooks/useMediaQuery.js';
 import { ComposeModalRef, LoginModalRef } from '@/modals/controls.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 
-export const Menu = memo(function Menu() {
-    const isLarge = useIsLarge();
+interface MenuProps {
+    collapsed?: boolean;
+}
 
+export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
     const currentSource = useGlobalState.use.currentSource();
 
     const isLogin = useIsLogin();
@@ -90,37 +91,34 @@ export const Menu = memo(function Menu() {
                             const isSelected =
                                 item.href === '/' ? pathname === '/' : checkIsSelected(item.href as `/${string}`);
                             const Icon = isSelected ? item.selectedIcon : item.icon;
+
                             return (
                                 <li className="flex rounded-lg text-main" key={item.href}>
                                     {item.href === '/connect-wallet' ? (
-                                        <ConnectWallet />
+                                        <ConnectWallet collapsed={collapsed} />
                                     ) : (
                                         <Link
                                             href={item.href}
                                             className={classNames(
-                                                'lg: flex flex-grow-0 gap-x-3 rounded-lg text-xl/5 hover:bg-bg md:rounded-full md:p-2 lg:px-4 lg:py-3',
-                                                { 'font-bold': isSelected },
+                                                ' flex flex-grow-0 gap-x-3 rounded-full p-2 text-xl/5 hover:bg-bg',
+                                                { 'font-bold': isSelected, 'px-4 py-3': !collapsed },
                                             )}
                                         >
                                             <Icon width={20} height={20} />
-                                            <span className="hidden lg:inline">{item.name}</span>
+                                            <span
+                                                style={{
+                                                    display: collapsed ? 'none' : 'inline',
+                                                }}
+                                            >
+                                                {item.name}
+                                            </span>
                                         </Link>
                                     )}
                                 </li>
                             );
                         })}
                         {isLogin ? (
-                            isLarge ? (
-                                <li>
-                                    <button
-                                        type="button"
-                                        className="w-[200px] rounded-2xl bg-main p-2 text-xl font-bold leading-6 text-primaryBottom"
-                                        onClick={() => ComposeModalRef.open({})}
-                                    >
-                                        <Trans>Post</Trans>
-                                    </button>
-                                </li>
-                            ) : (
+                            collapsed ? (
                                 <li className="text-center">
                                     <button
                                         type="button"
@@ -130,24 +128,24 @@ export const Menu = memo(function Menu() {
                                         <PlusIcon className="h-5 w-5" aria-hidden="true" />
                                     </button>
                                 </li>
+                            ) : (
+                                <li>
+                                    <button
+                                        type="button"
+                                        className="hidden w-[200px] rounded-2xl bg-main p-2 text-xl font-bold leading-6 text-primaryBottom md:block"
+                                        onClick={() => ComposeModalRef.open({})}
+                                    >
+                                        <Trans>Post</Trans>
+                                    </button>
+                                </li>
                             )
                         ) : null}
                     </ul>
                 </li>
-                <li className="-mx-2 mb-20 mt-auto md:text-center">
+                <li className="-mx-2 mb-20 mt-auto text-center">
                     {isLogin ? (
-                        <LoginStatusBar />
-                    ) : isLarge ? (
-                        <button
-                            onClick={() => {
-                                LoginModalRef.open();
-                            }}
-                            type="button"
-                            className="w-[200px] rounded-2xl bg-main p-2 text-xl font-bold leading-6 text-primaryBottom"
-                        >
-                            <Trans>Login</Trans>
-                        </button>
-                    ) : (
+                        <LoginStatusBar collapsed={collapsed} />
+                    ) : collapsed ? (
                         <button
                             onClick={() => {
                                 LoginModalRef.open();
@@ -156,6 +154,16 @@ export const Menu = memo(function Menu() {
                             className="rounded-full bg-main p-1 text-primaryBottom"
                         >
                             <UserPlusIcon className="h-5 w-5" aria-hidden="true" />
+                        </button>
+                    ) : (
+                        <button
+                            onClick={() => {
+                                LoginModalRef.open();
+                            }}
+                            type="button"
+                            className="w-[200px] rounded-2xl bg-main p-2 text-xl font-bold leading-6 text-primaryBottom"
+                        >
+                            <Trans>Login</Trans>
                         </button>
                     )}
                 </li>

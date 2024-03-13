@@ -12,6 +12,7 @@ import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { SearchRecommendation } from '@/components/Search/SearchRecommendation.js';
 import { classNames } from '@/helpers/classNames.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
+import { useNavigatorState } from '@/store/useNavigatorStore.js';
 import { useFarcasterStateStore, useLensStateStore } from '@/store/useProfileStore.js';
 import { useSearchHistoryStateStore } from '@/store/useSearchHistoryStore.js';
 import { type SearchState, useSearchState } from '@/store/useSearchState.js';
@@ -32,6 +33,7 @@ export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({ title
     const lensProfile = useLensStateStore.use.currentProfile?.();
     const farcasterProfile = useFarcasterStateStore.use.currentProfile?.();
     const { updateState } = useSearchState();
+    const { updateSidebarOpen } = useNavigatorState();
     const { addRecord } = useSearchHistoryStateStore();
 
     const inputRef = useRef<HTMLInputElement>(null);
@@ -62,7 +64,12 @@ export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({ title
                             <LeftArrowIcon />
                         </button>
                     ) : (
-                        <>
+                        <button
+                            className=" flex items-center justify-center pl-5"
+                            onClick={() => {
+                                updateSidebarOpen(true);
+                            }}
+                        >
                             {farcasterProfile ? (
                                 <div className=" relative z-10">
                                     <ProfileAvatar size={30} profile={farcasterProfile} enableSourceIcon={false} />
@@ -73,12 +80,12 @@ export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({ title
                                 </div>
                             ) : null}
                             {lensProfile ? (
-                                <div className=" relative left-[20px]">
+                                <div className=" relative left-[-6px]">
                                     <ProfileAvatar size={30} profile={lensProfile} enableSourceIcon={false} />
                                 </div>
                             ) : null}
                             {farcasterProfile || lensProfile ? null : <MenuIcon />}
-                        </>
+                        </button>
                     )}
                 </div>
                 <h1 className=" flex h-10 flex-1 items-center justify-center">

@@ -6,11 +6,16 @@ import { useAccount, useEnsName } from 'wagmi';
 import { mainnet } from 'wagmi/chains';
 
 import WalletIcon from '@/assets/wallet.svg';
+import { classNames } from '@/helpers/classNames.js';
 import { resolve } from '@/helpers/resolve.js';
 import { useMounted } from '@/hooks/useMounted.js';
 import { AccountModalRef, ConnectWalletModalRef } from '@/modals/controls.js';
 
-export function ConnectWallet() {
+interface ConnectWalletProps {
+    collapsed?: boolean;
+}
+
+export function ConnectWallet({ collapsed = false }: ConnectWalletProps) {
     const mounted = useMounted();
     const account = useAccount();
 
@@ -25,13 +30,21 @@ export function ConnectWallet() {
 
     return (
         <div
-            className="flex gap-x-3 text-xl/5 hover:cursor-pointer hover:bg-bg md:rounded-full md:p-2 lg:px-4 lg:py-3"
+            className={classNames('flex gap-x-3 rounded-full p-2 text-xl/5 hover:cursor-pointer hover:bg-bg', {
+                'px-4 py-3': !collapsed,
+            })}
             onClick={() => {
                 account.isConnected ? AccountModalRef.open() : ConnectWalletModalRef.open();
             }}
         >
             <WalletIcon width={20} height={20} />
-            <span className="hidden lg:inline">{text}</span>
+            <span
+                style={{
+                    display: collapsed ? 'none' : 'inline',
+                }}
+            >
+                {text}
+            </span>
         </div>
     );
 }

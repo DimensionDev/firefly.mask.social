@@ -17,7 +17,7 @@ export const SideBarForDesktop = memo(function SideBarForDesktop() {
 
     return (
         <div className="fixed inset-y-0 z-50 flex flex-col lg:w-[289px]">
-            <div className="flex grow flex-col gap-y-5 border-r border-line md:px-3 lg:px-6">
+            <div className="flex grow flex-col gap-y-5 border-r border-line px-3 lg:px-6">
                 <div className="flex h-16 shrink-0 items-center lg:px-4">
                     <Link href={PageRoutes.Home}>
                         {isLarge ? (
@@ -31,7 +31,7 @@ export const SideBarForDesktop = memo(function SideBarForDesktop() {
                         )}
                     </Link>
                 </div>
-                <Menu />
+                <Menu collapsed={!isLarge} />
             </div>
         </div>
     );

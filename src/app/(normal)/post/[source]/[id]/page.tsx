@@ -55,7 +55,7 @@ export default function PostPage({ params: { id: postId, source } }: PostPagePro
 
     return (
         <div className="min-h-screen">
-            <div className="sticky top-0 z-[98] flex items-center bg-primaryBottom px-4 py-[18px]">
+            <div className="sticky top-0 z-40 flex items-center bg-primaryBottom px-4 py-[18px]">
                 <ComeBack
                     width={24}
                     height={24}

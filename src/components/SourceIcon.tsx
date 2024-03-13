@@ -11,10 +11,11 @@ interface SourceIconProps extends React.SVGProps<SVGSVGElement> {
 
 export function SourceIcon({ source, size = 20, ...props }: SourceIconProps) {
     const style = {
-        height: size,
         width: size,
+        height: size,
         ...props.style,
     };
+
     switch (source) {
         case SocialPlatform.Lens:
             return <LensIcon {...props} style={style} width={size} height={size} />;
