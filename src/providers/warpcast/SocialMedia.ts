@@ -6,7 +6,7 @@ import {
     type Pageable,
     type PageIndicator,
 } from '@masknet/shared-base';
-import { isZero } from '@masknet/web3-shared-base';
+import { isZero, resolveCrossOriginURL } from '@masknet/web3-shared-base';
 import { compact, first } from 'lodash-es';
 import urlcat from 'urlcat';
 
@@ -54,7 +54,7 @@ export class WarpcastSocialMedia implements Provider {
             cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
         });
 
-        const { result, next } = await fetchJSON<CastsResponse>(`https://cors-next.r2d2.to/?${url}`, {
+        const { result, next } = await fetchJSON<CastsResponse>(resolveCrossOriginURL(url), {
             method: 'GET',
         });
         const data = result.casts.map(formatWarpcastPost);
