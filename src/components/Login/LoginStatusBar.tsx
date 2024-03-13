@@ -3,16 +3,26 @@
 import { AccountSettings } from '@/components/AccountSettings.js';
 import { ProfileAvatarAdd } from '@/components/ProfileAvatarAdd.js';
 import { SocialPlatform } from '@/constants/enum.js';
+import { classNames } from '@/helpers/classNames.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { LoginModalRef } from '@/modals/controls.js';
 import { useFarcasterStateStore, useLensStateStore } from '@/store/useProfileStore.js';
 
-export function LoginStatusBar() {
+interface LoginStatusBarProps {
+    collapsed?: boolean;
+}
+
+export function LoginStatusBar({ collapsed = false }: LoginStatusBarProps) {
     const lensProfile = useLensStateStore.use.currentProfile?.();
     const farcasterProfile = useFarcasterStateStore.use.currentProfile?.();
 
     return (
-        <div className="relative flex md:flex-col md:justify-center md:gap-y-2 lg:flex-row lg:justify-start lg:gap-x-2 lg:pl-2">
+        <div
+            className={classNames('relative flex', {
+                'flex-col justify-center gap-y-2': collapsed,
+                'flex-row justify-start gap-x-2 pl-2': !collapsed,
+            })}
+        >
             {farcasterProfile ? <AccountSettings source={SocialPlatform.Farcaster} profile={farcasterProfile} /> : null}
             {lensProfile ? <AccountSettings source={SocialPlatform.Lens} profile={lensProfile} /> : null}
             {farcasterProfile ? null : (

@@ -17,7 +17,13 @@ export function ProfileAvatar(props: ProfileAvatarProps) {
     const { profile, size = 40, clickable = false, linkable = false, enableSourceIcon = true, ...elementProps } = props;
 
     const content = (
-        <div className="relative md:h-[36px] md:w-[36px] lg:h-[40px] lg:w-[40px]">
+        <div
+            className="relative"
+            style={{
+                width: size,
+                height: size,
+            }}
+        >
             <div
                 className="absolute left-0 top-0 rounded-full shadow backdrop-blur-lg"
                 style={{
@@ -39,9 +45,13 @@ export function ProfileAvatar(props: ProfileAvatarProps) {
 
     return linkable ? (
         <Link
-            className={classNames('flex items-start justify-start md:h-[36px] md:w-[36px] lg:h-[40px] lg:w-[48px]', {
+            className={classNames('flex items-start justify-start ', {
                 'cursor-pointer': clickable,
             })}
+            style={{
+                width: size,
+                height: size,
+            }}
             href={getProfileUrl(profile)}
             {...elementProps}
         >
@@ -49,9 +59,13 @@ export function ProfileAvatar(props: ProfileAvatarProps) {
         </Link>
     ) : (
         <div
-            className={classNames('flex items-start justify-start md:h-[36px] md:w-[36px] lg:h-[40px] lg:w-[48px]', {
+            className={classNames('flex items-start justify-start ', {
                 'cursor-pointer': clickable,
             })}
+            style={{
+                width: size,
+                height: size,
+            }}
             {...elementProps}
         >
             {content}

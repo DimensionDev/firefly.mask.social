@@ -15,15 +15,12 @@ export function ProfileAvatarAdd(props: ProfileAvatarAddProps) {
     const isLarge = useIsLarge();
 
     return (
-        <div
-            className="relative cursor-pointer md:mx-auto  md:h-[36px] md:w-[36px] lg:m-0 lg:h-[40px] lg:w-[48px]"
-            {...divProps}
-        >
-            <div className="absolute left-0 top-0 rounded-full shadow backdrop-blur-lg  md:h-[36px] md:w-[36px] lg:h-[40px] lg:w-[40px]">
+        <div className="relative mx-auto h-[36px] w-[36px] cursor-pointer lg:m-0 lg:h-[40px] lg:w-[48px]" {...divProps}>
+            <div className="absolute left-0 top-0 h-[36px] w-[36px] rounded-full shadow backdrop-blur-lg lg:h-[40px] lg:w-[40px]">
                 <SourceIcon source={source} size={isLarge ? 40 : 36} />
             </div>
             <PlusIcon
-                className="absolute rounded-full bg-white text-black shadow md:left-[24px] md:top-[20px] lg:left-[32px] lg:top-[24px]"
+                className="absolute left-[24px] top-[20px] rounded-full bg-white text-black shadow lg:left-[32px] lg:top-[24px]"
                 width={16}
                 height={16}
             />

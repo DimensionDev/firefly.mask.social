@@ -144,7 +144,7 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                 </li>
                 <li className="-mx-2 mb-20 mt-auto text-center">
                     {isLogin ? (
-                        <LoginStatusBar />
+                        <LoginStatusBar collapsed={collapsed} />
                     ) : collapsed ? (
                         <button
                             onClick={() => {
