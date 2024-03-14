@@ -246,6 +246,9 @@ msgstr "登录另一个账号"
 msgid "Failed to fetch as Text."
 msgstr "获取内容失败。"
 
+msgid "Reply"
+msgstr ""
+
 msgid "Add an existing account"
 msgstr "添加一个已经存在的账号"
 
@@ -310,6 +313,9 @@ msgid "Post has been hidden"
 msgstr "帖子已经被隐藏"
 
 msgid "Everyone"
+msgstr ""
+
+msgid "Compose"
 msgstr ""
 
 msgid "The user declined the request."
@@ -440,6 +446,9 @@ msgstr "成功取消转发"
 
 msgid "Failed to unfollow."
 msgstr "取消关注失败"
+
+msgid "Quote"
+msgstr ""
 
 msgid "Unliked"
 msgstr "已取消点赞"
