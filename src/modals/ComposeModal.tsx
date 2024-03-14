@@ -30,6 +30,7 @@ import { fetchImageAsPNG } from '@/helpers/fetchImageAsPNG.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { hasRedPacketPayload } from '@/helpers/hasRedPacketPayload.js';
 import { type Chars, readChars } from '@/helpers/readChars.js';
+import { resolveComposeType } from '@/helpers/resolveComposeType.js';
 import { throws } from '@/helpers/throws.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
@@ -39,7 +40,6 @@ import { steganographyEncodeImage } from '@/services/steganography.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useFarcasterStateStore, useLensStateStore } from '@/store/useProfileStore.js';
-import { resolveComposeType } from '@/helpers/resolveComposeType.js';
 
 const initialConfig = {
     namespace: 'composer',
