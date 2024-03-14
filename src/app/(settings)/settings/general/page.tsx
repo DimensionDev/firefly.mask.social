@@ -8,7 +8,7 @@ import { useMediaQuery } from 'usehooks-ts';
 import { changeLocale } from '@/actions/changeLocale.js';
 import { Headline } from '@/app/(settings)/components/Headline.js';
 import { OptionButton } from '@/app/(settings)/components/OptionButton.js';
-import { Subtitle } from '@/app/(settings)/components/Subtitle.jsx';
+import { Subtitle } from '@/app/(settings)/components/Subtitle.js';
 import { getLocaleFromCookies } from '@/helpers/getLocaleFromCookies.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 import { useThemeModeStore } from '@/store/useThemeModeStore.js';

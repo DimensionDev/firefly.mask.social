@@ -4,7 +4,7 @@ import { t, Trans } from '@lingui/macro';
 
 import { Headline } from '@/app/(settings)/components/Headline.js';
 import { LinkCard } from '@/app/(settings)/components/LinkCard.js';
-import { Subtitle } from '@/app/(settings)/components/Subtitle.jsx';
+import { Subtitle } from '@/app/(settings)/components/Subtitle.js';
 import DiscordIcon from '@/assets/discord.svg';
 import FireflyRoundIcon from '@/assets/firefly.round.svg';
 import MaskRoundIcon from '@/assets/mask.round.svg';
