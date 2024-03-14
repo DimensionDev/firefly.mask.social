@@ -4,7 +4,7 @@ import { t, Trans } from '@lingui/macro';
 
 import { Headline } from '@/app/(settings)/components/Headline.js';
 import { LinkCard } from '@/app/(settings)/components/LinkCard.js';
-import { Subline } from '@/app/(settings)/components/Subline.js';
+import { Subtitle } from '@/app/(settings)/components/Subtitle.jsx';
 import DiscordIcon from '@/assets/discord.svg';
 import FireflyRoundIcon from '@/assets/firefly.round.svg';
 import MaskRoundIcon from '@/assets/mask.round.svg';
@@ -19,7 +19,7 @@ export default function Communities() {
         <div className="flex w-full flex-col items-center gap-[24px] p-[24px]">
             <Headline title={<Trans>Communities</Trans>} />
 
-            <Subline title={<Trans>Firefly</Trans>} />
+            <Subtitle title={<Trans>Firefly</Trans>} />
 
             {[
                 {
@@ -46,7 +46,7 @@ export default function Communities() {
                 <LinkCard key={link} content={content} link={link} logo={logo} />
             ))}
 
-            <Subline title={<Trans>Mask Network</Trans>} />
+            <Subtitle title={<Trans>Mask Network</Trans>} />
 
             {[
                 {

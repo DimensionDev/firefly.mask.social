@@ -8,7 +8,7 @@ import { useMediaQuery } from 'usehooks-ts';
 import { changeLocale } from '@/actions/changeLocale.js';
 import { Headline } from '@/app/(settings)/components/Headline.js';
 import { OptionButton } from '@/app/(settings)/components/OptionButton.js';
-import { Subline } from '@/app/(settings)/components/Subline.js';
+import { Subtitle } from '@/app/(settings)/components/Subtitle.jsx';
 import { getLocaleFromCookies } from '@/helpers/getLocaleFromCookies.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 import { useThemeModeStore } from '@/store/useThemeModeStore.js';
@@ -26,7 +26,7 @@ export default function General() {
         <div className="flex w-full flex-col items-center p-[24px]">
             <Headline title={<Trans>General</Trans>} />
 
-            <Subline title={<Trans>Display</Trans>} />
+            <Subtitle title={<Trans>Display</Trans>} />
 
             {[
                 {
@@ -53,7 +53,7 @@ export default function General() {
                 />
             ))}
 
-            <Subline title={<Trans>Language</Trans>} />
+            <Subtitle title={<Trans>Language</Trans>} />
 
             {[
                 {
