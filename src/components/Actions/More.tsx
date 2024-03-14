@@ -1,5 +1,5 @@
 import { Menu, Transition } from '@headlessui/react';
-import { Select } from '@lingui/macro';
+import { Select, t } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import { Fragment, memo } from 'react';
 
@@ -7,6 +7,7 @@ import FollowUserIcon from '@/assets/follow-user.svg';
 import LoadingIcon from '@/assets/loading.svg';
 import MoreIcon from '@/assets/more.svg';
 import UnFollowUserIcon from '@/assets/unfollow-user.svg';
+import { Tooltip } from '@/components/Tooltip.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
@@ -26,7 +27,7 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
 
     const [isFollowed, { loading }, handleToggle] = useToggleFollow(author);
     return (
-        <Menu as="div">
+        <Menu className=" relative" as="div">
             <Menu.Button
                 whileTap={{ scale: 0.9 }}
                 as={motion.button}
@@ -38,10 +39,9 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
                         event.preventDefault();
                         if (source === SocialPlatform.Lens) await getWalletClientRequired();
                         LoginModalRef.open({ source });
-                        return;
+                    } else {
+                        event.stopPropagation();
                     }
-                    event.stopPropagation();
-                    return;
                 }}
             >
                 {loading ? (
@@ -49,7 +49,9 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
                         <LoadingIcon width={16} height={16} />
                     </span>
                 ) : (
-                    <MoreIcon width={24} height={24} />
+                    <Tooltip content={t`More`} placement="top">
+                        <MoreIcon width={24} height={24} />
+                    </Tooltip>
                 )}
             </Menu.Button>
             <Transition
@@ -66,7 +68,7 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
                         event.stopPropagation();
                         event.preventDefault();
                     }}
-                    className="absolute z-[1000] w-max space-y-2 overflow-hidden rounded-2xl bg-primaryBottom text-main shadow-messageShadow hover:text-main"
+                    className="absolute right-0 z-[1000] w-max space-y-2 overflow-hidden rounded-2xl bg-primaryBottom text-main shadow-messageShadow"
                 >
                     <Menu.Item>
                         {({ close }) => (

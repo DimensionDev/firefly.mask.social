@@ -26,6 +26,7 @@ import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useIsMyProfile } from '@/hooks/useIsMyProfile.js';
 import { ComposeModalRef, LoginModalRef } from '@/modals/controls.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
+import { useNavigatorState } from '@/store/useNavigatorStore.js';
 
 interface MenuProps {
     collapsed?: boolean;
@@ -33,6 +34,7 @@ interface MenuProps {
 
 export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
     const currentSource = useGlobalState.use.currentSource();
+    const updateSidebarOpen = useNavigatorState.use.updateSidebarOpen();
 
     const isLogin = useIsLogin();
 
@@ -93,7 +95,11 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                             const Icon = isSelected ? item.selectedIcon : item.icon;
 
                             return (
-                                <li className="flex rounded-lg text-main" key={item.href}>
+                                <li
+                                    className="flex rounded-lg text-main"
+                                    key={item.href}
+                                    onClick={() => updateSidebarOpen(false)}
+                                >
                                     {item.href === '/connect-wallet' ? (
                                         <ConnectWallet collapsed={collapsed} />
                                     ) : (

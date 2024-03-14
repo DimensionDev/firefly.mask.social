@@ -14,23 +14,14 @@ export function ProfileAvatarAdd(props: ProfileAvatarAddProps) {
     const isLarge = useIsLarge();
 
     const size = isLarge ? 40 : 36;
+    const style = {
+        width: size,
+        height: size,
+    };
 
     return (
-        <div
-            className="relative mx-auto cursor-pointer lg:m-0 "
-            style={{
-                width: size,
-                height: size,
-            }}
-            {...divProps}
-        >
-            <div
-                className="absolute left-0 top-0 rounded-full shadow backdrop-blur-lg "
-                style={{
-                    width: size,
-                    height: size,
-                }}
-            >
+        <div className="relative cursor-pointer md:mx-auto lg:m-0 " style={style} {...divProps}>
+            <div className="absolute left-0 top-0 rounded-full shadow backdrop-blur-lg " style={style}>
                 <SourceIcon source={source} size={size} />
             </div>
             <PlusIcon
