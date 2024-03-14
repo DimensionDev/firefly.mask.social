@@ -53,7 +53,7 @@ export function PostByItem({ source }: PostByItemProps) {
 
     if (!currentProfile || !currentProfiles?.length)
         return (
-            <div className=" flex h-[40px] items-center justify-between border-b border-secondaryLine last:border-none">
+            <div className=" flex h-10 items-center justify-between border-b border-secondaryLine last:border-none">
                 <div className=" flex items-center gap-2">
                     <SourceIcon size={24} source={source} />
                     <span className=" font-bold text-main">{resolveSourceName(source)}</span>
@@ -83,7 +83,7 @@ export function PostByItem({ source }: PostByItemProps) {
 
     return currentProfiles.map((profile) => (
         <div
-            className="flex h-[40px] items-center justify-between border-b border-secondaryLine last:border-none"
+            className="flex h-10 items-center justify-between border-b border-secondaryLine last:border-none"
             key={profile.profileId}
             onClick={() => {
                 if (!isSameProfile(currentProfile, profile)) return;

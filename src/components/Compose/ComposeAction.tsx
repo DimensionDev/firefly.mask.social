@@ -145,7 +145,7 @@ export default function ComposeAction(props: ComposeActionProps) {
                     <>
                         <Tooltip content={t`Debug Connection`} placement="top">
                             <BugAntIcon
-                                className="h-[24px] w-[24px] cursor-pointer text-main"
+                                className="h-6 w-6 cursor-pointer text-main"
                                 onClick={async () => {
                                     ComposeModalRef.close();
                                     await delay(300);
@@ -155,7 +155,7 @@ export default function ComposeAction(props: ComposeActionProps) {
                         </Tooltip>
                         <Tooltip content={t`Debug Console`} placement="top">
                             <BugAntIcon
-                                className={`h-[24px] w-[24px] cursor-pointer text-main`}
+                                className={`h-6 w-6 cursor-pointer text-main`}
                                 onClick={async () => {
                                     ComposeModalRef.close();
                                     await delay(300);

@@ -46,7 +46,7 @@ export function AccountSettings({ source, profile }: AccountSettingsProps) {
                     {profiles.map((profile) => (
                         <button
                             key={profile.profileId}
-                            className="my-[24px] flex items-center justify-between gap-2"
+                            className="my-6 flex items-center justify-between gap-2"
                             disabled={isSameProfile(currentProfile, profile) || source === SocialPlatform.Farcaster}
                             onClick={() => {
                                 login(profile);
@@ -60,7 +60,7 @@ export function AccountSettings({ source, profile }: AccountSettingsProps) {
                         </button>
                     ))}
                     <button
-                        className="flex w-full items-center gap-2 rounded px-[4px] py-3 text-main hover:bg-bg"
+                        className="flex w-full items-center gap-2 rounded px-1 py-3 text-main hover:bg-bg"
                         onClick={() => {
                             LoginModalRef.open();
                         }}
@@ -71,7 +71,7 @@ export function AccountSettings({ source, profile }: AccountSettingsProps) {
                         </div>
                     </button>
                     <button
-                        className="mb-[12px] flex items-center gap-2 rounded px-[4px] py-3 hover:bg-bg"
+                        className="mb-3 flex items-center gap-2 rounded px-1 py-3 hover:bg-bg"
                         onClick={() => {
                             LogoutModalRef.open({ source });
                         }}

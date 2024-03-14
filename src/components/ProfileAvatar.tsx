@@ -32,7 +32,7 @@ export function ProfileAvatar(props: ProfileAvatarProps) {
             </div>
             {enableSourceIcon ? (
                 <SourceIcon
-                    className="absolute left-[24px] top-[24px] h-[16px] w-[16px] rounded-full border border-white shadow"
+                    className="absolute left-6 top-6 h-4 w-4 rounded-full border border-white shadow"
                     source={profile.source}
                     size={16}
                 />

@@ -12,7 +12,7 @@ export function DocumentCard({ title, href, icon }: DocumentCardProps) {
         <Link
             href={href}
             target="_blank"
-            className="inline-flex h-[48px] w-full items-center justify-start gap-2 rounded-lg bg-white px-[12px] py-[8px] dark:bg-bg"
+            className="inline-flex h-[48px] w-full items-center justify-start gap-2 rounded-lg bg-white px-3 py-2 dark:bg-bg"
             style={{ boxShadow: '0px 0px 20px 0px rgba(0, 0, 0, 0.05)', backdropFilter: 'blur(8px)' }}
         >
             {icon}
