@@ -15,22 +15,29 @@ export function ProfileInList({ profile, noFollowButton }: ProfileInListProps) {
     const isSmall = useIsSmall('max');
 
     return (
-        <div className="flex-start flex cursor-pointer border-b border-secondaryLine px-4 py-6 hover:bg-bg dark:border-line">
-            <Link className="flex-start flex flex-1" href={getProfileUrl(profile)}>
+        <div className="flex-start flex cursor-pointer overflow-auto border-b border-secondaryLine px-4 py-6 hover:bg-bg dark:border-line">
+            <Link className="flex-start flex flex-1 overflow-auto" href={getProfileUrl(profile)}>
                 <Avatar
-                    className="mr-3 rounded-full border"
+                    className="mr-3 shrink-0 rounded-full border"
                     src={profile.pfp}
                     size={isSmall ? 40 : 78}
                     alt={profile.displayName}
                 />
 
-                <div className="flex-start flex flex-1 flex-col">
-                    <span className="flex-start flex items-center text-sm font-bold leading-5 md:mt-2">
+                <div className="flex-start flex flex-1 flex-col overflow-auto">
+                    <p className="flex-start flex items-center text-sm font-bold leading-5 md:mt-2">
                         <span className="mr-2 text-xl">{profile.displayName}</span>
                         <SourceIcon source={profile.source} />
-                    </span>
-                    {profile.handle ? <span className="text-sm text-secondary">@{profile.handle}</span> : null}
-                    {profile.bio ? <span className="mt-1.5 line-clamp-1 text-sm">{profile.bio}</span> : null}
+                    </p>
+                    {profile.handle ? <p className="text-sm text-secondary">@{profile.handle}</p> : null}
+                    {profile.bio ? (
+                        <p
+                            className="mt-1.5 overflow-hidden text-ellipsis whitespace-nowrap text-sm"
+                            title={profile.bio}
+                        >
+                            {profile.bio}
+                        </p>
+                    ) : null}
                 </div>
             </Link>
 
