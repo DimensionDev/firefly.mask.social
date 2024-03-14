@@ -14,7 +14,7 @@ export function SettingsList() {
 
     return (
         <div className="flex min-h-full min-w-full flex-col border-r border-line p-[24px] md:min-w-[280px]">
-            <div className=" pb-[24px] text-[20px] font-bold leading-[24px] text-lightMain">
+            <div className=" hidden pb-[24px] text-[20px] font-bold leading-[24px] text-lightMain md:block">
                 <Trans>Settings</Trans>
             </div>
             {[

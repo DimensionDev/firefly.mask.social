@@ -1,13 +1,16 @@
 'use client';
 
-import { Trans } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import { Appearance } from '@masknet/public-api';
 import { useMemo } from 'react';
 import { useMediaQuery } from 'usehooks-ts';
 
 import { changeLocale } from '@/actions/changeLocale.js';
+import { Headline } from '@/app/(settings)/components/Headline.js';
 import { OptionButton } from '@/app/(settings)/components/OptionButton.js';
+import { Subline } from '@/app/(settings)/components/Subline.js';
 import { getLocaleFromCookies } from '@/helpers/getLocaleFromCookies.js';
+import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 import { useThemeModeStore } from '@/store/useThemeModeStore.js';
 import { Locale } from '@/types/index.js';
 
@@ -17,11 +20,13 @@ export default function General() {
     const isDarkOS = useMediaQuery('(prefers-color-scheme: dark)');
     const locale = useMemo(() => getLocaleFromCookies(), []);
 
+    useNavigatorTitle(t`General`);
+
     return (
         <div className="flex w-full flex-col items-center p-[24px]">
-            <div className=" w-full gap-[24px] pb-6 text-[20px] font-bold leading-[24px] text-main">
-                <Trans>Display</Trans>
-            </div>
+            <Headline title={<Trans>General</Trans>} />
+
+            <Subline title={<Trans>Display</Trans>} />
 
             {[
                 {
@@ -48,9 +53,7 @@ export default function General() {
                 />
             ))}
 
-            <div className=" w-full gap-[24px] py-6 text-[20px] font-bold leading-[24px] text-main">
-                <Trans>Language</Trans>
-            </div>
+            <Subline title={<Trans>Language</Trans>} />
 
             {[
                 {

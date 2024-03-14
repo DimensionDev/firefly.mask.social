@@ -1,15 +1,17 @@
 'use client';
 
-import { Trans } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import { formatEthereumAddress } from '@masknet/web3-shared-evm';
 import { useCallback, useState } from 'react';
 import { useCopyToClipboard } from 'usehooks-ts';
 import { useAccount } from 'wagmi';
 
 import { AccountCard } from '@/app/(settings)/components/AccountCard.js';
+import { Headline } from '@/app/(settings)/components/Headline.js';
 import CopyIcon from '@/assets/copy.svg';
 import { Tippy } from '@/esm/Tippy.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
+import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 import { LoginModalRef, LogoutModalRef } from '@/modals/controls.js';
 import { useFarcasterStateStore, useLensStateStore } from '@/store/useProfileStore.js';
 
@@ -28,13 +30,12 @@ export default function Connected() {
         copyToClipboard(address);
     }, [address, copyToClipboard]);
 
+    useNavigatorTitle(t`Connected Accounts`);
+
     return (
         <div className="flex w-full flex-col items-center gap-[24px] p-[24px]">
-            <div className=" flex w-full items-center justify-between gap-[24px]">
-                <span className="text-[20px] font-bold leading-[24px] text-main">
-                    <Trans>Connected Accounts</Trans>
-                </span>
-            </div>
+            <Headline title={<Trans>Connected Accounts</Trans>} />
+
             {currentLensProfile?.profileId ? (
                 <>
                     <div className="flex w-full items-center justify-between">
@@ -78,6 +79,7 @@ export default function Connected() {
                     ))}
                 </>
             ) : null}
+
             {currentFarcasterProfile?.profileId ? (
                 <>
                     <div className="flex w-full items-center justify-between">

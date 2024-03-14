@@ -19,9 +19,13 @@ import { type SearchState, useSearchState } from '@/store/useSearchState.js';
 
 interface NavigatorBarForMobileProps {
     title: string;
+    enableSearch?: boolean;
 }
 
-export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({ title }: NavigatorBarForMobileProps) {
+export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({
+    title,
+    enableSearch = true,
+}: NavigatorBarForMobileProps) {
     const router = useRouter();
 
     const pathname = usePathname();
@@ -135,20 +139,22 @@ export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({ title
                     )}
                 </h1>
                 <div className=" flex h-[30px] w-[30px] justify-center">
-                    {searchMode ? (
-                        <button>
-                            <AdjustmentsIcon />
-                        </button>
-                    ) : (
-                        <button>
-                            <MagnifierIcon
-                                onClick={() => {
-                                    inputRef.current?.focus();
-                                    setSearchMode(true);
-                                }}
-                            />
-                        </button>
-                    )}
+                    {enableSearch ? (
+                        searchMode ? (
+                            <button>
+                                <AdjustmentsIcon />
+                            </button>
+                        ) : (
+                            <button>
+                                <MagnifierIcon
+                                    onClick={() => {
+                                        inputRef.current?.focus();
+                                        setSearchMode(true);
+                                    }}
+                                />
+                            </button>
+                        )
+                    ) : null}
                 </div>
             </header>
             {showRecommendation && !isSearchPage ? (

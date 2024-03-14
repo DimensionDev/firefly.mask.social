@@ -4,9 +4,13 @@ import { NavigatorBarForMobile } from '@/components/NavigatorBar/NavigatorBarFor
 import { useIsSmall } from '@/hooks/useMediaQuery.js';
 import { useNavigatorState } from '@/store/useNavigatorStore.js';
 
-export function NavigatorBar() {
+interface NavigatorBarProps {
+    enableSearch?: boolean;
+}
+
+export function NavigatorBar({ enableSearch }: NavigatorBarProps) {
     const title = useNavigatorState.use.title();
     const isSmall = useIsSmall('max');
 
-    return isSmall ? <NavigatorBarForMobile title={title} /> : null;
+    return isSmall ? <NavigatorBarForMobile title={title} enableSearch={enableSearch} /> : null;
 }

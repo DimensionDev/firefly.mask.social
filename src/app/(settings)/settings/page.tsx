@@ -1,21 +1,21 @@
 'use client';
 
-import { redirect, useRouter } from 'next/navigation.js';
-import { useMount } from 'react-use';
-import urlcat from 'urlcat';
+import { t } from '@lingui/macro';
 
 import { SettingsList } from '@/app/(settings)/components/SettingsList.js';
-import { PageRoutes } from '@/constants/enum.js';
 import { useIsSmall } from '@/hooks/useMediaQuery.js';
+import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 
 export default function Settings() {
     const isSmall = useIsSmall('max');
 
+    useNavigatorTitle(t`Settings`);
+
     if (!isSmall) return null;
 
     return (
-        <div className=" flex min-h-screen w-full">
+        <main className=" flex min-h-screen w-full">
             <SettingsList />
-        </div>
+        </main>
     );
 }

@@ -2,26 +2,25 @@
 
 import { t, Trans } from '@lingui/macro';
 
+import { Headline } from '@/app/(settings)/components/Headline.js';
 import { LinkCard } from '@/app/(settings)/components/LinkCard.js';
+import { Subline } from '@/app/(settings)/components/Subline.js';
 import DiscordIcon from '@/assets/discord.svg';
 import FireflyRoundIcon from '@/assets/firefly.round.svg';
 import MaskRoundIcon from '@/assets/mask.round.svg';
 import TelegramIcon from '@/assets/telegram.svg';
 import XLightIcon from '@/assets/x-light.svg';
+import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 
-export default function Connected() {
+export default function Communities() {
+    useNavigatorTitle(t`Communities`);
+
     return (
         <div className="flex w-full flex-col items-center gap-[24px] p-[24px]">
-            <div className="flex w-full items-center justify-between gap-[24px]">
-                <span className="text-[20px] font-bold leading-[24px] text-main">
-                    <Trans>Communities</Trans>
-                </span>
-            </div>
-            <div className="flex w-full items-center justify-between">
-                <span className="text-[18px] font-bold leading-[18px] text-main">
-                    <Trans>Firefly</Trans>
-                </span>
-            </div>
+            <Headline title={<Trans>Communities</Trans>} />
+
+            <Subline title={<Trans>Firefly</Trans>} />
+
             {[
                 {
                     content: t`Follow @thefireflyapp on X`,
@@ -46,11 +45,9 @@ export default function Connected() {
             ].map(({ content, link, logo }) => (
                 <LinkCard key={link} content={content} link={link} logo={logo} />
             ))}
-            <div className="flex w-full items-center justify-between">
-                <span className="text-base font-bold leading-[18px] text-main">
-                    <Trans>Mask Network</Trans>
-                </span>
-            </div>
+
+            <Subline title={<Trans>Mask Network</Trans>} />
+
             {[
                 {
                     content: t`Follow @realMaskNetwork on X`,
