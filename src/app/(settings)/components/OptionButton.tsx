@@ -15,7 +15,7 @@ export function OptionButton({ darkMode = false, selected, label, onClick, ...pr
     return (
         <button
             className={classNames(
-                `my-[12px] inline-flex h-[60px] w-[250px] items-center justify-center gap-5 rounded-lg px-3 ${
+                `inline-flex h-[60px] w-[250px] items-center justify-center gap-5 rounded-lg px-3 ${
                     darkMode
                         ? 'border border-line bg-darkBottom text-white'
                         : 'border border-neutral-900 bg-white text-slate-950'

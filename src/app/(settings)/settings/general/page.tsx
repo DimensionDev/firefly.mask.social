@@ -8,6 +8,7 @@ import { useMediaQuery } from 'usehooks-ts';
 import { changeLocale } from '@/actions/changeLocale.js';
 import { Headline } from '@/app/(settings)/components/Headline.js';
 import { OptionButton } from '@/app/(settings)/components/OptionButton.js';
+import { Section } from '@/app/(settings)/components/Section.js';
 import { Subtitle } from '@/app/(settings)/components/Subtitle.js';
 import { getLocaleFromCookies } from '@/helpers/getLocaleFromCookies.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
@@ -23,60 +24,64 @@ export default function General() {
     useNavigatorTitle(t`General`);
 
     return (
-        <div className="flex w-full flex-col items-center p-[24px]">
+        <Section>
             <Headline title={<Trans>General</Trans>} />
 
             <Subtitle title={<Trans>Display</Trans>} />
 
-            {[
-                {
-                    value: Appearance.default,
-                    label: <Trans>Follow System</Trans>,
-                },
-                {
-                    value: Appearance.light,
-                    label: <Trans>Light Mode</Trans>,
-                },
-                {
-                    value: Appearance.dark,
-                    label: <Trans>Dark Mode</Trans>,
-                },
-            ].map((option, index) => (
-                <OptionButton
-                    key={index}
-                    darkMode={option.value === Appearance.default ? isDarkOS : option.value === Appearance.dark}
-                    selected={mode === option.value}
-                    label={option.label}
-                    onClick={() => {
-                        setThemeMode(option.value);
-                    }}
-                />
-            ))}
+            <div className=" flex flex-col gap-5">
+                {[
+                    {
+                        value: Appearance.default,
+                        label: <Trans>Follow System</Trans>,
+                    },
+                    {
+                        value: Appearance.light,
+                        label: <Trans>Light Mode</Trans>,
+                    },
+                    {
+                        value: Appearance.dark,
+                        label: <Trans>Dark Mode</Trans>,
+                    },
+                ].map((option, index) => (
+                    <OptionButton
+                        key={index}
+                        darkMode={option.value === Appearance.default ? isDarkOS : option.value === Appearance.dark}
+                        selected={mode === option.value}
+                        label={option.label}
+                        onClick={() => {
+                            setThemeMode(option.value);
+                        }}
+                    />
+                ))}
+            </div>
 
             <Subtitle title={<Trans>Language</Trans>} />
 
-            {[
-                {
-                    value: Locale.en,
-                    label: 'English',
-                },
-                {
-                    value: Locale.zhHans,
-                    label: '简体中文',
-                },
-            ].map((option, index) => (
-                <OptionButton
-                    key={index}
-                    selected={option.value === locale}
-                    darkMode={mode === Appearance.default ? isDarkOS : mode === Appearance.dark}
-                    label={option.label}
-                    onClick={async () => {
-                        const data = new FormData();
-                        data.append('locale', option.value);
-                        await changeLocale(data);
-                    }}
-                />
-            ))}
-        </div>
+            <div className=" flex flex-col gap-5">
+                {[
+                    {
+                        value: Locale.en,
+                        label: 'English',
+                    },
+                    {
+                        value: Locale.zhHans,
+                        label: '简体中文',
+                    },
+                ].map((option, index) => (
+                    <OptionButton
+                        key={index}
+                        selected={option.value === locale}
+                        darkMode={mode === Appearance.default ? isDarkOS : mode === Appearance.dark}
+                        label={option.label}
+                        onClick={async () => {
+                            const data = new FormData();
+                            data.append('locale', option.value);
+                            await changeLocale(data);
+                        }}
+                    />
+                ))}
+            </div>
+        </Section>
     );
 }

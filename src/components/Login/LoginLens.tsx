@@ -71,10 +71,10 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
             className="flex max-h-[535px] w-[600px] flex-col overflow-auto rounded-[12px] pb-[80px]"
             style={{ boxShadow: '0px 4px 30px 0px rgba(0, 0, 0, 0.10)' }}
         >
-            <div className="flex min-h-[372px] w-full flex-col gap-[16px] p-[16px]">
+            <div className="flex min-h-[372px] w-full flex-col gap-4 p-[16px]">
                 {profiles?.length ? (
                     <>
-                        <div className="flex w-full flex-col gap-[16px] rounded-[8px] bg-lightBg px-[16px] py-[24px]">
+                        <div className="flex w-full flex-col gap-4 rounded-[8px] bg-lightBg px-[16px] py-[24px]">
                             <div className="w-full text-left text-[14px] leading-[16px] text-second">
                                 <Trans>Sign the transaction to verify you are the owner of the selected profile.</Trans>
                             </div>
@@ -89,7 +89,7 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
                         </div>
                         {currentProfile?.signless ||
                         !isSameAddress(currentProfile?.ownedBy?.address, account.address) ? null : (
-                            <div className="flex w-full flex-col gap-[8px] rounded-[8px] bg-lightBg px-[16px] py-[24px]">
+                            <div className="flex w-full flex-col gap-2 rounded-[8px] bg-lightBg px-[16px] py-[24px]">
                                 <div className="flex items-center justify-between">
                                     <span className="text-[14px] font-bold leading-[18px] text-lightMain">
                                         <Trans>Delegate Signing (Recommend)</Trans>
@@ -121,7 +121,7 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
                         )}
                     </>
                 ) : (
-                    <div className="flex w-full flex-col gap-[8px] rounded-[8px] bg-lightBg px-[16px] py-[24px]">
+                    <div className="flex w-full flex-col gap-2 rounded-[8px] bg-lightBg px-[16px] py-[24px]">
                         <div className="w-full text-left text-[14px] leading-[16px] text-second">
                             <Trans>No Lens profile found. Please change to another wallet.</Trans>
                         </div>
@@ -136,7 +136,7 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
                     }}
                 >
                     <button
-                        className="flex items-center gap-[8px] py-[11px]"
+                        className="flex items-center gap-2 py-[11px]"
                         onClick={async () => {
                             LoginModalRef.close();
                             await delay(300);
@@ -151,7 +151,7 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
                     </button>
                     <button
                         disabled={loading}
-                        className=" flex h-[40px] w-[120px] items-center justify-center gap-[8px] rounded-[99px] bg-lightMain text-sm font-bold text-primaryBottom disabled:cursor-not-allowed disabled:opacity-50"
+                        className=" flex h-[40px] w-[120px] items-center justify-center gap-2 rounded-[99px] bg-lightMain text-sm font-bold text-primaryBottom disabled:cursor-not-allowed disabled:opacity-50"
                         onClick={() => login(signless)}
                     >
                         {loading ? (

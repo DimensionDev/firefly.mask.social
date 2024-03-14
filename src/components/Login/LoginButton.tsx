@@ -14,7 +14,7 @@ export function LoginButton(props: LoginButtonProps) {
             className=" group flex w-full flex-col rounded-lg p-[16px] hover:bg-lightBg"
             onClick={() => onClick?.(source)}
         >
-            <div className=" inline-flex w-full cursor-pointer flex-col items-center justify-start gap-[8px] rounded-lg px-[16px] py-[24px]">
+            <div className=" inline-flex w-full cursor-pointer flex-col items-center justify-start gap-2 rounded-lg px-[16px] py-[24px]">
                 <div className="relative h-[48px] w-[48px]">
                     <SourceIcon className="left-0 top-0 rounded-full" size={48} source={source} />
                 </div>

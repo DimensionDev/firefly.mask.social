@@ -12,23 +12,25 @@ export default function More() {
     useNavigatorTitle(t`More`);
 
     return (
-        <div className="flex w-full flex-col items-center gap-[12px] p-[24px]">
+        <div className="flex w-full flex-col items-center gap-6 p-6">
             <Headline title={<Trans>More</Trans>} />
 
-            {[
-                {
-                    href: 'https://legal.mask.io/maskbook/privacy-policy-browser.html',
-                    title: t`Privacy Policy`,
-                    icon: <SecurityIcon width={24} height={24} />,
-                },
-                {
-                    href: 'https://legal.mask.io/maskbook/service-agreement-beta-browser.html',
-                    title: t`Terms of Service`,
-                    icon: <DocumentsIcon width={24} height={24} />,
-                },
-            ].map((document) => (
-                <DocumentCard key={document.href} {...document} />
-            ))}
+            <div className=" flex w-full flex-col gap-4">
+                {[
+                    {
+                        href: 'https://legal.mask.io/maskbook/privacy-policy-browser.html',
+                        title: t`Privacy Policy`,
+                        icon: <SecurityIcon width={24} height={24} />,
+                    },
+                    {
+                        href: 'https://legal.mask.io/maskbook/service-agreement-beta-browser.html',
+                        title: t`Terms of Service`,
+                        icon: <DocumentsIcon width={24} height={24} />,
+                    },
+                ].map((document) => (
+                    <DocumentCard key={document.href} {...document} />
+                ))}
+            </div>
         </div>
     );
 }

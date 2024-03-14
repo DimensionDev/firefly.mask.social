@@ -39,7 +39,7 @@ export const ConfirmModal = forwardRef<SingletonModalRefCreator<ConfirmModalOpen
                         <div className="relative h-[24px] w-[24px]" />
                     </div>
 
-                    <div className="flex flex-col gap-[12px] p-[24px]">
+                    <div className="flex flex-col gap-3 p-[24px]">
                         {content}
                         <button
                             className=" flex items-center justify-center rounded-full bg-commonDanger py-[11px] font-bold text-lightBottom"

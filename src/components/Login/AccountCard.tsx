@@ -12,7 +12,7 @@ interface AccountCardProps {
 
 export function AccountCard({ isSelected, onSelect, profile }: AccountCardProps) {
     return (
-        <div className="inline-flex h-[48px] w-full items-center justify-start gap-[16px]">
+        <div className="inline-flex h-[48px] w-full items-center justify-start gap-4">
             <div
                 className="flex h-[48px] w-[48px] items-center justify-center rounded-full"
                 style={{

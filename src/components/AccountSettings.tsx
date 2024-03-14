@@ -46,7 +46,7 @@ export function AccountSettings({ source, profile }: AccountSettingsProps) {
                     {profiles.map((profile) => (
                         <button
                             key={profile.profileId}
-                            className="my-[24px] flex items-center justify-between gap-[8px]"
+                            className="my-[24px] flex items-center justify-between gap-2"
                             disabled={isSameProfile(currentProfile, profile) || source === SocialPlatform.Farcaster}
                             onClick={() => {
                                 login(profile);
