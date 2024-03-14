@@ -4,5 +4,5 @@ import urlcat from 'urlcat';
 import { PageRoutes } from '@/constants/enum.js';
 
 export default async function Settings() {
-    redirect(urlcat(PageRoutes.Settings, '/display'));
+    redirect(urlcat(PageRoutes.Settings, '/general'));
 }
