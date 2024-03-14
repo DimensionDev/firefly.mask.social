@@ -48,18 +48,18 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({ post, isQu
                     />
                 </Link>
 
-                <div className="flex max-w-sm items-center">
-                    <div className="flex items-center space-x-2">
+                <div className="flex max-w-[calc(100%-52px)] items-center">
+                    <div className="flex max-w-full items-center space-x-2">
                         <Link
                             href={profileLink}
-                            className="block text-[15px] font-bold leading-5 text-main"
+                            className="block truncate text-clip text-[15px] font-bold leading-5 text-main"
                             onClick={(event) => event.stopPropagation()}
                         >
                             {post.author.displayName}
                         </Link>
                         <Link
                             href={profileLink}
-                            className="text-[15px] leading-6 text-secondary"
+                            className="truncate text-clip text-[15px] leading-6 text-secondary"
                             onClick={(event) => event.stopPropagation()}
                         >
                             @{post.author.handle}
