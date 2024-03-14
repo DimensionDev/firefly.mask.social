@@ -1,5 +1,5 @@
 import { Menu, Transition } from '@headlessui/react';
-import { Select } from '@lingui/macro';
+import { Select, t } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import { Fragment, memo } from 'react';
 
@@ -14,6 +14,7 @@ import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useToggleFollow } from '@/hooks/useToggleFollow.js';
 import { LoginModalRef } from '@/modals/controls.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
+import { Tooltip } from '@/components/Tooltip.js';
 
 interface MoreProps {
     source: SocialPlatform;
@@ -48,7 +49,9 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
                         <LoadingIcon width={16} height={16} />
                     </span>
                 ) : (
-                    <MoreIcon width={24} height={24} />
+                    <Tooltip content={t`More`} placement="top">
+                        <MoreIcon width={24} height={24} />
+                    </Tooltip>
                 )}
             </Menu.Button>
             <Transition
