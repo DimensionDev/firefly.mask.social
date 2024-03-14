@@ -12,7 +12,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
             {/* mobile */}
             <main className=" flex min-h-screen w-full flex-col md:hidden">
-                <NavigatorBar enableSearch={false} />
+                <NavigatorBar enableSearch={false} enableFixedBack />
                 <div>{children}</div>
             </main>
         </>

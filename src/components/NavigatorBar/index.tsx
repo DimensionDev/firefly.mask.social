@@ -6,11 +6,12 @@ import { useNavigatorState } from '@/store/useNavigatorStore.js';
 
 interface NavigatorBarProps {
     enableSearch?: boolean;
+    enableFixedBack?: boolean;
 }
 
-export function NavigatorBar({ enableSearch }: NavigatorBarProps) {
+export function NavigatorBar(props: NavigatorBarProps) {
     const title = useNavigatorState.use.title();
     const isSmall = useIsSmall('max');
 
-    return isSmall ? <NavigatorBarForMobile title={title} enableSearch={enableSearch} /> : null;
+    return isSmall ? <NavigatorBarForMobile title={title} {...props} /> : null;
 }

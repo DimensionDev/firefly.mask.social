@@ -19,11 +19,14 @@ import { type SearchState, useSearchState } from '@/store/useSearchState.js';
 
 interface NavigatorBarForMobileProps {
     title: string;
+    /** Fix the left button as back button */
+    enableFixedBack?: boolean;
     enableSearch?: boolean;
 }
 
 export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({
     title,
+    enableFixedBack = false,
     enableSearch = true,
 }: NavigatorBarForMobileProps) {
     const router = useRouter();
@@ -57,12 +60,14 @@ export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({
         <>
             <header className=" flex items-center gap-4 px-4 py-[7px] text-main">
                 <div className=" flex h-[30px] w-[30px] justify-center">
-                    {searchMode ? (
+                    {searchMode || enableFixedBack ? (
                         <button
                             onClick={() => {
-                                if (isSearchPage) router.back();
-                                setSearchMode(false);
-                                setShowRecommendation(false);
+                                if (isSearchPage || enableFixedBack) router.back();
+                                if (enableSearch) {
+                                    setSearchMode(false);
+                                    setShowRecommendation(false);
+                                }
                             }}
                         >
                             <LeftArrowIcon />
