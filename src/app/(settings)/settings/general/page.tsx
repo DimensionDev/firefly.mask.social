@@ -11,7 +11,7 @@ import { getLocaleFromCookies } from '@/helpers/getLocaleFromCookies.js';
 import { useThemeModeStore } from '@/store/useThemeModeStore.js';
 import { Locale } from '@/types/index.js';
 
-export default function Display() {
+export default function General() {
     const setThemeMode = useThemeModeStore.use.setThemeMode();
     const mode = useThemeModeStore.use.themeMode();
     const isDarkOS = useMediaQuery('(prefers-color-scheme: dark)');

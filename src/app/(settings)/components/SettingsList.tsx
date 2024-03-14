@@ -18,7 +18,7 @@ export function SettingsList() {
                 <Trans>Settings</Trans>
             </div>
             {[
-                { name: <Trans>General</Trans>, link: '/display' },
+                { name: <Trans>General</Trans>, link: '/general' },
                 { name: <Trans>Connected Accounts</Trans>, link: '/connected' },
                 { name: <Trans>Communities</Trans>, link: '/communities' },
                 { name: <Trans>More</Trans>, link: '/more' },

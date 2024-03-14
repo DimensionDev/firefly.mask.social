@@ -39,6 +39,7 @@ import { steganographyEncodeImage } from '@/services/steganography.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useFarcasterStateStore, useLensStateStore } from '@/store/useProfileStore.js';
+import { resolveComposeType } from '@/helpers/resolveComposeType.js';
 
 const initialConfig = {
     namespace: 'composer',
@@ -67,7 +68,6 @@ export type ComposeModalCloseProps = {
     disableClear?: boolean;
 } | void;
 
-// { type = 'compose', post, opened, setOpened }: ComposeModalProps
 export const ComposeModalComponent = forwardRef<SingletonModalRefCreator<ComposeModalProps, ComposeModalCloseProps>>(
     function Compose(_, ref) {
         const currentSource = useGlobalState.use.currentSource();
@@ -208,7 +208,7 @@ export const ComposeModalComponent = forwardRef<SingletonModalRefCreator<Compose
                         />
 
                         <span className=" flex h-full w-full items-center justify-center text-lg font-bold capitalize text-main">
-                            {type}
+                            {resolveComposeType(type)}
                         </span>
                     </Dialog.Title>
 
