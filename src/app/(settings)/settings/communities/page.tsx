@@ -22,7 +22,7 @@ export default function Communities() {
 
             <Subtitle title={<Trans>Firefly</Trans>} />
 
-            <div className=" flex w-full flex-col gap-4">
+            <div className="flex w-full flex-col gap-4">
                 {[
                     {
                         content: t`Follow @thefireflyapp on X`,
@@ -51,7 +51,7 @@ export default function Communities() {
 
             <Subtitle title={<Trans>Mask Network</Trans>} />
 
-            <div className=" flex w-full flex-col gap-4">
+            <div className="flex w-full flex-col gap-4">
                 {[
                     {
                         content: t`Follow @realMaskNetwork on X`,

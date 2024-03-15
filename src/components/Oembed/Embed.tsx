@@ -16,7 +16,13 @@ export default function Embed({ og }: EmbedProps) {
                 target={isSelfReference(og.url) ? '_self' : '_blank'}
                 rel="noreferrer noopener"
             >
-                <div className=" rounded-xl border bg-white text-main dark:border-gray-700 dark:bg-black">
+                <div
+                    className={`
+                  rounded-xl border bg-white text-main
+
+                  dark:border-gray-700 dark:bg-black
+                `}
+                >
                     {og.isLarge && og.image ? (
                         <Image
                             className="divider aspect-2 w-full rounded-xl object-cover"
@@ -30,7 +36,11 @@ export default function Embed({ og }: EmbedProps) {
                         {!og.isLarge && og.image ? (
                             <div className="relative aspect-square h-36 shrink-0">
                                 <Image
-                                    className="rounded-l-xl border-r dark:border-gray-700"
+                                    className={`
+                                      rounded-l-xl border-r
+
+                                      dark:border-gray-700
+                                    `}
                                     layout="fill"
                                     objectFit="contain"
                                     src={og.image.base64 || og.image.url}
@@ -42,7 +52,11 @@ export default function Embed({ og }: EmbedProps) {
                             <div className="space-y-1.5">
                                 {og.title ? <div className="truncate font-bold">{og.title}</div> : null}
                                 {og.description ? (
-                                    <div className="ld-text-gray-500 line-clamp-1 whitespace-break-spaces">
+                                    <div
+                                        className={`
+                                      ld-text-gray-500 line-clamp-1 whitespace-break-spaces
+                                    `}
+                                    >
                                         {og.description}
                                     </div>
                                 ) : null}

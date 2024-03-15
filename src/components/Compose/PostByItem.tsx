@@ -53,14 +53,20 @@ export function PostByItem({ source }: PostByItemProps) {
 
     if (!currentProfile || !currentProfiles?.length)
         return (
-            <div className=" flex h-10 items-center justify-between border-b border-secondaryLine last:border-none">
-                <div className=" flex items-center gap-2">
+            <div
+                className={`
+              flex h-10 items-center justify-between border-b border-secondaryLine
+
+              last:border-none
+            `}
+            >
+                <div className="flex items-center gap-2">
                     <SourceIcon size={24} source={source} />
-                    <span className=" font-bold text-main">{resolveSourceName(source)}</span>
+                    <span className="font-bold text-main">{resolveSourceName(source)}</span>
                 </div>
 
                 <button
-                    className=" font-bold text-blueBottom"
+                    className="font-bold text-blueBottom"
                     onClick={async () => {
                         if (source === SocialPlatform.Farcaster && images.length > 2) {
                             enqueueSnackbar(t`Only up to 2 images can be chosen.`, {
@@ -83,7 +89,11 @@ export function PostByItem({ source }: PostByItemProps) {
 
     return currentProfiles.map((profile) => (
         <div
-            className="flex h-10 items-center justify-between border-b border-secondaryLine last:border-none"
+            className={`
+              flex h-10 items-center justify-between border-b border-secondaryLine
+
+              last:border-none
+            `}
             key={profile.profileId}
             onClick={() => {
                 if (!isSameProfile(currentProfile, profile)) return;
@@ -91,11 +101,15 @@ export function PostByItem({ source }: PostByItemProps) {
                 else enableSource(currentProfile.source);
             }}
         >
-            <div className=" flex items-center gap-2">
+            <div className="flex items-center gap-2">
                 <div className="relative">
                     <Avatar src={profile.pfp} size={24} alt={profile.handle} />
                     <SourceIcon
-                        className="absolute -bottom-1 -right-1 z-10 rounded-full border border-white dark:border-gray-900"
+                        className={`
+                          absolute -bottom-1 -right-1 z-10 rounded-full border border-white
+
+                          dark:border-gray-900
+                        `}
                         source={profile.source}
                         size={12}
                     />
@@ -111,13 +125,17 @@ export function PostByItem({ source }: PostByItemProps) {
             </div>
             {isSameProfile(currentProfile, profile) ? (
                 availableSources.includes(currentProfile.source) ? (
-                    <YesIcon width={40} height={40} className=" relative -right-[10px]" />
+                    <YesIcon width={40} height={40} className="relative -right-[10px]" />
                 ) : (
-                    <RadioDisableNoIcon width={20} height={20} className=" text-secondaryLine" />
+                    <RadioDisableNoIcon width={20} height={20} className="text-secondaryLine" />
                 )
             ) : currentProfile.source === SocialPlatform.Lens ? (
                 <button
-                    className=" font-bold text-blueBottom disabled:cursor-not-allowed disabled:opacity-50"
+                    className={`
+                      font-bold text-blueBottom
+
+                      disabled:cursor-not-allowed disabled:opacity-50
+                    `}
                     disabled={loading}
                     onClick={async () => login(profile)}
                 >

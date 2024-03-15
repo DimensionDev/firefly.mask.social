@@ -15,7 +15,15 @@ export function ProfileInList({ profile, noFollowButton }: ProfileInListProps) {
     const isSmall = useIsSmall('max');
 
     return (
-        <div className="flex-start flex cursor-pointer overflow-auto border-b border-secondaryLine px-4 py-6 hover:bg-bg dark:border-line">
+        <div
+            className={`
+          flex-start flex cursor-pointer overflow-auto border-b border-secondaryLine px-4 py-6
+
+          hover:bg-bg
+
+          dark:border-line
+        `}
+        >
             <Link className="flex-start flex flex-1 overflow-auto" href={getProfileUrl(profile)}>
                 <Avatar
                     className="mr-3 shrink-0 rounded-full border"
@@ -25,14 +33,22 @@ export function ProfileInList({ profile, noFollowButton }: ProfileInListProps) {
                 />
 
                 <div className="flex-start flex flex-1 flex-col overflow-auto">
-                    <p className="flex-start flex items-center text-sm font-bold leading-5 md:mt-2">
+                    <p
+                        className={`
+                      flex-start flex items-center text-sm font-bold leading-5
+
+                      md:mt-2
+                    `}
+                    >
                         <span className="mr-2 text-xl">{profile.displayName}</span>
                         <SourceIcon source={profile.source} />
                     </p>
                     {profile.handle ? <p className="text-sm text-secondary">@{profile.handle}</p> : null}
                     {profile.bio ? (
                         <p
-                            className="mt-1.5 overflow-hidden text-ellipsis whitespace-nowrap text-sm"
+                            className={`
+                              mt-1.5 overflow-hidden text-ellipsis whitespace-nowrap text-sm
+                            `}
                             title={profile.bio}
                         >
                             {profile.bio}

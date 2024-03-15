@@ -50,7 +50,16 @@ export const Mirror = memo<MirrorProps>(function Mirror({
                 target={isSelfReference(url) ? '_self' : '_blank'}
                 rel="noreferrer noopener"
             >
-                <div className="cursor-pointer rounded-2xl border border-solid border-third bg-primaryBottom  px-4 py-3 hover:bg-bg dark:bg-secondaryBottom">
+                <div
+                    className={`
+                  cursor-pointer rounded-2xl border border-solid border-third bg-primaryBottom px-4
+                  py-3
+
+                  hover:bg-bg
+
+                  dark:bg-secondaryBottom
+                `}
+                >
                     <div className="flex items-center justify-between">
                         <div className="flex items-center space-x-2">
                             <Avatar src={avatar!} size={24} alt={ensName || address || ''} />
@@ -62,7 +71,11 @@ export const Mirror = memo<MirrorProps>(function Mirror({
                                 </span>
                             ) : null}
                         </div>
-                        <div className="flex items-center space-x-2 text-xs font-medium text-secondary">
+                        <div
+                            className={`
+                          flex items-center space-x-2 text-xs font-medium text-secondary
+                        `}
+                        >
                             <MirrorIon width={16} height={16} />
                             <span>
                                 <TimestampFormatter time={timestamp} />
@@ -71,7 +84,12 @@ export const Mirror = memo<MirrorProps>(function Mirror({
                     </div>
 
                     {title ? (
-                        <h4 className="line-clamp-2 border-b border-line py-2 text-base font-semibold leading-5 text-main">
+                        <h4
+                            className={`
+                          line-clamp-2 border-b border-line py-2 text-base font-semibold leading-5
+                          text-main
+                        `}
+                        >
                             {title}
                         </h4>
                     ) : null}

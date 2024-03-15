@@ -101,7 +101,11 @@ export const Like = memo<LikeProps>(function Like({ count, hasLiked, postId, aut
                 <motion.button
                     disabled={disabled}
                     whileTap={{ scale: 0.9 }}
-                    className="rounded-full p-1.5 hover:bg-danger/[.20]"
+                    className={`
+                      rounded-full p-1.5
+
+                      hover:bg-danger/[.20]
+                    `}
                 >
                     {loading ? (
                         <LoadingIcon width={16} height={16} className="animate-spin text-danger" />

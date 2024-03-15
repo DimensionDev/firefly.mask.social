@@ -37,17 +37,17 @@ export default function Frame() {
 
     return (
         <div className="flex w-full flex-col items-center p-6">
-            <div className=" w-full gap-6 pb-6 text-[20px] font-bold leading-[24px] text-main">
+            <div className="w-full gap-6 pb-6 text-[20px] font-bold leading-[24px] text-main">
                 <Trans>Frame</Trans>
             </div>
 
-            <div className=" mb-2 w-full">
+            <div className="mb-2 w-full">
                 <Trans>Please input the frame url to be revalidated.</Trans>
             </div>
 
-            <div className=" mb-2 flex w-full flex-row gap-2">
+            <div className="mb-2 flex w-full flex-row gap-2">
                 <input
-                    className=" flex-1 rounded-md border border-line bg-transparent"
+                    className="flex-1 rounded-md border border-line bg-transparent"
                     placeholder={t`Your frame URL.`}
                     onChange={(e) => setUrl(e.target.value)}
                 />
@@ -68,11 +68,11 @@ export default function Frame() {
             </div>
 
             {cacheRemoved === true ? (
-                <div className=" w-full max-w-[500px]">
+                <div className="w-full max-w-[500px]">
                     <FrameUI url={url} postId="" />
                 </div>
             ) : error ? (
-                <div className=" w-full">{error.message}</div>
+                <div className="w-full">{error.message}</div>
             ) : null}
         </div>
     );

@@ -138,7 +138,12 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                                 <li>
                                     <button
                                         type="button"
-                                        className="hidden w-[200px] rounded-2xl bg-main p-2 text-xl font-bold leading-6 text-primaryBottom md:block"
+                                        className={`
+                                          hidden w-[200px] rounded-2xl bg-main p-2 text-xl font-bold
+                                          leading-6 text-primaryBottom
+
+                                          md:block
+                                        `}
                                         onClick={() => ComposeModalRef.open({})}
                                     >
                                         <Trans>Post</Trans>
@@ -167,7 +172,10 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                                 LoginModalRef.open();
                             }}
                             type="button"
-                            className="w-[200px] rounded-2xl bg-main p-2 text-xl font-bold leading-6 text-primaryBottom"
+                            className={`
+                              w-[200px] rounded-2xl bg-main p-2 text-xl font-bold leading-6
+                              text-primaryBottom
+                            `}
                         >
                             <Trans>Login</Trans>
                         </button>

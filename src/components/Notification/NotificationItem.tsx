@@ -257,7 +257,12 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
                 const postLink = getPostUrl(post);
                 return (
                     <Link className="mt-1" href={postLink}>
-                        <Markup post={post} className="markup linkify line-clamp-5 break-words text-[15px]">
+                        <Markup
+                            post={post}
+                            className={`
+                          markup linkify line-clamp-5 break-words text-[15px]
+                        `}
+                        >
                             {post.metadata.content?.content || ''}
                         </Markup>
                     </Link>
@@ -358,7 +363,13 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="border-b border-secondaryLine px-4 py-3 hover:bg-bg dark:border-line"
+            className={`
+              border-b border-secondaryLine px-4 py-3
+
+              hover:bg-bg
+
+              dark:border-line
+            `}
         >
             <div className="flex justify-between">
                 <div className="flex max-w-full flex-1 items-start space-x-4">

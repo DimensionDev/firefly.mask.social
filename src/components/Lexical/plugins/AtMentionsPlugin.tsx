@@ -218,8 +218,21 @@ export function MentionsPlugin(): JSX.Element | null {
             menuRenderFn={(anchorElementRef, { selectedIndex, selectOptionAndCleanUp, setHighlightedIndex }) => {
                 return anchorElementRef.current && options.length
                     ? createPortal(
-                          <div className="bg-brand sticky z-[999] mt-2 w-52 min-w-full rounded-xl border bg-white shadow-sm dark:border-gray-700 dark:bg-gray-900">
-                              <ul className="divide-y dark:divide-gray-700">
+                          <div
+                              className={`
+                            bg-brand sticky z-[999] mt-2 w-52 min-w-full rounded-xl border bg-white
+                            shadow-sm
+
+                            dark:border-gray-700 dark:bg-gray-900
+                          `}
+                          >
+                              <ul
+                                  className={`
+                                divide-y
+
+                                dark:divide-gray-700
+                              `}
+                              >
                                   {options.map((option, i: number) => (
                                       <MentionsTypeaheadMenuItem
                                           index={i}

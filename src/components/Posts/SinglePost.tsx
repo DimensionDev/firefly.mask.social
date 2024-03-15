@@ -55,7 +55,11 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
             initial={!disableAnimate ? { opacity: 0 } : false}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="cursor-pointer border-b border-line bg-bottom px-4 py-3 hover:bg-bg"
+            className={`
+              cursor-pointer border-b border-line bg-bottom px-4 py-3
+
+              hover:bg-bg
+            `}
             onClick={() => {
                 const selection = window.getSelection();
                 if (selection && selection.toString().length !== 0) return;

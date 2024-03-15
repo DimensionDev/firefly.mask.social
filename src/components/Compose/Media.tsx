@@ -62,7 +62,10 @@ export default function Media({ close }: MediaProps) {
         >
             <Popover.Panel
                 static
-                className=" absolute bottom-full left-0 z-50 flex w-[280px] -translate-y-3 flex-col gap-2 rounded-lg bg-bgModal p-3 text-[15px] text-main shadow-popover"
+                className={`
+                  absolute bottom-full left-0 z-50 flex w-[280px] -translate-y-3 flex-col gap-2
+                  rounded-lg bg-bgModal p-3 text-[15px] text-main shadow-popover
+                `}
             >
                 <div
                     className={classNames(
@@ -76,7 +79,7 @@ export default function Media({ close }: MediaProps) {
                     }}
                 >
                     <ImageIcon width={24} height={24} />
-                    <span className=" font-bold">
+                    <span className="font-bold">
                         <Trans>Image</Trans>
                     </span>
                 </div>
@@ -90,7 +93,7 @@ export default function Media({ close }: MediaProps) {
                     onChange={handleImageChange}
                 />
 
-                <div className=" h-px bg-line" />
+                <div className="h-px bg-line" />
 
                 <div
                     className={classNames(
@@ -106,7 +109,7 @@ export default function Media({ close }: MediaProps) {
                     }}
                 >
                     <VideoIcon width={24} height={24} />
-                    <span className=" font-bold">
+                    <span className="font-bold">
                         <Trans>Video</Trans>
                     </span>
                 </div>
@@ -115,7 +118,7 @@ export default function Media({ close }: MediaProps) {
                     type="file"
                     accept="video/*"
                     ref={videoInputRef}
-                    className=" hidden"
+                    className="hidden"
                     onChange={handleVideoChange}
                 />
             </Popover.Panel>

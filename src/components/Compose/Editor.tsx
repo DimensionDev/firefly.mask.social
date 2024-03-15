@@ -49,7 +49,7 @@ const Editor = memo(function Editor() {
     );
 
     return (
-        <div className=" relative">
+        <div className="relative">
             <PlainTextPlugin
                 contentEditable={
                     <ContentEditable
@@ -60,7 +60,12 @@ const Editor = memo(function Editor() {
                     />
                 }
                 placeholder={
-                    <div className=" pointer-events-none absolute left-0 top-0 text-[15px] leading-5 text-placeholder">
+                    <div
+                        className={`
+                      pointer-events-none absolute left-0 top-0 text-[15px] leading-5
+                      text-placeholder
+                    `}
+                    >
                         <Select
                             value={type}
                             _compose={t`What's happening...`}

@@ -23,7 +23,11 @@ export const Tooltip = memo<TooltipProps>(function Tooltip({
             placement={placement}
             duration={0}
             delay={[withDelay ? 500 : 0, 0]}
-            className="hidden !rounded-lg !text-xs !leading-6 tracking-wide sm:block"
+            className={`
+              hidden !rounded-lg !text-xs !leading-6 tracking-wide
+
+              sm:block
+            `}
             content={<span>{content}</span>}
         >
             <span className={className}>{children}</span>

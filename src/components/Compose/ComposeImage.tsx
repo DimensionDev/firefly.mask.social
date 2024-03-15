@@ -28,10 +28,15 @@ const ComposeImage = memo(function ComposeImage({ index, image }: ComposeImagePr
                 len === 3 && index === 2 ? ' absolute right-3 top-3 w-[251px]' : ' relative',
             )}
         >
-            <Image src={blobURL} alt={image.file.name} fill className=" object-cover" />
+            <Image src={blobURL} alt={image.file.name} fill className="object-cover" />
             <Tippy content={<span>{t`Remove`}</span>} placement="top">
                 <div
-                    className="radius-8 absolute right-1 top-1 z-50 inline-flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-gray-500 hover:bg-opacity-70"
+                    className={`
+                      radius-8 absolute right-1 top-1 z-50 inline-flex h-8 w-8 cursor-pointer
+                      items-center justify-center rounded-full bg-gray-500
+
+                      hover:bg-opacity-70
+                    `}
                     onClick={() => removeImage(image)}
                     role="button"
                 >

@@ -113,7 +113,10 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | 
         <Modal open={open} onClose={() => dispatch?.close()}>
             <Dialog.Panel className="transform rounded-[12px] bg-bgModal transition-all">
                 <div
-                    className="inline-flex h-[56px] w-[600px] items-center justify-center gap-2 rounded-t-[12px] p-4"
+                    className={`
+                      inline-flex h-[56px] w-[600px] items-center justify-center gap-2
+                      rounded-t-[12px] p-4
+                    `}
                     style={{ background: 'var(--m-modal-title-bg)' }}
                 >
                     <button
@@ -129,7 +132,11 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | 
                             <CloseIcon width={24} height={24} />
                         )}
                     </button>
-                    <div className="shrink grow basis-0 text-center text-lg font-bold leading-snug text-main">
+                    <div
+                        className={`
+                      shrink grow basis-0 text-center text-lg font-bold leading-snug text-main
+                    `}
+                    >
                         {source === SocialPlatform.Lens ? (
                             <Trans>Select Account</Trans>
                         ) : source === SocialPlatform.Farcaster ? (
@@ -145,7 +152,7 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | 
                         className="flex w-[600px] flex-col rounded-[12px]"
                         style={{ boxShadow: '0px 4px 30px 0px rgba(0, 0, 0, 0.10)' }}
                     >
-                        <div className="flex w-full flex-col gap-4 p-4 ">
+                        <div className="flex w-full flex-col gap-4 p-4">
                             {loading ? (
                                 <div className="flex h-[324px] w-full items-center justify-center">
                                     <LoadingIcon className="animate-spin" width={24} height={24} />

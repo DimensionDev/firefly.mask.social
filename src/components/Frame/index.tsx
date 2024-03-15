@@ -29,11 +29,15 @@ export function FrameUI({ frame, readonly = false, loading = false, onButtonClic
     const inputRef = useRef<HTMLInputElement>(null);
 
     return (
-        <div className=" mt-4 rounded-xl border border-line bg-bg p-2 text-sm">
+        <div className="mt-4 rounded-xl border border-line bg-bg p-2 text-sm">
             <div className="relative">
                 {loading ? (
                     <div
-                        className=" z10 absolute inset-0 overflow-hidden rounded-xl bg-white dark:bg-bg"
+                        className={`
+                          z10 absolute inset-0 overflow-hidden rounded-xl bg-white
+
+                          dark:bg-bg
+                        `}
                         style={{ boxShadow: '0px 0px 20px 0px rgba(0, 0, 0, 0.05)', backdropFilter: 'blur(4px)' }}
                     />
                 ) : null}
@@ -130,7 +134,7 @@ export function Frame({ postId, url, onData, children }: FrameProps) {
                     ConfirmModalRef.openAndWaitForClose({
                         title: t`Leaving Firefly`,
                         content: (
-                            <div className=" text-main">
+                            <div className="text-main">
                                 <Trans>
                                     Please be cautious when connecting your wallet, as malicious websites may attempt to
                                     access your funds.

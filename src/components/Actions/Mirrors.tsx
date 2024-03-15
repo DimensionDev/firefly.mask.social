@@ -150,7 +150,11 @@ export const Mirror = memo<MirrorProps>(function Mirror({
                     <Menu.Button
                         disabled={disabled}
                         as={motion.button}
-                        className="flex items-center space-x-2 text-main hover:text-secondarySuccess"
+                        className={`
+                          flex items-center space-x-2 text-main
+
+                          hover:text-secondarySuccess
+                        `}
                         whileTap={{ scale: 0.9 }}
                         onClick={async (event) => {
                             if (open) {
@@ -170,13 +174,23 @@ export const Mirror = memo<MirrorProps>(function Mirror({
                     >
                         <Tooltip
                             disabled={disabled}
-                            className={'rounded-full p-1.5 hover:bg-secondarySuccess/[.20]'}
+                            className={`
+                              rounded-full p-1.5
+
+                              hover:bg-secondarySuccess/[.20]
+                            `}
                             placement="top"
                             content={count && count > 0 ? `${humanize(count)} ${content}` : content}
                             withDelay
                         >
                             {loading ? (
-                                <LoadingIcon width={16} height={16} className="animate-spin text-secondarySuccess" />
+                                <LoadingIcon
+                                    width={16}
+                                    height={16}
+                                    className={`
+                                  animate-spin text-secondarySuccess
+                                `}
+                                />
                             ) : (
                                 <MirrorIcon
                                     width={16}
@@ -209,7 +223,12 @@ export const Mirror = memo<MirrorProps>(function Mirror({
                             leaveTo="transform opacity-0 scale-95"
                         >
                             <Menu.Items
-                                className="absolute z-[5] mt-1 w-max space-y-2 rounded-2xl bg-primaryBottom px-4 py-2 text-main shadow-messageShadow hover:text-main"
+                                className={`
+                                  absolute z-[5] mt-1 w-max space-y-2 rounded-2xl bg-primaryBottom
+                                  px-4 py-2 text-main shadow-messageShadow
+
+                                  hover:text-main
+                                `}
                                 static
                             >
                                 <Menu.Item>

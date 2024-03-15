@@ -73,7 +73,7 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
         >
             {records.length && !keyword ? (
                 <>
-                    <h2 className=" flex p-3 pb-2 text-sm">
+                    <h2 className="flex p-3 pb-2 text-sm">
                         <Trans>Recent</Trans>
                         <button
                             className="ml-auto font-bold text-[#246BFD]"
@@ -90,7 +90,11 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
                             {records.map((record) => (
                                 <li
                                     key={record}
-                                    className="flex cursor-pointer items-center text-ellipsis px-4 hover:bg-bg"
+                                    className={`
+                                      flex cursor-pointer items-center text-ellipsis px-4
+
+                                      hover:bg-bg
+                                    `}
                                     onClick={() => {
                                         addRecord(record);
                                         updateState({ q: record });
@@ -117,12 +121,16 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
 
             {keyword ? (
                 <>
-                    <h2 className=" p-3 pb-2 text-sm">
+                    <h2 className="p-3 pb-2 text-sm">
                         <Trans>Publications</Trans>
                     </h2>
 
                     <div
-                        className=" flex cursor-pointer items-center px-4 py-4 text-left hover:bg-bg"
+                        className={`
+                          flex cursor-pointer items-center px-4 py-4 text-left
+
+                          hover:bg-bg
+                        `}
                         onClick={() =>
                             onSearch?.({
                                 type: SearchType.Posts,
@@ -131,22 +139,26 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
                         }
                     >
                         <SearchIcon width={18} height={18} className="shrink-0" />
-                        <span className=" ml-4 text-ellipsis">{keyword}</span>
+                        <span className="ml-4 text-ellipsis">{keyword}</span>
                     </div>
                 </>
             ) : null}
 
             {isLoading || (keyword && profiles?.data) ? (
                 <>
-                    {records.length ? <hr className=" border-b border-t-0 border-line" /> : null}
-                    <h2 className=" p-3 pb-2 text-sm">
+                    {records.length ? <hr className="border-b border-t-0 border-line" /> : null}
+                    <h2 className="p-3 pb-2 text-sm">
                         <Trans>Profiles</Trans>
                     </h2>
                 </>
             ) : null}
 
             {isLoading ? (
-                <div className="flex flex-col items-center space-y-2 px-4 pb-5 pt-2 text-center text-sm font-bold">
+                <div
+                    className={`
+                  flex flex-col items-center space-y-2 px-4 pb-5 pt-2 text-center text-sm font-bold
+                `}
+                >
                     <LoadingIcon className="animate-spin" width={24} height={24} />
                     <div className="font-bold">{t`Searching users`}</div>
                 </div>
@@ -158,7 +170,11 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
                 <div className="py-2">
                     {profiles.data.slice(0, MAX_RECOMMEND_PROFILE_SIZE).map((profile) => (
                         <div
-                            className="cursor-pointer space-y-2 px-4 py-2 text-center text-sm font-bold hover:bg-bg "
+                            className={`
+                              cursor-pointer space-y-2 px-4 py-2 text-center text-sm font-bold
+
+                              hover:bg-bg
+                            `}
                             key={profile.handle}
                             onClick={() => {
                                 router.push(getProfileUrl(profile));
@@ -178,7 +194,7 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
                                         <span className="mr-1">{profile.displayName}</span>
                                         <SourceIcon source={profile.source} />
                                     </div>
-                                    <div className=" font-normal text-secondary">@{profile.handle}</div>
+                                    <div className="font-normal text-secondary">@{profile.handle}</div>
                                 </div>
                             </div>
                         </div>

@@ -29,7 +29,7 @@ export default function General() {
 
             <Subtitle title={<Trans>Display</Trans>} />
 
-            <div className=" flex flex-col gap-5">
+            <div className="flex flex-col gap-5">
                 {[
                     {
                         value: Appearance.default,
@@ -58,7 +58,7 @@ export default function General() {
 
             <Subtitle title={<Trans>Language</Trans>} />
 
-            <div className=" flex flex-col gap-5">
+            <div className="flex flex-col gap-5">
                 {[
                     {
                         value: Locale.en,

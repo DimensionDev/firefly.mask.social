@@ -12,11 +12,16 @@ export default function ComposeVideo() {
     if (!video) return null;
 
     return (
-        <div className=" relative mt-3 overflow-hidden rounded-2xl">
+        <div className="relative mt-3 overflow-hidden rounded-2xl">
             <video controls src={blobURL} />
             <Tippy content={<span>{t`Remove`}</span>} placement="top">
                 <div
-                    className="radius-8 absolute right-1 top-1 z-50 inline-flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-gray-500 hover:bg-opacity-70"
+                    className={`
+                      radius-8 absolute right-1 top-1 z-50 inline-flex h-8 w-8 cursor-pointer
+                      items-center justify-center rounded-full bg-gray-500
+
+                      hover:bg-opacity-70
+                    `}
                     onClick={() => updateVideo(null)}
                     role="button"
                 >

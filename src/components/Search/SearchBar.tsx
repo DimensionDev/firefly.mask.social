@@ -61,7 +61,11 @@ const SearchBar = memo(function SearchBar(props: SearchBarProps) {
             {isSearchPage && props.source === 'header' ? (
                 <LeftArrowIcon width={24} height={24} className="mr-7 cursor-pointer" onClick={() => router.back()} />
             ) : null}
-            <div className="relative flex flex-grow items-center rounded-xl bg-lightBg px-3 text-main">
+            <div
+                className={`
+              relative flex flex-grow items-center rounded-xl bg-lightBg px-3 text-main
+            `}
+            >
                 <SearchIcon width={18} height={18} className="shrink-0" />
                 <form
                     className="w-full flex-1"
@@ -76,7 +80,13 @@ const SearchBar = memo(function SearchBar(props: SearchBarProps) {
                             name="searchText"
                             autoComplete="off"
                             value={inputText}
-                            className=" w-full border-0 bg-transparent py-2 placeholder-secondary focus:border-0 focus:outline-0 focus:ring-0 sm:text-sm sm:leading-6"
+                            className={`
+                              w-full border-0 bg-transparent py-2 placeholder-secondary
+
+                              focus:border-0 focus:outline-0 focus:ring-0
+
+                              sm:text-sm sm:leading-6
+                            `}
                             placeholder={t`Search…`}
                             ref={inputRef}
                             onChange={handleInputChange}

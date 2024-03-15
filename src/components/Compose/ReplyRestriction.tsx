@@ -26,22 +26,27 @@ export default function ReplyRestriction({ restriction, setRestriction }: ReplyR
             leaveFrom="opacity-100"
             leaveTo="opacity-0 translate-y-1"
         >
-            <Popover.Panel className="absolute bottom-full right-0 flex w-[320px] -translate-y-3 flex-col gap-2 rounded-lg bg-bgModal p-3 text-[15px] shadow-popover">
+            <Popover.Panel
+                className={`
+              absolute bottom-full right-0 flex w-[320px] -translate-y-3 flex-col gap-2 rounded-lg
+              bg-bgModal p-3 text-[15px] shadow-popover
+            `}
+            >
                 <div
-                    className=" flex h-[22px] cursor-pointer items-center justify-between"
+                    className="flex h-[22px] cursor-pointer items-center justify-between"
                     onClick={() => setRestriction(0)}
                 >
                     <span className={classNames(' font-bold text-main')}>
                         <Trans>Everyone</Trans>
                     </span>
                     {restriction === 0 ? (
-                        <YesIcon width={40} height={40} className=" relative -right-[10px]" />
+                        <YesIcon width={40} height={40} className="relative -right-[10px]" />
                     ) : (
-                        <RadioDisableNoIcon width={20} height={20} className=" text-secondaryLine" />
+                        <RadioDisableNoIcon width={20} height={20} className="text-secondaryLine" />
                     )}
                 </div>
 
-                <div className=" h-px bg-line" />
+                <div className="h-px bg-line" />
 
                 <div
                     className={classNames(
@@ -54,9 +59,9 @@ export default function ReplyRestriction({ restriction, setRestriction }: ReplyR
                         <Trans>Only people you follow</Trans>
                     </span>
                     {restriction === 1 ? (
-                        <YesIcon width={40} height={40} className=" relative -right-[10px]" />
+                        <YesIcon width={40} height={40} className="relative -right-[10px]" />
                     ) : (
-                        <RadioDisableNoIcon width={20} height={20} className=" text-secondaryLine" />
+                        <RadioDisableNoIcon width={20} height={20} className="text-secondaryLine" />
                     )}
                 </div>
             </Popover.Panel>

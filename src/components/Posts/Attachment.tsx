@@ -52,7 +52,12 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({ attachm
     if (isQuote && asset?.type === 'Video' && asset.coverUri) {
         return (
             <div className="relative h-[120px] w-[120px] flex-shrink-0 flex-grow-0 basis-[120px]">
-                <div className="absolute left-[calc(50%-16px)] top-[calc(50%-16px)] flex items-center justify-center rounded-xl bg-white/80 p-2 text-[#181818]">
+                <div
+                    className={`
+                  absolute left-[calc(50%-16px)] top-[calc(50%-16px)] flex items-center
+                  justify-center rounded-xl bg-white/80 p-2 text-[#181818]
+                `}
+                >
                     <Play width={16} height={16} />
                 </div>
                 <Image
@@ -71,7 +76,12 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({ attachm
             <div className="h-[120px] w-[120px]">
                 {asset.coverUri ? (
                     <div className="relative">
-                        <div className="absolute left-[calc(50%-16px)] top-[calc(50%-16px)] flex items-center justify-center rounded-xl bg-third p-2 text-[#181818]">
+                        <div
+                            className={`
+                          absolute left-[calc(50%-16px)] top-[calc(50%-16px)] flex items-center
+                          justify-center rounded-xl bg-third p-2 text-[#181818]
+                        `}
+                        >
                             <Play width={16} height={16} />
                         </div>
                         <Image
@@ -83,11 +93,20 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({ attachm
                         />
                     </div>
                 ) : (
-                    <div className="flex h-[120px] w-[120px] flex-col items-center justify-center space-y-2 rounded-xl bg-secondaryMain px-[7.5px] py-4">
-                        <span className=" text-primaryBottom opacity-50">
+                    <div
+                        className={`
+                      flex h-[120px] w-[120px] flex-col items-center justify-center space-y-2
+                      rounded-xl bg-secondaryMain px-[7.5px] py-4
+                    `}
+                    >
+                        <span className="text-primaryBottom opacity-50">
                             <Music width={24} height={24} />
                         </span>
-                        <span className="break-keep text-[11px] font-medium leading-[16px] text-secondary">
+                        <span
+                            className={`
+                          break-keep text-[11px] font-medium leading-[16px] text-secondary
+                        `}
+                        >
                             <Trans>Audio Cover</Trans>
                         </span>
                     </div>
@@ -159,7 +178,9 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({ attachm
                                 })}
                             >
                                 <Image
-                                    className="h-full shrink-0 cursor-pointer rounded-lg object-cover"
+                                    className={`
+                                      h-full shrink-0 cursor-pointer rounded-lg object-cover
+                                    `}
                                     loading="lazy"
                                     fill={isSoloImage}
                                     width={!isSoloImage ? (isQuote ? 120 : 1000) : undefined}

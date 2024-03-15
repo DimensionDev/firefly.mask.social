@@ -74,7 +74,11 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
             <div className="flex min-h-[372px] w-full flex-col gap-4 p-4">
                 {profiles?.length ? (
                     <>
-                        <div className="flex w-full flex-col gap-4 rounded-[8px] bg-lightBg px-4 py-6">
+                        <div
+                            className={`
+                          flex w-full flex-col gap-4 rounded-[8px] bg-lightBg px-4 py-6
+                        `}
+                        >
                             <div className="w-full text-left text-[14px] leading-[16px] text-second">
                                 <Trans>Sign the transaction to verify you are the owner of the selected profile.</Trans>
                             </div>
@@ -89,29 +93,47 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
                         </div>
                         {currentProfile?.signless ||
                         !isSameAddress(currentProfile?.ownedBy?.address, account.address) ? null : (
-                            <div className="flex w-full flex-col gap-2 rounded-[8px] bg-lightBg px-4 py-6">
+                            <div
+                                className={`
+                              flex w-full flex-col gap-2 rounded-[8px] bg-lightBg px-4 py-6
+                            `}
+                            >
                                 <div className="flex items-center justify-between">
-                                    <span className="text-[14px] font-bold leading-[18px] text-lightMain">
+                                    <span
+                                        className={`
+                                      text-[14px] font-bold leading-[18px] text-lightMain
+                                    `}
+                                    >
                                         <Trans>Delegate Signing (Recommend)</Trans>
                                     </span>
                                     <Switch checked={signless} onChange={setSignless}>
                                         {({ checked }) => (
                                             <button
-                                                className={`${
-                                                    checked ? 'bg-success' : 'bg-gray-200'
-                                                } relative inline-flex h-[22px] w-[43px] items-center rounded-full`}
+                                                className={`
+                                                  ${checked ? 'bg-success' : 'bg-gray-200'}
+
+                                                  relative inline-flex h-[22px] w-[43px]
+                                                  items-center rounded-full
+                                                `}
                                             >
                                                 <span className="sr-only">Enable signless</span>
                                                 <span
-                                                    className={`${
-                                                        checked ? 'translate-x-6' : 'translate-x-1'
-                                                    } inline-block h-3 w-3 transform rounded-full bg-white transition`}
+                                                    className={`
+                                                      ${checked ? 'translate-x-6' : 'translate-x-1'}
+
+                                                      inline-block h-3 w-3 transform rounded-full
+                                                      bg-white transition
+                                                    `}
                                                 />
                                             </button>
                                         )}
                                     </Switch>
                                 </div>
-                                <div className="w-full text-left text-[14px] leading-[16px] text-second">
+                                <div
+                                    className={`
+                                  w-full text-left text-[14px] leading-[16px] text-second
+                                `}
+                                >
                                     <Trans>
                                         Allow Lens Manager to perform actions such as posting, liking, and commenting
                                         without the need to sign each transaction.
@@ -129,7 +151,10 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
                 )}
 
                 <div
-                    className=" absolute bottom-0 left-0 flex w-full items-center justify-between rounded-b-[8px] bg-lightBottom80 p-4"
+                    className={`
+                      absolute bottom-0 left-0 flex w-full items-center justify-between
+                      rounded-b-[8px] bg-lightBottom80 p-4
+                    `}
                     style={{
                         boxShadow: 'box-shadow: -1px 0px 20px 0px rgba(0, 0, 0, 0.05)',
                         backdropFilter: 'blur(8px)',
@@ -145,13 +170,18 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
                         }}
                     >
                         <WalletIcon width={20} height={20} />
-                        <span className=" text-[14px] font-bold leading-[18px] text-second">
+                        <span className="text-[14px] font-bold leading-[18px] text-second">
                             <Trans>Change Wallet</Trans>
                         </span>
                     </button>
                     <button
                         disabled={loading}
-                        className=" flex h-10 w-[120px] items-center justify-center gap-2 rounded-[99px] bg-lightMain text-sm font-bold text-primaryBottom disabled:cursor-not-allowed disabled:opacity-50"
+                        className={`
+                          flex h-10 w-[120px] items-center justify-center gap-2 rounded-[99px]
+                          bg-lightMain text-sm font-bold text-primaryBottom
+
+                          disabled:cursor-not-allowed disabled:opacity-50
+                        `}
                         onClick={() => login(signless)}
                     >
                         {loading ? (

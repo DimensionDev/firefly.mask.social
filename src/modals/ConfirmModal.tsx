@@ -28,12 +28,27 @@ export const ConfirmModal = forwardRef<SingletonModalRefCreator<ConfirmModalOpen
 
         return (
             <Modal open={open} onClose={() => dispatch?.close(false)}>
-                <Dialog.Panel className="relative w-[355px] rounded-xl bg-bgModal shadow-popover transition-all dark:text-gray-950">
-                    <div className="inline-flex h-[56px] w-[355px] items-center justify-center gap-2 rounded-t-[12px] p-4">
+                <Dialog.Panel
+                    className={`
+                  relative w-[355px] rounded-xl bg-bgModal shadow-popover transition-all
+
+                  dark:text-gray-950
+                `}
+                >
+                    <div
+                        className={`
+                      inline-flex h-[56px] w-[355px] items-center justify-center gap-2
+                      rounded-t-[12px] p-4
+                    `}
+                    >
                         <button onClick={() => dispatch?.close(false)}>
                             <CloseIcon className="relative h-6 w-6" width={24} height={24} />
                         </button>
-                        <div className="shrink grow basis-0 text-center text-lg font-bold leading-snug text-main">
+                        <div
+                            className={`
+                          shrink grow basis-0 text-center text-lg font-bold leading-snug text-main
+                        `}
+                        >
                             {title ? title : <Trans>Confirmation</Trans>}
                         </div>
                         <div className="relative h-6 w-6" />
@@ -42,7 +57,10 @@ export const ConfirmModal = forwardRef<SingletonModalRefCreator<ConfirmModalOpen
                     <div className="flex flex-col gap-3 p-6">
                         {content}
                         <button
-                            className=" flex items-center justify-center rounded-full bg-commonDanger py-[11px] font-bold text-lightBottom"
+                            className={`
+                              flex items-center justify-center rounded-full bg-commonDanger
+                              py-[11px] font-bold text-lightBottom
+                            `}
                             onClick={async () => {
                                 dispatch?.close(true);
                             }}

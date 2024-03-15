@@ -26,7 +26,15 @@ export const SideBarForMobile = memo(function SideBarForMobile() {
 
     return (
         <Transition.Root show={sidebarOpen} as={Fragment}>
-            <Dialog as="div" className="relative z-50 lg:hidden" onClose={() => updateSidebarOpen(false)}>
+            <Dialog
+                as="div"
+                className={`
+              relative z-50
+
+              lg:hidden
+            `}
+                onClose={() => updateSidebarOpen(false)}
+            >
                 <Transition.Child
                     as={Fragment}
                     enter="transition-opacity ease-linear duration-300"
@@ -59,7 +67,11 @@ export const SideBarForMobile = memo(function SideBarForMobile() {
                                 leaveFrom="opacity-100"
                                 leaveTo="opacity-0"
                             >
-                                <div className="absolute left-full top-0 flex w-16 justify-center pt-4">
+                                <div
+                                    className={`
+                                  absolute left-full top-0 flex w-16 justify-center pt-4
+                                `}
+                                >
                                     <button
                                         type="button"
                                         className="-m-2.5 p-2.5"
@@ -70,9 +82,27 @@ export const SideBarForMobile = memo(function SideBarForMobile() {
                                     </button>
                                 </div>
                             </Transition.Child>
-                            <div className=" fixed inset-0 z-50 flex w-[280px] flex-col bg-white dark:bg-black ">
-                                <div className="flex grow flex-col gap-y-5 border-r border-line px-3 lg:px-6">
-                                    <div className="flex h-16 shrink-0 items-center lg:px-4">
+                            <div
+                                className={`
+                              fixed inset-0 z-50 flex w-[280px] flex-col bg-white
+
+                              dark:bg-black
+                            `}
+                            >
+                                <div
+                                    className={`
+                                  flex grow flex-col gap-y-5 border-r border-line px-3
+
+                                  lg:px-6
+                                `}
+                                >
+                                    <div
+                                        className={`
+                                      flex h-16 shrink-0 items-center
+
+                                      lg:px-4
+                                    `}
+                                    >
                                         <Link href={PageRoutes.Home}>
                                             {!isDarkMode ? (
                                                 <LightLogo width={134} height={64} />

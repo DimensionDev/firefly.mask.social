@@ -24,7 +24,7 @@ export default function ComposeContent(props: ComposeContentProps) {
             >
                 <div className="flex min-h-full flex-col">
                     {type === 'reply' && post ? (
-                        <div className=" mb-3 text-left text-[15px] text-fourMain">
+                        <div className="mb-3 text-left text-[15px] text-fourMain">
                             <Trans>
                                 Replying to <span className="text-link">@{post.author.handle}</span> on{' '}
                                 {resolveSourceName(post.source)}
@@ -38,7 +38,7 @@ export default function ComposeContent(props: ComposeContentProps) {
 
                     {/* image */}
                     {images.length > 0 && (
-                        <div className=" relative grid grid-cols-2 gap-2 p-3">
+                        <div className="relative grid grid-cols-2 gap-2 p-3">
                             {images.map((image, index) => (
                                 <ComposeImage key={`${image.file.name}_${index}`} index={index} image={image} />
                             ))}
@@ -55,7 +55,7 @@ export default function ComposeContent(props: ComposeContentProps) {
 
                     {/* open graphs */}
                     {openGraphs.length ? (
-                        <div className=" flex gap-2">
+                        <div className="flex gap-2">
                             {openGraphs.map((o) => (
                                 <OembedUI key={o.url} og={o} />
                             ))}
@@ -64,7 +64,7 @@ export default function ComposeContent(props: ComposeContentProps) {
 
                     {/* frame */}
                     {frames.length ? (
-                        <div className=" flex gap-2">
+                        <div className="flex gap-2">
                             {frames.map((f) => (
                                 <FrameUI key={f.url} frame={f} readonly />
                             ))}

@@ -77,17 +77,24 @@ export function LoginFarcaster() {
             className="flex w-[600px] flex-col rounded-[12px]"
             style={{ boxShadow: '0px 4px 30px 0px rgba(0, 0, 0, 0.10)' }}
         >
-            <div className="flex min-h-[475px] w-full flex-col items-center gap-4 p-4 ">
+            <div className="flex min-h-[475px] w-full flex-col items-center gap-4 p-4">
                 {url ? (
                     <>
-                        <div className=" text-center text-[12px] leading-[16px] text-lightSecond">
+                        <div className="text-center text-[12px] leading-[16px] text-lightSecond">
                             <Trans>
-                                On your mobile device with Warpcast, open the <span className="font-bold">Camera</span>{' '}
+                                On your mobile device with Warpcast, open the{' '}
+                                <span
+                                    className={`
+                                  font-bold
+                                `}
+                                >
+                                    Camera
+                                </span>{' '}
                                 app and scan the QR code.
                             </Trans>
                         </div>
                         <div
-                            className=" relative flex cursor-pointer items-center justify-center"
+                            className="relative flex cursor-pointer items-center justify-center"
                             onClick={onLoginWithGrantPermission}
                         >
                             <QRCode
@@ -98,14 +105,18 @@ export function LoginFarcaster() {
                                 size={360}
                             />
                             {errorGrantPermission ? (
-                                <button className=" absolute text-sm font-semibold text-main">
+                                <button className="absolute text-sm font-semibold text-main">
                                     <Trans>Click to refresh QRCode</Trans>
                                 </button>
                             ) : null}
                         </div>
                         {!IS_PRODUCTION ? (
                             <button
-                                className="text-sm font-semibold text-lightSecond disabled:cursor-not-allowed disabled:opacity-50"
+                                className={`
+                                  text-sm font-semibold text-lightSecond
+
+                                  disabled:cursor-not-allowed disabled:opacity-50
+                                `}
                                 disabled={loadingCustodyWallet}
                                 onClick={onLoginWithCustodyWallet}
                             >

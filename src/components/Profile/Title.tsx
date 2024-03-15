@@ -21,10 +21,14 @@ export default function Title({ profile }: TitleProps) {
     });
 
     return (
-        <div className="sticky top-0 z-50 flex h-[60px] items-center justify-between bg-primaryBottom px-4">
+        <div
+            className={`
+          sticky top-0 z-50 flex h-[60px] items-center justify-between bg-primaryBottom px-4
+        `}
+        >
             <div className="flex items-center gap-7">
-                <ComeBackIcon className=" cursor-pointer text-lightMain" onClick={() => router.back()} />
-                <span className=" text-xl font-black text-lightMain">{profile.displayName ?? '-'}</span>
+                <ComeBackIcon className="cursor-pointer text-lightMain" onClick={() => router.back()} />
+                <span className="text-xl font-black text-lightMain">{profile.displayName ?? '-'}</span>
             </div>
 
             {profile && reached ? <FollowButton profile={profile} /> : null}

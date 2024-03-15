@@ -13,7 +13,10 @@ export default function Error({ error, reset }: { error: Error & { digest?: stri
                 <Trans>Something went wrong. Please try again.</Trans>
             </div>
             <button
-                className="mt-6 whitespace-nowrap rounded-2xl bg-main px-4 py-1 text-sm font-semibold leading-6 text-primaryBottom"
+                className={`
+                  mt-6 whitespace-nowrap rounded-2xl bg-main px-4 py-1 text-sm font-semibold
+                  leading-6 text-primaryBottom
+                `}
                 onClick={() => reset()}
             >
                 <LoadingIcon width={16} height={16} className={'mr-2 inline-block'} />

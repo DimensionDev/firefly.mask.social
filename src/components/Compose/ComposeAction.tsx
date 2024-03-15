@@ -100,12 +100,18 @@ export default function ComposeAction(props: ComposeActionProps) {
     const mediaDisabled = !!video || images.length >= maxImageCount;
 
     return (
-        <div className=" px-4 pb-4">
-            <div className=" relative flex h-9 items-center gap-3">
+        <div className="px-4 pb-4">
+            <div className="relative flex h-9 items-center gap-3">
                 <Popover as="div" className="relative">
                     {({ close }) => (
                         <>
-                            <Popover.Button className=" flex cursor-pointer gap-1 text-main focus:outline-none">
+                            <Popover.Button
+                                className={`
+                              flex cursor-pointer gap-1 text-main
+
+                              focus:outline-none
+                            `}
+                            >
                                 <Tooltip content={t`Media`} placement="top">
                                     <GalleryIcon
                                         className={classNames(
@@ -125,7 +131,7 @@ export default function ComposeAction(props: ComposeActionProps) {
 
                 <Tooltip content={t`Mention`} placement="top">
                     <AtIcon
-                        className=" cursor-pointer text-main"
+                        className="cursor-pointer text-main"
                         width={24}
                         height={24}
                         onClick={() => insertText('@')}
@@ -134,7 +140,7 @@ export default function ComposeAction(props: ComposeActionProps) {
 
                 <Tooltip content={t`Hashtag`} placement="top">
                     <NumberSignIcon
-                        className=" cursor-pointer text-main"
+                        className="cursor-pointer text-main"
                         width={24}
                         height={24}
                         onClick={() => insertText('#')}
@@ -185,15 +191,19 @@ export default function ComposeAction(props: ComposeActionProps) {
                 </div>
             </div>
 
-            <div className=" flex h-9 items-center justify-between">
-                <span className=" text-[15px] text-secondary">
+            <div className="flex h-9 items-center justify-between">
+                <span className="text-[15px] text-secondary">
                     <Trans>Share to</Trans>
                 </span>
                 <Popover as="div" className="relative">
                     {(_) => (
                         <>
                             <Popover.Button
-                                className=" flex cursor-pointer gap-1 text-main focus:outline-none"
+                                className={`
+                                  flex cursor-pointer gap-1 text-main
+
+                                  focus:outline-none
+                                `}
                                 onClick={(event) => {
                                     if (currentSource) {
                                         event.stopPropagation();
@@ -216,15 +226,21 @@ export default function ComposeAction(props: ComposeActionProps) {
                 </Popover>
             </div>
 
-            <div className=" flex h-9 items-center justify-between">
-                <span className=" text-[15px] text-secondary">
+            <div className="flex h-9 items-center justify-between">
+                <span className="text-[15px] text-secondary">
                     <Trans>Allow replies from</Trans>
                 </span>
                 <Popover as="div" className="relative">
                     {(_) => (
                         <>
-                            <Popover.Button className=" flex cursor-pointer gap-1 text-main focus:outline-none">
-                                <span className=" text-[15px] font-bold">
+                            <Popover.Button
+                                className={`
+                              flex cursor-pointer gap-1 text-main
+
+                              focus:outline-none
+                            `}
+                            >
+                                <span className="text-[15px] font-bold">
                                     {restriction === 0 ? (
                                         <Trans>Everyone</Trans>
                                     ) : (

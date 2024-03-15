@@ -12,6 +12,8 @@
         "unused-imports"
     ],
     "rules": {
+        "readable-tailwind/no-unnecessary-whitespace": ["warn"],
+        "readable-tailwind/sort-classes": ["warn"],
         "default-case-last": "error",
         "eqeqeq": "error",
         "import/no-empty-named-blocks": "warn",

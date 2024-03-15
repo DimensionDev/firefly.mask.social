@@ -30,7 +30,11 @@ export const Views = memo<ViewsProps>(function Collect({ count, disabled = false
                         event.preventDefault();
                     }}
                     whileTap={{ scale: 0.9 }}
-                    className="rounded-full p-1.5 hover:bg-bg"
+                    className={`
+                      rounded-full p-1.5
+
+                      hover:bg-bg
+                    `}
                 >
                     <ViewsIcon width={20} height={20} />
                 </motion.button>

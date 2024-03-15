@@ -21,14 +21,20 @@ export default function ContentTabs({ profileId, source }: ContentTabsProps) {
 
     return (
         <>
-            <div className=" flex gap-5 border-b border-lightLineSecond px-5 dark:border-line">
+            <div
+                className={`
+              flex gap-5 border-b border-lightLineSecond px-5
+
+              dark:border-line
+            `}
+            >
                 {Object.values(TabEnum)
                     .filter((x) => {
                         if (source === SocialPlatform.Farcaster) return x !== TabEnum.Collected;
                         return true;
                     })
                     .map((tabName) => (
-                        <div key={tabName} className=" flex flex-col">
+                        <div key={tabName} className="flex flex-col">
                             <button
                                 className={classNames(
                                     ' flex h-[46px] items-center px-[14px] font-extrabold transition-all',

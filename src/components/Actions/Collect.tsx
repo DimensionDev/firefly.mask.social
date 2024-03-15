@@ -41,7 +41,11 @@ export const Collect = memo<CollectProps>(function Collect({ count, disabled = f
                         if (!disabled) handleClick();
                     }}
                     whileTap={{ scale: 0.9 }}
-                    className="rounded-full p-1.5 hover:bg-primaryPink/[.20] "
+                    className={`
+                      rounded-full p-1.5
+
+                      hover:bg-primaryPink/[.20]
+                    `}
                 >
                     <CollectIcon width={17} height={16} className={collected ? 'text-collected' : ''} />
                 </motion.button>

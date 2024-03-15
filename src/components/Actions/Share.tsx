@@ -43,7 +43,11 @@ export const Share = memo<ShareProps>(function Collect({ url, disabled = false }
                         handleClick();
                     }}
                     whileTap={{ scale: 0.9 }}
-                    className="rounded-full p-1.5 hover:bg-bg"
+                    className={`
+                      rounded-full p-1.5
+
+                      hover:bg-bg
+                    `}
                 >
                     <ShareIcon width={17} height={16} />
                 </motion.button>

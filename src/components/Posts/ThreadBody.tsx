@@ -55,7 +55,13 @@ export const ThreadBody = memo<ThreadBodyProps>(function ThreadBody({ post, disa
             <FeedActionType post={post} isThread />
             <PostHeader post={post} />
             <div className="flex">
-                <div className="ml-5 mr-8 border-[0.8px] border-gray-300 bg-gray-300 dark:border-gray-700 dark:bg-gray-700" />
+                <div
+                    className={`
+                  ml-5 mr-8 border-[0.8px] border-gray-300 bg-gray-300
+
+                  dark:border-gray-700 dark:bg-gray-700
+                `}
+                />
                 <div className="w-full max-w-[calc(100%_-_53px)] pb-5">
                     <PostBody post={post} disablePadding />
                     <PostActions post={post} disabled={post.isHidden} disablePadding />

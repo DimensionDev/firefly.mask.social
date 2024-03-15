@@ -27,7 +27,7 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
 
     const [isFollowed, { loading }, handleToggle] = useToggleFollow(author);
     return (
-        <Menu className=" relative" as="div">
+        <Menu className="relative" as="div">
             <Menu.Button
                 whileTap={{ scale: 0.9 }}
                 as={motion.button}
@@ -68,12 +68,19 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
                         event.stopPropagation();
                         event.preventDefault();
                     }}
-                    className="absolute right-0 z-[1000] w-max space-y-2 overflow-hidden rounded-2xl bg-primaryBottom text-main shadow-messageShadow"
+                    className={`
+                      absolute right-0 z-[1000] w-max space-y-2 overflow-hidden rounded-2xl
+                      bg-primaryBottom text-main shadow-messageShadow
+                    `}
                 >
                     <Menu.Item>
                         {({ close }) => (
                             <div
-                                className="flex cursor-pointer items-center space-x-2 p-4 hover:bg-bg"
+                                className={`
+                                  flex cursor-pointer items-center space-x-2 p-4
+
+                                  hover:bg-bg
+                                `}
                                 onClick={async (event) => {
                                     event.stopPropagation();
                                     event.preventDefault();

@@ -50,7 +50,11 @@ export const PreviewImagesModal = forwardRef<SingletonModalRefCreator<PreviewIma
 
         return (
             <Modal open={open} onClose={() => dispatch?.close()}>
-                <Dialog.Panel className="preview-actions flex transform-none flex-col items-center transition-all">
+                <Dialog.Panel
+                    className={`
+                  preview-actions flex transform-none flex-col items-center transition-all
+                `}
+                >
                     {/* Fix transition hack  */}
                     {open ? (
                         <>
@@ -76,7 +80,11 @@ export const PreviewImagesModal = forwardRef<SingletonModalRefCreator<PreviewIma
                                 className="max-h-[calc(100vh-110px)] max-w-full"
                             />
 
-                            <div className="absolute bottom-0 my-1 flex w-[512px] items-center justify-between">
+                            <div
+                                className={`
+                              absolute bottom-0 my-1 flex w-[512px] items-center justify-between
+                            `}
+                            >
                                 <div className="mr-auto h-4 w-4">
                                     {isMultiple && !isAtStart ? (
                                         <ArrowLeftIcon

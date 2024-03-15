@@ -42,7 +42,14 @@ export function AccountSettings({ source, profile }: AccountSettingsProps) {
             interactive
             className="account-settings"
             content={
-                <div className=" flex w-[290px] flex-col rounded-2xl bg-primaryBottom px-5 shadow-[0px_8px_20px_0px_rgba(0,0,0,0.04)] dark:border dark:border-line dark:shadow-[0px_8px_20px_0px_rgba(255,255,255,0.04)]">
+                <div
+                    className={`
+                  flex w-[290px] flex-col rounded-2xl bg-primaryBottom px-5
+                  shadow-[0px_8px_20px_0px_rgba(0,0,0,0.04)]
+
+                  dark:border dark:border-line dark:shadow-[0px_8px_20px_0px_rgba(255,255,255,0.04)]
+                `}
+                >
                     {profiles.map((profile) => (
                         <button
                             key={profile.profileId}
@@ -60,24 +67,36 @@ export function AccountSettings({ source, profile }: AccountSettingsProps) {
                         </button>
                     ))}
                     <button
-                        className="flex w-full items-center gap-2 rounded px-1 py-3 text-main hover:bg-bg"
+                        className={`
+                          flex w-full items-center gap-2 rounded px-1 py-3 text-main
+
+                          hover:bg-bg
+                        `}
                         onClick={() => {
                             LoginModalRef.open();
                         }}
                     >
                         <UserAddIcon width={24} height={24} />
-                        <div className=" whitespace-nowrap text-[17px] font-bold leading-[22px] text-main">
+                        <div
+                            className={`
+                          whitespace-nowrap text-[17px] font-bold leading-[22px] text-main
+                        `}
+                        >
                             <Trans>Connect another account</Trans>
                         </div>
                     </button>
                     <button
-                        className="mb-3 flex items-center gap-2 rounded px-1 py-3 hover:bg-bg"
+                        className={`
+                          mb-3 flex items-center gap-2 rounded px-1 py-3
+
+                          hover:bg-bg
+                        `}
                         onClick={() => {
                             LogoutModalRef.open({ source });
                         }}
                     >
                         <LogOutIcon width={24} height={24} />
-                        <div className=" text-[17px] font-bold leading-[22px] text-danger">
+                        <div className="text-[17px] font-bold leading-[22px] text-danger">
                             <Trans>Log out</Trans>
                         </div>
                     </button>

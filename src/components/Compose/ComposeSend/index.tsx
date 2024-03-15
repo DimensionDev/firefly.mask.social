@@ -173,10 +173,17 @@ export default function ComposeSend() {
     }, [length, images, video, post, availableSources, currentLensProfile, currentFarcasterProfile]);
 
     return (
-        <div className=" flex h-[68px] items-center justify-end gap-4 px-4 shadow-send">
+        <div className="flex h-[68px] items-center justify-end gap-4 px-4 shadow-send">
             {visibleLength ? (
-                <div className=" flex items-center gap-[10px] whitespace-nowrap text-[15px] text-main">
-                    <CountdownCircle count={visibleLength} width={24} height={24} className="flex-shrink-0" />
+                <div className="flex items-center gap-[10px] whitespace-nowrap text-[15px] text-main">
+                    <CountdownCircle
+                        count={visibleLength}
+                        width={24}
+                        height={24}
+                        className={`
+                      flex-shrink-0
+                    `}
+                    />
                     <span className={classNames(disabled ? ' text-danger' : '')}>
                         {visibleLength} / {MAX_POST_SIZE - invisibleLength}
                     </span>

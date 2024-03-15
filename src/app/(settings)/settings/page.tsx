@@ -14,7 +14,7 @@ export default function Settings() {
     if (!isSmall) return null;
 
     return (
-        <main className=" flex min-h-screen w-full">
+        <main className="flex min-h-screen w-full">
             <SettingsList />
         </main>
     );

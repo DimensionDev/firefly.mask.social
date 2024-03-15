@@ -11,7 +11,11 @@ export const Input = forwardRef<HTMLInputElement, Props>(function FrameInput({ i
     return (
         <input
             ref={ref}
-            className="w-full rounded-md border border-line bg-white px-2 py-1.5 dark:bg-darkBottom dark:text-white"
+            className={`
+              w-full rounded-md border border-line bg-white px-2 py-1.5
+
+              dark:bg-darkBottom dark:text-white
+            `}
             type="text"
             placeholder={input.label || t`Type something here...`}
         />

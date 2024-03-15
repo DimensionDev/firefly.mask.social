@@ -71,7 +71,7 @@ export default function Connected() {
                             </Tippy>
                         </div>
                     </div>
-                    <div className=" flex w-full flex-col gap-4">
+                    <div className="flex w-full flex-col gap-4">
                         {lensProfiles.map((profile) => (
                             <AccountCard
                                 key={profile.profileId}
@@ -90,7 +90,7 @@ export default function Connected() {
                             <Trans>Farcaster</Trans>
                         </span>
                     </div>
-                    <div className=" flex w-full flex-col gap-4">
+                    <div className="flex w-full flex-col gap-4">
                         {farcasterProfiles.map((profile) => (
                             <AccountCard
                                 key={profile.profileId}
@@ -109,8 +109,17 @@ export default function Connected() {
                         LoginModalRef.open();
                     }}
                 >
-                    <div className="inline-flex h-10 items-center justify-center gap-2 self-stretch rounded-2xl bg-lightMain py-[11px]">
-                        <div className="w-full text-[15px] font-bold leading-[18px] text-primaryBottom">
+                    <div
+                        className={`
+                      inline-flex h-10 items-center justify-center gap-2 self-stretch rounded-2xl
+                      bg-lightMain py-[11px]
+                    `}
+                    >
+                        <div
+                            className={`
+                          w-full text-[15px] font-bold leading-[18px] text-primaryBottom
+                        `}
+                        >
                             <Trans>Add an existing account</Trans>
                         </div>
                     </div>
@@ -122,8 +131,19 @@ export default function Connected() {
                         LogoutModalRef.open();
                     }}
                 >
-                    <div className="inline-flex h-10 items-center justify-center gap-2 self-stretch rounded-2xl bg-danger px-[18px] py-[11px]">
-                        <div className="text-[15px] font-bold leading-[18px] text-white dark:text-lightMain">
+                    <div
+                        className={`
+                      inline-flex h-10 items-center justify-center gap-2 self-stretch rounded-2xl
+                      bg-danger px-[18px] py-[11px]
+                    `}
+                    >
+                        <div
+                            className={`
+                          text-[15px] font-bold leading-[18px] text-white
+
+                          dark:text-lightMain
+                        `}
+                        >
                             <Trans>Log out all</Trans>
                         </div>
                     </div>

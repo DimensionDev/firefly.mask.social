@@ -52,7 +52,9 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({ post, isQu
                     <div className="flex max-w-full items-center space-x-2">
                         <Link
                             href={profileLink}
-                            className="block truncate text-clip text-[15px] font-bold leading-5 text-main"
+                            className={`
+                              block truncate text-clip text-[15px] font-bold leading-5 text-main
+                            `}
                             onClick={(event) => event.stopPropagation()}
                         >
                             {post.author.displayName}

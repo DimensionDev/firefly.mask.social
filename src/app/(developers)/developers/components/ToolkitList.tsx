@@ -17,14 +17,19 @@ export function ToolkitList() {
 
     return (
         <div className="flex min-h-full min-w-[280px] flex-col border-r border-line p-6">
-            <div className=" pb-6 text-[20px] font-bold leading-[24px] text-lightMain">
+            <div className="pb-6 text-[20px] font-bold leading-[24px] text-lightMain">
                 <Trans>Developers</Trans>
             </div>
             {toolkit.map(({ name, link }) => (
                 <Link
-                    className={`mb-6 flex items-center justify-between border-b border-line pb-1 text-[18px] leading-[24px] text-main hover:font-bold ${
-                        isRoutePathname(pathname, `/developers${link}`) ? 'font-bold' : 'font-normal'
-                    }`}
+                    className={`
+                      mb-6 flex items-center justify-between border-b border-line pb-1 text-[18px]
+                      leading-[24px] text-main
+
+                      hover:font-bold
+
+                      ${isRoutePathname(pathname, `/developers${link}`) ? 'font-bold' : 'font-normal'}
+                    `}
                     key={link}
                     href={`/developers${link}`}
                 >
