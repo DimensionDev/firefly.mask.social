@@ -4,6 +4,7 @@
         "no-relative-import-paths",
         "eslint-plugin-simple-import-sort",
         "@typescript-eslint/eslint-plugin",
+        "eslint-plugin-readable-tailwind",
         "eslint-plugin-react",
         "eslint-plugin-react-hooks",
         "eslint-plugin-unicorn",
