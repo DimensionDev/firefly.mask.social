@@ -1,7 +1,7 @@
 'use client';
 
 import { PlusIcon, UserPlusIcon } from '@heroicons/react/24/outline';
-import { t,Trans } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import { usePathname } from 'next/navigation.js';
 import { memo } from 'react';
 

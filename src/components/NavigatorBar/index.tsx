@@ -1,7 +1,7 @@
 'use client';
 
 import { NavigatorBarForMobile } from '@/components/NavigatorBar/NavigatorBarForMobile.js';
-import { useIsSmall } from '@/hooks/useMediaQuery.js';
+import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useNavigatorState } from '@/store/useNavigatorStore.js';
 
 interface NavigatorBarProps {
@@ -11,7 +11,7 @@ interface NavigatorBarProps {
 
 export function NavigatorBar(props: NavigatorBarProps) {
     const title = useNavigatorState.use.title();
-    const isSmall = useIsSmall('max');
+    const isMedium = useIsMedium();
 
-    return isSmall ? <NavigatorBarForMobile title={title} {...props} /> : null;
+    return isMedium ? null : <NavigatorBarForMobile title={title} {...props} />;
 }
