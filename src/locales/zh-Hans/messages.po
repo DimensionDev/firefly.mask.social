@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-03-14 00:04\n"
+"PO-Revision-Date: 2024-03-14 12:01\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -28,7 +28,7 @@ msgid "Failed to fetch as Blob."
 msgstr "获取 Blob 失败。"
 
 msgid "Failed to upload image to imgur."
-msgstr ""
+msgstr "上传图片失败。"
 
 msgid "Communities"
 msgstr "社区"
@@ -37,7 +37,7 @@ msgid "Discover"
 msgstr "发现"
 
 msgid "Please be cautious when connecting your wallet, as malicious websites may attempt to access your funds."
-msgstr ""
+msgstr "当您连接钱包时请务必小心，一些恶意网站会试图访问宁的钱包资产。"
 
 msgid "Click to refresh QRCode"
 msgstr "点击后刷新二维码"
@@ -55,7 +55,7 @@ msgid "{0} views"
 msgstr "{0} 浏览数"
 
 msgid "Failed to upload. File type is not supported"
-msgstr ""
+msgstr "图片格式不支持。上传失败。"
 
 msgid "Failed to post on Farcaster."
 msgstr "在 Farcaster 发贴成功。"
@@ -70,10 +70,10 @@ msgid "Searching users"
 msgstr "查找用户中"
 
 msgid "Collect Action is not supported yet."
-msgstr ""
+msgstr "还未支持收藏"
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} <5>followed you</5>"
-msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> 和 <2/>} other {<3/><4/> 和其他 # 人}} <5>关注了你</5>"
+msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> 和 <2/>} other {<3/><4/> 和其他 # 人}} <5>关注了你</5><4/><4/>"
 
 msgid "Join our Discord"
 msgstr "加入我们的 Discord"
@@ -88,7 +88,7 @@ msgid "Change Wallet"
 msgstr "更换钱包"
 
 msgid "OpenGraph"
-msgstr ""
+msgstr "OpenGraph"
 
 msgid "Wrong wallet"
 msgstr "错误的钱包"
@@ -109,7 +109,7 @@ msgid "Copied"
 msgstr "已复制"
 
 msgid "Failed to upload to Imgur"
-msgstr ""
+msgstr "上传图片失败"
 
 msgid "comment"
 msgstr "评论"
@@ -118,10 +118,10 @@ msgid "Confirm"
 msgstr "确认"
 
 msgid "Failed to upload image to IPFS."
-msgstr ""
+msgstr "上传图片失败。"
 
 msgid "No results for \"{searchKeyword}\""
-msgstr ""
+msgstr "{searchKeyword} 搜索无结果"
 
 msgid "Page not found"
 msgstr "找不到网页"
@@ -133,19 +133,19 @@ msgid "Liked"
 msgstr "已点赞"
 
 msgid "Please switch to the correct network in your wallet."
-msgstr ""
+msgstr "请在钱包中切换到正确的网络"
 
 msgid "Type something here..."
-msgstr ""
+msgstr "从这里开始。。。"
 
 msgid "Missing IPFS hash for image or video."
-msgstr ""
+msgstr "未找到图片和视频的 hash 信息"
 
 msgid "Only up to 2 images can be chosen."
-msgstr ""
+msgstr "至多可以选择2张图片。"
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} {1, select, Lens {{2}} Farcaster {{3}} other {{4}}} <5><6/></5>"
-msgstr ""
+msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} {1, select, Lens {{2}} Farcaster {{3}} other {{4}}} <5><6/></5>"
 
 msgid "Failed to unlike. {0}"
 msgstr "取消点赞失败 {0}"
@@ -181,7 +181,7 @@ msgid "Recent"
 msgstr "最近"
 
 msgid "OpenGraph Validator"
-msgstr ""
+msgstr "OpenGraph Validator"
 
 msgid "{type, select, compose {{0}} quote {{1}} reply {{2}} other {{3}}}"
 msgstr "{type, select, compose {{0}} quote {{1}} reply {{2}} other {{3}}}"
@@ -193,16 +193,16 @@ msgid "Feed"
 msgstr "信息流"
 
 msgid "Check out my LuckyDrop 🧧💰✨ on Firefly mobile app or {SITE_URL} !"
-msgstr ""
+msgstr "在 Firefly 移动端或者 {SITE_URL} 打开我的红包🧧💰✨ ！"
 
 msgid "Confirmation"
 msgstr "确认"
 
 msgid "Follow more friends to continue exploring on {0}."
-msgstr ""
+msgstr "在 {0} 上去关注更多的人来继续浏览吧。"
 
 msgid "Frame Validator"
-msgstr ""
+msgstr "Frame Validator"
 
 msgid "Follow System"
 msgstr "跟随系统"
@@ -211,7 +211,7 @@ msgid "No results"
 msgstr "没有任何结果。"
 
 msgid "URL is required."
-msgstr ""
+msgstr "请选择URL"
 
 msgid "Connection failed"
 msgstr "连接失败"
@@ -229,7 +229,7 @@ msgid "Hashtag"
 msgstr "#"
 
 msgid "Frame"
-msgstr ""
+msgstr "Frame"
 
 msgid "Search Filter"
 msgstr "查询规则"
@@ -247,7 +247,7 @@ msgid "Failed to fetch as Text."
 msgstr "获取内容失败。"
 
 msgid "Reply"
-msgstr ""
+msgstr "回复"
 
 msgid "Add an existing account"
 msgstr "添加一个已经存在的账号"
@@ -295,7 +295,7 @@ msgid "Comment"
 msgstr "评论"
 
 msgid "Allow replies from"
-msgstr ""
+msgstr "允许回复"
 
 msgid "Method not implemented."
 msgstr "方法未实现。"
@@ -313,10 +313,10 @@ msgid "Post has been hidden"
 msgstr "帖子已经被隐藏"
 
 msgid "Everyone"
-msgstr ""
+msgstr "任何人"
 
 msgid "Compose"
-msgstr ""
+msgstr "发帖"
 
 msgid "The user declined the request."
 msgstr "用户取消了请求。"
@@ -340,7 +340,7 @@ msgid "No post found"
 msgstr "未找到帖子"
 
 msgid "Clear All"
-msgstr ""
+msgstr "全部清除"
 
 msgid "Lens"
 msgstr "Lens"
@@ -355,7 +355,7 @@ msgid "Failed to upvote post."
 msgstr "无法对帖子进行投票。"
 
 msgid "Please switch to the wallet used for login"
-msgstr ""
+msgstr "请切换钱包登录"
 
 msgid "Post your reply"
 msgstr "发送你的回复"
@@ -364,7 +364,7 @@ msgid "liked"
 msgstr "点赞"
 
 msgid "Invalid URL."
-msgstr ""
+msgstr "无效URL"
 
 msgid "Post has been encrypted"
 msgstr "帖子已经被加密"
@@ -373,13 +373,13 @@ msgid "Settings"
 msgstr "设置"
 
 msgid "Claim on Lens: {0}"
-msgstr ""
+msgstr "在Lens上领取：{0}"
 
 msgid "Details"
 msgstr "详情"
 
 msgid "Claim on Farcaster: {0}"
-msgstr ""
+msgstr "在Farcaster上领取：: {0}"
 
 msgid "Your Farcaster account is now connected."
 msgstr "你的 Farcaster 账号已经连接。"
@@ -403,7 +403,7 @@ msgid "Like"
 msgstr "点赞"
 
 msgid "Please input the frame url to be revalidated."
-msgstr ""
+msgstr "请输入 Url 重新验证"
 
 msgid "Failed to quote post on Lens."
 msgstr "未能在 Lens 上引用帖子。"
@@ -418,7 +418,7 @@ msgid "Publications"
 msgstr "帖子"
 
 msgid "Your website URL."
-msgstr ""
+msgstr "您网站的 URL"
 
 msgid "Display"
 msgstr "显示"
@@ -439,7 +439,7 @@ msgid "Share"
 msgstr "分享"
 
 msgid "Your frame URL."
-msgstr ""
+msgstr "您 Frame的 URL"
 
 msgid "Cancel recast successfully"
 msgstr "成功取消转发"
@@ -448,7 +448,7 @@ msgid "Failed to unfollow."
 msgstr "取消关注失败"
 
 msgid "Quote"
-msgstr ""
+msgstr "引用"
 
 msgid "Unliked"
 msgstr "已取消点赞"
@@ -466,7 +466,7 @@ msgid "Sign"
 msgstr "签名"
 
 msgid "Failed to recast post"
-msgstr ""
+msgstr "发帖失败"
 
 msgid "Follow @thefireflyapp on X"
 msgstr "在 X 上关注 @thefireflyapp"
@@ -475,7 +475,7 @@ msgid "Light Mode"
 msgstr "浅色模式"
 
 msgid "Please switch to the {chainName} network in your wallet."
-msgstr ""
+msgstr "请切换钱包网络至 {chainName}"
 
 msgid "Posted on Lens"
 msgstr "发表于 Lens"
@@ -499,7 +499,7 @@ msgid "recasted your"
 msgstr "转帖了你的"
 
 msgid "Please input the url to be revalidated."
-msgstr ""
+msgstr "请输入 Url 重新验证"
 
 msgid "Posted on Farcaster"
 msgstr "在 Farcaster 上发帖成功"
@@ -514,7 +514,7 @@ msgid "Leaving Firefly"
 msgstr "即将离开 Firefly"
 
 msgid "No Lens profile was found. Please try using a different wallet."
-msgstr ""
+msgstr "未找到 Lens profile。请尝试其他钱包。"
 
 msgid "<0>{0}</0> mirrored"
 msgstr "<0>{0}</0> 已转发"
@@ -523,7 +523,7 @@ msgid "Follower"
 msgstr "粉丝"
 
 msgid "The frame server failed to process the request."
-msgstr ""
+msgstr "Frame服务器未能处理请求"
 
 msgid "Post by {0}"
 msgstr "由 {0} 发帖"
@@ -580,25 +580,25 @@ msgid "Log out all"
 msgstr "登出所有"
 
 msgid "LuckyDrop"
-msgstr ""
+msgstr "红包"
 
 msgid "{0} and others"
 msgstr "{0} 和 其他"
 
 msgid "Developers"
-msgstr ""
+msgstr "开发者"
 
 msgid "Share to"
-msgstr ""
+msgstr "分享到"
 
 msgid "Unknown session type."
 msgstr "未知会话类型。"
 
 msgid "Only people you follow"
-msgstr ""
+msgstr "只有你关注的人"
 
 msgid "<0>You</0> and {0} recasted"
-msgstr ""
+msgstr "<0> 你 </0> 和 {0} 人都转发了"
 
 msgid "Dark Mode"
 msgstr "深色模式"
@@ -724,7 +724,8 @@ msgid "Replying to <0>@{0}</0> on {1}"
 msgstr "在 {1} 上回复 <0>@{0}</0>"
 
 msgid "Mint button is not available yet."
-msgstr ""
+msgstr "Mint 按钮还未开放"
 
 msgid "<0/> quoted your <1><2/></1>"
 msgstr "<0/> 引用了你的 <1><2/></1>"
+
