@@ -6,6 +6,8 @@ import { useState } from 'react';
 import { useAsyncFn } from 'react-use';
 import urlcat from 'urlcat';
 
+import { Headline } from '@/app/(settings)/components/Headline.js';
+import { Section } from '@/app/(settings)/components/Section.js';
 import { Oembed } from '@/components/Oembed/index.js';
 import { URL_REGEX } from '@/constants/regex.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -36,10 +38,10 @@ export default function OpenGraph() {
     }, [url]);
 
     return (
-        <div className="flex w-full flex-col items-center p-6">
-            <div className=" w-full gap-6 pb-6 text-[20px] font-bold leading-[24px] text-main">
+        <Section>
+            <Headline>
                 <Trans>OpenGraph</Trans>
-            </div>
+            </Headline>
 
             <div className=" mb-2 w-full">
                 <Trans>Please input the url to be revalidated.</Trans>
@@ -74,6 +76,6 @@ export default function OpenGraph() {
             ) : error ? (
                 <div className=" w-full">{error.message}</div>
             ) : null}
-        </div>
+        </Section>
     );
 }

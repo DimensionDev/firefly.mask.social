@@ -13,7 +13,7 @@ export function SettingsList() {
     const pathname = usePathname();
 
     return (
-        <div className="flex min-h-full min-w-full flex-col border-line p-6 md:min-w-[280px] md:border-r">
+        <div className="flex min-h-full min-w-full flex-col p-6 md:min-w-[280px] md:border-r md:border-line">
             <div className=" hidden pb-6 text-[20px] font-bold leading-[24px] text-lightMain md:block">
                 <Trans>Settings</Trans>
             </div>

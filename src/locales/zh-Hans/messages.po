@@ -403,7 +403,7 @@ msgid "Like"
 msgstr "点赞"
 
 msgid "Please input the frame url to be revalidated."
-msgstr "请输入 Url 重新验证"
+msgstr "请输入 URL 重新验证："
 
 msgid "Failed to quote post on Lens."
 msgstr "未能在 Lens 上引用帖子。"
@@ -439,7 +439,7 @@ msgid "Share"
 msgstr "分享"
 
 msgid "Your frame URL."
-msgstr "您 Frame的 URL"
+msgstr "您 Frame 的 URL"
 
 msgid "Cancel recast successfully"
 msgstr "成功取消转发"
@@ -499,7 +499,7 @@ msgid "recasted your"
 msgstr "转帖了你的"
 
 msgid "Please input the url to be revalidated."
-msgstr "请输入 Url 重新验证"
+msgstr "请输入 URL 重新验证："
 
 msgid "Posted on Farcaster"
 msgstr "在 Farcaster 上发帖成功"

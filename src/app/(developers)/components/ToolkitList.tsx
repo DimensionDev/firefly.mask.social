@@ -7,20 +7,18 @@ import RightArrowIcon from '@/assets/right-arrow.svg';
 import { Link } from '@/esm/Link.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 
-const toolkit = [
-    { name: <Trans>Frame Validator</Trans>, link: '/frame' },
-    { name: <Trans>OpenGraph Validator</Trans>, link: '/og' },
-];
-
 export function ToolkitList() {
     const pathname = usePathname();
 
     return (
-        <div className="flex min-h-full min-w-[280px] flex-col border-r border-line p-6">
+        <div className="flex min-h-full min-w-full flex-col p-6 md:min-w-[280px] md:border-r md:border-line">
             <div className=" pb-6 text-[20px] font-bold leading-[24px] text-lightMain">
                 <Trans>Developers</Trans>
             </div>
-            {toolkit.map(({ name, link }) => (
+            {[
+                { name: <Trans>Frame Validator</Trans>, link: '/frame' },
+                { name: <Trans>OpenGraph Validator</Trans>, link: '/og' },
+            ].map(({ name, link }) => (
                 <Link
                     className={`mb-6 flex items-center justify-between border-b border-line pb-1 text-[18px] leading-[24px] text-main hover:font-bold ${
                         isRoutePathname(pathname, `/developers${link}`) ? 'font-bold' : 'font-normal'
