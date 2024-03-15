@@ -1,15 +1,18 @@
 'use client';
 
-import { Trans } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import { formatEthereumAddress } from '@masknet/web3-shared-evm';
 import { useCallback, useState } from 'react';
 import { useCopyToClipboard } from 'usehooks-ts';
 import { useAccount } from 'wagmi';
 
 import { AccountCard } from '@/app/(settings)/components/AccountCard.js';
+import { Headline } from '@/app/(settings)/components/Headline.js';
+import { Section } from '@/app/(settings)/components/Section.js';
 import CopyIcon from '@/assets/copy.svg';
 import { Tippy } from '@/esm/Tippy.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
+import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 import { LoginModalRef, LogoutModalRef } from '@/modals/controls.js';
 import { useFarcasterStateStore, useLensStateStore } from '@/store/useProfileStore.js';
 
@@ -28,20 +31,19 @@ export default function Connected() {
         copyToClipboard(address);
     }, [address, copyToClipboard]);
 
+    useNavigatorTitle(t`Connected Accounts`);
+
     return (
-        <div className="flex w-full flex-col items-center gap-[24px] p-[24px]">
-            <div className=" flex w-full items-center justify-between gap-[24px]">
-                <span className="text-[20px] font-bold leading-[24px] text-main">
-                    <Trans>Connected Accounts</Trans>
-                </span>
-            </div>
+        <Section>
+            <Headline title={<Trans>Connected Accounts</Trans>} />
+
             {currentLensProfile?.profileId ? (
                 <>
                     <div className="flex w-full items-center justify-between">
                         <span className="text-base font-bold leading-[18px] text-main">
                             <Trans>Lens</Trans>
                         </span>
-                        <div className="flex items-center gap-[4px]">
+                        <div className="flex items-center gap-1">
                             <span className="text-base font-bold leading-[18px] text-second">
                                 {address ? formatEthereumAddress(address, 4) : null}
                             </span>
@@ -69,15 +71,18 @@ export default function Connected() {
                             </Tippy>
                         </div>
                     </div>
-                    {lensProfiles.map((profile) => (
-                        <AccountCard
-                            key={profile.profileId}
-                            profile={profile}
-                            isCurrent={isSameProfile(currentLensProfile, profile)}
-                        />
-                    ))}
+                    <div className=" flex w-full flex-col gap-4">
+                        {lensProfiles.map((profile) => (
+                            <AccountCard
+                                key={profile.profileId}
+                                profile={profile}
+                                isCurrent={isSameProfile(currentLensProfile, profile)}
+                            />
+                        ))}
+                    </div>
                 </>
             ) : null}
+
             {currentFarcasterProfile?.profileId ? (
                 <>
                     <div className="flex w-full items-center justify-between">
@@ -85,16 +90,19 @@ export default function Connected() {
                             <Trans>Farcaster</Trans>
                         </span>
                     </div>
-                    {farcasterProfiles.map((profile) => (
-                        <AccountCard
-                            key={profile.profileId}
-                            profile={profile}
-                            isCurrent={isSameProfile(currentFarcasterProfile, profile)}
-                        />
-                    ))}
+                    <div className=" flex w-full flex-col gap-4">
+                        {farcasterProfiles.map((profile) => (
+                            <AccountCard
+                                key={profile.profileId}
+                                profile={profile}
+                                isCurrent={isSameProfile(currentFarcasterProfile, profile)}
+                            />
+                        ))}
+                    </div>
                 </>
             ) : null}
-            <div className="flex items-center gap-[16px]">
+
+            <div className="flex items-center gap-4">
                 <button
                     className="inline-flex h-10 w-[200px] flex-col items-center justify-center"
                     onClick={() => {
@@ -121,6 +129,6 @@ export default function Connected() {
                     </div>
                 </button>
             </div>
-        </div>
+        </Section>
     );
 }

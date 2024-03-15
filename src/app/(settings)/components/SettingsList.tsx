@@ -13,8 +13,8 @@ export function SettingsList() {
     const pathname = usePathname();
 
     return (
-        <div className="flex min-h-full min-w-full flex-col border-r border-line p-[24px] md:min-w-[280px]">
-            <div className=" pb-[24px] text-[20px] font-bold leading-[24px] text-lightMain">
+        <div className="flex min-h-full min-w-full flex-col border-r border-line p-6 md:min-w-[280px]">
+            <div className=" hidden pb-6 text-[20px] font-bold leading-[24px] text-lightMain md:block">
                 <Trans>Settings</Trans>
             </div>
             {[
@@ -25,7 +25,7 @@ export function SettingsList() {
             ].map(({ name, link }) => {
                 return link === '/connected' && !isLoggedIn ? null : (
                     <Link
-                        className={`mb-[24px] flex items-center justify-between border-b border-line pb-[4px] text-[18px] leading-[24px] text-main hover:font-bold ${
+                        className={`mb-6 flex items-center justify-between border-b border-line pb-1 text-[18px] leading-[24px] text-main hover:font-bold ${
                             isRoutePathname(pathname, `/settings${link}`) ? 'font-bold' : 'font-normal'
                         }`}
                         key={link}

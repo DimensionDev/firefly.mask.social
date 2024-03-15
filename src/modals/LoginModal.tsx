@@ -138,14 +138,14 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | 
                             <Trans>Login</Trans>
                         )}
                     </div>
-                    <div className="relative h-[24px] w-[24px]" />
+                    <div className="relative h-6 w-6" />
                 </div>
                 {!source ? (
                     <div
                         className="flex w-[600px] flex-col rounded-[12px]"
                         style={{ boxShadow: '0px 4px 30px 0px rgba(0, 0, 0, 0.10)' }}
                     >
-                        <div className="flex w-full flex-col gap-[16px] p-[16px] ">
+                        <div className="flex w-full flex-col gap-4 p-4 ">
                             {loading ? (
                                 <div className="flex h-[324px] w-full items-center justify-center">
                                     <LoadingIcon className="animate-spin" width={24} height={24} />

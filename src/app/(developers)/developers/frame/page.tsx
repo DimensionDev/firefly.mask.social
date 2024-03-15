@@ -36,8 +36,8 @@ export default function Frame() {
     }, [url]);
 
     return (
-        <div className="flex w-full flex-col items-center p-[24px]">
-            <div className=" w-full gap-[24px] pb-6 text-[20px] font-bold leading-[24px] text-main">
+        <div className="flex w-full flex-col items-center p-6">
+            <div className=" w-full gap-6 pb-6 text-[20px] font-bold leading-[24px] text-main">
                 <Trans>Frame</Trans>
             </div>
 

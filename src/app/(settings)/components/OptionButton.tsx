@@ -15,7 +15,7 @@ export function OptionButton({ darkMode = false, selected, label, onClick, ...pr
     return (
         <button
             className={classNames(
-                `my-[12px] inline-flex h-[60px] w-[250px] items-center justify-center gap-5 rounded-lg px-3 ${
+                `inline-flex h-[60px] w-[250px] items-center justify-center gap-5 rounded-lg px-3 ${
                     darkMode
                         ? 'border border-line bg-darkBottom text-white'
                         : 'border border-neutral-900 bg-white text-slate-950'
@@ -24,7 +24,7 @@ export function OptionButton({ darkMode = false, selected, label, onClick, ...pr
             )}
             onClick={() => onClick?.()}
         >
-            <div className="flex items-center gap-[20px]">
+            <div className="flex items-center gap-5">
                 {selected ? (
                     <div
                         className="h-2 w-2 rounded-full bg-success"
