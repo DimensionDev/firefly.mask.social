@@ -16,12 +16,10 @@ import {
     confluxESpace,
     fantom,
     gnosis,
-    linea,
     mainnet,
     metis,
     optimism,
     polygon,
-    zkSync,
 } from 'wagmi/chains';
 import { publicProvider } from 'wagmi/providers/public';
 
@@ -47,56 +45,8 @@ const x1test = {
     network: 'X1Test',
 } as const satisfies Chain;
 
-const manta = {
-    id: 169,
-    name: 'Manta Pacific Mainnet',
-    network: 'manta',
-    nativeCurrency: {
-        decimals: 18,
-        name: 'ETH',
-        symbol: 'ETH',
-    },
-    rpcUrls: {
-        default: {
-            http: ['https://pacific-rpc.manta.network/http'],
-        },
-        public: {
-            http: ['https://pacific-rpc.manta.network/http'],
-        },
-    },
-    blockExplorers: {
-        default: {
-            name: 'Manta Explorer',
-            url: 'https://pacific-explorer.manta.network',
-        },
-    },
-    contracts: {
-        multicall3: {
-            address: '0xcA11bde05977b3631167028862bE2a173976CA11',
-            blockCreated: 332890,
-        },
-    },
-} as const satisfies Chain;
-
 export const { chains, publicClient, webSocketPublicClient } = configureChains(
-    [
-        mainnet,
-        base,
-        polygon,
-        optimism,
-        bsc,
-        arbitrum,
-        gnosis,
-        avalanche,
-        aurora,
-        confluxESpace,
-        fantom,
-        x1test,
-        metis,
-        manta,
-        zkSync,
-        linea,
-    ],
+    [mainnet, base, polygon, optimism, bsc, arbitrum, gnosis, avalanche, aurora, confluxESpace, fantom, x1test, metis],
     [publicProvider()],
 ) as {
     readonly chains: Chain[];
