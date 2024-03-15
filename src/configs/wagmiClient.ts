@@ -1,3 +1,5 @@
+/* cspell:disable */
+
 'use client';
 
 import { connectorsForWallets, RainbowKitProvider } from '@rainbow-me/rainbowkit';
@@ -21,6 +23,7 @@ import {
     fantom,
     gnosis,
     mainnet,
+    metis,
     optimism,
     polygon,
 } from 'wagmi/chains';
@@ -49,7 +52,7 @@ const x1test = {
 } as const satisfies Chain;
 
 export const { chains, publicClient, webSocketPublicClient } = configureChains(
-    [mainnet, base, polygon, optimism, bsc, arbitrum, gnosis, avalanche, aurora, confluxESpace, fantom, x1test],
+    [mainnet, base, polygon, optimism, bsc, arbitrum, gnosis, avalanche, aurora, confluxESpace, fantom, x1test, metis],
     [publicProvider()],
 ) as {
     readonly chains: Chain[];
