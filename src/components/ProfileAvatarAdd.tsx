@@ -21,7 +21,7 @@ export function ProfileAvatarAdd(props: ProfileAvatarAddProps) {
 
     return (
         <div className="relative cursor-pointer md:mx-auto lg:m-0 " style={style} {...divProps}>
-            <div className="absolute left-0 top-0 rounded-full shadow backdrop-blur-lg " style={style}>
+            <div className="absolute left-0 top-0 rounded-full shadow backdrop-blur-lg" style={style}>
                 <SourceIcon source={source} size={size} />
             </div>
             <PlusIcon
