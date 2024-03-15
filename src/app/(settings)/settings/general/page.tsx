@@ -25,9 +25,13 @@ export default function General() {
 
     return (
         <Section>
-            <Headline title={<Trans>General</Trans>} />
+            <Headline>
+                <Trans>General</Trans>
+            </Headline>
 
-            <Subtitle title={<Trans>Display</Trans>} />
+            <Subtitle>
+                <Trans>Display</Trans>
+            </Subtitle>
 
             <div className=" flex flex-col gap-5">
                 {[
@@ -56,7 +60,9 @@ export default function General() {
                 ))}
             </div>
 
-            <Subtitle title={<Trans>Language</Trans>} />
+            <Subtitle>
+                <Trans>Language</Trans>
+            </Subtitle>
 
             <div className=" flex flex-col gap-5">
                 {[

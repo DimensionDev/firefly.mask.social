@@ -1,8 +1,30 @@
-import { redirect } from 'next/navigation.js';
-import urlcat from 'urlcat';
+'use client';
 
-import { PageRoutes } from '@/constants/enum.js';
+import { t } from '@lingui/macro';
+import { useRouter } from 'next/navigation.js';
+import { useEffect } from 'react';
 
-export default async function Developers() {
-    redirect(urlcat(PageRoutes.Developers, '/frame'));
+import { ToolkitList } from '@/app/(developers)/components/ToolkitList.js';
+import { useIsSmall } from '@/hooks/useMediaQuery.js';
+import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
+
+export default function Settings() {
+    const router = useRouter();
+    const isSmall = useIsSmall('max');
+
+    useNavigatorTitle(t`Developers`);
+
+    useEffect(() => {
+        if (!isSmall) router.replace('/developers/frame');
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    if (!isSmall) return null;
+
+    // mobile
+    return (
+        <main className=" flex min-h-screen w-full">
+            <ToolkitList />
+        </main>
+    );
 }

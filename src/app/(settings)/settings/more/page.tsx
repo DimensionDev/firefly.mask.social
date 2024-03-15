@@ -13,7 +13,9 @@ export default function More() {
 
     return (
         <div className="flex w-full flex-col items-center gap-6 p-6">
-            <Headline title={<Trans>More</Trans>} />
+            <Headline>
+                <Trans>More</Trans>
+            </Headline>
 
             <div className=" flex w-full flex-col gap-4">
                 {[

@@ -6,6 +6,7 @@ import { useState } from 'react';
 import { useAsyncFn } from 'react-use';
 import urlcat from 'urlcat';
 
+import { Headline } from '@/app/(settings)/components/Headline.js';
 import { Frame as FrameUI } from '@/components/Frame/index.js';
 import { URL_REGEX } from '@/constants/regex.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -37,9 +38,9 @@ export default function Frame() {
 
     return (
         <div className="flex w-full flex-col items-center p-6">
-            <div className=" w-full gap-6 pb-6 text-[20px] font-bold leading-[24px] text-main">
+            <Headline>
                 <Trans>Frame</Trans>
-            </div>
+            </Headline>
 
             <div className=" mb-2 w-full">
                 <Trans>Please input the frame url to be revalidated.</Trans>

@@ -18,9 +18,13 @@ export default function Communities() {
 
     return (
         <Section>
-            <Headline title={<Trans>Communities</Trans>} />
+            <Headline>
+                <Trans>Communities</Trans>
+            </Headline>
 
-            <Subtitle title={<Trans>Firefly</Trans>} />
+            <Subtitle>
+                <Trans>Firefly</Trans>
+            </Subtitle>
 
             <div className=" flex w-full flex-col gap-4">
                 {[
@@ -49,7 +53,9 @@ export default function Communities() {
                 ))}
             </div>
 
-            <Subtitle title={<Trans>Mask Network</Trans>} />
+            <Subtitle>
+                <Trans>Mask Network</Trans>
+            </Subtitle>
 
             <div className=" flex w-full flex-col gap-4">
                 {[

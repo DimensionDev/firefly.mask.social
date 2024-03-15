@@ -35,7 +35,9 @@ export default function Connected() {
 
     return (
         <Section>
-            <Headline title={<Trans>Connected Accounts</Trans>} />
+            <Headline>
+                <Trans>Connected Accounts</Trans>
+            </Headline>
 
             {currentLensProfile?.profileId ? (
                 <>
