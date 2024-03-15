@@ -1,7 +1,7 @@
 'use client';
 
 import { PlusIcon, UserPlusIcon } from '@heroicons/react/24/outline';
-import { Trans } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import { usePathname } from 'next/navigation.js';
 import { memo } from 'react';
 
@@ -18,6 +18,7 @@ import SettingsIcon from '@/assets/setting.svg';
 import WalletIcon from '@/assets/wallet.svg';
 import { LoginStatusBar } from '@/components/Login/LoginStatusBar.js';
 import { ConnectWallet } from '@/components/SideBar/ConnectWallet.js';
+import { Tooltip } from '@/components/Tooltip.js';
 import { PageRoutes } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -110,7 +111,14 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                                                 { 'font-bold': isSelected, 'px-4 py-3': !collapsed },
                                             )}
                                         >
-                                            <Icon width={20} height={20} />
+                                            {collapsed ? (
+                                                <Tooltip content={item.name} placement="right">
+                                                    <Icon width={20} height={20} />
+                                                </Tooltip>
+                                            ) : (
+                                                <Icon width={20} height={20} />
+                                            )}
+
                                             <span
                                                 style={{
                                                     display: collapsed ? 'none' : 'inline',
@@ -126,13 +134,15 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                         {isLogin ? (
                             collapsed ? (
                                 <li className="text-center">
-                                    <button
-                                        type="button"
-                                        className="rounded-full bg-main p-1 text-primaryBottom"
-                                        onClick={() => ComposeModalRef.open({})}
-                                    >
-                                        <PlusIcon className="h-5 w-5" aria-hidden="true" />
-                                    </button>
+                                    <Tooltip content={t`Post`} placement="right">
+                                        <button
+                                            type="button"
+                                            className="rounded-full bg-main p-1 text-primaryBottom"
+                                            onClick={() => ComposeModalRef.open({})}
+                                        >
+                                            <PlusIcon className="h-5 w-5" aria-hidden="true" />
+                                        </button>
+                                    </Tooltip>
                                 </li>
                             ) : (
                                 <li>

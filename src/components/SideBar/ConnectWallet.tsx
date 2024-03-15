@@ -6,6 +6,7 @@ import { useAccount, useEnsName } from 'wagmi';
 import { mainnet } from 'wagmi/chains';
 
 import WalletIcon from '@/assets/wallet.svg';
+import { Tooltip } from '@/components/Tooltip.js';
 import { classNames } from '@/helpers/classNames.js';
 import { resolve } from '@/helpers/resolve.js';
 import { useMounted } from '@/hooks/useMounted.js';
@@ -37,7 +38,13 @@ export function ConnectWallet({ collapsed = false }: ConnectWalletProps) {
                 account.isConnected ? AccountModalRef.open() : ConnectWalletModalRef.open();
             }}
         >
-            <WalletIcon width={20} height={20} />
+            {collapsed ? (
+                <Tooltip content={text} placement="right">
+                    <WalletIcon width={20} height={20} />
+                </Tooltip>
+            ) : (
+                <WalletIcon width={20} height={20} />
+            )}
             <span
                 style={{
                     display: collapsed ? 'none' : 'inline',
