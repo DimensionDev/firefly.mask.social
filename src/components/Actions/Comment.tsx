@@ -78,11 +78,11 @@ export const Comment = memo<CommentProps>(function Comment({
                 className={`
                   rounded-full p-1.5 text-main
 
-                  focus-visible:outline-none
+                  hover:bg-bg
 
                   focus:outline-none
 
-                  hover:bg-bg
+                  focus-visible:outline-none
                 `}
                 aria-label="Comment"
             >
