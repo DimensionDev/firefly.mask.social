@@ -4,6 +4,7 @@ import { Trans } from '@lingui/macro';
 import { memo } from 'react';
 
 import { SearchType } from '@/constants/enum.js';
+import { DraggablePopoverRef } from '@/modals/controls.js';
 import { useSearchState } from '@/store/useSearchState.js';
 
 export const SearchFilter = memo(function SearchFilter() {
@@ -11,12 +12,10 @@ export const SearchFilter = memo(function SearchFilter() {
 
     return (
         <div>
-            <div className=" my-6 rounded-xl bg-lightBg px-3 py-2.5 text-sm font-bold">
-                <h2>
-                    <Trans>Search Filter</Trans>
-                </h2>
-            </div>
-            <div className=" my-4 rounded-xl border border-line">
+            <h2 className=" my-2 rounded-xl px-3 py-2.5 text-lg font-bold md:my-6 md:bg-lightBg md:text-sm">
+                <Trans>Search Filter</Trans>
+            </h2>
+            <div className=" rounded-xl md:my-4 md:border md:border-line">
                 <fieldset className=" px-4 pb-1 pt-2">
                     {[
                         {
@@ -40,8 +39,13 @@ export const SearchFilter = memo(function SearchFilter() {
                                 name="notification-method"
                                 type="radio"
                                 defaultChecked={filter.type === searchType}
-                                className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
-                                onClick={() => updateState({ type: filter.type })}
+                                className="h-4 w-4 border-gray-300 text-indigo-600"
+                                onClick={() => {
+                                    updateState({ type: filter.type });
+
+                                    // in mobile view, close the popover after selecting a filter
+                                    DraggablePopoverRef.close();
+                                }}
                             />
                         </div>
                     ))}

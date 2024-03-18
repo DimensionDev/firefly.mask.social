@@ -9,9 +9,11 @@ import LeftArrowIcon from '@/assets/left-arrow.svg';
 import MagnifierIcon from '@/assets/magnifier.svg';
 import MenuIcon from '@/assets/menu.svg';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
+import { SearchFilter } from '@/components/Search/SearchFilter.js';
 import { SearchRecommendation } from '@/components/Search/SearchRecommendation.js';
 import { classNames } from '@/helpers/classNames.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
+import { DraggablePopoverRef } from '@/modals/controls.js';
 import { useNavigatorState } from '@/store/useNavigatorStore.js';
 import { useFarcasterStateStore, useLensStateStore } from '@/store/useProfileStore.js';
 import { useSearchHistoryStateStore } from '@/store/useSearchHistoryStore.js';
@@ -39,6 +41,7 @@ export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({
 
     const lensProfile = useLensStateStore.use.currentProfile?.();
     const farcasterProfile = useFarcasterStateStore.use.currentProfile?.();
+
     const { updateState } = useSearchState();
     const { updateSidebarOpen } = useNavigatorState();
     const { addRecord } = useSearchHistoryStateStore();
@@ -146,7 +149,13 @@ export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({
                 <div className=" flex h-[30px] w-[30px] justify-center">
                     {enableSearch ? (
                         searchMode ? (
-                            <button>
+                            <button
+                                onClick={() => {
+                                    DraggablePopoverRef.open({
+                                        content: <SearchFilter />,
+                                    });
+                                }}
+                            >
                                 <AdjustmentsIcon />
                             </button>
                         ) : (
