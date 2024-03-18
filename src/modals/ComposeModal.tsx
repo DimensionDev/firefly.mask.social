@@ -191,7 +191,7 @@ export const ComposeModalComponent = forwardRef<SingletonModalRefCreator<Compose
 
         return (
             <Modal open={open} onClose={onClose}>
-                <Dialog.Panel className="relative w-[600px] rounded-xl bg-bgModal shadow-popover transition-all dark:text-gray-950">
+                <div className="relative w-[600px] rounded-xl bg-bgModal shadow-popover transition-all dark:text-gray-950">
                     {/* Loading */}
                     {loading || encryptRedPacketLoading ? (
                         <div className=" absolute bottom-0 left-0 right-0 top-0 z-50 flex items-center justify-center">
@@ -217,7 +217,7 @@ export const ComposeModalComponent = forwardRef<SingletonModalRefCreator<Compose
 
                     {/* Send */}
                     <ComposeSend />
-                </Dialog.Panel>
+                </div>
             </Modal>
         );
     },

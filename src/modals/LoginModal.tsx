@@ -143,33 +143,37 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | 
 
     return isMedium ? (
         <Modal open={open} onClose={() => dispatch?.close()}>
-            <div
-                className="inline-flex items-center justify-center gap-2 rounded-t-[12px] p-4 md:h-[56px] md:w-[600px]"
-                style={{ background: 'var(--m-modal-title-bg)' }}
-            >
-                <button
-                    onClick={() => {
-                        source === SocialPlatform.Farcaster && !isDirectly ? setSource(undefined) : dispatch?.close();
-                    }}
+            <div className=" transform rounded-[12px] bg-bgModal transition-all">
+                <div
+                    className="inline-flex items-center justify-center gap-2 rounded-t-[12px] p-4 md:h-[56px] md:w-[600px]"
+                    style={{ background: 'var(--m-modal-title-bg)' }}
                 >
-                    {source === SocialPlatform.Farcaster && !isDirectly ? (
-                        <LeftArrowIcon width={24} height={24} />
-                    ) : (
-                        <CloseIcon width={24} height={24} />
-                    )}
-                </button>
-                <div className="shrink grow basis-0 text-center text-lg font-bold leading-snug text-main">
-                    {source === SocialPlatform.Lens ? (
-                        <Trans>Select Account</Trans>
-                    ) : source === SocialPlatform.Farcaster ? (
-                        <Trans>Log in to Farcaster account</Trans>
-                    ) : (
-                        <Trans>Login</Trans>
-                    )}
+                    <button
+                        onClick={() => {
+                            source === SocialPlatform.Farcaster && !isDirectly
+                                ? setSource(undefined)
+                                : dispatch?.close();
+                        }}
+                    >
+                        {source === SocialPlatform.Farcaster && !isDirectly ? (
+                            <LeftArrowIcon width={24} height={24} />
+                        ) : (
+                            <CloseIcon width={24} height={24} />
+                        )}
+                    </button>
+                    <div className="shrink grow basis-0 text-center text-lg font-bold leading-snug text-main">
+                        {source === SocialPlatform.Lens ? (
+                            <Trans>Select Account</Trans>
+                        ) : source === SocialPlatform.Farcaster ? (
+                            <Trans>Log in to Farcaster account</Trans>
+                        ) : (
+                            <Trans>Login</Trans>
+                        )}
+                    </div>
+                    <div className="relative h-6 w-6" />
                 </div>
-                <div className="relative h-6 w-6" />
+                {content}
             </div>
-            {content}
         </Modal>
     ) : (
         <Popover open={open} onClose={() => dispatch?.close()}>
