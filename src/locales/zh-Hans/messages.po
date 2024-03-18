@@ -240,9 +240,6 @@ msgstr "试试搜索其他东西。"
 msgid "and"
 msgstr "和"
 
-msgid "Connect another account"
-msgstr "登录另一个账号"
-
 msgid "Failed to fetch as Text."
 msgstr "获取内容失败。"
 
@@ -542,6 +539,9 @@ msgstr "没有找到 Lens 账号，请连接另一个钱包。"
 
 msgid "Connect"
 msgstr "连接"
+
+msgid "Switch account"
+msgstr "切换账号"
 
 msgid "Mention"
 msgstr "提及"

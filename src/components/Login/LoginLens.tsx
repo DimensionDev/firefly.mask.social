@@ -11,7 +11,7 @@ import { useAccount } from 'wagmi';
 
 import LoadingIcon from '@/assets/loading.svg';
 import WalletIcon from '@/assets/wallet.svg';
-import { AccountCard } from '@/components/Login/AccountCard.js';
+import { ProfileInList } from '@/components/Login/ProfileInList.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
@@ -79,7 +79,7 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
                                 <Trans>Sign the transaction to verify you are the owner of the selected profile.</Trans>
                             </div>
                             {profiles?.map((profile) => (
-                                <AccountCard
+                                <ProfileInList
                                     key={profile.profileId}
                                     profile={profile}
                                     isSelected={isSameProfile(currentProfile, profile)}

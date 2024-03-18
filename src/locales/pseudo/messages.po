@@ -235,9 +235,6 @@ msgstr ""
 msgid "and"
 msgstr ""
 
-msgid "Connect another account"
-msgstr ""
-
 msgid "Failed to fetch as Text."
 msgstr ""
 
@@ -536,6 +533,9 @@ msgid "No Lens profile found. Please change to another wallet."
 msgstr ""
 
 msgid "Connect"
+msgstr ""
+
+msgid "Switch account"
 msgstr ""
 
 msgid "Mention"
