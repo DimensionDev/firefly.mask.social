@@ -1,6 +1,6 @@
 'use client';
 
-import { AccountSettings } from '@/components/AccountSettings.js';
+import { AccountSettings } from '@/components/Login/AccountSettings.js';
 import { ProfileAvatarAdd } from '@/components/ProfileAvatarAdd.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';

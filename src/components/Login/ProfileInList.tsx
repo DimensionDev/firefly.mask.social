@@ -4,13 +4,13 @@ import { ProfileName } from '@/components/ProfileName.js';
 import { Image } from '@/esm/Image.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
-interface AccountCardProps {
+interface ProfileInListProps {
     profile: Profile;
     isSelected: boolean;
     onSelect: (profile: Profile) => void;
 }
 
-export function AccountCard({ isSelected, onSelect, profile }: AccountCardProps) {
+export function ProfileInList({ isSelected, onSelect, profile }: ProfileInListProps) {
     return (
         <div className="inline-flex h-[48px] w-full items-center justify-start gap-4">
             <div
