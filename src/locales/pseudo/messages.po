@@ -241,9 +241,6 @@ msgstr ""
 msgid "Reply"
 msgstr ""
 
-msgid "Add account"
-msgstr ""
-
 msgid "Send"
 msgstr ""
 
@@ -278,6 +275,9 @@ msgid "Follow"
 msgstr ""
 
 msgid "Failed to like. {0}"
+msgstr ""
+
+msgid "Add account"
 msgstr ""
 
 msgid "{0} Comments"
