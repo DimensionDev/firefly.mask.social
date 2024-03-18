@@ -66,10 +66,10 @@ module.exports = {
             },
         },
         screens: {
-            sm: '640px',
+            sm: '320px',
             md: '990px',
             lg: '1280px',
         },
     },
-    plugins: [require('@tailwindcss/forms')],
+    plugins: [require('@tailwindcss/forms'), require('tailwindcss-safe-area')],
 };

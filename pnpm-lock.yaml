@@ -285,6 +285,9 @@ importers:
       tailwindcss:
         specifier: ^3.3.3
         version: 3.3.3
+      tailwindcss-safe-area:
+        specifier: ^0.5.1
+        version: 0.5.1(tailwindcss@3.3.3)
       ts-results-es:
         specifier: ^4.0.0
         version: 4.0.0
@@ -32449,6 +32452,15 @@ packages:
       wordwrapjs: 4.0.1
     dev: false
 
+  /tailwindcss-safe-area@0.5.1(tailwindcss@3.3.3):
+    resolution: {integrity: sha512-aMHJYBi1NIrJ5ldZ9bk+uGLXw8UFCrFR8fheMyJEabV/kaI+qNozRm7UfEKZRgEmS3RMdrt2RQf2w/7S0ceLrQ==}
+    engines: {node: '>=16'}
+    peerDependencies:
+      tailwindcss: ^2.0.0 || >=3.0.0
+    dependencies:
+      tailwindcss: 3.3.3
+    dev: false
+
   /tailwindcss@3.3.3:
     resolution: {integrity: sha512-A0KgSkef7eE4Mf+nKJ83i75TMyq8HqY3qmFIJSWy8bNt0v1lG7jUcpGpoTFxAwYcWOphcTBLPPJg+bDfhDf52w==}
     engines: {node: '>=14.0.0'}
@@ -36195,6 +36207,7 @@ time:
   /svgo-loader@4.0.0: '2023-01-21T06:39:04.523Z'
   /svgo@3.0.3: '2023-11-08T22:55:23.218Z'
   /swc-loader@0.2.3: '2022-06-09T15:26:53.432Z'
+  /tailwindcss-safe-area@0.5.1: '2024-02-05T22:44:42.684Z'
   /tailwindcss@3.3.3: '2023-07-13T16:18:50.075Z'
   /terser-webpack-plugin@5.3.9: '2023-05-17T23:20:28.819Z'
   /tiny-secp256k1@2.2.3: '2023-06-29T08:38:53.395Z'

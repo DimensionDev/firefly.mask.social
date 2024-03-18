@@ -10,6 +10,7 @@ import { useAsyncFn } from 'react-use';
 
 import LoadingIcon from '@/assets/loading.svg';
 import SendIcon from '@/assets/send.svg';
+import Send2Icon from '@/assets/send2.svg';
 import { useSendFarcaster } from '@/components/Compose/ComposeSend/useSendFarcaster.js';
 import { useSendLens } from '@/components/Compose/ComposeSend/useSendLens.js';
 import { CountdownCircle } from '@/components/Compose/CountdownCircle.js';
@@ -22,7 +23,12 @@ import { ComposeModalRef } from '@/modals/controls.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 import { useFarcasterStateStore, useLensStateStore } from '@/store/useProfileStore.js';
 
-export default function ComposeSend() {
+interface Props {
+    className?: string;
+    isSmall?: boolean;
+}
+
+export default function ComposeSend({ className, isSmall }: Props) {
     const { chars, images, type, video, currentSource, availableSources, post } = useComposeStateStore();
 
     const { length, visibleLength, invisibleLength } = measureChars(chars);
@@ -171,6 +177,18 @@ export default function ComposeSend() {
 
         return false;
     }, [length, images, video, post, availableSources, currentLensProfile, currentFarcasterProfile]);
+    const send = () => {
+        if (disabled) return;
+        handleSend;
+    };
+
+    if (isSmall) {
+        return (
+            <button className={classNames(className, 'disabled:opacity-50', {})} disabled={disabled} onClick={send}>
+                <Send2Icon className={'h-6 w-6'} />
+            </button>
+        );
+    }
 
     return (
         <div className=" flex h-[68px] items-center justify-end gap-4 px-4 shadow-send">
@@ -186,13 +204,9 @@ export default function ComposeSend() {
             <button
                 disabled={disabled}
                 className={classNames(
-                    ' flex h-10 w-[120px] items-center justify-center gap-1 rounded-full bg-black text-[15px] font-bold text-white disabled:cursor-not-allowed disabled:opacity-50 dark:bg-white dark:text-black',
+                    ' flex h-10 w-[120px] items-center justify-center gap-1 rounded-full bg-black text-[15px] font-bold text-white disabled:cursor-not-allowed disabled:opacity-50 dark:bg-white dark:text-black sm:hidden',
                 )}
-                onClick={() => {
-                    if (!disabled) {
-                        handleSend();
-                    }
-                }}
+                onClick={send}
             >
                 {loading ? (
                     <LoadingIcon width={16} height={16} className="animate-spin" />
