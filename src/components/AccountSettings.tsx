@@ -58,26 +58,26 @@ export function AccountSettings({ source, profile }: AccountSettingsProps) {
                         </button>
                     ))}
                     <button
-                        className="flex w-full items-center gap-2 rounded px-1 py-3 text-main hover:bg-bg"
+                        className="flex w-full items-center rounded px-1 py-3 text-main hover:bg-bg"
                         onClick={() => {
                             LoginModalRef.open();
                         }}
                     >
                         <UserAddIcon width={24} height={24} />
-                        <div className=" whitespace-nowrap text-[17px] font-bold leading-[22px] text-main">
-                            <Trans>Connect another account</Trans>
-                        </div>
+                        <span className=" pl-2 text-[17px] font-bold leading-[22px] text-main">
+                            <Trans>Switch account</Trans>
+                        </span>
                     </button>
                     <button
-                        className="mb-3 flex items-center gap-2 rounded px-1 py-3 hover:bg-bg"
+                        className="mb-3 flex items-center rounded px-1 py-3 hover:bg-bg"
                         onClick={() => {
                             LogoutModalRef.open({ source });
                         }}
                     >
                         <LogOutIcon width={24} height={24} />
-                        <div className=" text-[17px] font-bold leading-[22px] text-danger">
+                        <span className=" pl-2 text-[17px] font-bold leading-[22px] text-danger">
                             <Trans>Log out</Trans>
-                        </div>
+                        </span>
                     </button>
                 </div>
             }

@@ -20,7 +20,7 @@ export function LoginStatusBar({ collapsed = false }: LoginStatusBarProps) {
         <div
             className={classNames('relative flex', {
                 'flex-col justify-center gap-y-2': collapsed,
-                'flex-row justify-start gap-x-2 pl-2': !collapsed,
+                'flex-row justify-start gap-x-2 pl-6 lg:pl-2': !collapsed,
             })}
         >
             {farcasterProfile ? <AccountSettings source={SocialPlatform.Farcaster} profile={farcasterProfile} /> : null}
