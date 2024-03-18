@@ -12,7 +12,6 @@ import { WarpcastSignerRequestIndicator } from '@/components/WarpcastSignerReque
 import { SocialPlatform } from '@/constants/enum.js';
 import { Tippy } from '@/esm/Tippy.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
-import { useIsLarge } from '@/hooks/useMediaQuery.js';
 import { useProfiles } from '@/hooks/useProfiles.js';
 import { useSwitchLensAccount } from '@/hooks/useSwitchLensAccount.js';
 import { LoginModalRef, LogoutModalRef } from '@/modals/controls.js';
@@ -26,7 +25,6 @@ interface AccountSettingsProps {
 export function AccountSettings({ source, profile }: AccountSettingsProps) {
     const { currentProfile, currentProfileSession, profiles, refreshProfiles } = useProfiles(source);
     const { login } = useSwitchLensAccount();
-    const isLarge = useIsLarge();
 
     useEffect(() => {
         refreshProfiles();

@@ -36,7 +36,7 @@ export const SideBarForMobile = memo(function SideBarForMobile() {
                     leaveFrom="opacity-100"
                     leaveTo="opacity-0"
                 >
-                    <div className="fixed inset-0 bg-gray-900/80" />
+                    <div className="fixed inset-0 bg-main/25 bg-opacity-30" />
                 </Transition.Child>
 
                 <div className="fixed inset-0 flex">

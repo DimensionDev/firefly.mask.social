@@ -25,10 +25,10 @@ export function Modal({ fullScreen, backdrop = true, open, onClose, children }: 
                         leaveFrom="opacity-100"
                         leaveTo="opacity-0"
                     >
-                        <div className="fixed inset-0 bg-main/25 bg-opacity-30" />
+                        <div className="fixed inset-0 bg-main/25 bg-opacity-30" onClick={() => onClose?.()} />
                     </Transition.Child>
                 ) : null}
-                <div className="fixed inset-0 overflow-y-auto">
+                <Dialog.Panel className="fixed inset-0 overflow-y-auto">
                     <div className=" flex min-h-full items-center justify-center p-4 text-center">
                         <Transition.Child
                             as={Fragment}
@@ -42,7 +42,7 @@ export function Modal({ fullScreen, backdrop = true, open, onClose, children }: 
                             {children}
                         </Transition.Child>
                     </div>
-                </div>
+                </Dialog.Panel>
             </Dialog>
         </Transition>
     );

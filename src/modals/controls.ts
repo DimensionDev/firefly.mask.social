@@ -1,5 +1,6 @@
 import { SingletonModal } from '@masknet/shared-base';
 
+import type { DraggablePopoverProps } from '@/components/DraggablePopover/index.js';
 import type { ComposeModalCloseProps, ComposeModalProps } from '@/modals/ComposeModal.js';
 import type { ConfirmModalCloseProps, ConfirmModalOpenProps } from '@/modals/ConfirmModal.js';
 import type { DiscardModalProps } from '@/modals/DiscardModal.js';
@@ -16,3 +17,4 @@ export const PreviewImageModalRef = new SingletonModal<PreviewImagesModalOpenPro
 export const ComposeModalRef = new SingletonModal<ComposeModalProps, ComposeModalCloseProps>();
 export const DiscardModalRef = new SingletonModal<DiscardModalProps>();
 export const ConfirmModalRef = new SingletonModal<ConfirmModalOpenProps, ConfirmModalCloseProps>();
+export const DraggablePopoverRef = new SingletonModal<DraggablePopoverProps>();
