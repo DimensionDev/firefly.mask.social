@@ -1,7 +1,7 @@
 'use client';
 
 import { ProfileAvatarAdd } from '@/components/Login/ProfileAvatarAdd.js';
-import { ProfileAvatarTip } from '@/components/Login/ProfileAvatarTip.js';
+import { ProfileAvatarInteractive } from '@/components/Login/ProfileAvatarInteractive.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
@@ -23,10 +23,8 @@ export function LoginStatusBar({ collapsed = false }: LoginStatusBarProps) {
                 'flex-row justify-start gap-x-2 pl-6 lg:pl-2': !collapsed,
             })}
         >
-            {farcasterProfile ? (
-                <ProfileAvatarTip source={SocialPlatform.Farcaster} profile={farcasterProfile} />
-            ) : null}
-            {lensProfile ? <ProfileAvatarTip source={SocialPlatform.Lens} profile={lensProfile} /> : null}
+            {farcasterProfile ? <ProfileAvatarInteractive profile={farcasterProfile} /> : null}
+            {lensProfile ? <ProfileAvatarInteractive profile={lensProfile} /> : null}
             {farcasterProfile ? null : (
                 <ProfileAvatarAdd
                     source={SocialPlatform.Farcaster}
