@@ -14,6 +14,7 @@ export function ProfileAvatarAdd(props: ProfileAvatarAddProps) {
     const isLarge = useIsLarge();
 
     const size = isLarge ? 40 : 36;
+
     const style = {
         width: size,
         height: size,

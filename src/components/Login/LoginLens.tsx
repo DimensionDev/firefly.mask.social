@@ -68,10 +68,10 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
 
     return (
         <div
-            className="flex max-h-[535px] w-[600px] flex-col overflow-auto rounded-[12px] pb-[80px]"
+            className="flex flex-col overflow-auto rounded-[12px] md:max-h-[535px] md:w-[600px] md:pb-[80px]"
             style={{ boxShadow: '0px 4px 30px 0px rgba(0, 0, 0, 0.10)' }}
         >
-            <div className="flex min-h-[372px] w-full flex-col gap-4 p-4">
+            <div className="mb-[50px] flex w-full flex-col gap-4 md:min-h-[300px] md:p-4">
                 {profiles?.length ? (
                     <>
                         <div className="flex w-full flex-col gap-4 rounded-[8px] bg-lightBg px-4 py-6">

@@ -3,7 +3,7 @@
 import { PlusIcon, UserPlusIcon } from '@heroicons/react/24/outline';
 import { t, Trans } from '@lingui/macro';
 import { usePathname } from 'next/navigation.js';
-import { memo, useState } from 'react';
+import { memo } from 'react';
 
 import DiscoverSelectedIcon from '@/assets/discover.selected.svg';
 import DiscoverIcon from '@/assets/discover.svg';
@@ -36,8 +36,6 @@ interface MenuProps {
 export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
     const currentSource = useGlobalState.use.currentSource();
     const updateSidebarOpen = useNavigatorState.use.updateSidebarOpen();
-
-    const [open, setOpen] = useState(false);
 
     const isLogin = useIsLogin();
 
@@ -141,7 +139,11 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                                             <button
                                                 type="button"
                                                 className="rounded-full bg-main p-1 text-primaryBottom"
-                                                onClick={() => ComposeModalRef.open({})}
+                                                onClick={() =>
+                                                    ComposeModalRef.open({
+                                                        type: 'compose',
+                                                    })
+                                                }
                                             >
                                                 <PlusIcon className="h-5 w-5" aria-hidden="true" />
                                             </button>
@@ -152,7 +154,11 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                                         <button
                                             type="button"
                                             className="hidden w-[200px] rounded-2xl bg-main p-2 text-xl font-bold leading-6 text-primaryBottom md:block"
-                                            onClick={() => setOpen(true)}
+                                            onClick={() => {
+                                                ComposeModalRef.open({
+                                                    type: 'compose',
+                                                });
+                                            }}
                                         >
                                             <Trans>Post</Trans>
                                         </button>
