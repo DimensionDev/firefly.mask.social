@@ -1,4 +1,3 @@
-import { Dialog } from '@headlessui/react';
 import { t, Trans } from '@lingui/macro';
 import type { SingletonModalRefCreator } from '@masknet/shared-base';
 import { useSingletonModal } from '@masknet/shared-base-ui';
@@ -28,7 +27,7 @@ export const ConfirmModal = forwardRef<SingletonModalRefCreator<ConfirmModalOpen
 
         return (
             <Modal open={open} onClose={() => dispatch?.close(false)}>
-                <Dialog.Panel className="relative w-[355px] rounded-xl bg-bgModal shadow-popover transition-all dark:text-gray-950">
+                <div className="relative w-[355px] rounded-xl bg-bgModal shadow-popover transition-all dark:text-gray-950">
                     <div className="inline-flex h-[56px] w-[355px] items-center justify-center gap-2 rounded-t-[12px] p-4">
                         <button onClick={() => dispatch?.close(false)}>
                             <CloseIcon className="relative h-6 w-6" width={24} height={24} />
@@ -50,7 +49,7 @@ export const ConfirmModal = forwardRef<SingletonModalRefCreator<ConfirmModalOpen
                             {t`Confirm`}
                         </button>
                     </div>
-                </Dialog.Panel>
+                </div>
             </Modal>
         );
     },
