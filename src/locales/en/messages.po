@@ -241,8 +241,8 @@ msgstr "Failed to fetch as Text."
 msgid "Reply"
 msgstr "Reply"
 
-msgid "Add an existing account"
-msgstr "Add an existing account"
+msgid "Add account"
+msgstr "Add account"
 
 msgid "Send"
 msgstr "Send"

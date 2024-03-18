@@ -246,7 +246,7 @@ msgstr "获取内容失败。"
 msgid "Reply"
 msgstr "回复"
 
-msgid "Add an existing account"
+msgid "Add account"
 msgstr "添加一个已经存在的账号"
 
 msgid "Send"
