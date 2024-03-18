@@ -1,6 +1,5 @@
 'use client';
 
-import { Dialog } from '@headlessui/react';
 import { Trans } from '@lingui/macro';
 import { delay, getEnumAsArray, safeUnreachable } from '@masknet/kit';
 import type { SingletonModalRefCreator } from '@masknet/shared-base';
@@ -111,67 +110,63 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | 
 
     return (
         <Modal open={open} onClose={() => dispatch?.close()}>
-            <Dialog.Panel className="transform rounded-[12px] bg-bgModal transition-all">
-                <div
-                    className="inline-flex h-[56px] w-[600px] items-center justify-center gap-2 rounded-t-[12px] p-4"
-                    style={{ background: 'var(--m-modal-title-bg)' }}
+            <div
+                className="inline-flex h-[56px] w-[600px] items-center justify-center gap-2 rounded-t-[12px] p-4"
+                style={{ background: 'var(--m-modal-title-bg)' }}
+            >
+                <button
+                    onClick={() => {
+                        source === SocialPlatform.Farcaster && !isDirectly ? setSource(undefined) : dispatch?.close();
+                    }}
                 >
-                    <button
-                        onClick={() => {
-                            source === SocialPlatform.Farcaster && !isDirectly
-                                ? setSource(undefined)
-                                : dispatch?.close();
-                        }}
-                    >
-                        {source === SocialPlatform.Farcaster && !isDirectly ? (
-                            <LeftArrowIcon width={24} height={24} />
-                        ) : (
-                            <CloseIcon width={24} height={24} />
-                        )}
-                    </button>
-                    <div className="shrink grow basis-0 text-center text-lg font-bold leading-snug text-main">
-                        {source === SocialPlatform.Lens ? (
-                            <Trans>Select Account</Trans>
-                        ) : source === SocialPlatform.Farcaster ? (
-                            <Trans>Log in to Farcaster account</Trans>
-                        ) : (
-                            <Trans>Login</Trans>
-                        )}
-                    </div>
-                    <div className="relative h-6 w-6" />
+                    {source === SocialPlatform.Farcaster && !isDirectly ? (
+                        <LeftArrowIcon width={24} height={24} />
+                    ) : (
+                        <CloseIcon width={24} height={24} />
+                    )}
+                </button>
+                <div className="shrink grow basis-0 text-center text-lg font-bold leading-snug text-main">
+                    {source === SocialPlatform.Lens ? (
+                        <Trans>Select Account</Trans>
+                    ) : source === SocialPlatform.Farcaster ? (
+                        <Trans>Log in to Farcaster account</Trans>
+                    ) : (
+                        <Trans>Login</Trans>
+                    )}
                 </div>
-                {!source ? (
-                    <div
-                        className="flex w-[600px] flex-col rounded-[12px]"
-                        style={{ boxShadow: '0px 4px 30px 0px rgba(0, 0, 0, 0.10)' }}
-                    >
-                        <div className="flex w-full flex-col gap-4 p-4 ">
-                            {loading ? (
-                                <div className="flex h-[324px] w-full items-center justify-center">
-                                    <LoadingIcon className="animate-spin" width={24} height={24} />
-                                </div>
-                            ) : (
-                                getEnumAsArray(SocialPlatform).map(({ value: source }) => (
-                                    <LoginButton key={source} source={source} onClick={() => handleLogin(source)} />
-                                ))
-                            )}
-                        </div>
-                    </div>
-                ) : (
-                    <Suspense
-                        fallback={
-                            <div className="flex h-[194px] w-[600px] items-center justify-center">
+                <div className="relative h-6 w-6" />
+            </div>
+            {!source ? (
+                <div
+                    className="flex w-[600px] flex-col rounded-[12px]"
+                    style={{ boxShadow: '0px 4px 30px 0px rgba(0, 0, 0, 0.10)' }}
+                >
+                    <div className="flex w-full flex-col gap-4 p-4 ">
+                        {loading ? (
+                            <div className="flex h-[324px] w-full items-center justify-center">
                                 <LoadingIcon className="animate-spin" width={24} height={24} />
                             </div>
-                        }
-                    >
-                        {source === SocialPlatform.Lens ? (
-                            <LoginLens profiles={profiles} currentAccount={currentAccount} />
-                        ) : null}
-                        {source === SocialPlatform.Farcaster ? <LoginFarcaster /> : null}
-                    </Suspense>
-                )}
-            </Dialog.Panel>
+                        ) : (
+                            getEnumAsArray(SocialPlatform).map(({ value: source }) => (
+                                <LoginButton key={source} source={source} onClick={() => handleLogin(source)} />
+                            ))
+                        )}
+                    </div>
+                </div>
+            ) : (
+                <Suspense
+                    fallback={
+                        <div className="flex h-[194px] w-[600px] items-center justify-center">
+                            <LoadingIcon className="animate-spin" width={24} height={24} />
+                        </div>
+                    }
+                >
+                    {source === SocialPlatform.Lens ? (
+                        <LoginLens profiles={profiles} currentAccount={currentAccount} />
+                    ) : null}
+                    {source === SocialPlatform.Farcaster ? <LoginFarcaster /> : null}
+                </Suspense>
+            )}
         </Modal>
     );
 });
