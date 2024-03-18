@@ -16,7 +16,6 @@ import ProfileIcon from '@/assets/profile.svg';
 import SettingsSelectedIcon from '@/assets/setting.selected.svg';
 import SettingsIcon from '@/assets/setting.svg';
 import WalletIcon from '@/assets/wallet.svg';
-import { DraggablePopover } from '@/components/DraggablePopover/index.js';
 import { LoginStatusBar } from '@/components/Login/LoginStatusBar.js';
 import { ConnectWallet } from '@/components/SideBar/ConnectWallet.js';
 import { Tooltip } from '@/components/Tooltip.js';
@@ -189,39 +188,6 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                     </li>
                 </ul>
             </nav>
-            <DraggablePopover open={open} onClose={() => setOpen(false)}>
-                <p>This is a message.</p>
-                <p>This is a another message longer than the previous one.</p>
-                <p>
-                    Grants Canal was a military project to construct a canal through a bend in the Mississippi River
-                    opposite Vicksburg, Mississippi, during the American Civil War. Control of Vicksburg and the
-                    Mississippi was considered crucial by both the Union and the Confederacy. In June 1862, Union
-                    officer Thomas Williams was sent to De Soto Point with his men to dig a canal to bypass the strong
-                    Confederate defenses around Vicksburg. Disease and falling river levels prevented completion, and
-                    the project was abandoned until January 1863, when Ulysses S. Grant took an interest. The upstream
-                    entrance of the canal was moved, but heavy rains and flooding interfered with the project. Work was
-                    abandoned in March, and Grant eventually used other methods to capture Vicksburg.
-                </p>
-                <p>
-                    The Philippine television newscast 24 Oras has won thirty-two awards from ninety-three nominations.
-                    It premiered on GMA Network on March 15, 2004, and focuses on reportage of present-day events,
-                    incorporating disparate segments that appear recurringly. The newscast initially featured Mel
-                    Tiangco and Mike Enriquez; the newscasts anchors have changed significantly during its run. It has
-                    won five Box Office Entertainment Awards for Most Popular TV Program News & Public Affairs. The
-                    newscast has received eight Asian Academy Creative Award nominations (winning one) and fifty-two
-                    PMPC Star Awards for Television nominations (winning nine). At the 2009 New York Festivals TV & Film
-                    Awards, 24 Oras garnered a Gold World Medal and a Silver World Medal. It was nominated for
-                    International Emmy Award for Best News in 2013 and received a Peabody Award in 2014.
-                </p>
-                <button
-                    className=" mt-2 rounded-md border border-line p-2 px-4 text-main"
-                    onClick={() => {
-                        setOpen(false);
-                    }}
-                >
-                    Submit
-                </button>
-            </DraggablePopover>
         </>
     );
 });

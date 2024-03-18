@@ -3,7 +3,7 @@ import type { SingletonModalRefCreator } from '@masknet/shared-base';
 import { useSingletonModal } from '@masknet/shared-base-ui';
 import { forwardRef, Fragment, useState } from 'react';
 
-export interface DraggablePopoverProps {
+interface DraggablePopoverProps {
     backdrop?: boolean;
     content?: React.ReactNode;
 }
