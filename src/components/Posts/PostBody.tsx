@@ -18,7 +18,7 @@ import { EMPTY_LIST, MAX_FRAME_SIZE_PER_POST } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getEncryptedPayloadFromImageAttachment, getEncryptedPayloadFromText } from '@/helpers/getEncryptedPayload.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
-import removeUrlAtEnd from '@/helpers/removeUrlAtEnd.js';
+import { removeUrlAtEnd } from '@/helpers/removeUrlAtEnd.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 interface PostBodyProps {

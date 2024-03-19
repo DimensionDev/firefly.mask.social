@@ -4,7 +4,7 @@
  * @param text The text to get URLs from.
  * @returns An array of URLs.
  */
-const removeUrlAtEnd = (url?: string, content?: string): string => {
+export function removeUrlAtEnd(url?: string, content?: string): string {
     if (url && content) {
         content = content.trimEnd();
         const indexOfUrl = content.indexOf(url);
@@ -16,6 +16,4 @@ const removeUrlAtEnd = (url?: string, content?: string): string => {
     } else {
         return content ?? '';
     }
-};
-
-export default removeUrlAtEnd;
+}

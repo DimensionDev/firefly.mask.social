@@ -4,9 +4,9 @@ import { useQuery } from '@tanstack/react-query';
 import { Suspense, useEffect } from 'react';
 import urlcat from 'urlcat';
 
-import Embed from '@/components/Oembed/Embed.js';
+import { Embed } from '@/components/Oembed/Embed.js';
 import { Mirror } from '@/components/Oembed/Mirror.js';
-import Player from '@/components/Oembed/Player.js';
+import { Player } from '@/components/Oembed/Player.js';
 import { PostEmbed } from '@/components/Oembed/Post.js';
 import { Quote } from '@/components/Posts/Quote.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';

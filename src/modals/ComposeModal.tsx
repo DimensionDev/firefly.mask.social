@@ -18,9 +18,9 @@ import { None } from 'ts-results-es';
 import urlcat from 'urlcat';
 
 import LoadingIcon from '@/assets/loading.svg';
-import ComposeAction from '@/components/Compose/ComposeAction.js';
-import ComposeContent from '@/components/Compose/ComposeContent.js';
-import ComposeSend from '@/components/Compose/ComposeSend/index.js';
+import { ComposeAction } from '@/components/Compose/ComposeAction.js';
+import { ComposeContent } from '@/components/Compose/ComposeContent.js';
+import { ComposeSend } from '@/components/Compose/ComposeSend/index.js';
 import { useSetEditorContent } from '@/components/Compose/useSetEditorContent.js';
 import { MentionNode } from '@/components/Lexical/nodes/MentionsNode.js';
 import { Modal } from '@/components/Modal.js';
@@ -34,6 +34,7 @@ import { resolveComposeType } from '@/helpers/resolveComposeType.js';
 import { throws } from '@/helpers/throws.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
+import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { DiscardModalRef } from '@/modals/controls.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { steganographyEncodeImage } from '@/services/steganography.js';
@@ -70,6 +71,7 @@ export type ComposeModalCloseProps = {
 
 export const ComposeModalComponent = forwardRef<SingletonModalRefCreator<ComposeModalProps, ComposeModalCloseProps>>(
     function Compose(_, ref) {
+        const isMedium = useIsMedium();
         const currentSource = useGlobalState.use.currentSource();
 
         const currentLensProfile = useLensStateStore.use.currentProfile();
@@ -191,7 +193,7 @@ export const ComposeModalComponent = forwardRef<SingletonModalRefCreator<Compose
 
         return (
             <Modal open={open} onClose={onClose}>
-                <div className="relative w-[600px] rounded-xl bg-bgModal shadow-popover transition-all dark:text-gray-950">
+                <div className="relative h-[100vh] w-[100vw] bg-bgModal shadow-popover transition-all dark:text-gray-950 md:h-auto md:w-[600px] md:rounded-xl">
                     {/* Loading */}
                     {loading || encryptRedPacketLoading ? (
                         <div className=" absolute bottom-0 left-0 right-0 top-0 z-50 flex items-center justify-center">
@@ -200,7 +202,7 @@ export const ComposeModalComponent = forwardRef<SingletonModalRefCreator<Compose
                     ) : null}
 
                     {/* Title */}
-                    <Dialog.Title as="h3" className=" relative h-14">
+                    <Dialog.Title as="h3" className=" relative h-14 pt-safe">
                         <XMarkIcon
                             className="absolute left-4 top-1/2 h-6 w-6 -translate-y-1/2 cursor-pointer text-main"
                             aria-hidden="true"
@@ -210,13 +212,14 @@ export const ComposeModalComponent = forwardRef<SingletonModalRefCreator<Compose
                         <span className=" flex h-full w-full items-center justify-center text-lg font-bold capitalize text-main">
                             {resolveComposeType(type)}
                         </span>
+
+                        {isMedium ? null : <ComposeSend />}
                     </Dialog.Title>
 
                     <ComposeContent />
                     <ComposeAction />
 
-                    {/* Send */}
-                    <ComposeSend />
+                    {isMedium ? <ComposeSend /> : null}
                 </div>
             </Modal>
         );

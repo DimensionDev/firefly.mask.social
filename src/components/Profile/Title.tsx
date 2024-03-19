@@ -3,14 +3,14 @@ import { useRouter } from 'next/navigation.js';
 import { useState } from 'react';
 
 import ComeBackIcon from '@/assets/comeback.svg';
-import FollowButton from '@/components/Profile/FollowButton.js';
+import { FollowButton } from '@/components/Profile/FollowButton.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 interface TitleProps {
     profile: Profile;
 }
 
-export default function Title({ profile }: TitleProps) {
+export function Title({ profile }: TitleProps) {
     const [reached, setReached] = useState(false);
 
     const router = useRouter();

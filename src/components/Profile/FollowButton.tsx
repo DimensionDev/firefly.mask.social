@@ -18,7 +18,7 @@ interface FollowButtonProps {
     profile: Profile;
 }
 
-const FollowButton = memo(function FollowButton({ profile }: FollowButtonProps) {
+export const FollowButton = memo(function FollowButton({ profile }: FollowButtonProps) {
     const [followHover, setFollowHover] = useState(false);
     const [isFollowing, { loading }, handleToggle] = useToggleFollow(profile);
 
@@ -47,5 +47,3 @@ const FollowButton = memo(function FollowButton({ profile }: FollowButtonProps) 
         </button>
     );
 });
-
-export default FollowButton;
