@@ -8,7 +8,7 @@ msgstr ""
 "Language: ja\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-03-18 12:01\n"
+"PO-Revision-Date: 2024-03-19 12:01\n"
 "Last-Translator: \n"
 "Language-Team: Japanese\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -246,9 +246,6 @@ msgstr ""
 msgid "Reply"
 msgstr ""
 
-msgid "Add account"
-msgstr ""
-
 msgid "Send"
 msgstr ""
 
@@ -283,6 +280,9 @@ msgid "Follow"
 msgstr ""
 
 msgid "Failed to like. {0}"
+msgstr ""
+
+msgid "Add account"
 msgstr ""
 
 msgid "{0} Comments"
