@@ -195,10 +195,9 @@ export default function ComposeAction(props: ComposeActionProps) {
                             <Popover.Button
                                 className=" flex cursor-pointer gap-1 text-main focus:outline-none"
                                 onClick={(event) => {
-                                    if (currentSource) {
-                                        event.stopPropagation();
-                                        event.preventDefault();
-                                    }
+                                    if (!currentSource) return;
+                                    event.stopPropagation();
+                                    event.preventDefault();
                                 }}
                             >
                                 <span className="flex items-center gap-x-1 font-bold">
