@@ -1,3 +1,4 @@
+import { ComposeButton } from '@/components/ComposeButton/index.js';
 import { IfPathname } from '@/components/IfPathname.js';
 import { NavigatorBar } from '@/components/NavigatorBar/index.js';
 import { AsideSearchBar, HeaderSearchBar } from '@/components/Search/SearchBar.js';
@@ -14,6 +15,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                     </IfPathname>
                     <HeaderSearchBar />
                     <SocialPlatformTabs />
+                    <ComposeButton />
                 </div>
                 {children}
             </main>
