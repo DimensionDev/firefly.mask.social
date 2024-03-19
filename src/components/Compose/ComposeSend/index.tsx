@@ -177,6 +177,7 @@ export function ComposeSend(props: ComposeSendProps) {
 
         return false;
     }, [length, images, video, post, availableSources, currentLensProfile, currentFarcasterProfile]);
+
     const send = () => {
         if (disabled) return;
         handleSend;
@@ -208,7 +209,7 @@ export function ComposeSend(props: ComposeSendProps) {
             <button
                 disabled={disabled}
                 className={classNames(
-                    ' flex h-10 w-[120px] items-center justify-center gap-1 rounded-full bg-black text-[15px] font-bold text-white disabled:cursor-not-allowed disabled:opacity-50 dark:bg-white dark:text-black sm:hidden',
+                    ' flex h-10 w-[120px] items-center justify-center gap-1 rounded-full bg-black text-[15px] font-bold text-white disabled:cursor-not-allowed disabled:opacity-50 dark:bg-white dark:text-black',
                 )}
                 onClick={send}
             >
