@@ -8,7 +8,7 @@ msgstr ""
 "Language: ko\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-03-14 12:01\n"
+"PO-Revision-Date: 2024-03-18 12:01\n"
 "Last-Translator: \n"
 "Language-Team: Korean\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -238,9 +238,6 @@ msgid "Try searching for something else."
 msgstr ""
 
 msgid "and"
-msgstr ""
-
-msgid "Switch account"
 msgstr ""
 
 msgid "Failed to fetch as Text."
@@ -541,6 +538,9 @@ msgid "No Lens profile found. Please change to another wallet."
 msgstr ""
 
 msgid "Connect"
+msgstr ""
+
+msgid "Switch account"
 msgstr ""
 
 msgid "Mention"
