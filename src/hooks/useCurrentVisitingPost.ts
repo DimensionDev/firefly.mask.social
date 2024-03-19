@@ -1,6 +1,7 @@
 import { ValueRef } from '@masknet/shared-base';
+import { useValueRef } from '@masknet/shared-base-ui';
 import { usePathname } from 'next/navigation.js';
-import { useEffect, useMemo } from 'react';
+import { useEffect } from 'react';
 
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
@@ -15,11 +16,7 @@ export function useUpdateCurrentVisitingPost(post: Post | null) {
 
 export function useCurrentVisitingPost() {
     const pathname = usePathname();
-
-    return useMemo(() => {
-        const isPostPage = isRoutePathname(pathname, '/post');
-        if (!isPostPage) return null;
-        return currentVisitingPost.value;
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [pathname, currentVisitingPost.value]);
+    const isPostPage = isRoutePathname(pathname, '/post');
+    const post = useValueRef(currentVisitingPost);
+    return isPostPage ? post : null;
 }

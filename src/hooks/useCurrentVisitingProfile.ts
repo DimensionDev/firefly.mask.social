@@ -1,6 +1,7 @@
 import { ValueRef } from '@masknet/shared-base';
+import { useValueRef } from '@masknet/shared-base-ui';
 import { usePathname } from 'next/navigation.js';
-import { useEffect, useMemo } from 'react';
+import { useEffect } from 'react';
 
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
@@ -15,11 +16,7 @@ export function useUpdateCurrentVisitingProfile(profile: Profile | null) {
 
 export function useCurrentVisitingProfile() {
     const pathname = usePathname();
-
-    return useMemo(() => {
-        const isProfilePage = isRoutePathname(pathname, '/profile');
-        if (!isProfilePage) return null;
-        return currentVisitingProfile.value;
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [pathname, currentVisitingProfile.value]);
+    const isProfilePage = isRoutePathname(pathname, '/profile');
+    const profile = useValueRef(currentVisitingProfile);
+    return isProfilePage ? profile : null;
 }
