@@ -58,7 +58,7 @@ export interface ComposeModalProps {
     type?: 'compose' | 'quote' | 'reply';
     chars?: Chars;
     source?: SocialPlatform;
-    post?: Post;
+    post?: Post | null;
     typedMessage?: TypedMessageTextV1 | null;
     redPacketPayload?: {
         payloadImage: string;

@@ -3,11 +3,14 @@ import { usePathname } from 'next/navigation.js';
 
 import ComposeAddIcon from '@/assets/compose-add.svg';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
+import { useCurrentVisitingPost } from '@/hooks/useCurrentVisitingPost.js';
 import { ComposeModalRef } from '@/modals/controls.js';
 
 export function ComposeButtonForMobile() {
     const pathname = usePathname();
     const isPostPage = isRoutePathname(pathname, '/post');
+
+    const post = useCurrentVisitingPost();
 
     return (
         <button
@@ -15,6 +18,7 @@ export function ComposeButtonForMobile() {
             onClick={() => {
                 ComposeModalRef.open({
                     type: isPostPage ? 'reply' : 'compose',
+                    post: isPostPage ? post : undefined,
                 });
             }}
         >
