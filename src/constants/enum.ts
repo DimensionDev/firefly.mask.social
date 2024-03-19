@@ -11,7 +11,6 @@ export enum PageRoute {
 export enum SocialPlatform {
     Farcaster = 'Farcaster',
     Lens = 'Lens',
-    Twitter = 'Twitter',
 }
 
 export enum SourceInURL {

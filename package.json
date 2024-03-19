@@ -88,6 +88,7 @@
         "tailwindcss-safe-area": "^0.5.1",
         "ts-results-es": "^4.0.0",
         "twemoji-parser": "^14.0.0",
+        "twitter-api-sdk": "^1.2.1",
         "typescript": "5.3.0-beta",
         "urlcat": "^3.1.0",
         "usehooks-ts": "^2.9.1",

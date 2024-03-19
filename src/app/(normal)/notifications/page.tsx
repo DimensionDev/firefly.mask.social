@@ -32,8 +32,6 @@ export default function Notification() {
                     return LensSocialMediaProvider.getNotifications(createIndicator(undefined, pageParam));
                 case SocialPlatform.Farcaster:
                     return FireflySocialMediaProvider.getNotifications(createIndicator(undefined, pageParam));
-                case SocialPlatform.Twitter:
-                    return;
                 default:
                     safeUnreachable(currentSource);
                     return;
