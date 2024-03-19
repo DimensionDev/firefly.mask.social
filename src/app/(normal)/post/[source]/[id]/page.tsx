@@ -14,6 +14,7 @@ import { SITE_NAME } from '@/constants/index.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { createPageTitle } from '@/helpers/createPageTitle.js';
 import { resolveSource } from '@/helpers/resolveSource.js';
+import { useUpdateCurrentVisitingPost } from '@/hooks/useCurrentVisitingPost.js';
 import { getPostById } from '@/services/getPostById.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 
@@ -21,20 +22,20 @@ const PostActions = dynamic(() => import('@/components/Actions/index.js').then((
     ssr: false,
 });
 
-interface PostPageProps {
+interface PageProps {
     params: {
         id: string;
         source: SourceInURL;
     };
 }
 
-export default function PostPage({ params: { id: postId, source } }: PostPageProps) {
+export default function Page({ params: { id: postId, source } }: PageProps) {
     const router = useRouter();
     const currentSource = resolveSource(source);
 
     const fetchAndStoreViews = useImpressionsStore.use.fetchAndStoreViews();
 
-    const { data } = useSuspenseQuery({
+    const { data: post = null } = useSuspenseQuery({
         queryKey: [currentSource, 'post-detail', postId],
         queryFn: async () => {
             if (!postId) return;
@@ -47,9 +48,10 @@ export default function PostPage({ params: { id: postId, source } }: PostPagePro
         },
     });
 
-    useDocumentTitle(data ? createPageTitle(t`Post by ${data?.author.displayName}`) : SITE_NAME);
+    useDocumentTitle(post ? createPageTitle(t`Post by ${post?.author.displayName}`) : SITE_NAME);
+    useUpdateCurrentVisitingPost(post);
 
-    if (!data) return;
+    if (!post) return;
 
     return (
         <div className="min-h-screen">
@@ -60,11 +62,11 @@ export default function PostPage({ params: { id: postId, source } }: PostPagePro
                 </h2>
             </div>
             <div>
-                <SinglePost post={data} disableAnimate isDetail />
+                <SinglePost post={post} disableAnimate isDetail />
                 <PostActions
                     disablePadding
-                    post={data}
-                    disabled={data?.isHidden}
+                    post={post}
+                    disabled={post?.isHidden}
                     className="!mt-0 border-b border-line px-4 py-3"
                 />
                 {/* TODO: Compose Comment Input */}

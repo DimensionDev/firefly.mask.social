@@ -13,20 +13,21 @@ import type { SourceInURL } from '@/constants/enum.js';
 import { SITE_NAME } from '@/constants/index.js';
 import { createPageTitle } from '@/helpers/createPageTitle.js';
 import { resolveSource } from '@/helpers/resolveSource.js';
+import { useUpdateCurrentVisitingProfile } from '@/hooks/useCurrentVisitingProfile.js';
 import { useIsMyProfile } from '@/hooks/useIsMyProfile.js';
 import { getProfileById } from '@/services/getProfileById.js';
 
-interface ProfilePageProps {
+interface PageProps {
     params: {
         id: string;
         source: SourceInURL;
     };
 }
-export default function ProfilePage({ params: { source: _source, id: handleOrProfileId } }: ProfilePageProps) {
+export default function Page({ params: { source: _source, id: handleOrProfileId } }: PageProps) {
     const currentSource = resolveSource(_source);
     const isMyProfile = useIsMyProfile(currentSource, handleOrProfileId);
 
-    const { data: profile, isLoading } = useQuery({
+    const { data: profile = null, isLoading } = useQuery({
         queryKey: ['profile', currentSource, handleOrProfileId],
         queryFn: () => getProfileById(currentSource, handleOrProfileId),
     });
@@ -39,6 +40,7 @@ export default function ProfilePage({ params: { source: _source, id: handleOrPro
     }, [profile]);
 
     useDocumentTitle(title);
+    useUpdateCurrentVisitingProfile(profile);
 
     if (isLoading) {
         return <Loading />;

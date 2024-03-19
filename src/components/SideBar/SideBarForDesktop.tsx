@@ -6,7 +6,7 @@ import DarkLogo from '@/assets/logo.dark.svg';
 import LightLogo from '@/assets/logo.light.svg';
 import MiniLogo from '@/assets/miniLogo.svg';
 import { Menu } from '@/components/SideBar/Menu.js';
-import { PageRoutes } from '@/constants/enum.js';
+import { PageRoute } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { useDarkMode } from '@/hooks/useDarkMode.js';
 import { useIsLarge } from '@/hooks/useMediaQuery.js';
@@ -19,7 +19,7 @@ export const SideBarForDesktop = memo(function SideBarForDesktop() {
         <div className="fixed inset-y-0 z-40 flex flex-col lg:w-[289px]">
             <div className="flex grow flex-col gap-y-5 border-r border-line px-3 lg:px-6">
                 <div className="flex h-16 shrink-0 items-center lg:px-4">
-                    <Link href={PageRoutes.Home}>
+                    <Link href={PageRoute.Home}>
                         {isLarge ? (
                             !isDarkMode ? (
                                 <LightLogo width={134} height={64} />

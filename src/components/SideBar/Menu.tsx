@@ -19,7 +19,7 @@ import WalletIcon from '@/assets/wallet.svg';
 import { LoginStatusBar } from '@/components/Login/LoginStatusBar.js';
 import { ConnectWallet } from '@/components/SideBar/ConnectWallet.js';
 import { Tooltip } from '@/components/Tooltip.js';
-import { PageRoutes } from '@/constants/enum.js';
+import { PageRoute } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
@@ -46,7 +46,7 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
     );
 
     const checkIsSelected = (href: `/${string}`) =>
-        href === PageRoutes.Profile ? isMyProfile || pathname === PageRoutes.Profile : isRoutePathname(pathname, href);
+        href === PageRoute.Profile ? isMyProfile || pathname === PageRoute.Profile : isRoutePathname(pathname, href);
 
     return (
         <>
@@ -56,25 +56,25 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                         <ul role="list" className="space-y-1">
                             {[
                                 {
-                                    href: PageRoutes.Home,
+                                    href: PageRoute.Home,
                                     name: <Trans>Discover</Trans>,
                                     icon: DiscoverIcon,
                                     selectedIcon: DiscoverSelectedIcon,
                                 },
                                 {
-                                    href: PageRoutes.Following,
+                                    href: PageRoute.Following,
                                     name: <Trans>Following</Trans>,
                                     icon: FollowingIcon,
                                     selectedIcon: FollowingSelectedIcon,
                                 },
                                 {
-                                    href: PageRoutes.Notifications,
+                                    href: PageRoute.Notifications,
                                     name: <Trans>Notifications</Trans>,
                                     icon: NotificationIcon,
                                     selectedIcon: NotificationSelectedIcon,
                                 },
                                 {
-                                    href: PageRoutes.Profile,
+                                    href: PageRoute.Profile,
                                     name: <Trans>Profile</Trans>,
                                     icon: ProfileIcon,
                                     selectedIcon: ProfileSelectedIcon,
@@ -86,7 +86,7 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                                     selectedIcon: WalletIcon,
                                 },
                                 {
-                                    href: PageRoutes.Settings,
+                                    href: PageRoute.Settings,
                                     name: <Trans>Settings</Trans>,
                                     icon: SettingsIcon,
                                     selectedIcon: SettingsSelectedIcon,

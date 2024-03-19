@@ -5,13 +5,13 @@ import { memo, useEffect } from 'react';
 import urlcat from 'urlcat';
 
 import type { MarkupLinkProps } from '@/components/Markup/MarkupLink/index.js';
-import { PageRoutes, SearchType } from '@/constants/enum.js';
+import { PageRoute, SearchType } from '@/constants/enum.js';
 
 export const Hashtag = memo<Omit<MarkupLinkProps, 'post'>>(function Hashtag({ title }) {
     const router = useRouter();
 
     useEffect(() => {
-        if (title) router.prefetch(PageRoutes.Search);
+        if (title) router.prefetch(PageRoute.Search);
     }, [title, router]);
 
     if (!title) return null;
@@ -25,7 +25,7 @@ export const Hashtag = memo<Omit<MarkupLinkProps, 'post'>>(function Hashtag({ ti
                 event.stopPropagation();
                 event.preventDefault();
                 scrollTo(0, 0);
-                router.push(urlcat(PageRoutes.Search, { q: `#${tag}`, type: SearchType.Posts }));
+                router.push(urlcat(PageRoute.Search, { q: `#${tag}`, type: SearchType.Posts }));
             }}
         >
             {title}
