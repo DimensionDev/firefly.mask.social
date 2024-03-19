@@ -185,11 +185,11 @@ export function ComposeSend(props: ComposeSendProps) {
     if (!isMedium) {
         return (
             <button
-                className={'absolute right-4 top-1/2 -translate-y-1/2 cursor-pointer disabled:opacity-50'}
+                className="absolute right-4 top-1/2 -translate-y-1/2 cursor-pointer disabled:opacity-50"
                 disabled={disabled}
                 onClick={send}
             >
-                <Send2Icon className={'h-6 w-6'} />
+                <Send2Icon width={24} height={24} />
             </button>
         );
     }
