@@ -1,7 +1,6 @@
-
 /* cspell:disable */
 
-import { AuthOptions } from 'next-auth';
+import type { AuthOptions } from 'next-auth';
 
 import { CredentialsProvider } from '@/esm/CredentialsProvider.js';
 import { TwitterProvider } from '@/esm/TwitterProvider.js';
