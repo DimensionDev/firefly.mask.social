@@ -16,7 +16,7 @@ export function Modal({ fullScreen, backdrop = true, open, onClose, children }: 
         <Transition appear show={open} as={Fragment}>
             <Dialog as="div" className="relative z-[100]" onClose={onClose}>
                 <Dialog.Panel className="fixed inset-0 overflow-y-auto">
-                    <div className=" flex min-h-full items-center justify-center p-4 text-center  sm:p-0 md:p-4">
+                    <div className=" flex min-h-full items-center justify-center p-0 text-center md:p-4">
                         {backdrop ? (
                             <Transition.Child
                                 as={Fragment}

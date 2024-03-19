@@ -5,10 +5,10 @@ import { notFound } from 'next/navigation.js';
 import { useMemo } from 'react';
 import { useDocumentTitle } from 'usehooks-ts';
 
-import Loading from '@/components/Loading.js';
-import ContentTabs from '@/components/Profile/ContentTabs.js';
-import Info from '@/components/Profile/Info.js';
-import Title from '@/components/Profile/Title.js';
+import { Loading } from '@/components/Loading.js';
+import { ContentTabs } from '@/components/Profile/ContentTabs.js';
+import { Info } from '@/components/Profile/Info.js';
+import { Title } from '@/components/Profile/Title.js';
 import type { SourceInURL } from '@/constants/enum.js';
 import { SITE_NAME } from '@/constants/index.js';
 import { createPageTitle } from '@/helpers/createPageTitle.js';

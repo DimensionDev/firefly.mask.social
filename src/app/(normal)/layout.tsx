@@ -1,3 +1,4 @@
+import { ComposeButton } from '@/components/ComposeButton/index.js';
 import { IfPathname } from '@/components/IfPathname.js';
 import { NavigatorBar } from '@/components/NavigatorBar/index.js';
 import { AsideSearchBar, HeaderSearchBar } from '@/components/Search/SearchBar.js';
@@ -15,6 +16,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                     <HeaderSearchBar />
                     <SocialPlatformTabs />
                 </div>
+                <ComposeButton />
                 {children}
             </main>
             <aside className="sticky top-0 z-[1] hidden h-full w-96 px-4 md:min-w-[384px] lg:block">

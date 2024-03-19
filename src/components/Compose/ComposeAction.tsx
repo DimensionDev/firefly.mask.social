@@ -13,9 +13,9 @@ import AtIcon from '@/assets/at.svg';
 import GalleryIcon from '@/assets/gallery.svg';
 import NumberSignIcon from '@/assets/number-sign.svg';
 import RedPacketIcon from '@/assets/red-packet.svg';
-import Media from '@/components/Compose/Media.js';
-import PostBy from '@/components/Compose/PostBy.js';
-import ReplyRestriction from '@/components/Compose/ReplyRestriction.js';
+import { Media } from '@/components/Compose/Media.js';
+import { PostBy } from '@/components/Compose/PostBy.js';
+import { ReplyRestriction } from '@/components/Compose/ReplyRestriction.js';
 import { SourceIcon } from '@/components/SourceIcon.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { SocialPlatform } from '@/constants/enum.js';
@@ -28,7 +28,7 @@ import { useFarcasterStateStore, useLensStateStore } from '@/store/useProfileSto
 
 interface ComposeActionProps {}
 
-export default function ComposeAction(props: ComposeActionProps) {
+export function ComposeAction(props: ComposeActionProps) {
     const [restriction, setRestriction] = useState(0);
 
     const currentLensProfile = useLensStateStore.use.currentProfile();
@@ -168,7 +168,7 @@ export default function ComposeAction(props: ComposeActionProps) {
 
                 <div
                     className={classNames(
-                        'flex cursor-pointer items-center gap-x-2 rounded-[32px] border border-foreground px-3 py-1 sm:box-border sm:h-6',
+                        'flex h-6 cursor-pointer items-center gap-x-2 rounded-[32px] border border-foreground px-3 py-1 md:h-auto',
                         {
                             'opacity-50': loading,
                         },
@@ -195,10 +195,9 @@ export default function ComposeAction(props: ComposeActionProps) {
                             <Popover.Button
                                 className=" flex cursor-pointer gap-1 text-main focus:outline-none"
                                 onClick={(event) => {
-                                    if (currentSource) {
-                                        event.stopPropagation();
-                                        event.preventDefault();
-                                    }
+                                    if (!currentSource) return;
+                                    event.stopPropagation();
+                                    event.preventDefault();
                                 }}
                             >
                                 <span className="flex items-center gap-x-1 font-bold">

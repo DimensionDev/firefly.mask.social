@@ -170,7 +170,7 @@ export const Mirror = memo<MirrorProps>(function Mirror({
                     >
                         <Tooltip
                             disabled={disabled}
-                            className={'rounded-full p-1.5 hover:bg-secondarySuccess/[.20]'}
+                            className="rounded-full p-1.5 hover:bg-secondarySuccess/[.20]"
                             placement="top"
                             content={count && count > 0 ? `${humanize(count)} ${content}` : content}
                             withDelay

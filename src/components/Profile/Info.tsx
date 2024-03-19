@@ -2,7 +2,7 @@ import { Trans } from '@lingui/macro';
 
 import { Avatar } from '@/components/Avatar.js';
 import { BioMarkup } from '@/components/Markup/index.js';
-import FollowButton from '@/components/Profile/FollowButton.js';
+import { FollowButton } from '@/components/Profile/FollowButton.js';
 import { SourceIcon } from '@/components/SourceIcon.js';
 import type { SocialPlatform } from '@/constants/enum.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
@@ -13,7 +13,7 @@ interface InfoProps {
     source: SocialPlatform;
 }
 
-export default function Info({ isMyProfile, profile, source }: InfoProps) {
+export function Info({ isMyProfile, profile, source }: InfoProps) {
     const followingCount = profile?.followingCount ?? 0;
     const followerCount = profile?.followerCount ?? 0;
 

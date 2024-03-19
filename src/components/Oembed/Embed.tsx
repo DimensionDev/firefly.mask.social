@@ -7,7 +7,7 @@ interface EmbedProps {
     og: OpenGraph;
 }
 
-export default function Embed({ og }: EmbedProps) {
+export function Embed({ og }: EmbedProps) {
     return (
         <div className="mt-4 text-sm">
             <Link

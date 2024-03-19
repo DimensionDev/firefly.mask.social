@@ -1,8 +1,8 @@
 import { Trans } from '@lingui/macro';
 
-import ComposeImage from '@/components/Compose/ComposeImage.js';
-import ComposeVideo from '@/components/Compose/ComposeVideo.js';
-import Editor from '@/components/Compose/Editor.js';
+import { ComposeImage } from '@/components/Compose/ComposeImage.js';
+import { ComposeVideo } from '@/components/Compose/ComposeVideo.js';
+import { Editor } from '@/components/Compose/Editor.js';
 import { FrameUI } from '@/components/Frame/index.js';
 import { OembedUI } from '@/components/Oembed/index.js';
 import { Quote } from '@/components/Posts/Quote.js';
@@ -12,7 +12,7 @@ import { useComposeStateStore } from '@/store/useComposeStore.js';
 
 interface ComposeContentProps {}
 
-export default function ComposeContent(props: ComposeContentProps) {
+export function ComposeContent(props: ComposeContentProps) {
     const { type, post, images, video, frames, openGraphs } = useComposeStateStore();
 
     return (

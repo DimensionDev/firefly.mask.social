@@ -7,7 +7,7 @@ interface PlayerProps {
     isSpotify?: boolean;
 }
 
-export default function Player({ html, isSpotify = false }: PlayerProps) {
+export function Player({ html, isSpotify = false }: PlayerProps) {
     return (
         <div className="mt-4 w-full text-sm">
             <div

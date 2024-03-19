@@ -1,5 +1,5 @@
 import { Avatar } from '@/components/Avatar.js';
-import FollowButton from '@/components/Profile/FollowButton.js';
+import { FollowButton } from '@/components/Profile/FollowButton.js';
 import { SourceIcon } from '@/components/SourceIcon.js';
 import { Link } from '@/esm/Link.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
