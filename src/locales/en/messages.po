@@ -241,9 +241,6 @@ msgstr "Failed to fetch as Text."
 msgid "Reply"
 msgstr "Reply"
 
-msgid "Add an existing account"
-msgstr "Add an existing account"
-
 msgid "Send"
 msgstr "Send"
 
@@ -279,6 +276,9 @@ msgstr "Follow"
 
 msgid "Failed to like. {0}"
 msgstr "Failed to like. {0}"
+
+msgid "Add account"
+msgstr "Add account"
 
 msgid "{0} Comments"
 msgstr "{0} Comments"

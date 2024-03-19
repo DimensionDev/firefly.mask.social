@@ -6,7 +6,7 @@ import { forwardRef, useState } from 'react';
 
 import { Popover } from '@/components/Popover.js';
 
-interface DraggablePopoverProps {
+export interface DraggablePopoverProps {
     backdrop?: boolean;
     content?: React.ReactNode;
 }

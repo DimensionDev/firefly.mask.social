@@ -1,4 +1,3 @@
-import { Dialog } from '@headlessui/react';
 import { ArrowLeftIcon, ArrowRightIcon } from '@heroicons/react/24/outline';
 import type { SingletonModalRefCreator } from '@masknet/shared-base';
 import { useSingletonModal } from '@masknet/shared-base-ui';
@@ -50,7 +49,7 @@ export const PreviewImagesModal = forwardRef<SingletonModalRefCreator<PreviewIma
 
         return (
             <Modal open={open} onClose={() => dispatch?.close()}>
-                <Dialog.Panel className="preview-actions flex transform-none flex-col items-center transition-all">
+                <div className="preview-actions flex transform-none flex-col items-center transition-all">
                     {/* Fix transition hack  */}
                     {open ? (
                         <>
@@ -109,7 +108,7 @@ export const PreviewImagesModal = forwardRef<SingletonModalRefCreator<PreviewIma
                             </div>
                         </>
                     ) : null}
-                </Dialog.Panel>
+                </div>
             </Modal>
         );
     },

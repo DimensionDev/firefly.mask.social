@@ -12,7 +12,7 @@ export const SearchFilter = memo(function SearchFilter() {
 
     return (
         <div>
-            <h2 className=" my-2 rounded-xl px-3 py-2.5 text-lg font-bold md:my-6 md:bg-lightBg md:text-sm">
+            <h2 className=" rounded-xl px-3 py-2.5 text-lg font-bold md:my-6 md:bg-lightBg md:text-sm">
                 <Trans>Search Filter</Trans>
             </h2>
             <div className=" rounded-xl md:my-4 md:border md:border-line">

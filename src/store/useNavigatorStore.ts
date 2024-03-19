@@ -8,7 +8,6 @@ interface NavigatorState {
     sidebarOpen: boolean;
     updateTitle: (title: string) => void;
     updateSidebarOpen: (open: boolean) => void;
-    toggleSidebarOpen: () => void;
 }
 
 const useNavigatorStateBase = create<NavigatorState, [['zustand/immer', never]]>(
@@ -22,10 +21,6 @@ const useNavigatorStateBase = create<NavigatorState, [['zustand/immer', never]]>
         updateSidebarOpen: (open: boolean) =>
             set((state) => {
                 state.sidebarOpen = open;
-            }),
-        toggleSidebarOpen: () =>
-            set((state) => {
-                state.sidebarOpen = !state.sidebarOpen;
             }),
     })),
 );

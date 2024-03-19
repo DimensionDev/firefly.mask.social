@@ -249,7 +249,7 @@ msgstr ""
 msgid "Reply"
 msgstr ""
 
-msgid "Add an existing account"
+msgid "Add account"
 msgstr ""
 
 msgid "Send"

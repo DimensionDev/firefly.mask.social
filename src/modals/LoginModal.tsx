@@ -1,6 +1,5 @@
 'use client';
 
-import { Dialog } from '@headlessui/react';
 import { Trans } from '@lingui/macro';
 import { delay, getEnumAsArray, safeUnreachable } from '@masknet/kit';
 import type { SingletonModalRefCreator } from '@masknet/shared-base';
@@ -16,10 +15,12 @@ import { LoginButton } from '@/components/Login/LoginButton.js';
 import { LoginFarcaster } from '@/components/Login/LoginFarcaster.js';
 import { LoginLens } from '@/components/Login/LoginLens.js';
 import { Modal } from '@/components/Modal.js';
+import { Popover } from '@/components/Popover.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
+import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
@@ -28,6 +29,8 @@ export interface LoginModalProps {
 }
 
 export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | void>>(function LoginModal(_, ref) {
+    const isMedium = useIsMedium();
+
     const [source, setSource] = useState<SocialPlatform>();
     const [profiles, setProfiles] = useState<Profile[]>(EMPTY_LIST);
     const [isDirectly, setIsDirectly] = useState(false);
@@ -96,24 +99,53 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | 
 
     const [open, dispatch] = useSingletonModal(ref, {
         onOpen: async (props) => {
-            if (props?.source) {
-                await handleLogin(props.source);
-                setIsDirectly(true);
-            }
+            if (!props?.source) return;
+            await handleLogin(props.source);
+            setIsDirectly(true);
         },
         onClose: async () => {
             // setSource will trigger a re-render, so we need to delay the setSource(undefined) to avoid the re-render
-            await delay(500);
+            await delay(300);
             setIsDirectly(false);
             setSource(undefined);
         },
     });
 
-    return (
+    const content = !source ? (
+        <div
+            className="flex flex-col rounded-[12px] md:w-[600px]"
+            style={{ boxShadow: '0px 4px 30px 0px rgba(0, 0, 0, 0.10)' }}
+        >
+            <div className="flex w-full flex-col gap-4 p-4 ">
+                {loading ? (
+                    <div className="flex h-[324px] w-full items-center justify-center">
+                        <LoadingIcon className="animate-spin" width={24} height={24} />
+                    </div>
+                ) : (
+                    getEnumAsArray(SocialPlatform).map(({ value: source }) => (
+                        <LoginButton key={source} source={source} onClick={() => handleLogin(source)} />
+                    ))
+                )}
+            </div>
+        </div>
+    ) : (
+        <Suspense
+            fallback={
+                <div className="flex items-center justify-center md:h-[194px] md:w-[600px]">
+                    <LoadingIcon className="animate-spin" width={24} height={24} />
+                </div>
+            }
+        >
+            {source === SocialPlatform.Lens ? <LoginLens profiles={profiles} currentAccount={currentAccount} /> : null}
+            {source === SocialPlatform.Farcaster ? <LoginFarcaster /> : null}
+        </Suspense>
+    );
+
+    return isMedium ? (
         <Modal open={open} onClose={() => dispatch?.close()}>
-            <Dialog.Panel className="transform rounded-[12px] bg-bgModal transition-all">
+            <div className=" transform rounded-[12px] bg-bgModal transition-all">
                 <div
-                    className="inline-flex h-[56px] w-[600px] items-center justify-center gap-2 rounded-t-[12px] p-4"
+                    className="inline-flex items-center justify-center gap-2 rounded-t-[12px] p-4 md:h-[56px] md:w-[600px]"
                     style={{ background: 'var(--m-modal-title-bg)' }}
                 >
                     <button
@@ -140,38 +172,12 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | 
                     </div>
                     <div className="relative h-6 w-6" />
                 </div>
-                {!source ? (
-                    <div
-                        className="flex w-[600px] flex-col rounded-[12px]"
-                        style={{ boxShadow: '0px 4px 30px 0px rgba(0, 0, 0, 0.10)' }}
-                    >
-                        <div className="flex w-full flex-col gap-4 p-4 ">
-                            {loading ? (
-                                <div className="flex h-[324px] w-full items-center justify-center">
-                                    <LoadingIcon className="animate-spin" width={24} height={24} />
-                                </div>
-                            ) : (
-                                getEnumAsArray(SocialPlatform).map(({ value: source }) => (
-                                    <LoginButton key={source} source={source} onClick={() => handleLogin(source)} />
-                                ))
-                            )}
-                        </div>
-                    </div>
-                ) : (
-                    <Suspense
-                        fallback={
-                            <div className="flex h-[194px] w-[600px] items-center justify-center">
-                                <LoadingIcon className="animate-spin" width={24} height={24} />
-                            </div>
-                        }
-                    >
-                        {source === SocialPlatform.Lens ? (
-                            <LoginLens profiles={profiles} currentAccount={currentAccount} />
-                        ) : null}
-                        {source === SocialPlatform.Farcaster ? <LoginFarcaster /> : null}
-                    </Suspense>
-                )}
-            </Dialog.Panel>
+                {content}
+            </div>
         </Modal>
+    ) : (
+        <Popover open={open} onClose={() => dispatch?.close()}>
+            {content}
+        </Popover>
     );
 });

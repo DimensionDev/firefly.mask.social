@@ -15,7 +15,7 @@ export const DiscardModal = forwardRef<SingletonModalRefCreator>(function Discar
 
     return (
         <Modal open={open} onClose={() => dispatch?.close()}>
-            <Dialog.Panel className=" flex w-[370px] flex-col gap-6 overflow-hidden rounded-xl bg-bgModal p-6 text-[15px] transition-all">
+            <div className=" flex w-[370px] flex-col gap-6 overflow-hidden rounded-xl bg-bgModal p-6 text-[15px] transition-all">
                 {/* Title */}
                 <Dialog.Title as="h3" className=" relative h-6">
                     <XMarkIcon
@@ -42,7 +42,7 @@ export const DiscardModal = forwardRef<SingletonModalRefCreator>(function Discar
                 >
                     <Trans>Confirm</Trans>
                 </button>
-            </Dialog.Panel>
+            </div>
         </Modal>
     );
 });

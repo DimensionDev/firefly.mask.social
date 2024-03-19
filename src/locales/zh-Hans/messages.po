@@ -246,9 +246,6 @@ msgstr "获取内容失败。"
 msgid "Reply"
 msgstr "回复"
 
-msgid "Add an existing account"
-msgstr "添加一个已经存在的账号"
-
 msgid "Send"
 msgstr "发送"
 
@@ -284,6 +281,9 @@ msgstr "关注"
 
 msgid "Failed to like. {0}"
 msgstr "点赞失败 {0}"
+
+msgid "Add account"
+msgstr "添加一个已经存在的账号"
 
 msgid "{0} Comments"
 msgstr "{0} 评论"
