@@ -1,7 +1,7 @@
-import { ChatBubbleOvalLeftIcon } from '@heroicons/react/24/outline';
 import { usePathname } from 'next/navigation.js';
 
 import ComposeAddIcon from '@/assets/compose-add.svg';
+import ReplyIcon from '@/assets/reply.svg';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { useCurrentVisitingPost } from '@/hooks/useCurrentVisitingPost.js';
 import { ComposeModalRef } from '@/modals/controls.js';
@@ -22,11 +22,7 @@ export function ComposeButtonForMobile() {
                 });
             }}
         >
-            {isPostPage ? (
-                <ChatBubbleOvalLeftIcon width={24} height={24} fontSize={24} />
-            ) : (
-                <ComposeAddIcon width={24} height={24} />
-            )}
+            {isPostPage ? <ReplyIcon width={24} height={24} /> : <ComposeAddIcon width={24} height={24} />}
         </button>
     );
 }
