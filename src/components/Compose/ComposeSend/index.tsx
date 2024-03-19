@@ -19,23 +19,23 @@ import { MAX_POST_SIZE } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { hasRedPacketPayload } from '@/helpers/hasRedPacketPayload.js';
 import { measureChars } from '@/helpers/readChars.js';
+import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { ComposeModalRef } from '@/modals/controls.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 import { useFarcasterStateStore, useLensStateStore } from '@/store/useProfileStore.js';
 
-interface Props {
-    className?: string;
-    isSmall?: boolean;
-}
+interface ComposeSendProps extends React.HTMLAttributes<HTMLDivElement> {}
 
-export default function ComposeSend({ className, isSmall }: Props) {
+export function ComposeSend(props: ComposeSendProps) {
     const { chars, images, type, video, currentSource, availableSources, post } = useComposeStateStore();
 
     const { length, visibleLength, invisibleLength } = measureChars(chars);
 
+    const isMedium = useIsMedium();
+    const queryClient = useQueryClient();
+
     const sendLens = useSendLens();
     const sendFarcaster = useSendFarcaster();
-    const queryClient = useQueryClient();
     const currentLensProfile = useLensStateStore.use.currentProfile();
     const currentFarcasterProfile = useFarcasterStateStore.use.currentProfile();
 
@@ -182,9 +182,13 @@ export default function ComposeSend({ className, isSmall }: Props) {
         handleSend;
     };
 
-    if (isSmall) {
+    if (!isMedium) {
         return (
-            <button className={classNames(className, 'disabled:opacity-50', {})} disabled={disabled} onClick={send}>
+            <button
+                className={'absolute right-4 top-1/2 -translate-y-1/2 cursor-pointer disabled:opacity-50'}
+                disabled={disabled}
+                onClick={send}
+            >
                 <Send2Icon className={'h-6 w-6'} />
             </button>
         );

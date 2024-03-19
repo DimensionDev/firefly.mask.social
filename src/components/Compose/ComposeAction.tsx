@@ -168,7 +168,7 @@ export default function ComposeAction(props: ComposeActionProps) {
 
                 <div
                     className={classNames(
-                        'flex cursor-pointer items-center gap-x-2 rounded-[32px] border border-foreground px-3 py-1 sm:box-border sm:h-6',
+                        'flex h-6 cursor-pointer items-center gap-x-2 rounded-[32px] border border-foreground px-3 py-1 md:h-auto',
                         {
                             'opacity-50': loading,
                         },
