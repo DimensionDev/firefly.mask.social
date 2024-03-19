@@ -9,13 +9,12 @@ import { useDocumentTitle } from 'usehooks-ts';
 import ComeBack from '@/assets/comeback.svg';
 import { CommentList } from '@/components/Comments/index.js';
 import { SinglePost } from '@/components/Posts/SinglePost.js';
-import { PageRoutes, SocialPlatform, SourceInURL } from '@/constants/enum.js';
+import { SocialPlatform, SourceInURL } from '@/constants/enum.js';
 import { SITE_NAME } from '@/constants/index.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { createPageTitle } from '@/helpers/createPageTitle.js';
 import { resolveSource } from '@/helpers/resolveSource.js';
 import { getPostById } from '@/services/getPostById.js';
-import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 
 const PostActions = dynamic(() => import('@/components/Actions/index.js').then((module) => module.PostActions), {
@@ -35,7 +34,6 @@ export default function PostPage({ params: { id: postId, source } }: PostPagePro
 
     const fetchAndStoreViews = useImpressionsStore.use.fetchAndStoreViews();
 
-    const routeChanged = useGlobalState.use.routeChanged();
     const { data } = useSuspenseQuery({
         queryKey: [currentSource, 'post-detail', postId],
         queryFn: async () => {
@@ -56,18 +54,7 @@ export default function PostPage({ params: { id: postId, source } }: PostPagePro
     return (
         <div className="min-h-screen">
             <div className="sticky top-0 z-40 flex items-center bg-primaryBottom px-4 py-[18px]">
-                <ComeBack
-                    width={24}
-                    height={24}
-                    className="mr-8 cursor-pointer"
-                    onClick={() => {
-                        if (!routeChanged) {
-                            router.push(PageRoutes.Home);
-                            return;
-                        }
-                        router.back();
-                    }}
-                />
+                <ComeBack width={24} height={24} className="mr-8 cursor-pointer" onClick={() => router.back()} />
                 <h2 className="text-xl font-black leading-6">
                     <Trans>Details</Trans>
                 </h2>

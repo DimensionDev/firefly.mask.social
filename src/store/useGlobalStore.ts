@@ -5,22 +5,21 @@ import { SocialPlatform } from '@/constants/enum.js';
 import { clearSessionStorageByPrefix } from '@/helpers/clearSessionStorageByPrefix.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 
-const restore_scroll_prefix = 'rusted_labs_nextjs_scroll_restoration';
+const RESTORE_SCROLL_PREFIX = 'rusted_labs_nextjs_scroll_restoration';
+
 interface GlobalState {
     currentSource: SocialPlatform;
-    routeChanged: boolean;
     updateCurrentSource: (source: SocialPlatform) => void;
 }
 
 const useGlobalStateBase = create<GlobalState, [['zustand/immer', never]]>(
     immer((set) => ({
-        routeChanged: false,
         currentSource: SocialPlatform.Farcaster,
         updateCurrentSource: (source: SocialPlatform) =>
             set((state) => {
                 state.currentSource = source;
                 // Clear all recorded scroll positions when switching source tabs
-                clearSessionStorageByPrefix(restore_scroll_prefix);
+                clearSessionStorageByPrefix(RESTORE_SCROLL_PREFIX);
             }),
     })),
 );
