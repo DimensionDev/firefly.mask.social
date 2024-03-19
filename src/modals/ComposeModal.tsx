@@ -193,7 +193,7 @@ export const ComposeModalComponent = forwardRef<SingletonModalRefCreator<Compose
 
         return (
             <Modal open={open} onClose={onClose}>
-                <div className="relative h-[100vh] w-[100vw] md:rounded-xl bg-bgModal shadow-popover transition-all dark:text-gray-950 md:h-auto md:w-[600px]">
+                <div className="relative h-[100vh] w-[100vw] bg-bgModal shadow-popover transition-all dark:text-gray-950 md:h-auto md:w-[600px] md:rounded-xl">
                     {/* Loading */}
                     {loading || encryptRedPacketLoading ? (
                         <div className=" absolute bottom-0 left-0 right-0 top-0 z-50 flex items-center justify-center">
