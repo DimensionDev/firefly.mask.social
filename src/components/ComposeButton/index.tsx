@@ -1,3 +1,5 @@
+'use client';
+
 import { ComposeButtonForMobile } from '@/components/ComposeButton/ComposeButtonForMobile.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 
