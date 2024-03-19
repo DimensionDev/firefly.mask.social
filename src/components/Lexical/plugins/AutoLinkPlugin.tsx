@@ -42,8 +42,6 @@ const MATCHERS = [
     },
 ];
 
-function LexicalAutoLinkPlugin() {
+export function LexicalAutoLinkPlugin() {
     return <AutoLinkPlugin matchers={MATCHERS} />;
 }
-
-export default LexicalAutoLinkPlugin;

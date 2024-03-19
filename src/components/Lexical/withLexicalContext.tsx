@@ -17,7 +17,7 @@ const initialConfig = {
     onError: () => {},
 };
 
-const withLexicalContext = (Component: ComponentType<any>) => {
+export const withLexicalContext = (Component: ComponentType<any>) => {
     function LexicalContext(props: any) {
         const config = useMemo<InitialConfigType>(() => {
             return {
@@ -34,5 +34,3 @@ const withLexicalContext = (Component: ComponentType<any>) => {
 
     return LexicalContext;
 };
-
-export default withLexicalContext;

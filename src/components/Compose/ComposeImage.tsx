@@ -12,7 +12,7 @@ interface ComposeImageProps {
     index: number;
     image: MediaObject;
 }
-const ComposeImage = memo(function ComposeImage({ index, image }: ComposeImageProps) {
+export const ComposeImage = memo(function ComposeImage({ index, image }: ComposeImageProps) {
     const { images, removeImage } = useComposeStateStore();
     const blobURL = useMemo(() => URL.createObjectURL(image.file), [image.file]);
 
@@ -41,5 +41,3 @@ const ComposeImage = memo(function ComposeImage({ index, image }: ComposeImagePr
         </div>
     );
 });
-
-export default ComposeImage;

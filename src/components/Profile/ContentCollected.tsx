@@ -19,7 +19,7 @@ interface ContentFeedProps {
     profileId: string;
     source: SocialPlatform;
 }
-export default function ContentCollected({ profileId, source }: ContentFeedProps) {
+export function ContentCollected({ profileId, source }: ContentFeedProps) {
     const fetchAndStoreViews = useImpressionsStore.use.fetchAndStoreViews();
     const { data, hasNextPage, fetchNextPage, isFetchingNextPage, isFetching } = useSuspenseInfiniteQuery({
         queryKey: ['getPostsByBookmarks', source, profileId],

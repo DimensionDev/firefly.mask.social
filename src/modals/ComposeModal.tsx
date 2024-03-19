@@ -18,9 +18,9 @@ import { None } from 'ts-results-es';
 import urlcat from 'urlcat';
 
 import LoadingIcon from '@/assets/loading.svg';
-import ComposeAction from '@/components/Compose/ComposeAction.js';
-import ComposeContent from '@/components/Compose/ComposeContent.js';
-import ComposeSend from '@/components/Compose/ComposeSend/index.js';
+import { ComposeAction } from '@/components/Compose/ComposeAction.js';
+import { ComposeContent } from '@/components/Compose/ComposeContent.js';
+import { ComposeSend } from '@/components/Compose/ComposeSend/index.js';
 import { useSetEditorContent } from '@/components/Compose/useSetEditorContent.js';
 import { MentionNode } from '@/components/Lexical/nodes/MentionsNode.js';
 import { Modal } from '@/components/Modal.js';

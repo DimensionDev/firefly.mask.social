@@ -13,9 +13,9 @@ import AtIcon from '@/assets/at.svg';
 import GalleryIcon from '@/assets/gallery.svg';
 import NumberSignIcon from '@/assets/number-sign.svg';
 import RedPacketIcon from '@/assets/red-packet.svg';
-import Media from '@/components/Compose/Media.js';
-import PostBy from '@/components/Compose/PostBy.js';
-import ReplyRestriction from '@/components/Compose/ReplyRestriction.js';
+import { Media } from '@/components/Compose/Media.js';
+import { PostBy } from '@/components/Compose/PostBy.js';
+import { ReplyRestriction } from '@/components/Compose/ReplyRestriction.js';
 import { SourceIcon } from '@/components/SourceIcon.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { SocialPlatform } from '@/constants/enum.js';
@@ -28,7 +28,7 @@ import { useFarcasterStateStore, useLensStateStore } from '@/store/useProfileSto
 
 interface ComposeActionProps {}
 
-export default function ComposeAction(props: ComposeActionProps) {
+export function ComposeAction(props: ComposeActionProps) {
     const [restriction, setRestriction] = useState(0);
 
     const currentLensProfile = useLensStateStore.use.currentProfile();

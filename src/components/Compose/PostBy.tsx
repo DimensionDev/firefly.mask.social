@@ -7,7 +7,7 @@ import { SocialPlatform } from '@/constants/enum.js';
 
 interface PostByProps {}
 
-export default function PostBy(props: PostByProps) {
+export function PostBy(props: PostByProps) {
     return (
         <Transition
             as={Fragment}

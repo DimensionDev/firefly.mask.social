@@ -18,7 +18,7 @@ interface ContentFeedProps {
     profileId: string;
     source: SocialPlatform;
 }
-export default function ContentFeed({ profileId, source }: ContentFeedProps) {
+export function ContentFeed({ profileId, source }: ContentFeedProps) {
     const fetchAndStoreViews = useImpressionsStore.use.fetchAndStoreViews();
 
     const { data, hasNextPage, fetchNextPage, isFetchingNextPage, isFetching } = useSuspenseInfiniteQuery({

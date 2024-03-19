@@ -1,9 +1,9 @@
 import { Trans } from '@lingui/macro';
 import { Suspense, useState } from 'react';
 
-import Loading from '@/components/Loading.js';
-import ContentCollected from '@/components/Profile/ContentCollected.js';
-import ContentFeed from '@/components/Profile/ContentFeed.js';
+import { Loading } from '@/components/Loading.js';
+import { ContentCollected } from '@/components/Profile/ContentCollected.js';
+import { ContentFeed } from '@/components/Profile/ContentFeed.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 
@@ -16,7 +16,7 @@ interface ContentTabsProps {
     profileId: string;
     source: SocialPlatform;
 }
-export default function ContentTabs({ profileId, source }: ContentTabsProps) {
+export function ContentTabs({ profileId, source }: ContentTabsProps) {
     const [tab, setTab] = useState<TabEnum>(TabEnum.Feed);
 
     return (

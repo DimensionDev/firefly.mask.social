@@ -10,7 +10,7 @@ import { memo } from 'react';
 import { useDebounce } from 'react-use';
 
 import { MentionsPlugin } from '@/components/Lexical/plugins/AtMentionsPlugin.js';
-import LexicalAutoLinkPlugin from '@/components/Lexical/plugins/AutoLinkPlugin.js';
+import { LexicalAutoLinkPlugin } from '@/components/Lexical/plugins/AutoLinkPlugin.js';
 import { classNames } from '@/helpers/classNames.js';
 import { writeChars } from '@/helpers/readChars.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
@@ -23,7 +23,7 @@ function ErrorBoundaryComponent() {
     );
 }
 
-const Editor = memo(function Editor() {
+export const Editor = memo(function Editor() {
     const {
         type,
         post,
@@ -89,5 +89,3 @@ const Editor = memo(function Editor() {
         </div>
     );
 });
-
-export default Editor;

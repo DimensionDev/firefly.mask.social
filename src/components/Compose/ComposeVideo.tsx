@@ -5,7 +5,7 @@ import CloseIcon from '@/assets/close.svg';
 import { Tippy } from '@/esm/Tippy.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 
-export default function ComposeVideo() {
+export function ComposeVideo() {
     const { video, updateVideo } = useComposeStateStore();
     const blobURL = useMemo(() => (video?.file ? URL.createObjectURL(video.file) : ''), [video?.file]);
 

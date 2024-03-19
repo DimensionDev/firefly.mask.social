@@ -13,7 +13,7 @@ import { useFarcasterStateStore } from '@/store/useProfileStore.js';
 interface MediaProps {
     close: () => void;
 }
-export default function Media({ close }: MediaProps) {
+export function Media({ close }: MediaProps) {
     const imageInputRef = useRef<HTMLInputElement>(null);
     const videoInputRef = useRef<HTMLInputElement>(null);
 

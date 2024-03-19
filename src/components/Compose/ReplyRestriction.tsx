@@ -11,7 +11,7 @@ interface ReplyRestrictionProps {
     restriction: number;
     setRestriction: (restriction: number) => void;
 }
-export default function ReplyRestriction({ restriction, setRestriction }: ReplyRestrictionProps) {
+export function ReplyRestriction({ restriction, setRestriction }: ReplyRestrictionProps) {
     const currentFarcasterProfile = useFarcasterStateStore.use.currentProfile();
 
     const disabled = useMemo(() => !!currentFarcasterProfile?.profileId, [currentFarcasterProfile?.profileId]);
