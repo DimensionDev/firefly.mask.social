@@ -20,7 +20,6 @@ import { getLocaleFromCookies } from '@/helpers/getLocaleFromCookies.js';
 import { DarkModeContext } from '@/hooks/useDarkMode.js';
 import { useMounted } from '@/hooks/useMounted.js';
 import { setLocale } from '@/i18n/index.js';
-import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useLeafwatchPersistStore } from '@/store/useLeafwatchPersistStore.js';
 import { useThemeModeStore } from '@/store/useThemeModeStore.js';
 
@@ -61,15 +60,7 @@ export function Providers(props: { children: React.ReactNode }) {
     useEffect(() => {
         if (!entryPathname.current || pathname === entryPathname.current) {
             entryPathname.current = pathname;
-            return;
         }
-
-        useGlobalState.setState((state) => {
-            return {
-                ...state,
-                routeChanged: true,
-            };
-        });
     }, [pathname]);
 
     const mounted = useMounted();
