@@ -1,4 +1,4 @@
-export enum PageRoutes {
+export enum PageRoute {
     Home = '/',
     Following = '/following',
     Notifications = '/notifications',

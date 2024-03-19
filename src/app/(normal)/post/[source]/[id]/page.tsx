@@ -48,8 +48,8 @@ export default function Page({ params: { id: postId, source } }: PageProps) {
         },
     });
 
-    useUpdateCurrentVisitingPost(post);
     useDocumentTitle(post ? createPageTitle(t`Post by ${post?.author.displayName}`) : SITE_NAME);
+    useUpdateCurrentVisitingPost(post);
 
     if (!post) return;
 
