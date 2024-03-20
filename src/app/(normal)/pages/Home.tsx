@@ -18,7 +18,14 @@ import type { Post } from '@/providers/types/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 
-export function Home({ source, pageable }: { source: SocialPlatform; pageable?: Pageable<Post, PageIndicator> }) {
+interface Props {
+    // the source of the posts
+    source: SocialPlatform;
+    // the pageable posts from RSC
+    pageable?: Pageable<Post, PageIndicator>;
+}
+
+export function Home({ source, pageable }: Props) {
     const currentSource = useGlobalState.use.currentSource();
 
     const fetchAndStoreViews = useImpressionsStore.use.fetchAndStoreViews();

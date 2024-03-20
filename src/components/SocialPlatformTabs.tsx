@@ -1,12 +1,13 @@
 'use client';
 
 import { getEnumAsArray } from '@masknet/kit';
-import { usePathname, useSearchParams } from 'next/navigation.js';
+import { usePathname } from 'next/navigation.js';
 import { startTransition } from 'react';
 
 import { SocialPlatform, SourceInURL } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
+import { replaceSearchParams } from '@/helpers/replaceSearchParams.js';
 import { resolveSocialPlatform } from '@/helpers/resolveSocialPlatform.js';
 import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
@@ -17,7 +18,6 @@ export function SocialPlatformTabs() {
     const lensProfile = useCurrentProfile(SocialPlatform.Lens);
     const farcasterProfile = useCurrentProfile(SocialPlatform.Farcaster);
 
-    const searchParams = useSearchParams();
     const pathname = usePathname();
 
     if (isRoutePathname(pathname, '/settings') || isRoutePathname(pathname, '/post')) return null;
@@ -51,19 +51,10 @@ export function SocialPlatformTabs() {
                                 startTransition(() => {
                                     scrollTo(0, 0);
                                     updateCurrentSource(value);
-
-                                    const newSearchParams = new URLSearchParams(searchParams);
-                                    newSearchParams.set('source', resolveSourceInURL(value));
-                                    const newURL = `${pathname}?${newSearchParams}`;
-
-                                    history.replaceState(
-                                        {
-                                            ...history.state,
-                                            as: newURL,
-                                            url: newURL,
-                                        },
-                                        '',
-                                        newURL,
+                                    replaceSearchParams(
+                                        new URLSearchParams({
+                                            source: resolveSourceInURL(value),
+                                        }),
                                     );
                                 })
                             }
