@@ -5,7 +5,7 @@
  */
 export function replaceSearchParams(params: URLSearchParams) {
     const newSearchParams = new URLSearchParams(location.search);
-    params.forEach((key, value) => newSearchParams.set(key, value));
+    params.forEach((value, key) => newSearchParams.set(key, value));
 
     const newURL = `${location.pathname}?${newSearchParams}`;
 
