@@ -8,7 +8,7 @@ msgstr ""
 "Language: ko\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-03-19 12:01\n"
+"PO-Revision-Date: 2024-03-20 12:01\n"
 "Last-Translator: \n"
 "Language-Team: Korean\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -117,6 +117,9 @@ msgstr ""
 msgid "Confirm"
 msgstr ""
 
+msgid "Username"
+msgstr ""
+
 msgid "Failed to upload image to IPFS."
 msgstr ""
 
@@ -127,6 +130,9 @@ msgid "Page not found"
 msgstr ""
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/> and # others}} <4>liked your </4><5><6/></5>"
+msgstr ""
+
+msgid "Password"
 msgstr ""
 
 msgid "Liked"
