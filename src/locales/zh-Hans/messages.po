@@ -117,6 +117,9 @@ msgstr "评论"
 msgid "Confirm"
 msgstr "确认"
 
+msgid "Username"
+msgstr ""
+
 msgid "Failed to upload image to IPFS."
 msgstr "上传图片失败。"
 
@@ -128,6 +131,9 @@ msgstr "找不到网页"
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/> and # others}} <4>liked your </4><5><6/></5>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> 和 <2/>} other {<3/> 和其他 # 人}} <4>点赞了你的 </4><5><6/></5>"
+
+msgid "Password"
+msgstr ""
 
 msgid "Liked"
 msgstr "已点赞"

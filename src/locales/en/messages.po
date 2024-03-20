@@ -112,6 +112,9 @@ msgstr "comment"
 msgid "Confirm"
 msgstr "Confirm"
 
+msgid "Username"
+msgstr "Username"
+
 msgid "Failed to upload image to IPFS."
 msgstr "Failed to upload image to IPFS."
 
@@ -123,6 +126,9 @@ msgstr "Page not found"
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/> and # others}} <4>liked your </4><5><6/></5>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/> and # others}} <4>liked your </4><5><6/></5>"
+
+msgid "Password"
+msgstr "Password"
 
 msgid "Liked"
 msgstr "Liked"
