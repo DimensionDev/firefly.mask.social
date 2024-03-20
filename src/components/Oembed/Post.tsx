@@ -4,7 +4,7 @@ import { memo } from 'react';
 
 import { Quote } from '@/components/Posts/Quote.js';
 import { SocialPlatform, type SourceInURL } from '@/constants/enum.js';
-import { resolveSource } from '@/helpers/resolveSource.js';
+import { resolveSocialPlatform } from '@/helpers/resolveSocialPlatform.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
@@ -15,7 +15,7 @@ interface PostEmbedProps {
 }
 
 export const PostEmbed = memo<PostEmbedProps>(function PostEmbed({ id, source }) {
-    const currentSource = resolveSource(source);
+    const currentSource = resolveSocialPlatform(source);
     const fetchAndStoreViews = useImpressionsStore.use.fetchAndStoreViews();
 
     const { data } = useSuspenseQuery({

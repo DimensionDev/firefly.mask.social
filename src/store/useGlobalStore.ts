@@ -1,11 +1,20 @@
 import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
 
-import { SocialPlatform } from '@/constants/enum.js';
+import { SocialPlatform, SourceInURL } from '@/constants/enum.js';
 import { clearSessionStorageByPrefix } from '@/helpers/clearSessionStorageByPrefix.js';
 import { createSelectors } from '@/helpers/createSelector.js';
+import { resolveSocialPlatform } from '@/helpers/resolveSocialPlatform.js';
 
 const RESTORE_SCROLL_PREFIX = 'rusted_labs_nextjs_scroll_restoration';
+
+const getCurrentSource = () => {
+    if (typeof document === 'undefined') return SocialPlatform.Farcaster;
+    const searchParams = new URLSearchParams(location.search);
+    const source = searchParams.get('source') as SourceInURL | null;
+    if (!source) return SocialPlatform.Farcaster;
+    return resolveSocialPlatform(source) ?? SocialPlatform.Farcaster;
+};
 
 interface GlobalState {
     currentSource: SocialPlatform;
@@ -14,7 +23,7 @@ interface GlobalState {
 
 const useGlobalStateBase = create<GlobalState, [['zustand/immer', never]]>(
     immer((set) => ({
-        currentSource: SocialPlatform.Farcaster,
+        currentSource: getCurrentSource(),
         updateCurrentSource: (source: SocialPlatform) =>
             set((state) => {
                 state.currentSource = source;

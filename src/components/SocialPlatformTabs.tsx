@@ -7,7 +7,9 @@ import { startTransition } from 'react';
 import { SocialPlatform, SourceInURL } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
-import { resolveSource } from '@/helpers/resolveSource.js';
+import { replaceSearchParams } from '@/helpers/replaceSearchParams.js';
+import { resolveSocialPlatform } from '@/helpers/resolveSocialPlatform.js';
+import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 
@@ -24,7 +26,7 @@ export function SocialPlatformTabs() {
         const param = pathname.split('/');
         const handle = param[param.length - 1];
         const sourceString = param[param.length - 2] as SourceInURL;
-        const source = resolveSource(sourceString);
+        const source = resolveSocialPlatform(sourceString);
 
         if (source === SocialPlatform.Farcaster && farcasterProfile?.profileId !== handle) return null;
         if (source === SocialPlatform.Lens && lensProfile?.handle !== handle) return null;
@@ -34,10 +36,7 @@ export function SocialPlatformTabs() {
         <div className="border-b border-line bg-primaryBottom px-4">
             <nav className="-mb-px flex space-x-4" aria-label="Tabs">
                 {getEnumAsArray(SocialPlatform).map(({ key, value }) => (
-                    <li
-                        key={key}
-                        className={classNames('flex flex-1 list-none justify-center', 'lg:flex-auto lg:justify-start')}
-                    >
+                    <li key={key} className="flex flex-1 list-none justify-center lg:flex-initial lg:justify-start">
                         <a
                             className={classNames(
                                 currentSource === value ? 'border-b-2 border-[#9250FF] text-main' : 'text-third',
@@ -49,6 +48,11 @@ export function SocialPlatformTabs() {
                                 startTransition(() => {
                                     scrollTo(0, 0);
                                     updateCurrentSource(value);
+                                    replaceSearchParams(
+                                        new URLSearchParams({
+                                            source: resolveSourceInURL(value),
+                                        }),
+                                    );
                                 })
                             }
                         >

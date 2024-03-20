@@ -13,7 +13,7 @@ import { SocialPlatform, SourceInURL } from '@/constants/enum.js';
 import { SITE_NAME } from '@/constants/index.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { createPageTitle } from '@/helpers/createPageTitle.js';
-import { resolveSource } from '@/helpers/resolveSource.js';
+import { resolveSocialPlatform } from '@/helpers/resolveSocialPlatform.js';
 import { useUpdateCurrentVisitingPost } from '@/hooks/useCurrentVisitingPost.js';
 import { getPostById } from '@/services/getPostById.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
@@ -31,7 +31,7 @@ interface PageProps {
 
 export default function Page({ params: { id: postId, source } }: PageProps) {
     const router = useRouter();
-    const currentSource = resolveSource(source);
+    const currentSource = resolveSocialPlatform(source);
 
     const fetchAndStoreViews = useImpressionsStore.use.fetchAndStoreViews();
 

@@ -28,4 +28,6 @@ export enum Locale {
     zhHans = 'zh-Hans',
 }
 
+export type SearchParams = Record<string, string | string[] | undefined>;
+
 export type PartialWith<T, K extends keyof T> = Partial<Pick<T, K>> & Omit<T, K>;

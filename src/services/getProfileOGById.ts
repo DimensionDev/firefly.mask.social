@@ -5,11 +5,11 @@ import { SITE_URL } from '@/constants/index.js';
 import { createPageTitle } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
-import { resolveSource } from '@/helpers/resolveSource.js';
+import { resolveSocialPlatform } from '@/helpers/resolveSocialPlatform.js';
 import { getProfileById } from '@/services/getProfileById.js';
 
 export async function getProfileOGById(source: SourceInURL, profileId: string) {
-    const profile = await getProfileById(resolveSource(source), profileId);
+    const profile = await getProfileById(resolveSocialPlatform(source), profileId);
     if (!profile) return createSiteMetadata();
 
     const images = [
