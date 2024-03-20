@@ -19,8 +19,11 @@ import { ReplyRestriction } from '@/components/Compose/ReplyRestriction.js';
 import { SourceIcon } from '@/components/SourceIcon.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { SocialPlatform } from '@/constants/enum.js';
+import { MAX_POST_SIZE } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { connectMaskWithWagmi } from '@/helpers/connectWagmiWithMask.js';
+import { measureChars } from '@/helpers/readChars.js';
+import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { PluginDebuggerMessages } from '@/mask/message-host/index.js';
 import { ComposeModalRef } from '@/modals/controls.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
@@ -30,13 +33,15 @@ interface ComposeActionProps {}
 
 export function ComposeAction(props: ComposeActionProps) {
     const [restriction, setRestriction] = useState(0);
+    const isMedium = useIsMedium();
 
     const currentLensProfile = useLensStateStore.use.currentProfile();
     const currentFarcasterProfile = useFarcasterStateStore.use.currentProfile();
     const lensProfiles = useLensStateStore.use.profiles();
     const farcasterProfiles = useFarcasterStateStore.use.profiles();
 
-    const { type, post, images, video, availableSources, currentSource } = useComposeStateStore();
+    const { chars, type, post, images, video, availableSources, currentSource } = useComposeStateStore();
+    const { length, visibleLength, invisibleLength } = useMemo(() => measureChars(chars), [chars]);
 
     const [editor] = useLexicalComposerContext();
 
@@ -168,7 +173,7 @@ export function ComposeAction(props: ComposeActionProps) {
 
                 <div
                     className={classNames(
-                        'flex h-6 cursor-pointer items-center gap-x-2 rounded-[32px] border border-foreground px-3 py-1 md:h-auto',
+                        'hidden h-6 cursor-pointer items-center gap-x-2 rounded-[32px] border border-foreground px-3 py-1 md:flex md:h-auto',
                         {
                             'opacity-50': loading,
                         },
@@ -183,6 +188,14 @@ export function ComposeAction(props: ComposeActionProps) {
                         <Trans>LuckyDrop</Trans>
                     </span>
                 </div>
+
+                {visibleLength && !isMedium ? (
+                    <div className=" ml-auto flex items-center gap-[10px] whitespace-nowrap text-[15px] text-main">
+                        <span className={classNames(length > MAX_POST_SIZE ? 'text-danger' : '')}>
+                            {visibleLength} / {MAX_POST_SIZE - invisibleLength}
+                        </span>
+                    </div>
+                ) : null}
             </div>
 
             <div className=" flex h-9 items-center justify-between">
