@@ -1,39 +1,48 @@
 /* cspell:disable */
 
+import { t } from '@lingui/macro';
 import type { AuthOptions } from 'next-auth';
+import type { Provider } from 'next-auth/providers/index';
 
 import { CredentialsProvider } from '@/esm/CredentialsProvider.js';
 import { TwitterProvider } from '@/esm/TwitterProvider.js';
 
-export const authOptions: AuthOptions = {
-    debug: process.env.NODE_ENV === 'development',
-    providers: [
+const providers: Provider[] = [
+    TwitterProvider({
+        id: 'twitter',
+        clientId: process.env.TWITTER_CLIENT_ID,
+        clientSecret: process.env.TWITTER_CLIENT_SECRET,
+        version: '2.0',
+    }),
+];
+
+if (process.env.NODE_ENV === 'development') {
+    providers.push(
         TwitterProvider({
             id: 'twitter_legacy',
             clientId: process.env.TWITTER_CLIENT_ID,
             clientSecret: process.env.TWITTER_CLIENT_SECRET,
         }),
-        TwitterProvider({
-            clientId: process.env.TWITTER_CLIENT_ID,
-            clientSecret: process.env.TWITTER_CLIENT_SECRET,
-            version: '2.0',
-        }),
+    );
+    providers.push(
         CredentialsProvider({
+            id: 'credentials',
             name: 'Credentials',
             credentials: {
-                username: { label: 'Username', type: 'text', placeholder: 'jsmith' },
-                password: { label: 'Password', type: 'password' },
+                username: { label: t`Username`, type: 'text', placeholder: 'firefly' },
+                password: { label: t`Password`, type: '' },
             },
             async authorize(credentials: Record<'username' | 'password', string> | undefined) {
-                const user = { id: '1', name: 'jsmith', email: 'smith@jsmith.com' };
-
-                if (credentials?.username === user.name && credentials?.password === 'password') {
-                    return user;
-                }
-                return null;
+                const user = { id: '1', name: 'firefly', email: 'firefly@mask.io' };
+                return credentials?.username === user.name && credentials?.password === '' ? user : null;
             },
         }),
-    ],
+    );
+}
+
+export const authOptions: AuthOptions = {
+    debug: process.env.NODE_ENV === 'development',
+    providers,
     callbacks: {
         jwt: async ({ token, user, account, profile, trigger, session }) => {
             console.log('DEBUG: jwt');
