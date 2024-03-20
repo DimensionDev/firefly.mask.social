@@ -9,6 +9,7 @@ import { resolveSocialPlatform } from '@/helpers/resolveSocialPlatform.js';
 const RESTORE_SCROLL_PREFIX = 'rusted_labs_nextjs_scroll_restoration';
 
 const getCurrentSource = () => {
+    if (typeof document === 'undefined') return SocialPlatform.Farcaster;
     const searchParams = new URLSearchParams(location.search);
     const source = searchParams.get('source') as SourceInURL | null;
     if (!source) return SocialPlatform.Farcaster;
