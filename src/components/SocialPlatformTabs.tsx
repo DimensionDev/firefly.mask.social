@@ -38,7 +38,7 @@ export function SocialPlatformTabs() {
                 {getEnumAsArray(SocialPlatform).map(({ key, value }) => (
                     <li
                         key={key}
-                        className={classNames('flex flex-1 list-none justify-center', 'lg:flex-auto lg:justify-start')}
+                        className="flex flex-1 list-none justify-center lg:flex-initial lg:justify-start"
                     >
                         <a
                             className={classNames(
