@@ -12,7 +12,7 @@ import { Title } from '@/components/Profile/Title.js';
 import type { SourceInURL } from '@/constants/enum.js';
 import { SITE_NAME } from '@/constants/index.js';
 import { createPageTitle } from '@/helpers/createPageTitle.js';
-import { resolveSource } from '@/helpers/resolveSource.js';
+import { resolveSocialPlatform } from '@/helpers/resolveSocialPlatform.js';
 import { useUpdateCurrentVisitingProfile } from '@/hooks/useCurrentVisitingProfile.js';
 import { useIsMyProfile } from '@/hooks/useIsMyProfile.js';
 import { getProfileById } from '@/services/getProfileById.js';
@@ -24,7 +24,7 @@ interface PageProps {
     };
 }
 export default function Page({ params: { source: _source, id: handleOrProfileId } }: PageProps) {
-    const currentSource = resolveSource(_source);
+    const currentSource = resolveSocialPlatform(_source);
     const isMyProfile = useIsMyProfile(currentSource, handleOrProfileId);
 
     const { data: profile = null, isLoading } = useQuery({

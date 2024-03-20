@@ -1,13 +1,14 @@
 'use client';
 
 import { getEnumAsArray } from '@masknet/kit';
-import { usePathname } from 'next/navigation.js';
+import { usePathname, useSearchParams } from 'next/navigation.js';
 import { startTransition } from 'react';
 
 import { SocialPlatform, SourceInURL } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
-import { resolveSource } from '@/helpers/resolveSource.js';
+import { resolveSocialPlatform } from '@/helpers/resolveSocialPlatform.js';
+import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 
@@ -16,6 +17,7 @@ export function SocialPlatformTabs() {
     const lensProfile = useCurrentProfile(SocialPlatform.Lens);
     const farcasterProfile = useCurrentProfile(SocialPlatform.Farcaster);
 
+    const searchParams = useSearchParams();
     const pathname = usePathname();
 
     if (isRoutePathname(pathname, '/settings') || isRoutePathname(pathname, '/post')) return null;
@@ -24,7 +26,7 @@ export function SocialPlatformTabs() {
         const param = pathname.split('/');
         const handle = param[param.length - 1];
         const sourceString = param[param.length - 2] as SourceInURL;
-        const source = resolveSource(sourceString);
+        const source = resolveSocialPlatform(sourceString);
 
         if (source === SocialPlatform.Farcaster && farcasterProfile?.profileId !== handle) return null;
         if (source === SocialPlatform.Lens && lensProfile?.handle !== handle) return null;
@@ -49,6 +51,20 @@ export function SocialPlatformTabs() {
                                 startTransition(() => {
                                     scrollTo(0, 0);
                                     updateCurrentSource(value);
+
+                                    const newSearchParams = new URLSearchParams(searchParams);
+                                    newSearchParams.set('source', resolveSourceInURL(value));
+                                    const newURL = `${pathname}?${newSearchParams}`;
+
+                                    history.replaceState(
+                                        {
+                                            ...history.state,
+                                            as: newURL,
+                                            url: newURL,
+                                        },
+                                        '',
+                                        newURL,
+                                    );
                                 })
                             }
                         >

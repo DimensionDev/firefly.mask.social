@@ -18,7 +18,7 @@ import type { Post } from '@/providers/types/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 
-export function Home({ pageable }: { pageable: Pageable<Post, PageIndicator> }) {
+export function Home({ source, pageable }: { source: SocialPlatform; pageable?: Pageable<Post, PageIndicator> }) {
     const currentSource = useGlobalState.use.currentSource();
 
     const fetchAndStoreViews = useImpressionsStore.use.fetchAndStoreViews();
@@ -28,7 +28,7 @@ export function Home({ pageable }: { pageable: Pageable<Post, PageIndicator> }) 
 
         queryFn: async ({ pageParam }) => {
             // return the first page if the pageParam is empty
-            if (pageParam === '' && pageable) return pageable;
+            if (pageParam === '' && pageable?.data.length && source === currentSource) return pageable;
 
             const posts = await discoverPosts(currentSource, createIndicator(undefined, pageParam));
             if (currentSource === SocialPlatform.Lens) fetchAndStoreViews(posts.data.flatMap((x) => [x.postId]));
