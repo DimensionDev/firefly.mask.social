@@ -1,8 +1,6 @@
-'use client';
-
 import { t, Trans } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
-import { createIndicator, createPageable } from '@masknet/shared-base';
+import { createIndicator, createPageable, type Pageable, type PageIndicator } from '@masknet/shared-base';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { useMemo } from 'react';
 import { useInView } from 'react-cool-inview';
@@ -16,10 +14,23 @@ import { EMPTY_LIST } from '@/constants/index.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 
-export default function Home() {
+const fetchPosts = async (source: SocialPlatform, indicator: PageIndicator): Promise<Pageable<Post, PageIndicator>> => {
+    switch (source) {
+        case SocialPlatform.Lens:
+            return LensSocialMediaProvider.discoverPosts(indicator);
+        case SocialPlatform.Farcaster:
+            return FarcasterSocialMediaProvider.discoverPosts(indicator);
+        default:
+            safeUnreachable(source);
+            return createPageable([], indicator);
+    }
+};
+
+function Page({ pageable }: { pageable: Pageable<Post, PageIndicator> }) {
     const currentSource = useGlobalState.use.currentSource();
 
     const fetchAndStoreViews = useImpressionsStore.use.fetchAndStoreViews();
@@ -28,19 +39,12 @@ export default function Home() {
         networkMode: 'always',
 
         queryFn: async ({ pageParam }) => {
-            switch (currentSource) {
-                case SocialPlatform.Lens:
-                    const result = await LensSocialMediaProvider.discoverPosts(createIndicator(undefined, pageParam));
-                    const ids = result.data.flatMap((x) => [x.postId]);
-                    fetchAndStoreViews(ids);
+            // return the first page if the pageParam is empty
+            if (pageParam === '' && pageable) return pageable;
 
-                    return result;
-                case SocialPlatform.Farcaster:
-                    return FarcasterSocialMediaProvider.discoverPosts(createIndicator(undefined, pageParam));
-                default:
-                    safeUnreachable(currentSource);
-                    return createPageable(EMPTY_LIST, undefined);
-            }
+            const posts = await fetchPosts(currentSource, createIndicator(undefined, pageParam));
+            if (currentSource === SocialPlatform.Lens) fetchAndStoreViews(posts.data.flatMap((x) => [x.postId]));
+            return posts;
         },
         initialPageParam: '',
         getNextPageParam: (lastPage) => lastPage.nextIndicator?.id,
@@ -82,4 +86,10 @@ export default function Home() {
             ) : null}
         </div>
     );
+}
+
+export default async function Home() {
+    const posts = await fetchPosts(SocialPlatform.Farcaster, '');
+
+    return <Page pageable={posts} />;
 }
