@@ -173,7 +173,7 @@ export function ComposeAction(props: ComposeActionProps) {
 
                 <div
                     className={classNames(
-                        'flex h-6 cursor-pointer items-center gap-x-2 rounded-[32px] border border-foreground px-3 py-1 md:h-auto',
+                        'hidden h-6 cursor-pointer items-center gap-x-2 rounded-[32px] border border-foreground px-3 py-1 md:flex md:h-auto',
                         {
                             'opacity-50': loading,
                         },
@@ -190,7 +190,7 @@ export function ComposeAction(props: ComposeActionProps) {
                 </div>
 
                 {visibleLength && !isMedium ? (
-                    <div className=" flex items-center gap-[10px] whitespace-nowrap text-[15px] text-main">
+                    <div className=" ml-auto flex items-center gap-[10px] whitespace-nowrap text-[15px] text-main">
                         <span className={classNames(length > MAX_POST_SIZE ? 'text-danger' : '')}>
                             {visibleLength} / {MAX_POST_SIZE - invisibleLength}
                         </span>
