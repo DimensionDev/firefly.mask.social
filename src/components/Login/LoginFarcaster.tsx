@@ -74,7 +74,7 @@ export function LoginFarcaster() {
 
     return (
         <div
-            className="flex w-[600px] flex-col rounded-[12px]"
+            className="flex flex-col rounded-[12px] md:w-[600px]"
             style={{ boxShadow: '0px 4px 30px 0px rgba(0, 0, 0, 0.10)' }}
         >
             <div className="flex min-h-[475px] w-full flex-col items-center gap-4 p-4 ">
