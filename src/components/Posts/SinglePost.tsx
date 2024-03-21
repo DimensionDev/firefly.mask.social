@@ -59,12 +59,12 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
             onClick={() => {
                 const selection = window.getSelection();
                 if (selection && selection.toString().length !== 0) return;
-                if (!isPostPage || isComment) {
-                    router.push(postLink);
-                }
+                if (!isPostPage || isComment) router.push(postLink);
+                return;
             }}
         >
             {!isComment ? <FeedActionType post={post} /> : null}
+
             <PostHeader post={post} />
 
             <PostBody post={post} showMore={showMore} ref={observe} />
