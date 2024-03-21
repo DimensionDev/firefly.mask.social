@@ -180,7 +180,7 @@ export function ComposeSend(props: ComposeSendProps) {
 
     const send = () => {
         if (disabled) return;
-        handleSend;
+        handleSend();
     };
 
     if (!isMedium) {
