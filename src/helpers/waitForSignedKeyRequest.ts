@@ -1,3 +1,4 @@
+import { t } from '@lingui/macro';
 import { delay } from '@masknet/kit';
 import urlcat from 'urlcat';
 
@@ -14,8 +15,8 @@ export function waitForSignedKeyRequest(signal?: AbortSignal) {
     return async (
         token: string,
         listOfState: Array<'pending' | 'completed' | 'approved'> = ['approved', 'completed'],
-        maxTries = 100,
-        ms = 2000,
+        maxTries = 2000,
+        ms = 3000,
     ) => {
         let tries = 0;
 
@@ -27,7 +28,8 @@ export function waitForSignedKeyRequest(signal?: AbortSignal) {
             tries += 1;
 
             // Check if the maximum number of tries has been reached
-            if (tries >= maxTries) throw new Error('Max tries reached');
+            if (tries >= maxTries)
+                throw new Error(t`We couldn't fetch the latest state after several attempts. Please try again later.`);
 
             // Delay for a specified duration before checking again
             await delay(ms);

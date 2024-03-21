@@ -34,9 +34,6 @@ msgstr "Discover"
 msgid "Please be cautious when connecting your wallet, as malicious websites may attempt to access your funds."
 msgstr "Please be cautious when connecting your wallet, as malicious websites may attempt to access your funds."
 
-msgid "Click to refresh QRCode"
-msgstr "Click to refresh QRCode"
-
 msgid "Failed to mirror. {0}"
 msgstr "Failed to mirror. {0}"
 
@@ -265,6 +262,9 @@ msgstr "Failed to create image payload."
 msgid "Failed to reply post on Farcaster."
 msgstr "Failed to reply post on Farcaster."
 
+msgid "We couldn't fetch the latest state after several attempts. Please try again later."
+msgstr "We couldn't fetch the latest state after several attempts. Please try again later."
+
 msgid "Failed to unvote post."
 msgstr "Failed to unvote post."
 
@@ -312,6 +312,9 @@ msgstr "Post has been hidden"
 
 msgid "Everyone"
 msgstr "Everyone"
+
+msgid "Please confirm the login with Warpcast."
+msgstr "Please confirm the login with Warpcast."
 
 msgid "Compose"
 msgstr "Compose"

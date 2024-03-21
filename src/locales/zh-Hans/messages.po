@@ -39,9 +39,6 @@ msgstr "发现"
 msgid "Please be cautious when connecting your wallet, as malicious websites may attempt to access your funds."
 msgstr "当您连接钱包时请务必小心，一些恶意网站会试图访问宁的钱包资产。"
 
-msgid "Click to refresh QRCode"
-msgstr "点击后刷新二维码"
-
 msgid "Failed to mirror. {0}"
 msgstr "转帖失败 {0}"
 
@@ -270,6 +267,9 @@ msgstr "创建图片内容失败"
 msgid "Failed to reply post on Farcaster."
 msgstr "在 Farcaster 上评论失败"
 
+msgid "We couldn't fetch the latest state after several attempts. Please try again later."
+msgstr ""
+
 msgid "Failed to unvote post."
 msgstr "无法对帖子进行投票。"
 
@@ -317,6 +317,9 @@ msgstr "帖子已经被隐藏"
 
 msgid "Everyone"
 msgstr "任何人"
+
+msgid "Please confirm the login with Warpcast."
+msgstr ""
 
 msgid "Compose"
 msgstr "发帖"

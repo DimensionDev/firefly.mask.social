@@ -77,7 +77,7 @@ export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({
                         </button>
                     ) : (
                         <button
-                            className=" flex items-center justify-center pl-5"
+                            className=" flex items-center justify-center px-5"
                             onClick={() => {
                                 updateSidebarOpen(true);
                             }}

@@ -8,7 +8,7 @@ import type { ResponseJSON } from '@/types/index.js';
  * @param signal
  * @returns
  */
-export async function createSessionByGrantPermission(setUrl?: (url: string) => void, signal?: AbortSignal) {
+export async function createSessionByGrantPermission(callback?: (url: string) => void, signal?: AbortSignal) {
     const response = await fetchJSON<
         ResponseJSON<{
             publicKey: `0x${string}`;
@@ -24,8 +24,8 @@ export async function createSessionByGrantPermission(setUrl?: (url: string) => v
     });
     if (!response.success) throw new Error(response.error.message);
 
-    // present QR code to the user
-    setUrl?.(response.data.deeplinkUrl);
+    // present QR code to the user or open the link in a new tab
+    callback?.(response.data.deeplinkUrl);
 
     const signedResponse = await waitForSignedKeyRequest(signal)(response.data.token);
 
