@@ -8,6 +8,7 @@ import { MaskProviders } from '@/components/MaskProviders.js';
 import { Providers } from '@/components/Providers.js';
 import { farcasterClient } from '@/configs/farcasterClient.js';
 import { SocialPlatform } from '@/constants/enum.js';
+import { SITE_HOSTNAME } from '@/constants/index.js';
 import type { EncryptedPayload } from '@/helpers/getEncryptedPayload.js';
 import { DecryptedPost } from '@/mask/widgets/components/DecryptedPost.js';
 import { HubbleSocialMediaProvider } from '@/providers/hubble/SocialMedia.js';
@@ -29,7 +30,7 @@ export default function DecryptedInspector({ post, payloads }: DecryptedInspecto
             const lensToken = await LensSocialMediaProvider.getAccessToken();
             identity.lensToken = lensToken.unwrap();
             identity.profileId = lensProfile?.profileId;
-            identity.identifier = ProfileIdentifier.of('firefly.mask.social', lensProfile?.handle).unwrap();
+            identity.identifier = ProfileIdentifier.of(SITE_HOSTNAME, lensProfile?.handle).unwrap();
         } else if (post?.source === SocialPlatform.Farcaster) {
             const session = farcasterClient.getSession();
             if (session) {
@@ -40,7 +41,7 @@ export default function DecryptedInspector({ post, payloads }: DecryptedInspecto
                     farcasterSignature: messageSignature,
                     farcasterSigner: signer,
                     profileId: farcasterProfile?.profileId,
-                    identifier: ProfileIdentifier.of('firefly.mask.social', farcasterProfile?.handle).unwrap(),
+                    identifier: ProfileIdentifier.of(SITE_HOSTNAME, farcasterProfile?.handle).unwrap(),
                 } satisfies IdentityResolved);
             }
         }
