@@ -137,6 +137,12 @@
     --plyr-control-icon-size: 16px;
 }
 
+html,
+body {
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+}
+
 html {
     -webkit-font-smoothing: antialiased !important;
     -moz-osx-font-smoothing: grayscale !important;

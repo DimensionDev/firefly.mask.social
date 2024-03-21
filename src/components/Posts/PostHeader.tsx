@@ -33,39 +33,35 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({ post, isQu
     const profileLink = getProfileUrl(post.author);
 
     return (
-        <div className="flex justify-between space-x-1.5">
-            <div className="flex items-start space-x-3">
-                <Link href={profileLink} className="z-[1]" onClick={(event) => event.stopPropagation()}>
-                    <Avatar
-                        className={classNames({
-                            'h-10 w-10': !isQuote,
-                            'h-6 w-6': isQuote,
-                        })}
-                        src={post.author.pfp}
-                        size={isQuote ? 24 : 40}
-                        alt={post.author.profileId}
-                        fallbackUrl={post.source === SocialPlatform.Lens ? getLennyURL(post.author.handle) : undefined}
-                    />
-                </Link>
+        <div className="flex items-start gap-3">
+            <Link href={profileLink} className="z-[1]" onClick={(event) => event.stopPropagation()}>
+                <Avatar
+                    className={classNames({
+                        'h-10 w-10': !isQuote,
+                        'h-6 w-6': isQuote,
+                    })}
+                    src={post.author.pfp}
+                    size={isQuote ? 24 : 40}
+                    alt={post.author.profileId}
+                    fallbackUrl={post.source === SocialPlatform.Lens ? getLennyURL(post.author.handle) : undefined}
+                />
+            </Link>
 
-                <div className="flex max-w-[calc(100%-52px)] items-center">
-                    <div className="flex max-w-full items-center space-x-2">
-                        <Link
-                            href={profileLink}
-                            className="block truncate text-clip text-[15px] font-bold leading-5 text-main"
-                            onClick={(event) => event.stopPropagation()}
-                        >
-                            {post.author.displayName}
-                        </Link>
-                        <Link
-                            href={profileLink}
-                            className="truncate text-clip text-[15px] leading-6 text-secondary"
-                            onClick={(event) => event.stopPropagation()}
-                        >
-                            @{post.author.handle}
-                        </Link>
-                    </div>
-                </div>
+            <div className="flex max-w-[calc(100%-40px-88px-24px)] flex-1 items-center gap-2">
+                <Link
+                    href={profileLink}
+                    className="block truncate text-clip text-[15px] font-bold leading-5 text-main"
+                    onClick={(event) => event.stopPropagation()}
+                >
+                    {post.author.displayName}
+                </Link>
+                <Link
+                    href={profileLink}
+                    className="truncate text-clip text-[15px] leading-6 text-secondary"
+                    onClick={(event) => event.stopPropagation()}
+                >
+                    @{post.author.handle}
+                </Link>
             </div>
             <div className="flex items-center space-x-2 self-baseline">
                 <SourceIcon

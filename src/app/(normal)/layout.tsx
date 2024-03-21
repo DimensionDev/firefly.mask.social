@@ -8,7 +8,7 @@ import { SocialPlatformTabs } from '@/components/SocialPlatformTabs.js';
 export default function Layout({ children }: { children: React.ReactNode }) {
     return (
         <>
-            <main className="w-full flex-[1_1_100%] border-r border-line md:pl-[61px] lg:w-[888px] lg:max-w-[calc(100%-384px)] lg:pl-[289px]">
+            <main className="w-full flex-[1_1_100%] md:border-r md:border-line md:pl-[61px] lg:w-[888px] lg:max-w-[calc(100%-384px)] lg:pl-[289px]">
                 <div className="sticky top-0 z-40 bg-primaryBottom pb-[1px]">
                     <IfPathname isNotOneOf={['/post', '/profile']}>
                         <NavigatorBar />

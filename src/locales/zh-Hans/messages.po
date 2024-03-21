@@ -39,9 +39,6 @@ msgstr "发现"
 msgid "Please be cautious when connecting your wallet, as malicious websites may attempt to access your funds."
 msgstr "当您连接钱包时请务必小心，一些恶意网站会试图访问宁的钱包资产。"
 
-msgid "Click to refresh QRCode"
-msgstr "点击后刷新二维码"
-
 msgid "Failed to mirror. {0}"
 msgstr "转帖失败 {0}"
 
@@ -317,6 +314,9 @@ msgstr "帖子已经被隐藏"
 
 msgid "Everyone"
 msgstr "任何人"
+
+msgid "Please confirm the login with Warpcast."
+msgstr ""
 
 msgid "Compose"
 msgstr "发帖"
@@ -630,9 +630,6 @@ msgstr "确认登出这些账号？"
 msgid "Your Lens account is now connected"
 msgstr "你的 Lens 账号已经连接。"
 
-msgid "Log in"
-msgstr "登录"
-
 msgid "Mask Network"
 msgstr "Mask Network"
 
@@ -659,6 +656,9 @@ msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> 和 <2/>} other {<3/><4/> 和其
 
 msgid "Recasted"
 msgstr "已转发"
+
+msgid "Failed to fetch the latest state after several attempts. Please try again later."
+msgstr ""
 
 msgid "Profile"
 msgstr "个人信息"

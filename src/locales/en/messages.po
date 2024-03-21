@@ -34,9 +34,6 @@ msgstr "Discover"
 msgid "Please be cautious when connecting your wallet, as malicious websites may attempt to access your funds."
 msgstr "Please be cautious when connecting your wallet, as malicious websites may attempt to access your funds."
 
-msgid "Click to refresh QRCode"
-msgstr "Click to refresh QRCode"
-
 msgid "Failed to mirror. {0}"
 msgstr "Failed to mirror. {0}"
 
@@ -312,6 +309,9 @@ msgstr "Post has been hidden"
 
 msgid "Everyone"
 msgstr "Everyone"
+
+msgid "Please confirm the login with Warpcast."
+msgstr "Please confirm the login with Warpcast."
 
 msgid "Compose"
 msgstr "Compose"
@@ -625,9 +625,6 @@ msgstr "Confirm to log out these accounts?"
 msgid "Your Lens account is now connected"
 msgstr "Your Lens account is now connected"
 
-msgid "Log in"
-msgstr "Log in"
-
 msgid "Mask Network"
 msgstr "Mask Network"
 
@@ -654,6 +651,9 @@ msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # 
 
 msgid "Recasted"
 msgstr "Recasted"
+
+msgid "Failed to fetch the latest state after several attempts. Please try again later."
+msgstr "Failed to fetch the latest state after several attempts. Please try again later."
 
 msgid "Profile"
 msgstr "Profile"
