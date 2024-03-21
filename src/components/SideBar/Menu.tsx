@@ -183,6 +183,7 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                         ) : (
                             <button
                                 onClick={() => {
+                                    updateSidebarOpen(false);
                                     LoginModalRef.open();
                                 }}
                                 type="button"

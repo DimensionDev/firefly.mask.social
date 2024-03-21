@@ -625,9 +625,6 @@ msgstr "Confirm to log out these accounts?"
 msgid "Your Lens account is now connected"
 msgstr "Your Lens account is now connected"
 
-msgid "Log in"
-msgstr "Log in"
-
 msgid "Mask Network"
 msgstr "Mask Network"
 

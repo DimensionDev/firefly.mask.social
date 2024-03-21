@@ -76,7 +76,7 @@ export function PostByItem({ source }: PostByItemProps) {
                         });
                     }}
                 >
-                    <Trans>Log in</Trans>
+                    <Trans>Login</Trans>
                 </button>
             </div>
         );

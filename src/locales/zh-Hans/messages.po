@@ -630,9 +630,6 @@ msgstr "确认登出这些账号？"
 msgid "Your Lens account is now connected"
 msgstr "你的 Lens 账号已经连接。"
 
-msgid "Log in"
-msgstr "登录"
-
 msgid "Mask Network"
 msgstr "Mask Network"
 
