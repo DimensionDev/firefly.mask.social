@@ -5,7 +5,7 @@ import { HashtagNode } from '@lexical/hashtag';
 import { AutoLinkNode, LinkNode } from '@lexical/link';
 import { LexicalComposer } from '@lexical/react/LexicalComposer.js';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext.js';
-import { t } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import { encrypt, SteganographyPreset } from '@masknet/encryption';
 import { ProfileIdentifier, type SingletonModalRefCreator } from '@masknet/shared-base';
 import { useSingletonModal } from '@masknet/shared-base-ui';
@@ -30,7 +30,6 @@ import { fetchImageAsPNG } from '@/helpers/fetchImageAsPNG.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { hasRedPacketPayload } from '@/helpers/hasRedPacketPayload.js';
 import { type Chars, readChars } from '@/helpers/readChars.js';
-import { resolveComposeType } from '@/helpers/resolveComposeType.js';
 import { throws } from '@/helpers/throws.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
@@ -210,7 +209,13 @@ export const ComposeModalComponent = forwardRef<SingletonModalRefCreator<Compose
                         />
 
                         <span className=" flex h-full w-full items-center justify-center text-lg font-bold capitalize text-main">
-                            {resolveComposeType(type)}
+                            {type === 'compose' ? (
+                                <Trans>Compose</Trans>
+                            ) : type === 'quote' ? (
+                                <Trans>Quote</Trans>
+                            ) : type === 'reply' ? (
+                                <Trans>Reply</Trans>
+                            ) : null}
                         </span>
 
                         {isMedium ? null : <ComposeSend />}
