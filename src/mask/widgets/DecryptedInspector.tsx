@@ -1,5 +1,6 @@
 'use client';
 
+import { ProfileIdentifier } from '@masknet/base';
 import type { IdentityResolved } from '@masknet/plugin-infra';
 import { useAsync } from 'react-use';
 
@@ -28,6 +29,7 @@ export default function DecryptedInspector({ post, payloads }: DecryptedInspecto
             const lensToken = await LensSocialMediaProvider.getAccessToken();
             identity.lensToken = lensToken.unwrap();
             identity.profileId = lensProfile?.profileId;
+            identity.identifier = ProfileIdentifier.of('firefly.mask.social', lensProfile?.handle).unwrap();
         } else if (post?.source === SocialPlatform.Farcaster) {
             const session = farcasterClient.getSession();
             if (session) {
@@ -38,6 +40,7 @@ export default function DecryptedInspector({ post, payloads }: DecryptedInspecto
                     farcasterSignature: messageSignature,
                     farcasterSigner: signer,
                     profileId: farcasterProfile?.profileId,
+                    identifier: ProfileIdentifier.of('firefly.mask.social', farcasterProfile?.handle).unwrap(),
                 } satisfies IdentityResolved);
             }
         }
