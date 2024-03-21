@@ -262,9 +262,6 @@ msgstr "Failed to create image payload."
 msgid "Failed to reply post on Farcaster."
 msgstr "Failed to reply post on Farcaster."
 
-msgid "We couldn't fetch the latest state after several attempts. Please try again later."
-msgstr "We couldn't fetch the latest state after several attempts. Please try again later."
-
 msgid "Failed to unvote post."
 msgstr "Failed to unvote post."
 
@@ -654,6 +651,9 @@ msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # 
 
 msgid "Recasted"
 msgstr "Recasted"
+
+msgid "Failed to fetch the latest state after several attempts. Please try again later."
+msgstr "Failed to fetch the latest state after several attempts. Please try again later."
 
 msgid "Profile"
 msgstr "Profile"

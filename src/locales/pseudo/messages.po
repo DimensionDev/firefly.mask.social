@@ -262,9 +262,6 @@ msgstr ""
 msgid "Failed to reply post on Farcaster."
 msgstr ""
 
-msgid "We couldn't fetch the latest state after several attempts. Please try again later."
-msgstr ""
-
 msgid "Failed to unvote post."
 msgstr ""
 
@@ -653,6 +650,9 @@ msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # o
 msgstr ""
 
 msgid "Recasted"
+msgstr ""
+
+msgid "Failed to fetch the latest state after several attempts. Please try again later."
 msgstr ""
 
 msgid "Profile"

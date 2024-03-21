@@ -29,7 +29,7 @@ export function waitForSignedKeyRequest(signal?: AbortSignal) {
 
             // Check if the maximum number of tries has been reached
             if (tries >= maxTries)
-                throw new Error(t`We couldn't fetch the latest state after several attempts. Please try again later.`);
+                throw new Error(t`Failed to fetch the latest state after several attempts. Please try again later.`);
 
             // Delay for a specified duration before checking again
             await delay(ms);

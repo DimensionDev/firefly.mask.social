@@ -267,9 +267,6 @@ msgstr "创建图片内容失败"
 msgid "Failed to reply post on Farcaster."
 msgstr "在 Farcaster 上评论失败"
 
-msgid "We couldn't fetch the latest state after several attempts. Please try again later."
-msgstr ""
-
 msgid "Failed to unvote post."
 msgstr "无法对帖子进行投票。"
 
@@ -659,6 +656,9 @@ msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> 和 <2/>} other {<3/><4/> 和其
 
 msgid "Recasted"
 msgstr "已转发"
+
+msgid "Failed to fetch the latest state after several attempts. Please try again later."
+msgstr ""
 
 msgid "Profile"
 msgstr "个人信息"
