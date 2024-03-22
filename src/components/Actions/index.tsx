@@ -1,4 +1,4 @@
-import { type HTMLProps, memo, useMemo } from 'react';
+import { memo, useMemo } from 'react';
 import urlcat from 'urlcat';
 
 import { Collect } from '@/components/Actions/Collect.js';
@@ -7,13 +7,14 @@ import { Like } from '@/components/Actions/Like.js';
 import { Mirror } from '@/components/Actions/Mirrors.js';
 import { Share } from '@/components/Actions/Share.js';
 import { Views } from '@/components/Actions/Views.js';
+import { ClickableArea } from '@/components/ClickableArea.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 
-interface PostActionsProps extends HTMLProps<HTMLDivElement> {
+interface PostActionsProps extends React.HTMLAttributes<HTMLDivElement> {
     post: Post;
     disabled?: boolean;
     disablePadding?: boolean;
@@ -21,11 +22,10 @@ interface PostActionsProps extends HTMLProps<HTMLDivElement> {
 
 // TODO: open compose dialog
 export const PostActions = memo<PostActionsProps>(function PostActions({
+    className,
     post,
     disabled = false,
     disablePadding = false,
-    className,
-    ...rest
 }) {
     const publicationViews = useImpressionsStore.use.publicationViews();
 
@@ -34,15 +34,13 @@ export const PostActions = memo<PostActionsProps>(function PostActions({
     }, [publicationViews, post]);
 
     return (
-        <div
+        <ClickableArea
             className={classNames('mt-2 grid grid-flow-col items-center', className, {
                 'pl-[52px]': !disablePadding,
                 'grid-cols-3': post.source === SocialPlatform.Farcaster,
                 'grid-cols-4': !post.canAct && post.source === SocialPlatform.Lens,
                 'grid-cols-5': !!post.canAct && post.source === SocialPlatform.Lens,
             })}
-            onClick={(e) => e.stopPropagation()}
-            {...rest}
         >
             <Comment
                 disabled={disabled}
@@ -72,6 +70,6 @@ export const PostActions = memo<PostActionsProps>(function PostActions({
             />
             {post.source !== SocialPlatform.Farcaster ? <Views count={views} disabled={disabled} /> : null}
             <Share url={urlcat(location.origin, getPostUrl(post))} disabled={disabled} />
-        </div>
+        </ClickableArea>
     );
 });

@@ -11,6 +11,7 @@ import { useAsyncFn } from 'react-use';
 import LoadingIcon from '@/assets/loading.svg';
 import SendIcon from '@/assets/send.svg';
 import Send2Icon from '@/assets/send2.svg';
+import { ClickableButton } from '@/components/ClickableButton.js';
 import { useSendFarcaster } from '@/components/Compose/ComposeSend/useSendFarcaster.js';
 import { useSendLens } from '@/components/Compose/ComposeSend/useSendLens.js';
 import { CountdownCircle } from '@/components/Compose/CountdownCircle.js';
@@ -185,13 +186,13 @@ export function ComposeSend(props: ComposeSendProps) {
 
     if (!isMedium) {
         return (
-            <button
+            <ClickableButton
                 className="absolute right-4 top-1/2 -translate-y-1/2 cursor-pointer disabled:opacity-50"
                 disabled={disabled}
                 onClick={send}
             >
                 <Send2Icon width={24} height={24} />
-            </button>
+            </ClickableButton>
         );
     }
 
@@ -206,7 +207,7 @@ export function ComposeSend(props: ComposeSendProps) {
                 </div>
             ) : null}
 
-            <button
+            <ClickableButton
                 disabled={disabled}
                 className={classNames(
                     ' flex h-10 w-[120px] items-center justify-center gap-1 rounded-full bg-black text-[15px] font-bold text-white disabled:cursor-not-allowed disabled:opacity-50 dark:bg-white dark:text-black',
@@ -223,7 +224,7 @@ export function ComposeSend(props: ComposeSendProps) {
                         </span>
                     </>
                 )}
-            </button>
+            </ClickableButton>
         </div>
     );
 }

@@ -5,6 +5,7 @@ import { useEffect } from 'react';
 
 import LogOutIcon from '@/assets/logout.svg';
 import UserAddIcon from '@/assets/user-add.svg';
+import { ClickableButton } from '@/components/ClickableButton.js';
 import { OnlineStatusIndicator } from '@/components/OnlineStatusIndicator.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { ProfileName } from '@/components/ProfileName.js';
@@ -30,43 +31,37 @@ export function ProfileSettings({ source }: ProfileSettingsProps) {
     return (
         <div className=" flex flex-col rounded-2xl bg-primaryBottom shadow-[0px_8px_20px_0px_rgba(0,0,0,0.04)] md:w-[290px] md:px-5 md:dark:border md:dark:border-line md:dark:shadow-[0px_8px_20px_0px_rgba(255,255,255,0.04)]">
             {profiles.map((profile) => (
-                <button
+                <ClickableButton
                     key={profile.profileId}
                     className="my-6 flex items-center justify-between gap-2"
                     disabled={isSameProfile(currentProfile, profile) || source === SocialPlatform.Farcaster}
-                    onClick={() => {
-                        login(profile);
-                    }}
+                    onClick={() => login(profile)}
                 >
                     <ProfileAvatar profile={profile} clickable linkable />
                     <ProfileName profile={profile} />
                     <WarpcastSignerRequestIndicator session={currentProfileSession}>
                         {isSameProfile(currentProfile, profile) ? <OnlineStatusIndicator /> : null}
                     </WarpcastSignerRequestIndicator>
-                </button>
+                </ClickableButton>
             ))}
-            <button
+            <ClickableButton
                 className="flex w-full items-center rounded px-1 py-3 text-main hover:bg-bg"
-                onClick={() => {
-                    LoginModalRef.open();
-                }}
+                onClick={() => LoginModalRef.open()}
             >
                 <UserAddIcon width={24} height={24} />
                 <span className=" pl-2 text-[17px] font-bold leading-[22px] text-main">
                     <Trans>Switch account</Trans>
                 </span>
-            </button>
-            <button
+            </ClickableButton>
+            <ClickableButton
                 className="mb-3 flex items-center rounded px-1 py-3 hover:bg-bg"
-                onClick={() => {
-                    LogoutModalRef.open({ source });
-                }}
+                onClick={() => LogoutModalRef.open({ source })}
             >
                 <LogOutIcon width={24} height={24} />
                 <span className=" pl-2 text-[17px] font-bold leading-[22px] text-danger">
                     <Trans>Log out</Trans>
                 </span>
-            </button>
+            </ClickableButton>
         </div>
     );
 }

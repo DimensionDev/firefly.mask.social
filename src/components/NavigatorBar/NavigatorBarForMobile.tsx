@@ -8,6 +8,7 @@ import FireflyIcon from '@/assets/firefly.svg';
 import LeftArrowIcon from '@/assets/left-arrow.svg';
 import MagnifierIcon from '@/assets/magnifier.svg';
 import MenuIcon from '@/assets/menu.svg';
+import { ClickableButton } from '@/components/ClickableButton.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { SearchFilter } from '@/components/Search/SearchFilter.js';
 import { SearchRecommendation } from '@/components/Search/SearchRecommendation.js';
@@ -49,8 +50,8 @@ export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({
     const inputRef = useRef<HTMLInputElement>(null);
     const [inputText, setInputText] = useState('');
 
-    const handleInputChange = (evt: ChangeEvent<HTMLInputElement>) => {
-        setInputText(evt.target.value);
+    const handleInputChange = (ev: ChangeEvent<HTMLInputElement>) => {
+        setInputText(ev.target.value);
     };
 
     const handleInputSubmit = (state: SearchState) => {
@@ -64,19 +65,18 @@ export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({
             <header className=" flex items-center gap-4 px-4 py-[7px] text-main">
                 <div className=" flex h-[30px] w-[30px] justify-center">
                     {searchMode || enableFixedBack ? (
-                        <button
+                        <ClickableButton
                             onClick={() => {
                                 if (isSearchPage || enableFixedBack) router.back();
-                                if (enableSearch) {
-                                    setSearchMode(false);
-                                    setShowRecommendation(false);
-                                }
+                                if (!enableSearch) return;
+                                setSearchMode(false);
+                                setShowRecommendation(false);
                             }}
                         >
                             <LeftArrowIcon />
-                        </button>
+                        </ClickableButton>
                     ) : (
-                        <button
+                        <ClickableButton
                             className=" flex items-center justify-center px-5"
                             onClick={() => {
                                 updateSidebarOpen(true);
@@ -97,15 +97,15 @@ export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({
                                 </div>
                             ) : null}
                             {farcasterProfile || lensProfile ? null : <MenuIcon />}
-                        </button>
+                        </ClickableButton>
                     )}
                 </div>
                 <h1 className=" flex h-10 flex-1 items-center justify-center">
                     {searchMode ? (
                         <form
                             className=" relative flex flex-1 items-center"
-                            onSubmit={(evt) => {
-                                evt.preventDefault();
+                            onSubmit={(ev) => {
+                                ev.preventDefault();
                                 handleInputSubmit({ q: inputText });
                             }}
                         >
@@ -121,20 +121,18 @@ export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({
                                 onChange={handleInputChange}
                                 onFocus={() => setShowRecommendation(true)}
                             />
-                            <CloseIcon
+                            <ClickableButton
                                 className={classNames(
                                     'absolute right-3 cursor-pointer',
                                     inputText ? 'visible' : 'invisible',
                                 )}
-                                width={16}
-                                height={16}
-                                onClick={(evt) => {
-                                    evt.preventDefault();
-                                    evt.stopPropagation();
+                                onClick={() => {
                                     setInputText('');
                                     inputRef.current?.focus();
                                 }}
-                            />
+                            >
+                                <CloseIcon width={16} height={16} />
+                            </ClickableButton>
                         </form>
                     ) : (
                         <>
@@ -149,7 +147,7 @@ export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({
                 <div className=" flex h-[30px] w-[30px] justify-center">
                     {enableSearch ? (
                         searchMode ? (
-                            <button
+                            <ClickableButton
                                 onClick={() => {
                                     DraggablePopoverRef.open({
                                         content: <SearchFilter />,
@@ -157,16 +155,16 @@ export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({
                                 }}
                             >
                                 <AdjustmentsIcon />
-                            </button>
+                            </ClickableButton>
                         ) : (
-                            <button>
-                                <MagnifierIcon
-                                    onClick={() => {
-                                        inputRef.current?.focus();
-                                        setSearchMode(true);
-                                    }}
-                                />
-                            </button>
+                            <ClickableButton
+                                onClick={() => {
+                                    inputRef.current?.focus();
+                                    setSearchMode(true);
+                                }}
+                            >
+                                <MagnifierIcon />
+                            </ClickableButton>
                         )
                     ) : null}
                 </div>

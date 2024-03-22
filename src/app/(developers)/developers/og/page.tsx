@@ -8,6 +8,7 @@ import urlcat from 'urlcat';
 
 import { Headline } from '@/app/(settings)/components/Headline.js';
 import { Section } from '@/app/(settings)/components/Section.js';
+import { ClickableButton } from '@/components/ClickableButton.js';
 import { Oembed } from '@/components/Oembed/index.js';
 import { URL_REGEX } from '@/constants/regex.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -53,7 +54,7 @@ export default function OpenGraph() {
                     placeholder={t`Your website URL.`}
                     onChange={(e) => setUrl(e.target.value)}
                 />
-                <button
+                <ClickableButton
                     className={classNames(
                         ' flex h-[42px] w-[42px] items-center justify-center rounded-md border border-line',
                         {
@@ -66,7 +67,7 @@ export default function OpenGraph() {
                     onClick={onSubmit}
                 >
                     <ArrowPathRoundedSquareIcon width={24} height={24} />
-                </button>
+                </ClickableButton>
             </div>
 
             {cacheRemoved === true ? (

@@ -2,6 +2,7 @@ import { t } from '@lingui/macro';
 import { memo, useState } from 'react';
 
 import LoadingIcon from '@/assets/loading.svg';
+import { ClickableButton } from '@/components/ClickableButton.js';
 import { classNames } from '@/helpers/classNames.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useToggleFollow } from '@/hooks/useToggleFollow.js';
@@ -28,7 +29,7 @@ export const FollowButton = memo(function FollowButton({ profile }: FollowButton
     const buttonState = isFollowing ? (followHover ? FollowLabel.Unfollow : FollowLabel.Following) : FollowLabel.Follow;
 
     return (
-        <button
+        <ClickableButton
             className={classNames(
                 ' flex h-8 w-[100px] items-center justify-center rounded-full text-[15px] font-semibold transition-all disabled:cursor-not-allowed disabled:opacity-50',
                 buttonState === FollowLabel.Follow ? ' bg-main text-primaryBottom hover:opacity-80' : '',
@@ -44,6 +45,6 @@ export const FollowButton = memo(function FollowButton({ profile }: FollowButton
         >
             {loading ? <LoadingIcon width={16} height={16} className="mr-2 animate-spin" /> : null}
             {buttonText}
-        </button>
+        </ClickableButton>
     );
 });

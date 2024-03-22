@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { memo } from 'react';
 
 import ViewsIcon from '@/assets/views.svg';
+import { ClickableArea } from '@/components/ClickableArea.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { classNames } from '@/helpers/classNames.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
@@ -13,14 +14,10 @@ interface ViewsProps {
 }
 export const Views = memo<ViewsProps>(function Collect({ count, disabled = false }) {
     return (
-        <div
+        <ClickableArea
             className={classNames('flex items-center space-x-2 text-main', {
                 'opacity-50': disabled,
             })}
-            onClick={(event) => {
-                event.preventDefault();
-                event.stopPropagation();
-            }}
         >
             <Tooltip content={t`${nFormatter(count ?? 0)} views`} placement="top" disabled={disabled}>
                 <motion.button
@@ -36,6 +33,6 @@ export const Views = memo<ViewsProps>(function Collect({ count, disabled = false
                 </motion.button>
             </Tooltip>
             {count ? <span className="text-xs font-medium">{nFormatter(count)}</span> : null}
-        </div>
+        </ClickableArea>
     );
 });

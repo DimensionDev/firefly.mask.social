@@ -76,9 +76,6 @@ export function Providers(props: { children: React.ReactNode }) {
                             maxSnack={30}
                             anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
                             autoHideDuration={3000}
-                            classes={{
-                                containerRoot: 'max-w-[400px]',
-                            }}
                         >
                             {/* wagmi depends @tanstack/react-query@4.29.23 */}
                             <WagmiProvider>

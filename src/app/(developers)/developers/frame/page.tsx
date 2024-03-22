@@ -7,6 +7,7 @@ import { useAsyncFn } from 'react-use';
 import urlcat from 'urlcat';
 
 import { Headline } from '@/app/(settings)/components/Headline.js';
+import { ClickableButton } from '@/components/ClickableButton.js';
 import { Frame as FrameUI } from '@/components/Frame/index.js';
 import { URL_REGEX } from '@/constants/regex.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -52,7 +53,7 @@ export default function Frame() {
                     placeholder={t`Your frame URL.`}
                     onChange={(e) => setUrl(e.target.value)}
                 />
-                <button
+                <ClickableButton
                     className={classNames(
                         ' flex h-[42px] w-[42px] items-center justify-center rounded-md border border-line',
                         {
@@ -65,7 +66,7 @@ export default function Frame() {
                     onClick={onSubmit}
                 >
                     <ArrowPathRoundedSquareIcon width={24} height={24} />
-                </button>
+                </ClickableButton>
             </div>
 
             {cacheRemoved === true ? (

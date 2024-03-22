@@ -2,6 +2,7 @@
 
 import React, { type ButtonHTMLAttributes } from 'react';
 
+import { ClickableButton } from '@/components/ClickableButton.js';
 import { classNames } from '@/helpers/classNames.js';
 
 interface OptionButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -13,7 +14,7 @@ interface OptionButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 export function OptionButton({ darkMode = false, selected, label, onClick, ...props }: OptionButtonProps) {
     return (
-        <button
+        <ClickableButton
             className={classNames(
                 `inline-flex h-[60px] w-[250px] items-center justify-center gap-5 rounded-lg px-3 ${
                     darkMode
@@ -35,6 +36,6 @@ export function OptionButton({ darkMode = false, selected, label, onClick, ...pr
                 )}
                 <div className="text-[15px] font-bold leading-[18px]">{label}</div>
             </div>
-        </button>
+        </ClickableButton>
     );
 }

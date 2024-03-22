@@ -3,15 +3,16 @@
 import { Dialog, Transition } from '@headlessui/react';
 import React, { Fragment } from 'react';
 
+import { ClickableArea } from '@/components/ClickableArea.js';
+
 interface ModalProps {
-    fullScreen?: boolean;
     backdrop?: boolean;
     open: boolean;
     onClose: () => void;
     children?: React.ReactNode;
 }
 
-export function Modal({ fullScreen, backdrop = true, open, onClose, children }: ModalProps) {
+export function Modal({ backdrop = true, open, onClose, children }: ModalProps) {
     return (
         <Transition appear show={open} as={Fragment}>
             <Dialog as="div" className="relative z-[100]" onClose={onClose}>
@@ -27,7 +28,10 @@ export function Modal({ fullScreen, backdrop = true, open, onClose, children }: 
                                 leaveFrom="opacity-100"
                                 leaveTo="opacity-0"
                             >
-                                <div className="fixed inset-0 bg-main/25 bg-opacity-30" onClick={() => onClose?.()} />
+                                <ClickableArea
+                                    className="fixed inset-0 bg-main/25 bg-opacity-30"
+                                    onClick={() => onClose?.()}
+                                />
                             </Transition.Child>
                         ) : null}
                         <Transition.Child

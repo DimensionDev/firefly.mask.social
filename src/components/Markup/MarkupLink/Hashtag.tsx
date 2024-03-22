@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation.js';
 import { memo, useEffect } from 'react';
 import urlcat from 'urlcat';
 
+import { ClickableArea } from '@/components/ClickableArea.js';
 import type { MarkupLinkProps } from '@/components/Markup/MarkupLink/index.js';
 import { PageRoute, SearchType } from '@/constants/enum.js';
 
@@ -19,16 +20,15 @@ export const Hashtag = memo<Omit<MarkupLinkProps, 'post'>>(function Hashtag({ ti
     const tag = title.slice(1).toLowerCase();
 
     return (
-        <span
+        <ClickableArea
             className="text-link"
-            onClick={(event) => {
-                event.stopPropagation();
-                event.preventDefault();
+            as="span"
+            onClick={() => {
                 scrollTo(0, 0);
                 router.push(urlcat(PageRoute.Search, { q: `#${tag}`, type: SearchType.Posts }));
             }}
         >
             {title}
-        </span>
+        </ClickableArea>
     );
 });

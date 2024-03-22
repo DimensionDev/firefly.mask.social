@@ -6,6 +6,7 @@ import LoadingIcon from '@/assets/loading.svg';
 import RadioDisableNoIcon from '@/assets/radio.disable-no.svg';
 import YesIcon from '@/assets/yes.svg';
 import { Avatar } from '@/components/Avatar.js';
+import { ClickableButton } from '@/components/ClickableButton.js';
 import { SourceIcon } from '@/components/SourceIcon.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -59,7 +60,7 @@ export function PostByItem({ source }: PostByItemProps) {
                     <span className=" font-bold text-main">{resolveSourceName(source)}</span>
                 </div>
 
-                <button
+                <ClickableButton
                     className=" font-bold text-blueBottom"
                     onClick={async () => {
                         if (source === SocialPlatform.Farcaster && images.length > 2) {
@@ -77,7 +78,7 @@ export function PostByItem({ source }: PostByItemProps) {
                     }}
                 >
                     <Trans>Login</Trans>
-                </button>
+                </ClickableButton>
             </div>
         );
 
@@ -116,13 +117,13 @@ export function PostByItem({ source }: PostByItemProps) {
                     <RadioDisableNoIcon width={20} height={20} className=" text-secondaryLine" />
                 )
             ) : currentProfile.source === SocialPlatform.Lens ? (
-                <button
+                <ClickableButton
                     className=" font-bold text-blueBottom disabled:cursor-not-allowed disabled:opacity-50"
                     disabled={loading}
-                    onClick={async () => login(profile)}
+                    onClick={() => login(profile)}
                 >
                     {loading ? <LoadingIcon className="animate-spin" width={24} height={24} /> : <Trans>Switch</Trans>}
-                </button>
+                </ClickableButton>
             ) : null}
         </div>
     ));

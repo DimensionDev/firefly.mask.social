@@ -116,7 +116,7 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | 
             className="flex flex-col rounded-[12px] md:w-[600px]"
             style={{ boxShadow: '0px 4px 30px 0px rgba(0, 0, 0, 0.10)' }}
         >
-            <div className="flex w-full flex-col gap-4 p-4 ">
+            <div className="flex w-full flex-col md:gap-4 md:p-4">
                 {loading ? (
                     <div className="flex h-[324px] w-full items-center justify-center">
                         <LoadingIcon className="animate-spin" width={24} height={24} />

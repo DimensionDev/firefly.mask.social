@@ -1,6 +1,5 @@
 'use client';
 import { Dialog } from '@headlessui/react';
-import { XMarkIcon } from '@heroicons/react/24/outline';
 import { HashtagNode } from '@lexical/hashtag';
 import { AutoLinkNode, LinkNode } from '@lexical/link';
 import { LexicalComposer } from '@lexical/react/LexicalComposer.js';
@@ -17,7 +16,9 @@ import { useAsync } from 'react-use';
 import { None } from 'ts-results-es';
 import urlcat from 'urlcat';
 
+import CloseIcon from '@/assets/close.svg';
 import LoadingIcon from '@/assets/loading.svg';
+import { ClickableButton } from '@/components/ClickableButton.js';
 import { ComposeAction } from '@/components/Compose/ComposeAction.js';
 import { ComposeContent } from '@/components/Compose/ComposeContent.js';
 import { ComposeSend } from '@/components/Compose/ComposeSend/index.js';
@@ -68,7 +69,7 @@ export type ComposeModalCloseProps = {
     disableClear?: boolean;
 } | void;
 
-export const ComposeModalComponent = forwardRef<SingletonModalRefCreator<ComposeModalProps, ComposeModalCloseProps>>(
+export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalProps, ComposeModalCloseProps>>(
     function Compose(_, ref) {
         const isMedium = useIsMedium();
         const currentSource = useGlobalState.use.currentSource();
@@ -202,11 +203,13 @@ export const ComposeModalComponent = forwardRef<SingletonModalRefCreator<Compose
 
                     {/* Title */}
                     <Dialog.Title as="h3" className=" relative h-14 pt-safe">
-                        <XMarkIcon
-                            className="absolute left-4 top-1/2 h-6 w-6 -translate-y-1/2 cursor-pointer text-main"
-                            aria-hidden="true"
+                        <ClickableButton
+                            className="absolute left-4 top-1/2 -translate-y-1/2 cursor-pointer text-main"
                             onClick={onClose}
-                        />
+                        >
+                            <span className="sr-only">Close compose dialog</span>
+                            <CloseIcon width={24} height={24} />
+                        </ClickableButton>
 
                         <span className=" flex h-full w-full items-center justify-center text-lg font-bold capitalize text-main">
                             {type === 'compose' ? (
@@ -235,7 +238,7 @@ export const ComposeModal = forwardRef<SingletonModalRefCreator<ComposeModalProp
     function ComposeModal(props, ref) {
         return (
             <LexicalComposer initialConfig={initialConfig}>
-                <ComposeModalComponent {...props} ref={ref} />
+                <ComposeModalUI {...props} ref={ref} />
             </LexicalComposer>
         );
     },

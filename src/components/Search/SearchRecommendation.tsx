@@ -10,6 +10,7 @@ import CloseIcon from '@/assets/close-circle.svg';
 import LoadingIcon from '@/assets/loading.svg';
 import SearchIcon from '@/assets/search.svg';
 import { Avatar } from '@/components/Avatar.js';
+import { ClickableButton } from '@/components/ClickableButton.js';
 import { SourceIcon } from '@/components/SourceIcon.js';
 import { SearchType, SocialPlatform } from '@/constants/enum.js';
 import { MAX_RECOMMEND_PROFILE_SIZE } from '@/constants/index.js';
@@ -75,7 +76,7 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
                 <>
                     <h2 className=" flex p-3 pb-2 text-sm">
                         <Trans>Recent</Trans>
-                        <button
+                        <ClickableButton
                             className="ml-auto font-bold text-[#246BFD]"
                             onClick={() => {
                                 clearAll();
@@ -83,7 +84,7 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
                             }}
                         >
                             <Trans>Clear All</Trans>
-                        </button>
+                        </ClickableButton>
                     </h2>
                     {records.length ? (
                         <ul className="my-4">
@@ -99,15 +100,14 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
                                 >
                                     <SearchIcon width={18} height={18} className="shrink-0" />
                                     <span className="color-main ml-4 text-ellipsis py-2">{record}</span>
-                                    <button
-                                        onClick={(e) => {
-                                            e.stopPropagation();
+                                    <ClickableButton
+                                        onClick={() => {
                                             removeRecord(record);
                                         }}
                                         className="ml-auto"
                                     >
                                         <CloseIcon width={16} height={16} />
-                                    </button>
+                                    </ClickableButton>
                                 </li>
                             ))}
                         </ul>

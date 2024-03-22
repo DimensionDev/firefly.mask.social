@@ -2,7 +2,7 @@
 
 import { t, Trans } from '@lingui/macro';
 import { formatEthereumAddress } from '@masknet/web3-shared-evm';
-import { useCallback, useState } from 'react';
+import { useCallback, useRef } from 'react';
 import { useCopyToClipboard } from 'usehooks-ts';
 import { useAccount } from 'wagmi';
 
@@ -10,6 +10,7 @@ import { AccountCard } from '@/app/(settings)/components/AccountCard.js';
 import { Headline } from '@/app/(settings)/components/Headline.js';
 import { Section } from '@/app/(settings)/components/Section.js';
 import CopyIcon from '@/assets/copy.svg';
+import { ClickableButton } from '@/components/ClickableButton.js';
 import { Tippy } from '@/esm/Tippy.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
@@ -18,7 +19,8 @@ import { useFarcasterStateStore, useLensStateStore } from '@/store/useProfileSto
 
 export default function Connected() {
     const { address } = useAccount();
-    const [timer, setTimer] = useState<NodeJS.Timeout>();
+
+    const timerRef = useRef<NodeJS.Timeout>();
 
     const lensProfiles = useLensStateStore.use.profiles();
     const farcasterProfiles = useFarcasterStateStore.use.profiles();
@@ -55,21 +57,15 @@ export default function Connected() {
                                 duration={200}
                                 trigger="click"
                                 onShow={(instance) => {
-                                    if (timer) clearTimeout(timer);
-                                    setTimer(
-                                        setTimeout(() => {
-                                            instance.hide();
-                                        }, 1000),
-                                    );
+                                    if (timerRef.current) clearTimeout(timerRef.current);
+                                    timerRef.current = setTimeout(() => {
+                                        instance.hide();
+                                    }, 1000);
                                 }}
                             >
-                                <button
-                                    onClick={() => {
-                                        handleClick();
-                                    }}
-                                >
+                                <ClickableButton onClick={handleClick}>
                                     <CopyIcon width={14} height={14} />
-                                </button>
+                                </ClickableButton>
                             </Tippy>
                         </div>
                     </div>
@@ -105,7 +101,7 @@ export default function Connected() {
             ) : null}
 
             <div className="flex items-center gap-4">
-                <button
+                <ClickableButton
                     className="inline-flex h-10 w-[200px] flex-col items-center justify-center"
                     onClick={() => {
                         LoginModalRef.open();
@@ -116,9 +112,9 @@ export default function Connected() {
                             <Trans>Add account</Trans>
                         </div>
                     </div>
-                </button>
+                </ClickableButton>
 
-                <button
+                <ClickableButton
                     className="inline-flex h-10 w-[200px] flex-col items-start justify-start"
                     onClick={() => {
                         LogoutModalRef.open();
@@ -129,7 +125,7 @@ export default function Connected() {
                             <Trans>Log out all</Trans>
                         </div>
                     </div>
-                </button>
+                </ClickableButton>
             </div>
         </Section>
     );

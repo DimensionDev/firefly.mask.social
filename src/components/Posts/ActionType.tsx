@@ -9,6 +9,7 @@ import LikeIcon from '@/assets/like.svg';
 import LikedIcon from '@/assets/liked.svg';
 import MirrorIcon from '@/assets/mirror.svg';
 import SparkIcon from '@/assets/spark.svg';
+import { ClickableArea } from '@/components/ClickableArea.js';
 import { ThreadBody } from '@/components/Posts/ThreadBody.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
@@ -74,12 +75,7 @@ export const FeedActionType = memo<FeedActionType>(function FeedActionType({ pos
     }, [post]);
 
     return (
-        <div
-            onClick={(event) => {
-                event.stopPropagation();
-                event.preventDefault();
-            }}
-        >
+        <ClickableArea>
             {combined && !isPostPage ? (
                 <div className="mb-3 flex items-center space-x-2 text-[15px] text-secondary">
                     <SparkIcon width={16} height={16} />
@@ -164,6 +160,6 @@ export const FeedActionType = memo<FeedActionType>(function FeedActionType({ pos
 
             {showThread && post.root && !isThread ? <ThreadBody post={post.root} /> : null}
             {showThread && post.commentOn && !isThread ? <ThreadBody post={post.commentOn} /> : null}
-        </div>
+        </ClickableArea>
     );
 });

@@ -140,7 +140,7 @@
 html,
 body {
     overflow-x: hidden;
-    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-y: none;
 }
 
 html {
@@ -148,6 +148,7 @@ html {
     -moz-osx-font-smoothing: grayscale !important;
     box-sizing: border-box !important;
     -webkit-text-size-adjust: 100% !important;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0) !important;
 }
 
 body {
@@ -211,35 +212,52 @@ input[type='search']::-webkit-search-results-button,
 input[type='search']::-webkit-search-results-decoration {
     -webkit-appearance: none;
 }
+
 /* turn scrollbar into dark mode */
 html.dark {
     color-scheme: dark;
 }
+
 html,
 body {
     scrollbar-gutter: stable;
 }
 
-.SnackbarContainer-root .SnackbarItem-message.SnackbarItem-message {
-    overflow: auto;
-    display: flex;
-}
-.SnackbarContainer-root.SnackbarContainer-root.SnackbarContainer-root {
-    max-width: 400px;
+.SnackbarContainer-root {
+    max-width: 100% !important;
 }
 
-.SnackbarContainer-root .SnackbarContent-root.SnackbarContent-root {
-    display: flex;
-    align-items: center;
-    flex-wrap: nowrap;
+@media (min-width: 990px) {
+    .SnackbarContainer-root {
+        width: auto;
+        max-width: 400px !important;
+    }
 }
+
+.SnackbarContainer-root .SnackbarItem-message {
+    overflow: auto !important;
+    display: flex !important;
+}
+
+.SnackbarContainer-root .SnackbarContent-root {
+    display: flex !important;
+    align-items: center !important;
+    flex-wrap: nowrap !important;
+    border-radius: 12px !important;
+}
+
 .SnackbarItem-action {
-    margin-left: auto;
+    margin-left: auto !important;
+}
+
+.SnackbarItem-variantError {
+    background-color: #ff3545 !important;
 }
 
 .account-settings {
     background: none !important;
 }
+
 .account-settings .tippy-content {
     padding: 0;
 }
