@@ -33,7 +33,7 @@ export function ProfileSettings({ source }: ProfileSettingsProps) {
             {profiles.map((profile) => (
                 <ClickableButton
                     key={profile.profileId}
-                    className="my-6 flex items-center justify-between gap-2"
+                    className="my-3 flex items-center justify-between gap-2"
                     disabled={isSameProfile(currentProfile, profile) || source === SocialPlatform.Farcaster}
                     onClick={() => login(profile)}
                 >
