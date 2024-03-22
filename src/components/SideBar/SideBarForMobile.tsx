@@ -71,12 +71,7 @@ export const SideBarForMobile = memo(function SideBarForMobile() {
                                 leaveTo="opacity-0"
                             >
                                 <div className="absolute right-0 top-0 z-50 flex w-16 justify-center pt-4">
-                                    <ClickableButton
-                                        className="-m-2.5 p-2.5"
-                                        onClick={() => {
-                                            updateSidebarOpen(false);
-                                        }}
-                                    >
+                                    <ClickableButton className="-m-2.5 p-2.5" onClick={() => updateSidebarOpen(false)}>
                                         <span className="sr-only">Close sidebar</span>
                                         <CloseIcon className="text-main" width={24} height={24} />
                                     </ClickableButton>

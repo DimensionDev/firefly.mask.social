@@ -7,7 +7,7 @@ import FollowUserIcon from '@/assets/follow-user.svg';
 import LoadingIcon from '@/assets/loading.svg';
 import MoreIcon from '@/assets/more.svg';
 import UnFollowUserIcon from '@/assets/unfollow-user.svg';
-import { ClickableArea } from '@/components/ClickableArea.js';
+import { ClickableButton } from '@/components/ClickableButton.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { SocialPlatform } from '@/constants/enum.js';
@@ -73,7 +73,7 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
                 >
                     <Menu.Item>
                         {({ close }) => (
-                            <ClickableArea
+                            <ClickableButton
                                 className="flex cursor-pointer items-center space-x-2 p-4 hover:bg-bg"
                                 onClick={async () => {
                                     close();
@@ -97,7 +97,7 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
                                     />{' '}
                                     @{author.handle}
                                 </span>
-                            </ClickableArea>
+                            </ClickableButton>
                         )}
                     </Menu.Item>
                 </Menu.Items>
