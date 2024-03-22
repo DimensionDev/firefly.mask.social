@@ -4,13 +4,17 @@ import ComposeAddIcon from '@/assets/compose-add.svg';
 import ReplyIcon from '@/assets/reply.svg';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { useCurrentVisitingPost } from '@/hooks/useCurrentVisitingPost.js';
+import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { ComposeModalRef } from '@/modals/controls.js';
 
 export function ComposeButtonForMobile() {
     const pathname = usePathname();
     const isPostPage = isRoutePathname(pathname, '/post');
 
-    const post = useCurrentVisitingPost();
+    const isLogin = useIsLogin();
+    const currentPost = useCurrentVisitingPost();
+
+    if (!isLogin) return null;
 
     return (
         <button
@@ -18,7 +22,7 @@ export function ComposeButtonForMobile() {
             onClick={() => {
                 ComposeModalRef.open({
                     type: isPostPage ? 'reply' : 'compose',
-                    post: isPostPage ? post : undefined,
+                    post: isPostPage ? currentPost : undefined,
                 });
             }}
         >
