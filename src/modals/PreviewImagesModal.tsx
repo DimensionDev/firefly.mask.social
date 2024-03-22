@@ -52,51 +52,51 @@ export const PreviewImagesModal = forwardRef<SingletonModalRefCreator<PreviewIma
 
         return (
             <Modal open={open} backdrop={false} onClose={() => dispatch?.close()}>
-                {open ? (
-                    <div
-                        className=" preview-actions fixed inset-0 flex transform-none flex-col items-center justify-center bg-black/90 bg-opacity-90 transition-all"
-                        onClick={() => dispatch?.close()}
-                    >
-                        <div className="absolute left-4 top-4 cursor-pointer text-main">
-                            <ClickableButton onClick={() => dispatch?.close()}>
-                                <CloseIcon width={24} height={24} />
-                            </ClickableButton>
-                        </div>
+                <div
+                    className=" preview-actions fixed inset-0 flex transform-none flex-col items-center justify-center bg-black/90 bg-opacity-90 transition-all"
+                    onClick={() => dispatch?.close()}
+                >
+                    {open ? (
+                        <>
+                            <div className="absolute left-4 top-4 cursor-pointer text-main">
+                                <ClickableButton onClick={() => dispatch?.close()}>
+                                    <CloseIcon width={24} height={24} />
+                                </ClickableButton>
+                            </div>
 
-                        {isMultiple && !isAtStart ? (
-                            <ClickableButton
-                                className="absolute left-4 cursor-pointer rounded-full p-1 text-main hover:bg-bg"
-                                onClick={prev}
-                            >
-                                <ArrowLeftIcon width={24} height={24} />
-                            </ClickableButton>
-                        ) : null}
+                            {isMultiple && !isAtStart ? (
+                                <ClickableButton
+                                    className="absolute left-4 cursor-pointer rounded-full p-1 text-main hover:bg-bg"
+                                    onClick={prev}
+                                >
+                                    <ArrowLeftIcon width={24} height={24} />
+                                </ClickableButton>
+                            ) : null}
 
-                        {isMultiple && !isAtEnd ? (
-                            <ClickableButton
-                                className="absolute right-4 cursor-pointer rounded-full p-1 text-main hover:bg-bg"
-                                onClick={next}
-                            >
-                                <ArrowRightIcon width={24} height={24} />
-                            </ClickableButton>
-                        ) : null}
+                            {isMultiple && !isAtEnd ? (
+                                <ClickableButton
+                                    className="absolute right-4 cursor-pointer rounded-full p-1 text-main hover:bg-bg"
+                                    onClick={next}
+                                >
+                                    <ArrowRightIcon width={24} height={24} />
+                                </ClickableButton>
+                            ) : null}
 
-                        <Image
-                            src={state ?? current}
-                            alt={state ?? current}
-                            width={1000}
-                            height={1000}
-                            style={{ width: 'auto', height: 'auto' }}
-                            className="max-h-[calc(100vh-110px)] max-w-full"
-                        />
+                            <Image
+                                src={state ?? current}
+                                alt={state ?? current}
+                                width={1000}
+                                height={1000}
+                                style={{ width: 'auto', height: 'auto' }}
+                                className="max-h-[calc(100vh-110px)] max-w-full"
+                            />
 
-                        <div className="absolute bottom-0 my-1 flex items-center justify-between">
-                            {post ? <PostActions className="gap-8" post={post} disablePadding /> : null}
-                        </div>
-                    </div>
-                ) : (
-                    <div />
-                )}
+                            <div className="absolute bottom-0 my-1 flex items-center justify-between">
+                                {post ? <PostActions className="gap-8" post={post} disablePadding /> : null}
+                            </div>
+                        </>
+                    ) : null}
+                </div>
             </Modal>
         );
     },
