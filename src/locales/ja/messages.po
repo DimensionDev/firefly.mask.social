@@ -8,7 +8,7 @@ msgstr ""
 "Language: ja\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-03-20 12:01\n"
+"PO-Revision-Date: 2024-03-22 00:04\n"
 "Last-Translator: \n"
 "Language-Team: Japanese\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -37,9 +37,6 @@ msgid "Discover"
 msgstr ""
 
 msgid "Please be cautious when connecting your wallet, as malicious websites may attempt to access your funds."
-msgstr ""
-
-msgid "Click to refresh QRCode"
 msgstr ""
 
 msgid "Failed to mirror. {0}"
@@ -316,6 +313,9 @@ msgid "Post has been hidden"
 msgstr ""
 
 msgid "Everyone"
+msgstr ""
+
+msgid "Please confirm the login with Warpcast."
 msgstr ""
 
 msgid "Compose"
@@ -630,9 +630,6 @@ msgstr ""
 msgid "Your Lens account is now connected"
 msgstr ""
 
-msgid "Log in"
-msgstr ""
-
 msgid "Mask Network"
 msgstr ""
 
@@ -658,6 +655,9 @@ msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # o
 msgstr ""
 
 msgid "Recasted"
+msgstr ""
+
+msgid "Failed to fetch the latest state after several attempts. Please try again later."
 msgstr ""
 
 msgid "Profile"
