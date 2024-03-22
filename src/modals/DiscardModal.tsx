@@ -5,6 +5,7 @@ import type { SingletonModalRefCreator } from '@masknet/shared-base';
 import { useSingletonModal } from '@masknet/shared-base-ui';
 import { forwardRef } from 'react';
 
+import { ClickableButton } from '@/components/ClickableButton.js';
 import { Modal } from '@/components/Modal.js';
 import { ComposeModalRef, DiscardModalRef } from '@/modals/controls.js';
 
@@ -33,7 +34,7 @@ export const DiscardModal = forwardRef<SingletonModalRefCreator>(function Discar
                     <Trans>This can’t be undone and you’ll lose your draft.</Trans>
                 </div>
 
-                <button
+                <ClickableButton
                     className=" flex h-10 w-full items-center justify-center rounded-full bg-danger font-bold text-white"
                     onClick={() => {
                         DiscardModalRef.close();
@@ -41,7 +42,7 @@ export const DiscardModal = forwardRef<SingletonModalRefCreator>(function Discar
                     }}
                 >
                     <Trans>Confirm</Trans>
-                </button>
+                </ClickableButton>
             </div>
         </Modal>
     );

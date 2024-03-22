@@ -1,5 +1,6 @@
 import { ArrowTopRightOnSquareIcon } from '@heroicons/react/24/outline';
 
+import { ClickableButton } from '@/components/ClickableButton.js';
 import { classNames } from '@/helpers/classNames.js';
 import { ActionType, type FrameButton } from '@/types/frame.js';
 
@@ -11,7 +12,7 @@ interface Props {
 
 export function Button({ button, disabled = false, onClick }: Props) {
     return (
-        <button
+        <ClickableButton
             className={classNames(
                 'flex flex-1 items-center justify-center rounded-md border border-line bg-white py-2 text-main disabled:opacity-70 dark:bg-darkBottom dark:text-white',
                 {
@@ -21,10 +22,7 @@ export function Button({ button, disabled = false, onClick }: Props) {
             )}
             disabled={disabled}
             key={button.index}
-            onClick={(ev) => {
-                ev.stopPropagation();
-                ev.preventDefault();
-
+            onClick={() => {
                 if (!disabled) onClick?.();
             }}
         >
@@ -32,6 +30,6 @@ export function Button({ button, disabled = false, onClick }: Props) {
             {[ActionType.PostRedirect, ActionType.Link].includes(button.action) ? (
                 <ArrowTopRightOnSquareIcon className=" ml-1" width={20} height={20} />
             ) : null}
-        </button>
+        </ClickableButton>
     );
 }

@@ -1,6 +1,7 @@
 import { Trans } from '@lingui/macro';
 import { Suspense, useState } from 'react';
 
+import { ClickableButton } from '@/components/ClickableButton.js';
 import { Loading } from '@/components/Loading.js';
 import { ContentCollected } from '@/components/Profile/ContentCollected.js';
 import { ContentFeed } from '@/components/Profile/ContentFeed.js';
@@ -29,7 +30,7 @@ export function ContentTabs({ profileId, source }: ContentTabsProps) {
                     })
                     .map((tabName) => (
                         <div key={tabName} className=" flex flex-col">
-                            <button
+                            <ClickableButton
                                 className={classNames(
                                     ' flex h-[46px] items-center px-[14px] font-extrabold transition-all',
                                     tab === tabName ? ' text-main' : ' text-third hover:text-main',
@@ -37,7 +38,7 @@ export function ContentTabs({ profileId, source }: ContentTabsProps) {
                                 onClick={() => setTab(tabName)}
                             >
                                 {tabName === TabEnum.Feed ? <Trans>Feed</Trans> : <Trans>Collected</Trans>}
-                            </button>
+                            </ClickableButton>
                             <span
                                 className={classNames(
                                     ' h-1 w-full rounded-full bg-[#9250FF] transition-all',

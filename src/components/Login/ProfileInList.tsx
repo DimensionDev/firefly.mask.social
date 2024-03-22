@@ -1,5 +1,6 @@
 import DisableNoIcon from '@/assets/disable-no.svg';
 import YesIcon from '@/assets/yes.svg';
+import { ClickableButton } from '@/components/ClickableButton.js';
 import { ProfileName } from '@/components/ProfileName.js';
 import { Image } from '@/esm/Image.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
@@ -26,14 +27,14 @@ export function ProfileInList({ isSelected, onSelect, profile }: ProfileInListPr
             {isSelected ? (
                 <YesIcon width={40} height={40} />
             ) : (
-                <button
+                <ClickableButton
                     className="flex h-10 w-10 items-center justify-center"
                     onClick={() => {
                         onSelect(profile);
                     }}
                 >
                     <DisableNoIcon width={20} height={20} />
-                </button>
+                </ClickableButton>
             )}
         </div>
     );

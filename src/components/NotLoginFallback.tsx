@@ -2,6 +2,7 @@ import { t } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
 import { memo, useMemo } from 'react';
 
+import { ClickableButton } from '@/components/ClickableButton.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { Image } from '@/esm/Image.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -31,8 +32,7 @@ export const NotLoginFallback = memo<NotLoginFallbackProps>(function LoginFallba
             <span className="leading-3.5 text-base text-secondary">
                 {t`You need to connect your ${source} account to use this feature.`}
             </span>
-            <button
-                type="button"
+            <ClickableButton
                 className={classNames(
                     'rounded-[10px] bg-transparent px-5 py-3.5 text-sm font-bold shadow-sm ring-1 ring-inset',
                     source === SocialPlatform.Lens
@@ -45,7 +45,7 @@ export const NotLoginFallback = memo<NotLoginFallbackProps>(function LoginFallba
                 }}
             >
                 {t`Connect to ${source}`}
-            </button>
+            </ClickableButton>
         </div>
     );
 });

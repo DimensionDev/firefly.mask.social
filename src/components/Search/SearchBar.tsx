@@ -8,6 +8,7 @@ import { useOnClickOutside } from 'usehooks-ts';
 import CloseIcon from '@/assets/close-circle.svg';
 import LeftArrowIcon from '@/assets/left-arrow.svg';
 import SearchIcon from '@/assets/search.svg';
+import { ClickableButton } from '@/components/ClickableButton.js';
 import { SearchRecommendation } from '@/components/Search/SearchRecommendation.js';
 import { classNames } from '@/helpers/classNames.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
@@ -37,8 +38,8 @@ const SearchBar = memo(function SearchBar(props: SearchBarProps) {
         setShowRecommendation(false);
     });
 
-    const handleInputChange = (evt: ChangeEvent<HTMLInputElement>) => {
-        setInputText(evt.target.value);
+    const handleInputChange = (ev: ChangeEvent<HTMLInputElement>) => {
+        setInputText(ev.target.value);
     };
 
     const handleInputSubmit = (state: SearchState) => {
@@ -65,8 +66,8 @@ const SearchBar = memo(function SearchBar(props: SearchBarProps) {
                 <SearchIcon width={18} height={18} className="shrink-0" />
                 <form
                     className="w-full flex-1"
-                    onSubmit={(evt) => {
-                        evt.preventDefault();
+                    onSubmit={(ev) => {
+                        ev.preventDefault();
                         handleInputSubmit({ q: inputText });
                     }}
                 >
@@ -82,17 +83,15 @@ const SearchBar = memo(function SearchBar(props: SearchBarProps) {
                             onChange={handleInputChange}
                             onFocus={() => setShowRecommendation(true)}
                         />
-                        <CloseIcon
+                        <ClickableButton
                             className={classNames('cursor-pointer', inputText ? 'visible' : 'invisible')}
-                            width={16}
-                            height={16}
-                            onClick={(evt) => {
-                                evt.preventDefault();
-                                evt.stopPropagation();
+                            onClick={() => {
                                 setInputText('');
                                 inputRef.current?.focus();
                             }}
-                        />
+                        >
+                            <CloseIcon width={16} height={16} />
+                        </ClickableButton>
                     </label>
                 </form>
                 {showRecommendation && !isSearchPage ? (

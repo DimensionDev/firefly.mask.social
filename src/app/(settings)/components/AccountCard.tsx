@@ -1,5 +1,6 @@
 import { Trans } from '@lingui/macro';
 
+import { ClickableButton } from '@/components/ClickableButton.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { ProfileName } from '@/components/ProfileName.js';
 import { SocialPlatform } from '@/constants/enum.js';
@@ -23,16 +24,16 @@ export function AccountCard({ profile, isCurrent }: AccountCardProps) {
             <ProfileAvatar profile={profile} size={36} />
             <ProfileName profile={profile} />
             {isCurrent ? (
-                <button
+                <ClickableButton
                     className="text-[15px] font-bold leading-none text-red-500"
                     onClick={() => {
                         LogoutModalRef.open({ source: profile.source });
                     }}
                 >
                     <Trans>Log out</Trans>
-                </button>
+                </ClickableButton>
             ) : (
-                <button
+                <ClickableButton
                     className="text-right text-[15px] font-bold leading-none text-main disabled:cursor-not-allowed disabled:opacity-50"
                     disabled={profile.source === SocialPlatform.Farcaster}
                     onClick={() => {
@@ -40,7 +41,7 @@ export function AccountCard({ profile, isCurrent }: AccountCardProps) {
                     }}
                 >
                     <Trans>Switch</Trans>
-                </button>
+                </ClickableButton>
             )}
         </div>
     );

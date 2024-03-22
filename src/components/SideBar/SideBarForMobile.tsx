@@ -7,6 +7,7 @@ import { useOnClickOutside } from 'usehooks-ts';
 import CloseIcon from '@/assets/close.svg';
 import DarkLogo from '@/assets/logo.dark.svg';
 import LightLogo from '@/assets/logo.light.svg';
+import { ClickableButton } from '@/components/ClickableButton.js';
 import { Menu } from '@/components/SideBar/Menu.js';
 import { useDarkMode } from '@/hooks/useDarkMode.js';
 import { useNavigatorState } from '@/store/useNavigatorStore.js';
@@ -70,17 +71,15 @@ export const SideBarForMobile = memo(function SideBarForMobile() {
                                 leaveTo="opacity-0"
                             >
                                 <div className="absolute right-0 top-0 z-50 flex w-16 justify-center pt-4">
-                                    <button
-                                        type="button"
+                                    <ClickableButton
                                         className="-m-2.5 p-2.5"
-                                        onClick={(ev) => {
-                                            ev.preventDefault();
+                                        onClick={() => {
                                             updateSidebarOpen(false);
                                         }}
                                     >
                                         <span className="sr-only">Close sidebar</span>
                                         <CloseIcon className="h-6 w-6 text-main" aria-hidden="true" />
-                                    </button>
+                                    </ClickableButton>
                                 </div>
                             </Transition.Child>
                         </Dialog.Panel>

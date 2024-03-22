@@ -10,6 +10,7 @@ import { AccountCard } from '@/app/(settings)/components/AccountCard.js';
 import { Headline } from '@/app/(settings)/components/Headline.js';
 import { Section } from '@/app/(settings)/components/Section.js';
 import CopyIcon from '@/assets/copy.svg';
+import { ClickableButton } from '@/components/ClickableButton.js';
 import { Tippy } from '@/esm/Tippy.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
@@ -63,13 +64,13 @@ export default function Connected() {
                                     );
                                 }}
                             >
-                                <button
+                                <ClickableButton
                                     onClick={() => {
                                         handleClick();
                                     }}
                                 >
                                     <CopyIcon width={14} height={14} />
-                                </button>
+                                </ClickableButton>
                             </Tippy>
                         </div>
                     </div>
@@ -105,7 +106,7 @@ export default function Connected() {
             ) : null}
 
             <div className="flex items-center gap-4">
-                <button
+                <ClickableButton
                     className="inline-flex h-10 w-[200px] flex-col items-center justify-center"
                     onClick={() => {
                         LoginModalRef.open();
@@ -116,9 +117,9 @@ export default function Connected() {
                             <Trans>Add account</Trans>
                         </div>
                     </div>
-                </button>
+                </ClickableButton>
 
-                <button
+                <ClickableButton
                     className="inline-flex h-10 w-[200px] flex-col items-start justify-start"
                     onClick={() => {
                         LogoutModalRef.open();
@@ -129,7 +130,7 @@ export default function Connected() {
                             <Trans>Log out all</Trans>
                         </div>
                     </div>
-                </button>
+                </ClickableButton>
             </div>
         </Section>
     );

@@ -11,6 +11,7 @@ import { useAccount } from 'wagmi';
 
 import LoadingIcon from '@/assets/loading.svg';
 import WalletIcon from '@/assets/wallet.svg';
+import { ClickableButton } from '@/components/ClickableButton.js';
 import { ProfileInList } from '@/components/Login/ProfileInList.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
@@ -96,7 +97,7 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
                                     </span>
                                     <Switch checked={signless} onChange={setSignless}>
                                         {({ checked }) => (
-                                            <button
+                                            <ClickableButton
                                                 className={`${
                                                     checked ? 'bg-success' : 'bg-gray-200'
                                                 } relative inline-flex h-[22px] w-[43px] items-center rounded-full`}
@@ -107,7 +108,7 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
                                                         checked ? 'translate-x-6' : 'translate-x-1'
                                                     } inline-block h-3 w-3 transform rounded-full bg-white transition`}
                                                 />
-                                            </button>
+                                            </ClickableButton>
                                         )}
                                     </Switch>
                                 </div>
@@ -135,7 +136,7 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
                         backdropFilter: 'blur(8px)',
                     }}
                 >
-                    <button
+                    <ClickableButton
                         className="flex items-center gap-2 py-[11px]"
                         onClick={async () => {
                             LoginModalRef.close();
@@ -148,8 +149,8 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
                         <span className=" text-[14px] font-bold leading-[18px] text-second">
                             <Trans>Change Wallet</Trans>
                         </span>
-                    </button>
-                    <button
+                    </ClickableButton>
+                    <ClickableButton
                         disabled={loading}
                         className=" flex h-10 w-[120px] items-center justify-center gap-2 rounded-[99px] bg-lightMain text-sm font-bold text-primaryBottom disabled:cursor-not-allowed disabled:opacity-50"
                         onClick={() => login(signless)}
@@ -159,7 +160,7 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
                         ) : (
                             <Trans>Sign</Trans>
                         )}
-                    </button>
+                    </ClickableButton>
                 </div>
             </div>
         </div>

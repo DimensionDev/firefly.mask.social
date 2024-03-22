@@ -6,6 +6,7 @@ import QRCode from 'react-qr-code';
 import { useAsyncFn, useEffectOnce, useUnmount } from 'react-use';
 
 import LoadingIcon from '@/assets/loading.svg';
+import { ClickableButton } from '@/components/ClickableButton.js';
 import { IS_PRODUCTION } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getMobileDevice } from '@/helpers/getMobileDevice.js';
@@ -123,7 +124,7 @@ export function LoginFarcaster() {
                                 />
                             </div>
                             {!IS_PRODUCTION ? (
-                                <button
+                                <ClickableButton
                                     className="text-sm font-semibold text-lightSecond disabled:cursor-not-allowed disabled:opacity-50"
                                     disabled={loadingCustodyWallet}
                                     onClick={onLoginWithCustodyWallet}
@@ -133,7 +134,7 @@ export function LoginFarcaster() {
                                     ) : (
                                         <Trans>Login with custody wallet</Trans>
                                     )}
-                                </button>
+                                </ClickableButton>
                             ) : null}
                         </>
                     ) : (

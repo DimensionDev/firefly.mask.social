@@ -1,3 +1,4 @@
+import { ClickableButton } from '@/components/ClickableButton.js';
 import { SourceIcon } from '@/components/SourceIcon.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
@@ -10,7 +11,7 @@ interface LoginButtonProps {
 export function LoginButton(props: LoginButtonProps) {
     const { source, onClick } = props;
     return (
-        <button
+        <ClickableButton
             className=" group flex w-full flex-col rounded-lg p-4 hover:bg-lightBg"
             onClick={() => onClick?.(source)}
         >
@@ -22,6 +23,6 @@ export function LoginButton(props: LoginButtonProps) {
                     {resolveSourceName(source)}
                 </div>
             </div>
-        </button>
+        </ClickableButton>
     );
 }

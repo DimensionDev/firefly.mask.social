@@ -16,6 +16,7 @@ import ProfileIcon from '@/assets/profile.svg';
 import SettingsSelectedIcon from '@/assets/setting.selected.svg';
 import SettingsIcon from '@/assets/setting.svg';
 import WalletIcon from '@/assets/wallet.svg';
+import { ClickableButton } from '@/components/ClickableButton.js';
 import { LoginStatusBar } from '@/components/Login/LoginStatusBar.js';
 import { ConnectWallet } from '@/components/SideBar/ConnectWallet.js';
 import { Tooltip } from '@/components/Tooltip.js';
@@ -136,8 +137,7 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                                 collapsed ? (
                                     <li className="text-center">
                                         <Tooltip content={t`Post`} placement="right">
-                                            <button
-                                                type="button"
+                                            <ClickableButton
                                                 className="rounded-full bg-main p-1 text-primaryBottom"
                                                 onClick={() =>
                                                     ComposeModalRef.open({
@@ -146,13 +146,12 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                                                 }
                                             >
                                                 <PlusIcon className="h-5 w-5" aria-hidden="true" />
-                                            </button>
+                                            </ClickableButton>
                                         </Tooltip>
                                     </li>
                                 ) : (
                                     <li>
-                                        <button
-                                            type="button"
+                                        <ClickableButton
                                             className="hidden w-[200px] rounded-2xl bg-main p-2 text-xl font-bold leading-6 text-primaryBottom md:block"
                                             onClick={() => {
                                                 ComposeModalRef.open({
@@ -161,7 +160,7 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                                             }}
                                         >
                                             <Trans>Post</Trans>
-                                        </button>
+                                        </ClickableButton>
                                     </li>
                                 )
                             ) : null}
@@ -171,26 +170,24 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                         {isLogin ? (
                             <LoginStatusBar collapsed={collapsed} />
                         ) : collapsed ? (
-                            <button
+                            <ClickableButton
                                 onClick={() => {
                                     LoginModalRef.open();
                                 }}
-                                type="button"
                                 className="rounded-full bg-main p-1 text-primaryBottom"
                             >
                                 <UserPlusIcon className="h-5 w-5" aria-hidden="true" />
-                            </button>
+                            </ClickableButton>
                         ) : (
-                            <button
+                            <ClickableButton
                                 onClick={() => {
                                     updateSidebarOpen(false);
                                     LoginModalRef.open();
                                 }}
-                                type="button"
                                 className="w-[200px] rounded-2xl bg-main p-2 text-xl font-bold leading-6 text-primaryBottom"
                             >
                                 <Trans>Login</Trans>
-                            </button>
+                            </ClickableButton>
                         )}
                     </li>
                 </ul>
