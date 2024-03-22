@@ -8,8 +8,6 @@ import CloseIcon from '@/assets/close.svg';
 import DarkLogo from '@/assets/logo.dark.svg';
 import LightLogo from '@/assets/logo.light.svg';
 import { Menu } from '@/components/SideBar/Menu.js';
-import { PageRoute } from '@/constants/enum.js';
-import { Link } from '@/esm/Link.js';
 import { useDarkMode } from '@/hooks/useDarkMode.js';
 import { useNavigatorState } from '@/store/useNavigatorStore.js';
 
@@ -53,13 +51,11 @@ export const SideBarForMobile = memo(function SideBarForMobile() {
                             <div className=" fixed inset-0 z-50 flex w-[280px] flex-col bg-white dark:bg-black ">
                                 <div className="flex grow flex-col gap-y-5 border-r border-line px-3 lg:px-6">
                                     <div className="flex h-16 shrink-0 items-center lg:px-4">
-                                        <Link href={PageRoute.Home}>
-                                            {!isDarkMode ? (
-                                                <LightLogo width={134} height={64} />
-                                            ) : (
-                                                <DarkLogo width={134} height={64} />
-                                            )}
-                                        </Link>
+                                        {!isDarkMode ? (
+                                            <LightLogo width={134} height={64} />
+                                        ) : (
+                                            <DarkLogo width={134} height={64} />
+                                        )}
                                     </div>
                                     <Menu />
                                 </div>
@@ -77,7 +73,10 @@ export const SideBarForMobile = memo(function SideBarForMobile() {
                                     <button
                                         type="button"
                                         className="-m-2.5 p-2.5"
-                                        onClick={() => updateSidebarOpen(false)}
+                                        onClick={(ev) => {
+                                            ev.preventDefault();
+                                            updateSidebarOpen(false);
+                                        }}
                                     >
                                         <span className="sr-only">Close sidebar</span>
                                         <CloseIcon className="h-6 w-6 text-main" aria-hidden="true" />
