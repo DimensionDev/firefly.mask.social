@@ -2,7 +2,7 @@ import { createElement } from 'react';
 
 interface ClickableArea extends React.HTMLAttributes<HTMLDivElement> {
     as?: keyof JSX.IntrinsicElements;
-    children: React.ReactNode;
+    children?: React.ReactNode;
     onClick?: () => void;
 }
 

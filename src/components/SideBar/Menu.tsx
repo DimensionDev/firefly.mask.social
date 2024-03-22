@@ -2,6 +2,7 @@
 
 import { PlusIcon, UserPlusIcon } from '@heroicons/react/24/outline';
 import { t, Trans } from '@lingui/macro';
+import { delay } from '@masknet/kit';
 import { usePathname } from 'next/navigation.js';
 import { memo } from 'react';
 
@@ -180,8 +181,9 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                             </ClickableButton>
                         ) : (
                             <ClickableButton
-                                onClick={() => {
+                                onClick={async () => {
                                     updateSidebarOpen(false);
+                                    await delay(300);
                                     LoginModalRef.open();
                                 }}
                                 className="w-[200px] rounded-2xl bg-main p-2 text-xl font-bold leading-6 text-primaryBottom"
