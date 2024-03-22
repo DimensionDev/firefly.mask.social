@@ -35,9 +35,7 @@ export function ProfileSettings({ source }: ProfileSettingsProps) {
                     key={profile.profileId}
                     className="my-6 flex items-center justify-between gap-2"
                     disabled={isSameProfile(currentProfile, profile) || source === SocialPlatform.Farcaster}
-                    onClick={() => {
-                        login(profile);
-                    }}
+                    onClick={() => login(profile)}
                 >
                     <ProfileAvatar profile={profile} clickable linkable />
                     <ProfileName profile={profile} />
@@ -48,9 +46,7 @@ export function ProfileSettings({ source }: ProfileSettingsProps) {
             ))}
             <ClickableButton
                 className="flex w-full items-center rounded px-1 py-3 text-main hover:bg-bg"
-                onClick={() => {
-                    LoginModalRef.open();
-                }}
+                onClick={() => LoginModalRef.open()}
             >
                 <UserAddIcon width={24} height={24} />
                 <span className=" pl-2 text-[17px] font-bold leading-[22px] text-main">
@@ -59,9 +55,7 @@ export function ProfileSettings({ source }: ProfileSettingsProps) {
             </ClickableButton>
             <ClickableButton
                 className="mb-3 flex items-center rounded px-1 py-3 hover:bg-bg"
-                onClick={() => {
-                    LogoutModalRef.open({ source });
-                }}
+                onClick={() => LogoutModalRef.open({ source })}
             >
                 <LogOutIcon width={24} height={24} />
                 <span className=" pl-2 text-[17px] font-bold leading-[22px] text-danger">
