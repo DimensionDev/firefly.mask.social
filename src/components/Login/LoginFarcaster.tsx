@@ -9,7 +9,6 @@ import LoadingIcon from '@/assets/loading.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { IS_PRODUCTION } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
-import { getMobileDevice } from '@/helpers/getMobileDevice.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
@@ -61,16 +60,7 @@ export function LoginFarcaster() {
         useAsyncFn(async () => {
             controllerRef.current?.abort();
             controllerRef.current = new AbortController();
-            await login(() =>
-                createSessionByGrantPermission(
-                    (url) => {
-                        const device = getMobileDevice();
-                        if (device === 'unknown') setUrl(url);
-                        else window.open(url, '_blank', 'noreferrer noopener');
-                    },
-                    controllerRef.current?.signal,
-                ),
-            );
+            await login(() => createSessionByGrantPermission(setUrl, controllerRef.current?.signal));
         }, [login, setUrl]);
 
     const [{ loading: loadingCustodyWallet }, onLoginWithCustodyWallet] = useAsyncFn(async () => {
