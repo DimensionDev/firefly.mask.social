@@ -9,6 +9,7 @@ import LoadingIcon from '@/assets/loading.svg';
 import MirrorIcon from '@/assets/mirror.svg';
 import MirrorLargeIcon from '@/assets/mirror-large.svg';
 import QuoteDownIcon from '@/assets/quote-down.svg';
+import { ClickableButton } from '@/components/ClickableButton.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -214,25 +215,23 @@ export const Mirror = memo<MirrorProps>(function Mirror({
                             >
                                 <Menu.Item>
                                     {({ close }) => (
-                                        <div
+                                        <ClickableButton
                                             className={classNames('flex cursor-pointer items-center space-x-2', {
                                                 'text-secondarySuccess': !!mirrored,
                                             })}
-                                            onClick={(event) => {
-                                                event.stopPropagation();
-                                                event.preventDefault();
+                                            onClick={() => {
                                                 close();
                                                 handleMirror();
                                             }}
                                         >
                                             <MirrorLargeIcon width={24} height={24} />
                                             <span className="font-medium">{mirrorActionText}</span>
-                                        </div>
+                                        </ClickableButton>
                                     )}
                                 </Menu.Item>
                                 {source === SocialPlatform.Lens ? (
                                     <Menu.Item>
-                                        <div
+                                        <ClickableButton
                                             className="flex cursor-pointer items-center space-x-2"
                                             onClick={() => {
                                                 close();
@@ -247,7 +246,7 @@ export const Mirror = memo<MirrorProps>(function Mirror({
                                             <span className="font-medium">
                                                 <Trans>Quote Post</Trans>
                                             </span>
-                                        </div>
+                                        </ClickableButton>
                                     </Menu.Item>
                                 ) : null}
                             </Menu.Items>

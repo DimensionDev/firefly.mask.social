@@ -2,10 +2,11 @@ import { ArrowLeftIcon, ArrowRightIcon } from '@heroicons/react/24/outline';
 import type { SingletonModalRefCreator } from '@masknet/shared-base';
 import { useSingletonModal } from '@masknet/shared-base-ui';
 import { forwardRef, useEffect, useState } from 'react';
-import { useStateList } from 'react-use';
+import { useKeyPressEvent, useStateList } from 'react-use';
 
 import CloseIcon from '@/assets/close.svg';
 import { PostActions } from '@/components/Actions/index.js';
+import { ClickableButton } from '@/components/ClickableButton.js';
 import { Image } from '@/components/Image.js';
 import { Modal } from '@/components/Modal.js';
 import { EMPTY_LIST } from '@/constants/index.js';
@@ -28,10 +29,9 @@ export const PreviewImagesModal = forwardRef<SingletonModalRefCreator<PreviewIma
         const isAtStart = currentIndex === 0;
         const isAtEnd = currentIndex === images.length - 1;
         const currentIsIncluded = current && images.includes(current);
+
         useEffect(() => {
-            if (currentIsIncluded) {
-                setState(current);
-            }
+            if (currentIsIncluded) setState(current);
         }, [currentIsIncluded, setState, current]);
 
         const [open, dispatch] = useSingletonModal(ref, {
@@ -47,68 +47,50 @@ export const PreviewImagesModal = forwardRef<SingletonModalRefCreator<PreviewIma
             },
         });
 
+        useKeyPressEvent((ev) => ev.key === 'ArrowLeft', prev);
+        useKeyPressEvent((ev) => ev.key === 'ArrowRight', next);
+
         return (
-            <Modal open={open} onClose={() => dispatch?.close()}>
-                <div className="preview-actions flex transform-none flex-col items-center transition-all">
-                    {/* Fix transition hack  */}
-                    {open ? (
-                        <>
-                            <div className="mb-2 w-full">
-                                <CloseIcon
-                                    width={24}
-                                    height={24}
-                                    className="cursor-pointer text-white"
-                                    onClick={(event) => {
-                                        event.stopPropagation();
-                                        event.preventDefault();
-                                        dispatch?.close();
-                                    }}
-                                />
-                            </div>
+            <Modal open={open} backdrop={false} onClose={() => dispatch?.close()}>
+                {open ? (
+                    <div
+                        className=" preview-actions fixed inset-0 flex transform-none flex-col items-center justify-center bg-black/90 bg-opacity-90 transition-all"
+                        onClick={() => dispatch?.close()}
+                    >
+                        <div className="absolute left-4 top-4 cursor-pointer text-main">
+                            <ClickableButton onClick={() => dispatch?.close()}>
+                                <CloseIcon width={24} height={24} />
+                            </ClickableButton>
+                        </div>
 
-                            <Image
-                                src={state ?? current}
-                                alt={state ?? current}
-                                width={1000}
-                                height={1000}
-                                style={{ width: 'auto', height: 'auto' }}
-                                className="max-h-[calc(100vh-110px)] max-w-full"
-                            />
+                        {isMultiple && !isAtStart ? (
+                            <ClickableButton className="absolute left-4 cursor-pointer text-secondary" onClick={prev}>
+                                <ArrowLeftIcon width={24} height={24} />
+                            </ClickableButton>
+                        ) : null}
 
-                            <div className="absolute bottom-0 my-1 flex w-[512px] items-center justify-between">
-                                <div className="mr-auto h-4 w-4">
-                                    {isMultiple && !isAtStart ? (
-                                        <ArrowLeftIcon
-                                            className="cursor-pointer text-secondary"
-                                            width={16}
-                                            height={16}
-                                            onClick={(event) => {
-                                                event.stopPropagation();
-                                                event.preventDefault();
-                                                prev();
-                                            }}
-                                        />
-                                    ) : null}
-                                </div>
-                                {post ? <PostActions post={post} disablePadding className="mx-auto" /> : null}
-                                <div className="ml-auto h-4 w-4">
-                                    {isMultiple && !isAtEnd ? (
-                                        <ArrowRightIcon
-                                            className="cursor-pointer text-secondary"
-                                            width={16}
-                                            height={16}
-                                            onClick={(event) => {
-                                                event.stopPropagation();
-                                                event.preventDefault();
-                                                next();
-                                            }}
-                                        />
-                                    ) : null}
-                                </div>
-                            </div>
-                        </>
-                    ) : null}
-                </div>
+                        {isMultiple && !isAtEnd ? (
+                            <ClickableButton className="absolute right-4 cursor-pointer text-secondary" onClick={next}>
+                                <ArrowRightIcon width={24} height={24} />
+                            </ClickableButton>
+                        ) : null}
+
+                        <Image
+                            src={state ?? current}
+                            alt={state ?? current}
+                            width={1000}
+                            height={1000}
+                            style={{ width: 'auto', height: 'auto' }}
+                            className="max-h-[calc(100vh-110px)] max-w-full"
+                        />
+
+                        <div className="absolute bottom-0 my-1 flex items-center justify-between">
+                            {post ? <PostActions className="gap-8" post={post} disablePadding /> : null}
+                        </div>
+                    </div>
+                ) : (
+                    <div />
+                )}
             </Modal>
         );
     },
