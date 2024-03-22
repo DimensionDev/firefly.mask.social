@@ -64,13 +64,19 @@ export const PreviewImagesModal = forwardRef<SingletonModalRefCreator<PreviewIma
                         </div>
 
                         {isMultiple && !isAtStart ? (
-                            <ClickableButton className="absolute left-4 cursor-pointer text-secondary" onClick={prev}>
+                            <ClickableButton
+                                className="absolute left-4 cursor-pointer rounded-full p-1 text-secondary hover:bg-bg"
+                                onClick={prev}
+                            >
                                 <ArrowLeftIcon width={24} height={24} />
                             </ClickableButton>
                         ) : null}
 
                         {isMultiple && !isAtEnd ? (
-                            <ClickableButton className="absolute right-4 cursor-pointer text-secondary" onClick={next}>
+                            <ClickableButton
+                                className="absolute right-4 cursor-pointer rounded-full p-1 text-secondary hover:bg-bg"
+                                onClick={next}
+                            >
                                 <ArrowRightIcon width={24} height={24} />
                             </ClickableButton>
                         ) : null}
