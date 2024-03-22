@@ -65,7 +65,7 @@ export const PreviewImagesModal = forwardRef<SingletonModalRefCreator<PreviewIma
 
                         {isMultiple && !isAtStart ? (
                             <ClickableButton
-                                className="absolute left-4 cursor-pointer rounded-full p-1 text-secondary hover:bg-bg"
+                                className="absolute left-4 cursor-pointer rounded-full p-1 text-main hover:bg-bg"
                                 onClick={prev}
                             >
                                 <ArrowLeftIcon width={24} height={24} />
@@ -74,7 +74,7 @@ export const PreviewImagesModal = forwardRef<SingletonModalRefCreator<PreviewIma
 
                         {isMultiple && !isAtEnd ? (
                             <ClickableButton
-                                className="absolute right-4 cursor-pointer rounded-full p-1 text-secondary hover:bg-bg"
+                                className="absolute right-4 cursor-pointer rounded-full p-1 text-main hover:bg-bg"
                                 onClick={next}
                             >
                                 <ArrowRightIcon width={24} height={24} />
