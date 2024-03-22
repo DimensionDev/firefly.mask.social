@@ -51,7 +51,7 @@ const x1test = {
     network: 'X1Test',
 } as const satisfies Chain;
 
-export const { chains, publicClient, webSocketPublicClient } = configureChains(
+const { chains, publicClient, webSocketPublicClient } = configureChains(
     [mainnet, base, polygon, optimism, bsc, arbitrum, gnosis, avalanche, aurora, confluxESpace, fantom, x1test, metis],
     [publicProvider()],
 ) as {
@@ -61,6 +61,7 @@ export const { chains, publicClient, webSocketPublicClient } = configureChains(
         chainId?: number | undefined;
     }) => WebSocketPublicClient<FallbackTransport> | undefined;
 };
+export { chains, publicClient, webSocketPublicClient };
 
 export const connectors = connectorsForWallets([
     {

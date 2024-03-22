@@ -56,6 +56,7 @@ export function createMaskSiteAdaptorContext(context?: Partial<__SiteAdaptorCont
         getSearchedKeyword: undefined,
         getUserIdentity: undefined,
         postMessage: undefined,
+        publishPost: undefined,
         ...context,
     };
 }
