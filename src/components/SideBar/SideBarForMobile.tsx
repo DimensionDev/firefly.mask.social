@@ -25,7 +25,7 @@ export const SideBarForMobile = memo(function SideBarForMobile() {
 
     return (
         <Transition.Root show={sidebarOpen} as={Fragment}>
-            <Dialog as="div" className="relative z-50 lg:hidden" onClose={() => updateSidebarOpen(false)}>
+            <Dialog as="div" className="relative z-50" onClose={() => updateSidebarOpen(false)}>
                 <Transition.Child
                     as={Fragment}
                     enter="transition-opacity ease-linear duration-300"
@@ -50,12 +50,12 @@ export const SideBarForMobile = memo(function SideBarForMobile() {
                     >
                         <Dialog.Panel className="relative mr-16 flex w-full max-w-[280px] flex-1">
                             <div className=" fixed inset-0 z-50 flex w-[280px] flex-col bg-white dark:bg-black ">
-                                <div className="flex grow flex-col gap-y-5 border-r border-line px-3 lg:px-6">
-                                    <div className="flex h-16 shrink-0 items-center lg:px-4">
-                                        {!isDarkMode ? (
-                                            <LightLogo width={134} height={64} />
-                                        ) : (
+                                <div className="flex grow flex-col gap-y-5 border-r border-line px-3">
+                                    <div className="flex h-16 shrink-0 items-center px-4">
+                                        {isDarkMode ? (
                                             <DarkLogo width={134} height={64} />
+                                        ) : (
+                                            <LightLogo width={134} height={64} />
                                         )}
                                     </div>
                                     <Menu />

@@ -3,6 +3,8 @@
 import { Dialog, Transition } from '@headlessui/react';
 import React, { Fragment } from 'react';
 
+import { ClickableArea } from '@/components/ClickableArea.js';
+
 interface ModalProps {
     backdrop?: boolean;
     open: boolean;
@@ -26,7 +28,10 @@ export function Modal({ backdrop = true, open, onClose, children }: ModalProps) 
                                 leaveFrom="opacity-100"
                                 leaveTo="opacity-0"
                             >
-                                <div className="fixed inset-0 bg-main/25 bg-opacity-30" onClick={() => onClose?.()} />
+                                <ClickableArea
+                                    className="fixed inset-0 bg-main/25 bg-opacity-30"
+                                    onClick={() => onClose?.()}
+                                />
                             </Transition.Child>
                         ) : null}
                         <Transition.Child
