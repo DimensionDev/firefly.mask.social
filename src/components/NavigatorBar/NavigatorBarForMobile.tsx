@@ -63,8 +63,8 @@ export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({
     return (
         <>
             <header className=" flex items-center gap-4 px-4 py-[7px] text-main">
-                <div className=" flex h-[30px] w-[30px] justify-center">
-                    {searchMode || enableFixedBack ? (
+                {searchMode || enableFixedBack ? (
+                    <div className=" flex h-[30px] w-[30px] justify-center">
                         <ClickableButton
                             onClick={() => {
                                 if (isSearchPage || enableFixedBack) router.back();
@@ -75,9 +75,11 @@ export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({
                         >
                             <LeftArrowIcon />
                         </ClickableButton>
-                    ) : (
+                    </div>
+                ) : (
+                    <div className=" flex h-[30px] justify-start">
                         <ClickableButton
-                            className=" flex items-center justify-center px-5"
+                            className=" flex items-center justify-center"
                             onClick={() => {
                                 updateSidebarOpen(true);
                             }}
@@ -98,8 +100,8 @@ export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({
                             ) : null}
                             {farcasterProfile || lensProfile ? null : <MenuIcon />}
                         </ClickableButton>
-                    )}
-                </div>
+                    </div>
+                )}
                 <h1 className=" flex h-10 flex-1 items-center justify-center">
                     {searchMode ? (
                         <form
