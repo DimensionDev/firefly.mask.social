@@ -4,14 +4,13 @@ import { Dialog, Transition } from '@headlessui/react';
 import React, { Fragment } from 'react';
 
 interface ModalProps {
-    fullScreen?: boolean;
     backdrop?: boolean;
     open: boolean;
     onClose: () => void;
     children?: React.ReactNode;
 }
 
-export function Modal({ fullScreen, backdrop = true, open, onClose, children }: ModalProps) {
+export function Modal({ backdrop = true, open, onClose, children }: ModalProps) {
     return (
         <Transition appear show={open} as={Fragment}>
             <Dialog as="div" className="relative z-[100]" onClose={onClose}>

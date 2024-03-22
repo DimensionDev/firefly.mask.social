@@ -78,7 +78,7 @@ export const SideBarForMobile = memo(function SideBarForMobile() {
                                         }}
                                     >
                                         <span className="sr-only">Close sidebar</span>
-                                        <CloseIcon className="h-6 w-6 text-main" aria-hidden="true" />
+                                        <CloseIcon className="text-main" width={24} height={24} />
                                     </ClickableButton>
                                 </div>
                             </Transition.Child>
