@@ -4,6 +4,7 @@ import { Trans } from '@lingui/macro';
 import { memo } from 'react';
 
 import Music from '@/assets/music.svg';
+import { ClickableArea } from '@/components/ClickableArea.js';
 import { Image } from '@/components/Image.js';
 import { Plyr } from '@/esm/Plyr.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -18,13 +19,7 @@ interface AudioProps {
 
 export const Audio = memo<AudioProps>(function Audio({ poster, src, title, artist, className }) {
     return (
-        <div
-            className={classNames('overflow-hidden rounded-2xl bg-thirdMain p-3', className ?? '')}
-            onClick={(event) => {
-                event.stopPropagation();
-                event.preventDefault();
-            }}
-        >
+        <ClickableArea className={classNames('overflow-hidden rounded-2xl bg-thirdMain p-3', className ?? '')}>
             <div className="flex space-x-2">
                 {poster ? (
                     <Image width={80} height={80} src={poster} className="h-20 w-20 rounded-xl" alt="title" />
@@ -49,6 +44,6 @@ export const Audio = memo<AudioProps>(function Audio({ poster, src, title, artis
                     options={{ controls: ['current-time', 'progress', 'duration', 'play'] }}
                 />
             </div>
-        </div>
+        </ClickableArea>
     );
 });

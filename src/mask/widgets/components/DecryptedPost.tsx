@@ -9,6 +9,7 @@ import { memo, type PropsWithChildren } from 'react';
 import React, { Suspense } from 'react';
 import { useAsyncRetry } from 'react-use';
 
+import { ClickableArea } from '@/components/ClickableArea.js';
 import type { EncryptedPayload } from '@/helpers/getEncryptedPayload.js';
 import { usePostInfo } from '@/mask/hooks/usePostInfo.js';
 import { registry } from '@/mask/typed-message/registry.js';
@@ -59,12 +60,7 @@ export const DecryptedPost = memo(function DecryptedPost({ post, payloads, child
     return (
         <PostInfoProvider post={postInfo}>
             {children}
-            <div
-                onClick={(e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                }}
-            >
+            <ClickableArea>
                 <RegistryContext.Provider value={registry.getTypedMessageRender}>
                     <div className="p-2">
                         <TypedMessageRender message={message} />
@@ -80,7 +76,7 @@ export const DecryptedPost = memo(function DecryptedPost({ post, payloads, child
                         <Decrypted message={message} />
                     </Suspense>
                 </RegistryContext.Provider>
-            </div>
+            </ClickableArea>
         </PostInfoProvider>
     );
 });

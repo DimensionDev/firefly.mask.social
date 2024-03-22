@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { memo, useCallback } from 'react';
 
 import CollectIcon from '@/assets/collect.svg';
+import { ClickableArea } from '@/components/ClickableArea.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { classNames } from '@/helpers/classNames.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
@@ -23,25 +24,21 @@ export const Collect = memo<CollectProps>(function Collect({ count, disabled = f
     }, [enqueueSnackbar]);
 
     return (
-        <div
+        <ClickableArea
             className={classNames('flex items-center space-x-2 text-main hover:text-primaryPink', {
                 'opacity-50': disabled,
             })}
-            onClick={(event) => {
-                event.preventDefault();
-                event.stopPropagation();
-            }}
         >
             <Tooltip content={t`Act`} placement="top" disabled={disabled}>
                 <motion.button
+                    className="rounded-full p-1.5 hover:bg-primaryPink/[.20] "
+                    whileTap={{ scale: 0.9 }}
                     disabled={disabled}
-                    onClick={(event) => {
-                        event.preventDefault();
-                        event.stopPropagation();
+                    onClick={(ev) => {
+                        ev.preventDefault();
+                        ev.stopPropagation();
                         if (!disabled) handleClick();
                     }}
-                    whileTap={{ scale: 0.9 }}
-                    className="rounded-full p-1.5 hover:bg-primaryPink/[.20] "
                 >
                     <CollectIcon width={17} height={16} className={collected ? 'text-collected' : ''} />
                 </motion.button>
@@ -57,6 +54,6 @@ export const Collect = memo<CollectProps>(function Collect({ count, disabled = f
                     {nFormatter(count)}
                 </span>
             ) : null}
-        </div>
+        </ClickableArea>
     );
 });

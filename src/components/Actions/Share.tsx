@@ -4,6 +4,7 @@ import { memo, useCallback } from 'react';
 import { useCopyToClipboard } from 'react-use';
 
 import ShareIcon from '@/assets/share.svg';
+import { ClickableArea } from '@/components/ClickableArea.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { classNames } from '@/helpers/classNames.js';
 import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
@@ -24,14 +25,10 @@ export const Share = memo<ShareProps>(function Collect({ url, disabled = false }
     }, [enqueueSnackbar, url, copyToClipboard]);
 
     return (
-        <div
+        <ClickableArea
             className={classNames('flex flex-auto items-center space-x-2 self-auto justify-self-auto text-main', {
                 'opacity-50': disabled,
             })}
-            onClick={(event) => {
-                event.preventDefault();
-                event.stopPropagation();
-            }}
         >
             <Tooltip content={t`Share`} placement="top" disabled={disabled}>
                 <motion.button
@@ -48,6 +45,6 @@ export const Share = memo<ShareProps>(function Collect({ url, disabled = false }
                     <ShareIcon width={17} height={16} />
                 </motion.button>
             </Tooltip>
-        </div>
+        </ClickableArea>
     );
 });

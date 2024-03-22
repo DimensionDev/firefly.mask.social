@@ -4,6 +4,7 @@ import { Player } from '@livepeer/react';
 import { memo } from 'react';
 import { useAccount } from 'wagmi';
 
+import { ClickableArea } from '@/components/ClickableArea.js';
 import { ARWEAVE_GATEWAY, IPFS_GATEWAY } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatImageUrl } from '@/helpers/formatImageUrl.js';
@@ -19,13 +20,7 @@ export const Video = memo<VideoProps>(function Video({ src, poster, className = 
     const account = useAccount();
 
     return (
-        <div
-            className={classNames('lp-player', className)}
-            onClick={(event) => {
-                event.preventDefault();
-                event.stopPropagation();
-            }}
-        >
+        <ClickableArea className={classNames('lp-player', className)}>
             <Player
                 src={src}
                 poster={formatImageUrl(sanitizeDStorageUrl(poster))}
@@ -42,6 +37,6 @@ export const Video = memo<VideoProps>(function Video({ src, poster, className = 
                     arweaveGateway: ARWEAVE_GATEWAY,
                 }}
             />
-        </div>
+        </ClickableArea>
     );
 });

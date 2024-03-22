@@ -8,6 +8,7 @@ import { useAsyncFn } from 'react-use';
 import LikeIcon from '@/assets/like.svg';
 import LikedIcon from '@/assets/liked.svg';
 import LoadingIcon from '@/assets/loading.svg';
+import { ClickableArea } from '@/components/ClickableArea.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -84,15 +85,13 @@ export const Like = memo<LikeProps>(function Like({ count, hasLiked, postId, aut
     }, [postId, source, liked, queryClient, isLogin, realCount, authorId]);
 
     return (
-        <div
+        <ClickableArea
             className={classNames('flex cursor-pointer items-center space-x-2 text-main hover:text-danger', {
                 'font-bold': !!liked,
                 'text-danger': !!liked,
                 'opacity-50': disabled,
             })}
-            onClick={(event) => {
-                event.preventDefault();
-                event.stopPropagation();
+            onClick={() => {
                 if (disabled) return;
                 handleClick();
             }}
@@ -122,6 +121,6 @@ export const Like = memo<LikeProps>(function Like({ count, hasLiked, postId, aut
                     {nFormatter(realCount)}
                 </span>
             ) : null}
-        </div>
+        </ClickableArea>
     );
 });

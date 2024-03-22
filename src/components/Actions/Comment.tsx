@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { memo, useCallback, useMemo } from 'react';
 
 import ReplyIcon from '@/assets/reply.svg';
+import { ClickableArea } from '@/components/ClickableArea.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -61,14 +62,12 @@ export const Comment = memo<CommentProps>(function Comment({
     }, [isLogin, canComment, post, enqueueSnackbar, author, source]);
 
     return (
-        <div
+        <ClickableArea
             className={classNames('flex cursor-pointer items-center space-x-2', {
                 'cursor-not-allowed': disabled,
                 'opacity-50': disabled,
             })}
-            onClick={(event) => {
-                event.preventDefault();
-                event.stopPropagation();
+            onClick={() => {
                 if (!disabled) handleClick();
             }}
         >
@@ -83,6 +82,6 @@ export const Comment = memo<CommentProps>(function Comment({
                 </Tooltip>
             </motion.button>
             {count ? <span className="text-xs font-medium text-main">{nFormatter(count)}</span> : null}
-        </div>
+        </ClickableArea>
     );
 });

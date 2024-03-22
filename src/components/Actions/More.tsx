@@ -7,6 +7,7 @@ import FollowUserIcon from '@/assets/follow-user.svg';
 import LoadingIcon from '@/assets/loading.svg';
 import MoreIcon from '@/assets/more.svg';
 import UnFollowUserIcon from '@/assets/unfollow-user.svg';
+import { ClickableArea } from '@/components/ClickableArea.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { SocialPlatform } from '@/constants/enum.js';
@@ -64,19 +65,17 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
                 leaveTo="transform opacity-0 scale-95"
             >
                 <Menu.Items
+                    className="absolute right-0 z-[1000] w-max space-y-2 overflow-hidden rounded-2xl bg-primaryBottom text-main shadow-messageShadow"
                     onClick={(event) => {
                         event.stopPropagation();
                         event.preventDefault();
                     }}
-                    className="absolute right-0 z-[1000] w-max space-y-2 overflow-hidden rounded-2xl bg-primaryBottom text-main shadow-messageShadow"
                 >
                     <Menu.Item>
                         {({ close }) => (
-                            <div
+                            <ClickableArea
                                 className="flex cursor-pointer items-center space-x-2 p-4 hover:bg-bg"
-                                onClick={async (event) => {
-                                    event.stopPropagation();
-                                    event.preventDefault();
+                                onClick={async () => {
                                     close();
                                     await handleToggle();
                                     queryClient.invalidateQueries({
@@ -98,7 +97,7 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
                                     />{' '}
                                     @{author.handle}
                                 </span>
-                            </div>
+                            </ClickableArea>
                         )}
                     </Menu.Item>
                 </Menu.Items>

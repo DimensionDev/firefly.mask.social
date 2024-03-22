@@ -41,7 +41,7 @@ export const PostActions = memo<PostActionsProps>(function PostActions({
                 'grid-cols-4': !post.canAct && post.source === SocialPlatform.Lens,
                 'grid-cols-5': !!post.canAct && post.source === SocialPlatform.Lens,
             })}
-            onClick={(e) => e.stopPropagation()}
+            onClick={(ev) => ev.stopPropagation()}
             {...rest}
         >
             <Comment
