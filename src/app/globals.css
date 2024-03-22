@@ -223,7 +223,14 @@ body {
 }
 
 .SnackbarContainer-root {
-    max-width: 400px !important;
+    max-width: 100% !important;
+}
+
+@media (min-width: 990px) {
+    .SnackbarContainer-root {
+        width: auto;
+        max-width: 400px !important;
+    }
 }
 
 .SnackbarContainer-root .SnackbarItem-message {
