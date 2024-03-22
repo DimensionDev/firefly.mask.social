@@ -7,14 +7,7 @@ interface ClickableButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElem
 
 export function ClickableButton({ children, onClick, ...props }: ClickableButtonProps) {
     return (
-        <ClickableButton
-            {...props}
-            onClick={(ev) => {
-                ev.preventDefault();
-                ev.stopPropagation();
-                onClick?.();
-            }}
-        >
+        <ClickableButton {...props} onClick={() => onClick?.()}>
             {children}
         </ClickableButton>
     );
