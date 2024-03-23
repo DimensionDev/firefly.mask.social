@@ -8,7 +8,7 @@ import type { SocialPlatform } from '@/constants/enum.js';
 import { SITE_URL } from '@/constants/index.js';
 import { createRejectCallback } from '@/helpers/createRejectCallback.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
-import { ComposeModalRef } from '@/modals/controls.js';
+import { ComposeModalRef, LoginModalRef } from '@/modals/controls.js';
 
 export function createMaskUIContext(context?: Partial<__UIContext__>): __UIContext__ {
     return {
@@ -57,6 +57,9 @@ export function createMaskSiteAdaptorContext(context?: Partial<__SiteAdaptorCont
         getUserIdentity: undefined,
         postMessage: undefined,
         publishPost: undefined,
+        requestLogin: (source: SocialPlatform) => {
+            LoginModalRef.open({ source });
+        },
         ...context,
     };
 }
