@@ -7,7 +7,7 @@ import { useMemo } from 'react';
 import { useInView } from 'react-cool-inview';
 
 import { discoverPosts } from '@/app/(normal)/helpers/discoverPosts.js';
-import BlackHoleIcon from '@/assets/BlackHole.svg';
+import BlackHoleIcon from '@/assets/black-hole.svg';
 import LoadingIcon from '@/assets/loading.svg';
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { SinglePost } from '@/components/Posts/SinglePost.js';
