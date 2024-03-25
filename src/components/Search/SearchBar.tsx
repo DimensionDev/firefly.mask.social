@@ -85,6 +85,7 @@ const SearchBar = memo(function SearchBar(props: SearchBarProps) {
                         />
                         <ClickableButton
                             className={classNames('cursor-pointer', inputText ? 'visible' : 'invisible')}
+                            type="button"
                             onClick={() => {
                                 setInputText('');
                                 inputRef.current?.focus();
