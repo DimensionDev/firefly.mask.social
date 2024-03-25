@@ -70,9 +70,6 @@ msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # 
 msgid "Join our Discord"
 msgstr "Join our Discord"
 
-msgid "Querying the signer request state."
-msgstr "Querying the signer request state."
-
 msgid "<0>You</0> and {0} others recasted"
 msgstr "<0>You</0> and {0} others recasted"
 
@@ -243,6 +240,9 @@ msgstr "Failed to fetch as Text."
 
 msgid "Reply"
 msgstr "Reply"
+
+msgid "Querying the signed key state."
+msgstr "Querying the signed key state."
 
 msgid "Send"
 msgstr "Send"
@@ -531,6 +531,9 @@ msgstr "quote"
 
 msgid "Image"
 msgstr "Image"
+
+msgid "Failed to query the signed key state."
+msgstr "Failed to query the signed key state."
 
 msgid "Notifications"
 msgstr "Notifications"

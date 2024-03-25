@@ -6,7 +6,7 @@ import { memo, useMemo } from 'react';
 import { useInView } from 'react-cool-inview';
 
 import LoadingIcon from '@/assets/loading.svg';
-import MessageIcon from '@/assets/Message.svg';
+import MessageIcon from '@/assets/message.svg';
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { SinglePost } from '@/components/Posts/SinglePost.js';
 import { SocialPlatform } from '@/constants/enum.js';

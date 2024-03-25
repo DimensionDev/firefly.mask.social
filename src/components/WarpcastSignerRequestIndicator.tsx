@@ -1,3 +1,4 @@
+import { ExclamationCircleIcon } from '@heroicons/react/24/outline';
 import { t } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
 import { useRef } from 'react';
@@ -22,7 +23,7 @@ export function WarpcastSignerRequestIndicator({ session, children }: WarpcastSi
         controllerRef.current?.abort();
     });
 
-    const { isLoading } = useQuery({
+    const { isLoading, error, refetch } = useQuery({
         queryKey: ['signerRequest', token],
         enabled: !!token,
         queryFn: async () => {
@@ -30,16 +31,26 @@ export function WarpcastSignerRequestIndicator({ session, children }: WarpcastSi
 
             controllerRef.current?.abort();
             controllerRef.current = new AbortController();
-            return waitForSignedKeyRequest(controllerRef.current.signal)(token, ['completed']);
+
+            // 3 * 10 seconds timeout
+            return waitForSignedKeyRequest(controllerRef.current.signal)(token, ['completed'], 10);
         },
     });
 
     if (isLoading)
         return (
-            <Tooltip content={t`Querying the signer request state.`} placement="top">
+            <Tooltip content={t`Querying the signed key state.`} placement="top">
                 <LoadingIcon className="animate-spin cursor-pointer" width={24} height={24} />
             </Tooltip>
         );
+
+    if (error) {
+        return (
+            <Tooltip content={t`Failed to query the signed key state.`} placement="top">
+                <ExclamationCircleIcon className=" cursor-pointer" width={24} height={24} onClick={() => refetch()} />
+            </Tooltip>
+        );
+    }
 
     return children;
 }

@@ -75,9 +75,6 @@ msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> 和 <2/>} other {<3/><4/> 和其
 msgid "Join our Discord"
 msgstr "加入我们的 Discord"
 
-msgid "Querying the signer request state."
-msgstr "正在查询签名者请求状态"
-
 msgid "<0>You</0> and {0} others recasted"
 msgstr "<0> 你 </0> 和 {0} 人都转发了"
 
@@ -248,6 +245,9 @@ msgstr "获取内容失败。"
 
 msgid "Reply"
 msgstr "回复"
+
+msgid "Querying the signed key state."
+msgstr ""
 
 msgid "Send"
 msgstr "发送"
@@ -536,6 +536,9 @@ msgstr "引用"
 
 msgid "Image"
 msgstr "图片"
+
+msgid "Failed to query the signed key state."
+msgstr ""
 
 msgid "Notifications"
 msgstr "通知"
