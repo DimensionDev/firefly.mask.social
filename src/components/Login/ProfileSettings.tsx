@@ -29,7 +29,7 @@ export function ProfileSettings({ source }: ProfileSettingsProps) {
     }, [refreshProfiles]);
 
     return (
-        <div className=" flex flex-col rounded-2xl bg-primaryBottom shadow-[0px_8px_20px_0px_rgba(0,0,0,0.04)] md:w-[290px] md:px-5 md:dark:border md:dark:border-line md:dark:shadow-[0px_8px_20px_0px_rgba(255,255,255,0.04)]">
+        <div className=" flex flex-col rounded-2xl bg-primaryBottom shadow-[0px_8px_20px_0px_rgba(0,0,0,0.04)] md:w-[290px] md:px-5 md:dark:border md:dark:border-line md:dark:shadow-[0px_8px_20px_0px_rgba(255,255,255,0.04)] overflow-x-hidden">
             {profiles.map((profile) => (
                 <ClickableButton
                     key={profile.profileId}
