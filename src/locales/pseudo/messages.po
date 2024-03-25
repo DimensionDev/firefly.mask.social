@@ -70,9 +70,6 @@ msgstr ""
 msgid "Join our Discord"
 msgstr ""
 
-msgid "Querying the signer request state."
-msgstr ""
-
 msgid "<0>You</0> and {0} others recasted"
 msgstr ""
 
@@ -242,6 +239,9 @@ msgid "Failed to fetch as Text."
 msgstr ""
 
 msgid "Reply"
+msgstr ""
+
+msgid "Querying the signed key state."
 msgstr ""
 
 msgid "Send"
@@ -530,6 +530,9 @@ msgid "quote"
 msgstr ""
 
 msgid "Image"
+msgstr ""
+
+msgid "Failed to query the signed key state."
 msgstr ""
 
 msgid "Notifications"
