@@ -18,9 +18,9 @@ interface ContentTabsProps {
     source: SocialPlatform;
 }
 export function ContentTabs({ profileId, source }: ContentTabsProps) {
-    const [tab, setTab] = useState<ContentType>(ContentType.Feed);
+    const [currentTab, setCurrentTab] = useState(ContentType.Feed);
 
-    const computedTab = source === SocialPlatform.Farcaster ? ContentType.Feed : tab;
+    const computedTab = source === SocialPlatform.Farcaster ? ContentType.Feed : currentTab;
 
     return (
         <>
@@ -37,7 +37,7 @@ export function ContentTabs({ profileId, source }: ContentTabsProps) {
                                     ' flex h-[46px] items-center px-[14px] font-extrabold transition-all',
                                     computedTab === tab ? ' text-main' : ' text-third hover:text-main',
                                 )}
-                                onClick={() => setTab(tab)}
+                                onClick={() => setCurrentTab(tab)}
                             >
                                 {tab === ContentType.Feed ? <Trans>Feed</Trans> : <Trans>Collected</Trans>}
                             </ClickableButton>
@@ -51,13 +51,13 @@ export function ContentTabs({ profileId, source }: ContentTabsProps) {
                     ))}
             </div>
 
-            {tab === ContentType.Feed && (
+            {computedTab === ContentType.Feed && (
                 <Suspense fallback={<Loading />}>
                     <ContentFeed source={source} profileId={profileId} />
                 </Suspense>
             )}
 
-            {tab === ContentType.Collected && source !== SocialPlatform.Farcaster && (
+            {computedTab === ContentType.Collected && source !== SocialPlatform.Farcaster && (
                 <Suspense fallback={<Loading />}>
                     <ContentCollected source={source} profileId={profileId} />
                 </Suspense>
