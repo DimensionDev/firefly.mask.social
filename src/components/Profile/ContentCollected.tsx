@@ -2,6 +2,7 @@ import { Trans } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
 import { createIndicator, createPageable } from '@masknet/shared-base';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
+import { uniqWith } from 'lodash-es';
 import { useMemo } from 'react';
 import { useInView } from 'react-cool-inview';
 
@@ -60,7 +61,14 @@ export function ContentCollected({ profileId, source }: ContentFeedProps) {
         },
     });
 
-    const results = useMemo(() => data.pages.flatMap((x) => x.data), [data]);
+    const results = useMemo(
+        () =>
+            uniqWith(
+                data.pages.flatMap((x) => x.data),
+                (a, b) => a.postId === b.postId,
+            ),
+        [data],
+    );
 
     if (!results.length)
         return (
