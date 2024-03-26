@@ -61,11 +61,6 @@ export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({
         setShowRecommendation(false);
     };
 
-    console.log({
-        farcasterProfile,
-        lensProfile,
-    });
-
     return (
         <>
             <header className=" flex items-center gap-4 px-4 py-[7px] text-main">
