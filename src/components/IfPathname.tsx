@@ -12,7 +12,7 @@ interface IfPathname {
     children: ReactNode;
 }
 
-export function IfPathname({ exact, isOneOf, isNotOneOf, children }: IfPathname) {
+export function IfPathname({ exact = false, isOneOf, isNotOneOf, children }: IfPathname) {
     const pathname = usePathname();
 
     if (isOneOf?.some((includedPath) => isRoutePathname(pathname, includedPath, exact))) {
