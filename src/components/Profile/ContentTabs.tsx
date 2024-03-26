@@ -20,6 +20,7 @@ interface ContentTabsProps {
 export function ContentTabs({ profileId, source }: ContentTabsProps) {
     const [currentTab, setCurrentTab] = useState(ContentType.Feed);
 
+    // TODO: implement collected tab for farcaster
     const computedTab = source === SocialPlatform.Farcaster ? ContentType.Feed : currentTab;
 
     return (
