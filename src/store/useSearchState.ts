@@ -12,7 +12,7 @@ export function useSearchState() {
     const params = useSearchParams();
     const router = useRouter();
     const searchKeyword = params.get('q') || '';
-    const searchType = (params.get('type') ?? SearchType.Profiles) as SearchType;
+    const searchType = (params.get('type') ?? SearchType.Users) as SearchType;
 
     const updateState = useCallback(
         (state: SearchState, replace?: boolean) => {

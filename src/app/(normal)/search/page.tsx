@@ -31,7 +31,7 @@ export default function Page() {
 
             const indicator = pageParam ? createIndicator(undefined, pageParam) : undefined;
 
-            if (searchType === SearchType.Profiles) {
+            if (searchType === SearchType.Users) {
                 switch (currentSource) {
                     case SocialPlatform.Lens:
                         return LensSocialMediaProvider.searchProfiles(searchKeyword, indicator);
@@ -80,7 +80,7 @@ export default function Page() {
         <div>
             {results.length ? (
                 results.map((item) => {
-                    if (searchType === SearchType.Profiles) {
+                    if (searchType === SearchType.Users) {
                         const profile = item as Profile;
                         return <ProfileInList key={profile.profileId} profile={profile} />;
                     }
