@@ -47,7 +47,12 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({ post, isQu
                 />
             </Link>
 
-            <div className="flex max-w-[calc(100%-40px-88px-24px)] flex-1 items-center gap-2">
+            <div
+                className={classNames('flex flex-1 items-center gap-2', {
+                    'max-w-[calc(100%-40px-88px-24px)]': !isMyPost,
+                    'max-w-[calc(100%-40px-88px)]': isMyPost,
+                })}
+            >
                 <Link
                     href={profileLink}
                     className="block truncate text-clip text-[15px] font-bold leading-5 text-main"
