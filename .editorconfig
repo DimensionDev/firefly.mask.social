@@ -4,6 +4,8 @@ root = true
 # Unix-style newlines with a newline ending every file
 [*]
 end_of_line = lf
+
+[*.{js,jsx,ts,tsx,css,html,json}]
 insert_final_newline = true
 
 [*.yml]
