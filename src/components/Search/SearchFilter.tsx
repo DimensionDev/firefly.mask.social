@@ -23,8 +23,8 @@ export const SearchFilter = memo(function SearchFilter() {
                             label: <Trans>Publications</Trans>,
                         },
                         {
-                            type: SearchType.Profiles,
-                            label: <Trans>Profiles</Trans>,
+                            type: SearchType.Users,
+                            label: <Trans>Users</Trans>,
                         },
                     ].map((filter) => (
                         <div key={filter.type} className="flex items-center">

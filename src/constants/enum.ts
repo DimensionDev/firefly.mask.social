@@ -19,7 +19,7 @@ export enum SourceInURL {
 }
 
 export enum SearchType {
-    Profiles = 'profiles',
+    Users = 'users',
     Posts = 'posts',
 }
 
