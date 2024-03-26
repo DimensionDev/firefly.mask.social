@@ -39,9 +39,14 @@ export function ProfileSettings({ source }: ProfileSettingsProps) {
                 >
                     <ProfileAvatar profile={profile} clickable linkable />
                     <ProfileName profile={profile} />
-                    <WarpcastSignerRequestIndicator session={currentProfileSession}>
-                        {isSameProfile(currentProfile, profile) ? <OnlineStatusIndicator /> : null}
-                    </WarpcastSignerRequestIndicator>
+
+                    {process.env.NODE_ENV === 'development' ? (
+                        <WarpcastSignerRequestIndicator session={currentProfileSession}>
+                            {isSameProfile(currentProfile, profile) ? <OnlineStatusIndicator /> : null}
+                        </WarpcastSignerRequestIndicator>
+                    ) : isSameProfile(currentProfile, profile) ? (
+                        <OnlineStatusIndicator />
+                    ) : null}
                 </ClickableButton>
             ))}
             <ClickableButton
