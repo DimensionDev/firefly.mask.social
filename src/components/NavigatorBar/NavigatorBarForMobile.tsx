@@ -1,4 +1,5 @@
 import { t } from '@lingui/macro';
+import { compact } from 'lodash-es';
 import { usePathname, useRouter } from 'next/navigation.js';
 import { type ChangeEvent, memo, useRef, useState } from 'react';
 
@@ -60,6 +61,11 @@ export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({
         setShowRecommendation(false);
     };
 
+    console.log({
+        farcasterProfile,
+        lensProfile,
+    });
+
     return (
         <>
             <header className=" flex items-center gap-4 px-4 py-[7px] text-main">
@@ -84,21 +90,20 @@ export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({
                                 updateSidebarOpen(true);
                             }}
                         >
-                            {farcasterProfile ? (
-                                <div className=" relative z-10">
-                                    <ProfileAvatar size={30} profile={farcasterProfile} enableSourceIcon={false} />
-                                </div>
-                            ) : lensProfile ? (
-                                <div className=" relative z-10">
-                                    <ProfileAvatar size={30} profile={lensProfile} enableSourceIcon={false} />
-                                </div>
-                            ) : null}
-                            {lensProfile ? (
-                                <div className=" relative left-[-6px]">
-                                    <ProfileAvatar size={30} profile={lensProfile} enableSourceIcon={false} />
-                                </div>
-                            ) : null}
-                            {farcasterProfile || lensProfile ? null : <MenuIcon />}
+                            {farcasterProfile || lensProfile ? (
+                                compact([farcasterProfile, lensProfile]).map((x, i) => (
+                                    <div
+                                        className={classNames(' relative z-10', {
+                                            ' left-[-6px] z-0': i === 1,
+                                        })}
+                                        key={`${x.source}_${x.profileId}`}
+                                    >
+                                        <ProfileAvatar size={30} profile={x} enableSourceIcon={false} />
+                                    </div>
+                                ))
+                            ) : (
+                                <MenuIcon />
+                            )}
                         </ClickableButton>
                     </div>
                 )}
