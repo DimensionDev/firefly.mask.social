@@ -88,7 +88,8 @@ export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({
                             {farcasterProfile || lensProfile ? (
                                 compact([farcasterProfile, lensProfile]).map((x, i) => (
                                     <div
-                                        className={classNames(' relative z-10', {
+                                        className={classNames(' relative', {
+                                            ' z-10': i === 0,
                                             ' left-[-6px] z-0': i === 1,
                                         })}
                                         key={`${x.source}_${x.profileId}`}
