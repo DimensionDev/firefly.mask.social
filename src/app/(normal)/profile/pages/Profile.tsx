@@ -1,5 +1,6 @@
 'use client';
 
+import { t } from '@lingui/macro';
 import { useMemo } from 'react';
 import { useDocumentTitle } from 'usehooks-ts';
 
@@ -11,6 +12,7 @@ import { SITE_NAME } from '@/constants/index.js';
 import { createPageTitle } from '@/helpers/createPageTitle.js';
 import { useUpdateCurrentVisitingProfile } from '@/hooks/useCurrentVisitingProfile.js';
 import { useIsMyProfile } from '@/hooks/useIsMyProfile.js';
+import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 interface ProfilePageProps {
@@ -29,6 +31,7 @@ export function ProfilePage({ profile }: ProfilePageProps) {
     }, [profile]);
 
     useDocumentTitle(title);
+    useNavigatorTitle(t`Profile`);
     useUpdateCurrentVisitingProfile(profile);
 
     return (
