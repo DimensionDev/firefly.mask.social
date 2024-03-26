@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-03-22 00:04\n"
+"PO-Revision-Date: 2024-03-26 00:04\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Traditional\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -73,9 +73,6 @@ msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # o
 msgstr ""
 
 msgid "Join our Discord"
-msgstr ""
-
-msgid "Querying the signer request state."
 msgstr ""
 
 msgid "<0>You</0> and {0} others recasted"
@@ -247,6 +244,9 @@ msgid "Failed to fetch as Text."
 msgstr ""
 
 msgid "Reply"
+msgstr ""
+
+msgid "Querying the signed key state."
 msgstr ""
 
 msgid "Send"
@@ -535,6 +535,9 @@ msgid "quote"
 msgstr ""
 
 msgid "Image"
+msgstr ""
+
+msgid "Failed to query the signed key state."
 msgstr ""
 
 msgid "Notifications"
