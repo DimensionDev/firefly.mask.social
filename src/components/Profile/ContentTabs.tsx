@@ -8,7 +8,7 @@ import { ContentFeed } from '@/components/Profile/ContentFeed.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 
-enum TabEnum {
+enum ContentType {
     Feed = 'Feed',
     Collected = 'Collected',
 }
@@ -18,44 +18,47 @@ interface ContentTabsProps {
     source: SocialPlatform;
 }
 export function ContentTabs({ profileId, source }: ContentTabsProps) {
-    const [tab, setTab] = useState<TabEnum>(TabEnum.Feed);
+    const [currentTab, setCurrentTab] = useState(ContentType.Feed);
+
+    // TODO: implement collected tab for farcaster
+    const computedTab = source === SocialPlatform.Farcaster ? ContentType.Feed : currentTab;
 
     return (
         <>
             <div className=" flex gap-5 border-b border-lightLineSecond px-5 dark:border-line">
-                {Object.values(TabEnum)
+                {Object.values(ContentType)
                     .filter((x) => {
-                        if (source === SocialPlatform.Farcaster) return x !== TabEnum.Collected;
+                        if (source === SocialPlatform.Farcaster) return x !== ContentType.Collected;
                         return true;
                     })
-                    .map((tabName) => (
-                        <div key={tabName} className=" flex flex-col">
+                    .map((tab) => (
+                        <div key={tab} className=" flex flex-col">
                             <ClickableButton
                                 className={classNames(
                                     ' flex h-[46px] items-center px-[14px] font-extrabold transition-all',
-                                    tab === tabName ? ' text-main' : ' text-third hover:text-main',
+                                    computedTab === tab ? ' text-main' : ' text-third hover:text-main',
                                 )}
-                                onClick={() => setTab(tabName)}
+                                onClick={() => setCurrentTab(tab)}
                             >
-                                {tabName === TabEnum.Feed ? <Trans>Feed</Trans> : <Trans>Collected</Trans>}
+                                {tab === ContentType.Feed ? <Trans>Feed</Trans> : <Trans>Collected</Trans>}
                             </ClickableButton>
                             <span
                                 className={classNames(
                                     ' h-1 w-full rounded-full bg-[#9250FF] transition-all',
-                                    tab !== tabName ? ' hidden' : '',
+                                    computedTab !== tab ? ' hidden' : '',
                                 )}
                             />
                         </div>
                     ))}
             </div>
 
-            {tab === TabEnum.Feed && (
+            {computedTab === ContentType.Feed && (
                 <Suspense fallback={<Loading />}>
                     <ContentFeed source={source} profileId={profileId} />
                 </Suspense>
             )}
 
-            {tab === TabEnum.Collected && source !== SocialPlatform.Farcaster && (
+            {computedTab === ContentType.Collected && source !== SocialPlatform.Farcaster && (
                 <Suspense fallback={<Loading />}>
                     <ContentCollected source={source} profileId={profileId} />
                 </Suspense>
