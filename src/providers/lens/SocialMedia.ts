@@ -19,7 +19,7 @@ import {
     type PageIndicator,
 } from '@masknet/shared-base';
 import { isZero } from '@masknet/web3-shared-base';
-import { first, flatMap } from 'lodash-es';
+import { first, flatMap, uniqWith } from 'lodash-es';
 import type { TypedDataDomain } from 'viem';
 import { polygon } from 'viem/chains';
 
@@ -557,7 +557,7 @@ export class LensSocialMedia implements Provider {
         });
 
         return createPageable(
-            result.items.map(formatLensPost),
+            uniqWith(result.items.map(formatLensPost), (a, b) => a.postId === b.postId),
             createIndicator(indicator),
             result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );
