@@ -1,8 +1,15 @@
 import { delay } from '@masknet/kit';
 import type { __SiteAdaptorContext__ } from '@masknet/plugin-infra/content-script';
-import type { __UIContext__ } from '@masknet/plugin-infra/dom';
+import type { __UIContext__, IdentityResolved } from '@masknet/plugin-infra/dom';
 import { TransactionConfirmModal } from '@masknet/shared';
-import { EMPTY_ARRAY, PostIdentifier, ProfileIdentifier, UNDEFINED } from '@masknet/shared-base';
+import {
+    createSubscriptionFromValueRef,
+    EMPTY_ARRAY,
+    PostIdentifier,
+    ProfileIdentifier,
+    UNDEFINED,
+    ValueRef,
+} from '@masknet/shared-base';
 
 import type { SocialPlatform } from '@/constants/enum.js';
 import { SITE_URL } from '@/constants/index.js';
@@ -35,9 +42,20 @@ export function createMaskUIContext(context?: Partial<__UIContext__>): __UIConte
     };
 }
 
+const myProfileRef = new ValueRef<IdentityResolved | undefined>(undefined);
+const myProfileSub = createSubscriptionFromValueRef(myProfileRef);
+
+export function updateMyProfile(profile: IdentityResolved) {
+    myProfileRef.value = profile;
+}
+
+export function getCurrentProfile() {
+    return myProfileSub.getCurrentValue();
+}
+
 export function createMaskSiteAdaptorContext(context?: Partial<__SiteAdaptorContext__>): __SiteAdaptorContext__ {
     return {
-        lastRecognizedProfile: UNDEFINED,
+        lastRecognizedProfile: myProfileSub,
         currentVisitingProfile: UNDEFINED,
         currentNextIDPlatform: undefined,
         currentPersonaIdentifier: UNDEFINED,

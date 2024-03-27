@@ -1,4 +1,4 @@
-import type { Serialization } from '@dimensiondev/holoflows-kit';
+import type { Encoder } from '@dimensiondev/holoflows-kit';
 import { defer } from '@masknet/kit';
 import {
     __workaround__replaceImplementationOfCreatePluginMessage__,
@@ -71,7 +71,7 @@ function createProxy(initValue: (key: string) => any): any {
 
 const cache = new Map<string, PluginMessageEmitter<unknown>>();
 
-function createEmitter(domain: string, encoder: Serialization | undefined): PluginMessageEmitter<unknown> {
+function createEmitter(domain: string, encoder: Encoder | undefined): PluginMessageEmitter<unknown> {
     if (cache.has(domain)) return cache.get(domain)! as PluginMessageEmitter<unknown>;
 
     const listeners = new Map<string, Set<(data: unknown) => void>>();
@@ -95,11 +95,11 @@ function createEmitter(domain: string, encoder: Serialization | undefined): Plug
         }
     }
     function ser(data: unknown) {
-        if (encoder) return encoder.serialization(data);
+        if (encoder) return encoder.encode(data);
         return data;
     }
     function de_ser(data: unknown) {
-        if (encoder) return encoder.deserialization(data);
+        if (encoder) return encoder.decode(data);
         return data;
     }
     const emitter = createProxy((eventName) => {

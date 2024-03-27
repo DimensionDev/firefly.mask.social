@@ -105,8 +105,8 @@ importers:
         specifier: ^3.456.0
         version: 3.456.0(@aws-sdk/client-s3@3.456.0)
       '@dimensiondev/holoflows-kit':
-        specifier: 0.9.0-20240104084316-88642f9
-        version: 0.9.0-20240104084316-88642f9
+        specifier: 0.9.0-20240322092738-f9180f3
+        version: 0.9.0-20240322092738-f9180f3
       '@farcaster/core':
         specifier: ^0.14.3
         version: 0.14.3(typescript@5.3.0-beta)(zod@3.22.4)
@@ -311,6 +311,9 @@ importers:
       urlcat:
         specifier: ^3.1.0
         version: 3.1.0(patch_hash=5r5xyq4zgcnqugwsrx4lxq2i4e)
+      use-subscription:
+        specifier: ^1.8.0
+        version: 1.8.0(react@0.0.0-experimental-8039e6d0b-20231026)
       usehooks-ts:
         specifier: ^2.9.1
         version: 2.9.1(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
@@ -328,7 +331,7 @@ importers:
         version: 3.22.4
       zustand:
         specifier: ^4.4.4
-        version: 4.4.4(@types/react@18.2.48)(react@0.0.0-experimental-8039e6d0b-20231026)
+        version: 4.4.4(@types/react@18.2.48)(immer@10.0.2)(react@0.0.0-experimental-8039e6d0b-20231026)
     devDependencies:
       '@apollo/client':
         specifier: ^3.8.8
@@ -372,6 +375,9 @@ importers:
       '@types/twemoji-parser':
         specifier: ^13.1.4
         version: 13.1.4
+      '@types/use-subscription':
+        specifier: ^1.0.0
+        version: 1.0.0
       '@types/uuid':
         specifier: ^9.0.3
         version: 9.0.3
@@ -484,8 +490,8 @@ importers:
   src/maskbook:
     dependencies:
       '@dimensiondev/holoflows-kit':
-        specifier: 0.9.0-20240104084316-88642f9
-        version: 0.9.0-20240104084316-88642f9
+        specifier: 0.9.0-20240322092738-f9180f3
+        version: 0.9.0-20240322092738-f9180f3
       '@emotion/cache':
         specifier: 11.11.0
         version: 11.11.0
@@ -720,8 +726,8 @@ importers:
   src/maskbook/packages/flags:
     dependencies:
       '@dimensiondev/holoflows-kit':
-        specifier: 0.9.0-20230307045856-46252fb
-        version: 0.9.0-20230307045856-46252fb
+        specifier: 0.9.0-20240322092738-f9180f3
+        version: 0.9.0-20240322092738-f9180f3
       urlcat:
         specifier: ^3.1.0
         version: 3.1.0(patch_hash=5r5xyq4zgcnqugwsrx4lxq2i4e)
@@ -766,9 +772,15 @@ importers:
       '@ethereumjs/util':
         specifier: ^8.0.5
         version: 8.0.5
+      '@ethersproject/providers':
+        specifier: ^5.7.2
+        version: 5.7.2
       '@hookform/resolvers':
         specifier: ^3.1.1
         version: 3.1.1(react-hook-form@7.45.2)
+      '@lifi/widget':
+        specifier: ^2.10.1
+        version: 2.10.1(@swc/core@1.3.106)(@types/node@20.11.9)(@types/react@18.2.48)(@vercel/kv@1.0.1)(immer@10.0.2)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.3.0-beta)(zod@3.22.4)
       '@masknet/backup-format':
         specifier: workspace:^
         version: link:../backup-format
@@ -2468,7 +2480,7 @@ importers:
         version: 5.7.2
       '@lifi/widget':
         specifier: ^2.10.1
-        version: 2.10.1(@swc/core@1.3.106)(@types/node@20.11.9)(@types/react@18.2.48)(@vercel/kv@1.0.1)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.3.0-beta)(zod@3.22.4)
+        version: 2.10.1(@swc/core@1.3.106)(@types/node@20.11.9)(@types/react@18.2.48)(@vercel/kv@1.0.1)(immer@10.0.2)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.3.0-beta)(zod@3.22.4)
       '@masknet/icons':
         specifier: workspace:^
         version: link:../../icons
@@ -6942,13 +6954,13 @@ packages:
       - zod
     dev: false
 
-  /@cyberlab/cyber-app-sdk@2.4.4(@swc/core@1.3.106)(@types/node@20.11.9)(@types/react@18.2.48)(@vercel/kv@1.0.1)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.3.0-beta)(zod@3.22.4):
+  /@cyberlab/cyber-app-sdk@2.4.4(@swc/core@1.3.106)(@types/node@20.11.9)(@types/react@18.2.48)(@vercel/kv@1.0.1)(immer@10.0.2)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.3.0-beta)(zod@3.22.4):
     resolution: {integrity: sha512-cGtmhERQohMM9CXVDFRJzG01qis8o5PGauKWwtMtYlaq8uIso4Hmf3R40vOwk7XroHcD6fY3zzpjiYhYA6mn3g==}
     dependencies:
       '@wagmi/connectors': 3.1.11(@types/react@18.2.48)(@vercel/kv@1.0.1)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.3.0-beta)(viem@1.21.4)(zod@3.22.4)
       ts-node: 10.9.1(@swc/core@1.3.106)(@types/node@20.11.9)(typescript@5.3.0-beta)
       viem: 1.21.4(typescript@5.3.0-beta)(zod@3.22.4)
-      wagmi: 1.4.13(@types/react@18.2.48)(@vercel/kv@1.0.1)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.3.0-beta)(viem@1.21.4)(zod@3.22.4)
+      wagmi: 1.4.13(@types/react@18.2.48)(@vercel/kv@1.0.1)(immer@10.0.2)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.3.0-beta)(viem@1.21.4)(zod@3.22.4)
     transitivePeerDependencies:
       - '@azure/app-configuration'
       - '@azure/cosmos'
@@ -7029,8 +7041,8 @@ packages:
       '@msgpack/msgpack': 1.12.2
     dev: false
 
-  /@dimensiondev/holoflows-kit@0.9.0-20230307045856-46252fb:
-    resolution: {integrity: sha512-SprqopLhwmps3Zjrr/fsl+kPmYv6hEc9gZvF3EDtr4v2D2zj1PUkUwktku7fBgzvidivOxyarsLGgGorzhsK6Q==, tarball: https://npm.pkg.github.com/download/@DimensionDev/holoflows-kit/0.9.0-20230307045856-46252fb/70734fddff9acedef83c8f3925fd0ae615c00be7}
+  /@dimensiondev/holoflows-kit@0.9.0-20240322092738-f9180f3:
+    resolution: {integrity: sha512-VRnXRqsYNXq1jzNf6piJnUamtgVGuL5/8dVXl/Qy7xGyHBqLaHbQ6QKDCc/qf9Z3gFzFSjIZZle+pNPJ925psA==, tarball: https://npm.pkg.github.com/download/@DimensionDev/holoflows-kit/0.9.0-20240322092738-f9180f3/1d2e9df5c5cd2a733c547ceafed4860973f10836}
     peerDependencies:
       '@types/webextension-polyfill': ^0.10.0
     peerDependenciesMeta:
@@ -7038,21 +7050,6 @@ packages:
         optional: true
     dependencies:
       '@servie/events': 3.0.0
-      event-iterator: 2.0.0
-      lodash-es: 4.17.21
-      tslib: 2.6.2
-    dev: false
-
-  /@dimensiondev/holoflows-kit@0.9.0-20240104084316-88642f9:
-    resolution: {integrity: sha512-XsF54fIlanXn16vqzS/UB673qAq4/k+KUaEBLUCwjUH0B1cj/SM2y4TNOeRjti2getgxbWWAxzP/c9uqvUFKpA==, tarball: https://npm.pkg.github.com/download/@DimensionDev/holoflows-kit/0.9.0-20240104084316-88642f9/2099fc5f2819fc0d3b5b2680886ce1108a02102b}
-    peerDependencies:
-      '@types/webextension-polyfill': ^0.10.0
-    peerDependenciesMeta:
-      '@types/webextension-polyfill':
-        optional: true
-    dependencies:
-      '@servie/events': 3.0.0
-      event-iterator: 2.0.0
       lodash-es: 4.17.21
       tslib: 2.6.2
     dev: false
@@ -9551,12 +9548,12 @@ packages:
       - utf-8-validate
     dev: false
 
-  /@lifi/wallet-management@2.6.0(@swc/core@1.3.106)(@types/node@20.11.9)(@types/react@18.2.48)(@vercel/kv@1.0.1)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.3.0-beta)(zod@3.22.4):
+  /@lifi/wallet-management@2.6.0(@swc/core@1.3.106)(@types/node@20.11.9)(@types/react@18.2.48)(@vercel/kv@1.0.1)(immer@10.0.2)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.3.0-beta)(zod@3.22.4):
     resolution: {integrity: sha512-XyjV5uVRerGcQdnTbU6cjz2z8N/6wUy7rVrNypJ9ILi5QLUh2eyE9OBku3zuTvri1SCvc04L6C1RnecFuNcPrA==}
     dependencies:
       '@coinbase/wallet-sdk': 3.9.2
       '@cyberlab/cyber-account': 2.3.1(typescript@5.3.0-beta)(zod@3.22.4)
-      '@cyberlab/cyber-app-sdk': 2.4.4(@swc/core@1.3.106)(@types/node@20.11.9)(@types/react@18.2.48)(@vercel/kv@1.0.1)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.3.0-beta)(zod@3.22.4)
+      '@cyberlab/cyber-app-sdk': 2.4.4(@swc/core@1.3.106)(@types/node@20.11.9)(@types/react@18.2.48)(@vercel/kv@1.0.1)(immer@10.0.2)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.3.0-beta)(zod@3.22.4)
       '@ethersproject/abstract-signer': 5.7.0
       '@ethersproject/experimental': 5.7.0
       '@ethersproject/providers': 5.7.2
@@ -9594,7 +9591,7 @@ packages:
       - zod
     dev: false
 
-  /@lifi/widget@2.10.1(@swc/core@1.3.106)(@types/node@20.11.9)(@types/react@18.2.48)(@vercel/kv@1.0.1)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.3.0-beta)(zod@3.22.4):
+  /@lifi/widget@2.10.1(@swc/core@1.3.106)(@types/node@20.11.9)(@types/react@18.2.48)(@vercel/kv@1.0.1)(immer@10.0.2)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.3.0-beta)(zod@3.22.4):
     resolution: {integrity: sha512-Tn/pq7/fh9aAHnnwuPYYznJ6IN+/5oUKP1qlCc/0iB3lJfeTq23ybkmNEqF90JrGGRkX6zvhs73Cl3vBJskg0w==}
     peerDependencies:
       '@types/react': 18.2.48
@@ -9615,7 +9612,7 @@ packages:
       '@ethersproject/experimental': 5.7.0
       '@ethersproject/providers': 5.7.2
       '@lifi/sdk': 2.5.0
-      '@lifi/wallet-management': 2.6.0(@swc/core@1.3.106)(@types/node@20.11.9)(@types/react@18.2.48)(@vercel/kv@1.0.1)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.3.0-beta)(zod@3.22.4)
+      '@lifi/wallet-management': 2.6.0(@swc/core@1.3.106)(@types/node@20.11.9)(@types/react@18.2.48)(@vercel/kv@1.0.1)(immer@10.0.2)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.3.0-beta)(zod@3.22.4)
       '@mui/icons-material': 5.15.12(@mui/material@5.15.12)(@types/react@18.2.48)(react@0.0.0-experimental-8039e6d0b-20231026)
       '@mui/lab': 5.0.0-alpha.167(@emotion/react@11.11.1)(@emotion/styled@11.11.0)(@mui/material@5.15.12)(@types/react@18.2.48)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       '@mui/material': 5.15.12(patch_hash=pazpgmj4gmp6yuv75wbb5yvia4)(@emotion/react@11.11.1)(@emotion/styled@11.11.0)(@types/react@18.2.48)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
@@ -9635,7 +9632,7 @@ packages:
       react-router-dom: 6.18.0(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       react-timer-hook: 3.0.7(react@0.0.0-experimental-8039e6d0b-20231026)
       uuid: 9.0.1
-      zustand: 4.4.4(@types/react@18.2.48)(react@0.0.0-experimental-8039e6d0b-20231026)
+      zustand: 4.4.4(@types/react@18.2.48)(immer@10.0.2)(react@0.0.0-experimental-8039e6d0b-20231026)
     transitivePeerDependencies:
       - '@azure/app-configuration'
       - '@azure/cosmos'
@@ -10110,7 +10107,7 @@ packages:
       '@tanstack/react-query-persist-client': 4.29.23(@tanstack/react-query@4.29.23)
       react: 0.0.0-experimental-8039e6d0b-20231026
       use-sync-external-store: 1.2.0(react@0.0.0-experimental-8039e6d0b-20231026)
-      zustand: 4.4.4(@types/react@18.2.48)(react@0.0.0-experimental-8039e6d0b-20231026)
+      zustand: 4.4.4(@types/react@18.2.48)(immer@10.0.2)(react@0.0.0-experimental-8039e6d0b-20231026)
     transitivePeerDependencies:
       - '@types/react'
       - encoding
@@ -10135,7 +10132,7 @@ packages:
       ms: 3.0.0-canary.1
       react: 0.0.0-experimental-8039e6d0b-20231026
       tus-js-client: 3.1.1
-      zustand: 4.4.4(@types/react@18.2.48)(react@0.0.0-experimental-8039e6d0b-20231026)
+      zustand: 4.4.4(@types/react@18.2.48)(immer@10.0.2)(react@0.0.0-experimental-8039e6d0b-20231026)
     transitivePeerDependencies:
       - '@types/react'
       - encoding
@@ -10155,7 +10152,7 @@ packages:
       multiformats: 9.9.0
       react: 0.0.0-experimental-8039e6d0b-20231026
       tus-js-client: 3.1.1
-      zustand: 4.4.4(@types/react@18.2.48)(react@0.0.0-experimental-8039e6d0b-20231026)
+      zustand: 4.4.4(@types/react@18.2.48)(immer@10.0.2)(react@0.0.0-experimental-8039e6d0b-20231026)
     transitivePeerDependencies:
       - '@types/react'
       - encoding
@@ -10182,7 +10179,7 @@ packages:
       core-js: 3.36.0
       react: 0.0.0-experimental-8039e6d0b-20231026
       react-dom: 0.0.0-experimental-8039e6d0b-20231026(react@0.0.0-experimental-8039e6d0b-20231026)
-      zustand: 4.4.4(@types/react@18.2.48)(react@0.0.0-experimental-8039e6d0b-20231026)
+      zustand: 4.4.4(@types/react@18.2.48)(immer@10.0.2)(react@0.0.0-experimental-8039e6d0b-20231026)
     transitivePeerDependencies:
       - '@types/react'
       - '@types/react-dom'
@@ -15636,7 +15633,7 @@ packages:
       - zod
     dev: false
 
-  /@wagmi/core@1.4.13(@types/react@18.2.48)(@vercel/kv@1.0.1)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.3.0-beta)(viem@1.16.2)(zod@3.22.4):
+  /@wagmi/core@1.4.13(@types/react@18.2.48)(@vercel/kv@1.0.1)(immer@10.0.2)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.3.0-beta)(viem@1.21.4)(zod@3.22.4):
     resolution: {integrity: sha512-ytMCvXbBOgfDu9Qw67279wq/jNEe7EZLjLyekX7ROnvHRADqFr3lwZI6ih41UmtRZAmXAx8Ghyuqy154EjB5mQ==}
     peerDependencies:
       typescript: '>=5.0.4 || 5'
@@ -15645,12 +15642,12 @@ packages:
       typescript:
         optional: true
     dependencies:
-      '@wagmi/connectors': 3.1.11(@types/react@18.2.48)(@vercel/kv@1.0.1)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.3.0-beta)(viem@1.16.2)(zod@3.22.4)
+      '@wagmi/connectors': 3.1.11(@types/react@18.2.48)(@vercel/kv@1.0.1)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.3.0-beta)(viem@1.21.4)(zod@3.22.4)
       abitype: 0.8.7(typescript@5.3.0-beta)(zod@3.22.4)
       eventemitter3: 4.0.7
       typescript: 5.3.0-beta
-      viem: 1.16.2(typescript@5.3.0-beta)(zod@3.22.4)
-      zustand: 4.4.4(@types/react@18.2.48)(react@0.0.0-experimental-8039e6d0b-20231026)
+      viem: 1.21.4(typescript@5.3.0-beta)(zod@3.22.4)
+      zustand: 4.4.4(@types/react@18.2.48)(immer@10.0.2)(react@0.0.0-experimental-8039e6d0b-20231026)
     transitivePeerDependencies:
       - '@azure/app-configuration'
       - '@azure/cosmos'
@@ -15673,7 +15670,7 @@ packages:
       - zod
     dev: false
 
-  /@wagmi/core@1.4.13(@types/react@18.2.48)(@vercel/kv@1.0.1)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.3.0-beta)(viem@1.21.4)(zod@3.22.4):
+  /@wagmi/core@1.4.13(@types/react@18.2.48)(@vercel/kv@1.0.1)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.3.0-beta)(viem@1.16.2)(zod@3.22.4):
     resolution: {integrity: sha512-ytMCvXbBOgfDu9Qw67279wq/jNEe7EZLjLyekX7ROnvHRADqFr3lwZI6ih41UmtRZAmXAx8Ghyuqy154EjB5mQ==}
     peerDependencies:
       typescript: '>=5.0.4 || 5'
@@ -15682,12 +15679,12 @@ packages:
       typescript:
         optional: true
     dependencies:
-      '@wagmi/connectors': 3.1.11(@types/react@18.2.48)(@vercel/kv@1.0.1)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.3.0-beta)(viem@1.21.4)(zod@3.22.4)
+      '@wagmi/connectors': 3.1.11(@types/react@18.2.48)(@vercel/kv@1.0.1)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.3.0-beta)(viem@1.16.2)(zod@3.22.4)
       abitype: 0.8.7(typescript@5.3.0-beta)(zod@3.22.4)
       eventemitter3: 4.0.7
       typescript: 5.3.0-beta
-      viem: 1.21.4(typescript@5.3.0-beta)(zod@3.22.4)
-      zustand: 4.4.4(@types/react@18.2.48)(react@0.0.0-experimental-8039e6d0b-20231026)
+      viem: 1.16.2(typescript@5.3.0-beta)(zod@3.22.4)
+      zustand: 4.4.4(@types/react@18.2.48)(immer@10.0.2)(react@0.0.0-experimental-8039e6d0b-20231026)
     transitivePeerDependencies:
       - '@azure/app-configuration'
       - '@azure/cosmos'
@@ -34015,7 +34012,7 @@ packages:
       xml-name-validator: 4.0.0
     dev: false
 
-  /wagmi@1.4.13(@types/react@18.2.48)(@vercel/kv@1.0.1)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.3.0-beta)(viem@1.16.2)(zod@3.22.4):
+  /wagmi@1.4.13(@types/react@18.2.48)(@vercel/kv@1.0.1)(immer@10.0.2)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.3.0-beta)(viem@1.21.4)(zod@3.22.4):
     resolution: {integrity: sha512-AScVYFjqNt1wMgL99Bob7MLdhoTZ3XKiOZL5HVBdy4W1sh7QodA3gQ8IsmTuUrQ7oQaTxjiXEhwg7sWNrPBvJA==}
     peerDependencies:
       react: 0.0.0-experimental-8039e6d0b-20231026 || 0.0.0-experimental-0a360642d-20230711
@@ -34030,12 +34027,12 @@ packages:
       '@tanstack/query-sync-storage-persister': 4.36.1
       '@tanstack/react-query': 4.36.1(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       '@tanstack/react-query-persist-client': 4.36.1(@tanstack/react-query@4.36.1)
-      '@wagmi/core': 1.4.13(@types/react@18.2.48)(@vercel/kv@1.0.1)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.3.0-beta)(viem@1.16.2)(zod@3.22.4)
+      '@wagmi/core': 1.4.13(@types/react@18.2.48)(@vercel/kv@1.0.1)(immer@10.0.2)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.3.0-beta)(viem@1.21.4)(zod@3.22.4)
       abitype: 0.8.7(typescript@5.3.0-beta)(zod@3.22.4)
       react: 0.0.0-experimental-8039e6d0b-20231026
       typescript: 5.3.0-beta
       use-sync-external-store: 1.2.0(react@0.0.0-experimental-8039e6d0b-20231026)
-      viem: 1.16.2(typescript@5.3.0-beta)(zod@3.22.4)
+      viem: 1.21.4(typescript@5.3.0-beta)(zod@3.22.4)
     transitivePeerDependencies:
       - '@azure/app-configuration'
       - '@azure/cosmos'
@@ -34059,7 +34056,7 @@ packages:
       - zod
     dev: false
 
-  /wagmi@1.4.13(@types/react@18.2.48)(@vercel/kv@1.0.1)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.3.0-beta)(viem@1.21.4)(zod@3.22.4):
+  /wagmi@1.4.13(@types/react@18.2.48)(@vercel/kv@1.0.1)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.3.0-beta)(viem@1.16.2)(zod@3.22.4):
     resolution: {integrity: sha512-AScVYFjqNt1wMgL99Bob7MLdhoTZ3XKiOZL5HVBdy4W1sh7QodA3gQ8IsmTuUrQ7oQaTxjiXEhwg7sWNrPBvJA==}
     peerDependencies:
       react: 0.0.0-experimental-8039e6d0b-20231026 || 0.0.0-experimental-0a360642d-20230711
@@ -34074,12 +34071,12 @@ packages:
       '@tanstack/query-sync-storage-persister': 4.36.1
       '@tanstack/react-query': 4.36.1(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       '@tanstack/react-query-persist-client': 4.36.1(@tanstack/react-query@4.36.1)
-      '@wagmi/core': 1.4.13(@types/react@18.2.48)(@vercel/kv@1.0.1)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.3.0-beta)(viem@1.21.4)(zod@3.22.4)
+      '@wagmi/core': 1.4.13(@types/react@18.2.48)(@vercel/kv@1.0.1)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.3.0-beta)(viem@1.16.2)(zod@3.22.4)
       abitype: 0.8.7(typescript@5.3.0-beta)(zod@3.22.4)
       react: 0.0.0-experimental-8039e6d0b-20231026
       typescript: 5.3.0-beta
       use-sync-external-store: 1.2.0(react@0.0.0-experimental-8039e6d0b-20231026)
-      viem: 1.21.4(typescript@5.3.0-beta)(zod@3.22.4)
+      viem: 1.16.2(typescript@5.3.0-beta)(zod@3.22.4)
     transitivePeerDependencies:
       - '@azure/app-configuration'
       - '@azure/cosmos'
@@ -35439,7 +35436,7 @@ packages:
     resolution: {integrity: sha512-iC+8Io04lddc+mVqQ9AZ7OQ2MrUKGN+oIQyq1vemgt46jwCwLfhq7/pwnBnNXXXZb8VTVLKwp9EDkx+ryxIWmg==}
     dev: false
 
-  /zustand@4.4.4(@types/react@18.2.48)(react@0.0.0-experimental-8039e6d0b-20231026):
+  /zustand@4.4.4(@types/react@18.2.48)(immer@10.0.2)(react@0.0.0-experimental-8039e6d0b-20231026):
     resolution: {integrity: sha512-5UTUIAiHMNf5+mFp7/AnzJXS7+XxktULFN0+D1sCiZWyX7ZG+AQpqs2qpYrynRij4QvoDdCD+U+bmg/cG3Ucxw==}
     engines: {node: '>=12.7.0'}
     peerDependencies:
@@ -35455,6 +35452,7 @@ packages:
         optional: true
     dependencies:
       '@types/react': 18.2.48
+      immer: 10.0.2
       react: 0.0.0-experimental-8039e6d0b-20231026
       use-sync-external-store: 1.2.0(react@0.0.0-experimental-8039e6d0b-20231026)
     dev: false
@@ -35526,8 +35524,7 @@ time:
   /@crowdin/cli@3.15.0: '2023-10-25T07:28:15.085Z'
   /@cyberlab/cyberconnect@4.2.2: '2022-02-14T06:33:17.675Z'
   /@dimensiondev/common-protocols@1.6.0-20210723072221-8f46a92: '2021-07-23T07:22:56Z'
-  /@dimensiondev/holoflows-kit@0.9.0-20230307045856-46252fb: '2023-03-07T04:58:40Z'
-  /@dimensiondev/holoflows-kit@0.9.0-20240104084316-88642f9: '2024-01-04T08:43:44Z'
+  /@dimensiondev/holoflows-kit@0.9.0-20240322092738-f9180f3: '2024-03-22T09:28:16Z'
   /@dimensiondev/mask-wallet-core@0.1.0-20211013082857-eb62e5f: '2021-10-13T08:39:07Z'
   /@dimensiondev/metamask-extension-provider@3.0.6-20221105074301-8806fca: '2022-11-05T07:43:23Z'
   /@emotion/cache@11.11.0: '2023-05-06T08:49:11.977Z'
