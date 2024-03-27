@@ -10,7 +10,6 @@ import {
     UNDEFINED,
     ValueRef,
 } from '@masknet/shared-base';
-import { type Subscription } from 'use-subscription';
 
 import type { SocialPlatform } from '@/constants/enum.js';
 import { SITE_URL } from '@/constants/index.js';
@@ -43,8 +42,8 @@ export function createMaskUIContext(context?: Partial<__UIContext__>): __UIConte
     };
 }
 
-const myProfileRef = new ValueRef<IdentityResolved>({});
-const myProfileSub: Subscription<IdentityResolved> = createSubscriptionFromValueRef(myProfileRef);
+const myProfileRef = new ValueRef<IdentityResolved | undefined>(undefined);
+const myProfileSub = createSubscriptionFromValueRef(myProfileRef);
 
 export function updateMyProfile(profile: IdentityResolved) {
     myProfileRef.value = profile;
