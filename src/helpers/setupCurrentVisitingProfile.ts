@@ -3,7 +3,12 @@ import {
     type __SiteAdaptorContext__,
     type IdentityResolved,
 } from '@masknet/plugin-infra/content-script';
-import { createConstantSubscription, ProfileIdentifier } from '@masknet/shared-base';
+import {
+    createConstantSubscription,
+    createSubscriptionFromValueRef,
+    ProfileIdentifier,
+    ValueRef,
+} from '@masknet/shared-base';
 
 import { SocialPlatform } from '@/constants/enum.js';
 import { SITE_HOSTNAME } from '@/constants/index.js';
@@ -23,6 +28,9 @@ const fireflyappProfile: Profile = {
     verified: true,
 };
 
+const myProfileRef = new ValueRef<IdentityResolved>({});
+const myProfileSub = createSubscriptionFromValueRef(myProfileRef);
+
 export async function setupCurrentVisitingProfile(profile: Profile | null, lastRecognizedProfile?: IdentityResolved) {
     if (!profile) return;
     const { handle, displayName, pfp } = profile;
@@ -35,7 +43,8 @@ export async function setupCurrentVisitingProfile(profile: Profile | null, lastR
         }),
     };
     if (lastRecognizedProfile) {
-        options.lastRecognizedProfile = createConstantSubscription<IdentityResolved>(lastRecognizedProfile);
+        myProfileRef.value = lastRecognizedProfile;
+        options.lastRecognizedProfile = myProfileSub;
     }
     __setSiteAdaptorContext__(createMaskSiteAdaptorContext(options));
 }
