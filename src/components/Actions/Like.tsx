@@ -12,10 +12,11 @@ import { ClickableArea } from '@/components/ClickableArea.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
+import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
-import { LoginModalRef, SnackbarRef } from '@/modals/controls.js';
+import { LoginModalRef } from '@/modals/controls.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 
@@ -63,12 +64,7 @@ export const Like = memo<LikeProps>(function Like({ count, hasLiked, postId, aut
                     safeUnreachable(source);
                     break;
             }
-            SnackbarRef.open({
-                message: liked ? t`Unliked` : t`Liked`,
-                options: {
-                    variant: 'success',
-                },
-            });
+            enqueueSuccessMessage(liked ? t`Unliked` : t`Liked`);
             queryClient.invalidateQueries({ queryKey: [source, 'post-detail', postId] });
             queryClient.invalidateQueries({ queryKey: ['discover', source] });
 
@@ -76,12 +72,9 @@ export const Like = memo<LikeProps>(function Like({ count, hasLiked, postId, aut
         } catch (error) {
             if (error instanceof Error) {
                 setRealCount(originalCount);
-                SnackbarRef.open({
-                    message: liked ? t`Failed to unlike. ${error.message}` : t`Failed to like. ${error.message}`,
-                    options: {
-                        variant: 'error',
-                    },
-                });
+                enqueueErrorMessage(
+                    liked ? t`Failed to unlike. ${error.message}` : t`Failed to like. ${error.message}`,
+                );
                 setLiked((prev) => !prev);
             }
             return;

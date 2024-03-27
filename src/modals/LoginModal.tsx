@@ -18,9 +18,9 @@ import { Popover } from '@/components/Popover.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
+import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
-import { SnackbarRef } from '@/modals/controls.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
@@ -49,20 +49,15 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | 
                         },
                     });
                     if (!profiles.length) {
-                        SnackbarRef.open({
-                            message: (
-                                <div>
-                                    <span className="font-bold">
-                                        <Trans>Wrong wallet</Trans>
-                                    </span>
-                                    <br />
-                                    <Trans>No Lens profile was found. Please try using a different wallet.</Trans>
-                                </div>
-                            ),
-                            options: {
-                                variant: 'error',
-                            },
-                        });
+                        enqueueErrorMessage(
+                            <div>
+                                <span className="font-bold">
+                                    <Trans>Wrong wallet</Trans>
+                                </span>
+                                <br />
+                                <Trans>No Lens profile was found. Please try using a different wallet.</Trans>
+                            </div>,
+                        );
                         return;
                     }
                     setProfiles(profiles);
@@ -79,20 +74,15 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | 
                     return;
             }
         } catch (error) {
-            SnackbarRef.open({
-                message: (
-                    <div>
-                        <span className="font-bold">
-                            <Trans>Connection failed</Trans>
-                        </span>
-                        <br />
-                        <Trans>The user declined the request.</Trans>
-                    </div>
-                ),
-                options: {
-                    variant: 'error',
-                },
-            });
+            enqueueErrorMessage(
+                <div>
+                    <span className="font-bold">
+                        <Trans>Connection failed</Trans>
+                    </span>
+                    <br />
+                    <Trans>The user declined the request.</Trans>
+                </div>,
+            );
         }
     }, []);
 

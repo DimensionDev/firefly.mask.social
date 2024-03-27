@@ -1,8 +1,8 @@
 import { t } from '@lingui/macro';
 import { useAsyncFn } from 'react-use';
 
+import { enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
-import { SnackbarRef } from '@/modals/controls.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { useLensStateStore } from '@/store/useProfileStore.js';
@@ -14,15 +14,9 @@ export function useSwitchLensAccount() {
             try {
                 const session = await LensSocialMediaProvider.createSessionForProfileId(profile.profileId);
                 updateCurrentProfile(profile, session);
-                SnackbarRef.open({
-                    message: t`Your Lens account is now connected`,
-                    options: { variant: 'success' },
-                });
+                enqueueSuccessMessage(t`Your Lens account is now connected`);
             } catch (error) {
-                SnackbarRef.open({
-                    message: getSnackbarMessageFromError(error, t`Failed to login`),
-                    options: { variant: 'error' },
-                });
+                enqueueSuccessMessage(getSnackbarMessageFromError(error, t`Failed to login`));
             }
         },
         [updateCurrentProfile],

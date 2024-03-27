@@ -6,8 +6,8 @@ import CollectIcon from '@/assets/collect.svg';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { classNames } from '@/helpers/classNames.js';
+import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
-import { SnackbarRef } from '@/modals/controls.js';
 
 interface CollectProps {
     count?: number;
@@ -30,12 +30,7 @@ export const Collect = memo<CollectProps>(function Collect({ count, disabled = f
                         ev.preventDefault();
                         ev.stopPropagation();
                         if (disabled) return;
-                        SnackbarRef.open({
-                            message: t`Collect Action is not supported yet.`,
-                            options: {
-                                variant: 'error',
-                            },
-                        });
+                        enqueueErrorMessage(t`Collect Action is not supported yet.`);
                     }}
                 >
                     <CollectIcon width={17} height={16} className={collected ? 'text-collected' : ''} />

@@ -7,11 +7,12 @@ import { ClickableArea } from '@/components/ClickableArea.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
+import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { humanize, nFormatter } from '@/helpers/formatCommentCounts.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
-import { ComposeModalRef, LoginModalRef, SnackbarRef } from '@/modals/controls.js';
+import { ComposeModalRef, LoginModalRef } from '@/modals/controls.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 interface CommentProps {
@@ -53,12 +54,7 @@ export const Comment = memo<CommentProps>(function Comment({
                 source,
             });
         } else {
-            SnackbarRef.open({
-                message: t`You cannot reply to @${author} on ${resolveSourceName(source)}.`,
-                options: {
-                    variant: 'error',
-                },
-            });
+            enqueueErrorMessage(t`You cannot reply to @${author} on ${resolveSourceName(source)}.`);
         }
     }, [isLogin, canComment, post, author, source]);
 

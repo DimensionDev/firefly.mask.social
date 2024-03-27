@@ -4,11 +4,12 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 
 import { SocialPlatform } from '@/constants/enum.js';
+import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { useIsFollowing } from '@/hooks/useIsFollowing.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useIsMyProfile } from '@/hooks/useIsMyProfile.js';
 import { useUnmountRef } from '@/hooks/useUnmountRef.js';
-import { LoginModalRef, SnackbarRef } from '@/modals/controls.js';
+import { LoginModalRef } from '@/modals/controls.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
@@ -56,35 +57,25 @@ export function useToggleFollow(profile: Profile) {
                     safeUnreachable(source);
                     return;
             }
-            SnackbarRef.open({
-                message: (
-                    <Select
-                        value={followStateRef.current ? 'unfollow' : 'follow'}
-                        _follow={`Followed @${handle} on ${source}`}
-                        _unfollow={`Unfollowed @${handle} on ${source}`}
-                        other={`Followed @${handle} on ${source}`}
-                    />
-                ),
-                options: {
-                    variant: 'success',
-                },
-            });
+            enqueueSuccessMessage(
+                <Select
+                    value={followStateRef.current ? 'unfollow' : 'follow'}
+                    _follow={`Followed @${handle} on ${source}`}
+                    _unfollow={`Unfollowed @${handle} on ${source}`}
+                    other={`Followed @${handle} on ${source}`}
+                />,
+            );
             return;
         } catch (error) {
             if (error instanceof Error) {
-                SnackbarRef.open({
-                    message: (
-                        <Select
-                            value={followStateRef.current ? 'unfollow' : 'follow'}
-                            _follow={`Failed to followed @${handle} on ${source}`}
-                            _unfollow={`Failed to unfollowed @${handle} on ${source}`}
-                            other={`Failed to followed @${handle} on ${source}`}
-                        />
-                    ),
-                    options: {
-                        variant: 'error',
-                    },
-                });
+                enqueueErrorMessage(
+                    <Select
+                        value={followStateRef.current ? 'unfollow' : 'follow'}
+                        _follow={`Failed to followed @${handle} on ${source}`}
+                        _unfollow={`Failed to unfollowed @${handle} on ${source}`}
+                        other={`Failed to followed @${handle} on ${source}`}
+                    />,
+                );
             }
         }
     }, [profileId, isLogin, source, handle, isMyProfile]);

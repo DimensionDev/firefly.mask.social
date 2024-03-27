@@ -10,6 +10,7 @@ import urlcat from 'urlcat';
 import { Button } from '@/components/Frame/Button.js';
 import { Input } from '@/components/Frame/Input.js';
 import { Image } from '@/esm/Image.js';
+import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { untilImageUrlLoaded } from '@/helpers/untilImageLoaded.js';
 import { ConfirmModalRef, SnackbarRef } from '@/modals/controls.js';
@@ -165,12 +166,7 @@ export function Frame({ postId, url, onData, children }: FrameProps) {
                         const postResponse = await post();
                         const nextFrame = postResponse.success ? (postResponse.data as LinkDigested).frame : null;
                         if (!nextFrame) {
-                            SnackbarRef.open({
-                                message: t`The frame server failed to process the request.`,
-                                options: {
-                                    variant: 'error',
-                                },
-                            });
+                            enqueueErrorMessage(t`The frame server failed to process the request.`);
                             return;
                         }
 
@@ -191,12 +187,7 @@ export function Frame({ postId, url, onData, children }: FrameProps) {
                             ? (postRedirectResponse.data as { redirectUrl: string }).redirectUrl
                             : null;
                         if (!redirectUrl) {
-                            SnackbarRef.open({
-                                message: t`The frame server failed to process the request.`,
-                                options: {
-                                    variant: 'error',
-                                },
-                            });
+                            enqueueErrorMessage(t`The frame server failed to process the request.`);
                             return;
                         }
 
@@ -207,21 +198,16 @@ export function Frame({ postId, url, onData, children }: FrameProps) {
                         if (await confirm()) openWindow(button.target, '_blank');
                         break;
                     case ActionType.Mint:
-                        SnackbarRef.open({
-                            message: t`Mint button is not available yet.`,
-                        });
+                        SnackbarRef.open(t`Mint button is not available yet.`);
                         break;
                     default:
                         safeUnreachable(action);
                         break;
                 }
             } catch (error) {
-                SnackbarRef.open({
-                    message: error instanceof Error ? error.message : t`Something went wrong. Please try again.`,
-                    options: {
-                        variant: 'error',
-                    },
-                });
+                enqueueErrorMessage(
+                    error instanceof Error ? error.message : t`Something went wrong. Please try again.`,
+                );
             }
             return;
         },

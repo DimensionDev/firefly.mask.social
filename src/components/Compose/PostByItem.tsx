@@ -10,12 +10,13 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { SourceIcon } from '@/components/SourceIcon.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
+import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useCurrentProfiles } from '@/hooks/useCurrentProfiles.js';
-import { ComposeModalRef, LoginModalRef, SnackbarRef } from '@/modals/controls.js';
+import { ComposeModalRef, LoginModalRef } from '@/modals/controls.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
@@ -38,17 +39,9 @@ export function PostByItem({ source }: PostByItemProps) {
                 const session = await LensSocialMediaProvider.createSessionForProfileId(profile.profileId);
 
                 updateLensCurrentProfile(profile, session);
-                SnackbarRef.open({
-                    message: t`Your Lens account is now connected.`,
-                    options: {
-                        variant: 'success',
-                    },
-                });
+                enqueueSuccessMessage(t`Your Lens account is now connected.`);
             } catch (error) {
-                SnackbarRef.open({
-                    message: getSnackbarMessageFromError(error, t`Failed to login`),
-                    options: { variant: 'error' },
-                });
+                enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to login`));
             }
             updateLoading(false);
         },
@@ -67,12 +60,7 @@ export function PostByItem({ source }: PostByItemProps) {
                     className=" font-bold text-blueBottom"
                     onClick={async () => {
                         if (source === SocialPlatform.Farcaster && images.length > 2) {
-                            SnackbarRef.open({
-                                message: t`Only up to 2 images can be chosen.`,
-                                options: {
-                                    variant: 'error',
-                                },
-                            });
+                            enqueueErrorMessage(t`Only up to 2 images can be chosen.`);
                             return;
                         }
 
