@@ -1,7 +1,7 @@
 'use client';
 
-import { t, Trans } from '@lingui/macro';
-import { useCallback, useRef, useState } from 'react';
+import { Trans } from '@lingui/macro';
+import { useRef, useState } from 'react';
 import QRCode from 'react-qr-code';
 import { useAsyncFn, useEffectOnce, useUnmount } from 'react-use';
 
@@ -10,52 +10,17 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { IS_PRODUCTION } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getMobileDevice } from '@/helpers/getMobileDevice.js';
-import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
-import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
 import { useIsSmall } from '@/hooks/useMediaQuery.js';
-import { LoginModalRef } from '@/modals/controls.js';
-import type { FarcasterSession } from '@/providers/farcaster/Session.js';
-import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { createSessionByCustodyWallet } from '@/providers/warpcast/createSessionByCustodyWallet.js';
 import { createSessionByGrantPermission } from '@/providers/warpcast/createSessionByGrantPermission.js';
-import { useFarcasterStateStore } from '@/store/useProfileStore.js';
+import { login } from '@/providers/warpcast/login.js';
 
 export function LoginFarcaster() {
     const [url, setUrl] = useState('');
     const controllerRef = useRef<AbortController>();
-    const enqueueSnackbar = useCustomSnackbar();
 
     const isSmall = useIsSmall('max');
-
-    const updateProfiles = useFarcasterStateStore.use.updateProfiles();
-    const updateCurrentProfile = useFarcasterStateStore.use.updateCurrentProfile();
-
-    const login = useCallback(
-        async (createSession: () => Promise<FarcasterSession>) => {
-            try {
-                const session = await createSession();
-                const profile = await FarcasterSocialMediaProvider.getProfileById(session.profileId);
-
-                updateProfiles([profile]);
-                updateCurrentProfile(profile, session);
-
-                enqueueSnackbar(t`Your Farcaster account is now connected.`, {
-                    variant: 'success',
-                });
-                LoginModalRef.close();
-            } catch (error) {
-                if (error instanceof Error && error.message === 'Aborted') return;
-                enqueueSnackbar(getSnackbarMessageFromError(error, t`Failed to login`), {
-                    variant: 'error',
-                });
-                // if any error occurs, close the modal
-                // since we don't need to do error handling in UI part.
-                LoginModalRef.close();
-            }
-        },
-        [updateProfiles, updateCurrentProfile, enqueueSnackbar],
-    );
 
     const [{ loading: loadingGrantPermission, error: errorGrantPermission }, onLoginWithGrantPermission] =
         useAsyncFn(async () => {
@@ -71,7 +36,7 @@ export function LoginFarcaster() {
                     controllerRef.current?.signal,
                 ),
             );
-        }, [login]);
+        }, []);
 
     const [{ loading: loadingCustodyWallet }, onLoginWithCustodyWallet] = useAsyncFn(async () => {
         if (controllerRef.current) controllerRef.current.abort();
@@ -79,7 +44,7 @@ export function LoginFarcaster() {
             const client = await getWalletClientRequired();
             return createSessionByCustodyWallet(client);
         });
-    }, [login]);
+    }, []);
 
     useEffectOnce(() => {
         onLoginWithGrantPermission();

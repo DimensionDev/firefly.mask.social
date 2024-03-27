@@ -7,6 +7,7 @@ import type { DiscardModalProps } from '@/modals/DiscardModal.js';
 import type { LoginModalProps } from '@/modals/LoginModal.js';
 import type { LogoutModalProps } from '@/modals/LogoutModal.js';
 import type { PreviewImagesModalOpenProps } from '@/modals/PreviewImagesModal.js';
+import type { SnackbarCloseProps, SnackbarOpenProps } from '@/modals/Snackbar.js';
 
 export const AccountModalRef = new SingletonModal();
 export const ConnectWalletModalRef = new SingletonModal();
@@ -18,3 +19,4 @@ export const ComposeModalRef = new SingletonModal<ComposeModalProps, ComposeModa
 export const DiscardModalRef = new SingletonModal<DiscardModalProps>();
 export const ConfirmModalRef = new SingletonModal<ConfirmModalOpenProps, ConfirmModalCloseProps>();
 export const DraggablePopoverRef = new SingletonModal<DraggablePopoverProps>();
+export const SnackbarRef = new SingletonModal<SnackbarOpenProps, SnackbarCloseProps>();
