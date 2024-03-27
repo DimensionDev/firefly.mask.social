@@ -156,6 +156,7 @@ export function ComposeSend(props: ComposeSendProps) {
     ]);
 
     const disabled = useMemo(() => {
+        if (loading) return true;
         if ((length === 0 || length > MAX_POST_SIZE) && images.length === 0 && !video) return true;
 
         const postBy = !post
@@ -177,7 +178,7 @@ export function ComposeSend(props: ComposeSendProps) {
         if (postBy.length === 0) return true;
 
         return false;
-    }, [length, images, video, post, availableSources, currentLensProfile, currentFarcasterProfile]);
+    }, [length, images, video, post, availableSources, currentLensProfile, currentFarcasterProfile, loading]);
 
     const send = () => {
         if (disabled) return;
@@ -191,7 +192,11 @@ export function ComposeSend(props: ComposeSendProps) {
                 disabled={disabled}
                 onClick={send}
             >
-                <Send2Icon width={24} height={24} />
+                {loading ? (
+                    <LoadingIcon width={24} height={24} className="animate-spin text-main" />
+                ) : (
+                    <Send2Icon width={24} height={24} />
+                )}
             </ClickableButton>
         );
     }
