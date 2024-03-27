@@ -2,7 +2,6 @@ import { Trans } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
 import { createIndicator, createPageable } from '@masknet/shared-base';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
-import { uniqWith } from 'lodash-es';
 import { useMemo } from 'react';
 import { useInView } from 'react-cool-inview';
 
