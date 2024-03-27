@@ -10,9 +10,9 @@ import urlcat from 'urlcat';
 import { Button } from '@/components/Frame/Button.js';
 import { Input } from '@/components/Frame/Input.js';
 import { Image } from '@/esm/Image.js';
+import { enqueueErrorMessage, enqueueMessage } from '@/helpers/enqueueMessage.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { untilImageUrlLoaded } from '@/helpers/untilImageLoaded.js';
-import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
 import { ConfirmModalRef } from '@/modals/controls.js';
 import { HubbleSocialMediaProvider } from '@/providers/hubble/SocialMedia.js';
 import { ActionType, type Frame, type FrameButton, type LinkDigested } from '@/types/frame.js';
@@ -88,8 +88,6 @@ interface FrameProps {
 }
 
 export function Frame({ postId, url, onData, children }: FrameProps) {
-    const enqueueSnackbar = useCustomSnackbar();
-
     const [latestFrame, setLatestFrame] = useState<Frame | null>(null);
 
     const {
@@ -168,9 +166,7 @@ export function Frame({ postId, url, onData, children }: FrameProps) {
                         const postResponse = await post();
                         const nextFrame = postResponse.success ? (postResponse.data as LinkDigested).frame : null;
                         if (!nextFrame) {
-                            enqueueSnackbar(t`The frame server failed to process the request.`, {
-                                variant: 'error',
-                            });
+                            enqueueErrorMessage(t`The frame server failed to process the request.`);
                             return;
                         }
 
@@ -191,9 +187,7 @@ export function Frame({ postId, url, onData, children }: FrameProps) {
                             ? (postRedirectResponse.data as { redirectUrl: string }).redirectUrl
                             : null;
                         if (!redirectUrl) {
-                            enqueueSnackbar(t`The frame server failed to process the request.`, {
-                                variant: 'error',
-                            });
+                            enqueueErrorMessage(t`The frame server failed to process the request.`);
                             return;
                         }
 
@@ -204,20 +198,20 @@ export function Frame({ postId, url, onData, children }: FrameProps) {
                         if (await confirm()) openWindow(button.target, '_blank');
                         break;
                     case ActionType.Mint:
-                        enqueueSnackbar(t`Mint button is not available yet.`);
+                        enqueueMessage(t`Mint button is not available yet.`);
                         break;
                     default:
                         safeUnreachable(action);
                         break;
                 }
             } catch (error) {
-                enqueueSnackbar(error instanceof Error ? error.message : t`Something went wrong. Please try again.`, {
-                    variant: 'error',
-                });
+                enqueueErrorMessage(
+                    error instanceof Error ? error.message : t`Something went wrong. Please try again.`,
+                );
             }
             return;
         },
-        [frame, latestFrame, postId, enqueueSnackbar],
+        [frame, latestFrame, postId],
     );
 
     if (isLoadingFrame) return null;

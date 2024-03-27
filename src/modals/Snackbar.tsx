@@ -3,10 +3,12 @@ import { useSingletonModal } from '@masknet/shared-base-ui';
 import { type OptionsObject, type SnackbarKey, type SnackbarMessage, useSnackbar } from 'notistack';
 import { forwardRef } from 'react';
 
-export interface SnackbarOpenProps {
-    message: SnackbarMessage;
-    options?: OptionsObject;
-}
+export type SnackbarOpenProps =
+    | {
+          message: SnackbarMessage;
+          options?: OptionsObject;
+      }
+    | SnackbarMessage;
 
 export interface SnackbarCloseProps {
     key?: SnackbarKey;
@@ -18,7 +20,10 @@ export const Snackbar = forwardRef<SingletonModalRefCreator<SnackbarOpenProps, S
 
         useSingletonModal(ref, {
             onOpen: async (props) => {
-                enqueueSnackbar(props.message, props.options);
+                const withMessage = props as { message: SnackbarMessage; options?: OptionsObject };
+
+                if ('message' in withMessage) enqueueSnackbar(withMessage.message, withMessage.options);
+                else enqueueSnackbar(props as SnackbarMessage);
             },
             onClose: async (props) => {
                 closeSnackbar(props.key);

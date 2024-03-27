@@ -4,7 +4,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 
 import { SocialPlatform } from '@/constants/enum.js';
-import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
+import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { useIsFollowing } from '@/hooks/useIsFollowing.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useIsMyProfile } from '@/hooks/useIsMyProfile.js';
@@ -17,7 +17,6 @@ import type { Profile } from '@/providers/types/SocialMedia.js';
 export function useToggleFollow(profile: Profile) {
     const { profileId, handle, source } = profile;
     const isLogin = useIsLogin(source);
-    const enqueueSnackbar = useCustomSnackbar();
     const [touched, setTouched] = useState(false);
     // Request received, but state might not update yet.
     const [received, setReceived] = useState(false);
@@ -58,34 +57,28 @@ export function useToggleFollow(profile: Profile) {
                     safeUnreachable(source);
                     return;
             }
-            enqueueSnackbar(
+            enqueueSuccessMessage(
                 <Select
                     value={followStateRef.current ? 'unfollow' : 'follow'}
                     _follow={`Followed @${handle} on ${source}`}
                     _unfollow={`Unfollowed @${handle} on ${source}`}
                     other={`Followed @${handle} on ${source}`}
                 />,
-                {
-                    variant: 'success',
-                },
             );
             return;
         } catch (error) {
             if (error instanceof Error) {
-                enqueueSnackbar(
+                enqueueErrorMessage(
                     <Select
                         value={followStateRef.current ? 'unfollow' : 'follow'}
                         _follow={`Failed to followed @${handle} on ${source}`}
                         _unfollow={`Failed to unfollowed @${handle} on ${source}`}
                         other={`Failed to followed @${handle} on ${source}`}
                     />,
-                    {
-                        variant: 'error',
-                    },
                 );
             }
         }
-    }, [profileId, isLogin, source, enqueueSnackbar, handle, isMyProfile]);
+    }, [profileId, isLogin, source, handle, isMyProfile]);
 
     const unmountRef = useUnmountRef();
     const [state, handleToggle] = useAsyncFn(async () => {

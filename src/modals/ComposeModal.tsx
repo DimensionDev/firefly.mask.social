@@ -27,13 +27,13 @@ import { MentionNode } from '@/components/Lexical/nodes/MentionsNode.js';
 import { Modal } from '@/components/Modal.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { SITE_HOSTNAME, SITE_URL } from '@/constants/index.js';
+import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { fetchImageAsPNG } from '@/helpers/fetchImageAsPNG.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { hasRedPacketPayload } from '@/helpers/hasRedPacketPayload.js';
 import { type Chars, readChars } from '@/helpers/readChars.js';
 import { throws } from '@/helpers/throws.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
-import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { DiscardModalRef } from '@/modals/controls.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
@@ -96,7 +96,6 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
         } = useComposeStateStore();
 
         const [editor] = useLexicalComposerContext();
-        const enqueueSnackbar = useCustomSnackbar();
 
         const setEditorContent = useSetEditorContent();
         const [open, dispatch] = useSingletonModal(ref, {
@@ -184,9 +183,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
                     file: new File([secretImage], 'image.png', { type: 'image/png' }),
                 });
             } catch (error) {
-                enqueueSnackbar(t`Failed to create image payload.`, {
-                    variant: 'error',
-                });
+                enqueueErrorMessage(t`Failed to create image payload.`);
             }
             // each time the typedMessage changes, we need to check if it has a red packet payload
         }, [typedMessage, redPacketPayload, currentLensProfile, currentFarcasterProfile]);

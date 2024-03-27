@@ -13,9 +13,9 @@ import LoadingIcon from '@/assets/loading.svg';
 import WalletIcon from '@/assets/wallet.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { ProfileInList } from '@/components/Login/ProfileInList.js';
+import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
-import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
 import { AccountModalRef, ConnectWalletModalRef, LoginModalRef } from '@/modals/controls.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
@@ -35,8 +35,6 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
     const updateProfiles = useLensStateStore.use.updateProfiles();
     const updateCurrentProfile = useLensStateStore.use.updateCurrentProfile();
 
-    const enqueueSnackbar = useCustomSnackbar();
-
     const currentProfile = selectedProfile ?? first(profiles);
 
     const [{ loading }, login] = useAsyncFn(
@@ -52,10 +50,10 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
 
                 updateProfiles(profiles);
                 updateCurrentProfile(currentProfile, session);
-                enqueueSnackbar(t`Your Lens account is now connected.`, { variant: 'success' });
+                enqueueSuccessMessage(t`Your Lens account is now connected.`);
                 LoginModalRef.close();
             } catch (error) {
-                enqueueSnackbar(getSnackbarMessageFromError(error, t`Failed to login`), { variant: 'error' });
+                enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to login`));
                 return;
             }
         },

@@ -4,7 +4,6 @@ import { Trans } from '@lingui/macro';
 import { delay, getEnumAsArray, safeUnreachable } from '@masknet/kit';
 import type { SingletonModalRefCreator } from '@masknet/shared-base';
 import { useSingletonModal } from '@masknet/shared-base-ui';
-import { useSnackbar } from 'notistack';
 import { forwardRef, Suspense, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 
@@ -19,6 +18,7 @@ import { Popover } from '@/components/Popover.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
+import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
@@ -36,66 +36,55 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | 
     const [isDirectly, setIsDirectly] = useState(false);
     const [currentAccount, setCurrentAccount] = useState<string>('');
 
-    const { enqueueSnackbar } = useSnackbar();
-
-    const [{ loading }, handleLogin] = useAsyncFn(
-        async (selectedSource: SocialPlatform) => {
-            try {
-                switch (selectedSource) {
-                    case SocialPlatform.Lens: {
-                        const { account } = await getWalletClientRequired();
-                        const profiles = await queryClient.fetchQuery({
-                            queryKey: ['lens', 'profiles', account.address],
-                            queryFn: async () => {
-                                if (!account.address) return EMPTY_LIST;
-                                return LensSocialMediaProvider.getProfilesByAddress(account.address);
-                            },
-                        });
-                        if (!profiles.length) {
-                            enqueueSnackbar(
-                                <div>
-                                    <span className="font-bold">
-                                        <Trans>Wrong wallet</Trans>
-                                    </span>
-                                    <br />
-                                    <Trans>No Lens profile was found. Please try using a different wallet.</Trans>
-                                </div>,
-                                {
-                                    variant: 'error',
-                                },
-                            );
-                            return;
-                        }
-                        setProfiles(profiles);
-                        setCurrentAccount(account.address);
-                        setSource(selectedSource);
+    const [{ loading }, handleLogin] = useAsyncFn(async (selectedSource: SocialPlatform) => {
+        try {
+            switch (selectedSource) {
+                case SocialPlatform.Lens: {
+                    const { account } = await getWalletClientRequired();
+                    const profiles = await queryClient.fetchQuery({
+                        queryKey: ['lens', 'profiles', account.address],
+                        queryFn: async () => {
+                            if (!account.address) return EMPTY_LIST;
+                            return LensSocialMediaProvider.getProfilesByAddress(account.address);
+                        },
+                    });
+                    if (!profiles.length) {
+                        enqueueErrorMessage(
+                            <div>
+                                <span className="font-bold">
+                                    <Trans>Wrong wallet</Trans>
+                                </span>
+                                <br />
+                                <Trans>No Lens profile was found. Please try using a different wallet.</Trans>
+                            </div>,
+                        );
                         return;
                     }
-                    case SocialPlatform.Farcaster:
-                        setProfiles(EMPTY_LIST);
-                        setSource(selectedSource);
-                        return;
-                    default:
-                        safeUnreachable(selectedSource);
-                        return;
+                    setProfiles(profiles);
+                    setCurrentAccount(account.address);
+                    setSource(selectedSource);
+                    return;
                 }
-            } catch (error) {
-                enqueueSnackbar(
-                    <div>
-                        <span className="font-bold">
-                            <Trans>Connection failed</Trans>
-                        </span>
-                        <br />
-                        <Trans>The user declined the request.</Trans>
-                    </div>,
-                    {
-                        variant: 'error',
-                    },
-                );
+                case SocialPlatform.Farcaster:
+                    setProfiles(EMPTY_LIST);
+                    setSource(selectedSource);
+                    return;
+                default:
+                    safeUnreachable(selectedSource);
+                    return;
             }
-        },
-        [enqueueSnackbar],
-    );
+        } catch (error) {
+            enqueueErrorMessage(
+                <div>
+                    <span className="font-bold">
+                        <Trans>Connection failed</Trans>
+                    </span>
+                    <br />
+                    <Trans>The user declined the request.</Trans>
+                </div>,
+            );
+        }
+    }, []);
 
     const [open, dispatch] = useSingletonModal(ref, {
         onOpen: async (props) => {
