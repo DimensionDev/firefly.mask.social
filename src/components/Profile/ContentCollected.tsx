@@ -61,14 +61,7 @@ export function ContentCollected({ profileId, source }: ContentFeedProps) {
         },
     });
 
-    const results = useMemo(
-        () =>
-            uniqWith(
-                data.pages.flatMap((x) => x.data),
-                (a, b) => a.postId === b.postId,
-            ),
-        [data],
-    );
+    const results = useMemo(() => data.pages.flatMap((x) => x.data), [data]);
 
     if (!results.length)
         return (
