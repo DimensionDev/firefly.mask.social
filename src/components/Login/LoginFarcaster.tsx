@@ -71,7 +71,7 @@ export function LoginFarcaster() {
                     controllerRef.current?.signal,
                 ),
             );
-        }, [login, setUrl]);
+        }, [login]);
 
     const [{ loading: loadingCustodyWallet }, onLoginWithCustodyWallet] = useAsyncFn(async () => {
         if (controllerRef.current) controllerRef.current.abort();
