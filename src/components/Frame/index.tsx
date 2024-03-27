@@ -10,10 +10,10 @@ import urlcat from 'urlcat';
 import { Button } from '@/components/Frame/Button.js';
 import { Input } from '@/components/Frame/Input.js';
 import { Image } from '@/esm/Image.js';
-import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
+import { enqueueErrorMessage, enqueueMessage } from '@/helpers/enqueueMessage.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { untilImageUrlLoaded } from '@/helpers/untilImageLoaded.js';
-import { ConfirmModalRef, SnackbarRef } from '@/modals/controls.js';
+import { ConfirmModalRef } from '@/modals/controls.js';
 import { HubbleSocialMediaProvider } from '@/providers/hubble/SocialMedia.js';
 import { ActionType, type Frame, type FrameButton, type LinkDigested } from '@/types/frame.js';
 import type { ResponseJSON } from '@/types/index.js';
@@ -198,7 +198,7 @@ export function Frame({ postId, url, onData, children }: FrameProps) {
                         if (await confirm()) openWindow(button.target, '_blank');
                         break;
                     case ActionType.Mint:
-                        SnackbarRef.open(t`Mint button is not available yet.`);
+                        enqueueMessage(t`Mint button is not available yet.`);
                         break;
                     default:
                         safeUnreachable(action);

@@ -1,7 +1,7 @@
 import { t } from '@lingui/macro';
 import { useAsyncFn } from 'react-use';
 
-import { enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
@@ -16,7 +16,7 @@ export function useSwitchLensAccount() {
                 updateCurrentProfile(profile, session);
                 enqueueSuccessMessage(t`Your Lens account is now connected`);
             } catch (error) {
-                enqueueSuccessMessage(getSnackbarMessageFromError(error, t`Failed to login`));
+                enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to login`));
             }
         },
         [updateCurrentProfile],
