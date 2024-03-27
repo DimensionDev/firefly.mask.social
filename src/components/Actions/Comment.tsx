@@ -10,9 +10,8 @@ import { classNames } from '@/helpers/classNames.js';
 import { humanize, nFormatter } from '@/helpers/formatCommentCounts.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
-import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
-import { ComposeModalRef, LoginModalRef } from '@/modals/controls.js';
+import { ComposeModalRef, LoginModalRef, SnackbarRef } from '@/modals/controls.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 interface CommentProps {
@@ -34,7 +33,6 @@ export const Comment = memo<CommentProps>(function Comment({
 }) {
     const isLogin = useIsLogin(source);
 
-    const enqueueSnackbar = useCustomSnackbar();
     const tooltip = useMemo(() => {
         if (count && count > 0) {
             return t`${humanize(count)} Comments`;
@@ -55,11 +53,14 @@ export const Comment = memo<CommentProps>(function Comment({
                 source,
             });
         } else {
-            enqueueSnackbar(t`You cannot reply to @${author} on ${resolveSourceName(source)}.`, {
-                variant: 'error',
+            SnackbarRef.open({
+                message: t`You cannot reply to @${author} on ${resolveSourceName(source)}.`,
+                options: {
+                    variant: 'error',
+                },
             });
         }
-    }, [isLogin, canComment, post, enqueueSnackbar, author, source]);
+    }, [isLogin, canComment, post, author, source]);
 
     return (
         <ClickableArea

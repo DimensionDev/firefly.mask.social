@@ -14,9 +14,8 @@ import { SocialPlatform } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
-import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
-import { LoginModalRef } from '@/modals/controls.js';
+import { LoginModalRef, SnackbarRef } from '@/modals/controls.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 
@@ -35,7 +34,6 @@ export const Like = memo<LikeProps>(function Like({ count, hasLiked, postId, aut
     const [liked, setLiked] = useState(hasLiked);
     const [realCount, setRealCount] = useState(count);
 
-    const enqueueSnackbar = useCustomSnackbar();
     const [{ loading }, handleClick] = useAsyncFn(async () => {
         if (!postId) return null;
         if (!isLogin) {
@@ -65,8 +63,11 @@ export const Like = memo<LikeProps>(function Like({ count, hasLiked, postId, aut
                     safeUnreachable(source);
                     break;
             }
-            enqueueSnackbar(liked ? t`Unliked` : t`Liked`, {
-                variant: 'success',
+            SnackbarRef.open({
+                message: liked ? t`Unliked` : t`Liked`,
+                options: {
+                    variant: 'success',
+                },
             });
             queryClient.invalidateQueries({ queryKey: [source, 'post-detail', postId] });
             queryClient.invalidateQueries({ queryKey: ['discover', source] });
@@ -75,8 +76,11 @@ export const Like = memo<LikeProps>(function Like({ count, hasLiked, postId, aut
         } catch (error) {
             if (error instanceof Error) {
                 setRealCount(originalCount);
-                enqueueSnackbar(liked ? t`Failed to unlike. ${error.message}` : t`Failed to like. ${error.message}`, {
-                    variant: 'error',
+                SnackbarRef.open({
+                    message: liked ? t`Failed to unlike. ${error.message}` : t`Failed to like. ${error.message}`,
+                    options: {
+                        variant: 'error',
+                    },
                 });
                 setLiked((prev) => !prev);
             }

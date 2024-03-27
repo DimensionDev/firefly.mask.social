@@ -3,7 +3,7 @@ import { useCallback } from 'react';
 
 import { queryClient } from '@/configs/queryClient.js';
 import { readChars } from '@/helpers/readChars.js';
-import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
+import { SnackbarRef } from '@/modals/controls.js';
 import { commentPostForLens, publishPostForLens, quotePostForLens } from '@/services/postForLens.js';
 import { uploadFileToIPFS } from '@/services/uploadToIPFS.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
@@ -14,7 +14,6 @@ export function useSendLens() {
     const currentProfile = useLensStateStore.use.currentProfile();
     const { type, post, chars, images, updateImages, video, updateVideo, lensPostId, updateLensPostId } =
         useComposeStateStore();
-    const enqueueSnackbar = useCustomSnackbar();
 
     return useCallback(async () => {
         if (!currentProfile?.profileId || lensPostId) return;
@@ -34,7 +33,10 @@ export function useSendLens() {
                     return patchedMedia;
                 } catch (err) {
                     const message = t`Failed to upload image to IPFS.`;
-                    enqueueSnackbar(message, { variant: 'error' });
+                    SnackbarRef.open({
+                        message,
+                        options: { variant: 'error' },
+                    });
                     throw new Error(message);
                 }
             }),
@@ -50,7 +52,10 @@ export function useSendLens() {
                 updateVideo(uploadedVideo);
             } else {
                 const message = t`Failed to upload video to IPFS.`;
-                enqueueSnackbar(message, { variant: 'error' });
+                SnackbarRef.open({
+                    message,
+                    options: { variant: 'error' },
+                });
                 throw new Error(message);
             }
         }
@@ -63,13 +68,19 @@ export function useSendLens() {
                     uploadedImages,
                     uploadedVideo,
                 );
-                enqueueSnackbar(t`Posted on Lens`, {
-                    variant: 'success',
+                SnackbarRef.open({
+                    message: t`Posted on Lens`,
+                    options: {
+                        variant: 'success',
+                    },
                 });
                 updateLensPostId(published.postId);
             } catch (error) {
-                enqueueSnackbar(t`Failed to post on Lens.`, {
-                    variant: 'error',
+                SnackbarRef.open({
+                    message: t`Failed to post on Lens.`,
+                    options: {
+                        variant: 'error',
+                    },
                 });
                 throw error;
             }
@@ -84,16 +95,22 @@ export function useSendLens() {
                     uploadedVideo,
                     !!post.momoka?.proof,
                 );
-                enqueueSnackbar(t`Replied on Lens`, {
-                    variant: 'success',
+                SnackbarRef.open({
+                    message: t`Replied on Lens`,
+                    options: {
+                        variant: 'success',
+                    },
                 });
                 updateLensPostId(comment);
 
                 queryClient.invalidateQueries({ queryKey: [post.source, 'post-detail', post.postId] });
                 queryClient.invalidateQueries({ queryKey: ['post-detail', 'comments', post.source, post.postId] });
             } catch (error) {
-                enqueueSnackbar(t`Failed to relay post on Lens.`, {
-                    variant: 'error',
+                SnackbarRef.open({
+                    message: t`Failed to relay post on Lens.`,
+                    options: {
+                        variant: 'error',
+                    },
                 });
                 throw error;
             }
@@ -108,8 +125,11 @@ export function useSendLens() {
                     uploadedVideo,
                     !!post.momoka?.proof,
                 );
-                enqueueSnackbar(t`Posted on Lens`, {
-                    variant: 'success',
+                SnackbarRef.open({
+                    message: t`Posted on Lens`,
+                    options: {
+                        variant: 'success',
+                    },
                 });
 
                 updateLensPostId(quote.postId);
@@ -119,8 +139,11 @@ export function useSendLens() {
                     hasQuoted: true,
                 });
             } catch (error) {
-                enqueueSnackbar(t`Failed to quote post on Lens.`, {
-                    variant: 'error',
+                SnackbarRef.open({
+                    message: t`Failed to quote post on Lens.`,
+                    options: {
+                        variant: 'error',
+                    },
                 });
                 throw error;
             }
@@ -128,7 +151,6 @@ export function useSendLens() {
     }, [
         chars,
         currentProfile?.profileId,
-        enqueueSnackbar,
         images,
         lensPostId,
         post,

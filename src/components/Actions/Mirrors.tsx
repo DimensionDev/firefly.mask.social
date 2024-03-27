@@ -15,9 +15,8 @@ import { SocialPlatform } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { humanize, nFormatter } from '@/helpers/formatCommentCounts.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
-import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
-import { ComposeModalRef, LoginModalRef } from '@/modals/controls.js';
+import { ComposeModalRef, LoginModalRef, SnackbarRef } from '@/modals/controls.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
@@ -41,7 +40,6 @@ export const Mirror = memo<MirrorProps>(function Mirror({
 }) {
     const isLogin = useIsLogin(source);
 
-    const enqueueSnackbar = useCustomSnackbar();
     const [mirrored, setMirrored] = useState(post.hasMirrored);
     const [count, setCount] = useState(shares);
 
@@ -86,8 +84,11 @@ export const Mirror = memo<MirrorProps>(function Mirror({
                         return prev + 1;
                     });
                     const result = await LensSocialMediaProvider.mirrorPost(postId, { onMomoka: !!post.momoka?.proof });
-                    enqueueSnackbar(t`Mirrored`, {
-                        variant: 'success',
+                    SnackbarRef.open({
+                        message: t`Mirrored`,
+                        options: {
+                            variant: 'success',
+                        },
                     });
                     return result;
                 } catch (error) {
@@ -97,8 +98,11 @@ export const Mirror = memo<MirrorProps>(function Mirror({
                             if (!prev) return;
                             return prev - 1;
                         });
-                        enqueueSnackbar(t`Failed to mirror. ${error.message}`, {
-                            variant: 'error',
+                        SnackbarRef.open({
+                            message: t`Failed to mirror. ${error.message}`,
+                            options: {
+                                variant: 'error',
+                            },
                         });
                         return;
                     }
@@ -116,8 +120,11 @@ export const Mirror = memo<MirrorProps>(function Mirror({
                     await (mirrored
                         ? FarcasterSocialMediaProvider.unmirrorPost(postId, Number(post.author.profileId))
                         : FarcasterSocialMediaProvider.mirrorPost(postId, { authorId: Number(post.author.profileId) }));
-                    enqueueSnackbar(mirrored ? t`Cancel recast successfully` : t`Recasted`, {
-                        variant: 'success',
+                    SnackbarRef.open({
+                        message: mirrored ? t`Cancel recast successfully` : t`Recasted`,
+                        options: {
+                            variant: 'success',
+                        },
                     });
                     return;
                 } catch (error) {

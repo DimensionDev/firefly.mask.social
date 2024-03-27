@@ -35,7 +35,7 @@ import { throws } from '@/helpers/throws.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
-import { DiscardModalRef } from '@/modals/controls.js';
+import { DiscardModalRef, SnackbarRef } from '@/modals/controls.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { steganographyEncodeImage } from '@/services/steganography.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
@@ -184,8 +184,11 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
                     file: new File([secretImage], 'image.png', { type: 'image/png' }),
                 });
             } catch (error) {
-                enqueueSnackbar(t`Failed to create image payload.`, {
-                    variant: 'error',
+                SnackbarRef.open({
+                    message: t`Failed to create image payload.`,
+                    options: {
+                        variant: 'error',
+                    },
                 });
             }
             // each time the typedMessage changes, we need to check if it has a red packet payload

@@ -6,7 +6,7 @@ import { queryClient } from '@/configs/queryClient.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { hasRedPacketPayload } from '@/helpers/hasRedPacketPayload.js';
 import { readChars } from '@/helpers/readChars.js';
-import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
+import { SnackbarRef } from '@/modals/controls.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { type Post } from '@/providers/types/SocialMedia.js';
 import { uploadToImgur } from '@/services/uploadToImgur.js';
@@ -27,7 +27,6 @@ export function useSendFarcaster() {
         updateFarcasterPostId,
         typedMessage,
     } = useComposeStateStore();
-    const enqueueSnackbar = useCustomSnackbar();
     const currentProfile = useFarcasterStateStore.use.currentProfile();
 
     return useCallback(async () => {
@@ -49,7 +48,10 @@ export function useSendFarcaster() {
                         return patchedMedia;
                     } catch (error) {
                         const message = error instanceof Error ? error.message : t`Failed to upload image to imgur.`;
-                        enqueueSnackbar(message, { variant: 'error' });
+                        SnackbarRef.open({
+                            message,
+                            options: { variant: 'error' },
+                        });
                         throw new Error(message);
                     }
                 }),
@@ -80,8 +82,11 @@ export function useSendFarcaster() {
                     parentChannelUrl: hasRedPacket ? 'https://warpcast.com/~/channel/firefly-garden' : undefined,
                 };
                 const published = await FarcasterSocialMediaProvider.publishPost(draft);
-                enqueueSnackbar(t`Posted on Farcaster`, {
-                    variant: 'success',
+                SnackbarRef.open({
+                    message: t`Posted on Farcaster`,
+                    options: {
+                        variant: 'success',
+                    },
                 });
                 if (type === 'reply' && post) {
                     queryClient.invalidateQueries({ queryKey: [post.source, 'post-detail', post.postId] });
@@ -93,12 +98,13 @@ export function useSendFarcaster() {
                     updateFarcasterPostId(published.postId);
                 }
             } catch (error) {
-                enqueueSnackbar(
-                    type === 'compose' ? t`Failed to post on Farcaster.` : t`Failed to reply post on Farcaster.`,
-                    {
+                SnackbarRef.open({
+                    message:
+                        type === 'compose' ? t`Failed to post on Farcaster.` : t`Failed to reply post on Farcaster.`,
+                    options: {
                         variant: 'error',
                     },
-                );
+                });
                 throw error;
             }
         }
@@ -106,8 +112,11 @@ export function useSendFarcaster() {
             try {
                 await FarcasterSocialMediaProvider.mirrorPost(post.postId);
             } catch (error) {
-                enqueueSnackbar(t`Failed to mirror post on Farcaster.`, {
-                    variant: 'error',
+                SnackbarRef.open({
+                    message: t`Failed to mirror post on Farcaster.`,
+                    options: {
+                        variant: 'error',
+                    },
                 });
                 throw error;
             }
@@ -123,7 +132,6 @@ export function useSendFarcaster() {
         frames,
         openGraphs,
         updateImages,
-        enqueueSnackbar,
         updateFarcasterPostId,
     ]);
 }

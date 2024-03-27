@@ -1,13 +1,13 @@
 import { t } from '@lingui/macro';
 import { motion } from 'framer-motion';
-import { memo, useCallback } from 'react';
+import { memo } from 'react';
 
 import CollectIcon from '@/assets/collect.svg';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { classNames } from '@/helpers/classNames.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
-import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
+import { SnackbarRef } from '@/modals/controls.js';
 
 interface CollectProps {
     count?: number;
@@ -15,14 +15,6 @@ interface CollectProps {
     collected?: boolean;
 }
 export const Collect = memo<CollectProps>(function Collect({ count, disabled = false, collected }) {
-    const enqueueSnackbar = useCustomSnackbar();
-
-    const handleClick = useCallback(() => {
-        enqueueSnackbar(t`Collect Action is not supported yet.`, {
-            variant: 'error',
-        });
-    }, [enqueueSnackbar]);
-
     return (
         <ClickableArea
             className={classNames('flex items-center space-x-2 text-main hover:text-primaryPink', {
@@ -37,7 +29,13 @@ export const Collect = memo<CollectProps>(function Collect({ count, disabled = f
                     onClick={(ev) => {
                         ev.preventDefault();
                         ev.stopPropagation();
-                        if (!disabled) handleClick();
+                        if (disabled) return;
+                        SnackbarRef.open({
+                            message: t`Collect Action is not supported yet.`,
+                            options: {
+                                variant: 'error',
+                            },
+                        });
                     }}
                 >
                     <CollectIcon width={17} height={16} className={collected ? 'text-collected' : ''} />

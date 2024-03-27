@@ -15,8 +15,7 @@ import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useCurrentProfiles } from '@/hooks/useCurrentProfiles.js';
-import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
-import { ComposeModalRef, LoginModalRef } from '@/modals/controls.js';
+import { ComposeModalRef, LoginModalRef, SnackbarRef } from '@/modals/controls.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
@@ -27,8 +26,6 @@ interface PostByItemProps {
 }
 
 export function PostByItem({ source }: PostByItemProps) {
-    const enqueueSnackbar = useCustomSnackbar();
-
     const currentProfiles = useCurrentProfiles(source);
     const currentProfile = useCurrentProfile(source);
     const updateLensCurrentProfile = useLensStateStore.use.updateCurrentProfile();
@@ -41,15 +38,21 @@ export function PostByItem({ source }: PostByItemProps) {
                 const session = await LensSocialMediaProvider.createSessionForProfileId(profile.profileId);
 
                 updateLensCurrentProfile(profile, session);
-                enqueueSnackbar(t`Your Lens account is now connected.`, {
-                    variant: 'success',
+                SnackbarRef.open({
+                    message: t`Your Lens account is now connected.`,
+                    options: {
+                        variant: 'success',
+                    },
                 });
             } catch (error) {
-                enqueueSnackbar(getSnackbarMessageFromError(error, t`Failed to login`), { variant: 'error' });
+                SnackbarRef.open({
+                    message: getSnackbarMessageFromError(error, t`Failed to login`),
+                    options: { variant: 'error' },
+                });
             }
             updateLoading(false);
         },
-        [enqueueSnackbar, updateLoading, updateLensCurrentProfile],
+        [updateLoading, updateLensCurrentProfile],
     );
 
     if (!currentProfile || !currentProfiles?.length)
@@ -64,8 +67,11 @@ export function PostByItem({ source }: PostByItemProps) {
                     className=" font-bold text-blueBottom"
                     onClick={async () => {
                         if (source === SocialPlatform.Farcaster && images.length > 2) {
-                            enqueueSnackbar(t`Only up to 2 images can be chosen.`, {
-                                variant: 'error',
+                            SnackbarRef.open({
+                                message: t`Only up to 2 images can be chosen.`,
+                                options: {
+                                    variant: 'error',
+                                },
                             });
                             return;
                         }

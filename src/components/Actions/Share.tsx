@@ -7,22 +7,24 @@ import ShareIcon from '@/assets/share.svg';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { classNames } from '@/helpers/classNames.js';
-import { useCustomSnackbar } from '@/hooks/useCustomSnackbar.js';
+import { SnackbarRef } from '@/modals/controls.js';
 
 interface ShareProps {
     url: string;
     disabled?: boolean;
 }
 export const Share = memo<ShareProps>(function Collect({ url, disabled = false }) {
-    const enqueueSnackbar = useCustomSnackbar();
     const [, copyToClipboard] = useCopyToClipboard();
 
     const handleClick = useCallback(() => {
         copyToClipboard(url);
-        enqueueSnackbar(t`Copied`, {
-            variant: 'success',
+        SnackbarRef.open({
+            message: t`Copied`,
+            options: {
+                variant: 'success',
+            },
         });
-    }, [enqueueSnackbar, url, copyToClipboard]);
+    }, [url, copyToClipboard]);
 
     return (
         <ClickableArea
