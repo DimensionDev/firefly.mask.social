@@ -1,7 +1,7 @@
 import { useInView } from 'react-cool-inview';
 
 import { SocialPlatform } from '@/constants/enum.js';
-import { addPostViews } from '@/helpers/addPostViews.js';
+import { addPostViews } from '@/services/addPostViews.js';
 
 export function useObserveLensPost(id: string, source: SocialPlatform) {
     return useInView({
