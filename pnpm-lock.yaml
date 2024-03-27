@@ -105,8 +105,8 @@ importers:
         specifier: ^3.456.0
         version: 3.456.0(@aws-sdk/client-s3@3.456.0)
       '@dimensiondev/holoflows-kit':
-        specifier: 0.9.0-20240104084316-88642f9
-        version: 0.9.0-20240104084316-88642f9
+        specifier: 0.9.0-20240322092738-f9180f3
+        version: 0.9.0-20240322092738-f9180f3
       '@farcaster/core':
         specifier: ^0.14.3
         version: 0.14.3(typescript@5.3.0-beta)(zod@3.22.4)
@@ -7039,20 +7039,6 @@ packages:
     resolution: {integrity: sha512-IuDpS+MpWEsicL3mMsZbGfGKGI+mjx+mFXc/LnpHddB7jdTjR9wP0aMVl1+UVeJjs52TL0i2J8ABSJx62/Qq9A==, tarball: https://npm.pkg.github.com/download/@DimensionDev/common-protocols/1.6.0-20210723072221-8f46a92/5b18ddc519e40a8e89ec1312261d7facd554edd0}
     dependencies:
       '@msgpack/msgpack': 1.12.2
-    dev: false
-
-  /@dimensiondev/holoflows-kit@0.9.0-20240104084316-88642f9:
-    resolution: {integrity: sha512-XsF54fIlanXn16vqzS/UB673qAq4/k+KUaEBLUCwjUH0B1cj/SM2y4TNOeRjti2getgxbWWAxzP/c9uqvUFKpA==, tarball: https://npm.pkg.github.com/download/@DimensionDev/holoflows-kit/0.9.0-20240104084316-88642f9/2099fc5f2819fc0d3b5b2680886ce1108a02102b}
-    peerDependencies:
-      '@types/webextension-polyfill': ^0.10.0
-    peerDependenciesMeta:
-      '@types/webextension-polyfill':
-        optional: true
-    dependencies:
-      '@servie/events': 3.0.0
-      event-iterator: 2.0.0
-      lodash-es: 4.17.21
-      tslib: 2.6.2
     dev: false
 
   /@dimensiondev/holoflows-kit@0.9.0-20240322092738-f9180f3:
@@ -35538,7 +35524,6 @@ time:
   /@crowdin/cli@3.15.0: '2023-10-25T07:28:15.085Z'
   /@cyberlab/cyberconnect@4.2.2: '2022-02-14T06:33:17.675Z'
   /@dimensiondev/common-protocols@1.6.0-20210723072221-8f46a92: '2021-07-23T07:22:56Z'
-  /@dimensiondev/holoflows-kit@0.9.0-20240104084316-88642f9: '2024-01-04T08:43:44Z'
   /@dimensiondev/holoflows-kit@0.9.0-20240322092738-f9180f3: '2024-03-22T09:28:16Z'
   /@dimensiondev/mask-wallet-core@0.1.0-20211013082857-eb62e5f: '2021-10-13T08:39:07Z'
   /@dimensiondev/metamask-extension-provider@3.0.6-20221105074301-8806fca: '2022-11-05T07:43:23Z'
