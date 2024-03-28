@@ -49,7 +49,7 @@ export function Info({ isMyProfile, profile, source }: InfoProps) {
                     <div className=" flex gap-1">
                         <span className=" font-bold text-lightMain">{followingCount}</span>
                         <span className=" text-secondary">
-                            {followingCount === 1 ? <Trans>Following</Trans> : <Trans>Followings</Trans>}
+                            {profile?.viewerContext?.following ? <Trans>Following</Trans> : <Trans>Followings</Trans>}
                         </span>
                     </div>
 

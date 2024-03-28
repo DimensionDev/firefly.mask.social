@@ -439,7 +439,7 @@ export class WarpcastSocialMedia implements Provider {
             limit: 25,
             cursor: indicator?.id,
         });
-        const { result, next } = await farcasterClient.fetch<SearchUsersResponse>(resolveCrossOriginURL(url), {
+        const { result, next } = await farcasterClient.fetch<SearchUsersResponse>(url, {
             method: 'GET',
         });
         const data = result.users.map(formatWarpcastUser);

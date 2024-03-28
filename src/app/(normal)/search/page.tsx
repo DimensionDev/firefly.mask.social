@@ -4,9 +4,8 @@ import { t, Trans } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
 import { createIndicator } from '@masknet/shared-base';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
-import { compact } from 'lodash-es';
-import { useMemo } from 'react';
 import { useInView } from 'react-cool-inview';
+import { compact } from 'lodash-es';
 
 import LoadingIcon from '@/assets/loading.svg';
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
@@ -24,7 +23,13 @@ export default function Page() {
     const { searchKeyword, searchType } = useSearchState();
     const { currentSource } = useGlobalState();
 
-    const { data, hasNextPage, fetchNextPage, isFetchingNextPage, isFetching } = useSuspenseInfiniteQuery({
+    const {
+        data: results,
+        hasNextPage,
+        fetchNextPage,
+        isFetchingNextPage,
+        isFetching,
+    } = useSuspenseInfiniteQuery({
         queryKey: ['search', searchType, searchKeyword, currentSource],
         queryFn: async ({ pageParam }) => {
             if (!searchKeyword) return;
@@ -58,6 +63,9 @@ export default function Page() {
         },
         initialPageParam: '',
         getNextPageParam: (lastPage) => lastPage?.nextIndicator?.id,
+        select(data) {
+            return compact(data.pages.flatMap((x) => x?.data as Array<Profile | Post>) || []);
+        },
     });
 
     const { observe } = useInView({
@@ -69,10 +77,6 @@ export default function Page() {
             await fetchNextPage();
         },
     });
-
-    const results = useMemo(() => {
-        return compact(data.pages.flatMap((x) => x?.data as Array<Profile | Post>));
-    }, [data.pages]);
 
     useNavigatorTitle(t`Search`);
 
