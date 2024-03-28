@@ -439,7 +439,7 @@ export class WarpcastSocialMedia implements Provider {
             limit: 25,
             cursor: indicator?.id,
         });
-        const { result, next } = await farcasterClient.fetch<SearchUsersResponse>(url, {
+        const { result, next } = await farcasterClient.fetch<SearchUsersResponse>(resolveCrossOriginURL(url), {
             method: 'GET',
         });
         const data = result.users.map(formatWarpcastUser);
@@ -456,7 +456,7 @@ export class WarpcastSocialMedia implements Provider {
             limit: 25,
             cursor: indicator?.id,
         });
-        const { result, next } = await farcasterClient.fetch<SearchCastsResponse>(url, {
+        const { result, next } = await farcasterClient.fetch<SearchCastsResponse>(resolveCrossOriginURL(url), {
             method: 'GET',
         });
         const data = result.casts.map(formatWarpcastPost);
