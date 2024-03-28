@@ -66,9 +66,10 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
     return (
         <div
             className={classNames(
-                'absolute inset-x-0 top-[40px] z-[1000] mt-2 flex w-full flex-col overflow-hidden rounded-2xl bg-white shadow-[0_4px_30px_0_rgba(0,0,0,0.10)] dark:border dark:border-line dark:bg-primaryBottom',
+                'absolute inset-x-0 top-[40px] z-[1000] flex w-full flex-col overflow-hidden bg-white shadow-[0_4px_30px_0_rgba(0,0,0,0.10)] dark:border dark:border-line dark:bg-primaryBottom',
                 {
-                    ['bottom-0 h-[calc(100vh-40px)] border-none']: fullScreen,
+                    ['mt-2 rounded-2xl ']: !fullScreen,
+                    ['bottom-0 mt-3 h-[calc(100vh-40px)] border-none']: fullScreen,
                 },
             )}
         >
