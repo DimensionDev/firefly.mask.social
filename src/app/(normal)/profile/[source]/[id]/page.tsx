@@ -1,3 +1,4 @@
+'use client';
 import { notFound } from 'next/navigation.js';
 
 import { ProfilePage } from '@/app/(normal)/profile/pages/Profile.js';
