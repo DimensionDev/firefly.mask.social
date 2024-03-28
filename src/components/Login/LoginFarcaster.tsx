@@ -11,16 +11,15 @@ import { IS_PRODUCTION } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getMobileDevice } from '@/helpers/getMobileDevice.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
-import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { createSessionByCustodyWallet } from '@/providers/warpcast/createSessionByCustodyWallet.js';
 import { createSessionByGrantPermission } from '@/providers/warpcast/createSessionByGrantPermission.js';
 import { login } from '@/providers/warpcast/login.js';
 
+const isMobileDevice = getMobileDevice() !== 'unknown';
+
 export function LoginFarcaster() {
     const [url, setUrl] = useState('');
     const controllerRef = useRef<AbortController>();
-
-    const isMedium = useIsMedium();
 
     const [{ loading: loadingGrantPermission, error: errorGrantPermission }, onLoginWithGrantPermission] =
         useAsyncFn(async () => {
@@ -59,7 +58,7 @@ export function LoginFarcaster() {
             className="flex flex-col rounded-[12px] md:w-[600px]"
             style={{ boxShadow: '0px 4px 30px 0px rgba(0, 0, 0, 0.10)' }}
         >
-            {!isMedium ? (
+            {isMobileDevice ? (
                 <div className="flex min-h-[200px] w-full flex-col items-center justify-center gap-4 p-4">
                     <LoadingIcon className="animate-spin" width={24} height={24} />
                     <div className=" mt-2 text-center text-sm leading-[16px] text-lightSecond">
