@@ -13,6 +13,7 @@ import { DraggablePopover } from '@/modals/DraggablePopover.js';
 import { LoginModal } from '@/modals/LoginModal.js';
 import { LogoutModal } from '@/modals/LogoutModal.js';
 import { PreviewImagesModal } from '@/modals/PreviewImagesModal.js';
+import { Snackbar } from '@/modals/Snackbar.js';
 
 export const Modals = memo(function Modals() {
     return (
@@ -27,6 +28,7 @@ export const Modals = memo(function Modals() {
             <DiscardModal ref={controls.DiscardModalRef.register} />
             <ConfirmModal ref={controls.ConfirmModalRef.register} />
             <DraggablePopover ref={controls.DraggablePopoverRef.register} />
+            <Snackbar ref={controls.SnackbarRef.register} />
         </>
     );
 });
