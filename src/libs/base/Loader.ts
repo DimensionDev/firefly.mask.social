@@ -7,7 +7,7 @@ export abstract class BaseLoader<T> {
     protected ab: AbortController | null = null;
     protected map = new Map<string, Promise<T | null>>();
 
-    protected abstract fetch(url: string): Promise<T | null>;
+    protected abstract fetch(url: string, signal?: AbortSignal): Promise<T | null>;
 
     protected parse(content: string): string[] {
         if (!content) return [];
@@ -20,9 +20,9 @@ export abstract class BaseLoader<T> {
         );
     }
 
-    protected fetchCached(url: string): Promise<T | null> {
+    protected fetchCached(url: string, signal?: AbortSignal): Promise<T | null> {
         if (!this.map?.has(url)) {
-            const p = this.fetch(url);
+            const p = this.fetch(url, signal);
             this.map.set(url, p);
             p.catch(() => this.map.delete(url));
         }
@@ -34,11 +34,11 @@ export abstract class BaseLoader<T> {
      * @param content
      * @returns
      */
-    async load(content: string): Promise<T[]> {
+    async load(content: string, signal?: AbortSignal): Promise<T[]> {
         const urls = this.parse(content);
         if (!urls.length) return [];
 
-        const allSettled = await Promise.allSettled(urls.map((x) => this.fetchCached(x)));
+        const allSettled = await Promise.allSettled(urls.map((x) => this.fetchCached(x, signal)));
         return compact(allSettled.map((x) => (x.status === 'fulfilled' && x.value ? x.value : null)));
     }
 
@@ -48,13 +48,8 @@ export abstract class BaseLoader<T> {
      * @returns
      */
     async occupancyLoad(content: string): Promise<T[]> {
-        if (this.ab) this.ab.abort();
+        this.ab?.abort();
         this.ab = new AbortController();
-
-        const ab = this.ab;
-        const items = await this.load(content);
-
-        if (ab.signal.aborted) throw new Error('Aborted');
-        return items;
+        return this.load(content, this.ab.signal);
     }
 }
