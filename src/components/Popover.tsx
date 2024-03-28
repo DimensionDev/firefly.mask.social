@@ -8,7 +8,7 @@ interface PopoverProps {
     onClose?: () => void;
 }
 
-export function Popover({ open, backdrop, children, onClose }: PopoverProps) {
+export function Popover({ open, backdrop = true, children, onClose }: PopoverProps) {
     return (
         <Transition appear show={open} as={Fragment}>
             <Dialog as="div" onClose={() => onClose?.()}>
