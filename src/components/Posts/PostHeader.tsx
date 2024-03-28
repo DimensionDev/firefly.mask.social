@@ -73,7 +73,7 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({ post, isQu
                     source={post.source}
                     className={post.source === SocialPlatform.Lens ? 'dark:opacity-70' : undefined}
                 />
-                <span className="text-[13px] leading-4 text-secondary whitespace-nowrap">
+                <span className="whitespace-nowrap text-[13px] leading-4 text-secondary">
                     <TimestampFormatter time={post.timestamp} />
                 </span>
                 {!isQuote && !isMyPost ? (
