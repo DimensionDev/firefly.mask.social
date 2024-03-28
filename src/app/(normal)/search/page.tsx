@@ -4,8 +4,8 @@ import { t, Trans } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
 import { createIndicator } from '@masknet/shared-base';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
-import { useInView } from 'react-cool-inview';
 import { compact } from 'lodash-es';
+import { useInView } from 'react-cool-inview';
 
 import LoadingIcon from '@/assets/loading.svg';
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
