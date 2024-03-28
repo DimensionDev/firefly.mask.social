@@ -1,12 +1,12 @@
 'use client';
+import { useQuery } from '@tanstack/react-query';
 import { notFound } from 'next/navigation.js';
 
-import { Loading } from '@/components/Loading.js';
 import { ProfilePage } from '@/app/(normal)/profile/pages/Profile.js';
+import { Loading } from '@/components/Loading.js';
 import type { SourceInURL } from '@/constants/enum.js';
 import { resolveSocialPlatform } from '@/helpers/resolveSocialPlatform.js';
 import { getProfileById } from '@/services/getProfileById.js';
-import { useQuery } from '@tanstack/react-query';
 
 interface PageProps {
     params: {
