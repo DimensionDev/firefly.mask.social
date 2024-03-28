@@ -1,4 +1,5 @@
 'use client';
+
 import { Dialog } from '@headlessui/react';
 import { HashtagNode } from '@lexical/hashtag';
 import { AutoLinkNode, LinkNode } from '@lexical/link';
@@ -25,6 +26,7 @@ import { ComposeSend } from '@/components/Compose/ComposeSend/index.js';
 import { useSetEditorContent } from '@/components/Compose/useSetEditorContent.js';
 import { MentionNode } from '@/components/Lexical/nodes/MentionsNode.js';
 import { Modal } from '@/components/Modal.js';
+import { Tooltip } from '@/components/Tooltip.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { SITE_HOSTNAME, SITE_URL } from '@/constants/index.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
@@ -204,8 +206,9 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
                             className="absolute left-4 top-1/2 -translate-y-1/2 cursor-pointer text-main"
                             onClick={onClose}
                         >
-                            <span className="sr-only">Close compose dialog</span>
-                            <CloseIcon width={24} height={24} />
+                            <Tooltip content={t`Close`} placement="top">
+                                <CloseIcon width={24} height={24} />
+                            </Tooltip>
                         </ClickableButton>
 
                         <span className=" flex h-full w-full items-center justify-center text-lg font-bold capitalize text-main">

@@ -6,6 +6,7 @@ import React, { forwardRef, useState } from 'react';
 import CloseIcon from '@/assets/close.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Modal } from '@/components/Modal.js';
+import { Tooltip } from '@/components/Tooltip.js';
 
 export interface ConfirmModalOpenProps {
     title?: string;
@@ -31,7 +32,9 @@ export const ConfirmModal = forwardRef<SingletonModalRefCreator<ConfirmModalOpen
                 <div className="relative w-[355px] rounded-xl bg-bgModal shadow-popover transition-all dark:text-gray-950">
                     <div className="inline-flex h-[56px] w-[355px] items-center justify-center gap-2 rounded-t-[12px] p-4">
                         <ClickableButton onClick={() => dispatch?.close(false)}>
-                            <CloseIcon className="relative" width={24} height={24} />
+                            <Tooltip content={t`Close`} placement="top">
+                                <CloseIcon className=" relative text-main" width={24} height={24} />
+                            </Tooltip>
                         </ClickableButton>
                         <div className="shrink grow basis-0 text-center text-lg font-bold leading-snug text-main">
                             {title ? title : <Trans>Confirmation</Trans>}

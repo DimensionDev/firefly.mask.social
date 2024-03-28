@@ -25,10 +25,10 @@ export const Modals = memo(function Modals() {
             <LogoutModal ref={controls.LogoutModalRef.register} />
             <PreviewImagesModal ref={controls.PreviewImageModalRef.register} />
             <ComposeModal ref={controls.ComposeModalRef.register} />
-            <DiscardModal ref={controls.DiscardModalRef.register} />
             <ConfirmModal ref={controls.ConfirmModalRef.register} />
             <DraggablePopover ref={controls.DraggablePopoverRef.register} />
             <Snackbar ref={controls.SnackbarRef.register} />
+            <DiscardModal ref={controls.DiscardModalRef.register} />
         </>
     );
 });
