@@ -102,7 +102,7 @@ export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({
                 <h1 className=" flex h-10 flex-1 items-center justify-center">
                     {searchMode ? (
                         <form
-                            className=" flex flex-1 items-center"
+                            className=" flex flex-1 items-center rounded-md bg-lightBg px-3"
                             onSubmit={(ev) => {
                                 ev.preventDefault();
                                 handleInputSubmit({ q: inputText, type: SearchType.Posts });
