@@ -33,6 +33,9 @@ patchedDependencies:
   '@cyberlab/cyberconnect@4.2.2':
     hash: 7wgc4b53ygfwefhtjbh3dydjgy
     path: src/maskbook/patches/@cyberlab__cyberconnect@4.2.2.patch
+  '@lexical/react@0.12.5':
+    hash: d6asrbepw7qfug3wm2fmjfmyqy
+    path: patches/@lexical__react@0.12.5.patch
   '@mui/base@5.0.0-beta.38':
     hash: oukor3tid7cl6jy4xpoprwzzym
     path: src/maskbook/patches/@mui__base@5.0.0-beta.38.patch
@@ -133,7 +136,7 @@ importers:
         version: 0.12.5(@lexical/clipboard@0.12.5)(@lexical/selection@0.12.5)(lexical@0.12.5)
       '@lexical/react':
         specifier: ^0.12.5
-        version: 0.12.5(lexical@0.12.5)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)(yjs@13.6.8)
+        version: 0.12.5(patch_hash=d6asrbepw7qfug3wm2fmjfmyqy)(lexical@0.12.5)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)(yjs@13.6.8)
       '@lexical/utils':
         specifier: ^0.12.5
         version: 0.12.5(lexical@0.12.5)
@@ -9333,7 +9336,7 @@ packages:
       lexical: 0.12.5
     dev: false
 
-  /@lexical/react@0.12.5(lexical@0.12.5)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)(yjs@13.6.8):
+  /@lexical/react@0.12.5(patch_hash=d6asrbepw7qfug3wm2fmjfmyqy)(lexical@0.12.5)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)(yjs@13.6.8):
     resolution: {integrity: sha512-pAbJQksin223Yp1p1VsPKxkRtSppVij+HcLTzP89q2QuSA0z0p/T+f5jZjs8eV6tecMtmrjizhdLTbk0jkej1w==}
     peerDependencies:
       lexical: 0.12.5
@@ -9369,6 +9372,7 @@ packages:
     transitivePeerDependencies:
       - yjs
     dev: false
+    patched: true
 
   /@lexical/rich-text@0.12.5(@lexical/clipboard@0.12.5)(@lexical/selection@0.12.5)(@lexical/utils@0.12.5)(lexical@0.12.5):
     resolution: {integrity: sha512-33R8ODRI5kKGbF70A/FWdISbbSPk+q4hKtiEJaV67zYPBuzrz0YHcni+tgKiykS05LgCksI/e43sfEkiykjrVQ==}
