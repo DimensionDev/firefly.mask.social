@@ -80,7 +80,7 @@ function createPostMetadata(baseMetadata: BaseMetadata, attachments?: Attachment
     const localBaseMetadata = {
         id: uuid(),
         locale: getUserLocale(),
-        appId: 'Hey',
+        appId: 'firefly',
     };
 
     if (attachments) {
