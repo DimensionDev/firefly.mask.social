@@ -5,6 +5,7 @@ import { useState } from 'react';
 import ComeBackIcon from '@/assets/comeback.svg';
 import { FollowButton } from '@/components/Profile/FollowButton.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
+import { useIsMedium } from '@/hooks/useMediaQuery.js';
 
 interface TitleProps {
     profile: Profile;
@@ -14,8 +15,9 @@ export function Title({ profile }: TitleProps) {
     const [reached, setReached] = useState(false);
 
     const router = useRouter();
-
     const { scrollY } = useScroll();
+    const isMedium = useIsMedium();
+
     useMotionValueEvent(scrollY, 'change', (value) => {
         setReached(value > 48);
     });
@@ -27,7 +29,7 @@ export function Title({ profile }: TitleProps) {
                 <span className=" text-xl font-black text-lightMain">{profile.displayName ?? '-'}</span>
             </div>
 
-            {profile && reached ? <FollowButton profile={profile} /> : null}
+            {(profile && reached) || !isMedium ? <FollowButton profile={profile} /> : null}
         </div>
     );
 }
