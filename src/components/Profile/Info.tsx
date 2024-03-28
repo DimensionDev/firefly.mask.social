@@ -5,8 +5,8 @@ import { BioMarkup } from '@/components/Markup/index.js';
 import { FollowButton } from '@/components/Profile/FollowButton.js';
 import { SourceIcon } from '@/components/SourceIcon.js';
 import type { SocialPlatform } from '@/constants/enum.js';
-import type { Profile } from '@/providers/types/SocialMedia.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
+import type { Profile } from '@/providers/types/SocialMedia.js';
 
 interface InfoProps {
     isMyProfile: boolean;

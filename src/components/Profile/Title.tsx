@@ -4,8 +4,8 @@ import { useState } from 'react';
 
 import ComeBackIcon from '@/assets/comeback.svg';
 import { FollowButton } from '@/components/Profile/FollowButton.js';
-import type { Profile } from '@/providers/types/SocialMedia.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
+import type { Profile } from '@/providers/types/SocialMedia.js';
 
 interface TitleProps {
     profile: Profile;
