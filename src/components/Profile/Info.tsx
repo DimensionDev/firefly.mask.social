@@ -5,6 +5,7 @@ import { BioMarkup } from '@/components/Markup/index.js';
 import { FollowButton } from '@/components/Profile/FollowButton.js';
 import { SourceIcon } from '@/components/SourceIcon.js';
 import type { SocialPlatform } from '@/constants/enum.js';
+import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 interface InfoProps {
@@ -17,6 +18,8 @@ export function Info({ isMyProfile, profile, source }: InfoProps) {
     const followingCount = profile?.followingCount ?? 0;
     const followerCount = profile?.followerCount ?? 0;
 
+    const isMedium = useIsMedium();
+
     return (
         <div className=" flex gap-3 p-3">
             {profile?.pfp ? (
@@ -26,7 +29,7 @@ export function Info({ isMyProfile, profile, source }: InfoProps) {
             )}
 
             <div className=" relative flex flex-1 flex-col gap-[6px] pt-4">
-                {!isMyProfile && profile ? (
+                {!isMyProfile && profile && isMedium ? (
                     <div className=" absolute right-0 top-4">
                         <FollowButton profile={profile} />
                     </div>

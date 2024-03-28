@@ -43,8 +43,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                             process.env.NEXT_PUBLIC_MASK_WEB_COMPONENTS === 'enabled') ? (
                             <CustomElements />
                         ) : null}
-                        <SideBar />
                         {children}
+                        <SideBar />
                         <mask-page-inspector />
                     </div>
                     <Modals />
