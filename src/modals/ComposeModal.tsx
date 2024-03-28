@@ -37,7 +37,7 @@ import { type Chars, readChars } from '@/helpers/readChars.js';
 import { throws } from '@/helpers/throws.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
-import { DiscardModalRef } from '@/modals/controls.js';
+import { ComposeModalRef, ConfirmModalRef } from '@/modals/controls.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { steganographyEncodeImage } from '@/services/steganography.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
@@ -126,9 +126,18 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
             },
         });
 
-        const onClose = useCallback(() => {
+        const onClose = useCallback(async () => {
             if (readChars(chars, true).length) {
-                DiscardModalRef.open();
+                const confirmed = await ConfirmModalRef.openAndWaitForClose({
+                    title: t`Discard`,
+                    content: (
+                        <div className=" text-main">
+                            <Trans>This can’t be undone and you’ll lose your draft.</Trans>
+                        </div>
+                    ),
+                });
+
+                if (confirmed) ComposeModalRef.close();
             } else {
                 dispatch?.close();
             }

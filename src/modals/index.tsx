@@ -8,7 +8,6 @@ import { ComposeModal } from '@/modals/ComposeModal.js';
 import { ConfirmModal } from '@/modals/ConfirmModal.js';
 import { ConnectWalletModal } from '@/modals/ConnectWalletModal.js';
 import * as controls from '@/modals/controls.js';
-import { DiscardModal } from '@/modals/DiscardModal.js';
 import { DraggablePopover } from '@/modals/DraggablePopover.js';
 import { LoginModal } from '@/modals/LoginModal.js';
 import { LogoutModal } from '@/modals/LogoutModal.js';
@@ -28,7 +27,6 @@ export const Modals = memo(function Modals() {
             <ConfirmModal ref={controls.ConfirmModalRef.register} />
             <DraggablePopover ref={controls.DraggablePopoverRef.register} />
             <Snackbar ref={controls.SnackbarRef.register} />
-            <DiscardModal ref={controls.DiscardModalRef.register} />
         </>
     );
 });
