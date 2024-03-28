@@ -6,7 +6,7 @@ import {
     type Pageable,
     type PageIndicator,
 } from '@masknet/shared-base';
-import { isZero, resolveCrossOriginURL } from '@masknet/web3-shared-base';
+import { isZero } from '@masknet/web3-shared-base';
 import { compact, first } from 'lodash-es';
 import urlcat from 'urlcat';
 
@@ -54,8 +54,9 @@ export class WarpcastSocialMedia implements Provider {
             cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
         });
 
-        const { result, next } = await fetchJSON<CastsResponse>(resolveCrossOriginURL(url), {
+        const { result, next } = await fetchJSON<CastsResponse>(url, {
             method: 'GET',
+            mode: 'cors',
         });
         const data = result.casts.map(formatWarpcastPost);
         return createPageable(
@@ -439,8 +440,9 @@ export class WarpcastSocialMedia implements Provider {
             limit: 25,
             cursor: indicator?.id,
         });
-        const { result, next } = await farcasterClient.fetch<SearchUsersResponse>(resolveCrossOriginURL(url), {
+        const { result, next } = await farcasterClient.fetch<SearchUsersResponse>(url, {
             method: 'GET',
+            mode: 'cors',
         });
         const data = result.users.map(formatWarpcastUser);
         return createPageable(
@@ -456,8 +458,9 @@ export class WarpcastSocialMedia implements Provider {
             limit: 25,
             cursor: indicator?.id,
         });
-        const { result, next } = await farcasterClient.fetch<SearchCastsResponse>(resolveCrossOriginURL(url), {
+        const { result, next } = await farcasterClient.fetch<SearchCastsResponse>(url, {
             method: 'GET',
+            mode: 'cors',
         });
         const data = result.casts.map(formatWarpcastPost);
         return createPageable(
