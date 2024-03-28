@@ -1,15 +1,14 @@
 'use client';
 
-import { t } from '@lingui/macro';
 import { usePathname, useRouter } from 'next/navigation.js';
-import { type ChangeEvent, memo, useRef, useState } from 'react';
+import { memo, useRef, useState } from 'react';
 import { useOnClickOutside } from 'usehooks-ts';
 
-import CloseIcon from '@/assets/close-circle.svg';
 import LeftArrowIcon from '@/assets/left-arrow.svg';
 import SearchIcon from '@/assets/search.svg';
-import { ClickableButton } from '@/components/ClickableButton.js';
+import { SearchInput } from '@/components/Search/SearchInput.js';
 import { SearchRecommendation } from '@/components/Search/SearchRecommendation.js';
+import { SearchType } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { useSearchHistoryStateStore } from '@/store/useSearchHistoryStore.js';
@@ -38,10 +37,6 @@ const SearchBar = memo(function SearchBar(props: SearchBarProps) {
         setShowRecommendation(false);
     });
 
-    const handleInputChange = (ev: ChangeEvent<HTMLInputElement>) => {
-        setInputText(ev.target.value);
-    };
-
     const handleInputSubmit = (state: SearchState) => {
         if (state.q) addRecord(state.q);
         updateState(state);
@@ -68,32 +63,15 @@ const SearchBar = memo(function SearchBar(props: SearchBarProps) {
                     className="w-full flex-1"
                     onSubmit={(ev) => {
                         ev.preventDefault();
-                        handleInputSubmit({ q: inputText });
+                        handleInputSubmit({ q: inputText, type: SearchType.Posts });
                     }}
                 >
-                    <label className="flex w-full items-center" htmlFor="search">
-                        <input
-                            type="search"
-                            name="searchText"
-                            autoComplete="off"
-                            value={inputText}
-                            className=" w-full border-0 bg-transparent py-2 placeholder-secondary focus:border-0 focus:outline-0 focus:ring-0 sm:text-sm sm:leading-6"
-                            placeholder={t`Search…`}
-                            ref={inputRef}
-                            onChange={handleInputChange}
-                            onFocus={() => setShowRecommendation(true)}
-                        />
-                        <ClickableButton
-                            className={classNames('cursor-pointer', inputText ? 'visible' : 'invisible')}
-                            type="button"
-                            onClick={() => {
-                                setInputText('');
-                                inputRef.current?.focus();
-                            }}
-                        >
-                            <CloseIcon width={16} height={16} />
-                        </ClickableButton>
-                    </label>
+                    <SearchInput
+                        value={inputText}
+                        onChange={(ev) => setInputText(ev.target.value)}
+                        onFocus={() => setShowRecommendation(true)}
+                        onClear={() => setInputText('')}
+                    />
                 </form>
                 {showRecommendation && !isSearchPage ? (
                     <SearchRecommendation

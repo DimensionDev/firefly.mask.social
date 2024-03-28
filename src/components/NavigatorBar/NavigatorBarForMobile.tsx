@@ -1,10 +1,8 @@
-import { t } from '@lingui/macro';
 import { compact } from 'lodash-es';
 import { usePathname, useRouter } from 'next/navigation.js';
-import { type ChangeEvent, memo, useRef, useState } from 'react';
+import { memo, useRef, useState } from 'react';
 
 import AdjustmentsIcon from '@/assets/adjustments.svg';
-import CloseIcon from '@/assets/close-circle.svg';
 import FireflyIcon from '@/assets/firefly.svg';
 import LeftArrowIcon from '@/assets/left-arrow.svg';
 import MagnifierIcon from '@/assets/magnifier.svg';
@@ -12,7 +10,9 @@ import MenuIcon from '@/assets/menu.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { SearchFilter } from '@/components/Search/SearchFilter.js';
+import { SearchInput } from '@/components/Search/SearchInput.js';
 import { SearchRecommendation } from '@/components/Search/SearchRecommendation.js';
+import { SearchType } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { DraggablePopoverRef } from '@/modals/controls.js';
@@ -50,10 +50,6 @@ export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({
 
     const inputRef = useRef<HTMLInputElement>(null);
     const [inputText, setInputText] = useState('');
-
-    const handleInputChange = (ev: ChangeEvent<HTMLInputElement>) => {
-        setInputText(ev.target.value);
-    };
 
     const handleInputSubmit = (state: SearchState) => {
         if (state.q) addRecord(state.q);
@@ -106,36 +102,19 @@ export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({
                 <h1 className=" flex h-10 flex-1 items-center justify-center">
                     {searchMode ? (
                         <form
-                            className=" relative flex flex-1 items-center"
+                            className=" flex flex-1 items-center"
                             onSubmit={(ev) => {
                                 ev.preventDefault();
-                                handleInputSubmit({ q: inputText });
+                                handleInputSubmit({ q: inputText, type: SearchType.Posts });
                             }}
                         >
-                            <MagnifierIcon className=" absolute left-3" width={18} height={18} />
-                            <input
-                                type="search"
-                                name="searchText"
-                                autoComplete="off"
+                            <MagnifierIcon width={18} height={18} />
+                            <SearchInput
                                 value={inputText}
-                                className=" flex-1 rounded-xl border-none bg-bg px-0 py-[11px] pl-10 text-sm leading-[18px]"
-                                placeholder={t`Search…`}
-                                ref={inputRef}
-                                onChange={handleInputChange}
+                                onChange={(ev) => setInputText(ev.target.value)}
                                 onFocus={() => setShowRecommendation(true)}
+                                onClear={() => setInputText('')}
                             />
-                            <ClickableButton
-                                className={classNames(
-                                    'absolute right-3 cursor-pointer',
-                                    inputText ? 'visible' : 'invisible',
-                                )}
-                                onClick={() => {
-                                    setInputText('');
-                                    inputRef.current?.focus();
-                                }}
-                            >
-                                <CloseIcon width={16} height={16} />
-                            </ClickableButton>
                         </form>
                     ) : (
                         <>
