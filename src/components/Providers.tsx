@@ -18,7 +18,7 @@ import { livepeerClient } from '@/configs/livepeerClient.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { getLocaleFromCookies } from '@/helpers/getLocaleFromCookies.js';
 import { DarkModeContext } from '@/hooks/useDarkMode.js';
-import { useIsSmall } from '@/hooks/useMediaQuery.js';
+import { useIsMedium, useIsSmall } from '@/hooks/useMediaQuery.js';
 import { useMounted } from '@/hooks/useMounted.js';
 import { setLocale } from '@/i18n/index.js';
 import { useLeafwatchPersistStore } from '@/store/useLeafwatchPersistStore.js';
@@ -30,7 +30,7 @@ export function Providers(props: { children: React.ReactNode }) {
     const themeMode = useThemeModeStore.use.themeMode();
     const pathname = usePathname();
 
-    const isSmall = useIsSmall('max');
+    const isMedium = useIsMedium();
 
     const darkModeContext = useMemo(() => {
         return {
@@ -77,10 +77,10 @@ export function Providers(props: { children: React.ReactNode }) {
                     <DarkModeContext.Provider value={darkModeContext}>
                         <SnackbarProvider
                             maxSnack={30}
-                            anchorOrigin={{ vertical: 'top', horizontal: isSmall ? 'center' : 'right' }}
+                            anchorOrigin={{ vertical: 'top', horizontal: isMedium ? 'right' : 'center' }}
                             autoHideDuration={3000}
                             classes={{
-                                containerAnchorOriginTopCenter: isSmall ? 'px-2' : undefined,
+                                containerAnchorOriginTopCenter: isMedium ? undefined : 'px-2',
                             }}
                         >
                             {/* wagmi depends @tanstack/react-query@4.29.23 */}
