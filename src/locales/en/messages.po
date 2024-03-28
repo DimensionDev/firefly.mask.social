@@ -721,6 +721,9 @@ msgstr "Following"
 msgid "<0>{0}</0> recasted"
 msgstr "<0>{0}</0> recasted"
 
+msgid "Close"
+msgstr "Close"
+
 msgid "<0/> mentioned you in a <1><2/></1>"
 msgstr "<0/> mentioned you in a <1><2/></1>"
 
