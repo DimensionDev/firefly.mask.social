@@ -1,5 +1,6 @@
 import { t } from '@lingui/macro';
 
+import { farcasterClient } from '@/configs/farcasterClient.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { LoginModalRef } from '@/modals/controls.js';
@@ -14,6 +15,7 @@ export async function login(createSession: () => Promise<FarcasterSession>) {
 
         useFarcasterStateStore.getState().updateProfiles([profile]);
         useFarcasterStateStore.getState().updateCurrentProfile(profile, session);
+        farcasterClient.resumeSession(session);
 
         enqueueSuccessMessage(t`Your Farcaster account is now connected.`);
         LoginModalRef.close();
