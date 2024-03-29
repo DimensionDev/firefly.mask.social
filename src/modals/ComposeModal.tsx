@@ -23,7 +23,7 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { ComposeAction } from '@/components/Compose/ComposeAction.js';
 import { ComposeContent } from '@/components/Compose/ComposeContent.js';
 import { ComposeSend } from '@/components/Compose/ComposeSend/index.js';
-import { useSetEditorContent } from '@/components/Compose/useSetEditorContent.js';
+import { ComposeThreadContent } from '@/components/Compose/ComposeThreadContent.js';
 import { MentionNode } from '@/components/Lexical/nodes/MentionsNode.js';
 import { Modal } from '@/components/Modal.js';
 import { Tooltip } from '@/components/Tooltip.js';
@@ -37,6 +37,7 @@ import { type Chars, readChars } from '@/helpers/readChars.js';
 import { throws } from '@/helpers/throws.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
+import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';
 import { ComposeModalRef, ConfirmModalRef } from '@/modals/controls.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { steganographyEncodeImage } from '@/services/steganography.js';
@@ -80,9 +81,11 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
         const currentFarcasterProfile = useFarcasterStateStore.use.currentProfile();
 
         const profile = useCurrentProfile(currentSource);
+
         const {
             type,
-            computed: { chars, typedMessage, redPacketPayload },
+            posts,
+            compositePost,
             addImage,
             updateType,
             updateAvailableSources,
@@ -92,6 +95,8 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
             updateRedPacketPayload,
             clear,
         } = useComposeStateStore();
+
+        const { chars, typedMessage, redPacketPayload } = compositePost;
 
         const [editor] = useLexicalComposerContext();
 
@@ -223,13 +228,18 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
                             ) : null}
                         </span>
 
-                        {isMedium ? null : <ComposeSend />}
+                        {isMedium ? null : <ComposeSend post={compositePost} />}
                     </Dialog.Title>
 
-                    <ComposeContent />
-                    <ComposeAction />
+                    <div className=" px-4 pb-4">
+                        <div className="block max-h-[500px] min-h-[338px] overflow-auto rounded-lg border border-secondaryLine bg-bg px-4 py-[14px]">
+                            {posts.length === 1 ? <ComposeContent post={compositePost} /> : <ComposeThreadContent />}
+                        </div>
+                    </div>
 
-                    {isMedium ? <ComposeSend /> : null}
+                    <ComposeAction post={compositePost} />
+
+                    {isMedium ? <ComposeSend post={compositePost} /> : null}
                 </div>
             </Modal>
         );

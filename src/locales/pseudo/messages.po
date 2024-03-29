@@ -166,6 +166,9 @@ msgstr ""
 msgid "mirror"
 msgstr ""
 
+msgid "Add another post..."
+msgstr ""
+
 msgid "Replied on Lens"
 msgstr ""
 

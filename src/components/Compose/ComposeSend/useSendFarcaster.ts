@@ -17,7 +17,7 @@ import type { MediaObject } from '@/types/index.js';
 export function useSendFarcaster() {
     const {
         type,
-        computed: { chars, post, images, frames, openGraphs, typedMessage, farcasterPostId },
+        compositePost: { chars, post, images, frames, openGraphs, typedMessage, farcasterPostId },
         updateImages,
         updateFarcasterPostId,
     } = useComposeStateStore();

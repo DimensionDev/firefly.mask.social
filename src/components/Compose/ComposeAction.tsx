@@ -24,11 +24,13 @@ import { measureChars } from '@/helpers/readChars.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { PluginDebuggerMessages } from '@/mask/message-host/index.js';
 import { ComposeModalRef } from '@/modals/controls.js';
-import { useComposeStateStore } from '@/store/useComposeStore.js';
+import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
 import { useFarcasterStateStore, useLensStateStore } from '@/store/useProfileStore.js';
 import { RestrictionType } from '@/types/compose.js';
 
-interface ComposeActionProps {}
+interface ComposeActionProps {
+    post: CompositePost;
+}
 
 export function ComposeAction(props: ComposeActionProps) {
     const [restriction, setRestriction] = useState(RestrictionType.Everyone);
@@ -39,10 +41,10 @@ export function ComposeAction(props: ComposeActionProps) {
     const lensProfiles = useLensStateStore.use.profiles();
     const farcasterProfiles = useFarcasterStateStore.use.profiles();
 
-    const {
-        type,
-        computed: { chars, post, images, video, availableSources },
-    } = useComposeStateStore();
+    const { type } = useComposeStateStore();
+
+    const { chars, post, images, video, availableSources } = props.post;
+
     const { length, visibleLength, invisibleLength } = useMemo(() => measureChars(chars), [chars]);
 
     const [editor] = useLexicalComposerContext();

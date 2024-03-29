@@ -19,7 +19,7 @@ export function Media({ close }: MediaProps) {
 
     const currentFarcasterProfile = useFarcasterStateStore.use.currentProfile();
     const {
-        computed: { availableSources, video, images },
+        compositePost: { availableSources, video, images },
         updateVideo,
         updateImages,
     } = useComposeStateStore();

@@ -31,7 +31,7 @@ export function PostByItem({ source }: PostByItemProps) {
     const currentProfile = useCurrentProfile(source);
     const updateLensCurrentProfile = useLensStateStore.use.updateCurrentProfile();
     const {
-        computed: { images, availableSources },
+        compositePost: { images, availableSources },
         enableSource,
         disableSource,
     } = useComposeStateStore();

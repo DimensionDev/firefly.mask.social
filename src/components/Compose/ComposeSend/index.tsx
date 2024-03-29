@@ -18,24 +18,28 @@ import { useSendLens } from '@/components/Compose/ComposeSend/useSendLens.js';
 import { CountdownCircle } from '@/components/Compose/CountdownCircle.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { SocialPlatform } from '@/constants/enum.js';
-import { MAX_POST_SIZE } from '@/constants/index.js';
+import { MAX_POST_SIZE, MAX_THREAD_SIZE } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { hasRedPacketPayload } from '@/helpers/hasRedPacketPayload.js';
 import { measureChars } from '@/helpers/readChars.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
+import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';
 import { ComposeModalRef } from '@/modals/controls.js';
-import { useComposeStateStore } from '@/store/useComposeStore.js';
+import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
 import { useFarcasterStateStore, useLensStateStore } from '@/store/useProfileStore.js';
 
-interface ComposeSendProps extends React.HTMLAttributes<HTMLDivElement> {}
+interface ComposeSendProps extends React.HTMLAttributes<HTMLDivElement> {
+    post: CompositePost;
+}
 
 export function ComposeSend(props: ComposeSendProps) {
-    const {
-        type,
-        computed: { chars, images, video, availableSources },
-    } = useComposeStateStore();
+    const { type, posts, newPost } = useComposeStateStore();
+
+    const { chars, images, video, availableSources } = props.post;
 
     const { length, visibleLength, invisibleLength } = measureChars(chars);
+
+    const setEditorContent = useSetEditorContent();
 
     const isMedium = useIsMedium();
     const queryClient = useQueryClient();
@@ -88,7 +92,7 @@ export function ComposeSend(props: ComposeSendProps) {
 
         try {
             const { lensPostId, farcasterPostId, typedMessage, redPacketPayload } =
-                useComposeStateStore.getState().computed;
+                useComposeStateStore.getState().compositePost;
 
             if (hasRedPacketPayload(typedMessage) && (lensPostId || farcasterPostId) && redPacketPayload?.publicKey) {
                 const rpPayload = typedMessage?.meta?.get(RedPacketMetaKey) as RedPacketJSONPayload;
@@ -179,10 +183,21 @@ export function ComposeSend(props: ComposeSendProps) {
             ) : null}
 
             {visibleLength ? (
-                <ClickableButton className=" text-main">
-                    <Tooltip content={t`Add`} placement="top">
+                <ClickableButton
+                    className=" text-main disabled:opacity-50"
+                    disabled={posts.length >= MAX_THREAD_SIZE}
+                    onClick={() => {
+                        newPost();
+                        setEditorContent('');
+                    }}
+                >
+                    {posts.length >= MAX_THREAD_SIZE ? (
                         <PlusCircleIcon width={28} height={28} />
-                    </Tooltip>
+                    ) : (
+                        <Tooltip content={t`Add`} placement="top">
+                            <PlusCircleIcon width={28} height={28} />
+                        </Tooltip>
+                    )}
                 </ClickableButton>
             ) : null}
 

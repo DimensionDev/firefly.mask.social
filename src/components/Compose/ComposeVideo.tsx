@@ -7,7 +7,7 @@ import { useComposeStateStore } from '@/store/useComposeStore.js';
 
 export function ComposeVideo() {
     const {
-        computed: { video },
+        compositePost: { video },
         updateVideo,
     } = useComposeStateStore();
     const blobURL = useMemo(() => (video?.file ? URL.createObjectURL(video.file) : ''), [video?.file]);

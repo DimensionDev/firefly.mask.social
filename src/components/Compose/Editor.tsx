@@ -11,9 +11,8 @@ import { useDebounce } from 'react-use';
 
 import { MentionsPlugin } from '@/components/Lexical/plugins/AtMentionsPlugin.js';
 import { LexicalAutoLinkPlugin } from '@/components/Lexical/plugins/AutoLinkPlugin.js';
-import { classNames } from '@/helpers/classNames.js';
 import { writeChars } from '@/helpers/readChars.js';
-import { useComposeStateStore } from '@/store/useComposeStore.js';
+import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
 
 function ErrorBoundaryComponent() {
     return (
@@ -23,16 +22,17 @@ function ErrorBoundaryComponent() {
     );
 }
 
-export const Editor = memo(function Editor() {
-    const {
-        type,
-        computed: { post, video, images, frames, openGraphs, chars },
-        updateChars,
-        loadFramesFromChars,
-        loadOpenGraphsFromChars,
-    } = useComposeStateStore();
+interface EditorProps {
+    post: CompositePost;
+}
 
-    const hasMediaObject = images.length > 0 || !!video || frames.length || openGraphs.length;
+export const Editor = memo(function Editor(props: EditorProps) {
+    const { posts } = useComposeStateStore();
+
+    const { type, updateChars, loadFramesFromChars, loadOpenGraphsFromChars } = useComposeStateStore();
+
+    const { chars } = props.post;
+    const index = posts.findIndex((x) => x.id === props.post.id);
 
     useDebounce(
         () => {
@@ -48,20 +48,19 @@ export const Editor = memo(function Editor() {
             <PlainTextPlugin
                 contentEditable={
                     <ContentEditable
-                        className={classNames(
-                            'cursor-text resize-none appearance-none border-none bg-transparent p-0 text-left text-[15px] leading-5 text-main outline-0 focus:ring-0',
-                            hasMediaObject ? '' : post || frames.length ? 'min-h-[200px]' : 'min-h-[308px]',
-                        )}
+                        className={
+                            'cursor-text resize-none appearance-none border-none bg-transparent p-0 text-left text-[15px] leading-5 text-main outline-0 focus:ring-0'
+                        }
                     />
                 }
                 placeholder={
                     <div className=" pointer-events-none absolute left-0 top-0 text-[15px] leading-5 text-placeholder">
                         <Select
                             value={type}
-                            _compose={t`What's happening...`}
+                            _compose={index === 0 ? t`What's happening...` : t`Add another post...`}
                             _quote={t`Add a comment`}
                             _reply={t`Post your reply`}
-                            other={t`What's happening...`}
+                            other={index === 0 ? t`What's happening...` : t`Add another post...`}
                         />
                     </div>
                 }

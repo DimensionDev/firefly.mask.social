@@ -14,7 +14,7 @@ export function useSendLens() {
     const currentProfile = useLensStateStore.use.currentProfile();
     const {
         type,
-        computed: { post, chars, images, video, lensPostId },
+        compositePost: { post, chars, images, video, lensPostId },
         updateImages,
         updateVideo,
         updateLensPostId,

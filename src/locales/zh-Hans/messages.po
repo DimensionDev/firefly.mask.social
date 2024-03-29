@@ -171,6 +171,9 @@ msgstr "选择账号"
 msgid "mirror"
 msgstr "转帖"
 
+msgid "Add another post..."
+msgstr "添加另一个帖子..."
+
 msgid "Replied on Lens"
 msgstr "在 Lens 上评论"
 
@@ -589,7 +592,7 @@ msgid "Firefly"
 msgstr "Firefly"
 
 msgid "Add"
-msgstr ""
+msgstr "添加"
 
 msgid "Log out all"
 msgstr "登出所有"
