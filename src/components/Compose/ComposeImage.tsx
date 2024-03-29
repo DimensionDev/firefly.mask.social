@@ -2,6 +2,7 @@ import { t } from '@lingui/macro';
 import { memo, useMemo } from 'react';
 
 import CloseIcon from '@/assets/close.svg';
+import { ClickableButton } from '@/components/ClickableButton.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { Image } from '@/esm/Image.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -28,15 +29,14 @@ export const ComposeImage = memo(function ComposeImage({ index, size, image }: C
             )}
         >
             <Image src={blobURL} alt={image.file.name} fill className=" object-cover" />
-            <Tooltip content={t`Remove`} placement="top">
-                <div
-                    className=" absolute right-1 top-1 z-50 hidden h-7 w-7 cursor-pointer items-center justify-center rounded-full bg-gray-500 hover:bg-opacity-70 group-hover:inline-flex"
-                    onClick={() => removeImage(image)}
-                    role="button"
-                >
-                    <CloseIcon width={18} height={18} color="#fff" />
-                </div>
-            </Tooltip>
+            <ClickableButton
+                className=" absolute right-1 top-1 z-10 hidden h-7 w-7 items-center justify-center text-main group-hover:inline-flex"
+                onClick={() => removeImage(image)}
+            >
+                <Tooltip content={t`Remove`} placement="top">
+                    <CloseIcon className=" cursor-pointer" width={18} height={18} />
+                </Tooltip>
+            </ClickableButton>
         </div>
     );
 });

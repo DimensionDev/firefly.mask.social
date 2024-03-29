@@ -21,7 +21,7 @@ export function ComposeThreadContent(props: ComposeThreadContentProps) {
 
     const setEditorContent = useSetEditorContent();
 
-    const { posts, cursor, updateCursor, removePost } = useComposeStateStore();
+    const { posts, cursor, helpers, updateCursor, removePost } = useComposeStateStore();
 
     return (
         <div>
@@ -38,9 +38,18 @@ export function ComposeThreadContent(props: ComposeThreadContentProps) {
                     }}
                 >
                     {cursor === x.id && isEmptyPost(x) && i !== 0 ? (
-                        <ClickableButton className=" absolute right-0 top-2 z-10" onClick={() => removePost(x.id)}>
+                        <ClickableButton
+                            className=" absolute right-0 top-2 z-10"
+                            onClick={() => {
+                                const next = helpers.nextAvailablePost;
+                                if (!next) return;
+
+                                removePost(x.id);
+                                setEditorContent(readChars(next.chars, true));
+                            }}
+                        >
                             <Tooltip content={t`Remove`} placement="top">
-                                <CloseIcon className=" cursor-pointer " width={20} height={20} />
+                                <CloseIcon className=" cursor-pointer" width={20} height={20} />
                             </Tooltip>
                         </ClickableButton>
                     ) : null}

@@ -85,7 +85,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
         const {
             type,
             posts,
-            computed,
+            compositePost,
             addImage,
             updateType,
             updateAvailableSources,
@@ -96,7 +96,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
             clear,
         } = useComposeStateStore();
 
-        const { chars, typedMessage, redPacketPayload } = computed;
+        const { chars, typedMessage, redPacketPayload } = compositePost;
 
         const [editor] = useLexicalComposerContext();
 
@@ -228,18 +228,18 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
                             ) : null}
                         </span>
 
-                        {isMedium ? null : <ComposeSend post={computed} />}
+                        {isMedium ? null : <ComposeSend post={compositePost} />}
                     </Dialog.Title>
 
-                    <div className=" p-4">
+                    <div className=" px-4 pb-4">
                         <div className="block max-h-[500px] min-h-[338px] overflow-auto rounded-lg border border-secondaryLine bg-bg px-4 py-[14px]">
-                            {posts.length === 1 ? <ComposeContent post={computed} /> : <ComposeThreadContent />}
+                            {posts.length === 1 ? <ComposeContent post={compositePost} /> : <ComposeThreadContent />}
                         </div>
                     </div>
 
-                    <ComposeAction post={computed} />
+                    <ComposeAction post={compositePost} />
 
-                    {isMedium ? <ComposeSend post={computed} /> : null}
+                    {isMedium ? <ComposeSend post={compositePost} /> : null}
                 </div>
             </Modal>
         );

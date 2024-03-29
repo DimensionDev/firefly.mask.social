@@ -50,8 +50,14 @@ interface ComposeState {
     cursor: Cursor;
     posts: CompositePost[];
 
-    // computed
-    computed: CompositePost;
+    helpers: {
+        // if the current editable post is deleted
+        // the next available post will be focused
+        nextAvailablePost: CompositePost | null;
+    };
+
+    // composite the current editable post
+    compositePost: CompositePost;
 
     // operations
     newPost: () => void;
@@ -113,7 +119,21 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
         cursor: initialPostCursor,
         posts: [createInitSinglePostState(initialPostCursor)],
 
-        computed: {
+        helpers: {
+            get nextAvailablePost() {
+                const { cursor, posts } = get();
+
+                const index = posts.findIndex((x) => x.id === cursor);
+                if (index === -1) return null;
+
+                const nextPosts = posts.filter((x) => x.id !== cursor);
+                if (nextPosts.length === 0) return null;
+
+                return nextPosts[Math.max(0, index - 1)];
+            },
+        },
+
+        compositePost: {
             get id() {
                 return pick(get(), (x) => x.id);
             },
@@ -167,16 +187,13 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
             }),
         removePost: (cursor) =>
             set((state) => {
-                const index = state.posts.findIndex((x) => x.id === cursor);
-                if (index === -1) return state;
-
-                const nextPosts = state.posts.filter((x) => x.id !== cursor);
-                if (nextPosts.length === 0) return state;
+                const next = state.helpers.nextAvailablePost;
+                if (!next) return state;
 
                 return {
                     ...state,
                     posts: state.posts.filter((x) => x.id !== cursor),
-                    cursor: nextPosts[Math.max(0, index - 1)].id,
+                    cursor: next.id,
                 };
             }),
         updateCursor: (cursor) =>

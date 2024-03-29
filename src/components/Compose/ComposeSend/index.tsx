@@ -18,7 +18,7 @@ import { useSendLens } from '@/components/Compose/ComposeSend/useSendLens.js';
 import { CountdownCircle } from '@/components/Compose/CountdownCircle.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { SocialPlatform } from '@/constants/enum.js';
-import { MAX_POST_SIZE } from '@/constants/index.js';
+import { MAX_POST_SIZE, MAX_THREAD_SIZE } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { hasRedPacketPayload } from '@/helpers/hasRedPacketPayload.js';
 import { measureChars } from '@/helpers/readChars.js';
@@ -33,7 +33,7 @@ interface ComposeSendProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 export function ComposeSend(props: ComposeSendProps) {
-    const { type, newPost } = useComposeStateStore();
+    const { type, posts, newPost } = useComposeStateStore();
 
     const { chars, images, video, availableSources } = props.post;
 
@@ -92,7 +92,7 @@ export function ComposeSend(props: ComposeSendProps) {
 
         try {
             const { lensPostId, farcasterPostId, typedMessage, redPacketPayload } =
-                useComposeStateStore.getState().computed;
+                useComposeStateStore.getState().compositePost;
 
             if (hasRedPacketPayload(typedMessage) && (lensPostId || farcasterPostId) && redPacketPayload?.publicKey) {
                 const rpPayload = typedMessage?.meta?.get(RedPacketMetaKey) as RedPacketJSONPayload;
@@ -184,15 +184,20 @@ export function ComposeSend(props: ComposeSendProps) {
 
             {visibleLength ? (
                 <ClickableButton
-                    className=" text-main"
+                    className=" text-main disabled:opacity-50"
+                    disabled={posts.length >= MAX_THREAD_SIZE}
                     onClick={() => {
                         newPost();
                         setEditorContent('');
                     }}
                 >
-                    <Tooltip content={t`Add`} placement="top">
+                    {posts.length >= MAX_THREAD_SIZE ? (
                         <PlusCircleIcon width={28} height={28} />
-                    </Tooltip>
+                    ) : (
+                        <Tooltip content={t`Add`} placement="top">
+                            <PlusCircleIcon width={28} height={28} />
+                        </Tooltip>
+                    )}
                 </ClickableButton>
             ) : null}
 
