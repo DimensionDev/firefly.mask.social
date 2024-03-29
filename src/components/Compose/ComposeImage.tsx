@@ -13,8 +13,9 @@ interface ComposeImageProps {
     index: number;
     size: number;
     image: MediaObject;
+    readonly?: boolean;
 }
-export const ComposeImage = memo(function ComposeImage({ index, size, image }: ComposeImageProps) {
+export const ComposeImage = memo(function ComposeImage({ index, size, image, readonly = false }: ComposeImageProps) {
     const { removeImage } = useComposeStateStore();
     const blobURL = useMemo(() => URL.createObjectURL(image.file), [image.file]);
 
@@ -29,14 +30,16 @@ export const ComposeImage = memo(function ComposeImage({ index, size, image }: C
             )}
         >
             <Image src={blobURL} alt={image.file.name} fill className=" object-cover" />
-            <ClickableButton
-                className=" absolute right-1 top-1 z-10 inline-flex h-7 w-7 items-center justify-center rounded-full bg-gray-500 text-main md:hidden md:group-hover:inline-flex"
-                onClick={() => removeImage(image)}
-            >
-                <Tooltip content={t`Remove`} placement="top">
-                    <CloseIcon className=" cursor-pointer text-white" width={18} height={18} />
-                </Tooltip>
-            </ClickableButton>
+            {!readonly ? (
+                <ClickableButton
+                    className=" absolute right-1 top-1 z-10 inline-flex h-7 w-7 items-center justify-center rounded-full bg-gray-500 text-main md:hidden md:group-hover:inline-flex"
+                    onClick={() => removeImage(image)}
+                >
+                    <Tooltip content={t`Remove`} placement="top">
+                        <CloseIcon className=" cursor-pointer text-white" width={18} height={18} />
+                    </Tooltip>
+                </ClickableButton>
+            ) : null}
         </div>
     );
 });

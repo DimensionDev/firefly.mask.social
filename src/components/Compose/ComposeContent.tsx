@@ -44,6 +44,7 @@ export function ComposeContent(props: ComposeContentProps) {
                             index={index}
                             image={image}
                             size={images.length}
+                            readonly={cursor !== props.post.id}
                         />
                     ))}
                 </div>
