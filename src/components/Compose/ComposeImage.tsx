@@ -30,11 +30,11 @@ export const ComposeImage = memo(function ComposeImage({ index, size, image }: C
         >
             <Image src={blobURL} alt={image.file.name} fill className=" object-cover" />
             <ClickableButton
-                className=" absolute right-1 top-1 z-10 hidden h-7 w-7 items-center justify-center text-main group-hover:inline-flex"
+                className=" absolute right-1 top-1 z-10 inline-flex h-7 w-7 items-center justify-center rounded-full bg-gray-500 text-main md:hidden md:group-hover:inline-flex"
                 onClick={() => removeImage(image)}
             >
                 <Tooltip content={t`Remove`} placement="top">
-                    <CloseIcon className=" cursor-pointer" width={18} height={18} />
+                    <CloseIcon className=" cursor-pointer text-white" width={18} height={18} />
                 </Tooltip>
             </ClickableButton>
         </div>
