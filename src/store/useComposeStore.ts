@@ -178,9 +178,17 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
         newPost: () =>
             set((state) => {
                 const cursor = uuid();
+                const index = state.posts.findIndex((x) => x.id === state.cursor);
+
+                const nextPosts = [
+                    ...state.posts.slice(0, index + 1),
+                    createInitSinglePostState(cursor),
+                    ...state.posts.slice(index + 1), // corrected slicing here
+                ];
+
                 return {
                     ...state,
-                    posts: [...state.posts, createInitSinglePostState(cursor)],
+                    posts: nextPosts,
                     // focus the new added post
                     cursor,
                 };
