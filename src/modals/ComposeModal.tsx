@@ -23,6 +23,7 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { ComposeAction } from '@/components/Compose/ComposeAction.js';
 import { ComposeContent } from '@/components/Compose/ComposeContent.js';
 import { ComposeSend } from '@/components/Compose/ComposeSend/index.js';
+import { ComposeThreadContent } from '@/components/Compose/ComposeThreadContent.js';
 import { useSetEditorContent } from '@/components/Compose/useSetEditorContent.js';
 import { MentionNode } from '@/components/Lexical/nodes/MentionsNode.js';
 import { Modal } from '@/components/Modal.js';
@@ -82,6 +83,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
         const profile = useCurrentProfile(currentSource);
         const {
             type,
+            posts,
             computed: { chars, typedMessage, redPacketPayload },
             addImage,
             updateType,
@@ -226,7 +228,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
                         {isMedium ? null : <ComposeSend />}
                     </Dialog.Title>
 
-                    <ComposeContent />
+                    {posts.length === 1 ? <ComposeContent /> : <ComposeThreadContent />}
                     <ComposeAction />
 
                     {isMedium ? <ComposeSend /> : null}

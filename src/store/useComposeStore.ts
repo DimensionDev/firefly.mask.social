@@ -20,9 +20,9 @@ import type { RedPacketPayload } from '@/types/rp.js';
 type Cursor = number;
 
 // A recursive version of Post will cause typescript failed to infer the type of the final exports.
-type OrphanPost = Omit<Post, 'embedPosts' | 'comments' | 'root' | 'commentOn' | 'quoteOn'>;
+export type OrphanPost = Omit<Post, 'embedPosts' | 'comments' | 'root' | 'commentOn' | 'quoteOn'>;
 
-interface ComposePostState {
+export interface CompositPost {
     id: Cursor;
 
     // the parent post id
@@ -47,8 +47,8 @@ interface ComposePostState {
 interface ComposeState {
     type: 'compose' | 'quote' | 'reply';
     cursor: Cursor;
-    posts: ComposePostState[];
-    computed: Omit<ComposePostState, 'id'>;
+    posts: CompositPost[];
+    computed: Omit<CompositPost, 'id'>;
 
     // operations
     updateCursor: (cursor: Cursor) => void;
@@ -75,7 +75,7 @@ interface ComposeState {
     clear: () => void;
 }
 
-function createInitSinglePostState(cursor: Cursor): ComposePostState {
+function createInitSinglePostState(cursor: Cursor): CompositPost {
     return {
         id: cursor,
         lensPostId: null,
@@ -93,9 +93,9 @@ function createInitSinglePostState(cursor: Cursor): ComposePostState {
     };
 }
 
-const pick = <T>(s: ComposeState, _: (post: ComposePostState) => T): T => _(s.posts.find((x) => x.id === s.cursor)!);
+const pick = <T>(s: ComposeState, _: (post: CompositPost) => T): T => _(s.posts.find((x) => x.id === s.cursor)!);
 
-const next = (s: ComposeState, _: (post: ComposePostState) => ComposePostState): ComposeState => ({
+const next = (s: ComposeState, _: (post: CompositPost) => CompositPost): ComposeState => ({
     ...s,
     posts: s.posts.map((x) => (x.id === s.cursor ? _(x) : x)),
 });
