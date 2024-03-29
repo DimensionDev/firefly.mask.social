@@ -76,7 +76,7 @@ export function PostByItem({ source }: PostByItemProps) {
 
     return currentProfiles.map((profile) => (
         <div
-            className="flex h-10 items-center justify-between border-b border-secondaryLine last:border-none"
+            className="flex h-10 cursor-pointer items-center justify-between border-b border-secondaryLine last:border-none"
             key={profile.profileId}
             onClick={() => {
                 if (!isSameProfile(currentProfile, profile)) return;

@@ -81,14 +81,12 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
 
         const profile = useCurrentProfile(currentSource);
         const {
-            loading,
             type,
             chars,
             typedMessage,
             addImage,
             updateType,
-            updateCurrentSource,
-            updateSources,
+            updateAvailableSources,
             updatePost,
             updateChars,
             updateTypedMessage,
@@ -103,10 +101,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
         const [open, dispatch] = useSingletonModal(ref, {
             onOpen: (props) => {
                 updateType(props.type || 'compose');
-                if (props.source) {
-                    updateCurrentSource(props.source);
-                    updateSources([props.source]);
-                }
+                if (props.source) updateAvailableSources([props.source]);
                 if (props.typedMessage) updateTypedMessage(props.typedMessage);
                 if (props.post) updatePost(props.post);
                 if (props.chars && typeof props.chars === 'string') {
@@ -203,7 +198,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
             <Modal open={open} onClose={onClose}>
                 <div className="relative h-[100vh] w-[100vw] bg-bgModal shadow-popover transition-all dark:text-gray-950 md:h-auto md:w-[600px] md:rounded-xl">
                     {/* Loading */}
-                    {loading || encryptRedPacketLoading ? (
+                    {encryptRedPacketLoading ? (
                         <div className=" absolute bottom-0 left-0 right-0 top-0 z-50 flex items-center justify-center">
                             <LoadingIcon className="animate-spin" width={24} height={24} />
                         </div>

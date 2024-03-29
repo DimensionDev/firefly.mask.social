@@ -21,6 +21,7 @@ export function Media({ close }: MediaProps) {
     const { video, updateVideo, images, updateImages, availableSources } = useComposeStateStore();
 
     const maxImageCount = currentFarcasterProfile && availableSources.includes(SocialPlatform.Farcaster) ? 2 : 4;
+
     const [, handleImageChange] = useAsyncFn(
         async (event: ChangeEvent<HTMLInputElement>) => {
             const files = event.target.files;

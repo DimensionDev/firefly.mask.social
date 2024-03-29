@@ -10,6 +10,7 @@ export function ClickableButton({ children, onClick, ...props }: ClickableButton
         <button
             {...props}
             onClick={(ev) => {
+                if (props.disabled) return;
                 ev.preventDefault();
                 ev.stopPropagation();
                 onClick?.();
