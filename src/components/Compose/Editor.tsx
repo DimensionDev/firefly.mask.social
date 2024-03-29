@@ -27,9 +27,12 @@ interface EditorProps {
 }
 
 export const Editor = memo(function Editor(props: EditorProps) {
+    const { posts } = useComposeStateStore();
+
     const { type, updateChars, loadFramesFromChars, loadOpenGraphsFromChars } = useComposeStateStore();
 
     const { chars } = props.post;
+    const index = posts.findIndex((x) => x.id === props.post.id);
 
     useDebounce(
         () => {
@@ -54,10 +57,10 @@ export const Editor = memo(function Editor(props: EditorProps) {
                     <div className=" pointer-events-none absolute left-0 top-0 text-[15px] leading-5 text-placeholder">
                         <Select
                             value={type}
-                            _compose={t`What's happening...`}
+                            _compose={index === 0 ? t`What's happening...` : t`Add another post...`}
                             _quote={t`Add a comment`}
                             _reply={t`Post your reply`}
-                            other={t`What's happening...`}
+                            other={index === 0 ? t`What's happening...` : t`Add another post...`}
                         />
                     </div>
                 }

@@ -46,9 +46,7 @@ export const ThreadBody = memo<ThreadBodyProps>(function ThreadBody({ post, disa
             onClick={() => {
                 const selection = window.getSelection();
                 if (selection && selection.toString().length !== 0) return;
-                if (!isPostPage) {
-                    router.push(link);
-                }
+                if (!isPostPage) router.push(link);
             }}
         >
             <span ref={observe} />

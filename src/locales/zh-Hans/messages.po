@@ -171,6 +171,9 @@ msgstr "选择账号"
 msgid "mirror"
 msgstr "转帖"
 
+msgid "Add another post..."
+msgstr "添加另一个帖子..."
+
 msgid "Replied on Lens"
 msgstr "在 Lens 上评论"
 

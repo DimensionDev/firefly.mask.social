@@ -166,6 +166,9 @@ msgstr "Select Account"
 msgid "mirror"
 msgstr "mirror"
 
+msgid "Add another post..."
+msgstr "Add another post..."
+
 msgid "Replied on Lens"
 msgstr "Replied on Lens"
 

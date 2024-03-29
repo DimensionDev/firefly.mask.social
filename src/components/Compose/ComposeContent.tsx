@@ -4,10 +4,10 @@ import { Trans } from '@lingui/macro';
 import { ComposeImage } from '@/components/Compose/ComposeImage.js';
 import { ComposeVideo } from '@/components/Compose/ComposeVideo.js';
 import { Editor } from '@/components/Compose/Editor.js';
+import { Placeholder } from '@/components/Compose/Placeholder.js';
 import { FrameUI } from '@/components/Frame/index.js';
 import { OembedUI } from '@/components/Oembed/index.js';
 import { Quote } from '@/components/Posts/Quote.js';
-import { readChars } from '@/helpers/readChars.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
 
@@ -33,19 +33,18 @@ export function ComposeContent(props: ComposeContentProps) {
                 </div>
             ) : null}
 
-            {cursor === id ? (
-                <Editor post={props.post} />
-            ) : (
-                <div className="cursor-text resize-none appearance-none whitespace-pre-wrap border-none bg-transparent p-0 text-left text-[15px] leading-5 text-main outline-0 focus:ring-0">
-                    {readChars(props.post.chars, true)}
-                </div>
-            )}
+            {cursor === id ? <Editor post={props.post} /> : <Placeholder post={props.post} />}
 
             {/* image */}
             {images.length > 0 && (
-                <div className=" relative grid grid-cols-2 gap-2 p-3">
+                <div className=" relative grid grid-cols-2 gap-2 py-3">
                     {images.map((image, index) => (
-                        <ComposeImage key={`${image.file.name}_${index}`} index={index} image={image} />
+                        <ComposeImage
+                            key={`${image.file.name}_${index}`}
+                            index={index}
+                            image={image}
+                            size={images.length}
+                        />
                     ))}
                 </div>
             )}
