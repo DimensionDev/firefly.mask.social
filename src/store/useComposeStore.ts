@@ -23,7 +23,7 @@ type Cursor = string;
 // A recursive version of Post will cause typescript failed to infer the type of the final exports.
 export type OrphanPost = Omit<Post, 'embedPosts' | 'comments' | 'root' | 'commentOn' | 'quoteOn'>;
 
-export interface CompositPost {
+export interface CompositePost {
     id: Cursor;
 
     // the parent post id
@@ -48,10 +48,10 @@ export interface CompositPost {
 interface ComposeState {
     type: 'compose' | 'quote' | 'reply';
     cursor: Cursor;
-    posts: CompositPost[];
+    posts: CompositePost[];
 
     // computed
-    computed: CompositPost;
+    computed: CompositePost;
 
     // operations
     newPost: () => void;
@@ -80,7 +80,7 @@ interface ComposeState {
     clear: () => void;
 }
 
-function createInitSinglePostState(cursor: Cursor): CompositPost {
+function createInitSinglePostState(cursor: Cursor): CompositePost {
     return {
         id: cursor,
         lensPostId: null,
@@ -98,9 +98,9 @@ function createInitSinglePostState(cursor: Cursor): CompositPost {
     };
 }
 
-const pick = <T>(s: ComposeState, _: (post: CompositPost) => T): T => _(s.posts.find((x) => x.id === s.cursor)!);
+const pick = <T>(s: ComposeState, _: (post: CompositePost) => T): T => _(s.posts.find((x) => x.id === s.cursor)!);
 
-const next = (s: ComposeState, _: (post: CompositPost) => CompositPost): ComposeState => ({
+const next = (s: ComposeState, _: (post: CompositePost) => CompositePost): ComposeState => ({
     ...s,
     posts: s.posts.map((x) => (x.id === s.cursor ? _(x) : x)),
 });

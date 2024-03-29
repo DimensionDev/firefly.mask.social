@@ -12,7 +12,7 @@ import { useDebounce } from 'react-use';
 import { MentionsPlugin } from '@/components/Lexical/plugins/AtMentionsPlugin.js';
 import { LexicalAutoLinkPlugin } from '@/components/Lexical/plugins/AutoLinkPlugin.js';
 import { writeChars } from '@/helpers/readChars.js';
-import { type CompositPost, useComposeStateStore } from '@/store/useComposeStore.js';
+import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
 
 function ErrorBoundaryComponent() {
     return (
@@ -23,7 +23,7 @@ function ErrorBoundaryComponent() {
 }
 
 interface EditorProps {
-    post: CompositPost;
+    post: CompositePost;
 }
 
 export const Editor = memo(function Editor(props: EditorProps) {

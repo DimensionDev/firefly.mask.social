@@ -9,10 +9,10 @@ import { OembedUI } from '@/components/Oembed/index.js';
 import { Quote } from '@/components/Posts/Quote.js';
 import { readChars } from '@/helpers/readChars.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
-import { type CompositPost, useComposeStateStore } from '@/store/useComposeStore.js';
+import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
 
 interface ComposeContentProps {
-    post: CompositPost;
+    post: CompositePost;
 }
 
 export function ComposeContent(props: ComposeContentProps) {

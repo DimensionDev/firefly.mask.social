@@ -25,11 +25,11 @@ import { hasRedPacketPayload } from '@/helpers/hasRedPacketPayload.js';
 import { measureChars } from '@/helpers/readChars.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { ComposeModalRef } from '@/modals/controls.js';
-import { type CompositPost, useComposeStateStore } from '@/store/useComposeStore.js';
+import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
 import { useFarcasterStateStore, useLensStateStore } from '@/store/useProfileStore.js';
 
 interface ComposeSendProps extends React.HTMLAttributes<HTMLDivElement> {
-    post: CompositPost;
+    post: CompositePost;
 }
 
 export function ComposeSend(props: ComposeSendProps) {

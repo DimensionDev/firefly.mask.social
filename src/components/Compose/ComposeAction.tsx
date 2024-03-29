@@ -24,12 +24,12 @@ import { measureChars } from '@/helpers/readChars.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { PluginDebuggerMessages } from '@/mask/message-host/index.js';
 import { ComposeModalRef } from '@/modals/controls.js';
-import { type CompositPost, useComposeStateStore } from '@/store/useComposeStore.js';
+import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
 import { useFarcasterStateStore, useLensStateStore } from '@/store/useProfileStore.js';
 import { RestrictionType } from '@/types/compose.js';
 
 interface ComposeActionProps {
-    post: CompositPost;
+    post: CompositePost;
 }
 
 export function ComposeAction(props: ComposeActionProps) {
