@@ -1,6 +1,7 @@
 import type { TypedMessageTextV1 } from '@masknet/typed-message';
 import { uniq } from 'lodash-es';
 import { type Dispatch, type SetStateAction } from 'react';
+import { v4 as uuid } from 'uuid';
 import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
 
@@ -17,7 +18,7 @@ import type { MediaObject } from '@/types/index.js';
 import type { OpenGraph } from '@/types/og.js';
 import type { RedPacketPayload } from '@/types/rp.js';
 
-type Cursor = number;
+type Cursor = string;
 
 // A recursive version of Post will cause typescript failed to infer the type of the final exports.
 export type OrphanPost = Omit<Post, 'embedPosts' | 'comments' | 'root' | 'commentOn' | 'quoteOn'>;
@@ -48,6 +49,8 @@ interface ComposeState {
     type: 'compose' | 'quote' | 'reply';
     cursor: Cursor;
     posts: CompositPost[];
+
+    // computed
     computed: CompositPost;
 
     // operations
@@ -102,11 +105,13 @@ const next = (s: ComposeState, _: (post: CompositPost) => CompositPost): Compose
     posts: s.posts.map((x) => (x.id === s.cursor ? _(x) : x)),
 });
 
+const initialPostCursor = uuid();
+
 const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
     immer<ComposeState>((set, get) => ({
         type: 'compose',
-        cursor: 0,
-        posts: [createInitSinglePostState(0)],
+        cursor: initialPostCursor,
+        posts: [createInitSinglePostState(initialPostCursor)],
 
         computed: {
             get id() {
@@ -152,21 +157,26 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
 
         newPost: () =>
             set((state) => {
-                const length = state.posts.length;
+                const cursor = uuid();
                 return {
                     ...state,
-                    posts: [...state.posts, createInitSinglePostState(length)],
+                    posts: [...state.posts, createInitSinglePostState(cursor)],
                     // focus the new added post
-                    cursor: length,
+                    cursor,
                 };
             }),
         removePost: (cursor) =>
             set((state) => {
-                const length = state.posts.length;
+                const index = state.posts.findIndex((x) => x.id === cursor);
+                if (index === -1) return state;
+
+                const nextPosts = state.posts.filter((x) => x.id !== cursor);
+                if (nextPosts.length === 0) return state;
+
                 return {
                     ...state,
                     posts: state.posts.filter((x) => x.id !== cursor),
-                    cursor: Math.max(0, length - 1),
+                    cursor: nextPosts[Math.max(0, index - 1)].id,
                 };
             }),
         updateCursor: (cursor) =>
@@ -323,8 +333,8 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
             set((state) =>
                 Object.assign(state, {
                     type: 'compose',
-                    cursor: 0,
-                    posts: [createInitSinglePostState(0)],
+                    cursor: initialPostCursor,
+                    posts: [createInitSinglePostState(initialPostCursor)],
                 }),
             ),
     })),

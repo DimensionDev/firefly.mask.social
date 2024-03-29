@@ -11,7 +11,6 @@ import { useDebounce } from 'react-use';
 
 import { MentionsPlugin } from '@/components/Lexical/plugins/AtMentionsPlugin.js';
 import { LexicalAutoLinkPlugin } from '@/components/Lexical/plugins/AutoLinkPlugin.js';
-import { classNames } from '@/helpers/classNames.js';
 import { writeChars } from '@/helpers/readChars.js';
 import { type CompositPost, useComposeStateStore } from '@/store/useComposeStore.js';
 
@@ -30,9 +29,7 @@ interface EditorProps {
 export const Editor = memo(function Editor(props: EditorProps) {
     const { type, updateChars, loadFramesFromChars, loadOpenGraphsFromChars } = useComposeStateStore();
 
-    const { post, video, images, frames, openGraphs, chars } = props.post;
-
-    const hasMediaObject = images.length > 0 || !!video || frames.length || openGraphs.length;
+    const { chars } = props.post;
 
     useDebounce(
         () => {
@@ -48,10 +45,9 @@ export const Editor = memo(function Editor(props: EditorProps) {
             <PlainTextPlugin
                 contentEditable={
                     <ContentEditable
-                        className={classNames(
-                            'cursor-text resize-none appearance-none border-none bg-transparent p-0 text-left text-[15px] leading-5 text-main outline-0 focus:ring-0',
-                            hasMediaObject ? '' : post || frames.length ? 'min-h-[200px]' : 'min-h-[308px]',
-                        )}
+                        className={
+                            'cursor-text resize-none appearance-none border-none bg-transparent p-0 text-left text-[15px] leading-5 text-main outline-0 focus:ring-0'
+                        }
                     />
                 }
                 placeholder={

@@ -16,6 +16,7 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { useSendFarcaster } from '@/components/Compose/ComposeSend/useSendFarcaster.js';
 import { useSendLens } from '@/components/Compose/ComposeSend/useSendLens.js';
 import { CountdownCircle } from '@/components/Compose/CountdownCircle.js';
+import { useSetEditorContent } from '@/components/Compose/useSetEditorContent.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { MAX_POST_SIZE } from '@/constants/index.js';
@@ -37,6 +38,8 @@ export function ComposeSend(props: ComposeSendProps) {
     const { chars, images, video, availableSources } = props.post;
 
     const { length, visibleLength, invisibleLength } = measureChars(chars);
+
+    const setEditorContent = useSetEditorContent();
 
     const isMedium = useIsMedium();
     const queryClient = useQueryClient();
@@ -180,7 +183,13 @@ export function ComposeSend(props: ComposeSendProps) {
             ) : null}
 
             {visibleLength ? (
-                <ClickableButton className=" text-main" onClick={newPost}>
+                <ClickableButton
+                    className=" text-main"
+                    onClick={() => {
+                        newPost();
+                        setEditorContent('');
+                    }}
+                >
                     <Tooltip content={t`Add`} placement="top">
                         <PlusCircleIcon width={28} height={28} />
                     </Tooltip>

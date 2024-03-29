@@ -232,7 +232,9 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
                     </Dialog.Title>
 
                     <div className=" p-4">
-                        {posts.length === 1 ? <ComposeContent post={computed} /> : <ComposeThreadContent />}
+                        <div className="block max-h-[500px] min-h-[338px] overflow-auto rounded-lg border border-secondaryLine bg-bg px-4 py-[14px]">
+                            {posts.length === 1 ? <ComposeContent post={computed} /> : <ComposeThreadContent />}
+                        </div>
                     </div>
 
                     <ComposeAction post={computed} />
