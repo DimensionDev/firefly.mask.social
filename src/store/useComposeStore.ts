@@ -42,7 +42,7 @@ export interface CompositePost {
     frames: Frame[];
     // parsed open graphs from url in chars
     openGraphs: OpenGraph[];
-    redPacketPayload: RedPacketPayload | null;
+    rpPayload: RedPacketPayload | null;
 }
 
 interface ComposeState {
@@ -80,7 +80,7 @@ interface ComposeState {
     removeOpenGraph: (og: OpenGraph) => void;
     updateLensPostId: (postId: string | null) => void;
     updateFarcasterPostId: (postId: string | null) => void;
-    updateRedPacketPayload: (value: RedPacketPayload) => void;
+    updateRpPayload: (value: RedPacketPayload) => void;
     loadFramesFromChars: () => Promise<void>;
     loadOpenGraphsFromChars: () => Promise<void>;
     clear: () => void;
@@ -100,7 +100,7 @@ function createInitSinglePostState(cursor: Cursor): CompositePost {
         frames: EMPTY_LIST,
         openGraphs: EMPTY_LIST,
         video: null,
-        redPacketPayload: null,
+        rpPayload: null,
     };
 }
 
@@ -164,8 +164,8 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
             get video() {
                 return pick(get(), (x) => x.video);
             },
-            get redPacketPayload() {
-                return pick(get(), (x) => x.redPacketPayload);
+            get rpPayload() {
+                return pick(get(), (x) => x.rpPayload);
             },
             get lensPostId() {
                 return pick(get(), (x) => x.lensPostId);
@@ -303,11 +303,11 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
                     farcasterPostId: postId,
                 })),
             ),
-        updateRedPacketPayload: (payload) =>
+        updateRpPayload: (payload) =>
             set((state) =>
                 next(state, (post) => ({
                     ...post,
-                    redPacketPayload: payload,
+                    rpPayload: payload,
                 })),
             ),
         enableSource: (source) =>

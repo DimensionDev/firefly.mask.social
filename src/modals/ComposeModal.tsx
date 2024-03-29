@@ -65,7 +65,7 @@ export interface ComposeModalProps {
     source?: SocialPlatform;
     post?: Post | null;
     typedMessage?: TypedMessageTextV1 | null;
-    redPacketPayload?: {
+    rpPayload?: {
         payloadImage: string;
         claimRequirements: FireflyRedPacketAPI.StrategyPayload[];
     };
@@ -94,11 +94,11 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
             updatePost,
             updateChars,
             updateTypedMessage,
-            updateRedPacketPayload,
+            updateRpPayload: updateRpPayload,
             clear,
         } = useComposeStateStore();
 
-        const { chars, typedMessage, redPacketPayload } = compositePost;
+        const { typedMessage, rpPayload: rpPayload } = compositePost;
 
         const [editor] = useLexicalComposerContext();
 
@@ -113,7 +113,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
                     updateChars(props.chars);
                     setEditorContent(props.chars);
                 }
-                if (props.redPacketPayload) updateRedPacketPayload(props.redPacketPayload);
+                if (props.rpPayload) updateRpPayload(props.rpPayload);
             },
             onClose: (props) => {
                 if (!props?.disableClear) {
@@ -160,10 +160,10 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
                     { deriveAESKey: throws, encryptByLocalKey: throws },
                 );
                 if (typeof encrypted.output === 'string') throw new Error('Expected binary data.');
-                if (!redPacketPayload?.payloadImage) return;
+                if (!rpPayload?.payloadImage) return;
 
                 const secretImage = await steganographyEncodeImage(
-                    await fetchImageAsPNG(redPacketPayload.payloadImage),
+                    await fetchImageAsPNG(rpPayload.payloadImage),
                     encrypted.output,
                     SteganographyPreset.Preset2023_Firefly,
                 );
@@ -197,7 +197,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
                 enqueueErrorMessage(t`Failed to create image payload.`);
             }
             // each time the typedMessage changes, we need to check if it has a red packet payload
-        }, [typedMessage, redPacketPayload, currentLensProfile, currentFarcasterProfile]);
+        }, [typedMessage, rpPayload, currentLensProfile, currentFarcasterProfile]);
 
         return (
             <Modal open={open} onClose={onClose}>

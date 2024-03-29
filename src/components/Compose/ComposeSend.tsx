@@ -1,12 +1,6 @@
 import { PlusCircleIcon } from '@heroicons/react/24/outline';
 import { t, Trans } from '@lingui/macro';
-import { safeUnreachable } from '@masknet/kit';
-import { RedPacketMetaKey } from '@masknet/plugin-redpacket';
-import { FireflyRedPacket } from '@masknet/web3-providers';
-import { FireflyRedPacketAPI, type RedPacketJSONPayload } from '@masknet/web3-providers/types';
-import { useQueryClient } from '@tanstack/react-query';
-import { compact } from 'lodash-es';
-import { useCallback, useMemo } from 'react';
+import { useMemo } from 'react';
 import { useAsyncFn } from 'react-use';
 
 import LoadingIcon from '@/assets/loading.svg';
@@ -15,18 +9,13 @@ import Send2Icon from '@/assets/send2.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { CountdownCircle } from '@/components/Compose/CountdownCircle.js';
 import { Tooltip } from '@/components/Tooltip.js';
-import { SocialPlatform } from '@/constants/enum.js';
 import { MAX_POST_SIZE, MAX_THREAD_SIZE } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
-import { hasRedPacketPayload } from '@/helpers/hasRedPacketPayload.js';
 import { measureChars } from '@/helpers/readChars.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';
-import { ComposeModalRef } from '@/modals/controls.js';
-import { postToFarcaster } from '@/services/postToFarcaster.js';
-import { postToLens } from '@/services/postToLens.js';
+import { corssPost } from '@/services/crossPost.js';
 import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
-import { useFarcasterStateStore, useLensStateStore } from '@/store/useProfileStore.js';
 
 interface ComposeSendProps extends React.HTMLAttributes<HTMLDivElement> {
     post: CompositePost;
@@ -39,111 +28,10 @@ export function ComposeSend(props: ComposeSendProps) {
 
     const { length, visibleLength, invisibleLength } = measureChars(chars);
 
+    const isMedium = useIsMedium();
     const setEditorContent = useSetEditorContent();
 
-    const isMedium = useIsMedium();
-    const queryClient = useQueryClient();
-
-    const currentLensProfile = useLensStateStore.use.currentProfile();
-    const currentFarcasterProfile = useFarcasterStateStore.use.currentProfile();
-
-    const refreshProfileFeed = useCallback(
-        async (source: SocialPlatform) => {
-            switch (source) {
-                case SocialPlatform.Lens:
-                    await queryClient.invalidateQueries({
-                        queryKey: ['getPostsByProfileId', SocialPlatform.Lens, currentLensProfile?.profileId],
-                    });
-                    queryClient.removeQueries({
-                        queryKey: ['getPostsByProfileId', SocialPlatform.Lens, currentLensProfile?.profileId],
-                    });
-                    break;
-                case SocialPlatform.Farcaster:
-                    await queryClient.invalidateQueries({
-                        queryKey: ['getPostsByProfileId', SocialPlatform.Farcaster, currentFarcasterProfile?.profileId],
-                    });
-                    queryClient.removeQueries({
-                        queryKey: ['getPostsByProfileId', SocialPlatform.Farcaster, currentFarcasterProfile?.profileId],
-                    });
-                    break;
-                default:
-                    safeUnreachable(source);
-                    return;
-            }
-        },
-        [currentLensProfile, currentFarcasterProfile, queryClient],
-    );
-    const [{ loading }, handleSend] = useAsyncFn(async () => {
-        if (type === 'compose') {
-            const promises: Array<Promise<void>> = [];
-            if (availableSources.includes(SocialPlatform.Lens)) promises.push(postToLens(type, props.post));
-            if (availableSources.includes(SocialPlatform.Farcaster)) promises.push(postToFarcaster(type, props.post));
-
-            const allSettled = await Promise.allSettled(promises);
-
-            // If all requests fail, abort execution
-            if (allSettled.every((x) => x.status === 'rejected')) return;
-
-            if (availableSources.includes(SocialPlatform.Lens)) await refreshProfileFeed(SocialPlatform.Lens);
-            if (availableSources.includes(SocialPlatform.Farcaster)) await refreshProfileFeed(SocialPlatform.Farcaster);
-        }
-
-        try {
-            const { lensPostId, farcasterPostId, typedMessage, redPacketPayload } =
-                useComposeStateStore.getState().compositePost;
-
-            if (hasRedPacketPayload(typedMessage) && (lensPostId || farcasterPostId) && redPacketPayload?.publicKey) {
-                const rpPayload = typedMessage?.meta?.get(RedPacketMetaKey) as RedPacketJSONPayload;
-
-                const reactions = compact([
-                    lensPostId
-                        ? {
-                              platform: FireflyRedPacketAPI.PlatformType.lens,
-                              postId: lensPostId,
-                          }
-                        : undefined,
-                    farcasterPostId
-                        ? {
-                              platform: FireflyRedPacketAPI.PlatformType.farcaster,
-                              postId: farcasterPostId,
-                              handle: currentFarcasterProfile?.handle,
-                          }
-                        : undefined,
-                ]);
-
-                const claimPlatform = compact([
-                    lensPostId && currentLensProfile
-                        ? {
-                              platformId: currentLensProfile.profileId,
-                              platformName: FireflyRedPacketAPI.PlatformType.lens,
-                          }
-                        : undefined,
-                    farcasterPostId && currentFarcasterProfile
-                        ? {
-                              platformId: currentFarcasterProfile.profileId,
-                              platformName: FireflyRedPacketAPI.PlatformType.farcaster,
-                          }
-                        : undefined,
-                ]);
-                await FireflyRedPacket.updateClaimStrategy(
-                    rpPayload.rpid,
-                    reactions,
-                    claimPlatform,
-                    redPacketPayload.publicKey,
-                );
-            }
-        } finally {
-            // Whether or not the update succeeds, you need to close the modal
-            ComposeModalRef.close();
-        }
-    }, [
-        type,
-        props.post,
-        availableSources,
-        currentFarcasterProfile,
-        currentLensProfile,
-        refreshProfileFeed,
-    ]);
+    const [{ loading }, handleSend] = useAsyncFn(async () => corssPost(type, props.post), [type, props.post]);
 
     const disabled = useMemo(() => {
         if (loading) return true;
