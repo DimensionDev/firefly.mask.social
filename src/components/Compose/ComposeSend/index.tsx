@@ -182,7 +182,7 @@ export function ComposeSend(props: ComposeSendProps) {
                 </div>
             ) : null}
 
-            {visibleLength ? (
+            {visibleLength && type === 'compose' ? (
                 <ClickableButton
                     className=" text-main disabled:opacity-50"
                     disabled={posts.length >= MAX_THREAD_SIZE}

@@ -33,7 +33,8 @@ import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { fetchImageAsPNG } from '@/helpers/fetchImageAsPNG.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { hasRedPacketPayload } from '@/helpers/hasRedPacketPayload.js';
-import { type Chars, readChars } from '@/helpers/readChars.js';
+import { isEmptyPost } from '@/helpers/isEmptyPost.js';
+import { type Chars } from '@/helpers/readChars.js';
 import { throws } from '@/helpers/throws.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
@@ -125,7 +126,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
         });
 
         const onClose = useCallback(async () => {
-            if (readChars(chars, true).length) {
+            if (posts.some((x) => !isEmptyPost(x))) {
                 const confirmed = await ConfirmModalRef.openAndWaitForClose({
                     title: t`Discard`,
                     content: (
@@ -139,7 +140,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
             } else {
                 dispatch?.close();
             }
-        }, [chars, dispatch]);
+        }, [posts, dispatch]);
 
         const { loading: encryptRedPacketLoading } = useAsync(async () => {
             if (!typedMessage) return;
@@ -199,7 +200,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
 
         return (
             <Modal open={open} onClose={onClose}>
-                <div className="relative h-[100vh] w-[100vw] bg-bgModal shadow-popover transition-all dark:text-gray-950 md:h-auto md:w-[600px] md:rounded-xl">
+                <div className="relative flex h-[100vh] w-[100vw] flex-col bg-bgModal shadow-popover transition-all dark:text-gray-950 md:h-auto md:w-[600px] md:rounded-xl">
                     {/* Loading */}
                     {encryptRedPacketLoading ? (
                         <div className=" absolute bottom-0 left-0 right-0 top-0 z-50 flex items-center justify-center">
@@ -231,8 +232,8 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
                         {isMedium ? null : <ComposeSend post={compositePost} />}
                     </Dialog.Title>
 
-                    <div className=" px-4 pb-4">
-                        <div className="block max-h-[500px] min-h-[338px] overflow-auto rounded-lg border border-secondaryLine bg-bg px-4 py-[14px]">
+                    <div className=" flex flex-1 flex-col px-4 pb-4">
+                        <div className="block min-h-[338px] flex-1 overflow-auto rounded-lg border border-secondaryLine bg-bg px-4 py-[14px] md:max-h-[500px]">
                             {posts.length === 1 ? <ComposeContent post={compositePost} /> : <ComposeThreadContent />}
                         </div>
                     </div>
