@@ -14,7 +14,8 @@ import { classNames } from '@/helpers/classNames.js';
 import { measureChars } from '@/helpers/readChars.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';
-import { corssPost } from '@/services/crossPost.js';
+import { ComposeModalRef } from '@/modals/controls.js';
+import { crossPost } from '@/services/crossPost.js';
 import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
 
 interface ComposeSendProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -31,7 +32,13 @@ export function ComposeSend(props: ComposeSendProps) {
     const isMedium = useIsMedium();
     const setEditorContent = useSetEditorContent();
 
-    const [{ loading }, handleSend] = useAsyncFn(async () => corssPost(type, props.post), [type, props.post]);
+    const [{ loading }, handleSend] = useAsyncFn(async () => {
+        try {
+            await crossPost(type, props.post);
+        } finally {
+            ComposeModalRef.close();
+        }
+    }, [type, props.post]);
 
     const disabled = useMemo(() => {
         if (loading) return true;

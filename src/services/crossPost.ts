@@ -7,7 +7,6 @@ import { compact } from 'lodash-es';
 import { queryClient } from '@/configs/queryClient.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { hasRedPacketPayload } from '@/helpers/hasRedPacketPayload.js';
-import { ComposeModalRef } from '@/modals/controls.js';
 import { postToFarcaster } from '@/services/postToFarcaster.js';
 import { postToLens } from '@/services/postToLens.js';
 import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
@@ -41,7 +40,7 @@ async function refreshProfileFeed(source: SocialPlatform) {
     }
 }
 
-export async function corssPost(type: ComposeType, compositePost: CompositePost) {
+export async function crossPost(type: ComposeType, compositePost: CompositePost) {
     const { availableSources } = compositePost;
     const { currentProfile: currentLensProfile } = useLensStateStore.getState();
     const { currentProfile: currentFarcasterProfile } = useFarcasterStateStore.getState();
@@ -60,51 +59,46 @@ export async function corssPost(type: ComposeType, compositePost: CompositePost)
         if (availableSources.includes(SocialPlatform.Farcaster)) await refreshProfileFeed(SocialPlatform.Farcaster);
     }
 
-    try {
-        const { lensPostId, farcasterPostId, typedMessage, rpPayload } = useComposeStateStore.getState().compositePost;
+    const { lensPostId, farcasterPostId, typedMessage, rpPayload } = useComposeStateStore.getState().compositePost;
 
-        if (hasRedPacketPayload(typedMessage) && (lensPostId || farcasterPostId) && rpPayload?.publicKey) {
-            const rpPayloadFromMeta = typedMessage?.meta?.get(RedPacketMetaKey) as RedPacketJSONPayload;
+    if (hasRedPacketPayload(typedMessage) && (lensPostId || farcasterPostId) && rpPayload?.publicKey) {
+        const rpPayloadFromMeta = typedMessage?.meta?.get(RedPacketMetaKey) as RedPacketJSONPayload;
 
-            const reactions = compact([
-                lensPostId
-                    ? {
-                          platform: FireflyRedPacketAPI.PlatformType.lens,
-                          postId: lensPostId,
-                      }
-                    : undefined,
-                farcasterPostId
-                    ? {
-                          platform: FireflyRedPacketAPI.PlatformType.farcaster,
-                          postId: farcasterPostId,
-                          handle: currentFarcasterProfile?.handle,
-                      }
-                    : undefined,
-            ]);
+        const reactions = compact([
+            lensPostId
+                ? {
+                      platform: FireflyRedPacketAPI.PlatformType.lens,
+                      postId: lensPostId,
+                  }
+                : undefined,
+            farcasterPostId
+                ? {
+                      platform: FireflyRedPacketAPI.PlatformType.farcaster,
+                      postId: farcasterPostId,
+                      handle: currentFarcasterProfile?.handle,
+                  }
+                : undefined,
+        ]);
 
-            const claimPlatform = compact([
-                lensPostId && currentLensProfile
-                    ? {
-                          platformId: currentLensProfile.profileId,
-                          platformName: FireflyRedPacketAPI.PlatformType.lens,
-                      }
-                    : undefined,
-                farcasterPostId && currentFarcasterProfile
-                    ? {
-                          platformId: currentFarcasterProfile.profileId,
-                          platformName: FireflyRedPacketAPI.PlatformType.farcaster,
-                      }
-                    : undefined,
-            ]);
-            await FireflyRedPacket.updateClaimStrategy(
-                rpPayloadFromMeta.rpid,
-                reactions,
-                claimPlatform,
-                rpPayload.publicKey,
-            );
-        }
-    } finally {
-        // Whether or not the update succeeds, you need to close the modal
-        ComposeModalRef.close();
+        const claimPlatform = compact([
+            lensPostId && currentLensProfile
+                ? {
+                      platformId: currentLensProfile.profileId,
+                      platformName: FireflyRedPacketAPI.PlatformType.lens,
+                  }
+                : undefined,
+            farcasterPostId && currentFarcasterProfile
+                ? {
+                      platformId: currentFarcasterProfile.profileId,
+                      platformName: FireflyRedPacketAPI.PlatformType.farcaster,
+                  }
+                : undefined,
+        ]);
+        await FireflyRedPacket.updateClaimStrategy(
+            rpPayloadFromMeta.rpid,
+            reactions,
+            claimPlatform,
+            rpPayload.publicKey,
+        );
     }
 }

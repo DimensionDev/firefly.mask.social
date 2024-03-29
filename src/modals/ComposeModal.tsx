@@ -94,7 +94,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
             updatePost,
             updateChars,
             updateTypedMessage,
-            updateRpPayload: updateRpPayload,
+            updateRpPayload,
             clear,
         } = useComposeStateStore();
 
