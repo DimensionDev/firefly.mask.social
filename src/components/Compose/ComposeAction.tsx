@@ -28,11 +28,12 @@ import { PluginDebuggerMessages } from '@/mask/message-host/index.js';
 import { ComposeModalRef } from '@/modals/controls.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 import { useFarcasterStateStore, useLensStateStore } from '@/store/useProfileStore.js';
+import { RestrictionType } from '@/types/compose.js';
 
 interface ComposeActionProps {}
 
 export function ComposeAction(props: ComposeActionProps) {
-    const [restriction, setRestriction] = useState(0);
+    const [restriction, setRestriction] = useState(RestrictionType.Everyone);
     const isMedium = useIsMedium();
 
     const currentLensProfile = useLensStateStore.use.currentProfile();
@@ -237,7 +238,7 @@ export function ComposeAction(props: ComposeActionProps) {
                         <>
                             <Popover.Button className=" flex cursor-pointer gap-1 text-main focus:outline-none">
                                 <span className=" text-[15px] font-bold">
-                                    {restriction === 0 ? (
+                                    {restriction === RestrictionType.Everyone ? (
                                         <Trans>Everyone</Trans>
                                     ) : (
                                         <Trans>Only people you follow</Trans>

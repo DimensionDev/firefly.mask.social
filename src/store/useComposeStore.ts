@@ -15,12 +15,14 @@ import type { Frame } from '@/types/frame.js';
 import type { MediaObject } from '@/types/index.js';
 import type { OpenGraph } from '@/types/og.js';
 import type { RedPacketPayload } from '@/types/rp.js';
+import { RestrictionType } from '@/types/compose.js';
 
 // A recursive version of Post will cause typescript failed to infer the type of the final exports.
 type OrphanPost = Omit<Post, 'embedPosts' | 'comments' | 'root' | 'commentOn' | 'quoteOn'>;
 
 interface ComposeState {
     type: 'compose' | 'quote' | 'reply';
+    restriction: RestrictionType;
     availableSources: SocialPlatform[];
     // If source is null, it means to post to all platforms.
     currentSource: SocialPlatform | null;
@@ -39,6 +41,7 @@ interface ComposeState {
     redPacketPayload: RedPacketPayload | null;
     enableSource: (source: SocialPlatform) => void;
     disableSource: (source: SocialPlatform) => void;
+    updateRestriction: (restriction: RestrictionType) => void;
     updateSources: (sources: SocialPlatform[]) => void;
     updateType: (type: 'compose' | 'quote' | 'reply') => void;
     updateCurrentSource: (source: SocialPlatform | null) => void;
@@ -65,6 +68,7 @@ function createInitState() {
         type: 'compose',
         availableSources: [SocialPlatform.Farcaster, SocialPlatform.Lens] as SocialPlatform[],
         currentSource: null,
+        restriction: RestrictionType.Everyone,
         draft: null,
         post: null,
         chars: '',
@@ -90,6 +94,10 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
         updateCurrentSource: (source: SocialPlatform | null) =>
             set((state) => {
                 state.currentSource = source;
+            }),
+        updateRestriction: (restriction) =>
+            set((state) => {
+                state.restriction = restriction;
             }),
         updateChars: (chars) =>
             set((state) => {
