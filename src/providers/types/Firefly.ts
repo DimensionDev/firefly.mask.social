@@ -85,3 +85,8 @@ export type UploadMediaTokenResponse = Response<{
     secretAccessKey: string;
     sessionToken: string;
 }>;
+
+export type FriendshipResponse = Response<{
+    isFollowing: boolean;
+    isFollowedBack: boolean;
+}>;
