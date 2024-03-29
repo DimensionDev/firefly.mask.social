@@ -588,6 +588,9 @@ msgstr "刷新"
 msgid "Firefly"
 msgstr "Firefly"
 
+msgid "Add"
+msgstr ""
+
 msgid "Log out all"
 msgstr "登出所有"
 

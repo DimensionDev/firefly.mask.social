@@ -583,6 +583,9 @@ msgstr ""
 msgid "Firefly"
 msgstr ""
 
+msgid "Add"
+msgstr ""
+
 msgid "Log out all"
 msgstr ""
 
