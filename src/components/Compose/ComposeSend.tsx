@@ -13,8 +13,6 @@ import LoadingIcon from '@/assets/loading.svg';
 import SendIcon from '@/assets/send.svg';
 import Send2Icon from '@/assets/send2.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
-import { useSendFarcaster } from '@/components/Compose/ComposeSend/useSendFarcaster.js';
-import { useSendLens } from '@/components/Compose/ComposeSend/useSendLens.js';
 import { CountdownCircle } from '@/components/Compose/CountdownCircle.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { SocialPlatform } from '@/constants/enum.js';
@@ -25,6 +23,8 @@ import { measureChars } from '@/helpers/readChars.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';
 import { ComposeModalRef } from '@/modals/controls.js';
+import { postToFarcaster } from '@/services/postToFarcaster.js';
+import { postToLens } from '@/services/postToLens.js';
 import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
 import { useFarcasterStateStore, useLensStateStore } from '@/store/useProfileStore.js';
 
@@ -43,9 +43,6 @@ export function ComposeSend(props: ComposeSendProps) {
 
     const isMedium = useIsMedium();
     const queryClient = useQueryClient();
-
-    const sendLens = useSendLens(type, props.post);
-    const sendFarcaster = useSendFarcaster(type, props.post);
 
     const currentLensProfile = useLensStateStore.use.currentProfile();
     const currentFarcasterProfile = useFarcasterStateStore.use.currentProfile();
@@ -79,8 +76,8 @@ export function ComposeSend(props: ComposeSendProps) {
     const [{ loading }, handleSend] = useAsyncFn(async () => {
         if (type === 'compose') {
             const promises: Array<Promise<void>> = [];
-            if (availableSources.includes(SocialPlatform.Lens)) promises.push(sendLens());
-            if (availableSources.includes(SocialPlatform.Farcaster)) promises.push(sendFarcaster());
+            if (availableSources.includes(SocialPlatform.Lens)) promises.push(postToLens(type, props.post));
+            if (availableSources.includes(SocialPlatform.Farcaster)) promises.push(postToFarcaster(type, props.post));
 
             const allSettled = await Promise.allSettled(promises);
 
@@ -141,11 +138,10 @@ export function ComposeSend(props: ComposeSendProps) {
         }
     }, [
         type,
+        props.post,
         availableSources,
         currentFarcasterProfile,
         currentLensProfile,
-        sendLens,
-        sendFarcaster,
         refreshProfileFeed,
     ]);
 
