@@ -10,13 +10,13 @@ import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { type CompositPost, useComposeStateStore } from '@/store/useComposeStore.js';
 
 interface ComposeContentProps {
-    post?: CompositPost;
+    post: CompositPost;
 }
 
 export function ComposeContent(props: ComposeContentProps) {
-    const { type, computed } = useComposeStateStore();
+    const { type } = useComposeStateStore();
 
-    const { post, images, video, frames, openGraphs } = props.post ?? computed;
+    const { post, images, video, frames, openGraphs } = props.post;
 
     return (
         <div className="block h-[338px] overflow-auto rounded-lg border border-secondaryLine bg-bg px-4 py-[14px]">

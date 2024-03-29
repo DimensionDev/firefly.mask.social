@@ -24,13 +24,13 @@ function ErrorBoundaryComponent() {
 }
 
 interface EditorProps {
-    post?: CompositPost;
+    post: CompositPost;
 }
 
 export const Editor = memo(function Editor(props: EditorProps) {
-    const { type, computed, updateChars, loadFramesFromChars, loadOpenGraphsFromChars } = useComposeStateStore();
+    const { type, updateChars, loadFramesFromChars, loadOpenGraphsFromChars } = useComposeStateStore();
 
-    const { post, video, images, frames, openGraphs, chars } = props.post ?? computed;
+    const { post, video, images, frames, openGraphs, chars } = props.post;
 
     const hasMediaObject = images.length > 0 || !!video || frames.length || openGraphs.length;
 

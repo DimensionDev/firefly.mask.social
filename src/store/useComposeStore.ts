@@ -48,7 +48,7 @@ interface ComposeState {
     type: 'compose' | 'quote' | 'reply';
     cursor: Cursor;
     posts: CompositPost[];
-    computed: Omit<CompositPost, 'id'>;
+    computed: CompositPost;
 
     // operations
     newPost: () => void;
@@ -109,6 +109,9 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
         posts: [createInitSinglePostState(0)],
 
         computed: {
+            get id() {
+                return pick(get(), (x) => x.id);
+            },
             get availableSources() {
                 return pick(get(), (x) => x.availableSources);
             },

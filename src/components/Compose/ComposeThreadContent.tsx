@@ -12,6 +12,7 @@ export function ComposeThreadContent(props: ComposeThreadContentProps) {
         posts,
         computed,
     });
+
     return (
         <div>
             {posts.map((x) => (
