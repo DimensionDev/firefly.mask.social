@@ -22,7 +22,7 @@ import LoadingIcon from '@/assets/loading.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { ComposeAction } from '@/components/Compose/ComposeAction.js';
 import { ComposeContent } from '@/components/Compose/ComposeContent.js';
-import { ComposeSend } from '@/components/Compose/ComposeSend/index.js';
+import { ComposeSend } from '@/components/Compose/ComposeSend.js';
 import { ComposeThreadContent } from '@/components/Compose/ComposeThreadContent.js';
 import { MentionNode } from '@/components/Lexical/nodes/MentionsNode.js';
 import { Modal } from '@/components/Modal.js';
@@ -32,7 +32,7 @@ import { SITE_HOSTNAME, SITE_URL } from '@/constants/index.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { fetchImageAsPNG } from '@/helpers/fetchImageAsPNG.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
-import { hasRedPacketPayload } from '@/helpers/hasRedPacketPayload.js';
+import { hasRpPayload } from '@/helpers/hasPayload.js';
 import { isEmptyPost } from '@/helpers/isEmptyPost.js';
 import { type Chars } from '@/helpers/readChars.js';
 import { throws } from '@/helpers/throws.js';
@@ -45,6 +45,7 @@ import { steganographyEncodeImage } from '@/services/steganography.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useFarcasterStateStore, useLensStateStore } from '@/store/useProfileStore.js';
+import type { ComposeType } from '@/types/compose.js';
 
 const initialConfig = {
     namespace: 'composer',
@@ -59,12 +60,12 @@ const initialConfig = {
 };
 
 export interface ComposeModalProps {
-    type?: 'compose' | 'quote' | 'reply';
+    type?: ComposeType;
     chars?: Chars;
     source?: SocialPlatform;
     post?: Post | null;
     typedMessage?: TypedMessageTextV1 | null;
-    redPacketPayload?: {
+    rpPayload?: {
         payloadImage: string;
         claimRequirements: FireflyRedPacketAPI.StrategyPayload[];
     };
@@ -93,11 +94,11 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
             updatePost,
             updateChars,
             updateTypedMessage,
-            updateRedPacketPayload,
+            updateRpPayload,
             clear,
         } = useComposeStateStore();
 
-        const { chars, typedMessage, redPacketPayload } = compositePost;
+        const { typedMessage, rpPayload: rpPayload } = compositePost;
 
         const [editor] = useLexicalComposerContext();
 
@@ -112,7 +113,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
                     updateChars(props.chars);
                     setEditorContent(props.chars);
                 }
-                if (props.redPacketPayload) updateRedPacketPayload(props.redPacketPayload);
+                if (props.rpPayload) updateRpPayload(props.rpPayload);
             },
             onClose: (props) => {
                 if (!props?.disableClear) {
@@ -144,7 +145,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
 
         const { loading: encryptRedPacketLoading } = useAsync(async () => {
             if (!typedMessage) return;
-            if (!hasRedPacketPayload(typedMessage)) return;
+            if (!hasRpPayload(typedMessage)) return;
 
             try {
                 const encrypted = await encrypt(
@@ -159,10 +160,10 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
                     { deriveAESKey: throws, encryptByLocalKey: throws },
                 );
                 if (typeof encrypted.output === 'string') throw new Error('Expected binary data.');
-                if (!redPacketPayload?.payloadImage) return;
+                if (!rpPayload?.payloadImage) return;
 
                 const secretImage = await steganographyEncodeImage(
-                    await fetchImageAsPNG(redPacketPayload.payloadImage),
+                    await fetchImageAsPNG(rpPayload.payloadImage),
                     encrypted.output,
                     SteganographyPreset.Preset2023_Firefly,
                 );
@@ -196,7 +197,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
                 enqueueErrorMessage(t`Failed to create image payload.`);
             }
             // each time the typedMessage changes, we need to check if it has a red packet payload
-        }, [typedMessage, redPacketPayload, currentLensProfile, currentFarcasterProfile]);
+        }, [typedMessage, rpPayload, currentLensProfile, currentFarcasterProfile]);
 
         return (
             <Modal open={open} onClose={onClose}>

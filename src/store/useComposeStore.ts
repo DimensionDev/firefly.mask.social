@@ -12,7 +12,7 @@ import { type Chars, readChars } from '@/helpers/readChars.js';
 import { FrameLoader } from '@/libs/frame/Loader.js';
 import { OpenGraphLoader } from '@/libs/og/Loader.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
-import { RestrictionType } from '@/types/compose.js';
+import { type ComposeType, RestrictionType } from '@/types/compose.js';
 import type { Frame } from '@/types/frame.js';
 import type { MediaObject } from '@/types/index.js';
 import type { OpenGraph } from '@/types/og.js';
@@ -42,11 +42,11 @@ export interface CompositePost {
     frames: Frame[];
     // parsed open graphs from url in chars
     openGraphs: OpenGraph[];
-    redPacketPayload: RedPacketPayload | null;
+    rpPayload: RedPacketPayload | null;
 }
 
 interface ComposeState {
-    type: 'compose' | 'quote' | 'reply';
+    type: ComposeType;
     cursor: Cursor;
     posts: CompositePost[];
 
@@ -67,7 +67,7 @@ interface ComposeState {
     disableSource: (source: SocialPlatform) => void;
     updateRestriction: (restriction: RestrictionType) => void;
     updateAvailableSources: (sources: SocialPlatform[]) => void;
-    updateType: (type: 'compose' | 'quote' | 'reply') => void;
+    updateType: (type: ComposeType) => void;
     updateChars: Dispatch<SetStateAction<Chars>>;
     updateTypedMessage: (typedMessage: TypedMessageTextV1 | null) => void;
     updatePost: (post: OrphanPost | null) => void;
@@ -80,7 +80,7 @@ interface ComposeState {
     removeOpenGraph: (og: OpenGraph) => void;
     updateLensPostId: (postId: string | null) => void;
     updateFarcasterPostId: (postId: string | null) => void;
-    updateRedPacketPayload: (value: RedPacketPayload) => void;
+    updateRpPayload: (value: RedPacketPayload) => void;
     loadFramesFromChars: () => Promise<void>;
     loadOpenGraphsFromChars: () => Promise<void>;
     clear: () => void;
@@ -100,7 +100,7 @@ function createInitSinglePostState(cursor: Cursor): CompositePost {
         frames: EMPTY_LIST,
         openGraphs: EMPTY_LIST,
         video: null,
-        redPacketPayload: null,
+        rpPayload: null,
     };
 }
 
@@ -164,8 +164,8 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
             get video() {
                 return pick(get(), (x) => x.video);
             },
-            get redPacketPayload() {
-                return pick(get(), (x) => x.redPacketPayload);
+            get rpPayload() {
+                return pick(get(), (x) => x.rpPayload);
             },
             get lensPostId() {
                 return pick(get(), (x) => x.lensPostId);
@@ -208,7 +208,7 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
             set((state) => {
                 state.cursor = cursor;
             }),
-        updateType: (type: 'compose' | 'quote' | 'reply') =>
+        updateType: (type: ComposeType) =>
             set((state) => {
                 state.type = type;
             }),
@@ -303,11 +303,11 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
                     farcasterPostId: postId,
                 })),
             ),
-        updateRedPacketPayload: (payload) =>
+        updateRpPayload: (payload) =>
             set((state) =>
                 next(state, (post) => ({
                     ...post,
-                    redPacketPayload: payload,
+                    rpPayload: payload,
                 })),
             ),
         enableSource: (source) =>

@@ -40,7 +40,7 @@ export default function CustomElements() {
             ComposeModalRef.open({
                 type: 'compose',
                 typedMessage: getTypedMessageRedPacket(event.options?.initialMetas),
-                redPacketPayload: event.options?.pluginMeta?.payloadImage ? event.options.pluginMeta : undefined,
+                rpPayload: event.options?.pluginMeta?.payloadImage ? event.options.pluginMeta : undefined,
             });
         });
     }, [value]);

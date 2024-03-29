@@ -55,7 +55,7 @@ msgid "Failed to upload. File type is not supported"
 msgstr "图片格式不支持。上传失败。"
 
 msgid "Failed to post on Farcaster."
-msgstr "在 Farcaster 发贴成功。"
+msgstr "在 Farcaster 发贴失败。"
 
 msgid "Act"
 msgstr "收藏"
@@ -487,7 +487,7 @@ msgid "Please switch to the {chainName} network in your wallet."
 msgstr "请切换钱包网络至 {chainName}"
 
 msgid "Posted on Lens"
-msgstr "发表于 Lens"
+msgstr "在 Lens 上发帖成功。"
 
 msgid "{0, plural, =0 {Mirror or Quote} zero {Mirror or Quote} one {Mirror or Quote} other {Mirrors or Quotes}}"
 msgstr "{0, plural, =0 {转发或引用} zero {转发或引用} one {转发或引用} other {转发或引用}}"
