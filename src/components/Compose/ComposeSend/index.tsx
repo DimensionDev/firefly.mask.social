@@ -1,4 +1,5 @@
-import { Trans } from '@lingui/macro';
+import { PlusCircleIcon } from '@heroicons/react/24/outline';
+import { t, Trans } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
 import { RedPacketMetaKey } from '@masknet/plugin-redpacket';
 import { FireflyRedPacket } from '@masknet/web3-providers';
@@ -15,6 +16,7 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { useSendFarcaster } from '@/components/Compose/ComposeSend/useSendFarcaster.js';
 import { useSendLens } from '@/components/Compose/ComposeSend/useSendLens.js';
 import { CountdownCircle } from '@/components/Compose/CountdownCircle.js';
+import { Tooltip } from '@/components/Tooltip.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { MAX_POST_SIZE } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -28,7 +30,10 @@ import { useFarcasterStateStore, useLensStateStore } from '@/store/useProfileSto
 interface ComposeSendProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export function ComposeSend(props: ComposeSendProps) {
-    const { chars, images, type, video, currentSource, availableSources, post } = useComposeStateStore();
+    const {
+        type,
+        computed: { chars, images, video, availableSources },
+    } = useComposeStateStore();
 
     const { length, visibleLength, invisibleLength } = measureChars(chars);
 
@@ -67,38 +72,23 @@ export function ComposeSend(props: ComposeSendProps) {
         [currentLensProfile, currentFarcasterProfile, queryClient],
     );
     const [{ loading }, handleSend] = useAsyncFn(async () => {
-        if (!currentSource && type === 'compose') {
+        if (type === 'compose') {
             const promises: Array<Promise<void>> = [];
             if (availableSources.includes(SocialPlatform.Lens)) promises.push(sendLens());
             if (availableSources.includes(SocialPlatform.Farcaster)) promises.push(sendFarcaster());
 
-            const result = await Promise.allSettled(promises);
+            const allSettled = await Promise.allSettled(promises);
 
             // If all requests fail, abort execution
-            if (result.every((x) => x.status === 'rejected')) return;
+            if (allSettled.every((x) => x.status === 'rejected')) return;
 
             if (availableSources.includes(SocialPlatform.Lens)) await refreshProfileFeed(SocialPlatform.Lens);
             if (availableSources.includes(SocialPlatform.Farcaster)) await refreshProfileFeed(SocialPlatform.Farcaster);
-        } else if (currentSource) {
-            try {
-                switch (currentSource) {
-                    case SocialPlatform.Lens:
-                        await sendLens();
-                        break;
-                    case SocialPlatform.Farcaster:
-                        await sendFarcaster();
-                        break;
-                    default:
-                        safeUnreachable(currentSource);
-                }
-            } catch {
-                return;
-            }
-            refreshProfileFeed(currentSource);
         }
 
         try {
-            const { lensPostId, farcasterPostId, typedMessage, redPacketPayload } = useComposeStateStore.getState();
+            const { lensPostId, farcasterPostId, typedMessage, redPacketPayload } =
+                useComposeStateStore.getState().computed;
 
             if (hasRedPacketPayload(typedMessage) && (lensPostId || farcasterPostId) && redPacketPayload?.publicKey) {
                 const rpPayload = typedMessage?.meta?.get(RedPacketMetaKey) as RedPacketJSONPayload;
@@ -145,7 +135,6 @@ export function ComposeSend(props: ComposeSendProps) {
             ComposeModalRef.close();
         }
     }, [
-        currentSource,
         availableSources,
         type,
         sendLens,
@@ -157,40 +146,17 @@ export function ComposeSend(props: ComposeSendProps) {
 
     const disabled = useMemo(() => {
         if (loading) return true;
-        if ((length === 0 || length > MAX_POST_SIZE) && images.length === 0 && !video) return true;
-
-        const postBy = !post
-            ? compact(
-                  availableSources.map((x) => {
-                      switch (x) {
-                          case SocialPlatform.Lens:
-                              return currentLensProfile?.source;
-                          case SocialPlatform.Farcaster:
-                              return currentFarcasterProfile?.source;
-                          default:
-                              safeUnreachable(x);
-                              return;
-                      }
-                  }),
-              )
-            : [post.source];
-
-        if (postBy.length === 0) return true;
-
+        if ((!length || length > MAX_POST_SIZE) && !images.length && !video) return true;
+        if (!availableSources.length) return true;
         return false;
-    }, [length, images, video, post, availableSources, currentLensProfile, currentFarcasterProfile, loading]);
-
-    const send = () => {
-        if (disabled) return;
-        handleSend();
-    };
+    }, [length, images.length, video, availableSources.length, loading]);
 
     if (!isMedium) {
         return (
             <ClickableButton
                 className="absolute right-4 top-1/2 -translate-y-1/2 cursor-pointer disabled:opacity-50"
                 disabled={disabled}
-                onClick={send}
+                onClick={handleSend}
             >
                 {loading ? (
                     <LoadingIcon width={24} height={24} className="animate-spin text-main" />
@@ -212,12 +178,20 @@ export function ComposeSend(props: ComposeSendProps) {
                 </div>
             ) : null}
 
+            {visibleLength ? (
+                <ClickableButton className=" text-main">
+                    <Tooltip content={t`Add`} placement="top">
+                        <PlusCircleIcon width={28} height={28} />
+                    </Tooltip>
+                </ClickableButton>
+            ) : null}
+
             <ClickableButton
                 disabled={disabled}
                 className={classNames(
                     ' flex h-10 w-[120px] items-center justify-center gap-1 rounded-full bg-black text-[15px] font-bold text-white disabled:cursor-not-allowed disabled:opacity-50 dark:bg-white dark:text-black',
                 )}
-                onClick={send}
+                onClick={handleSend}
             >
                 {loading ? (
                     <LoadingIcon width={16} height={16} className="animate-spin" />

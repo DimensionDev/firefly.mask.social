@@ -2,10 +2,9 @@ import { Popover } from '@headlessui/react';
 import { BugAntIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext.js';
 import { t, Trans } from '@lingui/macro';
-import { delay, safeUnreachable } from '@masknet/kit';
+import { delay } from '@masknet/kit';
 import { CrossIsolationMessages } from '@masknet/shared-base';
 import { $getSelection } from 'lexical';
-import { compact } from 'lodash-es';
 import { useCallback, useMemo, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 
@@ -18,7 +17,6 @@ import { PostBy } from '@/components/Compose/PostBy.js';
 import { ReplyRestriction } from '@/components/Compose/ReplyRestriction.js';
 import { SourceIcon } from '@/components/SourceIcon.js';
 import { Tooltip } from '@/components/Tooltip.js';
-import { SocialPlatform } from '@/constants/enum.js';
 import { MAX_POST_SIZE } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { connectMaskWithWagmi } from '@/helpers/connectWagmiWithMask.js';
@@ -28,11 +26,12 @@ import { PluginDebuggerMessages } from '@/mask/message-host/index.js';
 import { ComposeModalRef } from '@/modals/controls.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 import { useFarcasterStateStore, useLensStateStore } from '@/store/useProfileStore.js';
+import { RestrictionType } from '@/types/compose.js';
 
 interface ComposeActionProps {}
 
 export function ComposeAction(props: ComposeActionProps) {
-    const [restriction, setRestriction] = useState(0);
+    const [restriction, setRestriction] = useState(RestrictionType.Everyone);
     const isMedium = useIsMedium();
 
     const currentLensProfile = useLensStateStore.use.currentProfile();
@@ -40,7 +39,10 @@ export function ComposeAction(props: ComposeActionProps) {
     const lensProfiles = useLensStateStore.use.profiles();
     const farcasterProfiles = useFarcasterStateStore.use.profiles();
 
-    const { chars, type, post, images, video, availableSources, currentSource } = useComposeStateStore();
+    const {
+        type,
+        computed: { chars, post, images, video, availableSources },
+    } = useComposeStateStore();
     const { length, visibleLength, invisibleLength } = useMemo(() => measureChars(chars), [chars]);
 
     const [editor] = useLexicalComposerContext();
@@ -53,26 +55,6 @@ export function ComposeAction(props: ComposeActionProps) {
         },
         [editor],
     );
-
-    const postBy = useMemo(() => {
-        if (!post) {
-            return compact(
-                availableSources.map((x) => {
-                    switch (x) {
-                        case SocialPlatform.Lens:
-                            return currentLensProfile?.source;
-                        case SocialPlatform.Farcaster:
-                            return currentFarcasterProfile?.source;
-                        default:
-                            safeUnreachable(x);
-                            return;
-                    }
-                }),
-            );
-        } else {
-            return [post.source];
-        }
-    }, [availableSources, post, currentLensProfile, currentFarcasterProfile]);
 
     const [{ loading }, openRedPacketComposeDialog] = useAsyncFn(async () => {
         await connectMaskWithWagmi();
@@ -205,22 +187,15 @@ export function ComposeAction(props: ComposeActionProps) {
                 <Popover as="div" className="relative">
                     {(_) => (
                         <>
-                            <Popover.Button
-                                className=" flex cursor-pointer gap-1 text-main focus:outline-none"
-                                onClick={(event) => {
-                                    if (!currentSource) return;
-                                    event.stopPropagation();
-                                    event.preventDefault();
-                                }}
-                            >
+                            <Popover.Button className=" flex cursor-pointer gap-1 text-main focus:outline-none">
                                 <span className="flex items-center gap-x-1 font-bold">
-                                    {postBy.map((x) => (
+                                    {availableSources.map((x) => (
                                         <SourceIcon key={x} source={x} size={20} />
                                     ))}
                                 </span>
-                                {type === 'compose' && !currentSource && (
+                                {type === 'compose' ? (
                                     <ChevronRightIcon className="h-5 w-5" aria-hidden="true" />
-                                )}
+                                ) : null}
                             </Popover.Button>
                             {!post ? <PostBy /> : null}
                         </>
@@ -237,7 +212,7 @@ export function ComposeAction(props: ComposeActionProps) {
                         <>
                             <Popover.Button className=" flex cursor-pointer gap-1 text-main focus:outline-none">
                                 <span className=" text-[15px] font-bold">
-                                    {restriction === 0 ? (
+                                    {restriction === RestrictionType.Everyone ? (
                                         <Trans>Everyone</Trans>
                                     ) : (
                                         <Trans>Only people you follow</Trans>

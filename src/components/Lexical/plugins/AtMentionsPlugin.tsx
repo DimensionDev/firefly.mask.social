@@ -135,8 +135,7 @@ export function MentionsPlugin(): JSX.Element | null {
     const currentLensProfile = useLensStateStore.use.currentProfile();
     const currentFarcasterProfile = useFarcasterStateStore.use.currentProfile();
 
-    const availableSources = useComposeStateStore.use.availableSources();
-    const post = useComposeStateStore.use.post();
+    const { availableSources, post } = useComposeStateStore.use.computed();
 
     const [queryString, setQueryString] = useState<string | null>(null);
     const [editor] = useLexicalComposerContext();

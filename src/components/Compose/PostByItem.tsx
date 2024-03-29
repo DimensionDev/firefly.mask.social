@@ -30,11 +30,14 @@ export function PostByItem({ source }: PostByItemProps) {
     const currentProfiles = useCurrentProfiles(source);
     const currentProfile = useCurrentProfile(source);
     const updateLensCurrentProfile = useLensStateStore.use.updateCurrentProfile();
-    const { images, availableSources, updateLoading, enableSource, disableSource } = useComposeStateStore();
+    const {
+        computed: { images, availableSources },
+        enableSource,
+        disableSource,
+    } = useComposeStateStore();
 
     const [{ loading }, login] = useAsyncFn(
         async (profile: Profile) => {
-            updateLoading(true);
             try {
                 const session = await LensSocialMediaProvider.createSessionForProfileId(profile.profileId);
 
@@ -43,9 +46,8 @@ export function PostByItem({ source }: PostByItemProps) {
             } catch (error) {
                 enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to login`));
             }
-            updateLoading(false);
         },
-        [updateLoading, updateLensCurrentProfile],
+        [updateLensCurrentProfile],
     );
 
     if (!currentProfile || !currentProfiles?.length)
@@ -78,7 +80,7 @@ export function PostByItem({ source }: PostByItemProps) {
 
     return currentProfiles.map((profile) => (
         <div
-            className="flex h-10 items-center justify-between border-b border-secondaryLine last:border-none"
+            className="flex h-10 cursor-pointer items-center justify-between border-b border-secondaryLine last:border-none"
             key={profile.profileId}
             onClick={() => {
                 if (!isSameProfile(currentProfile, profile)) return;

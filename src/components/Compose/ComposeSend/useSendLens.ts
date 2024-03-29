@@ -12,8 +12,13 @@ import type { MediaObject } from '@/types/index.js';
 
 export function useSendLens() {
     const currentProfile = useLensStateStore.use.currentProfile();
-    const { type, post, chars, images, updateImages, video, updateVideo, lensPostId, updateLensPostId } =
-        useComposeStateStore();
+    const {
+        type,
+        computed: { post, chars, images, video, lensPostId },
+        updateImages,
+        updateVideo,
+        updateLensPostId,
+    } = useComposeStateStore();
 
     return useCallback(async () => {
         if (!currentProfile?.profileId || lensPostId) return;
