@@ -1,5 +1,5 @@
 import { Select } from '@lingui/macro';
-import { delay, safeUnreachable } from '@masknet/kit';
+import { safeUnreachable } from '@masknet/kit';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 
@@ -89,8 +89,6 @@ export function useToggleFollow(profile: Profile) {
         setReceived(true);
 
         if (isLogin) {
-            // Await for API gets updated
-            await delay(7000);
             if (unmountRef.current) return;
             setTouched(true);
             await refresh();

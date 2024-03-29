@@ -21,6 +21,7 @@ import type {
     CastResponse,
     CastsResponse,
     CommentsResponse,
+    FriendshipResponse,
     NotificationResponse,
     ReactorsResponse,
     SearchCastsResponse,
@@ -71,7 +72,12 @@ export class FireflySocialMedia implements Provider {
             },
         );
 
-        return formatFarcasterProfileFromFirefly(user);
+        const friendship = await this.getFriendship(profileId);
+
+        return formatFarcasterProfileFromFirefly({
+            ...user,
+            ...friendship,
+        });
     }
 
     async getPostsByParentPostId(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
@@ -371,6 +377,21 @@ export class FireflySocialMedia implements Provider {
         });
 
         return res.data;
+    }
+
+    async getFriendship(profileId: string) {
+        const session = farcasterClient.getSession();
+        const { data } = await farcasterClient.fetch<FriendshipResponse>(
+            urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/user/friendship', {
+                sourceFid: session?.profileId,
+                destFid: profileId,
+            }),
+            {
+                method: 'GET',
+            },
+        );
+
+        return data;
     }
 }
 
