@@ -6,7 +6,7 @@ import { compact } from 'lodash-es';
 
 import { queryClient } from '@/configs/queryClient.js';
 import { SocialPlatform } from '@/constants/enum.js';
-import { hasRedPacketPayload } from '@/helpers/hasRedPacketPayload.js';
+import { hasRpPayload } from '@/helpers/hasPayload.js';
 import { postToFarcaster } from '@/services/postToFarcaster.js';
 import { postToLens } from '@/services/postToLens.js';
 import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
@@ -61,7 +61,7 @@ export async function crossPost(type: ComposeType, compositePost: CompositePost)
 
     const { lensPostId, farcasterPostId, typedMessage, rpPayload } = useComposeStateStore.getState().compositePost;
 
-    if (hasRedPacketPayload(typedMessage) && (lensPostId || farcasterPostId) && rpPayload?.publicKey) {
+    if (hasRpPayload(typedMessage) && (lensPostId || farcasterPostId) && rpPayload?.publicKey) {
         const rpPayloadFromMeta = typedMessage?.meta?.get(RedPacketMetaKey) as RedPacketJSONPayload;
 
         const reactions = compact([

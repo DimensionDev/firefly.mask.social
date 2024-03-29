@@ -32,7 +32,7 @@ import { SITE_HOSTNAME, SITE_URL } from '@/constants/index.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { fetchImageAsPNG } from '@/helpers/fetchImageAsPNG.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
-import { hasRedPacketPayload } from '@/helpers/hasRedPacketPayload.js';
+import { hasRpPayload } from '@/helpers/hasPayload.js';
 import { isEmptyPost } from '@/helpers/isEmptyPost.js';
 import { type Chars } from '@/helpers/readChars.js';
 import { throws } from '@/helpers/throws.js';
@@ -145,7 +145,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
 
         const { loading: encryptRedPacketLoading } = useAsync(async () => {
             if (!typedMessage) return;
-            if (!hasRedPacketPayload(typedMessage)) return;
+            if (!hasRpPayload(typedMessage)) return;
 
             try {
                 const encrypted = await encrypt(

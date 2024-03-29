@@ -4,7 +4,7 @@ import { uniqBy } from 'lodash-es';
 import { queryClient } from '@/configs/queryClient.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
-import { hasRedPacketPayload } from '@/helpers/hasRedPacketPayload.js';
+import { hasRpPayload } from '@/helpers/hasPayload.js';
 import { readChars } from '@/helpers/readChars.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { type Post } from '@/providers/types/SocialMedia.js';
@@ -45,7 +45,7 @@ export async function postToFarcaster(type: ComposeType, compositePost: Composit
             }),
         );
         try {
-            const hasRedPacket = hasRedPacketPayload(typedMessage);
+            const hasRedPacket = hasRpPayload(typedMessage);
             const draft: Post = {
                 type: 'Post',
                 postId: '',
