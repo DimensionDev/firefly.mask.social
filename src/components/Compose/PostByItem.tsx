@@ -30,7 +30,11 @@ export function PostByItem({ source }: PostByItemProps) {
     const currentProfiles = useCurrentProfiles(source);
     const currentProfile = useCurrentProfile(source);
     const updateLensCurrentProfile = useLensStateStore.use.updateCurrentProfile();
-    const { images, availableSources, enableSource, disableSource } = useComposeStateStore();
+    const {
+        computed: { images, availableSources },
+        enableSource,
+        disableSource,
+    } = useComposeStateStore();
 
     const [{ loading }, login] = useAsyncFn(
         async (profile: Profile) => {

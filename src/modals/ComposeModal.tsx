@@ -82,17 +82,15 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
         const profile = useCurrentProfile(currentSource);
         const {
             type,
-            chars,
-            typedMessage,
+            computed: { chars, typedMessage, redPacketPayload },
             addImage,
             updateType,
             updateAvailableSources,
             updatePost,
             updateChars,
             updateTypedMessage,
-            updateRedPacketPayload: updateRedPacketPayload,
+            updateRedPacketPayload,
             clear,
-            redPacketPayload,
         } = useComposeStateStore();
 
         const [editor] = useLexicalComposerContext();

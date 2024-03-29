@@ -39,7 +39,10 @@ export function ComposeAction(props: ComposeActionProps) {
     const lensProfiles = useLensStateStore.use.profiles();
     const farcasterProfiles = useFarcasterStateStore.use.profiles();
 
-    const { chars, type, post, images, video, availableSources } = useComposeStateStore();
+    const {
+        type,
+        computed: { chars, post, images, video, availableSources },
+    } = useComposeStateStore();
     const { length, visibleLength, invisibleLength } = useMemo(() => measureChars(chars), [chars]);
 
     const [editor] = useLexicalComposerContext();

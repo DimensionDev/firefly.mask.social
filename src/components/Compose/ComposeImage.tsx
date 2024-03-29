@@ -13,19 +13,22 @@ interface ComposeImageProps {
     image: MediaObject;
 }
 export const ComposeImage = memo(function ComposeImage({ index, image }: ComposeImageProps) {
-    const { images, removeImage } = useComposeStateStore();
+    const {
+        computed: { images },
+        removeImage,
+    } = useComposeStateStore();
     const blobURL = useMemo(() => URL.createObjectURL(image.file), [image.file]);
 
-    const len = images.length;
+    const length = images.length;
 
     return (
         <div
             className={classNames(
                 ' overflow-hidden rounded-2xl',
-                len <= 2 ? ' h-72' : len === 3 && index === 2 ? ' h-72' : ' h-[138px]',
-                len === 1 ? ' col-span-2' : '',
-                len === 3 && index === 1 ? ' col-start-1' : '',
-                len === 3 && index === 2 ? ' absolute right-3 top-3 w-[251px]' : ' relative',
+                length <= 2 ? ' h-72' : length === 3 && index === 2 ? ' h-72' : ' h-[138px]',
+                length === 1 ? ' col-span-2' : '',
+                length === 3 && index === 1 ? ' col-start-1' : '',
+                length === 3 && index === 2 ? ' absolute right-3 top-3 w-[251px]' : ' relative',
             )}
         >
             <Image src={blobURL} alt={image.file.name} fill className=" object-cover" />

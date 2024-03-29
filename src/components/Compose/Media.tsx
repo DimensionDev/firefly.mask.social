@@ -18,7 +18,11 @@ export function Media({ close }: MediaProps) {
     const videoInputRef = useRef<HTMLInputElement>(null);
 
     const currentFarcasterProfile = useFarcasterStateStore.use.currentProfile();
-    const { video, updateVideo, images, updateImages, availableSources } = useComposeStateStore();
+    const {
+        computed: { availableSources, video, images },
+        updateVideo,
+        updateImages,
+    } = useComposeStateStore();
 
     const maxImageCount = currentFarcasterProfile && availableSources.includes(SocialPlatform.Farcaster) ? 2 : 4;
 

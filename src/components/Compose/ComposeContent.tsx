@@ -13,7 +13,10 @@ import { useComposeStateStore } from '@/store/useComposeStore.js';
 interface ComposeContentProps {}
 
 export function ComposeContent(props: ComposeContentProps) {
-    const { type, post, images, video, frames, openGraphs } = useComposeStateStore();
+    const {
+        type,
+        computed: { post, images, video, frames, openGraphs },
+    } = useComposeStateStore();
 
     return (
         <div className="p-4">

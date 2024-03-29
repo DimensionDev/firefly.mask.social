@@ -26,12 +26,7 @@ function ErrorBoundaryComponent() {
 export const Editor = memo(function Editor() {
     const {
         type,
-        post,
-        video,
-        images,
-        frames,
-        openGraphs,
-        chars,
+        computed: { post, video, images, frames, openGraphs, chars },
         updateChars,
         loadFramesFromChars,
         loadOpenGraphsFromChars,

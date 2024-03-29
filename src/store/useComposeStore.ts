@@ -44,12 +44,11 @@ interface ComposePostState {
     redPacketPayload: RedPacketPayload | null;
 }
 
-interface ComposeState extends Omit<ComposePostState, 'id'> {
+interface ComposeState {
     type: 'compose' | 'quote' | 'reply';
     cursor: Cursor;
     posts: ComposePostState[];
-
-    // computers
+    computed: Omit<ComposePostState, 'id'>;
 
     // operations
     updateCursor: (cursor: Cursor) => void;
@@ -107,42 +106,45 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
         cursor: 0,
         posts: [createInitSinglePostState(0)],
 
-        get availableSources() {
-            return pick(get(), (x) => x.availableSources);
+        computed: {
+            get availableSources() {
+                return pick(get(), (x) => x.availableSources);
+            },
+            get restriction() {
+                return pick(get(), (x) => x.restriction);
+            },
+            get post() {
+                return pick(get(), (x) => x.post);
+            },
+            get chars() {
+                return pick(get(), (x) => x.chars);
+            },
+            get typedMessage() {
+                return pick(get(), (x) => x.typedMessage);
+            },
+            get images() {
+                return pick(get(), (x) => x.images);
+            },
+            get frames() {
+                return pick(get(), (x) => x.frames);
+            },
+            get openGraphs() {
+                return pick(get(), (x) => x.openGraphs);
+            },
+            get video() {
+                return pick(get(), (x) => x.video);
+            },
+            get redPacketPayload() {
+                return pick(get(), (x) => x.redPacketPayload);
+            },
+            get lensPostId() {
+                return pick(get(), (x) => x.lensPostId);
+            },
+            get farcasterPostId() {
+                return pick(get(), (x) => x.farcasterPostId);
+            },
         },
-        get restriction() {
-            return pick(get(), (x) => x.restriction);
-        },
-        get post() {
-            return pick(get(), (x) => x.post);
-        },
-        get chars() {
-            return pick(get(), (x) => x.chars);
-        },
-        get typedMessage() {
-            return pick(get(), (x) => x.typedMessage);
-        },
-        get images() {
-            return pick(get(), (x) => x.images);
-        },
-        get frames() {
-            return pick(get(), (x) => x.frames);
-        },
-        get openGraphs() {
-            return pick(get(), (x) => x.openGraphs);
-        },
-        get video() {
-            return pick(get(), (x) => x.video);
-        },
-        get redPacketPayload() {
-            return pick(get(), (x) => x.redPacketPayload);
-        },
-        get lensPostId() {
-            return pick(get(), (x) => x.lensPostId);
-        },
-        get farcasterPostId() {
-            return pick(get(), (x) => x.farcasterPostId);
-        },
+
         updateCursor: (cursor) =>
             set((state) => {
                 state.cursor = cursor;

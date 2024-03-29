@@ -30,7 +30,10 @@ import { useFarcasterStateStore, useLensStateStore } from '@/store/useProfileSto
 interface ComposeSendProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export function ComposeSend(props: ComposeSendProps) {
-    const { chars, images, type, video, availableSources } = useComposeStateStore();
+    const {
+        type,
+        computed: { chars, images, video, availableSources },
+    } = useComposeStateStore();
 
     const { length, visibleLength, invisibleLength } = measureChars(chars);
 
@@ -84,7 +87,8 @@ export function ComposeSend(props: ComposeSendProps) {
         }
 
         try {
-            const { lensPostId, farcasterPostId, typedMessage, redPacketPayload } = useComposeStateStore.getState();
+            const { lensPostId, farcasterPostId, typedMessage, redPacketPayload } =
+                useComposeStateStore.getState().computed;
 
             if (hasRedPacketPayload(typedMessage) && (lensPostId || farcasterPostId) && redPacketPayload?.publicKey) {
                 const rpPayload = typedMessage?.meta?.get(RedPacketMetaKey) as RedPacketJSONPayload;

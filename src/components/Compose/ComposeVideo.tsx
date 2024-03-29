@@ -6,7 +6,10 @@ import { Tippy } from '@/esm/Tippy.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 
 export function ComposeVideo() {
-    const { video, updateVideo } = useComposeStateStore();
+    const {
+        computed: { video },
+        updateVideo,
+    } = useComposeStateStore();
     const blobURL = useMemo(() => (video?.file ? URL.createObjectURL(video.file) : ''), [video?.file]);
 
     if (!video) return null;
