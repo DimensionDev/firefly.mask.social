@@ -13,7 +13,7 @@ import { MentionsPlugin } from '@/components/Lexical/plugins/AtMentionsPlugin.js
 import { LexicalAutoLinkPlugin } from '@/components/Lexical/plugins/AutoLinkPlugin.js';
 import { classNames } from '@/helpers/classNames.js';
 import { writeChars } from '@/helpers/readChars.js';
-import { useComposeStateStore } from '@/store/useComposeStore.js';
+import { type CompositPost, useComposeStateStore } from '@/store/useComposeStore.js';
 
 function ErrorBoundaryComponent() {
     return (
@@ -23,14 +23,14 @@ function ErrorBoundaryComponent() {
     );
 }
 
-export const Editor = memo(function Editor() {
-    const {
-        type,
-        computed: { post, video, images, frames, openGraphs, chars },
-        updateChars,
-        loadFramesFromChars,
-        loadOpenGraphsFromChars,
-    } = useComposeStateStore();
+interface EditorProps {
+    post?: CompositPost;
+}
+
+export const Editor = memo(function Editor(props: EditorProps) {
+    const { type, computed, updateChars, loadFramesFromChars, loadOpenGraphsFromChars } = useComposeStateStore();
+
+    const { post, video, images, frames, openGraphs, chars } = props.post ?? computed;
 
     const hasMediaObject = images.length > 0 || !!video || frames.length || openGraphs.length;
 

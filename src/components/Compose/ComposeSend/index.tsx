@@ -33,6 +33,7 @@ export function ComposeSend(props: ComposeSendProps) {
     const {
         type,
         computed: { chars, images, video, availableSources },
+        newPost,
     } = useComposeStateStore();
 
     const { length, visibleLength, invisibleLength } = measureChars(chars);
@@ -179,7 +180,7 @@ export function ComposeSend(props: ComposeSendProps) {
             ) : null}
 
             {visibleLength ? (
-                <ClickableButton className=" text-main">
+                <ClickableButton className=" text-main" onClick={newPost}>
                     <Tooltip content={t`Add`} placement="top">
                         <PlusCircleIcon width={28} height={28} />
                     </Tooltip>

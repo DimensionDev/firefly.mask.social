@@ -51,6 +51,8 @@ interface ComposeState {
     computed: Omit<CompositPost, 'id'>;
 
     // operations
+    newPost: () => void;
+    removePost: (cursor: Cursor) => void;
     updateCursor: (cursor: Cursor) => void;
     enableSource: (source: SocialPlatform) => void;
     disableSource: (source: SocialPlatform) => void;
@@ -145,6 +147,25 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
             },
         },
 
+        newPost: () =>
+            set((state) => {
+                const length = state.posts.length;
+                return {
+                    ...state,
+                    posts: [...state.posts, createInitSinglePostState(length)],
+                    // focus the new added post
+                    cursor: length,
+                };
+            }),
+        removePost: (cursor) =>
+            set((state) => {
+                const length = state.posts.length;
+                return {
+                    ...state,
+                    posts: state.posts.filter((x) => x.id !== cursor),
+                    cursor: Math.max(0, length - 1),
+                };
+            }),
         updateCursor: (cursor) =>
             set((state) => {
                 state.cursor = cursor;

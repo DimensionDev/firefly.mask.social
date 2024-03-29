@@ -30,7 +30,7 @@ export function ComposeContent(props: ComposeContentProps) {
                     </div>
                 ) : null}
 
-                <Editor />
+                <Editor post={props.post} />
 
                 {/* image */}
                 {images.length > 0 && (

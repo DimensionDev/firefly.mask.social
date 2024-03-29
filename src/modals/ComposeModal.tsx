@@ -81,6 +81,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
         const currentFarcasterProfile = useFarcasterStateStore.use.currentProfile();
 
         const profile = useCurrentProfile(currentSource);
+
         const {
             type,
             posts,
@@ -228,7 +229,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
                         {isMedium ? null : <ComposeSend />}
                     </Dialog.Title>
 
-                    {posts.length === 1 ? <ComposeContent /> : <ComposeThreadContent />}
+                    <div className=" p-4">{posts.length === 1 ? <ComposeContent /> : <ComposeThreadContent />}</div>
                     <ComposeAction />
 
                     {isMedium ? <ComposeSend /> : null}
