@@ -150,6 +150,12 @@ describe('URL_REGEX', () => {
                 thank u @wilsoncusack`,
                 'http://github.com/coinbase/smart-wallet',
             ],
+            [
+                `This is a post made with firefly.mask.social/, which posts to farcaster and lens at the same time.
+
+                Alternative clients are important, we should support them!`,
+                'firefly.mask.social/',
+            ],
         ];
 
         cases.forEach(([input, expectedOutput]) => {
