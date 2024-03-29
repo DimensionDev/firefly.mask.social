@@ -145,7 +145,7 @@ export function ComposeSend(props: ComposeSendProps) {
         if ((!length || length > MAX_POST_SIZE) && !images.length && !video) return true;
         if (!availableSources.length) return true;
         return false;
-    }, [length, images, video, availableSources, loading]);
+    }, [length, images.length, video, availableSources.length, loading]);
 
     if (!isMedium) {
         return (
