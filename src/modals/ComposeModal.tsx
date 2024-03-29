@@ -45,6 +45,7 @@ import { steganographyEncodeImage } from '@/services/steganography.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useFarcasterStateStore, useLensStateStore } from '@/store/useProfileStore.js';
+import type { ComposeType } from '@/types/compose.js';
 
 const initialConfig = {
     namespace: 'composer',
@@ -59,7 +60,7 @@ const initialConfig = {
 };
 
 export interface ComposeModalProps {
-    type?: 'compose' | 'quote' | 'reply';
+    type?: ComposeType;
     chars?: Chars;
     source?: SocialPlatform;
     post?: Post | null;

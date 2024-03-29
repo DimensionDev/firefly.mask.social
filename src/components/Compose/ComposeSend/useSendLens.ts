@@ -8,22 +8,18 @@ import { commentPostForLens, publishPostForLens, quotePostForLens } from '@/serv
 import { uploadFileToIPFS } from '@/services/uploadToIPFS.js';
 import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
 import { useLensStateStore } from '@/store/useProfileStore.js';
+import type { ComposeType } from '@/types/compose.js';
 import type { MediaObject } from '@/types/index.js';
 
-export function useSendLens(compositePost: CompositePost) {
-    const currentProfile = useLensStateStore.use.currentProfile();
-    const {
-        type,
-
-        updateImages,
-        updateVideo,
-        updateLensPostId,
-    } = useComposeStateStore();
-
-    const { post, chars, images, video, lensPostId } = compositePost;
-
+export function useSendLens(type: ComposeType, compositePost: CompositePost) {
     return useCallback(async () => {
+        const { chars, images, lensPostId, post, video } = compositePost;
+
+        const { currentProfile } = useLensStateStore.getState();
         if (!currentProfile?.profileId || lensPostId) return;
+
+        const { updateImages, updateVideo, updateLensPostId } = useComposeStateStore.getState();
+
         const uploadedImages = await Promise.all(
             images.map(async (media) => {
                 try {
@@ -118,16 +114,5 @@ export function useSendLens(compositePost: CompositePost) {
                 throw error;
             }
         }
-    }, [
-        chars,
-        currentProfile?.profileId,
-        images,
-        lensPostId,
-        post,
-        type,
-        updateImages,
-        updateLensPostId,
-        updateVideo,
-        video,
-    ]);
+    }, [type, compositePost]);
 }

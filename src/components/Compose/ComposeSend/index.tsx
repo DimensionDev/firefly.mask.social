@@ -44,8 +44,9 @@ export function ComposeSend(props: ComposeSendProps) {
     const isMedium = useIsMedium();
     const queryClient = useQueryClient();
 
-    const sendLens = useSendLens(props.post);
-    const sendFarcaster = useSendFarcaster(props.post);
+    const sendLens = useSendLens(type, props.post);
+    const sendFarcaster = useSendFarcaster(type, props.post);
+
     const currentLensProfile = useLensStateStore.use.currentProfile();
     const currentFarcasterProfile = useFarcasterStateStore.use.currentProfile();
 
@@ -139,12 +140,12 @@ export function ComposeSend(props: ComposeSendProps) {
             ComposeModalRef.close();
         }
     }, [
-        availableSources,
         type,
-        sendLens,
-        sendFarcaster,
+        availableSources,
         currentFarcasterProfile,
         currentLensProfile,
+        sendLens,
+        sendFarcaster,
         refreshProfileFeed,
     ]);
 

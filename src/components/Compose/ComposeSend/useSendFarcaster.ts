@@ -12,21 +12,18 @@ import { type Post } from '@/providers/types/SocialMedia.js';
 import { uploadToImgur } from '@/services/uploadToImgur.js';
 import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
 import { useFarcasterStateStore } from '@/store/useProfileStore.js';
+import type { ComposeType } from '@/types/compose.js';
 import type { MediaObject } from '@/types/index.js';
 
-export function useSendFarcaster(compositePost: CompositePost) {
-    const {
-        type,
-
-        updateImages,
-        updateFarcasterPostId,
-    } = useComposeStateStore();
-    const currentProfile = useFarcasterStateStore.use.currentProfile();
-
-    const { chars, post, images, frames, openGraphs, typedMessage, farcasterPostId } = compositePost;
-
+export function useSendFarcaster(type: ComposeType, compositePost: CompositePost) {
     return useCallback(async () => {
+        const { chars, post, images, frames, openGraphs, typedMessage, farcasterPostId } = compositePost;
+
+        const { currentProfile } = useFarcasterStateStore.getState();
         if (!currentProfile?.profileId || farcasterPostId) return;
+
+        const { updateImages, updateFarcasterPostId } = useComposeStateStore.getState();
+
         if (type === 'compose' || type === 'reply') {
             const uploadedImages = await Promise.all(
                 images.map(async (media) => {
@@ -82,9 +79,7 @@ export function useSendFarcaster(compositePost: CompositePost) {
                         queryKey: ['post-detail', 'comments', post.source, post.postId],
                     });
                 }
-                if (type === 'compose') {
-                    updateFarcasterPostId(published.postId);
-                }
+                if (type === 'compose') updateFarcasterPostId(published.postId);
             } catch (error) {
                 enqueueErrorMessage(
                     type === 'compose' ? t`Failed to post on Farcaster.` : t`Failed to reply post on Farcaster.`,
@@ -100,17 +95,5 @@ export function useSendFarcaster(compositePost: CompositePost) {
                 throw error;
             }
         }
-    }, [
-        typedMessage,
-        currentProfile,
-        farcasterPostId,
-        type,
-        post,
-        chars,
-        images,
-        frames,
-        openGraphs,
-        updateImages,
-        updateFarcasterPostId,
-    ]);
+    }, [type, compositePost]);
 }

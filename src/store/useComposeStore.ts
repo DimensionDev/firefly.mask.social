@@ -12,7 +12,7 @@ import { type Chars, readChars } from '@/helpers/readChars.js';
 import { FrameLoader } from '@/libs/frame/Loader.js';
 import { OpenGraphLoader } from '@/libs/og/Loader.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
-import { RestrictionType } from '@/types/compose.js';
+import { type ComposeType, RestrictionType } from '@/types/compose.js';
 import type { Frame } from '@/types/frame.js';
 import type { MediaObject } from '@/types/index.js';
 import type { OpenGraph } from '@/types/og.js';
@@ -46,7 +46,7 @@ export interface CompositePost {
 }
 
 interface ComposeState {
-    type: 'compose' | 'quote' | 'reply';
+    type: ComposeType;
     cursor: Cursor;
     posts: CompositePost[];
 
@@ -67,7 +67,7 @@ interface ComposeState {
     disableSource: (source: SocialPlatform) => void;
     updateRestriction: (restriction: RestrictionType) => void;
     updateAvailableSources: (sources: SocialPlatform[]) => void;
-    updateType: (type: 'compose' | 'quote' | 'reply') => void;
+    updateType: (type: ComposeType) => void;
     updateChars: Dispatch<SetStateAction<Chars>>;
     updateTypedMessage: (typedMessage: TypedMessageTextV1 | null) => void;
     updatePost: (post: OrphanPost | null) => void;
@@ -208,7 +208,7 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
             set((state) => {
                 state.cursor = cursor;
             }),
-        updateType: (type: 'compose' | 'quote' | 'reply') =>
+        updateType: (type: ComposeType) =>
             set((state) => {
                 state.type = type;
             }),
