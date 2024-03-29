@@ -36,7 +36,6 @@ interface ComposeState {
     frames: Frame[];
     // parsed open graphs from url in chars
     openGraphs: OpenGraph[];
-    loading: boolean;
     redPacketPayload: RedPacketPayload | null;
     enableSource: (source: SocialPlatform) => void;
     disableSource: (source: SocialPlatform) => void;
@@ -45,7 +44,6 @@ interface ComposeState {
     updateCurrentSource: (source: SocialPlatform | null) => void;
     updateChars: Dispatch<SetStateAction<Chars>>;
     updateTypedMessage: (typedMessage: TypedMessageTextV1 | null) => void;
-    updateLoading: (loading: boolean) => void;
     updatePost: (post: OrphanPost | null) => void;
     updateVideo: (video: MediaObject | null) => void;
     updateImages: Dispatch<SetStateAction<MediaObject[]>>;
@@ -103,10 +101,6 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
                     ...state,
                     typedMessage,
                 };
-            }),
-        updateLoading: (loading) =>
-            set((state) => {
-                state.loading = loading;
             }),
         updateImages: (images) =>
             set((state) => {
