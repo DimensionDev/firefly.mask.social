@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
 import { RedPacketMetaKey } from '@masknet/plugin-redpacket';
 import { FireflyRedPacket } from '@masknet/web3-providers';
@@ -24,6 +24,8 @@ import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { ComposeModalRef } from '@/modals/controls.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 import { useFarcasterStateStore, useLensStateStore } from '@/store/useProfileStore.js';
+import { PlusCircleIcon } from '@heroicons/react/24/outline';
+import { Tooltip } from '@/components/Tooltip.js';
 
 interface ComposeSendProps extends React.HTMLAttributes<HTMLDivElement> {}
 
@@ -210,6 +212,14 @@ export function ComposeSend(props: ComposeSendProps) {
                         {visibleLength} / {MAX_POST_SIZE - invisibleLength}
                     </span>
                 </div>
+            ) : null}
+
+            {visibleLength ? (
+                <ClickableButton className=" text-main">
+                    <Tooltip content={t`Add`} placement="top">
+                        <PlusCircleIcon width={28} height={28} />
+                    </Tooltip>
+                </ClickableButton>
             ) : null}
 
             <ClickableButton
