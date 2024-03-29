@@ -6,19 +6,21 @@ import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMes
 import { readChars } from '@/helpers/readChars.js';
 import { commentPostForLens, publishPostForLens, quotePostForLens } from '@/services/postForLens.js';
 import { uploadFileToIPFS } from '@/services/uploadToIPFS.js';
-import { useComposeStateStore } from '@/store/useComposeStore.js';
+import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
 import { useLensStateStore } from '@/store/useProfileStore.js';
 import type { MediaObject } from '@/types/index.js';
 
-export function useSendLens() {
+export function useSendLens(compositePost: CompositePost) {
     const currentProfile = useLensStateStore.use.currentProfile();
     const {
         type,
-        compositePost: { post, chars, images, video, lensPostId },
+
         updateImages,
         updateVideo,
         updateLensPostId,
     } = useComposeStateStore();
+
+    const { post, chars, images, video, lensPostId } = compositePost;
 
     return useCallback(async () => {
         if (!currentProfile?.profileId || lensPostId) return;

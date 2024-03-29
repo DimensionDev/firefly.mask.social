@@ -10,18 +10,20 @@ import { readChars } from '@/helpers/readChars.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { type Post } from '@/providers/types/SocialMedia.js';
 import { uploadToImgur } from '@/services/uploadToImgur.js';
-import { useComposeStateStore } from '@/store/useComposeStore.js';
+import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
 import { useFarcasterStateStore } from '@/store/useProfileStore.js';
 import type { MediaObject } from '@/types/index.js';
 
-export function useSendFarcaster() {
+export function useSendFarcaster(compositePost: CompositePost) {
     const {
         type,
-        compositePost: { chars, post, images, frames, openGraphs, typedMessage, farcasterPostId },
+
         updateImages,
         updateFarcasterPostId,
     } = useComposeStateStore();
     const currentProfile = useFarcasterStateStore.use.currentProfile();
+
+    const { chars, post, images, frames, openGraphs, typedMessage, farcasterPostId } = compositePost;
 
     return useCallback(async () => {
         if (!currentProfile?.profileId || farcasterPostId) return;

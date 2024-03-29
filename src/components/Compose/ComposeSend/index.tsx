@@ -44,8 +44,8 @@ export function ComposeSend(props: ComposeSendProps) {
     const isMedium = useIsMedium();
     const queryClient = useQueryClient();
 
-    const sendLens = useSendLens();
-    const sendFarcaster = useSendFarcaster();
+    const sendLens = useSendLens(props.post);
+    const sendFarcaster = useSendFarcaster(props.post);
     const currentLensProfile = useLensStateStore.use.currentProfile();
     const currentFarcasterProfile = useFarcasterStateStore.use.currentProfile();
 
