@@ -1,5 +1,5 @@
 import { Popover } from '@headlessui/react';
-import { BugAntIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
+import { BugAntIcon, ChevronRightIcon, PlusCircleIcon } from '@heroicons/react/24/outline';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext.js';
 import { t, Trans } from '@lingui/macro';
 import { delay } from '@masknet/kit';
@@ -12,16 +12,18 @@ import AtIcon from '@/assets/at.svg';
 import GalleryIcon from '@/assets/gallery.svg';
 import NumberSignIcon from '@/assets/number-sign.svg';
 import RedPacketIcon from '@/assets/red-packet.svg';
+import { ClickableButton } from '@/components/ClickableButton.js';
 import { Media } from '@/components/Compose/Media.js';
 import { PostBy } from '@/components/Compose/PostBy.js';
 import { ReplyRestriction } from '@/components/Compose/ReplyRestriction.js';
 import { SourceIcon } from '@/components/SourceIcon.js';
 import { Tooltip } from '@/components/Tooltip.js';
-import { MAX_POST_SIZE } from '@/constants/index.js';
+import { MAX_POST_SIZE, MAX_THREAD_SIZE } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { connectMaskWithWagmi } from '@/helpers/connectWagmiWithMask.js';
 import { measureChars } from '@/helpers/readChars.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
+import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';
 import { PluginDebuggerMessages } from '@/mask/message-host/index.js';
 import { ComposeModalRef } from '@/modals/controls.js';
 import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
@@ -41,13 +43,14 @@ export function ComposeAction(props: ComposeActionProps) {
     const lensProfiles = useLensStateStore.use.profiles();
     const farcasterProfiles = useFarcasterStateStore.use.profiles();
 
-    const { type } = useComposeStateStore();
+    const { type, posts, newPost } = useComposeStateStore();
 
     const { chars, post, images, video, availableSources } = props.post;
 
     const { length, visibleLength, invisibleLength } = useMemo(() => measureChars(chars), [chars]);
 
     const [editor] = useLexicalComposerContext();
+    const setEditorContent = useSetEditorContent();
 
     const insertText = useCallback(
         (text: string) => {
@@ -179,6 +182,19 @@ export function ComposeAction(props: ComposeActionProps) {
                             {visibleLength} / {MAX_POST_SIZE - invisibleLength}
                         </span>
                     </div>
+                ) : null}
+
+                {visibleLength ? (
+                    <ClickableButton
+                        className=" text-main disabled:opacity-50"
+                        disabled={posts.length >= MAX_THREAD_SIZE}
+                        onClick={() => {
+                            newPost();
+                            setEditorContent('');
+                        }}
+                    >
+                        <PlusCircleIcon width={28} height={28} />
+                    </ClickableButton>
                 ) : null}
             </div>
 
