@@ -33,7 +33,8 @@ import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { fetchImageAsPNG } from '@/helpers/fetchImageAsPNG.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { hasRedPacketPayload } from '@/helpers/hasRedPacketPayload.js';
-import { type Chars, readChars } from '@/helpers/readChars.js';
+import { isEmptyPost } from '@/helpers/isEmptyPost.js';
+import { type Chars } from '@/helpers/readChars.js';
 import { throws } from '@/helpers/throws.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
@@ -125,7 +126,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
         });
 
         const onClose = useCallback(async () => {
-            if (readChars(chars, true).length) {
+            if (posts.some((x) => !isEmptyPost(x))) {
                 const confirmed = await ConfirmModalRef.openAndWaitForClose({
                     title: t`Discard`,
                     content: (
@@ -139,7 +140,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
             } else {
                 dispatch?.close();
             }
-        }, [chars, dispatch]);
+        }, [posts, dispatch]);
 
         const { loading: encryptRedPacketLoading } = useAsync(async () => {
             if (!typedMessage) return;
