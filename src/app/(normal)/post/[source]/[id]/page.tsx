@@ -13,7 +13,7 @@ import { CommentList } from '@/components/Comments/index.js';
 import { SinglePost } from '@/components/Posts/SinglePost.js';
 import { ThreadBody } from '@/components/Posts/ThreadBody.js';
 import { SocialPlatform, SourceInURL } from '@/constants/enum.js';
-import { EMPTY_LIST, MIN_THREAD_SIZE, SITE_NAME } from '@/constants/index.js';
+import { EMPTY_LIST, MIN_POST_SIZE_PER_THREAD, SITE_NAME } from '@/constants/index.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { createPageTitle } from '@/helpers/createPageTitle.js';
 import { resolveSocialPlatform } from '@/helpers/resolveSocialPlatform.js';
@@ -60,7 +60,7 @@ export default function Page({ params: { id: postId, source } }: PageProps) {
             if (!root?.stats?.comments) return EMPTY_LIST;
             switch (currentSource) {
                 case SocialPlatform.Lens:
-                    return LensSocialMediaProvider.getThreadsById(root.postId);
+                    return LensSocialMediaProvider.getThreadsByPostId(root.postId);
                 case SocialPlatform.Farcaster:
                     return EMPTY_LIST;
                 default:
@@ -71,7 +71,7 @@ export default function Page({ params: { id: postId, source } }: PageProps) {
     });
 
     const threads = useMemo(
-        () => (showMore ? threadsData : threadsData.slice(0, MIN_THREAD_SIZE)),
+        () => (showMore ? threadsData : threadsData.slice(0, MIN_POST_SIZE_PER_THREAD)),
         [showMore, threadsData],
     );
 
@@ -89,7 +89,7 @@ export default function Page({ params: { id: postId, source } }: PageProps) {
                 </h2>
             </div>
             <div>
-                {threads.length >= MIN_THREAD_SIZE ? (
+                {threads.length >= MIN_POST_SIZE_PER_THREAD ? (
                     <>
                         <div className="border-b border-line px-4 py-3">
                             {threads.map((post, index) => (
@@ -100,7 +100,7 @@ export default function Page({ params: { id: postId, source } }: PageProps) {
                                     isLast={index === threads.length - 1}
                                 />
                             ))}
-                            {threads.length === MIN_THREAD_SIZE && !showMore ? (
+                            {threads.length === MIN_POST_SIZE_PER_THREAD && !showMore ? (
                                 <div className="w-full cursor-pointer text-center text-[15px] font-bold text-link">
                                     <div onClick={() => setShowMore(true)}>
                                         <Trans>Show More</Trans>

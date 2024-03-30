@@ -4,7 +4,7 @@ import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
 import { getLensThreadsById } from '@/services/getLensThreadsById.js';
 
 const getThreadsById = memoizeWithRedis(getLensThreadsById, {
-    key: KeyType.GetLensThreadByID,
+    key: KeyType.GetLensThreadByPostId,
     resolver: (postId) => postId,
 });
 

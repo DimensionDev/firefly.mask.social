@@ -910,13 +910,13 @@ export class LensSocialMedia implements Provider {
         );
     }
 
-    async getThreadsById(id: string) {
-        const response = await fetchJSON<ResponseJSON<string[]>>(urlcat('/api/threads', { id }));
+    async getThreadsByPostId(postId: string) {
+        const response = await fetchJSON<ResponseJSON<string[]>>(urlcat('/api/threads', { id: postId }));
         if (!response.success) return EMPTY_LIST;
         const posts = await this.client.publication.fetchAll({
             limit: LimitType.TwentyFive,
             where: {
-                publicationIds: [id, ...response.data],
+                publicationIds: [postId, ...response.data],
             },
         });
 
