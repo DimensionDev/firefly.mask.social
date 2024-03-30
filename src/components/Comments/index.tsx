@@ -18,9 +18,10 @@ import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 export interface CommentListProps {
     postId: string;
     source: SocialPlatform;
+    exclude?: string[];
 }
 
-export const CommentList = memo<CommentListProps>(function CommentList({ postId, source }) {
+export const CommentList = memo<CommentListProps>(function CommentList({ postId, source, exclude = [] }) {
     const fetchAndStoreViews = useImpressionsStore.use.fetchAndStoreViews();
 
     const { data, hasNextPage, fetchNextPage, isFetchingNextPage, isFetching } = useSuspenseInfiniteQuery({
@@ -57,7 +58,10 @@ export const CommentList = memo<CommentListProps>(function CommentList({ postId,
         },
     });
 
-    const results = useMemo(() => data.pages.flatMap((x) => x.data), [data]);
+    const results = useMemo(
+        () => data.pages.flatMap((x) => x.data).filter((x) => !exclude.includes(x.postId)),
+        [data, exclude],
+    );
 
     return (
         <div>
