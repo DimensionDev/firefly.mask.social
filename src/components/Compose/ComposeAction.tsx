@@ -45,7 +45,7 @@ export function ComposeAction(props: ComposeActionProps) {
 
     const { type, posts, addPostInThread } = useComposeStateStore();
 
-    const { chars, parentPost, images, video, availableSources } = props.post;
+    const { id, chars, parentPost, images, video, availableSources } = props.post;
 
     const { length, visibleLength, invisibleLength } = useMemo(() => measureChars(chars), [chars]);
 
@@ -205,7 +205,10 @@ export function ComposeAction(props: ComposeActionProps) {
                 <Popover as="div" className="relative">
                     {(_) => (
                         <>
-                            <Popover.Button className=" flex cursor-pointer gap-1 text-main focus:outline-none">
+                            <Popover.Button
+                                className=" flex cursor-pointer gap-1 text-main focus:outline-none disabled:cursor-none disabled:opacity-50"
+                                disabled={posts.findIndex((x) => x.id === id) !== 0}
+                            >
                                 <span className="flex items-center gap-x-1 font-bold">
                                     {availableSources.map((x) => (
                                         <SourceIcon key={x} source={x} size={20} />
@@ -228,7 +231,10 @@ export function ComposeAction(props: ComposeActionProps) {
                 <Popover as="div" className="relative">
                     {(_) => (
                         <>
-                            <Popover.Button className=" flex cursor-pointer gap-1 text-main focus:outline-none">
+                            <Popover.Button
+                                className=" flex cursor-pointer gap-1 text-main focus:outline-none disabled:cursor-none disabled:opacity-50"
+                                disabled={posts.findIndex((x) => x.id === id) !== 0}
+                            >
                                 <span className=" text-[15px] font-bold">
                                     {restriction === RestrictionType.Everyone ? (
                                         <Trans>Everyone</Trans>
