@@ -1,4 +1,3 @@
-import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext.js';
 import { Trans } from '@lingui/macro';
 
 import { ComposeImage } from '@/components/Compose/ComposeImage.js';
@@ -20,10 +19,8 @@ export function ComposeContent(props: ComposeContentProps) {
 
     const { id, post, images, video, frames, openGraphs } = props.post;
 
-    const [editor] = useLexicalComposerContext();
-
     return (
-        <div className="flex min-h-full flex-col" onClick={() => editor.focus()}>
+        <div className="flex flex-1 flex-col">
             {type === 'reply' && post ? (
                 <div className=" mb-3 text-left text-[15px] text-fourMain">
                     <Trans>

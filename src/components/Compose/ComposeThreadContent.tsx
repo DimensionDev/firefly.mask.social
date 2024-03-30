@@ -28,10 +28,11 @@ export function ComposeThreadContent(props: ComposeThreadContentProps) {
             {posts.map((x, i) => (
                 <div
                     key={x.id}
-                    className={classNames(' relative my-3 flex gap-2', {
-                        'opacity-50': cursor !== x.id,
-                        'min-h-[100px]': cursor === x.id,
-                    })}
+                    className={classNames(
+                        ' ease relative my-3 flex gap-2 transition-opacity',
+                        cursor === x.id ? 'min-h-[100px]' : 'min-h-0',
+                        cursor !== x.id ? 'opacity-50' : 'opacity-100',
+                    )}
                     onClick={() => {
                         updateCursor(x.id);
                         setEditorContent(readChars(x.chars, true));
