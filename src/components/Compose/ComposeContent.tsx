@@ -1,4 +1,3 @@
-import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext.js';
 import { Trans } from '@lingui/macro';
 
 import { ComposeImage } from '@/components/Compose/ComposeImage.js';
