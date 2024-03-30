@@ -1,0 +1,13 @@
+diff --git a/LexicalAutoLinkPlugin.dev.js b/LexicalAutoLinkPlugin.dev.js
+index a2912b11d8760919f45bd8581fc77d25de42e2d2..3497a986c7b12732277f19370fe21de56e7e965b 100644
+--- a/LexicalAutoLinkPlugin.dev.js
++++ b/LexicalAutoLinkPlugin.dev.js
+@@ -40,7 +40,7 @@ function findFirstMatch(text, matchers) {
+   }
+   return null;
+ }
+-const PUNCTUATION_OR_SPACE = /[.,;\s]/;
++const PUNCTUATION_OR_SPACE = /[,;\s]/;
+ function isSeparator(char) {
+   return PUNCTUATION_OR_SPACE.test(char);
+ }
