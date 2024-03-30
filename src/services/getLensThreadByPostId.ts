@@ -3,7 +3,7 @@ import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
-export async function getLensThreadsById(
+export async function getLensThreadByPostId(
     postId: string,
     post?: Post,
     maxDepth = MAX_POST_SIZE_PER_THREAD,
@@ -19,7 +19,7 @@ export async function getLensThreadsById(
 
     if (target) {
         result.push(target.postId);
-        return result.concat(await getLensThreadsById(target.postId, target, maxDepth - 1));
+        return result.concat(await getLensThreadByPostId(target.postId, target, maxDepth - 1));
     }
 
     return result;

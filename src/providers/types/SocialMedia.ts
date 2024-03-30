@@ -515,5 +515,5 @@ export interface Provider {
      * Retrieves posts associated with a thread using the root post id.
      * @param postId
      */
-    getThreadsByPostId: (postId: string) => Promise<Post[]>;
+    getThreadByPostId: (postId: string) => Promise<Post[]>;
 }

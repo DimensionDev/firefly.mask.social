@@ -53,14 +53,14 @@ export default function Page({ params: { id: postId, source } }: PageProps) {
         },
     });
 
-    const { data: threadsData = EMPTY_LIST } = useSuspenseQuery({
+    const { data: threadData = EMPTY_LIST } = useSuspenseQuery({
         queryKey: [currentSource, 'thread-detail', post?.postId, post?.root?.postId],
         queryFn: async () => {
             const root = post?.root ? post.root : post;
             if (!root?.stats?.comments) return EMPTY_LIST;
             switch (currentSource) {
                 case SocialPlatform.Lens:
-                    return LensSocialMediaProvider.getThreadsByPostId(root.postId);
+                    return LensSocialMediaProvider.getThreadByPostId(root.postId);
                 case SocialPlatform.Farcaster:
                     return EMPTY_LIST;
                 default:
@@ -70,9 +70,9 @@ export default function Page({ params: { id: postId, source } }: PageProps) {
         },
     });
 
-    const threads = useMemo(
-        () => (showMore ? threadsData : threadsData.slice(0, MIN_POST_SIZE_PER_THREAD)),
-        [showMore, threadsData],
+    const thread = useMemo(
+        () => (showMore ? threadData : threadData.slice(0, MIN_POST_SIZE_PER_THREAD)),
+        [showMore, threadData],
     );
 
     useDocumentTitle(post ? createPageTitle(t`Post by ${post?.author.displayName}`) : SITE_NAME);
@@ -89,18 +89,18 @@ export default function Page({ params: { id: postId, source } }: PageProps) {
                 </h2>
             </div>
             <div>
-                {threads.length >= MIN_POST_SIZE_PER_THREAD ? (
+                {thread.length >= MIN_POST_SIZE_PER_THREAD ? (
                     <>
                         <div className="border-b border-line px-4 py-3">
-                            {threads.map((post, index) => (
+                            {thread.map((post, index) => (
                                 <ThreadBody
                                     post={post}
                                     disableAnimate
                                     key={post.postId}
-                                    isLast={index === threads.length - 1}
+                                    isLast={index === thread.length - 1}
                                 />
                             ))}
-                            {threads.length === MIN_POST_SIZE_PER_THREAD && !showMore ? (
+                            {thread.length === MIN_POST_SIZE_PER_THREAD && !showMore ? (
                                 <div className="w-full cursor-pointer text-center text-[15px] font-bold text-link">
                                     <div onClick={() => setShowMore(true)}>
                                         <Trans>Show More</Trans>
@@ -111,7 +111,7 @@ export default function Page({ params: { id: postId, source } }: PageProps) {
                         <CommentList
                             postId={post.postId}
                             source={currentSource}
-                            exclude={threadsData.map((x) => x.postId)}
+                            exclude={threadData.map((x) => x.postId)}
                         />
                     </>
                 ) : (
