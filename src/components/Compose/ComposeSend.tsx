@@ -9,7 +9,7 @@ import Send2Icon from '@/assets/send2.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { CountdownCircle } from '@/components/Compose/CountdownCircle.js';
 import { Tooltip } from '@/components/Tooltip.js';
-import { MAX_POST_SIZE, MAX_THREAD_SIZE } from '@/constants/index.js';
+import { MAX_CHAR_SIZE_PER_POST, MAX_POST_SIZE_PER_THREAD } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { measureChars } from '@/helpers/readChars.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
@@ -42,7 +42,7 @@ export function ComposeSend(props: ComposeSendProps) {
 
     const disabled = useMemo(() => {
         if (loading) return true;
-        if ((!length || length > MAX_POST_SIZE) && !images.length && !video) return true;
+        if ((!length || length > MAX_CHAR_SIZE_PER_POST) && !images.length && !video) return true;
         if (!availableSources.length) return true;
         return false;
     }, [length, images.length, video, availableSources.length, loading]);
@@ -69,7 +69,7 @@ export function ComposeSend(props: ComposeSendProps) {
                 <div className=" flex items-center gap-[10px] whitespace-nowrap text-[15px] text-main">
                     <CountdownCircle count={visibleLength} width={24} height={24} className="flex-shrink-0" />
                     <span className={classNames(disabled ? ' text-danger' : '')}>
-                        {visibleLength} / {MAX_POST_SIZE - invisibleLength}
+                        {visibleLength} / {MAX_CHAR_SIZE_PER_POST - invisibleLength}
                     </span>
                 </div>
             ) : null}
@@ -77,13 +77,13 @@ export function ComposeSend(props: ComposeSendProps) {
             {visibleLength && type === 'compose' ? (
                 <ClickableButton
                     className=" text-main disabled:opacity-50"
-                    disabled={posts.length >= MAX_THREAD_SIZE}
+                    disabled={posts.length >= MAX_POST_SIZE_PER_THREAD}
                     onClick={() => {
                         newPost();
                         setEditorContent('');
                     }}
                 >
-                    {posts.length >= MAX_THREAD_SIZE ? (
+                    {posts.length >= MAX_POST_SIZE_PER_THREAD ? (
                         <PlusCircleIcon width={28} height={28} />
                     ) : (
                         <Tooltip content={t`Add`} placement="top">

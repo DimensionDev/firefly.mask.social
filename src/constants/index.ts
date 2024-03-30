@@ -49,9 +49,10 @@ export const S3_BUCKET = {
 };
 
 // Compose Dialog
-export const MAX_POST_SIZE = 280;
-export const DANGER_POST_SIZE = 260;
-export const SAFE_POST_SIZE = 200;
+export const MAX_POST_SIZE_PER_THREAD = process.env.NODE_ENV === 'development' ? 5 : 25;
+export const MAX_CHAR_SIZE_PER_POST = 280;
+export const DANGER_CHAR_LIMIT = 260;
+export const SAFE_CHAR_LIMIT = 200;
 
 // Search Bar
 export const MAX_SEARCH_RECORD_SIZE = 5;

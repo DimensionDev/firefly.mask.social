@@ -258,9 +258,9 @@ export interface Provider {
      * Publishes a post.
      *
      * @param post The post to be published.
-     * @returns A promise that resolves to a Post object.
+     * @returns A promise that resolves to post id.
      */
-    publishPost: (post: Post) => Promise<Post>;
+    publishPost: (post: Post) => Promise<string>;
 
     /**
      * Mirrors a post with the specified post ID.
@@ -270,7 +270,7 @@ export interface Provider {
      *   onMomoka: If the post is created on Momoka. Lens only
      *   authorId: The id of the cast author. Farcaster only
      * }
-     * @returns A promise that resolves to a Post object.
+     * @returns A promise that resolves to post id.
      */
     mirrorPost?: (
         postId: string,
@@ -278,16 +278,16 @@ export interface Provider {
             onMomoka?: boolean;
             authorId?: number;
         },
-    ) => Promise<Post>;
+    ) => Promise<string>;
 
     /**
      * Quotes a post with the specified post ID and an introduction.
      *
      * @param postId The ID of the post to quote.
      * @param intro The introduction text for the quote. (Review required, not sure what the actual type is)
-     * @returns A promise that resolves to a Post object.
+     * @returns A promise that resolves to post id.
      */
-    quotePost?: (postId: string, intro: string) => Promise<Post>;
+    quotePost?: (postId: string, intro: string) => Promise<string>;
 
     /**
      * Collects a post with the specified post ID.

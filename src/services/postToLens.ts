@@ -1,5 +1,6 @@
 import { image, MediaImageMimeType, MediaVideoMimeType, textOnly, video } from '@lens-protocol/metadata';
 import { t } from '@lingui/macro';
+import { safeUnreachable } from '@masknet/kit';
 import { v4 as uuid } from 'uuid';
 
 import { queryClient } from '@/configs/queryClient.js';
@@ -232,8 +233,12 @@ async function quotePostForLens(
 export async function postToLens(type: ComposeType, compositePost: CompositePost) {
     const { chars, images, lensPostId, post, video } = compositePost;
 
+    // already posted to lens
+    if (lensPostId) throw new Error(t`Already posted on Lens.`);
+
+    // login required
     const { currentProfile } = useLensStateStore.getState();
-    if (!currentProfile?.profileId || lensPostId) return;
+    if (!currentProfile?.profileId) throw new Error(t`Login required to post on Lens.`);
 
     const { updateImages, updateVideo, updateLensPostId } = useComposeStateStore.getState();
 
@@ -276,14 +281,15 @@ export async function postToLens(type: ComposeType, compositePost: CompositePost
 
     if (type === 'compose') {
         try {
-            const published = await publishPostForLens(
+            const postId = await publishPostForLens(
                 currentProfile.profileId,
                 readChars(chars),
                 uploadedImages,
                 uploadedVideo,
             );
             enqueueSuccessMessage(t`Posted on Lens`);
-            updateLensPostId(published.postId);
+            updateLensPostId(postId);
+            return postId;
         } catch (error) {
             enqueueErrorMessage(t`Failed to post on Lens.`);
             throw error;
@@ -291,7 +297,7 @@ export async function postToLens(type: ComposeType, compositePost: CompositePost
     } else if (type === 'reply') {
         try {
             if (!post) throw new Error('No post found.');
-            const comment = await commentPostForLens(
+            const commentId = await commentPostForLens(
                 currentProfile.profileId,
                 post.postId,
                 readChars(chars),
@@ -300,10 +306,12 @@ export async function postToLens(type: ComposeType, compositePost: CompositePost
                 !!post.momoka?.proof,
             );
             enqueueSuccessMessage(t`Replied on Lens`);
-            updateLensPostId(comment);
+            updateLensPostId(commentId);
 
             queryClient.invalidateQueries({ queryKey: [post.source, 'post-detail', post.postId] });
             queryClient.invalidateQueries({ queryKey: ['post-detail', 'comments', post.source, post.postId] });
+
+            return commentId;
         } catch (error) {
             enqueueErrorMessage(t`Failed to relay post on Lens.`);
             throw error;
@@ -311,7 +319,7 @@ export async function postToLens(type: ComposeType, compositePost: CompositePost
     } else if (type === 'quote') {
         try {
             if (!post) throw new Error('No post found.');
-            const quote = await quotePostForLens(
+            const postId = await quotePostForLens(
                 currentProfile.profileId,
                 post.postId,
                 readChars(chars),
@@ -320,15 +328,20 @@ export async function postToLens(type: ComposeType, compositePost: CompositePost
                 !!post.momoka?.proof,
             );
             enqueueSuccessMessage(t`Posted on Lens`);
-            updateLensPostId(quote.postId);
+            updateLensPostId(postId);
 
             await queryClient.setQueryData([post.source, 'post-detail', post.postId], {
                 ...post,
                 hasQuoted: true,
             });
+
+            return postId;
         } catch (error) {
             enqueueErrorMessage(t`Failed to quote post on Lens.`);
             throw error;
         }
+    } else {
+        safeUnreachable(type);
+        throw new Error(t`Invalid compose type.`);
     }
 }
