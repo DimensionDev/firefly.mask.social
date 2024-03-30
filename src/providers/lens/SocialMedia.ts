@@ -25,9 +25,11 @@ import { polygon } from 'viem/chains';
 
 import { createLensClient } from '@/configs/lensClient.js';
 import { SocialPlatform } from '@/constants/enum.js';
+import { MAX_THREAD_SIZE } from '@/constants/index.js';
 import { formatLensPost, formatLensPostByFeed, formatLensQuoteOrComment } from '@/helpers/formatLensPost.js';
 import { formatLensProfile } from '@/helpers/formatLensProfile.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
+import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { pollingWithRetry } from '@/helpers/pollWithRetry.js';
 import { LensSession } from '@/providers/lens/Session.js';
 import {
@@ -907,6 +909,21 @@ export class LensSocialMedia implements Provider {
             createIndicator(indicator),
             result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );
+    }
+
+    async getThreadsById(post: Post, maxDepth = MAX_THREAD_SIZE): Promise<Post[]> {
+        const result: Post[] = [];
+
+        if (maxDepth === 0) return result;
+
+        const comments = await this.getCommentsById(post.postId);
+        const target = comments.data.find((x) => isSameProfile(x.author, post.author));
+        if (target) {
+            result.push(target);
+            return result.concat(await this.getThreadsById(target, maxDepth - 1));
+        }
+
+        return result;
     }
     getAccessToken() {
         return this.client.authentication.getAccessToken();

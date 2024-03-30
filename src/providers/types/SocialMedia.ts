@@ -510,4 +510,10 @@ export interface Provider {
      * @returns
      */
     searchPosts: (q: string, indicator?: PageIndicator) => Promise<Pageable<Post>>;
+
+    /**
+     * Get thread by post id
+     * @param postId
+     */
+    getThreadsById: (post: Post, maxDepth?: number) => Promise<Post[]>;
 }

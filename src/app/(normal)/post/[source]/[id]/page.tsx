@@ -12,7 +12,7 @@ import { CommentList } from '@/components/Comments/index.js';
 import { SinglePost } from '@/components/Posts/SinglePost.js';
 import { ThreadBody } from '@/components/Posts/ThreadBody.js';
 import { SocialPlatform, SourceInURL } from '@/constants/enum.js';
-import { EMPTY_LIST, SITE_NAME } from '@/constants/index.js';
+import { EMPTY_LIST, MIN_THREAD_SIZE, SITE_NAME } from '@/constants/index.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { createPageTitle } from '@/helpers/createPageTitle.js';
 import { resolveSocialPlatform } from '@/helpers/resolveSocialPlatform.js';
@@ -52,18 +52,19 @@ export default function Page({ params: { id: postId, source } }: PageProps) {
         },
     });
 
-    const { data: threadsData = [] } = useSuspenseQuery({
+    const { data: threadsData = EMPTY_LIST } = useSuspenseQuery({
         queryKey: [currentSource, 'thread-detail', post?.postId, post?.root?.postId],
         queryFn: async () => {
             const root = post?.root ? post.root : post;
-            if (!root) return EMPTY_LIST;
-            const thread = await getThreadById(currentSource, root);
-
-            return [root, ...thread];
+            if (!root?.comments?.length) return EMPTY_LIST;
+            return getThreadById(currentSource, root);
         },
     });
 
-    const threads = useMemo(() => (showMore ? threadsData : threadsData.slice(0, 3)), [showMore, threadsData]);
+    const threads = useMemo(
+        () => (showMore ? threadsData : threadsData.slice(0, MIN_THREAD_SIZE)),
+        [showMore, threadsData],
+    );
 
     useDocumentTitle(post ? createPageTitle(t`Post by ${post?.author.displayName}`) : SITE_NAME);
     useUpdateCurrentVisitingPost(post);
@@ -79,7 +80,7 @@ export default function Page({ params: { id: postId, source } }: PageProps) {
                 </h2>
             </div>
             <div>
-                {threads.length >= 3 ? (
+                {threads.length >= MIN_THREAD_SIZE ? (
                     <>
                         <div className="border-b border-line px-4 py-3">
                             {threads.map((post, index) => (
@@ -90,7 +91,7 @@ export default function Page({ params: { id: postId, source } }: PageProps) {
                                     isLast={index === threads.length - 1}
                                 />
                             ))}
-                            {threads.length === 3 && !showMore ? (
+                            {threads.length === MIN_THREAD_SIZE && !showMore ? (
                                 <div className="w-full cursor-pointer text-center text-[15px] font-bold text-link">
                                     <div onClick={() => setShowMore(true)}>
                                         <Trans>Show More</Trans>
