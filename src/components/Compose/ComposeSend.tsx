@@ -23,7 +23,7 @@ interface ComposeSendProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 export function ComposeSend(props: ComposeSendProps) {
-    const { type, posts, newPost } = useComposeStateStore();
+    const { type, posts, addPostInThread } = useComposeStateStore();
 
     const { chars, images, video, availableSources } = props.post;
 
@@ -79,7 +79,7 @@ export function ComposeSend(props: ComposeSendProps) {
                     className=" text-main disabled:opacity-50"
                     disabled={posts.length >= MAX_POST_SIZE_PER_THREAD}
                     onClick={() => {
-                        newPost();
+                        addPostInThread();
                         setEditorContent('');
                     }}
                 >

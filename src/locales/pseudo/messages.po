@@ -256,6 +256,9 @@ msgstr ""
 msgid "Send"
 msgstr ""
 
+msgid "The previous post does not have a Lens post ID."
+msgstr ""
+
 msgid "Collected"
 msgstr ""
 
@@ -710,6 +713,9 @@ msgid "Recast"
 msgstr ""
 
 msgid "Followers"
+msgstr ""
+
+msgid "The previous post does not have a Farcaster post ID."
 msgstr ""
 
 msgid "{0, select, follow {Follow} unfollow {Unfollow} other {Follow}}"

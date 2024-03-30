@@ -27,17 +27,14 @@ export type OrphanPost = Omit<Post, 'embedPosts' | 'comments' | 'root' | 'commen
 export interface CompositePost {
     id: Cursor;
 
-    // the post id on lens
-    lensPostId: string | null;
-    // the post id on farcaster
-    farcasterPostId: string | null;
+    // tracking the post id in specific platform if it's posted
+    postId: Record<SocialPlatform, string | null>;
+    // tracking the parent post in specific platform
+    parentPost: Record<SocialPlatform, OrphanPost | null>;
 
     restriction: RestrictionType;
     availableSources: SocialPlatform[];
-
     chars: Chars;
-    // parent post
-    post: OrphanPost | null;
     typedMessage: TypedMessageTextV1 | null;
     video: MediaObject | null;
     images: MediaObject[];
@@ -50,30 +47,38 @@ export interface CompositePost {
 
 interface ComposeState {
     type: ComposeType;
-    cursor: Cursor;
     posts: CompositePost[];
 
-    helpers: {
+    // helpers
+    computed: {
         // if the current editable post is deleted
         // the next available post will be focused
         nextAvailablePost: CompositePost | null;
     };
 
+    // tracking the current editable post
+    cursor: Cursor;
     // composite the current editable post
     compositePost: CompositePost;
 
-    // operations
-    newPost: () => void;
-    removePost: (cursor: Cursor) => void;
+    // operations upon the thread
+    addPostInThread: () => void;
+    removePostInThread: (cursor: Cursor) => void;
+    updatePostInThread: (cursor: Cursor, post: SetStateAction<CompositePost>) => void;
+
+    // switch the curreent editable post
     updateCursor: (cursor: Cursor) => void;
+
+    // operations upon the current editable post
     enableSource: (source: SocialPlatform) => void;
     disableSource: (source: SocialPlatform) => void;
+    updatePostId: (source: SocialPlatform, postId: string) => void;
+    updateParentPost: (source: SocialPlatform, parentPost: Post) => void;
     updateRestriction: (restriction: RestrictionType) => void;
     updateAvailableSources: (sources: SocialPlatform[]) => void;
     updateType: (type: ComposeType) => void;
     updateChars: Dispatch<SetStateAction<Chars>>;
     updateTypedMessage: (typedMessage: TypedMessageTextV1 | null) => void;
-    updatePost: (post: OrphanPost | null) => void;
     updateVideo: (video: MediaObject | null) => void;
     updateImages: Dispatch<SetStateAction<MediaObject[]>>;
     addImage: (image: MediaObject) => void;
@@ -81,8 +86,6 @@ interface ComposeState {
     addFrame: (frame: Frame) => void;
     removeFrame: (frame: Frame) => void;
     removeOpenGraph: (og: OpenGraph) => void;
-    updateLensPostId: (postId: string | null) => void;
-    updateFarcasterPostId: (postId: string | null) => void;
     updateRpPayload: (value: RedPacketPayload) => void;
     loadFramesFromChars: () => Promise<void>;
     loadOpenGraphsFromChars: () => Promise<void>;
@@ -92,11 +95,16 @@ interface ComposeState {
 function createInitSinglePostState(cursor: Cursor): CompositePost {
     return {
         id: cursor,
-        lensPostId: null,
-        farcasterPostId: null,
+        postId: {
+            [SocialPlatform.Farcaster]: null,
+            [SocialPlatform.Lens]: null,
+        },
+        parentPost: {
+            [SocialPlatform.Farcaster]: null,
+            [SocialPlatform.Lens]: null,
+        },
         availableSources: [SocialPlatform.Farcaster, SocialPlatform.Lens] as SocialPlatform[],
         restriction: RestrictionType.Everyone,
-        post: null,
         chars: '',
         typedMessage: null,
         images: EMPTY_LIST,
@@ -122,7 +130,7 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
         cursor: initialPostCursor,
         posts: [createInitSinglePostState(initialPostCursor)],
 
-        helpers: {
+        computed: {
             get nextAvailablePost() {
                 const { cursor, posts } = get();
 
@@ -146,9 +154,6 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
             get restriction() {
                 return pick(get(), (x) => x.restriction);
             },
-            get post() {
-                return pick(get(), (x) => x.post);
-            },
             get chars() {
                 return pick(get(), (x) => x.chars);
             },
@@ -170,15 +175,15 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
             get rpPayload() {
                 return pick(get(), (x) => x.rpPayload);
             },
-            get lensPostId() {
-                return pick(get(), (x) => x.lensPostId);
+            get postId() {
+                return pick(get(), (x) => x.postId);
             },
-            get farcasterPostId() {
-                return pick(get(), (x) => x.farcasterPostId);
+            get parentPost() {
+                return pick(get(), (x) => x.parentPost);
             },
         },
 
-        newPost: () =>
+        addPostInThread: () =>
             set((state) => {
                 const cursor = uuid();
                 const index = state.posts.findIndex((x) => x.id === state.cursor);
@@ -196,9 +201,9 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
                     cursor,
                 };
             }),
-        removePost: (cursor) =>
+        removePostInThread: (cursor) =>
             set((state) => {
-                const next = state.helpers.nextAvailablePost;
+                const next = state.computed.nextAvailablePost;
                 if (!next) return state;
 
                 return {
@@ -207,6 +212,19 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
                     cursor: next.id,
                 };
             }),
+        updatePostInThread: (cursor, post) =>
+            set((state) =>
+                next(state, (x) =>
+                    x.id === cursor
+                        ? typeof post === 'function'
+                            ? post(x)
+                            : {
+                                  ...x,
+                                  ...post,
+                              }
+                        : x,
+                ),
+            ),
         updateCursor: (cursor) =>
             set((state) => {
                 state.cursor = cursor;
@@ -215,6 +233,29 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
             set((state) => {
                 state.type = type;
             }),
+        updateParentPost: (source, parentPost) =>
+            set((state) =>
+                next(state, (post) => ({
+                    ...post,
+                    parentPost: {
+                        [SocialPlatform.Lens]: null,
+                        [SocialPlatform.Farcaster]: null,
+
+                        // a post can only have one parent post in specific platform
+                        [source]: parentPost,
+                    },
+                })),
+            ),
+        updatePostId: (source, postId) =>
+            set((state) =>
+                next(state, (post) => ({
+                    ...post,
+                    postId: {
+                        ...post.postId,
+                        [source]: postId,
+                    },
+                })),
+            ),
         updateRestriction: (restriction) =>
             set((state) =>
                 next(state, (post) => ({
@@ -241,13 +282,6 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
                 next(state, (post) => ({
                     ...post,
                     images: typeof images === 'function' ? images(post.images) : images,
-                })),
-            ),
-        updatePost: (orphanPost) =>
-            set((state) =>
-                next(state, (post) => ({
-                    ...post,
-                    post: orphanPost,
                 })),
             ),
         updateVideo: (video) =>
@@ -290,20 +324,6 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
                 next(state, (post) => ({
                     ...post,
                     openGraphs: post.openGraphs.filter((openGraph) => openGraph !== target),
-                })),
-            ),
-        updateLensPostId: (postId) =>
-            set((state) =>
-                next(state, (post) => ({
-                    ...post,
-                    lensPostId: postId,
-                })),
-            ),
-        updateFarcasterPostId: (postId) =>
-            set((state) =>
-                next(state, (post) => ({
-                    ...post,
-                    farcasterPostId: postId,
                 })),
             ),
         updateRpPayload: (payload) =>

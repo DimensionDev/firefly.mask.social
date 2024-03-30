@@ -44,7 +44,10 @@ async function updateRpClaimStrategy(compositePost: CompositePost) {
     const { currentProfile: currentLensProfile } = useLensStateStore.getState();
     const { currentProfile: currentFarcasterProfile } = useFarcasterStateStore.getState();
 
-    const { lensPostId, farcasterPostId, typedMessage, rpPayload } = compositePost;
+    const { postId, typedMessage, rpPayload } = compositePost;
+
+    const lensPostId = postId[SocialPlatform.Lens];
+    const farcasterPostId = postId[SocialPlatform.Farcaster];
 
     if (hasRpPayload(typedMessage) && (lensPostId || farcasterPostId) && rpPayload?.publicKey) {
         const rpPayloadFromMeta = typedMessage?.meta?.get(RedPacketMetaKey) as RedPacketJSONPayload;

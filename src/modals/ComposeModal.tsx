@@ -91,7 +91,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
             addImage,
             updateType,
             updateAvailableSources,
-            updatePost,
+            updateParentPost,
             updateChars,
             updateTypedMessage,
             updateRpPayload,
@@ -108,7 +108,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
                 updateType(props.type || 'compose');
                 if (props.source) updateAvailableSources([props.source]);
                 if (props.typedMessage) updateTypedMessage(props.typedMessage);
-                if (props.post) updatePost(props.post);
+                if (props.post) updateParentPost(props.post.source, props.post);
                 if (props.chars && typeof props.chars === 'string') {
                     updateChars(props.chars);
                     setEditorContent(props.chars);

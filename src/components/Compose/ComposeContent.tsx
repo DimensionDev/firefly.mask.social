@@ -7,6 +7,7 @@ import { Placeholder } from '@/components/Compose/Placeholder.js';
 import { FrameUI } from '@/components/Frame/index.js';
 import { OembedUI } from '@/components/Oembed/index.js';
 import { Quote } from '@/components/Posts/Quote.js';
+import { SocialPlatform } from '@/constants/enum.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
 
@@ -17,7 +18,9 @@ interface ComposeContentProps {
 export function ComposeContent(props: ComposeContentProps) {
     const { type, cursor } = useComposeStateStore();
 
-    const { id, post, images, video, frames, openGraphs } = props.post;
+    const { id, parentPost, images, video, frames, openGraphs } = props.post;
+
+    const post = parentPost[SocialPlatform.Farcaster] || parentPost[SocialPlatform.Lens];
 
     return (
         <div className="flex flex-1 flex-col">

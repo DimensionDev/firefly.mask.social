@@ -21,7 +21,7 @@ export function ComposeThreadContent(props: ComposeThreadContentProps) {
 
     const setEditorContent = useSetEditorContent();
 
-    const { posts, cursor, helpers, updateCursor, removePost } = useComposeStateStore();
+    const { posts, cursor, computed: helpers, updateCursor, removePostInThread } = useComposeStateStore();
 
     return (
         <div>
@@ -45,7 +45,7 @@ export function ComposeThreadContent(props: ComposeThreadContentProps) {
                                 const next = helpers.nextAvailablePost;
                                 if (!next) return;
 
-                                removePost(x.id);
+                                removePostInThread(x.id);
                                 setEditorContent(readChars(next.chars, true));
                             }}
                         >

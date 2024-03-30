@@ -261,6 +261,9 @@ msgstr ""
 msgid "Send"
 msgstr "发送"
 
+msgid "The previous post does not have a Lens post ID."
+msgstr ""
+
 msgid "Collected"
 msgstr "已收藏"
 
@@ -716,6 +719,9 @@ msgstr "转推"
 
 msgid "Followers"
 msgstr "粉丝"
+
+msgid "The previous post does not have a Farcaster post ID."
+msgstr ""
 
 msgid "{0, select, follow {Follow} unfollow {Unfollow} other {Follow}}"
 msgstr "{0, select, follow {关注} unfollow {取消关注} other {关注}}"

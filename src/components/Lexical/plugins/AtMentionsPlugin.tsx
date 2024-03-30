@@ -135,7 +135,7 @@ export function MentionsPlugin(): JSX.Element | null {
     const currentLensProfile = useLensStateStore.use.currentProfile();
     const currentFarcasterProfile = useFarcasterStateStore.use.currentProfile();
 
-    const { availableSources, post } = useComposeStateStore.use.compositePost();
+    const { availableSources } = useComposeStateStore.use.compositePost();
 
     const [queryString, setQueryString] = useState<string | null>(null);
     const [editor] = useLexicalComposerContext();
@@ -148,7 +148,6 @@ export function MentionsPlugin(): JSX.Element | null {
             'searchProfiles',
             availableSources,
             debounceQuery,
-            post?.source,
             currentLensProfile?.profileId,
             currentFarcasterProfile?.profileId,
         ],
@@ -157,6 +156,7 @@ export function MentionsPlugin(): JSX.Element | null {
 
             // When the default state is to send a multi-platform post, it will not be queried.
             if (availableSources.length !== 1) return;
+
             const currentSource = first(availableSources)!;
 
             switch (currentSource) {

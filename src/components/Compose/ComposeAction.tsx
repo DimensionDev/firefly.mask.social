@@ -43,9 +43,9 @@ export function ComposeAction(props: ComposeActionProps) {
     const lensProfiles = useLensStateStore.use.profiles();
     const farcasterProfiles = useFarcasterStateStore.use.profiles();
 
-    const { type, posts, newPost } = useComposeStateStore();
+    const { type, posts, addPostInThread } = useComposeStateStore();
 
-    const { chars, post, images, video, availableSources } = props.post;
+    const { chars, parentPost, images, video, availableSources } = props.post;
 
     const { length, visibleLength, invisibleLength } = useMemo(() => measureChars(chars), [chars]);
 
@@ -189,7 +189,7 @@ export function ComposeAction(props: ComposeActionProps) {
                         className=" text-main disabled:opacity-50"
                         disabled={posts.length >= MAX_POST_SIZE_PER_THREAD}
                         onClick={() => {
-                            newPost();
+                            addPostInThread();
                             setEditorContent('');
                         }}
                     >
@@ -215,7 +215,7 @@ export function ComposeAction(props: ComposeActionProps) {
                                     <ChevronRightIcon className="h-5 w-5" aria-hidden="true" />
                                 ) : null}
                             </Popover.Button>
-                            {!post ? <PostBy /> : null}
+                            {!parentPost ? <PostBy /> : null}
                         </>
                     )}
                 </Popover>
