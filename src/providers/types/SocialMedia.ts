@@ -512,7 +512,7 @@ export interface Provider {
     searchPosts: (q: string, indicator?: PageIndicator) => Promise<Pageable<Post>>;
 
     /**
-     * Retrieves the post ids associated with a thread using the root post id.
+     * Retrieves posts associated with a thread using the root post id.
      * @param postId
      */
     getThreadsByPostId: (postId: string) => Promise<Post[]>;
