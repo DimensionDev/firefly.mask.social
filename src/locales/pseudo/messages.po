@@ -43,6 +43,9 @@ msgstr ""
 msgid "Allow Lens Manager to perform actions such as posting, liking, and commenting without the need to sign each transaction."
 msgstr ""
 
+msgid "Post All"
+msgstr ""
+
 msgid "{0} views"
 msgstr ""
 
@@ -251,9 +254,6 @@ msgid "Querying the signed key state."
 msgstr ""
 
 msgid "Invalid compose type."
-msgstr ""
-
-msgid "Send"
 msgstr ""
 
 msgid "The previous post does not have a Lens post ID."

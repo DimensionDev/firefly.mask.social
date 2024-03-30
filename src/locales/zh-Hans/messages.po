@@ -48,6 +48,9 @@ msgstr "诊断网络"
 msgid "Allow Lens Manager to perform actions such as posting, liking, and commenting without the need to sign each transaction."
 msgstr "允许 Lens 管理员执行发帖、点赞和评论等操作，而无需签署每笔交易。"
 
+msgid "Post All"
+msgstr ""
+
 msgid "{0} views"
 msgstr "{0} 浏览数"
 
@@ -257,9 +260,6 @@ msgstr ""
 
 msgid "Invalid compose type."
 msgstr ""
-
-msgid "Send"
-msgstr "发送"
 
 msgid "The previous post does not have a Lens post ID."
 msgstr ""

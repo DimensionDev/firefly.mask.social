@@ -21,7 +21,7 @@ export function ComposeThreadContent(props: ComposeThreadContentProps) {
 
     const setEditorContent = useSetEditorContent();
 
-    const { posts, cursor, computed: helpers, updateCursor, removePostInThread } = useComposeStateStore();
+    const { posts, cursor, computed, updateCursor, removePostInThread } = useComposeStateStore();
 
     return (
         <div>
@@ -42,7 +42,7 @@ export function ComposeThreadContent(props: ComposeThreadContentProps) {
                         <ClickableButton
                             className=" absolute right-0 top-2 z-10"
                             onClick={() => {
-                                const next = helpers.nextAvailablePost;
+                                const next = computed.nextAvailablePost;
                                 if (!next) return;
 
                                 removePostInThread(x.id);

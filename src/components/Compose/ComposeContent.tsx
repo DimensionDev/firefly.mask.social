@@ -20,6 +20,7 @@ export function ComposeContent(props: ComposeContentProps) {
 
     const { id, parentPost, images, video, frames, openGraphs } = props.post;
 
+    // in reply and quote mode, there could be only one parent post
     const post = parentPost[SocialPlatform.Farcaster] || parentPost[SocialPlatform.Lens];
 
     return (

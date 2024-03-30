@@ -11,11 +11,13 @@ import { CountdownCircle } from '@/components/Compose/CountdownCircle.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { MAX_CHAR_SIZE_PER_POST, MAX_POST_SIZE_PER_THREAD } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
+import { isValidPost } from '@/helpers/isValidPost.js';
 import { measureChars } from '@/helpers/readChars.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';
 import { ComposeModalRef } from '@/modals/controls.js';
 import { crossPost } from '@/services/crossPost.js';
+import { crossPostThread } from '@/services/crossPostThread.js';
 import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
 
 interface ComposeSendProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -25,14 +27,12 @@ interface ComposeSendProps extends React.HTMLAttributes<HTMLDivElement> {
 export function ComposeSend(props: ComposeSendProps) {
     const { type, posts, addPostInThread } = useComposeStateStore();
 
-    const { chars, images, video, availableSources } = props.post;
-
-    const { length, visibleLength, invisibleLength } = measureChars(chars);
+    const { visibleLength, invisibleLength } = measureChars(props.post.chars);
 
     const isMedium = useIsMedium();
     const setEditorContent = useSetEditorContent();
 
-    const [{ loading }, handleSend] = useAsyncFn(async () => {
+    const [{ loading: loadingCrossPost }, handleCrossPost] = useAsyncFn(async () => {
         try {
             await crossPost(type, props.post);
         } finally {
@@ -40,19 +40,34 @@ export function ComposeSend(props: ComposeSendProps) {
         }
     }, [type, props.post]);
 
-    const disabled = useMemo(() => {
-        if (loading) return true;
-        if ((!length || length > MAX_CHAR_SIZE_PER_POST) && !images.length && !video) return true;
-        if (!availableSources.length) return true;
-        return false;
-    }, [length, images.length, video, availableSources.length, loading]);
+    const [{ loading: loadingCrossPostThread }, handleCrossPostThread] = useAsyncFn(async () => {
+        try {
+            await crossPostThread();
+        } finally {
+            ComposeModalRef.close();
+        }
+    }, []);
+
+    const disabledCrossPost = useMemo(() => {
+        if (loadingCrossPost) return true;
+        return isValidPost(props.post);
+    }, [props.post, loadingCrossPost]);
+
+    const disabledCrossPostThread = useMemo(() => {
+        if (loadingCrossPostThread) return true;
+        return posts.some((x) => !isValidPost(x));
+    }, [loadingCrossPostThread, posts]);
+
+    const loading = posts.length > 1 ? loadingCrossPostThread : loadingCrossPost;
+    const disabled = posts.length > 1 ? disabledCrossPostThread : disabledCrossPost;
+    const hanldePost = posts.length > 1 ? handleCrossPostThread : handleCrossPost;
 
     if (!isMedium) {
         return (
             <ClickableButton
                 className="absolute right-4 top-1/2 -translate-y-1/2 cursor-pointer disabled:opacity-50"
                 disabled={disabled}
-                onClick={handleSend}
+                onClick={hanldePost}
             >
                 {loading ? (
                     <LoadingIcon width={24} height={24} className="animate-spin text-main" />
@@ -98,16 +113,14 @@ export function ComposeSend(props: ComposeSendProps) {
                 className={classNames(
                     ' flex h-10 w-[120px] items-center justify-center gap-1 rounded-full bg-black text-[15px] font-bold text-white disabled:cursor-not-allowed disabled:opacity-50 dark:bg-white dark:text-black',
                 )}
-                onClick={handleSend}
+                onClick={hanldePost}
             >
-                {loading ? (
+                {loadingCrossPost ? (
                     <LoadingIcon width={16} height={16} className="animate-spin" />
                 ) : (
                     <>
-                        <SendIcon width={18} height={18} className="text-primaryBottom" />
-                        <span>
-                            <Trans>Send</Trans>
-                        </span>
+                        <SendIcon width={18} height={18} className="mr-1 text-primaryBottom" />
+                        <span>{posts.length > 1 ? <Trans>Post All</Trans> : <Trans>Post</Trans>}</span>
                     </>
                 )}
             </ClickableButton>
