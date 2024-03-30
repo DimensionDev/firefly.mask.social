@@ -27,14 +27,16 @@ export type OrphanPost = Omit<Post, 'embedPosts' | 'comments' | 'root' | 'commen
 export interface CompositePost {
     id: Cursor;
 
-    // the parent post id
+    // the post id on lens
     lensPostId: string | null;
+    // the post id on farcaster
     farcasterPostId: string | null;
 
     restriction: RestrictionType;
     availableSources: SocialPlatform[];
 
     chars: Chars;
+    // parent post
     post: OrphanPost | null;
     typedMessage: TypedMessageTextV1 | null;
     video: MediaObject | null;

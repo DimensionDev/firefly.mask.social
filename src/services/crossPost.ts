@@ -40,26 +40,11 @@ async function refreshProfileFeed(source: SocialPlatform) {
     }
 }
 
-export async function crossPost(type: ComposeType, compositePost: CompositePost) {
-    const { availableSources } = compositePost;
+async function updateRpClaimStrategy(compositePost: CompositePost) {
     const { currentProfile: currentLensProfile } = useLensStateStore.getState();
     const { currentProfile: currentFarcasterProfile } = useFarcasterStateStore.getState();
 
-    if (type === 'compose') {
-        const promises: Array<Promise<string>> = [];
-        if (availableSources.includes(SocialPlatform.Lens)) promises.push(postToLens(type, compositePost));
-        if (availableSources.includes(SocialPlatform.Farcaster)) promises.push(postToFarcaster(type, compositePost));
-
-        const allSettled = await Promise.allSettled(promises);
-
-        // If all requests fail, abort execution
-        if (allSettled.every((x) => x.status === 'rejected')) return;
-
-        if (availableSources.includes(SocialPlatform.Lens)) await refreshProfileFeed(SocialPlatform.Lens);
-        if (availableSources.includes(SocialPlatform.Farcaster)) await refreshProfileFeed(SocialPlatform.Farcaster);
-    }
-
-    const { lensPostId, farcasterPostId, typedMessage, rpPayload } = useComposeStateStore.getState().compositePost;
+    const { lensPostId, farcasterPostId, typedMessage, rpPayload } = compositePost;
 
     if (hasRpPayload(typedMessage) && (lensPostId || farcasterPostId) && rpPayload?.publicKey) {
         const rpPayloadFromMeta = typedMessage?.meta?.get(RedPacketMetaKey) as RedPacketJSONPayload;
@@ -101,4 +86,32 @@ export async function crossPost(type: ComposeType, compositePost: CompositePost)
             rpPayload.publicKey,
         );
     }
+}
+
+export async function crossPost(type: ComposeType, compositePost: CompositePost) {
+    const { availableSources } = compositePost;
+
+    if (type === 'compose') {
+        const promises: Array<Promise<string>> = [];
+        if (availableSources.includes(SocialPlatform.Farcaster))
+            promises.push(postToFarcaster('compose', compositePost));
+        if (availableSources.includes(SocialPlatform.Lens)) promises.push(postToLens('compose', compositePost));
+
+        const allSettled = await Promise.allSettled(promises);
+
+        // If all requests fail, abort execution
+        if (allSettled.every((x) => x.status === 'rejected')) return;
+
+        if (availableSources.includes(SocialPlatform.Farcaster)) await refreshProfileFeed(SocialPlatform.Farcaster);
+        if (availableSources.includes(SocialPlatform.Lens)) await refreshProfileFeed(SocialPlatform.Lens);
+    } else {
+        if (availableSources.includes(SocialPlatform.Farcaster)) await postToFarcaster(type, compositePost);
+        if (availableSources.includes(SocialPlatform.Lens)) await postToLens(type, compositePost);
+    }
+
+    // update red packet claim strategy if necessary
+    const { posts } = useComposeStateStore.getState();
+    const updatedCompositePost = posts.find((post) => post.id === compositePost.id);
+
+    if (updatedCompositePost) await updateRpClaimStrategy(compositePost);
 }

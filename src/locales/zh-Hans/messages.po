@@ -585,6 +585,9 @@ msgstr "<0>你</0> 已点赞"
 msgid "You've hit rock bottom."
 msgstr "你已经滑到底部啦～"
 
+msgid "The root post not found."
+msgstr ""
+
 msgid "Failed to mirror post."
 msgstr "转发失败"
 
@@ -758,6 +761,9 @@ msgstr "登录"
 
 msgid "Replying to <0>@{0}</0> on {1}"
 msgstr "在 {1} 上回复 <0>@{0}</0>"
+
+msgid "A thread must have at least two posts."
+msgstr ""
 
 msgid "Mint button is not available yet."
 msgstr "Mint 按钮还未开放"

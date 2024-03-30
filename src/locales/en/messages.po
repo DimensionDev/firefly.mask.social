@@ -580,6 +580,9 @@ msgstr "<0>You</0> liked"
 msgid "You've hit rock bottom."
 msgstr "You've hit rock bottom."
 
+msgid "The root post not found."
+msgstr "The root post not found."
+
 msgid "Failed to mirror post."
 msgstr "Failed to mirror post."
 
@@ -753,6 +756,9 @@ msgstr "Login"
 
 msgid "Replying to <0>@{0}</0> on {1}"
 msgstr "Replying to <0>@{0}</0> on {1}"
+
+msgid "A thread must have at least two posts."
+msgstr "A thread must have at least two posts."
 
 msgid "Mint button is not available yet."
 msgstr "Mint button is not available yet."
