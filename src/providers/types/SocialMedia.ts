@@ -515,5 +515,5 @@ export interface Provider {
      * Get thread by post id
      * @param postId
      */
-    getThreadsById: (post: Post, maxDepth?: number) => Promise<Post[]>;
+    getThreadsById: (postId: string) => Promise<Post[]>;
 }

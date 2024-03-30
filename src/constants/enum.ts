@@ -29,4 +29,5 @@ export enum KeyType {
     GetPostOGById = 'getPostOGById',
     GetProfileOGById = 'getProfileOGById',
     UploadToBlob = 'uploadToBlob',
+    GetLensThreadByID = 'getLensThreadById',
 }

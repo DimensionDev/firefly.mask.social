@@ -15,21 +15,22 @@ import {
     createIndicator,
     createNextIndicator,
     createPageable,
+    EMPTY_LIST,
     type Pageable,
     type PageIndicator,
 } from '@masknet/shared-base';
 import { isZero } from '@masknet/web3-shared-base';
 import { first, flatMap, uniqWith } from 'lodash-es';
+import urlcat from 'urlcat';
 import type { TypedDataDomain } from 'viem';
 import { polygon } from 'viem/chains';
 
 import { createLensClient } from '@/configs/lensClient.js';
 import { SocialPlatform } from '@/constants/enum.js';
-import { MAX_POST_SIZE_PER_THREAD } from '@/constants/index.js';
+import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { formatLensPost, formatLensPostByFeed, formatLensQuoteOrComment } from '@/helpers/formatLensPost.js';
 import { formatLensProfile } from '@/helpers/formatLensProfile.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
-import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { pollingWithRetry } from '@/helpers/pollWithRetry.js';
 import { LensSession } from '@/providers/lens/Session.js';
 import {
@@ -47,6 +48,7 @@ import {
     ReactionType,
     SessionType,
 } from '@/providers/types/SocialMedia.js';
+import type { ResponseJSON } from '@/types/index.js';
 
 export class LensSocialMedia implements Provider {
     private client = createLensClient();
@@ -908,19 +910,17 @@ export class LensSocialMedia implements Provider {
         );
     }
 
-    async getThreadsById(post: Post, maxDepth = MAX_POST_SIZE_PER_THREAD): Promise<Post[]> {
-        const result: Post[] = [];
+    async getThreadsById(id: string) {
+        const response = await fetchJSON<ResponseJSON<string[]>>(urlcat('/api/threads', { id }));
+        if (!response.success) return EMPTY_LIST;
+        const posts = await this.client.publication.fetchAll({
+            limit: LimitType.TwentyFive,
+            where: {
+                publicationIds: [id, ...response.data],
+            },
+        });
 
-        if (maxDepth === 0) return result;
-
-        const comments = await this.getCommentsById(post.postId);
-        const target = comments.data.find((x) => isSameProfile(x.author, post.author));
-        if (target) {
-            result.push(target);
-            return result.concat(await this.getThreadsById(target, maxDepth - 1));
-        }
-
-        return result;
+        return posts.items.map(formatLensPost);
     }
     getAccessToken() {
         return this.client.authentication.getAccessToken();

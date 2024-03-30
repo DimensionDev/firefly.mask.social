@@ -1,6 +1,7 @@
 'use client';
 
 import { t, Trans } from '@lingui/macro';
+import { safeUnreachable } from '@masknet/kit';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation.js';
 import type React from 'react';
@@ -17,8 +18,8 @@ import { dynamic } from '@/esm/dynamic.js';
 import { createPageTitle } from '@/helpers/createPageTitle.js';
 import { resolveSocialPlatform } from '@/helpers/resolveSocialPlatform.js';
 import { useUpdateCurrentVisitingPost } from '@/hooks/useCurrentVisitingPost.js';
+import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { getPostById } from '@/services/getPostById.js';
-import { getThreadById } from '@/services/getThreadById.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 
 const PostActions = dynamic(() => import('@/components/Actions/index.js').then((module) => module.PostActions), {
@@ -57,7 +58,15 @@ export default function Page({ params: { id: postId, source } }: PageProps) {
         queryFn: async () => {
             const root = post?.root ? post.root : post;
             if (!root?.stats?.comments) return EMPTY_LIST;
-            return getThreadById(currentSource, root);
+            switch (currentSource) {
+                case SocialPlatform.Lens:
+                    return LensSocialMediaProvider.getThreadsById(root.postId);
+                case SocialPlatform.Farcaster:
+                    return EMPTY_LIST;
+                default:
+                    safeUnreachable(currentSource);
+                    return EMPTY_LIST;
+            }
         },
     });
 
