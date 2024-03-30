@@ -25,7 +25,7 @@ import { polygon } from 'viem/chains';
 
 import { createLensClient } from '@/configs/lensClient.js';
 import { SocialPlatform } from '@/constants/enum.js';
-import { MAX_THREAD_SIZE } from '@/constants/index.js';
+import { MAX_POST_SIZE_PER_THREAD } from '@/constants/index.js';
 import { formatLensPost, formatLensPostByFeed, formatLensQuoteOrComment } from '@/helpers/formatLensPost.js';
 import { formatLensProfile } from '@/helpers/formatLensProfile.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
@@ -908,7 +908,7 @@ export class LensSocialMedia implements Provider {
         );
     }
 
-    async getThreadsById(post: Post, maxDepth = MAX_THREAD_SIZE): Promise<Post[]> {
+    async getThreadsById(post: Post, maxDepth = MAX_POST_SIZE_PER_THREAD): Promise<Post[]> {
         const result: Post[] = [];
 
         if (maxDepth === 0) return result;

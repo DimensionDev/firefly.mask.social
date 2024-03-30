@@ -1,11 +1,15 @@
 import { safeUnreachable } from '@masknet/kit';
 
 import { SocialPlatform } from '@/constants/enum.js';
-import { MAX_THREAD_SIZE } from '@/constants/index.js';
+import { MAX_POST_SIZE_PER_THREAD } from '@/constants/index.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
-export async function getThreadById(source: SocialPlatform, post: Post, maxDepth = MAX_THREAD_SIZE): Promise<Post[]> {
+export async function getThreadById(
+    source: SocialPlatform,
+    post: Post,
+    maxDepth = MAX_POST_SIZE_PER_THREAD,
+): Promise<Post[]> {
     const result: Post[] = [];
 
     switch (source) {

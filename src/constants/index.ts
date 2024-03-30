@@ -61,7 +61,6 @@ export const MAX_RECOMMEND_PROFILE_SIZE = 10;
 // POST
 export const MAX_OG_SIZE_PER_POST = 1;
 export const MAX_FRAME_SIZE_PER_POST = 1;
-export const MAX_THREAD_SIZE = process.env.NODE_ENV === 'development' ? 5 : 25;
 export const MIN_THREAD_SIZE = 3;
 
 // HTTP Cache headers

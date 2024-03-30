@@ -56,7 +56,7 @@ export default function Page({ params: { id: postId, source } }: PageProps) {
         queryKey: [currentSource, 'thread-detail', post?.postId, post?.root?.postId],
         queryFn: async () => {
             const root = post?.root ? post.root : post;
-            if (!root?.comments?.length) return EMPTY_LIST;
+            if (!root?.stats?.comments) return EMPTY_LIST;
             return getThreadById(currentSource, root);
         },
     });
