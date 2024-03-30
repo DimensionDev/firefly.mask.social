@@ -3,8 +3,8 @@ import type { CompositePost } from '@/store/useComposeStore.js';
 
 /**
  * Detect if a post is empty
- * @param post 
- * @returns 
+ * @param post
+ * @returns
  */
 export function isEmptyPost(post: CompositePost) {
     const content = readChars(post.chars, true);
