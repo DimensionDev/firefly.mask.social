@@ -18,6 +18,7 @@ import type { MediaObject } from '@/types/index.js';
 import type { OpenGraph } from '@/types/og.js';
 import type { RedPacketPayload } from '@/types/rp.js';
 
+// post id for tracking the current editable post
 type Cursor = string;
 
 // A recursive version of Post will cause typescript failed to infer the type of the final exports.

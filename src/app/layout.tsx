@@ -4,6 +4,7 @@ import { Inter } from 'next/font/google';
 import { ScrollRestorer } from 'next-scroll-restorer';
 import { lazy } from 'react';
 
+import { BeforeUnload } from '@/components/Compose/BeforeUnload.js';
 import { GA } from '@/components/GA.js';
 import { Polyfills } from '@/components/Polyfills.js';
 import { Providers } from '@/components/Providers.js';
@@ -50,6 +51,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                     <Modals />
                 </Providers>
                 <GA />
+                <BeforeUnload />
             </body>
             <ScrollRestorer />
         </html>
