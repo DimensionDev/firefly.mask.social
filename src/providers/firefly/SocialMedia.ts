@@ -300,7 +300,7 @@ export class FireflySocialMedia implements Provider {
         return createPageable(data, createIndicator(indicator), createNextIndicator(indicator, nextCursor));
     }
 
-    async publishPost(post: Post): Promise<Post> {
+    async publishPost(post: Post): Promise<string> {
         throw new Error('Method not implemented.');
     }
 
@@ -316,7 +316,7 @@ export class FireflySocialMedia implements Provider {
         throw new Error('Method not implemented.');
     }
 
-    async mirrorPost(postId: string): Promise<Post> {
+    async mirrorPost(postId: string): Promise<string> {
         throw new Error('Method not implemented.');
     }
 

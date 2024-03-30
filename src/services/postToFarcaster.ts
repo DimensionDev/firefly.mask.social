@@ -17,8 +17,12 @@ import type { MediaObject } from '@/types/index.js';
 export async function postToFarcaster(type: ComposeType, compositePost: CompositePost) {
     const { chars, post, images, frames, openGraphs, typedMessage, farcasterPostId } = compositePost;
 
+    // already posted to lens
+    if (farcasterPostId) throw new Error(t`Post already posted on Farcaster`);
+
+    // login required
     const { currentProfile } = useFarcasterStateStore.getState();
-    if (!currentProfile?.profileId || farcasterPostId) return;
+    if (!currentProfile?.profileId) throw new Error(t`Login required to post on Lens.`);
 
     const { updateImages, updateFarcasterPostId } = useComposeStateStore.getState();
 
@@ -45,7 +49,7 @@ export async function postToFarcaster(type: ComposeType, compositePost: Composit
             }),
         );
         try {
-            const hasRedPacket = hasRpPayload(typedMessage);
+            const hasRp = hasRpPayload(typedMessage);
             const draft: Post = {
                 type: 'Post',
                 postId: '',
@@ -66,10 +70,10 @@ export async function postToFarcaster(type: ComposeType, compositePost: Composit
                     (x) => x.url.toLowerCase(),
                 ),
                 commentOn: type === 'reply' && post ? post : undefined,
-                parentChannelKey: hasRedPacket ? 'firefly-garden' : undefined,
-                parentChannelUrl: hasRedPacket ? 'https://warpcast.com/~/channel/firefly-garden' : undefined,
+                parentChannelKey: hasRp ? 'firefly-garden' : undefined,
+                parentChannelUrl: hasRp ? 'https://warpcast.com/~/channel/firefly-garden' : undefined,
             };
-            const published = await FarcasterSocialMediaProvider.publishPost(draft);
+            const postId = await FarcasterSocialMediaProvider.publishPost(draft);
             enqueueSuccessMessage(t`Posted on Farcaster`);
             if (type === 'reply' && post) {
                 queryClient.invalidateQueries({ queryKey: [post.source, 'post-detail', post.postId] });
@@ -77,7 +81,8 @@ export async function postToFarcaster(type: ComposeType, compositePost: Composit
                     queryKey: ['post-detail', 'comments', post.source, post.postId],
                 });
             }
-            if (type === 'compose') updateFarcasterPostId(published.postId);
+            if (type === 'compose') updateFarcasterPostId(postId);
+            return postId;
         } catch (error) {
             enqueueErrorMessage(
                 type === 'compose' ? t`Failed to post on Farcaster.` : t`Failed to reply post on Farcaster.`,
@@ -85,12 +90,17 @@ export async function postToFarcaster(type: ComposeType, compositePost: Composit
             throw error;
         }
     }
-    if (type === 'quote' && post?.postId) {
+
+    if (type === 'quote') {
         try {
-            await FarcasterSocialMediaProvider.mirrorPost(post.postId);
+            if (!post?.postId) throw new Error(t`No parent post to quote.`);
+            const postId = await FarcasterSocialMediaProvider.mirrorPost(post.postId);
+            return postId;
         } catch (error) {
             enqueueErrorMessage(t`Failed to mirror post on Farcaster.`);
             throw error;
         }
     }
+
+    throw new Error(t`Invalid compose type.`);
 }

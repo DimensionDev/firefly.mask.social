@@ -46,7 +46,7 @@ export async function crossPost(type: ComposeType, compositePost: CompositePost)
     const { currentProfile: currentFarcasterProfile } = useFarcasterStateStore.getState();
 
     if (type === 'compose') {
-        const promises: Array<Promise<void>> = [];
+        const promises: Array<Promise<string>> = [];
         if (availableSources.includes(SocialPlatform.Lens)) promises.push(postToLens(type, compositePost));
         if (availableSources.includes(SocialPlatform.Farcaster)) promises.push(postToFarcaster(type, compositePost));
 

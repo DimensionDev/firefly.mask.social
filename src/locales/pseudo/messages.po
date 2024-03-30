@@ -205,6 +205,9 @@ msgstr ""
 msgid "Follow System"
 msgstr ""
 
+msgid "Post already posted on Farcaster"
+msgstr ""
+
 msgid "No results"
 msgstr ""
 
@@ -245,6 +248,9 @@ msgid "Reply"
 msgstr ""
 
 msgid "Querying the signed key state."
+msgstr ""
+
+msgid "Invalid compose type."
 msgstr ""
 
 msgid "Send"
@@ -430,10 +436,16 @@ msgstr ""
 msgid "Login required"
 msgstr ""
 
+msgid "Already posted on Lens."
+msgstr ""
+
 msgid "Show More"
 msgstr ""
 
 msgid "Failed to parse session."
+msgstr ""
+
+msgid "Login required to post on Lens."
 msgstr ""
 
 msgid "Loading..."
@@ -677,6 +689,9 @@ msgid "Language"
 msgstr ""
 
 msgid "Add a comment"
+msgstr ""
+
+msgid "No parent post to quote."
 msgstr ""
 
 msgid "Profiles"
