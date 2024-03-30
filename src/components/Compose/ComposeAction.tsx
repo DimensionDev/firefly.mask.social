@@ -18,7 +18,7 @@ import { PostBy } from '@/components/Compose/PostBy.js';
 import { ReplyRestriction } from '@/components/Compose/ReplyRestriction.js';
 import { SourceIcon } from '@/components/SourceIcon.js';
 import { Tooltip } from '@/components/Tooltip.js';
-import { MAX_POST_SIZE, MAX_THREAD_SIZE } from '@/constants/index.js';
+import { MAX_CHAR_SIZE_PER_POST, MAX_POST_SIZE_PER_THREAD } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { connectMaskWithWagmi } from '@/helpers/connectWagmiWithMask.js';
 import { measureChars } from '@/helpers/readChars.js';
@@ -178,8 +178,8 @@ export function ComposeAction(props: ComposeActionProps) {
 
                 {visibleLength && !isMedium ? (
                     <div className=" ml-auto flex items-center gap-[10px] whitespace-nowrap text-[15px] text-main">
-                        <span className={classNames(length > MAX_POST_SIZE ? 'text-danger' : '')}>
-                            {visibleLength} / {MAX_POST_SIZE - invisibleLength}
+                        <span className={classNames(length > MAX_CHAR_SIZE_PER_POST ? 'text-danger' : '')}>
+                            {visibleLength} / {MAX_CHAR_SIZE_PER_POST - invisibleLength}
                         </span>
                     </div>
                 ) : null}
@@ -187,7 +187,7 @@ export function ComposeAction(props: ComposeActionProps) {
                 {visibleLength && type === 'compose' && !isMedium ? (
                     <ClickableButton
                         className=" text-main disabled:opacity-50"
-                        disabled={posts.length >= MAX_THREAD_SIZE}
+                        disabled={posts.length >= MAX_POST_SIZE_PER_THREAD}
                         onClick={() => {
                             newPost();
                             setEditorContent('');
