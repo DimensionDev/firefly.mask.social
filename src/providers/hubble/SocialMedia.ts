@@ -194,9 +194,6 @@ export class HubbleSocialMedia implements Provider {
         });
         if (!data) throw new Error(t`Failed to mirror post.`);
 
-        console.log('DEBUG: mirror post');
-        console.log(data);
-
         // FIXME: should return post id here
         return null!;
     }
