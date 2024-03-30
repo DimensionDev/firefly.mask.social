@@ -22,7 +22,6 @@ import {
     NotificationType,
     type Post,
     type Profile,
-    ProfileStatus,
     type Provider,
     ReactionType,
     SessionType,
@@ -303,7 +302,7 @@ export class WarpcastSocialMedia implements Provider {
         );
     }
 
-    async publishPost(post: Post): Promise<Post> {
+    async publishPost(post: Post): Promise<string> {
         const url = urlcat(WARPCAST_ROOT_URL, '/casts');
         const {
             result: { cast },
@@ -317,37 +316,7 @@ export class WarpcastSocialMedia implements Provider {
             }),
         });
 
-        return {
-            type: 'Post',
-            source: SocialPlatform.Farcaster,
-            postId: cast.hash,
-            parentPostId: cast.threadHash,
-            timestamp: cast.timestamp,
-            author: {
-                fullHandle: cast.author.username,
-                profileId: cast.author.fid.toString(),
-                handle: cast.author.username,
-                displayName: cast.author.displayName,
-                pfp: cast.author.pfp?.url ?? '',
-                followerCount: cast.author.followerCount,
-                followingCount: cast.author.followingCount,
-                status: ProfileStatus.Active,
-                verified: cast.author.pfp?.verified ?? false,
-                source: SocialPlatform.Farcaster,
-            },
-            metadata: {
-                locale: '',
-                content: {
-                    content: cast.text,
-                },
-            },
-            stats: {
-                comments: cast.replies.count,
-                mirrors: cast.recasts.count,
-                quotes: cast.recasts.count,
-                reactions: cast.reactions.count,
-            },
-        } satisfies Post;
+        return cast.hash;
     }
 
     async upvotePost(postId: string) {
@@ -383,12 +352,12 @@ export class WarpcastSocialMedia implements Provider {
 
     async mirrorPost(postId: string) {
         const url = urlcat(WARPCAST_ROOT_URL, '/recasts');
-        await farcasterClient.fetchWithSession<{ result: { castHash: string } }>(url, {
+        const response = await farcasterClient.fetchWithSession<{ result: { castHash: string } }>(url, {
             method: 'PUT',
             body: JSON.stringify({ castHash: postId }),
         });
 
-        return null!;
+        return response.result.castHash;
     }
 
     async unmirrorPost(postId: string) {

@@ -109,7 +109,7 @@ export class LensSocialMedia implements Provider {
         return;
     }
 
-    async publishPost(post: Post): Promise<Post> {
+    async publishPost(post: Post): Promise<string> {
         if (!post.metadata.contentURI) throw new Error(t`No content to publish.`);
 
         if (post.author.signless) {
@@ -120,10 +120,8 @@ export class LensSocialMedia implements Provider {
 
             if (result.isFailure() || resultValue.__typename === 'LensProfileManagerRelayError')
                 throw new Error(`Something went wrong: ${JSON.stringify(resultValue)}`);
-            return {
-                ...post,
-                postId: resultValue.id,
-            };
+
+            return resultValue.id;
         } else {
             const walletClient = await getWalletClientRequired();
             const resultTypedData = await this.client.publication.createMomokaPostTypedData({
@@ -150,14 +148,11 @@ export class LensSocialMedia implements Provider {
                 throw new Error(`Something went wrong: ${JSON.stringify(broadcastValue)}`);
             }
 
-            return {
-                ...post,
-                postId: broadcastValue.id,
-            };
+            return broadcastValue.id;
         }
     }
 
-    async mirrorPost(postId: string, options?: { onMomoka?: boolean }): Promise<Post> {
+    async mirrorPost(postId: string, options?: { onMomoka?: boolean }): Promise<string> {
         if (options?.onMomoka) {
             const result = await this.client.publication.mirrorOnMomoka({
                 mirrorOn: postId,
@@ -220,12 +215,11 @@ export class LensSocialMedia implements Provider {
             }
         }
 
-        const post = await this.getPostById(postId);
-        return post;
+        return postId;
     }
 
     // intro is the contentURI of the post
-    async quotePost(postId: string, intro: string, signless?: boolean, onMomoka?: boolean): Promise<Post> {
+    async quotePost(postId: string, intro: string, signless?: boolean, onMomoka?: boolean): Promise<string> {
         if (onMomoka) {
             if (signless) {
                 const result = await this.client.publication.quoteOnMomoka({
@@ -236,7 +230,8 @@ export class LensSocialMedia implements Provider {
 
                 if (result.isFailure() || resultValue.__typename === 'LensProfileManagerRelayError')
                     throw new Error(`Something went wrong: ${JSON.stringify(resultValue)}`);
-                return this.getPostById(resultValue.id);
+
+                return resultValue.id;
             } else {
                 const walletClient = await getWalletClientRequired();
                 const resultTypedData = await this.client.publication.createMomokaQuoteTypedData({
@@ -263,7 +258,7 @@ export class LensSocialMedia implements Provider {
                 if (broadcastResult.isFailure() || broadcastValue.__typename === 'RelayError') {
                     throw new Error(`Something went wrong: ${JSON.stringify(broadcastValue)}`);
                 }
-                return this.getPostById(broadcastValue.id);
+                return broadcastValue.id;
             }
         } else {
             const result = await this.client.publication.quoteOnchain({
@@ -305,10 +300,12 @@ export class LensSocialMedia implements Provider {
                     throw new Error(`Something went wrong: ${JSON.stringify(broadcastValue)}`);
                 }
 
-                return this.getPostByTxHashWithPolling(broadcastValue.txHash);
+                const post = await this.getPostByTxHashWithPolling(broadcastValue.txHash);
+                return post.postId;
             }
 
-            return this.getPostByTxHashWithPolling(resultValue.txHash);
+            const post = await this.getPostByTxHashWithPolling(resultValue.txHash);
+            return post.postId;
         }
     }
 

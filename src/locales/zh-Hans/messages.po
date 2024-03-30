@@ -210,6 +210,9 @@ msgstr "Frame Validator"
 msgid "Follow System"
 msgstr "跟随系统"
 
+msgid "Post already posted on Farcaster"
+msgstr ""
+
 msgid "No results"
 msgstr "没有任何结果。"
 
@@ -250,6 +253,9 @@ msgid "Reply"
 msgstr "回复"
 
 msgid "Querying the signed key state."
+msgstr ""
+
+msgid "Invalid compose type."
 msgstr ""
 
 msgid "Send"
@@ -435,11 +441,17 @@ msgstr "显示"
 msgid "Login required"
 msgstr "请先登录"
 
+msgid "Already posted on Lens."
+msgstr ""
+
 msgid "Show More"
 msgstr "显示更多"
 
 msgid "Failed to parse session."
 msgstr "未能解析会话"
+
+msgid "Login required to post on Lens."
+msgstr ""
 
 msgid "Loading..."
 msgstr "加载中..."
@@ -683,6 +695,9 @@ msgstr "语言"
 
 msgid "Add a comment"
 msgstr "添加一个评论"
+
+msgid "No parent post to quote."
+msgstr ""
 
 msgid "Profiles"
 msgstr "个人信息"

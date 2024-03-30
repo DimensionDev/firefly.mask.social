@@ -4,12 +4,11 @@ import { toInteger } from 'lodash-es';
 import urlcat from 'urlcat';
 import { toBytes } from 'viem';
 
-import { SocialPlatform } from '@/constants/enum.js';
 import { HUBBLE_URL } from '@/constants/index.js';
 import { encodeMessageData } from '@/helpers/encodeMessageData.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import type { FrameSignaturePacket, SignaturePacket } from '@/providers/types/Hubble.js';
-import { type Post, ProfileStatus, type Provider, SessionType } from '@/providers/types/SocialMedia.js';
+import { type Post, type Provider, SessionType } from '@/providers/types/SocialMedia.js';
 import { ReactionType as ReactionTypeCustom } from '@/providers/types/SocialMedia.js';
 import type { Frame, Index } from '@/types/frame.js';
 
@@ -39,7 +38,7 @@ export class HubbleSocialMedia implements Provider {
         return SessionType.Farcaster;
     }
 
-    async publishPost(post: Post): Promise<Post> {
+    async publishPost(post: Post): Promise<string> {
         const { messageBytes } = await encodeMessageData(
             () => {
                 const data: {
@@ -85,36 +84,7 @@ export class HubbleSocialMedia implements Provider {
         });
         if (!data) throw new Error(t`Failed to publish post.`);
 
-        return {
-            source: SocialPlatform.Farcaster,
-            postId: hash,
-            parentPostId: '',
-            timestamp: data.timestamp,
-            author: {
-                fullHandle: post.author.handle,
-                profileId: data.fid.toString(),
-                displayName: post.author.displayName,
-                handle: post.author.handle,
-                pfp: post.author.pfp,
-                followerCount: 0,
-                followingCount: 0,
-                status: ProfileStatus.Active,
-                verified: true,
-                source: SocialPlatform.Farcaster,
-            },
-            metadata: {
-                locale: '',
-                content: {
-                    content: data.castAddBody?.text || '',
-                },
-            },
-            stats: {
-                comments: 0,
-                mirrors: 0,
-                quotes: 0,
-                reactions: 0,
-            },
-        };
+        return hash;
     }
 
     async upvotePost(postId: string, authorId?: number) {
@@ -192,6 +162,7 @@ export class HubbleSocialMedia implements Provider {
 
     async mirrorPost(postId: string, options?: { authorId?: number }) {
         if (!options?.authorId) throw new Error(t`Failed to recast post`);
+
         const reactionBody = {
             type: ReactionType.RECAST,
             targetCastId: {
@@ -222,6 +193,11 @@ export class HubbleSocialMedia implements Provider {
             body: messageBytes,
         });
         if (!data) throw new Error(t`Failed to mirror post.`);
+
+        console.log('DEBUG: mirror post');
+        console.log(data);
+
+        // FIXME: should return post id here
         return null!;
     }
 

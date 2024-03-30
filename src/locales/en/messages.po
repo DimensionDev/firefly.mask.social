@@ -205,6 +205,9 @@ msgstr "Frame Validator"
 msgid "Follow System"
 msgstr "Follow System"
 
+msgid "Post already posted on Farcaster"
+msgstr "Post already posted on Farcaster"
+
 msgid "No results"
 msgstr "No results"
 
@@ -246,6 +249,9 @@ msgstr "Reply"
 
 msgid "Querying the signed key state."
 msgstr "Querying the signed key state."
+
+msgid "Invalid compose type."
+msgstr "Invalid compose type."
 
 msgid "Send"
 msgstr "Send"
@@ -430,11 +436,17 @@ msgstr "Display"
 msgid "Login required"
 msgstr "Login required"
 
+msgid "Already posted on Lens."
+msgstr "Already posted on Lens."
+
 msgid "Show More"
 msgstr "Show More"
 
 msgid "Failed to parse session."
 msgstr "Failed to parse session."
+
+msgid "Login required to post on Lens."
+msgstr "Login required to post on Lens."
 
 msgid "Loading..."
 msgstr "Loading..."
@@ -678,6 +690,9 @@ msgstr "Language"
 
 msgid "Add a comment"
 msgstr "Add a comment"
+
+msgid "No parent post to quote."
+msgstr "No parent post to quote."
 
 msgid "Profiles"
 msgstr "Profiles"

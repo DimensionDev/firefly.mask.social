@@ -100,7 +100,7 @@ export class FarcasterSocialMedia implements Provider {
         return WarpcastSocialMediaProvider.getPostsBeMentioned(profileId, indicator);
     }
 
-    async publishPost(post: Post): Promise<Post> {
+    async publishPost(post: Post): Promise<string> {
         const { isCustodyWallet, isGrantByPermission } = getFarcasterSessionType();
         if (isCustodyWallet) return WarpcastSocialMediaProvider.publishPost(post);
         if (isGrantByPermission) return HubbleSocialMediaProvider.publishPost(post);
