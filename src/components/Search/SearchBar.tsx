@@ -63,7 +63,7 @@ const SearchBar = memo(function SearchBar(props: SearchBarProps) {
                     className="w-full flex-1"
                     onSubmit={(ev) => {
                         ev.preventDefault();
-                        handleInputSubmit({ q: inputText, type: SearchType.Posts });
+                        handleInputSubmit({ q: inputText });
                     }}
                 >
                     <SearchInput
