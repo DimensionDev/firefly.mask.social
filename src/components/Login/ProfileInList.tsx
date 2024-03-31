@@ -15,13 +15,13 @@ export function ProfileInList({ isSelected, onSelect, profile }: ProfileInListPr
     return (
         <div className="inline-flex h-[48px] w-full items-center justify-start gap-4">
             <div
-                className="flex h-[48px] w-[48px] items-center justify-center rounded-full"
+                className="flex h-[48px] w-[48px] items-center justify-center overflow-hidden rounded-full"
                 style={{
                     background:
                         'radial-gradient(circle at center, rgba(255, 184, 224, 1), rgba(190, 158, 255, 1), rgba(136, 192, 252, 1), rgba(134, 255, 153, 1))',
                 }}
             >
-                <Image src={profile.pfp} alt="avatar" width={46} height={46} className="rounded-full" />
+                <Image src={profile.pfp} alt={profile.handle} width={48} height={48} />
             </div>
             <ProfileName profile={profile} />
             {isSelected ? (
