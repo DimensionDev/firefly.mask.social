@@ -48,6 +48,9 @@ msgstr "诊断网络"
 msgid "Allow Lens Manager to perform actions such as posting, liking, and commenting without the need to sign each transaction."
 msgstr "允许 Lens 管理员执行发帖、点赞和评论等操作，而无需签署每笔交易。"
 
+msgid "Post All"
+msgstr ""
+
 msgid "{0} views"
 msgstr "{0} 浏览数"
 
@@ -67,7 +70,7 @@ msgid "Searching users"
 msgstr "查找用户中"
 
 msgid "Collect Action is not supported yet."
-msgstr "还未支持收藏"
+msgstr "还未支持收藏。"
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} <5>followed you</5>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> 和 <2/>} other {<3/><4/> 和其他 # 人}} <5>关注了你</5><4/><4/>"
@@ -133,13 +136,13 @@ msgid "Liked"
 msgstr "已点赞"
 
 msgid "Please switch to the correct network in your wallet."
-msgstr "请在钱包中切换到正确的网络"
+msgstr "请在钱包中切换到正确的网络。"
 
 msgid "Type something here..."
 msgstr "从这里开始..."
 
 msgid "Missing IPFS hash for image or video."
-msgstr "未找到图片和视频的 hash 信息"
+msgstr "未找到图片和视频的 hash 信息。"
 
 msgid "Only up to 2 images can be chosen."
 msgstr "至多可以选择2张图片。"
@@ -148,10 +151,10 @@ msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # o
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} {1, select, Lens {{2}} Farcaster {{3}} other {{4}}} <5><6/></5>"
 
 msgid "Failed to unlike. {0}"
-msgstr "取消点赞失败 {0}"
+msgstr "取消点赞失败。 {0}"
 
 msgid "Failed to mirror post on Farcaster."
-msgstr "未能在 Farcaster 上转贴"
+msgstr "未能在 Farcaster 上转贴。"
 
 msgid "You need to connect your {source} account to use this feature."
 msgstr "你需要连接你的 {source} 账号才能使用此功能。"
@@ -173,9 +176,6 @@ msgstr "转帖"
 
 msgid "Add another post..."
 msgstr "添加另一个帖子..."
-
-msgid "Replied on Lens"
-msgstr "在 Lens 上评论"
 
 msgid "Audio Cover"
 msgstr "音频封面"
@@ -258,8 +258,8 @@ msgstr ""
 msgid "Invalid compose type."
 msgstr ""
 
-msgid "Send"
-msgstr "发送"
+msgid "The previous post does not have a Lens post ID."
+msgstr ""
 
 msgid "Collected"
 msgstr "已收藏"
@@ -268,13 +268,13 @@ msgid "<0>You</0> mirrored"
 msgstr "<0>你</0> 已转发"
 
 msgid "Failed to upload video to IPFS."
-msgstr "未能上传图片到 IPFS。 "
+msgstr "未能上传图片到 IPFS。"
 
 msgid "Failed to create image payload."
 msgstr "创建图片内容失败"
 
 msgid "Failed to reply post on Farcaster."
-msgstr "在 Farcaster 上评论失败"
+msgstr "在 Farcaster 上评论失败。"
 
 msgid "Failed to unvote post."
 msgstr "无法对帖子进行投票。"
@@ -295,7 +295,7 @@ msgid "Failed to like. {0}"
 msgstr "点赞失败 {0}"
 
 msgid "Add account"
-msgstr "添加一个已经存在的账号"
+msgstr "添加账号"
 
 msgid "{0} Comments"
 msgstr "{0} 评论"
@@ -305,9 +305,6 @@ msgstr "评论"
 
 msgid "Allow replies from"
 msgstr "允许回复"
-
-msgid "Method not implemented."
-msgstr "方法未实现。"
 
 msgid "Malformed session."
 msgstr "会话格式错误。"
@@ -320,6 +317,12 @@ msgstr "取消点赞"
 
 msgid "Post has been hidden"
 msgstr "帖子已经被隐藏"
+
+msgid "Replied on Lens."
+msgstr "在 Lens 上评论成功。"
+
+msgid "Posted on Farcaster."
+msgstr "在 Farcaster 上发帖成功。"
 
 msgid "Everyone"
 msgstr "任何人"
@@ -365,9 +368,6 @@ msgstr "访问 firefly.land"
 
 msgid "Failed to upvote post."
 msgstr "无法对帖子进行投票。"
-
-msgid "Please switch to the wallet used for login"
-msgstr "请切换钱包登录"
 
 msgid "Post your reply"
 msgstr "发送你的回复"
@@ -418,7 +418,7 @@ msgid "Like"
 msgstr "点赞"
 
 msgid "Please input the frame url to be revalidated."
-msgstr "请输入 URL 重新验证："
+msgstr "请输入 URL 重新验证。"
 
 msgid "Failed to quote post on Lens."
 msgstr "未能在 Lens 上引用帖子。"
@@ -433,7 +433,7 @@ msgid "Publications"
 msgstr "帖子"
 
 msgid "Your website URL."
-msgstr "您网站的 URL"
+msgstr "您网站的 URL。"
 
 msgid "Display"
 msgstr "显示"
@@ -460,7 +460,7 @@ msgid "Share"
 msgstr "分享"
 
 msgid "Your frame URL."
-msgstr "您 Frame 的 URL"
+msgstr "您 Frame 的 URL。"
 
 msgid "Cancel recast successfully"
 msgstr "成功取消转发"
@@ -498,9 +498,6 @@ msgstr "浅色模式"
 msgid "Please switch to the {chainName} network in your wallet."
 msgstr "请切换钱包网络至 {chainName}"
 
-msgid "Posted on Lens"
-msgstr "在 Lens 上发帖成功。"
-
 msgid "{0, plural, =0 {Mirror or Quote} zero {Mirror or Quote} one {Mirror or Quote} other {Mirrors or Quotes}}"
 msgstr "{0, plural, =0 {转发或引用} zero {转发或引用} one {转发或引用} other {转发或引用}}"
 
@@ -522,9 +519,6 @@ msgstr "转帖了你的"
 msgid "Please input the url to be revalidated."
 msgstr "请输入 URL 重新验证："
 
-msgid "Posted on Farcaster"
-msgstr "在 Farcaster 上发帖成功"
-
 msgid "Something went wrong. Please try again."
 msgstr "出现错误，请重试。"
 
@@ -544,7 +538,7 @@ msgid "Follower"
 msgstr "粉丝"
 
 msgid "The frame server failed to process the request."
-msgstr "Frame服务器未能处理请求"
+msgstr "Frame 服务器未能处理请求"
 
 msgid "Post by {0}"
 msgstr "由 {0} 发帖"
@@ -585,6 +579,9 @@ msgstr "<0>你</0> 已点赞"
 msgid "You've hit rock bottom."
 msgstr "你已经滑到底部啦～"
 
+msgid "The root post not found."
+msgstr ""
+
 msgid "Failed to mirror post."
 msgstr "转发失败"
 
@@ -614,6 +611,9 @@ msgstr "红包"
 
 msgid "{0} and others"
 msgstr "{0} 和 其他"
+
+msgid "Please switch to the wallet used for login."
+msgstr "请切换钱包登录。"
 
 msgid "Developers"
 msgstr "开发者"
@@ -714,6 +714,9 @@ msgstr "转推"
 msgid "Followers"
 msgstr "粉丝"
 
+msgid "The previous post does not have a Farcaster post ID."
+msgstr ""
+
 msgid "{0, select, follow {Follow} unfollow {Unfollow} other {Follow}}"
 msgstr "{0, select, follow {关注} unfollow {取消关注} other {关注}}"
 
@@ -733,7 +736,7 @@ msgid "Terms of Service"
 msgstr "服务条款"
 
 msgid "Failed to relay post on Lens."
-msgstr "发送帖子失败"
+msgstr "在 Lens 上回复帖子失败。"
 
 msgid "Post"
 msgstr "发帖"
@@ -753,14 +756,20 @@ msgstr "关闭"
 msgid "<0/> mentioned you in a <1><2/></1>"
 msgstr "<0/> 在 <1><2/></1> 提及了你"
 
+msgid "Posted on Lens."
+msgstr "在 Lens 上发帖成功。"
+
 msgid "Login"
 msgstr "登录"
 
 msgid "Replying to <0>@{0}</0> on {1}"
 msgstr "在 {1} 上回复 <0>@{0}</0>"
 
+msgid "A thread must have at least two posts."
+msgstr ""
+
 msgid "Mint button is not available yet."
-msgstr "Mint 按钮还未开放"
+msgstr "Mint 按钮还未开放。"
 
 msgid "<0/> quoted your <1><2/></1>"
 msgstr "<0/> 引用了你的 <1><2/></1>"

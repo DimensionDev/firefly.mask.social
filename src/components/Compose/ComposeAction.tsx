@@ -43,9 +43,9 @@ export function ComposeAction(props: ComposeActionProps) {
     const lensProfiles = useLensStateStore.use.profiles();
     const farcasterProfiles = useFarcasterStateStore.use.profiles();
 
-    const { type, posts, newPost } = useComposeStateStore();
+    const { type, posts, addPostInThread } = useComposeStateStore();
 
-    const { chars, post, images, video, availableSources } = props.post;
+    const { id, chars, parentPost, images, video, availableSources } = props.post;
 
     const { length, visibleLength, invisibleLength } = useMemo(() => measureChars(chars), [chars]);
 
@@ -189,7 +189,7 @@ export function ComposeAction(props: ComposeActionProps) {
                         className=" text-main disabled:opacity-50"
                         disabled={posts.length >= MAX_POST_SIZE_PER_THREAD}
                         onClick={() => {
-                            newPost();
+                            addPostInThread();
                             setEditorContent('');
                         }}
                     >
@@ -205,7 +205,14 @@ export function ComposeAction(props: ComposeActionProps) {
                 <Popover as="div" className="relative">
                     {(_) => (
                         <>
-                            <Popover.Button className=" flex cursor-pointer gap-1 text-main focus:outline-none">
+                            <Popover.Button
+                                className=" flex cursor-pointer gap-1 text-main focus:outline-none disabled:cursor-none disabled:opacity-50"
+                                disabled={
+                                    posts.findIndex((x) => x.id === id) !== 0 ||
+                                    !!parentPost.Farcaster ||
+                                    !!parentPost.Lens
+                                }
+                            >
                                 <span className="flex items-center gap-x-1 font-bold">
                                     {availableSources.map((x) => (
                                         <SourceIcon key={x} source={x} size={20} />
@@ -215,7 +222,7 @@ export function ComposeAction(props: ComposeActionProps) {
                                     <ChevronRightIcon className="h-5 w-5" aria-hidden="true" />
                                 ) : null}
                             </Popover.Button>
-                            {!post ? <PostBy /> : null}
+                            <PostBy />
                         </>
                     )}
                 </Popover>
@@ -228,7 +235,10 @@ export function ComposeAction(props: ComposeActionProps) {
                 <Popover as="div" className="relative">
                     {(_) => (
                         <>
-                            <Popover.Button className=" flex cursor-pointer gap-1 text-main focus:outline-none">
+                            <Popover.Button
+                                className=" flex cursor-pointer gap-1 text-main focus:outline-none disabled:cursor-none disabled:opacity-50"
+                                disabled={posts.findIndex((x) => x.id === id) !== 0}
+                            >
                                 <span className=" text-[15px] font-bold">
                                     {restriction === RestrictionType.Everyone ? (
                                         <Trans>Everyone</Trans>

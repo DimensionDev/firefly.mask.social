@@ -150,7 +150,7 @@ export class FarcasterSocialMedia implements Provider {
     }
 
     async searchProfiles(q: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
-        return WarpcastSocialMediaProvider.searchProfiles(q, indicator);
+        return FireflySocialMediaProvider.searchProfiles(q, indicator);
     }
 
     async searchPosts(q: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {

@@ -7,9 +7,10 @@ import { useSingletonModal } from '@masknet/shared-base-ui';
 import { forwardRef, Suspense, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 
-import CloseIcon from '@/assets/close.svg';
 import LeftArrowIcon from '@/assets/left-arrow.svg';
 import LoadingIcon from '@/assets/loading.svg';
+import { ClickableButton } from '@/components/ClickableButton.js';
+import { CloseButton } from '@/components/CloseButton.js';
 import { LoginButton } from '@/components/Login/LoginButton.js';
 import { LoginFarcaster } from '@/components/Login/LoginFarcaster.js';
 import { LoginLens } from '@/components/Login/LoginLens.js';
@@ -137,19 +138,14 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | 
                     className="inline-flex items-center justify-center gap-2 rounded-t-[12px] p-4 md:h-[56px] md:w-[600px]"
                     style={{ background: 'var(--m-modal-title-bg)' }}
                 >
-                    <button
-                        onClick={() => {
-                            source === SocialPlatform.Farcaster && !isDirectly
-                                ? setSource(undefined)
-                                : dispatch?.close();
-                        }}
-                    >
-                        {source === SocialPlatform.Farcaster && !isDirectly ? (
+                    {source === SocialPlatform.Farcaster && !isDirectly ? (
+                        <ClickableButton onClick={() => setSource(undefined)}>
                             <LeftArrowIcon width={24} height={24} />
-                        ) : (
-                            <CloseIcon width={24} height={24} />
-                        )}
-                    </button>
+                        </ClickableButton>
+                    ) : (
+                        <CloseButton onClick={() => dispatch?.close()} />
+                    )}
+
                     <div className="shrink grow basis-0 text-center text-lg font-bold leading-snug text-main">
                         {source === SocialPlatform.Lens ? (
                             <Trans>Select Account</Trans>

@@ -43,6 +43,9 @@ msgstr ""
 msgid "Allow Lens Manager to perform actions such as posting, liking, and commenting without the need to sign each transaction."
 msgstr ""
 
+msgid "Post All"
+msgstr ""
+
 msgid "{0} views"
 msgstr ""
 
@@ -169,9 +172,6 @@ msgstr ""
 msgid "Add another post..."
 msgstr ""
 
-msgid "Replied on Lens"
-msgstr ""
-
 msgid "Audio Cover"
 msgstr ""
 
@@ -253,7 +253,7 @@ msgstr ""
 msgid "Invalid compose type."
 msgstr ""
 
-msgid "Send"
+msgid "The previous post does not have a Lens post ID."
 msgstr ""
 
 msgid "Collected"
@@ -301,9 +301,6 @@ msgstr ""
 msgid "Allow replies from"
 msgstr ""
 
-msgid "Method not implemented."
-msgstr ""
-
 msgid "Malformed session."
 msgstr ""
 
@@ -314,6 +311,12 @@ msgid "Unlike"
 msgstr ""
 
 msgid "Post has been hidden"
+msgstr ""
+
+msgid "Replied on Lens."
+msgstr ""
+
+msgid "Posted on Farcaster."
 msgstr ""
 
 msgid "Everyone"
@@ -359,9 +362,6 @@ msgid "Visit firefly.land"
 msgstr ""
 
 msgid "Failed to upvote post."
-msgstr ""
-
-msgid "Please switch to the wallet used for login"
 msgstr ""
 
 msgid "Post your reply"
@@ -493,9 +493,6 @@ msgstr ""
 msgid "Please switch to the {chainName} network in your wallet."
 msgstr ""
 
-msgid "Posted on Lens"
-msgstr ""
-
 msgid "{0, plural, =0 {Mirror or Quote} zero {Mirror or Quote} one {Mirror or Quote} other {Mirrors or Quotes}}"
 msgstr ""
 
@@ -515,9 +512,6 @@ msgid "recasted your"
 msgstr ""
 
 msgid "Please input the url to be revalidated."
-msgstr ""
-
-msgid "Posted on Farcaster"
 msgstr ""
 
 msgid "Something went wrong. Please try again."
@@ -580,6 +574,9 @@ msgstr ""
 msgid "You've hit rock bottom."
 msgstr ""
 
+msgid "The root post not found."
+msgstr ""
+
 msgid "Failed to mirror post."
 msgstr ""
 
@@ -608,6 +605,9 @@ msgid "LuckyDrop"
 msgstr ""
 
 msgid "{0} and others"
+msgstr ""
+
+msgid "Please switch to the wallet used for login."
 msgstr ""
 
 msgid "Developers"
@@ -709,6 +709,9 @@ msgstr ""
 msgid "Followers"
 msgstr ""
 
+msgid "The previous post does not have a Farcaster post ID."
+msgstr ""
+
 msgid "{0, select, follow {Follow} unfollow {Unfollow} other {Follow}}"
 msgstr ""
 
@@ -748,10 +751,16 @@ msgstr ""
 msgid "<0/> mentioned you in a <1><2/></1>"
 msgstr ""
 
+msgid "Posted on Lens."
+msgstr ""
+
 msgid "Login"
 msgstr ""
 
 msgid "Replying to <0>@{0}</0> on {1}"
+msgstr ""
+
+msgid "A thread must have at least two posts."
 msgstr ""
 
 msgid "Mint button is not available yet."

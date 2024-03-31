@@ -17,16 +17,14 @@ import { useAsync } from 'react-use';
 import { None } from 'ts-results-es';
 import urlcat from 'urlcat';
 
-import CloseIcon from '@/assets/close.svg';
 import LoadingIcon from '@/assets/loading.svg';
-import { ClickableButton } from '@/components/ClickableButton.js';
+import { CloseButton } from '@/components/CloseButton.js';
 import { ComposeAction } from '@/components/Compose/ComposeAction.js';
 import { ComposeContent } from '@/components/Compose/ComposeContent.js';
 import { ComposeSend } from '@/components/Compose/ComposeSend.js';
 import { ComposeThreadContent } from '@/components/Compose/ComposeThreadContent.js';
 import { MentionNode } from '@/components/Lexical/nodes/MentionsNode.js';
 import { Modal } from '@/components/Modal.js';
-import { Tooltip } from '@/components/Tooltip.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { SITE_HOSTNAME, SITE_URL } from '@/constants/index.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
@@ -91,7 +89,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
             addImage,
             updateType,
             updateAvailableSources,
-            updatePost,
+            updateParentPost,
             updateChars,
             updateTypedMessage,
             updateRpPayload,
@@ -108,7 +106,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
                 updateType(props.type || 'compose');
                 if (props.source) updateAvailableSources([props.source]);
                 if (props.typedMessage) updateTypedMessage(props.typedMessage);
-                if (props.post) updatePost(props.post);
+                if (props.post) updateParentPost(props.post.source, props.post);
                 if (props.chars && typeof props.chars === 'string') {
                     updateChars(props.chars);
                     setEditorContent(props.chars);
@@ -211,14 +209,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
 
                     {/* Title */}
                     <Dialog.Title as="h3" className=" relative h-14 pt-safe">
-                        <ClickableButton
-                            className="absolute left-4 top-1/2 -translate-y-1/2 cursor-pointer text-main"
-                            onClick={onClose}
-                        >
-                            <Tooltip content={t`Close`} placement="top">
-                                <CloseIcon width={24} height={24} />
-                            </Tooltip>
-                        </ClickableButton>
+                        <CloseButton className="absolute left-4 top-1/2 -translate-y-1/2" onClick={onClose} />
 
                         <span className=" flex h-full w-full items-center justify-center text-lg font-bold capitalize text-main">
                             {type === 'compose' ? (
