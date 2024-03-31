@@ -172,9 +172,6 @@ msgstr ""
 msgid "Add another post..."
 msgstr ""
 
-msgid "Replied on Lens"
-msgstr ""
-
 msgid "Audio Cover"
 msgstr ""
 
@@ -319,6 +316,12 @@ msgstr ""
 msgid "Post has been hidden"
 msgstr ""
 
+msgid "Replied on Lens."
+msgstr ""
+
+msgid "Posted on Farcaster."
+msgstr ""
+
 msgid "Everyone"
 msgstr ""
 
@@ -362,9 +365,6 @@ msgid "Visit firefly.land"
 msgstr ""
 
 msgid "Failed to upvote post."
-msgstr ""
-
-msgid "Please switch to the wallet used for login"
 msgstr ""
 
 msgid "Post your reply"
@@ -496,9 +496,6 @@ msgstr ""
 msgid "Please switch to the {chainName} network in your wallet."
 msgstr ""
 
-msgid "Posted on Lens"
-msgstr ""
-
 msgid "{0, plural, =0 {Mirror or Quote} zero {Mirror or Quote} one {Mirror or Quote} other {Mirrors or Quotes}}"
 msgstr ""
 
@@ -518,9 +515,6 @@ msgid "recasted your"
 msgstr ""
 
 msgid "Please input the url to be revalidated."
-msgstr ""
-
-msgid "Posted on Farcaster"
 msgstr ""
 
 msgid "Something went wrong. Please try again."
@@ -614,6 +608,9 @@ msgid "LuckyDrop"
 msgstr ""
 
 msgid "{0} and others"
+msgstr ""
+
+msgid "Please switch to the wallet used for login."
 msgstr ""
 
 msgid "Developers"
@@ -755,6 +752,9 @@ msgid "Close"
 msgstr ""
 
 msgid "<0/> mentioned you in a <1><2/></1>"
+msgstr ""
+
+msgid "Posted on Lens."
 msgstr ""
 
 msgid "Login"

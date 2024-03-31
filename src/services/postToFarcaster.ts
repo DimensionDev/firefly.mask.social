@@ -78,7 +78,7 @@ export async function postToFarcaster(type: ComposeType, compositePost: Composit
                 parentChannelUrl: hasRp ? 'https://warpcast.com/~/channel/firefly-garden' : undefined,
             };
             const postId = await FarcasterSocialMediaProvider.publishPost(draft);
-            enqueueSuccessMessage(t`Posted on Farcaster`);
+            enqueueSuccessMessage(t`Posted on Farcaster.`);
             if (type === 'reply' && farcasterParentPost) {
                 queryClient.invalidateQueries({
                     queryKey: [farcasterParentPost.source, 'post-detail', farcasterParentPost.postId],
@@ -87,14 +87,13 @@ export async function postToFarcaster(type: ComposeType, compositePost: Composit
                     queryKey: ['post-detail', 'comments', farcasterParentPost.source, farcasterParentPost.postId],
                 });
             }
-            if (type === 'compose')
-                updatePostInThread(compositePost.id, (x) => ({
-                    ...x,
-                    postId: {
-                        ...x.postId,
-                        [SocialPlatform.Farcaster]: postId,
-                    },
-                }));
+            updatePostInThread(compositePost.id, (x) => ({
+                ...x,
+                postId: {
+                    ...x.postId,
+                    [SocialPlatform.Farcaster]: postId,
+                },
+            }));
             return postId;
         } catch (error) {
             enqueueErrorMessage(

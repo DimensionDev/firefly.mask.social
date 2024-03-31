@@ -294,7 +294,7 @@ export async function postToLens(type: ComposeType, compositePost: CompositePost
                 uploadedImages,
                 uploadedVideo,
             );
-            enqueueSuccessMessage(t`Posted on Lens`);
+            enqueueSuccessMessage(t`Posted on Lens.`);
             updatePostInThread(compositePost.id, (x) => ({
                 ...x,
                 postId: {
@@ -318,7 +318,7 @@ export async function postToLens(type: ComposeType, compositePost: CompositePost
                 uploadedVideo,
                 !!lensParentPost.momoka?.proof,
             );
-            enqueueSuccessMessage(t`Replied on Lens`);
+            enqueueSuccessMessage(t`Replied on Lens.`);
             updatePostInThread(compositePost.id, (x) => ({
                 ...x,
                 postId: {
@@ -348,7 +348,7 @@ export async function postToLens(type: ComposeType, compositePost: CompositePost
                 uploadedVideo,
                 !!lensParentPost.momoka?.proof,
             );
-            enqueueSuccessMessage(t`Posted on Lens`);
+            enqueueSuccessMessage(t`Posted on Lens.`);
             updatePostInThread(compositePost.id, (x) => ({
                 ...x,
                 postId: {
