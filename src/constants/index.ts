@@ -62,6 +62,7 @@ export const MAX_RECOMMEND_PROFILE_SIZE = 10;
 // POST
 export const MAX_OG_SIZE_PER_POST = 1;
 export const MAX_FRAME_SIZE_PER_POST = 1;
+export const MIN_POST_SIZE_PER_THREAD = 3;
 
 // HTTP Cache headers
 // Cache for 1 minute, stale for 30 days

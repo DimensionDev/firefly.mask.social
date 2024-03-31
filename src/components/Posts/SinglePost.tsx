@@ -1,16 +1,20 @@
 'use client';
 
+import { Trans } from '@lingui/macro';
+import { safeUnreachable } from '@masknet/kit';
 import { motion } from 'framer-motion';
 import { usePathname, useRouter } from 'next/navigation.js';
-import { memo } from 'react';
+import { memo, useMemo } from 'react';
 import { useInView } from 'react-cool-inview';
 
 import { FeedActionType } from '@/components/Posts/ActionType.js';
 import { PostBody } from '@/components/Posts/PostBody.js';
 import { PostHeader } from '@/components/Posts/PostHeader.js';
+import { SocialPlatform } from '@/constants/enum.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
+import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { useObserveLensPost } from '@/hooks/useObserveLensPost.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
@@ -49,6 +53,26 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
         },
     });
 
+    const isThread = useMemo(() => {
+        switch (post.source) {
+            case SocialPlatform.Lens:
+                return (
+                    post.type === 'Comment' &&
+                    post.firstComment?.postId === post.postId &&
+                    isSameProfile(post.root?.author, post.author)
+                );
+            case SocialPlatform.Farcaster:
+                return (
+                    post.type === 'Comment' &&
+                    isSameProfile(post.commentOn?.author, post.author) &&
+                    isSameProfile(post.root?.author, post.author)
+                );
+            default:
+                safeUnreachable(post.source);
+                return false;
+        }
+    }, [post]);
+
     return (
         <motion.article
             ref={observeRef}
@@ -70,6 +94,14 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
             <PostBody post={post} showMore={showMore} ref={observe} />
 
             {!isDetail ? <PostActions post={post} disabled={post.isHidden} /> : null}
+
+            {isThread && !isPostPage ? (
+                <div className="mt-2 w-full cursor-pointer text-center text-[15px] font-bold text-link">
+                    <div>
+                        <Trans>Show More</Trans>
+                    </div>
+                </div>
+            ) : null}
         </motion.article>
     );
 });

@@ -27,6 +27,7 @@ import type {
     ReactorsResponse,
     SearchCastsResponse,
     SearchProfileResponse,
+    ThreadResponse,
     UploadMediaTokenResponse,
     UserResponse,
     UsersResponse,
@@ -151,9 +152,11 @@ export class FireflySocialMedia implements Provider {
                 size: 25,
                 sourceFid: session?.profileId,
                 cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
+                needRootParentHash: true,
             }),
         });
         const data = casts.map((cast) => formatFarcasterPostFromFirefly(cast));
+
         return createPageable(
             data,
             createIndicator(indicator),
@@ -414,7 +417,7 @@ export class FireflySocialMedia implements Provider {
 
     async getFriendship(profileId: string) {
         const session = farcasterClient.getSession();
-        const { data } = await farcasterClient.fetch<FriendshipResponse>(
+        const { data } = await fetchJSON<FriendshipResponse>(
             urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/user/friendship', {
                 sourceFid: session?.profileId,
                 destFid: profileId,
@@ -425,6 +428,23 @@ export class FireflySocialMedia implements Provider {
         );
 
         return data;
+    }
+
+    async getThreadByPostId(postId: string) {
+        const session = farcasterClient.getSession();
+        const post = await this.getPostById(postId);
+
+        const { data } = await fetchJSON<ThreadResponse>(
+            urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/cast/threads', {
+                sourceFid: session?.profileId,
+                hash: postId,
+                maxDepth: 25,
+            }),
+            {
+                method: 'GET',
+            },
+        );
+        return [post, ...data.threads.map((x) => formatFarcasterPostFromFirefly(x))];
     }
 }
 

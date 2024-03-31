@@ -2,7 +2,6 @@ import { Trans } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
 import { createIndicator, createPageable, EMPTY_LIST } from '@masknet/shared-base';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
-import { useMemo } from 'react';
 import { useInView } from 'react-cool-inview';
 
 import BlackHoleIcon from '@/assets/black-hole.svg';
@@ -10,6 +9,7 @@ import LoadingIcon from '@/assets/loading.svg';
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { SinglePost } from '@/components/Posts/SinglePost.js';
 import { SocialPlatform } from '@/constants/enum.js';
+import { mergeTreadPosts } from '@/helpers/mergeTreadPosts.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
@@ -49,6 +49,10 @@ export function ContentFeed({ profileId, source }: ContentFeedProps) {
         },
         initialPageParam: '',
         getNextPageParam: (lastPage) => lastPage.nextIndicator?.id,
+        select: (data) => {
+            const result = data.pages.flatMap((x) => x.data) || EMPTY_LIST;
+            return mergeTreadPosts(source, result);
+        },
     });
 
     const { observe } = useInView({
@@ -61,9 +65,7 @@ export function ContentFeed({ profileId, source }: ContentFeedProps) {
         },
     });
 
-    const results = useMemo(() => data.pages.flatMap((x) => x.data), [data.pages]);
-
-    if (!results.length)
+    if (!data.length)
         return (
             <NoResultsFallback
                 className="mt-20"
@@ -78,10 +80,10 @@ export function ContentFeed({ profileId, source }: ContentFeedProps) {
 
     return (
         <div key={source}>
-            {results.map((x) => (
+            {data.map((x) => (
                 <SinglePost post={x} key={x.postId} showMore />
             ))}
-            {hasNextPage && results.length ? (
+            {hasNextPage && data.length ? (
                 <div className="flex items-center justify-center p-2" ref={observe}>
                     <LoadingIcon width={16} height={16} className="animate-spin" />
                 </div>

@@ -2,7 +2,7 @@ import { Trans } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
 import { createIndicator, createPageable } from '@masknet/shared-base';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
-import { memo, useMemo } from 'react';
+import { memo } from 'react';
 import { useInView } from 'react-cool-inview';
 
 import LoadingIcon from '@/assets/loading.svg';
@@ -18,12 +18,19 @@ import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 export interface CommentListProps {
     postId: string;
     source: SocialPlatform;
+    exclude?: string[];
 }
 
-export const CommentList = memo<CommentListProps>(function CommentList({ postId, source }) {
+export const CommentList = memo<CommentListProps>(function CommentList({ postId, source, exclude = [] }) {
     const fetchAndStoreViews = useImpressionsStore.use.fetchAndStoreViews();
 
-    const { data, hasNextPage, fetchNextPage, isFetchingNextPage, isFetching } = useSuspenseInfiniteQuery({
+    const {
+        data: results,
+        hasNextPage,
+        fetchNextPage,
+        isFetchingNextPage,
+        isFetching,
+    } = useSuspenseInfiniteQuery({
         queryKey: ['post-detail', 'comments', source, postId],
         queryFn: async ({ pageParam }) => {
             if (!postId) return createPageable(EMPTY_LIST, undefined);
@@ -45,6 +52,9 @@ export const CommentList = memo<CommentListProps>(function CommentList({ postId,
         },
         initialPageParam: '',
         getNextPageParam: (lastPage) => lastPage.nextIndicator?.id,
+        select(data) {
+            return data.pages.flatMap((x) => x.data).filter((x) => !exclude.includes(x.postId));
+        },
     });
 
     const { observe } = useInView({
@@ -56,8 +66,6 @@ export const CommentList = memo<CommentListProps>(function CommentList({ postId,
             await fetchNextPage();
         },
     });
-
-    const results = useMemo(() => data.pages.flatMap((x) => x.data), [data]);
 
     return (
         <div>

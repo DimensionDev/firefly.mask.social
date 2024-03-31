@@ -15,16 +15,19 @@ import {
     createIndicator,
     createNextIndicator,
     createPageable,
+    EMPTY_LIST,
     type Pageable,
     type PageIndicator,
 } from '@masknet/shared-base';
 import { isZero } from '@masknet/web3-shared-base';
 import { first, flatMap, uniqWith } from 'lodash-es';
+import urlcat from 'urlcat';
 import type { TypedDataDomain } from 'viem';
 import { polygon } from 'viem/chains';
 
 import { createLensClient } from '@/configs/lensClient.js';
 import { SocialPlatform } from '@/constants/enum.js';
+import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { formatLensPost, formatLensPostByFeed, formatLensQuoteOrComment } from '@/helpers/formatLensPost.js';
 import { formatLensProfile } from '@/helpers/formatLensProfile.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
@@ -45,6 +48,7 @@ import {
     ReactionType,
     SessionType,
 } from '@/providers/types/SocialMedia.js';
+import type { ResponseJSON } from '@/types/index.js';
 
 export class LensSocialMedia implements Provider {
     private client = createLensClient();
@@ -565,7 +569,12 @@ export class LensSocialMedia implements Provider {
             where: {
                 from: [profileId],
                 metadata: null,
-                publicationTypes: [PublicationType.Post, PublicationType.Mirror, PublicationType.Quote],
+                publicationTypes: [
+                    PublicationType.Post,
+                    PublicationType.Mirror,
+                    PublicationType.Quote,
+                    PublicationType.Comment,
+                ],
             },
             cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
         });
@@ -904,6 +913,19 @@ export class LensSocialMedia implements Provider {
             createIndicator(indicator),
             result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );
+    }
+
+    async getThreadByPostId(postId: string) {
+        const response = await fetchJSON<ResponseJSON<string[]>>(urlcat('/api/thread', { id: postId }));
+        if (!response.success) return EMPTY_LIST;
+        const posts = await this.client.publication.fetchAll({
+            limit: LimitType.TwentyFive,
+            where: {
+                publicationIds: [postId, ...response.data],
+            },
+        });
+
+        return posts.items.map(formatLensPost);
     }
     getAccessToken() {
         return this.client.authentication.getAccessToken();

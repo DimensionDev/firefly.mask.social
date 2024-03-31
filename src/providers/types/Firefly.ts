@@ -23,6 +23,7 @@ export interface Cast {
     recastedBy?: User;
     timestamp?: string;
     rootParentCast?: Cast;
+    root_parent_hash?: string;
 }
 
 export interface User {
@@ -104,4 +105,8 @@ export type UploadMediaTokenResponse = Response<{
 export type FriendshipResponse = Response<{
     isFollowing: boolean;
     isFollowedBack: boolean;
+}>;
+
+export type ThreadResponse = Response<{
+    threads: Cast[];
 }>;

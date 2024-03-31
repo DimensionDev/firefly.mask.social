@@ -173,6 +173,10 @@ export class FarcasterSocialMedia implements Provider {
         if (isGrantByPermission) return FireflySocialMediaProvider.getNotifications(indicator);
         throw new Error(t`No session found.`);
     }
+
+    async getThreadByPostId(postId: string) {
+        return FireflySocialMediaProvider.getThreadByPostId(postId);
+    }
 }
 
 export const FarcasterSocialMediaProvider = new FarcasterSocialMedia();

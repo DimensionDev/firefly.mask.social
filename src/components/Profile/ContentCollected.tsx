@@ -2,7 +2,6 @@ import { Trans } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
 import { createIndicator, createPageable } from '@masknet/shared-base';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
-import { useMemo } from 'react';
 import { useInView } from 'react-cool-inview';
 
 import BlackHoleIcon from '@/assets/black-hole.svg';
@@ -11,6 +10,7 @@ import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { SinglePost } from '@/components/Posts/SinglePost.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
+import { mergeTreadPosts } from '@/helpers/mergeTreadPosts.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
@@ -48,6 +48,10 @@ export function ContentCollected({ profileId, source }: ContentFeedProps) {
         },
         initialPageParam: '',
         getNextPageParam: (lastPage) => lastPage.nextIndicator?.id,
+        select: (data) => {
+            const result = data.pages.flatMap((x) => x.data) || EMPTY_LIST;
+            return mergeTreadPosts(source, result);
+        },
     });
 
     const { observe } = useInView({
@@ -60,9 +64,7 @@ export function ContentCollected({ profileId, source }: ContentFeedProps) {
         },
     });
 
-    const results = useMemo(() => data.pages.flatMap((x) => x.data), [data]);
-
-    if (!results.length)
+    if (!data.length)
         return (
             <NoResultsFallback
                 className="mt-20"
@@ -77,7 +79,7 @@ export function ContentCollected({ profileId, source }: ContentFeedProps) {
 
     return (
         <div>
-            {results.map((x) => (
+            {data.map((x) => (
                 <SinglePost post={x} key={x.postId} showMore />
             ))}
             {hasNextPage ? (

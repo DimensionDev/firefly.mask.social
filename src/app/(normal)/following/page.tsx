@@ -2,9 +2,8 @@
 
 import { t, Trans } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
-import { createIndicator } from '@masknet/shared-base';
+import { createIndicator, EMPTY_LIST } from '@masknet/shared-base';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
-import { useMemo } from 'react';
 import { useInView } from 'react-cool-inview';
 
 import BlackHoleIcon from '@/assets/black-hole.svg';
@@ -13,6 +12,7 @@ import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { SinglePost } from '@/components/Posts/SinglePost.js';
 import { SocialPlatform } from '@/constants/enum.js';
+import { mergeTreadPosts } from '@/helpers/mergeTreadPosts.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
@@ -67,6 +67,10 @@ export default function Following() {
         },
         initialPageParam: '',
         getNextPageParam: (lastPage) => lastPage?.nextIndicator?.id,
+        select: (data) => {
+            const result = data?.pages.flatMap((x) => x?.data || []) || EMPTY_LIST;
+            return mergeTreadPosts(currentSource, result);
+        },
     });
 
     const { observe } = useInView({
@@ -79,8 +83,6 @@ export default function Following() {
         },
     });
 
-    const results = useMemo(() => data.pages?.flatMap((x) => x?.data ?? []) ?? [], [data]);
-
     useNavigatorTitle(t`Following`);
 
     if (!isLogin) {
@@ -89,8 +91,8 @@ export default function Following() {
 
     return (
         <div>
-            {results.length ? (
-                results.map((x) => <SinglePost post={x} key={x.postId} showMore />)
+            {data.length ? (
+                data.map((x) => <SinglePost post={x} key={x.postId} showMore />)
             ) : (
                 <NoResultsFallback
                     className="pt-[228px]"
@@ -104,7 +106,7 @@ export default function Following() {
                     }
                 />
             )}
-            {hasNextPage && results.length ? (
+            {hasNextPage && data.length ? (
                 <div className="flex items-center justify-center p-2" ref={observe}>
                     <LoadingIcon width={16} height={16} className="animate-spin" />
                 </div>

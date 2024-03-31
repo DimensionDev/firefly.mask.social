@@ -19,6 +19,7 @@ const STATS_URL = '/api/publication-views';
 export const useImpressionsBase = create<ImpressionsState>((set) => ({
     publicationViews: EMPTY_LIST,
     fetchAndStoreViews: async (ids) => {
+        if (process.env.NODE_ENV === 'development') return;
         if (!ids.length) return;
 
         try {

@@ -171,6 +171,11 @@ export interface Post {
         proof: string;
     };
     /**
+     * Lens only
+     * If the current post type is Comment, this field is the first comment in this comment list.
+     */
+    firstComment?: Post;
+    /**
      * Farcaster Only
      * Used to add a post to the corresponding channel, like 'firefly-garden'
      */
@@ -510,4 +515,10 @@ export interface Provider {
      * @returns
      */
     searchPosts: (q: string, indicator?: PageIndicator) => Promise<Pageable<Post>>;
+
+    /**
+     * Retrieves posts associated with a thread using the root post id.
+     * @param postId
+     */
+    getThreadByPostId: (postId: string) => Promise<Post[]>;
 }
