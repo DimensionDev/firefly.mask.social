@@ -207,7 +207,11 @@ export function ComposeAction(props: ComposeActionProps) {
                         <>
                             <Popover.Button
                                 className=" flex cursor-pointer gap-1 text-main focus:outline-none disabled:cursor-none disabled:opacity-50"
-                                disabled={posts.findIndex((x) => x.id === id) !== 0}
+                                disabled={
+                                    posts.findIndex((x) => x.id === id) !== 0 ||
+                                    !!parentPost.Farcaster ||
+                                    !!parentPost.Lens
+                                }
                             >
                                 <span className="flex items-center gap-x-1 font-bold">
                                     {availableSources.map((x) => (
@@ -218,7 +222,7 @@ export function ComposeAction(props: ComposeActionProps) {
                                     <ChevronRightIcon className="h-5 w-5" aria-hidden="true" />
                                 ) : null}
                             </Popover.Button>
-                            {!parentPost ? <PostBy /> : null}
+                            <PostBy />
                         </>
                     )}
                 </Popover>

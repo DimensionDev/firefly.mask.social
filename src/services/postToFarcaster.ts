@@ -17,8 +17,8 @@ import type { MediaObject } from '@/types/index.js';
 export async function postToFarcaster(type: ComposeType, compositePost: CompositePost) {
     const { chars, parentPost, images, frames, openGraphs, typedMessage, postId } = compositePost;
 
-    const farcasterPostId = postId[SocialPlatform.Farcaster];
-    const farcasterParentPost = parentPost[SocialPlatform.Farcaster];
+    const farcasterPostId = postId.Farcaster;
+    const farcasterParentPost = parentPost.Farcaster;
 
     // already posted to lens
     if (farcasterPostId) throw new Error(t`Post already posted on Farcaster`);

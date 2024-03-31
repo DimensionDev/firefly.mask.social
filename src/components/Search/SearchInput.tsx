@@ -3,9 +3,7 @@
 import { t } from '@lingui/macro';
 import { useRef } from 'react';
 
-import CloseIcon from '@/assets/close-circle.svg';
-import { ClickableButton } from '@/components/ClickableButton.js';
-import { classNames } from '@/helpers/classNames.js';
+import { CloseButton } from '@/components/CloseButton.js';
 
 interface SearchInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
     onClear?: () => void;
@@ -25,16 +23,15 @@ export function SearchInput(props: SearchInputProps) {
                 ref={inputRef}
                 {...props}
             />
-            <ClickableButton
-                className={classNames('cursor-pointer', props.value ? 'visible' : 'invisible')}
+            <CloseButton
+                className={props.value ? 'visible' : 'invisible'}
                 type="button"
+                size={16}
                 onClick={() => {
                     props.onClear?.();
                     inputRef.current?.focus();
                 }}
-            >
-                <CloseIcon width={16} height={16} />
-            </ClickableButton>
+            />
         </label>
     );
 }

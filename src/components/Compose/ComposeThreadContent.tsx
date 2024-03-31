@@ -1,10 +1,8 @@
 import { t } from '@lingui/macro';
 
-import CloseIcon from '@/assets/close.svg';
-import { ClickableButton } from '@/components/ClickableButton.js';
+import { CloseButton } from '@/components/CloseButton.js';
 import { ComposeContent } from '@/components/Compose/ComposeContent.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
-import { Tooltip } from '@/components/Tooltip.js';
 import { classNames } from '@/helpers/classNames.js';
 import { isEmptyPost } from '@/helpers/isEmptyPost.js';
 import { readChars } from '@/helpers/readChars.js';
@@ -39,7 +37,7 @@ export function ComposeThreadContent(props: ComposeThreadContentProps) {
                     }}
                 >
                     {cursor === x.id && isEmptyPost(x) && i !== 0 ? (
-                        <ClickableButton
+                        <CloseButton
                             className=" absolute right-0 top-2 z-10"
                             onClick={() => {
                                 const next = computed.nextAvailablePost;
@@ -48,11 +46,9 @@ export function ComposeThreadContent(props: ComposeThreadContentProps) {
                                 removePostInThread(x.id);
                                 setEditorContent(readChars(next.chars, true));
                             }}
-                        >
-                            <Tooltip content={t`Remove`} placement="top">
-                                <CloseIcon className=" cursor-pointer" width={20} height={20} />
-                            </Tooltip>
-                        </ClickableButton>
+                            tooltip={t`Remove`}
+                            size={20}
+                        />
                     ) : null}
                     {i < posts.length - 1 ? (
                         <div className=" absolute bottom-0 left-[19px] top-0 h-full w-[2px] bg-secondaryMain" />

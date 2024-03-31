@@ -12,8 +12,8 @@ function shouldCrossPost(index: number, post: CompositePost, rootPost: Composite
     // the root post defines the available sources for the thread
     const { availableSources } = rootPost;
 
-    if (availableSources.includes(SocialPlatform.Lens) && !post.parentPost[SocialPlatform.Lens]) return true;
-    if (availableSources.includes(SocialPlatform.Farcaster) && !post.parentPost[SocialPlatform.Farcaster]) return true;
+    if (availableSources.includes(SocialPlatform.Lens) && !post.parentPost.Lens) return true;
+    if (availableSources.includes(SocialPlatform.Farcaster) && !post.parentPost.Farcaster) return true;
 
     return false;
 }

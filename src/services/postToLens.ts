@@ -233,8 +233,8 @@ async function quotePostForLens(
 export async function postToLens(type: ComposeType, compositePost: CompositePost) {
     const { chars, images, postId, parentPost, video } = compositePost;
 
-    const lensPostId = postId[SocialPlatform.Lens];
-    const lensParentPost = parentPost[SocialPlatform.Lens];
+    const lensPostId = postId.Lens;
+    const lensParentPost = parentPost.Lens;
 
     // already posted to lens
     if (lensPostId) throw new Error(t`Already posted on Lens.`);
