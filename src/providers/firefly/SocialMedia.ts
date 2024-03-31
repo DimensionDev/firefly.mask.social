@@ -151,14 +151,13 @@ export class FireflySocialMedia implements Provider {
                 size: 25,
                 sourceFid: session?.profileId,
                 cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
+                needRootParentHash: true,
             }),
         });
         const data = casts.map((cast) => formatFarcasterPostFromFirefly(cast));
 
-        const result = await getFarcasterThreadsAndPosts(data);
-
         return createPageable(
-            result,
+            getFarcasterThreadsAndPosts(data),
             createIndicator(indicator),
             cursor ? createNextIndicator(indicator, cursor) : undefined,
         );
@@ -263,7 +262,7 @@ export class FireflySocialMedia implements Provider {
 
         const data = casts.map(formatFarcasterPostFromFirefly);
         return createPageable(
-            await getFarcasterThreadsAndPosts(data),
+            getFarcasterThreadsAndPosts(data),
             indicator ?? createIndicator(),
             cursor ? createNextIndicator(indicator, cursor) : undefined,
         );

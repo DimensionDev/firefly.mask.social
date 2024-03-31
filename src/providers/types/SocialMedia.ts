@@ -185,12 +185,6 @@ export interface Post {
      * Used to add a post to the corresponding channel, like channel
      */
     parentChannelUrl?: string;
-
-    /**
-     * Firefly only
-     * Because some api of Firefly do not return root cast data, they only return the root cast hash.
-     */
-    rootParentHash?: string;
 }
 
 export interface Comment {
