@@ -1,7 +1,6 @@
 'use client';
 
 import { t, Trans } from '@lingui/macro';
-import { safeUnreachable } from '@masknet/kit';
 import { createIndicator, type Pageable, type PageIndicator } from '@masknet/shared-base';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { useInView } from 'react-cool-inview';
@@ -13,10 +12,9 @@ import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { SinglePost } from '@/components/Posts/SinglePost.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
-import { getFarcasterThreadsAndPosts } from '@/helpers/getFarcasterThreadsAndPosts.js';
-import { getLensThreadsAndPosts } from '@/helpers/getLensThreadsAndPosts.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
+import { getThreadsAndPosts } from '@/services/getThreadsAndPosts.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 
@@ -47,15 +45,7 @@ export function Home({ source, pageable }: Props) {
         getNextPageParam: (lastPage) => lastPage.nextIndicator?.id,
         select: (data) => {
             const result = data?.pages.flatMap((x) => x.data) || EMPTY_LIST;
-            switch (currentSource) {
-                case SocialPlatform.Lens:
-                    return getLensThreadsAndPosts(result);
-                case SocialPlatform.Farcaster:
-                    return getFarcasterThreadsAndPosts(result);
-                default:
-                    safeUnreachable(currentSource);
-                    return result;
-            }
+            return getThreadsAndPosts(currentSource, result);
         },
     });
 

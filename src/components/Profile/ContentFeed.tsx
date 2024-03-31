@@ -9,10 +9,9 @@ import LoadingIcon from '@/assets/loading.svg';
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { SinglePost } from '@/components/Posts/SinglePost.js';
 import { SocialPlatform } from '@/constants/enum.js';
-import { getFarcasterThreadsAndPosts } from '@/helpers/getFarcasterThreadsAndPosts.js';
-import { getLensThreadsAndPosts } from '@/helpers/getLensThreadsAndPosts.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
+import { getThreadsAndPosts } from '@/services/getThreadsAndPosts.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 
 interface ContentFeedProps {
@@ -52,15 +51,7 @@ export function ContentFeed({ profileId, source }: ContentFeedProps) {
         getNextPageParam: (lastPage) => lastPage.nextIndicator?.id,
         select: (data) => {
             const result = data.pages.flatMap((x) => x.data) || EMPTY_LIST;
-            switch (source) {
-                case SocialPlatform.Lens:
-                    return getLensThreadsAndPosts(result);
-                case SocialPlatform.Farcaster:
-                    return getFarcasterThreadsAndPosts(result);
-                default:
-                    safeUnreachable(source);
-                    return result;
-            }
+            return getThreadsAndPosts(source, result);
         },
     });
 

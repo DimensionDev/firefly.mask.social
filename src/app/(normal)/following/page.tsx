@@ -12,13 +12,12 @@ import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { SinglePost } from '@/components/Posts/SinglePost.js';
 import { SocialPlatform } from '@/constants/enum.js';
-import { getFarcasterThreadsAndPosts } from '@/helpers/getFarcasterThreadsAndPosts.js';
-import { getLensThreadsAndPosts } from '@/helpers/getLensThreadsAndPosts.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
+import { getThreadsAndPosts } from '@/services/getThreadsAndPosts.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 import { useFarcasterStateStore, useLensStateStore } from '@/store/useProfileStore.js';
@@ -70,15 +69,7 @@ export default function Following() {
         getNextPageParam: (lastPage) => lastPage?.nextIndicator?.id,
         select: (data) => {
             const result = data?.pages.flatMap((x) => x?.data || []) || EMPTY_LIST;
-            switch (currentSource) {
-                case SocialPlatform.Lens:
-                    return getLensThreadsAndPosts(result);
-                case SocialPlatform.Farcaster:
-                    return getFarcasterThreadsAndPosts(result);
-                default:
-                    safeUnreachable(currentSource);
-                    return result;
-            }
+            return getThreadsAndPosts(currentSource, result);
         },
     });
 
