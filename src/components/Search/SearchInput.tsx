@@ -9,7 +9,7 @@ interface SearchInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
     onClear?: () => void;
 }
 
-export function SearchInput(props: SearchInputProps) {
+export function SearchInput({ onClear, ...rest }: SearchInputProps) {
     const inputRef = useRef<HTMLInputElement>(null);
 
     return (
@@ -21,14 +21,14 @@ export function SearchInput(props: SearchInputProps) {
                 className=" w-full border-0 bg-transparent py-2 placeholder-secondary focus:border-0 focus:outline-0 focus:ring-0 sm:text-sm sm:leading-6"
                 placeholder={t`Search…`}
                 ref={inputRef}
-                {...props}
+                {...rest}
             />
             <CloseButton
-                className={props.value ? 'visible' : 'invisible'}
+                className={rest.value ? 'visible' : 'invisible'}
                 type="button"
                 size={16}
                 onClick={() => {
-                    props.onClear?.();
+                    onClear?.();
                     inputRef.current?.focus();
                 }}
             />
