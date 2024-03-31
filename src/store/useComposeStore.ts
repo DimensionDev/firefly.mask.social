@@ -66,7 +66,7 @@ interface ComposeState {
     removePostInThread: (cursor: Cursor) => void;
     updatePostInThread: (cursor: Cursor, post: SetStateAction<CompositePost>) => void;
 
-    // switch the curreent editable post
+    // switch to the current editable post
     updateCursor: (cursor: Cursor) => void;
 
     // operations upon the current editable post
