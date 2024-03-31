@@ -4,7 +4,7 @@ import urlcat from 'urlcat';
 import { SocialPlatform } from '@/constants/enum.js';
 import { FIREFLY_STAMP_URL } from '@/constants/index.js';
 
-export function getStampAvatarByProfile(source: SocialPlatform, id: string) {
+export function getStampAvatarByProfileId(source: SocialPlatform, id: string) {
     switch (source) {
         case SocialPlatform.Lens:
             return urlcat(FIREFLY_STAMP_URL, '/lens/:id', { id });

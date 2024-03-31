@@ -17,7 +17,7 @@ import { FIREFLY_ROOT_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { formatFarcasterPostFromFirefly } from '@/helpers/formatFarcasterPostFromFirefly.js';
 import { formatFarcasterProfileFromFirefly } from '@/helpers/formatFarcasterProfileFromFirefly.js';
-import { getStampAvatarByProfile } from '@/helpers/getStampAvatarByProfileId.js';
+import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import type {
     CastResponse,
     CastsResponse,
@@ -351,7 +351,7 @@ export class FireflySocialMedia implements Provider {
                 .map((profile) => {
                     if (!profile) return;
                     return formatFarcasterProfileFromFirefly({
-                        pfp: getStampAvatarByProfile(SocialPlatform.Farcaster, profile.platform_id),
+                        pfp: getStampAvatarByProfileId(SocialPlatform.Farcaster, profile.platform_id),
                         username: profile.name,
                         display_name: profile.name,
                         following: 0,
