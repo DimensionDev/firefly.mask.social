@@ -15,7 +15,10 @@ import type { ComposeType } from '@/types/compose.js';
 import type { MediaObject } from '@/types/index.js';
 
 export async function postToFarcaster(type: ComposeType, compositePost: CompositePost) {
-    const { chars, post, images, frames, openGraphs, typedMessage, farcasterPostId } = compositePost;
+    const { chars, parentPost, images, frames, openGraphs, typedMessage, postId } = compositePost;
+
+    const farcasterPostId = postId.Farcaster;
+    const farcasterParentPost = parentPost.Farcaster;
 
     // already posted to lens
     if (farcasterPostId) throw new Error(t`Post already posted on Farcaster`);
@@ -24,7 +27,7 @@ export async function postToFarcaster(type: ComposeType, compositePost: Composit
     const { currentProfile } = useFarcasterStateStore.getState();
     if (!currentProfile?.profileId) throw new Error(t`Login required to post on Lens.`);
 
-    const { updateImages, updateFarcasterPostId } = useComposeStateStore.getState();
+    const { updatePostInThread } = useComposeStateStore.getState();
 
     if (type === 'compose' || type === 'reply') {
         const uploadedImages = await Promise.all(
@@ -36,9 +39,10 @@ export async function postToFarcaster(type: ComposeType, compositePost: Composit
                         ...media,
                         imgur,
                     };
-                    updateImages((originImages) => {
-                        return originImages.map((x) => (x.file === media.file ? patchedMedia : x));
-                    });
+                    updatePostInThread(compositePost.id, (x) => ({
+                        ...x,
+                        images: x.images.map((y) => (y.file === media.file ? patchedMedia : y)),
+                    }));
                     // We only care about imgur for Farcaster
                     return patchedMedia;
                 } catch (error) {
@@ -69,19 +73,27 @@ export async function postToFarcaster(type: ComposeType, compositePost: Composit
                     ],
                     (x) => x.url.toLowerCase(),
                 ),
-                commentOn: type === 'reply' && post ? post : undefined,
+                commentOn: type === 'reply' && farcasterParentPost ? farcasterParentPost : undefined,
                 parentChannelKey: hasRp ? 'firefly-garden' : undefined,
                 parentChannelUrl: hasRp ? 'https://warpcast.com/~/channel/firefly-garden' : undefined,
             };
             const postId = await FarcasterSocialMediaProvider.publishPost(draft);
-            enqueueSuccessMessage(t`Posted on Farcaster`);
-            if (type === 'reply' && post) {
-                queryClient.invalidateQueries({ queryKey: [post.source, 'post-detail', post.postId] });
+            enqueueSuccessMessage(t`Posted on Farcaster.`);
+            if (type === 'reply' && farcasterParentPost) {
                 queryClient.invalidateQueries({
-                    queryKey: ['post-detail', 'comments', post.source, post.postId],
+                    queryKey: [farcasterParentPost.source, 'post-detail', farcasterParentPost.postId],
+                });
+                queryClient.invalidateQueries({
+                    queryKey: ['post-detail', 'comments', farcasterParentPost.source, farcasterParentPost.postId],
                 });
             }
-            if (type === 'compose') updateFarcasterPostId(postId);
+            updatePostInThread(compositePost.id, (x) => ({
+                ...x,
+                postId: {
+                    ...x.postId,
+                    [SocialPlatform.Farcaster]: postId,
+                },
+            }));
             return postId;
         } catch (error) {
             enqueueErrorMessage(
@@ -93,8 +105,8 @@ export async function postToFarcaster(type: ComposeType, compositePost: Composit
 
     if (type === 'quote') {
         try {
-            if (!post?.postId) throw new Error(t`No parent post to quote.`);
-            const postId = await FarcasterSocialMediaProvider.mirrorPost(post.postId);
+            if (!farcasterParentPost?.postId) throw new Error(t`No parent post to quote.`);
+            const postId = await FarcasterSocialMediaProvider.mirrorPost(farcasterParentPost.postId);
             return postId;
         } catch (error) {
             enqueueErrorMessage(t`Failed to mirror post on Farcaster.`);

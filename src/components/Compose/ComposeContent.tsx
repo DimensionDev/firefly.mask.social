@@ -17,7 +17,10 @@ interface ComposeContentProps {
 export function ComposeContent(props: ComposeContentProps) {
     const { type, cursor } = useComposeStateStore();
 
-    const { id, post, images, video, frames, openGraphs } = props.post;
+    const { id, parentPost, images, video, frames, openGraphs } = props.post;
+
+    // in reply and quote mode, there could be only one parent post
+    const post = parentPost.Farcaster || parentPost.Lens;
 
     return (
         <div className="flex flex-1 flex-col">

@@ -231,7 +231,10 @@ async function quotePostForLens(
 }
 
 export async function postToLens(type: ComposeType, compositePost: CompositePost) {
-    const { chars, images, lensPostId, post, video } = compositePost;
+    const { chars, images, postId, parentPost, video } = compositePost;
+
+    const lensPostId = postId.Lens;
+    const lensParentPost = parentPost.Lens;
 
     // already posted to lens
     if (lensPostId) throw new Error(t`Already posted on Lens.`);
@@ -240,7 +243,7 @@ export async function postToLens(type: ComposeType, compositePost: CompositePost
     const { currentProfile } = useLensStateStore.getState();
     if (!currentProfile?.profileId) throw new Error(t`Login required to post on Lens.`);
 
-    const { updateImages, updateVideo, updateLensPostId } = useComposeStateStore.getState();
+    const { updatePostInThread } = useComposeStateStore.getState();
 
     const uploadedImages = await Promise.all(
         images.map(async (media) => {
@@ -251,9 +254,10 @@ export async function postToLens(type: ComposeType, compositePost: CompositePost
                     ...media,
                     ipfs,
                 };
-                updateImages((originImages) => {
-                    return originImages.map((x) => (x.file === media.file ? patchedMedia : x));
-                });
+                updatePostInThread(compositePost.id, (x) => ({
+                    ...x,
+                    images: x.images.map((x) => (x.file === media.file ? patchedMedia : x)),
+                }));
                 // We only care about ipfs for Lens
                 return patchedMedia;
             } catch (err) {
@@ -271,7 +275,10 @@ export async function postToLens(type: ComposeType, compositePost: CompositePost
                 ...video,
                 ipfs: response,
             };
-            updateVideo(uploadedVideo);
+            updatePostInThread(compositePost.id, (x) => ({
+                ...x,
+                video: uploadedVideo,
+            }));
         } else {
             const message = t`Failed to upload video to IPFS.`;
             enqueueErrorMessage(message);
@@ -287,8 +294,14 @@ export async function postToLens(type: ComposeType, compositePost: CompositePost
                 uploadedImages,
                 uploadedVideo,
             );
-            enqueueSuccessMessage(t`Posted on Lens`);
-            updateLensPostId(postId);
+            enqueueSuccessMessage(t`Posted on Lens.`);
+            updatePostInThread(compositePost.id, (x) => ({
+                ...x,
+                postId: {
+                    ...x.postId,
+                    [SocialPlatform.Lens]: postId,
+                },
+            }));
             return postId;
         } catch (error) {
             enqueueErrorMessage(t`Failed to post on Lens.`);
@@ -296,20 +309,28 @@ export async function postToLens(type: ComposeType, compositePost: CompositePost
         }
     } else if (type === 'reply') {
         try {
-            if (!post) throw new Error('No post found.');
+            if (!lensParentPost) throw new Error('No post found.');
             const commentId = await commentPostForLens(
                 currentProfile.profileId,
-                post.postId,
+                lensParentPost.postId,
                 readChars(chars),
                 uploadedImages,
                 uploadedVideo,
-                !!post.momoka?.proof,
+                !!lensParentPost.momoka?.proof,
             );
-            enqueueSuccessMessage(t`Replied on Lens`);
-            updateLensPostId(commentId);
+            enqueueSuccessMessage(t`Replied on Lens.`);
+            updatePostInThread(compositePost.id, (x) => ({
+                ...x,
+                postId: {
+                    ...x.postId,
+                    [SocialPlatform.Lens]: commentId,
+                },
+            }));
 
-            queryClient.invalidateQueries({ queryKey: [post.source, 'post-detail', post.postId] });
-            queryClient.invalidateQueries({ queryKey: ['post-detail', 'comments', post.source, post.postId] });
+            queryClient.invalidateQueries({ queryKey: [lensParentPost.source, 'post-detail', lensParentPost.postId] });
+            queryClient.invalidateQueries({
+                queryKey: ['post-detail', 'comments', lensParentPost.source, lensParentPost.postId],
+            });
 
             return commentId;
         } catch (error) {
@@ -318,20 +339,26 @@ export async function postToLens(type: ComposeType, compositePost: CompositePost
         }
     } else if (type === 'quote') {
         try {
-            if (!post) throw new Error('No post found.');
+            if (!lensParentPost) throw new Error('No post found.');
             const postId = await quotePostForLens(
                 currentProfile.profileId,
-                post.postId,
+                lensParentPost.postId,
                 readChars(chars),
                 uploadedImages,
                 uploadedVideo,
-                !!post.momoka?.proof,
+                !!lensParentPost.momoka?.proof,
             );
-            enqueueSuccessMessage(t`Posted on Lens`);
-            updateLensPostId(postId);
+            enqueueSuccessMessage(t`Posted on Lens.`);
+            updatePostInThread(compositePost.id, (x) => ({
+                ...x,
+                postId: {
+                    ...x.postId,
+                    [SocialPlatform.Lens]: postId,
+                },
+            }));
 
-            await queryClient.setQueryData([post.source, 'post-detail', post.postId], {
-                ...post,
+            await queryClient.setQueryData([lensParentPost.source, 'post-detail', lensParentPost.postId], {
+                ...lensParentPost,
                 hasQuoted: true,
             });
 

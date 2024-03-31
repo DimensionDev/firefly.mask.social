@@ -1,9 +1,6 @@
-import { t } from '@lingui/macro';
 import { memo, useMemo } from 'react';
 
-import CloseIcon from '@/assets/close.svg';
-import { ClickableButton } from '@/components/ClickableButton.js';
-import { Tooltip } from '@/components/Tooltip.js';
+import { RemoveButton } from '@/components/RemoveButton.js';
 import { Image } from '@/esm/Image.js';
 import { classNames } from '@/helpers/classNames.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
@@ -30,15 +27,9 @@ export const ComposeImage = memo(function ComposeImage({ index, size, image, rea
             )}
         >
             <Image src={blobURL} alt={image.file.name} fill className=" object-cover" />
+
             {!readonly ? (
-                <ClickableButton
-                    className=" absolute right-1 top-1 z-10 inline-flex h-7 w-7 items-center justify-center rounded-full bg-gray-500 text-main md:hidden md:group-hover:inline-flex"
-                    onClick={() => removeImage(image)}
-                >
-                    <Tooltip content={t`Remove`} placement="top">
-                        <CloseIcon className=" cursor-pointer text-white" width={18} height={18} />
-                    </Tooltip>
-                </ClickableButton>
+                <RemoveButton className=" absolute right-1 top-1 z-10" onClick={() => removeImage(image)} />
             ) : null}
         </div>
     );

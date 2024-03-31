@@ -43,6 +43,9 @@ msgstr "Debug Connection"
 msgid "Allow Lens Manager to perform actions such as posting, liking, and commenting without the need to sign each transaction."
 msgstr "Allow Lens Manager to perform actions such as posting, liking, and commenting without the need to sign each transaction."
 
+msgid "Post All"
+msgstr "Post All"
+
 msgid "{0} views"
 msgstr "{0} views"
 
@@ -169,9 +172,6 @@ msgstr "mirror"
 msgid "Add another post..."
 msgstr "Add another post..."
 
-msgid "Replied on Lens"
-msgstr "Replied on Lens"
-
 msgid "Audio Cover"
 msgstr "Audio Cover"
 
@@ -253,8 +253,8 @@ msgstr "Querying the signed key state."
 msgid "Invalid compose type."
 msgstr "Invalid compose type."
 
-msgid "Send"
-msgstr "Send"
+msgid "The previous post does not have a Lens post ID."
+msgstr "The previous post does not have a Lens post ID."
 
 msgid "Collected"
 msgstr "Collected"
@@ -313,6 +313,12 @@ msgstr "Unlike"
 msgid "Post has been hidden"
 msgstr "Post has been hidden"
 
+msgid "Replied on Lens."
+msgstr "Replied on Lens."
+
+msgid "Posted on Farcaster."
+msgstr "Posted on Farcaster."
+
 msgid "Everyone"
 msgstr "Everyone"
 
@@ -357,9 +363,6 @@ msgstr "Visit firefly.land"
 
 msgid "Failed to upvote post."
 msgstr "Failed to upvote post."
-
-msgid "Please switch to the wallet used for login"
-msgstr "Please switch to the wallet used for login"
 
 msgid "Post your reply"
 msgstr "Post your reply"
@@ -490,9 +493,6 @@ msgstr "Light Mode"
 msgid "Please switch to the {chainName} network in your wallet."
 msgstr "Please switch to the {chainName} network in your wallet."
 
-msgid "Posted on Lens"
-msgstr "Posted on Lens"
-
 msgid "{0, plural, =0 {Mirror or Quote} zero {Mirror or Quote} one {Mirror or Quote} other {Mirrors or Quotes}}"
 msgstr "{0, plural, =0 {Mirror or Quote} zero {Mirror or Quote} one {Mirror or Quote} other {Mirrors or Quotes}}"
 
@@ -513,9 +513,6 @@ msgstr "recasted your"
 
 msgid "Please input the url to be revalidated."
 msgstr "Please input the url to be revalidated."
-
-msgid "Posted on Farcaster"
-msgstr "Posted on Farcaster"
 
 msgid "Something went wrong. Please try again."
 msgstr "Something went wrong. Please try again."
@@ -577,6 +574,9 @@ msgstr "<0>You</0> liked"
 msgid "You've hit rock bottom."
 msgstr "You've hit rock bottom."
 
+msgid "The root post not found."
+msgstr "The root post not found."
+
 msgid "Failed to mirror post."
 msgstr "Failed to mirror post."
 
@@ -606,6 +606,9 @@ msgstr "LuckyDrop"
 
 msgid "{0} and others"
 msgstr "{0} and others"
+
+msgid "Please switch to the wallet used for login."
+msgstr "Please switch to the wallet used for login."
 
 msgid "Developers"
 msgstr "Developers"
@@ -706,6 +709,9 @@ msgstr "Recast"
 msgid "Followers"
 msgstr "Followers"
 
+msgid "The previous post does not have a Farcaster post ID."
+msgstr "The previous post does not have a Farcaster post ID."
+
 msgid "{0, select, follow {Follow} unfollow {Unfollow} other {Follow}}"
 msgstr "{0, select, follow {Follow} unfollow {Unfollow} other {Follow}}"
 
@@ -745,11 +751,17 @@ msgstr "Close"
 msgid "<0/> mentioned you in a <1><2/></1>"
 msgstr "<0/> mentioned you in a <1><2/></1>"
 
+msgid "Posted on Lens."
+msgstr "Posted on Lens."
+
 msgid "Login"
 msgstr "Login"
 
 msgid "Replying to <0>@{0}</0> on {1}"
 msgstr "Replying to <0>@{0}</0> on {1}"
+
+msgid "A thread must have at least two posts."
+msgstr "A thread must have at least two posts."
 
 msgid "Mint button is not available yet."
 msgstr "Mint button is not available yet."

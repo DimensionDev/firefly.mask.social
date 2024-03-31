@@ -4,9 +4,9 @@ import { useSingletonModal } from '@masknet/shared-base-ui';
 import { forwardRef, useEffect, useState } from 'react';
 import { useKeyPressEvent, useStateList } from 'react-use';
 
-import CloseIcon from '@/assets/close.svg';
 import { PostActions } from '@/components/Actions/index.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
+import { CloseButton } from '@/components/CloseButton.js';
 import { Image } from '@/components/Image.js';
 import { Modal } from '@/components/Modal.js';
 import { EMPTY_LIST } from '@/constants/index.js';
@@ -59,9 +59,7 @@ export const PreviewImagesModal = forwardRef<SingletonModalRefCreator<PreviewIma
                     {open ? (
                         <>
                             <div className="absolute left-4 top-4 cursor-pointer text-main">
-                                <ClickableButton onClick={() => dispatch?.close()}>
-                                    <CloseIcon width={24} height={24} />
-                                </ClickableButton>
+                                <CloseButton onClick={() => dispatch?.close()} />
                             </div>
 
                             {isMultiple && !isAtStart ? (
