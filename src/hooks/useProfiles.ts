@@ -19,10 +19,13 @@ interface UseProfilesReturnType {
 export function useProfiles(source: SocialPlatform): UseProfilesReturnType {
     const currentLensProfile = useLensStateStore.use.currentProfile();
     const currentLensProfileSession = useLensStateStore.use.currentProfileSession();
+
     const currentFarcasterProfile = useFarcasterStateStore.use.currentProfile();
     const currentFarcasterProfileSession = useFarcasterStateStore.use.currentProfileSession();
+
     const lensProfiles = useLensStateStore.use.profiles();
     const farcasterProfiles = useFarcasterStateStore.use.profiles();
+
     const clearFarcasterCurrentProfile = useFarcasterStateStore.use.clearCurrentProfile();
     const clearLensCurrentProfile = useLensStateStore.use.clearCurrentProfile();
     const refreshLensProfiles = useLensStateStore.use.refreshProfiles();

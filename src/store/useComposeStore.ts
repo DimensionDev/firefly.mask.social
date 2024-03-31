@@ -98,10 +98,12 @@ function createInitSinglePostState(cursor: Cursor): CompositePost {
         postId: {
             [SocialPlatform.Farcaster]: null,
             [SocialPlatform.Lens]: null,
+            [SocialPlatform.Twitter]: null,
         },
         parentPost: {
             [SocialPlatform.Farcaster]: null,
             [SocialPlatform.Lens]: null,
+            [SocialPlatform.Twitter]: null,
         },
         availableSources: [SocialPlatform.Farcaster, SocialPlatform.Lens] as SocialPlatform[],
         restriction: RestrictionType.Everyone,
@@ -244,6 +246,7 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
                     parentPost: {
                         [SocialPlatform.Lens]: null,
                         [SocialPlatform.Farcaster]: null,
+                        [SocialPlatform.Twitter]: null,
 
                         // a post can only have one parent post in specific platform
                         [source]: parentPost,
