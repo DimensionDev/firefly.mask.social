@@ -115,11 +115,12 @@ function createInitSinglePostState(cursor: Cursor): CompositePost {
     };
 }
 
-const pick = <T>(s: ComposeState, _: (post: CompositePost) => T): T => _(s.posts.find((x) => x.id === s.cursor)!);
+const pick = <T>(s: ComposeState, _: (post: CompositePost) => T, cursor = s.cursor): T =>
+    _(s.posts.find((x) => x.id === cursor)!);
 
-const next = (s: ComposeState, _: (post: CompositePost) => CompositePost): ComposeState => ({
+const next = (s: ComposeState, _: (post: CompositePost) => CompositePost, cursor = s.cursor): ComposeState => ({
     ...s,
-    posts: s.posts.map((x) => (x.id === s.cursor ? _(x) : x)),
+    posts: s.posts.map((x) => (x.id === cursor ? _(x) : x)),
 });
 
 const initialPostCursor = uuid();
@@ -214,15 +215,18 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
             }),
         updatePostInThread: (cursor, post) =>
             set((state) =>
-                next(state, (x) =>
-                    x.id === cursor
-                        ? typeof post === 'function'
-                            ? post(x)
-                            : {
-                                  ...x,
-                                  ...post,
-                              }
-                        : x,
+                next(
+                    state,
+                    (x) =>
+                        x.id === cursor
+                            ? typeof post === 'function'
+                                ? post(x)
+                                : {
+                                      ...x,
+                                      ...post,
+                                  }
+                            : x,
+                    cursor,
                 ),
             ),
         updateCursor: (cursor) =>
