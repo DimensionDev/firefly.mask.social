@@ -188,6 +188,7 @@ export interface Post {
 
     /**
      * Firefly only
+     * Because some api of Firefly do not return root cast data, they only return the root cast hash.
      */
     rootParentHash?: string;
 }
