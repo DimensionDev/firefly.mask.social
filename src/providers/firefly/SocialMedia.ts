@@ -334,7 +334,7 @@ export class FireflySocialMedia implements Provider {
         throw new Error('Method not implemented.');
     }
 
-    // TODO: Support other social platform
+    // TODO: now for farcaster only, support other platforms in the future.
     async searchProfiles(q: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
         const url = urlcat(FIREFLY_ROOT_URL, '/v2/search/identity', {
             keyword: q,
