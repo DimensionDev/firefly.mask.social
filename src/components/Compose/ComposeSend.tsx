@@ -60,14 +60,14 @@ export function ComposeSend(props: ComposeSendProps) {
 
     const loading = posts.length > 1 ? loadingCrossPostThread : loadingCrossPost;
     const disabled = posts.length > 1 ? disabledCrossPostThread : disabledCrossPost;
-    const hanldePost = posts.length > 1 ? handleCrossPostThread : handleCrossPost;
+    const handlePost = posts.length > 1 ? handleCrossPostThread : handleCrossPost;
 
     if (!isMedium) {
         return (
             <ClickableButton
                 className="absolute right-4 top-1/2 -translate-y-1/2 cursor-pointer disabled:opacity-50"
                 disabled={disabled}
-                onClick={hanldePost}
+                onClick={handlePost}
             >
                 {loading ? (
                     <LoadingIcon width={24} height={24} className="animate-spin text-main" />
@@ -113,9 +113,9 @@ export function ComposeSend(props: ComposeSendProps) {
                 className={classNames(
                     ' flex h-10 w-[120px] items-center justify-center gap-1 rounded-full bg-black text-[15px] font-bold text-white disabled:cursor-not-allowed disabled:opacity-50 dark:bg-white dark:text-black',
                 )}
-                onClick={hanldePost}
+                onClick={handlePost}
             >
-                {loadingCrossPost ? (
+                {loading ? (
                     <LoadingIcon width={16} height={16} className="animate-spin" />
                 ) : (
                     <>
