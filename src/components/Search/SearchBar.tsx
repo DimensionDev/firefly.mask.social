@@ -8,7 +8,6 @@ import LeftArrowIcon from '@/assets/left-arrow.svg';
 import SearchIcon from '@/assets/search.svg';
 import { SearchInput } from '@/components/Search/SearchInput.js';
 import { SearchRecommendation } from '@/components/Search/SearchRecommendation.js';
-import { SearchType } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { useSearchHistoryStateStore } from '@/store/useSearchHistoryStore.js';
@@ -63,7 +62,7 @@ const SearchBar = memo(function SearchBar(props: SearchBarProps) {
                     className="w-full flex-1"
                     onSubmit={(ev) => {
                         ev.preventDefault();
-                        handleInputSubmit({ q: inputText, type: SearchType.Posts });
+                        handleInputSubmit({ q: inputText });
                     }}
                 >
                     <SearchInput

@@ -80,34 +80,36 @@ export default function Page() {
 
     useNavigatorTitle(t`Search`);
 
+    if (!results.length) {
+        return (
+            <NoResultsFallback
+                message={
+                    <div className="mx-16">
+                        <div className="text-sm text-main">{t`No results for "${searchKeyword}"`}</div>
+                        <p className="mt-4 text-center text-sm text-second">
+                            <Trans>Try searching for something else.</Trans>
+                        </p>
+                    </div>
+                }
+            />
+        );
+    }
+
     return (
         <div>
-            {results.length ? (
-                results.map((item) => {
-                    if (searchType === SearchType.Users) {
-                        const profile = item as Profile;
-                        return <ProfileInList key={profile.profileId} profile={profile} />;
-                    }
-                    if (searchType === SearchType.Posts) {
-                        const post = item as Post;
-                        return <SinglePost key={post.postId} post={post} />;
-                    }
-                    return null;
-                })
-            ) : (
-                <NoResultsFallback
-                    message={
-                        <div className="mx-16">
-                            <div className="text-sm text-main">{t`No results for "${searchKeyword}"`}</div>
-                            <p className="mt-4 text-center text-sm text-second">
-                                <Trans>Try searching for something else.</Trans>
-                            </p>
-                        </div>
-                    }
-                />
-            )}
+            {results.map((item) => {
+                if (searchType === SearchType.Users) {
+                    const profile = item as Profile;
+                    return <ProfileInList key={profile.profileId} profile={profile} />;
+                }
+                if (searchType === SearchType.Posts) {
+                    const post = item as Post;
+                    return <SinglePost key={post.postId} post={post} />;
+                }
+                return null;
+            })}
 
-            {hasNextPage && results.length ? (
+            {hasNextPage ? (
                 <div className="flex items-center justify-center p-2" ref={observe}>
                     <LoadingIcon width={16} height={16} className="animate-spin" />
                 </div>
