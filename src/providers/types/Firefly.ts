@@ -29,13 +29,22 @@ export interface User {
     pfp: string;
     username: string;
     display_name: string;
-    bio: string;
+    bio?: string;
     following: number;
     followers: number;
     addresses: string[];
     fid: string;
-    isFollowing: boolean;
-    isFollowedBack: boolean;
+    isFollowing?: boolean;
+    isFollowedBack?: boolean;
+}
+
+export interface Profile {
+    platform_id: string;
+    platform: string;
+    handle: string;
+    name: string;
+    hit: boolean;
+    score: number;
 }
 
 export interface UsersData {
@@ -72,6 +81,12 @@ export type CastsResponse = Response<{
 }>;
 
 export type SearchCastsResponse = Response<Cast[]>;
+
+export type SearchProfileResponse = Response<{
+    list: Array<Record<'lens' | 'farcaster', Profile[] | null>>;
+    cursor: number;
+    size: number;
+}>;
 
 export type NotificationResponse = Response<{ notifications: Notification[]; cursor: string }>;
 

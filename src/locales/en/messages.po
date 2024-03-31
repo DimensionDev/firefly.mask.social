@@ -301,9 +301,6 @@ msgstr "Comment"
 msgid "Allow replies from"
 msgstr "Allow replies from"
 
-msgid "Method not implemented."
-msgstr "Method not implemented."
-
 msgid "Malformed session."
 msgstr "Malformed session."
 

@@ -17,6 +17,7 @@ import { FIREFLY_ROOT_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { formatFarcasterPostFromFirefly } from '@/helpers/formatFarcasterPostFromFirefly.js';
 import { formatFarcasterProfileFromFirefly } from '@/helpers/formatFarcasterProfileFromFirefly.js';
+import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import type {
     CastResponse,
     CastsResponse,
@@ -25,6 +26,7 @@ import type {
     NotificationResponse,
     ReactorsResponse,
     SearchCastsResponse,
+    SearchProfileResponse,
     UploadMediaTokenResponse,
     UserResponse,
     UsersResponse,
@@ -332,8 +334,39 @@ export class FireflySocialMedia implements Provider {
         throw new Error('Method not implemented.');
     }
 
-    searchProfiles(q: string, indicator?: PageIndicator): Promise<Pageable<Profile>> {
-        throw new Error(t`Method not implemented.`);
+    // TODO: now for farcaster only, support other platforms in the future.
+    async searchProfiles(q: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
+        const url = urlcat(FIREFLY_ROOT_URL, '/v2/search/identity', {
+            keyword: q,
+            size: 25,
+            cursor: indicator?.id,
+        });
+
+        const { data } = await fetchJSON<SearchProfileResponse>(url, {
+            method: 'GET',
+        });
+        const result = compact(
+            data.list
+                .flatMap((x) => x.farcaster ?? [])
+                .map((profile) => {
+                    if (!profile) return;
+                    return formatFarcasterProfileFromFirefly({
+                        pfp: getStampAvatarByProfileId(SocialPlatform.Farcaster, profile.platform_id),
+                        username: profile.name,
+                        display_name: profile.name,
+                        following: 0,
+                        followers: 0,
+                        addresses: [],
+                        fid: profile.platform_id,
+                    });
+                }),
+        );
+
+        return createPageable(
+            result,
+            createIndicator(indicator),
+            data.cursor ? createNextIndicator(indicator, `${data.cursor}`) : undefined,
+        );
     }
 
     async searchPosts(q: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {

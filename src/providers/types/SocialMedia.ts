@@ -58,8 +58,8 @@ export interface Profile {
     verified: boolean;
     signless?: boolean;
     viewerContext?: {
-        following: boolean;
-        followedBy: boolean;
+        following?: boolean;
+        followedBy?: boolean;
     };
     ownedBy?: {
         networkType: NetworkType;
