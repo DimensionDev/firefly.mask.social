@@ -306,9 +306,6 @@ msgstr "评论"
 msgid "Allow replies from"
 msgstr "允许回复"
 
-msgid "Method not implemented."
-msgstr "方法未实现。"
-
 msgid "Malformed session."
 msgstr "会话格式错误。"
 
