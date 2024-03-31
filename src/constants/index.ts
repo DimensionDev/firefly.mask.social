@@ -8,7 +8,8 @@ export const SITE_HOSTNAME = 'firefly.mask.social';
 
 export const WARPCAST_ROOT_URL = 'https://api.warpcast.com/v2';
 export const WARPCAST_CLIENT_URL = 'https://client.warpcast.com/v2';
-export const FIREFLY_ROOT_URL = 'https://api.firefly.land';
+export const FIREFLY_ROOT_URL = process.env.NEXT_PUBLIC_FIREFLY_API_URL ?? 'https://api.firefly.land';
+export const FIREFLY_STAMP_URL = 'https://stamp.firefly.land/avatar';
 
 export const HUBBLE_URL = process.env.NEXT_PUBLIC_HUBBLE_URL;
 
