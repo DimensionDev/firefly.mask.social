@@ -17,7 +17,6 @@ import { FIREFLY_ROOT_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { formatFarcasterPostFromFirefly } from '@/helpers/formatFarcasterPostFromFirefly.js';
 import { formatFarcasterProfileFromFirefly } from '@/helpers/formatFarcasterProfileFromFirefly.js';
-import { getFarcasterThreadsAndPosts } from '@/helpers/getFarcasterThreadsAndPosts.js';
 import type {
     CastResponse,
     CastsResponse,
@@ -157,7 +156,7 @@ export class FireflySocialMedia implements Provider {
         const data = casts.map((cast) => formatFarcasterPostFromFirefly(cast));
 
         return createPageable(
-            getFarcasterThreadsAndPosts(data),
+            data,
             createIndicator(indicator),
             cursor ? createNextIndicator(indicator, cursor) : undefined,
         );
@@ -262,7 +261,7 @@ export class FireflySocialMedia implements Provider {
 
         const data = casts.map(formatFarcasterPostFromFirefly);
         return createPageable(
-            getFarcasterThreadsAndPosts(data),
+            data,
             indicator ?? createIndicator(),
             cursor ? createNextIndicator(indicator, cursor) : undefined,
         );
