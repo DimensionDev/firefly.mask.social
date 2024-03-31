@@ -3,7 +3,7 @@ import { uniqBy } from 'lodash-es';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
-export function getFarcasterThreadsAndPosts(posts: Post[]) {
+export function mergeTreadPostsForFarcaster(posts: Post[]) {
     const threadIds = new Set<string>();
 
     posts.forEach((post) => {

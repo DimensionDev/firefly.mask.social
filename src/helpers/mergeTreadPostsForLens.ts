@@ -3,7 +3,7 @@ import { uniqBy } from 'lodash-es';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { type Post } from '@/providers/types/SocialMedia.js';
 
-export function getLensThreadsAndPosts(posts: Post[]) {
+export function mergeTreadPostsForLens(posts: Post[]) {
     const filtered = posts.filter((post, index, arr) => {
         if (post.type !== 'Comment') return true;
 

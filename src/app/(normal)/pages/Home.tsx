@@ -12,9 +12,9 @@ import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { SinglePost } from '@/components/Posts/SinglePost.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
+import { mergeTreadPosts } from '@/helpers/mergeTreadPosts.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
-import { getThreadsAndPosts } from '@/services/getThreadsAndPosts.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 
@@ -45,7 +45,7 @@ export function Home({ source, pageable }: Props) {
         getNextPageParam: (lastPage) => lastPage.nextIndicator?.id,
         select: (data) => {
             const result = data?.pages.flatMap((x) => x.data) || EMPTY_LIST;
-            return getThreadsAndPosts(currentSource, result);
+            return mergeTreadPosts(currentSource, result);
         },
     });
 

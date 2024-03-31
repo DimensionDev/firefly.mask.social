@@ -1,6 +1,7 @@
 'use client';
 
 import { Trans } from '@lingui/macro';
+import { safeUnreachable } from '@masknet/kit';
 import { motion } from 'framer-motion';
 import { usePathname, useRouter } from 'next/navigation.js';
 import { memo, useMemo } from 'react';
@@ -66,6 +67,9 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
                     isSameProfile(post.commentOn?.author, post.author) &&
                     isSameProfile(post.root?.author, post.author)
                 );
+            default:
+                safeUnreachable(post.source);
+                return false;
         }
     }, [post]);
 

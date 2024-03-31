@@ -19,7 +19,7 @@ interface ThreadBodyProps {
     isLast?: boolean;
 }
 
-export const ThreadBody = memo<ThreadBodyProps>(function ThreadBody({ post, disableAnimate, isLast }) {
+export const ThreadBody = memo<ThreadBodyProps>(function ThreadBody({ post, disableAnimate, isLast = false }) {
     const router = useRouter();
     const { observe } = useObserveLensPost(post.postId, post.source);
 
@@ -57,7 +57,7 @@ export const ThreadBody = memo<ThreadBodyProps>(function ThreadBody({ post, disa
             <div className="flex">
                 <div
                     className={classNames('ml-5 mr-8 border-[0.8px] ', {
-                        'border-transparent bg-transparent dark:border-transparent dark:bg-none': !!isLast,
+                        'border-transparent bg-transparent dark:border-transparent dark:bg-none': isLast,
                         'border-gray-300 bg-gray-300 dark:border-gray-700 dark:bg-gray-700': !isLast,
                     })}
                 />
