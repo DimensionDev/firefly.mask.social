@@ -90,6 +90,7 @@ export function formatFarcasterPostFromFirefly(result: Cast): Post {
         canComment: true,
         commentOn: result.parentCast ? formatFarcasterPostFromFirefly(result.parentCast) : undefined,
         root: result.rootParentCast ? formatFarcasterPostFromFirefly(result.rootParentCast) : undefined,
+        rootParentHash: result.root_parent_hash,
         __original__: result,
     };
 }

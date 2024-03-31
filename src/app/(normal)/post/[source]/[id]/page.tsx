@@ -18,6 +18,7 @@ import { dynamic } from '@/esm/dynamic.js';
 import { createPageTitle } from '@/helpers/createPageTitle.js';
 import { resolveSocialPlatform } from '@/helpers/resolveSocialPlatform.js';
 import { useUpdateCurrentVisitingPost } from '@/hooks/useCurrentVisitingPost.js';
+import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { getPostById } from '@/services/getPostById.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
@@ -56,13 +57,15 @@ export default function Page({ params: { id: postId, source } }: PageProps) {
     const { data: threadData = EMPTY_LIST } = useSuspenseQuery({
         queryKey: [currentSource, 'thread-detail', post?.postId, post?.root?.postId],
         queryFn: async () => {
-            const root = post?.root ? post.root : post;
-            if (!root?.stats?.comments) return EMPTY_LIST;
             switch (currentSource) {
                 case SocialPlatform.Lens:
+                    const root = post?.root ? post.root : post;
+                    if (!root?.stats?.comments) return EMPTY_LIST;
                     return LensSocialMediaProvider.getThreadByPostId(root.postId);
                 case SocialPlatform.Farcaster:
-                    return EMPTY_LIST;
+                    const rootHash = post?.rootParentHash;
+                    if (!rootHash) return EMPTY_LIST;
+                    return FarcasterSocialMediaProvider.getThreadByPostId(rootHash);
                 default:
                     safeUnreachable(currentSource);
                     return EMPTY_LIST;

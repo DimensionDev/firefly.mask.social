@@ -391,6 +391,7 @@ export function formatLensPost(result: AnyPublicationFragment): Post {
             hasActed: result.operations.hasActed.value,
             commentOn: formatLensQuoteOrComment(result.commentOn),
             hasLiked: result.operations.hasUpvoted,
+            firstComment: result.firstComment ? formatLensQuoteOrComment(result.firstComment) : undefined,
             root:
                 result.root && !isEmpty(result.root) && (result.root as PostFragment).id !== result.commentOn.id
                     ? formatLensPost(result.root as PostFragment)

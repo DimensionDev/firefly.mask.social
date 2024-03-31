@@ -30,6 +30,7 @@ import { SocialPlatform } from '@/constants/enum.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { formatLensPost, formatLensPostByFeed, formatLensQuoteOrComment } from '@/helpers/formatLensPost.js';
 import { formatLensProfile } from '@/helpers/formatLensProfile.js';
+import { getLensThreadsAndPosts } from '@/helpers/getLensThreadsAndPosts.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { pollingWithRetry } from '@/helpers/pollWithRetry.js';
 import { LensSession } from '@/providers/lens/Session.js';
@@ -523,7 +524,7 @@ export class LensSocialMedia implements Provider {
         });
 
         return createPageable(
-            result.items.map(formatLensPost),
+            getLensThreadsAndPosts(result.items.map(formatLensPost)),
             createIndicator(indicator),
             result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );
@@ -542,7 +543,7 @@ export class LensSocialMedia implements Provider {
 
         const result = data.unwrap();
         return createPageable(
-            result.items.map(formatLensPostByFeed),
+            getLensThreadsAndPosts(result.items.map(formatLensPostByFeed)),
             indicator ?? createIndicator(),
             result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );
@@ -569,13 +570,18 @@ export class LensSocialMedia implements Provider {
             where: {
                 from: [profileId],
                 metadata: null,
-                publicationTypes: [PublicationType.Post, PublicationType.Mirror, PublicationType.Quote],
+                publicationTypes: [
+                    PublicationType.Post,
+                    PublicationType.Mirror,
+                    PublicationType.Quote,
+                    PublicationType.Comment,
+                ],
             },
             cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
         });
 
         return createPageable(
-            result.items.map(formatLensPost),
+            getLensThreadsAndPosts(result.items.map(formatLensPost)),
             createIndicator(indicator),
             result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );

@@ -17,6 +17,7 @@ import { FIREFLY_ROOT_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { formatFarcasterPostFromFirefly } from '@/helpers/formatFarcasterPostFromFirefly.js';
 import { formatFarcasterProfileFromFirefly } from '@/helpers/formatFarcasterProfileFromFirefly.js';
+import { getFarcasterThreadsAndPosts } from '@/helpers/getFarcasterThreadsAndPosts.js';
 import type {
     CastResponse,
     CastsResponse,
@@ -25,6 +26,7 @@ import type {
     NotificationResponse,
     ReactorsResponse,
     SearchCastsResponse,
+    ThreadResponse,
     UploadMediaTokenResponse,
     UserResponse,
     UsersResponse,
@@ -152,8 +154,11 @@ export class FireflySocialMedia implements Provider {
             }),
         });
         const data = casts.map((cast) => formatFarcasterPostFromFirefly(cast));
+
+        const result = await getFarcasterThreadsAndPosts(data);
+
         return createPageable(
-            data,
+            result,
             createIndicator(indicator),
             cursor ? createNextIndicator(indicator, cursor) : undefined,
         );
@@ -258,7 +263,7 @@ export class FireflySocialMedia implements Provider {
 
         const data = casts.map(formatFarcasterPostFromFirefly);
         return createPageable(
-            data,
+            await getFarcasterThreadsAndPosts(data),
             indicator ?? createIndicator(),
             cursor ? createNextIndicator(indicator, cursor) : undefined,
         );
@@ -381,7 +386,7 @@ export class FireflySocialMedia implements Provider {
 
     async getFriendship(profileId: string) {
         const session = farcasterClient.getSession();
-        const { data } = await farcasterClient.fetch<FriendshipResponse>(
+        const { data } = await fetchJSON<FriendshipResponse>(
             urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/user/friendship', {
                 sourceFid: session?.profileId,
                 destFid: profileId,
@@ -392,6 +397,23 @@ export class FireflySocialMedia implements Provider {
         );
 
         return data;
+    }
+
+    async getThreadByPostId(postId: string) {
+        const session = farcasterClient.getSession();
+        const post = await this.getPostById(postId);
+
+        const { data } = await fetchJSON<ThreadResponse>(
+            urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/cast/threads', {
+                sourceFid: session?.profileId,
+                hash: postId,
+                maxDepth: 25,
+            }),
+            {
+                method: 'GET',
+            },
+        );
+        return [post, ...data.threads.map((x) => formatFarcasterPostFromFirefly(x))];
     }
 }
 

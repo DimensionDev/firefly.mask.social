@@ -171,6 +171,11 @@ export interface Post {
         proof: string;
     };
     /**
+     * Lens only
+     * If the current post type is Comment, this field is the first comment in this comment list.
+     */
+    firstComment?: Post;
+    /**
      * Farcaster Only
      * Used to add a post to the corresponding channel, like 'firefly-garden'
      */
@@ -180,6 +185,11 @@ export interface Post {
      * Used to add a post to the corresponding channel, like channel
      */
     parentChannelUrl?: string;
+
+    /**
+     * Firefly only
+     */
+    rootParentHash?: string;
 }
 
 export interface Comment {

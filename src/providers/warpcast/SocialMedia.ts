@@ -16,6 +16,7 @@ import { WARPCAST_CLIENT_URL, WARPCAST_ROOT_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { formatWarpcastPost, formatWarpcastPostFromFeed } from '@/helpers/formatWarpcastPost.js';
 import { formatWarpcastUser } from '@/helpers/formatWarpcastUser.js';
+import { getFarcasterThreadsAndPosts } from '@/helpers/getFarcasterThreadsAndPosts.js';
 import { toFid } from '@/helpers/toFid.js';
 import {
     type Notification,
@@ -76,7 +77,7 @@ export class WarpcastSocialMedia implements Provider {
 
         const data = result.feed.map(formatWarpcastPostFromFeed);
         return createPageable(
-            data,
+            await getFarcasterThreadsAndPosts(data),
             indicator ?? createIndicator(),
             next?.cursor ? createNextIndicator(indicator, next.cursor) : undefined,
         );
@@ -92,7 +93,7 @@ export class WarpcastSocialMedia implements Provider {
         const { result, next } = await farcasterClient.fetch<CastsResponse>(url);
         const data = result.casts.map(formatWarpcastPost);
         return createPageable(
-            data,
+            await getFarcasterThreadsAndPosts(data),
             indicator ?? createIndicator(),
             next?.cursor ? createNextIndicator(indicator, next.cursor) : undefined,
         );
