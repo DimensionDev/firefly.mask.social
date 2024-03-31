@@ -18,7 +18,6 @@ export enum SourceInURL {
     Lens = 'lens',
 }
 
-
 export enum SearchType {
     Users = 'users',
     Posts = 'posts',
