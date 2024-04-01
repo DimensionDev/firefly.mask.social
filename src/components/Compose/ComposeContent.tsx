@@ -23,7 +23,7 @@ export function ComposeContent(props: ComposeContentProps) {
     const post = parentPost.Farcaster || parentPost.Lens;
 
     return (
-        <div className="flex flex-1 flex-col">
+        <div className="relative flex flex-1 flex-col">
             {type === 'reply' && post ? (
                 <div className=" mb-3 text-left text-[15px] text-fourMain">
                     <Trans>

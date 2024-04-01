@@ -44,13 +44,12 @@ export const Editor = memo(function Editor(props: EditorProps) {
     );
 
     return (
-        <div className=" relative">
+        <>
             <PlainTextPlugin
                 contentEditable={
                     <ContentEditable
-                        className={
-                            'cursor-text resize-none appearance-none border-none bg-transparent p-0 text-left text-[15px] leading-5 text-main outline-0 focus:ring-0'
-                        }
+                        key="editable"
+                        className="flex-1 cursor-text resize-none appearance-none border-none bg-transparent p-0 text-left text-[15px] leading-5 text-main outline-0 focus:ring-0"
                     />
                 }
                 placeholder={
@@ -80,6 +79,6 @@ export const Editor = memo(function Editor(props: EditorProps) {
             <HashtagPlugin />
             <MentionsPlugin />
             <MarkdownShortcutPlugin transformers={TEXT_FORMAT_TRANSFORMERS} />
-        </div>
+        </>
     );
 });

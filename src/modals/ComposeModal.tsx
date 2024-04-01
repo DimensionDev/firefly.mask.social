@@ -225,16 +225,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
                     </Dialog.Title>
 
                     <div className=" flex flex-1 flex-col px-4 pb-4">
-                        <div
-                            className="flex min-h-[338px] flex-1 flex-col overflow-auto rounded-lg border border-secondaryLine bg-bg px-4 py-[14px] md:max-h-[500px]"
-                            onClick={(ev) => {
-                                if (!ev.currentTarget.hasAttribute('contenteditable')) {
-                                    ev.stopPropagation();
-                                    ev.preventDefault();
-                                    editor.focus();
-                                }
-                            }}
-                        >
+                        <div className="flex min-h-[338px] flex-1 flex-col overflow-auto rounded-lg border border-secondaryLine bg-bg px-4 py-[14px] md:max-h-[500px]">
                             {posts.length === 1 ? <ComposeContent post={compositePost} /> : <ComposeThreadContent />}
                         </div>
                     </div>
