@@ -4,11 +4,10 @@ import { toInteger } from 'lodash-es';
 import urlcat from 'urlcat';
 import { toBytes } from 'viem';
 
-import { EMPTY_LIST, HUBBLE_URL, NEYNAR_URL } from '@/constants/index.js';
+import { HUBBLE_URL } from '@/constants/index.js';
 import { encodeMessageData } from '@/helpers/encodeMessageData.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
-import { formatFarcasterProfileFromNeynay } from '@/helpers/formatFarcasterProfileFromNeynar.js';
-import type { FrameSignaturePacket, Profile, SignaturePacket } from '@/providers/types/Hubble.js';
+import type { FrameSignaturePacket, SignaturePacket } from '@/providers/types/Hubble.js';
 import { type Post, type Provider, SessionType } from '@/providers/types/SocialMedia.js';
 import { ReactionType as ReactionTypeCustom } from '@/providers/types/SocialMedia.js';
 import type { Frame, Index } from '@/types/frame.js';
