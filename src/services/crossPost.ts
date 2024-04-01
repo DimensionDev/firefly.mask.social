@@ -53,11 +53,13 @@ async function refreshProfileFeed(source: SocialPlatform) {
 async function updateRpClaimStrategy(compositePost: CompositePost) {
     const { currentProfile: currentLensProfile } = useLensStateStore.getState();
     const { currentProfile: currentFarcasterProfile } = useFarcasterStateStore.getState();
+    const { currentProfile: currentTwitterProfile } = useTwitterStateStore.getState();
 
     const { postId, typedMessage, rpPayload } = compositePost;
 
     const lensPostId = postId[SocialPlatform.Lens];
     const farcasterPostId = postId[SocialPlatform.Farcaster];
+    const twitterPostId = postId[SocialPlatform.Twitter];
 
     if (hasRpPayload(typedMessage) && (lensPostId || farcasterPostId) && rpPayload?.publicKey) {
         const rpPayloadFromMeta = typedMessage?.meta?.get(RedPacketMetaKey) as RedPacketJSONPayload;
@@ -76,6 +78,13 @@ async function updateRpClaimStrategy(compositePost: CompositePost) {
                       handle: currentFarcasterProfile?.handle,
                   }
                 : undefined,
+            twitterPostId
+                ? {
+                      platform: FireflyRedPacketAPI.PlatformType.twitter,
+                      postId: twitterPostId,
+                      handle: currentTwitterProfile?.handle,
+                  }
+                : undefined,
         ]);
 
         const claimPlatform = compact([
@@ -91,7 +100,14 @@ async function updateRpClaimStrategy(compositePost: CompositePost) {
                       platformName: FireflyRedPacketAPI.PlatformType.farcaster,
                   }
                 : undefined,
+            twitterPostId && currentTwitterProfile
+                ? {
+                      platformId: currentTwitterProfile.profileId,
+                      platformName: FireflyRedPacketAPI.PlatformType.twitter,
+                  }
+                : undefined,
         ]);
+
         await FireflyRedPacket.updateClaimStrategy(
             rpPayloadFromMeta.rpid,
             reactions,
@@ -104,24 +120,27 @@ async function updateRpClaimStrategy(compositePost: CompositePost) {
 export async function crossPost(type: ComposeType, compositePost: CompositePost) {
     const { availableSources } = compositePost;
 
+    const useFarcaster = availableSources.includes(SocialPlatform.Farcaster);
+    const useLens = availableSources.includes(SocialPlatform.Lens);
+    const useTwitter = availableSources.includes(SocialPlatform.Twitter);
+
+    const allSettled = await Promise.allSettled([
+        useFarcaster ? postToFarcaster(type, compositePost) : Promise.resolve(null),
+        useLens ? postToLens(type, compositePost) : Promise.resolve(null),
+        useTwitter ? postToTwitter(type, compositePost) : Promise.resolve(null),
+    ]);
+    if (allSettled.every((x) => x.status === 'rejected')) return;
+
     if (type === 'compose') {
-        const promises: Array<Promise<string>> = [];
-        if (availableSources.includes(SocialPlatform.Farcaster))
-            promises.push(postToFarcaster('compose', compositePost));
-        if (availableSources.includes(SocialPlatform.Lens)) promises.push(postToLens('compose', compositePost));
+        const [farcasterPost, lensPost, twitterPost] = allSettled.map((x) =>
+            x.status === 'fulfilled' ? x.value : null,
+        );
 
-        const allSettled = await Promise.allSettled(promises);
-
-        // If all requests fail, abort execution
-        if (allSettled.every((x) => x.status === 'rejected')) return;
-
-        if (availableSources.includes(SocialPlatform.Farcaster)) await refreshProfileFeed(SocialPlatform.Farcaster);
-        if (availableSources.includes(SocialPlatform.Lens)) await refreshProfileFeed(SocialPlatform.Lens);
-        if (availableSources.includes(SocialPlatform.Lens)) await refreshProfileFeed(SocialPlatform.Twitter);
-    } else {
-        if (availableSources.includes(SocialPlatform.Farcaster)) await postToFarcaster(type, compositePost);
-        if (availableSources.includes(SocialPlatform.Lens)) await postToLens(type, compositePost);
-        if (availableSources.includes(SocialPlatform.Twitter)) await postToTwitter(type, compositePost);
+        await Promise.allSettled([
+            useFarcaster && farcasterPost ? refreshProfileFeed(SocialPlatform.Farcaster) : Promise.resolve(),
+            useLens && lensPost ? refreshProfileFeed(SocialPlatform.Lens) : Promise.resolve(),
+            useTwitter && twitterPost ? refreshProfileFeed(SocialPlatform.Twitter) : Promise.resolve(),
+        ]);
     }
 
     // update red packet claim strategy if necessary

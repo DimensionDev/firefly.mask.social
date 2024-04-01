@@ -54,7 +54,8 @@ async function recompositePost(index: number, post: CompositePost, rootPost: Com
         promises.push(Promise.resolve(null));
     }
 
-    const [lensPost, farcasterPost, twitterPost] = await Promise.all(promises);
+    const allSettled = await Promise.allSettled(promises);
+    const [lensPost, farcasterPost, twitterPost] = allSettled.map((x) => (x.status === 'fulfilled' ? x.value : null));
 
     return {
         ...post,
