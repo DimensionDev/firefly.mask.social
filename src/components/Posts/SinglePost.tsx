@@ -1,20 +1,18 @@
 'use client';
 
 import { Trans } from '@lingui/macro';
-import { safeUnreachable } from '@masknet/kit';
 import { motion } from 'framer-motion';
 import { usePathname, useRouter } from 'next/navigation.js';
-import { memo, useMemo } from 'react';
+import { memo } from 'react';
 import { useInView } from 'react-cool-inview';
 
 import { FeedActionType } from '@/components/Posts/ActionType.js';
 import { PostBody } from '@/components/Posts/PostBody.js';
 import { PostHeader } from '@/components/Posts/PostHeader.js';
-import { SocialPlatform } from '@/constants/enum.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
-import { isSameProfile } from '@/helpers/isSameProfile.js';
+import { isThreadPost } from '@/helpers/isThreadPost.js';
 import { useObserveLensPost } from '@/hooks/useObserveLensPost.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
@@ -40,6 +38,8 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
     const { observe } = useObserveLensPost(post.postId, post.source);
 
     const pathname = usePathname();
+
+    const isThread = isThreadPost(post);
     const isPostPage = isRoutePathname(pathname, '/post');
     const postLink = getPostUrl(post);
 
@@ -52,28 +52,6 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
             router.prefetch(postLink);
         },
     });
-
-    const isThread = useMemo(() => {
-        switch (post.source) {
-            case SocialPlatform.Lens:
-                return (
-                    post.type === 'Comment' &&
-                    post.firstComment?.postId === post.postId &&
-                    isSameProfile(post.root?.author, post.author)
-                );
-            case SocialPlatform.Farcaster:
-                return (
-                    post.type === 'Comment' &&
-                    isSameProfile(post.commentOn?.author, post.author) &&
-                    isSameProfile(post.root?.author, post.author)
-                );
-            case SocialPlatform.Twitter:
-                return false;
-            default:
-                safeUnreachable(post.source);
-                return false;
-        }
-    }, [post]);
 
     return (
         <motion.article
