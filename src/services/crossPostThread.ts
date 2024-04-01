@@ -1,7 +1,7 @@
 import { t } from '@lingui/macro';
 import { first } from 'lodash-es';
 
-import { SocialPlatform } from '@/constants/enum.js';
+import type { SocialPlatform } from '@/constants/enum.js';
 import { SORTED_SOURCES } from '@/constants/index.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
@@ -37,15 +37,17 @@ async function recompositePost(index: number, post: CompositePost, rootPost: Com
     });
 
     const allSettled = await Promise.allSettled(all);
-    const [farcasterPost, lensPost, twitterPost] = allSettled.map((x) => (x.status === 'fulfilled' ? x.value : null));
 
     return {
         ...post,
-        parentPost: {
-            [SocialPlatform.Farcaster]: post.parentPost[SocialPlatform.Farcaster] ?? farcasterPost,
-            [SocialPlatform.Lens]: post.parentPost[SocialPlatform.Lens] ?? lensPost,
-            [SocialPlatform.Twitter]: post.parentPost[SocialPlatform.Twitter] ?? twitterPost,
-        },
+        parentPost: Object.fromEntries(
+            SORTED_SOURCES.map((x, i) => {
+                const settled = allSettled[i];
+                const fetchedPost = settled.status === 'fulfilled' ? settled.value : null;
+                return [x, post.parentPost[x] ?? fetchedPost];
+            }),
+        ) as Record<SocialPlatform, Post | null>,
+
         // override the available sources with the root post's
         availableSources,
     } satisfies CompositePost;

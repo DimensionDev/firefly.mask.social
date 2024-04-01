@@ -1,4 +1,4 @@
-import { memo, useMemo } from 'react';
+import { memo } from 'react';
 
 import { MoreAction } from '@/components/Actions/More.js';
 import { Avatar } from '@/components/Avatar.js';
@@ -10,8 +10,8 @@ import { classNames } from '@/helpers/classNames.js';
 import { getLennyURL } from '@/helpers/getLennyURL.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
+import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
-import { useFarcasterStateStore, useLensStateStore } from '@/store/useProfileStore.js';
 
 interface PostHeaderProps {
     post: Post;
@@ -19,17 +19,9 @@ interface PostHeaderProps {
 }
 
 export const PostHeader = memo<PostHeaderProps>(function PostHeader({ post, isQuote = false }) {
-    const currentLensProfile = useLensStateStore.use.currentProfile();
-    const currentFarcasterProfile = useFarcasterStateStore.use.currentProfile();
+    const currentProfile = useCurrentProfile(post.source);
 
-    const isMyPost = useMemo(
-        () =>
-            post.source === SocialPlatform.Lens
-                ? isSameProfile(post.author, currentLensProfile)
-                : isSameProfile(post.author, currentFarcasterProfile),
-        [currentFarcasterProfile, currentLensProfile, post.source, post.author],
-    );
-
+    const isMyPost = isSameProfile(post.author, currentProfile);
     const profileLink = getProfileUrl(post.author);
 
     return (

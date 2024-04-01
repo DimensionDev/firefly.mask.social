@@ -1,5 +1,4 @@
 import { t } from '@lingui/macro';
-import { safeUnreachable } from '@masknet/kit';
 import { useQueryClient } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
 import { memo, useState } from 'react';
@@ -15,11 +14,9 @@ import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
+import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { LoginModalRef } from '@/modals/controls.js';
-import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
-import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
-import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
 
 interface LikeProps {
     postId: string;
@@ -52,26 +49,11 @@ export const Like = memo<LikeProps>(function Like({ count, hasLiked, postId, aut
             return (prev ?? 0) + 1;
         });
         try {
-            switch (source) {
-                case SocialPlatform.Lens:
-                    await (liked
-                        ? LensSocialMediaProvider.unvotePost(postId)
-                        : LensSocialMediaProvider.upvotePost(postId));
-                    break;
-                case SocialPlatform.Farcaster:
-                    await (liked
-                        ? FarcasterSocialMediaProvider.unvotePost(postId, Number(authorId))
-                        : FarcasterSocialMediaProvider.upvotePost(postId, Number(authorId)));
-                    break;
-                case SocialPlatform.Twitter:
-                    await (liked
-                        ? TwitterSocialMediaProvider.unvotePost(postId)
-                        : TwitterSocialMediaProvider.upvotePost(postId));
-                    break;
-                default:
-                    safeUnreachable(source);
-                    break;
-            }
+            const provider = resolveSocialMediaProvider(source);
+            await (liked
+                ? provider?.unvotePost(postId, Number(authorId))
+                : provider?.upvotePost(postId, Number(authorId)));
+
             enqueueSuccessMessage(liked ? t`Unliked` : t`Liked`);
             queryClient.invalidateQueries({ queryKey: [source, 'post-detail', postId] });
             queryClient.invalidateQueries({ queryKey: ['discover', source] });

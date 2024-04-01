@@ -1,5 +1,4 @@
 import { Trans } from '@lingui/macro';
-import { safeUnreachable } from '@masknet/kit';
 import { createIndicator, createPageable } from '@masknet/shared-base';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { memo } from 'react';
@@ -11,9 +10,7 @@ import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { SinglePost } from '@/components/Posts/SinglePost.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
-import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
-import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
-import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
+import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 
 export interface CommentListProps {
@@ -35,23 +32,17 @@ export const CommentList = memo<CommentListProps>(function CommentList({ postId,
         queryKey: ['post-detail', 'comments', source, postId],
         queryFn: async ({ pageParam }) => {
             if (!postId) return createPageable(EMPTY_LIST, undefined);
-            switch (source) {
-                case SocialPlatform.Lens:
-                    const result = await LensSocialMediaProvider.getCommentsById(
-                        postId,
-                        createIndicator(undefined, pageParam),
-                    );
-                    const ids = result.data.flatMap((x) => [x.postId]);
-                    await fetchAndStoreViews(ids);
-                    return result;
-                case SocialPlatform.Farcaster:
-                    return FireflySocialMediaProvider.getCommentsById(postId, createIndicator(undefined, pageParam));
-                case SocialPlatform.Twitter:
-                    return TwitterSocialMediaProvider.getCommentsById(postId, createIndicator(undefined, pageParam));
-                default:
-                    safeUnreachable(source);
-                    return createPageable(EMPTY_LIST, undefined);
+
+            const provider = resolveSocialMediaProvider(source);
+            if (!provider) return createPageable(EMPTY_LIST, undefined);
+
+            const comments = await provider?.getCommentsById(postId, createIndicator(undefined, pageParam));
+
+            if (source === SocialPlatform.Lens) {
+                const ids = comments.data.flatMap((x) => [x.postId]);
+                await fetchAndStoreViews(ids);
             }
+            return comments;
         },
         initialPageParam: '',
         getNextPageParam: (lastPage) => lastPage.nextIndicator?.id,

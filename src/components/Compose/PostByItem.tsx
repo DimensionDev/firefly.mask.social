@@ -15,7 +15,7 @@ import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromErr
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
-import { useCurrentProfiles } from '@/hooks/useCurrentProfiles.js';
+import { useProfiles } from '@/hooks/useProfiles.js';
 import { ComposeModalRef, LoginModalRef } from '@/modals/controls.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
@@ -27,16 +27,18 @@ interface PostByItemProps {
 }
 
 export function PostByItem({ source }: PostByItemProps) {
-    const currentProfiles = useCurrentProfiles(source);
+    const profiles = useProfiles(source);
     const currentProfile = useCurrentProfile(source);
+
     const updateLensCurrentProfile = useLensStateStore.use.updateCurrentProfile();
+
     const {
         compositePost: { images, availableSources },
         enableSource,
         disableSource,
     } = useComposeStateStore();
 
-    const [{ loading }, login] = useAsyncFn(
+    const [{ loading }, loginLens] = useAsyncFn(
         async (profile: Profile) => {
             try {
                 const session = await LensSocialMediaProvider.createSessionForProfileId(profile.profileId);
@@ -50,7 +52,7 @@ export function PostByItem({ source }: PostByItemProps) {
         [updateLensCurrentProfile],
     );
 
-    if (!currentProfile || !currentProfiles?.length)
+    if (!currentProfile || !profiles?.length)
         return (
             <div className=" flex h-10 items-center justify-between border-b border-secondaryLine last:border-none">
                 <div className=" flex items-center gap-2">
@@ -78,7 +80,7 @@ export function PostByItem({ source }: PostByItemProps) {
             </div>
         );
 
-    return currentProfiles.map((profile) => (
+    return profiles.map((profile) => (
         <div
             className="flex h-10 cursor-pointer items-center justify-between border-b border-secondaryLine last:border-none"
             key={profile.profileId}
@@ -116,7 +118,7 @@ export function PostByItem({ source }: PostByItemProps) {
                 <ClickableButton
                     className=" font-bold text-blueBottom disabled:cursor-not-allowed disabled:opacity-50"
                     disabled={loading}
-                    onClick={() => login(profile)}
+                    onClick={() => loginLens(profile)}
                 >
                     {loading ? <LoadingIcon className="animate-spin" width={24} height={24} /> : <Trans>Switch</Trans>}
                 </ClickableButton>

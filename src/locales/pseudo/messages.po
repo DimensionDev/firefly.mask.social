@@ -40,6 +40,9 @@ msgstr ""
 msgid "Failed to mirror. {0}"
 msgstr ""
 
+msgid "X"
+msgstr ""
+
 msgid "Debug Connection"
 msgstr ""
 
@@ -382,13 +385,7 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
-msgid "Claim on Lens: {0}"
-msgstr ""
-
 msgid "Details"
-msgstr ""
-
-msgid "Claim on Farcaster: {0}"
 msgstr ""
 
 msgid "Your Farcaster account is now connected."
@@ -635,6 +632,9 @@ msgid "Unfollow"
 msgstr ""
 
 msgid "You cannot reply to @{author} on {0}."
+msgstr ""
+
+msgid "Claim on {0}: {1}"
 msgstr ""
 
 msgid "Failed to unmirror post."

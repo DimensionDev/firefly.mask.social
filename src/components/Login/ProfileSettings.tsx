@@ -12,7 +12,7 @@ import { ProfileName } from '@/components/ProfileName.js';
 import { WarpcastSignerRequestIndicator } from '@/components/WarpcastSignerRequestIndicator.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
-import { useProfiles } from '@/hooks/useProfiles.js';
+import { useProfileStore } from '@/hooks/useProfileStore.js';
 import { useSwitchLensAccount } from '@/hooks/useSwitchLensAccount.js';
 import { LoginModalRef, LogoutModalRef } from '@/modals/controls.js';
 
@@ -21,7 +21,7 @@ interface ProfileSettingsProps {
 }
 
 export function ProfileSettings({ source }: ProfileSettingsProps) {
-    const { currentProfile, currentProfileSession, profiles, refreshProfiles } = useProfiles(source);
+    const { currentProfile, currentProfileSession, profiles, refreshProfiles } = useProfileStore(source);
     const { login } = useSwitchLensAccount();
 
     useEffect(() => {

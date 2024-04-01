@@ -548,7 +548,10 @@ export class LensSocialMedia implements Provider {
         );
     }
 
-    async getPostsByCollected(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+    async getCollectedPostsByProfileId(
+        profileId: string,
+        indicator?: PageIndicator,
+    ): Promise<Pageable<Post, PageIndicator>> {
         const result = await this.client.publication.fetchAll({
             where: {
                 actedBy: profileId,

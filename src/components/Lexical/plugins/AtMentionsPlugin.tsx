@@ -5,7 +5,6 @@ import {
     MenuOption,
     useBasicTypeaheadTriggerMatch,
 } from '@lexical/react/LexicalTypeaheadMenuPlugin.js';
-import { safeUnreachable } from '@masknet/kit';
 import { useQuery } from '@tanstack/react-query';
 import type { TextNode } from 'lexical/index.js';
 import { first } from 'lodash-es';
@@ -15,14 +14,11 @@ import { useDebounce } from 'usehooks-ts';
 
 import { Avatar } from '@/components/Avatar.js';
 import { $createMentionNode } from '@/components/Lexical/nodes/MentionsNode.js';
-import { SocialPlatform } from '@/constants/enum.js';
-import { EMPTY_LIST } from '@/constants/index.js';
+import { EMPTY_LIST, SORTED_SOURCES } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
-import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
-import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
-import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
+import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
+import { useCurrentProfileAll } from '@/hooks/useCurrentProfileAll.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
-import { useFarcasterStateStore, useLensStateStore } from '@/store/useProfileStore.js';
 
 const PUNCTUATION = '\\.,\\+\\*\\?\\$\\@\\|#{}\\(\\)\\^\\-\\[\\]\\\\/!%\'"~=<>_:;';
 const NAME = `\\b[A-Z][^\\s${PUNCTUATION}]`;
@@ -133,8 +129,7 @@ const MentionsTypeaheadMenuItem = memo<MentionsTypeaheadMenuItemProps>(function 
     );
 });
 export function MentionsPlugin(): JSX.Element | null {
-    const currentLensProfile = useLensStateStore.use.currentProfile();
-    const currentFarcasterProfile = useFarcasterStateStore.use.currentProfile();
+    const currentProfileAll = useCurrentProfileAll();
 
     const { availableSources } = useComposeStateStore.use.compositePost();
 
@@ -149,8 +144,7 @@ export function MentionsPlugin(): JSX.Element | null {
             'searchProfiles',
             availableSources,
             debounceQuery,
-            currentLensProfile?.profileId,
-            currentFarcasterProfile?.profileId,
+            SORTED_SOURCES.map((x) => currentProfileAll[x]?.profileId).join('_'),
         ],
         queryFn: async () => {
             if (!debounceQuery) return;
@@ -158,19 +152,13 @@ export function MentionsPlugin(): JSX.Element | null {
             // When the default state is to send a multi-platform post, it will not be queried.
             if (availableSources.length !== 1) return;
 
-            const currentSource = first(availableSources)!;
+            const currentSource = first(availableSources);
+            if (!currentSource) return;
 
-            switch (currentSource) {
-                case SocialPlatform.Lens:
-                    return LensSocialMediaProvider.searchProfiles(debounceQuery);
-                case SocialPlatform.Farcaster:
-                    return FarcasterSocialMediaProvider.searchProfiles(debounceQuery);
-                case SocialPlatform.Twitter:
-                    return TwitterSocialMediaProvider.searchProfiles(debounceQuery);
-                default:
-                    safeUnreachable(currentSource);
-                    return;
-            }
+            const provider = resolveSocialMediaProvider(currentSource);
+            if (!provider) return;
+
+            return provider.searchProfiles(debounceQuery);
         },
     });
 

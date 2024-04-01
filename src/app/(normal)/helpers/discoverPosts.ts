@@ -1,5 +1,5 @@
 import { safeUnreachable } from '@masknet/kit';
-import { createPageable, type Pageable, type PageIndicator } from '@masknet/shared-base';
+import { createPageable, EMPTY_LIST, type Pageable, type PageIndicator } from '@masknet/shared-base';
 
 import { SocialPlatform } from '@/constants/enum.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
@@ -20,6 +20,6 @@ export async function discoverPosts(
             return TwitterSocialMediaProvider.discoverPosts(indicator);
         default:
             safeUnreachable(source);
-            return createPageable([], indicator);
+            return createPageable(EMPTY_LIST, indicator);
     }
 }

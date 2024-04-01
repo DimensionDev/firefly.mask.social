@@ -45,6 +45,9 @@ msgstr "当您连接钱包时请务必小心，一些恶意网站会试图访问
 msgid "Failed to mirror. {0}"
 msgstr "转帖失败 {0}"
 
+msgid "X"
+msgstr ""
+
 msgid "Debug Connection"
 msgstr "诊断网络"
 
@@ -387,14 +390,8 @@ msgstr "帖子已经被加密"
 msgid "Settings"
 msgstr "设置"
 
-msgid "Claim on Lens: {0}"
-msgstr "在 Lens 上领取：{0}"
-
 msgid "Details"
 msgstr "详情"
-
-msgid "Claim on Farcaster: {0}"
-msgstr "在 Farcaster 上领取：{0}"
 
 msgid "Your Farcaster account is now connected."
 msgstr "你的 Farcaster 账号已经连接。"
@@ -641,6 +638,9 @@ msgstr "取消关注"
 
 msgid "You cannot reply to @{author} on {0}."
 msgstr "你不能在 {0} 上评论 {author}"
+
+msgid "Claim on {0}: {1}"
+msgstr ""
 
 msgid "Failed to unmirror post."
 msgstr "未能取消转帖。"

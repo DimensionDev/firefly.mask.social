@@ -1,7 +1,6 @@
 'use client';
 
 import { t, Trans } from '@lingui/macro';
-import { safeUnreachable } from '@masknet/kit';
 import { createIndicator } from '@masknet/shared-base';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
@@ -12,12 +11,9 @@ import LoadingIcon from '@/assets/loading.svg';
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { NotificationItem } from '@/components/Notification/NotificationItem.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
-import { SocialPlatform } from '@/constants/enum.js';
+import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
-import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
-import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
-import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 
 export default function Notification() {
@@ -28,17 +24,7 @@ export default function Notification() {
         queryKey: ['notifications', currentSource, isLogin],
         queryFn: async ({ pageParam }) => {
             if (!isLogin) return;
-            switch (currentSource) {
-                case SocialPlatform.Lens:
-                    return LensSocialMediaProvider.getNotifications(createIndicator(undefined, pageParam));
-                case SocialPlatform.Farcaster:
-                    return FireflySocialMediaProvider.getNotifications(createIndicator(undefined, pageParam));
-                case SocialPlatform.Twitter:
-                    return TwitterSocialMediaProvider.getNotifications(createIndicator(undefined, pageParam));
-                default:
-                    safeUnreachable(currentSource);
-                    return;
-            }
+            return resolveSocialMediaProvider(currentSource)?.getNotifications(createIndicator(undefined, pageParam));
         },
         initialPageParam: '',
         getNextPageParam: (lastPage) => lastPage?.nextIndicator?.id,

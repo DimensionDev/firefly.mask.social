@@ -1,5 +1,4 @@
 import { Trans } from '@lingui/macro';
-import { safeUnreachable } from '@masknet/kit';
 import { createIndicator, createPageable } from '@masknet/shared-base';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { useInView } from 'react-cool-inview';
@@ -11,9 +10,7 @@ import { SinglePost } from '@/components/Posts/SinglePost.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { mergeTreadPosts } from '@/helpers/mergeTreadPosts.js';
-import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
-import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
-import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
+import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 
 interface ContentFeedProps {
@@ -27,30 +24,17 @@ export function ContentCollected({ profileId, source }: ContentFeedProps) {
         queryFn: async ({ pageParam }) => {
             if (!profileId) return createPageable(EMPTY_LIST, undefined);
 
-            switch (source) {
-                case SocialPlatform.Lens:
-                    const posts = await LensSocialMediaProvider.getPostsByCollected(
-                        profileId,
-                        createIndicator(undefined, pageParam),
-                    );
-                    const ids = posts.data.flatMap((x) => [x.postId]);
-                    await fetchAndStoreViews(ids);
+            const provider = resolveSocialMediaProvider(source);
+            if (!provider) return createPageable(EMPTY_LIST, undefined);
 
-                    return posts;
-                case SocialPlatform.Farcaster:
-                    return FarcasterSocialMediaProvider.getPostsByProfileId(
-                        profileId,
-                        createIndicator(undefined, pageParam),
-                    );
-                case SocialPlatform.Twitter:
-                    return TwitterSocialMediaProvider.getPostsByProfileId(
-                        profileId,
-                        createIndicator(undefined, pageParam),
-                    );
-                default:
-                    safeUnreachable(source);
-                    return createPageable(EMPTY_LIST, undefined);
+            const posts = await provider.getCollectedPostsByProfileId(profileId, createIndicator(undefined, pageParam));
+
+            if (source === SocialPlatform.Lens) {
+                const ids = posts.data.flatMap((x) => [x.postId]);
+                await fetchAndStoreViews(ids);
             }
+
+            return posts;
         },
         initialPageParam: '',
         getNextPageParam: (lastPage) => lastPage.nextIndicator?.id,

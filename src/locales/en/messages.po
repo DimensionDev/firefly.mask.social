@@ -40,6 +40,9 @@ msgstr "Please be cautious when connecting your wallet, as malicious websites ma
 msgid "Failed to mirror. {0}"
 msgstr "Failed to mirror. {0}"
 
+msgid "X"
+msgstr "X"
+
 msgid "Debug Connection"
 msgstr "Debug Connection"
 
@@ -382,14 +385,8 @@ msgstr "Post has been encrypted"
 msgid "Settings"
 msgstr "Settings"
 
-msgid "Claim on Lens: {0}"
-msgstr "Claim on Lens: {0}"
-
 msgid "Details"
 msgstr "Details"
-
-msgid "Claim on Farcaster: {0}"
-msgstr "Claim on Farcaster: {0}"
 
 msgid "Your Farcaster account is now connected."
 msgstr "Your Farcaster account is now connected."
@@ -636,6 +633,9 @@ msgstr "Unfollow"
 
 msgid "You cannot reply to @{author} on {0}."
 msgstr "You cannot reply to @{author} on {0}."
+
+msgid "Claim on {0}: {1}"
+msgstr "Claim on {0}: {1}"
 
 msgid "Failed to unmirror post."
 msgstr "Failed to unmirror post."
