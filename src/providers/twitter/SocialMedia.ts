@@ -15,6 +15,14 @@ class TwitterSocialMedia implements Provider {
         return SessionType.Twitter;
     }
 
+    follow(profileId: string): Promise<void> {
+        throw new Error('Not implemented');
+    }
+
+    unfollow(profileId: string): Promise<void> {
+        throw new Error('Not implemented');
+    }
+
     discoverPosts(indicator?: PageIndicator | undefined): Promise<Pageable<Post, PageIndicator>> {
         throw new Error('Not implemented');
     }
@@ -39,6 +47,10 @@ class TwitterSocialMedia implements Provider {
     }
 
     getProfileByHandle(handle: string): Promise<Profile> {
+        throw new Error('Not implemented');
+    }
+
+    getCollectedPostsByProfileId(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         throw new Error('Not implemented');
     }
 

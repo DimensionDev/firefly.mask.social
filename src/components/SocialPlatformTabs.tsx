@@ -10,16 +10,14 @@ import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { replaceSearchParams } from '@/helpers/replaceSearchParams.js';
 import { resolveSocialPlatform } from '@/helpers/resolveSocialPlatform.js';
 import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
-import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
+import { useCurrentProfileAll } from '@/hooks/useCurrentProfileAll.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 
 export function SocialPlatformTabs() {
     const { currentSource, updateCurrentSource } = useGlobalState();
-    const lensProfile = useCurrentProfile(SocialPlatform.Lens);
-    const farcasterProfile = useCurrentProfile(SocialPlatform.Farcaster);
+    const currentProfileAll = useCurrentProfileAll();
 
     const pathname = usePathname();
-
     if (isRoutePathname(pathname, '/settings') || isRoutePathname(pathname, '/post')) return null;
 
     if (pathname !== '/profile' && isRoutePathname(pathname, '/profile')) {
@@ -28,8 +26,7 @@ export function SocialPlatformTabs() {
         const sourceString = param[param.length - 2] as SourceInURL;
         const source = resolveSocialPlatform(sourceString);
 
-        if (source === SocialPlatform.Farcaster && farcasterProfile?.profileId !== handle) return null;
-        if (source === SocialPlatform.Lens && lensProfile?.handle !== handle) return null;
+        if (currentProfileAll[source]?.handle !== handle) return null;
     }
 
     return (

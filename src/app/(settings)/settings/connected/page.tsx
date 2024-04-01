@@ -11,21 +11,21 @@ import { Headline } from '@/app/(settings)/components/Headline.js';
 import { Section } from '@/app/(settings)/components/Section.js';
 import CopyIcon from '@/assets/copy.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
-import { Tippy } from '@/esm/Tippy.js';
+import { Tooltip } from '@/components/Tooltip.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
+import { useCurrentProfileAll } from '@/hooks/useCurrentProfileAll.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
+import { useProfilesAll } from '@/hooks/useProfilesAll.js';
 import { LoginModalRef, LogoutModalRef } from '@/modals/controls.js';
-import { useFarcasterStateStore, useLensStateStore } from '@/store/useProfileStore.js';
 
 export default function Connected() {
     const { address } = useAccount();
 
     const timerRef = useRef<NodeJS.Timeout>();
 
-    const lensProfiles = useLensStateStore.use.profiles();
-    const farcasterProfiles = useFarcasterStateStore.use.profiles();
-    const currentLensProfile = useLensStateStore.use.currentProfile();
-    const currentFarcasterProfile = useFarcasterStateStore.use.currentProfile();
+    const profilesAll = useProfilesAll();
+    const currentProfileAll = useCurrentProfileAll();
+
     const [, copyToClipboard] = useCopyToClipboard();
 
     const handleClick = useCallback(() => {
@@ -41,7 +41,7 @@ export default function Connected() {
                 <Trans>Connected Accounts</Trans>
             </Headline>
 
-            {currentLensProfile?.profileId ? (
+            {currentProfileAll.Lens?.profileId ? (
                 <>
                     <div className="flex w-full items-center justify-between">
                         <span className="text-base font-bold leading-[18px] text-main">
@@ -51,7 +51,7 @@ export default function Connected() {
                             <span className="text-base font-bold leading-[18px] text-second">
                                 {address ? formatEthereumAddress(address, 4) : null}
                             </span>
-                            <Tippy
+                            <Tooltip
                                 content={'copied'}
                                 placement="top"
                                 duration={200}
@@ -66,22 +66,22 @@ export default function Connected() {
                                 <ClickableButton onClick={handleClick}>
                                     <CopyIcon width={14} height={14} />
                                 </ClickableButton>
-                            </Tippy>
+                            </Tooltip>
                         </div>
                     </div>
                     <div className=" flex w-full flex-col gap-4">
-                        {lensProfiles.map((profile) => (
+                        {profilesAll.Lens.map((profile) => (
                             <AccountCard
                                 key={profile.profileId}
                                 profile={profile}
-                                isCurrent={isSameProfile(currentLensProfile, profile)}
+                                isCurrent={isSameProfile(currentProfileAll.Lens, profile)}
                             />
                         ))}
                     </div>
                 </>
             ) : null}
 
-            {currentFarcasterProfile?.profileId ? (
+            {currentProfileAll.Farcaster?.profileId ? (
                 <>
                     <div className="flex w-full items-center justify-between">
                         <span className="text-base font-bold leading-[18px] text-main">
@@ -89,11 +89,30 @@ export default function Connected() {
                         </span>
                     </div>
                     <div className=" flex w-full flex-col gap-4">
-                        {farcasterProfiles.map((profile) => (
+                        {profilesAll.Farcaster.map((profile) => (
                             <AccountCard
                                 key={profile.profileId}
                                 profile={profile}
-                                isCurrent={isSameProfile(currentFarcasterProfile, profile)}
+                                isCurrent={isSameProfile(currentProfileAll.Farcaster, profile)}
+                            />
+                        ))}
+                    </div>
+                </>
+            ) : null}
+
+            {currentProfileAll.Twitter?.profileId ? (
+                <>
+                    <div className="flex w-full items-center justify-between">
+                        <span className="text-base font-bold leading-[18px] text-main">
+                            <Trans>X</Trans>
+                        </span>
+                    </div>
+                    <div className=" flex w-full flex-col gap-4">
+                        {profilesAll.Twitter.map((profile) => (
+                            <AccountCard
+                                key={profile.profileId}
+                                profile={profile}
+                                isCurrent={isSameProfile(currentProfileAll.Twitter, profile)}
                             />
                         ))}
                     </div>

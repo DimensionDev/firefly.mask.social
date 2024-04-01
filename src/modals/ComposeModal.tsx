@@ -26,15 +26,17 @@ import { ComposeThreadContent } from '@/components/Compose/ComposeThreadContent.
 import { MentionNode } from '@/components/Lexical/nodes/MentionsNode.js';
 import { Modal } from '@/components/Modal.js';
 import { SocialPlatform } from '@/constants/enum.js';
-import { SITE_HOSTNAME, SITE_URL } from '@/constants/index.js';
+import { SITE_HOSTNAME, SITE_URL, SORTED_SOURCES } from '@/constants/index.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { fetchImageAsPNG } from '@/helpers/fetchImageAsPNG.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { hasRpPayload } from '@/helpers/hasPayload.js';
 import { isEmptyPost } from '@/helpers/isEmptyPost.js';
 import { type Chars } from '@/helpers/readChars.js';
+import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { throws } from '@/helpers/throws.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
+import { useCurrentProfileAll } from '@/hooks/useCurrentProfileAll.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';
 import { ComposeModalRef, ConfirmModalRef } from '@/modals/controls.js';
@@ -42,7 +44,6 @@ import type { Post } from '@/providers/types/SocialMedia.js';
 import { steganographyEncodeImage } from '@/services/steganography.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
-import { useFarcasterStateStore, useLensStateStore } from '@/store/useProfileStore.js';
 import type { ComposeType } from '@/types/compose.js';
 
 const initialConfig = {
@@ -77,9 +78,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
         const isMedium = useIsMedium();
         const currentSource = useGlobalState.use.currentSource();
 
-        const currentLensProfile = useLensStateStore.use.currentProfile();
-        const currentFarcasterProfile = useFarcasterStateStore.use.currentProfile();
-
+        const currentProfileAll = useCurrentProfileAll();
         const profile = useCurrentProfile(currentSource);
 
         const {
@@ -166,17 +165,16 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
                     SteganographyPreset.Preset2023_Firefly,
                 );
 
-                const lensProfileLink = currentLensProfile ? getProfileUrl(currentLensProfile) : null;
-                const farcasterProfileLink = currentFarcasterProfile ? getProfileUrl(currentFarcasterProfile) : null;
-
                 const message = t`Check out my LuckyDrop 🧧💰✨ on Firefly mobile app or ${SITE_URL} !`;
 
-                const lensClaimMessage = lensProfileLink ? t`Claim on Lens: ${urlcat(SITE_URL, lensProfileLink)}` : '';
-                const farcasterClaimMessage = farcasterProfileLink
-                    ? t`Claim on Farcaster: ${urlcat(SITE_URL, farcasterProfileLink)}`
-                    : '';
-
-                const fullMessage = `${message}\n${lensClaimMessage}\n${farcasterClaimMessage}`;
+                const fullMessage = [
+                    message,
+                    ...SORTED_SOURCES.map((x) => {
+                        const currentProfile = currentProfileAll[x];
+                        const profileLink = currentProfile ? getProfileUrl(currentProfile) : null;
+                        return profileLink ? t`Claim on ${resolveSourceName(x)}: ${urlcat(SITE_URL, profileLink)}` : '';
+                    }),
+                ].join('\n');
 
                 updateChars([
                     {
@@ -195,7 +193,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
                 enqueueErrorMessage(t`Failed to create image payload.`);
             }
             // each time the typedMessage changes, we need to check if it has a red packet payload
-        }, [typedMessage, rpPayload, currentLensProfile, currentFarcasterProfile]);
+        }, [typedMessage, rpPayload, currentProfileAll]);
 
         return (
             <Modal open={open} onClose={onClose}>

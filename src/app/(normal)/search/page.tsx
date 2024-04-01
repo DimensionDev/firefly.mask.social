@@ -11,11 +11,9 @@ import LoadingIcon from '@/assets/loading.svg';
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { SinglePost } from '@/components/Posts/SinglePost.js';
 import { ProfileInList } from '@/components/Search/ProfileInList.js';
-import { SearchType, SocialPlatform } from '@/constants/enum.js';
+import { SearchType } from '@/constants/enum.js';
+import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
-import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
-import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
-import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
 import type { Post, Profile } from '@/providers/types/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useSearchState } from '@/store/useSearchState.js';
@@ -35,35 +33,19 @@ export default function Page() {
         queryFn: async ({ pageParam }) => {
             if (!searchKeyword) return;
 
+            const provider = resolveSocialMediaProvider(currentSource);
+            if (!provider) return;
+
             const indicator = pageParam ? createIndicator(undefined, pageParam) : undefined;
 
-            if (searchType === SearchType.Users) {
-                switch (currentSource) {
-                    case SocialPlatform.Lens:
-                        return LensSocialMediaProvider.searchProfiles(searchKeyword, indicator);
-                    case SocialPlatform.Farcaster:
-                        return FarcasterSocialMediaProvider.searchProfiles(searchKeyword, indicator);
-                    case SocialPlatform.Twitter:
-                        return TwitterSocialMediaProvider.searchProfiles(searchKeyword, indicator);
-                    default:
-                        safeUnreachable(currentSource);
-                        return;
-                }
-            } else if (searchType === SearchType.Posts) {
-                switch (currentSource) {
-                    case SocialPlatform.Lens:
-                        return LensSocialMediaProvider.searchPosts(searchKeyword, indicator);
-                    case SocialPlatform.Farcaster:
-                        return FarcasterSocialMediaProvider.searchPosts(searchKeyword, indicator);
-                    case SocialPlatform.Twitter:
-                        return TwitterSocialMediaProvider.searchPosts(searchKeyword, indicator);
-                    default:
-                        safeUnreachable(currentSource);
-                        return;
-                }
-            } else {
-                safeUnreachable(searchType);
-                return;
+            switch (searchType) {
+                case SearchType.Users:
+                    return provider?.searchProfiles(searchKeyword, indicator);
+                case SearchType.Posts:
+                    return provider?.searchPosts(searchKeyword, indicator);
+                default:
+                    safeUnreachable(searchType);
+                    return;
             }
         },
         initialPageParam: '',
@@ -103,15 +85,16 @@ export default function Page() {
     return (
         <div>
             {results.map((item) => {
-                if (searchType === SearchType.Users) {
-                    const profile = item as Profile;
-                    return <ProfileInList key={profile.profileId} profile={profile} />;
+                switch (searchType) {
+                    case SearchType.Users:
+                        const profile = item as Profile;
+                        return <ProfileInList key={profile.profileId} profile={profile} />;
+                    case SearchType.Posts:
+                        const post = item as Post;
+                        return <SinglePost key={post.postId} post={post} />;
+                    default:
+                        return null;
                 }
-                if (searchType === SearchType.Posts) {
-                    const post = item as Post;
-                    return <SinglePost key={post.postId} post={post} />;
-                }
-                return null;
             })}
 
             {hasNextPage ? (

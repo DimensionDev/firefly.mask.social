@@ -13,11 +13,12 @@ import { SearchFilter } from '@/components/Search/SearchFilter.js';
 import { SearchInput } from '@/components/Search/SearchInput.js';
 import { SearchRecommendation } from '@/components/Search/SearchRecommendation.js';
 import { SearchType } from '@/constants/enum.js';
+import { SORTED_SOURCES } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
+import { useCurrentProfileAll } from '@/hooks/useCurrentProfileAll.js';
 import { DraggablePopoverRef } from '@/modals/controls.js';
 import { useNavigatorState } from '@/store/useNavigatorStore.js';
-import { useFarcasterStateStore, useLensStateStore } from '@/store/useProfileStore.js';
 import { useSearchHistoryStateStore } from '@/store/useSearchHistoryStore.js';
 import { type SearchState, useSearchState } from '@/store/useSearchState.js';
 
@@ -41,8 +42,8 @@ export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({
     const [searchMode, setSearchMode] = useState(isSearchPage);
     const [showRecommendation, setShowRecommendation] = useState(false);
 
-    const lensProfile = useLensStateStore.use.currentProfile?.();
-    const farcasterProfile = useFarcasterStateStore.use.currentProfile?.();
+    const currentProfileAll = useCurrentProfileAll();
+    const currentProfiles = compact(SORTED_SOURCES.map((x) => currentProfileAll[x]));
 
     const { updateState } = useSearchState();
     const { updateSidebarOpen } = useNavigatorState();
@@ -81,8 +82,8 @@ export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({
                                 updateSidebarOpen(true);
                             }}
                         >
-                            {farcasterProfile || lensProfile ? (
-                                compact([farcasterProfile, lensProfile]).map((x, i) => (
+                            {currentProfiles.length ? (
+                                currentProfiles.map((x, i) => (
                                     <div
                                         className={classNames(' relative', {
                                             ' z-10': i === 0,
@@ -118,7 +119,7 @@ export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({
                         </form>
                     ) : (
                         <>
-                            {(farcasterProfile || lensProfile) && title ? (
+                            {currentProfiles.length && title ? (
                                 <span className=" text-[20px] font-bold leading-[24px]">{title}</span>
                             ) : (
                                 <FireflyIcon />

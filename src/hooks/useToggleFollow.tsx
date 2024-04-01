@@ -1,17 +1,15 @@
 import { Select } from '@lingui/macro';
-import { safeUnreachable } from '@masknet/kit';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 
 import { SocialPlatform } from '@/constants/enum.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useIsFollowing } from '@/hooks/useIsFollowing.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useIsMyProfile } from '@/hooks/useIsMyProfile.js';
 import { useUnmountRef } from '@/hooks/useUnmountRef.js';
 import { LoginModalRef } from '@/modals/controls.js';
-import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
-import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 export function useToggleFollow(profile: Profile) {
@@ -41,24 +39,13 @@ export function useToggleFollow(profile: Profile) {
             LoginModalRef.open({ source });
             return;
         }
+
+        const provider = resolveSocialMediaProvider(source);
+        if (!provider) return;
+
         try {
-            switch (source) {
-                case SocialPlatform.Lens:
-                    await (followStateRef.current
-                        ? LensSocialMediaProvider.unfollow(profileId)
-                        : LensSocialMediaProvider.follow(profileId));
-                    break;
-                case SocialPlatform.Farcaster:
-                    await (followStateRef.current
-                        ? FarcasterSocialMediaProvider.unfollow(profileId)
-                        : FarcasterSocialMediaProvider.follow(profileId));
-                    break;
-                case SocialPlatform.Twitter:
-                    throw new Error('Not implemented');
-                default:
-                    safeUnreachable(source);
-                    return;
-            }
+            await (followStateRef.current ? provider.unfollow(profileId) : provider.follow(profileId));
+
             enqueueSuccessMessage(
                 <Select
                     value={followStateRef.current ? 'unfollow' : 'follow'}

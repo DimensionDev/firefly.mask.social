@@ -1,10 +1,9 @@
 import { t } from '@lingui/macro';
 import { first } from 'lodash-es';
 
-import { SocialPlatform } from '@/constants/enum.js';
+import type { SocialPlatform } from '@/constants/enum.js';
+import { SORTED_SOURCES } from '@/constants/index.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
-import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
-import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { crossPost } from '@/services/crossPost.js';
 import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
@@ -13,10 +12,7 @@ function shouldCrossPost(index: number, post: CompositePost, rootPost: Composite
     // the root post defines the available sources for the thread
     const { availableSources } = rootPost;
 
-    if (availableSources.includes(SocialPlatform.Lens) && !post.parentPost.Lens) return true;
-    if (availableSources.includes(SocialPlatform.Farcaster) && !post.parentPost.Farcaster) return true;
-
-    return false;
+    return SORTED_SOURCES.some((x) => availableSources.includes(x) && !post.parentPost[x]);
 }
 
 async function recompositePost(index: number, post: CompositePost, rootPost: CompositePost, posts: CompositePost[]) {
@@ -28,41 +24,30 @@ async function recompositePost(index: number, post: CompositePost, rootPost: Com
     // reply to the previous published post in thread
     const previousPost = posts[index - 1];
 
-    const promises: Array<Promise<Post | null>> = [];
+    const all: Array<Promise<Post | null>> = [];
 
-    if (availableSources.includes(SocialPlatform.Lens)) {
-        const parentPostId = previousPost.postId[SocialPlatform.Lens];
-        if (!parentPostId) throw new Error(t`The previous post does not have a Lens post ID.`);
-        promises.push(LensSocialMediaProvider.getPostById(parentPostId));
-    } else {
-        promises.push(Promise.resolve(null));
-    }
+    SORTED_SOURCES.forEach((source) => {
+        const parentPostId = previousPost.postId[source];
 
-    if (availableSources.includes(SocialPlatform.Farcaster)) {
-        const parentPostId = previousPost.postId[SocialPlatform.Farcaster];
-        if (!parentPostId) throw new Error(t`The previous post does not have a Farcaster post ID.`);
-        promises.push(FarcasterSocialMediaProvider.getPostById(parentPostId));
-    } else {
-        promises.push(Promise.resolve(null));
-    }
+        if (availableSources.includes(source) && parentPostId && !post.parentPost[source]) {
+            all.push(FarcasterSocialMediaProvider.getPostById(parentPostId));
+        } else {
+            all.push(Promise.resolve(null));
+        }
+    });
 
-    if (availableSources.includes(SocialPlatform.Twitter)) {
-        const parentPostId = previousPost.postId[SocialPlatform.Twitter];
-        if (!parentPostId) throw new Error(t`The previous post does not have a Twitter post ID.`);
-        promises.push(TwitterSocialMediaProvider.getPostById(parentPostId));
-    } else {
-        promises.push(Promise.resolve(null));
-    }
-
-    const [lensPost, farcasterPost, twitterPost] = await Promise.all(promises);
+    const allSettled = await Promise.allSettled(all);
 
     return {
         ...post,
-        parentPost: {
-            [SocialPlatform.Lens]: lensPost,
-            [SocialPlatform.Farcaster]: farcasterPost,
-            [SocialPlatform.Twitter]: twitterPost,
-        },
+        parentPost: Object.fromEntries(
+            SORTED_SOURCES.map((x, i) => {
+                const settled = allSettled[i];
+                const fetchedPost = settled.status === 'fulfilled' ? settled.value : null;
+                return [x, post.parentPost[x] ?? fetchedPost];
+            }),
+        ) as Record<SocialPlatform, Post | null>,
+
         // override the available sources with the root post's
         availableSources,
     } satisfies CompositePost;

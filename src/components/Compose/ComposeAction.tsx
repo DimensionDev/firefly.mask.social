@@ -18,16 +18,17 @@ import { PostBy } from '@/components/Compose/PostBy.js';
 import { ReplyRestriction } from '@/components/Compose/ReplyRestriction.js';
 import { SourceIcon } from '@/components/SourceIcon.js';
 import { Tooltip } from '@/components/Tooltip.js';
-import { MAX_CHAR_SIZE_PER_POST, MAX_POST_SIZE_PER_THREAD } from '@/constants/index.js';
+import { MAX_CHAR_SIZE_PER_POST, MAX_POST_SIZE_PER_THREAD, SORTED_SOURCES } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { connectMaskWithWagmi } from '@/helpers/connectWagmiWithMask.js';
 import { measureChars } from '@/helpers/readChars.js';
+import { useCurrentProfileAll } from '@/hooks/useCurrentProfileAll.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
+import { useProfilesAll } from '@/hooks/useProfilesAll.js';
 import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';
 import { PluginDebuggerMessages } from '@/mask/message-host/index.js';
 import { ComposeModalRef } from '@/modals/controls.js';
 import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
-import { useFarcasterStateStore, useLensStateStore } from '@/store/useProfileStore.js';
 import { RestrictionType } from '@/types/compose.js';
 
 interface ComposeActionProps {
@@ -35,17 +36,15 @@ interface ComposeActionProps {
 }
 
 export function ComposeAction(props: ComposeActionProps) {
+    const { id, chars, parentPost, images, video, availableSources } = props.post;
+
     const [restriction, setRestriction] = useState(RestrictionType.Everyone);
     const isMedium = useIsMedium();
 
-    const currentLensProfile = useLensStateStore.use.currentProfile();
-    const currentFarcasterProfile = useFarcasterStateStore.use.currentProfile();
-    const lensProfiles = useLensStateStore.use.profiles();
-    const farcasterProfiles = useFarcasterStateStore.use.profiles();
+    const currentProfileAll = useCurrentProfileAll();
+    const profilesAll = useProfilesAll();
 
     const { type, posts, addPostInThread } = useComposeStateStore();
-
-    const { id, chars, parentPost, images, video, availableSources } = props.post;
 
     const { length, visibleLength, invisibleLength } = useMemo(() => measureChars(chars), [chars]);
 
@@ -70,25 +69,24 @@ export function ComposeAction(props: ComposeActionProps) {
         await delay(300);
         CrossIsolationMessages.events.redpacketDialogEvent.sendToLocal({
             open: true,
-            fireflyContext: {
-                currentLensProfile: currentLensProfile
-                    ? {
-                          ...currentLensProfile,
-                          ownedBy: currentLensProfile.ownedBy?.address,
-                      }
-                    : undefined,
-                currentFarcasterProfile: currentFarcasterProfile
-                    ? {
-                          ...currentFarcasterProfile,
-                          ownedBy: currentFarcasterProfile.ownedBy?.address,
-                      }
-                    : undefined,
-            },
+            fireflyContext: Object.fromEntries(
+                SORTED_SOURCES.map((x) => {
+                    const currentProfile = currentProfileAll[x];
+                    return [
+                        `current${x}Profile`,
+                        currentProfile
+                            ? {
+                                  ...currentProfile,
+                                  ownedBy: currentProfile.ownedBy?.address,
+                              }
+                            : undefined,
+                    ];
+                }),
+            ),
         });
-    }, [currentLensProfile, currentFarcasterProfile, lensProfiles, farcasterProfiles]);
+    }, [currentProfileAll, profilesAll]);
 
-    const maxImageCount = currentFarcasterProfile ? 2 : 4;
-
+    const maxImageCount = currentProfileAll.Farcaster ? 2 : 4;
     const mediaDisabled = !!video || images.length >= maxImageCount;
 
     return (
@@ -209,8 +207,7 @@ export function ComposeAction(props: ComposeActionProps) {
                                 className=" flex cursor-pointer gap-1 text-main focus:outline-none disabled:cursor-none disabled:opacity-50"
                                 disabled={
                                     posts.findIndex((x) => x.id === id) !== 0 ||
-                                    !!parentPost.Farcaster ||
-                                    !!parentPost.Lens
+                                    SORTED_SOURCES.some((x) => !!parentPost[x])
                                 }
                             >
                                 <span className="flex items-center gap-x-1 font-bold">

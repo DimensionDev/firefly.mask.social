@@ -1,101 +1,65 @@
-import { safeUnreachable } from '@masknet/kit';
 import { RedPacketMetaKey } from '@masknet/plugin-redpacket';
 import { FireflyRedPacket } from '@masknet/web3-providers';
-import { FireflyRedPacketAPI, type RedPacketJSONPayload } from '@masknet/web3-providers/types';
+import { type RedPacketJSONPayload } from '@masknet/web3-providers/types';
 import { compact } from 'lodash-es';
 
 import { queryClient } from '@/configs/queryClient.js';
 import { SocialPlatform } from '@/constants/enum.js';
+import { SORTED_SOURCES } from '@/constants/index.js';
+import { getCurrentProfileAll } from '@/helpers/getCurrentProfileAll.js';
 import { hasRpPayload } from '@/helpers/hasPayload.js';
-import { postToFarcaster } from '@/services/postToFarcaster.js';
-import { postToLens } from '@/services/postToLens.js';
-import { postToTwitter } from '@/services/postToTwitter.js';
+import { resolvePostTo } from '@/helpers/resolvePostTo.js';
+import { resolveRedPacketPlatformType } from '@/helpers/resolveRedPacketPlatformType.js';
 import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
-import { useFarcasterStateStore, useLensStateStore, useTwitterStateStore } from '@/store/useProfileStore.js';
 import type { ComposeType } from '@/types/compose.js';
 
 async function refreshProfileFeed(source: SocialPlatform) {
-    const { currentProfile: currentLensProfile } = useLensStateStore.getState();
-    const { currentProfile: currentFarcasterProfile } = useFarcasterStateStore.getState();
-    const { currentProfile: currentTwitterProfile } = useTwitterStateStore.getState();
+    const currentProfileAll = getCurrentProfileAll();
 
-    switch (source) {
-        case SocialPlatform.Lens:
-            await queryClient.invalidateQueries({
-                queryKey: ['getPostsByProfileId', SocialPlatform.Lens, currentLensProfile?.profileId],
-            });
-            queryClient.removeQueries({
-                queryKey: ['getPostsByProfileId', SocialPlatform.Lens, currentLensProfile?.profileId],
-            });
-            break;
-        case SocialPlatform.Farcaster:
-            await queryClient.invalidateQueries({
-                queryKey: ['getPostsByProfileId', SocialPlatform.Farcaster, currentFarcasterProfile?.profileId],
-            });
-            queryClient.removeQueries({
-                queryKey: ['getPostsByProfileId', SocialPlatform.Farcaster, currentFarcasterProfile?.profileId],
-            });
-            break;
-        case SocialPlatform.Twitter:
-            await queryClient.invalidateQueries({
-                queryKey: ['getPostsByProfileId', SocialPlatform.Twitter, currentTwitterProfile?.profileId],
-            });
-            queryClient.removeQueries({
-                queryKey: ['getPostsByProfileId', SocialPlatform.Twitter, currentTwitterProfile?.profileId],
-            });
-            break;
-        default:
-            safeUnreachable(source);
-            return;
-    }
+    await queryClient.invalidateQueries({
+        queryKey: ['getPostsByProfileId', source, currentProfileAll[source]?.profileId],
+    });
+    queryClient.removeQueries({
+        queryKey: ['getPostsByProfileId', source, currentProfileAll[source]?.profileId],
+    });
 }
 
 async function updateRpClaimStrategy(compositePost: CompositePost) {
-    const { currentProfile: currentLensProfile } = useLensStateStore.getState();
-    const { currentProfile: currentFarcasterProfile } = useFarcasterStateStore.getState();
-
     const { postId, typedMessage, rpPayload } = compositePost;
 
-    const lensPostId = postId[SocialPlatform.Lens];
-    const farcasterPostId = postId[SocialPlatform.Farcaster];
+    const currentProfileAll = getCurrentProfileAll();
 
-    if (hasRpPayload(typedMessage) && (lensPostId || farcasterPostId) && rpPayload?.publicKey) {
+    if (hasRpPayload(typedMessage) && SORTED_SOURCES.some((x) => postId[x]) && rpPayload?.publicKey) {
         const rpPayloadFromMeta = typedMessage?.meta?.get(RedPacketMetaKey) as RedPacketJSONPayload;
 
-        const reactions = compact([
-            lensPostId
-                ? {
-                      platform: FireflyRedPacketAPI.PlatformType.lens,
-                      postId: lensPostId,
-                  }
-                : undefined,
-            farcasterPostId
-                ? {
-                      platform: FireflyRedPacketAPI.PlatformType.farcaster,
-                      postId: farcasterPostId,
-                      handle: currentFarcasterProfile?.handle,
-                  }
-                : undefined,
-        ]);
+        const reactions = compact(
+            SORTED_SOURCES.map((x) => {
+                const id = postId[x];
+                return id
+                    ? {
+                          platform: resolveRedPacketPlatformType(x)!,
+                          postId: id,
+                      }
+                    : null;
+            }),
+        );
 
-        const claimPlatform = compact([
-            lensPostId && currentLensProfile
-                ? {
-                      platformId: currentLensProfile.profileId,
-                      platformName: FireflyRedPacketAPI.PlatformType.lens,
-                  }
-                : undefined,
-            farcasterPostId && currentFarcasterProfile
-                ? {
-                      platformId: currentFarcasterProfile.profileId,
-                      platformName: FireflyRedPacketAPI.PlatformType.farcaster,
-                  }
-                : undefined,
-        ]);
+        const claimPlatforms = compact(
+            SORTED_SOURCES.map((x) => {
+                const currentProfile = currentProfileAll[x];
+                return postId[x] && currentProfile
+                    ? {
+                          platformId: currentProfile.profileId,
+                          platformName: resolveRedPacketPlatformType(x)!,
+                      }
+                    : null;
+            }),
+        );
+
         await FireflyRedPacket.updateClaimStrategy(
             rpPayloadFromMeta.rpid,
             reactions,
-            claimPlatform,
+            claimPlatforms,
             rpPayload.publicKey,
         );
     }
@@ -104,24 +68,21 @@ async function updateRpClaimStrategy(compositePost: CompositePost) {
 export async function crossPost(type: ComposeType, compositePost: CompositePost) {
     const { availableSources } = compositePost;
 
+    const allSettled = await Promise.allSettled(
+        SORTED_SOURCES.map((x) =>
+            availableSources.includes(x) ? resolvePostTo(x)(type, compositePost) : Promise.resolve(null),
+        ),
+    );
+    if (allSettled.every((x) => x.status === 'rejected')) return;
+
     if (type === 'compose') {
-        const promises: Array<Promise<string>> = [];
-        if (availableSources.includes(SocialPlatform.Farcaster))
-            promises.push(postToFarcaster('compose', compositePost));
-        if (availableSources.includes(SocialPlatform.Lens)) promises.push(postToLens('compose', compositePost));
-
-        const allSettled = await Promise.allSettled(promises);
-
-        // If all requests fail, abort execution
-        if (allSettled.every((x) => x.status === 'rejected')) return;
-
-        if (availableSources.includes(SocialPlatform.Farcaster)) await refreshProfileFeed(SocialPlatform.Farcaster);
-        if (availableSources.includes(SocialPlatform.Lens)) await refreshProfileFeed(SocialPlatform.Lens);
-        if (availableSources.includes(SocialPlatform.Lens)) await refreshProfileFeed(SocialPlatform.Twitter);
-    } else {
-        if (availableSources.includes(SocialPlatform.Farcaster)) await postToFarcaster(type, compositePost);
-        if (availableSources.includes(SocialPlatform.Lens)) await postToLens(type, compositePost);
-        if (availableSources.includes(SocialPlatform.Twitter)) await postToTwitter(type, compositePost);
+        await Promise.allSettled(
+            SORTED_SOURCES.map((x, i) => {
+                const settled = allSettled[i];
+                const post = settled.status === 'fulfilled' ? settled.value : null;
+                return availableSources.includes(x) && post ? refreshProfileFeed(x) : Promise.resolve();
+            }),
+        );
     }
 
     // update red packet claim strategy if necessary

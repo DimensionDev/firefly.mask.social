@@ -1,7 +1,6 @@
 'use client';
 
 import { t, Trans } from '@lingui/macro';
-import { safeUnreachable } from '@masknet/kit';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation.js';
 import type React from 'react';
@@ -16,11 +15,9 @@ import { SocialPlatform, SourceInURL } from '@/constants/enum.js';
 import { EMPTY_LIST, MIN_POST_SIZE_PER_THREAD, SITE_NAME } from '@/constants/index.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { createPageTitle } from '@/helpers/createPageTitle.js';
+import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSocialPlatform } from '@/helpers/resolveSocialPlatform.js';
 import { useUpdateCurrentVisitingPost } from '@/hooks/useCurrentVisitingPost.js';
-import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
-import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
-import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
 import { getPostById } from '@/services/getPostById.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 
@@ -61,17 +58,10 @@ export default function Page({ params: { id: postId, source } }: PageProps) {
             const root = post?.root ? post.root : post;
             if (!root?.stats?.comments) return EMPTY_LIST;
 
-            switch (currentSource) {
-                case SocialPlatform.Lens:
-                    return LensSocialMediaProvider.getThreadByPostId(root.postId);
-                case SocialPlatform.Farcaster:
-                    return FarcasterSocialMediaProvider.getThreadByPostId(root.postId);
-                case SocialPlatform.Twitter:
-                    return TwitterSocialMediaProvider.getThreadByPostId(root.postId);
-                default:
-                    safeUnreachable(currentSource);
-                    return EMPTY_LIST;
-            }
+            const provider = resolveSocialMediaProvider(currentSource);
+            if (!provider) return EMPTY_LIST;
+
+            return provider.getThreadByPostId(root.postId);
         },
     });
 

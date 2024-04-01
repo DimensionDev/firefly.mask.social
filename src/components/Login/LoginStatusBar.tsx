@@ -5,11 +5,12 @@ import { delay } from '@masknet/kit';
 import { ProfileAvatarAdd } from '@/components/Login/ProfileAvatarAdd.js';
 import { ProfileAvatarInteractive } from '@/components/Login/ProfileAvatarInteractive.js';
 import { SocialPlatform } from '@/constants/enum.js';
+import { SORTED_SOURCES } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
+import { useCurrentProfileAll } from '@/hooks/useCurrentProfileAll.js';
 import { LoginModalRef } from '@/modals/controls.js';
 import { useNavigatorState } from '@/store/useNavigatorStore.js';
-import { useFarcasterStateStore, useLensStateStore } from '@/store/useProfileStore.js';
 
 interface LoginStatusBarProps {
     collapsed?: boolean;
@@ -18,8 +19,7 @@ interface LoginStatusBarProps {
 export function LoginStatusBar({ collapsed = false }: LoginStatusBarProps) {
     const { updateSidebarOpen } = useNavigatorState();
 
-    const lensProfile = useLensStateStore.use.currentProfile?.();
-    const farcasterProfile = useFarcasterStateStore.use.currentProfile?.();
+    const currentProfileAll = useCurrentProfileAll();
 
     return (
         <div
@@ -28,28 +28,24 @@ export function LoginStatusBar({ collapsed = false }: LoginStatusBarProps) {
                 'flex-row justify-start gap-x-2 pl-6 lg:pl-2': !collapsed,
             })}
         >
-            {farcasterProfile ? <ProfileAvatarInteractive profile={farcasterProfile} /> : null}
-            {lensProfile ? <ProfileAvatarInteractive profile={lensProfile} /> : null}
-            {farcasterProfile ? null : (
-                <ProfileAvatarAdd
-                    source={SocialPlatform.Farcaster}
-                    onClick={async () => {
-                        updateSidebarOpen(false);
-                        await delay(300);
-                        LoginModalRef.open({ source: SocialPlatform.Farcaster });
-                    }}
-                />
-            )}
-            {lensProfile ? null : (
-                <ProfileAvatarAdd
-                    source={SocialPlatform.Lens}
-                    onClick={async () => {
-                        updateSidebarOpen(false);
-                        await delay(300);
-                        await getWalletClientRequired();
-                        LoginModalRef.open({ source: SocialPlatform.Lens });
-                    }}
-                />
+            {SORTED_SOURCES.map((x) => {
+                const currentProfile = currentProfileAll[x];
+                return currentProfile ? <ProfileAvatarInteractive key={x} profile={currentProfile} /> : null;
+            })}
+
+            {SORTED_SOURCES.map((x) =>
+                currentProfileAll[x] ? (
+                    <ProfileAvatarAdd
+                        key={x}
+                        source={x}
+                        onClick={async () => {
+                            updateSidebarOpen(false);
+                            await delay(300);
+                            if (x === SocialPlatform.Lens) await getWalletClientRequired();
+                            LoginModalRef.open({ source: x });
+                        }}
+                    />
+                ) : null,
             )}
         </div>
     );

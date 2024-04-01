@@ -40,6 +40,9 @@ msgstr ""
 msgid "Failed to mirror. {0}"
 msgstr ""
 
+msgid "X"
+msgstr ""
+
 msgid "Debug Connection"
 msgstr ""
 
@@ -110,9 +113,6 @@ msgid "comment"
 msgstr ""
 
 msgid "Confirm"
-msgstr ""
-
-msgid "The previous post does not have a Twitter post ID."
 msgstr ""
 
 msgid "Username"
@@ -259,9 +259,6 @@ msgstr ""
 msgid "Invalid compose type."
 msgstr ""
 
-msgid "The previous post does not have a Lens post ID."
-msgstr ""
-
 msgid "Collected"
 msgstr ""
 
@@ -388,13 +385,7 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
-msgid "Claim on Lens: {0}"
-msgstr ""
-
 msgid "Details"
-msgstr ""
-
-msgid "Claim on Farcaster: {0}"
 msgstr ""
 
 msgid "Your Farcaster account is now connected."
@@ -643,6 +634,9 @@ msgstr ""
 msgid "You cannot reply to @{author} on {0}."
 msgstr ""
 
+msgid "Claim on {0}: {1}"
+msgstr ""
+
 msgid "Failed to unmirror post."
 msgstr ""
 
@@ -713,9 +707,6 @@ msgid "Recast"
 msgstr ""
 
 msgid "Followers"
-msgstr ""
-
-msgid "The previous post does not have a Farcaster post ID."
 msgstr ""
 
 msgid "{0, select, follow {Follow} unfollow {Unfollow} other {Follow}}"

@@ -29,6 +29,10 @@ export class FarcasterSocialMedia implements Provider {
         return FireflySocialMediaProvider.discoverPostsById(profileId, indicator);
     }
 
+    async getCollectedPostsByProfileId(profileId: string, indicator?: PageIndicator) {
+        return this.getPostsByProfileId(profileId, indicator);
+    }
+
     async getPostsByProfileId(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         const { isCustodyWallet } = getFarcasterSessionType();
         if (isCustodyWallet) return WarpcastSocialMediaProvider.getPostsByProfileId(profileId, indicator);
@@ -176,6 +180,10 @@ export class FarcasterSocialMedia implements Provider {
 
     async getThreadByPostId(postId: string) {
         return FireflySocialMediaProvider.getThreadByPostId(postId);
+    }
+
+    getCommentsById(postId: string, indicator?: PageIndicator) {
+        return FireflySocialMediaProvider.getCommentsById(postId, indicator);
     }
 }
 
