@@ -61,7 +61,7 @@ async function updateRpClaimStrategy(compositePost: CompositePost) {
     const farcasterPostId = postId[SocialPlatform.Farcaster];
     const twitterPostId = postId[SocialPlatform.Twitter];
 
-    if (hasRpPayload(typedMessage) && (lensPostId || farcasterPostId) && rpPayload?.publicKey) {
+    if (hasRpPayload(typedMessage) && (lensPostId || farcasterPostId || twitterPostId) && rpPayload?.publicKey) {
         const rpPayloadFromMeta = typedMessage?.meta?.get(RedPacketMetaKey) as RedPacketJSONPayload;
 
         const reactions = compact([

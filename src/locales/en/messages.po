@@ -112,9 +112,6 @@ msgstr "comment"
 msgid "Confirm"
 msgstr "Confirm"
 
-msgid "The previous post does not have a Twitter post ID."
-msgstr "The previous post does not have a Twitter post ID."
-
 msgid "Username"
 msgstr "Username"
 
@@ -258,9 +255,6 @@ msgstr "Querying the signed key state."
 
 msgid "Invalid compose type."
 msgstr "Invalid compose type."
-
-msgid "The previous post does not have a Lens post ID."
-msgstr "The previous post does not have a Lens post ID."
 
 msgid "Collected"
 msgstr "Collected"
@@ -714,9 +708,6 @@ msgstr "Recast"
 
 msgid "Followers"
 msgstr "Followers"
-
-msgid "The previous post does not have a Farcaster post ID."
-msgstr "The previous post does not have a Farcaster post ID."
 
 msgid "{0, select, follow {Follow} unfollow {Unfollow} other {Follow}}"
 msgstr "{0, select, follow {Follow} unfollow {Unfollow} other {Follow}}"

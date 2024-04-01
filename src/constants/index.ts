@@ -1,5 +1,7 @@
 /* cspell:disable */
 
+import { SocialPlatform } from '@/constants/enum.js';
+
 export const SITE_NAME = 'Firefly: Web3 & NFT Explorer';
 export const SITE_DESCRIPTION =
     "Firefly is a social app for exploring what's happening in the world of Web3, NFTs, AI, and more.";
@@ -23,6 +25,8 @@ export const EIP_712_FARCASTER_DOMAIN = {
     version: '2.0.0',
     salt: '0xf2d857f4a3edcb9b78b4d503bfe733db1e3f6cdc2b7971ee739626c97e86a558' as `0x${string}`,
 };
+
+export const SORTED_SOURCES = [SocialPlatform.Farcaster, SocialPlatform.Lens, SocialPlatform.Twitter];
 
 // Lens
 export const IPFS_GATEWAY = 'https://gw.ipfs-lens.dev/ipfs/';
