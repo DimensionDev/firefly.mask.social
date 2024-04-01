@@ -55,6 +55,8 @@ export const Mirror = memo<MirrorProps>(function Mirror({
                 });
             case SocialPlatform.Farcaster:
                 return t`Recast`;
+            case SocialPlatform.Twitter:
+                return t`Retweet`;
             default:
                 safeUnreachable(source);
                 return '';
@@ -67,6 +69,8 @@ export const Mirror = memo<MirrorProps>(function Mirror({
                 return mirrored ? t`Mirrored` : t`Mirror`;
             case SocialPlatform.Farcaster:
                 return mirrored ? t`Cancel Recast` : t`Recast`;
+            case SocialPlatform.Twitter:
+                return t`Retweet`;
             default:
                 safeUnreachable(source);
                 return '';
@@ -74,7 +78,7 @@ export const Mirror = memo<MirrorProps>(function Mirror({
     }, [source, mirrored]);
 
     const [{ loading }, handleMirror] = useAsyncFn(async () => {
-        if (!postId) return null;
+        if (!postId) return;
 
         switch (source) {
             case SocialPlatform.Lens:
@@ -121,9 +125,11 @@ export const Mirror = memo<MirrorProps>(function Mirror({
 
                     return;
                 }
+            case SocialPlatform.Twitter:
+                throw new Error('Not implemented');
             default:
                 safeUnreachable(source);
-                return null;
+                return;
         }
     }, [postId, source, count, mirrored, post.author.profileId]);
 

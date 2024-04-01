@@ -7,6 +7,7 @@ import { SocialPlatform, type SourceInURL } from '@/constants/enum.js';
 import { resolveSocialPlatform } from '@/helpers/resolveSocialPlatform.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
+import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 
 interface PostEmbedProps {
@@ -30,9 +31,11 @@ export const PostEmbed = memo<PostEmbedProps>(function PostEmbed({ id, source })
                         return post;
                     }
                     case SocialPlatform.Farcaster: {
-                        const post = await FarcasterSocialMediaProvider.getPostById(id);
-                        return post;
+                        return await FarcasterSocialMediaProvider.getPostById(id);
                     }
+                    case SocialPlatform.Twitter:
+                        return await TwitterSocialMediaProvider.getPostById(id);
+
                     default:
                         safeUnreachable(currentSource);
                         return null;

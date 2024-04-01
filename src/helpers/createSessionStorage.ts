@@ -4,8 +4,11 @@ import type { PersistStorage } from 'zustand/middleware';
 
 import { SessionFactory } from '@/providers/base/SessionFactory.js';
 import type { Session } from '@/providers/types/Session.js';
+import type { Profile } from '@/providers/types/SocialMedia.js';
 
 interface SessionState {
+    profiles: Profile[];
+    currentProfile: Profile | null;
     currentProfileSession: Session | null;
 }
 
@@ -17,6 +20,8 @@ export function createSessionStorage(): PersistStorage<SessionState> {
 
             const parsedState = parseJSON<{
                 state: {
+                    profiles: Profile[];
+                    currentProfile: Profile | null;
                     currentProfileSession: string | null;
                 };
                 version: number;

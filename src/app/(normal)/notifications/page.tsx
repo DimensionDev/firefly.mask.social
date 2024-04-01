@@ -17,6 +17,7 @@ import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
+import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 
 export default function Notification() {
@@ -32,6 +33,8 @@ export default function Notification() {
                     return LensSocialMediaProvider.getNotifications(createIndicator(undefined, pageParam));
                 case SocialPlatform.Farcaster:
                     return FireflySocialMediaProvider.getNotifications(createIndicator(undefined, pageParam));
+                case SocialPlatform.Twitter:
+                    return TwitterSocialMediaProvider.getNotifications(createIndicator(undefined, pageParam));
                 default:
                     safeUnreachable(currentSource);
                     return;

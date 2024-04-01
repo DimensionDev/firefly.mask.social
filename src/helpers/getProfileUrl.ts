@@ -18,6 +18,12 @@ export function getProfileUrl(profile: Profile) {
                 source: profile.source.toLowerCase(),
                 id: profile.profileId,
             });
+        case SocialPlatform.Twitter:
+            if (!profile.profileId) return '';
+            return urlcat('/profile/:source/:id', {
+                source: profile.source.toLowerCase(),
+                id: profile.profileId,
+            });
         default:
             safeUnreachable(profile.source);
             return '';

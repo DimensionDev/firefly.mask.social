@@ -5,6 +5,7 @@ import { useCallback } from 'react';
 import { SocialPlatform } from '@/constants/enum.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
+import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 interface Options {
@@ -27,6 +28,8 @@ export function useIsFollowing({ profile, placeholder, enabled }: Options) {
                     return LensSocialMediaProvider.getProfileByHandle(identifier);
                 case SocialPlatform.Farcaster:
                     return FarcasterSocialMediaProvider.getProfileById(identifier);
+                case SocialPlatform.Twitter:
+                    return TwitterSocialMediaProvider.getProfileById(identifier);
                 default:
                     safeUnreachable(platform);
                     return null;

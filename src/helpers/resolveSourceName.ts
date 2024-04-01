@@ -6,6 +6,7 @@ export const resolveSourceName = createLookupTableResolver<SocialPlatform, strin
     {
         [SocialPlatform.Lens]: 'Lens',
         [SocialPlatform.Farcaster]: 'Farcaster',
+        [SocialPlatform.Twitter]: 'X',
     },
     (source) => {
         throw new Error(`Unknown social platform: ${source}`);

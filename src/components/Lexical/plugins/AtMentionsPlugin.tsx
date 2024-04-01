@@ -20,6 +20,7 @@ import { EMPTY_LIST } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
+import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 import { useFarcasterStateStore, useLensStateStore } from '@/store/useProfileStore.js';
 
@@ -164,6 +165,8 @@ export function MentionsPlugin(): JSX.Element | null {
                     return LensSocialMediaProvider.searchProfiles(debounceQuery);
                 case SocialPlatform.Farcaster:
                     return FarcasterSocialMediaProvider.searchProfiles(debounceQuery);
+                case SocialPlatform.Twitter:
+                    return TwitterSocialMediaProvider.searchProfiles(debounceQuery);
                 default:
                     safeUnreachable(currentSource);
                     return;

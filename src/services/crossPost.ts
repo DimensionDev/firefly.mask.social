@@ -9,13 +9,15 @@ import { SocialPlatform } from '@/constants/enum.js';
 import { hasRpPayload } from '@/helpers/hasPayload.js';
 import { postToFarcaster } from '@/services/postToFarcaster.js';
 import { postToLens } from '@/services/postToLens.js';
+import { postToTwitter } from '@/services/postToTwitter.js';
 import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
-import { useFarcasterStateStore, useLensStateStore } from '@/store/useProfileStore.js';
+import { useFarcasterStateStore, useLensStateStore, useTwitterStateStore } from '@/store/useProfileStore.js';
 import type { ComposeType } from '@/types/compose.js';
 
 async function refreshProfileFeed(source: SocialPlatform) {
     const { currentProfile: currentLensProfile } = useLensStateStore.getState();
     const { currentProfile: currentFarcasterProfile } = useFarcasterStateStore.getState();
+    const { currentProfile: currentTwitterProfile } = useTwitterStateStore.getState();
 
     switch (source) {
         case SocialPlatform.Lens:
@@ -32,6 +34,14 @@ async function refreshProfileFeed(source: SocialPlatform) {
             });
             queryClient.removeQueries({
                 queryKey: ['getPostsByProfileId', SocialPlatform.Farcaster, currentFarcasterProfile?.profileId],
+            });
+            break;
+        case SocialPlatform.Twitter:
+            await queryClient.invalidateQueries({
+                queryKey: ['getPostsByProfileId', SocialPlatform.Twitter, currentTwitterProfile?.profileId],
+            });
+            queryClient.removeQueries({
+                queryKey: ['getPostsByProfileId', SocialPlatform.Twitter, currentTwitterProfile?.profileId],
             });
             break;
         default:
@@ -107,9 +117,11 @@ export async function crossPost(type: ComposeType, compositePost: CompositePost)
 
         if (availableSources.includes(SocialPlatform.Farcaster)) await refreshProfileFeed(SocialPlatform.Farcaster);
         if (availableSources.includes(SocialPlatform.Lens)) await refreshProfileFeed(SocialPlatform.Lens);
+        if (availableSources.includes(SocialPlatform.Lens)) await refreshProfileFeed(SocialPlatform.Twitter);
     } else {
         if (availableSources.includes(SocialPlatform.Farcaster)) await postToFarcaster(type, compositePost);
         if (availableSources.includes(SocialPlatform.Lens)) await postToLens(type, compositePost);
+        if (availableSources.includes(SocialPlatform.Twitter)) await postToTwitter(type, compositePost);
     }
 
     // update red packet claim strategy if necessary

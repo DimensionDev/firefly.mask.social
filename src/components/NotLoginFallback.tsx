@@ -1,12 +1,12 @@
 import { t } from '@lingui/macro';
-import { safeUnreachable } from '@masknet/kit';
-import { memo, useMemo } from 'react';
+import { memo } from 'react';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { Image } from '@/esm/Image.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
+import { resolveFallbackImageUrl } from '@/helpers/resolveFallbackImageUrl.js';
 import { LoginModalRef } from '@/modals/controls.js';
 
 interface NotLoginFallbackProps {
@@ -14,17 +14,7 @@ interface NotLoginFallbackProps {
 }
 
 export const NotLoginFallback = memo<NotLoginFallbackProps>(function LoginFallback({ source }) {
-    const fallbackUrl = useMemo(() => {
-        switch (source) {
-            case SocialPlatform.Lens:
-                return '/image/lens-fallback.png';
-            case SocialPlatform.Farcaster:
-                return '/image/farcaster-fallback.png';
-            default:
-                safeUnreachable(source);
-                return '';
-        }
-    }, [source]);
+    const fallbackUrl = resolveFallbackImageUrl(source);
 
     return (
         <div className="flex h-[calc(100%-66px)] flex-col items-center justify-center space-y-9">

@@ -34,7 +34,6 @@ export const MarkupLink = memo<MarkupLinkProps>(function MarkupLink({ title, pos
                 if (!handle) return title;
 
                 const link = getProfileUrl(createLensProfileFromHandle(handle));
-
                 return <MentionLink handle={handle} link={link} />;
             }
 
@@ -45,6 +44,10 @@ export const MarkupLink = memo<MarkupLinkProps>(function MarkupLink({ title, pos
                 const link = getProfileUrl(profile);
                 return <MentionLink handle={profile.handle} link={link} />;
             }
+
+            case SocialPlatform.Twitter:
+                return title;
+
             default:
                 safeUnreachable(source);
                 return title;

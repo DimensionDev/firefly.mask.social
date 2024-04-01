@@ -2,11 +2,12 @@ import { safeUnreachable } from '@masknet/kit';
 import { useMemo } from 'react';
 
 import { SocialPlatform } from '@/constants/enum.js';
-import { useFarcasterStateStore, useLensStateStore } from '@/store/useProfileStore.js';
+import { useFarcasterStateStore, useLensStateStore, useTwitterStateStore } from '@/store/useProfileStore.js';
 
 export function useIsLogin(source?: SocialPlatform) {
     const currentLensProfile = useLensStateStore.use.currentProfile();
     const currentFarcasterProfile = useFarcasterStateStore.use.currentProfile();
+    const currentTwitterProfile = useTwitterStateStore.use.currentProfile();
 
     return useMemo(() => {
         if (!source) return !!(currentLensProfile?.profileId || currentFarcasterProfile?.profileId);
@@ -16,9 +17,11 @@ export function useIsLogin(source?: SocialPlatform) {
                 return !!currentLensProfile?.profileId;
             case SocialPlatform.Farcaster:
                 return !!currentFarcasterProfile?.profileId;
+            case SocialPlatform.Twitter:
+                return !!currentTwitterProfile?.profileId;
             default:
                 safeUnreachable(source);
                 return false;
         }
-    }, [currentLensProfile, currentFarcasterProfile, source]);
+    }, [source, currentLensProfile?.profileId, currentFarcasterProfile?.profileId, currentTwitterProfile?.profileId]);
 }

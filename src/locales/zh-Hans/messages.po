@@ -24,6 +24,9 @@ msgstr "还没有人评论哦～快来抢沙发！"
 msgid "Quote Post"
 msgstr "引用"
 
+msgid "Retweet"
+msgstr ""
+
 msgid "Failed to fetch as Blob."
 msgstr "获取 Blob 失败。"
 
@@ -113,6 +116,9 @@ msgstr "评论"
 
 msgid "Confirm"
 msgstr "确认"
+
+msgid "The previous post does not have a Twitter post ID."
+msgstr ""
 
 msgid "Username"
 msgstr ""

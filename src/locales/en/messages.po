@@ -19,6 +19,9 @@ msgstr "Be the first one to comment!"
 msgid "Quote Post"
 msgstr "Quote Post"
 
+msgid "Retweet"
+msgstr "Retweet"
+
 msgid "Failed to fetch as Blob."
 msgstr "Failed to fetch as Blob."
 
@@ -108,6 +111,9 @@ msgstr "comment"
 
 msgid "Confirm"
 msgstr "Confirm"
+
+msgid "The previous post does not have a Twitter post ID."
+msgstr "The previous post does not have a Twitter post ID."
 
 msgid "Username"
 msgstr "Username"

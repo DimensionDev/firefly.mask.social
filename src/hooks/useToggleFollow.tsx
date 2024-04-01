@@ -53,6 +53,8 @@ export function useToggleFollow(profile: Profile) {
                         ? FarcasterSocialMediaProvider.unfollow(profileId)
                         : FarcasterSocialMediaProvider.follow(profileId));
                     break;
+                case SocialPlatform.Twitter:
+                    throw new Error('Not implemented');
                 default:
                     safeUnreachable(source);
                     return;
