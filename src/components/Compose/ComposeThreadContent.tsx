@@ -32,8 +32,10 @@ export function ComposeThreadContent(props: ComposeThreadContentProps) {
                         cursor !== x.id ? 'opacity-50' : 'opacity-100',
                     )}
                     onClick={() => {
+                        const shouldUpdateContent = cursor !== x.id;
+
                         updateCursor(x.id);
-                        setEditorContent(readChars(x.chars, true));
+                        if (shouldUpdateContent) setEditorContent(readChars(x.chars, true));
                     }}
                 >
                     {cursor === x.id && isEmptyPost(x) && i !== 0 ? (
