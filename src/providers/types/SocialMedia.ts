@@ -338,6 +338,11 @@ export interface Provider {
     getProfilesByAddress: (address: string) => Promise<Profile[]>;
 
     /**
+     * @params ids Array of profile id
+     */
+    getProfilesByIds?: (ids: string[]) => Promise<Profile[]>;
+
+    /**
      * Retrieves a user's profile by their profile ID.
      *
      * @param profileId The ID of the user's profile.
