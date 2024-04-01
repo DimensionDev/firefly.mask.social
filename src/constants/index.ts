@@ -13,6 +13,7 @@ export const FIREFLY_STAMP_URL = 'https://stamp.firefly.land/avatar';
 
 export const HUBBLE_URL = process.env.NEXT_PUBLIC_HUBBLE_URL;
 
+export const NEYNAR_URL = 'https://api.neynar.com'
 export const RP_HASH_TAG = '#FireflyLuckyDrop';
 
 export const EMPTY_LIST = Object.freeze([]) as never[];
