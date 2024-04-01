@@ -19,6 +19,7 @@ import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { LoginModalRef } from '@/modals/controls.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
+import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
 
 interface LikeProps {
     postId: string;
@@ -37,11 +38,13 @@ export const Like = memo<LikeProps>(function Like({ count, hasLiked, postId, aut
 
     const [{ loading }, handleClick] = useAsyncFn(async () => {
         if (!postId) return null;
+
         if (!isLogin) {
             if (source === SocialPlatform.Lens) await getWalletClientRequired();
             LoginModalRef.open({ source });
             return;
         }
+
         const originalCount = count;
         setLiked((prev) => !prev);
         setRealCount((prev) => {
@@ -59,6 +62,11 @@ export const Like = memo<LikeProps>(function Like({ count, hasLiked, postId, aut
                     await (liked
                         ? FarcasterSocialMediaProvider.unvotePost(postId, Number(authorId))
                         : FarcasterSocialMediaProvider.upvotePost(postId, Number(authorId)));
+                    break;
+                case SocialPlatform.Twitter:
+                    await (liked
+                        ? TwitterSocialMediaProvider.unvotePost(postId)
+                        : TwitterSocialMediaProvider.upvotePost(postId));
                     break;
                 default:
                     safeUnreachable(source);

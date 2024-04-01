@@ -18,14 +18,17 @@ import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
+import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
-import { useFarcasterStateStore, useLensStateStore } from '@/store/useProfileStore.js';
+import { useFarcasterStateStore, useLensStateStore, useTwitterStateStore } from '@/store/useProfileStore.js';
 
 export default function Following() {
     const currentSource = useGlobalState.use.currentSource();
+
     const currentLensProfile = useLensStateStore.use.currentProfile();
     const currentFarcasterProfile = useFarcasterStateStore.use.currentProfile();
+    const currentTwitterProfile = useTwitterStateStore.use.currentProfile();
 
     const isLogin = useIsLogin(currentSource);
 
@@ -58,6 +61,12 @@ export default function Following() {
                     if (!currentFarcasterProfile?.profileId) return;
                     return FarcasterSocialMediaProvider.discoverPostsById(
                         currentFarcasterProfile.profileId,
+                        createIndicator(undefined, pageParam),
+                    );
+                case SocialPlatform.Twitter:
+                    if (!currentTwitterProfile?.profileId) return;
+                    return TwitterSocialMediaProvider.discoverPostsById(
+                        currentTwitterProfile.profileId,
                         createIndicator(undefined, pageParam),
                     );
                 default:

@@ -10,6 +10,8 @@ export function getStampAvatarByProfileId(source: SocialPlatform, profileId: str
             return urlcat(FIREFLY_STAMP_URL, '/lens/:id', { id: profileId });
         case SocialPlatform.Farcaster:
             return urlcat(FIREFLY_STAMP_URL, '/farcaster/:id', { id: profileId });
+        case SocialPlatform.Twitter:
+            return urlcat(FIREFLY_STAMP_URL, '/twitter/:id', { id: profileId });
         default:
             safeUnreachable(source);
             return '';

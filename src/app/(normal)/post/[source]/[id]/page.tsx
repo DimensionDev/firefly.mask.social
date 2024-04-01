@@ -20,6 +20,7 @@ import { resolveSocialPlatform } from '@/helpers/resolveSocialPlatform.js';
 import { useUpdateCurrentVisitingPost } from '@/hooks/useCurrentVisitingPost.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
+import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
 import { getPostById } from '@/services/getPostById.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 
@@ -65,6 +66,8 @@ export default function Page({ params: { id: postId, source } }: PageProps) {
                     return LensSocialMediaProvider.getThreadByPostId(root.postId);
                 case SocialPlatform.Farcaster:
                     return FarcasterSocialMediaProvider.getThreadByPostId(root.postId);
+                case SocialPlatform.Twitter:
+                    return TwitterSocialMediaProvider.getThreadByPostId(root.postId);
                 default:
                     safeUnreachable(currentSource);
                     return EMPTY_LIST;

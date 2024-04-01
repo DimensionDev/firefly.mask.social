@@ -13,6 +13,7 @@ import { SocialPlatform } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
+import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 
 export interface CommentListProps {
@@ -45,6 +46,8 @@ export const CommentList = memo<CommentListProps>(function CommentList({ postId,
                     return result;
                 case SocialPlatform.Farcaster:
                     return FireflySocialMediaProvider.getCommentsById(postId, createIndicator(undefined, pageParam));
+                case SocialPlatform.Twitter:
+                    return TwitterSocialMediaProvider.getCommentsById(postId, createIndicator(undefined, pageParam));
                 default:
                     safeUnreachable(source);
                     return createPageable(EMPTY_LIST, undefined);

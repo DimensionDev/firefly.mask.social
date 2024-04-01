@@ -70,6 +70,8 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | 
                     setProfiles(EMPTY_LIST);
                     setSource(selectedSource);
                     return;
+                case SocialPlatform.Twitter:
+                    return;
                 default:
                     safeUnreachable(selectedSource);
                     return;

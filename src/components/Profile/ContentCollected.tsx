@@ -13,6 +13,7 @@ import { EMPTY_LIST } from '@/constants/index.js';
 import { mergeTreadPosts } from '@/helpers/mergeTreadPosts.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
+import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 
 interface ContentFeedProps {
@@ -38,6 +39,11 @@ export function ContentCollected({ profileId, source }: ContentFeedProps) {
                     return posts;
                 case SocialPlatform.Farcaster:
                     return FarcasterSocialMediaProvider.getPostsByProfileId(
+                        profileId,
+                        createIndicator(undefined, pageParam),
+                    );
+                case SocialPlatform.Twitter:
+                    return TwitterSocialMediaProvider.getPostsByProfileId(
                         profileId,
                         createIndicator(undefined, pageParam),
                     );

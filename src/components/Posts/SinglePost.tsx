@@ -67,6 +67,8 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
                     isSameProfile(post.commentOn?.author, post.author) &&
                     isSameProfile(post.root?.author, post.author)
                 );
+            case SocialPlatform.Twitter:
+                return false;
             default:
                 safeUnreachable(post.source);
                 return false;

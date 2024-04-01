@@ -15,6 +15,7 @@ import { SearchType, SocialPlatform } from '@/constants/enum.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
+import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
 import type { Post, Profile } from '@/providers/types/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useSearchState } from '@/store/useSearchState.js';
@@ -42,6 +43,8 @@ export default function Page() {
                         return LensSocialMediaProvider.searchProfiles(searchKeyword, indicator);
                     case SocialPlatform.Farcaster:
                         return FarcasterSocialMediaProvider.searchProfiles(searchKeyword, indicator);
+                    case SocialPlatform.Twitter:
+                        return TwitterSocialMediaProvider.searchProfiles(searchKeyword, indicator);
                     default:
                         safeUnreachable(currentSource);
                         return;
@@ -52,6 +55,8 @@ export default function Page() {
                         return LensSocialMediaProvider.searchPosts(searchKeyword, indicator);
                     case SocialPlatform.Farcaster:
                         return FarcasterSocialMediaProvider.searchPosts(searchKeyword, indicator);
+                    case SocialPlatform.Twitter:
+                        return TwitterSocialMediaProvider.searchPosts(searchKeyword, indicator);
                     default:
                         safeUnreachable(currentSource);
                         return;

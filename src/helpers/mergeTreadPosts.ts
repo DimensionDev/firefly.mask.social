@@ -8,17 +8,19 @@ import type { Post } from '@/providers/types/SocialMedia.js';
 /**
  * Merge related posts into threads if needed
  * @param source
- * @param post
+ * @param posts
  * @returns
  */
-export function mergeTreadPosts(source: SocialPlatform, post: Post[]) {
+export function mergeTreadPosts(source: SocialPlatform, posts: Post[]) {
     switch (source) {
         case SocialPlatform.Lens:
-            return mergeTreadPostsForLens(post);
+            return mergeTreadPostsForLens(posts);
         case SocialPlatform.Farcaster:
-            return mergeTreadPostsForFarcaster(post);
+            return mergeTreadPostsForFarcaster(posts);
+        case SocialPlatform.Twitter:
+            return posts;
         default:
             safeUnreachable(source);
-            return post;
+            return posts;
     }
 }

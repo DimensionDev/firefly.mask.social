@@ -4,6 +4,7 @@ import { first } from 'lodash-es';
 import { SocialPlatform } from '@/constants/enum.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
+import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { crossPost } from '@/services/crossPost.js';
 import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
@@ -45,13 +46,22 @@ async function recompositePost(index: number, post: CompositePost, rootPost: Com
         promises.push(Promise.resolve(null));
     }
 
-    const [lensPost, farcasterPost] = await Promise.all(promises);
+    if (availableSources.includes(SocialPlatform.Twitter)) {
+        const parentPostId = previousPost.postId[SocialPlatform.Twitter];
+        if (!parentPostId) throw new Error(t`The previous post does not have a Twitter post ID.`);
+        promises.push(TwitterSocialMediaProvider.getPostById(parentPostId));
+    } else {
+        promises.push(Promise.resolve(null));
+    }
+
+    const [lensPost, farcasterPost, twitterPost] = await Promise.all(promises);
 
     return {
         ...post,
         parentPost: {
             [SocialPlatform.Lens]: lensPost,
             [SocialPlatform.Farcaster]: farcasterPost,
+            [SocialPlatform.Twitter]: twitterPost,
         },
         // override the available sources with the root post's
         availableSources,

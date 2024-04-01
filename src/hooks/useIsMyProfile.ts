@@ -14,6 +14,8 @@ export function useIsMyProfile(source: SocialPlatform, handleOrProfileId: string
                 return currentProfile.handle === handleOrProfileId;
             case SocialPlatform.Farcaster:
                 return currentProfile.profileId === handleOrProfileId;
+            case SocialPlatform.Twitter:
+                return currentProfile.profileId === handleOrProfileId;
             default:
                 safeUnreachable(currentProfile.source);
                 return false;

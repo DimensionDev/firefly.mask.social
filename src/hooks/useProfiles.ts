@@ -5,7 +5,7 @@ import { SocialPlatform } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import type { Session } from '@/providers/types/Session.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
-import { useFarcasterStateStore, useLensStateStore } from '@/store/useProfileStore.js';
+import { useFarcasterStateStore, useLensStateStore, useTwitterStateStore } from '@/store/useProfileStore.js';
 
 interface UseProfilesReturnType {
     currentProfile: Profile | null;
@@ -23,15 +23,24 @@ export function useProfiles(source: SocialPlatform): UseProfilesReturnType {
     const currentFarcasterProfile = useFarcasterStateStore.use.currentProfile();
     const currentFarcasterProfileSession = useFarcasterStateStore.use.currentProfileSession();
 
+    const currentTwitterProfile = useTwitterStateStore.use.currentProfile();
+    const currentTwitterProfileSession = useTwitterStateStore.use.currentProfileSession();
+
     const lensProfiles = useLensStateStore.use.profiles();
     const farcasterProfiles = useFarcasterStateStore.use.profiles();
+    const twitterProfiles = useTwitterStateStore.use.profiles();
 
     const clearFarcasterCurrentProfile = useFarcasterStateStore.use.clearCurrentProfile();
     const clearLensCurrentProfile = useLensStateStore.use.clearCurrentProfile();
+    const clearTwitterCurrentProfile = useTwitterStateStore.use.clearCurrentProfile();
+
     const refreshLensProfiles = useLensStateStore.use.refreshProfiles();
     const refreshFarcasterProfiles = useFarcasterStateStore.use.refreshProfiles();
+    const refreshTwitterProfiles = useTwitterStateStore.use.refreshProfiles();
+
     const refreshLensProfile = useLensStateStore.use.refreshCurrentProfile();
     const refreshFarcasterProfile = useFarcasterStateStore.use.refreshCurrentProfile();
+    const refreshTwitterProfile = useTwitterStateStore.use.refreshCurrentProfile();
 
     return useMemo(() => {
         switch (source) {
@@ -53,6 +62,15 @@ export function useProfiles(source: SocialPlatform): UseProfilesReturnType {
                     refreshProfiles: refreshFarcasterProfiles,
                     refreshCurrentProfile: refreshFarcasterProfile,
                 };
+            case SocialPlatform.Twitter:
+                return {
+                    currentProfile: currentTwitterProfile,
+                    currentProfileSession: currentTwitterProfileSession,
+                    profiles: twitterProfiles,
+                    clearCurrentProfile: clearTwitterCurrentProfile,
+                    refreshProfiles: refreshTwitterProfiles,
+                    refreshCurrentProfile: refreshTwitterProfile,
+                };
             default:
                 safeUnreachable(source);
                 return {
@@ -65,18 +83,24 @@ export function useProfiles(source: SocialPlatform): UseProfilesReturnType {
                 };
         }
     }, [
+        source,
         currentLensProfile,
         currentLensProfileSession,
+        lensProfiles,
+        clearLensCurrentProfile,
+        refreshLensProfiles,
+        refreshLensProfile,
         currentFarcasterProfile,
         currentFarcasterProfileSession,
-        source,
-        lensProfiles,
         farcasterProfiles,
         clearFarcasterCurrentProfile,
-        clearLensCurrentProfile,
-        refreshFarcasterProfile,
-        refreshLensProfile,
         refreshFarcasterProfiles,
-        refreshLensProfiles,
+        refreshFarcasterProfile,
+        currentTwitterProfile,
+        currentTwitterProfileSession,
+        twitterProfiles,
+        clearTwitterCurrentProfile,
+        refreshTwitterProfiles,
+        refreshTwitterProfile,
     ]);
 }

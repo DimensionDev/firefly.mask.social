@@ -20,6 +20,8 @@ export const NotLoginFallback = memo<NotLoginFallbackProps>(function LoginFallba
                 return '/image/lens-fallback.png';
             case SocialPlatform.Farcaster:
                 return '/image/farcaster-fallback.png';
+            case SocialPlatform.Twitter:
+                return '/image/twitter-fallback.png';
             default:
                 safeUnreachable(source);
                 return '';

@@ -17,6 +17,7 @@ export enum SocialPlatform {
 export enum SourceInURL {
     Farcaster = 'farcaster',
     Lens = 'lens',
+    Twitter = 'twitter',
 }
 
 export enum SearchType {
