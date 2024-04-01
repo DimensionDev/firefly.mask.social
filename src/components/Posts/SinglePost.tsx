@@ -12,7 +12,6 @@ import { PostHeader } from '@/components/Posts/PostHeader.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
-import { isThreadPost } from '@/helpers/isThreadPost.js';
 import { useObserveLensPost } from '@/hooks/useObserveLensPost.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
@@ -39,7 +38,6 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
 
     const pathname = usePathname();
 
-    const isThread = isThreadPost(post);
     const isPostPage = isRoutePathname(pathname, '/post');
     const postLink = getPostUrl(post);
 
@@ -75,7 +73,7 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
 
             {!isDetail ? <PostActions post={post} disabled={post.isHidden} /> : null}
 
-            {isThread && !isPostPage ? (
+            {post.isThread && !isPostPage ? (
                 <div className="mt-2 w-full cursor-pointer text-center text-[15px] font-bold text-link">
                     <div>
                         <Trans>Show More</Trans>

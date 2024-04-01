@@ -12,7 +12,7 @@ import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { SinglePost } from '@/components/Posts/SinglePost.js';
 import { SocialPlatform } from '@/constants/enum.js';
-import { mergeTreadPosts } from '@/helpers/mergeTreadPosts.js';
+import { mergeThreadPosts } from '@/helpers/mergeThreadPosts.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
@@ -78,7 +78,7 @@ export default function Following() {
         getNextPageParam: (lastPage) => lastPage?.nextIndicator?.id,
         select: (data) => {
             const result = data?.pages.flatMap((x) => x?.data || []) || EMPTY_LIST;
-            return mergeTreadPosts(currentSource, result);
+            return mergeThreadPosts(currentSource, result);
         },
     });
 

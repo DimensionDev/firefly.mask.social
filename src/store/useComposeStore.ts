@@ -22,7 +22,10 @@ import type { RedPacketPayload } from '@/types/rp.js';
 type Cursor = string;
 
 // A recursive version of Post will cause typescript failed to infer the type of the final exports.
-export type OrphanPost = Omit<Post, 'embedPosts' | 'comments' | 'root' | 'commentOn' | 'quoteOn' | 'firstComment'>;
+export type OrphanPost = Omit<
+    Post,
+    'embedPosts' | 'comments' | 'root' | 'commentOn' | 'quoteOn' | 'firstComment' | 'threads'
+>;
 
 export interface CompositePost {
     id: Cursor;
