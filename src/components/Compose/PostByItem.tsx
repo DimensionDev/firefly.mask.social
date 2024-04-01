@@ -55,7 +55,7 @@ export function PostByItem({ source }: PostByItemProps) {
     if (!currentProfile || !profiles?.length)
         return (
             <div className=" flex h-10 items-center justify-between border-b border-secondaryLine last:border-none">
-                <div className=" flex items-center gap-2">
+                <div className=" flex items-center gap-2 text-main">
                     <SourceIcon size={24} source={source} />
                     <span className=" font-bold text-main">{resolveSourceName(source)}</span>
                 </div>
