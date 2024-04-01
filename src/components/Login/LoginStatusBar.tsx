@@ -34,7 +34,7 @@ export function LoginStatusBar({ collapsed = false }: LoginStatusBarProps) {
             })}
 
             {SORTED_SOURCES.map((x) =>
-                currentProfileAll[x] ? (
+                !currentProfileAll[x] ? (
                     <ProfileAvatarAdd
                         key={x}
                         source={x}
