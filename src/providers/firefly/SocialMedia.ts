@@ -265,7 +265,7 @@ export class FireflySocialMedia implements Provider {
             }),
         });
 
-        const data = casts.map(formatFarcasterPostFromFirefly);
+        const data = casts.map((x) => formatFarcasterPostFromFirefly(x));
         return createPageable(
             data,
             indicator ?? createIndicator(),

@@ -1,8 +1,8 @@
 import { safeUnreachable } from '@masknet/kit';
 
 import { SocialPlatform } from '@/constants/enum.js';
-import { mergeTreadPostsForFarcaster } from '@/helpers/mergeTreadPostsForFarcaster.js';
-import { mergeTreadPostsForLens } from '@/helpers/mergeTreadPostsForLens.js';
+import { mergeThreadPostsForFarcaster } from '@/helpers/mergeThreadPostsForFarcaster.js';
+import { mergeThreadPostsForLens } from '@/helpers/mergeThreadPostsForLens.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 /**
@@ -11,12 +11,12 @@ import type { Post } from '@/providers/types/SocialMedia.js';
  * @param posts
  * @returns
  */
-export function mergeTreadPosts(source: SocialPlatform, posts: Post[]) {
+export function mergeThreadPosts(source: SocialPlatform, posts: Post[]): Post[] {
     switch (source) {
         case SocialPlatform.Lens:
-            return mergeTreadPostsForLens(posts);
+            return mergeThreadPostsForLens(posts);
         case SocialPlatform.Farcaster:
-            return mergeTreadPostsForFarcaster(posts);
+            return mergeThreadPostsForFarcaster(posts);
         case SocialPlatform.Twitter:
             return posts;
         default:

@@ -94,7 +94,7 @@ export default function Page({ params: { id: postId, source } }: PageProps) {
                 </h2>
             </div>
             <div>
-                {thread.length >= MIN_POST_SIZE_PER_THREAD ? (
+                {threadData.length > MIN_POST_SIZE_PER_THREAD ? (
                     <>
                         <div className="border-b border-line px-4 py-3">
                             {thread.map((post, index) => (

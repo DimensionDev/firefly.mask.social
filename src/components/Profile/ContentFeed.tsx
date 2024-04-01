@@ -9,7 +9,7 @@ import LoadingIcon from '@/assets/loading.svg';
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { SinglePost } from '@/components/Posts/SinglePost.js';
 import { SocialPlatform } from '@/constants/enum.js';
-import { mergeTreadPosts } from '@/helpers/mergeTreadPosts.js';
+import { mergeThreadPosts } from '@/helpers/mergeThreadPosts.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
@@ -57,7 +57,7 @@ export function ContentFeed({ profileId, source }: ContentFeedProps) {
         getNextPageParam: (lastPage) => lastPage.nextIndicator?.id,
         select: (data) => {
             const result = data.pages.flatMap((x) => x.data) || EMPTY_LIST;
-            return mergeTreadPosts(source, result);
+            return mergeThreadPosts(source, result);
         },
     });
 
