@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 
 import { SocialPlatform } from '@/constants/enum.js';
+import { SORTED_SOURCES } from '@/constants/index.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfileAll.js';
 
 export function useIsLogin(source?: SocialPlatform) {
@@ -8,11 +9,6 @@ export function useIsLogin(source?: SocialPlatform) {
 
     return useMemo(() => {
         if (source) return currentProfileAll[source]?.profileId;
-
-        return !!(
-            currentProfileAll.Farcaster?.profileId ||
-            currentProfileAll.Lens?.profileId ||
-            currentProfileAll.Twitter?.profileId
-        );
+        return SORTED_SOURCES.some((x) => !!currentProfileAll[x]?.profileId);
     }, [source, currentProfileAll]);
 }

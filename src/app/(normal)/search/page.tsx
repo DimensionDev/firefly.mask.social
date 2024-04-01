@@ -33,8 +33,10 @@ export default function Page() {
         queryFn: async ({ pageParam }) => {
             if (!searchKeyword) return;
 
-            const indicator = pageParam ? createIndicator(undefined, pageParam) : undefined;
             const provider = resolveSocialMediaProvider(currentSource);
+            if (!provider) return;
+
+            const indicator = pageParam ? createIndicator(undefined, pageParam) : undefined;
 
             switch (searchType) {
                 case SearchType.Users:

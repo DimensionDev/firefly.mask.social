@@ -57,7 +57,11 @@ export default function Page({ params: { id: postId, source } }: PageProps) {
         queryFn: async () => {
             const root = post?.root ? post.root : post;
             if (!root?.stats?.comments) return EMPTY_LIST;
-            return resolveSocialMediaProvider(currentSource)?.getThreadByPostId(root.postId);
+
+            const provider = resolveSocialMediaProvider(currentSource);
+            if (!provider) return EMPTY_LIST;
+
+            return provider.getThreadByPostId(root.postId);
         },
     });
 
