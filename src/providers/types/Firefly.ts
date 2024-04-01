@@ -24,6 +24,7 @@ export interface Cast {
     timestamp?: string;
     rootParentCast?: Cast;
     root_parent_hash?: string;
+    threads?: Cast[];
 }
 
 export interface User {

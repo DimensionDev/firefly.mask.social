@@ -17,7 +17,7 @@ import { FIREFLY_ROOT_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { formatFarcasterPostFromFirefly } from '@/helpers/formatFarcasterPostFromFirefly.js';
 import { formatFarcasterProfileFromFirefly } from '@/helpers/formatFarcasterProfileFromFirefly.js';
-import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
+import { NeynarSocialMediaProvider } from '@/providers/neynar/SocialMedia.js';
 import type {
     CastResponse,
     CastsResponse,
@@ -265,7 +265,7 @@ export class FireflySocialMedia implements Provider {
             }),
         });
 
-        const data = casts.map(formatFarcasterPostFromFirefly);
+        const data = casts.map((x) => formatFarcasterPostFromFirefly(x));
         return createPageable(
             data,
             indicator ?? createIndicator(),
@@ -352,22 +352,8 @@ export class FireflySocialMedia implements Provider {
         const { data } = await fetchJSON<SearchProfileResponse>(url, {
             method: 'GET',
         });
-        const result = compact(
-            data.list
-                .flatMap((x) => x.farcaster ?? [])
-                .map((profile) => {
-                    if (!profile) return;
-                    return formatFarcasterProfileFromFirefly({
-                        pfp: getStampAvatarByProfileId(SocialPlatform.Farcaster, profile.platform_id),
-                        username: profile.name,
-                        display_name: profile.name,
-                        following: 0,
-                        followers: 0,
-                        addresses: [],
-                        fid: profile.platform_id,
-                    });
-                }),
-        );
+        const fids = compact(data.list.flatMap((x) => x.farcaster).map((x) => x?.platform_id));
+        const result = await NeynarSocialMediaProvider.getProfilesByIds(fids);
 
         return createPageable(
             result,

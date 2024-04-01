@@ -6,7 +6,13 @@ import { fixUrlProtocol } from '@/helpers/fixUrlProtocol.js';
 import { formatFarcasterProfileFromFirefly } from '@/helpers/formatFarcasterProfileFromFirefly.js';
 import { getResourceType } from '@/helpers/getResourceType.js';
 import type { Cast } from '@/providers/types/Firefly.js';
-import { type Attachment, type Post, type Profile, ProfileStatus } from '@/providers/types/SocialMedia.js';
+import {
+    type Attachment,
+    type Post,
+    type PostType,
+    type Profile,
+    ProfileStatus,
+} from '@/providers/types/SocialMedia.js';
 
 function formatContent(cast: Cast): Post['metadata']['content'] {
     const matchedUrls = [...cast.text.matchAll(URL_REGEX)].map((x) => x[0]);
@@ -51,9 +57,9 @@ function formatContent(cast: Cast): Post['metadata']['content'] {
     return defaultContent;
 }
 
-export function formatFarcasterPostFromFirefly(result: Cast): Post {
+export function formatFarcasterPostFromFirefly(result: Cast, type?: PostType): Post {
     return {
-        type: result.parentCast ? 'Comment' : 'Post',
+        type: type ?? result.parentCast ? 'Comment' : 'Post',
         postId: result.hash,
         parentPostId: result.parent_hash,
         parentAuthor: result.parentCast ? formatFarcasterProfileFromFirefly(result.parentCast?.author) : undefined,
@@ -90,6 +96,7 @@ export function formatFarcasterPostFromFirefly(result: Cast): Post {
         canComment: true,
         commentOn: result.parentCast ? formatFarcasterPostFromFirefly(result.parentCast) : undefined,
         root: result.rootParentCast ? formatFarcasterPostFromFirefly(result.rootParentCast) : undefined,
+        threads: result.threads?.map((x) => formatFarcasterPostFromFirefly(x, 'Comment')),
         __original__: result,
     };
 }

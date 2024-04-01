@@ -145,6 +145,7 @@ export interface Post {
     hasQuoted?: boolean;
     __original__?: unknown;
     source: SocialPlatform;
+    isThread?: boolean;
 
     /**
      * Sometimes we need to render a thread, and we currently support up to three level.
@@ -185,6 +186,13 @@ export interface Post {
      * Used to add a post to the corresponding channel, like channel
      */
     parentChannelUrl?: string;
+
+    /**
+     * Farcaster Only
+     * The API of Firefly will return a "threads" field indicating that this is a thread post.
+     * The "threads" contains the second and third levels of threads.
+     */
+    threads?: Post[];
 }
 
 export interface Comment {
@@ -336,6 +344,11 @@ export interface Provider {
      * @returns A promise that resolves to Profiles array by address.
      */
     getProfilesByAddress: (address: string) => Promise<Profile[]>;
+
+    /**
+     * @params ids Array of profile id
+     */
+    getProfilesByIds?: (ids: string[]) => Promise<Profile[]>;
 
     /**
      * Retrieves a user's profile by their profile ID.

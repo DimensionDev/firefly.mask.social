@@ -12,7 +12,7 @@ import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { SinglePost } from '@/components/Posts/SinglePost.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { SORTED_SOURCES } from '@/constants/index.js';
-import { mergeTreadPosts } from '@/helpers/mergeTreadPosts.js';
+import { mergeThreadPosts } from '@/helpers/mergeThreadPosts.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfileAll.js';
@@ -39,13 +39,11 @@ export default function Following() {
         queryFn: async ({ pageParam }) => {
             if (!isLogin) return;
 
-            if (!currentProfileAll[currentSource]?.profileId) return;
+            const currentProfile = currentProfileAll[currentSource];
+            if (!currentProfile?.profileId) return;
 
             const provider = resolveSocialMediaProvider(currentSource);
             if (!provider) return;
-
-            const currentProfile = currentProfileAll[currentSource];
-            if (!currentProfile) return;
 
             const posts = await provider.discoverPostsById(
                 currentProfile.profileId,
@@ -63,7 +61,7 @@ export default function Following() {
         getNextPageParam: (lastPage) => lastPage?.nextIndicator?.id,
         select: (data) => {
             const result = data?.pages.flatMap((x) => x?.data || []) || EMPTY_LIST;
-            return mergeTreadPosts(currentSource, result);
+            return mergeThreadPosts(currentSource, result);
         },
     });
 
