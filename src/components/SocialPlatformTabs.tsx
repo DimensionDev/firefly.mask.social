@@ -1,6 +1,5 @@
 'use client';
 
-import { getEnumAsArray } from '@masknet/kit';
 import { usePathname } from 'next/navigation.js';
 import { startTransition } from 'react';
 
@@ -32,8 +31,8 @@ export function SocialPlatformTabs() {
     return (
         <div className="border-b border-line bg-primaryBottom px-4">
             <nav className="-mb-px flex space-x-4" aria-label="Tabs">
-                {getEnumAsArray(SocialPlatform).map(({ key, value }) => (
-                    <li key={key} className="flex flex-1 list-none justify-center lg:flex-initial lg:justify-start">
+                {[SocialPlatform.Farcaster, SocialPlatform.Lens].map((value) => (
+                    <li key={value} className="flex flex-1 list-none justify-center lg:flex-initial lg:justify-start">
                         <a
                             className={classNames(
                                 currentSource === value ? 'border-b-2 border-[#9250FF] text-main' : 'text-third',
