@@ -105,7 +105,7 @@ export default function Page({ params: { id: postId, source } }: PageProps) {
                                     isLast={index === thread.length - 1}
                                 />
                             ))}
-                            {thread.length === MIN_POST_SIZE_PER_THREAD && !showMore ? (
+                            {threadData.length >= MIN_POST_SIZE_PER_THREAD && !showMore ? (
                                 <div className="w-full cursor-pointer text-center text-[15px] font-bold text-link">
                                     <div onClick={() => setShowMore(true)}>
                                         <Trans>Show More</Trans>

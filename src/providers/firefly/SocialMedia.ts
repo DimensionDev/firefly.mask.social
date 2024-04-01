@@ -55,7 +55,11 @@ export class FireflySocialMedia implements Provider {
 
     async getPostById(postId: string): Promise<Post> {
         const session = farcasterClient.getSession();
-        const url = urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/cast', { hash: postId, fid: session?.profileId });
+        const url = urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/cast', {
+            hash: postId,
+            fid: session?.profileId,
+            needRootParentHash: true,
+        });
         const { data: cast } = await fetchJSON<CastResponse>(url, {
             method: 'GET',
         });
