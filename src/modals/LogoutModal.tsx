@@ -67,7 +67,9 @@ export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps 
 
             // call next-auth signOut for twitter
             if (!source || source === SocialPlatform.Twitter) {
-                await signOut();
+                await signOut({
+                    redirect: false,
+                });
             }
 
             if (source) {

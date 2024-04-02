@@ -160,7 +160,7 @@ const useLensStateBase = createState(
 
 const useTwitterStateBase = createState(
     {
-        getUpdatedProfile: (profile) => TwitterSocialMediaProvider.getProfileById(profile.profileId),
+        getUpdatedProfile: () => TwitterSocialMediaProvider.me(),
     },
     {
         name: 'twitter-state',

@@ -1,12 +1,17 @@
-import { Trans } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import { signIn } from 'next-auth/react';
-import { useEffectOnce } from 'react-use';
+import { useRef } from 'react';
+import { useAsyncFn, useEffectOnce, useUnmount } from 'react-use';
 
 import LoadingIcon from '@/assets/loading.svg';
+import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import { LoginModalRef } from '@/modals/controls.js';
 
 export function LoginTwitter() {
     useEffectOnce(() => {
-        signIn('twitter');
+        signIn('twitter', {
+            redirect: false,
+        });
     });
 
     return (
