@@ -72,6 +72,8 @@ export interface Profile {
 export interface MediaObject {
     title?: string;
     mimeType?: string;
+    // for twitter media_id
+    id?: string;
     url: string;
 }
 
@@ -93,7 +95,7 @@ export interface Post {
     parentAuthor?: Profile;
     /** time in milliseconds */
     timestamp?: number;
-    author: Profile;
+    author: Profile | null;
     reporter?: Profile;
     mediaObjects?: MediaObject[];
     permalink?: string;

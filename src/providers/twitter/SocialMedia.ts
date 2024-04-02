@@ -1,4 +1,5 @@
 import type { Pageable, PageIndicator } from '@masknet/shared-base';
+import { compact } from 'lodash-es';
 import { getSession } from 'next-auth/react';
 
 import { SocialPlatform } from '@/constants/enum.js';
@@ -112,6 +113,27 @@ class TwitterSocialMedia implements Provider {
 
     searchProfiles(q: string, indicator?: PageIndicator | undefined): Promise<Pageable<Profile, PageIndicator>> {
         throw new Error('Not implemented');
+    }
+
+    async publishPost(post: Post): Promise<string> {
+        const response = await fetchJSON<
+            ResponseJSON<{
+                id: string;
+            }>
+        >('/api/twitter/post', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                inReplyToTweetId: post.parentPostId,
+                text: post.metadata.content,
+                mediaIds: compact(post.mediaObjects?.map((x) => x.id)),
+            }),
+        });
+
+        if (!response.success) throw new Error('Failed to publish post');
+        return response.data.id;
     }
 }
 

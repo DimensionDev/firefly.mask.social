@@ -55,7 +55,7 @@ export class HubbleSocialMedia implements Provider {
                     },
                 };
 
-                if (post.commentOn?.postId && post.commentOn?.author.profileId) {
+                if (post.commentOn?.postId && post.commentOn?.author?.profileId) {
                     data.castAddBody.parentCastId = {
                         fid: toInteger(post.commentOn.author.profileId),
                         hash: toBytes(post.commentOn.postId),
