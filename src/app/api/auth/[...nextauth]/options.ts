@@ -38,16 +38,6 @@ export const authOptions: AuthOptions = {
     providers,
     callbacks: {
         jwt: async ({ token, user, account, profile, trigger, session }) => {
-            console.log('DEBUG: jwt');
-            console.log({
-                token,
-                user,
-                account,
-                profile,
-                session,
-                trigger,
-            });
-
             // export tokens to session
             if (account && session) {
                 session[account.provider] = {
