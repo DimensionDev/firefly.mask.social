@@ -11,3 +11,16 @@ index a2912b11d8760919f45bd8581fc77d25de42e2d2..3497a986c7b12732277f19370fe21de5
  function isSeparator(char) {
    return PUNCTUATION_OR_SPACE.test(char);
  }
+diff --git a/LexicalAutoLinkPlugin.prod.js b/LexicalAutoLinkPlugin.prod.js
+index 08e402470df8fee16fd44f6579cbf5c6cf569612..2f6f74008c1892798a687e7bd1e6aab6f65e0916 100644
+--- a/LexicalAutoLinkPlugin.prod.js
++++ b/LexicalAutoLinkPlugin.prod.js
+@@ -5,7 +5,7 @@
+  * LICENSE file in the root directory of this source tree.
+  */
+ 'use strict';var k=require("@lexical/link"),n=require("@lexical/react/LexicalComposerContext"),p=require("@lexical/utils"),r=require("lexical"),t=require("react");function u(a){let c=new URLSearchParams;c.append("code",a);for(let b=1;b<arguments.length;b++)c.append("v",arguments[b]);throw Error(`Minified Lexical error #${a}; visit https://lexical.dev/docs/error?${c} for the full message or `+"use the non-minified dev environment for full errors and additional helpful warnings.");}
+-function v(a,c){for(let b=0;b<c.length;b++){let d=c[b](a);if(d)return d}return null}let w=/[.,;\s]/;function x(a){a=a.getPreviousSibling();r.$isElementNode(a)&&(a=a.getLastDescendant());var c;!(c=null===a||r.$isLineBreakNode(a))&&(c=r.$isTextNode(a))&&(a=a.getTextContent(),c=w.test(a[a.length-1]));return c}function y(a){a=a.getNextSibling();r.$isElementNode(a)&&(a=a.getFirstDescendant());return null===a||r.$isLineBreakNode(a)||r.$isTextNode(a)&&w.test(a.getTextContent()[0])}
++function v(a,c){for(let b=0;b<c.length;b++){let d=c[b](a);if(d)return d}return null}let w=/[,;\s]/;function x(a){a=a.getPreviousSibling();r.$isElementNode(a)&&(a=a.getLastDescendant());var c;!(c=null===a||r.$isLineBreakNode(a))&&(c=r.$isTextNode(a))&&(a=a.getTextContent(),c=w.test(a[a.length-1]));return c}function y(a){a=a.getNextSibling();r.$isElementNode(a)&&(a=a.getFirstDescendant());return null===a||r.$isLineBreakNode(a)||r.$isTextNode(a)&&w.test(a.getTextContent()[0])}
+ function z(a,c,b,d){return(0<a?w.test(b[a-1]):x(d[0]))?c<b.length?w.test(b[c]):y(d[d.length-1]):!1}function A(a,c,b){let d=[],f=[],e=[],g=0,h=0;for(a=[...a];0<a.length;){let l=a[0],m=l.getTextContent().length,q=h;h+m<=c?(d.push(l),g+=m):q>=b?e.push(l):f.push(l);h+=m;a.shift()}return[g,d,f,e]}
+ function B(a,c,b,d){let f=k.$createAutoLinkNode(d.url,d.attributes);if(1===a.length){var e=a[0];0===c?[h,e]=e.splitText(b):[,h,e]=e.splitText(c,b);var g=r.$createTextNode(d.text);g.setFormat(h.getFormat());g.setDetail(h.getDetail());f.append(g);h.replace(f);return e}if(1<a.length){d=a[0];var h=d.getTextContent().length;0===c?e=d:[,e]=d.splitText(c);c=[];for(d=1;d<a.length;d++){let l=a[d],m=l.getTextContent().length,q=h,E=h+m;if(q<b)if(E<=b)c.push(l);else{let [F,G]=l.splitText(b-q);c.push(F);g=G}h+=
+ m}a=(b=r.$getSelection())?b.getNodes().find(r.$isTextNode):void 0;h=r.$createTextNode(e.getTextContent());h.setFormat(e.getFormat());h.setDetail(e.getDetail());f.append(h,...c);a&&a===e&&(r.$isRangeSelection(b)?h.select(b.anchor.offset,b.focus.offset):r.$isNodeSelection(b)&&h.select(0,h.getTextContent().length));e.replace(f);return g}}
