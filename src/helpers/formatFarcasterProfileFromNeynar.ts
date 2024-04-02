@@ -18,5 +18,9 @@ export function formatFarcasterProfileFromNeynar(user: NeynarProfile): Profile {
         status: user.active_status,
         source: SocialPlatform.Farcaster,
         verified: user.power_badge,
+        viewerContext: {
+            following: user.viewer_context?.following,
+            followedBy: user.viewer_context?.followed_by,
+        },
     };
 }

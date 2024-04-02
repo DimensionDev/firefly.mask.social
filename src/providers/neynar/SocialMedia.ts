@@ -1,4 +1,5 @@
 import { createIndicator, createPageable, EMPTY_LIST, type Pageable, type PageIndicator } from '@masknet/shared-base';
+import { first } from 'lodash-es';
 import urlcat from 'urlcat';
 
 import { farcasterClient } from '@/configs/farcasterClient.js';
@@ -57,7 +58,11 @@ export class NeynarSocialMedia implements Provider {
     }
 
     async getProfileById(profileId: string): Promise<Profile> {
-        throw new Error('Method not implemented.');
+        const result = await this.getProfilesByIds([profileId]);
+        const data = first(result);
+
+        if (!data) throw new Error("Can't get the profile");
+        return data;
     }
 
     async getProfileByHandle(handle: string): Promise<Profile> {

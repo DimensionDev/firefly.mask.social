@@ -13,6 +13,10 @@ export interface Profile {
             mentioned_profiles: string[];
         };
     };
+    viewer_context?: {
+        following: boolean;
+        followed_by: boolean;
+    };
     follower_count: number;
     following_count: number;
     verifications: string[];

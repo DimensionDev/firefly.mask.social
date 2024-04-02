@@ -79,11 +79,12 @@ export class FireflySocialMedia implements Provider {
             },
         );
 
-        const friendship = await this.getFriendship(profileId);
+        const data = await NeynarSocialMediaProvider.getProfileById(profileId);
 
         return formatFarcasterProfileFromFirefly({
             ...user,
-            ...friendship,
+            isFollowing: data.viewerContext?.following,
+            isFollowedBack: data.viewerContext?.followedBy,
         });
     }
 
