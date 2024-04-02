@@ -155,10 +155,12 @@ const useTwitterStateBase = createState((profile) => TwitterSocialMediaProvider.
         currentProfileSession: state.currentProfileSession,
     }),
     onRehydrateStorage: () => async (state) => {
-        const session = await getSession();
+        const session = await TwitterSocialMediaProvider.createSessionForMe();
 
-        console.log('DEBUG: session');
-        console.log(session);
+        if (!session) {
+            console.warn('[twitter store] clean the local store because no session found from the server.');
+            state?.clearCurrentProfile();
+        }
     },
 });
 

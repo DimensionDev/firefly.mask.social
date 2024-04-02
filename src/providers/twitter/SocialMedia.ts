@@ -1,5 +1,7 @@
 import type { Pageable, PageIndicator } from '@masknet/shared-base';
 
+import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { TwitterSession } from '@/providers/twitter/Session.js';
 import {
     type Notification,
     type Post,
@@ -8,11 +10,35 @@ import {
     type Reaction,
     SessionType,
 } from '@/providers/types/SocialMedia.js';
+import type { ResponseJSON } from '@/types/index.js';
 
 // @ts-ignore
 class TwitterSocialMedia implements Provider {
     get type() {
         return SessionType.Twitter;
+    }
+
+    /**
+     * Creates a session for the current user.
+     */
+    async createSessionForMe(): Promise<TwitterSession> {
+        const response = await fetchJSON<
+            ResponseJSON<{
+                id: string;
+            }>
+        >('/api/twitter/me');
+
+        console.log('DEBUG: create session for me')
+        console.log(response);
+
+        if (!response.success) throw new Error('Failed to fetch user profile');
+
+        return new TwitterSession(
+            response.data.id,
+            '', // the access token maintained by the server
+            Date.now(),
+            Date.now(),
+        );
     }
 
     follow(profileId: string): Promise<void> {
