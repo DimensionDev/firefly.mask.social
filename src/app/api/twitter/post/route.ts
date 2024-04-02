@@ -20,7 +20,7 @@ async function composeTweet(rawTweet: string) {
     if (!parsedTweet.success) throw new Error(parsedTweet.error.message);
 
     const tweet = parsedTweet.success ? parsedTweet.data : null;
-    if (!tweet) throw new Error('Invalid tweet data');
+    if (!tweet?.text && !tweet?.mediaIds?.length) throw new Error('Tweet must contain text or media');
 
     const composedTweet: TwitterBody<createTweet> = {
         text: tweet.text,

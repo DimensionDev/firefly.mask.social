@@ -127,7 +127,7 @@ class TwitterSocialMedia implements Provider {
             },
             body: JSON.stringify({
                 inReplyToTweetId: post.parentPostId,
-                text: post.metadata.content,
+                text: post.metadata.content?.content ?? '',
                 mediaIds: compact(post.mediaObjects?.map((x) => x.id)),
             }),
         });
