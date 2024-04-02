@@ -1,6 +1,7 @@
 /* cspell:disable */
 
 import { SocialPlatform } from '@/constants/enum.js';
+import { RestrictionType } from '@/types/compose.js';
 
 export const SITE_NAME = 'Firefly: Web3 & NFT Explorer';
 export const SITE_DESCRIPTION =
@@ -28,6 +29,7 @@ export const EIP_712_FARCASTER_DOMAIN = {
 };
 
 export const SORTED_SOURCES = [SocialPlatform.Farcaster, SocialPlatform.Lens];
+export const SORTED_RESTECTION_TYPE = [RestrictionType.Everyone, RestrictionType.OnlyPeopleYouFollow];
 
 // Lens
 export const IPFS_GATEWAY = 'https://gw.ipfs-lens.dev/ipfs/';
