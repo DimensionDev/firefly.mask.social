@@ -1,4 +1,3 @@
-import { signOut } from 'next-auth/react';
 import { create } from 'zustand';
 import { persist, type PersistOptions } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
@@ -39,7 +38,6 @@ interface ProfileStatePersisted {
 function createState(
     provider: {
         getUpdatedProfile: (profile: Profile) => Promise<Profile>;
-        beforeClearCurrentProfile?: () => Promise<void>;
     },
     options: PersistOptions<ProfileState, ProfileStatePersisted>,
 ) {
@@ -81,16 +79,14 @@ function createState(
                         if (currentProfile) state.currentProfile = currentProfile;
                     });
                 },
-                clearCurrentProfile: async () => {
-                    await provider.beforeClearCurrentProfile?.();
-
+                clearCurrentProfile: () =>
                     set((state) => {
                         queryClient.resetQueries({
                             queryKey: ['profile', 'is-following', SocialPlatform.Farcaster],
                         });
                         state.currentProfile = null;
-                    });
-                },
+                        state.currentProfileSession = null;
+                    }),
             })),
             options,
         ),
@@ -165,11 +161,6 @@ const useLensStateBase = createState(
 const useTwitterStateBase = createState(
     {
         getUpdatedProfile: (profile) => TwitterSocialMediaProvider.getProfileById(profile.profileId),
-        beforeClearCurrentProfile: async () => {
-            await signOut({
-                redirect: false,
-            });
-        },
     },
     {
         name: 'twitter-state',
