@@ -3,7 +3,6 @@ import { getSession } from 'next-auth/react';
 
 import { SocialPlatform } from '@/constants/enum.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
-import { TwitterSession } from '@/providers/twitter/Session.js';
 import {
     type Notification,
     type Post,
@@ -19,25 +18,6 @@ import type { ResponseJSON } from '@/types/index.js';
 class TwitterSocialMedia implements Provider {
     get type() {
         return SessionType.Twitter;
-    }
-
-    /**
-     * Creates a session for the current user.
-     */
-    async createSessionForMe(): Promise<TwitterSession> {
-        const response = await fetchJSON<
-            ResponseJSON<{
-                id: string;
-            }>
-        >('/api/twitter/me');
-        if (!response.success) throw new Error('Failed to fetch user profile');
-
-        return new TwitterSession(
-            response.data.id,
-            '', // the access token maintained by the server
-            Date.now(),
-            Date.now(), // we don't check it
-        );
     }
 
     async me(): Promise<Profile> {

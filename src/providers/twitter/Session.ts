@@ -2,7 +2,7 @@ import { signOut } from 'next-auth/react';
 
 import { BaseSession } from '@/providers/base/Session.js';
 import type { Session } from '@/providers/types/Session.js';
-import { SessionType } from '@/providers/types/SocialMedia.js';
+import { type Profile, SessionType } from '@/providers/types/SocialMedia.js';
 
 export class TwitterSession extends BaseSession implements Session {
     constructor(
@@ -21,5 +21,9 @@ export class TwitterSession extends BaseSession implements Session {
 
     override async destroy(): Promise<void> {
         signOut();
+    }
+
+    static from(profile: Profile) {
+        return new TwitterSession(profile.profileId, '', Date.now(), Date.now());
     }
 }

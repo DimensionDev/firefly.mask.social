@@ -13,6 +13,7 @@ import { isSameProfile } from '@/helpers/isSameProfile.js';
 import type { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
+import { TwitterSession } from '@/providers/twitter/Session.js';
 import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
 import type { Session } from '@/providers/types/Session.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
@@ -157,16 +158,16 @@ const useTwitterStateBase = createState((profile) => TwitterSocialMediaProvider.
         if (typeof window === 'undefined') return;
 
         try {
-            const session = await TwitterSocialMediaProvider.createSessionForMe();
-            const profile = await TwitterSocialMediaProvider.me();
+            const me = await TwitterSocialMediaProvider.me();
 
-            if (!session || !profile) {
+            if (!me) {
                 console.warn('[twitter store] clean the local store because no session found from the server.');
                 state?.clearCurrentProfile();
+                return;
             }
 
-            state?.updateProfiles([profile]);
-            state?.updateCurrentProfile(profile, session);
+            state?.updateProfiles([me]);
+            state?.updateCurrentProfile(me, TwitterSession.from(me));
         } catch {
             state?.clearCurrentProfile();
         }
