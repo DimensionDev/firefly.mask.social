@@ -21,10 +21,11 @@ export function ComposeContent(props: ComposeContentProps) {
 
     // in reply and quote mode, there could be only one parent post
     const post = parentPost.Farcaster || parentPost.Lens;
+    const replying = type === 'reply' && !!post;
 
     return (
         <div className="relative flex flex-1 flex-col">
-            {type === 'reply' && post ? (
+            {replying ? (
                 <div className=" mb-3 text-left text-[15px] text-fourMain">
                     <Trans>
                         Replying to <span className="text-link">@{post.author.handle}</span> on{' '}
@@ -33,7 +34,7 @@ export function ComposeContent(props: ComposeContentProps) {
                 </div>
             ) : null}
 
-            {cursor === id ? <Editor post={props.post} /> : <Placeholder post={props.post} />}
+            {cursor === id ? <Editor post={props.post} replying={replying} /> : <Placeholder post={props.post} />}
 
             {/* image */}
             {images.length > 0 && (
