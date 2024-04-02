@@ -3,7 +3,7 @@
 import { CalendarContent } from '@masknet/plugin-calendar';
 
 import { MaskProviders } from '@/components/MaskProviders.js';
-import { Providers } from '@/components/Providers.jsx';
+import { Providers } from '@/components/Providers.js';
 
 export default function CalendarWidget() {
     return (

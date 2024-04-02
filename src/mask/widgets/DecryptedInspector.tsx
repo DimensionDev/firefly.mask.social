@@ -5,7 +5,7 @@ import type { IdentityResolved } from '@masknet/plugin-infra';
 import { useAsync } from 'react-use';
 
 import { MaskProviders } from '@/components/MaskProviders.js';
-import { Providers } from '@/components/Providers.jsx';
+import { Providers } from '@/components/Providers.js';
 import { farcasterClient } from '@/configs/farcasterClient.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { SITE_HOSTNAME } from '@/constants/index.js';

@@ -7,7 +7,7 @@ import { lazy } from 'react';
 import { BeforeUnload } from '@/components/Compose/BeforeUnload.js';
 import { GA } from '@/components/GA.js';
 import { Polyfills } from '@/components/Polyfills.js';
-import { Providers } from '@/components/Providers.jsx';
+import { Providers } from '@/components/Providers.js';
 import { SideBar } from '@/components/SideBar/index.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { createSiteViewport } from '@/helpers/createSiteViewport.js';

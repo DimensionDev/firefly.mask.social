@@ -1,7 +1,7 @@
 'use client';
 
 import { MaskProviders } from '@/components/MaskProviders.js';
-import { Providers } from '@/components/Providers.jsx';
+import { Providers } from '@/components/Providers.js';
 import { PostInspector as MaskPost } from '@/mask/widgets/components/PostInspector.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
