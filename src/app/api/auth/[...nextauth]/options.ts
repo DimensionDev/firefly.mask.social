@@ -18,13 +18,6 @@ const providers: Provider[] = [
 
 if (process.env.NODE_ENV === 'development') {
     providers.push(
-        TwitterProvider({
-            id: 'twitter_legacy',
-            clientId: process.env.TWITTER_CLIENT_ID,
-            clientSecret: process.env.TWITTER_CLIENT_SECRET,
-        }),
-    );
-    providers.push(
         CredentialsProvider({
             id: 'credentials',
             name: 'Credentials',

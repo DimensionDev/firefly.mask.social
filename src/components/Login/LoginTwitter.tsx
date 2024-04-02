@@ -1,19 +1,12 @@
 import { Trans } from '@lingui/macro';
-import { signIn, useSession } from 'next-auth/react';
+import { signIn } from 'next-auth/react';
 import { useEffectOnce } from 'react-use';
 
 import LoadingIcon from '@/assets/loading.svg';
 
 export function LoginTwitter() {
-    const session = useSession();
-
     useEffectOnce(() => {
         signIn('twitter');
-    });
-
-    console.log('DEBUG: login with twitter');
-    console.log({
-        session,
     });
 
     return (
