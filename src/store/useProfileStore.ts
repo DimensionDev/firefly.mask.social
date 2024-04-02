@@ -156,9 +156,9 @@ const useTwitterStateBase = createState((profile) => TwitterSocialMediaProvider.
     }),
     onRehydrateStorage: () => async (state) => {
         const session = await getSession();
-        
-        console.log('DEBUG: session')
-        console.log(session)
+
+        console.log('DEBUG: session');
+        console.log(session);
     },
 });
 
