@@ -95,7 +95,7 @@ export interface Post {
     parentAuthor?: Profile;
     /** time in milliseconds */
     timestamp?: number;
-    author: Profile | null;
+    author: Profile;
     reporter?: Profile;
     mediaObjects?: MediaObject[];
     permalink?: string;

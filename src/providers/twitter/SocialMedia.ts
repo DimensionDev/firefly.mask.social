@@ -120,13 +120,12 @@ class TwitterSocialMedia implements Provider {
             ResponseJSON<{
                 id: string;
             }>
-        >('/api/twitter/post', {
+        >('/api/twitter/create-tweet', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                inReplyToTweetId: post.parentPostId,
                 text: post.metadata.content?.content ?? '',
                 mediaIds: compact(post.mediaObjects?.map((x) => x.id)),
             }),

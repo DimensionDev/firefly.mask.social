@@ -116,7 +116,7 @@ export class LensSocialMedia implements Provider {
     async publishPost(post: Post): Promise<string> {
         if (!post.metadata.contentURI) throw new Error(t`No content to publish.`);
 
-        if (post.author?.signless) {
+        if (post.author.signless) {
             const result = await this.client.publication.postOnMomoka({
                 contentURI: post.metadata.contentURI,
             });
