@@ -14,6 +14,7 @@ import { CloseButton } from '@/components/CloseButton.js';
 import { LoginButton } from '@/components/Login/LoginButton.js';
 import { LoginFarcaster } from '@/components/Login/LoginFarcaster.js';
 import { LoginLens } from '@/components/Login/LoginLens.js';
+import { LoginTwitter } from '@/components/Login/LoginTwitter.js';
 import { Modal } from '@/components/Modal.js';
 import { Popover } from '@/components/Popover.js';
 import { queryClient } from '@/configs/queryClient.js';
@@ -71,6 +72,8 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | 
                     setSource(selectedSource);
                     return;
                 case SocialPlatform.Twitter:
+                    setProfiles(EMPTY_LIST);
+                    setSource(selectedSource);
                     return;
                 default:
                     safeUnreachable(selectedSource);
@@ -130,6 +133,7 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | 
         >
             {source === SocialPlatform.Lens ? <LoginLens profiles={profiles} currentAccount={currentAccount} /> : null}
             {source === SocialPlatform.Farcaster ? <LoginFarcaster /> : null}
+            {source === SocialPlatform.Twitter ? <LoginTwitter /> : null}
         </Suspense>
     );
 

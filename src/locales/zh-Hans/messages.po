@@ -105,9 +105,6 @@ msgstr "登录失败"
 msgid "Offline"
 msgstr "离线"
 
-msgid "Not implemented yet."
-msgstr "还未实现"
-
 msgid "Copied"
 msgstr "已复制"
 
@@ -701,6 +698,9 @@ msgstr ""
 
 msgid "Profiles"
 msgstr "个人信息"
+
+msgid "Please confirm the login with X."
+msgstr ""
 
 msgid "<0/> commented on your <1><2/></1>"
 msgstr "<0/> 评论了你的 <1><2/></1>"

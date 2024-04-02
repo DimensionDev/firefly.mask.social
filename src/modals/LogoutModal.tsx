@@ -5,6 +5,7 @@ import { delay } from '@masknet/kit';
 import type { SingletonModalRefCreator } from '@masknet/shared-base';
 import { useSingletonModal } from '@masknet/shared-base-ui';
 import { useRouter } from 'next/navigation.js';
+import { signOut } from 'next-auth/react';
 import { forwardRef } from 'react';
 
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
@@ -63,6 +64,13 @@ export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps 
             if (!confirmed) return;
 
             const source = props?.source || props?.profile?.source;
+
+            // call next-auth signOut for twitter
+            if (!source || source === SocialPlatform.Twitter) {
+                await signOut({
+                    redirect: false,
+                });
+            }
 
             if (source) {
                 profileStoreAll[source].clearCurrentProfile();

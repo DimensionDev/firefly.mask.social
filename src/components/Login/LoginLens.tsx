@@ -54,7 +54,6 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
                 LoginModalRef.close();
             } catch (error) {
                 enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to login`));
-                return;
             }
         },
         [profiles, currentProfile],

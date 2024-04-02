@@ -1,18 +1,50 @@
 import type { Pageable, PageIndicator } from '@masknet/shared-base';
+import { getSession } from 'next-auth/react';
 
+import { SocialPlatform } from '@/constants/enum.js';
+import { fetchJSON } from '@/helpers/fetchJSON.js';
 import {
     type Notification,
     type Post,
     type Profile,
+    ProfileStatus,
     type Provider,
     type Reaction,
     SessionType,
 } from '@/providers/types/SocialMedia.js';
+import type { ResponseJSON } from '@/types/index.js';
 
 // @ts-ignore
 class TwitterSocialMedia implements Provider {
     get type() {
         return SessionType.Twitter;
+    }
+
+    async me(): Promise<Profile> {
+        const session = await getSession();
+        if (!session) throw new Error('No session found');
+
+        const response = await fetchJSON<
+            ResponseJSON<{
+                id: string;
+                name: string;
+                username: string;
+            }>
+        >('/api/twitter/me');
+        if (!response.success) throw new Error('Failed to fetch user profile');
+
+        return {
+            profileId: response.data.id,
+            displayName: response.data.name,
+            handle: response.data.username,
+            fullHandle: response.data.username,
+            pfp: session.user?.image ?? '',
+            followerCount: 0,
+            followingCount: 0,
+            status: ProfileStatus.Active,
+            verified: true,
+            source: SocialPlatform.Twitter,
+        };
     }
 
     follow(profileId: string): Promise<void> {

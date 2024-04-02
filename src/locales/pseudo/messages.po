@@ -100,9 +100,6 @@ msgstr ""
 msgid "Offline"
 msgstr ""
 
-msgid "Not implemented yet."
-msgstr ""
-
 msgid "Copied"
 msgstr ""
 
@@ -695,6 +692,9 @@ msgid "No parent post to quote."
 msgstr ""
 
 msgid "Profiles"
+msgstr ""
+
+msgid "Please confirm the login with X."
 msgstr ""
 
 msgid "<0/> commented on your <1><2/></1>"

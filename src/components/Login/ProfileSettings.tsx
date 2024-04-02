@@ -37,7 +37,11 @@ export function ProfileSettings({ source }: ProfileSettingsProps) {
                     disabled={isSameProfile(currentProfile, profile) || source === SocialPlatform.Farcaster}
                     onClick={() => login(profile)}
                 >
-                    <ProfileAvatar profile={profile} clickable linkable />
+                    <ProfileAvatar
+                        profile={profile}
+                        clickable={source !== SocialPlatform.Twitter}
+                        linkable={source !== SocialPlatform.Twitter}
+                    />
                     <ProfileName profile={profile} />
 
                     {process.env.NODE_ENV === 'development' ? (

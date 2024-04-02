@@ -28,7 +28,7 @@ export function ReplyRestriction({ restriction, setRestriction }: ReplyRestricti
             leaveFrom="opacity-100"
             leaveTo="opacity-0 translate-y-1"
         >
-            <Popover.Panel className="absolute bottom-full right-0 flex w-[320px] -translate-y-3 flex-col gap-2 rounded-lg bg-bgModal p-3 text-[15px] shadow-popover">
+            <Popover.Panel className="absolute bottom-full right-0 flex w-[320px] -translate-y-3 flex-col gap-2 rounded-lg bg-bgModal p-3 text-[15px] shadow-popover dark:border dark:border-line dark:shadow-none">
                 <div
                     className=" flex h-[22px] cursor-pointer items-center justify-between"
                     onClick={() => setRestriction(RestrictionType.Everyone)}

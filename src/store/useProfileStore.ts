@@ -1,3 +1,4 @@
+import { compact } from 'lodash-es';
 import { create } from 'zustand';
 import { persist, type PersistOptions } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
@@ -13,6 +14,7 @@ import { isSameProfile } from '@/helpers/isSameProfile.js';
 import type { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
+import { TwitterSession } from '@/providers/twitter/Session.js';
 import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
 import type { Session } from '@/providers/types/Session.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
@@ -35,7 +37,9 @@ interface ProfileStatePersisted {
 }
 
 function createState(
-    getUpdatedProfile: (profile: Profile) => Promise<Profile>,
+    provider: {
+        getUpdatedProfile: (profile: Profile) => Promise<Profile | null>;
+    },
     options: PersistOptions<ProfileState, ProfileStatePersisted>,
 ) {
     return create<ProfileState, [['zustand/persist', unknown], ['zustand/immer', unknown]]>(
@@ -56,7 +60,10 @@ function createState(
                 refreshCurrentProfile: async () => {
                     const profile = get().currentProfile;
                     if (!profile) return;
-                    const updatedProfile = await getUpdatedProfile(profile);
+
+                    const updatedProfile = await provider.getUpdatedProfile(profile);
+                    if (!updatedProfile) return;
+
                     set((state) => {
                         state.currentProfile = updatedProfile;
                     });
@@ -65,13 +72,16 @@ function createState(
                     const profile = get().currentProfile;
                     const profiles = get().profiles;
 
-                    const updatedProfiles = await Promise.all(profiles.map((profile) => getUpdatedProfile(profile)));
+                    const updatedProfiles = compact(
+                        await Promise.all(profiles.map((profile) => provider.getUpdatedProfile(profile))),
+                    );
+                    if (!updatedProfiles.length) return;
 
                     set((state) => {
-                        state.profiles = updatedProfiles;
-
                         const currentProfile = profiles.find((p) => isSameProfile(p, profile));
                         if (currentProfile) state.currentProfile = currentProfile;
+
+                        state.profiles = updatedProfiles;
                     });
                 },
                 clearCurrentProfile: () =>
@@ -80,6 +90,7 @@ function createState(
                             queryKey: ['profile', 'is-following', SocialPlatform.Farcaster],
                         });
                         state.currentProfile = null;
+                        state.currentProfileSession = null;
                     }),
             })),
             options,
@@ -88,7 +99,9 @@ function createState(
 }
 
 const useFarcasterStateBase = createState(
-    (profile: Profile) => FarcasterSocialMediaProvider.getProfileById(profile.profileId),
+    {
+        getUpdatedProfile: (profile: Profile) => FarcasterSocialMediaProvider.getProfileById(profile.profileId),
+    },
     {
         name: 'farcaster-state',
         storage: createSessionStorage(),
@@ -114,49 +127,74 @@ const useFarcasterStateBase = createState(
     },
 );
 
-const useLensStateBase = createState((profile: Profile) => LensSocialMediaProvider.getProfileByHandle(profile.handle), {
-    name: 'lens-state',
-    storage: createSessionStorage(),
-    partialize: (state) => ({
-        profiles: state.profiles,
-        currentProfile: state.currentProfile,
-        currentProfileSession: state.currentProfileSession,
-    }),
-    onRehydrateStorage: () => async (state) => {
-        if (typeof window === 'undefined') return;
-
-        const lensClient = createLensClient();
-
-        const profileId = state?.currentProfile?.profileId;
-        const clientProfileId = await lensClient.authentication.getProfileId();
-
-        if (!clientProfileId || (profileId && clientProfileId !== profileId)) {
-            console.warn('[lens store] clean the local store because the client cannot recover properly');
-            state?.clearCurrentProfile();
-            return;
-        }
-
-        const authenticated = await lensClient.authentication.isAuthenticated();
-        if (!authenticated) {
-            console.warn('[lens store] clean the local profile because the client session is broken');
-            state?.clearCurrentProfile();
-            return;
-        }
+const useLensStateBase = createState(
+    {
+        getUpdatedProfile: (profile: Profile) => LensSocialMediaProvider.getProfileByHandle(profile.handle),
     },
-});
+    {
+        name: 'lens-state',
+        storage: createSessionStorage(),
+        partialize: (state) => ({
+            profiles: state.profiles,
+            currentProfile: state.currentProfile,
+            currentProfileSession: state.currentProfileSession,
+        }),
+        onRehydrateStorage: () => async (state) => {
+            if (typeof window === 'undefined') return;
 
-const useTwitterStateBase = createState((profile) => TwitterSocialMediaProvider.getProfileById(profile.profileId), {
-    name: 'twitter-state',
-    storage: createSessionStorage(),
-    partialize: (state) => ({
-        profiles: state.profiles,
-        currentProfile: state.currentProfile,
-        currentProfileSession: state.currentProfileSession,
-    }),
-    onRehydrateStorage: () => async (state) => {
-        // TODO
+            const lensClient = createLensClient();
+
+            const profileId = state?.currentProfile?.profileId;
+            const clientProfileId = await lensClient.authentication.getProfileId();
+
+            if (!clientProfileId || (profileId && clientProfileId !== profileId)) {
+                console.warn('[lens store] clean the local store because the client cannot recover properly');
+                state?.clearCurrentProfile();
+                return;
+            }
+
+            const authenticated = await lensClient.authentication.isAuthenticated();
+            if (!authenticated) {
+                console.warn('[lens store] clean the local profile because the client session is broken');
+                state?.clearCurrentProfile();
+                return;
+            }
+        },
     },
-});
+);
+
+const useTwitterStateBase = createState(
+    {
+        getUpdatedProfile: () => Promise.resolve(null),
+    },
+    {
+        name: 'twitter-state',
+        storage: createSessionStorage(),
+        partialize: (state) => ({
+            profiles: state.profiles,
+            currentProfile: state.currentProfile,
+            currentProfileSession: state.currentProfileSession,
+        }),
+        onRehydrateStorage: () => async (state) => {
+            if (typeof window === 'undefined') return;
+
+            try {
+                const me = await TwitterSocialMediaProvider.me();
+
+                if (!me) {
+                    console.warn('[twitter store] clean the local store because no session found from the server.');
+                    state?.clearCurrentProfile();
+                    return;
+                }
+
+                state?.updateProfiles([me]);
+                state?.updateCurrentProfile(me, TwitterSession.from(me));
+            } catch {
+                state?.clearCurrentProfile();
+            }
+        },
+    },
+);
 
 export const useLensStateStore = createSelectors(useLensStateBase);
 export const useFarcasterStateStore = createSelectors(useFarcasterStateBase);
