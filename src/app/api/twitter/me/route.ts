@@ -18,9 +18,9 @@ export async function GET(req: NextRequest) {
         if (!token || !session) return createErrorResponseJSON('Unauthorized', { status: StatusCodes.UNAUTHORIZED });
 
         const client = createTwitterClientV2(token as JWT);
-        const results = await client.users.findMyUser();
+        const { data } = await client.users.findMyUser();
 
-        return createSuccessResponseJSON(results, { status: StatusCodes.OK });
+        return createSuccessResponseJSON(data, { status: StatusCodes.OK });
     } catch (error) {
         return createErrorResponseJSON(error instanceof Error ? error.message : 'Internal Server Error', {
             status: StatusCodes.INTERNAL_SERVER_ERROR,

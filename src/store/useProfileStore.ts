@@ -1,4 +1,3 @@
-import { getSession } from 'next-auth/react';
 import { create } from 'zustand';
 import { persist, type PersistOptions } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
@@ -157,19 +156,18 @@ const useTwitterStateBase = createState((profile) => TwitterSocialMediaProvider.
     onRehydrateStorage: () => async (state) => {
         if (typeof window === 'undefined') return;
 
-        const twitterSession = await getSession();
-        const session = await TwitterSocialMediaProvider.createSessionForMe();
-        const profile = await TwitterSocialMediaProvider.me();
+        try {
+            const session = await TwitterSocialMediaProvider.createSessionForMe();
+            const profile = await TwitterSocialMediaProvider.me();
 
-        console.log('DEBUG: twitter session');
-        console.log({
-            twitterSession,
-            session,
-            profile,
-        });
+            if (!session || !profile) {
+                console.warn('[twitter store] clean the local store because no session found from the server.');
+                state?.clearCurrentProfile();
+            }
 
-        if (!session) {
-            console.warn('[twitter store] clean the local store because no session found from the server.');
+            state?.updateProfiles([profile]);
+            state?.updateCurrentProfile(profile, session);
+        } catch {
             state?.clearCurrentProfile();
         }
     },
