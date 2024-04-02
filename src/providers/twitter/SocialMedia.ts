@@ -28,7 +28,7 @@ class TwitterSocialMedia implements Provider {
             }>
         >('/api/twitter/me');
 
-        console.log('DEBUG: create session for me')
+        console.log('DEBUG: create session for me');
         console.log(response);
 
         if (!response.success) throw new Error('Failed to fetch user profile');
