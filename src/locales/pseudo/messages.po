@@ -697,6 +697,9 @@ msgstr ""
 msgid "Profiles"
 msgstr ""
 
+msgid "Please confirm the login with X."
+msgstr ""
+
 msgid "<0/> commented on your <1><2/></1>"
 msgstr ""
 

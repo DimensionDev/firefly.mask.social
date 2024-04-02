@@ -1,3 +1,4 @@
+import { getSession } from 'next-auth/react';
 import { create } from 'zustand';
 import { persist, type PersistOptions } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
@@ -154,7 +155,10 @@ const useTwitterStateBase = createState((profile) => TwitterSocialMediaProvider.
         currentProfileSession: state.currentProfileSession,
     }),
     onRehydrateStorage: () => async (state) => {
-        // TODO
+        const session = await getSession();
+        
+        console.log('DEBUG: session')
+        console.log(session)
     },
 });
 
