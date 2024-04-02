@@ -73,7 +73,7 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
 
             {!isDetail ? <PostActions post={post} disabled={post.isHidden} /> : null}
 
-            {post.isThread && !isPostPage ? (
+            {post.isThread && !isPostPage && post.stats?.comments && post.stats.comments > 0 ? (
                 <div className="mt-2 w-full cursor-pointer text-center text-[15px] font-bold text-link">
                     <div>
                         <Trans>Show More</Trans>
