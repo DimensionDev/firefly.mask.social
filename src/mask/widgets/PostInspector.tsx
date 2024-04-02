@@ -1,7 +1,7 @@
 'use client';
 
-import { ClientProviders } from '@/components/ClientProviders.js';
 import { MaskProviders } from '@/components/MaskProviders.js';
+import { Providers } from '@/components/Providers.jsx';
 import { PostInspector as MaskPost } from '@/mask/widgets/components/PostInspector.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
@@ -12,10 +12,10 @@ interface PostInspectorProps {
 export default function PostInspector({ post }: PostInspectorProps) {
     if (!post) return null;
     return (
-        <ClientProviders>
+        <Providers>
             <MaskProviders>
                 <MaskPost post={post} />
             </MaskProviders>
-        </ClientProviders>
+        </Providers>
     );
 }

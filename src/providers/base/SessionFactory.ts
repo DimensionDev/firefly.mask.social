@@ -5,6 +5,7 @@ import z from 'zod';
 
 import { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { LensSession } from '@/providers/lens/Session.js';
+import { TwitterSession } from '@/providers/twitter/Session.js';
 import type { Session } from '@/providers/types/Session.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 
@@ -56,7 +57,7 @@ export class SessionFactory {
                         signerRequestToken,
                     );
                 case SessionType.Twitter:
-                    throw new Error(t`Not implemented yet.`);
+                    return new TwitterSession(session.profileId, session.token, session.createdAt, session.expiresAt);
                 default:
                     safeUnreachable(type);
                     throw new Error(t`Unknown session type.`);

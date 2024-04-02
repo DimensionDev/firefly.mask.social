@@ -105,9 +105,6 @@ msgstr "登录失败"
 msgid "Offline"
 msgstr "离线"
 
-msgid "Not implemented yet."
-msgstr "还未实现"
-
 msgid "Copied"
 msgstr "已复制"
 

@@ -100,9 +100,6 @@ msgstr ""
 msgid "Offline"
 msgstr ""
 
-msgid "Not implemented yet."
-msgstr ""
-
 msgid "Copied"
 msgstr ""
 

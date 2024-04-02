@@ -4,8 +4,8 @@ import { ProfileIdentifier } from '@masknet/base';
 import type { IdentityResolved } from '@masknet/plugin-infra';
 import { useAsync } from 'react-use';
 
-import { ClientProviders } from '@/components/ClientProviders.js';
 import { MaskProviders } from '@/components/MaskProviders.js';
+import { Providers } from '@/components/Providers.jsx';
 import { farcasterClient } from '@/configs/farcasterClient.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { SITE_HOSTNAME } from '@/constants/index.js';
@@ -59,10 +59,10 @@ export default function DecryptedInspector({ post, payloads }: DecryptedInspecto
     if (!post || !payloads?.length) return null;
 
     return (
-        <ClientProviders>
+        <Providers>
             <MaskProviders>
                 <DecryptedPost post={post} payloads={payloads} />
             </MaskProviders>
-        </ClientProviders>
+        </Providers>
     );
 }

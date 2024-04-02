@@ -2,15 +2,15 @@
 
 import { CalendarContent } from '@masknet/plugin-calendar';
 
-import { ClientProviders } from '@/components/ClientProviders.js';
 import { MaskProviders } from '@/components/MaskProviders.js';
+import { Providers } from '@/components/Providers.jsx';
 
 export default function CalendarWidget() {
     return (
-        <ClientProviders>
+        <Providers>
             <MaskProviders>
                 <CalendarContent disableSetting />
             </MaskProviders>
-        </ClientProviders>
+        </Providers>
     );
 }

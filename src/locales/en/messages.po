@@ -100,9 +100,6 @@ msgstr "Failed to login"
 msgid "Offline"
 msgstr "Offline"
 
-msgid "Not implemented yet."
-msgstr "Not implemented yet."
-
 msgid "Copied"
 msgstr "Copied"
 
