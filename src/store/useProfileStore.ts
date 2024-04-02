@@ -1,3 +1,4 @@
+import { compact } from 'lodash-es';
 import { create } from 'zustand';
 import { persist, type PersistOptions } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
@@ -37,7 +38,7 @@ interface ProfileStatePersisted {
 
 function createState(
     provider: {
-        getUpdatedProfile: (profile: Profile) => Promise<Profile>;
+        getUpdatedProfile: (profile: Profile) => Promise<Profile | null>;
     },
     options: PersistOptions<ProfileState, ProfileStatePersisted>,
 ) {
@@ -59,7 +60,10 @@ function createState(
                 refreshCurrentProfile: async () => {
                     const profile = get().currentProfile;
                     if (!profile) return;
+
                     const updatedProfile = await provider.getUpdatedProfile(profile);
+                    if (!updatedProfile) return;
+
                     set((state) => {
                         state.currentProfile = updatedProfile;
                     });
@@ -68,15 +72,16 @@ function createState(
                     const profile = get().currentProfile;
                     const profiles = get().profiles;
 
-                    const updatedProfiles = await Promise.all(
-                        profiles.map((profile) => provider.getUpdatedProfile(profile)),
+                    const updatedProfiles = compact(
+                        await Promise.all(profiles.map((profile) => provider.getUpdatedProfile(profile))),
                     );
+                    if (!updatedProfiles.length) return;
 
                     set((state) => {
-                        state.profiles = updatedProfiles;
-
                         const currentProfile = profiles.find((p) => isSameProfile(p, profile));
                         if (currentProfile) state.currentProfile = currentProfile;
+
+                        state.profiles = updatedProfiles;
                     });
                 },
                 clearCurrentProfile: () =>
@@ -160,7 +165,7 @@ const useLensStateBase = createState(
 
 const useTwitterStateBase = createState(
     {
-        getUpdatedProfile: () => TwitterSocialMediaProvider.me(),
+        getUpdatedProfile: () => Promise.resolve(null),
     },
     {
         name: 'twitter-state',
