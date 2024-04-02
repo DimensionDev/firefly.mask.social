@@ -11,6 +11,7 @@ import { useDebounce } from 'react-use';
 
 import { MentionsPlugin } from '@/components/Lexical/plugins/AtMentionsPlugin.js';
 import { LexicalAutoLinkPlugin } from '@/components/Lexical/plugins/AutoLinkPlugin.js';
+import { classNames } from '@/helpers/classNames.js';
 import { writeChars } from '@/helpers/readChars.js';
 import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
 
@@ -24,15 +25,16 @@ function ErrorBoundaryComponent() {
 
 interface EditorProps {
     post: CompositePost;
+    replying: boolean;
 }
 
-export const Editor = memo(function Editor(props: EditorProps) {
+export const Editor = memo(function Editor({ post, replying }: EditorProps) {
     const { posts } = useComposeStateStore();
 
     const { type, updateChars, loadFramesFromChars, loadOpenGraphsFromChars } = useComposeStateStore();
 
-    const { chars } = props.post;
-    const index = posts.findIndex((x) => x.id === props.post.id);
+    const { chars } = post;
+    const index = posts.findIndex((x) => x.id === post.id);
 
     useDebounce(
         () => {
@@ -53,7 +55,12 @@ export const Editor = memo(function Editor(props: EditorProps) {
                     />
                 }
                 placeholder={
-                    <div className=" pointer-events-none absolute left-0 top-0 text-[15px] leading-5 text-placeholder">
+                    <div
+                        className={classNames(
+                            ' pointer-events-none absolute left-0 text-[15px] leading-5 text-placeholder',
+                            replying ? 'top-9' : 'top-0',
+                        )}
+                    >
                         <Select
                             value={type}
                             _compose={index === 0 ? t`What's happening...` : t`Add another post...`}
