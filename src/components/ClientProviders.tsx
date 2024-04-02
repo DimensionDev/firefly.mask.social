@@ -24,7 +24,7 @@ import { setLocale } from '@/i18n/index.js';
 import { useLeafwatchPersistStore } from '@/store/useLeafwatchPersistStore.js';
 import { useThemeModeStore } from '@/store/useThemeModeStore.js';
 
-export function Providers(props: { children: React.ReactNode }) {
+export function ClientProviders(props: { children: React.ReactNode }) {
     const isDarkOS = useMediaQuery('(prefers-color-scheme: dark)');
     const themeMode = useThemeModeStore.use.themeMode();
 

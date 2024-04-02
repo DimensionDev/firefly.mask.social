@@ -4,10 +4,11 @@ import { Inter } from 'next/font/google';
 import { ScrollRestorer } from 'next-scroll-restorer';
 import { lazy } from 'react';
 
+import { ClientProviders } from '@/components/ClientProviders.js';
 import { BeforeUnload } from '@/components/Compose/BeforeUnload.js';
 import { GA } from '@/components/GA.js';
 import { Polyfills } from '@/components/Polyfills.js';
-import { Providers } from '@/components/Providers.js';
+import { ServerProviders } from '@/components/ServerProviders.js';
 import { SideBar } from '@/components/SideBar/index.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { createSiteViewport } from '@/helpers/createSiteViewport.js';
@@ -37,19 +38,21 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 <Polyfills />
             </head>
             <body className={`${inter.variable} font-inter`}>
-                <Providers>
-                    <div className="m-auto flex min-h-screen w-full lg:w-[1265px]">
-                        {process.env.NODE_ENV !== 'development' ||
-                        (process.env.NODE_ENV === 'development' &&
-                            process.env.NEXT_PUBLIC_MASK_WEB_COMPONENTS === 'enabled') ? (
-                            <CustomElements />
-                        ) : null}
-                        {children}
-                        <SideBar />
-                        <mask-page-inspector />
-                    </div>
-                    <Modals />
-                </Providers>
+                <ServerProviders>
+                    <ClientProviders>
+                        <div className="m-auto flex min-h-screen w-full lg:w-[1265px]">
+                            {process.env.NODE_ENV !== 'development' ||
+                            (process.env.NODE_ENV === 'development' &&
+                                process.env.NEXT_PUBLIC_MASK_WEB_COMPONENTS === 'enabled') ? (
+                                <CustomElements />
+                            ) : null}
+                            {children}
+                            <SideBar />
+                            <mask-page-inspector />
+                        </div>
+                        <Modals />
+                    </ClientProviders>
+                </ServerProviders>
                 <GA />
                 <BeforeUnload />
             </body>
