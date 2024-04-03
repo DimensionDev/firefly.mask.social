@@ -55,7 +55,7 @@ export function ProfileSettings({ source }: ProfileSettingsProps) {
             ))}
             <ClickableButton
                 className="flex w-full items-center rounded px-1 py-3 text-main hover:bg-bg"
-                onClick={() => LoginModalRef.open()}
+                onClick={() => LoginModalRef.open({ source })}
             >
                 <UserAddIcon width={24} height={24} />
                 <span className=" pl-2 text-[17px] font-bold leading-[22px] text-main">

@@ -50,7 +50,7 @@ export function ComposeSend(props: ComposeSendProps) {
 
     const disabledCrossPost = useMemo(() => {
         if (loadingCrossPost) return true;
-        return isValidPost(props.post);
+        return !isValidPost(props.post);
     }, [props.post, loadingCrossPost]);
 
     const disabledCrossPostThread = useMemo(() => {
