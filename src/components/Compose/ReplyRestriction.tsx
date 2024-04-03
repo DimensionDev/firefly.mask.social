@@ -1,26 +1,13 @@
 import { Popover, Transition } from '@headlessui/react';
-import { Trans } from '@lingui/macro';
-import { safeUnreachable } from '@masknet/kit';
 import { last } from 'lodash-es';
 import { Fragment } from 'react';
 
 import RadioDisableNoIcon from '@/assets/radio.disable-no.svg';
 import YesIcon from '@/assets/yes.svg';
+import { ReplyRestrictionText } from '@/components/Compose/ReplyRestrictionText.jsx';
 import { classNames } from '@/helpers/classNames.js';
 import { useFarcasterStateStore } from '@/store/useProfileStore.js';
 import { RestrictionType } from '@/types/compose.js';
-
-function Text({ type }: { type: RestrictionType }) {
-    switch (type) {
-        case RestrictionType.Everyone:
-            return <Trans>Everyone</Trans>;
-        case RestrictionType.OnlyPeopleYouFollow:
-            return <Trans>Only people you follow</Trans>;
-        default:
-            safeUnreachable(type);
-            return null;
-    }
-}
 
 interface ReplyRestrictionProps {
     restriction: RestrictionType;
@@ -68,7 +55,7 @@ export function ReplyRestriction({ restriction, setRestriction }: ReplyRestricti
                                     'opacity-50': disabled,
                                 })}
                             >
-                                <Text type={type} />
+                                <ReplyRestrictionText type={type} />
                             </span>
                             {restriction === type ? (
                                 <YesIcon width={40} height={40} className=" relative -right-[10px]" />

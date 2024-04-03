@@ -16,6 +16,7 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { Media } from '@/components/Compose/Media.js';
 import { PostBy } from '@/components/Compose/PostBy.js';
 import { ReplyRestriction } from '@/components/Compose/ReplyRestriction.js';
+import { ReplyRestrictionText } from '@/components/Compose/ReplyRestrictionText.jsx';
 import { SourceIcon } from '@/components/SourceIcon.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { MAX_CHAR_SIZE_PER_POST, MAX_POST_SIZE_PER_THREAD, SORTED_SOURCES } from '@/constants/index.js';
@@ -237,11 +238,7 @@ export function ComposeAction(props: ComposeActionProps) {
                                 disabled={posts.findIndex((x) => x.id === id) !== 0}
                             >
                                 <span className=" text-[15px] font-bold">
-                                    {restriction === RestrictionType.Everyone ? (
-                                        <Trans>Everyone</Trans>
-                                    ) : (
-                                        <Trans>Only people you follow</Trans>
-                                    )}
+                                    <ReplyRestrictionText type={restriction} />
                                 </span>
                                 <ChevronRightIcon className="h-5 w-5" aria-hidden="true" />
                             </Popover.Button>
