@@ -112,6 +112,15 @@ export async function POST(request: Request) {
                     status: 400,
                 },
             );
+        case ActionType.Transaction:
+            return Response.json(
+                {
+                    error: 'Not available',
+                },
+                {
+                    status: 400,
+                },
+            );
         default:
             safeUnreachable(action);
             return Response.json({ error: `Unknown action: ${action}` }, { status: 400 });

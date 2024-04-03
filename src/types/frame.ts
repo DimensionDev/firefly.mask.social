@@ -5,6 +5,7 @@ export enum ActionType {
     PostRedirect = 'post_redirect',
     Link = 'link',
     Mint = 'mint',
+    Transaction = 'tx',
 }
 
 export interface FrameInput {
