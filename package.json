@@ -57,6 +57,7 @@
         "canonicalize": "^2.0.0",
         "dayjs": "^1.11.10",
         "dayjs-twitter": "^0.5.0",
+        "eruda": "^3.0.1",
         "framer-motion": "^10.16.5",
         "hash-wasm": "^4.11.0",
         "http-status-codes": "^2.3.0",

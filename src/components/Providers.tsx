@@ -22,6 +22,7 @@ import { useMounted } from '@/hooks/useMounted.js';
 import { setLocale } from '@/i18n/index.js';
 import { useLeafwatchPersistStore } from '@/store/useLeafwatchPersistStore.js';
 import { useThemeModeStore } from '@/store/useThemeModeStore.js';
+import { dynamic } from '@/esm/dynamic.js';
 
 export function Providers(props: { children: React.ReactNode }) {
     const isDarkOS = useMediaQuery('(prefers-color-scheme: dark)');
@@ -55,6 +56,10 @@ export function Providers(props: { children: React.ReactNode }) {
         if ('serviceWorker' in navigator) {
             (navigator.serviceWorker as ServiceWorkerContainer).register('/sw.js', { scope: '/' }).catch(console.error);
         }
+    });
+
+    useEffectOnce(() => {
+        import('eruda').then((x) => x.default.init());
     });
 
     const mounted = useMounted();
