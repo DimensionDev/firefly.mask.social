@@ -9,7 +9,37 @@ rm -rf packages/mask/dashboard
 rm -rf packages/mask/background
 rm -rf packages/mask/swap
 rm -rf packages/backup-format/
+rm -rf packages/gun-utils/
 
+# Remove unused plugins
+rm -rf packages/plugins/Approval
+rm -rf packages/plugins/ArtBlocks
+rm -rf packages/plugins/Avatar
+rm -rf packages/plugins/Claim
+rm -rf packages/plugins/Collectible
+rm -rf packages/plugins/CrossChainBridge
+rm -rf packages/plugins/CyberConnect
+rm -rf packages/plugins/FileService
+rm -rf packages/plugins/FriendTech
+rm -rf packages/plugins/Gitcoin
+rm -rf packages/plugins/GoPlusSecurity
+rm -rf packages/plugins/Handle
+rm -rf packages/plugins/MaskBox
+rm -rf packages/plugins/NextID
+rm -rf packages/plugins/Pets
+rm -rf packages/plugins/ProfileCard
+rm -rf packages/plugins/RSS3
+rm -rf packages/plugins/Savings
+rm -rf packages/plugins/ScamSniffer
+rm -rf packages/plugins/ScamWarning
+rm -rf packages/plugins/SmartPay
+rm -rf packages/plugins/SwitchLogo
+rm -rf packages/plugins/Tips
+rm -rf packages/plugins/Trader
+rm -rf packages/plugins/Transak
+rm -rf packages/plugins/VCent
+rm -rf packages/plugins/Web3Profile
+rm -rf packages/plugins/template
 
 pnpm install
 
