@@ -37,10 +37,9 @@ export async function postToFarcaster(type: ComposeType, compositePost: Composit
             images.map(async (media) => {
                 try {
                     if (media.imgur) return media;
-                    const imgur = await uploadToImgur(media.file);
                     const patchedMedia: MediaObject = {
                         ...media,
-                        imgur,
+                        imgur: await uploadToImgur(media.file),
                     };
                     updatePostInThread(compositePost.id, (x) => ({
                         ...x,
@@ -49,9 +48,8 @@ export async function postToFarcaster(type: ComposeType, compositePost: Composit
                     // We only care about imgur for Farcaster
                     return patchedMedia;
                 } catch (error) {
-                    const message = error instanceof Error ? error.message : t`Failed to upload image to imgur.`;
-                    enqueueErrorMessage(message);
-                    throw new Error(message);
+                    enqueueErrorMessage(t`Failed to upload image to imgur.`);
+                    throw error;
                 }
             }),
         );
@@ -81,7 +79,7 @@ export async function postToFarcaster(type: ComposeType, compositePost: Composit
                 parentChannelUrl: hasRp ? 'https://warpcast.com/~/channel/firefly-garden' : undefined,
             };
             const postId = await FarcasterSocialMediaProvider.publishPost(draft);
-            enqueueSuccessMessage(t`Posted on Farcaster.`);
+            enqueueSuccessMessage(type === 'compose' ? t`Posted on Farcaster.` : t`Replied on Farcaster.`);
             if (type === 'reply' && farcasterParentPost) {
                 queryClient.invalidateQueries({
                     queryKey: [farcasterParentPost.source, 'post-detail', farcasterParentPost.postId],

@@ -2,6 +2,7 @@ import { t } from '@lingui/macro';
 
 import type { SocialPlatform } from '@/constants/enum.js';
 import { SORTED_SOURCES } from '@/constants/index.js';
+import { isPublishedPost } from '@/helpers/isPublishedPost.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { crossPost } from '@/services/crossPost.js';
@@ -65,7 +66,14 @@ export async function crossPostThread() {
         // reply to the previous published post in thread
         const post = await recompositePost(index, _, allPosts[0], allPosts);
         await crossPost(index === 0 ? 'compose' : 'reply', post, {
+            skipIfPublishedPost: true,
             skipIfNoParentPost: true,
+            skipPublishedCheck: true,
         });
+    }
+
+    const { posts: updatedPosts } = useComposeStateStore.getState();
+    if (!updatedPosts.every((x, i) => isPublishedPost(i === 0 ? 'compose' : 'reply', x))) {
+        throw new Error('Posts failed to publish.');
     }
 }
