@@ -48,7 +48,8 @@
         "warpcast",
         "zora",
         "zustand",
-        "neynar"
+        "neynar",
+        "eruda"
     ],
     "ignoreWords": [
         "DEVNET",
