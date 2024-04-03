@@ -2,8 +2,8 @@ import { MENTION_REGEX } from '@/constants/regex.js';
 import { WarpcastSocialMediaProvider } from '@/providers/warpcast/SocialMedia.js';
 
 export async function getAllMetnionsForFarcaster(text: string) {
-    const replacedIndices = [],
-        mentions = [];
+    const replacedIndices = [];
+    const mentions = [];
     if (!text) {
         return {
             text: '',
