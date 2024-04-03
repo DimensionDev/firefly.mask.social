@@ -55,6 +55,8 @@ export function Media({ close }: MediaProps) {
         [close, updateVideo],
     );
 
+    const disabledVideo = !!video || availableSources.includes(SocialPlatform.Farcaster);
+
     return (
         <Transition
             as={Fragment}
@@ -100,14 +102,12 @@ export function Media({ close }: MediaProps) {
                 <div
                     className={classNames(
                         'flex h-8 items-center gap-2',
-                        video || currentFarcasterProfile
-                            ? 'cursor-not-allowed opacity-50'
-                            : 'cursor-pointer hover:bg-bg',
+                        disabledVideo ? 'cursor-not-allowed opacity-50' : 'cursor-pointer hover:bg-bg',
                     )}
                     onClick={() => {
-                        if (!video && !currentFarcasterProfile) {
-                            videoInputRef.current?.click();
-                        }
+                        if (disabledVideo) return;
+
+                        videoInputRef.current?.click();
                     }}
                 >
                     <VideoIcon width={24} height={24} />
