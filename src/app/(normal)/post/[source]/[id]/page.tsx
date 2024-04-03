@@ -1,11 +1,14 @@
 'use client';
 
+import urlcat from 'urlcat';
 import { t, Trans } from '@lingui/macro';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation.js';
 import type React from 'react';
 import { useMemo, useState } from 'react';
 import { useDocumentTitle } from 'usehooks-ts';
+import { useAsync } from 'react-use';
+import { first, last } from 'lodash-es';
 
 import ComeBack from '@/assets/comeback.svg';
 import { CommentList } from '@/components/Comments/index.js';
@@ -20,6 +23,7 @@ import { resolveSocialPlatform } from '@/helpers/resolveSocialPlatform.js';
 import { useUpdateCurrentVisitingPost } from '@/hooks/useCurrentVisitingPost.js';
 import { getPostById } from '@/services/getPostById.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
+import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 
 const PostActions = dynamic(() => import('@/components/Actions/index.js').then((module) => module.PostActions), {
     ssr: false,
@@ -61,7 +65,35 @@ export default function Page({ params: { id: postId, source } }: PageProps) {
             const provider = resolveSocialMediaProvider(currentSource);
             if (!provider) return EMPTY_LIST;
 
-            return provider.getThreadByPostId(root.postId);
+            const result = await provider.getThreadByPostId(root.postId);
+
+            /**
+             * The data of Lens is stored in Redis.
+             * Since there is no expiration time and we need to check each time whether a new post has been added to the thread.
+             * If so, we need to clear the cache and request again.
+             */
+            if (currentSource === SocialPlatform.Lens && result.length >= MIN_POST_SIZE_PER_THREAD) {
+                const lastPost = last(result);
+
+                if (!lastPost) return result;
+
+                const commentsOfLastPost = await LensSocialMediaProvider.getCommentsByUserId(
+                    lastPost.postId,
+                    lastPost.author.profileId,
+                );
+
+                if (commentsOfLastPost.data.length === 0) return result;
+
+                const url = urlcat('/api/thread', { id: root.postId });
+
+                const response = await fetch(url, { method: 'PUT' });
+
+                if (response.status !== 200) return result;
+
+                return provider.getThreadByPostId(root.postId);
+            }
+
+            return result;
         },
     });
 
@@ -84,7 +116,7 @@ export default function Page({ params: { id: postId, source } }: PageProps) {
                 </h2>
             </div>
             <div>
-                {threadData.length > MIN_POST_SIZE_PER_THREAD ? (
+                {threadData.length >= MIN_POST_SIZE_PER_THREAD ? (
                     <>
                         <div className="border-b border-line px-4 py-3">
                             {thread.map((post, index) => (
@@ -95,7 +127,7 @@ export default function Page({ params: { id: postId, source } }: PageProps) {
                                     isLast={index === thread.length - 1}
                                 />
                             ))}
-                            {threadData.length >= MIN_POST_SIZE_PER_THREAD && !showMore ? (
+                            {threadData.length > MIN_POST_SIZE_PER_THREAD && !showMore ? (
                                 <div className="w-full cursor-pointer text-center text-[15px] font-bold text-link">
                                     <div onClick={() => setShowMore(true)}>
                                         <Trans>Show More</Trans>
