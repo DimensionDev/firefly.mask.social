@@ -88,6 +88,9 @@ msgstr "OpenGraph"
 msgid "Wrong wallet"
 msgstr "Wrong wallet"
 
+msgid "Transaction button is not available yet."
+msgstr "Transaction button is not available yet."
+
 msgid "Debug Console"
 msgstr "Debug Console"
 

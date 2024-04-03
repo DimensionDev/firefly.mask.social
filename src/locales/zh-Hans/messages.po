@@ -93,6 +93,9 @@ msgstr "OpenGraph"
 msgid "Wrong wallet"
 msgstr "错误的钱包"
 
+msgid "Transaction button is not available yet."
+msgstr ""
+
 msgid "Debug Console"
 msgstr "诊断命令行"
 
