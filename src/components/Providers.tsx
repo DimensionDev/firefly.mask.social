@@ -15,7 +15,6 @@ import { v4 as uuid } from 'uuid';
 import { WagmiProvider } from '@/components/WagmiProvider.js';
 import { livepeerClient } from '@/configs/livepeerClient.js';
 import { queryClient } from '@/configs/queryClient.js';
-import { Link } from '@/esm/Link.js';
 import { getLocaleFromCookies } from '@/helpers/getLocaleFromCookies.js';
 import { DarkModeContext } from '@/hooks/useDarkMode.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';

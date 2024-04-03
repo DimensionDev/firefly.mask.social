@@ -5,13 +5,12 @@ import { Inter } from 'next/font/google';
 import { ScrollRestorer } from 'next-scroll-restorer';
 import { lazy } from 'react';
 
-import { Script } from '@/esm/Script.js';
-
 import { BeforeUnload } from '@/components/Compose/BeforeUnload.js';
 import { GA } from '@/components/GA.js';
 import { Polyfills } from '@/components/Polyfills.js';
 import { Providers } from '@/components/Providers.js';
 import { SideBar } from '@/components/SideBar/index.js';
+import { Script } from '@/esm/Script.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { createSiteViewport } from '@/helpers/createSiteViewport.js';
 import { getLocaleFromCookies } from '@/helpers/getLocaleFromCookies.js';
