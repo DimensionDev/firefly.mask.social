@@ -29,9 +29,7 @@ interface EditorProps {
 }
 
 export const Editor = memo(function Editor({ post, replying }: EditorProps) {
-    const { posts } = useComposeStateStore();
-
-    const { type, updateChars, loadFramesFromChars, loadOpenGraphsFromChars } = useComposeStateStore();
+    const { type, posts, updateChars, loadFramesFromChars, loadOpenGraphsFromChars } = useComposeStateStore();
 
     const { chars } = post;
     const index = posts.findIndex((x) => x.id === post.id);

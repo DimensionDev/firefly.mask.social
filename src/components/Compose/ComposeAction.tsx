@@ -29,14 +29,14 @@ import { useProfilesAll } from '@/hooks/useProfilesAll.js';
 import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';
 import { PluginDebuggerMessages } from '@/mask/message-host/index.js';
 import { ComposeModalRef } from '@/modals/controls.js';
-import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
+import { type CompositePost, useComposeStateStore, useCompositePost } from '@/store/useComposeStore.js';
 
 interface ComposeActionProps {
     post: CompositePost;
 }
 
 export function ComposeAction(props: ComposeActionProps) {
-    const { id, chars, parentPost, images, video, availableSources, restriction } = props.post;
+    const { chars, images, video } = props.post;
 
     const isMedium = useIsMedium();
 
@@ -44,6 +44,7 @@ export function ComposeAction(props: ComposeActionProps) {
     const profilesAll = useProfilesAll();
 
     const { type, posts, addPostInThread, updateRestriction } = useComposeStateStore();
+    const { rootPost, isRootPost } = useCompositePost();
 
     const { length, visibleLength, invisibleLength } = useMemo(() => measureChars(chars), [chars]);
 
@@ -203,14 +204,11 @@ export function ComposeAction(props: ComposeActionProps) {
                     {(_) => (
                         <>
                             <Popover.Button
-                                className=" flex cursor-pointer gap-1 text-main focus:outline-none disabled:cursor-none disabled:opacity-50"
-                                disabled={
-                                    posts.findIndex((x) => x.id === id) !== 0 ||
-                                    SORTED_SOURCES.some((x) => !!parentPost[x])
-                                }
+                                className=" flex cursor-pointer gap-1 text-main focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+                                disabled={!isRootPost}
                             >
                                 <span className="flex items-center gap-x-1 font-bold">
-                                    {availableSources
+                                    {rootPost.availableSources
                                         .filter((x) => !!currentProfileAll[x])
                                         .map((y) => (
                                             <SourceIcon key={y} source={y} size={20} />
@@ -234,15 +232,15 @@ export function ComposeAction(props: ComposeActionProps) {
                     {(_) => (
                         <>
                             <Popover.Button
-                                className=" flex cursor-pointer gap-1 text-main focus:outline-none disabled:cursor-none disabled:opacity-50"
-                                disabled={posts.findIndex((x) => x.id === id) !== 0}
+                                className=" flex cursor-pointer gap-1 text-main focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+                                disabled={!isRootPost}
                             >
                                 <span className=" text-[15px] font-bold">
-                                    <ReplyRestrictionText type={restriction} />
+                                    <ReplyRestrictionText type={rootPost.restriction} />
                                 </span>
                                 <ChevronRightIcon className="h-5 w-5" aria-hidden="true" />
                             </Popover.Button>
-                            <ReplyRestriction restriction={restriction} setRestriction={updateRestriction} />
+                            <ReplyRestriction restriction={rootPost.restriction} setRestriction={updateRestriction} />
                         </>
                     )}
                 </Popover>

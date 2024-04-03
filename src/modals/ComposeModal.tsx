@@ -197,7 +197,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
 
         return (
             <Modal open={open} onClose={onClose}>
-                <div className="relative flex h-[100vh] w-[100vw] flex-col bg-bgModal shadow-popover transition-all dark:text-gray-950 md:h-auto md:w-[600px] md:rounded-xl">
+                <div className="relative flex h-[100vh] w-[100vw] flex-col overflow-auto bg-bgModal shadow-popover transition-all dark:text-gray-950 md:h-auto md:w-[600px] md:rounded-xl">
                     {/* Loading */}
                     {encryptRedPacketLoading ? (
                         <div className=" absolute bottom-0 left-0 right-0 top-0 z-50 flex items-center justify-center">
@@ -206,7 +206,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
                     ) : null}
 
                     {/* Title */}
-                    <Dialog.Title as="h3" className=" relative h-14 pt-safe">
+                    <Dialog.Title as="h3" className=" relative h-14 shrink-0 pt-safe">
                         <CloseButton className="absolute left-4 top-1/2 -translate-y-1/2" onClick={onClose} />
 
                         <span className=" flex h-full w-full items-center justify-center text-lg font-bold capitalize text-main">

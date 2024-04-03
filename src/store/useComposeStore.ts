@@ -1,6 +1,6 @@
 import type { TypedMessageTextV1 } from '@masknet/typed-message';
 import { uniq } from 'lodash-es';
-import type { SetStateAction } from 'react';
+import { type SetStateAction, useMemo } from 'react';
 import { v4 as uuid } from 'uuid';
 import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
@@ -438,6 +438,14 @@ export const useComposeStateStore = createSelectors(useComposeStateBase);
 export function useCompositePost() {
     const { posts, cursor } = useComposeStateStore();
 
-    const compositePost = posts.find((x) => x.id === cursor) || createInitSinglePostState(initialPostCursor);
-    return compositePost;
+    return useMemo(() => {
+        const rootPost = posts[0];
+        const compositePost = posts.find((x) => x.id === cursor) || createInitSinglePostState(initialPostCursor);
+
+        return {
+            rootPost,
+            isRootPost: rootPost === compositePost,
+            ...compositePost,
+        };
+    }, [posts, cursor]);
 }
