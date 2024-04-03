@@ -24,7 +24,8 @@ export function ReplyRestriction({ restriction, setRestriction }: ReplyRestricti
         },
         {
             type: RestrictionType.OnlyPeopleYouFollow,
-            disabled: !!currentFarcasterProfile?.profileId,
+            // for lens and farcaster, only allow everyone
+            disabled: true,
         },
     ];
 
