@@ -27,9 +27,8 @@ async function refreshProfileFeed(source: SocialPlatform) {
 async function updateRpClaimStrategy(compositePost: CompositePost) {
     const { postId, typedMessage, rpPayload } = compositePost;
 
-    const currentProfileAll = getCurrentProfileAll();
-
     if (hasRpPayload(typedMessage) && SORTED_SOURCES.some((x) => postId[x]) && rpPayload?.publicKey) {
+        const currentProfileAll = getCurrentProfileAll();
         const rpPayloadFromMeta = typedMessage?.meta?.get(RedPacketMetaKey) as RedPacketJSONPayload;
 
         const reactions = compact(
@@ -37,7 +36,7 @@ async function updateRpClaimStrategy(compositePost: CompositePost) {
                 const id = postId[x];
                 return id
                     ? {
-                          platform: resolveRedPacketPlatformType(x)!,
+                          platform: resolveRedPacketPlatformType(x),
                           postId: id,
                       }
                     : null;
@@ -50,7 +49,7 @@ async function updateRpClaimStrategy(compositePost: CompositePost) {
                 return postId[x] && currentProfile
                     ? {
                           platformId: currentProfile.profileId,
-                          platformName: resolveRedPacketPlatformType(x)!,
+                          platformName: resolveRedPacketPlatformType(x),
                       }
                     : null;
             }),
@@ -65,13 +64,29 @@ async function updateRpClaimStrategy(compositePost: CompositePost) {
     }
 }
 
-export async function crossPost(type: ComposeType, compositePost: CompositePost) {
+interface CrossPostOptions {
+    // skip if no parent post is found in reply or quote
+    skipIfNoParentPost?: boolean;
+}
+
+export async function crossPost(
+    type: ComposeType,
+    compositePost: CompositePost,
+    { skipIfNoParentPost = false }: CrossPostOptions = {},
+) {
     const { availableSources } = compositePost;
 
     const allSettled = await Promise.allSettled(
-        SORTED_SOURCES.map((x) =>
-            availableSources.includes(x) ? resolvePostTo(x)(type, compositePost) : Promise.resolve(null),
-        ),
+        SORTED_SOURCES.map((x) => {
+            if (availableSources.includes(x)) {
+                if ((type === 'reply' || type === 'quote') && skipIfNoParentPost && !compositePost.parentPost[x]) {
+                    return Promise.resolve(null);
+                }
+                return resolvePostTo(x)(type, compositePost);
+            } else {
+                return Promise.resolve(null);
+            }
+        }),
     );
     if (allSettled.every((x) => x.status === 'rejected')) return;
 
@@ -85,7 +100,7 @@ export async function crossPost(type: ComposeType, compositePost: CompositePost)
         );
     }
 
-    // update red packet claim strategy if necessary
+    // update red packet claim strategy
     const { posts } = useComposeStateStore.getState();
     const updatedCompositePost = posts.find((post) => post.id === compositePost.id);
 

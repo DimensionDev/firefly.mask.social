@@ -1,5 +1,4 @@
 import { t } from '@lingui/macro';
-import { first } from 'lodash-es';
 
 import type { SocialPlatform } from '@/constants/enum.js';
 import { SORTED_SOURCES } from '@/constants/index.js';
@@ -18,7 +17,6 @@ function shouldCrossPost(index: number, post: CompositePost, rootPost: Composite
 async function recompositePost(index: number, post: CompositePost, rootPost: CompositePost, posts: CompositePost[]) {
     if (index === 0) return post;
 
-    // the root post defines the available sources for the thread
     const { availableSources } = rootPost;
 
     // reply to the previous published post in thread
@@ -26,11 +24,11 @@ async function recompositePost(index: number, post: CompositePost, rootPost: Com
 
     const all: Array<Promise<Post | null>> = [];
 
-    SORTED_SOURCES.forEach((source) => {
-        const parentPostId = previousPost.postId[source];
-        const provider = resolveSocialMediaProvider(source);
+    SORTED_SOURCES.forEach((x) => {
+        const parentPostId = previousPost.postId[x];
+        const provider = resolveSocialMediaProvider(x);
 
-        if (availableSources.includes(source) && parentPostId && !post.parentPost[source] && provider) {
+        if (availableSources.includes(x) && parentPostId && !post.parentPost[x] && provider) {
             all.push(provider.getPostById(parentPostId));
         } else {
             all.push(Promise.resolve(null));
@@ -61,15 +59,13 @@ export async function crossPostThread() {
     for (const [index, _] of posts.entries()) {
         const { posts: allPosts } = useComposeStateStore.getState();
 
-        const rootPost = first(allPosts);
-        if (!rootPost) throw new Error(t`The root post not found.`);
-
         // skip post when recover from error
-        if (!shouldCrossPost(index, _, rootPost, allPosts)) return;
+        if (!shouldCrossPost(index, _, allPosts[0], allPosts)) return;
 
         // reply to the previous published post in thread
-        const post = await recompositePost(index, _, rootPost, allPosts);
-        if (index === 0) await crossPost('compose', post);
-        else await crossPost('reply', post);
+        const post = await recompositePost(index, _, allPosts[0], allPosts);
+        await crossPost(index === 0 ? 'compose' : 'reply', post, {
+            skipIfNoParentPost: true,
+        });
     }
 }

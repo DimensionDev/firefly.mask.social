@@ -568,9 +568,6 @@ msgstr "<0>You</0> liked"
 msgid "You've hit rock bottom."
 msgstr "You've hit rock bottom."
 
-msgid "The root post not found."
-msgstr "The root post not found."
-
 msgid "Failed to mirror post."
 msgstr "Failed to mirror post."
 
@@ -688,11 +685,11 @@ msgstr "Language"
 msgid "Add a comment"
 msgstr "Add a comment"
 
-msgid "No parent post to quote."
-msgstr "No parent post to quote."
-
 msgid "Profiles"
 msgstr "Profiles"
+
+msgid "No parent post found."
+msgstr "No parent post found."
 
 msgid "Please confirm the login with X."
 msgstr "Please confirm the login with X."
