@@ -260,23 +260,3 @@ body {
 .account-settings .tippy-content {
     padding: 0;
 }
-
-.browser-tips {
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 100%;
-    z-index: 9999;
-    display: flex;
-    justify-content: center;
-    /* background-color: #8e96ff; */
-    padding: 10px 0;
-    font-size: 12px;
-    line-height: 18px;
-}
-
-.browser-tips > a {
-    margin: 0 4px;
-    font-weight: 700;
-    /* color: #9250ff; */
-}
