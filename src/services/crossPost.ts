@@ -120,7 +120,7 @@ export async function crossPost(
     const updatedCompositePost = posts.find((post) => post.id === compositePost.id);
     if (!updatedCompositePost) throw new Error('Post not found.');
 
-    // failed to to corss post
+    // failed to to cross post
     if (!skipPublishedCheck && !isPublishedPost(type, updatedCompositePost)) {
         throw new Error('Post failed to publish.');
     }
