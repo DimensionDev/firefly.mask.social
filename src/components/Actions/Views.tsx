@@ -15,7 +15,7 @@ interface ViewsProps {
 export const Views = memo<ViewsProps>(function Collect({ count, disabled = false }) {
     return (
         <ClickableArea
-            className={classNames('flex items-center space-x-2 text-main', {
+            className={classNames('flex items-center text-main md:space-x-2', {
                 'opacity-50': disabled,
             })}
         >
