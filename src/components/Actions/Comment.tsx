@@ -60,7 +60,7 @@ export const Comment = memo<CommentProps>(function Comment({
 
     return (
         <ClickableArea
-            className={classNames('flex cursor-pointer items-center sm:space-x-1 md:space-x-2', {
+            className={classNames('flex cursor-pointer items-center space-x-1 md:space-x-2', {
                 'cursor-not-allowed': disabled,
                 'opacity-50': disabled,
             })}

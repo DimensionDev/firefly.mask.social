@@ -1,6 +1,6 @@
+import { compact } from 'lodash-es';
 import { memo, useMemo } from 'react';
 import urlcat from 'urlcat';
-import { compact } from 'lodash-es';
 
 import { Collect } from '@/components/Actions/Collect.js';
 import { Comment } from '@/components/Actions/Comment.js';
@@ -12,9 +12,9 @@ import { ClickableArea } from '@/components/ClickableArea.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
+import { useIsSmall } from '@/hooks/useMediaQuery.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
-import { useIsSmall } from '../../hooks/useMediaQuery';
 
 interface PostActionsProps extends React.HTMLAttributes<HTMLDivElement> {
     post: Post;
