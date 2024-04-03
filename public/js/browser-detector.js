@@ -1,47 +1,47 @@
-if (bowser) {
-    function getCookie(field) {
-        var pair = document.cookie.split('; ').filter(function (x) {
-            return x.indexOf(field + '=') === 0;
-        })[0];
-        if (!pair) return '';
-        var value = pair.split('=')[1];
-        return value;
+(function () {
+    if (window.bowser) {
+        function getCookie(field) {
+            var pair = document.cookie.split('; ').filter(function (x) {
+                return x.indexOf(field + '=') === 0;
+            })[0];
+            if (!pair) return '';
+            var value = pair.split('=')[1];
+            return value;
+        }
+
+        var browser = window.bowser.getParser(window.navigator.userAgent);
+        var isValidBrowser = browser.satisfies({
+            macos: {
+                safari: '>=16',
+            },
+            mobile: {
+                safari: '>=16',
+                'android browser': '>103',
+            },
+            chrome: '>=103',
+            firefox: '>=100',
+            opera: '>=89',
+            edge: '>=103',
+        });
+
+        if (!isValidBrowser) {
+            var locale = getCookie('locale');
+            var browserTips = document.createElement('div');
+            browserTips.style.position = 'fixed';
+            browserTips.style.left = 0;
+            browserTips.style.top = 0;
+            browserTips.style.width = '100%';
+            browserTips.style.zIndex = 9999;
+            browserTips.style.padding = '10px';
+            browserTips.style.textAlign = 'center';
+            browserTips.style.fontSize = '12px';
+            browserTips.style.lineHeight = '18px';
+            browserTips.style.backgroundColor = '#8e96ff';
+            browserTips.innerHTML =
+                locale === 'zh-Hans'
+                    ? '请使用 <a target="_blank" rel="noreferrer noopener" href="https://www.google.com/chrome/" style="color: rgb(146, 80, 255); font-weight: 700;">Chrome</a> 或 <a target="_blank" rel="noreferrer noopener" href="https://firefly.land/#download" style="color: rgb(146, 80, 255); font-weight: 700;">下载</a>我们的APP浏览'
+                    : 'Please use <a target="_blank" rel="noreferrer noopener" href="https://www.google.com/chrome/" style="color: rgb(146, 80, 255); font-weight: 700;">Chrome</a> or <a target="_blank" rel="noreferrer noopener" href="https://firefly.land/#download" style="color: rgb(146, 80, 255); font-weight: 700;">download</a>our app to explore';
+            document.body.appendChild(browserTips);
+        }
     }
-
-    var browser = bowser.getParser(window.navigator.userAgent);
-    var isValidBrowser = browser.satisfies({
-        macos: {
-            safari: '>=16',
-        },
-        mobile: {
-            safari: '>=16',
-            'android browser': '>103',
-        },
-
-        // or in general
-        chrome: '>=103',
-        firefox: '>=100',
-        opera: '>=89',
-        edge: '>=103',
-    });
-
-    if (!isValidBrowser) {
-        var locale = getCookie('locale');
-        var browserTips = document.createElement('div');
-        browserTips.style.position = 'fixed';
-        browserTips.style.left = 0;
-        browserTips.style.top = 0;
-        browserTips.style.width = '100%';
-        browserTips.style.zIndex = 9999;
-        browserTips.style.padding = '10px';
-        browserTips.style.textAlign = 'center';
-        browserTips.style.fontSize = '12px';
-        browserTips.style.lineHeight = '18px';
-        browserTips.style.backgroundColor = '#8e96ff';
-        browserTips.innerHTML =
-            locale === 'zh-Hans'
-                ? '请使用 <a target="_blank" rel="noreferrer noopener" href="https://www.google.com/chrome/" style="color: rgb(146, 80, 255); font-weight: 700;">Chrome</a> 或 <a target="_blank" rel="noreferrer noopener" href="https://firefly.land/#download" style="color: rgb(146, 80, 255); font-weight: 700;">下载</a>我们的APP浏览'
-                : 'Please use <a target="_blank" rel="noreferrer noopener" href="https://www.google.com/chrome/" style="color: rgb(146, 80, 255); font-weight: 700;">Chrome</a> or <a target="_blank" rel="noreferrer noopener" href="https://firefly.land/#download" style="color: rgb(146, 80, 255); font-weight: 700;">download</a>our app to explore';
-        document.body.appendChild(browserTips);
-    }
-}
+})();
