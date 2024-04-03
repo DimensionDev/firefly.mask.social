@@ -263,7 +263,7 @@ export class HubbleSocialMedia implements Provider {
         const { messageBytes } = await encodeMessageData(
             () => ({
                 linkBody: {
-                    type: 'unfollow',
+                    type: 'follow',
                     targetFid: Number(profileId),
                 },
             }),

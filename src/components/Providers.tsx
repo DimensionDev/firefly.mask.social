@@ -11,6 +11,7 @@ import { useEffect, useMemo } from 'react';
 import { useEffectOnce } from 'react-use';
 import { useMediaQuery } from 'usehooks-ts';
 import { v4 as uuid } from 'uuid';
+import Bowser from 'bowser';
 
 import { WagmiProvider } from '@/components/WagmiProvider.js';
 import { livepeerClient } from '@/configs/livepeerClient.js';
@@ -22,6 +23,8 @@ import { useMounted } from '@/hooks/useMounted.js';
 import { setLocale } from '@/i18n/index.js';
 import { useLeafwatchPersistStore } from '@/store/useLeafwatchPersistStore.js';
 import { useThemeModeStore } from '@/store/useThemeModeStore.js';
+import { Trans } from '@lingui/macro';
+import { Link } from '@/esm/Link.js';
 
 export function Providers(props: { children: React.ReactNode }) {
     const isDarkOS = useMediaQuery('(prefers-color-scheme: dark)');
@@ -57,6 +60,27 @@ export function Providers(props: { children: React.ReactNode }) {
         }
     });
 
+    const isValidBrowser = useMemo(() => {
+        if (!navigator) return;
+
+        const browser = Bowser.getParser(navigator.userAgent);
+        return browser.satisfies({
+            macos: {
+                safari: '>=16',
+            },
+            mobile: {
+                safari: '>=16',
+                'android browser': '>103',
+            },
+
+            // or in general
+            chrome: '>=103',
+            firefox: '>=100',
+            opera: '>=89',
+            edge: '>=103',
+        });
+    }, []);
+
     const mounted = useMounted();
     if (!mounted) return null;
 
@@ -77,7 +101,34 @@ export function Providers(props: { children: React.ReactNode }) {
                             {/* wagmi depends @tanstack/react-query@4.29.23 */}
                             <WagmiProvider>
                                 {/* livepeer depends @tanstack/react-query@4.36.1 */}
-                                <LivepeerConfig client={livepeerClient}>{props.children}</LivepeerConfig>
+                                <LivepeerConfig client={livepeerClient}>
+                                    {!isValidBrowser ? (
+                                        <div className="fixed left-0 top-0 z-[9999] flex w-full justify-center bg-[#8E96FF] py-[10px] text-[15px] leading-[24px] lg:hidden">
+                                            <Trans>
+                                                Please use{' '}
+                                                <Link
+                                                    className="mx-1 font-bold text-[#9250FF]"
+                                                    target="_blank"
+                                                    rel="noreferrer noopener"
+                                                    href="https://www.google.com/chrome/"
+                                                >
+                                                    Chrome
+                                                </Link>
+                                                or
+                                                <Link
+                                                    className="mx-1 font-bold text-[#9250FF]"
+                                                    href="https://firefly.land/#download"
+                                                    target="_blank"
+                                                    rel="noreferrer noopener"
+                                                >
+                                                    download
+                                                </Link>
+                                                our app to explore
+                                            </Trans>
+                                        </div>
+                                    ) : null}
+                                    {props.children}
+                                </LivepeerConfig>
                             </WagmiProvider>
                         </SnackbarProvider>
                     </DarkModeContext.Provider>
