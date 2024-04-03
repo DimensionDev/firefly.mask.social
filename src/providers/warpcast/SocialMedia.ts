@@ -88,8 +88,8 @@ export class WarpcastSocialMedia implements Provider {
         const { result } = await farcasterClient.fetch<UserDetailResponse>(url, {
             method: 'GET',
         });
-        const user = result.user;
-        return formatWarpcastUser(user);
+
+        return formatWarpcastUser(result.user);
     }
 
     async getPostsByProfileId(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {

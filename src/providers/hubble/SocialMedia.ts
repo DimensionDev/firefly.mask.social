@@ -7,7 +7,7 @@ import { toBytes } from 'viem';
 import { HUBBLE_URL } from '@/constants/index.js';
 import { encodeMessageData } from '@/helpers/encodeMessageData.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
-import { getAllMetnionsForFarcaster } from '@/helpers/getAllMentionsForFarcaster.js';
+import { getAllMentionsForFarcaster } from '@/helpers/getAllMentionsForFarcaster.js';
 import type { FrameSignaturePacket, SignaturePacket } from '@/providers/types/Hubble.js';
 import { type Post, type Provider, SessionType } from '@/providers/types/SocialMedia.js';
 import { ReactionType as ReactionTypeCustom } from '@/providers/types/SocialMedia.js';
@@ -40,7 +40,7 @@ export class HubbleSocialMedia implements Provider {
     }
 
     async publishPost(post: Post): Promise<string> {
-        const result = await getAllMetnionsForFarcaster(post.metadata.content?.content ?? '');
+        const result = await getAllMentionsForFarcaster(post.metadata.content?.content ?? '');
 
         const { messageBytes } = await encodeMessageData(
             () => {
