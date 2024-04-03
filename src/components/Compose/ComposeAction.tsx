@@ -210,9 +210,11 @@ export function ComposeAction(props: ComposeActionProps) {
                                 }
                             >
                                 <span className="flex items-center gap-x-1 font-bold">
-                                    {availableSources.map((x) => (
-                                        <SourceIcon key={x} source={x} size={20} />
-                                    ))}
+                                    {availableSources
+                                        .filter((x) => !!currentProfileAll[x])
+                                        .map((y) => (
+                                            <SourceIcon key={y} source={y} size={20} />
+                                        ))}
                                 </span>
                                 {type === 'compose' ? (
                                     <ChevronRightIcon className="h-5 w-5" aria-hidden="true" />
