@@ -573,9 +573,6 @@ msgstr "<0>你</0> 已点赞"
 msgid "You've hit rock bottom."
 msgstr "你已经滑到底部啦～"
 
-msgid "The root post not found."
-msgstr ""
-
 msgid "Failed to mirror post."
 msgstr "转发失败"
 
@@ -693,11 +690,11 @@ msgstr "语言"
 msgid "Add a comment"
 msgstr "添加一个评论"
 
-msgid "No parent post to quote."
-msgstr ""
-
 msgid "Profiles"
 msgstr "个人信息"
+
+msgid "No parent post found."
+msgstr ""
 
 msgid "Please confirm the login with X."
 msgstr ""
