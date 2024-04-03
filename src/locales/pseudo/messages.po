@@ -55,9 +55,6 @@ msgstr ""
 msgid "{0} views"
 msgstr ""
 
-msgid "Failed to upload. File type is not supported"
-msgstr ""
-
 msgid "Failed to post on Farcaster."
 msgstr ""
 
@@ -103,9 +100,6 @@ msgstr ""
 msgid "Copied"
 msgstr ""
 
-msgid "Failed to upload to Imgur"
-msgstr ""
-
 msgid "comment"
 msgstr ""
 
@@ -125,6 +119,9 @@ msgid "Page not found"
 msgstr ""
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/> and # others}} <4>liked your </4><5><6/></5>"
+msgstr ""
+
+msgid "Replied on Farcaster."
 msgstr ""
 
 msgid "Password"
@@ -596,6 +593,9 @@ msgid "LuckyDrop"
 msgstr ""
 
 msgid "{0} and others"
+msgstr ""
+
+msgid "File type is not supported."
 msgstr ""
 
 msgid "Please switch to the wallet used for login."

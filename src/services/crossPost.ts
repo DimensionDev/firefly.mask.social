@@ -8,6 +8,7 @@ import { SocialPlatform } from '@/constants/enum.js';
 import { SORTED_SOURCES } from '@/constants/index.js';
 import { getCurrentProfileAll } from '@/helpers/getCurrentProfileAll.js';
 import { hasRpPayload } from '@/helpers/hasPayload.js';
+import { isPublishedPost } from '@/helpers/isPublishedPost.js';
 import { resolvePostTo } from '@/helpers/resolvePostTo.js';
 import { resolveRedPacketPlatformType } from '@/helpers/resolveRedPacketPlatformType.js';
 import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
@@ -65,20 +66,30 @@ async function updateRpClaimStrategy(compositePost: CompositePost) {
 }
 
 interface CrossPostOptions {
+    // skip if post is already published
+    skipIfPublishedPost?: boolean;
     // skip if no parent post is found in reply or quote
     skipIfNoParentPost?: boolean;
+    // skip published check
+    skipPublishedCheck?: boolean;
 }
 
 export async function crossPost(
     type: ComposeType,
     compositePost: CompositePost,
-    { skipIfNoParentPost = false }: CrossPostOptions = {},
+    { skipIfPublishedPost = false, skipIfNoParentPost = false, skipPublishedCheck = false }: CrossPostOptions = {},
 ) {
     const { availableSources } = compositePost;
 
     const allSettled = await Promise.allSettled(
         SORTED_SOURCES.map((x) => {
             if (availableSources.includes(x)) {
+                // post already published
+                if (skipIfPublishedPost && compositePost.postId[x]) {
+                    return Promise.resolve(null);
+                }
+
+                // parent post is required for reply and quote
                 if ((type === 'reply' || type === 'quote') && skipIfNoParentPost && !compositePost.parentPost[x]) {
                     return Promise.resolve(null);
                 }
@@ -88,8 +99,13 @@ export async function crossPost(
             }
         }),
     );
-    if (allSettled.every((x) => x.status === 'rejected')) return;
 
+    // failed to cross post
+    if (allSettled.every((x) => x.status === 'rejected')) {
+        throw new Error('Post failed to publish.');
+    }
+
+    // refresh profile feed
     if (type === 'compose') {
         await Promise.allSettled(
             SORTED_SOURCES.map((x, i) => {
@@ -100,9 +116,15 @@ export async function crossPost(
         );
     }
 
-    // update red packet claim strategy
     const { posts } = useComposeStateStore.getState();
     const updatedCompositePost = posts.find((post) => post.id === compositePost.id);
+    if (!updatedCompositePost) throw new Error('Post not found.');
 
-    if (updatedCompositePost) await updateRpClaimStrategy(compositePost);
+    // failed to to cross post
+    if (!skipPublishedCheck && !isPublishedPost(type, updatedCompositePost)) {
+        throw new Error('Post failed to publish.');
+    }
+
+    // update red packet claim strategy
+    await updateRpClaimStrategy(compositePost);
 }
