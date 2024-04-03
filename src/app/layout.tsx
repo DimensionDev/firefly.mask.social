@@ -42,10 +42,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </head>
             <body className={`${inter.variable} font-inter`}>
                 <Providers>
-                    <div
-                        className="l g:w-[1265px] m-auto flex min-h-screen
-                    w-full"
-                    >
+                    <div className="m-auto flex min-h-screen w-full lg:w-[1265px]">
                         {process.env.NODE_ENV !== 'development' ||
                         (process.env.NODE_ENV === 'development' &&
                             process.env.NEXT_PUBLIC_MASK_WEB_COMPONENTS === 'enabled') ? (
