@@ -5,7 +5,7 @@ import { t, Trans } from '@lingui/macro';
 import { delay } from '@masknet/kit';
 import { CrossIsolationMessages } from '@masknet/shared-base';
 import { $getSelection } from 'lexical';
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useMemo } from 'react';
 import { useAsyncFn } from 'react-use';
 
 import AtIcon from '@/assets/at.svg';
@@ -16,7 +16,7 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { Media } from '@/components/Compose/Media.js';
 import { PostBy } from '@/components/Compose/PostBy.js';
 import { ReplyRestriction } from '@/components/Compose/ReplyRestriction.js';
-import { ReplyRestrictionText } from '@/components/Compose/ReplyRestrictionText.jsx';
+import { ReplyRestrictionText } from '@/components/Compose/ReplyRestrictionText.js';
 import { SourceIcon } from '@/components/SourceIcon.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { MAX_CHAR_SIZE_PER_POST, MAX_POST_SIZE_PER_THREAD, SORTED_SOURCES } from '@/constants/index.js';
@@ -30,22 +30,20 @@ import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';
 import { PluginDebuggerMessages } from '@/mask/message-host/index.js';
 import { ComposeModalRef } from '@/modals/controls.js';
 import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
-import { RestrictionType } from '@/types/compose.js';
 
 interface ComposeActionProps {
     post: CompositePost;
 }
 
 export function ComposeAction(props: ComposeActionProps) {
-    const { id, chars, parentPost, images, video, availableSources } = props.post;
+    const { id, chars, parentPost, images, video, availableSources, restriction } = props.post;
 
-    const [restriction, setRestriction] = useState(RestrictionType.Everyone);
     const isMedium = useIsMedium();
 
     const currentProfileAll = useCurrentProfileAll();
     const profilesAll = useProfilesAll();
 
-    const { type, posts, addPostInThread } = useComposeStateStore();
+    const { type, posts, addPostInThread, updateRestriction } = useComposeStateStore();
 
     const { length, visibleLength, invisibleLength } = useMemo(() => measureChars(chars), [chars]);
 
@@ -242,7 +240,7 @@ export function ComposeAction(props: ComposeActionProps) {
                                 </span>
                                 <ChevronRightIcon className="h-5 w-5" aria-hidden="true" />
                             </Popover.Button>
-                            <ReplyRestriction restriction={restriction} setRestriction={setRestriction} />
+                            <ReplyRestriction restriction={restriction} setRestriction={updateRestriction} />
                         </>
                     )}
                 </Popover>

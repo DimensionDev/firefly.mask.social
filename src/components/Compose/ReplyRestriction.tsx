@@ -4,7 +4,7 @@ import { Fragment } from 'react';
 
 import RadioDisableNoIcon from '@/assets/radio.disable-no.svg';
 import YesIcon from '@/assets/yes.svg';
-import { ReplyRestrictionText } from '@/components/Compose/ReplyRestrictionText.jsx';
+import { ReplyRestrictionText } from '@/components/Compose/ReplyRestrictionText.js';
 import { classNames } from '@/helpers/classNames.js';
 import { useFarcasterStateStore } from '@/store/useProfileStore.js';
 import { RestrictionType } from '@/types/compose.js';
