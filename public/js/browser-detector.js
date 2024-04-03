@@ -37,11 +37,11 @@
                 browserTips.style.textAlign = 'center';
                 browserTips.style.fontSize = '12px';
                 browserTips.style.lineHeight = '18px';
-                browserTips.style.backgroundColor = '#8e96ff';
+                browserTips.style.background = '#8e96ff!important';
                 browserTips.innerHTML =
                     locale === 'zh-Hans'
-                        ? '请使用 <a target="_blank" rel="noreferrer noopener" href="https://www.google.com/chrome/" style="color: rgb(146, 80, 255); font-weight: 700;">Chrome</a> 或 <a target="_blank" rel="noreferrer noopener" href="https://firefly.land/#download" style="color: rgb(146, 80, 255); font-weight: 700;">下载</a>我们的APP浏览'
-                        : 'Please use <a target="_blank" rel="noreferrer noopener" href="https://www.google.com/chrome/" style="color: rgb(146, 80, 255); font-weight: 700;">Chrome</a> or <a target="_blank" rel="noreferrer noopener" href="https://firefly.land/#download" style="color: rgb(146, 80, 255); font-weight: 700;">download</a>our app to explore';
+                        ? '请使用 <a target="_blank" rel="noreferrer noopener" href="https://www.google.com/chrome/" style="color: rgb(146, 80, 255)!important; font-weight: 700;">Chrome</a> 或 <a target="_blank" rel="noreferrer noopener" href="https://firefly.land/#download" style="color: rgb(146, 80, 255); font-weight: 700;">下载</a> 我们的APP浏览'
+                        : 'Please use <a target="_blank" rel="noreferrer noopener" href="https://www.google.com/chrome/" style="color: rgb(146, 80, 255)!important; font-weight: 700;">Chrome</a> or <a target="_blank" rel="noreferrer noopener" href="https://firefly.land/#download" style="color: rgb(146, 80, 255); font-weight: 700;">download</a> our app to explore';
                 document.body.appendChild(browserTips);
             }
         } catch (error) {
