@@ -434,6 +434,7 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
 );
 
 export const useComposeStateStore = createSelectors(useComposeStateBase);
+
 export function useCompositePost() {
     const { posts, cursor } = useComposeStateStore();
 

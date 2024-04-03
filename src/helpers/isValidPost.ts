@@ -11,7 +11,7 @@ export function isValidPost({ availableSources, chars, images, video }: Composit
     if (!availableSources.length) return false;
 
     const { length, visibleLength } = measureChars(chars);
-    if (length > MAX_CHAR_SIZE_PER_POST)  return false
+    if (length > MAX_CHAR_SIZE_PER_POST) return false;
     if (!visibleLength && !images.length && !video) return false;
     return true;
 }
