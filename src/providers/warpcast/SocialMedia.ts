@@ -82,6 +82,16 @@ export class WarpcastSocialMedia implements Provider {
         );
     }
 
+    async getProfileByHandle(handle: string) {
+        const url = urlcat(WARPCAST_ROOT_URL, '/user-by-username', { username: handle });
+
+        const { result } = await farcasterClient.fetch<UserDetailResponse>(url, {
+            method: 'GET',
+        });
+
+        return formatWarpcastUser(result.user);
+    }
+
     async getPostsByProfileId(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         const url = urlcat(WARPCAST_ROOT_URL, '/casts', {
             fid: toFid(profileId),

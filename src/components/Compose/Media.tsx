@@ -7,7 +7,7 @@ import ImageIcon from '@/assets/image.svg';
 import VideoIcon from '@/assets/video.svg';
 import { SocialPlatform } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
-import { useComposeStateStore } from '@/store/useComposeStore.js';
+import { useComposeStateStore, useCompositePost } from '@/store/useComposeStore.js';
 import { useFarcasterStateStore } from '@/store/useProfileStore.js';
 
 interface MediaProps {
@@ -18,11 +18,8 @@ export function Media({ close }: MediaProps) {
     const videoInputRef = useRef<HTMLInputElement>(null);
 
     const currentFarcasterProfile = useFarcasterStateStore.use.currentProfile();
-    const {
-        compositePost: { availableSources, video, images },
-        updateVideo,
-        updateImages,
-    } = useComposeStateStore();
+    const { updateVideo, updateImages } = useComposeStateStore();
+    const { availableSources, video, images } = useCompositePost();
 
     const maxImageCount = currentFarcasterProfile && availableSources.includes(SocialPlatform.Farcaster) ? 2 : 4;
 

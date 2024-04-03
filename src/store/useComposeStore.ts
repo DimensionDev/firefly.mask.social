@@ -61,8 +61,6 @@ interface ComposeState {
 
     // tracking the current editable post
     cursor: Cursor;
-    // composite the current editable post
-    compositePost: CompositePost;
 
     // operations upon the thread
     addPostInThread: () => void;
@@ -151,45 +149,6 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
                 if (nextPosts.length === 0) return null;
 
                 return nextPosts[Math.max(0, index - 1)];
-            },
-        },
-
-        compositePost: {
-            get id() {
-                return pick(get(), (x) => x.id);
-            },
-            get availableSources() {
-                return pick(get(), (x) => x.availableSources);
-            },
-            get restriction() {
-                return pick(get(), (x) => x.restriction);
-            },
-            get chars() {
-                return pick(get(), (x) => x.chars);
-            },
-            get typedMessage() {
-                return pick(get(), (x) => x.typedMessage);
-            },
-            get images() {
-                return pick(get(), (x) => x.images);
-            },
-            get frames() {
-                return pick(get(), (x) => x.frames);
-            },
-            get openGraphs() {
-                return pick(get(), (x) => x.openGraphs);
-            },
-            get video() {
-                return pick(get(), (x) => x.video);
-            },
-            get rpPayload() {
-                return pick(get(), (x) => x.rpPayload);
-            },
-            get postId() {
-                return pick(get(), (x) => x.postId);
-            },
-            get parentPost() {
-                return pick(get(), (x) => x.parentPost);
             },
         },
 
@@ -475,3 +434,9 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
 );
 
 export const useComposeStateStore = createSelectors(useComposeStateBase);
+export function useCompositePost() {
+    const { posts, cursor } = useComposeStateStore();
+
+    const compositePost = posts.find((x) => x.id === cursor) || createInitSinglePostState(initialPostCursor);
+    return compositePost;
+}

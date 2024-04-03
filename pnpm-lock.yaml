@@ -966,10 +966,10 @@ importers:
         version: 5.8.7(patch_hash=ghd5fzm4bobwfiuhqbcqkq4bsy)
       '@tanstack/react-query-devtools':
         specifier: ^5.8.7
-        version: 5.8.7(@tanstack/react-query@5.28.9)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+        version: 5.8.7(@tanstack/react-query@5.8.7)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       '@tanstack/react-query-persist-client':
         specifier: ^5.8.7
-        version: 5.8.7(@tanstack/react-query@5.28.9)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+        version: 5.8.7(@tanstack/react-query@5.8.7)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       '@types/elliptic':
         specifier: ^6.4.14
         version: 6.4.14
@@ -2909,7 +2909,7 @@ importers:
         version: 23.1.0(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       '@tanstack/react-query-devtools':
         specifier: ^5.8.7
-        version: 5.8.7(@tanstack/react-query@5.28.9)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+        version: 5.8.7(@tanstack/react-query@5.8.7)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       '@types/d3':
         specifier: 5.16.4
         version: 5.16.4
@@ -10577,7 +10577,7 @@ packages:
     dependencies:
       '@metaplex-foundation/mpl-core': 0.0.2
       '@solana/spl-token': 0.1.8
-      '@solana/web3.js': 1.91.2
+      '@solana/web3.js': 1.75.0
     transitivePeerDependencies:
       - bufferutil
       - encoding
@@ -10604,7 +10604,7 @@ packages:
       '@metaplex-foundation/mpl-token-metadata': 0.0.2
       '@metaplex-foundation/mpl-token-vault': 0.0.2
       '@solana/spl-token': 0.1.8
-      '@solana/web3.js': 1.91.2
+      '@solana/web3.js': 1.75.0
     transitivePeerDependencies:
       - bufferutil
       - encoding
@@ -10616,7 +10616,7 @@ packages:
     dependencies:
       '@metaplex-foundation/mpl-core': 0.0.2
       '@solana/spl-token': 0.1.8
-      '@solana/web3.js': 1.91.2
+      '@solana/web3.js': 1.75.0
     transitivePeerDependencies:
       - bufferutil
       - encoding
@@ -10640,7 +10640,7 @@ packages:
     dependencies:
       '@metaplex-foundation/mpl-core': 0.0.2
       '@solana/spl-token': 0.1.8
-      '@solana/web3.js': 1.91.2
+      '@solana/web3.js': 1.75.0
     transitivePeerDependencies:
       - bufferutil
       - encoding
@@ -14195,10 +14195,6 @@ packages:
     resolution: {integrity: sha512-DJSilV5+ytBP1FbFcEJovv4rnnm/CokuVvrBEtW/Va9DvuJ3HksbXUJEpI0aV1KtuL4ZoO9AVE6PyNLzF7tLeA==}
     dev: false
 
-  /@tanstack/query-core@5.28.9:
-    resolution: {integrity: sha512-hNlfCiqZevr3GRVPXS3MhaGW5hjcxvCsIQ4q6ff7EPlvFwYZaS+0d9EIIgofnegDaU2BbCDlyURoYfRl5rmzow==}
-    dev: false
-
   /@tanstack/query-core@5.8.7:
     resolution: {integrity: sha512-58xOSkxxZK4SGQ/uzX8MDZHLGZCkxlgkPxnfhxUOL2uchnNHyay2UVcR3mQNMgaMwH1e2l+0n+zfS7+UJ/MAJw==}
     dev: false
@@ -14229,24 +14225,6 @@ packages:
     resolution: {integrity: sha512-yMEt5hWe2+1eclf1agMtXHnPIkxEida0lYWkfdhR8U6KXk/lO4Vca6piJmhKI85t0NHlx3l/z6zX+t/Fn5O9NA==}
     dependencies:
       '@tanstack/query-persist-client-core': 4.36.1
-    dev: false
-
-  /@tanstack/react-query-devtools@5.8.7(@tanstack/react-query@5.28.9)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026):
-    resolution: {integrity: sha512-pu05YQ7k/1eyMlZTE5OpZt+ibvkZ3vT0hrzmHnRXOV2tfqDIlkvInczbXkVUdel8OLy6t21B6x3IXUNpqAyTJQ==}
-    peerDependencies:
-      '@tanstack/react-query': ^5.8.7
-      react: 0.0.0-experimental-8039e6d0b-20231026 || 0.0.0-experimental-0a360642d-20230711
-      react-dom: 0.0.0-experimental-8039e6d0b-20231026 || 0.0.0-experimental-0a360642d-20230711
-    peerDependenciesMeta:
-      react:
-        optional: true
-      react-dom:
-        optional: true
-    dependencies:
-      '@tanstack/query-devtools': 5.8.4
-      '@tanstack/react-query': 5.28.9(react@0.0.0-experimental-8039e6d0b-20231026)
-      react: 0.0.0-experimental-8039e6d0b-20231026
-      react-dom: 0.0.0-experimental-8039e6d0b-20231026(react@0.0.0-experimental-8039e6d0b-20231026)
     dev: false
 
   /@tanstack/react-query-devtools@5.8.7(@tanstack/react-query@5.8.7)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026):
@@ -14304,7 +14282,7 @@ packages:
       '@tanstack/react-query': 4.36.1(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
     dev: false
 
-  /@tanstack/react-query-persist-client@5.8.7(@tanstack/react-query@5.28.9)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026):
+  /@tanstack/react-query-persist-client@5.8.7(@tanstack/react-query@5.8.7)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026):
     resolution: {integrity: sha512-KTXpqAiDjW4ioCpoTP4ehLP2ktmVwguMm1rn9BxQGmxGKJZMJ7dt8SZupT6DRw/Wgnr3HfoQ+HiZGUfNoDyxYg==}
     peerDependencies:
       '@tanstack/react-query': ^5.8.7
@@ -14317,7 +14295,7 @@ packages:
         optional: true
     dependencies:
       '@tanstack/query-persist-client-core': 5.8.7
-      '@tanstack/react-query': 5.28.9(react@0.0.0-experimental-8039e6d0b-20231026)
+      '@tanstack/react-query': 5.8.7(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       react: 0.0.0-experimental-8039e6d0b-20231026
       react-dom: 0.0.0-experimental-8039e6d0b-20231026(react@0.0.0-experimental-8039e6d0b-20231026)
     dev: false
@@ -14360,18 +14338,6 @@ packages:
       react: 0.0.0-experimental-8039e6d0b-20231026
       react-dom: 0.0.0-experimental-8039e6d0b-20231026(react@0.0.0-experimental-8039e6d0b-20231026)
       use-sync-external-store: 1.2.0(react@0.0.0-experimental-8039e6d0b-20231026)
-    dev: false
-
-  /@tanstack/react-query@5.28.9(react@0.0.0-experimental-8039e6d0b-20231026):
-    resolution: {integrity: sha512-vwifBkGXsydsLxFOBMe3+f8kvtDoqDRDwUNjPHVDDt+FoBetCbOWAUHgZn4k+CVeZgLmy7bx6aKeDbe3e8koOQ==}
-    peerDependencies:
-      react: 0.0.0-experimental-8039e6d0b-20231026 || 0.0.0-experimental-0a360642d-20230711
-    peerDependenciesMeta:
-      react:
-        optional: true
-    dependencies:
-      '@tanstack/query-core': 5.28.9
-      react: 0.0.0-experimental-8039e6d0b-20231026
     dev: false
 
   /@tanstack/react-query@5.8.7(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026):

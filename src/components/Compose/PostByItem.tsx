@@ -19,7 +19,7 @@ import { useProfiles } from '@/hooks/useProfiles.js';
 import { ComposeModalRef, LoginModalRef } from '@/modals/controls.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
-import { useComposeStateStore } from '@/store/useComposeStore.js';
+import { useComposeStateStore, useCompositePost } from '@/store/useComposeStore.js';
 import { useLensStateStore } from '@/store/useProfileStore.js';
 
 interface PostByItemProps {
@@ -32,11 +32,8 @@ export function PostByItem({ source }: PostByItemProps) {
 
     const updateLensCurrentProfile = useLensStateStore.use.updateCurrentProfile();
 
-    const {
-        compositePost: { images, availableSources },
-        enableSource,
-        disableSource,
-    } = useComposeStateStore();
+    const { enableSource, disableSource } = useComposeStateStore();
+    const { images, availableSources } = useCompositePost();
 
     const [{ loading }, loginLens] = useAsyncFn(
         async (profile: Profile) => {
