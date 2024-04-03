@@ -3,7 +3,7 @@ import { first } from 'lodash-es';
 
 import type { SocialPlatform } from '@/constants/enum.js';
 import { SORTED_SOURCES } from '@/constants/index.js';
-import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
+import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { crossPost } from '@/services/crossPost.js';
 import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
@@ -28,9 +28,10 @@ async function recompositePost(index: number, post: CompositePost, rootPost: Com
 
     SORTED_SOURCES.forEach((source) => {
         const parentPostId = previousPost.postId[source];
+        const provider = resolveSocialMediaProvider(source);
 
-        if (availableSources.includes(source) && parentPostId && !post.parentPost[source]) {
-            all.push(FarcasterSocialMediaProvider.getPostById(parentPostId));
+        if (availableSources.includes(source) && parentPostId && !post.parentPost[source] && provider) {
+            all.push(provider.getPostById(parentPostId));
         } else {
             all.push(Promise.resolve(null));
         }
