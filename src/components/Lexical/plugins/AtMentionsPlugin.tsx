@@ -18,7 +18,7 @@ import { EMPTY_LIST, SORTED_SOURCES } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfileAll.js';
-import { useComposeStateStore } from '@/store/useComposeStore.js';
+import { useCompositePost } from '@/store/useComposeStore.js';
 
 const PUNCTUATION = '\\.,\\+\\*\\?\\$\\@\\|#{}\\(\\)\\^\\-\\[\\]\\\\/!%\'"~=<>_:;';
 const NAME = `\\b[A-Z][^\\s${PUNCTUATION}]`;
@@ -131,7 +131,7 @@ const MentionsTypeaheadMenuItem = memo<MentionsTypeaheadMenuItemProps>(function 
 export function MentionsPlugin(): JSX.Element | null {
     const currentProfileAll = useCurrentProfileAll();
 
-    const { availableSources } = useComposeStateStore.use.compositePost();
+    const { availableSources } = useCompositePost();
 
     const [queryString, setQueryString] = useState<string | null>(null);
     const [editor] = useLexicalComposerContext();

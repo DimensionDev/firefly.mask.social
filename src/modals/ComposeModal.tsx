@@ -42,7 +42,7 @@ import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';
 import { ComposeModalRef, ConfirmModalRef } from '@/modals/controls.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { steganographyEncodeImage } from '@/services/steganography.js';
-import { useComposeStateStore } from '@/store/useComposeStore.js';
+import { useComposeStateStore, useCompositePost } from '@/store/useComposeStore.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import type { ComposeType } from '@/types/compose.js';
 
@@ -84,7 +84,6 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
         const {
             type,
             posts,
-            compositePost,
             addImage,
             updateType,
             updateAvailableSources,
@@ -94,6 +93,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
             updateRpPayload,
             clear,
         } = useComposeStateStore();
+        const compositePost = useCompositePost();
 
         const { typedMessage, rpPayload: rpPayload } = compositePost;
 
