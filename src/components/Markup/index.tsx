@@ -17,8 +17,11 @@ const trimify = (value: string): string => value?.replace(/\n\n\s*\n/g, '\n\n').
 const plugins = [
     [stripMarkdown, { keep: ['strong', 'emphasis', 'inlineCode'] }],
     remarkBreaks,
-    linkifyRegex(URL_REGEX),
+    // Make sure Mention plugin is before url plugin, to avoid matching
+    // mentioned ens handle as url. For example, @vitalik.eth should be treat
+    // as a mention rather than link
     linkifyRegex(MENTION_REGEX),
+    linkifyRegex(URL_REGEX),
     linkifyRegex(HASHTAG_REGEX),
 ];
 

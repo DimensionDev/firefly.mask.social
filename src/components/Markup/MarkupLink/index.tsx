@@ -56,7 +56,15 @@ export const MarkupLink = memo<MarkupLinkProps>(function MarkupLink({ title, pos
 
     if (title.startsWith('#')) return <Hashtag title={title} />;
 
-    if (isValidDomain(title)) return title;
+    if (isValidDomain(title)) {
+        const profile = post?.mentions?.find((x) => x.handle === title);
+        if (profile) {
+            const link = getProfileUrl(profile);
+            return <MentionLink handle={profile.handle} link={link} />;
+        }
+
+        return title;
+    }
 
     if (BIO_TWITTER_PROFILE_REGEX.test(title)) {
         const match = title.match(BIO_TWITTER_PROFILE_REGEX);
