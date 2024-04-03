@@ -150,7 +150,7 @@ export const Mirror = memo<MirrorProps>(function Mirror({
                     <Menu.Button
                         disabled={disabled}
                         as={motion.button}
-                        className="flex items-center space-x-2 text-main hover:text-secondarySuccess"
+                        className="flex items-center text-main hover:text-secondarySuccess md:space-x-2"
                         whileTap={{ scale: 0.9 }}
                         onClick={async (event) => {
                             if (open) {
@@ -215,7 +215,7 @@ export const Mirror = memo<MirrorProps>(function Mirror({
                                 <Menu.Item>
                                     {({ close }) => (
                                         <ClickableButton
-                                            className={classNames('flex cursor-pointer items-center space-x-2', {
+                                            className={classNames('flex cursor-pointer items-center md:space-x-2', {
                                                 'text-secondarySuccess': !!mirrored,
                                             })}
                                             onClick={() => {
@@ -231,7 +231,7 @@ export const Mirror = memo<MirrorProps>(function Mirror({
                                 {source === SocialPlatform.Lens ? (
                                     <Menu.Item>
                                         <ClickableButton
-                                            className="flex cursor-pointer items-center space-x-2"
+                                            className="flex cursor-pointer items-center md:space-x-2"
                                             onClick={() => {
                                                 close();
                                                 ComposeModalRef.open({

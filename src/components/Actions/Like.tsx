@@ -73,9 +73,8 @@ export const Like = memo<LikeProps>(function Like({ count, hasLiked, postId, aut
 
     return (
         <ClickableArea
-            className={classNames('flex cursor-pointer items-center space-x-2 text-main hover:text-danger', {
-                'font-bold': !!liked,
-                'text-danger': !!liked,
+            className={classNames('flex cursor-pointer items-center text-main hover:text-danger md:space-x-2', {
+                'font-bold text-danger': !!liked,
                 'opacity-50': disabled,
             })}
             onClick={() => {
@@ -101,8 +100,7 @@ export const Like = memo<LikeProps>(function Like({ count, hasLiked, postId, aut
             {realCount ? (
                 <span
                     className={classNames('text-xs', {
-                        'font-bold': !!liked,
-                        'text-danger': !!liked,
+                        'font-bold text-danger': !!liked,
                     })}
                 >
                     {nFormatter(realCount)}
