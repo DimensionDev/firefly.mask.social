@@ -82,10 +82,10 @@ interface ComposeState {
     updateParentPost: (source: SocialPlatform, parentPost: Post, cursor?: Cursor) => void;
     updateRestriction: (restriction: RestrictionType, cursor?: Cursor) => void;
     updateAvailableSources: (sources: SocialPlatform[], cursor?: Cursor) => void;
-    updateChars: (charsOrUpdator: SetStateAction<Chars>, cursor?: Cursor) => void;
+    updateChars: (charsOrUpdater: SetStateAction<Chars>, cursor?: Cursor) => void;
     updateTypedMessage: (typedMessage: TypedMessageTextV1 | null, cursor?: Cursor) => void;
     updateVideo: (video: MediaObject | null, cursor?: Cursor) => void;
-    updateImages: (imagesOrUpdator: SetStateAction<MediaObject[]>, cursor?: Cursor) => void;
+    updateImages: (imagesOrUpdater: SetStateAction<MediaObject[]>, cursor?: Cursor) => void;
     addImage: (image: MediaObject, cursor?: Cursor) => void;
     removeImage: (image: MediaObject, cursor?: Cursor) => void;
     addFrame: (frame: Frame, cursor?: Cursor) => void;
@@ -311,13 +311,13 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
                     cursor,
                 ),
             ),
-        updateChars: (charsOrUpdator, cursor) =>
+        updateChars: (charsOrUpdater, cursor) =>
             set((state) =>
                 next(
                     state,
                     (post) => ({
                         ...post,
-                        chars: typeof charsOrUpdator === 'function' ? charsOrUpdator(post.chars) : charsOrUpdator,
+                        chars: typeof charsOrUpdater === 'function' ? charsOrUpdater(post.chars) : charsOrUpdater,
                     }),
                     cursor,
                 ),
@@ -333,13 +333,13 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
                     cursor,
                 ),
             ),
-        updateImages: (imagesOrUpdator, cursor) =>
+        updateImages: (imagesOrUpdater, cursor) =>
             set((state) =>
                 next(
                     state,
                     (post) => ({
                         ...post,
-                        images: typeof imagesOrUpdator === 'function' ? imagesOrUpdator(post.images) : imagesOrUpdator,
+                        images: typeof imagesOrUpdater === 'function' ? imagesOrUpdater(post.images) : imagesOrUpdater,
                     }),
                     cursor,
                 ),
