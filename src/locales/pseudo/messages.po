@@ -88,6 +88,9 @@ msgstr ""
 msgid "Wrong wallet"
 msgstr ""
 
+msgid "Transaction button is not available yet."
+msgstr ""
+
 msgid "Debug Console"
 msgstr ""
 

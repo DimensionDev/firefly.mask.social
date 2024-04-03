@@ -200,6 +200,9 @@ export function Frame({ postId, url, onData, children }: FrameProps) {
                     case ActionType.Mint:
                         enqueueMessage(t`Mint button is not available yet.`);
                         break;
+                    case ActionType.Transaction:
+                        enqueueMessage(t`Transaction button is not available yet.`);
+                        break;
                     default:
                         safeUnreachable(action);
                         break;
