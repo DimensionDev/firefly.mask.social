@@ -23,6 +23,9 @@ export async function postToFarcaster(type: ComposeType, compositePost: Composit
     // already posted to lens
     if (farcasterPostId) throw new Error(t`Post already posted on Farcaster`);
 
+    // no parent post to reply or quote
+    if (!farcasterParentPost && type !== 'compose') throw new Error(t`No parent post found.`);
+
     // login required
     const { currentProfile } = useFarcasterStateStore.getState();
     if (!currentProfile?.profileId) throw new Error(t`Login required to post on Lens.`);
@@ -105,8 +108,7 @@ export async function postToFarcaster(type: ComposeType, compositePost: Composit
 
     if (type === 'quote') {
         try {
-            if (!farcasterParentPost?.postId) throw new Error(t`No parent post to quote.`);
-            const postId = await FarcasterSocialMediaProvider.mirrorPost(farcasterParentPost.postId);
+            const postId = await FarcasterSocialMediaProvider.mirrorPost(farcasterParentPost!.postId);
             return postId;
         } catch (error) {
             enqueueErrorMessage(t`Failed to mirror post on Farcaster.`);
