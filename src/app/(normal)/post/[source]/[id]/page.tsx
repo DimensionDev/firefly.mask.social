@@ -1,14 +1,13 @@
 'use client';
 
-import urlcat from 'urlcat';
 import { t, Trans } from '@lingui/macro';
 import { useSuspenseQuery } from '@tanstack/react-query';
+import { last } from 'lodash-es';
 import { useRouter } from 'next/navigation.js';
 import type React from 'react';
 import { useMemo, useState } from 'react';
+import urlcat from 'urlcat';
 import { useDocumentTitle } from 'usehooks-ts';
-import { useAsync } from 'react-use';
-import { first, last } from 'lodash-es';
 
 import ComeBack from '@/assets/comeback.svg';
 import { CommentList } from '@/components/Comments/index.js';
@@ -21,9 +20,9 @@ import { createPageTitle } from '@/helpers/createPageTitle.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSocialPlatform } from '@/helpers/resolveSocialPlatform.js';
 import { useUpdateCurrentVisitingPost } from '@/hooks/useCurrentVisitingPost.js';
+import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { getPostById } from '@/services/getPostById.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
-import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 
 const PostActions = dynamic(() => import('@/components/Actions/index.js').then((module) => module.PostActions), {
     ssr: false,

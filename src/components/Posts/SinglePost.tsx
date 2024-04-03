@@ -9,12 +9,12 @@ import { useInView } from 'react-cool-inview';
 import { FeedActionType } from '@/components/Posts/ActionType.js';
 import { PostBody } from '@/components/Posts/PostBody.js';
 import { PostHeader } from '@/components/Posts/PostHeader.js';
+import { SocialPlatform } from '@/constants/enum.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { useObserveLensPost } from '@/hooks/useObserveLensPost.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
-import { SocialPlatform } from '@/constants/enum.js';
 
 const PostActions = dynamic(() => import('@/components/Actions/index.js').then((module) => module.PostActions), {
     ssr: false,
