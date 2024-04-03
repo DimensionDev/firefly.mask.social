@@ -3,6 +3,15 @@
 # Change to the submodule directory
 cd src/maskbook
 
+pnpm install
+
+# Run Gulp tasks for polyfill and code generation
+npx gulp codegen
+npx gulp polyfill
+
+# Build TypeScript code
+npx tsc -b
+
 # Remove unused folders
 rm -rf packages/mask/popups
 rm -rf packages/mask/dashboard
@@ -40,15 +49,6 @@ rm -rf packages/plugins/Transak
 rm -rf packages/plugins/VCent
 rm -rf packages/plugins/Web3Profile
 rm -rf packages/plugins/template
-
-pnpm install
-
-# Run Gulp tasks for polyfill and code generation
-npx gulp polyfill
-npx gulp codegen
-
-# Build TypeScript code
-npx tsc -b
 
 # Return to the original directory
 cd -
