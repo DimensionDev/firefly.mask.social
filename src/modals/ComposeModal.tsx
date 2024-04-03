@@ -223,7 +223,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
                     </Dialog.Title>
 
                     <div className=" flex flex-1 flex-col overflow-auto px-4 pb-4">
-                        <div className="flex flex-1 flex-col overflow-auto rounded-lg border border-secondaryLine bg-bg px-4 py-[14px] sm:min-h-[300px] md:max-h-[500px] md:min-h-[338px]">
+                        <div className="flex min-h-[300px] flex-1 flex-col overflow-auto rounded-lg border border-secondaryLine bg-bg px-4 py-[14px] md:max-h-[500px] md:min-h-[338px]">
                             {posts.length === 1 ? <ComposeContent post={compositePost} /> : <ComposeThreadContent />}
                         </div>
                     </div>
