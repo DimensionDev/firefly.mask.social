@@ -39,6 +39,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 <Polyfills />
                 <Script src="https://cdn.jsdelivr.net/npm/bowser@2.11.0/es5.min.js" />
                 <Script src="/js/browser-detector.js" defer />
+                <Script src="//cdn.bootcdn.net/ajax/libs/eruda/2.3.3/eruda.js" />
+                <Script
+                    dangerouslySetInnerHTML={{
+                        __html: 'eruda.init();',
+                    }}
+                />
             </head>
             <body className={`${inter.variable} font-inter`}>
                 <Providers>
