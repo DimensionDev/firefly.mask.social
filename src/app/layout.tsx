@@ -1,6 +1,6 @@
 import '@/app/globals.css';
-import { SpeedInsights } from '@vercel/speed-insights/next';
 
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import { Inter } from 'next/font/google';
 import { ScrollRestorer } from 'next-scroll-restorer';
 import { lazy } from 'react';
