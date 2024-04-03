@@ -18,7 +18,7 @@ const plugins = [
     [stripMarkdown, { keep: ['strong', 'emphasis', 'inlineCode'] }],
     remarkBreaks,
     // Make sure Mention plugin is before url plugin, to avoid matching
-    // mentioned ens handle as url. For example, @vitalik.eth should be treat
+    // mentioned ens handle as url. For example, @mask.eth should be treat
     // as a mention rather than link
     linkifyRegex(MENTION_REGEX),
     linkifyRegex(URL_REGEX),
