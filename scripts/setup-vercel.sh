@@ -3,6 +3,14 @@
 # Change to the submodule directory
 cd src/maskbook
 
+# Remove unused folders
+rm -rf packages/mask/popups
+rm -rf packages/mask/dashboard
+rm -rf packages/mask/background
+rm -rf packages/mask/swap
+rm -rf packages/backup-format/
+
+
 pnpm install
 
 # Run Gulp tasks for polyfill and code generation
