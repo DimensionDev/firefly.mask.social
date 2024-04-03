@@ -1,13 +1,11 @@
 'use client';
 
 import { i18n } from '@lingui/core';
-import { Trans } from '@lingui/macro';
 import { I18nProvider } from '@lingui/react';
 import { LivepeerConfig } from '@livepeer/react';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { ReactQueryStreamedHydration } from '@tanstack/react-query-next-experimental';
-import Bowser from 'bowser';
 import { SnackbarProvider } from 'notistack';
 import { useEffect, useMemo } from 'react';
 import { useEffectOnce } from 'react-use';
@@ -60,27 +58,6 @@ export function Providers(props: { children: React.ReactNode }) {
         }
     });
 
-    const isValidBrowser = useMemo(() => {
-        if (!navigator) return;
-
-        const browser = Bowser.getParser(navigator.userAgent);
-        return browser.satisfies({
-            macos: {
-                safari: '>=16',
-            },
-            mobile: {
-                safari: '>=16',
-                'android browser': '>103',
-            },
-
-            // or in general
-            chrome: '>=103',
-            firefox: '>=100',
-            opera: '>=89',
-            edge: '>=103',
-        });
-    }, []);
-
     const mounted = useMounted();
     if (!mounted) return null;
 
@@ -101,32 +78,7 @@ export function Providers(props: { children: React.ReactNode }) {
                             {/* wagmi depends @tanstack/react-query@4.29.23 */}
                             <WagmiProvider>
                                 {/* livepeer depends @tanstack/react-query@4.36.1 */}
-                                <LivepeerConfig client={livepeerClient}>
-                                    {!isValidBrowser ? (
-                                        <div className="browser-tips lg:hidden">
-                                            <Trans>
-                                                Please use{' '}
-                                                <Link
-                                                    target="_blank"
-                                                    rel="noreferrer noopener"
-                                                    href="https://www.google.com/chrome/"
-                                                >
-                                                    Chrome
-                                                </Link>
-                                                or
-                                                <Link
-                                                    href="https://firefly.land/#download"
-                                                    target="_blank"
-                                                    rel="noreferrer noopener"
-                                                >
-                                                    download
-                                                </Link>
-                                                our app to explore
-                                            </Trans>
-                                        </div>
-                                    ) : null}
-                                    {props.children}
-                                </LivepeerConfig>
+                                <LivepeerConfig client={livepeerClient}>{props.children}</LivepeerConfig>
                             </WagmiProvider>
                         </SnackbarProvider>
                     </DarkModeContext.Provider>

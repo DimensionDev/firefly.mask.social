@@ -5,6 +5,8 @@ import { Inter } from 'next/font/google';
 import { ScrollRestorer } from 'next-scroll-restorer';
 import { lazy } from 'react';
 
+import { Script } from '@/esm/Script.js';
+
 import { BeforeUnload } from '@/components/Compose/BeforeUnload.js';
 import { GA } from '@/components/GA.js';
 import { Polyfills } from '@/components/Polyfills.js';
@@ -36,10 +38,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <html>
             <head>
                 <Polyfills />
+                <Script src="https://cdn.jsdelivr.net/npm/bowser@2.11.0/es5.min.js" />
+                <Script src="/js/browser-detector.js" defer />
             </head>
             <body className={`${inter.variable} font-inter`}>
                 <Providers>
-                    <div className="m-auto flex min-h-screen w-full lg:w-[1265px]">
+                    <div
+                        className="l g:w-[1265px] m-auto flex min-h-screen
+                    w-full"
+                    >
                         {process.env.NODE_ENV !== 'development' ||
                         (process.env.NODE_ENV === 'development' &&
                             process.env.NEXT_PUBLIC_MASK_WEB_COMPONENTS === 'enabled') ? (

@@ -191,9 +191,6 @@ importers:
       autoprefixer:
         specifier: 10.4.16
         version: 10.4.16(postcss@8.4.30)
-      bowser:
-        specifier: ^2.11.0
-        version: 2.11.0
       canonicalize:
         specifier: ^2.0.0
         version: 2.0.0
@@ -36232,7 +36229,6 @@ time:
   /bip39@3.1.0: '2023-02-25T05:36:52.236Z'
   /bn.js@4.12.0: '2021-02-24T07:16:47.735Z'
   /boring-avatars@1.6.3: '2022-02-20T17:50:27.695Z'
-  /bowser@2.11.0: '2020-09-12T08:25:10.987Z'
   /bs58@5.0.0: '2022-02-17T13:19:37.346Z'
   /buffer@6.0.3: '2020-11-23T02:51:27.107Z'
   /canonicalize@2.0.0: '2023-04-02T19:45:23.742Z'
