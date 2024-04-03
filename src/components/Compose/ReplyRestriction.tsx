@@ -53,14 +53,15 @@ export function ReplyRestriction({ restriction, setRestriction }: ReplyRestricti
         >
             <Popover.Panel className="absolute bottom-full right-0 flex w-[320px] -translate-y-3 flex-col gap-2 rounded-lg bg-bgModal p-3 text-[15px] shadow-popover dark:border dark:border-line dark:shadow-none">
                 {items.map(({ type, disabled }) => (
-                    <>
+                    <Fragment key={type}>
                         <div
                             className={classNames(
                                 ' flex h-[22px] items-center justify-between',
                                 disabled ? ' cursor-no-drop' : ' cursor-pointer',
                             )}
-                            key={type}
-                            onClick={() => setRestriction(type)}
+                            onClick={() => {
+                                if (!disabled) setRestriction(type);
+                            }}
                         >
                             <span
                                 className={classNames(' font-bold text-main', {
@@ -76,7 +77,7 @@ export function ReplyRestriction({ restriction, setRestriction }: ReplyRestricti
                             )}
                         </div>
                         {type !== last(items)?.type && <div className=" h-px bg-line" />}
-                    </>
+                    </Fragment>
                 ))}
             </Popover.Panel>
         </Transition>
