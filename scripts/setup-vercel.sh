@@ -6,52 +6,52 @@ cd src/maskbook
 pnpm install
 
 # Run Gulp tasks for polyfill and code generation
-npx gulp codegen
 npx gulp polyfill
+npx gulp codegen
 
 # Build TypeScript code
 npx tsc -b
 
-# Remove unused folders
-rm -rf packages/mask/popups
-rm -rf packages/mask/dashboard
-rm -rf packages/mask/background
-rm -rf packages/mask/swap
-rm -rf packages/backup-format/
-rm -rf packages/gun-utils/
-
-# Remove unused plugins
-rm -rf packages/plugins/Approval
-rm -rf packages/plugins/ArtBlocks
-rm -rf packages/plugins/Avatar
-rm -rf packages/plugins/Claim
-rm -rf packages/plugins/Collectible
-rm -rf packages/plugins/CrossChainBridge
-rm -rf packages/plugins/CyberConnect
-rm -rf packages/plugins/FileService
-rm -rf packages/plugins/FriendTech
-rm -rf packages/plugins/Gitcoin
-rm -rf packages/plugins/GoPlusSecurity
-rm -rf packages/plugins/Handle
-rm -rf packages/plugins/MaskBox
-rm -rf packages/plugins/NextID
-rm -rf packages/plugins/Pets
-rm -rf packages/plugins/ProfileCard
-rm -rf packages/plugins/RSS3
-rm -rf packages/plugins/Savings
-rm -rf packages/plugins/ScamSniffer
-rm -rf packages/plugins/ScamWarning
-rm -rf packages/plugins/SmartPay
-rm -rf packages/plugins/SwitchLogo
-rm -rf packages/plugins/Tips
-rm -rf packages/plugins/Trader
-rm -rf packages/plugins/Transak
-rm -rf packages/plugins/VCent
-rm -rf packages/plugins/Web3Profile
-rm -rf packages/plugins/template
-
 # Return to the original directory
 cd -
+
+# Remove unused folders
+rm -rf ./src/maskbook/packages/mask/popups
+rm -rf ./src/maskbook/packages/mask/dashboard
+rm -rf ./src/maskbook/packages/mask/background
+rm -rf ./src/maskbook/packages/mask/swap
+rm -rf ./src/maskbook/packages/backup-format/
+rm -rf ./src/maskbook/packages/gun-utils/
+
+# Remove unused plugins
+rm -rf src/maskbook/packages/plugins/Approval
+rm -rf src/maskbook/packages/plugins/ArtBlocks
+rm -rf src/maskbook/packages/plugins/Avatar
+rm -rf src/maskbook/packages/plugins/Claim
+rm -rf src/maskbook/packages/plugins/Collectible
+rm -rf src/maskbook/packages/plugins/CrossChainBridge
+rm -rf src/maskbook/packages/plugins/CyberConnect
+rm -rf src/maskbook/packages/plugins/FileService
+rm -rf src/maskbook/packages/plugins/FriendTech
+rm -rf src/maskbook/packages/plugins/Gitcoin
+rm -rf src/maskbook/packages/plugins/GoPlusSecurity
+rm -rf src/maskbook/packages/plugins/Handle
+rm -rf src/maskbook/packages/plugins/MaskBox
+rm -rf src/maskbook/packages/plugins/NextID
+rm -rf src/maskbook/packages/plugins/Pets
+rm -rf src/maskbook/packages/plugins/ProfileCard
+rm -rf src/maskbook/packages/plugins/RSS3
+rm -rf src/maskbook/packages/plugins/Savings
+rm -rf src/maskbook/packages/plugins/ScamSniffer
+rm -rf src/maskbook/packages/plugins/ScamWarning
+rm -rf src/maskbook/packages/plugins/SmartPay
+rm -rf src/maskbook/packages/plugins/SwitchLogo
+rm -rf src/maskbook/packages/plugins/Tips
+rm -rf src/maskbook/packages/plugins/Trader
+rm -rf src/maskbook/packages/plugins/Transak
+rm -rf src/maskbook/packages/plugins/VCent
+rm -rf src/maskbook/packages/plugins/Web3Profile
+rm -rf src/maskbook/packages/plugins/template
 
 # Create symbolic links for packages
 # It makes maskbook repo to share the same packages with the primary repo
