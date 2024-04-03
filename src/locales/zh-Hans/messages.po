@@ -576,6 +576,9 @@ msgstr "你已经滑到底部啦～"
 msgid "The root post not found."
 msgstr ""
 
+msgid "Please use <0>Chrome</0>or<1>download</1>our app to explore"
+msgstr ""
+
 msgid "Failed to mirror post."
 msgstr "转发失败"
 

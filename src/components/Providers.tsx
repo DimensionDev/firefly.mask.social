@@ -103,11 +103,10 @@ export function Providers(props: { children: React.ReactNode }) {
                                 {/* livepeer depends @tanstack/react-query@4.36.1 */}
                                 <LivepeerConfig client={livepeerClient}>
                                     {!isValidBrowser ? (
-                                        <div className="fixed left-0 top-0 z-[9999] flex w-full justify-center bg-[#8E96FF] py-[10px] text-[15px] leading-[24px] lg:hidden">
+                                        <div className="browser-tips lg:hidden">
                                             <Trans>
                                                 Please use{' '}
                                                 <Link
-                                                    className="mx-1 font-bold text-[#9250FF]"
                                                     target="_blank"
                                                     rel="noreferrer noopener"
                                                     href="https://www.google.com/chrome/"
@@ -116,7 +115,6 @@ export function Providers(props: { children: React.ReactNode }) {
                                                 </Link>
                                                 or
                                                 <Link
-                                                    className="mx-1 font-bold text-[#9250FF]"
                                                     href="https://firefly.land/#download"
                                                     target="_blank"
                                                     rel="noreferrer noopener"

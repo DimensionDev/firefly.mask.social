@@ -571,6 +571,9 @@ msgstr "You've hit rock bottom."
 msgid "The root post not found."
 msgstr "The root post not found."
 
+msgid "Please use <0>Chrome</0>or<1>download</1>our app to explore"
+msgstr "Please use <0>Chrome</0>or<1>download</1>our app to explore"
+
 msgid "Failed to mirror post."
 msgstr "Failed to mirror post."
 

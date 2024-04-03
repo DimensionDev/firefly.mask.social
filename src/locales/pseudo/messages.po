@@ -571,6 +571,9 @@ msgstr ""
 msgid "The root post not found."
 msgstr ""
 
+msgid "Please use <0>Chrome</0>or<1>download</1>our app to explore"
+msgstr ""
+
 msgid "Failed to mirror post."
 msgstr ""
 
