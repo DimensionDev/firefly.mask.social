@@ -1,5 +1,7 @@
+import { first } from 'lodash-es';
+
 import { MENTION_REGEX } from '@/constants/regex.js';
-import { WarpcastSocialMediaProvider } from '@/providers/warpcast/SocialMedia.js';
+import { NeynarSocialMediaProvider } from '@/providers/neynar/SocialMedia.js';
 
 export async function getAllMentionsForFarcaster(text: string) {
     const replacedIndices = [];
@@ -18,8 +20,9 @@ export async function getAllMentionsForFarcaster(text: string) {
             if (match[0]) {
                 mentionTag = match[0].substring(1);
             }
-            const profile = await WarpcastSocialMediaProvider.getProfileByHandle(mentionTag);
-            const fid = profile.profileId;
+            const profiles = await NeynarSocialMediaProvider.searchProfiles(mentionTag);
+            const profile = first(profiles.data);
+            const fid = profile?.profileId;
             if (fid) {
                 mentions.push(Number(fid));
                 const startIndex = match.index;
