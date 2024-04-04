@@ -1,20 +1,19 @@
 import { image, MediaImageMimeType, MediaVideoMimeType, textOnly, video } from '@lens-protocol/metadata';
 import { t } from '@lingui/macro';
-import { safeUnreachable } from '@masknet/kit';
 import { first } from 'lodash-es';
 import { v4 as uuid } from 'uuid';
 
-import { queryClient } from '@/configs/queryClient.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { SITE_URL } from '@/constants/index.js';
 import { createDummyPost } from '@/helpers/createDummyPost.js';
-import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { getUserLocale } from '@/helpers/getUserLocale.js';
 import { readChars } from '@/helpers/readChars.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
+import { createPostTo } from '@/services/postTo.js';
 import { uploadToArweave } from '@/services/uploadToArweave.js';
 import { uploadFileToIPFS } from '@/services/uploadToIPFS.js';
-import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
+import { type CompositePost } from '@/store/useComposeStore.js';
 import { useLensStateStore } from '@/store/useProfileStore.js';
 import type { ComposeType } from '@/types/compose.js';
 import type { MediaObject } from '@/types/index.js';
@@ -255,131 +254,61 @@ export async function postToLens(type: ComposeType, compositePost: CompositePost
     const { currentProfile } = useLensStateStore.getState();
     if (!currentProfile?.profileId) throw new Error(t`Login required to post on Lens.`);
 
-    const { updatePostInThread } = useComposeStateStore.getState();
-
-    const uploadedImages = await Promise.all(
-        images.map(async (media) => {
-            try {
-                if (media.ipfs) return media;
-                return {
-                    ...media,
-                    ipfs: await uploadFileToIPFS(media.file),
-                };
-            } catch (error) {
-                const message = t`Failed to upload image to IPFS.`;
-                enqueueErrorMessage(message);
-                throw new Error(message);
-            }
-        }),
-    );
-
-    const uploadedVideos = await Promise.all(
-        (video?.file ? [video] : []).map(async (media) => {
-            try {
-                if (media?.ipfs) return media;
-                return {
-                    ...media,
-                    ipfs: await uploadFileToIPFS(media.file),
-                };
-            } catch (error) {
-                const message = t`Failed to upload video to IPFS.`;
-                enqueueErrorMessage(message);
-                throw new Error(message);
-            }
-        }),
-    );
-
-    const uploadedVideo = first(uploadedVideos) ?? null;
-
-    updatePostInThread(compositePost.id, (x) => ({
-        ...x,
-        images: uploadedImages,
-        video: uploadedVideo,
-    }));
-
-    if (type === 'compose') {
-        try {
-            const postId = await publishPostForLens(
-                currentProfile.profileId,
-                readChars(chars),
-                uploadedImages,
-                uploadedVideo,
+    const postTo = createPostTo(SocialPlatform.Lens, {
+        uploadImages() {
+            return Promise.all(
+                images.map(async (media) => {
+                    if (media.ipfs) return media;
+                    return {
+                        ...media,
+                        ipfs: await uploadFileToIPFS(media.file),
+                    };
+                }),
             );
-            enqueueSuccessMessage(t`Posted on Lens.`);
-            updatePostInThread(compositePost.id, (x) => ({
-                ...x,
-                postId: {
-                    ...x.postId,
-                    [SocialPlatform.Lens]: postId,
-                },
-            }));
-            return postId;
-        } catch (error) {
-            enqueueErrorMessage(t`Failed to post on Lens.`);
-            throw error;
-        }
-    } else if (type === 'reply') {
-        if (!lensParentPost) throw new Error(t`No parent post found.`);
-        try {
-            const commentId = await commentPostForLens(
+        },
+        uploadVideos() {
+            return Promise.all(
+                (video?.file ? [video] : []).map(async (media) => {
+                    try {
+                        if (media?.ipfs) return media;
+                        return {
+                            ...media,
+                            ipfs: await uploadFileToIPFS(media.file),
+                        };
+                    } catch (error) {
+                        const message = t`Failed to upload video to IPFS.`;
+                        enqueueErrorMessage(message);
+                        throw new Error(message);
+                    }
+                }),
+            );
+        },
+        compose(images, videos) {
+            return publishPostForLens(currentProfile.profileId, readChars(chars), images, first(videos) ?? null);
+        },
+        reply(images, videos) {
+            if (!lensParentPost) throw new Error(t`No parent post found.`);
+            return commentPostForLens(
                 currentProfile.profileId,
                 lensParentPost.postId,
                 readChars(chars),
-                uploadedImages,
-                uploadedVideo,
+                images,
+                first(videos) ?? null,
                 !!lensParentPost.momoka?.proof,
             );
-            enqueueSuccessMessage(t`Replied on Lens.`);
-            updatePostInThread(compositePost.id, (x) => ({
-                ...x,
-                postId: {
-                    ...x.postId,
-                    [SocialPlatform.Lens]: commentId,
-                },
-            }));
-
-            queryClient.invalidateQueries({ queryKey: [lensParentPost.source, 'post-detail', lensParentPost.postId] });
-            queryClient.invalidateQueries({
-                queryKey: ['post-detail', 'comments', lensParentPost.source, lensParentPost.postId],
-            });
-
-            return commentId;
-        } catch (error) {
-            enqueueErrorMessage(t`Failed to relay post on Lens.`);
-            throw error;
-        }
-    } else if (type === 'quote') {
-        if (!lensParentPost) throw new Error(t`No parent post found.`);
-        try {
-            const postId = await quotePostForLens(
+        },
+        quote(images, videos) {
+            if (!lensParentPost) throw new Error(t`No parent post found.`);
+            return quotePostForLens(
                 currentProfile.profileId,
                 lensParentPost.postId,
                 readChars(chars),
-                uploadedImages,
-                uploadedVideo,
+                images,
+                first(videos) ?? null,
                 !!lensParentPost.momoka?.proof,
             );
-            enqueueSuccessMessage(t`Quoted post on Lens.`);
-            updatePostInThread(compositePost.id, (x) => ({
-                ...x,
-                postId: {
-                    ...x.postId,
-                    [SocialPlatform.Lens]: postId,
-                },
-            }));
+        },
+    });
 
-            await queryClient.setQueryData([lensParentPost.source, 'post-detail', lensParentPost.postId], {
-                ...lensParentPost,
-                hasQuoted: true,
-            });
-
-            return postId;
-        } catch (error) {
-            enqueueErrorMessage(t`Failed to quote post on Lens.`);
-            throw error;
-        }
-    } else {
-        safeUnreachable(type);
-        throw new Error(t`Invalid compose type.`);
-    }
+    return postTo(type, compositePost);
 }

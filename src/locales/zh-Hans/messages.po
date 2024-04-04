@@ -60,9 +60,6 @@ msgstr ""
 msgid "{0} views"
 msgstr "{0} 浏览数"
 
-msgid "Failed to post on Farcaster."
-msgstr "在 Farcaster 发贴失败。"
-
 msgid "Act"
 msgstr "收藏"
 
@@ -117,9 +114,6 @@ msgstr "确认"
 msgid "Username"
 msgstr ""
 
-msgid "Failed to upload image to IPFS."
-msgstr "上传图片失败。"
-
 msgid "No results for \"{searchKeyword}\""
 msgstr "{searchKeyword} 搜索无结果"
 
@@ -128,9 +122,6 @@ msgstr "找不到网页"
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/> and # others}} <4>liked your </4><5><6/></5>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> 和 <2/>} other {<3/> 和其他 # 人}} <4>点赞了你的 </4><5><6/></5>"
-
-msgid "Replied on Farcaster."
-msgstr ""
 
 msgid "Password"
 msgstr ""
@@ -167,9 +158,6 @@ msgstr "搜索"
 
 msgid "Connected Accounts"
 msgstr "已链接的账号"
-
-msgid "Failed to post on Lens."
-msgstr "在 Lens 上发帖失败。"
 
 msgid "Select Account"
 msgstr "选择账号"
@@ -231,6 +219,9 @@ msgstr "登出"
 msgid "post"
 msgstr "发帖"
 
+msgid "Login required to post on X."
+msgstr ""
+
 msgid "Hashtag"
 msgstr "#"
 
@@ -240,14 +231,14 @@ msgstr "Frame"
 msgid "Search Filter"
 msgstr "查询规则"
 
-msgid "Quoted post on X."
-msgstr ""
-
 msgid "Try searching for something else."
 msgstr "试试搜索其他东西。"
 
 msgid "and"
 msgstr "和"
+
+msgid "Failed to quote post on {sourceName}."
+msgstr ""
 
 msgid "Comment cannot be empty."
 msgstr ""
@@ -275,9 +266,6 @@ msgstr "未能上传图片到 IPFS。"
 
 msgid "Failed to create image payload."
 msgstr "创建图片内容失败"
-
-msgid "Failed to reply post on Farcaster."
-msgstr "在 Farcaster 上评论失败。"
 
 msgid "Failed to unvote post."
 msgstr "无法对帖子进行投票。"
@@ -327,16 +315,10 @@ msgstr "帖子已经被隐藏"
 msgid "Replied on Lens."
 msgstr "在 Lens 上评论成功。"
 
-msgid "Posted on Farcaster."
-msgstr "在 Farcaster 上发帖成功。"
-
 msgid "Everyone"
 msgstr "任何人"
 
 msgid "Please confirm the login with Warpcast."
-msgstr ""
-
-msgid "Failed to recast post on Farcaster."
 msgstr ""
 
 msgid "Compose"
@@ -365,6 +347,9 @@ msgstr "未找到帖子"
 
 msgid "Clear All"
 msgstr "全部清除"
+
+msgid "Failed to upload image to {sourceName}."
+msgstr ""
 
 msgid "Lens"
 msgstr "Lens"
@@ -423,9 +408,6 @@ msgstr "点赞"
 msgid "Please input the frame url to be revalidated."
 msgstr "请输入 URL 重新验证。"
 
-msgid "Failed to quote post on Lens."
-msgstr "未能在 Lens 上引用帖子。"
-
 msgid "General"
 msgstr "通用"
 
@@ -449,9 +431,6 @@ msgstr ""
 
 msgid "Show More"
 msgstr "显示更多"
-
-msgid "Failed to post to X."
-msgstr ""
 
 msgid "Failed to parse session."
 msgstr "未能解析会话"
@@ -486,9 +465,6 @@ msgstr "访问 mask.io"
 msgid "No comments found"
 msgstr "未发现评论"
 
-msgid "Quoted post on Lens."
-msgstr ""
-
 msgid "Discard"
 msgstr "放弃"
 
@@ -515,6 +491,9 @@ msgstr "没有可显示的数据。"
 
 msgid "Mirrored"
 msgstr "已转发"
+
+msgid "Quoted post on {sourceName}."
+msgstr ""
 
 msgid "Unable to retrieve post details."
 msgstr "数据获取失败。"
@@ -543,13 +522,16 @@ msgstr "未找到 Lens profile。请尝试其他钱包。"
 msgid "<0>{0}</0> mirrored"
 msgstr "<0>{0}</0> 已转发"
 
+msgid "Failed to post on {sourceName}."
+msgstr ""
+
 msgid "Follower"
 msgstr "粉丝"
 
 msgid "The frame server failed to process the request."
 msgstr "Frame 服务器未能处理请求"
 
-msgid "Posted to X."
+msgid "Failed to upload video to {sourceName}."
 msgstr ""
 
 msgid "Post by {0}"
@@ -663,9 +645,6 @@ msgstr "你不能在 {0} 上评论 {author}"
 msgid "Claim on {0}: {1}"
 msgstr ""
 
-msgid "Replied to X."
-msgstr ""
-
 msgid "Failed to unmirror post."
 msgstr "未能取消转帖。"
 
@@ -674,6 +653,9 @@ msgstr "Failed to fetch as ArrayBuffer."
 
 msgid "Confirm to log out these accounts?"
 msgstr "确认登出这些账号？"
+
+msgid "Posted on {sourceName}."
+msgstr ""
 
 msgid "Your Lens account is now connected"
 msgstr "你的 Lens 账号已经连接。"
@@ -695,9 +677,6 @@ msgstr "未找到匹配用户"
 
 msgid "{0, select, follow {Followed @{handle} on {source}} unfollow {Unfollowed @{handle} on {source}} other {Followed @{handle} on {source}}}"
 msgstr "{0, select, follow {在 {source} 关注 @{handle}} unfollow {在 {source} 取消关注 @{handle}} other {在 {source} 关注 @{handle}}}"
-
-msgid "Recasted post on Farcaster."
-msgstr ""
 
 msgid "Log in to Farcaster account"
 msgstr "登录到 Farcaster 账号"
@@ -735,6 +714,9 @@ msgstr ""
 msgid "<0/> commented on your <1><2/></1>"
 msgstr "<0/> 评论了你的 <1><2/></1>"
 
+msgid "Failed to relay post on {sourceName}."
+msgstr ""
+
 msgid "<0>You</0> recasted"
 msgstr "<0>你</0> 已转帖"
 
@@ -762,9 +744,6 @@ msgstr "转发"
 msgid "Terms of Service"
 msgstr "服务条款"
 
-msgid "Failed to relay post on Lens."
-msgstr "在 Lens 上回复帖子失败。"
-
 msgid "Post"
 msgstr "发帖"
 
@@ -782,9 +761,6 @@ msgstr "关闭"
 
 msgid "<0/> mentioned you in a <1><2/></1>"
 msgstr "<0/> 在 <1><2/></1> 提及了你"
-
-msgid "Posted on Lens."
-msgstr "在 Lens 上发帖成功。"
 
 msgid "Login"
 msgstr "登录"

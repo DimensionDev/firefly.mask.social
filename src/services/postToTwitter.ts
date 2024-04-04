@@ -1,30 +1,32 @@
 import { t } from '@lingui/macro';
-import { safeUnreachable } from '@masknet/kit';
 
 import { SocialPlatform } from '@/constants/enum.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
-import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { readChars } from '@/helpers/readChars.js';
 import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
 import { type Post } from '@/providers/types/SocialMedia.js';
+import { createPostTo } from '@/services/postTo.js';
 import { uploadToTwitter } from '@/services/uploadToTwitter.js';
-import type { CompositePost } from '@/store/useComposeStore.js';
+import { type CompositePost } from '@/store/useComposeStore.js';
+import { useTwitterStateStore } from '@/store/useProfileStore.js';
 import type { ComposeType } from '@/types/compose.js';
+import type { MediaObject } from '@/types/index.js';
 
-export async function postToTwitter(
-    type: ComposeType,
-    { chars, images, postId, parentPost, restriction }: CompositePost,
-) {
+export async function postToTwitter(type: ComposeType, compositePost: CompositePost) {
+    const { chars, images, postId, parentPost, restriction } = compositePost;
+
     const twitterPostId = postId.Twitter;
     const twitterParentPost = parentPost.Twitter;
 
-    // alreay posted to lens
+    // already posted to x
     if (twitterPostId) throw new Error(t`Already posted on X.`);
 
-    try {
-        const medias = await uploadToTwitter(images.map((x) => x.file));
+    // login required
+    const { currentProfile } = useTwitterStateStore.getState();
+    if (!currentProfile?.profileId) throw new Error(t`Login required to post on X.`);
 
-        const draft: Post = {
+    const composeDraft = (images: MediaObject[]) => {
+        return {
             postId: '',
             author: createDummyProfile(),
             metadata: {
@@ -33,40 +35,29 @@ export async function postToTwitter(
                     content: readChars(chars),
                 },
             },
+            mediaObjects: images.map((media) => ({ url: media.imgur!, mimeType: media.file.type })),
             restriction,
             parentPostId: twitterParentPost?.postId ?? '',
-            mediaObjects: medias.map((x) => ({
+            source: SocialPlatform.Twitter,
+        } satisfies Post;
+    };
+
+    const postTo = createPostTo(SocialPlatform.Twitter, {
+        uploadImages: async () => {
+            const uploaded = await uploadToTwitter(images.map((x) => x.file));
+            return uploaded.map((x) => ({
                 id: x.media_id_string,
                 url: '',
-                type: 'image',
-            })),
-            source: SocialPlatform.Twitter,
-        };
+                file: x.file,
+            }));
+        },
+        compose: (images) => TwitterSocialMediaProvider.publishPost(composeDraft(images)),
+        reply: (images) => TwitterSocialMediaProvider.publishPost(composeDraft(images)),
+        quote: (images) => {
+            if (!twitterParentPost?.postId) throw new Error(t`No parent post found.`);
+            return TwitterSocialMediaProvider.quotePost(twitterParentPost.postId, composeDraft(images));
+        },
+    });
 
-        switch (type) {
-            case 'compose': {
-                const post = await TwitterSocialMediaProvider.publishPost(draft);
-                enqueueSuccessMessage(t`Posted to X.`);
-                return post;
-            }
-            case 'reply': {
-                if (!twitterParentPost?.postId) throw new Error(t`No parent post found.`);
-                const post = await TwitterSocialMediaProvider.publishPost(draft);
-                enqueueSuccessMessage(t`Replied to X.`);
-                return post;
-            }
-            case 'quote': {
-                if (!twitterParentPost?.postId) throw new Error(t`No parent post found.`);
-                const post = await TwitterSocialMediaProvider.quotePost(twitterParentPost.postId, draft);
-                enqueueSuccessMessage(t`Quoted post on X.`);
-                return post;
-            }
-            default:
-                safeUnreachable(type);
-                throw new Error(t`Invalid compose type.`);
-        }
-    } catch (error) {
-        enqueueErrorMessage(t`Failed to post to X.`);
-        throw error;
-    }
+    return postTo(type, compositePost);
 }
