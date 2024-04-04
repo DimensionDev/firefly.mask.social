@@ -219,9 +219,6 @@ msgstr "登出"
 msgid "post"
 msgstr "发帖"
 
-msgid "Login required to post on X."
-msgstr ""
-
 msgid "Hashtag"
 msgstr "#"
 
@@ -614,9 +611,6 @@ msgstr ""
 
 msgid "Only people you follow"
 msgstr "只有你关注的人"
-
-msgid "Already posted on X."
-msgstr ""
 
 msgid "<0>You</0> and {0} recasted"
 msgstr "<0> 你 </0> 和 {0} 人都转发了"

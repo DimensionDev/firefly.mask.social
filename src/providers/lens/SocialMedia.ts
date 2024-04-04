@@ -500,11 +500,15 @@ export class LensSocialMedia implements Provider {
         return pollingWithRetry(this.getPostByTxHash.bind(this, txHash), 10, 2000);
     }
 
-    async getCommentsById(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+    async getCommentsById(
+        postId: string,
+        indicator?: PageIndicator,
+        hasFilter = true,
+    ): Promise<Pageable<Post, PageIndicator>> {
         const result = await this.client.publication.fetchAll({
             where: {
                 commentOn: { id: postId, ranking: { filter: CommentRankingFilterType.Relevant } },
-                customFilters: [CustomFiltersType.Gardeners],
+                customFilters: hasFilter ? [CustomFiltersType.Gardeners] : undefined,
             },
             limit: LimitType.TwentyFive,
             cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,

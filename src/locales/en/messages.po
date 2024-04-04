@@ -214,9 +214,6 @@ msgstr "Log out"
 msgid "post"
 msgstr "post"
 
-msgid "Login required to post on X."
-msgstr "Login required to post on X."
-
 msgid "Hashtag"
 msgstr "Hashtag"
 
@@ -609,9 +606,6 @@ msgstr "Failed to quote post."
 
 msgid "Only people you follow"
 msgstr "Only people you follow"
-
-msgid "Already posted on X."
-msgstr "Already posted on X."
 
 msgid "<0>You</0> and {0} recasted"
 msgstr "<0>You</0> and {0} recasted"

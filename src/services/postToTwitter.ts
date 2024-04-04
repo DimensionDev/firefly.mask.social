@@ -3,6 +3,7 @@ import { t } from '@lingui/macro';
 import { SocialPlatform } from '@/constants/enum.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { readChars } from '@/helpers/readChars.js';
+import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
 import { type Post, type PostType } from '@/providers/types/SocialMedia.js';
 import { createPostTo } from '@/services/postTo.js';
@@ -17,13 +18,14 @@ export async function postToTwitter(type: ComposeType, compositePost: CompositeP
 
     const twitterPostId = postId.Twitter;
     const twitterParentPost = parentPost.Twitter;
+    const sourceName = resolveSourceName(SocialPlatform.Twitter);
 
     // already posted to x
-    if (twitterPostId) throw new Error(t`Already posted on X.`);
+    if (twitterPostId) throw new Error(t`Already posted on ${sourceName}.`);
 
     // login required
     const { currentProfile } = useTwitterStateStore.getState();
-    if (!currentProfile?.profileId) throw new Error(t`Login required to post on X.`);
+    if (!currentProfile?.profileId) throw new Error(t`Login required to post on ${sourceName}.`);
 
     const composeDraft = (postType: PostType, images: MediaObject[]) => {
         return {
