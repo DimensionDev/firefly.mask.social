@@ -10,19 +10,19 @@ import { resolveFirstAvailableUrl } from '@/helpers/resolveFirstAvailableUrl.js'
 import { resolveImgurUrl } from '@/helpers/resolveImgurUrl.js';
 import { useDarkMode } from '@/hooks/useDarkMode.js';
 
-interface Props extends NextImageProps {
+interface Props extends Omit<NextImageProps, 'src'> {
     size: number;
-    src: string;
+    src?: string;
     fallbackUrl?: string;
 }
 
 export const Avatar = memo(function Avatar({ src, size, className, fallbackUrl, ...rest }: Props) {
     const { isDarkMode } = useDarkMode();
 
-    const isBase64 = src.startsWith('data:image/');
+    const isNormalUrl = !src?.startsWith('data:image/');
     const { data: url } = useQuery({
-        enabled: !isBase64,
-        queryKey: ['avatar', isBase64 ? '[disabled-base64]' : src, fallbackUrl],
+        enabled: isNormalUrl,
+        queryKey: ['avatar', isNormalUrl ? src : '[disabled-url]', fallbackUrl],
         queryFn: () => resolveFirstAvailableUrl(compact([resolveImgurUrl(resolveAvatarFallbackUrl(src)), fallbackUrl])),
     });
 
@@ -40,7 +40,7 @@ export const Avatar = memo(function Avatar({ src, size, className, fallbackUrl, 
                 width: size,
                 ...rest.style,
             }}
-            src={isBase64 ? src : url || defaultFallbackUrl}
+            src={(isNormalUrl ? url : src) || defaultFallbackUrl}
             width={size}
             height={size}
             alt={rest.alt}
