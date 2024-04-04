@@ -16,7 +16,8 @@
 /build
 
 # polyfills
-/public/js/polyfills/
+/public/js/polyfills/*.js
+!/public/js/polyfills/object.hasown.js
 
 # misc
 .DS_Store
