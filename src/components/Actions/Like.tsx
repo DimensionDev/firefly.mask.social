@@ -1,6 +1,7 @@
 import { t } from '@lingui/macro';
-import { useQueryClient } from '@tanstack/react-query';
+import { QueryClient, useQueryClient } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
+import { produce } from 'immer';
 import { memo, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 
@@ -17,6 +18,7 @@ import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { LoginModalRef } from '@/modals/controls.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
 
 interface LikeProps {
     postId: string;
@@ -25,6 +27,32 @@ interface LikeProps {
     hasLiked?: boolean;
     disabled?: boolean;
     authorId?: string;
+}
+
+function togglePostLikeQueryData(queryClient: QueryClient, source: SocialPlatform, postId: string) {
+    queryClient.invalidateQueries({ queryKey: [source, 'post-detail', postId] });
+    queryClient.setQueryData<Post>([source, 'post-detail', postId], (old) => {
+        if (!old) return old;
+        return produce(old, (draft) => {
+            draft.hasLiked = !draft.hasLiked;
+        });
+    });
+
+    queryClient.invalidateQueries({ queryKey: ['discover', source] });
+    queryClient.setQueryData<{ pages: Array<{ data: Post[] }> }>(['discover', source], (old) => {
+        if (!old) return old;
+
+        return produce(old, (draft) => {
+            LOOP: for (const page of draft.pages) {
+                for (const post of page.data) {
+                    if (post.postId === postId) {
+                        post.hasLiked = !post.hasLiked;
+                        break LOOP;
+                    }
+                }
+            }
+        });
+    });
 }
 
 export const Like = memo<LikeProps>(function Like({ count, hasLiked, postId, authorId, source, disabled = false }) {
@@ -55,8 +83,7 @@ export const Like = memo<LikeProps>(function Like({ count, hasLiked, postId, aut
                 : provider?.upvotePost(postId, Number(authorId)));
 
             enqueueSuccessMessage(liked ? t`Unliked` : t`Liked`);
-            queryClient.invalidateQueries({ queryKey: [source, 'post-detail', postId] });
-            queryClient.invalidateQueries({ queryKey: ['discover', source] });
+            togglePostLikeQueryData(queryClient, source, postId);
 
             return;
         } catch (error) {
