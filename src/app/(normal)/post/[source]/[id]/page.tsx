@@ -5,7 +5,6 @@ import { useSuspenseQuery } from '@tanstack/react-query';
 import { last } from 'lodash-es';
 import { useRouter } from 'next/navigation.js';
 import type React from 'react';
-import { useState } from 'react';
 import urlcat from 'urlcat';
 import { useDocumentTitle } from 'usehooks-ts';
 
@@ -47,7 +46,6 @@ function refreshThreadByPostId(postId: string) {
 }
 
 export default function Page({ params: { id: postId, source } }: PageProps) {
-    const [showMore, setShowMore] = useState(false);
     const router = useRouter();
     const currentSource = resolveSocialPlatform(source);
 
@@ -101,8 +99,6 @@ export default function Page({ params: { id: postId, source } }: PageProps) {
         },
     });
 
-    const thread = showMore ? allPosts : allPosts.slice(0, MIN_POST_SIZE_PER_THREAD);
-
     useDocumentTitle(post ? createPageTitle(t`Post by ${post?.author.displayName}`) : SITE_NAME);
     useUpdateCurrentVisitingPost(post);
 
@@ -120,21 +116,14 @@ export default function Page({ params: { id: postId, source } }: PageProps) {
                 {allPosts.length >= MIN_POST_SIZE_PER_THREAD ? (
                     <>
                         <div className="border-b border-line px-4 py-3">
-                            {thread.map((post, index) => (
+                            {allPosts.map((post, index) => (
                                 <ThreadBody
                                     post={post}
                                     disableAnimate
                                     key={post.postId}
-                                    isLast={index === thread.length - 1}
+                                    isLast={index === allPosts.length - 1}
                                 />
                             ))}
-                            {allPosts.length > MIN_POST_SIZE_PER_THREAD && !showMore ? (
-                                <div className="w-full cursor-pointer text-center text-[15px] font-bold text-link">
-                                    <div onClick={() => setShowMore(true)}>
-                                        <Trans>Show More</Trans>
-                                    </div>
-                                </div>
-                            ) : null}
                         </div>
                         <CommentList
                             postId={post.postId}

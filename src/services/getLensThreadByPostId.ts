@@ -19,7 +19,7 @@ export async function getLensThreadByPostId(
     const comments = await LensSocialMediaProvider.getCommentsById(postId, undefined, false);
     const firstComment = first(comments.data);
 
-    if (firstComment && isSameProfile(firstComment?.author, post?.author)) {
+    if (firstComment && isSameProfile(firstComment?.author, author)) {
         result.push(firstComment.postId);
         return result.concat(await getLensThreadByPostId(firstComment.postId, firstComment, maxDepth - 1));
     }

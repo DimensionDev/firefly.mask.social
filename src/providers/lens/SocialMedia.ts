@@ -26,6 +26,7 @@ import type { TypedDataDomain } from 'viem';
 import { polygon } from 'viem/chains';
 
 import { createLensClient } from '@/configs/lensClient.js';
+import { publicClient } from '@/configs/wagmiClient.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { formatLensPost, formatLensPostByFeed, formatLensQuoteOrComment } from '@/helpers/formatLensPost.js';
@@ -709,9 +710,15 @@ export class LensSocialMedia implements Provider {
             });
 
             const broadcastValue = broadcastResult.unwrap();
-            if (!isRelaySuccess(broadcastValue)) {
+            if (!isRelaySuccess(broadcastValue) || !broadcastValue.txHash) {
                 throw new Error(`Something went wrong: ${JSON.stringify(broadcastValue)}`);
             }
+
+            const receipt = await publicClient({ chainId: polygon.id }).waitForTransactionReceipt({
+                hash: broadcastValue.txHash as `0x${string}`,
+            });
+
+            if (receipt.status !== 'success') throw new Error('The transaction failed.');
         }
     }
 
@@ -741,9 +748,15 @@ export class LensSocialMedia implements Provider {
             });
 
             const broadcastValue = broadcastResult.unwrap();
-            if (!isRelaySuccess(broadcastValue)) {
+            if (!isRelaySuccess(broadcastValue) || !broadcastValue.txHash) {
                 throw new Error(`Something went wrong: ${JSON.stringify(broadcastValue)}`);
             }
+
+            const receipt = await publicClient({ chainId: polygon.id }).waitForTransactionReceipt({
+                hash: broadcastValue.txHash as `0x${string}`,
+            });
+
+            if (receipt.status !== 'success') throw new Error('The transaction failed.');
         }
     }
 
