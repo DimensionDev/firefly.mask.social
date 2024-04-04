@@ -1,5 +1,5 @@
 'use client';
-import { memo } from 'react';
+import { memo, useMemo } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { type Options as ReactMarkdownOptions } from 'react-markdown';
 import remarkBreaks from 'remark-breaks';
@@ -12,18 +12,7 @@ import { MarkupLink } from '@/components/Markup/MarkupLink/index.js';
 import { BIO_TWITTER_PROFILE_REGEX, HASHTAG_REGEX, MENTION_REGEX, URL_REGEX } from '@/constants/regex.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
-const trimify = (value: string): string => value?.replace(/\n\n\s*\n/g, '\n\n').trim();
-
-const plugins = [
-    [stripMarkdown, { keep: ['strong', 'emphasis', 'inlineCode'] }],
-    remarkBreaks,
-    // Make sure Mention plugin is before url plugin, to avoid matching
-    // mentioned ens handle as url. For example, @mask.eth should be treat
-    // as a mention rather than link
-    linkifyRegex(MENTION_REGEX),
-    linkifyRegex(URL_REGEX),
-    linkifyRegex(HASHTAG_REGEX),
-];
+const trimify = (value: string): string => value.replace(/\n\n\s*\n/g, '\n\n').trim();
 
 interface MarkupProps extends Omit<ReactMarkdownOptions, 'children'> {
     children?: ReactMarkdownOptions['children'] | null;
@@ -31,6 +20,27 @@ interface MarkupProps extends Omit<ReactMarkdownOptions, 'children'> {
 }
 
 export const Markup = memo<MarkupProps>(function Markup({ children, post, ...rest }) {
+    const plugins = useMemo(() => {
+        if (!post?.mentions?.length)
+            return [
+                [stripMarkdown, { keep: ['strong', 'emphasis', 'inlineCode'] }],
+                remarkBreaks,
+                linkifyRegex(URL_REGEX),
+                linkifyRegex(HASHTAG_REGEX),
+            ];
+        const handles = post.mentions.map((x) => x.handle);
+        const mentionRe = new RegExp(`@(${handles.join('|')})`, 'g');
+        return [
+            [stripMarkdown, { keep: ['strong', 'emphasis', 'inlineCode'] }],
+            remarkBreaks,
+            // Make sure Mention plugin is before URL plugin, to avoid matching
+            // mentioned ens handle as url. For example, @mask.eth should be treat
+            // as a mention rather than link
+            linkifyRegex(mentionRe),
+            linkifyRegex(URL_REGEX),
+            linkifyRegex(HASHTAG_REGEX),
+        ];
+    }, [post?.mentions]);
     if (!children) return null;
 
     return (
