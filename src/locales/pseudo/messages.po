@@ -112,6 +112,9 @@ msgstr ""
 msgid "Username"
 msgstr ""
 
+msgid "Quoted post on Farcaster."
+msgstr ""
+
 msgid "Failed to upload image to IPFS."
 msgstr ""
 
@@ -238,10 +241,16 @@ msgstr ""
 msgid "Search Filter"
 msgstr ""
 
+msgid "Quoted post on X."
+msgstr ""
+
 msgid "Try searching for something else."
 msgstr ""
 
 msgid "and"
+msgstr ""
+
+msgid "Comment cannot be empty."
 msgstr ""
 
 msgid "Failed to fetch as Text."
@@ -296,6 +305,9 @@ msgid "{0} Comments"
 msgstr ""
 
 msgid "Comment"
+msgstr ""
+
+msgid "Only people you mention"
 msgstr ""
 
 msgid "Allow replies from"
@@ -436,6 +448,9 @@ msgstr ""
 msgid "Show More"
 msgstr ""
 
+msgid "Failed to post to X."
+msgstr ""
+
 msgid "Failed to parse session."
 msgstr ""
 
@@ -467,6 +482,9 @@ msgid "Visit mask.io"
 msgstr ""
 
 msgid "No comments found"
+msgstr ""
+
+msgid "Quoted post on Lens."
 msgstr ""
 
 msgid "Discard"
@@ -527,6 +545,9 @@ msgid "Follower"
 msgstr ""
 
 msgid "The frame server failed to process the request."
+msgstr ""
+
+msgid "Posted to X."
 msgstr ""
 
 msgid "Post by {0}"
@@ -613,6 +634,9 @@ msgstr ""
 msgid "Unknown session type."
 msgstr ""
 
+msgid "Failed to quote post."
+msgstr ""
+
 msgid "Only people you follow"
 msgstr ""
 
@@ -632,6 +656,9 @@ msgid "You cannot reply to @{author} on {0}."
 msgstr ""
 
 msgid "Claim on {0}: {1}"
+msgstr ""
+
+msgid "Replied to X."
 msgstr ""
 
 msgid "Failed to unmirror post."

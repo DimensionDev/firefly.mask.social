@@ -11,6 +11,7 @@ import { createTwitterClientV2 } from '@/helpers/createTwitterClientV2.js';
 const TweetSchema = z.object({
     text: z.string(),
     replaySettings: z.enum(['following', 'mentionedUsers']).optional(),
+    quoteTwitterId: z.string().optional(),
     inReplyToTweetId: z.string().optional(),
     mediaIds: z.array(z.string()).optional(),
 });
@@ -40,6 +41,10 @@ async function composeTweet(rawTweet: string) {
 
     if (tweet.replaySettings) {
         composedTweet.reply_settings = tweet.replaySettings;
+    }
+
+    if (tweet.quoteTwitterId) {
+        composedTweet.quote_tweet_id = tweet.quoteTwitterId;
     }
 
     return composedTweet;

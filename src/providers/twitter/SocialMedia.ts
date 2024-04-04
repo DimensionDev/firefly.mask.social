@@ -1,9 +1,11 @@
+import { t } from '@lingui/macro';
 import type { Pageable, PageIndicator } from '@masknet/shared-base';
 import { compact } from 'lodash-es';
 import { getSession } from 'next-auth/react';
 
 import { SocialPlatform } from '@/constants/enum.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { resolveTwitterReplyRestriction } from '@/helpers/resolveTwitterReplyRestriction.js';
 import {
     type Notification,
     type Post,
@@ -115,23 +117,47 @@ class TwitterSocialMedia implements Provider {
         throw new Error('Not implemented');
     }
 
-    async publishPost(post: Post): Promise<string> {
+    async quotePost(postId: string, post: Post): Promise<string> {
         const response = await fetchJSON<
             ResponseJSON<{
                 id: string;
             }>
-        >('/api/twitter/create-tweet', {
+        >('/api/twitter/compose', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
+                quoteTwitterId: post.parentPostId,
+                reply_settings: post.restriction ? resolveTwitterReplyRestriction(post.restriction) : undefined,
                 text: post.metadata.content?.content ?? '',
                 mediaIds: compact(post.mediaObjects?.map((x) => x.id)),
             }),
         });
 
-        if (!response.success) throw new Error('Failed to publish post');
+        if (!response.success) throw new Error(t`Failed to quote post.`);
+        return response.data.id;
+    }
+
+    async publishPost(post: Post): Promise<string> {
+        const response = await fetchJSON<
+            ResponseJSON<{
+                id: string;
+            }>
+        >('/api/twitter/compose', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                inReplyToTweetId: post.parentPostId,
+                reply_settings: post.restriction ? resolveTwitterReplyRestriction(post.restriction) : undefined,
+                text: post.metadata.content?.content ?? '',
+                mediaIds: compact(post.mediaObjects?.map((x) => x.id)),
+            }),
+        });
+
+        if (!response.success) throw new Error(t`Failed to publish post.`);
         return response.data.id;
     }
 }

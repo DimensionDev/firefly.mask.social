@@ -6,6 +6,7 @@ import { v4 as uuid } from 'uuid';
 import { queryClient } from '@/configs/queryClient.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { SITE_URL } from '@/constants/index.js';
+import { createDummyPost } from '@/helpers/createDummyPost.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getUserLocale } from '@/helpers/getUserLocale.js';
 import { readChars } from '@/helpers/readChars.js';
@@ -197,7 +198,12 @@ async function commentPostForLens(
     const tokenRes = await LensSocialMediaProvider.getAccessToken();
     const token = tokenRes.unwrap();
     const arweaveId = await uploadToArweave(metadata, token);
-    return LensSocialMediaProvider.commentPost(postId, `ar://${arweaveId}`, profile.signless, onMomoka);
+    return LensSocialMediaProvider.commentPost(
+        postId,
+        createDummyPost(SocialPlatform.Lens, `ar://${arweaveId}`),
+        profile.signless,
+        onMomoka,
+    );
 }
 
 async function quotePostForLens(
@@ -226,7 +232,12 @@ async function quotePostForLens(
     const tokenRes = await LensSocialMediaProvider.getAccessToken();
     const token = tokenRes.unwrap();
     const arweaveId = await uploadToArweave(metadata, token);
-    const post = await LensSocialMediaProvider.quotePost(postId, `ar://${arweaveId}`, profile.signless, onMomoka);
+    const post = await LensSocialMediaProvider.quotePost(
+        postId,
+        createDummyPost(SocialPlatform.Lens, `ar://${arweaveId}`),
+        profile.signless,
+        onMomoka,
+    );
     return post;
 }
 
@@ -348,7 +359,7 @@ export async function postToLens(type: ComposeType, compositePost: CompositePost
                 uploadedVideo,
                 !!lensParentPost.momoka?.proof,
             );
-            enqueueSuccessMessage(t`Posted on Lens.`);
+            enqueueSuccessMessage(t`Quoted post on Lens.`);
             updatePostInThread(compositePost.id, (x) => ({
                 ...x,
                 postId: {

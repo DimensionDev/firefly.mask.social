@@ -1,4 +1,5 @@
 import { t } from '@lingui/macro';
+import { safeUnreachable } from '@masknet/kit';
 import { uniqBy } from 'lodash-es';
 
 import { queryClient } from '@/configs/queryClient.js';
@@ -107,6 +108,7 @@ export async function postToFarcaster(type: ComposeType, compositePost: Composit
     if (type === 'quote') {
         try {
             const postId = await FarcasterSocialMediaProvider.mirrorPost(farcasterParentPost!.postId);
+            enqueueSuccessMessage(t`Quoted post on Farcaster.`);
             return postId;
         } catch (error) {
             enqueueErrorMessage(t`Failed to mirror post on Farcaster.`);
@@ -114,5 +116,6 @@ export async function postToFarcaster(type: ComposeType, compositePost: Composit
         }
     }
 
+    safeUnreachable(type);
     throw new Error(t`Invalid compose type.`);
 }

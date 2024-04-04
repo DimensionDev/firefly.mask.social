@@ -223,7 +223,9 @@ export class LensSocialMedia implements Provider {
     }
 
     // intro is the contentURI of the post
-    async quotePost(postId: string, intro: string, signless?: boolean, onMomoka?: boolean): Promise<string> {
+    async quotePost(postId: string, post: Post, signless?: boolean, onMomoka?: boolean): Promise<string> {
+        const intro = post.metadata.content?.content ?? '';
+
         if (onMomoka) {
             if (signless) {
                 const result = await this.client.publication.quoteOnMomoka({
@@ -322,7 +324,9 @@ export class LensSocialMedia implements Provider {
     }
 
     // comment is the contentURI of the post
-    async commentPost(postId: string, comment: string, signless?: boolean, onMomoka?: boolean): Promise<string> {
+    async commentPost(postId: string, post: Post, signless?: boolean, onMomoka?: boolean): Promise<string> {
+        const comment = post.metadata.content?.content ?? '';
+
         if (onMomoka) {
             if (signless) {
                 const result = await this.client.publication.commentOnMomoka({

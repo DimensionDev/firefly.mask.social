@@ -117,6 +117,9 @@ msgstr "确认"
 msgid "Username"
 msgstr ""
 
+msgid "Quoted post on Farcaster."
+msgstr ""
+
 msgid "Failed to upload image to IPFS."
 msgstr "上传图片失败。"
 
@@ -243,11 +246,17 @@ msgstr "Frame"
 msgid "Search Filter"
 msgstr "查询规则"
 
+msgid "Quoted post on X."
+msgstr ""
+
 msgid "Try searching for something else."
 msgstr "试试搜索其他东西。"
 
 msgid "and"
 msgstr "和"
+
+msgid "Comment cannot be empty."
+msgstr ""
 
 msgid "Failed to fetch as Text."
 msgstr "获取内容失败。"
@@ -302,6 +311,9 @@ msgstr "{0} 评论"
 
 msgid "Comment"
 msgstr "评论"
+
+msgid "Only people you mention"
+msgstr ""
 
 msgid "Allow replies from"
 msgstr "允许回复"
@@ -441,6 +453,9 @@ msgstr ""
 msgid "Show More"
 msgstr "显示更多"
 
+msgid "Failed to post to X."
+msgstr ""
+
 msgid "Failed to parse session."
 msgstr "未能解析会话"
 
@@ -473,6 +488,9 @@ msgstr "访问 mask.io"
 
 msgid "No comments found"
 msgstr "未发现评论"
+
+msgid "Quoted post on Lens."
+msgstr ""
 
 msgid "Discard"
 msgstr "放弃"
@@ -533,6 +551,9 @@ msgstr "粉丝"
 
 msgid "The frame server failed to process the request."
 msgstr "Frame 服务器未能处理请求"
+
+msgid "Posted to X."
+msgstr ""
 
 msgid "Post by {0}"
 msgstr "由 {0} 发帖"
@@ -618,6 +639,9 @@ msgstr "分享到"
 msgid "Unknown session type."
 msgstr "未知会话类型。"
 
+msgid "Failed to quote post."
+msgstr ""
+
 msgid "Only people you follow"
 msgstr "只有你关注的人"
 
@@ -637,6 +661,9 @@ msgid "You cannot reply to @{author} on {0}."
 msgstr "你不能在 {0} 上评论 {author}"
 
 msgid "Claim on {0}: {1}"
+msgstr ""
+
+msgid "Replied to X."
 msgstr ""
 
 msgid "Failed to unmirror post."
