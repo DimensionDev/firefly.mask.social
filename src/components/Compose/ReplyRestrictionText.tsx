@@ -13,6 +13,8 @@ export function ReplyRestrictionText({ type }: ReplyRestrictionTextProps) {
             return <Trans>Everyone</Trans>;
         case RestrictionType.OnlyPeopleYouFollow:
             return <Trans>Only people you follow</Trans>;
+        case RestrictionType.MentionedUsers:
+            return <Trans>Only people you mention</Trans>;
         default:
             safeUnreachable(type);
             return null;

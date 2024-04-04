@@ -321,7 +321,7 @@ export class FireflySocialMedia implements Provider {
         throw new Error('Method not implemented.');
     }
 
-    async commentPost(postId: string, comment: string): Promise<string> {
+    async commentPost(postId: string, post: Post): Promise<string> {
         throw new Error('Method not implemented.');
     }
 
