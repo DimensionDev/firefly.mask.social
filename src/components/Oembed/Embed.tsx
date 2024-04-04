@@ -9,7 +9,7 @@ interface EmbedProps {
 
 export function Embed({ og }: EmbedProps) {
     return (
-        <div className="mt-4 text-sm">
+        <div className="mt-4 max-w-full text-sm">
             <Link
                 onClick={(event) => event.stopPropagation()}
                 href={og.url}
