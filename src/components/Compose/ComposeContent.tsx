@@ -23,6 +23,8 @@ export function ComposeContent(props: ComposeContentProps) {
     const post = parentPost.Farcaster || parentPost.Lens;
     const replying = type === 'reply' && !!post;
 
+    const differenceOpenGraphs = openGraphs.filter((x) => !frames.find((y) => x.url === y.url));
+
     return (
         <div className="relative flex flex-1 flex-col">
             {replying ? (
@@ -58,9 +60,9 @@ export function ComposeContent(props: ComposeContentProps) {
             {(type === 'quote' || type === 'reply') && post ? <Quote post={post} className="text-left" /> : null}
 
             {/* open graphs */}
-            {openGraphs.length ? (
-                <div className=" flex gap-2">
-                    {openGraphs.map((o) => (
+            {differenceOpenGraphs.length ? (
+                <div className=" flex w-full gap-2">
+                    {differenceOpenGraphs.map((o) => (
                         <OembedUI key={o.url} og={o} />
                     ))}
                 </div>
@@ -68,7 +70,7 @@ export function ComposeContent(props: ComposeContentProps) {
 
             {/* frame */}
             {frames.length ? (
-                <div className=" flex gap-2">
+                <div className=" flex w-full gap-2">
                     {frames.map((f) => (
                         <FrameUI key={f.url} frame={f} readonly />
                     ))}
