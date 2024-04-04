@@ -4,15 +4,14 @@ import { ArrowPathRoundedSquareIcon } from '@heroicons/react/24/outline';
 import { t, Trans } from '@lingui/macro';
 import { useState } from 'react';
 import { useAsyncFn } from 'react-use';
-import urlcat from 'urlcat';
 
+import { refreshOpenGraphLink } from '@/actions/digestOpenGraphLink.js';
 import { Headline } from '@/app/(settings)/components/Headline.js';
 import { Section } from '@/app/(settings)/components/Section.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Oembed } from '@/components/Oembed/index.js';
 import { URL_REGEX } from '@/constants/regex.js';
 import { classNames } from '@/helpers/classNames.js';
-import { fetchJSON } from '@/helpers/fetchJSON.js';
 
 export default function OpenGraph() {
     const [url, setUrl] = useState('');
@@ -23,17 +22,7 @@ export default function OpenGraph() {
         URL_REGEX.lastIndex = 0;
         if (!URL_REGEX.test(url)) throw new Error(t`Invalid URL.`);
 
-        await fetchJSON(
-            urlcat('/api/oembed', {
-                link: url,
-            }),
-            {
-                method: 'DELETE',
-            },
-            {
-                throwIfNotOK: true,
-            },
-        );
+        await refreshOpenGraphLink(url);
 
         return true;
     }, [url]);
