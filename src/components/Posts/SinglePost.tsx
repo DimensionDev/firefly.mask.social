@@ -3,12 +3,13 @@
 import { Trans } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import { usePathname, useRouter } from 'next/navigation.js';
-import { memo } from 'react';
+import { memo, useMemo } from 'react';
 import { useInView } from 'react-cool-inview';
 
 import { FeedActionType } from '@/components/Posts/ActionType.js';
 import { PostBody } from '@/components/Posts/PostBody.js';
 import { PostHeader } from '@/components/Posts/PostHeader.js';
+import { SocialPlatform } from '@/constants/enum.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
@@ -51,6 +52,13 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
         },
     });
 
+    const show = useMemo(() => {
+        if (!post.isThread || isPostPage) return false;
+
+        if (post.source === SocialPlatform.Farcaster && post.stats?.comments === 0) return false;
+        return true;
+    }, [post, isPostPage]);
+
     return (
         <motion.article
             ref={observeRef}
@@ -73,7 +81,7 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
 
             {!isDetail ? <PostActions post={post} disabled={post.isHidden} /> : null}
 
-            {post.isThread && !isPostPage && post.stats?.comments && post.stats.comments > 0 ? (
+            {show ? (
                 <div className="mt-2 w-full cursor-pointer text-center text-[15px] font-bold text-link">
                     <div>
                         <Trans>Show More</Trans>

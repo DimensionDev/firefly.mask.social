@@ -515,6 +515,23 @@ export class LensSocialMedia implements Provider {
         );
     }
 
+    async getCommentsByUserId(postId: string, profileId: string, indicator?: PageIndicator) {
+        const result = await this.client.publication.fetchAll({
+            where: {
+                commentOn: { id: postId },
+                from: [profileId],
+            },
+        });
+
+        if (!result) throw new Error(t`No comments found`);
+
+        return createPageable(
+            result.items.map(formatLensPost),
+            indicator ?? createIndicator(),
+            result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
+        );
+    }
+
     async discoverPosts(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         const result = await this.client.explore.publications({
             orderBy: ExplorePublicationsOrderByType.LensCurated,

@@ -32,4 +32,5 @@ export enum KeyType {
     GetProfileOGById = 'getProfileOGById',
     UploadToBlob = 'uploadToBlob',
     GetLensThreadByPostId = 'getLensThreadByPostId',
+    RefreshLensThreadLock = 'RefreshLensThreadLock',
 }
