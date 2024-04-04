@@ -4,14 +4,13 @@ import { ArrowPathRoundedSquareIcon } from '@heroicons/react/24/outline';
 import { t, Trans } from '@lingui/macro';
 import { useState } from 'react';
 import { useAsyncFn } from 'react-use';
-import urlcat from 'urlcat';
 
+import { refreshFrameLink } from '@/actions/digestFrameLink.js';
 import { Headline } from '@/app/(settings)/components/Headline.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Frame as FrameUI } from '@/components/Frame/index.js';
 import { URL_REGEX } from '@/constants/regex.js';
 import { classNames } from '@/helpers/classNames.js';
-import { fetchJSON } from '@/helpers/fetchJSON.js';
 
 export default function Frame() {
     const [url, setUrl] = useState('');
@@ -22,17 +21,7 @@ export default function Frame() {
         URL_REGEX.lastIndex = 0;
         if (!URL_REGEX.test(url)) throw new Error(t`Invalid URL.`);
 
-        await fetchJSON(
-            urlcat('/api/frame', {
-                link: url,
-            }),
-            {
-                method: 'DELETE',
-            },
-            {
-                throwIfNotOK: true,
-            },
-        );
+        await refreshFrameLink(url);
 
         return true;
     }, [url]);
