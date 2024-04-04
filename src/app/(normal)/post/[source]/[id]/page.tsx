@@ -5,10 +5,10 @@ import { useSuspenseQuery } from '@tanstack/react-query';
 import { last } from 'lodash-es';
 import { useRouter } from 'next/navigation.js';
 import type React from 'react';
-import { useMemo, useState } from 'react';
-import urlcat from 'urlcat';
+import { useState } from 'react';
 import { useDocumentTitle } from 'usehooks-ts';
 
+import { refreshThreadByPostId } from '@/actions/getThreadByPostId.js';
 import ComeBack from '@/assets/comeback.svg';
 import { CommentList } from '@/components/Comments/index.js';
 import { SinglePost } from '@/components/Posts/SinglePost.js';
@@ -55,7 +55,7 @@ export default function Page({ params: { id: postId, source } }: PageProps) {
         },
     });
 
-    const { data: threadData = EMPTY_LIST } = useSuspenseQuery({
+    const { data: posts = EMPTY_LIST } = useSuspenseQuery({
         queryKey: [currentSource, 'thread-detail', post?.postId, post?.root?.postId],
         queryFn: async () => {
             const root = post?.root ? post.root : post?.commentOn ? post.commentOn : post;
@@ -64,42 +64,32 @@ export default function Page({ params: { id: postId, source } }: PageProps) {
             const provider = resolveSocialMediaProvider(currentSource);
             if (!provider) return EMPTY_LIST;
 
-            const result = await provider.getThreadByPostId(root.postId);
+            const cached = await provider.getThreadByPostId(root.postId);
 
             /**
              * The data of Lens is stored in Redis.
              * Since there is no expiration time and we need to check each time whether a new post has been added to the thread.
              * If so, we need to clear the cache and request again.
              */
-            if (currentSource === SocialPlatform.Lens && result.length >= MIN_POST_SIZE_PER_THREAD) {
-                const lastPost = last(result);
-
-                if (!lastPost) return result;
+            if (currentSource === SocialPlatform.Lens && cached.length >= MIN_POST_SIZE_PER_THREAD) {
+                const lastPost = last(cached);
+                if (!lastPost) return cached;
 
                 const commentsOfLastPost = await LensSocialMediaProvider.getCommentsByUserId(
                     lastPost.postId,
                     lastPost.author.profileId,
                 );
+                if (commentsOfLastPost.data.length === 0) return cached;
 
-                if (commentsOfLastPost.data.length === 0) return result;
-
-                const url = urlcat('/api/thread', { id: root.postId });
-
-                const response = await fetch(url, { method: 'PUT' });
-
-                if (response.status !== 200) return result;
-
-                return provider.getThreadByPostId(root.postId);
+                await refreshThreadByPostId(root.postId);
+                return await provider.getThreadByPostId(root.postId);
             }
 
-            return result;
+            return cached;
         },
     });
 
-    const thread = useMemo(
-        () => (showMore ? threadData : threadData.slice(0, MIN_POST_SIZE_PER_THREAD)),
-        [showMore, threadData],
-    );
+    const thread = showMore ? posts : posts.slice(0, MIN_POST_SIZE_PER_THREAD);
 
     useDocumentTitle(post ? createPageTitle(t`Post by ${post?.author.displayName}`) : SITE_NAME);
     useUpdateCurrentVisitingPost(post);
@@ -115,7 +105,7 @@ export default function Page({ params: { id: postId, source } }: PageProps) {
                 </h2>
             </div>
             <div>
-                {threadData.length >= MIN_POST_SIZE_PER_THREAD ? (
+                {posts.length >= MIN_POST_SIZE_PER_THREAD ? (
                     <>
                         <div className="border-b border-line px-4 py-3">
                             {thread.map((post, index) => (
@@ -126,7 +116,7 @@ export default function Page({ params: { id: postId, source } }: PageProps) {
                                     isLast={index === thread.length - 1}
                                 />
                             ))}
-                            {threadData.length > MIN_POST_SIZE_PER_THREAD && !showMore ? (
+                            {posts.length > MIN_POST_SIZE_PER_THREAD && !showMore ? (
                                 <div className="w-full cursor-pointer text-center text-[15px] font-bold text-link">
                                     <div onClick={() => setShowMore(true)}>
                                         <Trans>Show More</Trans>
@@ -134,11 +124,7 @@ export default function Page({ params: { id: postId, source } }: PageProps) {
                                 </div>
                             ) : null}
                         </div>
-                        <CommentList
-                            postId={post.postId}
-                            source={currentSource}
-                            exclude={threadData.map((x) => x.postId)}
-                        />
+                        <CommentList postId={post.postId} source={currentSource} exclude={posts.map((x) => x.postId)} />
                     </>
                 ) : (
                     <>
