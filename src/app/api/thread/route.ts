@@ -1,5 +1,23 @@
-import { getThreadByPostId, refreshThreadByPostId } from '@/actions/refreshThreadByPostIdOnce.js';
+import { KeyType } from '@/constants/enum.js';
 import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
+import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
+import { once } from '@/helpers/once.js';
+import { getLensThreadByPostId } from '@/services/getLensThreadByPostId.js';
+
+const getThreadByPostId = memoizeWithRedis(getLensThreadByPostId, {
+    key: KeyType.GetLensThreadByPostId,
+    resolver: (postId) => postId,
+});
+
+const refreshThreadByPostId = once(
+    async (postId: string) => {
+        await getThreadByPostId.cache.delete(postId);
+        await getLensThreadByPostId(postId);
+    },
+    {
+        resolver: (postId) => postId,
+    },
+);
 
 export async function GET(request: Request) {
     const { searchParams } = new URL(request.url);
