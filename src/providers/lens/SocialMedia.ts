@@ -6,6 +6,8 @@ import {
     FeedEventItemType,
     isCreateMomokaPublicationResult,
     isRelaySuccess,
+    type LensTransactionResultFragment,
+    LensTransactionStatusType,
     LimitType,
     PublicationReactionType,
     PublicationType,
@@ -26,7 +28,6 @@ import type { TypedDataDomain } from 'viem';
 import { polygon } from 'viem/chains';
 
 import { createLensClient } from '@/configs/lensClient.js';
-import { publicClient } from '@/configs/wagmiClient.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { formatLensPost, formatLensPostByFeed, formatLensQuoteOrComment } from '@/helpers/formatLensPost.js';
@@ -685,7 +686,7 @@ export class LensSocialMedia implements Provider {
             ],
         });
         const resultValue = result.unwrap();
-
+        let receipt: LensTransactionResultFragment | null;
         if (!isRelaySuccess(resultValue)) {
             const result = await this.client.profile.createFollowTypedData({
                 follow: [
@@ -714,12 +715,16 @@ export class LensSocialMedia implements Provider {
                 throw new Error(`Something went wrong: ${JSON.stringify(broadcastValue)}`);
             }
 
-            const receipt = await publicClient({ chainId: polygon.id }).waitForTransactionReceipt({
-                hash: broadcastValue.txHash as `0x${string}`,
+            receipt = await this.client.transaction.waitUntilComplete({
+                forTxHash: broadcastValue.txHash,
             });
-
-            if (receipt.status !== 'success') throw new Error('The transaction was reverted.');
+        } else {
+            receipt = await this.client.transaction.waitUntilComplete({
+                forTxHash: resultValue.txHash,
+            });
         }
+
+        if (receipt?.status !== LensTransactionStatusType.Complete) throw new Error('The transaction was reverted.');
     }
 
     async unfollow(profileId: string): Promise<void> {
@@ -728,6 +733,7 @@ export class LensSocialMedia implements Provider {
         });
         const resultValue = result.unwrap();
 
+        let receipt: LensTransactionResultFragment | null;
         if (!isRelaySuccess(resultValue)) {
             const followTypedDataResult = await this.client.profile.createUnfollowTypedData({
                 unfollow: [profileId],
@@ -752,12 +758,16 @@ export class LensSocialMedia implements Provider {
                 throw new Error(`Something went wrong: ${JSON.stringify(broadcastValue)}`);
             }
 
-            const receipt = await publicClient({ chainId: polygon.id }).waitForTransactionReceipt({
-                hash: broadcastValue.txHash as `0x${string}`,
+            receipt = await this.client.transaction.waitUntilComplete({
+                forTxHash: broadcastValue.txHash,
             });
-
-            if (receipt.status !== 'success') throw new Error('The transaction was reverted.');
+        } else {
+            receipt = await this.client.transaction.waitUntilComplete({
+                forTxHash: resultValue.txHash,
+            });
         }
+
+        if (receipt?.status !== LensTransactionStatusType.Complete) throw new Error('The transaction was reverted.');
     }
 
     async getFollowers(profileId: string, indicator?: PageIndicator): Promise<Pageable<Profile>> {
