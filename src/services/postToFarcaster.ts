@@ -4,8 +4,9 @@ import { uniqBy } from 'lodash-es';
 import { SocialPlatform } from '@/constants/enum.js';
 import { hasRpPayload } from '@/helpers/hasPayload.js';
 import { readChars } from '@/helpers/readChars.js';
+import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
-import { type Post } from '@/providers/types/SocialMedia.js';
+import { type Post, type PostType } from '@/providers/types/SocialMedia.js';
 import { createPostTo } from '@/services/postTo.js';
 import { uploadToImgur } from '@/services/uploadToImgur.js';
 import { type CompositePost } from '@/store/useComposeStore.js';
@@ -18,18 +19,19 @@ export async function postToFarcaster(type: ComposeType, compositePost: Composit
 
     const farcasterPostId = postId.Farcaster;
     const farcasterParentPost = parentPost.Farcaster;
+    const sourceName = resolveSourceName(SocialPlatform.Farcaster);
 
     // already posted to lens
-    if (farcasterPostId) throw new Error(t`Already posted on Farcaster.`);
+    if (farcasterPostId) throw new Error(t`Already posted on ${sourceName}.`);
 
     // login required
     const { currentProfile } = useFarcasterStateStore.getState();
-    if (!currentProfile?.profileId) throw new Error(t`Login required to post on Lens.`);
+    if (!currentProfile?.profileId) throw new Error(t`Login required to post on ${sourceName}.`);
 
-    const composeDraft = (images: MediaObject[]) => {
+    const composeDraft = (postType: PostType, images: MediaObject[]) => {
         const hasPayload = hasRpPayload(typedMessage);
         return {
-            type: 'Post',
+            type: postType,
             postId: '',
             source: SocialPlatform.Farcaster,
             author: currentProfile,
@@ -65,8 +67,11 @@ export async function postToFarcaster(type: ComposeType, compositePost: Composit
                 }),
             );
         },
-        compose: (images) => FarcasterSocialMediaProvider.publishPost(composeDraft(images)),
-        reply: (images) => FarcasterSocialMediaProvider.publishPost(composeDraft(images)),
+        compose: (images) => FarcasterSocialMediaProvider.publishPost(composeDraft('Post', images)),
+        reply: (images) => {
+            if (!farcasterParentPost) throw new Error(t`No parent post found.`);
+            return FarcasterSocialMediaProvider.publishPost(composeDraft('Comment', images));
+        },
         quote: () => {
             if (!farcasterParentPost) throw new Error(t`No parent post found.`);
             return FarcasterSocialMediaProvider.mirrorPost(farcasterParentPost.postId);

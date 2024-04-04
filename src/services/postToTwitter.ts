@@ -4,7 +4,7 @@ import { SocialPlatform } from '@/constants/enum.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { readChars } from '@/helpers/readChars.js';
 import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
-import { type Post } from '@/providers/types/SocialMedia.js';
+import { type Post, type PostType } from '@/providers/types/SocialMedia.js';
 import { createPostTo } from '@/services/postTo.js';
 import { uploadToTwitter } from '@/services/uploadToTwitter.js';
 import { type CompositePost } from '@/store/useComposeStore.js';
@@ -25,8 +25,9 @@ export async function postToTwitter(type: ComposeType, compositePost: CompositeP
     const { currentProfile } = useTwitterStateStore.getState();
     if (!currentProfile?.profileId) throw new Error(t`Login required to post on X.`);
 
-    const composeDraft = (images: MediaObject[]) => {
+    const composeDraft = (postType: PostType, images: MediaObject[]) => {
         return {
+            type: postType,
             postId: '',
             author: createDummyProfile(),
             metadata: {
@@ -51,11 +52,14 @@ export async function postToTwitter(type: ComposeType, compositePost: CompositeP
                 file: x.file,
             }));
         },
-        compose: (images) => TwitterSocialMediaProvider.publishPost(composeDraft(images)),
-        reply: (images) => TwitterSocialMediaProvider.publishPost(composeDraft(images)),
+        compose: (images) => TwitterSocialMediaProvider.publishPost(composeDraft('Post', images)),
+        reply: (images) => {
+            if (!twitterParentPost?.postId) throw new Error(t`No parent post found.`);
+            return TwitterSocialMediaProvider.publishPost(composeDraft('Comment', images));
+        },
         quote: (images) => {
             if (!twitterParentPost?.postId) throw new Error(t`No parent post found.`);
-            return TwitterSocialMediaProvider.quotePost(twitterParentPost.postId, composeDraft(images));
+            return TwitterSocialMediaProvider.quotePost(twitterParentPost.postId, composeDraft('Quote', images));
         },
     });
 

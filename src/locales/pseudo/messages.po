@@ -13,6 +13,9 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
+msgid "Login required to post on {sourceName}."
+msgstr ""
+
 msgid "Be the first one to comment!"
 msgstr ""
 
@@ -139,9 +142,6 @@ msgstr ""
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} {1, select, Lens {{2}} Farcaster {{3}} other {{4}}} <5><6/></5>"
 msgstr ""
 
-msgid "Already posted on Farcaster."
-msgstr ""
-
 msgid "Failed to unlike. {0}"
 msgstr ""
 
@@ -254,9 +254,6 @@ msgid "Collected"
 msgstr ""
 
 msgid "<0>You</0> mirrored"
-msgstr ""
-
-msgid "Failed to upload video to IPFS."
 msgstr ""
 
 msgid "Failed to create image payload."
@@ -421,16 +418,10 @@ msgstr ""
 msgid "Login required"
 msgstr ""
 
-msgid "Already posted on Lens."
-msgstr ""
-
 msgid "Show More"
 msgstr ""
 
 msgid "Failed to parse session."
-msgstr ""
-
-msgid "Login required to post on Lens."
 msgstr ""
 
 msgid "Loading..."
@@ -737,6 +728,9 @@ msgid "Mirror"
 msgstr ""
 
 msgid "Terms of Service"
+msgstr ""
+
+msgid "Already posted on {sourceName}."
 msgstr ""
 
 msgid "Post"

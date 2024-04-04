@@ -6,9 +6,9 @@ import { v4 as uuid } from 'uuid';
 import { SocialPlatform } from '@/constants/enum.js';
 import { SITE_URL } from '@/constants/index.js';
 import { createDummyPost } from '@/helpers/createDummyPost.js';
-import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { getUserLocale } from '@/helpers/getUserLocale.js';
 import { readChars } from '@/helpers/readChars.js';
+import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { createPostTo } from '@/services/postTo.js';
 import { uploadToArweave } from '@/services/uploadToArweave.js';
@@ -246,13 +246,14 @@ export async function postToLens(type: ComposeType, compositePost: CompositePost
 
     const lensPostId = postId.Lens;
     const lensParentPost = parentPost.Lens;
+    const sourceName = resolveSourceName(SocialPlatform.Lens);
 
     // already posted to lens
-    if (lensPostId) throw new Error(t`Already posted on Lens.`);
+    if (lensPostId) throw new Error(t`Already posted on ${sourceName}.`);
 
     // login required
     const { currentProfile } = useLensStateStore.getState();
-    if (!currentProfile?.profileId) throw new Error(t`Login required to post on Lens.`);
+    if (!currentProfile?.profileId) throw new Error(t`Login required to post on ${sourceName}.`);
 
     const postTo = createPostTo(SocialPlatform.Lens, {
         uploadImages() {
@@ -269,42 +270,39 @@ export async function postToLens(type: ComposeType, compositePost: CompositePost
         uploadVideos() {
             return Promise.all(
                 (video?.file ? [video] : []).map(async (media) => {
-                    try {
-                        if (media?.ipfs) return media;
-                        return {
-                            ...media,
-                            ipfs: await uploadFileToIPFS(media.file),
-                        };
-                    } catch (error) {
-                        const message = t`Failed to upload video to IPFS.`;
-                        enqueueErrorMessage(message);
-                        throw new Error(message);
-                    }
+                    if (media?.ipfs) return media;
+                    return {
+                        ...media,
+                        ipfs: await uploadFileToIPFS(media.file),
+                    };
                 }),
             );
         },
         compose(images, videos) {
-            return publishPostForLens(currentProfile.profileId, readChars(chars), images, first(videos) ?? null);
+            const video = first(videos) ?? null;
+            return publishPostForLens(currentProfile.profileId, readChars(chars), images, video);
         },
         reply(images, videos) {
             if (!lensParentPost) throw new Error(t`No parent post found.`);
+            const video = first(videos) ?? null;
             return commentPostForLens(
                 currentProfile.profileId,
                 lensParentPost.postId,
                 readChars(chars),
                 images,
-                first(videos) ?? null,
+                video,
                 !!lensParentPost.momoka?.proof,
             );
         },
         quote(images, videos) {
             if (!lensParentPost) throw new Error(t`No parent post found.`);
+            const video = first(videos) ?? null;
             return quotePostForLens(
                 currentProfile.profileId,
                 lensParentPost.postId,
                 readChars(chars),
                 images,
-                first(videos) ?? null,
+                video,
                 !!lensParentPost.momoka?.proof,
             );
         },
