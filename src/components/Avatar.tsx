@@ -22,7 +22,7 @@ export const Avatar = memo(function Avatar({ src, size, className, fallbackUrl, 
     const isBase64 = src.startsWith('data:image/');
     const { data: url } = useQuery({
         enabled: !isBase64,
-        queryKey: ['avatar', isBase64 ? '[disabled-base54]' : src, fallbackUrl],
+        queryKey: ['avatar', isBase64 ? '[disabled-base64]' : src, fallbackUrl],
         queryFn: () => resolveFirstAvailableUrl(compact([resolveImgurUrl(resolveAvatarFallbackUrl(src)), fallbackUrl])),
     });
 
