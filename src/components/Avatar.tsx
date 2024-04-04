@@ -19,8 +19,10 @@ interface Props extends NextImageProps {
 export const Avatar = memo(function Avatar({ src, size, className, fallbackUrl, ...rest }: Props) {
     const { isDarkMode } = useDarkMode();
 
-    const { data: url, isLoading: loading } = useQuery({
-        queryKey: ['avatar', src, fallbackUrl],
+    const isBase64 = src.startsWith('data:image/');
+    const { data: url } = useQuery({
+        enabled: !isBase64,
+        queryKey: ['avatar', isBase64 ? '[disabled-base54]' : src, fallbackUrl],
         queryFn: () => resolveFirstAvailableUrl(compact([resolveImgurUrl(resolveAvatarFallbackUrl(src)), fallbackUrl])),
     });
 
@@ -38,7 +40,7 @@ export const Avatar = memo(function Avatar({ src, size, className, fallbackUrl, 
                 width: size,
                 ...rest.style,
             }}
-            src={loading ? defaultFallbackUrl : url ?? defaultFallbackUrl}
+            src={isBase64 ? src : url || defaultFallbackUrl}
             width={size}
             height={size}
             alt={rest.alt}
