@@ -61,7 +61,7 @@ export const PostActions = memo<PostActionsProps>(function PostActions({
         <Like
             key="like"
             count={post.stats?.reactions}
-            hasLiked={post?.hasLiked}
+            hasLiked={post.hasLiked}
             postId={post.postId}
             source={post.source}
             authorId={post.source === SocialPlatform.Farcaster ? post.author.profileId : undefined}
