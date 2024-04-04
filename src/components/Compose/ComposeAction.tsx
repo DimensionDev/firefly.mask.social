@@ -240,7 +240,11 @@ export function ComposeAction(props: ComposeActionProps) {
                                 </span>
                                 <ChevronRightIcon className="h-5 w-5" aria-hidden="true" />
                             </Popover.Button>
-                            <ReplyRestriction restriction={rootPost.restriction} setRestriction={updateRestriction} />
+                            <ReplyRestriction
+                                post={rootPost}
+                                restriction={rootPost.restriction}
+                                setRestriction={updateRestriction}
+                            />
                         </>
                     )}
                 </Popover>
