@@ -39,8 +39,14 @@ export const FollowButton = memo(function FollowButton({ profile }: FollowButton
                     : '',
             )}
             disabled={loading}
-            onMouseEnter={() => setFollowHover(true)}
-            onMouseLeave={() => setFollowHover(false)}
+            onMouseEnter={() => {
+                if (loading) return;
+                setFollowHover(true);
+            }}
+            onMouseLeave={() => {
+                if (loading) return;
+                setFollowHover(false);
+            }}
             onClick={() => (isLogin ? handleToggle() : LoginModalRef.open({ source: profile.source }))}
         >
             {loading ? <LoadingIcon width={16} height={16} className="mr-2 animate-spin" /> : null}
