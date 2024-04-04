@@ -14,7 +14,7 @@ export async function getLensThreadByPostId(
 
     const author = post?.author ?? (await LensSocialMediaProvider.getPostById(postId)).author;
 
-    const comments = await LensSocialMediaProvider.getCommentsById(postId);
+    const comments = await LensSocialMediaProvider.getCommentsById(postId, undefined, false);
     const target = comments.data.find((x) => isSameProfile(x.author, author));
 
     if (target) {
