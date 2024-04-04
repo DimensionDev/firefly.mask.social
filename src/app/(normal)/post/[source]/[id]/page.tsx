@@ -5,7 +5,7 @@ import { useSuspenseQuery } from '@tanstack/react-query';
 import { last } from 'lodash-es';
 import { useRouter } from 'next/navigation.js';
 import type React from 'react';
-import { cache, useState } from 'react';
+import { useState } from 'react';
 import urlcat from 'urlcat';
 import { useDocumentTitle } from 'usehooks-ts';
 
@@ -17,7 +17,6 @@ import { SocialPlatform, SourceInURL } from '@/constants/enum.js';
 import { EMPTY_LIST, MIN_POST_SIZE_PER_THREAD, SITE_NAME } from '@/constants/index.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { createPageTitle } from '@/helpers/createPageTitle.js';
-import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSocialPlatform } from '@/helpers/resolveSocialPlatform.js';
 import { useUpdateCurrentVisitingPost } from '@/hooks/useCurrentVisitingPost.js';
