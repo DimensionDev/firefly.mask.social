@@ -29,8 +29,8 @@ export function FrameUI({ frame, readonly = false, loading = false, onButtonClic
     const inputRef = useRef<HTMLInputElement>(null);
 
     return (
-        <div className=" mt-4 rounded-xl border border-line bg-bg p-2 text-sm">
-            <div className="relative">
+        <div className=" mt-4 w-full rounded-xl border border-line bg-bg p-2 text-sm">
+            <div className="relative w-full">
                 {loading ? (
                     <div
                         className=" z10 absolute inset-0 overflow-hidden rounded-xl bg-white dark:bg-bg"
@@ -39,6 +39,9 @@ export function FrameUI({ frame, readonly = false, loading = false, onButtonClic
                 ) : null}
                 <Image
                     className="divider aspect-2 w-full rounded-xl object-cover"
+                    style={{
+                        aspectRatio: frame.aspectRatio?.replace(':', ' / '),
+                    }}
                     unoptimized
                     priority={false}
                     src={frame.image.url}
