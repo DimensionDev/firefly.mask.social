@@ -22,7 +22,9 @@ export default function OpenGraph() {
         URL_REGEX.lastIndex = 0;
         if (!URL_REGEX.test(url)) throw new Error(t`Invalid URL.`);
 
-        await refreshOpenGraphLink(url);
+        const data = new FormData();
+        data.append('url', url);
+        await refreshOpenGraphLink(data);
 
         return true;
     }, [url]);

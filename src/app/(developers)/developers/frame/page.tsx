@@ -21,7 +21,9 @@ export default function Frame() {
         URL_REGEX.lastIndex = 0;
         if (!URL_REGEX.test(url)) throw new Error(t`Invalid URL.`);
 
-        await refreshFrameLink(url);
+        const form = new FormData();
+        form.set('url', url);
+        await refreshFrameLink(form);
 
         return true;
     }, [url]);
