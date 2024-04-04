@@ -718,7 +718,7 @@ export class LensSocialMedia implements Provider {
                 hash: broadcastValue.txHash as `0x${string}`,
             });
 
-            if (receipt.status !== 'success') throw new Error('The transaction failed.');
+            if (receipt.status !== 'success') throw new Error('The transaction was reverted.');
         }
     }
 
@@ -756,7 +756,7 @@ export class LensSocialMedia implements Provider {
                 hash: broadcastValue.txHash as `0x${string}`,
             });
 
-            if (receipt.status !== 'success') throw new Error('The transaction failed.');
+            if (receipt.status !== 'success') throw new Error('The transaction was reverted.');
         }
     }
 
