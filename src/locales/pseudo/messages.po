@@ -112,9 +112,6 @@ msgstr ""
 msgid "Username"
 msgstr ""
 
-msgid "Quoted post on Farcaster."
-msgstr ""
-
 msgid "Failed to upload image to IPFS."
 msgstr ""
 
@@ -151,10 +148,10 @@ msgstr ""
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} {1, select, Lens {{2}} Farcaster {{3}} other {{4}}} <5><6/></5>"
 msgstr ""
 
-msgid "Failed to unlike. {0}"
+msgid "Already posted on Farcaster."
 msgstr ""
 
-msgid "Failed to mirror post on Farcaster."
+msgid "Failed to unlike. {0}"
 msgstr ""
 
 msgid "You need to connect your {source} account to use this feature."
@@ -209,9 +206,6 @@ msgid "Frame Validator"
 msgstr ""
 
 msgid "Follow System"
-msgstr ""
-
-msgid "Post already posted on Farcaster"
 msgstr ""
 
 msgid "No results"
@@ -335,6 +329,9 @@ msgid "Everyone"
 msgstr ""
 
 msgid "Please confirm the login with Warpcast."
+msgstr ""
+
+msgid "Failed to recast post on Farcaster."
 msgstr ""
 
 msgid "Compose"
@@ -640,6 +637,9 @@ msgstr ""
 msgid "Only people you follow"
 msgstr ""
 
+msgid "Already posted on X."
+msgstr ""
+
 msgid "<0>You</0> and {0} recasted"
 msgstr ""
 
@@ -689,6 +689,9 @@ msgid "No matching users"
 msgstr ""
 
 msgid "{0, select, follow {Followed @{handle} on {source}} unfollow {Unfollowed @{handle} on {source}} other {Followed @{handle} on {source}}}"
+msgstr ""
+
+msgid "Recasted post on Farcaster."
 msgstr ""
 
 msgid "Log in to Farcaster account"

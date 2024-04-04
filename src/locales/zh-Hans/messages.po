@@ -117,9 +117,6 @@ msgstr "确认"
 msgid "Username"
 msgstr ""
 
-msgid "Quoted post on Farcaster."
-msgstr ""
-
 msgid "Failed to upload image to IPFS."
 msgstr "上传图片失败。"
 
@@ -156,11 +153,11 @@ msgstr "至多可以选择2张图片。"
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} {1, select, Lens {{2}} Farcaster {{3}} other {{4}}} <5><6/></5>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} {1, select, Lens {{2}} Farcaster {{3}} other {{4}}} <5><6/></5>"
 
+msgid "Already posted on Farcaster."
+msgstr ""
+
 msgid "Failed to unlike. {0}"
 msgstr "取消点赞失败。 {0}"
-
-msgid "Failed to mirror post on Farcaster."
-msgstr "未能在 Farcaster 上转贴。"
 
 msgid "You need to connect your {source} account to use this feature."
 msgstr "你需要连接你的 {source} 账号才能使用此功能。"
@@ -215,9 +212,6 @@ msgstr "Frame Validator"
 
 msgid "Follow System"
 msgstr "跟随系统"
-
-msgid "Post already posted on Farcaster"
-msgstr ""
 
 msgid "No results"
 msgstr "没有任何结果。"
@@ -340,6 +334,9 @@ msgid "Everyone"
 msgstr "任何人"
 
 msgid "Please confirm the login with Warpcast."
+msgstr ""
+
+msgid "Failed to recast post on Farcaster."
 msgstr ""
 
 msgid "Compose"
@@ -645,6 +642,9 @@ msgstr ""
 msgid "Only people you follow"
 msgstr "只有你关注的人"
 
+msgid "Already posted on X."
+msgstr ""
+
 msgid "<0>You</0> and {0} recasted"
 msgstr "<0> 你 </0> 和 {0} 人都转发了"
 
@@ -696,6 +696,9 @@ msgstr "未找到匹配用户"
 msgid "{0, select, follow {Followed @{handle} on {source}} unfollow {Unfollowed @{handle} on {source}} other {Followed @{handle} on {source}}}"
 msgstr "{0, select, follow {在 {source} 关注 @{handle}} unfollow {在 {source} 取消关注 @{handle}} other {在 {source} 关注 @{handle}}}"
 
+msgid "Recasted post on Farcaster."
+msgstr ""
+
 msgid "Log in to Farcaster account"
 msgstr "登录到 Farcaster 账号"
 
@@ -718,7 +721,7 @@ msgid "Language"
 msgstr "语言"
 
 msgid "Add a comment"
-msgstr "添加一个评论"
+msgstr "添加一条评论"
 
 msgid "Profiles"
 msgstr "个人信息"

@@ -112,9 +112,6 @@ msgstr "Confirm"
 msgid "Username"
 msgstr "Username"
 
-msgid "Quoted post on Farcaster."
-msgstr "Quoted post on Farcaster."
-
 msgid "Failed to upload image to IPFS."
 msgstr "Failed to upload image to IPFS."
 
@@ -151,11 +148,11 @@ msgstr "Only up to 2 images can be chosen."
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} {1, select, Lens {{2}} Farcaster {{3}} other {{4}}} <5><6/></5>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} {1, select, Lens {{2}} Farcaster {{3}} other {{4}}} <5><6/></5>"
 
+msgid "Already posted on Farcaster."
+msgstr "Already posted on Farcaster."
+
 msgid "Failed to unlike. {0}"
 msgstr "Failed to unlike. {0}"
-
-msgid "Failed to mirror post on Farcaster."
-msgstr "Failed to mirror post on Farcaster."
 
 msgid "You need to connect your {source} account to use this feature."
 msgstr "You need to connect your {source} account to use this feature."
@@ -210,9 +207,6 @@ msgstr "Frame Validator"
 
 msgid "Follow System"
 msgstr "Follow System"
-
-msgid "Post already posted on Farcaster"
-msgstr "Post already posted on Farcaster"
 
 msgid "No results"
 msgstr "No results"
@@ -336,6 +330,9 @@ msgstr "Everyone"
 
 msgid "Please confirm the login with Warpcast."
 msgstr "Please confirm the login with Warpcast."
+
+msgid "Failed to recast post on Farcaster."
+msgstr "Failed to recast post on Farcaster."
 
 msgid "Compose"
 msgstr "Compose"
@@ -640,6 +637,9 @@ msgstr "Failed to quote post."
 msgid "Only people you follow"
 msgstr "Only people you follow"
 
+msgid "Already posted on X."
+msgstr "Already posted on X."
+
 msgid "<0>You</0> and {0} recasted"
 msgstr "<0>You</0> and {0} recasted"
 
@@ -690,6 +690,9 @@ msgstr "No matching users"
 
 msgid "{0, select, follow {Followed @{handle} on {source}} unfollow {Unfollowed @{handle} on {source}} other {Followed @{handle} on {source}}}"
 msgstr "{0, select, follow {Followed @{handle} on {source}} unfollow {Unfollowed @{handle} on {source}} other {Followed @{handle} on {source}}}"
+
+msgid "Recasted post on Farcaster."
+msgstr "Recasted post on Farcaster."
 
 msgid "Log in to Farcaster account"
 msgstr "Log in to Farcaster account"

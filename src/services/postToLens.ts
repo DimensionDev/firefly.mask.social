@@ -1,6 +1,7 @@
 import { image, MediaImageMimeType, MediaVideoMimeType, textOnly, video } from '@lens-protocol/metadata';
 import { t } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
+import { first } from 'lodash-es';
 import { v4 as uuid } from 'uuid';
 
 import { queryClient } from '@/configs/queryClient.js';
@@ -260,42 +261,41 @@ export async function postToLens(type: ComposeType, compositePost: CompositePost
         images.map(async (media) => {
             try {
                 if (media.ipfs) return media;
-                const ipfs = await uploadFileToIPFS(media.file);
-                const patchedMedia: MediaObject = {
+                return {
                     ...media,
-                    ipfs,
+                    ipfs: await uploadFileToIPFS(media.file),
                 };
-                updatePostInThread(compositePost.id, (x) => ({
-                    ...x,
-                    images: x.images.map((x) => (x.file === media.file ? patchedMedia : x)),
-                }));
-                // We only care about ipfs for Lens
-                return patchedMedia;
-            } catch (err) {
+            } catch (error) {
                 const message = t`Failed to upload image to IPFS.`;
                 enqueueErrorMessage(message);
                 throw new Error(message);
             }
         }),
     );
-    let uploadedVideo = video;
-    if (video?.file && !video.ipfs) {
-        const response = await uploadFileToIPFS(video.file);
-        if (response) {
-            uploadedVideo = {
-                ...video,
-                ipfs: response,
-            };
-            updatePostInThread(compositePost.id, (x) => ({
-                ...x,
-                video: uploadedVideo,
-            }));
-        } else {
-            const message = t`Failed to upload video to IPFS.`;
-            enqueueErrorMessage(message);
-            throw new Error(message);
-        }
-    }
+
+    const uploadedVideos = await Promise.all(
+        (video?.file ? [video] : []).map(async (media) => {
+            try {
+                if (media?.ipfs) return media;
+                return {
+                    ...media,
+                    ipfs: await uploadFileToIPFS(media.file),
+                };
+            } catch (error) {
+                const message = t`Failed to upload video to IPFS.`;
+                enqueueErrorMessage(message);
+                throw new Error(message);
+            }
+        }),
+    );
+
+    const uploadedVideo = first(uploadedVideos) ?? null;
+
+    updatePostInThread(compositePost.id, (x) => ({
+        ...x,
+        images: uploadedImages,
+        video: uploadedVideo,
+    }));
 
     if (type === 'compose') {
         try {
@@ -319,8 +319,8 @@ export async function postToLens(type: ComposeType, compositePost: CompositePost
             throw error;
         }
     } else if (type === 'reply') {
+        if (!lensParentPost) throw new Error(t`No parent post found.`);
         try {
-            if (!lensParentPost) throw new Error(t`No parent post found.`);
             const commentId = await commentPostForLens(
                 currentProfile.profileId,
                 lensParentPost.postId,
@@ -349,8 +349,8 @@ export async function postToLens(type: ComposeType, compositePost: CompositePost
             throw error;
         }
     } else if (type === 'quote') {
+        if (!lensParentPost) throw new Error(t`No parent post found.`);
         try {
-            if (!lensParentPost) throw new Error(t`No parent post found.`);
             const postId = await quotePostForLens(
                 currentProfile.profileId,
                 lensParentPost.postId,

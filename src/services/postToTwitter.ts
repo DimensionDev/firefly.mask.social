@@ -19,7 +19,7 @@ export async function postToTwitter(
     const twitterParentPost = parentPost.Twitter;
 
     // alreay posted to lens
-    if (twitterPostId) throw new Error(`Already posted on X.`);
+    if (twitterPostId) throw new Error(t`Already posted on X.`);
 
     try {
         const medias = await uploadToTwitter(images.map((x) => x.file));
