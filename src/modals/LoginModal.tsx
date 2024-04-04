@@ -1,7 +1,7 @@
 'use client';
 
 import { Trans } from '@lingui/macro';
-import { delay, getEnumAsArray, safeUnreachable } from '@masknet/kit';
+import { delay, safeUnreachable } from '@masknet/kit';
 import type { SingletonModalRefCreator } from '@masknet/shared-base';
 import { useSingletonModal } from '@masknet/shared-base-ui';
 import { forwardRef, Suspense, useState } from 'react';
@@ -19,7 +19,7 @@ import { Modal } from '@/components/Modal.js';
 import { Popover } from '@/components/Popover.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { SocialPlatform } from '@/constants/enum.js';
-import { EMPTY_LIST } from '@/constants/index.js';
+import { EMPTY_LIST, SORTED_SOURCES } from '@/constants/index.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
@@ -117,7 +117,7 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | 
                         <LoadingIcon className="animate-spin" width={24} height={24} />
                     </div>
                 ) : (
-                    getEnumAsArray(SocialPlatform).map(({ value: source }) => (
+                    SORTED_SOURCES.map((source) => (
                         <LoginButton key={source} source={source} onClick={() => handleLogin(source)} />
                     ))
                 )}

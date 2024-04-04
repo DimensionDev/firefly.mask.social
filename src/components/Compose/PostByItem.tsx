@@ -19,7 +19,7 @@ import { useProfiles } from '@/hooks/useProfiles.js';
 import { ComposeModalRef, LoginModalRef } from '@/modals/controls.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
-import { useComposeStateStore } from '@/store/useComposeStore.js';
+import { useComposeStateStore, useCompositePost } from '@/store/useComposeStore.js';
 import { useLensStateStore } from '@/store/useProfileStore.js';
 
 interface PostByItemProps {
@@ -32,11 +32,8 @@ export function PostByItem({ source }: PostByItemProps) {
 
     const updateLensCurrentProfile = useLensStateStore.use.updateCurrentProfile();
 
-    const {
-        compositePost: { images, availableSources },
-        enableSource,
-        disableSource,
-    } = useComposeStateStore();
+    const { enableSource, disableSource } = useComposeStateStore();
+    const { images, rootPost } = useCompositePost();
 
     const [{ loading }, loginLens] = useAsyncFn(
         async (profile: Profile) => {
@@ -86,7 +83,7 @@ export function PostByItem({ source }: PostByItemProps) {
             key={profile.profileId}
             onClick={() => {
                 if (!isSameProfile(currentProfile, profile)) return;
-                if (availableSources.includes(currentProfile.source)) disableSource(currentProfile.source);
+                if (rootPost.availableSources.includes(currentProfile.source)) disableSource(currentProfile.source);
                 else enableSource(currentProfile.source);
             }}
         >
@@ -109,7 +106,7 @@ export function PostByItem({ source }: PostByItemProps) {
                 </span>
             </div>
             {isSameProfile(currentProfile, profile) ? (
-                availableSources.includes(currentProfile.source) ? (
+                rootPost.availableSources.includes(currentProfile.source) ? (
                     <YesIcon width={40} height={40} className=" relative -right-[10px]" />
                 ) : (
                     <RadioDisableNoIcon width={20} height={20} className=" text-secondaryLine" />

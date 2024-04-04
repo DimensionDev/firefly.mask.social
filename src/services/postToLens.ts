@@ -309,7 +309,7 @@ export async function postToLens(type: ComposeType, compositePost: CompositePost
         }
     } else if (type === 'reply') {
         try {
-            if (!lensParentPost) throw new Error('No post found.');
+            if (!lensParentPost) throw new Error(t`No parent post found.`);
             const commentId = await commentPostForLens(
                 currentProfile.profileId,
                 lensParentPost.postId,
@@ -339,7 +339,7 @@ export async function postToLens(type: ComposeType, compositePost: CompositePost
         }
     } else if (type === 'quote') {
         try {
-            if (!lensParentPost) throw new Error('No post found.');
+            if (!lensParentPost) throw new Error(t`No parent post found.`);
             const postId = await quotePostForLens(
                 currentProfile.profileId,
                 lensParentPost.postId,

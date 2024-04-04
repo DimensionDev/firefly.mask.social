@@ -1,6 +1,5 @@
 import { PlusCircleIcon } from '@heroicons/react/24/outline';
 import { t, Trans } from '@lingui/macro';
-import { useMemo } from 'react';
 import { useAsyncFn } from 'react-use';
 
 import LoadingIcon from '@/assets/loading.svg';
@@ -32,35 +31,13 @@ export function ComposeSend(props: ComposeSendProps) {
     const isMedium = useIsMedium();
     const setEditorContent = useSetEditorContent();
 
-    const [{ loading: loadingCrossPost }, handleCrossPost] = useAsyncFn(async () => {
-        try {
-            await crossPost(type, props.post);
-        } finally {
-            ComposeModalRef.close();
-        }
-    }, [type, props.post]);
+    const [{ loading }, handlePost] = useAsyncFn(async () => {
+        if (posts.length > 1) await crossPostThread();
+        else await crossPost(type, props.post);
+        ComposeModalRef.close();
+    }, [type, posts.length, props.post]);
 
-    const [{ loading: loadingCrossPostThread }, handleCrossPostThread] = useAsyncFn(async () => {
-        try {
-            await crossPostThread();
-        } finally {
-            ComposeModalRef.close();
-        }
-    }, []);
-
-    const disabledCrossPost = useMemo(() => {
-        if (loadingCrossPost) return true;
-        return isValidPost(props.post);
-    }, [props.post, loadingCrossPost]);
-
-    const disabledCrossPostThread = useMemo(() => {
-        if (loadingCrossPostThread) return true;
-        return posts.some((x) => !isValidPost(x));
-    }, [loadingCrossPostThread, posts]);
-
-    const loading = posts.length > 1 ? loadingCrossPostThread : loadingCrossPost;
-    const disabled = posts.length > 1 ? disabledCrossPostThread : disabledCrossPost;
-    const handlePost = posts.length > 1 ? handleCrossPostThread : handleCrossPost;
+    const disabled = loading || posts.length > 1 ? posts.some((x) => !isValidPost(x)) : !isValidPost(props.post);
 
     if (!isMedium) {
         return (
@@ -83,7 +60,7 @@ export function ComposeSend(props: ComposeSendProps) {
             {visibleLength ? (
                 <div className=" flex items-center gap-[10px] whitespace-nowrap text-[15px] text-main">
                     <CountdownCircle count={visibleLength} width={24} height={24} className="flex-shrink-0" />
-                    <span className={classNames(disabled ? ' text-danger' : '')}>
+                    <span className={visibleLength > MAX_CHAR_SIZE_PER_POST - invisibleLength ? ' text-danger' : ''}>
                         {visibleLength} / {MAX_CHAR_SIZE_PER_POST - invisibleLength}
                     </span>
                 </div>

@@ -60,9 +60,6 @@ msgstr ""
 msgid "{0} views"
 msgstr "{0} 浏览数"
 
-msgid "Failed to upload. File type is not supported"
-msgstr "图片格式不支持。上传失败。"
-
 msgid "Failed to post on Farcaster."
 msgstr "在 Farcaster 发贴失败。"
 
@@ -96,6 +93,9 @@ msgstr "OpenGraph"
 msgid "Wrong wallet"
 msgstr "错误的钱包"
 
+msgid "Transaction button is not available yet."
+msgstr ""
+
 msgid "Debug Console"
 msgstr "诊断命令行"
 
@@ -107,9 +107,6 @@ msgstr "离线"
 
 msgid "Copied"
 msgstr "已复制"
-
-msgid "Failed to upload to Imgur"
-msgstr "上传图片失败"
 
 msgid "comment"
 msgstr "评论"
@@ -131,6 +128,9 @@ msgstr "找不到网页"
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/> and # others}} <4>liked your </4><5><6/></5>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> 和 <2/>} other {<3/> 和其他 # 人}} <4>点赞了你的 </4><5><6/></5>"
+
+msgid "Replied on Farcaster."
+msgstr ""
 
 msgid "Password"
 msgstr ""
@@ -573,9 +573,6 @@ msgstr "<0>你</0> 已点赞"
 msgid "You've hit rock bottom."
 msgstr "你已经滑到底部啦～"
 
-msgid "The root post not found."
-msgstr ""
-
 msgid "Failed to mirror post."
 msgstr "转发失败"
 
@@ -605,6 +602,9 @@ msgstr "红包"
 
 msgid "{0} and others"
 msgstr "{0} 和 其他"
+
+msgid "File type is not supported."
+msgstr ""
 
 msgid "Please switch to the wallet used for login."
 msgstr "请切换钱包登录。"
@@ -693,11 +693,11 @@ msgstr "语言"
 msgid "Add a comment"
 msgstr "添加一个评论"
 
-msgid "No parent post to quote."
-msgstr ""
-
 msgid "Profiles"
 msgstr "个人信息"
+
+msgid "No parent post found."
+msgstr ""
 
 msgid "Please confirm the login with X."
 msgstr ""

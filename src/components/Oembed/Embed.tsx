@@ -28,7 +28,7 @@ export function Embed({ og }: EmbedProps) {
                     ) : null}
                     <div className="flex items-center">
                         {!og.isLarge && og.image ? (
-                            <div className="relative aspect-square h-36 shrink-0">
+                            <div className="relative aspect-square h-20 shrink-0 md:h-36">
                                 <Image
                                     className="rounded-l-xl border-r dark:border-gray-700"
                                     layout="fill"
@@ -38,7 +38,7 @@ export function Embed({ og }: EmbedProps) {
                                 />
                             </div>
                         ) : null}
-                        <div className="truncate p-5 text-left text-second">
+                        <div className="truncate p-2 text-left text-second md:p-5">
                             <div className="space-y-1.5">
                                 {og.title ? <div className="truncate font-bold">{og.title}</div> : null}
                                 {og.description ? (

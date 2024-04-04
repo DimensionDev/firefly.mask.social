@@ -1,3 +1,4 @@
+import { compact } from 'lodash-es';
 import { memo, useMemo } from 'react';
 import urlcat from 'urlcat';
 
@@ -11,6 +12,7 @@ import { ClickableArea } from '@/components/ClickableArea.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
+import { useIsSmall } from '@/hooks/useMediaQuery.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 
@@ -28,48 +30,60 @@ export const PostActions = memo<PostActionsProps>(function PostActions({
     disablePadding = false,
 }) {
     const publicationViews = useImpressionsStore.use.publicationViews();
+    const isSmall = useIsSmall('max');
 
     const views = useMemo(() => {
         return publicationViews.find((x) => x.id === post.postId)?.views;
     }, [publicationViews, post]);
 
+    const actions = compact([
+        <Comment
+            key="comment"
+            disabled={disabled}
+            count={post.stats?.comments}
+            canComment={post.canComment}
+            source={post.source}
+            author={post.author.handle}
+            post={post}
+        />,
+        <Mirror
+            key="mirror"
+            disabled={disabled}
+            shares={(post.stats?.mirrors || 0) + (post.stats?.quotes || 0)}
+            source={post.source}
+            postId={post.postId}
+            post={post}
+        />,
+
+        post.source !== SocialPlatform.Farcaster && post.canAct ? (
+            <Collect key="collect" count={post.stats?.countOpenActions} disabled={disabled} collected={post.hasActed} />
+        ) : null,
+        <Like
+            key="like"
+            count={post.stats?.reactions}
+            hasLiked={post.hasLiked}
+            postId={post.postId}
+            source={post.source}
+            authorId={post.source === SocialPlatform.Farcaster ? post.author.profileId : undefined}
+            disabled={disabled}
+        />,
+        post.source === SocialPlatform.Farcaster || isSmall ? null : (
+            <Views key="views" count={views} disabled={disabled} />
+        ),
+        <Share key="share" url={urlcat(location.origin, getPostUrl(post))} disabled={disabled} />,
+    ]);
+    const actionLength = actions.length;
+
     return (
         <ClickableArea
             className={classNames('mt-2 grid grid-flow-col items-center', className, {
                 'pl-[52px]': !disablePadding,
-                'grid-cols-3': post.source === SocialPlatform.Farcaster,
-                'grid-cols-4': !post.canAct && post.source === SocialPlatform.Lens,
-                'grid-cols-5': !!post.canAct && post.source === SocialPlatform.Lens,
+                'grid-cols-3': actionLength === 4,
+                'grid-cols-4': actionLength === 5,
+                'grid-cols-5': actionLength === 6,
             })}
         >
-            <Comment
-                disabled={disabled}
-                count={post.stats?.comments}
-                canComment={post.canComment}
-                source={post.source}
-                author={post.author.handle}
-                post={post}
-            />
-            <Mirror
-                disabled={disabled}
-                shares={(post.stats?.mirrors ?? 0) + (post.stats?.quotes ?? 0)}
-                source={post.source}
-                postId={post.postId}
-                post={post}
-            />
-            {post.source !== SocialPlatform.Farcaster && post.canAct ? (
-                <Collect count={post.stats?.countOpenActions} disabled={disabled} collected={post.hasActed} />
-            ) : null}
-            <Like
-                count={post.stats?.reactions}
-                hasLiked={post?.hasLiked}
-                postId={post.postId}
-                source={post.source}
-                authorId={post.source === SocialPlatform.Farcaster ? post.author.profileId : undefined}
-                disabled={disabled}
-            />
-            {post.source !== SocialPlatform.Farcaster ? <Views count={views} disabled={disabled} /> : null}
-            <Share url={urlcat(location.origin, getPostUrl(post))} disabled={disabled} />
+            {actions}
         </ClickableArea>
     );
 });

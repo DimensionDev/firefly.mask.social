@@ -7,7 +7,7 @@ import ImageIcon from '@/assets/image.svg';
 import VideoIcon from '@/assets/video.svg';
 import { SocialPlatform } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
-import { useComposeStateStore } from '@/store/useComposeStore.js';
+import { useComposeStateStore, useCompositePost } from '@/store/useComposeStore.js';
 import { useFarcasterStateStore } from '@/store/useProfileStore.js';
 
 interface MediaProps {
@@ -18,11 +18,8 @@ export function Media({ close }: MediaProps) {
     const videoInputRef = useRef<HTMLInputElement>(null);
 
     const currentFarcasterProfile = useFarcasterStateStore.use.currentProfile();
-    const {
-        compositePost: { availableSources, video, images },
-        updateVideo,
-        updateImages,
-    } = useComposeStateStore();
+    const { updateVideo, updateImages } = useComposeStateStore();
+    const { availableSources, video, images } = useCompositePost();
 
     const maxImageCount = currentFarcasterProfile && availableSources.includes(SocialPlatform.Farcaster) ? 2 : 4;
 
@@ -54,6 +51,8 @@ export function Media({ close }: MediaProps) {
         },
         [close, updateVideo],
     );
+
+    const disabledVideo = !!video || availableSources.includes(SocialPlatform.Farcaster);
 
     return (
         <Transition
@@ -100,14 +99,12 @@ export function Media({ close }: MediaProps) {
                 <div
                     className={classNames(
                         'flex h-8 items-center gap-2',
-                        video || currentFarcasterProfile
-                            ? 'cursor-not-allowed opacity-50'
-                            : 'cursor-pointer hover:bg-bg',
+                        disabledVideo ? 'cursor-not-allowed opacity-50' : 'cursor-pointer hover:bg-bg',
                     )}
                     onClick={() => {
-                        if (!video && !currentFarcasterProfile) {
-                            videoInputRef.current?.click();
-                        }
+                        if (disabledVideo) return;
+
+                        videoInputRef.current?.click();
                     }}
                 >
                     <VideoIcon width={24} height={24} />

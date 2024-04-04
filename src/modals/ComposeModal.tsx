@@ -42,7 +42,7 @@ import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';
 import { ComposeModalRef, ConfirmModalRef } from '@/modals/controls.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { steganographyEncodeImage } from '@/services/steganography.js';
-import { useComposeStateStore } from '@/store/useComposeStore.js';
+import { useComposeStateStore, useCompositePost } from '@/store/useComposeStore.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import type { ComposeType } from '@/types/compose.js';
 
@@ -84,7 +84,6 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
         const {
             type,
             posts,
-            compositePost,
             addImage,
             updateType,
             updateAvailableSources,
@@ -94,6 +93,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
             updateRpPayload,
             clear,
         } = useComposeStateStore();
+        const compositePost = useCompositePost();
 
         const { typedMessage, rpPayload: rpPayload } = compositePost;
 
@@ -223,7 +223,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
                     </Dialog.Title>
 
                     <div className=" flex flex-1 flex-col overflow-auto px-4 pb-4">
-                        <div className="flex flex-1 flex-col overflow-auto rounded-lg border border-secondaryLine bg-bg px-4 py-[14px] sm:min-h-[300px] md:max-h-[500px] md:min-h-[338px]">
+                        <div className="flex min-h-[300px] flex-1 flex-col overflow-auto rounded-lg border border-secondaryLine bg-bg px-4 py-[14px] md:max-h-[500px] md:min-h-[338px]">
                             {posts.length === 1 ? <ComposeContent post={compositePost} /> : <ComposeThreadContent />}
                         </div>
                     </div>

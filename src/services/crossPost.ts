@@ -8,6 +8,7 @@ import { SocialPlatform } from '@/constants/enum.js';
 import { SORTED_SOURCES } from '@/constants/index.js';
 import { getCurrentProfileAll } from '@/helpers/getCurrentProfileAll.js';
 import { hasRpPayload } from '@/helpers/hasPayload.js';
+import { isPublishedPost } from '@/helpers/isPublishedPost.js';
 import { resolvePostTo } from '@/helpers/resolvePostTo.js';
 import { resolveRedPacketPlatformType } from '@/helpers/resolveRedPacketPlatformType.js';
 import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
@@ -27,9 +28,8 @@ async function refreshProfileFeed(source: SocialPlatform) {
 async function updateRpClaimStrategy(compositePost: CompositePost) {
     const { postId, typedMessage, rpPayload } = compositePost;
 
-    const currentProfileAll = getCurrentProfileAll();
-
     if (hasRpPayload(typedMessage) && SORTED_SOURCES.some((x) => postId[x]) && rpPayload?.publicKey) {
+        const currentProfileAll = getCurrentProfileAll();
         const rpPayloadFromMeta = typedMessage?.meta?.get(RedPacketMetaKey) as RedPacketJSONPayload;
 
         const reactions = compact(
@@ -37,7 +37,7 @@ async function updateRpClaimStrategy(compositePost: CompositePost) {
                 const id = postId[x];
                 return id
                     ? {
-                          platform: resolveRedPacketPlatformType(x)!,
+                          platform: resolveRedPacketPlatformType(x),
                           postId: id,
                       }
                     : null;
@@ -50,7 +50,7 @@ async function updateRpClaimStrategy(compositePost: CompositePost) {
                 return postId[x] && currentProfile
                     ? {
                           platformId: currentProfile.profileId,
-                          platformName: resolveRedPacketPlatformType(x)!,
+                          platformName: resolveRedPacketPlatformType(x),
                       }
                     : null;
             }),
@@ -65,16 +65,47 @@ async function updateRpClaimStrategy(compositePost: CompositePost) {
     }
 }
 
-export async function crossPost(type: ComposeType, compositePost: CompositePost) {
+interface CrossPostOptions {
+    // skip if post is already published
+    skipIfPublishedPost?: boolean;
+    // skip if no parent post is found in reply or quote
+    skipIfNoParentPost?: boolean;
+    // skip published check
+    skipPublishedCheck?: boolean;
+}
+
+export async function crossPost(
+    type: ComposeType,
+    compositePost: CompositePost,
+    { skipIfPublishedPost = false, skipIfNoParentPost = false, skipPublishedCheck = false }: CrossPostOptions = {},
+) {
     const { availableSources } = compositePost;
 
     const allSettled = await Promise.allSettled(
-        SORTED_SOURCES.map((x) =>
-            availableSources.includes(x) ? resolvePostTo(x)(type, compositePost) : Promise.resolve(null),
-        ),
-    );
-    if (allSettled.every((x) => x.status === 'rejected')) return;
+        SORTED_SOURCES.map((x) => {
+            if (availableSources.includes(x)) {
+                // post already published
+                if (skipIfPublishedPost && compositePost.postId[x]) {
+                    return Promise.resolve(null);
+                }
 
+                // parent post is required for reply and quote
+                if ((type === 'reply' || type === 'quote') && skipIfNoParentPost && !compositePost.parentPost[x]) {
+                    return Promise.resolve(null);
+                }
+                return resolvePostTo(x)(type, compositePost);
+            } else {
+                return Promise.resolve(null);
+            }
+        }),
+    );
+
+    // failed to cross post
+    if (allSettled.every((x) => x.status === 'rejected')) {
+        throw new Error('Post failed to publish.');
+    }
+
+    // refresh profile feed
     if (type === 'compose') {
         await Promise.allSettled(
             SORTED_SOURCES.map((x, i) => {
@@ -85,9 +116,15 @@ export async function crossPost(type: ComposeType, compositePost: CompositePost)
         );
     }
 
-    // update red packet claim strategy if necessary
     const { posts } = useComposeStateStore.getState();
     const updatedCompositePost = posts.find((post) => post.id === compositePost.id);
+    if (!updatedCompositePost) throw new Error('Post not found.');
 
-    if (updatedCompositePost) await updateRpClaimStrategy(compositePost);
+    // failed to to cross post
+    if (!skipPublishedCheck && !isPublishedPost(type, updatedCompositePost)) {
+        throw new Error('Post failed to publish.');
+    }
+
+    // update red packet claim strategy
+    await updateRpClaimStrategy(compositePost);
 }

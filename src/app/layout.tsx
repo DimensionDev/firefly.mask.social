@@ -1,5 +1,6 @@
 import '@/app/globals.css';
 
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import { Inter } from 'next/font/google';
 import { ScrollRestorer } from 'next-scroll-restorer';
 import { lazy } from 'react';
@@ -9,6 +10,7 @@ import { GA } from '@/components/GA.js';
 import { Polyfills } from '@/components/Polyfills.js';
 import { Providers } from '@/components/Providers.js';
 import { SideBar } from '@/components/SideBar/index.js';
+import { Script } from '@/esm/Script.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { createSiteViewport } from '@/helpers/createSiteViewport.js';
 import { getLocaleFromCookies } from '@/helpers/getLocaleFromCookies.js';
@@ -35,6 +37,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <html>
             <head>
                 <Polyfills />
+                <Script src="https://cdn.jsdelivr.net/npm/bowser@2.11.0/es5.min.js" />
+                <Script src="/js/browser-detector.js" defer />
             </head>
             <body className={`${inter.variable} font-inter`}>
                 <Providers>
@@ -51,6 +55,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                     <Modals />
                 </Providers>
                 <GA />
+                <SpeedInsights />
                 <BeforeUnload />
             </body>
             <ScrollRestorer />

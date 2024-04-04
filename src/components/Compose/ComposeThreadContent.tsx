@@ -6,7 +6,7 @@ import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { classNames } from '@/helpers/classNames.js';
 import { isEmptyPost } from '@/helpers/isEmptyPost.js';
 import { readChars } from '@/helpers/readChars.js';
-import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
+import { useCurrentAvailableProfile } from '@/hooks/useCurrentAvailableProfile.js';
 import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
@@ -15,7 +15,7 @@ interface ComposeThreadContentProps {}
 
 export function ComposeThreadContent(props: ComposeThreadContentProps) {
     const { currentSource } = useGlobalState();
-    const currentProfile = useCurrentProfile(currentSource);
+    const currentProfile = useCurrentAvailableProfile(currentSource);
 
     const setEditorContent = useSetEditorContent();
 

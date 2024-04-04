@@ -1,12 +1,12 @@
 import type { TypedMessageTextV1 } from '@masknet/typed-message';
 import { uniq } from 'lodash-es';
-import { type Dispatch, type SetStateAction } from 'react';
+import { type SetStateAction, useMemo } from 'react';
 import { v4 as uuid } from 'uuid';
 import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
 
 import { SocialPlatform } from '@/constants/enum.js';
-import { EMPTY_LIST } from '@/constants/index.js';
+import { EMPTY_LIST, SORTED_SOURCES } from '@/constants/index.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 import { type Chars, readChars } from '@/helpers/readChars.js';
 import { FrameLoader } from '@/libs/frame/Loader.js';
@@ -61,37 +61,39 @@ interface ComposeState {
 
     // tracking the current editable post
     cursor: Cursor;
-    // composite the current editable post
-    compositePost: CompositePost;
 
     // operations upon the thread
     addPostInThread: () => void;
     removePostInThread: (cursor: Cursor) => void;
     updatePostInThread: (cursor: Cursor, post: SetStateAction<CompositePost>) => void;
 
+    // switch to the current compose type (posts in thread share the same compose type)
+    updateType: (type: ComposeType) => void;
+
     // switch to the current editable post
     updateCursor: (cursor: Cursor) => void;
 
     // operations upon the current editable post
-    enableSource: (source: SocialPlatform) => void;
-    disableSource: (source: SocialPlatform) => void;
-    updatePostId: (source: SocialPlatform, postId: string) => void;
-    updateParentPost: (source: SocialPlatform, parentPost: Post) => void;
-    updateRestriction: (restriction: RestrictionType) => void;
-    updateAvailableSources: (sources: SocialPlatform[]) => void;
-    updateType: (type: ComposeType) => void;
-    updateChars: Dispatch<SetStateAction<Chars>>;
-    updateTypedMessage: (typedMessage: TypedMessageTextV1 | null) => void;
-    updateVideo: (video: MediaObject | null) => void;
-    updateImages: Dispatch<SetStateAction<MediaObject[]>>;
-    addImage: (image: MediaObject) => void;
-    removeImage: (image: MediaObject) => void;
-    addFrame: (frame: Frame) => void;
-    removeFrame: (frame: Frame) => void;
-    removeOpenGraph: (og: OpenGraph) => void;
-    updateRpPayload: (value: RedPacketPayload) => void;
-    loadFramesFromChars: () => Promise<void>;
-    loadOpenGraphsFromChars: () => Promise<void>;
+    enableSource: (source: SocialPlatform, cursor?: Cursor) => void;
+    disableSource: (source: SocialPlatform, cursor?: Cursor) => void;
+    updatePostId: (source: SocialPlatform, postId: string, cursor?: Cursor) => void;
+    updateParentPost: (source: SocialPlatform, parentPost: Post, cursor?: Cursor) => void;
+    updateRestriction: (restriction: RestrictionType, cursor?: Cursor) => void;
+    updateAvailableSources: (sources: SocialPlatform[], cursor?: Cursor) => void;
+    updateChars: (charsOrUpdater: SetStateAction<Chars>, cursor?: Cursor) => void;
+    updateTypedMessage: (typedMessage: TypedMessageTextV1 | null, cursor?: Cursor) => void;
+    updateVideo: (video: MediaObject | null, cursor?: Cursor) => void;
+    updateImages: (imagesOrUpdater: SetStateAction<MediaObject[]>, cursor?: Cursor) => void;
+    addImage: (image: MediaObject, cursor?: Cursor) => void;
+    removeImage: (image: MediaObject, cursor?: Cursor) => void;
+    addFrame: (frame: Frame, cursor?: Cursor) => void;
+    removeFrame: (frame: Frame, cursor?: Cursor) => void;
+    removeOpenGraph: (og: OpenGraph, cursor?: Cursor) => void;
+    updateRpPayload: (value: RedPacketPayload, cursor?: Cursor) => void;
+    loadFramesFromChars: (cursor?: Cursor) => Promise<void>;
+    loadOpenGraphsFromChars: (cursor?: Cursor) => Promise<void>;
+
+    // reset the editor
     clear: () => void;
 }
 
@@ -108,7 +110,7 @@ function createInitSinglePostState(cursor: Cursor): CompositePost {
             [SocialPlatform.Lens]: null,
             [SocialPlatform.Twitter]: null,
         },
-        availableSources: [SocialPlatform.Farcaster, SocialPlatform.Lens] as SocialPlatform[],
+        availableSources: [...SORTED_SOURCES],
         restriction: RestrictionType.Everyone,
         chars: '',
         typedMessage: null,
@@ -147,45 +149,6 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
                 if (nextPosts.length === 0) return null;
 
                 return nextPosts[Math.max(0, index - 1)];
-            },
-        },
-
-        compositePost: {
-            get id() {
-                return pick(get(), (x) => x.id);
-            },
-            get availableSources() {
-                return pick(get(), (x) => x.availableSources);
-            },
-            get restriction() {
-                return pick(get(), (x) => x.restriction);
-            },
-            get chars() {
-                return pick(get(), (x) => x.chars);
-            },
-            get typedMessage() {
-                return pick(get(), (x) => x.typedMessage);
-            },
-            get images() {
-                return pick(get(), (x) => x.images);
-            },
-            get frames() {
-                return pick(get(), (x) => x.frames);
-            },
-            get openGraphs() {
-                return pick(get(), (x) => x.openGraphs);
-            },
-            get video() {
-                return pick(get(), (x) => x.video);
-            },
-            get rpPayload() {
-                return pick(get(), (x) => x.rpPayload);
-            },
-            get postId() {
-                return pick(get(), (x) => x.postId);
-            },
-            get parentPost() {
-                return pick(get(), (x) => x.parentPost);
             },
         },
 
@@ -238,153 +201,225 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
             set((state) => {
                 state.cursor = cursor;
             }),
-        updateType: (type: ComposeType) =>
+        updateType: (type) =>
             set((state) => {
                 state.type = type;
             }),
-        updateParentPost: (source, parentPost) =>
+        enableSource: (source, cursor) =>
             set((state) =>
-                next(state, (post) => ({
-                    ...post,
-                    parentPost: {
-                        [SocialPlatform.Lens]: null,
-                        [SocialPlatform.Farcaster]: null,
-                        [SocialPlatform.Twitter]: null,
+                next(
+                    state,
+                    (post) => ({
+                        ...post,
+                        availableSources: uniq([...post.availableSources, source]),
+                    }),
+                    cursor,
+                ),
+            ),
+        disableSource: (source, cursor) =>
+            set((state) =>
+                next(
+                    state,
+                    (post) => ({
+                        ...post,
+                        availableSources: post.availableSources.filter((s) => s !== source),
+                    }),
+                    cursor,
+                ),
+            ),
+        updateParentPost: (source, parentPost, cursor) =>
+            set((state) =>
+                next(
+                    state,
+                    (post) => ({
+                        ...post,
+                        parentPost: {
+                            [SocialPlatform.Lens]: null,
+                            [SocialPlatform.Farcaster]: null,
+                            [SocialPlatform.Twitter]: null,
 
-                        // a post can only have one parent post in specific platform
-                        [source]: parentPost,
-                    },
-                })),
+                            // a post can only have one parent post in specific platform
+                            [source]: parentPost,
+                        },
+                    }),
+                    cursor,
+                ),
             ),
-        updatePostId: (source, postId) =>
+        updatePostId: (source, postId, cursor) =>
             set((state) =>
-                next(state, (post) => ({
-                    ...post,
-                    postId: {
-                        ...post.postId,
-                        [source]: postId,
-                    },
-                })),
+                next(
+                    state,
+                    (post) => ({
+                        ...post,
+                        postId: {
+                            ...post.postId,
+                            [source]: postId,
+                        },
+                    }),
+                    cursor,
+                ),
             ),
-        updateRestriction: (restriction) =>
+        updateRestriction: (restriction, cursor) =>
             set((state) =>
-                next(state, (post) => ({
-                    ...post,
-                    restriction,
-                })),
+                next(
+                    state,
+                    (post) => ({
+                        ...post,
+                        restriction,
+                    }),
+                    cursor,
+                ),
             ),
-        updateChars: (chars) =>
+        updateChars: (charsOrUpdater, cursor) =>
             set((state) =>
-                next(state, (post) => ({
-                    ...post,
-                    chars: typeof chars === 'function' ? chars(post.chars) : chars,
-                })),
+                next(
+                    state,
+                    (post) => ({
+                        ...post,
+                        chars: typeof charsOrUpdater === 'function' ? charsOrUpdater(post.chars) : charsOrUpdater,
+                    }),
+                    cursor,
+                ),
             ),
-        updateTypedMessage: (typedMessage: TypedMessageTextV1 | null) =>
+        updateTypedMessage: (typedMessage, cursor) =>
             set((state) =>
-                next(state, (post) => ({
-                    ...post,
-                    typedMessage,
-                })),
+                next(
+                    state,
+                    (post) => ({
+                        ...post,
+                        typedMessage,
+                    }),
+                    cursor,
+                ),
             ),
-        updateImages: (images) =>
+        updateImages: (imagesOrUpdater, cursor) =>
             set((state) =>
-                next(state, (post) => ({
-                    ...post,
-                    images: typeof images === 'function' ? images(post.images) : images,
-                })),
+                next(
+                    state,
+                    (post) => ({
+                        ...post,
+                        images: typeof imagesOrUpdater === 'function' ? imagesOrUpdater(post.images) : imagesOrUpdater,
+                    }),
+                    cursor,
+                ),
             ),
-        updateVideo: (video) =>
+        updateVideo: (video, cursor) =>
             set((state) =>
-                next(state, (post) => ({
-                    ...post,
-                    video,
-                })),
+                next(
+                    state,
+                    (post) => ({
+                        ...post,
+                        video,
+                    }),
+                    cursor,
+                ),
             ),
-        addImage: (image) =>
+        addImage: (image, cursor) =>
             set((state) =>
-                next(state, (post) => ({
-                    ...post,
-                    images: [...post.images, image],
-                })),
+                next(
+                    state,
+                    (post) => ({
+                        ...post,
+                        images: [...post.images, image],
+                    }),
+                    cursor,
+                ),
             ),
-        removeImage: (target) =>
+        removeImage: (target, cursor) =>
             set((state) =>
-                next(state, (post) => ({
-                    ...post,
-                    images: post.images.filter((image) => image.file !== target.file),
-                })),
+                next(
+                    state,
+                    (post) => ({
+                        ...post,
+                        images: post.images.filter((image) => image.file !== target.file),
+                    }),
+                    cursor,
+                ),
             ),
-        addFrame: (frame) =>
+        addFrame: (frame, cursor) =>
             set((state) =>
-                next(state, (post) => ({
-                    ...post,
-                    frames: [...post.frames, frame],
-                })),
+                next(
+                    state,
+                    (post) => ({
+                        ...post,
+                        frames: [...post.frames, frame],
+                    }),
+                    cursor,
+                ),
             ),
-        removeFrame: (target) =>
+        removeFrame: (target, cursor) =>
             set((state) =>
-                next(state, (post) => ({
-                    ...post,
-                    frames: post.frames.filter((frame) => frame !== target),
-                })),
+                next(
+                    state,
+                    (post) => ({
+                        ...post,
+                        frames: post.frames.filter((frame) => frame !== target),
+                    }),
+                    cursor,
+                ),
             ),
-        removeOpenGraph: (target) =>
+        removeOpenGraph: (target, cursor) =>
             set((state) =>
-                next(state, (post) => ({
-                    ...post,
-                    openGraphs: post.openGraphs.filter((openGraph) => openGraph !== target),
-                })),
+                next(
+                    state,
+                    (post) => ({
+                        ...post,
+                        openGraphs: post.openGraphs.filter((openGraph) => openGraph !== target),
+                    }),
+                    cursor,
+                ),
             ),
-        updateRpPayload: (payload) =>
+        updateRpPayload: (payload, cursor) =>
             set((state) =>
-                next(state, (post) => ({
-                    ...post,
-                    rpPayload: payload,
-                })),
+                next(
+                    state,
+                    (post) => ({
+                        ...post,
+                        rpPayload: payload,
+                    }),
+                    cursor,
+                ),
             ),
-        enableSource: (source) =>
+        updateAvailableSources: (sources, cursor) => {
             set((state) =>
-                next(state, (post) => ({
-                    ...post,
-                    availableSources: uniq([...post.availableSources, source]),
-                })),
-            ),
-        disableSource: (source) =>
-            set((state) =>
-                next(state, (post) => ({
-                    ...post,
-                    availableSources: post.availableSources.filter((s) => s !== source),
-                })),
-            ),
-        updateAvailableSources: (sources) => {
-            set((state) =>
-                next(state, (post) => ({
-                    ...post,
-                    availableSources: sources,
-                })),
+                next(
+                    state,
+                    (post) => ({
+                        ...post,
+                        availableSources: sources,
+                    }),
+                    cursor,
+                ),
             );
         },
-        loadFramesFromChars: async () => {
+        loadFramesFromChars: async (cursor) => {
             const chars = pick(get(), (x) => x.chars);
             const frames = await FrameLoader.occupancyLoad(readChars(chars, true));
 
             set((state) =>
-                next(state, (post) => ({
-                    ...post,
-                    frames,
-                })),
+                next(
+                    state,
+                    (post) => ({
+                        ...post,
+                        frames,
+                    }),
+                    cursor,
+                ),
             );
         },
-        loadOpenGraphsFromChars: async () => {
+        loadOpenGraphsFromChars: async (cursor) => {
             const chars = pick(get(), (x) => x.chars);
             const openGraphs = await OpenGraphLoader.occupancyLoad(readChars(chars, true));
 
             set((state) =>
-                next(state, (post) => ({
-                    ...post,
-                    openGraphs,
-                })),
+                next(
+                    state,
+                    (post) => ({
+                        ...post,
+                        openGraphs,
+                    }),
+                    cursor,
+                ),
             );
         },
         clear: () =>
@@ -399,3 +434,18 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
 );
 
 export const useComposeStateStore = createSelectors(useComposeStateBase);
+
+export function useCompositePost() {
+    const { posts, cursor } = useComposeStateStore();
+
+    return useMemo(() => {
+        const rootPost = posts[0];
+        const compositePost = posts.find((x) => x.id === cursor) || createInitSinglePostState(initialPostCursor);
+
+        return {
+            rootPost,
+            isRootPost: rootPost === compositePost,
+            ...compositePost,
+        };
+    }, [posts, cursor]);
+}

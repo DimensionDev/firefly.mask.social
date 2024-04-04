@@ -35,11 +35,11 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
     const updateProfiles = useLensStateStore.use.updateProfiles();
     const updateCurrentProfile = useLensStateStore.use.updateCurrentProfile();
 
-    const currentProfile = selectedProfile ?? first(profiles);
+    const currentProfile = selectedProfile || first(profiles);
 
     const [{ loading }, login] = useAsyncFn(
         async (signless: boolean) => {
-            if (!profiles?.length || !currentProfile) return;
+            if (!profiles.length || !currentProfile) return;
 
             try {
                 const session = await LensSocialMediaProvider.createSessionForProfileId(currentProfile.profileId);
@@ -69,14 +69,14 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
             className="flex flex-col overflow-auto rounded-[12px] md:max-h-[535px] md:w-[600px] md:pb-[80px]"
             style={{ boxShadow: '0px 4px 30px 0px rgba(0, 0, 0, 0.10)' }}
         >
-            <div className="mb-[50px] flex w-full flex-col gap-4 md:min-h-[300px] md:p-4">
-                {profiles?.length ? (
+            <div className="hide-scrollbar mb-[50px] flex w-full flex-col gap-4 overflow-auto md:min-h-[300px] md:p-4">
+                {profiles.length ? (
                     <>
                         <div className="flex w-full flex-col gap-4 rounded-[8px] bg-lightBg px-4 py-6">
                             <div className="w-full text-left text-[14px] leading-[16px] text-second">
                                 <Trans>Sign the transaction to verify you are the owner of the selected profile.</Trans>
                             </div>
-                            {profiles?.map((profile) => (
+                            {profiles.map((profile) => (
                                 <ProfileInList
                                     key={profile.profileId}
                                     profile={profile}
@@ -94,7 +94,7 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
                                     </span>
                                     <Switch checked={signless} onChange={setSignless}>
                                         {({ checked }) => (
-                                            <ClickableButton
+                                            <button
                                                 className={`${
                                                     checked ? 'bg-success' : 'bg-gray-200'
                                                 } relative inline-flex h-[22px] w-[43px] items-center rounded-full`}
@@ -105,7 +105,7 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
                                                         checked ? 'translate-x-6' : 'translate-x-1'
                                                     } inline-block h-3 w-3 transform rounded-full bg-white transition`}
                                                 />
-                                            </ClickableButton>
+                                            </button>
                                         )}
                                     </Switch>
                                 </div>

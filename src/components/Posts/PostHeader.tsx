@@ -60,12 +60,12 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({ post, isQu
                     @{post.author.handle}
                 </Link>
             </div>
-            <div className="flex items-center space-x-2 self-baseline">
+            <div className="ml-auto flex items-center space-x-2 self-baseline">
                 <SourceIcon
                     source={post.source}
                     className={post.source === SocialPlatform.Lens ? 'dark:opacity-70' : undefined}
                 />
-                <span className="whitespace-nowrap text-[13px] leading-4 text-secondary">
+                <span className="whitespace-nowrap text-xs leading-4 text-secondary md:text-[13px]">
                     <TimestampFormatter time={post.timestamp} />
                 </span>
                 {!isQuote && !isMyPost ? (

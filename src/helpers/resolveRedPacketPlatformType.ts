@@ -9,5 +9,7 @@ export const resolveRedPacketPlatformType = createLookupTableResolver(
         [SocialPlatform.Farcaster]: FireflyRedPacketAPI.PlatformType.farcaster,
         [SocialPlatform.Twitter]: FireflyRedPacketAPI.PlatformType.twitter,
     },
-    null,
+    (platform) => {
+        throw new Error(`Unknown platform: ${platform}`);
+    },
 );

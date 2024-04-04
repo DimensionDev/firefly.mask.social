@@ -55,9 +55,6 @@ msgstr "Post All"
 msgid "{0} views"
 msgstr "{0} views"
 
-msgid "Failed to upload. File type is not supported"
-msgstr "Failed to upload. File type is not supported"
-
 msgid "Failed to post on Farcaster."
 msgstr "Failed to post on Farcaster."
 
@@ -91,6 +88,9 @@ msgstr "OpenGraph"
 msgid "Wrong wallet"
 msgstr "Wrong wallet"
 
+msgid "Transaction button is not available yet."
+msgstr "Transaction button is not available yet."
+
 msgid "Debug Console"
 msgstr "Debug Console"
 
@@ -102,9 +102,6 @@ msgstr "Offline"
 
 msgid "Copied"
 msgstr "Copied"
-
-msgid "Failed to upload to Imgur"
-msgstr "Failed to upload to Imgur"
 
 msgid "comment"
 msgstr "comment"
@@ -126,6 +123,9 @@ msgstr "Page not found"
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/> and # others}} <4>liked your </4><5><6/></5>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/> and # others}} <4>liked your </4><5><6/></5>"
+
+msgid "Replied on Farcaster."
+msgstr "Replied on Farcaster."
 
 msgid "Password"
 msgstr "Password"
@@ -568,9 +568,6 @@ msgstr "<0>You</0> liked"
 msgid "You've hit rock bottom."
 msgstr "You've hit rock bottom."
 
-msgid "The root post not found."
-msgstr "The root post not found."
-
 msgid "Failed to mirror post."
 msgstr "Failed to mirror post."
 
@@ -600,6 +597,9 @@ msgstr "LuckyDrop"
 
 msgid "{0} and others"
 msgstr "{0} and others"
+
+msgid "File type is not supported."
+msgstr "File type is not supported."
 
 msgid "Please switch to the wallet used for login."
 msgstr "Please switch to the wallet used for login."
@@ -688,11 +688,11 @@ msgstr "Language"
 msgid "Add a comment"
 msgstr "Add a comment"
 
-msgid "No parent post to quote."
-msgstr "No parent post to quote."
-
 msgid "Profiles"
 msgstr "Profiles"
+
+msgid "No parent post found."
+msgstr "No parent post found."
 
 msgid "Please confirm the login with X."
 msgstr "Please confirm the login with X."
