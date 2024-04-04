@@ -1,6 +1,7 @@
 import type { Pageable, PageIndicator } from '@masknet/shared-base';
 
 import type { SocialPlatform } from '@/constants/enum.js';
+import type { RestrictionType } from '@/types/compose.js';
 
 export enum SessionType {
     Twitter = 'Twitter',
@@ -72,6 +73,8 @@ export interface Profile {
 export interface MediaObject {
     title?: string;
     mimeType?: string;
+    // for twitter media_id
+    id?: string;
     url: string;
 }
 
@@ -101,6 +104,7 @@ export interface Post {
     isHidden?: boolean;
     isEncrypted?: boolean;
     isEncryptedByMask?: boolean;
+    restriction?: RestrictionType;
     metadata: {
         locale: string;
         description?: string;
@@ -298,10 +302,19 @@ export interface Provider {
      * Quotes a post with the specified post ID and an introduction.
      *
      * @param postId The ID of the post to quote.
-     * @param intro The introduction text for the quote. (Review required, not sure what the actual type is)
+     * @param post The introduction post for the quote.
      * @returns A promise that resolves to post id.
      */
-    quotePost?: (postId: string, intro: string) => Promise<string>;
+    quotePost?: (postId: string, post: Post) => Promise<string>;
+
+    /**
+     * Comments on a post with the specified post ID and comment text.
+     *
+     * @param postId The ID of the post to comment on.
+     * @param post The comment post.
+     * @returns A promise that resolves to comment id.
+     */
+    commentPost?: (postId: string, post: Post) => Promise<string>;
 
     /**
      * Collects a post with the specified post ID.
@@ -311,15 +324,6 @@ export interface Provider {
      * @returns A promise that resolves to void.
      */
     collectPost?: (postId: string, collectionId?: string) => Promise<void>;
-
-    /**
-     * Comments on a post with the specified post ID and comment text.
-     *
-     * @param postId The ID of the post to comment on.
-     * @param comment The comment text. (Review required, not sure what the actual type is)
-     * @returns A promise that resolves to comment id.
-     */
-    commentPost?: (postId: string, comment: string) => Promise<string>;
 
     /**
      * Upvotes a post with the specified post ID.

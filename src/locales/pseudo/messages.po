@@ -13,6 +13,9 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
+msgid "Login required to post on {sourceName}."
+msgstr ""
+
 msgid "Be the first one to comment!"
 msgstr ""
 
@@ -53,9 +56,6 @@ msgid "Allow Lens Manager to perform actions such as posting, liking, and commen
 msgstr ""
 
 msgid "{0} views"
-msgstr ""
-
-msgid "Failed to post on Farcaster."
 msgstr ""
 
 msgid "Act"
@@ -112,9 +112,6 @@ msgstr ""
 msgid "Username"
 msgstr ""
 
-msgid "Failed to upload image to IPFS."
-msgstr ""
-
 msgid "No results for \"{searchKeyword}\""
 msgstr ""
 
@@ -122,9 +119,6 @@ msgid "Page not found"
 msgstr ""
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/> and # others}} <4>liked your </4><5><6/></5>"
-msgstr ""
-
-msgid "Replied on Farcaster."
 msgstr ""
 
 msgid "Password"
@@ -146,10 +140,7 @@ msgid "Only up to 2 images can be chosen."
 msgstr ""
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} {1, select, Lens {{2}} Farcaster {{3}} other {{4}}} <5><6/></5>"
-msgstr "<<<<<<< HEAD"
-
-msgid "Failed to mirror post on Farcaster."
-msgstr "=======>>>>>>> 38a2832b (refactor: refine like optimistic update (#724))"
+msgstr "<<<<<<< HEAD<<<<<<< HEAD"
 
 msgid "You need to connect your {source} account to use this feature."
 msgstr ""
@@ -158,9 +149,6 @@ msgid "Search"
 msgstr ""
 
 msgid "Connected Accounts"
-msgstr ""
-
-msgid "Failed to post on Lens."
 msgstr ""
 
 msgid "Select Account"
@@ -205,9 +193,6 @@ msgstr ""
 msgid "Follow System"
 msgstr ""
 
-msgid "Post already posted on Farcaster"
-msgstr ""
-
 msgid "No results"
 msgstr ""
 
@@ -241,6 +226,12 @@ msgstr ""
 msgid "and"
 msgstr ""
 
+msgid "Failed to quote post on {sourceName}."
+msgstr ""
+
+msgid "Comment cannot be empty."
+msgstr ""
+
 msgid "Failed to fetch as Text."
 msgstr ""
 
@@ -259,13 +250,7 @@ msgstr ""
 msgid "<0>You</0> mirrored"
 msgstr ""
 
-msgid "Failed to upload video to IPFS."
-msgstr ""
-
 msgid "Failed to create image payload."
-msgstr ""
-
-msgid "Failed to reply post on Farcaster."
 msgstr ""
 
 msgid "Failed to unvote post."
@@ -292,6 +277,9 @@ msgstr ""
 msgid "Comment"
 msgstr ""
 
+msgid "Only people you mention"
+msgstr ""
+
 msgid "Allow replies from"
 msgstr ""
 
@@ -308,9 +296,6 @@ msgid "Post has been hidden"
 msgstr ""
 
 msgid "Replied on Lens."
-msgstr ""
-
-msgid "Posted on Farcaster."
 msgstr ""
 
 msgid "Everyone"
@@ -344,6 +329,9 @@ msgid "No post found"
 msgstr ""
 
 msgid "Clear All"
+msgstr ""
+
+msgid "Failed to upload image to {sourceName}."
 msgstr ""
 
 msgid "Lens"
@@ -406,9 +394,6 @@ msgstr ""
 msgid "Please input the frame url to be revalidated."
 msgstr ""
 
-msgid "Failed to quote post on Lens."
-msgstr ""
-
 msgid "General"
 msgstr ""
 
@@ -427,16 +412,10 @@ msgstr ""
 msgid "Login required"
 msgstr ""
 
-msgid "Already posted on Lens."
-msgstr ""
-
 msgid "Show More"
 msgstr ""
 
 msgid "Failed to parse session."
-msgstr ""
-
-msgid "Login required to post on Lens."
 msgstr ""
 
 msgid "Loading..."
@@ -496,6 +475,9 @@ msgstr ""
 msgid "Mirrored"
 msgstr ""
 
+msgid "Quoted post on {sourceName}."
+msgstr ""
+
 msgid "Unable to retrieve post details."
 msgstr ""
 
@@ -523,10 +505,16 @@ msgstr ""
 msgid "<0>{0}</0> mirrored"
 msgstr ""
 
+msgid "Failed to post on {sourceName}."
+msgstr ""
+
 msgid "Follower"
 msgstr ""
 
 msgid "The frame server failed to process the request."
+msgstr ""
+
+msgid "Failed to upload video to {sourceName}."
 msgstr ""
 
 msgid "Post by {0}"
@@ -613,6 +601,9 @@ msgstr ""
 msgid "Unknown session type."
 msgstr ""
 
+msgid "Failed to quote post."
+msgstr ""
+
 msgid "Only people you follow"
 msgstr ""
 
@@ -641,6 +632,9 @@ msgid "Failed to fetch as ArrayBuffer."
 msgstr ""
 
 msgid "Confirm to log out these accounts?"
+msgstr ""
+
+msgid "Posted on {sourceName}."
 msgstr ""
 
 msgid "Your Lens account is now connected"
@@ -700,6 +694,9 @@ msgstr ""
 msgid "<0/> commented on your <1><2/></1>"
 msgstr ""
 
+msgid "Failed to relay post on {sourceName}."
+msgstr ""
+
 msgid "<0>You</0> recasted"
 msgstr ""
 
@@ -727,7 +724,7 @@ msgstr ""
 msgid "Terms of Service"
 msgstr ""
 
-msgid "Failed to relay post on Lens."
+msgid "Already posted on {sourceName}."
 msgstr ""
 
 msgid "Post"
@@ -746,9 +743,6 @@ msgid "Close"
 msgstr ""
 
 msgid "<0/> mentioned you in a <1><2/></1>"
-msgstr ""
-
-msgid "Posted on Lens."
 msgstr ""
 
 msgid "Login"
