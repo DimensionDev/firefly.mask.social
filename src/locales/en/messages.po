@@ -22,6 +22,9 @@ msgstr "Be the first one to comment!"
 msgid "Quote Post"
 msgstr "Quote Post"
 
+msgid "Failed to like."
+msgstr "Failed to like."
+
 msgid "Retweet"
 msgstr "Retweet"
 
@@ -141,9 +144,6 @@ msgstr "Only up to 2 images can be chosen."
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} {1, select, Lens {{2}} Farcaster {{3}} other {{4}}} <5><6/></5>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} {1, select, Lens {{2}} Farcaster {{3}} other {{4}}} <5><6/></5>"
-
-msgid "Failed to unlike. {0}"
-msgstr "Failed to unlike. {0}"
 
 msgid "You need to connect your {source} account to use this feature."
 msgstr "You need to connect your {source} account to use this feature."
@@ -271,9 +271,6 @@ msgstr "Switch"
 msgid "Follow"
 msgstr "Follow"
 
-msgid "Failed to like. {0}"
-msgstr "Failed to like. {0}"
-
 msgid "Add account"
 msgstr "Add account"
 
@@ -390,6 +387,9 @@ msgstr "The page could not be found."
 
 msgid "What's happening..."
 msgstr "What's happening..."
+
+msgid "Failed to unlike."
+msgstr "Failed to unlike."
 
 msgid "Like"
 msgstr "Like"
