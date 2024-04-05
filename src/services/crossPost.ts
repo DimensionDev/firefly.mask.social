@@ -27,8 +27,12 @@ async function refreshProfileFeed(source: SocialPlatform) {
 
 async function updateRpClaimStrategy(compositePost: CompositePost) {
     const { postId, typedMessage, rpPayload } = compositePost;
+    if (process.env.NODE_ENV === 'development') {
+        if (rpPayload?.publicKey && !SORTED_SOURCES.some((x) => postId[x])) {
+            console.error("No any post id for updating RedPacket's claim strategy.");
+        }
+    }
 
-    debugger;
     if (hasRpPayload(typedMessage) && SORTED_SOURCES.some((x) => postId[x]) && rpPayload?.publicKey) {
         const currentProfileAll = getCurrentProfileAll();
         const rpPayloadFromMeta = typedMessage?.meta?.get(RedPacketMetaKey) as RedPacketJSONPayload;
@@ -127,5 +131,5 @@ export async function crossPost(
     }
 
     // update red packet claim strategy
-    await updateRpClaimStrategy(compositePost);
+    await updateRpClaimStrategy(updatedCompositePost);
 }
