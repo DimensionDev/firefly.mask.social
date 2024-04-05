@@ -31,10 +31,11 @@ export default function Following() {
 
     const { data, hasNextPage, fetchNextPage, isFetchingNextPage, isFetching } = useSuspenseInfiniteQuery({
         queryKey: [
-            'following',
+            'posts',
             currentSource,
+            'following',
             isLogin,
-            SORTED_SOURCES.map((x) => currentProfileAll[x]?.profileId).join('_'),
+            SORTED_SOURCES.map((x) => currentProfileAll[x]?.profileId),
         ],
         queryFn: async ({ pageParam }) => {
             if (!isLogin) return;
