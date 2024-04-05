@@ -2,7 +2,7 @@ import { t } from '@lingui/macro';
 import { QueryClient, useQueryClient } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
 import { produce } from 'immer';
-import { memo, useMemo } from 'react';
+import { memo } from 'react';
 import { useAsyncFn } from 'react-use';
 
 import LikeIcon from '@/assets/like.svg';
@@ -11,13 +11,11 @@ import LoadingIcon from '@/assets/loading.svg';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { SocialPlatform } from '@/constants/enum.js';
-import { SORTED_SOURCES } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
-import { useCurrentProfileAll } from '@/hooks/useCurrentProfileAll.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { LoginModalRef } from '@/modals/controls.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
@@ -65,12 +63,6 @@ export const Like = memo<LikeProps>(function Like({ count, hasLiked, postId, aut
     const isLogin = useIsLogin(source);
     const queryClient = useQueryClient();
 
-    const currentProfileAll = useCurrentProfileAll();
-    const orderedProfileIds = useMemo(
-        () => SORTED_SOURCES.map((x) => currentProfileAll[x]?.profileId),
-        [currentProfileAll],
-    );
-
     const [{ loading }, handleClick] = useAsyncFn(async () => {
         if (!postId) return null;
 
@@ -92,13 +84,11 @@ export const Like = memo<LikeProps>(function Like({ count, hasLiked, postId, aut
             return;
         } catch (error) {
             if (error instanceof Error) {
-                enqueueErrorMessage(
-                    hasLiked ? t`Failed to unlike. ${error.message}` : t`Failed to like. ${error.message}`,
-                );
+                enqueueErrorMessage(hasLiked ? t`Failed to unlike.` : t`Failed to like.`);
             }
             return;
         }
-    }, [postId, source, hasLiked, queryClient, isLogin, orderedProfileIds, authorId]);
+    }, [postId, source, hasLiked, queryClient, isLogin, authorId]);
 
     return (
         <ClickableArea
