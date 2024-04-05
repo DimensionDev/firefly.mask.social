@@ -65,7 +65,7 @@ export default function Page({ params: { id: postId, source } }: PageProps) {
     });
 
     const { data: allPosts = EMPTY_LIST } = useSuspenseQuery({
-        queryKey: [currentSource, 'thread-detail', post?.postId, post?.root?.postId],
+        queryKey: ['posts', currentSource, 'thread-detail', post?.postId, post?.root?.postId],
         queryFn: async () => {
             const root = post?.root ? post.root : post?.commentOn ? post.commentOn : post;
             if (!root?.stats?.comments) return EMPTY_LIST;
