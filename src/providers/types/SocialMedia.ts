@@ -133,6 +133,7 @@ export interface Post {
         comments: number;
         mirrors: number;
         quotes?: number;
+        /** Like count */
         reactions: number;
         bookmarks?: number;
         countOpenActions?: number;

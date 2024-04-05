@@ -18,10 +18,10 @@ async function refreshProfileFeed(source: SocialPlatform) {
     const currentProfileAll = getCurrentProfileAll();
 
     await queryClient.invalidateQueries({
-        queryKey: ['getPostsByProfileId', source, currentProfileAll[source]?.profileId],
+        queryKey: ['posts', source, 'posts-of', currentProfileAll[source]?.profileId],
     });
     queryClient.removeQueries({
-        queryKey: ['getPostsByProfileId', source, currentProfileAll[source]?.profileId],
+        queryKey: ['posts', source, 'posts-of', currentProfileAll[source]?.profileId],
     });
 }
 

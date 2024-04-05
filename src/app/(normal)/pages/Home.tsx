@@ -30,7 +30,7 @@ export function Home({ source, pageable }: Props) {
 
     const fetchAndStoreViews = useImpressionsStore.use.fetchAndStoreViews();
     const { data, hasNextPage, fetchNextPage, isFetchingNextPage, isFetching } = useSuspenseInfiniteQuery({
-        queryKey: ['discover', currentSource],
+        queryKey: ['posts', currentSource, 'discover'],
         networkMode: 'always',
 
         queryFn: async ({ pageParam }) => {
