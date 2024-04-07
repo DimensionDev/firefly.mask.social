@@ -55,9 +55,6 @@ msgstr "Debug Connection"
 msgid "Allow Lens Manager to perform actions such as posting, liking, and commenting without the need to sign each transaction."
 msgstr "Allow Lens Manager to perform actions such as posting, liking, and commenting without the need to sign each transaction."
 
-msgid "Post All"
-msgstr "Post All"
-
 msgid "{0} views"
 msgstr "{0} views"
 
@@ -438,6 +435,9 @@ msgstr "Failed to unfollow."
 
 msgid "Quote"
 msgstr "Quote"
+
+msgid "{0, plural, one {Post} other {Post All}}"
+msgstr "{0, plural, one {Post} other {Post All}}"
 
 msgid "Unliked"
 msgstr "Unliked"
