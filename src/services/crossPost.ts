@@ -118,17 +118,16 @@ export async function crossPost(
     if (allSettled.every((x) => x.status === 'rejected')) {
         throw new Error('Post failed to publish.');
     }
-    console.log('skipRefreshFeeds', skipRefreshFeeds);
 
     // refresh profile feed
-    await Promise.allSettled(
-        SORTED_SOURCES.map((source, i) => {
-            const settled = allSettled[i];
-            const post = settled.status === 'fulfilled' ? settled.value : null;
-            if (skipRefreshFeeds || !post) return Promise.resolve();
-            return availableSources.includes(source) ? refreshProfileFeed(source) : Promise.resolve();
-        }),
-    );
+    const staleSources = SORTED_SOURCES.filter((source, i) => {
+        const settled = allSettled[i];
+        const post = settled.status === 'fulfilled' ? settled.value : null;
+        return availableSources.includes(source) && post ? source : null;
+    });
+    if (!skipRefreshFeeds) {
+        await Promise.allSettled(staleSources.map((source) => refreshProfileFeed(source)));
+    }
 
     const { posts } = useComposeStateStore.getState();
     const updatedCompositePost = posts.find((post) => post.id === compositePost.id);
