@@ -69,6 +69,7 @@ export async function crossPostThread() {
             skipIfPublishedPost: true,
             skipIfNoParentPost: true,
             skipPublishedCheck: true,
+            skipRefreshFeeds: index !== posts.length - 1,
         });
     }
 

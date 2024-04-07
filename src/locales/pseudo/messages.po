@@ -52,9 +52,6 @@ msgstr ""
 msgid "Allow Lens Manager to perform actions such as posting, liking, and commenting without the need to sign each transaction."
 msgstr ""
 
-msgid "Post All"
-msgstr ""
-
 msgid "{0} views"
 msgstr ""
 
@@ -458,6 +455,9 @@ msgid "Failed to unfollow."
 msgstr ""
 
 msgid "Quote"
+msgstr ""
+
+msgid "{0, plural, one {Post} other {Post All}}"
 msgstr ""
 
 msgid "Unliked"

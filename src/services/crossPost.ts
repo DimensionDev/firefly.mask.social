@@ -14,14 +14,16 @@ import { resolveRedPacketPlatformType } from '@/helpers/resolveRedPacketPlatform
 import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
 import type { ComposeType } from '@/types/compose.js';
 
-async function refreshProfileFeed(source: SocialPlatform) {
+export async function refreshProfileFeed(source: SocialPlatform) {
     const currentProfileAll = getCurrentProfileAll();
 
     await queryClient.invalidateQueries({
         queryKey: ['posts', source, 'posts-of', currentProfileAll[source]?.profileId],
     });
-    queryClient.removeQueries({
+    queryClient.refetchQueries({
         queryKey: ['posts', source, 'posts-of', currentProfileAll[source]?.profileId],
+        stale: true,
+        type: 'active',
     });
 }
 
@@ -77,12 +79,19 @@ interface CrossPostOptions {
     skipIfNoParentPost?: boolean;
     // skip published check
     skipPublishedCheck?: boolean;
+    /** If it's a post in thread, only refresh the feeds after sending the last post. */
+    skipRefreshFeeds?: boolean;
 }
 
 export async function crossPost(
     type: ComposeType,
     compositePost: CompositePost,
-    { skipIfPublishedPost = false, skipIfNoParentPost = false, skipPublishedCheck = false }: CrossPostOptions = {},
+    {
+        skipIfPublishedPost = false,
+        skipIfNoParentPost = false,
+        skipPublishedCheck = false,
+        skipRefreshFeeds,
+    }: CrossPostOptions = {},
 ) {
     const { availableSources } = compositePost;
 
@@ -111,14 +120,13 @@ export async function crossPost(
     }
 
     // refresh profile feed
-    if (type === 'compose') {
-        await Promise.allSettled(
-            SORTED_SOURCES.map((x, i) => {
-                const settled = allSettled[i];
-                const post = settled.status === 'fulfilled' ? settled.value : null;
-                return availableSources.includes(x) && post ? refreshProfileFeed(x) : null;
-            }),
-        );
+    const staleSources = SORTED_SOURCES.filter((source, i) => {
+        const settled = allSettled[i];
+        const post = settled.status === 'fulfilled' ? settled.value : null;
+        return availableSources.includes(source) && post ? source : null;
+    });
+    if (!skipRefreshFeeds) {
+        await Promise.allSettled(staleSources.map((source) => refreshProfileFeed(source)));
     }
 
     const { posts } = useComposeStateStore.getState();
