@@ -83,24 +83,26 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
     }
 
     if (post.isHidden) {
-        <div
-            className={classNames('my-2', {
-                'pl-[52px]': !disablePadding,
-            })}
-            ref={ref}
-        >
+        return (
             <div
-                className={classNames(
-                    'flex items-center gap-1 rounded-lg border-primaryMain px-3 py-[6px] text-[15px]',
-                    {
-                        border: !isQuote,
-                    },
-                )}
+                className={classNames('my-2', {
+                    'pl-[52px]': !disablePadding,
+                })}
+                ref={ref}
             >
-                <EyeSlash width={16} height={16} />
-                <Trans>Post has been hidden</Trans>
+                <div
+                    className={classNames(
+                        'flex items-center gap-1 rounded-lg border-primaryMain px-3 py-[6px] text-[15px]',
+                        {
+                            border: !isQuote,
+                        },
+                    )}
+                >
+                    <EyeSlash width={16} height={16} />
+                    <Trans>Post has been hidden</Trans>
+                </div>
             </div>
-        </div>;
+        );
     }
 
     if (isQuote) {
