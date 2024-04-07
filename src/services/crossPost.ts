@@ -111,7 +111,7 @@ export async function crossPost(
             SORTED_SOURCES.map((x, i) => {
                 const settled = allSettled[i];
                 const post = settled.status === 'fulfilled' ? settled.value : null;
-                return availableSources.includes(x) && post ? refreshProfileFeed(x) : Promise.resolve();
+                return availableSources.includes(x) && post ? refreshProfileFeed(x) : null;
             }),
         );
     }
