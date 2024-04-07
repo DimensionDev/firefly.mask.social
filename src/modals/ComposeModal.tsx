@@ -95,7 +95,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
         } = useComposeStateStore();
         const compositePost = useCompositePost();
 
-        const { typedMessage, rpPayload: rpPayload } = compositePost;
+        const { typedMessage, rpPayload } = compositePost;
 
         const [editor] = useLexicalComposerContext();
 

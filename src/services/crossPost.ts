@@ -86,16 +86,16 @@ export async function crossPost(
             if (availableSources.includes(x)) {
                 // post already published
                 if (skipIfPublishedPost && compositePost.postId[x]) {
-                    return Promise.resolve(null);
+                    return null;
                 }
 
                 // parent post is required for reply and quote
                 if ((type === 'reply' || type === 'quote') && skipIfNoParentPost && !compositePost.parentPost[x]) {
-                    return Promise.resolve(null);
+                    return null;
                 }
                 return resolvePostTo(x)(type, compositePost);
             } else {
-                return Promise.resolve(null);
+                return null;
             }
         }),
     );
@@ -121,7 +121,7 @@ export async function crossPost(
     if (!updatedCompositePost) throw new Error('Post not found.');
 
     // failed to to cross post
-    if (!skipPublishedCheck && !isPublishedPost(type, updatedCompositePost)) {
+    if (!skipPublishedCheck && !isPublishedPost(updatedCompositePost)) {
         throw new Error('Post failed to publish.');
     }
 

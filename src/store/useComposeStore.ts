@@ -1,13 +1,14 @@
 import type { TypedMessageTextV1 } from '@masknet/typed-message';
-import { uniq } from 'lodash-es';
+import { compact, uniq } from 'lodash-es';
 import { type SetStateAction, useMemo } from 'react';
 import { v4 as uuid } from 'uuid';
 import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
 
 import { SocialPlatform } from '@/constants/enum.js';
-import { EMPTY_LIST, SORTED_SOURCES } from '@/constants/index.js';
+import { EMPTY_LIST } from '@/constants/index.js';
 import { createSelectors } from '@/helpers/createSelector.js';
+import { getCurrentProfileAll } from '@/helpers/getCurrentProfileAll.js';
 import { type Chars, readChars } from '@/helpers/readChars.js';
 import { FrameLoader } from '@/libs/frame/Loader.js';
 import { OpenGraphLoader } from '@/libs/og/Loader.js';
@@ -98,6 +99,7 @@ interface ComposeState {
 }
 
 function createInitSinglePostState(cursor: Cursor): CompositePost {
+    const currentProfileAll = getCurrentProfileAll();
     return {
         id: cursor,
         postId: {
@@ -110,7 +112,11 @@ function createInitSinglePostState(cursor: Cursor): CompositePost {
             [SocialPlatform.Lens]: null,
             [SocialPlatform.Twitter]: null,
         },
-        availableSources: [...SORTED_SOURCES],
+        availableSources: compact(
+            Object.entries(currentProfileAll).map(([source, profile]) =>
+                profile ? (source as SocialPlatform) : undefined,
+            ),
+        ),
         restriction: RestrictionType.Everyone,
         chars: '',
         typedMessage: null,
