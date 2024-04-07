@@ -29,6 +29,7 @@ import { SocialPlatform } from '@/constants/enum.js';
 import { SITE_HOSTNAME, SITE_URL, SORTED_SOURCES } from '@/constants/index.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { fetchImageAsPNG } from '@/helpers/fetchImageAsPNG.js';
+import { getCurrentAvailableSources } from '@/helpers/getCurrentAvailableSources.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { hasRpPayload } from '@/helpers/hasPayload.js';
 import { isEmptyPost } from '@/helpers/isEmptyPost.js';
@@ -103,7 +104,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
         const [open, dispatch] = useSingletonModal(ref, {
             onOpen: (props) => {
                 updateType(props.type || 'compose');
-                if (props.source) updateAvailableSources([props.source]);
+                updateAvailableSources(props.source ? [props.source] : getCurrentAvailableSources());
                 if (props.typedMessage) updateTypedMessage(props.typedMessage);
                 if (props.post) updateParentPost(props.post.source, props.post);
                 if (props.chars && typeof props.chars === 'string') {
