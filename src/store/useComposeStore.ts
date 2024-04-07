@@ -6,8 +6,9 @@ import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
 
 import { SocialPlatform } from '@/constants/enum.js';
-import { EMPTY_LIST, SORTED_SOURCES } from '@/constants/index.js';
+import { EMPTY_LIST } from '@/constants/index.js';
 import { createSelectors } from '@/helpers/createSelector.js';
+import { getCurrentAvailableSources } from '@/helpers/getCurrentAvailableSources.js';
 import { type Chars, readChars } from '@/helpers/readChars.js';
 import { FrameLoader } from '@/libs/frame/Loader.js';
 import { OpenGraphLoader } from '@/libs/og/Loader.js';
@@ -110,7 +111,7 @@ function createInitSinglePostState(cursor: Cursor): CompositePost {
             [SocialPlatform.Lens]: null,
             [SocialPlatform.Twitter]: null,
         },
-        availableSources: [...SORTED_SOURCES],
+        availableSources: getCurrentAvailableSources(),
         restriction: RestrictionType.Everyone,
         chars: '',
         typedMessage: null,
