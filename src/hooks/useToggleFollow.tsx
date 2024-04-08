@@ -1,4 +1,5 @@
 import { Select } from '@lingui/macro';
+import { ClientError } from 'graphql-request';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 
@@ -57,6 +58,13 @@ export function useToggleFollow(profile: Profile) {
             return;
         } catch (error) {
             if (error instanceof Error) {
+                if (error instanceof ClientError) {
+                    const message = error.response.errors?.[0]?.message;
+                    if (message) {
+                        enqueueErrorMessage(message);
+                        return;
+                    }
+                }
                 enqueueErrorMessage(
                     <Select
                         value={followStateRef.current ? 'unfollow' : 'follow'}
