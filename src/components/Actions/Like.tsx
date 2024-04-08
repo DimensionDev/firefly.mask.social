@@ -1,7 +1,7 @@
 import { t } from '@lingui/macro';
 import { QueryClient, useQueryClient } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
-import { produce } from 'immer';
+import { type Draft, produce } from 'immer';
 import { memo } from 'react';
 import { useAsyncFn } from 'react-use';
 
@@ -29,6 +29,15 @@ interface LikeProps {
     authorId?: string;
 }
 
+function toggleReaction(post: Draft<Post>) {
+    post.hasLiked = !post.hasLiked;
+    post.stats = produce(post.stats, (draft) => {
+        if (draft) {
+            draft.reactions = (post.stats?.reactions || 0) + (post.hasLiked ? 1 : -1);
+        }
+    });
+}
+
 function togglePostLikeQueryData(queryClient: QueryClient, source: SocialPlatform, postId: string) {
     queryClient.setQueryData<Post>([source, 'post-detail', postId], (old) => {
         if (!old) return old;
@@ -37,26 +46,27 @@ function togglePostLikeQueryData(queryClient: QueryClient, source: SocialPlatfor
         });
     });
 
-    queryClient.setQueriesData<{ pages: Array<{ data: Post[] }> }>({ queryKey: ['posts', source] }, (old) => {
-        if (!old) return old;
+    queryClient.setQueriesData<{ pages: Array<{ data: Post[] }> }>(
+        { queryKey: ['posts', source], type: 'active' },
+        (old) => {
+            if (!old?.pages) return old;
 
-        return produce(old, (draft) => {
-            for (const page of draft.pages) {
-                for (const post of page.data) {
-                    if (post.postId === postId) {
-                        post.hasLiked = !post.hasLiked;
-                        post.stats = {
-                            ...post.stats,
-                            comments: post.stats?.comments || 0,
-                            mirrors: post.stats?.mirrors || 0,
-                            reactions: (post.stats?.reactions || 0) + (post.hasLiked ? 1 : -1),
-                        };
-                        return;
+            return produce(old, (draft) => {
+                for (const page of draft.pages) {
+                    for (const post of page.data) {
+                        for (const p of [post, post.commentOn, post.root, post.quoteOn]) {
+                            if (p?.postId === postId) toggleReaction(p);
+                        }
+                        if (post.threads) {
+                            for (const p of post.threads) {
+                                if (p.postId === postId) toggleReaction(p);
+                            }
+                        }
                     }
                 }
-            }
-        });
-    });
+            });
+        },
+    );
 }
 
 export const Like = memo<LikeProps>(function Like({ count, hasLiked, postId, authorId, source, disabled = false }) {

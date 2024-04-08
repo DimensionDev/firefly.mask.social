@@ -82,7 +82,7 @@ export function createPostTo(source: SocialPlatform, options: Options) {
 
                     queryClient.invalidateQueries({ queryKey: [parentPost.source, 'post-detail', parentPost.postId] });
                     queryClient.invalidateQueries({
-                        queryKey: ['post-detail', 'comments', parentPost.source, parentPost.postId],
+                        queryKey: ['posts', parentPost.source, 'comments', parentPost.postId],
                     });
 
                     return commentId;
