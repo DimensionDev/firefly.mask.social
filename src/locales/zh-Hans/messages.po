@@ -234,6 +234,9 @@ msgstr "和"
 msgid "Failed to quote post on {sourceName}."
 msgstr ""
 
+msgid "{shares, plural, =0 {Mirror or Quote} zero {Mirror or Quote} one {Mirror or Quote} other {Mirrors or Quotes}}"
+msgstr ""
+
 msgid "Comment cannot be empty."
 msgstr ""
 
@@ -470,9 +473,6 @@ msgstr "浅色模式"
 
 msgid "Please switch to the {chainName} network in your wallet."
 msgstr "请切换钱包网络至 {chainName}"
-
-msgid "{0, plural, =0 {Mirror or Quote} zero {Mirror or Quote} one {Mirror or Quote} other {Mirrors or Quotes}}"
-msgstr "{0, plural, =0 {转发或引用} zero {转发或引用} one {转发或引用} other {转发或引用}}"
 
 msgid "There is no data available for display."
 msgstr "没有可显示的数据。"

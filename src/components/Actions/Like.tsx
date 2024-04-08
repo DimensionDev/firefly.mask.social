@@ -1,13 +1,13 @@
 import { t } from '@lingui/macro';
-import { QueryClient, useQueryClient } from '@tanstack/react-query';
+import { useQueryClient } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
-import { type Draft, produce } from 'immer';
 import { memo } from 'react';
 import { useAsyncFn } from 'react-use';
 
 import LikeIcon from '@/assets/like.svg';
 import LikedIcon from '@/assets/liked.svg';
 import LoadingIcon from '@/assets/loading.svg';
+import { toggleLike } from '@/components/Actions/helpers.js';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { SocialPlatform } from '@/constants/enum.js';
@@ -18,7 +18,6 @@ import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { LoginModalRef } from '@/modals/controls.js';
-import type { Post } from '@/providers/types/SocialMedia.js';
 
 interface LikeProps {
     postId: string;
@@ -27,41 +26,6 @@ interface LikeProps {
     hasLiked?: boolean;
     disabled?: boolean;
     authorId?: string;
-}
-
-function toggleReaction(post: Draft<Post>) {
-    post.hasLiked = !post.hasLiked;
-    post.stats = produce(post.stats, (draft) => {
-        if (draft) {
-            draft.reactions = (post.stats?.reactions || 0) + (post.hasLiked ? 1 : -1);
-        }
-    });
-}
-
-function togglePostLikeQueryData(queryClient: QueryClient, source: SocialPlatform, postId: string) {
-    queryClient.setQueryData<Post>([source, 'post-detail', postId], (old) => {
-        if (!old) return old;
-        return produce(old, (draft) => {
-            draft.hasLiked = !draft.hasLiked;
-        });
-    });
-
-    queryClient.setQueriesData<{ pages: Array<{ data: Post[] }> }>(
-        { queryKey: ['posts', source], type: 'active' },
-        (old) => {
-            if (!old?.pages) return old;
-
-            return produce(old, (draft) => {
-                for (const page of draft.pages) {
-                    for (const post of page.data) {
-                        for (const p of [post, post.commentOn, post.root, post.quoteOn, ...(post.threads || [])]) {
-                            if (p?.postId === postId) toggleReaction(p);
-                        }
-                    }
-                }
-            });
-        },
-    );
 }
 
 export const Like = memo<LikeProps>(function Like({ count, hasLiked, postId, authorId, source, disabled = false }) {
@@ -84,7 +48,7 @@ export const Like = memo<LikeProps>(function Like({ count, hasLiked, postId, aut
                 : provider?.upvotePost(postId, Number(authorId)));
 
             enqueueSuccessMessage(hasLiked ? t`Unliked` : t`Liked`);
-            togglePostLikeQueryData(queryClient, source, postId);
+            toggleLike(queryClient, source, postId);
 
             return;
         } catch (error) {
