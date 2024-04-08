@@ -13,7 +13,6 @@ import urlcat from 'urlcat';
 import { farcasterClient } from '@/configs/farcasterClient.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { WARPCAST_CLIENT_URL, WARPCAST_ROOT_URL } from '@/constants/index.js';
-import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { formatWarpcastPost, formatWarpcastPostFromFeed } from '@/helpers/formatWarpcastPost.js';
 import { formatWarpcastUser } from '@/helpers/formatWarpcastUser.js';
 import { toFid } from '@/helpers/toFid.js';
@@ -53,7 +52,7 @@ export class WarpcastSocialMedia implements Provider {
             cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
         });
 
-        const { result, next } = await fetchJSON<CastsResponse>(resolveCrossOriginURL(url), {
+        const { result, next } = await farcasterClient.fetch<CastsResponse>(resolveCrossOriginURL(url), {
             method: 'GET',
         });
         const data = result.casts.map(formatWarpcastPost);
@@ -206,7 +205,7 @@ export class WarpcastSocialMedia implements Provider {
             limit: 10,
             username,
         });
-        const { result, next } = await fetchJSON<FeedResponse>(url, {
+        const { result, next } = await farcasterClient.fetch<FeedResponse>(url, {
             method: 'GET',
         });
         const data = result.feed.map(formatWarpcastPostFromFeed);
