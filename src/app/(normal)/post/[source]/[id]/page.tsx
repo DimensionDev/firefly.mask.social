@@ -1,7 +1,8 @@
 'use client';
 
 import { t, Trans } from '@lingui/macro';
-import { useSuspenseQuery } from '@tanstack/react-query';
+import { createPageable } from '@masknet/shared-base';
+import { useSuspenseInfiniteQuery, useSuspenseQuery } from '@tanstack/react-query';
 import { last } from 'lodash-es';
 import { useRouter } from 'next/navigation.js';
 import type React from 'react';
@@ -64,14 +65,14 @@ export default function Page({ params: { id: postId, source } }: PageProps) {
         },
     });
 
-    const { data: allPosts = EMPTY_LIST } = useSuspenseQuery({
+    const { data: allPosts = EMPTY_LIST } = useSuspenseInfiniteQuery({
         queryKey: ['posts', currentSource, 'thread-detail', post?.postId, post?.root?.postId],
         queryFn: async () => {
             const root = post?.root ? post.root : post?.commentOn ? post.commentOn : post;
-            if (!root?.stats?.comments) return EMPTY_LIST;
+            if (!root?.stats?.comments) return createPageable(EMPTY_LIST, undefined);
 
             const provider = resolveSocialMediaProvider(currentSource);
-            if (!provider) return EMPTY_LIST;
+            if (!provider) return createPageable(EMPTY_LIST, undefined);
 
             const posts = await provider.getThreadByPostId(root.postId);
 
@@ -82,21 +83,24 @@ export default function Page({ params: { id: postId, source } }: PageProps) {
              */
             if (currentSource === SocialPlatform.Lens && posts.length >= MIN_POST_SIZE_PER_THREAD) {
                 const lastPost = last(posts);
-                if (!lastPost) return posts;
+                if (!lastPost) return createPageable(posts, undefined);
 
                 const commentsOfLastPost = await LensSocialMediaProvider.getCommentsByUserId(
                     lastPost.postId,
                     lastPost.author.profileId,
                 );
-                if (commentsOfLastPost.data.length === 0) return posts;
+                if (commentsOfLastPost.data.length === 0) return createPageable(posts, undefined);
 
                 const response = await refreshThreadByPostId(root.postId);
-                if (response.status !== 200) return posts;
-                return await provider.getThreadByPostId(root.postId);
+                if (response.status !== 200) return createPageable(posts, undefined);
+                return createPageable(await provider.getThreadByPostId(root.postId), undefined);
             }
 
-            return posts;
+            return createPageable(posts, undefined);
         },
+        initialPageParam: '',
+        getNextPageParam: () => null,
+        select: (data) => data.pages.flatMap((x) => x.data),
     });
 
     useDocumentTitle(post ? createPageTitle(t`Post by ${post?.author.displayName}`) : SITE_NAME);
