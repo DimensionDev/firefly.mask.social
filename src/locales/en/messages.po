@@ -229,6 +229,9 @@ msgstr "and"
 msgid "Failed to quote post on {sourceName}."
 msgstr "Failed to quote post on {sourceName}."
 
+msgid "{shares, plural, =0 {Mirror or Quote} zero {Mirror or Quote} one {Mirror or Quote} other {Mirrors or Quotes}}"
+msgstr "{shares, plural, =0 {Mirror or Quote} zero {Mirror or Quote} one {Mirror or Quote} other {Mirrors or Quotes}}"
+
 msgid "Comment cannot be empty."
 msgstr "Comment cannot be empty."
 
@@ -465,9 +468,6 @@ msgstr "Light Mode"
 
 msgid "Please switch to the {chainName} network in your wallet."
 msgstr "Please switch to the {chainName} network in your wallet."
-
-msgid "{0, plural, =0 {Mirror or Quote} zero {Mirror or Quote} one {Mirror or Quote} other {Mirrors or Quotes}}"
-msgstr "{0, plural, =0 {Mirror or Quote} zero {Mirror or Quote} one {Mirror or Quote} other {Mirrors or Quotes}}"
 
 msgid "There is no data available for display."
 msgstr "There is no data available for display."
