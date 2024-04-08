@@ -121,14 +121,14 @@ export async function crossPost(
     }
 
     // refresh profile feed
-    if (type === 'compose') {
-        await Promise.allSettled(
-            SORTED_SOURCES.map((x, i) => {
-                const settled = allSettled[i];
-                const post = settled.status === 'fulfilled' ? settled.value : null;
-                return availableSources.includes(x) && post ? refreshProfileFeed(x) : null;
-            }),
-        );
+    if (!skipRefreshFeeds) {
+        const staleSources = SORTED_SOURCES.filter((source, i) => {
+            const settled = allSettled[i];
+            const postId = settled.status === 'fulfilled' ? settled.value : null;
+            return availableSources.includes(source) && postId ? source : null;
+        });
+
+        await Promise.allSettled(staleSources.map((source) => refreshProfileFeed(source)));
     }
 
     const { posts } = useComposeStateStore.getState();
