@@ -6,7 +6,7 @@ import { readChars } from '@/helpers/readChars.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
 import { type Post, type PostType } from '@/providers/types/SocialMedia.js';
-import { createPostTo } from '@/services/postTo.js';
+import { createPostTo } from '@/services/createPostTo.js';
 import { uploadToTwitter } from '@/services/uploadToTwitter.js';
 import { type CompositePost } from '@/store/useComposeStore.js';
 import { useTwitterStateStore } from '@/store/useProfileStore.js';

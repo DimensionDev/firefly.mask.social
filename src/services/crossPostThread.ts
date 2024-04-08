@@ -74,7 +74,7 @@ export async function crossPostThread() {
     }
 
     const { posts: updatedPosts } = useComposeStateStore.getState();
-    if (!updatedPosts.every((x, i) => isPublishedPost(i === 0 ? 'compose' : 'reply', x))) {
+    if (!updatedPosts.every(isPublishedPost)) {
         throw new Error('Posts failed to publish.');
     }
 }

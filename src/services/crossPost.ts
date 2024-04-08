@@ -100,16 +100,17 @@ export async function crossPost(
             if (availableSources.includes(x)) {
                 // post already published
                 if (skipIfPublishedPost && compositePost.postId[x]) {
-                    return Promise.resolve(null);
+                    return null;
                 }
 
                 // parent post is required for reply and quote
                 if ((type === 'reply' || type === 'quote') && skipIfNoParentPost && !compositePost.parentPost[x]) {
-                    return Promise.resolve(null);
+                    return null;
                 }
+
                 return resolvePostTo(x)(type, compositePost);
             } else {
-                return Promise.resolve(null);
+                return null;
             }
         }),
     );
@@ -120,13 +121,14 @@ export async function crossPost(
     }
 
     // refresh profile feed
-    const staleSources = SORTED_SOURCES.filter((source, i) => {
-        const settled = allSettled[i];
-        const post = settled.status === 'fulfilled' ? settled.value : null;
-        return availableSources.includes(source) && post ? source : null;
-    });
-    if (!skipRefreshFeeds) {
-        await Promise.allSettled(staleSources.map((source) => refreshProfileFeed(source)));
+    if (type === 'compose') {
+        await Promise.allSettled(
+            SORTED_SOURCES.map((x, i) => {
+                const settled = allSettled[i];
+                const post = settled.status === 'fulfilled' ? settled.value : null;
+                return availableSources.includes(x) && post ? refreshProfileFeed(x) : null;
+            }),
+        );
     }
 
     const { posts } = useComposeStateStore.getState();
@@ -134,7 +136,7 @@ export async function crossPost(
     if (!updatedCompositePost) throw new Error('Post not found.');
 
     // failed to to cross post
-    if (!skipPublishedCheck && !isPublishedPost(type, updatedCompositePost)) {
+    if (!skipPublishedCheck && !isPublishedPost(updatedCompositePost)) {
         throw new Error('Post failed to publish.');
     }
 

@@ -249,6 +249,9 @@ msgstr "回复"
 msgid "Querying the signed key state."
 msgstr ""
 
+msgid "Replied on {sourceName}."
+msgstr ""
+
 msgid "Invalid compose type."
 msgstr ""
 
@@ -302,9 +305,6 @@ msgstr "取消点赞"
 
 msgid "Post has been hidden"
 msgstr "帖子已经被隐藏"
-
-msgid "Replied on Lens."
-msgstr "在 Lens 上评论成功。"
 
 msgid "Everyone"
 msgstr "任何人"
