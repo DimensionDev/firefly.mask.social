@@ -29,7 +29,7 @@ export const CommentList = memo<CommentListProps>(function CommentList({ postId,
         isFetchingNextPage,
         isFetching,
     } = useSuspenseInfiniteQuery({
-        queryKey: ['post-detail', 'comments', source, postId],
+        queryKey: ['posts', source, 'comments', source, postId],
         queryFn: async ({ pageParam }) => {
             if (!postId) return createPageable(EMPTY_LIST, undefined);
 
