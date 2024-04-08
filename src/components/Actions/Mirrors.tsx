@@ -1,14 +1,16 @@
 import { Menu, Transition } from '@headlessui/react';
 import { plural, t, Trans } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
+import { useQueryClient } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
-import { Fragment, memo, useMemo, useState } from 'react';
+import { Fragment, memo, useMemo } from 'react';
 import { useAsyncFn } from 'react-use';
 
 import LoadingIcon from '@/assets/loading.svg';
 import MirrorIcon from '@/assets/mirror.svg';
 import MirrorLargeIcon from '@/assets/mirror-large.svg';
 import QuoteDownIcon from '@/assets/quote-down.svg';
+import { toggleMirror } from '@/components/Actions/helpers.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { SocialPlatform } from '@/constants/enum.js';
@@ -31,23 +33,15 @@ interface MirrorProps {
     post: Post;
 }
 
-export const Mirror = memo<MirrorProps>(function Mirror({
-    shares,
-    source,
-
-    postId,
-    disabled = false,
-    post,
-}) {
+export const Mirror = memo<MirrorProps>(function Mirror({ shares = 0, source, postId, disabled = false, post }) {
     const isLogin = useIsLogin(source);
-
-    const [mirrored, setMirrored] = useState(post.hasMirrored);
-    const [count, setCount] = useState(shares);
+    const queryClient = useQueryClient();
+    const mirrored = post.hasMirrored;
 
     const content = useMemo(() => {
         switch (source) {
             case SocialPlatform.Lens:
-                return plural(count ?? 0, {
+                return plural(shares, {
                     0: 'Mirror or Quote',
                     zero: 'Mirror or Quote',
                     one: 'Mirror or Quote',
@@ -61,7 +55,7 @@ export const Mirror = memo<MirrorProps>(function Mirror({
                 safeUnreachable(source);
                 return '';
         }
-    }, [source, count]);
+    }, [source, shares]);
 
     const mirrorActionText = useMemo(() => {
         switch (source) {
@@ -83,46 +77,26 @@ export const Mirror = memo<MirrorProps>(function Mirror({
         switch (source) {
             case SocialPlatform.Lens:
                 try {
-                    setMirrored(true);
-                    setCount((prev) => {
-                        if (!prev) return;
-                        return prev + 1;
-                    });
                     const result = await LensSocialMediaProvider.mirrorPost(postId, { onMomoka: !!post.momoka?.proof });
+                    toggleMirror(queryClient, source, postId);
                     enqueueSuccessMessage(t`Mirrored`);
                     return result;
                 } catch (error) {
                     if (error instanceof Error) {
-                        setMirrored(false);
-                        setCount((prev) => {
-                            if (!prev) return;
-                            return prev - 1;
-                        });
                         enqueueErrorMessage(t`Failed to mirror. ${error.message}`);
                         return;
                     }
                     return;
                 }
             case SocialPlatform.Farcaster:
-                const originalStatus = mirrored;
-                const originalCount = count;
                 try {
-                    setMirrored((prev) => !prev);
-                    setCount((prev) => {
-                        if (mirrored && prev) return prev - 1;
-                        return (prev ?? 0) + 1;
-                    });
                     await (mirrored
                         ? FarcasterSocialMediaProvider.unmirrorPost(postId, Number(post.author.profileId))
                         : FarcasterSocialMediaProvider.mirrorPost(postId, { authorId: Number(post.author.profileId) }));
+                    toggleMirror(queryClient, source, postId);
                     enqueueSuccessMessage(mirrored ? t`Cancel recast successfully` : t`Recasted`);
                     return;
-                } catch (error) {
-                    if (error instanceof Error) {
-                        setMirrored(originalStatus);
-                        setCount(originalCount);
-                    }
-
+                } catch {
                     return;
                 }
             case SocialPlatform.Twitter:
@@ -131,7 +105,7 @@ export const Mirror = memo<MirrorProps>(function Mirror({
                 safeUnreachable(source);
                 return;
         }
-    }, [postId, source, count, mirrored, post.author.profileId]);
+    }, [postId, source, mirrored, queryClient, post.author.profileId]);
 
     return (
         <Menu
@@ -172,7 +146,7 @@ export const Mirror = memo<MirrorProps>(function Mirror({
                             disabled={disabled}
                             className="rounded-full p-1.5 hover:bg-secondarySuccess/[.20]"
                             placement="top"
-                            content={count && count > 0 ? `${humanize(count)} ${content}` : content}
+                            content={shares ? `${humanize(shares)} ${content}` : content}
                             withDelay
                         >
                             {loading ? (
@@ -185,7 +159,7 @@ export const Mirror = memo<MirrorProps>(function Mirror({
                                 />
                             )}
                         </Tooltip>
-                        {count ? (
+                        {shares ? (
                             <span
                                 className={classNames('text-xs', {
                                     'font-medium': !mirrored && !post.hasQuoted,
@@ -193,7 +167,7 @@ export const Mirror = memo<MirrorProps>(function Mirror({
                                     'text-secondarySuccess': !!mirrored || !!post.hasQuoted,
                                 })}
                             >
-                                {nFormatter(count)}
+                                {nFormatter(shares)}
                             </span>
                         ) : null}
                     </Menu.Button>
