@@ -5,20 +5,15 @@ import { Fragment } from 'react';
 import RadioDisableNoIcon from '@/assets/radio.disable-no.svg';
 import YesIcon from '@/assets/yes.svg';
 import { ReplyRestrictionText } from '@/components/Compose/ReplyRestrictionText.js';
-import { SocialPlatform } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
-import type { CompositePost } from '@/store/useComposeStore.js';
 import { RestrictionType } from '@/types/compose.js';
 
 interface ReplyRestrictionProps {
-    post: CompositePost;
     restriction: RestrictionType;
     setRestriction: (restriction: RestrictionType) => void;
 }
 
-export function ReplyRestriction({ post, restriction, setRestriction }: ReplyRestrictionProps) {
-    const twitterOnly = post.availableSources.length === 1 && post.availableSources.includes(SocialPlatform.Twitter);
-
+export function ReplyRestriction({ restriction, setRestriction }: ReplyRestrictionProps) {
     const items = [
         {
             type: RestrictionType.Everyone,
@@ -26,11 +21,8 @@ export function ReplyRestriction({ post, restriction, setRestriction }: ReplyRes
         },
         {
             type: RestrictionType.OnlyPeopleYouFollow,
-            disabled: !twitterOnly,
-        },
-        {
-            type: RestrictionType.MentionedUsers,
-            disabled: !twitterOnly,
+            // for lens and farcaster, only allow everyone
+            disabled: true,
         },
     ];
 

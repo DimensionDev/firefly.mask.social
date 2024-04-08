@@ -18,9 +18,6 @@ msgstr ""
 "X-Crowdin-File: /src/locales/en/messages.po\n"
 "X-Crowdin-File-ID: 836\n"
 
-msgid "Login required to post on {sourceName}."
-msgstr ""
-
 msgid "Be the first one to comment!"
 msgstr "还没有人评论哦～快来抢沙发！"
 
@@ -62,6 +59,9 @@ msgstr "允许 Lens 管理员执行发帖、点赞和评论等操作，而无需
 
 msgid "{0} views"
 msgstr "{0} 浏览数"
+
+msgid "Failed to post on Farcaster."
+msgstr "在 Farcaster 发贴失败。"
 
 msgid "Act"
 msgstr "收藏"
@@ -117,6 +117,9 @@ msgstr "确认"
 msgid "Username"
 msgstr ""
 
+msgid "Failed to upload image to IPFS."
+msgstr "上传图片失败。"
+
 msgid "No results for \"{searchKeyword}\""
 msgstr "{searchKeyword} 搜索无结果"
 
@@ -125,6 +128,9 @@ msgstr "找不到网页"
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/> and # others}} <4>liked your </4><5><6/></5>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> 和 <2/>} other {<3/> 和其他 # 人}} <4>点赞了你的 </4><5><6/></5>"
+
+msgid "Replied on Farcaster."
+msgstr ""
 
 msgid "Password"
 msgstr ""
@@ -145,7 +151,10 @@ msgid "Only up to 2 images can be chosen."
 msgstr "至多可以选择2张图片。"
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} {1, select, Lens {{2}} Farcaster {{3}} other {{4}}} <5><6/></5>"
-msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} {1, select, Lens {{2}} Farcaster {{3}} other {{4}}} <5><6/></5><<<<<<< HEAD<<<<<<< HEAD"
+msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} {1, select, Lens {{2}} Farcaster {{3}} other {{4}}} <5><6/></5><<<<<<< HEAD"
+
+msgid "Failed to mirror post on Farcaster."
+msgstr "未能在 Farcaster 上转贴。=======>>>>>>> 38a2832b (refactor: refine like optimistic update (#724))"
 
 msgid "You need to connect your {source} account to use this feature."
 msgstr "你需要连接你的 {source} 账号才能使用此功能。"
@@ -155,6 +164,9 @@ msgstr "搜索"
 
 msgid "Connected Accounts"
 msgstr "已链接的账号"
+
+msgid "Failed to post on Lens."
+msgstr "在 Lens 上发帖失败。"
 
 msgid "Select Account"
 msgstr "选择账号"
@@ -198,6 +210,9 @@ msgstr "Frame Validator"
 msgid "Follow System"
 msgstr "跟随系统"
 
+msgid "Post already posted on Farcaster"
+msgstr ""
+
 msgid "No results"
 msgstr "没有任何结果。"
 
@@ -231,12 +246,6 @@ msgstr "试试搜索其他东西。"
 msgid "and"
 msgstr "和"
 
-msgid "Failed to quote post on {sourceName}."
-msgstr ""
-
-msgid "Comment cannot be empty."
-msgstr ""
-
 msgid "Failed to fetch as Text."
 msgstr "获取内容失败。"
 
@@ -255,8 +264,14 @@ msgstr "已收藏"
 msgid "<0>You</0> mirrored"
 msgstr "<0>你</0> 已转发"
 
+msgid "Failed to upload video to IPFS."
+msgstr "未能上传图片到 IPFS。"
+
 msgid "Failed to create image payload."
 msgstr "创建图片内容失败"
+
+msgid "Failed to reply post on Farcaster."
+msgstr "在 Farcaster 上评论失败。"
 
 msgid "Failed to unvote post."
 msgstr "无法对帖子进行投票。"
@@ -282,9 +297,6 @@ msgstr "{0} 评论"
 msgid "Comment"
 msgstr "评论"
 
-msgid "Only people you mention"
-msgstr ""
-
 msgid "Allow replies from"
 msgstr "允许回复"
 
@@ -302,6 +314,9 @@ msgstr "帖子已经被隐藏"
 
 msgid "Replied on Lens."
 msgstr "在 Lens 上评论成功。"
+
+msgid "Posted on Farcaster."
+msgstr "在 Farcaster 上发帖成功。"
 
 msgid "Everyone"
 msgstr "任何人"
@@ -335,9 +350,6 @@ msgstr "未找到帖子"
 
 msgid "Clear All"
 msgstr "全部清除"
-
-msgid "Failed to upload image to {sourceName}."
-msgstr ""
 
 msgid "Lens"
 msgstr "Lens"
@@ -399,6 +411,9 @@ msgstr "点赞"
 msgid "Please input the frame url to be revalidated."
 msgstr "请输入 URL 重新验证。"
 
+msgid "Failed to quote post on Lens."
+msgstr "未能在 Lens 上引用帖子。"
+
 msgid "General"
 msgstr "通用"
 
@@ -417,11 +432,17 @@ msgstr "显示"
 msgid "Login required"
 msgstr "请先登录"
 
+msgid "Already posted on Lens."
+msgstr ""
+
 msgid "Show More"
 msgstr "显示更多"
 
 msgid "Failed to parse session."
 msgstr "未能解析会话"
+
+msgid "Login required to post on Lens."
+msgstr ""
 
 msgid "Loading..."
 msgstr "加载中..."
@@ -480,9 +501,6 @@ msgstr "没有可显示的数据。"
 msgid "Mirrored"
 msgstr "已转发"
 
-msgid "Quoted post on {sourceName}."
-msgstr ""
-
 msgid "Unable to retrieve post details."
 msgstr "数据获取失败。"
 
@@ -510,17 +528,11 @@ msgstr "未找到 Lens profile。请尝试其他钱包。"
 msgid "<0>{0}</0> mirrored"
 msgstr "<0>{0}</0> 已转发"
 
-msgid "Failed to post on {sourceName}."
-msgstr ""
-
 msgid "Follower"
 msgstr "粉丝"
 
 msgid "The frame server failed to process the request."
 msgstr "Frame 服务器未能处理请求"
-
-msgid "Failed to upload video to {sourceName}."
-msgstr ""
 
 msgid "Post by {0}"
 msgstr "由 {0} 发帖"
@@ -606,9 +618,6 @@ msgstr "分享到"
 msgid "Unknown session type."
 msgstr "未知会话类型。"
 
-msgid "Failed to quote post."
-msgstr ""
-
 msgid "Only people you follow"
 msgstr "只有你关注的人"
 
@@ -638,9 +647,6 @@ msgstr "Failed to fetch as ArrayBuffer."
 
 msgid "Confirm to log out these accounts?"
 msgstr "确认登出这些账号？"
-
-msgid "Posted on {sourceName}."
-msgstr ""
 
 msgid "Your Lens account is now connected"
 msgstr "你的 Lens 账号已经连接。"
@@ -685,7 +691,7 @@ msgid "Language"
 msgstr "语言"
 
 msgid "Add a comment"
-msgstr "添加一条评论"
+msgstr "添加一个评论"
 
 msgid "Profiles"
 msgstr "个人信息"
@@ -698,9 +704,6 @@ msgstr ""
 
 msgid "<0/> commented on your <1><2/></1>"
 msgstr "<0/> 评论了你的 <1><2/></1>"
-
-msgid "Failed to relay post on {sourceName}."
-msgstr ""
 
 msgid "<0>You</0> recasted"
 msgstr "<0>你</0> 已转帖"
@@ -729,8 +732,8 @@ msgstr "转发"
 msgid "Terms of Service"
 msgstr "服务条款"
 
-msgid "Already posted on {sourceName}."
-msgstr ""
+msgid "Failed to relay post on Lens."
+msgstr "在 Lens 上回复帖子失败。"
 
 msgid "Post"
 msgstr "发帖"
@@ -749,6 +752,9 @@ msgstr "关闭"
 
 msgid "<0/> mentioned you in a <1><2/></1>"
 msgstr "<0/> 在 <1><2/></1> 提及了你"
+
+msgid "Posted on Lens."
+msgstr "在 Lens 上发帖成功。"
 
 msgid "Login"
 msgstr "登录"

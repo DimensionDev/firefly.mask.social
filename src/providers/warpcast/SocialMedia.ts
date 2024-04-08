@@ -340,10 +340,7 @@ export class WarpcastSocialMedia implements Provider {
         });
     }
 
-    async commentPost(postId: string, post: Post) {
-        const comment = post.metadata.content?.content;
-        if (!comment) throw new Error(t`Comment cannot be empty.`);
-
+    async commentPost(postId: string, comment: string) {
         const url = urlcat(WARPCAST_ROOT_URL, '/casts', { parent: postId });
         const response = await farcasterClient.fetchWithSession<CastResponse>(url, {
             method: 'POST',
