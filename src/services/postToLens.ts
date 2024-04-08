@@ -10,7 +10,7 @@ import { getUserLocale } from '@/helpers/getUserLocale.js';
 import { readChars } from '@/helpers/readChars.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
-import { createPostTo } from '@/services/postTo.js';
+import { createPostTo } from '@/services/createPostTo.js';
 import { uploadToArweave } from '@/services/uploadToArweave.js';
 import { uploadFileToIPFS } from '@/services/uploadToIPFS.js';
 import { type CompositePost } from '@/store/useComposeStore.js';

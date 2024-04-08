@@ -71,7 +71,7 @@ export function createPostTo(source: SocialPlatform, options: Options) {
                 if (!parentPost) throw new Error(t`No parent post found.`);
                 try {
                     const commentId = await options.reply(uploadedImages, uploadedVideos);
-                    enqueueSuccessMessage(t`Replied on Lens.`);
+                    enqueueSuccessMessage(t`Replied on ${sourceName}.`);
                     updatePostInThread(post.id, (x) => ({
                         ...x,
                         postId: {

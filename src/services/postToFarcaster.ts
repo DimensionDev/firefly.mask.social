@@ -7,7 +7,7 @@ import { readChars } from '@/helpers/readChars.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { type Post, type PostType } from '@/providers/types/SocialMedia.js';
-import { createPostTo } from '@/services/postTo.js';
+import { createPostTo } from '@/services/createPostTo.js';
 import { uploadToImgur } from '@/services/uploadToImgur.js';
 import { type CompositePost } from '@/store/useComposeStore.js';
 import { useFarcasterStateStore } from '@/store/useProfileStore.js';

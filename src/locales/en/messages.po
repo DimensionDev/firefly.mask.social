@@ -244,6 +244,9 @@ msgstr "Reply"
 msgid "Querying the signed key state."
 msgstr "Querying the signed key state."
 
+msgid "Replied on {sourceName}."
+msgstr "Replied on {sourceName}."
+
 msgid "Invalid compose type."
 msgstr "Invalid compose type."
 
@@ -297,9 +300,6 @@ msgstr "Unlike"
 
 msgid "Post has been hidden"
 msgstr "Post has been hidden"
-
-msgid "Replied on Lens."
-msgstr "Replied on Lens."
 
 msgid "Everyone"
 msgstr "Everyone"
