@@ -20,7 +20,7 @@ interface ContentFeedProps {
 export function ContentCollected({ profileId, source }: ContentFeedProps) {
     const fetchAndStoreViews = useImpressionsStore.use.fetchAndStoreViews();
     const { data, hasNextPage, fetchNextPage, isFetchingNextPage, isFetching } = useSuspenseInfiniteQuery({
-        queryKey: ['getPostsByBookmarks', source, profileId],
+        queryKey: ['posts', source, 'bookmarks', profileId],
         queryFn: async ({ pageParam }) => {
             if (!profileId) return createPageable(EMPTY_LIST, undefined);
 

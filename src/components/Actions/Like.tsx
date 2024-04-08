@@ -54,13 +54,8 @@ function togglePostLikeQueryData(queryClient: QueryClient, source: SocialPlatfor
             return produce(old, (draft) => {
                 for (const page of draft.pages) {
                     for (const post of page.data) {
-                        for (const p of [post, post.commentOn, post.root, post.quoteOn]) {
+                        for (const p of [post, post.commentOn, post.root, post.quoteOn, ...(post.threads || [])]) {
                             if (p?.postId === postId) toggleReaction(p);
-                        }
-                        if (post.threads) {
-                            for (const p of post.threads) {
-                                if (p.postId === postId) toggleReaction(p);
-                            }
                         }
                     }
                 }
