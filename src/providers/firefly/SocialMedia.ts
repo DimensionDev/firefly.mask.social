@@ -60,7 +60,7 @@ export class FireflySocialMedia implements Provider {
         const posts = data.casts.map((x) => formatFarcasterPostFromFirefly(x));
         return createPageable(
             posts,
-            indicator || createIndicator(),
+           createIndicator(indicator),
             data.cursor ? createNextIndicator(indicator, data.cursor) : undefined,
         );
     }
