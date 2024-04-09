@@ -10583,7 +10583,7 @@ packages:
     dependencies:
       '@metaplex-foundation/mpl-core': 0.0.2
       '@solana/spl-token': 0.1.8
-      '@solana/web3.js': 1.75.0
+      '@solana/web3.js': 1.91.2
     transitivePeerDependencies:
       - bufferutil
       - encoding
@@ -10610,7 +10610,7 @@ packages:
       '@metaplex-foundation/mpl-token-metadata': 0.0.2
       '@metaplex-foundation/mpl-token-vault': 0.0.2
       '@solana/spl-token': 0.1.8
-      '@solana/web3.js': 1.75.0
+      '@solana/web3.js': 1.91.2
     transitivePeerDependencies:
       - bufferutil
       - encoding
@@ -10622,7 +10622,7 @@ packages:
     dependencies:
       '@metaplex-foundation/mpl-core': 0.0.2
       '@solana/spl-token': 0.1.8
-      '@solana/web3.js': 1.75.0
+      '@solana/web3.js': 1.91.2
     transitivePeerDependencies:
       - bufferutil
       - encoding
@@ -10646,7 +10646,7 @@ packages:
     dependencies:
       '@metaplex-foundation/mpl-core': 0.0.2
       '@solana/spl-token': 0.1.8
-      '@solana/web3.js': 1.75.0
+      '@solana/web3.js': 1.91.2
     transitivePeerDependencies:
       - bufferutil
       - encoding

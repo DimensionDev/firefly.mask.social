@@ -31,6 +31,8 @@ const PostActions = dynamic(() => import('@/components/Actions/index.js').then((
 interface PageProps {
     params: {
         id: string;
+    };
+    searchParams: {
         source: SourceInURL;
     };
 }
@@ -46,8 +48,9 @@ function refreshThreadByPostId(postId: string) {
     );
 }
 
-export default function Page({ params: { id: postId, source } }: PageProps) {
+export function PostDetailPage({ params: { id: postId }, searchParams: { source } }: PageProps) {
     const router = useRouter();
+
     const currentSource = resolveSocialPlatform(source);
 
     const fetchAndStoreViews = useImpressionsStore.use.fetchAndStoreViews();
