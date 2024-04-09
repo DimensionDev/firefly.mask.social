@@ -16,8 +16,8 @@ const TweetSchema = z.object({
     mediaIds: z.array(z.string()).optional(),
 });
 
-async function composeTweet(rawTweet: string) {
-    const parsedTweet = TweetSchema.safeParse(parseJSON(rawTweet));
+async function composeTweet(rawTweet: Object) {
+    const parsedTweet = TweetSchema.safeParse(rawTweet);
     if (!parsedTweet.success) throw new Error(parsedTweet.error.message);
 
     const tweet = parsedTweet.success ? parsedTweet.data : null;
@@ -53,12 +53,11 @@ async function composeTweet(rawTweet: string) {
 export async function POST(request: NextRequest) {
     try {
         const client = await createTwitterClientV2(request);
-
         const tweet = await composeTweet(await request.json());
         const { data } = await client.tweets.createTweet(tweet);
-
         return createSuccessResponseJSON(data, { status: StatusCodes.OK });
     } catch (error) {
+        console.error(error)
         return createErrorResponseJSON(error instanceof Error ? error.message : 'Internal Server Error', {
             status: StatusCodes.INTERNAL_SERVER_ERROR,
         });

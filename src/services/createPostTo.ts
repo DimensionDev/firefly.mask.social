@@ -64,6 +64,7 @@ export function createPostTo(source: SocialPlatform, options: Options) {
                     }));
                     return postId;
                 } catch (error) {
+                    console.log(error)
                     enqueueErrorMessage(t`Failed to post on ${sourceName}.`);
                     throw error;
                 }
