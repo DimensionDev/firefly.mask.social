@@ -156,7 +156,6 @@ class TwitterSocialMedia implements Provider {
                 mediaIds: compact(post.mediaObjects?.map((x) => x.id)),
             }),
         });
-        console.log(response, 'aa')
 
         if (!response.success) throw new Error(t`Failed to publish post.`);
         return response.data.id;
