@@ -19,6 +19,10 @@ export const LENS_DETAIL_REGEX = /^https:\/\/hey\.xyz\/posts\/.*$/;
 export const MASK_SOCIAL_DETAIL_REGEX =
     /((https:\/\/|http:\/\/)?(?:firefly\.|firefly-staging\.)?mask\.social|\.vercel\.app)\/post\/([\w-]+)$/i;
 
+export const OLD_MASK_SOCIAL_POST_PATH_REGEX = /\/post\/(\w+)\/([\w-]+)/i;
+
+export const OLD_MASK_SOCIAL_PROFILE_PATH_REGEX = /\/profile\/(\w+)\/([\w-]+)/i;
+
 export const MASK_SOCIAL_POST_PATH_REGEX = /\/post\/([\w-]+)/i;
 
 export const BIO_TWITTER_PROFILE_REGEX = /([^\s]+)\.twitter/;
