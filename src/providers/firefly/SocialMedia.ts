@@ -50,7 +50,19 @@ export class FireflySocialMedia implements Provider {
     }
 
     async discoverPosts(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        throw new Error('Method not implemented.');
+        const session = farcasterClient.getSession();
+        const url = urlcat(FIREFLY_ROOT_URL, '/v2/discover/farcaster/timeline', {
+            size: 20,
+            cursor: indicator?.id,
+            sourceFid: session?.profileId,
+        });
+        const { data } = await fetchJSON<CastsResponse>(url);
+        const posts = data.casts.map((x) => formatFarcasterPostFromFirefly(x));
+        return createPageable(
+            posts,
+            indicator || createIndicator(),
+            data.cursor ? createNextIndicator(indicator, data.cursor) : undefined,
+        );
     }
 
     async getPostById(postId: string): Promise<Post> {
