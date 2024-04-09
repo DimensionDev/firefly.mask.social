@@ -99,8 +99,11 @@ class Processor {
         }
         if (MASK_SOCIAL_DETAIL_REGEX.test(documentUrl)) {
             const match = documentUrl.match(MASK_SOCIAL_POST_PATH_REGEX);
-            const source = match ? match[1] : null;
-            const id = match ? match[2] : null;
+            const id = match ? match[1] : null;
+
+            const url = new URL(documentUrl);
+
+            const source = url.searchParams.get('source');
 
             if (!id || !source) return { og };
             return {

@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 import type React from 'react';
 
-import { KeyType } from '@/constants/enum.js';
-import { type SourceInURL } from '@/constants/enum.js';
+import { PostDetailPage } from '@/app/(normal)/post/[id]/pages/DetailPage.js';
+import { KeyType, SourceInURL } from '@/constants/enum.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { isBotRequest } from '@/helpers/isBotRequest.js';
 import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
@@ -15,17 +15,16 @@ const getPostOGByIdRedis = memoizeWithRedis(getPostOGById, {
 interface Props {
     params: {
         id: string;
-        source: SourceInURL;
     };
-    children: React.ReactNode;
+    searchParams: { source: SourceInURL };
 }
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-    if (isBotRequest()) return getPostOGByIdRedis(params.source, params.id);
+export async function generateMetadata({ params, searchParams }: Props): Promise<Metadata> {
+    if (isBotRequest() && searchParams.source) return getPostOGByIdRedis(searchParams.source as SourceInURL, params.id);
     return createSiteMetadata();
 }
 
-export default function DetailLayout({ children }: Props) {
+export default function Page(props: Props) {
     if (isBotRequest()) return null;
-    return <>{children}</>;
+    return <PostDetailPage {...props} />;
 }

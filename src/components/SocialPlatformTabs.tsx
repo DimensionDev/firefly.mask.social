@@ -1,6 +1,6 @@
 'use client';
 
-import { usePathname } from 'next/navigation.js';
+import { usePathname, useSearchParams } from 'next/navigation.js';
 import { startTransition } from 'react';
 
 import { SocialPlatform, SourceInURL } from '@/constants/enum.js';
@@ -15,14 +15,14 @@ import { useGlobalState } from '@/store/useGlobalStore.js';
 export function SocialPlatformTabs() {
     const { currentSource, updateCurrentSource } = useGlobalState();
     const currentProfileAll = useCurrentProfileAll();
-
+    const searchParams = useSearchParams();
     const pathname = usePathname();
     if (isRoutePathname(pathname, '/settings') || isRoutePathname(pathname, '/post')) return null;
 
     if (pathname !== '/profile' && isRoutePathname(pathname, '/profile')) {
         const param = pathname.split('/');
         const handle = param[param.length - 1];
-        const sourceString = param[param.length - 2] as SourceInURL;
+        const sourceString = searchParams.get('source') as SourceInURL;
         const source = resolveSocialPlatform(sourceString);
 
         if (currentProfileAll[source]?.handle !== handle) return null;
