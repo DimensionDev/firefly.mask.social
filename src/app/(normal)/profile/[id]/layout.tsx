@@ -16,11 +16,14 @@ interface Props {
         id: string;
         source: SourceInURL;
     };
+    searchParams: {
+        source?: SourceInURL;
+    };
     children: React.ReactNode;
 }
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-    if (isBotRequest()) return getProfileOGByIdRedis(params.source, params.id);
+export async function generateMetadata({ params, searchParams }: Props): Promise<Metadata> {
+    if (isBotRequest() && searchParams.source) return getProfileOGByIdRedis(searchParams.source, params.id);
     return createSiteMetadata();
 }
 

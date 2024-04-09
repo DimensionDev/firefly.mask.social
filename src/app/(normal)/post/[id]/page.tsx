@@ -4,7 +4,7 @@ import { t, Trans } from '@lingui/macro';
 import { createPageable } from '@masknet/shared-base';
 import { useSuspenseInfiniteQuery, useSuspenseQuery } from '@tanstack/react-query';
 import { last } from 'lodash-es';
-import { useRouter } from 'next/navigation.js';
+import { useRouter, useSearchParams } from 'next/navigation.js';
 import type React from 'react';
 import urlcat from 'urlcat';
 import { useDocumentTitle } from 'usehooks-ts';
@@ -31,7 +31,6 @@ const PostActions = dynamic(() => import('@/components/Actions/index.js').then((
 interface PageProps {
     params: {
         id: string;
-        source: SourceInURL;
     };
 }
 
@@ -46,8 +45,10 @@ function refreshThreadByPostId(postId: string) {
     );
 }
 
-export default function Page({ params: { id: postId, source } }: PageProps) {
+export default function Page({ params: { id: postId } }: PageProps) {
     const router = useRouter();
+    const searchParams = useSearchParams();
+    const source = searchParams.get('source') as SourceInURL;
     const currentSource = resolveSocialPlatform(source);
 
     const fetchAndStoreViews = useImpressionsStore.use.fetchAndStoreViews();
