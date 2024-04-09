@@ -20,7 +20,7 @@ export class FarcasterSocialMedia implements Provider {
     }
 
     async discoverPosts(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        return WarpcastSocialMediaProvider.discoverPosts(indicator);
+        return FireflySocialMediaProvider.discoverPosts(indicator);
     }
 
     async discoverPostsById(profileId: string, indicator?: PageIndicator) {
