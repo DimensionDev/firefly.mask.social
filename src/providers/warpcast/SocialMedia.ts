@@ -46,6 +46,10 @@ export class WarpcastSocialMedia implements Provider {
         return SessionType.Farcaster;
     }
 
+    /**
+     * @deprecated
+     * Response data doesn't include viewer context
+     */
     async discoverPosts(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         const url = urlcat(WARPCAST_ROOT_URL, '/popular-casts-feed', {
             limit: 10,
