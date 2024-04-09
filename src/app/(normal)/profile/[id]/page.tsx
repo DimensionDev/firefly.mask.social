@@ -1,36 +1,31 @@
-'use client';
-import { useQuery } from '@tanstack/react-query';
-import { notFound, useSearchParams } from 'next/navigation.js';
+import type { Metadata } from 'next';
 
-import { ProfilePage } from '@/app/(normal)/profile/pages/Profile.js';
-import { Loading } from '@/components/Loading.js';
-import type { SourceInURL } from '@/constants/enum.js';
-import { resolveSocialPlatform } from '@/helpers/resolveSocialPlatform.js';
-import { getProfileById } from '@/services/getProfileById.js';
+import { ProfileDetailPage } from '@/app/(normal)/profile/pages/DetailPage.js';
+import { KeyType, type SourceInURL } from '@/constants/enum.js';
+import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
+import { isBotRequest } from '@/helpers/isBotRequest.js';
+import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
+import { getProfileOGById } from '@/services/getProfileOGById.js';
 
-interface PageProps {
+const getProfileOGByIdRedis = memoizeWithRedis(getProfileOGById, {
+    key: KeyType.GetProfileOGById,
+});
+
+interface Props {
     params: {
         id: string;
     };
+    searchParams: { source: SourceInURL };
 }
 
-export default function Page({ params: { id: handleOrProfileId } }: PageProps) {
-    const searchParams = useSearchParams();
-    const source = searchParams.get('source') as SourceInURL;
-    const currentSource = resolveSocialPlatform(source);
+export async function generateMetadata({ params, searchParams }: Props): Promise<Metadata> {
+    if (isBotRequest() && searchParams.source)
+        return getProfileOGByIdRedis(searchParams.source as SourceInURL, params.id);
+    return createSiteMetadata();
+}
 
-    const { data: profile = null, isLoading } = useQuery({
-        queryKey: ['profile', currentSource, handleOrProfileId],
-        queryFn: () => getProfileById(currentSource, handleOrProfileId),
-    });
+export default function Page(props: Props) {
+    if (isBotRequest()) return null;
 
-    if (isLoading) {
-        return <Loading />;
-    }
-
-    if (!profile) {
-        notFound();
-    }
-
-    return <ProfilePage profile={profile} />;
+    return <ProfileDetailPage {...props} />;
 }

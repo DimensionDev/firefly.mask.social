@@ -1,155 +1,30 @@
-'use client';
-
-import { t, Trans } from '@lingui/macro';
-import { createPageable } from '@masknet/shared-base';
-import { useSuspenseInfiniteQuery, useSuspenseQuery } from '@tanstack/react-query';
-import { last } from 'lodash-es';
-import { useRouter, useSearchParams } from 'next/navigation.js';
+import type { Metadata } from 'next';
 import type React from 'react';
-import urlcat from 'urlcat';
-import { useDocumentTitle } from 'usehooks-ts';
 
-import ComeBack from '@/assets/comeback.svg';
-import { CommentList } from '@/components/Comments/index.js';
-import { SinglePost } from '@/components/Posts/SinglePost.js';
-import { ThreadBody } from '@/components/Posts/ThreadBody.js';
-import { SocialPlatform, SourceInURL } from '@/constants/enum.js';
-import { EMPTY_LIST, MIN_POST_SIZE_PER_THREAD, SITE_NAME } from '@/constants/index.js';
-import { dynamic } from '@/esm/dynamic.js';
-import { createPageTitle } from '@/helpers/createPageTitle.js';
-import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
-import { resolveSocialPlatform } from '@/helpers/resolveSocialPlatform.js';
-import { useUpdateCurrentVisitingPost } from '@/hooks/useCurrentVisitingPost.js';
-import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
-import { getPostById } from '@/services/getPostById.js';
-import { useImpressionsStore } from '@/store/useImpressionsStore.js';
+import { PostDetailPage } from '@/app/(normal)/post/[id]/pages/DetailPage.js';
+import { KeyType, SourceInURL } from '@/constants/enum.js';
+import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
+import { isBotRequest } from '@/helpers/isBotRequest.js';
+import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
+import { getPostOGById } from '@/services/getPostOGById.js';
 
-const PostActions = dynamic(() => import('@/components/Actions/index.js').then((module) => module.PostActions), {
-    ssr: false,
+const getPostOGByIdRedis = memoizeWithRedis(getPostOGById, {
+    key: KeyType.GetPostOGById,
 });
 
-interface PageProps {
+interface Props {
     params: {
         id: string;
     };
+    searchParams: { source: SourceInURL };
 }
 
-function refreshThreadByPostId(postId: string) {
-    return fetch(
-        urlcat('/api/thread', {
-            id: postId,
-        }),
-        {
-            method: 'PUT',
-        },
-    );
+export async function generateMetadata({ params, searchParams }: Props): Promise<Metadata> {
+    if (isBotRequest() && searchParams.source) return getPostOGByIdRedis(searchParams.source as SourceInURL, params.id);
+    return createSiteMetadata();
 }
 
-export default function Page({ params: { id: postId } }: PageProps) {
-    const router = useRouter();
-    const searchParams = useSearchParams();
-    const source = searchParams.get('source') as SourceInURL;
-    const currentSource = resolveSocialPlatform(source);
-
-    const fetchAndStoreViews = useImpressionsStore.use.fetchAndStoreViews();
-
-    const { data: post = null } = useSuspenseQuery({
-        queryKey: [currentSource, 'post-detail', postId],
-        queryFn: async () => {
-            if (!postId) return;
-
-            const post = await getPostById(currentSource, postId);
-            if (!post) return;
-
-            if (currentSource === SocialPlatform.Lens) fetchAndStoreViews([post.postId]);
-            return post;
-        },
-    });
-
-    const { data: allPosts = EMPTY_LIST } = useSuspenseInfiniteQuery({
-        queryKey: ['posts', currentSource, 'thread-detail', post?.postId, post?.root?.postId],
-        queryFn: async () => {
-            const root = post?.root ? post.root : post?.commentOn ? post.commentOn : post;
-            if (!root?.stats?.comments) return createPageable(EMPTY_LIST, undefined);
-
-            const provider = resolveSocialMediaProvider(currentSource);
-            if (!provider) return createPageable(EMPTY_LIST, undefined);
-
-            const posts = await provider.getThreadByPostId(root.postId);
-
-            /**
-             * The data of Lens is stored in Redis.
-             * Since there is no expiration time and we need to check each time whether a new post has been added to the thread.
-             * If so, we need to clear the cache and request again.
-             */
-            if (currentSource === SocialPlatform.Lens && posts.length >= MIN_POST_SIZE_PER_THREAD) {
-                const lastPost = last(posts);
-                if (!lastPost) return createPageable(posts, undefined);
-
-                const commentsOfLastPost = await LensSocialMediaProvider.getCommentsByUserId(
-                    lastPost.postId,
-                    lastPost.author.profileId,
-                );
-                if (commentsOfLastPost.data.length === 0) return createPageable(posts, undefined);
-
-                const response = await refreshThreadByPostId(root.postId);
-                if (response.status !== 200) return createPageable(posts, undefined);
-                return createPageable(await provider.getThreadByPostId(root.postId), undefined);
-            }
-
-            return createPageable(posts, undefined);
-        },
-        initialPageParam: '',
-        getNextPageParam: () => null,
-        select: (data) => data.pages.flatMap((x) => x.data),
-    });
-
-    useDocumentTitle(post ? createPageTitle(t`Post by ${post?.author.displayName}`) : SITE_NAME);
-    useUpdateCurrentVisitingPost(post);
-
-    if (!post) return;
-
-    return (
-        <div className="min-h-screen">
-            <div className="sticky top-0 z-40 flex items-center bg-primaryBottom px-4 py-[18px]">
-                <ComeBack width={24} height={24} className="mr-8 cursor-pointer" onClick={() => router.back()} />
-                <h2 className="text-xl font-black leading-6">
-                    <Trans>Details</Trans>
-                </h2>
-            </div>
-            <div>
-                {allPosts.length >= MIN_POST_SIZE_PER_THREAD ? (
-                    <>
-                        <div className="border-b border-line px-4 py-3">
-                            {allPosts.map((post, index) => (
-                                <ThreadBody
-                                    post={post}
-                                    disableAnimate
-                                    key={post.postId}
-                                    isLast={index === allPosts.length - 1}
-                                />
-                            ))}
-                        </div>
-                        <CommentList
-                            postId={post.postId}
-                            source={currentSource}
-                            exclude={allPosts.map((x) => x.postId)}
-                        />
-                    </>
-                ) : (
-                    <>
-                        <SinglePost post={post} disableAnimate isDetail />
-                        <PostActions
-                            disablePadding
-                            post={post}
-                            disabled={post?.isHidden}
-                            className="!mt-0 border-b border-line px-4 py-3"
-                        />
-                        {/* TODO: Compose Comment Input */}
-                        <CommentList postId={postId} source={currentSource} />
-                    </>
-                )}
-            </div>
-        </div>
-    );
+export default function Page(props: Props) {
+    if (isBotRequest()) return null;
+    return <PostDetailPage {...props} />;
 }
