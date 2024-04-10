@@ -16,6 +16,7 @@ import { WARPCAST_CLIENT_URL, WARPCAST_ROOT_URL } from '@/constants/index.js';
 import { formatWarpcastPost, formatWarpcastPostFromFeed } from '@/helpers/formatWarpcastPost.js';
 import { formatWarpcastUser } from '@/helpers/formatWarpcastUser.js';
 import { toFid } from '@/helpers/toFid.js';
+import { unhash } from '@/helpers/unhash.js';
 import {
     type Notification,
     NotificationType,
@@ -427,7 +428,7 @@ export class WarpcastSocialMedia implements Provider {
 
     async searchPosts(q: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         const url = urlcat(WARPCAST_CLIENT_URL, '/search-casts', {
-            q,
+            q: unhash(q),
             limit: 25,
             cursor: indicator?.id,
         });
