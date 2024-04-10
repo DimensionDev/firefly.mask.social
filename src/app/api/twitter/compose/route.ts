@@ -1,8 +1,7 @@
-import { parseJSON } from '@masknet/web3-providers/helpers';
 import { StatusCodes } from 'http-status-codes';
 import { NextRequest } from 'next/server.js';
-import type { createTweet, TwitterBody } from 'twitter-api-sdk/dist/types.js';
 import { z } from 'zod';
+import {type SendTweetV2Params} from 'twitter-api-v2'
 
 import { createErrorResponseJSON } from '@/helpers/createErrorResponseJSON.js';
 import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
@@ -23,11 +22,11 @@ async function composeTweet(rawTweet: Object) {
     const tweet = parsedTweet.success ? parsedTweet.data : null;
     if (!tweet?.text && !tweet?.mediaIds?.length) throw new Error('Tweet must contain text or media');
 
-    const composedTweet: TwitterBody<createTweet> = {
+    const composedTweet: SendTweetV2Params = {
         text: tweet.text,
     };
 
-    if (tweet.mediaIds) {
+    if (tweet.mediaIds?.length) {
         composedTweet.media = {
             media_ids: tweet.mediaIds,
         };
@@ -54,7 +53,7 @@ export async function POST(request: NextRequest) {
     try {
         const client = await createTwitterClientV2(request);
         const tweet = await composeTweet(await request.json());
-        const { data } = await client.tweets.createTweet(tweet);
+        const { data } = await client.v2.tweet(tweet);
         return createSuccessResponseJSON(data, { status: StatusCodes.OK });
     } catch (error) {
         console.error(error)
