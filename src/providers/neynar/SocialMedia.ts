@@ -112,24 +112,31 @@ export class NeynarSocialMedia implements Provider {
     async follow(profileId: string) {
         throw new Error('Method not implemented.');
     }
+
     async unfollow(profileId: string) {
         throw new Error('Method not implemented.');
     }
+
     async getFollowers(profileId: string): Promise<Pageable<Profile>> {
         throw new Error('Method not implemented.');
     }
+
     async getFollowings(profileId: string): Promise<Pageable<Profile>> {
         throw new Error('Method not implemented.');
     }
+
     async getNotifications(): Promise<Pageable<Notification>> {
         throw new Error('Method not implemented.');
     }
+
     async getSuggestedFollows(): Promise<Pageable<Profile>> {
         throw new Error('Method not implemented.');
     }
+
     async searchPosts(q: string): Promise<Pageable<Post>> {
         throw new Error('Method not implemented.');
     }
+
     async getThreadByPostId(postId: string): Promise<Post[]> {
         throw new Error('Method not implemented.');
     }
@@ -148,6 +155,7 @@ export class NeynarSocialMedia implements Provider {
 
         return data.users.map(formatFarcasterProfileFromNeynar);
     }
+
     async searchProfiles(q: string, indicator?: PageIndicator | undefined) {
         const session = farcasterClient.getSession();
         const url = urlcat(NEYNAR_URL, '/v2/farcaster/user/search', {
