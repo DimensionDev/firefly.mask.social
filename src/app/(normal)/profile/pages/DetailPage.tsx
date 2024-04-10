@@ -11,11 +11,13 @@ import { getProfileById } from '@/services/getProfileById.js';
 interface PageProps {
     params: {
         id: string;
+    };
+    searchParams: {
         source: SourceInURL;
     };
 }
 
-export default function Page({ params: { source, id: handleOrProfileId } }: PageProps) {
+export function ProfileDetailPage({ params: { id: handleOrProfileId }, searchParams: { source } }: PageProps) {
     const currentSource = resolveSocialPlatform(source);
 
     const { data: profile = null, isLoading } = useQuery({

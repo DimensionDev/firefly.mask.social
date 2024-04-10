@@ -447,6 +447,9 @@ importers:
       graphql:
         specifier: ^16.8.1
         version: 16.8.1
+      graphql-request:
+        specifier: ^6.0.0
+        version: 6.1.0(graphql@16.8.1)
       html-webpack-plugin:
         specifier: ^5.5.3
         version: 5.5.3(webpack@5.88.2)
@@ -19433,7 +19436,6 @@ packages:
       node-fetch: 2.7.0
     transitivePeerDependencies:
       - encoding
-    dev: false
 
   /cross-fetch@4.0.0:
     resolution: {integrity: sha512-e4a5N8lVvuLgAWgnCrLr2PP0YyDOTHa9H/Rj54dirp61qXnNq46m82bRhNqIA5VccJtWBvPTFRV3TtvHUKPB1g==}
@@ -23332,7 +23334,6 @@ packages:
       graphql: 16.8.1
     transitivePeerDependencies:
       - encoding
-    dev: false
 
   /graphql-tag@2.12.6(graphql@16.8.1):
     resolution: {integrity: sha512-FdSNcu2QQcWnM2VNvSCCDCVS5PpPqpzgFT8+GXzqJuoDd0CBncxCY278u4mhRO7tMgo2JjgJA5aZ+nWSQ/Z+xg==}
@@ -36045,6 +36046,7 @@ time:
   /fs-extra@11.1.1: '2023-03-20T14:56:50.321Z'
   /glob@10.3.4: '2023-08-30T22:45:21.320Z'
   /graphql-request@6.0.0: '2023-04-13T03:54:19.579Z'
+  /graphql-request@6.1.0: '2023-05-23T16:56:02.613Z'
   /graphql@16.8.1: '2023-09-19T07:25:55.058Z'
   /guess-calling-code@1.1.8: '2023-06-26T16:50:23.300Z'
   /gulp-cli@2.3.0: '2020-06-04T00:14:30.257Z'
