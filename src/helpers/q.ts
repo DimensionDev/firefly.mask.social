@@ -9,11 +9,6 @@ export const q = (document: Document, s: string) => {
     return document.querySelector(`meta[name="${s}"]`) || document.querySelector(`meta[property="${s}"]`);
 };
 
-export const getMetaValue = (document: Document, name: string) => {
-    const meta = q(document, name);
-    return meta?.getAttribute('content') || null;
-};
-
 /**
  * Query meta tags with name or property s
  * @param s

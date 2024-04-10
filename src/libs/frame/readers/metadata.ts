@@ -1,32 +1,37 @@
 import { compact, last } from 'lodash-es';
 
-import { getMetaValue, qsAll } from '@/helpers/q.js';
+import { q, qsAll } from '@/helpers/q.js';
 import { ActionType, type FrameButton, type FrameInput } from '@/types/frame.js';
+
+function getMetaContent(document: Document, name: string) {
+    const meta = q(document, name);
+    return meta?.getAttribute('content') || null;
+}
 
 export function getTitle(document: Document): string | null {
     return (
-        getMetaValue(document, 'fc:frame:title') ||
-        getMetaValue(document, 'og:title') ||
+        getMetaContent(document, 'fc:frame:title') ||
+        getMetaContent(document, 'og:title') ||
         document.querySelector('title')?.textContent ||
         document.domain
     );
 }
 
 export function getVersion(document: Document): 'vNext' | null {
-    const version = getMetaValue(document, 'fc:frame');
+    const version = getMetaContent(document, 'fc:frame');
     return version === 'vNext' ? 'vNext' : null;
 }
 
 export function getImageUrl(document: Document): string | null {
-    return getMetaValue(document, 'fc:frame:image') || getMetaValue(document, 'og:image') || null;
+    return getMetaContent(document, 'fc:frame:image') || getMetaContent(document, 'og:image') || null;
 }
 
 export function getPostUrl(document: Document): string | null {
-    return getMetaValue(document, 'fc:frame:post_url');
+    return getMetaContent(document, 'fc:frame:post_url');
 }
 
 export function getRefreshPeriod(document: Document): number | null {
-    const period = getMetaValue(document, 'fc:frame:refresh_period');
+    const period = getMetaContent(document, 'fc:frame:refresh_period');
     if (!period) return null;
 
     const parsedPeriod = Number.parseInt(period, 10);
@@ -36,7 +41,7 @@ export function getRefreshPeriod(document: Document): number | null {
 }
 
 export function getInput(document: Document): FrameInput | null {
-    const label = getMetaValue(document, 'fc:frame:input:text');
+    const label = getMetaContent(document, 'fc:frame:input:text');
     if (label) return { label };
     return null;
 }
@@ -54,8 +59,8 @@ export function getButtons(document: Document): FrameButton[] {
             const parsedIndex = Number.parseInt(index, 10);
             if (Number.isNaN(parsedIndex) || parsedIndex < 1 || parsedIndex > 4) return null;
 
-            const action = getMetaValue(document, `fc:frame:button:${parsedIndex}:action`) || ActionType.Post;
-            const target = getMetaValue(document, `fc:frame:button:${parsedIndex}:target`);
+            const action = getMetaContent(document, `fc:frame:button:${parsedIndex}:action`) || ActionType.Post;
+            const target = getMetaContent(document, `fc:frame:button:${parsedIndex}:target`);
 
             return {
                 index: parsedIndex,
@@ -69,10 +74,10 @@ export function getButtons(document: Document): FrameButton[] {
 
 export function getAspectRatio(doc: Document): '1.91:1' | '1:1' {
     const aspect =
-        getMetaValue(doc, 'fc:frame:aspect_ratio') || getMetaValue(doc, 'fc:frame:image:aspect_ratio') || '1.91:1';
+        getMetaContent(doc, 'fc:frame:aspect_ratio') || getMetaContent(doc, 'fc:frame:image:aspect_ratio') || '1.91:1';
     return aspect === '1:1' ? '1:1' : '1.91:1';
 }
 
 export function getState(document: Document) {
-    return getMetaValue(document, 'fc:frame:state');
+    return getMetaContent(document, 'fc:frame:state');
 }
