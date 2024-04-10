@@ -15,7 +15,7 @@ const TweetSchema = z.object({
     mediaIds: z.array(z.string()).optional(),
 });
 
-async function composeTweet(rawTweet: any) {
+async function composeTweet(rawTweet: unknown) {
     const parsedTweet = TweetSchema.safeParse(rawTweet);
     if (!parsedTweet.success) throw new Error(parsedTweet.error.message);
 
