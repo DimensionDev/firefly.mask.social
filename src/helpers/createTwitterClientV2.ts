@@ -13,7 +13,6 @@ export async function createTwitterClientV2(request: NextRequest) {
     });
     const session = await getServerSession(authOptions);
 
-    console.log(token, session)
     if (!token || !session) throw new Error('Unauthorized');
     if (!token.twitter.oauthToken || !token.twitter.oauthTokenSecret) throw new Error('No Twitter token found');
     const tokens: TwitterApiTokens = {
@@ -22,6 +21,5 @@ export async function createTwitterClientV2(request: NextRequest) {
         accessToken: token.twitter.oauthToken,
         accessSecret: token.twitter.oauthTokenSecret,
     };
-    console.log(tokens, 'tokens') 
     return new TwitterApi(tokens);
 }
