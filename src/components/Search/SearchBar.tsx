@@ -1,7 +1,7 @@
 'use client';
 
 import { usePathname, useRouter } from 'next/navigation.js';
-import { memo, useRef, useState } from 'react';
+import { memo, useLayoutEffect, useRef, useState } from 'react';
 import { useOnClickOutside } from 'usehooks-ts';
 
 import LeftArrowIcon from '@/assets/left-arrow.svg';
@@ -29,6 +29,9 @@ const SearchBar = memo(function SearchBar(props: SearchBarProps) {
 
     const inputRef = useRef<HTMLInputElement>(null);
     const [inputText, setInputText] = useState(searchKeyword);
+    useLayoutEffect(() => {
+        setInputText(searchKeyword);
+    }, [searchKeyword]);
 
     const rootRef = useRef(null);
 
