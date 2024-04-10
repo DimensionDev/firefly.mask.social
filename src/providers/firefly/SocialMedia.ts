@@ -47,6 +47,7 @@ export class FireflySocialMedia implements Provider {
     quotePost(postId: string, post: Post): Promise<string> {
         throw new Error('Method not implemented.');
     }
+
     collectPost(postId: string, collectionId?: string): Promise<void> {
         throw new Error('Method not implemented.');
     }
@@ -54,6 +55,7 @@ export class FireflySocialMedia implements Provider {
     getProfilesByAddress(address: string): Promise<Profile[]> {
         throw new Error('Method not implemented.');
     }
+
     getProfilesByIds(ids: string[]): Promise<Profile[]> {
         throw new Error('Method not implemented.');
     }
@@ -90,6 +92,38 @@ export class FireflySocialMedia implements Provider {
     }
 
     getSuggestedFollows(indicator?: PageIndicator | undefined): Promise<Pageable<Profile, PageIndicator>> {
+        throw new Error('Method not implemented.');
+    }
+
+    async publishPost(post: Post): Promise<string> {
+        throw new Error('Method not implemented.');
+    }
+
+    async upvotePost(postId: string): Promise<Reaction> {
+        throw new Error('Method not implemented.');
+    }
+
+    async unvotePost(postId: string) {
+        throw new Error('Method not implemented.');
+    }
+
+    async commentPost(postId: string, post: Post): Promise<string> {
+        throw new Error('Method not implemented.');
+    }
+
+    async mirrorPost(postId: string): Promise<string> {
+        throw new Error('Method not implemented.');
+    }
+
+    async unmirrorPost(postId: string) {
+        throw new Error('Method not implemented.');
+    }
+
+    async follow(profileId: string) {
+        throw new Error('Method not implemented.');
+    }
+
+    async unfollow(profileId: string) {
         throw new Error('Method not implemented.');
     }
 
@@ -367,38 +401,6 @@ export class FireflySocialMedia implements Provider {
 
         const data = items.map(formatFarcasterProfileFromFirefly);
         return createPageable(data, createIndicator(indicator), createNextIndicator(indicator, nextCursor));
-    }
-
-    async publishPost(post: Post): Promise<string> {
-        throw new Error('Method not implemented.');
-    }
-
-    async upvotePost(postId: string): Promise<Reaction> {
-        throw new Error('Method not implemented.');
-    }
-
-    async unvotePost(postId: string) {
-        throw new Error('Method not implemented.');
-    }
-
-    async commentPost(postId: string, post: Post): Promise<string> {
-        throw new Error('Method not implemented.');
-    }
-
-    async mirrorPost(postId: string): Promise<string> {
-        throw new Error('Method not implemented.');
-    }
-
-    async unmirrorPost(postId: string) {
-        throw new Error('Method not implemented.');
-    }
-
-    async follow(profileId: string) {
-        throw new Error('Method not implemented.');
-    }
-
-    async unfollow(profileId: string) {
-        throw new Error('Method not implemented.');
     }
 
     // TODO: now for farcaster only, support other platforms in the future.
