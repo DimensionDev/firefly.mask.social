@@ -1,12 +1,8 @@
 import { compact, last } from 'lodash-es';
 
-import { q, qsAll } from '@/helpers/q.js';
+import { getMetaContent } from '@/helpers/getMetaContent.js';
+import { qsAll } from '@/helpers/q.js';
 import { ActionType, type FrameButton, type FrameInput } from '@/types/frame.js';
-
-function getMetaContent(document: Document, name: string) {
-    const meta = q(document, name);
-    return meta?.getAttribute('content') || null;
-}
 
 export function getTitle(document: Document): string | null {
     return (
