@@ -1,4 +1,5 @@
 import { ProfileIdentifier } from '@masknet/base';
+import { safeUnreachable } from '@masknet/kit';
 import type { IdentityResolved } from '@masknet/plugin-infra';
 
 import { farcasterClient } from '@/configs/farcasterClient.js';
@@ -8,6 +9,11 @@ import { getCurrentProfileAll } from '@/helpers/getCurrentProfileAll.js';
 import { HubbleSocialMediaProvider } from '@/providers/hubble/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 
+/**
+ * Resolve firefly profile to masknet profile
+ * @param source
+ * @returns
+ */
 export async function resolveIdentity(source: SocialPlatform) {
     const currentProfileAll = getCurrentProfileAll();
     const identity: IdentityResolved = {};
@@ -31,7 +37,12 @@ export async function resolveIdentity(source: SocialPlatform) {
             identity.profileId = currentProfileAll.Farcaster?.profileId;
             identity.identifier = ProfileIdentifier.of(SITE_HOSTNAME, currentProfileAll.Farcaster?.handle).unwrap();
             break;
+        case SocialPlatform.Twitter:
+            identity.profileId = currentProfileAll.Twitter?.profileId;
+            identity.identifier = ProfileIdentifier.of(SITE_HOSTNAME, currentProfileAll.Twitter?.handle).unwrap();
+            break;
         default:
+            safeUnreachable(source);
             break;
     }
 
