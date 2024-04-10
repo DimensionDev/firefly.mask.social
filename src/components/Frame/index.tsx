@@ -60,7 +60,7 @@ export function FrameUI({ frame, readonly = false, loading = false, onButtonClic
                     {frame.buttons
                         .slice(0)
                         .sort((a, z) => a.index - z.index)
-                        ?.map((button) => (
+                        .map((button) => (
                             <Button
                                 key={button.index}
                                 button={button}
