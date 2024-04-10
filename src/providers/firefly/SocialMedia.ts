@@ -17,7 +17,6 @@ import { FIREFLY_ROOT_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { formatFarcasterPostFromFirefly } from '@/helpers/formatFarcasterPostFromFirefly.js';
 import { formatFarcasterProfileFromFirefly } from '@/helpers/formatFarcasterProfileFromFirefly.js';
-import { unhash } from '@/helpers/unhash.js';
 import { NeynarSocialMediaProvider } from '@/providers/neynar/SocialMedia.js';
 import type {
     CastResponse,
@@ -377,8 +376,7 @@ export class FireflySocialMedia implements Provider {
 
     async searchPosts(q: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         const url = urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/cast/search', {
-            // the hub doesn't facilitate searching using hashtags
-            keyword: unhash(q),
+            keyword: q,
             limit: 25,
         });
         const { data: casts } = await fetchJSON<SearchCastsResponse>(url, {
