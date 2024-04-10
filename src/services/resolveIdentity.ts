@@ -10,7 +10,7 @@ import { HubbleSocialMediaProvider } from '@/providers/hubble/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 
 /**
- * Resolve firefly profile to masknet profile
+ * Resolve firefly profile to masknet identity
  * @param source
  * @returns
  */
