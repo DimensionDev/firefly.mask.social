@@ -58,6 +58,10 @@ export class LensSocialMedia implements Provider {
         return SessionType.Lens;
     }
 
+    getAccessToken() {
+        return this.client.authentication.getAccessToken();
+    }
+
     async createSessionForProfileId(profileId: string): Promise<LensSession> {
         const walletClient = await getWalletClientRequired({
             chainId: polygon.id,
@@ -962,9 +966,6 @@ export class LensSocialMedia implements Provider {
         });
 
         return posts.items.map(formatLensPost);
-    }
-    getAccessToken() {
-        return this.client.authentication.getAccessToken();
     }
 }
 

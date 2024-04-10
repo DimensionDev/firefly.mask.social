@@ -142,8 +142,9 @@ export class NeynarSocialMedia implements Provider {
     }
 
     async getProfilesByIds(ids: string[]) {
-        const session = farcasterClient.getSession();
         if (!ids.length) return EMPTY_LIST;
+
+        const session = farcasterClient.getSession();
         const url = urlcat(NEYNAR_URL, '/v2/farcaster/user/bulk', {
             fids: ids.join(','),
             viewer_fid: session?.profileId,
