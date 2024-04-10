@@ -1,7 +1,6 @@
 import type { NextRequest } from 'next/server.js';
 import { getServerSession } from 'next-auth';
 import { getToken, type JWT } from 'next-auth/jwt';
-import { Client } from 'twitter-api-sdk';
 import { TwitterApi,type TwitterApiTokens } from 'twitter-api-v2';
 
 import { authOptions } from '@/app/api/auth/[...nextauth]/options.js';

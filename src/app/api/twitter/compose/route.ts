@@ -1,7 +1,7 @@
 import { StatusCodes } from 'http-status-codes';
 import { NextRequest } from 'next/server.js';
-import { z } from 'zod';
 import {type SendTweetV2Params} from 'twitter-api-v2'
+import { z } from 'zod';
 
 import { createErrorResponseJSON } from '@/helpers/createErrorResponseJSON.js';
 import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
@@ -15,7 +15,7 @@ const TweetSchema = z.object({
     mediaIds: z.array(z.string()).optional(),
 });
 
-async function composeTweet(rawTweet: Object) {
+async function composeTweet(rawTweet: any) {
     const parsedTweet = TweetSchema.safeParse(rawTweet);
     if (!parsedTweet.success) throw new Error(parsedTweet.error.message);
 
