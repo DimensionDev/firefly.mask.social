@@ -377,6 +377,7 @@ export class FireflySocialMedia implements Provider {
 
     async searchPosts(q: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         const url = urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/cast/search', {
+            // the hub doesn't facilitate searching using hashtags
             keyword: unhash(q),
             limit: 25,
         });
