@@ -27,7 +27,7 @@ export async function resolveIdentity(source: SocialPlatform) {
             );
             break;
         case SocialPlatform.Farcaster:
-            const session = farcasterClient.session();
+            const session = farcasterClient.session;
             if (!session) break;
 
             const { messageHash, messageSignature, signer } = await HubbleSocialMediaProvider.generateSignaturePacket();
