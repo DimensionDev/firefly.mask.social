@@ -1,106 +1,68 @@
 /* cspell:disable */
 
-import { q } from '@/helpers/q.js';
+import { getMetaContent } from '@/helpers/getMetaContent.js';
 
 export function getTitle(document: Document): string | null {
-    const lens = q(document, 'lens:title');
-    const og = q(document, 'og:title');
-    const twitter = q(document, 'twitter:title');
-    const other = document.querySelector('title');
-    const domain = document.domain;
-
-    if (lens) {
-        return lens.getAttribute('content');
-    } else if (og) {
-        return og.getAttribute('content');
-    } else if (twitter) {
-        return twitter.getAttribute('content');
-    } else if (other) {
-        return other.textContent;
-    } else {
-        return domain;
-    }
+    return (
+        getMetaContent(document, 'lens:title') ||
+        getMetaContent(document, 'og:title') ||
+        getMetaContent(document, 'twitter:title') ||
+        document.querySelector('title')?.textContent ||
+        document.domain
+    );
 }
 
 export function getDescription(document: Document): string | null {
-    const lens = q(document, 'lens:description');
-    const og = q(document, 'og:description');
-    const twitter = q(document, 'twitter:description');
-
-    if (lens) {
-        return lens.getAttribute('content');
-    } else if (og) {
-        return og.getAttribute('content');
-    } else if (twitter) {
-        return twitter.getAttribute('content');
-    }
-
-    return null;
+    return (
+        getMetaContent(document, 'lens:description') ||
+        getMetaContent(document, 'og:description') ||
+        getMetaContent(document, 'twitter:description') ||
+        null
+    );
 }
 
 export function getSite(document: Document): string | null {
-    const lens = q(document, 'lens:site');
-    const og = q(document, 'og:site_name');
-    const twitter = q(document, 'twitter:site');
-
-    if (lens) {
-        return lens.getAttribute('content');
-    } else if (og) {
-        return og.getAttribute('content');
-    } else if (twitter) {
-        return twitter.getAttribute('content');
-    }
-
-    return null;
+    return (
+        getMetaContent(document, 'lens:site') ||
+        getMetaContent(document, 'og:site_name') ||
+        getMetaContent(document, 'twitter:site') ||
+        null
+    );
 }
 
 export function getImageUrl(document: Document): string | null {
-    const lens = q(document, 'lens:image');
-    const og = q(document, 'og:image');
-    const twitter = q(document, 'twitter:image') || q(document, 'twitter:image:src');
-
-    if (lens) {
-        return lens.getAttribute('content');
-    } else if (og) {
-        return og.getAttribute('content');
-    } else if (twitter) {
-        return twitter.getAttribute('content');
-    }
-
-    return null;
+    return (
+        getMetaContent(document, 'lens:image') ||
+        getMetaContent(document, 'og:image') ||
+        getMetaContent(document, 'twitter:image') ||
+        getMetaContent(document, 'twitter:image:src') ||
+        null
+    );
 }
 
 export function getEmbedUrl(document: Document): string | null {
-    const lens = q(document, 'lens:player');
-    const og = q(document, 'og:video:url') || q(document, 'og:video:secure_url');
-    const twitter = q(document, 'twitter:player');
-
-    if (lens) {
-        return lens.getAttribute('content');
-    } else if (og) {
-        return og.getAttribute('content');
-    } else if (twitter) {
-        return twitter.getAttribute('content');
-    }
-
-    return null;
+    return (
+        getMetaContent(document, 'lens:player') ||
+        getMetaContent(document, 'og:video:url') ||
+        getMetaContent(document, 'og:video:secure_url') ||
+        getMetaContent(document, 'twitter:player') ||
+        null
+    );
 }
 
 export function getIsLarge(document: Document): boolean {
-    const lens = q(document, 'lens:card');
-    const twitter = q(document, 'twitter:card');
+    const lens = getMetaContent(document, 'lens:card');
+    const twitter = getMetaContent(document, 'twitter:card');
 
     const largeTypes = ['summary_large_image', 'player'];
 
     if (lens) {
-        const card = lens.getAttribute('content') || '';
-        return largeTypes.includes(card);
+        return largeTypes.includes(lens);
     } else if (twitter) {
-        const card = twitter.getAttribute('content') || '';
-        return largeTypes.includes(card);
+        return largeTypes.includes(twitter);
+    } else {
+        return false;
     }
-
-    return false;
 }
 
 export function generateIframe(embedUrl: string | null, url: string): string | null {

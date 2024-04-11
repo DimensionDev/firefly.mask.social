@@ -21,7 +21,7 @@ export const Hashtag = memo<Omit<MarkupLinkProps, 'post'>>(function Hashtag({ ti
 
     return (
         <ClickableArea
-            className="text-link"
+            className="cursor-pointer text-link"
             as="span"
             onClick={() => {
                 scrollTo(0, 0);

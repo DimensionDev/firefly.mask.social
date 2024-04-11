@@ -1,5 +1,6 @@
 import { CastAddBody, Factories, Message, MessageType, ReactionType, toFarcasterTime } from '@farcaster/core';
 import { t } from '@lingui/macro';
+import type { Pageable, PageIndicator } from '@masknet/shared-base';
 import { toInteger } from 'lodash-es';
 import urlcat from 'urlcat';
 import { toBytes } from 'viem';
@@ -9,7 +10,13 @@ import { encodeMessageData } from '@/helpers/encodeMessageData.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { getAllMentionsForFarcaster } from '@/helpers/getAllMentionsForFarcaster.js';
 import type { FrameSignaturePacket, SignaturePacket } from '@/providers/types/Hubble.js';
-import { type Post, type Provider, SessionType } from '@/providers/types/SocialMedia.js';
+import {
+    type Notification,
+    type Post,
+    type Profile,
+    type Provider,
+    SessionType,
+} from '@/providers/types/SocialMedia.js';
 import { ReactionType as ReactionTypeCustom } from '@/providers/types/SocialMedia.js';
 import type { Frame, Index } from '@/types/frame.js';
 
@@ -33,8 +40,122 @@ function fetchHubbleJSON<T>(url: string, options: RequestInit): Promise<T> {
     });
 }
 
-// @ts-ignore
 export class HubbleSocialMedia implements Provider {
+    commentPost(postId: string, post: Post): Promise<string> {
+        throw new Error('Method not implemented.');
+    }
+
+    getProfileById(profileId: string): Promise<Profile> {
+        throw new Error('Method not implemented.');
+    }
+
+    getPostById(postId: string): Promise<Post> {
+        throw new Error('Method not implemented.');
+    }
+
+    getCommentsById(postId: string, indicator?: PageIndicator | undefined): Promise<Pageable<Post, PageIndicator>> {
+        throw new Error('Method not implemented.');
+    }
+
+    discoverPosts(indicator?: PageIndicator | undefined): Promise<Pageable<Post, PageIndicator>> {
+        throw new Error('Method not implemented.');
+    }
+
+    discoverPostsById(
+        profileId: string,
+        indicator?: PageIndicator | undefined,
+    ): Promise<Pageable<Post, PageIndicator>> {
+        throw new Error('Method not implemented.');
+    }
+
+    getPostsByProfileId(
+        profileId: string,
+        indicator?: PageIndicator | undefined,
+    ): Promise<Pageable<Post, PageIndicator>> {
+        throw new Error('Method not implemented.');
+    }
+
+    getPostsByParentPostId(
+        postId: string,
+        indicator?: PageIndicator | undefined,
+    ): Promise<Pageable<Post, PageIndicator>> {
+        throw new Error('Method not implemented.');
+    }
+
+    getFollowers(profileId: string, indicator?: PageIndicator | undefined): Promise<Pageable<Profile, PageIndicator>> {
+        throw new Error('Method not implemented.');
+    }
+
+    getFollowings(profileId: string, indicator?: PageIndicator | undefined): Promise<Pageable<Profile, PageIndicator>> {
+        throw new Error('Method not implemented.');
+    }
+
+    getNotifications(indicator?: PageIndicator | undefined): Promise<Pageable<Notification, PageIndicator>> {
+        throw new Error('Method not implemented.');
+    }
+
+    searchProfiles(q: string, indicator?: PageIndicator | undefined): Promise<Pageable<Profile, PageIndicator>> {
+        throw new Error('Method not implemented.');
+    }
+
+    searchPosts(q: string, indicator?: PageIndicator | undefined): Promise<Pageable<Post, PageIndicator>> {
+        throw new Error('Method not implemented.');
+    }
+
+    getThreadByPostId(postId: string): Promise<Post[]> {
+        throw new Error('Method not implemented.');
+    }
+
+    quotePost(postId: string, post: Post): Promise<string> {
+        throw new Error('Method not implemented.');
+    }
+
+    collectPost(postId: string, collectionId?: string): Promise<void> {
+        throw new Error('Method not implemented.');
+    }
+
+    getProfilesByAddress(address: string): Promise<Profile[]> {
+        throw new Error('Method not implemented.');
+    }
+    getProfilesByIds(ids: string[]): Promise<Profile[]> {
+        throw new Error('Method not implemented.');
+    }
+
+    getProfileByHandle(handle: string): Promise<Profile> {
+        throw new Error('Method not implemented.');
+    }
+
+    getPostsBeMentioned(
+        profileId: string,
+        indicator?: PageIndicator | undefined,
+    ): Promise<Pageable<Post, PageIndicator>> {
+        throw new Error('Method not implemented.');
+    }
+
+    getPostsLiked(profileId: string, indicator?: PageIndicator | undefined): Promise<Pageable<Post, PageIndicator>> {
+        throw new Error('Method not implemented.');
+    }
+
+    getPostsReplies(profileId: string, indicator?: PageIndicator | undefined): Promise<Pageable<Post, PageIndicator>> {
+        throw new Error('Method not implemented.');
+    }
+
+    getReactors(postId: string, indicator?: PageIndicator | undefined): Promise<Pageable<Profile, PageIndicator>> {
+        throw new Error('Method not implemented.');
+    }
+
+    isFollowedByMe(profileId: string): Promise<boolean> {
+        throw new Error('Method not implemented.');
+    }
+
+    isFollowingMe(profileId: string): Promise<boolean> {
+        throw new Error('Method not implemented.');
+    }
+
+    getSuggestedFollows(indicator?: PageIndicator | undefined): Promise<Pageable<Profile, PageIndicator>> {
+        throw new Error('Method not implemented.');
+    }
+
     get type() {
         return SessionType.Farcaster;
     }

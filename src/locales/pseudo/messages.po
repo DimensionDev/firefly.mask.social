@@ -412,9 +412,6 @@ msgstr ""
 msgid "Display"
 msgstr ""
 
-msgid "Login required"
-msgstr ""
-
 msgid "Show More"
 msgstr ""
 
