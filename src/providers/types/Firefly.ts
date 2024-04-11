@@ -124,3 +124,7 @@ export type FarcasterLoginResponse = Response<{
     farcaster_signer_private_key?: string;
     fid: string;
 }>;
+
+export type MetricsDownloadResponse = Response<{
+    ciphertext: string;
+}>;
