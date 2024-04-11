@@ -12,6 +12,9 @@ declare namespace NodeJS {
         NEXT_PUBLIC_W3M_PROJECT_ID: string;
         NEXT_PUBLIC_VERCEL_ENV: 'production' | 'preview' | 'development';
 
+        SESSION_CIPHER_KEY: string;
+        SESSION_CIPHER_IV: string;
+
         VITE_ACCOUNT: `0x${string}`;
         VITE_ACCOUNT_KEY: `0x${string}`;
 

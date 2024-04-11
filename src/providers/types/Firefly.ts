@@ -111,3 +111,16 @@ export type FriendshipResponse = Response<{
 export type ThreadResponse = Response<{
     threads: Cast[];
 }>;
+
+export type LensLoginResponse = Response<{
+    accessToken: string;
+    accountId: string;
+}>;
+
+export type FarcasterLoginResponse = Response<{
+    accessToken: string;
+    accountId: string;
+    farcaster_signer_public_key?: string;
+    farcaster_signer_private_key?: string;
+    fid: string;
+}>;

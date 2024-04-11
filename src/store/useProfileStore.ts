@@ -4,7 +4,7 @@ import { persist, type PersistOptions } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
 
 import { farcasterClient } from '@/configs/farcasterClient.js';
-import { createLensClient } from '@/configs/lensClient.js';
+import { lensClient } from '@/configs/lensClient.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
@@ -142,10 +142,8 @@ const useLensStateBase = createState(
         onRehydrateStorage: () => async (state) => {
             if (typeof window === 'undefined') return;
 
-            const lensClient = createLensClient();
-
             const profileId = state?.currentProfile?.profileId;
-            const clientProfileId = await lensClient.authentication.getProfileId();
+            const clientProfileId = await lensClient.sdk.authentication.getProfileId();
 
             if (!clientProfileId || (profileId && clientProfileId !== profileId)) {
                 console.warn('[lens store] clean the local store because the client cannot recover properly');
@@ -153,7 +151,7 @@ const useLensStateBase = createState(
                 return;
             }
 
-            const authenticated = await lensClient.authentication.isAuthenticated();
+            const authenticated = await lensClient.sdk.authentication.isAuthenticated();
             if (!authenticated) {
                 console.warn('[lens store] clean the local profile because the client session is broken');
                 state?.clearCurrentProfile();
