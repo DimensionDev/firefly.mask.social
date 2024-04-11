@@ -1,4 +1,6 @@
-import { type IStorageProvider, LensClient, production } from '@lens-protocol/client';
+import { type IStorageProvider, LensClient as LensClientSDK, production } from '@lens-protocol/client';
+
+import type { LensSession } from '@/providers/lens/Session.js';
 
 const ls = typeof window === 'undefined' ? undefined : window.localStorage;
 
@@ -16,14 +18,38 @@ class LocalStorageProvider implements IStorageProvider {
     }
 }
 
-let client: LensClient;
+class LensClient {
+    private lensClientSDK: LensClientSDK | null = null;
 
-export function createLensClient() {
-    if (!client) {
-        client = new LensClient({
-            environment: production,
-            storage: new LocalStorageProvider(),
-        });
+    get sdk() {
+        if (!this.lensClientSDK) {
+            this.lensClientSDK = new LensClientSDK({
+                environment: production,
+                storage: new LocalStorageProvider(),
+            });
+        }
+        return this.lensClientSDK;
     }
-    return client;
+
+    async resumeSession(session: LensSession, refreshToken: string) {
+        const verified = await this.sdk.authentication.verify(session.token);
+        if (!verified) throw new Error('Invalid session');
+
+        const now = Date.now();
+        localStorage.setItem(
+            'lens.production.credentials',
+            JSON.stringify({
+                data: {
+                    refreshToken,
+                },
+                metadata: {
+                    createdAt: now,
+                    updatedAt: now,
+                    version: 2,
+                },
+            }),
+        );
+    }
 }
+
+export const lensClient = new LensClient();

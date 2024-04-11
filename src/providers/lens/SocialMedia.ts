@@ -25,7 +25,7 @@ import urlcat from 'urlcat';
 import type { TypedDataDomain } from 'viem';
 import { polygon } from 'viem/chains';
 
-import { createLensClient } from '@/configs/lensClient.js';
+import { lensClient } from '@/configs/lensClient.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { formatLensPost, formatLensPostByFeed, formatLensQuoteOrComment } from '@/helpers/formatLensPost.js';
@@ -52,21 +52,19 @@ import {
 import type { ResponseJSON } from '@/types/index.js';
 
 export class LensSocialMedia implements Provider {
-    private client = createLensClient();
-
     get type() {
         return SessionType.Lens;
     }
 
     getAccessToken() {
-        return this.client.authentication.getAccessToken();
+        return lensClient.sdk.authentication.getAccessToken();
     }
 
     async createSessionForProfileId(profileId: string): Promise<LensSession> {
         const walletClient = await getWalletClientRequired({
             chainId: polygon.id,
         });
-        const { id, text } = await this.client.authentication.generateChallenge({
+        const { id, text } = await lensClient.sdk.authentication.generateChallenge({
             for: profileId,
             signedBy: walletClient.account.address,
         });
@@ -74,23 +72,24 @@ export class LensSocialMedia implements Provider {
             message: text,
         });
 
-        await this.client.authentication.authenticate({
+        await lensClient.sdk.authentication.authenticate({
             id,
             signature,
         });
 
         const now = Date.now();
+        const accessToke = await lensClient.sdk.authentication.getAccessToken();
 
         return new LensSession(
             profileId,
-            '', // the LensClient maintains it
+            accessToke.unwrap(),
             now,
             now + 1000 * 60 * 60 * 24 * 30, // 30 days
         );
     }
 
     async updateSignless(enable: boolean): Promise<void> {
-        const typedDataResult = await this.client.profile.createChangeProfileManagersTypedData({
+        const typedDataResult = await lensClient.sdk.profile.createChangeProfileManagersTypedData({
             approveSignless: enable,
         });
 
@@ -103,7 +102,7 @@ export class LensSocialMedia implements Provider {
             message: typedData.value,
         });
 
-        const broadcastOnchainResult = await this.client.transaction.broadcastOnchain({
+        const broadcastOnchainResult = await lensClient.sdk.transaction.broadcastOnchain({
             id,
             signature: signedTypedData,
         });
@@ -122,7 +121,7 @@ export class LensSocialMedia implements Provider {
         if (!post.metadata.contentURI) throw new Error(t`No content to publish.`);
 
         if (post.author.signless) {
-            const result = await this.client.publication.postOnMomoka({
+            const result = await lensClient.sdk.publication.postOnMomoka({
                 contentURI: post.metadata.contentURI,
             });
             const resultValue = result.unwrap();
@@ -133,7 +132,7 @@ export class LensSocialMedia implements Provider {
             return resultValue.id;
         } else {
             const walletClient = await getWalletClientRequired();
-            const resultTypedData = await this.client.publication.createMomokaPostTypedData({
+            const resultTypedData = await lensClient.sdk.publication.createMomokaPostTypedData({
                 contentURI: post.metadata.contentURI,
             });
 
@@ -146,7 +145,7 @@ export class LensSocialMedia implements Provider {
                 message: typedData.value,
             });
 
-            const broadcastResult = await this.client.transaction.broadcastOnMomoka({
+            const broadcastResult = await lensClient.sdk.transaction.broadcastOnMomoka({
                 id,
                 signature: signedTypedData,
             });
@@ -163,14 +162,16 @@ export class LensSocialMedia implements Provider {
 
     async mirrorPost(postId: string, options?: { onMomoka?: boolean }): Promise<string> {
         if (options?.onMomoka) {
-            const result = await this.client.publication.mirrorOnMomoka({
+            const result = await lensClient.sdk.publication.mirrorOnMomoka({
                 mirrorOn: postId,
             });
             const resultValue = result.unwrap();
 
             if (!isCreateMomokaPublicationResult(resultValue)) {
                 const walletClient = await getWalletClientRequired();
-                const resultTypedData = await this.client.publication.createMomokaMirrorTypedData({ mirrorOn: postId });
+                const resultTypedData = await lensClient.sdk.publication.createMomokaMirrorTypedData({
+                    mirrorOn: postId,
+                });
                 const { id, typedData } = resultTypedData.unwrap();
                 const signedTypedData = await walletClient.signTypedData({
                     domain: typedData.domain as TypedDataDomain,
@@ -179,7 +180,7 @@ export class LensSocialMedia implements Provider {
                     message: typedData.value,
                 });
 
-                const broadcastResult = await this.client.transaction.broadcastOnMomoka({
+                const broadcastResult = await lensClient.sdk.transaction.broadcastOnMomoka({
                     id,
                     signature: signedTypedData,
                 });
@@ -191,14 +192,14 @@ export class LensSocialMedia implements Provider {
                 }
             }
         } else {
-            const result = await this.client.publication.mirrorOnchain({
+            const result = await lensClient.sdk.publication.mirrorOnchain({
                 mirrorOn: postId,
             });
             const resultValue = result.unwrap();
 
             if (!isRelaySuccess(resultValue)) {
                 const walletClient = await getWalletClientRequired();
-                const resultTypedData = await this.client.publication.createOnchainMirrorTypedData({
+                const resultTypedData = await lensClient.sdk.publication.createOnchainMirrorTypedData({
                     mirrorOn: postId,
                 });
 
@@ -211,7 +212,7 @@ export class LensSocialMedia implements Provider {
                     message: typedData.value,
                 });
 
-                const broadcastResult = await this.client.transaction.broadcastOnchain({
+                const broadcastResult = await lensClient.sdk.transaction.broadcastOnchain({
                     id,
                     signature: signedTypedData,
                 });
@@ -233,7 +234,7 @@ export class LensSocialMedia implements Provider {
 
         if (onMomoka) {
             if (signless) {
-                const result = await this.client.publication.quoteOnMomoka({
+                const result = await lensClient.sdk.publication.quoteOnMomoka({
                     quoteOn: postId,
                     contentURI: intro,
                 });
@@ -245,7 +246,7 @@ export class LensSocialMedia implements Provider {
                 return resultValue.id;
             } else {
                 const walletClient = await getWalletClientRequired();
-                const resultTypedData = await this.client.publication.createMomokaQuoteTypedData({
+                const resultTypedData = await lensClient.sdk.publication.createMomokaQuoteTypedData({
                     quoteOn: postId,
                     contentURI: intro,
                 });
@@ -259,7 +260,7 @@ export class LensSocialMedia implements Provider {
                     message: typedData.value,
                 });
 
-                const broadcastResult = await this.client.transaction.broadcastOnMomoka({
+                const broadcastResult = await lensClient.sdk.transaction.broadcastOnMomoka({
                     id,
                     signature: signedTypedData,
                 });
@@ -272,7 +273,7 @@ export class LensSocialMedia implements Provider {
                 return broadcastValue.id;
             }
         } else {
-            const result = await this.client.publication.quoteOnchain({
+            const result = await lensClient.sdk.publication.quoteOnchain({
                 quoteOn: postId,
                 contentURI: intro,
             });
@@ -282,7 +283,7 @@ export class LensSocialMedia implements Provider {
             if (!isRelaySuccess(resultValue) || !resultValue.txHash) {
                 const walletClient = await getWalletClientRequired();
 
-                const resultTypedData = await this.client.publication.createOnchainQuoteTypedData({
+                const resultTypedData = await lensClient.sdk.publication.createOnchainQuoteTypedData({
                     quoteOn: postId,
                     contentURI: intro,
                 });
@@ -296,7 +297,7 @@ export class LensSocialMedia implements Provider {
                     message: typedData.value,
                 });
 
-                const broadcastResult = await this.client.transaction.broadcastOnchain({
+                const broadcastResult = await lensClient.sdk.transaction.broadcastOnchain({
                     id,
                     signature: signedTypedData,
                 });
@@ -321,7 +322,7 @@ export class LensSocialMedia implements Provider {
     }
 
     async collectPost(postId: string): Promise<void> {
-        const result = await this.client.publication.bookmarks.add({
+        const result = await lensClient.sdk.publication.bookmarks.add({
             on: postId,
         });
 
@@ -334,7 +335,7 @@ export class LensSocialMedia implements Provider {
 
         if (onMomoka) {
             if (signless) {
-                const result = await this.client.publication.commentOnMomoka({
+                const result = await lensClient.sdk.publication.commentOnMomoka({
                     commentOn: postId,
                     contentURI: comment,
                 });
@@ -346,7 +347,7 @@ export class LensSocialMedia implements Provider {
                 return resultValue.id;
             } else {
                 const walletClient = await getWalletClientRequired();
-                const resultTypedData = await this.client.publication.createMomokaCommentTypedData({
+                const resultTypedData = await lensClient.sdk.publication.createMomokaCommentTypedData({
                     commentOn: postId,
                     contentURI: comment,
                 });
@@ -360,7 +361,7 @@ export class LensSocialMedia implements Provider {
                     message: typedData.value,
                 });
 
-                const broadcastResult = await this.client.transaction.broadcastOnMomoka({
+                const broadcastResult = await lensClient.sdk.transaction.broadcastOnMomoka({
                     id,
                     signature: signedTypedData,
                 });
@@ -373,7 +374,7 @@ export class LensSocialMedia implements Provider {
                 return broadcastValue.id;
             }
         } else {
-            const result = await this.client.publication.commentOnchain({
+            const result = await lensClient.sdk.publication.commentOnchain({
                 commentOn: postId,
                 contentURI: comment,
             });
@@ -383,7 +384,7 @@ export class LensSocialMedia implements Provider {
             if (!isRelaySuccess(resultValue) || !resultValue.txHash) {
                 const walletClient = await getWalletClientRequired();
 
-                const resultTypedData = await this.client.publication.createOnchainCommentTypedData({
+                const resultTypedData = await lensClient.sdk.publication.createOnchainCommentTypedData({
                     commentOn: postId,
                     contentURI: comment,
                 });
@@ -397,7 +398,7 @@ export class LensSocialMedia implements Provider {
                     message: typedData.value,
                 });
 
-                const broadcastResult = await this.client.transaction.broadcastOnchain({
+                const broadcastResult = await lensClient.sdk.transaction.broadcastOnchain({
                     id,
                     signature: signedTypedData,
                 });
@@ -423,7 +424,7 @@ export class LensSocialMedia implements Provider {
     }
 
     async upvotePost(postId: string): Promise<Reaction> {
-        const result = await this.client.publication.reactions.add({
+        const result = await lensClient.sdk.publication.reactions.add({
             for: postId,
             reaction: PublicationReactionType.Upvote,
         });
@@ -438,7 +439,7 @@ export class LensSocialMedia implements Provider {
     }
 
     async unvotePost(postId: string): Promise<void> {
-        const result = await this.client.publication.reactions.remove({
+        const result = await lensClient.sdk.publication.reactions.remove({
             for: postId,
             reaction: PublicationReactionType.Upvote,
         });
@@ -453,7 +454,7 @@ export class LensSocialMedia implements Provider {
         const {
             data: { lastLoggedInProfile },
         } = await profilesManagedQuery(request);
-        const profiles = await this.client.wallet.profilesManaged({ for: address });
+        const profiles = await lensClient.sdk.wallet.profilesManaged({ for: address });
         const result = profiles.items.map(formatLensProfile);
         const index = result.findIndex((profile) => profile.handle === lastLoggedInProfile?.handle?.fullHandle);
         if (index > -1) {
@@ -464,7 +465,7 @@ export class LensSocialMedia implements Provider {
     }
 
     async getProfileById(profileId: string): Promise<Profile> {
-        const result = await this.client.profile.fetch({
+        const result = await lensClient.sdk.profile.fetch({
             forProfileId: profileId,
         });
         if (!result) throw new Error(t`No profile found`);
@@ -473,7 +474,7 @@ export class LensSocialMedia implements Provider {
     }
 
     async getProfileByHandle(handle: string): Promise<Profile> {
-        const result = await this.client.profile.fetch({
+        const result = await lensClient.sdk.profile.fetch({
             forHandle: `lens/${handle}`,
         });
         if (!result) throw new Error(t`No profile found`);
@@ -482,7 +483,7 @@ export class LensSocialMedia implements Provider {
     }
 
     async getPostById(postId: string): Promise<Post> {
-        const result = await this.client.publication.fetch({
+        const result = await lensClient.sdk.publication.fetch({
             forId: postId,
         });
         if (!result) throw new Error(t`No post found`);
@@ -492,7 +493,7 @@ export class LensSocialMedia implements Provider {
     }
 
     async getPostByTxHash(txHash: string): Promise<Post> {
-        const result = await this.client.publication.fetch({
+        const result = await lensClient.sdk.publication.fetch({
             forTxHash: txHash,
         });
         if (!result) throw new Error(t`No post found`);
@@ -510,7 +511,7 @@ export class LensSocialMedia implements Provider {
         indicator?: PageIndicator,
         hasFilter = true,
     ): Promise<Pageable<Post, PageIndicator>> {
-        const result = await this.client.publication.fetchAll({
+        const result = await lensClient.sdk.publication.fetchAll({
             where: {
                 commentOn: { id: postId, ranking: { filter: CommentRankingFilterType.Relevant } },
                 customFilters: hasFilter ? [CustomFiltersType.Gardeners] : undefined,
@@ -529,7 +530,7 @@ export class LensSocialMedia implements Provider {
     }
 
     async getCommentsByUserId(postId: string, profileId: string, indicator?: PageIndicator) {
-        const result = await this.client.publication.fetchAll({
+        const result = await lensClient.sdk.publication.fetchAll({
             where: {
                 commentOn: { id: postId },
                 from: [profileId],
@@ -546,7 +547,7 @@ export class LensSocialMedia implements Provider {
     }
 
     async discoverPosts(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        const result = await this.client.explore.publications({
+        const result = await lensClient.sdk.explore.publications({
             orderBy: ExplorePublicationsOrderByType.LensCurated,
             cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
             limit: LimitType.TwentyFive,
@@ -560,7 +561,7 @@ export class LensSocialMedia implements Provider {
     }
 
     async discoverPostsById(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        const data = await this.client.feed.fetch({
+        const data = await lensClient.sdk.feed.fetch({
             where: {
                 for: profileId,
                 feedEventItemTypes: [FeedEventItemType.Post, FeedEventItemType.Comment, FeedEventItemType.Mirror],
@@ -582,7 +583,7 @@ export class LensSocialMedia implements Provider {
         profileId: string,
         indicator?: PageIndicator,
     ): Promise<Pageable<Post, PageIndicator>> {
-        const result = await this.client.publication.fetchAll({
+        const result = await lensClient.sdk.publication.fetchAll({
             where: {
                 actedBy: profileId,
                 publicationTypes: [PublicationType.Post, PublicationType.Comment, PublicationType.Mirror],
@@ -598,7 +599,7 @@ export class LensSocialMedia implements Provider {
     }
 
     async getPostsByProfileId(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        const result = await this.client.publication.fetchAll({
+        const result = await lensClient.sdk.publication.fetchAll({
             where: {
                 from: [profileId],
                 metadata: null,
@@ -621,7 +622,7 @@ export class LensSocialMedia implements Provider {
 
     // TODO: Invalid
     async getPostsBeMentioned(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post>> {
-        const result = await this.client.publication.fetchAll({
+        const result = await lensClient.sdk.publication.fetchAll({
             where: {
                 from: [profileId],
             },
@@ -635,7 +636,7 @@ export class LensSocialMedia implements Provider {
     }
 
     async getPostsLiked(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post>> {
-        const result = await this.client.publication.fetchAll({
+        const result = await lensClient.sdk.publication.fetchAll({
             where: {
                 actedBy: profileId,
             },
@@ -650,7 +651,7 @@ export class LensSocialMedia implements Provider {
     }
 
     async getPostsReplies(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post>> {
-        const result = await this.client.publication.fetchAll({
+        const result = await lensClient.sdk.publication.fetchAll({
             where: {
                 from: [profileId],
                 publicationTypes: [PublicationType.Comment],
@@ -666,7 +667,7 @@ export class LensSocialMedia implements Provider {
     }
 
     async getPostsByParentPostId(postId: string, indicator?: PageIndicator): Promise<Pageable<Post>> {
-        const result = await this.client.publication.fetchAll({
+        const result = await lensClient.sdk.publication.fetchAll({
             where: {
                 commentOn: {
                     id: postId,
@@ -685,7 +686,7 @@ export class LensSocialMedia implements Provider {
     getReactors!: (postId: string) => Promise<Pageable<Profile>>;
 
     async follow(profileId: string): Promise<void> {
-        const result = await this.client.profile.follow({
+        const result = await lensClient.sdk.profile.follow({
             follow: [
                 {
                     profileId,
@@ -694,7 +695,7 @@ export class LensSocialMedia implements Provider {
         });
         const resultValue = result.unwrap();
         if (!isRelaySuccess(resultValue)) {
-            const result = await this.client.profile.createFollowTypedData({
+            const result = await lensClient.sdk.profile.createFollowTypedData({
                 follow: [
                     {
                         profileId,
@@ -711,7 +712,7 @@ export class LensSocialMedia implements Provider {
                 message: data.typedData.value,
             });
 
-            const broadcastResult = await this.client.transaction.broadcastOnchain({
+            const broadcastResult = await lensClient.sdk.transaction.broadcastOnchain({
                 id: data.id,
                 signature: signedTypedData,
             });
@@ -721,20 +722,20 @@ export class LensSocialMedia implements Provider {
                 throw new Error(`Something went wrong: ${JSON.stringify(broadcastValue)}`);
             }
 
-            await waitUntilComplete(this.client, broadcastValue.txHash);
+            await waitUntilComplete(lensClient.sdk, broadcastValue.txHash);
         } else {
-            await waitUntilComplete(this.client, resultValue.txHash);
+            await waitUntilComplete(lensClient.sdk, resultValue.txHash);
         }
     }
 
     async unfollow(profileId: string): Promise<void> {
-        const result = await this.client.profile.unfollow({
+        const result = await lensClient.sdk.profile.unfollow({
             unfollow: [profileId],
         });
         const resultValue = result.unwrap();
 
         if (!isRelaySuccess(resultValue)) {
-            const followTypedDataResult = await this.client.profile.createUnfollowTypedData({
+            const followTypedDataResult = await lensClient.sdk.profile.createUnfollowTypedData({
                 unfollow: [profileId],
             });
 
@@ -747,7 +748,7 @@ export class LensSocialMedia implements Provider {
                 message: data.typedData.value,
             });
 
-            const broadcastResult = await this.client.transaction.broadcastOnchain({
+            const broadcastResult = await lensClient.sdk.transaction.broadcastOnchain({
                 id: data.id,
                 signature: signedTypedData,
             });
@@ -757,14 +758,14 @@ export class LensSocialMedia implements Provider {
                 throw new Error(`Something went wrong: ${JSON.stringify(broadcastValue)}`);
             }
 
-            await waitUntilComplete(this.client, broadcastValue.txHash);
+            await waitUntilComplete(lensClient.sdk, broadcastValue.txHash);
         } else {
-            await waitUntilComplete(this.client, resultValue.txHash);
+            await waitUntilComplete(lensClient.sdk, resultValue.txHash);
         }
     }
 
     async getFollowers(profileId: string, indicator?: PageIndicator): Promise<Pageable<Profile>> {
-        const result = await this.client.profile.followers({
+        const result = await lensClient.sdk.profile.followers({
             of: profileId,
             cursor: indicator?.id,
         });
@@ -777,7 +778,7 @@ export class LensSocialMedia implements Provider {
     }
 
     async getFollowings(profileId: string, indicator?: PageIndicator): Promise<Pageable<Profile>> {
-        const result = await this.client.profile.following({
+        const result = await lensClient.sdk.profile.following({
             for: profileId,
             cursor: indicator?.id,
         });
@@ -790,7 +791,7 @@ export class LensSocialMedia implements Provider {
     }
 
     async isFollowedByMe(profileId: string): Promise<boolean> {
-        const result = await this.client.profile.fetch({
+        const result = await lensClient.sdk.profile.fetch({
             forProfileId: profileId,
         });
 
@@ -798,7 +799,7 @@ export class LensSocialMedia implements Provider {
     }
 
     async isFollowingMe(profileId: string): Promise<boolean> {
-        const result = await this.client.profile.fetch({
+        const result = await lensClient.sdk.profile.fetch({
             forProfileId: profileId,
         });
 
@@ -806,7 +807,7 @@ export class LensSocialMedia implements Provider {
     }
 
     async getNotifications(indicator?: PageIndicator): Promise<Pageable<Notification, PageIndicator>> {
-        const response = await this.client.notifications.fetch({
+        const response = await lensClient.sdk.notifications.fetch({
             where: {
                 customFilters: [CustomFiltersType.Gardeners],
             },
@@ -913,7 +914,7 @@ export class LensSocialMedia implements Provider {
     }
 
     async getSuggestedFollows(indicator?: PageIndicator): Promise<Pageable<Profile>> {
-        const result = await this.client.explore.profiles({
+        const result = await lensClient.sdk.explore.profiles({
             orderBy: ExploreProfilesOrderByType.MostFollowers,
             cursor: indicator?.id,
         });
@@ -926,7 +927,7 @@ export class LensSocialMedia implements Provider {
     }
 
     async searchProfiles(q: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
-        const result = await this.client.search.profiles({
+        const result = await lensClient.sdk.search.profiles({
             query: q,
             cursor: indicator?.id,
             limit: LimitType.TwentyFive,
@@ -943,7 +944,7 @@ export class LensSocialMedia implements Provider {
     }
 
     async searchPosts(q: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        const result = await this.client.search.publications({
+        const result = await lensClient.sdk.search.publications({
             query: q,
             cursor: indicator?.id,
             limit: LimitType.TwentyFive,
@@ -958,7 +959,7 @@ export class LensSocialMedia implements Provider {
     async getThreadByPostId(postId: string) {
         const response = await fetchJSON<ResponseJSON<string[]>>(urlcat('/api/thread', { id: postId }));
         if (!response.success) return EMPTY_LIST;
-        const posts = await this.client.publication.fetchAll({
+        const posts = await lensClient.sdk.publication.fetchAll({
             limit: LimitType.TwentyFive,
             where: {
                 publicationIds: [postId, ...response.data],

@@ -4,6 +4,7 @@ import { parseJSON } from '@masknet/web3-providers/helpers';
 import z from 'zod';
 
 import { FarcasterSession } from '@/providers/farcaster/Session.js';
+import { FireflySession } from '@/providers/firefly/Session.js';
 import { LensSession } from '@/providers/lens/Session.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
 import type { Session } from '@/providers/types/Session.js';
@@ -58,6 +59,8 @@ export class SessionFactory {
                     );
                 case SessionType.Twitter:
                     return new TwitterSession(session.profileId, session.token, session.createdAt, session.expiresAt);
+                case SessionType.Firefly:
+                    return new FireflySession(session.profileId, session.token);
                 default:
                     safeUnreachable(type);
                     throw new Error(t`Unknown session type.`);
