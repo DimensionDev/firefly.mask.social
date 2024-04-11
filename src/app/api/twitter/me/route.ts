@@ -8,7 +8,7 @@ import { createTwitterClientV2 } from '@/helpers/createTwitterClientV2.js';
 export async function GET(request: NextRequest) {
     try {
         const client = await createTwitterClientV2(request);
-        const { data } = await client.users.findMyUser();
+        const { data } = await client.v2.me();
 
         return createSuccessResponseJSON(data, { status: StatusCodes.OK });
     } catch (error) {

@@ -302,9 +302,9 @@ importers:
       twemoji-parser:
         specifier: ^14.0.0
         version: 14.0.0
-      twitter-api-sdk:
-        specifier: ^1.2.1
-        version: 1.2.1
+      twitter-api-v2:
+        specifier: ^1.16.1
+        version: 1.16.1
       typescript:
         specifier: 5.3.0-beta
         version: 5.3.0-beta
@@ -33183,14 +33183,8 @@ packages:
     resolution: {integrity: sha512-9DUOTGLOWs0pFWnh1p6NF+C3CkQ96PWmEFwhOVmT3WbecRC+68AIqpsnJXygfkFcp4aXbOp8Dwbhh/HQgvoRxA==}
     dev: false
 
-  /twitter-api-sdk@1.2.1:
-    resolution: {integrity: sha512-tNQ6DGYucFk94JlnUMsHCkHg5o1wnCdHh71Y2ukygNVssOdD1gNVjOpaojJrdwbEAhoZvcWdGHerCa55F8HKxQ==}
-    engines: {node: '>=14'}
-    dependencies:
-      abort-controller: 3.0.0
-      node-fetch: 2.7.0
-    transitivePeerDependencies:
-      - encoding
+  /twitter-api-v2@1.16.1:
+    resolution: {integrity: sha512-76hZsRmVdFQu2MvN2oBw0RjTsYmgqnef1bWb4/Ds54CrcTXvtTZFCp3d6FMdeKp9m2PIx2l9MIJWvs5PjQN/Dw==}
     dev: false
 
   /twitter-text@3.1.0:
@@ -36278,7 +36272,7 @@ time:
   /tslib@2.6.2: '2023-08-18T17:41:58.755Z'
   /tss-react@4.9.0: '2023-08-18T06:18:25.345Z'
   /twemoji-parser@14.0.0: '2022-03-11T07:32:07.545Z'
-  /twitter-api-sdk@1.2.1: '2022-10-21T06:50:18.052Z'
+  /twitter-api-v2@1.16.1: '2024-03-12T22:26:15.913Z'
   /twitter-text@3.1.0: '2020-03-31T18:30:37.518Z'
   /typechain@8.3.1: '2023-07-24T07:52:39.458Z'
   /typescript-eslint@7.1.1: '2024-03-04T17:18:57.715Z'
