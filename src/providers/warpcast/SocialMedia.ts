@@ -74,9 +74,13 @@ export class WarpcastSocialMedia implements Provider {
             cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
         });
 
-        const { result, next } = await farcasterClient.fetchWithSession<FeedResponse>(url, {
-            method: 'GET',
-        });
+        const { result, next } = await farcasterClient.fetch<FeedResponse>(
+            url,
+            {
+                method: 'GET',
+            },
+            true,
+        );
 
         const data = result.feed.map(formatWarpcastPostFromFeed);
         return createPageable(
@@ -227,9 +231,13 @@ export class WarpcastSocialMedia implements Provider {
             limit: 10,
             cursor: indicator?.id,
         });
-        const { result, next } = await farcasterClient.fetchWithSession<UsersResponse>(url, {
-            method: 'GET',
-        });
+        const { result, next } = await farcasterClient.fetch<UsersResponse>(
+            url,
+            {
+                method: 'GET',
+            },
+            true,
+        );
         const data = result.map(formatWarpcastUser);
         return createPageable(
             data,
@@ -244,9 +252,13 @@ export class WarpcastSocialMedia implements Provider {
             limit: 10,
             cursor: indicator?.id,
         });
-        const { result, next } = await farcasterClient.fetchWithSession<UsersResponse>(url, {
-            method: 'GET',
-        });
+        const { result, next } = await farcasterClient.fetch<UsersResponse>(
+            url,
+            {
+                method: 'GET',
+            },
+            true,
+        );
         const data = result.map(formatWarpcastUser);
         return createPageable(
             data,
@@ -261,9 +273,13 @@ export class WarpcastSocialMedia implements Provider {
             limit: 25,
             cursor: indicator?.id,
         });
-        const { result, next } = await farcasterClient.fetchWithSession<CastsResponse>(url, {
-            method: 'GET',
-        });
+        const { result, next } = await farcasterClient.fetch<CastsResponse>(
+            url,
+            {
+                method: 'GET',
+            },
+            true,
+        );
         const data = result.casts.map(formatWarpcastPost);
         return createPageable(
             data,
@@ -279,9 +295,13 @@ export class WarpcastSocialMedia implements Provider {
             cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
         });
 
-        const { result, next } = await farcasterClient.fetchWithSession<FeedResponse>(url, {
-            method: 'GET',
-        });
+        const { result, next } = await farcasterClient.fetch<FeedResponse>(
+            url,
+            {
+                method: 'GET',
+            },
+            true,
+        );
         const data = result.feed.map(formatWarpcastPostFromFeed).filter((post) => post.type === 'Comment');
         return createPageable(
             data,
@@ -295,9 +315,13 @@ export class WarpcastSocialMedia implements Provider {
             limit: 25,
             cursor: indicator?.id,
         });
-        const { result, next } = await farcasterClient.fetchWithSession<NotificationResponse>(url, {
-            method: 'GET',
-        });
+        const { result, next } = await farcasterClient.fetch<NotificationResponse>(
+            url,
+            {
+                method: 'GET',
+            },
+            true,
+        );
         const data = result.notifications.map((notification) => formatWarpcastPost(notification.content.cast));
         return createPageable(
             data,
@@ -310,25 +334,33 @@ export class WarpcastSocialMedia implements Provider {
         const url = urlcat(WARPCAST_ROOT_URL, '/casts');
         const {
             result: { cast },
-        } = await farcasterClient.fetchWithSession<CastResponse>(url, {
-            method: 'POST',
-            body: JSON.stringify({
-                text: post.metadata.content?.content || '',
-                embeds: post.mediaObjects?.map((v) => v.url) ?? [],
-                parent: post.commentOn ? { hash: post.commentOn.postId } : undefined,
-                channelKey: post.parentChannelKey,
-            }),
-        });
+        } = await farcasterClient.fetch<CastResponse>(
+            url,
+            {
+                method: 'POST',
+                body: JSON.stringify({
+                    text: post.metadata.content?.content || '',
+                    embeds: post.mediaObjects?.map((v) => v.url) ?? [],
+                    parent: post.commentOn ? { hash: post.commentOn.postId } : undefined,
+                    channelKey: post.parentChannelKey,
+                }),
+            },
+            true,
+        );
 
         return cast.hash;
     }
 
     async upvotePost(postId: string) {
         const url = urlcat(WARPCAST_ROOT_URL, '/cast-likes');
-        const { result: reaction } = await farcasterClient.fetchWithSession<ReactionResponse>(url, {
-            method: 'PUT',
-            body: JSON.stringify({ castHash: postId }),
-        });
+        const { result: reaction } = await farcasterClient.fetch<ReactionResponse>(
+            url,
+            {
+                method: 'PUT',
+                body: JSON.stringify({ castHash: postId }),
+            },
+            true,
+        );
 
         return {
             reactionId: reaction.hash,
@@ -339,10 +371,14 @@ export class WarpcastSocialMedia implements Provider {
 
     async unvotePost(postId: string) {
         const url = urlcat(WARPCAST_ROOT_URL, '/cast-likes');
-        await farcasterClient.fetchWithSession<ReactionResponse>(url, {
-            method: 'DELETE',
-            body: JSON.stringify({ castHash: postId }),
-        });
+        await farcasterClient.fetch<ReactionResponse>(
+            url,
+            {
+                method: 'DELETE',
+                body: JSON.stringify({ castHash: postId }),
+            },
+            true,
+        );
     }
 
     async commentPost(postId: string, post: Post) {
@@ -350,48 +386,68 @@ export class WarpcastSocialMedia implements Provider {
         if (!comment) throw new Error(t`Comment cannot be empty.`);
 
         const url = urlcat(WARPCAST_ROOT_URL, '/casts', { parent: postId });
-        const response = await farcasterClient.fetchWithSession<CastResponse>(url, {
-            method: 'POST',
-            body: JSON.stringify({ text: comment }),
-        });
+        const response = await farcasterClient.fetch<CastResponse>(
+            url,
+            {
+                method: 'POST',
+                body: JSON.stringify({ text: comment }),
+            },
+            true,
+        );
         return response.result.cast.hash;
     }
 
     async mirrorPost(postId: string) {
         const url = urlcat(WARPCAST_ROOT_URL, '/recasts');
-        const response = await farcasterClient.fetchWithSession<{ result: { castHash: string } }>(url, {
-            method: 'PUT',
-            body: JSON.stringify({ castHash: postId }),
-        });
+        const response = await farcasterClient.fetch<{ result: { castHash: string } }>(
+            url,
+            {
+                method: 'PUT',
+                body: JSON.stringify({ castHash: postId }),
+            },
+            true,
+        );
 
         return response.result.castHash;
     }
 
     async unmirrorPost(postId: string) {
         const url = urlcat(WARPCAST_ROOT_URL, '/recasts');
-        const { result } = await farcasterClient.fetchWithSession<SuccessResponse>(url, {
-            method: 'DELETE',
-            body: JSON.stringify({ castHash: postId }),
-        });
+        const { result } = await farcasterClient.fetch<SuccessResponse>(
+            url,
+            {
+                method: 'DELETE',
+                body: JSON.stringify({ castHash: postId }),
+            },
+            true,
+        );
         return result.success;
     }
 
     async followProfile(profileId: string) {
         const url = urlcat(WARPCAST_ROOT_URL, '/follows');
-        await farcasterClient.fetchWithSession<SuccessResponse>(url, {
-            method: 'PUT',
-            body: JSON.stringify({ targetFid: Number(profileId) }),
-        });
+        await farcasterClient.fetch<SuccessResponse>(
+            url,
+            {
+                method: 'PUT',
+                body: JSON.stringify({ targetFid: Number(profileId) }),
+            },
+            true,
+        );
     }
 
     async follow(profileId: string) {
         const url = urlcat(WARPCAST_ROOT_URL, '/follows');
         const {
             result: { success },
-        } = await farcasterClient.fetchWithSession<SuccessResponse>(url, {
-            method: 'PUT',
-            body: JSON.stringify({ targetFid: Number(profileId) }),
-        });
+        } = await farcasterClient.fetch<SuccessResponse>(
+            url,
+            {
+                method: 'PUT',
+                body: JSON.stringify({ targetFid: Number(profileId) }),
+            },
+            true,
+        );
         if (!success) throw new Error('Follow Failed');
         return;
     }
@@ -400,10 +456,14 @@ export class WarpcastSocialMedia implements Provider {
         const url = urlcat(WARPCAST_ROOT_URL, '/follows');
         const {
             result: { success },
-        } = await farcasterClient.fetchWithSession<SuccessResponse>(url, {
-            method: 'DELETE',
-            body: JSON.stringify({ targetFid: Number(profileId) }),
-        });
+        } = await farcasterClient.fetch<SuccessResponse>(
+            url,
+            {
+                method: 'DELETE',
+                body: JSON.stringify({ targetFid: Number(profileId) }),
+            },
+            true,
+        );
 
         if (!success) throw new Error('Unfollow Failed');
         return;
@@ -449,9 +509,13 @@ export class WarpcastSocialMedia implements Provider {
             limit: 25,
             cursor: indicator?.id,
         });
-        const { result, next } = await farcasterClient.fetchWithSession<UsersResponse>(url, {
-            method: 'GET',
-        });
+        const { result, next } = await farcasterClient.fetch<UsersResponse>(
+            url,
+            {
+                method: 'GET',
+            },
+            true,
+        );
         const data = result.map(formatWarpcastUser);
         return createPageable(
             data,
@@ -465,9 +529,13 @@ export class WarpcastSocialMedia implements Provider {
             limit: 25,
             cursor: indicator?.id,
         });
-        const { result, next } = await farcasterClient.fetchWithSession<NotificationResponse>(url, {
-            method: 'GET',
-        });
+        const { result, next } = await farcasterClient.fetch<NotificationResponse>(
+            url,
+            {
+                method: 'GET',
+            },
+            true,
+        );
         const data = result.notifications.map<Notification | undefined>((notification) => {
             const notificationId = `${notification.type}_${notification.id}`;
             const post = notification.content.cast ? formatWarpcastPost(notification.content.cast) : undefined;
