@@ -78,10 +78,11 @@ export class LensSocialMedia implements Provider {
         });
 
         const now = Date.now();
+        const accessToke = await lensClient.sdk.authentication.getAccessToken();
 
         return new LensSession(
             profileId,
-            '', // the LensClient maintains it
+            accessToke.unwrap(),
             now,
             now + 1000 * 60 * 60 * 24 * 30, // 30 days
         );
