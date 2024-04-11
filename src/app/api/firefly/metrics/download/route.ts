@@ -68,7 +68,8 @@ export async function POST(request: Request) {
 
     // validate metrics
     const metrics = MetricsSchema.safeParse(decrypted);
-    if (!metrics.success) return createErrorResponseJSON(metrics.error.message, { status: StatusCodes.INTERNAL_SERVER_ERROR })
+    if (!metrics.success)
+        return createErrorResponseJSON(metrics.error.message, { status: StatusCodes.INTERNAL_SERVER_ERROR });
 
     return createSuccessResponseJSON(metrics.data, { status: StatusCodes.OK });
 }
