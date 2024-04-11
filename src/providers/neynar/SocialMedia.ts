@@ -144,32 +144,34 @@ export class NeynarSocialMedia implements Provider {
     async getProfilesByIds(ids: string[]) {
         if (!ids.length) return EMPTY_LIST;
 
-        const session = farcasterClient.session();
-        const url = urlcat(NEYNAR_URL, '/v2/farcaster/user/bulk', {
-            fids: ids.join(','),
-            viewer_fid: session?.profileId,
-        });
+        return farcasterClient.withSession(async (session) => {
+            const url = urlcat(NEYNAR_URL, '/v2/farcaster/user/bulk', {
+                fids: ids.join(','),
+                viewer_fid: session?.profileId,
+            });
 
-        const data = await fetchNeynarJSON<{ users: NeynarProfile[] }>(url, {
-            method: 'GET',
-        });
+            const data = await fetchNeynarJSON<{ users: NeynarProfile[] }>(url, {
+                method: 'GET',
+            });
 
-        return data.users.map(formatFarcasterProfileFromNeynar);
+            return data.users.map(formatFarcasterProfileFromNeynar);
+        });
     }
 
     async searchProfiles(q: string, indicator?: PageIndicator | undefined) {
-        const session = farcasterClient.session();
-        const url = urlcat(NEYNAR_URL, '/v2/farcaster/user/search', {
-            q,
-            viewer_fid: session?.profileId || 0,
-        });
+        return farcasterClient.withSession(async (session) => {
+            const url = urlcat(NEYNAR_URL, '/v2/farcaster/user/search', {
+                q,
+                viewer_fid: session?.profileId || 0,
+            });
 
-        const data = await fetchNeynarJSON<{ result: { users: NeynarProfile[] } }>(url, {
-            method: 'GET',
-        });
+            const data = await fetchNeynarJSON<{ result: { users: NeynarProfile[] } }>(url, {
+                method: 'GET',
+            });
 
-        const result = data.result.users.map(formatFarcasterProfileFromNeynar);
-        return createPageable(result, createIndicator(indicator));
+            const result = data.result.users.map(formatFarcasterProfileFromNeynar);
+            return createPageable(result, createIndicator(indicator));
+        });
     }
 }
 
