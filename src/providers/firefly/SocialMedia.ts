@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import {
     createIndicator,
     createNextIndicator,
@@ -270,8 +269,6 @@ export class FireflySocialMedia implements Provider {
 
     async getNotifications(indicator?: PageIndicator): Promise<Pageable<Notification, PageIndicator>> {
         const profileId = farcasterClient.sessionRequired.profileId;
-        if (!profileId) throw new Error(t`Login required`);
-
         const url = urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/notifications', {
             fid: profileId,
             sourceFid: profileId,
@@ -371,7 +368,7 @@ export class FireflySocialMedia implements Provider {
                 indicator ?? createIndicator(),
                 cursor ? createNextIndicator(indicator, cursor) : undefined,
             );
-        });
+        }, true);
     }
 
     async getLikeReactors(postId: string, indicator?: PageIndicator) {

@@ -412,9 +412,6 @@ msgstr "Your website URL."
 msgid "Display"
 msgstr "Display"
 
-msgid "Login required"
-msgstr "Login required"
-
 msgid "Show More"
 msgstr "Show More"
 
