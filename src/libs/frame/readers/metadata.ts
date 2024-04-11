@@ -1,7 +1,6 @@
 import { compact, last } from 'lodash-es';
 
 import { getMetaContent } from '@/helpers/getMetaContent.js';
-import { qsAll } from '@/helpers/q.js';
 import { ActionType, type FrameButton, type FrameInput } from '@/types/frame.js';
 
 export function getTitle(document: Document): string | null {
@@ -43,23 +42,23 @@ export function getInput(document: Document): FrameInput | null {
 }
 
 export function getButtons(document: Document): FrameButton[] {
-    const metas = qsAll(document, 'fc:frame:button');
+    const metas = document.querySelectorAll('[name^="fc:frame:button:"],[property^="fc:frame:button:"]') || [];
 
     return compact<FrameButton>(
         Array.from(metas).map((meta) => {
-            const index = last((meta.getAttribute('name') ?? meta.getAttribute('property'))?.split(':'));
+            const raw = last((meta.getAttribute('name') || meta.getAttribute('property'))?.split(':'));
             const text = meta.getAttribute('content');
 
-            if (!index || !text) return null;
+            if (!raw || !text) return null;
 
-            const parsedIndex = Number.parseInt(index, 10);
-            if (Number.isNaN(parsedIndex) || parsedIndex < 1 || parsedIndex > 4) return null;
+            const index = Number.parseInt(raw, 10);
+            if (Number.isNaN(index) || index < 1 || index > 4) return null;
 
-            const action = getMetaContent(document, `fc:frame:button:${parsedIndex}:action`) || ActionType.Post;
-            const target = getMetaContent(document, `fc:frame:button:${parsedIndex}:target`);
+            const action = getMetaContent(document, `fc:frame:button:${index}:action`) || ActionType.Post;
+            const target = getMetaContent(document, `fc:frame:button:${index}:target`);
 
             return {
-                index: parsedIndex,
+                index,
                 text,
                 action,
                 target,
