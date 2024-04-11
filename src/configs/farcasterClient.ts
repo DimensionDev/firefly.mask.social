@@ -9,32 +9,35 @@ import type { FarcasterSession } from '@/providers/farcaster/Session.js';
  * All Farcaster providers should read sessions from this client.
  */
 class FarcasterClient {
-    private session: FarcasterSession | null = null;
+    private farcasterSession: FarcasterSession | null = null;
 
-    getSession() {
-        return this.session;
+    get session() {
+        return this.farcasterSession;
     }
 
-    getSessionRequired() {
-        if (!this.session) throw new Error(t`No session found.`);
-        return this.session;
+    get sessionRequired() {
+        if (!this.farcasterSession) throw new Error(t`No session found.`);
+        return this.farcasterSession;
     }
 
     resumeSession(session: FarcasterSession) {
         if (session.expiresAt > Date.now()) {
-            this.session = session;
+            this.farcasterSession = session;
         }
     }
 
+    withSession<T extends (session: FarcasterSession | null) => unknown>(callback: T) {
+        return callback(this.session) as ReturnType<T>;
+    }
+
     fetch<T>(url: string, options?: RequestInit) {
-        return this.session ? this.fetchWithSession<T>(url, options) : fetchJSON<T>(url, options);
+        return this.farcasterSession ? this.fetchWithSession<T>(url, options) : fetchJSON<T>(url, options);
     }
 
     fetchWithSession<T>(url: string, options?: RequestInit) {
-        if (!this.session) throw new Error('No session found');
         return fetchJSON<T>(url, {
             ...options,
-            headers: { ...options?.headers, Authorization: `Bearer ${this.session.token}` },
+            headers: { ...options?.headers, Authorization: `Bearer ${this.sessionRequired.token}` },
         });
     }
 }

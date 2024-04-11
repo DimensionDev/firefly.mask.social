@@ -144,7 +144,7 @@ export class NeynarSocialMedia implements Provider {
     async getProfilesByIds(ids: string[]) {
         if (!ids.length) return EMPTY_LIST;
 
-        const session = farcasterClient.getSession();
+        const session = farcasterClient.session();
         const url = urlcat(NEYNAR_URL, '/v2/farcaster/user/bulk', {
             fids: ids.join(','),
             viewer_fid: session?.profileId,
@@ -158,7 +158,7 @@ export class NeynarSocialMedia implements Provider {
     }
 
     async searchProfiles(q: string, indicator?: PageIndicator | undefined) {
-        const session = farcasterClient.getSession();
+        const session = farcasterClient.session();
         const url = urlcat(NEYNAR_URL, '/v2/farcaster/user/search', {
             q,
             viewer_fid: session?.profileId || 0,

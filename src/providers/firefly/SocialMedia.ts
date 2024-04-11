@@ -132,52 +132,57 @@ export class FireflySocialMedia implements Provider {
     }
 
     async discoverPosts(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        const session = farcasterClient.getSession();
-        const url = urlcat(FIREFLY_ROOT_URL, '/v2/discover/farcaster/timeline', {
-            size: 20,
-            cursor: indicator?.id,
-            sourceFid: session?.profileId,
+        return farcasterClient.withSession(async (session) => {
+            const url = urlcat(FIREFLY_ROOT_URL, '/v2/discover/farcaster/timeline', {
+                size: 20,
+                cursor: indicator?.id,
+                sourceFid: session?.profileId,
+            });
+            const { data } = await fetchJSON<CastsResponse>(url);
+
+            const posts = data.casts.map((x) => formatFarcasterPostFromFirefly(x));
+            return createPageable(
+                posts,
+                createIndicator(indicator),
+                data.cursor ? createNextIndicator(indicator, data.cursor) : undefined,
+            );
         });
-        const { data } = await fetchJSON<CastsResponse>(url);
-        const posts = data.casts.map((x) => formatFarcasterPostFromFirefly(x));
-        return createPageable(
-            posts,
-            createIndicator(indicator),
-            data.cursor ? createNextIndicator(indicator, data.cursor) : undefined,
-        );
     }
 
     async getPostById(postId: string): Promise<Post> {
-        const session = farcasterClient.getSession();
-        const url = urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/cast', {
-            hash: postId,
-            fid: session?.profileId,
-            needRootParentHash: true,
+        return farcasterClient.withSession(async (session) => {
+            const url = urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/cast', {
+                hash: postId,
+                fid: session?.profileId,
+                needRootParentHash: true,
+            });
+            const { data: cast } = await fetchJSON<CastResponse>(url, {
+                method: 'GET',
+            });
+
+            if (!cast) throw new Error('Post not found');
+            return formatFarcasterPostFromFirefly(cast);
         });
-        const { data: cast } = await fetchJSON<CastResponse>(url, {
-            method: 'GET',
-        });
-        if (!cast) throw new Error('Post not found');
-        return formatFarcasterPostFromFirefly(cast);
     }
 
     async getProfileById(profileId: string): Promise<Profile> {
-        const session = farcasterClient.getSession();
-        const { data: user } = await farcasterClient.fetch<UserResponse>(
-            urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/user/profile', {
-                fid: profileId,
-                sourceFid: session?.profileId,
-            }),
-            {
-                method: 'GET',
-            },
-        );
+        return farcasterClient.withSession(async (session) => {
+            const { data: user } = await farcasterClient.fetch<UserResponse>(
+                urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/user/profile', {
+                    fid: profileId,
+                    sourceFid: session?.profileId,
+                }),
+                {
+                    method: 'GET',
+                },
+            );
 
-        const friendship = await this.getFriendship(profileId);
+            const friendship = await this.getFriendship(profileId);
 
-        return formatFarcasterProfileFromFirefly({
-            ...user,
-            ...friendship,
+            return formatFarcasterProfileFromFirefly({
+                ...user,
+                ...friendship,
+            });
         });
     }
 
@@ -239,32 +244,32 @@ export class FireflySocialMedia implements Provider {
     }
 
     async getPostsByProfileId(profileId: string, indicator?: PageIndicator) {
-        const session = farcasterClient.getSession();
-        const url = urlcat(FIREFLY_ROOT_URL, '/v2/user/timeline/farcaster');
-        const {
-            data: { casts, cursor },
-        } = await fetchJSON<CastsResponse>(url, {
-            method: 'POST',
-            body: JSON.stringify({
-                fids: [profileId],
-                size: 25,
-                sourceFid: session?.profileId,
-                cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
-                needRootParentHash: true,
-            }),
-        });
-        const data = casts.map((cast) => formatFarcasterPostFromFirefly(cast));
+        return farcasterClient.withSession(async (session) => {
+            const url = urlcat(FIREFLY_ROOT_URL, '/v2/user/timeline/farcaster');
+            const {
+                data: { casts, cursor },
+            } = await fetchJSON<CastsResponse>(url, {
+                method: 'POST',
+                body: JSON.stringify({
+                    fids: [profileId],
+                    size: 25,
+                    sourceFid: session?.profileId,
+                    cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
+                    needRootParentHash: true,
+                }),
+            });
+            const data = casts.map((cast) => formatFarcasterPostFromFirefly(cast));
 
-        return createPageable(
-            data,
-            createIndicator(indicator),
-            cursor ? createNextIndicator(indicator, cursor) : undefined,
-        );
+            return createPageable(
+                data,
+                createIndicator(indicator),
+                cursor ? createNextIndicator(indicator, cursor) : undefined,
+            );
+        });
     }
 
     async getNotifications(indicator?: PageIndicator): Promise<Pageable<Notification, PageIndicator>> {
-        const session = farcasterClient.getSessionRequired();
-        const profileId = session.profileId;
+        const profileId = farcasterClient.sessionRequired.profileId;
         if (!profileId) throw new Error(t`Login required`);
         const url = urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/notifications', {
             fid: profileId,
@@ -342,65 +347,68 @@ export class FireflySocialMedia implements Provider {
         profileId: string,
         indicator?: PageIndicator | undefined,
     ): Promise<Pageable<Post, PageIndicator>> {
-        const session = farcasterClient.getSessionRequired();
-        // TODO: replace to prod url
-        const url = urlcat(FIREFLY_ROOT_URL, '/v2/timeline/farcaster_for_fid');
+        return farcasterClient.withSession(async (session) => {
+            // TODO: replace to prod url
+            const url = urlcat(FIREFLY_ROOT_URL, '/v2/timeline/farcaster_for_fid');
 
-        const {
-            data: { casts, cursor },
-        } = await fetchJSON<CastsResponse>(url, {
-            method: 'POST',
-            body: JSON.stringify({
-                fid: profileId,
-                size: 25,
-                needRootParentHash: true,
-                sourceFid: session?.profileId,
-                cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
-            }),
+            const {
+                data: { casts, cursor },
+            } = await fetchJSON<CastsResponse>(url, {
+                method: 'POST',
+                body: JSON.stringify({
+                    fid: profileId,
+                    size: 25,
+                    needRootParentHash: true,
+                    sourceFid: session?.profileId,
+                    cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
+                }),
+            });
+
+            const data = casts.map((x) => formatFarcasterPostFromFirefly(x));
+            return createPageable(
+                data,
+                indicator ?? createIndicator(),
+                cursor ? createNextIndicator(indicator, cursor) : undefined,
+            );
         });
-
-        const data = casts.map((x) => formatFarcasterPostFromFirefly(x));
-        return createPageable(
-            data,
-            indicator ?? createIndicator(),
-            cursor ? createNextIndicator(indicator, cursor) : undefined,
-        );
     }
 
     async getLikeReactors(postId: string, indicator?: PageIndicator) {
-        const session = farcasterClient.getSession();
-        const url = urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/cast/likes', {
-            castHash: postId,
-            size: 15,
-            sourceFid: session?.profileId,
-            cursor: indicator?.id,
-        });
-        const {
-            data: { items, nextCursor },
-        } = await fetchJSON<ReactorsResponse>(url, {
-            method: 'GET',
-        });
+        return farcasterClient.withSession(async (session) => {
+            const url = urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/cast/likes', {
+                castHash: postId,
+                size: 15,
+                sourceFid: session?.profileId,
+                cursor: indicator?.id,
+            });
+            const {
+                data: { items, nextCursor },
+            } = await fetchJSON<ReactorsResponse>(url, {
+                method: 'GET',
+            });
 
-        const data = items.map(formatFarcasterProfileFromFirefly);
-        return createPageable(data, createIndicator(indicator), createNextIndicator(indicator, nextCursor));
+            const data = items.map(formatFarcasterProfileFromFirefly);
+            return createPageable(data, createIndicator(indicator), createNextIndicator(indicator, nextCursor));
+        });
     }
 
     async getMirrorReactors(postId: string, indicator?: PageIndicator) {
-        const session = farcasterClient.getSession();
-        const url = urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/cast/recasters', {
-            castHash: postId,
-            size: 15,
-            sourceFid: session?.profileId,
-            cursor: indicator?.id,
-        });
-        const {
-            data: { items, nextCursor },
-        } = await fetchJSON<ReactorsResponse>(url, {
-            method: 'GET',
-        });
+        return farcasterClient.withSession(async (session) => {
+            const url = urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/cast/recasters', {
+                castHash: postId,
+                size: 15,
+                sourceFid: session?.profileId,
+                cursor: indicator?.id,
+            });
+            const {
+                data: { items, nextCursor },
+            } = await fetchJSON<ReactorsResponse>(url, {
+                method: 'GET',
+            });
 
-        const data = items.map(formatFarcasterProfileFromFirefly);
-        return createPageable(data, createIndicator(indicator), createNextIndicator(indicator, nextCursor));
+            const data = items.map(formatFarcasterProfileFromFirefly);
+            return createPageable(data, createIndicator(indicator), createNextIndicator(indicator, nextCursor));
+        });
     }
 
     // TODO: now for farcaster only, support other platforms in the future.
@@ -468,35 +476,37 @@ export class FireflySocialMedia implements Provider {
     }
 
     async getFriendship(profileId: string) {
-        const session = farcasterClient.getSession();
-        const { data } = await fetchJSON<FriendshipResponse>(
-            urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/user/friendship', {
-                sourceFid: session?.profileId,
-                destFid: profileId,
-            }),
-            {
-                method: 'GET',
-            },
-        );
+        return farcasterClient.withSession(async (session) => {
+            const { data } = await fetchJSON<FriendshipResponse>(
+                urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/user/friendship', {
+                    sourceFid: session?.profileId,
+                    destFid: profileId,
+                }),
+                {
+                    method: 'GET',
+                },
+            );
 
-        return data;
+            return data;
+        });
     }
 
     async getThreadByPostId(postId: string) {
-        const session = farcasterClient.getSession();
-        const post = await this.getPostById(postId);
+        return farcasterClient.withSession(async (session) => {
+            const post = await this.getPostById(postId);
 
-        const { data } = await fetchJSON<ThreadResponse>(
-            urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/cast/threads', {
-                sourceFid: session?.profileId,
-                hash: postId,
-                maxDepth: 25,
-            }),
-            {
-                method: 'GET',
-            },
-        );
-        return [post, ...data.threads.map((x) => formatFarcasterPostFromFirefly(x))];
+            const { data } = await fetchJSON<ThreadResponse>(
+                urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/cast/threads', {
+                    sourceFid: session?.profileId,
+                    hash: postId,
+                    maxDepth: 25,
+                }),
+                {
+                    method: 'GET',
+                },
+            );
+            return [post, ...data.threads.map((x) => formatFarcasterPostFromFirefly(x))];
+        });
     }
 }
 
