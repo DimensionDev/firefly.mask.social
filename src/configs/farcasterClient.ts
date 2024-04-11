@@ -9,33 +9,34 @@ import type { FarcasterSession } from '@/providers/farcaster/Session.js';
  * All Farcaster providers should read sessions from this client.
  */
 class FarcasterClient {
-    private session: FarcasterSession | null = null;
+    private farcasterSession: FarcasterSession | null = null;
 
-    getSession() {
-        return this.session;
+    get session() {
+        return this.farcasterSession;
     }
 
-    getSessionRequired() {
-        if (!this.session) throw new Error(t`No session found.`);
-        return this.session;
+    get sessionRequired() {
+        if (!this.farcasterSession) throw new Error(t`No session found.`);
+        return this.farcasterSession;
     }
 
     resumeSession(session: FarcasterSession) {
         if (session.expiresAt > Date.now()) {
-            this.session = session;
+            this.farcasterSession = session;
         }
     }
 
-    fetch<T>(url: string, options?: RequestInit) {
-        return this.session ? this.fetchWithSession<T>(url, options) : fetchJSON<T>(url, options);
+    withSession<T extends (session: FarcasterSession | null) => unknown>(callback: T, required = false) {
+        return callback(required ? this.sessionRequired : this.session) as ReturnType<T>;
     }
 
-    fetchWithSession<T>(url: string, options?: RequestInit) {
-        if (!this.session) throw new Error('No session found');
-        return fetchJSON<T>(url, {
-            ...options,
-            headers: { ...options?.headers, Authorization: `Bearer ${this.session.token}` },
-        });
+    fetch<T>(url: string, options?: RequestInit, required = false) {
+        return this.farcasterSession || required
+            ? fetchJSON<T>(url, {
+                  ...options,
+                  headers: { ...options?.headers, Authorization: `Bearer ${this.sessionRequired.token}` },
+              })
+            : fetchJSON<T>(url, options);
     }
 }
 

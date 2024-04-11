@@ -417,9 +417,6 @@ msgstr "您网站的 URL。"
 msgid "Display"
 msgstr "显示"
 
-msgid "Login required"
-msgstr "请先登录"
-
 msgid "Show More"
 msgstr "显示更多"
 
