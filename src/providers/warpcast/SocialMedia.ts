@@ -429,7 +429,7 @@ export class WarpcastSocialMedia implements Provider {
     async searchPosts(q: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         const url = urlcat(WARPCAST_CLIENT_URL, '/search-casts', {
             // the warpcast doesn't facilitate searching using hashtags
-            q: unhash(q),
+            q: encodeURIComponent(unhash(q)),
             limit: 25,
             cursor: indicator?.id,
         });
