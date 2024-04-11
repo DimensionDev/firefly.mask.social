@@ -54,8 +54,8 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
         <>
             <nav className="flex flex-1 flex-col">
                 <ul role="list" className="flex flex-1 flex-col gap-y-7">
-                    <li className="flex">
-                        <ul role="list" className="space-y-1">
+                    <li className="flex overflow-hidden">
+                        <ul role="list" className="space-y-1 overflow-hidden">
                             {[
                                 {
                                     href: PageRoute.Home,
