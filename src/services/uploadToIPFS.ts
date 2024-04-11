@@ -19,9 +19,8 @@ const FALLBACK_TYPE = 'image/jpeg';
  * @returns S3 client instance.
  */
 const getS3Client = async (): Promise<S3> => {
-    const tokenRes = await LensSocialMediaProvider.getAccessToken();
-    const token = tokenRes.unwrap();
-    const mediaToken = await FireflySocialMediaProvider.getUploadMediaToken(token);
+    const accessToken = await LensSocialMediaProvider.getAccessToken();
+    const mediaToken = await FireflySocialMediaProvider.getUploadMediaToken(accessToken.unwrap());
     const client = new S3({
         endpoint: EVER_API,
         credentials: {
