@@ -40,7 +40,7 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({ post, isQu
             </Link>
 
             <div
-                className={classNames('flex flex-1 items-center gap-2', {
+                className={classNames('flex flex-1 items-center gap-2 overflow-hidden', {
                     'max-w-[calc(100%-40px-88px-24px)]': !isQuote && !isMyPost,
                     'max-w-[calc(100%-40px-88px)]': !isQuote && isMyPost,
                 })}
