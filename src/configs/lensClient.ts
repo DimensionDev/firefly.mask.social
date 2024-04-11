@@ -31,7 +31,7 @@ class LensClient {
         return this.lensClientSDK;
     }
 
-    async resumeSession(session: LensSession) {
+    async resumeSession(session: LensSession, refreshToken: string) {
         const verified = await this.sdk.authentication.verify(session.token);
         if (!verified) throw new Error('Invalid session');
 
@@ -40,7 +40,7 @@ class LensClient {
             'lens.production.credentials',
             JSON.stringify({
                 data: {
-                    refreshToken: session.token,
+                    refreshToken,
                 },
                 metadata: {
                     createdAt: now,
