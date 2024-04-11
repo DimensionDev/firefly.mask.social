@@ -26,19 +26,17 @@ class FarcasterClient {
         }
     }
 
-    withSession<T extends (session: FarcasterSession | null) => unknown>(callback: T) {
-        return callback(this.session) as ReturnType<T>;
+    withSession<T extends (session: FarcasterSession | null) => unknown>(callback: T, required = false) {
+        return callback(required ? this.sessionRequired : this.session) as ReturnType<T>;
     }
 
-    fetch<T>(url: string, options?: RequestInit) {
-        return this.farcasterSession ? this.fetchWithSession<T>(url, options) : fetchJSON<T>(url, options);
-    }
-
-    fetchWithSession<T>(url: string, options?: RequestInit) {
-        return fetchJSON<T>(url, {
-            ...options,
-            headers: { ...options?.headers, Authorization: `Bearer ${this.sessionRequired.token}` },
-        });
+    fetch<T>(url: string, options?: RequestInit, required = false) {
+        return this.farcasterSession || required
+            ? fetchJSON<T>(url, {
+                  ...options,
+                  headers: { ...options?.headers, Authorization: `Bearer ${this.sessionRequired.token}` },
+              })
+            : fetchJSON<T>(url, options);
     }
 }
 
