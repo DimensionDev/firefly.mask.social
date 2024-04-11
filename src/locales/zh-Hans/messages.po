@@ -24,6 +24,9 @@ msgstr "还没有人评论哦～快来抢沙发！"
 msgid "Quote Post"
 msgstr "引用"
 
+msgid "Failed to like."
+msgstr ""
+
 msgid "Retweet"
 msgstr ""
 
@@ -53,9 +56,6 @@ msgstr "诊断网络"
 
 msgid "Allow Lens Manager to perform actions such as posting, liking, and commenting without the need to sign each transaction."
 msgstr "允许 Lens 管理员执行发帖、点赞和评论等操作，而无需签署每笔交易。"
-
-msgid "Post All"
-msgstr ""
 
 msgid "{0} views"
 msgstr "{0} 浏览数"
@@ -151,13 +151,10 @@ msgid "Only up to 2 images can be chosen."
 msgstr "至多可以选择2张图片。"
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} {1, select, Lens {{2}} Farcaster {{3}} other {{4}}} <5><6/></5>"
-msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} {1, select, Lens {{2}} Farcaster {{3}} other {{4}}} <5><6/></5>"
-
-msgid "Failed to unlike. {0}"
-msgstr "取消点赞失败。 {0}"
+msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} {1, select, Lens {{2}} Farcaster {{3}} other {{4}}} <5><6/></5><<<<<<< HEAD"
 
 msgid "Failed to mirror post on Farcaster."
-msgstr "未能在 Farcaster 上转贴。"
+msgstr "未能在 Farcaster 上转贴。=======>>>>>>> 38a2832b (refactor: refine like optimistic update (#724))"
 
 msgid "You need to connect your {source} account to use this feature."
 msgstr "你需要连接你的 {source} 账号才能使用此功能。"
@@ -291,9 +288,6 @@ msgstr "切换"
 msgid "Follow"
 msgstr "关注"
 
-msgid "Failed to like. {0}"
-msgstr "点赞失败 {0}"
-
 msgid "Add account"
 msgstr "添加账号"
 
@@ -408,6 +402,9 @@ msgstr "找不到该页面。"
 msgid "What's happening..."
 msgstr "正在发生..."
 
+msgid "Failed to unlike."
+msgstr ""
+
 msgid "Like"
 msgstr "点赞"
 
@@ -464,6 +461,9 @@ msgstr "取消关注失败"
 
 msgid "Quote"
 msgstr "引用"
+
+msgid "{0, plural, one {Post} other {Post All}}"
+msgstr ""
 
 msgid "Unliked"
 msgstr "已取消点赞"

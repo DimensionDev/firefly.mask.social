@@ -6,10 +6,10 @@ export function mergeThreadPostsForFarcaster(posts: Post[]) {
     const threadIds = compact(posts.map((x) => (x.threads?.length ? x.postId : undefined)));
 
     const data = posts.filter((x) => {
+        if (x.type !== 'Comment') return true;
         if (
-            x.type === 'Comment' &&
-            ((x.root?.postId && threadIds.includes(x.root.postId)) ||
-                (x.commentOn?.postId && threadIds.includes(x.commentOn.postId)))
+            (x.root?.postId && threadIds.includes(x.root.postId)) ||
+            (x.commentOn?.postId && threadIds.includes(x.commentOn.postId))
         )
             return false;
         return true;

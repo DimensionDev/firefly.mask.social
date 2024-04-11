@@ -13,10 +13,10 @@ import urlcat from 'urlcat';
 import { farcasterClient } from '@/configs/farcasterClient.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { WARPCAST_CLIENT_URL, WARPCAST_ROOT_URL } from '@/constants/index.js';
-import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { formatWarpcastPost, formatWarpcastPostFromFeed } from '@/helpers/formatWarpcastPost.js';
 import { formatWarpcastUser } from '@/helpers/formatWarpcastUser.js';
 import { toFid } from '@/helpers/toFid.js';
+import { unhash } from '@/helpers/unhash.js';
 import {
     type Notification,
     NotificationType,
@@ -47,13 +47,17 @@ export class WarpcastSocialMedia implements Provider {
         return SessionType.Farcaster;
     }
 
+    /**
+     * @deprecated
+     * Response data doesn't include viewer context
+     */
     async discoverPosts(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         const url = urlcat(WARPCAST_ROOT_URL, '/popular-casts-feed', {
             limit: 10,
             cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
         });
 
-        const { result, next } = await fetchJSON<CastsResponse>(resolveCrossOriginURL(url), {
+        const { result, next } = await farcasterClient.fetch<CastsResponse>(resolveCrossOriginURL(url), {
             method: 'GET',
         });
         const data = result.casts.map(formatWarpcastPost);
@@ -206,7 +210,7 @@ export class WarpcastSocialMedia implements Provider {
             limit: 10,
             username,
         });
-        const { result, next } = await fetchJSON<FeedResponse>(url, {
+        const { result, next } = await farcasterClient.fetch<FeedResponse>(url, {
             method: 'GET',
         });
         const data = result.feed.map(formatWarpcastPostFromFeed);
@@ -421,7 +425,8 @@ export class WarpcastSocialMedia implements Provider {
 
     async searchPosts(q: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         const url = urlcat(WARPCAST_CLIENT_URL, '/search-casts', {
-            q,
+            // the warpcast doesn't facilitate searching using hashtags
+            q: encodeURIComponent(unhash(q)),
             limit: 25,
             cursor: indicator?.id,
         });

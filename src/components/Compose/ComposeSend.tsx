@@ -1,5 +1,5 @@
 import { PlusCircleIcon } from '@heroicons/react/24/outline';
-import { t, Trans } from '@lingui/macro';
+import { Plural, t, Trans } from '@lingui/macro';
 import { useAsyncFn } from 'react-use';
 
 import LoadingIcon from '@/assets/loading.svg';
@@ -35,7 +35,7 @@ export function ComposeSend(props: ComposeSendProps) {
         if (posts.length > 1) await crossPostThread();
         else await crossPost(type, props.post);
         ComposeModalRef.close();
-    }, [type, posts.length, props.post]);
+    }, [type, posts.length > 1, props.post]);
 
     const disabled = loading || posts.length > 1 ? posts.some((x) => !isValidPost(x)) : !isValidPost(props.post);
 
@@ -97,7 +97,9 @@ export function ComposeSend(props: ComposeSendProps) {
                 ) : (
                     <>
                         <SendIcon width={18} height={18} className="mr-1 text-primaryBottom" />
-                        <span>{posts.length > 1 ? <Trans>Post All</Trans> : <Trans>Post</Trans>}</span>
+                        <span>
+                            <Plural value={posts.length} one={<Trans>Post</Trans>} other={<Trans>Post All</Trans>} />
+                        </span>
                     </>
                 )}
             </ClickableButton>

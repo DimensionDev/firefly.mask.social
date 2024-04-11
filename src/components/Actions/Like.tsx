@@ -1,8 +1,8 @@
 import { t } from '@lingui/macro';
 import { QueryClient, useQueryClient } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
-import { produce } from 'immer';
-import { memo, useState } from 'react';
+import { type Draft, produce } from 'immer';
+import { memo } from 'react';
 import { useAsyncFn } from 'react-use';
 
 import LikeIcon from '@/assets/like.svg';
@@ -29,8 +29,16 @@ interface LikeProps {
     authorId?: string;
 }
 
+function toggleReaction(post: Draft<Post>) {
+    post.hasLiked = !post.hasLiked;
+    post.stats = produce(post.stats, (draft) => {
+        if (draft) {
+            draft.reactions = (post.stats?.reactions || 0) + (post.hasLiked ? 1 : -1);
+        }
+    });
+}
+
 function togglePostLikeQueryData(queryClient: QueryClient, source: SocialPlatform, postId: string) {
-    queryClient.invalidateQueries({ queryKey: [source, 'post-detail', postId] });
     queryClient.setQueryData<Post>([source, 'post-detail', postId], (old) => {
         if (!old) return old;
         return produce(old, (draft) => {
@@ -38,28 +46,27 @@ function togglePostLikeQueryData(queryClient: QueryClient, source: SocialPlatfor
         });
     });
 
-    queryClient.invalidateQueries({ queryKey: ['discover', source] });
-    queryClient.setQueryData<{ pages: Array<{ data: Post[] }> }>(['discover', source], (old) => {
-        if (!old) return old;
+    queryClient.setQueriesData<{ pages: Array<{ data: Post[] }> }>(
+        { queryKey: ['posts', source], type: 'active' },
+        (old) => {
+            if (!old?.pages) return old;
 
-        return produce(old, (draft) => {
-            LOOP: for (const page of draft.pages) {
-                for (const post of page.data) {
-                    if (post.postId === postId) {
-                        post.hasLiked = !post.hasLiked;
-                        break LOOP;
+            return produce(old, (draft) => {
+                for (const page of draft.pages) {
+                    for (const post of page.data) {
+                        for (const p of [post, post.commentOn, post.root, post.quoteOn, ...(post.threads || [])]) {
+                            if (p?.postId === postId) toggleReaction(p);
+                        }
                     }
                 }
-            }
-        });
-    });
+            });
+        },
+    );
 }
 
 export const Like = memo<LikeProps>(function Like({ count, hasLiked, postId, authorId, source, disabled = false }) {
     const isLogin = useIsLogin(source);
     const queryClient = useQueryClient();
-    const [liked, setLiked] = useState(hasLiked);
-    const [realCount, setRealCount] = useState(count);
 
     const [{ loading }, handleClick] = useAsyncFn(async () => {
         if (!postId) return null;
@@ -70,38 +77,28 @@ export const Like = memo<LikeProps>(function Like({ count, hasLiked, postId, aut
             return;
         }
 
-        const originalCount = count;
-        setLiked((prev) => !prev);
-        setRealCount((prev) => {
-            if (liked && prev) return prev - 1;
-            return (prev ?? 0) + 1;
-        });
         try {
             const provider = resolveSocialMediaProvider(source);
-            await (liked
+            await (hasLiked
                 ? provider?.unvotePost(postId, Number(authorId))
                 : provider?.upvotePost(postId, Number(authorId)));
 
-            enqueueSuccessMessage(liked ? t`Unliked` : t`Liked`);
+            enqueueSuccessMessage(hasLiked ? t`Unliked` : t`Liked`);
             togglePostLikeQueryData(queryClient, source, postId);
 
             return;
         } catch (error) {
             if (error instanceof Error) {
-                setRealCount(originalCount);
-                enqueueErrorMessage(
-                    liked ? t`Failed to unlike. ${error.message}` : t`Failed to like. ${error.message}`,
-                );
-                setLiked((prev) => !prev);
+                enqueueErrorMessage(hasLiked ? t`Failed to unlike.` : t`Failed to like.`);
             }
             return;
         }
-    }, [postId, source, liked, queryClient, isLogin, realCount, authorId]);
+    }, [postId, source, hasLiked, queryClient, isLogin, authorId]);
 
     return (
         <ClickableArea
             className={classNames('flex cursor-pointer items-center text-main hover:text-danger md:space-x-2', {
-                'font-bold text-danger': !!liked,
+                'font-bold text-danger': !!hasLiked,
                 'opacity-50': disabled,
             })}
             onClick={() => {
@@ -109,7 +106,7 @@ export const Like = memo<LikeProps>(function Like({ count, hasLiked, postId, aut
                 handleClick();
             }}
         >
-            <Tooltip content={liked ? t`Unlike` : t`Like`} placement="top" disabled={disabled}>
+            <Tooltip content={hasLiked ? t`Unlike` : t`Like`} placement="top" disabled={disabled}>
                 <motion.button
                     disabled={disabled}
                     whileTap={{ scale: 0.9 }}
@@ -117,20 +114,20 @@ export const Like = memo<LikeProps>(function Like({ count, hasLiked, postId, aut
                 >
                     {loading ? (
                         <LoadingIcon width={16} height={16} className="animate-spin text-danger" />
-                    ) : liked ? (
-                        <LikedIcon width={17} height={16} />
+                    ) : hasLiked ? (
+                        <LikedIcon width={16} height={16} />
                     ) : (
-                        <LikeIcon width={17} height={16} />
+                        <LikeIcon width={16} height={16} />
                     )}
                 </motion.button>
             </Tooltip>
-            {realCount ? (
+            {count ? (
                 <span
                     className={classNames('text-xs', {
-                        'font-bold text-danger': !!liked,
+                        'font-bold text-danger': !!hasLiked,
                     })}
                 >
-                    {nFormatter(realCount)}
+                    {nFormatter(count)}
                 </span>
             ) : null}
         </ClickableArea>

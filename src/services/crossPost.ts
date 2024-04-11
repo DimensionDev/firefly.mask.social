@@ -14,19 +14,26 @@ import { resolveRedPacketPlatformType } from '@/helpers/resolveRedPacketPlatform
 import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
 import type { ComposeType } from '@/types/compose.js';
 
-async function refreshProfileFeed(source: SocialPlatform) {
+export async function refreshProfileFeed(source: SocialPlatform) {
     const currentProfileAll = getCurrentProfileAll();
 
     await queryClient.invalidateQueries({
-        queryKey: ['getPostsByProfileId', source, currentProfileAll[source]?.profileId],
+        queryKey: ['posts', source, 'posts-of', currentProfileAll[source]?.profileId],
     });
-    queryClient.removeQueries({
-        queryKey: ['getPostsByProfileId', source, currentProfileAll[source]?.profileId],
+    queryClient.refetchQueries({
+        queryKey: ['posts', source, 'posts-of', currentProfileAll[source]?.profileId],
+        stale: true,
+        type: 'active',
     });
 }
 
 async function updateRpClaimStrategy(compositePost: CompositePost) {
     const { postId, typedMessage, rpPayload } = compositePost;
+    if (process.env.NODE_ENV === 'development') {
+        if (rpPayload?.publicKey && !SORTED_SOURCES.some((x) => postId[x])) {
+            console.error("No any post id for updating RedPacket's claim strategy.");
+        }
+    }
 
     if (hasRpPayload(typedMessage) && SORTED_SOURCES.some((x) => postId[x]) && rpPayload?.publicKey) {
         const currentProfileAll = getCurrentProfileAll();
@@ -72,12 +79,19 @@ interface CrossPostOptions {
     skipIfNoParentPost?: boolean;
     // skip published check
     skipPublishedCheck?: boolean;
+    /** If it's a post in thread, only refresh the feeds after sending the last post. */
+    skipRefreshFeeds?: boolean;
 }
 
 export async function crossPost(
     type: ComposeType,
     compositePost: CompositePost,
-    { skipIfPublishedPost = false, skipIfNoParentPost = false, skipPublishedCheck = false }: CrossPostOptions = {},
+    {
+        skipIfPublishedPost = false,
+        skipIfNoParentPost = false,
+        skipPublishedCheck = false,
+        skipRefreshFeeds,
+    }: CrossPostOptions = {},
 ) {
     const { availableSources } = compositePost;
 
@@ -86,16 +100,16 @@ export async function crossPost(
             if (availableSources.includes(x)) {
                 // post already published
                 if (skipIfPublishedPost && compositePost.postId[x]) {
-                    return Promise.resolve(null);
+                    return null;
                 }
 
                 // parent post is required for reply and quote
                 if ((type === 'reply' || type === 'quote') && skipIfNoParentPost && !compositePost.parentPost[x]) {
-                    return Promise.resolve(null);
+                    return null;
                 }
                 return resolvePostTo(x)(type, compositePost);
             } else {
-                return Promise.resolve(null);
+                return null;
             }
         }),
     );
@@ -106,14 +120,13 @@ export async function crossPost(
     }
 
     // refresh profile feed
-    if (type === 'compose') {
-        await Promise.allSettled(
-            SORTED_SOURCES.map((x, i) => {
-                const settled = allSettled[i];
-                const post = settled.status === 'fulfilled' ? settled.value : null;
-                return availableSources.includes(x) && post ? refreshProfileFeed(x) : Promise.resolve();
-            }),
-        );
+    const staleSources = SORTED_SOURCES.filter((source, i) => {
+        const settled = allSettled[i];
+        const post = settled.status === 'fulfilled' ? settled.value : null;
+        return availableSources.includes(source) && post ? source : null;
+    });
+    if (!skipRefreshFeeds) {
+        await Promise.allSettled(staleSources.map((source) => refreshProfileFeed(source)));
     }
 
     const { posts } = useComposeStateStore.getState();
@@ -121,10 +134,10 @@ export async function crossPost(
     if (!updatedCompositePost) throw new Error('Post not found.');
 
     // failed to to cross post
-    if (!skipPublishedCheck && !isPublishedPost(type, updatedCompositePost)) {
+    if (!skipPublishedCheck && !isPublishedPost(updatedCompositePost)) {
         throw new Error('Post failed to publish.');
     }
 
     // update red packet claim strategy
-    await updateRpClaimStrategy(compositePost);
+    await updateRpClaimStrategy(updatedCompositePost);
 }

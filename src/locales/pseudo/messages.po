@@ -19,6 +19,9 @@ msgstr ""
 msgid "Quote Post"
 msgstr ""
 
+msgid "Failed to like."
+msgstr ""
+
 msgid "Retweet"
 msgstr ""
 
@@ -47,9 +50,6 @@ msgid "Debug Connection"
 msgstr ""
 
 msgid "Allow Lens Manager to perform actions such as posting, liking, and commenting without the need to sign each transaction."
-msgstr ""
-
-msgid "Post All"
 msgstr ""
 
 msgid "{0} views"
@@ -146,13 +146,10 @@ msgid "Only up to 2 images can be chosen."
 msgstr ""
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} {1, select, Lens {{2}} Farcaster {{3}} other {{4}}} <5><6/></5>"
-msgstr ""
-
-msgid "Failed to unlike. {0}"
-msgstr ""
+msgstr "<<<<<<< HEAD"
 
 msgid "Failed to mirror post on Farcaster."
-msgstr ""
+msgstr "=======>>>>>>> 38a2832b (refactor: refine like optimistic update (#724))"
 
 msgid "You need to connect your {source} account to use this feature."
 msgstr ""
@@ -286,9 +283,6 @@ msgstr ""
 msgid "Follow"
 msgstr ""
 
-msgid "Failed to like. {0}"
-msgstr ""
-
 msgid "Add account"
 msgstr ""
 
@@ -403,6 +397,9 @@ msgstr ""
 msgid "What's happening..."
 msgstr ""
 
+msgid "Failed to unlike."
+msgstr ""
+
 msgid "Like"
 msgstr ""
 
@@ -458,6 +455,9 @@ msgid "Failed to unfollow."
 msgstr ""
 
 msgid "Quote"
+msgstr ""
+
+msgid "{0, plural, one {Post} other {Post All}}"
 msgstr ""
 
 msgid "Unliked"

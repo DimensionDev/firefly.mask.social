@@ -69,11 +69,12 @@ export async function crossPostThread() {
             skipIfPublishedPost: true,
             skipIfNoParentPost: true,
             skipPublishedCheck: true,
+            skipRefreshFeeds: index !== posts.length - 1,
         });
     }
 
     const { posts: updatedPosts } = useComposeStateStore.getState();
-    if (!updatedPosts.every((x, i) => isPublishedPost(i === 0 ? 'compose' : 'reply', x))) {
+    if (!updatedPosts.every(isPublishedPost)) {
         throw new Error('Posts failed to publish.');
     }
 }
