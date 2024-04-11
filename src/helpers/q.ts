@@ -37,9 +37,5 @@ export const qs = (document: Document, s: string) => {
  * @returns
  */
 export const qsAll = (document: Document, s: string) => {
-    const firstTry = document.querySelectorAll(`meta[name^="${s}"]`);
-    if (firstTry.length > 0) return firstTry;
-    const secondTry = document.querySelectorAll(`meta[property^="${s}"]`);
-    if (secondTry.length > 0) return secondTry;
-    return EMPTY_LIST;
+    return document.querySelectorAll(`[name^="${s}"],[property^="${s}"]`) || [];
 };

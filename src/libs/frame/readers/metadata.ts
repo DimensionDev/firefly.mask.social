@@ -1,6 +1,7 @@
 import { compact, last } from 'lodash-es';
 
 import { getMetaContent } from '@/helpers/getMetaContent.js';
+import { qsAll } from '@/helpers/q.js';
 import { ActionType, type FrameButton, type FrameInput } from '@/types/frame.js';
 
 export function getTitle(document: Document): string | null {
@@ -42,7 +43,7 @@ export function getInput(document: Document): FrameInput | null {
 }
 
 export function getButtons(document: Document): FrameButton[] {
-    const metas = document.querySelectorAll('[name^="fc:frame:button:"],[property^="fc:frame:button:"]') || [];
+    const metas = qsAll(document, 'fc:frame:button:');
 
     return compact<FrameButton>(
         Array.from(metas).map((meta) => {
