@@ -1,7 +1,7 @@
 'use client';
 
 import { t } from '@lingui/macro';
-import { formatEthereumAddress } from '@masknet/web3-shared-evm';
+import { formatDomainName, formatEthereumAddress } from '@masknet/web3-shared-evm';
 import { useAccount, useEnsName } from 'wagmi';
 import { mainnet } from 'wagmi/chains';
 
@@ -24,31 +24,34 @@ export function ConnectWallet({ collapsed = false }: ConnectWalletProps) {
 
     const text = resolve(() => {
         if (!account.isConnected || !account.address || !mounted) return t`Connect Wallet`;
-        if (ensName) return ensName;
+        if (ensName) return formatDomainName(ensName);
 
         return formatEthereumAddress(account.address, 4);
     });
 
     return (
         <div
-            className={classNames('flex gap-x-3 rounded-full p-2 text-xl/5 hover:cursor-pointer hover:bg-bg', {
-                'px-4 py-3': !collapsed,
-            })}
+            className={classNames(
+                'flex gap-x-3 overflow-hidden rounded-full p-2 text-xl/5 hover:cursor-pointer hover:bg-bg',
+                {
+                    'px-4 py-3': !collapsed,
+                },
+            )}
             onClick={() => {
                 account.isConnected ? AccountModalRef.open() : ConnectWalletModalRef.open();
             }}
         >
             {collapsed ? (
-                <Tooltip content={text} placement="right">
-                    <WalletIcon width={20} height={20} />
+                <Tooltip content={account.address} placement="right">
+                    <WalletIcon className="flex-shrink-0" width={20} height={20} />
                 </Tooltip>
             ) : (
-                <WalletIcon width={20} height={20} />
+                <WalletIcon className="flex-shrink-0" width={20} height={20} />
             )}
             <span
-                style={{
-                    display: collapsed ? 'none' : 'inline',
-                }}
+                className="overflow-hidden text-ellipsis"
+                style={{ display: collapsed ? 'none' : 'inline' }}
+                title={account.address}
             >
                 {text}
             </span>
