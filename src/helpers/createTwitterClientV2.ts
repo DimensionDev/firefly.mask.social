@@ -1,14 +1,14 @@
 import type { NextRequest } from 'next/server.js';
 import { getServerSession } from 'next-auth';
 import { getToken, type JWT } from 'next-auth/jwt';
-import { TwitterApi,type TwitterApiTokens } from 'twitter-api-v2';
+import { TwitterApi, type TwitterApiTokens } from 'twitter-api-v2';
 
 import { authOptions } from '@/app/api/auth/[...nextauth]/options.js';
 
 export async function createTwitterClientV2(request: NextRequest) {
     const token: JWT = await getToken({
         req: request,
-        secret: process.env.NEXTAUTH_SECRET
+        secret: process.env.NEXTAUTH_SECRET,
     });
     const session = await getServerSession(authOptions);
 

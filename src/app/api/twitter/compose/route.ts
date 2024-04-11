@@ -1,6 +1,6 @@
 import { StatusCodes } from 'http-status-codes';
 import { NextRequest } from 'next/server.js';
-import {type SendTweetV2Params} from 'twitter-api-v2'
+import { type SendTweetV2Params } from 'twitter-api-v2';
 import { z } from 'zod';
 
 import { createErrorResponseJSON } from '@/helpers/createErrorResponseJSON.js';
