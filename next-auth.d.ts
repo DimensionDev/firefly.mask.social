@@ -14,8 +14,8 @@ declare module 'next-auth/jwt' {
         Record<
             string,
             {
-                accessToken?: string;
-                refreshToken?: string;
+                oauthToken?: string;
+                oauthTokenSecret?: string;
             }
         >;
 }
