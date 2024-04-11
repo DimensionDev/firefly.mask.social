@@ -137,7 +137,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
             <Markup
                 post={post}
                 className={classNames(
-                    { 'line-clamp-5': canShowMore, 'h-[7.5rem]': canShowMore },
+                    { 'line-clamp-5': canShowMore, 'max-h-[7.5rem]': canShowMore },
                     'markup linkify break-words text-[15px]',
                 )}
             >
