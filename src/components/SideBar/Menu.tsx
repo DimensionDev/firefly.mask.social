@@ -110,8 +110,8 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                                             <Link
                                                 href={item.href}
                                                 className={classNames(
-                                                    ' flex flex-grow-0 gap-x-3 rounded-full p-2 text-xl/5 hover:bg-bg',
-                                                    { 'font-bold': isSelected, 'px-4 py-3': !collapsed },
+                                                    'flex flex-grow-0 items-center gap-x-3 rounded-full text-xl hover:bg-bg',
+                                                    { 'font-bold': isSelected, 'px-4 py-1': !collapsed },
                                                 )}
                                             >
                                                 {collapsed ? (
@@ -123,6 +123,7 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                                                 )}
 
                                                 <span
+                                                    className="py-1"
                                                     style={{
                                                         display: collapsed ? 'none' : 'inline',
                                                     }}

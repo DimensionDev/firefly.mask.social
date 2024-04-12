@@ -32,9 +32,9 @@ export function ConnectWallet({ collapsed = false }: ConnectWalletProps) {
     return (
         <div
             className={classNames(
-                'flex gap-x-3 overflow-hidden rounded-full p-2 text-xl/5 hover:cursor-pointer hover:bg-bg',
+                'flex items-center gap-x-3 overflow-hidden rounded-full text-xl hover:cursor-pointer hover:bg-bg',
                 {
-                    'px-4 py-3': !collapsed,
+                    'px-4 py-1': !collapsed,
                 },
             )}
             onClick={() => {
@@ -49,7 +49,7 @@ export function ConnectWallet({ collapsed = false }: ConnectWalletProps) {
                 <WalletIcon className="flex-shrink-0" width={20} height={20} />
             )}
             <span
-                className="overflow-hidden text-ellipsis"
+                className="overflow-hidden text-ellipsis py-1"
                 style={{ display: collapsed ? 'none' : 'inline' }}
                 title={account.address}
             >
