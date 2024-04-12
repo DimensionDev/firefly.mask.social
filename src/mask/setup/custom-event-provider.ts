@@ -1,5 +1,6 @@
 import { isSameAddress } from '@masknet/web3-shared-base';
 import { ChainId, EthereumMethodType, isValidChainId, type RequestArguments } from '@masknet/web3-shared-evm';
+import { first } from 'lodash-es';
 import { hexToBigInt, hexToNumber, numberToHex } from 'viem';
 import { getAccount, sendTransaction, signMessage, switchNetwork } from 'wagmi/actions';
 
@@ -110,36 +111,43 @@ config.subscribe(
             return;
         }
 
+        const account = state.current ? first(state.connections.get(state.current)?.accounts) : undefined;
+        const previousAccount = previousState.current
+            ? first(previousState.connections.get(previousState.current)?.accounts)
+            : undefined;
+        const chainId = state.chainId;
+        const previousChainId = previousState.chainId;
+
         if (
             state.status === 'connected' &&
-            state.data?.account &&
-            previousState.data?.account &&
-            state.data.chain?.id &&
-            previousState.data.chain?.id &&
-            isSameAddress(state.data.account, previousState.data?.account) &&
-            state.data.chain.id !== previousState.data?.chain.id
+            account &&
+            previousAccount &&
+            chainId &&
+            previousChainId &&
+            isSameAddress(account, previousAccount) &&
+            chainId !== previousChainId
         ) {
-            dispatchEvent('chainChanged', numberToHex(state.data.chain.id));
+            dispatchEvent('chainChanged', numberToHex(chainId));
             return;
         }
 
         if (
             state.status === 'connected' &&
-            state.data?.account &&
-            previousState.data?.account &&
-            state.data.chain?.id &&
-            previousState.data.chain?.id &&
-            !isSameAddress(state.data.account, previousState.data.account) &&
-            state.data.chain.id === previousState.data.chain.id
+            account &&
+            previousAccount &&
+            chainId &&
+            previousChainId &&
+            !isSameAddress(account, previousAccount) &&
+            chainId === previousChainId
         ) {
-            dispatchEvent('accountsChanged', [state.data.account]);
+            dispatchEvent('accountsChanged', [account]);
             return;
         }
 
-        if (state.status === 'connected' && state.data?.account && state.data.chain?.id) {
+        if (state.status === 'connected' && account && chainId) {
             dispatchEvent('connect', {
-                account: state.data.account,
-                chainId: state.data.chain.id,
+                account,
+                chainId,
             });
             return;
         }
