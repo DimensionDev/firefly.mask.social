@@ -8,7 +8,11 @@ import { polygon } from 'viem/chains';
 import { WagmiConfig } from 'wagmi';
 
 import { config } from '@/configs/wagmiClient.js';
+import { getLocaleFromCookies } from '@/helpers/getLocaleFromCookies.js';
+import { resolveRainbowKitLocale } from '@/helpers/resolveRainbowKitLocale.js';
 import { useDarkMode } from '@/hooks/useDarkMode.js';
+
+const localeForRainbowKit = resolveRainbowKitLocale(getLocaleFromCookies());
 
 export interface WagmiProviderProps {
     children: React.ReactNode;
@@ -19,9 +23,15 @@ export function WagmiProvider(props: WagmiProviderProps) {
     const theme = useMemo(() => {
         return isDarkMode ? darkTheme() : undefined;
     }, [isDarkMode]);
+
     return (
         <WagmiConfig config={config}>
-            <RainbowKitProvider theme={theme} initialChain={polygon} showRecentTransactions>
+            <RainbowKitProvider
+                locale={localeForRainbowKit}
+                theme={theme}
+                initialChain={polygon}
+                showRecentTransactions
+            >
                 {props.children}
             </RainbowKitProvider>
         </WagmiConfig>

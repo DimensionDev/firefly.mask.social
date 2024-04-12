@@ -1,3 +1,22 @@
+diff --git a/dist/components/RainbowKitProvider/RainbowKitProvider.d.ts b/dist/components/RainbowKitProvider/RainbowKitProvider.d.ts
+index fe12c3430be7b7a260f0f107b137d66b142f4556..7b74897c9f9294db4677269c75224c00ed04aa81 100644
+--- a/dist/components/RainbowKitProvider/RainbowKitProvider.d.ts
++++ b/dist/components/RainbowKitProvider/RainbowKitProvider.d.ts
+@@ -1,10 +1,10 @@
+ import React, { ReactNode } from 'react';
+ import type { Chain } from 'wagmi/chains';
+ import { ThemeVars } from '../../css/sprinkles.css';
+-import { Locale } from '../../locales';
+-import { DisclaimerComponent } from './AppContext';
+-import { AvatarComponent } from './AvatarContext';
+-import { ModalSizes } from './ModalSizeContext';
++import { Locale } from '../../locales/index.js';
++import { DisclaimerComponent } from './AppContext.js';
++import { AvatarComponent } from './AvatarContext.js';
++import { ModalSizes } from './ModalSizeContext.js';
+ export declare const useThemeRootProps: () => {
+     "data-rk": string;
+ };
 diff --git a/dist/components/Txs/TxItem.d.ts b/dist/components/Txs/TxItem.d.ts
 index 19090de09387f5513a1d8944a355f091d8623b52..561ec43e46ae837c1be3cafef699b07049ddb19c 100644
 --- a/dist/components/Txs/TxItem.d.ts
