@@ -5,7 +5,7 @@ import { getWalletClient, type GetWalletClientParameters, type GetWalletClientRe
 import { chains } from '@/configs/wagmiClient.js';
 import { ChainModalRef, ConnectWalletModalRef } from '@/modals/controls.js';
 
-async function getWalletClientCatched(...args: Parameters<typeof getWalletClient>) {
+async function getWalletClientCatch(...args: Parameters<typeof getWalletClient>) {
     try {
         return await getWalletClient(...args);
     } catch {
@@ -17,10 +17,10 @@ export async function getWalletClientRequired(
     config: Config,
     args?: GetWalletClientParameters,
 ): Promise<Exclude<GetWalletClientReturnType, null>> {
-    const firstTryResult = await getWalletClientCatched(config, args);
+    const firstTryResult = await getWalletClientCatch(config, args);
     if (!firstTryResult) await ConnectWalletModalRef.openAndWaitForClose();
 
-    const secondTryResult = firstTryResult ?? (await getWalletClientCatched(config, args));
+    const secondTryResult = firstTryResult ?? (await getWalletClientCatch(config, args));
     if (!secondTryResult) throw new Error(t`No wallet client found`);
 
     if (args?.chainId && args.chainId !== secondTryResult.chain.id) {
