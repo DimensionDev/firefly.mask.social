@@ -13,6 +13,7 @@ import urlcat from 'urlcat';
 import { farcasterClient } from '@/configs/farcasterClient.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { FIREFLY_ROOT_URL } from '@/constants/index.js';
+import { Duration } from '@/helpers/fetchCached.js';
 import { fetchCachedJSON, fetchJSON } from '@/helpers/fetchJSON.js';
 import { formatFarcasterPostFromFirefly } from '@/helpers/formatFarcasterPostFromFirefly.js';
 import { formatFarcasterProfileFromFirefly } from '@/helpers/formatFarcasterProfileFromFirefly.js';
@@ -41,7 +42,6 @@ import {
     type Reaction,
     SessionType,
 } from '@/providers/types/SocialMedia.js';
-import { Duration } from '@/helpers/fetchCached.js';
 
 export class FireflySocialMedia implements Provider {
     quotePost(postId: string, post: Post): Promise<string> {
