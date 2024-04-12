@@ -1,5 +1,5 @@
 import { toBytes } from 'viem';
-import type { GetWalletClientResult } from 'wagmi/actions';
+import type { GetWalletClientReturnType } from 'wagmi/actions';
 
 import { canonicalize } from '@/esm/canonicalize.js';
 
@@ -29,7 +29,7 @@ function createCustodyPayload(): CustodyPayload {
  * Generate a FC custody bearer (wagmi connection required)
  * @returns
  */
-export async function generateCustodyBearer(client: Exclude<GetWalletClientResult, null>): Promise<{
+export async function generateCustodyBearer(client: GetWalletClientReturnType): Promise<{
     payload: CustodyPayload;
     token: `eip191:${string}`;
 }> {

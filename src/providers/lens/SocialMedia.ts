@@ -26,6 +26,7 @@ import type { TypedDataDomain } from 'viem';
 import { polygon } from 'viem/chains';
 
 import { lensClient } from '@/configs/lensClient.js';
+import { config } from '@/configs/wagmiClient.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { formatLensPost, formatLensPostByFeed, formatLensQuoteOrComment } from '@/helpers/formatLensPost.js';
@@ -61,7 +62,7 @@ export class LensSocialMedia implements Provider {
     }
 
     async createSessionForProfileId(profileId: string): Promise<LensSession> {
-        const walletClient = await getWalletClientRequired({
+        const walletClient = await getWalletClientRequired(config, {
             chainId: polygon.id,
         });
         const { id, text } = await lensClient.sdk.authentication.generateChallenge({
@@ -94,7 +95,7 @@ export class LensSocialMedia implements Provider {
         });
 
         const { id, typedData } = typedDataResult.unwrap();
-        const walletClient = await getWalletClientRequired();
+        const walletClient = await getWalletClientRequired(config);
         const signedTypedData = await walletClient.signTypedData({
             domain: typedData.domain as TypedDataDomain,
             types: typedData.types,
@@ -131,7 +132,7 @@ export class LensSocialMedia implements Provider {
 
             return resultValue.id;
         } else {
-            const walletClient = await getWalletClientRequired();
+            const walletClient = await getWalletClientRequired(config);
             const resultTypedData = await lensClient.sdk.publication.createMomokaPostTypedData({
                 contentURI: post.metadata.contentURI,
             });
@@ -168,7 +169,7 @@ export class LensSocialMedia implements Provider {
             const resultValue = result.unwrap();
 
             if (!isCreateMomokaPublicationResult(resultValue)) {
-                const walletClient = await getWalletClientRequired();
+                const walletClient = await getWalletClientRequired(config);
                 const resultTypedData = await lensClient.sdk.publication.createMomokaMirrorTypedData({
                     mirrorOn: postId,
                 });
@@ -198,7 +199,7 @@ export class LensSocialMedia implements Provider {
             const resultValue = result.unwrap();
 
             if (!isRelaySuccess(resultValue)) {
-                const walletClient = await getWalletClientRequired();
+                const walletClient = await getWalletClientRequired(config);
                 const resultTypedData = await lensClient.sdk.publication.createOnchainMirrorTypedData({
                     mirrorOn: postId,
                 });
@@ -245,7 +246,7 @@ export class LensSocialMedia implements Provider {
 
                 return resultValue.id;
             } else {
-                const walletClient = await getWalletClientRequired();
+                const walletClient = await getWalletClientRequired(config);
                 const resultTypedData = await lensClient.sdk.publication.createMomokaQuoteTypedData({
                     quoteOn: postId,
                     contentURI: intro,
@@ -281,7 +282,7 @@ export class LensSocialMedia implements Provider {
             const resultValue = result.unwrap();
 
             if (!isRelaySuccess(resultValue) || !resultValue.txHash) {
-                const walletClient = await getWalletClientRequired();
+                const walletClient = await getWalletClientRequired(config);
 
                 const resultTypedData = await lensClient.sdk.publication.createOnchainQuoteTypedData({
                     quoteOn: postId,
@@ -346,7 +347,7 @@ export class LensSocialMedia implements Provider {
 
                 return resultValue.id;
             } else {
-                const walletClient = await getWalletClientRequired();
+                const walletClient = await getWalletClientRequired(config);
                 const resultTypedData = await lensClient.sdk.publication.createMomokaCommentTypedData({
                     commentOn: postId,
                     contentURI: comment,
@@ -382,7 +383,7 @@ export class LensSocialMedia implements Provider {
             const resultValue = result.unwrap();
 
             if (!isRelaySuccess(resultValue) || !resultValue.txHash) {
-                const walletClient = await getWalletClientRequired();
+                const walletClient = await getWalletClientRequired(config);
 
                 const resultTypedData = await lensClient.sdk.publication.createOnchainCommentTypedData({
                     commentOn: postId,
@@ -704,7 +705,7 @@ export class LensSocialMedia implements Provider {
             });
 
             const data = result.unwrap();
-            const walletClient = await getWalletClientRequired();
+            const walletClient = await getWalletClientRequired(config);
             const signedTypedData = await walletClient.signTypedData({
                 domain: data.typedData.domain as TypedDataDomain,
                 types: data.typedData.types,
@@ -740,7 +741,7 @@ export class LensSocialMedia implements Provider {
             });
 
             const data = followTypedDataResult.unwrap();
-            const client = await getWalletClientRequired();
+            const client = await getWalletClientRequired(config);
             const signedTypedData = await client.signTypedData({
                 domain: data.typedData.domain as TypedDataDomain,
                 types: data.typedData.types,

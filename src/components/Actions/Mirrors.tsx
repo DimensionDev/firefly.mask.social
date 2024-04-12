@@ -13,6 +13,7 @@ import QuoteDownIcon from '@/assets/quote-down.svg';
 import { toggleMirror } from '@/components/Actions/helpers.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Tooltip } from '@/components/Tooltip.js';
+import { config } from '@/configs/wagmiClient.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
@@ -134,7 +135,7 @@ export const Mirror = memo<MirrorProps>(function Mirror({ shares = 0, source, po
 
                             event.stopPropagation();
                             if (!isLogin && !loading) {
-                                if (source === SocialPlatform.Lens) await getWalletClientRequired();
+                                if (source === SocialPlatform.Lens) await getWalletClientRequired(config);
                                 LoginModalRef.open({ source: post.source });
                                 return;
                             }

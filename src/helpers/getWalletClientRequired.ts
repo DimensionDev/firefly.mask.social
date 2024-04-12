@@ -1,16 +1,18 @@
 import { t } from '@lingui/macro';
-import { getWalletClient, type GetWalletClientArgs, type GetWalletClientResult } from 'wagmi/actions';
+import type { Config } from 'wagmi';
+import { getWalletClient, type GetWalletClientParameters, type GetWalletClientReturnType } from 'wagmi/actions';
 
 import { chains } from '@/configs/wagmiClient.js';
 import { ChainModalRef, ConnectWalletModalRef } from '@/modals/controls.js';
 
 export async function getWalletClientRequired(
-    args?: GetWalletClientArgs,
-): Promise<Exclude<GetWalletClientResult, null>> {
-    const firstTryResult = await getWalletClient(args);
+    config: Config,
+    args?: GetWalletClientParameters,
+): Promise<Exclude<GetWalletClientReturnType, null>> {
+    const firstTryResult = await getWalletClient(config, args);
     if (!firstTryResult) await ConnectWalletModalRef.openAndWaitForClose();
 
-    const secondTryResult = firstTryResult ?? (await getWalletClient(args));
+    const secondTryResult = firstTryResult ?? (await getWalletClient(config, args));
     if (!secondTryResult) throw new Error(t`No wallet client found`);
 
     if (args?.chainId && args.chainId !== secondTryResult.chain.id) {

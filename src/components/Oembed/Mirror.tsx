@@ -34,12 +34,16 @@ export const Mirror = memo<MirrorProps>(function Mirror({
     const { data: ensName = ens } = useEnsName({
         address,
         chainId: mainnet.id,
-        enabled: !!address && !ens,
+        query: {
+            enabled: !!address && !ens,
+        },
     });
     const { data: avatar } = useEnsAvatar({
-        name: ens ?? ensName,
+        name: ens ?? ensName ?? undefined,
         chainId: mainnet.id,
-        enabled: !!ensName && !!ens,
+        query: {
+            enabled: !!ensName && !!ens,
+        },
     });
 
     return (

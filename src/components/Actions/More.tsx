@@ -10,6 +10,7 @@ import UnFollowUserIcon from '@/assets/unfollow-user.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { queryClient } from '@/configs/queryClient.js';
+import { config } from '@/configs/wagmiClient.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
@@ -38,7 +39,7 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
                     if (!isLogin) {
                         event.stopPropagation();
                         event.preventDefault();
-                        if (source === SocialPlatform.Lens) await getWalletClientRequired();
+                        if (source === SocialPlatform.Lens) await getWalletClientRequired(config);
                         LoginModalRef.open({ source });
                     } else {
                         event.stopPropagation();
