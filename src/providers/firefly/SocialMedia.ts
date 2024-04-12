@@ -162,7 +162,7 @@ export class FireflySocialMedia implements Provider {
                     method: 'GET',
                 },
                 {
-                    cacheDuration: Duration.TEN_SECONDS,
+                    squashDuration: Duration.TEN_SECONDS,
                 },
             );
 
