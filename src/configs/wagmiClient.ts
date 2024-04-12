@@ -3,7 +3,7 @@
 'use client';
 
 import { t } from '@lingui/macro';
-import { type Chain, connectorsForWallets, type Wallet } from '@rainbow-me/rainbowkit';
+import { type Chain, connectorsForWallets } from '@rainbow-me/rainbowkit';
 import {
     coinbaseWallet,
     metaMaskWallet,
@@ -52,27 +52,12 @@ export const connectors = connectorsForWallets(
         {
             groupName: t`Recommended`,
             wallets: [
-                metaMaskWallet({
-                    projectId: process.env.NEXT_PUBLIC_W3M_PROJECT_ID,
-                    chains,
-                }),
-                walletConnectWallet({
-                    projectId: process.env.NEXT_PUBLIC_W3M_PROJECT_ID,
-                    chains,
-                }),
-                coinbaseWallet({
-                    appName: SITE_HOSTNAME,
-                    chains,
-                }),
-                rabbyWallet({
-                    name: SITE_HOSTNAME,
-                    chains,
-                }),
-                okxWallet({
-                    projectId: process.env.NEXT_PUBLIC_W3M_PROJECT_ID,
-                    chains,
-                }),
-            ] as const satisfies Wallet[],
+                metaMaskWallet,
+                walletConnectWallet,
+                coinbaseWallet,
+                rabbyWallet,
+                okxWallet,
+            ],
         },
     ],
     {
