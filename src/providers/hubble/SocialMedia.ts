@@ -467,6 +467,8 @@ export class HubbleSocialMedia implements Provider {
                     },
                     inputText: input ? toBytes(input) : new Uint8Array([]),
                     state: state ? toBytes(state) : new Uint8Array([]),
+                    transactionId: new Uint8Array([]),
+                    address: new Uint8Array([]),
                 },
             }),
             async (messageData, signer) => {
