@@ -87,7 +87,7 @@ export function ComposeAction(props: ComposeActionProps) {
         });
     }, [currentProfileAll, profilesAll]);
 
-    const { MAX_CHAR_SIZE_PER_POST } = getCurrentPostLimits();
+    const { MAX_CHAR_SIZE_PER_POST } = getCurrentPostLimits(rootPost.availableSources);
     const maxImageCount = currentProfileAll.Farcaster ? 2 : 4;
     const mediaDisabled = !!video || images.length >= maxImageCount;
 

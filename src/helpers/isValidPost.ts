@@ -10,7 +10,7 @@ import type { CompositePost } from '@/store/useComposeStore.js';
 export function isValidPost({ availableSources, chars, images, video }: CompositePost) {
     if (!availableSources.length) return false;
 
-    const { MAX_CHAR_SIZE_PER_POST } = getCurrentPostLimits();
+    const { MAX_CHAR_SIZE_PER_POST } = getCurrentPostLimits(availableSources);
     const { length, visibleLength } = measureChars(chars);
     if (length > MAX_CHAR_SIZE_PER_POST) return false;
     if (!visibleLength && !images.length && !video) return false;

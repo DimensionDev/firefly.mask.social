@@ -27,7 +27,7 @@ interface ComposeSendProps extends React.HTMLAttributes<HTMLDivElement> {
 export function ComposeSend(props: ComposeSendProps) {
     const { type, posts, addPostInThread } = useComposeStateStore();
 
-    const { MAX_CHAR_SIZE_PER_POST } = getCurrentPostLimits();
+    const { MAX_CHAR_SIZE_PER_POST } = getCurrentPostLimits(props.post.availableSources);
     const { visibleLength, invisibleLength } = measureChars(props.post.chars);
 
     const isMedium = useIsMedium();
@@ -61,7 +61,7 @@ export function ComposeSend(props: ComposeSendProps) {
         <div className=" flex h-[68px] items-center justify-end gap-4 px-4 shadow-send">
             {visibleLength ? (
                 <div className=" flex items-center gap-[10px] whitespace-nowrap text-[15px] text-main">
-                    <CountdownCircle count={visibleLength} width={24} height={24} className="flex-shrink-0" />
+                    <CountdownCircle post={props.post} width={24} height={24} className="flex-shrink-0" />
                     <span className={visibleLength > MAX_CHAR_SIZE_PER_POST - invisibleLength ? ' text-danger' : ''}>
                         {visibleLength} / {MAX_CHAR_SIZE_PER_POST - invisibleLength}
                     </span>
