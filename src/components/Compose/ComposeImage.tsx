@@ -23,7 +23,7 @@ export const ComposeImage = memo(function ComposeImage({ index, size, image, rea
                 size <= 2 ? ' h-72' : size === 3 && index === 2 ? ' h-72' : ' h-[138px]',
                 size === 1 ? ' col-span-2' : '',
                 size === 3 && index === 1 ? ' col-start-1' : '',
-                size === 3 && index === 2 ? ' absolute right-3 top-3 w-[251px]' : ' relative',
+                size === 3 && index === 2 ? ' absolute right-0 top-3 w-[calc(50%-0.5rem)]' : ' relative',
             )}
         >
             <Image src={blobURL} alt={image.file.name} fill className=" object-cover" />

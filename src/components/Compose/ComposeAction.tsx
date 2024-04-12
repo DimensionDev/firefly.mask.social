@@ -19,6 +19,7 @@ import { ReplyRestriction } from '@/components/Compose/ReplyRestriction.js';
 import { ReplyRestrictionText } from '@/components/Compose/ReplyRestrictionText.js';
 import { SourceIcon } from '@/components/SourceIcon.js';
 import { Tooltip } from '@/components/Tooltip.js';
+import { SocialPlatform } from '@/constants/enum.js';
 import { MAX_POST_SIZE_PER_THREAD, SORTED_SOURCES } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { connectMaskWithWagmi } from '@/helpers/connectWagmiWithMask.js';
@@ -88,7 +89,7 @@ export function ComposeAction(props: ComposeActionProps) {
     }, [currentProfileAll, profilesAll]);
 
     const { MAX_CHAR_SIZE_PER_POST } = getCurrentPostLimits(rootPost.availableSources);
-    const maxImageCount = currentProfileAll.Farcaster ? 2 : 4;
+    const maxImageCount = rootPost.availableSources.includes(SocialPlatform.Farcaster) ? 2 : 4;
     const mediaDisabled = !!video || images.length >= maxImageCount;
 
     return (
