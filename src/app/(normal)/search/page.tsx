@@ -5,22 +5,23 @@ import { safeUnreachable } from '@masknet/kit';
 import { createIndicator } from '@masknet/shared-base';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
-import { useInView } from 'react-cool-inview';
 
 import LoadingIcon from '@/assets/loading.svg';
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { SinglePost } from '@/components/Posts/SinglePost.js';
 import { ProfileInList } from '@/components/Search/ProfileInList.js';
-import { SearchType } from '@/constants/enum.js';
+import { ScrollListKey, SearchType } from '@/constants/enum.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 import type { Post, Profile } from '@/providers/types/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useSearchState } from '@/store/useSearchState.js';
+import { useCallback } from 'react';
+import { VirtualList } from '@/components/VirtualList.js';
 
 export default function Page() {
     const { searchKeyword, searchType } = useSearchState();
-    const { currentSource } = useGlobalState();
+    const { currentSource, setScrollIndex } = useGlobalState();
 
     const {
         data: results,
@@ -55,15 +56,13 @@ export default function Page() {
         },
     });
 
-    const { observe } = useInView({
-        rootMargin: '300px 0px',
-        onChange: async ({ inView }) => {
-            if (!inView || !hasNextPage || isFetching || isFetchingNextPage) {
-                return;
-            }
-            await fetchNextPage();
-        },
-    });
+    const onEndReached = useCallback(async () => {
+        if (!hasNextPage || isFetching || isFetchingNextPage) {
+            return;
+        }
+
+        await fetchNextPage();
+    }, [hasNextPage, isFetching, isFetchingNextPage]);
 
     useNavigatorTitle(t`Search`);
 
@@ -84,24 +83,45 @@ export default function Page() {
 
     return (
         <div>
-            {results.map((item) => {
-                switch (searchType) {
-                    case SearchType.Users:
-                        const profile = item as Profile;
-                        return <ProfileInList key={profile.profileId} profile={profile} />;
-                    case SearchType.Posts:
-                        const post = item as Post;
-                        return <SinglePost key={post.postId} post={post} />;
-                    default:
-                        return null;
-                }
-            })}
-
-            {hasNextPage ? (
-                <div className="flex items-center justify-center p-2" ref={observe}>
-                    <LoadingIcon width={16} height={16} className="animate-spin" />
-                </div>
-            ) : null}
+            <VirtualList
+                computeItemKey={(index, item) => {
+                    switch (searchType) {
+                        case SearchType.Users:
+                            const profile = item as Profile;
+                            return `${profile.profileId}_${index}`;
+                        case SearchType.Posts:
+                            const post = item as Post;
+                            return `${post.postId}_${index}`;
+                        default:
+                            return index;
+                    }
+                }}
+                data={results}
+                endReached={onEndReached}
+                itemContent={(index, item) => {
+                    switch (searchType) {
+                        case SearchType.Users:
+                            const profile = item as Profile;
+                            return <ProfileInList key={profile.profileId} profile={profile} />;
+                        case SearchType.Posts:
+                            const post = item as Post;
+                            return <SinglePost key={post.postId} post={post} />;
+                        default:
+                            return null;
+                    }
+                }}
+                useWindowScroll
+                components={{
+                    Footer: () => {
+                        if (!hasNextPage) return null;
+                        return (
+                            <div className="flex items-center justify-center p-2">
+                                <LoadingIcon width={16} height={16} className="animate-spin" />
+                            </div>
+                        );
+                    },
+                }}
+            />
         </div>
     );
 }

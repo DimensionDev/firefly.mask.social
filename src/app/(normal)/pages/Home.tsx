@@ -1,22 +1,23 @@
 'use client';
 
+import { useCallback, useMemo } from 'react';
 import { t, Trans } from '@lingui/macro';
 import { createIndicator, type Pageable, type PageIndicator } from '@masknet/shared-base';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
-import { useInView } from 'react-cool-inview';
 
 import { discoverPosts } from '@/app/(normal)/helpers/discoverPosts.js';
 import BlackHoleIcon from '@/assets/black-hole.svg';
 import LoadingIcon from '@/assets/loading.svg';
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { SinglePost } from '@/components/Posts/SinglePost.js';
-import { SocialPlatform } from '@/constants/enum.js';
+import { ScrollListKey, SocialPlatform } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { mergeThreadPosts } from '@/helpers/mergeThreadPosts.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
+import { VirtualList } from '@/components/VirtualList.js';
 
 interface Props {
     // the source of the posts
@@ -26,6 +27,7 @@ interface Props {
 }
 
 export function Home({ source, pageable }: Props) {
+    const setScrollIndex = useGlobalState.use.setScrollIndex();
     const currentSource = useGlobalState.use.currentSource();
 
     const fetchAndStoreViews = useImpressionsStore.use.fetchAndStoreViews();
@@ -49,23 +51,19 @@ export function Home({ source, pageable }: Props) {
         },
     });
 
-    const { observe } = useInView({
-        rootMargin: '300px 0px',
-        onChange: async ({ inView }) => {
-            if (!inView || !hasNextPage || isFetching || isFetchingNextPage) {
-                return;
-            }
-            await fetchNextPage();
-        },
-    });
+    const onEndReached = useCallback(async () => {
+        if (!hasNextPage || isFetching || isFetchingNextPage) {
+            return;
+        }
+
+        await fetchNextPage();
+    }, [hasNextPage, isFetching, isFetchingNextPage]);
 
     useNavigatorTitle(t`Discover`);
 
-    return (
-        <div>
-            {data.length ? (
-                data.map((x) => <SinglePost post={x} key={x.postId} showMore />)
-            ) : (
+    if (data.length === 0) {
+        return (
+            <div>
                 <NoResultsFallback
                     className="pt-[228px]"
                     icon={<BlackHoleIcon width={200} height="auto" className="text-secondaryMain" />}
@@ -75,12 +73,41 @@ export function Home({ source, pageable }: Props) {
                         </div>
                     }
                 />
-            )}
-            {hasNextPage && data.length ? (
-                <div className="flex items-center justify-center p-2" ref={observe}>
-                    <LoadingIcon width={16} height={16} className="animate-spin" />
-                </div>
-            ) : null}
+            </div>
+        );
+    }
+
+    return (
+        <div>
+            <VirtualList
+                listKey={ScrollListKey.Discover}
+                computeItemKey={(index, post) => `${post.postId}-${index}`}
+                data={data}
+                endReached={onEndReached}
+                itemContent={(index, post) => {
+                    return (
+                        <SinglePost
+                            post={post}
+                            key={`${post.postId}-${index}`}
+                            showMore
+                            onClick={() => {
+                                setScrollIndex(ScrollListKey.Discover, index);
+                            }}
+                        />
+                    );
+                }}
+                useWindowScroll
+                components={{
+                    Footer: () => {
+                        if (!hasNextPage) return null;
+                        return (
+                            <div className="flex items-center justify-center p-2">
+                                <LoadingIcon width={16} height={16} className="animate-spin" />
+                            </div>
+                        );
+                    },
+                }}
+            />
         </div>
     );
 }

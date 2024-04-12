@@ -4,8 +4,7 @@ import { t, Trans } from '@lingui/macro';
 import { createIndicator } from '@masknet/shared-base';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
-import { useMemo } from 'react';
-import { useInView } from 'react-cool-inview';
+import { useCallback, useMemo } from 'react';
 
 import LoadingIcon from '@/assets/loading.svg';
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
@@ -15,6 +14,8 @@ import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
+import { VirtualList } from '@/components/VirtualList.js';
+import { ScrollListKey } from '@/constants/enum.js';
 
 export default function Notification() {
     const currentSource = useGlobalState.use.currentSource();
@@ -28,19 +29,16 @@ export default function Notification() {
         },
         initialPageParam: '',
         getNextPageParam: (lastPage) => lastPage?.nextIndicator?.id,
+        select: (data) => compact(data.pages.flatMap((x) => x?.data)),
     });
 
-    const { observe } = useInView({
-        rootMargin: '300px 0px',
-        onChange: async ({ inView }) => {
-            if (!inView || !hasNextPage || isFetching || isFetchingNextPage) {
-                return;
-            }
-            await fetchNextPage();
-        },
-    });
+    const onEndReached = useCallback(async () => {
+        if (!hasNextPage || isFetching || isFetchingNextPage) {
+            return;
+        }
 
-    const results = useMemo(() => compact(data.pages.flatMap((x) => x?.data)), [data.pages]);
+        await fetchNextPage();
+    }, [hasNextPage, isFetching, isFetchingNextPage]);
 
     useNavigatorTitle(t`Notifications`);
 
@@ -48,22 +46,43 @@ export default function Notification() {
         return <NotLoginFallback source={currentSource} />;
     }
 
+    if (data.length === 0) {
+        return (
+            <div>
+                <NoResultsFallback />
+            </div>
+        );
+    }
+
     return (
         <div>
-            {results.length ? (
-                results.map((notification, index) => <NotificationItem key={index} notification={notification} />)
-            ) : (
-                <NoResultsFallback />
-            )}
-            {hasNextPage && results.length ? (
-                <div className="flex items-center justify-center p-2" ref={observe}>
-                    <LoadingIcon width={16} height={16} className="animate-spin" />
-                </div>
-            ) : (
-                <div className="flex items-center justify-center p-6 text-base text-secondary">
-                    <Trans>You&apos;ve hit rock bottom.</Trans>
-                </div>
-            )}
+            <VirtualList
+                listKey={ScrollListKey.Notification}
+                computeItemKey={(index, notification) => `${notification.notificationId}-${index}`}
+                data={data}
+                endReached={onEndReached}
+                itemContent={(index, notification) => {
+                    return (
+                        <NotificationItem notification={notification} key={`${notification.notificationId}-${index}`} />
+                    );
+                }}
+                useWindowScroll
+                components={{
+                    Footer: () => {
+                        if (!hasNextPage)
+                            return (
+                                <div className="flex items-center justify-center p-6 text-base text-secondary">
+                                    <Trans>You&apos;ve hit rock bottom.</Trans>
+                                </div>
+                            );
+                        return (
+                            <div className="flex items-center justify-center p-2">
+                                <LoadingIcon width={16} height={16} className="animate-spin" />
+                            </div>
+                        );
+                    },
+                }}
+            />
         </div>
     );
 }

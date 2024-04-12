@@ -34,3 +34,13 @@ export enum KeyType {
     GetLensThreadByPostId = 'getLensThreadByPostId',
     RefreshLensThreadLock = 'RefreshLensThreadLock',
 }
+
+export enum ScrollListKey {
+    Discover = 'discover-list',
+    Following = 'following-list',
+    Notification = 'notification-list',
+    Search = 'search-list',
+    Comment = 'comment-list',
+    Profile = 'profile-post-list',
+    Collected = 'profile-collected-list',
+}

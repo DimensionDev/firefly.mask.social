@@ -3,14 +3,13 @@
 import { t, Trans } from '@lingui/macro';
 import { createIndicator, EMPTY_LIST } from '@masknet/shared-base';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
-import { useInView } from 'react-cool-inview';
 
 import BlackHoleIcon from '@/assets/black-hole.svg';
 import LoadingIcon from '@/assets/loading.svg';
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { SinglePost } from '@/components/Posts/SinglePost.js';
-import { SocialPlatform } from '@/constants/enum.js';
+import { ScrollListKey, SocialPlatform } from '@/constants/enum.js';
 import { SORTED_SOURCES } from '@/constants/index.js';
 import { mergeThreadPosts } from '@/helpers/mergeThreadPosts.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
@@ -20,8 +19,11 @@ import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
+import { VirtualList } from '@/components/VirtualList.js';
+import { useCallback } from 'react';
 
 export default function Following() {
+    const setScrollIndex = useGlobalState.use.setScrollIndex();
     const currentSource = useGlobalState.use.currentSource();
     const isLogin = useIsLogin(currentSource);
 
@@ -66,15 +68,13 @@ export default function Following() {
         },
     });
 
-    const { observe } = useInView({
-        rootMargin: '300px 0px',
-        onChange: async ({ inView }) => {
-            if (!inView || !hasNextPage || isFetching || isFetchingNextPage) {
-                return;
-            }
-            await fetchNextPage();
-        },
-    });
+    const onEndReached = useCallback(async () => {
+        if (!hasNextPage || isFetching || isFetchingNextPage) {
+            return;
+        }
+
+        await fetchNextPage();
+    }, [hasNextPage, isFetching, isFetchingNextPage]);
 
     useNavigatorTitle(t`Following`);
 
@@ -82,28 +82,51 @@ export default function Following() {
         return <NotLoginFallback source={currentSource} />;
     }
 
+    if (data.length === 0) {
+        return (
+            <NoResultsFallback
+                className="pt-[228px]"
+                icon={<BlackHoleIcon width={200} height="auto" className="text-secondaryMain" />}
+                message={
+                    <div className="mt-10">
+                        <Trans>Follow more friends to continue exploring on {resolveSourceName(currentSource)}.</Trans>
+                    </div>
+                }
+            />
+        );
+    }
+
     return (
         <div>
-            {data.length ? (
-                data.map((x) => <SinglePost post={x} key={x.postId} showMore />)
-            ) : (
-                <NoResultsFallback
-                    className="pt-[228px]"
-                    icon={<BlackHoleIcon width={200} height="auto" className="text-secondaryMain" />}
-                    message={
-                        <div className="mt-10">
-                            <Trans>
-                                Follow more friends to continue exploring on {resolveSourceName(currentSource)}.
-                            </Trans>
-                        </div>
-                    }
-                />
-            )}
-            {hasNextPage && data.length ? (
-                <div className="flex items-center justify-center p-2" ref={observe}>
-                    <LoadingIcon width={16} height={16} className="animate-spin" />
-                </div>
-            ) : null}
+            <VirtualList
+                listKey={ScrollListKey.Following}
+                computeItemKey={(index, post) => `${post.postId}-${index}`}
+                data={data}
+                endReached={onEndReached}
+                itemContent={(index, post) => {
+                    return (
+                        <SinglePost
+                            post={post}
+                            key={`${post.postId}-${index}`}
+                            showMore
+                            onClick={() => {
+                                setScrollIndex(ScrollListKey.Following, index);
+                            }}
+                        />
+                    );
+                }}
+                useWindowScroll
+                components={{
+                    Footer: () => {
+                        if (!hasNextPage) return null;
+                        return (
+                            <div className="flex items-center justify-center p-2">
+                                <LoadingIcon width={16} height={16} className="animate-spin" />
+                            </div>
+                        );
+                    },
+                }}
+            />
         </div>
     );
 }
