@@ -62,7 +62,32 @@ export default function Page() {
         }
 
         await fetchNextPage();
-    }, [hasNextPage, isFetching, isFetchingNextPage]);
+    }, [hasNextPage, isFetching, isFetchingNextPage, fetchNextPage]);
+
+    const itemContent = useCallback(
+        (index: number, item: Post | Profile) => {
+            switch (searchType) {
+                case SearchType.Users:
+                    const profile = item as Profile;
+                    return <ProfileInList key={profile.profileId} profile={profile} />;
+                case SearchType.Posts:
+                    const post = item as Post;
+                    return <SinglePost key={post.postId} post={post} />;
+                default:
+                    return null;
+            }
+        },
+        [searchType],
+    );
+
+    const Footer = useCallback(() => {
+        if (!hasNextPage) return null;
+        return (
+            <div className="flex items-center justify-center p-2">
+                <LoadingIcon width={16} height={16} className="animate-spin" />
+            </div>
+        );
+    }, [hasNextPage]);
 
     useNavigatorTitle(t`Search`);
 
@@ -98,28 +123,10 @@ export default function Page() {
                 }}
                 data={results}
                 endReached={onEndReached}
-                itemContent={(index, item) => {
-                    switch (searchType) {
-                        case SearchType.Users:
-                            const profile = item as Profile;
-                            return <ProfileInList key={profile.profileId} profile={profile} />;
-                        case SearchType.Posts:
-                            const post = item as Post;
-                            return <SinglePost key={post.postId} post={post} />;
-                        default:
-                            return null;
-                    }
-                }}
+                itemContent={itemContent}
                 useWindowScroll
                 components={{
-                    Footer: () => {
-                        if (!hasNextPage) return null;
-                        return (
-                            <div className="flex items-center justify-center p-2">
-                                <LoadingIcon width={16} height={16} className="animate-spin" />
-                            </div>
-                        );
-                    },
+                    Footer,
                 }}
             />
         </div>

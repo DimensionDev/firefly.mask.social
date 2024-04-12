@@ -51,13 +51,38 @@ export function Home({ source, pageable }: Props) {
         },
     });
 
+    const itemContent = useCallback(
+        (index: number, post: Post) => {
+            return (
+                <SinglePost
+                    post={post}
+                    key={`${post.postId}-${index}`}
+                    showMore
+                    onClick={() => {
+                        setScrollIndex(ScrollListKey.Discover, index);
+                    }}
+                />
+            );
+        },
+        [setScrollIndex],
+    );
+
+    const Footer = useCallback(() => {
+        if (!hasNextPage) return null;
+        return (
+            <div className="flex items-center justify-center p-2">
+                <LoadingIcon width={16} height={16} className="animate-spin" />
+            </div>
+        );
+    }, [hasNextPage]);
+
     const onEndReached = useCallback(async () => {
         if (!hasNextPage || isFetching || isFetchingNextPage) {
             return;
         }
 
         await fetchNextPage();
-    }, [hasNextPage, isFetching, isFetchingNextPage]);
+    }, [hasNextPage, isFetching, isFetchingNextPage, fetchNextPage]);
 
     useNavigatorTitle(t`Discover`);
 
@@ -84,28 +109,10 @@ export function Home({ source, pageable }: Props) {
                 computeItemKey={(index, post) => `${post.postId}-${index}`}
                 data={data}
                 endReached={onEndReached}
-                itemContent={(index, post) => {
-                    return (
-                        <SinglePost
-                            post={post}
-                            key={`${post.postId}-${index}`}
-                            showMore
-                            onClick={() => {
-                                setScrollIndex(ScrollListKey.Discover, index);
-                            }}
-                        />
-                    );
-                }}
+                itemContent={itemContent}
                 useWindowScroll
                 components={{
-                    Footer: () => {
-                        if (!hasNextPage) return null;
-                        return (
-                            <div className="flex items-center justify-center p-2">
-                                <LoadingIcon width={16} height={16} className="animate-spin" />
-                            </div>
-                        );
-                    },
+                    Footer,
                 }}
             />
         </div>

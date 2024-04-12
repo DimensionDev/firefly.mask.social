@@ -21,6 +21,7 @@ import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 import { VirtualList } from '@/components/VirtualList.js';
 import { useCallback } from 'react';
+import type { Post } from '@/providers/types/SocialMedia.js';
 
 export default function Following() {
     const setScrollIndex = useGlobalState.use.setScrollIndex();
@@ -74,7 +75,32 @@ export default function Following() {
         }
 
         await fetchNextPage();
-    }, [hasNextPage, isFetching, isFetchingNextPage]);
+    }, [hasNextPage, isFetching, isFetchingNextPage, fetchNextPage]);
+
+    const itemContent = useCallback(
+        (index: number, post: Post) => {
+            return (
+                <SinglePost
+                    post={post}
+                    key={`${post.postId}-${index}`}
+                    showMore
+                    onClick={() => {
+                        setScrollIndex(ScrollListKey.Following, index);
+                    }}
+                />
+            );
+        },
+        [setScrollIndex],
+    );
+
+    const Footer = useCallback(() => {
+        if (!hasNextPage) return null;
+        return (
+            <div className="flex items-center justify-center p-2">
+                <LoadingIcon width={16} height={16} className="animate-spin" />
+            </div>
+        );
+    }, [hasNextPage]);
 
     useNavigatorTitle(t`Following`);
 
@@ -103,28 +129,10 @@ export default function Following() {
                 computeItemKey={(index, post) => `${post.postId}-${index}`}
                 data={data}
                 endReached={onEndReached}
-                itemContent={(index, post) => {
-                    return (
-                        <SinglePost
-                            post={post}
-                            key={`${post.postId}-${index}`}
-                            showMore
-                            onClick={() => {
-                                setScrollIndex(ScrollListKey.Following, index);
-                            }}
-                        />
-                    );
-                }}
+                itemContent={itemContent}
                 useWindowScroll
                 components={{
-                    Footer: () => {
-                        if (!hasNextPage) return null;
-                        return (
-                            <div className="flex items-center justify-center p-2">
-                                <LoadingIcon width={16} height={16} className="animate-spin" />
-                            </div>
-                        );
-                    },
+                    Footer,
                 }}
             />
         </div>

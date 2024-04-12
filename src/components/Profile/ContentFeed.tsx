@@ -13,6 +13,7 @@ import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 import { useCallback } from 'react';
 import { VirtualList } from '@/components/VirtualList.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
 
 interface ContentFeedProps {
     profileId: string;
@@ -54,6 +55,36 @@ export function ContentFeed({ profileId, source }: ContentFeedProps) {
         await fetchNextPage();
     }, [hasNextPage, isFetching, isFetchingNextPage]);
 
+    const itemContent = useCallback(
+        (index: number, post: Post) => {
+            return (
+                <SinglePost
+                    post={post}
+                    key={post.postId}
+                    showMore
+                    onClick={() => {
+                        setScrollIndex(`${ScrollListKey.Profile}_${profileId}`, index);
+                    }}
+                />
+            );
+        },
+        [setScrollIndex],
+    );
+
+    const Footer = useCallback(() => {
+        if (!hasNextPage)
+            return (
+                <div className="flex items-center justify-center p-6 text-base text-secondary">
+                    <Trans>You&apos;ve hit rock bottom.</Trans>
+                </div>
+            );
+        return (
+            <div className="flex items-center justify-center p-2">
+                <LoadingIcon width={16} height={16} className="animate-spin" />
+            </div>
+        );
+    }, [hasNextPage]);
+
     if (!data.length)
         return (
             <NoResultsFallback
@@ -74,33 +105,10 @@ export function ContentFeed({ profileId, source }: ContentFeedProps) {
                 computeItemKey={(index, post) => `${post.postId}-${index}`}
                 data={data}
                 endReached={onEndReached}
-                itemContent={(index, post) => {
-                    return (
-                        <SinglePost
-                            post={post}
-                            key={post.postId}
-                            showMore
-                            onClick={() => {
-                                setScrollIndex(`${ScrollListKey.Profile}_${profileId}`, index);
-                            }}
-                        />
-                    );
-                }}
+                itemContent={itemContent}
                 useWindowScroll
                 components={{
-                    Footer: () => {
-                        if (!hasNextPage)
-                            return (
-                                <div className="flex items-center justify-center p-6 text-base text-secondary">
-                                    <Trans>You&apos;ve hit rock bottom.</Trans>
-                                </div>
-                            );
-                        return (
-                            <div className="flex items-center justify-center p-2">
-                                <LoadingIcon width={16} height={16} className="animate-spin" />
-                            </div>
-                        );
-                    },
+                    Footer,
                 }}
             />
         </div>

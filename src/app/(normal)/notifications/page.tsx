@@ -17,6 +17,7 @@ import { useGlobalState } from '@/store/useGlobalStore.js';
 import { VirtualList } from '@/components/VirtualList.js';
 import { ScrollListKey } from '@/constants/enum.js';
 
+import { type Notification as NotificationType } from '@/providers/types/SocialMedia.js';
 export default function Notification() {
     const currentSource = useGlobalState.use.currentSource();
     const isLogin = useIsLogin(currentSource);
@@ -38,7 +39,25 @@ export default function Notification() {
         }
 
         await fetchNextPage();
-    }, [hasNextPage, isFetching, isFetchingNextPage]);
+    }, [hasNextPage, isFetching, isFetchingNextPage, fetchNextPage]);
+
+    const Footer = useCallback(() => {
+        if (!hasNextPage)
+            return (
+                <div className="flex items-center justify-center p-6 text-base text-secondary">
+                    <Trans>You&apos;ve hit rock bottom.</Trans>
+                </div>
+            );
+        return (
+            <div className="flex items-center justify-center p-2">
+                <LoadingIcon width={16} height={16} className="animate-spin" />
+            </div>
+        );
+    }, [hasNextPage]);
+
+    const itemContent = useCallback((index: number, notification: NotificationType) => {
+        return <NotificationItem notification={notification} key={`${notification.notificationId}-${index}`} />;
+    }, []);
 
     useNavigatorTitle(t`Notifications`);
 
@@ -61,26 +80,10 @@ export default function Notification() {
                 computeItemKey={(index, notification) => `${notification.notificationId}-${index}`}
                 data={data}
                 endReached={onEndReached}
-                itemContent={(index, notification) => {
-                    return (
-                        <NotificationItem notification={notification} key={`${notification.notificationId}-${index}`} />
-                    );
-                }}
+                itemContent={itemContent}
                 useWindowScroll
                 components={{
-                    Footer: () => {
-                        if (!hasNextPage)
-                            return (
-                                <div className="flex items-center justify-center p-6 text-base text-secondary">
-                                    <Trans>You&apos;ve hit rock bottom.</Trans>
-                                </div>
-                            );
-                        return (
-                            <div className="flex items-center justify-center p-2">
-                                <LoadingIcon width={16} height={16} className="animate-spin" />
-                            </div>
-                        );
-                    },
+                    Footer,
                 }}
             />
         </div>

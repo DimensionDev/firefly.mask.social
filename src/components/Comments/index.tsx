@@ -13,6 +13,7 @@ import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 import { VirtualList } from '@/components/VirtualList.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
 
 export interface CommentListProps {
     postId: string;
@@ -21,7 +22,6 @@ export interface CommentListProps {
 }
 
 export const CommentList = memo<CommentListProps>(function CommentList({ postId, source, exclude = [] }) {
-    const setScrollIndex = useGlobalState.use.setScrollIndex();
     const fetchAndStoreViews = useImpressionsStore.use.fetchAndStoreViews();
 
     const {
@@ -59,7 +59,20 @@ export const CommentList = memo<CommentListProps>(function CommentList({ postId,
         }
 
         await fetchNextPage();
-    }, [hasNextPage, isFetching, isFetchingNextPage]);
+    }, [hasNextPage, isFetching, isFetchingNextPage, fetchNextPage]);
+
+    const itemContent = useCallback((index: number, post: Post) => {
+        return <SinglePost post={post} key={`${post.postId}-${index}`} showMore />;
+    }, []);
+
+    const Footer = useCallback(() => {
+        if (!hasNextPage) return null;
+        return (
+            <div className="flex items-center justify-center p-2">
+                <LoadingIcon width={16} height={16} className="animate-spin" />
+            </div>
+        );
+    }, [hasNextPage]);
 
     if (results.length === 0) {
         return (
@@ -76,19 +89,10 @@ export const CommentList = memo<CommentListProps>(function CommentList({ postId,
                 computeItemKey={(index, post) => `${post.postId}-${index}`}
                 data={results}
                 endReached={onEndReached}
-                itemContent={(index, post) => {
-                    return <SinglePost post={post} key={`${post.postId}-${index}`} showMore />;
-                }}
+                itemContent={itemContent}
                 useWindowScroll
                 components={{
-                    Footer: () => {
-                        if (!hasNextPage) return null;
-                        return (
-                            <div className="flex items-center justify-center p-2">
-                                <LoadingIcon width={16} height={16} className="animate-spin" />
-                            </div>
-                        );
-                    },
+                    Footer,
                 }}
             />
         </div>
