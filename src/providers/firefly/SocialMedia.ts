@@ -13,7 +13,7 @@ import urlcat from 'urlcat';
 import { farcasterClient } from '@/configs/farcasterClient.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { FIREFLY_ROOT_URL } from '@/constants/index.js';
-import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { fetchCachedJSON, fetchJSON } from '@/helpers/fetchJSON.js';
 import { formatFarcasterPostFromFirefly } from '@/helpers/formatFarcasterPostFromFirefly.js';
 import { formatFarcasterProfileFromFirefly } from '@/helpers/formatFarcasterProfileFromFirefly.js';
 import { NeynarSocialMediaProvider } from '@/providers/neynar/SocialMedia.js';
@@ -41,6 +41,7 @@ import {
     type Reaction,
     SessionType,
 } from '@/providers/types/SocialMedia.js';
+import { Duration } from '@/helpers/fetchCached.js';
 
 export class FireflySocialMedia implements Provider {
     quotePost(postId: string, post: Post): Promise<string> {
@@ -155,9 +156,15 @@ export class FireflySocialMedia implements Provider {
                 fid: session?.profileId,
                 needRootParentHash: true,
             });
-            const { data: cast } = await fetchJSON<CastResponse>(url, {
-                method: 'GET',
-            });
+            const { data: cast } = await fetchCachedJSON<CastResponse>(
+                url,
+                {
+                    method: 'GET',
+                },
+                {
+                    cacheDuration: Duration.TEN_SECONDS,
+                },
+            );
 
             if (!cast) throw new Error('Post not found');
             return formatFarcasterPostFromFirefly(cast);
