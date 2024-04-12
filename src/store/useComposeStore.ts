@@ -94,6 +94,10 @@ interface ComposeState {
     loadFramesFromChars: (cursor?: Cursor) => Promise<void>;
     loadOpenGraphsFromChars: (cursor?: Cursor) => Promise<void>;
 
+    /** Tracking encrypted RedPacket payload in post */
+    encryptedRedPacketMap: Record<string, boolean>;
+    trackEncryptedRedPacket: (id: string) => void;
+
     // reset the editor
     clear: () => void;
 }
@@ -138,6 +142,18 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
         type: 'compose',
         cursor: initialPostCursor,
         posts: [createInitSinglePostState(initialPostCursor)],
+
+        encryptedRedPacketMap: {},
+        trackEncryptedRedPacket: (id: string) =>
+            set((state) => {
+                return {
+                    ...state,
+                    encryptedRedPacketMap: {
+                        ...state.encryptedRedPacketMap,
+                        [id]: true,
+                    },
+                };
+            }),
 
         computed: {
             get nextAvailablePost() {
@@ -429,6 +445,7 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
                     type: 'compose',
                     cursor: initialPostCursor,
                     posts: [createInitSinglePostState(initialPostCursor)],
+                    encryptedRedpacketMap: {},
                 }),
             ),
     })),

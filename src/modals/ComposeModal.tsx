@@ -12,7 +12,7 @@ import { useSingletonModal } from '@masknet/shared-base-ui';
 import type { TypedMessageTextV1 } from '@masknet/typed-message';
 import type { FireflyRedPacketAPI } from '@masknet/web3-providers/types';
 import { $getRoot } from 'lexical';
-import { forwardRef, useCallback, useRef } from 'react';
+import { forwardRef, useCallback } from 'react';
 import { useAsync } from 'react-use';
 import { None } from 'ts-results-es';
 import urlcat from 'urlcat';
@@ -92,6 +92,8 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
             updateChars,
             updateTypedMessage,
             updateRpPayload,
+            encryptedRedPacketMap,
+            trackEncryptedRedPacket,
             clear,
         } = useComposeStateStore();
         const compositePost = useCompositePost();
@@ -141,10 +143,10 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
             }
         }, [posts, dispatch]);
 
-        // To avoid recreating post content for Redpacket
-        const encryptedMapRef = useRef<Map<string, boolean>>(new Map());
+        // Avoid recreating post content for Redpacket
+        const hasEncrypted = encryptedRedPacketMap[id];
         const { loading: encryptRedPacketLoading } = useAsync(async () => {
-            if (!typedMessage || encryptedMapRef.current.has(id)) return;
+            if (!typedMessage || hasEncrypted) return;
             if (!hasRpPayload(typedMessage)) return;
 
             try {
@@ -178,18 +180,26 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
                         return profileLink ? t`Claim on ${resolveSourceName(x)}: ${urlcat(SITE_URL, profileLink)}` : '';
                     }),
                 ].join('\n');
+                updateChars([
+                    {
+                        tag: 'ff_rp',
+                        content: '#FireflyLuckyDrop',
+                        visible: true,
+                    },
+                    fullMessage,
+                ]);
 
                 setEditorContent(fullMessage);
 
                 addImage({
                     file: new File([secretImage], 'image.png', { type: 'image/png' }),
                 });
-                encryptedMapRef.current.set(id, true);
+                trackEncryptedRedPacket(id);
             } catch (error) {
                 enqueueErrorMessage(t`Failed to create image payload.`);
             }
             // each time the typedMessage changes, we need to check if it has a red packet payload
-        }, [typedMessage, rpPayload, id, currentProfileAll]);
+        }, [typedMessage, rpPayload, id, hasEncrypted, currentProfileAll]);
 
         return (
             <Modal open={open} onClose={onClose}>
