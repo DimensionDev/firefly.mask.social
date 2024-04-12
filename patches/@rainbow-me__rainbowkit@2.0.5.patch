@@ -1,0 +1,50 @@
+diff --git a/dist/index.d.ts b/dist/index.d.ts
+index 4c3fbba188f868781e308d0cb15fb9524d35760e..3a823b234c44c63f543a51d2f0e1207a19ff7444 100644
+--- a/dist/index.d.ts
++++ b/dist/index.d.ts
+@@ -1,23 +1,23 @@
+-export { ConnectButton } from './components/ConnectButton/ConnectButton';
+-export { WalletButton } from './components/WalletButton/WalletButton';
+-export { RainbowKitProvider } from './components/RainbowKitProvider/RainbowKitProvider';
+-export { getDefaultConfig } from './config/getDefaultConfig';
+-export { getDefaultWallets } from './wallets/getDefaultWallets';
+-export { getWalletConnectConnector } from './wallets/getWalletConnectConnector';
+-export { connectorsForWallets } from './wallets/connectorsForWallets';
+-export { useAccountModal, useChainModal, useConnectModal, } from './components/RainbowKitProvider/ModalContext';
+-export { useAddRecentTransaction } from './transactions/useAddRecentTransaction';
+-export { RainbowKitAuthenticationProvider, createAuthenticationAdapter, } from './components/RainbowKitProvider/AuthenticationContext';
+-export type { Wallet, WalletList, WalletDetailsParams, RainbowKitWalletConnectParameters, } from './wallets/Wallet';
+-export type { Theme } from './components/RainbowKitProvider/RainbowKitProvider';
+-export type { AuthenticationStatus, AuthenticationConfig, } from './components/RainbowKitProvider/AuthenticationContext';
+-export type { Locale } from './locales/';
+-export type { DisclaimerComponent } from './components/RainbowKitProvider/AppContext';
+-export type { AvatarComponent } from './components/RainbowKitProvider/AvatarContext';
+-export type { RainbowKitChain as Chain } from './components/RainbowKitProvider/RainbowKitChainContext';
+-export { lightTheme } from './themes/lightTheme';
+-export { darkTheme } from './themes/darkTheme';
+-export { midnightTheme } from './themes/midnightTheme';
+-export { cssStringFromTheme } from './css/cssStringFromTheme';
+-export { cssObjectFromTheme } from './css/cssObjectFromTheme';
++export { ConnectButton } from './components/ConnectButton/ConnectButton.js';
++export { WalletButton } from './components/WalletButton/WalletButton.js';
++export { RainbowKitProvider } from './components/RainbowKitProvider/RainbowKitProvider.js';
++export { getDefaultConfig } from './config/getDefaultConfig.js';
++export { getDefaultWallets } from './wallets/getDefaultWallets.js';
++export { getWalletConnectConnector } from './wallets/getWalletConnectConnector.js';
++export { connectorsForWallets } from './wallets/connectorsForWallets.js';
++export { useAccountModal, useChainModal, useConnectModal, } from './components/RainbowKitProvider/ModalContext.js';
++export { useAddRecentTransaction } from './transactions/useAddRecentTransaction.js';
++export { RainbowKitAuthenticationProvider, createAuthenticationAdapter, } from './components/RainbowKitProvider/AuthenticationContext.js';
++export type { Wallet, WalletList, WalletDetailsParams, RainbowKitWalletConnectParameters, } from './wallets/Wallet.js';
++export type { Theme } from './components/RainbowKitProvider/RainbowKitProvider.js';
++export type { AuthenticationStatus, AuthenticationConfig, } from './components/RainbowKitProvider/AuthenticationContext.js';
++export type { Locale } from './locales/index.js';
++export type { DisclaimerComponent } from './components/RainbowKitProvider/AppContext.js';
++export type { AvatarComponent } from './components/RainbowKitProvider/AvatarContext.js';
++export type { RainbowKitChain as Chain } from './components/RainbowKitProvider/RainbowKitChainContext.js';
++export { lightTheme } from './themes/lightTheme.js';
++export { darkTheme } from './themes/darkTheme.js';
++export { midnightTheme } from './themes/midnightTheme.js';
++export { cssStringFromTheme } from './css/cssStringFromTheme.js';
++export { cssObjectFromTheme } from './css/cssObjectFromTheme.js';
+ export { __private__ } from './__private__';
