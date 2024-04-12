@@ -2,7 +2,8 @@
 
 'use client';
 
-import { type Chain, getDefaultConfig, type Wallet } from '@rainbow-me/rainbowkit';
+import { t } from '@lingui/macro';
+import { type Chain, connectorsForWallets, type Wallet } from '@rainbow-me/rainbowkit';
 import {
     coinbaseWallet,
     metaMaskWallet,
@@ -10,7 +11,8 @@ import {
     rabbyWallet,
     walletConnectWallet,
 } from '@rainbow-me/rainbowkit/wallets';
-import { type Config } from 'wagmi';
+import { createClient, http } from 'viem';
+import { type Config, createConfig } from 'wagmi';
 import {
     arbitrum,
     aurora,
@@ -45,32 +47,44 @@ export const chains = [
     metis,
 ] as const satisfies Chain[];
 
-export const wallets = [
-    metaMaskWallet({
+export const connectors = connectorsForWallets(
+    [
+        {
+            groupName: t`Recommended`,
+            wallets: [
+                metaMaskWallet({
+                    projectId: process.env.NEXT_PUBLIC_W3M_PROJECT_ID,
+                    chains,
+                }),
+                walletConnectWallet({
+                    projectId: process.env.NEXT_PUBLIC_W3M_PROJECT_ID,
+                    chains,
+                }),
+                coinbaseWallet({
+                    appName: SITE_HOSTNAME,
+                    chains,
+                }),
+                rabbyWallet({
+                    name: SITE_HOSTNAME,
+                    chains,
+                }),
+                okxWallet({
+                    projectId: process.env.NEXT_PUBLIC_W3M_PROJECT_ID,
+                    chains,
+                }),
+            ] as const satisfies Wallet[],
+        },
+    ],
+    {
         projectId: process.env.NEXT_PUBLIC_W3M_PROJECT_ID,
-        chains,
-    }),
-    walletConnectWallet({
-        projectId: process.env.NEXT_PUBLIC_W3M_PROJECT_ID,
-        chains,
-    }),
-    coinbaseWallet({
         appName: SITE_HOSTNAME,
-        chains,
-    }),
-    rabbyWallet({
-        name: SITE_HOSTNAME,
-        chains,
-    }),
-    okxWallet({
-        projectId: process.env.NEXT_PUBLIC_W3M_PROJECT_ID,
-        chains,
-    }),
-] as const satisfies Wallet[];
+    },
+);
 
-export const config = getDefaultConfig({
-    appName: SITE_HOSTNAME,
-    projectId: process.env.NEXT_PUBLIC_W3M_PROJECT_ID,
+export const config = createConfig({
     chains,
-    wallets,
+    connectors,
+    client({ chain }) {
+        return createClient({ chain, transport: http() });
+    },
 }) as Config;

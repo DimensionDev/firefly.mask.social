@@ -394,6 +394,9 @@ msgstr "Failed to unlike."
 msgid "Like"
 msgstr "Like"
 
+msgid "Recommended"
+msgstr "Recommended"
+
 msgid "Please input the frame url to be revalidated."
 msgstr "Please input the frame url to be revalidated."
 

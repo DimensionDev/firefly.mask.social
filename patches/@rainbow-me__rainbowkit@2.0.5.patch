@@ -1,3 +1,28 @@
+diff --git a/dist/components/index.d.ts b/dist/components/index.d.ts
+index fee89786b2f15cc0d4623660f3495fb13849d6dd..e0aab50f931b0cee08d429c654c8a61a8b6bbf86 100644
+--- a/dist/components/index.d.ts
++++ b/dist/components/index.d.ts
+@@ -1,3 +1,3 @@
+-export { ConnectButton } from './ConnectButton/ConnectButton';
+-export { WalletButton } from './WalletButton/WalletButton';
+-export { RainbowKitProvider } from './RainbowKitProvider/RainbowKitProvider';
++export { ConnectButton } from './ConnectButton/ConnectButton.js';
++export { WalletButton } from './WalletButton/WalletButton.js';
++export { RainbowKitProvider } from './RainbowKitProvider/RainbowKitProvider.js';
+diff --git a/dist/config/getDefaultConfig.d.ts b/dist/config/getDefaultConfig.d.ts
+index d308d633ca4338d8e1f95372b030dbcf3c671331..4caca46fd0ab38b8fdbc75a2919a55a1567b5d0b 100644
+--- a/dist/config/getDefaultConfig.d.ts
++++ b/dist/config/getDefaultConfig.d.ts
+@@ -1,7 +1,7 @@
+ import type { Transport } from 'viem';
+ import { CreateConfigParameters } from 'wagmi';
+-import type { RainbowKitChain } from '../components/RainbowKitProvider/RainbowKitChainContext';
+-import type { WalletList } from '../wallets/Wallet';
++import type { RainbowKitChain } from '../components/RainbowKitProvider/RainbowKitChainContext.js';
++import type { WalletList } from '../wallets/Wallet.js';
+ export type _chains = readonly [RainbowKitChain, ...RainbowKitChain[]];
+ export type _transports = Record<_chains[number]['id'], Transport>;
+ interface GetDefaultConfigParameters<chains extends _chains, transports extends _transports> extends Omit<CreateConfigParameters<chains, transports>, 'client' | 'connectors'> {
 diff --git a/dist/index.d.ts b/dist/index.d.ts
 index 4c3fbba188f868781e308d0cb15fb9524d35760e..3a823b234c44c63f543a51d2f0e1207a19ff7444 100644
 --- a/dist/index.d.ts
@@ -48,3 +73,123 @@ index 4c3fbba188f868781e308d0cb15fb9524d35760e..3a823b234c44c63f543a51d2f0e1207a
 +export { cssStringFromTheme } from './css/cssStringFromTheme.js';
 +export { cssObjectFromTheme } from './css/cssObjectFromTheme.js';
  export { __private__ } from './__private__';
+diff --git a/dist/wallets/Wallet.d.ts b/dist/wallets/Wallet.d.ts
+index 22199dae62236c104029c9668ec14d7b31f7e71a..ba6e5489a734a0975615deed74f55da3465df70a 100644
+--- a/dist/wallets/Wallet.d.ts
++++ b/dist/wallets/Wallet.d.ts
+@@ -1,7 +1,7 @@
+ import { Connector, CreateConnectorFn } from 'wagmi';
+ import { WalletConnectParameters } from 'wagmi/connectors';
+-import { CoinbaseWalletOptions } from './walletConnectors/coinbaseWallet/coinbaseWallet';
+-import { WalletConnectWalletOptions } from './walletConnectors/walletConnectWallet/walletConnectWallet';
++import { CoinbaseWalletOptions } from './walletConnectors/coinbaseWallet/coinbaseWallet.js';
++import { WalletConnectWalletOptions } from './walletConnectors/walletConnectWallet/walletConnectWallet.js';
+ export type InstructionStepName = 'install' | 'create' | 'scan' | 'connect' | 'refresh';
+ type RainbowKitConnector = {
+     mobile?: {
+diff --git a/dist/wallets/walletConnectors/index.d.ts b/dist/wallets/walletConnectors/index.d.ts
+index 6edf10a7163bb83b67e7f4a3f8033a30286035fd..7cce3a3652f383aa25cfc073c1db3c86641db2d7 100644
+--- a/dist/wallets/walletConnectors/index.d.ts
++++ b/dist/wallets/walletConnectors/index.d.ts
+@@ -1,51 +1,51 @@
+-import { argentWallet } from './argentWallet/argentWallet';
+-import { bifrostWallet } from './bifrostWallet/bifrostWallet';
+-import { bitgetWallet } from './bitgetWallet/bitgetWallet';
+-import { bitskiWallet } from './bitskiWallet/bitskiWallet';
+-import { bitverseWallet } from './bitverseWallet/bitverseWallet';
+-import { bloomWallet } from './bloomWallet/bloomWallet';
+-import { braveWallet } from './braveWallet/braveWallet';
+-import { bybitWallet } from './bybitWallet/bybitWallet';
+-import { clvWallet } from './clvWallet/clvWallet';
+-import { coin98Wallet } from './coin98Wallet/coin98Wallet';
+-import { coinbaseWallet } from './coinbaseWallet/coinbaseWallet';
+-import { coreWallet } from './coreWallet/coreWallet';
+-import { dawnWallet } from './dawnWallet/dawnWallet';
+-import { desigWallet } from './desigWallet/desigWallet';
+-import { enkryptWallet } from './enkryptWallet/enkryptWallet';
+-import { foxWallet } from './foxWallet/foxWallet';
+-import { frameWallet } from './frameWallet/frameWallet';
+-import { frontierWallet } from './frontierWallet/frontierWallet';
+-import { gateWallet } from './gateWallet/gateWallet';
+-import { imTokenWallet } from './imTokenWallet/imTokenWallet';
+-import { injectedWallet } from './injectedWallet/injectedWallet';
+-import { kaikasWallet } from './kaikasWallet/kaikasWallet';
+-import { kresusWallet } from './kresusWallet/kresusWallet';
+-import { ledgerWallet } from './ledgerWallet/ledgerWallet';
+-import { metaMaskWallet } from './metaMaskWallet/metaMaskWallet';
+-import { mewWallet } from './mewWallet/mewWallet';
+-import { oktoWallet } from './oktoWallet/oktoWallet';
+-import { okxWallet } from './okxWallet/okxWallet';
+-import { omniWallet } from './omniWallet/omniWallet';
+-import { oneInchWallet } from './oneInchWallet/oneInchWallet';
+-import { oneKeyWallet } from './oneKeyWallet/oneKeyWallet';
+-import { phantomWallet } from './phantomWallet/phantomWallet';
+-import { rabbyWallet } from './rabbyWallet/rabbyWallet';
+-import { rainbowWallet } from './rainbowWallet/rainbowWallet';
+-import { ramperWallet } from './ramperWallet/ramperWallet';
+-import { roninWallet } from './roninWallet/roninWallet';
+-import { safeWallet } from './safeWallet/safeWallet';
+-import { safeheronWallet } from './safeheronWallet/safeheronWallet';
+-import { safepalWallet } from './safepalWallet/safepalWallet';
+-import { subWallet } from './subWallet/subWallet';
+-import { tahoWallet } from './tahoWallet/tahoWallet';
+-import { talismanWallet } from './talismanWallet/talismanWallet';
+-import { tokenPocketWallet } from './tokenPocketWallet/tokenPocketWallet';
+-import { tokenaryWallet } from './tokenaryWallet/tokenaryWallet';
+-import { trustWallet } from './trustWallet/trustWallet';
+-import { uniswapWallet } from './uniswapWallet/uniswapWallet';
+-import { walletConnectWallet } from './walletConnectWallet/walletConnectWallet';
+-import { xdefiWallet } from './xdefiWallet/xdefiWallet';
+-import { zealWallet } from './zealWallet/zealWallet';
+-import { zerionWallet } from './zerionWallet/zerionWallet';
++import { argentWallet } from './argentWallet/argentWallet.js';
++import { bifrostWallet } from './bifrostWallet/bifrostWallet.js';
++import { bitgetWallet } from './bitgetWallet/bitgetWallet.js';
++import { bitskiWallet } from './bitskiWallet/bitskiWallet.js';
++import { bitverseWallet } from './bitverseWallet/bitverseWallet.js';
++import { bloomWallet } from './bloomWallet/bloomWallet.js';
++import { braveWallet } from './braveWallet/braveWallet.js';
++import { bybitWallet } from './bybitWallet/bybitWallet.js';
++import { clvWallet } from './clvWallet/clvWallet.js';
++import { coin98Wallet } from './coin98Wallet/coin98Wallet.js';
++import { coinbaseWallet } from './coinbaseWallet/coinbaseWallet.js';
++import { coreWallet } from './coreWallet/coreWallet.js';
++import { dawnWallet } from './dawnWallet/dawnWallet.js';
++import { desigWallet } from './desigWallet/desigWallet.js';
++import { enkryptWallet } from './enkryptWallet/enkryptWallet.js';
++import { foxWallet } from './foxWallet/foxWallet.js';
++import { frameWallet } from './frameWallet/frameWallet.js';
++import { frontierWallet } from './frontierWallet/frontierWallet.js';
++import { gateWallet } from './gateWallet/gateWallet.js';
++import { imTokenWallet } from './imTokenWallet/imTokenWallet.js';
++import { injectedWallet } from './injectedWallet/injectedWallet.js';
++import { kaikasWallet } from './kaikasWallet/kaikasWallet.js';
++import { kresusWallet } from './kresusWallet/kresusWallet.js';
++import { ledgerWallet } from './ledgerWallet/ledgerWallet.js';
++import { metaMaskWallet } from './metaMaskWallet/metaMaskWallet.js';
++import { mewWallet } from './mewWallet/mewWallet.js';
++import { oktoWallet } from './oktoWallet/oktoWallet.js';
++import { okxWallet } from './okxWallet/okxWallet.js';
++import { omniWallet } from './omniWallet/omniWallet.js';
++import { oneInchWallet } from './oneInchWallet/oneInchWallet.js';
++import { oneKeyWallet } from './oneKeyWallet/oneKeyWallet.js';
++import { phantomWallet } from './phantomWallet/phantomWallet.js';
++import { rabbyWallet } from './rabbyWallet/rabbyWallet.js';
++import { rainbowWallet } from './rainbowWallet/rainbowWallet.js';
++import { ramperWallet } from './ramperWallet/ramperWallet.js';
++import { roninWallet } from './roninWallet/roninWallet.js';
++import { safeWallet } from './safeWallet/safeWallet.js';
++import { safeheronWallet } from './safeheronWallet/safeheronWallet.js';
++import { safepalWallet } from './safepalWallet/safepalWallet.js';
++import { subWallet } from './subWallet/subWallet.js';
++import { tahoWallet } from './tahoWallet/tahoWallet.js';
++import { talismanWallet } from './talismanWallet/talismanWallet.js';
++import { tokenPocketWallet } from './tokenPocketWallet/tokenPocketWallet.js';
++import { tokenaryWallet } from './tokenaryWallet/tokenaryWallet.js';
++import { trustWallet } from './trustWallet/trustWallet.js';
++import { uniswapWallet } from './uniswapWallet/uniswapWallet.js';
++import { walletConnectWallet } from './walletConnectWallet/walletConnectWallet.js';
++import { xdefiWallet } from './xdefiWallet/xdefiWallet.js';
++import { zealWallet } from './zealWallet/zealWallet.js';
++import { zerionWallet } from './zerionWallet/zerionWallet.js';
+ export { argentWallet, bifrostWallet, bitgetWallet, bitskiWallet, bitverseWallet, bloomWallet, bybitWallet, braveWallet, clvWallet, coin98Wallet, coinbaseWallet, coreWallet, dawnWallet, desigWallet, enkryptWallet, foxWallet, frameWallet, frontierWallet, gateWallet, imTokenWallet, injectedWallet, kaikasWallet, kresusWallet, ledgerWallet, metaMaskWallet, mewWallet, oktoWallet, okxWallet, omniWallet, oneInchWallet, oneKeyWallet, phantomWallet, rabbyWallet, rainbowWallet, ramperWallet, roninWallet, safeWallet, safeheronWallet, safepalWallet, subWallet, tahoWallet, talismanWallet, tokenaryWallet, tokenPocketWallet, trustWallet, uniswapWallet, walletConnectWallet, xdefiWallet, zealWallet, zerionWallet, };
