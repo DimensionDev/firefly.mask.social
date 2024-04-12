@@ -1,5 +1,5 @@
 import urlcat from 'urlcat';
-import type { GetWalletClientResult } from 'wagmi/actions';
+import type { GetWalletClientReturnType } from 'wagmi/actions';
 
 import { WARPCAST_ROOT_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
@@ -13,7 +13,10 @@ import type { UserResponse } from '@/providers/types/Warpcast.js';
  * @param signal
  * @returns
  */
-export async function createSessionByCustodyWallet(client: Exclude<GetWalletClientResult, null>, signal?: AbortSignal) {
+export async function createSessionByCustodyWallet(
+    client: Exclude<GetWalletClientReturnType, null>,
+    signal?: AbortSignal,
+) {
     const { payload, token } = await generateCustodyBearer(client);
 
     const authUrl = urlcat(WARPCAST_ROOT_URL, '/auth');
