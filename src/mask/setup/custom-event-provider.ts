@@ -57,14 +57,16 @@ document.addEventListener(
                     return;
                 }
                 case EthereumMethodType.ETH_SEND_TRANSACTION: {
-                    const config = requestArguments.params[0];
+                    const transactionConfig = requestArguments.params[0];
                     const hash = await sendTransaction(config, {
-                        ...config,
-                        gas: hexToBigInt(config.gas),
-                        gasPrice: config.gasPrice ? hexToBigInt(config.gasPrice) : undefined,
-                        maxFeePerGas: config.maxFeePerGas ? hexToBigInt(config.maxFeePerGas) : undefined,
-                        maxPriorityFeePerGas: config.maxPriorityFeePerGas
-                            ? hexToBigInt(config.maxPriorityFeePerGas)
+                        ...transactionConfig,
+                        gas: hexToBigInt(transactionConfig.gas),
+                        gasPrice: transactionConfig.gasPrice ? hexToBigInt(transactionConfig.gasPrice) : undefined,
+                        maxFeePerGas: transactionConfig.maxFeePerGas
+                            ? hexToBigInt(transactionConfig.maxFeePerGas)
+                            : undefined,
+                        maxPriorityFeePerGas: transactionConfig.maxPriorityFeePerGas
+                            ? hexToBigInt(transactionConfig.maxPriorityFeePerGas)
                             : undefined,
                     });
                     dispatchEvent(hash);
