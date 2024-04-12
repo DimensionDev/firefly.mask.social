@@ -71,7 +71,7 @@
         "lodash-es": "^4.17.21",
         "long": "^5.2.3",
         "next": "^14.1.0",
-        "next-auth": "^4.24.6",
+        "next-auth": "^4.24.7",
         "next-scroll-restorer": "^0.6.14",
         "notistack": "2.0.8",
         "plyr-react": "^5.3.0",
@@ -101,7 +101,7 @@
         "viem": "^1.16.2",
         "wagmi": "^1.4.13",
         "zod": "^3.22.4",
-        "zustand": "^4.4.4"
+        "zustand": "^4.5.2"
     },
     "peerDependencies": {
         "react-i18next": "13.0.2"
