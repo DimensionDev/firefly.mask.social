@@ -58,9 +58,22 @@ export const S3_BUCKET = {
 
 // Compose Dialog
 export const MAX_POST_SIZE_PER_THREAD = process.env.NODE_ENV === 'development' ? 5 : 25;
-export const MAX_CHAR_SIZE_PER_POST = 320;
-export const DANGER_CHAR_LIMIT = 300;
-export const SAFE_CHAR_LIMIT = 230;
+
+export const MAX_CHAR_SIZE_PER_POST: Record<SocialPlatform, number> = {
+    [SocialPlatform.Lens]: 5000,
+    [SocialPlatform.Farcaster]: 320,
+    [SocialPlatform.Twitter]: 280,
+};
+export const DANGER_CHAR_LIMIT: Record<SocialPlatform, number> = {
+    [SocialPlatform.Lens]: Math.floor(MAX_CHAR_SIZE_PER_POST[SocialPlatform.Lens] * 0.93),
+    [SocialPlatform.Farcaster]: Math.floor(MAX_CHAR_SIZE_PER_POST[SocialPlatform.Farcaster] * 0.93),
+    [SocialPlatform.Twitter]: Math.floor(MAX_CHAR_SIZE_PER_POST[SocialPlatform.Twitter] * 0.93),
+};
+export const SAFE_CHAR_LIMIT: Record<SocialPlatform, number> = {
+    [SocialPlatform.Lens]: Math.floor(MAX_CHAR_SIZE_PER_POST[SocialPlatform.Lens] * 0.82),
+    [SocialPlatform.Farcaster]: Math.floor(MAX_CHAR_SIZE_PER_POST[SocialPlatform.Farcaster] * 0.82),
+    [SocialPlatform.Twitter]: Math.floor(MAX_CHAR_SIZE_PER_POST[SocialPlatform.Twitter] * 0.82),
+};
 
 // Search Bar
 export const MAX_SEARCH_RECORD_SIZE = 5;

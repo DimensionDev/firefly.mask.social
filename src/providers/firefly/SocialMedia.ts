@@ -489,9 +489,9 @@ export class FireflySocialMedia implements Provider {
         });
     }
 
-    async getThreadByPostId(postId: string) {
+    async getThreadByPostId(postId: string, rootPost?: Post) {
         return farcasterClient.withSession(async (session) => {
-            const post = await this.getPostById(postId);
+            const post = rootPost ?? (await this.getPostById(postId));
 
             const { data } = await fetchJSON<ThreadResponse>(
                 urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/cast/threads', {
