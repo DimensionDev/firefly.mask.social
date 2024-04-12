@@ -2,7 +2,7 @@
 
 'use client';
 
-import { connectorsForWallets, RainbowKitProvider, type Chain } from '@rainbow-me/rainbowkit';
+import { type Chain, getDefaultConfig, RainbowKitProvider } from '@rainbow-me/rainbowkit';
 import {
     coinbaseWallet,
     metaMaskWallet,
@@ -10,8 +10,7 @@ import {
     rabbyWallet,
     walletConnectWallet,
 } from '@rainbow-me/rainbowkit/wallets';
-import { type FallbackTransport } from 'viem';
-import { type Config, configureChains, createConfig, type PublicClient, type WebSocketPublicClient } from 'wagmi';
+import { type Config } from 'wagmi';
 import {
     arbitrum,
     aurora,
@@ -26,7 +25,6 @@ import {
     optimism,
     polygon,
 } from 'wagmi/chains';
-import { publicProvider } from 'wagmi/providers/public';
 
 import { SITE_HOSTNAME, SITE_URL } from '@/constants/index.js';
 
@@ -47,52 +45,48 @@ const x1test = {
         default: { http: ['https://testrpc.x1.tech'] },
         public: { http: ['https://testrpc.x1.tech'] },
     },
-    network: 'X1Test',
 } as const satisfies Chain;
 
-const { chains, publicClient, webSocketPublicClient } = configureChains(
-    [mainnet, base, polygon, optimism, bsc, arbitrum, gnosis, avalanche, aurora, confluxESpace, fantom, x1test, metis],
-    [publicProvider()],
-) as {
-    readonly chains: Chain[];
-    readonly publicClient: (options: { chainId?: number | undefined }) => PublicClient<FallbackTransport>;
-    readonly webSocketPublicClient: (options: {
-        chainId?: number | undefined;
-    }) => WebSocketPublicClient<FallbackTransport> | undefined;
-};
-export { chains, publicClient, webSocketPublicClient };
+const chains = [
+    mainnet,
+    base,
+    polygon,
+    optimism,
+    bsc,
+    arbitrum,
+    gnosis,
+    avalanche,
+    aurora,
+    confluxESpace,
+    fantom,
+    x1test,
+    metis,
+] as const satisfies Chain[];
 
-const connectors = connectorsForWallets([
-    {
-        groupName: 'Recommended',
-        wallets: [
-            metaMaskWallet({
-                projectId: process.env.NEXT_PUBLIC_W3M_PROJECT_ID,
-                chains,
-            }),
-            walletConnectWallet({
-                projectId: process.env.NEXT_PUBLIC_W3M_PROJECT_ID,
-                chains,
-            }),
-            coinbaseWallet({
-                appName: SITE_HOSTNAME,
-                chains,
-            }),
-            rabbyWallet({
-                name: SITE_HOSTNAME,
-                chains,
-            }),
-            okxWallet({
-                projectId: process.env.NEXT_PUBLIC_W3M_PROJECT_ID,
-                chains,
-            }),
-        ],
-    },
-]);
-
-export const config = createConfig({
-    autoConnect: process.env.NODE_ENV !== 'test',
-    connectors,
-    publicClient,
-    webSocketPublicClient,
+export const config = getDefaultConfig({
+    appName: SITE_HOSTNAME,
+    projectId: process.env.NEXT_PUBLIC_W3M_PROJECT_ID,
+    chains,
+    wallets: [
+        metaMaskWallet({
+            projectId: process.env.NEXT_PUBLIC_W3M_PROJECT_ID,
+            chains,
+        }),
+        walletConnectWallet({
+            projectId: process.env.NEXT_PUBLIC_W3M_PROJECT_ID,
+            chains,
+        }),
+        coinbaseWallet({
+            appName: SITE_HOSTNAME,
+            chains,
+        }),
+        rabbyWallet({
+            name: SITE_HOSTNAME,
+            chains,
+        }),
+        okxWallet({
+            projectId: process.env.NEXT_PUBLIC_W3M_PROJECT_ID,
+            chains,
+        }),
+    ],
 }) as Config;

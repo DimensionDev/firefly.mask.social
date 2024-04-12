@@ -7,7 +7,7 @@ import { useMemo } from 'react';
 import { polygon } from 'viem/chains';
 import { WagmiConfig } from 'wagmi';
 
-import { appInfo, chains, config } from '@/configs/wagmiClient.js';
+import { config } from '@/configs/wagmiClient.js';
 import { useDarkMode } from '@/hooks/useDarkMode.js';
 
 export interface WagmiProviderProps {
@@ -21,13 +21,7 @@ export function WagmiProvider(props: WagmiProviderProps) {
     }, [isDarkMode]);
     return (
         <WagmiConfig config={config}>
-            <RainbowKitProvider
-                theme={theme}
-                chains={chains}
-                initialChain={polygon}
-                appInfo={appInfo}
-                showRecentTransactions
-            >
+            <RainbowKitProvider theme={theme} initialChain={polygon} showRecentTransactions>
                 {props.children}
             </RainbowKitProvider>
         </WagmiConfig>
