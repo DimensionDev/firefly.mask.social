@@ -1,12 +1,13 @@
 import type { SVGAttributes } from 'react';
 
-import { DANGER_CHAR_LIMIT, MAX_CHAR_SIZE_PER_POST, SAFE_CHAR_LIMIT } from '@/constants/index.js';
+import { getCurrentPostLimits } from '@/helpers/getCurrentPostLimits.js';
 
 interface Props extends SVGAttributes<SVGElement> {
     count: number;
 }
 
 export function CountdownCircle({ count, ...rest }: Props) {
+    const { SAFE_CHAR_LIMIT, DANGER_CHAR_LIMIT, MAX_CHAR_SIZE_PER_POST } = getCurrentPostLimits();
     const isGreen = count < SAFE_CHAR_LIMIT;
     const isWarning = count > SAFE_CHAR_LIMIT && count < DANGER_CHAR_LIMIT;
     const color = isGreen ? 'rgba(61, 194, 51, 0.5)' : isWarning ? 'rgba(255, 177, 0, 0.5)' : 'rgba(255, 53, 69, 0.5)';

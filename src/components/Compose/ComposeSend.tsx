@@ -8,8 +8,9 @@ import Send2Icon from '@/assets/send2.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { CountdownCircle } from '@/components/Compose/CountdownCircle.js';
 import { Tooltip } from '@/components/Tooltip.js';
-import { MAX_CHAR_SIZE_PER_POST, MAX_POST_SIZE_PER_THREAD } from '@/constants/index.js';
+import { MAX_POST_SIZE_PER_THREAD } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
+import { getCurrentPostLimits } from '@/helpers/getCurrentPostLimits.js';
 import { isValidPost } from '@/helpers/isValidPost.js';
 import { measureChars } from '@/helpers/readChars.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
@@ -26,6 +27,7 @@ interface ComposeSendProps extends React.HTMLAttributes<HTMLDivElement> {
 export function ComposeSend(props: ComposeSendProps) {
     const { type, posts, addPostInThread } = useComposeStateStore();
 
+    const { MAX_CHAR_SIZE_PER_POST } = getCurrentPostLimits();
     const { visibleLength, invisibleLength } = measureChars(props.post.chars);
 
     const isMedium = useIsMedium();
