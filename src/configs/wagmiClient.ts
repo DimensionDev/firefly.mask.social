@@ -2,7 +2,7 @@
 
 'use client';
 
-import { connectorsForWallets, RainbowKitProvider } from '@rainbow-me/rainbowkit';
+import { connectorsForWallets, RainbowKitProvider, type Chain } from '@rainbow-me/rainbowkit';
 import {
     coinbaseWallet,
     metaMaskWallet,
@@ -18,7 +18,6 @@ import {
     avalanche,
     base,
     bsc,
-    type Chain,
     confluxESpace,
     fantom,
     gnosis,
@@ -63,7 +62,7 @@ const { chains, publicClient, webSocketPublicClient } = configureChains(
 };
 export { chains, publicClient, webSocketPublicClient };
 
-export const connectors = connectorsForWallets([
+const connectors = connectorsForWallets([
     {
         groupName: 'Recommended',
         wallets: [
