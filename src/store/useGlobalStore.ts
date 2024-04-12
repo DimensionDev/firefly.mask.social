@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
 
-import { ScrollListKey, SocialPlatform, SourceInURL } from '@/constants/enum.js';
+import { SocialPlatform, SourceInURL } from '@/constants/enum.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 import { resolveSocialPlatform } from '@/helpers/resolveSocialPlatform.js';
 

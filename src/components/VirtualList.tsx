@@ -1,9 +1,9 @@
-import type { ScrollListKey } from '@/constants/enum.js';
-import { useGlobalState } from '@/store/useGlobalStore.js';
 import { floor } from 'lodash-es';
-import React, { useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import { useMount } from 'react-use';
-import { Virtuoso, type VirtuosoProps, type VirtuosoHandle } from 'react-virtuoso';
+import { Virtuoso, type VirtuosoHandle,type VirtuosoProps } from 'react-virtuoso';
+
+import { useGlobalState } from '@/store/useGlobalStore.js';
 
 interface VirtualListProps<ItemData = any, Context = any> extends VirtuosoProps<ItemData, Context> {
     listKey?: string;

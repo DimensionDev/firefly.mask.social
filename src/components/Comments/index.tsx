@@ -7,13 +7,12 @@ import LoadingIcon from '@/assets/loading.svg';
 import MessageIcon from '@/assets/message.svg';
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { SinglePost } from '@/components/Posts/SinglePost.js';
-import { ScrollListKey, SocialPlatform } from '@/constants/enum.js';
+import { VirtualList } from '@/components/VirtualList.js';
+import { SocialPlatform } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
-import { useImpressionsStore } from '@/store/useImpressionsStore.js';
-import { VirtualList } from '@/components/VirtualList.js';
-import { useGlobalState } from '@/store/useGlobalStore.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
+import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 
 export interface CommentListProps {
     postId: string;

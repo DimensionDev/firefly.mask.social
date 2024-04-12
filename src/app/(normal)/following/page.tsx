@@ -3,12 +3,14 @@
 import { t, Trans } from '@lingui/macro';
 import { createIndicator, EMPTY_LIST } from '@masknet/shared-base';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
+import { useCallback } from 'react';
 
 import BlackHoleIcon from '@/assets/black-hole.svg';
 import LoadingIcon from '@/assets/loading.svg';
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { SinglePost } from '@/components/Posts/SinglePost.js';
+import { VirtualList } from '@/components/VirtualList.js';
 import { ScrollListKey, SocialPlatform } from '@/constants/enum.js';
 import { SORTED_SOURCES } from '@/constants/index.js';
 import { mergeThreadPosts } from '@/helpers/mergeThreadPosts.js';
@@ -17,11 +19,9 @@ import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfileAll.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
-import { VirtualList } from '@/components/VirtualList.js';
-import { useCallback } from 'react';
-import type { Post } from '@/providers/types/SocialMedia.js';
 
 export default function Following() {
     const setScrollIndex = useGlobalState.use.setScrollIndex();

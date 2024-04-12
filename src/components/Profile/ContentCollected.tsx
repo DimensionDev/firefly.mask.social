@@ -1,20 +1,20 @@
 import { Trans } from '@lingui/macro';
 import { createIndicator, createPageable } from '@masknet/shared-base';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
+import { useCallback } from 'react';
 
 import BlackHoleIcon from '@/assets/black-hole.svg';
 import LoadingIcon from '@/assets/loading.svg';
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { SinglePost } from '@/components/Posts/SinglePost.js';
+import { VirtualList } from '@/components/VirtualList.js';
 import { ScrollListKey, SocialPlatform } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { mergeThreadPosts } from '@/helpers/mergeThreadPosts.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
-import { useImpressionsStore } from '@/store/useImpressionsStore.js';
-import { useCallback } from 'react';
-import { VirtualList } from '@/components/VirtualList.js';
-import { useGlobalState } from '@/store/useGlobalStore.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
+import { useGlobalState } from '@/store/useGlobalStore.js';
+import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 
 interface ContentFeedProps {
     profileId: string;
