@@ -156,15 +156,9 @@ export class FireflySocialMedia implements Provider {
                 fid: session?.profileId,
                 needRootParentHash: true,
             });
-            const { data: cast } = await fetchCachedJSON<CastResponse>(
-                url,
-                {
-                    method: 'GET',
-                },
-                {
-                    squashDuration: Duration.TEN_SECONDS,
-                },
-            );
+            const { data: cast } = await fetchJSON<CastResponse>(url, {
+                method: 'GET',
+            });
 
             if (!cast) throw new Error('Post not found');
             return formatFarcasterPostFromFirefly(cast);
@@ -496,9 +490,9 @@ export class FireflySocialMedia implements Provider {
         });
     }
 
-    async getThreadByPostId(postId: string) {
+    async getThreadByPostId(postId: string, rootPost?: Post) {
         return farcasterClient.withSession(async (session) => {
-            const post = await this.getPostById(postId);
+            const post = rootPost ?? (await this.getPostById(postId));
 
             const { data } = await fetchJSON<ThreadResponse>(
                 urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/cast/threads', {
