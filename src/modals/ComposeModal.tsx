@@ -194,6 +194,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
                 addImage({
                     file: new File([secretImage], 'image.png', { type: 'image/png' }),
                 });
+
                 trackEncryptedRedPacket(id);
             } catch (error) {
                 enqueueErrorMessage(t`Failed to create image payload.`);
