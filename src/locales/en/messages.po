@@ -121,6 +121,9 @@ msgstr "Page not found"
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/> and # others}} <4>liked your </4><5><6/></5>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/> and # others}} <4>liked your </4><5><6/></5>"
 
+msgid "Failed to upload to Arweave"
+msgstr "Failed to upload to Arweave"
+
 msgid "Password"
 msgstr "Password"
 
