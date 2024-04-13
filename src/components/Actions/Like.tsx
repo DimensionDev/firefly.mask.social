@@ -10,6 +10,7 @@ import LoadingIcon from '@/assets/loading.svg';
 import { toggleLike } from '@/components/Actions/helpers.js';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { Tooltip } from '@/components/Tooltip.js';
+import { config } from '@/configs/wagmiClient.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
@@ -36,7 +37,7 @@ export const Like = memo<LikeProps>(function Like({ count, hasLiked, postId, aut
         if (!postId) return null;
 
         if (!isLogin) {
-            if (source === SocialPlatform.Lens) await getWalletClientRequired();
+            if (source === SocialPlatform.Lens) await getWalletClientRequired(config);
             LoginModalRef.open({ source });
             return;
         }

@@ -18,6 +18,7 @@ import { LoginTwitter } from '@/components/Login/LoginTwitter.js';
 import { Modal } from '@/components/Modal.js';
 import { Popover } from '@/components/Popover.js';
 import { queryClient } from '@/configs/queryClient.js';
+import { config } from '@/configs/wagmiClient.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { EMPTY_LIST, SORTED_SOURCES } from '@/constants/index.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
@@ -42,7 +43,7 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | 
         try {
             switch (selectedSource) {
                 case SocialPlatform.Lens: {
-                    const { account } = await getWalletClientRequired();
+                    const { account } = await getWalletClientRequired(config);
                     const profiles = await queryClient.fetchQuery({
                         queryKey: ['lens', 'profiles', account.address],
                         queryFn: async () => {

@@ -1,13 +1,14 @@
 import { EVMWeb3 } from '@masknet/web3-providers';
 import { ChainId, isValidChainId, ProviderType } from '@masknet/web3-shared-evm';
-import { getAccount, getNetwork } from 'wagmi/actions';
+import { getAccount } from 'wagmi/actions';
+
+import { config } from '@/configs/wagmiClient.js';
 
 export async function connectMaskWithWagmi() {
-    const account = getAccount();
+    const account = getAccount(config);
     if (!account.isConnected) return;
 
-    const network = getNetwork();
-    const chainId = network.chain?.id ?? ChainId.Mainnet;
+    const chainId = account.chain?.id ?? ChainId.Mainnet;
     if (!isValidChainId(chainId)) return;
 
     await EVMWeb3.connect({

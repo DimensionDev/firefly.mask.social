@@ -2,6 +2,7 @@ import { t } from '@lingui/macro';
 import { memo } from 'react';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
+import { config } from '@/configs/wagmiClient.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { Image } from '@/esm/Image.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -30,7 +31,7 @@ export const NotLoginFallback = memo<NotLoginFallbackProps>(function LoginFallba
                         : 'text-farcasterPrimary ring-farcasterPrimary hover:bg-[#9250FF]/20 hover:shadow-[0_0_16px_0_rgba(101,119,134,0.20)]',
                 )}
                 onClick={async () => {
-                    if (source === SocialPlatform.Lens) await getWalletClientRequired();
+                    if (source === SocialPlatform.Lens) await getWalletClientRequired(config);
                     LoginModalRef.open({ source });
                 }}
             >
