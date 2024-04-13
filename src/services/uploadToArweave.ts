@@ -1,3 +1,4 @@
+import { t } from '@lingui/macro';
 import urlcat from 'urlcat';
 
 import { FIREFLY_ROOT_URL } from '@/constants/index.js';
@@ -30,12 +31,10 @@ export async function uploadToArweave(data: GetPostMetaData, token: string): Pro
             body: JSON.stringify(data),
         });
 
-        if (!arweaveTxId) {
-            throw new Error('Upload failed!');
-        }
+        if (!arweaveTxId) throw new Error(t`Failed to upload to Arweave`);
 
         return arweaveTxId;
     } catch {
-        throw new Error('Something went wrong!');
+        throw new Error(t`Failed to upload to Arweave`);
     }
 }

@@ -2,7 +2,6 @@
 
 'use client';
 
-import { t } from '@lingui/macro';
 import { type Chain, connectorsForWallets } from '@rainbow-me/rainbowkit';
 import {
     coinbaseWallet,
@@ -50,7 +49,7 @@ export const chains = [
 export const connectors = connectorsForWallets(
     [
         {
-            groupName: t`Recommended`,
+            groupName: 'Recommended',
             wallets: [metaMaskWallet, walletConnectWallet, coinbaseWallet, rabbyWallet, okxWallet],
         },
     ],
