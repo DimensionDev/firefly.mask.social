@@ -192,8 +192,8 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
                     file: new File([secretImage], 'image.png', { type: 'image/png' }),
                 });
 
-                const typedMessgaeWithoutRp = removeRpPayload(typedMessage);
-                if (typedMessgaeWithoutRp) updateTypedMessage(typedMessgaeWithoutRp);
+                const typedMessageWithoutRp = removeRpPayload(typedMessage);
+                if (typedMessageWithoutRp) updateTypedMessage(typedMessageWithoutRp);
             } catch (error) {
                 enqueueErrorMessage(t`Failed to create image payload.`);
             }

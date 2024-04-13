@@ -38,7 +38,7 @@ export function writeChars(chars: Chars, newChars: Chars) {
     const newCharsWrapped = Array.isArray(newChars) ? newChars : [newChars];
 
     return [
-        // discard visible chars, only keep invisble ones
+        // discard visible chars, only keep invisible ones
         ...charsWrapped.filter((x) => (typeof x === 'string' ? false : !x.visible)),
         ...newCharsWrapped,
     ];
