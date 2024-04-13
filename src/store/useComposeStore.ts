@@ -429,7 +429,6 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
                     type: 'compose',
                     cursor: initialPostCursor,
                     posts: [createInitSinglePostState(initialPostCursor)],
-                    encryptedRedpacketMap: {},
                 }),
             ),
     })),
