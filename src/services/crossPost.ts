@@ -1,6 +1,6 @@
 import { RedPacketMetaKey } from '@masknet/plugin-redpacket';
 import { FireflyRedPacket } from '@masknet/web3-providers';
-import { type RedPacketJSONPayload } from '@masknet/web3-providers/types';
+import { type FireflyRedPacketAPI, type RedPacketJSONPayload } from '@masknet/web3-providers/types';
 import { compact } from 'lodash-es';
 
 import { queryClient } from '@/configs/queryClient.js';
@@ -62,11 +62,24 @@ async function updateRpClaimStrategy(compositePost: CompositePost) {
                     : null;
             }),
         );
+        const postOn: FireflyRedPacketAPI.PostOn[] = compact(
+            SORTED_SOURCES.map((x) => {
+                const currentProfile = currentProfileAll[x];
+                return postId[x] && currentProfile
+                    ? {
+                          platform: resolveRedPacketPlatformType(x),
+                          postId: postId[x]!,
+                          handle: currentProfile.handle,
+                      }
+                    : null;
+            }),
+        );
 
         await FireflyRedPacket.updateClaimStrategy(
             rpPayloadFromMeta.rpid,
             reactions,
             claimPlatforms,
+            postOn,
             rpPayload.publicKey,
         );
     }
