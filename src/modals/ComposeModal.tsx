@@ -27,14 +27,14 @@ import { MentionNode } from '@/components/Lexical/nodes/MentionsNode.js';
 import { Modal } from '@/components/Modal.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { RP_HASH_TAG, SITE_HOSTNAME, SITE_URL, SORTED_SOURCES } from '@/constants/index.js';
+import { type Chars, readChars } from '@/helpers/chars.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { fetchImageAsPNG } from '@/helpers/fetchImageAsPNG.js';
 import { getCurrentAvailableSources } from '@/helpers/getCurrentAvailableSources.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
-import { hasRpPayload } from '@/helpers/hasPayload.js';
 import { isEmptyPost } from '@/helpers/isEmptyPost.js';
-import { type Chars } from '@/helpers/readChars.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
+import { hasRpPayload, removeRpPayload } from '@/helpers/rpPayload.js';
 import { throws } from '@/helpers/throws.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfileAll.js';
@@ -92,37 +92,34 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
             updateChars,
             updateTypedMessage,
             updateRpPayload,
-            encryptedRedPacketMap,
-            trackEncryptedRedPacket,
             clear,
         } = useComposeStateStore();
-        const compositePost = useCompositePost();
 
+        const compositePost = useCompositePost();
         const { typedMessage, rpPayload, id } = compositePost;
 
         const [editor] = useLexicalComposerContext();
 
         const setEditorContent = useSetEditorContent();
         const [open, dispatch] = useSingletonModal(ref, {
-            onOpen: (props) => {
-                updateType(props.type || 'compose');
-                updateAvailableSources(props.source ? [props.source] : getCurrentAvailableSources());
-                if (props.typedMessage) updateTypedMessage(props.typedMessage);
-                if (props.post) updateParentPost(props.post.source, props.post);
-                if (props.chars && typeof props.chars === 'string') {
-                    updateChars(props.chars);
-                    setEditorContent(props.chars);
+            onOpen: ({ type, source, typedMessage, post, chars, rpPayload }) => {
+                updateType(type || 'compose');
+                updateAvailableSources(source ? [source] : getCurrentAvailableSources());
+                if (typedMessage) updateTypedMessage(typedMessage);
+                if (post) updateParentPost(post.source, post);
+                if (chars) {
+                    updateChars(chars);
+                    setEditorContent(readChars(chars, true));
                 }
-                if (props.rpPayload) updateRpPayload(props.rpPayload);
+                if (rpPayload) updateRpPayload(rpPayload);
             },
             onClose: (props) => {
-                if (!props?.disableClear) {
-                    clear();
-                    editor.update(() => {
-                        const root = $getRoot();
-                        root.clear();
-                    });
-                }
+                if (props?.disableClear) return;
+                clear();
+                editor.update(() => {
+                    const root = $getRoot();
+                    root.clear();
+                });
             },
         });
 
@@ -144,10 +141,10 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
         }, [posts, dispatch]);
 
         // Avoid recreating post content for Redpacket
-        const hasEncrypted = encryptedRedPacketMap[id];
         const { loading: encryptRedPacketLoading } = useAsync(async () => {
-            if (!typedMessage || hasEncrypted) return;
+            if (!typedMessage) return;
             if (!hasRpPayload(typedMessage)) return;
+            if (!rpPayload?.payloadImage) return;
 
             try {
                 const encrypted = await encrypt(
@@ -162,7 +159,6 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
                     { deriveAESKey: throws, encryptByLocalKey: throws },
                 );
                 if (typeof encrypted.output === 'string') throw new Error('Expected binary data.');
-                if (!rpPayload?.payloadImage) return;
 
                 const secretImage = await steganographyEncodeImage(
                     await fetchImageAsPNG(rpPayload.payloadImage),
@@ -170,37 +166,39 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
                     SteganographyPreset.Preset2023_Firefly,
                 );
 
-                const message = t`Check out my LuckyDrop 🧧💰✨ on Firefly mobile app or ${SITE_URL} !`;
-
                 const fullMessage = [
-                    message,
+                    t`Check out my LuckyDrop 🧧💰✨ on Firefly mobile app or ${SITE_URL} !`,
                     ...SORTED_SOURCES.map((x) => {
                         const currentProfile = currentProfileAll[x];
                         const profileLink = currentProfile ? getProfileUrl(currentProfile) : null;
                         return profileLink ? t`Claim on ${resolveSourceName(x)}: ${urlcat(SITE_URL, profileLink)}` : '';
                     }),
                 ].join('\n');
-                updateChars([
+
+                const chars: Chars = [
                     {
                         tag: 'ff_rp',
                         content: RP_HASH_TAG,
                         visible: true,
                     },
                     fullMessage,
-                ]);
+                ];
 
-                setEditorContent(fullMessage);
+                updateChars(chars);
+
+                setEditorContent(readChars(chars, true));
 
                 addImage({
                     file: new File([secretImage], 'image.png', { type: 'image/png' }),
                 });
 
-                trackEncryptedRedPacket(id);
+                const typedMessgaeWithoutRp = removeRpPayload(typedMessage);
+                if (typedMessgaeWithoutRp) updateTypedMessage(typedMessgaeWithoutRp);
             } catch (error) {
                 enqueueErrorMessage(t`Failed to create image payload.`);
             }
             // each time the typedMessage changes, we need to check if it has a red packet payload
-        }, [typedMessage, rpPayload, id, hasEncrypted, currentProfileAll]);
+        }, [typedMessage, rpPayload, id, currentProfileAll]);
 
         return (
             <Modal open={open} onClose={onClose}>

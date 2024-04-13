@@ -7,9 +7,9 @@ import { immer } from 'zustand/middleware/immer';
 
 import { SocialPlatform } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
+import { type Chars, readChars } from '@/helpers/chars.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 import { getCurrentAvailableSources } from '@/helpers/getCurrentAvailableSources.js';
-import { type Chars, readChars } from '@/helpers/readChars.js';
 import { FrameLoader } from '@/libs/frame/Loader.js';
 import { OpenGraphLoader } from '@/libs/og/Loader.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
@@ -94,10 +94,6 @@ interface ComposeState {
     loadFramesFromChars: (cursor?: Cursor) => Promise<void>;
     loadOpenGraphsFromChars: (cursor?: Cursor) => Promise<void>;
 
-    /** Tracking encrypted RedPacket payload in post */
-    encryptedRedPacketMap: Record<string, boolean>;
-    trackEncryptedRedPacket: (id: string) => void;
-
     // reset the editor
     clear: () => void;
 }
@@ -142,18 +138,6 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
         type: 'compose',
         cursor: initialPostCursor,
         posts: [createInitSinglePostState(initialPostCursor)],
-
-        encryptedRedPacketMap: {},
-        trackEncryptedRedPacket: (id: string) =>
-            set((state) => {
-                return {
-                    ...state,
-                    encryptedRedPacketMap: {
-                        ...state.encryptedRedPacketMap,
-                        [id]: true,
-                    },
-                };
-            }),
 
         computed: {
             get nextAvailablePost() {

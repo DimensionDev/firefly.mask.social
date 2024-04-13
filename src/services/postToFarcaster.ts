@@ -2,9 +2,9 @@ import { t } from '@lingui/macro';
 import { uniqBy } from 'lodash-es';
 
 import { SocialPlatform } from '@/constants/enum.js';
-import { hasRpPayload } from '@/helpers/hasPayload.js';
-import { readChars } from '@/helpers/readChars.js';
+import { readChars } from '@/helpers/chars.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
+import { hasRpPayload } from '@/helpers/rpPayload.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { type Post, type PostType } from '@/providers/types/SocialMedia.js';
 import { createPostTo } from '@/services/createPostTo.js';

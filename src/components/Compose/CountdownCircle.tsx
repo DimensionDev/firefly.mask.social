@@ -1,7 +1,7 @@
 import type { SVGAttributes } from 'react';
 
+import { measureChars } from '@/helpers/chars.js';
 import { getCurrentPostLimits } from '@/helpers/getCurrentPostLimits.js';
-import { measureChars } from '@/helpers/readChars.js';
 import type { CompositePost } from '@/store/useComposeStore.js';
 
 interface Props extends SVGAttributes<SVGElement> {

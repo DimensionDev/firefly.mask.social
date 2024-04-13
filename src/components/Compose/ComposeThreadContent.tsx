@@ -3,9 +3,9 @@ import { t } from '@lingui/macro';
 import { CloseButton } from '@/components/CloseButton.js';
 import { ComposeContent } from '@/components/Compose/ComposeContent.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
+import { readChars } from '@/helpers/chars.js';
 import { classNames } from '@/helpers/classNames.js';
 import { isEmptyPost } from '@/helpers/isEmptyPost.js';
-import { readChars } from '@/helpers/readChars.js';
 import { useCurrentAvailableProfile } from '@/hooks/useCurrentAvailableProfile.js';
 import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
@@ -32,10 +32,8 @@ export function ComposeThreadContent(props: ComposeThreadContentProps) {
                         cursor !== x.id ? 'opacity-50' : 'opacity-100',
                     )}
                     onClick={() => {
-                        const shouldUpdateContent = cursor !== x.id;
-
                         updateCursor(x.id);
-                        if (shouldUpdateContent) setEditorContent(readChars(x.chars, true));
+                        if (cursor !== x.id) setEditorContent(readChars(x.chars, true));
                     }}
                 >
                     {cursor === x.id && isEmptyPost(x) && i !== 0 ? (
