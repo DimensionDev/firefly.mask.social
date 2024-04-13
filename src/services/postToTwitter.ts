@@ -1,8 +1,8 @@
 import { t } from '@lingui/macro';
 
 import { SocialPlatform } from '@/constants/enum.js';
+import { readChars } from '@/helpers/chars.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
-import { readChars } from '@/helpers/readChars.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
 import { type Post, type PostType } from '@/providers/types/SocialMedia.js';

@@ -19,8 +19,7 @@ interface RP_Chars extends ComplexChars {
     content: typeof RP_HASH_TAG;
 }
 
-// the RP_Chars is invisible and always stay at the end of the string
-export type Chars = string | [RP_Chars, string];
+export type Chars = string | RP_Chars | Array<string | RP_Chars>;
 
 /**
  * Stringify chars into plain text
@@ -34,28 +33,15 @@ export function readChars(chars: Chars, visibleOnly = false) {
         .join('\n');
 }
 
-/**
- * Write new chars to chars
- * @param chars
- * @param newChars
- * @returns
- */
-export function writeChars(chars: Chars, newChars: Chars): Chars {
-    const getTextKind = (chars: Chars) => {
-        if (typeof chars === 'string') return chars;
-        if (Array.isArray(chars)) return chars[1];
-        return;
-    };
-    const getRP_Kind = (chars: Chars) => {
-        if (Array.isArray(chars)) return chars[0];
-        return;
-    };
+export function writeChars(chars: Chars, newChars: Chars) {
+    const charsWrapped = Array.isArray(chars) ? chars : [chars];
+    const newCharsWrapped = Array.isArray(newChars) ? newChars : [newChars];
 
-    const textKind = getTextKind(newChars) ?? getTextKind(chars) ?? '';
-    const RP_Kind = getRP_Kind(newChars) ?? getRP_Kind(chars);
-
-    if (RP_Kind) return [RP_Kind, textKind];
-    return textKind;
+    return [
+        // discard visible chars, only keep invisible ones
+        ...charsWrapped.filter((x) => (typeof x === 'string' ? false : !x.visible)),
+        ...newCharsWrapped,
+    ];
 }
 
 export function measureChars(chars: Chars) {

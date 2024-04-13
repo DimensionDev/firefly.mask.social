@@ -7,9 +7,9 @@ import { immer } from 'zustand/middleware/immer';
 
 import { SocialPlatform } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
+import { type Chars, readChars } from '@/helpers/chars.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 import { getCurrentAvailableSources } from '@/helpers/getCurrentAvailableSources.js';
-import { type Chars, readChars } from '@/helpers/readChars.js';
 import { FrameLoader } from '@/libs/frame/Loader.js';
 import { OpenGraphLoader } from '@/libs/og/Loader.js';
 import type { Post } from '@/providers/types/SocialMedia.js';

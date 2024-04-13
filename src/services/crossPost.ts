@@ -7,10 +7,10 @@ import { queryClient } from '@/configs/queryClient.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { SORTED_SOURCES } from '@/constants/index.js';
 import { getCurrentProfileAll } from '@/helpers/getCurrentProfileAll.js';
-import { hasRpPayload } from '@/helpers/hasPayload.js';
 import { isPublishedPost } from '@/helpers/isPublishedPost.js';
 import { resolvePostTo } from '@/helpers/resolvePostTo.js';
 import { resolveRedPacketPlatformType } from '@/helpers/resolveRedPacketPlatformType.js';
+import { hasRpPayload } from '@/helpers/rpPayload.js';
 import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
 import type { ComposeType } from '@/types/compose.js';
 

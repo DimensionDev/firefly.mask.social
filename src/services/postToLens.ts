@@ -5,9 +5,9 @@ import { v4 as uuid } from 'uuid';
 
 import { SocialPlatform } from '@/constants/enum.js';
 import { SITE_URL } from '@/constants/index.js';
+import { readChars } from '@/helpers/chars.js';
 import { createDummyPost } from '@/helpers/createDummyPost.js';
 import { getUserLocale } from '@/helpers/getUserLocale.js';
-import { readChars } from '@/helpers/readChars.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { createPostTo } from '@/services/createPostTo.js';

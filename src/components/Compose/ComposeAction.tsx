@@ -20,10 +20,11 @@ import { ReplyRestrictionText } from '@/components/Compose/ReplyRestrictionText.
 import { SourceIcon } from '@/components/SourceIcon.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { MAX_POST_SIZE_PER_THREAD, SORTED_SOURCES } from '@/constants/index.js';
+import { measureChars } from '@/helpers/chars.js';
 import { classNames } from '@/helpers/classNames.js';
 import { connectMaskWithWagmi } from '@/helpers/connectWagmiWithMask.js';
+import { getCurrentPostImageLimits } from '@/helpers/getCurrentPostImageLimits.js';
 import { getCurrentPostLimits } from '@/helpers/getCurrentPostLimits.js';
-import { measureChars } from '@/helpers/readChars.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfileAll.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useProfilesAll } from '@/hooks/useProfilesAll.js';
@@ -88,7 +89,7 @@ export function ComposeAction(props: ComposeActionProps) {
     }, [currentProfileAll, profilesAll]);
 
     const { MAX_CHAR_SIZE_PER_POST } = getCurrentPostLimits(rootPost.availableSources);
-    const maxImageCount = currentProfileAll.Farcaster ? 2 : 4;
+    const maxImageCount = getCurrentPostImageLimits(rootPost.availableSources);
     const mediaDisabled = !!video || images.length >= maxImageCount;
 
     return (

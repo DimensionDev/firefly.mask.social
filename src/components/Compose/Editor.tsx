@@ -11,8 +11,8 @@ import { useDebounce } from 'react-use';
 
 import { MentionsPlugin } from '@/components/Lexical/plugins/AtMentionsPlugin.js';
 import { LexicalAutoLinkPlugin } from '@/components/Lexical/plugins/AutoLinkPlugin.js';
+import { writeChars } from '@/helpers/chars.js';
 import { classNames } from '@/helpers/classNames.js';
-import { writeChars } from '@/helpers/readChars.js';
 import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
 
 function ErrorBoundaryComponent() {

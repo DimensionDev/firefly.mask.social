@@ -1,4 +1,4 @@
-import { readChars } from '@/helpers/readChars.js';
+import { readChars } from '@/helpers/chars.js';
 import type { CompositePost } from '@/store/useComposeStore.js';
 
 /**
