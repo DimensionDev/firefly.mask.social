@@ -397,9 +397,6 @@ msgstr ""
 msgid "Like"
 msgstr ""
 
-msgid "Recommended"
-msgstr ""
-
 msgid "Please input the frame url to be revalidated."
 msgstr ""
 

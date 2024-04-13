@@ -402,9 +402,6 @@ msgstr ""
 msgid "Like"
 msgstr "点赞"
 
-msgid "Recommended"
-msgstr ""
-
 msgid "Please input the frame url to be revalidated."
 msgstr "请输入 URL 重新验证。"
 

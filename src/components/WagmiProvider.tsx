@@ -12,8 +12,6 @@ import { getLocaleFromCookies } from '@/helpers/getLocaleFromCookies.js';
 import { resolveRainbowKitLocale } from '@/helpers/resolveRainbowKitLocale.js';
 import { useDarkMode } from '@/hooks/useDarkMode.js';
 
-const localeForRainbowKit = resolveRainbowKitLocale(getLocaleFromCookies());
-
 export interface WagmiProviderProps {
     children: React.ReactNode;
 }
@@ -27,7 +25,7 @@ export function WagmiProvider(props: WagmiProviderProps) {
     return (
         <WagmiConfig config={config}>
             <RainbowKitProvider
-                locale={localeForRainbowKit}
+                locale={resolveRainbowKitLocale(getLocaleFromCookies())}
                 theme={theme}
                 initialChain={polygon}
                 showRecentTransactions
