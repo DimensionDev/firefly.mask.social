@@ -29,7 +29,10 @@ export function FrameUI({ frame, readonly = false, loading = false, onButtonClic
     const inputRef = useRef<HTMLInputElement>(null);
 
     return (
-        <div className=" mt-4 w-full rounded-xl border border-line bg-bg p-2 text-sm">
+        <div
+            className=" mt-4 w-full rounded-xl border border-line bg-bg p-2 text-sm"
+            onClick={(e) => e.stopPropagation()}
+        >
             <div className="relative w-full">
                 {loading ? (
                     <div

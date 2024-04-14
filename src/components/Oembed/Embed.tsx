@@ -30,9 +30,8 @@ export function Embed({ og }: EmbedProps) {
                         {!og.isLarge && og.image ? (
                             <div className="relative aspect-square h-20 shrink-0 md:h-36">
                                 <Image
-                                    className="rounded-l-xl border-r dark:border-gray-700"
+                                    className="rounded-l-xl border-r object-contain dark:border-gray-700"
                                     layout="fill"
-                                    objectFit="contain"
                                     src={og.image.base64 || og.image.url}
                                     alt={og.description || og.title || 'Thumbnail'}
                                 />
