@@ -13,7 +13,6 @@ import urlcat from 'urlcat';
 import { farcasterClient } from '@/configs/farcasterClient.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { FIREFLY_ROOT_URL } from '@/constants/index.js';
-import { batchUpdatePostDetail } from '@/helpers/batchUpdatePostDetail.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { formatFarcasterPostFromFirefly } from '@/helpers/formatFarcasterPostFromFirefly.js';
 import { formatFarcasterProfileFromFirefly } from '@/helpers/formatFarcasterProfileFromFirefly.js';
@@ -43,7 +42,7 @@ import {
     SessionType,
 } from '@/providers/types/SocialMedia.js';
 
-export class FireflySocialMedia implements Provider {
+class FireflySocialMedia implements Provider {
     quotePost(postId: string, post: Post): Promise<string> {
         throw new Error('Method not implemented.');
     }
@@ -76,6 +75,10 @@ export class FireflySocialMedia implements Provider {
     }
 
     getPostsReplies(profileId: string, indicator?: PageIndicator | undefined): Promise<Pageable<Post, PageIndicator>> {
+        throw new Error('Method not implemented.');
+    }
+
+    getPostsByParentPostId(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         throw new Error('Method not implemented.');
     }
 
@@ -140,12 +143,8 @@ export class FireflySocialMedia implements Provider {
             });
             const { data } = await fetchJSON<CastsResponse>(url);
 
-            const posts = data.casts.map((x) => formatFarcasterPostFromFirefly(x));
-
-            batchUpdatePostDetail(posts);
-
             return createPageable(
-                posts,
+                data.casts.map((x) => formatFarcasterPostFromFirefly(x)),
                 createIndicator(indicator),
                 data.cursor ? createNextIndicator(indicator, data.cursor) : undefined,
             );
@@ -187,10 +186,6 @@ export class FireflySocialMedia implements Provider {
                 ...friendship,
             });
         });
-    }
-
-    async getPostsByParentPostId(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        throw new Error('Method not implemented.');
     }
 
     async getFollowers(profileId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
@@ -239,11 +234,8 @@ export class FireflySocialMedia implements Provider {
             method: 'GET',
         });
 
-        const data = comments.map((item) => formatFarcasterPostFromFirefly(item));
-
-        batchUpdatePostDetail(data);
         return createPageable(
-            data,
+            comments.map((item) => formatFarcasterPostFromFirefly(item)),
             indicator ?? createIndicator(indicator),
             cursor ? createNextIndicator(indicator, cursor) : undefined,
         );
@@ -264,10 +256,8 @@ export class FireflySocialMedia implements Provider {
                     needRootParentHash: true,
                 }),
             });
-            const data = casts.map((cast) => formatFarcasterPostFromFirefly(cast));
-            batchUpdatePostDetail(data);
             return createPageable(
-                data,
+                casts.map((cast) => formatFarcasterPostFromFirefly(cast)),
                 createIndicator(indicator),
                 cursor ? createNextIndicator(indicator, cursor) : undefined,
             );
@@ -369,12 +359,8 @@ export class FireflySocialMedia implements Provider {
                 }),
             });
 
-            const data = casts.map((x) => formatFarcasterPostFromFirefly(x));
-
-            batchUpdatePostDetail(data);
-
             return createPageable(
-                data,
+                casts.map((x) => formatFarcasterPostFromFirefly(x)),
                 indicator ?? createIndicator(),
                 cursor ? createNextIndicator(indicator, cursor) : undefined,
             );
@@ -468,8 +454,6 @@ export class FireflySocialMedia implements Provider {
                 reactions: cast.likeCount,
             },
         }));
-
-        batchUpdatePostDetail(data);
         return createPageable(data, createIndicator(indicator), createNextIndicator(indicator, ''));
     }
 
