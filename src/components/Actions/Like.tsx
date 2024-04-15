@@ -7,7 +7,6 @@ import { useAsyncFn } from 'react-use';
 import LikeIcon from '@/assets/like.svg';
 import LikedIcon from '@/assets/liked.svg';
 import LoadingIcon from '@/assets/loading.svg';
-import { toggleLike } from '@/components/Actions/helpers.js';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { config } from '@/configs/wagmiClient.js';
@@ -49,8 +48,6 @@ export const Like = memo<LikeProps>(function Like({ count, hasLiked, postId, aut
                 : provider?.upvotePost(postId, Number(authorId)));
 
             enqueueSuccessMessage(hasLiked ? t`Unliked` : t`Liked`);
-            toggleLike(queryClient, source, postId);
-
             return;
         } catch (error) {
             if (error instanceof Error) {

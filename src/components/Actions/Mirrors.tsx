@@ -10,7 +10,6 @@ import LoadingIcon from '@/assets/loading.svg';
 import MirrorIcon from '@/assets/mirror.svg';
 import MirrorLargeIcon from '@/assets/mirror-large.svg';
 import QuoteDownIcon from '@/assets/quote-down.svg';
-import { toggleMirror } from '@/components/Actions/helpers.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { config } from '@/configs/wagmiClient.js';
@@ -94,7 +93,6 @@ export const Mirror = memo<MirrorProps>(function Mirror({ shares = 0, source, po
                     await (mirrored
                         ? FarcasterSocialMediaProvider.unmirrorPost(postId, Number(post.author.profileId))
                         : FarcasterSocialMediaProvider.mirrorPost(postId, { authorId: Number(post.author.profileId) }));
-                    toggleMirror(queryClient, source, postId);
                     enqueueSuccessMessage(mirrored ? t`Cancel recast successfully` : t`Recasted`);
                     return;
                 } catch {

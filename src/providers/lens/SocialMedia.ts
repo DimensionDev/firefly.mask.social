@@ -28,6 +28,8 @@ import { polygon } from 'viem/chains';
 import { lensClient } from '@/configs/lensClient.js';
 import { config } from '@/configs/wagmiClient.js';
 import { SocialPlatform } from '@/constants/enum.js';
+import { SetQueryDataForLikePost } from '@/decorators/SetQueryDataForLikePost.js';
+import { SetQueryDataForMirrorPost } from '@/decorators/SetQueryDataForMirrorPost.js';
 import { SetQueryDataForPosts } from '@/decorators/SetQueryDataForPosts.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { formatLensPost, formatLensPostByFeed, formatLensQuoteOrComment } from '@/helpers/formatLensPost.js';
@@ -53,6 +55,8 @@ import {
 } from '@/providers/types/SocialMedia.js';
 import type { ResponseJSON } from '@/types/index.js';
 
+@SetQueryDataForLikePost(SocialPlatform.Lens)
+@SetQueryDataForMirrorPost(SocialPlatform.Lens)
 @SetQueryDataForPosts
 class LensSocialMedia implements Provider {
     get type() {
