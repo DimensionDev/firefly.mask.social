@@ -6,13 +6,13 @@ import { memo, useCallback } from 'react';
 import LoadingIcon from '@/assets/loading.svg';
 import MessageIcon from '@/assets/message.svg';
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
-import { SinglePost } from '@/components/Posts/SinglePost.js';
-import { VirtualList } from '@/components/VirtualList.js';
+import { VirtualList } from '@/components/VirtualList/index.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
-import type { Post } from '@/providers/types/SocialMedia.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
+import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.js';
+import { VirtualListFooter } from '@/components/VirtualList/VirtualListFooter.js';
 
 export interface CommentListProps {
     postId: string;
@@ -60,19 +60,6 @@ export const CommentList = memo<CommentListProps>(function CommentList({ postId,
         await fetchNextPage();
     }, [hasNextPage, isFetching, isFetchingNextPage, fetchNextPage]);
 
-    const itemContent = useCallback((index: number, post: Post) => {
-        return <SinglePost post={post} key={`${post.postId}-${index}`} showMore />;
-    }, []);
-
-    const Footer = useCallback(() => {
-        if (!hasNextPage) return null;
-        return (
-            <div className="flex items-center justify-center p-2">
-                <LoadingIcon width={16} height={16} className="animate-spin" />
-            </div>
-        );
-    }, [hasNextPage]);
-
     if (results.length === 0) {
         return (
             <NoResultsFallback
@@ -88,10 +75,10 @@ export const CommentList = memo<CommentListProps>(function CommentList({ postId,
                 computeItemKey={(index, post) => `${post.postId}-${index}`}
                 data={results}
                 endReached={onEndReached}
-                itemContent={itemContent}
+                itemContent={getPostItemContent}
                 useWindowScroll
                 components={{
-                    Footer,
+                    Footer: () => <VirtualListFooter hasNextPage={hasNextPage} />,
                 }}
             />
         </div>

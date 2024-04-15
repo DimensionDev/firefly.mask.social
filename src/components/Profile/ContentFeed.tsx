@@ -4,16 +4,15 @@ import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { useCallback } from 'react';
 
 import BlackHoleIcon from '@/assets/black-hole.svg';
-import LoadingIcon from '@/assets/loading.svg';
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
-import { SinglePost } from '@/components/Posts/SinglePost.js';
-import { VirtualList } from '@/components/VirtualList.js';
+import { VirtualList } from '@/components/VirtualList/index.js';
 import { ScrollListKey, SocialPlatform } from '@/constants/enum.js';
 import { mergeThreadPosts } from '@/helpers/mergeThreadPosts.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
-import type { Post } from '@/providers/types/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
+import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.js';
+import { VirtualListFooter } from '@/components/VirtualList/VirtualListFooter.js';
 
 interface ContentFeedProps {
     profileId: string;
@@ -55,36 +54,6 @@ export function ContentFeed({ profileId, source }: ContentFeedProps) {
         await fetchNextPage();
     }, [hasNextPage, isFetching, isFetchingNextPage]);
 
-    const itemContent = useCallback(
-        (index: number, post: Post) => {
-            return (
-                <SinglePost
-                    post={post}
-                    key={post.postId}
-                    showMore
-                    onClick={() => {
-                        setScrollIndex(`${ScrollListKey.Profile}_${profileId}`, index);
-                    }}
-                />
-            );
-        },
-        [setScrollIndex],
-    );
-
-    const Footer = useCallback(() => {
-        if (!hasNextPage)
-            return (
-                <div className="flex items-center justify-center p-6 text-base text-secondary">
-                    <Trans>You&apos;ve hit rock bottom.</Trans>
-                </div>
-            );
-        return (
-            <div className="flex items-center justify-center p-2">
-                <LoadingIcon width={16} height={16} className="animate-spin" />
-            </div>
-        );
-    }, [hasNextPage]);
-
     if (!data.length)
         return (
             <NoResultsFallback
@@ -105,10 +74,16 @@ export function ContentFeed({ profileId, source }: ContentFeedProps) {
                 computeItemKey={(index, post) => `${post.postId}-${index}`}
                 data={data}
                 endReached={onEndReached}
-                itemContent={itemContent}
+                itemContent={(index, post) =>
+                    getPostItemContent(index, post, {
+                        onClick: () => {
+                            setScrollIndex(`${ScrollListKey.Profile}_${profileId}`, index);
+                        },
+                    })
+                }
                 useWindowScroll
                 components={{
-                    Footer,
+                    Footer: () => <VirtualListFooter hasNextPage={hasNextPage} />,
                 }}
             />
         </div>

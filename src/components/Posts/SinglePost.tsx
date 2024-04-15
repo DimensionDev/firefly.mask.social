@@ -20,7 +20,7 @@ const PostActions = dynamic(() => import('@/components/Actions/index.js').then((
     ssr: false,
 });
 
-interface SinglePostProps {
+export interface SinglePostProps {
     post: Post;
     disableAnimate?: boolean;
     showMore?: boolean;

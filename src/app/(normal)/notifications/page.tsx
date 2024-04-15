@@ -10,13 +10,14 @@ import LoadingIcon from '@/assets/loading.svg';
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { NotificationItem } from '@/components/Notification/NotificationItem.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
-import { VirtualList } from '@/components/VirtualList.js';
+import { VirtualList } from '@/components/VirtualList/index.js';
 import { ScrollListKey } from '@/constants/enum.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 import { type Notification as NotificationType } from '@/providers/types/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
+import { VirtualListFooter } from '@/components/VirtualList/VirtualListFooter.js';
 
 export default function Notification() {
     const currentSource = useGlobalState.use.currentSource();
@@ -40,20 +41,6 @@ export default function Notification() {
 
         await fetchNextPage();
     }, [hasNextPage, isFetching, isFetchingNextPage, fetchNextPage]);
-
-    const Footer = useCallback(() => {
-        if (!hasNextPage)
-            return (
-                <div className="flex items-center justify-center p-6 text-base text-secondary">
-                    <Trans>You&apos;ve hit rock bottom.</Trans>
-                </div>
-            );
-        return (
-            <div className="flex items-center justify-center p-2">
-                <LoadingIcon width={16} height={16} className="animate-spin" />
-            </div>
-        );
-    }, [hasNextPage]);
 
     const itemContent = useCallback((index: number, notification: NotificationType) => {
         return <NotificationItem notification={notification} key={`${notification.notificationId}-${index}`} />;
@@ -83,7 +70,7 @@ export default function Notification() {
                 itemContent={itemContent}
                 useWindowScroll
                 components={{
-                    Footer,
+                    Footer: () => <VirtualListFooter hasNextPage={hasNextPage} />,
                 }}
             />
         </div>

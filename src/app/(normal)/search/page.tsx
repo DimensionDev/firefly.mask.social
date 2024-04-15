@@ -11,13 +11,14 @@ import LoadingIcon from '@/assets/loading.svg';
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { SinglePost } from '@/components/Posts/SinglePost.js';
 import { ProfileInList } from '@/components/Search/ProfileInList.js';
-import { VirtualList } from '@/components/VirtualList.js';
+import { VirtualList } from '@/components/VirtualList/index.js';
 import { SearchType } from '@/constants/enum.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 import type { Post, Profile } from '@/providers/types/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useSearchState } from '@/store/useSearchState.js';
+import { VirtualListFooter } from '@/components/VirtualList/VirtualListFooter.js';
 
 export default function Page() {
     const { searchKeyword, searchType } = useSearchState();
@@ -74,20 +75,12 @@ export default function Page() {
                     const post = item as Post;
                     return <SinglePost key={post.postId} post={post} />;
                 default:
+                    safeUnreachable(searchType);
                     return null;
             }
         },
         [searchType],
     );
-
-    const Footer = useCallback(() => {
-        if (!hasNextPage) return null;
-        return (
-            <div className="flex items-center justify-center p-2">
-                <LoadingIcon width={16} height={16} className="animate-spin" />
-            </div>
-        );
-    }, [hasNextPage]);
 
     useNavigatorTitle(t`Search`);
 
@@ -118,6 +111,7 @@ export default function Page() {
                             const post = item as Post;
                             return `${post.postId}_${index}`;
                         default:
+                            safeUnreachable(searchType);
                             return index;
                     }
                 }}
@@ -126,7 +120,7 @@ export default function Page() {
                 itemContent={itemContent}
                 useWindowScroll
                 components={{
-                    Footer,
+                    Footer: () => <VirtualListFooter hasNextPage={hasNextPage} />,
                 }}
             />
         </div>
