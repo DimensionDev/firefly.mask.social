@@ -119,7 +119,7 @@ export default function Connected() {
                 </>
             ) : null}
 
-            <div className="flex w-full flex-col items-center gap-4 md:flex-row">
+            <div className="flex w-full flex-col items-center justify-center gap-4 md:flex-row">
                 <ClickableButton
                     className="inline-flex h-10 w-full flex-col items-center justify-center md:w-[200px]"
                     onClick={() => {
