@@ -149,8 +149,8 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
                                     <ProfileLink profile={firstFollower} /> and # others
                                 </Trans>
                             }
-                        />{' '}
-                        <span>followed you</span>
+                        />
+                        <span> followed you</span>
                     </Trans>
                 );
             case NotificationType.Comment:
