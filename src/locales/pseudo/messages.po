@@ -550,9 +550,6 @@ msgstr ""
 msgid "<0>You</0> liked"
 msgstr ""
 
-msgid "You've hit rock bottom."
-msgstr ""
-
 msgid "Failed to mirror post."
 msgstr ""
 

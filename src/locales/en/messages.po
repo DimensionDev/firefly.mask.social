@@ -550,9 +550,6 @@ msgstr "No profile found"
 msgid "<0>You</0> liked"
 msgstr "<0>You</0> liked"
 
-msgid "You've hit rock bottom."
-msgstr "You've hit rock bottom."
-
 msgid "Failed to mirror post."
 msgstr "Failed to mirror post."
 
