@@ -1,16 +1,18 @@
 import { Trans } from '@lingui/macro';
 import { createIndicator, createPageable } from '@masknet/shared-base';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
-import { useInView } from 'react-cool-inview';
+import { useCallback } from 'react';
 
 import BlackHoleIcon from '@/assets/black-hole.svg';
-import LoadingIcon from '@/assets/loading.svg';
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
-import { SinglePost } from '@/components/Posts/SinglePost.js';
-import { SocialPlatform } from '@/constants/enum.js';
+import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.js';
+import { VirtualList } from '@/components/VirtualList/index.js';
+import { VirtualListFooter } from '@/components/VirtualList/VirtualListFooter.js';
+import { ScrollListKey, SocialPlatform } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { mergeThreadPosts } from '@/helpers/mergeThreadPosts.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
+import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 
 interface ContentFeedProps {
@@ -18,6 +20,7 @@ interface ContentFeedProps {
     source: SocialPlatform;
 }
 export function ContentCollected({ profileId, source }: ContentFeedProps) {
+    const setScrollIndex = useGlobalState.use.setScrollIndex();
     const fetchAndStoreViews = useImpressionsStore.use.fetchAndStoreViews();
     const { data, hasNextPage, fetchNextPage, isFetchingNextPage, isFetching } = useSuspenseInfiniteQuery({
         queryKey: ['posts', source, 'bookmarks', profileId],
@@ -44,15 +47,13 @@ export function ContentCollected({ profileId, source }: ContentFeedProps) {
         },
     });
 
-    const { observe } = useInView({
-        rootMargin: '300px 0px',
-        onChange: async ({ inView }) => {
-            if (!inView || !hasNextPage || isFetching || isFetchingNextPage) {
-                return;
-            }
-            await fetchNextPage();
-        },
-    });
+    const onEndReached = useCallback(async () => {
+        if (!hasNextPage || isFetching || isFetchingNextPage) {
+            return;
+        }
+
+        await fetchNextPage();
+    }, [hasNextPage, isFetching, isFetchingNextPage, fetchNextPage]);
 
     if (!data.length)
         return (
@@ -69,14 +70,24 @@ export function ContentCollected({ profileId, source }: ContentFeedProps) {
 
     return (
         <div>
-            {data.map((x) => (
-                <SinglePost post={x} key={x.postId} showMore />
-            ))}
-            {hasNextPage ? (
-                <div className="flex items-center justify-center p-2" ref={observe}>
-                    <LoadingIcon width={16} height={16} className="animate-spin" />
-                </div>
-            ) : null}
+            <VirtualList
+                listKey={`${ScrollListKey.Collected}_${profileId}`}
+                computeItemKey={(index, post) => `${post.postId}-${index}`}
+                data={data}
+                endReached={onEndReached}
+                itemContent={(index, post) =>
+                    getPostItemContent(index, post, {
+                        onClick: () => {
+                            setScrollIndex(`${ScrollListKey.Collected}_${profileId}`, index);
+                        },
+                    })
+                }
+                useWindowScroll
+                context={{ hasNextPage }}
+                components={{
+                    Footer: VirtualListFooter,
+                }}
+            />
         </div>
     );
 }

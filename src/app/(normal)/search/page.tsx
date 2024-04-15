@@ -5,12 +5,13 @@ import { safeUnreachable } from '@masknet/kit';
 import { createIndicator } from '@masknet/shared-base';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
-import { useInView } from 'react-cool-inview';
+import { useCallback } from 'react';
 
-import LoadingIcon from '@/assets/loading.svg';
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { SinglePost } from '@/components/Posts/SinglePost.js';
 import { ProfileInList } from '@/components/Search/ProfileInList.js';
+import { VirtualList } from '@/components/VirtualList/index.js';
+import { VirtualListFooter } from '@/components/VirtualList/VirtualListFooter.js';
 import { SearchType } from '@/constants/enum.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
@@ -20,7 +21,7 @@ import { useSearchState } from '@/store/useSearchState.js';
 
 export default function Page() {
     const { searchKeyword, searchType } = useSearchState();
-    const { currentSource } = useGlobalState();
+    const { currentSource, setScrollIndex } = useGlobalState();
 
     const {
         data: results,
@@ -55,15 +56,30 @@ export default function Page() {
         },
     });
 
-    const { observe } = useInView({
-        rootMargin: '300px 0px',
-        onChange: async ({ inView }) => {
-            if (!inView || !hasNextPage || isFetching || isFetchingNextPage) {
-                return;
+    const onEndReached = useCallback(async () => {
+        if (!hasNextPage || isFetching || isFetchingNextPage) {
+            return;
+        }
+
+        await fetchNextPage();
+    }, [hasNextPage, isFetching, isFetchingNextPage, fetchNextPage]);
+
+    const itemContent = useCallback(
+        (index: number, item: Post | Profile) => {
+            switch (searchType) {
+                case SearchType.Users:
+                    const profile = item as Profile;
+                    return <ProfileInList key={profile.profileId} profile={profile} />;
+                case SearchType.Posts:
+                    const post = item as Post;
+                    return <SinglePost key={post.postId} post={post} />;
+                default:
+                    safeUnreachable(searchType);
+                    return null;
             }
-            await fetchNextPage();
         },
-    });
+        [searchType],
+    );
 
     useNavigatorTitle(t`Search`);
 
@@ -84,24 +100,29 @@ export default function Page() {
 
     return (
         <div>
-            {results.map((item) => {
-                switch (searchType) {
-                    case SearchType.Users:
-                        const profile = item as Profile;
-                        return <ProfileInList key={profile.profileId} profile={profile} />;
-                    case SearchType.Posts:
-                        const post = item as Post;
-                        return <SinglePost key={post.postId} post={post} />;
-                    default:
-                        return null;
-                }
-            })}
-
-            {hasNextPage ? (
-                <div className="flex items-center justify-center p-2" ref={observe}>
-                    <LoadingIcon width={16} height={16} className="animate-spin" />
-                </div>
-            ) : null}
+            <VirtualList
+                computeItemKey={(index, item) => {
+                    switch (searchType) {
+                        case SearchType.Users:
+                            const profile = item as Profile;
+                            return `${profile.profileId}_${index}`;
+                        case SearchType.Posts:
+                            const post = item as Post;
+                            return `${post.postId}_${index}`;
+                        default:
+                            safeUnreachable(searchType);
+                            return index;
+                    }
+                }}
+                data={results}
+                endReached={onEndReached}
+                itemContent={itemContent}
+                useWindowScroll
+                context={{ hasNextPage }}
+                components={{
+                    Footer: VirtualListFooter,
+                }}
+            />
         </div>
     );
 }

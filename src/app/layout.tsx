@@ -2,7 +2,6 @@ import '@/app/globals.css';
 
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { Inter } from 'next/font/google';
-import { ScrollRestorer } from 'next-scroll-restorer';
 import { lazy } from 'react';
 
 import { BeforeUnload } from '@/components/Compose/BeforeUnload.js';
@@ -58,7 +57,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 <SpeedInsights />
                 <BeforeUnload />
             </body>
-            <ScrollRestorer />
         </html>
     );
 }

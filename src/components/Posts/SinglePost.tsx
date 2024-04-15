@@ -20,12 +20,13 @@ const PostActions = dynamic(() => import('@/components/Actions/index.js').then((
     ssr: false,
 });
 
-interface SinglePostProps {
+export interface SinglePostProps {
     post: Post;
     disableAnimate?: boolean;
     showMore?: boolean;
     isComment?: boolean;
     isDetail?: boolean;
+    onClick?: () => void;
 }
 export const SinglePost = memo<SinglePostProps>(function SinglePost({
     post,
@@ -33,6 +34,7 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
     showMore = false,
     isComment = false,
     isDetail = false,
+    onClick,
 }) {
     const router = useRouter();
     const { observe } = useObserveLensPost(post.postId, post.source);
@@ -69,7 +71,10 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
             onClick={() => {
                 const selection = window.getSelection();
                 if (selection && selection.toString().length !== 0) return;
-                if (!isPostPage || isComment) router.push(postLink);
+                if (!isPostPage || isComment) {
+                    onClick?.();
+                    router.push(postLink);
+                }
                 return;
             }}
         >

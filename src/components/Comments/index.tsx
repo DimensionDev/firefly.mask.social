@@ -1,13 +1,13 @@
 import { Trans } from '@lingui/macro';
 import { createIndicator, createPageable } from '@masknet/shared-base';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
-import { memo } from 'react';
-import { useInView } from 'react-cool-inview';
+import { memo, useCallback } from 'react';
 
-import LoadingIcon from '@/assets/loading.svg';
 import MessageIcon from '@/assets/message.svg';
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
-import { SinglePost } from '@/components/Posts/SinglePost.js';
+import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.js';
+import { VirtualList } from '@/components/VirtualList/index.js';
+import { VirtualListFooter } from '@/components/VirtualList/VirtualListFooter.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
@@ -51,31 +51,36 @@ export const CommentList = memo<CommentListProps>(function CommentList({ postId,
         },
     });
 
-    const { observe } = useInView({
-        rootMargin: '300px 0px',
-        onChange: async ({ inView }) => {
-            if (!inView || !hasNextPage || isFetching || isFetchingNextPage) {
-                return;
-            }
-            await fetchNextPage();
-        },
-    });
+    const onEndReached = useCallback(async () => {
+        if (!hasNextPage || isFetching || isFetchingNextPage) {
+            return;
+        }
+
+        await fetchNextPage();
+    }, [hasNextPage, isFetching, isFetchingNextPage, fetchNextPage]);
+
+    if (results.length === 0) {
+        return (
+            <NoResultsFallback
+                icon={<MessageIcon width={24} height={24} />}
+                message={<Trans>Be the first one to comment!</Trans>}
+            />
+        );
+    }
 
     return (
         <div>
-            {results.length ? (
-                results.map((x) => <SinglePost isComment post={x} key={x.postId} showMore />)
-            ) : (
-                <NoResultsFallback
-                    icon={<MessageIcon width={24} height={24} />}
-                    message={<Trans>Be the first one to comment!</Trans>}
-                />
-            )}
-            {hasNextPage && results.length ? (
-                <div className="flex items-center justify-center p-2" ref={observe}>
-                    <LoadingIcon width={16} height={16} className="animate-spin" />
-                </div>
-            ) : null}
+            <VirtualList
+                computeItemKey={(index, post) => `${post.postId}-${index}`}
+                data={results}
+                endReached={onEndReached}
+                itemContent={(index, post) => getPostItemContent(index, post)}
+                useWindowScroll
+                context={{ hasNextPage }}
+                components={{
+                    Footer: VirtualListFooter,
+                }}
+            />
         </div>
     );
 });

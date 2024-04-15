@@ -2,11 +2,8 @@ import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
 
 import { SocialPlatform, SourceInURL } from '@/constants/enum.js';
-import { clearSessionStorageByPrefix } from '@/helpers/clearSessionStorageByPrefix.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 import { resolveSocialPlatform } from '@/helpers/resolveSocialPlatform.js';
-
-const RESTORE_SCROLL_PREFIX = 'rusted_labs_nextjs_scroll_restoration';
 
 const getCurrentSource = () => {
     if (typeof document === 'undefined') return SocialPlatform.Farcaster;
@@ -18,6 +15,8 @@ const getCurrentSource = () => {
 
 interface GlobalState {
     currentSource: SocialPlatform;
+    scrollIndexMap: Record<string, number>;
+    setScrollIndex: (key: string, value: number) => void;
     updateCurrentSource: (source: SocialPlatform) => void;
 }
 
@@ -27,9 +26,13 @@ const useGlobalStateBase = create<GlobalState, [['zustand/immer', never]]>(
         updateCurrentSource: (source: SocialPlatform) =>
             set((state) => {
                 state.currentSource = source;
-                // Clear all recorded scroll positions when switching source tabs
-                clearSessionStorageByPrefix(RESTORE_SCROLL_PREFIX);
             }),
+        scrollIndexMap: {},
+        setScrollIndex: (key: string, value) => {
+            set((state) => {
+                state.scrollIndexMap[key] = value;
+            });
+        },
     })),
 );
 
