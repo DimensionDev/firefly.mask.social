@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import { Trans } from 'react-i18next';
+import { Trans } from '@lingui/macro';
 
 import LoadingIcon from '@/assets/loading.svg';
 
