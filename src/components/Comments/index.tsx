@@ -5,13 +5,13 @@ import { memo, useCallback } from 'react';
 
 import MessageIcon from '@/assets/message.svg';
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
+import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.js';
 import { VirtualList } from '@/components/VirtualList/index.js';
+import { VirtualListFooter } from '@/components/VirtualList/VirtualListFooter.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
-import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.js';
-import { VirtualListFooter } from '@/components/VirtualList/VirtualListFooter.js';
 
 export interface CommentListProps {
     postId: string;

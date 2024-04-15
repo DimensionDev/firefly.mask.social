@@ -1,5 +1,5 @@
-import { memo } from 'react';
 import { Trans } from '@lingui/macro';
+import { memo } from 'react';
 
 import LoadingIcon from '@/assets/loading.svg';
 

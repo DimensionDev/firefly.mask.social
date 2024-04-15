@@ -1,23 +1,22 @@
 'use client';
 
-import { t, Trans } from '@lingui/macro';
+import { t } from '@lingui/macro';
 import { createIndicator } from '@masknet/shared-base';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
 import { useCallback } from 'react';
 
-import LoadingIcon from '@/assets/loading.svg';
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { NotificationItem } from '@/components/Notification/NotificationItem.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { VirtualList } from '@/components/VirtualList/index.js';
+import { VirtualListFooter } from '@/components/VirtualList/VirtualListFooter.js';
 import { ScrollListKey } from '@/constants/enum.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 import { type Notification as NotificationType } from '@/providers/types/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
-import { VirtualListFooter } from '@/components/VirtualList/VirtualListFooter.js';
 
 export default function Notification() {
     const currentSource = useGlobalState.use.currentSource();

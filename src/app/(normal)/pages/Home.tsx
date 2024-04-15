@@ -7,10 +7,10 @@ import { useCallback } from 'react';
 
 import { discoverPosts } from '@/app/(normal)/helpers/discoverPosts.js';
 import BlackHoleIcon from '@/assets/black-hole.svg';
-import LoadingIcon from '@/assets/loading.svg';
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
-import { SinglePost } from '@/components/Posts/SinglePost.js';
+import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.js';
 import { VirtualList } from '@/components/VirtualList/index.js';
+import { VirtualListFooter } from '@/components/VirtualList/VirtualListFooter.js';
 import { ScrollListKey, SocialPlatform } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { mergeThreadPosts } from '@/helpers/mergeThreadPosts.js';
@@ -18,8 +18,6 @@ import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
-import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.js';
-import { VirtualListFooter } from '@/components/VirtualList/VirtualListFooter.js';
 
 interface Props {
     // the source of the posts
