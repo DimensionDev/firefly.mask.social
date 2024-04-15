@@ -33,9 +33,8 @@ export function Providers(props: { children: React.ReactNode }) {
         };
     }, [isDarkMode]);
 
-    useEffect(() => {
-        if (isDarkMode) document.documentElement.classList.add('dark');
-        else document.documentElement.classList.remove('dark');
+    useLayoutEffect(() => {
+        document.documentElement.classList.toggle('dark', isDarkMode);
     }, [isDarkMode]);
 
     useLayoutEffect(() => {
