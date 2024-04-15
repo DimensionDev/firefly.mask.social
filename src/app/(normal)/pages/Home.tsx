@@ -2,7 +2,7 @@
 
 import { t, Trans } from '@lingui/macro';
 import { createIndicator, type Pageable, type PageIndicator } from '@masknet/shared-base';
-import { useQueryClient, useSuspenseInfiniteQuery } from '@tanstack/react-query';
+import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { useCallback } from 'react';
 
 import { discoverPosts } from '@/app/(normal)/helpers/discoverPosts.js';
@@ -13,7 +13,6 @@ import { VirtualList } from '@/components/VirtualList/index.js';
 import { VirtualListFooter } from '@/components/VirtualList/VirtualListFooter.js';
 import { ScrollListKey, SocialPlatform } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
-import { batchUpdatePostDetail } from '@/helpers/batchUpdatePostDetail.js';
 import { mergeThreadPosts } from '@/helpers/mergeThreadPosts.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 import type { Post } from '@/providers/types/SocialMedia.js';

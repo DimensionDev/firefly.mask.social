@@ -2,6 +2,7 @@ import { t } from '@lingui/macro';
 import { createIndicator, createPageable, EMPTY_LIST, type Pageable, type PageIndicator } from '@masknet/shared-base';
 import { attemptUntil } from '@masknet/web3-shared-base';
 
+import { batchUpdatePostDetail } from '@/helpers/batchUpdatePostDetail.js';
 import { getFarcasterSessionType } from '@/helpers/getFarcasterSessionType.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { HubbleSocialMediaProvider } from '@/providers/hubble/SocialMedia.js';
@@ -13,7 +14,6 @@ import {
     SessionType,
 } from '@/providers/types/SocialMedia.js';
 import { WarpcastSocialMediaProvider } from '@/providers/warpcast/SocialMedia.js';
-import { batchUpdatePostDetail } from '@/helpers/batchUpdatePostDetail.js';
 
 export class FarcasterSocialMedia implements Provider {
     get type() {

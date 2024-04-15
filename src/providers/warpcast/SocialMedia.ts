@@ -13,6 +13,7 @@ import urlcat from 'urlcat';
 import { farcasterClient } from '@/configs/farcasterClient.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { WARPCAST_CLIENT_URL, WARPCAST_ROOT_URL } from '@/constants/index.js';
+import { batchUpdatePostDetail } from '@/helpers/batchUpdatePostDetail.js';
 import { formatWarpcastPost, formatWarpcastPostFromFeed } from '@/helpers/formatWarpcastPost.js';
 import { formatWarpcastUser } from '@/helpers/formatWarpcastUser.js';
 import { toFid } from '@/helpers/toFid.js';
@@ -41,7 +42,6 @@ import {
     type UserDetailResponse,
     type UsersResponse,
 } from '@/providers/types/Warpcast.js';
-import { batchUpdatePostDetail } from '@/helpers/batchUpdatePostDetail.js';
 
 export class WarpcastSocialMedia implements Provider {
     get type() {

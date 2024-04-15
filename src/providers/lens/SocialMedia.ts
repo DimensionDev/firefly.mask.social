@@ -28,6 +28,7 @@ import { polygon } from 'viem/chains';
 import { lensClient } from '@/configs/lensClient.js';
 import { config } from '@/configs/wagmiClient.js';
 import { SocialPlatform } from '@/constants/enum.js';
+import { batchUpdatePostDetail } from '@/helpers/batchUpdatePostDetail.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { formatLensPost, formatLensPostByFeed, formatLensQuoteOrComment } from '@/helpers/formatLensPost.js';
 import { formatLensProfile } from '@/helpers/formatLensProfile.js';
@@ -51,7 +52,6 @@ import {
     SessionType,
 } from '@/providers/types/SocialMedia.js';
 import type { ResponseJSON } from '@/types/index.js';
-import { batchUpdatePostDetail } from '@/helpers/batchUpdatePostDetail.js';
 
 export class LensSocialMedia implements Provider {
     get type() {
