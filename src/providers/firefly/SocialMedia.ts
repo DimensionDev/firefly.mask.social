@@ -17,19 +17,20 @@ import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { formatFarcasterPostFromFirefly } from '@/helpers/formatFarcasterPostFromFirefly.js';
 import { formatFarcasterProfileFromFirefly } from '@/helpers/formatFarcasterProfileFromFirefly.js';
 import { NeynarSocialMediaProvider } from '@/providers/neynar/SocialMedia.js';
-import type {
-    CastResponse,
-    CastsResponse,
-    CommentsResponse,
-    FriendshipResponse,
-    NotificationResponse,
-    ReactorsResponse,
-    SearchCastsResponse,
-    SearchProfileResponse,
-    ThreadResponse,
-    UploadMediaTokenResponse,
-    UserResponse,
-    UsersResponse,
+import {
+    type CastResponse,
+    type CastsResponse,
+    type CommentsResponse,
+    type FriendshipResponse,
+    type NotificationResponse,
+    NotificationType as FireflyNotificationType,
+    type ReactorsResponse,
+    type SearchCastsResponse,
+    type SearchProfileResponse,
+    type ThreadResponse,
+    type UploadMediaTokenResponse,
+    type UserResponse,
+    type UsersResponse,
 } from '@/providers/types/Firefly.js';
 import {
     type Notification,
@@ -269,7 +270,7 @@ export class FireflySocialMedia implements Provider {
 
     async getNotifications(indicator?: PageIndicator): Promise<Pageable<Notification, PageIndicator>> {
         const profileId = farcasterClient.sessionRequired.profileId;
-        const url = urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/notifications', {
+        const url = urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/notifications/new', {
             fid: profileId,
             sourceFid: profileId,
             cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
@@ -281,7 +282,7 @@ export class FireflySocialMedia implements Provider {
             const user = notification.user ? [formatFarcasterProfileFromFirefly(notification.user)] : EMPTY_LIST;
             const post = notification.cast ? formatFarcasterPostFromFirefly(notification.cast) : undefined;
             const timestamp = notification.timestamp ? new Date(notification.timestamp).getTime() : undefined;
-            if (notification.notificationType === 1) {
+            if (notification.notificationType === FireflyNotificationType.CastBeLiked) {
                 return {
                     source: SocialPlatform.Farcaster,
                     notificationId,
@@ -290,7 +291,7 @@ export class FireflySocialMedia implements Provider {
                     post,
                     timestamp,
                 };
-            } else if (notification.notificationType === 2) {
+            } else if (notification.notificationType === FireflyNotificationType.CastBeRecasted) {
                 return {
                     source: SocialPlatform.Farcaster,
                     notificationId,
@@ -299,7 +300,7 @@ export class FireflySocialMedia implements Provider {
                     post,
                     timestamp,
                 };
-            } else if (notification.notificationType === 3) {
+            } else if (notification.notificationType === FireflyNotificationType.CastBeReplied) {
                 const commentOn = notification.cast?.parentCast
                     ? formatFarcasterPostFromFirefly(notification.cast.parentCast)
                     : undefined;
@@ -316,14 +317,14 @@ export class FireflySocialMedia implements Provider {
                     post: commentOn,
                     timestamp,
                 };
-            } else if (notification.notificationType === 4) {
+            } else if (notification.notificationType === FireflyNotificationType.BeFollowed) {
                 return {
                     source: SocialPlatform.Farcaster,
                     notificationId,
                     type: NotificationType.Follow,
                     followers: user,
                 };
-            } else if (notification.notificationType === 5) {
+            } else if (notification.notificationType === FireflyNotificationType.BeMentioned) {
                 return {
                     source: SocialPlatform.Farcaster,
                     notificationId,

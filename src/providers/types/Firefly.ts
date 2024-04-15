@@ -54,9 +54,17 @@ export interface UsersData {
     next_cursor: string;
 }
 
+export enum NotificationType {
+    CastBeLiked = 1,
+    CastBeRecasted = 2,
+    CastBeReplied = 3,
+    BeFollowed = 4,
+    BeMentioned = 5,
+}
+
 export interface Notification {
     cast: Cast | null;
-    notificationType: number;
+    notificationType: NotificationType;
     user: User | null;
     timestamp: string;
 }
