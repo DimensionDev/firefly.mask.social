@@ -17,8 +17,70 @@ import {
 } from '@/providers/types/SocialMedia.js';
 import type { ResponseJSON } from '@/types/index.js';
 
-// @ts-ignore
 class TwitterSocialMedia implements Provider {
+    mirrorPost(postId: string): Promise<string> {
+        throw new Error('Method not implemented.');
+    }
+
+    commentPost(postId: string, post: Post): Promise<string> {
+        throw new Error('Method not implemented.');
+    }
+
+    collectPost(postId: string, collectionId?: string): Promise<void> {
+        throw new Error('Method not implemented.');
+    }
+
+    getProfilesByAddress(address: string): Promise<Profile[]> {
+        throw new Error('Method not implemented.');
+    }
+
+    getProfilesByIds(ids: string[]): Promise<Profile[]> {
+        throw new Error('Method not implemented.');
+    }
+
+    getPostsBeMentioned(
+        profileId: string,
+        indicator?: PageIndicator | undefined,
+    ): Promise<Pageable<Post, PageIndicator>> {
+        throw new Error('Method not implemented.');
+    }
+
+    getPostsLiked(profileId: string, indicator?: PageIndicator | undefined): Promise<Pageable<Post, PageIndicator>> {
+        throw new Error('Method not implemented.');
+    }
+
+    getPostsReplies(profileId: string, indicator?: PageIndicator | undefined): Promise<Pageable<Post, PageIndicator>> {
+        throw new Error('Method not implemented.');
+    }
+
+    getPostsByParentPostId(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        throw new Error('Method not implemented.');
+    }
+
+    getReactors(postId: string, indicator?: PageIndicator | undefined): Promise<Pageable<Profile, PageIndicator>> {
+        throw new Error('Method not implemented.');
+    }
+
+    getFollowers(profileId: string): Promise<Pageable<Profile>> {
+        throw new Error('Method not implemented.');
+    }
+
+    getFollowings(profileId: string): Promise<Pageable<Profile>> {
+        throw new Error('Method not implemented.');
+    }
+
+    isFollowedByMe(profileId: string): Promise<boolean> {
+        throw new Error('Method not implemented.');
+    }
+
+    isFollowingMe(profileId: string): Promise<boolean> {
+        throw new Error('Method not implemented.');
+    }
+
+    getSuggestedFollows(indicator?: PageIndicator | undefined): Promise<Pageable<Profile, PageIndicator>> {
+        throw new Error('Method not implemented.');
+    }
+
     follow(profileId: string): Promise<void> {
         throw new Error('Not implemented');
     }

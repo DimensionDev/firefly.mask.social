@@ -28,7 +28,7 @@ import { polygon } from 'viem/chains';
 import { lensClient } from '@/configs/lensClient.js';
 import { config } from '@/configs/wagmiClient.js';
 import { SocialPlatform } from '@/constants/enum.js';
-import { batchUpdatePostDetail } from '@/helpers/batchUpdatePostDetail.js';
+import { SetQueryDataForPosts } from '@/decorators/SetQueryDataForPosts.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { formatLensPost, formatLensPostByFeed, formatLensQuoteOrComment } from '@/helpers/formatLensPost.js';
 import { formatLensProfile } from '@/helpers/formatLensProfile.js';
@@ -53,6 +53,7 @@ import {
 } from '@/providers/types/SocialMedia.js';
 import type { ResponseJSON } from '@/types/index.js';
 
+@SetQueryDataForPosts
 export class LensSocialMedia implements Provider {
     get type() {
         return SessionType.Lens;
@@ -524,12 +525,8 @@ export class LensSocialMedia implements Provider {
 
         if (!result) throw new Error(t`No comments found`);
 
-        const comments = result.items.map(formatLensPost);
-
-        batchUpdatePostDetail(comments);
-
         return createPageable(
-            comments,
+            result.items.map(formatLensPost),
             indicator ?? createIndicator(),
             result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );
@@ -559,12 +556,8 @@ export class LensSocialMedia implements Provider {
             limit: LimitType.TwentyFive,
         });
 
-        const posts = result.items.map(formatLensPost);
-
-        batchUpdatePostDetail(posts);
-
         return createPageable(
-            posts,
+            result.items.map(formatLensPost),
             createIndicator(indicator),
             result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );
@@ -582,12 +575,9 @@ export class LensSocialMedia implements Provider {
         if (data.isFailure()) throw new Error(`Some thing went wrong ${JSON.stringify(data.isFailure())}`);
 
         const result = data.unwrap();
-        const feeds = result.items.map(formatLensPostByFeed);
-
-        batchUpdatePostDetail(feeds);
 
         return createPageable(
-            feeds,
+            result.items.map(formatLensPostByFeed),
             indicator ?? createIndicator(),
             result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );
@@ -605,12 +595,8 @@ export class LensSocialMedia implements Provider {
             cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
         });
 
-        const posts = uniqWith(result.items.map(formatLensPost), (a, b) => a.postId === b.postId);
-
-        batchUpdatePostDetail(posts);
-
         return createPageable(
-            posts,
+            uniqWith(result.items.map(formatLensPost), (a, b) => a.postId === b.postId),
             createIndicator(indicator),
             result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );
@@ -631,12 +617,8 @@ export class LensSocialMedia implements Provider {
             cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
         });
 
-        const posts = result.items.map(formatLensPost);
-
-        batchUpdatePostDetail(posts);
-
         return createPageable(
-            posts,
+            result.items.map(formatLensPost),
             createIndicator(indicator),
             result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );

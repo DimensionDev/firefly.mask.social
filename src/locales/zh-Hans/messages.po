@@ -105,6 +105,9 @@ msgstr "登录失败"
 msgid "Offline"
 msgstr "离线"
 
+msgid "Username is required."
+msgstr ""
+
 msgid "Copied"
 msgstr "已复制"
 
