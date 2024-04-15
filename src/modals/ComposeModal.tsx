@@ -116,10 +116,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
             onClose: (props) => {
                 if (props?.disableClear) return;
                 clear();
-                editor.update(() => {
-                    const root = $getRoot();
-                    root.clear();
-                });
+                editor.update(() => $getRoot().clear());
             },
         });
 
