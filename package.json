@@ -199,7 +199,6 @@
             "@mui/base@5.0.0-beta.38": "src/maskbook/patches/@mui__base@5.0.0-beta.38.patch",
             "@mui/material@5.15.12": "src/maskbook/patches/@mui__material@5.15.12.patch",
             "@types/react-avatar-editor@13.0.0": "src/maskbook/patches/@types__react-avatar-editor@13.0.0.patch",
-            "fuse.js@6.6.2": "src/maskbook/patches/fuse.js@6.6.2.patch",
             "rss3-next@0.6.17": "src/maskbook/patches/rss3-next@0.6.17.patch",
             "@project-serum/sol-wallet-adapter@0.2.6": "src/maskbook/patches/@project-serum__sol-wallet-adapter@0.2.6.patch",
             "@types/react-highlight-words@0.16.4": "src/maskbook/patches/@types__react-highlight-words@0.16.4.patch",
