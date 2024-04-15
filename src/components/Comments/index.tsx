@@ -3,7 +3,6 @@ import { createIndicator, createPageable } from '@masknet/shared-base';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { memo, useCallback } from 'react';
 
-import LoadingIcon from '@/assets/loading.svg';
 import MessageIcon from '@/assets/message.svg';
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { VirtualList } from '@/components/VirtualList/index.js';
@@ -75,10 +74,11 @@ export const CommentList = memo<CommentListProps>(function CommentList({ postId,
                 computeItemKey={(index, post) => `${post.postId}-${index}`}
                 data={results}
                 endReached={onEndReached}
-                itemContent={getPostItemContent}
+                itemContent={(index, post) => getPostItemContent(index, post)}
                 useWindowScroll
+                context={{ hasNextPage }}
                 components={{
-                    Footer: () => <VirtualListFooter hasNextPage={hasNextPage} />,
+                    Footer: VirtualListFooter,
                 }}
             />
         </div>

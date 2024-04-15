@@ -6,10 +6,8 @@ import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { useCallback } from 'react';
 
 import BlackHoleIcon from '@/assets/black-hole.svg';
-import LoadingIcon from '@/assets/loading.svg';
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
-import { SinglePost } from '@/components/Posts/SinglePost.js';
 import { VirtualList } from '@/components/VirtualList/index.js';
 import { ScrollListKey, SocialPlatform } from '@/constants/enum.js';
 import { SORTED_SOURCES } from '@/constants/index.js';
@@ -19,7 +17,6 @@ import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfileAll.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
-import type { Post } from '@/providers/types/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.js';
@@ -110,8 +107,9 @@ export default function Following() {
                     getPostItemContent(index, post, { onClick: () => setScrollIndex(ScrollListKey.Following, index) })
                 }
                 useWindowScroll
+                context={{ hasNextPage }}
                 components={{
-                    Footer: () => <VirtualListFooter hasNextPage={hasNextPage} />,
+                    Footer: VirtualListFooter,
                 }}
             />
         </div>

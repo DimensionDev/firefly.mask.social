@@ -94,8 +94,9 @@ export function Home({ source, pageable }: Props) {
                     })
                 }
                 useWindowScroll
+                context={{ hasNextPage }}
                 components={{
-                    Footer: () => <VirtualListFooter hasNextPage={hasNextPage} />,
+                    Footer: VirtualListFooter,
                 }}
             />
         </div>

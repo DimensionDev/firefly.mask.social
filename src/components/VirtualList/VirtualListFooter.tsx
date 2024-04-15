@@ -4,10 +4,12 @@ import { Trans } from 'react-i18next';
 import LoadingIcon from '@/assets/loading.svg';
 
 interface VirtualListFooterProps {
-    hasNextPage: boolean;
+    context?: {
+        hasNextPage?: boolean;
+    };
 }
-export const VirtualListFooter = memo<VirtualListFooterProps>(function VirtualListFooter({ hasNextPage }) {
-    if (!hasNextPage)
+export const VirtualListFooter = memo<VirtualListFooterProps>(function VirtualListFooter({ context }) {
+    if (!context?.hasNextPage)
         return (
             <div className="flex items-center justify-center p-6 text-base text-secondary">
                 <Trans>You&apos;ve hit rock bottom.</Trans>

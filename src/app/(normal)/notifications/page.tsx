@@ -69,8 +69,9 @@ export default function Notification() {
                 endReached={onEndReached}
                 itemContent={itemContent}
                 useWindowScroll
+                context={{ hasNextPage }}
                 components={{
-                    Footer: () => <VirtualListFooter hasNextPage={hasNextPage} />,
+                    Footer: VirtualListFooter,
                 }}
             />
         </div>

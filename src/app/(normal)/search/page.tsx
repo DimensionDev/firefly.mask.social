@@ -119,8 +119,9 @@ export default function Page() {
                 endReached={onEndReached}
                 itemContent={itemContent}
                 useWindowScroll
+                context={{ hasNextPage }}
                 components={{
-                    Footer: () => <VirtualListFooter hasNextPage={hasNextPage} />,
+                    Footer: VirtualListFooter,
                 }}
             />
         </div>

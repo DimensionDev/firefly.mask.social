@@ -82,8 +82,9 @@ export function ContentFeed({ profileId, source }: ContentFeedProps) {
                     })
                 }
                 useWindowScroll
+                context={{ hasNextPage }}
                 components={{
-                    Footer: () => <VirtualListFooter hasNextPage={hasNextPage} />,
+                    Footer: VirtualListFooter,
                 }}
             />
         </div>
