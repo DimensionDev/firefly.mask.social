@@ -1,7 +1,7 @@
 import { floor } from 'lodash-es';
 import React, { useRef } from 'react';
 import { useMount } from 'react-use';
-import { Virtuoso, type VirtuosoHandle,type VirtuosoProps } from 'react-virtuoso';
+import { Virtuoso, type VirtuosoHandle, type VirtuosoProps } from 'react-virtuoso';
 
 import { useGlobalState } from '@/store/useGlobalStore.js';
 
