@@ -556,7 +556,7 @@ msgid "<0>You</0> liked"
 msgstr "<0>你</0> 已点赞"
 
 msgid "You've hit rock bottom."
-msgstr ""
+msgstr "你已经滑到底部啦～"
 
 msgid "Failed to mirror post."
 msgstr "转发失败"
