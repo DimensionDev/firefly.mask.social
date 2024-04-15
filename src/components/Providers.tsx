@@ -7,9 +7,8 @@ import { QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { ReactQueryStreamedHydration } from '@tanstack/react-query-next-experimental';
 import { SnackbarProvider } from 'notistack';
-import { useEffect, useMemo } from 'react';
+import { useEffect, useLayoutEffect, useMemo } from 'react';
 import { useEffectOnce } from 'react-use';
-import { useMediaQuery } from 'usehooks-ts';
 import { v4 as uuid } from 'uuid';
 
 import { WagmiProvider } from '@/components/WagmiProvider.js';
@@ -17,28 +16,33 @@ import { livepeerClient } from '@/configs/livepeerClient.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { getLocaleFromCookies } from '@/helpers/getLocaleFromCookies.js';
 import { DarkModeContext } from '@/hooks/useDarkMode.js';
+import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useMounted } from '@/hooks/useMounted.js';
 import { setLocale } from '@/i18n/index.js';
 import { useLeafwatchPersistStore } from '@/store/useLeafwatchPersistStore.js';
-import { useThemeModeStore } from '@/store/useThemeModeStore.js';
 
 export function Providers(props: { children: React.ReactNode }) {
-    const isDarkOS = useMediaQuery('(prefers-color-scheme: dark)');
-    const themeMode = useThemeModeStore.use.themeMode();
+    const isDarkMode = useIsDarkMode();
 
     const isMedium = useIsMedium();
 
     const darkModeContext = useMemo(() => {
         return {
-            isDarkMode: themeMode === 'dark' || (themeMode === 'default' && isDarkOS),
+            isDarkMode,
         };
-    }, [isDarkOS, themeMode]);
+    }, [isDarkMode]);
 
     useEffect(() => {
-        if (darkModeContext.isDarkMode) document.documentElement.classList.add('dark');
+        if (isDarkMode) document.documentElement.classList.add('dark');
         else document.documentElement.classList.remove('dark');
-    }, [darkModeContext.isDarkMode]);
+    }, [isDarkMode]);
+
+    useLayoutEffect(() => {
+        const meta = document.querySelector('meta[name="theme-color"]');
+        if (!meta) return;
+        meta.setAttribute('content', isDarkMode ? '#030303' : '#ffffff');
+    }, [isDarkMode]);
 
     useEffect(() => {
         setLocale(getLocaleFromCookies());
