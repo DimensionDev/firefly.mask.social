@@ -2,7 +2,7 @@
 
 import { t, Trans } from '@lingui/macro';
 import { createIndicator, type Pageable, type PageIndicator } from '@masknet/shared-base';
-import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
+import { useQueryClient, useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { useCallback } from 'react';
 
 import { discoverPosts } from '@/app/(normal)/helpers/discoverPosts.js';
@@ -18,6 +18,7 @@ import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
+import { batchUpdatePostDetail } from '@/helpers/batchUpdatePostDetail.js';
 
 interface Props {
     // the source of the posts
@@ -27,6 +28,7 @@ interface Props {
 }
 
 export function Home({ source, pageable }: Props) {
+    const queryClient = useQueryClient();
     const setScrollIndex = useGlobalState.use.setScrollIndex();
     const currentSource = useGlobalState.use.currentSource();
 
@@ -40,6 +42,7 @@ export function Home({ source, pageable }: Props) {
             if (pageParam === '' && pageable?.data.length && source === currentSource) return pageable;
 
             const posts = await discoverPosts(currentSource, createIndicator(undefined, pageParam));
+            batchUpdatePostDetail(posts.data);
             if (currentSource === SocialPlatform.Lens) fetchAndStoreViews(posts.data.flatMap((x) => [x.postId]));
             return posts;
         },

@@ -14,6 +14,7 @@ import { mergeThreadPosts } from '@/helpers/mergeThreadPosts.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
+import { batchUpdatePostDetail } from '@/helpers/batchUpdatePostDetail.js';
 
 interface ContentFeedProps {
     profileId: string;
@@ -31,6 +32,8 @@ export function ContentCollected({ profileId, source }: ContentFeedProps) {
             if (!provider) return createPageable(EMPTY_LIST, undefined);
 
             const posts = await provider.getCollectedPostsByProfileId(profileId, createIndicator(undefined, pageParam));
+
+            batchUpdatePostDetail(posts.data);
 
             if (source === SocialPlatform.Lens) {
                 const ids = posts.data.flatMap((x) => [x.postId]);

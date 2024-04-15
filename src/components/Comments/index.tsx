@@ -12,6 +12,7 @@ import { SocialPlatform } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
+import { batchUpdatePostDetail } from '@/helpers/batchUpdatePostDetail.js';
 
 export interface CommentListProps {
     postId: string;
@@ -37,6 +38,8 @@ export const CommentList = memo<CommentListProps>(function CommentList({ postId,
             if (!provider) return createPageable(EMPTY_LIST, undefined);
 
             const comments = await provider?.getCommentsById(postId, createIndicator(undefined, pageParam));
+
+            batchUpdatePostDetail(comments.data);
 
             if (source === SocialPlatform.Lens) {
                 const ids = comments.data.flatMap((x) => [x.postId]);
@@ -74,7 +77,7 @@ export const CommentList = memo<CommentListProps>(function CommentList({ postId,
                 computeItemKey={(index, post) => `${post.postId}-${index}`}
                 data={results}
                 endReached={onEndReached}
-                itemContent={(index, post) => getPostItemContent(index, post)}
+                itemContent={(index, post) => getPostItemContent(index, post, { isComment: true })}
                 useWindowScroll
                 context={{ hasNextPage }}
                 components={{

@@ -2,7 +2,7 @@
 
 import { t, Trans } from '@lingui/macro';
 import { createIndicator, EMPTY_LIST } from '@masknet/shared-base';
-import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
+import { useQueryClient, useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { useCallback } from 'react';
 
 import BlackHoleIcon from '@/assets/black-hole.svg';
@@ -21,8 +21,10 @@ import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
+import { batchUpdatePostDetail } from '@/helpers/batchUpdatePostDetail.js';
 
 export default function Following() {
+    const queryClient = useQueryClient();
     const setScrollIndex = useGlobalState.use.setScrollIndex();
     const currentSource = useGlobalState.use.currentSource();
     const isLogin = useIsLogin(currentSource);
@@ -53,6 +55,7 @@ export default function Following() {
                 createIndicator(undefined, pageParam),
             );
 
+            batchUpdatePostDetail(posts.data);
             if (currentSource === SocialPlatform.Lens) {
                 const ids = posts.data.flatMap((x) => [x.postId]);
                 fetchAndStoreViews(ids);

@@ -18,10 +18,11 @@ import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 import type { Post, Profile } from '@/providers/types/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useSearchState } from '@/store/useSearchState.js';
+import { batchUpdatePostDetail } from '@/helpers/batchUpdatePostDetail.js';
 
 export default function Page() {
     const { searchKeyword, searchType } = useSearchState();
-    const { currentSource, setScrollIndex } = useGlobalState();
+    const { currentSource } = useGlobalState();
 
     const {
         data: results,
@@ -43,7 +44,9 @@ export default function Page() {
                 case SearchType.Users:
                     return provider?.searchProfiles(searchKeyword, indicator);
                 case SearchType.Posts:
-                    return provider?.searchPosts(searchKeyword, indicator);
+                    const posts = await provider?.searchPosts(searchKeyword, indicator);
+                    batchUpdatePostDetail(posts.data);
+                    return posts;
                 default:
                     safeUnreachable(searchType);
                     return;
