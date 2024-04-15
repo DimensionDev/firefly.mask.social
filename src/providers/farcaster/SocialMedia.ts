@@ -13,6 +13,7 @@ import {
     SessionType,
 } from '@/providers/types/SocialMedia.js';
 import { WarpcastSocialMediaProvider } from '@/providers/warpcast/SocialMedia.js';
+import { batchUpdatePostDetail } from '@/helpers/batchUpdatePostDetail.js';
 
 export class FarcasterSocialMedia implements Provider {
     get type() {
@@ -158,13 +159,16 @@ export class FarcasterSocialMedia implements Provider {
     }
 
     async searchPosts(q: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        return attemptUntil<Pageable<Post, PageIndicator>>(
+        const result = await attemptUntil<Pageable<Post, PageIndicator>>(
             [
                 async () => WarpcastSocialMediaProvider.searchPosts(q, indicator),
                 async () => FireflySocialMediaProvider.searchPosts(q, indicator),
             ],
             createPageable<Post>(EMPTY_LIST, createIndicator(indicator)),
         );
+
+        batchUpdatePostDetail(result.data);
+        return result;
     }
 
     async getSuggestedFollows(indicator?: PageIndicator): Promise<Pageable<Profile>> {

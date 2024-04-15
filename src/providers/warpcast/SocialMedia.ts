@@ -41,6 +41,7 @@ import {
     type UserDetailResponse,
     type UsersResponse,
 } from '@/providers/types/Warpcast.js';
+import { batchUpdatePostDetail } from '@/helpers/batchUpdatePostDetail.js';
 
 export class WarpcastSocialMedia implements Provider {
     get type() {
@@ -83,6 +84,9 @@ export class WarpcastSocialMedia implements Provider {
         );
 
         const data = result.feed.map(formatWarpcastPostFromFeed);
+
+        batchUpdatePostDetail(data);
+
         return createPageable(
             data,
             indicator ?? createIndicator(),
@@ -99,6 +103,8 @@ export class WarpcastSocialMedia implements Provider {
 
         const { result, next } = await farcasterClient.fetch<CastsResponse>(url);
         const data = result.casts.map(formatWarpcastPost);
+
+        batchUpdatePostDetail(data);
         return createPageable(
             data,
             indicator ?? createIndicator(),

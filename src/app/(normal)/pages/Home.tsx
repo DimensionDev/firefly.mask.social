@@ -28,7 +28,6 @@ interface Props {
 }
 
 export function Home({ source, pageable }: Props) {
-    const queryClient = useQueryClient();
     const setScrollIndex = useGlobalState.use.setScrollIndex();
     const currentSource = useGlobalState.use.currentSource();
 
@@ -42,7 +41,6 @@ export function Home({ source, pageable }: Props) {
             if (pageParam === '' && pageable?.data.length && source === currentSource) return pageable;
 
             const posts = await discoverPosts(currentSource, createIndicator(undefined, pageParam));
-            batchUpdatePostDetail(posts.data);
             if (currentSource === SocialPlatform.Lens) fetchAndStoreViews(posts.data.flatMap((x) => [x.postId]));
             return posts;
         },

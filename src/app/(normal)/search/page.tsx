@@ -45,7 +45,6 @@ export default function Page() {
                     return provider?.searchProfiles(searchKeyword, indicator);
                 case SearchType.Posts:
                     const posts = await provider?.searchPosts(searchKeyword, indicator);
-                    batchUpdatePostDetail(posts.data);
                     return posts;
                 default:
                     safeUnreachable(searchType);

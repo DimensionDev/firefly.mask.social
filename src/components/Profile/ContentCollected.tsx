@@ -33,8 +33,6 @@ export function ContentCollected({ profileId, source }: ContentFeedProps) {
 
             const posts = await provider.getCollectedPostsByProfileId(profileId, createIndicator(undefined, pageParam));
 
-            batchUpdatePostDetail(posts.data);
-
             if (source === SocialPlatform.Lens) {
                 const ids = posts.data.flatMap((x) => [x.postId]);
                 await fetchAndStoreViews(ids);

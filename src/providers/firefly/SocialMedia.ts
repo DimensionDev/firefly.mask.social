@@ -41,6 +41,7 @@ import {
     type Reaction,
     SessionType,
 } from '@/providers/types/SocialMedia.js';
+import { batchUpdatePostDetail } from '@/helpers/batchUpdatePostDetail.js';
 
 export class FireflySocialMedia implements Provider {
     quotePost(postId: string, post: Post): Promise<string> {
@@ -140,6 +141,9 @@ export class FireflySocialMedia implements Provider {
             const { data } = await fetchJSON<CastsResponse>(url);
 
             const posts = data.casts.map((x) => formatFarcasterPostFromFirefly(x));
+
+            batchUpdatePostDetail(posts);
+
             return createPageable(
                 posts,
                 createIndicator(indicator),
@@ -235,8 +239,11 @@ export class FireflySocialMedia implements Provider {
             method: 'GET',
         });
 
+        const data = comments.map((item) => formatFarcasterPostFromFirefly(item));
+
+        batchUpdatePostDetail(data);
         return createPageable(
-            comments.map((item) => formatFarcasterPostFromFirefly(item)),
+            data,
             indicator ?? createIndicator(indicator),
             cursor ? createNextIndicator(indicator, cursor) : undefined,
         );
@@ -258,7 +265,7 @@ export class FireflySocialMedia implements Provider {
                 }),
             });
             const data = casts.map((cast) => formatFarcasterPostFromFirefly(cast));
-
+            batchUpdatePostDetail(data);
             return createPageable(
                 data,
                 createIndicator(indicator),
@@ -363,6 +370,9 @@ export class FireflySocialMedia implements Provider {
             });
 
             const data = casts.map((x) => formatFarcasterPostFromFirefly(x));
+
+            batchUpdatePostDetail(data);
+
             return createPageable(
                 data,
                 indicator ?? createIndicator(),
@@ -458,6 +468,8 @@ export class FireflySocialMedia implements Provider {
                 reactions: cast.likeCount,
             },
         }));
+
+        batchUpdatePostDetail(data);
         return createPageable(data, createIndicator(indicator), createNextIndicator(indicator, ''));
     }
 

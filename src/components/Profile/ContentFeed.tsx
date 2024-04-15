@@ -9,7 +9,6 @@ import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.
 import { VirtualList } from '@/components/VirtualList/index.js';
 import { VirtualListFooter } from '@/components/VirtualList/VirtualListFooter.js';
 import { ScrollListKey, SocialPlatform } from '@/constants/enum.js';
-import { batchUpdatePostDetail } from '@/helpers/batchUpdatePostDetail.js';
 import { mergeThreadPosts } from '@/helpers/mergeThreadPosts.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
@@ -33,8 +32,6 @@ export function ContentFeed({ profileId, source }: ContentFeedProps) {
             if (!provider) return createPageable(EMPTY_LIST, undefined);
 
             const posts = await provider.getPostsByProfileId(profileId, createIndicator(undefined, pageParam));
-
-            batchUpdatePostDetail(posts.data);
 
             if (source === SocialPlatform.Lens) {
                 const ids = posts.data.flatMap((x) => [x.postId]);

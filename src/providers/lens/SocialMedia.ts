@@ -51,6 +51,7 @@ import {
     SessionType,
 } from '@/providers/types/SocialMedia.js';
 import type { ResponseJSON } from '@/types/index.js';
+import { batchUpdatePostDetail } from '@/helpers/batchUpdatePostDetail.js';
 
 export class LensSocialMedia implements Provider {
     get type() {
@@ -523,8 +524,12 @@ export class LensSocialMedia implements Provider {
 
         if (!result) throw new Error(t`No comments found`);
 
+        const comments = result.items.map(formatLensPost);
+
+        batchUpdatePostDetail(comments);
+
         return createPageable(
-            result.items.map(formatLensPost),
+            comments,
             indicator ?? createIndicator(),
             result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );
@@ -554,8 +559,12 @@ export class LensSocialMedia implements Provider {
             limit: LimitType.TwentyFive,
         });
 
+        const posts = result.items.map(formatLensPost);
+
+        batchUpdatePostDetail(posts);
+
         return createPageable(
-            result.items.map(formatLensPost),
+            posts,
             createIndicator(indicator),
             result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );
@@ -573,8 +582,12 @@ export class LensSocialMedia implements Provider {
         if (data.isFailure()) throw new Error(`Some thing went wrong ${JSON.stringify(data.isFailure())}`);
 
         const result = data.unwrap();
+        const feeds = result.items.map(formatLensPostByFeed);
+
+        batchUpdatePostDetail(feeds);
+
         return createPageable(
-            result.items.map(formatLensPostByFeed),
+            feeds,
             indicator ?? createIndicator(),
             result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );
@@ -592,8 +605,12 @@ export class LensSocialMedia implements Provider {
             cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
         });
 
+        const posts = uniqWith(result.items.map(formatLensPost), (a, b) => a.postId === b.postId);
+
+        batchUpdatePostDetail(posts);
+
         return createPageable(
-            uniqWith(result.items.map(formatLensPost), (a, b) => a.postId === b.postId),
+            posts,
             createIndicator(indicator),
             result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );
@@ -614,8 +631,12 @@ export class LensSocialMedia implements Provider {
             cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
         });
 
+        const posts = result.items.map(formatLensPost);
+
+        batchUpdatePostDetail(posts);
+
         return createPageable(
-            result.items.map(formatLensPost),
+            posts,
             createIndicator(indicator),
             result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );

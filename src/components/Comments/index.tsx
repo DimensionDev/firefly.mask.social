@@ -39,8 +39,6 @@ export const CommentList = memo<CommentListProps>(function CommentList({ postId,
 
             const comments = await provider?.getCommentsById(postId, createIndicator(undefined, pageParam));
 
-            batchUpdatePostDetail(comments.data);
-
             if (source === SocialPlatform.Lens) {
                 const ids = comments.data.flatMap((x) => [x.postId]);
                 await fetchAndStoreViews(ids);

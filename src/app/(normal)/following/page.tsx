@@ -55,7 +55,6 @@ export default function Following() {
                 createIndicator(undefined, pageParam),
             );
 
-            batchUpdatePostDetail(posts.data);
             if (currentSource === SocialPlatform.Lens) {
                 const ids = posts.data.flatMap((x) => [x.postId]);
                 fetchAndStoreViews(ids);
