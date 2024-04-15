@@ -42,7 +42,39 @@ import {
     type UsersResponse,
 } from '@/providers/types/Warpcast.js';
 
-export class WarpcastSocialMedia implements Provider {
+class WarpcastSocialMedia implements Provider {
+    quotePost(postId: string, post: Post): Promise<string> {
+        throw new Error('Method not implemented.');
+    }
+
+    collectPost(postId: string, collectionId?: string): Promise<void> {
+        throw new Error('Method not implemented.');
+    }
+
+    getProfilesByAddress(address: string): Promise<Profile[]> {
+        throw new Error('Method not implemented.');
+    }
+
+    getProfilesByIds(ids: string[]): Promise<Profile[]> {
+        throw new Error('Method not implemented.');
+    }
+
+    getProfileByHandle(handle: string): Promise<Profile> {
+        throw new Error('Method not implemented.');
+    }
+
+    getCommentsById(postId: string, indicator?: PageIndicator | undefined): Promise<Pageable<Post, PageIndicator>> {
+        throw new Error('Method not implemented.');
+    }
+
+    getReactors(postId: string, indicator?: PageIndicator | undefined): Promise<Pageable<Profile, PageIndicator>> {
+        throw new Error('Method not implemented.');
+    }
+
+    getThreadByPostId(postId: string, rootPost?: Post): Promise<Post[]> {
+        throw new Error('Method not implemented.');
+    }
+
     get type() {
         return SessionType.Farcaster;
     }
@@ -81,8 +113,8 @@ export class WarpcastSocialMedia implements Provider {
             },
             true,
         );
-
         const data = result.feed.map(formatWarpcastPostFromFeed);
+
         return createPageable(
             data,
             indicator ?? createIndicator(),
@@ -99,6 +131,7 @@ export class WarpcastSocialMedia implements Provider {
 
         const { result, next } = await farcasterClient.fetch<CastsResponse>(url);
         const data = result.casts.map(formatWarpcastPost);
+
         return createPageable(
             data,
             indicator ?? createIndicator(),
@@ -203,12 +236,13 @@ export class WarpcastSocialMedia implements Provider {
         else return false;
     }
 
-    // @ts-ignore
     async getPostsByParentPostId(
         parentPostId: string,
-        username: string,
         indicator?: PageIndicator,
+        username?: string,
     ): Promise<Pageable<Post, PageIndicator>> {
+        if (!username) throw new Error(t`Username is required.`);
+
         const url = urlcat(WARPCAST_CLIENT_URL, '/v2/user-thread-casts', {
             castHashPrefix: parentPostId,
             limit: 10,

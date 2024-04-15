@@ -74,7 +74,7 @@ export const CommentList = memo<CommentListProps>(function CommentList({ postId,
                 computeItemKey={(index, post) => `${post.postId}-${index}`}
                 data={results}
                 endReached={onEndReached}
-                itemContent={(index, post) => getPostItemContent(index, post)}
+                itemContent={(index, post) => getPostItemContent(index, post, { isComment: true })}
                 useWindowScroll
                 context={{ hasNextPage }}
                 components={{

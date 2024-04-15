@@ -43,7 +43,7 @@ import {
     SessionType,
 } from '@/providers/types/SocialMedia.js';
 
-export class FireflySocialMedia implements Provider {
+class FireflySocialMedia implements Provider {
     quotePost(postId: string, post: Post): Promise<string> {
         throw new Error('Method not implemented.');
     }
@@ -76,6 +76,10 @@ export class FireflySocialMedia implements Provider {
     }
 
     getPostsReplies(profileId: string, indicator?: PageIndicator | undefined): Promise<Pageable<Post, PageIndicator>> {
+        throw new Error('Method not implemented.');
+    }
+
+    getPostsByParentPostId(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         throw new Error('Method not implemented.');
     }
 
@@ -139,8 +143,8 @@ export class FireflySocialMedia implements Provider {
                 sourceFid: session?.profileId,
             });
             const { data } = await fetchJSON<CastsResponse>(url);
-
             const posts = data.casts.map((x) => formatFarcasterPostFromFirefly(x));
+
             return createPageable(
                 posts,
                 createIndicator(indicator),
@@ -184,10 +188,6 @@ export class FireflySocialMedia implements Provider {
                 ...friendship,
             });
         });
-    }
-
-    async getPostsByParentPostId(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        throw new Error('Method not implemented.');
     }
 
     async getFollowers(profileId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
@@ -364,8 +364,8 @@ export class FireflySocialMedia implements Provider {
                     cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
                 }),
             });
-
             const data = casts.map((x) => formatFarcasterPostFromFirefly(x));
+
             return createPageable(
                 data,
                 indicator ?? createIndicator(),

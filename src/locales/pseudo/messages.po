@@ -97,6 +97,9 @@ msgstr ""
 msgid "Offline"
 msgstr ""
 
+msgid "Username is required."
+msgstr ""
+
 msgid "Copied"
 msgstr ""
 
