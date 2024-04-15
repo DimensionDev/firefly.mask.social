@@ -13,6 +13,7 @@ import { VirtualList } from '@/components/VirtualList/index.js';
 import { VirtualListFooter } from '@/components/VirtualList/VirtualListFooter.js';
 import { ScrollListKey, SocialPlatform } from '@/constants/enum.js';
 import { SORTED_SOURCES } from '@/constants/index.js';
+import { batchUpdatePostDetail } from '@/helpers/batchUpdatePostDetail.js';
 import { mergeThreadPosts } from '@/helpers/mergeThreadPosts.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
@@ -21,7 +22,6 @@ import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
-import { batchUpdatePostDetail } from '@/helpers/batchUpdatePostDetail.js';
 
 export default function Following() {
     const queryClient = useQueryClient();

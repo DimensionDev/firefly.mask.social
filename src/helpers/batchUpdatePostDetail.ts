@@ -1,5 +1,4 @@
 import { queryClient } from '@/configs/queryClient.js';
-import type { SocialPlatform } from '@/constants/enum.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 export function batchUpdatePostDetail(posts: Post[]) {

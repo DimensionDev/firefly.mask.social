@@ -9,11 +9,11 @@ import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.
 import { VirtualList } from '@/components/VirtualList/index.js';
 import { VirtualListFooter } from '@/components/VirtualList/VirtualListFooter.js';
 import { ScrollListKey, SocialPlatform } from '@/constants/enum.js';
+import { batchUpdatePostDetail } from '@/helpers/batchUpdatePostDetail.js';
 import { mergeThreadPosts } from '@/helpers/mergeThreadPosts.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
-import { batchUpdatePostDetail } from '@/helpers/batchUpdatePostDetail.js';
 
 interface ContentFeedProps {
     profileId: string;

@@ -13,12 +13,12 @@ import { ProfileInList } from '@/components/Search/ProfileInList.js';
 import { VirtualList } from '@/components/VirtualList/index.js';
 import { VirtualListFooter } from '@/components/VirtualList/VirtualListFooter.js';
 import { SearchType } from '@/constants/enum.js';
+import { batchUpdatePostDetail } from '@/helpers/batchUpdatePostDetail.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 import type { Post, Profile } from '@/providers/types/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useSearchState } from '@/store/useSearchState.js';
-import { batchUpdatePostDetail } from '@/helpers/batchUpdatePostDetail.js';
 
 export default function Page() {
     const { searchKeyword, searchType } = useSearchState();
