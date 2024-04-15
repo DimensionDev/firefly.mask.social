@@ -2,7 +2,7 @@
 
 import { t, Trans } from '@lingui/macro';
 import { createIndicator, EMPTY_LIST } from '@masknet/shared-base';
-import { useQueryClient, useSuspenseInfiniteQuery } from '@tanstack/react-query';
+import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { useCallback } from 'react';
 
 import BlackHoleIcon from '@/assets/black-hole.svg';
@@ -23,7 +23,6 @@ import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 
 export default function Following() {
-    const queryClient = useQueryClient();
     const setScrollIndex = useGlobalState.use.setScrollIndex();
     const currentSource = useGlobalState.use.currentSource();
     const isLogin = useIsLogin(currentSource);

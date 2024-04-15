@@ -43,8 +43,7 @@ export default function Page() {
                 case SearchType.Users:
                     return provider?.searchProfiles(searchKeyword, indicator);
                 case SearchType.Posts:
-                    const posts = await provider?.searchPosts(searchKeyword, indicator);
-                    return posts;
+                    return provider?.searchPosts(searchKeyword, indicator);
                 default:
                     safeUnreachable(searchType);
                     return;

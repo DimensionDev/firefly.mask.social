@@ -54,7 +54,7 @@ import {
 import type { ResponseJSON } from '@/types/index.js';
 
 @SetQueryDataForPosts
-export class LensSocialMedia implements Provider {
+class LensSocialMedia implements Provider {
     get type() {
         return SessionType.Lens;
     }

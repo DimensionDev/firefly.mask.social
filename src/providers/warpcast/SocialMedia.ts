@@ -42,7 +42,7 @@ import {
     type UsersResponse,
 } from '@/providers/types/Warpcast.js';
 
-export class WarpcastSocialMedia implements Provider {
+class WarpcastSocialMedia implements Provider {
     quotePost(postId: string, post: Post): Promise<string> {
         throw new Error('Method not implemented.');
     }
@@ -113,9 +113,10 @@ export class WarpcastSocialMedia implements Provider {
             },
             true,
         );
+        const data = result.feed.map(formatWarpcastPostFromFeed);
 
         return createPageable(
-            result.feed.map(formatWarpcastPostFromFeed),
+            data,
             indicator ?? createIndicator(),
             next?.cursor ? createNextIndicator(indicator, next.cursor) : undefined,
         );
@@ -129,9 +130,10 @@ export class WarpcastSocialMedia implements Provider {
         });
 
         const { result, next } = await farcasterClient.fetch<CastsResponse>(url);
+        const data = result.casts.map(formatWarpcastPost);
 
         return createPageable(
-            result.casts.map(formatWarpcastPost),
+            data,
             indicator ?? createIndicator(),
             next?.cursor ? createNextIndicator(indicator, next.cursor) : undefined,
         );

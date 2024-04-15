@@ -142,9 +142,10 @@ class FireflySocialMedia implements Provider {
                 sourceFid: session?.profileId,
             });
             const { data } = await fetchJSON<CastsResponse>(url);
+            const posts = data.casts.map((x) => formatFarcasterPostFromFirefly(x));
 
             return createPageable(
-                data.casts.map((x) => formatFarcasterPostFromFirefly(x)),
+                posts,
                 createIndicator(indicator),
                 data.cursor ? createNextIndicator(indicator, data.cursor) : undefined,
             );
@@ -256,8 +257,10 @@ class FireflySocialMedia implements Provider {
                     needRootParentHash: true,
                 }),
             });
+            const data = casts.map((cast) => formatFarcasterPostFromFirefly(cast));
+
             return createPageable(
-                casts.map((cast) => formatFarcasterPostFromFirefly(cast)),
+                data,
                 createIndicator(indicator),
                 cursor ? createNextIndicator(indicator, cursor) : undefined,
             );
@@ -358,9 +361,10 @@ class FireflySocialMedia implements Provider {
                     cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
                 }),
             });
+            const data = casts.map((x) => formatFarcasterPostFromFirefly(x));
 
             return createPageable(
-                casts.map((x) => formatFarcasterPostFromFirefly(x)),
+                data,
                 indicator ?? createIndicator(),
                 cursor ? createNextIndicator(indicator, cursor) : undefined,
             );
