@@ -5,11 +5,14 @@ import { Virtuoso, type VirtuosoHandle, type VirtuosoProps } from 'react-virtuos
 
 import { useGlobalState } from '@/store/useGlobalStore.js';
 
-interface VirtualListProps<ItemData = any, Context = any> extends VirtuosoProps<ItemData, Context> {
+interface VirtualListProps<ItemData = unknown, Context = unknown> extends VirtuosoProps<ItemData, Context> {
     listKey?: string;
 }
 
-export function VirtualList<ItemData = any, Context = any>({ listKey, ...rest }: VirtualListProps<ItemData, Context>) {
+export function VirtualList<ItemData = unknown, Context = unknown>({
+    listKey,
+    ...rest
+}: VirtualListProps<ItemData, Context>) {
     const { scrollIndexMap, setScrollIndex } = useGlobalState();
     const ref = useRef<VirtuosoHandle>(null);
 
