@@ -279,7 +279,9 @@ export class FireflySocialMedia implements Provider {
 
         const result = data.notifications.map<Notification | undefined>((notification) => {
             const notificationId = `${profileId}_${notification.timestamp}_${notification.notificationType}`;
-            const user = notification.user ? [formatFarcasterProfileFromFirefly(notification.user)] : EMPTY_LIST;
+            const users =
+                notification.users?.map(formatFarcasterProfileFromFirefly) ??
+                (notification.user ? [formatFarcasterProfileFromFirefly(notification.user)] : EMPTY_LIST);
             const post = notification.cast ? formatFarcasterPostFromFirefly(notification.cast) : undefined;
             const timestamp = notification.timestamp ? new Date(notification.timestamp).getTime() : undefined;
             if (notification.notificationType === FireflyNotificationType.CastBeLiked) {
@@ -287,7 +289,7 @@ export class FireflySocialMedia implements Provider {
                     source: SocialPlatform.Farcaster,
                     notificationId,
                     type: NotificationType.Reaction,
-                    reactors: user,
+                    reactors: users,
                     post,
                     timestamp,
                 };
@@ -296,7 +298,7 @@ export class FireflySocialMedia implements Provider {
                     source: SocialPlatform.Farcaster,
                     notificationId,
                     type: NotificationType.Mirror,
-                    mirrors: user,
+                    mirrors: users,
                     post,
                     timestamp,
                 };
@@ -322,7 +324,7 @@ export class FireflySocialMedia implements Provider {
                     source: SocialPlatform.Farcaster,
                     notificationId,
                     type: NotificationType.Follow,
-                    followers: user,
+                    followers: users,
                 };
             } else if (notification.notificationType === FireflyNotificationType.BeMentioned) {
                 return {

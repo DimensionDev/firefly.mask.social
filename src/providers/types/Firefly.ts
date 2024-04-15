@@ -66,6 +66,7 @@ export interface Notification {
     cast: Cast | null;
     notificationType: NotificationType;
     user: User | null;
+    users: User[] | null;
     timestamp: string;
 }
 
