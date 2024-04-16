@@ -320,7 +320,9 @@ class HubbleSocialMedia implements Provider {
         return null!;
     }
 
-    async unmirrorPost(postId: string, authorId: number) {
+    async unmirrorPost(postId: string, authorId?: number) {
+        if (!authorId) throw new Error(t`Failed to unmirror post.`);
+
         const { messageBytes } = await encodeMessageData(
             (fid) => ({
                 reactionBody: {
@@ -349,7 +351,7 @@ class HubbleSocialMedia implements Provider {
             body: messageBytes,
         });
         if (!data) throw new Error(t`Failed to unmirror post.`);
-        return null!;
+        return;
     }
 
     async follow(profileId: string) {

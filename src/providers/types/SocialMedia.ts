@@ -299,6 +299,8 @@ export interface Provider {
         },
     ) => Promise<string>;
 
+    unmirrorPost?: (postId: string, authorId?: number) => Promise<void>;
+
     /**
      * Quotes a post with the specified post ID and an introduction.
      *

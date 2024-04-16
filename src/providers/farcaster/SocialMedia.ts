@@ -2,6 +2,9 @@ import { t } from '@lingui/macro';
 import { createIndicator, createPageable, EMPTY_LIST, type Pageable, type PageIndicator } from '@masknet/shared-base';
 import { attemptUntil } from '@masknet/web3-shared-base';
 
+import { SocialPlatform } from '@/constants/enum.js';
+import { SetQueryDataForLikePost } from '@/decorators/SetQueryDataForLikePost.js';
+import { SetQueryDataForMirrorPost } from '@/decorators/SetQueryDataForMirrorPost.js';
 import { SetQueryDataForPosts } from '@/decorators/SetQueryDataForPosts.js';
 import { getFarcasterSessionType } from '@/helpers/getFarcasterSessionType.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
@@ -15,6 +18,8 @@ import {
 } from '@/providers/types/SocialMedia.js';
 import { WarpcastSocialMediaProvider } from '@/providers/warpcast/SocialMedia.js';
 
+@SetQueryDataForLikePost(SocialPlatform.Farcaster)
+@SetQueryDataForMirrorPost(SocialPlatform.Farcaster)
 @SetQueryDataForPosts
 class FarcasterSocialMedia implements Provider {
     quotePost(postId: string, post: Post): Promise<string> {
@@ -162,7 +167,7 @@ class FarcasterSocialMedia implements Provider {
         throw new Error(t`No session found.`);
     }
 
-    async unmirrorPost(postId: string, authorId: number) {
+    async unmirrorPost(postId: string, authorId?: number) {
         const { isCustodyWallet, isGrantByPermission } = getFarcasterSessionType();
         if (isCustodyWallet) return WarpcastSocialMediaProvider.unmirrorPost(postId);
         if (isGrantByPermission) return HubbleSocialMediaProvider.unmirrorPost(postId, authorId);
