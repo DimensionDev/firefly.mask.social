@@ -6,6 +6,7 @@ import { LivepeerConfig } from '@livepeer/react';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { ReactQueryStreamedHydration } from '@tanstack/react-query-next-experimental';
+import { usePathname } from 'next/navigation.js';
 import { SnackbarProvider } from 'notistack';
 import { useEffect, useLayoutEffect, useMemo, useRef } from 'react';
 import { useEffectOnce } from 'react-use';
@@ -20,9 +21,8 @@ import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useMounted } from '@/hooks/useMounted.js';
 import { setLocale } from '@/i18n/index.js';
-import { useLeafwatchPersistStore } from '@/store/useLeafwatchPersistStore.js';
-import { usePathname } from 'next/navigation.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
+import { useLeafwatchPersistStore } from '@/store/useLeafwatchPersistStore.js';
 
 export function Providers(props: { children: React.ReactNode }) {
     const isDarkMode = useIsDarkMode();

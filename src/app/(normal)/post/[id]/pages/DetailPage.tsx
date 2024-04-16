@@ -22,8 +22,8 @@ import { resolveSocialPlatform } from '@/helpers/resolveSocialPlatform.js';
 import { useUpdateCurrentVisitingPost } from '@/hooks/useCurrentVisitingPost.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { getPostById } from '@/services/getPostById.js';
-import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
+import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 
 const PostActions = dynamic(() => import('@/components/Actions/index.js').then((module) => module.PostActions), {
     ssr: false,
