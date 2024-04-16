@@ -447,7 +447,7 @@ class WarpcastSocialMedia implements Provider {
 
     async unmirrorPost(postId: string) {
         const url = urlcat(WARPCAST_ROOT_URL, '/recasts');
-        const { result } = await farcasterClient.fetch<SuccessResponse>(
+        await farcasterClient.fetch<SuccessResponse>(
             url,
             {
                 method: 'DELETE',
@@ -455,7 +455,6 @@ class WarpcastSocialMedia implements Provider {
             },
             true,
         );
-        return result.success;
     }
 
     async followProfile(profileId: string) {
