@@ -119,9 +119,9 @@ export default function Connected() {
                 </>
             ) : null}
 
-            <div className="flex items-center gap-4">
+            <div className="flex w-full flex-col items-center justify-center gap-4 md:flex-row">
                 <ClickableButton
-                    className="inline-flex h-10 w-[200px] flex-col items-center justify-center"
+                    className="inline-flex h-10 w-full flex-col items-center justify-center md:w-[200px]"
                     onClick={() => {
                         LoginModalRef.open();
                     }}
@@ -134,7 +134,7 @@ export default function Connected() {
                 </ClickableButton>
 
                 <ClickableButton
-                    className="inline-flex h-10 w-[200px] flex-col items-start justify-start"
+                    className="inline-flex h-10 w-full flex-col items-start justify-start md:w-[200px]"
                     onClick={() => {
                         LogoutModalRef.open();
                     }}

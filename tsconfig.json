@@ -35,6 +35,7 @@
     "compilerOptions": {
         "noEmit": true,
         "sourceMap": false,
+        "experimentalDecorators": true,
         "declaration": true,
         "declarationDir": "./src/types",
         "declarationMap": false,

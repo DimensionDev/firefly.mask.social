@@ -36,7 +36,7 @@ function fetchNeynarJSON<T>(url: string, options: RequestInit): Promise<T> {
     });
 }
 
-export class NeynarSocialMedia implements Provider {
+class NeynarSocialMedia implements Provider {
     get type() {
         return SessionType.Farcaster;
     }

@@ -89,7 +89,7 @@ export const PreviewImagesModal = forwardRef<SingletonModalRefCreator<PreviewIma
                                 className="max-h-[calc(100vh-110px)] max-w-full"
                             />
 
-                            <div className="absolute bottom-0 my-1 flex items-center justify-between">
+                            <div className="absolute my-1 flex items-center justify-between bottom-safe">
                                 {post ? <PostActions className="gap-8" post={post} disablePadding /> : null}
                             </div>
                         </>

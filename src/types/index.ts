@@ -31,3 +31,8 @@ export enum Locale {
 export type SearchParams = Record<string, string | string[] | undefined>;
 
 export type PartialWith<T, K extends keyof T> = Partial<Pick<T, K>> & Omit<T, K>;
+
+// eslint-disable-next-line @typescript-eslint/ban-types
+export interface ClassType<T> extends Function {
+    new (...args: unknown[]): T;
+}
