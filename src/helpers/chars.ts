@@ -44,9 +44,21 @@ export function writeChars(chars: Chars, newChars: Chars) {
     ];
 }
 
+function calculateLength(text: string): number {
+    let length = 0;
+    for (const char of text) {
+        if (char.charCodeAt(0) > 128 || char.charCodeAt(0) === 94) {
+            length += 2;
+        } else {
+            length += 1;
+        }
+    }
+    return length;
+}
+
 export function measureChars(chars: Chars) {
-    const length = readChars(chars).length;
-    const visibleLength = readChars(chars, true).length;
+    const length = calculateLength(readChars(chars));
+    const visibleLength = calculateLength(readChars(chars, true));
     return {
         length,
         visibleLength,
