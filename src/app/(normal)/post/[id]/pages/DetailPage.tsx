@@ -13,7 +13,7 @@ import ComeBack from '@/assets/comeback.svg';
 import { CommentList } from '@/components/Comments/index.js';
 import { SinglePost } from '@/components/Posts/SinglePost.js';
 import { ThreadBody } from '@/components/Posts/ThreadBody.js';
-import { SocialPlatform, SourceInURL } from '@/constants/enum.js';
+import { PageRoute, SocialPlatform, SourceInURL } from '@/constants/enum.js';
 import { EMPTY_LIST, MIN_POST_SIZE_PER_THREAD, SITE_NAME } from '@/constants/index.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { createPageTitle } from '@/helpers/createPageTitle.js';
@@ -23,6 +23,7 @@ import { useUpdateCurrentVisitingPost } from '@/hooks/useCurrentVisitingPost.js'
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { getPostById } from '@/services/getPostById.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
+import { useGlobalState } from '@/store/useGlobalStore.js';
 
 const PostActions = dynamic(() => import('@/components/Actions/index.js').then((module) => module.PostActions), {
     ssr: false,
@@ -54,6 +55,8 @@ export function PostDetailPage({ params: { id: postId }, searchParams: { source 
     const currentSource = resolveSocialPlatform(source);
 
     const fetchAndStoreViews = useImpressionsStore.use.fetchAndStoreViews();
+
+    const routeChanged = useGlobalState.use.routeChanged();
 
     const { data: post = null } = useSuspenseQuery({
         queryKey: [currentSource, 'post-detail', postId],
@@ -118,7 +121,18 @@ export function PostDetailPage({ params: { id: postId }, searchParams: { source 
     return (
         <div className="min-h-screen">
             <div className="sticky top-0 z-40 flex items-center bg-primaryBottom px-4 py-[18px]">
-                <ComeBack width={24} height={24} className="mr-8 cursor-pointer" onClick={() => router.back()} />
+                <ComeBack
+                    width={24}
+                    height={24}
+                    className="mr-8 cursor-pointer"
+                    onClick={() => {
+                        if (!routeChanged) {
+                            router.push(PageRoute.Home);
+                            return;
+                        }
+                        router.back();
+                    }}
+                />
                 <h2 className="text-xl font-black leading-6">
                     <Trans>Details</Trans>
                 </h2>

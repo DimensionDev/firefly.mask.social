@@ -15,6 +15,7 @@ const getCurrentSource = () => {
 
 interface GlobalState {
     currentSource: SocialPlatform;
+    routeChanged: boolean;
     scrollIndexMap: Record<string, number>;
     setScrollIndex: (key: string, value: number) => void;
     updateCurrentSource: (source: SocialPlatform) => void;
@@ -22,6 +23,7 @@ interface GlobalState {
 
 const useGlobalStateBase = create<GlobalState, [['zustand/immer', never]]>(
     immer((set) => ({
+        routeChanged: false,
         currentSource: getCurrentSource(),
         updateCurrentSource: (source: SocialPlatform) =>
             set((state) => {
