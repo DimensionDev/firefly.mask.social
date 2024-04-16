@@ -1,3 +1,5 @@
+'use client';
+
 import { floor } from 'lodash-es';
 import React, { useRef } from 'react';
 import { useMount } from 'react-use';
