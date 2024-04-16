@@ -57,10 +57,11 @@ export function ProfileSettings({ source }: ProfileSettingsProps) {
             <ClickableButton
                 className="flex w-full items-center rounded px-1 py-3 text-main hover:bg-bg"
                 onClick={async () => {
-                    if (source === SocialPlatform.Twitter) await signOut({
-                        redirect: false,
-                    });
-                    LoginModalRef.open({ source })
+                    if (source === SocialPlatform.Twitter)
+                        await signOut({
+                            redirect: false,
+                        });
+                    LoginModalRef.open({ source });
                 }}
             >
                 <UserAddIcon width={24} height={24} />

@@ -87,7 +87,7 @@ export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({
                                     <div
                                         className={classNames(' relative', {
                                             ' z-10': i === 0,
-                                            ' left-[-6px] z-1': i === 1,
+                                            ' z-1 left-[-6px]': i === 1,
                                             ' left-[-10px] z-0': i === 2,
                                         })}
                                         key={`${x.source}_${x.profileId}`}
