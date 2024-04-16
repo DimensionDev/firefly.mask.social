@@ -70,9 +70,6 @@ msgstr ""
 msgid "Collect Action is not supported yet."
 msgstr ""
 
-msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} <5>followed you</5>"
-msgstr ""
-
 msgid "Join our Discord"
 msgstr ""
 
@@ -98,6 +95,9 @@ msgid "Failed to login"
 msgstr ""
 
 msgid "Offline"
+msgstr ""
+
+msgid "Username is required."
 msgstr ""
 
 msgid "Copied"
@@ -176,6 +176,9 @@ msgid "{type, select, compose {{0}} quote {{1}} reply {{2}} other {{3}}}"
 msgstr ""
 
 msgid "Connect Wallet"
+msgstr ""
+
+msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}}<5> followed you</5>"
 msgstr ""
 
 msgid "Feed"

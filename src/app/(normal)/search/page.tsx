@@ -21,7 +21,7 @@ import { useSearchState } from '@/store/useSearchState.js';
 
 export default function Page() {
     const { searchKeyword, searchType } = useSearchState();
-    const { currentSource, setScrollIndex } = useGlobalState();
+    const { currentSource } = useGlobalState();
 
     const {
         data: results,

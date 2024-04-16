@@ -29,7 +29,10 @@ export function FrameUI({ frame, readonly = false, loading = false, onButtonClic
     const inputRef = useRef<HTMLInputElement>(null);
 
     return (
-        <div className=" mt-4 w-full rounded-xl border border-line bg-bg p-2 text-sm">
+        <div
+            className=" mt-4 w-full rounded-xl border border-line bg-bg p-2 text-sm"
+            onClick={(e) => e.stopPropagation()}
+        >
             <div className="relative w-full">
                 {loading ? (
                     <div
@@ -57,26 +60,23 @@ export function FrameUI({ frame, readonly = false, loading = false, onButtonClic
             ) : null}
             {frame.buttons.length ? (
                 <div className="mt-2 flex gap-2">
-                    {frame.buttons
-                        .slice(0)
-                        .sort((a, z) => a.index - z.index)
-                        .map((button) => (
-                            <Button
-                                key={button.index}
-                                button={button}
-                                disabled={loading || readonly}
-                                onClick={async () => {
-                                    if (readonly) return;
-                                    if (loading) return;
+                    {frame.buttons.map((button) => (
+                        <Button
+                            key={button.index}
+                            button={button}
+                            disabled={loading || readonly}
+                            onClick={async () => {
+                                if (readonly) return;
+                                if (loading) return;
 
-                                    // there is only one input field in the frame
-                                    // when a new frame arrives, clear the input field
-                                    if (inputRef.current) inputRef.current.value = '';
+                                // there is only one input field in the frame
+                                // when a new frame arrives, clear the input field
+                                if (inputRef.current) inputRef.current.value = '';
 
-                                    await onButtonClick?.(button, inputRef.current?.value);
-                                }}
-                            />
-                        ))}
+                                await onButtonClick?.(button, inputRef.current?.value);
+                            }}
+                        />
+                    ))}
                 </div>
             ) : null}
         </div>

@@ -28,6 +28,9 @@ import { polygon } from 'viem/chains';
 import { lensClient } from '@/configs/lensClient.js';
 import { config } from '@/configs/wagmiClient.js';
 import { SocialPlatform } from '@/constants/enum.js';
+import { SetQueryDataForLikePost } from '@/decorators/SetQueryDataForLikePost.js';
+import { SetQueryDataForMirrorPost } from '@/decorators/SetQueryDataForMirrorPost.js';
+import { SetQueryDataForPosts } from '@/decorators/SetQueryDataForPosts.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { formatLensPost, formatLensPostByFeed, formatLensQuoteOrComment } from '@/helpers/formatLensPost.js';
 import { formatLensProfile } from '@/helpers/formatLensProfile.js';
@@ -52,7 +55,10 @@ import {
 } from '@/providers/types/SocialMedia.js';
 import type { ResponseJSON } from '@/types/index.js';
 
-export class LensSocialMedia implements Provider {
+@SetQueryDataForLikePost(SocialPlatform.Lens)
+@SetQueryDataForMirrorPost(SocialPlatform.Lens)
+@SetQueryDataForPosts
+class LensSocialMedia implements Provider {
     get type() {
         return SessionType.Lens;
     }
@@ -503,7 +509,7 @@ export class LensSocialMedia implements Provider {
         return post;
     }
 
-    private async getPostByTxHashWithPolling(txHash: string): Promise<Post> {
+    async getPostByTxHashWithPolling(txHash: string): Promise<Post> {
         return pollingWithRetry(this.getPostByTxHash.bind(this, txHash), 10, 2000);
     }
 
@@ -573,6 +579,7 @@ export class LensSocialMedia implements Provider {
         if (data.isFailure()) throw new Error(`Some thing went wrong ${JSON.stringify(data.isFailure())}`);
 
         const result = data.unwrap();
+
         return createPageable(
             result.items.map(formatLensPostByFeed),
             indicator ?? createIndicator(),

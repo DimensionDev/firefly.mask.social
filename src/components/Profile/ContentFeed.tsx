@@ -32,6 +32,7 @@ export function ContentFeed({ profileId, source }: ContentFeedProps) {
             if (!provider) return createPageable(EMPTY_LIST, undefined);
 
             const posts = await provider.getPostsByProfileId(profileId, createIndicator(undefined, pageParam));
+
             if (source === SocialPlatform.Lens) {
                 const ids = posts.data.flatMap((x) => [x.postId]);
                 await fetchAndStoreViews(ids);
@@ -52,7 +53,7 @@ export function ContentFeed({ profileId, source }: ContentFeedProps) {
         }
 
         await fetchNextPage();
-    }, [hasNextPage, isFetching, isFetchingNextPage]);
+    }, [fetchNextPage, hasNextPage, isFetching, isFetchingNextPage]);
 
     if (!data.length)
         return (

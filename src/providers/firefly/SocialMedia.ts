@@ -17,19 +17,20 @@ import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { formatFarcasterPostFromFirefly } from '@/helpers/formatFarcasterPostFromFirefly.js';
 import { formatFarcasterProfileFromFirefly } from '@/helpers/formatFarcasterProfileFromFirefly.js';
 import { NeynarSocialMediaProvider } from '@/providers/neynar/SocialMedia.js';
-import type {
-    CastResponse,
-    CastsResponse,
-    CommentsResponse,
-    FriendshipResponse,
-    NotificationResponse,
-    ReactorsResponse,
-    SearchCastsResponse,
-    SearchProfileResponse,
-    ThreadResponse,
-    UploadMediaTokenResponse,
-    UserResponse,
-    UsersResponse,
+import {
+    type CastResponse,
+    type CastsResponse,
+    type CommentsResponse,
+    type FriendshipResponse,
+    type NotificationResponse,
+    NotificationType as FireflyNotificationType,
+    type ReactorsResponse,
+    type SearchCastsResponse,
+    type SearchProfileResponse,
+    type ThreadResponse,
+    type UploadMediaTokenResponse,
+    type UserResponse,
+    type UsersResponse,
 } from '@/providers/types/Firefly.js';
 import {
     type Notification,
@@ -42,7 +43,7 @@ import {
     SessionType,
 } from '@/providers/types/SocialMedia.js';
 
-export class FireflySocialMedia implements Provider {
+class FireflySocialMedia implements Provider {
     quotePost(postId: string, post: Post): Promise<string> {
         throw new Error('Method not implemented.');
     }
@@ -75,6 +76,10 @@ export class FireflySocialMedia implements Provider {
     }
 
     getPostsReplies(profileId: string, indicator?: PageIndicator | undefined): Promise<Pageable<Post, PageIndicator>> {
+        throw new Error('Method not implemented.');
+    }
+
+    getPostsByParentPostId(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         throw new Error('Method not implemented.');
     }
 
@@ -138,8 +143,8 @@ export class FireflySocialMedia implements Provider {
                 sourceFid: session?.profileId,
             });
             const { data } = await fetchJSON<CastsResponse>(url);
-
             const posts = data.casts.map((x) => formatFarcasterPostFromFirefly(x));
+
             return createPageable(
                 posts,
                 createIndicator(indicator),
@@ -183,10 +188,6 @@ export class FireflySocialMedia implements Provider {
                 ...friendship,
             });
         });
-    }
-
-    async getPostsByParentPostId(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        throw new Error('Method not implemented.');
     }
 
     async getFollowers(profileId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
@@ -269,7 +270,7 @@ export class FireflySocialMedia implements Provider {
 
     async getNotifications(indicator?: PageIndicator): Promise<Pageable<Notification, PageIndicator>> {
         const profileId = farcasterClient.sessionRequired.profileId;
-        const url = urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/notifications', {
+        const url = urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/notifications/new', {
             fid: profileId,
             sourceFid: profileId,
             cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
@@ -278,28 +279,30 @@ export class FireflySocialMedia implements Provider {
 
         const result = data.notifications.map<Notification | undefined>((notification) => {
             const notificationId = `${profileId}_${notification.timestamp}_${notification.notificationType}`;
-            const user = notification.user ? [formatFarcasterProfileFromFirefly(notification.user)] : EMPTY_LIST;
+            const users =
+                notification.users?.map(formatFarcasterProfileFromFirefly) ??
+                (notification.user ? [formatFarcasterProfileFromFirefly(notification.user)] : EMPTY_LIST);
             const post = notification.cast ? formatFarcasterPostFromFirefly(notification.cast) : undefined;
             const timestamp = notification.timestamp ? new Date(notification.timestamp).getTime() : undefined;
-            if (notification.notificationType === 1) {
+            if (notification.notificationType === FireflyNotificationType.CastBeLiked) {
                 return {
                     source: SocialPlatform.Farcaster,
                     notificationId,
                     type: NotificationType.Reaction,
-                    reactors: user,
+                    reactors: users,
                     post,
                     timestamp,
                 };
-            } else if (notification.notificationType === 2) {
+            } else if (notification.notificationType === FireflyNotificationType.CastBeRecasted) {
                 return {
                     source: SocialPlatform.Farcaster,
                     notificationId,
                     type: NotificationType.Mirror,
-                    mirrors: user,
+                    mirrors: users,
                     post,
                     timestamp,
                 };
-            } else if (notification.notificationType === 3) {
+            } else if (notification.notificationType === FireflyNotificationType.CastBeReplied) {
                 const commentOn = notification.cast?.parentCast
                     ? formatFarcasterPostFromFirefly(notification.cast.parentCast)
                     : undefined;
@@ -316,14 +319,14 @@ export class FireflySocialMedia implements Provider {
                     post: commentOn,
                     timestamp,
                 };
-            } else if (notification.notificationType === 4) {
+            } else if (notification.notificationType === FireflyNotificationType.BeFollowed) {
                 return {
                     source: SocialPlatform.Farcaster,
                     notificationId,
                     type: NotificationType.Follow,
-                    followers: user,
+                    followers: users,
                 };
-            } else if (notification.notificationType === 5) {
+            } else if (notification.notificationType === FireflyNotificationType.BeMentioned) {
                 return {
                     source: SocialPlatform.Farcaster,
                     notificationId,
@@ -361,8 +364,8 @@ export class FireflySocialMedia implements Provider {
                     cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
                 }),
             });
-
             const data = casts.map((x) => formatFarcasterPostFromFirefly(x));
+
             return createPageable(
                 data,
                 indicator ?? createIndicator(),

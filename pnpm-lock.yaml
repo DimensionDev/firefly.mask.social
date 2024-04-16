@@ -66,9 +66,6 @@ patchedDependencies:
   fortmatic@2.2.1:
     hash: tb3oevqnvhntsyfyhi2z6spuea
     path: src/maskbook/patches/fortmatic@2.2.1.patch
-  fuse.js@6.6.2:
-    hash: b2o4qvyfvxmpo7347sqko6h22a
-    path: src/maskbook/patches/fuse.js@6.6.2.patch
   gulp@4.0.2:
     hash: tfijye3fclipdzo6an37r223ay
     path: src/maskbook/patches/gulp@4.0.2.patch
@@ -1009,6 +1006,9 @@ importers:
       file-loader:
         specifier: ^6.2.0
         version: 6.2.0(webpack@5.88.2)
+      fuse.js:
+        specifier: ^7.0.0
+        version: 7.0.0
       guess-calling-code:
         specifier: ^1.1.8
         version: 1.1.8
@@ -2911,8 +2911,8 @@ importers:
         specifier: ^2.30.0
         version: 2.30.0
       fuse.js:
-        specifier: 6.6.2
-        version: 6.6.2(patch_hash=b2o4qvyfvxmpo7347sqko6h22a)
+        specifier: ^7.0.0
+        version: 7.0.0
       immer:
         specifier: ^10.0.2
         version: 10.0.2
@@ -3084,8 +3084,8 @@ importers:
         specifier: ^1.4.3
         version: 1.4.3
       fuse.js:
-        specifier: 6.6.2
-        version: 6.6.2(patch_hash=b2o4qvyfvxmpo7347sqko6h22a)
+        specifier: ^7.0.0
+        version: 7.0.0
       notistack:
         specifier: 2.0.8
         version: 2.0.8(@emotion/react@11.11.1)(@mui/material@5.15.12)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
@@ -3401,8 +3401,8 @@ importers:
         specifier: ^2.2.1
         version: 2.2.1(patch_hash=tb3oevqnvhntsyfyhi2z6spuea)
       fuse.js:
-        specifier: 6.6.2
-        version: 6.6.2(patch_hash=b2o4qvyfvxmpo7347sqko6h22a)
+        specifier: ^7.0.0
+        version: 7.0.0
       graphql-request:
         specifier: ^6.0.0
         version: 6.0.0(graphql@16.8.1)
@@ -23780,11 +23780,10 @@ packages:
     resolution: {integrity: sha512-xckBUXyTIqT97tq2x2AMb+g163b5JFysYk0x4qxNFwbfQkmNZoiRHb6sPzI9/QV33WeuvVYBUIiD4NzNIyqaRQ==}
     dev: true
 
-  /fuse.js@6.6.2(patch_hash=b2o4qvyfvxmpo7347sqko6h22a):
-    resolution: {integrity: sha512-cJaJkxCCxC8qIIcPBF9yGxY0W/tVZS3uEISDxhYIdtk8OL93pe+6Zj7LjCqVV4dzbqcriOZ+kQ/NE4RXZHsIGA==}
+  /fuse.js@7.0.0:
+    resolution: {integrity: sha512-14F4hBIxqKvD4Zz/XjDc3y94mNZN6pRv3U13Udo0lNLCWRBUsrMv2xwcF/y/Z5sV6+FQW+/ow68cHpm4sunt8Q==}
     engines: {node: '>=10'}
     dev: false
-    patched: true
 
   /futoin-hkdf@1.5.3:
     resolution: {integrity: sha512-SewY5KdMpaoCeh7jachEWFsh1nNlaDjNHZXWqL5IGwtpEYHTgkr2+AMCgNwKWkcc0wpSYrZfR7he4WdmHFtDxQ==}
@@ -37700,6 +37699,7 @@ time:
   /file-loader@6.2.0: '2020-10-27T17:10:43.883Z'
   /framer-motion@10.16.5: '2023-11-14T09:32:11.700Z'
   /fs-extra@11.1.1: '2023-03-20T14:56:50.321Z'
+  /fuse.js@7.0.0: '2023-10-25T15:10:54.463Z'
   /glob@10.3.4: '2023-08-30T22:45:21.320Z'
   /graphql-request@6.0.0: '2023-04-13T03:54:19.579Z'
   /graphql-request@6.1.0: '2023-05-23T16:56:02.613Z'

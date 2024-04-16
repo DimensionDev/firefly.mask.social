@@ -40,7 +40,7 @@ function fetchHubbleJSON<T>(url: string, options: RequestInit): Promise<T> {
     });
 }
 
-export class HubbleSocialMedia implements Provider {
+class HubbleSocialMedia implements Provider {
     commentPost(postId: string, post: Post): Promise<string> {
         throw new Error('Method not implemented.');
     }
@@ -320,7 +320,9 @@ export class HubbleSocialMedia implements Provider {
         return null!;
     }
 
-    async unmirrorPost(postId: string, authorId: number) {
+    async unmirrorPost(postId: string, authorId?: number) {
+        if (!authorId) throw new Error(t`Failed to unmirror post.`);
+
         const { messageBytes } = await encodeMessageData(
             (fid) => ({
                 reactionBody: {
@@ -349,7 +351,7 @@ export class HubbleSocialMedia implements Provider {
             body: messageBytes,
         });
         if (!data) throw new Error(t`Failed to unmirror post.`);
-        return null!;
+        return;
     }
 
     async follow(profileId: string) {
