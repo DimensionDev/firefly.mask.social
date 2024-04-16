@@ -53,7 +53,7 @@ export function ContentFeed({ profileId, source }: ContentFeedProps) {
         }
 
         await fetchNextPage();
-    }, [hasNextPage, isFetching, isFetchingNextPage]);
+    }, [fetchNextPage, hasNextPage, isFetching, isFetchingNextPage]);
 
     if (!data.length)
         return (
