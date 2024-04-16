@@ -1,6 +1,7 @@
 'use client';
 
 import { Trans } from '@lingui/macro';
+import { signOut } from 'next-auth/react';
 import { useEffect } from 'react';
 
 import LogOutIcon from '@/assets/logout.svg';
@@ -15,7 +16,6 @@ import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { useProfileStore } from '@/hooks/useProfileStore.js';
 import { useSwitchLensAccount } from '@/hooks/useSwitchLensAccount.js';
 import { LoginModalRef, LogoutModalRef } from '@/modals/controls.js';
-import { signOut } from 'next-auth/react';
 
 interface ProfileSettingsProps {
     source: SocialPlatform;
