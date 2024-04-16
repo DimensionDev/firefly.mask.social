@@ -69,11 +69,12 @@ export function FrameUI({ frame, readonly = false, loading = false, onButtonClic
                                 if (readonly) return;
                                 if (loading) return;
 
+                                const inputText = inputRef.current?.value;
                                 // there is only one input field in the frame
                                 // when a new frame arrives, clear the input field
                                 if (inputRef.current) inputRef.current.value = '';
 
-                                await onButtonClick?.(button, inputRef.current?.value);
+                                await onButtonClick?.(button, inputText);
                             }}
                         />
                     ))}
