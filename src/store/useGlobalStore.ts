@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import { createJSONStorage, persist } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
 
 import { SocialPlatform, SourceInURL } from '@/constants/enum.js';
@@ -21,21 +22,30 @@ interface GlobalState {
     updateCurrentSource: (source: SocialPlatform) => void;
 }
 
-const useGlobalStateBase = create<GlobalState, [['zustand/immer', never]]>(
-    immer((set) => ({
-        routeChanged: false,
-        scrollIndex: {},
-        setScrollIndex: (key: string, value) => {
-            set((state) => {
-                state.scrollIndex[key] = value;
-            });
-        },
-        currentSource: getCurrentSource(),
-        updateCurrentSource: (source: SocialPlatform) =>
-            set((state) => {
-                state.currentSource = source;
+const useGlobalStateBase = create<GlobalState, [['zustand/persist', unknown], ['zustand/immer', never]]>(
+    persist(
+        immer((set) => ({
+            routeChanged: false,
+            currentSource: getCurrentSource(),
+            updateCurrentSource: (source: SocialPlatform) =>
+                set((state) => {
+                    state.currentSource = source;
+                }),
+            scrollIndex: {},
+            setScrollIndex: (key: string, value) => {
+                set((state) => {
+                    state.scrollIndex[key] = value;
+                });
+            },
+        })),
+        {
+            name: 'global-state',
+            storage: createJSONStorage(() => sessionStorage),
+            partialize: (state) => ({
+                routeChanged: state.routeChanged,
             }),
-    })),
+        },
+    ),
 );
 
 export const useGlobalState = createSelectors(useGlobalStateBase);

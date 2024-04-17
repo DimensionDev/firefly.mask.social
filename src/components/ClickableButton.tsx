@@ -1,6 +1,6 @@
 import type React from 'react';
 
-interface ClickableButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+export interface ClickableButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     children: React.ReactNode;
     onClick?: () => void;
 }
