@@ -42,6 +42,7 @@ export enum ScrollListKey {
     Notification = 'notification-list',
     Search = 'search-list',
     Comment = 'comment-list',
+    Channel = 'channel-post-list',
     Profile = 'profile-post-list',
     Collected = 'profile-collected-list',
 }

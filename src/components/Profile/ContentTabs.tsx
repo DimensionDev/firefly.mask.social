@@ -54,7 +54,7 @@ export function ContentTabs({ profileId, source }: ContentTabsProps) {
 
             {computedTab === ContentType.Feed && (
                 <Suspense fallback={<Loading />}>
-                    <ContentFeed source={source} channelId={profileId} />
+                    <ContentFeed source={source} profileId={profileId} />
                 </Suspense>
             )}
 

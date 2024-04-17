@@ -15,23 +15,23 @@ import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 
 interface ContentFeedProps {
-    profileId: string;
+    channelId: string;
     source: SocialPlatform;
 }
-export function ContentFeed({ profileId, source }: ContentFeedProps) {
+export function ContentFeed({ channelId, source }: ContentFeedProps) {
     const setScrollIndex = useGlobalState.use.setScrollIndex();
     const fetchAndStoreViews = useImpressionsStore.use.fetchAndStoreViews();
 
     const { data, hasNextPage, fetchNextPage, isFetchingNextPage, isFetching } = useSuspenseInfiniteQuery({
-        queryKey: ['posts', source, 'posts-of', profileId],
+        queryKey: ['posts', source, 'posts-of', channelId],
 
         queryFn: async ({ pageParam }) => {
-            if (!profileId) return createPageable(EMPTY_LIST, undefined);
+            if (!channelId) return createPageable(EMPTY_LIST, undefined);
 
             const provider = resolveSocialMediaProvider(source);
             if (!provider) return createPageable(EMPTY_LIST, undefined);
 
-            const posts = await provider.getPostsByProfileId(profileId, createIndicator(undefined, pageParam));
+            const posts = await provider.getPostsByChannelId(channelId, createIndicator(undefined, pageParam));
 
             if (source === SocialPlatform.Lens) {
                 const ids = posts.data.flatMap((x) => [x.postId]);
@@ -71,14 +71,14 @@ export function ContentFeed({ profileId, source }: ContentFeedProps) {
     return (
         <div key={source}>
             <VirtualList
-                listKey={ScrollListKey.Profile}
+                listKey={ScrollListKey.Channel}
                 computeItemKey={(index, post) => `${post.postId}-${index}`}
                 data={data}
                 endReached={onEndReached}
                 itemContent={(index, post) =>
                     getPostItemContent(index, post, {
                         onClick: () => {
-                            setScrollIndex(`${ScrollListKey.Profile}_${profileId}`, index);
+                            setScrollIndex(`${ScrollListKey.Channel}_${channelId}`, index);
                         },
                     })
                 }

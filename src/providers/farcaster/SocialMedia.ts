@@ -52,7 +52,7 @@ class FarcasterSocialMedia implements Provider {
     }
 
     getChannelById(channelId: string): Promise<Channel> {
-        return FireflySocialMediaProvider.getChannelById(channelId);
+        return FireflySocialMediaProvider.getChannelByHandle(channelId);
     }
 
     getChannelByHandle(channelHandle: string): Promise<Channel> {
@@ -71,7 +71,7 @@ class FarcasterSocialMedia implements Provider {
         channelId: string,
         indicator?: PageIndicator | undefined,
     ): Promise<Pageable<Post, PageIndicator>> {
-        return FireflySocialMediaProvider.getPostsByChannelId(channelId, indicator);
+        return FireflySocialMediaProvider.getPostsByChannelHandle(channelId, indicator);
     }
 
     getPostsByChannelHandle(
