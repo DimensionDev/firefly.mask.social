@@ -15,7 +15,7 @@ interface ModalProps {
 
 export function Modal({ backdrop = true, open, onClose, children, className }: ModalProps) {
     return (
-        <Transition appear show={open} as="div" className="test">
+        <Transition appear show={open} as={Fragment}>
             <Dialog as="div" className="relative z-[100]" onClose={onClose}>
                 <Dialog.Panel className="fixed inset-0 overflow-y-auto">
                     <div

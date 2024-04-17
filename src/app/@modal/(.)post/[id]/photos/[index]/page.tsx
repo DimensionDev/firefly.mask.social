@@ -12,7 +12,7 @@ import Slider from 'react-slick';
 import { useKeyPressEvent } from 'react-use';
 
 import { PostActions } from '@/components/Actions/index.js';
-import { ClickableButton } from '@/components/ClickableButton.js';
+import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { CloseButton } from '@/components/CloseButton.js';
 import { Image } from '@/components/Image.js';
 import { Modal } from '@/components/Modal.js';
@@ -29,7 +29,7 @@ interface Props {
     searchParams: { source: SourceInURL };
 }
 
-interface CustomArrowProps {
+interface CustomArrowProps extends Omit<ClickableButtonProps, 'children'> {
     className?: string | undefined;
     style?: React.CSSProperties | undefined;
     onClick?: () => void | undefined;
