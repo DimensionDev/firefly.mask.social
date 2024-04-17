@@ -8,7 +8,7 @@ interface Props {
 export function ProfileLink({ profile }: Props) {
     return (
         <Link href={getProfileUrl(profile)}>
-            <strong>{profile.displayName}</strong>
+            <strong>{profile.displayName.trim()}</strong>
         </Link>
     );
 }
