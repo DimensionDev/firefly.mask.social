@@ -68,7 +68,6 @@ export interface Profile {
         networkType: NetworkType;
         address: string;
     };
-    __original__?: unknown;
     source: SocialPlatform;
 }
 
@@ -150,7 +149,6 @@ export interface Post {
     hasLiked?: boolean;
     hasActed?: boolean;
     hasQuoted?: boolean;
-    __original__?: unknown;
     source: SocialPlatform;
     isThread?: boolean;
 
@@ -200,6 +198,7 @@ export interface Post {
      * The "threads" contains the second and third levels of threads.
      */
     threads?: Post[];
+    __original__?: unknown;
 }
 
 export interface Comment {
@@ -287,6 +286,7 @@ export interface ChannelLead {
 }
 
 export interface Channel {
+    source: SocialPlatform;
     id: string;
     url: string;
     name: string;
@@ -296,6 +296,7 @@ export interface Channel {
     /** time in milliseconds */
     timestamp: number;
     lead?: ChannelLead;
+    __original__?: unknown;
 }
 
 export interface Provider {
