@@ -178,9 +178,6 @@ msgstr ""
 msgid "Connect Wallet"
 msgstr ""
 
-msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}}<5> followed you</5>"
-msgstr ""
-
 msgid "Feed"
 msgstr ""
 
@@ -572,6 +569,9 @@ msgid "Sign the transaction to verify you are the owner of the selected profile.
 msgstr ""
 
 msgid "Refresh"
+msgstr ""
+
+msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/> and # others}}<4> followed you</4>"
 msgstr ""
 
 msgid "Firefly"
