@@ -26,6 +26,10 @@ export const SearchFilter = memo(function SearchFilter() {
                             type: SearchType.Users,
                             label: <Trans>Users</Trans>,
                         },
+                        {
+                            type: SearchType.Channels,
+                            label: <Trans>Channels</Trans>,
+                        },
                     ].map((filter) => (
                         <div key={filter.type} className="flex items-center">
                             <label

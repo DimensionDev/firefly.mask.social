@@ -235,6 +235,9 @@ msgstr ""
 msgid "Failed to quote post on {sourceName}."
 msgstr ""
 
+msgid "Channel"
+msgstr ""
+
 msgid "{shares, plural, =0 {Mirror or Quote} zero {Mirror or Quote} one {Mirror or Quote} other {Mirrors or Quotes}}"
 msgstr ""
 
@@ -575,6 +578,9 @@ msgid "Refresh"
 msgstr ""
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/> and # others}}<4> followed you</4>"
+msgstr ""
+
+msgid "Channels"
 msgstr ""
 
 msgid "Firefly"
