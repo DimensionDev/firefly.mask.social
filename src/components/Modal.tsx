@@ -3,19 +3,27 @@
 import { Dialog, Transition } from '@headlessui/react';
 import React, { Fragment } from 'react';
 
+import { classNames } from '@/helpers/classNames.js';
+
 interface ModalProps {
     backdrop?: boolean;
     open: boolean;
     onClose: () => void;
     children?: React.ReactNode;
+    className?: string;
 }
 
-export function Modal({ backdrop = true, open, onClose, children }: ModalProps) {
+export function Modal({ backdrop = true, open, onClose, children, className }: ModalProps) {
     return (
         <Transition appear show={open} as={Fragment}>
             <Dialog as="div" className="relative z-[100]" onClose={onClose}>
                 <Dialog.Panel className="fixed inset-0 overflow-y-auto">
-                    <div className=" flex min-h-full items-center justify-center p-0 text-center md:p-4">
+                    <div
+                        className={classNames(
+                            ' flex min-h-full items-center justify-center p-0 text-center md:p-4',
+                            className,
+                        )}
+                    >
                         {backdrop ? (
                             <Transition.Child
                                 as={Fragment}
