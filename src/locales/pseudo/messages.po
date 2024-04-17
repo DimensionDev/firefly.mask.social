@@ -146,10 +146,10 @@ msgid "Only up to 2 images can be chosen."
 msgstr ""
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}} {1, select, Lens {{2}} Farcaster {{3}} other {{4}}} <5><6/></5>"
-msgstr "<<<<<<< HEAD"
+msgstr ""
 
 msgid "Failed to mirror post on Farcaster."
-msgstr "=======>>>>>>> 38a2832b (refactor: refine like optimistic update (#724))"
+msgstr ""
 
 msgid "You need to connect your {source} account to use this feature."
 msgstr ""
