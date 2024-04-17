@@ -29,7 +29,7 @@ export const metadata = createSiteMetadata();
 
 export const viewport = createSiteViewport();
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({ children, modal }: { children: React.ReactNode; modal: React.ReactNode }) {
     setLocale(getLocaleFromCookies());
 
     return (
@@ -49,6 +49,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                             <CustomElements />
                         ) : null}
                         {children}
+                        {modal}
                         <SideBar />
                         <mask-page-inspector />
                     </div>

@@ -66,7 +66,6 @@ export function PostDetailPage({ params: { id: postId }, searchParams: { source 
             if (currentSource === SocialPlatform.Lens) fetchAndStoreViews([post.postId]);
             return post;
         },
-        staleTime: 10_000,
     });
 
     const { data: allPosts = EMPTY_LIST } = useSuspenseInfiniteQuery({

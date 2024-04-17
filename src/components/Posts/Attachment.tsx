@@ -1,5 +1,4 @@
 import { Trans } from '@lingui/macro';
-import { compact } from 'lodash-es';
 import { memo } from 'react';
 
 import Music from '@/assets/music.svg';
@@ -8,9 +7,10 @@ import { Image } from '@/components/Image.js';
 import { ImageAsset } from '@/components/Posts/ImageAsset.js';
 import { ATTACHMENT } from '@/constants/index.js';
 import { dynamic } from '@/esm/dynamic.js';
+import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatImageUrl } from '@/helpers/formatImageUrl.js';
-import { PreviewImageModalRef } from '@/modals/controls.js';
+import { getPostImageUrl } from '@/helpers/getPostImageUrl.js';
 import type { Attachment, Post } from '@/providers/types/SocialMedia.js';
 
 const Video = dynamic(() => import('@/components/Posts/Video.js').then((module) => module.Video), { ssr: false });
@@ -40,7 +40,7 @@ const getClass = (attachments: number) => {
 };
 
 interface AttachmentsProps {
-    post?: Post;
+    post: Post;
     asset?: Attachment;
     attachments: Attachment[];
     isQuote?: boolean;
@@ -108,28 +108,25 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({ attachm
                     })}
                     onClick={(event) => event.stopPropagation()}
                 >
-                    <ImageAsset
-                        className={classNames('cursor-pointer rounded-lg object-cover', {
-                            'w-full': !isQuote,
-                            'w-[120px]': isQuote,
-                            'h-[120px]': isQuote,
-                        })}
-                        disableLoadHandler={isQuote}
-                        width={isQuote ? 120 : 1000}
-                        height={isQuote ? 120 : 1000}
-                        onError={({ currentTarget }) => (currentTarget.src = asset.uri)}
-                        onClick={(event) => {
-                            event.stopPropagation();
-                            event.preventDefault();
-                            PreviewImageModalRef.open({
-                                images: [asset.uri],
-                                current: asset.uri,
-                                post,
-                            });
-                        }}
-                        src={formatImageUrl(asset.uri, ATTACHMENT)}
-                        alt={formatImageUrl(asset.uri, ATTACHMENT)}
-                    />
+                    <Link href={getPostImageUrl(post, 1)} scroll={false}>
+                        <ImageAsset
+                            className={classNames('cursor-pointer rounded-lg object-cover', {
+                                'w-full': !isQuote,
+                                'w-[120px]': isQuote,
+                                'h-[120px]': isQuote,
+                            })}
+                            disableLoadHandler={isQuote}
+                            width={isQuote ? 120 : 1000}
+                            height={isQuote ? 120 : 1000}
+                            onError={({ currentTarget }) => (currentTarget.src = asset.uri)}
+                            src={formatImageUrl(asset.uri, ATTACHMENT)}
+                            alt={formatImageUrl(asset.uri, ATTACHMENT)}
+                            // To decode image steganography encoded image, we get
+                            // the image blob from the element by drawing it to a
+                            // canvas, which needs to set crossOrigin='anonymous'
+                            crossOrigin="anonymous"
+                        />
+                    </Link>
                 </div>
             ) : null}
             {imageAttachments.length > 1 ? (
@@ -153,28 +150,27 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({ attachm
                                     'max-h-[138px]': imageAttachments.length === 3 && index !== 2 && !isQuote,
                                 })}
                             >
-                                <Image
-                                    className="h-full shrink-0 cursor-pointer rounded-lg object-cover"
-                                    loading="lazy"
-                                    fill={isSoloImage}
-                                    width={!isSoloImage ? (isQuote ? 120 : 1000) : undefined}
-                                    height={!isSoloImage ? (isQuote ? 120 : 1000) : undefined}
-                                    style={{
-                                        maxHeight: isSoloImage && isQuote ? 288 : undefined,
-                                    }}
-                                    onError={({ currentTarget }) => (currentTarget.src = uri)}
+                                <Link
+                                    href={getPostImageUrl(post, index + 1)}
                                     onClick={(event) => {
-                                        event.preventDefault();
                                         event.stopPropagation();
-                                        PreviewImageModalRef.open({
-                                            images: compact(imageAttachments.map((x) => x.uri)),
-                                            current: uri,
-                                            post,
-                                        });
                                     }}
-                                    src={formatImageUrl(uri, ATTACHMENT)}
-                                    alt={formatImageUrl(uri, ATTACHMENT)}
-                                />
+                                    scroll={false}
+                                >
+                                    <Image
+                                        className="h-full shrink-0 cursor-pointer rounded-lg object-cover"
+                                        loading="lazy"
+                                        fill={isSoloImage}
+                                        width={!isSoloImage ? (isQuote ? 120 : 1000) : undefined}
+                                        height={!isSoloImage ? (isQuote ? 120 : 1000) : undefined}
+                                        style={{
+                                            maxHeight: isSoloImage && isQuote ? 288 : undefined,
+                                        }}
+                                        onError={({ currentTarget }) => (currentTarget.src = uri)}
+                                        src={formatImageUrl(uri, ATTACHMENT)}
+                                        alt={formatImageUrl(uri, ATTACHMENT)}
+                                    />
+                                </Link>
                             </div>
                         );
                     })}

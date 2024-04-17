@@ -4,9 +4,9 @@ import urlcat from 'urlcat';
 import { OLD_MASK_SOCIAL_POST_PATH_REGEX, OLD_MASK_SOCIAL_PROFILE_PATH_REGEX } from '@/constants/regex.js';
 
 export async function middleware(request: NextRequest) {
-    const isPost = request.nextUrl.pathname.startsWith('/post');
+    const isPost = request.nextUrl.pathname.startsWith('/post') && !request.nextUrl.pathname.includes('/photos');
     const isProfile = request.nextUrl.pathname.startsWith('/profile');
-    if (request.nextUrl.pathname.startsWith('/post') || request.nextUrl.pathname.startsWith('/profile')) {
+    if (isPost || isProfile) {
         const { isBot } = userAgent(request);
 
         request.headers.set('X-IS-BOT', isBot ? 'true' : 'false');
