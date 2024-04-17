@@ -56,9 +56,6 @@ export const S3_BUCKET = {
     FIREFLY_LENS_MEDIA: 'firefly-lens-media',
 };
 
-// Compose Dialog
-export const MAX_POST_SIZE_PER_THREAD = process.env.NODE_ENV === 'development' ? 5 : 25;
-
 export const MAX_CHAR_SIZE_PER_POST: Record<SocialPlatform, number> = {
     [SocialPlatform.Lens]: 5000,
     [SocialPlatform.Farcaster]: 320,
@@ -82,6 +79,8 @@ export const MAX_RECOMMEND_PROFILE_SIZE = 10;
 // POST
 export const MAX_OG_SIZE_PER_POST = 1;
 export const MAX_FRAME_SIZE_PER_POST = 1;
+
+export const MAX_POST_SIZE_PER_THREAD = process.env.NODE_ENV === 'development' ? 5 : 25;
 export const MIN_POST_SIZE_PER_THREAD = 3;
 
 // HTTP Cache headers
