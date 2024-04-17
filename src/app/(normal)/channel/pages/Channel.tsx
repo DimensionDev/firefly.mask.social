@@ -1,12 +1,13 @@
 'use client';
 
 import { t } from '@lingui/macro';
-import { useMemo } from 'react';
+import { Suspense, useMemo } from 'react';
 import { useDocumentTitle } from 'usehooks-ts';
 
-import { ContentTabs } from '@/components/Channel/ContentTabs.js';
+import { ContentFeed } from '@/components/Channel/ContentFeed.js';
 import { Info } from '@/components/Channel/Info.js';
 import { Title } from '@/components/Channel/Title.js';
+import { Loading } from '@/components/Loading.js';
 import { SITE_NAME } from '@/constants/index.js';
 import { createPageTitle } from '@/helpers/createPageTitle.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
@@ -33,7 +34,11 @@ export function ChannelPage({ channel }: ChannelPageProps) {
 
             <Info channel={channel} source={channel.source} />
 
-            <ContentTabs source={channel.source} channelId={channel.id} />
+            <hr className=" divider w-full border-primaryMain" />
+
+            <Suspense fallback={<Loading />}>
+                <ContentFeed source={channel.source} channelId={channel.id} />
+            </Suspense>
         </div>
     );
 }
