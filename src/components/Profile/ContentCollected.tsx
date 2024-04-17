@@ -71,7 +71,7 @@ export function ContentCollected({ profileId, source }: ContentFeedProps) {
     return (
         <div>
             <VirtualList
-                listKey={`${ScrollListKey.Collected}_${profileId}`}
+                listKey={`${ScrollListKey.Collected}:${profileId}`}
                 computeItemKey={(index, post) => `${post.postId}-${index}`}
                 data={data}
                 endReached={onEndReached}
