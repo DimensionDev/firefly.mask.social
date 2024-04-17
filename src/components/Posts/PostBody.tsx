@@ -110,7 +110,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
             <div className="my-2 flex items-center space-x-2 break-words text-base text-main">
                 <NakedMarkup
                     post={post}
-                    className="linkify line-clamp-5 max-h-[7.2rem] w-full self-stretch break-words text-[15px] opacity-75"
+                    className="linkify line-clamp-5 max-h-[8rem] w-full self-stretch break-words text-[15px] opacity-75"
                 >
                     {post.metadata.content?.content}
                 </NakedMarkup>
@@ -137,7 +137,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
             <Markup
                 post={post}
                 className={classNames(
-                    { 'line-clamp-5': canShowMore, 'max-h-[7.2rem]': canShowMore },
+                    { 'line-clamp-5': canShowMore, 'max-h-[8rem]': canShowMore },
                     'markup linkify break-words text-[15px]',
                 )}
             >

@@ -120,6 +120,7 @@
         "@types/node": "20.11.9",
         "@types/react": "18.2.48",
         "@types/react-dom": "^18.2.18",
+        "@types/react-slick": "^0.23.13",
         "@types/twemoji-parser": "^13.1.4",
         "@types/use-subscription": "^1.0.0",
         "@types/uuid": "^9.0.3",

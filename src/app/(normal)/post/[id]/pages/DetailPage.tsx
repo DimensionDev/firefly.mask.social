@@ -22,15 +22,7 @@ import { useComeBack } from '@/hooks/useComeback.js';
 import { useUpdateCurrentVisitingPost } from '@/hooks/useCurrentVisitingPost.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { getPostById } from '@/services/getPostById.js';
-<<<<<<< Updated upstream
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
-||||||| constructed merge base
-import { useImpressionsStore } from '@/store/useImpressionsStore.js';
-import { useGlobalState } from '@/store/useGlobalStore.js';
-=======
-import { useGlobalState } from '@/store/useGlobalStore.js';
-import { useImpressionsStore } from '@/store/useImpressionsStore.js';
->>>>>>> Stashed changes
 
 const PostActions = dynamic(() => import('@/components/Actions/index.js').then((module) => module.PostActions), {
     ssr: false,

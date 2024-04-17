@@ -151,7 +151,7 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({ attachm
                                 })}
                             >
                                 <Link
-                                    href={getPostImageUrl(post, index)}
+                                    href={getPostImageUrl(post, index + 1)}
                                     onClick={(event) => {
                                         event.stopPropagation();
                                     }}

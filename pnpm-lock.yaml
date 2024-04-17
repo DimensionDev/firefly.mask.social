@@ -33,9 +33,6 @@ patchedDependencies:
   '@cyberlab/cyberconnect@4.2.2':
     hash: 7wgc4b53ygfwefhtjbh3dydjgy
     path: src/maskbook/patches/@cyberlab__cyberconnect@4.2.2.patch
-  '@headlessui/react@1.7.19':
-    hash: l2barzul6x2x4algvuk6v3sgeq
-    path: patches/@headlessui__react@1.7.19.patch
   '@lexical/react@0.12.5':
     hash: y2bngusrdbuioevkjcx4ithh2q
     path: patches/@lexical__react@0.12.5.patch
@@ -102,8 +99,8 @@ importers:
         specifier: ^0.14.8
         version: 0.14.8(typescript@5.4.2)(zod@3.22.4)
       '@headlessui/react':
-        specifier: ^1.7.19
-        version: 1.7.19(patch_hash=l2barzul6x2x4algvuk6v3sgeq)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+        specifier: ^1.7.17
+        version: 1.7.19(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       '@heroicons/react':
         specifier: ^2.0.18
         version: 2.0.18(react@0.0.0-experimental-8039e6d0b-20231026)
@@ -369,6 +366,9 @@ importers:
       '@types/react-dom':
         specifier: ^18.2.18
         version: 18.2.18
+      '@types/react-slick':
+        specifier: ^0.23.13
+        version: 0.23.13
       '@types/twemoji-parser':
         specifier: ^13.1.4
         version: 13.1.4
@@ -8731,7 +8731,7 @@ packages:
       '@hapi/hoek': 9.3.0
     dev: false
 
-  /@headlessui/react@1.7.19(patch_hash=l2barzul6x2x4algvuk6v3sgeq)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026):
+  /@headlessui/react@1.7.19(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026):
     resolution: {integrity: sha512-Ll+8q3OlMJfJbAKM/+/Y2q6PPYbryqNTXDbryx7SXLIDamkF6iQFbriYHga0dY44PvDhvvBWCx1Xj4U5+G4hOw==}
     engines: {node: '>=10'}
     peerDependencies:
@@ -8748,7 +8748,6 @@ packages:
       react: 0.0.0-experimental-8039e6d0b-20231026
       react-dom: 0.0.0-experimental-8039e6d0b-20231026(react@0.0.0-experimental-8039e6d0b-20231026)
     dev: false
-    patched: true
 
   /@heroicons/react@2.0.18(react@0.0.0-experimental-8039e6d0b-20231026):
     resolution: {integrity: sha512-7TyMjRrZZMBPa+/5Y8lN0iyvUU/01PeMGX2+RE7cQWpEUIcb4QotzUObFkJDejj/HUH4qjP/eQ0gzzKs2f+6Yw==}
@@ -15469,6 +15468,12 @@ packages:
 
   /@types/react-reconciler@0.28.8:
     resolution: {integrity: sha512-SN9c4kxXZonFhbX4hJrZy37yw9e7EIxcpHCxQv5JUS18wDE5ovkQKlqQEkufdJCCMfuI9BnjUJvhYeJ9x5Ra7g==}
+    dependencies:
+      '@types/react': 18.2.48
+    dev: true
+
+  /@types/react-slick@0.23.13:
+    resolution: {integrity: sha512-bNZfDhe/L8t5OQzIyhrRhBr/61pfBcWaYJoq6UDqFtv5LMwfg4NsVDD2J8N01JqdAdxLjOt66OZEp6PX+dGs/A==}
     dependencies:
       '@types/react': 18.2.48
     dev: true
@@ -37669,6 +37674,7 @@ time:
   /@types/qrcode@1.5.2: '2023-08-30T20:01:39.243Z'
   /@types/react-devtools-inline@4.24.3: '2022-12-16T07:03:08.830Z'
   /@types/react-dom@18.2.18: '2023-12-15T23:35:44.650Z'
+  /@types/react-slick@0.23.13: '2023-12-17T16:07:00.187Z'
   /@types/react-window@1.8.5: '2021-07-27T04:01:45.463Z'
   /@types/react@18.2.48: '2024-01-15T09:07:06.676Z'
   /@types/socket.io-client@1.4.36: '2021-03-12T14:48:11.667Z'
