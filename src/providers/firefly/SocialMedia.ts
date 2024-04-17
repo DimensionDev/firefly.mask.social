@@ -14,18 +14,24 @@ import { farcasterClient } from '@/configs/farcasterClient.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { FIREFLY_ROOT_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { formatFarcasterChannelFromFirefly } from '@/helpers/formatFarcasterChannelFromFirefly.js';
 import { formatFarcasterPostFromFirefly } from '@/helpers/formatFarcasterPostFromFirefly.js';
 import { formatFarcasterProfileFromFirefly } from '@/helpers/formatFarcasterProfileFromFirefly.js';
 import { NeynarSocialMediaProvider } from '@/providers/neynar/SocialMedia.js';
 import {
     type CastResponse,
+    type CastsOfChannelResponse,
     type CastsResponse,
+    type ChannelResponse,
+    type ChannelsResponse,
     type CommentsResponse,
+    type DiscoverChannelsResponse,
     type FriendshipResponse,
     type NotificationResponse,
     NotificationType as FireflyNotificationType,
     type ReactorsResponse,
     type SearchCastsResponse,
+    type SearchChannelsResponse,
     type SearchProfileResponse,
     type ThreadResponse,
     type UploadMediaTokenResponse,
@@ -33,6 +39,7 @@ import {
     type UsersResponse,
 } from '@/providers/types/Firefly.js';
 import {
+    type Channel,
     type Notification,
     NotificationType,
     type Post,
@@ -43,6 +50,98 @@ import {
 } from '@/providers/types/SocialMedia.js';
 
 class FireflySocialMedia implements Provider {
+    getChannelById(channelId: string): Promise<Channel> {
+        throw new Error('Method not implemented.');
+    }
+
+    async getChannelByHandle(channelHandle: string): Promise<Channel> {
+        const url = urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/channel', {
+            channelHandle,
+        });
+        const { data } = await fetchJSON<ChannelResponse>(url, {
+            method: 'GET',
+        });
+
+        return formatFarcasterChannelFromFirefly(data);
+    }
+
+    async getChannelsByProfileId(profileId: string): Promise<Channel[]> {
+        const url = urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/active_channels', {
+            fid: profileId,
+            sourceFid: profileId,
+        });
+        const { data } = await fetchJSON<ChannelsResponse>(url, {
+            method: 'GET',
+        });
+        return data.map(formatFarcasterChannelFromFirefly);
+    }
+
+    async discoverChannels(indicator?: PageIndicator | undefined): Promise<Pageable<Channel, PageIndicator>> {
+        const url = urlcat(FIREFLY_ROOT_URL, '/v2/discover/farcaster/trending_channels', {
+            size: 20,
+            cursor: indicator?.id,
+        });
+        const { data } = await fetchJSON<DiscoverChannelsResponse>(url, {
+            method: 'GET',
+        });
+        const channels = data.channels.map(formatFarcasterChannelFromFirefly);
+
+        return createPageable(
+            channels,
+            createIndicator(indicator),
+            data.cursor ? createNextIndicator(indicator, `${data.cursor}`) : undefined,
+        );
+    }
+
+    getPostsByChannelId(
+        channelId: string,
+        indicator?: PageIndicator | undefined,
+    ): Promise<Pageable<Post, PageIndicator>> {
+        throw new Error('Method not implemented.');
+    }
+
+    getPostsByChannelHandle(
+        channelHandle: string,
+        indicator?: PageIndicator | undefined,
+    ): Promise<Pageable<Post, PageIndicator>> {
+        return farcasterClient.withSession(async (session) => {
+            const url = urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/channel/casts', {
+                channelHandle,
+                fid: session?.profileId,
+                size: 20,
+                cursor: indicator?.id,
+            });
+            const { data } = await fetchJSON<CastsOfChannelResponse>(url, {
+                method: 'GET',
+            });
+            const posts = data.casts.map((x) => formatFarcasterPostFromFirefly(x));
+
+            return createPageable(
+                posts,
+                createIndicator(indicator),
+                data.cursor ? createNextIndicator(indicator, data.cursor) : undefined,
+            );
+        });
+    }
+
+    async searchChannels(q: string, indicator?: PageIndicator | undefined): Promise<Pageable<Channel, PageIndicator>> {
+        const url = urlcat(FIREFLY_ROOT_URL, '/v2/search/channel', {
+            keyword: q,
+            size: 25,
+            cursor: indicator?.id,
+        });
+        const { data } = await fetchJSON<SearchChannelsResponse>(url, {
+            method: 'GET',
+        });
+        const channels = data.channels.map(formatFarcasterChannelFromFirefly);
+
+        return createPageable(
+            channels,
+            createIndicator(indicator),
+            data.cursor ? createNextIndicator(indicator, `${data.cursor}`) : undefined,
+        );
+    }
+
     quotePost(postId: string, post: Post): Promise<string> {
         throw new Error('Method not implemented.');
     }
