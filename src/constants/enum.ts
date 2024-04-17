@@ -23,6 +23,7 @@ export enum SourceInURL {
 export enum SearchType {
     Users = 'users',
     Posts = 'posts',
+    Channels = 'channels',
 }
 
 export enum KeyType {
