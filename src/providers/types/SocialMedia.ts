@@ -293,9 +293,9 @@ export interface Channel {
     description?: string;
     imageUrl: string;
     parentUrl: string;
-    lead: ChannelLead;
     /** time in milliseconds */
     timestamp: number;
+    lead?: ChannelLead;
 }
 
 export interface Provider {

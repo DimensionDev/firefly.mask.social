@@ -87,7 +87,6 @@ export interface Channel {
     id: string;
     url: string;
     name: string;
-    object: string;
     image_url: string;
     created_at: number;
     parent_url: string;
