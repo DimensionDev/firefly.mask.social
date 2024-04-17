@@ -57,25 +57,25 @@ function formatContent(cast: Cast): Post['metadata']['content'] {
     return defaultContent;
 }
 
-export function formatFarcasterPostFromFirefly(result: Cast, type?: PostType): Post {
+export function formatFarcasterPostFromFirefly(cast: Cast, type?: PostType): Post {
     return {
-        type: type ?? result.parentCast ? 'Comment' : 'Post',
-        postId: result.hash,
-        parentPostId: result.parent_hash,
-        parentAuthor: result.parentCast ? formatFarcasterProfileFromFirefly(result.parentCast?.author) : undefined,
-        timestamp: result.timestamp ? new Date(result.timestamp).getTime() : undefined,
-        author: formatFarcasterProfileFromFirefly(result.author),
+        type: type ?? cast.parentCast ? 'Comment' : 'Post',
+        postId: cast.hash,
+        parentPostId: cast.parent_hash,
+        parentAuthor: cast.parentCast ? formatFarcasterProfileFromFirefly(cast.parentCast?.author) : undefined,
+        timestamp: cast.timestamp ? new Date(cast.timestamp).getTime() : undefined,
+        author: formatFarcasterProfileFromFirefly(cast.author),
         metadata: {
             locale: '',
-            content: formatContent(result),
+            content: formatContent(cast),
         },
         stats: {
-            comments: Number(result.replyCount),
-            mirrors: result.recastCount,
-            reactions: result.likeCount,
+            comments: Number(cast.replyCount),
+            mirrors: cast.recastCount,
+            reactions: cast.likeCount,
             quotes: 0,
         },
-        mentions: result.mentions_user.map<Profile>((x) => {
+        mentions: cast.mentions_user.map<Profile>((x) => {
             return {
                 profileId: x.fid,
                 displayName: x.handle,
@@ -89,14 +89,14 @@ export function formatFarcasterPostFromFirefly(result: Cast, type?: PostType): P
                 verified: true,
             };
         }),
-        mirrors: result.recastedBy ? [formatFarcasterProfileFromFirefly(result.recastedBy)] : undefined,
-        hasLiked: result.liked,
-        hasMirrored: result.recasted,
+        mirrors: cast.recastedBy ? [formatFarcasterProfileFromFirefly(cast.recastedBy)] : undefined,
+        hasLiked: cast.liked,
+        hasMirrored: cast.recasted,
         source: SocialPlatform.Farcaster,
         canComment: true,
-        commentOn: result.parentCast ? formatFarcasterPostFromFirefly(result.parentCast) : undefined,
-        root: result.rootParentCast ? formatFarcasterPostFromFirefly(result.rootParentCast) : undefined,
-        threads: result.threads?.map((x) => formatFarcasterPostFromFirefly(x, 'Comment')),
-        __original__: result,
+        commentOn: cast.parentCast ? formatFarcasterPostFromFirefly(cast.parentCast) : undefined,
+        root: cast.rootParentCast ? formatFarcasterPostFromFirefly(cast.rootParentCast) : undefined,
+        threads: cast.threads?.map((x) => formatFarcasterPostFromFirefly(x, 'Comment')),
+        __original__: cast,
     };
 }

@@ -70,6 +70,30 @@ export interface Notification {
     timestamp: string;
 }
 
+export interface ChannelLead {
+    pfp: string;
+    display_name: string;
+    bio: string;
+    username: string;
+    following: number;
+    followers: number;
+    addresses: string[];
+    fid: number;
+    isFollowing: boolean;
+    isFollowedBack: boolean;
+}
+
+export interface Channel {
+    id: string;
+    url: string;
+    name: string;
+    image_url: string;
+    created_at: number;
+    parent_url: string;
+    description: string;
+    lead?: ChannelLead;
+}
+
 interface Response<T> {
     code: number;
     data: T;
@@ -136,4 +160,24 @@ export type FarcasterLoginResponse = Response<{
 
 export type MetricsDownloadResponse = Response<{
     ciphertext: string;
+}>;
+
+export type ChannelResponse = Response<Channel>;
+
+export type ChannelsResponse = Response<Channel[]>;
+
+export type DiscoverChannelsResponse = Response<{
+    channels: Channel[];
+    cursor: number;
+}>;
+
+export type CastsOfChannelResponse = Response<{
+    casts: Cast[];
+    cursor: string;
+    channel: Channel;
+}>;
+
+export type SearchChannelsResponse = Response<{
+    channels: Channel[];
+    cursor: string;
 }>;
