@@ -183,9 +183,6 @@ msgstr "{type, select, compose {{0}} quote {{1}} reply {{2}} other {{3}}}"
 msgid "Connect Wallet"
 msgstr "连接钱包"
 
-msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/><4/> and # others}}<5> followed you</5>"
-msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> 和 <2/>} other {<3/><4/> 和其他 # 人}} <5> 关注了你</5>"
-
 msgid "Feed"
 msgstr "信息流"
 
@@ -578,6 +575,9 @@ msgstr "签署交易以验证你是所选账号的所有者。"
 
 msgid "Refresh"
 msgstr "刷新"
+
+msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/> and # others}}<4> followed you</4>"
+msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> 和 <2/>} other {<3/> 和其他 # 人}} <5> 关注了你</5>"
 
 msgid "Firefly"
 msgstr "Firefly"
