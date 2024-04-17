@@ -44,11 +44,11 @@ export function writeChars(chars: Chars, newChars: Chars) {
     ];
 }
 
-function calculateLength(text: string): number {
+function calculateLength(text: string, containFarcaster?:boolean): number {
     let length = 0;
     for (const char of text) {
-        if (char.charCodeAt(0) > 128 || char.charCodeAt(0) === 94) {
-            length += 2;
+        if (char.charCodeAt(0) > 128) {
+            length += containFarcaster ? 3 : 2;
         } else {
             length += 1;
         }
@@ -56,9 +56,9 @@ function calculateLength(text: string): number {
     return length;
 }
 
-export function measureChars(chars: Chars) {
-    const length = calculateLength(readChars(chars));
-    const visibleLength = calculateLength(readChars(chars, true));
+export function measureChars(chars: Chars, containFarcaster?: boolean) {
+    const length = calculateLength(readChars(chars), containFarcaster);
+    const visibleLength = calculateLength(readChars(chars, true), containFarcaster);
     return {
         length,
         visibleLength,
