@@ -240,6 +240,9 @@ msgstr "和"
 msgid "Failed to quote post on {sourceName}."
 msgstr ""
 
+msgid "Channel"
+msgstr ""
+
 msgid "{shares, plural, =0 {Mirror or Quote} zero {Mirror or Quote} one {Mirror or Quote} other {Mirrors or Quotes}}"
 msgstr ""
 
