@@ -471,12 +471,20 @@ export interface Provider {
     getPostsByProfileId: (profileId: string, indicator?: PageIndicator) => Promise<Pageable<Post>>;
 
     /**
-     * Retrieves posts in a specific channel.
+     * Retrieves posts in a specific channel by ID.
      * @param channelId
      * @param indicator
      * @returns
      */
     getPostsByChannelId: (channelId: string, indicator?: PageIndicator) => Promise<Pageable<Post>>;
+
+    /**
+     * Retrieves posts in a specific channel by handle.
+     * @param channelHandle
+     * @param indicator
+     * @returns
+     */
+    getPostsByChannelHandle: (channelHandle: string, indicator?: PageIndicator) => Promise<Pageable<Post>>;
 
     /**
      * Retrieves posts where a user is mentioned by their profile ID.

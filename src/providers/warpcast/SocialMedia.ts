@@ -99,6 +99,13 @@ class WarpcastSocialMedia implements Provider {
         throw new Error('Method not implemented.');
     }
 
+    getPostsByChannelHandle(
+        channelHandle: string,
+        indicator?: PageIndicator | undefined,
+    ): Promise<Pageable<Post, PageIndicator>> {
+        throw new Error('Method not implemented.');
+    }
+
     searchChannels(q: string, indicator?: PageIndicator | undefined): Promise<Pageable<Channel, PageIndicator>> {
         throw new Error('Method not implemented.');
     }
