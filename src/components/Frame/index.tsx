@@ -10,7 +10,7 @@ import urlcat from 'urlcat';
 import { Button } from '@/components/Frame/Button.js';
 import { Input } from '@/components/Frame/Input.js';
 import { Image } from '@/esm/Image.js';
-import { enqueueErrorMessage, enqueueMessage } from '@/helpers/enqueueMessage.js';
+import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { untilImageUrlLoaded } from '@/helpers/untilImageLoaded.js';
 import { ConfirmModalRef } from '@/modals/controls.js';
@@ -69,11 +69,12 @@ export function FrameUI({ frame, readonly = false, loading = false, onButtonClic
                                 if (readonly) return;
                                 if (loading) return;
 
+                                const inputText = inputRef.current?.value;
                                 // there is only one input field in the frame
                                 // when a new frame arrives, clear the input field
                                 if (inputRef.current) inputRef.current.value = '';
 
-                                await onButtonClick?.(button, inputRef.current?.value);
+                                await onButtonClick?.(button, inputText);
                             }}
                         />
                     ))}
@@ -201,10 +202,10 @@ export function Frame({ postId, url, onData, children }: FrameProps) {
                         if (await confirm()) openWindow(button.target, '_blank');
                         break;
                     case ActionType.Mint:
-                        enqueueMessage(t`Mint button is not available yet.`);
+                        enqueueErrorMessage(t`Mint button is not available yet.`);
                         break;
                     case ActionType.Transaction:
-                        enqueueMessage(t`Transaction button is not available yet.`);
+                        enqueueErrorMessage(t`Transaction button is not available yet.`);
                         break;
                     default:
                         safeUnreachable(action);

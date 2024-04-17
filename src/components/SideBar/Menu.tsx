@@ -55,7 +55,7 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
             <nav className="flex flex-1 flex-col">
                 <ul role="list" className="flex flex-1 flex-col gap-y-7">
                     <li className="flex overflow-hidden">
-                        <ul role="list" className="space-y-1 overflow-hidden">
+                        <ul role="list" className="space-y-1 overflow-hidden outline-none">
                             {[
                                 {
                                     href: PageRoute.Home,
@@ -110,8 +110,8 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                                             <Link
                                                 href={item.href}
                                                 className={classNames(
-                                                    'flex flex-grow-0 items-center gap-x-3 rounded-full text-xl hover:bg-bg',
-                                                    { 'font-bold': isSelected, 'px-4 py-1': !collapsed },
+                                                    'flex flex-grow-0 items-center gap-x-3 rounded-full p-2 text-xl hover:bg-bg',
+                                                    { 'font-bold': isSelected, 'px-4': !collapsed },
                                                 )}
                                             >
                                                 {collapsed ? (
@@ -123,7 +123,6 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                                                 )}
 
                                                 <span
-                                                    className="py-1"
                                                     style={{
                                                         display: collapsed ? 'none' : 'inline',
                                                     }}
