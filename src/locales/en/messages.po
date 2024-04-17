@@ -235,6 +235,9 @@ msgstr "and"
 msgid "Failed to quote post on {sourceName}."
 msgstr "Failed to quote post on {sourceName}."
 
+msgid "Channel"
+msgstr "Channel"
+
 msgid "{shares, plural, =0 {Mirror or Quote} zero {Mirror or Quote} one {Mirror or Quote} other {Mirrors or Quotes}}"
 msgstr "{shares, plural, =0 {Mirror or Quote} zero {Mirror or Quote} one {Mirror or Quote} other {Mirrors or Quotes}}"
 
@@ -573,6 +576,9 @@ msgstr "Sign the transaction to verify you are the owner of the selected profile
 
 msgid "Refresh"
 msgstr "Refresh"
+
+msgid "Channels"
+msgstr "Channels"
 
 msgid "Firefly"
 msgstr "Firefly"

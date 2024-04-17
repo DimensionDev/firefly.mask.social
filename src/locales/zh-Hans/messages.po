@@ -240,6 +240,9 @@ msgstr "和"
 msgid "Failed to quote post on {sourceName}."
 msgstr ""
 
+msgid "Channel"
+msgstr ""
+
 msgid "{shares, plural, =0 {Mirror or Quote} zero {Mirror or Quote} one {Mirror or Quote} other {Mirrors or Quotes}}"
 msgstr ""
 
@@ -578,6 +581,9 @@ msgstr "签署交易以验证你是所选账号的所有者。"
 
 msgid "Refresh"
 msgstr "刷新"
+
+msgid "Channels"
+msgstr ""
 
 msgid "Firefly"
 msgstr "Firefly"
