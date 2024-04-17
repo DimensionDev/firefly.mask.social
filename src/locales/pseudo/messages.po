@@ -577,6 +577,9 @@ msgstr ""
 msgid "Refresh"
 msgstr ""
 
+msgid "Channels"
+msgstr ""
+
 msgid "Firefly"
 msgstr ""
 

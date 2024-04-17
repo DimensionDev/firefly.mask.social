@@ -577,6 +577,9 @@ msgstr "Sign the transaction to verify you are the owner of the selected profile
 msgid "Refresh"
 msgstr "Refresh"
 
+msgid "Channels"
+msgstr "Channels"
+
 msgid "Firefly"
 msgstr "Firefly"
 

@@ -582,6 +582,9 @@ msgstr "签署交易以验证你是所选账号的所有者。"
 msgid "Refresh"
 msgstr "刷新"
 
+msgid "Channels"
+msgstr ""
+
 msgid "Firefly"
 msgstr "Firefly"
 

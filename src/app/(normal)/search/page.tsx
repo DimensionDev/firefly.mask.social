@@ -77,7 +77,7 @@ export default function Page() {
                     const post = item as Post;
                     return <SinglePost key={post.postId} post={post} />;
                 case SearchType.Channels:
-                    const channel = item as Channel
+                    const channel = item as Channel;
                     return <ChannelInList key={channel.id} channel={channel} />;
                 default:
                     safeUnreachable(searchType);
