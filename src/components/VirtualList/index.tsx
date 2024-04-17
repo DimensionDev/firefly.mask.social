@@ -22,7 +22,8 @@ export function VirtualList<ItemData = unknown, Context = unknown>({
         if (!listKey) return;
         const index = scrollIndex[listKey];
         if (!index) return;
-        ref.current?.scrollToIndex(index);
+        // index - 2 is to keep the target as centered as possible.
+        ref.current?.scrollToIndex(Math.max(index - 2, 0));
     });
 
     return (
