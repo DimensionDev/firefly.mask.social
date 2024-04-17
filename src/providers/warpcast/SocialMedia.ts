@@ -18,6 +18,7 @@ import { formatWarpcastUser } from '@/helpers/formatWarpcastUser.js';
 import { toFid } from '@/helpers/toFid.js';
 import { unhash } from '@/helpers/unhash.js';
 import {
+    type Channel,
     type Notification,
     NotificationType,
     type Post,
@@ -72,6 +73,33 @@ class WarpcastSocialMedia implements Provider {
     }
 
     getThreadByPostId(postId: string, rootPost?: Post): Promise<Post[]> {
+        throw new Error('Method not implemented.');
+    }
+
+    getChannelById(channelId: string): Promise<Channel> {
+        throw new Error('Method not implemented.');
+    }
+
+    getChannelByHandle(channelHandle: string): Promise<Channel> {
+        throw new Error('Method not implemented.');
+    }
+
+    getChannelsByProfileId(profileId: string): Promise<Channel[]> {
+        throw new Error('Method not implemented.');
+    }
+
+    discoverChannels(indicator?: PageIndicator | undefined): Promise<Pageable<Channel, PageIndicator>> {
+        throw new Error('Method not implemented.');
+    }
+
+    getPostsByChannelId(
+        channelId: string,
+        indicator?: PageIndicator | undefined,
+    ): Promise<Pageable<Post, PageIndicator>> {
+        throw new Error('Method not implemented.');
+    }
+
+    searchChannels(q: string, indicator?: PageIndicator | undefined): Promise<Pageable<Channel, PageIndicator>> {
         throw new Error('Method not implemented.');
     }
 

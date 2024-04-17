@@ -11,6 +11,7 @@ import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { getAllMentionsForFarcaster } from '@/helpers/getAllMentionsForFarcaster.js';
 import type { FrameSignaturePacket, SignaturePacket } from '@/providers/types/Hubble.js';
 import {
+    type Channel,
     type Notification,
     type Post,
     type Profile,
@@ -153,6 +154,33 @@ class HubbleSocialMedia implements Provider {
     }
 
     getSuggestedFollows(indicator?: PageIndicator | undefined): Promise<Pageable<Profile, PageIndicator>> {
+        throw new Error('Method not implemented.');
+    }
+
+    getChannelById(channelId: string): Promise<Channel> {
+        throw new Error('Method not implemented.');
+    }
+
+    getChannelByHandle(channelHandle: string): Promise<Channel> {
+        throw new Error('Method not implemented.');
+    }
+
+    getChannelsByProfileId(profileId: string): Promise<Channel[]> {
+        throw new Error('Method not implemented.');
+    }
+
+    discoverChannels(indicator?: PageIndicator | undefined): Promise<Pageable<Channel, PageIndicator>> {
+        throw new Error('Method not implemented.');
+    }
+
+    getPostsByChannelId(
+        channelId: string,
+        indicator?: PageIndicator | undefined,
+    ): Promise<Pageable<Post, PageIndicator>> {
+        throw new Error('Method not implemented.');
+    }
+
+    searchChannels(q: string, indicator?: PageIndicator | undefined): Promise<Pageable<Channel, PageIndicator>> {
         throw new Error('Method not implemented.');
     }
 

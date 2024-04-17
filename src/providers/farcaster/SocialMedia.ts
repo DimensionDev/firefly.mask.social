@@ -10,6 +10,7 @@ import { getFarcasterSessionType } from '@/helpers/getFarcasterSessionType.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { HubbleSocialMediaProvider } from '@/providers/hubble/SocialMedia.js';
 import {
+    type Channel,
     type Notification,
     type Post,
     type Profile,
@@ -47,6 +48,33 @@ class FarcasterSocialMedia implements Provider {
     }
 
     getReactors(postId: string, indicator?: PageIndicator | undefined): Promise<Pageable<Profile, PageIndicator>> {
+        throw new Error('Method not implemented.');
+    }
+
+    getChannelById(channelId: string): Promise<Channel> {
+        throw new Error('Method not implemented.');
+    }
+
+    getChannelByHandle(channelHandle: string): Promise<Channel> {
+        throw new Error('Method not implemented.');
+    }
+
+    getChannelsByProfileId(profileId: string): Promise<Channel[]> {
+        throw new Error('Method not implemented.');
+    }
+
+    discoverChannels(indicator?: PageIndicator | undefined): Promise<Pageable<Channel, PageIndicator>> {
+        throw new Error('Method not implemented.');
+    }
+
+    getPostsByChannelId(
+        channelId: string,
+        indicator?: PageIndicator | undefined,
+    ): Promise<Pageable<Post, PageIndicator>> {
+        throw new Error('Method not implemented.');
+    }
+
+    searchChannels(q: string, indicator?: PageIndicator | undefined): Promise<Pageable<Channel, PageIndicator>> {
         throw new Error('Method not implemented.');
     }
 
