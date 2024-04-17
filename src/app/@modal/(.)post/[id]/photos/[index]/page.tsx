@@ -103,7 +103,7 @@ export default function PreviewPhotoModal({ params: { id: postId, index }, searc
             }}
         >
             <div
-                className="preview-actions fixed inset-0 flex transform-none flex-col items-center justify-center bg-black/90 bg-opacity-90 transition-all"
+                className="preview-actions fixed inset-0 flex transform-none flex-col items-center justify-center bg-black/90 bg-opacity-90 outline-none transition-all"
                 onClick={() => router.back()}
             >
                 <div className="absolute left-4 top-4 cursor-pointer text-main">
