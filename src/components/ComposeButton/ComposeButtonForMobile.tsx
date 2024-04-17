@@ -19,6 +19,7 @@ export function ComposeButtonForMobile() {
     const currentPost = useCurrentVisitingPost();
 
     if (!isLogin) return null;
+    if (isPostPage && !isCurrentLogin) return null;
 
     return (
         <ClickableButton
@@ -30,11 +31,7 @@ export function ComposeButtonForMobile() {
                 });
             }}
         >
-            {isPostPage ? (
-                isCurrentLogin && <ReplyIcon width={24} height={24} />
-            ) : (
-                <ComposeAddIcon width={24} height={24} />
-            )}
+            {isPostPage ? <ReplyIcon width={24} height={24} /> : <ComposeAddIcon width={24} height={24} />}
         </ClickableButton>
     );
 }
