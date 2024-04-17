@@ -21,6 +21,7 @@ export function useSearchState() {
                 if (val) newParams.set(key, val);
             });
             const url = `/search?${newParams.toString()}`;
+            if(!newParams.get('q')) return
             if (replace) router.replace(url);
             else router.push(url);
         },

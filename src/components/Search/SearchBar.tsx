@@ -40,6 +40,7 @@ const SearchBar = memo(function SearchBar(props: SearchBarProps) {
     });
 
     const handleInputSubmit = (state: SearchState) => {
+        console.log('AAAAAAAAAAAAAAAAAAAAAA', state)
         if (state.q) addRecord(state.q);
         updateState(state);
         setShowRecommendation(false);
