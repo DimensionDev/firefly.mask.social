@@ -159,14 +159,14 @@ importers:
         specifier: ^0.5.6
         version: 0.5.6(tailwindcss@3.3.3)
       '@tanstack/react-query':
-        specifier: ^5.8.7
-        version: 5.8.7(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react-native@0.73.6)(react@0.0.0-experimental-8039e6d0b-20231026)
+        specifier: ^5.29.2
+        version: 5.29.2(react@0.0.0-experimental-8039e6d0b-20231026)
       '@tanstack/react-query-devtools':
-        specifier: ^5.8.7
-        version: 5.8.7(@tanstack/react-query@5.8.7)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+        specifier: ^5.29.2
+        version: 5.29.2(@tanstack/react-query@5.29.2)(react@0.0.0-experimental-8039e6d0b-20231026)
       '@tanstack/react-query-next-experimental':
-        specifier: ^5.8.7
-        version: 5.8.7(@tanstack/react-query@5.8.7)(next@14.1.0)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+        specifier: ^5.29.2
+        version: 5.29.2(@tanstack/react-query@5.29.2)(next@14.1.0)(react@0.0.0-experimental-8039e6d0b-20231026)
       '@tippyjs/react':
         specifier: ^4.2.6
         version: 4.2.6(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
@@ -313,7 +313,7 @@ importers:
         version: 2.9.16(typescript@5.4.2)(zod@3.22.4)
       wagmi:
         specifier: ^2.5.19
-        version: 2.5.19(@tanstack/react-query@5.8.7)(@types/react@18.2.48)(@vercel/kv@1.0.1)(immer@10.0.2)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react-native@0.73.6)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.4.2)(viem@2.9.16)(zod@3.22.4)
+        version: 2.5.19(@tanstack/react-query@5.29.2)(@types/react@18.2.48)(@vercel/kv@1.0.1)(immer@10.0.2)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react-native@0.73.6)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.4.2)(viem@2.9.16)(zod@3.22.4)
       zod:
         specifier: ^3.22.4
         version: 3.22.4
@@ -12750,7 +12750,7 @@ packages:
       react-remove-scroll: 2.5.7(@types/react@18.2.48)(react@0.0.0-experimental-8039e6d0b-20231026)
       ua-parser-js: 1.0.37
       viem: 2.9.16(typescript@5.4.2)(zod@3.22.4)
-      wagmi: 2.5.19(@tanstack/react-query@5.8.7)(@types/react@18.2.48)(@vercel/kv@1.0.1)(immer@10.0.2)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react-native@0.73.6)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.4.2)(viem@2.9.16)(zod@3.22.4)
+      wagmi: 2.5.19(@tanstack/react-query@5.29.2)(@types/react@18.2.48)(@vercel/kv@1.0.1)(immer@10.0.2)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react-native@0.73.6)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.4.2)(viem@2.9.16)(zod@3.22.4)
     transitivePeerDependencies:
       - '@types/react'
     dev: false
@@ -14634,16 +14634,8 @@ packages:
     resolution: {integrity: sha512-WgPTRs58hm9CMzEr5jpISe8HXa3qKQ8CxewdYZeVnA54JrPY9B1CZiwsCoLpLkf0dGRZq+LcX5OiJb0bEsOFww==}
     dev: false
 
-  /@tanstack/query-core@5.8.7:
-    resolution: {integrity: sha512-58xOSkxxZK4SGQ/uzX8MDZHLGZCkxlgkPxnfhxUOL2uchnNHyay2UVcR3mQNMgaMwH1e2l+0n+zfS7+UJ/MAJw==}
-    dev: false
-
   /@tanstack/query-devtools@5.28.10:
     resolution: {integrity: sha512-5UN629fKa5/1K/2Pd26gaU7epxRrYiT1gy+V+pW5K6hnf1DeUKK3pANSb2eHKlecjIKIhTwyF7k9XdyE2gREvQ==}
-    dev: false
-
-  /@tanstack/query-devtools@5.8.4:
-    resolution: {integrity: sha512-F1dRbITNt9tMUoM9WCH8WQ2c54116hv52m/PKK8ZiN/pO2wGVzTZtKuLanF8pFpwmNchjIixcMw/a57HY5ivcw==}
     dev: false
 
   /@tanstack/query-persist-client-core@4.29.23:
@@ -14684,41 +14676,19 @@ packages:
       react: 0.0.0-experimental-8039e6d0b-20231026
     dev: false
 
-  /@tanstack/react-query-devtools@5.8.7(@tanstack/react-query@5.8.7)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026):
-    resolution: {integrity: sha512-pu05YQ7k/1eyMlZTE5OpZt+ibvkZ3vT0hrzmHnRXOV2tfqDIlkvInczbXkVUdel8OLy6t21B6x3IXUNpqAyTJQ==}
+  /@tanstack/react-query-next-experimental@5.29.2(@tanstack/react-query@5.29.2)(next@14.1.0)(react@0.0.0-experimental-8039e6d0b-20231026):
+    resolution: {integrity: sha512-AQd0S/UD+HTUv6MOmc1glv9FZN7ZxVQJlM7IJQx4QfWJpIWZMukXtlKMfwpO4YzQgo2jitblY17rZ/8YDtIxzw==}
     peerDependencies:
-      '@tanstack/react-query': ^5.8.7
-      react: 0.0.0-experimental-8039e6d0b-20231026 || 0.0.0-experimental-0a360642d-20230711
-      react-dom: 0.0.0-experimental-8039e6d0b-20231026 || 0.0.0-experimental-0a360642d-20230711
-    peerDependenciesMeta:
-      react:
-        optional: true
-      react-dom:
-        optional: true
-    dependencies:
-      '@tanstack/query-devtools': 5.8.4
-      '@tanstack/react-query': 5.8.7(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react-native@0.73.6)(react@0.0.0-experimental-8039e6d0b-20231026)
-      react: 0.0.0-experimental-8039e6d0b-20231026
-      react-dom: 0.0.0-experimental-8039e6d0b-20231026(react@0.0.0-experimental-8039e6d0b-20231026)
-    dev: false
-
-  /@tanstack/react-query-next-experimental@5.8.7(@tanstack/react-query@5.8.7)(next@14.1.0)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026):
-    resolution: {integrity: sha512-ZOhcgG2EsQVI8QLA7xOoYX7rXpVq33lNzgTsDboTD7RTsNQ7Lq7nE/u9YQDf+1bnABTkuZtAjCUDOfm/7BN/qQ==}
-    peerDependencies:
-      '@tanstack/react-query': ^5.8.7
+      '@tanstack/react-query': ^5.29.2
       next: ^13 || ^14
       react: 0.0.0-experimental-8039e6d0b-20231026 || 0.0.0-experimental-0a360642d-20230711
-      react-dom: 0.0.0-experimental-8039e6d0b-20231026 || 0.0.0-experimental-0a360642d-20230711
     peerDependenciesMeta:
       react:
         optional: true
-      react-dom:
-        optional: true
     dependencies:
-      '@tanstack/react-query': 5.8.7(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react-native@0.73.6)(react@0.0.0-experimental-8039e6d0b-20231026)
+      '@tanstack/react-query': 5.29.2(react@0.0.0-experimental-8039e6d0b-20231026)
       next: 14.1.0(babel-plugin-macros@3.1.0)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       react: 0.0.0-experimental-8039e6d0b-20231026
-      react-dom: 0.0.0-experimental-8039e6d0b-20231026(react@0.0.0-experimental-8039e6d0b-20231026)
     dev: false
 
   /@tanstack/react-query-persist-client@4.29.23(@tanstack/react-query@4.29.23):
@@ -14805,26 +14775,6 @@ packages:
     dependencies:
       '@tanstack/query-core': 5.29.0
       react: 0.0.0-experimental-8039e6d0b-20231026
-    dev: false
-
-  /@tanstack/react-query@5.8.7(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react-native@0.73.6)(react@0.0.0-experimental-8039e6d0b-20231026):
-    resolution: {integrity: sha512-RYSSMmkhbJ7tPkf8w+MSRIXQLoUCm7DRnTLDcdf+uampupnriEsob3fVWTt9oaEj+AJWEKeCErDBdZeNcAzURQ==}
-    peerDependencies:
-      react: 0.0.0-experimental-8039e6d0b-20231026 || 0.0.0-experimental-0a360642d-20230711
-      react-dom: 0.0.0-experimental-8039e6d0b-20231026 || 0.0.0-experimental-0a360642d-20230711
-      react-native: '*'
-    peerDependenciesMeta:
-      react:
-        optional: true
-      react-dom:
-        optional: true
-      react-native:
-        optional: true
-    dependencies:
-      '@tanstack/query-core': 5.8.7
-      react: 0.0.0-experimental-8039e6d0b-20231026
-      react-dom: 0.0.0-experimental-8039e6d0b-20231026(react@0.0.0-experimental-8039e6d0b-20231026)
-      react-native: 0.73.6(@babel/preset-env@7.24.3)(react@0.0.0-experimental-8039e6d0b-20231026)
     dev: false
 
   /@tanstack/react-virtual@3.2.0(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026):
@@ -36001,7 +35951,7 @@ packages:
       - zod
     dev: false
 
-  /wagmi@2.5.19(@tanstack/react-query@5.8.7)(@types/react@18.2.48)(@vercel/kv@1.0.1)(immer@10.0.2)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react-native@0.73.6)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.4.2)(viem@2.9.16)(zod@3.22.4):
+  /wagmi@2.5.19(@tanstack/react-query@5.29.2)(@types/react@18.2.48)(@vercel/kv@1.0.1)(immer@10.0.2)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react-native@0.73.6)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.4.2)(viem@2.9.16)(zod@3.22.4):
     resolution: {integrity: sha512-fy6s3qTuXpfrrghhoNXuV92yqOqJI7m/9iLIejHxEYxiddVDTR8BVdkt0BuBQZzoXSAutDkyIlJbtFcpX5dfrQ==}
     peerDependencies:
       '@tanstack/react-query': '>=5.0.0'
@@ -36014,7 +35964,7 @@ packages:
       typescript:
         optional: true
     dependencies:
-      '@tanstack/react-query': 5.8.7(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react-native@0.73.6)(react@0.0.0-experimental-8039e6d0b-20231026)
+      '@tanstack/react-query': 5.29.2(react@0.0.0-experimental-8039e6d0b-20231026)
       '@wagmi/connectors': 4.1.25(@types/react@18.2.48)(@vercel/kv@1.0.1)(@wagmi/core@2.6.16)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react-native@0.73.6)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.4.2)(viem@2.9.16)(zod@3.22.4)
       '@wagmi/core': 2.6.16(@types/react@18.2.48)(immer@10.0.2)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.4.2)(viem@2.9.16)(zod@3.22.4)
       react: 0.0.0-experimental-8039e6d0b-20231026
@@ -37637,11 +37587,9 @@ time:
   /@tanstack/eslint-plugin-query@5.28.11: '2024-04-02T11:19:05.198Z'
   /@tanstack/query-async-storage-persister@5.29.1: '2024-04-08T07:46:00.115Z'
   /@tanstack/react-query-devtools@5.29.2: '2024-04-11T09:22:26.587Z'
-  /@tanstack/react-query-devtools@5.8.7: '2023-11-24T19:49:03.500Z'
-  /@tanstack/react-query-next-experimental@5.8.7: '2023-11-24T19:49:08.465Z'
+  /@tanstack/react-query-next-experimental@5.29.2: '2024-04-11T09:22:36.588Z'
   /@tanstack/react-query-persist-client@5.29.2: '2024-04-11T09:22:30.155Z'
   /@tanstack/react-query@5.29.2: '2024-04-11T09:22:22.459Z'
-  /@tanstack/react-query@5.8.7: '2023-11-24T19:48:54.076Z'
   /@tippyjs/react@4.2.6: '2021-10-29T12:39:32.094Z'
   /@typechain/web3-v1@6.0.2: '2022-11-01T22:04:27.996Z'
   /@types/bn.js@4.11.6: '2020-01-03T23:18:47.360Z'
