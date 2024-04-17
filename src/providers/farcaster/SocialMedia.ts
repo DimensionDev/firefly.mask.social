@@ -52,37 +52,37 @@ class FarcasterSocialMedia implements Provider {
     }
 
     getChannelById(channelId: string): Promise<Channel> {
-        throw new Error('Method not implemented.');
+        return FireflySocialMediaProvider.getChannelById(channelId);
     }
 
     getChannelByHandle(channelHandle: string): Promise<Channel> {
-        throw new Error('Method not implemented.');
+        return FireflySocialMediaProvider.getChannelByHandle(channelHandle);
     }
 
     getChannelsByProfileId(profileId: string): Promise<Channel[]> {
-        throw new Error('Method not implemented.');
+        return FireflySocialMediaProvider.getChannelsByProfileId(profileId);
     }
 
     discoverChannels(indicator?: PageIndicator | undefined): Promise<Pageable<Channel, PageIndicator>> {
-        throw new Error('Method not implemented.');
+        return FireflySocialMediaProvider.discoverChannels(indicator);
     }
 
     getPostsByChannelId(
         channelId: string,
         indicator?: PageIndicator | undefined,
     ): Promise<Pageable<Post, PageIndicator>> {
-        throw new Error('Method not implemented.');
+        return FireflySocialMediaProvider.getPostsByChannelId(channelId, indicator);
     }
 
     getPostsByChannelHandle(
         channelHandle: string,
         indicator?: PageIndicator | undefined,
     ): Promise<Pageable<Post, PageIndicator>> {
-        throw new Error('Method not implemented.');
+        return FireflySocialMediaProvider.getPostsByChannelHandle(channelHandle, indicator);
     }
 
     searchChannels(q: string, indicator?: PageIndicator | undefined): Promise<Pageable<Channel, PageIndicator>> {
-        throw new Error('Method not implemented.');
+        return FireflySocialMediaProvider.searchChannels(q, indicator);
     }
 
     get type() {

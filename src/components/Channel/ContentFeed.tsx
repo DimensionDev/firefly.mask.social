@@ -15,23 +15,23 @@ import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 
 interface ContentFeedProps {
-    channelId: string;
+    profileId: string;
     source: SocialPlatform;
 }
-export function ContentFeed({ channelId, source }: ContentFeedProps) {
+export function ContentFeed({ profileId, source }: ContentFeedProps) {
     const setScrollIndex = useGlobalState.use.setScrollIndex();
     const fetchAndStoreViews = useImpressionsStore.use.fetchAndStoreViews();
 
     const { data, hasNextPage, fetchNextPage, isFetchingNextPage, isFetching } = useSuspenseInfiniteQuery({
-        queryKey: ['posts', source, 'posts-of', channelId],
+        queryKey: ['posts', source, 'posts-of', profileId],
 
         queryFn: async ({ pageParam }) => {
-            if (!channelId) return createPageable(EMPTY_LIST, undefined);
+            if (!profileId) return createPageable(EMPTY_LIST, undefined);
 
             const provider = resolveSocialMediaProvider(source);
             if (!provider) return createPageable(EMPTY_LIST, undefined);
 
-            const posts = await provider.getPostsByProfileId(channelId, createIndicator(undefined, pageParam));
+            const posts = await provider.getPostsByProfileId(profileId, createIndicator(undefined, pageParam));
 
             if (source === SocialPlatform.Lens) {
                 const ids = posts.data.flatMap((x) => [x.postId]);
@@ -78,7 +78,7 @@ export function ContentFeed({ channelId, source }: ContentFeedProps) {
                 itemContent={(index, post) =>
                     getPostItemContent(index, post, {
                         onClick: () => {
-                            setScrollIndex(`${ScrollListKey.Profile}_${channelId}`, index);
+                            setScrollIndex(`${ScrollListKey.Profile}_${profileId}`, index);
                         },
                     })
                 }

@@ -14,10 +14,10 @@ enum ContentType {
 }
 
 interface ContentTabsProps {
-    profileId: string;
+    channelId: string;
     source: SocialPlatform;
 }
-export function ContentTabs({ profileId, source }: ContentTabsProps) {
+export function ContentTabs({ channelId, source }: ContentTabsProps) {
     const [currentTab, setCurrentTab] = useState(ContentType.Feed);
 
     // TODO: implement collected tab for farcaster
@@ -54,13 +54,13 @@ export function ContentTabs({ profileId, source }: ContentTabsProps) {
 
             {computedTab === ContentType.Feed && (
                 <Suspense fallback={<Loading />}>
-                    <ContentFeed source={source} channelId={profileId} />
+                    <ContentFeed source={source} channelId={channelId} />
                 </Suspense>
             )}
 
             {computedTab === ContentType.Collected && source !== SocialPlatform.Farcaster && (
                 <Suspense fallback={<Loading />}>
-                    <ContentCollected source={source} profileId={profileId} />
+                    <ContentCollected source={source} profileId={channelId} />
                 </Suspense>
             )}
         </>

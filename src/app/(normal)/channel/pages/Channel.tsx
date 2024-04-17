@@ -4,43 +4,36 @@ import { t } from '@lingui/macro';
 import { useMemo } from 'react';
 import { useDocumentTitle } from 'usehooks-ts';
 
-import { ContentTabs } from '@/components/Profile/ContentTabs.js';
-import { Info } from '@/components/Profile/Info.js';
-import { Title } from '@/components/Profile/Title.js';
-import { SocialPlatform } from '@/constants/enum.js';
+import { ContentTabs } from '@/components/Channel/ContentTabs.js';
+import { Info } from '@/components/Channel/Info.js';
+import { Title } from '@/components/Channel/Title.js';
 import { SITE_NAME } from '@/constants/index.js';
 import { createPageTitle } from '@/helpers/createPageTitle.js';
-import { useUpdateCurrentVisitingProfile } from '@/hooks/useCurrentVisitingProfile.js';
-import { useIsMyProfile } from '@/hooks/useIsMyProfile.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
-import type { Profile } from '@/providers/types/SocialMedia.js';
+import type { Channel } from '@/providers/types/SocialMedia.js';
 
-interface ProfilePageProps {
-    channel: Profile;
+interface ChannelPageProps {
+    channel: Channel;
 }
 
-export function ProfilePage({ channel }: ProfilePageProps) {
-    const currentProfileId = channel.source === SocialPlatform.Lens ? channel.handle : channel.profileId;
-    const isMyProfile = useIsMyProfile(channel.source, currentProfileId);
-
+export function ChannelPage({ channel }: ChannelPageProps) {
     const title = useMemo(() => {
         if (!channel) return SITE_NAME;
-        const fragments = [channel.displayName];
-        if (channel.handle) fragments.push(`(@${channel.handle})`);
+        const fragments = [channel.name];
+        if (channel.id) fragments.push(`(/${channel.id})`);
         return createPageTitle(fragments.join(' '));
     }, [channel]);
 
     useDocumentTitle(title);
-    useNavigatorTitle(t`Profile`);
-    useUpdateCurrentVisitingProfile(channel);
+    useNavigatorTitle(t`Channel`);
 
     return (
         <div>
-            {!isMyProfile ? <Title profile={channel} /> : null}
+            <Title channel={channel} />
 
-            <Info profile={channel} isMyProfile={isMyProfile} source={channel.source} />
+            <Info channel={channel} source={channel.source} />
 
-            <ContentTabs source={channel.source} profileId={channel.profileId} />
+            <ContentTabs source={channel.source} channelId={channel.id} />
         </div>
     );
 }

@@ -5,10 +5,10 @@ import { KeyType, type SourceInURL } from '@/constants/enum.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { isBotRequest } from '@/helpers/isBotRequest.js';
 import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
-import { getProfileOGById } from '@/services/getProfileOGById.js';
+import { getChannelOGById } from '@/services/getChannelOGById.js';
 
-const getProfileOGByIdRedis = memoizeWithRedis(getProfileOGById, {
-    key: KeyType.GetProfileOGById,
+const getChannelOGByIdRedis = memoizeWithRedis(getChannelOGById, {
+    key: KeyType.GetChannelOGById,
 });
 
 interface Props {
@@ -20,7 +20,7 @@ interface Props {
 
 export async function generateMetadata({ params, searchParams }: Props): Promise<Metadata> {
     if (isBotRequest() && searchParams.source)
-        return getProfileOGByIdRedis(searchParams.source as SourceInURL, params.id);
+        return getChannelOGByIdRedis(searchParams.source as SourceInURL, params.id);
     return createSiteMetadata();
 }
 

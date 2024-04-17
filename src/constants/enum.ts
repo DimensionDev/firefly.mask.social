@@ -30,6 +30,7 @@ export enum KeyType {
     DigestFrameLink = 'digestFrameLink',
     GetPostOGById = 'getPostOGById',
     GetProfileOGById = 'getProfileOGById',
+    GetChannelOGById = 'getChannelOGById',
     UploadToBlob = 'uploadToBlob',
     GetLensThreadByPostId = 'getLensThreadByPostId',
     RefreshLensThreadLock = 'RefreshLensThreadLock',
