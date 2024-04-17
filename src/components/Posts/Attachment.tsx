@@ -47,7 +47,7 @@ interface AttachmentsProps {
 }
 
 export const Attachments = memo<AttachmentsProps>(function Attachments({ attachments, asset, post, isQuote = false }) {
-    const imageAttachments = attachments.slice(0, 4).filter((x) => x.type === 'Image');
+    const imageAttachments = attachments.filter((x) => x.type === 'Image').slice(0, 4);
 
     if (isQuote && asset?.type === 'Video' && asset.coverUri) {
         return (
