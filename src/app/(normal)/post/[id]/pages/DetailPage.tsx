@@ -4,7 +4,6 @@ import { t, Trans } from '@lingui/macro';
 import { createPageable } from '@masknet/shared-base';
 import { useSuspenseInfiniteQuery, useSuspenseQuery } from '@tanstack/react-query';
 import { last } from 'lodash-es';
-import { useRouter } from 'next/navigation.js';
 import type React from 'react';
 import urlcat from 'urlcat';
 import { useDocumentTitle } from 'usehooks-ts';
@@ -13,16 +12,16 @@ import ComeBack from '@/assets/comeback.svg';
 import { CommentList } from '@/components/Comments/index.js';
 import { SinglePost } from '@/components/Posts/SinglePost.js';
 import { ThreadBody } from '@/components/Posts/ThreadBody.js';
-import { PageRoute, SocialPlatform, SourceInURL } from '@/constants/enum.js';
+import { SocialPlatform, SourceInURL } from '@/constants/enum.js';
 import { EMPTY_LIST, MIN_POST_SIZE_PER_THREAD, SITE_NAME } from '@/constants/index.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { createPageTitle } from '@/helpers/createPageTitle.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSocialPlatform } from '@/helpers/resolveSocialPlatform.js';
+import { useComeBack } from '@/hooks/useComeback.js';
 import { useUpdateCurrentVisitingPost } from '@/hooks/useCurrentVisitingPost.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { getPostById } from '@/services/getPostById.js';
-import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 
 const PostActions = dynamic(() => import('@/components/Actions/index.js').then((module) => module.PostActions), {
@@ -50,13 +49,11 @@ function refreshThreadByPostId(postId: string) {
 }
 
 export function PostDetailPage({ params: { id: postId }, searchParams: { source } }: PageProps) {
-    const router = useRouter();
-
     const currentSource = resolveSocialPlatform(source);
 
     const fetchAndStoreViews = useImpressionsStore.use.fetchAndStoreViews();
 
-    const routeChanged = useGlobalState.use.routeChanged();
+    const comeback = useComeBack();
 
     const { data: post = null } = useSuspenseQuery({
         queryKey: [currentSource, 'post-detail', postId],
@@ -121,18 +118,7 @@ export function PostDetailPage({ params: { id: postId }, searchParams: { source 
     return (
         <div className="min-h-screen">
             <div className="sticky top-0 z-40 flex items-center bg-primaryBottom px-4 py-[18px]">
-                <ComeBack
-                    width={24}
-                    height={24}
-                    className="mr-8 cursor-pointer"
-                    onClick={() => {
-                        if (!routeChanged) {
-                            router.push(PageRoute.Home);
-                            return;
-                        }
-                        router.back();
-                    }}
-                />
+                <ComeBack width={24} height={24} className="mr-8 cursor-pointer" onClick={comeback} />
                 <h2 className="text-xl font-black leading-6">
                     <Trans>Details</Trans>
                 </h2>
