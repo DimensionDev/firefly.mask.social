@@ -44,7 +44,7 @@ export function writeChars(chars: Chars, newChars: Chars) {
     ];
 }
 
-function calculateLength(text: string, containFarcaster?:boolean): number {
+function calculateLength(text: string, containFarcaster?: boolean): number {
     let length = 0;
     for (const char of text) {
         if (char.charCodeAt(0) > 128) {

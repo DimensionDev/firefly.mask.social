@@ -49,7 +49,7 @@ export function ComposeAction(props: ComposeActionProps) {
     const { type, posts, addPostInThread, updateRestriction } = useComposeStateStore();
     const { rootPost, isRootPost } = useCompositePost();
 
-    const containFarcaster = useMemo(() => rootPost.availableSources.includes(SocialPlatform.Farcaster), [rootPost])
+    const containFarcaster = useMemo(() => rootPost.availableSources.includes(SocialPlatform.Farcaster), [rootPost]);
 
     const { length, visibleLength, invisibleLength } = useMemo(() => measureChars(chars, containFarcaster), [chars]);
 
@@ -81,9 +81,9 @@ export function ComposeAction(props: ComposeActionProps) {
                         `current${x}Profile`,
                         currentProfile
                             ? {
-                                ...currentProfile,
-                                ownedBy: currentProfile.ownedBy?.address,
-                            }
+                                  ...currentProfile,
+                                  ownedBy: currentProfile.ownedBy?.address,
+                              }
                             : undefined,
                     ];
                 }),
