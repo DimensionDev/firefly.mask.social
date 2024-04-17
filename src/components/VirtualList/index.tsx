@@ -13,13 +13,12 @@ export function VirtualList<ItemData = unknown, Context = unknown>({
     listKey,
     ...rest
 }: VirtualListProps<ItemData, Context>) {
-    const { scrollIndexMap, setScrollIndex } = useGlobalState();
+    const { scrollIndex, setScrollIndex } = useGlobalState();
     const ref = useRef<VirtuosoHandle>(null);
 
     useMount(() => {
         if (!listKey) return;
-        const index = scrollIndexMap[listKey];
-
+        const index = scrollIndex[listKey];
         if (!index) return;
         ref.current?.scrollToIndex(index);
     });
