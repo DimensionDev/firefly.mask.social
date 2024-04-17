@@ -36,6 +36,7 @@ export enum ProfileStatus {
 export interface Reaction {
     reactionId: string;
     type: ReactionType;
+    /** time in milliseconds */
     timestamp: number;
 }
 
@@ -203,6 +204,7 @@ export interface Post {
 
 export interface Comment {
     commentId: string;
+    /** time in milliseconds */
     timestamp: number;
     author: Profile;
     for: Post;
@@ -218,6 +220,7 @@ export interface Collection {
 export interface BaseNotification {
     notificationId: string;
     source: SocialPlatform;
+    /** time in milliseconds */
     timestamp?: number;
 }
 
@@ -269,6 +272,31 @@ export type Notification =
     | FollowNotification
     | MentionNotification
     | ActedNotification;
+
+export interface ChannelLead {
+    pfp: string;
+    displayName: string;
+    bio: string;
+    username: string;
+    following: number;
+    followers: number;
+    addresses: string[];
+    fid: number;
+    isFollowing: boolean;
+    isFollowedBack: boolean;
+}
+
+export interface Channel {
+    id: string;
+    url: string;
+    name: string;
+    description?: string;
+    imageUrl: string;
+    parentUrl: string;
+    lead: ChannelLead;
+    /** time in milliseconds */
+    timestamp: number;
+}
 
 export interface Provider {
     type: SessionType;
@@ -383,11 +411,33 @@ export interface Provider {
     getPostById: (postId: string) => Promise<Post>;
 
     /**
+     * Retrieves a channel by its channel ID.
+     * @param channelId
+     * @returns
+     */
+    getChannelById: (channelId: string) => Promise<Channel>;
+
+    /**
+     * Retrieves a channel by its channel handle.
+     * @param channelHandle
+     * @returns
+     */
+    getChannelByHandle: (channelHandle: string) => Promise<Channel>;
+
+    /**
+     * Retrieves user's attended channels by profile ID.
+     * @param profileId
+     * @returns
+     */
+    getChannelsByProfileId: (profileId: string) => Promise<Channel[]>;
+
+    /**
      * Retrieves comments by post ID.
      * @param postId The ID of the post to retrieve.
      * @returns A promise that resolves to Comments list.
      */
     getCommentsById: (postId: string, indicator?: PageIndicator) => Promise<Pageable<Post, PageIndicator>>;
+
     /**
      * Retrieves recent posts in reverse chronological order.
      *
@@ -397,12 +447,20 @@ export interface Provider {
     discoverPosts: (indicator?: PageIndicator) => Promise<Pageable<Post>>;
 
     /**
+     * Retrieves trending channels.
+     * @param indicator
+     * @returns
+     */
+    discoverChannels: (indicator?: PageIndicator) => Promise<Pageable<Channel>>;
+
+    /**
      * Retrieves recent post by a specific profile id.
      * @param profileId The ID of the profile.
      * @param indicator Optional PageIndicator for pagination.
      * @returns A promise that resolves to a pageable list of Post objects.
      */
     discoverPostsById: (profileId: string, indicator?: PageIndicator) => Promise<Pageable<Post>>;
+
     /**
      * Retrieves posts by a specific profile ID.
      *
@@ -411,6 +469,14 @@ export interface Provider {
      * @returns A promise that resolves to a pageable list of Post objects.
      */
     getPostsByProfileId: (profileId: string, indicator?: PageIndicator) => Promise<Pageable<Post>>;
+
+    /**
+     * Retrieves posts in a specific channel.
+     * @param channelId
+     * @param indicator
+     * @returns
+     */
+    getPostsByChannelId: (channelId: string, indicator?: PageIndicator) => Promise<Pageable<Post>>;
 
     /**
      * Retrieves posts where a user is mentioned by their profile ID.
@@ -536,6 +602,13 @@ export interface Provider {
      * @returns
      */
     searchPosts: (q: string, indicator?: PageIndicator) => Promise<Pageable<Post>>;
+
+    /**
+     * Search channels.
+     * @param indicator
+     * @returns
+     */
+    searchChannels: (q: string, indicator?: PageIndicator) => Promise<Pageable<Channel>>;
 
     /**
      * Retrieves posts associated with a thread using the root post id.
