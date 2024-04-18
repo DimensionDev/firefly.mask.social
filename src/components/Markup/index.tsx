@@ -28,7 +28,7 @@ export const Markup = memo<MarkupProps>(function Markup({ children, post, ...res
                 linkifyRegex(URL_REGEX),
                 linkifyRegex(HASHTAG_REGEX),
             ];
-        const handles = post.mentions.map((x) => x.handle);
+        const handles = post.mentions.map((x) => x.fullHandle);
         const mentionRe = new RegExp(`@(${handles.join('|')})`, 'g');
         return [
             [stripMarkdown, { keep: ['strong', 'emphasis', 'inlineCode'] }],

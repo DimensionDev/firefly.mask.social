@@ -1,4 +1,4 @@
-import type { ProfileFragment } from '@lens-protocol/client';
+import type { HandleInfoFragment, ProfileFragment } from '@lens-protocol/client';
 
 import { SocialPlatform } from '@/constants/enum.js';
 import { AVATAR } from '@/constants/index.js';
@@ -43,6 +43,21 @@ export function formatLensProfile(result: ProfileFragment): Profile {
             following: result.operations.isFollowedByMe.value,
             followedBy: result.operations.isFollowingMe.value,
         },
+        source: SocialPlatform.Lens,
+    };
+}
+
+export function formatLensProfileByHandleInfo(result: HandleInfoFragment): Profile {
+    return {
+        profileId: result.id,
+        displayName: result.localName || '',
+        handle: result.localName || '',
+        fullHandle: result.fullHandle || '',
+        pfp: '',
+        followerCount: 0,
+        followingCount: 0,
+        status: ProfileStatus.Active,
+        verified: true,
         source: SocialPlatform.Lens,
     };
 }
