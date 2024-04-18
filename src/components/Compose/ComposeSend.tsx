@@ -13,6 +13,7 @@ import { measureChars } from '@/helpers/chars.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getCurrentPostLimits } from '@/helpers/getCurrentPostLimits.js';
 import { isValidPost } from '@/helpers/isValidPost.js';
+import { refetchComments } from '@/helpers/refreshComments.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';
 import { ComposeModalRef } from '@/modals/controls.js';
@@ -37,6 +38,11 @@ export function ComposeSend({ post }: ComposeSendProps) {
     const [{ loading }, handlePost] = useAsyncFn(async () => {
         if (posts.length > 1) await crossPostThread();
         else await crossPost(type, post);
+        if (type === 'reply') {
+            const source = post.availableSources[0];
+            const parentPostId = post.parentPost[source]?.postId;
+            if (parentPostId) refetchComments(source, parentPostId);
+        }
         ComposeModalRef.close();
     }, [type, posts.length > 1, post]);
 
