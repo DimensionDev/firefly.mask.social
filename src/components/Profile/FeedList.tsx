@@ -42,6 +42,7 @@ export function FeedList({ profileId, source }: FeedListProps) {
 
     return (
         <ListInPage
+            key={source}
             queryResult={queryResult}
             VirtualListProps={{
                 listKey: `${ScrollListKey.Profile}:${profileId}`,

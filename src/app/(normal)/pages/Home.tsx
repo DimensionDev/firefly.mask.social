@@ -45,7 +45,7 @@ export function Home({ source, pageable }: Props) {
         <ListInPage
             queryResult={queryResult}
             VirtualListProps={{
-                listKey: `${ScrollListKey.Discover}`,
+                listKey: ScrollListKey.Discover,
                 computeItemKey: (index, post) => `${post.postId}-${index}`,
                 itemContent: (index, post) =>
                     getPostItemContent(index, post, {

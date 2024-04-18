@@ -73,7 +73,6 @@ export default function Page() {
         <ListInPage
             queryResult={queryResult}
             VirtualListProps={{
-                listKey: 'search',
                 computeItemKey: (index, item) => {
                     switch (searchType) {
                         case SearchType.Users:

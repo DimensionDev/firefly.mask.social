@@ -46,7 +46,7 @@ export function ListInPage<T = unknown>({
         return <NoResultsFallback {...NoResultsFallbackProps} />;
     }
 
-    // type casting to avoid type error
+    // force type casting to avoid type error
     const List = VirtualList<T>;
     const Components = {
         Footer: VirtualListFooter,
