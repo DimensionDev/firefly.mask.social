@@ -10,6 +10,7 @@ import { getFarcasterSessionType } from '@/helpers/getFarcasterSessionType.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { HubbleSocialMediaProvider } from '@/providers/hubble/SocialMedia.js';
 import {
+    type Channel,
     type Notification,
     type Post,
     type Profile,
@@ -48,6 +49,40 @@ class FarcasterSocialMedia implements Provider {
 
     getReactors(postId: string, indicator?: PageIndicator | undefined): Promise<Pageable<Profile, PageIndicator>> {
         throw new Error('Method not implemented.');
+    }
+
+    getChannelById(channelId: string): Promise<Channel> {
+        return FireflySocialMediaProvider.getChannelByHandle(channelId);
+    }
+
+    getChannelByHandle(channelHandle: string): Promise<Channel> {
+        return FireflySocialMediaProvider.getChannelByHandle(channelHandle);
+    }
+
+    getChannelsByProfileId(profileId: string): Promise<Channel[]> {
+        return FireflySocialMediaProvider.getChannelsByProfileId(profileId);
+    }
+
+    discoverChannels(indicator?: PageIndicator | undefined): Promise<Pageable<Channel, PageIndicator>> {
+        return FireflySocialMediaProvider.discoverChannels(indicator);
+    }
+
+    getPostsByChannelId(
+        channelId: string,
+        indicator?: PageIndicator | undefined,
+    ): Promise<Pageable<Post, PageIndicator>> {
+        return FireflySocialMediaProvider.getPostsByChannelHandle(channelId, indicator);
+    }
+
+    getPostsByChannelHandle(
+        channelHandle: string,
+        indicator?: PageIndicator | undefined,
+    ): Promise<Pageable<Post, PageIndicator>> {
+        return FireflySocialMediaProvider.getPostsByChannelHandle(channelHandle, indicator);
+    }
+
+    searchChannels(q: string, indicator?: PageIndicator | undefined): Promise<Pageable<Channel, PageIndicator>> {
+        return FireflySocialMediaProvider.searchChannels(q, indicator);
     }
 
     get type() {

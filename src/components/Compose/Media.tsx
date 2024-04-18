@@ -7,8 +7,8 @@ import ImageIcon from '@/assets/image.svg';
 import VideoIcon from '@/assets/video.svg';
 import { SocialPlatform } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
+import { getCurrentPostImageLimits } from '@/helpers/getCurrentPostImageLimits.js';
 import { useComposeStateStore, useCompositePost } from '@/store/useComposeStore.js';
-import { useFarcasterStateStore } from '@/store/useProfileStore.js';
 
 interface MediaProps {
     close: () => void;
@@ -17,11 +17,10 @@ export function Media({ close }: MediaProps) {
     const imageInputRef = useRef<HTMLInputElement>(null);
     const videoInputRef = useRef<HTMLInputElement>(null);
 
-    const currentFarcasterProfile = useFarcasterStateStore.use.currentProfile();
     const { updateVideo, updateImages } = useComposeStateStore();
-    const { availableSources, video, images } = useCompositePost();
+    const { video, images, rootPost } = useCompositePost();
 
-    const maxImageCount = currentFarcasterProfile && availableSources.includes(SocialPlatform.Farcaster) ? 2 : 4;
+    const maxImageCount = getCurrentPostImageLimits(rootPost.availableSources);
 
     const [, handleImageChange] = useAsyncFn(
         async (event: ChangeEvent<HTMLInputElement>) => {
@@ -52,7 +51,7 @@ export function Media({ close }: MediaProps) {
         [close, updateVideo],
     );
 
-    const disabledVideo = !!video || availableSources.includes(SocialPlatform.Farcaster);
+    const disabledVideo = !!video || rootPost.availableSources.includes(SocialPlatform.Farcaster);
 
     return (
         <Transition
@@ -71,7 +70,7 @@ export function Media({ close }: MediaProps) {
                 <div
                     className={classNames(
                         'flex h-8 items-center gap-2',
-                        images.length >= maxImageCount ? 'cursor-not-allowed opacity-75' : 'cursor-pointer hover:bg-bg',
+                        images.length >= maxImageCount ? 'cursor-not-allowed opacity-50' : 'cursor-pointer hover:bg-bg',
                     )}
                     onClick={() => {
                         if (images.length < maxImageCount) {

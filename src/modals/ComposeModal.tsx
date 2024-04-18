@@ -116,10 +116,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
             onClose: (props) => {
                 if (props?.disableClear) return;
                 clear();
-                editor.update(() => {
-                    const root = $getRoot();
-                    root.clear();
-                });
+                editor.update(() => $getRoot().clear());
             },
         });
 
@@ -201,8 +198,8 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
         }, [typedMessage, rpPayload, id, currentProfileAll]);
 
         return (
-            <Modal open={open} onClose={onClose}>
-                <div className="relative flex h-[100vh] w-[100vw] flex-col overflow-auto bg-bgModal shadow-popover transition-all dark:text-gray-950 md:h-auto md:w-[600px] md:rounded-xl">
+            <Modal open={open} onClose={onClose} className="flex-col">
+                <div className="relative flex w-[100vw] flex-grow flex-col overflow-auto bg-bgModal shadow-popover transition-all dark:text-gray-950 md:h-auto md:w-[600px] md:rounded-xl lg:flex-grow-0">
                     {/* Loading */}
                     {encryptRedPacketLoading ? (
                         <div className=" absolute bottom-0 left-0 right-0 top-0 z-50 flex items-center justify-center">
@@ -227,8 +224,8 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
                         {isMedium ? null : <ComposeSend post={compositePost} />}
                     </Dialog.Title>
 
-                    <div className=" flex flex-1 flex-col overflow-auto px-4 pb-4">
-                        <div className="flex min-h-[300px] flex-1 flex-col overflow-auto rounded-lg border border-secondaryLine bg-bg px-4 py-[14px] md:max-h-[500px] md:min-h-[338px]">
+                    <div className=" flex min-h-[300px] flex-col overflow-auto px-4 pb-4">
+                        <div className="flex min-h-full flex-1 flex-col overflow-auto rounded-lg border border-secondaryLine bg-bg px-4 py-[14px] md:max-h-[500px] md:min-h-[338px]">
                             {posts.length === 1 ? <ComposeContent post={compositePost} /> : <ComposeThreadContent />}
                         </div>
                     </div>

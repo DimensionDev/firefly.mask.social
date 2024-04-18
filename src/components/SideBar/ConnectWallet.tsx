@@ -33,9 +33,7 @@ export function ConnectWallet({ collapsed = false }: ConnectWalletProps) {
         <div
             className={classNames(
                 'flex items-center gap-x-3 overflow-hidden rounded-full text-xl hover:cursor-pointer hover:bg-bg',
-                {
-                    'px-4 py-1': !collapsed,
-                },
+                collapsed ? 'px-2' : 'px-4 py-1',
             )}
             onClick={() => {
                 account.isConnected ? AccountModalRef.open() : ConnectWalletModalRef.open();

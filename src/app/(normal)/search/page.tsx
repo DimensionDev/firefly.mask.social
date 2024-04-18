@@ -9,13 +9,14 @@ import { useCallback } from 'react';
 
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { SinglePost } from '@/components/Posts/SinglePost.js';
+import { ChannelInList } from '@/components/Search/ChannelInList.js';
 import { ProfileInList } from '@/components/Search/ProfileInList.js';
 import { VirtualList } from '@/components/VirtualList/index.js';
 import { VirtualListFooter } from '@/components/VirtualList/VirtualListFooter.js';
 import { SearchType } from '@/constants/enum.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
-import type { Post, Profile } from '@/providers/types/SocialMedia.js';
+import type { Channel, Post, Profile } from '@/providers/types/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useSearchState } from '@/store/useSearchState.js';
 
@@ -44,6 +45,8 @@ export default function Page() {
                     return provider?.searchProfiles(searchKeyword, indicator);
                 case SearchType.Posts:
                     return provider?.searchPosts(searchKeyword, indicator);
+                case SearchType.Channels:
+                    return provider?.searchChannels(searchKeyword, indicator);
                 default:
                     safeUnreachable(searchType);
                     return;
@@ -52,7 +55,7 @@ export default function Page() {
         initialPageParam: '',
         getNextPageParam: (lastPage) => lastPage?.nextIndicator?.id,
         select(data) {
-            return compact(data.pages.flatMap((x) => x?.data as Array<Profile | Post>) || []);
+            return compact(data.pages.flatMap((x) => x?.data as Array<Profile | Post | Channel>) || []);
         },
     });
 
@@ -65,7 +68,7 @@ export default function Page() {
     }, [hasNextPage, isFetching, isFetchingNextPage, fetchNextPage]);
 
     const itemContent = useCallback(
-        (index: number, item: Post | Profile) => {
+        (index: number, item: Post | Profile | Channel) => {
             switch (searchType) {
                 case SearchType.Users:
                     const profile = item as Profile;
@@ -73,6 +76,9 @@ export default function Page() {
                 case SearchType.Posts:
                     const post = item as Post;
                     return <SinglePost key={post.postId} post={post} />;
+                case SearchType.Channels:
+                    const channel = item as Channel;
+                    return <ChannelInList key={channel.id} channel={channel} />;
                 default:
                     safeUnreachable(searchType);
                     return null;
@@ -109,6 +115,9 @@ export default function Page() {
                         case SearchType.Posts:
                             const post = item as Post;
                             return `${post.postId}_${index}`;
+                        case SearchType.Channels:
+                            const channel = item as Channel;
+                            return `${channel.id}_${index}`;
                         default:
                             safeUnreachable(searchType);
                             return index;

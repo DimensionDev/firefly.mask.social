@@ -131,6 +131,7 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
             case NotificationType.Follow:
                 const firstFollower = first(notification.followers);
                 if (!firstFollower) return;
+
                 return (
                     <Trans>
                         <Plural
@@ -145,7 +146,6 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
                             }
                             other={
                                 <Trans>
-                                    <ProfileLink profile={firstFollower} />
                                     <ProfileLink profile={firstFollower} /> and # others
                                 </Trans>
                             }

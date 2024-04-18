@@ -13,11 +13,13 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                     <IfPathname isOneOf={['/profile']} exact>
                         <NavigatorBar />
                     </IfPathname>
-                    <IfPathname isNotOneOf={['/post', '/profile']}>
+                    <IfPathname isNotOneOf={['/post', '/profile', '/channel']}>
                         <NavigatorBar />
                     </IfPathname>
                     <HeaderSearchBar />
-                    <SocialPlatformTabs />
+                    <IfPathname isNotOneOf={['/channel']}>
+                        <SocialPlatformTabs />
+                    </IfPathname>
                 </div>
                 <ComposeButton />
                 {children}

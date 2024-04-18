@@ -212,7 +212,7 @@ export function ComposeAction(props: ComposeActionProps) {
                             >
                                 <span className="flex items-center gap-x-1 font-bold">
                                     {rootPost.availableSources
-                                        .filter((x) => !!currentProfileAll[x])
+                                        .filter((x) => !!currentProfileAll[x] && SORTED_SOURCES.includes(x))
                                         .map((y) => (
                                             <SourceIcon key={y} source={y} size={20} />
                                         ))}
@@ -227,7 +227,7 @@ export function ComposeAction(props: ComposeActionProps) {
                 </Popover>
             </div>
 
-            <div className=" flex h-9 items-center justify-between">
+            <div className=" flex h-9 items-center justify-between pb-safe">
                 <span className=" text-[15px] text-secondary">
                     <Trans>Allow replies from</Trans>
                 </span>

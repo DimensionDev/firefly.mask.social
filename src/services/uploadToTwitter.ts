@@ -8,7 +8,7 @@ function fileToBuffer(file: File): Promise<ArrayBuffer> {
             resolve(reader.result as ArrayBuffer);
         };
 
-        reader.onerror = error => {
+        reader.onerror = (error) => {
             reject(error);
         };
 

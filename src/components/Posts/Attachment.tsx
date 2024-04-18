@@ -47,7 +47,7 @@ interface AttachmentsProps {
 }
 
 export const Attachments = memo<AttachmentsProps>(function Attachments({ attachments, asset, post, isQuote = false }) {
-    const imageAttachments = attachments.slice(0, 4).filter((x) => x.type === 'Image');
+    const imageAttachments = attachments.filter((x) => x.type === 'Image').slice(0, 4);
 
     if (isQuote && asset?.type === 'Video' && asset.coverUri) {
         return (
@@ -114,7 +114,6 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({ attachm
                             'w-[120px]': isQuote,
                             'h-[120px]': isQuote,
                         })}
-                        loading="lazy"
                         disableLoadHandler={isQuote}
                         width={isQuote ? 120 : 1000}
                         height={isQuote ? 120 : 1000}
@@ -130,10 +129,6 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({ attachm
                         }}
                         src={formatImageUrl(asset.uri, ATTACHMENT)}
                         alt={formatImageUrl(asset.uri, ATTACHMENT)}
-                        // To decode image steganography encoded image, we get
-                        // the image blob from the element by drawing it to a
-                        // canvas, which needs to set crossOrigin='anonymous'
-                        crossOrigin="anonymous"
                     />
                 </div>
             ) : null}
