@@ -1,4 +1,4 @@
-import { TwitterApi } from "twitter-api-v2";
+import { fetchJSON } from "@/helpers/fetchJSON.js";
 
 function fileToBuffer(file: File): Promise<ArrayBuffer> {
     return new Promise((resolve, reject) => {
@@ -17,15 +17,10 @@ function fileToBuffer(file: File): Promise<ArrayBuffer> {
 }
 
 export async function uploadToTwitter(files: File[]) {
-    const Twitter = new TwitterApi()
-
     const medias = await Promise.all(files.map(async (x) => {
         const buffer = await fileToBuffer(x)
-        return await Twitter.v1.uploadMedia(Buffer.from(buffer), {type: x.type})
+        return { buffer, type: x.type }
     }));
-    return medias.map((x, i) => ({
-        media_id: Number(x),
-        media_id_string: x,
-        file: files[i],
-    }));
+    const results = await Promise.all(medias.map(async (x) => { return await fetchJSON<string>('/api/twitter/uploadMedia', { method: 'POST', body: JSON.stringify(x) }) }));
+    return results.map((x, i) => ({ media_id: Number(x), media_id_string: x, file: files[i] }));
 }
