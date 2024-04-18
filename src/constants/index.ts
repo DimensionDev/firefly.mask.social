@@ -62,14 +62,14 @@ export const MAX_CHAR_SIZE_PER_POST: Record<SocialPlatform, number> = {
     [SocialPlatform.Twitter]: 280,
 };
 export const DANGER_CHAR_LIMIT: Record<SocialPlatform, number> = {
-    [SocialPlatform.Lens]: Math.floor(MAX_CHAR_SIZE_PER_POST[SocialPlatform.Lens] * 0.93),
-    [SocialPlatform.Farcaster]: Math.floor(MAX_CHAR_SIZE_PER_POST[SocialPlatform.Farcaster] * 0.93),
-    [SocialPlatform.Twitter]: Math.floor(MAX_CHAR_SIZE_PER_POST[SocialPlatform.Twitter] * 0.93),
+    [SocialPlatform.Lens]: Math.floor(MAX_CHAR_SIZE_PER_POST[SocialPlatform.Lens] * 0.9),
+    [SocialPlatform.Farcaster]: Math.floor(MAX_CHAR_SIZE_PER_POST[SocialPlatform.Farcaster] * 0.9),
+    [SocialPlatform.Twitter]: Math.floor(MAX_CHAR_SIZE_PER_POST[SocialPlatform.Twitter] * 0.9),
 };
 export const SAFE_CHAR_LIMIT: Record<SocialPlatform, number> = {
-    [SocialPlatform.Lens]: Math.floor(MAX_CHAR_SIZE_PER_POST[SocialPlatform.Lens] * 0.82),
-    [SocialPlatform.Farcaster]: Math.floor(MAX_CHAR_SIZE_PER_POST[SocialPlatform.Farcaster] * 0.82),
-    [SocialPlatform.Twitter]: Math.floor(MAX_CHAR_SIZE_PER_POST[SocialPlatform.Twitter] * 0.82),
+    [SocialPlatform.Lens]: Math.floor(MAX_CHAR_SIZE_PER_POST[SocialPlatform.Lens] * 0.8),
+    [SocialPlatform.Farcaster]: Math.floor(MAX_CHAR_SIZE_PER_POST[SocialPlatform.Farcaster] * 0.8),
+    [SocialPlatform.Twitter]: Math.floor(MAX_CHAR_SIZE_PER_POST[SocialPlatform.Twitter] * 0.8),
 };
 
 // Search Bar

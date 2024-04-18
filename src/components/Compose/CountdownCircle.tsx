@@ -11,7 +11,9 @@ interface Props extends SVGAttributes<SVGElement> {
 
 export function CountdownCircle({ post, rootPost, ...rest }: Props) {
     const { visibleLength } = measureChars(post.chars, rootPost.availableSources);
-    const { SAFE_CHAR_LIMIT, DANGER_CHAR_LIMIT, MAX_CHAR_SIZE_PER_POST } = getCurrentPostLimits(post.availableSources);
+    const { SAFE_CHAR_LIMIT, DANGER_CHAR_LIMIT, MAX_CHAR_SIZE_PER_POST } = getCurrentPostLimits(
+        rootPost.availableSources,
+    );
 
     const isGreen = visibleLength < SAFE_CHAR_LIMIT;
     const isWarning = visibleLength > SAFE_CHAR_LIMIT && visibleLength < DANGER_CHAR_LIMIT;
