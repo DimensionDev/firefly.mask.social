@@ -102,33 +102,31 @@ export default function Page() {
     }
 
     return (
-        <div>
-            <VirtualList
-                computeItemKey={(index, item) => {
-                    switch (searchType) {
-                        case SearchType.Users:
-                            const profile = item as Profile;
-                            return `${profile.profileId}_${index}`;
-                        case SearchType.Posts:
-                            const post = item as Post;
-                            return `${post.postId}_${index}`;
-                        case SearchType.Channels:
-                            const channel = item as Channel;
-                            return `${channel.id}_${index}`;
-                        default:
-                            safeUnreachable(searchType);
-                            return index;
-                    }
-                }}
-                data={results}
-                endReached={onEndReached}
-                itemContent={(index, item) => getSearchItemContent(index, item, searchType)}
-                useWindowScroll
-                context={{ hasNextPage }}
-                components={{
-                    Footer: VirtualListFooter,
-                }}
-            />
-        </div>
+        <VirtualList
+            computeItemKey={(index, item) => {
+                switch (searchType) {
+                    case SearchType.Users:
+                        const profile = item as Profile;
+                        return `${profile.profileId}_${index}`;
+                    case SearchType.Posts:
+                        const post = item as Post;
+                        return `${post.postId}_${index}`;
+                    case SearchType.Channels:
+                        const channel = item as Channel;
+                        return `${channel.id}_${index}`;
+                    default:
+                        safeUnreachable(searchType);
+                        return index;
+                }
+            }}
+            data={results}
+            endReached={onEndReached}
+            itemContent={(index, item) => getSearchItemContent(index, item, searchType)}
+            useWindowScroll
+            context={{ hasNextPage }}
+            components={{
+                Footer: VirtualListFooter,
+            }}
+        />
     );
 }

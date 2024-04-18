@@ -51,28 +51,22 @@ export default function Notification() {
         return <NotLoginFallback source={currentSource} />;
     }
 
-    if (data.length === 0) {
-        return (
-            <div>
-                <NoResultsFallback />
-            </div>
-        );
+    if (!data.length) {
+        return <NoResultsFallback className="pt-[228px]" />;
     }
 
     return (
-        <div>
-            <VirtualList
-                listKey={ScrollListKey.Notification}
-                computeItemKey={(index, notification) => `${notification.notificationId}-${index}`}
-                data={data}
-                endReached={onEndReached}
-                itemContent={getNotificationItemContent}
-                useWindowScroll
-                context={{ hasNextPage }}
-                components={{
-                    Footer: VirtualListFooter,
-                }}
-            />
-        </div>
+        <VirtualList
+            listKey={ScrollListKey.Notification}
+            computeItemKey={(index, notification) => `${notification.notificationId}-${index}`}
+            data={data}
+            endReached={onEndReached}
+            itemContent={getNotificationItemContent}
+            useWindowScroll
+            context={{ hasNextPage }}
+            components={{
+                Footer: VirtualListFooter,
+            }}
+        />
     );
 }
