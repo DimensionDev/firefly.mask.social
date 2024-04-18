@@ -10,7 +10,7 @@ import { useCallback } from 'react';
 import { ChannelInList } from '@/components/Channel/ChannelInList.js';
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { SinglePost } from '@/components/Posts/SinglePost.js';
-import { ProfileInList } from '@/components/Search/ProfileInList.js';
+import { ProfileInList } from '@/components/ProfileInList.js';
 import { VirtualList } from '@/components/VirtualList/VirtualList.js';
 import { VirtualListFooter } from '@/components/VirtualList/VirtualListFooter.js';
 import { SearchType } from '@/constants/enum.js';
