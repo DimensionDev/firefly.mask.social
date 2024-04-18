@@ -41,13 +41,7 @@ export default function Page() {
     const { searchKeyword, searchType } = useSearchState();
     const { currentSource } = useGlobalState();
 
-    const {
-        data: results,
-        hasNextPage,
-        fetchNextPage,
-        isFetchingNextPage,
-        isFetching,
-    } = useSuspenseInfiniteQuery({
+    const { data, hasNextPage, fetchNextPage, isFetchingNextPage, isFetching } = useSuspenseInfiniteQuery({
         queryKey: ['search', searchType, searchKeyword, currentSource],
         queryFn: async ({ pageParam }) => {
             if (!searchKeyword) return;
@@ -86,7 +80,7 @@ export default function Page() {
 
     useNavigatorTitle(t`Search`);
 
-    if (!results.length) {
+    if (!data.length) {
         return (
             <NoResultsFallback
                 message={
@@ -119,7 +113,7 @@ export default function Page() {
                         return index;
                 }
             }}
-            data={results}
+            data={data}
             endReached={onEndReached}
             itemContent={(index, item) => getSearchItemContent(index, item, searchType)}
             useWindowScroll

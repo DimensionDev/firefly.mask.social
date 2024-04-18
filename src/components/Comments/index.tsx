@@ -22,13 +22,7 @@ export interface CommentListProps {
 export const CommentList = memo<CommentListProps>(function CommentList({ postId, source, exclude = [] }) {
     const fetchAndStoreViews = useImpressionsStore.use.fetchAndStoreViews();
 
-    const {
-        data: results,
-        hasNextPage,
-        fetchNextPage,
-        isFetchingNextPage,
-        isFetching,
-    } = useSuspenseInfiniteQuery({
+    const { data, hasNextPage, fetchNextPage, isFetchingNextPage, isFetching } = useSuspenseInfiniteQuery({
         queryKey: ['posts', source, 'comments', postId],
         queryFn: async ({ pageParam }) => {
             if (!postId) return createPageable(EMPTY_LIST, undefined);
@@ -59,7 +53,7 @@ export const CommentList = memo<CommentListProps>(function CommentList({ postId,
         await fetchNextPage();
     }, [hasNextPage, isFetching, isFetchingNextPage, fetchNextPage]);
 
-    if (!results.length) {
+    if (!data.length) {
         return (
             <NoResultsFallback
                 icon={<MessageIcon width={24} height={24} />}
@@ -71,7 +65,7 @@ export const CommentList = memo<CommentListProps>(function CommentList({ postId,
     return (
         <VirtualList
             computeItemKey={(index, post) => `${post.postId}-${index}`}
-            data={results}
+            data={data}
             endReached={onEndReached}
             itemContent={(index, post) => getPostItemContent(index, post, { isComment: true })}
             useWindowScroll
