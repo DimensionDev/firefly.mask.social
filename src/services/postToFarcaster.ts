@@ -67,10 +67,13 @@ export async function postToFarcaster(type: ComposeType, compositePost: Composit
                 }),
             );
         },
-        compose: (images) => FarcasterSocialMediaProvider.publishPost(composeDraft('Post', images)),
+        compose: (images) => {
+            return FarcasterSocialMediaProvider.publishPost(composeDraft('Post', images));
+        },
         reply: (images) => {
             if (!farcasterParentPost) throw new Error(t`No parent post found.`);
-            return FarcasterSocialMediaProvider.publishPost(composeDraft('Comment', images));
+            // for farcaster, post id is read from post.commentOn.postId
+            return FarcasterSocialMediaProvider.commentPost('', composeDraft('Comment', images));
         },
         quote: () => {
             if (!farcasterParentPost) throw new Error(t`No parent post found.`);

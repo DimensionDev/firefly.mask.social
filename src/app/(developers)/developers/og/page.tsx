@@ -51,6 +51,9 @@ export default function OpenGraph() {
             <div className=" mb-2 flex w-full flex-row gap-2">
                 <input
                     className=" flex-1 rounded-md border border-line bg-transparent"
+                    type="text"
+                    autoComplete="off"
+                    spellCheck="false"
                     placeholder={t`Your website URL.`}
                     onChange={(e) => setUrl(e.target.value)}
                 />

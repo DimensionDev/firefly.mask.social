@@ -5,7 +5,7 @@ import { t, Trans } from '@lingui/macro';
 import { delay } from '@masknet/kit';
 import { CrossIsolationMessages } from '@masknet/shared-base';
 import { $getSelection } from 'lexical';
-import { useCallback, useMemo } from 'react';
+import { useCallback } from 'react';
 import { useAsyncFn } from 'react-use';
 
 import AtIcon from '@/assets/at.svg';
@@ -48,7 +48,7 @@ export function ComposeAction(props: ComposeActionProps) {
     const { type, posts, addPostInThread, updateRestriction } = useComposeStateStore();
     const { rootPost, isRootPost } = useCompositePost();
 
-    const { length, visibleLength, invisibleLength } = useMemo(() => measureChars(chars), [chars]);
+    const { length, visibleLength, invisibleLength } = measureChars(chars, rootPost.availableSources);
 
     const [editor] = useLexicalComposerContext();
     const setEditorContent = useSetEditorContent();

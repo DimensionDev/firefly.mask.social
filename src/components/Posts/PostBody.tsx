@@ -14,6 +14,7 @@ import { Markup, NakedMarkup } from '@/components/Markup/index.js';
 import { Oembed } from '@/components/Oembed/index.js';
 import { Attachments } from '@/components/Posts/Attachment.js';
 import { Quote } from '@/components/Posts/Quote.js';
+import { IS_APPLE, IS_SAFARI } from '@/constants/bowser.js';
 import { EMPTY_LIST, MAX_FRAME_SIZE_PER_POST } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getEncryptedPayloadFromImageAttachment, getEncryptedPayloadFromText } from '@/helpers/getEncryptedPayload.js';
@@ -110,7 +111,12 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
             <div className="my-2 flex items-center space-x-2 break-words text-base text-main">
                 <NakedMarkup
                     post={post}
-                    className="linkify line-clamp-5 max-h-[7.2rem] w-full self-stretch break-words text-[15px] opacity-75"
+                    className={classNames(
+                        'linkify line-clamp-5 w-full self-stretch break-words text-[15px] opacity-75',
+                        {
+                            'max-h-[7.8rem]': IS_SAFARI && IS_APPLE,
+                        },
+                    )}
                 >
                     {post.metadata.content?.content}
                 </NakedMarkup>
@@ -137,7 +143,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
             <Markup
                 post={post}
                 className={classNames(
-                    { 'line-clamp-5': canShowMore, 'max-h-[7.2rem]': canShowMore },
+                    { 'line-clamp-5': canShowMore, 'max-h-[8rem]': canShowMore && IS_SAFARI && IS_APPLE },
                     'markup linkify break-words text-[15px]',
                 )}
             >
