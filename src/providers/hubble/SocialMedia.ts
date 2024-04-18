@@ -41,9 +41,9 @@ function fetchHubbleJSON<T>(url: string, options: RequestInit): Promise<T> {
     });
 }
 
-class HubbleSocialMedia implements Provider {
+export class HubbleSocialMedia implements Provider {
     commentPost(postId: string, post: Post): Promise<string> {
-        throw new Error('Method not implemented.');
+        return this.publishPost(post);
     }
 
     getProfileById(profileId: string): Promise<Profile> {
