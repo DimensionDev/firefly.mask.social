@@ -18,19 +18,19 @@ export function useSearchState() {
     useEffect(() => {
         const type = params.get('type') as SearchType;
         if (type) updateSearchType(type);
-    }, [params, searchType, updateSearchType])
+    }, [params, searchType, updateSearchType]);
 
     const updateState = useCallback(
         (state: SearchState, replace?: boolean) => {
             const newParams = new URLSearchParams(params);
-            if(state.type) {
+            if (state.type) {
                 updateSearchType(state.type);
                 newParams.set('type', state.type);
             }
             Object.entries(state).forEach(([key, val]) => {
                 if (val) newParams.set(key, val);
             });
-            
+
             const url = `/search?${newParams.toString()}`;
             if (!newParams.get('q')) return;
             if (replace) router.replace(url);
