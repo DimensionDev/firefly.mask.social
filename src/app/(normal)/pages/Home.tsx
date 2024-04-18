@@ -9,7 +9,7 @@ import { discoverPosts } from '@/app/(normal)/helpers/discoverPosts.js';
 import BlackHoleIcon from '@/assets/black-hole.svg';
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.js';
-import { VirtualList } from '@/components/VirtualList/index.js';
+import { VirtualList } from '@/components/VirtualList/VirtualList.js';
 import { VirtualListFooter } from '@/components/VirtualList/VirtualListFooter.js';
 import { ScrollListKey, SocialPlatform } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';

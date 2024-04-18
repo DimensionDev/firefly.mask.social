@@ -6,7 +6,7 @@ import { memo, useCallback } from 'react';
 import MessageIcon from '@/assets/message.svg';
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.js';
-import { VirtualList } from '@/components/VirtualList/index.js';
+import { VirtualList } from '@/components/VirtualList/VirtualList.js';
 import { VirtualListFooter } from '@/components/VirtualList/VirtualListFooter.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';

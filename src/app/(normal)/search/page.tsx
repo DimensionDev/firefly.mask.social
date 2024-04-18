@@ -7,11 +7,11 @@ import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
 import { useCallback } from 'react';
 
+import { ChannelInList } from '@/components/Channel/ChannelInList.js';
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { SinglePost } from '@/components/Posts/SinglePost.js';
-import { ChannelInList } from '@/components/Search/ChannelInList.js';
 import { ProfileInList } from '@/components/Search/ProfileInList.js';
-import { VirtualList } from '@/components/VirtualList/index.js';
+import { VirtualList } from '@/components/VirtualList/VirtualList.js';
 import { VirtualListFooter } from '@/components/VirtualList/VirtualListFooter.js';
 import { SearchType } from '@/constants/enum.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
@@ -19,6 +19,23 @@ import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 import type { Channel, Post, Profile } from '@/providers/types/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useSearchState } from '@/store/useSearchState.js';
+
+const getSearchItemContent = (index: number, item: Post | Profile | Channel, searchType: SearchType) => {
+    switch (searchType) {
+        case SearchType.Users:
+            const profile = item as Profile;
+            return <ProfileInList key={profile.profileId} profile={profile} />;
+        case SearchType.Posts:
+            const post = item as Post;
+            return <SinglePost key={post.postId} post={post} />;
+        case SearchType.Channels:
+            const channel = item as Channel;
+            return <ChannelInList key={channel.id} channel={channel} />;
+        default:
+            safeUnreachable(searchType);
+            return null;
+    }
+};
 
 export default function Page() {
     const { searchKeyword, searchType } = useSearchState();
@@ -67,26 +84,6 @@ export default function Page() {
         await fetchNextPage();
     }, [hasNextPage, isFetching, isFetchingNextPage, fetchNextPage]);
 
-    const itemContent = useCallback(
-        (index: number, item: Post | Profile | Channel) => {
-            switch (searchType) {
-                case SearchType.Users:
-                    const profile = item as Profile;
-                    return <ProfileInList key={profile.profileId} profile={profile} />;
-                case SearchType.Posts:
-                    const post = item as Post;
-                    return <SinglePost key={post.postId} post={post} />;
-                case SearchType.Channels:
-                    const channel = item as Channel;
-                    return <ChannelInList key={channel.id} channel={channel} />;
-                default:
-                    safeUnreachable(searchType);
-                    return null;
-            }
-        },
-        [searchType],
-    );
-
     useNavigatorTitle(t`Search`);
 
     if (!results.length) {
@@ -125,7 +122,7 @@ export default function Page() {
                 }}
                 data={results}
                 endReached={onEndReached}
-                itemContent={itemContent}
+                itemContent={(index, item) => getSearchItemContent(index, item, searchType)}
                 useWindowScroll
                 context={{ hasNextPage }}
                 components={{

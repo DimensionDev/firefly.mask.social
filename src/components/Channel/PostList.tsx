@@ -6,7 +6,7 @@ import { useCallback } from 'react';
 import BlackHoleIcon from '@/assets/black-hole.svg';
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.js';
-import { VirtualList } from '@/components/VirtualList/index.js';
+import { VirtualList } from '@/components/VirtualList/VirtualList.js';
 import { VirtualListFooter } from '@/components/VirtualList/VirtualListFooter.js';
 import { ScrollListKey, SocialPlatform } from '@/constants/enum.js';
 import { mergeThreadPosts } from '@/helpers/mergeThreadPosts.js';
@@ -14,11 +14,11 @@ import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 
-interface ContentFeedProps {
+interface PostListProps {
     channelId: string;
     source: SocialPlatform;
 }
-export function ContentFeed({ channelId, source }: ContentFeedProps) {
+export function PostList({ channelId, source }: PostListProps) {
     const setScrollIndex = useGlobalState.use.setScrollIndex();
     const fetchAndStoreViews = useImpressionsStore.use.fetchAndStoreViews();
 
