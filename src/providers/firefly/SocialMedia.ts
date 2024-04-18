@@ -65,7 +65,10 @@ class FireflySocialMedia implements Provider {
         return formatFarcasterChannelFromFirefly(data);
     }
 
-    async getChannelsByProfileId(profileId: string): Promise<Channel[]> {
+    async getChannelsByProfileId(
+        profileId: string,
+        indicator?: PageIndicator,
+    ): Promise<Pageable<Channel, PageIndicator>> {
         const url = urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/active_channels', {
             fid: profileId,
             sourceFid: profileId,
@@ -73,10 +76,11 @@ class FireflySocialMedia implements Provider {
         const { data } = await fetchJSON<ChannelsResponse>(url, {
             method: 'GET',
         });
-        return data.map(formatFarcasterChannelFromFirefly);
+        const channels = data.map(formatFarcasterChannelFromFirefly);
+        return createPageable(channels, createIndicator(indicator));
     }
 
-    async discoverChannels(indicator?: PageIndicator | undefined): Promise<Pageable<Channel, PageIndicator>> {
+    async discoverChannels(indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {
         const url = urlcat(FIREFLY_ROOT_URL, '/v2/discover/farcaster/trending_channels', {
             size: 20,
             cursor: indicator?.id,
@@ -93,17 +97,11 @@ class FireflySocialMedia implements Provider {
         );
     }
 
-    getPostsByChannelId(
-        channelId: string,
-        indicator?: PageIndicator | undefined,
-    ): Promise<Pageable<Post, PageIndicator>> {
+    getPostsByChannelId(channelId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         throw new Error('Method not implemented.');
     }
 
-    getPostsByChannelHandle(
-        channelHandle: string,
-        indicator?: PageIndicator | undefined,
-    ): Promise<Pageable<Post, PageIndicator>> {
+    getPostsByChannelHandle(channelHandle: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         return farcasterClient.withSession(async (session) => {
             const url = urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/channel/casts', {
                 channelHandle,
@@ -124,7 +122,7 @@ class FireflySocialMedia implements Provider {
         });
     }
 
-    async searchChannels(q: string, indicator?: PageIndicator | undefined): Promise<Pageable<Channel, PageIndicator>> {
+    async searchChannels(q: string, indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {
         const url = urlcat(FIREFLY_ROOT_URL, '/v2/search/channels', {
             keyword: q,
             size: 25,
@@ -162,18 +160,15 @@ class FireflySocialMedia implements Provider {
         throw new Error('Method not implemented.');
     }
 
-    getPostsBeMentioned(
-        profileId: string,
-        indicator?: PageIndicator | undefined,
-    ): Promise<Pageable<Post, PageIndicator>> {
+    getPostsBeMentioned(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         throw new Error('Method not implemented.');
     }
 
-    getPostsLiked(profileId: string, indicator?: PageIndicator | undefined): Promise<Pageable<Post, PageIndicator>> {
+    getPostsLiked(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         throw new Error('Method not implemented.');
     }
 
-    getPostsReplies(profileId: string, indicator?: PageIndicator | undefined): Promise<Pageable<Post, PageIndicator>> {
+    getPostsReplies(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         throw new Error('Method not implemented.');
     }
 
@@ -181,7 +176,7 @@ class FireflySocialMedia implements Provider {
         throw new Error('Method not implemented.');
     }
 
-    getReactors(postId: string, indicator?: PageIndicator | undefined): Promise<Pageable<Profile, PageIndicator>> {
+    getReactors(postId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
         throw new Error('Method not implemented.');
     }
 
@@ -193,7 +188,7 @@ class FireflySocialMedia implements Provider {
         throw new Error('Method not implemented.');
     }
 
-    getSuggestedFollows(indicator?: PageIndicator | undefined): Promise<Pageable<Profile, PageIndicator>> {
+    getSuggestedFollows(indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
         throw new Error('Method not implemented.');
     }
 
@@ -442,10 +437,7 @@ class FireflySocialMedia implements Provider {
         );
     }
 
-    async discoverPostsById(
-        profileId: string,
-        indicator?: PageIndicator | undefined,
-    ): Promise<Pageable<Post, PageIndicator>> {
+    async discoverPostsById(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         return farcasterClient.withSession(async (session) => {
             // TODO: replace to prod url
             const url = urlcat(FIREFLY_ROOT_URL, '/v2/timeline/farcaster_for_fid');

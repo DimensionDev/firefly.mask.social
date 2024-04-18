@@ -49,7 +49,7 @@ class FarcasterSocialMedia implements Provider {
         throw new Error('Method not implemented.');
     }
 
-    getReactors(postId: string, indicator?: PageIndicator | undefined): Promise<Pageable<Profile, PageIndicator>> {
+    getReactors(postId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
         throw new Error('Method not implemented.');
     }
 
@@ -61,29 +61,23 @@ class FarcasterSocialMedia implements Provider {
         return FireflySocialMediaProvider.getChannelByHandle(channelHandle);
     }
 
-    getChannelsByProfileId(profileId: string): Promise<Channel[]> {
+    getChannelsByProfileId(profileId: string, indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {
         return FireflySocialMediaProvider.getChannelsByProfileId(profileId);
     }
 
-    discoverChannels(indicator?: PageIndicator | undefined): Promise<Pageable<Channel, PageIndicator>> {
+    discoverChannels(indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {
         return FireflySocialMediaProvider.discoverChannels(indicator);
     }
 
-    getPostsByChannelId(
-        channelId: string,
-        indicator?: PageIndicator | undefined,
-    ): Promise<Pageable<Post, PageIndicator>> {
+    getPostsByChannelId(channelId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         return FireflySocialMediaProvider.getPostsByChannelHandle(channelId, indicator);
     }
 
-    getPostsByChannelHandle(
-        channelHandle: string,
-        indicator?: PageIndicator | undefined,
-    ): Promise<Pageable<Post, PageIndicator>> {
+    getPostsByChannelHandle(channelHandle: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         return FireflySocialMediaProvider.getPostsByChannelHandle(channelHandle, indicator);
     }
 
-    searchChannels(q: string, indicator?: PageIndicator | undefined): Promise<Pageable<Channel, PageIndicator>> {
+    searchChannels(q: string, indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {
         return FireflySocialMediaProvider.searchChannels(q, indicator);
     }
 

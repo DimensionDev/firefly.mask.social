@@ -69,29 +69,23 @@ class LensSocialMedia implements Provider {
         throw new Error('Method not implemented.');
     }
 
-    getChannelsByProfileId(profileId: string): Promise<Channel[]> {
+    getChannelsByProfileId(profileId: string, indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {
         throw new Error('Method not implemented.');
     }
 
-    discoverChannels(indicator?: PageIndicator | undefined): Promise<Pageable<Channel, PageIndicator>> {
+    discoverChannels(indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {
         throw new Error('Method not implemented.');
     }
 
-    getPostsByChannelId(
-        channelId: string,
-        indicator?: PageIndicator | undefined,
-    ): Promise<Pageable<Post, PageIndicator>> {
+    getPostsByChannelId(channelId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         throw new Error('Method not implemented.');
     }
 
-    getPostsByChannelHandle(
-        channelHandle: string,
-        indicator?: PageIndicator | undefined,
-    ): Promise<Pageable<Post, PageIndicator>> {
+    getPostsByChannelHandle(channelHandle: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         throw new Error('Method not implemented.');
     }
 
-    searchChannels(q: string, indicator?: PageIndicator | undefined): Promise<Pageable<Channel, PageIndicator>> {
+    searchChannels(q: string, indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {
         throw new Error('Method not implemented.');
     }
 

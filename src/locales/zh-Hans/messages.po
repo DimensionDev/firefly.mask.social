@@ -204,9 +204,6 @@ msgstr "Frame Validator"
 msgid "Follow System"
 msgstr "跟随系统"
 
-msgid "No results"
-msgstr "没有任何结果。"
-
 msgid "URL is required."
 msgstr "请选择 URL"
 

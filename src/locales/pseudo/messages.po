@@ -199,9 +199,6 @@ msgstr ""
 msgid "Follow System"
 msgstr ""
 
-msgid "No results"
-msgstr ""
-
 msgid "URL is required."
 msgstr ""
 
