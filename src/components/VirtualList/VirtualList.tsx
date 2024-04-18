@@ -5,7 +5,7 @@ import { Virtuoso, type VirtuosoHandle, type VirtuosoProps } from 'react-virtuos
 
 import { useGlobalState } from '@/store/useGlobalStore.js';
 
-interface VirtualListProps<ItemData = unknown, Context = unknown> extends VirtuosoProps<ItemData, Context> {
+export interface VirtualListProps<ItemData = unknown, Context = unknown> extends VirtuosoProps<ItemData, Context> {
     listKey?: string;
 }
 

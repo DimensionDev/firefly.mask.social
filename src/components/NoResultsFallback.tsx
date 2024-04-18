@@ -4,12 +4,12 @@ import type { HTMLProps, ReactNode } from 'react';
 import BlackHoleIcon from '@/assets/black-hole.svg';
 import { classNames } from '@/helpers/classNames.js';
 
-interface Props extends HTMLProps<HTMLDivElement> {
+export interface NoResultsFallbackProps extends HTMLProps<HTMLDivElement> {
     message?: string | ReactNode;
     icon?: ReactNode;
 }
 
-export function NoResultsFallback({ icon, message, className, ...rest }: Props) {
+export function NoResultsFallback({ icon, message, className, ...rest }: NoResultsFallbackProps) {
     return (
         <div className={classNames('flex flex-col items-center py-12 text-secondary', className)} {...rest}>
             {icon ?? <BlackHoleIcon width={200} height="auto" className="text-secondaryMain" />}
