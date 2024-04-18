@@ -1,5 +1,6 @@
 'use client';
 
+import { t } from '@lingui/macro';
 import { createIndicator, type Pageable, type PageIndicator } from '@masknet/shared-base';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 
@@ -8,11 +9,10 @@ import { ListInPage } from '@/components/ListInPage.js';
 import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.js';
 import { ScrollListKey, SocialPlatform } from '@/constants/enum.js';
 import { getPostsSelector } from '@/helpers/getPostsSelector.js';
+import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
-import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
-import { t } from '@lingui/macro';
 
 interface Props {
     // the source of the posts
@@ -21,7 +21,7 @@ interface Props {
     pageable?: Pageable<Post, PageIndicator>;
 }
 
-export function Home({ source, pageable }: Props) {
+export function HomePage({ source, pageable }: Props) {
     const setScrollIndex = useGlobalState.use.setScrollIndex();
     const currentSource = useGlobalState.use.currentSource();
 
@@ -47,9 +47,10 @@ export function Home({ source, pageable }: Props) {
 
     return (
         <ListInPage
+            key={source}
             queryResult={queryResult}
             VirtualListProps={{
-                listKey: ScrollListKey.Discover,
+                listKey: `${ScrollListKey.Discover}:${source}`,
                 computeItemKey: (index, post) => `${post.postId}-${index}`,
                 itemContent: (index, post) =>
                     getPostItemContent(index, post, {

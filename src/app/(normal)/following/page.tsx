@@ -23,7 +23,6 @@ export default function Following() {
     const isLogin = useIsLogin(currentSource);
 
     const currentProfileAll = useCurrentProfileAll();
-
     const fetchAndStoreViews = useImpressionsStore.use.fetchAndStoreViews();
 
     const queryResult = useSuspenseInfiniteQuery({
@@ -64,10 +63,11 @@ export default function Following() {
 
     return (
         <ListInPage
+            key={currentSource}
             queryResult={queryResult}
             loginRequired
             VirtualListProps={{
-                listKey: ScrollListKey.Following,
+                listKey: `${ScrollListKey.Following}:${currentSource}`,
                 computeItemKey: (index, post) => `${post.postId}-${index}`,
                 itemContent: (index, post) =>
                     getPostItemContent(index, post, { onClick: () => setScrollIndex(ScrollListKey.Following, index) }),

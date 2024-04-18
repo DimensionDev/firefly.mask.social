@@ -15,7 +15,7 @@ import { type Notification as NotificationType } from '@/providers/types/SocialM
 import { useGlobalState } from '@/store/useGlobalStore.js';
 
 const getNotificationItemContent = (index: number, notification: NotificationType) => {
-    return <NotificationItem notification={notification} key={`${notification.notificationId}-${index}`} />;
+    return <NotificationItem key={`${notification.notificationId}-${index}`} notification={notification} />;
 };
 
 export default function Notification() {
@@ -37,10 +37,11 @@ export default function Notification() {
 
     return (
         <ListInPage
+            key={currentSource}
             queryResult={queryResult}
             loginRequired
             VirtualListProps={{
-                listKey: ScrollListKey.Notification,
+                listKey: `${ScrollListKey.Notification}:${currentSource}`,
                 computeItemKey: (index, notification) => `${notification.notificationId}-${index}`,
                 itemContent: getNotificationItemContent,
             }}
