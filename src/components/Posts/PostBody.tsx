@@ -14,7 +14,7 @@ import { Markup, NakedMarkup } from '@/components/Markup/index.js';
 import { Oembed } from '@/components/Oembed/index.js';
 import { Attachments } from '@/components/Posts/Attachment.js';
 import { Quote } from '@/components/Posts/Quote.js';
-import { IS_APPLE, IS_SAFARI } from '@/constants/browser.js';
+import { IS_APPLE, IS_SAFARI } from '@/constants/bowser.js';
 import { EMPTY_LIST, MAX_FRAME_SIZE_PER_POST } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getEncryptedPayloadFromImageAttachment, getEncryptedPayloadFromText } from '@/helpers/getEncryptedPayload.js';
