@@ -1,8 +1,8 @@
 import { useRouter, useSearchParams } from 'next/navigation.js';
 import { useCallback, useEffect } from 'react';
-import { useSearchTypeState } from '@/store/useSearchTypeStore.js';
 
 import { SearchType } from '@/constants/enum.js';
+import { useSearchTypeState } from '@/store/useSearchTypeStore.js';
 
 export interface SearchState {
     type?: SearchType;
