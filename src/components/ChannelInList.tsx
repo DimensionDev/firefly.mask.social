@@ -11,7 +11,7 @@ interface ChannelInListProps {
     noFollowButton?: boolean;
 }
 
-export function ChannelInList({ channel, noFollowButton }: ChannelInListProps) {
+export function ChannelInList({ channel, noFollowButton = true }: ChannelInListProps) {
     const isSmall = useIsSmall('max');
 
     return (

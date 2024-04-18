@@ -2,9 +2,9 @@ import { Trans } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
 import { memo, Suspense, useState } from 'react';
 
-import { ChannelList } from '@/components/ChannelList.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Loading } from '@/components/Loading.js';
+import { ChannelList } from '@/components/Profile/ChannelList.js';
 import { CollectedList } from '@/components/Profile/CollectedList.js';
 import { FeedList } from '@/components/Profile/FeedList.js';
 import { ProfileTabType, SocialPlatform } from '@/constants/enum.js';
