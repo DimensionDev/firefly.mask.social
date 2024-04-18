@@ -1,4 +1,5 @@
 import { Trans } from '@lingui/macro';
+import { safeUnreachable } from '@masknet/kit';
 import { Suspense, useState } from 'react';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
@@ -8,7 +9,6 @@ import { CollectedList } from '@/components/Profile/CollectedList.js';
 import { FeedList } from '@/components/Profile/FeedList.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
-import { safeUnreachable } from '@masknet/kit';
 
 enum TabType {
     Feed = 'Feed',
