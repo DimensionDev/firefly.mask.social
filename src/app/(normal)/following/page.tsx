@@ -5,11 +5,10 @@ import { createIndicator, EMPTY_LIST } from '@masknet/shared-base';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { useCallback } from 'react';
 
-import BlackHoleIcon from '@/assets/black-hole.svg';
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.js';
-import { VirtualList } from '@/components/VirtualList/index.js';
+import { VirtualList } from '@/components/VirtualList/VirtualList.js';
 import { VirtualListFooter } from '@/components/VirtualList/VirtualListFooter.js';
 import { ScrollListKey, SocialPlatform } from '@/constants/enum.js';
 import { SORTED_SOURCES } from '@/constants/index.js';
@@ -86,7 +85,6 @@ export default function Following() {
         return (
             <NoResultsFallback
                 className="pt-[228px]"
-                icon={<BlackHoleIcon width={200} height="auto" className="text-secondaryMain" />}
                 message={
                     <div className="mt-10">
                         <Trans>Follow more friends to continue exploring on {resolveSourceName(currentSource)}.</Trans>

@@ -4,8 +4,8 @@ import { t } from '@lingui/macro';
 import { Suspense, useMemo } from 'react';
 import { useDocumentTitle } from 'usehooks-ts';
 
-import { ContentFeed } from '@/components/Channel/ContentFeed.js';
 import { Info } from '@/components/Channel/Info.js';
+import { PostList } from '@/components/Channel/PostList.js';
 import { Title } from '@/components/Channel/Title.js';
 import { Loading } from '@/components/Loading.js';
 import { SITE_NAME } from '@/constants/index.js';
@@ -37,7 +37,7 @@ export function ChannelPage({ channel }: ChannelPageProps) {
             <hr className=" divider w-full border-primaryMain" />
 
             <Suspense fallback={<Loading />}>
-                <ContentFeed source={channel.source} channelId={channel.id} />
+                <PostList source={channel.source} channelId={channel.id} />
             </Suspense>
         </div>
     );

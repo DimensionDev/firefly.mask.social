@@ -4,8 +4,8 @@ import { t } from '@lingui/macro';
 import { useMemo } from 'react';
 import { useDocumentTitle } from 'usehooks-ts';
 
-import { ContentTabs } from '@/components/Profile/ContentTabs.js';
 import { Info } from '@/components/Profile/Info.js';
+import { Tabs } from '@/components/Profile/Tabs.js';
 import { Title } from '@/components/Profile/Title.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { SITE_NAME } from '@/constants/index.js';
@@ -40,7 +40,7 @@ export function ProfilePage({ profile }: ProfilePageProps) {
 
             <Info profile={profile} isMyProfile={isMyProfile} source={profile.source} />
 
-            <ContentTabs source={profile.source} profileId={profile.profileId} />
+            <Tabs source={profile.source} profileId={profile.profileId} />
         </div>
     );
 }

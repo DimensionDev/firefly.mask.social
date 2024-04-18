@@ -1,15 +1,14 @@
 'use client';
 
-import { t, Trans } from '@lingui/macro';
+import { t } from '@lingui/macro';
 import { createIndicator, type Pageable, type PageIndicator } from '@masknet/shared-base';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { useCallback } from 'react';
 
 import { discoverPosts } from '@/app/(normal)/helpers/discoverPosts.js';
-import BlackHoleIcon from '@/assets/black-hole.svg';
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.js';
-import { VirtualList } from '@/components/VirtualList/index.js';
+import { VirtualList } from '@/components/VirtualList/VirtualList.js';
 import { VirtualListFooter } from '@/components/VirtualList/VirtualListFooter.js';
 import { ScrollListKey, SocialPlatform } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
@@ -61,42 +60,28 @@ export function Home({ source, pageable }: Props) {
 
     useNavigatorTitle(t`Discover`);
 
-    if (data.length === 0) {
-        return (
-            <div>
-                <NoResultsFallback
-                    className="pt-[228px]"
-                    icon={<BlackHoleIcon width={200} height="auto" className="text-secondaryMain" />}
-                    message={
-                        <div className="mt-10">
-                            <Trans>There is no data available for display.</Trans>
-                        </div>
-                    }
-                />
-            </div>
-        );
+    if (!data.length) {
+        return <NoResultsFallback className="pt-[228px]" />;
     }
 
     return (
-        <div>
-            <VirtualList
-                listKey={ScrollListKey.Discover}
-                computeItemKey={(index, post) => `${post.postId}-${index}`}
-                data={data}
-                endReached={onEndReached}
-                itemContent={(index, post) =>
-                    getPostItemContent(index, post, {
-                        onClick: () => {
-                            setScrollIndex(ScrollListKey.Discover, index);
-                        },
-                    })
-                }
-                useWindowScroll
-                context={{ hasNextPage }}
-                components={{
-                    Footer: VirtualListFooter,
-                }}
-            />
-        </div>
+        <VirtualList
+            listKey={ScrollListKey.Discover}
+            computeItemKey={(index, post) => `${post.postId}-${index}`}
+            data={data}
+            endReached={onEndReached}
+            itemContent={(index, post) =>
+                getPostItemContent(index, post, {
+                    onClick: () => {
+                        setScrollIndex(ScrollListKey.Discover, index);
+                    },
+                })
+            }
+            useWindowScroll
+            context={{ hasNextPage }}
+            components={{
+                Footer: VirtualListFooter,
+            }}
+        />
     );
 }

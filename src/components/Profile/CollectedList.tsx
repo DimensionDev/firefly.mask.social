@@ -1,53 +1,48 @@
-import { Trans } from '@lingui/macro';
 import { createIndicator, createPageable } from '@masknet/shared-base';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
-import { memo, useCallback } from 'react';
+import { useCallback } from 'react';
 
-import MessageIcon from '@/assets/message.svg';
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.js';
 import { VirtualList } from '@/components/VirtualList/VirtualList.js';
 import { VirtualListFooter } from '@/components/VirtualList/VirtualListFooter.js';
-import { SocialPlatform } from '@/constants/enum.js';
+import { ScrollListKey, SocialPlatform } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
+import { mergeThreadPosts } from '@/helpers/mergeThreadPosts.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
+import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 
-export interface CommentListProps {
-    postId: string;
+interface CollectedListProps {
+    profileId: string;
     source: SocialPlatform;
-    exclude?: string[];
 }
 
-export const CommentList = memo<CommentListProps>(function CommentList({ postId, source, exclude = [] }) {
+export function CollectedList({ profileId, source }: CollectedListProps) {
+    const setScrollIndex = useGlobalState.use.setScrollIndex();
     const fetchAndStoreViews = useImpressionsStore.use.fetchAndStoreViews();
-
-    const {
-        data: results,
-        hasNextPage,
-        fetchNextPage,
-        isFetchingNextPage,
-        isFetching,
-    } = useSuspenseInfiniteQuery({
-        queryKey: ['posts', source, 'comments', postId],
+    const { data, hasNextPage, fetchNextPage, isFetchingNextPage, isFetching } = useSuspenseInfiniteQuery({
+        queryKey: ['posts', source, 'bookmarks', profileId],
         queryFn: async ({ pageParam }) => {
-            if (!postId) return createPageable(EMPTY_LIST, undefined);
+            if (!profileId) return createPageable(EMPTY_LIST, undefined);
 
             const provider = resolveSocialMediaProvider(source);
             if (!provider) return createPageable(EMPTY_LIST, undefined);
 
-            const comments = await provider?.getCommentsById(postId, createIndicator(undefined, pageParam));
+            const posts = await provider.getCollectedPostsByProfileId(profileId, createIndicator(undefined, pageParam));
 
             if (source === SocialPlatform.Lens) {
-                const ids = comments.data.flatMap((x) => [x.postId]);
+                const ids = posts.data.flatMap((x) => [x.postId]);
                 await fetchAndStoreViews(ids);
             }
-            return comments;
+
+            return posts;
         },
         initialPageParam: '',
         getNextPageParam: (lastPage) => lastPage.nextIndicator?.id,
-        select(data) {
-            return data.pages.flatMap((x) => x.data).filter((x) => !exclude.includes(x.postId));
+        select: (data) => {
+            const result = data.pages.flatMap((x) => x.data) || EMPTY_LIST;
+            return mergeThreadPosts(source, result);
         },
     });
 
@@ -59,21 +54,23 @@ export const CommentList = memo<CommentListProps>(function CommentList({ postId,
         await fetchNextPage();
     }, [hasNextPage, isFetching, isFetchingNextPage, fetchNextPage]);
 
-    if (!results.length) {
-        return (
-            <NoResultsFallback
-                icon={<MessageIcon width={24} height={24} />}
-                message={<Trans>Be the first one to comment!</Trans>}
-            />
-        );
+    if (!data.length) {
+        return <NoResultsFallback className="mt-20" />;
     }
 
     return (
         <VirtualList
+            listKey={`${ScrollListKey.Collected}:${profileId}`}
             computeItemKey={(index, post) => `${post.postId}-${index}`}
-            data={results}
+            data={data}
             endReached={onEndReached}
-            itemContent={(index, post) => getPostItemContent(index, post, { isComment: true })}
+            itemContent={(index, post) =>
+                getPostItemContent(index, post, {
+                    onClick: () => {
+                        setScrollIndex(`${ScrollListKey.Collected}_${profileId}`, index);
+                    },
+                })
+            }
             useWindowScroll
             context={{ hasNextPage }}
             components={{
@@ -81,4 +78,4 @@ export const CommentList = memo<CommentListProps>(function CommentList({ postId,
             }}
         />
     );
-});
+}
