@@ -1,11 +1,8 @@
 import { createIndicator, createPageable, EMPTY_LIST } from '@masknet/shared-base';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
-import { useCallback } from 'react';
 
-import { NoResultsFallback } from '@/components/NoResultsFallback.js';
+import { ListInPage } from '@/components/ListInPage.js';
 import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.js';
-import { VirtualList } from '@/components/VirtualList/VirtualList.js';
-import { VirtualListFooter } from '@/components/VirtualList/VirtualListFooter.js';
 import { ScrollListKey, SocialPlatform } from '@/constants/enum.js';
 import { mergeThreadPosts } from '@/helpers/mergeThreadPosts.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
@@ -20,9 +17,8 @@ export function PostList({ channelId, source }: PostListProps) {
     const setScrollIndex = useGlobalState.use.setScrollIndex();
     const fetchAndStoreViews = useImpressionsStore.use.fetchAndStoreViews();
 
-    const { data, hasNextPage, fetchNextPage, isFetchingNextPage, isFetching } = useSuspenseInfiniteQuery({
+    const queryResult = useSuspenseInfiniteQuery({
         queryKey: ['posts', source, 'posts-of', channelId],
-
         queryFn: async ({ pageParam }) => {
             if (!channelId) return createPageable(EMPTY_LIST, undefined);
 
@@ -40,41 +36,26 @@ export function PostList({ channelId, source }: PostListProps) {
         initialPageParam: '',
         getNextPageParam: (lastPage) => lastPage.nextIndicator?.id,
         select: (data) => {
-            const result = data.pages.flatMap((x) => x.data) || EMPTY_LIST;
-            return mergeThreadPosts(source, result);
+            const posts = data.pages.flatMap((x) => x.data) || EMPTY_LIST;
+            return mergeThreadPosts(source, posts);
         },
     });
 
-    const onEndReached = useCallback(async () => {
-        if (!hasNextPage || isFetching || isFetchingNextPage) {
-            return;
-        }
-
-        await fetchNextPage();
-    }, [fetchNextPage, hasNextPage, isFetching, isFetchingNextPage]);
-
-    if (!data.length) {
-        return <NoResultsFallback className="mt-20" />;
-    }
-
     return (
-        <VirtualList
-            key={source}
-            listKey={ScrollListKey.Channel}
-            computeItemKey={(index, post) => `${post.postId}-${index}`}
-            data={data}
-            endReached={onEndReached}
-            itemContent={(index, post) =>
-                getPostItemContent(index, post, {
-                    onClick: () => {
-                        setScrollIndex(`${ScrollListKey.Channel}_${channelId}`, index);
-                    },
-                })
-            }
-            useWindowScroll
-            context={{ hasNextPage }}
-            components={{
-                Footer: VirtualListFooter,
+        <ListInPage
+            queryResult={queryResult}
+            VirtualListProps={{
+                listKey: `${ScrollListKey.Channel}:${channelId}`,
+                computeItemKey: (index, post) => `${post.postId}-${index}`,
+                itemContent: (index, post) =>
+                    getPostItemContent(index, post, {
+                        onClick: () => {
+                            setScrollIndex(`${ScrollListKey.Channel}_${channelId}`, index);
+                        },
+                    }),
+            }}
+            NoResultsFallbackProps={{
+                className: 'mt-20',
             }}
         />
     );

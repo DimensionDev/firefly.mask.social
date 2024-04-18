@@ -2,17 +2,14 @@
 
 import { t, Trans } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
-import { createIndicator } from '@masknet/shared-base';
+import { createIndicator, EMPTY_LIST } from '@masknet/shared-base';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
-import { useCallback } from 'react';
 
 import { ChannelInList } from '@/components/ChannelInList.js';
-import { NoResultsFallback } from '@/components/NoResultsFallback.js';
+import { ListInPage } from '@/components/ListInPage.js';
 import { SinglePost } from '@/components/Posts/SinglePost.js';
 import { ProfileInList } from '@/components/ProfileInList.js';
-import { VirtualList } from '@/components/VirtualList/VirtualList.js';
-import { VirtualListFooter } from '@/components/VirtualList/VirtualListFooter.js';
 import { SearchType } from '@/constants/enum.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
@@ -41,7 +38,7 @@ export default function Page() {
     const { searchKeyword, searchType } = useSearchState();
     const { currentSource } = useGlobalState();
 
-    const { data, hasNextPage, fetchNextPage, isFetchingNextPage, isFetching } = useSuspenseInfiniteQuery({
+    const queryResult = useSuspenseInfiniteQuery({
         queryKey: ['search', searchType, searchKeyword, currentSource],
         queryFn: async ({ pageParam }) => {
             if (!searchKeyword) return;
@@ -66,60 +63,44 @@ export default function Page() {
         initialPageParam: '',
         getNextPageParam: (lastPage) => lastPage?.nextIndicator?.id,
         select(data) {
-            return compact(data.pages.flatMap((x) => x?.data as Array<Profile | Post | Channel>) || []);
+            return compact(data.pages.flatMap((x) => x?.data as Array<Profile | Post | Channel>) || EMPTY_LIST);
         },
     });
 
-    const onEndReached = useCallback(async () => {
-        if (!hasNextPage || isFetching || isFetchingNextPage) {
-            return;
-        }
-
-        await fetchNextPage();
-    }, [hasNextPage, isFetching, isFetchingNextPage, fetchNextPage]);
-
     useNavigatorTitle(t`Search`);
 
-    if (!data.length) {
-        return (
-            <NoResultsFallback
-                message={
+    return (
+        <ListInPage
+            queryResult={queryResult}
+            VirtualListProps={{
+                listKey: 'search',
+                computeItemKey: (index, item) => {
+                    switch (searchType) {
+                        case SearchType.Users:
+                            const profile = item as Profile;
+                            return `${profile.profileId}_${index}`;
+                        case SearchType.Posts:
+                            const post = item as Post;
+                            return `${post.postId}_${index}`;
+                        case SearchType.Channels:
+                            const channel = item as Channel;
+                            return `${channel.id}_${index}`;
+                        default:
+                            safeUnreachable(searchType);
+                            return index;
+                    }
+                },
+                itemContent: (index, item) => getSearchItemContent(index, item, searchType),
+            }}
+            NoResultsFallbackProps={{
+                message: (
                     <div className="mx-16">
                         <div className="text-sm text-main">{t`No results for "${searchKeyword}"`}</div>
                         <p className="mt-4 text-center text-sm text-second">
                             <Trans>Try searching for something else.</Trans>
                         </p>
                     </div>
-                }
-            />
-        );
-    }
-
-    return (
-        <VirtualList
-            computeItemKey={(index, item) => {
-                switch (searchType) {
-                    case SearchType.Users:
-                        const profile = item as Profile;
-                        return `${profile.profileId}_${index}`;
-                    case SearchType.Posts:
-                        const post = item as Post;
-                        return `${post.postId}_${index}`;
-                    case SearchType.Channels:
-                        const channel = item as Channel;
-                        return `${channel.id}_${index}`;
-                    default:
-                        safeUnreachable(searchType);
-                        return index;
-                }
-            }}
-            data={data}
-            endReached={onEndReached}
-            itemContent={(index, item) => getSearchItemContent(index, item, searchType)}
-            useWindowScroll
-            context={{ hasNextPage }}
-            components={{
-                Footer: VirtualListFooter,
+                ),
             }}
         />
     );

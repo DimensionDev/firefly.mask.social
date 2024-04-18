@@ -1,11 +1,8 @@
 import { createIndicator, createPageable, EMPTY_LIST } from '@masknet/shared-base';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
-import { useCallback } from 'react';
 
-import { NoResultsFallback } from '@/components/NoResultsFallback.js';
+import { ListInPage } from '@/components/ListInPage.js';
 import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.js';
-import { VirtualList } from '@/components/VirtualList/VirtualList.js';
-import { VirtualListFooter } from '@/components/VirtualList/VirtualListFooter.js';
 import { ScrollListKey, SocialPlatform } from '@/constants/enum.js';
 import { getPostsSelector } from '@/helpers/getPostsSelector.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
@@ -21,7 +18,7 @@ export function FeedList({ profileId, source }: FeedListProps) {
     const setScrollIndex = useGlobalState.use.setScrollIndex();
     const fetchAndStoreViews = useImpressionsStore.use.fetchAndStoreViews();
 
-    const { data, hasNextPage, fetchNextPage, isFetchingNextPage, isFetching } = useSuspenseInfiniteQuery({
+    const queryResult = useSuspenseInfiniteQuery({
         queryKey: ['posts', source, 'posts-of', profileId],
 
         queryFn: async ({ pageParam }) => {
@@ -43,36 +40,21 @@ export function FeedList({ profileId, source }: FeedListProps) {
         select: getPostsSelector(source),
     });
 
-    const onEndReached = useCallback(async () => {
-        if (!hasNextPage || isFetching || isFetchingNextPage) {
-            return;
-        }
-
-        await fetchNextPage();
-    }, [fetchNextPage, hasNextPage, isFetching, isFetchingNextPage]);
-
-    if (!data.length) {
-        return <NoResultsFallback className="mt-20" />;
-    }
-
     return (
-        <VirtualList
-            key={source}
-            listKey={`${ScrollListKey.Profile}:${profileId}`}
-            computeItemKey={(index, post) => `${post.postId}-${index}`}
-            data={data}
-            endReached={onEndReached}
-            itemContent={(index, post) =>
-                getPostItemContent(index, post, {
-                    onClick: () => {
-                        setScrollIndex(`${ScrollListKey.Profile}_${profileId}`, index);
-                    },
-                })
-            }
-            useWindowScroll
-            context={{ hasNextPage }}
-            components={{
-                Footer: VirtualListFooter,
+        <ListInPage
+            queryResult={queryResult}
+            VirtualListProps={{
+                listKey: `${ScrollListKey.Profile}:${profileId}`,
+                computeItemKey: (index, post) => `${post.postId}-${index}`,
+                itemContent: (index, post) =>
+                    getPostItemContent(index, post, {
+                        onClick: () => {
+                            setScrollIndex(`${ScrollListKey.Profile}_${profileId}`, index);
+                        },
+                    }),
+            }}
+            NoResultsFallbackProps={{
+                className: 'mt-20',
             }}
         />
     );

@@ -1,11 +1,8 @@
 import { createIndicator, createPageable, EMPTY_LIST } from '@masknet/shared-base';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
-import { useCallback } from 'react';
 
 import { ChannelInList } from '@/components/ChannelInList.js';
-import { NoResultsFallback } from '@/components/NoResultsFallback.js';
-import { VirtualList } from '@/components/VirtualList/VirtualList.js';
-import { VirtualListFooter } from '@/components/VirtualList/VirtualListFooter.js';
+import { ListInPage } from '@/components/ListInPage.js';
 import { ScrollListKey, SocialPlatform } from '@/constants/enum.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
@@ -20,7 +17,7 @@ interface ChannelListProps {
 }
 
 export function ChannelList({ source, profileId }: ChannelListProps) {
-    const { data, hasNextPage, fetchNextPage, isFetchingNextPage, isFetching } = useSuspenseInfiniteQuery({
+    const queryResult = useSuspenseInfiniteQuery({
         queryKey: ['channels', source, 'channels-of', profileId],
 
         queryFn: async ({ pageParam }) => {
@@ -38,30 +35,17 @@ export function ChannelList({ source, profileId }: ChannelListProps) {
         },
     });
 
-    const onEndReached = useCallback(async () => {
-        if (!hasNextPage || isFetching || isFetchingNextPage) {
-            return;
-        }
-
-        await fetchNextPage();
-    }, [fetchNextPage, hasNextPage, isFetching, isFetchingNextPage]);
-
-    if (!data.length) {
-        return <NoResultsFallback className="mt-20" />;
-    }
-
     return (
-        <VirtualList
+        <ListInPage
             key={source}
-            listKey={`${ScrollListKey.Channel}:${profileId}`}
-            computeItemKey={(index, post) => `${post.id}-${index}`}
-            data={data}
-            endReached={onEndReached}
-            itemContent={getChannelItemContent}
-            useWindowScroll
-            context={{ hasNextPage }}
-            components={{
-                Footer: VirtualListFooter,
+            queryResult={queryResult}
+            VirtualListProps={{
+                listKey: `${ScrollListKey.Channel}:${profileId}`,
+                computeItemKey: (index, channel) => `${channel.id}-${index}`,
+                itemContent: getChannelItemContent,
+            }}
+            NoResultsFallbackProps={{
+                className: 'mt-20',
             }}
         />
     );

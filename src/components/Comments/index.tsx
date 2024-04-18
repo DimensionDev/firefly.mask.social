@@ -1,14 +1,12 @@
 import { Trans } from '@lingui/macro';
 import { createIndicator, createPageable } from '@masknet/shared-base';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
-import { memo, useCallback } from 'react';
+import { memo } from 'react';
 
 import MessageIcon from '@/assets/message.svg';
-import { NoResultsFallback } from '@/components/NoResultsFallback.js';
+import { ListInPage } from '@/components/ListInPage.js';
 import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.js';
-import { VirtualList } from '@/components/VirtualList/VirtualList.js';
-import { VirtualListFooter } from '@/components/VirtualList/VirtualListFooter.js';
-import { SocialPlatform } from '@/constants/enum.js';
+import { ScrollListKey, SocialPlatform } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
@@ -22,7 +20,7 @@ export interface CommentListProps {
 export const CommentList = memo<CommentListProps>(function CommentList({ postId, source, exclude = [] }) {
     const fetchAndStoreViews = useImpressionsStore.use.fetchAndStoreViews();
 
-    const { data, hasNextPage, fetchNextPage, isFetchingNextPage, isFetching } = useSuspenseInfiniteQuery({
+    const queryResult = useSuspenseInfiniteQuery({
         queryKey: ['posts', source, 'comments', postId],
         queryFn: async ({ pageParam }) => {
             if (!postId) return createPageable(EMPTY_LIST, undefined);
@@ -45,33 +43,17 @@ export const CommentList = memo<CommentListProps>(function CommentList({ postId,
         },
     });
 
-    const onEndReached = useCallback(async () => {
-        if (!hasNextPage || isFetching || isFetchingNextPage) {
-            return;
-        }
-
-        await fetchNextPage();
-    }, [hasNextPage, isFetching, isFetchingNextPage, fetchNextPage]);
-
-    if (!data.length) {
-        return (
-            <NoResultsFallback
-                icon={<MessageIcon width={24} height={24} />}
-                message={<Trans>Be the first one to comment!</Trans>}
-            />
-        );
-    }
-
     return (
-        <VirtualList
-            computeItemKey={(index, post) => `${post.postId}-${index}`}
-            data={data}
-            endReached={onEndReached}
-            itemContent={(index, post) => getPostItemContent(index, post, { isComment: true })}
-            useWindowScroll
-            context={{ hasNextPage }}
-            components={{
-                Footer: VirtualListFooter,
+        <ListInPage
+            queryResult={queryResult}
+            VirtualListProps={{
+                listKey: `${ScrollListKey.Comment}:${postId}`,
+                computeItemKey: (index, post) => `${post.postId}-${index}`,
+                itemContent: (index, post) => getPostItemContent(index, post, { isComment: true }),
+            }}
+            NoResultsFallbackProps={{
+                icon: <MessageIcon width={24} height={24} />,
+                message: <Trans>Be the first one to comment!</Trans>,
             }}
         />
     );

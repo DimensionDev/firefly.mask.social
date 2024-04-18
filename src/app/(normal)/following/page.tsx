@@ -3,13 +3,9 @@
 import { t, Trans } from '@lingui/macro';
 import { createIndicator } from '@masknet/shared-base';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
-import { useCallback } from 'react';
 
-import { NoResultsFallback } from '@/components/NoResultsFallback.js';
-import { NotLoginFallback } from '@/components/NotLoginFallback.js';
+import { ListInPage } from '@/components/ListInPage.js';
 import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.js';
-import { VirtualList } from '@/components/VirtualList/VirtualList.js';
-import { VirtualListFooter } from '@/components/VirtualList/VirtualListFooter.js';
 import { ScrollListKey, SocialPlatform } from '@/constants/enum.js';
 import { SORTED_SOURCES } from '@/constants/index.js';
 import { getPostsSelector } from '@/helpers/getPostsSelector.js';
@@ -30,7 +26,7 @@ export default function Following() {
 
     const fetchAndStoreViews = useImpressionsStore.use.fetchAndStoreViews();
 
-    const { data, hasNextPage, fetchNextPage, isFetchingNextPage, isFetching } = useSuspenseInfiniteQuery({
+    const queryResult = useSuspenseInfiniteQuery({
         queryKey: [
             'posts',
             currentSource,
@@ -64,49 +60,26 @@ export default function Following() {
         select: getPostsSelector(currentSource),
     });
 
-    const onEndReached = useCallback(async () => {
-        if (!hasNextPage || isFetching || isFetchingNextPage) {
-            return;
-        }
-
-        await fetchNextPage();
-    }, [hasNextPage, isFetching, isFetchingNextPage, fetchNextPage]);
-
     useNavigatorTitle(t`Following`);
 
-    if (!isLogin) {
-        return <NotLoginFallback source={currentSource} />;
-    }
-
-    if (data.length === 0) {
-        return (
-            <NoResultsFallback
-                className="pt-[228px]"
-                message={
+    return (
+        <ListInPage
+            queryResult={queryResult}
+            requiredLogin
+            VirtualListProps={{
+                listKey: ScrollListKey.Following,
+                computeItemKey: (index, post) => `${post.postId}-${index}`,
+                itemContent: (index, post) =>
+                    getPostItemContent(index, post, { onClick: () => setScrollIndex(ScrollListKey.Following, index) }),
+            }}
+            NoResultsFallbackProps={{
+                className: 'pt-[228px]',
+                message: (
                     <div className="mt-10">
                         <Trans>Follow more friends to continue exploring on {resolveSourceName(currentSource)}.</Trans>
                     </div>
-                }
-            />
-        );
-    }
-
-    return (
-        <div>
-            <VirtualList
-                listKey={ScrollListKey.Following}
-                computeItemKey={(index, post) => `${post.postId}-${index}`}
-                data={data}
-                endReached={onEndReached}
-                itemContent={(index, post) =>
-                    getPostItemContent(index, post, { onClick: () => setScrollIndex(ScrollListKey.Following, index) })
-                }
-                useWindowScroll
-                context={{ hasNextPage }}
-                components={{
-                    Footer: VirtualListFooter,
-                }}
-            />
-        </div>
+                ),
+            }}
+        />
     );
 }
