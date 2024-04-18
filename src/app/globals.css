@@ -306,3 +306,8 @@ body {
         display: none !important;
     }
 }
+html,
+body,
+body > [data-rk] /* RainbowKit's account panel is `body > div > [data-rk]` */ {
+    height: 100%;
+}
