@@ -9,7 +9,7 @@ import { createTwitterClientV2 } from '@/helpers/createTwitterClientV2.js';
 
 const TweetSchema = z.object({
     text: z.string(),
-    replaySettings: z.enum(['following', 'mentionedUsers']).optional(),
+    replySettings: z.enum(['following', 'mentionedUsers']).optional(),
     quoteTwitterId: z.string().optional(),
     inReplyToTweetId: z.string().optional(),
     mediaIds: z.array(z.string()).optional(),
@@ -38,8 +38,8 @@ async function composeTweet(rawTweet: unknown) {
         };
     }
 
-    if (tweet.replaySettings) {
-        composedTweet.reply_settings = tweet.replaySettings;
+    if (tweet.replySettings) {
+        composedTweet.reply_settings = tweet.replySettings;
     }
 
     if (tweet.quoteTwitterId) {

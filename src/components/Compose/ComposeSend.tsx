@@ -18,28 +18,30 @@ import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';
 import { ComposeModalRef } from '@/modals/controls.js';
 import { crossPost } from '@/services/crossPost.js';
 import { crossPostThread } from '@/services/crossPostThread.js';
-import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
+import { type CompositePost, useComposeStateStore, useCompositePost } from '@/store/useComposeStore.js';
 
 interface ComposeSendProps extends React.HTMLAttributes<HTMLDivElement> {
     post: CompositePost;
 }
 
-export function ComposeSend(props: ComposeSendProps) {
+export function ComposeSend({ post }: ComposeSendProps) {
+    const { rootPost } = useCompositePost();
     const { type, posts, addPostInThread } = useComposeStateStore();
 
-    const { MAX_CHAR_SIZE_PER_POST } = getCurrentPostLimits(props.post.availableSources);
-    const { visibleLength, invisibleLength } = measureChars(props.post.chars);
+    const { MAX_CHAR_SIZE_PER_POST } = getCurrentPostLimits(rootPost.availableSources);
+    const { visibleLength, invisibleLength } = measureChars(post.chars, rootPost.availableSources);
 
     const isMedium = useIsMedium();
     const setEditorContent = useSetEditorContent();
 
     const [{ loading }, handlePost] = useAsyncFn(async () => {
         if (posts.length > 1) await crossPostThread();
-        else await crossPost(type, props.post);
+        else await crossPost(type, post);
         ComposeModalRef.close();
-    }, [type, posts.length > 1, props.post]);
+    }, [type, posts.length > 1, post]);
 
-    const disabled = loading || posts.length > 1 ? posts.some((x) => !isValidPost(x)) : !isValidPost(props.post);
+    const disabled =
+        loading || posts.length > 1 ? posts.some((x) => !isValidPost(x, rootPost)) : !isValidPost(post, rootPost);
 
     if (!isMedium) {
         return (
@@ -61,7 +63,7 @@ export function ComposeSend(props: ComposeSendProps) {
         <div className=" flex h-[68px] items-center justify-end gap-4 px-4 shadow-send">
             {visibleLength ? (
                 <div className=" flex items-center gap-[10px] whitespace-nowrap text-[15px] text-main">
-                    <CountdownCircle post={props.post} width={24} height={24} className="flex-shrink-0" />
+                    <CountdownCircle post={post} rootPost={rootPost} width={24} height={24} className="flex-shrink-0" />
                     <span className={visibleLength > MAX_CHAR_SIZE_PER_POST - invisibleLength ? ' text-danger' : ''}>
                         {visibleLength} / {MAX_CHAR_SIZE_PER_POST - invisibleLength}
                     </span>
