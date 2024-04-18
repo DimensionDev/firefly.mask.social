@@ -28,7 +28,7 @@ import { polygon } from 'viem/chains';
 import { lensClient } from '@/configs/lensClient.js';
 import { config } from '@/configs/wagmiClient.js';
 import { SocialPlatform } from '@/constants/enum.js';
-import { SetQueryDataForCommentPostOnLens } from '@/decorators/SetQueryDataForCommentPost.js';
+import { SetQueryDataForCommentPost } from '@/decorators/SetQueryDataForCommentPost.js';
 import { SetQueryDataForLikePost } from '@/decorators/SetQueryDataForLikePost.js';
 import { SetQueryDataForMirrorPost } from '@/decorators/SetQueryDataForMirrorPost.js';
 import { SetQueryDataForPosts } from '@/decorators/SetQueryDataForPosts.js';
@@ -59,7 +59,7 @@ import type { ResponseJSON } from '@/types/index.js';
 
 @SetQueryDataForLikePost(SocialPlatform.Lens)
 @SetQueryDataForMirrorPost(SocialPlatform.Lens)
-@SetQueryDataForCommentPostOnLens
+@SetQueryDataForCommentPost(SocialPlatform.Lens)
 @SetQueryDataForPosts
 export class LensSocialMedia implements Provider {
     getChannelById(channelId: string): Promise<Channel> {

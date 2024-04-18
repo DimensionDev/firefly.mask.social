@@ -2,9 +2,7 @@ import { produce } from 'immer';
 
 import { SocialPlatform } from '@/constants/enum.js';
 import { patchPostQueryData } from '@/helpers/patchPostQueryData.js';
-import type { HubbleSocialMedia } from '@/providers/hubble/SocialMedia.js';
-import type { LensSocialMedia } from '@/providers/lens/SocialMedia.js';
-import type { Post } from '@/providers/types/SocialMedia.js';
+import type { Post, Provider } from '@/providers/types/SocialMedia.js';
 import type { ClassType } from '@/types/index.js';
 
 function commentPost(source: SocialPlatform, postId: string) {
@@ -20,38 +18,23 @@ function commentPost(source: SocialPlatform, postId: string) {
     });
 }
 
-export function SetQueryDataForCommentPostOnLens(target: ClassType<LensSocialMedia>): ClassType<LensSocialMedia> {
-    const method = target.prototype.commentPost as LensSocialMedia['commentPost'];
+export function SetQueryDataForCommentPost(source: SocialPlatform) {
+    return function decorator<T extends ClassType<Provider>>(target: T): T {
+        const method = target.prototype.commentPost as Provider['commentPost'];
 
-    Object.defineProperty(target.prototype, 'commentPost', {
-        value: async (postId: string, post: Post, signless?: boolean, onMomoka?: boolean) => {
-            const result = await method!.call(target.prototype, postId, post, signless, onMomoka);
+        Object.defineProperty(target.prototype, 'commentPost', {
+            value: async (postId: string, post: Post, ...args: unknown[]) => {
+                const computedPostId = postId || post.commentOn?.postId || '';
 
-            commentPost(SocialPlatform.Lens, postId);
+                const m = method as (postId: string, post: Post, ...args: unknown[]) => Promise<string>;
+                const result = await m?.call(target.prototype, computedPostId, post, ...args);
 
-            return result;
-        },
-    });
+                if (computedPostId) commentPost(source, computedPostId);
 
-    return target;
-}
+                return result;
+            },
+        });
 
-export function SetQueryDataForCommentPostOnFarcaster(
-    target: ClassType<HubbleSocialMedia>,
-): ClassType<HubbleSocialMedia> {
-    const method = target.prototype.publishPost as LensSocialMedia['publishPost'];
-
-    Object.defineProperty(target.prototype, 'publishPost', {
-        value: async (post: Post) => {
-            const result = await method!.call(target.prototype, post);
-
-            if (post.commentOn) {
-                commentPost(SocialPlatform.Farcaster, post.commentOn.postId);
-            }
-
-            return result;
-        },
-    });
-
-    return target;
+        return target;
+    };
 }
