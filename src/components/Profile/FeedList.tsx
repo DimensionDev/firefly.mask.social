@@ -7,7 +7,7 @@ import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.
 import { VirtualList } from '@/components/VirtualList/VirtualList.js';
 import { VirtualListFooter } from '@/components/VirtualList/VirtualListFooter.js';
 import { ScrollListKey, SocialPlatform } from '@/constants/enum.js';
-import { mergeThreadPosts } from '@/helpers/mergeThreadPosts.js';
+import { getPostsSelector } from '@/helpers/getPostsSelector.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
@@ -39,11 +39,8 @@ export function FeedList({ profileId, source }: FeedListProps) {
             return posts;
         },
         initialPageParam: '',
-        getNextPageParam: (lastPage) => lastPage.nextIndicator?.id,
-        select: (data) => {
-            const result = data.pages.flatMap((x) => x.data) || EMPTY_LIST;
-            return mergeThreadPosts(source, result);
-        },
+        getNextPageParam: (lastPage) => lastPage?.nextIndicator?.id,
+        select: getPostsSelector(source),
     });
 
     const onEndReached = useCallback(async () => {
