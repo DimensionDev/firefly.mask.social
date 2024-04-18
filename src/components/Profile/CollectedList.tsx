@@ -42,6 +42,7 @@ export function CollectedList({ profileId, source }: CollectedListProps) {
 
     return (
         <ListInPage
+            key={source}
             queryResult={queryResult}
             VirtualListProps={{
                 listKey: `${ScrollListKey.Collected}:${profileId}`,

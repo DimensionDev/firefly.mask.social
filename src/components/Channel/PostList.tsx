@@ -43,6 +43,7 @@ export function PostList({ channelId, source }: PostListProps) {
 
     return (
         <ListInPage
+            key={source}
             queryResult={queryResult}
             VirtualListProps={{
                 listKey: `${ScrollListKey.Channel}:${channelId}`,

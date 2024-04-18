@@ -45,6 +45,7 @@ export const CommentList = memo<CommentListProps>(function CommentList({ postId,
 
     return (
         <ListInPage
+            key={source}
             queryResult={queryResult}
             VirtualListProps={{
                 listKey: `${ScrollListKey.Comment}:${postId}`,

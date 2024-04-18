@@ -11,6 +11,8 @@ import { getPostsSelector } from '@/helpers/getPostsSelector.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
+import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
+import { t } from '@lingui/macro';
 
 interface Props {
     // the source of the posts
@@ -40,6 +42,8 @@ export function Home({ source, pageable }: Props) {
         getNextPageParam: (lastPage) => lastPage.nextIndicator?.id,
         select: getPostsSelector(currentSource),
     });
+
+    useNavigatorTitle(t`Discover`);
 
     return (
         <ListInPage
