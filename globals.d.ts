@@ -36,3 +36,7 @@ namespace JSX {
         >;
     }
 }
+
+interface Window {
+    bowser: any;
+}

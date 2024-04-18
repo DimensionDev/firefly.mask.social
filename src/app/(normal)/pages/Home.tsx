@@ -12,8 +12,7 @@ import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.
 import { VirtualList } from '@/components/VirtualList/index.js';
 import { VirtualListFooter } from '@/components/VirtualList/VirtualListFooter.js';
 import { ScrollListKey, SocialPlatform } from '@/constants/enum.js';
-import { EMPTY_LIST } from '@/constants/index.js';
-import { mergeThreadPosts } from '@/helpers/mergeThreadPosts.js';
+import { getPostsSelector } from '@/helpers/getPostsSelector.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
@@ -45,10 +44,7 @@ export function Home({ source, pageable }: Props) {
         },
         initialPageParam: '',
         getNextPageParam: (lastPage) => lastPage.nextIndicator?.id,
-        select: (data) => {
-            const result = data?.pages.flatMap((x) => x.data) || EMPTY_LIST;
-            return mergeThreadPosts(currentSource, result);
-        },
+        select: getPostsSelector(currentSource),
     });
 
     const onEndReached = useCallback(async () => {

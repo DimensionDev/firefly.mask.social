@@ -28,7 +28,7 @@ import { compact, first, isEmpty, last } from 'lodash-es';
 import { SocialPlatform } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { URL_REGEX } from '@/constants/regex.js';
-import { formatLensProfile } from '@/helpers/formatLensProfile.js';
+import { formatLensProfile, formatLensProfileByHandleInfo } from '@/helpers/formatLensProfile.js';
 import type { Attachment, Post } from '@/providers/types/SocialMedia.js';
 
 const PLACEHOLDER_IMAGE = 'https://static-assets.hey.xyz/images/placeholder.webp';
@@ -309,6 +309,9 @@ export function formatLensPost(result: AnyPublicationFragment): Post {
             hasQuoted: result.mirrorOn.operations.hasQuoted,
             hasActed: result.mirrorOn.operations.hasActed.value,
             hasLiked: result.mirrorOn.operations.hasUpvoted,
+            mentions: result.mirrorOn.profilesMentioned.map((x) =>
+                formatLensProfileByHandleInfo(x.snapshotHandleMentioned),
+            ),
             canAct,
             __original__: result,
             momoka: result.mirrorOn.momoka || undefined,
@@ -360,6 +363,7 @@ export function formatLensPost(result: AnyPublicationFragment): Post {
             hasActed: result.operations.hasActed.value,
             hasLiked: result.operations.hasUpvoted,
             quoteOn: formatLensQuoteOrComment(result.quoteOn),
+            mentions: result.profilesMentioned.map((x) => formatLensProfileByHandleInfo(x.snapshotHandleMentioned)),
             canAct,
             momoka: result.momoka || undefined,
         };
@@ -398,6 +402,7 @@ export function formatLensPost(result: AnyPublicationFragment): Post {
             commentOn: formatLensQuoteOrComment(result.commentOn),
             hasLiked: result.operations.hasUpvoted,
             firstComment: result.firstComment ? formatLensQuoteOrComment(result.firstComment) : undefined,
+            mentions: result.profilesMentioned.map((x) => formatLensProfileByHandleInfo(x.snapshotHandleMentioned)),
             root:
                 result.root && !isEmpty(result.root) && (result.root as PostFragment).id !== result.commentOn.id
                     ? formatLensPost(result.root as PostFragment)
@@ -438,6 +443,7 @@ export function formatLensPost(result: AnyPublicationFragment): Post {
             hasQuoted: result.operations.hasQuoted,
             hasLiked: result.operations.hasUpvoted,
             hasActed: result.operations.hasActed.value,
+            mentions: result.profilesMentioned.map((x) => formatLensProfileByHandleInfo(x.snapshotHandleMentioned)),
             __original__: result,
             momoka: result.momoka || undefined,
         };

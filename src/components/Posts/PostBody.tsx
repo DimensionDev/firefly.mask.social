@@ -3,7 +3,7 @@
 import { Trans } from '@lingui/macro';
 import { compact } from 'lodash-es';
 import { useRouter } from 'next/navigation.js';
-import { forwardRef, useState } from 'react';
+import { forwardRef, useMemo, useState } from 'react';
 import { useInView } from 'react-cool-inview';
 import { useAsync } from 'react-use';
 
@@ -59,6 +59,12 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
         };
     }, [post, postViewed]);
 
+    const isSafari = useMemo(() => {
+        if (window.bowser) return;
+        const parser = window.bowser.getParser(window.navigator.userAgent);
+        return parser.is('safari') && parser.is('Apple');
+    }, []);
+
     if (post.isEncrypted) {
         return (
             <div
@@ -110,7 +116,12 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
             <div className="my-2 flex items-center space-x-2 break-words text-base text-main">
                 <NakedMarkup
                     post={post}
-                    className="linkify line-clamp-5 max-h-[7.8rem] w-full self-stretch break-words text-[15px] opacity-75"
+                    className={classNames(
+                        'linkify line-clamp-5 w-full self-stretch break-words text-[15px] opacity-75',
+                        {
+                            'max-h-[7.8rem]': isSafari,
+                        },
+                    )}
                 >
                     {post.metadata.content?.content}
                 </NakedMarkup>
@@ -137,7 +148,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
             <Markup
                 post={post}
                 className={classNames(
-                    { 'line-clamp-5': canShowMore, 'max-h-[8rem]': canShowMore },
+                    { 'line-clamp-5': canShowMore, 'max-h-[8rem]': canShowMore && isSafari },
                     'markup linkify break-words text-[15px]',
                 )}
             >

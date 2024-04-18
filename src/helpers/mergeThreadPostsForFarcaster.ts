@@ -16,7 +16,7 @@ export function mergeThreadPostsForFarcaster(posts: Post[]) {
     });
 
     return data.map((x) => {
-        if (x.threads?.length) {
+        if (x.threads?.length && x.threads.length >= 2) {
             const current = x.threads.length === 2 ? last(x.threads) : first(x.threads);
             const parent = x.threads.length === 2 ? first(x.threads) : undefined;
             if (!current) return x;
