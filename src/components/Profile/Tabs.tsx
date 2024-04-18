@@ -1,7 +1,7 @@
 import { Trans } from '@lingui/macro';
 import { Suspense, useState } from 'react';
 
-import { ChannelList } from '@/components/ChannelList.js';
+import { ChannelList } from '@/components/Profile/ChannelList.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Loading } from '@/components/Loading.js';
 import { CollectedList } from '@/components/Profile/CollectedList.js';
