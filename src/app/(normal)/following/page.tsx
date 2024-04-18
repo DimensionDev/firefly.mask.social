@@ -1,7 +1,7 @@
 'use client';
 
 import { t, Trans } from '@lingui/macro';
-import { createIndicator, EMPTY_LIST } from '@masknet/shared-base';
+import { createIndicator } from '@masknet/shared-base';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { useCallback } from 'react';
 
@@ -12,7 +12,7 @@ import { VirtualList } from '@/components/VirtualList/VirtualList.js';
 import { VirtualListFooter } from '@/components/VirtualList/VirtualListFooter.js';
 import { ScrollListKey, SocialPlatform } from '@/constants/enum.js';
 import { SORTED_SOURCES } from '@/constants/index.js';
-import { mergeThreadPosts } from '@/helpers/mergeThreadPosts.js';
+import { getPostsSelector } from '@/helpers/getPostsSelector.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfileAll.js';
@@ -61,10 +61,7 @@ export default function Following() {
         },
         initialPageParam: '',
         getNextPageParam: (lastPage) => lastPage?.nextIndicator?.id,
-        select: (data) => {
-            const result = data?.pages.flatMap((x) => x?.data || []) || EMPTY_LIST;
-            return mergeThreadPosts(currentSource, result);
-        },
+        select: getPostsSelector(currentSource),
     });
 
     const onEndReached = useCallback(async () => {
