@@ -38,7 +38,7 @@ export default function Notification() {
     return (
         <ListInPage
             queryResult={queryResult}
-            requiredLogin
+            loginRequired
             VirtualListProps={{
                 listKey: ScrollListKey.Notification,
                 computeItemKey: (index, notification) => `${notification.notificationId}-${index}`,

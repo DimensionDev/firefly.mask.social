@@ -13,16 +13,16 @@ import { useGlobalState } from '@/store/useGlobalStore.js';
 
 interface ListInPageProps<T = unknown> {
     queryResult: UseSuspenseInfiniteQueryResult<T[]>;
-    requiredLogin?: boolean;
-    requiredFallback?: boolean;
+    loginRequired?: boolean;
+    noResultsFallbackRequired?: boolean;
     VirtualListProps?: VirtualListProps<T>;
     NoResultsFallbackProps?: NoResultsFallbackProps;
 }
 
 export function ListInPage<T = unknown>({
     queryResult,
-    requiredLogin = false,
-    requiredFallback = true,
+    loginRequired = false,
+    noResultsFallbackRequired = true,
     VirtualListProps,
     NoResultsFallbackProps,
 }: ListInPageProps<T>) {
@@ -38,11 +38,11 @@ export function ListInPage<T = unknown>({
         await fetchNextPage();
     }, [fetchNextPage, hasNextPage, isFetching, isFetchingNextPage]);
 
-    if (requiredLogin && !isLogin) {
+    if (loginRequired && !isLogin) {
         return <NotLoginFallback source={currentSource} />;
     }
 
-    if (requiredFallback && !data.length) {
+    if (noResultsFallbackRequired && !data.length) {
         return <NoResultsFallback {...NoResultsFallbackProps} />;
     }
 

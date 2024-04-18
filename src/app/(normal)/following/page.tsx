@@ -65,7 +65,7 @@ export default function Following() {
     return (
         <ListInPage
             queryResult={queryResult}
-            requiredLogin
+            loginRequired
             VirtualListProps={{
                 listKey: ScrollListKey.Following,
                 computeItemKey: (index, post) => `${post.postId}-${index}`,
