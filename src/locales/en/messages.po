@@ -196,9 +196,6 @@ msgstr "Frame Validator"
 msgid "Follow System"
 msgstr "Follow System"
 
-msgid "No results"
-msgstr "No results"
-
 msgid "URL is required."
 msgstr "URL is required."
 
