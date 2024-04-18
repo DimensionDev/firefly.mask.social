@@ -9,7 +9,6 @@ import { VirtualListFooter } from '@/components/VirtualList/VirtualListFooter.js
 import { ScrollListKey, SocialPlatform } from '@/constants/enum.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
-import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 
 const getChannelItemContent = (index: number, channel: Channel) => {
     return <ChannelInList key={channel.id} channel={channel} />;
@@ -21,8 +20,6 @@ interface ChannelListProps {
 }
 
 export function ChannelList({ source, profileId }: ChannelListProps) {
-    const fetchAndStoreViews = useImpressionsStore.use.fetchAndStoreViews();
-
     const { data, hasNextPage, fetchNextPage, isFetchingNextPage, isFetching } = useSuspenseInfiniteQuery({
         queryKey: ['channels', source, 'channels-of', profileId],
 
@@ -32,13 +29,7 @@ export function ChannelList({ source, profileId }: ChannelListProps) {
             const provider = resolveSocialMediaProvider(source);
             if (!provider) return createPageable(EMPTY_LIST, undefined);
 
-            const channels = await provider.getChannelsByProfileId(profileId, createIndicator(undefined, pageParam));
-
-            if (source === SocialPlatform.Lens) {
-                const ids = channels.data.flatMap((x) => [x.id]);
-                await fetchAndStoreViews(ids);
-            }
-            return channels;
+            return provider.getChannelsByProfileId(profileId, createIndicator(undefined, pageParam));
         },
         initialPageParam: '',
         getNextPageParam: (lastPage) => lastPage.nextIndicator?.id,
