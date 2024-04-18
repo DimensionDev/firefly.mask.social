@@ -58,13 +58,6 @@ export function ListInPage<T = unknown>({
     };
 
     return (
-        <List
-            useWindowScroll
-            data={data}
-            endReached={onEndReached}
-            {...VirtualListProps}
-            context={Context}
-            components={Components}
-        />
+        <List data={data} endReached={onEndReached} {...VirtualListProps} context={Context} components={Components} />
     );
 }
