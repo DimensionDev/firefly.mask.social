@@ -38,5 +38,9 @@ namespace JSX {
 }
 
 interface Window {
-    bowser: any;
+    bowser: {
+        getParser(ua: string): {
+            is: (anything: string) => boolean;
+        };
+    };
 }

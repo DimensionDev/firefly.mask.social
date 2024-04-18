@@ -3,7 +3,7 @@
 import { Trans } from '@lingui/macro';
 import { compact } from 'lodash-es';
 import { useRouter } from 'next/navigation.js';
-import { forwardRef, useMemo, useState } from 'react';
+import { forwardRef, useState } from 'react';
 import { useInView } from 'react-cool-inview';
 import { useAsync } from 'react-use';
 
@@ -14,7 +14,7 @@ import { Markup, NakedMarkup } from '@/components/Markup/index.js';
 import { Oembed } from '@/components/Oembed/index.js';
 import { Attachments } from '@/components/Posts/Attachment.js';
 import { Quote } from '@/components/Posts/Quote.js';
-import { EMPTY_LIST, MAX_FRAME_SIZE_PER_POST } from '@/constants/index.js';
+import { EMPTY_LIST, IS_APPLE, IS_SAFARI, MAX_FRAME_SIZE_PER_POST } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getEncryptedPayloadFromImageAttachment, getEncryptedPayloadFromText } from '@/helpers/getEncryptedPayload.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
@@ -58,12 +58,6 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
             payloadFromImageAttachment: await getEncryptedPayloadFromImageAttachment(post),
         };
     }, [post, postViewed]);
-
-    const isSafari = useMemo(() => {
-        if (window.bowser) return;
-        const parser = window.bowser.getParser(window.navigator.userAgent);
-        return parser.is('safari') && parser.is('Apple');
-    }, []);
 
     if (post.isEncrypted) {
         return (
@@ -119,7 +113,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
                     className={classNames(
                         'linkify line-clamp-5 w-full self-stretch break-words text-[15px] opacity-75',
                         {
-                            'max-h-[7.8rem]': isSafari,
+                            'max-h-[7.8rem]': IS_SAFARI && IS_APPLE,
                         },
                     )}
                 >
@@ -148,7 +142,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
             <Markup
                 post={post}
                 className={classNames(
-                    { 'line-clamp-5': canShowMore, 'max-h-[8rem]': canShowMore && isSafari },
+                    { 'line-clamp-5': canShowMore, 'max-h-[8rem]': canShowMore && IS_SAFARI && IS_APPLE },
                     'markup linkify break-words text-[15px]',
                 )}
             >

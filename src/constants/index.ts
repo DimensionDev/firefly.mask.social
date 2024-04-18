@@ -100,3 +100,8 @@ export const DEFAULT_TOKEN_ADDRESS = '0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270
 export const LENS_HUB_PROXY_ADDRESS = '0xDb46d1Dc155634FbC732f92E853b10B288AD5a1d';
 export const PUBLIC_ACT_PROXY_ADDRESS = '0x53582b1b7BE71622E7386D736b6baf87749B7a2B';
 export const TOKEN_HANDLE_REGISTRY = '0xD4F2F33680FCCb36748FA9831851643781608844';
+
+const bowser = window.bowser.getParser(window.navigator.userAgent);
+
+export const IS_SAFARI = bowser.is('safari');
+export const IS_APPLE = bowser.is('apple');
