@@ -306,3 +306,11 @@ body {
         display: none !important;
     }
 }
+
+.button:focus {
+    outline: none
+}
+
+.a:focus {
+    outline: none
+}
