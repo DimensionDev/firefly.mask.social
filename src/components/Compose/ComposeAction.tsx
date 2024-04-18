@@ -32,7 +32,6 @@ import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';
 import { PluginDebuggerMessages } from '@/mask/message-host/index.js';
 import { ComposeModalRef } from '@/modals/controls.js';
 import { type CompositePost, useComposeStateStore, useCompositePost } from '@/store/useComposeStore.js';
-import { SocialPlatform } from '@/constants/enum.js';
 
 interface ComposeActionProps {
     post: CompositePost;
@@ -49,9 +48,10 @@ export function ComposeAction(props: ComposeActionProps) {
     const { type, posts, addPostInThread, updateRestriction } = useComposeStateStore();
     const { rootPost, isRootPost } = useCompositePost();
 
-    const containFarcaster = useMemo(() => rootPost.availableSources.includes(SocialPlatform.Farcaster), [rootPost]);
-
-    const { length, visibleLength, invisibleLength } = useMemo(() => measureChars(chars, containFarcaster), [chars]);
+    const { length, visibleLength, invisibleLength } = useMemo(
+        () => measureChars(chars, rootPost.availableSources),
+        [chars, rootPost.availableSources],
+    );
 
     const [editor] = useLexicalComposerContext();
     const setEditorContent = useSetEditorContent();
