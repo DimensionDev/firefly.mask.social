@@ -66,7 +66,10 @@ class FireflySocialMedia implements Provider {
         return formatFarcasterChannelFromFirefly(data);
     }
 
-    async getChannelsByProfileId(profileId: string): Promise<Channel[]> {
+    async getChannelsByProfileId(
+        profileId: string,
+        indicator?: PageIndicator | undefined,
+    ): Promise<Pageable<Channel, PageIndicator>> {
         const url = urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/active_channels', {
             fid: profileId,
             sourceFid: profileId,
@@ -74,7 +77,8 @@ class FireflySocialMedia implements Provider {
         const { data } = await fetchJSON<ChannelsResponse>(url, {
             method: 'GET',
         });
-        return data.map(formatFarcasterChannelFromFirefly);
+        const channels = data.map(formatFarcasterChannelFromFirefly);
+        return createPageable(channels, createIndicator(indicator));
     }
 
     async discoverChannels(indicator?: PageIndicator | undefined): Promise<Pageable<Channel, PageIndicator>> {

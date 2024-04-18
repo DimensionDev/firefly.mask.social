@@ -61,7 +61,10 @@ class FarcasterSocialMedia implements Provider {
         return FireflySocialMediaProvider.getChannelByHandle(channelHandle);
     }
 
-    getChannelsByProfileId(profileId: string): Promise<Channel[]> {
+    getChannelsByProfileId(
+        profileId: string,
+        indicator?: PageIndicator | undefined,
+    ): Promise<Pageable<Channel, PageIndicator>> {
         return FireflySocialMediaProvider.getChannelsByProfileId(profileId);
     }
 

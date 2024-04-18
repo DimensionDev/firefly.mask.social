@@ -84,7 +84,7 @@ class WarpcastSocialMedia implements Provider {
         throw new Error('Method not implemented.');
     }
 
-    getChannelsByProfileId(profileId: string): Promise<Channel[]> {
+    getChannelsByProfileId(profileId: string, indicator?: PageIndicator | undefined): Promise<Channel[]> {
         throw new Error('Method not implemented.');
     }
 

@@ -70,7 +70,10 @@ class LensSocialMedia implements Provider {
         throw new Error('Method not implemented.');
     }
 
-    getChannelsByProfileId(profileId: string): Promise<Channel[]> {
+    getChannelsByProfileId(
+        profileId: string,
+        indicator?: PageIndicator | undefined,
+    ): Promise<Pageable<Channel, PageIndicator>> {
         throw new Error('Method not implemented.');
     }
 

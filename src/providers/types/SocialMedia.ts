@@ -430,7 +430,7 @@ export interface Provider {
      * @param profileId
      * @returns
      */
-    getChannelsByProfileId: (profileId: string) => Promise<Channel[]>;
+    getChannelsByProfileId: (profileId: string, indicator?: PageIndicator) => Promise<Pageable<Channel, PageIndicator>>;
 
     /**
      * Retrieves comments by post ID.
