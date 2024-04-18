@@ -8,6 +8,7 @@ import { CollectedList } from '@/components/Profile/CollectedList.js';
 import { FeedList } from '@/components/Profile/FeedList.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
+import { safeUnreachable } from '@masknet/kit';
 
 enum TabType {
     Feed = 'Feed',
@@ -18,6 +19,20 @@ enum TabType {
 interface TabsProps {
     profileId: string;
     source: SocialPlatform;
+}
+
+function TabTypeI18N({ type }: { type: TabType }) {
+    switch (type) {
+        case TabType.Feed:
+            return <Trans>Feed</Trans>;
+        case TabType.Collected:
+            return <Trans>Collected</Trans>;
+        case TabType.Channels:
+            return <Trans>Channels</Trans>;
+        default:
+            safeUnreachable(type);
+            return null;
+    }
 }
 
 export function Tabs({ profileId, source }: TabsProps) {
@@ -47,7 +62,7 @@ export function Tabs({ profileId, source }: TabsProps) {
                                 )}
                                 onClick={() => setCurrentTab(tab)}
                             >
-                                {tab === TabType.Feed ? <Trans>Feed</Trans> : <Trans>Collected</Trans>}
+                                <TabTypeI18N type={tab} />
                             </ClickableButton>
                             <span
                                 className={classNames(

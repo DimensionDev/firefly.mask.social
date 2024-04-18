@@ -47,17 +47,19 @@ export interface NotificationItemProps {
 }
 
 function PostTypeI18N({ type }: { type: PostType }) {
-    if (type === 'Post') {
-        return <Trans>post</Trans>;
-    } else if (type === 'Comment') {
-        return <Trans>comment</Trans>;
-    } else if (type === 'Quote') {
-        return <Trans>quote</Trans>;
-    } else if (type === 'Mirror') {
-        return <Trans>mirror</Trans>;
+    switch (type) {
+        case 'Post':
+            return <Trans>post</Trans>;
+        case 'Comment':
+            return <Trans>comment</Trans>;
+        case 'Quote':
+            return <Trans>quote</Trans>;
+        case 'Mirror':
+            return <Trans>mirror</Trans>;
+        default:
+            safeUnreachable(type);
+            return null;
     }
-
-    return;
 }
 
 export const NotificationItem = memo<NotificationItemProps>(function NotificationItem({ notification }) {
