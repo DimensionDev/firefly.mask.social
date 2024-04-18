@@ -14,23 +14,24 @@ export async function getAllMentionsForFarcaster(text: string) {
         };
     }
     let match;
-    while ((match = MENTION_REGEX.exec(text)) !== null) {
+    const regex = new RegExp(MENTION_REGEX);
+    while ((match = regex.exec(text)) !== null) {
         try {
             let mentionTag = '';
-            if (match[0]) {
-                mentionTag = match[0].substring(1);
-            }
+            if (!match[0]) continue;
+            mentionTag = match[0].substring(1);
             const profiles = await NeynarSocialMediaProvider.searchProfiles(mentionTag);
             const profile = first(profiles.data);
+            if (profile?.fullHandle !== mentionTag) continue;
             const fid = profile?.profileId;
             if (fid) {
                 mentions.push(Number(fid));
                 const startIndex = match.index;
                 const mentionStartIndex = Buffer.from(text.substring(0, startIndex)).length;
-                const endIndex = MENTION_REGEX.lastIndex;
+                const endIndex = regex.lastIndex;
                 replacedIndices.push(mentionStartIndex);
                 text = text.substring(0, startIndex) + text.substring(endIndex);
-                MENTION_REGEX.lastIndex = startIndex;
+                regex.lastIndex = startIndex;
             }
         } catch (error) {
             console.log(error);
