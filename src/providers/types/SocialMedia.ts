@@ -317,7 +317,7 @@ export interface Provider {
      * @param post The comment post.
      * @returns A promise that resolves to comment id.
      */
-    commentPost?: (postId: string, post: Post) => Promise<string>;
+    commentPost: (postId: string, post: Post) => Promise<string>;
 
     /**
      * Collects a post with the specified post ID.

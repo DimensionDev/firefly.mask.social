@@ -37,6 +37,10 @@ function fetchNeynarJSON<T>(url: string, options: RequestInit): Promise<T> {
 }
 
 class NeynarSocialMedia implements Provider {
+    commentPost(postId: string, post: Post): Promise<string> {
+        throw new Error('Method not implemented.');
+    }
+
     get type() {
         return SessionType.Farcaster;
     }

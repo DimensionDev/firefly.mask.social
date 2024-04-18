@@ -3,6 +3,7 @@ import { createIndicator, createPageable, EMPTY_LIST, type Pageable, type PageIn
 import { attemptUntil } from '@masknet/web3-shared-base';
 
 import { SocialPlatform } from '@/constants/enum.js';
+import { SetQueryDataForCommentPost } from '@/decorators/SetQueryDataForCommentPost.js';
 import { SetQueryDataForLikePost } from '@/decorators/SetQueryDataForLikePost.js';
 import { SetQueryDataForMirrorPost } from '@/decorators/SetQueryDataForMirrorPost.js';
 import { SetQueryDataForPosts } from '@/decorators/SetQueryDataForPosts.js';
@@ -20,6 +21,7 @@ import { WarpcastSocialMediaProvider } from '@/providers/warpcast/SocialMedia.js
 
 @SetQueryDataForLikePost(SocialPlatform.Farcaster)
 @SetQueryDataForMirrorPost(SocialPlatform.Farcaster)
+@SetQueryDataForCommentPost(SocialPlatform.Farcaster)
 @SetQueryDataForPosts
 class FarcasterSocialMedia implements Provider {
     quotePost(postId: string, post: Post): Promise<string> {
@@ -27,7 +29,7 @@ class FarcasterSocialMedia implements Provider {
     }
 
     commentPost(postId: string, post: Post): Promise<string> {
-        throw new Error('Method not implemented.');
+        return HubbleSocialMediaProvider.commentPost(postId, post);
     }
 
     collectPost(postId: string, collectionId?: string): Promise<void> {
