@@ -7,7 +7,7 @@ import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
 import { useCallback } from 'react';
 
-import { ChannelInList } from '@/components/Channel/ChannelInList.js';
+import { ChannelInList } from '@/components/ChannelInList.js';
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { SinglePost } from '@/components/Posts/SinglePost.js';
 import { ProfileInList } from '@/components/ProfileInList.js';

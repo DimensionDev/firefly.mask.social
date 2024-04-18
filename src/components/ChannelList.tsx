@@ -2,7 +2,7 @@ import { createIndicator, createPageable, EMPTY_LIST } from '@masknet/shared-bas
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { useCallback } from 'react';
 
-import { ChannelInList } from '@/components/Channel/ChannelInList.js';
+import { ChannelInList } from '@/components/ChannelInList.js';
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { VirtualList } from '@/components/VirtualList/VirtualList.js';
 import { VirtualListFooter } from '@/components/VirtualList/VirtualListFooter.js';
