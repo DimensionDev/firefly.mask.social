@@ -55,7 +55,6 @@
         "@vercel/speed-insights": "^1.0.10",
         "async-call-rpc": "^6.4.0",
         "autoprefixer": "10.4.16",
-        "bowser": "^2.11.0",
         "canonicalize": "^2.0.0",
         "dayjs": "^1.11.10",
         "dayjs-twitter": "^0.5.0",

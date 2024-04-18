@@ -114,7 +114,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
                     className={classNames(
                         'linkify line-clamp-5 w-full self-stretch break-words text-[15px] opacity-75',
                         {
-                            'max-h-[7.8rem]': !!IS_SAFARI && !!IS_APPLE,
+                            'max-h-[7.8rem]': IS_SAFARI && IS_APPLE,
                         },
                     )}
                 >
@@ -143,7 +143,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
             <Markup
                 post={post}
                 className={classNames(
-                    { 'line-clamp-5': canShowMore, 'max-h-[8rem]': canShowMore && !!IS_SAFARI && !!IS_APPLE },
+                    { 'line-clamp-5': canShowMore, 'max-h-[8rem]': canShowMore && IS_SAFARI && IS_APPLE },
                     'markup linkify break-words text-[15px]',
                 )}
             >

@@ -1,7 +1,6 @@
 'use client';
-import bowser from 'bowser';
 
-const parser = typeof window !== 'undefined' ? bowser.getParser(window.navigator.userAgent) : undefined;
+const bowser = typeof window !== 'undefined' ? window.bowser.getParser(window.navigator.userAgent) : undefined;
 
-export const IS_SAFARI = parser?.is('safari');
-export const IS_APPLE = parser?.is('apple');
+export const IS_SAFARI = !!bowser?.is('safari');
+export const IS_APPLE = !!bowser?.is('apple');
