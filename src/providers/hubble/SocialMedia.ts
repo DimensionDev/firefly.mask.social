@@ -6,7 +6,6 @@ import urlcat from 'urlcat';
 import { toBytes } from 'viem';
 
 import { HUBBLE_URL } from '@/constants/index.js';
-import { SetQueryDataForCommentPostOnFarcaster } from '@/decorators/SetQueryDataForCommentPost.js';
 import { encodeMessageData } from '@/helpers/encodeMessageData.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { getAllMentionsForFarcaster } from '@/helpers/getAllMentionsForFarcaster.js';
@@ -42,10 +41,9 @@ function fetchHubbleJSON<T>(url: string, options: RequestInit): Promise<T> {
     });
 }
 
-@SetQueryDataForCommentPostOnFarcaster
 export class HubbleSocialMedia implements Provider {
     commentPost(postId: string, post: Post): Promise<string> {
-        throw new Error('Use publishPost instead.');
+        return this.publishPost(post);
     }
 
     getProfileById(profileId: string): Promise<Profile> {

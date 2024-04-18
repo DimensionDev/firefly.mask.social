@@ -68,6 +68,10 @@ class NeynarSocialMedia implements Provider {
         throw new Error('Method not implemented.');
     }
 
+    commentPost(postId: string, post: Post): Promise<string> {
+        throw new Error('Method not implemented.');
+    }
+
     searchChannels(q: string, indicator?: PageIndicator | undefined): Promise<Pageable<Channel, PageIndicator>> {
         throw new Error('Method not implemented.');
     }
