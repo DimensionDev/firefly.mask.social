@@ -41,7 +41,7 @@ function fetchHubbleJSON<T>(url: string, options: RequestInit): Promise<T> {
     });
 }
 
-export class HubbleSocialMedia implements Provider {
+class HubbleSocialMedia implements Provider {
     commentPost(postId: string, post: Post): Promise<string> {
         return this.publishPost(post);
     }

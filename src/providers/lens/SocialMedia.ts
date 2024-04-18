@@ -61,7 +61,7 @@ import type { ResponseJSON } from '@/types/index.js';
 @SetQueryDataForMirrorPost(SocialPlatform.Lens)
 @SetQueryDataForCommentPost(SocialPlatform.Lens)
 @SetQueryDataForPosts
-export class LensSocialMedia implements Provider {
+class LensSocialMedia implements Provider {
     getChannelById(channelId: string): Promise<Channel> {
         throw new Error('Method not implemented.');
     }
