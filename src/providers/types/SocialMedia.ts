@@ -346,7 +346,7 @@ export interface Provider {
      * @param post The comment post.
      * @returns A promise that resolves to comment id.
      */
-    commentPost?: (postId: string, post: Post) => Promise<string>;
+    commentPost: (postId: string, post: Post) => Promise<string>;
 
     /**
      * Collects a post with the specified post ID.
@@ -430,7 +430,7 @@ export interface Provider {
      * @param profileId
      * @returns
      */
-    getChannelsByProfileId: (profileId: string) => Promise<Channel[]>;
+    getChannelsByProfileId: (profileId: string, indicator?: PageIndicator) => Promise<Pageable<Channel, PageIndicator>>;
 
     /**
      * Retrieves comments by post ID.

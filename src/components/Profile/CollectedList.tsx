@@ -1,25 +1,24 @@
-import { Trans } from '@lingui/macro';
 import { createIndicator, createPageable } from '@masknet/shared-base';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { useCallback } from 'react';
 
-import BlackHoleIcon from '@/assets/black-hole.svg';
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.js';
-import { VirtualList } from '@/components/VirtualList/index.js';
+import { VirtualList } from '@/components/VirtualList/VirtualList.js';
 import { VirtualListFooter } from '@/components/VirtualList/VirtualListFooter.js';
 import { ScrollListKey, SocialPlatform } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
-import { mergeThreadPosts } from '@/helpers/mergeThreadPosts.js';
+import { getPostsSelector } from '@/helpers/getPostsSelector.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 
-interface ContentFeedProps {
+interface CollectedListProps {
     profileId: string;
     source: SocialPlatform;
 }
-export function ContentCollected({ profileId, source }: ContentFeedProps) {
+
+export function CollectedList({ profileId, source }: CollectedListProps) {
     const setScrollIndex = useGlobalState.use.setScrollIndex();
     const fetchAndStoreViews = useImpressionsStore.use.fetchAndStoreViews();
     const { data, hasNextPage, fetchNextPage, isFetchingNextPage, isFetching } = useSuspenseInfiniteQuery({
@@ -40,11 +39,8 @@ export function ContentCollected({ profileId, source }: ContentFeedProps) {
             return posts;
         },
         initialPageParam: '',
-        getNextPageParam: (lastPage) => lastPage.nextIndicator?.id,
-        select: (data) => {
-            const result = data.pages.flatMap((x) => x.data) || EMPTY_LIST;
-            return mergeThreadPosts(source, result);
-        },
+        getNextPageParam: (lastPage) => lastPage?.nextIndicator?.id,
+        select: getPostsSelector(source),
     });
 
     const onEndReached = useCallback(async () => {
@@ -55,39 +51,28 @@ export function ContentCollected({ profileId, source }: ContentFeedProps) {
         await fetchNextPage();
     }, [hasNextPage, isFetching, isFetchingNextPage, fetchNextPage]);
 
-    if (!data.length)
-        return (
-            <NoResultsFallback
-                className="mt-20"
-                icon={<BlackHoleIcon width={200} height="auto" className="text-secondaryMain" />}
-                message={
-                    <div className="mt-10">
-                        <Trans>There is no data available for display.</Trans>
-                    </div>
-                }
-            />
-        );
+    if (!data.length) {
+        return <NoResultsFallback className="mt-20" />;
+    }
 
     return (
-        <div>
-            <VirtualList
-                listKey={`${ScrollListKey.Collected}:${profileId}`}
-                computeItemKey={(index, post) => `${post.postId}-${index}`}
-                data={data}
-                endReached={onEndReached}
-                itemContent={(index, post) =>
-                    getPostItemContent(index, post, {
-                        onClick: () => {
-                            setScrollIndex(`${ScrollListKey.Collected}_${profileId}`, index);
-                        },
-                    })
-                }
-                useWindowScroll
-                context={{ hasNextPage }}
-                components={{
-                    Footer: VirtualListFooter,
-                }}
-            />
-        </div>
+        <VirtualList
+            listKey={`${ScrollListKey.Collected}:${profileId}`}
+            computeItemKey={(index, post) => `${post.postId}-${index}`}
+            data={data}
+            endReached={onEndReached}
+            itemContent={(index, post) =>
+                getPostItemContent(index, post, {
+                    onClick: () => {
+                        setScrollIndex(`${ScrollListKey.Collected}_${profileId}`, index);
+                    },
+                })
+            }
+            useWindowScroll
+            context={{ hasNextPage }}
+            components={{
+                Footer: VirtualListFooter,
+            }}
+        />
     );
 }

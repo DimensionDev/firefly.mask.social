@@ -1,3 +1,4 @@
+import { SocialPlatform } from '@/constants/enum.js';
 import type { RP_HASH_TAG } from '@/constants/index.js';
 
 /**
@@ -44,21 +45,20 @@ export function writeChars(chars: Chars, newChars: Chars) {
     ];
 }
 
-function calculateLength(text: string): number {
-    let length = 0;
-    for (const char of text) {
-        if (char.charCodeAt(0) > 128 || char.charCodeAt(0) === 94) {
-            length += 2;
+function calculateLength(text: string, availableSources: SocialPlatform[]): number {
+    return Array.from(text).reduce((acc, char) => {
+        if (char.charCodeAt(0) > 128) {
+            // learn more: https://www.notion.so/mask/Compose-post-83dd1d8deaff402093d52a49eed551be?pvs=4
+            return acc + (availableSources.includes(SocialPlatform.Farcaster) ? 3 : 2);
         } else {
-            length += 1;
+            return acc + 1;
         }
-    }
-    return length;
+    }, 0);
 }
 
-export function measureChars(chars: Chars) {
-    const length = calculateLength(readChars(chars));
-    const visibleLength = calculateLength(readChars(chars, true));
+export function measureChars(chars: Chars, availableSources: SocialPlatform[]) {
+    const length = calculateLength(readChars(chars), availableSources);
+    const visibleLength = calculateLength(readChars(chars, true), availableSources);
     return {
         length,
         visibleLength,

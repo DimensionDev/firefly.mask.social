@@ -50,7 +50,8 @@
         "wagmi",
         "warpcast",
         "zora",
-        "zustand"
+        "zustand",
+        "bowser"
     ],
     "ignoreWords": [
         "DEVNET",
