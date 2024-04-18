@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-03-28 15:03\n"
+"PO-Revision-Date: 2024-04-18 00:04\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -28,10 +28,10 @@ msgid "Quote Post"
 msgstr "引用"
 
 msgid "Failed to like."
-msgstr ""
+msgstr "点赞失败"
 
 msgid "Retweet"
-msgstr ""
+msgstr "转帖"
 
 msgid "Failed to fetch as Blob."
 msgstr "获取 Blob 失败。"
@@ -52,7 +52,7 @@ msgid "Failed to mirror. {0}"
 msgstr "转帖失败 {0}"
 
 msgid "X"
-msgstr ""
+msgstr "X"
 
 msgid "Debug Connection"
 msgstr "诊断网络"
@@ -103,7 +103,7 @@ msgid "Offline"
 msgstr "离线"
 
 msgid "Username is required."
-msgstr ""
+msgstr "用户名为必填。"
 
 msgid "Copied"
 msgstr "已复制"
@@ -115,7 +115,7 @@ msgid "Confirm"
 msgstr "确认"
 
 msgid "Username"
-msgstr ""
+msgstr "用户名"
 
 msgid "No results for \"{searchKeyword}\""
 msgstr "{searchKeyword} 搜索无结果"
@@ -127,10 +127,10 @@ msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/> and # other
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> 和 <2/>} other {<3/> 和其他 # 人}} <4>点赞了你的 </4><5><6/></5>"
 
 msgid "Failed to upload to Arweave"
-msgstr ""
+msgstr "上传图片失败"
 
 msgid "Password"
-msgstr ""
+msgstr "密码"
 
 msgid "Liked"
 msgstr "已点赞"
@@ -238,7 +238,7 @@ msgid "Failed to quote post on {sourceName}."
 msgstr ""
 
 msgid "Channel"
-msgstr ""
+msgstr "频道"
 
 msgid "{shares, plural, =0 {Mirror or Quote} zero {Mirror or Quote} one {Mirror or Quote} other {Mirrors or Quotes}}"
 msgstr ""
@@ -694,7 +694,7 @@ msgid "Language"
 msgstr "语言"
 
 msgid "Add a comment"
-msgstr "添加一条评论"
+msgstr "添加一个评论"
 
 msgid "Profiles"
 msgstr "个人信息"
@@ -773,3 +773,4 @@ msgstr "Mint 按钮还未开放。"
 
 msgid "<0/> quoted your <1><2/></1>"
 msgstr "<0/> 引用了你的 <1><2/></1>"
+
