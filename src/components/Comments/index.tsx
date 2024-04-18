@@ -9,6 +9,7 @@ import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.
 import { ScrollListKey, SocialPlatform } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
+import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 
 export interface CommentListProps {
@@ -18,6 +19,7 @@ export interface CommentListProps {
 }
 
 export const CommentList = memo<CommentListProps>(function CommentList({ postId, source, exclude = [] }) {
+    const setScrollIndex = useGlobalState.use.setScrollIndex();
     const fetchAndStoreViews = useImpressionsStore.use.fetchAndStoreViews();
 
     const queryResult = useSuspenseInfiniteQuery({
@@ -50,7 +52,13 @@ export const CommentList = memo<CommentListProps>(function CommentList({ postId,
             VirtualListProps={{
                 listKey: `${ScrollListKey.Comment}:${postId}`,
                 computeItemKey: (index, post) => `${post.postId}-${index}`,
-                itemContent: (index, post) => getPostItemContent(index, post, { isComment: true }),
+                itemContent: (index, post) =>
+                    getPostItemContent(index, post, {
+                        isComment: true,
+                        onClick: () => {
+                            setScrollIndex(`${ScrollListKey.Comment}:${postId}`, index);
+                        },
+                    }),
             }}
             NoResultsFallbackProps={{
                 icon: <MessageIcon width={24} height={24} />,

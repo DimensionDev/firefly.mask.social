@@ -50,7 +50,7 @@ export function FeedList({ profileId, source }: FeedListProps) {
                 itemContent: (index, post) =>
                     getPostItemContent(index, post, {
                         onClick: () => {
-                            setScrollIndex(`${ScrollListKey.Profile}_${profileId}`, index);
+                            setScrollIndex(`${ScrollListKey.Profile}:${profileId}`, index);
                         },
                     }),
             }}

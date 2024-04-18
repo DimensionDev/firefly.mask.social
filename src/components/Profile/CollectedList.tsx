@@ -50,7 +50,7 @@ export function CollectedList({ profileId, source }: CollectedListProps) {
                 itemContent: (index, post) =>
                     getPostItemContent(index, post, {
                         onClick: () => {
-                            setScrollIndex(`${ScrollListKey.Collected}_${profileId}`, index);
+                            setScrollIndex(`${ScrollListKey.Collected}:${profileId}`, index);
                         },
                     }),
             }}

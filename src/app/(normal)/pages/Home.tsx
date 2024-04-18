@@ -55,7 +55,7 @@ export function HomePage({ source, pageable }: Props) {
                 itemContent: (index, post) =>
                     getPostItemContent(index, post, {
                         onClick: () => {
-                            setScrollIndex(ScrollListKey.Discover, index);
+                            setScrollIndex(`${ScrollListKey.Discover}:${source}`, index);
                         },
                     }),
             }}

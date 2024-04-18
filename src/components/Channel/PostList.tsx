@@ -51,7 +51,7 @@ export function PostList({ channelId, source }: PostListProps) {
                 itemContent: (index, post) =>
                     getPostItemContent(index, post, {
                         onClick: () => {
-                            setScrollIndex(`${ScrollListKey.Channel}_${channelId}`, index);
+                            setScrollIndex(`${ScrollListKey.Channel}:${channelId}`, index);
                         },
                     }),
             }}

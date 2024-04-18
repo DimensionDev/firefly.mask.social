@@ -15,7 +15,7 @@ import { type Notification as NotificationType } from '@/providers/types/SocialM
 import { useGlobalState } from '@/store/useGlobalStore.js';
 
 const getNotificationItemContent = (index: number, notification: NotificationType) => {
-    return <NotificationItem key={`${notification.notificationId}-${index}`} notification={notification} />;
+    return <NotificationItem key={notification.notificationId} notification={notification} />;
 };
 
 export default function Notification() {

@@ -70,7 +70,9 @@ export default function Following() {
                 listKey: `${ScrollListKey.Following}:${currentSource}`,
                 computeItemKey: (index, post) => `${post.postId}-${index}`,
                 itemContent: (index, post) =>
-                    getPostItemContent(index, post, { onClick: () => setScrollIndex(ScrollListKey.Following, index) }),
+                    getPostItemContent(index, post, {
+                        onClick: () => setScrollIndex(`${ScrollListKey.Following}:${currentSource}`, index),
+                    }),
             }}
             NoResultsFallbackProps={{
                 className: 'pt-[228px]',
