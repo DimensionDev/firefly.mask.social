@@ -74,7 +74,7 @@ export default function Frame() {
 
             {cacheRemoved === true ? (
                 <div className=" w-full max-w-[500px]">
-                    <FrameUI url={url} postId="" />
+                    <FrameUI url={url} />
                 </div>
             ) : error ? (
                 <div className=" w-full">{error.message}</div>

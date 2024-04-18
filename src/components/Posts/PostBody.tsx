@@ -191,7 +191,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
 
             {post.metadata.content?.oembedUrls?.length && process.env.NEXT_PUBLIC_FRAMES === 'enabled' ? (
                 post.metadata.content.oembedUrls.slice(MAX_FRAME_SIZE_PER_POST * -1).map((oembedUrl, i, urls) => (
-                    <Frame key={oembedUrl} url={oembedUrl} postId={post.postId}>
+                    <Frame key={oembedUrl} url={oembedUrl} post={post}>
                         {/* oembed for the last url */}
                         {i === urls.length - 1 ? (
                             <Oembed url={oembedUrl} onData={() => setEndingLinkCollapsed(true)} />

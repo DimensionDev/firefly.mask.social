@@ -50,5 +50,6 @@ export interface Frame {
 }
 
 export interface LinkDigested {
-    frame: Frame;
+    image: boolean;
+    frame: Frame | null;
 }

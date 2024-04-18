@@ -3,18 +3,21 @@ import { safeUnreachable } from '@masknet/kit';
 import { openWindow } from '@masknet/shared-base-ui';
 import { isValidDomain } from '@masknet/web3-shared-evm';
 import { useQuery } from '@tanstack/react-query';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 import urlcat from 'urlcat';
 
 import { Button } from '@/components/Frame/Button.js';
 import { Input } from '@/components/Frame/Input.js';
+import { Attachments } from '@/components/Posts/Attachment.js';
+import { EMPTY_LIST } from '@/constants/index.js';
 import { Image } from '@/esm/Image.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { untilImageUrlLoaded } from '@/helpers/untilImageLoaded.js';
 import { ConfirmModalRef } from '@/modals/controls.js';
 import { HubbleSocialMediaProvider } from '@/providers/hubble/SocialMedia.js';
+import type { Attachment, Post } from '@/providers/types/SocialMedia.js';
 import { ActionType, type Frame, type FrameButton, type LinkDigested } from '@/types/frame.js';
 import type { ResponseJSON } from '@/types/index.js';
 
@@ -86,12 +89,13 @@ export function FrameUI({ frame, readonly = false, loading = false, onButtonClic
 
 interface FrameProps {
     url: string;
-    postId: string;
+    post?: Post;
     children?: React.ReactNode;
     onData?: (frame: Frame) => void;
 }
 
-export function Frame({ postId, url, onData, children }: FrameProps) {
+export function Frame({ post, url, onData, children }: FrameProps) {
+    const postId = post?.postId || '';
     const [latestFrame, setLatestFrame] = useState<Frame | null>(null);
 
     const {
@@ -115,11 +119,24 @@ export function Frame({ postId, url, onData, children }: FrameProps) {
     });
 
     useEffect(() => {
-        if (!data?.success || !data?.data?.frame) return;
+        if (!data?.success || !data.data.frame) return;
         onData?.(data.data.frame);
     }, [data, onData]);
 
-    const frame: Frame | null = latestFrame ?? (data?.success ? data.data.frame : null);
+    const embeddedImage = data?.success && data.data.image ? url : null;
+    const embeddedAsset: Attachment | null = useMemo(() => {
+        return embeddedImage
+            ? {
+                  type: 'Image',
+                  uri: embeddedImage,
+              }
+            : null;
+    }, [embeddedImage]);
+    const embeddedAttachments = useMemo(() => {
+        return embeddedAsset ? [embeddedAsset] : EMPTY_LIST;
+    }, [embeddedAsset]);
+
+    const frame: Frame | null = latestFrame || (data?.success ? data.data.frame : null);
 
     const [{ loading: isLoadingNextFrame }, handleClick] = useAsyncFn(
         async (button: FrameButton, input?: string) => {
@@ -220,6 +237,8 @@ export function Frame({ postId, url, onData, children }: FrameProps) {
         },
         [frame, latestFrame, postId],
     );
+
+    if (embeddedAsset) return <Attachments asset={embeddedAsset} attachments={embeddedAttachments} />;
 
     if (isLoadingFrame) return null;
 

@@ -2,6 +2,7 @@ import { parseHTML } from 'linkedom';
 
 import { anySignal } from '@/helpers/anySignal.js';
 import { parseURL } from '@/helpers/parseURL.js';
+import { readResponseType } from '@/helpers/readResponseType.js';
 import {
     getAspectRatio,
     getButtons,
@@ -58,6 +59,7 @@ class Processor {
         if (state) frame.state = state;
 
         return {
+            image: false,
             frame,
         };
     };
@@ -69,9 +71,17 @@ class Processor {
         const response = await fetch(url, {
             headers: { 'User-Agent': 'Twitterbot' },
             // It must respond within 5 seconds.
-            signal: anySignal(signal ?? null, AbortSignal.timeout(5000)),
+            signal: anySignal(signal || null, AbortSignal.timeout(5000)),
         });
         if (!response.ok || (response.status >= 500 && response.status < 600)) return null;
+
+        const mime = await readResponseType(response);
+        if (mime.startsWith('image/')) {
+            return {
+                image: true,
+                frame: null,
+            };
+        }
 
         return this.digestDocument(documentUrl, await response.text(), signal);
     };
