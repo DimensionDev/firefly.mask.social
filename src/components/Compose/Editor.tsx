@@ -49,7 +49,7 @@ export const Editor = memo(function Editor({ post, replying }: EditorProps) {
                 contentEditable={
                     <ContentEditable
                         key="editable"
-                        className="flex-1 cursor-text resize-none appearance-none border-none bg-transparent p-0 text-left text-[15px] leading-5 text-main outline-0 focus:ring-0"
+                        className="flex-1 cursor-text resize-none appearance-none border-none bg-transparent p-0 text-left text-[15px] leading-5 text-main outline-none outline-0 focus:ring-0"
                     />
                 }
                 placeholder={
