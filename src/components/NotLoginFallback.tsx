@@ -18,7 +18,7 @@ export const NotLoginFallback = memo<NotLoginFallbackProps>(function LoginFallba
     const fallbackUrl = resolveFallbackImageUrl(source);
 
     return (
-        <div className="flex flex-grow flex-col items-center justify-center space-y-9">
+        <div className="flex flex-grow flex-col items-center justify-center space-y-9 pt-[15vh]">
             <Image src={fallbackUrl} width={200} height={200} alt={`${source} login`} />
             <span className="leading-3.5 px-6 text-base text-secondary">
                 {t`You need to connect your ${source} account to use this feature.`}
