@@ -19,7 +19,7 @@ import { Modal } from '@/components/Modal.js';
 import type { SourceInURL } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { resolveSocialPlatform } from '@/helpers/resolveSocialPlatform.js';
-import { useIsSmall } from '@/hooks/useMediaQuery.js';
+import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { getPostById } from '@/services/getPostById.js';
 
 interface Props {
@@ -57,7 +57,7 @@ export default function PreviewPhotoModal({ params: { id: postId, index }, searc
         slickNext: () => void;
     }>(null);
     const router = useRouter();
-    const isSmall = useIsSmall('max');
+    const isMedium = useIsMedium();
 
     const currentSource = resolveSocialPlatform(source);
 
@@ -97,7 +97,7 @@ export default function PreviewPhotoModal({ params: { id: postId, index }, searc
         <Modal open backdrop={false} onClose={() => router.back()}>
             <div
                 className="preview-actions fixed inset-0 flex transform-none flex-col items-center justify-center bg-black/90 bg-opacity-90 outline-none transition-all"
-                onClick={!isSmall ? () => router.back() : undefined}
+                onClick={isMedium ? () => router.back() : undefined}
             >
                 <div className="absolute left-4 top-4 cursor-pointer text-main">
                     <CloseButton onClick={() => router.back()} />
