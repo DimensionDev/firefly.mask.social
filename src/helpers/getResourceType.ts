@@ -1,23 +1,16 @@
 import { parseURL } from '@/helpers/parseURL.js';
 
 export function getResourceType(urlString: string) {
-    let fileExtension;
-    let parsedUrl;
-    if (typeof window !== 'undefined') {
-        parsedUrl = parseURL(urlString);
-        fileExtension = parsedUrl?.pathname.split('.').pop()?.toLowerCase();
-    } else if (typeof require === 'function') {
-        const path = require('path');
-        const url = require('url');
+    const parsedURL = parseURL(urlString);
 
-        parsedUrl = url.parse(urlString);
-        fileExtension = path.extname(parsedUrl.pathname).slice(1).toLowerCase();
-    } else {
-        throw new Error('Unsupported environment');
-    }
+    if (!parsedURL) return;
+
+    const fileExtension = parsedURL?.pathname.split('.').pop()?.toLowerCase();
+
+    if (!fileExtension) return;
 
     // TODO Temporary solution for https://mask.atlassian.net/browse/FW-755
-    if (['imagedelivery.net'].includes(parsedUrl.hostname)) {
+    if (['imagedelivery.net'].includes(parsedURL.hostname)) {
         return 'Image';
     }
 

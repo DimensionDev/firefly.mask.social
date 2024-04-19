@@ -16,7 +16,7 @@ import {
 
 function formatContent(cast: Cast): Post['metadata']['content'] {
     const matchedUrls = [...cast.text.matchAll(URL_REGEX)].map((x) => x[0]);
-    const oembedUrls = uniqBy(compact([...matchedUrls]), (x) => x?.toLowerCase()).map(fixUrlProtocol);
+    const oembedUrls = uniqBy(compact([...matchedUrls]), (x) => x.toLowerCase()).map(fixUrlProtocol);
     const oembedUrl = last(oembedUrls);
     const defaultContent = { content: cast.text, oembedUrl, oembedUrls };
 
