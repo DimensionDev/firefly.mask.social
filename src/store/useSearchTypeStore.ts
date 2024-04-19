@@ -1,12 +1,12 @@
 import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
-import { SearchType } from '@/constants/enum.js';
 
+import { SearchType } from '@/constants/enum.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 
 interface SearchTypeState {
-  searchType: SearchType
-  updateSearchType: (type: SearchType) => void
+    searchType: SearchType;
+    updateSearchType: (type: SearchType) => void;
 }
 
 const useSearchTypeStateBase = create<SearchTypeState, [['zustand/immer', never]]>(

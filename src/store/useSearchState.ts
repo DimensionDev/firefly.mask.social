@@ -1,8 +1,8 @@
 import { useRouter, useSearchParams } from 'next/navigation.js';
 import { useCallback, useEffect } from 'react';
-import { useSearchTypeState } from '@/store/useSearchTypeStore.js';
 
 import { SearchType } from '@/constants/enum.js';
+import { useSearchTypeState } from '@/store/useSearchTypeStore.js';
 
 export interface SearchState {
     type?: SearchType;
@@ -18,7 +18,7 @@ export function useSearchState() {
     useEffect(() => {
         const type = params.get('type') as SearchType;
         if (type) updateSearchType(type);
-    }, [params, searchType, updateSearchType])
+    }, [params, searchType, updateSearchType]);
 
     const updateState = useCallback(
         (state: SearchState, replace?: boolean) => {
@@ -29,10 +29,11 @@ export function useSearchState() {
             if(state.type) {
                 updateSearchType(state.type);
             }
+
             Object.entries(state).forEach(([key, val]) => {
                 if (val) newParams.set(key, val);
             });
-            
+
             const url = `/search?${newParams.toString()}`;
             if (!newParams.get('q')) return;
             if (replace) router.replace(url);

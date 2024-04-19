@@ -308,9 +308,9 @@ body {
 }
 
 .button:focus {
-    outline: none
+    outline: none;
 }
 
 .a:focus {
-    outline: none
+    outline: none;
 }

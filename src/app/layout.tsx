@@ -36,7 +36,7 @@ export default function RootLayout({ children, modal }: { children: React.ReactN
         <html>
             <head>
                 <Polyfills />
-                <Script src="https://cdn.jsdelivr.net/npm/bowser@2.11.0/es5.min.js" />
+                <Script src="https://cdn.jsdelivr.net/npm/bowser@2.11.0/es5.min.js" strategy="beforeInteractive" />
                 <Script src="/js/browser-detector.js" defer />
                 <meta name="theme-color" content="#ffffff" />
             </head>
