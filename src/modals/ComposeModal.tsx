@@ -34,7 +34,7 @@ import { getCurrentAvailableSources } from '@/helpers/getCurrentAvailableSources
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isEmptyPost } from '@/helpers/isEmptyPost.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
-import { hasRpPayload, isRpEncryped, updateRpEncrypted } from '@/helpers/rpPayload.js';
+import { hasRpPayload, isRpEncrypted, updateRpEncrypted } from '@/helpers/rpPayload.js';
 import { throws } from '@/helpers/throws.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfileAll.js';
@@ -140,7 +140,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
         // Avoid recreating post content for Redpacket
         const { loading: encryptRedPacketLoading } = useAsync(async () => {
             if (!typedMessage) return;
-            if (!hasRpPayload(typedMessage) || isRpEncryped(typedMessage)) return;
+            if (!hasRpPayload(typedMessage) || isRpEncrypted(typedMessage)) return;
             if (!rpPayload?.payloadImage) return;
 
             try {
