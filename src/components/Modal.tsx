@@ -14,7 +14,7 @@ interface ModalProps {
 }
 
 export function Modal({ backdrop = true, open, onClose, children, className }: ModalProps) {
-    const ref = useRef<HTMLDivElement>(null)
+    const ref = useRef<HTMLDivElement>(null);
 
     return (
         <Transition appear show={open} as={Fragment}>
