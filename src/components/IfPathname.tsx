@@ -7,19 +7,33 @@ import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 
 interface IfPathname {
     exact?: boolean;
-    isOneOf?: Array<`/${string}`>;
-    isNotOneOf?: Array<`/${string}`>;
+    isOneOf?: Array<`/${string}` | RegExp>;
+    isNotOneOf?: Array<`/${string}` | RegExp>;
     children: ReactNode;
 }
 
 export function IfPathname({ exact = false, isOneOf, isNotOneOf, children }: IfPathname) {
     const pathname = usePathname();
 
-    if (isOneOf?.some((includedPath) => isRoutePathname(pathname, includedPath, exact))) {
+    if (
+        isOneOf &&
+        isOneOf.some((includedPath) =>
+            typeof includedPath === 'string'
+                ? isRoutePathname(pathname, includedPath, exact)
+                : includedPath.test(pathname),
+        )
+    ) {
         return <>{children}</>;
     }
 
-    if (isNotOneOf && !isNotOneOf.some((excludedPath) => isRoutePathname(pathname, excludedPath, exact))) {
+    if (
+        isNotOneOf &&
+        !isNotOneOf.some((excludedPath) =>
+            typeof excludedPath === 'string'
+                ? isRoutePathname(pathname, excludedPath, exact)
+                : excludedPath.test(pathname),
+        )
+    ) {
         return <>{children}</>;
     }
 
