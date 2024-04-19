@@ -24,9 +24,9 @@ export function useSearchState() {
         (state: SearchState, replace?: boolean) => {
             const newParams = new URLSearchParams(params);
 
-            if(searchType) newParams.set('type', searchType)
+            if (searchType) newParams.set('type', searchType);
 
-            if(state.type) {
+            if (state.type) {
                 updateSearchType(state.type);
             }
 
