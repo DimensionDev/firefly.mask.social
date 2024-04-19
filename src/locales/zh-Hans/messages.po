@@ -204,9 +204,6 @@ msgstr "Frame Validator"
 msgid "Follow System"
 msgstr "跟随系统"
 
-msgid "No results"
-msgstr "没有任何结果。"
-
 msgid "URL is required."
 msgstr "请选择 URL"
 
@@ -238,6 +235,9 @@ msgid "and"
 msgstr "和"
 
 msgid "Failed to quote post on {sourceName}."
+msgstr ""
+
+msgid "Channel"
 msgstr ""
 
 msgid "{shares, plural, =0 {Mirror or Quote} zero {Mirror or Quote} one {Mirror or Quote} other {Mirrors or Quotes}}"
@@ -580,7 +580,10 @@ msgid "Refresh"
 msgstr "刷新"
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/> and # others}}<4> followed you</4>"
-msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> 和 <2/>} other {<3/> 和其他 # 人}} <5> 关注了你</5>"
+msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> 和 <2/>} other {<3/> 和其他 # 人}}<4> 关注了你</4>"
+
+msgid "Channels"
+msgstr "频道"
 
 msgid "Firefly"
 msgstr "Firefly"

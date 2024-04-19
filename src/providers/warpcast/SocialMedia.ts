@@ -18,6 +18,7 @@ import { formatWarpcastUser } from '@/helpers/formatWarpcastUser.js';
 import { toFid } from '@/helpers/toFid.js';
 import { unhash } from '@/helpers/unhash.js';
 import {
+    type Channel,
     type Notification,
     NotificationType,
     type Post,
@@ -62,15 +63,43 @@ class WarpcastSocialMedia implements Provider {
         throw new Error('Method not implemented.');
     }
 
-    getCommentsById(postId: string, indicator?: PageIndicator | undefined): Promise<Pageable<Post, PageIndicator>> {
+    getCommentsById(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         throw new Error('Method not implemented.');
     }
 
-    getReactors(postId: string, indicator?: PageIndicator | undefined): Promise<Pageable<Profile, PageIndicator>> {
+    getReactors(postId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
         throw new Error('Method not implemented.');
     }
 
     getThreadByPostId(postId: string, rootPost?: Post): Promise<Post[]> {
+        throw new Error('Method not implemented.');
+    }
+
+    getChannelById(channelId: string): Promise<Channel> {
+        throw new Error('Method not implemented.');
+    }
+
+    getChannelByHandle(channelHandle: string): Promise<Channel> {
+        throw new Error('Method not implemented.');
+    }
+
+    getChannelsByProfileId(profileId: string, indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {
+        throw new Error('Method not implemented.');
+    }
+
+    discoverChannels(indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {
+        throw new Error('Method not implemented.');
+    }
+
+    getPostsByChannelId(channelId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        throw new Error('Method not implemented.');
+    }
+
+    getPostsByChannelHandle(channelHandle: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        throw new Error('Method not implemented.');
+    }
+
+    searchChannels(q: string, indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {
         throw new Error('Method not implemented.');
     }
 

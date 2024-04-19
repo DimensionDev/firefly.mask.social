@@ -199,9 +199,6 @@ msgstr "Frame Validator"
 msgid "Follow System"
 msgstr "Follow System"
 
-msgid "No results"
-msgstr "No results"
-
 msgid "URL is required."
 msgstr "URL is required."
 
@@ -234,6 +231,9 @@ msgstr "and"
 
 msgid "Failed to quote post on {sourceName}."
 msgstr "Failed to quote post on {sourceName}."
+
+msgid "Channel"
+msgstr "Channel"
 
 msgid "{shares, plural, =0 {Mirror or Quote} zero {Mirror or Quote} one {Mirror or Quote} other {Mirrors or Quotes}}"
 msgstr "{shares, plural, =0 {Mirror or Quote} zero {Mirror or Quote} one {Mirror or Quote} other {Mirrors or Quotes}}"
@@ -576,6 +576,9 @@ msgstr "Refresh"
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/> and # others}}<4> followed you</4>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/> and # others}}<4> followed you</4>"
+
+msgid "Channels"
+msgstr "Channels"
 
 msgid "Firefly"
 msgstr "Firefly"

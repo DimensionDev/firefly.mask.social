@@ -6,7 +6,7 @@ import { memo, useCallback } from 'react';
 import MessageIcon from '@/assets/message.svg';
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.js';
-import { VirtualList } from '@/components/VirtualList/index.js';
+import { VirtualList } from '@/components/VirtualList/VirtualList.js';
 import { VirtualListFooter } from '@/components/VirtualList/VirtualListFooter.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
@@ -59,7 +59,7 @@ export const CommentList = memo<CommentListProps>(function CommentList({ postId,
         await fetchNextPage();
     }, [hasNextPage, isFetching, isFetchingNextPage, fetchNextPage]);
 
-    if (results.length === 0) {
+    if (!results.length) {
         return (
             <NoResultsFallback
                 icon={<MessageIcon width={24} height={24} />}
@@ -69,18 +69,16 @@ export const CommentList = memo<CommentListProps>(function CommentList({ postId,
     }
 
     return (
-        <div>
-            <VirtualList
-                computeItemKey={(index, post) => `${post.postId}-${index}`}
-                data={results}
-                endReached={onEndReached}
-                itemContent={(index, post) => getPostItemContent(index, post, { isComment: true })}
-                useWindowScroll
-                context={{ hasNextPage }}
-                components={{
-                    Footer: VirtualListFooter,
-                }}
-            />
-        </div>
+        <VirtualList
+            computeItemKey={(index, post) => `${post.postId}-${index}`}
+            data={results}
+            endReached={onEndReached}
+            itemContent={(index, post) => getPostItemContent(index, post, { isComment: true })}
+            useWindowScroll
+            context={{ hasNextPage }}
+            components={{
+                Footer: VirtualListFooter,
+            }}
+        />
     );
 });

@@ -23,6 +23,7 @@ export enum SourceInURL {
 export enum SearchType {
     Users = 'users',
     Posts = 'posts',
+    Channels = 'channels',
 }
 
 export enum KeyType {
@@ -30,9 +31,16 @@ export enum KeyType {
     DigestFrameLink = 'digestFrameLink',
     GetPostOGById = 'getPostOGById',
     GetProfileOGById = 'getProfileOGById',
+    GetChannelOGById = 'getChannelOGById',
     UploadToBlob = 'uploadToBlob',
     GetLensThreadByPostId = 'getLensThreadByPostId',
     RefreshLensThreadLock = 'RefreshLensThreadLock',
+}
+
+export enum ProfileTabType {
+    Feed = 'Feed',
+    Collected = 'Collected',
+    Channels = 'Channels',
 }
 
 export enum ScrollListKey {
@@ -41,6 +49,7 @@ export enum ScrollListKey {
     Notification = 'notification-list',
     Search = 'search-list',
     Comment = 'comment-list',
+    Channel = 'channel-post-list',
     Profile = 'profile-post-list',
     Collected = 'profile-collected-list',
 }

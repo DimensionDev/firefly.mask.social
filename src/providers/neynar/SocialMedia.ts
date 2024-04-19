@@ -8,6 +8,7 @@ import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { formatFarcasterProfileFromNeynar } from '@/helpers/formatFarcasterProfileFromNeynar.js';
 import type { Profile as NeynarProfile } from '@/providers/types/Neynar.js';
 import {
+    type Channel,
     type Notification,
     type Post,
     type Profile,
@@ -37,6 +38,34 @@ function fetchNeynarJSON<T>(url: string, options: RequestInit): Promise<T> {
 
 class NeynarSocialMedia implements Provider {
     commentPost(postId: string, post: Post): Promise<string> {
+        throw new Error('Method not implemented.');
+    }
+
+    getChannelById(channelId: string): Promise<Channel> {
+        throw new Error('Method not implemented.');
+    }
+
+    getChannelByHandle(channelHandle: string): Promise<Channel> {
+        throw new Error('Method not implemented.');
+    }
+
+    getChannelsByProfileId(profileId: string, indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {
+        throw new Error('Method not implemented.');
+    }
+
+    discoverChannels(indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {
+        throw new Error('Method not implemented.');
+    }
+
+    getPostsByChannelId(channelId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        throw new Error('Method not implemented.');
+    }
+
+    getPostsByChannelHandle(channelHandle: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        throw new Error('Method not implemented.');
+    }
+
+    searchChannels(q: string, indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {
         throw new Error('Method not implemented.');
     }
 
@@ -161,7 +190,7 @@ class NeynarSocialMedia implements Provider {
         });
     }
 
-    async searchProfiles(q: string, indicator?: PageIndicator | undefined) {
+    async searchProfiles(q: string, indicator?: PageIndicator) {
         return farcasterClient.withSession(async (session) => {
             const url = urlcat(NEYNAR_URL, '/v2/farcaster/user/search', {
                 q,
