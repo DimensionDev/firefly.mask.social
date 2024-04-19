@@ -108,7 +108,7 @@ export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({
                             className=" flex flex-1 items-center rounded-md bg-lightBg px-3"
                             onSubmit={(ev) => {
                                 ev.preventDefault();
-                                handleInputSubmit({ q: inputText, type: SearchType.Posts });
+                                handleInputSubmit({ q: inputText });
                             }}
                         >
                             <MagnifierIcon width={18} height={18} />
