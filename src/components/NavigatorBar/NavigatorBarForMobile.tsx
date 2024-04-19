@@ -1,6 +1,6 @@
 import { compact } from 'lodash-es';
 import { usePathname, useRouter } from 'next/navigation.js';
-import { memo, startTransition, useRef, useState } from 'react';
+import { memo, useRef, useState } from 'react';
 
 import AdjustmentsIcon from '@/assets/adjustments.svg';
 import FireflyIcon from '@/assets/firefly.svg';
@@ -45,11 +45,12 @@ export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({
     const currentProfileAll = useCurrentProfileAll();
     const currentProfiles = compact(SORTED_SOURCES.map((x) => currentProfileAll[x]));
 
-    const inputRef = useRef<HTMLInputElement>(null);
-
-    const { searchKeyword, updateState, updateSearchKeyword } = useSearchStateStore();
+    const { searchKeyword, updateState } = useSearchStateStore();
     const { updateSidebarOpen } = useNavigatorState();
     const { addRecord } = useSearchHistoryStateStore();
+
+    const inputRef = useRef<HTMLInputElement>(null);
+    const [inputText, setInputText] = useState(searchKeyword);
 
     const handleInputSubmit = (state: SearchState) => {
         if (state.q) addRecord(state.q);
@@ -68,7 +69,7 @@ export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({
                                 if (!enableSearch) return;
                                 setSearchMode(false);
                                 setShowRecommendation(false);
-                                updateSearchKeyword('');
+                                setInputText('');
                             }}
                         >
                             <LeftArrowIcon />
@@ -107,15 +108,15 @@ export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({
                             className=" flex flex-1 items-center rounded-md bg-lightBg px-3"
                             onSubmit={(ev) => {
                                 ev.preventDefault();
-                                handleInputSubmit({ q: searchKeyword, type: SearchType.Posts });
+                                handleInputSubmit({ q: inputText, type: SearchType.Posts });
                             }}
                         >
                             <MagnifierIcon width={18} height={18} />
                             <SearchInput
-                                value={searchKeyword}
-                                onChange={(ev) => startTransition(() => updateSearchKeyword(ev.target.value))}
+                                value={inputText}
+                                onChange={(ev) => setInputText(ev.target.value)}
                                 onFocus={() => setShowRecommendation(true)}
-                                onClear={() => updateSearchKeyword('')}
+                                onClear={() => setInputText('')}
                             />
                         </form>
                     ) : (

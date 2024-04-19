@@ -1,7 +1,7 @@
 'use client';
 
 import { usePathname, useRouter } from 'next/navigation.js';
-import { memo, startTransition, useRef, useState } from 'react';
+import { memo, useRef, useState } from 'react';
 import { useOnClickOutside } from 'usehooks-ts';
 
 import LeftArrowIcon from '@/assets/left-arrow.svg';
@@ -21,7 +21,7 @@ const SearchBar = memo(function SearchBar(props: SearchBarProps) {
     const router = useRouter();
     const [showRecommendation, setShowRecommendation] = useState(false);
 
-    const { searchKeyword, updateState, updateSearchKeyword } = useSearchStateStore();
+    const { searchKeyword, updateState } = useSearchStateStore();
     const { addRecord } = useSearchHistoryStateStore();
 
     const pathname = usePathname();
@@ -29,6 +29,7 @@ const SearchBar = memo(function SearchBar(props: SearchBarProps) {
 
     const rootRef = useRef(null);
     const inputRef = useRef<HTMLInputElement>(null);
+    const [inputText, setInputText] = useState(searchKeyword);
 
     useOnClickOutside(rootRef, () => {
         setShowRecommendation(false);
@@ -60,19 +61,19 @@ const SearchBar = memo(function SearchBar(props: SearchBarProps) {
                     className="w-full flex-1"
                     onSubmit={(ev) => {
                         ev.preventDefault();
-                        handleInputSubmit({ q: searchKeyword });
+                        handleInputSubmit({ q: inputText });
                     }}
                 >
                     <SearchInput
-                        value={searchKeyword}
-                        onChange={(ev) => startTransition(() => updateSearchKeyword(ev.target.value))}
+                        value={inputText}
+                        onChange={(ev) => setInputText(ev.target.value)}
                         onFocus={() => setShowRecommendation(true)}
-                        onClear={() => updateSearchKeyword('')}
+                        onClear={() => setInputText('')}
                     />
                 </form>
                 {showRecommendation && !isSearchPage ? (
                     <SearchRecommendation
-                        keyword={searchKeyword}
+                        keyword={inputText}
                         onSearch={() => setShowRecommendation(false)}
                         onSelect={() => setShowRecommendation(false)}
                         onClear={() => inputRef.current?.focus()}
