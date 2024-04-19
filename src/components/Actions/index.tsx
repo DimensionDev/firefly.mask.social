@@ -31,6 +31,7 @@ export const PostActions = memo<PostActionsProps>(function PostActions({
 }) {
     const publicationViews = useImpressionsStore.use.publicationViews();
     const isSmall = useIsSmall('max');
+    const isComment = post.type === 'Comment';
 
     const views = useMemo(() => {
         return publicationViews.find((x) => x.id === post.postId)?.views;
@@ -60,6 +61,7 @@ export const PostActions = memo<PostActionsProps>(function PostActions({
         ) : null,
         <Like
             key="like"
+            isComment={isComment}
             count={post.stats?.reactions}
             hasLiked={post.hasLiked}
             postId={post.postId}
