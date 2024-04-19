@@ -15,7 +15,16 @@ export default function Layout({ children, modal }: { children: React.ReactNode;
                         <NavigatorBar />
                     </IfPathname>
 
-                    <IfPathname isNotOneOf={[/\/post\/[^\/]+$/i, '/profile', '/channel']}>
+                    <IfPathname
+                        isNotOneOf={[
+                            {
+                                r: '/post/[^/]+$',
+                                flags: 'i',
+                            },
+                            '/profile',
+                            '/channel',
+                        ]}
+                    >
                         <NavigatorBar />
                     </IfPathname>
 
