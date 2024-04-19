@@ -2,7 +2,7 @@
 
 import { floor } from 'lodash-es';
 import React, { useRef } from 'react';
-import { useMount } from 'react-use';
+import { useMount, useWindowSize } from 'react-use';
 import { Virtuoso, type VirtuosoHandle, type VirtuosoProps } from 'react-virtuoso';
 
 import { useGlobalState } from '@/store/useGlobalStore.js';
@@ -15,6 +15,7 @@ export function VirtualList<ItemData = unknown, Context = unknown>({
     listKey,
     ...rest
 }: VirtualListProps<ItemData, Context>) {
+    const { height } = useWindowSize();
     const { scrollIndex, setScrollIndex } = useGlobalState();
     const ref = useRef<VirtuosoHandle>(null);
 
@@ -31,6 +32,7 @@ export function VirtualList<ItemData = unknown, Context = unknown>({
     return (
         <Virtuoso
             ref={ref}
+            overscan={height}
             {...rest}
             rangeChanged={({ startIndex, endIndex }) => {
                 if (!listKey) return;
