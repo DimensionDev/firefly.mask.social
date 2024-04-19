@@ -1,6 +1,6 @@
 import { compact } from 'lodash-es';
 import { usePathname, useRouter } from 'next/navigation.js';
-import { memo, useRef, useState } from 'react';
+import { memo, useLayoutEffect, useRef, useState } from 'react';
 
 import AdjustmentsIcon from '@/assets/adjustments.svg';
 import FireflyIcon from '@/assets/firefly.svg';
@@ -57,6 +57,10 @@ export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({
         setShowRecommendation(false);
     };
 
+    useLayoutEffect(() => {
+        setInputText(searchKeyword);
+    }, [searchKeyword]);
+
     return (
         <>
             <header className=" flex items-center gap-4 px-4 py-[7px] text-main">
@@ -68,7 +72,6 @@ export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({
                                 if (!enableSearch) return;
                                 setSearchMode(false);
                                 setShowRecommendation(false);
-                                setInputText('');
                             }}
                         >
                             <LeftArrowIcon />
