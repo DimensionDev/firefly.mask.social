@@ -55,9 +55,6 @@ msgstr ""
 msgid "{0} views"
 msgstr ""
 
-msgid "Failed to like {0}."
-msgstr ""
-
 msgid "Act"
 msgstr ""
 
@@ -566,9 +563,6 @@ msgid "Failed to mirror post."
 msgstr ""
 
 msgid "Login with custody wallet"
-msgstr ""
-
-msgid "Failed to unlike {0}."
 msgstr ""
 
 msgid "Delegate Signing (Recommend)"
