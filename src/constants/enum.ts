@@ -37,6 +37,12 @@ export enum KeyType {
     RefreshLensThreadLock = 'RefreshLensThreadLock',
 }
 
+export enum ProfileTabType {
+    Feed = 'Feed',
+    Collected = 'Collected',
+    Channels = 'Channels',
+}
+
 export enum ScrollListKey {
     Discover = 'discover-list',
     Following = 'following-list',

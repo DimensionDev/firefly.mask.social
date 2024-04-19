@@ -4,6 +4,7 @@ import { Trans } from '@lingui/macro';
 import { memo } from 'react';
 
 import { SearchType } from '@/constants/enum.js';
+import { SORTED_SEARCH_TYPE } from '@/constants/index.js';
 import { DraggablePopoverRef } from '@/modals/controls.js';
 import { useSearchStateStore } from '@/store/useSearchStore.js';
 
@@ -30,29 +31,31 @@ export const SearchFilter = memo(function SearchFilter() {
                             type: SearchType.Channels,
                             label: <Trans>Channels</Trans>,
                         },
-                    ].map((filter) => (
-                        <div key={filter.type} className="flex items-center">
-                            <label
-                                htmlFor={filter.type}
-                                className=" block flex-1 py-2 text-sm font-bold leading-6 dark:text-white"
-                            >
-                                {filter.label}
-                            </label>
-                            <input
-                                id={filter.type}
-                                name="notification-method"
-                                type="radio"
-                                defaultChecked={filter.type === searchType}
-                                className="h-4 w-4 border-gray-300 text-indigo-600"
-                                onClick={() => {
-                                    updateState({ type: filter.type });
+                    ]
+                        .filter((x) => SORTED_SEARCH_TYPE.includes(x.type))
+                        .map((filter) => (
+                            <div key={filter.type} className="flex items-center">
+                                <label
+                                    htmlFor={filter.type}
+                                    className=" block flex-1 py-2 text-sm font-bold leading-6 dark:text-white"
+                                >
+                                    {filter.label}
+                                </label>
+                                <input
+                                    id={filter.type}
+                                    name="notification-method"
+                                    type="radio"
+                                    defaultChecked={filter.type === searchType}
+                                    className="h-4 w-4 border-gray-300 text-indigo-600"
+                                    onClick={() => {
+                                        updateState({ type: filter.type });
 
-                                    // in mobile view, close the popover after selecting a filter
-                                    DraggablePopoverRef.close();
-                                }}
-                            />
-                        </div>
-                    ))}
+                                        // in mobile view, close the popover after selecting a filter
+                                        DraggablePopoverRef.close();
+                                    }}
+                                />
+                            </div>
+                        ))}
                 </fieldset>
             </div>
         </div>
