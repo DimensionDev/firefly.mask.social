@@ -11,8 +11,7 @@ import { SearchRecommendation } from '@/components/Search/SearchRecommendation.j
 import { classNames } from '@/helpers/classNames.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { useSearchHistoryStateStore } from '@/store/useSearchHistoryStore.js';
-import { type SearchState, useSearchState } from '@/store/useSearchState.js';
-import { useSearchTypeState } from '@/store/useSearchTypeStore.js';
+import { type SearchState, useSearchStateStore } from '@/store/useSearchStore.js';
 
 interface SearchBarProps {
     source: 'header' | 'secondary';
@@ -22,16 +21,14 @@ const SearchBar = memo(function SearchBar(props: SearchBarProps) {
     const router = useRouter();
     const [showRecommendation, setShowRecommendation] = useState(false);
 
-    const { searchKeyword, updateState } = useSearchState();
+    const { searchKeyword, updateState, updateSearchKeyword } = useSearchStateStore();
     const { addRecord } = useSearchHistoryStateStore();
 
     const pathname = usePathname();
     const isSearchPage = isRoutePathname(pathname, '/search');
 
-    const inputRef = useRef<HTMLInputElement>(null);
-    const { updateSearchKeyword } = useSearchTypeState();
-
     const rootRef = useRef(null);
+    const inputRef = useRef<HTMLInputElement>(null);
 
     useOnClickOutside(rootRef, () => {
         setShowRecommendation(false);

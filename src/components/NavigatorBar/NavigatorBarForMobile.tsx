@@ -20,8 +20,7 @@ import { useCurrentProfileAll } from '@/hooks/useCurrentProfileAll.js';
 import { DraggablePopoverRef } from '@/modals/controls.js';
 import { useNavigatorState } from '@/store/useNavigatorStore.js';
 import { useSearchHistoryStateStore } from '@/store/useSearchHistoryStore.js';
-import { type SearchState, useSearchState } from '@/store/useSearchState.js';
-import { useSearchTypeState } from '@/store/useSearchTypeStore.js';
+import { type SearchState, useSearchStateStore } from '@/store/useSearchStore.js';
 
 interface NavigatorBarForMobileProps {
     title: string;
@@ -46,12 +45,11 @@ export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({
     const currentProfileAll = useCurrentProfileAll();
     const currentProfiles = compact(SORTED_SOURCES.map((x) => currentProfileAll[x]));
 
-    const { searchKeyword, updateState } = useSearchState();
+    const inputRef = useRef<HTMLInputElement>(null);
+
+    const { searchKeyword, updateState, updateSearchKeyword } = useSearchStateStore();
     const { updateSidebarOpen } = useNavigatorState();
     const { addRecord } = useSearchHistoryStateStore();
-
-    const inputRef = useRef<HTMLInputElement>(null);
-    const { updateSearchKeyword } = useSearchTypeState();
 
     const handleInputSubmit = (state: SearchState) => {
         if (state.q) addRecord(state.q);

@@ -21,7 +21,7 @@ import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useSearchHistoryStateStore } from '@/store/useSearchHistoryStore.js';
-import { type SearchState, useSearchState } from '@/store/useSearchState.js';
+import { type SearchState, useSearchStateStore } from '@/store/useSearchStore.js';
 
 interface SearchRecommendationProps {
     keyword: string;
@@ -38,7 +38,7 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
     const debouncedKeyword = useDebounce(keyword, 300);
 
     const { currentSource } = useGlobalState();
-    const { updateState } = useSearchState();
+    const { updateState } = useSearchStateStore();
     const { records, addRecord, removeRecord, clearAll } = useSearchHistoryStateStore();
 
     const { data: profiles, isLoading } = useQuery({
