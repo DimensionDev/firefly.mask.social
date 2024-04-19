@@ -38,7 +38,7 @@ interface ComposeActionProps {
 }
 
 export function ComposeAction(props: ComposeActionProps) {
-    const { chars, images, video, parentPost } = props.post;
+    const { chars, images, video } = props.post;
 
     const isMedium = useIsMedium();
 
@@ -46,7 +46,7 @@ export function ComposeAction(props: ComposeActionProps) {
     const profilesAll = useProfilesAll();
 
     const { type, posts, addPostInThread, updateRestriction } = useComposeStateStore();
-    const { rootPost, isRootPost } = useCompositePost();
+    const { rootPost, isRootPost, parentPost } = useCompositePost();
 
     const { length, visibleLength, invisibleLength } = measureChars(chars, rootPost.availableSources);
 
@@ -208,7 +208,7 @@ export function ComposeAction(props: ComposeActionProps) {
                         <>
                             <Popover.Button
                                 className=" flex cursor-pointer gap-1 text-main focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
-                                disabled={!isRootPost || !!parentPost}
+                                disabled={!isRootPost || rootPost.availableSources.some((x) => !!parentPost[x])}
                             >
                                 <span className="flex items-center gap-x-1 font-bold">
                                     {rootPost.availableSources
