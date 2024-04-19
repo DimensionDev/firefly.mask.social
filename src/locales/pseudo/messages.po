@@ -649,6 +649,9 @@ msgstr ""
 msgid "Your Lens account is now connected"
 msgstr ""
 
+msgid "Click to copy"
+msgstr ""
+
 msgid "Mask Network"
 msgstr ""
 

@@ -12,6 +12,7 @@ import { Section } from '@/app/(settings)/components/Section.js';
 import CopyIcon from '@/assets/copy.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Tooltip } from '@/components/Tooltip.js';
+import { enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfileAll.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
@@ -31,6 +32,7 @@ export default function Connected() {
     const handleClick = useCallback(() => {
         if (!address) return;
         copyToClipboard(address);
+        enqueueSuccessMessage(t`Copied`);
     }, [address, copyToClipboard]);
 
     useNavigatorTitle(t`Connected Accounts`);
@@ -52,7 +54,7 @@ export default function Connected() {
                                 {address ? formatEthereumAddress(address, 4) : null}
                             </span>
                             <Tooltip
-                                content={'copied'}
+                                content={t`Click to copy`}
                                 placement="top"
                                 duration={200}
                                 trigger="click"
