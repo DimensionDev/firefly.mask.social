@@ -1,14 +1,10 @@
 'use client';
 
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
-
 import { ArrowLeftIcon, ArrowRightIcon } from '@heroicons/react/24/outline';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
 import { useRouter } from 'next/navigation.js';
 import { useMemo, useRef } from 'react';
-import Slider from 'react-slick';
 import { useKeyPressEvent } from 'react-use';
 
 import { PostActions } from '@/components/Actions/index.js';
@@ -110,34 +106,19 @@ export default function PreviewPhotoModal({ params: { id: postId, index }, searc
                     <CloseButton onClick={() => router.back()} />
                 </div>
                 <div className="flex w-full text-main">
-                    {/* Due to the react-slick type library not being updated yet,
-                        we can only ignore it for now to keep things working normally.
-                        https://github.com/akiran/react-slick/issues/2336
-                    */}
-                    {/* @ts-ignore */}
-                    <Slider
-                        ref={slickRef}
-                        infinite={false}
-                        vertical={false}
-                        swapToSlide
-                        initialSlide={Number(index) - 1}
-                        nextArrow={<CustomRightArrow />}
-                        prevArrow={<CustomLeftArrow />}
-                    >
-                        {images.map((x, key) => {
-                            return (
-                                <Image
-                                    key={index}
-                                    src={x}
-                                    alt={x}
-                                    width={1000}
-                                    height={1000}
-                                    style={{ width: 'auto', height: 'auto' }}
-                                    className="max-h-[calc(100vh-110px)] object-contain max-md:h-[calc(100vh-90px)] max-md:max-w-[calc(100%-30px)]"
-                                />
-                            );
-                        })}
-                    </Slider>
+                    {images.map((x, key) => {
+                        return (
+                            <Image
+                                key={index}
+                                src={x}
+                                alt={x}
+                                width={1000}
+                                height={1000}
+                                style={{ width: 'auto', height: 'auto' }}
+                                className="max-h-[calc(100vh-110px)] object-contain max-md:h-[calc(100vh-90px)] max-md:max-w-[calc(100%-30px)]"
+                            />
+                        );
+                    })}
                 </div>
                 <div className="absolute my-1 flex items-center justify-between bottom-safe">
                     {post ? <PostActions className="gap-8" post={post} disablePadding /> : null}
