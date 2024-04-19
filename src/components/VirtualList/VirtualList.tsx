@@ -33,6 +33,7 @@ export function VirtualList<ItemData = unknown, Context = unknown>({
         <Virtuoso
             ref={ref}
             overscan={height}
+            increaseViewportBy={height}
             {...rest}
             rangeChanged={({ startIndex, endIndex }) => {
                 if (!listKey) return;
