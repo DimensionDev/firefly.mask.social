@@ -18,7 +18,7 @@ export function useSearchState() {
     useEffect(() => {
         const type = params.get('type') as SearchType;
         if (type) updateSearchType(type);
-    }, [params, searchType, updateSearchType]);
+    }, [params, updateSearchType]);
 
     const updateState = useCallback(
         (state: SearchState, replace?: boolean) => {
