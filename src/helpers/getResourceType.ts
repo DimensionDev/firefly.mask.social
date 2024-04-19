@@ -1,12 +1,11 @@
-import { canParseURL } from '@/helpers/canParseURL.js';
+import { parseURL } from '@/helpers/parseURL.js';
 
 export function getResourceType(urlString: string) {
     let fileExtension;
     let parsedUrl;
     if (typeof window !== 'undefined') {
-        if (!canParseURL(urlString)) return;
-        parsedUrl = new URL(urlString);
-        fileExtension = parsedUrl.pathname.split('.').pop()?.toLowerCase();
+        parsedUrl = parseURL(urlString);
+        fileExtension = parsedUrl?.pathname.split('.').pop()?.toLowerCase();
     } else if (typeof require === 'function') {
         const path = require('path');
         const url = require('url');
