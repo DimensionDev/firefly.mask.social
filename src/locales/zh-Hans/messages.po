@@ -27,9 +27,6 @@ msgstr "还没有人评论哦～快来抢沙发！"
 msgid "Quote Post"
 msgstr "引用"
 
-msgid "Failed to like."
-msgstr ""
-
 msgid "Retweet"
 msgstr ""
 
@@ -95,6 +92,9 @@ msgstr ""
 
 msgid "Debug Console"
 msgstr "诊断命令行"
+
+msgid "Failed to like the comment."
+msgstr ""
 
 msgid "Failed to login"
 msgstr "登录失败"
@@ -164,6 +164,9 @@ msgstr "选择账号"
 
 msgid "mirror"
 msgstr "转帖"
+
+msgid "Failed to unlike the post."
+msgstr ""
 
 msgid "Add another post..."
 msgstr "添加另一个帖子..."
@@ -396,9 +399,6 @@ msgstr "找不到该页面。"
 msgid "What's happening..."
 msgstr "正在发生..."
 
-msgid "Failed to unlike."
-msgstr ""
-
 msgid "Like"
 msgstr "点赞"
 
@@ -476,6 +476,9 @@ msgstr "请切换钱包网络至 {chainName}"
 
 msgid "There is no data available for display."
 msgstr "没有可显示的数据。"
+
+msgid "Failed to like the post."
+msgstr ""
 
 msgid "Mirrored"
 msgstr "已转发"
@@ -635,6 +638,9 @@ msgstr ""
 
 msgid "Failed to unmirror post."
 msgstr "未能取消转帖。"
+
+msgid "Failed to unlike the comment."
+msgstr ""
 
 msgid "Failed to fetch as ArrayBuffer."
 msgstr "Failed to fetch as ArrayBuffer."

@@ -22,9 +22,6 @@ msgstr ""
 msgid "Quote Post"
 msgstr ""
 
-msgid "Failed to like."
-msgstr ""
-
 msgid "Retweet"
 msgstr ""
 
@@ -89,6 +86,9 @@ msgid "Transaction button is not available yet."
 msgstr ""
 
 msgid "Debug Console"
+msgstr ""
+
+msgid "Failed to like the comment."
 msgstr ""
 
 msgid "Failed to login"
@@ -158,6 +158,9 @@ msgid "Select Account"
 msgstr ""
 
 msgid "mirror"
+msgstr ""
+
+msgid "Failed to unlike the post."
 msgstr ""
 
 msgid "Add another post..."
@@ -391,9 +394,6 @@ msgstr ""
 msgid "What's happening..."
 msgstr ""
 
-msgid "Failed to unlike."
-msgstr ""
-
 msgid "Like"
 msgstr ""
 
@@ -470,6 +470,9 @@ msgid "Please switch to the {chainName} network in your wallet."
 msgstr ""
 
 msgid "There is no data available for display."
+msgstr ""
+
+msgid "Failed to like the post."
 msgstr ""
 
 msgid "Mirrored"
@@ -629,6 +632,9 @@ msgid "Claim on {0}: {1}"
 msgstr ""
 
 msgid "Failed to unmirror post."
+msgstr ""
+
+msgid "Failed to unlike the comment."
 msgstr ""
 
 msgid "Failed to fetch as ArrayBuffer."

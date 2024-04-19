@@ -5,7 +5,7 @@ import { patchPostQueryData } from '@/helpers/patchPostQueryData.js';
 import type { Provider } from '@/providers/types/SocialMedia.js';
 import type { ClassType } from '@/types/index.js';
 
-function toggleLike(source: SocialPlatform, postId: string) {
+export function toggleLike(source: SocialPlatform, postId: string) {
     patchPostQueryData(source, postId, (draft) => {
         draft.hasLiked = !draft.hasLiked;
         draft.stats = produce(draft.stats, (old) => {

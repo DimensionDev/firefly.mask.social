@@ -39,7 +39,6 @@ import {
     type PostType,
     type Profile,
     type Provider,
-    type Reaction,
     SessionType,
 } from '@/providers/types/SocialMedia.js';
 
@@ -103,7 +102,7 @@ class FireflySocialMedia implements Provider {
         throw new Error('Method not implemented.');
     }
 
-    async upvotePost(postId: string): Promise<Reaction> {
+    async upvotePost(postId: string): Promise<void> {
         throw new Error('Method not implemented.');
     }
 

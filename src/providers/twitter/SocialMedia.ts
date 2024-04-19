@@ -12,7 +12,6 @@ import {
     type Profile,
     ProfileStatus,
     type Provider,
-    type Reaction,
     SessionType,
 } from '@/providers/types/SocialMedia.js';
 import type { ResponseJSON } from '@/types/index.js';
@@ -132,7 +131,7 @@ class TwitterSocialMedia implements Provider {
         throw new Error('Not implemented');
     }
 
-    upvotePost(postId: string): Promise<Reaction> {
+    upvotePost(postId: string): Promise<void> {
         throw new Error('Not implemented');
     }
 

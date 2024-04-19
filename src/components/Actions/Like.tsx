@@ -11,6 +11,7 @@ import { ClickableArea } from '@/components/ClickableArea.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { config } from '@/configs/wagmiClient.js';
 import { SocialPlatform } from '@/constants/enum.js';
+import { toggleLike } from '@/decorators/SetQueryDataForLikePost.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
@@ -26,9 +27,18 @@ interface LikeProps {
     hasLiked?: boolean;
     disabled?: boolean;
     authorId?: string;
+    isComment: boolean;
 }
 
-export const Like = memo<LikeProps>(function Like({ count, hasLiked, postId, authorId, source, disabled = false }) {
+export const Like = memo<LikeProps>(function Like({
+    count,
+    hasLiked,
+    postId,
+    authorId,
+    source,
+    disabled = false,
+    isComment,
+}) {
     const isLogin = useIsLogin(source);
     const queryClient = useQueryClient();
 
@@ -41,21 +51,27 @@ export const Like = memo<LikeProps>(function Like({ count, hasLiked, postId, aut
             return;
         }
 
-        try {
-            const provider = resolveSocialMediaProvider(source);
-            await (hasLiked
-                ? provider?.unvotePost(postId, Number(authorId))
-                : provider?.upvotePost(postId, Number(authorId)));
+        const provider = resolveSocialMediaProvider(source);
 
-            enqueueSuccessMessage(hasLiked ? t`Unliked` : t`Liked`);
-            return;
-        } catch (error) {
+        const promise = hasLiked
+            ? provider?.unvotePost(postId, Number(authorId))
+            : provider?.upvotePost(postId, Number(authorId));
+
+        enqueueSuccessMessage(hasLiked ? t`Unliked` : t`Liked`);
+
+        promise?.catch((error) => {
             if (error instanceof Error) {
-                enqueueErrorMessage(hasLiked ? t`Failed to unlike.` : t`Failed to like.`);
+                if (isComment) {
+                    enqueueErrorMessage(hasLiked ? t`Failed to unlike the comment.` : t`Failed to like the comment.`);
+                } else {
+                    enqueueErrorMessage(hasLiked ? t`Failed to unlike the post.` : t`Failed to like the post.`);
+                }
+
+                toggleLike(source, postId);
             }
-            return;
-        }
-    }, [postId, source, hasLiked, queryClient, isLogin, authorId]);
+        });
+        return;
+    }, [postId, source, hasLiked, queryClient, isLogin, authorId, isComment]);
 
     return (
         <ClickableArea

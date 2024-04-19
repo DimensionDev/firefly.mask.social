@@ -28,6 +28,7 @@ export const FeedActionType = memo<FeedActionType>(function FeedActionType({ pos
     const currentProfile = useCurrentProfile(post.source);
 
     const isComment = post.type === 'Comment';
+
     const showThread = isComment || !post.comments?.length;
 
     const pathname = usePathname();
@@ -101,7 +102,7 @@ export const FeedActionType = memo<FeedActionType>(function FeedActionType({ pos
                     </Link>
                 </div>
             ) : null}
-            {post.mirrors?.length && !isComment && !isPostPage ? (
+            {post.mirrors?.length && !isPostPage ? (
                 <div className="mb-3 flex items-center space-x-2 text-[15px] text-secondary">
                     <MirrorIcon width={16} height={16} />
                     <Link href={getProfileUrl(first(post.mirrors)!)}>
@@ -159,8 +160,10 @@ export const FeedActionType = memo<FeedActionType>(function FeedActionType({ pos
                 </div>
             ) : null}
 
-            {showThread && post.root && !isThread ? <ThreadBody post={post.root} /> : null}
-            {showThread && post.commentOn && !isThread ? <ThreadBody post={post.commentOn} /> : null}
+            {!post.mirrors?.length && showThread && post.root && !isThread ? <ThreadBody post={post.root} /> : null}
+            {!post.mirrors?.length && showThread && post.commentOn && !isThread ? (
+                <ThreadBody post={post.commentOn} />
+            ) : null}
         </ClickableArea>
     );
 });

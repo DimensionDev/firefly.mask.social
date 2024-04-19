@@ -17,7 +17,6 @@ import {
     type Provider,
     SessionType,
 } from '@/providers/types/SocialMedia.js';
-import { ReactionType as ReactionTypeCustom } from '@/providers/types/SocialMedia.js';
 import type { Frame, Index } from '@/types/frame.js';
 
 function fetchHubbleJSON<T>(url: string, options: RequestInit): Promise<T> {
@@ -240,12 +239,6 @@ export class HubbleSocialMedia implements Provider {
             body: messageBytes,
         });
         if (!data) throw new Error(t`Failed to upvote post.`);
-
-        return {
-            reactionId: messageDataHash,
-            type: ReactionTypeCustom.Upvote,
-            timestamp: messageData.timestamp,
-        };
     }
 
     async unvotePost(postId: string, authorId?: number) {
@@ -279,7 +272,6 @@ export class HubbleSocialMedia implements Provider {
             body: messageBytes,
         });
         if (!data) throw new Error(t`Failed to unvote post.`);
-        return;
     }
 
     async mirrorPost(postId: string, options?: { authorId?: number }) {
