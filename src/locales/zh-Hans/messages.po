@@ -27,9 +27,6 @@ msgstr "还没有人评论哦～快来抢沙发！"
 msgid "Quote Post"
 msgstr "引用"
 
-msgid "Failed to like."
-msgstr ""
-
 msgid "Retweet"
 msgstr ""
 
@@ -62,6 +59,9 @@ msgstr "允许 Lens 管理员执行发帖、点赞和评论等操作，而无需
 
 msgid "{0} views"
 msgstr "{0} 浏览数"
+
+msgid "Failed to like {0}."
+msgstr ""
 
 msgid "Act"
 msgstr "收藏"
@@ -396,9 +396,6 @@ msgstr "找不到该页面。"
 msgid "What's happening..."
 msgstr "正在发生..."
 
-msgid "Failed to unlike."
-msgstr ""
-
 msgid "Like"
 msgstr "点赞"
 
@@ -566,6 +563,9 @@ msgstr "转发失败"
 
 msgid "Login with custody wallet"
 msgstr "使用托管钱包登录"
+
+msgid "Failed to unlike {0}."
+msgstr ""
 
 msgid "Delegate Signing (Recommend)"
 msgstr "委托签名（推荐）"

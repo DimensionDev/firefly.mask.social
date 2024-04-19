@@ -22,9 +22,6 @@ msgstr "Be the first one to comment!"
 msgid "Quote Post"
 msgstr "Quote Post"
 
-msgid "Failed to like."
-msgstr "Failed to like."
-
 msgid "Retweet"
 msgstr "Retweet"
 
@@ -57,6 +54,9 @@ msgstr "Allow Lens Manager to perform actions such as posting, liking, and comme
 
 msgid "{0} views"
 msgstr "{0} views"
+
+msgid "Failed to like {0}."
+msgstr "Failed to like {0}."
 
 msgid "Act"
 msgstr "Act"
@@ -391,9 +391,6 @@ msgstr "The page could not be found."
 msgid "What's happening..."
 msgstr "What's happening..."
 
-msgid "Failed to unlike."
-msgstr "Failed to unlike."
-
 msgid "Like"
 msgstr "Like"
 
@@ -561,6 +558,9 @@ msgstr "Failed to mirror post."
 
 msgid "Login with custody wallet"
 msgstr "Login with custody wallet"
+
+msgid "Failed to unlike {0}."
+msgstr "Failed to unlike {0}."
 
 msgid "Delegate Signing (Recommend)"
 msgstr "Delegate Signing (Recommend)"

@@ -22,9 +22,6 @@ msgstr ""
 msgid "Quote Post"
 msgstr ""
 
-msgid "Failed to like."
-msgstr ""
-
 msgid "Retweet"
 msgstr ""
 
@@ -56,6 +53,9 @@ msgid "Allow Lens Manager to perform actions such as posting, liking, and commen
 msgstr ""
 
 msgid "{0} views"
+msgstr ""
+
+msgid "Failed to like {0}."
 msgstr ""
 
 msgid "Act"
@@ -391,9 +391,6 @@ msgstr ""
 msgid "What's happening..."
 msgstr ""
 
-msgid "Failed to unlike."
-msgstr ""
-
 msgid "Like"
 msgstr ""
 
@@ -560,6 +557,9 @@ msgid "Failed to mirror post."
 msgstr ""
 
 msgid "Login with custody wallet"
+msgstr ""
+
+msgid "Failed to unlike {0}."
 msgstr ""
 
 msgid "Delegate Signing (Recommend)"
