@@ -238,7 +238,7 @@ export function Frame({ post, url, onData, children }: FrameProps) {
         [frame, latestFrame, postId],
     );
 
-    if (embeddedAsset) return <Attachments asset={embeddedAsset} attachments={embeddedAttachments} />;
+    if (embeddedAsset) return <Attachments asset={embeddedAsset} attachments={embeddedAttachments} post={post} />;
 
     if (isLoadingFrame) return null;
 

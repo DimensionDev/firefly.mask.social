@@ -40,7 +40,7 @@ const getClass = (attachments: number) => {
 };
 
 interface AttachmentsProps {
-    post: Post;
+    post?: Post;
     asset?: Attachment;
     attachments: Attachment[];
     isQuote?: boolean;
@@ -112,8 +112,7 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({ attachm
                         <ImageAsset
                             className={classNames('cursor-pointer rounded-lg object-cover', {
                                 'w-full': !isQuote,
-                                'w-[120px]': isQuote,
-                                'h-[120px]': isQuote,
+                                'h-[120px] w-[120px]': isQuote,
                             })}
                             disableLoadHandler={isQuote}
                             width={isQuote ? 120 : 1000}
@@ -127,10 +126,9 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({ attachm
             ) : null}
             {imageAttachments.length > 1 ? (
                 <div
-                    className={classNames(getClass(imageAttachments.length)?.row ?? '', 'grid gap-2', {
+                    className={classNames(getClass(imageAttachments.length)?.row || '', 'grid gap-2', {
                         'grid-flow-col': imageAttachments.length === 3,
-                        'w-[120px]': isQuote && !isSoloImage,
-                        'h-[120px]': isQuote && !isSoloImage,
+                        'h-[120px] w-[120px]': isQuote && !isSoloImage,
                     })}
                 >
                     {imageAttachments.map((attachment, index) => {
