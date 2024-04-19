@@ -35,9 +35,7 @@ export function SetQueryDataForLikePost(source: SocialPlatform) {
                     const m = method as (postId: string, ...args: unknown[]) => ReturnType<Provider[K]>;
                     m.call(target.prototype, postId, ...args).catch((error) => {
                         if (error instanceof Error) {
-                            if (error instanceof Error) {
-                                enqueueErrorMessage(key === 'unvotePost' ? t`Failed to unlike.` : t`Failed to like.`);
-                            }
+                            enqueueErrorMessage(key === 'unvotePost' ? t`Failed to unlike.` : t`Failed to like.`);
                         }
                     });
 
