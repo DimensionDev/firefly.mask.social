@@ -71,6 +71,8 @@ export default function PreviewPhotoModal({ params: { id: postId, index }, searc
 
             return post;
         },
+        // The image data of the post will not be changed.
+        staleTime: Infinity,
     });
 
     const images = useMemo(() => {
