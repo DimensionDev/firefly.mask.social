@@ -30,9 +30,6 @@ interface Props {
 }
 
 interface CustomArrowProps extends Omit<ClickableButtonProps, 'children'> {
-    className?: string | undefined;
-    style?: React.CSSProperties | undefined;
-    onClick?: () => void | undefined;
     currentSlide?: number | undefined;
     slideCount?: number | undefined;
 }
@@ -95,13 +92,7 @@ export default function PreviewPhotoModal({ params: { id: postId, index }, searc
     useKeyPressEvent((ev) => ev.key === 'ArrowRight', slickRef.current?.slickNext);
 
     return (
-        <Modal
-            open
-            backdrop={false}
-            onClose={() => {
-                router.back();
-            }}
-        >
+        <Modal open backdrop={false} onClose={() => router.back()}>
             <div
                 className="preview-actions fixed inset-0 flex transform-none flex-col items-center justify-center bg-black/90 bg-opacity-90 outline-none transition-all"
                 onClick={() => router.back()}
