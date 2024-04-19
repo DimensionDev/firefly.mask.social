@@ -5,11 +5,16 @@ export function hasRpPayload(message: TypedMessage | null) {
     return message?.meta?.has(RedPacketMetaKey);
 }
 
-export function removeRpPayload<T extends TypedMessage>(message: T | null): T | null {
+export function isRpEncryped(message: TypedMessage | null) {
+    if (hasRpPayload(message)) return message?.meta?.get(`${RedPacketMetaKey}:encrypted`) === true;
+    return false;
+}
+
+export function updateRpEncrypted<T extends TypedMessage>(message: T | null): T | null {
     if (hasRpPayload(message) && message?.meta) {
         return {
             ...message,
-            meta: new Map([...(message?.meta?.entries() ?? [])].filter((x) => x[0] !== RedPacketMetaKey)),
+            meta: new Map([[`${RedPacketMetaKey}:encryped`, true], ...(message?.meta?.entries() ?? [])]),
         };
     }
     return message;
