@@ -51,7 +51,8 @@
         "warpcast",
         "zora",
         "zustand",
-        "bowser"
+        "bowser",
+        "overscan"
     ],
     "ignoreWords": [
         "DEVNET",
