@@ -5,10 +5,10 @@ import { memo } from 'react';
 
 import { SearchType } from '@/constants/enum.js';
 import { DraggablePopoverRef } from '@/modals/controls.js';
-import { useSearchState } from '@/store/useSearchState.js';
+import { useSearchStateStore } from '@/store/useSearchStore.js';
 
 export const SearchFilter = memo(function SearchFilter() {
-    const { searchType, updateState } = useSearchState();
+    const { searchType, updateState } = useSearchStateStore();
 
     return (
         <div>

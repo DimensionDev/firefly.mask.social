@@ -11,7 +11,7 @@ import { SearchRecommendation } from '@/components/Search/SearchRecommendation.j
 import { classNames } from '@/helpers/classNames.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { useSearchHistoryStateStore } from '@/store/useSearchHistoryStore.js';
-import { type SearchState, useSearchState } from '@/store/useSearchState.js';
+import { type SearchState, useSearchStateStore } from '@/store/useSearchStore.js';
 
 interface SearchBarProps {
     source: 'header' | 'secondary';
@@ -21,19 +21,15 @@ const SearchBar = memo(function SearchBar(props: SearchBarProps) {
     const router = useRouter();
     const [showRecommendation, setShowRecommendation] = useState(false);
 
-    const { searchKeyword, updateState } = useSearchState();
+    const { searchKeyword, updateState } = useSearchStateStore();
     const { addRecord } = useSearchHistoryStateStore();
 
     const pathname = usePathname();
     const isSearchPage = isRoutePathname(pathname, '/search');
 
+    const rootRef = useRef(null);
     const inputRef = useRef<HTMLInputElement>(null);
     const [inputText, setInputText] = useState(searchKeyword);
-    useLayoutEffect(() => {
-        setInputText(searchKeyword);
-    }, [searchKeyword]);
-
-    const rootRef = useRef(null);
 
     useOnClickOutside(rootRef, () => {
         setShowRecommendation(false);
@@ -44,6 +40,10 @@ const SearchBar = memo(function SearchBar(props: SearchBarProps) {
         updateState(state);
         setShowRecommendation(false);
     };
+
+    useLayoutEffect(() => {
+        setInputText(searchKeyword);
+    }, [searchKeyword]);
 
     if (props.source === 'header' && !isSearchPage) return null;
     if (props.source === 'secondary' && isSearchPage) return null;

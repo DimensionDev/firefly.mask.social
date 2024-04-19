@@ -55,7 +55,7 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
             <nav className="flex flex-1 flex-col">
                 <ul role="list" className="flex flex-1 flex-col gap-y-7">
                     <li className="flex overflow-hidden">
-                        <ul role="list" className="space-y-1 overflow-hidden outline-none">
+                        <ul role="list" className="space-y-1 overflow-hidden">
                             {[
                                 {
                                     href: PageRoute.Home,
@@ -100,7 +100,7 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
 
                                 return (
                                     <li
-                                        className="flex rounded-lg text-main"
+                                        className="flex rounded-lg text-main outline-none"
                                         key={item.href}
                                         onClick={() => updateSidebarOpen(false)}
                                     >
@@ -110,7 +110,7 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                                             <Link
                                                 href={item.href}
                                                 className={classNames(
-                                                    'flex flex-grow-0 items-center gap-x-3 rounded-full p-2 text-xl hover:bg-bg',
+                                                    'flex flex-grow-0 items-center gap-x-3 rounded-full p-2 text-xl outline-none hover:bg-bg',
                                                     { 'font-bold': isSelected, 'px-4': !collapsed },
                                                 )}
                                             >

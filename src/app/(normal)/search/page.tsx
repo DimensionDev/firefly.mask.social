@@ -15,7 +15,7 @@ import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 import type { Channel, Post, Profile } from '@/providers/types/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
-import { useSearchState } from '@/store/useSearchState.js';
+import { useSearchStateStore } from '@/store/useSearchStore.js';
 
 const getSearchItemContent = (index: number, item: Post | Profile | Channel, searchType: SearchType) => {
     switch (searchType) {
@@ -35,7 +35,7 @@ const getSearchItemContent = (index: number, item: Post | Profile | Channel, sea
 };
 
 export default function Page() {
-    const { searchKeyword, searchType } = useSearchState();
+    const { searchKeyword, searchType } = useSearchStateStore();
     const { currentSource } = useGlobalState();
 
     const queryResult = useSuspenseInfiniteQuery({

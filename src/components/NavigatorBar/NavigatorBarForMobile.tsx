@@ -1,6 +1,6 @@
 import { compact } from 'lodash-es';
 import { usePathname, useRouter } from 'next/navigation.js';
-import { memo, useRef, useState } from 'react';
+import { memo, useLayoutEffect, useRef, useState } from 'react';
 
 import AdjustmentsIcon from '@/assets/adjustments.svg';
 import FireflyIcon from '@/assets/firefly.svg';
@@ -12,7 +12,6 @@ import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { SearchFilter } from '@/components/Search/SearchFilter.js';
 import { SearchInput } from '@/components/Search/SearchInput.js';
 import { SearchRecommendation } from '@/components/Search/SearchRecommendation.js';
-import { SearchType } from '@/constants/enum.js';
 import { SORTED_SOURCES } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
@@ -20,7 +19,7 @@ import { useCurrentProfileAll } from '@/hooks/useCurrentProfileAll.js';
 import { DraggablePopoverRef } from '@/modals/controls.js';
 import { useNavigatorState } from '@/store/useNavigatorStore.js';
 import { useSearchHistoryStateStore } from '@/store/useSearchHistoryStore.js';
-import { type SearchState, useSearchState } from '@/store/useSearchState.js';
+import { type SearchState, useSearchStateStore } from '@/store/useSearchStore.js';
 
 interface NavigatorBarForMobileProps {
     title: string;
@@ -45,18 +44,22 @@ export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({
     const currentProfileAll = useCurrentProfileAll();
     const currentProfiles = compact(SORTED_SOURCES.map((x) => currentProfileAll[x]));
 
-    const { updateState } = useSearchState();
+    const { searchKeyword, updateState } = useSearchStateStore();
     const { updateSidebarOpen } = useNavigatorState();
     const { addRecord } = useSearchHistoryStateStore();
 
     const inputRef = useRef<HTMLInputElement>(null);
-    const [inputText, setInputText] = useState('');
+    const [inputText, setInputText] = useState(searchKeyword);
 
     const handleInputSubmit = (state: SearchState) => {
         if (state.q) addRecord(state.q);
         updateState(state);
         setShowRecommendation(false);
     };
+
+    useLayoutEffect(() => {
+        setInputText(searchKeyword);
+    }, [searchKeyword]);
 
     return (
         <>
@@ -107,7 +110,7 @@ export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({
                             className=" flex flex-1 items-center rounded-md bg-lightBg px-3"
                             onSubmit={(ev) => {
                                 ev.preventDefault();
-                                handleInputSubmit({ q: inputText, type: SearchType.Posts });
+                                handleInputSubmit({ q: inputText });
                             }}
                         >
                             <MagnifierIcon width={18} height={18} />
@@ -156,7 +159,7 @@ export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({
             {showRecommendation && !isSearchPage ? (
                 <SearchRecommendation
                     fullScreen
-                    keyword={inputText}
+                    keyword={searchKeyword}
                     onSearch={() => setShowRecommendation(false)}
                     onSelect={() => setShowRecommendation(false)}
                     onClear={() => inputRef.current?.focus()}
