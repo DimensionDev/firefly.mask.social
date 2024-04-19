@@ -5,13 +5,13 @@ import { SearchType } from '@/constants/enum.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 
 interface SearchTypeState {
-    searchType: SearchType;
+    searchType: SearchType | undefined;
     updateSearchType: (type: SearchType) => void;
 }
 
 const useSearchTypeStateBase = create<SearchTypeState, [['zustand/immer', never]]>(
     immer((set) => ({
-        searchType: SearchType.Users,
+        searchType: undefined,
         updateSearchType: (type: SearchType) =>
             set((state) => {
                 state.searchType = type;

@@ -1,5 +1,5 @@
 import { useRouter, useSearchParams } from 'next/navigation.js';
-import { useCallback, useEffect } from 'react';
+import { useCallback } from 'react';
 
 import { SearchType } from '@/constants/enum.js';
 import { useSearchTypeState } from '@/store/useSearchTypeStore.js';
@@ -13,20 +13,15 @@ export function useSearchState() {
     const params = useSearchParams();
     const router = useRouter();
     const searchKeyword = params.get('q') || '';
-    const { searchType, updateSearchType } = useSearchTypeState();
-
-    useEffect(() => {
-        const type = params.get('type') as SearchType;
-        if (type) updateSearchType(type);
-    }, [params, searchType, updateSearchType]);
+    const searchType_ = (params.get('type') as SearchType) || SearchType.Users;
+    const { searchType = searchType_, updateSearchType } = useSearchTypeState();
 
     const updateState = useCallback(
         (state: SearchState, replace?: boolean) => {
             const newParams = new URLSearchParams(params);
 
-            if (searchType) newParams.set('type', searchType);
-
             if (state.type) {
+                newParams.set('type', state.type);
                 updateSearchType(state.type);
             }
 
@@ -39,7 +34,7 @@ export function useSearchState() {
             if (replace) router.replace(url);
             else router.push(url);
         },
-        [params, router],
+        [params, router, updateSearchType],
     );
 
     return {
