@@ -1,6 +1,8 @@
+import { t } from '@lingui/macro';
 import { produce } from 'immer';
 
 import type { SocialPlatform } from '@/constants/enum.js';
+import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { patchPostQueryData } from '@/helpers/patchPostQueryData.js';
 import type { Provider } from '@/providers/types/SocialMedia.js';
 import type { ClassType } from '@/types/index.js';
@@ -28,12 +30,18 @@ export function SetQueryDataForLikePost(source: SocialPlatform) {
 
             Object.defineProperty(target.prototype, key, {
                 value: async (postId: string, ...args: unknown[]) => {
-                    const m = method as (postId: string, ...args: unknown[]) => ReturnType<Provider[K]>;
-                    const result = await m.call(target.prototype, postId, ...args);
-
                     toggleLike(source, postId);
 
-                    return result;
+                    const m = method as (postId: string, ...args: unknown[]) => ReturnType<Provider[K]>;
+                    m.call(target.prototype, postId, ...args).catch((error) => {
+                        if (error instanceof Error) {
+                            if (error instanceof Error) {
+                                enqueueErrorMessage(key === 'unvotePost' ? t`Failed to unlike.` : t`Failed to like.`);
+                            }
+                        }
+                    });
+
+                    return;
                 },
             });
         }

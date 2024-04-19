@@ -50,7 +50,6 @@ import {
     type Post,
     type Profile,
     type Provider,
-    type Reaction,
     ReactionType,
     SessionType,
 } from '@/providers/types/SocialMedia.js';
@@ -432,19 +431,13 @@ class LensSocialMedia implements Provider {
         }
     }
 
-    async upvotePost(postId: string): Promise<Reaction> {
+    async upvotePost(postId: string) {
         const result = await lensClient.sdk.publication.reactions.add({
             for: postId,
             reaction: PublicationReactionType.Upvote,
         });
 
         if (result.isFailure()) throw new Error(`Something went wrong: ${JSON.stringify(result.isFailure())}`);
-
-        return {
-            reactionId: '',
-            type: ReactionType.Upvote,
-            timestamp: Date.now(),
-        };
     }
 
     async unvotePost(postId: string): Promise<void> {

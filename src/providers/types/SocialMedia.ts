@@ -335,7 +335,7 @@ export interface Provider {
      * @param (optional) authorId The ID of the post author, used for hubble
      * @returns A promise that resolves to a Reaction object.
      */
-    upvotePost: (postId: string, authorId?: number) => Promise<Reaction>;
+    upvotePost: (postId: string, authorId?: number) => Promise<void>;
 
     /**
      * Removes an upvote from a post with the specified post ID.

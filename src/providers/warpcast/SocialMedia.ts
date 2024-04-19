@@ -23,7 +23,6 @@ import {
     type Post,
     type Profile,
     type Provider,
-    ReactionType,
     SessionType,
 } from '@/providers/types/SocialMedia.js';
 import {
@@ -395,12 +394,7 @@ class WarpcastSocialMedia implements Provider {
             },
             true,
         );
-
-        return {
-            reactionId: reaction.hash,
-            type: ReactionType.Upvote,
-            timestamp: reaction.timestamp,
-        };
+        if (!reaction) throw new Error(`Something went wrong`);
     }
 
     async unvotePost(postId: string) {
