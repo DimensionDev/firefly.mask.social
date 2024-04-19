@@ -108,7 +108,13 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({ attachm
                     })}
                     onClick={(event) => event.stopPropagation()}
                 >
-                    <Link href={getPostImageUrl(post, 1)} scroll={false}>
+                    <Link
+                        href={getPostImageUrl(post, 1)}
+                        scroll={false}
+                        onClick={(event) => {
+                            event.stopPropagation();
+                        }}
+                    >
                         <ImageAsset
                             className={classNames('cursor-pointer rounded-lg object-cover', {
                                 'w-full': !isQuote,
