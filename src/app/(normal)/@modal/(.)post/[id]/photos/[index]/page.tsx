@@ -126,7 +126,7 @@ export default function PreviewPhotoModal({ params: { id: postId, index }, searc
                                     width={1000}
                                     height={1000}
                                     style={{ width: 'auto', height: 'auto' }}
-                                    className="max-h-[calc(100vh-110px)] object-contain max-md:h-[calc(100vh-90px)] max-md:max-w-[calc(100%-30px)]"
+                                    className="max-h-[calc(100vh-110px)] object-contain max-md:h-[calc(calc(100vh-env(safe-area-inset-bottom)-env(safe-are-inset-top)-90px))] max-md:max-w-[calc(100%-30px)]"
                                 />
                             );
                         })}
