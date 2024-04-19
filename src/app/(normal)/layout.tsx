@@ -8,8 +8,8 @@ import { SocialPlatformTabs } from '@/components/SocialPlatformTabs.js';
 export default function Layout({ children }: { children: React.ReactNode }) {
     return (
         <>
-            <main className="flex w-full flex-[1_1_100%] flex-col overflow-auto md:border-r md:border-line md:pl-[61px] lg:w-[888px] lg:max-w-[calc(100%-384px)] lg:pl-[289px]">
-                <div className="sticky top-0 z-40 bg-primaryBottom">
+            <main className="flex w-full flex-[1_1_100%] flex-col md:border-r md:border-line md:pl-[61px] lg:w-[888px] lg:max-w-[calc(100%-384px)] lg:pl-[289px]">
+                <div className="sticky top-0 z-40 bg-primaryBottom pb-[1px]">
                     <IfPathname isOneOf={['/profile']} exact>
                         <NavigatorBar />
                     </IfPathname>
@@ -22,7 +22,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                     </IfPathname>
                 </div>
                 <ComposeButton />
-                <div className="flex flex-grow flex-col overflow-auto">{children}</div>
+                {children}
             </main>
             <aside className="sticky top-0 z-[1] hidden h-full w-96 px-4 md:min-w-[384px] lg:block">
                 <IfPathname isNotOneOf={['/settings']}>
