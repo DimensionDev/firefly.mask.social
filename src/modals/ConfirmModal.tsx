@@ -37,11 +37,19 @@ export const ConfirmModal = forwardRef<SingletonModalRefCreator<ConfirmModalOpen
                         <div className="relative h-6 w-6" />
                     </div>
 
-                    <div className="flex flex-col gap-3 p-6">
+                    <div
+                        className="flex flex-col gap-3 p-6"
+                        onClick={(e) => {
+                            e.currentTarget.style.backgroundColor = 'yellow';
+                            setTimeout(() => {
+                                e.currentTarget.style.backgroundColor = '';
+                            }, 500);
+                        }}
+                    >
                         {content}
                         <ClickableButton
                             className=" flex items-center justify-center rounded-full bg-commonDanger py-[11px] font-bold text-lightBottom"
-                            onClick={() => dispatch?.close(true)}
+                            onClickCapture={() => dispatch?.close(true)}
                         >
                             {t`Confirm`}
                         </ClickableButton>
