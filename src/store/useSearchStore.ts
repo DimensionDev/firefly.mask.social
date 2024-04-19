@@ -64,7 +64,8 @@ export function useSearchStateStore() {
     );
 
     return {
-        searchKeyword: searchKeyword || params.get('q') || '',
+        // use ?? means '' is valid value, it was used when clear the search input
+        searchKeyword: searchKeyword ?? (params.get('q') || ''),
         searchType: searchType || (params.get('type') as SearchType) || SearchType.Users,
         updateState,
         updateSearchKeyword,

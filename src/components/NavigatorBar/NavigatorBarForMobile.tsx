@@ -1,6 +1,6 @@
 import { compact } from 'lodash-es';
 import { usePathname, useRouter } from 'next/navigation.js';
-import { memo, useRef, useState } from 'react';
+import { memo, startTransition, useRef, useState } from 'react';
 
 import AdjustmentsIcon from '@/assets/adjustments.svg';
 import FireflyIcon from '@/assets/firefly.svg';
@@ -68,6 +68,7 @@ export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({
                                 if (!enableSearch) return;
                                 setSearchMode(false);
                                 setShowRecommendation(false);
+                                updateSearchKeyword('');
                             }}
                         >
                             <LeftArrowIcon />
@@ -112,7 +113,7 @@ export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({
                             <MagnifierIcon width={18} height={18} />
                             <SearchInput
                                 value={searchKeyword}
-                                onChange={(ev) => updateSearchKeyword(ev.target.value)}
+                                onChange={(ev) => startTransition(() => updateSearchKeyword(ev.target.value))}
                                 onFocus={() => setShowRecommendation(true)}
                                 onClear={() => updateSearchKeyword('')}
                             />
