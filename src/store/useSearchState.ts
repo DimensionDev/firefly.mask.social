@@ -12,29 +12,36 @@ export interface SearchState {
 export function useSearchState() {
     const params = useSearchParams();
     const router = useRouter();
-    const searchKeyword = params.get('q') || '';
+    const searchKeyword_ = params.get('q') || '';
     const searchType_ = (params.get('type') as SearchType) || SearchType.Users;
-    const { searchType = searchType_, updateSearchType } = useSearchTypeState();
+    const {
+        searchKeyword = searchKeyword_,
+        searchType = searchType_,
+        updateSearchKeyword,
+        updateSearchType,
+    } = useSearchTypeState();
 
     const updateState = useCallback(
         (state: SearchState, replace?: boolean) => {
             const newParams = new URLSearchParams(params);
 
+            if (state.q) {
+                newParams.set('q', state.q);
+                updateSearchKeyword(state.q);
+            }
             if (state.type) {
                 newParams.set('type', state.type);
                 updateSearchType(state.type);
             }
 
-            Object.entries(state).forEach(([key, val]) => {
-                if (val) newParams.set(key, val);
-            });
+            // search input is empty
+            if (!newParams.get('q')) return;
 
             const url = `/search?${newParams.toString()}`;
-            if (!newParams.get('q')) return;
             if (replace) router.replace(url);
             else router.push(url);
         },
-        [params, router, updateSearchType],
+        [params, router, updateSearchKeyword, updateSearchType],
     );
 
     return {

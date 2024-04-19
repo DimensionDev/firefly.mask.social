@@ -21,6 +21,7 @@ import { DraggablePopoverRef } from '@/modals/controls.js';
 import { useNavigatorState } from '@/store/useNavigatorStore.js';
 import { useSearchHistoryStateStore } from '@/store/useSearchHistoryStore.js';
 import { type SearchState, useSearchState } from '@/store/useSearchState.js';
+import { useSearchTypeState } from '@/store/useSearchTypeStore.js';
 
 interface NavigatorBarForMobileProps {
     title: string;
@@ -45,12 +46,12 @@ export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({
     const currentProfileAll = useCurrentProfileAll();
     const currentProfiles = compact(SORTED_SOURCES.map((x) => currentProfileAll[x]));
 
-    const { updateState } = useSearchState();
+    const { searchKeyword, updateState } = useSearchState();
     const { updateSidebarOpen } = useNavigatorState();
     const { addRecord } = useSearchHistoryStateStore();
 
     const inputRef = useRef<HTMLInputElement>(null);
-    const [inputText, setInputText] = useState('');
+    const { updateSearchKeyword } = useSearchTypeState();
 
     const handleInputSubmit = (state: SearchState) => {
         if (state.q) addRecord(state.q);
@@ -107,15 +108,15 @@ export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({
                             className=" flex flex-1 items-center rounded-md bg-lightBg px-3"
                             onSubmit={(ev) => {
                                 ev.preventDefault();
-                                handleInputSubmit({ q: inputText, type: SearchType.Posts });
+                                handleInputSubmit({ q: searchKeyword, type: SearchType.Posts });
                             }}
                         >
                             <MagnifierIcon width={18} height={18} />
                             <SearchInput
-                                value={inputText}
-                                onChange={(ev) => setInputText(ev.target.value)}
+                                value={searchKeyword}
+                                onChange={(ev) => updateSearchKeyword(ev.target.value)}
                                 onFocus={() => setShowRecommendation(true)}
-                                onClear={() => setInputText('')}
+                                onClear={() => updateSearchKeyword('')}
                             />
                         </form>
                     ) : (
@@ -156,7 +157,7 @@ export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({
             {showRecommendation && !isSearchPage ? (
                 <SearchRecommendation
                     fullScreen
-                    keyword={inputText}
+                    keyword={searchKeyword}
                     onSearch={() => setShowRecommendation(false)}
                     onSelect={() => setShowRecommendation(false)}
                     onClear={() => inputRef.current?.focus()}
