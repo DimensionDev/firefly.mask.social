@@ -6,6 +6,11 @@ export function getResourceType(urlString: string) {
     if (typeof window !== 'undefined') {
         if (!canParseURL(urlString)) return;
         const parsedUrl = new URL(urlString);
+        // TODO Temporary solution for https://mask.atlassian.net/browse/FW-755
+        // cspell:ignore imagedelivery
+        if (parsedUrl.host === 'imagedelivery.net') {
+            return 'Image';
+        }
         fileExtension = parsedUrl.pathname.split('.').pop()?.toLowerCase();
     } else if (typeof require === 'function') {
         const path = require('path');
