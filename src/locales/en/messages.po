@@ -649,6 +649,9 @@ msgstr "Posted on {sourceName}."
 msgid "Your Lens account is now connected"
 msgstr "Your Lens account is now connected"
 
+msgid "Click to copy"
+msgstr "Click to copy"
+
 msgid "Mask Network"
 msgstr "Mask Network"
 
