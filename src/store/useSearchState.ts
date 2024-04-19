@@ -23,9 +23,11 @@ export function useSearchState() {
     const updateState = useCallback(
         (state: SearchState, replace?: boolean) => {
             const newParams = new URLSearchParams(params);
+
+            if(searchType) newParams.set('type', searchType)
+
             if(state.type) {
                 updateSearchType(state.type);
-                newParams.set('type', state.type);
             }
             Object.entries(state).forEach(([key, val]) => {
                 if (val) newParams.set(key, val);
