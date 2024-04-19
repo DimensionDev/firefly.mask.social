@@ -38,7 +38,7 @@ interface ComposeActionProps {
 }
 
 export function ComposeAction(props: ComposeActionProps) {
-    const { chars, images, video } = props.post;
+    const { chars, images, video, parentPost } = props.post;
 
     const isMedium = useIsMedium();
 
@@ -208,7 +208,7 @@ export function ComposeAction(props: ComposeActionProps) {
                         <>
                             <Popover.Button
                                 className=" flex cursor-pointer gap-1 text-main focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
-                                disabled={!isRootPost}
+                                disabled={!isRootPost || !!parentPost}
                             >
                                 <span className="flex items-center gap-x-1 font-bold">
                                     {rootPost.availableSources
