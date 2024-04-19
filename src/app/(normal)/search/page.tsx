@@ -17,10 +17,10 @@ import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 import type { Post, Profile } from '@/providers/types/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
-import { useSearchState } from '@/store/useSearchState.js';
+import { useSearchStateStore } from '@/store/useSearchStore.js';
 
 export default function Page() {
-    const { searchKeyword, searchType } = useSearchState();
+    const { searchKeyword, searchType } = useSearchStateStore();
     const { currentSource } = useGlobalState();
 
     const {
