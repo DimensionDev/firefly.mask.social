@@ -17,7 +17,6 @@ export function SocialPlatformTabs() {
     const currentProfileAll = useCurrentProfileAll();
     const searchParams = useSearchParams();
     const pathname = usePathname();
-    if (isRoutePathname(pathname, '/settings') || isRoutePathname(pathname, '/post')) return null;
 
     if (pathname !== '/profile' && isRoutePathname(pathname, '/profile')) {
         const param = pathname.split('/');
