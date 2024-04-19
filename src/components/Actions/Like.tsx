@@ -61,11 +61,12 @@ export const Like = memo<LikeProps>(function Like({
 
         promise?.catch((error) => {
             if (error instanceof Error) {
-                enqueueErrorMessage(
-                    hasLiked
-                        ? t`Failed to unlike ${isComment ? t`the comment` : t`the post`}.`
-                        : t`Failed to like ${isComment ? t`the comment` : t`the post`}.`,
-                );
+                if (isComment) {
+                    enqueueErrorMessage(hasLiked ? t`Failed to unlike the comment.` : t`Failed to like the comment.`);
+                } else {
+                    enqueueErrorMessage(hasLiked ? t`Failed to unlike the post.` : t`Failed to like the post.`);
+                }
+
                 toggleLike(source, postId);
             }
         });

@@ -28,12 +28,12 @@ export function SetQueryDataForLikePost(source: SocialPlatform) {
 
             Object.defineProperty(target.prototype, key, {
                 value: async (postId: string, ...args: unknown[]) => {
+                    const m = method as (postId: string, ...args: unknown[]) => ReturnType<Provider[K]>;
+                    const result = await m.call(target.prototype, postId, ...args);
+
                     toggleLike(source, postId);
 
-                    const m = method as (postId: string, ...args: unknown[]) => ReturnType<Provider[K]>;
-                    m.call(target.prototype, postId, ...args);
-
-                    return;
+                    return result;
                 },
             });
         }

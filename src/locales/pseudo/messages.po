@@ -91,6 +91,9 @@ msgstr ""
 msgid "Debug Console"
 msgstr ""
 
+msgid "Failed to like the comment."
+msgstr ""
+
 msgid "Failed to login"
 msgstr ""
 
@@ -158,6 +161,9 @@ msgid "Select Account"
 msgstr ""
 
 msgid "mirror"
+msgstr ""
+
+msgid "Failed to unlike the post."
 msgstr ""
 
 msgid "Add another post..."
@@ -469,6 +475,9 @@ msgstr ""
 msgid "There is no data available for display."
 msgstr ""
 
+msgid "Failed to like the post."
+msgstr ""
+
 msgid "Mirrored"
 msgstr ""
 
@@ -629,6 +638,9 @@ msgid "Claim on {0}: {1}"
 msgstr ""
 
 msgid "Failed to unmirror post."
+msgstr ""
+
+msgid "Failed to unlike the comment."
 msgstr ""
 
 msgid "Failed to fetch as ArrayBuffer."
