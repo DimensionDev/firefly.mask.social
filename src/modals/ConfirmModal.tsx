@@ -47,12 +47,12 @@ export const ConfirmModal = forwardRef<SingletonModalRefCreator<ConfirmModalOpen
                         }}
                     >
                         {content}
-                        <ClickableButton
+                        <button
                             className=" flex items-center justify-center rounded-full bg-commonDanger py-[11px] font-bold text-lightBottom"
-                            onClickCapture={() => dispatch?.close(true)}
+                            onClick={() => dispatch?.close(true)}
                         >
                             {t`Confirm`}
-                        </ClickableButton>
+                        </button>
                     </div>
                 </div>
             </Modal>
