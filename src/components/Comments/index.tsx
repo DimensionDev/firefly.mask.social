@@ -30,7 +30,7 @@ export const CommentList = memo<CommentListProps>(function CommentList({ postId,
             const provider = resolveSocialMediaProvider(source);
             if (!provider) return createPageable(EMPTY_LIST, undefined);
 
-            const comments = await provider?.getCommentsById(postId, createIndicator(undefined, pageParam));
+            const comments = await provider.getCommentsById(postId, createIndicator(undefined, pageParam));
 
             if (source === SocialPlatform.Lens) {
                 const ids = comments.data.flatMap((x) => [x.postId]);
