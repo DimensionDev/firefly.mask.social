@@ -160,6 +160,9 @@ msgstr ""
 msgid "mirror"
 msgstr ""
 
+msgid "Mirror again"
+msgstr ""
+
 msgid "Add another post..."
 msgstr ""
 
