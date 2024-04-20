@@ -44,7 +44,6 @@ export default function Layout({ children, modal }: { children: React.ReactNode;
                         <SocialPlatformTabs />
                     </IfPathname>
                 </div>
-                <ComposeButton />
                 {children}
                 {modal}
             </main>
@@ -60,6 +59,7 @@ export default function Layout({ children, modal }: { children: React.ReactNode;
                     <mask-calendar-widget />
                 </div>
             </aside>
+            <ComposeButton />
         </>
     );
 }
