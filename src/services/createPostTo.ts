@@ -1,5 +1,6 @@
 import { t } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
+import { produce } from 'immer';
 import { first } from 'lodash-es';
 
 import { queryClient } from '@/configs/queryClient.js';
@@ -80,11 +81,6 @@ export function createPostTo(source: SocialPlatform, options: Options) {
                         },
                     }));
 
-                    queryClient.invalidateQueries({ queryKey: [parentPost.source, 'post-detail', parentPost.postId] });
-                    queryClient.invalidateQueries({
-                        queryKey: ['posts', parentPost.source, 'comments', parentPost.postId],
-                    });
-
                     return commentId;
                 } catch (error) {
                     enqueueErrorMessage(t`Failed to relay post on ${sourceName}.`);
@@ -103,10 +99,14 @@ export function createPostTo(source: SocialPlatform, options: Options) {
                         },
                     }));
 
-                    await queryClient.setQueryData([parentPost.source, 'post-detail', parentPost.postId], {
-                        ...parentPost,
-                        hasQuoted: true,
+                    const patched = produce(parentPost, (draft) => {
+                        draft.hasQuoted = true;
+                        draft.stats = {
+                            ...draft.stats!,
+                            quotes: (draft.stats?.quotes || 0) + 1,
+                        };
                     });
+                    await queryClient.setQueryData([parentPost.source, 'post-detail', parentPost.postId], patched);
 
                     return postId;
                 } catch (error) {
