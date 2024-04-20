@@ -15,8 +15,8 @@ import { SocialPlatform } from '@/constants/enum.js';
 import { WARPCAST_CLIENT_URL, WARPCAST_ROOT_URL } from '@/constants/index.js';
 import { formatWarpcastPost, formatWarpcastPostFromFeed } from '@/helpers/formatWarpcastPost.js';
 import { formatWarpcastUser } from '@/helpers/formatWarpcastUser.js';
+import { removeLeadingHash } from '@/helpers/removeLeadingHash.js';
 import { toFid } from '@/helpers/toFid.js';
-import { unhash } from '@/helpers/unhash.js';
 import {
     type Channel,
     type Notification,
@@ -545,7 +545,7 @@ class WarpcastSocialMedia implements Provider {
     async searchPosts(q: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         const url = urlcat(WARPCAST_CLIENT_URL, '/search-casts', {
             // the warpcast doesn't facilitate searching using hashtags
-            q: encodeURIComponent(unhash(q)),
+            q: encodeURIComponent(removeLeadingHash(q)),
             limit: 25,
             cursor: indicator?.id,
         });

@@ -11,7 +11,7 @@ export function getPostsSelector(source: SocialPlatform) {
     return (data: InfiniteData<Pageable<Post, PageIndicator | undefined> | undefined, string>) => {
         const result =
             uniqBy(
-                data.pages.flatMap((x) => x?.data || []),
+                data.pages.flatMap((x) => x?.data || EMPTY_LIST),
                 (post) => post.postId,
             ) || EMPTY_LIST;
 

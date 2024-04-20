@@ -1,6 +1,6 @@
 'use client';
 
-import { ProfilePage } from '@/app/(normal)/profile/pages/Profile.js';
+import { ProfilePage } from '@/app/(normal)/pages/Profile.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useUpdateCurrentVisitingProfile } from '@/hooks/useCurrentVisitingProfile.js';

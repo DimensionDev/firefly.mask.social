@@ -22,9 +22,7 @@ function formatContent(cast: Cast): Post['metadata']['content'] {
 
     if (cast.embeds.length) {
         const firstAsset = first(cast.embeds);
-        if (!firstAsset) return defaultContent;
-
-        if (!firstAsset.url) return defaultContent;
+        if (!firstAsset?.url) return defaultContent;
 
         const assetType = getResourceType(firstAsset.url);
         if (!assetType) return defaultContent;
