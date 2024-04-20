@@ -6,7 +6,6 @@ export function createSiteViewport(viewport?: Partial<Viewport>) {
         initialScale: 1,
         maximumScale: 1,
         userScalable: false,
-        interactiveWidget: 'overlays-content',
         ...viewport,
     } satisfies Viewport;
 }
