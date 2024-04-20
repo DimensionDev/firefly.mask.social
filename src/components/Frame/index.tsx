@@ -9,7 +9,7 @@ import urlcat from 'urlcat';
 
 import { Button } from '@/components/Frame/Button.js';
 import { Input } from '@/components/Frame/Input.js';
-import { Image } from '@/esm/Image.js';
+import { Image } from '@/components/Image.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { untilImageUrlLoaded } from '@/helpers/untilImageLoaded.js';
