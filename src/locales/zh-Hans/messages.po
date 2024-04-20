@@ -165,6 +165,9 @@ msgstr "选择账号"
 msgid "mirror"
 msgstr "转帖"
 
+msgid "Mirror again"
+msgstr ""
+
 msgid "Add another post..."
 msgstr "添加另一个帖子..."
 

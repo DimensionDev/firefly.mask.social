@@ -22,11 +22,8 @@ export function VirtualList<ItemData = unknown, Context = unknown>({
     useMount(() => {
         if (!listKey) return;
         const index = scrollIndex[listKey];
-        if (!index) return;
-        ref.current?.scrollIntoView({
-            index,
-            align: 'center',
-        });
+        if (typeof index === 'undefined') return;
+        ref.current?.scrollToIndex(Math.max(index - 2, 0));
     });
 
     return (
