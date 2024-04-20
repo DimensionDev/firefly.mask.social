@@ -2,11 +2,9 @@ import { parseURL } from '@/helpers/parseURL.js';
 
 export function getResourceType(urlString: string) {
     const parsedURL = parseURL(urlString);
-
     if (!parsedURL) return;
 
     const fileExtension = parsedURL?.pathname.split('.').pop()?.toLowerCase();
-
     if (!fileExtension) return;
 
     // TODO Temporary solution for https://mask.atlassian.net/browse/FW-755
