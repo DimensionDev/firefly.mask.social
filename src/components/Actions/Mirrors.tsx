@@ -36,7 +36,7 @@ interface MirrorProps {
 export const Mirror = memo<MirrorProps>(function Mirror({ shares = 0, source, postId, disabled = false, post }) {
     const isLogin = useIsLogin(source);
     const queryClient = useQueryClient();
-    const mirrored = post.hasMirrored;
+    const mirrored = !!post.hasMirrored;
 
     const content = useMemo(() => {
         switch (source) {
@@ -60,7 +60,7 @@ export const Mirror = memo<MirrorProps>(function Mirror({ shares = 0, source, po
     const mirrorActionText = useMemo(() => {
         switch (source) {
             case SocialPlatform.Lens:
-                return mirrored ? t`Mirrored` : t`Mirror`;
+                return mirrored ? t`Mirror again` : t`Mirror`;
             case SocialPlatform.Farcaster:
                 return mirrored ? t`Cancel Recast` : t`Recast`;
             case SocialPlatform.Twitter:
@@ -109,7 +109,7 @@ export const Mirror = memo<MirrorProps>(function Mirror({ shares = 0, source, po
         <Menu
             as="div"
             className={classNames('relative text-main', {
-                'text-secondarySuccess': !!mirrored,
+                'text-secondarySuccess': mirrored,
                 'opacity-50': !!disabled,
             })}
             onClick={(event) => {
@@ -161,8 +161,7 @@ export const Mirror = memo<MirrorProps>(function Mirror({ shares = 0, source, po
                             <span
                                 className={classNames('text-xs', {
                                     'font-medium': !mirrored && !post.hasQuoted,
-                                    'font-bold': !!mirrored || !!post.hasQuoted,
-                                    'text-secondarySuccess': !!mirrored || !!post.hasQuoted,
+                                    'font-bold text-secondarySuccess': mirrored || !!post.hasQuoted,
                                 })}
                             >
                                 {nFormatter(shares)}
@@ -188,7 +187,7 @@ export const Mirror = memo<MirrorProps>(function Mirror({ shares = 0, source, po
                                     {({ close }) => (
                                         <ClickableButton
                                             className={classNames('flex cursor-pointer items-center md:space-x-2', {
-                                                'text-secondarySuccess': !!mirrored,
+                                                'text-secondarySuccess': mirrored,
                                             })}
                                             onClick={() => {
                                                 close();

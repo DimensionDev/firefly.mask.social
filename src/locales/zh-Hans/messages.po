@@ -168,6 +168,9 @@ msgstr "转帖"
 msgid "Failed to unlike the post."
 msgstr ""
 
+msgid "Mirror again"
+msgstr ""
+
 msgid "Add another post..."
 msgstr "添加另一个帖子..."
 

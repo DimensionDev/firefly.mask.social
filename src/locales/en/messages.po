@@ -163,6 +163,9 @@ msgstr "mirror"
 msgid "Failed to unlike the post."
 msgstr "Failed to unlike the post."
 
+msgid "Mirror again"
+msgstr "Mirror again"
+
 msgid "Add another post..."
 msgstr "Add another post..."
 
