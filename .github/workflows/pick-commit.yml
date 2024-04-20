@@ -18,6 +18,9 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+        with:
+          # 0 indicates all history for all branches and tags
+          fetch-depth: 0
 
       - name: Validate inputs
         run: |
@@ -57,7 +60,12 @@ jobs:
           git checkout $TARGET_BRANCH
           git cherry-pick $COMMIT_HASH
 
-          # Handle any conflicts here if needed
+          # Check for conflicts
+          if git diff --check | grep -qE '^[+-]{7}'; then
+            echo "Conflicts found, aborting push."
+            git cherry-pick --abort
+            exit 1
+          fi
 
           # Push changes to the target branch
           git push origin $TARGET_BRANCH
