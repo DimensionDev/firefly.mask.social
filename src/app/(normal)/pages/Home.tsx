@@ -1,18 +1,24 @@
 'use client';
 
 import { t } from '@lingui/macro';
-import { createIndicator, type Pageable, type PageIndicator } from '@masknet/shared-base';
+import { createIndicator, createPageable, EMPTY_LIST, type Pageable, type PageIndicator } from '@masknet/shared-base';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 
-import { discoverPosts } from '@/app/(normal)/helpers/discoverPosts.js';
 import { ListInPage } from '@/components/ListInPage.js';
 import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.js';
 import { ScrollListKey, SocialPlatform } from '@/constants/enum.js';
 import { getPostsSelector } from '@/helpers/getPostsSelector.js';
+import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
+
+async function discoverPosts(source: SocialPlatform, indicator: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+    const provider = resolveSocialMediaProvider(source);
+    if (!provider) return createPageable(EMPTY_LIST, indicator);
+    return provider.discoverPosts(indicator);
+}
 
 interface Props {
     // the source of the posts

@@ -15,7 +15,9 @@ interface Props {
     params: {
         id: string;
     };
-    searchParams: { source: SourceInURL };
+    searchParams: {
+        source: SourceInURL;
+    };
 }
 
 export async function generateMetadata({ params, searchParams }: Props): Promise<Metadata> {

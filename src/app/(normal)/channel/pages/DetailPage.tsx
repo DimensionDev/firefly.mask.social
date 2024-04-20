@@ -1,8 +1,9 @@
 'use client';
+
 import { useQuery } from '@tanstack/react-query';
 import { notFound } from 'next/navigation.js';
 
-import { ChannelPage } from '@/app/(normal)/channel/pages/Channel.js';
+import { ChannelPage } from '@/app/(normal)/pages/Channel.js';
 import { Loading } from '@/components/Loading.js';
 import type { SourceInURL } from '@/constants/enum.js';
 import { resolveSocialPlatform } from '@/helpers/resolveSocialPlatform.js';
