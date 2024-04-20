@@ -1,19 +1,21 @@
 import { produce } from 'immer';
 
-import type { SocialPlatform } from '@/constants/enum.js';
+import { SocialPlatform } from '@/constants/enum.js';
 import { patchPostQueryData } from '@/helpers/patchPostQueryData.js';
 import type { Provider } from '@/providers/types/SocialMedia.js';
 import type { ClassType } from '@/types/index.js';
 
 function toggleMirror(source: SocialPlatform, postId: string) {
     patchPostQueryData(source, postId, (draft) => {
-        draft.hasMirrored = !draft.hasMirrored;
+        // You can mirror many times on Lens.
+        const mirrored = source === SocialPlatform.Lens || !draft.hasMirrored;
+        draft.hasMirrored = mirrored;
         draft.stats = produce(draft.stats, (old) => {
             return {
                 ...old,
                 comments: old?.comments || 0,
                 reactions: old?.reactions || 0,
-                mirrors: (old?.mirrors || 0) + (draft?.hasMirrored ? 1 : -1),
+                mirrors: (old?.mirrors || 0) + (mirrored ? 1 : -1),
             };
         });
     });
