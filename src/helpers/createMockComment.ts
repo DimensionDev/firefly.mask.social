@@ -6,7 +6,7 @@ import { getCurrentProfileAll } from '@/helpers/getCurrentProfileAll.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import type { CompositePost } from '@/store/useComposeStore.js';
 
-export function createMockPost(source: SocialPlatform, compositePost: CompositePost): Post | null {
+export function createMockComment(source: SocialPlatform, compositePost: CompositePost): Post | null {
     const allProfiles = getCurrentProfileAll();
     const parentPost = compositePost.parentPost[source];
     const postId = compositePost.postId[source];

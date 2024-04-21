@@ -11,7 +11,7 @@ import { Tooltip } from '@/components/Tooltip.js';
 import { MAX_POST_SIZE_PER_THREAD } from '@/constants/index.js';
 import { measureChars } from '@/helpers/chars.js';
 import { classNames } from '@/helpers/classNames.js';
-import { createMockPost } from '@/helpers/createMockPost.js';
+import { createMockComment } from '@/helpers/createMockComment.js';
 import { getCurrentPostLimits } from '@/helpers/getCurrentPostLimits.js';
 import { isValidPost } from '@/helpers/isValidPost.js';
 import { refreshComments } from '@/helpers/refreshComments.js';
@@ -44,7 +44,7 @@ export function ComposeSend({ post }: ComposeSendProps) {
                 const source = post.availableSources[0];
                 const parentPostId = post.parentPost[source]?.postId;
                 if (parentPostId) {
-                    const mockPost = createMockPost(source, updatedPost);
+                    const mockPost = createMockComment(source, updatedPost);
                     refreshComments(source, parentPostId, mockPost);
                 }
             }

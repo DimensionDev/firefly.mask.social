@@ -7,17 +7,15 @@ import type { Post } from '@/providers/types/SocialMedia.js';
 /**
  * Refetch comments and insert the new comment into comments optimistically
  */
-export function refreshComments(source: SocialPlatform, postId: string, mockPost: Post | null) {
+export function refreshComments(source: SocialPlatform, postId: string, mockComment: Post | null) {
     const queryKey = ['posts', source, 'comments', postId];
-    if (mockPost) {
+    if (mockComment) {
         queryClient.setQueriesData<{ pages: Array<{ data: Post[] }> }>({ queryKey }, (data) => {
             if (!data?.pages.length) return data;
             return produce(data, (draft) => {
-                draft.pages[0].data.unshift(mockPost);
+                draft.pages[0].data.unshift(mockComment);
             });
         });
     }
-    return queryClient.refetchQueries({
-        queryKey: ['posts', source, 'comments', postId],
-    });
+    return queryClient.refetchQueries({ queryKey });
 }
