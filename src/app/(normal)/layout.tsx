@@ -30,7 +30,6 @@ export default function Layout({ children, modal }: { children: React.ReactNode;
 
                     <HeaderSearchBar />
 
-                    {/* channel is farcaster only */}
                     <IfPathname
                         isNotOneOf={[
                             {
