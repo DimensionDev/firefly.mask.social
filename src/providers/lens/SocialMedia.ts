@@ -4,6 +4,7 @@ import {
     ExploreProfilesOrderByType,
     ExplorePublicationsOrderByType,
     FeedEventItemType,
+    HiddenCommentsType,
     isCreateMomokaPublicationResult,
     isRelaySuccess,
     LimitType,
@@ -544,7 +545,11 @@ class LensSocialMedia implements Provider {
     ): Promise<Pageable<Post, PageIndicator>> {
         const result = await lensClient.sdk.publication.fetchAll({
             where: {
-                commentOn: { id: postId, ranking: { filter: CommentRankingFilterType.Relevant } },
+                commentOn: {
+                    id: postId,
+                    hiddenComments: HiddenCommentsType.Show,
+                    ranking: { filter: CommentRankingFilterType.Relevant },
+                },
                 customFilters: hasFilter ? [CustomFiltersType.Gardeners] : undefined,
             },
             limit: LimitType.TwentyFive,
