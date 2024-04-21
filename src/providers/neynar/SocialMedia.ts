@@ -78,7 +78,7 @@ class NeynarSocialMedia implements Provider {
         throw new Error('Method not implemented.');
     }
 
-    async upvotePost(postId: string): Promise<Reaction> {
+    async upvotePost(postId: string): Promise<void> {
         throw new Error('Method not implemented.');
     }
 
