@@ -20,6 +20,8 @@ export function isRoutePathname(pathname: string, routePathname: `/${string}`, e
 
     // Check if the parts in routePathname are in the same sequence as in pathname
     for (let i = 0; i < routePathnameParts.length; i += 1) {
+        const part = routePathnameParts[i];
+        if (part.startsWith(':')) continue;
         if (routePathnameParts[i] !== pathnameParts[i]) {
             return false;
         }
