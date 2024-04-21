@@ -155,4 +155,5 @@ export async function crossPost(
 
     // update red packet claim strategy
     await updateRpClaimStrategy(updatedCompositePost);
+    return updatedCompositePost;
 }
