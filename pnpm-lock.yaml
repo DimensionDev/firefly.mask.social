@@ -8734,8 +8734,8 @@ packages:
       '@hapi/hoek': 9.3.0
     dev: false
 
-  /@headlessui/react@1.7.17(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026):
-    resolution: {integrity: sha512-4am+tzvkqDSSgiwrsEpGWqgGo9dz8qU5M3znCkC4PgkpY4HcCZzEDEvozltGGGHIKl9jbXbZPSH5TWn4sWJdow==}
+  /@headlessui/react@1.7.19(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026):
+    resolution: {integrity: sha512-Ll+8q3OlMJfJbAKM/+/Y2q6PPYbryqNTXDbryx7SXLIDamkF6iQFbriYHga0dY44PvDhvvBWCx1Xj4U5+G4hOw==}
     engines: {node: '>=10'}
     peerDependencies:
       react: 0.0.0-experimental-8039e6d0b-20231026 || 0.0.0-experimental-0a360642d-20230711
@@ -8746,6 +8746,7 @@ packages:
       react-dom:
         optional: true
     dependencies:
+      '@tanstack/react-virtual': 3.2.0(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       client-only: 0.0.1
       react: 0.0.0-experimental-8039e6d0b-20231026
       react-dom: 0.0.0-experimental-8039e6d0b-20231026(react@0.0.0-experimental-8039e6d0b-20231026)
@@ -37591,7 +37592,7 @@ time:
   /@ethereumjs/util@8.0.5: '2023-02-27T14:07:47.825Z'
   /@ethersproject/providers@5.7.2: '2022-10-19T22:59:19.925Z'
   /@farcaster/core@0.14.8: '2024-03-22T22:59:05.201Z'
-  /@headlessui/react@1.7.17: '2023-08-17T15:09:23.806Z'
+  /@headlessui/react@1.7.19: '2024-04-15T15:41:53.016Z'
   /@heroicons/react@2.0.18: '2023-05-09T19:41:26.731Z'
   /@hookform/resolvers@3.1.1: '2023-06-12T17:05:20.706Z'
   /@json2csv/plainjs@7.0.1: '2023-05-31T09:42:24.217Z'

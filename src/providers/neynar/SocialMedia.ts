@@ -13,6 +13,7 @@ import {
     type Post,
     type Profile,
     type Provider,
+    type Reaction,
     SessionType,
 } from '@/providers/types/SocialMedia.js';
 
@@ -77,7 +78,7 @@ class NeynarSocialMedia implements Provider {
         throw new Error('Method not implemented.');
     }
 
-    async upvotePost(postId: string): Promise<void> {
+    async upvotePost(postId: string): Promise<Reaction> {
         throw new Error('Method not implemented.');
     }
 

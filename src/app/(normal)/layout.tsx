@@ -31,16 +31,7 @@ export default function Layout({ children, modal }: { children: React.ReactNode;
                     <HeaderSearchBar />
 
                     {/* channel is farcaster only */}
-                    <IfPathname
-                        isNotOneOf={[
-                            {
-                                r: '/post/[^/]+$',
-                                flags: 'i',
-                            },
-                            '/channel',
-                            '/settings',
-                        ]}
-                    >
+                    <IfPathname isNotOneOf={['/channel']}>
                         <SocialPlatformTabs />
                     </IfPathname>
                 </div>
