@@ -29,7 +29,7 @@ export const metadata = createSiteMetadata();
 
 export const viewport = createSiteViewport();
 
-export default function RootLayout({ children }: { children: React.ReactNode; }) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
     setLocale(getLocaleFromCookies());
 
     return (

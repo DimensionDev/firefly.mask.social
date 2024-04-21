@@ -13,7 +13,6 @@ import {
     type Post,
     type Profile,
     type Provider,
-    type Reaction,
     SessionType,
 } from '@/providers/types/SocialMedia.js';
 
