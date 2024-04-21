@@ -1,9 +1,7 @@
 import { t } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
-import { produce } from 'immer';
 import { first } from 'lodash-es';
 
-import { queryClient } from '@/configs/queryClient.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
@@ -98,16 +96,6 @@ export function createPostTo(source: SocialPlatform, options: Options) {
                             [source]: postId,
                         },
                     }));
-
-                    const patched = produce(parentPost, (draft) => {
-                        draft.hasQuoted = true;
-                        draft.stats = {
-                            ...draft.stats!,
-                            quotes: (draft.stats?.quotes || 0) + 1,
-                        };
-                    });
-                    await queryClient.setQueryData([parentPost.source, 'post-detail', parentPost.postId], patched);
-
                     return postId;
                 } catch (error) {
                     enqueueErrorMessage(t`Failed to quote post on ${sourceName}.`);
