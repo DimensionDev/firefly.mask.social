@@ -46,4 +46,10 @@ const EnvSchema = z.object({
     NEXT_PUBLIC_FIREFLY_API_URL: z.string().optional(),
 });
 
-export const env = EnvSchema.parse(process.env);
+const parsed = EnvSchema.safeParse(process.env);
+
+if (!parsed.success && process.env.NODE_ENV !== NODE_ENV.Test) {
+    throw new Error(parsed.error.errors.join('\n'));
+}
+
+export const env = parsed.success ? parsed.data : (null as never);

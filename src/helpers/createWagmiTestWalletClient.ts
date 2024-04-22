@@ -14,7 +14,7 @@ export function createWagmiTestWalletClient(request: (payload: EIP1193Parameters
             request,
         }),
         chain: foundry,
-        key: env.VITE_ACCOUNT_KEY,
+        key: env.VITE_ACCOUNT_KEY as `0x${string}`,
         account: env.VITE_ACCOUNT as `0x${string}`,
     });
 }
