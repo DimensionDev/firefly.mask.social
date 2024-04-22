@@ -36,7 +36,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <html>
             <head>
                 <Polyfills />
-                <Script src="https://cdn.jsdelivr.net/npm/bowser@2.11.0/es5.min.js" strategy="beforeInteractive" />
                 <Script src="/js/browser-detector.js" defer />
                 <meta name="theme-color" content="#ffffff" />
             </head>
@@ -57,6 +56,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 <GA />
                 <SpeedInsights />
                 <BeforeUnload />
+                <Script
+                    src="https://cdn.jsdelivr.net/npm/bowser@2.11.0/es5.min.js"
+                    async
+                    strategy="beforeInteractive"
+                />
             </body>
         </html>
     );
