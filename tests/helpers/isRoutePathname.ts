@@ -15,6 +15,10 @@ describe('isRoutePathname', () => {
             ['/categories/abc/123', '/categories/', true],
             ['/settings//', '/settings', true],
             ['/settings', '/settings//', false],
+            ['/post/:detail', '/post/123', true],
+            ['/post/:detail', '/post', false],
+            ['/post/:detail', '/post/123/photos/123', false],
+            ['/post/:detail/photos/:id', '/post/123/photos/123', true],
         ] as Array<[`/${string}`, `/${string}`, boolean]>;
 
         cases.forEach(([pathname1, pathname2, expectedResult]) => {
