@@ -15,7 +15,7 @@ export const WARPCAST_CLIENT_URL = 'https://client.warpcast.com/v2';
 export const FIREFLY_ROOT_URL = env.NEXT_PUBLIC_FIREFLY_API_URL;
 export const FIREFLY_STAMP_URL = 'https://stamp.firefly.land/avatar';
 
-export const HUBBLE_URL = env.NEXT_PUBLIC_HUBBLE_URL;
+export const HUBBLE_URL = env.HUBBLE_URL ?? env.NEXT_PUBLIC_HUBBLE_URL;
 
 export const NEYNAR_URL = 'https://api.neynar.com';
 export const RP_HASH_TAG = '#FireflyLuckyDrop';

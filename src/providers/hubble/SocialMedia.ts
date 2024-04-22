@@ -25,14 +25,15 @@ function fetchHubbleJSON<T>(url: string, options: RequestInit): Promise<T> {
     const headers = {
         'Content-Type': 'application/octet-stream',
         ...options.headers,
+        api_key: 'TO_BE_REPLACED_LATER',
     };
 
     if (env.HUBBLE_TOKEN) {
-        // @ts-ignore - api_key is not in the type definition
         headers.api_key = env.HUBBLE_TOKEN;
     } else if (env.NEXT_PUBLIC_HUBBLE_TOKEN) {
-        // @ts-ignore - api_key is not in the type definition
         headers.api_key = env.NEXT_PUBLIC_HUBBLE_TOKEN;
+    } else {
+        throw new Error('Hubble token not found.');
     }
 
     return fetchJSON(url, {
