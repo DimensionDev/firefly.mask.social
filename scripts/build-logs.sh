@@ -56,7 +56,7 @@ if [ -f "package.json" ]; then
   version=$(get_package_version)
   node_version=$(get_node_version)
   pnpm_version=$(get_pnpm_version)
-  build_time=$(date +"%Y-%m-%d %H:%M:%S")
+  build_time=$(date -u +"%Y-%m-%d %H:%M:%S UTC")
   submodule_commit_hash=$(git submodule status)
 
   # Create or overwrite the output file
