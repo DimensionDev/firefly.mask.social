@@ -1,3 +1,6 @@
+import { NODE_ENV } from '@/constants/enum.js';
+import { env } from '@/constants/env.js';
+
 const { fetch: originalFetch } = globalThis;
 
 export enum Expiration {
@@ -67,7 +70,7 @@ export async function fetchSquashed(
     expiration = Expiration.ONE_SECOND,
 ): Promise<Response> {
     // why: the caches doesn't define in test env
-    if (process.env.NODE_ENV === 'test') return next(input, init);
+    if (env.NODE_ENV === NODE_ENV.Test) return next(input, init);
 
     const request = new Request(input, init);
 

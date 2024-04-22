@@ -11,7 +11,8 @@ import { OnlineStatusIndicator } from '@/components/OnlineStatusIndicator.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { ProfileName } from '@/components/ProfileName.js';
 import { WarpcastSignerRequestIndicator } from '@/components/WarpcastSignerRequestIndicator.js';
-import { SocialPlatform } from '@/constants/enum.js';
+import { NODE_ENV, SocialPlatform } from '@/constants/enum.js';
+import { env } from '@/constants/env.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { useProfileStore } from '@/hooks/useProfileStore.js';
 import { useSwitchLensAccount } from '@/hooks/useSwitchLensAccount.js';
@@ -45,7 +46,7 @@ export function ProfileSettings({ source }: ProfileSettingsProps) {
                     />
                     <ProfileName profile={profile} />
 
-                    {process.env.NODE_ENV === 'development' ? (
+                    {env.NODE_ENV === NODE_ENV.Development ? (
                         <WarpcastSignerRequestIndicator session={currentProfileSession}>
                             {isSameProfile(currentProfile, profile) ? <OnlineStatusIndicator /> : null}
                         </WarpcastSignerRequestIndicator>

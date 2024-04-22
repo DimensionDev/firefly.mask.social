@@ -1,5 +1,6 @@
 import { describe, expect, test } from 'vitest';
 
+import { env } from '@/constants/env.js';
 import { createWagmiTestWalletClient } from '@/helpers/createWagmiTestWalletClient.js';
 import { generateCustodyBearer } from '@/helpers/generateCustodyBearer.js';
 
@@ -9,7 +10,7 @@ describe('generateCustodyBearer', () => {
             const [_, account] = params as [string, string];
 
             expect(method).toBe('personal_sign');
-            expect(account).toBe(process.env.VITE_ACCOUNT);
+            expect(account).toBe(env.VITE_ACCOUNT);
             return 'signed';
         });
 

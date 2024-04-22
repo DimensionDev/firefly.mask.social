@@ -15,6 +15,7 @@ import { Oembed } from '@/components/Oembed/index.js';
 import { Attachments } from '@/components/Posts/Attachment.js';
 import { Quote } from '@/components/Posts/Quote.js';
 import { IS_APPLE, IS_SAFARI } from '@/constants/bowser.js';
+import { env } from '@/constants/env.js';
 import { EMPTY_LIST, MAX_FRAME_SIZE_PER_POST } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getEncryptedPayloadFromImageAttachment, getEncryptedPayloadFromText } from '@/helpers/getEncryptedPayload.js';
@@ -52,7 +53,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
         if (!postViewed) return;
 
         // mask web components are disabled
-        if (process.env.NEXT_PUBLIC_MASK_WEB_COMPONENTS === 'disabled') return;
+        if (env.NEXT_PUBLIC_MASK_WEB_COMPONENTS === 'disabled') return;
 
         return {
             payloadFromText: getEncryptedPayloadFromText(post),
@@ -181,7 +182,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
 
             {/* TODO: exclude the payload image from attachments */}
             {showAttachments &&
-            (!payloads?.payloadFromImageAttachment || process.env.NEXT_PUBLIC_MASK_WEB_COMPONENTS === 'disabled') ? (
+            (!payloads?.payloadFromImageAttachment || env.NEXT_PUBLIC_MASK_WEB_COMPONENTS === 'disabled') ? (
                 <Attachments
                     post={post}
                     asset={post.metadata.content?.asset}
@@ -189,7 +190,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
                 />
             ) : null}
 
-            {post.metadata.content?.oembedUrls?.length && process.env.NEXT_PUBLIC_FRAMES === 'enabled' ? (
+            {post.metadata.content?.oembedUrls?.length && env.NEXT_PUBLIC_FRAMES === 'enabled' ? (
                 post.metadata.content.oembedUrls.slice(MAX_FRAME_SIZE_PER_POST * -1).map((oembedUrl, i, urls) => (
                     <Frame key={oembedUrl} url={oembedUrl} postId={post.postId}>
                         {/* oembed for the last url */}

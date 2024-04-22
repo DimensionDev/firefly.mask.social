@@ -15,6 +15,8 @@ import { v4 as uuid } from 'uuid';
 import { WagmiProvider } from '@/components/WagmiProvider.js';
 import { livepeerClient } from '@/configs/livepeerClient.js';
 import { queryClient } from '@/configs/queryClient.js';
+import { NODE_ENV } from '@/constants/enum.js';
+import { env } from '@/constants/env.js';
 import { getLocaleFromCookies } from '@/helpers/getLocaleFromCookies.js';
 import { DarkModeContext } from '@/hooks/useDarkMode.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
@@ -104,7 +106,7 @@ export function Providers(props: { children: React.ReactNode }) {
                         </SnackbarProvider>
                     </DarkModeContext.Provider>
                 </ReactQueryStreamedHydration>
-                {process.env.NODE_ENV === 'development' && process.env.NEXT_PUBLIC_MASK_WEB_COMPONENTS === 'enabled' ? (
+                {env.NODE_ENV === NODE_ENV.Development && env.NEXT_PUBLIC_MASK_WEB_COMPONENTS === 'enabled' ? (
                     <ReactQueryDevtools initialIsOpen={false} buttonPosition="bottom-left" />
                 ) : null}
             </QueryClientProvider>

@@ -27,6 +27,7 @@ import {
     polygon,
 } from 'wagmi/chains';
 
+import { env } from '@/constants/env.js';
 import { SITE_HOSTNAME } from '@/constants/index.js';
 
 const XLayer = defineChain({
@@ -78,7 +79,7 @@ export const connectors = connectorsForWallets(
         },
     ],
     {
-        projectId: process.env.NEXT_PUBLIC_W3M_PROJECT_ID,
+        projectId: env.NEXT_PUBLIC_W3M_PROJECT_ID,
         appName: SITE_HOSTNAME,
     },
 );

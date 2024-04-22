@@ -1,5 +1,7 @@
 import { t } from '@lingui/macro';
 
+import { env } from '@/constants/env.js';
+
 export async function uploadToImgur(file: File, metadata?: { title: string; description?: string }): Promise<string> {
     const formData = new FormData();
     formData.append('image', file);
@@ -9,7 +11,7 @@ export async function uploadToImgur(file: File, metadata?: { title: string; desc
     const response = await fetch('https://api.imgur.com/3/image', {
         method: 'POST',
         headers: {
-            Authorization: `Client-ID ${process.env.IMGUR_CLIENT_ID}`,
+            Authorization: `Client-ID ${env.IMGUR_CLIENT_ID}`,
         },
         body: formData,
     });

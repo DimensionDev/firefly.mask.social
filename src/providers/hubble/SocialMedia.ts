@@ -5,6 +5,7 @@ import { toInteger } from 'lodash-es';
 import urlcat from 'urlcat';
 import { toBytes } from 'viem';
 
+import { env } from '@/constants/env.js';
 import { HUBBLE_URL } from '@/constants/index.js';
 import { encodeMessageData } from '@/helpers/encodeMessageData.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
@@ -26,12 +27,12 @@ function fetchHubbleJSON<T>(url: string, options: RequestInit): Promise<T> {
         ...options.headers,
     };
 
-    if (process.env.HUBBLE_TOKEN) {
+    if (env.HUBBLE_TOKEN) {
         // @ts-ignore - api_key is not in the type definition
-        headers.api_key = process.env.HUBBLE_TOKEN;
-    } else if (process.env.NEXT_PUBLIC_HUBBLE_TOKEN) {
+        headers.api_key = env.HUBBLE_TOKEN;
+    } else if (env.NEXT_PUBLIC_HUBBLE_TOKEN) {
         // @ts-ignore - api_key is not in the type definition
-        headers.api_key = process.env.NEXT_PUBLIC_HUBBLE_TOKEN;
+        headers.api_key = env.NEXT_PUBLIC_HUBBLE_TOKEN;
     }
 
     return fetchJSON(url, {
