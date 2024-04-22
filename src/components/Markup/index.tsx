@@ -21,17 +21,10 @@ interface MarkupProps extends Omit<ReactMarkdownOptions, 'children'> {
 
 export const Markup = memo<MarkupProps>(function Markup({ children, post, ...rest }) {
     const plugins = useMemo(() => {
-        if (!post?.mentions?.length)
-            return [
-                [stripMarkdown, { keep: ['strong', 'emphasis', 'inlineCode'] }],
-                remarkBreaks,
-                linkifyRegex(URL_REGEX),
-                linkifyRegex(HASHTAG_REGEX),
-            ];
+        if (!post?.mentions?.length) return [remarkBreaks, linkifyRegex(URL_REGEX), linkifyRegex(HASHTAG_REGEX)];
         const handles = post.mentions.map((x) => x.fullHandle);
         const mentionRe = new RegExp(`@(${handles.join('|')})`, 'g');
         return [
-            [stripMarkdown, { keep: ['strong', 'emphasis', 'inlineCode'] }],
             remarkBreaks,
             // Make sure Mention plugin is before URL plugin, to avoid matching
             // mentioned ens handle as url. For example, @mask.eth should be treat
