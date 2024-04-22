@@ -22,6 +22,7 @@ import { getEncryptedPayloadFromImageAttachment, getEncryptedPayloadFromText } f
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { removeUrlAtEnd } from '@/helpers/removeUrlAtEnd.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
+import { STATUS } from '@/constants/enum.js';
 
 interface PostBodyProps {
     post: Post;
@@ -53,7 +54,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
         if (!postViewed) return;
 
         // mask web components are disabled
-        if (env.NEXT_PUBLIC_MASK_WEB_COMPONENTS === 'disabled') return;
+        if (env.NEXT_PUBLIC_MASK_WEB_COMPONENTS === STATUS.Disabled) return;
 
         return {
             payloadFromText: getEncryptedPayloadFromText(post),
@@ -182,7 +183,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
 
             {/* TODO: exclude the payload image from attachments */}
             {showAttachments &&
-            (!payloads?.payloadFromImageAttachment || env.NEXT_PUBLIC_MASK_WEB_COMPONENTS === 'disabled') ? (
+            (!payloads?.payloadFromImageAttachment || env.NEXT_PUBLIC_MASK_WEB_COMPONENTS === STATUS.Disabled) ? (
                 <Attachments
                     post={post}
                     asset={post.metadata.content?.asset}
@@ -190,7 +191,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
                 />
             ) : null}
 
-            {post.metadata.content?.oembedUrls?.length && env.NEXT_PUBLIC_FRAMES === 'enabled' ? (
+            {post.metadata.content?.oembedUrls?.length && env.NEXT_PUBLIC_FRAMES === STATUS.Enabled ? (
                 post.metadata.content.oembedUrls.slice(MAX_FRAME_SIZE_PER_POST * -1).map((oembedUrl, i, urls) => (
                     <Frame key={oembedUrl} url={oembedUrl} postId={post.postId}>
                         {/* oembed for the last url */}
