@@ -29,7 +29,7 @@ export const EIP_712_FARCASTER_DOMAIN = {
     salt: '0xf2d857f4a3edcb9b78b4d503bfe733db1e3f6cdc2b7971ee739626c97e86a558' as `0x${string}`,
 };
 
-export const SORTED_PROFILE_TAB_TYPE = [ProfileTabType.Feed, ProfileTabType.Collected];
+export const SORTED_PROFILE_TAB_TYPE = [ProfileTabType.Feed, ProfileTabType.Collected]; // ProfileTabType.Channels
 export const SORTED_SEARCH_TYPE = [SearchType.Posts, SearchType.Users];
 export const SORTED_SOURCES = [SocialPlatform.Farcaster, SocialPlatform.Lens, SocialPlatform.Twitter];
 export const SORTED_RESTECTION_TYPE = [RestrictionType.Everyone, RestrictionType.OnlyPeopleYouFollow];
