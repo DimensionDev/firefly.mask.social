@@ -78,8 +78,8 @@ export async function POST(request: Request) {
 function decrypt(encryptedText: string) {
     const decipher = crypto.createDecipheriv(
         'aes-256-cbc',
-        Buffer.from(env.SESSION_CIPHER_KEY, 'hex'),
-        Buffer.from(env.SESSION_CIPHER_IV, 'hex'),
+        Buffer.from(env.internal.SESSION_CIPHER_KEY, 'hex'),
+        Buffer.from(env.internal.SESSION_CIPHER_IV, 'hex'),
     );
     return [decipher.update(encryptedText, 'hex', 'utf-8'), decipher.final('utf-8')].join('');
 }

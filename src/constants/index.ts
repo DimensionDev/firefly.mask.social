@@ -7,15 +7,15 @@ import { RestrictionType } from '@/types/compose.js';
 export const SITE_NAME = 'Firefly: Web3 & NFT Explorer';
 export const SITE_DESCRIPTION =
     "Firefly is a social app for exploring what's happening in the world of Web3, NFTs, AI, and more.";
-export const SITE_URL = env.NEXT_PUBLIC_SITE_URL;
+export const SITE_URL = env.external.NEXT_PUBLIC_SITE_URL;
 export const SITE_HOSTNAME = 'firefly.mask.social';
 
 export const WARPCAST_ROOT_URL = 'https://api.warpcast.com/v2';
 export const WARPCAST_CLIENT_URL = 'https://client.warpcast.com/v2';
-export const FIREFLY_ROOT_URL = env.NEXT_PUBLIC_FIREFLY_API_URL;
+export const FIREFLY_ROOT_URL = env.external.NEXT_PUBLIC_FIREFLY_API_URL;
 export const FIREFLY_STAMP_URL = 'https://stamp.firefly.land/avatar';
 
-export const HUBBLE_URL = env.HUBBLE_URL ?? env.NEXT_PUBLIC_HUBBLE_URL;
+export const HUBBLE_URL = env.internal.HUBBLE_URL ?? env.external.NEXT_PUBLIC_HUBBLE_URL;
 
 export const NEYNAR_URL = 'https://api.neynar.com';
 export const RP_HASH_TAG = '#FireflyLuckyDrop';
@@ -47,9 +47,9 @@ export const EXPANDED_AVATAR = 'tr:w-1000,h-1000';
 export const COVER = 'tr:w-1500,h-500';
 export const ATTACHMENT = 'tr:w-1000';
 
-export const IS_PRODUCTION = env.NEXT_PUBLIC_VERCEL_ENV === VERCEL_NEV.Preview;
-export const IS_DEVELOPMENT = env.NEXT_PUBLIC_VERCEL_ENV === VERCEL_NEV.Development;
-export const IS_PREVIEW = env.NEXT_PUBLIC_VERCEL_ENV === VERCEL_NEV.Preview;
+export const IS_PRODUCTION = env.external.NEXT_PUBLIC_VERCEL_ENV === VERCEL_NEV.Preview;
+export const IS_DEVELOPMENT = env.external.NEXT_PUBLIC_VERCEL_ENV === VERCEL_NEV.Development;
+export const IS_PREVIEW = env.external.NEXT_PUBLIC_VERCEL_ENV === VERCEL_NEV.Preview;
 
 export const EVER_API = 'https://endpoint.4everland.co';
 
@@ -83,7 +83,7 @@ export const MAX_RECOMMEND_PROFILE_SIZE = 10;
 export const MAX_OG_SIZE_PER_POST = 1;
 export const MAX_FRAME_SIZE_PER_POST = 1;
 
-export const MAX_POST_SIZE_PER_THREAD = env.NODE_ENV === NODE_ENV.Development ? 5 : 25;
+export const MAX_POST_SIZE_PER_THREAD = env.shared.NODE_ENV === NODE_ENV.Development ? 5 : 25;
 export const MIN_POST_SIZE_PER_THREAD = 3;
 
 // HTTP Cache headers

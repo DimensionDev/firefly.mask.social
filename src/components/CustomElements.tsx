@@ -19,9 +19,9 @@ export default function CustomElements() {
         await import('@masknet/flags/build-info').then((module) => {
             module.setupBuildInfoManually({
                 channel:
-                    env.NEXT_PUBLIC_VERCEL_ENV === VERCEL_NEV.Preview
+                    env.external.NEXT_PUBLIC_VERCEL_ENV === VERCEL_NEV.Preview
                         ? 'stable'
-                        : env.NODE_ENV === NODE_ENV.Production
+                        : env.shared.NODE_ENV === NODE_ENV.Production
                           ? 'stable'
                           : 'insider',
             });

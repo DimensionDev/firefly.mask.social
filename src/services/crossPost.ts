@@ -33,7 +33,7 @@ async function refreshProfileFeed(source: SocialPlatform) {
 
 async function updateRpClaimStrategy(compositePost: CompositePost) {
     const { postId, typedMessage, rpPayload } = compositePost;
-    if (env.NODE_ENV === NODE_ENV.Development) {
+    if (env.shared.NODE_ENV === NODE_ENV.Development) {
         if (rpPayload?.publicKey && !SORTED_SOURCES.some((x) => postId[x])) {
             console.error("No any post id for updating RedPacket's claim strategy.");
         }

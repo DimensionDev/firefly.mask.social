@@ -70,7 +70,7 @@ export async function fetchSquashed(
     expiration = Expiration.ONE_SECOND,
 ): Promise<Response> {
     // why: the caches doesn't define in test env
-    if (env.NODE_ENV === NODE_ENV.Test) return next(input, init);
+    if (env.shared.NODE_ENV === NODE_ENV.Test) return next(input, init);
 
     const request = new Request(input, init);
 

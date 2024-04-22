@@ -28,10 +28,10 @@ function fetchHubbleJSON<T>(url: string, options: RequestInit): Promise<T> {
         api_key: 'TO_BE_REPLACED_LATER',
     };
 
-    if (env.HUBBLE_TOKEN) {
-        headers.api_key = env.HUBBLE_TOKEN;
-    } else if (env.NEXT_PUBLIC_HUBBLE_TOKEN) {
-        headers.api_key = env.NEXT_PUBLIC_HUBBLE_TOKEN;
+    if (env.internal.HUBBLE_TOKEN) {
+        headers.api_key = env.internal.HUBBLE_TOKEN;
+    } else if (env.external.NEXT_PUBLIC_HUBBLE_TOKEN) {
+        headers.api_key = env.external.NEXT_PUBLIC_HUBBLE_TOKEN;
     } else {
         throw new Error('token not found.');
     }

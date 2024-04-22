@@ -11,7 +11,7 @@ export async function uploadToImgur(file: File, metadata?: { title: string; desc
     const response = await fetch('https://api.imgur.com/3/image', {
         method: 'POST',
         headers: {
-            Authorization: `Client-ID ${env.IMGUR_CLIENT_ID}`,
+            Authorization: `Client-ID ${env.internal.IMGUR_CLIENT_ID}`,
         },
         body: formData,
     });

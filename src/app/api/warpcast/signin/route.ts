@@ -31,7 +31,7 @@ export async function POST(request: NextRequest) {
 
     // valid for one year
     const deadline = Math.floor(Date.now() / 1000) + ONE_YEAR;
-    const account = mnemonicToAccount(env.FARCASTER_SIGNER_MNEMONIC);
+    const account = mnemonicToAccount(env.internal.FARCASTER_SIGNER_MNEMONIC);
     const signature = await account.signTypedData({
         domain: SIGNED_KEY_REQUEST_VALIDATOR_EIP_712_DOMAIN,
         types: {
@@ -41,7 +41,7 @@ export async function POST(request: NextRequest) {
         message: {
             key: publicKey,
             deadline: BigInt(deadline),
-            requestFid: BigInt(env.FARCASTER_SIGNER_FID),
+            requestFid: BigInt(env.internal.FARCASTER_SIGNER_FID),
         },
     });
 
@@ -60,7 +60,7 @@ export async function POST(request: NextRequest) {
         method: 'POST',
         body: JSON.stringify({
             key: publicKey,
-            requestFid: env.FARCASTER_SIGNER_FID,
+            requestFid: env.internal.FARCASTER_SIGNER_FID,
             signature,
             deadline,
         }),
