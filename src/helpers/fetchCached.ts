@@ -63,7 +63,7 @@ export async function fetchCached(
     duration = Duration.ONE_MINUTE,
 ): Promise<Response> {
     // why: the caches doesn't define in test env
-    if (env.NODE_ENV === NODE_ENV.Test) return next(input, init);
+    if (env.shared.NODE_ENV === NODE_ENV.Test) return next(input, init);
 
     // skip all side effect requests
     const request = new Request(input, init);
@@ -104,7 +104,7 @@ export function createFetchCached({
         _next = next,
     ): Promise<Response> {
         // why: the caches doesn't define in test env
-        if (env.NODE_ENV === NODE_ENV.Test) return _next(input, init);
+        if (env.shared.NODE_ENV === NODE_ENV.Test) return _next(input, init);
 
         // skip all side effect requests
         const request = new Request(input, init);

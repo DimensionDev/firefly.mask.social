@@ -79,7 +79,7 @@ export const connectors = connectorsForWallets(
         },
     ],
     {
-        projectId: env.NEXT_PUBLIC_W3M_PROJECT_ID,
+        projectId: env.external.NEXT_PUBLIC_W3M_PROJECT_ID,
         appName: SITE_HOSTNAME,
     },
 );
