@@ -24,7 +24,7 @@ export const ThreadBody = memo<ThreadBodyProps>(function ThreadBody({ post, disa
     const { observe } = useObserveLensPost(post.postId, post.source);
 
     const pathname = usePathname();
-    const isPostPage = isRoutePathname(pathname, '/post');
+    const isPostPage = isRoutePathname(pathname, '/post/:detail', true);
 
     const link = getPostUrl(post);
 
