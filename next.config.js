@@ -87,8 +87,8 @@ export default {
                     resourceRegExp: /^(lokijs|pino-pretty|encoding)$/,
                 }),
                 new context.webpack.DefinePlugin({
-                    'process.env.WEB3_CONSTANTS_RPC': process.env.WEB3_CONSTANTS_RPC ?? '{}',
-                    'process.env.MASK_SENTRY_DSN': process.env.MASK_SENTRY_DSN ?? '',
+                    'process.env.WEB3_CONSTANTS_RPC': process.env.WEB3_CONSTANTS_RPC ?? JSON.stringify({}),
+                    'process.env.MASK_SENTRY_DSN': process.env.MASK_SENTRY_DSN ?? JSON.stringify(''),
                     'process.env.NODE_DEBUG': 'undefined',
                     'process.version': JSON.stringify('0.1.0'),
                 }),

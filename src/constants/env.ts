@@ -34,9 +34,6 @@ const EnvSchema = z.object({
     NEXT_PUBLIC_HUBBLE_URL: z.string(),
     NEXT_PUBLIC_HUBBLE_TOKEN: z.string().optional(),
 
-    WEB3_CONSTANTS_RPC: z.string().default('{}'),
-    MASK_SENTRY_DSN: z.string().default(''),
-
     NEXT_PUBLIC_SITE_URL: z.string().default('https://firefly.mask.social'),
     NEXT_PUBLIC_FIREFLY_API_URL: z.string().default('https://api.firefly.land'),
 
