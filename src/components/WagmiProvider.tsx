@@ -1,37 +1,27 @@
 'use client';
 
-import '@rainbow-me/rainbowkit/styles.css';
-
-import { darkTheme, RainbowKitProvider } from '@rainbow-me/rainbowkit';
-import { useMemo } from 'react';
-import { polygon } from 'viem/chains';
-import { WagmiConfig } from 'wagmi';
+import { EthereumWalletConnectors } from '@dynamic-labs/ethereum';
+import { DynamicContextProvider } from '@dynamic-labs/sdk-react-core';
+import { DynamicWagmiConnector } from '@dynamic-labs/wagmi-connector';
+import { WagmiProvider as WagmiProviderSKD } from 'wagmi';
 
 import { config } from '@/configs/wagmiClient.js';
-import { getLocaleFromCookies } from '@/helpers/getLocaleFromCookies.js';
-import { resolveRainbowKitLocale } from '@/helpers/resolveRainbowKitLocale.js';
-import { useDarkMode } from '@/hooks/useDarkMode.js';
+
+const dynamicContextSettings = {
+    environmentId: 'e5ef3896-0c03-42da-9f38-84c3cf258493',
+    walletConnectors: [EthereumWalletConnectors],
+};
 
 export interface WagmiProviderProps {
     children: React.ReactNode;
 }
 
 export function WagmiProvider(props: WagmiProviderProps) {
-    const { isDarkMode } = useDarkMode();
-    const theme = useMemo(() => {
-        return isDarkMode ? darkTheme() : undefined;
-    }, [isDarkMode]);
-
     return (
-        <WagmiConfig config={config}>
-            <RainbowKitProvider
-                locale={resolveRainbowKitLocale(getLocaleFromCookies())}
-                theme={theme}
-                initialChain={polygon}
-                showRecentTransactions
-            >
-                {props.children}
-            </RainbowKitProvider>
-        </WagmiConfig>
+        <DynamicContextProvider settings={dynamicContextSettings}>
+            <WagmiProviderSKD config={config}>
+                <DynamicWagmiConnector>{props.children}</DynamicWagmiConnector>
+            </WagmiProviderSKD>
+        </DynamicContextProvider>
     );
 }

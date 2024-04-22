@@ -1,13 +1,21 @@
+import { useDynamicModals } from '@dynamic-labs/sdk-react-core';
 import type { SingletonModalRefCreator } from '@masknet/shared-base';
-import { useConnectModal } from '@rainbow-me/rainbowkit';
-import { forwardRef } from 'react';
+import { forwardRef, useState } from 'react';
 
 import { useRainbowModal } from '@/hooks/useRainbowModal.js';
 
 export const ConnectWalletModal = forwardRef<SingletonModalRefCreator>(function ConnectWalletModal(_, ref) {
-    const { openConnectModal, connectModalOpen } = useConnectModal();
+    const [open, setOpen] = useState(false);
+    const { setShowLinkNewWalletModal } = useDynamicModals();
 
-    useRainbowModal(openConnectModal, connectModalOpen, ref);
+    useRainbowModal(
+        () => {
+            setShowLinkNewWalletModal(true);
+            setOpen(true);
+        },
+        open,
+        ref,
+    );
 
     return null;
 });
