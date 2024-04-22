@@ -8,10 +8,7 @@ const EnvSchema = z.object({
     TWITTER_CLIENT_ID: z.string(),
     TWITTER_CLIENT_SECRET: z.string(),
 
-    GITHUB_CLIENT_ID: z.string(),
-    GITHUB_CLIENT_SECRET: z.string(),
-
-    NEXTAUTH_URL: z.string(),
+    NEXTAUTH_URL: z.string().optional(),
     NEXTAUTH_SECRET: z.string(),
 
     NEXT_PUBLIC_W3M_PROJECT_ID: z.string(),
@@ -32,24 +29,18 @@ const EnvSchema = z.object({
     NEXT_PUBLIC_HUBBLE_URL: z.string(),
     NEXT_PUBLIC_HUBBLE_TOKEN: z.string(),
 
-    WEB3_CONSTANTS_RPC: z.string(),
-    MASK_SENTRY_DSN: z.string(),
+    WEB3_CONSTANTS_RPC: z.string().default('{}'),
+    MASK_SENTRY_DSN: z.string().default(''),
 
     IMGUR_CLIENT_ID: z.string(),
     IMGUR_CLIENT_SECRET: z.string(),
 
-    NEXT_PUBLIC_SITE_URL: z.string().optional(),
+    NEXT_PUBLIC_SITE_URL: z.string().default('https://firefly.mask.social'),
 
-    NEXT_PUBLIC_FRAMES: z.nativeEnum(STATUS),
-    NEXT_PUBLIC_MASK_WEB_COMPONENTS: z.nativeEnum(STATUS),
-    NEXT_PUBLIC_REACT_DEV_TOOLS: z.nativeEnum(STATUS),
-    NEXT_PUBLIC_FIREFLY_API_URL: z.string().optional(),
+    NEXT_PUBLIC_FRAMES: z.nativeEnum(STATUS).default(STATUS.Disabled),
+    NEXT_PUBLIC_MASK_WEB_COMPONENTS: z.nativeEnum(STATUS).default(STATUS.Disabled),
+    NEXT_PUBLIC_REACT_DEV_TOOLS: z.nativeEnum(STATUS).default(STATUS.Disabled),
+    NEXT_PUBLIC_FIREFLY_API_URL: z.string().default('https://api.firefly.land'),
 });
 
-const parsed = EnvSchema.safeParse(process.env);
-
-if (!parsed.success && process.env.NODE_ENV !== NODE_ENV.Test) {
-    throw new Error(parsed.error.errors.join('\n'));
-}
-
-export const env = parsed.success ? parsed.data : (null as never);
+export const env = EnvSchema.parse(process.env);

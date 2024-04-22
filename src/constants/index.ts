@@ -1,18 +1,18 @@
 /* cspell:disable */
 
-import { ProfileTabType, SearchType, SocialPlatform } from '@/constants/enum.js';
+import { ProfileTabType, SearchType, SocialPlatform, VERCEL_NEV } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { RestrictionType } from '@/types/compose.js';
 
 export const SITE_NAME = 'Firefly: Web3 & NFT Explorer';
 export const SITE_DESCRIPTION =
     "Firefly is a social app for exploring what's happening in the world of Web3, NFTs, AI, and more.";
-export const SITE_URL = env.NEXT_PUBLIC_SITE_URL || 'https://firefly.mask.social';
+export const SITE_URL = env.NEXT_PUBLIC_SITE_URL;
 export const SITE_HOSTNAME = 'firefly.mask.social';
 
 export const WARPCAST_ROOT_URL = 'https://api.warpcast.com/v2';
 export const WARPCAST_CLIENT_URL = 'https://client.warpcast.com/v2';
-export const FIREFLY_ROOT_URL = env.NEXT_PUBLIC_FIREFLY_API_URL ?? 'https://api.firefly.land';
+export const FIREFLY_ROOT_URL = env.NEXT_PUBLIC_FIREFLY_API_URL;
 export const FIREFLY_STAMP_URL = 'https://stamp.firefly.land/avatar';
 
 export const HUBBLE_URL = env.NEXT_PUBLIC_HUBBLE_URL;
@@ -47,9 +47,9 @@ export const EXPANDED_AVATAR = 'tr:w-1000,h-1000';
 export const COVER = 'tr:w-1500,h-500';
 export const ATTACHMENT = 'tr:w-1000';
 
-export const IS_PRODUCTION = env.NEXT_PUBLIC_VERCEL_ENV === 'production';
-export const IS_DEVELOPMENT = env.NEXT_PUBLIC_VERCEL_ENV === 'development';
-export const IS_PREVIEW = env.NEXT_PUBLIC_VERCEL_ENV === 'preview';
+export const IS_PRODUCTION = env.NEXT_PUBLIC_VERCEL_ENV === VERCEL_NEV.Preview;
+export const IS_DEVELOPMENT = env.NEXT_PUBLIC_VERCEL_ENV === VERCEL_NEV.Development;
+export const IS_PREVIEW = env.NEXT_PUBLIC_VERCEL_ENV === VERCEL_NEV.Preview;
 
 export const EVER_API = 'https://endpoint.4everland.co';
 

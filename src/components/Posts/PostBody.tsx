@@ -15,6 +15,7 @@ import { Oembed } from '@/components/Oembed/index.js';
 import { Attachments } from '@/components/Posts/Attachment.js';
 import { Quote } from '@/components/Posts/Quote.js';
 import { IS_APPLE, IS_SAFARI } from '@/constants/bowser.js';
+import { STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { EMPTY_LIST, MAX_FRAME_SIZE_PER_POST } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -22,7 +23,6 @@ import { getEncryptedPayloadFromImageAttachment, getEncryptedPayloadFromText } f
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { removeUrlAtEnd } from '@/helpers/removeUrlAtEnd.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
-import { STATUS } from '@/constants/enum.js';
 
 interface PostBodyProps {
     post: Post;
