@@ -5,6 +5,7 @@ import urlcat from 'urlcat';
 import { toHex } from 'viem';
 import { mnemonicToAccount } from 'viem/accounts';
 
+import { env } from '@/constants/env.js';
 import { WARPCAST_ROOT_URL } from '@/constants/index.js';
 import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
@@ -30,7 +31,7 @@ export async function POST(request: NextRequest) {
 
     // valid for one year
     const deadline = Math.floor(Date.now() / 1000) + ONE_YEAR;
-    const account = mnemonicToAccount(process.env.FARCASTER_SIGNER_MNEMONIC);
+    const account = mnemonicToAccount(env.FARCASTER_SIGNER_MNEMONIC);
     const signature = await account.signTypedData({
         domain: SIGNED_KEY_REQUEST_VALIDATOR_EIP_712_DOMAIN,
         types: {
@@ -40,7 +41,7 @@ export async function POST(request: NextRequest) {
         message: {
             key: publicKey,
             deadline: BigInt(deadline),
-            requestFid: BigInt(process.env.FARCASTER_SIGNER_FID),
+            requestFid: BigInt(env.FARCASTER_SIGNER_FID),
         },
     });
 
@@ -59,7 +60,7 @@ export async function POST(request: NextRequest) {
         method: 'POST',
         body: JSON.stringify({
             key: publicKey,
-            requestFid: process.env.FARCASTER_SIGNER_FID,
+            requestFid: env.FARCASTER_SIGNER_FID,
             signature,
             deadline,
         }),

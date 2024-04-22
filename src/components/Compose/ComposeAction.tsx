@@ -19,6 +19,8 @@ import { ReplyRestriction } from '@/components/Compose/ReplyRestriction.js';
 import { ReplyRestrictionText } from '@/components/Compose/ReplyRestrictionText.js';
 import { SourceIcon } from '@/components/SourceIcon.js';
 import { Tooltip } from '@/components/Tooltip.js';
+import { NODE_ENV } from '@/constants/enum.js';
+import { env } from '@/constants/env.js';
 import { MAX_POST_SIZE_PER_THREAD, SORTED_SOURCES } from '@/constants/index.js';
 import { measureChars } from '@/helpers/chars.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -134,7 +136,7 @@ export function ComposeAction(props: ComposeActionProps) {
                     />
                 </Tooltip>
 
-                {process.env.NODE_ENV === 'development' ? (
+                {env.NODE_ENV === NODE_ENV.Development ? (
                     <>
                         <Tooltip content={t`Debug Connection`} placement="top">
                             <BugAntIcon

@@ -4,6 +4,7 @@ import { StatusCodes } from 'http-status-codes';
 import urlcat from 'urlcat';
 import { z } from 'zod';
 
+import { env } from '@/constants/env.js';
 import { FIREFLY_ROOT_URL } from '@/constants/index.js';
 import { createErrorResponseJSON } from '@/helpers/createErrorResponseJSON.js';
 import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
@@ -77,8 +78,8 @@ export async function POST(request: Request) {
 function decrypt(encryptedText: string) {
     const decipher = crypto.createDecipheriv(
         'aes-256-cbc',
-        Buffer.from(process.env.SESSION_CIPHER_KEY, 'hex'),
-        Buffer.from(process.env.SESSION_CIPHER_IV, 'hex'),
+        Buffer.from(env.SESSION_CIPHER_KEY, 'hex'),
+        Buffer.from(env.SESSION_CIPHER_IV, 'hex'),
     );
     return [decipher.update(encryptedText, 'hex', 'utf-8'), decipher.final('utf-8')].join('');
 }

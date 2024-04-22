@@ -15,9 +15,11 @@ import '@/mask/custom-elements/DecryptedPost.js';
 import '@/mask/custom-elements/PostInspector.js';
 
 import { setPluginDebuggerMessages } from '@/mask/message-host/index.js';
+import { env } from '@/constants/env.js';
+import { NODE_ENV } from '@/constants/enum.js';
 
 // plugin messages
-if (process.env.NODE_ENV === 'development') {
+if (env.NODE_ENV === NODE_ENV.Development) {
     await import('@masknet/plugin-debugger/messages').then((module) =>
         setPluginDebuggerMessages(module.PluginDebuggerMessages),
     );

@@ -4,18 +4,20 @@ import { t } from '@lingui/macro';
 import type { AuthOptions } from 'next-auth';
 import type { Provider } from 'next-auth/providers/index';
 
+import { NODE_ENV } from '@/constants/enum.js';
+import { env } from '@/constants/env.js';
 import { CredentialsProvider } from '@/esm/CredentialsProvider.js';
 import { TwitterProvider } from '@/esm/TwitterProvider.js';
 
 const providers: Provider[] = [
     TwitterProvider({
         id: 'twitter',
-        clientId: process.env.TWITTER_CLIENT_ID,
-        clientSecret: process.env.TWITTER_CLIENT_SECRET,
+        clientId: env.TWITTER_CLIENT_ID,
+        clientSecret: env.TWITTER_CLIENT_SECRET,
     }),
 ];
 
-if (process.env.NODE_ENV === 'development') {
+if (env.NODE_ENV === NODE_ENV.Development) {
     providers.push(
         CredentialsProvider({
             id: 'credentials',
@@ -33,7 +35,7 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 export const authOptions: AuthOptions = {
-    debug: process.env.NODE_ENV === 'development',
+    debug: env.NODE_ENV === NODE_ENV.Development,
     providers,
     callbacks: {
         jwt: async ({ token, user, account, profile, trigger, session }) => {

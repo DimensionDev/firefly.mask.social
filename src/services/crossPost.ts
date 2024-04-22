@@ -5,7 +5,8 @@ import { produce } from 'immer';
 import { compact } from 'lodash-es';
 
 import { queryClient } from '@/configs/queryClient.js';
-import { SocialPlatform } from '@/constants/enum.js';
+import { NODE_ENV, SocialPlatform } from '@/constants/enum.js';
+import { env } from '@/constants/env.js';
 import { SORTED_SOURCES } from '@/constants/index.js';
 import { createMockComment } from '@/helpers/createMockComment.js';
 import { getCurrentProfileAll } from '@/helpers/getCurrentProfileAll.js';
@@ -32,7 +33,7 @@ async function refreshProfileFeed(source: SocialPlatform) {
 
 async function updateRpClaimStrategy(compositePost: CompositePost) {
     const { postId, typedMessage, rpPayload } = compositePost;
-    if (process.env.NODE_ENV === 'development') {
+    if (env.NODE_ENV === NODE_ENV.Development) {
         if (rpPayload?.publicKey && !SORTED_SOURCES.some((x) => postId[x])) {
             console.error("No any post id for updating RedPacket's claim strategy.");
         }

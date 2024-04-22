@@ -1,5 +1,7 @@
 import { create } from 'zustand';
 
+import { NODE_ENV } from '@/constants/enum.js';
+import { env } from '@/constants/env.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
@@ -19,7 +21,7 @@ const STATS_URL = '/api/publication-views';
 export const useImpressionsBase = create<ImpressionsState>((set) => ({
     publicationViews: EMPTY_LIST,
     fetchAndStoreViews: async (ids) => {
-        if (process.env.NODE_ENV === 'development') return;
+        if (env.NODE_ENV === NODE_ENV.Development) return;
         if (!ids.length) return;
 
         try {

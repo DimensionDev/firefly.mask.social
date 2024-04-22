@@ -5,6 +5,8 @@ import { useEffect } from 'react';
 import { useAsync, useUpdateEffect } from 'react-use';
 import { useAccount, useChainId } from 'wagmi';
 
+import { NODE_ENV, VERCEL_NEV } from '@/constants/enum.js';
+import { env } from '@/constants/env.js';
 import { connectMaskWithWagmi } from '@/helpers/connectWagmiWithMask.js';
 import { getTypedMessageRedPacket } from '@/helpers/getTypedMessage.js';
 import { ComposeModalRef } from '@/modals/controls.js';
@@ -17,9 +19,9 @@ export default function CustomElements() {
         await import('@masknet/flags/build-info').then((module) => {
             module.setupBuildInfoManually({
                 channel:
-                    process.env.NEXT_PUBLIC_VERCEL_ENV === 'preview'
+                    env.NEXT_PUBLIC_VERCEL_ENV === VERCEL_NEV.Preview
                         ? 'stable'
-                        : process.env.NODE_ENV === 'production'
+                        : env.NODE_ENV === NODE_ENV.Production
                           ? 'stable'
                           : 'insider',
             });

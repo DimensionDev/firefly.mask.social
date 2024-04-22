@@ -1,3 +1,5 @@
+import { NODE_ENV } from '@/constants/enum.js';
+import { env } from '@/constants/env.js';
 import type { Fetcher } from '@/helpers/fetch.js';
 
 const { fetch: originalFetch } = globalThis;
@@ -61,7 +63,7 @@ export async function fetchCached(
     duration = Duration.ONE_MINUTE,
 ): Promise<Response> {
     // why: the caches doesn't define in test env
-    if (process.env.NODE_ENV === 'test') return next(input, init);
+    if (env.NODE_ENV === NODE_ENV.Test) return next(input, init);
 
     // skip all side effect requests
     const request = new Request(input, init);
@@ -102,7 +104,7 @@ export function createFetchCached({
         _next = next,
     ): Promise<Response> {
         // why: the caches doesn't define in test env
-        if (process.env.NODE_ENV === 'test') return _next(input, init);
+        if (env.NODE_ENV === NODE_ENV.Test) return _next(input, init);
 
         // skip all side effect requests
         const request = new Request(input, init);
