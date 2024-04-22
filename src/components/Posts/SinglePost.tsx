@@ -41,7 +41,8 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
 
     const pathname = usePathname();
 
-    const isPostPage = isRoutePathname(pathname, '/post');
+    const isPostPage = isRoutePathname(pathname, '/post/:detail', true);
+
     const postLink = getPostUrl(post);
 
     const { observe: observeRef } = useInView({

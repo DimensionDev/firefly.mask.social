@@ -11,7 +11,7 @@ import { useGlobalState } from '@/store/useGlobalStore.js';
 
 export function ComposeButtonForMobile() {
     const pathname = usePathname();
-    const isPostPage = isRoutePathname(pathname, '/post');
+    const isPostPage = isRoutePathname(pathname, '/post/:detail', true);
     const currentSource = useGlobalState.use.currentSource();
 
     const isLogin = useIsLogin();
