@@ -1,6 +1,6 @@
 /* cspell:disable */
 
-import { ProfileTabType, SearchType, SocialPlatform, VERCEL_NEV } from '@/constants/enum.js';
+import { NODE_ENV, ProfileTabType, SearchType, SocialPlatform, VERCEL_NEV } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { RestrictionType } from '@/types/compose.js';
 
@@ -83,7 +83,7 @@ export const MAX_RECOMMEND_PROFILE_SIZE = 10;
 export const MAX_OG_SIZE_PER_POST = 1;
 export const MAX_FRAME_SIZE_PER_POST = 1;
 
-export const MAX_POST_SIZE_PER_THREAD = env.NODE_ENV === 'development' ? 5 : 25;
+export const MAX_POST_SIZE_PER_THREAD = env.NODE_ENV === NODE_ENV.Development ? 5 : 25;
 export const MIN_POST_SIZE_PER_THREAD = 3;
 
 // HTTP Cache headers

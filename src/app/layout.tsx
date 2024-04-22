@@ -9,7 +9,7 @@ import { GA } from '@/components/GA.js';
 import { Polyfills } from '@/components/Polyfills.js';
 import { Providers } from '@/components/Providers.js';
 import { SideBar } from '@/components/SideBar/index.js';
-import { STATUS } from '@/constants/enum.js';
+import { NODE_ENV, STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { Script } from '@/esm/Script.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
@@ -44,8 +44,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <body className={`${inter.variable} font-inter`}>
                 <Providers>
                     <div className="m-auto flex w-full md:min-h-screen lg:w-[1265px]">
-                        {env.NODE_ENV !== 'development' ||
-                        (env.NODE_ENV === 'development' && env.NEXT_PUBLIC_MASK_WEB_COMPONENTS === STATUS.Enabled) ? (
+                        {env.NODE_ENV !== NODE_ENV.Development ||
+                        (env.NODE_ENV === NODE_ENV.Development &&
+                            env.NEXT_PUBLIC_MASK_WEB_COMPONENTS === STATUS.Enabled) ? (
                             <CustomElements />
                         ) : null}
                         {children}

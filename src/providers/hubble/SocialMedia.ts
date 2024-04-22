@@ -33,7 +33,7 @@ function fetchHubbleJSON<T>(url: string, options: RequestInit): Promise<T> {
     } else if (env.NEXT_PUBLIC_HUBBLE_TOKEN) {
         headers.api_key = env.NEXT_PUBLIC_HUBBLE_TOKEN;
     } else {
-        throw new Error('Hubble token not found.');
+        throw new Error('token not found.');
     }
 
     return fetchJSON(url, {
