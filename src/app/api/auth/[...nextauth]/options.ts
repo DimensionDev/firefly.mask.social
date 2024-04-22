@@ -12,12 +12,12 @@ import { TwitterProvider } from '@/esm/TwitterProvider.js';
 const providers: Provider[] = [
     TwitterProvider({
         id: 'twitter',
-        clientId: env.TWITTER_CLIENT_ID,
-        clientSecret: env.TWITTER_CLIENT_SECRET,
+        clientId: env.internal.TWITTER_CLIENT_ID,
+        clientSecret: env.internal.TWITTER_CLIENT_SECRET,
     }),
 ];
 
-if (env.NODE_ENV === NODE_ENV.Development) {
+if (env.shared.NODE_ENV === NODE_ENV.Development) {
     providers.push(
         CredentialsProvider({
             id: 'credentials',
@@ -35,7 +35,7 @@ if (env.NODE_ENV === NODE_ENV.Development) {
 }
 
 export const authOptions: AuthOptions = {
-    debug: env.NODE_ENV === NODE_ENV.Development,
+    debug: env.shared.NODE_ENV === NODE_ENV.Development,
     providers,
     callbacks: {
         jwt: async ({ token, user, account, profile, trigger, session }) => {

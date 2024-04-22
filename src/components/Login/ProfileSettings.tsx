@@ -46,7 +46,7 @@ export function ProfileSettings({ source }: ProfileSettingsProps) {
                     />
                     <ProfileName profile={profile} />
 
-                    {env.NODE_ENV === NODE_ENV.Development ? (
+                    {env.shared.NODE_ENV === NODE_ENV.Development ? (
                         <WarpcastSignerRequestIndicator session={currentProfileSession}>
                             {isSameProfile(currentProfile, profile) ? <OnlineStatusIndicator /> : null}
                         </WarpcastSignerRequestIndicator>

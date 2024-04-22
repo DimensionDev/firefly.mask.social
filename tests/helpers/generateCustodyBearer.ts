@@ -10,7 +10,7 @@ describe('generateCustodyBearer', () => {
             const [_, account] = params as [string, string];
 
             expect(method).toBe('personal_sign');
-            expect(account).toBe(env.VITE_ACCOUNT);
+            expect(account).toBe(env.internal.VITE_ACCOUNT);
             return 'signed';
         });
 

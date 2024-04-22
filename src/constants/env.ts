@@ -2,10 +2,7 @@ import { z } from 'zod';
 
 import { NODE_ENV, STATUS, VERCEL_NEV } from '@/constants/enum.js';
 
-const EnvSchema = z.object({
-    NODE_ENV: z.nativeEnum(NODE_ENV),
-    NEXT_PUBLIC_VERCEL_ENV: z.nativeEnum(VERCEL_NEV).default(VERCEL_NEV.Development),
-
+const InternalEnvSchema = z.object({
     TWITTER_CLIENT_ID: z.string(),
     TWITTER_CLIENT_SECRET: z.string(),
 
@@ -14,8 +11,6 @@ const EnvSchema = z.object({
 
     NEXTAUTH_URL: z.string().optional(),
     NEXTAUTH_SECRET: z.string(),
-
-    NEXT_PUBLIC_W3M_PROJECT_ID: z.string(),
 
     SESSION_CIPHER_KEY: z.string(),
     SESSION_CIPHER_IV: z.string(),
@@ -29,10 +24,12 @@ const EnvSchema = z.object({
     // internal use of hubble
     HUBBLE_URL: z.string(),
     HUBBLE_TOKEN: z.string().optional(),
+});
 
-    // public use of hubble
-    NEXT_PUBLIC_HUBBLE_URL: z.string(),
-    NEXT_PUBLIC_HUBBLE_TOKEN: z.string().optional(),
+const ExternalEnvSchema = z.object({
+    NEXT_PUBLIC_VERCEL_ENV: z.nativeEnum(VERCEL_NEV).default(VERCEL_NEV.Development),
+
+    NEXT_PUBLIC_W3M_PROJECT_ID: z.string(),
 
     NEXT_PUBLIC_SITE_URL: z.string().default('https://firefly.mask.social'),
     NEXT_PUBLIC_FIREFLY_API_URL: z.string().default('https://api.firefly.land'),
@@ -40,6 +37,32 @@ const EnvSchema = z.object({
     NEXT_PUBLIC_FRAMES: z.nativeEnum(STATUS).default(STATUS.Disabled),
     NEXT_PUBLIC_MASK_WEB_COMPONENTS: z.nativeEnum(STATUS).default(STATUS.Disabled),
     NEXT_PUBLIC_REACT_DEV_TOOLS: z.nativeEnum(STATUS).default(STATUS.Disabled),
+
+    // public use of hubble
+    NEXT_PUBLIC_HUBBLE_URL: z.string(),
+    NEXT_PUBLIC_HUBBLE_TOKEN: z.string().optional(),
 });
 
-export const env = EnvSchema.parse(process.env);
+export const env = {
+    shared: {
+        NODE_ENV: process.env.NODE_ENV as NODE_ENV,
+    },
+    internal: (typeof window === 'undefined' ? InternalEnvSchema.parse(process.env) : {}) as z.infer<
+        typeof InternalEnvSchema
+    >,
+    external: ExternalEnvSchema.parse({
+        NEXT_PUBLIC_VERCEL_ENV: process.env.NEXT_PUBLIC_VERCEL_ENV,
+
+        NEXT_PUBLIC_W3M_PROJECT_ID: process.env.NEXT_PUBLIC_W3M_PROJECT_ID,
+
+        NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL,
+        NEXT_PUBLIC_FIREFLY_API_URL: process.env.NEXT_PUBLIC_FIREFLY_API_URL,
+
+        NEXT_PUBLIC_FRAMES: process.env.NEXT_PUBLIC_FRAMES,
+        NEXT_PUBLIC_MASK_WEB_COMPONENTS: process.env.NEXT_PUBLIC_MASK_WEB_COMPONENTS,
+        NEXT_PUBLIC_REACT_DEV_TOOLS: process.env.NEXT_PUBLIC_REACT_DEV_TOOLS,
+
+        NEXT_PUBLIC_HUBBLE_URL: process.env.NEXT_PUBLIC_HUBBLE_URL,
+        NEXT_PUBLIC_HUBBLE_TOKEN: process.env.NEXT_PUBLIC_HUBBLE_TOKEN,
+    }),
+};

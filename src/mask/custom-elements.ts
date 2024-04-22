@@ -19,7 +19,7 @@ import { env } from '@/constants/env.js';
 import { NODE_ENV } from '@/constants/enum.js';
 
 // plugin messages
-if (env.NODE_ENV === NODE_ENV.Development) {
+if (env.shared.NODE_ENV === NODE_ENV.Development) {
     await import('@masknet/plugin-debugger/messages').then((module) =>
         setPluginDebuggerMessages(module.PluginDebuggerMessages),
     );

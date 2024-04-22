@@ -136,7 +136,7 @@ export function ComposeAction(props: ComposeActionProps) {
                     />
                 </Tooltip>
 
-                {env.NODE_ENV === NODE_ENV.Development ? (
+                {env.shared.NODE_ENV === NODE_ENV.Development ? (
                     <>
                         <Tooltip content={t`Debug Connection`} placement="top">
                             <BugAntIcon

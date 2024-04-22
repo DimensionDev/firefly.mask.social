@@ -9,15 +9,16 @@ import { env } from '@/constants/env.js';
 export async function createTwitterClientV2(request: NextRequest) {
     const token: JWT = await getToken({
         req: request,
-        secret: env.NEXTAUTH_SECRET,
+        secret: env.internal.NEXTAUTH_SECRET,
     });
     const session = await getServerSession(authOptions);
 
     if (!token || !session) throw new Error('Unauthorized');
     if (!token.twitter.oauthToken || !token.twitter.oauthTokenSecret) throw new Error('No Twitter token found');
+
     const tokens: TwitterApiTokens = {
-        appKey: env.TWITTER_CLIENT_ID,
-        appSecret: env.TWITTER_CLIENT_SECRET,
+        appKey: env.internal.TWITTER_CLIENT_ID,
+        appSecret: env.internal.TWITTER_CLIENT_SECRET,
         accessToken: token.twitter.oauthToken,
         accessSecret: token.twitter.oauthTokenSecret,
     };
