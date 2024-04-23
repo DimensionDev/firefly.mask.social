@@ -53,6 +53,8 @@ const FarcasterMetricsSchema = z.object({
 
 const MetricsSchema = z.array(z.union([TwitterMetricsSchema, LensMetricsSchema, FarcasterMetricsSchema]));
 
+export type Metrics = z.infer<typeof MetricsSchema>;
+
 export async function POST(request: Request) {
     const account = AccountSchema.safeParse(await request.json());
     if (!account.success) return createErrorResponseJSON(account.error.message, { status: StatusCodes.BAD_REQUEST });
