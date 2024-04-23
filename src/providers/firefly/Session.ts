@@ -4,10 +4,10 @@ import urlcat from 'urlcat';
 import { FIREFLY_ROOT_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { BaseSession } from '@/providers/base/Session.js';
+import { FarcasterSession } from '@/providers/farcaster/Session.js';
 import type { FarcasterLoginResponse, LensLoginResponse } from '@/providers/types/Firefly.js';
 import type { Session } from '@/providers/types/Session.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
-import { FarcasterSession } from '@/providers/farcaster/Session.js';
 
 export class FireflySession extends BaseSession implements Session {
     constructor(accountId: string, accessToken: string) {
@@ -34,7 +34,6 @@ export class FireflySession extends BaseSession implements Session {
             case SessionType.Farcaster: {
                 if (!FarcasterSession.isGrantByPermission(session)) throw new Error('Not allowed');
                 const url = urlcat(FIREFLY_ROOT_URL, '/v3/auth/farcaster/login', {
-                    token: session.token,
                     channelToken: session.signerRequestToken,
                 });
                 const { data } = await fetchJSON<FarcasterLoginResponse>(url);
