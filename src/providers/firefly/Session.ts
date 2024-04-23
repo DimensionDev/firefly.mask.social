@@ -7,6 +7,7 @@ import { BaseSession } from '@/providers/base/Session.js';
 import type { FarcasterLoginResponse, LensLoginResponse } from '@/providers/types/Firefly.js';
 import type { Session } from '@/providers/types/Session.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
+import { FarcasterSession } from '@/providers/farcaster/Session.js';
 
 export class FireflySession extends BaseSession implements Session {
     constructor(accountId: string, accessToken: string) {
@@ -31,8 +32,10 @@ export class FireflySession extends BaseSession implements Session {
                 return new FireflySession(data.accountId, data.accessToken);
             }
             case SessionType.Farcaster: {
+                if (!FarcasterSession.isGrantByPermission(session)) throw new Error('Not allowed');
                 const url = urlcat(FIREFLY_ROOT_URL, '/v3/auth/farcaster/login', {
                     token: session.token,
+                    channelToken: session.signerRequestToken,
                 });
                 const { data } = await fetchJSON<FarcasterLoginResponse>(url);
                 return new FireflySession(data.accountId, data.accessToken);
