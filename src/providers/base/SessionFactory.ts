@@ -45,7 +45,7 @@ export class SessionFactory {
             throw new Error(t`Malformed session.`);
         }
 
-        const createSession = (type: SessionType): Session => {
+        const createSessionFor = (type: SessionType): Session => {
             switch (type) {
                 case SessionType.Lens:
                     return new LensSession(session.profileId, session.token, session.createdAt, session.expiresAt);
@@ -67,6 +67,6 @@ export class SessionFactory {
             }
         };
 
-        return createSession(type) as T;
+        return createSessionFor(type) as T;
     }
 }
