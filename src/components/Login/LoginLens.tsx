@@ -32,8 +32,7 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
 
     const account = useAccount();
 
-    const updateProfiles = useLensStateStore.use.updateProfiles();
-    const updateCurrentProfile = useLensStateStore.use.updateCurrentProfile();
+    const { updateProfiles, updateCurrentProfile, syncCurrentProfile } = useLensStateStore();
 
     const currentProfile = selectedProfile || first(profiles);
 
@@ -50,6 +49,7 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
 
                 updateProfiles(profiles);
                 updateCurrentProfile(currentProfile, session);
+                syncCurrentProfile(currentProfile, session);
                 enqueueSuccessMessage(t`Your Lens account is now connected.`);
                 LoginModalRef.close();
             } catch (error) {

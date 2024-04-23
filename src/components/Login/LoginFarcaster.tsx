@@ -23,12 +23,15 @@ import { createSessionByGrantPermission } from '@/providers/warpcast/createSessi
 import { useFarcasterStateStore } from '@/store/useProfileStore.js';
 
 async function login(session: FarcasterSession) {
+    const { updateProfiles, updateCurrentProfile, syncCurrentProfile } = useFarcasterStateStore.getState();
     try {
         const profile = await FarcasterSocialMediaProvider.getProfileById(session.profileId);
 
-        useFarcasterStateStore.getState().updateProfiles([profile]);
-        useFarcasterStateStore.getState().updateCurrentProfile(profile, session);
         farcasterClient.resumeSession(session);
+
+        updateProfiles([profile]);
+        updateCurrentProfile(profile, session);
+        syncCurrentProfile(profile, session);
 
         enqueueSuccessMessage(t`Your Farcaster account is now connected.`);
         LoginModalRef.close();

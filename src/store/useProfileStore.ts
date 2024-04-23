@@ -18,6 +18,7 @@ import { TwitterSession } from '@/providers/twitter/Session.js';
 import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
 import type { Session } from '@/providers/types/Session.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
+import { syncSessionFromFirefly } from '@/services/syncSessionFromFirefly.js';
 
 interface ProfileState {
     profiles: Profile[];
@@ -25,6 +26,7 @@ interface ProfileState {
     currentProfileSession: Session | null;
     updateProfiles: (profiles: Profile[]) => void;
     updateCurrentProfile: (profile: Profile, session: Session) => void;
+    syncCurrentProfile: (profile: Profile, session: Session) => void;
     refreshCurrentProfile: () => void;
     refreshProfiles: () => void;
     clearCurrentProfile: () => void;
@@ -57,6 +59,13 @@ function createState(
                         state.currentProfile = profile;
                         state.currentProfileSession = session;
                     }),
+                syncCurrentProfile: async (profile: Profile, session: Session) => {
+                    const metrics = await syncSessionFromFirefly(session);
+                    console.log('DEBUG: metrics');
+                    console.log({
+                        metrics,
+                    });
+                },
                 refreshCurrentProfile: async () => {
                     const profile = get().currentProfile;
                     if (!profile) return;

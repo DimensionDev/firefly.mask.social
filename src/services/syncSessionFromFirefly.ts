@@ -16,9 +16,5 @@ export async function syncSessionFromFirefly(session: Session) {
     if (!response.success) throw new Error(response.error.message);
 
     const metrics = response.data;
-
-    console.log('DEBUG: metrics');
-    console.log({
-        metrics,
-    });
+    return metrics;
 }
