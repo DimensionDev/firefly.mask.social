@@ -11,7 +11,7 @@ import * as controls from '@/modals/controls.js';
 import { DraggablePopover } from '@/modals/DraggablePopover.js';
 import { LoginModal } from '@/modals/LoginModal.js';
 import { LogoutModal } from '@/modals/LogoutModal.js';
-import { SessionRecoveryModal } from '@/modals/SessionRecoveryModal.jsx';
+import { SessionRecoveryModal } from '@/modals/SessionRecoveryModal.js';
 import { Snackbar } from '@/modals/Snackbar.js';
 
 export const Modals = memo(function Modals() {

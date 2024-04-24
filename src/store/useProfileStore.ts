@@ -21,6 +21,7 @@ import type { Profile } from '@/providers/types/SocialMedia.js';
 import { syncSessionFromFirefly } from '@/services/syncSessionFromFirefly.js';
 
 interface ProfileState {
+    sessions: Session[];
     profiles: Profile[];
     currentProfile: Profile | null;
     currentProfileSession: Session | null;
@@ -47,6 +48,7 @@ function createState(
     return create<ProfileState, [['zustand/persist', unknown], ['zustand/immer', unknown]]>(
         persist(
             immer<ProfileState>((set, get) => ({
+                sessions: EMPTY_LIST,
                 profiles: EMPTY_LIST,
                 currentProfile: null,
                 currentProfileSession: null,

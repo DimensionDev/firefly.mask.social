@@ -109,6 +109,9 @@ msgstr "comment"
 msgid "Confirm"
 msgstr "Confirm"
 
+msgid "Device Logged In"
+msgstr "Device Logged In"
+
 msgid "Username"
 msgstr "Username"
 
@@ -357,6 +360,9 @@ msgstr "Visit firefly.land"
 
 msgid "Failed to upvote post."
 msgstr "Failed to upvote post."
+
+msgid "One click to connect your account status"
+msgstr "One click to connect your account status"
 
 msgid "Post your reply"
 msgstr "Post your reply"

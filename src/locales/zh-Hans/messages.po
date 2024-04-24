@@ -114,6 +114,9 @@ msgstr "评论"
 msgid "Confirm"
 msgstr "确认"
 
+msgid "Device Logged In"
+msgstr ""
+
 msgid "Username"
 msgstr ""
 
@@ -362,6 +365,9 @@ msgstr "访问 firefly.land"
 
 msgid "Failed to upvote post."
 msgstr "无法对帖子进行投票。"
+
+msgid "One click to connect your account status"
+msgstr ""
 
 msgid "Post your reply"
 msgstr "发送你的回复"

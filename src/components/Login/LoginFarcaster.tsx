@@ -32,7 +32,6 @@ async function login(session: FarcasterSession) {
         updateProfiles([profile]);
         updateCurrentProfile(profile, session);
         syncCurrentProfile(profile, session);
-
         enqueueSuccessMessage(t`Your Farcaster account is now connected.`);
         LoginModalRef.close();
     } catch (error) {

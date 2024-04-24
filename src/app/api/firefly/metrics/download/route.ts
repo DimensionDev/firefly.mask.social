@@ -85,3 +85,7 @@ function decrypt(encryptedText: string) {
     );
     return [decipher.update(encryptedText, 'hex', 'utf-8'), decipher.final('utf-8')].join('');
 }
+
+// function convertTwitterMetricToSession(unknownMetric: z.infer<typeof MetricsSchema>[0]) {
+//     const metric = (unknownMetric as z.infer<typeof TwitterMetricsSchema>)
+// }

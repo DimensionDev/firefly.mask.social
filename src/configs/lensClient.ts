@@ -31,7 +31,10 @@ class LensClient {
         return this.lensClientSDK;
     }
 
-    async resumeSession(session: LensSession, refreshToken: string) {
+    async resumeSession(session: LensSession) {
+        const refreshToken = session.refreshToken;
+        if (!refreshToken) throw new Error('No refresh token');
+
         const verified = await this.sdk.authentication.verify(session.token);
         if (!verified) throw new Error('Invalid session');
 
