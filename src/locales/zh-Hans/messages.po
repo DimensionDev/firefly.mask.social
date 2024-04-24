@@ -357,9 +357,6 @@ msgstr "Lens"
 msgid "No session found."
 msgstr "未找到会话"
 
-msgid "Visit firefly.land"
-msgstr "访问 firefly.land"
-
 msgid "Failed to upvote post."
 msgstr "无法对帖子进行投票。"
 
@@ -419,6 +416,9 @@ msgstr "帖子"
 
 msgid "Your website URL."
 msgstr "您网站的 URL。"
+
+msgid "Visit firefly.social"
+msgstr ""
 
 msgid "Display"
 msgstr "显示"

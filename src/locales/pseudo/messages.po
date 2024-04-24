@@ -352,9 +352,6 @@ msgstr ""
 msgid "No session found."
 msgstr ""
 
-msgid "Visit firefly.land"
-msgstr ""
-
 msgid "Failed to upvote post."
 msgstr ""
 
@@ -413,6 +410,9 @@ msgid "Publications"
 msgstr ""
 
 msgid "Your website URL."
+msgstr ""
+
+msgid "Visit firefly.social"
 msgstr ""
 
 msgid "Display"
