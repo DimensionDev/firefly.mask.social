@@ -94,9 +94,10 @@ export interface Channel {
     lead?: ChannelLead;
 }
 
-interface Response<T> {
+export interface Response<T> {
     code: number;
-    data: T;
+    data?: T;
+    error?: string[];
 }
 
 export type UsersResponse = Response<UsersData>;

@@ -134,10 +134,6 @@ const useFarcasterStateBase = createState(
             if (session) {
                 farcasterClient.resumeSession(session as FarcasterSession);
             }
-
-            if (state?.currentProfile && state?.currentProfileSession) {
-                state?.syncCurrentProfile(state.currentProfile, state.currentProfileSession);
-            }
         },
     },
 );
@@ -171,6 +167,10 @@ const useLensStateBase = createState(
                 console.warn('[lens store] clean the local profile because the client session is broken');
                 state?.clearCurrentProfile();
                 return;
+            }
+
+            if (state?.currentProfile && state?.currentProfileSession) {
+                state?.syncCurrentProfile(state.currentProfile, state.currentProfileSession);
             }
         },
     },

@@ -3,6 +3,7 @@ import urlcat from 'urlcat';
 
 import { FIREFLY_ROOT_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { BaseSession } from '@/providers/base/Session.js';
 import { FarcasterSession } from '@/providers/farcaster/Session.js';
 import type { FarcasterLoginResponse, LensLoginResponse } from '@/providers/types/Firefly.js';
@@ -26,23 +27,25 @@ export class FireflySession extends BaseSession implements Session {
         switch (session.type) {
             case SessionType.Lens: {
                 const url = urlcat(FIREFLY_ROOT_URL, '/v3/auth/lens/login');
-                const { data } = await fetchJSON<LensLoginResponse>(url, {
+                const response = await fetchJSON<LensLoginResponse>(url, {
                     method: 'POST',
                     body: JSON.stringify({
                         accessToken: session.token,
                     }),
                 });
+                const data = resolveFireflyResponseData(response);
                 return new FireflySession(data.accountId, data.accessToken);
             }
             case SessionType.Farcaster: {
                 if (!FarcasterSession.isGrantByPermission(session)) throw new Error('Not allowed');
                 const url = urlcat(FIREFLY_ROOT_URL, '/v3/auth/farcaster/login');
-                const { data } = await fetchJSON<FarcasterLoginResponse>(url, {
+                const response = await fetchJSON<FarcasterLoginResponse>(url, {
                     method: 'POST',
                     body: JSON.stringify({
                         channelToken: session.signerRequestToken,
                     }),
                 });
+                const data = resolveFireflyResponseData(response);
                 return new FireflySession(data.accountId, data.accessToken);
             }
             case SessionType.Firefly:
