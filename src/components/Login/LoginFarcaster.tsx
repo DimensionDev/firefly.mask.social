@@ -1,22 +1,49 @@
 'use client';
 
-import { Trans } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import { useRef, useState } from 'react';
 import QRCode from 'react-qr-code';
 import { useAsyncFn, useEffectOnce, useUnmount } from 'react-use';
 
 import LoadingIcon from '@/assets/loading.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
+import { farcasterClient } from '@/configs/farcasterClient.js';
 import { config } from '@/configs/wagmiClient.js';
+import { IS_MOBILE_DEVICE } from '@/constants/bowser.js';
 import { IS_PRODUCTION } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
-import { getMobileDevice } from '@/helpers/getMobileDevice.js';
+import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
+import { LoginModalRef } from '@/modals/controls.js';
+import type { FarcasterSession } from '@/providers/farcaster/Session.js';
+import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { createSessionByCustodyWallet } from '@/providers/warpcast/createSessionByCustodyWallet.js';
 import { createSessionByGrantPermission } from '@/providers/warpcast/createSessionByGrantPermission.js';
-import { login } from '@/providers/warpcast/login.js';
+import { useFarcasterStateStore } from '@/store/useProfileStore.js';
+import { useSyncSessionStore } from '@/store/useSyncSessionStore.js';
 
-const isMobileDevice = getMobileDevice() !== 'unknown';
+async function login(session: FarcasterSession) {
+    const { updateProfiles, updateCurrentProfile } = useFarcasterStateStore.getState();
+    const { syncFromFirefly: syncFromFirefly } = useSyncSessionStore.getState();
+    try {
+        const profile = await FarcasterSocialMediaProvider.getProfileById(session.profileId);
+
+        farcasterClient.resumeSession(session);
+
+        updateProfiles([profile]);
+        updateCurrentProfile(profile, session);
+        syncFromFirefly(session);
+        enqueueSuccessMessage(t`Your Farcaster account is now connected.`);
+        LoginModalRef.close();
+    } catch (error) {
+        if (error instanceof Error && error.message === 'Aborted') return;
+        enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to login`));
+        // if any error occurs, close the modal
+        // by this we don't need to do error handling in UI part.
+        LoginModalRef.close();
+    }
+}
 
 export function LoginFarcaster() {
     const [url, setUrl] = useState('');
@@ -26,24 +53,24 @@ export function LoginFarcaster() {
         useAsyncFn(async () => {
             controllerRef.current?.abort();
             controllerRef.current = new AbortController();
-            await login(() =>
-                createSessionByGrantPermission(
-                    (url) => {
-                        const device = getMobileDevice();
-                        if (device === 'unknown') setUrl(url);
-                        else location.href = url;
-                    },
-                    controllerRef.current?.signal,
-                ),
+            const session = await createSessionByGrantPermission(
+                (url) => {
+                    if (IS_MOBILE_DEVICE) {
+                        location.href = url;
+                    } else {
+                        setUrl(url);
+                    }
+                },
+                controllerRef.current?.signal,
             );
+            await login(session);
         }, []);
 
     const [{ loading: loadingCustodyWallet }, onLoginWithCustodyWallet] = useAsyncFn(async () => {
-        if (controllerRef.current) controllerRef.current.abort();
-        await login(async () => {
-            const client = await getWalletClientRequired(config);
-            return createSessionByCustodyWallet(client);
-        });
+        controllerRef.current?.abort();
+        const client = await getWalletClientRequired(config);
+        const session = await createSessionByCustodyWallet(client);
+        await login(session);
     }, []);
 
     useEffectOnce(() => {
@@ -59,7 +86,7 @@ export function LoginFarcaster() {
             className="flex flex-col rounded-[12px] md:w-[600px]"
             style={{ boxShadow: '0px 4px 30px 0px rgba(0, 0, 0, 0.10)' }}
         >
-            {isMobileDevice ? (
+            {IS_MOBILE_DEVICE ? (
                 <div className="flex min-h-[200px] w-full flex-col items-center justify-center gap-4 p-4">
                     <LoadingIcon className="animate-spin" width={24} height={24} />
                     <div className=" mt-2 text-center text-sm leading-[16px] text-lightSecond">

@@ -1,18 +1,14 @@
 import { parseJSON } from '@masknet/web3-providers/helpers';
 import crypto from 'crypto';
 import { StatusCodes } from 'http-status-codes';
-import urlcat from 'urlcat';
 import { z } from 'zod';
 
 import { env } from '@/constants/env.js';
-import { FIREFLY_ROOT_URL } from '@/constants/index.js';
 import { createErrorResponseJSON } from '@/helpers/createErrorResponseJSON.js';
 import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
-import { fetchJSON } from '@/helpers/fetchJSON.js';
-import type { MetricsDownloadResponse } from '@/providers/types/Firefly.js';
 
-const AccountSchema = z.object({
-    accessToken: z.string(),
+const CipherSchema = z.object({
+    text: z.string(),
 });
 
 const TwitterMetricsSchema = z.object({
@@ -35,7 +31,7 @@ const LensMetricsSchema = z.object({
         z.object({
             token: z.string(),
             address: z.number(),
-            login_time: z.string(),
+            login_time: z.number(),
             profile_id: z.string(),
             refresh_token: z.string(),
         }),
@@ -45,27 +41,29 @@ const LensMetricsSchema = z.object({
 const FarcasterMetricsSchema = z.object({
     account_id: z.string(),
     client_os: z.string(),
-    fid: z.number(),
-    login_time: z.number(),
-    signer_public_key: z.string(),
-    signer_private_key: z.string(),
+    login_metadata: z.array(
+        z.object({
+            fid: z.number(),
+            login_time: z.number(),
+            signer_public_key: z.string(),
+            signer_private_key: z.string(),
+        }),
+    ),
 });
 
 const MetricsSchema = z.array(z.union([TwitterMetricsSchema, LensMetricsSchema, FarcasterMetricsSchema]));
 
-export async function POST(request: Request) {
-    const account = AccountSchema.safeParse(await request.json());
-    if (!account.success) return createErrorResponseJSON(account.error.message, { status: StatusCodes.BAD_REQUEST });
+export type Metrics = z.infer<typeof MetricsSchema>;
+export type TwitterMetric = z.infer<typeof TwitterMetricsSchema>;
+export type LensMetric = z.infer<typeof LensMetricsSchema>;
+export type FarcasterMetric = z.infer<typeof FarcasterMetricsSchema>;
 
-    const url = urlcat(FIREFLY_ROOT_URL, '/v1/metrics/download');
-    const { data } = await fetchJSON<MetricsDownloadResponse>(url, {
-        headers: {
-            Authorization: `Bearer ${account.data.accessToken}`,
-        },
-    });
+export async function POST(request: Request) {
+    const cipher = CipherSchema.safeParse(await request.json());
+    if (!cipher.success) return createErrorResponseJSON(cipher.error.message, { status: StatusCodes.BAD_REQUEST });
 
     // decrypt metrics
-    const decrypted = parseJSON<unknown[]>(decrypt(data.ciphertext));
+    const decrypted = parseJSON<unknown[]>(decrypt(cipher.data.text));
 
     // validate metrics
     const metrics = MetricsSchema.safeParse(decrypted);
@@ -75,11 +73,11 @@ export async function POST(request: Request) {
     return createSuccessResponseJSON(metrics.data, { status: StatusCodes.OK });
 }
 
-function decrypt(encryptedText: string) {
+function decrypt(cipherText: string) {
     const decipher = crypto.createDecipheriv(
         'aes-256-cbc',
         Buffer.from(env.internal.SESSION_CIPHER_KEY, 'hex'),
         Buffer.from(env.internal.SESSION_CIPHER_IV, 'hex'),
     );
-    return [decipher.update(encryptedText, 'hex', 'utf-8'), decipher.final('utf-8')].join('');
+    return [decipher.update(cipherText, 'hex', 'utf-8'), decipher.final('utf-8')].join('');
 }

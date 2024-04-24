@@ -7,6 +7,9 @@ interface Window {
  * Determine the mobile operating system.
  */
 export function getMobileDevice() {
+    if (typeof window === 'undefined') return 'unknown';
+    if (typeof navigator === 'undefined') return 'unknown';
+
     const win = window as unknown as Window;
     const userAgent = navigator.userAgent || navigator.vendor || win.opera;
 

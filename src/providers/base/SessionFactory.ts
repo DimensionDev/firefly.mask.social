@@ -21,7 +21,9 @@ export class SessionFactory {
         const fragments = serializedSession.split(':');
         const type = fragments[0] as SessionType;
         const json = atob(fragments[1]) as string;
-        const signerRequestToken = fragments[2] ?? '';
+        // for lens session, the extra token is the refresh token
+        // for farcaster session, the extra token is the signer request token
+        const extraToken = fragments[2] ?? '';
 
         const session = parseJSON<{
             type: SessionType;
@@ -45,17 +47,23 @@ export class SessionFactory {
             throw new Error(t`Malformed session.`);
         }
 
-        const createSession = (type: SessionType): Session => {
+        const createSessionFor = (type: SessionType): Session => {
             switch (type) {
                 case SessionType.Lens:
-                    return new LensSession(session.profileId, session.token, session.createdAt, session.expiresAt);
+                    return new LensSession(
+                        session.profileId,
+                        session.token,
+                        session.createdAt,
+                        session.expiresAt,
+                        extraToken,
+                    );
                 case SessionType.Farcaster:
                     return new FarcasterSession(
                         session.profileId,
                         session.token,
                         session.createdAt,
                         session.expiresAt,
-                        signerRequestToken,
+                        extraToken,
                     );
                 case SessionType.Twitter:
                     return new TwitterSession(session.profileId, session.token, session.createdAt, session.expiresAt);
@@ -67,6 +75,6 @@ export class SessionFactory {
             }
         };
 
-        return createSession(type) as T;
+        return createSessionFor(type) as T;
     }
 }

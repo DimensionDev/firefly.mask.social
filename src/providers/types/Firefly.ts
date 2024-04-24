@@ -94,9 +94,10 @@ export interface Channel {
     lead?: ChannelLead;
 }
 
-interface Response<T> {
+export interface Response<T> {
     code: number;
-    data: T;
+    data?: T;
+    error?: string[];
 }
 
 export type UsersResponse = Response<UsersData>;
@@ -160,7 +161,7 @@ export type FarcasterLoginResponse = Response<{
 
 export type MetricsDownloadResponse = Response<{
     ciphertext: string;
-}>;
+} | null>;
 
 export type ChannelResponse = Response<Channel>;
 

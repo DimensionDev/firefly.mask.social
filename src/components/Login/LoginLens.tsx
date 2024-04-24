@@ -20,6 +20,7 @@ import { AccountModalRef, ConnectWalletModalRef, LoginModalRef } from '@/modals/
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { useLensStateStore } from '@/store/useProfileStore.js';
+import { useSyncSessionStore } from '@/store/useSyncSessionStore.js';
 
 interface LoginLensProps {
     profiles: Profile[];
@@ -32,8 +33,8 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
 
     const account = useAccount();
 
-    const updateProfiles = useLensStateStore.use.updateProfiles();
-    const updateCurrentProfile = useLensStateStore.use.updateCurrentProfile();
+    const { updateProfiles, updateCurrentProfile } = useLensStateStore();
+    const { syncFromFirefly: syncFromFirefly } = useSyncSessionStore();
 
     const currentProfile = selectedProfile || first(profiles);
 
@@ -50,6 +51,7 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
 
                 updateProfiles(profiles);
                 updateCurrentProfile(currentProfile, session);
+                syncFromFirefly(session);
                 enqueueSuccessMessage(t`Your Lens account is now connected.`);
                 LoginModalRef.close();
             } catch (error) {

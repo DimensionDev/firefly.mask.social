@@ -10,6 +10,7 @@ import type { SnackbarCloseProps, SnackbarOpenProps } from '@/modals/Snackbar.js
 export const AccountModalRef = new SingletonModal();
 export const ConnectWalletModalRef = new SingletonModal();
 export const ChainModalRef = new SingletonModal();
+export const SessionRecoveryModalRef = new SingletonModal();
 export const LoginModalRef = new SingletonModal<LoginModalProps | void>();
 export const LogoutModalRef = new SingletonModal<LogoutModalProps | void>();
 export const ComposeModalRef = new SingletonModal<ComposeModalProps, ComposeModalCloseProps>();
