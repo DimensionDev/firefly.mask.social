@@ -25,18 +25,24 @@ export class FireflySession extends BaseSession implements Session {
     static async from(session: Session): Promise<FireflySession> {
         switch (session.type) {
             case SessionType.Lens: {
-                const url = urlcat(FIREFLY_ROOT_URL, '/v3/auth/lens/login', {
-                    accessToken: session.token,
+                const url = urlcat(FIREFLY_ROOT_URL, '/v3/auth/lens/login');
+                const { data } = await fetchJSON<LensLoginResponse>(url, {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        accessToken: session.token,
+                    }),
                 });
-                const { data } = await fetchJSON<LensLoginResponse>(url);
                 return new FireflySession(data.accountId, data.accessToken);
             }
             case SessionType.Farcaster: {
                 if (!FarcasterSession.isGrantByPermission(session)) throw new Error('Not allowed');
-                const url = urlcat(FIREFLY_ROOT_URL, '/v3/auth/farcaster/login', {
-                    channelToken: session.signerRequestToken,
+                const url = urlcat(FIREFLY_ROOT_URL, '/v3/auth/farcaster/login');
+                const { data } = await fetchJSON<FarcasterLoginResponse>(url, {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        channelToken: session.signerRequestToken,
+                    }),
                 });
-                const { data } = await fetchJSON<FarcasterLoginResponse>(url);
                 return new FireflySession(data.accountId, data.accessToken);
             }
             case SessionType.Firefly:

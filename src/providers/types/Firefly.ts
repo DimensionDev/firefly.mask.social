@@ -160,7 +160,7 @@ export type FarcasterLoginResponse = Response<{
 
 export type MetricsDownloadResponse = Response<{
     ciphertext: string;
-}>;
+} | null>;
 
 export type ChannelResponse = Response<Channel>;
 

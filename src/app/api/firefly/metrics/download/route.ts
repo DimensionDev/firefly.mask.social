@@ -65,6 +65,7 @@ export async function POST(request: Request) {
             Authorization: `Bearer ${account.data.accessToken}`,
         },
     });
+    if (!data) return createSuccessResponseJSON([], { status: StatusCodes.OK });
 
     // decrypt metrics
     const decrypted = parseJSON<unknown[]>(decrypt(data.ciphertext));

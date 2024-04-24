@@ -134,6 +134,10 @@ const useFarcasterStateBase = createState(
             if (session) {
                 farcasterClient.resumeSession(session as FarcasterSession);
             }
+
+            if (state?.currentProfile && state?.currentProfileSession) {
+                state?.syncCurrentProfile(state.currentProfile, state.currentProfileSession);
+            }
         },
     },
 );
