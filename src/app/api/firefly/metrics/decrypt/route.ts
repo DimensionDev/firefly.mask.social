@@ -74,13 +74,6 @@ export async function POST(request: Request) {
 }
 
 function decrypt(cipherText: string) {
-    console.log('DEBUG: test');
-    console.log({
-        cipherText,
-        key: env.internal.SESSION_CIPHER_KEY,
-        iv: env.internal.SESSION_CIPHER_IV,
-    });
-
     const decipher = crypto.createDecipheriv(
         'aes-256-cbc',
         Buffer.from(env.internal.SESSION_CIPHER_KEY, 'hex'),
