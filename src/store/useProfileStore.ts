@@ -18,16 +18,13 @@ import { TwitterSession } from '@/providers/twitter/Session.js';
 import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
 import type { Session } from '@/providers/types/Session.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
-import { syncSessionFromFirefly } from '@/services/syncSessionFromFirefly.js';
 
 interface ProfileState {
-    sessions: Session[];
     profiles: Profile[];
     currentProfile: Profile | null;
     currentProfileSession: Session | null;
     updateProfiles: (profiles: Profile[]) => void;
     updateCurrentProfile: (profile: Profile, session: Session) => void;
-    syncCurrentProfile: (profile: Profile, session: Session) => void;
     refreshCurrentProfile: () => void;
     refreshProfiles: () => void;
     clearCurrentProfile: () => void;
@@ -48,7 +45,6 @@ function createState(
     return create<ProfileState, [['zustand/persist', unknown], ['zustand/immer', unknown]]>(
         persist(
             immer<ProfileState>((set, get) => ({
-                sessions: EMPTY_LIST,
                 profiles: EMPTY_LIST,
                 currentProfile: null,
                 currentProfileSession: null,
@@ -61,13 +57,6 @@ function createState(
                         state.currentProfile = profile;
                         state.currentProfileSession = session;
                     }),
-                syncCurrentProfile: async (profile: Profile, session: Session) => {
-                    const metrics = await syncSessionFromFirefly(session);
-                    console.log('DEBUG: metrics');
-                    console.log({
-                        metrics,
-                    });
-                },
                 refreshCurrentProfile: async () => {
                     const profile = get().currentProfile;
                     if (!profile) return;
@@ -167,10 +156,6 @@ const useLensStateBase = createState(
                 console.warn('[lens store] clean the local profile because the client session is broken');
                 state?.clearCurrentProfile();
                 return;
-            }
-
-            if (state?.currentProfile && state?.currentProfileSession) {
-                state?.syncCurrentProfile(state.currentProfile, state.currentProfileSession);
             }
         },
     },

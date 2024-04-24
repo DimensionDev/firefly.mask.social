@@ -21,9 +21,11 @@ import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.
 import { createSessionByCustodyWallet } from '@/providers/warpcast/createSessionByCustodyWallet.js';
 import { createSessionByGrantPermission } from '@/providers/warpcast/createSessionByGrantPermission.js';
 import { useFarcasterStateStore } from '@/store/useProfileStore.js';
+import { useSyncSessionStore } from '@/store/useSyncSessionStore.js';
 
 async function login(session: FarcasterSession) {
-    const { updateProfiles, updateCurrentProfile, syncCurrentProfile } = useFarcasterStateStore.getState();
+    const { updateProfiles, updateCurrentProfile } = useFarcasterStateStore.getState();
+    const { sync } = useSyncSessionStore.getState();
     try {
         const profile = await FarcasterSocialMediaProvider.getProfileById(session.profileId);
 
@@ -31,7 +33,7 @@ async function login(session: FarcasterSession) {
 
         updateProfiles([profile]);
         updateCurrentProfile(profile, session);
-        syncCurrentProfile(profile, session);
+        sync(session);
         enqueueSuccessMessage(t`Your Farcaster account is now connected.`);
         LoginModalRef.close();
     } catch (error) {
