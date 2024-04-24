@@ -37,21 +37,6 @@ async function decryptMetricsFromFirefly(cipher: string) {
     return response.data;
 }
 
-function convertMetricToFarcasterSession(metric: FarcasterMetric) {
-    return metric.login_metadata.map((x) => {
-        // the signerRequestToken cannot recover from the metric
-        // but it is necessary for distinguish grant by permission session
-        // so we use a fake token here
-        return new FarcasterSession(
-            `${x.fid}`,
-            x.signer_private_key,
-            x.login_time,
-            x.login_time,
-            'fake_signer_request_token',
-        );
-    });
-}
-
 function convertMetricToSession(metric: Metrics[0]) {
     const farcasterMetric = metric as FarcasterMetric;
     const lensMetric = metric as LensMetric;
@@ -87,5 +72,5 @@ export async function syncSessionFromFirefly(session: Session) {
     if (!cipher) return [];
 
     const metrics = await decryptMetricsFromFirefly(cipher);
-    return metrics.flatMap(convertMetricToSession);
+    return metrics.flatMap<FarcasterSession | LensSession>(convertMetricToSession);
 }

@@ -34,7 +34,7 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
     const account = useAccount();
 
     const { updateProfiles, updateCurrentProfile } = useLensStateStore();
-    const { sync } = useSyncSessionStore();
+    const { syncFromFirefly: syncFromFirefly } = useSyncSessionStore();
 
     const currentProfile = selectedProfile || first(profiles);
 
@@ -51,7 +51,7 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
 
                 updateProfiles(profiles);
                 updateCurrentProfile(currentProfile, session);
-                sync(currentProfile, session);
+                syncFromFirefly(session);
                 enqueueSuccessMessage(t`Your Lens account is now connected.`);
                 LoginModalRef.close();
             } catch (error) {

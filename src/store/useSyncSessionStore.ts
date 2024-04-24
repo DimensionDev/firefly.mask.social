@@ -7,23 +7,17 @@ import type { Session } from '@/providers/types/Session.js';
 import { syncSessionFromFirefly } from '@/services/syncSessionFromFirefly.js';
 
 interface SyncSessionStoreState {
-    sessions: Session[];
-    sync: (session: Session) => Promise<void>;
-    clear: () => void;
+    synced: Session[];
+    syncFromFirefly: (session: Session) => Promise<void>;
 }
 
 const useSyncSessionStoreBase = create<SyncSessionStoreState, [['zustand/immer', never]]>(
     immer((set) => ({
-        sessions: EMPTY_LIST,
-        sync: async (session: Session) => {
+        synced: EMPTY_LIST,
+        syncFromFirefly: async (session: Session) => {
             const syncedSessions = await syncSessionFromFirefly(session);
             set((state) => {
-                state.sessions = syncedSessions;
-            });
-        },
-        clear: () => {
-            set((state) => {
-                state.sessions = EMPTY_LIST;
+                state.synced = syncedSessions;
             });
         },
     })),

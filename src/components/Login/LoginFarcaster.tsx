@@ -25,7 +25,7 @@ import { useSyncSessionStore } from '@/store/useSyncSessionStore.js';
 
 async function login(session: FarcasterSession) {
     const { updateProfiles, updateCurrentProfile } = useFarcasterStateStore.getState();
-    const { sync } = useSyncSessionStore.getState();
+    const { syncFromFirefly: syncFromFirefly } = useSyncSessionStore.getState();
     try {
         const profile = await FarcasterSocialMediaProvider.getProfileById(session.profileId);
 
@@ -33,7 +33,7 @@ async function login(session: FarcasterSession) {
 
         updateProfiles([profile]);
         updateCurrentProfile(profile, session);
-        sync(session);
+        syncFromFirefly(session);
         enqueueSuccessMessage(t`Your Farcaster account is now connected.`);
         LoginModalRef.close();
     } catch (error) {
