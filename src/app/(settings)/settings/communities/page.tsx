@@ -34,8 +34,8 @@ export default function Communities() {
                         logo: XLightIcon,
                     },
                     {
-                        content: t`Visit firefly.land`,
-                        link: 'https://firefly.land',
+                        content: t`Visit firefly.social`,
+                        link: 'https://firefly.social',
                         logo: FireflyRoundIcon,
                     },
                     {
