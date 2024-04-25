@@ -14,9 +14,10 @@ export async function createTwitterClientV2(request: NextRequest) {
 
     if (!token || !session) throw new Error('Unauthorized');
     if (!token.twitter.oauthToken || !token.twitter.oauthTokenSecret) throw new Error('No Twitter token found');
+
     const tokens: TwitterApiTokens = {
-        appKey: process.env.TWITTER_CLIENT_ID as string,
-        appSecret: process.env.TWITTER_CLIENT_SECRET as string,
+        appKey: process.env.TWITTER_CLIENT_ID,
+        appSecret: process.env.TWITTER_CLIENT_SECRET,
         accessToken: token.twitter.oauthToken,
         accessSecret: token.twitter.oauthTokenSecret,
     };
