@@ -167,6 +167,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
                 const fullMessage = [
                     t`Check out my LuckyDrop 🧧💰✨ on Firefly mobile app or ${SITE_URL} !`,
                     ...SORTED_SOURCES.map((x) => {
+                        if (resolveSourceName(x) === SocialPlatform.Twitter) return '';
                         const currentProfile = currentProfileAll[x];
                         const profileLink = currentProfile ? getProfileUrl(currentProfile) : null;
                         return profileLink ? t`Claim on ${resolveSourceName(x)}: ${urlcat(SITE_URL, profileLink)}` : '';
