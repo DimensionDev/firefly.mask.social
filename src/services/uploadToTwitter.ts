@@ -9,7 +9,6 @@ export async function uploadToTwitter(files: File[]) {
             });
         }),
     );
-    console.log(medias, 'medias');
     return medias.map((x, i) => ({
         ...x,
         file: files[i],
