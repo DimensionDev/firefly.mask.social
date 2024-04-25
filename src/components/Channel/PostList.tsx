@@ -48,12 +48,7 @@ export function PostList({ channelId, source }: PostListProps) {
             VirtualListProps={{
                 listKey: `${ScrollListKey.Channel}:${channelId}`,
                 computeItemKey: (index, post) => `${post.postId}-${index}`,
-                itemContent: (index, post) =>
-                    getPostItemContent(index, post, {
-                        onClick: () => {
-                            setScrollIndex(`${ScrollListKey.Channel}:${channelId}`, index);
-                        },
-                    }),
+                itemContent: (index, post) => getPostItemContent(index, post, `${ScrollListKey.Channel}:${channelId}`),
             }}
             NoResultsFallbackProps={{
                 className: 'mt-20',
