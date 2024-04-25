@@ -60,7 +60,7 @@ export function ListInPage<T = unknown>({
     };
 
     return (
-        <div className={!isMedium ? 'min-h-[calc(100vh_-_56px)] flex-1 overflow-hidden' : undefined}>
+        <div className={!isMedium ? 'min-h-[calc(100vh_-_98px)] flex-1 overflow-hidden' : undefined}>
             <List
                 useWindowScroll={isMedium}
                 data={data}
@@ -68,6 +68,7 @@ export function ListInPage<T = unknown>({
                 {...VirtualListProps}
                 context={Context}
                 components={Components}
+                className={!isMedium ? 'no-scrollbar' : undefined}
             />
         </div>
     );
