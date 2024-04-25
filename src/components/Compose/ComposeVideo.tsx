@@ -1,7 +1,8 @@
 import { useMemo } from 'react';
 
 import { RemoveButton } from '@/components/RemoveButton.js';
-import { useComposeStateStore, useCompositePost } from '@/store/useComposeStore.js';
+import { useCompositePost } from '@/hooks/useCompositePost.js';
+import { useComposeStateStore } from '@/store/useComposeStore.js';
 
 export function ComposeVideo() {
     const { updateVideo } = useComposeStateStore();

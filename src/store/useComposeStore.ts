@@ -1,6 +1,6 @@
 import type { TypedMessageTextV1 } from '@masknet/typed-message';
 import { uniq } from 'lodash-es';
-import { type SetStateAction, useMemo } from 'react';
+import { type SetStateAction } from 'react';
 import { v4 as uuid } from 'uuid';
 import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
@@ -28,6 +28,7 @@ export type OrphanPost = Omit<
     'embedPosts' | 'comments' | 'root' | 'commentOn' | 'quoteOn' | 'firstComment' | 'threads'
 >;
 
+// A composite post uses availableSources of the root post.
 export interface CompositePost {
     id: Cursor;
 
@@ -37,6 +38,7 @@ export interface CompositePost {
     parentPost: Record<SocialPlatform, OrphanPost | null>;
 
     restriction: RestrictionType;
+    // use the same value of root post
     availableSources: SocialPlatform[];
     chars: Chars;
     typedMessage: TypedMessageTextV1 | null;
@@ -435,18 +437,3 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
 );
 
 export const useComposeStateStore = createSelectors(useComposeStateBase);
-
-export function useCompositePost() {
-    const { posts, cursor } = useComposeStateStore();
-
-    return useMemo(() => {
-        const rootPost = posts[0];
-        const compositePost = posts.find((x) => x.id === cursor) || createInitSinglePostState(initialPostCursor);
-
-        return {
-            rootPost,
-            isRootPost: rootPost === compositePost,
-            ...compositePost,
-        };
-    }, [posts, cursor]);
-}
