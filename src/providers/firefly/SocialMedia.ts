@@ -14,7 +14,10 @@ import { farcasterClient } from '@/configs/farcasterClient.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { FIREFLY_ROOT_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
-import { formatFarcasterChannelFromFirefly } from '@/helpers/formatFarcasterChannelFromFirefly.js';
+import {
+    formatBriefChannelFromFirefly,
+    formatChannelFromFirefly,
+} from '@/helpers/formatFarcasterChannelFromFirefly.js';
 import { formatFarcasterPostFromFirefly } from '@/helpers/formatFarcasterPostFromFirefly.js';
 import { formatFarcasterProfileFromFirefly } from '@/helpers/formatFarcasterProfileFromFirefly.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
@@ -52,7 +55,7 @@ import {
 
 class FireflySocialMedia implements Provider {
     getChannelById(channelId: string): Promise<Channel> {
-        throw new Error('Method not implemented.');
+        return this.getChannelByHandle(channelId);
     }
 
     async getChannelByHandle(channelHandle: string): Promise<Channel> {
@@ -64,7 +67,7 @@ class FireflySocialMedia implements Provider {
         });
         const data = resolveFireflyResponseData(response);
 
-        return formatFarcasterChannelFromFirefly(data);
+        return formatBriefChannelFromFirefly(data);
     }
 
     async getChannelsByProfileId(
@@ -73,13 +76,12 @@ class FireflySocialMedia implements Provider {
     ): Promise<Pageable<Channel, PageIndicator>> {
         const url = urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/active_channels', {
             fid: profileId,
-            sourceFid: profileId,
         });
         const response = await fetchJSON<ChannelsResponse>(url, {
             method: 'GET',
         });
         const data = resolveFireflyResponseData(response);
-        const channels = data.map(formatFarcasterChannelFromFirefly);
+        const channels = data.map(formatChannelFromFirefly);
         return createPageable(channels, createIndicator(indicator));
     }
 
@@ -92,7 +94,7 @@ class FireflySocialMedia implements Provider {
             method: 'GET',
         });
         const data = resolveFireflyResponseData(response);
-        const channels = data.channels.map(formatFarcasterChannelFromFirefly);
+        const channels = data.channels.map(formatChannelFromFirefly);
 
         return createPageable(
             channels,
@@ -102,7 +104,7 @@ class FireflySocialMedia implements Provider {
     }
 
     getPostsByChannelId(channelId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        throw new Error('Method not implemented.');
+        return this.getPostsByChannelHandle(channelId, indicator);
     }
 
     getPostsByChannelHandle(channelHandle: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
@@ -137,7 +139,7 @@ class FireflySocialMedia implements Provider {
             method: 'GET',
         });
         const data = resolveFireflyResponseData(response);
-        const channels = data.channels.map(formatFarcasterChannelFromFirefly);
+        const channels = data.channels.map(formatChannelFromFirefly);
 
         return createPageable(
             channels,

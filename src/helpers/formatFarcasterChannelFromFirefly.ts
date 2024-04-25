@@ -1,8 +1,13 @@
 import { SocialPlatform } from '@/constants/enum.js';
-import type { Channel as FireflyChannel, ChannelProfile } from '@/providers/types/Firefly.js';
+import type {
+    Channel as FireflyChannel,
+    ChannelBrief,
+    ChannelProfile,
+    ChannelProfileBrief,
+} from '@/providers/types/Firefly.js';
 import { type Channel, type Profile, ProfileStatus } from '@/providers/types/SocialMedia.js';
 
-export function formatFarcasterChannelProfileFromFirefly(channelProfile: ChannelProfile): Profile {
+export function formatChannelProfileFromFirefly(channelProfile: ChannelProfile): Profile {
     return {
         profileId: `${channelProfile.fid}`,
         displayName: channelProfile.display_name,
@@ -23,7 +28,7 @@ export function formatFarcasterChannelProfileFromFirefly(channelProfile: Channel
     };
 }
 
-export function formatFarcasterChannelFromFirefly(channel: FireflyChannel): Channel {
+export function formatChannelFromFirefly(channel: FireflyChannel): Channel {
     const formatted: Channel = {
         source: SocialPlatform.Farcaster,
         id: channel.id,
@@ -37,10 +42,50 @@ export function formatFarcasterChannelFromFirefly(channel: FireflyChannel): Chan
         __original__: channel,
     };
     if (channel.lead) {
-        formatted.lead = formatFarcasterChannelProfileFromFirefly(channel.lead);
+        formatted.lead = formatChannelProfileFromFirefly(channel.lead);
     }
     if (channel.hosts?.length) {
-        formatted.hosts = channel.hosts.map(formatFarcasterChannelProfileFromFirefly);
+        formatted.hosts = channel.hosts.map(formatChannelProfileFromFirefly);
+    }
+    return formatted;
+}
+
+export function formatBriefChannelProfileFromFirefly(channelProfile: ChannelProfileBrief): Profile {
+    return {
+        status: ProfileStatus.Active,
+        verified: true,
+        profileId: `${channelProfile.fid}`,
+        displayName: channelProfile.display_name,
+        handle: channelProfile.username,
+        fullHandle: channelProfile.username,
+        pfp: channelProfile.pfp,
+        bio: channelProfile.bio,
+        followerCount: channelProfile.followers,
+        followingCount: channelProfile.following,
+        viewerContext: {
+            following: channelProfile.isFollowing,
+            followedBy: channelProfile.isFollowedBack,
+        },
+        source: SocialPlatform.Farcaster,
+    };
+}
+
+export function formatBriefChannelFromFirefly(channel: ChannelBrief): Channel {
+    const formatted: Channel = {
+        source: SocialPlatform.Farcaster,
+        id: channel.id,
+        name: channel.name,
+        description: channel.description,
+        url: channel.url,
+        parentUrl: channel.parent_url,
+        imageUrl: channel.image_url,
+        followerCount: channel.followerCount,
+        timestamp: channel.created_at * 1000,
+        __original__: channel,
+    };
+
+    if (channel.lead) {
+        formatted.lead = formatBriefChannelProfileFromFirefly(channel.lead);
     }
     return formatted;
 }

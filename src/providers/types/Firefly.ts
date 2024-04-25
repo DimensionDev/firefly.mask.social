@@ -71,7 +71,7 @@ export interface Notification {
 }
 
 export interface ChannelProfile {
-    active_status: string;
+    active_status: 'active' | Omit<string, 'active'>;
     custody_address: string;
     display_name: string;
     fid: number;
@@ -86,7 +86,6 @@ export interface ChannelProfile {
         bio?: {
             text: string;
         };
-        username: string;
     };
     verifications: string[];
     verified_addresses: Record<'eth_addresses' | 'sol_addresses', string[]>;
@@ -104,6 +103,33 @@ export interface Channel {
     parent_url: string;
     lead?: ChannelProfile;
     hosts?: ChannelProfile[];
+}
+
+export interface ChannelProfileBrief {
+    addresses: string[];
+    bio: string;
+    display_name: string;
+    fid: number;
+    followers: number;
+    following: number;
+    isFollowedBack: boolean;
+    isFollowing: boolean;
+    pfp: string;
+    username: string;
+}
+
+export interface ChannelBrief {
+    // e.g., 1710554170
+    created_at: number;
+    description: string;
+    followerCount: number;
+    id: string;
+    image_url: string;
+    name: string;
+    parent_url: string;
+    url: string;
+    lead?: ChannelProfileBrief;
+    hostFids?: number[];
 }
 
 export interface Response<T> {
@@ -175,7 +201,7 @@ export type MetricsDownloadResponse = Response<{
     ciphertext: string;
 } | null>;
 
-export type ChannelResponse = Response<Channel>;
+export type ChannelResponse = Response<ChannelBrief>;
 
 export type ChannelsResponse = Response<Channel[]>;
 
