@@ -288,14 +288,17 @@ export interface ChannelLead {
 export interface Channel {
     source: SocialPlatform;
     id: string;
-    url: string;
     name: string;
     description?: string;
     imageUrl: string;
+    url: string;
     parentUrl: string;
+    followerCount: number;
+    mutualFollowerCount?: number;
     /** time in milliseconds */
     timestamp: number;
-    lead?: ChannelLead;
+    lead?: Profile;
+    hosts?: Profile[];
     __original__?: unknown;
 }
 

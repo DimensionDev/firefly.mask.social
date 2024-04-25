@@ -70,28 +70,38 @@ export interface Notification {
     timestamp: string;
 }
 
-export interface ChannelLead {
-    pfp: string;
+export interface ChannelProfile {
+    active_status: string;
+    custody_address: string;
     display_name: string;
-    bio: string;
-    username: string;
-    following: number;
-    followers: number;
-    addresses: string[];
     fid: number;
-    isFollowing: boolean;
-    isFollowedBack: boolean;
+    username: string;
+    follower_count: number;
+    following_count: number;
+    pfp_url: string;
+    power_badge: boolean;
+    profile?: {
+        bio?: {
+            text: string;
+        };
+        username: string;
+    };
+    verifications: string[];
+    verified_addresses: Record<'eth_addresses' | 'sol_addresses', string[]>;
 }
 
 export interface Channel {
     id: string;
-    url: string;
-    name: string;
     image_url: string;
+    name: string;
+    // e.g., 1689888729
     created_at: number;
-    parent_url: string;
     description: string;
-    lead?: ChannelLead;
+    follower_count: number;
+    url: string;
+    parent_url: string;
+    lead?: ChannelProfile;
+    hosts?: ChannelProfile[];
 }
 
 export interface Response<T> {

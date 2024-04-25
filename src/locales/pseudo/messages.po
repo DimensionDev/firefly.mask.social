@@ -109,6 +109,9 @@ msgstr ""
 msgid "Confirm"
 msgstr ""
 
+msgid "Mutual"
+msgstr ""
+
 msgid "Device Logged In"
 msgstr ""
 
@@ -566,6 +569,9 @@ msgid "<0>You</0> liked"
 msgstr ""
 
 msgid "You've hit rock bottom."
+msgstr ""
+
+msgid "Mutuals"
 msgstr ""
 
 msgid "Failed to mirror post."
