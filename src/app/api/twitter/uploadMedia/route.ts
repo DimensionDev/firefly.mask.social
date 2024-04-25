@@ -4,14 +4,17 @@ import { TwitterApi } from 'twitter-api-v2';
 
 import { createErrorResponseJSON } from '@/helpers/createErrorResponseJSON.js';
 import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
+import { createTwitterClientV2 } from '@/helpers/createTwitterClientV2.js';
+
+export const config = { runtime: 'experimental-edge' }
 
 export async function POST(request: NextRequest) {
     try {
-        const client = new TwitterApi();
+        const client = await createTwitterClientV2(request);
         const formData = await request.formData();
         const file = formData.get('file') as File;
         const buffer = Buffer.from(await file.arrayBuffer());
-        const res = client.v1.uploadMedia(buffer, { type: file.type });
+        const res = await client.v1.uploadMedia(buffer, { mimeType: file.type });
         return createSuccessResponseJSON({ media_id: res }, { status: StatusCodes.OK });
     } catch (error) {
         return createErrorResponseJSON(error instanceof Error ? error.message : 'Internal Server Error', {
