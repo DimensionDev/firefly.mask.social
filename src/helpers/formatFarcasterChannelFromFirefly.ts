@@ -15,6 +15,10 @@ export function formatFarcasterChannelProfileFromFirefly(channelProfile: Channel
         followingCount: channelProfile.following_count,
         status: channelProfile.active_status === 'active' ? ProfileStatus.Active : ProfileStatus.Inactive,
         verified: channelProfile.verifications.length > 0,
+        viewerContext: {
+            following: channelProfile.isFollowing ?? false,
+            followedBy: channelProfile.isFollowedBack ?? false,
+        },
         source: SocialPlatform.Farcaster,
     };
 }

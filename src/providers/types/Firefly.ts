@@ -78,6 +78,8 @@ export interface ChannelProfile {
     username: string;
     follower_count: number;
     following_count: number;
+    isFollowedBack?: boolean;
+    isFollowing?: boolean;
     pfp_url: string;
     power_badge: boolean;
     profile?: {
