@@ -6,7 +6,7 @@ import { createErrorResponseJSON } from '@/helpers/createErrorResponseJSON.js';
 import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
 import { createTwitterClientV2 } from '@/helpers/createTwitterClientV2.js';
 
-export const config = { runtime: 'experimental-edge' }
+export const config = { runtime: 'experimental-edge' };
 
 export async function POST(request: NextRequest) {
     try {
