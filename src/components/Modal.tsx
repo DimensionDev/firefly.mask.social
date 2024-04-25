@@ -18,7 +18,7 @@ export function Modal({ backdrop = true, open, onClose, children, className }: M
 
     return (
         <Transition appear show={open} as={Fragment}>
-            <Dialog initialFocus={ref} as="div" className="relative z-[100]" onClose={onClose}>
+            <Dialog initialFocus={ref} as="div" className="relative z-[100]" onClose={onClose} disableScrollLock>
                 <Dialog.Panel className="fixed inset-0 overflow-y-auto">
                     <div
                         className={classNames(

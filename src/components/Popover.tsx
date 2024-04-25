@@ -1,6 +1,8 @@
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment } from 'react';
 
+import { useDisableScrollPassive } from '@/hooks/useDisableScrollPassive.js';
+
 interface PopoverProps {
     open: boolean;
     backdrop?: boolean;
@@ -9,9 +11,16 @@ interface PopoverProps {
 }
 
 export function Popover({ open, backdrop = true, children, onClose }: PopoverProps) {
+    const { setRef } = useDisableScrollPassive();
+
     return (
         <Transition appear show={open} as={Fragment}>
-            <Dialog as="div" onClose={() => onClose?.()}>
+            <Dialog
+                as="div"
+                onClose={() => onClose?.()}
+                disableScrollLock
+
+            >
                 {backdrop ? (
                     <Transition.Child
                         as={Fragment}
@@ -22,7 +31,7 @@ export function Popover({ open, backdrop = true, children, onClose }: PopoverPro
                         leaveFrom="opacity-100"
                         leaveTo="opacity-0"
                     >
-                        <div className="fixed inset-0 z-40 bg-main/25 bg-opacity-30" />
+                        <div className="fixed inset-0 z-40 bg-main/25 bg-opacity-30" ref={ref => setRef(ref)} />
                     </Transition.Child>
                 ) : null}
                 <Transition.Child
