@@ -18,7 +18,7 @@ import { useCurrentProfileAll } from '@/hooks/useCurrentProfileAll.js';
 import { DraggablePopoverRef } from '@/modals/controls.js';
 import { useNavigatorState } from '@/store/useNavigatorStore.js';
 import { useSearchHistoryStateStore } from '@/store/useSearchHistoryStore.js';
-import { type SearchState,useSearchStateStore } from '@/store/useSearchStore.js';
+import { type SearchState, useSearchStateStore } from '@/store/useSearchStore.js';
 
 interface NavigatorBarForMobileProps {
     title: string;
