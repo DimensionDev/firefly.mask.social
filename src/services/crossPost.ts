@@ -6,12 +6,13 @@ import { compact } from 'lodash-es';
 import { queryClient } from '@/configs/queryClient.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { SORTED_SOURCES } from '@/constants/index.js';
+import { getCompositePost } from '@/helpers/getCompositePost.js';
 import { getCurrentProfileAll } from '@/helpers/getCurrentProfileAll.js';
 import { isPublishedPost } from '@/helpers/isPublishedPost.js';
 import { resolvePostTo } from '@/helpers/resolvePostTo.js';
 import { resolveRedPacketPlatformType } from '@/helpers/resolveRedPacketPlatformType.js';
 import { hasRpPayload } from '@/helpers/rpPayload.js';
-import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
+import { type CompositePost } from '@/store/useComposeStore.js';
 import type { ComposeType } from '@/types/compose.js';
 
 export async function refreshProfileFeed(source: SocialPlatform) {
@@ -83,17 +84,6 @@ async function updateRpClaimStrategy(compositePost: CompositePost) {
             rpPayload.publicKey,
         );
     }
-}
-
-function getCompositePost(id: string) {
-    const { posts } = useComposeStateStore.getState();
-    const post = posts.find((post) => post.id === id);
-    if (!post) return null;
-
-    return {
-        ...post,
-        availableSources: posts[0].availableSources,
-    } satisfies CompositePost;
 }
 
 interface CrossPostOptions {
