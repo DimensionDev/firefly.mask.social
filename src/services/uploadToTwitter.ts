@@ -1,5 +1,5 @@
 import { fetchJSON } from '@/helpers/fetchJSON.js';
-import { TwitterBaseAPI } from '@/maskbook/packages/web3-providers/src/entry-types.js';
+import { TwitterBaseAPI } from '@masknet/web3-providers/types';
 
 export async function uploadToTwitter(files: File[]) {
     const medias = await Promise.all(
