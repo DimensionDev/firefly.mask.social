@@ -1,9 +1,9 @@
 import { StatusCodes } from 'http-status-codes';
 import { NextRequest } from 'next/server.js';
+import { TwitterApi } from 'twitter-api-v2';
 
 import { createErrorResponseJSON } from '@/helpers/createErrorResponseJSON.js';
 import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
-import { TwitterApi } from 'twitter-api-v2';
 
 export async function POST(request: NextRequest) {
     try {
