@@ -13,7 +13,9 @@ interface ProfileInListProps {
 
 export function ProfileInList({ isSelected, onSelect, profile }: ProfileInListProps) {
     return (
-        <div className="inline-flex h-[48px] w-full items-center justify-start gap-4">
+        <ClickableButton className="inline-flex h-[48px] w-full items-center justify-start gap-4 outline-none" onClick={() => {
+            onSelect(profile);
+        }}>
             <div
                 className="flex h-[48px] w-[48px] items-center justify-center overflow-hidden rounded-full"
                 style={{
@@ -27,15 +29,13 @@ export function ProfileInList({ isSelected, onSelect, profile }: ProfileInListPr
             {isSelected ? (
                 <YesIcon width={40} height={40} />
             ) : (
-                <ClickableButton
+                <div
                     className="flex h-10 w-10 items-center justify-center"
-                    onClick={() => {
-                        onSelect(profile);
-                    }}
+
                 >
                     <DisableNoIcon width={20} height={20} />
-                </ClickableButton>
+                </div>
             )}
-        </div>
+        </ClickableButton>
     );
 }
