@@ -114,9 +114,6 @@ msgstr "评论"
 msgid "Confirm"
 msgstr "确认"
 
-msgid "Mutual"
-msgstr ""
-
 msgid "Device Logged In"
 msgstr ""
 
@@ -486,6 +483,9 @@ msgstr "浅色模式"
 msgid "Please switch to the {chainName} network in your wallet."
 msgstr "请切换钱包网络至 {chainName}"
 
+msgid "{followerCount, plural, one {# Follower} other {# Followers}}"
+msgstr ""
+
 msgid "There is no data available for display."
 msgstr "没有可显示的数据。"
 
@@ -503,6 +503,9 @@ msgstr "数据获取失败。"
 
 msgid "Failed to publish post."
 msgstr "发布帖子失败"
+
+msgid "{mutualFollowerCount, plural, one {# Mutual} other {# Mutuals}}"
+msgstr ""
 
 msgid "recasted your"
 msgstr "转帖了你的"
@@ -575,9 +578,6 @@ msgstr "<0>你</0> 已点赞"
 
 msgid "You've hit rock bottom."
 msgstr "你已经滑到底部啦～"
-
-msgid "Mutuals"
-msgstr ""
 
 msgid "Failed to mirror post."
 msgstr "转发失败"

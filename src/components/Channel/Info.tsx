@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+import { plural } from '@lingui/macro';
 
 import { Avatar } from '@/components/Avatar.js';
 import { FollowButton } from '@/components/Channel/FollowButton.js';
@@ -48,14 +48,20 @@ export function Info({ channel, source }: InfoProps) {
                     <div className=" flex gap-1">
                         <span className=" font-bold text-lightMain">{followerCount}</span>
                         <span className=" text-secondary">
-                            {followerCount <= 1 ? <Trans>Follower</Trans> : <Trans>Followers</Trans>}
+                            {plural(followerCount, {
+                                one: '# Follower',
+                                other: '# Followers',
+                            })}
                         </span>
                     </div>
 
                     <div className=" flex gap-1">
                         <span className=" font-bold text-lightMain">{mutualFollowerCount}</span>
                         <span className=" text-secondary">
-                            {mutualFollowerCount <= 1 ? <Trans>Mutual</Trans> : <Trans>Mutuals</Trans>}
+                            {plural(mutualFollowerCount, {
+                                one: '# Mutual',
+                                other: '# Mutuals',
+                            })}
                         </span>
                     </div>
                 </div>
