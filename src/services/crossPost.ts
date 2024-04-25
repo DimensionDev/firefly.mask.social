@@ -6,12 +6,13 @@ import { compact } from 'lodash-es';
 import { queryClient } from '@/configs/queryClient.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { SORTED_SOURCES } from '@/constants/index.js';
+import { getCompositePost } from '@/helpers/getCompositePost.js';
 import { getCurrentProfileAll } from '@/helpers/getCurrentProfileAll.js';
 import { isPublishedPost } from '@/helpers/isPublishedPost.js';
 import { resolvePostTo } from '@/helpers/resolvePostTo.js';
 import { resolveRedPacketPlatformType } from '@/helpers/resolveRedPacketPlatformType.js';
 import { hasRpPayload } from '@/helpers/rpPayload.js';
-import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
+import { type CompositePost } from '@/store/useComposeStore.js';
 import type { ComposeType } from '@/types/compose.js';
 
 export async function refreshProfileFeed(source: SocialPlatform) {
@@ -144,8 +145,7 @@ export async function crossPost(
         await Promise.allSettled(staleSources.map((source) => refreshProfileFeed(source)));
     }
 
-    const { posts } = useComposeStateStore.getState();
-    const updatedCompositePost = posts.find((post) => post.id === compositePost.id);
+    const updatedCompositePost = getCompositePost(compositePost.id);
     if (!updatedCompositePost) throw new Error('Post not found.');
 
     // failed to to cross post

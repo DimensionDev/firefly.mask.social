@@ -8,7 +8,8 @@ import VideoIcon from '@/assets/video.svg';
 import { SocialPlatform } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getCurrentPostImageLimits } from '@/helpers/getCurrentPostImageLimits.js';
-import { useComposeStateStore, useCompositePost } from '@/store/useComposeStore.js';
+import { useCompositePost } from '@/hooks/useCompositePost.js';
+import { useComposeStateStore } from '@/store/useComposeStore.js';
 
 interface MediaProps {
     close: () => void;

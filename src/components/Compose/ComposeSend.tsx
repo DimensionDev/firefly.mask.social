@@ -15,12 +15,13 @@ import { createMockComment } from '@/helpers/createMockComment.js';
 import { getCurrentPostLimits } from '@/helpers/getCurrentPostLimits.js';
 import { isValidPost } from '@/helpers/isValidPost.js';
 import { refreshComments } from '@/helpers/refreshComments.js';
+import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';
 import { ComposeModalRef } from '@/modals/controls.js';
 import { crossPost } from '@/services/crossPost.js';
 import { crossPostThread } from '@/services/crossPostThread.js';
-import { type CompositePost, useComposeStateStore, useCompositePost } from '@/store/useComposeStore.js';
+import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
 
 interface ComposeSendProps extends React.HTMLAttributes<HTMLDivElement> {
     post: CompositePost;
