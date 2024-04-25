@@ -5,7 +5,7 @@ import { v4 as uuid } from 'uuid';
 import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
 
-import { SocialPlatform } from '@/constants/enum.js';
+import { RestrictionType, SocialPlatform } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { type Chars, readChars } from '@/helpers/chars.js';
 import { createSelectors } from '@/helpers/createSelector.js';
@@ -13,7 +13,7 @@ import { getCurrentAvailableSources } from '@/helpers/getCurrentAvailableSources
 import { FrameLoader } from '@/libs/frame/Loader.js';
 import { OpenGraphLoader } from '@/libs/og/Loader.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
-import { type ComposeType, RestrictionType } from '@/types/compose.js';
+import { type ComposeType } from '@/types/compose.js';
 import type { Frame } from '@/types/frame.js';
 import type { MediaObject } from '@/types/index.js';
 import type { OpenGraph } from '@/types/og.js';

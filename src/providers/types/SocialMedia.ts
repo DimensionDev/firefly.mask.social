@@ -1,7 +1,6 @@
 import type { Pageable, PageIndicator } from '@masknet/shared-base';
 
-import type { SocialPlatform } from '@/constants/enum.js';
-import type { RestrictionType } from '@/types/compose.js';
+import type { RestrictionType, SocialPlatform } from '@/constants/enum.js';
 
 export enum SessionType {
     Twitter = 'Twitter',
