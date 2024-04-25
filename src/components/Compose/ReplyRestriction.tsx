@@ -26,7 +26,7 @@ export function ReplyRestriction({ restriction, setRestriction }: ReplyRestricti
         },
         {
             type: RestrictionType.OnlyPeopleYouFollow,
-            disabled: !twitterOnly,
+            disabled: availableSources.length ? availableSources.includes(SocialPlatform.Farcaster) : false,
         },
         {
             type: RestrictionType.MentionedUsers,
