@@ -28,6 +28,7 @@ export type OrphanPost = Omit<
     'embedPosts' | 'comments' | 'root' | 'commentOn' | 'quoteOn' | 'firstComment' | 'threads'
 >;
 
+// A composite post uses availableSources of the root post.
 export interface CompositePost {
     id: Cursor;
 
@@ -37,6 +38,7 @@ export interface CompositePost {
     parentPost: Record<SocialPlatform, OrphanPost | null>;
 
     restriction: RestrictionType;
+    // use the same value of root post
     availableSources: SocialPlatform[];
     chars: Chars;
     typedMessage: TypedMessageTextV1 | null;
@@ -444,9 +446,10 @@ export function useCompositePost() {
         const compositePost = posts.find((x) => x.id === cursor) || createInitSinglePostState(initialPostCursor);
 
         return {
+            ...compositePost,
             rootPost,
             isRootPost: rootPost === compositePost,
-            ...compositePost,
+            availableSources: rootPost.availableSources,
         };
     }, [posts, cursor]);
 }

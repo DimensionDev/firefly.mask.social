@@ -85,6 +85,17 @@ async function updateRpClaimStrategy(compositePost: CompositePost) {
     }
 }
 
+function getCompositePost(id: string) {
+    const { posts } = useComposeStateStore.getState();
+    const post = posts.find((post) => post.id === id);
+    if (!post) return null;
+
+    return {
+        ...post,
+        availableSources: posts[0].availableSources,
+    } satisfies CompositePost;
+}
+
 interface CrossPostOptions {
     // skip if post is already published
     skipIfPublishedPost?: boolean;
@@ -144,8 +155,7 @@ export async function crossPost(
         await Promise.allSettled(staleSources.map((source) => refreshProfileFeed(source)));
     }
 
-    const { posts } = useComposeStateStore.getState();
-    const updatedCompositePost = posts.find((post) => post.id === compositePost.id);
+    const updatedCompositePost = getCompositePost(compositePost.id);
     if (!updatedCompositePost) throw new Error('Post not found.');
 
     // failed to to cross post
