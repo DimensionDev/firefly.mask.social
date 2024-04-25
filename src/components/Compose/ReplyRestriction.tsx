@@ -17,7 +17,8 @@ interface ReplyRestrictionProps {
 }
 
 export function ReplyRestriction({ post, restriction, setRestriction }: ReplyRestrictionProps) {
-    const twitterOnly = post.availableSources.length === 1 && post.availableSources.includes(SocialPlatform.Twitter);
+    const { availableSources } = post;
+    const twitterOnly = availableSources.length === 1 && availableSources.includes(SocialPlatform.Twitter);
 
     const items = [
         {
@@ -26,7 +27,7 @@ export function ReplyRestriction({ post, restriction, setRestriction }: ReplyRes
         },
         {
             type: RestrictionType.OnlyPeopleYouFollow,
-            disabled: !twitterOnly,
+            disabled: availableSources.length ? availableSources.includes(SocialPlatform.Farcaster) : false,
         },
         {
             type: RestrictionType.MentionedUsers,
