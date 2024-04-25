@@ -9,6 +9,7 @@ import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { VirtualList, type VirtualListProps } from '@/components/VirtualList/VirtualList.js';
 import { VirtualListFooter } from '@/components/VirtualList/VirtualListFooter.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
+import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 
 interface ListInPageProps<T = unknown> {
@@ -26,6 +27,7 @@ export function ListInPage<T = unknown>({
     VirtualListProps,
     NoResultsFallbackProps,
 }: ListInPageProps<T>) {
+    const isMedium = useIsMedium();
     const currentSource = useGlobalState.use.currentSource();
     const isLogin = useIsLogin(currentSource);
 
@@ -58,13 +60,15 @@ export function ListInPage<T = unknown>({
     };
 
     return (
-        <List
-            useWindowScroll
-            data={data}
-            endReached={onEndReached}
-            {...VirtualListProps}
-            context={Context}
-            components={Components}
-        />
+        <div className={!isMedium ? 'min-h-[calc(100vh_-_56px)] flex-1 overflow-hidden' : undefined}>
+            <List
+                useWindowScroll={isMedium}
+                data={data}
+                endReached={onEndReached}
+                {...VirtualListProps}
+                context={Context}
+                components={Components}
+            />
+        </div>
     );
 }
