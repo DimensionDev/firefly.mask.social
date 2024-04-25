@@ -15,12 +15,7 @@ export function Popover({ open, backdrop = true, children, onClose }: PopoverPro
 
     return (
         <Transition appear show={open} as={Fragment}>
-            <Dialog
-                as="div"
-                onClose={() => onClose?.()}
-                disableScrollLock
-
-            >
+            <Dialog as="div" onClose={() => onClose?.()} disableScrollLock>
                 {backdrop ? (
                     <Transition.Child
                         as={Fragment}
@@ -31,7 +26,7 @@ export function Popover({ open, backdrop = true, children, onClose }: PopoverPro
                         leaveFrom="opacity-100"
                         leaveTo="opacity-0"
                     >
-                        <div className="fixed inset-0 z-40 bg-main/25 bg-opacity-30" ref={ref => setRef(ref)} />
+                        <div className="fixed inset-0 z-40 bg-main/25 bg-opacity-30" ref={(ref) => setRef(ref)} />
                     </Transition.Child>
                 ) : null}
                 <Transition.Child
