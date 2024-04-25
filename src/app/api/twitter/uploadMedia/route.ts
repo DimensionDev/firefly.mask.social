@@ -12,7 +12,7 @@ export async function POST(request: NextRequest) {
         const file = formData.get("file") as File;
         const buffer = Buffer.from(await file.arrayBuffer());
         const res = client.v1.uploadMedia(buffer,{type: file.type});
-        return createSuccessResponseJSON(res, { status: StatusCodes.OK });
+        return createSuccessResponseJSON({media_id: res}, { status: StatusCodes.OK });
     } catch (error) {
         return createErrorResponseJSON(error instanceof Error ? error.message : 'Internal Server Error', {
             status: StatusCodes.INTERNAL_SERVER_ERROR,
