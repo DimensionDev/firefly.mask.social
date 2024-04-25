@@ -98,7 +98,7 @@ export interface Channel {
     // e.g., 1689888729
     created_at: number;
     description: string;
-    follower_count: number;
+    follower_count?: number;
     url: string;
     parent_url: string;
     lead?: ChannelProfile;
@@ -122,7 +122,6 @@ export interface ChannelBrief {
     // e.g., 1710554170
     created_at: number;
     description: string;
-    followerCount: number;
     id: string;
     image_url: string;
     name: string;
@@ -217,6 +216,6 @@ export type CastsOfChannelResponse = Response<{
 }>;
 
 export type SearchChannelsResponse = Response<{
-    channels: Channel[];
+    channels: ChannelBrief[];
     cursor: string;
 }>;

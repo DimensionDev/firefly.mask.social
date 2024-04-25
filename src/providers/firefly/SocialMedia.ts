@@ -139,7 +139,7 @@ class FireflySocialMedia implements Provider {
             method: 'GET',
         });
         const data = resolveFireflyResponseData(response);
-        const channels = data.channels.map(formatChannelFromFirefly);
+        const channels = data.channels.map(formatBriefChannelFromFirefly);
 
         return createPageable(
             channels,

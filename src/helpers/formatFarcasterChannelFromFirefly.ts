@@ -37,7 +37,7 @@ export function formatChannelFromFirefly(channel: FireflyChannel): Channel {
         imageUrl: channel.image_url,
         url: channel.url,
         parentUrl: channel.parent_url,
-        followerCount: channel.follower_count,
+        followerCount: channel.follower_count ?? 0,
         timestamp: channel.created_at * 1000,
         __original__: channel,
     };
@@ -79,7 +79,8 @@ export function formatBriefChannelFromFirefly(channel: ChannelBrief): Channel {
         url: channel.url,
         parentUrl: channel.parent_url,
         imageUrl: channel.image_url,
-        followerCount: channel.followerCount,
+        // not available in brief
+        followerCount: 0,
         timestamp: channel.created_at * 1000,
         __original__: channel,
     };
