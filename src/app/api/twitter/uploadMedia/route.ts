@@ -7,8 +7,8 @@ import { Twitter } from '@masknet/web3-providers';
 
 export async function POST(request: NextRequest) {
     try {
-        const formData = await request.formData()
-        const file = formData.get("file") as File;
+        const formData = await request.formData();
+        const file = formData.get('file') as File;
         const res = Twitter.uploadMedia(file);
         return createSuccessResponseJSON(res, { status: StatusCodes.OK });
     } catch (error) {
