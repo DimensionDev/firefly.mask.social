@@ -13,13 +13,12 @@ import { SearchFilter } from '@/components/Search/SearchFilter.js';
 import { SearchInput } from '@/components/Search/SearchInput.js';
 import { SearchRecommendation } from '@/components/Search/SearchRecommendation.js';
 import { SORTED_SOURCES } from '@/constants/index.js';
-import { classNames } from '@/helpers/classNames.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfileAll.js';
 import { DraggablePopoverRef } from '@/modals/controls.js';
 import { useNavigatorState } from '@/store/useNavigatorStore.js';
 import { useSearchHistoryStateStore } from '@/store/useSearchHistoryStore.js';
-import { type SearchState, useSearchStateStore } from '@/store/useSearchStore.js';
+import { type SearchState,useSearchStateStore } from '@/store/useSearchStore.js';
 
 interface NavigatorBarForMobileProps {
     title: string;
@@ -86,15 +85,8 @@ export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({
                             }}
                         >
                             {currentProfiles.length ? (
-                                currentProfiles.map((x, i) => (
-                                    <div
-                                        className={classNames(' relative', {
-                                            ' z-10': i === 0,
-                                            ' z-1 left-[-6px]': i === 1,
-                                            ' left-[-10px] z-0': i === 2,
-                                        })}
-                                        key={`${x.source}_${x.profileId}`}
-                                    >
+                                currentProfiles.map((x) => (
+                                    <div className="relative -mr-2" key={`${x.source}_${x.profileId}`}>
                                         <ProfileAvatar size={30} profile={x} enableSourceIcon={false} />
                                     </div>
                                 ))
