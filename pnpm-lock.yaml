@@ -70,7 +70,7 @@ patchedDependencies:
     hash: zmfybkyaxddmjxgyyjovnf3fuu
     path: src/maskbook/patches/react-devtools-inline@4.28.5.patch
   react-use@17.4.0:
-    hash: ad7wgjtx3zazlvzpjcycjysfby
+    hash: 4yu5uy72xaoviors2ybdymzjle
     path: src/maskbook/patches/react-use@17.4.0.patch
   reflect-metadata@0.1.13:
     hash: pnra5xi77mqlyipflqvcm4z6ga
@@ -271,7 +271,7 @@ importers:
         version: 0.30.2(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       react-use:
         specifier: ^17.4.0
-        version: 17.4.0(patch_hash=ad7wgjtx3zazlvzpjcycjysfby)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+        version: 17.4.0(patch_hash=4yu5uy72xaoviors2ybdymzjle)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       react-virtuoso:
         specifier: ^4.7.8
         version: 4.7.8(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
@@ -1068,7 +1068,7 @@ importers:
         version: 2.14.13(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       react-use:
         specifier: ^17.4.0
-        version: 17.4.0(patch_hash=ad7wgjtx3zazlvzpjcycjysfby)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+        version: 17.4.0(patch_hash=4yu5uy72xaoviors2ybdymzjle)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       stream-browserify:
         specifier: ^3.0.0
         version: 3.0.0
@@ -1225,7 +1225,7 @@ importers:
         version: 6.4.0
       react-use:
         specifier: ^17.4.0
-        version: 17.4.0(patch_hash=ad7wgjtx3zazlvzpjcycjysfby)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+        version: 17.4.0(patch_hash=4yu5uy72xaoviors2ybdymzjle)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       use-subscription:
         specifier: ^1.8.0
         version: 1.8.0(react@0.0.0-experimental-8039e6d0b-20231026)
@@ -1312,7 +1312,7 @@ importers:
         version: 9.1.2
       react-use:
         specifier: ^17.4.0
-        version: 17.4.0(patch_hash=ad7wgjtx3zazlvzpjcycjysfby)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+        version: 17.4.0(patch_hash=4yu5uy72xaoviors2ybdymzjle)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       urlcat:
         specifier: ^3.1.0
         version: 3.1.0(patch_hash=5r5xyq4zgcnqugwsrx4lxq2i4e)
@@ -1381,7 +1381,7 @@ importers:
         version: 6.14.2(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       react-use:
         specifier: ^17.4.0
-        version: 17.4.0(patch_hash=ad7wgjtx3zazlvzpjcycjysfby)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+        version: 17.4.0(patch_hash=4yu5uy72xaoviors2ybdymzjle)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       use-subscription:
         specifier: ^1.8.0
         version: 1.8.0(react@0.0.0-experimental-8039e6d0b-20231026)
@@ -1465,7 +1465,7 @@ importers:
         version: 0.3.10
       react-use:
         specifier: ^17.4.0
-        version: 17.4.0(patch_hash=ad7wgjtx3zazlvzpjcycjysfby)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+        version: 17.4.0(patch_hash=4yu5uy72xaoviors2ybdymzjle)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       web3-utils:
         specifier: 1.10.2
         version: 1.10.2
@@ -1594,7 +1594,7 @@ importers:
         version: 1.6.3
       react-use:
         specifier: ^17.4.0
-        version: 17.4.0(patch_hash=ad7wgjtx3zazlvzpjcycjysfby)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+        version: 17.4.0(patch_hash=4yu5uy72xaoviors2ybdymzjle)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
 
   src/maskbook/packages/plugins/Debugger:
     dependencies:
@@ -1690,7 +1690,7 @@ importers:
         version: 6.14.2(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       react-use:
         specifier: ^17.4.0
-        version: 17.4.0(patch_hash=ad7wgjtx3zazlvzpjcycjysfby)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+        version: 17.4.0(patch_hash=4yu5uy72xaoviors2ybdymzjle)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       urlcat:
         specifier: ^3.1.0
         version: 3.1.0(patch_hash=5r5xyq4zgcnqugwsrx4lxq2i4e)
@@ -1748,7 +1748,7 @@ importers:
         version: 6.14.2(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       react-use:
         specifier: ^17.4.0
-        version: 17.4.0(patch_hash=ad7wgjtx3zazlvzpjcycjysfby)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+        version: 17.4.0(patch_hash=4yu5uy72xaoviors2ybdymzjle)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       urlcat:
         specifier: ^3.1.0
         version: 3.1.0(patch_hash=5r5xyq4zgcnqugwsrx4lxq2i4e)
@@ -1802,7 +1802,7 @@ importers:
         version: 0.12.1
       react-use:
         specifier: ^17.4.0
-        version: 17.4.0(patch_hash=ad7wgjtx3zazlvzpjcycjysfby)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+        version: 17.4.0(patch_hash=4yu5uy72xaoviors2ybdymzjle)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       urlcat:
         specifier: ^3.1.0
         version: 3.1.0(patch_hash=5r5xyq4zgcnqugwsrx4lxq2i4e)
@@ -1850,7 +1850,7 @@ importers:
         version: 2.0.10(react@0.0.0-experimental-8039e6d0b-20231026)
       react-use:
         specifier: ^17.4.0
-        version: 17.4.0(patch_hash=ad7wgjtx3zazlvzpjcycjysfby)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+        version: 17.4.0(patch_hash=4yu5uy72xaoviors2ybdymzjle)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       urlcat:
         specifier: ^3.1.0
         version: 3.1.0(patch_hash=5r5xyq4zgcnqugwsrx4lxq2i4e)
@@ -1946,7 +1946,7 @@ importers:
         version: 2.30.0
       react-use:
         specifier: ^17.4.0
-        version: 17.4.0(patch_hash=ad7wgjtx3zazlvzpjcycjysfby)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+        version: 17.4.0(patch_hash=4yu5uy72xaoviors2ybdymzjle)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       unstated-next:
         specifier: ^1.1.0
         version: 1.1.0
@@ -1991,7 +1991,7 @@ importers:
         version: link:../../web3-shared/evm
       react-use:
         specifier: ^17.4.0
-        version: 17.4.0(patch_hash=ad7wgjtx3zazlvzpjcycjysfby)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+        version: 17.4.0(patch_hash=4yu5uy72xaoviors2ybdymzjle)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       zod:
         specifier: ^3.22.2
         version: 3.22.4
@@ -2030,7 +2030,7 @@ importers:
         version: link:../../web3-shared/evm
       react-use:
         specifier: ^17.4.0
-        version: 17.4.0(patch_hash=ad7wgjtx3zazlvzpjcycjysfby)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+        version: 17.4.0(patch_hash=4yu5uy72xaoviors2ybdymzjle)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
 
   src/maskbook/packages/plugins/ProfileCard:
     dependencies:
@@ -2168,7 +2168,7 @@ importers:
         version: 2.30.0
       react-use:
         specifier: ^17.4.0
-        version: 17.4.0(patch_hash=ad7wgjtx3zazlvzpjcycjysfby)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+        version: 17.4.0(patch_hash=4yu5uy72xaoviors2ybdymzjle)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       urlcat:
         specifier: ^3.1.0
         version: 3.1.0(patch_hash=5r5xyq4zgcnqugwsrx4lxq2i4e)
@@ -2222,7 +2222,7 @@ importers:
         version: 9.1.2
       react-use:
         specifier: ^17.4.0
-        version: 17.4.0(patch_hash=ad7wgjtx3zazlvzpjcycjysfby)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+        version: 17.4.0(patch_hash=4yu5uy72xaoviors2ybdymzjle)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       web3-utils:
         specifier: 1.10.2
         version: 1.10.2
@@ -2255,7 +2255,7 @@ importers:
         version: 0.0.21(esbuild@0.19.7)(jest@28.1.3)(typescript@5.4.2)
       react-use:
         specifier: ^17.4.0
-        version: 17.4.0(patch_hash=ad7wgjtx3zazlvzpjcycjysfby)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+        version: 17.4.0(patch_hash=4yu5uy72xaoviors2ybdymzjle)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       urlcat:
         specifier: ^3.1.0
         version: 3.1.0(patch_hash=5r5xyq4zgcnqugwsrx4lxq2i4e)
@@ -2282,7 +2282,7 @@ importers:
         version: link:../../web3-providers
       react-use:
         specifier: ^17.4.0
-        version: 17.4.0(patch_hash=ad7wgjtx3zazlvzpjcycjysfby)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+        version: 17.4.0(patch_hash=4yu5uy72xaoviors2ybdymzjle)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
 
   src/maskbook/packages/plugins/SmartPay:
     dependencies:
@@ -2327,7 +2327,7 @@ importers:
         version: 6.14.2(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       react-use:
         specifier: ^17.4.0
-        version: 17.4.0(patch_hash=ad7wgjtx3zazlvzpjcycjysfby)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+        version: 17.4.0(patch_hash=4yu5uy72xaoviors2ybdymzjle)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       unstated-next:
         specifier: ^1.1.0
         version: 1.1.0
@@ -2384,7 +2384,7 @@ importers:
         version: 2.30.0
       react-use:
         specifier: ^17.4.0
-        version: 17.4.0(patch_hash=ad7wgjtx3zazlvzpjcycjysfby)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+        version: 17.4.0(patch_hash=4yu5uy72xaoviors2ybdymzjle)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       urlcat:
         specifier: ^3.1.0
         version: 3.1.0(patch_hash=5r5xyq4zgcnqugwsrx4lxq2i4e)
@@ -2456,7 +2456,7 @@ importers:
         version: 1.0.0
       react-use:
         specifier: ^17.4.0
-        version: 17.4.0(patch_hash=ad7wgjtx3zazlvzpjcycjysfby)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+        version: 17.4.0(patch_hash=4yu5uy72xaoviors2ybdymzjle)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       unstated-next:
         specifier: ^1.1.0
         version: 1.1.0
@@ -2543,7 +2543,7 @@ importers:
         version: 1.0.2
       react-use:
         specifier: ^17.4.0
-        version: 17.4.0(patch_hash=ad7wgjtx3zazlvzpjcycjysfby)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+        version: 17.4.0(patch_hash=4yu5uy72xaoviors2ybdymzjle)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       unstated-next:
         specifier: ^1.1.0
         version: 1.1.0
@@ -2585,7 +2585,7 @@ importers:
         version: 1.0.2
       react-use:
         specifier: ^17.4.0
-        version: 17.4.0(patch_hash=ad7wgjtx3zazlvzpjcycjysfby)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+        version: 17.4.0(patch_hash=4yu5uy72xaoviors2ybdymzjle)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
 
   src/maskbook/packages/plugins/VCent:
     dependencies:
@@ -2615,7 +2615,7 @@ importers:
         version: link:../../web3-shared/evm
       react-use:
         specifier: ^17.4.0
-        version: 17.4.0(patch_hash=ad7wgjtx3zazlvzpjcycjysfby)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+        version: 17.4.0(patch_hash=4yu5uy72xaoviors2ybdymzjle)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       urlcat:
         specifier: ^3.1.0
         version: 3.1.0(patch_hash=5r5xyq4zgcnqugwsrx4lxq2i4e)
@@ -2669,7 +2669,7 @@ importers:
         version: 2.30.0
       react-use:
         specifier: ^17.4.0
-        version: 17.4.0(patch_hash=ad7wgjtx3zazlvzpjcycjysfby)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+        version: 17.4.0(patch_hash=4yu5uy72xaoviors2ybdymzjle)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       urlcat:
         specifier: ^3.1.0
         version: 3.1.0(patch_hash=5r5xyq4zgcnqugwsrx4lxq2i4e)
@@ -2951,7 +2951,7 @@ importers:
         version: 6.14.2(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       react-use:
         specifier: ^17.4.0
-        version: 17.4.0(patch_hash=ad7wgjtx3zazlvzpjcycjysfby)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+        version: 17.4.0(patch_hash=4yu5uy72xaoviors2ybdymzjle)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       rehype-raw:
         specifier: ^6.1.1
         version: 6.1.1
@@ -3061,7 +3061,7 @@ importers:
         version: 9.0.3
       react-use:
         specifier: ^17.4.0
-        version: 17.4.0(patch_hash=ad7wgjtx3zazlvzpjcycjysfby)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+        version: 17.4.0(patch_hash=4yu5uy72xaoviors2ybdymzjle)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       urlcat:
         specifier: ^3.1.0
         version: 3.1.0(patch_hash=5r5xyq4zgcnqugwsrx4lxq2i4e)
@@ -3100,7 +3100,7 @@ importers:
         version: 2.0.8(@emotion/react@11.11.1)(@mui/material@5.15.12)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       react-use:
         specifier: ^17.4.0
-        version: 17.4.0(patch_hash=ad7wgjtx3zazlvzpjcycjysfby)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+        version: 17.4.0(patch_hash=4yu5uy72xaoviors2ybdymzjle)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       react-window:
         specifier: ^1.8.9
         version: 1.8.9(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
@@ -3264,7 +3264,7 @@ importers:
         version: 0.1.1
       react-use:
         specifier: ^17.4.0
-        version: 17.4.0(patch_hash=ad7wgjtx3zazlvzpjcycjysfby)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+        version: 17.4.0(patch_hash=4yu5uy72xaoviors2ybdymzjle)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       unstated-next:
         specifier: ^1.1.0
         version: 1.1.0
@@ -3300,7 +3300,7 @@ importers:
         version: 9.1.2
       react-use:
         specifier: ^17.4.0
-        version: 17.4.0(patch_hash=ad7wgjtx3zazlvzpjcycjysfby)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+        version: 17.4.0(patch_hash=4yu5uy72xaoviors2ybdymzjle)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       web3-utils:
         specifier: 1.10.2
         version: 1.10.2
@@ -3569,7 +3569,7 @@ importers:
         version: link:../base
       react-use:
         specifier: ^17.4.0
-        version: 17.4.0(patch_hash=ad7wgjtx3zazlvzpjcycjysfby)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+        version: 17.4.0(patch_hash=4yu5uy72xaoviors2ybdymzjle)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
 
   src/maskbook/packages/web3-shared/solana:
     dependencies:
@@ -31716,7 +31716,7 @@ packages:
       tslib: 2.6.2
     dev: false
 
-  /react-use@17.4.0(patch_hash=ad7wgjtx3zazlvzpjcycjysfby)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026):
+  /react-use@17.4.0(patch_hash=4yu5uy72xaoviors2ybdymzjle)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026):
     resolution: {integrity: sha512-TgbNTCA33Wl7xzIJegn1HndB4qTS9u03QUwyNycUnXaweZkE4Kq2SB+Yoxx8qbshkZGYBDvUXbXWRUmQDcZZ/Q==}
     peerDependencies:
       react: 0.0.0-experimental-8039e6d0b-20231026 || 0.0.0-experimental-0a360642d-20230711
