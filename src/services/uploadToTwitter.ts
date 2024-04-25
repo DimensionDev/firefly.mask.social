@@ -6,7 +6,7 @@ export async function uploadToTwitter(files: File[]) {
             return fetch('/api/twitter/uploadMedia', {
                 method: 'POST',
                 body: formData,
-            });
+            }).then((x) => x.json());
         }),
     );
     return medias.map((x, i) => ({
