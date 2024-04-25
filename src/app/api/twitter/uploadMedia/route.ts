@@ -3,13 +3,15 @@ import { NextRequest } from 'next/server.js';
 
 import { createErrorResponseJSON } from '@/helpers/createErrorResponseJSON.js';
 import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
-import { Twitter } from '@masknet/web3-providers';
+import { TwitterApi } from 'twitter-api-v2';
 
 export async function POST(request: NextRequest) {
     try {
+      const client = new TwitterApi()
         const formData = await request.formData()
         const file = formData.get("file") as File;
-        const res = Twitter.uploadMedia(file);
+        const buffer = Buffer.from(await file.arrayBuffer());
+        const res = client.v1.uploadMedia(buffer,{type: file.type});
         return createSuccessResponseJSON(res, { status: StatusCodes.OK });
     } catch (error) {
         return createErrorResponseJSON(error instanceof Error ? error.message : 'Internal Server Error', {
