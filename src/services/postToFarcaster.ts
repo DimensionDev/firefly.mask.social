@@ -2,6 +2,7 @@ import { t } from '@lingui/macro';
 import { uniqBy } from 'lodash-es';
 
 import { SocialPlatform } from '@/constants/enum.js';
+import { env } from '@/constants/env.js';
 import { readChars } from '@/helpers/chars.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { hasRpPayload } from '@/helpers/rpPayload.js';
@@ -50,8 +51,8 @@ export async function postToFarcaster(type: ComposeType, compositePost: Composit
                 (x) => x.url.toLowerCase(),
             ),
             commentOn: type === 'reply' && farcasterParentPost ? farcasterParentPost : undefined,
-            parentChannelKey: hasPayload ? 'firefly-garden' : undefined,
-            parentChannelUrl: hasPayload ? 'https://warpcast.com/~/channel/firefly-garden' : undefined,
+            parentChannelKey: hasPayload ? env.external.REDPACKET_CHANNEL_KEY : undefined,
+            parentChannelUrl: hasPayload ? env.external.REDPACKET_CHANNEL_URL : undefined,
         } satisfies Post;
     };
 
