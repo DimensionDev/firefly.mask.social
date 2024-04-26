@@ -57,7 +57,7 @@ const initialConfig = {
     },
     nodes: [MentionNode, HashtagNode, AutoLinkNode, LinkNode],
     editorState: null,
-    onError: () => { },
+    onError: () => {},
 };
 
 export interface ComposeModalProps {
