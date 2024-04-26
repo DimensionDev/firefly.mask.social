@@ -52,7 +52,8 @@ export const CommentList = memo<CommentListProps>(function CommentList({ postId,
             VirtualListProps={{
                 listKey: `${ScrollListKey.Comment}:${postId}`,
                 computeItemKey: (index, post) => `${post.postId}-${index}`,
-                itemContent: (index, post) => getPostItemContent(index, post, `${ScrollListKey.Comment}:${postId}`),
+                itemContent: (index, post) =>
+                    getPostItemContent(index, post, `${ScrollListKey.Comment}:${postId}`, { isComment: true }),
             }}
             NoResultsFallbackProps={{
                 icon: <MessageIcon width={24} height={24} />,
