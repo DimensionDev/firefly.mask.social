@@ -10,7 +10,8 @@ export async function uploadToTwitter(files: File[]) {
         }),
     );
     return medias.map((x, i) => ({
-        ...x,
+        media_id: x.data.media_id,
+        media_id_string: x.data.media_id_string,
         file: files[i],
     }));
 }
