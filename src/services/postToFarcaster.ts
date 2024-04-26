@@ -50,8 +50,10 @@ export async function postToFarcaster(type: ComposeType, compositePost: Composit
                 (x) => x.url.toLowerCase(),
             ),
             commentOn: type === 'reply' && farcasterParentPost ? farcasterParentPost : undefined,
-            parentChannelKey: hasPayload ? 'firefly-garden' : undefined,
-            parentChannelUrl: hasPayload ? 'https://warpcast.com/~/channel/firefly-garden' : undefined,
+            parentChannelKey:
+                hasPayload && process.env.REDPACKET_CHANNEL_KEY ? process.env.REDPACKET_CHANNEL_KEY : undefined,
+            parentChannelUrl:
+                hasPayload && process.env.REDPACKET_CHANNEL_URL ? process.env.REDPACKET_CHANNEL_URL : undefined,
         } satisfies Post;
     };
 
