@@ -54,11 +54,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <body className={`${inter.variable} font-inter`}>
                 <Providers>
                     <div className="m-auto flex w-full md:min-h-screen lg:w-[1265px]">
-                        {env.shared.NODE_ENV !== NODE_ENV.Development ||
-                        (env.shared.NODE_ENV === NODE_ENV.Development &&
-                            env.external.NEXT_PUBLIC_MASK_WEB_COMPONENTS === STATUS.Enabled) ? (
-                            <CustomElements />
-                        ) : null}
+                        <CustomElements />
                         {children}
                         <SideBar />
                         <mask-page-inspector />
