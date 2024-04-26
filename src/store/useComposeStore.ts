@@ -6,7 +6,7 @@ import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
 
 import { SocialPlatform } from '@/constants/enum.js';
-import { EMPTY_LIST } from '@/constants/index.js';
+import { EMPTY_LIST, SORTED_SOURCES } from '@/constants/index.js';
 import { type Chars, readChars } from '@/helpers/chars.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 import { getCurrentAvailableSources } from '@/helpers/getCurrentAvailableSources.js';
@@ -162,7 +162,10 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
 
                 const nextPosts = [
                     ...state.posts.slice(0, index + 1),
-                    createInitSinglePostState(cursor),
+                    {
+                        ...createInitSinglePostState(cursor),
+                        availableSources: state.posts[0].availableSources,
+                    },
                     ...state.posts.slice(index + 1), // corrected slicing here
                 ];
 
@@ -211,18 +214,24 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
         enableSource: (source) =>
             set((state) => ({
                 ...state,
-                posts: state.posts.map((x) => ({
-                    ...x,
-                    availableSources: uniq([...x.availableSources, source]),
-                })),
+                posts: state.posts.map((x) => {
+                    const availableSources = uniq([...x.availableSources, source]);
+                    return {
+                        ...x,
+                        availableSources: SORTED_SOURCES.filter((x) => availableSources.includes(x)),
+                    };
+                }),
             })),
         disableSource: (source) =>
             set((state) => ({
                 ...state,
-                posts: state.posts.map((x) => ({
-                    ...x,
-                    availableSources: x.availableSources.filter((s) => s !== source),
-                })),
+                posts: state.posts.map((x) => {
+                    const availableSources = x.availableSources.filter((s) => s !== source);
+                    return {
+                        ...x,
+                        availableSources: SORTED_SOURCES.filter((x) => availableSources.includes(x)),
+                    };
+                }),
             })),
         updateParentPost: (source, parentPost, cursor) =>
             set((state) =>

@@ -98,8 +98,10 @@ class TwitterSocialMedia implements Provider {
         throw new Error('Not implemented');
     }
 
-    getPostById(postId: string): Promise<Post> {
-        throw new Error('Not implemented');
+    async getPostById(postId: string): Promise<Post> {
+        return {
+            postId,
+        } as unknown as Post;
     }
 
     getProfileById(profileId: string): Promise<Profile> {
