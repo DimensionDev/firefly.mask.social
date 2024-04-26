@@ -42,8 +42,8 @@ const ExternalEnvSchema = z.object({
     NEXT_PUBLIC_HUBBLE_URL: z.string(),
     NEXT_PUBLIC_HUBBLE_TOKEN: z.string().optional(),
 
-    REDPACKET_CHANNEL_KEY: z.string(),
-    REDPACKET_CHANNEL_URL: z.string(),
+    NEXT_PUBLIC_REDPACKET_CHANNEL_KEY: z.string(),
+    NEXT_PUBLIC_REDPACKET_CHANNEL_URL: z.string(),
 });
 
 export const env = {
@@ -68,7 +68,7 @@ export const env = {
         NEXT_PUBLIC_HUBBLE_URL: process.env.NEXT_PUBLIC_HUBBLE_URL,
         NEXT_PUBLIC_HUBBLE_TOKEN: process.env.NEXT_PUBLIC_HUBBLE_TOKEN,
 
-        REDPACKET_CHANNEL_KEY: process.env.REDPACKET_CHANNEL_KEY,
-        REDPACKET_CHANNEL_URL: process.env.REDPACKET_CHANNEL_URL,
+        NEXT_PUBLIC_REDPACKET_CHANNEL_KEY: process.env.NEXT_PUBLIC_REDPACKET_CHANNEL_KEY,
+        NEXT_PUBLIC_REDPACKET_CHANNEL_URL: process.env.NEXT_PUBLIC_REDPACKET_CHANNEL_URL,
     }),
 };
