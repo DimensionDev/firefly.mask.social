@@ -264,7 +264,7 @@ class FireflySocialMedia implements Provider {
 
     async getProfileById(profileId: string): Promise<Profile> {
         return farcasterClient.withSession(async (session) => {
-            const { data: user } = await farcasterClient.fetch<UserResponse>(
+            const { data: user } = await fetchJSON<UserResponse>(
                 urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/user/profile', {
                     fid: profileId,
                     sourceFid: session?.profileId,
