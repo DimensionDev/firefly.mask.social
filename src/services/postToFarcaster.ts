@@ -51,9 +51,13 @@ export async function postToFarcaster(type: ComposeType, compositePost: Composit
             ),
             commentOn: type === 'reply' && farcasterParentPost ? farcasterParentPost : undefined,
             parentChannelKey:
-                hasPayload && process.env.REDPACKET_CHANNEL_KEY ? process.env.REDPACKET_CHANNEL_KEY : undefined,
+                hasPayload && process.env.NEXT_PUBLIC_REDPACKET_CHANNEL_KEY
+                    ? process.env.NEXT_PUBLIC_REDPACKET_CHANNEL_KEY
+                    : undefined,
             parentChannelUrl:
-                hasPayload && process.env.REDPACKET_CHANNEL_URL ? process.env.REDPACKET_CHANNEL_URL : undefined,
+                hasPayload && process.env.NEXT_PUBLIC_REDPACKET_CHANNEL_URL
+                    ? process.env.NEXT_PUBLIC_REDPACKET_CHANNEL_URL
+                    : undefined,
         } satisfies Post;
     };
 

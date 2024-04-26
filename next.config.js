@@ -92,8 +92,12 @@ export default {
                     'process.env.NODE_DEBUG': 'undefined',
                     'process.env.IMGUR_CLIENT_ID': JSON.stringify(process.env.IMGUR_CLIENT_ID),
                     'process.env.IMGUR_CLIENT_SECRET': JSON.stringify(process.env.IMGUR_CLIENT_SECRET),
-                    'process.env.REDPACKET_CHANNEL_KEY': JSON.stringify(process.env.REDPACKET_CHANNEL_KEY),
-                    'process.env.REDPACKET_CHANNEL_URL': JSON.stringify(process.env.REDPACKET_CHANNEL_URL),
+                    'process.env.NEXT_PUBLIC_REDPACKET_CHANNEL_KEY': JSON.stringify(
+                        process.env.NEXT_PUBLIC_REDPACKET_CHANNEL_KEY,
+                    ),
+                    'process.env.NEXT_PUBLIC_REDPACKET_CHANNEL_URL': JSON.stringify(
+                        process.env.NEXT_PUBLIC_REDPACKET_CHANNEL_URL,
+                    ),
                     'process.version': JSON.stringify('0.1.0'),
                 }),
                 new CopyPlugin({
