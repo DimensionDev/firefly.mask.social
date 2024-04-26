@@ -8,8 +8,8 @@ import type { Post } from '@/providers/types/SocialMedia.js';
 import { crossPost } from '@/services/crossPost.js';
 import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
 
-function shouldCrossPost(index: number, post: CompositePost, posts: CompositePost[]) {
-    return SORTED_SOURCES.some((x) => post.availableSources.includes(x) && !post.parentPost[x]);
+function shouldCrossPost(index: number, post: CompositePost) {
+    return SORTED_SOURCES.some((x) => post.availableSources.includes(x) && !post.postId[x] && !post.parentPost[x]);
 }
 
 async function recompositePost(index: number, post: CompositePost, posts: CompositePost[]) {
@@ -53,7 +53,7 @@ export async function crossPostThread() {
         const { posts: allPosts } = useComposeStateStore.getState();
 
         // skip post when recover from error
-        if (!shouldCrossPost(index, _, allPosts)) return;
+        if (!shouldCrossPost(index, _)) continue;
 
         // reply to the previous published post in thread
         const post = await recompositePost(index, _, allPosts);

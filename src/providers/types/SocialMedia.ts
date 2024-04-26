@@ -405,6 +405,7 @@ export interface Provider {
 
     /**
      * Retrieves a post by its post ID.
+     * (This api must be implemented for cross posting to work properly.)
      *
      * @param postId The ID of the post to retrieve.
      * @returns A promise that resolves to a Post object.
