@@ -71,7 +71,7 @@ class WarpcastSocialMedia implements Provider {
         throw new Error('Method not implemented.');
     }
 
-    getThreadByPostId(postId: string, rootPost?: Post): Promise<Post[]> {
+    getThreadByPostId(postId: string, localPost?: Post): Promise<Post[]> {
         throw new Error('Method not implemented.');
     }
 

@@ -582,9 +582,9 @@ class FireflySocialMedia implements Provider {
         });
     }
 
-    async getThreadByPostId(postId: string, rootPost?: Post) {
+    async getThreadByPostId(postId: string, localPost?: Post) {
         return farcasterClient.withSession(async (session) => {
-            const post = rootPost ?? (await this.getPostById(postId));
+            const post = localPost ?? (await this.getPostById(postId));
 
             const { data } = await fetchJSON<ThreadResponse>(
                 urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/cast/threads', {

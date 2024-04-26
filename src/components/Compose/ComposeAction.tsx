@@ -38,8 +38,8 @@ interface ComposeActionProps {
     post: CompositePost;
 }
 
-export function ComposeAction(props: ComposeActionProps) {
-    const { chars, images, video } = props.post;
+export function ComposeAction({ post }: ComposeActionProps) {
+    const { chars, images, video } = post;
 
     const isMedium = useIsMedium();
 
@@ -47,9 +47,9 @@ export function ComposeAction(props: ComposeActionProps) {
     const profilesAll = useProfilesAll();
 
     const { type, posts, addPostInThread, updateRestriction } = useComposeStateStore();
-    const { rootPost, isRootPost, parentPost } = useCompositePost();
+    const { isRootPost, parentPost } = useCompositePost();
 
-    const { length, visibleLength, invisibleLength } = measureChars(chars, rootPost.availableSources);
+    const { length, visibleLength, invisibleLength } = measureChars(chars, post.availableSources);
 
     const [editor] = useLexicalComposerContext();
     const setEditorContent = useSetEditorContent();
@@ -89,8 +89,8 @@ export function ComposeAction(props: ComposeActionProps) {
         });
     }, [currentProfileAll, profilesAll]);
 
-    const { MAX_CHAR_SIZE_PER_POST } = getCurrentPostLimits(rootPost.availableSources);
-    const maxImageCount = getCurrentPostImageLimits(rootPost.availableSources);
+    const { MAX_CHAR_SIZE_PER_POST } = getCurrentPostLimits(post.availableSources);
+    const maxImageCount = getCurrentPostImageLimits(post.availableSources);
     const mediaDisabled = !!video || images.length >= maxImageCount;
 
     return (
@@ -112,7 +112,7 @@ export function ComposeAction(props: ComposeActionProps) {
                                 </Tooltip>
                             </Popover.Button>
 
-                            {!mediaDisabled ? <Media close={close} /> : null}
+                            {!mediaDisabled ? <Media post={post} close={close} /> : null}
                         </>
                     )}
                 </Popover>
@@ -209,10 +209,10 @@ export function ComposeAction(props: ComposeActionProps) {
                         <>
                             <Popover.Button
                                 className=" flex cursor-pointer gap-1 text-main focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
-                                disabled={!isRootPost || rootPost.availableSources.some((x) => !!parentPost[x])}
+                                disabled={!isRootPost || post.availableSources.some((x) => !!parentPost[x])}
                             >
                                 <span className="flex items-center gap-x-1 font-bold">
-                                    {rootPost.availableSources
+                                    {post.availableSources
                                         .filter((x) => !!currentProfileAll[x] && SORTED_SOURCES.includes(x))
                                         .map((y) => (
                                             <SourceIcon key={y} source={y} size={20} />
@@ -222,7 +222,7 @@ export function ComposeAction(props: ComposeActionProps) {
                                     <ChevronRightIcon className="h-5 w-5" aria-hidden="true" />
                                 ) : null}
                             </Popover.Button>
-                            <PostBy />
+                            <PostBy post={post} />
                         </>
                     )}
                 </Popover>
@@ -240,13 +240,13 @@ export function ComposeAction(props: ComposeActionProps) {
                                 disabled={!isRootPost}
                             >
                                 <span className=" text-[15px] font-bold">
-                                    <ReplyRestrictionText type={rootPost.restriction} />
+                                    <ReplyRestrictionText type={post.restriction} />
                                 </span>
                                 <ChevronRightIcon className="h-5 w-5" aria-hidden="true" />
                             </Popover.Button>
                             <ReplyRestriction
-                                post={rootPost}
-                                restriction={rootPost.restriction}
+                                post={post}
+                                restriction={post.restriction}
                                 setRestriction={updateRestriction}
                             />
                         </>

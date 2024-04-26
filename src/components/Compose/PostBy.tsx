@@ -3,10 +3,13 @@ import { Fragment } from 'react';
 
 import { PostByItem } from '@/components/Compose/PostByItem.js';
 import { SORTED_SOURCES } from '@/constants/index.js';
+import type { CompositePost } from '@/store/useComposeStore.js';
 
-interface PostByProps {}
+interface PostByProps {
+    post: CompositePost;
+}
 
-export function PostBy(props: PostByProps) {
+export function PostBy({ post }: PostByProps) {
     return (
         <Transition
             as={Fragment}
@@ -19,7 +22,7 @@ export function PostBy(props: PostByProps) {
         >
             <Popover.Panel className=" absolute bottom-full right-0 flex w-[280px] -translate-y-3 flex-col gap-2 rounded-lg bg-bgModal p-3 text-[15px] shadow-popover  dark:border dark:border-line dark:shadow-none">
                 {SORTED_SOURCES.map((source) => (
-                    <PostByItem key={source} source={source} />
+                    <PostByItem key={source} source={source} post={post} />
                 ))}
             </Popover.Panel>
         </Transition>

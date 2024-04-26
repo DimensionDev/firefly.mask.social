@@ -9,19 +9,20 @@ import { SocialPlatform } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getCurrentPostImageLimits } from '@/helpers/getCurrentPostImageLimits.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
-import { useComposeStateStore } from '@/store/useComposeStore.js';
+import { useComposeStateStore, type CompositePost } from '@/store/useComposeStore.js';
 
 interface MediaProps {
+    post: CompositePost;
     close: () => void;
 }
-export function Media({ close }: MediaProps) {
+export function Media({ post, close }: MediaProps) {
     const imageInputRef = useRef<HTMLInputElement>(null);
     const videoInputRef = useRef<HTMLInputElement>(null);
 
     const { updateVideo, updateImages } = useComposeStateStore();
-    const { video, images, rootPost } = useCompositePost();
+    const { video, images } = useCompositePost();
 
-    const maxImageCount = getCurrentPostImageLimits(rootPost.availableSources);
+    const maxImageCount = getCurrentPostImageLimits(post.availableSources);
 
     const [, handleImageChange] = useAsyncFn(
         async (event: ChangeEvent<HTMLInputElement>) => {
@@ -52,7 +53,7 @@ export function Media({ close }: MediaProps) {
         [close, updateVideo],
     );
 
-    const disabledVideo = !!video || rootPost.availableSources.includes(SocialPlatform.Farcaster);
+    const disabledVideo = !!video || post.availableSources.includes(SocialPlatform.Farcaster);
 
     return (
         <Transition
