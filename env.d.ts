@@ -38,5 +38,8 @@ declare namespace NodeJS {
         NEXT_PUBLIC_FRAMES: 'enabled' | 'disabled';
         NEXT_PUBLIC_MASK_WEB_COMPONENTS: 'enabled' | 'disabled';
         NEXT_PUBLIC_REACT_DEV_TOOLS: 'enabled' | 'disabled';
+
+        REDPACKET_CHANNEL_KEY: string;
+        REDPACKET_CHANNEL_URL: string;
     }
 }
