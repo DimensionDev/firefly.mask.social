@@ -31,8 +31,8 @@ async function getParentPostById(source: SocialPlatform, postId: string) {
         case SocialPlatform.Twitter:
             return { postId } as unknown as Post;
         case SocialPlatform.Lens:
-            const provider = resolveSocialMediaProvider(SocialPlatform.Lens);
-            if (!provider) return null;
+            const provider = resolveSocialMediaProvider(source);
+            if (!provider) throw new Error('No provider found.');
             return provider.getPostById(postId);
         default:
             safeUnreachable(source);
