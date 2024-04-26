@@ -20,7 +20,7 @@ import { useProfiles } from '@/hooks/useProfiles.js';
 import { ComposeModalRef, LoginModalRef } from '@/modals/controls.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
-import { useComposeStateStore, type CompositePost } from '@/store/useComposeStore.js';
+import { type CompositePost,useComposeStateStore } from '@/store/useComposeStore.js';
 import { useLensStateStore } from '@/store/useProfileStore.js';
 
 interface PostByItemProps {

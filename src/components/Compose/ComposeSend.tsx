@@ -15,7 +15,6 @@ import { createMockComment } from '@/helpers/createMockComment.js';
 import { getCurrentPostLimits } from '@/helpers/getCurrentPostLimits.js';
 import { isValidPost } from '@/helpers/isValidPost.js';
 import { refreshComments } from '@/helpers/refreshComments.js';
-import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';
 import { ComposeModalRef } from '@/modals/controls.js';
