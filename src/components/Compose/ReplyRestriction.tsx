@@ -7,17 +7,16 @@ import YesIcon from '@/assets/yes.svg';
 import { ReplyRestrictionText } from '@/components/Compose/ReplyRestrictionText.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
-import type { CompositePost } from '@/store/useComposeStore.js';
+import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { RestrictionType } from '@/types/compose.js';
 
 interface ReplyRestrictionProps {
-    post: CompositePost;
     restriction: RestrictionType;
     setRestriction: (restriction: RestrictionType) => void;
 }
 
-export function ReplyRestriction({ post, restriction, setRestriction }: ReplyRestrictionProps) {
-    const { availableSources } = post;
+export function ReplyRestriction({ restriction, setRestriction }: ReplyRestrictionProps) {
+    const { availableSources } = useCompositePost();
     const twitterOnly = availableSources.length === 1 && availableSources.includes(SocialPlatform.Twitter);
 
     const items = [

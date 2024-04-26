@@ -222,7 +222,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
                             ) : null}
                         </span>
 
-                        {isMedium ? null : <ComposeSend post={compositePost} />}
+                        {isMedium ? null : <ComposeSend />}
                     </Dialog.Title>
 
                     <div className=" flex flex-col overflow-auto px-4 pb-4">
@@ -231,9 +231,9 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
                         </div>
                     </div>
 
-                    <ComposeAction post={compositePost} />
+                    <ComposeAction />
 
-                    {isMedium ? <ComposeSend post={compositePost} /> : null}
+                    {isMedium ? <ComposeSend /> : null}
                 </div>
             </Modal>
         );

@@ -244,8 +244,8 @@ class FarcasterSocialMedia implements Provider {
         throw new Error(t`No session found.`);
     }
 
-    async getThreadByPostId(postId: string, rootPost?: Post) {
-        return FireflySocialMediaProvider.getThreadByPostId(postId, rootPost);
+    async getThreadByPostId(postId: string, localPost?: Post) {
+        return FireflySocialMediaProvider.getThreadByPostId(postId, localPost);
     }
 
     getCommentsById(postId: string, indicator?: PageIndicator) {

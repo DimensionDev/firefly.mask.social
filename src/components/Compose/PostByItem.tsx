@@ -34,7 +34,7 @@ export function PostByItem({ source }: PostByItemProps) {
     const updateLensCurrentProfile = useLensStateStore.use.updateCurrentProfile();
 
     const { enableSource, disableSource } = useComposeStateStore();
-    const { images, rootPost } = useCompositePost();
+    const { availableSources, images } = useCompositePost();
 
     const [{ loading }, loginLens] = useAsyncFn(
         async (profile: Profile) => {
@@ -84,7 +84,7 @@ export function PostByItem({ source }: PostByItemProps) {
             key={profile.profileId}
             onClick={() => {
                 if (!isSameProfile(currentProfile, profile)) return;
-                if (rootPost.availableSources.includes(currentProfile.source)) disableSource(currentProfile.source);
+                if (availableSources.includes(currentProfile.source)) disableSource(currentProfile.source);
                 else enableSource(currentProfile.source);
             }}
         >
@@ -107,7 +107,7 @@ export function PostByItem({ source }: PostByItemProps) {
                 </span>
             </div>
             {isSameProfile(currentProfile, profile) ? (
-                rootPost.availableSources.includes(currentProfile.source) ? (
+                availableSources.includes(currentProfile.source) ? (
                     <YesIcon width={40} height={40} className=" relative -right-[10px]" />
                 ) : (
                     <RadioDisableNoIcon width={20} height={20} className=" text-secondaryLine" />

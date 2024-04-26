@@ -19,9 +19,9 @@ export function Media({ close }: MediaProps) {
     const videoInputRef = useRef<HTMLInputElement>(null);
 
     const { updateVideo, updateImages } = useComposeStateStore();
-    const { video, images, rootPost } = useCompositePost();
+    const { availableSources, video, images } = useCompositePost();
 
-    const maxImageCount = getCurrentPostImageLimits(rootPost.availableSources);
+    const maxImageCount = getCurrentPostImageLimits(availableSources);
 
     const [, handleImageChange] = useAsyncFn(
         async (event: ChangeEvent<HTMLInputElement>) => {
@@ -52,7 +52,7 @@ export function Media({ close }: MediaProps) {
         [close, updateVideo],
     );
 
-    const disabledVideo = !!video || rootPost.availableSources.includes(SocialPlatform.Farcaster);
+    const disabledVideo = !!video || availableSources.includes(SocialPlatform.Farcaster);
 
     return (
         <Transition

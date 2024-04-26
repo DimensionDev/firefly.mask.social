@@ -10,6 +10,5 @@ export function getCompositePost(id?: string) {
         ...post,
         rootPost,
         isRootPost: rootPost === post,
-        availableSources: rootPost.availableSources,
     } satisfies CompositePost & { rootPost: CompositePost; isRootPost: boolean };
 }
