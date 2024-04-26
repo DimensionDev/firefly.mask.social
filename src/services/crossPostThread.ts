@@ -1,15 +1,43 @@
 import { t } from '@lingui/macro';
 
-import type { SocialPlatform } from '@/constants/enum.js';
+import { SocialPlatform } from '@/constants/enum.js';
 import { SORTED_SOURCES } from '@/constants/index.js';
 import { isPublishedPost } from '@/helpers/isPublishedPost.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { crossPost } from '@/services/crossPost.js';
 import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
+import { useFarcasterStateStore } from '@/store/useProfileStore.js';
+import { safeUnreachable } from '@masknet/kit';
 
 function shouldCrossPost(index: number, post: CompositePost) {
     return SORTED_SOURCES.some((x) => post.availableSources.includes(x) && !post.postId[x] && !post.parentPost[x]);
+}
+
+async function getParentPostById(source: SocialPlatform, postId: string) {
+    switch (source) {
+        case SocialPlatform.Farcaster: {
+            // the hub might be delay in updating the post
+            const mock = { postId, author: {} } as unknown as Post;
+
+            const profileId = useFarcasterStateStore.getState().currentProfile?.profileId;
+            if (!profileId) throw new Error('Farcaster profileId is missing.');
+
+            // fc should have profileId for replying
+            mock.author.profileId = profileId;
+
+            return mock;
+        }
+        case SocialPlatform.Twitter:
+            return { postId } as unknown as Post;
+        case SocialPlatform.Lens:
+            const provider = resolveSocialMediaProvider(SocialPlatform.Lens);
+            if (!provider) return null;
+            return provider.getPostById(postId);
+        default:
+            safeUnreachable(source);
+            return null;
+    }
 }
 
 async function recompositePost(index: number, post: CompositePost, posts: CompositePost[]) {
@@ -25,7 +53,7 @@ async function recompositePost(index: number, post: CompositePost, posts: Compos
         const provider = resolveSocialMediaProvider(x);
 
         if (post.availableSources.includes(x) && parentPostId && !post.parentPost[x] && provider) {
-            all.push(provider.getPostById(parentPostId));
+            all.push(getParentPostById(x, parentPostId));
         } else {
             all.push(Promise.resolve(null));
         }
