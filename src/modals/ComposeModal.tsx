@@ -36,6 +36,7 @@ import { isEmptyPost } from '@/helpers/isEmptyPost.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { hasRpPayload, isRpEncrypted, updateRpEncrypted } from '@/helpers/rpPayload.js';
 import { throws } from '@/helpers/throws.js';
+import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfileAll.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
@@ -43,7 +44,7 @@ import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';
 import { ComposeModalRef, ConfirmModalRef } from '@/modals/controls.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { steganographyEncodeImage } from '@/services/steganography.js';
-import { useComposeStateStore, useCompositePost } from '@/store/useComposeStore.js';
+import { useComposeStateStore } from '@/store/useComposeStore.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import type { ComposeType } from '@/types/compose.js';
 
@@ -220,7 +221,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
                             ) : null}
                         </span>
 
-                        {isMedium ? null : <ComposeSend post={compositePost} />}
+                        {isMedium ? null : <ComposeSend />}
                     </Dialog.Title>
 
                     <div className=" flex flex-col overflow-auto px-4 pb-4">
@@ -229,9 +230,9 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
                         </div>
                     </div>
 
-                    <ComposeAction post={compositePost} />
+                    <ComposeAction />
 
-                    {isMedium ? <ComposeSend post={compositePost} /> : null}
+                    {isMedium ? <ComposeSend /> : null}
                 </div>
             </Modal>
         );

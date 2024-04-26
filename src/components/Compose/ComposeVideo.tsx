@@ -1,11 +1,16 @@
 import { useMemo } from 'react';
 
 import { RemoveButton } from '@/components/RemoveButton.js';
-import { useComposeStateStore, useCompositePost } from '@/store/useComposeStore.js';
+import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
 
-export function ComposeVideo() {
+interface ComposeVideoProps {
+    post: CompositePost;
+}
+
+export function ComposeVideo({ post }: ComposeVideoProps) {
+    const { video } = post;
+
     const { updateVideo } = useComposeStateStore();
-    const { video } = useCompositePost();
     const blobURL = useMemo(() => (video?.file ? URL.createObjectURL(video.file) : ''), [video?.file]);
 
     if (!video) return null;
