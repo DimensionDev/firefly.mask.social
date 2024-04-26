@@ -19,7 +19,17 @@ import { setLocale } from '@/i18n/index.js';
 import { Modals } from '@/modals/index.js';
 
 // @ts-ignore
-const CustomElements = lazy(() => import('@/components/CustomElements.js'));
+const CustomElements = lazy(() => {
+    if (
+        env.shared.NODE_ENV !== NODE_ENV.Development ||
+        (env.shared.NODE_ENV === NODE_ENV.Development &&
+            env.external.NEXT_PUBLIC_MASK_WEB_COMPONENTS === STATUS.Enabled)
+    )
+        return Promise.resolve({
+            default: () => null,
+        });
+    return import('@/components/CustomElements.js');
+});
 
 const inter = Inter({
     subsets: ['latin'],
