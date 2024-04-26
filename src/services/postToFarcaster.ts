@@ -51,8 +51,8 @@ export async function postToFarcaster(type: ComposeType, compositePost: Composit
                 (x) => x.url.toLowerCase(),
             ),
             commentOn: type === 'reply' && farcasterParentPost ? farcasterParentPost : undefined,
-            parentChannelKey: hasPayload ? env.external.REDPACKET_CHANNEL_KEY : undefined,
-            parentChannelUrl: hasPayload ? env.external.REDPACKET_CHANNEL_URL : undefined,
+            parentChannelKey: hasPayload ? env.external.NEXT_PUBLIC_REDPACKET_CHANNEL_KEY : undefined,
+            parentChannelUrl: hasPayload ? env.external.NEXT_PUBLIC_REDPACKET_CHANNEL_URL : undefined,
         } satisfies Post;
     };
 
