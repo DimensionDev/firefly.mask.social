@@ -65,6 +65,7 @@ export function ListInPage<T = unknown>({
             {...VirtualListProps}
             context={Context}
             components={Components}
+            className={'max-md:no-scrollbar'}
         />
     );
 }

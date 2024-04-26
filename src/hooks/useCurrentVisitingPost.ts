@@ -16,7 +16,7 @@ export function useUpdateCurrentVisitingPost(post: Post | null) {
 
 export function useCurrentVisitingPost() {
     const pathname = usePathname();
-    const isPostPage = isRoutePathname(pathname, '/post');
+    const isPostPage = isRoutePathname(pathname, '/post/:detail', true);
     const post = useValueRef(currentVisitingPost);
     return isPostPage ? post : null;
 }

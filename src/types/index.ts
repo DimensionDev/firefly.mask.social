@@ -15,6 +15,7 @@ export type ResponseJSON<T> =
       };
 
 export interface MediaObject {
+    id?: string;
     file: File;
     ipfs?: IPFSResponse;
     /** imgur url */

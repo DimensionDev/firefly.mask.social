@@ -4,7 +4,6 @@ import { Trans } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import { usePathname, useRouter } from 'next/navigation.js';
 import { memo, useMemo } from 'react';
-import { useInView } from 'react-cool-inview';
 
 import { FeedActionType } from '@/components/Posts/ActionType.js';
 import { PostBody } from '@/components/Posts/PostBody.js';
@@ -13,8 +12,8 @@ import { SocialPlatform } from '@/constants/enum.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
-import { useObserveLensPost } from '@/hooks/useObserveLensPost.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
+import { useGlobalState } from '@/store/useGlobalStore.js';
 
 const PostActions = dynamic(() => import('@/components/Actions/index.js').then((module) => module.PostActions), {
     ssr: false,
@@ -26,7 +25,8 @@ export interface SinglePostProps {
     showMore?: boolean;
     isComment?: boolean;
     isDetail?: boolean;
-    onClick?: () => void;
+    listKey?: string;
+    index?: number;
 }
 export const SinglePost = memo<SinglePostProps>(function SinglePost({
     post,
@@ -34,25 +34,17 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
     showMore = false,
     isComment = false,
     isDetail = false,
-    onClick,
+    listKey,
+    index,
 }) {
+    const setScrollIndex = useGlobalState.use.setScrollIndex();
     const router = useRouter();
-    const { observe } = useObserveLensPost(post.postId, post.source);
 
     const pathname = usePathname();
 
-    const isPostPage = isRoutePathname(pathname, '/post');
-    const postLink = getPostUrl(post);
+    const isPostPage = isRoutePathname(pathname, '/post/:detail', true);
 
-    const { observe: observeRef } = useInView({
-        rootMargin: '300px 0px',
-        onChange: async ({ inView }) => {
-            if (!inView || isPostPage) {
-                return;
-            }
-            router.prefetch(postLink);
-        },
-    });
+    const postLink = getPostUrl(post);
 
     const show = useMemo(() => {
         if (!post.isThread || isPostPage) return false;
@@ -63,7 +55,6 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
 
     return (
         <motion.article
-            ref={observeRef}
             initial={!disableAnimate ? { opacity: 0 } : false}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -72,7 +63,7 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
                 const selection = window.getSelection();
                 if (selection && selection.toString().length !== 0) return;
                 if (!isPostPage || isComment) {
-                    onClick?.();
+                    if (listKey && index) setScrollIndex(listKey, index);
                     router.push(postLink);
                 }
                 return;
@@ -82,7 +73,7 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
 
             <PostHeader post={post} />
 
-            <PostBody post={post} showMore={showMore} ref={observe} />
+            <PostBody post={post} showMore={showMore} />
 
             {!isDetail ? <PostActions post={post} disabled={post.isHidden} /> : null}
 

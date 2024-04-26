@@ -56,6 +56,7 @@ export async function POST(request: NextRequest) {
         const { data } = await client.v2.tweet(tweet);
         return createSuccessResponseJSON(data, { status: StatusCodes.OK });
     } catch (error) {
+        console.log('[twitter]: compose/ error', error);
         return createErrorResponseJSON(error instanceof Error ? error.message : 'Internal Server Error', {
             status: StatusCodes.INTERNAL_SERVER_ERROR,
         });

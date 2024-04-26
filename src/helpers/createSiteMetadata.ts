@@ -19,7 +19,7 @@ export function createSiteMetadata(metadata?: Partial<Metadata>) {
             title: SITE_NAME,
             description: SITE_DESCRIPTION,
             creator: '@thefireflyapp',
-            images: ['https://firefly.land/icon.png'],
+            images: ['https://firefly.social/icon.png'],
         },
         manifest: '/site.webmanifest',
         icons: [

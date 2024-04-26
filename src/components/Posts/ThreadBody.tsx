@@ -1,7 +1,6 @@
 import { motion } from 'framer-motion';
 import { usePathname, useRouter } from 'next/navigation.js';
 import { memo } from 'react';
-import { useInView } from 'react-cool-inview';
 
 import { PostActions } from '@/components/Actions/index.js';
 import { FeedActionType } from '@/components/Posts/ActionType.js';
@@ -10,7 +9,6 @@ import { PostHeader } from '@/components/Posts/PostHeader.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
-import { useObserveLensPost } from '@/hooks/useObserveLensPost.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 interface ThreadBodyProps {
@@ -21,26 +19,14 @@ interface ThreadBodyProps {
 
 export const ThreadBody = memo<ThreadBodyProps>(function ThreadBody({ post, disableAnimate, isLast = false }) {
     const router = useRouter();
-    const { observe } = useObserveLensPost(post.postId, post.source);
 
     const pathname = usePathname();
-    const isPostPage = isRoutePathname(pathname, '/post');
+    const isPostPage = isRoutePathname(pathname, '/post/:detail', true);
 
     const link = getPostUrl(post);
 
-    const { observe: observeRef } = useInView({
-        rootMargin: '300px 0px',
-        onChange: async ({ inView }) => {
-            if (!inView || isPostPage) {
-                return;
-            }
-            router.prefetch(link);
-        },
-    });
-
     return (
         <motion.article
-            ref={observeRef}
             initial={!disableAnimate ? { opacity: 0 } : false}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -51,7 +37,6 @@ export const ThreadBody = memo<ThreadBodyProps>(function ThreadBody({ post, disa
                 if (!isPostPage) router.push(link);
             }}
         >
-            <span ref={observe} />
             <FeedActionType post={post} isThread />
             <PostHeader post={post} />
             <div className="flex">
