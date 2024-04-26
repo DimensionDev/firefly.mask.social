@@ -622,7 +622,7 @@ export interface Provider {
     /**
      * Retrieves posts associated with a thread using the root post id.
      * @param postId
-     * @param rootPost
+     * @param localPost
      */
-    getThreadByPostId: (postId: string, rootPost?: Post) => Promise<Post[]>;
+    getThreadByPostId: (postId: string, localPost?: Post) => Promise<Post[]>;
 }

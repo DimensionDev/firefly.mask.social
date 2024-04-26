@@ -27,30 +27,27 @@ import { classNames } from '@/helpers/classNames.js';
 import { connectMaskWithWagmi } from '@/helpers/connectWagmiWithMask.js';
 import { getCurrentPostImageLimits } from '@/helpers/getCurrentPostImageLimits.js';
 import { getCurrentPostLimits } from '@/helpers/getCurrentPostLimits.js';
+import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfileAll.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useProfilesAll } from '@/hooks/useProfilesAll.js';
 import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';
 import { PluginDebuggerMessages } from '@/mask/message-host/index.js';
 import { ComposeModalRef } from '@/modals/controls.js';
-import { type CompositePost, useComposeStateStore, useCompositePost } from '@/store/useComposeStore.js';
+import { useComposeStateStore } from '@/store/useComposeStore.js';
 
-interface ComposeActionProps {
-    post: CompositePost;
-}
+interface ComposeActionProps {}
 
 export function ComposeAction(props: ComposeActionProps) {
-    const { chars, images, video } = props.post;
-
     const isMedium = useIsMedium();
 
     const currentProfileAll = useCurrentProfileAll();
     const profilesAll = useProfilesAll();
 
     const { type, posts, addPostInThread, updateRestriction } = useComposeStateStore();
-    const { rootPost, isRootPost, parentPost } = useCompositePost();
+    const { availableSources, chars, images, video, restriction, isRootPost, parentPost } = useCompositePost();
 
-    const { length, visibleLength, invisibleLength } = measureChars(chars, rootPost.availableSources);
+    const { length, visibleLength, invisibleLength } = measureChars(chars, availableSources);
 
     const [editor] = useLexicalComposerContext();
     const setEditorContent = useSetEditorContent();
@@ -90,8 +87,8 @@ export function ComposeAction(props: ComposeActionProps) {
         });
     }, [currentProfileAll, profilesAll]);
 
-    const { MAX_CHAR_SIZE_PER_POST } = getCurrentPostLimits(rootPost.availableSources);
-    const maxImageCount = getCurrentPostImageLimits(rootPost.availableSources);
+    const { MAX_CHAR_SIZE_PER_POST } = getCurrentPostLimits(availableSources);
+    const maxImageCount = getCurrentPostImageLimits(availableSources);
     const mediaDisabled = !!video || images.length >= maxImageCount;
 
     return (
@@ -210,10 +207,10 @@ export function ComposeAction(props: ComposeActionProps) {
                         <>
                             <Popover.Button
                                 className=" flex cursor-pointer gap-1 text-main focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
-                                disabled={!isRootPost || rootPost.availableSources.some((x) => !!parentPost[x])}
+                                disabled={!isRootPost || availableSources.some((x) => !!parentPost[x])}
                             >
                                 <span className="flex items-center gap-x-1 font-bold">
-                                    {rootPost.availableSources
+                                    {availableSources
                                         .filter((x) => !!currentProfileAll[x] && SORTED_SOURCES.includes(x))
                                         .map((y) => (
                                             <SourceIcon key={y} source={y} size={20} />
@@ -241,15 +238,11 @@ export function ComposeAction(props: ComposeActionProps) {
                                 disabled={!isRootPost}
                             >
                                 <span className=" text-[15px] font-bold">
-                                    <ReplyRestrictionText type={rootPost.restriction} />
+                                    <ReplyRestrictionText type={restriction} />
                                 </span>
                                 <ChevronRightIcon className="h-5 w-5" aria-hidden="true" />
                             </Popover.Button>
-                            <ReplyRestriction
-                                post={rootPost}
-                                restriction={rootPost.restriction}
-                                setRestriction={updateRestriction}
-                            />
+                            <ReplyRestriction restriction={restriction} setRestriction={updateRestriction} />
                         </>
                     )}
                 </Popover>

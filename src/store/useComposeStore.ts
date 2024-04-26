@@ -1,6 +1,6 @@
 import type { TypedMessageTextV1 } from '@masknet/typed-message';
 import { uniq } from 'lodash-es';
-import { type SetStateAction, useMemo } from 'react';
+import { type SetStateAction } from 'react';
 import { v4 as uuid } from 'uuid';
 import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
@@ -74,12 +74,14 @@ interface ComposeState {
     // switch to the current editable post
     updateCursor: (cursor: Cursor) => void;
 
+    // operations upon all posts
+    enableSource: (source: SocialPlatform) => void;
+    disableSource: (source: SocialPlatform) => void;
+    updateRestriction: (restriction: RestrictionType) => void;
+
     // operations upon the current editable post
-    enableSource: (source: SocialPlatform, cursor?: Cursor) => void;
-    disableSource: (source: SocialPlatform, cursor?: Cursor) => void;
     updatePostId: (source: SocialPlatform, postId: string, cursor?: Cursor) => void;
     updateParentPost: (source: SocialPlatform, parentPost: Post, cursor?: Cursor) => void;
-    updateRestriction: (restriction: RestrictionType, cursor?: Cursor) => void;
     updateAvailableSources: (sources: SocialPlatform[], cursor?: Cursor) => void;
     updateChars: (charsOrUpdater: SetStateAction<Chars>, cursor?: Cursor) => void;
     updateTypedMessage: (typedMessage: TypedMessageTextV1 | null, cursor?: Cursor) => void;
@@ -206,28 +208,22 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
             set((state) => {
                 state.type = type;
             }),
-        enableSource: (source, cursor) =>
-            set((state) =>
-                next(
-                    state,
-                    (post) => ({
-                        ...post,
-                        availableSources: uniq([...post.availableSources, source]),
-                    }),
-                    cursor,
-                ),
-            ),
-        disableSource: (source, cursor) =>
-            set((state) =>
-                next(
-                    state,
-                    (post) => ({
-                        ...post,
-                        availableSources: post.availableSources.filter((s) => s !== source),
-                    }),
-                    cursor,
-                ),
-            ),
+        enableSource: (source) =>
+            set((state) => ({
+                ...state,
+                posts: state.posts.map((x) => ({
+                    ...x,
+                    availableSources: uniq([...x.availableSources, source]),
+                })),
+            })),
+        disableSource: (source) =>
+            set((state) => ({
+                ...state,
+                posts: state.posts.map((x) => ({
+                    ...x,
+                    availableSources: x.availableSources.filter((s) => s !== source),
+                })),
+            })),
         updateParentPost: (source, parentPost, cursor) =>
             set((state) =>
                 next(
@@ -260,17 +256,14 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
                     cursor,
                 ),
             ),
-        updateRestriction: (restriction, cursor) =>
-            set((state) =>
-                next(
-                    state,
-                    (post) => ({
-                        ...post,
-                        restriction,
-                    }),
-                    cursor,
-                ),
-            ),
+        updateRestriction: (restriction) =>
+            set((state) => ({
+                ...state,
+                posts: state.posts.map((x) => ({
+                    ...x,
+                    restriction,
+                })),
+            })),
         updateChars: (charsOrUpdater, cursor) =>
             set((state) =>
                 next(
@@ -435,18 +428,3 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
 );
 
 export const useComposeStateStore = createSelectors(useComposeStateBase);
-
-export function useCompositePost() {
-    const { posts, cursor } = useComposeStateStore();
-
-    return useMemo(() => {
-        const rootPost = posts[0];
-        const compositePost = posts.find((x) => x.id === cursor) || createInitSinglePostState(initialPostCursor);
-
-        return {
-            rootPost,
-            isRootPost: rootPost === compositePost,
-            ...compositePost,
-        };
-    }, [posts, cursor]);
-}
