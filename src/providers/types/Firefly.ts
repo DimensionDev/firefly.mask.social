@@ -70,28 +70,65 @@ export interface Notification {
     timestamp: string;
 }
 
-export interface ChannelLead {
-    pfp: string;
+export interface ChannelProfile {
+    active_status: 'active' | Omit<string, 'active'>;
+    custody_address: string;
     display_name: string;
-    bio: string;
-    username: string;
-    following: number;
-    followers: number;
-    addresses: string[];
     fid: number;
-    isFollowing: boolean;
-    isFollowedBack: boolean;
+    username: string;
+    follower_count: number;
+    following_count: number;
+    isFollowedBack?: boolean;
+    isFollowing?: boolean;
+    pfp_url: string;
+    power_badge: boolean;
+    profile?: {
+        bio?: {
+            text: string;
+        };
+    };
+    verifications: string[];
+    verified_addresses: Record<'eth_addresses' | 'sol_addresses', string[]>;
 }
 
 export interface Channel {
     id: string;
-    url: string;
-    name: string;
     image_url: string;
+    name: string;
+    // e.g., 1689888729
     created_at: number;
-    parent_url: string;
     description: string;
-    lead?: ChannelLead;
+    follower_count?: number;
+    url: string;
+    parent_url: string;
+    lead?: ChannelProfile;
+    hosts?: ChannelProfile[];
+}
+
+export interface ChannelProfileBrief {
+    addresses: string[];
+    bio: string;
+    display_name: string;
+    fid: number;
+    followers: number;
+    following: number;
+    isFollowedBack: boolean;
+    isFollowing: boolean;
+    pfp: string;
+    username: string;
+}
+
+export interface ChannelBrief {
+    // e.g., 1710554170
+    created_at: number;
+    description: string;
+    id: string;
+    image_url: string;
+    name: string;
+    parent_url: string;
+    url: string;
+    lead?: ChannelProfileBrief;
+    hostFids?: number[];
 }
 
 export interface Response<T> {
@@ -163,7 +200,7 @@ export type MetricsDownloadResponse = Response<{
     ciphertext: string;
 } | null>;
 
-export type ChannelResponse = Response<Channel>;
+export type ChannelResponse = Response<ChannelBrief>;
 
 export type ChannelsResponse = Response<Channel[]>;
 
@@ -179,6 +216,6 @@ export type CastsOfChannelResponse = Response<{
 }>;
 
 export type SearchChannelsResponse = Response<{
-    channels: Channel[];
+    channels: ChannelBrief[];
     cursor: string;
 }>;

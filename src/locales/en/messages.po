@@ -478,6 +478,9 @@ msgstr "Light Mode"
 msgid "Please switch to the {chainName} network in your wallet."
 msgstr "Please switch to the {chainName} network in your wallet."
 
+msgid "{followerCount, plural, one {# Follower} other {# Followers}}"
+msgstr "{followerCount, plural, one {# Follower} other {# Followers}}"
+
 msgid "There is no data available for display."
 msgstr "There is no data available for display."
 
@@ -495,6 +498,9 @@ msgstr "Unable to retrieve post details."
 
 msgid "Failed to publish post."
 msgstr "Failed to publish post."
+
+msgid "{mutualFollowerCount, plural, one {# Mutual} other {# Mutuals}}"
+msgstr "{mutualFollowerCount, plural, one {# Mutual} other {# Mutuals}}"
 
 msgid "recasted your"
 msgstr "recasted your"

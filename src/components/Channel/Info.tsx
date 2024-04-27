@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+import { plural } from '@lingui/macro';
 
 import { Avatar } from '@/components/Avatar.js';
 import { FollowButton } from '@/components/Channel/FollowButton.js';
@@ -14,8 +14,8 @@ interface InfoProps {
 }
 
 export function Info({ channel, source }: InfoProps) {
-    const followingCount = channel?.lead?.following ?? 0;
-    const followerCount = channel?.lead?.followers ?? 0;
+    const followerCount = channel.followerCount ?? 0;
+    const mutualFollowerCount = channel?.mutualFollowerCount ?? 0;
 
     const isMedium = useIsMedium();
 
@@ -46,16 +46,22 @@ export function Info({ channel, source }: InfoProps) {
 
                 <div className=" flex gap-3 text-[15px]">
                     <div className=" flex gap-1">
-                        <span className=" font-bold text-lightMain">{followingCount}</span>
+                        <span className=" font-bold text-lightMain">{followerCount}</span>
                         <span className=" text-secondary">
-                            {channel?.lead?.isFollowing ? <Trans>Following</Trans> : <Trans>Followings</Trans>}
+                            {plural(followerCount, {
+                                one: '# Follower',
+                                other: '# Followers',
+                            })}
                         </span>
                     </div>
 
                     <div className=" flex gap-1">
-                        <span className=" font-bold text-lightMain">{followerCount}</span>
+                        <span className=" font-bold text-lightMain">{mutualFollowerCount}</span>
                         <span className=" text-secondary">
-                            {followerCount === 1 ? <Trans>Follower</Trans> : <Trans>Followers</Trans>}
+                            {plural(mutualFollowerCount, {
+                                one: '# Mutual',
+                                other: '# Mutuals',
+                            })}
                         </span>
                     </div>
                 </div>

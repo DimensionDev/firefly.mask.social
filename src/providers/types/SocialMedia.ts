@@ -1,7 +1,6 @@
 import type { Pageable, PageIndicator } from '@masknet/shared-base';
 
-import type { SocialPlatform } from '@/constants/enum.js';
-import type { RestrictionType } from '@/types/compose.js';
+import type { RestrictionType, SocialPlatform } from '@/constants/enum.js';
 
 export enum SessionType {
     Twitter = 'Twitter',
@@ -288,14 +287,17 @@ export interface ChannelLead {
 export interface Channel {
     source: SocialPlatform;
     id: string;
-    url: string;
     name: string;
     description?: string;
     imageUrl: string;
+    url: string;
     parentUrl: string;
+    followerCount: number;
+    mutualFollowerCount?: number;
     /** time in milliseconds */
     timestamp: number;
-    lead?: ChannelLead;
+    lead?: Profile;
+    hosts?: Profile[];
     __original__?: unknown;
 }
 

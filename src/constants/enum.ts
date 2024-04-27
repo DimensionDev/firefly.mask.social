@@ -59,6 +59,12 @@ export enum ProfileTabType {
     Channels = 'Channels',
 }
 
+export enum RestrictionType {
+    Everyone = 0,
+    OnlyPeopleYouFollow = 1,
+    MentionedUsers = 2,
+}
+
 export enum ScrollListKey {
     Discover = 'discover-list',
     Following = 'following-list',
