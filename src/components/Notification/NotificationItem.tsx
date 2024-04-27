@@ -14,16 +14,14 @@ import MessageIcon from '@/assets/messages.svg';
 import MirrorIcon from '@/assets/mirror-large.svg';
 import { PostActions } from '@/components/Actions/index.js';
 import { MoreAction } from '@/components/Actions/More.js';
-import { Avatar } from '@/components/Avatar.js';
+import { AvatarGroup } from '@/components/AvatarGroup.js';
 import { Markup } from '@/components/Markup/index.js';
 import { ProfileLink } from '@/components/Notification/ProfileLink.js';
 import { Quote } from '@/components/Posts/Quote.js';
 import { SourceIcon } from '@/components/SourceIcon.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
 import { Link } from '@/esm/Link.js';
-import { classNames } from '@/helpers/classNames.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
-import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { type Notification, NotificationType, type PostType } from '@/providers/types/SocialMedia.js';
 
 const resolveNotificationIcon = createLookupTableResolver<
@@ -367,22 +365,7 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
                     {Icon ? <Icon className="text-secondary" width={24} height={24} /> : null}
                     <div className="max-w-[calc(100%-40px)] flex-1">
                         <div className="flex flex-1 items-center justify-between">
-                            <div className="flex items-center">
-                                {profiles.slice(0, 5).map((profile, index, self) => {
-                                    return (
-                                        <Link
-                                            key={index}
-                                            href={getProfileUrl(profile)}
-                                            className={classNames('inline-flex items-center', {
-                                                '-ml-5': index > 0 && self.length > 1,
-                                            })}
-                                            style={{ zIndex: self.length - index }}
-                                        >
-                                            <Avatar src={profile.pfp} size={40} alt={profile.profileId} />
-                                        </Link>
-                                    );
-                                })}
-                            </div>
+                            <AvatarGroup profiles={profiles.slice(0, 5)} />
                             <div className="flex items-center space-x-2">
                                 <SourceIcon source={notification.source} />
                                 {notification.timestamp ? (

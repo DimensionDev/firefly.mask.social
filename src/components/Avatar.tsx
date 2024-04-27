@@ -10,13 +10,13 @@ import { resolveFirstAvailableUrl } from '@/helpers/resolveFirstAvailableUrl.js'
 import { resolveImgurUrl } from '@/helpers/resolveImgurUrl.js';
 import { useDarkMode } from '@/hooks/useDarkMode.js';
 
-interface Props extends Omit<NextImageProps, 'src'> {
+export interface AvatarProps extends Omit<NextImageProps, 'src'> {
     size: number;
     src?: string;
     fallbackUrl?: string;
 }
 
-export const Avatar = memo(function Avatar({ src, size, className, fallbackUrl, ...rest }: Props) {
+export const Avatar = memo(function Avatar({ src, size, className, fallbackUrl, ...rest }: AvatarProps) {
     const { isDarkMode } = useDarkMode();
 
     const isNormalUrl = !src?.startsWith('data:image/');
