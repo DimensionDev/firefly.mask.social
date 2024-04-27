@@ -1,4 +1,4 @@
-name: "Check Jira Issue Key"
+name: 'Check Jira Issue Key'
 
 on:
   pull_request:
@@ -7,11 +7,10 @@ on:
       - edited
       - synchronize
     branches:
-      - "!sync-submodule-changes"
-      - "!l10n_crowdin_action"
+      - '!sync-submodule-changes'
+      - '!l10n_crowdin_action'
   merge_group:
     types: [checks_requested]
-
 
 permissions:
   contents: read

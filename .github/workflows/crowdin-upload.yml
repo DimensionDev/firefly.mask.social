@@ -3,7 +3,7 @@ name: Crowdin Upload
 on:
   push:
     branches:
-        - main
+      - main
 
   # start via Actions tab in Github UI
   workflow_dispatch:
@@ -13,16 +13,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-        - name: Checkout
-          uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v3
 
-        # all locales must be extracted before upload on the main branch
-        - name: Upload to Crowdin
-          uses: crowdin/github-action@v1
-          with:
-            upload_translations: true
-            download_translations: false
-            project_id: ${{ secrets.CROWDIN_PROJECT_ID }}
-            token: ${{ secrets.CROWDIN_PERSONAL_TOKEN }}
-          env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # all locales must be extracted before upload on the main branch
+      - name: Upload to Crowdin
+        uses: crowdin/github-action@v1
+        with:
+          upload_translations: true
+          download_translations: false
+          project_id: ${{ secrets.CROWDIN_PROJECT_ID }}
+          token: ${{ secrets.CROWDIN_PERSONAL_TOKEN }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
