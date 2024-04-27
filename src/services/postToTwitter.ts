@@ -38,7 +38,7 @@ export async function postToTwitter(type: ComposeType, compositePost: CompositeP
                     content: readChars(chars),
                 },
             },
-            mediaObjects: images.map((media) => ({ url: media.imgur!, mimeType: media.file.type })),
+            mediaObjects: images.map((media) => ({ url: media.imgur!, mimeType: media.file.type, id: media.id })),
             restriction,
             parentPostId: twitterParentPost?.postId ?? '',
             source: SocialPlatform.Twitter,

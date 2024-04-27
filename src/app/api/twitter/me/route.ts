@@ -12,6 +12,7 @@ export async function GET(request: NextRequest) {
 
         return createSuccessResponseJSON(data, { status: StatusCodes.OK });
     } catch (error) {
+        console.log('[twitter]: me/ error', error);
         return createErrorResponseJSON(error instanceof Error ? error.message : 'Internal Server Error', {
             status: StatusCodes.INTERNAL_SERVER_ERROR,
         });

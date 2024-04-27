@@ -33,6 +33,9 @@ patchedDependencies:
   '@cyberlab/cyberconnect@4.2.2':
     hash: 7wgc4b53ygfwefhtjbh3dydjgy
     path: src/maskbook/patches/@cyberlab__cyberconnect@4.2.2.patch
+  '@headlessui/react@1.7.17':
+    hash: zq3vs53w4kx4k4ebfubwdovcqu
+    path: patches/@headlessui__react@1.7.17.patch
   '@lexical/react@0.12.5':
     hash: y2bngusrdbuioevkjcx4ithh2q
     path: patches/@lexical__react@0.12.5.patch
@@ -103,7 +106,7 @@ importers:
         version: 0.14.8(typescript@5.4.2)(zod@3.22.4)
       '@headlessui/react':
         specifier: 1.7.17
-        version: 1.7.17(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+        version: 1.7.17(patch_hash=zq3vs53w4kx4k4ebfubwdovcqu)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       '@heroicons/react':
         specifier: ^2.0.18
         version: 2.0.18(react@0.0.0-experimental-8039e6d0b-20231026)
@@ -8734,7 +8737,7 @@ packages:
       '@hapi/hoek': 9.3.0
     dev: false
 
-  /@headlessui/react@1.7.17(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026):
+  /@headlessui/react@1.7.17(patch_hash=zq3vs53w4kx4k4ebfubwdovcqu)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026):
     resolution: {integrity: sha512-4am+tzvkqDSSgiwrsEpGWqgGo9dz8qU5M3znCkC4PgkpY4HcCZzEDEvozltGGGHIKl9jbXbZPSH5TWn4sWJdow==}
     engines: {node: '>=10'}
     peerDependencies:
@@ -8750,6 +8753,7 @@ packages:
       react: 0.0.0-experimental-8039e6d0b-20231026
       react-dom: 0.0.0-experimental-8039e6d0b-20231026(react@0.0.0-experimental-8039e6d0b-20231026)
     dev: false
+    patched: true
 
   /@heroicons/react@2.0.18(react@0.0.0-experimental-8039e6d0b-20231026):
     resolution: {integrity: sha512-7TyMjRrZZMBPa+/5Y8lN0iyvUU/01PeMGX2+RE7cQWpEUIcb4QotzUObFkJDejj/HUH4qjP/eQ0gzzKs2f+6Yw==}

@@ -7,16 +7,16 @@ import YesIcon from '@/assets/yes.svg';
 import { ReplyRestrictionText } from '@/components/Compose/ReplyRestrictionText.js';
 import { RestrictionType, SocialPlatform } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
-import type { CompositePost } from '@/store/useComposeStore.js';
+import { useCompositePost } from '@/hooks/useCompositePost.js';
 
 interface ReplyRestrictionProps {
-    post: CompositePost;
     restriction: RestrictionType;
     setRestriction: (restriction: RestrictionType) => void;
 }
 
-export function ReplyRestriction({ post, restriction, setRestriction }: ReplyRestrictionProps) {
-    const twitterOnly = post.availableSources.length === 1 && post.availableSources.includes(SocialPlatform.Twitter);
+export function ReplyRestriction({ restriction, setRestriction }: ReplyRestrictionProps) {
+    const { availableSources } = useCompositePost();
+    const twitterOnly = availableSources.length === 1 && availableSources.includes(SocialPlatform.Twitter);
 
     const items = [
         {
@@ -25,7 +25,7 @@ export function ReplyRestriction({ post, restriction, setRestriction }: ReplyRes
         },
         {
             type: RestrictionType.OnlyPeopleYouFollow,
-            disabled: !twitterOnly,
+            disabled: availableSources.length ? availableSources.includes(SocialPlatform.Farcaster) : false,
         },
         {
             type: RestrictionType.MentionedUsers,

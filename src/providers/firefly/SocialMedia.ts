@@ -273,7 +273,7 @@ class FireflySocialMedia implements Provider {
 
     async getProfileById(profileId: string): Promise<Profile> {
         return farcasterClient.withSession(async (session) => {
-            const response = await farcasterClient.fetch<UserResponse>(
+            const response = await fetchJSON<UserResponse>(
                 urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/user/profile', {
                     fid: profileId,
                     sourceFid: session?.profileId,
@@ -581,9 +581,9 @@ class FireflySocialMedia implements Provider {
         });
     }
 
-    async getThreadByPostId(postId: string, rootPost?: Post) {
+    async getThreadByPostId(postId: string, localPost?: Post) {
         return farcasterClient.withSession(async (session) => {
-            const post = rootPost ?? (await this.getPostById(postId));
+            const post = localPost ?? (await this.getPostById(postId));
 
             const response = await fetchJSON<ThreadResponse>(
                 urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/cast/threads', {

@@ -52,18 +52,18 @@ jobs:
         id: bump_version
         run: |
           npm version ${{ inputs.version }} --no-git-tag-version
-        
+
       - name: Commit version
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add package.json
           git commit -m "[Release] ${{ inputs.release_kind }} v${{ inputs.version }}"
-        
+
       - name: Tag version
         run: |
           git tag v${{ inputs.version }}
-        
+
       - name: Push version
         run: |
           git branch -f released

@@ -54,7 +54,7 @@ export function ComposeContent(props: ComposeContentProps) {
             )}
 
             {/* video */}
-            {video ? <ComposeVideo /> : null}
+            {video ? <ComposeVideo post={props.post} /> : null}
 
             {/* quote */}
             {(type === 'quote' || type === 'reply') && post ? <Quote post={post} className="text-left" /> : null}

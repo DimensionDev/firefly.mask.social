@@ -217,7 +217,8 @@
             "react-devtools-inline@4.28.5": "src/maskbook/patches/react-devtools-inline@4.28.5.patch",
             "react-use@17.4.0": "src/maskbook/patches/react-use@17.4.0.patch",
             "@lexical/react@0.12.5": "patches/@lexical__react@0.12.5.patch",
-            "@rainbow-me/rainbowkit@2.0.5": "patches/@rainbow-me__rainbowkit@2.0.5.patch"
+            "@rainbow-me/rainbowkit@2.0.5": "patches/@rainbow-me__rainbowkit@2.0.5.patch",
+            "@headlessui/react@1.7.17": "patches/@headlessui__react@1.7.17.patch"
         }
     }
 }

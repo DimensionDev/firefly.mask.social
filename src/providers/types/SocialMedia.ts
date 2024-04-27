@@ -407,6 +407,7 @@ export interface Provider {
 
     /**
      * Retrieves a post by its post ID.
+     * (This api must be implemented for cross posting to work properly.)
      *
      * @param postId The ID of the post to retrieve.
      * @returns A promise that resolves to a Post object.
@@ -624,7 +625,7 @@ export interface Provider {
     /**
      * Retrieves posts associated with a thread using the root post id.
      * @param postId
-     * @param rootPost
+     * @param localPost
      */
-    getThreadByPostId: (postId: string, rootPost?: Post) => Promise<Post[]>;
+    getThreadByPostId: (postId: string, localPost?: Post) => Promise<Post[]>;
 }
