@@ -1,7 +1,6 @@
 import { S3Client } from '@aws-sdk/client-s3';
 import { Upload } from '@aws-sdk/lib-storage';
 import { t } from '@lingui/macro';
-import type { NextApiResponse } from 'next';
 import type { NextRequest } from 'next/server.js';
 import { v4 as uuid } from 'uuid';
 import { z } from 'zod';
@@ -22,7 +21,7 @@ const fileSchema = z.custom((value) => {
     return value;
 });
 
-export async function PUT(req: NextRequest, res: NextApiResponse) {
+export async function PUT(req: NextRequest) {
     try {
         const formData = await req.formData().catch(() => {
             throw new ParameterError(t`The file not found`);
