@@ -210,6 +210,12 @@ msgstr "跟随系统"
 msgid "URL is required."
 msgstr "请选择 URL"
 
+msgid "The file not found"
+msgstr ""
+
+msgid "Invalid file type. Allowed types: {0}"
+msgstr ""
+
 msgid "Connection failed"
 msgstr "连接失败"
 

@@ -8,7 +8,7 @@ import { hasRpPayload } from '@/helpers/rpPayload.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { type Post, type PostType } from '@/providers/types/SocialMedia.js';
 import { createPostTo } from '@/services/createPostTo.js';
-import { uploadToImgur } from '@/services/uploadToImgur.js';
+import { uploadToS3 } from '@/services/uploadToS3.js';
 import { type CompositePost } from '@/store/useComposeStore.js';
 import { useFarcasterStateStore } from '@/store/useProfileStore.js';
 import type { ComposeType } from '@/types/compose.js';
@@ -68,7 +68,7 @@ export async function postToFarcaster(type: ComposeType, compositePost: Composit
                     if (media.imgur) return media;
                     return {
                         ...media,
-                        imgur: await uploadToImgur(media.file),
+                        imgur: await uploadToS3(media.file),
                     };
                 }),
             );
