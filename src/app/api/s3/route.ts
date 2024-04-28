@@ -27,7 +27,7 @@ export async function PUT(req: NextRequest) {
             throw new ParameterError(t`The file not found`);
         });
         const file = formData.get('file') as File;
-        fileSchema.parse(file)
+        fileSchema.parse(file);
         const client = new S3Client({
             region: env.internal.S3_REGION,
             credentials: {
