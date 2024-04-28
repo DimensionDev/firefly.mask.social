@@ -1,5 +1,4 @@
 import { getPublicKey, utils } from '@noble/ed25519';
-import { StatusCodes } from 'http-status-codes';
 import { NextRequest } from 'next/server.js';
 import urlcat from 'urlcat';
 import { toHex } from 'viem';
@@ -67,16 +66,13 @@ export async function POST(request: NextRequest) {
         signal: request.signal,
     });
 
-    return createSuccessResponseJSON(
-        {
-            publicKey,
-            privateKey: toHex(privateKey),
-            fid: response.result.signedKeyRequest.requestFid,
-            token: response.result.signedKeyRequest.token,
-            timestamp: Date.now(),
-            expiresAt: deadline * 1000,
-            deeplinkUrl: response.result.signedKeyRequest.deeplinkUrl,
-        },
-        { status: StatusCodes.OK },
-    );
+    return createSuccessResponseJSON({
+        publicKey,
+        privateKey: toHex(privateKey),
+        fid: response.result.signedKeyRequest.requestFid,
+        token: response.result.signedKeyRequest.token,
+        timestamp: Date.now(),
+        expiresAt: deadline * 1000,
+        deeplinkUrl: response.result.signedKeyRequest.deeplinkUrl,
+    });
 }

@@ -1,4 +1,3 @@
-import { StatusCodes } from 'http-status-codes';
 import { NextRequest } from 'next/server.js';
 import urlcat from 'urlcat';
 
@@ -19,5 +18,5 @@ export async function POST(request: NextRequest) {
         signal: request.signal,
     });
 
-    return createSuccessResponseJSON(response, { status: StatusCodes.OK });
+    return createSuccessResponseJSON(response);
 }
