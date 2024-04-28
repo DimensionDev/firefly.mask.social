@@ -58,6 +58,9 @@ msgstr "{0} views"
 msgid "Act"
 msgstr "Act"
 
+msgid "Unknown error"
+msgstr "Unknown error"
+
 msgid "More"
 msgstr "More"
 
@@ -207,6 +210,9 @@ msgstr "Follow System"
 
 msgid "URL is required."
 msgstr "URL is required."
+
+msgid "The file not found"
+msgstr "The file not found"
 
 msgid "Connection failed"
 msgstr "Connection failed"
@@ -699,6 +705,9 @@ msgstr "Profile"
 
 msgid "Video"
 msgstr "Video"
+
+msgid "The file {0} does not allow"
+msgstr "The file {0} does not allow"
 
 msgid "Language"
 msgstr "Language"
