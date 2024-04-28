@@ -19,5 +19,5 @@ export async function POST(request: NextRequest) {
         signal: request.signal,
     });
 
-    return createSuccessResponseJSON(response, { status: StatusCodes.OK });
+    return createSuccessResponseJSON(response);
 }

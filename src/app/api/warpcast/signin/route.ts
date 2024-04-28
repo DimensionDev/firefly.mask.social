@@ -67,16 +67,13 @@ export async function POST(request: NextRequest) {
         signal: request.signal,
     });
 
-    return createSuccessResponseJSON(
-        {
-            publicKey,
-            privateKey: toHex(privateKey),
-            fid: response.result.signedKeyRequest.requestFid,
-            token: response.result.signedKeyRequest.token,
-            timestamp: Date.now(),
-            expiresAt: deadline * 1000,
-            deeplinkUrl: response.result.signedKeyRequest.deeplinkUrl,
-        },
-        { status: StatusCodes.OK },
-    );
+    return createSuccessResponseJSON({
+        publicKey,
+        privateKey: toHex(privateKey),
+        fid: response.result.signedKeyRequest.requestFid,
+        token: response.result.signedKeyRequest.token,
+        timestamp: Date.now(),
+        expiresAt: deadline * 1000,
+        deeplinkUrl: response.result.signedKeyRequest.deeplinkUrl,
+    });
 }
