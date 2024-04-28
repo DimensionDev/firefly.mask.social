@@ -208,6 +208,12 @@ msgstr "Follow System"
 msgid "URL is required."
 msgstr "URL is required."
 
+msgid "The file not found"
+msgstr "The file not found"
+
+msgid "Invalid file type. Allowed types: {0}"
+msgstr "Invalid file type. Allowed types: {0}"
+
 msgid "Connection failed"
 msgstr "Connection failed"
 
