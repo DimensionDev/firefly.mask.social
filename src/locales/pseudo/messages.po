@@ -214,6 +214,9 @@ msgstr ""
 msgid "The file not found"
 msgstr ""
 
+msgid "Invalid file type. Allowed types: {0}"
+msgstr ""
+
 msgid "Connection failed"
 msgstr ""
 
@@ -704,9 +707,6 @@ msgid "Profile"
 msgstr ""
 
 msgid "Video"
-msgstr ""
-
-msgid "The file {0} does not allow"
 msgstr ""
 
 msgid "Language"
