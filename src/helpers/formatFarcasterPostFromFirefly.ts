@@ -14,9 +14,13 @@ import {
     ProfileStatus,
 } from '@/providers/types/SocialMedia.js';
 
+const fixUrls = (urls: Array<string | undefined>) => {
+    return uniqBy(compact(urls), (x) => x).map(fixUrlProtocol);
+};
+
 function formatContent(cast: Cast): Post['metadata']['content'] {
-    const matchedUrls = [...cast.text.matchAll(URL_REGEX)].map((x) => x[0]);
-    const oembedUrls = uniqBy(compact([...matchedUrls]), (x) => x.toLowerCase()).map(fixUrlProtocol);
+    const matchedUrls = fixUrls([...cast.text.matchAll(URL_REGEX)].map((x) => x[0]));
+    const oembedUrls = fixUrls([...matchedUrls, ...cast.embeds.map((x) => x.url)]);
     const oembedUrl = last(oembedUrls);
     const defaultContent = { content: cast.text, oembedUrl, oembedUrls };
 
