@@ -4,12 +4,23 @@ import { t } from '@lingui/macro';
 import type { NextApiResponse } from 'next';
 import type { NextRequest } from 'next/server.js';
 import { v4 as uuid } from 'uuid';
+import { z } from 'zod';
 
 import { env } from '@/constants/env.js';
 
 class ParameterError extends Error {}
 
-const ALLOW_MIMES = ['image/png', 'image/jpeg', 'image/gif', 'image/webp', 'image/bmp'];
+const ALLOWED_MIMES = ['image/png', 'image/jpeg', 'image/gif', 'image/webp', 'image/bmp'];
+
+const fileSchema = z.custom((value) => {
+    if (!(value instanceof File)) {
+        throw new ParameterError(t`The file not found`);
+    }
+    if (!ALLOWED_MIMES.includes(value.type)) {
+        throw new ParameterError(t`Invalid file type. Allowed types: ${ALLOWED_MIMES.join(', ')}`);
+    }
+    return value;
+});
 
 export async function PUT(req: NextRequest, res: NextApiResponse) {
     try {
@@ -17,12 +28,7 @@ export async function PUT(req: NextRequest, res: NextApiResponse) {
             throw new ParameterError(t`The file not found`);
         });
         const file = formData.get('file') as File;
-        if (!file) {
-            throw new ParameterError(t`The file not found`);
-        }
-        if (file.type && !ALLOW_MIMES.includes(file.type)) {
-            throw new ParameterError(t`The file ${file.type} does not allow`);
-        }
+        fileSchema.parse(file)
         const client = new S3Client({
             region: env.internal.S3_REGION,
             credentials: {
