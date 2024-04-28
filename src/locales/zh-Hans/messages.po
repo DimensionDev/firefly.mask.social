@@ -63,6 +63,9 @@ msgstr "{0} 浏览数"
 msgid "Act"
 msgstr "收藏"
 
+msgid "Unknown error"
+msgstr ""
+
 msgid "More"
 msgstr "更多"
 
@@ -212,6 +215,9 @@ msgstr "跟随系统"
 
 msgid "URL is required."
 msgstr "请选择 URL"
+
+msgid "The file not found"
+msgstr ""
 
 msgid "Connection failed"
 msgstr "连接失败"
@@ -704,6 +710,9 @@ msgstr "个人信息"
 
 msgid "Video"
 msgstr "视频"
+
+msgid "The file {0} does not allow"
+msgstr ""
 
 msgid "Language"
 msgstr "语言"
