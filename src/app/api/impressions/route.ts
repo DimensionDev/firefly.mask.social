@@ -1,4 +1,3 @@
-import { StatusCodes } from 'http-status-codes';
 import type { NextRequest } from 'next/server.js';
 import urlcat from 'urlcat';
 

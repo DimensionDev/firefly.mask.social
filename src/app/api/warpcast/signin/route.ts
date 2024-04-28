@@ -1,5 +1,4 @@
 import { getPublicKey, utils } from '@noble/ed25519';
-import { StatusCodes } from 'http-status-codes';
 import { NextRequest } from 'next/server.js';
 import urlcat from 'urlcat';
 import { toHex } from 'viem';
