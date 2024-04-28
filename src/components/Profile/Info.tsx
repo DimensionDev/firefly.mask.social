@@ -5,6 +5,7 @@ import { BioMarkup } from '@/components/Markup/index.js';
 import { FollowButton } from '@/components/Profile/FollowButton.js';
 import { SourceIcon } from '@/components/SourceIcon.js';
 import type { SocialPlatform } from '@/constants/enum.js';
+import { Link } from '@/esm/Link.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
@@ -46,14 +47,14 @@ export function Info({ isMyProfile, profile, source }: InfoProps) {
                 <BioMarkup className="text-[15px]">{profile?.bio ?? '-'}</BioMarkup>
 
                 <div className=" flex gap-3 text-[15px]">
-                    <div className=" flex gap-1">
+                    <Link href="/" target="_blank" className="flex gap-1 hover:underline">
                         <span className=" font-bold text-lightMain">{followingCount}</span>
                         <span className=" text-secondary">
                             {profile?.viewerContext?.following ? <Trans>Following</Trans> : <Trans>Followings</Trans>}
                         </span>
-                    </div>
+                    </Link>
 
-                    <div className=" flex gap-1">
+                    <div className="flex gap-1">
                         <span className=" font-bold text-lightMain">{followerCount}</span>
                         <span className=" text-secondary">
                             {followerCount === 1 ? <Trans>Follower</Trans> : <Trans>Followers</Trans>}

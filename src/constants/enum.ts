@@ -1,3 +1,4 @@
+
 export enum NODE_ENV {
     Production = 'production',
     Development = 'development',
@@ -51,6 +52,7 @@ export enum KeyType {
     UploadToBlob = 'uploadToBlob',
     GetLensThreadByPostId = 'getLensThreadByPostId',
     RefreshLensThreadLock = 'RefreshLensThreadLock',
+    GetFollowings = 'getFollowings'
 }
 
 export enum ProfileTabType {

@@ -4,8 +4,18 @@ import urlcat from 'urlcat';
 import { OLD_MASK_SOCIAL_POST_PATH_REGEX, OLD_MASK_SOCIAL_PROFILE_PATH_REGEX } from '@/constants/regex.js';
 
 export async function middleware(request: NextRequest) {
-    const isPost = request.nextUrl.pathname.startsWith('/post') && !request.nextUrl.pathname.includes('/photos');
-    const isProfile = request.nextUrl.pathname.startsWith('/profile');
+    const pathname = request.nextUrl.pathname
+    const isPost = pathname.startsWith('/post') && !pathname.includes('/photos');
+    const isProfile = pathname.startsWith('/profile') // && !pathname.endsWith('/following') && !pathname.endsWith('/followers');
+    const isFollowing = pathname.startsWith('/profile') && pathname.endsWith('/following');
+    const isFollowers = pathname.startsWith('/profile') && pathname.endsWith('/followers');
+
+    if (isFollowing || isFollowers) {
+        return NextResponse.next({
+            request,
+        });
+    }
+
     if (isPost || isProfile) {
         const { isBot } = userAgent(request);
 
@@ -20,6 +30,11 @@ export async function middleware(request: NextRequest) {
             );
             const source = match ? match[1] : null;
             const id = match ? match[2] : null;
+            console.log({
+                match,
+                source,
+                id,
+            })
             if (!id || !source)
                 return NextResponse.next({
                     request,
