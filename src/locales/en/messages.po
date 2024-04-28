@@ -58,9 +58,6 @@ msgstr "{0} views"
 msgid "Act"
 msgstr "Act"
 
-msgid "Unknown error"
-msgstr "Unknown error"
-
 msgid "More"
 msgstr "More"
 

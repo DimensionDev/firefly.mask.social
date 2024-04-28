@@ -63,9 +63,6 @@ msgstr "{0} 浏览数"
 msgid "Act"
 msgstr "收藏"
 
-msgid "Unknown error"
-msgstr ""
-
 msgid "More"
 msgstr "更多"
 
