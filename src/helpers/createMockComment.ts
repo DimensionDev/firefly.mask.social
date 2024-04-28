@@ -1,4 +1,5 @@
 import { compact } from 'lodash-es';
+import { v4 as uuid } from 'uuid';
 
 import type { SocialPlatform } from '@/constants/enum.js';
 import { readChars } from '@/helpers/chars.js';
@@ -12,6 +13,7 @@ export function createMockComment(source: SocialPlatform, compositePost: Composi
     const postId = compositePost.postId[source];
     if (!parentPost || !postId) return null;
     return {
+        id: uuid(),
         type: 'Comment',
         source,
         postId,

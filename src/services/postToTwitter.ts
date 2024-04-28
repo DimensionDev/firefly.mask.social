@@ -29,6 +29,7 @@ export async function postToTwitter(type: ComposeType, compositePost: CompositeP
 
     const composeDraft = (postType: PostType, images: MediaObject[]) => {
         return {
+            id: '',
             type: postType,
             postId: '',
             author: createDummyProfile(),

@@ -45,6 +45,7 @@ export function formatContent(cast: Cast) {
 
 export function formatWarpcastPost(cast: Cast): Post {
     return {
+        id: cast.hash,
         type: cast.parentHash ? 'Comment' : 'Post',
         source: SocialPlatform.Farcaster,
         postId: cast.hash,
