@@ -7,7 +7,7 @@ import { v4 as uuid } from 'uuid'
 
 import { env } from '@/constants/env.js';
 
-export class ParameterError extends Error {
+class ParameterError extends Error {
 }
 
 const ALLOW_MIMES = [
