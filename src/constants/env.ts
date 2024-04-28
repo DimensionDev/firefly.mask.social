@@ -24,6 +24,12 @@ const InternalEnvSchema = z.object({
     // internal use of hubble
     HUBBLE_URL: z.string(),
     HUBBLE_TOKEN: z.string().optional(),
+
+    S3_BUCKET: z.string(),
+    S3_REGION: z.string(),
+    S3_ACCESS_KEY_ID: z.string(),
+    S3_ACCESS_KEY_SECRET: z.string(),
+    S3_HOST: z.string(),
 });
 
 const ExternalEnvSchema = z.object({
