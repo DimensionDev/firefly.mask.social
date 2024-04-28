@@ -1,4 +1,4 @@
-import { type CompleteMultipartUploadCommandOutput, S3Client } from '@aws-sdk/client-s3';
+import { S3Client } from '@aws-sdk/client-s3';
 import { Upload } from '@aws-sdk/lib-storage';
 import { t } from '@lingui/macro';
 import type { NextApiResponse } from 'next';
@@ -48,9 +48,9 @@ export async function PUT(req: NextRequest, res: NextApiResponse) {
             client,
             params,
         });
-        const r = await task.done() as CompleteMultipartUploadCommandOutput
+        await task.done()
         return Response.json({
-            link: r.Location,
+            link: `https://${env.internal.S3_HOST}/${params.Key}`,
         })
     } catch (error) {
         if (error instanceof ParameterError) {
