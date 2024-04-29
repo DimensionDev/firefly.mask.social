@@ -19,7 +19,7 @@ export function enqueueSuccessMessage(message: SnackbarMessage, options?: Option
     });
 }
 
-export function enqueueErrorMessage(message: SnackbarMessage, options?: OptionsObject) {
+export function enqueueErrorMessage(message: SnackbarMessage, error?: unknown, options?: OptionsObject) {
     SnackbarRef.open({
         message,
         options: {

@@ -65,7 +65,7 @@ export function createPostTo(source: SocialPlatform, options: Options) {
                     }));
                     return postId;
                 } catch (error) {
-                    enqueueErrorMessage(error instanceof Error ? error.message : t`Failed to post on ${sourceName}.`);
+                    enqueueErrorMessage(t`Failed to post on ${sourceName}.`, error);
                     throw error;
                 }
             case 'reply':
@@ -83,7 +83,7 @@ export function createPostTo(source: SocialPlatform, options: Options) {
 
                     return commentId;
                 } catch (error) {
-                    enqueueErrorMessage(t`Failed to relay post on ${sourceName}.`);
+                    enqueueErrorMessage(t`Failed to relay post on ${sourceName}.`, error);
                     throw error;
                 }
             case 'quote':
@@ -110,7 +110,7 @@ export function createPostTo(source: SocialPlatform, options: Options) {
 
                     return postId;
                 } catch (error) {
-                    enqueueErrorMessage(t`Failed to quote post on ${sourceName}.`);
+                    enqueueErrorMessage(t`Failed to quote post on ${sourceName}.`, error);
                     throw error;
                 }
             default:
