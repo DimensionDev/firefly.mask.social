@@ -7,6 +7,9 @@ import { Loading } from '@/components/Loading.js';
 import { ChannelList } from '@/components/Profile/ChannelList.js';
 import { CollectedList } from '@/components/Profile/CollectedList.js';
 import { FeedList } from '@/components/Profile/FeedList.js';
+import { LikedFeedList } from '@/components/Profile/LikedFeedList.js';
+import { MediaList } from '@/components/Profile/MediaList.js';
+import { RepliesList } from '@/components/Profile/RepliesList.js';
 import { ProfileTabType, SocialPlatform } from '@/constants/enum.js';
 import {
     SORTED_FARCASTER_PROFILE_TAB_TYPE,
@@ -14,9 +17,6 @@ import {
     SORTED_PROFILE_TAB_TYPE,
 } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
-import { RepliesList } from '@/components/Profile/RepliesList.js';
-import { LikedFeedList } from '@/components/Profile/LikedFeedList.js';
-import { MediaList } from '@/components/Profile/MediaList.js';
 
 const ContentList = memo(function ContentList({
     type,

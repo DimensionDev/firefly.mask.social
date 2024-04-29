@@ -5,9 +5,8 @@ import { ListInPage } from '@/components/ListInPage.js';
 import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.js';
 import { ScrollListKey, SocialPlatform } from '@/constants/enum.js';
 import { getPostsSelector } from '@/helpers/getPostsSelector.js';
-import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
-import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
+import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 
 interface MediaListProps {
     profileId: string;
