@@ -13,13 +13,8 @@
 
         var browser = window.bowser.getParser(window.navigator.userAgent);
         var isValidBrowser = browser.satisfies({
-            macos: {
-                safari: '>=16',
-            },
-            mobile: {
-                safari: '>=16',
-                'android browser': '>103',
-            },
+            safari: '>=16',
+            'android browser': '>103', //'Android browser'
             chrome: '>=103',
             firefox: '>=100',
             opera: '>=89',
