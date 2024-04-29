@@ -5,6 +5,7 @@ import { FollowButton } from '@/components/Channel/FollowButton.js';
 import { BioMarkup } from '@/components/Markup/index.js';
 import { SourceIcon } from '@/components/SourceIcon.js';
 import type { SocialPlatform } from '@/constants/enum.js';
+import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
 
@@ -15,7 +16,6 @@ interface InfoProps {
 
 export function Info({ channel, source }: InfoProps) {
     const followerCount = channel.followerCount ?? 0;
-    const mutualFollowerCount = channel?.mutualFollowerCount ?? 0;
 
     const isMedium = useIsMedium();
 
@@ -46,21 +46,11 @@ export function Info({ channel, source }: InfoProps) {
 
                 <div className=" flex gap-3 text-[15px]">
                     <div className=" flex gap-1">
-                        <span className=" font-bold text-lightMain">{followerCount}</span>
+                        <span className=" font-bold text-lightMain">{nFormatter(followerCount)}</span>
                         <span className=" text-secondary">
                             {plural(followerCount, {
                                 one: 'Follower',
                                 other: 'Followers',
-                            })}
-                        </span>
-                    </div>
-
-                    <div className=" flex gap-1">
-                        <span className=" font-bold text-lightMain">{mutualFollowerCount}</span>
-                        <span className=" text-secondary">
-                            {plural(mutualFollowerCount, {
-                                one: 'Mutual',
-                                other: 'Mutuals',
                             })}
                         </span>
                     </div>

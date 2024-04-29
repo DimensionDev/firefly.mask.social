@@ -3,12 +3,14 @@
 import { Trans } from '@lingui/macro';
 import { memo } from 'react';
 
-import { SearchType } from '@/constants/enum.js';
-import { SORTED_SEARCH_TYPE } from '@/constants/index.js';
+import { SearchType, SocialPlatform } from '@/constants/enum.js';
+import { SORTED_FARCASTER_SEARCH_TYPE, SORTED_SEARCH_TYPE } from '@/constants/index.js';
 import { DraggablePopoverRef } from '@/modals/controls.js';
+import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useSearchStateStore } from '@/store/useSearchStore.js';
 
 export const SearchFilter = memo(function SearchFilter() {
+    const { currentSource } = useGlobalState();
     const { searchType, updateState } = useSearchStateStore();
 
     return (
@@ -32,7 +34,12 @@ export const SearchFilter = memo(function SearchFilter() {
                             label: <Trans>Channels</Trans>,
                         },
                     ]
-                        .filter((x) => SORTED_SEARCH_TYPE.includes(x.type))
+                        .filter((x) => {
+                            if (currentSource === SocialPlatform.Farcaster)
+                                return SORTED_FARCASTER_SEARCH_TYPE.includes(x.type);
+
+                            return SORTED_SEARCH_TYPE.includes(x.type);
+                        })
                         .map((filter) => (
                             <div key={filter.type} className="flex items-center">
                                 <label
@@ -45,9 +52,9 @@ export const SearchFilter = memo(function SearchFilter() {
                                     id={filter.type}
                                     name="notification-method"
                                     type="radio"
-                                    defaultChecked={filter.type === searchType}
+                                    checked={filter.type === searchType}
                                     className="h-4 w-4 border-gray-300 text-indigo-600"
-                                    onClick={() => {
+                                    onChange={() => {
                                         updateState({ type: filter.type });
 
                                         // in mobile view, close the popover after selecting a filter

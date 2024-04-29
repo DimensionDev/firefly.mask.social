@@ -3,7 +3,7 @@
 import { usePathname, useSearchParams } from 'next/navigation.js';
 import { startTransition } from 'react';
 
-import { SocialPlatform, SourceInURL } from '@/constants/enum.js';
+import { SearchType, SocialPlatform, SourceInURL } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { replaceSearchParams } from '@/helpers/replaceSearchParams.js';
@@ -11,9 +11,11 @@ import { resolveSocialPlatform } from '@/helpers/resolveSocialPlatform.js';
 import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfileAll.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
+import { useSearchStateStore } from '@/store/useSearchStore.js';
 
 export function SocialPlatformTabs() {
     const { currentSource, updateCurrentSource } = useGlobalState();
+    const { updateSearchType } = useSearchStateStore();
     const currentProfileAll = useCurrentProfileAll();
     const searchParams = useSearchParams();
     const pathname = usePathname();
@@ -43,11 +45,23 @@ export function SocialPlatformTabs() {
                                 startTransition(() => {
                                     scrollTo(0, 0);
                                     updateCurrentSource(value);
-                                    replaceSearchParams(
-                                        new URLSearchParams({
-                                            source: resolveSourceInURL(value),
-                                        }),
-                                    );
+                                    const type = searchParams.get('type') as SearchType;
+
+                                    if (type === SearchType.Channels && value === SocialPlatform.Lens) {
+                                        updateSearchType(SearchType.Posts);
+                                        replaceSearchParams(
+                                            new URLSearchParams({
+                                                source: resolveSourceInURL(value),
+                                                type: SearchType.Posts,
+                                            }),
+                                        );
+                                    } else {
+                                        replaceSearchParams(
+                                            new URLSearchParams({
+                                                source: resolveSourceInURL(value),
+                                            }),
+                                        );
+                                    }
                                 })
                             }
                         >

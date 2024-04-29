@@ -193,9 +193,6 @@ msgstr "{type, select, compose {{0}} quote {{1}} reply {{2}} other {{3}}}"
 msgid "Connect Wallet"
 msgstr "Connect Wallet"
 
-msgid "{mutualFollowerCount, plural, one {Mutual} other {Mutuals}}"
-msgstr "{mutualFollowerCount, plural, one {Mutual} other {Mutuals}}"
-
 msgid "Feed"
 msgstr "Feed"
 
