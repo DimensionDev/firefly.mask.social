@@ -3,21 +3,21 @@ import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 
 import { ListInPage } from '@/components/ListInPage.js';
 import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.js';
-import { ScrollListKey, SocialPlatform } from '@/constants/enum.js';
+import { ProfileTabType, ScrollListKey, SocialPlatform } from '@/constants/enum.js';
 import { getPostsSelector } from '@/helpers/getPostsSelector.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 
-interface FeedListProps {
+interface RepliesListProps {
     profileId: string;
     source: SocialPlatform;
 }
 
-export function FeedList({ profileId, source }: FeedListProps) {
+export function RepliesList({ profileId, source }: RepliesListProps) {
     const fetchAndStoreViews = useImpressionsStore.use.fetchAndStoreViews();
 
     const queryResult = useSuspenseInfiniteQuery({
-        queryKey: ['posts', source, 'posts-of', profileId],
+        queryKey: ['posts', source, 'replies-of', profileId],
 
         queryFn: async ({ pageParam }) => {
             if (!profileId) return createPageable(EMPTY_LIST, undefined);
@@ -25,7 +25,7 @@ export function FeedList({ profileId, source }: FeedListProps) {
             const provider = resolveSocialMediaProvider(source);
             if (!provider) return createPageable(EMPTY_LIST, undefined);
 
-            const posts = await provider.getPostsByProfileId(profileId, createIndicator(undefined, pageParam));
+            const posts = await provider.getReplesPostsByProfileId(profileId, createIndicator(undefined, pageParam));
 
             if (source === SocialPlatform.Lens) {
                 const ids = posts.data.flatMap((x) => [x.postId]);
@@ -43,7 +43,7 @@ export function FeedList({ profileId, source }: FeedListProps) {
             key={source}
             queryResult={queryResult}
             VirtualListProps={{
-                listKey: `${ScrollListKey.Profile}:${profileId}`,
+                listKey: `${ScrollListKey.Profile}:${ProfileTabType.Replies}:${profileId}`,
                 computeItemKey: (index, post) => `${post.postId}-${index}`,
                 itemContent: (index, post) => getPostItemContent(index, post),
             }}

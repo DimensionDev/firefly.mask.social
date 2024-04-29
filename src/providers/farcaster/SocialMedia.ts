@@ -109,6 +109,20 @@ class FarcasterSocialMedia implements Provider {
         return FireflySocialMediaProvider.getPostsByProfileId(profileId, indicator);
     }
 
+    async getLikedPostsByProfileId(
+        profileId: string,
+        indicator?: PageIndicator,
+    ): Promise<Pageable<Post, PageIndicator>> {
+        return FireflySocialMediaProvider.getLikedPostsByProfileId(profileId, indicator);
+    }
+
+    async getReplesPostsByProfileId(
+        profileId: string,
+        indicator?: PageIndicator,
+    ): Promise<Pageable<Post, PageIndicator>> {
+        return FireflySocialMediaProvider.getReplesPostsByProfileId(profileId, indicator);
+    }
+
     async getPostById(postId: string): Promise<Post> {
         const { isCustodyWallet } = getFarcasterSessionType();
         if (isCustodyWallet) return WarpcastSocialMediaProvider.getPostById(postId);

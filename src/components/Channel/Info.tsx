@@ -21,8 +21,8 @@ export function Info({ channel, source }: InfoProps) {
 
     return (
         <div className=" flex gap-3 p-3">
-            {channel?.lead?.pfp ? (
-                <Avatar src={channel.lead?.pfp} alt="avatar" size={80} className=" h-20 w-20 rounded-full" />
+            {channel.imageUrl ? (
+                <Avatar src={channel.imageUrl} alt="avatar" size={80} className=" h-20 w-20 rounded-full" />
             ) : (
                 <SourceIcon className="rounded-full" source={source} size={80} />
             )}
@@ -49,8 +49,8 @@ export function Info({ channel, source }: InfoProps) {
                         <span className=" font-bold text-lightMain">{followerCount}</span>
                         <span className=" text-secondary">
                             {plural(followerCount, {
-                                one: '# Follower',
-                                other: '# Followers',
+                                one: 'Follower',
+                                other: 'Followers',
                             })}
                         </span>
                     </div>
@@ -59,8 +59,8 @@ export function Info({ channel, source }: InfoProps) {
                         <span className=" font-bold text-lightMain">{mutualFollowerCount}</span>
                         <span className=" text-secondary">
                             {plural(mutualFollowerCount, {
-                                one: '# Mutual',
-                                other: '# Mutuals',
+                                one: 'Mutual',
+                                other: 'Mutuals',
                             })}
                         </span>
                     </div>

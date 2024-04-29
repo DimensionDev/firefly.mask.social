@@ -39,6 +39,17 @@ function fetchNeynarJSON<T>(url: string, options: RequestInit): Promise<T> {
 }
 
 class NeynarSocialMedia implements Provider {
+    mirrorPost?:
+        | ((
+              postId: string,
+              options?: { onMomoka?: boolean | undefined; authorId?: number | undefined } | undefined,
+          ) => Promise<string>)
+        | undefined;
+    unmirrorPost?: ((postId: string, authorId?: number | undefined) => Promise<void>) | undefined;
+    quotePost?: ((postId: string, post: Post) => Promise<string>) | undefined;
+    collectPost?: ((postId: string, collectionId?: string | undefined) => Promise<void>) | undefined;
+    isFollowedByMe?: ((profileId: string) => Promise<boolean>) | undefined;
+    isFollowingMe?: ((profileId: string) => Promise<boolean>) | undefined;
     commentPost(postId: string, post: Post): Promise<string> {
         throw new Error('Method not implemented.');
     }
@@ -72,6 +83,20 @@ class NeynarSocialMedia implements Provider {
     }
 
     searchChannels(q: string, indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {
+        throw new Error('Method not implemented.');
+    }
+
+    async getLikedPostsByProfileId(
+        profileId: string,
+        indicator?: PageIndicator,
+    ): Promise<Pageable<Post, PageIndicator>> {
+        throw new Error('Method not implemented.');
+    }
+
+    async getReplesPostsByProfileId(
+        profileId: string,
+        indicator?: PageIndicator,
+    ): Promise<Pageable<Post, PageIndicator>> {
         throw new Error('Method not implemented.');
     }
 

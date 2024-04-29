@@ -18,6 +18,7 @@ import {
 import type { ResponseJSON } from '@/types/index.js';
 
 class TwitterSocialMedia implements Provider {
+    unmirrorPost?: ((postId: string, authorId?: number | undefined) => Promise<void>) | undefined;
     mirrorPost(postId: string): Promise<string> {
         throw new Error('Method not implemented.');
     }
@@ -122,6 +123,20 @@ class TwitterSocialMedia implements Provider {
 
     getPostsByProfileId(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         throw new Error('Not implemented');
+    }
+
+    async getLikedPostsByProfileId(
+        profileId: string,
+        indicator?: PageIndicator,
+    ): Promise<Pageable<Post, PageIndicator>> {
+        throw new Error('Method not implemented.');
+    }
+
+    async getReplesPostsByProfileId(
+        profileId: string,
+        indicator?: PageIndicator,
+    ): Promise<Pageable<Post, PageIndicator>> {
+        throw new Error('Method not implemented.');
     }
 
     getCommentsById(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {

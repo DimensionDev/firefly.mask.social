@@ -71,6 +71,20 @@ class HubbleSocialMedia implements Provider {
         throw new Error('Method not implemented.');
     }
 
+    async getLikedPostsByProfileId(
+        profileId: string,
+        indicator?: PageIndicator,
+    ): Promise<Pageable<Post, PageIndicator>> {
+        throw new Error('Method not implemented.');
+    }
+
+    async getReplesPostsByProfileId(
+        profileId: string,
+        indicator?: PageIndicator,
+    ): Promise<Pageable<Post, PageIndicator>> {
+        throw new Error('Method not implemented.');
+    }
+
     getPostsByParentPostId(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         throw new Error('Method not implemented.');
     }

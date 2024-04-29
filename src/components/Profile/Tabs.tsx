@@ -8,8 +8,15 @@ import { ChannelList } from '@/components/Profile/ChannelList.js';
 import { CollectedList } from '@/components/Profile/CollectedList.js';
 import { FeedList } from '@/components/Profile/FeedList.js';
 import { ProfileTabType, SocialPlatform } from '@/constants/enum.js';
-import { SORTED_PROFILE_TAB_TYPE } from '@/constants/index.js';
+import {
+    SORTED_FARCASTER_PROFILE_TAB_TYPE,
+    SORTED_LENS_PROFILE_TAB_TYPE,
+    SORTED_PROFILE_TAB_TYPE,
+} from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
+import { RepliesList } from '@/components/Profile/RepliesList.js';
+import { LikedFeedList } from '@/components/Profile/LikedFeedList.js';
+import { MediaList } from '@/components/Profile/MediaList.js';
 
 const ContentList = memo(function ContentList({
     type,
@@ -27,6 +34,12 @@ const ContentList = memo(function ContentList({
             return <CollectedList source={source} profileId={profileId} />;
         case ProfileTabType.Channels:
             return <ChannelList source={source} profileId={profileId} />;
+        case ProfileTabType.Replies:
+            return <RepliesList source={source} profileId={profileId} />;
+        case ProfileTabType.Liked:
+            return <LikedFeedList source={source} profileId={profileId} />;
+        case ProfileTabType.Media:
+            return <MediaList source={source} profileId={profileId} />;
         default:
             safeUnreachable(type);
             return null;
@@ -56,6 +69,18 @@ export function Tabs({ profileId, source }: TabsProps) {
                         title: <Trans>Feed</Trans>,
                     },
                     {
+                        type: ProfileTabType.Replies,
+                        title: <Trans>Replies</Trans>,
+                    },
+                    {
+                        type: ProfileTabType.Liked,
+                        title: <Trans>Liked</Trans>,
+                    },
+                    {
+                        type: ProfileTabType.Media,
+                        title: <Trans>Media</Trans>,
+                    },
+                    {
                         type: ProfileTabType.Collected,
                         title: <Trans>Collected</Trans>,
                     },
@@ -65,11 +90,16 @@ export function Tabs({ profileId, source }: TabsProps) {
                     },
                 ]
                     .filter((x) => {
-                        if (!SORTED_PROFILE_TAB_TYPE.includes(x.type)) return false;
-
-                        if (source === SocialPlatform.Lens) return x.type !== ProfileTabType.Channels;
-                        if (source === SocialPlatform.Farcaster) return x.type !== ProfileTabType.Collected;
-                        return true;
+                        switch (source) {
+                            case SocialPlatform.Lens:
+                                return SORTED_LENS_PROFILE_TAB_TYPE.includes(x.type);
+                            case SocialPlatform.Farcaster:
+                                return SORTED_FARCASTER_PROFILE_TAB_TYPE.includes(x.type);
+                            case SocialPlatform.Twitter:
+                                return SORTED_PROFILE_TAB_TYPE.includes(x.type);
+                            default:
+                                return SORTED_PROFILE_TAB_TYPE.includes(x.type);
+                        }
                     })
                     .map(({ type, title }) => (
                         <div key={type} className=" flex flex-col">

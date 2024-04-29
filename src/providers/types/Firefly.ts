@@ -127,6 +127,7 @@ export interface ChannelBrief {
     name: string;
     parent_url: string;
     url: string;
+    follower_count?: number;
     lead?: ChannelProfileBrief;
     hostFids?: number[];
 }

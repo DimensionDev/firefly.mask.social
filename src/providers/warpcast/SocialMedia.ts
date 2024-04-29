@@ -171,6 +171,20 @@ class WarpcastSocialMedia implements Provider {
         );
     }
 
+    async getLikedPostsByProfileId(
+        profileId: string,
+        indicator?: PageIndicator,
+    ): Promise<Pageable<Post, PageIndicator>> {
+        throw new Error('Method not implemented.');
+    }
+
+    async getReplesPostsByProfileId(
+        profileId: string,
+        indicator?: PageIndicator,
+    ): Promise<Pageable<Post, PageIndicator>> {
+        throw new Error('Method not implemented.');
+    }
+
     async getPostById(postId: string): Promise<Post> {
         const castUrl = urlcat(WARPCAST_ROOT_URL, '/cast', { hash: postId });
         const {

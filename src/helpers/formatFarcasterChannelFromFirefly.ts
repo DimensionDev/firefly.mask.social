@@ -79,8 +79,7 @@ export function formatBriefChannelFromFirefly(channel: ChannelBrief): Channel {
         url: channel.url,
         parentUrl: channel.parent_url,
         imageUrl: channel.image_url,
-        // not available in brief
-        followerCount: 0,
+        followerCount: channel.follower_count ?? 0,
         timestamp: channel.created_at * 1000,
         __original__: channel,
     };
