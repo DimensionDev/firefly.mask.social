@@ -104,7 +104,7 @@ const useFarcasterStateBase = createState(
     },
     {
         name: 'farcaster-state',
-        storage: createSessionStorage(),
+        storage: createSessionStorage(localStorage),
         partialize: (state) => ({
             profiles: state.profiles,
             currentProfile: state.currentProfile,
@@ -133,7 +133,7 @@ const useLensStateBase = createState(
     },
     {
         name: 'lens-state',
-        storage: createSessionStorage(),
+        storage: createSessionStorage(sessionStorage),
         partialize: (state) => ({
             profiles: state.profiles,
             currentProfile: state.currentProfile,
@@ -167,7 +167,7 @@ const useTwitterStateBase = createState(
     },
     {
         name: 'twitter-state',
-        storage: createSessionStorage(),
+        storage: createSessionStorage(localStorage),
         partialize: (state) => ({
             profiles: state.profiles,
             currentProfile: state.currentProfile,
