@@ -3,32 +3,32 @@ import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 
 import { ListInPage } from '@/components/ListInPage.js';
 import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.js';
-import { ScrollListKey, SocialPlatform } from '@/constants/enum.js';
+import { ProfileTabType, ScrollListKey, SocialPlatform } from '@/constants/enum.js';
 import { getPostsSelector } from '@/helpers/getPostsSelector.js';
-import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
+import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 
-interface FeedListProps {
+interface MediaListProps {
     profileId: string;
     source: SocialPlatform;
 }
 
-export function FeedList({ profileId, source }: FeedListProps) {
+export function MediaList({ profileId, source }: MediaListProps) {
     const fetchAndStoreViews = useImpressionsStore.use.fetchAndStoreViews();
 
     const queryResult = useSuspenseInfiniteQuery({
         queryKey: ['posts', source, 'posts-of', profileId],
 
         queryFn: async ({ pageParam }) => {
-            if (!profileId) return createPageable(EMPTY_LIST, undefined);
+            if (!profileId || source !== SocialPlatform.Lens) return createPageable(EMPTY_LIST, undefined);
 
-            const provider = resolveSocialMediaProvider(source);
-            if (!provider) return createPageable(EMPTY_LIST, undefined);
-
-            const posts = await provider.getPostsByProfileId(profileId, createIndicator(undefined, pageParam));
+            const posts = await LensSocialMediaProvider.getMediaPostsByProfileId(
+                profileId,
+                createIndicator(undefined, pageParam),
+            );
 
             if (source === SocialPlatform.Lens) {
-                const ids = posts.data.map((x) => x.postId);
+                const ids = posts.data.flatMap((x) => [x.postId]);
                 await fetchAndStoreViews(ids);
             }
             return posts;
@@ -43,8 +43,8 @@ export function FeedList({ profileId, source }: FeedListProps) {
             key={source}
             queryResult={queryResult}
             VirtualListProps={{
-                listKey: `${ScrollListKey.Profile}:${profileId}`,
-                computeItemKey: (index, post) => `${post.publicationId}-${post.postId}-${index}`,
+                listKey: `${ScrollListKey.Profile}:${ProfileTabType.Media}:${profileId}`,
+                computeItemKey: (index, post) => `${post.postId}-${index}`,
                 itemContent: (index, post) => getPostItemContent(index, post),
             }}
             NoResultsFallbackProps={{

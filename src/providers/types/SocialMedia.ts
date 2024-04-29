@@ -487,6 +487,22 @@ export interface Provider {
     getPostsByProfileId: (profileId: string, indicator?: PageIndicator) => Promise<Pageable<Post>>;
 
     /**
+     * Retrieves liked posts by a specific profile ID.
+     * @param profileId The ID of the profile.
+     * @param indicator Optional PageIndicator for pagination.
+     * @returns A promise that resolves to a pageable list of Post objects.
+     */
+    getLikedPostsByProfileId: (profileId: string, indicator?: PageIndicator) => Promise<Pageable<Post>>;
+
+    /**
+     *  Retrieves replies posts by a specific profile ID.
+     * @param profileId The ID of the profile.
+     * @param indicator Optional PageIndicator for pagination.
+     * @returns A promise that resolves to a pageable list of Post objects.
+     */
+    getRepliesPostsByProfileId: (profileId: string, indicator?: PageIndicator) => Promise<Pageable<Post>>;
+
+    /**
      * Retrieves posts in a specific channel by ID.
      * @param channelId
      * @param indicator

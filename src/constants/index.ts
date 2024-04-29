@@ -22,8 +22,15 @@ export const RP_HASH_TAG = '#FireflyLuckyDrop';
 export const EMPTY_LIST = Object.freeze([]) as never[];
 export const EMPTY_OBJECT = Object.freeze({}) as Record<string, never>;
 
-export const SORTED_PROFILE_TAB_TYPE = [ProfileTabType.Feed, ProfileTabType.Collected, ProfileTabType.Channels];
-export const SORTED_SEARCH_TYPE = [SearchType.Posts, SearchType.Users];
+export const SORTED_LENS_PROFILE_TAB_TYPE = [
+    ProfileTabType.Feed,
+    ProfileTabType.Replies,
+    ProfileTabType.Media,
+    ProfileTabType.Collected,
+];
+export const SORTED_FARCASTER_PROFILE_TAB_TYPE = [ProfileTabType.Feed, ProfileTabType.Replies, ProfileTabType.Liked];
+export const SORTED_PROFILE_TAB_TYPE = [ProfileTabType.Feed];
+export const SORTED_SEARCH_TYPE = [SearchType.Posts, SearchType.Users, SearchType.Channels];
 export const SORTED_SOURCES = [SocialPlatform.Farcaster, SocialPlatform.Lens, SocialPlatform.Twitter];
 export const SORTED_RESTECTION_TYPE = [RestrictionType.Everyone, RestrictionType.OnlyPeopleYouFollow];
 

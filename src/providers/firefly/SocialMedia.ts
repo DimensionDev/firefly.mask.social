@@ -347,7 +347,7 @@ class FireflySocialMedia implements Provider {
 
     async getPostsByProfileId(profileId: string, indicator?: PageIndicator) {
         return farcasterClient.withSession(async (session) => {
-            const url = urlcat(FIREFLY_ROOT_URL, '/v2/user/timeline/farcaster');
+            const url = urlcat(FIREFLY_ROOT_URL, '/v2/user/timeline/farcaster/casts');
             const response = await fetchJSON<CastsResponse>(url, {
                 method: 'POST',
                 body: JSON.stringify({
@@ -358,6 +358,54 @@ class FireflySocialMedia implements Provider {
                     needRootParentHash: true,
                 }),
             });
+            const { casts, cursor } = resolveFireflyResponseData(response);
+            const data = casts.map((cast) => formatFarcasterPostFromFirefly(cast));
+
+            return createPageable(
+                data,
+                createIndicator(indicator),
+                cursor ? createNextIndicator(indicator, cursor) : undefined,
+            );
+        });
+    }
+
+    async getLikedPostsByProfileId(profileId: string, indicator?: PageIndicator) {
+        return farcasterClient.withSession(async (session) => {
+            const url = urlcat(FIREFLY_ROOT_URL, '/v2/user/timeline/farcaster/likes');
+            const response = await fetchJSON<CastsResponse>(url, {
+                method: 'POST',
+                body: JSON.stringify({
+                    fids: [profileId],
+                    size: 25,
+                    sourceFid: session?.profileId,
+                    cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
+                }),
+            });
+            const { casts, cursor } = resolveFireflyResponseData(response);
+            const data = casts.map((cast) => formatFarcasterPostFromFirefly(cast));
+
+            return createPageable(
+                data,
+                createIndicator(indicator),
+                cursor ? createNextIndicator(indicator, cursor) : undefined,
+            );
+        });
+    }
+
+    async getRepliesPostsByProfileId(profileId: string, indicator?: PageIndicator) {
+        return farcasterClient.withSession(async (session) => {
+            const url = urlcat(FIREFLY_ROOT_URL, '/v2/user/timeline/farcaster/replies');
+
+            const response = await fetchJSON<CastsResponse>(url, {
+                method: 'POST',
+                body: JSON.stringify({
+                    fids: [profileId],
+                    size: 25,
+                    sourceFid: session?.profileId,
+                    cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
+                }),
+            });
+
             const { casts, cursor } = resolveFireflyResponseData(response);
             const data = casts.map((cast) => formatFarcasterPostFromFirefly(cast));
 

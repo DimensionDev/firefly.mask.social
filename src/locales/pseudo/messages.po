@@ -40,6 +40,9 @@ msgstr ""
 msgid "Please be cautious when connecting your wallet, as malicious websites may attempt to access your funds."
 msgstr ""
 
+msgid "{followerCount, plural, one {Follower} other {Followers}}"
+msgstr ""
+
 msgid "Failed to mirror. {0}"
 msgstr ""
 
@@ -53,6 +56,9 @@ msgid "Allow Lens Manager to perform actions such as posting, liking, and commen
 msgstr ""
 
 msgid "{0} views"
+msgstr ""
+
+msgid "Searching channel"
 msgstr ""
 
 msgid "Act"
@@ -187,6 +193,9 @@ msgstr ""
 msgid "Connect Wallet"
 msgstr ""
 
+msgid "{mutualFollowerCount, plural, one {Mutual} other {Mutuals}}"
+msgstr ""
+
 msgid "Feed"
 msgstr ""
 
@@ -298,6 +307,9 @@ msgstr ""
 msgid "{0} Comments"
 msgstr ""
 
+msgid "Replies"
+msgstr ""
+
 msgid "Comment"
 msgstr ""
 
@@ -403,6 +415,9 @@ msgstr ""
 msgid "The page could not be found."
 msgstr ""
 
+msgid "No matching channel"
+msgstr ""
+
 msgid "What's happening..."
 msgstr ""
 
@@ -484,9 +499,6 @@ msgstr ""
 msgid "Please switch to the {chainName} network in your wallet."
 msgstr ""
 
-msgid "{followerCount, plural, one {# Follower} other {# Followers}}"
-msgstr ""
-
 msgid "There is no data available for display."
 msgstr ""
 
@@ -503,9 +515,6 @@ msgid "Unable to retrieve post details."
 msgstr ""
 
 msgid "Failed to publish post."
-msgstr ""
-
-msgid "{mutualFollowerCount, plural, one {# Mutual} other {# Mutuals}}"
 msgstr ""
 
 msgid "recasted your"

@@ -7,6 +7,7 @@ import {
     isCreateMomokaPublicationResult,
     isRelaySuccess,
     LimitType,
+    PublicationMetadataMainFocusType,
     PublicationReactionType,
     PublicationType,
 } from '@lens-protocol/client';
@@ -639,6 +640,59 @@ class LensSocialMedia implements Provider {
             where: {
                 from: [profileId],
                 metadata: null,
+                publicationTypes: [PublicationType.Post, PublicationType.Mirror, PublicationType.Quote],
+            },
+            cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
+        });
+
+        return createPageable(
+            result.items.map(formatLensPost),
+            createIndicator(indicator),
+            result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
+        );
+    }
+
+    async getLikedPostsByProfileId(
+        profileId: string,
+        indicator?: PageIndicator,
+    ): Promise<Pageable<Post, PageIndicator>> {
+        throw new Error('Method not implemented.');
+    }
+
+    async getRepliesPostsByProfileId(
+        profileId: string,
+        indicator?: PageIndicator,
+    ): Promise<Pageable<Post, PageIndicator>> {
+        const result = await lensClient.sdk.publication.fetchAll({
+            where: {
+                from: [profileId],
+                metadata: null,
+                publicationTypes: [PublicationType.Comment],
+            },
+            cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
+        });
+
+        return createPageable(
+            result.items.map(formatLensPost),
+            createIndicator(indicator),
+            result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
+        );
+    }
+
+    async getMediaPostsByProfileId(
+        profileId: string,
+        indicator?: PageIndicator,
+    ): Promise<Pageable<Post, PageIndicator>> {
+        const result = await lensClient.sdk.publication.fetchAll({
+            where: {
+                from: [profileId],
+                metadata: {
+                    mainContentFocus: [
+                        PublicationMetadataMainFocusType.Image,
+                        PublicationMetadataMainFocusType.Audio,
+                        PublicationMetadataMainFocusType.Video,
+                    ],
+                },
                 publicationTypes: [
                     PublicationType.Post,
                     PublicationType.Mirror,

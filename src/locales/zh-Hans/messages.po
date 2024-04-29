@@ -45,6 +45,9 @@ msgstr "发现"
 msgid "Please be cautious when connecting your wallet, as malicious websites may attempt to access your funds."
 msgstr "当您连接钱包时请务必小心，一些恶意网站会试图访问宁的钱包资产。"
 
+msgid "{followerCount, plural, one {Follower} other {Followers}}"
+msgstr ""
+
 msgid "Failed to mirror. {0}"
 msgstr "转帖失败 {0}"
 
@@ -59,6 +62,9 @@ msgstr "允许 Lens 管理员执行发帖、点赞和评论等操作，而无需
 
 msgid "{0} views"
 msgstr "{0} 浏览数"
+
+msgid "Searching channel"
+msgstr ""
 
 msgid "Act"
 msgstr "收藏"
@@ -192,6 +198,9 @@ msgstr "{type, select, compose {{0}} quote {{1}} reply {{2}} other {{3}}}"
 msgid "Connect Wallet"
 msgstr "连接钱包"
 
+msgid "{mutualFollowerCount, plural, one {Mutual} other {Mutuals}}"
+msgstr ""
+
 msgid "Feed"
 msgstr "信息流"
 
@@ -303,6 +312,9 @@ msgstr "添加账号"
 msgid "{0} Comments"
 msgstr "{0} 评论"
 
+msgid "Replies"
+msgstr ""
+
 msgid "Comment"
 msgstr "评论"
 
@@ -408,6 +420,9 @@ msgstr "已回复"
 msgid "The page could not be found."
 msgstr "找不到该页面。"
 
+msgid "No matching channel"
+msgstr ""
+
 msgid "What's happening..."
 msgstr "正在发生..."
 
@@ -489,9 +504,6 @@ msgstr "浅色模式"
 msgid "Please switch to the {chainName} network in your wallet."
 msgstr "请切换钱包网络至 {chainName}"
 
-msgid "{followerCount, plural, one {# Follower} other {# Followers}}"
-msgstr ""
-
 msgid "There is no data available for display."
 msgstr "没有可显示的数据。"
 
@@ -509,9 +521,6 @@ msgstr "数据获取失败。"
 
 msgid "Failed to publish post."
 msgstr "发布帖子失败"
-
-msgid "{mutualFollowerCount, plural, one {# Mutual} other {# Mutuals}}"
-msgstr ""
 
 msgid "recasted your"
 msgstr "转帖了你的"
