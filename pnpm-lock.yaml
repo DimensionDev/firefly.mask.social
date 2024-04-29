@@ -240,8 +240,8 @@ importers:
         specifier: ^4.24.7
         version: 4.24.7(next@14.1.0)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       notistack:
-        specifier: 3.0.1
-        version: 3.0.1(csstype@3.1.3)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+        specifier: 2.0.8
+        version: 2.0.8(@emotion/react@11.11.1)(@mui/material@5.15.12)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       plyr-react:
         specifier: ^5.3.0
         version: 5.3.0(plyr@3.7.8)(react@0.0.0-experimental-8039e6d0b-20231026)
@@ -24173,14 +24173,6 @@ packages:
       sparkles: 1.0.1
     dev: true
 
-  /goober@2.1.14(csstype@3.1.3):
-    resolution: {integrity: sha512-4UpC0NdGyAFqLNPnhCT2iHpza2q+RAY3GV85a/mRPdzyPQMsj0KmMMuetdIkzWRbJ+Hgau1EZztq8ImmiMGhsg==}
-    peerDependencies:
-      csstype: ^3.0.10
-    dependencies:
-      csstype: 3.1.3
-    dev: false
-
   /gopd@1.0.1:
     resolution: {integrity: sha512-d65bNlIadxvpb/A2abVdlqKqV563juRnZ1Wtk6s1sIR8uNsXR70xqIzVqxVf1eTqDunwT2MkczEeaezCKTZhwA==}
     dependencies:
@@ -29452,26 +29444,6 @@ packages:
       hoist-non-react-statics: 3.3.2
       react: 0.0.0-experimental-8039e6d0b-20231026
       react-dom: 0.0.0-experimental-8039e6d0b-20231026(react@0.0.0-experimental-8039e6d0b-20231026)
-    dev: false
-
-  /notistack@3.0.1(csstype@3.1.3)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026):
-    resolution: {integrity: sha512-ntVZXXgSQH5WYfyU+3HfcXuKaapzAJ8fBLQ/G618rn3yvSzEbnOB8ZSOwhX+dAORy/lw+GC2N061JA0+gYWTVA==}
-    engines: {node: '>=12.0.0', npm: '>=6.0.0'}
-    peerDependencies:
-      react: 0.0.0-experimental-8039e6d0b-20231026 || 0.0.0-experimental-0a360642d-20230711
-      react-dom: 0.0.0-experimental-8039e6d0b-20231026 || 0.0.0-experimental-0a360642d-20230711
-    peerDependenciesMeta:
-      react:
-        optional: true
-      react-dom:
-        optional: true
-    dependencies:
-      clsx: 1.2.1
-      goober: 2.1.14(csstype@3.1.3)
-      react: 0.0.0-experimental-8039e6d0b-20231026
-      react-dom: 0.0.0-experimental-8039e6d0b-20231026(react@0.0.0-experimental-8039e6d0b-20231026)
-    transitivePeerDependencies:
-      - csstype
     dev: false
 
   /now-and-later@2.0.1:
@@ -37857,7 +37829,6 @@ time:
   /next-tick@1.1.0: '2020-02-11T04:03:15.049Z'
   /next@14.1.0: '2024-01-18T21:49:39.153Z'
   /notistack@2.0.8: '2022-10-16T13:58:55.665Z'
-  /notistack@3.0.1: '2023-03-08T22:33:12.723Z'
   /patch-package@8.0.0: '2023-07-27T17:39:57.984Z'
   /plyr-react@5.3.0: '2023-06-12T22:50:21.153Z'
   /postcss@8.4.30: '2023-09-18T21:24:57.039Z'

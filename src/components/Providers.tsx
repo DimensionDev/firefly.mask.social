@@ -12,7 +12,6 @@ import { useEffect, useLayoutEffect, useMemo, useRef } from 'react';
 import { useEffectOnce } from 'react-use';
 import { v4 as uuid } from 'uuid';
 
-import { ErrorReportSnackbar } from '@/components/ErrorReportSnackbar.js';
 import { WagmiProvider } from '@/components/WagmiProvider.js';
 import { livepeerClient } from '@/configs/livepeerClient.js';
 import { queryClient } from '@/configs/queryClient.js';
@@ -24,15 +23,6 @@ import { useMounted } from '@/hooks/useMounted.js';
 import { setLocale } from '@/i18n/index.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useLeafwatchPersistStore } from '@/store/useLeafwatchPersistStore.js';
-
-declare module 'notistack' {
-    interface VariantOverrides {
-        errorReport: true;
-    }
-    interface OptionsObject {
-        detail?: string | React.ReactNode;
-    }
-}
 
 export function Providers(props: { children: React.ReactNode }) {
     const isDarkMode = useIsDarkMode();
@@ -104,9 +94,6 @@ export function Providers(props: { children: React.ReactNode }) {
                             autoHideDuration={3000}
                             classes={{
                                 containerAnchorOriginTopCenter: isMedium ? undefined : 'px-2',
-                            }}
-                            Components={{
-                                error: ErrorReportSnackbar,
                             }}
                         >
                             {/* wagmi depends @tanstack/react-query@4.29.23 */}
