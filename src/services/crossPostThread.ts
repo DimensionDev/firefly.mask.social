@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { plural, t } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
 
 import { SocialPlatform } from '@/constants/enum.js';
@@ -9,6 +9,8 @@ import type { Post } from '@/providers/types/SocialMedia.js';
 import { crossPost } from '@/services/crossPost.js';
 import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
 import { useFarcasterStateStore } from '@/store/useProfileStore.js';
+import { failedAt } from '@/helpers/isPublishedThread.js';
+import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 
 function shouldCrossPost(index: number, post: CompositePost) {
     return SORTED_SOURCES.some((x) => post.availableSources.includes(x) && !post.postId[x] && !post.parentPost[x]);
@@ -92,7 +94,19 @@ export async function crossPostThread() {
     }
 
     const { posts: updatedPosts } = useComposeStateStore.getState();
-    if (!updatedPosts.every(isPublishedPost)) {
-        throw new Error('Posts failed to publish.');
+    const failedPlatforms = failedAt(updatedPosts);
+
+    if (failedPlatforms.length) {
+        throw new Error(
+            plural(failedPlatforms.length, {
+                one: `Your post failed to publish on ${resolveSourceName(
+                    failedPlatforms[0],
+                )} due to an error; Click \'Retry\' to attempt posting again.`,
+                two: `Your post failed to publish on ${resolveSourceName(failedPlatforms[0])} and ${resolveSourceName(
+                    failedPlatforms[1],
+                )} due to an error; Click \'Retry\' to attempt posting again.`,
+                other: "Your post failed to publish due to an error; Click 'Retry' to attempt posting again.",
+            }),
+        );
     }
 }

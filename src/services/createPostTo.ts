@@ -65,7 +65,7 @@ export function createPostTo(source: SocialPlatform, options: Options) {
                     }));
                     return postId;
                 } catch (error) {
-                    enqueueErrorMessage(t`Failed to post on ${sourceName}.`);
+                    enqueueErrorMessage(error instanceof Error ? error.message : t`Failed to post on ${sourceName}.`);
                     throw error;
                 }
             case 'reply':
