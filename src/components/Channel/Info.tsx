@@ -5,9 +5,9 @@ import { FollowButton } from '@/components/Channel/FollowButton.js';
 import { BioMarkup } from '@/components/Markup/index.js';
 import { SourceIcon } from '@/components/SourceIcon.js';
 import type { SocialPlatform } from '@/constants/enum.js';
+import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
-import { nFormatter } from '@/helpers/formatCommentCounts.js';
 
 interface InfoProps {
     channel: Channel;

@@ -16,6 +16,7 @@ import { SourceIcon } from '@/components/SourceIcon.js';
 import { SearchType, SocialPlatform } from '@/constants/enum.js';
 import { MAX_RECOMMEND_PROFILE_SIZE } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
+import { getChannelUrl } from '@/helpers/getChannelUrl.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
@@ -23,7 +24,6 @@ import type { Channel, Profile } from '@/providers/types/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useSearchHistoryStateStore } from '@/store/useSearchHistoryStore.js';
 import { type SearchState, useSearchStateStore } from '@/store/useSearchStore.js';
-import { getChannelUrl } from '@/helpers/getChannelUrl.js';
 
 interface SearchRecommendationProps {
     keyword: string;
@@ -154,7 +154,7 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
                 </>
             ) : null}
 
-            {!!debouncedKeyword ? (
+            {debouncedKeyword ? (
                 <>
                     {isLoading ? (
                         <div className="flex flex-col items-center space-y-2 px-4 pb-5 pt-2 text-center text-sm font-bold">

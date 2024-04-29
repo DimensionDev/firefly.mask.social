@@ -6,8 +6,8 @@ import { memo } from 'react';
 import { SearchType, SocialPlatform } from '@/constants/enum.js';
 import { SORTED_FARCASTER_SEARCH_TYPE, SORTED_SEARCH_TYPE } from '@/constants/index.js';
 import { DraggablePopoverRef } from '@/modals/controls.js';
-import { useSearchStateStore } from '@/store/useSearchStore.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
+import { useSearchStateStore } from '@/store/useSearchStore.js';
 
 export const SearchFilter = memo(function SearchFilter() {
     const { currentSource } = useGlobalState();
