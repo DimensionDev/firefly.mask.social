@@ -14,7 +14,6 @@ interface ChannelInListProps {
 export function ChannelInList({ channel, noFollowButton = true }: ChannelInListProps) {
     const isSmall = useIsSmall('max');
 
-    console.log(channel);
     return (
         <div className="flex-start flex cursor-pointer overflow-auto border-b border-secondaryLine px-4 py-6 hover:bg-bg dark:border-line">
             <Link className="flex-start flex flex-1 overflow-auto" href={getChannelUrl(channel)}>
