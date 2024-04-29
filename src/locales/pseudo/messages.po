@@ -109,6 +109,9 @@ msgstr ""
 msgid "Retry"
 msgstr ""
 
+msgid "Show less"
+msgstr ""
+
 msgid "comment"
 msgstr ""
 
@@ -509,6 +512,9 @@ msgid "recasted your"
 msgstr ""
 
 msgid "Please input the url to be revalidated."
+msgstr ""
+
+msgid "Show more"
 msgstr ""
 
 msgid "Something went wrong. Please try again."

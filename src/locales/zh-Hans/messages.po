@@ -114,6 +114,9 @@ msgstr ""
 msgid "Retry"
 msgstr ""
 
+msgid "Show less"
+msgstr ""
+
 msgid "comment"
 msgstr "评论"
 
@@ -515,6 +518,9 @@ msgstr "转帖了你的"
 
 msgid "Please input the url to be revalidated."
 msgstr "请输入 URL 重新验证："
+
+msgid "Show more"
+msgstr ""
 
 msgid "Something went wrong. Please try again."
 msgstr "出现错误，请重试。"
