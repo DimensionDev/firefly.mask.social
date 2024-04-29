@@ -33,7 +33,6 @@
             const matchMedia = window?.matchMedia('(prefers-color-scheme: dark)');
             const showTip = (e) => {
                 const isDarkMode = e ? e.matches : matchMedia.matches;
-                console.log('isDarkMode', isDarkMode);
                 const bgColor = isDarkMode ? 'var(--color-dark-bottom)' : 'white';
 
                 var browserTips = document.createElement('div');
