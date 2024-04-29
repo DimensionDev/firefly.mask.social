@@ -111,9 +111,10 @@ export async function crossPostThread() {
         });
 
         const allErrors = SORTED_SOURCES.map((x) => updatedPosts.find((y) => y.postError[x])?.postError[x] ?? null);
-        const detailedMessage = SORTED_SOURCES.flatMap((x, i) =>
-            allErrors[i] ? [`${resolveSourceName(x)}:`, `- ${allErrors[i].message}`, ''] : [],
-        ).join('\n');
+        const detailedMessage = SORTED_SOURCES.flatMap((x, i) => {
+            const error = allErrors[i];
+            return error ? [`${resolveSourceName(x)}:`, `- ${error.message}`, ''] : [];
+        }).join('\n');
 
         enqueueErrorMessage(message, {
             detail: detailedMessage,
