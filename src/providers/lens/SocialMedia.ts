@@ -56,7 +56,7 @@ import {
 } from '@/providers/types/SocialMedia.js';
 import type { ResponseJSON } from '@/types/index.js';
 
-const momokaErrorMsg = 'momoka publication is not allowed';
+const MOMOKA_ERROR_MSG = 'momoka publication is not allowed';
 
 @SetQueryDataForLikePost(SocialPlatform.Lens)
 @SetQueryDataForMirrorPost(SocialPlatform.Lens)
@@ -277,7 +277,7 @@ class LensSocialMedia implements Provider {
             await this.mirrorPostOnMomoka(postId);
         } catch (error) {
             if (error instanceof Error) {
-                if (error.message.includes(momokaErrorMsg)) {
+                if (error.message.includes(MOMOKA_ERROR_MSG)) {
                     await this.mirrorPostOnChain(postId);
                 }
                 throw new Error(error.message);
@@ -382,7 +382,7 @@ class LensSocialMedia implements Provider {
             return result;
         } catch (error) {
             if (error instanceof Error) {
-                if (error.message.includes(momokaErrorMsg)) {
+                if (error.message.includes(MOMOKA_ERROR_MSG)) {
                     const result = await this.quotePostOnChain(postId, intro);
                     return result;
                 }
@@ -495,7 +495,7 @@ class LensSocialMedia implements Provider {
             return result;
         } catch (error) {
             if (error instanceof Error) {
-                if (error.message.includes(momokaErrorMsg)) {
+                if (error.message.includes(MOMOKA_ERROR_MSG)) {
                     const result = await this.commentPostOnChain(postId, comment);
                     return result;
                 }
