@@ -113,7 +113,11 @@ export async function crossPostThread() {
         const allErrors = SORTED_SOURCES.map((x) => updatedPosts.find((y) => y.postError[x])?.postError[x] ?? null);
         const detailedMessage = SORTED_SOURCES.flatMap((x, i) => {
             const error = allErrors[i];
-            return error ? [`${resolveSourceName(x)}:`, `- ${error.message}`, ''] : [];
+            if (!error) return [];
+
+            const lines = [`${resolveSourceName(x)}: ${error.message}`, ''];
+            if (error.stack) lines.push(error.stack);
+            return lines.join('\n');
         }).join('\n');
 
         enqueueErrorMessage(message, {
