@@ -44,7 +44,7 @@ export function FeedList({ profileId, source }: FeedListProps) {
             queryResult={queryResult}
             VirtualListProps={{
                 listKey: `${ScrollListKey.Profile}:${profileId}`,
-                computeItemKey: (index, post) => `${post.id}-${post.postId}-${index}`,
+                computeItemKey: (index, post) => `${post.publicationId}-${post.postId}-${index}`,
                 itemContent: (index, post) => getPostItemContent(index, post, `${ScrollListKey.Profile}:${profileId}`),
             }}
             NoResultsFallbackProps={{

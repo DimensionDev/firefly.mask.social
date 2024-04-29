@@ -4,7 +4,7 @@ import type { Post } from '@/providers/types/SocialMedia.js';
 
 export function createDummyPost(source: SocialPlatform, content: string) {
     return {
-        id: '',
+        publicationId: '',
         postId: '',
         author: createDummyProfile(),
         metadata: {

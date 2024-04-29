@@ -18,9 +18,9 @@ export function mergeThreadPostsForLens(posts: Post[]) {
     });
 
     return uniqBy(filtered, (x) => {
-        if (x.type !== 'Comment' || !x.root) return x.id;
-        if (x.type === 'Comment' && x.firstComment?.postId !== x.postId) return x.id;
-        return x.root.id;
+        if (x.type !== 'Comment' || !x.root) return x.publicationId;
+        if (x.type === 'Comment' && x.firstComment?.postId !== x.postId) return x.publicationId;
+        return x.root.publicationId;
     }).map((post) => {
         if (
             post.type === 'Comment' &&

@@ -534,7 +534,7 @@ class FireflySocialMedia implements Provider {
         const casts = resolveFireflyResponseData(response);
         const data = casts.map((cast) => {
             return {
-                id: cast.hash,
+                publicationId: cast.hash,
                 type: (cast.parent_hash ? 'Comment' : 'Post') as PostType,
                 source: SocialPlatform.Farcaster,
                 postId: cast.hash,

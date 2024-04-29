@@ -239,7 +239,7 @@ export function formatLensQuoteOrComment(result: CommentBaseFragment | PostFragm
             : undefined;
 
     return {
-        id: result.id,
+        publicationId: result.id,
         type: result.__typename,
         source: SocialPlatform.Lens,
         postId: result.id,
@@ -280,7 +280,7 @@ export function formatLensPost(result: AnyPublicationFragment): Post {
             !!result.mirrorOn.openActionModules?.length &&
             result.mirrorOn.openActionModules?.some((openAction) => allowedTypes.includes(openAction.type));
         return {
-            id: result.id,
+            publicationId: result.id,
             type: result.__typename,
             postId: result.mirrorOn.id,
             timestamp,
@@ -333,7 +333,7 @@ export function formatLensPost(result: AnyPublicationFragment): Post {
 
     if (result.__typename === 'Quote') {
         return {
-            id: result.id,
+            publicationId: result.id,
             type: result.__typename,
             source: SocialPlatform.Lens,
             postId: result.id,
@@ -372,7 +372,7 @@ export function formatLensPost(result: AnyPublicationFragment): Post {
         };
     } else if (result.__typename === 'Comment') {
         return {
-            id: result.id,
+            publicationId: result.id,
             type: result.__typename,
             source: SocialPlatform.Lens,
             postId: result.id,
@@ -416,7 +416,7 @@ export function formatLensPost(result: AnyPublicationFragment): Post {
         };
     } else {
         return {
-            id: result.id,
+            publicationId: result.id,
             type: result.__typename,
             source: SocialPlatform.Lens,
             postId: result.id,

@@ -94,7 +94,7 @@ export interface Post {
      * For Lens, it's id of the publication, which is different from post id.
      * TODO id for Twitter
      */
-    id: string;
+    publicationId: string;
     type?: PostType;
     /** It's `hash` for Farcaster */
     postId: string;

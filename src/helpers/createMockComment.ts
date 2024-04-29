@@ -13,7 +13,7 @@ export function createMockComment(source: SocialPlatform, compositePost: Composi
     const postId = compositePost.postId[source];
     if (!parentPost || !postId) return null;
     return {
-        id: uuid(),
+        publicationId: uuid(),
         type: 'Comment',
         source,
         postId,

@@ -32,7 +32,7 @@ export async function postToFarcaster(type: ComposeType, compositePost: Composit
     const composeDraft = (postType: PostType, images: MediaObject[]) => {
         const hasPayload = hasRpPayload(typedMessage);
         return {
-            id: '',
+            publicationId: '',
             type: postType,
             postId: '',
             source: SocialPlatform.Farcaster,

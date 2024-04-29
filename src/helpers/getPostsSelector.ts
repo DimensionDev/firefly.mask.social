@@ -10,7 +10,7 @@ export function getPostsSelector(source: SocialPlatform) {
     return (data: InfiniteData<Pageable<Post, PageIndicator | undefined> | undefined, string>) => {
         const result = uniqBy(
             data.pages.flatMap((x) => x?.data || []),
-            (post) => post.id,
+            (post) => post.publicationId,
         );
 
         return mergeThreadPosts(source, result);
