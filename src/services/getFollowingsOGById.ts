@@ -1,4 +1,3 @@
-
 import type { SourceInURL } from '@/constants/enum.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { resolveSocialPlatform } from '@/helpers/resolveSocialPlatform.js';
@@ -16,8 +15,8 @@ export async function getFollowingsOGById(source: SourceInURL, profileId: string
 
     // const title = createPageTitle(`${profile.displayName} (@${profile.handle})`);
     // const description = profile.bio ?? '';
-    const title = 'followings'
-    const description = 'followings'
+    const title = 'followings';
+    const description = 'followings';
 
     return createSiteMetadata({
         openGraph: {

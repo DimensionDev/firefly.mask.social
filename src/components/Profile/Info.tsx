@@ -51,7 +51,7 @@ export function Info({ isMyProfile, profile, source }: InfoProps) {
                     <Link
                         href={{
                             pathname: `/profile/${profile?.profileId}/following`,
-                            query: { source: resolveSourceInURL(source) }
+                            query: { source: resolveSourceInURL(source) },
                         }}
                         target="_blank"
                         className="flex gap-1 hover:underline"
