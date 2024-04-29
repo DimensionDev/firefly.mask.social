@@ -26,7 +26,7 @@ export function ProfileAvatarAdd(props: ProfileAvatarAddProps) {
                 <SourceIcon source={source} size={size} />
             </div>
             <PlusIcon
-                className="absolute -bottom-[1px] -right-[8px] rounded-full bg-white text-black md:shadow lg:left-8 lg:top-6"
+                className="absolute -bottom-[1px] -right-[8px] rounded-full bg-white text-black lg:left-8 lg:top-6"
                 width={16}
                 height={16}
             />
