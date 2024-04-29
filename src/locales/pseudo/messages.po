@@ -226,6 +226,9 @@ msgstr ""
 msgid "Log out"
 msgstr ""
 
+msgid "{0, plural, one {Your post failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your post failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your post failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
+msgstr ""
+
 msgid "post"
 msgstr ""
 
@@ -482,9 +485,6 @@ msgid "Light Mode"
 msgstr ""
 
 msgid "Please switch to the {chainName} network in your wallet."
-msgstr ""
-
-msgid "{0, plural, one {Your post failed to publish on {1} due to an error; Click \\'Retry\\' to attempt posting again.} two {Your post failed to publish on {2} and {3} due to an error; Click \\'Retry\\' to attempt posting again.} other {Your post failed to publish due to an error; Click 'Retry' to attempt posting again.}}"
 msgstr ""
 
 msgid "There is no data available for display."

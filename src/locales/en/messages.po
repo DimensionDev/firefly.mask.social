@@ -226,6 +226,9 @@ msgstr "Join our Telegram"
 msgid "Log out"
 msgstr "Log out"
 
+msgid "{0, plural, one {Your post failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your post failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your post failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
+msgstr "{0, plural, one {Your post failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your post failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your post failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
+
 msgid "post"
 msgstr "post"
 
@@ -483,9 +486,6 @@ msgstr "Light Mode"
 
 msgid "Please switch to the {chainName} network in your wallet."
 msgstr "Please switch to the {chainName} network in your wallet."
-
-msgid "{0, plural, one {Your post failed to publish on {1} due to an error; Click \\'Retry\\' to attempt posting again.} two {Your post failed to publish on {2} and {3} due to an error; Click \\'Retry\\' to attempt posting again.} other {Your post failed to publish due to an error; Click 'Retry' to attempt posting again.}}"
-msgstr "{0, plural, one {Your post failed to publish on {1} due to an error; Click \\'Retry\\' to attempt posting again.} two {Your post failed to publish on {2} and {3} due to an error; Click \\'Retry\\' to attempt posting again.} other {Your post failed to publish due to an error; Click 'Retry' to attempt posting again.}}"
 
 msgid "There is no data available for display."
 msgstr "There is no data available for display."

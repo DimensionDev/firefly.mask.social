@@ -292,6 +292,7 @@ export async function postToLens(
             const video = first(videos) ?? null;
             return quotePostForLens(currentProfile.profileId, lensParentPost.postId, readChars(chars), images, video);
         },
+        ...options,
     });
 
     return postTo(type, compositePost);

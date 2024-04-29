@@ -67,6 +67,7 @@ export async function postToTwitter(
             if (!twitterParentPost?.postId) throw new Error(t`No parent post found.`);
             return TwitterSocialMediaProvider.quotePost(twitterParentPost.postId, composeDraft('Quote', images));
         },
+        ...options,
     });
 
     return postTo(type, compositePost);
