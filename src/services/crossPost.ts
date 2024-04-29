@@ -13,7 +13,7 @@ import { resolvePostTo } from '@/helpers/resolvePostTo.js';
 import { resolveRedPacketPlatformType } from '@/helpers/resolveRedPacketPlatformType.js';
 import { hasRpPayload } from '@/helpers/rpPayload.js';
 import type { CreatePostToOptions } from '@/services/createPostTo.js';
-import { useComposeStateStore, type CompositePost } from '@/store/useComposeStore.js';
+import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
 import type { ComposeType } from '@/types/compose.js';
 
 export async function refreshProfileFeed(source: SocialPlatform) {

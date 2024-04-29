@@ -112,10 +112,13 @@ export async function crossPostThread() {
 
         const allErrors = SORTED_SOURCES.map((x) => updatedPosts.find((y) => y.postError[x])?.postError[x] ?? null);
         const detailedMessage = SORTED_SOURCES.flatMap((x, i) =>
-            allErrors[i] ? [`${resolveSourceName(x)}:`, allErrors[i].message] : [],
+            allErrors[i] ? [`${resolveSourceName(x)}:`, `- ${allErrors[i].message}`, ''] : [],
         ).join('\n');
 
-        enqueueErrorMessage(detailedMessage);
+        enqueueErrorMessage(message, {
+            detail: detailedMessage,
+            persist: true,
+        });
         throw new Error(`Failed to post on: ${failedPlatforms.map(resolveSourceName).join(' ')}.`);
     } else {
         enqueueSuccessMessage(t`Your posts have published successfully.`);
