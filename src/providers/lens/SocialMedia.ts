@@ -100,10 +100,6 @@ class LensSocialMedia implements Provider {
         return lensClient.sdk.authentication.getAccessToken();
     }
 
-    deletePost(postId: string): Promise<void> {
-        throw new Error('Method not implemented.');
-    }
-
     async createSessionForProfileId(profileId: string): Promise<LensSession> {
         const walletClient = await getWalletClientRequired(config, {
             chainId: polygon.id,

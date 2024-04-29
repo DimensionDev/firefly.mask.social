@@ -318,6 +318,12 @@ export interface Provider {
      */
     publishPost: (post: Post) => Promise<string>;
 
+    /**
+     * Delete a post with the specified post ID.
+     *
+     * @param postId The ID of the post to delete.
+     * @returns
+     */
     deletePost: (postId: string) => Promise<boolean>;
 
     /**
@@ -366,14 +372,6 @@ export interface Provider {
      * @returns A promise that resolves to void.
      */
     collectPost?: (postId: string, collectionId?: string) => Promise<void>;
-
-    /**
-     * Delete a post with the specified post ID.
-     *
-     * @param postId The ID of the post to delete.
-     * @returns
-     */
-    deletePost: (postId: string) => Promise<void>;
 
     /**
      * Upvotes a post with the specified post ID.
