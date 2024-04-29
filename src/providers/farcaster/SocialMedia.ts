@@ -116,11 +116,11 @@ class FarcasterSocialMedia implements Provider {
         return FireflySocialMediaProvider.getLikedPostsByProfileId(profileId, indicator);
     }
 
-    async getReplesPostsByProfileId(
+    async getRepliesPostsByProfileId(
         profileId: string,
         indicator?: PageIndicator,
     ): Promise<Pageable<Post, PageIndicator>> {
-        return FireflySocialMediaProvider.getReplesPostsByProfileId(profileId, indicator);
+        return FireflySocialMediaProvider.getRepliesPostsByProfileId(profileId, indicator);
     }
 
     async getPostById(postId: string): Promise<Post> {

@@ -392,7 +392,7 @@ class FireflySocialMedia implements Provider {
         });
     }
 
-    async getReplesPostsByProfileId(profileId: string, indicator?: PageIndicator) {
+    async getRepliesPostsByProfileId(profileId: string, indicator?: PageIndicator) {
         return farcasterClient.withSession(async (session) => {
             const url = urlcat(FIREFLY_ROOT_URL, '/v2/user/timeline/farcaster/replies');
 

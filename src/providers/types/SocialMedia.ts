@@ -494,7 +494,7 @@ export interface Provider {
      * @param indicator Optional PageIndicator for pagination.
      * @returns A promise that resolves to a pageable list of Post objects.
      */
-    getReplesPostsByProfileId: (profileId: string, indicator?: PageIndicator) => Promise<Pageable<Post>>;
+    getRepliesPostsByProfileId: (profileId: string, indicator?: PageIndicator) => Promise<Pageable<Post>>;
 
     /**
      * Retrieves posts in a specific channel by ID.

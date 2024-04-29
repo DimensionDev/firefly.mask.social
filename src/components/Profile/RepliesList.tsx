@@ -25,7 +25,7 @@ export function RepliesList({ profileId, source }: RepliesListProps) {
             const provider = resolveSocialMediaProvider(source);
             if (!provider) return createPageable(EMPTY_LIST, undefined);
 
-            const posts = await provider.getReplesPostsByProfileId(profileId, createIndicator(undefined, pageParam));
+            const posts = await provider.getRepliesPostsByProfileId(profileId, createIndicator(undefined, pageParam));
 
             if (source === SocialPlatform.Lens) {
                 const ids = posts.data.flatMap((x) => [x.postId]);

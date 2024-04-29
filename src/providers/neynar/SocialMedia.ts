@@ -93,7 +93,7 @@ class NeynarSocialMedia implements Provider {
         throw new Error('Method not implemented.');
     }
 
-    async getReplesPostsByProfileId(
+    async getRepliesPostsByProfileId(
         profileId: string,
         indicator?: PageIndicator,
     ): Promise<Pageable<Post, PageIndicator>> {
