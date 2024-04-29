@@ -11,11 +11,7 @@ import { LikedFeedList } from '@/components/Profile/LikedFeedList.js';
 import { MediaList } from '@/components/Profile/MediaList.js';
 import { RepliesList } from '@/components/Profile/RepliesList.js';
 import { ProfileTabType, SocialPlatform } from '@/constants/enum.js';
-import {
-    SORTED_FARCASTER_PROFILE_TAB_TYPE,
-    SORTED_LENS_PROFILE_TAB_TYPE,
-    SORTED_PROFILE_TAB_TYPE,
-} from '@/constants/index.js';
+import { SORTED_PROFILE_TAB_TYPE } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 
 const ContentList = memo(function ContentList({
@@ -89,18 +85,7 @@ export function Tabs({ profileId, source }: TabsProps) {
                         title: <Trans>Channels</Trans>,
                     },
                 ]
-                    .filter((x) => {
-                        switch (source) {
-                            case SocialPlatform.Lens:
-                                return SORTED_LENS_PROFILE_TAB_TYPE.includes(x.type);
-                            case SocialPlatform.Farcaster:
-                                return SORTED_FARCASTER_PROFILE_TAB_TYPE.includes(x.type);
-                            case SocialPlatform.Twitter:
-                                return SORTED_PROFILE_TAB_TYPE.includes(x.type);
-                            default:
-                                return SORTED_PROFILE_TAB_TYPE.includes(x.type);
-                        }
-                    })
+                    .filter((x) => SORTED_PROFILE_TAB_TYPE[source].includes(x.type))
                     .map(({ type, title }) => (
                         <div key={type} className=" flex flex-col">
                             <ClickableButton
