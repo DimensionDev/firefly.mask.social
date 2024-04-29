@@ -30,7 +30,8 @@ export const SORTED_LENS_PROFILE_TAB_TYPE = [
 ];
 export const SORTED_FARCASTER_PROFILE_TAB_TYPE = [ProfileTabType.Feed, ProfileTabType.Replies, ProfileTabType.Liked];
 export const SORTED_PROFILE_TAB_TYPE = [ProfileTabType.Feed];
-export const SORTED_SEARCH_TYPE = [SearchType.Posts, SearchType.Users, SearchType.Channels];
+export const SORTED_SEARCH_TYPE = [SearchType.Posts, SearchType.Users];
+export const SORTED_FARCASTER_SEARCH_TYPE = [SearchType.Posts, SearchType.Users, SearchType.Channels];
 export const SORTED_SOURCES = [SocialPlatform.Farcaster, SocialPlatform.Lens, SocialPlatform.Twitter];
 export const SORTED_RESTECTION_TYPE = [RestrictionType.Everyone, RestrictionType.OnlyPeopleYouFollow];
 
