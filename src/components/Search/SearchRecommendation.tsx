@@ -3,6 +3,7 @@
 import { t, Trans } from '@lingui/macro';
 import { createIndicator, type Pageable, type PageIndicator } from '@masknet/shared-base';
 import { useQuery } from '@tanstack/react-query';
+import { first } from 'lodash-es';
 import { useRouter } from 'next/navigation.js';
 import { useDebounce } from 'usehooks-ts';
 
@@ -22,7 +23,6 @@ import type { Profile } from '@/providers/types/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useSearchHistoryStateStore } from '@/store/useSearchHistoryStore.js';
 import { type SearchState, useSearchStateStore } from '@/store/useSearchStore.js';
-import { first } from 'lodash-es';
 
 interface SearchRecommendationProps {
     keyword: string;
