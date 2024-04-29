@@ -71,7 +71,7 @@
         "lodash-es": "^4.17.21",
         "next": "^14.1.0",
         "next-auth": "^4.24.7",
-        "notistack": "2.0.8",
+        "notistack": "3.0.1",
         "plyr-react": "^5.3.0",
         "postcss": "^8.4.30",
         "protobufjs": "^7.2.5",
