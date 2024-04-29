@@ -34,7 +34,7 @@ export const ErrorReportSnackbar = forwardRef<HTMLDivElement, ReportCompleteProp
         const url = new URLSearchParams();
         url.set('title', title as string);
         url.set('body', body as string);
-        return 'https://github.com/DimensionDev/Maskbook/issues/new?' + url.toString();
+        return 'https://github.com/DimensionDev/firefly.mask.social/issues/new?' + url.toString();
     }, [title, body]);
 
     return (
