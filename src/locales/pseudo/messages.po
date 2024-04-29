@@ -193,9 +193,6 @@ msgstr ""
 msgid "Connect Wallet"
 msgstr ""
 
-msgid "{mutualFollowerCount, plural, one {Mutual} other {Mutuals}}"
-msgstr ""
-
 msgid "Feed"
 msgstr ""
 
