@@ -154,7 +154,7 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
                 </>
             ) : null}
 
-            {!!keyword ? (
+            {!!debouncedKeyword ? (
                 <>
                     {isLoading ? (
                         <div className="flex flex-col items-center space-y-2 px-4 pb-5 pt-2 text-center text-sm font-bold">
