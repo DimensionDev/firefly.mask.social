@@ -28,16 +28,36 @@
 
         if (!isValidBrowser) {
             var locale = getCookie('locale');
-            var browserTips = document.createElement('div');
-            browserTips.setAttribute(
-                'style',
-                'position: fixed; left: 0; top: 0; width: 100%; z-index: 9999; padding: 10px; text-align: center; font-size: 12px; line-height: 18px; background-color: #8e96ff !important',
-            );
-            browserTips.innerHTML =
-                locale === 'zh-Hans'
-                    ? '请使用 <a target="_blank" rel="noreferrer noopener" href="https://www.google.com/chrome/" style="color: rgb(146, 80, 255)!important; font-weight: 700;">Chrome</a> 或 <a target="_blank" rel="noreferrer noopener" href="https://firefly.land/#download" style="color: rgb(146, 80, 255); font-weight: 700;">下载</a> 我们的APP浏览'
-                    : 'Please use <a target="_blank" rel="noreferrer noopener" href="https://www.google.com/chrome/" style="color: rgb(146, 80, 255)!important; font-weight: 700;">Chrome</a> or <a target="_blank" rel="noreferrer noopener" href="https://firefly.land/#download" style="color: rgb(146, 80, 255); font-weight: 700;">download</a> our app to explore';
-            document.body.appendChild(browserTips);
+            const isCN = locale === 'zh-Hans';
+
+            const matchMedia = window?.matchMedia('(prefers-color-scheme: dark)');
+            const showTip = (e) => {
+                const isDarkMode = e ? e.matches : matchMedia.matches;
+                console.log('isDarkMode', isDarkMode);
+                const bgColor = isDarkMode ? 'var(--color-dark-bottom)' : 'white';
+
+                var browserTips = document.createElement('div');
+                browserTips.setAttribute(
+                    'style',
+                    `position: fixed; left: 0; top: 0; width: 100%; z-index: 9999; padding: 10px; text-align: center; font-size: 12px; line-height: 18px; background-color: ${bgColor} !important`,
+                );
+
+                const keywordColor = isDarkMode ? 'var(--color-light-main)' : 'rgb(146, 80, 255)';
+                const keywordTag = (link, name) =>
+                    `<a target="_blank" rel="noreferrer noopener" href="${link}" 
+                        style="color:${keywordColor} !important;
+                        font-weight: bold;"
+                     >${name}</a>`;
+
+                const chromeLinkTag = keywordTag('https://www.google.com/chrome/', 'Chrome');
+                const downloadLinkTag = keywordTag('https://firefly.land/#download', isCN ? '下载' : 'download');
+                browserTips.innerHTML = isCN
+                    ? `请使用 ${chromeLinkTag} 或 ${downloadLinkTag} 我们的APP浏览`
+                    : `Please use ${chromeLinkTag} or ${downloadLinkTag} our app to explore more`;
+                document.body.appendChild(browserTips);
+            };
+            showTip();
+            matchMedia.addEventListener('change', showTip);
         }
     } catch (error) {
         console.error('Failed to detect bowser, reason: ', error.message);
