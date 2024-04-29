@@ -51,6 +51,10 @@ class WarpcastSocialMedia implements Provider {
         throw new Error('Method not implemented.');
     }
 
+    deletePost(postId: string): Promise<void> {
+        throw new Error('Method not implemented.');
+    }
+
     getProfilesByAddress(address: string): Promise<Profile[]> {
         throw new Error('Method not implemented.');
     }
