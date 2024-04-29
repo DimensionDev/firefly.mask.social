@@ -89,6 +89,12 @@ export interface Attachment {
 export type PostType = 'Post' | 'Comment' | 'Quote' | 'Mirror';
 
 export interface Post {
+    /**
+     * For Farcaster, it's hash of the cast.
+     * For Lens, it's id of the publication, which is different from post id.
+     * TODO id for Twitter
+     */
+    publicationId: string;
     type?: PostType;
     /** It's `hash` for Farcaster */
     postId: string;

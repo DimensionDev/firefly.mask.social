@@ -59,6 +59,7 @@ function formatContent(cast: Cast): Post['metadata']['content'] {
 
 export function formatFarcasterPostFromFirefly(cast: Cast, type?: PostType): Post {
     return {
+        publicationId: cast.hash,
         type: type ?? cast.parentCast ? 'Comment' : 'Post',
         postId: cast.hash,
         parentPostId: cast.parent_hash,

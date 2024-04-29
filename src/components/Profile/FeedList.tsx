@@ -28,7 +28,7 @@ export function FeedList({ profileId, source }: FeedListProps) {
             const posts = await provider.getPostsByProfileId(profileId, createIndicator(undefined, pageParam));
 
             if (source === SocialPlatform.Lens) {
-                const ids = posts.data.flatMap((x) => [x.postId]);
+                const ids = posts.data.map((x) => x.postId);
                 await fetchAndStoreViews(ids);
             }
             return posts;
@@ -44,7 +44,7 @@ export function FeedList({ profileId, source }: FeedListProps) {
             queryResult={queryResult}
             VirtualListProps={{
                 listKey: `${ScrollListKey.Profile}:${profileId}`,
-                computeItemKey: (index, post) => `${post.postId}-${index}`,
+                computeItemKey: (index, post) => `${post.publicationId}-${post.postId}-${index}`,
                 itemContent: (index, post) => getPostItemContent(index, post),
             }}
             NoResultsFallbackProps={{
