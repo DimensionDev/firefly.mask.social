@@ -76,6 +76,9 @@ msgstr "<0>You</0> and {0} others recasted"
 msgid "Change Wallet"
 msgstr "Change Wallet"
 
+msgid "Report on GitHub"
+msgstr "Report on GitHub"
+
 msgid "OpenGraph"
 msgstr "OpenGraph"
 

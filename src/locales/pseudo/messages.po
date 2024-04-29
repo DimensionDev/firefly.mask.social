@@ -76,6 +76,9 @@ msgstr ""
 msgid "Change Wallet"
 msgstr ""
 
+msgid "Report on GitHub"
+msgstr ""
+
 msgid "OpenGraph"
 msgstr ""
 

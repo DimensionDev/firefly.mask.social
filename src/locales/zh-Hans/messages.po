@@ -81,6 +81,9 @@ msgstr "<0> 你 </0> 和 {0} 人都转发了"
 msgid "Change Wallet"
 msgstr "更换钱包"
 
+msgid "Report on GitHub"
+msgstr ""
+
 msgid "OpenGraph"
 msgstr "OpenGraph"
 
