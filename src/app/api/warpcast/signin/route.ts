@@ -9,7 +9,7 @@ import { WARPCAST_ROOT_URL } from '@/constants/index.js';
 import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 
-const ONE_YEAR = 60 * 60 * 24 * 1000 * 365;
+const ONE_YEAR = 60 * 60 * 24 * 365; // in seconds
 
 const SIGNED_KEY_REQUEST_VALIDATOR_EIP_712_DOMAIN = {
     name: 'Farcaster SignedKeyRequestValidator',
