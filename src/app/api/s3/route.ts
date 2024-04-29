@@ -6,7 +6,6 @@ import type { NextRequest } from 'next/server.js';
 import { v4 as uuid } from 'uuid';
 import { z } from 'zod';
 
-import { env } from '@/constants/env.js';
 import { createErrorResponseJSON } from '@/helpers/createErrorResponseJSON.js';
 import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
 
@@ -32,15 +31,15 @@ export async function PUT(req: NextRequest) {
         const file = formData.get('file') as File;
         fileSchema.parse(file);
         const client = new S3Client({
-            region: env.internal.S3_REGION,
+            region: process.env.S3_REGION,
             credentials: {
-                accessKeyId: env.internal.S3_ACCESS_KEY_ID,
-                secretAccessKey: env.internal.S3_ACCESS_KEY_SECRET,
+                accessKeyId: process.env.S3_ACCESS_KEY_ID,
+                secretAccessKey: process.env.S3_ACCESS_KEY_SECRET,
             },
             maxAttempts: 5,
         });
         const params = {
-            Bucket: env.internal.S3_BUCKET,
+            Bucket: process.env.S3_BUCKET,
             Key: uuid(),
             Body: file,
             ContentType: file.type,
@@ -51,7 +50,7 @@ export async function PUT(req: NextRequest) {
         });
         await task.done();
         return createSuccessResponseJSON({
-            link: `https://${env.internal.S3_HOST}/${params.Key}`,
+            link: `https://${process.env.S3_HOST}/${params.Key}`,
         });
     } catch (error) {
         if (error instanceof ParameterError) {

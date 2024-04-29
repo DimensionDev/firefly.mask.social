@@ -41,5 +41,11 @@ declare namespace NodeJS {
 
         NEXT_PUBLIC_REDPACKET_CHANNEL_KEY: string;
         NEXT_PUBLIC_REDPACKET_CHANNEL_URL: string;
+
+        S3_HOST: string
+        S3_ACCESS_KEY_SECRET: string
+        S3_ACCESS_KEY_ID: string
+        S3_BUCKET: string
+        S3_REGION: string
     }
 }
