@@ -31,10 +31,6 @@ class TwitterSocialMedia implements Provider {
         throw new Error('Method not implemented.');
     }
 
-    deletePost(postId: string): Promise<void> {
-        throw new Error('Method not implemented.');
-    }
-
     getProfilesByAddress(address: string): Promise<Profile[]> {
         throw new Error('Method not implemented.');
     }
@@ -264,6 +260,22 @@ class TwitterSocialMedia implements Provider {
 
         if (!response.success) throw new Error(t`Failed to publish post.`);
         return response.data.id;
+    }
+
+    async deletePost(tweetId: string): Promise<boolean> {
+        const response = await fetchJSON<
+            ResponseJSON<{
+                deleted: boolean;
+            }>
+        >(`/api/twitter/${tweetId}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        if (!response.success) throw new Error(t`Failed to publish post.`);
+        return response.data.deleted;
     }
 }
 

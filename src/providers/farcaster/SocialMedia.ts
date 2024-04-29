@@ -4,6 +4,7 @@ import { attemptUntil } from '@masknet/web3-shared-base';
 
 import { SocialPlatform } from '@/constants/enum.js';
 import { SetQueryDataForCommentPost } from '@/decorators/SetQueryDataForCommentPost.js';
+import { SetQueryDataForDeletePost } from '@/decorators/SetQueryDataForDeletePost.js';
 import { SetQueryDataForLikePost } from '@/decorators/SetQueryDataForLikePost.js';
 import { SetQueryDataForMirrorPost } from '@/decorators/SetQueryDataForMirrorPost.js';
 import { SetQueryDataForPosts } from '@/decorators/SetQueryDataForPosts.js';
@@ -23,6 +24,7 @@ import { WarpcastSocialMediaProvider } from '@/providers/warpcast/SocialMedia.js
 @SetQueryDataForLikePost(SocialPlatform.Farcaster)
 @SetQueryDataForMirrorPost(SocialPlatform.Farcaster)
 @SetQueryDataForCommentPost(SocialPlatform.Farcaster)
+@SetQueryDataForDeletePost(SocialPlatform.Farcaster)
 @SetQueryDataForPosts
 class FarcasterSocialMedia implements Provider {
     quotePost(postId: string, post: Post): Promise<string> {
@@ -34,10 +36,6 @@ class FarcasterSocialMedia implements Provider {
     }
 
     collectPost(postId: string, collectionId?: string): Promise<void> {
-        throw new Error('Method not implemented.');
-    }
-
-    deletePost(postId: string): Promise<void> {
         throw new Error('Method not implemented.');
     }
 
@@ -192,6 +190,13 @@ class FarcasterSocialMedia implements Provider {
         const { isCustodyWallet, isGrantByPermission } = getFarcasterSessionType();
         if (isCustodyWallet) return WarpcastSocialMediaProvider.publishPost(post);
         if (isGrantByPermission) return HubbleSocialMediaProvider.publishPost(post);
+        throw new Error(t`No session found.`);
+    }
+
+    async deletePost(postId: string): Promise<boolean> {
+        const { isCustodyWallet, isGrantByPermission } = getFarcasterSessionType();
+        if (isCustodyWallet) return WarpcastSocialMediaProvider.deletePost(postId);
+        if (isGrantByPermission) return HubbleSocialMediaProvider.deletePost(postId);
         throw new Error(t`No session found.`);
     }
 

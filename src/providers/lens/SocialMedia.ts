@@ -30,6 +30,7 @@ import { lensClient } from '@/configs/lensClient.js';
 import { config } from '@/configs/wagmiClient.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { SetQueryDataForCommentPost } from '@/decorators/SetQueryDataForCommentPost.js';
+import { SetQueryDataForDeletePost } from '@/decorators/SetQueryDataForDeletePost.js';
 import { SetQueryDataForLikePost } from '@/decorators/SetQueryDataForLikePost.js';
 import { SetQueryDataForMirrorPost } from '@/decorators/SetQueryDataForMirrorPost.js';
 import { SetQueryDataForPosts } from '@/decorators/SetQueryDataForPosts.js';
@@ -60,6 +61,7 @@ import type { ResponseJSON } from '@/types/index.js';
 @SetQueryDataForLikePost(SocialPlatform.Lens)
 @SetQueryDataForMirrorPost(SocialPlatform.Lens)
 @SetQueryDataForCommentPost(SocialPlatform.Lens)
+@SetQueryDataForDeletePost(SocialPlatform.Lens)
 @SetQueryDataForPosts
 class LensSocialMedia implements Provider {
     getChannelById(channelId: string): Promise<Channel> {
@@ -96,10 +98,6 @@ class LensSocialMedia implements Provider {
 
     getAccessToken() {
         return lensClient.sdk.authentication.getAccessToken();
-    }
-
-    deletePost(postId: string): Promise<void> {
-        throw new Error('Method not implemented.');
     }
 
     async createSessionForProfileId(profileId: string): Promise<LensSession> {
@@ -200,6 +198,13 @@ class LensSocialMedia implements Provider {
 
             return broadcastValue.id;
         }
+    }
+
+    async deletePost(postId: string) {
+        const response = await lensClient.sdk.publication.hide({
+            for: postId,
+        });
+        return response.isSuccess().valueOf();
     }
 
     async mirrorPost(postId: string, options?: { onMomoka?: boolean }): Promise<string> {

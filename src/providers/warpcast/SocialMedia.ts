@@ -51,10 +51,6 @@ class WarpcastSocialMedia implements Provider {
         throw new Error('Method not implemented.');
     }
 
-    deletePost(postId: string): Promise<void> {
-        throw new Error('Method not implemented.');
-    }
-
     getProfilesByAddress(address: string): Promise<Profile[]> {
         throw new Error('Method not implemented.');
     }
@@ -429,6 +425,20 @@ class WarpcastSocialMedia implements Provider {
         );
 
         return cast.hash;
+    }
+
+    async deletePost(postId: string) {
+        const url = urlcat(WARPCAST_ROOT_URL, '/casts');
+        await farcasterClient.fetch<CastResponse>(
+            url,
+            {
+                method: 'DELETE',
+                body: JSON.stringify({ castHash: postId }),
+            },
+            true,
+        );
+
+        return true;
     }
 
     async upvotePost(postId: string) {
