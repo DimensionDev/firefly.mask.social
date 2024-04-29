@@ -206,7 +206,7 @@ class LensSocialMedia implements Provider {
         return response.isSuccess().valueOf();
     }
 
-    private async mirrorPostOnMomoka(postId: string) {
+    async mirrorPostOnMomoka(postId: string) {
         const result = await lensClient.sdk.publication.mirrorOnMomoka({
             mirrorOn: postId,
         });
@@ -238,7 +238,7 @@ class LensSocialMedia implements Provider {
         }
     }
 
-    private async mirrorPostOnChain(postId: string) {
+    async mirrorPostOnChain(postId: string) {
         const result = await lensClient.sdk.publication.mirrorOnchain({
             mirrorOn: postId,
         });
@@ -287,7 +287,7 @@ class LensSocialMedia implements Provider {
         return postId;
     }
 
-    private async quotePostOnMomoka(postId: string, intro: string, signless?: boolean) {
+    async quotePostOnMomoka(postId: string, intro: string, signless?: boolean) {
         if (signless) {
             const result = await lensClient.sdk.publication.quoteOnMomoka({
                 quoteOn: postId,
@@ -329,7 +329,7 @@ class LensSocialMedia implements Provider {
         }
     }
 
-    private async quotePostOnChain(postId: string, intro: string) {
+    async quotePostOnChain(postId: string, intro: string) {
         const result = await lensClient.sdk.publication.quoteOnchain({
             quoteOn: postId,
             contentURI: intro,
@@ -400,7 +400,7 @@ class LensSocialMedia implements Provider {
         if (result.isFailure()) throw new Error(`Something went wrong: ${JSON.stringify(result.isFailure())}`);
     }
 
-    private async commentPostOnMomoka(postId: string, comment: string, signless?: boolean) {
+    async commentPostOnMomoka(postId: string, comment: string, signless?: boolean) {
         if (signless) {
             const result = await lensClient.sdk.publication.commentOnMomoka({
                 commentOn: postId,
@@ -442,7 +442,7 @@ class LensSocialMedia implements Provider {
         }
     }
 
-    private async commentPostOnChain(postId: string, comment: string) {
+    async commentPostOnChain(postId: string, comment: string) {
         const result = await lensClient.sdk.publication.commentOnchain({
             commentOn: postId,
             contentURI: comment,
