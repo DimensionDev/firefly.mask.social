@@ -318,6 +318,8 @@ export interface Provider {
      */
     publishPost: (post: Post) => Promise<string>;
 
+    deletePost: (postId: string) => Promise<boolean>;
+
     /**
      * Mirrors a post with the specified post ID.
      *

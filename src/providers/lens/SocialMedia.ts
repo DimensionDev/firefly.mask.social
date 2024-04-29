@@ -29,6 +29,7 @@ import { polygon } from 'viem/chains';
 import { lensClient } from '@/configs/lensClient.js';
 import { config } from '@/configs/wagmiClient.js';
 import { SocialPlatform } from '@/constants/enum.js';
+import { DeletePostFromQueryData } from '@/decorators/DeletePostFromQueryData.js';
 import { SetQueryDataForCommentPost } from '@/decorators/SetQueryDataForCommentPost.js';
 import { SetQueryDataForLikePost } from '@/decorators/SetQueryDataForLikePost.js';
 import { SetQueryDataForMirrorPost } from '@/decorators/SetQueryDataForMirrorPost.js';
@@ -60,6 +61,7 @@ import type { ResponseJSON } from '@/types/index.js';
 @SetQueryDataForLikePost(SocialPlatform.Lens)
 @SetQueryDataForMirrorPost(SocialPlatform.Lens)
 @SetQueryDataForCommentPost(SocialPlatform.Lens)
+@DeletePostFromQueryData(SocialPlatform.Lens)
 @SetQueryDataForPosts
 class LensSocialMedia implements Provider {
     getChannelById(channelId: string): Promise<Channel> {
@@ -200,6 +202,13 @@ class LensSocialMedia implements Provider {
 
             return broadcastValue.id;
         }
+    }
+
+    async deletePost(postId: string) {
+        const response = await lensClient.sdk.publication.hide({
+            for: postId,
+        });
+        return response.isSuccess().valueOf();
     }
 
     async mirrorPost(postId: string, options?: { onMomoka?: boolean }): Promise<string> {

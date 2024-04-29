@@ -207,6 +207,9 @@ class FireflySocialMedia implements Provider {
     async publishPost(post: Post): Promise<string> {
         throw new Error('Method not implemented.');
     }
+    async deletePost(postId: string): Promise<boolean> {
+        throw new Error('Method not implemented.');
+    }
 
     async upvotePost(postId: string): Promise<void> {
         throw new Error('Method not implemented.');

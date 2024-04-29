@@ -431,6 +431,20 @@ class WarpcastSocialMedia implements Provider {
         return cast.hash;
     }
 
+    async deletePost(postId: string) {
+        const url = urlcat(WARPCAST_ROOT_URL, '/casts');
+        await farcasterClient.fetch<CastResponse>(
+            url,
+            {
+                method: 'DELETE',
+                body: JSON.stringify({ castHash: postId }),
+            },
+            true,
+        );
+
+        return true;
+    }
+
     async upvotePost(postId: string) {
         const url = urlcat(WARPCAST_ROOT_URL, '/cast-likes');
         const { result: reaction } = await farcasterClient.fetch<ReactionResponse>(
