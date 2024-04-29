@@ -132,7 +132,7 @@ class FireflySocialMedia implements Provider {
     async searchChannels(q: string, indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {
         const url = urlcat(FIREFLY_ROOT_URL, '/v2/search/channels', {
             keyword: q,
-            size: 25,
+            size: 20,
             cursor: indicator?.id,
         });
         const response = await fetchJSON<SearchChannelsResponse>(url, {
