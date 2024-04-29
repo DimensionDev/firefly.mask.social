@@ -3,6 +3,7 @@ import { safeUnreachable } from '@masknet/kit';
 
 import { SocialPlatform } from '@/constants/enum.js';
 import { SORTED_SOURCES } from '@/constants/index.js';
+import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { failedAt } from '@/helpers/isPublishedThread.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
@@ -89,6 +90,9 @@ export async function crossPostThread() {
             skipIfNoParentPost: true,
             skipPublishedCheck: true,
             skipRefreshFeeds: index !== posts.length - 1,
+            options: {
+                noSuccessMessage: true,
+            },
         });
     }
 
@@ -96,7 +100,7 @@ export async function crossPostThread() {
     const failedPlatforms = failedAt(updatedPosts);
 
     if (failedPlatforms.length) {
-        throw new Error(
+        enqueueErrorMessage(
             plural(failedPlatforms.length, {
                 one: `Your post failed to publish on ${resolveSourceName(
                     failedPlatforms[0],
@@ -107,5 +111,7 @@ export async function crossPostThread() {
                 other: "Your post failed to publish due to an error; Click 'Retry' to attempt posting again.",
             }),
         );
+    } else {
+        enqueueSuccessMessage(t`Your posts have published successfully.`);
     }
 }

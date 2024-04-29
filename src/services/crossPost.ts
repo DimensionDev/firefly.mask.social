@@ -12,6 +12,7 @@ import { isPublishedPost } from '@/helpers/isPublishedPost.js';
 import { resolvePostTo } from '@/helpers/resolvePostTo.js';
 import { resolveRedPacketPlatformType } from '@/helpers/resolveRedPacketPlatformType.js';
 import { hasRpPayload } from '@/helpers/rpPayload.js';
+import type { CreatePostToOptions } from '@/services/createPostTo.js';
 import { type CompositePost } from '@/store/useComposeStore.js';
 import type { ComposeType } from '@/types/compose.js';
 
@@ -93,8 +94,10 @@ interface CrossPostOptions {
     skipIfNoParentPost?: boolean;
     // skip published check
     skipPublishedCheck?: boolean;
-    /** If it's a post in thread, only refresh the feeds after sending the last post. */
+    // If it's a post in thread, only refresh the feeds after sending the last post.
     skipRefreshFeeds?: boolean;
+    // override createPostTo options
+    options?: Partial<CreatePostToOptions>;
 }
 
 export async function crossPost(
@@ -105,6 +108,7 @@ export async function crossPost(
         skipIfNoParentPost = false,
         skipPublishedCheck = false,
         skipRefreshFeeds,
+        options,
     }: CrossPostOptions = {},
 ) {
     const { availableSources } = compositePost;
@@ -122,7 +126,7 @@ export async function crossPost(
                     return null;
                 }
 
-                return resolvePostTo(x)(type, compositePost);
+                return resolvePostTo(x)(type, compositePost, options);
             } else {
                 return null;
             }

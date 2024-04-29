@@ -103,6 +103,9 @@ msgstr ""
 msgid "Copied"
 msgstr ""
 
+msgid "Your posts have published successfully."
+msgstr ""
+
 msgid "Retry"
 msgstr ""
 

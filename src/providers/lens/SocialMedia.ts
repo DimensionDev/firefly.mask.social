@@ -483,7 +483,6 @@ class LensSocialMedia implements Provider {
         }
 
         const post = await this.getPostByTxHashWithPolling(resultValue.txHash);
-
         return post.postId;
     }
 

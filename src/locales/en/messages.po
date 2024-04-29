@@ -103,6 +103,9 @@ msgstr "Username is required."
 msgid "Copied"
 msgstr "Copied"
 
+msgid "Your posts have published successfully."
+msgstr "Your posts have published successfully."
+
 msgid "Retry"
 msgstr "Retry"
 
