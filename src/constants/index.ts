@@ -22,16 +22,21 @@ export const RP_HASH_TAG = '#FireflyLuckyDrop';
 export const EMPTY_LIST = Object.freeze([]) as never[];
 export const EMPTY_OBJECT = Object.freeze({}) as Record<string, never>;
 
-export const SORTED_LENS_PROFILE_TAB_TYPE = [
-    ProfileTabType.Feed,
-    ProfileTabType.Replies,
-    ProfileTabType.Media,
-    ProfileTabType.Collected,
-];
-export const SORTED_FARCASTER_PROFILE_TAB_TYPE = [ProfileTabType.Feed, ProfileTabType.Replies, ProfileTabType.Liked];
-export const SORTED_PROFILE_TAB_TYPE = [ProfileTabType.Feed];
-export const SORTED_SEARCH_TYPE = [SearchType.Posts, SearchType.Users];
-export const SORTED_FARCASTER_SEARCH_TYPE = [SearchType.Posts, SearchType.Users, SearchType.Channels];
+export const SORTED_PROFILE_TAB_TYPE: Record<SocialPlatform, ProfileTabType[]> = {
+    [SocialPlatform.Lens]: [
+        ProfileTabType.Feed,
+        ProfileTabType.Replies,
+        ProfileTabType.Media,
+        ProfileTabType.Collected,
+    ],
+    [SocialPlatform.Farcaster]: [ProfileTabType.Feed, ProfileTabType.Replies, ProfileTabType.Liked],
+    [SocialPlatform.Twitter]: [ProfileTabType.Feed],
+};
+export const SORTED_SEARCH_TYPE: Record<SocialPlatform, SearchType[]> = {
+    [SocialPlatform.Lens]: [SearchType.Posts, SearchType.Users],
+    [SocialPlatform.Farcaster]: [SearchType.Posts, SearchType.Users, SearchType.Channels],
+    [SocialPlatform.Twitter]: [SearchType.Posts, SearchType.Users],
+};
 export const SORTED_SOURCES = [SocialPlatform.Farcaster, SocialPlatform.Lens, SocialPlatform.Twitter];
 export const SORTED_RESTECTION_TYPE = [RestrictionType.Everyone, RestrictionType.OnlyPeopleYouFollow];
 

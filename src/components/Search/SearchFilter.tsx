@@ -3,8 +3,8 @@
 import { Trans } from '@lingui/macro';
 import { memo } from 'react';
 
-import { SearchType, SocialPlatform } from '@/constants/enum.js';
-import { SORTED_FARCASTER_SEARCH_TYPE, SORTED_SEARCH_TYPE } from '@/constants/index.js';
+import { SearchType } from '@/constants/enum.js';
+import { SORTED_SEARCH_TYPE } from '@/constants/index.js';
 import { DraggablePopoverRef } from '@/modals/controls.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useSearchStateStore } from '@/store/useSearchStore.js';
@@ -34,12 +34,7 @@ export const SearchFilter = memo(function SearchFilter() {
                             label: <Trans>Channels</Trans>,
                         },
                     ]
-                        .filter((x) => {
-                            if (currentSource === SocialPlatform.Farcaster)
-                                return SORTED_FARCASTER_SEARCH_TYPE.includes(x.type);
-
-                            return SORTED_SEARCH_TYPE.includes(x.type);
-                        })
+                        .filter((x) => SORTED_SEARCH_TYPE[currentSource].includes(x.type))
                         .map((filter) => (
                             <div key={filter.type} className="flex items-center">
                                 <label
