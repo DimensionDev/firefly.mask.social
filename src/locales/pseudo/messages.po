@@ -76,6 +76,9 @@ msgstr ""
 msgid "Change Wallet"
 msgstr ""
 
+msgid "Report on GitHub"
+msgstr ""
+
 msgid "OpenGraph"
 msgstr ""
 
@@ -101,6 +104,15 @@ msgid "Username is required."
 msgstr ""
 
 msgid "Copied"
+msgstr ""
+
+msgid "Your posts have published successfully."
+msgstr ""
+
+msgid "Retry"
+msgstr ""
+
+msgid "Show less"
 msgstr ""
 
 msgid "comment"
@@ -218,6 +230,9 @@ msgid "Join our Telegram"
 msgstr ""
 
 msgid "Log out"
+msgstr ""
+
+msgid "{0, plural, one {Your post failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your post failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your post failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
 msgstr ""
 
 msgid "post"
@@ -502,6 +517,9 @@ msgstr ""
 msgid "Please input the url to be revalidated."
 msgstr ""
 
+msgid "Show more"
+msgstr ""
+
 msgid "Something went wrong. Please try again."
 msgstr ""
 
@@ -542,6 +560,9 @@ msgid "Failed to query the signed key state."
 msgstr ""
 
 msgid "Notifications"
+msgstr ""
+
+msgid "Posting..."
 msgstr ""
 
 msgid "No Lens profile found. Please change to another wallet."

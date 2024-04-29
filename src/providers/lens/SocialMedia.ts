@@ -579,7 +579,7 @@ class LensSocialMedia implements Provider {
     }
 
     async getPostByTxHashWithPolling(txHash: string): Promise<Post> {
-        return pollingWithRetry(this.getPostByTxHash.bind(this, txHash), 10, 2000);
+        return pollingWithRetry(this.getPostByTxHash.bind(this, txHash), 60, 2000);
     }
 
     async getCommentsById(

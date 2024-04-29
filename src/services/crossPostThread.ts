@@ -1,10 +1,12 @@
-import { t } from '@lingui/macro';
+import { plural, t } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
 
 import { SocialPlatform } from '@/constants/enum.js';
 import { SORTED_SOURCES } from '@/constants/index.js';
-import { isPublishedPost } from '@/helpers/isPublishedPost.js';
+import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import { failedAt } from '@/helpers/isPublishedThread.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
+import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { crossPost } from '@/services/crossPost.js';
 import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
@@ -31,9 +33,7 @@ async function getParentPostById(source: SocialPlatform, postId: string) {
         case SocialPlatform.Twitter:
             return { postId } as unknown as Post;
         case SocialPlatform.Lens:
-            const provider = resolveSocialMediaProvider(source);
-            if (!provider) throw new Error('No provider found.');
-            return provider.getPostById(postId);
+            return { postId } as unknown as Post;
         default:
             safeUnreachable(source);
             return null;
@@ -90,11 +90,37 @@ export async function crossPostThread() {
             skipIfNoParentPost: true,
             skipPublishedCheck: true,
             skipRefreshFeeds: index !== posts.length - 1,
+            options: {
+                noSuccessMessage: true,
+                noErrorMessage: true,
+            },
         });
     }
 
     const { posts: updatedPosts } = useComposeStateStore.getState();
-    if (!updatedPosts.every(isPublishedPost)) {
-        throw new Error('Posts failed to publish.');
+    const failedPlatforms = failedAt(updatedPosts);
+
+    if (failedPlatforms.length) {
+        const firstPlatform = failedPlatforms[0] ? resolveSourceName(failedPlatforms[0]) : '';
+        const secondPlatform = failedPlatforms[1] ? resolveSourceName(failedPlatforms[1]) : '';
+
+        const message = plural(failedPlatforms.length, {
+            one: `Your post failed to publish on ${firstPlatform} due to an error. Click 'Retry' to attempt posting again.`,
+            two: `Your post failed to publish on ${firstPlatform} and ${secondPlatform} due to an error. Click 'Retry' to attempt posting again.`,
+            other: "Your post failed to publish due to an error. Click 'Retry' to attempt posting again.",
+        });
+
+        const allErrors = SORTED_SOURCES.map((x) => updatedPosts.find((y) => y.postError[x])?.postError[x] ?? null);
+        const detailedMessage = SORTED_SOURCES.flatMap((x, i) =>
+            allErrors[i] ? [`${resolveSourceName(x)}:`, `- ${allErrors[i].message}`, ''] : [],
+        ).join('\n');
+
+        enqueueErrorMessage(message, {
+            detail: detailedMessage,
+            persist: true,
+        });
+        throw new Error(`Failed to post on: ${failedPlatforms.map(resolveSourceName).join(' ')}.`);
+    } else {
+        enqueueSuccessMessage(t`Your posts have published successfully.`);
     }
 }

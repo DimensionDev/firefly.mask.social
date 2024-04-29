@@ -12,7 +12,8 @@ import { isPublishedPost } from '@/helpers/isPublishedPost.js';
 import { resolvePostTo } from '@/helpers/resolvePostTo.js';
 import { resolveRedPacketPlatformType } from '@/helpers/resolveRedPacketPlatformType.js';
 import { hasRpPayload } from '@/helpers/rpPayload.js';
-import { type CompositePost } from '@/store/useComposeStore.js';
+import type { CreatePostToOptions } from '@/services/createPostTo.js';
+import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
 import type { ComposeType } from '@/types/compose.js';
 
 export async function refreshProfileFeed(source: SocialPlatform) {
@@ -93,8 +94,10 @@ interface CrossPostOptions {
     skipIfNoParentPost?: boolean;
     // skip published check
     skipPublishedCheck?: boolean;
-    /** If it's a post in thread, only refresh the feeds after sending the last post. */
+    // If it's a post in thread, only refresh the feeds after sending the last post.
     skipRefreshFeeds?: boolean;
+    // override createPostTo options
+    options?: Partial<CreatePostToOptions>;
 }
 
 export async function crossPost(
@@ -105,12 +108,14 @@ export async function crossPost(
         skipIfNoParentPost = false,
         skipPublishedCheck = false,
         skipRefreshFeeds,
+        options,
     }: CrossPostOptions = {},
 ) {
+    const { updatePostInThread } = useComposeStateStore.getState();
     const { availableSources } = compositePost;
 
     const allSettled = await Promise.allSettled(
-        SORTED_SOURCES.map((x) => {
+        SORTED_SOURCES.map(async (x) => {
             if (availableSources.includes(x)) {
                 // post already published
                 if (skipIfPublishedPost && compositePost.postId[x]) {
@@ -122,7 +127,29 @@ export async function crossPost(
                     return null;
                 }
 
-                return resolvePostTo(x)(type, compositePost);
+                try {
+                    const result = await resolvePostTo(x)(type, compositePost, options);
+                    updatePostInThread(compositePost.id, (y) => ({
+                        ...y,
+                        postError: {
+                            ...y.postError,
+                            [x]: null,
+                        },
+                    }));
+                    return result;
+                } catch (error) {
+                    if (error instanceof Error) {
+                        updatePostInThread(compositePost.id, (y) => ({
+                            ...y,
+                            postError: {
+                                ...y.postError,
+                                [x]: error,
+                            },
+                        }));
+                    }
+
+                    throw error;
+                }
             } else {
                 return null;
             }
@@ -154,6 +181,11 @@ export async function crossPost(
     }
 
     // update red packet claim strategy
-    await updateRpClaimStrategy(updatedCompositePost);
+    try {
+        await updateRpClaimStrategy(updatedCompositePost);
+    } catch (error) {
+        console.error(`[cross post]: failed to update red packet claim strategy: ${error}`);
+    }
+
     return updatedCompositePost;
 }

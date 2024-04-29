@@ -35,7 +35,7 @@ export function ComposeSend(props: ComposeSendProps) {
     const isMedium = useIsMedium();
     const setEditorContent = useSetEditorContent();
 
-    const [{ loading }, handlePost] = useAsyncFn(async () => {
+    const [{ loading, error }, handlePost] = useAsyncFn(async () => {
         if (posts.length > 1) await crossPostThread();
         else {
             const updatedPost = await crossPost(type, post);
@@ -49,9 +49,9 @@ export function ComposeSend(props: ComposeSendProps) {
             }
         }
         ComposeModalRef.close();
-    }, [type, posts.length > 1, post]);
+    }, [type, post, posts.length > 1]);
 
-    const disabled = loading || posts.length > 1 ? posts.some((x) => !isValidPost(x)) : !isValidPost(post);
+    const disabled = loading || error || posts.length > 1 ? posts.some((x) => !isValidPost(x)) : !isValidPost(post);
 
     if (!isMedium) {
         return (
@@ -107,7 +107,18 @@ export function ComposeSend(props: ComposeSendProps) {
                 onClick={handlePost}
             >
                 {loading ? (
-                    <LoadingIcon width={16} height={16} className="animate-spin" />
+                    <>
+                        <LoadingIcon width={16} height={16} className="animate-spin" />
+                        <span>
+                            <Trans>Posting...</Trans>
+                        </span>
+                    </>
+                ) : error ? (
+                    <>
+                        <span>
+                            <Trans>Retry</Trans>
+                        </span>
+                    </>
                 ) : (
                     <>
                         <SendIcon width={18} height={18} className="mr-1 text-primaryBottom" />

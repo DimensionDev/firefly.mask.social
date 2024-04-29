@@ -76,6 +76,9 @@ msgstr "<0>You</0> and {0} others recasted"
 msgid "Change Wallet"
 msgstr "Change Wallet"
 
+msgid "Report on GitHub"
+msgstr "Report on GitHub"
+
 msgid "OpenGraph"
 msgstr "OpenGraph"
 
@@ -102,6 +105,15 @@ msgstr "Username is required."
 
 msgid "Copied"
 msgstr "Copied"
+
+msgid "Your posts have published successfully."
+msgstr "Your posts have published successfully."
+
+msgid "Retry"
+msgstr "Retry"
+
+msgid "Show less"
+msgstr "Show less"
 
 msgid "comment"
 msgstr "comment"
@@ -219,6 +231,9 @@ msgstr "Join our Telegram"
 
 msgid "Log out"
 msgstr "Log out"
+
+msgid "{0, plural, one {Your post failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your post failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your post failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
+msgstr "{0, plural, one {Your post failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your post failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your post failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
 
 msgid "post"
 msgstr "post"
@@ -502,6 +517,9 @@ msgstr "recasted your"
 msgid "Please input the url to be revalidated."
 msgstr "Please input the url to be revalidated."
 
+msgid "Show more"
+msgstr "Show more"
+
 msgid "Something went wrong. Please try again."
 msgstr "Something went wrong. Please try again."
 
@@ -543,6 +561,9 @@ msgstr "Failed to query the signed key state."
 
 msgid "Notifications"
 msgstr "Notifications"
+
+msgid "Posting..."
+msgstr "Posting..."
 
 msgid "No Lens profile found. Please change to another wallet."
 msgstr "No Lens profile found. Please change to another wallet."

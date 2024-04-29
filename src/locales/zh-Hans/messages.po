@@ -81,6 +81,9 @@ msgstr "<0> 你 </0> 和 {0} 人都转发了"
 msgid "Change Wallet"
 msgstr "更换钱包"
 
+msgid "Report on GitHub"
+msgstr ""
+
 msgid "OpenGraph"
 msgstr "OpenGraph"
 
@@ -107,6 +110,15 @@ msgstr ""
 
 msgid "Copied"
 msgstr "已复制"
+
+msgid "Your posts have published successfully."
+msgstr ""
+
+msgid "Retry"
+msgstr ""
+
+msgid "Show less"
+msgstr ""
 
 msgid "comment"
 msgstr "评论"
@@ -224,6 +236,9 @@ msgstr "加入我们的 Telegram"
 
 msgid "Log out"
 msgstr "登出"
+
+msgid "{0, plural, one {Your post failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your post failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your post failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
+msgstr ""
 
 msgid "post"
 msgstr "发帖"
@@ -507,6 +522,9 @@ msgstr "转帖了你的"
 msgid "Please input the url to be revalidated."
 msgstr "请输入 URL 重新验证："
 
+msgid "Show more"
+msgstr ""
+
 msgid "Something went wrong. Please try again."
 msgstr "出现错误，请重试。"
 
@@ -548,6 +566,9 @@ msgstr ""
 
 msgid "Notifications"
 msgstr "通知"
+
+msgid "Posting..."
+msgstr ""
 
 msgid "No Lens profile found. Please change to another wallet."
 msgstr "没有找到 Lens 账号，请连接另一个钱包。"

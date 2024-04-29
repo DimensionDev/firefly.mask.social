@@ -10,7 +10,7 @@ import { createDummyPost } from '@/helpers/createDummyPost.js';
 import { getUserLocale } from '@/helpers/getUserLocale.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
-import { createPostTo } from '@/services/createPostTo.js';
+import { createPostTo, type CreatePostToOptions } from '@/services/createPostTo.js';
 import { uploadToArweave } from '@/services/uploadToArweave.js';
 import { uploadFileToIPFS } from '@/services/uploadToIPFS.js';
 import { type CompositePost } from '@/store/useComposeStore.js';
@@ -237,7 +237,11 @@ async function quotePostForLens(
     return post;
 }
 
-export async function postToLens(type: ComposeType, compositePost: CompositePost) {
+export async function postToLens(
+    type: ComposeType,
+    compositePost: CompositePost,
+    options?: Partial<CreatePostToOptions>,
+) {
     const { chars, images, postId, parentPost, video } = compositePost;
 
     const lensPostId = postId.Lens;
@@ -288,6 +292,7 @@ export async function postToLens(type: ComposeType, compositePost: CompositePost
             const video = first(videos) ?? null;
             return quotePostForLens(currentProfile.profileId, lensParentPost.postId, readChars(chars), images, video);
         },
+        ...options,
     });
 
     return postTo(type, compositePost);
