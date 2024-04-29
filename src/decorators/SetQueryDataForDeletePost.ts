@@ -3,7 +3,7 @@ import { deletePostFromQueryData } from '@/helpers/deletePostFromQueryData.js';
 import type { Provider } from '@/providers/types/SocialMedia.js';
 import type { ClassType } from '@/types/index.js';
 
-export function DeletePostFromQueryData(source: SocialPlatform) {
+export function SetQueryDataForDeletePost(source: SocialPlatform) {
     return function decorator<T extends ClassType<Provider>>(target: T): T {
         const method = target.prototype.deletePost as Provider['deletePost'];
 

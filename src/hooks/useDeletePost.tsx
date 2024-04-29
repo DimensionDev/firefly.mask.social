@@ -22,7 +22,7 @@ export function useDeletePost(source: SocialPlatform) {
                     const url = `/profile?source=${SourceInURL.Lens}`;
                     router.replace(url);
                 }
-                enqueueSuccessMessage(<Trans>Delete post.</Trans>);
+                enqueueSuccessMessage(<Trans>Your post was deleted.</Trans>);
             } catch (err) {
                 enqueueErrorMessage(<Trans>Failed to delete post.</Trans>);
             }
