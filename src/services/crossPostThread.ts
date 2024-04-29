@@ -3,14 +3,13 @@ import { safeUnreachable } from '@masknet/kit';
 
 import { SocialPlatform } from '@/constants/enum.js';
 import { SORTED_SOURCES } from '@/constants/index.js';
-import { isPublishedPost } from '@/helpers/isPublishedPost.js';
+import { failedAt } from '@/helpers/isPublishedThread.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
+import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { crossPost } from '@/services/crossPost.js';
 import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
 import { useFarcasterStateStore } from '@/store/useProfileStore.js';
-import { failedAt } from '@/helpers/isPublishedThread.js';
-import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 
 function shouldCrossPost(index: number, post: CompositePost) {
     return SORTED_SOURCES.some((x) => post.availableSources.includes(x) && !post.postId[x] && !post.parentPost[x]);
