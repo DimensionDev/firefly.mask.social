@@ -40,6 +40,9 @@ msgstr ""
 msgid "Please be cautious when connecting your wallet, as malicious websites may attempt to access your funds."
 msgstr ""
 
+msgid "{followerCount, plural, one {Follower} other {Followers}}"
+msgstr ""
+
 msgid "Failed to mirror. {0}"
 msgstr ""
 
@@ -187,6 +190,9 @@ msgstr ""
 msgid "Connect Wallet"
 msgstr ""
 
+msgid "{mutualFollowerCount, plural, one {Mutual} other {Mutuals}}"
+msgstr ""
+
 msgid "Feed"
 msgstr ""
 
@@ -296,6 +302,9 @@ msgid "Add account"
 msgstr ""
 
 msgid "{0} Comments"
+msgstr ""
+
+msgid "Replies"
 msgstr ""
 
 msgid "Comment"
@@ -484,9 +493,6 @@ msgstr ""
 msgid "Please switch to the {chainName} network in your wallet."
 msgstr ""
 
-msgid "{followerCount, plural, one {# Follower} other {# Followers}}"
-msgstr ""
-
 msgid "There is no data available for display."
 msgstr ""
 
@@ -503,9 +509,6 @@ msgid "Unable to retrieve post details."
 msgstr ""
 
 msgid "Failed to publish post."
-msgstr ""
-
-msgid "{mutualFollowerCount, plural, one {# Mutual} other {# Mutuals}}"
 msgstr ""
 
 msgid "recasted your"

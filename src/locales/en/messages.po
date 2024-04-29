@@ -40,6 +40,9 @@ msgstr "Discover"
 msgid "Please be cautious when connecting your wallet, as malicious websites may attempt to access your funds."
 msgstr "Please be cautious when connecting your wallet, as malicious websites may attempt to access your funds."
 
+msgid "{followerCount, plural, one {Follower} other {Followers}}"
+msgstr "{followerCount, plural, one {Follower} other {Followers}}"
+
 msgid "Failed to mirror. {0}"
 msgstr "Failed to mirror. {0}"
 
@@ -187,6 +190,9 @@ msgstr "{type, select, compose {{0}} quote {{1}} reply {{2}} other {{3}}}"
 msgid "Connect Wallet"
 msgstr "Connect Wallet"
 
+msgid "{mutualFollowerCount, plural, one {Mutual} other {Mutuals}}"
+msgstr "{mutualFollowerCount, plural, one {Mutual} other {Mutuals}}"
+
 msgid "Feed"
 msgstr "Feed"
 
@@ -297,6 +303,9 @@ msgstr "Add account"
 
 msgid "{0} Comments"
 msgstr "{0} Comments"
+
+msgid "Replies"
+msgstr "Replies"
 
 msgid "Comment"
 msgstr "Comment"
@@ -484,9 +493,6 @@ msgstr "Light Mode"
 msgid "Please switch to the {chainName} network in your wallet."
 msgstr "Please switch to the {chainName} network in your wallet."
 
-msgid "{followerCount, plural, one {# Follower} other {# Followers}}"
-msgstr "{followerCount, plural, one {# Follower} other {# Followers}}"
-
 msgid "There is no data available for display."
 msgstr "There is no data available for display."
 
@@ -504,9 +510,6 @@ msgstr "Unable to retrieve post details."
 
 msgid "Failed to publish post."
 msgstr "Failed to publish post."
-
-msgid "{mutualFollowerCount, plural, one {# Mutual} other {# Mutuals}}"
-msgstr "{mutualFollowerCount, plural, one {# Mutual} other {# Mutuals}}"
 
 msgid "recasted your"
 msgstr "recasted your"
