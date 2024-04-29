@@ -110,7 +110,12 @@ export async function crossPostThread() {
             other: "Your post failed to publish due to an error. Click 'Retry' to attempt posting again.",
         });
 
-        enqueueErrorMessage(message);
+        const allErrors = SORTED_SOURCES.map((x) => updatedPosts.find((y) => y.postError[x])?.postError[x] ?? null);
+        const detailedMessage = SORTED_SOURCES.flatMap((x, i) =>
+            allErrors[i] ? [`${resolveSourceName(x)}:`, allErrors[i].message] : [],
+        ).join('\n');
+
+        enqueueErrorMessage(detailedMessage);
         throw new Error(`Failed to post on: ${failedPlatforms.map(resolveSourceName).join(' ')}.`);
     } else {
         enqueueSuccessMessage(t`Your posts have published successfully.`);
