@@ -12,10 +12,10 @@ interface SessionState {
     currentProfileSession: Session | null;
 }
 
-export function createSessionStorage(storage: Storage): PersistStorage<SessionState> {
+export function createSessionStorage(createStorage: () => Storage): PersistStorage<SessionState> {
     return {
         getItem(name) {
-            const raw = storage.getItem(name);
+            const raw = createStorage().getItem(name);
             if (!raw) return null;
 
             const parsedState = parseJSON<{
@@ -53,7 +53,7 @@ export function createSessionStorage(storage: Storage): PersistStorage<SessionSt
         },
         setItem(name, newValue) {
             const state = newValue.state as SessionState;
-            storage.setItem(
+            createStorage().setItem(
                 name,
                 JSON.stringify({
                     ...newValue,
@@ -67,7 +67,7 @@ export function createSessionStorage(storage: Storage): PersistStorage<SessionSt
             );
         },
         removeItem(name) {
-            storage.removeItem(name);
+            createStorage().removeItem(name);
         },
     };
 }
