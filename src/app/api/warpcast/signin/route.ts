@@ -1,8 +1,7 @@
-import { getPublicKey, utils } from '@noble/ed25519';
 import { NextRequest } from 'next/server.js';
 import urlcat from 'urlcat';
-import { toHex } from 'viem';
 import { mnemonicToAccount } from 'viem/accounts';
+import { z } from 'zod';
 
 import { env } from '@/constants/env.js';
 import { WARPCAST_ROOT_URL } from '@/constants/index.js';
@@ -24,9 +23,11 @@ const SIGNED_KEY_REQUEST_TYPE = [
     { name: 'deadline', type: 'uint256' },
 ] as const;
 
+const HexStringSchema = z.string().regex(/^0x[a-fA-F0-9]+$/);
+
 export async function POST(request: NextRequest) {
-    const privateKey = utils.randomPrivateKey();
-    const publicKey: `0x${string}` = `0x${Buffer.from(await getPublicKey(privateKey)).toString('hex')}`;
+    const { key }: { key: string } = await request.json();
+    const publicKey = HexStringSchema.parse(key) as `0x${string}`;
 
     // valid for one year
     const deadline = Math.floor(Date.now() / 1000) + ONE_YEAR;
@@ -67,8 +68,6 @@ export async function POST(request: NextRequest) {
     });
 
     return createSuccessResponseJSON({
-        publicKey,
-        privateKey: toHex(privateKey),
         fid: response.result.signedKeyRequest.requestFid,
         token: response.result.signedKeyRequest.token,
         timestamp: Date.now(),
