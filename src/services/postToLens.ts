@@ -159,7 +159,8 @@ async function publishPostForLens(
     const tokenRes = await LensSocialMediaProvider.getAccessToken();
     const token = tokenRes.unwrap();
     const arweaveId = await uploadToArweave(metadata, token);
-    const post = await LensSocialMediaProvider.publishPost({
+    const publicationId = await LensSocialMediaProvider.publishPost({
+        publicationId: '',
         postId: metadata.lens.id,
         author: profile,
         metadata: {
@@ -169,7 +170,7 @@ async function publishPostForLens(
         },
         source: SocialPlatform.Lens,
     });
-    return post;
+    return publicationId;
 }
 
 async function commentPostForLens(
