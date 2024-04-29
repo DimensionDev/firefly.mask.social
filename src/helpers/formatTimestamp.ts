@@ -55,5 +55,9 @@ export function getTimeToNow(date: Date) {
  * @returns A string in the Twitter date format.
  */
 export function getTwitterFormat(date: Date | string | number) {
-    return dayjs(new Date(date)).twitter();
+    const target = dayjs(new Date(date));
+    if (target.year() === dayjs().year()) {
+        return target.twitter();
+    }
+    return target.subtract(1, 'year').twitter();
 }
