@@ -101,7 +101,7 @@ export function ComposeAction(props: ComposeActionProps) {
                                 <Tooltip content={t`Media`} placement="top">
                                     <GalleryIcon
                                         className={classNames(
-                                            ' text-main',
+                                            'text-main',
                                             mediaDisabled ? ' cursor-no-drop opacity-50' : ' cursor-pointer',
                                         )}
                                         width={24}
