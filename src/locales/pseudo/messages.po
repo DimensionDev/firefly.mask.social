@@ -103,6 +103,9 @@ msgstr ""
 msgid "Copied"
 msgstr ""
 
+msgid "Retry"
+msgstr ""
+
 msgid "comment"
 msgstr ""
 
@@ -542,6 +545,9 @@ msgid "Failed to query the signed key state."
 msgstr ""
 
 msgid "Notifications"
+msgstr ""
+
+msgid "Posting..."
 msgstr ""
 
 msgid "No Lens profile found. Please change to another wallet."

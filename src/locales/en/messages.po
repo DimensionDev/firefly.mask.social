@@ -103,6 +103,9 @@ msgstr "Username is required."
 msgid "Copied"
 msgstr "Copied"
 
+msgid "Retry"
+msgstr "Retry"
+
 msgid "comment"
 msgstr "comment"
 
@@ -543,6 +546,9 @@ msgstr "Failed to query the signed key state."
 
 msgid "Notifications"
 msgstr "Notifications"
+
+msgid "Posting..."
+msgstr "Posting..."
 
 msgid "No Lens profile found. Please change to another wallet."
 msgstr "No Lens profile found. Please change to another wallet."

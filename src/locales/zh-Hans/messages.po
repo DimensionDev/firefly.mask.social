@@ -108,6 +108,9 @@ msgstr ""
 msgid "Copied"
 msgstr "已复制"
 
+msgid "Retry"
+msgstr ""
+
 msgid "comment"
 msgstr "评论"
 
@@ -548,6 +551,9 @@ msgstr ""
 
 msgid "Notifications"
 msgstr "通知"
+
+msgid "Posting..."
+msgstr ""
 
 msgid "No Lens profile found. Please change to another wallet."
 msgstr "没有找到 Lens 账号，请连接另一个钱包。"
