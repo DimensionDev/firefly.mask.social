@@ -9,6 +9,8 @@ export interface NextFetchersOptions {
     squashExpiration?: number;
     /** Assigns 0 to disable cache */
     cacheDuration?: number;
+    /** Avoid adding a content-type when fetching JSON. */
+    noDefaultContentType?: boolean;
     /** Generates an unequal request key. Requests that share the same key will be squashed into a single one. */
     resolver?: (request: Request) => Promise<string>;
 }
