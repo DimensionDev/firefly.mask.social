@@ -76,6 +76,9 @@ msgstr ""
 msgid "Change Wallet"
 msgstr ""
 
+msgid "Report on GitHub"
+msgstr ""
+
 msgid "OpenGraph"
 msgstr ""
 
@@ -107,6 +110,9 @@ msgid "Your posts have published successfully."
 msgstr ""
 
 msgid "Retry"
+msgstr ""
+
+msgid "Show less"
 msgstr ""
 
 msgid "comment"
@@ -509,6 +515,9 @@ msgid "recasted your"
 msgstr ""
 
 msgid "Please input the url to be revalidated."
+msgstr ""
+
+msgid "Show more"
 msgstr ""
 
 msgid "Something went wrong. Please try again."

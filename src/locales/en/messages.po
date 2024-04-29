@@ -76,6 +76,9 @@ msgstr "<0>You</0> and {0} others recasted"
 msgid "Change Wallet"
 msgstr "Change Wallet"
 
+msgid "Report on GitHub"
+msgstr "Report on GitHub"
+
 msgid "OpenGraph"
 msgstr "OpenGraph"
 
@@ -108,6 +111,9 @@ msgstr "Your posts have published successfully."
 
 msgid "Retry"
 msgstr "Retry"
+
+msgid "Show less"
+msgstr "Show less"
 
 msgid "comment"
 msgstr "comment"
@@ -510,6 +516,9 @@ msgstr "recasted your"
 
 msgid "Please input the url to be revalidated."
 msgstr "Please input the url to be revalidated."
+
+msgid "Show more"
+msgstr "Show more"
 
 msgid "Something went wrong. Please try again."
 msgstr "Something went wrong. Please try again."
