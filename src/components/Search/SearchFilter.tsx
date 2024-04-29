@@ -13,7 +13,6 @@ export const SearchFilter = memo(function SearchFilter() {
     const { currentSource } = useGlobalState();
     const { searchType, updateState } = useSearchStateStore();
 
-    console.log(searchType);
     return (
         <div>
             <h2 className=" hidden rounded-xl px-3 py-2.5 text-lg font-bold md:my-6 md:block md:bg-lightBg md:text-sm">

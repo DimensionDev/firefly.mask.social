@@ -347,7 +347,7 @@ class FireflySocialMedia implements Provider {
 
     async getPostsByProfileId(profileId: string, indicator?: PageIndicator) {
         return farcasterClient.withSession(async (session) => {
-            const url = urlcat(FIREFLY_ROOT_URL, '/v2/user/timeline/farcaster/casts');
+            const url = urlcat(FIREFLY_ROOT_URL, '/v2/user/timeline/farcaster');
             const response = await fetchJSON<CastsResponse>(url, {
                 method: 'POST',
                 body: JSON.stringify({
