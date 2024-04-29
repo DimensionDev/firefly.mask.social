@@ -63,6 +63,9 @@ msgstr "允许 Lens 管理员执行发帖、点赞和评论等操作，而无需
 msgid "{0} views"
 msgstr "{0} 浏览数"
 
+msgid "Searching channel"
+msgstr ""
+
 msgid "Act"
 msgstr "收藏"
 
@@ -416,6 +419,9 @@ msgstr "已回复"
 
 msgid "The page could not be found."
 msgstr "找不到该页面。"
+
+msgid "No matching channel"
+msgstr ""
 
 msgid "What's happening..."
 msgstr "正在发生..."

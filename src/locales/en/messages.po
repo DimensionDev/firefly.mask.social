@@ -58,6 +58,9 @@ msgstr "Allow Lens Manager to perform actions such as posting, liking, and comme
 msgid "{0} views"
 msgstr "{0} views"
 
+msgid "Searching channel"
+msgstr "Searching channel"
+
 msgid "Act"
 msgstr "Act"
 
@@ -411,6 +414,9 @@ msgstr "commented"
 
 msgid "The page could not be found."
 msgstr "The page could not be found."
+
+msgid "No matching channel"
+msgstr "No matching channel"
 
 msgid "What's happening..."
 msgstr "What's happening..."

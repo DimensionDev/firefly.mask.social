@@ -58,6 +58,9 @@ msgstr ""
 msgid "{0} views"
 msgstr ""
 
+msgid "Searching channel"
+msgstr ""
+
 msgid "Act"
 msgstr ""
 
@@ -410,6 +413,9 @@ msgid "commented"
 msgstr ""
 
 msgid "The page could not be found."
+msgstr ""
+
+msgid "No matching channel"
 msgstr ""
 
 msgid "What's happening..."
