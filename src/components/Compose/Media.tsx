@@ -11,6 +11,8 @@ import { getCurrentPostImageLimits } from '@/helpers/getCurrentPostImageLimits.j
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 
+const ALLOWED_MIMES = ['image/png', 'image/jpeg', 'image/gif', 'image/webp', 'image/bmp']
+
 interface MediaProps {
     close: () => void;
 }
@@ -30,7 +32,11 @@ export function Media({ close }: MediaProps) {
             if (files && files.length > 0) {
                 updateImages((images) => {
                     if (images.length === maxImageCount) return images;
-                    return [...images, ...[...files].map((file) => ({ file }))].slice(0, maxImageCount);
+                    return [
+                        ...images,
+                        ...[...files]
+                            .filter(file => ALLOWED_MIMES.includes(file.type))
+                            .map((file) => ({ file }))].slice(0, maxImageCount);
                 });
             }
             close();
@@ -87,7 +93,7 @@ export function Media({ close }: MediaProps) {
 
                 <input
                     type="file"
-                    accept="image/*"
+                    accept={ALLOWED_MIMES.join(', ')}
                     multiple
                     ref={imageInputRef}
                     className="hidden"
@@ -115,9 +121,9 @@ export function Media({ close }: MediaProps) {
 
                 <input
                     type="file"
-                    accept="video/*"
+                    accept="video/mp4"
                     ref={videoInputRef}
-                    className=" hidden"
+                    className="hidden"
                     onChange={handleVideoChange}
                 />
             </Popover.Panel>
