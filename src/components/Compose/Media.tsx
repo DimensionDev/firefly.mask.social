@@ -6,6 +6,7 @@ import { useAsyncFn } from 'react-use';
 import ImageIcon from '@/assets/image.svg';
 import VideoIcon from '@/assets/video.svg';
 import { SocialPlatform } from '@/constants/enum.js';
+import { ALLOWED_IMAGES_MIMES } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getCurrentPostImageLimits } from '@/helpers/getCurrentPostImageLimits.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
@@ -30,7 +31,12 @@ export function Media({ close }: MediaProps) {
             if (files && files.length > 0) {
                 updateImages((images) => {
                     if (images.length === maxImageCount) return images;
-                    return [...images, ...[...files].map((file) => ({ file }))].slice(0, maxImageCount);
+                    return [
+                        ...images,
+                        ...[...files]
+                            .filter((file) => ALLOWED_IMAGES_MIMES.includes(file.type))
+                            .map((file) => ({ file })),
+                    ].slice(0, maxImageCount);
                 });
             }
             close();
@@ -87,7 +93,7 @@ export function Media({ close }: MediaProps) {
 
                 <input
                     type="file"
-                    accept="image/*"
+                    accept={ALLOWED_IMAGES_MIMES.join(', ')}
                     multiple
                     ref={imageInputRef}
                     className="hidden"
@@ -115,9 +121,9 @@ export function Media({ close }: MediaProps) {
 
                 <input
                     type="file"
-                    accept="video/*"
+                    accept="video/mp4"
                     ref={videoInputRef}
-                    className=" hidden"
+                    className="hidden"
                     onChange={handleVideoChange}
                 />
             </Popover.Panel>
