@@ -5,10 +5,7 @@ import { BrowserTracing, init, Replay } from '@sentry/react';
 try {
     init({
         dsn: process.env.SENTRY_DNS,
-        integrations: [
-            new BrowserTracing(),
-            new Replay(),
-        ],
+        integrations: [new BrowserTracing(), new Replay()],
         // Performance Monitoring
         tracesSampleRate: 1.0, // Capture 100% of the transactions
         // Session Replay
