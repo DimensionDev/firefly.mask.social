@@ -2,9 +2,11 @@ import { t } from '@lingui/macro';
 import type { Pageable, PageIndicator } from '@masknet/shared-base';
 import { compact } from 'lodash-es';
 import { getSession } from 'next-auth/react';
+import type { TweetV2PaginableTimelineResult } from 'twitter-api-v2';
 
 import { SocialPlatform } from '@/constants/enum.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { formatTwitterPostFromFirefly } from '@/helpers/formatTwitterPostFromFirefly.js';
 import { resolveTwitterReplyRestriction } from '@/helpers/resolveTwitterReplyRestriction.js';
 import {
     type Channel,
@@ -87,8 +89,12 @@ class TwitterSocialMedia implements Provider {
         throw new Error('Not implemented');
     }
 
-    discoverPosts(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        throw new Error('Not implemented');
+    async discoverPosts(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        const session = await getSession();
+        if (!session) throw new Error('No session found');
+        const response = await fetchJSON<ResponseJSON<TweetV2PaginableTimelineResult>>(`/api/twitter/homeTimeline`)
+        if (!response.success) throw new Error(response.error.message);
+        return formatTwitterPostFromFirefly(response.data, 'Post', indicator?.id)
     }
 
     discoverPostsById(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
