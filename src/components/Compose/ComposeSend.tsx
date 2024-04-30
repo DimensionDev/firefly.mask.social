@@ -1,5 +1,6 @@
 import { PlusCircleIcon } from '@heroicons/react/24/outline';
 import { Plural, t, Trans } from '@lingui/macro';
+import { useMemo, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 
 import LoadingIcon from '@/assets/loading.svg';
@@ -33,13 +34,29 @@ export function ComposeSend(props: ComposeSendProps) {
     const isMedium = useIsMedium();
     const setEditorContent = useSetEditorContent();
 
-    const [{ loading }, handlePost] = useAsyncFn(async () => {
-        if (posts.length > 1) await crossPostThread();
+    const [percentage, setPercentage] = useState(0)
+    const [{ loading, error }, handlePost] = useAsyncFn(async () => {
+        setPercentage(0)
+        if (posts.length > 1) await crossPostThread(setPercentage);
         else await crossPost(type, post);
+        await new Promise(resolve => setTimeout(resolve, 500)); // wait the loading
         ComposeModalRef.close();
     }, [type, posts.length > 1, post]);
 
     const disabled = loading || posts.length > 1 ? posts.some((x) => !isValidPost(x)) : !isValidPost(post);
+
+    const submitButtonText = useMemo(() => {
+        if (loading) return <LoadingIcon width={16} height={16} className="animate-spin" />
+        if (error) return <Trans>Retry</Trans>
+        return (
+            <>
+                <SendIcon width={18} height={18} className="mr-1 text-primaryBottom" />
+                <span>
+                    <Plural value={posts.length} one={<Trans>Post</Trans>} other={<Trans>Post All</Trans>} />
+                </span>
+            </>
+        )
+    }, [loading, error, posts.length])
 
     if (!isMedium) {
         return (
@@ -90,20 +107,20 @@ export function ComposeSend(props: ComposeSendProps) {
             <ClickableButton
                 disabled={disabled}
                 className={classNames(
-                    ' flex h-10 w-[120px] items-center justify-center gap-1 rounded-full bg-black text-[15px] font-bold text-white disabled:cursor-not-allowed disabled:opacity-50 dark:bg-white dark:text-black',
+                    'relative flex h-10 w-[120px] items-center justify-center gap-1 rounded-full bg-black text-[15px] font-bold text-white disabled:cursor-not-allowed disabled:opacity-50 dark:bg-white dark:text-black',
+                    {
+                        'bg-red-700': !!error
+                    }
                 )}
                 onClick={handlePost}
             >
                 {loading ? (
-                    <LoadingIcon width={16} height={16} className="animate-spin" />
-                ) : (
-                    <>
-                        <SendIcon width={18} height={18} className="mr-1 text-primaryBottom" />
-                        <span>
-                            <Plural value={posts.length} one={<Trans>Post</Trans>} other={<Trans>Post All</Trans>} />
-                        </span>
-                    </>
-                )}
+                    <span
+                        className="bg-white/50 w-0 h-full absolute top-0 left-0 z-10 duration-100"
+                        style={{ width: `${Math.round(percentage * 100)}%` }}
+                    />
+                ) : null}
+                {submitButtonText}
             </ClickableButton>
         </div>
     );
