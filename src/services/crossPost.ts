@@ -195,7 +195,7 @@ export async function crossPost(
     const updatedCompositePost = getCompositePost(compositePost.id);
     if (!updatedCompositePost) throw new Error('Post not found.');
 
-    // check if all posts are published
+    // check publish result
     const failedPlatforms = failedAt(updatedCompositePost);
 
     if (failedPlatforms.length) {
@@ -214,14 +214,16 @@ export async function crossPost(
             if (!error) return '';
             return getDetailedErrorMessage(x, error);
         }).join('\n');
+
         enqueueErrorMessage_(t`Your post failed to publish due to an error. Click 'Retry' to attempt posting again.`, {
             detail: detailedMessage,
+            persist: true,
         });
     } else {
         enqueueSuccessMessage_(t`Your post has published successfully.`);
     }
 
-    // failed to cross post
+    // all failed
     if (allSettled.every((x) => x.status === 'rejected')) {
         throw new Error('Post failed to publish.');
     }

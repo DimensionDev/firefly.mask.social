@@ -101,6 +101,8 @@ export async function crossPostThread(progressCallback?: (percentage: number, in
     }
 
     const { posts: updatedPosts } = useComposeStateStore.getState();
+
+    // check publish result
     const failedPlatforms = failedAt(updatedPosts);
 
     if (failedPlatforms.length) {
