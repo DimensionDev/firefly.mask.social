@@ -1,7 +1,7 @@
 import { t } from '@lingui/macro';
 import { uniqBy } from 'lodash-es';
 
-import { SocialPlatform } from '@/constants/enum.js';
+import { SocialPlatform, SourceInURL } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { readChars } from '@/helpers/chars.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
@@ -64,7 +64,7 @@ export async function postToFarcaster(type: ComposeType, compositePost: Composit
                     if (media.imgur) return media;
                     return {
                         ...media,
-                        imgur: await uploadToS3(media.file, SocialPlatform.Farcaster),
+                        imgur: await uploadToS3(media.file, SourceInURL.Farcaster),
                     };
                 }),
             );
