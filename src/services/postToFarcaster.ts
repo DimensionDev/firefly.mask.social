@@ -64,7 +64,7 @@ export async function postToFarcaster(type: ComposeType, compositePost: Composit
                     if (media.imgur) return media;
                     return {
                         ...media,
-                        imgur: await uploadToS3(media.file),
+                        imgur: await uploadToS3(media.file, SocialPlatform.Farcaster),
                     };
                 }),
             );
