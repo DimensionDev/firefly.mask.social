@@ -110,13 +110,24 @@ export async function crossPostThread() {
             other: "Your post failed to publish due to an error. Click 'Retry' to attempt posting again.",
         });
 
+        // the first error on each platform
         const allErrors = SORTED_SOURCES.map((x) => updatedPosts.find((y) => y.postError[x])?.postError[x] ?? null);
+
+        // show success message if no error found on certain platform
+        SORTED_SOURCES.forEach((x, i) => {
+            const error = allErrors[i];
+            if (error) return;
+            enqueueSuccessMessage(t`Your posts has published successfully on ${resolveSourceName(x)}.`);
+        });
+
+        // concat all error messages for reporting
         const detailedMessage = SORTED_SOURCES.flatMap((x, i) => {
             const error = allErrors[i];
             if (!error) return [];
 
-            const lines = [`${resolveSourceName(x)}: ${error.message}`, ''];
+            const lines = [`${resolveSourceName(x)}: ${error.message}`];
             if (error.stack) lines.push(error.stack);
+            lines.push('');
             return lines.join('\n');
         }).join('\n');
 
