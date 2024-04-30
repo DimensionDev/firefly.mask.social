@@ -234,9 +234,6 @@ msgstr "加入我们的 Telegram"
 msgid "Log out"
 msgstr "登出"
 
-msgid "{0, plural, one {Your post failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your post failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your post failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
-msgstr ""
-
 msgid "post"
 msgstr "发帖"
 
@@ -287,9 +284,6 @@ msgstr "创建图片内容失败"
 
 msgid "Failed to unvote post."
 msgstr "无法对帖子进行投票。"
-
-msgid "Your post failed to publish."
-msgstr ""
 
 msgid "Privacy Policy"
 msgstr "隐私条款"
@@ -369,9 +363,6 @@ msgstr "未找到帖子"
 msgid "Clear All"
 msgstr "全部清除"
 
-msgid "Failed to upload image to {sourceName}."
-msgstr ""
-
 msgid "Lens"
 msgstr "Lens"
 
@@ -416,6 +407,9 @@ msgstr "已回复"
 
 msgid "The page could not be found."
 msgstr "找不到该页面。"
+
+msgid "{0, plural, one {Your posts failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your posts failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your posts failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
+msgstr ""
 
 msgid "What's happening..."
 msgstr "正在发生..."
@@ -544,9 +538,6 @@ msgid "The frame server failed to process the request."
 msgstr "Frame 服务器未能处理请求"
 
 msgid "Report"
-msgstr ""
-
-msgid "Failed to upload video to {sourceName}."
 msgstr ""
 
 msgid "Post by {0}"
@@ -678,6 +669,9 @@ msgstr ""
 msgid "Failed to fetch as ArrayBuffer."
 msgstr "Failed to fetch as ArrayBuffer."
 
+msgid "Your post have published successfully on {0}."
+msgstr ""
+
 msgid "Confirm to log out these accounts?"
 msgstr "确认登出这些账号？"
 
@@ -769,6 +763,9 @@ msgid "Terms of Service"
 msgstr "服务条款"
 
 msgid "Already posted on {sourceName}."
+msgstr ""
+
+msgid "Your post failed to publish due to an error. Click 'Retry' to attempt posting again."
 msgstr ""
 
 msgid "Post"

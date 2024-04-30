@@ -229,9 +229,6 @@ msgstr "Join our Telegram"
 msgid "Log out"
 msgstr "Log out"
 
-msgid "{0, plural, one {Your post failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your post failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your post failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
-msgstr "{0, plural, one {Your post failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your post failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your post failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
-
 msgid "post"
 msgstr "post"
 
@@ -282,9 +279,6 @@ msgstr "Failed to create image payload."
 
 msgid "Failed to unvote post."
 msgstr "Failed to unvote post."
-
-msgid "Your post failed to publish."
-msgstr "Your post failed to publish."
 
 msgid "Privacy Policy"
 msgstr "Privacy Policy"
@@ -364,9 +358,6 @@ msgstr "No post found"
 msgid "Clear All"
 msgstr "Clear All"
 
-msgid "Failed to upload image to {sourceName}."
-msgstr "Failed to upload image to {sourceName}."
-
 msgid "Lens"
 msgstr "Lens"
 
@@ -411,6 +402,9 @@ msgstr "commented"
 
 msgid "The page could not be found."
 msgstr "The page could not be found."
+
+msgid "{0, plural, one {Your posts failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your posts failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your posts failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
+msgstr "{0, plural, one {Your posts failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your posts failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your posts failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
 
 msgid "What's happening..."
 msgstr "What's happening..."
@@ -541,9 +535,6 @@ msgstr "The frame server failed to process the request."
 msgid "Report"
 msgstr "Report"
 
-msgid "Failed to upload video to {sourceName}."
-msgstr "Failed to upload video to {sourceName}."
-
 msgid "Post by {0}"
 msgstr "Post by {0}"
 
@@ -673,6 +664,9 @@ msgstr "Failed to unlike the comment."
 msgid "Failed to fetch as ArrayBuffer."
 msgstr "Failed to fetch as ArrayBuffer."
 
+msgid "Your post have published successfully on {0}."
+msgstr "Your post have published successfully on {0}."
+
 msgid "Confirm to log out these accounts?"
 msgstr "Confirm to log out these accounts?"
 
@@ -765,6 +759,9 @@ msgstr "Terms of Service"
 
 msgid "Already posted on {sourceName}."
 msgstr "Already posted on {sourceName}."
+
+msgid "Your post failed to publish due to an error. Click 'Retry' to attempt posting again."
+msgstr "Your post failed to publish due to an error. Click 'Retry' to attempt posting again."
 
 msgid "Post"
 msgstr "Post"
