@@ -89,6 +89,8 @@ export default {
                 new context.webpack.DefinePlugin({
                     'process.env.WEB3_CONSTANTS_RPC': process.env.WEB3_CONSTANTS_RPC ?? '{}',
                     'process.env.MASK_SENTRY_DSN': process.env.MASK_SENTRY_DSN ?? '{}',
+                    'process.env.MASK_SENTRY': 'disabled',
+                    'process.env.MASK_MIXPANEL': 'disabled',
                     'process.env.NODE_DEBUG': 'undefined',
                     'process.env.IMGUR_CLIENT_ID': JSON.stringify(process.env.IMGUR_CLIENT_ID),
                     'process.env.IMGUR_CLIENT_SECRET': JSON.stringify(process.env.IMGUR_CLIENT_SECRET),
