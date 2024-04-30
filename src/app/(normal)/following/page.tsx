@@ -18,7 +18,6 @@ import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 
 export default function Following() {
-    const setScrollIndex = useGlobalState.use.setScrollIndex();
     const currentSource = useGlobalState.use.currentSource();
     const isLogin = useIsLogin(currentSource);
 
@@ -55,7 +54,10 @@ export default function Following() {
             return posts;
         },
         initialPageParam: '',
-        getNextPageParam: (lastPage) => lastPage?.nextIndicator?.id,
+        getNextPageParam: (lastPage) => {
+            if (lastPage?.data.length === 0) return undefined;
+            return lastPage?.nextIndicator?.id;
+        },
         select: getPostsSelector(currentSource),
     });
 

@@ -10,24 +10,29 @@ import { ChannelInList } from '@/components/ChannelInList.js';
 import { ListInPage } from '@/components/ListInPage.js';
 import { SinglePost } from '@/components/Posts/SinglePost.js';
 import { ProfileInList } from '@/components/ProfileInList.js';
-import { SearchType } from '@/constants/enum.js';
+import { ScrollListKey, SearchType } from '@/constants/enum.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 import type { Channel, Post, Profile } from '@/providers/types/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useSearchStateStore } from '@/store/useSearchStore.js';
 
-const getSearchItemContent = (index: number, item: Post | Profile | Channel, searchType: SearchType) => {
+const getSearchItemContent = (
+    index: number,
+    item: Post | Profile | Channel,
+    searchType: SearchType,
+    listKey: string,
+) => {
     switch (searchType) {
         case SearchType.Users:
             const profile = item as Profile;
-            return <ProfileInList key={profile.profileId} profile={profile} />;
+            return <ProfileInList key={profile.profileId} profile={profile} listKey={listKey} index={index} />;
         case SearchType.Posts:
             const post = item as Post;
-            return <SinglePost key={post.postId} post={post} />;
+            return <SinglePost key={post.postId} post={post} listKey={listKey} index={index} />;
         case SearchType.Channels:
             const channel = item as Channel;
-            return <ChannelInList key={channel.id} channel={channel} />;
+            return <ChannelInList key={channel.id} channel={channel} listKey={listKey} index={index} />;
         default:
             safeUnreachable(searchType);
             return null;
@@ -61,7 +66,10 @@ export default function Page() {
             }
         },
         initialPageParam: '',
-        getNextPageParam: (lastPage) => lastPage?.nextIndicator?.id,
+        getNextPageParam: (lastPage) => {
+            if (lastPage?.data.length === 0) return undefined;
+            return lastPage?.nextIndicator?.id;
+        },
         select(data) {
             return compact(data.pages.flatMap((x) => x?.data as Array<Profile | Post | Channel>) || EMPTY_LIST);
         },
@@ -73,6 +81,7 @@ export default function Page() {
         <ListInPage
             queryResult={queryResult}
             VirtualListProps={{
+                listKey: `${ScrollListKey.Search}:${searchType}:${searchKeyword}:${currentSource}`,
                 computeItemKey: (index, item) => {
                     switch (searchType) {
                         case SearchType.Users:
@@ -89,7 +98,13 @@ export default function Page() {
                             return index;
                     }
                 },
-                itemContent: (index, item) => getSearchItemContent(index, item, searchType),
+                itemContent: (index, item) =>
+                    getSearchItemContent(
+                        index,
+                        item,
+                        searchType,
+                        `${ScrollListKey.Search}:${searchType}:${searchKeyword}:${currentSource}`,
+                    ),
             }}
             NoResultsFallbackProps={{
                 message: (

@@ -1,9 +1,8 @@
 'use client';
 
-import { floor } from 'lodash-es';
-import React, { useRef } from 'react';
-import { useMount, useWindowSize } from 'react-use';
-import { Virtuoso, type VirtuosoHandle, type VirtuosoProps } from 'react-virtuoso';
+import React from 'react';
+import { useWindowSize } from 'react-use';
+import { Virtuoso, type VirtuosoProps } from 'react-virtuoso';
 
 import { useGlobalState } from '@/store/useGlobalStore.js';
 
@@ -16,26 +15,14 @@ export function VirtualList<ItemData = unknown, Context = unknown>({
     ...rest
 }: VirtualListProps<ItemData, Context>) {
     const { height } = useWindowSize();
-    const { scrollIndex, setScrollIndex } = useGlobalState();
-    const ref = useRef<VirtuosoHandle>(null);
-
-    useMount(() => {
-        if (!listKey) return;
-        const index = scrollIndex[listKey];
-        if (typeof index === 'undefined') return;
-        ref.current?.scrollToIndex(Math.max(index - 2, 0));
-    });
-
+    const { scrollIndex } = useGlobalState();
+    if (listKey) console.log(scrollIndex[listKey]);
     return (
         <Virtuoso
-            ref={ref}
+            initialTopMostItemIndex={listKey && scrollIndex[listKey] ? Math.max(scrollIndex[listKey] - 2, 0) : 0}
             overscan={height}
             increaseViewportBy={height}
             {...rest}
-            rangeChanged={({ startIndex, endIndex }) => {
-                if (!listKey) return;
-                setScrollIndex(listKey, floor((endIndex - startIndex) / 2));
-            }}
         />
     );
 }

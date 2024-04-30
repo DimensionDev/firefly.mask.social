@@ -54,6 +54,8 @@ export function ListInPage<T = unknown>({
     } as Components<T>;
     const Context = {
         hasNextPage,
+        fetchNextPage,
+        isFetching,
         ...(VirtualListProps?.context ?? {}),
     };
 

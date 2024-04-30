@@ -63,7 +63,7 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
                 const selection = window.getSelection();
                 if (selection && selection.toString().length !== 0) return;
                 if (!isPostPage || isComment) {
-                    if (listKey && index) setScrollIndex(listKey, index);
+                    if (listKey && index !== undefined) setScrollIndex(listKey, index);
                     router.push(postLink);
                 }
                 return;
