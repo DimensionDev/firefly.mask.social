@@ -22,7 +22,7 @@ export function createMockComment(source: SocialPlatform, compositePost: Composi
         mediaObjects: compact([compositePost.video, ...compositePost.images, ...compositePost.images]).map((x) => ({
             title: x.file.name,
             mimeType: x.file.type,
-            url: x.ipfs?.uri || x.imgur || '',
+            url: x.ipfs?.uri || x.s3 || x.imgur || '',
         })),
         metadata: {
             locale: '',

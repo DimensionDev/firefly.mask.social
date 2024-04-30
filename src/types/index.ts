@@ -20,6 +20,8 @@ export interface MediaObject {
     ipfs?: IPFSResponse;
     /** imgur url */
     imgur?: string;
+    // s3 asset url
+    s3?: string;
 }
 
 export type ThemeMode = 'light' | 'dark' | 'default';
