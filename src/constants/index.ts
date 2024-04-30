@@ -34,7 +34,7 @@ export const SORTED_SOURCES = [SocialPlatform.Farcaster, SocialPlatform.Lens, So
 export const SORTED_RESTECTION_TYPE = [RestrictionType.Everyone, RestrictionType.OnlyPeopleYouFollow];
 
 // Lens
-export const IPFS_GATEWAY = 'https://gw.ipfs-lens.dev/ipfs/';
+export const IPFS_GATEWAY = 'https://ipfs.io/ipfs/';
 export const ARWEAVE_GATEWAY = 'https://arweave.net/';
 export const LENS_MEDIA_SNAPSHOT_URL = 'https://ik.imagekit.io/lens/media-snapshot';
 export const HEY_URL = 'https://hey.xyz';
