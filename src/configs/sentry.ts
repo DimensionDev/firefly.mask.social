@@ -6,10 +6,7 @@ try {
     init({
         dsn: process.env.SENTRY_DNS,
         integrations: [
-            new BrowserTracing({
-                // Set 'tracePropagationTargets' to control for which URLs distributed tracing should be enabled
-                tracePropagationTargets: ['localhost', /^https:\/\/.*\.mask\.social/],
-            }),
+            new BrowserTracing(),
             new Replay(),
         ],
         // Performance Monitoring
