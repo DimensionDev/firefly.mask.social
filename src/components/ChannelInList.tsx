@@ -1,3 +1,5 @@
+import { isUndefined } from 'lodash-es';
+
 import { Avatar } from '@/components/Avatar.js';
 import { FollowButton } from '@/components/Channel/FollowButton.js';
 import { SourceIcon } from '@/components/SourceIcon.js';
@@ -6,7 +8,6 @@ import { getChannelUrl } from '@/helpers/getChannelUrl.js';
 import { useIsSmall } from '@/hooks/useMediaQuery.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
-import { isNumber, isUndefined } from 'lodash-es';
 
 interface ChannelInListProps {
     channel: Channel;
