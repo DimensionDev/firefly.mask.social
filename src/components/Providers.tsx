@@ -5,6 +5,7 @@ import '@/configs/sentry.js';
 import { i18n } from '@lingui/core';
 import { I18nProvider } from '@lingui/react';
 import { LivepeerConfig } from '@livepeer/react';
+import * as Sentry from '@sentry/browser';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { ReactQueryStreamedHydration } from '@tanstack/react-query-next-experimental';
@@ -13,7 +14,6 @@ import { SnackbarProvider } from 'notistack';
 import { useEffect, useLayoutEffect, useMemo, useRef } from 'react';
 import { useEffectOnce } from 'react-use';
 import { v4 as uuid } from 'uuid';
-import * as Sentry from '@sentry/browser';
 
 import { WagmiProvider } from '@/components/WagmiProvider.js';
 import { livepeerClient } from '@/configs/livepeerClient.js';
