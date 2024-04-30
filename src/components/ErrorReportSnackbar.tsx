@@ -1,7 +1,7 @@
 import { BugAntIcon, ClipboardIcon, XCircleIcon } from '@heroicons/react/24/solid';
 import { Trans } from '@lingui/macro';
 import { SnackbarContent, type SnackbarMessage, useSnackbar } from 'notistack';
-import { forwardRef, type MouseEvent, useCallback, useMemo, useRef, useState } from 'react';
+import { forwardRef, useCallback, useMemo, useRef, useState } from 'react';
 import { useCopyToClipboard } from 'react-use';
 
 import CloseIcon from '@/assets/close.svg';
@@ -44,17 +44,12 @@ export const ErrorReportSnackbar = forwardRef<HTMLDivElement, ReportCompleteProp
     const [copied, setCopied] = useState(false);
     const timerRef = useRef<ReturnType<typeof setTimeout>>();
 
-    const handleCopy = useCallback(
-        (ev: MouseEvent) => {
-            ev.stopPropagation();
-            ev.preventDefault();
-            copyToClipboard(text);
-            setCopied(true);
-            clearTimeout(timerRef.current);
-            timerRef.current = setTimeout(setCopied, 1500, false);
-        },
-        [copyToClipboard, text],
-    );
+    const handleCopy = useCallback(() => {
+        copyToClipboard(text);
+        setCopied(true);
+        clearTimeout(timerRef.current);
+        timerRef.current = setTimeout(setCopied, 1500, false);
+    }, [copyToClipboard, text]);
 
     return (
         <SnackbarContent ref={ref} className="rounded-[4px] bg-danger">
@@ -85,13 +80,13 @@ export const ErrorReportSnackbar = forwardRef<HTMLDivElement, ReportCompleteProp
                             <div className="inline-block cursor-pointer text-white" onClick={handleExpandClick}>
                                 {expanded ? <Trans>Show less</Trans> : <Trans>Show more</Trans>}
                             </div>
-                            <div
+                            <ClickableButton
                                 className="ml-auto inline-flex cursor-pointer items-center text-white "
                                 onClick={handleCopy}
                             >
                                 <ClipboardIcon className="mr-1 h-3 w-3" />
                                 {copied ? <Trans>Copied</Trans> : <Trans>Copy</Trans>}
-                            </div>
+                            </ClickableButton>
                             <a
                                 className="ml-1 inline-flex cursor-pointer items-center text-white hover:underline"
                                 href={githubReportLink}
