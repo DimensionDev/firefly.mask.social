@@ -33,7 +33,9 @@ export function Media({ close }: MediaProps) {
                     if (images.length === maxImageCount) return images;
                     return [
                         ...images,
-                        ...[...files].filter((file) => ALLOWED_IMAGES_MIMES.includes(file.type)).map((file) => ({ file })),
+                        ...[...files]
+                            .filter((file) => ALLOWED_IMAGES_MIMES.includes(file.type))
+                            .map((file) => ({ file })),
                     ].slice(0, maxImageCount);
                 });
             }
