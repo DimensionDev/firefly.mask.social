@@ -6,6 +6,7 @@ import { getChannelUrl } from '@/helpers/getChannelUrl.js';
 import { useIsSmall } from '@/hooks/useMediaQuery.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
+import { isNumber, isUndefined } from 'lodash-es';
 
 interface ChannelInListProps {
     channel: Channel;
@@ -23,7 +24,7 @@ export function ChannelInList({ channel, noFollowButton = true, listKey, index }
             <Link
                 className="flex-start flex flex-1 overflow-auto"
                 onClick={() => {
-                    if (listKey && index !== undefined) setScrollIndex(listKey, index);
+                    if (listKey && !isUndefined(index)) setScrollIndex(listKey, index);
                 }}
                 href={getChannelUrl(channel)}
             >

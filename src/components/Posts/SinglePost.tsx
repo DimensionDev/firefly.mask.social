@@ -14,6 +14,7 @@ import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
+import { isNumber, isUndefined } from 'lodash-es';
 
 const PostActions = dynamic(() => import('@/components/Actions/index.js').then((module) => module.PostActions), {
     ssr: false,
@@ -63,7 +64,7 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
                 const selection = window.getSelection();
                 if (selection && selection.toString().length !== 0) return;
                 if (!isPostPage || isComment) {
-                    if (listKey && index !== undefined) setScrollIndex(listKey, index);
+                    if (listKey && !isUndefined(index)) setScrollIndex(listKey, index);
                     router.push(postLink);
                 }
                 return;
