@@ -60,17 +60,28 @@ export function ComposeSend(props: ComposeSendProps) {
 
     if (!isMedium) {
         return (
-            <ClickableButton
-                className="absolute right-4 top-1/2 -translate-y-1/2 cursor-pointer disabled:opacity-50"
-                disabled={disabled}
-                onClick={handlePost}
-            >
+            <>
                 {loading ? (
-                    <LoadingIcon width={24} height={24} className="animate-spin text-main" />
-                ) : (
-                    <Send2Icon width={24} height={24} />
-                )}
-            </ClickableButton>
+                    <span
+                        className="fixed left-0 top-0 z-50 h-1 w-full bg-black/50 dark:bg-white/50 duration-100 bg"
+                        style={{
+                            transform: `scaleX(${percentage})`,
+                            transformOrigin: 'left',
+                        }}
+                    />
+                ) : null}
+                <ClickableButton
+                    className="absolute right-4 top-1/2 -translate-y-1/2 cursor-pointer disabled:opacity-50"
+                    disabled={disabled}
+                    onClick={handlePost}
+                >
+                    {loading ? (
+                        <LoadingIcon width={24} height={24} className="animate-spin text-main" />
+                    ) : (
+                        <Send2Icon width={24} height={24} />
+                    )}
+                </ClickableButton>
+            </>
         );
     }
 
@@ -107,7 +118,7 @@ export function ComposeSend(props: ComposeSendProps) {
             <ClickableButton
                 disabled={disabled}
                 className={classNames(
-                    'relative flex h-10 w-[120px] items-center justify-center gap-1 rounded-full bg-black text-[15px] font-bold text-white disabled:cursor-not-allowed disabled:opacity-50 dark:bg-white dark:text-black',
+                    'relative flex h-10 w-[120px] items-center justify-center gap-1 rounded-full bg-black text-[15px] font-bold text-white disabled:cursor-not-allowed disabled:opacity-50 dark:bg-white dark:text-black overflow-hidden',
                     {
                         'bg-commonDanger': !!error,
                     },
@@ -116,8 +127,11 @@ export function ComposeSend(props: ComposeSendProps) {
             >
                 {loading ? (
                     <span
-                        className="absolute left-0 top-0 z-10 h-full w-0 bg-white/50 duration-100"
-                        style={{ width: `${Math.round(percentage * 100)}%` }}
+                        className="absolute left-0 top-0 z-10 h-full w-full bg-white/50 dark:bg-black/50 duration-100"
+                        style={{
+                            transform: `scaleX(${percentage})`,
+                            transformOrigin: 'left',
+                        }}
                     />
                 ) : null}
                 {submitButtonText}
