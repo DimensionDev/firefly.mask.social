@@ -27,15 +27,19 @@
         });
 
         if (!isValidBrowser) {
-            var locale = getCookie('locale');
-            const isCN = locale === 'zh-Hans';
-
-            const matchMedia = window?.matchMedia('(prefers-color-scheme: dark)');
-            const showTip = (e) => {
-                const isDarkMode = e ? e.matches : matchMedia.matches;
+            const showTip = (isDarkMode) => {
+                var locale = getCookie('locale');
+                const isCN = locale === 'zh-Hans';
                 const bgColor = isDarkMode ? 'var(--color-dark-bottom)' : 'white';
 
-                var browserTips = document.createElement('div');
+                const id = 'browser-tips';
+                const oldTips = document.getElementById(id);
+                if (oldTips) {
+                    oldTips.remove();
+                }
+                const browserTips = document.createElement('div');
+                browserTips.setAttribute('id', id);
+
                 browserTips.setAttribute(
                     'style',
                     `position: fixed; left: 0; top: 0; width: 100%; z-index: 9999; padding: 10px; text-align: center; font-size: 12px; line-height: 18px; background-color: ${bgColor} !important`,
@@ -55,8 +59,23 @@
                     : `Please use ${chromeLinkTag} or ${downloadLinkTag} our app to explore more`;
                 document.body.appendChild(browserTips);
             };
-            showTip();
-            matchMedia.addEventListener('change', showTip);
+
+            //watch dark mode change
+            const htmlElement = document.querySelector('html');
+            showTip(htmlElement.classList.contains('dark'));
+            const observer = new MutationObserver((mutations) => {
+                mutations.forEach((mutation) => {
+                    if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+                        const isDark = mutation.target.classList.contains('dark');
+                        if (isDark) {
+                            showTip(true);
+                        } else {
+                            showTip(false);
+                        }
+                    }
+                });
+            });
+            observer.observe(htmlElement, { attributes: true, attributeFilter: ['class'] });
         }
     } catch (error) {
         console.error('Failed to detect bowser, reason: ', error.message);
