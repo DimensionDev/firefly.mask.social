@@ -13,6 +13,7 @@ import { SnackbarProvider } from 'notistack';
 import { useEffect, useLayoutEffect, useMemo, useRef } from 'react';
 import { useEffectOnce } from 'react-use';
 import { v4 as uuid } from 'uuid';
+import * as Sentry from '@sentry/browser';
 
 import { WagmiProvider } from '@/components/WagmiProvider.js';
 import { livepeerClient } from '@/configs/livepeerClient.js';
@@ -55,6 +56,24 @@ export function Providers(props: { children: React.ReactNode }) {
 
     const viewerId = useLeafwatchPersistStore.use.viewerId();
     const setViewerId = useLeafwatchPersistStore.use.setViewerId();
+
+    useEffectOnce(() => {
+        console.log(process.env.MASK_SENTRY_DSN, process.version);
+        Sentry.onLoad(() => {
+            Sentry.init({
+                dsn: `${process.env.MASK_SENTRY_DSN}`,
+
+                release: `${process.version}`,
+                integrations: [],
+
+                tracesSampleRate: 0.1,
+                tracePropagationTargets: [],
+
+                replaysSessionSampleRate: 0.1,
+                replaysOnErrorSampleRate: 1.0,
+            });
+        });
+    });
 
     useEffectOnce(() => {
         if (!viewerId) setViewerId(uuid());
