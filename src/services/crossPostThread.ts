@@ -120,7 +120,7 @@ export async function crossPostThread(progressCallback?: (percentage: number, in
         SORTED_SOURCES.forEach((x, i) => {
             const error = allErrors[i];
             if (error) return;
-            const rootPost = updatedPosts[0]
+            const rootPost = updatedPosts[0];
             if (!rootPost.availableSources.includes(x)) return;
             enqueueSuccessMessage(t`Your posts has published successfully on ${resolveSourceName(x)}.`);
         });
