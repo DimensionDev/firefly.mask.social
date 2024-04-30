@@ -4,7 +4,6 @@ import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 import { createRequire } from 'module';
 import CopyPlugin from 'copy-webpack-plugin';
-import packageJSON from './package.json' assert { type: 'json' };
 
 const require = createRequire(import.meta.url);
 const __dirname = fileURLToPath(dirname(import.meta.url));
@@ -89,11 +88,10 @@ export default {
                 }),
                 new context.webpack.DefinePlugin({
                     'process.env.WEB3_CONSTANTS_RPC': process.env.WEB3_CONSTANTS_RPC ?? '{}',
-                    'process.env.MASK_SENTRY_DSN': JSON.stringify(process.env.MASK_SENTRY_DSN),
+                    'process.env.MASK_SENTRY_DSN': process.env.MASK_SENTRY_DSN ?? '{}',
                     'process.env.MASK_SENTRY': JSON.stringify('disabled'),
                     'process.env.MASK_MIXPANEL': JSON.stringify('disabled'),
                     'process.env.NODE_DEBUG': 'undefined',
-                    'process.version': JSON.stringify(packageJSON.version),
                     'process.version': JSON.stringify(process.env.npm_package_version),
                 }),
                 new CopyPlugin({
