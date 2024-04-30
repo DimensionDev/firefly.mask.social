@@ -39,7 +39,7 @@ export function ComposeSend(props: ComposeSendProps) {
     const [{ loading, error }, handlePost] = useAsyncFn(async () => {
         if (posts.length > 1) await crossPostThread(setPercentage);
         else await crossPost(type, post);
-        await delay(300) // wait the loading
+        await delay(300); // wait the loading
         ComposeModalRef.close();
     }, [type, posts.length > 1, post]);
 
