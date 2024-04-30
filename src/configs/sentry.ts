@@ -6,6 +6,7 @@ try {
     const IGNORE_ERRORS = ['ResizeObserver loop limit exceeded'];
 
     init({
+        release: process.version,
         dsn: process.env.SENTRY_DNS,
         defaultIntegrations: false,
         integrations: [
