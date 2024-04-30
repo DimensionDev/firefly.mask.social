@@ -173,7 +173,8 @@
             "crypto-js@<4.2.0": ">=4.2.0",
             "@openzeppelin/contracts@<4.8.3": ">=4.8.3",
             "i18next": "23.2.11",
-            "react-i18next": "13.0.2"
+            "react-i18next": "13.0.2",
+            "react-use": "17.4.0"
         },
         "override comments": {
             "i18next-translation-parser": "see https://github.com/i18next/i18next-translation-parser/issues/11 we manually pin the commit"
