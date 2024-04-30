@@ -1,6 +1,5 @@
 import { Popover } from '@headlessui/react';
 import { BugAntIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
-import AddThread from '@/assets/addThread.svg';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext.js';
 import { t, Trans } from '@lingui/macro';
 import { delay } from '@masknet/kit';
@@ -9,6 +8,7 @@ import { $getSelection } from 'lexical';
 import { useCallback } from 'react';
 import { useAsyncFn } from 'react-use';
 
+import AddThread from '@/assets/addThread.svg';
 import AtIcon from '@/assets/at.svg';
 import GalleryIcon from '@/assets/gallery.svg';
 import NumberSignIcon from '@/assets/number-sign.svg';

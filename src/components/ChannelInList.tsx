@@ -1,8 +1,6 @@
 import { Avatar } from '@/components/Avatar.js';
 import { FollowButton } from '@/components/Channel/FollowButton.js';
 import { SourceIcon } from '@/components/SourceIcon.js';
-import { queryClient } from '@/configs/queryClient.js';
-import { SearchType } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { getChannelUrl } from '@/helpers/getChannelUrl.js';
 import { useIsSmall } from '@/hooks/useMediaQuery.js';
