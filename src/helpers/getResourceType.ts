@@ -1,4 +1,3 @@
-import { ALLOWED_IMAGES_MIMES, IMAGE_EXTENSION_TYPE } from '@/constants/index.js';
 import { parseURL } from '@/helpers/parseURL.js';
 
 export function getResourceType(urlString: string) {
