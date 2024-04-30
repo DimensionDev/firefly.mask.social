@@ -64,9 +64,6 @@ msgstr "Searching channel"
 msgid "Act"
 msgstr "Act"
 
-msgid "Unknown error"
-msgstr "Unknown error"
-
 msgid "More"
 msgstr "More"
 

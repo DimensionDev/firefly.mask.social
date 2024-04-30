@@ -64,9 +64,6 @@ msgstr ""
 msgid "Act"
 msgstr ""
 
-msgid "Unknown error"
-msgstr ""
-
 msgid "More"
 msgstr ""
 
