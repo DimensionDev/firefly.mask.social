@@ -1,5 +1,6 @@
 import { Popover } from '@headlessui/react';
-import { BugAntIcon, ChevronRightIcon, PlusCircleIcon } from '@heroicons/react/24/outline';
+import { BugAntIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
+import AddThread from '@/assets/addThread.svg'
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext.js';
 import { t, Trans } from '@lingui/macro';
 import { delay } from '@masknet/kit';
@@ -80,9 +81,9 @@ export function ComposeAction(props: ComposeActionProps) {
                         `current${x}Profile`,
                         currentProfile
                             ? {
-                                  ...currentProfile,
-                                  ownedBy: currentProfile.ownedBy?.address,
-                              }
+                                ...currentProfile,
+                                ownedBy: currentProfile.ownedBy?.address,
+                            }
                             : undefined,
                     ];
                 }),
@@ -196,7 +197,7 @@ export function ComposeAction(props: ComposeActionProps) {
                             setEditorContent('');
                         }}
                     >
-                        <PlusCircleIcon width={28} height={28} />
+                        <AddThread width={28} height={28} />
                     </ClickableButton>
                 ) : null}
             </div>

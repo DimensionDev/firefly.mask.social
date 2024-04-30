@@ -4,6 +4,7 @@ import { useAsyncFn } from 'react-use';
 
 import LoadingIcon from '@/assets/loading.svg';
 import SendIcon from '@/assets/send.svg';
+import AddThread from '@/assets/addThread.svg';
 import Send2Icon from '@/assets/send2.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { CountdownCircle } from '@/components/Compose/CountdownCircle.js';
@@ -80,10 +81,10 @@ export function ComposeSend({ post }: ComposeSendProps) {
                     }}
                 >
                     {posts.length >= MAX_POST_SIZE_PER_THREAD ? (
-                        <PlusCircleIcon width={28} height={28} />
+                        <AddThread width={40} height={40} />
                     ) : (
                         <Tooltip content={t`Add`} placement="top">
-                            <PlusCircleIcon width={28} height={28} />
+                            <AddThread width={40} height={40} />
                         </Tooltip>
                     )}
                 </ClickableButton>

@@ -46,7 +46,7 @@ export const SearchFilter = memo(function SearchFilter() {
                                     name="notification-method"
                                     type="radio"
                                     defaultChecked={filter.type === searchType}
-                                    className="h-4 w-4 border-gray-300 text-indigo-600"
+                                    className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-transparent"
                                     onClick={() => {
                                         updateState({ type: filter.type });
 
