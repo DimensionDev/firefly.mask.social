@@ -78,6 +78,7 @@ export async function crossPostThread(progressCallback?: (percentage: number, in
     if (posts.length === 1) throw new Error(t`A thread must have at least two posts.`);
     const shouldSendPostCount = posts.length;
 
+    progressCallback?.(0, 0, shouldSendPostCount);
     for (const [index, _] of posts.entries()) {
         const { posts: allPosts } = useComposeStateStore.getState();
 

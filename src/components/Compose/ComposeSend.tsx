@@ -1,5 +1,6 @@
 import { PlusCircleIcon } from '@heroicons/react/24/outline';
 import { Plural, t, Trans } from '@lingui/macro';
+import { delay } from '@masknet/kit';
 import { useMemo, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 
@@ -36,10 +37,9 @@ export function ComposeSend(props: ComposeSendProps) {
 
     const [percentage, setPercentage] = useState(0);
     const [{ loading, error }, handlePost] = useAsyncFn(async () => {
-        setPercentage(0);
         if (posts.length > 1) await crossPostThread(setPercentage);
         else await crossPost(type, post);
-        await new Promise((resolve) => setTimeout(resolve, 500)); // wait the loading
+        await delay(300) // wait the loading
         ComposeModalRef.close();
     }, [type, posts.length > 1, post]);
 
