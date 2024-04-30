@@ -109,6 +109,9 @@ msgstr "Username is required."
 msgid "Copied"
 msgstr "Copied"
 
+msgid "Retry"
+msgstr "Retry"
+
 msgid "comment"
 msgstr "comment"
 

@@ -114,6 +114,9 @@ msgstr ""
 msgid "Copied"
 msgstr "已复制"
 
+msgid "Retry"
+msgstr ""
+
 msgid "comment"
 msgstr "评论"
 
