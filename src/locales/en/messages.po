@@ -76,9 +76,6 @@ msgstr "<0>You</0> and {0} others recasted"
 msgid "Change Wallet"
 msgstr "Change Wallet"
 
-msgid "Report on GitHub"
-msgstr "Report on GitHub"
-
 msgid "OpenGraph"
 msgstr "OpenGraph"
 
@@ -538,6 +535,9 @@ msgstr "Follower"
 msgid "The frame server failed to process the request."
 msgstr "The frame server failed to process the request."
 
+msgid "Report"
+msgstr "Report"
+
 msgid "Failed to upload video to {sourceName}."
 msgstr "Failed to upload video to {sourceName}."
 
@@ -552,6 +552,9 @@ msgstr "Image"
 
 msgid "Failed to query the signed key state."
 msgstr "Failed to query the signed key state."
+
+msgid "Copy"
+msgstr "Copy"
 
 msgid "Notifications"
 msgstr "Notifications"
