@@ -77,9 +77,9 @@ async function recompositePost(index: number, post: CompositePost, posts: Compos
 export async function crossPostThread(progressCallback?: (percentage: number, index: number, total: number) => void) {
     const { posts } = useComposeStateStore.getState();
     if (posts.length === 1) throw new Error(t`A thread must have at least two posts.`);
-    const shouldSendPostCount = posts.length;
 
-    progressCallback?.(0, 0, shouldSendPostCount);
+    progressCallback?.(0, 0, posts.length);
+
     for (const [index, _] of posts.entries()) {
         const { posts: allPosts } = useComposeStateStore.getState();
 
@@ -91,14 +91,13 @@ export async function crossPostThread(progressCallback?: (percentage: number, in
         await crossPost(index === 0 ? 'compose' : 'reply', post, {
             skipIfPublishedPost: true,
             skipIfNoParentPost: true,
-            skipPublishedCheck: true,
             skipRefreshFeeds: index !== posts.length - 1,
             options: {
                 noSuccessMessage: true,
                 noErrorMessage: true,
             },
         });
-        progressCallback?.((index + 1) / posts.length, index, shouldSendPostCount);
+        progressCallback?.((index + 1) / posts.length, index, posts.length);
     }
 
     const { posts: updatedPosts } = useComposeStateStore.getState();
@@ -109,9 +108,9 @@ export async function crossPostThread(progressCallback?: (percentage: number, in
         const secondPlatform = failedPlatforms[1] ? resolveSourceName(failedPlatforms[1]) : '';
 
         const message = plural(failedPlatforms.length, {
-            one: `Your post failed to publish on ${firstPlatform} due to an error. Click 'Retry' to attempt posting again.`,
-            two: `Your post failed to publish on ${firstPlatform} and ${secondPlatform} due to an error. Click 'Retry' to attempt posting again.`,
-            other: "Your post failed to publish due to an error. Click 'Retry' to attempt posting again.",
+            one: `Your posts failed to publish on ${firstPlatform} due to an error. Click 'Retry' to attempt posting again.`,
+            two: `Your posts failed to publish on ${firstPlatform} and ${secondPlatform} due to an error. Click 'Retry' to attempt posting again.`,
+            other: "Your posts failed to publish due to an error. Click 'Retry' to attempt posting again.",
         });
 
         // the first error on each platform
@@ -127,9 +126,9 @@ export async function crossPostThread(progressCallback?: (percentage: number, in
         });
 
         // concat all error messages for reporting
-        const detailedMessage = SORTED_SOURCES.flatMap((x, i) => {
+        const detailedMessage = SORTED_SOURCES.map((x, i) => {
             const error = allErrors[i];
-            if (!error) return [];
+            if (!error) return '';
             return getDetailedErrorMessage(x, error);
         }).join('\n');
 

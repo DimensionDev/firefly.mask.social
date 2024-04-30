@@ -1,18 +1,22 @@
+import { t } from '@lingui/macro';
 import { RedPacketMetaKey } from '@masknet/plugin-redpacket';
 import { FireflyRedPacket } from '@masknet/web3-providers';
 import { type FireflyRedPacketAPI, type RedPacketJSONPayload } from '@masknet/web3-providers/types';
 import { produce } from 'immer';
-import { compact } from 'lodash-es';
+import { compact, noop } from 'lodash-es';
 
 import { queryClient } from '@/configs/queryClient.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { SORTED_SOURCES } from '@/constants/index.js';
 import { createMockComment } from '@/helpers/createMockComment.js';
+import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.jsx';
 import { getCompositePost } from '@/helpers/getCompositePost.js';
 import { getCurrentProfileAll } from '@/helpers/getCurrentProfileAll.js';
-import { isPublishedPost } from '@/helpers/isPublishedPost.js';
+import { getDetailedErrorMessage } from '@/helpers/getDetailedErrorMessage.js';
+import { failedAt } from '@/helpers/isPublishedPost.js';
 import { resolvePostTo } from '@/helpers/resolvePostTo.js';
 import { resolveRedPacketPlatformType } from '@/helpers/resolveRedPacketPlatformType.js';
+import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { hasRpPayload } from '@/helpers/rpPayload.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import type { CreatePostToOptions } from '@/services/createPostTo.js';
@@ -131,8 +135,6 @@ interface CrossPostOptions {
     skipIfPublishedPost?: boolean;
     // skip if no parent post is found in reply or quote
     skipIfNoParentPost?: boolean;
-    // skip published check
-    skipPublishedCheck?: boolean;
     // If it's a post in thread, only refresh the feeds after sending the last post.
     skipRefreshFeeds?: boolean;
     // override createPostTo options
@@ -142,58 +144,82 @@ interface CrossPostOptions {
 export async function crossPost(
     type: ComposeType,
     compositePost: CompositePost,
-    {
-        skipIfPublishedPost = false,
-        skipIfNoParentPost = false,
-        skipPublishedCheck = false,
-        skipRefreshFeeds,
-        options,
-    }: CrossPostOptions = {},
+    { skipIfPublishedPost = false, skipIfNoParentPost = false, skipRefreshFeeds, options }: CrossPostOptions = {},
 ) {
     const { updatePostInThread } = useComposeStateStore.getState();
     const { availableSources } = compositePost;
 
+    const enqueueSuccessMessage_ = !options?.noSuccessMessage ? enqueueSuccessMessage : noop;
+    const enqueueErrorMessage_ = !options?.noErrorMessage ? enqueueErrorMessage : noop;
+
     const allSettled = await Promise.allSettled(
         SORTED_SOURCES.map(async (x) => {
-            if (availableSources.includes(x)) {
-                // post already published
-                if (skipIfPublishedPost && compositePost.postId[x]) {
-                    return null;
-                }
+            if (!availableSources.includes(x)) return null;
 
-                // parent post is required for reply and quote
-                if ((type === 'reply' || type === 'quote') && skipIfNoParentPost && !compositePost.parentPost[x]) {
-                    return null;
-                }
+            // post already published
+            if (skipIfPublishedPost && compositePost.postId[x]) {
+                return null;
+            }
 
-                try {
-                    const result = await resolvePostTo(x)(type, compositePost, options);
+            // parent post is required for reply and quote
+            if ((type === 'reply' || type === 'quote') && skipIfNoParentPost && !compositePost.parentPost[x]) {
+                return null;
+            }
+
+            try {
+                const result = await resolvePostTo(x)(type, compositePost, options);
+                updatePostInThread(compositePost.id, (y) => ({
+                    ...y,
+                    postError: {
+                        ...y.postError,
+                        [x]: null,
+                    },
+                }));
+                return result;
+            } catch (error) {
+                if (error instanceof Error) {
                     updatePostInThread(compositePost.id, (y) => ({
                         ...y,
                         postError: {
                             ...y.postError,
-                            [x]: null,
+                            [x]: error,
                         },
                     }));
-                    return result;
-                } catch (error) {
-                    if (error instanceof Error) {
-                        updatePostInThread(compositePost.id, (y) => ({
-                            ...y,
-                            postError: {
-                                ...y.postError,
-                                [x]: error,
-                            },
-                        }));
-                    }
-
-                    throw error;
                 }
-            } else {
-                return null;
+
+                throw error;
             }
         }),
     );
+
+    const updatedCompositePost = getCompositePost(compositePost.id);
+    if (!updatedCompositePost) throw new Error('Post not found.');
+
+    // check if all posts are published
+    const failedPlatforms = failedAt(updatedCompositePost);
+
+    if (failedPlatforms.length) {
+        // show success message if no error found on certain platform
+        SORTED_SOURCES.forEach((x, i) => {
+            const settled = allSettled[i];
+            const error = settled.status === 'rejected' ? settled.reason : null;
+            if (error) return;
+            enqueueSuccessMessage_(t`Your post have published successfully on ${resolveSourceName(x)}.`);
+        });
+
+        // concat all error messages for reporting
+        const detailedMessage = SORTED_SOURCES.map((x, i) => {
+            const settled = allSettled[i];
+            const error = settled.status === 'rejected' ? settled.reason : null;
+            if (!error) return '';
+            return getDetailedErrorMessage(x, error);
+        }).join('\n');
+        enqueueErrorMessage_(t`Your post failed to publish due to an error. Click 'Retry' to attempt posting again.`, {
+            detail: detailedMessage,
+        });
+    } else {
+        enqueueSuccessMessage_(t`Your post has published successfully.`);
+    }
 
     // failed to cross post
     if (allSettled.every((x) => x.status === 'rejected')) {
@@ -202,21 +228,17 @@ export async function crossPost(
 
     // refresh profile feed
     if (!skipRefreshFeeds) {
-        const staleSources = SORTED_SOURCES.filter((source, i) => {
-            const settled = allSettled[i];
-            const postId = settled.status === 'fulfilled' ? settled.value : null;
-            return availableSources.includes(source) && postId ? source : null;
-        });
+        try {
+            const staleSources = SORTED_SOURCES.filter((source, i) => {
+                const settled = allSettled[i];
+                const postId = settled.status === 'fulfilled' ? settled.value : null;
+                return availableSources.includes(source) && postId ? source : null;
+            });
 
-        await Promise.allSettled(staleSources.map((source) => refreshProfileFeed(source)));
-    }
-
-    const updatedCompositePost = getCompositePost(compositePost.id);
-    if (!updatedCompositePost) throw new Error('Post not found.');
-
-    // failed to to cross post
-    if (!skipPublishedCheck && !isPublishedPost(updatedCompositePost)) {
-        throw new Error('Post failed to publish.');
+            await Promise.allSettled(staleSources.map((source) => refreshProfileFeed(source)));
+        } catch (error) {
+            console.error(`[cross post]: failed to refresh profile feed: ${error}`);
+        }
     }
 
     try {

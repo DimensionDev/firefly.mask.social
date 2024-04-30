@@ -229,9 +229,6 @@ msgstr ""
 msgid "Log out"
 msgstr ""
 
-msgid "{0, plural, one {Your post failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your post failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your post failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
-msgstr ""
-
 msgid "post"
 msgstr ""
 
@@ -281,9 +278,6 @@ msgid "Failed to create image payload."
 msgstr ""
 
 msgid "Failed to unvote post."
-msgstr ""
-
-msgid "Your post failed to publish."
 msgstr ""
 
 msgid "Privacy Policy"
@@ -364,9 +358,6 @@ msgstr ""
 msgid "Clear All"
 msgstr ""
 
-msgid "Failed to upload image to {sourceName}."
-msgstr ""
-
 msgid "Lens"
 msgstr ""
 
@@ -410,6 +401,9 @@ msgid "commented"
 msgstr ""
 
 msgid "The page could not be found."
+msgstr ""
+
+msgid "{0, plural, one {Your posts failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your posts failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your posts failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
 msgstr ""
 
 msgid "What's happening..."
@@ -541,9 +535,6 @@ msgstr ""
 msgid "Report"
 msgstr ""
 
-msgid "Failed to upload video to {sourceName}."
-msgstr ""
-
 msgid "Post by {0}"
 msgstr ""
 
@@ -673,6 +664,9 @@ msgstr ""
 msgid "Failed to fetch as ArrayBuffer."
 msgstr ""
 
+msgid "Your post have published successfully on {0}."
+msgstr ""
+
 msgid "Confirm to log out these accounts?"
 msgstr ""
 
@@ -764,6 +758,9 @@ msgid "Terms of Service"
 msgstr ""
 
 msgid "Already posted on {sourceName}."
+msgstr ""
+
+msgid "Your post failed to publish due to an error. Click 'Retry' to attempt posting again."
 msgstr ""
 
 msgid "Post"
