@@ -76,9 +76,6 @@ msgstr ""
 msgid "Change Wallet"
 msgstr ""
 
-msgid "Report on GitHub"
-msgstr ""
-
 msgid "OpenGraph"
 msgstr ""
 
@@ -547,6 +544,9 @@ msgstr ""
 msgid "The frame server failed to process the request."
 msgstr ""
 
+msgid "Report"
+msgstr ""
+
 msgid "Failed to upload video to {sourceName}."
 msgstr ""
 
@@ -560,6 +560,9 @@ msgid "Image"
 msgstr ""
 
 msgid "Failed to query the signed key state."
+msgstr ""
+
+msgid "Copy"
 msgstr ""
 
 msgid "Notifications"

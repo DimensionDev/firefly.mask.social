@@ -81,9 +81,6 @@ msgstr "<0> 你 </0> 和 {0} 人都转发了"
 msgid "Change Wallet"
 msgstr "更换钱包"
 
-msgid "Report on GitHub"
-msgstr ""
-
 msgid "OpenGraph"
 msgstr "OpenGraph"
 
@@ -552,6 +549,9 @@ msgstr "粉丝"
 msgid "The frame server failed to process the request."
 msgstr "Frame 服务器未能处理请求"
 
+msgid "Report"
+msgstr ""
+
 msgid "Failed to upload video to {sourceName}."
 msgstr ""
 
@@ -565,6 +565,9 @@ msgid "Image"
 msgstr "图片"
 
 msgid "Failed to query the signed key state."
+msgstr ""
+
+msgid "Copy"
 msgstr ""
 
 msgid "Notifications"
