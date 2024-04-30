@@ -61,6 +61,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                     async
                     strategy="beforeInteractive"
                 />
+                <Script
+                    src="https://sentry.firefly.land/js-sdk-loader/4a200c89bb146241199c157e8c03d903.min.js"
+                    async
+                    strategy="beforeInteractive"
+                />
             </body>
         </html>
     );
