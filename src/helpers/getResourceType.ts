@@ -1,3 +1,4 @@
+import { ALLOWED_IMAGES_MIMES } from '@/constants/index.js';
 import { parseURL } from '@/helpers/parseURL.js';
 
 export function getResourceType(urlString: string) {
@@ -12,7 +13,7 @@ export function getResourceType(urlString: string) {
         return 'Image';
     }
 
-    if (['jpg', 'jpeg', 'png', 'gif'].includes(fileExtension)) {
+    if (ALLOWED_IMAGES_MIMES.map((x) => x.replace('image/', '')).includes(fileExtension)) {
         return 'Image';
     } else if (['mp4', 'webm', 'ogg', 'm3u8'].includes(fileExtension)) {
         return 'Video';
