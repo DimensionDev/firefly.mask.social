@@ -346,6 +346,9 @@ msgstr "The user declined the request."
 msgid "<0>{0}</0> liked"
 msgstr "<0>{0}</0> liked"
 
+msgid "Your posts has published successfully on {0}."
+msgstr "Your posts has published successfully on {0}."
+
 msgid "{0, select, follow {Failed to followed @{handle} on {source}} unfollow {Failed to unfollowed @{handle} on {source}} other {Failed to followed @{handle} on {source}}}"
 msgstr "{0, select, follow {Failed to followed @{handle} on {source}} unfollow {Failed to unfollowed @{handle} on {source}} other {Failed to followed @{handle} on {source}}}"
 
