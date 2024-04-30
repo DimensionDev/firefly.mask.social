@@ -253,9 +253,6 @@ msgstr ""
 msgid "and"
 msgstr ""
 
-msgid "Failed to quote post on {sourceName}."
-msgstr ""
-
 msgid "Channel"
 msgstr ""
 
@@ -265,6 +262,9 @@ msgstr ""
 msgid "Comment cannot be empty."
 msgstr ""
 
+msgid "Your post has published successfully on {sourceName}."
+msgstr ""
+
 msgid "Failed to fetch as Text."
 msgstr ""
 
@@ -272,9 +272,6 @@ msgid "Reply"
 msgstr ""
 
 msgid "Querying the signed key state."
-msgstr ""
-
-msgid "Replied on {sourceName}."
 msgstr ""
 
 msgid "Invalid compose type."
@@ -319,6 +316,9 @@ msgstr ""
 msgid "Allow replies from"
 msgstr ""
 
+msgid "Your posts have published successfully on {0}."
+msgstr ""
+
 msgid "Malformed session."
 msgstr ""
 
@@ -344,9 +344,6 @@ msgid "The user declined the request."
 msgstr ""
 
 msgid "<0>{0}</0> liked"
-msgstr ""
-
-msgid "Your posts has published successfully on {0}."
 msgstr ""
 
 msgid "{0, select, follow {Failed to followed @{handle} on {source}} unfollow {Failed to unfollowed @{handle} on {source}} other {Failed to followed @{handle} on {source}}}"
@@ -505,9 +502,6 @@ msgstr ""
 msgid "Mirrored"
 msgstr ""
 
-msgid "Quoted post on {sourceName}."
-msgstr ""
-
 msgid "Unable to retrieve post details."
 msgstr ""
 
@@ -536,9 +530,6 @@ msgid "No Lens profile was found. Please try using a different wallet."
 msgstr ""
 
 msgid "<0>{0}</0> mirrored"
-msgstr ""
-
-msgid "Failed to post on {sourceName}."
 msgstr ""
 
 msgid "Follower"
@@ -679,9 +670,6 @@ msgstr ""
 msgid "Confirm to log out these accounts?"
 msgstr ""
 
-msgid "Posted on {sourceName}."
-msgstr ""
-
 msgid "Your Lens account is now connected"
 msgstr ""
 
@@ -739,10 +727,10 @@ msgstr ""
 msgid "Please confirm the login with X."
 msgstr ""
 
-msgid "<0/> commented on your <1><2/></1>"
+msgid "Your post failed to publish on {sourceName}."
 msgstr ""
 
-msgid "Failed to relay post on {sourceName}."
+msgid "<0/> commented on your <1><2/></1>"
 msgstr ""
 
 msgid "<0>You</0> recasted"

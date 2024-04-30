@@ -253,9 +253,6 @@ msgstr "Try searching for something else."
 msgid "and"
 msgstr "and"
 
-msgid "Failed to quote post on {sourceName}."
-msgstr "Failed to quote post on {sourceName}."
-
 msgid "Channel"
 msgstr "Channel"
 
@@ -265,6 +262,9 @@ msgstr "{shares, plural, =0 {Mirror or Quote} zero {Mirror or Quote} one {Mirror
 msgid "Comment cannot be empty."
 msgstr "Comment cannot be empty."
 
+msgid "Your post has published successfully on {sourceName}."
+msgstr "Your post has published successfully on {sourceName}."
+
 msgid "Failed to fetch as Text."
 msgstr "Failed to fetch as Text."
 
@@ -273,9 +273,6 @@ msgstr "Reply"
 
 msgid "Querying the signed key state."
 msgstr "Querying the signed key state."
-
-msgid "Replied on {sourceName}."
-msgstr "Replied on {sourceName}."
 
 msgid "Invalid compose type."
 msgstr "Invalid compose type."
@@ -319,6 +316,9 @@ msgstr "Only people you mention"
 msgid "Allow replies from"
 msgstr "Allow replies from"
 
+msgid "Your posts have published successfully on {0}."
+msgstr "Your posts have published successfully on {0}."
+
 msgid "Malformed session."
 msgstr "Malformed session."
 
@@ -345,9 +345,6 @@ msgstr "The user declined the request."
 
 msgid "<0>{0}</0> liked"
 msgstr "<0>{0}</0> liked"
-
-msgid "Your posts has published successfully on {0}."
-msgstr "Your posts has published successfully on {0}."
 
 msgid "{0, select, follow {Failed to followed @{handle} on {source}} unfollow {Failed to unfollowed @{handle} on {source}} other {Failed to followed @{handle} on {source}}}"
 msgstr "{0, select, follow {Failed to followed @{handle} on {source}} unfollow {Failed to unfollowed @{handle} on {source}} other {Failed to followed @{handle} on {source}}}"
@@ -505,9 +502,6 @@ msgstr "Failed to like the post."
 msgid "Mirrored"
 msgstr "Mirrored"
 
-msgid "Quoted post on {sourceName}."
-msgstr "Quoted post on {sourceName}."
-
 msgid "Unable to retrieve post details."
 msgstr "Unable to retrieve post details."
 
@@ -537,9 +531,6 @@ msgstr "No Lens profile was found. Please try using a different wallet."
 
 msgid "<0>{0}</0> mirrored"
 msgstr "<0>{0}</0> mirrored"
-
-msgid "Failed to post on {sourceName}."
-msgstr "Failed to post on {sourceName}."
 
 msgid "Follower"
 msgstr "Follower"
@@ -679,9 +670,6 @@ msgstr "Failed to fetch as ArrayBuffer."
 msgid "Confirm to log out these accounts?"
 msgstr "Confirm to log out these accounts?"
 
-msgid "Posted on {sourceName}."
-msgstr "Posted on {sourceName}."
-
 msgid "Your Lens account is now connected"
 msgstr "Your Lens account is now connected"
 
@@ -739,11 +727,11 @@ msgstr "No parent post found."
 msgid "Please confirm the login with X."
 msgstr "Please confirm the login with X."
 
+msgid "Your post failed to publish on {sourceName}."
+msgstr "Your post failed to publish on {sourceName}."
+
 msgid "<0/> commented on your <1><2/></1>"
 msgstr "<0/> commented on your <1><2/></1>"
-
-msgid "Failed to relay post on {sourceName}."
-msgstr "Failed to relay post on {sourceName}."
 
 msgid "<0>You</0> recasted"
 msgstr "<0>You</0> recasted"
