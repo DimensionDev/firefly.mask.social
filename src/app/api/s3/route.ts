@@ -4,33 +4,67 @@ import { t } from '@lingui/macro';
 import { StatusCodes } from 'http-status-codes';
 import type { NextRequest } from 'next/server.js';
 import { v4 as uuid } from 'uuid';
-import { z } from 'zod';
+import { z, ZodError, ZodIssueCode } from 'zod';
 
+import { SourceInURL } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { createErrorResponseJSON } from '@/helpers/createErrorResponseJSON.js';
 import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
 
-class ParameterError extends Error {}
+const ALLOWED_MIMES = ['image/png', 'image/jpeg', 'image/gif', 'image/webp', 'image/bmp'] as const;
 
-const ALLOWED_MIMES = ['image/png', 'image/jpeg', 'image/gif', 'image/webp', 'image/bmp'];
+type AllowedMime = (typeof ALLOWED_MIMES)[number];
 
-const fileSchema = z.custom((value) => {
-    if (!(value instanceof File)) {
-        throw new ParameterError(t`The file not found`);
-    }
-    if (!ALLOWED_MIMES.includes(value.type)) {
-        throw new ParameterError(t`Invalid file type. Allowed types: ${ALLOWED_MIMES.join(', ')}`);
-    }
-    return value;
-});
+class ContentTypeError extends Error {}
+
+const SUFFIX_NAMES: Record<AllowedMime, string> = {
+    'image/png': 'png',
+    'image/jpeg': 'jpg',
+    'image/gif': 'gif',
+    'image/bmp': 'bmp',
+    'image/webp': 'webp',
+};
+
+const FormDataSchemas = z.object({
+    file: z.custom((value) => {
+        if (!(value instanceof File)) {
+            throw new ZodError([
+                {
+                    message: t`The file not found`,
+                    path: [],
+                    code: ZodIssueCode.invalid_type,
+                    expected: 'object',
+                    received: typeof value,
+                },
+            ]);
+        }
+        if (!ALLOWED_MIMES.includes(value.type as AllowedMime)) {
+            throw new ZodError([
+                {
+                    message: t`Invalid file type. Allowed types: ${ALLOWED_MIMES.join(', ')}`,
+                    path: [],
+                    code: ZodIssueCode.invalid_type,
+                    expected: 'string',
+                    received: 'string',
+                },
+            ]);
+        }
+        return value;
+    }),
+    source: z.nativeEnum(SourceInURL),
+})
 
 export async function PUT(req: NextRequest) {
     try {
-        const formData = await req.formData().catch(() => {
-            throw new ParameterError(t`The file not found`);
+        const formData = await req.formData().catch((error) => {
+            throw new ContentTypeError(error.message)
         });
+        const source = formData.get('source') as string;
         const file = formData.get('file') as File;
-        fileSchema.parse(file);
+        FormDataSchemas.parse({
+            source,
+            file
+        })
         const client = new S3Client({
             region: env.internal.S3_REGION,
             credentials: {
@@ -41,7 +75,7 @@ export async function PUT(req: NextRequest) {
         });
         const params = {
             Bucket: env.internal.S3_BUCKET,
-            Key: uuid(),
+            Key: `${source.toLowerCase()}/${uuid()}.${SUFFIX_NAMES[file.type as AllowedMime]}`,
             Body: file,
             ContentType: file.type,
         };
@@ -54,8 +88,16 @@ export async function PUT(req: NextRequest) {
             link: `https://${env.internal.S3_HOST}/${params.Key}`,
         });
     } catch (error) {
-        if (error instanceof ParameterError) {
+        if (error instanceof ContentTypeError) {
             return createErrorResponseJSON(error.message, {
+                status: StatusCodes.BAD_REQUEST,
+            });
+        }
+        if (error instanceof ZodError) {
+            const message =
+                'InvalidParams: ' +
+                error.issues.map((issue) => `(${issue.code})${issue.path.join('.')}: ${issue.message}`).join('; ');
+            return createErrorResponseJSON(message, {
                 status: StatusCodes.BAD_REQUEST,
             });
         }
