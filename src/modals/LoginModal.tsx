@@ -109,7 +109,7 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | 
 
     const content = !source ? (
         <div
-            className="flex flex-col rounded-[12px] md:w-[600px]"
+            className="flex flex-col rounded-[12px] bg-primaryBottom md:w-[600px]"
             style={{ boxShadow: '0px 4px 30px 0px rgba(0, 0, 0, 0.10)' }}
         >
             <div className="flex w-full flex-col md:gap-4 md:p-4">
