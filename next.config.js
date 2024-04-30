@@ -4,6 +4,7 @@ import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 import { createRequire } from 'module';
 import CopyPlugin from 'copy-webpack-plugin';
+import packageJSON from './package.json' assert { type: 'json' };
 
 const require = createRequire(import.meta.url);
 const __dirname = fileURLToPath(dirname(import.meta.url));
@@ -92,15 +93,7 @@ export default {
                     'process.env.MASK_SENTRY': 'disabled',
                     'process.env.MASK_MIXPANEL': 'disabled',
                     'process.env.NODE_DEBUG': 'undefined',
-                    'process.env.IMGUR_CLIENT_ID': JSON.stringify(process.env.IMGUR_CLIENT_ID),
-                    'process.env.IMGUR_CLIENT_SECRET': JSON.stringify(process.env.IMGUR_CLIENT_SECRET),
-                    'process.env.NEXT_PUBLIC_REDPACKET_CHANNEL_KEY': JSON.stringify(
-                        process.env.NEXT_PUBLIC_REDPACKET_CHANNEL_KEY,
-                    ),
-                    'process.env.NEXT_PUBLIC_REDPACKET_CHANNEL_URL': JSON.stringify(
-                        process.env.NEXT_PUBLIC_REDPACKET_CHANNEL_URL,
-                    ),
-                    'process.version': JSON.stringify('0.1.0'),
+                    'process.version': JSON.stringify(packageJSON.version),
                 }),
                 new CopyPlugin({
                     patterns: [
