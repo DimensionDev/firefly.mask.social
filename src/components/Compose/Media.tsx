@@ -6,12 +6,11 @@ import { useAsyncFn } from 'react-use';
 import ImageIcon from '@/assets/image.svg';
 import VideoIcon from '@/assets/video.svg';
 import { SocialPlatform } from '@/constants/enum.js';
+import { ALLOWED_IMAGES_MIMES } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getCurrentPostImageLimits } from '@/helpers/getCurrentPostImageLimits.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
-
-const ALLOWED_MIMES = ['image/png', 'image/jpeg', 'image/gif', 'image/webp', 'image/bmp']
 
 interface MediaProps {
     close: () => void;
@@ -35,7 +34,7 @@ export function Media({ close }: MediaProps) {
                     return [
                         ...images,
                         ...[...files]
-                            .filter(file => ALLOWED_MIMES.includes(file.type))
+                            .filter(file => ALLOWED_IMAGES_MIMES.includes(file.type))
                             .map((file) => ({ file }))].slice(0, maxImageCount);
                 });
             }
@@ -93,7 +92,7 @@ export function Media({ close }: MediaProps) {
 
                 <input
                     type="file"
-                    accept={ALLOWED_MIMES.join(', ')}
+                    accept={ALLOWED_IMAGES_MIMES.join(', ')}
                     multiple
                     ref={imageInputRef}
                     className="hidden"
