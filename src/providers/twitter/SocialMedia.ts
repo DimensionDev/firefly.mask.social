@@ -92,9 +92,9 @@ class TwitterSocialMedia implements Provider {
     async discoverPosts(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         const session = await getSession();
         if (!session) throw new Error('No session found');
-        const response = await fetchJSON<ResponseJSON<TweetV2PaginableTimelineResult>>(`/api/twitter/homeTimeline`)
+        const response = await fetchJSON<ResponseJSON<TweetV2PaginableTimelineResult>>(`/api/twitter/homeTimeline`);
         if (!response.success) throw new Error(response.error.message);
-        return formatTwitterPostFromFirefly(response.data, 'Post', indicator?.id)
+        return formatTwitterPostFromFirefly(response.data, 'Post', indicator?.id);
     }
 
     discoverPostsById(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
