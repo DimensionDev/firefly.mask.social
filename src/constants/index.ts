@@ -103,9 +103,9 @@ export const LENS_HUB_PROXY_ADDRESS = '0xDb46d1Dc155634FbC732f92E853b10B288AD5a1
 export const PUBLIC_ACT_PROXY_ADDRESS = '0x53582b1b7BE71622E7386D736b6baf87749B7a2B';
 export const TOKEN_HANDLE_REGISTRY = '0xD4F2F33680FCCb36748FA9831851643781608844';
 
-export const ALLOWED_IMAGES_MIMES = ['image/png', 'image/jpeg', 'image/gif', 'image/webp', 'image/bmp'];
+export const ALLOWED_IMAGES_MIMES = ['image/png', 'image/jpeg', 'image/gif', 'image/webp', 'image/bmp'] as const;
 
-export const SUFFIX_NAMES: Record<string, string> = {
+export const SUFFIX_NAMES: Record<(typeof ALLOWED_IMAGES_MIMES)[number], string> = {
     'image/png': 'png',
     'image/jpeg': 'jpg',
     'image/gif': 'gif',
