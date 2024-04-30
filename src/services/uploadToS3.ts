@@ -5,7 +5,7 @@ import type { ResponseJSON } from '@/types/index.js';
 export async function uploadToS3(file: File, source: SocialPlatform): Promise<string> {
     const formData = new FormData();
     formData.append('file', file);
-    formData.append('source', source)
+    formData.append('source', source);
     const response = await fetchJSON<ResponseJSON<{ link: string }>>(
         '/api/s3',
         {
