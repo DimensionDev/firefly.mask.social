@@ -1,7 +1,7 @@
 import { safeUnreachable } from '@masknet/kit';
 import { isValidDomain } from '@masknet/web3-shared-evm';
 import { useQuery } from '@tanstack/react-query';
-import { Suspense, useEffect } from 'react';
+import { memo, Suspense, useEffect } from 'react';
 import urlcat from 'urlcat';
 
 import { Embed } from '@/components/Oembed/Embed.js';
@@ -19,20 +19,20 @@ interface OembedUIProps {
     og: OpenGraph;
 }
 
-export function OembedUI({ og }: OembedUIProps) {
+export const OembedUI = memo<OembedUIProps>(function OembedUI({ og }) {
     return og.html ? (
         <Player html={og.html} isSpotify={isLinkMatchingHost(og.url, 'open.spotify.com', false)} />
     ) : (
         <Embed og={og} />
     );
-}
+});
 
 interface OembedProps {
     url?: string;
     onData?: (data: OpenGraph) => void;
 }
 
-export function Oembed({ url, onData }: OembedProps) {
+export const Oembed = memo<OembedProps>(function Oembed({ url, onData }) {
     const { isLoading, error, data } = useQuery({
         queryKey: ['oembed', url],
         queryFn: () => {
@@ -93,4 +93,4 @@ export function Oembed({ url, onData }: OembedProps) {
     }
 
     return <OembedUI og={og} />;
-}
+});

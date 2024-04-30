@@ -13,20 +13,19 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout
+        uses: actions/checkout@v3
 
-    - name: Checkout
-      uses: actions/checkout@v3
-
-    - name: Download from Crowdin
-      uses: crowdin/github-action@v1
-      with:
-        upload_translations: false
-        download_translations: true
-        create_pull_request: true
-        pull_request_body: 'FW-0000'
-        pull_request_base_branch_name: 'main'
-        pull_request_labels: 'automated'
-        project_id: ${{ secrets.CROWDIN_PROJECT_ID }}
-        token: ${{ secrets.CROWDIN_PERSONAL_TOKEN }}
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Download from Crowdin
+        uses: crowdin/github-action@v1
+        with:
+          upload_translations: false
+          download_translations: true
+          create_pull_request: true
+          pull_request_body: 'FW-0000'
+          pull_request_base_branch_name: 'main'
+          pull_request_labels: 'automated'
+          project_id: ${{ secrets.CROWDIN_PROJECT_ID }}
+          token: ${{ secrets.CROWDIN_PERSONAL_TOKEN }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

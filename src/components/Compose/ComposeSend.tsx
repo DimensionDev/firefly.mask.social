@@ -13,23 +13,22 @@ import { measureChars } from '@/helpers/chars.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getCurrentPostLimits } from '@/helpers/getCurrentPostLimits.js';
 import { isValidPost } from '@/helpers/isValidPost.js';
+import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';
 import { ComposeModalRef } from '@/modals/controls.js';
 import { crossPost } from '@/services/crossPost.js';
 import { crossPostThread } from '@/services/crossPostThread.js';
-import { type CompositePost, useComposeStateStore, useCompositePost } from '@/store/useComposeStore.js';
+import { useComposeStateStore } from '@/store/useComposeStore.js';
 
-interface ComposeSendProps extends React.HTMLAttributes<HTMLDivElement> {
-    post: CompositePost;
-}
+interface ComposeSendProps extends React.HTMLAttributes<HTMLDivElement> {}
 
-export function ComposeSend({ post }: ComposeSendProps) {
-    const { rootPost } = useCompositePost();
+export function ComposeSend(props: ComposeSendProps) {
     const { type, posts, addPostInThread } = useComposeStateStore();
+    const post = useCompositePost();
 
-    const { MAX_CHAR_SIZE_PER_POST } = getCurrentPostLimits(rootPost.availableSources);
-    const { visibleLength, invisibleLength } = measureChars(post.chars, rootPost.availableSources);
+    const { MAX_CHAR_SIZE_PER_POST } = getCurrentPostLimits(post.availableSources);
+    const { visibleLength, invisibleLength } = measureChars(post.chars, post.availableSources);
 
     const isMedium = useIsMedium();
     const setEditorContent = useSetEditorContent();
@@ -40,8 +39,7 @@ export function ComposeSend({ post }: ComposeSendProps) {
         ComposeModalRef.close();
     }, [type, posts.length > 1, post]);
 
-    const disabled =
-        loading || posts.length > 1 ? posts.some((x) => !isValidPost(x, rootPost)) : !isValidPost(post, rootPost);
+    const disabled = loading || posts.length > 1 ? posts.some((x) => !isValidPost(x)) : !isValidPost(post);
 
     if (!isMedium) {
         return (
@@ -63,7 +61,7 @@ export function ComposeSend({ post }: ComposeSendProps) {
         <div className=" flex h-[68px] items-center justify-end gap-4 px-4 shadow-send">
             {visibleLength ? (
                 <div className=" flex items-center gap-[10px] whitespace-nowrap text-[15px] text-main">
-                    <CountdownCircle post={post} rootPost={rootPost} width={24} height={24} className="flex-shrink-0" />
+                    <CountdownCircle width={24} height={24} className="flex-shrink-0" />
                     <span className={visibleLength > MAX_CHAR_SIZE_PER_POST - invisibleLength ? ' text-danger' : ''}>
                         {visibleLength} / {MAX_CHAR_SIZE_PER_POST - invisibleLength}
                     </span>

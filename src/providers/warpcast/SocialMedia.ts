@@ -71,7 +71,7 @@ class WarpcastSocialMedia implements Provider {
         throw new Error('Method not implemented.');
     }
 
-    getThreadByPostId(postId: string, rootPost?: Post): Promise<Post[]> {
+    getThreadByPostId(postId: string, localPost?: Post): Promise<Post[]> {
         throw new Error('Method not implemented.');
     }
 
@@ -165,6 +165,20 @@ class WarpcastSocialMedia implements Provider {
             indicator ?? createIndicator(),
             next?.cursor ? createNextIndicator(indicator, next.cursor) : undefined,
         );
+    }
+
+    async getLikedPostsByProfileId(
+        profileId: string,
+        indicator?: PageIndicator,
+    ): Promise<Pageable<Post, PageIndicator>> {
+        throw new Error('Method not implemented.');
+    }
+
+    async getRepliesPostsByProfileId(
+        profileId: string,
+        indicator?: PageIndicator,
+    ): Promise<Pageable<Post, PageIndicator>> {
+        throw new Error('Method not implemented.');
     }
 
     async getPostById(postId: string): Promise<Post> {
@@ -411,6 +425,20 @@ class WarpcastSocialMedia implements Provider {
         );
 
         return cast.hash;
+    }
+
+    async deletePost(postId: string) {
+        const url = urlcat(WARPCAST_ROOT_URL, '/casts');
+        await farcasterClient.fetch<CastResponse>(
+            url,
+            {
+                method: 'DELETE',
+                body: JSON.stringify({ castHash: postId }),
+            },
+            true,
+        );
+
+        return true;
     }
 
     async upvotePost(postId: string) {

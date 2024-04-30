@@ -17,8 +17,8 @@ import { $createMentionNode } from '@/components/Lexical/nodes/MentionsNode.js';
 import { EMPTY_LIST, SORTED_SOURCES } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
+import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfileAll.js';
-import { useCompositePost } from '@/store/useComposeStore.js';
 
 const PUNCTUATION = '\\.,\\+\\*\\?\\$\\@\\|#{}\\(\\)\\^\\-\\[\\]\\\\/!%\'"~=<>_:;';
 const NAME = `\\b[A-Z][^\\s${PUNCTUATION}]`;

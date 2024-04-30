@@ -94,7 +94,7 @@
         "ts-results-es": "^4.0.0",
         "twemoji-parser": "^14.0.0",
         "twitter-api-v2": "^1.16.1",
-        "typescript": "5.4.2",
+        "typescript": "5.5.0-beta",
         "urlcat": "^3.1.0",
         "use-subscription": "^1.8.0",
         "usehooks-ts": "^2.9.1",
@@ -118,7 +118,7 @@
         "@sinonjs/text-encoding": "^0.7.2",
         "@svgr/webpack": "^8.1.0",
         "@types/lodash-es": "^4.17.9",
-        "@types/node": "20.11.9",
+        "@types/node": "20.12.7",
         "@types/react": "18.2.48",
         "@types/react-dom": "^18.2.18",
         "@types/react-slick": "^0.23.13",
@@ -217,7 +217,8 @@
             "react-devtools-inline@4.28.5": "src/maskbook/patches/react-devtools-inline@4.28.5.patch",
             "react-use@17.4.0": "src/maskbook/patches/react-use@17.4.0.patch",
             "@lexical/react@0.12.5": "patches/@lexical__react@0.12.5.patch",
-            "@rainbow-me/rainbowkit@2.0.5": "patches/@rainbow-me__rainbowkit@2.0.5.patch"
+            "@rainbow-me/rainbowkit@2.0.5": "patches/@rainbow-me__rainbowkit@2.0.5.patch",
+            "@headlessui/react@1.7.17": "patches/@headlessui__react@1.7.17.patch"
         }
     }
 }

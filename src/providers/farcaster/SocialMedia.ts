@@ -4,6 +4,7 @@ import { attemptUntil } from '@masknet/web3-shared-base';
 
 import { SocialPlatform } from '@/constants/enum.js';
 import { SetQueryDataForCommentPost } from '@/decorators/SetQueryDataForCommentPost.js';
+import { SetQueryDataForDeletePost } from '@/decorators/SetQueryDataForDeletePost.js';
 import { SetQueryDataForLikePost } from '@/decorators/SetQueryDataForLikePost.js';
 import { SetQueryDataForMirrorPost } from '@/decorators/SetQueryDataForMirrorPost.js';
 import { SetQueryDataForPosts } from '@/decorators/SetQueryDataForPosts.js';
@@ -23,6 +24,7 @@ import { WarpcastSocialMediaProvider } from '@/providers/warpcast/SocialMedia.js
 @SetQueryDataForLikePost(SocialPlatform.Farcaster)
 @SetQueryDataForMirrorPost(SocialPlatform.Farcaster)
 @SetQueryDataForCommentPost(SocialPlatform.Farcaster)
+@SetQueryDataForDeletePost(SocialPlatform.Farcaster)
 @SetQueryDataForPosts
 class FarcasterSocialMedia implements Provider {
     quotePost(postId: string, post: Post): Promise<string> {
@@ -105,6 +107,20 @@ class FarcasterSocialMedia implements Provider {
         return FireflySocialMediaProvider.getPostsByProfileId(profileId, indicator);
     }
 
+    async getLikedPostsByProfileId(
+        profileId: string,
+        indicator?: PageIndicator,
+    ): Promise<Pageable<Post, PageIndicator>> {
+        return FireflySocialMediaProvider.getLikedPostsByProfileId(profileId, indicator);
+    }
+
+    async getRepliesPostsByProfileId(
+        profileId: string,
+        indicator?: PageIndicator,
+    ): Promise<Pageable<Post, PageIndicator>> {
+        return FireflySocialMediaProvider.getRepliesPostsByProfileId(profileId, indicator);
+    }
+
     async getPostById(postId: string): Promise<Post> {
         const { isCustodyWallet } = getFarcasterSessionType();
         if (isCustodyWallet) return WarpcastSocialMediaProvider.getPostById(postId);
@@ -177,6 +193,13 @@ class FarcasterSocialMedia implements Provider {
         throw new Error(t`No session found.`);
     }
 
+    async deletePost(postId: string): Promise<boolean> {
+        const { isCustodyWallet, isGrantByPermission } = getFarcasterSessionType();
+        if (isCustodyWallet) return WarpcastSocialMediaProvider.deletePost(postId);
+        if (isGrantByPermission) return HubbleSocialMediaProvider.deletePost(postId);
+        throw new Error(t`No session found.`);
+    }
+
     async upvotePost(postId: string, authorId?: number) {
         const { isCustodyWallet, isGrantByPermission } = getFarcasterSessionType();
         if (isCustodyWallet) return WarpcastSocialMediaProvider.upvotePost(postId);
@@ -244,8 +267,8 @@ class FarcasterSocialMedia implements Provider {
         throw new Error(t`No session found.`);
     }
 
-    async getThreadByPostId(postId: string, rootPost?: Post) {
-        return FireflySocialMediaProvider.getThreadByPostId(postId, rootPost);
+    async getThreadByPostId(postId: string, localPost?: Post) {
+        return FireflySocialMediaProvider.getThreadByPostId(postId, localPost);
     }
 
     getCommentsById(postId: string, indicator?: PageIndicator) {

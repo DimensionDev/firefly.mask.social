@@ -55,8 +55,17 @@ export enum KeyType {
 
 export enum ProfileTabType {
     Feed = 'Feed',
+    Replies = 'Replies',
+    Liked = 'Liked',
+    Media = 'Media',
     Collected = 'Collected',
     Channels = 'Channels',
+}
+
+export enum RestrictionType {
+    Everyone = 0,
+    OnlyPeopleYouFollow = 1,
+    MentionedUsers = 2,
 }
 
 export enum ScrollListKey {
