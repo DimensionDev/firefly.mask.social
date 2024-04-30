@@ -73,7 +73,7 @@ patchedDependencies:
     hash: zmfybkyaxddmjxgyyjovnf3fuu
     path: src/maskbook/patches/react-devtools-inline@4.28.5.patch
   react-use@17.4.0:
-    hash: qkbg3egtiwdzw6fr5jyth2b4gq
+    hash: gs6e4dalx7uwsvaytmvqqh2hku
     path: src/maskbook/patches/react-use@17.4.0.patch
   reflect-metadata@0.1.13:
     hash: pnra5xi77mqlyipflqvcm4z6ga
@@ -274,7 +274,7 @@ importers:
         version: 0.30.2(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       react-use:
         specifier: ^17.4.0
-        version: 17.4.0(patch_hash=qkbg3egtiwdzw6fr5jyth2b4gq)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+        version: 17.4.0(patch_hash=gs6e4dalx7uwsvaytmvqqh2hku)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       react-virtuoso:
         specifier: ^4.7.8
         version: 4.7.8(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
@@ -535,8 +535,8 @@ importers:
         specifier: 23.2.11
         version: 23.2.11
       knip:
-        specifier: ^2.33.3
-        version: 2.33.3
+        specifier: ^5.11.0
+        version: 5.11.0(@types/node@20.11.9)(typescript@5.5.0-beta)
       lodash-es:
         specifier: ^4.17.21
         version: 4.17.21
@@ -1071,7 +1071,7 @@ importers:
         version: 2.14.13(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       react-use:
         specifier: ^17.4.0
-        version: 17.4.0(patch_hash=qkbg3egtiwdzw6fr5jyth2b4gq)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+        version: 17.4.0(patch_hash=gs6e4dalx7uwsvaytmvqqh2hku)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       stream-browserify:
         specifier: ^3.0.0
         version: 3.0.0
@@ -1228,7 +1228,7 @@ importers:
         version: 6.4.0
       react-use:
         specifier: ^17.4.0
-        version: 17.4.0(patch_hash=qkbg3egtiwdzw6fr5jyth2b4gq)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+        version: 17.4.0(patch_hash=gs6e4dalx7uwsvaytmvqqh2hku)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       use-subscription:
         specifier: ^1.8.0
         version: 1.8.0(react@0.0.0-experimental-8039e6d0b-20231026)
@@ -1315,7 +1315,7 @@ importers:
         version: 9.1.2
       react-use:
         specifier: ^17.4.0
-        version: 17.4.0(patch_hash=qkbg3egtiwdzw6fr5jyth2b4gq)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+        version: 17.4.0(patch_hash=gs6e4dalx7uwsvaytmvqqh2hku)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       urlcat:
         specifier: ^3.1.0
         version: 3.1.0(patch_hash=5r5xyq4zgcnqugwsrx4lxq2i4e)
@@ -1384,7 +1384,7 @@ importers:
         version: 6.14.2(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       react-use:
         specifier: ^17.4.0
-        version: 17.4.0(patch_hash=qkbg3egtiwdzw6fr5jyth2b4gq)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+        version: 17.4.0(patch_hash=gs6e4dalx7uwsvaytmvqqh2hku)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       use-subscription:
         specifier: ^1.8.0
         version: 1.8.0(react@0.0.0-experimental-8039e6d0b-20231026)
@@ -1468,7 +1468,7 @@ importers:
         version: 0.3.10
       react-use:
         specifier: ^17.4.0
-        version: 17.4.0(patch_hash=qkbg3egtiwdzw6fr5jyth2b4gq)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+        version: 17.4.0(patch_hash=gs6e4dalx7uwsvaytmvqqh2hku)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       web3-utils:
         specifier: 1.10.2
         version: 1.10.2
@@ -1597,7 +1597,7 @@ importers:
         version: 1.6.3
       react-use:
         specifier: ^17.4.0
-        version: 17.4.0(patch_hash=qkbg3egtiwdzw6fr5jyth2b4gq)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+        version: 17.4.0(patch_hash=gs6e4dalx7uwsvaytmvqqh2hku)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
 
   src/maskbook/packages/plugins/Debugger:
     dependencies:
@@ -1693,7 +1693,7 @@ importers:
         version: 6.14.2(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       react-use:
         specifier: ^17.4.0
-        version: 17.4.0(patch_hash=qkbg3egtiwdzw6fr5jyth2b4gq)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+        version: 17.4.0(patch_hash=gs6e4dalx7uwsvaytmvqqh2hku)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       urlcat:
         specifier: ^3.1.0
         version: 3.1.0(patch_hash=5r5xyq4zgcnqugwsrx4lxq2i4e)
@@ -1737,9 +1737,6 @@ importers:
       '@masknet/web3-shared-evm':
         specifier: workspace:^
         version: link:../../web3-shared/evm
-      '@masknet/web3-telemetry':
-        specifier: workspace:^
-        version: link:../../web3-telemetry
       '@servie/events':
         specifier: ^3.0.0
         version: 3.0.0
@@ -1751,7 +1748,7 @@ importers:
         version: 6.14.2(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       react-use:
         specifier: ^17.4.0
-        version: 17.4.0(patch_hash=qkbg3egtiwdzw6fr5jyth2b4gq)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+        version: 17.4.0(patch_hash=gs6e4dalx7uwsvaytmvqqh2hku)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       urlcat:
         specifier: ^3.1.0
         version: 3.1.0(patch_hash=5r5xyq4zgcnqugwsrx4lxq2i4e)
@@ -1805,7 +1802,7 @@ importers:
         version: 0.12.1
       react-use:
         specifier: ^17.4.0
-        version: 17.4.0(patch_hash=qkbg3egtiwdzw6fr5jyth2b4gq)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+        version: 17.4.0(patch_hash=gs6e4dalx7uwsvaytmvqqh2hku)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       urlcat:
         specifier: ^3.1.0
         version: 3.1.0(patch_hash=5r5xyq4zgcnqugwsrx4lxq2i4e)
@@ -1853,7 +1850,7 @@ importers:
         version: 2.0.10(react@0.0.0-experimental-8039e6d0b-20231026)
       react-use:
         specifier: ^17.4.0
-        version: 17.4.0(patch_hash=qkbg3egtiwdzw6fr5jyth2b4gq)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+        version: 17.4.0(patch_hash=gs6e4dalx7uwsvaytmvqqh2hku)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       urlcat:
         specifier: ^3.1.0
         version: 3.1.0(patch_hash=5r5xyq4zgcnqugwsrx4lxq2i4e)
@@ -1949,7 +1946,7 @@ importers:
         version: 2.30.0
       react-use:
         specifier: ^17.4.0
-        version: 17.4.0(patch_hash=qkbg3egtiwdzw6fr5jyth2b4gq)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+        version: 17.4.0(patch_hash=gs6e4dalx7uwsvaytmvqqh2hku)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       unstated-next:
         specifier: ^1.1.0
         version: 1.1.0
@@ -1994,7 +1991,7 @@ importers:
         version: link:../../web3-shared/evm
       react-use:
         specifier: ^17.4.0
-        version: 17.4.0(patch_hash=qkbg3egtiwdzw6fr5jyth2b4gq)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+        version: 17.4.0(patch_hash=gs6e4dalx7uwsvaytmvqqh2hku)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       zod:
         specifier: ^3.22.2
         version: 3.22.4
@@ -2033,7 +2030,7 @@ importers:
         version: link:../../web3-shared/evm
       react-use:
         specifier: ^17.4.0
-        version: 17.4.0(patch_hash=qkbg3egtiwdzw6fr5jyth2b4gq)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+        version: 17.4.0(patch_hash=gs6e4dalx7uwsvaytmvqqh2hku)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
 
   src/maskbook/packages/plugins/ProfileCard:
     dependencies:
@@ -2171,7 +2168,7 @@ importers:
         version: 2.30.0
       react-use:
         specifier: ^17.4.0
-        version: 17.4.0(patch_hash=qkbg3egtiwdzw6fr5jyth2b4gq)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+        version: 17.4.0(patch_hash=gs6e4dalx7uwsvaytmvqqh2hku)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       urlcat:
         specifier: ^3.1.0
         version: 3.1.0(patch_hash=5r5xyq4zgcnqugwsrx4lxq2i4e)
@@ -2190,9 +2187,6 @@ importers:
       '@masknet/plugin-infra':
         specifier: workspace:^
         version: link:../../plugin-infra
-      '@masknet/plugin-trader':
-        specifier: workspace:^
-        version: link:../Trader
       '@masknet/shared':
         specifier: workspace:^
         version: link:../../shared
@@ -2225,7 +2219,7 @@ importers:
         version: 9.1.2
       react-use:
         specifier: ^17.4.0
-        version: 17.4.0(patch_hash=qkbg3egtiwdzw6fr5jyth2b4gq)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+        version: 17.4.0(patch_hash=gs6e4dalx7uwsvaytmvqqh2hku)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       web3-utils:
         specifier: 1.10.2
         version: 1.10.2
@@ -2258,7 +2252,7 @@ importers:
         version: 0.0.21(esbuild@0.19.7)(jest@28.1.3)(typescript@5.5.0-beta)
       react-use:
         specifier: ^17.4.0
-        version: 17.4.0(patch_hash=qkbg3egtiwdzw6fr5jyth2b4gq)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+        version: 17.4.0(patch_hash=gs6e4dalx7uwsvaytmvqqh2hku)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       urlcat:
         specifier: ^3.1.0
         version: 3.1.0(patch_hash=5r5xyq4zgcnqugwsrx4lxq2i4e)
@@ -2285,7 +2279,7 @@ importers:
         version: link:../../web3-providers
       react-use:
         specifier: ^17.4.0
-        version: 17.4.0(patch_hash=qkbg3egtiwdzw6fr5jyth2b4gq)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+        version: 17.4.0(patch_hash=gs6e4dalx7uwsvaytmvqqh2hku)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
 
   src/maskbook/packages/plugins/SmartPay:
     dependencies:
@@ -2330,7 +2324,7 @@ importers:
         version: 6.14.2(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       react-use:
         specifier: ^17.4.0
-        version: 17.4.0(patch_hash=qkbg3egtiwdzw6fr5jyth2b4gq)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+        version: 17.4.0(patch_hash=gs6e4dalx7uwsvaytmvqqh2hku)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       unstated-next:
         specifier: ^1.1.0
         version: 1.1.0
@@ -2387,7 +2381,7 @@ importers:
         version: 2.30.0
       react-use:
         specifier: ^17.4.0
-        version: 17.4.0(patch_hash=qkbg3egtiwdzw6fr5jyth2b4gq)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+        version: 17.4.0(patch_hash=gs6e4dalx7uwsvaytmvqqh2hku)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       urlcat:
         specifier: ^3.1.0
         version: 3.1.0(patch_hash=5r5xyq4zgcnqugwsrx4lxq2i4e)
@@ -2459,7 +2453,7 @@ importers:
         version: 1.0.0
       react-use:
         specifier: ^17.4.0
-        version: 17.4.0(patch_hash=qkbg3egtiwdzw6fr5jyth2b4gq)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+        version: 17.4.0(patch_hash=gs6e4dalx7uwsvaytmvqqh2hku)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       unstated-next:
         specifier: ^1.1.0
         version: 1.1.0
@@ -2481,18 +2475,12 @@ importers:
       '@masknet/icons':
         specifier: workspace:^
         version: link:../../icons
-      '@masknet/plugin-go-plus-security':
-        specifier: workspace:^
-        version: link:../GoPlusSecurity
       '@masknet/plugin-infra':
         specifier: workspace:^
         version: link:../../plugin-infra
       '@masknet/plugin-transak':
         specifier: workspace:^
         version: link:../Transak
-      '@masknet/public-api':
-        specifier: workspace:^
-        version: link:../../public-api
       '@masknet/shared':
         specifier: workspace:^
         version: link:../../shared
@@ -2505,18 +2493,12 @@ importers:
       '@masknet/theme':
         specifier: workspace:^
         version: link:../../theme
-      '@masknet/web3-contracts':
-        specifier: workspace:^
-        version: link:../../web3-contracts
       '@masknet/web3-helpers':
         specifier: workspace:^
         version: link:../../web3-helpers
       '@masknet/web3-hooks-base':
         specifier: workspace:^
         version: link:../../web3-hooks/base
-      '@masknet/web3-hooks-evm':
-        specifier: workspace:^
-        version: link:../../web3-hooks/evm
       '@masknet/web3-providers':
         specifier: workspace:^
         version: link:../../web3-providers
@@ -2532,30 +2514,12 @@ importers:
       '@masknet/web3-telemetry':
         specifier: workspace:^
         version: link:../../web3-telemetry
-      '@types/json-stable-stringify':
-        specifier: ^1.0.34
-        version: 1.0.34
-      bignumber.js:
-        specifier: 9.1.2
-        version: 9.1.2
       date-fns:
         specifier: ^2.30.0
         version: 2.30.0
-      json-stable-stringify:
-        specifier: ^1.0.2
-        version: 1.0.2
       react-use:
         specifier: ^17.4.0
-        version: 17.4.0(patch_hash=qkbg3egtiwdzw6fr5jyth2b4gq)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
-      unstated-next:
-        specifier: ^1.1.0
-        version: 1.1.0
-      urlcat:
-        specifier: ^3.1.0
-        version: 3.1.0(patch_hash=5r5xyq4zgcnqugwsrx4lxq2i4e)
-      web3-utils:
-        specifier: 1.10.2
-        version: 1.10.2
+        version: 17.4.0(patch_hash=gs6e4dalx7uwsvaytmvqqh2hku)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
 
   src/maskbook/packages/plugins/Transak:
     dependencies:
@@ -2588,7 +2552,7 @@ importers:
         version: 1.0.2
       react-use:
         specifier: ^17.4.0
-        version: 17.4.0(patch_hash=qkbg3egtiwdzw6fr5jyth2b4gq)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+        version: 17.4.0(patch_hash=gs6e4dalx7uwsvaytmvqqh2hku)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
 
   src/maskbook/packages/plugins/VCent:
     dependencies:
@@ -2618,7 +2582,7 @@ importers:
         version: link:../../web3-shared/evm
       react-use:
         specifier: ^17.4.0
-        version: 17.4.0(patch_hash=qkbg3egtiwdzw6fr5jyth2b4gq)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+        version: 17.4.0(patch_hash=gs6e4dalx7uwsvaytmvqqh2hku)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       urlcat:
         specifier: ^3.1.0
         version: 3.1.0(patch_hash=5r5xyq4zgcnqugwsrx4lxq2i4e)
@@ -2672,7 +2636,7 @@ importers:
         version: 2.30.0
       react-use:
         specifier: ^17.4.0
-        version: 17.4.0(patch_hash=qkbg3egtiwdzw6fr5jyth2b4gq)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+        version: 17.4.0(patch_hash=gs6e4dalx7uwsvaytmvqqh2hku)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       urlcat:
         specifier: ^3.1.0
         version: 3.1.0(patch_hash=5r5xyq4zgcnqugwsrx4lxq2i4e)
@@ -2954,7 +2918,7 @@ importers:
         version: 6.14.2(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       react-use:
         specifier: ^17.4.0
-        version: 17.4.0(patch_hash=qkbg3egtiwdzw6fr5jyth2b4gq)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+        version: 17.4.0(patch_hash=gs6e4dalx7uwsvaytmvqqh2hku)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       rehype-raw:
         specifier: ^6.1.1
         version: 6.1.1
@@ -3064,7 +3028,7 @@ importers:
         version: 9.0.3
       react-use:
         specifier: ^17.4.0
-        version: 17.4.0(patch_hash=qkbg3egtiwdzw6fr5jyth2b4gq)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+        version: 17.4.0(patch_hash=gs6e4dalx7uwsvaytmvqqh2hku)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       urlcat:
         specifier: ^3.1.0
         version: 3.1.0(patch_hash=5r5xyq4zgcnqugwsrx4lxq2i4e)
@@ -3103,7 +3067,7 @@ importers:
         version: 2.0.8(@emotion/react@11.11.1)(@mui/material@5.15.12)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       react-use:
         specifier: ^17.4.0
-        version: 17.4.0(patch_hash=qkbg3egtiwdzw6fr5jyth2b4gq)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+        version: 17.4.0(patch_hash=gs6e4dalx7uwsvaytmvqqh2hku)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       react-window:
         specifier: ^1.8.9
         version: 1.8.9(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
@@ -3178,11 +3142,7 @@ importers:
         specifier: ^1.8.0
         version: 1.8.0(react@0.0.0-experimental-8039e6d0b-20231026)
 
-  src/maskbook/packages/web3-constants:
-    dependencies:
-      '@masknet/web3-contracts':
-        specifier: workspace:^
-        version: link:../web3-contracts
+  src/maskbook/packages/web3-constants: {}
 
   src/maskbook/packages/web3-contracts:
     dependencies:
@@ -3267,7 +3227,7 @@ importers:
         version: 0.1.1
       react-use:
         specifier: ^17.4.0
-        version: 17.4.0(patch_hash=qkbg3egtiwdzw6fr5jyth2b4gq)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+        version: 17.4.0(patch_hash=gs6e4dalx7uwsvaytmvqqh2hku)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       unstated-next:
         specifier: ^1.1.0
         version: 1.1.0
@@ -3303,7 +3263,7 @@ importers:
         version: 9.1.2
       react-use:
         specifier: ^17.4.0
-        version: 17.4.0(patch_hash=qkbg3egtiwdzw6fr5jyth2b4gq)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+        version: 17.4.0(patch_hash=gs6e4dalx7uwsvaytmvqqh2hku)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       web3-utils:
         specifier: 1.10.2
         version: 1.10.2
@@ -3328,9 +3288,6 @@ importers:
       '@masknet/injected-script':
         specifier: workspace:^
         version: link:../injected-script
-      '@masknet/public-api':
-        specifier: workspace:^
-        version: link:../public-api
       '@masknet/shared-base':
         specifier: workspace:^
         version: link:../shared-base
@@ -3572,7 +3529,7 @@ importers:
         version: link:../base
       react-use:
         specifier: ^17.4.0
-        version: 17.4.0(patch_hash=qkbg3egtiwdzw6fr5jyth2b4gq)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+        version: 17.4.0(patch_hash=gs6e4dalx7uwsvaytmvqqh2hku)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
 
   src/maskbook/packages/web3-shared/solana:
     dependencies:
@@ -11481,9 +11438,22 @@ packages:
       '@nodelib/fs.stat': 2.0.5
       run-parallel: 1.2.0
 
+  /@nodelib/fs.scandir@3.0.0:
+    resolution: {integrity: sha512-ktI9+PxfHYtKjF3cLTUAh2N+b8MijCRPNwKJNqTVdL0gB0QxLU2rIRaZ1t71oEa3YBDE6bukH1sR0+CDnpp/Mg==}
+    engines: {node: '>=16.14.0'}
+    dependencies:
+      '@nodelib/fs.stat': 3.0.0
+      run-parallel: 1.2.0
+    dev: false
+
   /@nodelib/fs.stat@2.0.5:
     resolution: {integrity: sha512-RkhPPp2zrqDAQA/2jNhnztcPAlv64XdhIp7a7454A5ovI7Bukxgt7MX7udwAu3zg1DcpPU0rz3VV1SeaqvY4+A==}
     engines: {node: '>= 8'}
+
+  /@nodelib/fs.stat@3.0.0:
+    resolution: {integrity: sha512-2tQOI38s19P9i7X/Drt0v8iMA+KMsgdhB/dyPER+e+2Y8L1Z7QvnuRdW/uLuf5YRFUYmnj4bMA6qCuZHFI1GDQ==}
+    engines: {node: '>=16.14.0'}
+    dev: false
 
   /@nodelib/fs.walk@1.2.8:
     resolution: {integrity: sha512-oGB+UxlgWcgQkgwo8GcEGwemoTFt3FIO9ababBmaGwXIoBKZ+GTy0pP185beGg7Llih/NSHSV2XAs1lnznocSg==}
@@ -11492,19 +11462,12 @@ packages:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.17.1
 
-  /@npmcli/map-workspaces@3.0.4:
-    resolution: {integrity: sha512-Z0TbvXkRbacjFFLpVpV0e2mheCh+WzQpcqL+4xp49uNJOxOnIAPZyXtUxZ5Qn3QBTGKA11Exjd9a5411rBrhDg==}
-    engines: {node: ^14.17.0 || ^16.13.0 || >=18.0.0}
+  /@nodelib/fs.walk@2.0.0:
+    resolution: {integrity: sha512-54voNDBobGdMl3BUXSu7UaDh1P85PGHWlJ5e0XhPugo1JulOyCtp2I+5ri4wplGDJ8QGwPEQW7/x3yTLU7yF1A==}
+    engines: {node: '>=16.14.0'}
     dependencies:
-      '@npmcli/name-from-folder': 2.0.0
-      glob: 10.3.10
-      minimatch: 9.0.3
-      read-package-json-fast: 3.0.2
-    dev: false
-
-  /@npmcli/name-from-folder@2.0.0:
-    resolution: {integrity: sha512-pwK+BfEBZJbKdNYpHHRTNBwBoqrN/iIMO0AiGvYsp3Hoaq0WbgGSWQR6SCldZovoDpY3yje5lkFUe6gsDgJ2vg==}
-    engines: {node: ^14.17.0 || ^16.13.0 || >=18.0.0}
+      '@nodelib/fs.scandir': 3.0.0
+      fastq: 1.17.1
     dev: false
 
   /@onflow/config@1.2.1:
@@ -11779,6 +11742,7 @@ packages:
   /@pkgjs/parseargs@0.11.0:
     resolution: {integrity: sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg==}
     engines: {node: '>=14'}
+    optional: true
 
   /@pmmmwh/react-refresh-webpack-plugin@0.5.11(react-refresh@0.14.0)(webpack-dev-server@4.15.1)(webpack@5.88.2):
     resolution: {integrity: sha512-7j/6vdTym0+qZ6u4XbSAxrWBGYSdCfTzySkj7WAFgDLmSyWlOrWvpyzxlFh5jtw9dn0oL/jtW+06XfFiisN3JQ==}
@@ -11825,53 +11789,6 @@ packages:
     engines: {node: '>=12.22.0'}
     dev: true
 
-  /@pnpm/constants@7.1.1:
-    resolution: {integrity: sha512-31pZqMtjwV+Vaq7MaPrT1EoDFSYwye3dp6BiHIGRJmVThCQwySRKM7hCvqqI94epNkqFAAYoWrNynWoRYosGdw==}
-    engines: {node: '>=16.14'}
-    dev: false
-
-  /@pnpm/core-loggers@9.0.3(@pnpm/logger@5.0.0):
-    resolution: {integrity: sha512-qjy8tkqfN3FQtLSh4qN3Qvll+T1lav1K6hgdGiy3R0Zv5rMORc60yaeBzLDq/dvb/DvY7tdwDcMX9e5odAhrNw==}
-    engines: {node: '>=16.14'}
-    peerDependencies:
-      '@pnpm/logger': ^5.0.0
-    dependencies:
-      '@pnpm/logger': 5.0.0
-      '@pnpm/types': 9.3.0
-    dev: false
-
-  /@pnpm/error@5.0.2:
-    resolution: {integrity: sha512-0TEm+tWNYm+9uh6DSKyRbv8pv/6b4NL0PastLvMxIoqZbBZ5Zj1cYi332R9xsSUi31ZOsu2wpgn/bC7DA9hrjg==}
-    engines: {node: '>=16.14'}
-    dependencies:
-      '@pnpm/constants': 7.1.1
-    dev: false
-
-  /@pnpm/fetching-types@5.0.0:
-    resolution: {integrity: sha512-o9gdO1v8Uc5P2fBBuW6GSpfTqIivQmQlqjQJdFiQX0m+tgxlrMRneIg392jZuc6fk7kFqjLheInlslgJfwY+4Q==}
-    engines: {node: '>=16.14'}
-    dependencies:
-      '@zkochan/retry': 0.2.0
-      node-fetch: 3.0.0-beta.9
-    transitivePeerDependencies:
-      - domexception
-    dev: false
-
-  /@pnpm/graceful-fs@3.2.0:
-    resolution: {integrity: sha512-vRoXJxscDpHak7YE9SqCkzfrayn+Lw+YueOeHIPEqkgokrHeYgYeONoc2kGh0ObHaRtNSsonozVfJ456kxLNvA==}
-    engines: {node: '>=16.14'}
-    dependencies:
-      graceful-fs: 4.2.11
-    dev: false
-
-  /@pnpm/logger@5.0.0:
-    resolution: {integrity: sha512-YfcB2QrX+Wx1o6LD1G2Y2fhDhOix/bAY/oAnMpHoNLsKkWIRbt1oKLkIFvxBMzLwAEPqnYWguJrYC+J6i4ywbw==}
-    engines: {node: '>=12.17'}
-    dependencies:
-      bole: 5.0.11
-      ndjson: 2.0.0
-    dev: false
-
   /@pnpm/network.ca-file@1.0.2:
     resolution: {integrity: sha512-YcPQ8a0jwYU9bTdJDpXjMi7Brhkr1mXsXrUJvjqM2mQDgkRiz8jFaQGOdaLxgjtUfQgZhKy/O3cG/YwmgKaxLA==}
     engines: {node: '>=12.22.0'}
@@ -11887,83 +11804,6 @@ packages:
       '@pnpm/network.ca-file': 1.0.2
       config-chain: 1.1.13
     dev: true
-
-  /@pnpm/npm-package-arg@1.0.0:
-    resolution: {integrity: sha512-oQYP08exi6mOPdAZZWcNIGS+KKPsnNwUBzSuAEGWuCcqwMAt3k/WVCqVIXzBxhO5sP2b43og69VHmPj6IroKqw==}
-    engines: {node: '>=14.6'}
-    dependencies:
-      hosted-git-info: 4.1.0
-      semver: 7.6.0
-      validate-npm-package-name: 4.0.0
-    dev: false
-
-  /@pnpm/npm-resolver@16.0.11(@pnpm/logger@5.0.0):
-    resolution: {integrity: sha512-yNsMNkIcUux4vScGMEeXUtuqFo4qb5g8IHYfRBTiqjmauwKVyU4mDtAx4auaJs4QrdQDSP/ksXAjFRXyYy7TwA==}
-    engines: {node: '>=16.14'}
-    peerDependencies:
-      '@pnpm/logger': ^5.0.0
-    dependencies:
-      '@pnpm/core-loggers': 9.0.3(@pnpm/logger@5.0.0)
-      '@pnpm/error': 5.0.2
-      '@pnpm/fetching-types': 5.0.0
-      '@pnpm/graceful-fs': 3.2.0
-      '@pnpm/logger': 5.0.0
-      '@pnpm/resolve-workspace-range': 5.0.1
-      '@pnpm/resolver-base': 10.0.3
-      '@pnpm/types': 9.3.0
-      '@zkochan/retry': 0.2.0
-      encode-registry: 3.0.1
-      load-json-file: 6.2.0
-      lru-cache: 9.1.2
-      normalize-path: 3.0.0
-      p-limit: 3.1.0
-      p-memoize: 4.0.1
-      parse-npm-tarball-url: 3.0.0
-      path-temp: 2.1.0
-      ramda: /@pnpm/ramda@0.28.1
-      rename-overwrite: 4.0.4
-      semver: 7.6.0
-      ssri: 10.0.4
-      version-selector-type: 3.0.0
-    transitivePeerDependencies:
-      - domexception
-    dev: false
-
-  /@pnpm/ramda@0.28.1:
-    resolution: {integrity: sha512-zcAG+lvU0fMziNeGXpPyCyCJYp5ZVrPElEE4t14jAmViaihohocZ+dDkcRIyAomox8pQsuZnv1EyHR+pOhmUWw==}
-    dev: false
-
-  /@pnpm/resolve-workspace-range@5.0.1:
-    resolution: {integrity: sha512-yQ0pMthlw8rTgS/C9hrjne+NEnnSNevCjtdodd7i15I59jMBYciHifZ/vjg0NY+Jl+USTc3dBE+0h/4tdYjMKg==}
-    engines: {node: '>=16.14'}
-    dependencies:
-      semver: 7.6.0
-    dev: false
-
-  /@pnpm/resolver-base@10.0.3:
-    resolution: {integrity: sha512-7cwt7DxIbvp5vlJgOYS3AN9QmOaKWfSSl9tH5lQ8QOU3bUTmYV5gPxJduY87Avwhs3Qll7V2oyyLeqegMFDbXA==}
-    engines: {node: '>=16.14'}
-    dependencies:
-      '@pnpm/types': 9.3.0
-    dev: false
-
-  /@pnpm/types@9.3.0:
-    resolution: {integrity: sha512-BUm6KWNyiQ575D+zi4OkGWImHv0gM6LQYUY/qK/7j9uxmZ66topXQlZSoFX8rR/FcpIRUTrT325iqFqMHoJnww==}
-    engines: {node: '>=16.14'}
-    dev: false
-
-  /@pnpm/workspace.pkgs-graph@2.0.7(@pnpm/logger@5.0.0):
-    resolution: {integrity: sha512-y13ZBG8Knq7pydegsOv90dtYOLzcrhx5z9Cf93aOzjtyffFzXkzG5dTNaXNFi7egIsqfIkOEi48d5DegcOrGuQ==}
-    engines: {node: '>=16.14'}
-    dependencies:
-      '@pnpm/npm-package-arg': 1.0.0
-      '@pnpm/npm-resolver': 16.0.11(@pnpm/logger@5.0.0)
-      '@pnpm/resolve-workspace-range': 5.0.1
-      ramda: /@pnpm/ramda@0.28.1
-    transitivePeerDependencies:
-      - '@pnpm/logger'
-      - domexception
-    dev: false
 
   /@polka/url@1.0.0-next.25:
     resolution: {integrity: sha512-j7P6Rgr3mmtdkeDGTe0E/aYyWEWVtc5yFXtHCRHs28/jptDEWfaVOc5T7cblqy1XKPPfCxJc/8DwQ5YgLOZOVQ==}
@@ -17558,18 +17398,6 @@ packages:
     resolution: {integrity: sha512-GpSwvyXOcOOlV70vbnzjj4fW5xW/FdUF6nQEt1ENy7m4ZCczi1+/buVUPAqmGfqznsORNFzUMjctTIp8a9tuCQ==}
     dev: true
 
-  /@zkochan/retry@0.2.0:
-    resolution: {integrity: sha512-WhB+2B/ZPlW2Xy/kMJBrMbqecWXcbDDgn0K0wKBAgO2OlBTz1iLJrRWduo+DGGn0Akvz1Lu4Xvls7dJojximWw==}
-    engines: {node: '>=10'}
-    dev: false
-
-  /@zkochan/rimraf@2.1.3:
-    resolution: {integrity: sha512-mCfR3gylCzPC+iqdxEA6z5SxJeOgzgbwmyxanKriIne5qZLswDe/M43aD3p5MNzwzXRhbZg/OX+MpES6Zk1a6A==}
-    engines: {node: '>=12.10'}
-    dependencies:
-      rimraf: 3.0.2
-    dev: false
-
   /@zxing/text-encoding@0.9.0:
     resolution: {integrity: sha512-U/4aVJ2mxI0aDNI8Uq0wEhMgY+u4CNtEb0om3+y3+niDAsoTCOB33UF0sxpzqzdqXLqmvc+vZyAt4O8pPdfkwA==}
     dev: true
@@ -18776,13 +18604,6 @@ packages:
     transitivePeerDependencies:
       - supports-color
 
-  /bole@5.0.11:
-    resolution: {integrity: sha512-KB0Ye0iMAW5BnNbnLfMSQcnI186hKUzE2fpkZWqcxsoTR7eqzlTidSOMYPHJOn/yR7VGH7uSZp37qH9q2Et0zQ==}
-    dependencies:
-      fast-safe-stringify: 2.1.1
-      individual: 3.0.0
-    dev: false
-
   /bonjour-service@1.2.1:
     resolution: {integrity: sha512-oSzCS2zV14bh2kji6vNe7vrpJYCHGvcZnlffFQ1MEoX/WOeQ/teD8SYWKR942OI3INjq8OMNJlbPK5LLLUxFDw==}
     dependencies:
@@ -19057,12 +18878,6 @@ packages:
 
   /builtin-status-codes@3.0.0:
     resolution: {integrity: sha512-HpGFw18DgFWlncDfjTa2rcQ4W88O1mC8e8yZ2AvQY5KDaktSTwo+KRf6nHK6FRI5FyRyb/5T6+TSxfP7QyGsmQ==}
-
-  /builtins@5.0.1:
-    resolution: {integrity: sha512-qwVpFEHNfhYJIzNRBvd2C1kyo6jz3ZSMPyyuR47OPdiKWlbYnZNyDWuyR175qDnAJLiCo5fBBqPb3RiXgWlkOQ==}
-    dependencies:
-      semver: 7.6.0
-    dev: false
 
   /bunyan@1.8.15:
     resolution: {integrity: sha512-0tECWShh6wUysgucJcBAoYegf3JJoZWibxdqhTm7OHPeT42qdjkZ29QCMcKwbgU1kiH+auSIasNRXMLWXafXig==}
@@ -20911,11 +20726,6 @@ packages:
     dependencies:
       assert-plus: 1.0.0
 
-  /data-uri-to-buffer@3.0.1:
-    resolution: {integrity: sha512-WboRycPNsVw3B3TL559F7kuBUM4d8CgMEvk6xEJlOp7OBPjt6G7z8WMWlD2rOFZLk6OYfFIUGsCOWzcQH9K2og==}
-    engines: {node: '>= 6'}
-    dev: false
-
   /data-uri-to-buffer@4.0.1:
     resolution: {integrity: sha512-0R9ikRb668HB7QDxT1vkpuUBtqc53YyAwMwGeUFKRojY/NWKvdZ+9UYtRfGmhqNbRkTSVpMbmyhXipFFv2cb/A==}
     engines: {node: '>= 12'}
@@ -21369,6 +21179,7 @@ packages:
     engines: {node: '>=8'}
     dependencies:
       path-type: 4.0.0
+    dev: true
 
   /dlv@1.1.3:
     resolution: {integrity: sha512-+HlytyjlPKnIG8XuRG8WvmBP8xs8P71y+SKKS6ZXWoEgLuePxtDoUEiH7WkdePWrQ5JBpE6aoVqfZfJUQkjXwA==}
@@ -21651,13 +21462,6 @@ packages:
   /emojis-list@3.0.0:
     resolution: {integrity: sha512-/kyM18EfinwXZbno9FyUGeFh87KC8HRQBQGildHZbEuRyWFOmv1U10o9BBp8XVZDVNNuQKyIGIu5ZYAAXJ0V2Q==}
     engines: {node: '>= 4'}
-
-  /encode-registry@3.0.1:
-    resolution: {integrity: sha512-6qOwkl1g0fv0DN3Y3ggr2EaZXN71aoAqPp3p/pVaWSBSIo+YjLOWN61Fva43oVyQNPf7kgm8lkudzlzojwE2jw==}
-    engines: {node: '>=10'}
-    dependencies:
-      mem: 8.1.1
-    dev: false
 
   /encode-utf8@1.0.3:
     resolution: {integrity: sha512-ucAnuBEhUK4boH2HjVYG5Q2mQyPorvv0u/ocS+zhdw0S8AlHYY+GOFhP1Gio5z4icpP2ivFSvhtFjQi8+T9ppw==}
@@ -23312,16 +23116,6 @@ packages:
       pend: 1.2.0
     dev: true
 
-  /fetch-blob@2.1.2:
-    resolution: {integrity: sha512-YKqtUDwqLyfyMnmbw8XD6Q8j9i/HggKtPEI+pZ1+8bvheBu78biSmNaXWusx1TauGqtUUGx/cBb1mKdq2rLYow==}
-    engines: {node: ^10.17.0 || >=12.3.0}
-    peerDependencies:
-      domexception: '*'
-    peerDependenciesMeta:
-      domexception:
-        optional: true
-    dev: false
-
   /fetch-blob@3.2.0:
     resolution: {integrity: sha512-7yAQpD2UMJzLi1Dqv7qFYnPbaPx7ZfFK6PiIxQ4PfkGPyNyl2Ugx+a/umUonmKqjhM4DnfbMvdX6otXq83soQQ==}
     engines: {node: ^12.20 || >= 14.13}
@@ -23357,6 +23151,13 @@ packages:
     dependencies:
       flat-cache: 3.2.0
     dev: true
+
+  /file-entry-cache@8.0.0:
+    resolution: {integrity: sha512-XXTUwCvisa5oacNGRP9SfNtYBNAMi+RPwBFmblZEF7N7swHYQS6/Zfk7SRwx4D5j3CH211YNRco1DEMNVfZCnQ==}
+    engines: {node: '>=16.0.0'}
+    dependencies:
+      flat-cache: 4.0.1
+    dev: false
 
   /file-loader@6.2.0(webpack@5.88.2):
     resolution: {integrity: sha512-qo3glqyTa61Ytg4u73GultjHGjdRyig3tG6lPtyX/jOEJvHif9uB0/OCI2Kif6ctF3caQTW2G5gym21oAsI4pw==}
@@ -23559,6 +23360,14 @@ packages:
       keyv: 4.5.4
       rimraf: 3.0.2
 
+  /flat-cache@4.0.1:
+    resolution: {integrity: sha512-f7ccFPK3SXFHpx15UIGyRJ/FJQctuKZ0zVuN3frBo4HnK3cay9VEW0R6yPYFHC0AgqhukPzKjq22t5DmAyqGyw==}
+    engines: {node: '>=16'}
+    dependencies:
+      flatted: 3.3.1
+      keyv: 4.5.4
+    dev: false
+
   /flat@5.0.2:
     resolution: {integrity: sha512-b6suED+5/3rTpUBdG1gupIl8MPFCAMA0QXwmljLhvCUKcUvdE4gWky9zpuGCcXHOsz4J9wPGNWq6OKpmIzz3hQ==}
     hasBin: true
@@ -23692,15 +23501,6 @@ packages:
   /fresh@0.5.2:
     resolution: {integrity: sha512-zJ2mQYM18rEFOudeV4GShTGIQ7RbzA7ozbU9I/XBpm7kqgMywgmylMwXHxZJmkVoYkna9d2pVXVXPdYTP9ej8Q==}
     engines: {node: '>= 0.6'}
-
-  /fs-extra@10.1.0:
-    resolution: {integrity: sha512-oRXApq54ETRj4eMiFzGnHWGy+zo5raudjuxN0b8H7s/RU2oW0Wvsx9O0ACRN/kRq9E8Vu/ReskGB5o3ji+FzHQ==}
-    engines: {node: '>=12'}
-    dependencies:
-      graceful-fs: 4.2.11
-      jsonfile: 6.1.0
-      universalify: 2.0.1
-    dev: false
 
   /fs-extra@11.1.0:
     resolution: {integrity: sha512-0rcTq621PD5jM/e0a3EJoGC/1TC5ZBCERW82LQuwfGnCa1V8w7dpYH1yNu+SLb6E5dkeCBzKEyLGlFrnr+dUyw==}
@@ -24165,6 +23965,7 @@ packages:
       ignore: 5.3.1
       merge2: 1.4.1
       slash: 4.0.0
+    dev: true
 
   /glogg@1.0.2:
     resolution: {integrity: sha512-5mwUoSuBk44Y4EshyiqcH95ZntbDdTQqA3QYSrxmzj28Ai0vXBGMH1ApSANH14j2sIRtqCEyg6PfsuP7ElOEDA==}
@@ -25052,10 +24853,6 @@ packages:
 
   /indexof@0.0.1:
     resolution: {integrity: sha512-i0G7hLJ1z0DE8dsqJa2rycj9dBmNKgXBvotXtZYXakU9oivfB9Uj2ZBC27qqef2U58/ZLwalxa1X/RDCdkHtVg==}
-    dev: false
-
-  /individual@3.0.0:
-    resolution: {integrity: sha512-rUY5vtT748NMRbEMrTNiFfy29BgGZwGXUi2NFUVMWQrogSLzlJvQV9eeMWi+g1aVaQ53tpyLAQtd5x/JH0Nh1g==}
     dev: false
 
   /inflight@1.0.6:
@@ -26825,11 +26622,6 @@ packages:
   /json-parse-even-better-errors@2.3.1:
     resolution: {integrity: sha512-xyFwyhro/JEof6Ghe2iz2NcXoj2sloNsWr/XsERDK/oiPCfaNhl5ONfp+jQdAZRQQ0IJWNzH9zIZF7li91kh2w==}
 
-  /json-parse-even-better-errors@3.0.1:
-    resolution: {integrity: sha512-aatBvbL26wVUCLmbWdCpeu9iF5wOyWpagiKkInA+kfws3sWdBrTnsvN2CKcyCYyUrc7rebNBlK6+kteg7ksecg==}
-    engines: {node: ^14.17.0 || ^16.13.0 || >=18.0.0}
-    dev: false
-
   /json-rpc-engine@6.1.0:
     resolution: {integrity: sha512-NEdLrtrq1jUZyfjkr9OCz9EzCNhnRyWtt1PAnvnhwy6e8XETS0Dtc+ZNCO2gvuAoKsIn2+vCSowXTYE4CkgnAQ==}
     engines: {node: '>=10.0.0'}
@@ -27071,33 +26863,39 @@ packages:
     resolution: {integrity: sha512-o+NO+8WrRiQEE4/7nwRJhN1HWpVmJm511pBHUxPLtp0BUISzlBplORYSmTclCnJvQq2tKu/sgl3xVpkc7ZWuQQ==}
     engines: {node: '>=6'}
 
-  /knip@2.33.3:
-    resolution: {integrity: sha512-LOlkJKYUlhD9/YL5c+eR4yyiByKibazgZem45H0mzED4VNG0ajm8UYNAmLxAbQzzgRIiGAKeJMfzjXoeQ0IO7Q==}
-    engines: {node: '>=16.17.0 <17 || >=18.6.0'}
+  /knip@5.11.0(@types/node@20.11.9)(typescript@5.5.0-beta):
+    resolution: {integrity: sha512-7TBBpLYYAqZI+FM+qHsmT0jfYNOwwZAMBvuJXq3gFJCCpDvGrYcLMu2j6yvURJNh1UlpQ4jaNgPoHw7ylGDWMA==}
+    engines: {node: '>=18.6.0'}
     hasBin: true
+    peerDependencies:
+      '@types/node': 20.11.9
+      typescript: '>=5.0.4 || 5'
+    peerDependenciesMeta:
+      '@types/node':
+        optional: true
+      typescript:
+        optional: true
     dependencies:
       '@ericcornelissen/bash-parser': 0.5.2
-      '@npmcli/map-workspaces': 3.0.4
-      '@pkgjs/parseargs': 0.11.0
-      '@pnpm/logger': 5.0.0
-      '@pnpm/workspace.pkgs-graph': 2.0.7(@pnpm/logger@5.0.0)
+      '@nodelib/fs.walk': 2.0.0
       '@snyk/github-codeowners': 1.1.0
-      chalk: 5.3.0
+      '@types/node': 20.11.9
       easy-table: 1.2.0
       fast-glob: 3.3.2
-      globby: 13.2.2
+      file-entry-cache: 8.0.0
       jiti: 1.21.0
       js-yaml: 4.1.0
-      micromatch: 4.0.5
       minimist: 1.2.8
-      pretty-ms: 8.0.0
+      picocolors: 1.0.0
+      picomatch: 4.0.2
+      pretty-ms: 9.0.0
+      resolve: 1.22.8
+      smol-toml: 1.1.4
       strip-json-comments: 5.0.1
       summary: 2.1.0
-      typescript: 5.4.2
+      typescript: 5.5.0-beta
       zod: 3.22.4
-      zod-validation-error: 1.5.0(zod@3.22.4)
-    transitivePeerDependencies:
-      - domexception
+      zod-validation-error: 3.2.0(zod@3.22.4)
     dev: false
 
   /language-subtag-registry@0.3.22:
@@ -27382,16 +27180,6 @@ packages:
       strip-bom: 2.0.0
     dev: true
 
-  /load-json-file@6.2.0:
-    resolution: {integrity: sha512-gUD/epcRms75Cw8RT1pUdHugZYM5ce64ucs2GEISABwkRsOQr0q2wm/MV2TKThycIe5e0ytRweW2RZxclogCdQ==}
-    engines: {node: '>=8'}
-    dependencies:
-      graceful-fs: 4.2.11
-      parse-json: 5.2.0
-      strip-bom: 4.0.0
-      type-fest: 0.6.0
-    dev: false
-
   /load-yaml-file@0.2.0:
     resolution: {integrity: sha512-OfCBkGEw4nN6JLtgRidPX6QxjBQGQf72q3si2uvqyFEMbycSFFHwAZeXx6cJgFM9wmLrf9zBwCP3Ivqa+LLZPw==}
     engines: {node: '>=6'}
@@ -27671,11 +27459,6 @@ packages:
     dependencies:
       yallist: 4.0.0
 
-  /lru-cache@9.1.2:
-    resolution: {integrity: sha512-ERJq3FOzJTxBbFjZ7iDs+NiK4VI9Wz+RdrrAB8dio1oV+YvdPzUEE4QNiT2VD51DkIbCYRUUzCRkssXCHqSnKQ==}
-    engines: {node: 14 || >=16.14}
-    dev: false
-
   /lru_map@0.4.1:
     resolution: {integrity: sha512-I+lBvqMMFfqaV8CJCISjI3wbjmwVu/VyOoU7+qtu9d7ioW5klMgsTTiUOUp+DJvfTTzKXoPbyC6YfgkNcyPSOg==}
     dev: false
@@ -27743,6 +27526,7 @@ packages:
     engines: {node: '>=6'}
     dependencies:
       p-defer: 1.0.0
+    dev: true
 
   /map-cache@0.2.2:
     resolution: {integrity: sha512-8y/eV9QQZCiyn1SprXSrCmqJN0yNRATe+PO8ztwqrvrbdRLA3eYJF0yaR0YayLWkMbsQSKWS9N2gPcGEc4UsZg==}
@@ -27972,22 +27756,6 @@ packages:
       mimic-fn: 2.1.0
       p-is-promise: 2.1.0
     dev: true
-
-  /mem@6.1.1:
-    resolution: {integrity: sha512-Ci6bIfq/UgcxPTYa8dQQ5FY3BzKkT894bwXWXxC/zqs0XgMO2cT20CGkOqda7gZNkmK5VP4x89IGZ6K7hfbn3Q==}
-    engines: {node: '>=8'}
-    dependencies:
-      map-age-cleaner: 0.1.3
-      mimic-fn: 3.1.0
-    dev: false
-
-  /mem@8.1.1:
-    resolution: {integrity: sha512-qFCFUDs7U3b8mBDPyz5EToEKoAkgCzqquIgi9nkkR9bixxOVOre+09lbuH7+9Kn2NFpm56M3GUWVbU2hQgdACA==}
-    engines: {node: '>=10'}
-    dependencies:
-      map-age-cleaner: 0.1.3
-      mimic-fn: 3.1.0
-    dev: false
 
   /memfs@3.5.3:
     resolution: {integrity: sha512-UERzLsxzllchadvbPs5aolHh65ISpKpM+ccLbOJ8/vvpBKmAWf+la7dXFy7Mr0ySHbdHrFv5kGFCUHHe6GFEmw==}
@@ -28639,11 +28407,6 @@ packages:
     resolution: {integrity: sha512-OqbOk5oEQeAZ8WXWydlu9HJjz9WVdEIvamMCcXmuqUYjTknH/sqsWvhQ3vgwKFRR1HpjvNBKQ37nbJgYzGqGcg==}
     engines: {node: '>=6'}
 
-  /mimic-fn@3.1.0:
-    resolution: {integrity: sha512-Ysbi9uYW9hFyfrThdDEQuykN4Ey6BuwPD2kpI5ES/nFTDn/98yxYNLZJcgUAKPT/mcrLLKaGzJR9YVxJrIdASQ==}
-    engines: {node: '>=8'}
-    dev: false
-
   /mimic-fn@4.0.0:
     resolution: {integrity: sha512-vqiC06CuhBTUdZH+RYl8sFrL096vA45Ok5ISO6sE/Mr1jRbGH4Csnhi8f3wKVl7x8mO4Au7Ir9D3Oyv1VYMFJw==}
     engines: {node: '>=12'}
@@ -28728,11 +28491,6 @@ packages:
     resolution: {integrity: sha512-fNzuVyifolSLFL4NzpF+wEF4qrgqaaKX0haXPQEdQ7NKAN+WecoKMHV09YcuL/DHxrUsYQOK3MiuDf7Ip2OXfQ==}
     engines: {node: '>=8'}
     dev: true
-
-  /minipass@5.0.0:
-    resolution: {integrity: sha512-3FnjYuehv9k6ovOEbyOswadCDPX1piCfhV8ncmYtHOjuPwylVWsghTLo7rabjC3Rx5xD4HDx8Wm1xnMF7S5qFQ==}
-    engines: {node: '>=8'}
-    dev: false
 
   /minipass@7.0.4:
     resolution: {integrity: sha512-jYofLM5Dam9279rdkWzqHozUo4ybjdZmCsDHePy5V/PbBcVMiSZR97gmAy45aqi8CK1lG2ECd356FU86avfwUQ==}
@@ -29137,18 +28895,6 @@ packages:
     dev: true
     optional: true
 
-  /ndjson@2.0.0:
-    resolution: {integrity: sha512-nGl7LRGrzugTtaFcJMhLbpzJM6XdivmbkdlaGcrk/LXg2KL/YBC6z1g70xh0/al+oFuVFP8N8kiWRucmeEH/qQ==}
-    engines: {node: '>=10'}
-    hasBin: true
-    dependencies:
-      json-stringify-safe: 5.0.1
-      minimist: 1.2.8
-      readable-stream: 3.6.2
-      split2: 3.2.2
-      through2: 4.0.2
-    dev: false
-
   /near-api-js@0.42.0:
     resolution: {integrity: sha512-YtDR0sXHL2CclXZdscqUIjoc4Vp/o09CSY1lQ6mygSNbWp5ghLAR1kNBQnALGGQhYC6NLBCzJQJZMb2IQr2WzA==}
     dependencies:
@@ -29324,16 +29070,6 @@ packages:
     dependencies:
       whatwg-url: 5.0.0
 
-  /node-fetch@3.0.0-beta.9:
-    resolution: {integrity: sha512-RdbZCEynH2tH46+tj0ua9caUHVWrd/RHnRfvly2EVdqGmI3ndS1Vn/xjm5KuGejDt2RNDQsVRLPNd2QPwcewVg==}
-    engines: {node: ^10.17 || >=12.3}
-    dependencies:
-      data-uri-to-buffer: 3.0.1
-      fetch-blob: 2.1.2
-    transitivePeerDependencies:
-      - domexception
-    dev: false
-
   /node-fetch@3.3.1:
     resolution: {integrity: sha512-cRVc/kyto/7E5shrWca1Wsea4y6tL9iYJE5FBCius3JQfb/4P4I295PfhgbJQBLTx6lATE4z+wK0rPM4VS2uow==}
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
@@ -29452,11 +29188,6 @@ packages:
     dependencies:
       once: 1.4.0
     dev: true
-
-  /npm-normalize-package-bin@3.0.1:
-    resolution: {integrity: sha512-dMxCf+zZ+3zeQZXKxmyuCKlIDPGuv8EF940xbkC4kQVDTtqoh6rJFO+JTKSA6/Rwi0getWmtuy4Itup0AMcaDQ==}
-    engines: {node: ^14.17.0 || ^16.13.0 || >=18.0.0}
-    dev: false
 
   /npm-run-path@4.0.1:
     resolution: {integrity: sha512-S48WzZW777zhNIrn7gxOlISNAqi9ZC/uQFnRdbeIHhZhCA6UqpkOT8T1G7BvfdgP4Er8gF4sUbaS0i7QvIfCWw==}
@@ -29857,6 +29588,7 @@ packages:
   /p-defer@1.0.0:
     resolution: {integrity: sha512-wB3wfAxZpk2AzOfUMJNL+d36xothRSyj8EXOa4f6GMqYDN9BJaaSISbsk+wS9abmnebVw95C2Kb5t85UmpCxuw==}
     engines: {node: '>=4'}
+    dev: true
 
   /p-defer@3.0.0:
     resolution: {integrity: sha512-ugZxsxmtTln604yeYd29EGrNhazN2lywetzpKhfmQjW/VJmhpDmWbiX+h0zL8V91R0UXkhb3KtPmyq9PZw3aYw==}
@@ -29941,14 +29673,6 @@ packages:
     engines: {node: '>=10'}
     dependencies:
       aggregate-error: 3.1.0
-    dev: false
-
-  /p-memoize@4.0.1:
-    resolution: {integrity: sha512-km0sP12uE0dOZ5qP+s7kGVf07QngxyG0gS8sYFvFWhqlgzOsSy+m71aUejf/0akxj5W7gE//2G74qTv6b4iMog==}
-    engines: {node: '>=10'}
-    dependencies:
-      mem: 6.1.1
-      mimic-fn: 3.1.0
     dev: false
 
   /p-queue@8.0.1:
@@ -30091,22 +29815,15 @@ packages:
       lines-and-columns: 2.0.4
     dev: true
 
-  /parse-ms@3.0.0:
-    resolution: {integrity: sha512-Tpb8Z7r7XbbtBTrM9UhpkzzaMrqA2VXMT3YChzYltwV3P3pM6t8wl7TvpMnSTosz1aQAdVib7kdoys7vYOPerw==}
-    engines: {node: '>=12'}
+  /parse-ms@4.0.0:
+    resolution: {integrity: sha512-TXfryirbmq34y8QBwgqCVLi+8oA3oWx2eAnSn62ITyEhEYaWRlVZ2DvMM9eZbMs/RfxPu/PK/aBLyGj4IrqMHw==}
+    engines: {node: '>=18'}
     dev: false
 
   /parse-node-version@1.0.1:
     resolution: {integrity: sha512-3YHlOa/JgH6Mnpr05jP9eDG254US9ek25LyIxZlDItp2iJtwyaXQb57lBYLdT3MowkUFYEV2XXNAYIPlESvJlA==}
     engines: {node: '>= 0.10'}
     dev: true
-
-  /parse-npm-tarball-url@3.0.0:
-    resolution: {integrity: sha512-InpdgIdNe5xWMEUcrVQUniQKwnggBtJ7+SCwh7zQAZwbbIYZV9XdgJyhtmDSSvykFyQXoe4BINnzKTfCwWLs5g==}
-    engines: {node: '>=8.15'}
-    dependencies:
-      semver: 6.3.1
-    dev: false
 
   /parse-passwd@1.0.0:
     resolution: {integrity: sha512-1Y1A//QUXEZK7YKz+rD9WydcE1+EuPr6ZBgKecAB8tmoW6UFv0NREVJe1p+jRxtThkcbbKkfwIbWJe/IeE6m2Q==}
@@ -30233,13 +29950,6 @@ packages:
       lru-cache: 10.2.0
       minipass: 7.0.4
 
-  /path-temp@2.1.0:
-    resolution: {integrity: sha512-cMMJTAZlion/RWRRC48UbrDymEIt+/YSD/l8NqjneyDw2rDOBQcP5yRkMB4CYGn47KMhZvbblBP7Z79OsMw72w==}
-    engines: {node: '>=8.15'}
-    dependencies:
-      unique-string: 2.0.0
-    dev: false
-
   /path-to-regexp@0.1.7:
     resolution: {integrity: sha512-5DFkuoqlv1uYQKxy8omFBeJPQcdoE07Kv2sferDCrAq1ohOU+MSDswDIbnx3YAM60qIOnYa53wBhXW0EbMonrQ==}
 
@@ -30290,6 +30000,11 @@ packages:
   /picomatch@2.3.1:
     resolution: {integrity: sha512-JU3teHTNjmE2VCGFzuY8EXzCDVwEqB2a8fsIvwaStHhAWJEeVd1o1QD80CU6+ZdEXXSLbSsuLwJjkCBWqRQUVA==}
     engines: {node: '>=8.6'}
+
+  /picomatch@4.0.2:
+    resolution: {integrity: sha512-M7BAV6Rlcy5u+m6oPhAPFgJTzAioX/6B0DxyvDlo9l8+T3nLKbrczg2WLUyzd45L8RqfUMyGPzekbMvX2Ldkwg==}
+    engines: {node: '>=12'}
+    dev: false
 
   /pidtree@0.6.0:
     resolution: {integrity: sha512-eG2dWTVw5bzqGRztnHExczNxt5VGsE6OwTeCG3fdUf9KBsZzO3R5OIIIzWR+iZA0NtZ+RDVdaoE2dK1cn6jH4g==}
@@ -30705,11 +30420,11 @@ packages:
     engines: {node: '>= 0.8'}
     dev: true
 
-  /pretty-ms@8.0.0:
-    resolution: {integrity: sha512-ASJqOugUF1bbzI35STMBUpZqdfYKlJugy6JBziGi2EE+AL5JPJGSzvpeVXojxrr0ViUYoToUjb5kjSEGf7Y83Q==}
-    engines: {node: '>=14.16'}
+  /pretty-ms@9.0.0:
+    resolution: {integrity: sha512-E9e9HJ9R9NasGOgPaPE8VMeiPKAyWR5jcFpNnwIejslIhWqdqOrb2wShBsncMPUb+BcCd2OPYfh7p2W6oemTng==}
+    engines: {node: '>=18'}
     dependencies:
-      parse-ms: 3.0.0
+      parse-ms: 4.0.0
     dev: false
 
   /prismjs@1.29.0:
@@ -31720,7 +31435,7 @@ packages:
       tslib: 2.6.2
     dev: false
 
-  /react-use@17.4.0(patch_hash=qkbg3egtiwdzw6fr5jyth2b4gq)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026):
+  /react-use@17.4.0(patch_hash=gs6e4dalx7uwsvaytmvqqh2hku)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026):
     resolution: {integrity: sha512-TgbNTCA33Wl7xzIJegn1HndB4qTS9u03QUwyNycUnXaweZkE4Kq2SB+Yoxx8qbshkZGYBDvUXbXWRUmQDcZZ/Q==}
     peerDependencies:
       react: 0.0.0-experimental-8039e6d0b-20231026 || 0.0.0-experimental-0a360642d-20230711
@@ -31794,14 +31509,6 @@ packages:
     resolution: {integrity: sha512-Owdv/Ft7IjOgm/i0xvNDZ1LrRANRfew4b2prF3OWMQLxLfu3bS8FVhCsrSCMK4lR56Y9ya+AThoTpDCTxCmpRA==}
     dependencies:
       pify: 2.3.0
-    dev: false
-
-  /read-package-json-fast@3.0.2:
-    resolution: {integrity: sha512-0J+Msgym3vrLOUB3hzQCuZHII0xkNGCtz/HJH9xZshwv9DbDwkw1KaE3gx/e2J5rpEY5rtOy6cyhKOPrkP7FZw==}
-    engines: {node: ^14.17.0 || ^16.13.0 || >=18.0.0}
-    dependencies:
-      json-parse-even-better-errors: 3.0.1
-      npm-normalize-package-bin: 3.0.1
     dev: false
 
   /read-pkg-up@1.0.1:
@@ -32190,14 +31897,6 @@ packages:
   /remove-trailing-separator@1.1.0:
     resolution: {integrity: sha512-/hS+Y0u3aOfIETiaiirUFwDBDzmXPvO+jAfKTitUngIPzdKc6Z0LoFjM/CK5PL4C+eKwHohlHAb6H0VFfmmUsw==}
     dev: true
-
-  /rename-overwrite@4.0.4:
-    resolution: {integrity: sha512-5MC+p5npnyaJlFkwTHb0pqU2mkUkkW65ZWH8qwxcDlv+5nchtalcdzG+gaaianbWWwvwxi7vu7WSg6jdCweKug==}
-    engines: {node: '>=12.10'}
-    dependencies:
-      '@zkochan/rimraf': 2.1.3
-      fs-extra: 10.1.0
-    dev: false
 
   /renderkid@3.0.0:
     resolution: {integrity: sha512-q/7VIQA8lmM1hF+jn+sFSPWGlMkSAeNYcPLmDQx2zzuiDfaLrOmumR8iaUKlenFgh0XRPIUeSPlH3A+AW3Z5pg==}
@@ -33113,6 +32812,7 @@ packages:
   /slash@4.0.0:
     resolution: {integrity: sha512-3dOsAHXXUkQTpOYcoAxLIorMTp4gIQr5IW3iVb7A7lFIp0VHhnynm9izx6TssdrIcVIESAlVjtnO2K8bg+Coew==}
     engines: {node: '>=12'}
+    dev: true
 
   /slice-ansi@2.1.0:
     resolution: {integrity: sha512-Qu+VC3EwYLldKa1fCxuuvULvSJOKEgk9pi8dZeCVK7TqBfUNTH4sFkk4joj8afVSfAYgJoSOetjx9QWOJ5mYoQ==}
@@ -33151,6 +32851,11 @@ packages:
       wcwidth: 1.0.1
       yargs: 15.4.1
     dev: true
+
+  /smol-toml@1.1.4:
+    resolution: {integrity: sha512-Y0OT8HezWsTNeEOSVxDnKOW/AyNXHQ4BwJNbAXlLTF5wWsBvrcHhIkE5Rf8kQMLmgf7nDX3PVOlgC6/Aiggu3Q==}
+    engines: {node: '>= 18', pnpm: '>= 8'}
+    dev: false
 
   /snake-case@3.0.4:
     resolution: {integrity: sha512-LAOh4z89bGQvl9pFfNF8V146i7o7/CqFPbqzYgP+yYzDIDeS9HaNFtXABamRW+AQzEVODcvE79ljJ+8a9YSdMg==}
@@ -33424,6 +33129,7 @@ packages:
     resolution: {integrity: sha512-9NThjpgZnifTkJpzTZ7Eue85S49QwpNhZTq6GRJwObb6jnLFNGB7Qm73V5HewTROPyxD0C29xqmaI68bQtV+hg==}
     dependencies:
       readable-stream: 3.6.2
+    dev: true
 
   /split2@4.2.0:
     resolution: {integrity: sha512-UcjcJOWknrNkF6PLX83qcHM6KHgVKNkV62Y8a5uYDVv9ydGQVwAHMKqHdJje1VTWpljG0WYpCDhrCdAOYH4TWg==}
@@ -33458,13 +33164,6 @@ packages:
       jsbn: 0.1.1
       safer-buffer: 2.1.2
       tweetnacl: 0.14.5
-
-  /ssri@10.0.4:
-    resolution: {integrity: sha512-12+IR2CB2C28MMAw0Ncqwj5QbTcs0nGIhgJzYWzDkb21vWmfNI83KS4f3Ci6GI98WreIfG7o9UXp3C0qbpA8nQ==}
-    engines: {node: ^14.17.0 || ^16.13.0 || >=18.0.0}
-    dependencies:
-      minipass: 5.0.0
-    dev: false
 
   /stack-generator@2.0.10:
     resolution: {integrity: sha512-mwnua/hkqM6pF4k8SnmZ2zfETsRUpWXREfA/goT8SLCV4iOFa4bzOX2nDipWAZFPTjLvQB82f5yaodMVhK0yJQ==}
@@ -34241,6 +33940,7 @@ packages:
     resolution: {integrity: sha512-iOqSav00cVxEEICeD7TjLB1sueEL+81Wpzp2bY17uZjZN0pWZPuo4suZ/61VujxmqSGFfgOcNuTZ85QJwNZQpw==}
     dependencies:
       readable-stream: 3.6.2
+    dev: true
 
   /through@2.3.8:
     resolution: {integrity: sha512-w89qg7PI8wAdvX60bMDP+bFoD5Dvhm9oLheFp5O4a2QF0cSBGsBX4qZmadPMvVqlLJBBci+WqGGOAPvcDeNSVg==}
@@ -34784,6 +34484,7 @@ packages:
   /type-fest@0.6.0:
     resolution: {integrity: sha512-q+MB8nYR1KDLrgr4G5yemftpMC7/QLqVndBmEEdqzmNj5dcFOO4Oo8qlwZE3ULT3+Zim1F8Kq4cBnikNhlCMlg==}
     engines: {node: '>=8'}
+    dev: true
 
   /type-fest@0.7.1:
     resolution: {integrity: sha512-Ne2YiiGN8bmrmJJEuTWTLJR32nh/JdL1+PSicowtNb0WFpn59GK8/lfD61bVtzguz7b3PBt74nxpv/Pw5po5Rg==}
@@ -34933,6 +34634,7 @@ packages:
     resolution: {integrity: sha512-+2/g0Fds1ERlP6JsakQQDXjZdZMM+rqpamFZJEKh4kwTIn3iDkgKtby0CeNd5ATNZ4Ry1ax15TMx0W2V+miizQ==}
     engines: {node: '>=14.17'}
     hasBin: true
+    dev: true
 
   /typescript@5.5.0-beta:
     resolution: {integrity: sha512-FRg3e/aQg3olEG3ff8YjHOERsO4IM0m4qGrsE4UMvILaq4TdDZ6gQX4+2Rq9SjTpfSe/ebwiHcsjm/7FfWWQ6Q==}
@@ -35636,13 +35338,6 @@ packages:
       spdx-correct: 3.2.0
       spdx-expression-parse: 3.0.1
 
-  /validate-npm-package-name@4.0.0:
-    resolution: {integrity: sha512-mzR0L8ZDktZjpX4OB46KT+56MAhl4EIazWP/+G/HPGuvfdaqg4YsCdtOm6U9+LOFyYDoh4dpnpxZRB9MQQns5Q==}
-    engines: {node: ^12.13.0 || ^14.15.0 || >=16.0.0}
-    dependencies:
-      builtins: 5.0.1
-    dev: false
-
   /validator@13.11.0:
     resolution: {integrity: sha512-Ii+sehpSfZy+At5nPdnyMhx78fEoPDkR2XW/zimHEL3MyGJQOCQ7WeP20jPYRz7ZCpcKLB21NxuXHF3bxjStBQ==}
     engines: {node: '>= 0.10'}
@@ -35690,13 +35385,6 @@ packages:
       assert-plus: 1.0.0
       core-util-is: 1.0.2
       extsprintf: 1.3.0
-
-  /version-selector-type@3.0.0:
-    resolution: {integrity: sha512-PSvMIZS7C1MuVNBXl/CDG2pZq8EXy/NW2dHIdm3bVP5N0PC8utDK8ttXLXj44Gn3J0lQE3U7Mpm1estAOd+eiA==}
-    engines: {node: '>=10.13'}
-    dependencies:
-      semver: 7.6.0
-    dev: false
 
   /vfile-location@4.1.0:
     resolution: {integrity: sha512-YF23YMyASIIJXpktBa4vIGLJ5Gs88UB/XePgqPmTa7cDA+JeO3yclbpheQYCHjVHBn/yePzrXuygIL+xbvRYHw==}
@@ -37509,9 +37197,9 @@ packages:
     dependencies:
       tape: 0.2.2
 
-  /zod-validation-error@1.5.0(zod@3.22.4):
-    resolution: {integrity: sha512-/7eFkAI4qV0tcxMBB/3+d2c1P6jzzZYdYSlBuAklzMuCrJu5bzJfHS0yVAS87dRHVlhftd6RFJDIvv03JgkSbw==}
-    engines: {node: '>=16.0.0'}
+  /zod-validation-error@3.2.0(zod@3.22.4):
+    resolution: {integrity: sha512-cYlPR6zuyrgmu2wRTdumEAJGuwI7eHVHGT+VyneAQxmRAKtGRL1/7pjz4wfLhz4J05f5qoSZc3rGacswgyTjjw==}
+    engines: {node: '>=18.0.0'}
     peerDependencies:
       zod: ^3.18.0
     dependencies:
@@ -37819,7 +37507,7 @@ time:
   /immer@10.0.2: '2023-05-09T18:24:24.940Z'
   /ipfs-http-client@60.0.1: '2023-05-25T14:59:42.047Z'
   /json-stable-stringify@1.0.2: '2022-11-08T17:21:21.117Z'
-  /knip@2.33.3: '2023-10-12T09:53:43.922Z'
+  /knip@5.11.0: '2024-04-26T10:06:16.229Z'
   /lexical@0.12.5: '2023-12-06T20:09:21.640Z'
   /linkedom@0.16.4: '2023-11-14T20:43:41.931Z'
   /linkify-react@4.1.1: '2023-03-25T15:06:24.522Z'
