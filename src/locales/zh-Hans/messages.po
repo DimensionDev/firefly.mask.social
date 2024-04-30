@@ -264,9 +264,6 @@ msgstr ""
 msgid "Comment cannot be empty."
 msgstr ""
 
-msgid "Your post has published successfully on {sourceName}."
-msgstr ""
-
 msgid "Failed to fetch as Text."
 msgstr "获取内容失败。"
 
@@ -290,6 +287,9 @@ msgstr "创建图片内容失败"
 
 msgid "Failed to unvote post."
 msgstr "无法对帖子进行投票。"
+
+msgid "Your post failed to publish."
+msgstr ""
 
 msgid "Privacy Policy"
 msgstr "隐私条款"
@@ -332,6 +332,9 @@ msgstr "取消点赞"
 
 msgid "Post has been hidden"
 msgstr "帖子已经被隐藏"
+
+msgid "Your post has published successfully."
+msgstr ""
 
 msgid "Everyone"
 msgstr "任何人"
@@ -733,9 +736,6 @@ msgid "No parent post found."
 msgstr ""
 
 msgid "Please confirm the login with X."
-msgstr ""
-
-msgid "Your post failed to publish on {sourceName}."
 msgstr ""
 
 msgid "<0/> commented on your <1><2/></1>"

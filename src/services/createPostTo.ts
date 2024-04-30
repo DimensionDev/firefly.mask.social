@@ -91,9 +91,9 @@ export function createPostTo(source: SocialPlatform, options: CreatePostToOption
                     [source]: postId,
                 },
             }));
-            enqueueSuccessMessage_(t`Your post has published successfully on ${sourceName}.`);
+            enqueueSuccessMessage_(t`Your post has published successfully.`);
         } catch (error) {
-            enqueueErrorMessage_(t`Your post failed to publish on ${sourceName}.`, {
+            enqueueErrorMessage_(t`Your post failed to publish.`, {
                 detailed: getDetailedErrorMessage(source, error),
             });
             throw error;

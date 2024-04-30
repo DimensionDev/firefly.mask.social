@@ -259,9 +259,6 @@ msgstr "{shares, plural, =0 {Mirror or Quote} zero {Mirror or Quote} one {Mirror
 msgid "Comment cannot be empty."
 msgstr "Comment cannot be empty."
 
-msgid "Your post has published successfully on {sourceName}."
-msgstr "Your post has published successfully on {sourceName}."
-
 msgid "Failed to fetch as Text."
 msgstr "Failed to fetch as Text."
 
@@ -285,6 +282,9 @@ msgstr "Failed to create image payload."
 
 msgid "Failed to unvote post."
 msgstr "Failed to unvote post."
+
+msgid "Your post failed to publish."
+msgstr "Your post failed to publish."
 
 msgid "Privacy Policy"
 msgstr "Privacy Policy"
@@ -327,6 +327,9 @@ msgstr "Unlike"
 
 msgid "Post has been hidden"
 msgstr "Post has been hidden"
+
+msgid "Your post has published successfully."
+msgstr "Your post has published successfully."
 
 msgid "Everyone"
 msgstr "Everyone"
@@ -729,9 +732,6 @@ msgstr "No parent post found."
 
 msgid "Please confirm the login with X."
 msgstr "Please confirm the login with X."
-
-msgid "Your post failed to publish on {sourceName}."
-msgstr "Your post failed to publish on {sourceName}."
 
 msgid "<0/> commented on your <1><2/></1>"
 msgstr "<0/> commented on your <1><2/></1>"

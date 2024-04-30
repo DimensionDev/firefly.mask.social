@@ -259,9 +259,6 @@ msgstr ""
 msgid "Comment cannot be empty."
 msgstr ""
 
-msgid "Your post has published successfully on {sourceName}."
-msgstr ""
-
 msgid "Failed to fetch as Text."
 msgstr ""
 
@@ -284,6 +281,9 @@ msgid "Failed to create image payload."
 msgstr ""
 
 msgid "Failed to unvote post."
+msgstr ""
+
+msgid "Your post failed to publish."
 msgstr ""
 
 msgid "Privacy Policy"
@@ -326,6 +326,9 @@ msgid "Unlike"
 msgstr ""
 
 msgid "Post has been hidden"
+msgstr ""
+
+msgid "Your post has published successfully."
 msgstr ""
 
 msgid "Everyone"
@@ -728,9 +731,6 @@ msgid "No parent post found."
 msgstr ""
 
 msgid "Please confirm the login with X."
-msgstr ""
-
-msgid "Your post failed to publish on {sourceName}."
 msgstr ""
 
 msgid "<0/> commented on your <1><2/></1>"
