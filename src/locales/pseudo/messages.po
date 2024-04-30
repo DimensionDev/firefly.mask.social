@@ -109,6 +109,9 @@ msgstr ""
 msgid "Copied"
 msgstr ""
 
+msgid "Retry"
+msgstr ""
+
 msgid "comment"
 msgstr ""
 
