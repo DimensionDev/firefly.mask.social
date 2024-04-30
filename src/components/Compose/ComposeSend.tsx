@@ -1,12 +1,11 @@
-import { PlusCircleIcon } from '@heroicons/react/24/outline';
 import { Plural, t, Trans } from '@lingui/macro';
 import { delay } from '@masknet/kit';
 import { useMemo, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 
+import AddThread from '@/assets/addThread.svg';
 import LoadingIcon from '@/assets/loading.svg';
 import SendIcon from '@/assets/send.svg';
-import AddThread from '@/assets/addThread.svg';
 import Send2Icon from '@/assets/send2.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { CountdownCircle } from '@/components/Compose/CountdownCircle.js';
