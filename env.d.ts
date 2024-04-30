@@ -47,5 +47,7 @@ declare namespace NodeJS {
         S3_ACCESS_KEY_ID: string;
         S3_BUCKET: string;
         S3_REGION: string;
+
+        SENTRY_DNS: string;
     }
 }
