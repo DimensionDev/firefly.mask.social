@@ -9,6 +9,7 @@ import { SocialPlatform } from '@/constants/enum.js';
 import { ALLOWED_IMAGES_MIMES } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getCurrentPostImageLimits } from '@/helpers/getCurrentPostImageLimits.js';
+import { isValidFileType } from '@/helpers/isValidFileType.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 
@@ -33,9 +34,7 @@ export function Media({ close }: MediaProps) {
                     if (images.length === maxImageCount) return images;
                     return [
                         ...images,
-                        ...[...files]
-                            .filter((file) => ALLOWED_IMAGES_MIMES.includes(file.type))
-                            .map((file) => ({ file })),
+                        ...[...files].filter((file) => isValidFileType(file.type)).map((file) => ({ file })),
                     ].slice(0, maxImageCount);
                 });
             }

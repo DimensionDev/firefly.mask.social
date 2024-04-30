@@ -10,6 +10,7 @@ import { SourceInURL } from '@/constants/enum.js';
 import { ALLOWED_IMAGES_MIMES, SUFFIX_NAMES } from '@/constants/index.js';
 import { createErrorResponseJSON } from '@/helpers/createErrorResponseJSON.js';
 import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
+import { isValidFileType } from '@/helpers/isValidFileType.js';
 
 class ContentTypeError extends Error {}
 
@@ -26,7 +27,7 @@ const FormDataSchema = z.object({
                 },
             ]);
         }
-        if (!ALLOWED_IMAGES_MIMES.includes(value.type)) {
+        if (!isValidFileType(value.type)) {
             throw new ZodError([
                 {
                     message: t`Invalid file type. Allowed types: ${ALLOWED_IMAGES_MIMES.join(', ')}`,
@@ -61,7 +62,7 @@ export async function PUT(req: NextRequest) {
         });
         const params = {
             Bucket: process.env.S3_BUCKET,
-            Key: `${source.toLowerCase()}/${uuid()}.${SUFFIX_NAMES[file.type]}`,
+            Key: `${source.toLowerCase()}/${uuid()}.${SUFFIX_NAMES[file.type as keyof typeof SUFFIX_NAMES]}`,
             Body: file,
             ContentType: file.type,
         };
