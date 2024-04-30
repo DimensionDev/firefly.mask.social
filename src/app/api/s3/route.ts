@@ -7,22 +7,11 @@ import { v4 as uuid } from 'uuid';
 import { z, ZodError, ZodIssueCode } from 'zod';
 
 import { SourceInURL } from '@/constants/enum.js';
+import { ALLOWED_IMAGES_MIMES, SUFFIX_NAMES } from '@/constants/index.js';
 import { createErrorResponseJSON } from '@/helpers/createErrorResponseJSON.js';
 import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
 
-const ALLOWED_MIMES = ['image/png', 'image/jpeg', 'image/gif', 'image/webp', 'image/bmp'] as const;
-
-type AllowedMime = (typeof ALLOWED_MIMES)[number];
-
 class ContentTypeError extends Error {}
-
-const SUFFIX_NAMES: Record<AllowedMime, string> = {
-    'image/png': 'png',
-    'image/jpeg': 'jpg',
-    'image/gif': 'gif',
-    'image/bmp': 'bmp',
-    'image/webp': 'webp',
-};
 
 const FormDataSchema = z.object({
     file: z.custom<File>((value) => {
@@ -37,10 +26,10 @@ const FormDataSchema = z.object({
                 },
             ]);
         }
-        if (!ALLOWED_MIMES.includes(value.type as AllowedMime)) {
+        if (!ALLOWED_IMAGES_MIMES.includes(value.type)) {
             throw new ZodError([
                 {
-                    message: t`Invalid file type. Allowed types: ${ALLOWED_MIMES.join(', ')}`,
+                    message: t`Invalid file type. Allowed types: ${ALLOWED_IMAGES_MIMES.join(', ')}`,
                     path: [],
                     code: ZodIssueCode.invalid_type,
                     expected: 'string',
@@ -72,7 +61,7 @@ export async function PUT(req: NextRequest) {
         });
         const params = {
             Bucket: process.env.S3_BUCKET,
-            Key: `${source.toLowerCase()}/${uuid()}.${SUFFIX_NAMES[file.type as AllowedMime]}`,
+            Key: `${source.toLowerCase()}/${uuid()}.${SUFFIX_NAMES[file.type]}`,
             Body: file,
             ContentType: file.type,
         };
