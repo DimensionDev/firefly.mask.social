@@ -46,3 +46,6 @@ sw.js
 
 # locales
 src/locales/**/*.mjs
+
+# Sentry Config File
+.sentryclirc
