@@ -61,7 +61,7 @@ export function ComposeSend(props: ComposeSendProps) {
     if (!isMedium) {
         return (
             <>
-                {loading ? (
+                {posts.length > 1 && loading ? (
                     <span
                         className="fixed left-0 top-0 z-50 h-1 w-full bg-black/50 dark:bg-white/50 duration-100 bg"
                         style={{
@@ -125,7 +125,7 @@ export function ComposeSend(props: ComposeSendProps) {
                 )}
                 onClick={handlePost}
             >
-                {loading ? (
+                {posts.length > 1 && loading ? (
                     <span
                         className="absolute left-0 top-0 z-10 h-full w-full bg-white/50 dark:bg-black/50 duration-100"
                         style={{
