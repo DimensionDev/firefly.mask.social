@@ -39,6 +39,8 @@ export function ComposeSend(props: ComposeSendProps) {
 
     const [percentage, setPercentage] = useState(0);
     const [{ loading, error }, handlePost] = useAsyncFn(async () => {
+        await delay(3000);
+        if (Math.random() < 1) throw new Error('Failed to post');
         if (posts.length > 1) await crossPostThread(setPercentage);
         else {
             const updatedPost = await crossPost(type, post);
