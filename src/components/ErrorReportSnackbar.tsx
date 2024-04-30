@@ -70,23 +70,26 @@ export const ErrorReportSnackbar = forwardRef<HTMLDivElement, ReportCompleteProp
                 {detail ? (
                     <div>
                         {expanded ? (
-                            <div className="p-4 pt-0">
+                            <div className="max-h-[90px] overflow-auto p-4 pt-0" style={{ scrollbarWidth: 'none' }}>
                                 <div className="whitespace-pre text-white">{detail}</div>
                             </div>
                         ) : null}
                         <div className="flex px-4 pb-2">
-                            <div className="inline-block cursor-pointer text-white" onClick={handleExpandClick}>
+                            <div
+                                className="inline-block cursor-pointer text-white underline"
+                                onClick={handleExpandClick}
+                            >
                                 {expanded ? <Trans>Show less</Trans> : <Trans>Show more</Trans>}
                             </div>
                             <ClickableButton
-                                className="ml-auto inline-flex cursor-pointer items-center text-white "
+                                className="ml-auto inline-flex cursor-pointer items-center text-white"
                                 onClick={handleCopy}
                             >
                                 <ClipboardIcon className="mr-1 h-3 w-3" />
                                 {copied ? <Trans>Copied</Trans> : <Trans>Copy</Trans>}
                             </ClickableButton>
                             <a
-                                className="ml-1 inline-flex cursor-pointer items-center text-white hover:underline"
+                                className="ml-1 inline-flex cursor-pointer items-center text-white underline"
                                 href={githubReportLink}
                                 target="_blank"
                             >
