@@ -39,15 +39,28 @@ export function ComposeSend(props: ComposeSendProps) {
     const [{ loading, error }, handlePost] = useAsyncFn(async () => {
         if (posts.length > 1) await crossPostThread(setPercentage);
         else await crossPost(type, post);
-        await delay(300); // wait the loading
+        await delay(300);
         ComposeModalRef.close();
-    }, [type, posts.length > 1, post]);
+    }, [type, post, posts.length > 1]);
 
-    const disabled = loading || posts.length > 1 ? posts.some((x) => !isValidPost(x)) : !isValidPost(post);
+    const disabled = loading || error || posts.length > 1 ? posts.some((x) => !isValidPost(x)) : !isValidPost(post);
 
     const submitButtonText = useMemo(() => {
-        if (loading) return <LoadingIcon width={16} height={16} className="animate-spin" />;
-        if (error) return <Trans>Retry</Trans>;
+        if (loading)
+            return (
+                <>
+                    <LoadingIcon width={16} height={16} className="animate-spin" />
+                    <span>
+                        <Trans>Posting...</Trans>
+                    </span>
+                </>
+            );
+        if (error)
+            return (
+                <span>
+                    <Trans>Retry</Trans>
+                </span>
+            );
         return (
             <>
                 <SendIcon width={18} height={18} className="mr-1 text-primaryBottom" />

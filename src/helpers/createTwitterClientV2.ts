@@ -4,12 +4,11 @@ import { getToken, type JWT } from 'next-auth/jwt';
 import { TwitterApi, type TwitterApiTokens } from 'twitter-api-v2';
 
 import { authOptions } from '@/app/api/auth/[...nextauth]/options.js';
-import { env } from '@/constants/env.js';
 
 export async function createTwitterClientV2(request: NextRequest) {
     const token: JWT = await getToken({
         req: request,
-        secret: env.internal.NEXTAUTH_SECRET,
+        secret: process.env.NEXTAUTH_SECRET,
     });
     const session = await getServerSession(authOptions);
 
@@ -17,8 +16,8 @@ export async function createTwitterClientV2(request: NextRequest) {
     if (!token.twitter.oauthToken || !token.twitter.oauthTokenSecret) throw new Error('No Twitter token found');
 
     const tokens: TwitterApiTokens = {
-        appKey: env.internal.TWITTER_CLIENT_ID,
-        appSecret: env.internal.TWITTER_CLIENT_SECRET,
+        appKey: process.env.TWITTER_CLIENT_ID,
+        appSecret: process.env.TWITTER_CLIENT_SECRET,
         accessToken: token.twitter.oauthToken,
         accessSecret: token.twitter.oauthTokenSecret,
     };

@@ -9,8 +9,6 @@ import { GA } from '@/components/GA.js';
 import { Polyfills } from '@/components/Polyfills.js';
 import { Providers } from '@/components/Providers.js';
 import { SideBar } from '@/components/SideBar/index.js';
-import { NODE_ENV, STATUS } from '@/constants/enum.js';
-import { env } from '@/constants/env.js';
 import { Script } from '@/esm/Script.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { createSiteViewport } from '@/helpers/createSiteViewport.js';
@@ -19,19 +17,7 @@ import { setLocale } from '@/i18n/index.js';
 import { Modals } from '@/modals/index.js';
 
 // @ts-ignore
-const CustomElements = lazy(() => {
-    if (
-        env.shared.NODE_ENV !== NODE_ENV.Development ||
-        (env.shared.NODE_ENV === NODE_ENV.Development &&
-            env.external.NEXT_PUBLIC_MASK_WEB_COMPONENTS === STATUS.Enabled)
-    )
-        return import('@/components/CustomElements.js');
-
-    // disable mask web components
-    return Promise.resolve({
-        default: () => null,
-    });
-});
+const CustomElements = lazy(() => import('@/components/CustomElements.js'));
 
 const inter = Inter({
     subsets: ['latin'],
@@ -56,7 +42,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <body className={`${inter.variable} font-inter`}>
                 <Providers>
                     <div className="m-auto flex w-full md:min-h-screen lg:w-[1265px]">
-                        <CustomElements />
+                        {process.env.NODE_ENV !== 'development' ||
+                        (process.env.NODE_ENV === 'development' &&
+                            process.env.NEXT_PUBLIC_MASK_WEB_COMPONENTS === 'enabled') ? (
+                            <CustomElements />
+                        ) : null}
                         {children}
                         <SideBar />
                         <mask-page-inspector />
@@ -68,6 +58,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 <BeforeUnload />
                 <Script
                     src="https://cdn.jsdelivr.net/npm/bowser@2.11.0/es5.min.js"
+                    async
+                    strategy="beforeInteractive"
+                />
+                <Script
+                    src="https://sentry.firefly.land/js-sdk-loader/4a200c89bb146241199c157e8c03d903.min.js"
                     async
                     strategy="beforeInteractive"
                 />

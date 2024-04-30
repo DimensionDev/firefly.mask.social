@@ -5,7 +5,7 @@ import { v4 as uuid } from 'uuid';
 import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
 
-import { RestrictionType, SocialPlatform } from '@/constants/enum.js';
+import { SocialPlatform } from '@/constants/enum.js';
 import { EMPTY_LIST, SORTED_SOURCES } from '@/constants/index.js';
 import { type Chars, readChars } from '@/helpers/chars.js';
 import { createSelectors } from '@/helpers/createSelector.js';
@@ -13,7 +13,7 @@ import { getCurrentAvailableSources } from '@/helpers/getCurrentAvailableSources
 import { FrameLoader } from '@/libs/frame/Loader.js';
 import { OpenGraphLoader } from '@/libs/og/Loader.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
-import { type ComposeType } from '@/types/compose.js';
+import { type ComposeType, RestrictionType } from '@/types/compose.js';
 import type { Frame } from '@/types/frame.js';
 import type { MediaObject } from '@/types/index.js';
 import type { OpenGraph } from '@/types/og.js';
@@ -28,6 +28,7 @@ export type OrphanPost = Omit<
     'embedPosts' | 'comments' | 'root' | 'commentOn' | 'quoteOn' | 'firstComment' | 'threads'
 >;
 
+// A composite post uses availableSources of the root post.
 export interface CompositePost {
     id: Cursor;
 
@@ -35,8 +36,11 @@ export interface CompositePost {
     postId: Record<SocialPlatform, string | null>;
     // tracking the parent post in specific platform
     parentPost: Record<SocialPlatform, OrphanPost | null>;
+    // tracking error
+    postError: Record<SocialPlatform, Error | null>;
 
     restriction: RestrictionType;
+    // use the same value of root post
     availableSources: SocialPlatform[];
     chars: Chars;
     typedMessage: TypedMessageTextV1 | null;
@@ -81,6 +85,7 @@ interface ComposeState {
 
     // operations upon the current editable post
     updatePostId: (source: SocialPlatform, postId: string, cursor?: Cursor) => void;
+    updatePostError: (source: SocialPlatform, postError: Error, cursor?: Cursor) => void;
     updateParentPost: (source: SocialPlatform, parentPost: Post, cursor?: Cursor) => void;
     updateAvailableSources: (sources: SocialPlatform[], cursor?: Cursor) => void;
     updateChars: (charsOrUpdater: SetStateAction<Chars>, cursor?: Cursor) => void;
@@ -104,6 +109,11 @@ function createInitSinglePostState(cursor: Cursor): CompositePost {
     return {
         id: cursor,
         postId: {
+            [SocialPlatform.Farcaster]: null,
+            [SocialPlatform.Lens]: null,
+            [SocialPlatform.Twitter]: null,
+        },
+        postError: {
             [SocialPlatform.Farcaster]: null,
             [SocialPlatform.Lens]: null,
             [SocialPlatform.Twitter]: null,
@@ -260,6 +270,20 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
                         postId: {
                             ...post.postId,
                             [source]: postId,
+                        },
+                    }),
+                    cursor,
+                ),
+            ),
+        updatePostError: (source, postError, cursor) =>
+            set((state) =>
+                next(
+                    state,
+                    (post) => ({
+                        ...post,
+                        postId: {
+                            ...post.postId,
+                            [source]: postError,
                         },
                     }),
                     cursor,

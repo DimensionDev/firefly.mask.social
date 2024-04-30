@@ -1,20 +1,20 @@
 /* cspell:disable */
 
-import { NODE_ENV, ProfileTabType, RestrictionType, SearchType, SocialPlatform, VERCEL_NEV } from '@/constants/enum.js';
-import { env } from '@/constants/env.js';
+import { ProfileTabType, SearchType, SocialPlatform } from '@/constants/enum.js';
+import { RestrictionType } from '@/types/compose.js';
 
 export const SITE_NAME = 'Firefly: Web3 & NFT Explorer';
 export const SITE_DESCRIPTION =
     "Firefly is a social app for exploring what's happening in the world of Web3, NFTs, AI, and more.";
-export const SITE_URL = env.external.NEXT_PUBLIC_SITE_URL;
+export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://firefly.mask.social';
 export const SITE_HOSTNAME = 'firefly.mask.social';
 
 export const WARPCAST_ROOT_URL = 'https://api.warpcast.com/v2';
 export const WARPCAST_CLIENT_URL = 'https://client.warpcast.com/v2';
-export const FIREFLY_ROOT_URL = env.external.NEXT_PUBLIC_FIREFLY_API_URL;
+export const FIREFLY_ROOT_URL = process.env.NEXT_PUBLIC_FIREFLY_API_URL ?? 'https://api.firefly.land';
 export const FIREFLY_STAMP_URL = 'https://stamp.firefly.land/avatar';
 
-export const HUBBLE_URL = env.internal.HUBBLE_URL ?? env.external.NEXT_PUBLIC_HUBBLE_URL;
+export const HUBBLE_URL = process.env.NEXT_PUBLIC_HUBBLE_URL;
 
 export const NEYNAR_URL = 'https://api.neynar.com';
 export const RP_HASH_TAG = '#FireflyLuckyDrop';
@@ -22,21 +22,14 @@ export const RP_HASH_TAG = '#FireflyLuckyDrop';
 export const EMPTY_LIST = Object.freeze([]) as never[];
 export const EMPTY_OBJECT = Object.freeze({}) as Record<string, never>;
 
-export const SORTED_PROFILE_TAB_TYPE: Record<SocialPlatform, ProfileTabType[]> = {
-    [SocialPlatform.Lens]: [
-        ProfileTabType.Feed,
-        ProfileTabType.Replies,
-        ProfileTabType.Media,
-        ProfileTabType.Collected,
-    ],
-    [SocialPlatform.Farcaster]: [ProfileTabType.Feed, ProfileTabType.Replies, ProfileTabType.Liked],
-    [SocialPlatform.Twitter]: [ProfileTabType.Feed],
+export const EIP_712_FARCASTER_DOMAIN = {
+    name: 'Farcaster Verify Ethereum Address',
+    version: '2.0.0',
+    salt: '0xf2d857f4a3edcb9b78b4d503bfe733db1e3f6cdc2b7971ee739626c97e86a558' as `0x${string}`,
 };
-export const SORTED_SEARCH_TYPE: Record<SocialPlatform, SearchType[]> = {
-    [SocialPlatform.Lens]: [SearchType.Posts, SearchType.Users],
-    [SocialPlatform.Farcaster]: [SearchType.Posts, SearchType.Users, SearchType.Channels],
-    [SocialPlatform.Twitter]: [SearchType.Posts, SearchType.Users],
-};
+
+export const SORTED_PROFILE_TAB_TYPE = [ProfileTabType.Feed, ProfileTabType.Collected]; // ProfileTabType.Channels
+export const SORTED_SEARCH_TYPE = [SearchType.Posts, SearchType.Users];
 export const SORTED_SOURCES = [SocialPlatform.Farcaster, SocialPlatform.Lens, SocialPlatform.Twitter];
 export const SORTED_RESTECTION_TYPE = [RestrictionType.Everyone, RestrictionType.OnlyPeopleYouFollow];
 
@@ -53,9 +46,9 @@ export const EXPANDED_AVATAR = 'tr:w-1000,h-1000';
 export const COVER = 'tr:w-1500,h-500';
 export const ATTACHMENT = 'tr:w-1000';
 
-export const IS_PRODUCTION = env.external.NEXT_PUBLIC_VERCEL_ENV === VERCEL_NEV.Preview;
-export const IS_DEVELOPMENT = env.external.NEXT_PUBLIC_VERCEL_ENV === VERCEL_NEV.Development;
-export const IS_PREVIEW = env.external.NEXT_PUBLIC_VERCEL_ENV === VERCEL_NEV.Preview;
+export const IS_PRODUCTION = process.env.NEXT_PUBLIC_VERCEL_ENV === 'production';
+export const IS_DEVELOPMENT = process.env.NEXT_PUBLIC_VERCEL_ENV === 'development';
+export const IS_PREVIEW = process.env.NEXT_PUBLIC_VERCEL_ENV === 'preview';
 
 export const EVER_API = 'https://endpoint.4everland.co';
 
@@ -89,7 +82,7 @@ export const MAX_RECOMMEND_PROFILE_SIZE = 10;
 export const MAX_OG_SIZE_PER_POST = 1;
 export const MAX_FRAME_SIZE_PER_POST = 1;
 
-export const MAX_POST_SIZE_PER_THREAD = env.shared.NODE_ENV === NODE_ENV.Development ? 5 : 25;
+export const MAX_POST_SIZE_PER_THREAD = process.env.NODE_ENV === 'development' ? 10 : 25;
 export const MIN_POST_SIZE_PER_THREAD = 3;
 
 // HTTP Cache headers

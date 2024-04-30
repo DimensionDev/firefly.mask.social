@@ -5,9 +5,10 @@ import { Fragment } from 'react';
 import RadioDisableNoIcon from '@/assets/radio.disable-no.svg';
 import YesIcon from '@/assets/yes.svg';
 import { ReplyRestrictionText } from '@/components/Compose/ReplyRestrictionText.js';
-import { RestrictionType, SocialPlatform } from '@/constants/enum.js';
+import { SocialPlatform } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
+import { RestrictionType } from '@/types/compose.js';
 
 interface ReplyRestrictionProps {
     restriction: RestrictionType;

@@ -40,9 +40,6 @@ msgstr ""
 msgid "Please be cautious when connecting your wallet, as malicious websites may attempt to access your funds."
 msgstr ""
 
-msgid "{followerCount, plural, one {Follower} other {Followers}}"
-msgstr ""
-
 msgid "Failed to mirror. {0}"
 msgstr ""
 
@@ -56,9 +53,6 @@ msgid "Allow Lens Manager to perform actions such as posting, liking, and commen
 msgstr ""
 
 msgid "{0} views"
-msgstr ""
-
-msgid "Searching channel"
 msgstr ""
 
 msgid "Act"
@@ -109,16 +103,19 @@ msgstr ""
 msgid "Copied"
 msgstr ""
 
+msgid "Your posts have published successfully."
+msgstr ""
+
 msgid "Retry"
+msgstr ""
+
+msgid "Show less"
 msgstr ""
 
 msgid "comment"
 msgstr ""
 
 msgid "Confirm"
-msgstr ""
-
-msgid "Device Logged In"
 msgstr ""
 
 msgid "Username"
@@ -232,6 +229,9 @@ msgstr ""
 msgid "Log out"
 msgstr ""
 
+msgid "{0, plural, one {Your post failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your post failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your post failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
+msgstr ""
+
 msgid "post"
 msgstr ""
 
@@ -250,9 +250,6 @@ msgstr ""
 msgid "and"
 msgstr ""
 
-msgid "Failed to quote post on {sourceName}."
-msgstr ""
-
 msgid "Channel"
 msgstr ""
 
@@ -262,6 +259,9 @@ msgstr ""
 msgid "Comment cannot be empty."
 msgstr ""
 
+msgid "Your post has published successfully on {sourceName}."
+msgstr ""
+
 msgid "Failed to fetch as Text."
 msgstr ""
 
@@ -269,9 +269,6 @@ msgid "Reply"
 msgstr ""
 
 msgid "Querying the signed key state."
-msgstr ""
-
-msgid "Replied on {sourceName}."
 msgstr ""
 
 msgid "Invalid compose type."
@@ -307,9 +304,6 @@ msgstr ""
 msgid "{0} Comments"
 msgstr ""
 
-msgid "Replies"
-msgstr ""
-
 msgid "Comment"
 msgstr ""
 
@@ -317,6 +311,9 @@ msgid "Only people you mention"
 msgstr ""
 
 msgid "Allow replies from"
+msgstr ""
+
+msgid "Your posts have published successfully on {0}."
 msgstr ""
 
 msgid "Malformed session."
@@ -376,9 +373,6 @@ msgstr ""
 msgid "Failed to upvote post."
 msgstr ""
 
-msgid "One click to connect your account status"
-msgstr ""
-
 msgid "Post your reply"
 msgstr ""
 
@@ -413,9 +407,6 @@ msgid "commented"
 msgstr ""
 
 msgid "The page could not be found."
-msgstr ""
-
-msgid "No matching channel"
 msgstr ""
 
 msgid "What's happening..."
@@ -508,9 +499,6 @@ msgstr ""
 msgid "Mirrored"
 msgstr ""
 
-msgid "Quoted post on {sourceName}."
-msgstr ""
-
 msgid "Unable to retrieve post details."
 msgstr ""
 
@@ -521,6 +509,9 @@ msgid "recasted your"
 msgstr ""
 
 msgid "Please input the url to be revalidated."
+msgstr ""
+
+msgid "Show more"
 msgstr ""
 
 msgid "Something went wrong. Please try again."
@@ -538,13 +529,13 @@ msgstr ""
 msgid "<0>{0}</0> mirrored"
 msgstr ""
 
-msgid "Failed to post on {sourceName}."
-msgstr ""
-
 msgid "Follower"
 msgstr ""
 
 msgid "The frame server failed to process the request."
+msgstr ""
+
+msgid "Report"
 msgstr ""
 
 msgid "Failed to upload video to {sourceName}."
@@ -562,7 +553,13 @@ msgstr ""
 msgid "Failed to query the signed key state."
 msgstr ""
 
+msgid "Copy"
+msgstr ""
+
 msgid "Notifications"
+msgstr ""
+
+msgid "Posting..."
 msgstr ""
 
 msgid "No Lens profile found. Please change to another wallet."
@@ -676,9 +673,6 @@ msgstr ""
 msgid "Confirm to log out these accounts?"
 msgstr ""
 
-msgid "Posted on {sourceName}."
-msgstr ""
-
 msgid "Your Lens account is now connected"
 msgstr ""
 
@@ -736,10 +730,10 @@ msgstr ""
 msgid "Please confirm the login with X."
 msgstr ""
 
-msgid "<0/> commented on your <1><2/></1>"
+msgid "Your post failed to publish on {sourceName}."
 msgstr ""
 
-msgid "Failed to relay post on {sourceName}."
+msgid "<0/> commented on your <1><2/></1>"
 msgstr ""
 
 msgid "<0>You</0> recasted"

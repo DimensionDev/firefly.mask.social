@@ -7,7 +7,6 @@ import { v4 as uuid } from 'uuid';
 import { z, ZodError, ZodIssueCode } from 'zod';
 
 import { SourceInURL } from '@/constants/enum.js';
-import { env } from '@/constants/env.js';
 import { createErrorResponseJSON } from '@/helpers/createErrorResponseJSON.js';
 import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
 
@@ -25,8 +24,8 @@ const SUFFIX_NAMES: Record<AllowedMime, string> = {
     'image/webp': 'webp',
 };
 
-const FormDataSchemas = z.object({
-    file: z.custom((value) => {
+const FormDataSchema = z.object({
+    file: z.custom<File>((value) => {
         if (!(value instanceof File)) {
             throw new ZodError([
                 {
@@ -59,22 +58,20 @@ export async function PUT(req: NextRequest) {
         const formData = await req.formData().catch((error) => {
             throw new ContentTypeError(error.message);
         });
-        const source = formData.get('source') as string;
-        const file = formData.get('file') as File;
-        FormDataSchemas.parse({
-            source,
-            file,
+        const { file, source } = FormDataSchema.parse({
+            file: formData.get('file'),
+            source: formData.get('source'),
         });
         const client = new S3Client({
-            region: env.internal.S3_REGION,
+            region: process.env.S3_REGION,
             credentials: {
-                accessKeyId: env.internal.S3_ACCESS_KEY_ID,
-                secretAccessKey: env.internal.S3_ACCESS_KEY_SECRET,
+                accessKeyId: process.env.S3_ACCESS_KEY_ID,
+                secretAccessKey: process.env.S3_ACCESS_KEY_SECRET,
             },
             maxAttempts: 5,
         });
         const params = {
-            Bucket: env.internal.S3_BUCKET,
+            Bucket: process.env.S3_BUCKET,
             Key: `${source.toLowerCase()}/${uuid()}.${SUFFIX_NAMES[file.type as AllowedMime]}`,
             Body: file,
             ContentType: file.type,
@@ -85,7 +82,7 @@ export async function PUT(req: NextRequest) {
         });
         await task.done();
         return createSuccessResponseJSON({
-            link: `https://${env.internal.S3_HOST}/${params.Key}`,
+            link: `https://${process.env.S3_HOST}/${params.Key}`,
         });
     } catch (error) {
         if (error instanceof ContentTypeError) {
