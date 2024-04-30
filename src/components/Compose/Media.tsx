@@ -11,7 +11,7 @@ import { getCurrentPostImageLimits } from '@/helpers/getCurrentPostImageLimits.j
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 
-const ALLOWED_MIMES = ['image/png', 'image/jpeg', 'image/gif', 'image/webp', 'image/bmp']
+const ALLOWED_MIMES = ['image/png', 'image/jpeg', 'image/gif', 'image/webp', 'image/bmp'];
 
 interface MediaProps {
     close: () => void;
@@ -34,9 +34,8 @@ export function Media({ close }: MediaProps) {
                     if (images.length === maxImageCount) return images;
                     return [
                         ...images,
-                        ...[...files]
-                            .filter(file => ALLOWED_MIMES.includes(file.type))
-                            .map((file) => ({ file }))].slice(0, maxImageCount);
+                        ...[...files].filter((file) => ALLOWED_MIMES.includes(file.type)).map((file) => ({ file })),
+                    ].slice(0, maxImageCount);
                 });
             }
             close();
