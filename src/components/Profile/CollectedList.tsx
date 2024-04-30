@@ -7,7 +7,6 @@ import { ScrollListKey, SocialPlatform } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { getPostsSelector } from '@/helpers/getPostsSelector.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
-import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 
 interface CollectedListProps {
@@ -16,7 +15,6 @@ interface CollectedListProps {
 }
 
 export function CollectedList({ profileId, source }: CollectedListProps) {
-    const setScrollIndex = useGlobalState.use.setScrollIndex();
     const fetchAndStoreViews = useImpressionsStore.use.fetchAndStoreViews();
     const queryResult = useSuspenseInfiniteQuery({
         queryKey: ['posts', source, 'bookmarks', profileId],
@@ -48,11 +46,7 @@ export function CollectedList({ profileId, source }: CollectedListProps) {
                 listKey: `${ScrollListKey.Collected}:${profileId}`,
                 computeItemKey: (index, post) => `${post.postId}-${index}`,
                 itemContent: (index, post) =>
-                    getPostItemContent(index, post, {
-                        onClick: () => {
-                            setScrollIndex(`${ScrollListKey.Collected}:${profileId}`, index);
-                        },
-                    }),
+                    getPostItemContent(index, post, `${ScrollListKey.Collected}:${profileId}`),
             }}
             NoResultsFallbackProps={{
                 className: 'mt-20',

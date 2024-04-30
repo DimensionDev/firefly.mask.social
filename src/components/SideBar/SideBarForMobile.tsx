@@ -9,9 +9,11 @@ import LightLogo from '@/assets/logo.light.svg';
 import { CloseButton } from '@/components/CloseButton.js';
 import { Menu } from '@/components/SideBar/Menu.js';
 import { useDarkMode } from '@/hooks/useDarkMode.js';
+import { useDisableScrollPassive } from '@/hooks/useDisableScrollPassive.js';
 import { useNavigatorState } from '@/store/useNavigatorStore.js';
 
 export const SideBarForMobile = memo(function SideBarForMobile() {
+    const { setRef } = useDisableScrollPassive();
     const { isDarkMode } = useDarkMode();
 
     const { sidebarOpen, updateSidebarOpen } = useNavigatorState();
@@ -24,7 +26,7 @@ export const SideBarForMobile = memo(function SideBarForMobile() {
 
     return (
         <Transition.Root show={sidebarOpen} as={Fragment}>
-            <Dialog as="div" className="relative z-50" onClose={() => updateSidebarOpen(false)}>
+            <Dialog as="div" className="relative z-50" onClose={() => updateSidebarOpen(false)} disableScrollLock>
                 <Transition.Child
                     as={Fragment}
                     enter="transition-opacity ease-linear duration-300"
@@ -37,7 +39,7 @@ export const SideBarForMobile = memo(function SideBarForMobile() {
                     <div className="fixed inset-0 bg-main/25 bg-opacity-30" />
                 </Transition.Child>
 
-                <div className="fixed inset-0 flex">
+                <div className="fixed inset-0 flex" ref={(ref) => setRef(ref)}>
                     <Transition.Child
                         as={Fragment}
                         enter="transition ease-in-out duration-300 transform"

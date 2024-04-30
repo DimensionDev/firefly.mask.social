@@ -31,11 +31,11 @@ export function ProfileSettings({ source }: ProfileSettingsProps) {
     }, [refreshProfiles]);
 
     return (
-        <div className=" flex flex-col overflow-x-hidden rounded-2xl bg-primaryBottom shadow-[0px_8px_20px_0px_rgba(0,0,0,0.04)] md:w-[290px] md:px-5 md:dark:border md:dark:border-line md:dark:shadow-[0px_8px_20px_0px_rgba(255,255,255,0.04)]">
+        <div className=" flex flex-col overflow-x-hidden rounded-2xl border border-line bg-primaryBottom md:w-[290px] md:px-5">
             {profiles.map((profile) => (
                 <ClickableButton
                     key={profile.profileId}
-                    className="my-3 flex items-center justify-between gap-2"
+                    className="my-3 flex items-center justify-between gap-2 outline-none"
                     disabled={isSameProfile(currentProfile, profile) || source === SocialPlatform.Farcaster}
                     onClick={() => login(profile)}
                 >
@@ -56,7 +56,7 @@ export function ProfileSettings({ source }: ProfileSettingsProps) {
                 </ClickableButton>
             ))}
             <ClickableButton
-                className="flex w-full items-center rounded px-1 py-3 text-main hover:bg-bg"
+                className="flex w-full items-center rounded px-1 py-3 text-main outline-none hover:bg-bg"
                 onClick={async () => {
                     if (source === SocialPlatform.Twitter)
                         await signOut({
@@ -71,7 +71,7 @@ export function ProfileSettings({ source }: ProfileSettingsProps) {
                 </span>
             </ClickableButton>
             <ClickableButton
-                className="mb-3 flex items-center rounded px-1 py-3 hover:bg-bg"
+                className="mb-3 flex items-center rounded px-1 py-3 outline-none hover:bg-bg"
                 onClick={() => LogoutModalRef.open({ source })}
             >
                 <LogOutIcon width={24} height={24} />

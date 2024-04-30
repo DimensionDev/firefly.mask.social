@@ -10,8 +10,9 @@ export async function GET(request: NextRequest) {
         const client = await createTwitterClientV2(request);
         const { data } = await client.v2.me();
 
-        return createSuccessResponseJSON(data, { status: StatusCodes.OK });
+        return createSuccessResponseJSON(data);
     } catch (error) {
+        console.log('[twitter]: me/ error', error);
         return createErrorResponseJSON(error instanceof Error ? error.message : 'Internal Server Error', {
             status: StatusCodes.INTERNAL_SERVER_ERROR,
         });

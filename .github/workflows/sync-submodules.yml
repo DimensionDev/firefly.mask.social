@@ -22,24 +22,24 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-        
+
       - name: Checkout submodule
         run: git submodule update --init --recursive
-        
+
       - name: Fetch latest changes in submodule branch
         run: git -C src/maskbook fetch origin $SUBMODULE_BRANCH
-        
+
       - name: Get latest commit hash of submodule branch
         id: get_latest_commit
         run: |
           latest_commit=$(git -C src/maskbook rev-parse $SUBMODULE_BRANCH)
           echo "::set-output name=latest_commit::$latest_commit"
-      
+
       - name: Update submodule to latest commit
         if: steps.get_latest_commit.outputs.latest_commit != ''
         run: |
           git -C src/maskbook checkout ${{ steps.get_latest_commit.outputs.latest_commit }}
-        
+
       - name: Create pull request
         if: steps.get_latest_commit.outputs.latest_commit != ''
         uses: peter-evans/create-pull-request@v3

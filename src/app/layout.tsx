@@ -19,7 +19,19 @@ import { setLocale } from '@/i18n/index.js';
 import { Modals } from '@/modals/index.js';
 
 // @ts-ignore
-const CustomElements = lazy(() => import('@/components/CustomElements.js'));
+const CustomElements = lazy(() => {
+    if (
+        env.shared.NODE_ENV !== NODE_ENV.Development ||
+        (env.shared.NODE_ENV === NODE_ENV.Development &&
+            env.external.NEXT_PUBLIC_MASK_WEB_COMPONENTS === STATUS.Enabled)
+    )
+        return import('@/components/CustomElements.js');
+
+    // disable mask web components
+    return Promise.resolve({
+        default: () => null,
+    });
+});
 
 const inter = Inter({
     subsets: ['latin'],
@@ -44,11 +56,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <body className={`${inter.variable} font-inter`}>
                 <Providers>
                     <div className="m-auto flex w-full md:min-h-screen lg:w-[1265px]">
-                        {env.shared.NODE_ENV !== NODE_ENV.Development ||
-                        (env.shared.NODE_ENV === NODE_ENV.Development &&
-                            env.external.NEXT_PUBLIC_MASK_WEB_COMPONENTS === STATUS.Enabled) ? (
-                            <CustomElements />
-                        ) : null}
+                        <CustomElements />
                         {children}
                         <SideBar />
                         <mask-page-inspector />

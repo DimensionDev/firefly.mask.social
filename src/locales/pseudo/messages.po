@@ -40,6 +40,9 @@ msgstr ""
 msgid "Please be cautious when connecting your wallet, as malicious websites may attempt to access your funds."
 msgstr ""
 
+msgid "{followerCount, plural, one {Follower} other {Followers}}"
+msgstr ""
+
 msgid "Failed to mirror. {0}"
 msgstr ""
 
@@ -53,6 +56,9 @@ msgid "Allow Lens Manager to perform actions such as posting, liking, and commen
 msgstr ""
 
 msgid "{0} views"
+msgstr ""
+
+msgid "Searching channel"
 msgstr ""
 
 msgid "Act"
@@ -208,6 +214,12 @@ msgstr ""
 msgid "URL is required."
 msgstr ""
 
+msgid "The file not found"
+msgstr ""
+
+msgid "Invalid file type. Allowed types: {0}"
+msgstr ""
+
 msgid "Connection failed"
 msgstr ""
 
@@ -290,6 +302,9 @@ msgid "Add account"
 msgstr ""
 
 msgid "{0} Comments"
+msgstr ""
+
+msgid "Replies"
 msgstr ""
 
 msgid "Comment"
@@ -395,6 +410,9 @@ msgid "commented"
 msgstr ""
 
 msgid "The page could not be found."
+msgstr ""
+
+msgid "No matching channel"
 msgstr ""
 
 msgid "What's happening..."

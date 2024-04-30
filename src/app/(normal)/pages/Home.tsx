@@ -28,7 +28,6 @@ interface Props {
 }
 
 export function HomePage({ source, pageable }: Props) {
-    const setScrollIndex = useGlobalState.use.setScrollIndex();
     const currentSource = useGlobalState.use.currentSource();
 
     const fetchAndStoreViews = useImpressionsStore.use.fetchAndStoreViews();
@@ -58,12 +57,7 @@ export function HomePage({ source, pageable }: Props) {
             VirtualListProps={{
                 listKey: `${ScrollListKey.Discover}:${source}`,
                 computeItemKey: (index, post) => `${post.postId}-${index}`,
-                itemContent: (index, post) =>
-                    getPostItemContent(index, post, {
-                        onClick: () => {
-                            setScrollIndex(`${ScrollListKey.Discover}:${source}`, index);
-                        },
-                    }),
+                itemContent: (index, post) => getPostItemContent(index, post, `${ScrollListKey.Discover}:${source}`),
             }}
             NoResultsFallbackProps={{
                 className: 'pt-[228px]',

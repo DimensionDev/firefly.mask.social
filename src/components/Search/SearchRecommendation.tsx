@@ -3,6 +3,7 @@
 import { t, Trans } from '@lingui/macro';
 import { createIndicator, type Pageable, type PageIndicator } from '@masknet/shared-base';
 import { useQuery } from '@tanstack/react-query';
+import { first } from 'lodash-es';
 import { useRouter } from 'next/navigation.js';
 import { useDebounce } from 'usehooks-ts';
 
@@ -15,10 +16,11 @@ import { SourceIcon } from '@/components/SourceIcon.js';
 import { SearchType, SocialPlatform } from '@/constants/enum.js';
 import { MAX_RECOMMEND_PROFILE_SIZE } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
+import { getChannelUrl } from '@/helpers/getChannelUrl.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
-import type { Profile } from '@/providers/types/SocialMedia.js';
+import type { Channel, Profile } from '@/providers/types/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useSearchHistoryStateStore } from '@/store/useSearchHistoryStore.js';
 import { type SearchState, useSearchStateStore } from '@/store/useSearchStore.js';
@@ -27,7 +29,7 @@ interface SearchRecommendationProps {
     keyword: string;
     fullScreen?: boolean;
     onSearch?: (state: SearchState) => void;
-    onSelect?: (profile: Profile) => void;
+    onSelect?: (result: Profile | Channel) => void;
     onClear?: () => void;
 }
 
@@ -56,6 +58,15 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
                 indicator: createIndicator(),
                 data: allSettled.flatMap((x) => (x.status === 'fulfilled' ? x.value.data.slice(0, 5) : [])),
             };
+        },
+        enabled: !!debouncedKeyword,
+    });
+
+    const { data: channel, isLoading: fetchChannelLoading } = useQuery({
+        queryKey: ['searchText', debouncedKeyword],
+        queryFn: async () => {
+            const channels = await FarcasterSocialMediaProvider.searchChannels(debouncedKeyword);
+            return first(channels.data);
         },
         enabled: !!debouncedKeyword,
     });
@@ -132,6 +143,55 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
                         <SearchIcon width={18} height={18} className="shrink-0" />
                         <span className=" ml-4 text-ellipsis">{keyword}</span>
                     </div>
+                </>
+            ) : null}
+
+            {fetchChannelLoading || (keyword && channel) ? (
+                <>
+                    <h2 className="border-t border-line p-3 pb-2 text-sm">
+                        <Trans>Channel</Trans>
+                    </h2>
+                </>
+            ) : null}
+
+            {debouncedKeyword ? (
+                <>
+                    {isLoading ? (
+                        <div className="flex flex-col items-center space-y-2 px-4 pb-5 pt-2 text-center text-sm font-bold">
+                            <LoadingIcon className="animate-spin" width={24} height={24} />
+                            <div className="font-bold">{t`Searching channel`}</div>
+                        </div>
+                    ) : !channel ? (
+                        <div className="space-y-2 px-4 py-4 text-center text-sm font-bold">
+                            <div className="font-bold">{t`No matching channel`}</div>
+                        </div>
+                    ) : (
+                        <div className="py-2">
+                            <div
+                                className="cursor-pointer space-y-2 px-4 py-2 text-center text-sm font-bold hover:bg-bg"
+                                onClick={() => {
+                                    router.push(getChannelUrl(channel));
+                                    onSelect?.(channel);
+                                }}
+                            >
+                                <div className="flex flex-row items-center">
+                                    <Avatar
+                                        className="mr-[10px] h-10 w-10 rounded-full"
+                                        src={channel.imageUrl}
+                                        size={40}
+                                        alt={channel.name}
+                                    />
+
+                                    <div className="flex-1 text-left">
+                                        <div className="flex">
+                                            <span className="mr-1">{channel.name}</span>
+                                            <SourceIcon source={SocialPlatform.Farcaster} />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    )}
                 </>
             ) : null}
 

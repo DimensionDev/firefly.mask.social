@@ -6,7 +6,6 @@ import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.
 import { ScrollListKey, SocialPlatform } from '@/constants/enum.js';
 import { getPostsSelector } from '@/helpers/getPostsSelector.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
-import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 
 interface FeedListProps {
@@ -15,7 +14,6 @@ interface FeedListProps {
 }
 
 export function FeedList({ profileId, source }: FeedListProps) {
-    const setScrollIndex = useGlobalState.use.setScrollIndex();
     const fetchAndStoreViews = useImpressionsStore.use.fetchAndStoreViews();
 
     const queryResult = useSuspenseInfiniteQuery({
@@ -30,7 +28,7 @@ export function FeedList({ profileId, source }: FeedListProps) {
             const posts = await provider.getPostsByProfileId(profileId, createIndicator(undefined, pageParam));
 
             if (source === SocialPlatform.Lens) {
-                const ids = posts.data.flatMap((x) => [x.postId]);
+                const ids = posts.data.map((x) => x.postId);
                 await fetchAndStoreViews(ids);
             }
             return posts;
@@ -46,13 +44,8 @@ export function FeedList({ profileId, source }: FeedListProps) {
             queryResult={queryResult}
             VirtualListProps={{
                 listKey: `${ScrollListKey.Profile}:${profileId}`,
-                computeItemKey: (index, post) => `${post.postId}-${index}`,
-                itemContent: (index, post) =>
-                    getPostItemContent(index, post, {
-                        onClick: () => {
-                            setScrollIndex(`${ScrollListKey.Profile}:${profileId}`, index);
-                        },
-                    }),
+                computeItemKey: (index, post) => `${post.publicationId}-${post.postId}-${index}`,
+                itemContent: (index, post) => getPostItemContent(index, post),
             }}
             NoResultsFallbackProps={{
                 className: 'mt-20',

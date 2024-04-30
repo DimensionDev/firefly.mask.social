@@ -1,14 +1,15 @@
 import { t } from '@lingui/macro';
 import { uniqBy } from 'lodash-es';
 
-import { SocialPlatform } from '@/constants/enum.js';
+import { SocialPlatform, SourceInURL } from '@/constants/enum.js';
+import { env } from '@/constants/env.js';
 import { readChars } from '@/helpers/chars.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { hasRpPayload } from '@/helpers/rpPayload.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { type Post, type PostType } from '@/providers/types/SocialMedia.js';
 import { createPostTo } from '@/services/createPostTo.js';
-import { uploadToImgur } from '@/services/uploadToImgur.js';
+import { uploadToS3 } from '@/services/uploadToS3.js';
 import { type CompositePost } from '@/store/useComposeStore.js';
 import { useFarcasterStateStore } from '@/store/useProfileStore.js';
 import type { ComposeType } from '@/types/compose.js';
@@ -31,6 +32,7 @@ export async function postToFarcaster(type: ComposeType, compositePost: Composit
     const composeDraft = (postType: PostType, images: MediaObject[]) => {
         const hasPayload = hasRpPayload(typedMessage);
         return {
+            publicationId: '',
             type: postType,
             postId: '',
             source: SocialPlatform.Farcaster,
@@ -50,8 +52,8 @@ export async function postToFarcaster(type: ComposeType, compositePost: Composit
                 (x) => x.url.toLowerCase(),
             ),
             commentOn: type === 'reply' && farcasterParentPost ? farcasterParentPost : undefined,
-            parentChannelKey: hasPayload ? 'firefly-garden' : undefined,
-            parentChannelUrl: hasPayload ? 'https://warpcast.com/~/channel/firefly-garden' : undefined,
+            parentChannelKey: hasPayload ? env.external.NEXT_PUBLIC_REDPACKET_CHANNEL_KEY : undefined,
+            parentChannelUrl: hasPayload ? env.external.NEXT_PUBLIC_REDPACKET_CHANNEL_URL : undefined,
         } satisfies Post;
     };
 
@@ -62,7 +64,7 @@ export async function postToFarcaster(type: ComposeType, compositePost: Composit
                     if (media.imgur) return media;
                     return {
                         ...media,
-                        imgur: await uploadToImgur(media.file),
+                        imgur: await uploadToS3(media.file, SourceInURL.Farcaster),
                     };
                 }),
             );
