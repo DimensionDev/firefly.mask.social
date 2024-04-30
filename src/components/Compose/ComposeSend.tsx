@@ -63,7 +63,7 @@ export function ComposeSend(props: ComposeSendProps) {
             <>
                 {loading ? (
                     <span
-                        className="fixed left-0 top-0 z-50 h-1 w-full bg-black/50 dark:bg-white/50 duration-100 bg"
+                        className="bg fixed left-0 top-0 z-50 h-1 w-full bg-black/50 duration-100 dark:bg-white/50"
                         style={{
                             transform: `scaleX(${percentage})`,
                             transformOrigin: 'left',
@@ -118,7 +118,7 @@ export function ComposeSend(props: ComposeSendProps) {
             <ClickableButton
                 disabled={disabled}
                 className={classNames(
-                    'relative flex h-10 w-[120px] items-center justify-center gap-1 rounded-full bg-black text-[15px] font-bold text-white disabled:cursor-not-allowed disabled:opacity-50 dark:bg-white dark:text-black overflow-hidden',
+                    'relative flex h-10 w-[120px] items-center justify-center gap-1 overflow-hidden rounded-full bg-black text-[15px] font-bold text-white disabled:cursor-not-allowed disabled:opacity-50 dark:bg-white dark:text-black',
                     {
                         'bg-commonDanger': !!error,
                     },
@@ -127,7 +127,7 @@ export function ComposeSend(props: ComposeSendProps) {
             >
                 {loading ? (
                     <span
-                        className="absolute left-0 top-0 z-10 h-full w-full bg-white/50 dark:bg-black/50 duration-100"
+                        className="absolute left-0 top-0 z-10 h-full w-full bg-white/50 duration-100 dark:bg-black/50"
                         style={{
                             transform: `scaleX(${percentage})`,
                             transformOrigin: 'left',
