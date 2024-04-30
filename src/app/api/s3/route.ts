@@ -52,19 +52,19 @@ const FormDataSchemas = z.object({
         return value;
     }),
     source: z.nativeEnum(SourceInURL),
-})
+});
 
 export async function PUT(req: NextRequest) {
     try {
         const formData = await req.formData().catch((error) => {
-            throw new ContentTypeError(error.message)
+            throw new ContentTypeError(error.message);
         });
         const source = formData.get('source') as string;
         const file = formData.get('file') as File;
         FormDataSchemas.parse({
             source,
-            file
-        })
+            file,
+        });
         const client = new S3Client({
             region: env.internal.S3_REGION,
             credentials: {
