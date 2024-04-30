@@ -159,9 +159,9 @@ importers:
       '@rainbow-me/rainbowkit':
         specifier: 2.0.5
         version: 2.0.5(patch_hash=z4jq5w2a7nzhghr3tyox4fiwsm)(@types/react@18.2.48)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)(viem@2.9.16)(wagmi@2.5.19)
-      '@sentry/react':
+      '@sentry/browser':
         specifier: ^7.112.2
-        version: 7.112.2(react@0.0.0-experimental-8039e6d0b-20231026)
+        version: 7.112.2
       '@servie/events':
         specifier: ^3.0.0
         version: 3.0.0
@@ -13542,23 +13542,6 @@ packages:
       '@sentry/types': 7.112.2
       '@sentry/utils': 7.112.2
       localforage: 1.10.0
-    dev: false
-
-  /@sentry/react@7.112.2(react@0.0.0-experimental-8039e6d0b-20231026):
-    resolution: {integrity: sha512-Xf6mc1+/ncCk6ZFIj0oT4or2o0UxqqJZk09U/21RYNvVCn7+DNyCdJZ/F5wXWgPqVE67PrjydLLYaQWiqLibiA==}
-    engines: {node: '>=8'}
-    peerDependencies:
-      react: 0.0.0-experimental-8039e6d0b-20231026 || 0.0.0-experimental-0a360642d-20230711
-    peerDependenciesMeta:
-      react:
-        optional: true
-    dependencies:
-      '@sentry/browser': 7.112.2
-      '@sentry/core': 7.112.2
-      '@sentry/types': 7.112.2
-      '@sentry/utils': 7.112.2
-      hoist-non-react-statics: 3.3.2
-      react: 0.0.0-experimental-8039e6d0b-20231026
     dev: false
 
   /@sentry/replay@7.112.2:
@@ -37800,8 +37783,8 @@ time:
   /@rollup/plugin-replace@5.0.2: '2022-12-17T15:03:40.788Z'
   /@rollup/plugin-virtual@3.0.2: '2023-10-05T12:50:16.732Z'
   /@scamsniffer/detector@0.0.21: '2022-08-15T06:05:49.379Z'
+  /@sentry/browser@7.112.2: '2024-04-24T12:02:21.377Z'
   /@sentry/browser@7.66.0: '2023-08-30T11:30:31.797Z'
-  /@sentry/react@7.112.2: '2024-04-24T12:02:38.713Z'
   /@sentry/tracing@7.66.0: '2023-08-30T11:31:35.105Z'
   /@servie/events@3.0.0: '2021-04-13T22:43:08.067Z'
   /@sinonjs/text-encoding@0.7.2: '2022-07-27T11:54:25.384Z'

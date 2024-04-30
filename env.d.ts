@@ -48,6 +48,6 @@ declare namespace NodeJS {
         S3_BUCKET: string;
         S3_REGION: string;
 
-        SENTRY_DNS: string;
+        SENTRY_DSN: string;
     }
 }
