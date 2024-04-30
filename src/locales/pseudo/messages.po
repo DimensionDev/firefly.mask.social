@@ -76,9 +76,6 @@ msgstr ""
 msgid "Change Wallet"
 msgstr ""
 
-msgid "Report on GitHub"
-msgstr ""
-
 msgid "OpenGraph"
 msgstr ""
 
@@ -253,9 +250,6 @@ msgstr ""
 msgid "and"
 msgstr ""
 
-msgid "Failed to quote post on {sourceName}."
-msgstr ""
-
 msgid "Channel"
 msgstr ""
 
@@ -274,9 +268,6 @@ msgstr ""
 msgid "Querying the signed key state."
 msgstr ""
 
-msgid "Replied on {sourceName}."
-msgstr ""
-
 msgid "Invalid compose type."
 msgstr ""
 
@@ -290,6 +281,9 @@ msgid "Failed to create image payload."
 msgstr ""
 
 msgid "Failed to unvote post."
+msgstr ""
+
+msgid "Your post failed to publish."
 msgstr ""
 
 msgid "Privacy Policy"
@@ -319,6 +313,9 @@ msgstr ""
 msgid "Allow replies from"
 msgstr ""
 
+msgid "Your posts have published successfully on {0}."
+msgstr ""
+
 msgid "Malformed session."
 msgstr ""
 
@@ -329,6 +326,9 @@ msgid "Unlike"
 msgstr ""
 
 msgid "Post has been hidden"
+msgstr ""
+
+msgid "Your post has published successfully."
 msgstr ""
 
 msgid "Everyone"
@@ -344,9 +344,6 @@ msgid "The user declined the request."
 msgstr ""
 
 msgid "<0>{0}</0> liked"
-msgstr ""
-
-msgid "Your posts has published successfully on {0}."
 msgstr ""
 
 msgid "{0, select, follow {Failed to followed @{handle} on {source}} unfollow {Failed to unfollowed @{handle} on {source}} other {Failed to followed @{handle} on {source}}}"
@@ -505,9 +502,6 @@ msgstr ""
 msgid "Mirrored"
 msgstr ""
 
-msgid "Quoted post on {sourceName}."
-msgstr ""
-
 msgid "Unable to retrieve post details."
 msgstr ""
 
@@ -538,13 +532,13 @@ msgstr ""
 msgid "<0>{0}</0> mirrored"
 msgstr ""
 
-msgid "Failed to post on {sourceName}."
-msgstr ""
-
 msgid "Follower"
 msgstr ""
 
 msgid "The frame server failed to process the request."
+msgstr ""
+
+msgid "Report"
 msgstr ""
 
 msgid "Failed to upload video to {sourceName}."
@@ -560,6 +554,9 @@ msgid "Image"
 msgstr ""
 
 msgid "Failed to query the signed key state."
+msgstr ""
+
+msgid "Copy"
 msgstr ""
 
 msgid "Notifications"
@@ -679,9 +676,6 @@ msgstr ""
 msgid "Confirm to log out these accounts?"
 msgstr ""
 
-msgid "Posted on {sourceName}."
-msgstr ""
-
 msgid "Your Lens account is now connected"
 msgstr ""
 
@@ -740,9 +734,6 @@ msgid "Please confirm the login with X."
 msgstr ""
 
 msgid "<0/> commented on your <1><2/></1>"
-msgstr ""
-
-msgid "Failed to relay post on {sourceName}."
 msgstr ""
 
 msgid "<0>You</0> recasted"

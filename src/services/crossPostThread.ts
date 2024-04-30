@@ -4,6 +4,7 @@ import { safeUnreachable } from '@masknet/kit';
 import { SocialPlatform } from '@/constants/enum.js';
 import { SORTED_SOURCES } from '@/constants/index.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import { getDetailedErrorMessage } from '@/helpers/getDetailedErrorMessage.js';
 import { failedAt } from '@/helpers/isPublishedThread.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
@@ -120,18 +121,16 @@ export async function crossPostThread(progressCallback?: (percentage: number, in
         SORTED_SOURCES.forEach((x, i) => {
             const error = allErrors[i];
             if (error) return;
-            enqueueSuccessMessage(t`Your posts has published successfully on ${resolveSourceName(x)}.`);
+            const rootPost = updatedPosts[0];
+            if (!rootPost.availableSources.includes(x)) return;
+            enqueueSuccessMessage(t`Your posts have published successfully on ${resolveSourceName(x)}.`);
         });
 
         // concat all error messages for reporting
         const detailedMessage = SORTED_SOURCES.flatMap((x, i) => {
             const error = allErrors[i];
             if (!error) return [];
-
-            const lines = [`${resolveSourceName(x)}: ${error.message}`];
-            if (error.stack) lines.push(error.stack);
-            lines.push('');
-            return lines.join('\n');
+            return getDetailedErrorMessage(x, error);
         }).join('\n');
 
         enqueueErrorMessage(message, {

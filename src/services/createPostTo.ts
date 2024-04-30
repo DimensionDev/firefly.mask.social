@@ -1,11 +1,10 @@
 import { t } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
-import { produce } from 'immer';
 import { first, noop } from 'lodash-es';
 
-import { queryClient } from '@/configs/queryClient.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import { getDetailedErrorMessage } from '@/helpers/getDetailedErrorMessage.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
 import type { ComposeType } from '@/types/compose.js';
@@ -37,7 +36,9 @@ export function createPostTo(source: SocialPlatform, options: CreatePostToOption
                 uploadedImages = await options.uploadImages?.();
             }
         } catch (error) {
-            enqueueErrorMessage_(t`Failed to upload image to ${sourceName}.`, error);
+            enqueueErrorMessage_(t`Failed to upload image to ${sourceName}.`, {
+                detailed: getDetailedErrorMessage(source, error),
+            });
             throw error;
         }
 
@@ -46,7 +47,9 @@ export function createPostTo(source: SocialPlatform, options: CreatePostToOption
                 uploadedVideos = await options.uploadVideos?.();
             }
         } catch (error) {
-            enqueueErrorMessage_(t`Failed to upload video to ${sourceName}.`, error);
+            enqueueErrorMessage_(t`Failed to upload video to ${sourceName}.`, {
+                detailed: getDetailedErrorMessage(source, error),
+            });
             throw error;
         }
 
@@ -56,72 +59,44 @@ export function createPostTo(source: SocialPlatform, options: CreatePostToOption
             video: first(uploadedVideos) ?? null,
         }));
 
-        const parentPost = post.parentPost[source];
-
-        switch (type) {
-            case 'compose':
-                try {
+        const postTo = async () => {
+            const parentPost = post.parentPost[source];
+            switch (type) {
+                case 'compose': {
                     const postId = await options.compose(uploadedImages, uploadedVideos);
-                    enqueueSuccessMessage_(t`Posted on ${sourceName}.`);
-                    updatePostInThread(post.id, (x) => ({
-                        ...x,
-                        postId: {
-                            ...x.postId,
-                            [source]: postId,
-                        },
-                    }));
                     return postId;
-                } catch (error) {
-                    enqueueErrorMessage_(t`Failed to post on ${sourceName}.`, error);
-                    throw error;
                 }
-            case 'reply':
-                if (!parentPost) throw new Error(t`No parent post found.`);
-                try {
+                case 'reply':
+                    if (!parentPost) throw new Error(t`No parent post found.`);
                     const commentId = await options.reply(uploadedImages, uploadedVideos);
-                    enqueueSuccessMessage_(t`Replied on ${sourceName}.`);
-                    updatePostInThread(post.id, (x) => ({
-                        ...x,
-                        postId: {
-                            ...x.postId,
-                            [source]: commentId,
-                        },
-                    }));
-
                     return commentId;
-                } catch (error) {
-                    enqueueErrorMessage_(t`Failed to relay post on ${sourceName}.`, error);
-                    throw error;
-                }
-            case 'quote':
-                if (!parentPost) throw new Error(t`No parent post found.`);
-                try {
+                case 'quote': {
+                    if (!parentPost) throw new Error(t`No parent post found.`);
                     const postId = await options.quote(uploadedImages, uploadedVideos);
-                    enqueueSuccessMessage_(t`Quoted post on ${sourceName}.`);
-                    updatePostInThread(post.id, (x) => ({
-                        ...x,
-                        postId: {
-                            ...x.postId,
-                            [source]: postId,
-                        },
-                    }));
-
-                    const patched = produce(parentPost, (draft) => {
-                        draft.hasQuoted = true;
-                        draft.stats = {
-                            ...draft.stats!,
-                            quotes: (draft.stats?.quotes || 0) + 1,
-                        };
-                    });
-                    await queryClient.setQueryData([parentPost.source, 'post-detail', parentPost.postId], patched);
                     return postId;
-                } catch (error) {
-                    enqueueErrorMessage_(t`Failed to quote post on ${sourceName}.`, error);
-                    throw error;
                 }
-            default:
-                safeUnreachable(type);
-                throw new Error(t`Invalid compose type.`);
+                default:
+                    safeUnreachable(type);
+                    throw new Error(t`Invalid compose type.`);
+            }
+        };
+
+        try {
+            const postId = await postTo();
+
+            updatePostInThread(post.id, (x) => ({
+                ...x,
+                postId: {
+                    ...x.postId,
+                    [source]: postId,
+                },
+            }));
+            enqueueSuccessMessage_(t`Your post has published successfully.`);
+        } catch (error) {
+            enqueueErrorMessage_(t`Your post failed to publish.`, {
+                detailed: getDetailedErrorMessage(source, error),
+            });
+            throw error;
         }
     };
 }

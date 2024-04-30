@@ -13,10 +13,8 @@ import { Tooltip } from '@/components/Tooltip.js';
 import { MAX_POST_SIZE_PER_THREAD } from '@/constants/index.js';
 import { measureChars } from '@/helpers/chars.js';
 import { classNames } from '@/helpers/classNames.js';
-import { createMockComment } from '@/helpers/createMockComment.js';
 import { getCurrentPostLimits } from '@/helpers/getCurrentPostLimits.js';
 import { isValidPost } from '@/helpers/isValidPost.js';
-import { refreshComments } from '@/helpers/refreshComments.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';
@@ -42,17 +40,7 @@ export function ComposeSend(props: ComposeSendProps) {
         await delay(3000);
         if (Math.random() < 1) throw new Error('Failed to post');
         if (posts.length > 1) await crossPostThread(setPercentage);
-        else {
-            const updatedPost = await crossPost(type, post);
-            if (type === 'reply') {
-                const source = post.availableSources[0];
-                const parentPostId = post.parentPost[source]?.postId;
-                if (parentPostId) {
-                    const mockPost = createMockComment(source, updatedPost);
-                    refreshComments(source, parentPostId, mockPost);
-                }
-            }
-        }
+        else await crossPost(type, post);
         await delay(300);
         ComposeModalRef.close();
     }, [type, post, posts.length > 1]);

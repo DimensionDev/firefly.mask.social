@@ -1,28 +1,31 @@
 import { RedPacketMetaKey } from '@masknet/plugin-redpacket';
 import { FireflyRedPacket } from '@masknet/web3-providers';
 import { type FireflyRedPacketAPI, type RedPacketJSONPayload } from '@masknet/web3-providers/types';
+import { produce } from 'immer';
 import { compact } from 'lodash-es';
 
 import { queryClient } from '@/configs/queryClient.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { SORTED_SOURCES } from '@/constants/index.js';
+import { createMockComment } from '@/helpers/createMockComment.js';
 import { getCompositePost } from '@/helpers/getCompositePost.js';
 import { getCurrentProfileAll } from '@/helpers/getCurrentProfileAll.js';
 import { isPublishedPost } from '@/helpers/isPublishedPost.js';
 import { resolvePostTo } from '@/helpers/resolvePostTo.js';
 import { resolveRedPacketPlatformType } from '@/helpers/resolveRedPacketPlatformType.js';
 import { hasRpPayload } from '@/helpers/rpPayload.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
 import type { CreatePostToOptions } from '@/services/createPostTo.js';
 import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
 import type { ComposeType } from '@/types/compose.js';
 
-export async function refreshProfileFeed(source: SocialPlatform) {
+async function refreshProfileFeed(source: SocialPlatform) {
     const currentProfileAll = getCurrentProfileAll();
 
     await queryClient.invalidateQueries({
         queryKey: ['posts', source, 'posts-of', currentProfileAll[source]?.profileId],
     });
-    queryClient.refetchQueries({
+    await queryClient.refetchQueries({
         queryKey: ['posts', source, 'posts-of', currentProfileAll[source]?.profileId],
         stale: true,
         type: 'active',
@@ -85,6 +88,42 @@ async function updateRpClaimStrategy(compositePost: CompositePost) {
             rpPayload.publicKey,
         );
     }
+}
+
+async function setQueryDataForComment(post: CompositePost, updatedPost: CompositePost) {
+    const source = post.availableSources[0];
+
+    const parentPost = post.parentPost[source];
+    if (!parentPost) return;
+
+    const mockPost = createMockComment(source, updatedPost);
+    const queryKey = ['posts', source, 'comments', parentPost.postId];
+
+    if (mockPost) {
+        queryClient.setQueriesData<{ pages: Array<{ data: Post[] }> }>({ queryKey }, (data) => {
+            if (!data?.pages.length) return data;
+            return produce(data, (draft) => {
+                draft.pages[0].data.unshift(mockPost);
+            });
+        });
+    }
+    await queryClient.refetchQueries({ queryKey });
+}
+
+async function setQueryDataForQuote(post: CompositePost) {
+    const source = post.availableSources[0];
+
+    const parentPost = post.parentPost[source];
+    if (!parentPost) return;
+
+    const patched = produce(parentPost, (draft) => {
+        draft.hasQuoted = true;
+        draft.stats = {
+            ...draft.stats!,
+            quotes: (draft.stats?.quotes || 0) + 1,
+        };
+    });
+    await queryClient.setQueryData([parentPost.source, 'post-detail', parentPost.postId], patched);
 }
 
 interface CrossPostOptions {
@@ -180,11 +219,19 @@ export async function crossPost(
         throw new Error('Post failed to publish.');
     }
 
-    // update red packet claim strategy
     try {
+        // update red packet claim strategy
         await updateRpClaimStrategy(updatedCompositePost);
     } catch (error) {
         console.error(`[cross post]: failed to update red packet claim strategy: ${error}`);
+    }
+
+    // set query data
+    try {
+        if (type === 'reply') await setQueryDataForComment(compositePost, updatedCompositePost);
+        if (type === 'quote') await setQueryDataForQuote(compositePost);
+    } catch (error) {
+        console.error(`[cross post]: failed to set query data: ${error}`);
     }
 
     return updatedCompositePost;

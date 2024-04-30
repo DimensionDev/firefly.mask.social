@@ -81,9 +81,6 @@ msgstr "<0> 你 </0> 和 {0} 人都转发了"
 msgid "Change Wallet"
 msgstr "更换钱包"
 
-msgid "Report on GitHub"
-msgstr ""
-
 msgid "OpenGraph"
 msgstr "OpenGraph"
 
@@ -258,9 +255,6 @@ msgstr "试试搜索其他东西。"
 msgid "and"
 msgstr "和"
 
-msgid "Failed to quote post on {sourceName}."
-msgstr ""
-
 msgid "Channel"
 msgstr ""
 
@@ -279,9 +273,6 @@ msgstr "回复"
 msgid "Querying the signed key state."
 msgstr ""
 
-msgid "Replied on {sourceName}."
-msgstr ""
-
 msgid "Invalid compose type."
 msgstr ""
 
@@ -296,6 +287,9 @@ msgstr "创建图片内容失败"
 
 msgid "Failed to unvote post."
 msgstr "无法对帖子进行投票。"
+
+msgid "Your post failed to publish."
+msgstr ""
 
 msgid "Privacy Policy"
 msgstr "隐私条款"
@@ -324,6 +318,9 @@ msgstr ""
 msgid "Allow replies from"
 msgstr "允许回复"
 
+msgid "Your posts have published successfully on {0}."
+msgstr ""
+
 msgid "Malformed session."
 msgstr "会话格式错误。"
 
@@ -335,6 +332,9 @@ msgstr "取消点赞"
 
 msgid "Post has been hidden"
 msgstr "帖子已经被隐藏"
+
+msgid "Your post has published successfully."
+msgstr ""
 
 msgid "Everyone"
 msgstr "任何人"
@@ -350,9 +350,6 @@ msgstr "用户取消了请求。"
 
 msgid "<0>{0}</0> liked"
 msgstr "<0>{0}</0> 点赞"
-
-msgid "Your posts has published successfully on {0}."
-msgstr ""
 
 msgid "{0, select, follow {Failed to followed @{handle} on {source}} unfollow {Failed to unfollowed @{handle} on {source}} other {Failed to followed @{handle} on {source}}}"
 msgstr "{0, select, follow {在 {source} 关注 @{handle} 失败} unfollow {在 {source} 取消关注 @{handle} 失败} other {在 {source} 关注 @{handle} 失败}}"
@@ -510,9 +507,6 @@ msgstr ""
 msgid "Mirrored"
 msgstr "已转发"
 
-msgid "Quoted post on {sourceName}."
-msgstr ""
-
 msgid "Unable to retrieve post details."
 msgstr "数据获取失败。"
 
@@ -543,14 +537,14 @@ msgstr "未找到 Lens profile。请尝试其他钱包。"
 msgid "<0>{0}</0> mirrored"
 msgstr "<0>{0}</0> 已转发"
 
-msgid "Failed to post on {sourceName}."
-msgstr ""
-
 msgid "Follower"
 msgstr "粉丝"
 
 msgid "The frame server failed to process the request."
 msgstr "Frame 服务器未能处理请求"
+
+msgid "Report"
+msgstr ""
 
 msgid "Failed to upload video to {sourceName}."
 msgstr ""
@@ -565,6 +559,9 @@ msgid "Image"
 msgstr "图片"
 
 msgid "Failed to query the signed key state."
+msgstr ""
+
+msgid "Copy"
 msgstr ""
 
 msgid "Notifications"
@@ -684,9 +681,6 @@ msgstr "Failed to fetch as ArrayBuffer."
 msgid "Confirm to log out these accounts?"
 msgstr "确认登出这些账号？"
 
-msgid "Posted on {sourceName}."
-msgstr ""
-
 msgid "Your Lens account is now connected"
 msgstr "你的 Lens 账号已经连接。"
 
@@ -746,9 +740,6 @@ msgstr ""
 
 msgid "<0/> commented on your <1><2/></1>"
 msgstr "<0/> 评论了你的 <1><2/></1>"
-
-msgid "Failed to relay post on {sourceName}."
-msgstr ""
 
 msgid "<0>You</0> recasted"
 msgstr "<0>你</0> 已转帖"
