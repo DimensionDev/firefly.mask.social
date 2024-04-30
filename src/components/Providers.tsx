@@ -58,10 +58,9 @@ export function Providers(props: { children: React.ReactNode }) {
     const setViewerId = useLeafwatchPersistStore.use.setViewerId();
 
     useEffectOnce(() => {
-        console.log(process.env.MASK_SENTRY_DSN, process.version);
         Sentry.onLoad(() => {
             Sentry.init({
-                dsn: `${process.env.MASK_SENTRY_DSN}`,
+                dsn: `${process.env.SENTRY_DSN}`,
 
                 release: `${process.version}`,
                 integrations: [],
