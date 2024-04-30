@@ -62,7 +62,10 @@ export function Media({ close }: MediaProps) {
         [close, updateVideo],
     );
 
-    const disabledVideo = !!video || availableSources.includes(SocialPlatform.Farcaster);
+    const disabledVideo =
+        !!video ||
+        availableSources.includes(SocialPlatform.Farcaster) ||
+        (availableSources.includes(SocialPlatform.Lens) && images.length > 0);
 
     return (
         <Transition
