@@ -24,8 +24,8 @@ const SUFFIX_NAMES: Record<AllowedMime, string> = {
     'image/webp': 'webp',
 };
 
-const FormDataSchemas = z.object({
-    file: z.custom((value) => {
+const FormDataSchema = z.object({
+    file: z.custom<File>((value) => {
         if (!(value instanceof File)) {
             throw new ZodError([
                 {
@@ -58,11 +58,9 @@ export async function PUT(req: NextRequest) {
         const formData = await req.formData().catch((error) => {
             throw new ContentTypeError(error.message);
         });
-        const source = formData.get('source') as string;
-        const file = formData.get('file') as File;
-        FormDataSchemas.parse({
-            source,
-            file,
+        const { file, source } = FormDataSchema.parse({
+            file: formData.get('file'),
+            source: formData.get('source'),
         });
         const client = new S3Client({
             region: process.env.S3_REGION,
