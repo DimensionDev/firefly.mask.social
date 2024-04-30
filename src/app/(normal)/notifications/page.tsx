@@ -29,7 +29,10 @@ export default function Notification() {
             return resolveSocialMediaProvider(currentSource)?.getNotifications(createIndicator(undefined, pageParam));
         },
         initialPageParam: '',
-        getNextPageParam: (lastPage) => lastPage?.nextIndicator?.id,
+        getNextPageParam: (lastPage) => {
+            if (lastPage?.data.length === 0) return undefined;
+            return lastPage?.nextIndicator?.id;
+        },
         select: (data) => compact(data.pages.flatMap((x) => x?.data)),
     });
 

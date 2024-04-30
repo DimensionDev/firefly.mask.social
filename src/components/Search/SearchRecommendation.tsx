@@ -56,7 +56,7 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
             return {
                 // Only the first 5 results are displayed
                 indicator: createIndicator(),
-                data: allSettled.flatMap((x) => (x.status === 'fulfilled' ? x.value.data.slice(0, 5) : [])),
+                data: allSettled.flatMap((x) => (x.status === 'fulfilled' ? x.value.data.slice(0, 4) : [])),
             };
         },
         enabled: !!debouncedKeyword,
@@ -166,7 +166,7 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
                             <div className="font-bold">{t`No matching channel`}</div>
                         </div>
                     ) : (
-                        <div className="py-2">
+                        <div className="py-2" key={channel.id}>
                             <div
                                 className="cursor-pointer space-y-2 px-4 py-2 text-center text-sm font-bold hover:bg-bg"
                                 onClick={() => {

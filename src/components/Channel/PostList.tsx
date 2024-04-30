@@ -6,7 +6,6 @@ import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.
 import { ScrollListKey, SocialPlatform } from '@/constants/enum.js';
 import { mergeThreadPosts } from '@/helpers/mergeThreadPosts.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
-import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 
 interface PostListProps {
@@ -14,7 +13,6 @@ interface PostListProps {
     source: SocialPlatform;
 }
 export function PostList({ channelId, source }: PostListProps) {
-    const setScrollIndex = useGlobalState.use.setScrollIndex();
     const fetchAndStoreViews = useImpressionsStore.use.fetchAndStoreViews();
 
     const queryResult = useSuspenseInfiniteQuery({

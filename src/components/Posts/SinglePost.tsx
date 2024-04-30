@@ -2,6 +2,7 @@
 
 import { Trans } from '@lingui/macro';
 import { motion } from 'framer-motion';
+import { isUndefined } from 'lodash-es';
 import { usePathname, useRouter } from 'next/navigation.js';
 import { memo, useMemo } from 'react';
 
@@ -63,7 +64,7 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
                 const selection = window.getSelection();
                 if (selection && selection.toString().length !== 0) return;
                 if (!isPostPage || isComment) {
-                    if (listKey && index) setScrollIndex(listKey, index);
+                    if (listKey && !isUndefined(index)) setScrollIndex(listKey, index);
                     router.push(postLink);
                 }
                 return;
