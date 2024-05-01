@@ -11,9 +11,14 @@ export async function POST(request: NextRequest) {
         const formData = await request.formData();
         const file = formData.get('file') as File;
         const buffer = Buffer.from(await file.arrayBuffer());
-        const res = await client.v1.uploadMedia(buffer, { mimeType: file.type });
-        return createSuccessResponseJSON({ media_id: Number(res), media_id_string: res }, { status: StatusCodes.OK });
+        const response = await client.v1.uploadMedia(buffer, { mimeType: file.type });
+        console.error('[twitter]: uploadMedia/', response);
+        return createSuccessResponseJSON(
+            { media_id: Number(response), media_id_string: response },
+            { status: StatusCodes.OK },
+        );
     } catch (error) {
+        console.error('[twitter]: error uploadMedia/', error);
         return createErrorResponseJSON(`${error}`, {
             status: StatusCodes.INTERNAL_SERVER_ERROR,
         });
