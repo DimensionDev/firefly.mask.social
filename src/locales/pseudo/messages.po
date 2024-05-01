@@ -376,6 +376,9 @@ msgstr ""
 msgid "Users"
 msgstr ""
 
+msgid "The file \"{0}\" exceeds the size limit."
+msgstr ""
+
 msgid "Invalid URL."
 msgstr ""
 

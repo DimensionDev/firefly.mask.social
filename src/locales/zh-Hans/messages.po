@@ -381,6 +381,9 @@ msgstr "点赞"
 msgid "Users"
 msgstr "用户"
 
+msgid "The file \"{0}\" exceeds the size limit."
+msgstr ""
+
 msgid "Invalid URL."
 msgstr "无效 URL"
 

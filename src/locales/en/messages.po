@@ -376,6 +376,9 @@ msgstr "liked"
 msgid "Users"
 msgstr "Users"
 
+msgid "The file \"{0}\" exceeds the size limit."
+msgstr "The file \"{0}\" exceeds the size limit."
+
 msgid "Invalid URL."
 msgstr "Invalid URL."
 
