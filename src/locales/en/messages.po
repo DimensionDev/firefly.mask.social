@@ -64,6 +64,9 @@ msgstr "Collect Action is not supported yet."
 msgid "Join our Discord"
 msgstr "Join our Discord"
 
+msgid "Found arweaveTxId is empty."
+msgstr "Found arweaveTxId is empty."
+
 msgid "<0>You</0> and {0} others recasted"
 msgstr "<0>You</0> and {0} others recasted"
 
@@ -123,9 +126,6 @@ msgstr "Page not found"
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/> and # others}} <4>liked your </4><5><6/></5>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/> and # others}} <4>liked your </4><5><6/></5>"
-
-msgid "Failed to upload to Arweave"
-msgstr "Failed to upload to Arweave"
 
 msgid "Password"
 msgstr "Password"

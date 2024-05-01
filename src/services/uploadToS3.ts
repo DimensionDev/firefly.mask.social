@@ -16,7 +16,6 @@ export async function uploadToS3(file: File, source: SourceInURL): Promise<strin
             body: formData,
         },
         {
-            throwIfNotOK: true,
             noDefaultContentType: true,
         },
     );

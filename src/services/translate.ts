@@ -170,19 +170,13 @@ export async function translate(
     detectedLanguage: Language;
     translations: Translation[];
 }> {
-    const { data } = await fetchJSON<TranslationResponse>(
-        `/v1/misc/translate`,
-        {
-            method: 'POST',
-            body: JSON.stringify({
-                toLanguage: to,
-                text,
-            }),
-        },
-        {
-            throwIfNotOK: true,
-        },
-    );
+    const { data } = await fetchJSON<TranslationResponse>(`/v1/misc/translate`, {
+        method: 'POST',
+        body: JSON.stringify({
+            toLanguage: to,
+            text,
+        }),
+    });
 
     return {
         detectedLanguage: data.detectedLanguage.language,

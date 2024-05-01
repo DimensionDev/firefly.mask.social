@@ -18,9 +18,6 @@ class Loader extends BaseLoader<Frame> {
                         {
                             signal: signal ? anySignal(timeout, signal) : timeout,
                         },
-                        {
-                            throwIfNotOK: true,
-                        },
                     );
                     if (response.success) resolve(response.data.frame);
                     else resolve(null);

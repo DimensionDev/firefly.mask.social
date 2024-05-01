@@ -64,6 +64,9 @@ msgstr ""
 msgid "Join our Discord"
 msgstr ""
 
+msgid "Found arweaveTxId is empty."
+msgstr ""
+
 msgid "<0>You</0> and {0} others recasted"
 msgstr ""
 
@@ -122,9 +125,6 @@ msgid "Page not found"
 msgstr ""
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/> and # others}} <4>liked your </4><5><6/></5>"
-msgstr ""
-
-msgid "Failed to upload to Arweave"
 msgstr ""
 
 msgid "Password"

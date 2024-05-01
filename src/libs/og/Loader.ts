@@ -18,9 +18,6 @@ class Loader extends BaseLoader<OpenGraph> {
                         {
                             signal: signal ? anySignal(timeout, signal) : timeout,
                         },
-                        {
-                            throwIfNotOK: true,
-                        },
                     );
                     if (response.success) resolve(response.data.og);
                     else resolve(null);

@@ -12,18 +12,12 @@ export async function uploadToImgur(file: File, metadata?: { title: string; desc
     formData.append('title', metadata?.title ?? file.name);
     if (metadata?.description) formData.append('description', metadata.description);
 
-    const { data } = await fetchJSON<UploadImgurResponse>(
-        'https://api.imgur.com/3/image',
-        {
-            method: 'POST',
-            headers: {
-                Authorization: `Client-ID ${process.env.IMGUR_CLIENT_ID}`,
-            },
-            body: formData,
+    const { data } = await fetchJSON<UploadImgurResponse>('https://api.imgur.com/3/image', {
+        method: 'POST',
+        headers: {
+            Authorization: `Client-ID ${process.env.IMGUR_CLIENT_ID}`,
         },
-        {
-            throwIfNotOK: true,
-        },
-    );
+        body: formData,
+    });
     return data.link;
 }
