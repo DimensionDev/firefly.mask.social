@@ -194,7 +194,10 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
 
                 updateTypedMessage(updateRpEncrypted(typedMessage));
             } catch (error) {
-                enqueueErrorMessage(t`Failed to create image payload.`);
+                enqueueErrorMessage(t`Failed to create image payload.`, {
+                    error,
+                });
+                throw error;
             }
             // each time the typedMessage changes, we need to check if it has a red packet payload
         }, [typedMessage, rpPayload, id, currentProfileAll]);

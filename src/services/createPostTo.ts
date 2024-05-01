@@ -7,30 +7,17 @@ import { type CompositePost, useComposeStateStore } from '@/store/useComposeStor
 import type { ComposeType } from '@/types/compose.js';
 import type { MediaObject } from '@/types/index.js';
 
-export type CreatePostToOptions = Record<
-    ComposeType,
-    (images: MediaObject[], videos: MediaObject[]) => Promise<string>
-> & {
-    noSuccessMessage?: boolean;
-    noErrorMessage?: boolean;
+type Options = Record<ComposeType, (images: MediaObject[], videos: MediaObject[]) => Promise<string>> & {
     uploadImages?: () => Promise<MediaObject[]>;
     uploadVideos?: () => Promise<MediaObject[]>;
 };
 
-export function createPostTo(source: SocialPlatform, options: CreatePostToOptions) {
+export function createPostTo(source: SocialPlatform, options: Options) {
     const { updatePostInThread } = useComposeStateStore.getState();
 
     return async (type: ComposeType, post: CompositePost) => {
-        let uploadedImages: MediaObject[] = [];
-        let uploadedVideos: MediaObject[] = [];
-
-        if (options.uploadImages) {
-            uploadedImages = await options.uploadImages?.();
-        }
-
-        if (options.uploadVideos) {
-            uploadedVideos = await options.uploadVideos?.();
-        }
+        const uploadedImages: MediaObject[] = (await options.uploadImages?.()) ?? [];
+        const uploadedVideos: MediaObject[] = (await options.uploadVideos?.()) ?? [];
 
         updatePostInThread(post.id, (x) => ({
             ...x,
@@ -56,7 +43,7 @@ export function createPostTo(source: SocialPlatform, options: CreatePostToOption
                 }
                 default:
                     safeUnreachable(type);
-                    throw new Error(t`Invalid compose type.`);
+                    throw new Error(t`Invalid compose type: ${type}.`);
             }
         };
 

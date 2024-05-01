@@ -278,16 +278,14 @@ class LensSocialMedia implements Provider {
     async mirrorPost(postId: string): Promise<string> {
         try {
             await this.mirrorPostOnMomoka(postId);
+            return postId;
         } catch (error) {
-            if (error instanceof Error) {
-                if (error.message.includes(MOMOKA_ERROR_MSG)) {
-                    await this.mirrorPostOnChain(postId);
-                }
-                throw new Error(error.message);
+            if (error instanceof Error && error.message.includes(MOMOKA_ERROR_MSG)) {
+                await this.mirrorPostOnChain(postId);
+                return postId;
             }
             throw error;
         }
-        return postId;
     }
 
     async quotePostOnMomoka(postId: string, intro: string, signless?: boolean) {
@@ -379,17 +377,13 @@ class LensSocialMedia implements Provider {
     // intro is the contentURI of the post
     async quotePost(postId: string, post: Post, signless?: boolean): Promise<string> {
         const intro = post.metadata.content?.content ?? '';
-
         try {
             const result = await this.quotePostOnMomoka(postId, intro, signless);
             return result;
         } catch (error) {
-            if (error instanceof Error) {
-                if (error.message.includes(MOMOKA_ERROR_MSG)) {
-                    const result = await this.quotePostOnChain(postId, intro);
-                    return result;
-                }
-                throw new Error(error.message);
+            if (error instanceof Error && error.message.includes(MOMOKA_ERROR_MSG)) {
+                const result = await this.quotePostOnChain(postId, intro);
+                return result;
             }
             throw error;
         }
@@ -497,12 +491,9 @@ class LensSocialMedia implements Provider {
             const result = await this.commentPostOnMomoka(postId, comment, signless);
             return result;
         } catch (error) {
-            if (error instanceof Error) {
-                if (error.message.includes(MOMOKA_ERROR_MSG)) {
-                    const result = await this.commentPostOnChain(postId, comment);
-                    return result;
-                }
-                throw new Error(error.message);
+            if (error instanceof Error && error.message.includes(MOMOKA_ERROR_MSG)) {
+                const result = await this.commentPostOnChain(postId, comment);
+                return result;
             }
             throw error;
         }

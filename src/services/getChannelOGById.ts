@@ -5,11 +5,12 @@ import { SITE_URL } from '@/constants/index.js';
 import { createPageTitle } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { getChannelUrl } from '@/helpers/getChannelUrl.js';
+import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSocialPlatform } from '@/helpers/resolveSocialPlatform.js';
-import { getChannelById } from '@/services/getChannelById.js';
 
 export async function getChannelOGById(source: SourceInURL, channelId: string) {
-    const channel = await getChannelById(resolveSocialPlatform(source), channelId);
+    const provider = resolveSocialMediaProvider(resolveSocialPlatform(source));
+    const channel = await provider.getChannelById(channelId);
     if (!channel) return createSiteMetadata();
 
     const images = [
