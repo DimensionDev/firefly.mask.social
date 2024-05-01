@@ -31,20 +31,16 @@ export function Media({ close }: MediaProps) {
             const files = event.target.files;
 
             if (files && files.length > 0) {
-                const shouldUploadFiles = [...files]
-                    .filter((file) => {
-                        if (file.size > FILE_MAX_SIZE_IN_BYTES) {
-                            enqueueErrorMessage(`The file "${file.name}" is too large`)
-                            return false
-                        }
-                        return isValidFileType(file.type)
-                    })
+                const shouldUploadFiles = [...files].filter((file) => {
+                    if (file.size > FILE_MAX_SIZE_IN_BYTES) {
+                        enqueueErrorMessage(`The file "${file.name}" is too large`);
+                        return false;
+                    }
+                    return isValidFileType(file.type);
+                });
                 updateImages((images) => {
                     if (images.length === maxImageCount) return images;
-                    return [
-                        ...images,
-                        ...shouldUploadFiles.map((file) => ({ file })),
-                    ].slice(0, maxImageCount);
+                    return [...images, ...shouldUploadFiles.map((file) => ({ file }))].slice(0, maxImageCount);
                 });
             }
             close();
