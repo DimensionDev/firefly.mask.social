@@ -6,8 +6,9 @@ import { useAsyncFn } from 'react-use';
 import ImageIcon from '@/assets/image.svg';
 import VideoIcon from '@/assets/video.svg';
 import { SocialPlatform } from '@/constants/enum.js';
-import { ALLOWED_IMAGES_MIMES } from '@/constants/index.js';
+import { ALLOWED_IMAGES_MIMES, FILE_MAX_SIZE_IN_BYTES } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
+import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { getCurrentPostImageLimits } from '@/helpers/getCurrentPostImageLimits.js';
 import { isValidFileType } from '@/helpers/isValidFileType.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
@@ -30,12 +31,16 @@ export function Media({ close }: MediaProps) {
             const files = event.target.files;
 
             if (files && files.length > 0) {
+                const shouldUploadFiles = [...files].filter((file) => {
+                    if (file.size > FILE_MAX_SIZE_IN_BYTES) {
+                        enqueueErrorMessage(t`The file "${file.name}" exceeds the size limit.`);
+                        return false;
+                    }
+                    return isValidFileType(file.type);
+                });
                 updateImages((images) => {
                     if (images.length === maxImageCount) return images;
-                    return [
-                        ...images,
-                        ...[...files].filter((file) => isValidFileType(file.type)).map((file) => ({ file })),
-                    ].slice(0, maxImageCount);
+                    return [...images, ...shouldUploadFiles.map((file) => ({ file }))].slice(0, maxImageCount);
                 });
             }
             close();
