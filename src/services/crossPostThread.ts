@@ -74,7 +74,13 @@ async function recompositePost(index: number, post: CompositePost, posts: Compos
     } satisfies CompositePost;
 }
 
-export async function crossPostThread(progressCallback?: (percentage: number, index: number, total: number) => void) {
+export async function crossPostThread({
+    isRetry = false,
+    progressCallback,
+}: {
+    isRetry?: boolean;
+    progressCallback?: (progress: number, index: number, total: number) => void;
+}) {
     const { posts } = useComposeStateStore.getState();
     if (posts.length === 1) throw new Error(t`A thread must have at least two posts.`);
 
@@ -122,7 +128,9 @@ export async function crossPostThread(progressCallback?: (percentage: number, in
             if (error) return;
             const rootPost = updatedPosts[0];
             if (!rootPost.availableSources.includes(x)) return;
-            enqueueSuccessMessage(t`Your posts have published successfully on ${resolveSourceName(x)}.`);
+            if (!isRetry) {
+                enqueueSuccessMessage(t`Your posts have published successfully on ${resolveSourceName(x)}.`);
+            }
         });
 
         enqueueErrorsMessage(message, {
