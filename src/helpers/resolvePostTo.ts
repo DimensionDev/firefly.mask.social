@@ -4,12 +4,8 @@ import { SocialPlatform } from '@/constants/enum.js';
 import { postToFarcaster } from '@/services/postToFarcaster.js';
 import { postToLens } from '@/services/postToLens.js';
 import { postToTwitter } from '@/services/postToTwitter.js';
-import type { CompositePost } from '@/store/useComposeStore.js';
-import type { ComposeType } from '@/types/compose.js';
 
-type PostTo = (type: ComposeType, compositePost: CompositePost) => Promise<string>;
-
-export const resolvePostTo = createLookupTableResolver<SocialPlatform, PostTo>(
+export const resolvePostTo = createLookupTableResolver<SocialPlatform, typeof postToLens>(
     {
         [SocialPlatform.Lens]: postToLens,
         [SocialPlatform.Farcaster]: postToFarcaster,

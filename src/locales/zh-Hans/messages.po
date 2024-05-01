@@ -108,6 +108,15 @@ msgstr ""
 msgid "Copied"
 msgstr "已复制"
 
+msgid "Your posts have published successfully."
+msgstr ""
+
+msgid "Retry"
+msgstr ""
+
+msgid "Show less"
+msgstr ""
+
 msgid "comment"
 msgstr "评论"
 
@@ -210,6 +219,12 @@ msgstr "跟随系统"
 msgid "URL is required."
 msgstr "请选择 URL"
 
+msgid "The file not found"
+msgstr ""
+
+msgid "Invalid file type. Allowed types: {0}"
+msgstr ""
+
 msgid "Connection failed"
 msgstr "连接失败"
 
@@ -237,9 +252,6 @@ msgstr "试试搜索其他东西。"
 msgid "and"
 msgstr "和"
 
-msgid "Failed to quote post on {sourceName}."
-msgstr ""
-
 msgid "Channel"
 msgstr ""
 
@@ -256,9 +268,6 @@ msgid "Reply"
 msgstr "回复"
 
 msgid "Querying the signed key state."
-msgstr ""
-
-msgid "Replied on {sourceName}."
 msgstr ""
 
 msgid "Invalid compose type."
@@ -303,6 +312,9 @@ msgstr ""
 msgid "Allow replies from"
 msgstr "允许回复"
 
+msgid "Your posts have published successfully on {0}."
+msgstr ""
+
 msgid "Malformed session."
 msgstr "会话格式错误。"
 
@@ -314,6 +326,9 @@ msgstr "取消点赞"
 
 msgid "Post has been hidden"
 msgstr "帖子已经被隐藏"
+
+msgid "Your post has published successfully."
+msgstr ""
 
 msgid "Everyone"
 msgstr "任何人"
@@ -348,9 +363,6 @@ msgstr "未找到帖子"
 msgid "Clear All"
 msgstr "全部清除"
 
-msgid "Failed to upload image to {sourceName}."
-msgstr ""
-
 msgid "Lens"
 msgstr "Lens"
 
@@ -368,6 +380,9 @@ msgstr "点赞"
 
 msgid "Users"
 msgstr "用户"
+
+msgid "The file \"{0}\" exceeds the size limit."
+msgstr ""
 
 msgid "Invalid URL."
 msgstr "无效 URL"
@@ -395,6 +410,9 @@ msgstr "已回复"
 
 msgid "The page could not be found."
 msgstr "找不到该页面。"
+
+msgid "{0, plural, one {Your posts failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your posts failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your posts failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
+msgstr ""
 
 msgid "What's happening..."
 msgstr "正在发生..."
@@ -486,9 +504,6 @@ msgstr ""
 msgid "Mirrored"
 msgstr "已转发"
 
-msgid "Quoted post on {sourceName}."
-msgstr ""
-
 msgid "Unable to retrieve post details."
 msgstr "数据获取失败。"
 
@@ -500,6 +515,9 @@ msgstr "转帖了你的"
 
 msgid "Please input the url to be revalidated."
 msgstr "请输入 URL 重新验证："
+
+msgid "Show more"
+msgstr ""
 
 msgid "Something went wrong. Please try again."
 msgstr "出现错误，请重试。"
@@ -516,16 +534,13 @@ msgstr "未找到 Lens profile。请尝试其他钱包。"
 msgid "<0>{0}</0> mirrored"
 msgstr "<0>{0}</0> 已转发"
 
-msgid "Failed to post on {sourceName}."
-msgstr ""
-
 msgid "Follower"
 msgstr "粉丝"
 
 msgid "The frame server failed to process the request."
 msgstr "Frame 服务器未能处理请求"
 
-msgid "Failed to upload video to {sourceName}."
+msgid "Report"
 msgstr ""
 
 msgid "Post by {0}"
@@ -540,8 +555,14 @@ msgstr "图片"
 msgid "Failed to query the signed key state."
 msgstr ""
 
+msgid "Copy"
+msgstr ""
+
 msgid "Notifications"
 msgstr "通知"
+
+msgid "Posting..."
+msgstr ""
 
 msgid "No Lens profile found. Please change to another wallet."
 msgstr "没有找到 Lens 账号，请连接另一个钱包。"
@@ -651,11 +672,11 @@ msgstr ""
 msgid "Failed to fetch as ArrayBuffer."
 msgstr "Failed to fetch as ArrayBuffer."
 
+msgid "Your post have published successfully on {0}."
+msgstr ""
+
 msgid "Confirm to log out these accounts?"
 msgstr "确认登出这些账号？"
-
-msgid "Posted on {sourceName}."
-msgstr ""
 
 msgid "Your Lens account is now connected"
 msgstr "你的 Lens 账号已经连接。"
@@ -717,9 +738,6 @@ msgstr ""
 msgid "<0/> commented on your <1><2/></1>"
 msgstr "<0/> 评论了你的 <1><2/></1>"
 
-msgid "Failed to relay post on {sourceName}."
-msgstr ""
-
 msgid "<0>You</0> recasted"
 msgstr "<0>你</0> 已转帖"
 
@@ -748,6 +766,9 @@ msgid "Terms of Service"
 msgstr "服务条款"
 
 msgid "Already posted on {sourceName}."
+msgstr ""
+
+msgid "Your post failed to publish due to an error. Click 'Retry' to attempt posting again."
 msgstr ""
 
 msgid "Post"

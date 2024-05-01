@@ -103,6 +103,15 @@ msgstr ""
 msgid "Copied"
 msgstr ""
 
+msgid "Your posts have published successfully."
+msgstr ""
+
+msgid "Retry"
+msgstr ""
+
+msgid "Show less"
+msgstr ""
+
 msgid "comment"
 msgstr ""
 
@@ -205,6 +214,12 @@ msgstr ""
 msgid "URL is required."
 msgstr ""
 
+msgid "The file not found"
+msgstr ""
+
+msgid "Invalid file type. Allowed types: {0}"
+msgstr ""
+
 msgid "Connection failed"
 msgstr ""
 
@@ -232,9 +247,6 @@ msgstr ""
 msgid "and"
 msgstr ""
 
-msgid "Failed to quote post on {sourceName}."
-msgstr ""
-
 msgid "Channel"
 msgstr ""
 
@@ -251,9 +263,6 @@ msgid "Reply"
 msgstr ""
 
 msgid "Querying the signed key state."
-msgstr ""
-
-msgid "Replied on {sourceName}."
 msgstr ""
 
 msgid "Invalid compose type."
@@ -298,6 +307,9 @@ msgstr ""
 msgid "Allow replies from"
 msgstr ""
 
+msgid "Your posts have published successfully on {0}."
+msgstr ""
+
 msgid "Malformed session."
 msgstr ""
 
@@ -308,6 +320,9 @@ msgid "Unlike"
 msgstr ""
 
 msgid "Post has been hidden"
+msgstr ""
+
+msgid "Your post has published successfully."
 msgstr ""
 
 msgid "Everyone"
@@ -343,9 +358,6 @@ msgstr ""
 msgid "Clear All"
 msgstr ""
 
-msgid "Failed to upload image to {sourceName}."
-msgstr ""
-
 msgid "Lens"
 msgstr ""
 
@@ -362,6 +374,9 @@ msgid "liked"
 msgstr ""
 
 msgid "Users"
+msgstr ""
+
+msgid "The file \"{0}\" exceeds the size limit."
 msgstr ""
 
 msgid "Invalid URL."
@@ -389,6 +404,9 @@ msgid "commented"
 msgstr ""
 
 msgid "The page could not be found."
+msgstr ""
+
+msgid "{0, plural, one {Your posts failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your posts failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your posts failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
 msgstr ""
 
 msgid "What's happening..."
@@ -481,9 +499,6 @@ msgstr ""
 msgid "Mirrored"
 msgstr ""
 
-msgid "Quoted post on {sourceName}."
-msgstr ""
-
 msgid "Unable to retrieve post details."
 msgstr ""
 
@@ -494,6 +509,9 @@ msgid "recasted your"
 msgstr ""
 
 msgid "Please input the url to be revalidated."
+msgstr ""
+
+msgid "Show more"
 msgstr ""
 
 msgid "Something went wrong. Please try again."
@@ -511,16 +529,13 @@ msgstr ""
 msgid "<0>{0}</0> mirrored"
 msgstr ""
 
-msgid "Failed to post on {sourceName}."
-msgstr ""
-
 msgid "Follower"
 msgstr ""
 
 msgid "The frame server failed to process the request."
 msgstr ""
 
-msgid "Failed to upload video to {sourceName}."
+msgid "Report"
 msgstr ""
 
 msgid "Post by {0}"
@@ -535,7 +550,13 @@ msgstr ""
 msgid "Failed to query the signed key state."
 msgstr ""
 
+msgid "Copy"
+msgstr ""
+
 msgid "Notifications"
+msgstr ""
+
+msgid "Posting..."
 msgstr ""
 
 msgid "No Lens profile found. Please change to another wallet."
@@ -646,10 +667,10 @@ msgstr ""
 msgid "Failed to fetch as ArrayBuffer."
 msgstr ""
 
-msgid "Confirm to log out these accounts?"
+msgid "Your post have published successfully on {0}."
 msgstr ""
 
-msgid "Posted on {sourceName}."
+msgid "Confirm to log out these accounts?"
 msgstr ""
 
 msgid "Your Lens account is now connected"
@@ -712,9 +733,6 @@ msgstr ""
 msgid "<0/> commented on your <1><2/></1>"
 msgstr ""
 
-msgid "Failed to relay post on {sourceName}."
-msgstr ""
-
 msgid "<0>You</0> recasted"
 msgstr ""
 
@@ -743,6 +761,9 @@ msgid "Terms of Service"
 msgstr ""
 
 msgid "Already posted on {sourceName}."
+msgstr ""
+
+msgid "Your post failed to publish due to an error. Click 'Retry' to attempt posting again."
 msgstr ""
 
 msgid "Post"

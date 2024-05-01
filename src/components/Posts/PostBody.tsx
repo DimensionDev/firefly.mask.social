@@ -86,16 +86,18 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
     if (post.isHidden) {
         return (
             <div
-                className={classNames('my-2', {
+                className={classNames({
                     'pl-[52px]': !disablePadding,
+                    'my-2': !isQuote,
                 })}
                 ref={ref}
             >
                 <div
                     className={classNames(
-                        'flex items-center gap-1 rounded-lg border-primaryMain px-3 py-[6px] text-[15px]',
+                        'flex items-center gap-1 rounded-lg border-primaryMain  py-[6px] text-[15px]',
                         {
                             border: !isQuote,
+                            'px-3': !isQuote,
                         },
                     )}
                 >

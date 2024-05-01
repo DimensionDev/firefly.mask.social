@@ -36,6 +36,8 @@ export interface CompositePost {
     postId: Record<SocialPlatform, string | null>;
     // tracking the parent post in specific platform
     parentPost: Record<SocialPlatform, OrphanPost | null>;
+    // tracking error
+    postError: Record<SocialPlatform, Error | null>;
 
     restriction: RestrictionType;
     // use the same value of root post
@@ -83,6 +85,7 @@ interface ComposeState {
 
     // operations upon the current editable post
     updatePostId: (source: SocialPlatform, postId: string, cursor?: Cursor) => void;
+    updatePostError: (source: SocialPlatform, postError: Error, cursor?: Cursor) => void;
     updateParentPost: (source: SocialPlatform, parentPost: Post, cursor?: Cursor) => void;
     updateAvailableSources: (sources: SocialPlatform[], cursor?: Cursor) => void;
     updateChars: (charsOrUpdater: SetStateAction<Chars>, cursor?: Cursor) => void;
@@ -106,6 +109,11 @@ function createInitSinglePostState(cursor: Cursor): CompositePost {
     return {
         id: cursor,
         postId: {
+            [SocialPlatform.Farcaster]: null,
+            [SocialPlatform.Lens]: null,
+            [SocialPlatform.Twitter]: null,
+        },
+        postError: {
             [SocialPlatform.Farcaster]: null,
             [SocialPlatform.Lens]: null,
             [SocialPlatform.Twitter]: null,
@@ -262,6 +270,20 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
                         postId: {
                             ...post.postId,
                             [source]: postId,
+                        },
+                    }),
+                    cursor,
+                ),
+            ),
+        updatePostError: (source, postError, cursor) =>
+            set((state) =>
+                next(
+                    state,
+                    (post) => ({
+                        ...post,
+                        postId: {
+                            ...post.postId,
+                            [source]: postError,
                         },
                     }),
                     cursor,

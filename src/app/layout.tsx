@@ -56,6 +56,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 <GA />
                 <SpeedInsights />
                 <BeforeUnload />
+
                 <Script
                     src="https://cdn.jsdelivr.net/npm/bowser@2.11.0/es5.min.js"
                     async

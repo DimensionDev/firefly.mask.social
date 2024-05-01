@@ -1,5 +1,7 @@
 import { PlusCircleIcon } from '@heroicons/react/24/outline';
 import { Plural, t, Trans } from '@lingui/macro';
+import { delay } from '@masknet/kit';
+import { useMemo, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 
 import LoadingIcon from '@/assets/loading.svg';
@@ -11,10 +13,8 @@ import { Tooltip } from '@/components/Tooltip.js';
 import { MAX_POST_SIZE_PER_THREAD } from '@/constants/index.js';
 import { measureChars } from '@/helpers/chars.js';
 import { classNames } from '@/helpers/classNames.js';
-import { createMockComment } from '@/helpers/createMockComment.js';
 import { getCurrentPostLimits } from '@/helpers/getCurrentPostLimits.js';
 import { isValidPost } from '@/helpers/isValidPost.js';
-import { refreshComments } from '@/helpers/refreshComments.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';
@@ -35,37 +35,66 @@ export function ComposeSend(props: ComposeSendProps) {
     const isMedium = useIsMedium();
     const setEditorContent = useSetEditorContent();
 
-    const [{ loading }, handlePost] = useAsyncFn(async () => {
-        if (posts.length > 1) await crossPostThread();
-        else {
-            const updatedPost = await crossPost(type, post);
-            if (type === 'reply') {
-                const source = post.availableSources[0];
-                const parentPostId = post.parentPost[source]?.postId;
-                if (parentPostId) {
-                    const mockPost = createMockComment(source, updatedPost);
-                    refreshComments(source, parentPostId, mockPost);
-                }
-            }
-        }
+    const [percentage, setPercentage] = useState(0);
+    const [{ loading, error }, handlePost] = useAsyncFn(async () => {
+        if (posts.length > 1) await crossPostThread(setPercentage);
+        else await crossPost(type, post);
+        await delay(300);
         ComposeModalRef.close();
-    }, [type, posts.length > 1, post]);
+    }, [type, post, posts.length > 1]);
 
-    const disabled = loading || posts.length > 1 ? posts.some((x) => !isValidPost(x)) : !isValidPost(post);
+    const disabled = loading || error || posts.length > 1 ? posts.some((x) => !isValidPost(x)) : !isValidPost(post);
+
+    const submitButtonText = useMemo(() => {
+        if (loading)
+            return (
+                <>
+                    <LoadingIcon width={16} height={16} className="animate-spin" />
+                    <span>
+                        <Trans>Posting...</Trans>
+                    </span>
+                </>
+            );
+        if (error)
+            return (
+                <span>
+                    <Trans>Retry</Trans>
+                </span>
+            );
+        return (
+            <>
+                <SendIcon width={18} height={18} className="mr-1 text-primaryBottom" />
+                <span>
+                    <Plural value={posts.length} one={<Trans>Post</Trans>} other={<Trans>Post All</Trans>} />
+                </span>
+            </>
+        );
+    }, [loading, error, posts.length]);
 
     if (!isMedium) {
         return (
-            <ClickableButton
-                className="absolute right-4 top-1/2 -translate-y-1/2 cursor-pointer disabled:opacity-50"
-                disabled={disabled}
-                onClick={handlePost}
-            >
-                {loading ? (
-                    <LoadingIcon width={24} height={24} className="animate-spin text-main" />
-                ) : (
-                    <Send2Icon width={24} height={24} />
-                )}
-            </ClickableButton>
+            <>
+                {posts.length > 1 && loading ? (
+                    <span
+                        className="bg fixed left-0 top-0 z-50 h-1 w-full bg-black/50 duration-100 dark:bg-white/50"
+                        style={{
+                            transform: `scaleX(${percentage})`,
+                            transformOrigin: 'left',
+                        }}
+                    />
+                ) : null}
+                <ClickableButton
+                    className="absolute right-4 top-1/2 -translate-y-1/2 cursor-pointer disabled:opacity-50"
+                    disabled={disabled}
+                    onClick={handlePost}
+                >
+                    {loading ? (
+                        <LoadingIcon width={24} height={24} className="animate-spin text-main" />
+                    ) : (
+                        <Send2Icon width={24} height={24} />
+                    )}
+                </ClickableButton>
+            </>
         );
     }
 
@@ -102,20 +131,23 @@ export function ComposeSend(props: ComposeSendProps) {
             <ClickableButton
                 disabled={disabled}
                 className={classNames(
-                    ' flex h-10 w-[120px] items-center justify-center gap-1 rounded-full bg-black text-[15px] font-bold text-white disabled:cursor-not-allowed disabled:opacity-50 dark:bg-white dark:text-black',
+                    'relative flex h-10 w-[120px] items-center justify-center gap-1 overflow-hidden rounded-full bg-black text-[15px] font-bold text-white disabled:cursor-not-allowed disabled:opacity-50 dark:bg-white dark:text-black',
+                    {
+                        'bg-commonDanger': !!error,
+                    },
                 )}
                 onClick={handlePost}
             >
-                {loading ? (
-                    <LoadingIcon width={16} height={16} className="animate-spin" />
-                ) : (
-                    <>
-                        <SendIcon width={18} height={18} className="mr-1 text-primaryBottom" />
-                        <span>
-                            <Plural value={posts.length} one={<Trans>Post</Trans>} other={<Trans>Post All</Trans>} />
-                        </span>
-                    </>
-                )}
+                {posts.length > 1 && loading ? (
+                    <span
+                        className="absolute left-0 top-0 z-10 h-full w-full bg-white/50 duration-100 dark:bg-black/50"
+                        style={{
+                            transform: `scaleX(${percentage})`,
+                            transformOrigin: 'left',
+                        }}
+                    />
+                ) : null}
+                {submitButtonText}
             </ClickableButton>
         </div>
     );

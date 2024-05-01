@@ -3,6 +3,7 @@
 import { i18n } from '@lingui/core';
 import { I18nProvider } from '@lingui/react';
 import { LivepeerConfig } from '@livepeer/react';
+import * as Sentry from '@sentry/browser';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { ReactQueryStreamedHydration } from '@tanstack/react-query-next-experimental';
@@ -26,7 +27,6 @@ import { useLeafwatchPersistStore } from '@/store/useLeafwatchPersistStore.js';
 
 export function Providers(props: { children: React.ReactNode }) {
     const isDarkMode = useIsDarkMode();
-
     const isMedium = useIsMedium();
 
     const darkModeContext = useMemo(() => {
@@ -54,6 +54,23 @@ export function Providers(props: { children: React.ReactNode }) {
 
     const viewerId = useLeafwatchPersistStore.use.viewerId();
     const setViewerId = useLeafwatchPersistStore.use.setViewerId();
+
+    useEffectOnce(() => {
+        Sentry.onLoad(() => {
+            Sentry.init({
+                dsn: `${process.env.SENTRY_DSN}`,
+
+                release: `${process.version}`,
+                integrations: [],
+
+                tracesSampleRate: 0.1,
+                tracePropagationTargets: [],
+
+                replaysSessionSampleRate: 0.1,
+                replaysOnErrorSampleRate: 1.0,
+            });
+        });
+    });
 
     useEffectOnce(() => {
         if (!viewerId) setViewerId(uuid());

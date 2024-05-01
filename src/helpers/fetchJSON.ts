@@ -12,10 +12,12 @@ export async function fetchJSON<T = unknown>(
         input,
         {
             ...init,
-            headers: {
-                'Content-Type': 'application/json',
-                ...init?.headers,
-            },
+            headers: options?.noDefaultContentType
+                ? init?.headers
+                : {
+                      'Content-Type': 'application/json',
+                      ...init?.headers,
+                  },
         },
         getNextFetchers(options),
     );
