@@ -6,6 +6,7 @@ import { z } from 'zod';
 import { createErrorResponseJSON } from '@/helpers/createErrorResponseJSON.js';
 import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
 import { createTwitterClientV2 } from '@/helpers/createTwitterClientV2.js';
+import { getTwitterErrorMessage } from '@/helpers/getTwitterErrorMessage.js';
 
 const TweetSchema = z.object({
     text: z.string(),
@@ -57,8 +58,8 @@ export async function POST(request: NextRequest) {
         console.error('[twitter]: compose/', data);
         return createSuccessResponseJSON(data, { status: StatusCodes.OK });
     } catch (error) {
-        console.error('[twitter]: error compose/', error);
-        return createErrorResponseJSON(`${error}`, {
+        console.error('[twitter]: error compose/', error, JSON.stringify(error));
+        return createErrorResponseJSON(getTwitterErrorMessage(error), {
             status: StatusCodes.INTERNAL_SERVER_ERROR,
         });
     }
