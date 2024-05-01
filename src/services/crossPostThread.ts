@@ -99,8 +99,7 @@ export async function crossPostThread({
             skipIfPublishedPost: true,
             skipIfNoParentPost: true,
             skipRefreshFeeds: index !== posts.length - 1,
-            skipSuccessMessage: true,
-            skipErrorMessage: true,
+            skipCheckPublished: true,
         });
         progressCallback?.((index + 1) / posts.length, index, posts.length);
     }
