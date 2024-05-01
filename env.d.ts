@@ -28,7 +28,6 @@ declare namespace NodeJS {
         NEXT_PUBLIC_HUBBLE_TOKEN: string;
 
         WEB3_CONSTANTS_RPC: string;
-        MASK_SENTRY_DSN: string;
 
         IMGUR_CLIENT_ID: string;
         IMGUR_CLIENT_SECRET: string;
