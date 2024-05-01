@@ -77,7 +77,7 @@ export const Mirror = memo<MirrorProps>(function Mirror({ shares = 0, source, po
         switch (source) {
             case SocialPlatform.Lens:
                 try {
-                    const result = await LensSocialMediaProvider.mirrorPost(postId, { onMomoka: !!post.momoka?.proof });
+                    const result = await LensSocialMediaProvider.mirrorPost(postId);
                     enqueueSuccessMessage(t`Mirrored`);
                     return result;
                 } catch (error) {

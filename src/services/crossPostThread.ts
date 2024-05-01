@@ -1,10 +1,13 @@
-import { t } from '@lingui/macro';
+import { plural, t } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
 
 import { SocialPlatform } from '@/constants/enum.js';
 import { SORTED_SOURCES } from '@/constants/index.js';
-import { isPublishedPost } from '@/helpers/isPublishedPost.js';
+import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import { getDetailedErrorMessage } from '@/helpers/getDetailedErrorMessage.js';
+import { failedAt } from '@/helpers/isPublishedThread.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
+import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { crossPost } from '@/services/crossPost.js';
 import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
@@ -31,9 +34,7 @@ async function getParentPostById(source: SocialPlatform, postId: string) {
         case SocialPlatform.Twitter:
             return { postId } as unknown as Post;
         case SocialPlatform.Lens:
-            const provider = resolveSocialMediaProvider(source);
-            if (!provider) throw new Error('No provider found.');
-            return provider.getPostById(postId);
+            return { postId } as unknown as Post;
         default:
             safeUnreachable(source);
             return null;
@@ -78,7 +79,8 @@ export async function crossPostThread(progressCallback?: (percentage: number, in
     if (posts.length === 1) throw new Error(t`A thread must have at least two posts.`);
     const shouldSendPostCount = posts.length;
 
-    progressCallback?.(0, 0, shouldSendPostCount);
+    progressCallback?.(0, 0, posts.length);
+
     for (const [index, _] of posts.entries()) {
         const { posts: allPosts } = useComposeStateStore.getState();
 
@@ -90,14 +92,55 @@ export async function crossPostThread(progressCallback?: (percentage: number, in
         await crossPost(index === 0 ? 'compose' : 'reply', post, {
             skipIfPublishedPost: true,
             skipIfNoParentPost: true,
-            skipPublishedCheck: true,
             skipRefreshFeeds: index !== posts.length - 1,
+            options: {
+                noSuccessMessage: true,
+                noErrorMessage: true,
+            },
         });
-        progressCallback?.((index + 1) / posts.length, index, shouldSendPostCount);
+        progressCallback?.((index + 1) / posts.length, index, posts.length);
     }
 
     const { posts: updatedPosts } = useComposeStateStore.getState();
-    if (!updatedPosts.every(isPublishedPost)) {
-        throw new Error('Posts failed to publish.');
+
+    // check publish result
+    const failedPlatforms = failedAt(updatedPosts);
+
+    if (failedPlatforms.length) {
+        const firstPlatform = failedPlatforms[0] ? resolveSourceName(failedPlatforms[0]) : '';
+        const secondPlatform = failedPlatforms[1] ? resolveSourceName(failedPlatforms[1]) : '';
+
+        const message = plural(failedPlatforms.length, {
+            one: `Your posts failed to publish on ${firstPlatform} due to an error. Click 'Retry' to attempt posting again.`,
+            two: `Your posts failed to publish on ${firstPlatform} and ${secondPlatform} due to an error. Click 'Retry' to attempt posting again.`,
+            other: "Your posts failed to publish due to an error. Click 'Retry' to attempt posting again.",
+        });
+
+        // the first error on each platform
+        const allErrors = SORTED_SOURCES.map((x) => updatedPosts.find((y) => y.postError[x])?.postError[x] ?? null);
+
+        // show success message if no error found on certain platform
+        SORTED_SOURCES.forEach((x, i) => {
+            const error = allErrors[i];
+            if (error) return;
+            const rootPost = updatedPosts[0];
+            if (!rootPost.availableSources.includes(x)) return;
+            enqueueSuccessMessage(t`Your posts have published successfully on ${resolveSourceName(x)}.`);
+        });
+
+        // concat all error messages for reporting
+        const detailedMessage = SORTED_SOURCES.map((x, i) => {
+            const error = allErrors[i];
+            if (!error) return '';
+            return getDetailedErrorMessage(x, error);
+        }).join('\n');
+
+        enqueueErrorMessage(message, {
+            detail: detailedMessage,
+            persist: true,
+        });
+        throw new Error(`Failed to post on: ${failedPlatforms.map(resolveSourceName).join(' ')}.`);
+    } else {
+        enqueueSuccessMessage(t`Your posts have published successfully.`);
     }
 }

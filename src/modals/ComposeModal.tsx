@@ -12,8 +12,8 @@ import { useSingletonModal } from '@masknet/shared-base-ui';
 import type { TypedMessageTextV1 } from '@masknet/typed-message';
 import type { FireflyRedPacketAPI } from '@masknet/web3-providers/types';
 import { $getRoot } from 'lexical';
-import { forwardRef, useCallback } from 'react';
-import { useAsync } from 'react-use';
+import { forwardRef, useCallback, useRef } from 'react';
+import { useAsync, useUpdateEffect } from 'react-use';
 import { None } from 'ts-results-es';
 import urlcat from 'urlcat';
 
@@ -77,6 +77,7 @@ export type ComposeModalCloseProps = {
 
 export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalProps, ComposeModalCloseProps>>(
     function Compose(_, ref) {
+        const contentRef = useRef<HTMLDivElement>(null);
         const isMedium = useIsMedium();
         const currentSource = useGlobalState.use.currentSource();
 
@@ -198,6 +199,11 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
             // each time the typedMessage changes, we need to check if it has a red packet payload
         }, [typedMessage, rpPayload, id, currentProfileAll]);
 
+        useUpdateEffect(() => {
+            if (!contentRef.current || !posts.length) return;
+            contentRef.current.scrollTop = contentRef.current?.scrollHeight;
+        }, [posts.length]);
+
         return (
             <Modal open={open} onClose={onClose} className="flex-col">
                 <div className="relative flex w-[100vw] flex-grow flex-col overflow-auto bg-bgModal shadow-popover transition-all dark:text-gray-950 md:h-auto md:w-[600px] md:rounded-xl lg:flex-grow-0">
@@ -226,7 +232,10 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
                     </Dialog.Title>
 
                     <div className=" flex flex-col overflow-auto px-4 pb-4">
-                        <div className="flex max-h-[300px] min-h-[300px] flex-1 flex-col overflow-auto rounded-lg border border-secondaryLine bg-bg px-4 py-[14px] md:max-h-[500px] md:min-h-[338px]">
+                        <div
+                            ref={contentRef}
+                            className="flex max-h-[300px] min-h-[300px] flex-1 flex-col overflow-auto rounded-lg border border-secondaryLine bg-bg px-4 py-[14px] md:max-h-[500px] md:min-h-[338px]"
+                        >
                             {posts.length === 1 ? <ComposeContent post={compositePost} /> : <ComposeThreadContent />}
                         </div>
                     </div>

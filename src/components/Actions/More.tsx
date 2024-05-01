@@ -1,8 +1,7 @@
 import { Menu, Transition } from '@headlessui/react';
-import { Select, t } from '@lingui/macro';
+import { Select, t, Trans } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import { Fragment, memo } from 'react';
-import { Trans } from 'react-i18next';
 
 import FollowUserIcon from '@/assets/follow-user.svg';
 import LoadingIcon from '@/assets/loading.svg';

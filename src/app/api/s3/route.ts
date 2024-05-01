@@ -8,25 +8,15 @@ import { z, ZodError, ZodIssueCode } from 'zod';
 
 import { SourceInURL } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
+import { ALLOWED_IMAGES_MIMES, SUFFIX_NAMES } from '@/constants/index.js';
 import { createErrorResponseJSON } from '@/helpers/createErrorResponseJSON.js';
 import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
-
-const ALLOWED_MIMES = ['image/png', 'image/jpeg', 'image/gif', 'image/webp', 'image/bmp'] as const;
-
-type AllowedMime = (typeof ALLOWED_MIMES)[number];
+import { isValidFileType } from '@/helpers/isValidFileType.js';
 
 class ContentTypeError extends Error {}
 
-const SUFFIX_NAMES: Record<AllowedMime, string> = {
-    'image/png': 'png',
-    'image/jpeg': 'jpg',
-    'image/gif': 'gif',
-    'image/bmp': 'bmp',
-    'image/webp': 'webp',
-};
-
-const FormDataSchemas = z.object({
-    file: z.custom((value) => {
+const FormDataSchema = z.object({
+    file: z.custom<File>((value) => {
         if (!(value instanceof File)) {
             throw new ZodError([
                 {
@@ -38,10 +28,10 @@ const FormDataSchemas = z.object({
                 },
             ]);
         }
-        if (!ALLOWED_MIMES.includes(value.type as AllowedMime)) {
+        if (!isValidFileType(value.type)) {
             throw new ZodError([
                 {
-                    message: t`Invalid file type. Allowed types: ${ALLOWED_MIMES.join(', ')}`,
+                    message: t`Invalid file type. Allowed types: ${ALLOWED_IMAGES_MIMES.join(', ')}`,
                     path: [],
                     code: ZodIssueCode.invalid_type,
                     expected: 'string',
@@ -59,11 +49,9 @@ export async function PUT(req: NextRequest) {
         const formData = await req.formData().catch((error) => {
             throw new ContentTypeError(error.message);
         });
-        const source = formData.get('source') as string;
-        const file = formData.get('file') as File;
-        FormDataSchemas.parse({
-            source,
-            file,
+        const { file, source } = FormDataSchema.parse({
+            file: formData.get('file'),
+            source: formData.get('source'),
         });
         const client = new S3Client({
             region: env.internal.S3_REGION,
@@ -75,7 +63,7 @@ export async function PUT(req: NextRequest) {
         });
         const params = {
             Bucket: env.internal.S3_BUCKET,
-            Key: `${source.toLowerCase()}/${uuid()}.${SUFFIX_NAMES[file.type as AllowedMime]}`,
+            Key: `${source.toLowerCase()}/${uuid()}.${SUFFIX_NAMES[file.type as keyof typeof SUFFIX_NAMES]}`,
             Body: file,
             ContentType: file.type,
         };

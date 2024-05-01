@@ -21,6 +21,9 @@ export default {
         esmExternals: true,
         scrollRestoration: true,
         swcPlugins: [['@lingui/swc-plugin', {}]],
+        serverActions: {
+            bodySizeLimit: '20mb',
+        },
     },
     images: {
         dangerouslyAllowSVG: false,
@@ -89,8 +92,10 @@ export default {
                 new context.webpack.DefinePlugin({
                     'process.env.WEB3_CONSTANTS_RPC': process.env.WEB3_CONSTANTS_RPC ?? JSON.stringify({}),
                     'process.env.MASK_SENTRY_DSN': process.env.MASK_SENTRY_DSN ?? JSON.stringify(''),
+                    'process.env.MASK_SENTRY': JSON.stringify('disabled'),
+                    'process.env.MASK_MIXPANEL': JSON.stringify('disabled'),
                     'process.env.NODE_DEBUG': 'undefined',
-                    'process.version': JSON.stringify('0.1.0'),
+                    'process.version': JSON.stringify(process.env.npm_package_version),
                 }),
                 new CopyPlugin({
                     patterns: [
