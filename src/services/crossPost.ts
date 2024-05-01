@@ -129,6 +129,7 @@ async function setQueryDataForQuote(post: CompositePost) {
 }
 
 interface CrossPostOptions {
+    isRetry?: boolean;
     // skip if post is already published
     skipIfPublishedPost?: boolean;
     // skip if no parent post is found in reply or quote
@@ -145,6 +146,7 @@ export async function crossPost(
     type: ComposeType,
     compositePost: CompositePost,
     {
+        isRetry = false,
         skipIfPublishedPost = false,
         skipIfNoParentPost = false,
         skipRefreshFeeds = false,
@@ -207,7 +209,9 @@ export async function crossPost(
             const settled = allSettled[i];
             const error = settled.status === 'rejected' ? settled.reason : null;
             if (error) return;
-            enqueueSuccessMessage_(t`Your post have published successfully on ${resolveSourceName(x)}.`);
+            if (!isRetry) {
+                enqueueSuccessMessage_(t`Your post have published successfully on ${resolveSourceName(x)}.`);
+            }
         });
 
         enqueueErrorsMessage_(t`Your post failed to publish due to an error. Click 'Retry' to attempt posting again.`, {
