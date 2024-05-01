@@ -3,7 +3,6 @@
 import { i18n } from '@lingui/core';
 import { I18nProvider } from '@lingui/react';
 import { LivepeerConfig } from '@livepeer/react';
-import * as Sentry from '@sentry/browser';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { ReactQueryStreamedHydration } from '@tanstack/react-query-next-experimental';
@@ -16,6 +15,7 @@ import { v4 as uuid } from 'uuid';
 import { WagmiProvider } from '@/components/WagmiProvider.js';
 import { livepeerClient } from '@/configs/livepeerClient.js';
 import { queryClient } from '@/configs/queryClient.js';
+import { sentryClient } from '@/configs/sentryClient.js';
 import { getLocaleFromCookies } from '@/helpers/getLocaleFromCookies.js';
 import { DarkModeContext } from '@/hooks/useDarkMode.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
@@ -56,20 +56,7 @@ export function Providers(props: { children: React.ReactNode }) {
     const setViewerId = useLeafwatchPersistStore.use.setViewerId();
 
     useEffectOnce(() => {
-        Sentry.onLoad(() => {
-            Sentry.init({
-                dsn: `${process.env.SENTRY_DSN}`,
-
-                release: `${process.version}`,
-                integrations: [],
-
-                tracesSampleRate: 0.1,
-                tracePropagationTargets: [],
-
-                replaysSessionSampleRate: 0.1,
-                replaysOnErrorSampleRate: 1.0,
-            });
-        });
+        sentryClient.init();
     });
 
     useEffectOnce(() => {

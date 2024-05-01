@@ -15,6 +15,6 @@ export function resolveSocialMediaProvider(source: SocialPlatform) {
             return TwitterSocialMediaProvider;
         default:
             safeUnreachable(source);
-            return;
+            throw new Error(`Invalid source: ${source}`);
     }
 }

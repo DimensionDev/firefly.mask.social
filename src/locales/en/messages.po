@@ -28,9 +28,6 @@ msgstr "Retweet"
 msgid "Failed to fetch as Blob."
 msgstr "Failed to fetch as Blob."
 
-msgid "Failed to upload image to imgur."
-msgstr "Failed to upload image to imgur."
-
 msgid "Communities"
 msgstr "Communities"
 
@@ -39,9 +36,6 @@ msgstr "Discover"
 
 msgid "Please be cautious when connecting your wallet, as malicious websites may attempt to access your funds."
 msgstr "Please be cautious when connecting your wallet, as malicious websites may attempt to access your funds."
-
-msgid "Failed to mirror. {0}"
-msgstr "Failed to mirror. {0}"
 
 msgid "X"
 msgstr "X"
@@ -69,6 +63,9 @@ msgstr "Collect Action is not supported yet."
 
 msgid "Join our Discord"
 msgstr "Join our Discord"
+
+msgid "Found arweaveTxId is empty."
+msgstr "Found arweaveTxId is empty."
 
 msgid "<0>You</0> and {0} others recasted"
 msgstr "<0>You</0> and {0} others recasted"
@@ -129,9 +126,6 @@ msgstr "Page not found"
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/> and # others}} <4>liked your </4><5><6/></5>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/> and # others}} <4>liked your </4><5><6/></5>"
-
-msgid "Failed to upload to Arweave"
-msgstr "Failed to upload to Arweave"
 
 msgid "Password"
 msgstr "Password"
@@ -211,6 +205,9 @@ msgstr "Frame Validator"
 msgid "Follow System"
 msgstr "Follow System"
 
+msgid "Failed to mirror."
+msgstr "Failed to mirror."
+
 msgid "URL is required."
 msgstr "URL is required."
 
@@ -229,6 +226,9 @@ msgstr "Join our Telegram"
 msgid "Log out"
 msgstr "Log out"
 
+msgid "{0, plural, one {Your post failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your post failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your post failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
+msgstr "{0, plural, one {Your post failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your post failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your post failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
+
 msgid "post"
 msgstr "post"
 
@@ -243,6 +243,9 @@ msgstr "Search Filter"
 
 msgid "Try searching for something else."
 msgstr "Try searching for something else."
+
+msgid "Invalid compose type: {type}."
+msgstr "Invalid compose type: {type}."
 
 msgid "and"
 msgstr "and"
@@ -264,9 +267,6 @@ msgstr "Reply"
 
 msgid "Querying the signed key state."
 msgstr "Querying the signed key state."
-
-msgid "Invalid compose type."
-msgstr "Invalid compose type."
 
 msgid "Collected"
 msgstr "Collected"
@@ -619,9 +619,6 @@ msgstr "LuckyDrop"
 msgid "{0} and others"
 msgstr "{0} and others"
 
-msgid "File type is not supported."
-msgstr "File type is not supported."
-
 msgid "Please switch to the wallet used for login."
 msgstr "Please switch to the wallet used for login."
 
@@ -669,6 +666,9 @@ msgstr "Failed to fetch as ArrayBuffer."
 
 msgid "Your post have published successfully on {0}."
 msgstr "Your post have published successfully on {0}."
+
+msgid "Cancel mirror successfully"
+msgstr "Cancel mirror successfully"
 
 msgid "Confirm to log out these accounts?"
 msgstr "Confirm to log out these accounts?"
@@ -762,9 +762,6 @@ msgstr "Terms of Service"
 
 msgid "Already posted on {sourceName}."
 msgstr "Already posted on {sourceName}."
-
-msgid "Your post failed to publish due to an error. Click 'Retry' to attempt posting again."
-msgstr "Your post failed to publish due to an error. Click 'Retry' to attempt posting again."
 
 msgid "Post"
 msgstr "Post"

@@ -33,9 +33,6 @@ msgstr ""
 msgid "Failed to fetch as Blob."
 msgstr "获取 Blob 失败。"
 
-msgid "Failed to upload image to imgur."
-msgstr "上传图片失败。"
-
 msgid "Communities"
 msgstr "社区"
 
@@ -44,9 +41,6 @@ msgstr "发现"
 
 msgid "Please be cautious when connecting your wallet, as malicious websites may attempt to access your funds."
 msgstr "当您连接钱包时请务必小心，一些恶意网站会试图访问宁的钱包资产。"
-
-msgid "Failed to mirror. {0}"
-msgstr "转帖失败 {0}"
 
 msgid "X"
 msgstr ""
@@ -74,6 +68,9 @@ msgstr "还未支持收藏。"
 
 msgid "Join our Discord"
 msgstr "加入我们的 Discord"
+
+msgid "Found arweaveTxId is empty."
+msgstr ""
 
 msgid "<0>You</0> and {0} others recasted"
 msgstr "<0> 你 </0> 和 {0} 人都转发了"
@@ -134,9 +131,6 @@ msgstr "找不到网页"
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/> and # others}} <4>liked your </4><5><6/></5>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> 和 <2/>} other {<3/> 和其他 # 人}} <4>点赞了你的 </4><5><6/></5>"
-
-msgid "Failed to upload to Arweave"
-msgstr ""
 
 msgid "Password"
 msgstr ""
@@ -216,6 +210,9 @@ msgstr "Frame Validator"
 msgid "Follow System"
 msgstr "跟随系统"
 
+msgid "Failed to mirror."
+msgstr ""
+
 msgid "URL is required."
 msgstr "请选择 URL"
 
@@ -234,6 +231,9 @@ msgstr "加入我们的 Telegram"
 msgid "Log out"
 msgstr "登出"
 
+msgid "{0, plural, one {Your post failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your post failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your post failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
+msgstr ""
+
 msgid "post"
 msgstr "发帖"
 
@@ -248,6 +248,9 @@ msgstr "查询规则"
 
 msgid "Try searching for something else."
 msgstr "试试搜索其他东西。"
+
+msgid "Invalid compose type: {type}."
+msgstr ""
 
 msgid "and"
 msgstr "和"
@@ -268,9 +271,6 @@ msgid "Reply"
 msgstr "回复"
 
 msgid "Querying the signed key state."
-msgstr ""
-
-msgid "Invalid compose type."
 msgstr ""
 
 msgid "Collected"
@@ -624,9 +624,6 @@ msgstr "红包"
 msgid "{0} and others"
 msgstr "{0} 和 其他"
 
-msgid "File type is not supported."
-msgstr ""
-
 msgid "Please switch to the wallet used for login."
 msgstr "请切换钱包登录。"
 
@@ -673,6 +670,9 @@ msgid "Failed to fetch as ArrayBuffer."
 msgstr "Failed to fetch as ArrayBuffer."
 
 msgid "Your post have published successfully on {0}."
+msgstr ""
+
+msgid "Cancel mirror successfully"
 msgstr ""
 
 msgid "Confirm to log out these accounts?"
@@ -766,9 +766,6 @@ msgid "Terms of Service"
 msgstr "服务条款"
 
 msgid "Already posted on {sourceName}."
-msgstr ""
-
-msgid "Your post failed to publish due to an error. Click 'Retry' to attempt posting again."
 msgstr ""
 
 msgid "Post"

@@ -221,7 +221,6 @@ class HubbleSocialMedia implements Provider {
             body: messageBytes,
         });
         if (!data) throw new Error(t`Failed to publish post.`);
-
         return hash;
     }
 
@@ -256,6 +255,7 @@ class HubbleSocialMedia implements Provider {
             body: messageBytes,
         });
         if (!data) throw new Error(t`Failed to upvote post.`);
+        return;
     }
 
     async unvotePost(postId: string, authorId?: number) {
@@ -289,6 +289,7 @@ class HubbleSocialMedia implements Provider {
             body: messageBytes,
         });
         if (!data) throw new Error(t`Failed to unvote post.`);
+        return;
     }
 
     async mirrorPost(postId: string, options?: { authorId?: number }) {
@@ -389,7 +390,7 @@ class HubbleSocialMedia implements Provider {
             body: messageBytes,
         });
         if (!data) throw new Error(t`Failed to follow.`);
-        return null!;
+        return;
     }
 
     async unfollow(profileId: string) {
@@ -418,7 +419,7 @@ class HubbleSocialMedia implements Provider {
             body: messageBytes,
         });
         if (!data) throw new Error(t`Failed to unfollow.`);
-        return null!;
+        return;
     }
 
     async validateMessage(messageBytes: string) {

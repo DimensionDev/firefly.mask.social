@@ -28,7 +28,6 @@ declare namespace NodeJS {
         NEXT_PUBLIC_HUBBLE_TOKEN: string;
 
         WEB3_CONSTANTS_RPC: string;
-        MASK_SENTRY_DSN: string;
 
         IMGUR_CLIENT_ID: string;
         IMGUR_CLIENT_SECRET: string;
@@ -42,12 +41,12 @@ declare namespace NodeJS {
         NEXT_PUBLIC_REDPACKET_CHANNEL_KEY: string;
         NEXT_PUBLIC_REDPACKET_CHANNEL_URL: string;
 
+        NEXT_PUBLIC_SENTRY_DSN: string;
+
         S3_HOST: string;
         S3_ACCESS_KEY_SECRET: string;
         S3_ACCESS_KEY_ID: string;
         S3_BUCKET: string;
         S3_REGION: string;
-
-        SENTRY_DSN: string;
     }
 }
