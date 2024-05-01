@@ -9,17 +9,15 @@ import { queryClient } from '@/configs/queryClient.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { SORTED_SOURCES } from '@/constants/index.js';
 import { createMockComment } from '@/helpers/createMockComment.js';
-import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import { enqueueErrorsMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getCompositePost } from '@/helpers/getCompositePost.js';
 import { getCurrentProfileAll } from '@/helpers/getCurrentProfileAll.js';
-import { getDetailedErrorMessage } from '@/helpers/getDetailedErrorMessage.js';
 import { failedAt } from '@/helpers/isPublishedPost.js';
 import { resolvePostTo } from '@/helpers/resolvePostTo.js';
 import { resolveRedPacketPlatformType } from '@/helpers/resolveRedPacketPlatformType.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { hasRpPayload } from '@/helpers/rpPayload.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
-import type { CreatePostToOptions } from '@/services/createPostTo.js';
 import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
 import type { ComposeType } from '@/types/compose.js';
 
@@ -40,7 +38,7 @@ async function updateRpClaimStrategy(compositePost: CompositePost) {
     const { postId, typedMessage, rpPayload } = compositePost;
     if (process.env.NODE_ENV === 'development') {
         if (rpPayload?.publicKey && !SORTED_SOURCES.some((x) => postId[x])) {
-            console.error("No any post id for updating RedPacket's claim strategy.");
+            console.error("[cross post] No any post id for updating RedPacket's claim strategy.");
         }
     }
 
@@ -137,20 +135,28 @@ interface CrossPostOptions {
     skipIfNoParentPost?: boolean;
     // If it's a post in thread, only refresh the feeds after sending the last post.
     skipRefreshFeeds?: boolean;
-    // override createPostTo options
-    options?: Partial<CreatePostToOptions>;
+    // skip success message
+    skipSuccessMessage?: boolean;
+    // skip error message
+    skipErrorMessage?: boolean;
 }
 
 export async function crossPost(
     type: ComposeType,
     compositePost: CompositePost,
-    { skipIfPublishedPost = false, skipIfNoParentPost = false, skipRefreshFeeds, options }: CrossPostOptions = {},
+    {
+        skipIfPublishedPost = false,
+        skipIfNoParentPost = false,
+        skipRefreshFeeds = false,
+        skipSuccessMessage = false,
+        skipErrorMessage = false,
+    }: CrossPostOptions = {},
 ) {
     const { updatePostInThread } = useComposeStateStore.getState();
     const { availableSources } = compositePost;
 
-    const enqueueSuccessMessage_ = !options?.noSuccessMessage ? enqueueSuccessMessage : noop;
-    const enqueueErrorMessage_ = !options?.noErrorMessage ? enqueueErrorMessage : noop;
+    const enqueueSuccessMessage_ = !skipSuccessMessage ? enqueueSuccessMessage : noop;
+    const enqueueErrorsMessage_ = !skipErrorMessage ? enqueueErrorsMessage : noop;
 
     const allSettled = await Promise.allSettled(
         SORTED_SOURCES.map(async (x) => {
@@ -167,7 +173,7 @@ export async function crossPost(
             }
 
             try {
-                const result = await resolvePostTo(x)(type, compositePost, options);
+                const result = await resolvePostTo(x)(type, compositePost);
                 updatePostInThread(compositePost.id, (y) => ({
                     ...y,
                     postError: {
@@ -177,23 +183,20 @@ export async function crossPost(
                 }));
                 return result;
             } catch (error) {
-                if (error instanceof Error) {
-                    updatePostInThread(compositePost.id, (y) => ({
-                        ...y,
-                        postError: {
-                            ...y.postError,
-                            [x]: error,
-                        },
-                    }));
-                }
-
+                updatePostInThread(compositePost.id, (y) => ({
+                    ...y,
+                    postError: {
+                        ...y.postError,
+                        [x]: error instanceof Error ? error : new Error(`${error}`),
+                    },
+                }));
                 throw error;
             }
         }),
     );
 
     const updatedCompositePost = getCompositePost(compositePost.id);
-    if (!updatedCompositePost) throw new Error('Post not found.');
+    if (!updatedCompositePost) throw new Error(`Post not found with id: ${compositePost.id}`);
 
     // check publish result
     const failedPlatforms = failedAt(updatedCompositePost);
@@ -207,16 +210,8 @@ export async function crossPost(
             enqueueSuccessMessage_(t`Your post have published successfully on ${resolveSourceName(x)}.`);
         });
 
-        // concat all error messages for reporting
-        const detailedMessage = SORTED_SOURCES.map((x, i) => {
-            const settled = allSettled[i];
-            const error = settled.status === 'rejected' ? settled.reason : null;
-            if (!error) return '';
-            return getDetailedErrorMessage(x, error);
-        }).join('\n');
-
-        enqueueErrorMessage_(t`Your post failed to publish due to an error. Click 'Retry' to attempt posting again.`, {
-            detail: detailedMessage,
+        enqueueErrorsMessage_(t`Your post failed to publish due to an error. Click 'Retry' to attempt posting again.`, {
+            errors: compact(allSettled.map((x) => (x.status === 'rejected' ? x.reason : null))),
             persist: true,
         });
     } else {
@@ -243,8 +238,8 @@ export async function crossPost(
         }
     }
 
+    // update red packet claim strategy
     try {
-        // update red packet claim strategy
         await updateRpClaimStrategy(updatedCompositePost);
     } catch (error) {
         console.error(`[cross post]: failed to update red packet claim strategy: ${error}`);

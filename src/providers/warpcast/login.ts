@@ -21,9 +21,12 @@ export async function login(createSession: () => Promise<FarcasterSession>) {
         LoginModalRef.close();
     } catch (error) {
         if (error instanceof Error && error.message === 'Aborted') return;
-        enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to login`));
+        enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to login`), {
+            error,
+        });
         // if any error occurs, close the modal
         // by this we don't need to do error handling in UI part.
         LoginModalRef.close();
+        throw error;
     }
 }

@@ -29,9 +29,6 @@ export default function Frame() {
             {
                 method: 'DELETE',
             },
-            {
-                throwIfNotOK: true,
-            },
         );
 
         return true;

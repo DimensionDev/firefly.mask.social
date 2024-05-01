@@ -8,11 +8,12 @@ export async function fetchJSON<T = unknown>(
     init?: RequestInit,
     options?: NextFetchersOptions,
 ): Promise<T> {
+    const { throwIfNotOK = true, noDefaultContentType = false } = options ?? {};
     const response = await fetch(
         input,
         {
             ...init,
-            headers: options?.noDefaultContentType
+            headers: noDefaultContentType
                 ? init?.headers
                 : {
                       'Content-Type': 'application/json',
@@ -21,7 +22,14 @@ export async function fetchJSON<T = unknown>(
         },
         getNextFetchers(options),
     );
-    if (options?.throwIfNotOK && !response.ok) throw new Error('Failed to fetch JSON.');
+    if (throwIfNotOK && !response.ok) {
+        try {
+            const text = await response.text();
+            throw new Error(`Failed to fetch JSON: ${response.url} ${text}.`);
+        } catch {
+            throw new Error(`Failed to fetch JSON with response url: ${response.url}.`);
+        }
+    }
     return response.json();
 }
 

@@ -6,18 +6,14 @@ import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
 import { type Post, type PostType } from '@/providers/types/SocialMedia.js';
-import { createPostTo, type CreatePostToOptions } from '@/services/createPostTo.js';
+import { createPostTo } from '@/services/createPostTo.js';
 import { uploadToTwitter } from '@/services/uploadToTwitter.js';
 import { type CompositePost } from '@/store/useComposeStore.js';
 import { useTwitterStateStore } from '@/store/useProfileStore.js';
 import type { ComposeType } from '@/types/compose.js';
 import type { MediaObject } from '@/types/index.js';
 
-export async function postToTwitter(
-    type: ComposeType,
-    compositePost: CompositePost,
-    options?: Partial<CreatePostToOptions>,
-) {
+export async function postToTwitter(type: ComposeType, compositePost: CompositePost) {
     const { chars, images, postId, parentPost, restriction } = compositePost;
 
     const twitterPostId = postId.Twitter;
@@ -67,7 +63,6 @@ export async function postToTwitter(
             if (!twitterParentPost?.postId) throw new Error(t`No parent post found.`);
             return TwitterSocialMediaProvider.quotePost(twitterParentPost.postId, composeDraft('Quote', images));
         },
-        ...options,
     });
 
     return postTo(type, compositePost);

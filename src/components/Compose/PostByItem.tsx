@@ -44,7 +44,10 @@ export function PostByItem({ source }: PostByItemProps) {
                 updateLensCurrentProfile(profile, session);
                 enqueueSuccessMessage(t`Your Lens account is now connected.`);
             } catch (error) {
-                enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to login`));
+                enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to login`), {
+                    error,
+                });
+                throw error;
             }
         },
         [updateLensCurrentProfile],

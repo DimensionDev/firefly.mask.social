@@ -66,7 +66,7 @@ function createEmitter(domain: string, encoder: Encoder | undefined): PluginMess
             try {
                 fn(data);
             } catch (error) {
-                console.error(error);
+                console.error(`[plugin message] ${domain} ${type} error:`, error);
             }
         }
     }
