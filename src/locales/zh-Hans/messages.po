@@ -231,6 +231,9 @@ msgstr "加入我们的 Telegram"
 msgid "Log out"
 msgstr "登出"
 
+msgid "{0, plural, one {Your post failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your post failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your post failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
+msgstr ""
+
 msgid "post"
 msgstr "发帖"
 
@@ -763,9 +766,6 @@ msgid "Terms of Service"
 msgstr "服务条款"
 
 msgid "Already posted on {sourceName}."
-msgstr ""
-
-msgid "Your post failed to publish due to an error. Click 'Retry' to attempt posting again."
 msgstr ""
 
 msgid "Post"

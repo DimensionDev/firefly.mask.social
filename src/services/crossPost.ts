@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { plural, t } from '@lingui/macro';
 import { RedPacketMetaKey } from '@masknet/plugin-redpacket';
 import { FireflyRedPacket } from '@masknet/web3-providers';
 import { type FireflyRedPacketAPI, type RedPacketJSONPayload } from '@masknet/web3-providers/types';
@@ -204,18 +204,32 @@ export async function crossPost(
     const failedPlatforms = failedAt(updatedCompositePost);
 
     if (failedPlatforms.length) {
+        // the first error on each platform
+        const allErrors = allSettled.map((x) => (x.status === 'rejected' ? x.reason : null));
+
         // show success message if no error found on certain platform
         SORTED_SOURCES.forEach((x, i) => {
             const settled = allSettled[i];
             const error = settled.status === 'rejected' ? settled.reason : null;
             if (error) return;
+            const rootPost = compositePost;
+            if (!rootPost.availableSources.includes(x)) return;
             if (!isRetry) {
                 enqueueSuccessMessage_(t`Your post have published successfully on ${resolveSourceName(x)}.`);
             }
         });
 
-        enqueueErrorsMessage_(t`Your post failed to publish due to an error. Click 'Retry' to attempt posting again.`, {
-            errors: compact(allSettled.map((x) => (x.status === 'rejected' ? x.reason : null))),
+        const firstPlatform = failedPlatforms[0] ? resolveSourceName(failedPlatforms[0]) : '';
+        const secondPlatform = failedPlatforms[1] ? resolveSourceName(failedPlatforms[1]) : '';
+
+        const message = plural(failedPlatforms.length, {
+            one: `Your post failed to publish on ${firstPlatform} due to an error. Click 'Retry' to attempt posting again.`,
+            two: `Your post failed to publish on ${firstPlatform} and ${secondPlatform} due to an error. Click 'Retry' to attempt posting again.`,
+            other: "Your post failed to publish due to an error. Click 'Retry' to attempt posting again.",
+        });
+
+        enqueueErrorsMessage_(message, {
+            errors: compact(allErrors),
             persist: true,
         });
         throw new Error(`Failed to post on: ${failedPlatforms.map(resolveSourceName).join(' ')}.`);

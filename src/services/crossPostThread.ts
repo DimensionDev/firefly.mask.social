@@ -110,15 +110,6 @@ export async function crossPostThread({
     const failedPlatforms = failedAt(updatedPosts);
 
     if (failedPlatforms.length) {
-        const firstPlatform = failedPlatforms[0] ? resolveSourceName(failedPlatforms[0]) : '';
-        const secondPlatform = failedPlatforms[1] ? resolveSourceName(failedPlatforms[1]) : '';
-
-        const message = plural(failedPlatforms.length, {
-            one: `Your posts failed to publish on ${firstPlatform} due to an error. Click 'Retry' to attempt posting again.`,
-            two: `Your posts failed to publish on ${firstPlatform} and ${secondPlatform} due to an error. Click 'Retry' to attempt posting again.`,
-            other: "Your posts failed to publish due to an error. Click 'Retry' to attempt posting again.",
-        });
-
         // the first error on each platform
         const allErrors = SORTED_SOURCES.map((x) => updatedPosts.find((y) => y.postError[x])?.postError[x] ?? null);
 
@@ -131,6 +122,15 @@ export async function crossPostThread({
             if (!isRetry) {
                 enqueueSuccessMessage(t`Your posts have published successfully on ${resolveSourceName(x)}.`);
             }
+        });
+
+        const firstPlatform = failedPlatforms[0] ? resolveSourceName(failedPlatforms[0]) : '';
+        const secondPlatform = failedPlatforms[1] ? resolveSourceName(failedPlatforms[1]) : '';
+
+        const message = plural(failedPlatforms.length, {
+            one: `Your posts failed to publish on ${firstPlatform} due to an error. Click 'Retry' to attempt posting again.`,
+            two: `Your posts failed to publish on ${firstPlatform} and ${secondPlatform} due to an error. Click 'Retry' to attempt posting again.`,
+            other: "Your posts failed to publish due to an error. Click 'Retry' to attempt posting again.",
         });
 
         enqueueErrorsMessage(message, {

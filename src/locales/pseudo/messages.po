@@ -226,6 +226,9 @@ msgstr ""
 msgid "Log out"
 msgstr ""
 
+msgid "{0, plural, one {Your post failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your post failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your post failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
+msgstr ""
+
 msgid "post"
 msgstr ""
 
@@ -758,9 +761,6 @@ msgid "Terms of Service"
 msgstr ""
 
 msgid "Already posted on {sourceName}."
-msgstr ""
-
-msgid "Your post failed to publish due to an error. Click 'Retry' to attempt posting again."
 msgstr ""
 
 msgid "Post"

@@ -14,7 +14,7 @@ export async function POST(request: NextRequest) {
         const res = await client.v1.uploadMedia(buffer, { mimeType: file.type });
         return createSuccessResponseJSON({ media_id: Number(res), media_id_string: res }, { status: StatusCodes.OK });
     } catch (error) {
-        return createErrorResponseJSON(error instanceof Error ? `${error}` : 'Internal Server Error', {
+        return createErrorResponseJSON(`${error}`, {
             status: StatusCodes.INTERNAL_SERVER_ERROR,
         });
     }
