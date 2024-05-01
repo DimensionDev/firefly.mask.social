@@ -12,7 +12,7 @@ export async function GET(request: NextRequest) {
         return createSuccessResponseJSON(data, { status: StatusCodes.OK });
     } catch (error) {
         console.error('[twitter]: me/', error);
-        return createErrorResponseJSON(error instanceof Error ? error.message : 'Internal Server Error', {
+        return createErrorResponseJSON(error instanceof Error ? `${error}` : 'Internal Server Error', {
             status: StatusCodes.INTERNAL_SERVER_ERROR,
         });
     }
