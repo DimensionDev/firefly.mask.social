@@ -218,6 +218,7 @@ export async function crossPost(
             errors: compact(allSettled.map((x) => (x.status === 'rejected' ? x.reason : null))),
             persist: true,
         });
+        throw new Error(`Failed to post on: ${failedPlatforms.map(resolveSourceName).join(' ')}.`);
     } else {
         enqueueSuccessMessage_(t`Your post has published successfully.`);
     }

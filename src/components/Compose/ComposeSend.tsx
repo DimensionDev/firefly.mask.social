@@ -38,15 +38,16 @@ export function ComposeSend(props: ComposeSendProps) {
     const [percentage, setPercentage] = useState(0);
     const [{ loading, error }, handlePost] = useAsyncFn(
         async (isRetry = false) => {
-            if (posts.length > 1)
+            if (posts.length > 1) {
                 await crossPostThread({
                     isRetry,
                     progressCallback: setPercentage,
                 });
-            else
+            } else {
                 await crossPost(type, post, {
                     isRetry,
                 });
+            }
             await delay(300);
             ComposeModalRef.close();
         },
