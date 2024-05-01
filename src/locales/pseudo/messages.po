@@ -241,6 +241,9 @@ msgstr ""
 msgid "Try searching for something else."
 msgstr ""
 
+msgid "Invalid compose type: {type}."
+msgstr ""
+
 msgid "and"
 msgstr ""
 
@@ -260,9 +263,6 @@ msgid "Reply"
 msgstr ""
 
 msgid "Querying the signed key state."
-msgstr ""
-
-msgid "Invalid compose type."
 msgstr ""
 
 msgid "Collected"

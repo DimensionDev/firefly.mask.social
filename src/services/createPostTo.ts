@@ -7,17 +7,12 @@ import { type CompositePost, useComposeStateStore } from '@/store/useComposeStor
 import type { ComposeType } from '@/types/compose.js';
 import type { MediaObject } from '@/types/index.js';
 
-export type CreatePostToOptions = Record<
-    ComposeType,
-    (images: MediaObject[], videos: MediaObject[]) => Promise<string>
-> & {
-    noSuccessMessage?: boolean;
-    noErrorMessage?: boolean;
+type Options = Record<ComposeType, (images: MediaObject[], videos: MediaObject[]) => Promise<string>> & {
     uploadImages?: () => Promise<MediaObject[]>;
     uploadVideos?: () => Promise<MediaObject[]>;
 };
 
-export function createPostTo(source: SocialPlatform, options: CreatePostToOptions) {
+export function createPostTo(source: SocialPlatform, options: Options) {
     const { updatePostInThread } = useComposeStateStore.getState();
 
     return async (type: ComposeType, post: CompositePost) => {

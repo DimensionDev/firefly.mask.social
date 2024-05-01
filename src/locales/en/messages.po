@@ -241,6 +241,9 @@ msgstr "Search Filter"
 msgid "Try searching for something else."
 msgstr "Try searching for something else."
 
+msgid "Invalid compose type: {type}."
+msgstr "Invalid compose type: {type}."
+
 msgid "and"
 msgstr "and"
 
@@ -261,9 +264,6 @@ msgstr "Reply"
 
 msgid "Querying the signed key state."
 msgstr "Querying the signed key state."
-
-msgid "Invalid compose type."
-msgstr "Invalid compose type."
 
 msgid "Collected"
 msgstr "Collected"

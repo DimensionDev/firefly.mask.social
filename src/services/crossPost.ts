@@ -19,7 +19,6 @@ import { resolveRedPacketPlatformType } from '@/helpers/resolveRedPacketPlatform
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { hasRpPayload } from '@/helpers/rpPayload.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
-import type { CreatePostToOptions } from '@/services/createPostTo.js';
 import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
 import type { ComposeType } from '@/types/compose.js';
 
@@ -137,20 +136,28 @@ interface CrossPostOptions {
     skipIfNoParentPost?: boolean;
     // If it's a post in thread, only refresh the feeds after sending the last post.
     skipRefreshFeeds?: boolean;
-    // override createPostTo options
-    options?: Partial<CreatePostToOptions>;
+    // skip success message
+    skipSuccessMessage?: boolean;
+    // skip error message
+    skipErrorMessage?: boolean;
 }
 
 export async function crossPost(
     type: ComposeType,
     compositePost: CompositePost,
-    { skipIfPublishedPost = false, skipIfNoParentPost = false, skipRefreshFeeds, options }: CrossPostOptions = {},
+    {
+        skipIfPublishedPost = false,
+        skipIfNoParentPost = false,
+        skipRefreshFeeds,
+        skipSuccessMessage = false,
+        skipErrorMessage = false,
+    }: CrossPostOptions = {},
 ) {
     const { updatePostInThread } = useComposeStateStore.getState();
     const { availableSources } = compositePost;
 
-    const enqueueSuccessMessage_ = !options?.noSuccessMessage ? enqueueSuccessMessage : noop;
-    const enqueueErrorMessage_ = !options?.noErrorMessage ? enqueueErrorMessage : noop;
+    const enqueueSuccessMessage_ = !skipSuccessMessage ? enqueueSuccessMessage : noop;
+    const enqueueErrorMessage_ = !skipErrorMessage ? enqueueErrorMessage : noop;
 
     const allSettled = await Promise.allSettled(
         SORTED_SOURCES.map(async (x) => {
@@ -167,7 +174,7 @@ export async function crossPost(
             }
 
             try {
-                const result = await resolvePostTo(x)(type, compositePost, options);
+                const result = await resolvePostTo(x)(type, compositePost);
                 updatePostInThread(compositePost.id, (y) => ({
                     ...y,
                     postError: {
@@ -177,15 +184,13 @@ export async function crossPost(
                 }));
                 return result;
             } catch (error) {
-                if (error instanceof Error) {
-                    updatePostInThread(compositePost.id, (y) => ({
-                        ...y,
-                        postError: {
-                            ...y.postError,
-                            [x]: error,
-                        },
-                    }));
-                }
+                updatePostInThread(compositePost.id, (y) => ({
+                    ...y,
+                    postError: {
+                        ...y.postError,
+                        [x]: error instanceof Error ? error : new Error(`${error}`),
+                    },
+                }));
 
                 throw error;
             }

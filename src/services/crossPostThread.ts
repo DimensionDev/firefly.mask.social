@@ -92,10 +92,8 @@ export async function crossPostThread(progressCallback?: (percentage: number, in
             skipIfPublishedPost: true,
             skipIfNoParentPost: true,
             skipRefreshFeeds: index !== posts.length - 1,
-            options: {
-                noSuccessMessage: true,
-                noErrorMessage: true,
-            },
+            skipSuccessMessage: true,
+            skipErrorMessage: true,
         });
         progressCallback?.((index + 1) / posts.length, index, posts.length);
     }
