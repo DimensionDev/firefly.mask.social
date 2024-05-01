@@ -35,4 +35,5 @@ pnpm run lingui:compile
 # Run Next.js build for the main project
 pnpm run build:sw
 pnpm run build:logs
+export NODE_OPTIONS=--max_old_space_size=2048
 pnpm run build
