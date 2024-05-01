@@ -33,7 +33,7 @@ export function Media({ close }: MediaProps) {
             if (files && files.length > 0) {
                 const shouldUploadFiles = [...files].filter((file) => {
                     if (file.size > FILE_MAX_SIZE_IN_BYTES) {
-                        enqueueErrorMessage(`The file "${file.name}" is too large`);
+                        enqueueErrorMessage(t`The file "${file.name}" exceeds the size limit.`);
                         return false;
                     }
                     return isValidFileType(file.type);
