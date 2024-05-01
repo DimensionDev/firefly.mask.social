@@ -112,3 +112,5 @@ export const SUFFIX_NAMES: Record<(typeof ALLOWED_IMAGES_MIMES)[number], string>
     'image/bmp': 'bmp',
     'image/webp': 'webp',
 };
+
+export const FILE_MAX_SIZE_IN_BYTES = 4 * 1024 * 1024; // 4MB
