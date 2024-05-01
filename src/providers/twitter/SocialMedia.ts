@@ -3,6 +3,7 @@ import type { Pageable, PageIndicator } from '@masknet/shared-base';
 import { compact } from 'lodash-es';
 import { getSession } from 'next-auth/react';
 import type { TweetV2PaginableTimelineResult } from 'twitter-api-v2';
+import urlcat from 'urlcat';
 
 import { SocialPlatform } from '@/constants/enum.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
@@ -92,6 +93,10 @@ class TwitterSocialMedia implements Provider {
     async discoverPosts(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         const session = await getSession();
         if (!session) throw new Error('No session found');
+        const url = urlcat(`/api/twitter/homeTimeline`, {
+            limit: 25,
+            cursor: indicator?.id,
+        });
         const response = await fetchJSON<ResponseJSON<TweetV2PaginableTimelineResult>>(`/api/twitter/homeTimeline`);
         if (!response.success) throw new Error(response.error.message);
         return formatTwitterPostFromFirefly(response.data, 'Post', indicator?.id);
