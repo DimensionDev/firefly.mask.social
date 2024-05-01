@@ -107,7 +107,7 @@ msgid "Username is required."
 msgstr ""
 
 msgid "Copied"
-msgstr "<<<<<<< HEAD"
+msgstr ""
 
 msgid "Your posts have published successfully."
 msgstr ""
@@ -419,7 +419,7 @@ msgid "commented"
 msgstr ""
 
 msgid "The page could not be found."
-msgstr "<<<<<<< HEAD"
+msgstr ""
 
 msgid "No matching channel"
 msgstr ""

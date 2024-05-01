@@ -112,7 +112,7 @@ msgid "Username is required."
 msgstr ""
 
 msgid "Copied"
-msgstr "已复制<<<<<<< HEAD"
+msgstr "已复制"
 
 msgid "Your posts have published successfully."
 msgstr ""
@@ -424,7 +424,7 @@ msgid "commented"
 msgstr "已回复"
 
 msgid "The page could not be found."
-msgstr "找不到该页面。<<<<<<< HEAD"
+msgstr "找不到该页面。"
 
 msgid "No matching channel"
 msgstr ""

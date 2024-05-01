@@ -18,7 +18,7 @@ export interface MediaObject {
     id?: string;
     file: File;
     ipfs?: IPFSResponse;
-    /** imgur url */
+    // imgur asset url
     imgur?: string;
     // s3 asset url
     s3?: string;
