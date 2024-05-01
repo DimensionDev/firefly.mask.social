@@ -22,8 +22,8 @@ export default {
         scrollRestoration: true,
         swcPlugins: [['@lingui/swc-plugin', {}]],
         serverActions: {
-            bodySizeLimit: '20mb'
-        }
+            bodySizeLimit: '20mb',
+        },
     },
     images: {
         dangerouslyAllowSVG: false,
