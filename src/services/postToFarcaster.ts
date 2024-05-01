@@ -8,14 +8,18 @@ import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { hasRpPayload } from '@/helpers/rpPayload.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { type Post, type PostType } from '@/providers/types/SocialMedia.js';
-import { createPostTo } from '@/services/createPostTo.js';
+import { createPostTo, type CreatePostToOptions } from '@/services/createPostTo.js';
 import { uploadToS3 } from '@/services/uploadToS3.js';
 import { type CompositePost } from '@/store/useComposeStore.js';
 import { useFarcasterStateStore } from '@/store/useProfileStore.js';
 import type { ComposeType } from '@/types/compose.js';
 import type { MediaObject } from '@/types/index.js';
 
-export async function postToFarcaster(type: ComposeType, compositePost: CompositePost) {
+export async function postToFarcaster(
+    type: ComposeType,
+    compositePost: CompositePost,
+    options?: Partial<CreatePostToOptions>,
+) {
     const { chars, parentPost, images, frames, openGraphs, typedMessage, postId } = compositePost;
 
     const farcasterPostId = postId.Farcaster;
@@ -45,7 +49,7 @@ export async function postToFarcaster(type: ComposeType, compositePost: Composit
             },
             mediaObjects: uniqBy(
                 [
-                    ...images.map((media) => ({ url: media.imgur!, mimeType: media.file.type })),
+                    ...images.map((media) => ({ url: media.s3!, mimeType: media.file.type })),
                     ...frames.map((frame) => ({ title: frame.title, url: frame.url })),
                     ...openGraphs.map((openGraph) => ({ title: openGraph.title!, url: openGraph.url })),
                 ],
@@ -61,10 +65,10 @@ export async function postToFarcaster(type: ComposeType, compositePost: Composit
         uploadImages: () => {
             return Promise.all(
                 images.map(async (media) => {
-                    if (media.imgur) return media;
+                    if (media.s3) return media;
                     return {
                         ...media,
-                        imgur: await uploadToS3(media.file, SourceInURL.Farcaster),
+                        s3: await uploadToS3(media.file, SourceInURL.Farcaster),
                     };
                 }),
             );
@@ -81,6 +85,7 @@ export async function postToFarcaster(type: ComposeType, compositePost: Composit
             if (!farcasterParentPost) throw new Error(t`No parent post found.`);
             return FarcasterSocialMediaProvider.mirrorPost(farcasterParentPost.postId);
         },
+        ...options,
     });
 
     return postTo(type, compositePost);

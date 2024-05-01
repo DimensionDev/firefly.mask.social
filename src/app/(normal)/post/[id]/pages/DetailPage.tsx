@@ -74,6 +74,8 @@ export function PostDetailPage({ params: { id: postId }, searchParams: { source 
             const root = post?.root ? post.root : post?.commentOn ? post.commentOn : post;
             if (!root?.stats?.comments) return createPageable(EMPTY_LIST, undefined);
 
+            if (root.author !== post?.author) return createPageable(EMPTY_LIST, undefined);
+
             const provider = resolveSocialMediaProvider(currentSource);
             if (!provider) return createPageable(EMPTY_LIST, undefined);
 
