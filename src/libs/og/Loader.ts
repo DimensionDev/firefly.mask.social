@@ -24,7 +24,8 @@ class Loader extends BaseLoader<OpenGraph> {
                     );
                     if (response.success) resolve(response.data.og);
                     else resolve(null);
-                } catch {
+                } catch (error) {
+                    console.error(`[og loader] fetch error: ${error}`);
                     reject(new Error('Failed to fetch open graph'));
                 }
             });

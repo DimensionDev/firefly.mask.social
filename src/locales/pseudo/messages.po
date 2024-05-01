@@ -37,9 +37,6 @@ msgstr ""
 msgid "Please be cautious when connecting your wallet, as malicious websites may attempt to access your funds."
 msgstr ""
 
-msgid "Failed to mirror. {0}"
-msgstr ""
-
 msgid "X"
 msgstr ""
 
@@ -206,6 +203,9 @@ msgid "Frame Validator"
 msgstr ""
 
 msgid "Follow System"
+msgstr ""
+
+msgid "Failed to mirror."
 msgstr ""
 
 msgid "URL is required."
@@ -662,6 +662,9 @@ msgid "Failed to fetch as ArrayBuffer."
 msgstr ""
 
 msgid "Your post have published successfully on {0}."
+msgstr ""
+
+msgid "Cancel mirror successfully"
 msgstr ""
 
 msgid "Confirm to log out these accounts?"

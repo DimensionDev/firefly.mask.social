@@ -23,7 +23,10 @@ export function ChannelDetailPage({ params: { id: channelId }, searchParams: { s
 
     const { data: channel = null, isLoading } = useQuery({
         queryKey: ['channel', currentSource, channelId],
-        queryFn: () => resolveSocialMediaProvider(currentSource)?.getChannelById(channelId),
+        queryFn: () => {
+            const provider = resolveSocialMediaProvider(currentSource);
+            return provider.getChannelById(channelId);
+        },
     });
 
     if (isLoading) {

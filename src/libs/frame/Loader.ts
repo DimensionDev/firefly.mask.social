@@ -24,7 +24,8 @@ class Loader extends BaseLoader<Frame> {
                     );
                     if (response.success) resolve(response.data.frame);
                     else resolve(null);
-                } catch {
+                } catch (error) {
+                    console.error(`[frame loader] fetch error: ${error}`);
                     reject(new Error('Failed to fetch frame'));
                 }
             });

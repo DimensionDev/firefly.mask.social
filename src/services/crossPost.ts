@@ -9,10 +9,9 @@ import { queryClient } from '@/configs/queryClient.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { SORTED_SOURCES } from '@/constants/index.js';
 import { createMockComment } from '@/helpers/createMockComment.js';
-import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import { enqueueErrorsMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getCompositePost } from '@/helpers/getCompositePost.js';
 import { getCurrentProfileAll } from '@/helpers/getCurrentProfileAll.js';
-import { getDetailedErrorMessage } from '@/helpers/getDetailedErrorMessage.js';
 import { failedAt } from '@/helpers/isPublishedPost.js';
 import { resolvePostTo } from '@/helpers/resolvePostTo.js';
 import { resolveRedPacketPlatformType } from '@/helpers/resolveRedPacketPlatformType.js';
@@ -148,7 +147,7 @@ export async function crossPost(
     {
         skipIfPublishedPost = false,
         skipIfNoParentPost = false,
-        skipRefreshFeeds,
+        skipRefreshFeeds = false,
         skipSuccessMessage = false,
         skipErrorMessage = false,
     }: CrossPostOptions = {},
@@ -157,7 +156,7 @@ export async function crossPost(
     const { availableSources } = compositePost;
 
     const enqueueSuccessMessage_ = !skipSuccessMessage ? enqueueSuccessMessage : noop;
-    const enqueueErrorMessage_ = !skipErrorMessage ? enqueueErrorMessage : noop;
+    const enqueueErrorsMessage_ = !skipErrorMessage ? enqueueErrorsMessage : noop;
 
     const allSettled = await Promise.allSettled(
         SORTED_SOURCES.map(async (x) => {
@@ -191,7 +190,6 @@ export async function crossPost(
                         [x]: error instanceof Error ? error : new Error(`${error}`),
                     },
                 }));
-
                 throw error;
             }
         }),
@@ -212,18 +210,8 @@ export async function crossPost(
             enqueueSuccessMessage_(t`Your post have published successfully on ${resolveSourceName(x)}.`);
         });
 
-        // concat all error messages for reporting
-        const detailedMessage = SORTED_SOURCES.map((x, i) => {
-            const settled = allSettled[i];
-            const error = settled.status === 'rejected' ? settled.reason : null;
-            if (!error) return '';
-            return getDetailedErrorMessage(x, error);
-        })
-            .join('\n')
-            .trim();
-
-        enqueueErrorMessage_(t`Your post failed to publish due to an error. Click 'Retry' to attempt posting again.`, {
-            detail: detailedMessage,
+        enqueueErrorsMessage_(t`Your post failed to publish due to an error. Click 'Retry' to attempt posting again.`, {
+            errors: compact(allSettled.map((x) => (x.status === 'rejected' ? x.reason : null))),
             persist: true,
         });
     } else {

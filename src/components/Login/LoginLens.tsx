@@ -53,7 +53,10 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
                 enqueueSuccessMessage(t`Your Lens account is now connected.`);
                 LoginModalRef.close();
             } catch (error) {
-                enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to login`));
+                enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to login`), {
+                    error,
+                });
+                throw error;
             }
         },
         [profiles, currentProfile],

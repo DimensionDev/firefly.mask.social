@@ -1,10 +1,10 @@
 import { plural, t } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
+import { compact } from 'lodash-es';
 
 import { SocialPlatform } from '@/constants/enum.js';
 import { SORTED_SOURCES } from '@/constants/index.js';
-import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
-import { getDetailedErrorMessage } from '@/helpers/getDetailedErrorMessage.js';
+import { enqueueErrorsMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { failedAt } from '@/helpers/isPublishedThread.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
@@ -125,17 +125,8 @@ export async function crossPostThread(progressCallback?: (percentage: number, in
             enqueueSuccessMessage(t`Your posts have published successfully on ${resolveSourceName(x)}.`);
         });
 
-        // concat all error messages for reporting
-        const detailedMessage = SORTED_SOURCES.map((x, i) => {
-            const error = allErrors[i];
-            if (!error) return '';
-            return getDetailedErrorMessage(x, error);
-        })
-            .join('\n')
-            .trim();
-
-        enqueueErrorMessage(message, {
-            detail: detailedMessage,
+        enqueueErrorsMessage(message, {
+            errors: compact(allErrors),
             persist: true,
         });
         throw new Error(`Failed to post on: ${failedPlatforms.map(resolveSourceName).join(' ')}.`);

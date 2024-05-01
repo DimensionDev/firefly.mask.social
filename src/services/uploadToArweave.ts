@@ -35,6 +35,6 @@ export async function uploadToArweave(data: GetPostMetaData, token: string): Pro
             throwIfNotOK: true,
         },
     );
-    if (!arweaveTxId) throw new Error(t`Failed to upload to Arweave`);
+    if (!arweaveTxId) throw new Error(t`Found arweaveTxId is empty.`);
     return arweaveTxId;
 }

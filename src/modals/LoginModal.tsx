@@ -89,7 +89,11 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | 
                     <br />
                     <Trans>The user declined the request.</Trans>
                 </div>,
+                {
+                    error,
+                },
             );
+            throw error;
         }
     }, []);
 

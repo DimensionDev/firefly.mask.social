@@ -9,8 +9,8 @@ import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider
 import { resolveSocialPlatform } from '@/helpers/resolveSocialPlatform.js';
 
 export async function getChannelOGById(source: SourceInURL, channelId: string) {
-    const currentSource = resolveSocialPlatform(source);
-    const channel = await resolveSocialMediaProvider(currentSource)?.getChannelById?.(channelId);
+    const provider = resolveSocialMediaProvider(resolveSocialPlatform(source));
+    const channel = await provider.getChannelById(channelId);
     if (!channel) return createSiteMetadata();
 
     const images = [

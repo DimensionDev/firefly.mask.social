@@ -42,9 +42,6 @@ msgstr "发现"
 msgid "Please be cautious when connecting your wallet, as malicious websites may attempt to access your funds."
 msgstr "当您连接钱包时请务必小心，一些恶意网站会试图访问宁的钱包资产。"
 
-msgid "Failed to mirror. {0}"
-msgstr "转帖失败 {0}"
-
 msgid "X"
 msgstr ""
 
@@ -212,6 +209,9 @@ msgstr "Frame Validator"
 
 msgid "Follow System"
 msgstr "跟随系统"
+
+msgid "Failed to mirror."
+msgstr ""
 
 msgid "URL is required."
 msgstr "请选择 URL"
@@ -667,6 +667,9 @@ msgid "Failed to fetch as ArrayBuffer."
 msgstr "Failed to fetch as ArrayBuffer."
 
 msgid "Your post have published successfully on {0}."
+msgstr ""
+
+msgid "Cancel mirror successfully"
 msgstr ""
 
 msgid "Confirm to log out these accounts?"
