@@ -69,6 +69,7 @@ export function Providers(props: { children: React.ReactNode }) {
                 replaysSessionSampleRate: 0.1,
                 replaysOnErrorSampleRate: 1.0,
             });
+            console.log(`[sentry] Initialized with DSN: ${process.env.NEXT_PUBLIC_SENTRY_DSN}`);
         });
     });
 
