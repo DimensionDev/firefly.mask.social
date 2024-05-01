@@ -31,7 +31,7 @@ export const Quote = memo<QuoteProps>(function Quote({ post, className = '' }) {
             }}
         >
             <PostHeader post={post} isQuote />
-            <PostBody post={post} isQuote />
+            <PostBody post={post} isQuote disablePadding={post.isHidden || post.isEncrypted} />
         </motion.article>
     );
 });

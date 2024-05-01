@@ -12,7 +12,10 @@ export function getPostsSelector(source: SocialPlatform) {
         const result =
             uniqBy(
                 data.pages.flatMap((x) => x?.data || EMPTY_LIST),
-                (post) => post.postId,
+                (post) => {
+                    if (!post.mirrors?.length) return `${post.postId}:mirror`;
+                    return post.postId;
+                },
             ) || EMPTY_LIST;
 
         return mergeThreadPosts(source, result);
