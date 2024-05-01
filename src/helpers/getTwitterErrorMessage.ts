@@ -10,7 +10,7 @@ export function getTwitterErrorMessage(error: unknown) {
                 status: number;
             };
         };
-    
+
         return [`${title} ${status}`, detail].join('\n');
     } catch {
         return error.message;
