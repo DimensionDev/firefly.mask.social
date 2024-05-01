@@ -28,9 +28,6 @@ msgstr "Retweet"
 msgid "Failed to fetch as Blob."
 msgstr "Failed to fetch as Blob."
 
-msgid "Failed to upload image to imgur."
-msgstr "Failed to upload image to imgur."
-
 msgid "Communities"
 msgstr "Communities"
 
@@ -618,9 +615,6 @@ msgstr "LuckyDrop"
 
 msgid "{0} and others"
 msgstr "{0} and others"
-
-msgid "File type is not supported."
-msgstr "File type is not supported."
 
 msgid "Please switch to the wallet used for login."
 msgstr "Please switch to the wallet used for login."

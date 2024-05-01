@@ -33,9 +33,6 @@ msgstr ""
 msgid "Failed to fetch as Blob."
 msgstr "获取 Blob 失败。"
 
-msgid "Failed to upload image to imgur."
-msgstr "上传图片失败。"
-
 msgid "Communities"
 msgstr "社区"
 
@@ -623,9 +620,6 @@ msgstr "红包"
 
 msgid "{0} and others"
 msgstr "{0} 和 其他"
-
-msgid "File type is not supported."
-msgstr ""
 
 msgid "Please switch to the wallet used for login."
 msgstr "请切换钱包登录。"

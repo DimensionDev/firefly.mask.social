@@ -22,14 +22,19 @@ export async function uploadToArweave(data: GetPostMetaData, token: string): Pro
     const url = urlcat(FIREFLY_ROOT_URL, '/v1/lens/public_metadata');
     const {
         data: { arweaveTxId },
-    } = await fetchJSON<IUploadToArweaveResponse>(url, {
-        method: 'POST',
-        headers: {
-            'x-access-token': token,
+    } = await fetchJSON<IUploadToArweaveResponse>(
+        url,
+        {
+            method: 'POST',
+            headers: {
+                'x-access-token': token,
+            },
+            body: JSON.stringify(data),
         },
-        body: JSON.stringify(data),
-    });
-
+        {
+            throwIfNotOK: true,
+        },
+    );
     if (!arweaveTxId) throw new Error(t`Failed to upload to Arweave`);
     return arweaveTxId;
 }

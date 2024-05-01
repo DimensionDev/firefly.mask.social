@@ -40,7 +40,7 @@ async function updateRpClaimStrategy(compositePost: CompositePost) {
     const { postId, typedMessage, rpPayload } = compositePost;
     if (process.env.NODE_ENV === 'development') {
         if (rpPayload?.publicKey && !SORTED_SOURCES.some((x) => postId[x])) {
-            console.error("No any post id for updating RedPacket's claim strategy.");
+            console.error("[cross post] No any post id for updating RedPacket's claim strategy.");
         }
     }
 
@@ -193,7 +193,7 @@ export async function crossPost(
     );
 
     const updatedCompositePost = getCompositePost(compositePost.id);
-    if (!updatedCompositePost) throw new Error('Post not found.');
+    if (!updatedCompositePost) throw new Error(`Post not found with id: ${compositePost.id}`);
 
     // check publish result
     const failedPlatforms = failedAt(updatedCompositePost);
@@ -243,8 +243,8 @@ export async function crossPost(
         }
     }
 
+    // update red packet claim strategy
     try {
-        // update red packet claim strategy
         await updateRpClaimStrategy(updatedCompositePost);
     } catch (error) {
         console.error(`[cross post]: failed to update red packet claim strategy: ${error}`);

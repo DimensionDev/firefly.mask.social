@@ -6,8 +6,8 @@ import { notFound } from 'next/navigation.js';
 import { ChannelPage } from '@/app/(normal)/pages/Channel.js';
 import { Loading } from '@/components/Loading.js';
 import type { SourceInURL } from '@/constants/enum.js';
+import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSocialPlatform } from '@/helpers/resolveSocialPlatform.js';
-import { getChannelById } from '@/services/getChannelById.js';
 
 interface PageProps {
     params: {
@@ -23,7 +23,7 @@ export function ChannelDetailPage({ params: { id: channelId }, searchParams: { s
 
     const { data: channel = null, isLoading } = useQuery({
         queryKey: ['channel', currentSource, channelId],
-        queryFn: () => getChannelById(currentSource, channelId),
+        queryFn: () => resolveSocialMediaProvider(currentSource)?.getChannelById(channelId),
     });
 
     if (isLoading) {

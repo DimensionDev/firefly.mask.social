@@ -1,5 +1,7 @@
 /* cspell:disable */
 
+import { fetchJSON } from '@/helpers/fetchJSON.js';
+
 // Learn more supported languages here:
 // https://api.cognitive.microsofttranslator.com/languages?api-version=3.0
 export enum Language {
@@ -143,6 +145,16 @@ export interface Translation {
     to: Language;
 }
 
+interface TranslationResponse {
+    data: {
+        detectedLanguage: {
+            language: Language;
+            score: number;
+        };
+        translations: Translation[];
+    };
+}
+
 /**
  * Translates the provided text to the specified target language.
  *
@@ -158,22 +170,22 @@ export async function translate(
     detectedLanguage: Language;
     translations: Translation[];
 }> {
-    const response = await fetch(`/v1/misc/translate`, {
-        method: 'POST',
-        body: JSON.stringify({
-            toLanguage: to,
-            text,
-        }),
-    });
-
-    if (!response.ok) {
-        throw new Error('Translation failed');
-    }
-
-    const data = await response.json();
+    const { data } = await fetchJSON<TranslationResponse>(
+        `/v1/misc/translate`,
+        {
+            method: 'POST',
+            body: JSON.stringify({
+                toLanguage: to,
+                text,
+            }),
+        },
+        {
+            throwIfNotOK: true,
+        },
+    );
 
     return {
-        detectedLanguage: data.data.detectedLanguage.language,
-        translations: data.data.translations,
+        detectedLanguage: data.detectedLanguage.language,
+        translations: data.translations,
     };
 }

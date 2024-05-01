@@ -56,7 +56,7 @@ export function createPostTo(source: SocialPlatform, options: CreatePostToOption
                 }
                 default:
                     safeUnreachable(type);
-                    throw new Error(t`Invalid compose type.`);
+                    throw new Error(t`Invalid compose type: ${type}.`);
             }
         };
 
