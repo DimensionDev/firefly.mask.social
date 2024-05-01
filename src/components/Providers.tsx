@@ -63,10 +63,10 @@ export function Providers(props: { children: React.ReactNode }) {
                 release: `${process.version}`,
                 integrations: [],
 
-                tracesSampleRate: 0.1,
+                tracesSampleRate: 1.0,
                 tracePropagationTargets: [],
 
-                replaysSessionSampleRate: 0.1,
+                replaysSessionSampleRate: 1.0,
                 replaysOnErrorSampleRate: 1.0,
             });
             console.log(`[sentry] Initialized with DSN: ${process.env.NEXT_PUBLIC_SENTRY_DSN}`);
