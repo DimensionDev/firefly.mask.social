@@ -18,6 +18,7 @@ function shouldCrossPost(index: number, post: CompositePost) {
 }
 
 async function getParentPostById(source: SocialPlatform, postId: string) {
+    if (!postId) throw new Error(`Failed to get parent post by id: ${postId}.`);
     switch (source) {
         case SocialPlatform.Farcaster: {
             // the hub might be delay in updating the post

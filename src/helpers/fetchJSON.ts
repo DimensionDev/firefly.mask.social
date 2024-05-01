@@ -23,12 +23,8 @@ export async function fetchJSON<T = unknown>(
         getNextFetchers(options),
     );
     if (throwIfNotOK && !response.ok) {
-        try {
-            const text = await response.text();
-            throw new Error(`Failed to fetch JSON: ${response.url} ${text}.`);
-        } catch {
-            throw new Error(`Failed to fetch JSON with response url: ${response.url}.`);
-        }
+        const text = await response.text();
+        throw new Error(`Failed to fetch JSON: ${response.url} ${text}.`);
     }
     return response.json();
 }
