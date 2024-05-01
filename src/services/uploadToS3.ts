@@ -6,6 +6,7 @@ export async function uploadToS3(file: File, source: SourceInURL): Promise<strin
     const formData = new FormData();
     formData.append('file', file);
     formData.append('source', source);
+
     const response = await fetchJSON<ResponseJSON<{ link: string }>>(
         '/api/s3',
         {
@@ -13,6 +14,7 @@ export async function uploadToS3(file: File, source: SourceInURL): Promise<strin
             body: formData,
         },
         {
+            throwIfNotOK: true,
             noDefaultContentType: true,
         },
     );
