@@ -45,10 +45,7 @@ interface ErrorsOptions extends OptionsObject {
 }
 
 export function enqueueErrorsMessage(message: SnackbarMessage, options?: ErrorsOptions) {
-    const detailedMessage = options?.errors
-        ?.map((error) => getDetailedErrorMessage(error))
-        .join('\n')
-        .trim();
+    const detailedMessage = options?.errors?.map(getDetailedErrorMessage).join('\n').trim();
 
     SnackbarRef.open({
         message,
