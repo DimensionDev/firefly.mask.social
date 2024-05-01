@@ -213,7 +213,9 @@ export async function crossPost(
             const error = settled.status === 'rejected' ? settled.reason : null;
             if (!error) return '';
             return getDetailedErrorMessage(x, error);
-        }).join('\n');
+        })
+            .join('\n')
+            .trim();
 
         enqueueErrorMessage_(t`Your post failed to publish due to an error. Click 'Retry' to attempt posting again.`, {
             detail: detailedMessage,

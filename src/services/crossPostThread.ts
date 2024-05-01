@@ -132,7 +132,9 @@ export async function crossPostThread(progressCallback?: (percentage: number, in
             const error = allErrors[i];
             if (!error) return '';
             return getDetailedErrorMessage(x, error);
-        }).join('\n');
+        })
+            .join('\n')
+            .trim();
 
         enqueueErrorMessage(message, {
             detail: detailedMessage,

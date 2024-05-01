@@ -21,16 +21,8 @@ export function createPostTo(source: SocialPlatform, options: CreatePostToOption
     const { updatePostInThread } = useComposeStateStore.getState();
 
     return async (type: ComposeType, post: CompositePost) => {
-        let uploadedImages: MediaObject[] = [];
-        let uploadedVideos: MediaObject[] = [];
-
-        if (options.uploadImages) {
-            uploadedImages = await options.uploadImages?.();
-        }
-
-        if (options.uploadVideos) {
-            uploadedVideos = await options.uploadVideos?.();
-        }
+        const uploadedImages: MediaObject[] = (await options.uploadImages?.()) ?? [];
+        const uploadedVideos: MediaObject[] = (await options.uploadVideos?.()) ?? [];
 
         updatePostInThread(post.id, (x) => ({
             ...x,
