@@ -3,8 +3,6 @@ import { fetchCached } from '@/helpers/fetchCached.js';
 import { fetchSquashed } from '@/helpers/fetchSquashed.js';
 
 export interface NextFetchersOptions {
-    /** Throw if response not ok (status should in the range 200-299) */
-    throwIfNotOK?: boolean;
     /** Assigns 0 to disable squash. */
     squashExpiration?: number;
     /** Assigns 0 to disable cache */

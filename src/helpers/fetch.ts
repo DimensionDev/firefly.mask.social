@@ -13,16 +13,12 @@ export async function fetch(input: RequestInfo | URL, init?: RequestInit, fetche
         },
     );
 
-    // capture exception if bad response or any error occurs
-    let hasError = false;
-    let response: Response | undefined;
-
-    try {
-        response = await fetcher(input, init);
-        if (!response.ok) hasError = true;
-        return response;
-    } catch (error) {
-        hasError = true;
-        throw error;
+    const response = await fetcher(input, init);
+    if (!response.ok) {
+        const text = await response.text();
+        throw new Error(
+            [`[fetch] failed to fetch: ${response.status} ${response.statusText} ${response.url}`, text].join('\n'),
+        );
     }
+    return response;
 }

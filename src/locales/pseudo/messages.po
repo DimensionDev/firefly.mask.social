@@ -199,6 +199,9 @@ msgstr ""
 msgid "Follow more friends to continue exploring on {0}."
 msgstr ""
 
+msgid "No wallet client found. Please connect your wallet."
+msgstr ""
+
 msgid "Frame Validator"
 msgstr ""
 
@@ -259,9 +262,6 @@ msgstr ""
 msgid "Comment cannot be empty."
 msgstr ""
 
-msgid "Failed to fetch as Text."
-msgstr ""
-
 msgid "Reply"
 msgstr ""
 
@@ -281,9 +281,6 @@ msgid "Failed to unvote post."
 msgstr ""
 
 msgid "Privacy Policy"
-msgstr ""
-
-msgid "No wallet client found"
 msgstr ""
 
 msgid "Switch"
