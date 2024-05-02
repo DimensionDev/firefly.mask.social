@@ -1,9 +1,10 @@
 import { getPublicKey, utils } from '@noble/ed25519';
 import { toHex } from 'viem';
+import urlcat from 'urlcat';
 
 import { fetchJSON } from '@/helpers/fetchJSON.js';
-import { waitForSignedKeyRequest } from '@/helpers/waitForSignedKeyRequest.js';
 import { FarcasterSession } from '@/providers/farcaster/Session.js';
+import type { SignedKeyRequestResponse } from '@/providers/types/Warpcast.js';
 import type { ResponseJSON } from '@/types/index.js';
 
 /**
@@ -28,19 +29,56 @@ export async function createSessionByGrantPermission(callback?: (url: string) =>
         body: JSON.stringify({
             key: toHex(publicKey),
         }),
+        signal,
     });
     if (!response.success) throw new Error(response.error.message);
 
     // present QR code to the user or open the link in a new tab
     callback?.(response.data.deeplinkUrl);
 
-    const signedResponse = await waitForSignedKeyRequest(signal)(response.data.token);
+    const query = async () => {
+        const signedKeyResponse = await fetchJSON<ResponseJSON<SignedKeyRequestResponse>>(
+            urlcat('/api/warpcast/signed-key', {
+                token: response.data.token,
+            }),
+            {
+                signal,
+            },
+        );
+        if (!signedKeyResponse.success) throw new Error(signedKeyResponse.error.message);
+        return signedKeyResponse.data;
+    };
 
-    return new FarcasterSession(
-        `${signedResponse.result.signedKeyRequest.userFid}`,
-        toHex(privateKey),
-        response.data.timestamp,
-        response.data.expiresAt,
-        response.data.token,
+    // vercel serverless function has a timeout of 15 seconds by default
+    // we extended the timeout to 30 seconds and will retry 10 times
+    const queryTimes = async (times = 10) => {
+        let lastError = null;
+
+        for (let i = 0; i < times; i += 1) {
+            try {
+                return await query();
+            } catch (error) {
+                lastError = error;
+                continue;
+            }
+        }
+        throw lastError;
+    };
+
+    const result = await queryTimes();
+
+    if (result?.result.signedKeyRequest.userFid)
+        return new FarcasterSession(
+            `${result.result.signedKeyRequest.userFid}`,
+            toHex(privateKey),
+            response.data.timestamp,
+            response.data.expiresAt,
+            response.data.token,
+        );
+
+    throw new Error(
+        result
+            ? JSON.stringify(result)
+            : 'Failed to query the signed key request status after several attempts. Please try again later.',
     );
 }

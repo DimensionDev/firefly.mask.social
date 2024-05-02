@@ -31,7 +31,11 @@ export function ProfileSettings({ source }: ProfileSettingsProps) {
     }, [refreshProfiles]);
 
     return (
+<<<<<<< HEAD
         <div className=" flex flex-col overflow-x-hidden rounded-2xl border border-line bg-primaryBottom md:w-[290px] md:px-5">
+=======
+        <div className=" flex flex-col overflow-x-hidden rounded-2xl bg-primaryBottom md:w-[290px] md:border md:border-line md:px-5">
+>>>>>>> 38339fe ([Release] Hotfix 5.1.5 => 5.1.6 (patch) (#974))
             {profiles.map((profile) => (
                 <ClickableButton
                     key={profile.profileId}

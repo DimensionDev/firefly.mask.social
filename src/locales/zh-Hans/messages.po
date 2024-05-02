@@ -216,6 +216,9 @@ msgstr "确认"
 msgid "Follow more friends to continue exploring on {0}."
 msgstr "在 {0} 上去关注更多的人来继续浏览吧。"
 
+msgid "No wallet client found. Please connect your wallet."
+msgstr ""
+
 msgid "Frame Validator"
 msgstr "Frame Validator"
 
@@ -276,9 +279,6 @@ msgstr ""
 msgid "Comment cannot be empty."
 msgstr ""
 
-msgid "Failed to fetch as Text."
-msgstr "获取内容失败。"
-
 msgid "Reply"
 msgstr "回复"
 
@@ -299,9 +299,6 @@ msgstr "无法对帖子进行投票。"
 
 msgid "Privacy Policy"
 msgstr "隐私条款"
-
-msgid "No wallet client found"
-msgstr "未找到钱包客户端"
 
 msgid "Switch"
 msgstr "切换"
@@ -332,6 +329,9 @@ msgstr ""
 
 msgid "Malformed session."
 msgstr "会话格式错误。"
+
+msgid "Failed to login."
+msgstr ""
 
 msgid "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code."
 msgstr "在你装有 Warpcast 的手机上，打开 <0> 相机 </0>，扫描二维码。"
