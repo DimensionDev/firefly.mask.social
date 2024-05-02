@@ -40,9 +40,6 @@ msgstr "Please be cautious when connecting your wallet, as malicious websites ma
 msgid "{followerCount, plural, one {Follower} other {Followers}}"
 msgstr "{followerCount, plural, one {Follower} other {Followers}}"
 
-msgid "Failed to mirror. {0}"
-msgstr "Failed to mirror. {0}"
-
 msgid "X"
 msgstr "X"
 

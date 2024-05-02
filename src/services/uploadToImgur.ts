@@ -1,3 +1,4 @@
+import { env } from '@/constants/env.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 
 interface UploadImgurResponse {
@@ -5,8 +6,6 @@ interface UploadImgurResponse {
         link: string;
     };
 }
-
-import { env } from '@/constants/env.js';
 
 export async function uploadToImgur(file: File, metadata?: { title: string; description?: string }): Promise<string> {
     const formData = new FormData();

@@ -40,9 +40,6 @@ msgstr ""
 msgid "{followerCount, plural, one {Follower} other {Followers}}"
 msgstr ""
 
-msgid "Failed to mirror. {0}"
-msgstr ""
-
 msgid "X"
 msgstr ""
 

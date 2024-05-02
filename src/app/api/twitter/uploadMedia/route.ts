@@ -13,15 +13,8 @@ export async function POST(request: NextRequest) {
         const file = formData.get('file') as File;
         const buffer = Buffer.from(await file.arrayBuffer());
         const response = await client.v1.uploadMedia(buffer, { mimeType: file.type });
-<<<<<<< HEAD
-        return createSuccessResponseJSON({ media_id: Number(response), media_id_string: response });
-=======
         console.error('[twitter]: uploadMedia/', response);
-        return createSuccessResponseJSON(
-            { media_id: Number(response), media_id_string: response },
-            { status: StatusCodes.OK },
-        );
->>>>>>> 8c8a765 ([Release] Hotfix 5.1.4 => 5.1.5 (patch) (#964))
+        return createSuccessResponseJSON({ media_id: Number(response), media_id_string: response });
     } catch (error) {
         console.error('[twitter]: error uploadMedia/', error);
         return createErrorResponseJSON(getTwitterErrorMessage(error), {

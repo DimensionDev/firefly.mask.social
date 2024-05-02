@@ -10,7 +10,7 @@ export async function GET(request: NextRequest) {
     try {
         const client = await createTwitterClientV2(request);
         const { data } = await client.v2.me();
-console.error('[twitter]: me/', data);
+        console.error('[twitter]: me/', data);
         return createSuccessResponseJSON(data);
     } catch (error) {
         console.error('[twitter]: error me/', error);

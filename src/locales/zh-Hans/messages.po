@@ -45,9 +45,6 @@ msgstr "当您连接钱包时请务必小心，一些恶意网站会试图访问
 msgid "{followerCount, plural, one {Follower} other {Followers}}"
 msgstr ""
 
-msgid "Failed to mirror. {0}"
-msgstr "转帖失败 {0}"
-
 msgid "X"
 msgstr ""
 
