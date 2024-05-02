@@ -1,6 +1,8 @@
+import urlcat from 'urlcat';
+
 import { fetchJSON } from '@/helpers/fetchJSON.js';
-import { waitForSignedKeyRequest } from '@/helpers/waitForSignedKeyRequest.js';
 import { FarcasterSession } from '@/providers/farcaster/Session.js';
+import type { SignedKeyRequestResponse } from '@/providers/types/Warpcast.js';
 import type { ResponseJSON } from '@/types/index.js';
 
 /**
@@ -21,19 +23,29 @@ export async function createSessionByGrantPermission(callback?: (url: string) =>
         }>
     >('/api/warpcast/signin', {
         method: 'POST',
+        signal,
     });
     if (!response.success) throw new Error(response.error.message);
 
     // present QR code to the user or open the link in a new tab
     callback?.(response.data.deeplinkUrl);
 
-    const signedResponse = await waitForSignedKeyRequest(signal)(response.data.token);
-
-    return new FarcasterSession(
-        `${signedResponse.result.signedKeyRequest.userFid}`,
-        response.data.privateKey,
-        response.data.timestamp,
-        response.data.expiresAt,
-        response.data.token,
+    const signedKeyResponse = await fetchJSON<ResponseJSON<SignedKeyRequestResponse>>(
+        urlcat('/api/warpcast/signed-key', {
+            token: response.data.token,
+        }),
+        {
+            signal,
+        },
     );
+    if (signedKeyResponse.success)
+        return new FarcasterSession(
+            `${signedKeyResponse.data.result.signedKeyRequest.userFid}`,
+            response.data.privateKey,
+            response.data.timestamp,
+            response.data.expiresAt,
+            response.data.token,
+        );
+
+    throw new Error(signedKeyResponse.error.message);
 }
