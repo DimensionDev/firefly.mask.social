@@ -57,7 +57,7 @@ export function LoginFarcaster() {
                 controllerRef.current = new AbortController();
 
                 try {
-                    const session = createSessionByGrantPermission(
+                    const session = await createSessionByGrantPermission(
                         (url) => {
                             const device = getMobileDevice();
                             if (device === 'unknown') setUrl(url);

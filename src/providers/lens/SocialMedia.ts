@@ -94,6 +94,10 @@ class LensSocialMedia implements Provider {
         throw new Error('Method not implemented.');
     }
 
+    deletePost(postId: string): Promise<boolean> {
+        throw new Error('Method not implemented.');
+    }
+
     get type() {
         return SessionType.Lens;
     }

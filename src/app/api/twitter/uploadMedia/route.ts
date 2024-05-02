@@ -13,7 +13,6 @@ export async function POST(request: NextRequest) {
         const file = formData.get('file') as File;
         const buffer = Buffer.from(await file.arrayBuffer());
         const response = await client.v1.uploadMedia(buffer, { mimeType: file.type });
-        console.error('[twitter]: uploadMedia/', response);
         return createSuccessResponseJSON({ media_id: Number(response), media_id_string: response });
     } catch (error) {
         console.error('[twitter]: error uploadMedia/', error);
