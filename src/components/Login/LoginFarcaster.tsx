@@ -24,18 +24,21 @@ export function LoginFarcaster() {
 
     const [{ loading: loadingGrantPermission, error: errorGrantPermission }, onLoginWithGrantPermission] =
         useAsyncFn(async () => {
-            controllerRef.current?.abort();
-            controllerRef.current = new AbortController();
-            await login(() =>
-                createSessionByGrantPermission(
-                    (url) => {
-                        const device = getMobileDevice();
-                        if (device === 'unknown') setUrl(url);
-                        else location.href = url;
-                    },
-                    controllerRef.current?.signal,
-                ),
-            );
+            // reset the process if abort controller is aborted or not initialized
+            if (!controllerRef.current || controllerRef.current?.signal.aborted) {
+                controllerRef.current = new AbortController();
+
+                await login(() =>
+                    createSessionByGrantPermission(
+                        (url) => {
+                            const device = getMobileDevice();
+                            if (device === 'unknown') setUrl(url);
+                            else location.href = url;
+                        },
+                        controllerRef.current?.signal,
+                    ),
+                );
+            }
         }, []);
 
     const [{ loading: loadingCustodyWallet }, onLoginWithCustodyWallet] = useAsyncFn(async () => {
