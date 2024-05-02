@@ -310,6 +310,9 @@ msgstr "Your posts have published successfully on {0}."
 msgid "Malformed session."
 msgstr "Malformed session."
 
+msgid "Failed to login."
+msgstr "Failed to login."
+
 msgid "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code."
 msgstr "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code."
 

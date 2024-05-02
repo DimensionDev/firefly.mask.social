@@ -315,6 +315,9 @@ msgstr ""
 msgid "Malformed session."
 msgstr "会话格式错误。"
 
+msgid "Failed to login."
+msgstr ""
+
 msgid "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code."
 msgstr "在你装有 Warpcast 的手机上，打开 <0> 相机 </0>，扫描二维码。"
 
