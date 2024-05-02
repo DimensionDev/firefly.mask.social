@@ -42,6 +42,9 @@ export async function createSessionByGrantPermission(callback?: (url: string) =>
         if (!signedKeyResponse.success) throw new Error(signedKeyResponse.error.message);
         return signedKeyResponse.data;
     };
+
+    // vercel serverless function has a timeout of 15 seconds by default
+    // we extended the timeout to 30 seconds and will retry 10 times
     const queryTimes = async (times = 10) => {
         let lastError = null;
 
