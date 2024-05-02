@@ -9,6 +9,8 @@ const Schema = z.object({
     token: z.string(),
 });
 
+export const maxDuration = 300;
+
 export async function GET(request: NextRequest) {
     try {
         const { token } = Schema.parse({

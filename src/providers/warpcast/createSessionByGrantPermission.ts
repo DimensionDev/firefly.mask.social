@@ -1,3 +1,4 @@
+import { attemptUntil } from '@masknet/web3-shared-base';
 import urlcat from 'urlcat';
 
 import { fetchJSON } from '@/helpers/fetchJSON.js';
@@ -30,22 +31,33 @@ export async function createSessionByGrantPermission(callback?: (url: string) =>
     // present QR code to the user or open the link in a new tab
     callback?.(response.data.deeplinkUrl);
 
-    const signedKeyResponse = await fetchJSON<ResponseJSON<SignedKeyRequestResponse>>(
-        urlcat('/api/warpcast/signed-key', {
-            token: response.data.token,
-        }),
-        {
-            signal,
-        },
-    );
-    if (signedKeyResponse.success)
+    const query = async () => {
+        const signedKeyResponse = await fetchJSON<ResponseJSON<SignedKeyRequestResponse>>(
+            urlcat('/api/warpcast/signed-key', {
+                token: response.data.token,
+            }),
+            {
+                signal,
+            },
+        );
+        if (!signedKeyResponse.success) throw new Error(signedKeyResponse.error.message);
+        return signedKeyResponse.data;
+    };
+
+    const result = await attemptUntil(Array.from<typeof query>({ length: 10 }).fill(query), null);
+
+    if (result?.result.signedKeyRequest.userFid)
         return new FarcasterSession(
-            `${signedKeyResponse.data.result.signedKeyRequest.userFid}`,
+            `${result.result.signedKeyRequest.userFid}`,
             response.data.privateKey,
             response.data.timestamp,
             response.data.expiresAt,
             response.data.token,
         );
 
-    throw new Error(signedKeyResponse.error.message);
+    throw new Error(
+        result
+            ? JSON.stringify(result)
+            : 'Failed to query the signed key request status after several attempts. Please try again later.',
+    );
 }
