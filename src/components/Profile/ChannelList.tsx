@@ -22,10 +22,7 @@ export function ChannelList({ source, profileId }: ChannelListProps) {
 
         queryFn: async ({ pageParam }) => {
             if (!profileId) return createPageable(EMPTY_LIST, undefined);
-
             const provider = resolveSocialMediaProvider(source);
-            if (!provider) return createPageable(EMPTY_LIST, undefined);
-
             return provider.getChannelsByProfileId(profileId, createIndicator(undefined, pageParam));
         },
         initialPageParam: '',

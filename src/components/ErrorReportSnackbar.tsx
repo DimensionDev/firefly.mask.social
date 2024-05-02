@@ -55,12 +55,12 @@ export const ErrorReportSnackbar = forwardRef<HTMLDivElement, ReportCompleteProp
         <SnackbarContent ref={ref} className="rounded-[4px] bg-danger">
             <div className="w-full text-sm">
                 <div className="p-2 pl-3">
-                    <div className="max-w-400 flex text-white">
+                    <div className="flex max-w-[400px] text-white">
                         <div className="mr-auto flex flex-grow cursor-pointer items-center" onClick={handleExpandClick}>
                             <div className="mr-1 inline-block p-2 text-white">
                                 <XCircleIcon className="h-[20px] w-[20px] text-white" />
                             </div>
-                            <div className="overflow-hidden text-ellipsis whitespace-nowrap">{message}</div>
+                            <div>{message}</div>
                         </div>
                         <ClickableButton className="p-2" onClick={handleDismiss}>
                             <CloseIcon width={16} height={16} />
@@ -70,7 +70,10 @@ export const ErrorReportSnackbar = forwardRef<HTMLDivElement, ReportCompleteProp
                 {detail ? (
                     <div>
                         {expanded ? (
-                            <div className="max-h-[90px] overflow-auto p-4 pt-0" style={{ scrollbarWidth: 'none' }}>
+                            <div
+                                className="max-h-[90px] max-w-[400px] overflow-auto break-words p-4 pt-0"
+                                style={{ scrollbarWidth: 'none' }}
+                            >
                                 <div className="whitespace-pre text-white">{detail}</div>
                             </div>
                         ) : null}

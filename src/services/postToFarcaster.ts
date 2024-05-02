@@ -8,18 +8,14 @@ import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { hasRpPayload } from '@/helpers/rpPayload.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { type Post, type PostType } from '@/providers/types/SocialMedia.js';
-import { createPostTo, type CreatePostToOptions } from '@/services/createPostTo.js';
+import { createPostTo } from '@/services/createPostTo.js';
 import { uploadToS3 } from '@/services/uploadToS3.js';
 import { type CompositePost } from '@/store/useComposeStore.js';
 import { useFarcasterStateStore } from '@/store/useProfileStore.js';
 import type { ComposeType } from '@/types/compose.js';
 import type { MediaObject } from '@/types/index.js';
 
-export async function postToFarcaster(
-    type: ComposeType,
-    compositePost: CompositePost,
-    options?: Partial<CreatePostToOptions>,
-) {
+export async function postToFarcaster(type: ComposeType, compositePost: CompositePost) {
     const { chars, parentPost, images, frames, openGraphs, typedMessage, postId } = compositePost;
 
     const farcasterPostId = postId.Farcaster;
@@ -85,7 +81,6 @@ export async function postToFarcaster(
             if (!farcasterParentPost) throw new Error(t`No parent post found.`);
             return FarcasterSocialMediaProvider.mirrorPost(farcasterParentPost.postId);
         },
-        ...options,
     });
 
     return postTo(type, compositePost);

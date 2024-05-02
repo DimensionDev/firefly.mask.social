@@ -1,26 +1,24 @@
-import { t } from '@lingui/macro';
+import { plural, t } from '@lingui/macro';
 import { RedPacketMetaKey } from '@masknet/plugin-redpacket';
 import { FireflyRedPacket } from '@masknet/web3-providers';
 import { type FireflyRedPacketAPI, type RedPacketJSONPayload } from '@masknet/web3-providers/types';
 import { produce } from 'immer';
-import { compact, noop } from 'lodash-es';
+import { compact } from 'lodash-es';
 
 import { queryClient } from '@/configs/queryClient.js';
 import { NODE_ENV, SocialPlatform } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { SORTED_SOURCES } from '@/constants/index.js';
 import { createMockComment } from '@/helpers/createMockComment.js';
-import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import { enqueueErrorsMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getCompositePost } from '@/helpers/getCompositePost.js';
 import { getCurrentProfileAll } from '@/helpers/getCurrentProfileAll.js';
-import { getDetailedErrorMessage } from '@/helpers/getDetailedErrorMessage.js';
 import { failedAt } from '@/helpers/isPublishedPost.js';
 import { resolvePostTo } from '@/helpers/resolvePostTo.js';
 import { resolveRedPacketPlatformType } from '@/helpers/resolveRedPacketPlatformType.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { hasRpPayload } from '@/helpers/rpPayload.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
-import type { CreatePostToOptions } from '@/services/createPostTo.js';
 import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
 import type { ComposeType } from '@/types/compose.js';
 
@@ -41,7 +39,7 @@ async function updateRpClaimStrategy(compositePost: CompositePost) {
     const { postId, typedMessage, rpPayload } = compositePost;
     if (env.shared.NODE_ENV === NODE_ENV.Development) {
         if (rpPayload?.publicKey && !SORTED_SOURCES.some((x) => postId[x])) {
-            console.error("No any post id for updating RedPacket's claim strategy.");
+            console.error("[cross post] No any post id for updating RedPacket's claim strategy.");
         }
     }
 
@@ -132,26 +130,30 @@ async function setQueryDataForQuote(post: CompositePost) {
 }
 
 interface CrossPostOptions {
+    isRetry?: boolean;
     // skip if post is already published
     skipIfPublishedPost?: boolean;
     // skip if no parent post is found in reply or quote
     skipIfNoParentPost?: boolean;
     // If it's a post in thread, only refresh the feeds after sending the last post.
     skipRefreshFeeds?: boolean;
-    // override createPostTo options
-    options?: Partial<CreatePostToOptions>;
+    // skip check published result and showing success or error messages
+    skipCheckPublished?: boolean;
 }
 
 export async function crossPost(
     type: ComposeType,
     compositePost: CompositePost,
-    { skipIfPublishedPost = false, skipIfNoParentPost = false, skipRefreshFeeds, options }: CrossPostOptions = {},
+    {
+        isRetry = false,
+        skipIfPublishedPost = false,
+        skipIfNoParentPost = false,
+        skipCheckPublished = false,
+        skipRefreshFeeds = false,
+    }: CrossPostOptions = {},
 ) {
     const { updatePostInThread } = useComposeStateStore.getState();
     const { availableSources } = compositePost;
-
-    const enqueueSuccessMessage_ = !options?.noSuccessMessage ? enqueueSuccessMessage : noop;
-    const enqueueErrorMessage_ = !options?.noErrorMessage ? enqueueErrorMessage : noop;
 
     const allSettled = await Promise.allSettled(
         SORTED_SOURCES.map(async (x) => {
@@ -168,7 +170,7 @@ export async function crossPost(
             }
 
             try {
-                const result = await resolvePostTo(x)(type, compositePost, options);
+                const result = await resolvePostTo(x)(type, compositePost);
                 updatePostInThread(compositePost.id, (y) => ({
                     ...y,
                     postError: {
@@ -178,50 +180,58 @@ export async function crossPost(
                 }));
                 return result;
             } catch (error) {
-                if (error instanceof Error) {
-                    updatePostInThread(compositePost.id, (y) => ({
-                        ...y,
-                        postError: {
-                            ...y.postError,
-                            [x]: error,
-                        },
-                    }));
-                }
-
+                updatePostInThread(compositePost.id, (y) => ({
+                    ...y,
+                    postError: {
+                        ...y.postError,
+                        [x]: error instanceof Error ? error : new Error(`${error}`),
+                    },
+                }));
                 throw error;
             }
         }),
     );
 
     const updatedCompositePost = getCompositePost(compositePost.id);
-    if (!updatedCompositePost) throw new Error('Post not found.');
+    if (!updatedCompositePost) throw new Error(`Post not found with id: ${compositePost.id}`);
 
     // check publish result
-    const failedPlatforms = failedAt(updatedCompositePost);
+    if (!skipCheckPublished) {
+        const failedPlatforms = failedAt(updatedCompositePost);
 
-    if (failedPlatforms.length) {
-        // show success message if no error found on certain platform
-        SORTED_SOURCES.forEach((x, i) => {
-            const settled = allSettled[i];
-            const error = settled.status === 'rejected' ? settled.reason : null;
-            if (error) return;
-            enqueueSuccessMessage_(t`Your post have published successfully on ${resolveSourceName(x)}.`);
-        });
+        if (failedPlatforms.length) {
+            // the first error on each platform
+            const allErrors = allSettled.map((x) => (x.status === 'rejected' ? x.reason : null));
 
-        // concat all error messages for reporting
-        const detailedMessage = SORTED_SOURCES.map((x, i) => {
-            const settled = allSettled[i];
-            const error = settled.status === 'rejected' ? settled.reason : null;
-            if (!error) return '';
-            return getDetailedErrorMessage(x, error);
-        }).join('\n');
+            // show success message if no error found on certain platform
+            SORTED_SOURCES.forEach((x, i) => {
+                const settled = allSettled[i];
+                const error = settled.status === 'rejected' ? settled.reason : null;
+                if (error) return;
+                const rootPost = compositePost;
+                if (!rootPost.availableSources.includes(x)) return;
+                if (!isRetry) {
+                    enqueueSuccessMessage(t`Your post have published successfully on ${resolveSourceName(x)}.`);
+                }
+            });
 
-        enqueueErrorMessage_(t`Your post failed to publish due to an error. Click 'Retry' to attempt posting again.`, {
-            detail: detailedMessage,
-            persist: true,
-        });
-    } else {
-        enqueueSuccessMessage_(t`Your post has published successfully.`);
+            const firstPlatform = failedPlatforms[0] ? resolveSourceName(failedPlatforms[0]) : '';
+            const secondPlatform = failedPlatforms[1] ? resolveSourceName(failedPlatforms[1]) : '';
+
+            const message = plural(failedPlatforms.length, {
+                one: `Your post failed to publish on ${firstPlatform} due to an error. Click 'Retry' to attempt posting again.`,
+                two: `Your post failed to publish on ${firstPlatform} and ${secondPlatform} due to an error. Click 'Retry' to attempt posting again.`,
+                other: "Your post failed to publish due to an error. Click 'Retry' to attempt posting again.",
+            });
+
+            enqueueErrorsMessage(message, {
+                errors: compact(allErrors),
+                persist: true,
+            });
+            throw new Error(`Failed to post on: ${failedPlatforms.map(resolveSourceName).join(' ')}.`);
+        } else {
+            enqueueSuccessMessage(t`Your post has published successfully.`);
+        }
     }
 
     // all failed
@@ -244,8 +254,8 @@ export async function crossPost(
         }
     }
 
+    // update red packet claim strategy
     try {
-        // update red packet claim strategy
         await updateRpClaimStrategy(updatedCompositePost);
     } catch (error) {
         console.error(`[cross post]: failed to update red packet claim strategy: ${error}`);

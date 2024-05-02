@@ -30,9 +30,6 @@ export default function OpenGraph() {
             {
                 method: 'DELETE',
             },
-            {
-                throwIfNotOK: true,
-            },
         );
 
         return true;

@@ -28,9 +28,6 @@ msgstr ""
 msgid "Failed to fetch as Blob."
 msgstr ""
 
-msgid "Failed to upload image to imgur."
-msgstr ""
-
 msgid "Communities"
 msgstr ""
 
@@ -41,9 +38,6 @@ msgid "Please be cautious when connecting your wallet, as malicious websites may
 msgstr ""
 
 msgid "{followerCount, plural, one {Follower} other {Followers}}"
-msgstr ""
-
-msgid "Failed to mirror. {0}"
 msgstr ""
 
 msgid "X"
@@ -74,6 +68,9 @@ msgid "Collect Action is not supported yet."
 msgstr ""
 
 msgid "Join our Discord"
+msgstr ""
+
+msgid "Found arweaveTxId is empty."
 msgstr ""
 
 msgid "<0>You</0> and {0} others recasted"
@@ -137,9 +134,6 @@ msgid "Page not found"
 msgstr ""
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/> and # others}} <4>liked your </4><5><6/></5>"
-msgstr ""
-
-msgid "Failed to upload to Arweave"
 msgstr ""
 
 msgid "Password"
@@ -214,10 +208,16 @@ msgstr ""
 msgid "Follow more friends to continue exploring on {0}."
 msgstr ""
 
+msgid "No wallet client found. Please connect your wallet."
+msgstr ""
+
 msgid "Frame Validator"
 msgstr ""
 
 msgid "Follow System"
+msgstr ""
+
+msgid "Failed to mirror."
 msgstr ""
 
 msgid "URL is required."
@@ -238,6 +238,9 @@ msgstr ""
 msgid "Log out"
 msgstr ""
 
+msgid "{0, plural, one {Your post failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your post failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your post failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
+msgstr ""
+
 msgid "post"
 msgstr ""
 
@@ -253,6 +256,9 @@ msgstr ""
 msgid "Try searching for something else."
 msgstr ""
 
+msgid "Invalid compose type: {type}."
+msgstr ""
+
 msgid "and"
 msgstr ""
 
@@ -265,16 +271,10 @@ msgstr ""
 msgid "Comment cannot be empty."
 msgstr ""
 
-msgid "Failed to fetch as Text."
-msgstr ""
-
 msgid "Reply"
 msgstr ""
 
 msgid "Querying the signed key state."
-msgstr ""
-
-msgid "Invalid compose type."
 msgstr ""
 
 msgid "Collected"
@@ -290,9 +290,6 @@ msgid "Failed to unvote post."
 msgstr ""
 
 msgid "Privacy Policy"
-msgstr ""
-
-msgid "No wallet client found"
 msgstr ""
 
 msgid "Switch"
@@ -323,6 +320,9 @@ msgid "Your posts have published successfully on {0}."
 msgstr ""
 
 msgid "Malformed session."
+msgstr ""
+
+msgid "Failed to login."
 msgstr ""
 
 msgid "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code."
@@ -640,9 +640,6 @@ msgstr ""
 msgid "{0} and others"
 msgstr ""
 
-msgid "File type is not supported."
-msgstr ""
-
 msgid "Please switch to the wallet used for login."
 msgstr ""
 
@@ -689,6 +686,9 @@ msgid "Failed to fetch as ArrayBuffer."
 msgstr ""
 
 msgid "Your post have published successfully on {0}."
+msgstr ""
+
+msgid "Cancel mirror successfully"
 msgstr ""
 
 msgid "Confirm to log out these accounts?"
@@ -782,9 +782,6 @@ msgid "Terms of Service"
 msgstr ""
 
 msgid "Already posted on {sourceName}."
-msgstr ""
-
-msgid "Your post failed to publish due to an error. Click 'Retry' to attempt posting again."
 msgstr ""
 
 msgid "Post"

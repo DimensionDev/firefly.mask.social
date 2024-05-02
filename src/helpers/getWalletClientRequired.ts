@@ -21,7 +21,7 @@ export async function getWalletClientRequired(
     if (!firstTryResult) await ConnectWalletModalRef.openAndWaitForClose();
 
     const secondTryResult = firstTryResult ?? (await getWalletClientCatch(config, args));
-    if (!secondTryResult) throw new Error(t`No wallet client found`);
+    if (!secondTryResult) throw new Error(t`No wallet client found. Please connect your wallet.`);
 
     if (args?.chainId && args.chainId !== secondTryResult.chain.id) {
         await ChainModalRef.openAndWaitForClose();

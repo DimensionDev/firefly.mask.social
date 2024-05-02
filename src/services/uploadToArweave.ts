@@ -19,22 +19,16 @@ interface IUploadToArweaveResponse {
  * @throws An error if the upload fails.
  */
 export async function uploadToArweave(data: GetPostMetaData, token: string): Promise<string> {
-    try {
-        const url = urlcat(FIREFLY_ROOT_URL, '/v1/lens/public_metadata');
-        const {
-            data: { arweaveTxId },
-        } = await fetchJSON<IUploadToArweaveResponse>(url, {
-            method: 'POST',
-            headers: {
-                'x-access-token': token,
-            },
-            body: JSON.stringify(data),
-        });
-
-        if (!arweaveTxId) throw new Error(t`Failed to upload to Arweave`);
-
-        return arweaveTxId;
-    } catch {
-        throw new Error(t`Failed to upload to Arweave`);
-    }
+    const url = urlcat(FIREFLY_ROOT_URL, '/v1/lens/public_metadata');
+    const {
+        data: { arweaveTxId },
+    } = await fetchJSON<IUploadToArweaveResponse>(url, {
+        method: 'POST',
+        headers: {
+            'x-access-token': token,
+        },
+        body: JSON.stringify(data),
+    });
+    if (!arweaveTxId) throw new Error(t`Found arweaveTxId is empty.`);
+    return arweaveTxId;
 }

@@ -1,7 +1,7 @@
 'use client';
 
 import { t } from '@lingui/macro';
-import { createIndicator, createPageable, EMPTY_LIST, type Pageable, type PageIndicator } from '@masknet/shared-base';
+import { createIndicator, type Pageable, type PageIndicator } from '@masknet/shared-base';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 
 import { ListInPage } from '@/components/ListInPage.js';
@@ -16,7 +16,6 @@ import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 
 async function discoverPosts(source: SocialPlatform, indicator: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
     const provider = resolveSocialMediaProvider(source);
-    if (!provider) return createPageable(EMPTY_LIST, indicator);
     return provider.discoverPosts(indicator);
 }
 

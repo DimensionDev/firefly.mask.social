@@ -33,9 +33,6 @@ msgstr ""
 msgid "Failed to fetch as Blob."
 msgstr "获取 Blob 失败。"
 
-msgid "Failed to upload image to imgur."
-msgstr "上传图片失败。"
-
 msgid "Communities"
 msgstr "社区"
 
@@ -47,9 +44,6 @@ msgstr "当您连接钱包时请务必小心，一些恶意网站会试图访问
 
 msgid "{followerCount, plural, one {Follower} other {Followers}}"
 msgstr ""
-
-msgid "Failed to mirror. {0}"
-msgstr "转帖失败 {0}"
 
 msgid "X"
 msgstr ""
@@ -80,6 +74,9 @@ msgstr "还未支持收藏。"
 
 msgid "Join our Discord"
 msgstr "加入我们的 Discord"
+
+msgid "Found arweaveTxId is empty."
+msgstr ""
 
 msgid "<0>You</0> and {0} others recasted"
 msgstr "<0> 你 </0> 和 {0} 人都转发了"
@@ -143,9 +140,6 @@ msgstr "找不到网页"
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/> and # others}} <4>liked your </4><5><6/></5>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> 和 <2/>} other {<3/> 和其他 # 人}} <4>点赞了你的 </4><5><6/></5>"
-
-msgid "Failed to upload to Arweave"
-msgstr ""
 
 msgid "Password"
 msgstr ""
@@ -219,11 +213,17 @@ msgstr "确认"
 msgid "Follow more friends to continue exploring on {0}."
 msgstr "在 {0} 上去关注更多的人来继续浏览吧。"
 
+msgid "No wallet client found. Please connect your wallet."
+msgstr ""
+
 msgid "Frame Validator"
 msgstr "Frame Validator"
 
 msgid "Follow System"
 msgstr "跟随系统"
+
+msgid "Failed to mirror."
+msgstr ""
 
 msgid "URL is required."
 msgstr "请选择 URL"
@@ -243,6 +243,9 @@ msgstr "加入我们的 Telegram"
 msgid "Log out"
 msgstr "登出"
 
+msgid "{0, plural, one {Your post failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your post failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your post failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
+msgstr ""
+
 msgid "post"
 msgstr "发帖"
 
@@ -258,6 +261,9 @@ msgstr "查询规则"
 msgid "Try searching for something else."
 msgstr "试试搜索其他东西。"
 
+msgid "Invalid compose type: {type}."
+msgstr ""
+
 msgid "and"
 msgstr "和"
 
@@ -270,16 +276,10 @@ msgstr ""
 msgid "Comment cannot be empty."
 msgstr ""
 
-msgid "Failed to fetch as Text."
-msgstr "获取内容失败。"
-
 msgid "Reply"
 msgstr "回复"
 
 msgid "Querying the signed key state."
-msgstr ""
-
-msgid "Invalid compose type."
 msgstr ""
 
 msgid "Collected"
@@ -296,9 +296,6 @@ msgstr "无法对帖子进行投票。"
 
 msgid "Privacy Policy"
 msgstr "隐私条款"
-
-msgid "No wallet client found"
-msgstr "未找到钱包客户端"
 
 msgid "Switch"
 msgstr "切换"
@@ -329,6 +326,9 @@ msgstr ""
 
 msgid "Malformed session."
 msgstr "会话格式错误。"
+
+msgid "Failed to login."
+msgstr ""
 
 msgid "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code."
 msgstr "在你装有 Warpcast 的手机上，打开 <0> 相机 </0>，扫描二维码。"
@@ -645,9 +645,6 @@ msgstr "红包"
 msgid "{0} and others"
 msgstr "{0} 和 其他"
 
-msgid "File type is not supported."
-msgstr ""
-
 msgid "Please switch to the wallet used for login."
 msgstr "请切换钱包登录。"
 
@@ -694,6 +691,9 @@ msgid "Failed to fetch as ArrayBuffer."
 msgstr "Failed to fetch as ArrayBuffer."
 
 msgid "Your post have published successfully on {0}."
+msgstr ""
+
+msgid "Cancel mirror successfully"
 msgstr ""
 
 msgid "Confirm to log out these accounts?"
@@ -787,9 +787,6 @@ msgid "Terms of Service"
 msgstr "服务条款"
 
 msgid "Already posted on {sourceName}."
-msgstr ""
-
-msgid "Your post failed to publish due to an error. Click 'Retry' to attempt posting again."
 msgstr ""
 
 msgid "Post"

@@ -37,12 +37,11 @@ export async function PUT(request: Request) {
 
     try {
         await refreshThreadByPostId(id);
+        return createSuccessResponseJSON(null);
     } catch (error) {
         return Response.json(
             { error: error instanceof Error ? error.message : 'Failed to revalidate thread.' },
             { status: 400 },
         );
     }
-
-    return createSuccessResponseJSON(null);
 }

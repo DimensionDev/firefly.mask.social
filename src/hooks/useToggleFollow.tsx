@@ -36,15 +36,14 @@ export function useToggleFollow(profile: Profile) {
     });
     const handleToggleFollow = useCallback(async () => {
         if (!profileId || isMyProfile) return;
+
         if (!isLogin) {
             LoginModalRef.open({ source });
             return;
         }
 
-        const provider = resolveSocialMediaProvider(source);
-        if (!provider) return;
-
         try {
+            const provider = resolveSocialMediaProvider(source);
             await (followStateRef.current ? provider.unfollow(profileId) : provider.follow(profileId));
 
             enqueueSuccessMessage(
@@ -57,23 +56,27 @@ export function useToggleFollow(profile: Profile) {
             );
             return;
         } catch (error) {
-            if (error instanceof Error) {
-                if (error instanceof ClientError) {
-                    const message = error.response.errors?.[0]?.message;
-                    if (message) {
-                        enqueueErrorMessage(message);
-                        return;
-                    }
+            if (error instanceof ClientError) {
+                const message = error.response.errors?.[0]?.message;
+                if (message) {
+                    enqueueErrorMessage(message, {
+                        error,
+                    });
+                    throw error;
                 }
-                enqueueErrorMessage(
-                    <Select
-                        value={followStateRef.current ? 'unfollow' : 'follow'}
-                        _follow={`Failed to followed @${handle} on ${source}`}
-                        _unfollow={`Failed to unfollowed @${handle} on ${source}`}
-                        other={`Failed to followed @${handle} on ${source}`}
-                    />,
-                );
             }
+            enqueueErrorMessage(
+                <Select
+                    value={followStateRef.current ? 'unfollow' : 'follow'}
+                    _follow={`Failed to followed @${handle} on ${source}`}
+                    _unfollow={`Failed to unfollowed @${handle} on ${source}`}
+                    other={`Failed to followed @${handle} on ${source}`}
+                />,
+                {
+                    error,
+                },
+            );
+            throw error;
         }
     }, [profileId, isLogin, source, handle, isMyProfile]);
 
