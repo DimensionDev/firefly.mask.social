@@ -1,4 +1,3 @@
-import { resolveCrossOriginURL } from '@masknet/web3-shared-base';
 import urlcat from 'urlcat';
 import type { GetWalletClientReturnType } from 'wagmi/actions';
 
@@ -20,7 +19,7 @@ export async function createSessionByCustodyWallet(
 ) {
     const { payload, token } = await generateCustodyBearer(client);
 
-    const authUrl = resolveCrossOriginURL(urlcat(WARPCAST_ROOT_URL, '/auth'));
+    const authUrl = urlcat(WARPCAST_ROOT_URL, '/auth');
     const response = await fetchJSON<{
         result: {
             token: {
@@ -37,7 +36,7 @@ export async function createSessionByCustodyWallet(
     });
     if (response.errors?.length) throw new Error(response.errors[0].message);
 
-    const meUrl = resolveCrossOriginURL(urlcat(WARPCAST_ROOT_URL, '/me'));
+    const meUrl = urlcat(WARPCAST_ROOT_URL, '/me');
     const userResponse = await fetchJSON<UserResponse>(meUrl, {
         method: 'GET',
         headers: {

@@ -1,4 +1,3 @@
-import { resolveCrossOriginURL } from '@masknet/web3-shared-base';
 import urlcat from 'urlcat';
 
 import { WARPCAST_ROOT_URL } from '@/constants/index.js';
@@ -33,7 +32,7 @@ export class FarcasterSession extends BaseSession implements Session {
     }
 
     async destroy(): Promise<void> {
-        const url = resolveCrossOriginURL(urlcat(WARPCAST_ROOT_URL, '/auth'));
+        const url = urlcat(WARPCAST_ROOT_URL, '/auth');
         const response = await fetchJSON<{
             result: {
                 success: boolean;

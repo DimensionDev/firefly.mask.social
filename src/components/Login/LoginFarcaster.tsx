@@ -50,7 +50,7 @@ export function LoginFarcaster() {
         }, []);
 
     const [{ loading: loadingCustodyWallet }, onLoginWithCustodyWallet] = useAsyncFn(async () => {
-        controllerRef.current?.abort();
+        controllerRef.current?.abort('aborted');
         try {
             await login(async () => {
                 const client = await getWalletClientRequired(config);
@@ -69,7 +69,7 @@ export function LoginFarcaster() {
     });
 
     useUnmount(() => {
-        controllerRef.current?.abort();
+        controllerRef.current?.abort('aborted');
     });
 
     return (

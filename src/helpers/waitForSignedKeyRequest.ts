@@ -1,6 +1,5 @@
 import { t } from '@lingui/macro';
 import { delay } from '@masknet/kit';
-import { resolveCrossOriginURL } from '@masknet/web3-shared-base';
 import urlcat from 'urlcat';
 
 import { WARPCAST_ROOT_URL } from '@/constants/index.js';
@@ -37,11 +36,9 @@ export function waitForSignedKeyRequest(signal?: AbortSignal) {
 
             // Fetch the signed key request status from the server
             const response = await fetchJSON<SignedKeyRequestResponse>(
-                resolveCrossOriginURL(
-                    urlcat(WARPCAST_ROOT_URL, '/signed-key-request', {
-                        token,
-                    }),
-                ),
+                urlcat(WARPCAST_ROOT_URL, '/signed-key-request', {
+                    token,
+                }),
             );
 
             // Continue the loop if there are errors in the response
