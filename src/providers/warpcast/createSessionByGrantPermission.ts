@@ -1,4 +1,3 @@
-import { attemptUntil } from '@masknet/web3-shared-base';
 import urlcat from 'urlcat';
 
 import { fetchJSON } from '@/helpers/fetchJSON.js';
@@ -43,8 +42,21 @@ export async function createSessionByGrantPermission(callback?: (url: string) =>
         if (!signedKeyResponse.success) throw new Error(signedKeyResponse.error.message);
         return signedKeyResponse.data;
     };
+    const queryTimes = async (times = 10) => {
+        let lastError = null;
 
-    const result = await attemptUntil(Array.from<typeof query>({ length: 10 }).fill(query), null);
+        for (let i = 0; i < times; i += 1) {
+            try {
+                return await query();
+            } catch (error) {
+                lastError = error;
+                continue;
+            }
+        }
+        throw lastError;
+    };
+
+    const result = await queryTimes();
 
     if (result?.result.signedKeyRequest.userFid)
         return new FarcasterSession(
