@@ -20,7 +20,8 @@ export async function login(createSession: () => Promise<FarcasterSession>) {
         enqueueSuccessMessage(t`Your Farcaster account is now connected.`);
         LoginModalRef.close();
     } catch (error) {
-        const message = error instanceof Error ? error.message : typeof error === 'string' ? error : `${error}`;
+        const error_ = error instanceof Error ? error : error instanceof AggregateError ? error.errors[0] : error;
+        const message = error_ instanceof Error ? error_.message : typeof error_ === 'string' ? error_ : `${error_}`;
         if (message.toLowerCase().includes('aborted')) return;
         enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to login`), {
             error,
