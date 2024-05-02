@@ -199,13 +199,6 @@ class LensSocialMedia implements Provider {
         }
     }
 
-    async deletePost(postId: string) {
-        const response = await lensClient.sdk.publication.hide({
-            for: postId,
-        });
-        return response.isSuccess().valueOf();
-    }
-
     async mirrorPostOnMomoka(postId: string) {
         const result = await lensClient.sdk.publication.mirrorOnMomoka({
             mirrorOn: postId,

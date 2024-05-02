@@ -1,6 +1,6 @@
 'use client';
 
-import { Trans } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import { useRef, useState } from 'react';
 import QRCode from 'react-qr-code';
 import { useAsyncFn, useEffectOnce, useUnmount } from 'react-use';
@@ -10,6 +10,7 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { config } from '@/configs/wagmiClient.js';
 import { IS_PRODUCTION } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
+import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { getMobileDevice } from '@/helpers/getMobileDevice.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { createSessionByCustodyWallet } from '@/providers/warpcast/createSessionByCustodyWallet.js';
@@ -24,26 +25,43 @@ export function LoginFarcaster() {
 
     const [{ loading: loadingGrantPermission, error: errorGrantPermission }, onLoginWithGrantPermission] =
         useAsyncFn(async () => {
-            controllerRef.current?.abort();
-            controllerRef.current = new AbortController();
-            await login(() =>
-                createSessionByGrantPermission(
-                    (url) => {
-                        const device = getMobileDevice();
-                        if (device === 'unknown') setUrl(url);
-                        else location.href = url;
-                    },
-                    controllerRef.current?.signal,
-                ),
-            );
+            // reset the process if abort controller is aborted or not initialized
+            if (!controllerRef.current || controllerRef.current?.signal.aborted) {
+                controllerRef.current = new AbortController();
+
+                try {
+                    await login(() =>
+                        createSessionByGrantPermission(
+                            (url) => {
+                                const device = getMobileDevice();
+                                if (device === 'unknown') setUrl(url);
+                                else location.href = url;
+                            },
+                            controllerRef.current?.signal,
+                        ),
+                    );
+                } catch (error) {
+                    enqueueErrorMessage(t`Failed to login.`, {
+                        error,
+                    });
+                    throw error;
+                }
+            }
         }, []);
 
     const [{ loading: loadingCustodyWallet }, onLoginWithCustodyWallet] = useAsyncFn(async () => {
-        if (controllerRef.current) controllerRef.current.abort();
-        await login(async () => {
-            const client = await getWalletClientRequired(config);
-            return createSessionByCustodyWallet(client);
-        });
+        controllerRef.current?.abort('aborted');
+        try {
+            await login(async () => {
+                const client = await getWalletClientRequired(config);
+                return createSessionByCustodyWallet(client);
+            });
+        } catch (error) {
+            enqueueErrorMessage(t`Failed to login.`, {
+                error,
+            });
+            throw error;
+        }
     }, []);
 
     useEffectOnce(() => {
@@ -51,7 +69,7 @@ export function LoginFarcaster() {
     });
 
     useUnmount(() => {
-        controllerRef.current?.abort();
+        controllerRef.current?.abort('aborted');
     });
 
     return (

@@ -199,6 +199,9 @@ msgstr "Confirmation"
 msgid "Follow more friends to continue exploring on {0}."
 msgstr "Follow more friends to continue exploring on {0}."
 
+msgid "No wallet client found. Please connect your wallet."
+msgstr "No wallet client found. Please connect your wallet."
+
 msgid "Frame Validator"
 msgstr "Frame Validator"
 
@@ -259,9 +262,6 @@ msgstr "{shares, plural, =0 {Mirror or Quote} zero {Mirror or Quote} one {Mirror
 msgid "Comment cannot be empty."
 msgstr "Comment cannot be empty."
 
-msgid "Failed to fetch as Text."
-msgstr "Failed to fetch as Text."
-
 msgid "Reply"
 msgstr "Reply"
 
@@ -282,9 +282,6 @@ msgstr "Failed to unvote post."
 
 msgid "Privacy Policy"
 msgstr "Privacy Policy"
-
-msgid "No wallet client found"
-msgstr "No wallet client found"
 
 msgid "Switch"
 msgstr "Switch"
@@ -312,6 +309,9 @@ msgstr "Your posts have published successfully on {0}."
 
 msgid "Malformed session."
 msgstr "Malformed session."
+
+msgid "Failed to login."
+msgstr "Failed to login."
 
 msgid "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code."
 msgstr "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code."

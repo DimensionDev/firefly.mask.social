@@ -568,6 +568,7 @@ class FireflySocialMedia implements Provider {
 
     async getFriendship(profileId: string) {
         return farcasterClient.withSession(async (session) => {
+            if (!session) return;
             const { data } = await fetchJSON<FriendshipResponse>(
                 urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/user/friendship', {
                     sourceFid: session?.profileId,

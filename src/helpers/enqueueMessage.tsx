@@ -31,6 +31,7 @@ export function enqueueErrorMessage(message: SnackbarMessage, options?: ErrorOpt
     SnackbarRef.open({
         message,
         options: {
+            autoHideDuration: 15 * 1000, // 15s
             variant: 'error',
             ...options,
             content: (key: SnackbarKey, message?: SnackbarMessage) => (
@@ -50,6 +51,7 @@ export function enqueueErrorsMessage(message: SnackbarMessage, options?: ErrorsO
     SnackbarRef.open({
         message,
         options: {
+            autoHideDuration: 15 * 1000, // 15s
             variant: 'error',
             ...options,
             content: (key: SnackbarKey, message?: SnackbarMessage) => (

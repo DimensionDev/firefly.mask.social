@@ -1,5 +1,5 @@
 import { plural, t } from '@lingui/macro';
-import { safeUnreachable } from '@masknet/kit';
+import { delay, safeUnreachable } from '@masknet/kit';
 import { compact } from 'lodash-es';
 
 import { SocialPlatform } from '@/constants/enum.js';
@@ -21,6 +21,9 @@ async function getParentPostById(source: SocialPlatform, postId: string) {
     if (!postId) throw new Error(`Failed to get parent post by id: ${postId}.`);
     switch (source) {
         case SocialPlatform.Farcaster: {
+            // in a thread, posts will sometimes be lost if we post too quickly
+            await delay(1000);
+
             // the hub might be delay in updating the post
             const mock = { postId, author: {} } as unknown as Post;
 
