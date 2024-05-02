@@ -41,10 +41,6 @@ class NeynarSocialMedia implements Provider {
         throw new Error('Method not implemented.');
     }
 
-    deletePost(postId: string): Promise<void> {
-        throw new Error('Method not implemented.');
-    }
-
     getChannelById(channelId: string): Promise<Channel> {
         throw new Error('Method not implemented.');
     }
