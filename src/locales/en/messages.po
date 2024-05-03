@@ -214,6 +214,9 @@ msgstr "No wallet client found. Please connect your wallet."
 msgid "Frame Validator"
 msgstr "Frame Validator"
 
+msgid "Copy Link"
+msgstr "Copy Link"
+
 msgid "Follow System"
 msgstr "Follow System"
 
