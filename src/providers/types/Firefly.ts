@@ -205,10 +205,11 @@ export type ChannelResponse = Response<ChannelBrief>;
 
 export type ChannelsResponse = Response<Channel[]>;
 
-export type DiscoverChannelsResponse = Response<{
-    channels: Channel[];
-    cursor: number;
-}>;
+export type DiscoverChannelsResponse = Response<
+    Array<{
+        channel: Channel;
+    }>
+>;
 
 export type CastsOfChannelResponse = Response<{
     casts: Cast[];

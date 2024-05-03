@@ -22,6 +22,7 @@ export enum PageRoute {
     Settings = '/settings',
     Developers = '/developers',
     Search = '/search',
+    Explore = '/explore',
 }
 
 export enum SocialPlatform {

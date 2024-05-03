@@ -84,9 +84,12 @@ class FireflySocialMedia implements Provider {
         const channels = data.map(formatChannelFromFirefly);
         return createPageable(channels, createIndicator(indicator));
     }
-
+    /**
+     *  @warn: no cursor in response
+     *  @warn: when type query para (any value) is set, the response is empty, but the docs say it should exist
+     */
     async discoverChannels(indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {
-        const url = urlcat(FIREFLY_ROOT_URL, '/v2/discover/farcaster/trending_channels', {
+        const url = urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/trending_channels', {
             size: 20,
             cursor: indicator?.id,
         });
@@ -94,12 +97,11 @@ class FireflySocialMedia implements Provider {
             method: 'GET',
         });
         const data = resolveFireflyResponseData(response);
-        const channels = data.channels.map(formatChannelFromFirefly);
-
+        const channels = data.map((x) => x.channel).map(formatChannelFromFirefly);
         return createPageable(
             channels,
             createIndicator(indicator),
-            data.cursor ? createNextIndicator(indicator, `${data.cursor}`) : undefined,
+            // data.cursor ? createNextIndicator(indicator, `${data.cursor}`) : undefined,
         );
     }
 
