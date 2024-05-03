@@ -23,8 +23,9 @@ import { createSessionByCustodyWallet } from '@/providers/warpcast/createSession
 import { createSessionByGrantPermission } from '@/providers/warpcast/createSessionByGrantPermission.js';
 import { useFarcasterStateStore } from '@/store/useProfileStore.js';
 
-async function login(session: FarcasterSession) {
+async function login(createSession: () => Promise<FarcasterSession>) {
     try {
+        const session = await createSession();
         const profile = await FarcasterSocialMediaProvider.getProfileById(session.profileId);
 
         useFarcasterStateStore.getState().updateProfiles([profile]);
@@ -57,15 +58,16 @@ export function LoginFarcaster() {
                 controllerRef.current = new AbortController();
 
                 try {
-                    const session = await createSessionByGrantPermission(
-                        (url) => {
-                            const device = getMobileDevice();
-                            if (device === 'unknown') setUrl(url);
-                            else location.href = url;
-                        },
-                        controllerRef.current?.signal,
+                    await login(() =>
+                        createSessionByGrantPermission(
+                            (url) => {
+                                const device = getMobileDevice();
+                                if (device === 'unknown') setUrl(url);
+                                else location.href = url;
+                            },
+                            controllerRef.current?.signal,
+                        ),
                     );
-                    await login(session);
                 } catch (error) {
                     enqueueErrorMessage(t`Failed to login.`, {
                         error,
@@ -78,10 +80,10 @@ export function LoginFarcaster() {
     const [{ loading: loadingCustodyWallet }, onLoginWithCustodyWallet] = useAsyncFn(async () => {
         controllerRef.current?.abort('aborted');
         try {
-            const client = await getWalletClientRequired(config);
-            const session = await createSessionByCustodyWallet(client);
-
-            await login(session);
+            await login(async () => {
+                const client = await getWalletClientRequired(config);
+                return createSessionByCustodyWallet(client);
+            });
         } catch (error) {
             enqueueErrorMessage(t`Failed to login.`, {
                 error,
