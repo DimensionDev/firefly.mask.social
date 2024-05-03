@@ -32,7 +32,8 @@ async function createChallenge(signal?: AbortSignal) {
     if (!response.success) throw new Error(response.error.message);
 
     const farcasterSession = new FarcasterSession(
-        response.data.fid,
+        // we don't posses the fid until the key request was signed
+        '',
         toHex(privateKey),
         response.data.timestamp,
         response.data.expiresAt,
@@ -53,7 +54,7 @@ export async function createSessionByGrantPermissionFirefly(callback?: (url: str
     callback?.(deeplink);
 
     // firefly start polling for the signed key request
-    // once the signed key request is available
+    // once key request is signed, we will get the fid
     // we also posses the session in firefly session holder
     // which means if we logined in farcaster, we logined in firefly as well
     const fireflySession = await FireflySession.from(session);
@@ -103,7 +104,10 @@ export async function createSessionByGrantPermission(callback?: (url: string) =>
     };
 
     const result = await queryTimes();
-    if (result?.result.signedKeyRequest.userFid) return session;
+    if (result?.result.signedKeyRequest.userFid) {
+        session.profileId = `${result.result.signedKeyRequest.userFid}`;
+        return session;
+    }
 
     throw new Error(
         result

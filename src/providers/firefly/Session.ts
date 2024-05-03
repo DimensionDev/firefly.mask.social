@@ -49,6 +49,9 @@ export class FireflySession extends BaseSession implements Session {
                         channelToken: session.signerRequestToken,
                     }),
                 });
+                if (response.data?.fid) {
+                    session.profileId = response.data.fid;
+                }
                 const data = resolveFireflyResponseData(response);
                 return new FireflySession(data.accountId, data.accessToken, session);
             }
