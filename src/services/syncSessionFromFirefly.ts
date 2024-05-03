@@ -29,7 +29,7 @@ async function downloadMetricsFromFirefly(session: FireflySession) {
 }
 
 async function decryptMetricsFromFirefly(cipher: string) {
-    const response = await fetchJSON<ResponseJSON<Metrics>>('/api/firefly/metrics/decrypt', {
+    const response = await fetchJSON<ResponseJSON<Metrics>>('/api/firefly/decrypt-metrics', {
         method: 'POST',
         body: JSON.stringify({ text: cipher }),
     });
