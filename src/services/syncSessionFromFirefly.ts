@@ -6,10 +6,9 @@ import { FIREFLY_ROOT_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { FarcasterSession } from '@/providers/farcaster/Session.js';
-import { FireflySession } from '@/providers/firefly/Session.js';
+import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { LensSession } from '@/providers/lens/Session.js';
 import type { MetricsDownloadResponse } from '@/providers/types/Firefly.js';
-import type { Session } from '@/providers/types/Session.js';
 import type { ResponseJSON } from '@/types/index.js';
 
 /**
@@ -17,13 +16,14 @@ import type { ResponseJSON } from '@/types/index.js';
  * @param session
  * @returns
  */
-async function downloadMetricsFromFirefly(session: FireflySession) {
-    const url = urlcat(FIREFLY_ROOT_URL, '/v1/metrics/download');
-    const response = await fetchJSON<MetricsDownloadResponse>(url, {
-        headers: {
-            Authorization: `Bearer ${session.token}`,
+async function downloadMetricsFromFirefly() {
+    const response = await fireflySessionHolder.fetch<MetricsDownloadResponse>(
+        urlcat(FIREFLY_ROOT_URL, '/v1/metrics/download'),
+        {
+            method: 'GET',
         },
-    });
+        true,
+    );
     const data = resolveFireflyResponseData(response);
     return data?.ciphertext;
 }
@@ -65,10 +65,12 @@ function convertMetricToSession(metric: Metrics[0]) {
     }
 }
 
-export async function syncSessionFromFirefly(session: Session) {
-    const fireflySession = await FireflySession.from(session);
-
-    const cipher = await downloadMetricsFromFirefly(fireflySession);
+/**
+ * Make sure resume firefly session before calling this function.
+ * @returns
+ */
+export async function syncSessionFromFirefly() {
+    const cipher = await downloadMetricsFromFirefly();
     if (!cipher) return [];
 
     const metrics = await decryptMetricsFromFirefly(cipher);

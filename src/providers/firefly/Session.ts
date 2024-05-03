@@ -11,7 +11,11 @@ import type { Session } from '@/providers/types/Session.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 
 export class FireflySession extends BaseSession implements Session {
-    constructor(accountId: string, accessToken: string) {
+    constructor(
+        accountId: string,
+        accessToken: string,
+        public readonly parent: Session,
+    ) {
         super(SessionType.Firefly, accountId, accessToken, 0, 0);
     }
 
@@ -34,7 +38,7 @@ export class FireflySession extends BaseSession implements Session {
                     }),
                 });
                 const data = resolveFireflyResponseData(response);
-                return new FireflySession(data.accountId, data.accessToken);
+                return new FireflySession(data.accountId, data.accessToken, session);
             }
             case SessionType.Farcaster: {
                 if (!FarcasterSession.isGrantByPermission(session)) throw new Error('Not allowed');
@@ -46,7 +50,7 @@ export class FireflySession extends BaseSession implements Session {
                     }),
                 });
                 const data = resolveFireflyResponseData(response);
-                return new FireflySession(data.accountId, data.accessToken);
+                return new FireflySession(data.accountId, data.accessToken, session);
             }
             case SessionType.Firefly:
                 throw new Error('Not allowed');

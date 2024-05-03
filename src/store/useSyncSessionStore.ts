@@ -3,6 +3,8 @@ import { immer } from 'zustand/middleware/immer';
 
 import { EMPTY_LIST } from '@/constants/index.js';
 import { createSelectors } from '@/helpers/createSelector.js';
+import { FireflySession } from '@/providers/firefly/Session.js';
+import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type { Session } from '@/providers/types/Session.js';
 import { syncSessionFromFirefly } from '@/services/syncSessionFromFirefly.js';
 
@@ -15,7 +17,10 @@ const useSyncSessionStoreBase = create<SyncSessionStoreState, [['zustand/immer',
     immer((set) => ({
         synced: EMPTY_LIST,
         syncFromFirefly: async (session: Session) => {
-            const syncedSessions = await syncSessionFromFirefly(session);
+            const fireflySession = await FireflySession.from(session);
+            fireflySessionHolder.resumeSession(fireflySession);
+
+            const syncedSessions = await syncSessionFromFirefly();
             set((state) => {
                 state.synced = syncedSessions;
             });
