@@ -55,10 +55,13 @@ export async function createSessionByGrantPermissionFirefly(callback?: (url: str
 
     // firefly start polling for the signed key request
     // once key request is signed, we will get the fid
-    // we also posses the session in firefly session holder
-    // which means if we logined in farcaster, we logined in firefly as well
     const fireflySession = await FireflySession.from(session);
-    fireflySessionHolder.resumeSession(fireflySession);
+
+    if (fireflySession) {
+        // we also posses the session in firefly session holder
+        // which means if we login in farcaster, we login firefly as well
+        fireflySessionHolder.resumeSession(fireflySession);
+    }
 
     return session;
 }

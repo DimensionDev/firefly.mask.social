@@ -11,11 +11,7 @@ import type { Session } from '@/providers/types/Session.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 
 export class FireflySession extends BaseSession implements Session {
-    constructor(
-        accountId: string,
-        accessToken: string,
-        public readonly parent: Session,
-    ) {
+    constructor(accountId: string, accessToken: string) {
         super(SessionType.Firefly, accountId, accessToken, 0, 0);
     }
 
@@ -27,7 +23,7 @@ export class FireflySession extends BaseSession implements Session {
         throw new Error('Not allowed');
     }
 
-    static async from(session: Session): Promise<FireflySession> {
+    static async from(session: Session): Promise<FireflySession | null> {
         switch (session.type) {
             case SessionType.Lens: {
                 const url = urlcat(FIREFLY_ROOT_URL, '/v3/auth/lens/login');
@@ -38,7 +34,7 @@ export class FireflySession extends BaseSession implements Session {
                     }),
                 });
                 const data = resolveFireflyResponseData(response);
-                return new FireflySession(data.accountId, data.accessToken, session);
+                return new FireflySession(data.accountId, data.accessToken);
             }
             case SessionType.Farcaster: {
                 if (!FarcasterSession.isGrantByPermission(session)) throw new Error('Not allowed');
@@ -53,7 +49,10 @@ export class FireflySession extends BaseSession implements Session {
                     session.profileId = response.data.fid;
                 }
                 const data = resolveFireflyResponseData(response);
-                return new FireflySession(data.accountId, data.accessToken, session);
+                if (data.accountId && data.accessToken) {
+                    return new FireflySession(data.accountId, data.accessToken);
+                }
+                return null;
             }
             case SessionType.Firefly:
                 throw new Error('Not allowed');
