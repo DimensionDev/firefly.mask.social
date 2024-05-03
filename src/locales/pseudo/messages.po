@@ -376,9 +376,6 @@ msgstr ""
 msgid "Lens"
 msgstr ""
 
-msgid "No session found."
-msgstr ""
-
 msgid "Failed to upvote post."
 msgstr ""
 

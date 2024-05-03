@@ -190,56 +190,56 @@ class FarcasterSocialMedia implements Provider {
         const { isCustodyWallet, isGrantByPermission } = getFarcasterSessionType();
         if (isCustodyWallet) return WarpcastSocialMediaProvider.publishPost(post);
         if (isGrantByPermission) return HubbleSocialMediaProvider.publishPost(post);
-        throw new Error(t`No session found.`);
+        throw new Error('No session found.');
     }
 
     async deletePost(postId: string): Promise<boolean> {
         const { isCustodyWallet, isGrantByPermission } = getFarcasterSessionType();
         if (isCustodyWallet) return WarpcastSocialMediaProvider.deletePost(postId);
         if (isGrantByPermission) return HubbleSocialMediaProvider.deletePost(postId);
-        throw new Error(t`No session found.`);
+        throw new Error('No session found.');
     }
 
     async upvotePost(postId: string, authorId?: number) {
         const { isCustodyWallet, isGrantByPermission } = getFarcasterSessionType();
         if (isCustodyWallet) return WarpcastSocialMediaProvider.upvotePost(postId);
         if (isGrantByPermission) return HubbleSocialMediaProvider.upvotePost(postId, authorId);
-        throw new Error(t`No session found.`);
+        throw new Error('No session found.');
     }
 
     async unvotePost(postId: string, authorId?: number) {
         const { isCustodyWallet, isGrantByPermission } = getFarcasterSessionType();
         if (isCustodyWallet) return WarpcastSocialMediaProvider.unvotePost(postId);
         if (isGrantByPermission) return HubbleSocialMediaProvider.unvotePost(postId, authorId);
-        throw new Error(t`No session found.`);
+        throw new Error('No session found.');
     }
 
     async mirrorPost(postId: string, options?: { authorId?: number }) {
         const { isCustodyWallet, isGrantByPermission } = getFarcasterSessionType();
         if (isCustodyWallet) return WarpcastSocialMediaProvider.mirrorPost(postId);
         if (isGrantByPermission) return HubbleSocialMediaProvider.mirrorPost(postId, options);
-        throw new Error(t`No session found.`);
+        throw new Error('No session found.');
     }
 
     async unmirrorPost(postId: string, authorId?: number) {
         const { isCustodyWallet, isGrantByPermission } = getFarcasterSessionType();
         if (isCustodyWallet) return WarpcastSocialMediaProvider.unmirrorPost(postId);
         if (isGrantByPermission) return HubbleSocialMediaProvider.unmirrorPost(postId, authorId);
-        throw new Error(t`No session found.`);
+        throw new Error('No session found.');
     }
 
     async follow(profileId: string) {
         const { isCustodyWallet, isGrantByPermission } = getFarcasterSessionType();
         if (isCustodyWallet) return WarpcastSocialMediaProvider.follow(profileId);
         if (isGrantByPermission) return HubbleSocialMediaProvider.follow(profileId);
-        throw new Error(t`No session found.`);
+        throw new Error('No session found.');
     }
 
     async unfollow(profileId: string) {
         const { isCustodyWallet, isGrantByPermission } = getFarcasterSessionType();
         if (isCustodyWallet) return WarpcastSocialMediaProvider.unfollow(profileId);
         if (isGrantByPermission) return HubbleSocialMediaProvider.unfollow(profileId);
-        throw new Error(t`No session found.`);
+        throw new Error('No session found.');
     }
 
     async searchProfiles(q: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
@@ -264,7 +264,7 @@ class FarcasterSocialMedia implements Provider {
         const { isCustodyWallet, isGrantByPermission } = getFarcasterSessionType();
         if (isCustodyWallet) return WarpcastSocialMediaProvider.getNotifications(indicator);
         if (isGrantByPermission) return FireflySocialMediaProvider.getNotifications(indicator);
-        throw new Error(t`No session found.`);
+        throw new Error('No session found.');
     }
 
     async getThreadByPostId(postId: string, localPost?: Post) {

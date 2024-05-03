@@ -1,7 +1,7 @@
 import { first } from 'lodash-es';
 import urlcat from 'urlcat';
 
-import type { FarcasterMetric, LensMetric, Metrics } from '@/app/api/firefly/metrics/decrypt/route.js';
+import type { FarcasterMetric, LensMetric, Metrics } from '@/app/api/firefly/decrypt-metrics/route.js';
 import { FIREFLY_ROOT_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
@@ -29,7 +29,7 @@ async function downloadMetricsFromFirefly(session: FireflySession) {
 }
 
 async function decryptMetricsFromFirefly(cipher: string) {
-    const response = await fetchJSON<ResponseJSON<Metrics>>('/api/firefly/metrics/decrypt', {
+    const response = await fetchJSON<ResponseJSON<Metrics>>('/api/firefly/decrypt-metrics', {
         method: 'POST',
         body: JSON.stringify({ text: cipher }),
     });

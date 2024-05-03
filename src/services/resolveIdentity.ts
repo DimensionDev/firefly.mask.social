@@ -2,10 +2,10 @@ import { ProfileIdentifier } from '@masknet/base';
 import { safeUnreachable } from '@masknet/kit';
 import type { IdentityResolved } from '@masknet/plugin-infra';
 
-import { farcasterClient } from '@/configs/farcasterClient.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { SITE_HOSTNAME } from '@/constants/index.js';
 import { getCurrentProfileAll } from '@/helpers/getCurrentProfileAll.js';
+import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { HubbleSocialMediaProvider } from '@/providers/hubble/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 
@@ -27,7 +27,7 @@ export async function resolveIdentity(source: SocialPlatform) {
             );
             break;
         case SocialPlatform.Farcaster:
-            const session = farcasterClient.session;
+            const session = farcasterSessionHolder.session;
             if (!session) break;
 
             const { messageHash, messageSignature, signer } = await HubbleSocialMediaProvider.generateSignaturePacket();

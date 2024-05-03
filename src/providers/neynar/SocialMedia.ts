@@ -2,11 +2,11 @@ import { createIndicator, createPageable, EMPTY_LIST, type Pageable, type PageIn
 import { first } from 'lodash-es';
 import urlcat from 'urlcat';
 
-import { farcasterClient } from '@/configs/farcasterClient.js';
 import { env } from '@/constants/env.js';
 import { NEYNAR_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { formatFarcasterProfileFromNeynar } from '@/helpers/formatFarcasterProfileFromNeynar.js';
+import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import type { Profile as NeynarProfile } from '@/providers/types/Neynar.js';
 import {
     type Channel,
@@ -207,7 +207,7 @@ class NeynarSocialMedia implements Provider {
     async getProfilesByIds(ids: string[]) {
         if (!ids.length) return EMPTY_LIST;
 
-        return farcasterClient.withSession(async (session) => {
+        return farcasterSessionHolder.withSession(async (session) => {
             const url = urlcat(NEYNAR_URL, '/v2/farcaster/user/bulk', {
                 fids: ids.join(','),
                 viewer_fid: session?.profileId,
@@ -222,7 +222,7 @@ class NeynarSocialMedia implements Provider {
     }
 
     async searchProfiles(q: string, indicator?: PageIndicator) {
-        return farcasterClient.withSession(async (session) => {
+        return farcasterSessionHolder.withSession(async (session) => {
             const url = urlcat(NEYNAR_URL, '/v2/farcaster/user/search', {
                 q,
                 viewer_fid: session?.profileId || 0,

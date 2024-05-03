@@ -376,9 +376,6 @@ msgstr "Clear All"
 msgid "Lens"
 msgstr "Lens"
 
-msgid "No session found."
-msgstr "No session found."
-
 msgid "Failed to upvote post."
 msgstr "Failed to upvote post."
 
