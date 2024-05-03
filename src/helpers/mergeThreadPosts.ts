@@ -19,6 +19,8 @@ export function mergeThreadPosts(source: SocialPlatform, posts: Post[]): Post[] 
             return mergeThreadPostsForFarcaster(posts);
         case SocialPlatform.Twitter:
             return posts;
+        case SocialPlatform.Article:
+            return posts;
         default:
             safeUnreachable(source);
             return posts;

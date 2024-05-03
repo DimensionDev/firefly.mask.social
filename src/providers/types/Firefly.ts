@@ -1,3 +1,5 @@
+import type { ArticlePlatform, ArticleType } from '@/providers/types/SocialMedia.js';
+
 export interface Cast {
     fid: string;
     hash: string;
@@ -133,6 +135,29 @@ export interface ChannelBrief {
     hostFids?: number[];
 }
 
+export interface Article {
+    timestamp: string;
+    hash: string;
+    owner: string;
+    digest: string;
+    type: ArticleType;
+    platform: ArticlePlatform;
+    content: {
+        body: string;
+        title: string;
+    };
+    author: string;
+    displayInfo: {
+        ensHandle: string;
+        avatarUrl: string;
+    };
+    authorship: {
+        contributor: string;
+    };
+    related_urls: string[];
+    article_id: string,
+}
+
 export interface Response<T> {
     code: number;
     data?: T;
@@ -209,6 +234,11 @@ export type ChannelsResponse = Response<Channel[]>;
 export type DiscoverChannelsResponse = Response<{
     channels: Channel[];
     cursor: number;
+}>;
+
+export type DiscoverArticlesResponse = Response<{
+    cursor: number;
+    result: Article[];
 }>;
 
 export type CastsOfChannelResponse = Response<{

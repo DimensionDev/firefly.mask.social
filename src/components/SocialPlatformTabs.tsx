@@ -32,7 +32,7 @@ export function SocialPlatformTabs() {
     return (
         <div className="border-b border-line bg-primaryBottom px-4">
             <nav className="-mb-px flex space-x-4" aria-label="Tabs">
-                {[SocialPlatform.Farcaster, SocialPlatform.Lens].map((value) => (
+                {[SocialPlatform.Farcaster, SocialPlatform.Lens, SocialPlatform.Article].map((value) => (
                     <li key={value} className="flex flex-1 list-none justify-center lg:flex-initial lg:justify-start">
                         <a
                             className={classNames(

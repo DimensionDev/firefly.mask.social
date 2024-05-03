@@ -28,12 +28,14 @@ export enum SocialPlatform {
     Farcaster = 'Farcaster',
     Lens = 'Lens',
     Twitter = 'Twitter',
+    Article = 'Article',
 }
 
 export enum SourceInURL {
     Farcaster = 'farcaster',
     Lens = 'lens',
     Twitter = 'twitter',
+    Article = 'article',
 }
 
 export enum SearchType {

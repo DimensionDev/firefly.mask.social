@@ -9,10 +9,12 @@ export function resolveSocialMediaProvider(source: SocialPlatform) {
     switch (source) {
         case SocialPlatform.Lens:
             return LensSocialMediaProvider;
+        case SocialPlatform.Article:
         case SocialPlatform.Farcaster:
             return FarcasterSocialMediaProvider;
         case SocialPlatform.Twitter:
             return TwitterSocialMediaProvider;
+
         default:
             safeUnreachable(source);
             throw new Error(`Invalid source: ${source}`);

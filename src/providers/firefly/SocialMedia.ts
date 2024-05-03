@@ -13,6 +13,7 @@ import urlcat from 'urlcat';
 import { SocialPlatform } from '@/constants/enum.js';
 import { FIREFLY_ROOT_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { formatArticleFromFirefly } from '@/helpers/formatArticleFromFirefly.js';
 import {
     formatBriefChannelFromFirefly,
     formatChannelFromFirefly,
@@ -29,6 +30,7 @@ import {
     type ChannelResponse,
     type ChannelsResponse,
     type CommentsResponse,
+    type DiscoverArticlesResponse,
     type DiscoverChannelsResponse,
     type FriendshipResponse,
     type NotificationResponse,
@@ -43,6 +45,7 @@ import {
     type UsersResponse,
 } from '@/providers/types/Firefly.js';
 import {
+    ArticlePlatform,
     type Channel,
     type Notification,
     NotificationType,
@@ -98,6 +101,27 @@ class FireflySocialMedia implements Provider {
 
         return createPageable(
             channels,
+            createIndicator(indicator),
+            data.cursor ? createNextIndicator(indicator, `${data.cursor}`) : undefined,
+        );
+    }
+
+    async discoverArticles(indicator?: PageIndicator) {
+        const url = urlcat(FIREFLY_ROOT_URL, '/v2/discover/articles/timeline', {
+            size: 20,
+            platform: [ArticlePlatform.Paragraph, ArticlePlatform.Mirror].join(','),
+        });
+
+        const response = await fetchJSON<DiscoverArticlesResponse>(url, {
+            method: 'GET',
+        });
+
+        const data = resolveFireflyResponseData(response);
+
+        const articles = data.result.map(formatArticleFromFirefly);
+
+        return createPageable(
+            articles,
             createIndicator(indicator),
             data.cursor ? createNextIndicator(indicator, `${data.cursor}`) : undefined,
         );

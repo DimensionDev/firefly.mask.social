@@ -308,6 +308,32 @@ export interface Channel {
     __original__?: unknown;
 }
 
+export enum ArticlePlatform {
+    Mirror = 'mirror',
+    Paragraph = 'paragraph',
+}
+
+export enum ArticleType {
+    Post = 'post',
+    Revise = 'revise',
+}
+
+export interface Article {
+    platform: ArticlePlatform;
+    title: string;
+    content: string;
+    type: ArticleType;
+    hash: string;
+    author: {
+        handle: string;
+        avatar: string;
+        id: string;
+    };
+    origin?: string;
+    timestamp: string;
+    id: string;
+}
+
 export interface Provider {
     type: SessionType;
 

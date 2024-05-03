@@ -7,6 +7,7 @@ export const resolveSocialPlatform = createLookupTableResolver<SourceInURL, Soci
         [SourceInURL.Farcaster]: SocialPlatform.Farcaster,
         [SourceInURL.Lens]: SocialPlatform.Lens,
         [SourceInURL.Twitter]: SocialPlatform.Twitter,
+        [SourceInURL.Article]: SocialPlatform.Article,
     },
     (keyword) => {
         throw new Error(`Unknown keyword: ${keyword}`);
