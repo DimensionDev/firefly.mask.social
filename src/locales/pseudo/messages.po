@@ -214,6 +214,9 @@ msgstr ""
 msgid "Frame Validator"
 msgstr ""
 
+msgid "Copy Link"
+msgstr ""
+
 msgid "Follow System"
 msgstr ""
 

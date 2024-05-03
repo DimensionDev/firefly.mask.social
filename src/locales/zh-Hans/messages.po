@@ -219,6 +219,9 @@ msgstr ""
 msgid "Frame Validator"
 msgstr "Frame Validator"
 
+msgid "Copy Link"
+msgstr ""
+
 msgid "Follow System"
 msgstr "跟随系统"
 
