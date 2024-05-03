@@ -49,7 +49,8 @@ export const MarkupLink = memo<MarkupLinkProps>(function MarkupLink({ title, pos
 
             case SocialPlatform.Twitter:
                 return title;
-
+            case SocialPlatform.Article:
+                return title;
             default:
                 safeUnreachable(source);
                 return title;

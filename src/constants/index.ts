@@ -39,6 +39,7 @@ export const SORTED_PROFILE_TAB_TYPE: Record<SocialPlatform, ProfileTabType[]> =
     ],
     [SocialPlatform.Farcaster]: [ProfileTabType.Feed, ProfileTabType.Replies, ProfileTabType.Liked],
     [SocialPlatform.Twitter]: [ProfileTabType.Feed],
+    [SocialPlatform.Article]: [],
 };
 export const SORTED_ENGAGEMENT_TAB_TYPE: Record<SocialPlatform, EngagementType[]> = {
     [SocialPlatform.Lens]: [EngagementType.Quotes, EngagementType.Mirrors, EngagementType.Likes],
@@ -50,6 +51,7 @@ export const SORTED_SEARCH_TYPE: Record<SocialPlatform, SearchType[]> = {
     [SocialPlatform.Lens]: [SearchType.Posts, SearchType.Users],
     [SocialPlatform.Farcaster]: [SearchType.Posts, SearchType.Users, SearchType.Channels],
     [SocialPlatform.Twitter]: [SearchType.Posts, SearchType.Users],
+    [SocialPlatform.Article]: [],
 };
 export const SORTED_SOURCES = [SocialPlatform.Farcaster, SocialPlatform.Lens, SocialPlatform.Twitter];
 export const SORTED_RESTECTION_TYPE = [RestrictionType.Everyone, RestrictionType.OnlyPeopleYouFollow];
@@ -83,16 +85,19 @@ export const MAX_CHAR_SIZE_PER_POST: Record<SocialPlatform, number> = {
     [SocialPlatform.Lens]: 5000,
     [SocialPlatform.Farcaster]: 320,
     [SocialPlatform.Twitter]: 280,
+    [SocialPlatform.Article]: 0,
 };
 export const DANGER_CHAR_LIMIT: Record<SocialPlatform, number> = {
     [SocialPlatform.Lens]: Math.floor(MAX_CHAR_SIZE_PER_POST[SocialPlatform.Lens] * 0.9),
     [SocialPlatform.Farcaster]: Math.floor(MAX_CHAR_SIZE_PER_POST[SocialPlatform.Farcaster] * 0.9),
     [SocialPlatform.Twitter]: Math.floor(MAX_CHAR_SIZE_PER_POST[SocialPlatform.Twitter] * 0.9),
+    [SocialPlatform.Article]: 0,
 };
 export const SAFE_CHAR_LIMIT: Record<SocialPlatform, number> = {
     [SocialPlatform.Lens]: Math.floor(MAX_CHAR_SIZE_PER_POST[SocialPlatform.Lens] * 0.8),
     [SocialPlatform.Farcaster]: Math.floor(MAX_CHAR_SIZE_PER_POST[SocialPlatform.Farcaster] * 0.8),
     [SocialPlatform.Twitter]: Math.floor(MAX_CHAR_SIZE_PER_POST[SocialPlatform.Twitter] * 0.8),
+    [SocialPlatform.Article]: 0,
 };
 
 // Search Bar

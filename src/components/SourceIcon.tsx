@@ -24,6 +24,8 @@ export function SourceIcon({ source, size = 20, ...props }: SourceIconProps) {
             return <FarcasterIcon {...props} style={style} width={size} height={size} />;
         case SocialPlatform.Twitter:
             return <XIcon {...props} style={style} width={size} height={size} />;
+        case SocialPlatform.Article:
+            return null;
         default:
             safeUnreachable(source);
             return null;

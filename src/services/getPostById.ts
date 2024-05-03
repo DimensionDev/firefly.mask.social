@@ -13,6 +13,8 @@ export async function getPostById(source: SocialPlatform, postId: string) {
             return FarcasterSocialMediaProvider.getPostById(postId);
         case SocialPlatform.Twitter:
             return TwitterSocialMediaProvider.getPostById(postId);
+        case SocialPlatform.Article:
+            return null;
         default:
             safeUnreachable(source);
             return null;

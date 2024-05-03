@@ -11,5 +11,6 @@ export function getCurrentProfileAll(): Record<SocialPlatform, Profile | null> {
         [SocialPlatform.Farcaster]: currentFarcasterProfile,
         [SocialPlatform.Lens]: currentLensProfile,
         [SocialPlatform.Twitter]: currentTwitterProfile,
+        [SocialPlatform.Article]: null,
     };
 }

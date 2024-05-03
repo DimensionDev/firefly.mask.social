@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 
 import { SocialPlatform } from '@/constants/enum.js';
+import { EMPTY_LIST } from '@/constants/index.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { useFarcasterStateStore, useLensStateStore, useTwitterStateStore } from '@/store/useProfileStore.js';
 
@@ -14,6 +15,7 @@ export function useProfilesAll() {
             [SocialPlatform.Farcaster]: farcasterProfiles,
             [SocialPlatform.Lens]: lensProfiles,
             [SocialPlatform.Twitter]: twitterProfiles,
+            [SocialPlatform.Article]: EMPTY_LIST,
         }),
         [lensProfiles, farcasterProfiles, twitterProfiles],
     );

@@ -14,6 +14,7 @@ import { compact } from 'lodash-es';
 import { useMemo } from 'react';
 import urlcat from 'urlcat';
 
+import type { SocialPlatform } from '@/constants/enum.js';
 import { SITE_HOSTNAME, SITE_URL } from '@/constants/index.js';
 import { URL_REGEX } from '@/constants/regex.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
@@ -34,7 +35,7 @@ export function usePostInfo(post: Post) {
         return {
             author: createConstantSubscription(author),
             handle: createConstantSubscription(post.author.fullHandle),
-            source: post.source,
+            source: post.source as Omit<SocialPlatform, 'Article'> | null,
             coAuthors: EMPTY_ARRAY,
             avatarURL: createConstantSubscription(new URL(post.author.pfp)),
             nickname: createConstantSubscription(post.author.displayName),

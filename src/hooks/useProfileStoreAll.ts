@@ -1,6 +1,8 @@
+import { noop } from 'lodash-es';
 import { useMemo } from 'react';
 
 import { SocialPlatform } from '@/constants/enum.js';
+import { EMPTY_LIST } from '@/constants/index.js';
 import { useFarcasterStateStore, useLensStateStore, useTwitterStateStore } from '@/store/useProfileStore.js';
 
 export function useProfileStoreAll() {
@@ -53,6 +55,14 @@ export function useProfileStoreAll() {
                 clearCurrentProfile: clearTwitterCurrentProfile,
                 refreshProfiles: refreshTwitterProfiles,
                 refreshCurrentProfile: refreshTwitterProfile,
+            },
+            [SocialPlatform.Article]: {
+                currentProfile: null,
+                currentProfileSession: null,
+                profiles: EMPTY_LIST,
+                clearCurrentProfile: noop,
+                refreshProfiles: noop,
+                refreshCurrentProfile: noop,
             },
         };
         return store as Record<SocialPlatform, (typeof store)[SocialPlatform]>;

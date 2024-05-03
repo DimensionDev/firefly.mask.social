@@ -13,6 +13,8 @@ export function getProfileById(source: SocialPlatform, handleOrProfileId: string
             return FarcasterSocialMediaProvider.getProfileById(handleOrProfileId);
         case SocialPlatform.Twitter:
             return TwitterSocialMediaProvider.getProfileById(handleOrProfileId);
+        case SocialPlatform.Article:
+            return null;
         default:
             safeUnreachable(source);
             return null;

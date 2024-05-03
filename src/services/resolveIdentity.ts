@@ -41,6 +41,8 @@ export async function resolveIdentity(source: SocialPlatform) {
             identity.profileId = currentProfileAll.Twitter?.profileId;
             identity.identifier = ProfileIdentifier.of(SITE_HOSTNAME, currentProfileAll.Twitter?.handle).unwrap();
             break;
+        case SocialPlatform.Article:
+            break;
         default:
             safeUnreachable(source);
             break;

@@ -16,6 +16,8 @@ export function useIsMyProfile(source: SocialPlatform, handleOrProfileId: string
                 return currentProfile.profileId === handleOrProfileId;
             case SocialPlatform.Twitter:
                 return currentProfile.profileId === handleOrProfileId;
+            case SocialPlatform.Article:
+                return false;
             default:
                 safeUnreachable(currentProfile.source);
                 return false;

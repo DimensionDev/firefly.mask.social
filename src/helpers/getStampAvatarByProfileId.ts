@@ -12,6 +12,8 @@ export function getStampAvatarByProfileId(source: SocialPlatform, profileId: str
             return urlcat(FIREFLY_STAMP_URL, '/farcaster/:id', { id: profileId });
         case SocialPlatform.Twitter:
             return urlcat(FIREFLY_STAMP_URL, '/twitter/:id', { id: profileId });
+        case SocialPlatform.Article:
+            return urlcat(FIREFLY_STAMP_URL, '/avatar/:address', { address: profileId });
         default:
             safeUnreachable(source);
             return '';

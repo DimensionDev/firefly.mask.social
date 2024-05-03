@@ -14,6 +14,7 @@ export function useCurrentProfileAll() {
             [SocialPlatform.Farcaster]: currentFarcasterProfile,
             [SocialPlatform.Lens]: currentLensProfile,
             [SocialPlatform.Twitter]: currentTwitterProfile,
+            [SocialPlatform.Article]: null,
         }),
         [currentFarcasterProfile, currentLensProfile, currentTwitterProfile],
     );

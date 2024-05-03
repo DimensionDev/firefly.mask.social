@@ -76,6 +76,8 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | 
                     setProfiles(EMPTY_LIST);
                     setSource(selectedSource);
                     return;
+                case SocialPlatform.Article:
+                    return;
                 default:
                     safeUnreachable(selectedSource);
                     return;

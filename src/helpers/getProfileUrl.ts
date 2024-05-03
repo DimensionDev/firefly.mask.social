@@ -24,6 +24,8 @@ export function getProfileUrl(profile: Profile) {
                 source: profile.source.toLowerCase(),
                 id: profile.profileId,
             });
+        case SocialPlatform.Article:
+            return '';
         default:
             safeUnreachable(profile.source);
             return '';

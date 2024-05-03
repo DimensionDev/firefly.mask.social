@@ -50,6 +50,8 @@ export const Mirror = memo<MirrorProps>(function Mirror({ shares = 0, source, po
                 return t`Recast`;
             case SocialPlatform.Twitter:
                 return t`Retweet`;
+            case SocialPlatform.Article:
+                return '';
             default:
                 safeUnreachable(source);
                 return '';
@@ -64,6 +66,8 @@ export const Mirror = memo<MirrorProps>(function Mirror({ shares = 0, source, po
                 return mirrored ? t`Cancel Recast` : t`Recast`;
             case SocialPlatform.Twitter:
                 return t`Retweet`;
+            case SocialPlatform.Article:
+                return '';
             default:
                 safeUnreachable(source);
                 return '';
@@ -89,6 +93,8 @@ export const Mirror = memo<MirrorProps>(function Mirror({ shares = 0, source, po
                 }
                 case SocialPlatform.Twitter:
                     throw new Error('Not implemented');
+                case SocialPlatform.Article:
+                    return;
                 default:
                     safeUnreachable(source);
                     return;
