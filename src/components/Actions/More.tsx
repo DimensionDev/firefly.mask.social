@@ -1,4 +1,5 @@
 import { Menu, Transition } from '@headlessui/react';
+import { ChartBarIcon } from '@heroicons/react/24/outline';
 import { Select, t, Trans } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import { Fragment, memo } from 'react';
@@ -14,8 +15,10 @@ import { Tooltip } from '@/components/Tooltip.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { config } from '@/configs/wagmiClient.js';
 import { SocialPlatform } from '@/constants/enum.js';
+import { Link } from '@/esm/Link.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
+import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useDeletePost } from '@/hooks/useDeletePost.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
@@ -42,20 +45,24 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
     const [{ loading: reporting }, reportUser] = useReportUser();
 
     return (
-        <Menu className=" relative" as="div">
+        <Menu
+            className=" relative"
+            as="div"
+            onClick={(e) => {
+                e.stopPropagation();
+            }}
+        >
             <Menu.Button
                 whileTap={{ scale: 0.9 }}
                 as={motion.button}
                 className="flex items-center text-secondary"
                 aria-label="More"
                 onClick={async (event) => {
+                    event.stopPropagation();
                     if (!isLogin) {
-                        event.stopPropagation();
                         event.preventDefault();
                         if (source === SocialPlatform.Lens) await getWalletClientRequired(config);
                         LoginModalRef.open({ source });
-                    } else {
-                        event.stopPropagation();
                     }
                 }}
             >
@@ -146,6 +153,19 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
                             ) : null}
                         </>
                     )}
+                    {id ? (
+                        <Menu.Item
+                            as={Link}
+                            href={`/post/${id}/likes?source=${resolveSourceInURL(source)}`}
+                            className="flex cursor-pointer items-center space-x-2 p-4 hover:bg-bg"
+                            onClick={(e) => e.stopPropagation()}
+                        >
+                            <ChartBarIcon width={24} height={24} />
+                            <span className="text-[17px] font-bold leading-[22px] text-main">
+                                <Trans>View Engagements</Trans>
+                            </span>
+                        </Menu.Item>
+                    ) : null}
                 </Menu.Items>
             </Transition>
         </Menu>

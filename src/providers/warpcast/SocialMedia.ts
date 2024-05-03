@@ -228,7 +228,7 @@ class WarpcastSocialMedia implements Provider {
         return formatWarpcastUser(user);
     }
 
-    async getLikeReactors(postId: string, indicator?: PageIndicator) {
+    async getLikeReactors(postId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
         const url = urlcat(WARPCAST_ROOT_URL, '/cast-likes', {
             castHash: postId,
             limit: 15,

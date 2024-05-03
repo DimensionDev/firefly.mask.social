@@ -1,6 +1,14 @@
 /* cspell:disable */
 
-import { NODE_ENV, ProfileTabType, RestrictionType, SearchType, SocialPlatform, VERCEL_NEV } from '@/constants/enum.js';
+import {
+    EngagementType,
+    NODE_ENV,
+    ProfileTabType,
+    RestrictionType,
+    SearchType,
+    SocialPlatform,
+    VERCEL_NEV,
+} from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 
 export const SITE_NAME = 'Firefly: Web3 & NFT Explorer';
@@ -31,6 +39,11 @@ export const SORTED_PROFILE_TAB_TYPE: Record<SocialPlatform, ProfileTabType[]> =
     ],
     [SocialPlatform.Farcaster]: [ProfileTabType.Feed, ProfileTabType.Replies, ProfileTabType.Liked],
     [SocialPlatform.Twitter]: [ProfileTabType.Feed],
+};
+export const SORTED_ENGAGEMENT_TAB_TYPE: Record<SocialPlatform, EngagementType[]> = {
+    [SocialPlatform.Lens]: [EngagementType.Mirrors, EngagementType.Quotes, EngagementType.Likes],
+    [SocialPlatform.Farcaster]: [EngagementType.Recasts, EngagementType.Quotes, EngagementType.Likes],
+    [SocialPlatform.Twitter]: [EngagementType.Quotes, EngagementType.Likes],
 };
 export const SORTED_SEARCH_TYPE: Record<SocialPlatform, SearchType[]> = {
     [SocialPlatform.Lens]: [SearchType.Posts, SearchType.Users],

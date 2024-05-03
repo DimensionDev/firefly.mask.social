@@ -62,6 +62,13 @@ export enum ProfileTabType {
     Channels = 'Channels',
 }
 
+export enum EngagementType {
+    Mirrors = 'mirrors',
+    Quotes = 'quotes',
+    Recasts = 'recasts',
+    Likes = 'likes',
+}
+
 export enum RestrictionType {
     Everyone = 0,
     OnlyPeopleYouFollow = 1,
