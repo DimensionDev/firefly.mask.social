@@ -56,10 +56,7 @@ export const ErrorReportSnackbar = forwardRef<HTMLDivElement, ReportCompleteProp
             <div className="w-full text-sm">
                 <div className="p-2 pl-3">
                     <div className="flex max-w-[400px] text-white">
-                        <div
-                            className="mr-auto flex flex-grow cursor-pointer items-center overflow-auto"
-                            onClick={handleExpandClick}
-                        >
+                        <div className="mr-auto flex flex-grow cursor-pointer items-center" onClick={handleExpandClick}>
                             <div className="mr-1 inline-block p-2 text-white">
                                 <XCircleIcon className="h-[20px] w-[20px] text-white" />
                             </div>
