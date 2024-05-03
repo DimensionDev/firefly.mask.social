@@ -7,7 +7,6 @@ import { useAsyncFn, useEffectOnce, useUnmount } from 'react-use';
 
 import LoadingIcon from '@/assets/loading.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
-import { farcasterClient } from '@/configs/farcasterClient.js';
 import { config } from '@/configs/wagmiClient.js';
 import { IS_MOBILE_DEVICE } from '@/constants/bowser.js';
 import { IS_PRODUCTION } from '@/constants/index.js';
@@ -18,6 +17,7 @@ import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromErr
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { LoginModalRef } from '@/modals/controls.js';
 import type { FarcasterSession } from '@/providers/farcaster/Session.js';
+import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { createSessionByCustodyWallet } from '@/providers/warpcast/createSessionByCustodyWallet.js';
 import { createSessionByGrantPermission } from '@/providers/warpcast/createSessionByGrantPermission.js';
@@ -30,7 +30,7 @@ async function login(createSession: () => Promise<FarcasterSession>) {
 
         useFarcasterStateStore.getState().updateProfiles([profile]);
         useFarcasterStateStore.getState().updateCurrentProfile(profile, session);
-        farcasterClient.resumeSession(session);
+        farcasterSessionHolder.resumeSession(session);
 
         enqueueSuccessMessage(t`Your Farcaster account is now connected.`);
         LoginModalRef.close();

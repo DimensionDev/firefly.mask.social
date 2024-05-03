@@ -3,7 +3,7 @@ import { blake3 } from '@noble/hashes/blake3';
 import { bytesToHex } from '@noble/hashes/utils';
 import { toBytes } from 'viem';
 
-import { farcasterClient } from '@/configs/farcasterClient.js';
+import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import type { PartialWith } from '@/types/index.js';
 
 export async function encodeMessageData(
@@ -11,7 +11,7 @@ export async function encodeMessageData(
     withMessage: (messageData: MessageData, signer: NobleEd25519Signer) => Promise<Message>,
     withPrivateKey?: string,
 ) {
-    const { token, profileId } = farcasterClient.sessionRequired;
+    const { token, profileId } = farcasterSessionHolder.sessionRequired;
     const privateKey = withPrivateKey || token;
     const signer = new NobleEd25519Signer(toBytes(privateKey));
 

@@ -1,7 +1,7 @@
 import { first } from 'lodash-es';
 import urlcat from 'urlcat';
 
-import type { FarcasterMetric, LensMetric, Metrics } from '@/app/api/firefly/metrics/decrypt/route.js';
+import type { FarcasterMetric, LensMetric, Metrics } from '@/app/api/firefly/decrypt-metrics/route.js';
 import { FIREFLY_ROOT_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
