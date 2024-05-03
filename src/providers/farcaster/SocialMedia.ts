@@ -274,6 +274,18 @@ class FarcasterSocialMedia implements Provider {
     getCommentsById(postId: string, indicator?: PageIndicator) {
         return FireflySocialMediaProvider.getCommentsById(postId, indicator);
     }
+    async reportUser(profileId: string) {
+        const { isCustodyWallet, isGrantByPermission } = getFarcasterSessionType();
+        if (isCustodyWallet) return WarpcastSocialMediaProvider.reportUser(profileId);
+        if (isGrantByPermission) return FireflySocialMediaProvider.reportUser(profileId);
+        return false;
+    }
+    async reportPost(post: Post) {
+        const { isCustodyWallet, isGrantByPermission } = getFarcasterSessionType();
+        if (isCustodyWallet) return WarpcastSocialMediaProvider.reportPost(post);
+        if (isGrantByPermission) return FireflySocialMediaProvider.reportPost(post);
+        return false;
+    }
 }
 
 export const FarcasterSocialMediaProvider = new FarcasterSocialMedia();

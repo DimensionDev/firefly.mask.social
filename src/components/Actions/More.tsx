@@ -8,6 +8,7 @@ import LoadingIcon from '@/assets/loading.svg';
 import MoreIcon from '@/assets/more.svg';
 import TrashIcon from '@/assets/trash.svg';
 import UnFollowUserIcon from '@/assets/unfollow-user.svg';
+import { ReportUserButton } from '@/components/Actions/ReportUserButton.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { queryClient } from '@/configs/queryClient.js';
@@ -36,6 +37,7 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
     const [isFollowed, { loading }, handleToggle] = useToggleFollow(author);
 
     const [{ loading: deleting }, deletePost] = useDeletePost(source);
+
     return (
         <Menu className=" relative" as="div">
             <Menu.Button
@@ -74,7 +76,7 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
                 leaveTo="transform opacity-0 scale-95"
             >
                 <Menu.Items
-                    className="absolute right-0 z-[1000] flex w-max space-y-2 overflow-hidden rounded-2xl border border-line bg-primaryBottom text-main"
+                    className="absolute right-0 z-[1000] flex w-max flex-col space-y-2 overflow-hidden rounded-2xl border border-line bg-primaryBottom text-main"
                     onClick={(event) => {
                         event.stopPropagation();
                         event.preventDefault();
@@ -102,35 +104,40 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
                             )}
                         </Menu.Item>
                     ) : (
-                        <Menu.Item>
-                            {({ close }) => (
-                                <ClickableButton
-                                    className="flex cursor-pointer items-center space-x-2 p-4 hover:bg-bg"
-                                    onClick={async () => {
-                                        close();
-                                        await handleToggle();
-                                        queryClient.invalidateQueries({
-                                            queryKey: [source, 'post-detail', id],
-                                        });
-                                    }}
-                                >
-                                    {isFollowed ? (
-                                        <UnFollowUserIcon width={24} height={24} />
-                                    ) : (
-                                        <FollowUserIcon width={24} height={24} />
-                                    )}
-                                    <span className="text-[17px] font-bold leading-[22px] text-main">
-                                        <Select
-                                            value={isFollowed ? 'unfollow' : 'follow'}
-                                            _follow="Follow"
-                                            _unfollow="Unfollow"
-                                            other="Follow"
-                                        />{' '}
-                                        @{author.handle}
-                                    </span>
-                                </ClickableButton>
-                            )}
-                        </Menu.Item>
+                        <>
+                            <Menu.Item>
+                                {({ close }) => (
+                                    <ClickableButton
+                                        className="flex cursor-pointer items-center space-x-2 p-4 hover:bg-bg"
+                                        onClick={async () => {
+                                            close();
+                                            await handleToggle();
+                                            queryClient.invalidateQueries({
+                                                queryKey: [source, 'post-detail', id],
+                                            });
+                                        }}
+                                    >
+                                        {isFollowed ? (
+                                            <UnFollowUserIcon width={24} height={24} />
+                                        ) : (
+                                            <FollowUserIcon width={24} height={24} />
+                                        )}
+                                        <span className="text-[17px] font-bold leading-[22px] text-main">
+                                            <Select
+                                                value={isFollowed ? 'unfollow' : 'follow'}
+                                                _follow="Follow"
+                                                _unfollow="Unfollow"
+                                                other="Follow"
+                                            />{' '}
+                                            @{author.handle}
+                                        </span>
+                                    </ClickableButton>
+                                )}
+                            </Menu.Item>
+                            <Menu.Item>
+                                {({ close }) => <ReportUserButton onConfirm={close} profile={author} />}
+                            </Menu.Item>
+                        </>
                     )}
                 </Menu.Items>
             </Transition>

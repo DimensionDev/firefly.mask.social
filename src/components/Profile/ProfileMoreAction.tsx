@@ -63,6 +63,7 @@ export const ProfileMoreAction = memo<MoreProps>(function ProfileMoreAction({ pr
                             </ClickableButton>
                         )}
                     </Menu.Item>
+                    <Menu.Item>{({ close }) => <ReportUserButton onConfirm={close} profile={profile} />}</Menu.Item>
                 </Menu.Items>
             </Transition>
         </Menu>

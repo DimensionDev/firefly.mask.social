@@ -7,8 +7,12 @@ import {
     isCreateMomokaPublicationResult,
     isRelaySuccess,
     LimitType,
+    ProfileReportingReason,
+    ProfileReportingSpamSubreason,
     PublicationMetadataMainFocusType,
     PublicationReactionType,
+    PublicationReportingReason,
+    PublicationReportingSpamSubreason,
     PublicationType,
 } from '@lens-protocol/client';
 import { t } from '@lingui/macro';
@@ -1091,6 +1095,33 @@ class LensSocialMedia implements Provider {
         });
 
         return posts.items.map(formatLensPost);
+    }
+
+    async reportUser(profileId: string) {
+        const result = await lensSessionHolder.sdk.profile.report({
+            for: profileId,
+            // TODO more specific and accurate reason.
+            reason: {
+                spamReason: {
+                    reason: ProfileReportingReason.Spam,
+                    subreason: ProfileReportingSpamSubreason.SomethingElse,
+                },
+            },
+        });
+        return result.isSuccess().valueOf();
+    }
+    async reportPost(post: Post) {
+        const result = await lensSessionHolder.sdk.publication.report({
+            for: post.postId,
+            // TODO more specific and accurate reason.
+            reason: {
+                spamReason: {
+                    reason: PublicationReportingReason.Spam,
+                    subreason: PublicationReportingSpamSubreason.SomethingElse,
+                },
+            },
+        });
+        return result.isSuccess().valueOf();
     }
 }
 
