@@ -13,7 +13,7 @@ import type { ResponseJSON } from '@/types/index.js';
  * @returns
  */
 export async function createSessionByGrantPermission(callback?: (url: string) => void, signal?: AbortSignal) {
-    // create keypair in client side
+    // create key pair in client side
     const privateKey = utils.randomPrivateKey();
     const publicKey: `0x${string}` = `0x${Buffer.from(await getPublicKey(privateKey)).toString('hex')}`;
 
