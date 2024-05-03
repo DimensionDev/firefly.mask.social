@@ -39,6 +39,8 @@ async function getParentPostById(source: SocialPlatform, postId: string) {
             return { postId } as unknown as Post;
         case SocialPlatform.Lens:
             return { postId } as unknown as Post;
+        case SocialPlatform.Article:
+            return null;
         default:
             safeUnreachable(source);
             return null;
