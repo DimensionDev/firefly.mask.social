@@ -85,6 +85,9 @@ msgstr ""
 msgid "Wrong wallet"
 msgstr ""
 
+msgid "Casts"
+msgstr ""
+
 msgid "Transaction button is not available yet."
 msgstr ""
 
@@ -563,6 +566,9 @@ msgid "Post by {0}"
 msgstr ""
 
 msgid "quote"
+msgstr ""
+
+msgid "Casts + Replies"
 msgstr ""
 
 msgid "Image"

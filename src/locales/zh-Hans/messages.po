@@ -90,6 +90,9 @@ msgstr "OpenGraph"
 msgid "Wrong wallet"
 msgstr "错误的钱包"
 
+msgid "Casts"
+msgstr ""
+
 msgid "Transaction button is not available yet."
 msgstr ""
 
@@ -569,6 +572,9 @@ msgstr "由 {0} 发帖"
 
 msgid "quote"
 msgstr "引用"
+
+msgid "Casts + Replies"
+msgstr ""
 
 msgid "Image"
 msgstr "图片"

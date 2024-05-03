@@ -85,6 +85,9 @@ msgstr "OpenGraph"
 msgid "Wrong wallet"
 msgstr "Wrong wallet"
 
+msgid "Casts"
+msgstr "Casts"
+
 msgid "Transaction button is not available yet."
 msgstr "Transaction button is not available yet."
 
@@ -564,6 +567,9 @@ msgstr "Post by {0}"
 
 msgid "quote"
 msgstr "quote"
+
+msgid "Casts + Replies"
+msgstr "Casts + Replies"
 
 msgid "Image"
 msgstr "Image"
