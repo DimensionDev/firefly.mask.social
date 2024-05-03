@@ -7,7 +7,7 @@ export const resolveFallbackImageUrl = createLookupTableResolver(
         [SocialPlatform.Farcaster]: '/image/farcaster-fallback.png',
         [SocialPlatform.Lens]: '/image/lens-fallback.png',
         [SocialPlatform.Twitter]: '/image/twitter-fallback.png',
-        [SocialPlatform.Article]: ''
+        [SocialPlatform.Article]: '',
     },
     '',
 );
