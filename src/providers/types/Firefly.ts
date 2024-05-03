@@ -155,7 +155,7 @@ export interface Article {
         contributor: string;
     };
     related_urls: string[];
-    article_id: string,
+    article_id: string;
 }
 
 export interface Response<T> {
