@@ -62,11 +62,16 @@ export function Tabs({ profileId, source }: TabsProps) {
                 {[
                     {
                         type: ProfileTabType.Feed,
-                        title: <Trans>Feed</Trans>,
+                        title: source === SocialPlatform.Farcaster ? <Trans>Casts</Trans> : <Trans>Feed</Trans>,
                     },
                     {
                         type: ProfileTabType.Replies,
-                        title: <Trans>Replies</Trans>,
+                        title:
+                            source === SocialPlatform.Farcaster ? (
+                                <Trans>Casts + Replies</Trans>
+                            ) : (
+                                <Trans>Replies</Trans>
+                            ),
                     },
                     {
                         type: ProfileTabType.Liked,

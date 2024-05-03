@@ -346,7 +346,7 @@ class FireflySocialMedia implements Provider {
 
     async getPostsByProfileId(profileId: string, indicator?: PageIndicator) {
         return farcasterSessionHolder.withSession(async (session) => {
-            const url = urlcat(FIREFLY_ROOT_URL, '/v2/user/timeline/farcaster');
+            const url = urlcat(FIREFLY_ROOT_URL, '/v2/user/timeline/farcaster/casts');
             const response = await fetchJSON<CastsResponse>(url, {
                 method: 'POST',
                 body: JSON.stringify({
@@ -393,7 +393,7 @@ class FireflySocialMedia implements Provider {
 
     async getRepliesPostsByProfileId(profileId: string, indicator?: PageIndicator) {
         return farcasterSessionHolder.withSession(async (session) => {
-            const url = urlcat(FIREFLY_ROOT_URL, '/v2/user/timeline/farcaster/replies');
+            const url = urlcat(FIREFLY_ROOT_URL, '/v2/user/timeline/farcaster');
 
             const response = await fetchJSON<CastsResponse>(url, {
                 method: 'POST',
