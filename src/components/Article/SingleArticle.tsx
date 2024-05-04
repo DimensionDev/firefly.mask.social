@@ -12,6 +12,7 @@ import { IS_APPLE, IS_SAFARI } from '@/constants/bowser.js';
 import { classNames } from '@/helpers/classNames.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { resolveArticlePlatformIcon } from '@/helpers/resolveArticlePlatformIcon.js';
+import { PreviewImageModalRef } from '@/modals/controls.js';
 import { type Article, ArticlePlatform, ArticleType } from '@/providers/types/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import type { ResponseJSON } from '@/types/index.js';
@@ -75,6 +76,15 @@ export const SingleArticle = memo<SingleArticleProps>(function SingleArticleProp
                         height={260}
                         className="mb-3 w-full cursor-pointer rounded-lg object-cover"
                         alt={cover.data}
+                        onClick={(event) => {
+                            event.stopPropagation();
+                            event.preventDefault();
+                            if (cover.data)
+                                PreviewImageModalRef.open({
+                                    images: [cover.data],
+                                    current: cover.data,
+                                });
+                        }}
                     />
                 ) : null}
                 <div className="text-xl font-semibold">{article.title}</div>
