@@ -52,9 +52,6 @@ msgstr ""
 msgid "Allow Lens Manager to perform actions such as posting, liking, and commenting without the need to sign each transaction."
 msgstr ""
 
-msgid "{0} views"
-msgstr ""
-
 msgid "Searching channel"
 msgstr ""
 
@@ -695,6 +692,9 @@ msgid "Unfollow"
 msgstr ""
 
 msgid "You cannot reply to @{author} on {0}."
+msgstr ""
+
+msgid "{0, plural, one {# view} other {{1}}}"
 msgstr ""
 
 msgid "Claim on {0}: {1}"

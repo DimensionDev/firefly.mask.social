@@ -72,6 +72,7 @@ export default function Page(props: Props) {
                     .map(({ type, title }) => (
                         <div key={type} className=" flex flex-col">
                             <Link
+                                replace
                                 className={classNames(
                                     ' flex h-[46px] items-center px-[14px] font-extrabold transition-all',
                                     engagementType === type ? ' text-main' : ' text-third hover:text-main',

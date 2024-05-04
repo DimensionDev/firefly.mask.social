@@ -57,9 +57,6 @@ msgstr "诊断网络"
 msgid "Allow Lens Manager to perform actions such as posting, liking, and commenting without the need to sign each transaction."
 msgstr "允许 Lens 管理员执行发帖、点赞和评论等操作，而无需签署每笔交易。"
 
-msgid "{0} views"
-msgstr "{0} 浏览数"
-
 msgid "Searching channel"
 msgstr ""
 
@@ -701,6 +698,9 @@ msgstr "取消关注"
 
 msgid "You cannot reply to @{author} on {0}."
 msgstr "你不能在 {0} 上评论 {author}"
+
+msgid "{0, plural, one {# view} other {{1}}}"
+msgstr ""
 
 msgid "Claim on {0}: {1}"
 msgstr ""
