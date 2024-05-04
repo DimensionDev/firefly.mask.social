@@ -1,7 +1,7 @@
 'use client';
 
 import type { UseSuspenseInfiniteQueryResult } from '@tanstack/react-query';
-import { useCallback } from 'react';
+import { useCallback, useRef } from 'react';
 import type { Components } from 'react-virtuoso';
 
 import { NoResultsFallback, type NoResultsFallbackProps } from '@/components/NoResultsFallback.js';
@@ -26,6 +26,7 @@ export function ListInPage<T = unknown>({
     VirtualListProps,
     NoResultsFallbackProps,
 }: ListInPageProps<T>) {
+    const itemsRendered = useRef(false);
     const currentSource = useGlobalState.use.currentSource();
     const isLogin = useIsLogin(currentSource);
 
@@ -56,6 +57,7 @@ export function ListInPage<T = unknown>({
         hasNextPage,
         fetchNextPage,
         isFetching,
+        itemsRendered: itemsRendered.current,
         ...(VirtualListProps?.context ?? {}),
     };
 
@@ -64,6 +66,11 @@ export function ListInPage<T = unknown>({
             useWindowScroll
             data={data}
             endReached={onEndReached}
+            itemSize={(el: HTMLElement) => {
+                if (!itemsRendered.current) itemsRendered.current = true;
+
+                return el.getBoundingClientRect().height;
+            }}
             {...VirtualListProps}
             context={Context}
             components={Components}
