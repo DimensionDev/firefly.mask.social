@@ -2,6 +2,7 @@ export interface Cast {
     fid: string;
     hash: string;
     text: string;
+    channel?: Channel;
     parent_hash?: string;
     parent_fid?: string;
     parent_url?: string;
@@ -87,8 +88,8 @@ export interface ChannelProfile {
             text: string;
         };
     };
-    verifications: string[];
-    verified_addresses: Record<'eth_addresses' | 'sol_addresses', string[]>;
+    verifications?: string[];
+    verified_addresses?: Record<'eth_addresses' | 'sol_addresses', string[]>;
 }
 
 export interface Channel {

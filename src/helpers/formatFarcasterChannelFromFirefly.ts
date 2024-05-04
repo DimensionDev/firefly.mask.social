@@ -19,7 +19,7 @@ export function formatChannelProfileFromFirefly(channelProfile: ChannelProfile):
         followerCount: channelProfile.follower_count,
         followingCount: channelProfile.following_count,
         status: channelProfile.active_status === 'active' ? ProfileStatus.Active : ProfileStatus.Inactive,
-        verified: channelProfile.verifications.length > 0,
+        verified: !!channelProfile.verifications && channelProfile.verifications.length > 0,
         viewerContext: {
             following: channelProfile.isFollowing ?? false,
             followedBy: channelProfile.isFollowedBack ?? false,
