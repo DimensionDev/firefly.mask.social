@@ -39,11 +39,7 @@ export function ProfileSettings({ source }: ProfileSettingsProps) {
                     disabled={isSameProfile(currentProfile, profile) || source === SocialPlatform.Farcaster}
                     onClick={() => login(profile)}
                 >
-                    <ProfileAvatar
-                        profile={profile}
-                        clickable
-                        linkable
-                    />
+                    <ProfileAvatar profile={profile} clickable linkable />
                     <ProfileName profile={profile} />
 
                     {env.shared.NODE_ENV === NODE_ENV.Development ? (

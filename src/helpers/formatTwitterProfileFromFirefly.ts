@@ -4,7 +4,7 @@ import { SocialPlatform } from '@/constants/enum.js';
 import { type Profile, ProfileStatus } from '@/providers/types/SocialMedia.js';
 
 export function formatTwitterProfileFromFirefly(data: UserV2): Profile {
-    const following = data?.connection_status?.some(status => status === 'following')
+    const following = data?.connection_status?.some((status) => status === 'following');
     return {
         fullHandle: data.name,
         profileId: data.id,
@@ -19,6 +19,6 @@ export function formatTwitterProfileFromFirefly(data: UserV2): Profile {
         source: SocialPlatform.Twitter,
         viewerContext: {
             following,
-        }
-    }
+        },
+    };
 }

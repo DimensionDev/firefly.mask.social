@@ -14,8 +14,15 @@ export const GET = compose<(request: NextRequest, context: { params: Params }) =
     async (request, { params: { userId } }) => {
         const client = await createTwitterClientV2(request);
         const { data } = await client.v2.user(userId, {
-            'user.fields': ['description', 'username', 'name', 'profile_image_url', 'public_metrics', 'connection_status'],
-        })
-        return createSuccessResponseJSON(data)
-    }
-)
+            'user.fields': [
+                'description',
+                'username',
+                'name',
+                'profile_image_url',
+                'public_metrics',
+                'connection_status',
+            ],
+        });
+        return createSuccessResponseJSON(data);
+    },
+);

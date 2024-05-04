@@ -24,11 +24,11 @@ export function withRequestErrorHandler(handler: (request: NextRequest, ...other
             if (error instanceof UnauthorizedError) {
                 return createErrorResponseJSON(error.message, {
                     status: StatusCodes.UNAUTHORIZED,
-                })
+                });
             }
             return createErrorResponseJSON(error instanceof Error ? error.message : 'Internal Server Error', {
                 status: StatusCodes.INTERNAL_SERVER_ERROR,
             });
         }
-    }
+    };
 }

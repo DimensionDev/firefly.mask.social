@@ -1,5 +1,5 @@
 import { createIndicator, createPageable, type Pageable, type PageIndicator } from '@masknet/shared-base';
-import type {TweetV2, TweetV2PaginableTimelineResult } from 'twitter-api-v2';
+import type { TweetV2, TweetV2PaginableTimelineResult } from 'twitter-api-v2';
 import type { ApiV2Includes } from 'twitter-api-v2/dist/esm/types/v2/tweet.definition.v2.js';
 
 import { SocialPlatform } from '@/constants/enum.js';
@@ -7,8 +7,8 @@ import { type Attachment, type Post, type PostType, ProfileStatus } from '@/prov
 
 function tweetV2ToPost(item: TweetV2, type?: PostType, includes?: ApiV2Includes): Post {
     const user = includes?.users?.find((u) => u.id === item.author_id);
-    const repliedTweetId = item.referenced_tweets?.find(tweet => tweet.type === 'replied_to')?.id
-    const repliedTweet = repliedTweetId ? includes?.tweets?.find(tweet => tweet.id === repliedTweetId) : undefined
+    const repliedTweetId = item.referenced_tweets?.find((tweet) => tweet.type === 'replied_to')?.id;
+    const repliedTweet = repliedTweetId ? includes?.tweets?.find((tweet) => tweet.id === repliedTweetId) : undefined;
     const ret: Post = {
         publicationId: item.id,
         postId: item.id,
@@ -50,29 +50,28 @@ function tweetV2ToPost(item: TweetV2, type?: PostType, includes?: ApiV2Includes)
                         };
                     })
                     .filter((media) => media)
-                    .map(media => media as Attachment)
-                ,
+                    .map((media) => media as Attachment),
             },
         },
-    }
+    };
     if (repliedTweet) {
-        ret.commentOn = tweetV2ToPost(repliedTweet, type, includes)
-        let endCommentOn = ret.commentOn
+        ret.commentOn = tweetV2ToPost(repliedTweet, type, includes);
+        let endCommentOn = ret.commentOn;
         while (1) {
             if (endCommentOn?.commentOn) {
-                endCommentOn = endCommentOn?.commentOn
+                endCommentOn = endCommentOn?.commentOn;
             } else {
-                break
+                break;
             }
         }
-        const hasReplied = repliedTweet?.referenced_tweets?.find(tweet => tweet.type === 'replied_to')
+        const hasReplied = repliedTweet?.referenced_tweets?.find((tweet) => tweet.type === 'replied_to');
         if (!hasReplied) {
-            ret.root = tweetV2ToPost(repliedTweet, type, includes)
+            ret.root = tweetV2ToPost(repliedTweet, type, includes);
         } else if (endCommentOn) {
-            ret.root = endCommentOn
+            ret.root = endCommentOn;
         }
     }
-    return ret
+    return ret;
 }
 
 export function formatTwitterPostFromFirefly(
@@ -84,6 +83,6 @@ export function formatTwitterPostFromFirefly(
     return createPageable(
         posts,
         createIndicator(currentIndicator),
-        data.meta.next_token ? createIndicator(undefined, data.meta.next_token) : undefined
+        data.meta.next_token ? createIndicator(undefined, data.meta.next_token) : undefined,
     );
 }

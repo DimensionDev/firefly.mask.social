@@ -31,7 +31,7 @@ class TwitterSocialMedia implements Provider {
     async mirrorPost(postId: string): Promise<string> {
         const response = await fetchJSON<ResponseJSON<void>>(`/api/twitter/retweet/${postId}`, { method: 'POST' });
         if (!response.success) throw new Error(response.error.message);
-        return postId
+        return postId;
     }
 
     commentPost(postId: string, post: Post): Promise<string> {
@@ -127,15 +127,15 @@ class TwitterSocialMedia implements Provider {
     }
 
     async getProfileById(profileId: string): Promise<Profile> {
-        const response = await fetchJSON<ResponseJSON<UserV2>>(`/api/twitter/user/${profileId}`)
+        const response = await fetchJSON<ResponseJSON<UserV2>>(`/api/twitter/user/${profileId}`);
         if (!response.success) throw new Error(response.error.message);
-        return formatTwitterProfileFromFirefly(response.data)
+        return formatTwitterProfileFromFirefly(response.data);
     }
 
     async getProfileByHandle(handle: string): Promise<Profile> {
-        const response = await fetchJSON<ResponseJSON<UserV2>>(`/api/twitter/username/${handle}`)
+        const response = await fetchJSON<ResponseJSON<UserV2>>(`/api/twitter/username/${handle}`);
         if (!response.success) throw new Error(response.error.message);
-        return formatTwitterProfileFromFirefly(response.data)
+        return formatTwitterProfileFromFirefly(response.data);
     }
 
     getCollectedPostsByProfileId(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
@@ -167,7 +167,7 @@ class TwitterSocialMedia implements Provider {
         const response = await fetchJSON<ResponseJSON<TweetV2PaginableTimelineResult>>(url);
         if (!response.success) throw new Error(response.error.message);
         const postWithPageable = formatTwitterPostFromFirefly(response.data, 'Post', indicator);
-        return { ...postWithPageable, data: postWithPageable.data.map(post => ({ ...post, hasLiked: true })) }
+        return { ...postWithPageable, data: postWithPageable.data.map((post) => ({ ...post, hasLiked: true })) };
     }
 
     async getRepliesPostsByProfileId(

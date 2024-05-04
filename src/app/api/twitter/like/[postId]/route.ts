@@ -9,8 +9,8 @@ export const POST = compose<(request: NextRequest, context: { params: { postId: 
     withRequestErrorHandler,
     async (request, { params: { postId } }) => {
         const client = await createTwitterClientV2(request);
-        const { data: me } = await client.v2.me()
-        await client.v2.like(me.id, postId)
+        const { data: me } = await client.v2.me();
+        await client.v2.like(me.id, postId);
         return createSuccessResponseJSON(true);
-    }
-)
+    },
+);
