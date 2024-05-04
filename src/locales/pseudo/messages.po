@@ -157,6 +157,9 @@ msgstr ""
 msgid "Missing IPFS hash for image or video."
 msgstr ""
 
+msgid "Revise on"
+msgstr ""
+
 msgid "Only up to 2 images can be chosen."
 msgstr ""
 
@@ -530,6 +533,9 @@ msgid "Delete"
 msgstr ""
 
 msgid "There is no data available for display."
+msgstr ""
+
+msgid "Post on"
 msgstr ""
 
 msgid "Failed to like the post."
