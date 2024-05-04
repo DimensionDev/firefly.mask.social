@@ -21,6 +21,10 @@ export default function Layout({ children, modal }: { children: React.ReactNode;
                                 r: '/post/[^/]+$',
                                 flags: 'i',
                             },
+                            {
+                                r: '/post/[^/]+/\\w+$',
+                                flags: 'i',
+                            },
                             '/profile',
                             '/channel',
                         ]}
@@ -34,6 +38,10 @@ export default function Layout({ children, modal }: { children: React.ReactNode;
                         isNotOneOf={[
                             {
                                 r: '/post/[^/]+$',
+                                flags: 'i',
+                            },
+                            {
+                                r: '/post/[^/]+/\\w+$',
                                 flags: 'i',
                             },
                             '/channel',

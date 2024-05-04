@@ -283,6 +283,16 @@ class TwitterSocialMedia implements Provider {
     async reportPost(post: Post): Promise<boolean> {
         throw new Error('Method not implemented.');
     }
+
+    async getLikeReactors(postId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
+        throw new Error('Method not implemented.');
+    }
+    async getRepostReactors(postId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
+        throw new Error('Method not implemented.');
+    }
+    async getPostsQuoteOn(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        throw new Error('Method not implemented.');
+    }
 }
 
 export const TwitterSocialMediaProvider = new TwitterSocialMedia();

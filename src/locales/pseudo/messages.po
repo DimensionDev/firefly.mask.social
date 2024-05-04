@@ -52,9 +52,6 @@ msgstr ""
 msgid "Allow Lens Manager to perform actions such as posting, liking, and commenting without the need to sign each transaction."
 msgstr ""
 
-msgid "{0} views"
-msgstr ""
-
 msgid "Searching channel"
 msgstr ""
 
@@ -208,6 +205,9 @@ msgstr ""
 msgid "Feed"
 msgstr ""
 
+msgid "Recasts"
+msgstr ""
+
 msgid "Check out my LuckyDrop 🧧💰✨ on Firefly mobile app or {SITE_URL} !"
 msgstr ""
 
@@ -326,6 +326,9 @@ msgid "Only people you mention"
 msgstr ""
 
 msgid "Allow replies from"
+msgstr ""
+
+msgid "No one likes this post yet."
 msgstr ""
 
 msgid "Your posts have published successfully on {0}."
@@ -469,6 +472,9 @@ msgstr ""
 msgid "Show More"
 msgstr ""
 
+msgid "{count, plural, one {# view} other {{0}}}"
+msgstr ""
+
 msgid "Failed to parse session."
 msgstr ""
 
@@ -539,6 +545,9 @@ msgid "Failed to publish post."
 msgstr ""
 
 msgid "recasted your"
+msgstr ""
+
+msgid "Quotes"
 msgstr ""
 
 msgid "Please input the url to be revalidated."
@@ -718,6 +727,9 @@ msgstr ""
 msgid "Mask Network"
 msgstr ""
 
+msgid "View Engagements"
+msgstr ""
+
 msgid "Your Lens account is now connected."
 msgstr ""
 
@@ -746,6 +758,9 @@ msgid "Failed to fetch the latest state after several attempts. Please try again
 msgstr ""
 
 msgid "Profile"
+msgstr ""
+
+msgid "Mirrors"
 msgstr ""
 
 msgid "Video"
@@ -824,6 +839,9 @@ msgid "Replying to <0>@{0}</0> on {1}"
 msgstr ""
 
 msgid "A thread must have at least two posts."
+msgstr ""
+
+msgid "Likes"
 msgstr ""
 
 msgid "Mint button is not available yet."

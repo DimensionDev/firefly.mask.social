@@ -1130,6 +1130,54 @@ class LensSocialMedia implements Provider {
         });
         return result.isSuccess().valueOf();
     }
+    async getLikeReactors(postId: string, indicator?: PageIndicator) {
+        const result = await lensSessionHolder.sdk.publication.reactions.fetch({
+            cursor: indicator?.id ? indicator.id : undefined,
+            // TODO could be just publicationId as the typing
+            for: postId,
+            where: {
+                anyOf: [PublicationReactionType.Upvote],
+            },
+        });
+        if (!result) throw new Error(t`No one likes this post yet.`);
+        const profiles = result.items.map((item) => formatLensProfile(item.profile));
+        return createPageable(
+            profiles,
+            indicator || createIndicator(),
+            result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
+        );
+    }
+    async getRepostReactors(postId: string, indicator?: PageIndicator) {
+        const result = await lensSessionHolder.sdk.profile.fetchAll({
+            cursor: indicator?.id ? indicator.id : undefined,
+            where: {
+                whoMirroredPublication: postId,
+            },
+        });
+        if (!result) throw new Error(t`No one likes this post yet.`);
+        const profiles = result.items.map((profile) => formatLensProfile(profile));
+        return createPageable(
+            profiles,
+            indicator || createIndicator(),
+            result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
+        );
+    }
+
+    async getPostsQuoteOn(postId: string, indicator?: PageIndicator) {
+        const result = await lensSessionHolder.sdk.publication.fetchAll({
+            cursor: indicator?.id ? indicator.id : undefined,
+            where: {
+                quoteOn: postId,
+            },
+        });
+        if (!result) throw new Error(t`No one likes this post yet.`);
+        const profiles = result.items.map(formatLensPost);
+        return createPageable(
+            profiles,
+            indicator || createIndicator(),
+            result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
+        );
+    }
 }
 
 export const LensSocialMediaProvider = new LensSocialMedia();

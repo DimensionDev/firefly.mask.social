@@ -52,9 +52,6 @@ msgstr "Debug Connection"
 msgid "Allow Lens Manager to perform actions such as posting, liking, and commenting without the need to sign each transaction."
 msgstr "Allow Lens Manager to perform actions such as posting, liking, and commenting without the need to sign each transaction."
 
-msgid "{0} views"
-msgstr "{0} views"
-
 msgid "Searching channel"
 msgstr "Searching channel"
 
@@ -208,6 +205,9 @@ msgstr "Connect Wallet"
 msgid "Feed"
 msgstr "Feed"
 
+msgid "Recasts"
+msgstr "Recasts"
+
 msgid "Check out my LuckyDrop 🧧💰✨ on Firefly mobile app or {SITE_URL} !"
 msgstr "Check out my LuckyDrop 🧧💰✨ on Firefly mobile app or {SITE_URL} !"
 
@@ -327,6 +327,9 @@ msgstr "Only people you mention"
 
 msgid "Allow replies from"
 msgstr "Allow replies from"
+
+msgid "No one likes this post yet."
+msgstr "No one likes this post yet."
 
 msgid "Your posts have published successfully on {0}."
 msgstr "Your posts have published successfully on {0}."
@@ -469,6 +472,9 @@ msgstr "Display"
 msgid "Show More"
 msgstr "Show More"
 
+msgid "{count, plural, one {# view} other {{0}}}"
+msgstr "{count, plural, one {# view} other {{0}}}"
+
 msgid "Failed to parse session."
 msgstr "Failed to parse session."
 
@@ -540,6 +546,9 @@ msgstr "Failed to publish post."
 
 msgid "recasted your"
 msgstr "recasted your"
+
+msgid "Quotes"
+msgstr "Quotes"
 
 msgid "Please input the url to be revalidated."
 msgstr "Please input the url to be revalidated."
@@ -718,6 +727,9 @@ msgstr "Click to copy"
 msgid "Mask Network"
 msgstr "Mask Network"
 
+msgid "View Engagements"
+msgstr "View Engagements"
+
 msgid "Your Lens account is now connected."
 msgstr "Your Lens account is now connected."
 
@@ -747,6 +759,9 @@ msgstr "Failed to fetch the latest state after several attempts. Please try agai
 
 msgid "Profile"
 msgstr "Profile"
+
+msgid "Mirrors"
+msgstr "Mirrors"
 
 msgid "Video"
 msgstr "Video"
@@ -825,6 +840,9 @@ msgstr "Replying to <0>@{0}</0> on {1}"
 
 msgid "A thread must have at least two posts."
 msgstr "A thread must have at least two posts."
+
+msgid "Likes"
+msgstr "Likes"
 
 msgid "Mint button is not available yet."
 msgstr "Mint button is not available yet."
