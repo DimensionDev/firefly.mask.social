@@ -36,7 +36,7 @@ export function HomePage({ source }: Props) {
         networkMode: 'always',
 
         queryFn: async ({ pageParam }) => {
-            if (source === SocialPlatform.Article) return createPageable(EMPTY_LIST, undefined);
+            if (currentSource === SocialPlatform.Article) return createPageable(EMPTY_LIST, undefined);
             const posts = await discoverPosts(currentSource, createIndicator(undefined, pageParam));
             if (currentSource === SocialPlatform.Lens) fetchAndStoreViews(posts.data.flatMap((x) => [x.postId]));
             return posts;
@@ -47,7 +47,7 @@ export function HomePage({ source }: Props) {
     });
 
     const articleQueryResult = useSuspenseInfiniteQuery({
-        queryKey: ['articles', 'discover'],
+        queryKey: ['articles', 'discover', currentSource],
         networkMode: 'always',
         queryFn: async ({ pageParam }) => {
             if (currentSource !== SocialPlatform.Article) return createPageable(EMPTY_LIST, undefined);
@@ -60,16 +60,16 @@ export function HomePage({ source }: Props) {
 
     useNavigatorTitle(t`Discover`);
 
-    if (source === SocialPlatform.Article) {
+    if (currentSource === SocialPlatform.Article) {
         return (
             <ListInPage
-                key={source}
+                key={currentSource}
                 queryResult={articleQueryResult}
                 VirtualListProps={{
-                    listKey: `${ScrollListKey.Discover}:${source}`,
+                    listKey: `${ScrollListKey.Discover}:${currentSource}`,
                     computeItemKey: (index, article) => `${article.id}-${index}`,
                     itemContent: (index, article) =>
-                        getArticleItemContent(index, article, `${ScrollListKey.Discover}:${source}`),
+                        getArticleItemContent(index, article, `${ScrollListKey.Discover}:${currentSource}`),
                 }}
                 NoResultsFallbackProps={{
                     className: 'pt-[228px]',
@@ -80,12 +80,13 @@ export function HomePage({ source }: Props) {
 
     return (
         <ListInPage
-            key={source}
+            key={currentSource}
             queryResult={queryResult}
             VirtualListProps={{
-                listKey: `${ScrollListKey.Discover}:${source}`,
+                listKey: `${ScrollListKey.Discover}:${currentSource}`,
                 computeItemKey: (index, post) => `${post.postId}-${index}`,
-                itemContent: (index, post) => getPostItemContent(index, post, `${ScrollListKey.Discover}:${source}`),
+                itemContent: (index, post) =>
+                    getPostItemContent(index, post, `${ScrollListKey.Discover}:${currentSource}`),
             }}
             NoResultsFallbackProps={{
                 className: 'pt-[228px]',
