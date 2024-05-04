@@ -1,3 +1,5 @@
+import { isUndefined } from 'lodash-es';
+
 import { Avatar } from '@/components/Avatar.js';
 import { FollowButton } from '@/components/Profile/FollowButton.js';
 import { SourceIcon } from '@/components/SourceIcon.js';
@@ -5,18 +7,29 @@ import { Link } from '@/esm/Link.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { useIsSmall } from '@/hooks/useMediaQuery.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
+import { useGlobalState } from '@/store/useGlobalStore.js';
 
 interface ProfileInListProps {
     profile: Profile;
     noFollowButton?: boolean;
+    listKey?: string;
+    index?: number;
 }
 
-export function ProfileInList({ profile, noFollowButton }: ProfileInListProps) {
+export function ProfileInList({ profile, noFollowButton, listKey, index }: ProfileInListProps) {
     const isSmall = useIsSmall('max');
+
+    const setScrollIndex = useGlobalState.use.setScrollIndex();
 
     return (
         <div className="flex-start flex cursor-pointer overflow-auto border-b border-secondaryLine px-4 py-6 hover:bg-bg dark:border-line">
-            <Link className="flex-start flex flex-1 overflow-auto" href={getProfileUrl(profile)}>
+            <Link
+                onClick={() => {
+                    if (listKey && !isUndefined(index)) setScrollIndex(listKey, index);
+                }}
+                className="flex-start flex flex-1 overflow-auto"
+                href={getProfileUrl(profile)}
+            >
                 <Avatar
                     className="mr-3 shrink-0 rounded-full border"
                     src={profile.pfp}

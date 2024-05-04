@@ -1,5 +1,5 @@
 import { Popover } from '@headlessui/react';
-import { BugAntIcon, ChevronRightIcon, PlusCircleIcon } from '@heroicons/react/24/outline';
+import { BugAntIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext.js';
 import { t, Trans } from '@lingui/macro';
 import { delay } from '@masknet/kit';
@@ -8,6 +8,7 @@ import { $getSelection } from 'lexical';
 import { useCallback } from 'react';
 import { useAsyncFn } from 'react-use';
 
+import AddThread from '@/assets/addThread.svg';
 import AtIcon from '@/assets/at.svg';
 import GalleryIcon from '@/assets/gallery.svg';
 import NumberSignIcon from '@/assets/number-sign.svg';
@@ -193,7 +194,7 @@ export function ComposeAction(props: ComposeActionProps) {
                             setEditorContent('');
                         }}
                     >
-                        <PlusCircleIcon width={28} height={28} />
+                        <AddThread width={28} height={28} />
                     </ClickableButton>
                 ) : null}
             </div>

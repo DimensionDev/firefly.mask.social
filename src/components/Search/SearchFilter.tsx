@@ -48,9 +48,9 @@ export const SearchFilter = memo(function SearchFilter() {
                                     name="notification-method"
                                     type="radio"
                                     checked={filter.type === searchType}
-                                    className="h-4 w-4 border-gray-300 text-indigo-600"
+                                    className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-transparent"
                                     onChange={() => {
-                                        updateState({ type: filter.type });
+                                        updateState({ type: filter.type }, true);
 
                                         // in mobile view, close the popover after selecting a filter
                                         DraggablePopoverRef.close();
