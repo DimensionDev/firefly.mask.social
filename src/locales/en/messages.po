@@ -472,6 +472,9 @@ msgstr "Display"
 msgid "Show More"
 msgstr "Show More"
 
+msgid "{count, plural, one {# view} other {{0}}}"
+msgstr "{count, plural, one {# view} other {{0}}}"
+
 msgid "Failed to parse session."
 msgstr "Failed to parse session."
 
@@ -693,9 +696,6 @@ msgstr "Unfollow"
 
 msgid "You cannot reply to @{author} on {0}."
 msgstr "You cannot reply to @{author} on {0}."
-
-msgid "{0, plural, one {# view} other {{1}}}"
-msgstr "{0, plural, one {# view} other {{1}}}"
 
 msgid "Claim on {0}: {1}"
 msgstr "Claim on {0}: {1}"

@@ -477,6 +477,9 @@ msgstr "显示"
 msgid "Show More"
 msgstr "显示更多"
 
+msgid "{count, plural, one {# view} other {{0}}}"
+msgstr ""
+
 msgid "Failed to parse session."
 msgstr "未能解析会话"
 
@@ -698,9 +701,6 @@ msgstr "取消关注"
 
 msgid "You cannot reply to @{author} on {0}."
 msgstr "你不能在 {0} 上评论 {author}"
-
-msgid "{0, plural, one {# view} other {{1}}}"
-msgstr ""
 
 msgid "Claim on {0}: {1}"
 msgstr ""
