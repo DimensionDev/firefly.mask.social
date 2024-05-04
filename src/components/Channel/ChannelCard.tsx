@@ -11,7 +11,7 @@ import type { Channel } from '@/providers/types/SocialMedia.js';
 
 interface ChannelCardProps {
     channel?: Channel;
-    loading: boolean;
+    loading?: boolean;
 }
 
 export const ChannelCard = memo<ChannelCardProps>(function ChannelCard({ channel, loading }) {

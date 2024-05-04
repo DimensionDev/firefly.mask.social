@@ -174,6 +174,7 @@ export interface Post {
     quoteOn?: Post;
     comments?: Post[];
     embedPosts?: Post[];
+    channel?: Channel;
     /**
      * Lens only
      * To mirror a post on momoka, need to invoke with the client method mirrorOnMomoka
