@@ -1,5 +1,6 @@
 'use client';
 
+import { compact } from 'lodash-es';
 import { usePathname, useSearchParams } from 'next/navigation.js';
 import { startTransition } from 'react';
 
@@ -29,10 +30,23 @@ export function SocialPlatformTabs() {
         if (currentProfileAll[source]?.handle !== handle) return null;
     }
 
+    if (pathname !== '/' && currentSource === SocialPlatform.Farcaster) {
+        updateCurrentSource(SocialPlatform.Farcaster);
+        replaceSearchParams(
+            new URLSearchParams({
+                source: resolveSourceInURL(SocialPlatform.Farcaster),
+            }),
+        );
+    }
+
     return (
         <div className="border-b border-line bg-primaryBottom px-4">
             <nav className="-mb-px flex space-x-4" aria-label="Tabs">
-                {[SocialPlatform.Farcaster, SocialPlatform.Lens, SocialPlatform.Article].map((value) => (
+                {compact([
+                    SocialPlatform.Farcaster,
+                    SocialPlatform.Lens,
+                    pathname === '/' ? SocialPlatform.Article : undefined,
+                ]).map((value) => (
                     <li key={value} className="flex flex-1 list-none justify-center lg:flex-initial lg:justify-start">
                         <a
                             className={classNames(
