@@ -1,11 +1,11 @@
 import { Popover } from '@headlessui/react';
 import { BugAntIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext.js';
-import { t, Trans } from '@lingui/macro';
+import { Trans, t } from '@lingui/macro';
 import { delay } from '@masknet/kit';
 import { CrossIsolationMessages } from '@masknet/shared-base';
 import { $getSelection } from 'lexical';
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 
 import AddThread from '@/assets/addThread.svg';
@@ -14,13 +14,15 @@ import GalleryIcon from '@/assets/gallery.svg';
 import NumberSignIcon from '@/assets/number-sign.svg';
 import RedPacketIcon from '@/assets/red-packet.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
+import { ChannelPanel } from '@/components/Compose/Channel/ChannelPanel.js';
+import { useSearchChannels, useSetDefaultSelectedChannel, useShowChannel } from '@/components/Compose/Channel/utils.js';
 import { Media } from '@/components/Compose/Media.js';
 import { PostBy } from '@/components/Compose/PostBy.js';
 import { ReplyRestriction } from '@/components/Compose/ReplyRestriction.js';
 import { ReplyRestrictionText } from '@/components/Compose/ReplyRestrictionText.js';
 import { SourceIcon } from '@/components/SourceIcon.js';
 import { Tooltip } from '@/components/Tooltip.js';
-import { NODE_ENV } from '@/constants/enum.js';
+import { NODE_ENV, SocialPlatform } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { MAX_POST_SIZE_PER_THREAD, SORTED_SOURCES } from '@/constants/index.js';
 import { measureChars } from '@/helpers/chars.js';
@@ -36,17 +38,19 @@ import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';
 import { PluginDebuggerMessages } from '@/mask/message-host/index.js';
 import { ComposeModalRef } from '@/modals/controls.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
+import { ChannelAction } from '@/components/Compose/Channel/ChannelAction.js';
 
 interface ComposeActionProps {}
 
 export function ComposeAction(props: ComposeActionProps) {
+    const [inputText, setInputText] = useState('');
     const isMedium = useIsMedium();
 
     const currentProfileAll = useCurrentProfileAll();
     const profilesAll = useProfilesAll();
 
-    const { type, posts, addPostInThread, updateRestriction } = useComposeStateStore();
-    const { availableSources, chars, images, video, restriction, isRootPost, parentPost } = useCompositePost();
+    const { type, posts, addPostInThread, updateRestriction, updateChannel } = useComposeStateStore();
+    const { availableSources, chars, images, video, restriction, isRootPost, parentPost, channel } = useCompositePost();
 
     const { length, visibleLength, invisibleLength } = measureChars(chars, availableSources);
 
@@ -91,6 +95,11 @@ export function ComposeAction(props: ComposeActionProps) {
     const { MAX_CHAR_SIZE_PER_POST } = getCurrentPostLimits(availableSources);
     const maxImageCount = getCurrentPostImageLimits(availableSources);
     const mediaDisabled = !!video || images.length >= maxImageCount;
+
+    // channel
+    const channelList = useSearchChannels(inputText);
+    useSetDefaultSelectedChannel(inputText);
+    const showChannel = useShowChannel();
 
     return (
         <div className=" px-4 pb-4">
@@ -248,6 +257,16 @@ export function ComposeAction(props: ComposeActionProps) {
                     )}
                 </Popover>
             </div>
+            {showChannel && channel ? (
+                <ChannelAction
+                    isRootPost={isRootPost}
+                    channelList={channelList}
+                    channel={channel}
+                    inputText={inputText}
+                    setInputText={setInputText}
+                    updateChannel={updateChannel}
+                />
+            ) : null}
         </div>
     );
 }

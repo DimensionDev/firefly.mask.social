@@ -12,7 +12,7 @@ import { createSelectors } from '@/helpers/createSelector.js';
 import { getCurrentAvailableSources } from '@/helpers/getCurrentAvailableSources.js';
 import { FrameLoader } from '@/libs/frame/Loader.js';
 import { OpenGraphLoader } from '@/libs/og/Loader.js';
-import type { Post } from '@/providers/types/SocialMedia.js';
+import type { Channel, Post } from '@/providers/types/SocialMedia.js';
 import { type ComposeType } from '@/types/compose.js';
 import type { Frame } from '@/types/frame.js';
 import type { MediaObject } from '@/types/index.js';
@@ -51,6 +51,9 @@ export interface CompositePost {
     // parsed open graphs from url in chars
     openGraphs: OpenGraph[];
     rpPayload: RedPacketPayload | null;
+
+    // only available in farcaster
+    channel: Channel|null;
 }
 
 interface ComposeState {
@@ -100,6 +103,7 @@ interface ComposeState {
     updateRpPayload: (value: RedPacketPayload, cursor?: Cursor) => void;
     loadFramesFromChars: (cursor?: Cursor) => Promise<void>;
     loadOpenGraphsFromChars: (cursor?: Cursor) => Promise<void>;
+    updateChannel: (channel: Channel|null, cursor?: Cursor) => void;
 
     // reset the editor
     clear: () => void;
@@ -132,6 +136,7 @@ function createInitSinglePostState(cursor: Cursor): CompositePost {
         openGraphs: EMPTY_LIST,
         video: null,
         rpPayload: null,
+        channel: null,
     };
 }
 
@@ -418,6 +423,18 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
                 ),
             );
         },
+        updateChannel(channel, cursor) {
+            set((state) =>
+                next(
+                    state,
+                    (post) => ({
+                        ...post,
+                        channel,
+                    }),
+                    cursor,
+                ),
+            );
+        },
         loadFramesFromChars: async (cursor) => {
             const chars = pick(get(), (x) => x.chars);
             const frames = await FrameLoader.occupancyLoad(readChars(chars, true));
@@ -460,3 +477,6 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
 );
 
 export const useComposeStateStore = createSelectors(useComposeStateBase);
+
+// @ts-ignore
+global.__useComposeStateBase = useComposeStateBase;

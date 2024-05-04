@@ -346,7 +346,11 @@ msgstr ""
 msgid "Allow replies from"
 msgstr ""
 
+<<<<<<< HEAD
 msgid "No one likes this post yet."
+=======
+msgid "Farcaster channel"
+>>>>>>> 00139c79 (feat: channel compose)
 msgstr ""
 
 msgid "Your posts have published successfully on {0}."

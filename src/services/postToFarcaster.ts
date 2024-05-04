@@ -14,9 +14,10 @@ import { type CompositePost } from '@/store/useComposeStore.js';
 import { useFarcasterStateStore } from '@/store/useProfileStore.js';
 import type { ComposeType } from '@/types/compose.js';
 import type { MediaObject } from '@/types/index.js';
+import { getChannelUrl } from '@/helpers/getChannelUrl.js';
 
 export async function postToFarcaster(type: ComposeType, compositePost: CompositePost) {
-    const { chars, parentPost, images, frames, openGraphs, typedMessage, postId } = compositePost;
+    const { chars, parentPost, images, frames, openGraphs, typedMessage, postId, channel } = compositePost;
 
     const farcasterPostId = postId.Farcaster;
     const farcasterParentPost = parentPost.Farcaster;
@@ -52,8 +53,10 @@ export async function postToFarcaster(type: ComposeType, compositePost: Composit
                 (x) => x.url.toLowerCase(),
             ),
             commentOn: type === 'reply' && farcasterParentPost ? farcasterParentPost : undefined,
-            parentChannelKey: hasPayload ? env.external.NEXT_PUBLIC_REDPACKET_CHANNEL_KEY : undefined,
-            parentChannelUrl: hasPayload ? env.external.NEXT_PUBLIC_REDPACKET_CHANNEL_URL : undefined,
+            // parentChannelKey: hasPayload ? env.external.NEXT_PUBLIC_REDPACKET_CHANNEL_KEY : undefined,
+            // parentChannelUrl: hasPayload ? env.external.NEXT_PUBLIC_REDPACKET_CHANNEL_URL : undefined,
+            parentChannelKey: channel?.id || undefined,
+            parentChannelUrl: channel ? channel.parentUrl || undefined : undefined, // home channel's parentUrl is ''
         } satisfies Post;
     };
 
@@ -70,6 +73,7 @@ export async function postToFarcaster(type: ComposeType, compositePost: Composit
             );
         },
         compose: (images) => {
+            console.log('xxx', composeDraft('Post', images));
             return FarcasterSocialMediaProvider.publishPost(composeDraft('Post', images));
         },
         reply: (images) => {

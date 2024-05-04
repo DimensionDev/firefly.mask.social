@@ -69,7 +69,9 @@ class FireflySocialMedia implements Provider {
 
         return formatBriefChannelFromFirefly(data);
     }
-
+    /**
+     * @wan: cannot do pagination ?
+     */
     async getChannelsByProfileId(
         profileId: string,
         indicator?: PageIndicator,
