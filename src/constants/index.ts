@@ -30,7 +30,7 @@ export const SORTED_PROFILE_TAB_TYPE: Record<SocialPlatform, ProfileTabType[]> =
         ProfileTabType.Collected,
     ],
     [SocialPlatform.Farcaster]: [ProfileTabType.Feed, ProfileTabType.Replies, ProfileTabType.Liked],
-    [SocialPlatform.Twitter]: [ProfileTabType.Feed],
+    [SocialPlatform.Twitter]: [ProfileTabType.Feed, ProfileTabType.Liked],
 };
 export const SORTED_SEARCH_TYPE: Record<SocialPlatform, SearchType[]> = {
     [SocialPlatform.Lens]: [SearchType.Posts, SearchType.Users],

@@ -5,7 +5,7 @@ import { ListInPage } from '@/components/ListInPage.js';
 import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.js';
 import { ProfileTabType, ScrollListKey, SocialPlatform } from '@/constants/enum.js';
 import { getPostsSelector } from '@/helpers/getPostsSelector.js';
-import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
+import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 
 interface LikedFeedListProps {
     profileId: string;
@@ -17,9 +17,11 @@ export function LikedFeedList({ profileId, source }: LikedFeedListProps) {
         queryKey: ['posts', source, 'liked-posts-of', profileId],
 
         queryFn: async ({ pageParam }) => {
-            if (!profileId || source !== SocialPlatform.Farcaster) return createPageable(EMPTY_LIST, undefined);
+            if (!profileId) return createPageable(EMPTY_LIST, undefined);
+            const provider = resolveSocialMediaProvider(source);
+            if (!provider) return createPageable(EMPTY_LIST, undefined);
 
-            const posts = await FarcasterSocialMediaProvider.getLikedPostsByProfileId(
+            const posts = await provider.getLikedPostsByProfileId(
                 profileId,
                 createIndicator(undefined, pageParam),
             );

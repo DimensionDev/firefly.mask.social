@@ -41,8 +41,8 @@ export function ProfileSettings({ source }: ProfileSettingsProps) {
                 >
                     <ProfileAvatar
                         profile={profile}
-                        clickable={source !== SocialPlatform.Twitter}
-                        linkable={source !== SocialPlatform.Twitter}
+                        clickable
+                        linkable
                     />
                     <ProfileName profile={profile} />
 

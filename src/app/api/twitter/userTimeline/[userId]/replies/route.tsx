@@ -7,22 +7,21 @@ import { getSearchParamsFromRequestWithZodObject } from '@/helpers/getSearchPara
 import { pageableSchemas } from '@/helpers/pageableSchemas.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 
-export const GET = compose<(request: NextRequest) => Promise<Response>>(
+export const GET = compose<(request: NextRequest, context: { params: { userId: string } }) => Promise<Response>>(
     withRequestErrorHandler,
-    async (request) => {
+    async (request, { params: { userId } }) => {
         const queryParams = getSearchParamsFromRequestWithZodObject(request, pageableSchemas)
         const client = await createTwitterClientV2(request);
         const limit = Number(queryParams.limit ?? '25')
-        const { data } = await client.v2.homeTimeline({
-            expansions: ['attachments.media_keys', 'attachments.poll_ids', 'author_id'],
+        const { data } = await client.v2.userTimeline(userId, {
+            expansions: ['attachments.media_keys', 'attachments.poll_ids', 'author_id','referenced_tweets.id', 'referenced_tweets.id.author_id'],
             'media.fields': ['media_key', 'height', 'width', 'type', 'url', 'preview_image_url', 'variants'],
-            'tweet.fields': ['text', 'attachments', 'author_id', 'created_at', 'lang'],
+            'tweet.fields': ['text', 'attachments', 'author_id', 'created_at', 'lang', 'public_metrics', 'referenced_tweets'],
             'user.fields': ['profile_image_url', 'name', 'username'],
+            exclude: ['replies'],
             pagination_token: queryParams.cursor ?? undefined,
             max_results: limit,
         });
         return createSuccessResponseJSON(data);
     }
 )
-
-

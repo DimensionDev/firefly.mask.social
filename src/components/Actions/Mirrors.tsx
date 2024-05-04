@@ -22,6 +22,7 @@ import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { ComposeModalRef, LoginModalRef } from '@/modals/controls.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
+import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 interface MirrorProps {
@@ -98,7 +99,11 @@ export const Mirror = memo<MirrorProps>(function Mirror({ shares = 0, source, po
                     return;
                 }
             case SocialPlatform.Twitter:
-                throw new Error('Not implemented');
+                await (mirrored
+                    ? TwitterSocialMediaProvider.unmirrorPost(postId)
+                    : TwitterSocialMediaProvider.mirrorPost(postId));
+                enqueueSuccessMessage(mirrored ? t`Cancel recast successfully` : t`Recasted`);
+                return;
             default:
                 safeUnreachable(source);
                 return;
