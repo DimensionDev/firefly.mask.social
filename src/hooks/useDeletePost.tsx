@@ -23,8 +23,10 @@ export function useDeletePost(source: SocialPlatform) {
                     router.replace(url);
                 }
                 enqueueSuccessMessage(<Trans>Your post was deleted.</Trans>);
-            } catch (err) {
-                enqueueErrorMessage(<Trans>Failed to delete post.</Trans>);
+            } catch (error) {
+                enqueueErrorMessage(<Trans>Failed to delete post.</Trans>, {
+                    error,
+                });
             }
         },
         [source, router, pathname],

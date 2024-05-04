@@ -94,8 +94,11 @@ class LensSocialMedia implements Provider {
         throw new Error('Method not implemented.');
     }
 
-    deletePost(postId: string): Promise<boolean> {
-        throw new Error('Method not implemented.');
+    async deletePost(postId: string): Promise<boolean> {
+        const response = await lensSessionHolder.sdk.publication.hide({
+            for: postId,
+        });
+        return response.isSuccess().valueOf();
     }
 
     get type() {
