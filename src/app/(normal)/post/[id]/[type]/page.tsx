@@ -4,6 +4,8 @@ import { safeUnreachable } from '@masknet/kit';
 import { memo, Suspense } from 'react';
 
 import { LikeList } from '@/components/Engagement/LikeList.js';
+import { QuoteList } from '@/components/Engagement/QuoteList.js';
+import { RepostList } from '@/components/Engagement/RepostList.js';
 import { Loading } from '@/components/Loading.js';
 import { EngagementType, SocialPlatform, type SourceInURL } from '@/constants/enum.js';
 import { SORTED_ENGAGEMENT_TAB_TYPE } from '@/constants/index.js';
@@ -21,11 +23,10 @@ const ContentList = memo(function ContentList(props: ContentListProps) {
         case EngagementType.Likes:
             return <LikeList {...props} />;
         case EngagementType.Mirrors:
-            return <div>Mirrors List</div>;
-        case EngagementType.Quotes:
-            return <div>Quotes List</div>;
         case EngagementType.Recasts:
-            return <div>Recasts List</div>;
+            return <RepostList {...props} />;
+        case EngagementType.Quotes:
+            return <QuoteList {...props} />;
         default:
             safeUnreachable(props.type);
             return null;

@@ -243,7 +243,7 @@ class WarpcastSocialMedia implements Provider {
         );
     }
 
-    async getMirrorReactors(postId: string, indicator?: PageIndicator) {
+    async getRepostReactors(postId: string, indicator?: PageIndicator) {
         const url = urlcat(WARPCAST_ROOT_URL, '/cast-recasters', {
             castHash: postId,
             limit: 15,
@@ -645,6 +645,10 @@ class WarpcastSocialMedia implements Provider {
         throw new Error('Method not implemented.');
     }
     async reportPost(post: Post): Promise<boolean> {
+        throw new Error('Method not implemented.');
+    }
+
+    async getPostsQuoteOn(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         throw new Error('Method not implemented.');
     }
 }

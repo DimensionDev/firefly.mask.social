@@ -1,5 +1,6 @@
-import { formatLensProfile } from '@/helpers/formatLensProfile.js';
 import type { ProfileWhoReactedResultFragment, PublicationReactionType } from '@lens-protocol/client';
+
+import { formatLensProfile } from '@/helpers/formatLensProfile.js';
 
 export function formatLensPostReaction(items: ProfileWhoReactedResultFragment[], reaction: PublicationReactionType) {
     return items.map((item) => {

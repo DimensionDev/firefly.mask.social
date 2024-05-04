@@ -3,21 +3,21 @@ import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 
 import type { PostEngagementListProps } from '@/components/Engagement/type.js';
 import { ListInPage } from '@/components/ListInPage.js';
-import { ProfileInList } from '@/components/ProfileInList.js';
+import { SinglePost } from '@/components/Posts/SinglePost.js';
 import { ScrollListKey } from '@/constants/enum.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
-import type { Profile } from '@/providers/types/SocialMedia.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
 
-function getLikeReactorContent(index: number, profile: Profile, listKey: string) {
-    return <ProfileInList key={profile.profileId} profile={profile} index={index} listKey={listKey} />;
+function getPostContent(index: number, post: Post) {
+    return <SinglePost key={post.publicationId} post={post} index={index} />;
 }
 
-export function LikeList({ postId, type, source }: PostEngagementListProps) {
+export function QuoteList({ postId, type, source }: PostEngagementListProps) {
     const queryResult = useSuspenseInfiniteQuery({
         queryKey: ['engagements', source, type, postId],
         queryFn: async ({ pageParam }) => {
             const provider = resolveSocialMediaProvider(source);
-            return provider.getLikeReactors(postId, createIndicator(undefined, pageParam));
+            return provider.getPostsQuoteOn(postId, createIndicator(undefined, pageParam));
         },
         initialPageParam: '',
         getNextPageParam: (lastPage) => {
@@ -35,10 +35,8 @@ export function LikeList({ postId, type, source }: PostEngagementListProps) {
             queryResult={queryResult}
             VirtualListProps={{
                 listKey,
-                computeItemKey: (index, like) => `${like.profileId}-${index}`,
-                itemContent: (index, profile) => {
-                    return getLikeReactorContent(index, profile, listKey);
-                },
+                computeItemKey: (index, post) => `${post.postId}-${index}`,
+                itemContent: getPostContent,
             }}
             NoResultsFallbackProps={{
                 className: 'mt-20',

@@ -41,8 +41,9 @@ export const SORTED_PROFILE_TAB_TYPE: Record<SocialPlatform, ProfileTabType[]> =
     [SocialPlatform.Twitter]: [ProfileTabType.Feed],
 };
 export const SORTED_ENGAGEMENT_TAB_TYPE: Record<SocialPlatform, EngagementType[]> = {
-    [SocialPlatform.Lens]: [EngagementType.Mirrors, EngagementType.Quotes, EngagementType.Likes],
-    [SocialPlatform.Farcaster]: [EngagementType.Recasts, EngagementType.Quotes, EngagementType.Likes],
+    [SocialPlatform.Lens]: [EngagementType.Quotes, EngagementType.Mirrors, EngagementType.Likes],
+    // TODO No API to fetch recasts for now.
+    [SocialPlatform.Farcaster]: [EngagementType.Quotes, EngagementType.Likes],
     [SocialPlatform.Twitter]: [EngagementType.Quotes, EngagementType.Likes],
 };
 export const SORTED_SEARCH_TYPE: Record<SocialPlatform, SearchType[]> = {

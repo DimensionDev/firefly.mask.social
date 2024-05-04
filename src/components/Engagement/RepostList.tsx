@@ -8,16 +8,19 @@ import { ScrollListKey } from '@/constants/enum.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
-function getLikeReactorContent(index: number, profile: Profile, listKey: string) {
+function getRepostReactorContent(index: number, profile: Profile, listKey: string) {
     return <ProfileInList key={profile.profileId} profile={profile} index={index} listKey={listKey} />;
 }
 
-export function LikeList({ postId, type, source }: PostEngagementListProps) {
+/**
+ * Including Reposts, Recasts, Mirrors
+ */
+export function RepostList({ postId, type, source }: PostEngagementListProps) {
     const queryResult = useSuspenseInfiniteQuery({
         queryKey: ['engagements', source, type, postId],
         queryFn: async ({ pageParam }) => {
             const provider = resolveSocialMediaProvider(source);
-            return provider.getLikeReactors(postId, createIndicator(undefined, pageParam));
+            return provider.getRepostReactors(postId, createIndicator(undefined, pageParam));
         },
         initialPageParam: '',
         getNextPageParam: (lastPage) => {
@@ -37,7 +40,7 @@ export function LikeList({ postId, type, source }: PostEngagementListProps) {
                 listKey,
                 computeItemKey: (index, like) => `${like.profileId}-${index}`,
                 itemContent: (index, profile) => {
-                    return getLikeReactorContent(index, profile, listKey);
+                    return getRepostReactorContent(index, profile, listKey);
                 },
             }}
             NoResultsFallbackProps={{

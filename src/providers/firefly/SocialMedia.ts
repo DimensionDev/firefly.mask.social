@@ -535,7 +535,7 @@ class FireflySocialMedia implements Provider {
         });
     }
 
-    async getMirrorReactors(postId: string, indicator?: PageIndicator) {
+    async getRepostReactors(postId: string, indicator?: PageIndicator) {
         return farcasterSessionHolder.withSession(async (session) => {
             const url = urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/cast/recasters', {
                 castHash: postId,
@@ -661,6 +661,10 @@ class FireflySocialMedia implements Provider {
         throw new Error('Method not implemented.');
     }
     async getPostLikeProfiles(postId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
+        throw new Error('Method not implemented.');
+    }
+
+    async getPostsQuoteOn(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         throw new Error('Method not implemented.');
     }
 }

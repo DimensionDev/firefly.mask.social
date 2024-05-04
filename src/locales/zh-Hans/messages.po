@@ -213,6 +213,9 @@ msgstr "连接钱包"
 msgid "Feed"
 msgstr "信息流"
 
+msgid "Recasts"
+msgstr ""
+
 msgid "Check out my LuckyDrop 🧧💰✨ on Firefly mobile app or {SITE_URL} !"
 msgstr "在 Firefly 移动端或者 {SITE_URL} 打开我的红包🧧💰✨ ！"
 
@@ -332,6 +335,9 @@ msgstr ""
 
 msgid "Allow replies from"
 msgstr "允许回复"
+
+msgid "No one likes this post yet."
+msgstr ""
 
 msgid "Your posts have published successfully on {0}."
 msgstr ""
@@ -546,6 +552,9 @@ msgstr "发布帖子失败"
 msgid "recasted your"
 msgstr "转帖了你的"
 
+msgid "Quotes"
+msgstr ""
+
 msgid "Please input the url to be revalidated."
 msgstr "请输入 URL 重新验证："
 
@@ -723,6 +732,9 @@ msgstr ""
 msgid "Mask Network"
 msgstr "Mask Network"
 
+msgid "View Engagements"
+msgstr ""
+
 msgid "Your Lens account is now connected."
 msgstr "你的 Lens 账号已经连接。"
 
@@ -752,6 +764,9 @@ msgstr ""
 
 msgid "Profile"
 msgstr "个人信息"
+
+msgid "Mirrors"
+msgstr ""
 
 msgid "Video"
 msgstr "视频"
@@ -829,6 +844,9 @@ msgid "Replying to <0>@{0}</0> on {1}"
 msgstr "在 {1} 上回复 <0>@{0}</0>"
 
 msgid "A thread must have at least two posts."
+msgstr ""
+
+msgid "Likes"
 msgstr ""
 
 msgid "Mint button is not available yet."

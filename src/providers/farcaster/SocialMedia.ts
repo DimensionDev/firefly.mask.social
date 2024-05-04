@@ -141,10 +141,10 @@ class FarcasterSocialMedia implements Provider {
         return FireflySocialMediaProvider.getLikeReactors(postId, indicator);
     }
 
-    async getMirrorReactors(postId: string, indicator?: PageIndicator) {
+    async getRepostReactors(postId: string, indicator?: PageIndicator) {
         const { isCustodyWallet } = getFarcasterSessionType();
-        if (isCustodyWallet) return WarpcastSocialMediaProvider.getMirrorReactors(postId, indicator);
-        return FireflySocialMediaProvider.getMirrorReactors(postId, indicator);
+        if (isCustodyWallet) return WarpcastSocialMediaProvider.getRepostReactors(postId, indicator);
+        return FireflySocialMediaProvider.getRepostReactors(postId, indicator);
     }
 
     async isFollowedByMe(profileId: string) {
@@ -287,6 +287,9 @@ class FarcasterSocialMedia implements Provider {
         if (isCustodyWallet) return WarpcastSocialMediaProvider.reportPost(post);
         if (isGrantByPermission) return FireflySocialMediaProvider.reportPost(post);
         return false;
+    }
+    async getPostsQuoteOn(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        throw new Error('Method not implemented.');
     }
 }
 

@@ -84,4 +84,5 @@ export enum ScrollListKey {
     Channel = 'channel-post-list',
     Profile = 'profile-post-list',
     Collected = 'profile-collected-list',
+    Engagement = 'post-engagement',
 }
