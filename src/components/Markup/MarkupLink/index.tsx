@@ -20,9 +20,10 @@ import { type Post } from '@/providers/types/SocialMedia.js';
 export interface MarkupLinkProps {
     title?: string;
     post?: Post;
+    source?: SocialPlatform;
 }
 
-export const MarkupLink = memo<MarkupLinkProps>(function MarkupLink({ title, post }) {
+export const MarkupLink = memo<MarkupLinkProps>(function MarkupLink({ title, post, source }) {
     if (!title) return null;
 
     if (title.startsWith('@')) {
@@ -58,7 +59,7 @@ export const MarkupLink = memo<MarkupLinkProps>(function MarkupLink({ title, pos
     if (title.startsWith('#')) return <Hashtag title={title} />;
 
     if (title.startsWith('/')) {
-        return <ChannelTag title={title} />;
+        return <ChannelTag title={title} source={source} />;
     }
 
     if (isValidDomain(title)) return title;

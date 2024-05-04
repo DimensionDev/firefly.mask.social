@@ -62,7 +62,7 @@ export const Markup = memo<MarkupProps>(function Markup({ children, post, ...res
             components={{
                 // @ts-ignore
                 // eslint-disable-next-line react/no-unstable-nested-components
-                a: (props) => <MarkupLink title={props.title} post={post} />,
+                a: (props) => <MarkupLink title={props.title} post={post} source={post.source} />,
                 code: Code,
                 ...rest.components,
             }}
@@ -103,7 +103,7 @@ export const BioMarkup = memo<BioMarkupProps>(function Markup({ children, post, 
             components={{
                 // @ts-ignore
                 // eslint-disable-next-line react/no-unstable-nested-components
-                a: (props) => <MarkupLink title={props.title} post={post} />,
+                a: (props) => <MarkupLink title={props.title} post={post} source={source} />,
                 code: Code,
                 ...rest.components,
             }}
