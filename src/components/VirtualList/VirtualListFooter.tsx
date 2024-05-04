@@ -35,7 +35,7 @@ export const VirtualListFooter = memo<VirtualListFooterProps>(function VirtualLi
         );
 
     if (!context.itemsRendered) return null;
-    
+
     return (
         <div className="flex items-center justify-center p-2" ref={observe}>
             <LoadingIcon width={16} height={16} className="animate-spin" />
