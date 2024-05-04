@@ -156,6 +156,7 @@ export interface Article {
     };
     related_urls: string[];
     article_id: string;
+    cover_img_url: string | null;
 }
 
 export interface Response<T> {

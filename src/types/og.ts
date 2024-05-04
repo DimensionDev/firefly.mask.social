@@ -34,6 +34,7 @@ export interface MirrorPayload {
     ens?: string;
     displayName?: string;
     body?: string;
+    cover?: string;
 }
 
 export interface FarcasterPayload {

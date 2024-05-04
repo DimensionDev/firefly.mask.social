@@ -18,5 +18,6 @@ export function formatArticleFromFirefly(article: FireflyArticle): Article {
         id: article.article_id,
         hash: article.hash,
         timestamp: article.timestamp,
+        coverUrl: article.cover_img_url,
     };
 }

@@ -332,6 +332,7 @@ export interface Article {
     origin?: string;
     timestamp: string;
     id: string;
+    coverUrl: string | null
 }
 
 export interface Provider {

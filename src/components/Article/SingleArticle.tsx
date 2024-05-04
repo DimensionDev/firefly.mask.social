@@ -1,10 +1,21 @@
+import { t } from '@lingui/macro';
+import { useQuery } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
 import { isUndefined } from 'lodash-es';
 import { memo } from 'react';
+import urlcat from 'urlcat';
 
 import { ArticleHeader } from '@/components/Article/ArticleHeader.js';
-import type { Article } from '@/providers/types/SocialMedia.js';
+import { ArticleMarkup } from '@/components/Markup/index.js';
+import { ImageAsset } from '@/components/Posts/ImageAsset.js';
+import { IS_APPLE, IS_SAFARI } from '@/constants/bowser.js';
+import { classNames } from '@/helpers/classNames.js';
+import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { resolveArticlePlatformIcon } from '@/helpers/resolveArticlePlatformIcon.js';
+import { type Article, ArticlePlatform, ArticleType } from '@/providers/types/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
+import type { ResponseJSON } from '@/types/index.js';
+import { type LinkDigested, PayloadType } from '@/types/og.js';
 
 export interface SingleArticleProps {
     article: Article;
@@ -20,6 +31,26 @@ export const SingleArticle = memo<SingleArticleProps>(function SingleArticleProp
     index,
 }) {
     const setScrollIndex = useGlobalState.use.setScrollIndex();
+    const cover = useQuery({
+        queryKey: ['article', 'cover', article.hash],
+        queryFn: async () => {
+            if (article.coverUrl) return article.coverUrl;
+            if (article.platform === ArticlePlatform.Mirror && article.origin) {
+                const payload = await fetchJSON<ResponseJSON<LinkDigested>>(
+                    urlcat('/api/oembed', {
+                        link: article.origin,
+                    }),
+                );
+                if (payload.success && payload.data.payload?.type === PayloadType.Mirror) {
+                    return payload.data.payload.cover;
+                }
+            }
+            return;
+        },
+    });
+
+    const Icon = resolveArticlePlatformIcon(article.platform);
+
     return (
         <motion.article
             initial={!disableAnimate ? { opacity: 0 } : false}
@@ -35,6 +66,34 @@ export const SingleArticle = memo<SingleArticleProps>(function SingleArticleProp
             }}
         >
             <ArticleHeader article={article} />
+
+            <div className="pl-[52px]">
+                {cover.data ? (
+                    <ImageAsset
+                        src={cover.data}
+                        width={510}
+                        height={260}
+                        className="mb-3 w-full cursor-pointer rounded-lg object-cover"
+                        alt={cover.data}
+                    />
+                ) : null}
+                <div className="text-xl font-semibold">{article.title}</div>
+                <div className="mt-3 rounded-2xl border border-secondaryLine bg-bg p-3">
+                    <ArticleMarkup
+                        className={classNames('markup linkify line-clamp-5 break-words text-[15px]', {
+                            'max-h-[8rem]': !!IS_SAFARI && !!IS_APPLE,
+                        })}
+                    >
+                        {article.content}
+                    </ArticleMarkup>
+                </div>
+                <div className="mt-3 flex items-center gap-2 text-[16px] text-secondary">
+                    {Icon ? <Icon width={16} height={16} /> : null}
+
+                    {article.type === ArticleType.Revise ? t`Revise on ` : t`Post on `}
+                    <span className="capitalize">{article.platform}</span>
+                </div>
+            </div>
         </motion.article>
     );
 });

@@ -112,3 +112,34 @@ export const BioMarkup = memo<BioMarkupProps>(function Markup({ children, post, 
         </ReactMarkdown>
     );
 });
+
+interface ArticleMarkupProps extends Omit<ReactMarkdownOptions, 'children'> {
+    children: ReactMarkdownOptions['children'] | null;
+}
+
+const articlePlugins = [
+    [stripMarkdown, { keep: ['strong', 'emphasis', 'inlineCode'] }],
+    remarkBreaks,
+    linkifyRegex(BIO_TWITTER_PROFILE_REGEX),
+    linkifyRegex(URL_REGEX),
+];
+
+export const ArticleMarkup = memo<ArticleMarkupProps>(function ArticleMarkup({ children, ...rest }) {
+    if (!children) return null;
+
+    return (
+        <ReactMarkdown
+            {...rest}
+            remarkPlugins={bioPlugins}
+            components={{
+                // @ts-ignore
+                // eslint-disable-next-line react/no-unstable-nested-components
+                a: (props) => <MarkupLink title={props.title} />,
+                code: Code,
+                ...rest.components,
+            }}
+        >
+            {trimify(children)}
+        </ReactMarkdown>
+    );
+});
