@@ -1,5 +1,7 @@
+import { t } from '@lingui/macro';
 import { useAsyncFn } from 'react-use';
 
+import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
@@ -8,8 +10,13 @@ import type { Profile } from '@/providers/types/SocialMedia.js';
  */
 export function useReportUser() {
     return useAsyncFn(async (profile: Profile) => {
-        const provider = resolveSocialMediaProvider(profile.source);
-        const result = await provider.reportUser(profile.profileId);
-        return result;
+        try {
+            const provider = resolveSocialMediaProvider(profile.source);
+            const result = await provider.reportUser(profile.profileId);
+            return result;
+        } catch (error) {
+            enqueueErrorMessage(t`Failed to report @${profile.handle}`, { error });
+            throw error;
+        }
     }, []);
 }

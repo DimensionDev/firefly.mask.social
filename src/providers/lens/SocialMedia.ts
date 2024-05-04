@@ -37,6 +37,7 @@ import { SetQueryDataForDeletePost } from '@/decorators/SetQueryDataForDeletePos
 import { SetQueryDataForLikePost } from '@/decorators/SetQueryDataForLikePost.js';
 import { SetQueryDataForMirrorPost } from '@/decorators/SetQueryDataForMirrorPost.js';
 import { SetQueryDataForPosts } from '@/decorators/SetQueryDataForPosts.js';
+import { SetQueryDataForReportUser } from '@/decorators/SetQueryDataForReportUser.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { formatLensPost, formatLensPostByFeed, formatLensQuoteOrComment } from '@/helpers/formatLensPost.js';
 import { formatLensProfile } from '@/helpers/formatLensProfile.js';
@@ -68,6 +69,7 @@ const MOMOKA_ERROR_MSG = 'momoka publication is not allowed';
 @SetQueryDataForMirrorPost(SocialPlatform.Lens)
 @SetQueryDataForCommentPost(SocialPlatform.Lens)
 @SetQueryDataForDeletePost(SocialPlatform.Lens)
+@SetQueryDataForReportUser(SocialPlatform.Lens)
 @SetQueryDataForPosts
 class LensSocialMedia implements Provider {
     getChannelById(channelId: string): Promise<Channel> {
@@ -1108,7 +1110,12 @@ class LensSocialMedia implements Provider {
                 },
             },
         });
-        return result.isSuccess().valueOf();
+        const reported = result.isSuccess().valueOf();
+        if (!reported) return false;
+        const blockRes = await lensSessionHolder.sdk.profile.block({
+            profiles: [profileId],
+        });
+        return blockRes.isSuccess().valueOf();
     }
     async reportPost(post: Post) {
         const result = await lensSessionHolder.sdk.publication.report({

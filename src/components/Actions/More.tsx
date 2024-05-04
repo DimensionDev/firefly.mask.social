@@ -19,6 +19,7 @@ import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useDeletePost } from '@/hooks/useDeletePost.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
+import { useReportUser } from '@/hooks/useReportUser.js';
 import { useToggleFollow } from '@/hooks/useToggleFollow.js';
 import { LoginModalRef } from '@/modals/controls.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
@@ -38,6 +39,8 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
 
     const [{ loading: deleting }, deletePost] = useDeletePost(source);
 
+    const [{ loading: reporting }, reportUser] = useReportUser();
+
     return (
         <Menu className=" relative" as="div">
             <Menu.Button
@@ -56,7 +59,7 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
                     }
                 }}
             >
-                {loading ? (
+                {loading || reporting ? (
                     <span className="inline-flex h-6 w-6 animate-spin items-center justify-center">
                         <LoadingIcon width={16} height={16} />
                     </span>
@@ -134,9 +137,13 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
                                     </ClickableButton>
                                 )}
                             </Menu.Item>
-                            <Menu.Item>
-                                {({ close }) => <ReportUserButton onConfirm={close} profile={author} />}
-                            </Menu.Item>
+                            {source === SocialPlatform.Lens ? (
+                                <Menu.Item>
+                                    {({ close }) => (
+                                        <ReportUserButton profile={author} onReport={reportUser} onClick={close} />
+                                    )}
+                                </Menu.Item>
+                            ) : null}
                         </>
                     )}
                 </Menu.Items>

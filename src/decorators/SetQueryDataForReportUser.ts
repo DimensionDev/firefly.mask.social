@@ -3,7 +3,7 @@ import { deletePostsOfUserFromQueryData } from '@/helpers/deletePostsOfUserFromQ
 import type { Provider } from '@/providers/types/SocialMedia.js';
 import type { ClassType } from '@/types/index.js';
 
-export function SetQueryDataForDeletePost(source: SocialPlatform) {
+export function SetQueryDataForReportUser(source: SocialPlatform) {
     return function decorator<T extends ClassType<Provider>>(target: T): T {
         const method = target.prototype.reportUser as Provider['reportUser'];
 

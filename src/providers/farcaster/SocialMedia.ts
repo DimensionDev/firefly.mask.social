@@ -8,6 +8,7 @@ import { SetQueryDataForDeletePost } from '@/decorators/SetQueryDataForDeletePos
 import { SetQueryDataForLikePost } from '@/decorators/SetQueryDataForLikePost.js';
 import { SetQueryDataForMirrorPost } from '@/decorators/SetQueryDataForMirrorPost.js';
 import { SetQueryDataForPosts } from '@/decorators/SetQueryDataForPosts.js';
+import { SetQueryDataForReportUser } from '@/decorators/SetQueryDataForReportUser.js';
 import { getFarcasterSessionType } from '@/helpers/getFarcasterSessionType.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { HubbleSocialMediaProvider } from '@/providers/hubble/SocialMedia.js';
@@ -25,6 +26,7 @@ import { WarpcastSocialMediaProvider } from '@/providers/warpcast/SocialMedia.js
 @SetQueryDataForMirrorPost(SocialPlatform.Farcaster)
 @SetQueryDataForCommentPost(SocialPlatform.Farcaster)
 @SetQueryDataForDeletePost(SocialPlatform.Farcaster)
+@SetQueryDataForReportUser(SocialPlatform.Farcaster)
 @SetQueryDataForPosts
 class FarcasterSocialMedia implements Provider {
     quotePost(postId: string, post: Post): Promise<string> {

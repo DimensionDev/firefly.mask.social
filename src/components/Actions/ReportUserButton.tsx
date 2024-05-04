@@ -5,24 +5,25 @@ import { forwardRef } from 'react';
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
-import { useReportUser } from '@/hooks/useReportUser.js';
 import { ConfirmModalRef } from '@/modals/controls.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 interface Props extends Omit<ClickableButtonProps, 'children'> {
     profile: Profile;
     onConfirm?(): void;
+    onReport?(profile: Profile): Promise<boolean>;
 }
 
 export const ReportUserButton = forwardRef<HTMLButtonElement, Props>(function ReportUserButton(
-    { profile, className, onConfirm, ...rest }: Props,
+    { profile, className, onConfirm, onReport, ...rest }: Props,
     ref,
 ) {
-    const [_, reportUser] = useReportUser();
     return (
         <ClickableButton
             className={classNames('flex cursor-pointer items-center space-x-2 p-4 hover:bg-bg', className)}
+            {...rest}
             onClick={async () => {
+                rest.onClick?.();
                 const confirmed = await ConfirmModalRef.openAndWaitForClose({
                     title: t`Report`,
                     content: (
@@ -31,14 +32,14 @@ export const ReportUserButton = forwardRef<HTMLButtonElement, Props>(function Re
                         </div>
                     ),
                 });
-                close();
                 if (!confirmed) return;
-                const result = await reportUser(profile);
-                if (!result) {
+                onConfirm?.();
+                if (!onReport) return;
+                const result = await onReport(profile);
+                if (result === false) {
                     enqueueErrorMessage(t`Failed to report @${profile.handle}`);
                 }
             }}
-            {...rest}
             ref={ref}
         >
             <FlagIcon width={24} height={24} />
