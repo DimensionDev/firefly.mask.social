@@ -46,7 +46,9 @@ export function Info({ isMyProfile, profile, source }: InfoProps) {
                     <span className="text-[15px] text-secondary">@{profile?.handle}</span>
                 </div>
 
-                <BioMarkup className="text-[15px]">{profile?.bio ?? '-'}</BioMarkup>
+                <BioMarkup className="text-[15px]" source={profile?.source}>
+                    {profile?.bio ?? '-'}
+                </BioMarkup>
 
                 <div className=" flex gap-3 text-[15px]">
                     <div className=" flex gap-1">

@@ -4,6 +4,7 @@ import { safeUnreachable } from '@masknet/kit';
 import { isValidDomain } from '@masknet/web3-shared-evm';
 import { memo } from 'react';
 
+import { ChannelTag } from '@/components/Markup/MarkupLink/ChannelTag.js';
 import { ExternalLink } from '@/components/Markup/MarkupLink/ExternalLink.js';
 import { Hashtag } from '@/components/Markup/MarkupLink/Hashtag.js';
 import { MentionLink } from '@/components/Markup/MarkupLink/MentionLink.js';
@@ -55,6 +56,10 @@ export const MarkupLink = memo<MarkupLinkProps>(function MarkupLink({ title, pos
     }
 
     if (title.startsWith('#')) return <Hashtag title={title} />;
+
+    if (title.startsWith('/')) {
+        return <ChannelTag title={title} />;
+    }
 
     if (isValidDomain(title)) return title;
 
