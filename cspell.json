@@ -7,6 +7,7 @@
         "artblocks",
         "arweave",
         "basepaint",
+        "bowser",
         "cacheable",
         "canonicalize",
         "deeplink",
@@ -24,6 +25,7 @@
         "nextid",
         "neynar",
         "Oembed",
+        "overscan",
         "pageable",
         "recasted",
         "recaster",
@@ -33,6 +35,7 @@
         "solana",
         "Steganography",
         "stego",
+        "subreason",
         "Thirdweb",
         "Twitterbot",
         "Twmoji",
@@ -50,9 +53,7 @@
         "wagmi",
         "warpcast",
         "zora",
-        "zustand",
-        "bowser",
-        "overscan"
+        "zustand"
     ],
     "ignoreWords": [
         "DEVNET",

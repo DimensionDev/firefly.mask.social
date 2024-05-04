@@ -236,6 +236,12 @@ class NeynarSocialMedia implements Provider {
             return createPageable(result, createIndicator(indicator));
         });
     }
+    async reportUser(profileId: string): Promise<boolean> {
+        throw new Error('Method not implemented.');
+    }
+    async reportPost(post: Post): Promise<boolean> {
+        throw new Error('Method not implemented.');
+    }
 }
 
 export const NeynarSocialMediaProvider = new NeynarSocialMedia();

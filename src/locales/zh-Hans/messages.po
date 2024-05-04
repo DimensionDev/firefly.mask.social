@@ -27,6 +27,9 @@ msgstr "还没有人评论哦～快来抢沙发！"
 msgid "Quote Post"
 msgstr "引用"
 
+msgid "Report @{0}"
+msgstr ""
+
 msgid "Retweet"
 msgstr ""
 
@@ -128,6 +131,9 @@ msgstr "评论"
 
 msgid "Confirm"
 msgstr "确认"
+
+msgid "Failed to report @{0}"
+msgstr ""
 
 msgid "Device Logged In"
 msgstr ""
@@ -352,6 +358,9 @@ msgid "Everyone"
 msgstr "任何人"
 
 msgid "Please confirm the login with Warpcast."
+msgstr ""
+
+msgid "Confirm you want to report this message"
 msgstr ""
 
 msgid "Compose"

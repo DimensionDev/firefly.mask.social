@@ -579,6 +579,12 @@ class HubbleSocialMedia implements Provider {
 
         return packet;
     }
+    async reportUser(profileId: string): Promise<boolean> {
+        throw new Error('Method not implemented.');
+    }
+    async reportPost(post: Post): Promise<boolean> {
+        throw new Error('Method not implemented.');
+    }
 }
 
 export const HubbleSocialMediaProvider = new HubbleSocialMedia();

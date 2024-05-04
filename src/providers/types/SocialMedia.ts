@@ -656,4 +656,13 @@ export interface Provider {
      * @param localPost
      */
     getThreadByPostId: (postId: string, localPost?: Post) => Promise<Post[]>;
+
+    /**
+     * Report a user
+     */
+    reportUser: (profileId: string) => Promise<boolean>;
+    /**
+     * Report a post
+     */
+    reportPost: (post: Post) => Promise<boolean>;
 }

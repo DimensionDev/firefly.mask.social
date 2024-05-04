@@ -7,8 +7,12 @@ import {
     isCreateMomokaPublicationResult,
     isRelaySuccess,
     LimitType,
+    ProfileReportingReason,
+    ProfileReportingSpamSubreason,
     PublicationMetadataMainFocusType,
     PublicationReactionType,
+    PublicationReportingReason,
+    PublicationReportingSpamSubreason,
     PublicationType,
 } from '@lens-protocol/client';
 import { t } from '@lingui/macro';
@@ -33,6 +37,7 @@ import { SetQueryDataForDeletePost } from '@/decorators/SetQueryDataForDeletePos
 import { SetQueryDataForLikePost } from '@/decorators/SetQueryDataForLikePost.js';
 import { SetQueryDataForMirrorPost } from '@/decorators/SetQueryDataForMirrorPost.js';
 import { SetQueryDataForPosts } from '@/decorators/SetQueryDataForPosts.js';
+import { SetQueryDataForReportUser } from '@/decorators/SetQueryDataForReportUser.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { formatLensPost, formatLensPostByFeed, formatLensQuoteOrComment } from '@/helpers/formatLensPost.js';
 import { formatLensProfile } from '@/helpers/formatLensProfile.js';
@@ -64,6 +69,7 @@ const MOMOKA_ERROR_MSG = 'momoka publication is not allowed';
 @SetQueryDataForMirrorPost(SocialPlatform.Lens)
 @SetQueryDataForCommentPost(SocialPlatform.Lens)
 @SetQueryDataForDeletePost(SocialPlatform.Lens)
+@SetQueryDataForReportUser(SocialPlatform.Lens)
 @SetQueryDataForPosts
 class LensSocialMedia implements Provider {
     getChannelById(channelId: string): Promise<Channel> {
@@ -1091,6 +1097,38 @@ class LensSocialMedia implements Provider {
         });
 
         return posts.items.map(formatLensPost);
+    }
+
+    async reportUser(profileId: string) {
+        const result = await lensSessionHolder.sdk.profile.report({
+            for: profileId,
+            // TODO more specific and accurate reason.
+            reason: {
+                spamReason: {
+                    reason: ProfileReportingReason.Spam,
+                    subreason: ProfileReportingSpamSubreason.SomethingElse,
+                },
+            },
+        });
+        const reported = result.isSuccess().valueOf();
+        if (!reported) return false;
+        const blockRes = await lensSessionHolder.sdk.profile.block({
+            profiles: [profileId],
+        });
+        return blockRes.isSuccess().valueOf();
+    }
+    async reportPost(post: Post) {
+        const result = await lensSessionHolder.sdk.publication.report({
+            for: post.postId,
+            // TODO more specific and accurate reason.
+            reason: {
+                spamReason: {
+                    reason: PublicationReportingReason.Spam,
+                    subreason: PublicationReportingSpamSubreason.SomethingElse,
+                },
+            },
+        });
+        return result.isSuccess().valueOf();
     }
 }
 

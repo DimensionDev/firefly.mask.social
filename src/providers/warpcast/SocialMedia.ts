@@ -641,6 +641,12 @@ class WarpcastSocialMedia implements Provider {
             next?.cursor ? createNextIndicator(indicator, next.cursor) : undefined,
         );
     }
+    async reportUser(profileId: string): Promise<boolean> {
+        throw new Error('Method not implemented.');
+    }
+    async reportPost(post: Post): Promise<boolean> {
+        throw new Error('Method not implemented.');
+    }
 }
 
 export const WarpcastSocialMediaProvider = new WarpcastSocialMedia();

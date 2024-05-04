@@ -22,6 +22,9 @@ msgstr "Be the first one to comment!"
 msgid "Quote Post"
 msgstr "Quote Post"
 
+msgid "Report @{0}"
+msgstr "Report @{0}"
+
 msgid "Retweet"
 msgstr "Retweet"
 
@@ -123,6 +126,9 @@ msgstr "comment"
 
 msgid "Confirm"
 msgstr "Confirm"
+
+msgid "Failed to report @{0}"
+msgstr "Failed to report @{0}"
 
 msgid "Device Logged In"
 msgstr "Device Logged In"
@@ -348,6 +354,9 @@ msgstr "Everyone"
 
 msgid "Please confirm the login with Warpcast."
 msgstr "Please confirm the login with Warpcast."
+
+msgid "Confirm you want to report this message"
+msgstr "Confirm you want to report this message"
 
 msgid "Compose"
 msgstr "Compose"
