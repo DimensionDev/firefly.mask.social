@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { isUndefined } from 'lodash-es';
 import { useRouter } from 'next/navigation.js';
 import { memo } from 'react';
+import { useMount } from 'react-use';
 import urlcat from 'urlcat';
 
 import { ArticleHeader } from '@/components/Article/ArticleHeader.js';
@@ -54,6 +55,11 @@ export const SingleArticle = memo<SingleArticleProps>(function SingleArticleProp
         },
     });
 
+    useMount(() => {
+        if (!article.id) return;
+        queryClient.setQueryData(['article-detail', article.id], article);
+    });
+
     const Icon = resolveArticlePlatformIcon(article.platform);
 
     return (
@@ -66,13 +72,6 @@ export const SingleArticle = memo<SingleArticleProps>(function SingleArticleProp
                 const selection = window.getSelection();
                 if (selection && selection.toString().length !== 0) return;
                 if (listKey && !isUndefined(index)) setScrollIndex(listKey, index);
-
-                queryClient.setQueriesData(
-                    {
-                        queryKey: ['article-detail', article.id],
-                    },
-                    () => article,
-                );
 
                 router.push(getArticleUrl(article));
                 return;
