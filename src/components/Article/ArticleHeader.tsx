@@ -3,15 +3,17 @@ import { memo } from 'react';
 
 import { Avatar } from '@/components/Avatar.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
+import { classNames } from '@/helpers/classNames.js';
 import type { Article } from '@/providers/types/SocialMedia.js';
 
 interface ArticleHeaderProps {
     article: Article;
+    className?: string;
 }
 
-export const ArticleHeader = memo<ArticleHeaderProps>(function ArticleHeader({ article }) {
+export const ArticleHeader = memo<ArticleHeaderProps>(function ArticleHeader({ article, className }) {
     return (
-        <div className="flex items-start gap-3">
+        <div className={classNames('flex items-start gap-3', className)}>
             <Avatar className="h-10 w-10" src={article.author.avatar} size={40} alt={article.author.handle} />
 
             <div className="flex max-w-[calc(100%-40px-88px-24px)] flex-1 items-center gap-2 overflow-hidden">

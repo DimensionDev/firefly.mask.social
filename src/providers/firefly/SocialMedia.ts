@@ -7,7 +7,7 @@ import {
     type PageIndicator,
 } from '@masknet/shared-base';
 import { isZero } from '@masknet/web3-shared-base';
-import { compact } from 'lodash-es';
+import { compact, first } from 'lodash-es';
 import urlcat from 'urlcat';
 
 import { SocialPlatform } from '@/constants/enum.js';
@@ -33,6 +33,7 @@ import {
     type DiscoverArticlesResponse,
     type DiscoverChannelsResponse,
     type FriendshipResponse,
+    type GetArticleDetailResponse,
     type NotificationResponse,
     NotificationType as FireflyNotificationType,
     type ReactorsResponse,
@@ -125,6 +126,24 @@ class FireflySocialMedia implements Provider {
             createIndicator(indicator),
             data.cursor ? createNextIndicator(indicator, `${data.cursor}`) : undefined,
         );
+    }
+
+    async getArticleDetailById(articleId: string) {
+        const url = urlcat(FIREFLY_ROOT_URL, '/v1/article/contents_by_ids');
+
+        const response = await fetchJSON<GetArticleDetailResponse>(url, {
+            method: 'POST',
+            body: JSON.stringify({
+                ids: [articleId],
+            }),
+        });
+
+        const data = resolveFireflyResponseData(response);
+
+        const article = first(data);
+
+        if (!article) return;
+        return formatArticleFromFirefly(article);
     }
 
     getPostsByChannelId(channelId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {

@@ -2,15 +2,18 @@ import { t } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
 import { isUndefined } from 'lodash-es';
+import { useRouter } from 'next/navigation.js';
 import { memo } from 'react';
 import urlcat from 'urlcat';
 
 import { ArticleHeader } from '@/components/Article/ArticleHeader.js';
 import { ArticleMarkup } from '@/components/Markup/index.js';
 import { ImageAsset } from '@/components/Posts/ImageAsset.js';
+import { queryClient } from '@/configs/queryClient.js';
 import { IS_APPLE, IS_SAFARI } from '@/constants/bowser.js';
 import { classNames } from '@/helpers/classNames.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { getArticleUrl } from '@/helpers/getArticleUrl.js';
 import { resolveArticlePlatformIcon } from '@/helpers/resolveArticlePlatformIcon.js';
 import { PreviewImageModalRef } from '@/modals/controls.js';
 import { type Article, ArticlePlatform, ArticleType } from '@/providers/types/SocialMedia.js';
@@ -31,9 +34,10 @@ export const SingleArticle = memo<SingleArticleProps>(function SingleArticleProp
     listKey,
     index,
 }) {
+    const router = useRouter();
     const setScrollIndex = useGlobalState.use.setScrollIndex();
     const cover = useQuery({
-        queryKey: ['article', 'cover', article.hash],
+        queryKey: ['article', 'cover', article.id],
         queryFn: async () => {
             if (article.coverUrl) return article.coverUrl;
             if (article.platform === ArticlePlatform.Mirror && article.origin) {
@@ -63,6 +67,14 @@ export const SingleArticle = memo<SingleArticleProps>(function SingleArticleProp
                 if (selection && selection.toString().length !== 0) return;
                 if (listKey && !isUndefined(index)) setScrollIndex(listKey, index);
 
+                queryClient.setQueriesData(
+                    {
+                        queryKey: ['article-detail', article.id],
+                    },
+                    () => article,
+                );
+
+                router.push(getArticleUrl(article));
                 return;
             }}
         >

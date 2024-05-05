@@ -242,6 +242,8 @@ export type DiscoverArticlesResponse = Response<{
     result: Article[];
 }>;
 
+export type GetArticleDetailResponse = Response<Article[]>;
+
 export type CastsOfChannelResponse = Response<{
     casts: Cast[];
     cursor: string;
