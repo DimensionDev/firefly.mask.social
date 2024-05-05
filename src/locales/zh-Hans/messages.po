@@ -72,6 +72,9 @@ msgstr "查找用户中"
 msgid "Collect Action is not supported yet."
 msgstr "还未支持收藏。"
 
+msgid "This entry has been permanently stored on-chain and signed by its creator"
+msgstr ""
+
 msgid "Join our Discord"
 msgstr "加入我们的 Discord"
 
@@ -125,9 +128,6 @@ msgstr ">>>>>>> released"
 
 msgid "comment"
 msgstr "评论"
-
-msgid "This entry has been permanetly stored on-chain and signed by its creator"
-msgstr ""
 
 msgid "Confirm"
 msgstr "确认"

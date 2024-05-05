@@ -67,6 +67,9 @@ msgstr "Searching users"
 msgid "Collect Action is not supported yet."
 msgstr "Collect Action is not supported yet."
 
+msgid "This entry has been permanently stored on-chain and signed by its creator"
+msgstr "This entry has been permanently stored on-chain and signed by its creator"
+
 msgid "Join our Discord"
 msgstr "Join our Discord"
 
@@ -120,9 +123,6 @@ msgstr "Show less"
 
 msgid "comment"
 msgstr "comment"
-
-msgid "This entry has been permanetly stored on-chain and signed by its creator"
-msgstr "This entry has been permanetly stored on-chain and signed by its creator"
 
 msgid "Confirm"
 msgstr "Confirm"
