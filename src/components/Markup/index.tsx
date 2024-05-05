@@ -118,7 +118,7 @@ export const BioMarkup = memo<BioMarkupProps>(function Markup({ children, post, 
 
 interface ArticleMarkupProps extends Omit<ReactMarkdownOptions, 'children'> {
     children: ReactMarkdownOptions['children'] | null;
-    disableImage?: boolean
+    disableImage?: boolean;
 }
 
 const articlePlugins = [
@@ -128,7 +128,7 @@ const articlePlugins = [
     linkifyRegex(URL_REGEX),
 ];
 
-export const ArticleMarkup = memo<ArticleMarkupProps>(function ArticleMarkup({ children, disableImage , ...rest }) {
+export const ArticleMarkup = memo<ArticleMarkupProps>(function ArticleMarkup({ children, disableImage, ...rest }) {
     if (!children) return null;
 
     return (
