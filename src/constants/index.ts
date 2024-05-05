@@ -46,6 +46,7 @@ export const SORTED_ENGAGEMENT_TAB_TYPE: Record<SocialPlatform, EngagementType[]
     // TODO No API to fetch recasts for now.
     [SocialPlatform.Farcaster]: [EngagementType.Recasts, EngagementType.Likes],
     [SocialPlatform.Twitter]: [EngagementType.Quotes, EngagementType.Likes],
+    [SocialPlatform.Article]: [],
 };
 export const SORTED_SEARCH_TYPE: Record<SocialPlatform, SearchType[]> = {
     [SocialPlatform.Lens]: [SearchType.Posts, SearchType.Users],
