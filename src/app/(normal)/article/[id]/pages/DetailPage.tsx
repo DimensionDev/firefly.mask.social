@@ -1,5 +1,5 @@
 'use client';
-import { Trans } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import { EVMExplorerResolver } from '@masknet/web3-providers';
 import { ChainId } from '@masknet/web3-shared-evm';
 import { useQuery, useSuspenseQuery } from '@tanstack/react-query';
@@ -58,7 +58,7 @@ export function ArticleDetailPage({ params: { id: articleId } }: PageProps) {
         },
     });
 
-    useDocumentTitle(article ? createPageTitle(article.title) : SITE_NAME);
+    useDocumentTitle(article ? createPageTitle(t`Post by ${article.author.handle}`) : SITE_NAME);
 
     if (!article) return;
 

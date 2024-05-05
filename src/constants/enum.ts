@@ -48,6 +48,7 @@ export enum KeyType {
     DigestOpenGraphLink = 'digestOpenGraphLink',
     DigestFrameLink = 'digestFrameLink',
     GetPostOGById = 'getPostOGById',
+    GetArticleOGById = 'getArticleOGById',
     GetProfileOGById = 'getProfileOGById',
     GetChannelOGById = 'getChannelOGById',
     UploadToBlob = 'uploadToBlob',
