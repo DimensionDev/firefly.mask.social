@@ -121,6 +121,9 @@ msgstr "Show less"
 msgid "comment"
 msgstr "comment"
 
+msgid "This entry has been permanetly stored on-chain and signed by its creator"
+msgstr "This entry has been permanetly stored on-chain and signed by its creator"
+
 msgid "Confirm"
 msgstr "Confirm"
 
@@ -285,6 +288,9 @@ msgstr "{shares, plural, =0 {Mirror or Quote} zero {Mirror or Quote} one {Mirror
 
 msgid "Comment cannot be empty."
 msgstr "Comment cannot be empty."
+
+msgid "AUTHOR ADDRESS"
+msgstr "AUTHOR ADDRESS"
 
 msgid "Reply"
 msgstr "Reply"

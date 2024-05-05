@@ -121,6 +121,9 @@ msgstr ">>>>>>> released"
 msgid "comment"
 msgstr ""
 
+msgid "This entry has been permanetly stored on-chain and signed by its creator"
+msgstr ""
+
 msgid "Confirm"
 msgstr ""
 
@@ -284,6 +287,9 @@ msgid "{shares, plural, =0 {Mirror or Quote} zero {Mirror or Quote} one {Mirror 
 msgstr ""
 
 msgid "Comment cannot be empty."
+msgstr ""
+
+msgid "AUTHOR ADDRESS"
 msgstr ""
 
 msgid "Reply"
