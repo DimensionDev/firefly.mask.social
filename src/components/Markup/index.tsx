@@ -118,6 +118,7 @@ export const BioMarkup = memo<BioMarkupProps>(function Markup({ children, post, 
 
 interface ArticleMarkupProps extends Omit<ReactMarkdownOptions, 'children'> {
     children: ReactMarkdownOptions['children'] | null;
+    disableImage?: boolean
 }
 
 const articlePlugins = [
@@ -127,7 +128,7 @@ const articlePlugins = [
     linkifyRegex(URL_REGEX),
 ];
 
-export const ArticleMarkup = memo<ArticleMarkupProps>(function ArticleMarkup({ children, ...rest }) {
+export const ArticleMarkup = memo<ArticleMarkupProps>(function ArticleMarkup({ children, disableImage , ...rest }) {
     if (!children) return null;
 
     return (
@@ -142,7 +143,7 @@ export const ArticleMarkup = memo<ArticleMarkupProps>(function ArticleMarkup({ c
                 // @ts-ignore
                 // eslint-disable-next-line react/no-unstable-nested-components
                 img: (props) => {
-                    if (!props.src) return null;
+                    if (!props.src || disableImage) return null;
                     return (
                         <ImageAsset
                             className={classNames('cursor-pointer', props.className)}

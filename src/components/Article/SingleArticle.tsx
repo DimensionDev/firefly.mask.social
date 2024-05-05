@@ -102,6 +102,7 @@ export const SingleArticle = memo<SingleArticleProps>(function SingleArticleProp
                 <div className="text-xl font-semibold">{article.title}</div>
                 <div className="mt-3 rounded-2xl border border-secondaryLine bg-bg p-3">
                     <ArticleMarkup
+                        disableImage
                         className={classNames('markup linkify line-clamp-5 break-words text-[15px]', {
                             'max-h-[8rem]': !!IS_SAFARI && !!IS_APPLE,
                         })}
