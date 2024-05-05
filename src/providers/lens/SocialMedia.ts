@@ -1053,10 +1053,9 @@ class LensSocialMedia implements Provider {
         });
         const reported = result.isSuccess().valueOf();
         if (!reported) return false;
-        const blockRes = await lensSessionHolder.sdk.profile.block({
-            profiles: [profileId],
-        });
-        return blockRes.isSuccess().valueOf();
+        const blocked = await this.blockUser(profileId);
+
+        return blocked;
     }
     async reportPost(post: Post) {
         const result = await lensSessionHolder.sdk.publication.report({
@@ -1068,6 +1067,12 @@ class LensSocialMedia implements Provider {
                     subreason: PublicationReportingSpamSubreason.SomethingElse,
                 },
             },
+        });
+        return result.isSuccess().valueOf();
+    }
+    async blockUser(profileId: string) {
+        const result = await lensSessionHolder.sdk.profile.block({
+            profiles: [profileId],
         });
         return result.isSuccess().valueOf();
     }

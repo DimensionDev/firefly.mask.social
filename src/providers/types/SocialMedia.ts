@@ -666,6 +666,10 @@ export interface Provider {
      * Report a post
      */
     reportPost: (post: Post) => Promise<boolean>;
+    /**
+     * Block a user
+     */
+    blockUser: (profileId: string) => Promise<boolean>;
 
     getLikeReactors: (postId: string, indicator?: PageIndicator) => Promise<Pageable<Profile, PageIndicator>>;
 

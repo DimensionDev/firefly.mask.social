@@ -660,6 +660,9 @@ class FireflySocialMedia implements Provider {
     async reportPost(post: Post): Promise<boolean> {
         throw new Error('Method not implemented.');
     }
+    async blockUser(profileId: string): Promise<boolean> {
+        throw new Error('Method not implemented.');
+    }
     async getPostLikeProfiles(postId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
         throw new Error('Method not implemented.');
     }

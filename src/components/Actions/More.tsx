@@ -10,6 +10,7 @@ import LoadingIcon from '@/assets/loading.svg';
 import MoreIcon from '@/assets/more.svg';
 import TrashIcon from '@/assets/trash.svg';
 import UnFollowUserIcon from '@/assets/unfollow-user.svg';
+import { BlockUserButton } from '@/components/Actions/BlockUserButton.js';
 import { ReportUserButton } from '@/components/Actions/ReportUserButton.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Tooltip } from '@/components/Tooltip.js';
@@ -21,6 +22,7 @@ import { Link } from '@/esm/Link.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
+import { useBlockUser } from '@/hooks/useBlockUser.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useDeletePost } from '@/hooks/useDeletePost.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
@@ -41,12 +43,13 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
     const isMyPost = isSameProfile(author, currentProfile);
 
     const [isFollowed, { loading }, handleToggle] = useToggleFollow(author);
-
     const [{ loading: deleting }, deletePost] = useDeletePost(source);
-
     const [{ loading: reporting }, reportUser] = useReportUser();
+    const [{ loading: blocking }, blockUser] = useBlockUser();
 
     const engagementType = first(SORTED_ENGAGEMENT_TAB_TYPE[source]) || EngagementType.Likes;
+
+    const isBusy = loading || reporting || blocking;
     return (
         <Menu
             className=" relative"
@@ -69,7 +72,7 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
                     }
                 }}
             >
-                {loading || reporting ? (
+                {isBusy ? (
                     <span className="inline-flex h-6 w-6 animate-spin items-center justify-center">
                         <LoadingIcon width={16} height={16} />
                     </span>
@@ -154,6 +157,11 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
                                     )}
                                 </Menu.Item>
                             ) : null}
+                            <Menu.Item>
+                                {({ close }) => (
+                                    <BlockUserButton profile={author} onBlock={blockUser} onClick={close} />
+                                )}
+                            </Menu.Item>
                         </>
                     )}
                     {id ? (
