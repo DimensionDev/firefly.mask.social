@@ -18,7 +18,7 @@ const useSyncSessionStoreBase = create<SyncSessionStoreState, [['zustand/immer',
         synced: EMPTY_LIST,
         syncFromFirefly: async (session: Session) => {
             const fireflySession = await FireflySession.from(session);
-            if (!fireflySession) return
+            if (!fireflySession) return;
 
             fireflySessionHolder.resumeSession(fireflySession);
 

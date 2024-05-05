@@ -20,7 +20,7 @@ import type { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { createSessionByCustodyWallet } from '@/providers/warpcast/createSessionByCustodyWallet.js';
-import { createSessionByGrantPermission } from '@/providers/warpcast/createSessionByGrantPermission.js';
+import { createSessionByGrantPermissionFirefly } from '@/providers/warpcast/createSessionByGrantPermission.js';
 import { useFarcasterStateStore } from '@/store/useProfileStore.js';
 
 async function login(createSession: () => Promise<FarcasterSession>) {
@@ -59,7 +59,7 @@ export function LoginFarcaster() {
 
                 try {
                     await login(() =>
-                        createSessionByGrantPermission(
+                        createSessionByGrantPermissionFirefly(
                             (url) => {
                                 const device = getMobileDevice();
                                 if (device === 'unknown') setUrl(url);
