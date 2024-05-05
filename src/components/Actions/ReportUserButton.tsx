@@ -2,6 +2,7 @@ import { FlagIcon } from '@heroicons/react/24/outline';
 import { t, Trans } from '@lingui/macro';
 import { forwardRef } from 'react';
 
+import LoadingIcon from '@/assets/loading.svg';
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
@@ -9,13 +10,14 @@ import { ConfirmModalRef } from '@/modals/controls.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 interface Props extends Omit<ClickableButtonProps, 'children'> {
+    busy?: boolean;
     profile: Profile;
     onConfirm?(): void;
     onReport?(profile: Profile): Promise<boolean>;
 }
 
 export const ReportUserButton = forwardRef<HTMLButtonElement, Props>(function ReportUserButton(
-    { profile, className, onConfirm, onReport, ...rest }: Props,
+    { busy, profile, className, onConfirm, onReport, ...rest }: Props,
     ref,
 ) {
     return (
@@ -42,7 +44,11 @@ export const ReportUserButton = forwardRef<HTMLButtonElement, Props>(function Re
             }}
             ref={ref}
         >
-            <FlagIcon width={24} height={24} />
+            {busy ? (
+                <LoadingIcon width={24} height={24} className="animate-spin text-danger" />
+            ) : (
+                <FlagIcon width={24} height={24} />
+            )}
             <span className="text-[17px] font-bold leading-[22px] text-main">
                 <Trans>Report @{profile.handle}</Trans>
             </span>

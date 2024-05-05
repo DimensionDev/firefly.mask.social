@@ -153,13 +153,23 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
                             {source === SocialPlatform.Lens ? (
                                 <Menu.Item>
                                     {({ close }) => (
-                                        <ReportUserButton profile={author} onReport={reportUser} onClick={close} />
+                                        <ReportUserButton
+                                            busy={reporting}
+                                            profile={author}
+                                            onReport={reportUser}
+                                            onClick={close}
+                                        />
                                     )}
                                 </Menu.Item>
                             ) : null}
                             <Menu.Item>
                                 {({ close }) => (
-                                    <BlockUserButton profile={author} onBlock={blockUser} onClick={close} />
+                                    <BlockUserButton
+                                        busy={blocking}
+                                        profile={author}
+                                        onBlock={blockUser}
+                                        onClick={close}
+                                    />
                                 )}
                             </Menu.Item>
                         </>

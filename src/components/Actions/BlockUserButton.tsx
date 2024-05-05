@@ -2,6 +2,7 @@ import { EyeSlashIcon } from '@heroicons/react/24/outline';
 import { t, Trans } from '@lingui/macro';
 import { forwardRef } from 'react';
 
+import LoadingIcon from '@/assets/loading.svg';
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
@@ -9,13 +10,14 @@ import { ConfirmModalRef } from '@/modals/controls.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 interface Props extends Omit<ClickableButtonProps, 'children'> {
+    busy?: boolean;
     profile: Profile;
     onConfirm?(): void;
     onBlock?(profile: Profile): Promise<boolean>;
 }
 
 export const BlockUserButton = forwardRef<HTMLButtonElement, Props>(function BlockUserButton(
-    { profile, className, onConfirm, onBlock, ...rest }: Props,
+    { busy, profile, className, onConfirm, onBlock, ...rest }: Props,
     ref,
 ) {
     return (
@@ -42,7 +44,11 @@ export const BlockUserButton = forwardRef<HTMLButtonElement, Props>(function Blo
             }}
             ref={ref}
         >
-            <EyeSlashIcon width={24} height={24} />
+            {busy ? (
+                <LoadingIcon width={24} height={24} className="animate-spin text-danger" />
+            ) : (
+                <EyeSlashIcon width={24} height={24} />
+            )}
             <span className="text-[17px] font-bold leading-[22px] text-main">
                 <Trans>Block @{profile.handle}</Trans>
             </span>
