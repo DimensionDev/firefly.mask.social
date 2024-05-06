@@ -80,20 +80,17 @@ export function PostDetailPage({ params: { id: postId }, searchParams: { source 
     }
 
     const { data: allPosts = EMPTY_LIST } = useSuspenseInfiniteQuery({
-        queryKey: ['posts', currentSource, 'thread-detail', post?.postId, post?.root?.postId],
+        queryKey: ['posts', currentSource, 'thread-detail', post.postId, post.root?.postId],
         queryFn: async () => {
-            const root = post?.root ? post.root : post?.commentOn ? post.commentOn : post;
+            const root = post.root ? post.root : post.commentOn ? post.commentOn : post;
             if (!root?.stats?.comments) return createPageable(EMPTY_LIST, undefined);
 
-            if (!isSameProfile(root.author, post?.author)) return createPageable(EMPTY_LIST, undefined);
+            if (!isSameProfile(root.author, post.author)) return createPageable(EMPTY_LIST, undefined);
 
             const provider = resolveSocialMediaProvider(currentSource);
             if (!provider) return createPageable(EMPTY_LIST, undefined);
 
-            const posts = await provider.getThreadByPostId(
-                root.postId,
-                root.postId === post?.postId ? post : undefined,
-            );
+            const posts = await provider.getThreadByPostId(root.postId, root.postId === post.postId ? post : undefined);
 
             /**
              * The data of Lens is stored in Redis.
@@ -122,7 +119,7 @@ export function PostDetailPage({ params: { id: postId }, searchParams: { source 
         select: (data) => data.pages.flatMap((x) => x.data),
     });
 
-    useDocumentTitle(post ? createPageTitle(t`Post by ${post?.author.displayName}`) : SITE_NAME);
+    useDocumentTitle(post ? createPageTitle(t`Post by ${post.author.displayName}`) : SITE_NAME);
     useUpdateCurrentVisitingPost(post);
 
     if (!post) return;
@@ -160,7 +157,7 @@ export function PostDetailPage({ params: { id: postId }, searchParams: { source 
                         <PostActions
                             disablePadding
                             post={post}
-                            disabled={post?.isHidden}
+                            disabled={post.isHidden}
                             className="!mt-0 border-b border-line px-4 py-3"
                         />
                         {/* TODO: Compose Comment Input */}
