@@ -20,9 +20,10 @@ import { createSessionForProfileIdFirefly } from '@/providers/lens/createSession
 
 interface ProfileSettingsProps {
     source: SocialPlatform;
+    onClose?: () => void;
 }
 
-export function ProfileSettings({ source }: ProfileSettingsProps) {
+export function ProfileSettings({ source, onClose }: ProfileSettingsProps) {
     const { currentProfile, profiles, refreshProfiles } = useProfileStore(source);
     const { login } = useSwitchLensAccount();
 
@@ -37,7 +38,10 @@ export function ProfileSettings({ source }: ProfileSettingsProps) {
                     key={profile.profileId}
                     className="my-3 flex items-center justify-between gap-2 outline-none"
                     disabled={isSameProfile(currentProfile, profile) || source === SocialPlatform.Farcaster}
-                    onClick={() => login(profile)}
+                    onClick={async () => {
+                        await login(profile);
+                        onClose?.();
+                    }}
                 >
                     <ProfileAvatar
                         profile={profile}
@@ -57,6 +61,7 @@ export function ProfileSettings({ source }: ProfileSettingsProps) {
                             redirect: false,
                         });
                     LoginModalRef.open({ source });
+                    onClose?.();
                 }}
             >
                 <UserAddIcon width={24} height={24} />
@@ -70,6 +75,7 @@ export function ProfileSettings({ source }: ProfileSettingsProps) {
                     onClick={async () => {
                         await createSessionForProfileIdFirefly(currentProfile.profileId);
                         await FireflySessionConfirmModalRef.openAndWaitForClose();
+                        onClose?.();
                     }}
                 >
                     <CloudIcon width={24} height={24} />
@@ -80,7 +86,10 @@ export function ProfileSettings({ source }: ProfileSettingsProps) {
             ) : null}
             <ClickableButton
                 className="mb-3 flex items-center rounded px-1 py-3 outline-none hover:bg-bg"
-                onClick={() => LogoutModalRef.open({ source })}
+                onClick={() => {
+                    LogoutModalRef.open({ source });
+                    onClose?.();
+                }}
             >
                 <LogOutIcon width={24} height={24} />
                 <span className=" pl-2 text-[17px] font-bold leading-[22px] text-danger">
