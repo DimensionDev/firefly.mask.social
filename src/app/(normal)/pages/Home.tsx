@@ -1,93 +1,21 @@
 'use client';
 
 import { t } from '@lingui/macro';
-import { createIndicator, createPageable, type Pageable, type PageIndicator } from '@masknet/shared-base';
-import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 
-import { ListInPage } from '@/components/ListInPage.js';
-import { getArticleItemContent } from '@/components/VirtualList/getArticleItemContent.js';
-import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.js';
-import { ScrollListKey, type SocialSource, Source } from '@/constants/enum.js';
-import { EMPTY_LIST } from '@/constants/index.js';
-import { getPostsSelector } from '@/helpers/getPostsSelector.js';
-import { narrowToSocialSource } from '@/helpers/narrowSource.js';
-import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
+import { DiscoverArticleList } from '@/components/Article/DiscoverArticleList.jsx';
+import { DiscoverPostList } from '@/components/Posts/DiscoverPostList.jsx';
+import { Source } from '@/constants/enum.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
-import { FireflyArticleProvider } from '@/providers/firefly/Article.js';
-import type { Post } from '@/providers/types/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
-import { useImpressionsStore } from '@/store/useImpressionsStore.js';
-
-async function discoverPosts(source: SocialSource, indicator: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-    const provider = resolveSocialMediaProvider(source);
-    return provider.discoverPosts(indicator);
-}
 
 export function HomePage() {
     const currentSource = useGlobalState.use.currentSource();
-    const currentSocialSource = narrowToSocialSource(currentSource);
-
-    const fetchAndStoreViews = useImpressionsStore.use.fetchAndStoreViews();
-    const queryResult = useSuspenseInfiniteQuery({
-        queryKey: ['posts', currentSource, 'discover'],
-        networkMode: 'always',
-
-        queryFn: async ({ pageParam }) => {
-            if (currentSource === Source.Article) return createPageable(EMPTY_LIST, undefined);
-            const posts = await discoverPosts(currentSource, createIndicator(undefined, pageParam));
-            if (currentSource === Source.Lens) fetchAndStoreViews(posts.data.flatMap((x) => [x.postId]));
-            return posts;
-        },
-        initialPageParam: '',
-        getNextPageParam: (lastPage) => lastPage.nextIndicator?.id,
-        select: getPostsSelector(currentSocialSource),
-    });
-
-    const articleQueryResult = useSuspenseInfiniteQuery({
-        queryKey: ['articles', 'discover', currentSource],
-        networkMode: 'always',
-        queryFn: async ({ pageParam }) => {
-            if (currentSource !== Source.Article) return createPageable(EMPTY_LIST, undefined);
-            return FireflyArticleProvider.discoverArticles(createIndicator(undefined, pageParam));
-        },
-        initialPageParam: '',
-        getNextPageParam: (lastPage) => lastPage.nextIndicator?.id,
-        select: (data) => data.pages.flatMap((x) => x.data || EMPTY_LIST),
-    });
 
     useNavigatorTitle(t`Discover`);
 
     if (currentSource === Source.Article) {
-        return (
-            <ListInPage
-                key={currentSource}
-                queryResult={articleQueryResult}
-                VirtualListProps={{
-                    listKey: `${ScrollListKey.Discover}:${currentSource}`,
-                    computeItemKey: (index, article) => `${article.id}-${index}`,
-                    itemContent: (index, article) =>
-                        getArticleItemContent(index, article, `${ScrollListKey.Discover}:${currentSource}`),
-                }}
-                NoResultsFallbackProps={{
-                    className: 'pt-[228px]',
-                }}
-            />
-        );
+        return <DiscoverArticleList />;
     }
 
-    return (
-        <ListInPage
-            key={currentSource}
-            queryResult={queryResult}
-            VirtualListProps={{
-                listKey: `${ScrollListKey.Discover}:${currentSource}`,
-                computeItemKey: (index, post) => `${post.postId}-${index}`,
-                itemContent: (index, post) =>
-                    getPostItemContent(index, post, `${ScrollListKey.Discover}:${currentSource}`),
-            }}
-            NoResultsFallbackProps={{
-                className: 'pt-[228px]',
-            }}
-        />
-    );
+    return <DiscoverPostList />;
 }
