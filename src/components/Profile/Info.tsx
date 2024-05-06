@@ -3,6 +3,7 @@ import { Trans } from '@lingui/macro';
 import { Avatar } from '@/components/Avatar.js';
 import { BioMarkup } from '@/components/Markup/index.js';
 import { FollowButton } from '@/components/Profile/FollowButton.js';
+import { ProfileMoreAction } from '@/components/Profile/ProfileMoreAction.js';
 import { SourceIcon } from '@/components/SourceIcon.js';
 import type { SocialPlatform } from '@/constants/enum.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
@@ -29,21 +30,25 @@ export function Info({ isMyProfile, profile, source }: InfoProps) {
             )}
 
             <div className=" relative flex flex-1 flex-col gap-[6px] pt-4">
-                {!isMyProfile && profile && isMedium ? (
-                    <div className=" absolute right-0 top-4">
-                        <FollowButton profile={profile} />
-                    </div>
-                ) : null}
-
                 <div className=" flex flex-col">
                     <div className=" flex items-center gap-2">
                         <span className=" text-xl font-black text-lightMain">{profile?.displayName}</span>
                         <SourceIcon source={source} size={20} />
+                        {!isMyProfile && profile && isMedium ? (
+                            <>
+                                <div className="ml-auto ">
+                                    <FollowButton profile={profile} />
+                                </div>
+                                <ProfileMoreAction profile={profile} />
+                            </>
+                        ) : null}
                     </div>
-                    <span className=" text-[15px] text-secondary">@{profile?.handle}</span>
+                    <span className="text-[15px] text-secondary">@{profile?.handle}</span>
                 </div>
 
-                <BioMarkup className="text-[15px]">{profile?.bio ?? '-'}</BioMarkup>
+                <BioMarkup className="text-[15px]" source={profile?.source}>
+                    {profile?.bio ?? '-'}
+                </BioMarkup>
 
                 <div className=" flex gap-3 text-[15px]">
                     <div className=" flex gap-1">

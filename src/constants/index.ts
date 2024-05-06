@@ -1,6 +1,14 @@
 /* cspell:disable */
 
-import { NODE_ENV, ProfileTabType, RestrictionType, SearchType, SocialPlatform, VERCEL_NEV } from '@/constants/enum.js';
+import {
+    EngagementType,
+    NODE_ENV,
+    ProfileTabType,
+    RestrictionType,
+    SearchType,
+    SocialPlatform,
+    VERCEL_NEV,
+} from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 
 export const SITE_NAME = 'Firefly: Web3 & NFT Explorer';
@@ -32,6 +40,12 @@ export const SORTED_PROFILE_TAB_TYPE: Record<SocialPlatform, ProfileTabType[]> =
     [SocialPlatform.Farcaster]: [ProfileTabType.Feed, ProfileTabType.Replies, ProfileTabType.Liked],
     [SocialPlatform.Twitter]: [ProfileTabType.Feed, ProfileTabType.Liked],
 };
+export const SORTED_ENGAGEMENT_TAB_TYPE: Record<SocialPlatform, EngagementType[]> = {
+    [SocialPlatform.Lens]: [EngagementType.Quotes, EngagementType.Mirrors, EngagementType.Likes],
+    // TODO No API to fetch recasts for now.
+    [SocialPlatform.Farcaster]: [EngagementType.Recasts, EngagementType.Likes],
+    [SocialPlatform.Twitter]: [EngagementType.Quotes, EngagementType.Likes],
+};
 export const SORTED_SEARCH_TYPE: Record<SocialPlatform, SearchType[]> = {
     [SocialPlatform.Lens]: [SearchType.Posts, SearchType.Users],
     [SocialPlatform.Farcaster]: [SearchType.Posts, SearchType.Users, SearchType.Channels],
@@ -41,7 +55,7 @@ export const SORTED_SOURCES = [SocialPlatform.Farcaster, SocialPlatform.Lens, So
 export const SORTED_RESTECTION_TYPE = [RestrictionType.Everyone, RestrictionType.OnlyPeopleYouFollow];
 
 // Lens
-export const IPFS_GATEWAY = 'https://gw.ipfs-lens.dev/ipfs/';
+export const IPFS_GATEWAY = 'https://ipfs.io/ipfs/';
 export const ARWEAVE_GATEWAY = 'https://arweave.net/';
 export const LENS_MEDIA_SNAPSHOT_URL = 'https://ik.imagekit.io/lens/media-snapshot';
 export const HEY_URL = 'https://hey.xyz';
@@ -89,7 +103,7 @@ export const MAX_RECOMMEND_PROFILE_SIZE = 10;
 export const MAX_OG_SIZE_PER_POST = 1;
 export const MAX_FRAME_SIZE_PER_POST = 1;
 
-export const MAX_POST_SIZE_PER_THREAD = env.shared.NODE_ENV === NODE_ENV.Development ? 5 : 25;
+export const MAX_POST_SIZE_PER_THREAD = env.shared.NODE_ENV === NODE_ENV.Development ? 10 : 25;
 export const MIN_POST_SIZE_PER_THREAD = 3;
 
 // HTTP Cache headers
@@ -109,3 +123,15 @@ export const DEFAULT_TOKEN_ADDRESS = '0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270
 export const LENS_HUB_PROXY_ADDRESS = '0xDb46d1Dc155634FbC732f92E853b10B288AD5a1d';
 export const PUBLIC_ACT_PROXY_ADDRESS = '0x53582b1b7BE71622E7386D736b6baf87749B7a2B';
 export const TOKEN_HANDLE_REGISTRY = '0xD4F2F33680FCCb36748FA9831851643781608844';
+
+export const ALLOWED_IMAGES_MIMES = ['image/png', 'image/jpeg', 'image/gif', 'image/webp', 'image/bmp'] as const;
+
+export const SUFFIX_NAMES: Record<(typeof ALLOWED_IMAGES_MIMES)[number], string> = {
+    'image/png': 'png',
+    'image/jpeg': 'jpg',
+    'image/gif': 'gif',
+    'image/bmp': 'bmp',
+    'image/webp': 'webp',
+};
+
+export const FILE_MAX_SIZE_IN_BYTES = 4 * 1024 * 1024; // 4MB

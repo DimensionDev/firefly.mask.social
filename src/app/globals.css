@@ -318,3 +318,7 @@ body {
         display: none !important;
     }
 }
+
+.channel-card {
+    background: none !important;
+}

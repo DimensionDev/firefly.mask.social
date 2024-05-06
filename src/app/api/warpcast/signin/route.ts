@@ -46,7 +46,7 @@ export async function POST(request: NextRequest) {
     });
 
     const url = urlcat(WARPCAST_ROOT_URL, '/signed-key-requests');
-    const response = await fetchJSON<{
+    const { result } = await fetchJSON<{
         result: {
             signedKeyRequest: {
                 token: string;
@@ -54,6 +54,7 @@ export async function POST(request: NextRequest) {
                 key: string;
                 requestFid: number;
                 state: 'pending' | 'completed';
+                isSponsored: boolean;
             };
         };
     }>(url, {
@@ -68,10 +69,10 @@ export async function POST(request: NextRequest) {
     });
 
     return createSuccessResponseJSON({
-        fid: response.result.signedKeyRequest.requestFid,
-        token: response.result.signedKeyRequest.token,
+        fid: result.signedKeyRequest.requestFid,
+        token: result.signedKeyRequest.token,
         timestamp: Date.now(),
         expiresAt: deadline * 1000,
-        deeplinkUrl: response.result.signedKeyRequest.deeplinkUrl,
+        deeplinkUrl: result.signedKeyRequest.deeplinkUrl,
     });
 }

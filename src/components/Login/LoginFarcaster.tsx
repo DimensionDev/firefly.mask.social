@@ -7,41 +7,43 @@ import { useAsyncFn, useEffectOnce, useUnmount } from 'react-use';
 
 import LoadingIcon from '@/assets/loading.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
-import { farcasterClient } from '@/configs/farcasterClient.js';
 import { config } from '@/configs/wagmiClient.js';
 import { IS_MOBILE_DEVICE } from '@/constants/bowser.js';
 import { IS_PRODUCTION } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import { getMobileDevice } from '@/helpers/getMobileDevice.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
-import { LoginModalRef } from '@/modals/controls.js';
+import { restoreProfile } from '@/helpers/restoreProfile.js';
+import { FireflySessionConfirmModalRef, LoginModalRef } from '@/modals/controls.js';
 import type { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { createSessionByCustodyWallet } from '@/providers/warpcast/createSessionByCustodyWallet.js';
 import { createSessionByGrantPermission } from '@/providers/warpcast/createSessionByGrantPermission.js';
-import { useFarcasterStateStore } from '@/store/useProfileStore.js';
-import { useSyncSessionStore } from '@/store/useSyncSessionStore.js';
 
-async function login(session: FarcasterSession) {
-    const { updateProfiles, updateCurrentProfile } = useFarcasterStateStore.getState();
-    const { syncFromFirefly: syncFromFirefly } = useSyncSessionStore.getState();
+async function login(createSession: () => Promise<FarcasterSession>) {
     try {
+        const session = await createSession();
         const profile = await FarcasterSocialMediaProvider.getProfileById(session.profileId);
 
-        farcasterClient.resumeSession(session);
-
-        updateProfiles([profile]);
-        updateCurrentProfile(profile, session);
-        syncFromFirefly(session);
+        // restore profiles for farcaster
+        restoreProfile(profile, [profile], session);
         enqueueSuccessMessage(t`Your Farcaster account is now connected.`);
         LoginModalRef.close();
+
+        // restore profile exclude farcaster
+        await FireflySessionConfirmModalRef.openAndWaitForClose();
     } catch (error) {
-        if (error instanceof Error && error.message === 'Aborted') return;
-        enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to login`));
+        const message = error instanceof Error ? error.message : typeof error === 'string' ? error : `${error}`;
+        if (message.toLowerCase().includes('aborted')) return;
+        enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to login`), {
+            error,
+        });
         // if any error occurs, close the modal
         // by this we don't need to do error handling in UI part.
         LoginModalRef.close();
+        throw error;
     }
 }
 
@@ -51,26 +53,43 @@ export function LoginFarcaster() {
 
     const [{ loading: loadingGrantPermission, error: errorGrantPermission }, onLoginWithGrantPermission] =
         useAsyncFn(async () => {
-            controllerRef.current?.abort();
-            controllerRef.current = new AbortController();
-            const session = await createSessionByGrantPermission(
-                (url) => {
-                    if (IS_MOBILE_DEVICE) {
-                        location.href = url;
-                    } else {
-                        setUrl(url);
-                    }
-                },
-                controllerRef.current?.signal,
-            );
-            await login(session);
+            // reset the process if abort controller is aborted or not initialized
+            if (!controllerRef.current || controllerRef.current?.signal.aborted) {
+                controllerRef.current = new AbortController();
+
+                try {
+                    await login(() =>
+                        createSessionByGrantPermission(
+                            (url) => {
+                                const device = getMobileDevice();
+                                if (device === 'unknown') setUrl(url);
+                                else location.href = url;
+                            },
+                            controllerRef.current?.signal,
+                        ),
+                    );
+                } catch (error) {
+                    enqueueErrorMessage(t`Failed to login.`, {
+                        error,
+                    });
+                    throw error;
+                }
+            }
         }, []);
 
     const [{ loading: loadingCustodyWallet }, onLoginWithCustodyWallet] = useAsyncFn(async () => {
-        controllerRef.current?.abort();
-        const client = await getWalletClientRequired(config);
-        const session = await createSessionByCustodyWallet(client);
-        await login(session);
+        controllerRef.current?.abort('aborted');
+        try {
+            await login(async () => {
+                const client = await getWalletClientRequired(config);
+                return createSessionByCustodyWallet(client);
+            });
+        } catch (error) {
+            enqueueErrorMessage(t`Failed to login.`, {
+                error,
+            });
+            throw error;
+        }
     }, []);
 
     useEffectOnce(() => {
@@ -78,7 +97,7 @@ export function LoginFarcaster() {
     });
 
     useUnmount(() => {
-        controllerRef.current?.abort();
+        controllerRef.current?.abort('aborted');
     });
 
     return (

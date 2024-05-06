@@ -169,6 +169,7 @@ export function Frame({ postId, url, onData, children }: FrameProps) {
                     case ActionType.Post:
                         const postResponse = await post();
                         const nextFrame = postResponse.success ? (postResponse.data as LinkDigested).frame : null;
+
                         if (!nextFrame) {
                             enqueueErrorMessage(t`The frame server failed to process the request.`);
                             return;
@@ -212,9 +213,10 @@ export function Frame({ postId, url, onData, children }: FrameProps) {
                         break;
                 }
             } catch (error) {
-                enqueueErrorMessage(
-                    error instanceof Error ? error.message : t`Something went wrong. Please try again.`,
-                );
+                enqueueErrorMessage(t`Something went wrong. Please try again.`, {
+                    error,
+                });
+                throw error;
             }
             return;
         },

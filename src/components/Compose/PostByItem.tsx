@@ -18,7 +18,7 @@ import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useProfiles } from '@/hooks/useProfiles.js';
 import { ComposeModalRef, LoginModalRef } from '@/modals/controls.js';
-import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
+import { createSessionForProfileId } from '@/providers/lens/createSessionForProfileId.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 import { useLensStateStore } from '@/store/useProfileStore.js';
@@ -39,12 +39,15 @@ export function PostByItem({ source }: PostByItemProps) {
     const [{ loading }, loginLens] = useAsyncFn(
         async (profile: Profile) => {
             try {
-                const session = await LensSocialMediaProvider.createSessionForProfileId(profile.profileId);
+                const session = await createSessionForProfileId(profile.profileId);
 
                 updateLensCurrentProfile(profile, session);
                 enqueueSuccessMessage(t`Your Lens account is now connected.`);
             } catch (error) {
-                enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to login`));
+                enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to login`), {
+                    error,
+                });
+                throw error;
             }
         },
         [updateLensCurrentProfile],

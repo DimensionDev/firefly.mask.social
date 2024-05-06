@@ -174,6 +174,7 @@ export interface Post {
     quoteOn?: Post;
     comments?: Post[];
     embedPosts?: Post[];
+    channel?: Channel;
     /**
      * Lens only
      * To mirror a post on momoka, need to invoke with the client method mirrorOnMomoka
@@ -656,4 +657,22 @@ export interface Provider {
      * @param localPost
      */
     getThreadByPostId: (postId: string, localPost?: Post) => Promise<Post[]>;
+
+    /**
+     * Report a user
+     */
+    reportUser: (profileId: string) => Promise<boolean>;
+    /**
+     * Report a post
+     */
+    reportPost: (post: Post) => Promise<boolean>;
+
+    getLikeReactors: (postId: string, indicator?: PageIndicator) => Promise<Pageable<Profile, PageIndicator>>;
+
+    /**
+     * Including Reposts, Recasts, Mirrors, Retweets
+     */
+    getRepostReactors: (postId: string, indicator?: PageIndicator) => Promise<Pageable<Profile, PageIndicator>>;
+
+    getPostsQuoteOn: (postId: string, indicator?: PageIndicator) => Promise<Pageable<Post, PageIndicator>>;
 }

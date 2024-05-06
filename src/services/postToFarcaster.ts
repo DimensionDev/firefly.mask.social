@@ -45,7 +45,7 @@ export async function postToFarcaster(type: ComposeType, compositePost: Composit
             },
             mediaObjects: uniqBy(
                 [
-                    ...images.map((media) => ({ url: media.imgur!, mimeType: media.file.type })),
+                    ...images.map((media) => ({ url: media.s3!, mimeType: media.file.type })),
                     ...frames.map((frame) => ({ title: frame.title, url: frame.url })),
                     ...openGraphs.map((openGraph) => ({ title: openGraph.title!, url: openGraph.url })),
                 ],
@@ -61,10 +61,10 @@ export async function postToFarcaster(type: ComposeType, compositePost: Composit
         uploadImages: () => {
             return Promise.all(
                 images.map(async (media) => {
-                    if (media.imgur) return media;
+                    if (media.s3) return media;
                     return {
                         ...media,
-                        imgur: await uploadToS3(media.file, SourceInURL.Farcaster),
+                        s3: await uploadToS3(media.file, SourceInURL.Farcaster),
                     };
                 }),
             );

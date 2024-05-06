@@ -1,14 +1,19 @@
 import type React from 'react';
+import { forwardRef } from 'react';
 
 export interface ClickableButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     children: React.ReactNode;
     onClick?: () => void;
 }
 
-export function ClickableButton({ children, onClick, ...props }: ClickableButtonProps) {
+export const ClickableButton = forwardRef<HTMLButtonElement, ClickableButtonProps>(function ClickableButton(
+    { children, onClick, ...props },
+    ref,
+) {
     return (
         <button
             {...props}
+            ref={ref}
             onClick={(ev) => {
                 if (props.disabled) return;
                 ev.preventDefault();
@@ -19,4 +24,4 @@ export function ClickableButton({ children, onClick, ...props }: ClickableButton
             {children}
         </button>
     );
-}
+});

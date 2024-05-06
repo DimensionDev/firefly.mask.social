@@ -1,5 +1,6 @@
 'use client';
 
+import { CloudIcon } from '@heroicons/react/24/outline';
 import { Trans } from '@lingui/macro';
 import { signOut } from 'next-auth/react';
 import { useEffect } from 'react';
@@ -10,20 +11,19 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { OnlineStatusIndicator } from '@/components/OnlineStatusIndicator.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { ProfileName } from '@/components/ProfileName.js';
-import { WarpcastSignerRequestIndicator } from '@/components/WarpcastSignerRequestIndicator.js';
-import { NODE_ENV, SocialPlatform } from '@/constants/enum.js';
-import { env } from '@/constants/env.js';
+import { SocialPlatform } from '@/constants/enum.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { useProfileStore } from '@/hooks/useProfileStore.js';
 import { useSwitchLensAccount } from '@/hooks/useSwitchLensAccount.js';
-import { LoginModalRef, LogoutModalRef } from '@/modals/controls.js';
+import { FireflySessionConfirmModalRef, LoginModalRef, LogoutModalRef } from '@/modals/controls.js';
+import { createSessionForProfileIdFirefly } from '@/providers/lens/createSessionForProfileId.js';
 
 interface ProfileSettingsProps {
     source: SocialPlatform;
 }
 
 export function ProfileSettings({ source }: ProfileSettingsProps) {
-    const { currentProfile, currentProfileSession, profiles, refreshProfiles } = useProfileStore(source);
+    const { currentProfile, profiles, refreshProfiles } = useProfileStore(source);
     const { login } = useSwitchLensAccount();
 
     useEffect(() => {
@@ -31,7 +31,7 @@ export function ProfileSettings({ source }: ProfileSettingsProps) {
     }, [refreshProfiles]);
 
     return (
-        <div className=" flex flex-col overflow-x-hidden rounded-2xl border border-line bg-primaryBottom md:w-[290px] md:px-5">
+        <div className=" flex flex-col overflow-x-hidden rounded-2xl bg-primaryBottom md:w-[290px] md:border md:border-line md:px-5">
             {profiles.map((profile) => (
                 <ClickableButton
                     key={profile.profileId}
@@ -42,13 +42,7 @@ export function ProfileSettings({ source }: ProfileSettingsProps) {
                     <ProfileAvatar profile={profile} clickable linkable />
                     <ProfileName profile={profile} />
 
-                    {env.shared.NODE_ENV === NODE_ENV.Development ? (
-                        <WarpcastSignerRequestIndicator session={currentProfileSession}>
-                            {isSameProfile(currentProfile, profile) ? <OnlineStatusIndicator /> : null}
-                        </WarpcastSignerRequestIndicator>
-                    ) : isSameProfile(currentProfile, profile) ? (
-                        <OnlineStatusIndicator />
-                    ) : null}
+                    {isSameProfile(currentProfile, profile) ? <OnlineStatusIndicator /> : null}
                 </ClickableButton>
             ))}
             <ClickableButton
@@ -66,6 +60,20 @@ export function ProfileSettings({ source }: ProfileSettingsProps) {
                     <Trans>Switch account</Trans>
                 </span>
             </ClickableButton>
+            {currentProfile && source === SocialPlatform.Lens ? (
+                <ClickableButton
+                    className="flex w-full items-center rounded px-1 py-3 text-main outline-none hover:bg-bg"
+                    onClick={async () => {
+                        await createSessionForProfileIdFirefly(currentProfile.profileId);
+                        await FireflySessionConfirmModalRef.openAndWaitForClose();
+                    }}
+                >
+                    <CloudIcon width={24} height={24} />
+                    <span className=" pl-2 text-[17px] font-bold leading-[22px] text-main">
+                        <Trans>Detect device accounts</Trans>
+                    </span>
+                </ClickableButton>
+            ) : null}
             <ClickableButton
                 className="mb-3 flex items-center rounded px-1 py-3 outline-none hover:bg-bg"
                 onClick={() => LogoutModalRef.open({ source })}

@@ -15,7 +15,7 @@ export function waitForSignedKeyRequest(signal?: AbortSignal) {
     return async (
         token: string,
         listOfState: Array<'pending' | 'completed' | 'approved'> = ['approved', 'completed'],
-        maxTries = 2000,
+        maxTries = Number.MAX_SAFE_INTEGER,
         ms = 3000,
     ) => {
         let tries = 0;

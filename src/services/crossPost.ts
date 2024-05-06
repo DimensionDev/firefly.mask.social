@@ -1,3 +1,4 @@
+import { plural, t } from '@lingui/macro';
 import { RedPacketMetaKey } from '@masknet/plugin-redpacket';
 import { FireflyRedPacket } from '@masknet/web3-providers';
 import { type FireflyRedPacketAPI, type RedPacketJSONPayload } from '@masknet/web3-providers/types';
@@ -9,10 +10,13 @@ import { NODE_ENV, SocialPlatform } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { SORTED_SOURCES } from '@/constants/index.js';
 import { createMockComment } from '@/helpers/createMockComment.js';
+import { enqueueErrorsMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import { getCompositePost } from '@/helpers/getCompositePost.js';
 import { getCurrentProfileAll } from '@/helpers/getCurrentProfileAll.js';
-import { isPublishedPost } from '@/helpers/isPublishedPost.js';
+import { failedAt } from '@/helpers/isPublishedPost.js';
 import { resolvePostTo } from '@/helpers/resolvePostTo.js';
 import { resolveRedPacketPlatformType } from '@/helpers/resolveRedPacketPlatformType.js';
+import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { hasRpPayload } from '@/helpers/rpPayload.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
@@ -35,7 +39,7 @@ async function updateRpClaimStrategy(compositePost: CompositePost) {
     const { postId, typedMessage, rpPayload } = compositePost;
     if (env.shared.NODE_ENV === NODE_ENV.Development) {
         if (rpPayload?.publicKey && !SORTED_SOURCES.some((x) => postId[x])) {
-            console.error("No any post id for updating RedPacket's claim strategy.");
+            console.error("[cross post] No any post id for updating RedPacket's claim strategy.");
         }
     }
 
@@ -126,77 +130,144 @@ async function setQueryDataForQuote(post: CompositePost) {
 }
 
 interface CrossPostOptions {
+    isRetry?: boolean;
     // skip if post is already published
     skipIfPublishedPost?: boolean;
     // skip if no parent post is found in reply or quote
     skipIfNoParentPost?: boolean;
-    // skip published check
-    skipPublishedCheck?: boolean;
-    /** If it's a post in thread, only refresh the feeds after sending the last post. */
+    // If it's a post in thread, only refresh the feeds after sending the last post.
     skipRefreshFeeds?: boolean;
+    // skip check published result and showing success or error messages
+    skipCheckPublished?: boolean;
 }
 
 export async function crossPost(
     type: ComposeType,
     compositePost: CompositePost,
     {
+        isRetry = false,
         skipIfPublishedPost = false,
         skipIfNoParentPost = false,
-        skipPublishedCheck = false,
-        skipRefreshFeeds,
+        skipCheckPublished = false,
+        skipRefreshFeeds = false,
     }: CrossPostOptions = {},
 ) {
+    const { updatePostInThread } = useComposeStateStore.getState();
     const { availableSources } = compositePost;
 
     const allSettled = await Promise.allSettled(
-        SORTED_SOURCES.map((x) => {
-            if (availableSources.includes(x)) {
-                // post already published
-                if (skipIfPublishedPost && compositePost.postId[x]) {
-                    return null;
-                }
+        SORTED_SOURCES.map(async (x) => {
+            if (!availableSources.includes(x)) return null;
 
-                // parent post is required for reply and quote
-                if ((type === 'reply' || type === 'quote') && skipIfNoParentPost && !compositePost.parentPost[x]) {
-                    return null;
-                }
-
-                return resolvePostTo(x)(type, compositePost);
-            } else {
+            // post already published
+            if (skipIfPublishedPost && compositePost.postId[x]) {
                 return null;
+            }
+
+            // parent post is required for reply and quote
+            if ((type === 'reply' || type === 'quote') && skipIfNoParentPost && !compositePost.parentPost[x]) {
+                return null;
+            }
+
+            try {
+                const result = await resolvePostTo(x)(type, compositePost);
+                updatePostInThread(compositePost.id, (y) => ({
+                    ...y,
+                    postError: {
+                        ...y.postError,
+                        [x]: null,
+                    },
+                }));
+                return result;
+            } catch (error) {
+                updatePostInThread(compositePost.id, (y) => ({
+                    ...y,
+                    postError: {
+                        ...y.postError,
+                        [x]: error instanceof Error ? error : new Error(`${error}`),
+                    },
+                }));
+                throw error;
             }
         }),
     );
 
-    // failed to cross post
+    const updatedCompositePost = getCompositePost(compositePost.id);
+    if (!updatedCompositePost) throw new Error(`Post not found with id: ${compositePost.id}`);
+
+    // check publish result
+    if (!skipCheckPublished) {
+        const failedPlatforms = failedAt(updatedCompositePost);
+
+        if (failedPlatforms.length) {
+            // the first error on each platform
+            const allErrors = allSettled.map((x) => (x.status === 'rejected' ? x.reason : null));
+
+            // show success message if no error found on certain platform
+            SORTED_SOURCES.forEach((x, i) => {
+                const settled = allSettled[i];
+                const error = settled.status === 'rejected' ? settled.reason : null;
+                if (error) return;
+                const rootPost = compositePost;
+                if (!rootPost.availableSources.includes(x)) return;
+                if (!isRetry) {
+                    enqueueSuccessMessage(t`Your post have published successfully on ${resolveSourceName(x)}.`);
+                }
+            });
+
+            const firstPlatform = failedPlatforms[0] ? resolveSourceName(failedPlatforms[0]) : '';
+            const secondPlatform = failedPlatforms[1] ? resolveSourceName(failedPlatforms[1]) : '';
+
+            const message = plural(failedPlatforms.length, {
+                one: `Your post failed to publish on ${firstPlatform} due to an error. Click 'Retry' to attempt posting again.`,
+                two: `Your post failed to publish on ${firstPlatform} and ${secondPlatform} due to an error. Click 'Retry' to attempt posting again.`,
+                other: "Your post failed to publish due to an error. Click 'Retry' to attempt posting again.",
+            });
+
+            enqueueErrorsMessage(message, {
+                errors: compact(allErrors),
+                persist: true,
+            });
+            throw new Error(`Failed to post on: ${failedPlatforms.map(resolveSourceName).join(' ')}.`);
+        } else {
+            enqueueSuccessMessage(t`Your post has published successfully.`);
+        }
+    }
+
+    // all failed
     if (allSettled.every((x) => x.status === 'rejected')) {
         throw new Error('Post failed to publish.');
     }
 
     // refresh profile feed
     if (!skipRefreshFeeds) {
-        const staleSources = SORTED_SOURCES.filter((source, i) => {
-            const settled = allSettled[i];
-            const postId = settled.status === 'fulfilled' ? settled.value : null;
-            return availableSources.includes(source) && postId ? source : null;
-        });
+        try {
+            const staleSources = SORTED_SOURCES.filter((source, i) => {
+                const settled = allSettled[i];
+                const postId = settled.status === 'fulfilled' ? settled.value : null;
+                return availableSources.includes(source) && postId ? source : null;
+            });
 
-        await Promise.allSettled(staleSources.map((source) => refreshProfileFeed(source)));
-    }
-
-    const { posts } = useComposeStateStore.getState();
-    const updatedCompositePost = posts.find((post) => post.id === compositePost.id);
-    if (!updatedCompositePost) throw new Error('Post not found.');
-
-    // failed to to cross post
-    if (!skipPublishedCheck && !isPublishedPost(updatedCompositePost)) {
-        throw new Error('Post failed to publish.');
+            await Promise.allSettled(staleSources.map((source) => refreshProfileFeed(source)));
+        } catch (error) {
+            console.error(`[cross post]: failed to refresh profile feed: ${error}`);
+        }
     }
 
     // update red packet claim strategy
-    await updateRpClaimStrategy(updatedCompositePost);
+    try {
+        await updateRpClaimStrategy(updatedCompositePost);
+    } catch (error) {
+        console.error(`[cross post]: failed to update red packet claim strategy: ${error}`);
+    }
 
     // set query data
-    if (type === 'reply') await setQueryDataForComment(compositePost, updatedCompositePost);
-    if (type === 'quote') await setQueryDataForQuote(compositePost);
+    try {
+        if (type === 'reply') await setQueryDataForComment(compositePost, updatedCompositePost);
+        if (type === 'quote') await setQueryDataForQuote(compositePost);
+    } catch (error) {
+        console.error(`[cross post]: failed to set query data: ${error}`);
+    }
+
+    return updatedCompositePost;
 }

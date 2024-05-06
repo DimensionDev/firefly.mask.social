@@ -3,8 +3,6 @@ import { create } from 'zustand';
 import { persist, type PersistOptions } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
 
-import { farcasterClient } from '@/configs/farcasterClient.js';
-import { lensClient } from '@/configs/lensClient.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
@@ -12,7 +10,9 @@ import { createSelectors } from '@/helpers/createSelector.js';
 import { createSessionStorage } from '@/helpers/createSessionStorage.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import type { FarcasterSession } from '@/providers/farcaster/Session.js';
+import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
+import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
 import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
@@ -114,14 +114,8 @@ const useFarcasterStateBase = createState(
             if (typeof window === 'undefined') return;
 
             const session = state?.currentProfileSession;
-
-            if (session && session.expiresAt < Date.now()) {
-                console.warn('[farcaster store] session expired');
-                state?.clearCurrentProfile();
-                return;
-            }
             if (session) {
-                farcasterClient.resumeSession(session as FarcasterSession);
+                farcasterSessionHolder.resumeSession(session as FarcasterSession);
             }
         },
     },
@@ -143,7 +137,7 @@ const useLensStateBase = createState(
             if (typeof window === 'undefined') return;
 
             const profileId = state?.currentProfile?.profileId;
-            const clientProfileId = await lensClient.sdk.authentication.getProfileId();
+            const clientProfileId = await lensSessionHolder.sdk.authentication.getProfileId();
 
             if (!clientProfileId || (profileId && clientProfileId !== profileId)) {
                 console.warn('[lens store] clean the local store because the client cannot recover properly');
@@ -151,7 +145,7 @@ const useLensStateBase = createState(
                 return;
             }
 
-            const authenticated = await lensClient.sdk.authentication.isAuthenticated();
+            const authenticated = await lensSessionHolder.sdk.authentication.isAuthenticated();
             if (!authenticated) {
                 console.warn('[lens store] clean the local profile because the client session is broken');
                 state?.clearCurrentProfile();

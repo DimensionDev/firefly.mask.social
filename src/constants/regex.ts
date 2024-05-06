@@ -8,6 +8,8 @@ export const MENTION_REGEX = /@[^\s()@:%+~#?&=,!?']+/g;
 
 export const HASHTAG_REGEX = /(#\w*[A-Za-z]\w*)/g;
 
+export const CHANNEL_REGEX = /(?<=\s)\/[\w-]+\b/g;
+
 export const MIRROR_HOSTNAME_REGEXP = /mirror\.xyz|.+\.mirror\.xyz/i;
 
 export const WARPCAST_THREAD_REGEX = /^https:\/\/warpcast\.com\/([^/]+)\/([^/]+)$/;
@@ -19,7 +21,7 @@ export const LENS_DETAIL_REGEX = /^https:\/\/hey\.xyz\/posts\/.*$/;
 export const MASK_SOCIAL_DETAIL_REGEX =
     /((https:\/\/|http:\/\/)?(?:firefly\.|firefly-staging\.|firefly-canary\.)?mask\.social|\.vercel\.app)\/post\/([\w-]+)$/i;
 
-export const OLD_MASK_SOCIAL_POST_PATH_REGEX = /\/post\/(\w+)\/([\w-]+)/i;
+export const OLD_MASK_SOCIAL_POST_PATH_REGEX = /\/post\/(lens|farcaster)\/([\w-]+)/i;
 
 export const OLD_MASK_SOCIAL_PROFILE_PATH_REGEX = /\/profile\/(\w+)\/([\w-]+)/i;
 

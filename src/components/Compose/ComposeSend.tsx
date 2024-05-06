@@ -36,18 +36,42 @@ export function ComposeSend(props: ComposeSendProps) {
     const setEditorContent = useSetEditorContent();
 
     const [percentage, setPercentage] = useState(0);
-    const [{ loading, error }, handlePost] = useAsyncFn(async () => {
-        if (posts.length > 1) await crossPostThread(setPercentage);
-        else await crossPost(type, post);
-        await delay(300); // wait the loading
-        ComposeModalRef.close();
-    }, [type, posts.length > 1, post]);
+    const [{ loading, error }, handlePost] = useAsyncFn(
+        async (isRetry = false) => {
+            if (posts.length > 1) {
+                await crossPostThread({
+                    isRetry,
+                    progressCallback: setPercentage,
+                });
+            } else {
+                await crossPost(type, post, {
+                    isRetry,
+                });
+            }
+            await delay(300);
+            ComposeModalRef.close();
+        },
+        [type, post, posts.length > 1],
+    );
 
-    const disabled = loading || posts.length > 1 ? posts.some((x) => !isValidPost(x)) : !isValidPost(post);
+    const disabled = loading || error || posts.length > 1 ? posts.some((x) => !isValidPost(x)) : !isValidPost(post);
 
     const submitButtonText = useMemo(() => {
-        if (loading) return <LoadingIcon width={16} height={16} className="animate-spin" />;
-        if (error) return <Trans>Retry</Trans>;
+        if (loading)
+            return (
+                <>
+                    <LoadingIcon width={16} height={16} className="animate-spin" />
+                    <span>
+                        <Trans>Posting...</Trans>
+                    </span>
+                </>
+            );
+        if (error)
+            return (
+                <span>
+                    <Trans>Retry</Trans>
+                </span>
+            );
         return (
             <>
                 <SendIcon width={18} height={18} className="mr-1 text-primaryBottom" />
@@ -73,7 +97,7 @@ export function ComposeSend(props: ComposeSendProps) {
                 <ClickableButton
                     className="absolute right-4 top-1/2 -translate-y-1/2 cursor-pointer disabled:opacity-50"
                     disabled={disabled}
-                    onClick={handlePost}
+                    onClick={() => handlePost(!!error)}
                 >
                     {loading ? (
                         <LoadingIcon width={24} height={24} className="animate-spin text-main" />
@@ -123,7 +147,7 @@ export function ComposeSend(props: ComposeSendProps) {
                         'bg-commonDanger': !!error,
                     },
                 )}
-                onClick={handlePost}
+                onClick={() => handlePost(!!error)}
             >
                 {posts.length > 1 && loading ? (
                     <span

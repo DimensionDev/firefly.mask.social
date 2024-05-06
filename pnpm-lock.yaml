@@ -22,6 +22,7 @@ overrides:
   '@openzeppelin/contracts@<4.8.3': '>=4.8.3'
   i18next: 23.2.11
   react-i18next: 13.0.2
+  react-use: 17.4.0
 
 patchedDependencies:
   '@ceramicnetwork/rpc-transport@0.3.1':
@@ -73,7 +74,7 @@ patchedDependencies:
     hash: zmfybkyaxddmjxgyyjovnf3fuu
     path: src/maskbook/patches/react-devtools-inline@4.28.5.patch
   react-use@17.4.0:
-    hash: gs6e4dalx7uwsvaytmvqqh2hku
+    hash: hl7dr6rjk7dvc67mgwhhnozk2u
     path: src/maskbook/patches/react-use@17.4.0.patch
   reflect-metadata@0.1.13:
     hash: pnra5xi77mqlyipflqvcm4z6ga
@@ -158,6 +159,9 @@ importers:
       '@rainbow-me/rainbowkit':
         specifier: 2.0.5
         version: 2.0.5(patch_hash=z4jq5w2a7nzhghr3tyox4fiwsm)(@types/react@18.2.48)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)(viem@2.9.16)(wagmi@2.5.19)
+      '@sentry/browser':
+        specifier: ^7.112.2
+        version: 7.112.2
       '@servie/events':
         specifier: ^3.0.0
         version: 3.0.0
@@ -273,8 +277,8 @@ importers:
         specifier: ^0.30.2
         version: 0.30.2(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       react-use:
-        specifier: ^17.4.0
-        version: 17.4.0(patch_hash=gs6e4dalx7uwsvaytmvqqh2hku)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+        specifier: 17.4.0
+        version: 17.4.0(patch_hash=hl7dr6rjk7dvc67mgwhhnozk2u)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       react-virtuoso:
         specifier: ^4.7.8
         version: 4.7.8(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
@@ -1070,8 +1074,8 @@ importers:
         specifier: ^2.14.13
         version: 2.14.13(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       react-use:
-        specifier: ^17.4.0
-        version: 17.4.0(patch_hash=gs6e4dalx7uwsvaytmvqqh2hku)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+        specifier: 17.4.0
+        version: 17.4.0(patch_hash=hl7dr6rjk7dvc67mgwhhnozk2u)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       stream-browserify:
         specifier: ^3.0.0
         version: 3.0.0
@@ -1227,8 +1231,8 @@ importers:
         specifier: ^6.4.0
         version: 6.4.0
       react-use:
-        specifier: ^17.4.0
-        version: 17.4.0(patch_hash=gs6e4dalx7uwsvaytmvqqh2hku)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+        specifier: 17.4.0
+        version: 17.4.0(patch_hash=hl7dr6rjk7dvc67mgwhhnozk2u)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       use-subscription:
         specifier: ^1.8.0
         version: 1.8.0(react@0.0.0-experimental-8039e6d0b-20231026)
@@ -1314,8 +1318,8 @@ importers:
         specifier: 9.1.2
         version: 9.1.2
       react-use:
-        specifier: ^17.4.0
-        version: 17.4.0(patch_hash=gs6e4dalx7uwsvaytmvqqh2hku)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+        specifier: 17.4.0
+        version: 17.4.0(patch_hash=hl7dr6rjk7dvc67mgwhhnozk2u)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       urlcat:
         specifier: ^3.1.0
         version: 3.1.0(patch_hash=5r5xyq4zgcnqugwsrx4lxq2i4e)
@@ -1383,8 +1387,8 @@ importers:
         specifier: ^6.14.2
         version: 6.14.2(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       react-use:
-        specifier: ^17.4.0
-        version: 17.4.0(patch_hash=gs6e4dalx7uwsvaytmvqqh2hku)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+        specifier: 17.4.0
+        version: 17.4.0(patch_hash=hl7dr6rjk7dvc67mgwhhnozk2u)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       use-subscription:
         specifier: ^1.8.0
         version: 1.8.0(react@0.0.0-experimental-8039e6d0b-20231026)
@@ -1467,8 +1471,8 @@ importers:
         specifier: ^0.3.10
         version: 0.3.10
       react-use:
-        specifier: ^17.4.0
-        version: 17.4.0(patch_hash=gs6e4dalx7uwsvaytmvqqh2hku)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+        specifier: 17.4.0
+        version: 17.4.0(patch_hash=hl7dr6rjk7dvc67mgwhhnozk2u)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       web3-utils:
         specifier: 1.10.2
         version: 1.10.2
@@ -1596,8 +1600,8 @@ importers:
         specifier: ^1.6.3
         version: 1.6.3
       react-use:
-        specifier: ^17.4.0
-        version: 17.4.0(patch_hash=gs6e4dalx7uwsvaytmvqqh2hku)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+        specifier: 17.4.0
+        version: 17.4.0(patch_hash=hl7dr6rjk7dvc67mgwhhnozk2u)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
 
   src/maskbook/packages/plugins/Debugger:
     dependencies:
@@ -1692,8 +1696,8 @@ importers:
         specifier: ^6.14.2
         version: 6.14.2(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       react-use:
-        specifier: ^17.4.0
-        version: 17.4.0(patch_hash=gs6e4dalx7uwsvaytmvqqh2hku)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+        specifier: 17.4.0
+        version: 17.4.0(patch_hash=hl7dr6rjk7dvc67mgwhhnozk2u)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       urlcat:
         specifier: ^3.1.0
         version: 3.1.0(patch_hash=5r5xyq4zgcnqugwsrx4lxq2i4e)
@@ -1747,8 +1751,8 @@ importers:
         specifier: ^6.14.2
         version: 6.14.2(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       react-use:
-        specifier: ^17.4.0
-        version: 17.4.0(patch_hash=gs6e4dalx7uwsvaytmvqqh2hku)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+        specifier: 17.4.0
+        version: 17.4.0(patch_hash=hl7dr6rjk7dvc67mgwhhnozk2u)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       urlcat:
         specifier: ^3.1.0
         version: 3.1.0(patch_hash=5r5xyq4zgcnqugwsrx4lxq2i4e)
@@ -1801,8 +1805,8 @@ importers:
         specifier: ^0.12.1
         version: 0.12.1
       react-use:
-        specifier: ^17.4.0
-        version: 17.4.0(patch_hash=gs6e4dalx7uwsvaytmvqqh2hku)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+        specifier: 17.4.0
+        version: 17.4.0(patch_hash=hl7dr6rjk7dvc67mgwhhnozk2u)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       urlcat:
         specifier: ^3.1.0
         version: 3.1.0(patch_hash=5r5xyq4zgcnqugwsrx4lxq2i4e)
@@ -1849,8 +1853,8 @@ importers:
         specifier: ^2.0.10
         version: 2.0.10(react@0.0.0-experimental-8039e6d0b-20231026)
       react-use:
-        specifier: ^17.4.0
-        version: 17.4.0(patch_hash=gs6e4dalx7uwsvaytmvqqh2hku)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+        specifier: 17.4.0
+        version: 17.4.0(patch_hash=hl7dr6rjk7dvc67mgwhhnozk2u)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       urlcat:
         specifier: ^3.1.0
         version: 3.1.0(patch_hash=5r5xyq4zgcnqugwsrx4lxq2i4e)
@@ -1945,8 +1949,8 @@ importers:
         specifier: ^2.30.0
         version: 2.30.0
       react-use:
-        specifier: ^17.4.0
-        version: 17.4.0(patch_hash=gs6e4dalx7uwsvaytmvqqh2hku)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+        specifier: 17.4.0
+        version: 17.4.0(patch_hash=hl7dr6rjk7dvc67mgwhhnozk2u)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       unstated-next:
         specifier: ^1.1.0
         version: 1.1.0
@@ -1990,8 +1994,8 @@ importers:
         specifier: workspace:^
         version: link:../../web3-shared/evm
       react-use:
-        specifier: ^17.4.0
-        version: 17.4.0(patch_hash=gs6e4dalx7uwsvaytmvqqh2hku)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+        specifier: 17.4.0
+        version: 17.4.0(patch_hash=hl7dr6rjk7dvc67mgwhhnozk2u)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       zod:
         specifier: ^3.22.2
         version: 3.22.4
@@ -2029,8 +2033,8 @@ importers:
         specifier: workspace:^
         version: link:../../web3-shared/evm
       react-use:
-        specifier: ^17.4.0
-        version: 17.4.0(patch_hash=gs6e4dalx7uwsvaytmvqqh2hku)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+        specifier: 17.4.0
+        version: 17.4.0(patch_hash=hl7dr6rjk7dvc67mgwhhnozk2u)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
 
   src/maskbook/packages/plugins/ProfileCard:
     dependencies:
@@ -2167,8 +2171,8 @@ importers:
         specifier: ^2.30.0
         version: 2.30.0
       react-use:
-        specifier: ^17.4.0
-        version: 17.4.0(patch_hash=gs6e4dalx7uwsvaytmvqqh2hku)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+        specifier: 17.4.0
+        version: 17.4.0(patch_hash=hl7dr6rjk7dvc67mgwhhnozk2u)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       urlcat:
         specifier: ^3.1.0
         version: 3.1.0(patch_hash=5r5xyq4zgcnqugwsrx4lxq2i4e)
@@ -2218,8 +2222,8 @@ importers:
         specifier: 9.1.2
         version: 9.1.2
       react-use:
-        specifier: ^17.4.0
-        version: 17.4.0(patch_hash=gs6e4dalx7uwsvaytmvqqh2hku)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+        specifier: 17.4.0
+        version: 17.4.0(patch_hash=hl7dr6rjk7dvc67mgwhhnozk2u)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       web3-utils:
         specifier: 1.10.2
         version: 1.10.2
@@ -2251,8 +2255,8 @@ importers:
         specifier: 0.0.21
         version: 0.0.21(esbuild@0.19.7)(jest@28.1.3)(typescript@5.5.0-beta)
       react-use:
-        specifier: ^17.4.0
-        version: 17.4.0(patch_hash=gs6e4dalx7uwsvaytmvqqh2hku)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+        specifier: 17.4.0
+        version: 17.4.0(patch_hash=hl7dr6rjk7dvc67mgwhhnozk2u)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       urlcat:
         specifier: ^3.1.0
         version: 3.1.0(patch_hash=5r5xyq4zgcnqugwsrx4lxq2i4e)
@@ -2278,8 +2282,8 @@ importers:
         specifier: workspace:^
         version: link:../../web3-providers
       react-use:
-        specifier: ^17.4.0
-        version: 17.4.0(patch_hash=gs6e4dalx7uwsvaytmvqqh2hku)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+        specifier: 17.4.0
+        version: 17.4.0(patch_hash=hl7dr6rjk7dvc67mgwhhnozk2u)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
 
   src/maskbook/packages/plugins/SmartPay:
     dependencies:
@@ -2323,8 +2327,8 @@ importers:
         specifier: ^6.14.2
         version: 6.14.2(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       react-use:
-        specifier: ^17.4.0
-        version: 17.4.0(patch_hash=gs6e4dalx7uwsvaytmvqqh2hku)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+        specifier: 17.4.0
+        version: 17.4.0(patch_hash=hl7dr6rjk7dvc67mgwhhnozk2u)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       unstated-next:
         specifier: ^1.1.0
         version: 1.1.0
@@ -2380,8 +2384,8 @@ importers:
         specifier: ^2.30.0
         version: 2.30.0
       react-use:
-        specifier: ^17.4.0
-        version: 17.4.0(patch_hash=gs6e4dalx7uwsvaytmvqqh2hku)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+        specifier: 17.4.0
+        version: 17.4.0(patch_hash=hl7dr6rjk7dvc67mgwhhnozk2u)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       urlcat:
         specifier: ^3.1.0
         version: 3.1.0(patch_hash=5r5xyq4zgcnqugwsrx4lxq2i4e)
@@ -2452,8 +2456,8 @@ importers:
         specifier: ^1.0.0
         version: 1.0.0
       react-use:
-        specifier: ^17.4.0
-        version: 17.4.0(patch_hash=gs6e4dalx7uwsvaytmvqqh2hku)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+        specifier: 17.4.0
+        version: 17.4.0(patch_hash=hl7dr6rjk7dvc67mgwhhnozk2u)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       unstated-next:
         specifier: ^1.1.0
         version: 1.1.0
@@ -2518,8 +2522,8 @@ importers:
         specifier: ^2.30.0
         version: 2.30.0
       react-use:
-        specifier: ^17.4.0
-        version: 17.4.0(patch_hash=gs6e4dalx7uwsvaytmvqqh2hku)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+        specifier: 17.4.0
+        version: 17.4.0(patch_hash=hl7dr6rjk7dvc67mgwhhnozk2u)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
 
   src/maskbook/packages/plugins/Transak:
     dependencies:
@@ -2551,8 +2555,8 @@ importers:
         specifier: ^1.0.2
         version: 1.0.2
       react-use:
-        specifier: ^17.4.0
-        version: 17.4.0(patch_hash=gs6e4dalx7uwsvaytmvqqh2hku)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+        specifier: 17.4.0
+        version: 17.4.0(patch_hash=hl7dr6rjk7dvc67mgwhhnozk2u)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
 
   src/maskbook/packages/plugins/VCent:
     dependencies:
@@ -2581,8 +2585,8 @@ importers:
         specifier: workspace:^
         version: link:../../web3-shared/evm
       react-use:
-        specifier: ^17.4.0
-        version: 17.4.0(patch_hash=gs6e4dalx7uwsvaytmvqqh2hku)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+        specifier: 17.4.0
+        version: 17.4.0(patch_hash=hl7dr6rjk7dvc67mgwhhnozk2u)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       urlcat:
         specifier: ^3.1.0
         version: 3.1.0(patch_hash=5r5xyq4zgcnqugwsrx4lxq2i4e)
@@ -2635,8 +2639,8 @@ importers:
         specifier: ^2.30.0
         version: 2.30.0
       react-use:
-        specifier: ^17.4.0
-        version: 17.4.0(patch_hash=gs6e4dalx7uwsvaytmvqqh2hku)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+        specifier: 17.4.0
+        version: 17.4.0(patch_hash=hl7dr6rjk7dvc67mgwhhnozk2u)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       urlcat:
         specifier: ^3.1.0
         version: 3.1.0(patch_hash=5r5xyq4zgcnqugwsrx4lxq2i4e)
@@ -2917,8 +2921,8 @@ importers:
         specifier: ^6.14.2
         version: 6.14.2(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       react-use:
-        specifier: ^17.4.0
-        version: 17.4.0(patch_hash=gs6e4dalx7uwsvaytmvqqh2hku)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+        specifier: 17.4.0
+        version: 17.4.0(patch_hash=hl7dr6rjk7dvc67mgwhhnozk2u)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       rehype-raw:
         specifier: ^6.1.1
         version: 6.1.1
@@ -3027,8 +3031,8 @@ importers:
         specifier: ^9.0.3
         version: 9.0.3
       react-use:
-        specifier: ^17.4.0
-        version: 17.4.0(patch_hash=gs6e4dalx7uwsvaytmvqqh2hku)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+        specifier: 17.4.0
+        version: 17.4.0(patch_hash=hl7dr6rjk7dvc67mgwhhnozk2u)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       urlcat:
         specifier: ^3.1.0
         version: 3.1.0(patch_hash=5r5xyq4zgcnqugwsrx4lxq2i4e)
@@ -3066,8 +3070,8 @@ importers:
         specifier: 2.0.8
         version: 2.0.8(@emotion/react@11.11.1)(@mui/material@5.15.12)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       react-use:
-        specifier: ^17.4.0
-        version: 17.4.0(patch_hash=gs6e4dalx7uwsvaytmvqqh2hku)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+        specifier: 17.4.0
+        version: 17.4.0(patch_hash=hl7dr6rjk7dvc67mgwhhnozk2u)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       react-window:
         specifier: ^1.8.9
         version: 1.8.9(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
@@ -3226,8 +3230,8 @@ importers:
         specifier: ^0.1.1
         version: 0.1.1
       react-use:
-        specifier: ^17.4.0
-        version: 17.4.0(patch_hash=gs6e4dalx7uwsvaytmvqqh2hku)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+        specifier: 17.4.0
+        version: 17.4.0(patch_hash=hl7dr6rjk7dvc67mgwhhnozk2u)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       unstated-next:
         specifier: ^1.1.0
         version: 1.1.0
@@ -3262,8 +3266,8 @@ importers:
         specifier: 9.1.2
         version: 9.1.2
       react-use:
-        specifier: ^17.4.0
-        version: 17.4.0(patch_hash=gs6e4dalx7uwsvaytmvqqh2hku)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+        specifier: 17.4.0
+        version: 17.4.0(patch_hash=hl7dr6rjk7dvc67mgwhhnozk2u)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       web3-utils:
         specifier: 1.10.2
         version: 1.10.2
@@ -3528,8 +3532,8 @@ importers:
         specifier: workspace:^
         version: link:../base
       react-use:
-        specifier: ^17.4.0
-        version: 17.4.0(patch_hash=gs6e4dalx7uwsvaytmvqqh2hku)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+        specifier: 17.4.0
+        version: 17.4.0(patch_hash=hl7dr6rjk7dvc67mgwhhnozk2u)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
 
   src/maskbook/packages/web3-shared/solana:
     dependencies:
@@ -13289,6 +13293,34 @@ packages:
       '@scure/base': 1.1.6
     dev: false
 
+  /@sentry-internal/feedback@7.112.2:
+    resolution: {integrity: sha512-z+XP8BwB8B3pa+i8xqbrPsbtDWUFUS6wo+FJbmOYUqOusJJbVFDAhBoEdKoo5ZjOcsAZG7XR6cA9zrhJynIWBA==}
+    engines: {node: '>=12'}
+    dependencies:
+      '@sentry/core': 7.112.2
+      '@sentry/types': 7.112.2
+      '@sentry/utils': 7.112.2
+    dev: false
+
+  /@sentry-internal/replay-canvas@7.112.2:
+    resolution: {integrity: sha512-BCCCxrZ1wJvN6La5gg1JJbKitAhJI5MATCnhtklsZbUcHkHB9iZoj19J65+P56gwssvHz5xh63AjNiITaetIRg==}
+    engines: {node: '>=12'}
+    dependencies:
+      '@sentry/core': 7.112.2
+      '@sentry/replay': 7.112.2
+      '@sentry/types': 7.112.2
+      '@sentry/utils': 7.112.2
+    dev: false
+
+  /@sentry-internal/tracing@7.112.2:
+    resolution: {integrity: sha512-fT1Y46J4lfXZkgFkb03YMNeIEs2xS6jdKMoukMFQfRfVvL9fSWEbTgZpHPd/YTT8r2i082XzjtAoQNgklm/0Hw==}
+    engines: {node: '>=8'}
+    dependencies:
+      '@sentry/core': 7.112.2
+      '@sentry/types': 7.112.2
+      '@sentry/utils': 7.112.2
+    dev: false
+
   /@sentry-internal/tracing@7.66.0:
     resolution: {integrity: sha512-3vCgC2hC3T45pn53yTDVcRpHoJTBxelDPPZVsipAbZnoOVPkj7n6dNfDhj3I3kwWCBPahPkXmE+R4xViR8VqJg==}
     engines: {node: '>=8'}
@@ -13297,6 +13329,20 @@ packages:
       '@sentry/types': 7.66.0
       '@sentry/utils': 7.66.0
       tslib: 2.6.2
+    dev: false
+
+  /@sentry/browser@7.112.2:
+    resolution: {integrity: sha512-wULwavCch84+d0bueAdFm6CDm1u0TfOjN91VgY+sj/vxUV2vesvDgI8zRZfmbZEor3MYA90zerkZT3ehZQKbYw==}
+    engines: {node: '>=8'}
+    dependencies:
+      '@sentry-internal/feedback': 7.112.2
+      '@sentry-internal/replay-canvas': 7.112.2
+      '@sentry-internal/tracing': 7.112.2
+      '@sentry/core': 7.112.2
+      '@sentry/integrations': 7.112.2
+      '@sentry/replay': 7.112.2
+      '@sentry/types': 7.112.2
+      '@sentry/utils': 7.112.2
     dev: false
 
   /@sentry/browser@7.66.0:
@@ -13311,6 +13357,14 @@ packages:
       tslib: 2.6.2
     dev: false
 
+  /@sentry/core@7.112.2:
+    resolution: {integrity: sha512-gHPCcJobbMkk0VR18J65WYQTt3ED4qC6X9lHKp27Ddt63E+MDGkG6lvYBU1LS8cV7CdyBGC1XXDCfor61GvLsA==}
+    engines: {node: '>=8'}
+    dependencies:
+      '@sentry/types': 7.112.2
+      '@sentry/utils': 7.112.2
+    dev: false
+
   /@sentry/core@7.66.0:
     resolution: {integrity: sha512-WMAEPN86NeCJ1IT48Lqiz4MS5gdDjBwP4M63XP4msZn9aujSf2Qb6My5uT87AJr9zBtgk8MyJsuHr35F0P3q1w==}
     engines: {node: '>=8'}
@@ -13318,6 +13372,26 @@ packages:
       '@sentry/types': 7.66.0
       '@sentry/utils': 7.66.0
       tslib: 2.6.2
+    dev: false
+
+  /@sentry/integrations@7.112.2:
+    resolution: {integrity: sha512-ioC2yyU6DqtLkdmWnm87oNvdn2+9oKctJeA4t+jkS6JaJ10DcezjCwiLscX4rhB9aWJV3IWF7Op0O6K3w0t2Hg==}
+    engines: {node: '>=8'}
+    dependencies:
+      '@sentry/core': 7.112.2
+      '@sentry/types': 7.112.2
+      '@sentry/utils': 7.112.2
+      localforage: 1.10.0
+    dev: false
+
+  /@sentry/replay@7.112.2:
+    resolution: {integrity: sha512-7Ns/8D54WPsht1nlVj93Inf6rXyve2AZoibYN0YfcM2w3lI4NO51gPPHJU0lFEfMwzwK4ZBJWzOeW9098a+uEg==}
+    engines: {node: '>=12'}
+    dependencies:
+      '@sentry-internal/tracing': 7.112.2
+      '@sentry/core': 7.112.2
+      '@sentry/types': 7.112.2
+      '@sentry/utils': 7.112.2
     dev: false
 
   /@sentry/replay@7.66.0:
@@ -13336,9 +13410,21 @@ packages:
       '@sentry-internal/tracing': 7.66.0
     dev: false
 
+  /@sentry/types@7.112.2:
+    resolution: {integrity: sha512-kCMLt7yhY5OkWE9MeowlTNmox9pqDxcpvqguMo4BDNZM5+v9SEb1AauAdR78E1a1V8TyCzjBD7JDfXWhvpYBcQ==}
+    engines: {node: '>=8'}
+    dev: false
+
   /@sentry/types@7.66.0:
     resolution: {integrity: sha512-uUMSoSiar6JhuD8p7ON/Ddp4JYvrVd2RpwXJRPH1A4H4Bd4DVt1mKJy1OLG6HdeQv39XyhB1lPZckKJg4tATPw==}
     engines: {node: '>=8'}
+    dev: false
+
+  /@sentry/utils@7.112.2:
+    resolution: {integrity: sha512-OjLh0hx0t1EcL4ZIjf+4svlmmP+tHUDGcr5qpFWH78tjmkPW4+cqPuZCZfHSuWcDdeiaXi8TnYoVRqDcJKK/eQ==}
+    engines: {node: '>=8'}
+    dependencies:
+      '@sentry/types': 7.112.2
     dev: false
 
   /@sentry/utils@7.66.0:
@@ -26981,6 +27067,12 @@ packages:
       isomorphic.js: 0.2.5
     dev: false
 
+  /lie@3.1.1:
+    resolution: {integrity: sha512-RiNhHysUjhrDQntfYSfY4MU24coXXdEOgw9WGcKHNeEwffDYbF//u87M1EWaMGzuFoSbqW0C9C6lEEhDOAswfw==}
+    dependencies:
+      immediate: 3.0.6
+    dev: false
+
   /lie@3.3.0:
     resolution: {integrity: sha512-UaiMJzeWRlEujzAuw5LokY1L5ecNQYZKfmyZ9L7wDHb/p5etKaxXhohBcrw0EYby+G/NA52vRSN4N39dxHAIwQ==}
     dependencies:
@@ -27210,6 +27302,12 @@ packages:
     resolution: {integrity: sha512-SFppqq5p42fe2qcZQqqEOiVRXl+WCP1MdT6k7BDEW1j++sp5fIY+/fdRQitvKgB5BrBcmrs5m/L0v2FrU5MY1g==}
     engines: {node: '>=14'}
     dev: true
+
+  /localforage@1.10.0:
+    resolution: {integrity: sha512-14/H1aX7hzBBmmh7sGPd+AOMkkIrHM3Z1PAyGgZigA1H1p5O5ANnMyWzvpAETtG68/dC4pC0ncy3+PPGzXZHPg==}
+    dependencies:
+      lie: 3.1.1
+    dev: false
 
   /locate-path@3.0.0:
     resolution: {integrity: sha512-7AO748wWnIhNqAuaty2ZWHkQHRSNfPVIsPIfwEOWO22AmaoVrWavlOcMR5nzTLNYvp36X220/maaRsrec1G65A==}
@@ -31435,7 +31533,7 @@ packages:
       tslib: 2.6.2
     dev: false
 
-  /react-use@17.4.0(patch_hash=gs6e4dalx7uwsvaytmvqqh2hku)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026):
+  /react-use@17.4.0(patch_hash=hl7dr6rjk7dvc67mgwhhnozk2u)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026):
     resolution: {integrity: sha512-TgbNTCA33Wl7xzIJegn1HndB4qTS9u03QUwyNycUnXaweZkE4Kq2SB+Yoxx8qbshkZGYBDvUXbXWRUmQDcZZ/Q==}
     peerDependencies:
       react: 0.0.0-experimental-8039e6d0b-20231026 || 0.0.0-experimental-0a360642d-20230711
@@ -37378,6 +37476,7 @@ time:
   /@rollup/plugin-replace@5.0.2: '2022-12-17T15:03:40.788Z'
   /@rollup/plugin-virtual@3.0.2: '2023-10-05T12:50:16.732Z'
   /@scamsniffer/detector@0.0.21: '2022-08-15T06:05:49.379Z'
+  /@sentry/browser@7.112.2: '2024-04-24T12:02:21.377Z'
   /@sentry/browser@7.66.0: '2023-08-30T11:30:31.797Z'
   /@sentry/tracing@7.66.0: '2023-08-30T11:31:35.105Z'
   /@servie/events@3.0.0: '2021-04-13T22:43:08.067Z'

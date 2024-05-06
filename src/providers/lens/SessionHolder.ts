@@ -1,5 +1,6 @@
 import { type IStorageProvider, LensClient as LensClientSDK, production } from '@lens-protocol/client';
 
+import { SessionHolder } from '@/providers/base/SessionHolder.js';
 import type { LensSession } from '@/providers/lens/Session.js';
 
 const ls = typeof window === 'undefined' ? undefined : window.localStorage;
@@ -18,7 +19,7 @@ class LocalStorageProvider implements IStorageProvider {
     }
 }
 
-class LensClient {
+class LensSessionHolder extends SessionHolder<LensSession> {
     private lensClientSDK: LensClientSDK | null = null;
 
     get sdk() {
@@ -31,7 +32,7 @@ class LensClient {
         return this.lensClientSDK;
     }
 
-    async resumeSession(session: LensSession) {
+    override async resumeSession(session: LensSession) {
         const refreshToken = session.refreshToken;
         if (!refreshToken) throw new Error('No refresh token');
 
@@ -55,4 +56,4 @@ class LensClient {
     }
 }
 
-export const lensClient = new LensClient();
+export const lensSessionHolder = new LensSessionHolder();

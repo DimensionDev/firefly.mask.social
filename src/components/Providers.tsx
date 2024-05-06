@@ -15,6 +15,7 @@ import { v4 as uuid } from 'uuid';
 import { WagmiProvider } from '@/components/WagmiProvider.js';
 import { livepeerClient } from '@/configs/livepeerClient.js';
 import { queryClient } from '@/configs/queryClient.js';
+import { sentryClient } from '@/configs/sentryClient.js';
 import { NODE_ENV, STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { getLocaleFromCookies } from '@/helpers/getLocaleFromCookies.js';
@@ -28,7 +29,6 @@ import { useLeafwatchPersistStore } from '@/store/useLeafwatchPersistStore.js';
 
 export function Providers(props: { children: React.ReactNode }) {
     const isDarkMode = useIsDarkMode();
-
     const isMedium = useIsMedium();
 
     const darkModeContext = useMemo(() => {
@@ -56,6 +56,10 @@ export function Providers(props: { children: React.ReactNode }) {
 
     const viewerId = useLeafwatchPersistStore.use.viewerId();
     const setViewerId = useLeafwatchPersistStore.use.setViewerId();
+
+    useEffectOnce(() => {
+        sentryClient.init();
+    });
 
     useEffectOnce(() => {
         if (!viewerId) setViewerId(uuid());

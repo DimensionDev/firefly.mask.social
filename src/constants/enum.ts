@@ -62,6 +62,13 @@ export enum ProfileTabType {
     Channels = 'Channels',
 }
 
+export enum EngagementType {
+    Mirrors = 'mirrors',
+    Quotes = 'quotes',
+    Recasts = 'recasts',
+    Likes = 'likes',
+}
+
 export enum RestrictionType {
     Everyone = 0,
     OnlyPeopleYouFollow = 1,
@@ -77,4 +84,5 @@ export enum ScrollListKey {
     Channel = 'channel-post-list',
     Profile = 'profile-post-list',
     Collected = 'profile-collected-list',
+    Engagement = 'post-engagement',
 }

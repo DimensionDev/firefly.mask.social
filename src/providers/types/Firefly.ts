@@ -2,6 +2,7 @@ export interface Cast {
     fid: string;
     hash: string;
     text: string;
+    channel?: Channel;
     parent_hash?: string;
     parent_fid?: string;
     parent_url?: string;
@@ -87,8 +88,8 @@ export interface ChannelProfile {
             text: string;
         };
     };
-    verifications: string[];
-    verified_addresses: Record<'eth_addresses' | 'sol_addresses', string[]>;
+    verifications?: string[];
+    verified_addresses?: Record<'eth_addresses' | 'sol_addresses', string[]>;
 }
 
 export interface Channel {
@@ -190,8 +191,8 @@ export type LensLoginResponse = Response<{
 }>;
 
 export type FarcasterLoginResponse = Response<{
-    accessToken: string;
-    accountId: string;
+    accessToken?: string;
+    accountId?: string;
     farcaster_signer_public_key?: string;
     farcaster_signer_private_key?: string;
     fid: string;

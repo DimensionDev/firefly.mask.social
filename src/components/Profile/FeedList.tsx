@@ -23,8 +23,6 @@ export function FeedList({ profileId, source }: FeedListProps) {
             if (!profileId) return createPageable(EMPTY_LIST, undefined);
 
             const provider = resolveSocialMediaProvider(source);
-            if (!provider) return createPageable(EMPTY_LIST, undefined);
-
             const posts = await provider.getPostsByProfileId(profileId, createIndicator(undefined, pageParam));
 
             if (source === SocialPlatform.Lens) {
@@ -48,7 +46,7 @@ export function FeedList({ profileId, source }: FeedListProps) {
             VirtualListProps={{
                 listKey: `${ScrollListKey.Profile}:${profileId}`,
                 computeItemKey: (index, post) => `${post.publicationId}-${post.postId}-${index}`,
-                itemContent: (index, post) => getPostItemContent(index, post),
+                itemContent: (index, post) => getPostItemContent(index, post, `${ScrollListKey.Profile}:${profileId}`),
             }}
             NoResultsFallbackProps={{
                 className: 'mt-20',
