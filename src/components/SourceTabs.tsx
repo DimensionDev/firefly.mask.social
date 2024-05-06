@@ -17,7 +17,6 @@ import { useSearchStateStore } from '@/store/useSearchStore.js';
 
 export function SourceTabs() {
     const currentSource = useGlobalState.use.currentSource();
-    const currentSocialSource = narrowToSocialSource(currentSource);
     const updateCurrentSource = useGlobalState.use.updateCurrentSource();
 
     const { updateSearchType } = useSearchStateStore();
@@ -29,8 +28,8 @@ export function SourceTabs() {
         const param = pathname.split('/');
         const handle = param[param.length - 1];
         const sourceString = searchParams.get('source') as SourceInURL;
-        const source = resolveSource(sourceString);
-        if (currentProfileAll[currentSocialSource]?.handle !== handle) return null;
+        const source = narrowToSocialSource(resolveSource(sourceString));
+        if (currentProfileAll[source]?.handle !== handle) return null;
     }
 
     if (pathname !== '/' && currentSource === Source.Farcaster) {

@@ -28,8 +28,8 @@ export default function Notification() {
         queryKey: ['notifications', currentSource, isLogin],
         queryFn: async ({ pageParam }) => {
             if (!isLogin) return;
-            const provier = resolveSocialMediaProvider(currentSocialSource);
-            return provier.getNotifications(createIndicator(undefined, pageParam));
+            const provider = resolveSocialMediaProvider(currentSocialSource);
+            return provider.getNotifications(createIndicator(undefined, pageParam));
         },
         initialPageParam: '',
         getNextPageParam: (lastPage) => {
