@@ -66,6 +66,9 @@ function tweetV2ToPost(item: TweetV2, type?: PostType, includes?: ApiV2Includes)
         } else if (endCommentOn) {
             ret.root = endCommentOn;
         }
+        if (ret.root?.postId === ret.commentOn?.postId) {
+            delete ret.root
+        }
     }
     return ret;
 }
@@ -76,6 +79,7 @@ export function formatTwitterPostFromFirefly(
     currentIndicator?: PageIndicator,
 ): Pageable<Post, PageIndicator> {
     const posts = data.data?.map((item) => tweetV2ToPost(item, type, data.includes)) || [];
+    console.log(posts)
     return createPageable(
         posts,
         createIndicator(currentIndicator),
