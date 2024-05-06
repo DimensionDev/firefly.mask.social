@@ -1,7 +1,7 @@
 import { plural } from '@lingui/macro';
 
 import { Avatar } from '@/components/Avatar.js';
-import { FollowButton } from '@/components/Channel/FollowButton.js';
+import { ChannelMoreAction } from '@/components/Channel/ChannelMoreAction.js';
 import { BioMarkup } from '@/components/Markup/index.js';
 import { SourceIcon } from '@/components/SourceIcon.js';
 import type { SocialPlatform } from '@/constants/enum.js';
@@ -30,7 +30,7 @@ export function Info({ channel, source }: InfoProps) {
             <div className=" relative flex flex-1 flex-col gap-[6px] pt-4">
                 {channel && isMedium ? (
                     <div className=" absolute right-0 top-4">
-                        <FollowButton channel={channel} />
+                        <ChannelMoreAction channel={channel} />
                     </div>
                 ) : null}
 
