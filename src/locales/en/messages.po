@@ -331,6 +331,9 @@ msgstr "Comment"
 msgid "Only people you mention"
 msgstr "Only people you mention"
 
+msgid "Cancel retweet successfully"
+msgstr "Cancel retweet successfully"
+
 msgid "Allow replies from"
 msgstr "Allow replies from"
 
@@ -399,6 +402,9 @@ msgstr "Lens"
 
 msgid "Failed to upvote post."
 msgstr "Failed to upvote post."
+
+msgid "Retweeted"
+msgstr "Retweeted"
 
 msgid "Post your reply"
 msgstr "Post your reply"

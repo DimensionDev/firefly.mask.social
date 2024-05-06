@@ -43,11 +43,7 @@ export function ProfileSettings({ source, onClose }: ProfileSettingsProps) {
                         onClose?.();
                     }}
                 >
-                    <ProfileAvatar
-                        profile={profile}
-                        clickable={source !== SocialPlatform.Twitter}
-                        linkable={source !== SocialPlatform.Twitter}
-                    />
+                    <ProfileAvatar profile={profile} clickable linkable />
                     <ProfileName profile={profile} />
 
                     {isSameProfile(currentProfile, profile) ? <OnlineStatusIndicator /> : null}
