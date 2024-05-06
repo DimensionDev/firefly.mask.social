@@ -1,3 +1,4 @@
+import { uniq } from 'lodash-es';
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
@@ -12,7 +13,7 @@ interface PostState {
 
 const usePostStore = create<PostState, [['zustand/persist', PostState], ['zustand/immer', never]]>(
     persist(
-        immer((set) => ({
+        immer((set, get) => ({
             allBlockedUsers: {},
             blockUser: (operator: Profile, profile: Profile) => {
                 set((state) => {
@@ -20,7 +21,8 @@ const usePostStore = create<PostState, [['zustand/persist', PostState], ['zustan
                     if (!state.allBlockedUsers[key]) {
                         state.allBlockedUsers[key] = [];
                     }
-                    state.allBlockedUsers[key].push(profile.profileId);
+                    const prevList = get().allBlockedUsers[key] || [];
+                    state.allBlockedUsers[key] = uniq([...prevList, profile.profileId]);
                 });
             },
         })),
