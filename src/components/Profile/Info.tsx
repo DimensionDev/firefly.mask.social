@@ -5,8 +5,9 @@ import { BioMarkup } from '@/components/Markup/index.js';
 import { FollowButton } from '@/components/Profile/FollowButton.js';
 import { ProfileMoreAction } from '@/components/Profile/ProfileMoreAction.js';
 import { SourceIcon } from '@/components/SourceIcon.js';
-import type { SocialPlatform } from '@/constants/enum.js';
+import { SocialPlatform } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
+import { classNames } from '@/helpers/classNames.js';
 import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
@@ -22,6 +23,7 @@ export function Info({ isMyProfile, profile, source }: InfoProps) {
     const followerCount = profile?.followerCount ?? 0;
 
     const isMedium = useIsMedium();
+    const isClickableFollowList = source === SocialPlatform.Farcaster || source === SocialPlatform.Twitter
 
     return (
         <div className=" flex gap-3 p-3">
@@ -58,7 +60,9 @@ export function Info({ isMyProfile, profile, source }: InfoProps) {
                             pathname: `/profile/${profile?.profileId}/following`,
                             query: { source: resolveSourceInURL(source) },
                         }}
-                        className="flex gap-1 hover:underline"
+                        className={classNames('flex gap-1 hover:underline', {
+                            'pointer-events-none': !isClickableFollowList,
+                        })}
                     >
                         <span className=" font-bold text-lightMain">{followingCount}</span>
                         <span className=" text-secondary">
@@ -71,7 +75,9 @@ export function Info({ isMyProfile, profile, source }: InfoProps) {
                             pathname: `/profile/${profile?.profileId}/followers`,
                             query: { source: resolveSourceInURL(source) },
                         }}
-                        className="flex gap-1 hover:underline"
+                        className={classNames('flex gap-1 hover:underline', {
+                            'pointer-events-none': !isClickableFollowList,
+                        })}
                     >
                         <span className=" font-bold text-lightMain">{followerCount}</span>
                         <span className=" text-secondary">

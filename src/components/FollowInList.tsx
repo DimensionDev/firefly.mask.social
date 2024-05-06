@@ -28,7 +28,7 @@ export const FollowInList = memo<{ profile: Profile }>(function FollowInList({ p
             />
             <div className="leading-5.5 flex flex-col text-[15px]">
                 <div className="flex w-full items-center">
-                    <div className="mr-2 truncate text-xl leading-6" style={{ maxWidth: 'calc(100% - 32px)' }}>
+                    <div className="mr-2 truncate text-xl leading-6 max-w-[calc(100% - 32px)]">
                         {profile.displayName}
                     </div>
                     <SourceIcon
@@ -39,13 +39,7 @@ export const FollowInList = memo<{ profile: Profile }>(function FollowInList({ p
                 <div className="w-full truncate text-secondary">@{profile.handle}</div>
                 <div className="w-full truncate">{profile.bio}</div>
             </div>
-            <div
-                className="flex shrink-0 justify-end"
-                onClick={(e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                }}
-            >
+            <div className="flex shrink-0 justify-end">
                 <FollowButton profile={profile} />
             </div>
         </Link>

@@ -79,6 +79,7 @@ export enum RestrictionType {
 export enum ScrollListKey {
     Discover = 'discover-list',
     Following = 'following-list',
+    Followers = 'followers-list',
     Notification = 'notification-list',
     Search = 'search-list',
     Comment = 'comment-list',

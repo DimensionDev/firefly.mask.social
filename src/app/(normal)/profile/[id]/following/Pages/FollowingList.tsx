@@ -24,7 +24,7 @@ export function FollowingList({ profileId, source }: { profileId: string; source
         },
         initialPageParam: '',
         getNextPageParam: (lastPage) => (lastPage as Pageable<Profile, PageIndicator>)?.nextIndicator?.id,
-        select: (data) => data.pages.map((page) => page!.data).flat(),
+        select: (data) => data.pages.flatMap((page) => page?.data ?? []),
     });
 
     return (
@@ -41,7 +41,7 @@ export function FollowingList({ profileId, source }: { profileId: string; source
                 VirtualListProps={{
                     key: `${ScrollListKey.Following}:${source}:${profileId}`,
                     computeItemKey: (index, item: Profile) => `${item.profileId}-${index}`,
-                    itemContent: getFollowInList,
+                    itemContent: (index, item) => getFollowInList(index, item),
                 }}
                 NoResultsFallbackProps={{
                     className: 'pt-[228px]',
