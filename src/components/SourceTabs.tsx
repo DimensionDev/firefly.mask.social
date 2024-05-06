@@ -26,7 +26,6 @@ export function SourceTabs() {
         const handle = param[param.length - 1];
         const sourceString = searchParams.get('source') as SourceInURL;
         const source = resolveSource(sourceString);
-
         if (currentProfileAll[source]?.handle !== handle) return null;
     }
 

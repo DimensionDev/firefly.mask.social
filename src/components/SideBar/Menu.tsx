@@ -40,7 +40,6 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
     const updateSidebarOpen = useNavigatorState.use.updateSidebarOpen();
 
     const isLogin = useIsLogin();
-
     const pathname = usePathname();
     const isMyProfile = useIsMyProfile(
         currentSource,

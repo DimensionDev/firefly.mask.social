@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 
 import { ProfileDetailPage } from '@/app/(normal)/profile/pages/DetailPage.js';
-import { KeyType, type SourceInURL } from '@/constants/enum.js';
+import { KeyType, type SocialSourceInURL } from '@/constants/enum.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { isBotRequest } from '@/helpers/isBotRequest.js';
 import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
@@ -15,12 +15,12 @@ interface Props {
     params: {
         id: string;
     };
-    searchParams: { source: SourceInURL };
+    searchParams: { source: SocialSourceInURL };
 }
 
 export async function generateMetadata({ params, searchParams }: Props): Promise<Metadata> {
     if (isBotRequest() && searchParams.source)
-        return getProfileOGByIdRedis(searchParams.source as SourceInURL, params.id);
+        return getProfileOGByIdRedis(searchParams.source as SocialSourceInURL, params.id);
     return createSiteMetadata();
 }
 

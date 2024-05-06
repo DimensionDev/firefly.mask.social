@@ -2,7 +2,7 @@ import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
 
-import { Source, SourceInURL } from '@/constants/enum.js';
+import { Source, SourceInURL, type SocialSource } from '@/constants/enum.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 import { resolveSource } from '@/helpers/resolveSource.js';
 

@@ -22,12 +22,7 @@ async function discoverPosts(source: SocialSource, indicator: PageIndicator): Pr
     return provider.discoverPosts(indicator);
 }
 
-interface Props {
-    // the source of the posts
-    source: SocialSource;
-}
-
-export function HomePage({ source }: Props) {
+export function HomePage() {
     const currentSource = useGlobalState.use.currentSource();
 
     const fetchAndStoreViews = useImpressionsStore.use.fetchAndStoreViews();
