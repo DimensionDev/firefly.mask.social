@@ -56,7 +56,7 @@ async function login(createSession: () => Promise<FarcasterSession>) {
 export function LoginFarcaster() {
     const [url, setUrl] = useState('');
     const controllerRef = useRef<AbortController>();
-    const [count, { startCountdown, stopCountdown, resetCountdown }] = useCountdown({
+    const [count, { startCountdown, resetCountdown }] = useCountdown({
         countStart: FARCASTER_REPLY_COUNTDOWN,
         intervalMs: 1000,
         countStop: 0,
@@ -74,6 +74,7 @@ export function LoginFarcaster() {
                         (url) => {
                             resetCountdown();
                             startCountdown();
+
                             const device = getMobileDevice();
                             if (device === 'unknown') setUrl(url);
                             else location.href = url;
@@ -88,7 +89,7 @@ export function LoginFarcaster() {
                 throw error;
             }
         }
-    }, [startCountdown, stopCountdown, resetCountdown]);
+    }, [startCountdown, resetCountdown]);
 
     const [{ loading: loadingCustodyWallet }, onLoginWithCustodyWallet] = useAsyncFn(async () => {
         controllerRef.current?.abort('aborted');

@@ -49,7 +49,7 @@ async function createChallengeFromWarpcast(signal?: AbortSignal) {
         toHex(privateKey),
         response.data.timestamp,
         response.data.expiresAt,
-        // the token is one-time use
+        // the signer request token is one-time use
         response.data.token,
     );
 
@@ -77,6 +77,7 @@ async function createChallengeFromFarcasterRelay(signal?: AbortSignal) {
         '',
         Date.now(),
         Date.now(),
+        '',
         response.channelToken,
     );
 
@@ -92,14 +93,18 @@ export async function createSessionByGrantPermissionFirefly(callback?: (url: str
     // present QR code to the user or open the link in a new tab
     callback?.(deeplink);
 
-    // firefly start polling for the signed key request
-    // once key request is signed, we will get the fid
-    const fireflySession = await FireflySession.from(session, signal);
+    try {
+        // firefly start polling for the signed key request
+        // once key request is signed, we will get the fid
+        const fireflySession = await FireflySession.from(session, signal);
 
-    if (fireflySession) {
-        // we also posses the session in firefly session holder
-        // which means if we login in farcaster, we login firefly as well
-        fireflySessionHolder.resumeSession(fireflySession);
+        if (fireflySession) {
+            // we also posses the session in firefly session holder
+            // which means if we login in farcaster, we login firefly as well
+            fireflySessionHolder.resumeSession(fireflySession);
+        }
+    } catch (error) {
+        console.error(`[login farcaster] failed to restore firefly session: ${error}`);
     }
 
     return session;

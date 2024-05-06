@@ -19,12 +19,13 @@ export class FarcasterSession extends BaseSession implements Session {
         createdAt: number,
         expiresAt: number,
         public signerRequestToken?: string,
+        public channelToken?: string,
     ) {
         super(SessionType.Farcaster, profileId, token, createdAt, expiresAt);
     }
 
     override serialize(): `${SessionType}:${string}:${string}` {
-        return `${super.serialize()}:${this.signerRequestToken ?? ''}`;
+        return `${super.serialize()}:${this.signerRequestToken ?? ''}:${this.channelToken ?? ''}`;
     }
 
     refresh(): Promise<void> {
@@ -60,6 +61,11 @@ export class FarcasterSession extends BaseSession implements Session {
     static isGrantByPermission(session: Session | null): session is FarcasterSession & { signerRequestToken: string } {
         if (!session) return false;
         return session.type === SessionType.Farcaster && !!(session as FarcasterSession).signerRequestToken;
+    }
+
+    static isGrantByRelay(session: Session | null): session is FarcasterSession & { channelToken: string } {
+        if (!session) return false;
+        return session.type === SessionType.Farcaster && !!(session as FarcasterSession).channelToken;
     }
 
     static isCustodyWallet(session: Session | null): session is FarcasterSession & { signerRequestToken: undefined } {
