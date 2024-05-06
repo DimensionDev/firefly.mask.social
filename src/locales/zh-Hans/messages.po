@@ -327,6 +327,9 @@ msgstr "评论"
 msgid "Only people you mention"
 msgstr ""
 
+msgid "Cancel retweet successfully"
+msgstr ""
+
 msgid "Allow replies from"
 msgstr "允许回复"
 
@@ -395,6 +398,9 @@ msgstr "Lens"
 
 msgid "Failed to upvote post."
 msgstr "无法对帖子进行投票。"
+
+msgid "Retweeted"
+msgstr ""
 
 msgid "Post your reply"
 msgstr "发送你的回复"

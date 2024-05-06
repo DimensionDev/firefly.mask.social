@@ -92,7 +92,7 @@ export const Mirror = memo<MirrorProps>(function Mirror({ shares = 0, source, po
                     const result = await (mirrored
                         ? TwitterSocialMediaProvider.unmirrorPost(postId)
                         : TwitterSocialMediaProvider.mirrorPost(postId));
-                    enqueueSuccessMessage(mirrored ? t`Cancel recast successfully` : t`Recasted`);
+                    enqueueSuccessMessage(mirrored ? t`Cancel retweet successfully` : t`Retweeted`);
                     return result;
                 default:
                     safeUnreachable(source);
