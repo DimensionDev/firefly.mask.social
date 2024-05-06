@@ -30,11 +30,6 @@ export async function middleware(request: NextRequest) {
             );
             const source = match ? match[1] : null;
             const id = match ? match[2] : null;
-            console.log({
-                match,
-                source,
-                id,
-            });
             if (!id || !source)
                 return NextResponse.next({
                     request,
