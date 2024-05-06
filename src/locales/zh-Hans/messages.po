@@ -384,9 +384,6 @@ msgstr "Lens"
 msgid "Failed to upvote post."
 msgstr "无法对帖子进行投票。"
 
-msgid "One click to connect your account status"
-msgstr ""
-
 msgid "Post your reply"
 msgstr "发送你的回复"
 
@@ -479,6 +476,9 @@ msgstr "成功取消转发"
 
 msgid "Failed to unfollow."
 msgstr "取消关注失败"
+
+msgid "One click to connect your account status."
+msgstr ""
 
 msgid "Quote"
 msgstr "引用"

@@ -27,12 +27,13 @@ async function login(createSession: () => Promise<FarcasterSession>) {
         const session = await createSession();
         const profile = await FarcasterSocialMediaProvider.getProfileById(session.profileId);
 
-        // restore profile exclude farcaster
-        await FireflySessionConfirmModalRef.openAndWaitForClose();
         // restore profiles for farcaster
         restoreProfile(profile, [profile], session);
         enqueueSuccessMessage(t`Your Farcaster account is now connected.`);
         LoginModalRef.close();
+
+        // restore profile exclude farcaster
+        await FireflySessionConfirmModalRef.openAndWaitForClose();
     } catch (error) {
         const message = error instanceof Error ? error.message : typeof error === 'string' ? error : `${error}`;
         if (message.toLowerCase().includes('aborted')) return;

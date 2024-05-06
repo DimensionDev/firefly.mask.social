@@ -379,9 +379,6 @@ msgstr ""
 msgid "Failed to upvote post."
 msgstr ""
 
-msgid "One click to connect your account status"
-msgstr ""
-
 msgid "Post your reply"
 msgstr ""
 
@@ -473,6 +470,9 @@ msgid "Cancel recast successfully"
 msgstr ""
 
 msgid "Failed to unfollow."
+msgstr ""
+
+msgid "One click to connect your account status."
 msgstr ""
 
 msgid "Quote"

@@ -38,9 +38,6 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
     const [signless, setSignless] = useState(false);
 
     const account = useAccount();
-
-    const { updateProfiles, updateCurrentProfile } = useLensStateStore();
-
     const currentProfile = selectedProfile || first(profiles);
 
     const [{ loading }, login] = useAsyncFn(
@@ -54,13 +51,13 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
                     await updateSignless(true);
                 }
 
-                // restore profiles exclude lens
-                await FireflySessionConfirmModalRef.openAndWaitForClose();
                 // restore profiles for lens
                 restoreProfile(currentProfile, profiles, session);
-
-                enqueueSuccessMessage(t`Your Lens account is now connected.`);
                 LoginModalRef.close();
+                enqueueSuccessMessage(t`Your Lens account is now connected.`);
+
+                // restore profiles exclude lens
+                await FireflySessionConfirmModalRef.openAndWaitForClose();
             } catch (error) {
                 enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to login`), {
                     error,

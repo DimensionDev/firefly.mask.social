@@ -1,15 +1,15 @@
-import { t } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import type { SingletonModalRefCreator } from '@masknet/shared-base';
 import { useSingletonModal } from '@masknet/shared-base-ui';
 import { compact } from 'lodash-es';
 import { forwardRef } from 'react';
 
-import { ProfileInList } from '@/components/ProfileInList.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSocialPlatformFromSessionType } from '@/helpers/resolveSocialPlatform.js';
 import { restoreProfile } from '@/helpers/restoreProfile.js';
 import { ConfirmModalRef } from '@/modals/controls.js';
 import { syncSessionFromFirefly } from '@/services/syncSessionFromFirefly.js';
+import { ProfileInList } from '@/components/Login/ProfileInList.js';
 
 export interface FireflySessionConfirmModalProps {}
 
@@ -55,11 +55,16 @@ export const FireflySessionConfirmModal = forwardRef<
                     content: (
                         <div>
                             <p className="text-[15px] font-medium leading-normal text-lightMain">
-                                One click to connect your account status.
+                                <Trans>One click to connect your account status.</Trans>
                             </p>
-                            <ul className=" pt-2">
+                            <ul className=" py-2">
                                 {pairs.map(({ profile }) => (
-                                    <ProfileInList key={profile.profileId} profile={profile} noFollowButton />
+                                    <ProfileInList
+                                        key={profile.profileId}
+                                        profile={profile}
+                                        isSelected={false}
+                                        onSelect={() => {}}
+                                    />
                                 ))}
                             </ul>
                         </div>

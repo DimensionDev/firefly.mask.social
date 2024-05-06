@@ -12,7 +12,6 @@ import { DraggablePopover } from '@/modals/DraggablePopover.js';
 import { FireflySessionConfirmModal } from '@/modals/FireflySessionConfirmModal.js';
 import { LoginModal } from '@/modals/LoginModal.js';
 import { LogoutModal } from '@/modals/LogoutModal.js';
-import { SessionRecoveryModal } from '@/modals/SessionRecoveryModal.js';
 import { Snackbar } from '@/modals/Snackbar.js';
 
 export const Modals = memo(function Modals() {
@@ -28,7 +27,6 @@ export const Modals = memo(function Modals() {
             <FireflySessionConfirmModal ref={controls.FireflySessionConfirmModalRef.register} />
             <DraggablePopover ref={controls.DraggablePopoverRef.register} />
             <Snackbar ref={controls.SnackbarRef.register} />
-            <SessionRecoveryModal ref={controls.SessionRecoveryModalRef.register} />
         </>
     );
 });
