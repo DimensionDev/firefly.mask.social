@@ -23,7 +23,7 @@ export class FireflySession extends BaseSession implements Session {
         throw new Error('Not allowed');
     }
 
-    static async from(session: Session): Promise<FireflySession | null> {
+    static async from(session: Session, signal?: AbortSignal): Promise<FireflySession | null> {
         switch (session.type) {
             case SessionType.Lens: {
                 const url = urlcat(FIREFLY_ROOT_URL, '/v3/auth/lens/login');
@@ -32,6 +32,7 @@ export class FireflySession extends BaseSession implements Session {
                     body: JSON.stringify({
                         accessToken: session.token,
                     }),
+                    signal,
                 });
                 const data = resolveFireflyResponseData(response);
                 return new FireflySession(data.accountId, data.accessToken);
@@ -44,6 +45,7 @@ export class FireflySession extends BaseSession implements Session {
                     body: JSON.stringify({
                         channelToken: session.signerRequestToken,
                     }),
+                    signal,
                 });
                 if (response.data?.fid) {
                     session.profileId = response.data.fid;

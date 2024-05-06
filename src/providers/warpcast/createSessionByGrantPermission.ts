@@ -24,6 +24,7 @@ interface FarcasterReplyResponse {
     url: string;
     // the same as url
     connectUri: string;
+    // cspell: disable-next-line
     // example: dpO7VRkrPcwyLhyFZ
     nonce: string;
 }
@@ -94,7 +95,7 @@ export async function createSessionByGrantPermissionFirefly(callback?: (url: str
     try {
         // firefly start polling for the signed key request
         // once key request is signed, we will get the fid
-        const fireflySession = await FireflySession.from(session);
+        const fireflySession = await FireflySession.from(session, signal);
 
         if (fireflySession) {
             // we also posses the session in firefly session holder
