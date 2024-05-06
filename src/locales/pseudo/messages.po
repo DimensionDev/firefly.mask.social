@@ -259,6 +259,9 @@ msgstr ""
 msgid "Log out"
 msgstr ""
 
+msgid "Failed to {0} /{1}"
+msgstr ""
+
 msgid "{0, plural, one {Your post failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your post failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your post failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
 msgstr ""
 
@@ -290,6 +293,9 @@ msgid "{shares, plural, =0 {Mirror or Quote} zero {Mirror or Quote} one {Mirror 
 msgstr ""
 
 msgid "Comment cannot be empty."
+msgstr ""
+
+msgid "Successed to {0} /{1}"
 msgstr ""
 
 msgid "Reply"
@@ -383,6 +389,9 @@ msgid "{0, select, follow {Failed to followed @{handle} on {source}} unfollow {F
 msgstr ""
 
 msgid "Failed to follow."
+msgstr ""
+
+msgid "Mute"
 msgstr ""
 
 msgid "Confirm to log out this account?"
@@ -484,6 +493,9 @@ msgstr ""
 msgid "Show More"
 msgstr ""
 
+msgid "Failed to block /{0}"
+msgstr ""
+
 msgid "{count, plural, one {# view} other {{0}}}"
 msgstr ""
 
@@ -511,6 +523,9 @@ msgstr ""
 msgid "Quote"
 msgstr ""
 
+msgid "{0} /{1}"
+msgstr ""
+
 msgid "{0, plural, one {Post} other {Post All}}"
 msgstr ""
 
@@ -521,6 +536,9 @@ msgid "Visit mask.io"
 msgstr ""
 
 msgid "No comments found"
+msgstr ""
+
+msgid "unmute"
 msgstr ""
 
 msgid "Discard"
@@ -655,6 +673,9 @@ msgstr ""
 msgid "Login with custody wallet"
 msgstr ""
 
+msgid "mute"
+msgstr ""
+
 msgid "Delegate Signing (Recommend)"
 msgstr ""
 
@@ -734,6 +755,9 @@ msgid "Your post have published successfully on {0}."
 msgstr ""
 
 msgid "Cancel mirror successfully"
+msgstr ""
+
+msgid "Unmute"
 msgstr ""
 
 msgid "Confirm to log out these accounts?"
@@ -842,6 +866,9 @@ msgid "mirrored"
 msgstr ""
 
 msgid "Following"
+msgstr ""
+
+msgid "Confirm you want to {0} /{1}"
 msgstr ""
 
 msgid "<0>{0}</0> recasted"

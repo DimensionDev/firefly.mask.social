@@ -264,6 +264,9 @@ msgstr "加入我们的 Telegram"
 msgid "Log out"
 msgstr "登出"
 
+msgid "Failed to {0} /{1}"
+msgstr ""
+
 msgid "{0, plural, one {Your post failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your post failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your post failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
 msgstr ""
 
@@ -295,6 +298,9 @@ msgid "{shares, plural, =0 {Mirror or Quote} zero {Mirror or Quote} one {Mirror 
 msgstr ""
 
 msgid "Comment cannot be empty."
+msgstr ""
+
+msgid "Successed to {0} /{1}"
 msgstr ""
 
 msgid "Reply"
@@ -389,6 +395,9 @@ msgstr "{0, select, follow {在 {source} 关注 @{handle} 失败} unfollow {在 
 
 msgid "Failed to follow."
 msgstr "关注失败"
+
+msgid "Mute"
+msgstr ""
 
 msgid "Confirm to log out this account?"
 msgstr "确认退出该账号吗？"
@@ -489,6 +498,9 @@ msgstr "显示"
 msgid "Show More"
 msgstr "显示更多"
 
+msgid "Failed to block /{0}"
+msgstr ""
+
 msgid "{count, plural, one {# view} other {{0}}}"
 msgstr ""
 
@@ -516,6 +528,9 @@ msgstr ""
 msgid "Quote"
 msgstr "引用"
 
+msgid "{0} /{1}"
+msgstr ""
+
 msgid "{0, plural, one {Post} other {Post All}}"
 msgstr ""
 
@@ -527,6 +542,9 @@ msgstr "访问 mask.io"
 
 msgid "No comments found"
 msgstr "未发现评论"
+
+msgid "unmute"
+msgstr ""
 
 msgid "Discard"
 msgstr "放弃"
@@ -660,6 +678,9 @@ msgstr "转发失败"
 msgid "Login with custody wallet"
 msgstr "使用托管钱包登录"
 
+msgid "mute"
+msgstr ""
+
 msgid "Delegate Signing (Recommend)"
 msgstr "委托签名（推荐）"
 
@@ -739,6 +760,9 @@ msgid "Your post have published successfully on {0}."
 msgstr ""
 
 msgid "Cancel mirror successfully"
+msgstr ""
+
+msgid "Unmute"
 msgstr ""
 
 msgid "Confirm to log out these accounts?"
@@ -848,6 +872,9 @@ msgstr "已转发"
 
 msgid "Following"
 msgstr "正在关注"
+
+msgid "Confirm you want to {0} /{1}"
+msgstr ""
 
 msgid "<0>{0}</0> recasted"
 msgstr "<0>{0}</0> 已转发"
