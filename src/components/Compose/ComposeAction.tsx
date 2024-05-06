@@ -1,7 +1,7 @@
 import { Popover } from '@headlessui/react';
 import { BugAntIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext.js';
-import { t,Trans } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import { delay } from '@masknet/kit';
 import { CrossIsolationMessages } from '@masknet/shared-base';
 import { $getSelection } from 'lexical';
@@ -98,7 +98,7 @@ export function ComposeAction(props: ComposeActionProps) {
 
     // channel
     const currentSourceWithChannelSupport = SocialPlatform.Farcaster;
-    const channelList = useSearchChannels(inputText, currentSourceWithChannelSupport);
+    const { channelList, isError, isLoading } = useSearchChannels(inputText, currentSourceWithChannelSupport);
     const channel = channelMap[currentSourceWithChannelSupport];
     const showChannel = availableSources.includes(SocialPlatform.Farcaster) && type === 'compose';
 
@@ -262,6 +262,8 @@ export function ComposeAction(props: ComposeActionProps) {
                 <ChannelAction
                     isRootPost={isRootPost}
                     channelList={channelList}
+                    isError={isError}
+                    isLoading={isLoading}
                     channel={channel}
                     inputText={inputText}
                     setInputText={setInputText}

@@ -13,3 +13,4 @@ export const HOME_CHANNEL: Channel = {
 };
 
 export const CHANNEL_SEARCH_LIST_SIZE = 10;
+export const FF_GARDEN_CHANNEL_ID = 'firefly-garden';

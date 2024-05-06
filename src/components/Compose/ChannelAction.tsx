@@ -10,6 +10,8 @@ export interface ChannelActionProps {
     channelList: Channel[];
     channel: Channel;
     inputText: string;
+    isLoading: boolean;
+    isError: boolean;
     setInputText: (input: string) => void;
     updateChannel: (channel: Channel) => void;
 }
@@ -20,6 +22,8 @@ export function ChannelAction({
     inputText,
     setInputText,
     updateChannel,
+    isLoading,
+    isError,
 }: ChannelActionProps) {
     return (
         <div className=" flex h-9 items-center justify-between pb-safe">
@@ -38,6 +42,8 @@ export function ChannelAction({
                         </Popover.Button>
                         <ChannelSearchPanel
                             inputText={inputText}
+                            isLoading={isLoading}
+                            isError={isError}
                             setInputText={setInputText}
                             channelList={channelList}
                             selectChannel={(c) => {
