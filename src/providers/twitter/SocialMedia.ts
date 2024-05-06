@@ -2,9 +2,14 @@ import { t } from '@lingui/macro';
 import type { Pageable, PageIndicator } from '@masknet/shared-base';
 import { compact } from 'lodash-es';
 import { getSession } from 'next-auth/react';
+import type { TweetV2PaginableTimelineResult } from 'twitter-api-v2';
+import type { UserV2 } from 'twitter-api-v2/dist/esm/types/v2/user.v2.types.js';
+import urlcat from 'urlcat';
 
 import { SocialPlatform } from '@/constants/enum.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { formatTwitterPostFromFirefly } from '@/helpers/formatTwitterPostFromFirefly.js';
+import { formatTwitterProfileFromFirefly } from '@/helpers/formatTwitterProfileFromFirefly.js';
 import { resolveTwitterReplyRestriction } from '@/helpers/resolveTwitterReplyRestriction.js';
 import {
     type Channel,
@@ -18,9 +23,15 @@ import {
 import type { ResponseJSON } from '@/types/index.js';
 
 class TwitterSocialMedia implements Provider {
-    unmirrorPost?: ((postId: string, authorId?: number | undefined) => Promise<void>) | undefined;
-    mirrorPost(postId: string): Promise<string> {
-        throw new Error('Method not implemented.');
+    async unmirrorPost(postId: string, authorId?: number | undefined): Promise<void> {
+        const response = await fetchJSON<ResponseJSON<void>>(`/api/twitter/unretweet/${postId}`, { method: 'POST' });
+        if (!response.success) throw new Error(response.error.message);
+    }
+
+    async mirrorPost(postId: string): Promise<string> {
+        const response = await fetchJSON<ResponseJSON<void>>(`/api/twitter/retweet/${postId}`, { method: 'POST' });
+        if (!response.success) throw new Error(response.error.message);
+        return postId;
     }
 
     commentPost(postId: string, post: Post): Promise<string> {
@@ -79,16 +90,26 @@ class TwitterSocialMedia implements Provider {
         throw new Error('Method not implemented.');
     }
 
-    follow(profileId: string): Promise<void> {
-        throw new Error('Not implemented');
+    async follow(profileId: string): Promise<void> {
+        const response = await fetchJSON<ResponseJSON<void>>(`/api/twitter/follow/${profileId}`, { method: 'POST' });
+        if (!response.success) throw new Error(response.error.message);
     }
 
-    unfollow(profileId: string): Promise<void> {
-        throw new Error('Not implemented');
+    async unfollow(profileId: string): Promise<void> {
+        const response = await fetchJSON<ResponseJSON<void>>(`/api/twitter/unfollow/${profileId}`, { method: 'POST' });
+        if (!response.success) throw new Error(response.error.message);
     }
 
-    discoverPosts(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        throw new Error('Not implemented');
+    async discoverPosts(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        const session = await getSession();
+        if (!session) throw new Error('No session found');
+        const url = urlcat(`/api/twitter/homeTimeline`, {
+            limit: 25,
+            cursor: indicator?.id,
+        });
+        const response = await fetchJSON<ResponseJSON<TweetV2PaginableTimelineResult>>(url);
+        if (!response.success) throw new Error(response.error.message);
+        return formatTwitterPostFromFirefly(response.data, 'Post', indicator);
     }
 
     discoverPostsById(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
@@ -105,34 +126,63 @@ class TwitterSocialMedia implements Provider {
         } as unknown as Post;
     }
 
-    getProfileById(profileId: string): Promise<Profile> {
-        throw new Error('Not implemented');
+    async getProfileById(profileId: string): Promise<Profile> {
+        const response = await fetchJSON<ResponseJSON<UserV2>>(`/api/twitter/user/${profileId}`);
+        if (!response.success) throw new Error(response.error.message);
+        return formatTwitterProfileFromFirefly(response.data);
     }
 
-    getProfileByHandle(handle: string): Promise<Profile> {
-        throw new Error('Not implemented');
+    async getProfileByHandle(handle: string): Promise<Profile> {
+        const response = await fetchJSON<ResponseJSON<UserV2>>(`/api/twitter/username/${handle}`);
+        if (!response.success) throw new Error(response.error.message);
+        return formatTwitterProfileFromFirefly(response.data);
     }
 
     getCollectedPostsByProfileId(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         throw new Error('Not implemented');
     }
 
-    getPostsByProfileId(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        throw new Error('Not implemented');
+    async getPostsByProfileId(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        const session = await getSession();
+        if (!session) throw new Error('No session found');
+        const url = urlcat(`/api/twitter/userTimeline/${profileId}`, {
+            limit: 25,
+            cursor: indicator?.id,
+        });
+        const response = await fetchJSON<ResponseJSON<TweetV2PaginableTimelineResult>>(url);
+        if (!response.success) throw new Error(response.error.message);
+        return formatTwitterPostFromFirefly(response.data, 'Post', indicator);
     }
 
     async getLikedPostsByProfileId(
         profileId: string,
         indicator?: PageIndicator,
     ): Promise<Pageable<Post, PageIndicator>> {
-        throw new Error('Method not implemented.');
+        const session = await getSession();
+        if (!session) throw new Error('No session found');
+        const url = urlcat(`/api/twitter/userTimeline/${profileId}/liked`, {
+            limit: 25,
+            cursor: indicator?.id,
+        });
+        const response = await fetchJSON<ResponseJSON<TweetV2PaginableTimelineResult>>(url);
+        if (!response.success) throw new Error(response.error.message);
+        const postWithPageable = formatTwitterPostFromFirefly(response.data, 'Post', indicator);
+        return { ...postWithPageable, data: postWithPageable.data.map((post) => ({ ...post, hasLiked: true })) };
     }
 
     async getRepliesPostsByProfileId(
         profileId: string,
         indicator?: PageIndicator,
     ): Promise<Pageable<Post, PageIndicator>> {
-        throw new Error('Method not implemented.');
+        const session = await getSession();
+        if (!session) throw new Error('No session found');
+        const url = urlcat(`/api/twitter/userTimeline/${profileId}/replies`, {
+            limit: 25,
+            cursor: indicator?.id,
+        });
+        const response = await fetchJSON<ResponseJSON<TweetV2PaginableTimelineResult>>(url);
+        if (!response.success) throw new Error(response.error.message);
+        return formatTwitterPostFromFirefly(response.data, 'Post', indicator);
     }
 
     getCommentsById(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
@@ -143,12 +193,14 @@ class TwitterSocialMedia implements Provider {
         throw new Error('Not implemented');
     }
 
-    upvotePost(postId: string): Promise<void> {
-        throw new Error('Not implemented');
+    async upvotePost(postId: string): Promise<void> {
+        const response = await fetchJSON<ResponseJSON<void>>(`/api/twitter/like/${postId}`, { method: 'POST' });
+        if (!response.success) throw new Error(response.error.message);
     }
 
-    unvotePost(postId: string): Promise<void> {
-        throw new Error('Not implemented');
+    async unvotePost(postId: string): Promise<void> {
+        const response = await fetchJSON<ResponseJSON<void>>(`/api/twitter/unlike/${postId}`, { method: 'POST' });
+        if (!response.success) throw new Error(response.error.message);
     }
 
     searchPosts(q: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
