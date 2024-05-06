@@ -25,7 +25,7 @@ import { ComposeSend } from '@/components/Compose/ComposeSend.js';
 import { ComposeThreadContent } from '@/components/Compose/ComposeThreadContent.js';
 import { MentionNode } from '@/components/Lexical/nodes/MentionsNode.js';
 import { Modal } from '@/components/Modal.js';
-import { SocialPlatform } from '@/constants/enum.js';
+import { Source } from '@/constants/enum.js';
 import { RP_HASH_TAG, SITE_HOSTNAME, SITE_URL, SORTED_SOURCES } from '@/constants/index.js';
 import { type Chars, readChars } from '@/helpers/chars.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
@@ -63,7 +63,7 @@ const initialConfig = {
 export interface ComposeModalProps {
     type?: ComposeType;
     chars?: Chars;
-    source?: SocialPlatform;
+    source?: Source;
     post?: Post | null;
     typedMessage?: TypedMessageTextV1 | null;
     rpPayload?: {
@@ -168,7 +168,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
                 const fullMessage = [
                     t`Check out my LuckyDrop 🧧💰✨ on Firefly mobile app or ${SITE_URL} !`,
                     ...SORTED_SOURCES.map((x) => {
-                        if (x === SocialPlatform.Twitter) return '';
+                        if (x === Source.Twitter) return '';
                         const currentProfile = currentProfileAll[x];
                         const profileLink = currentProfile ? getProfileUrl(currentProfile) : null;
                         return profileLink ? t`Claim on ${resolveSourceName(x)}: ${urlcat(SITE_URL, profileLink)}` : '';

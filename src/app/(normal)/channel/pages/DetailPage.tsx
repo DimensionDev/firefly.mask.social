@@ -7,7 +7,7 @@ import { ChannelPage } from '@/app/(normal)/pages/Channel.js';
 import { Loading } from '@/components/Loading.js';
 import type { SourceInURL } from '@/constants/enum.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
-import { resolveSocialPlatform } from '@/helpers/resolveSocialPlatform.js';
+import { resolveSource } from '@/helpers/resolveSource.js';
 
 interface PageProps {
     params: {
@@ -19,7 +19,7 @@ interface PageProps {
 }
 
 export function ChannelDetailPage({ params: { id: channelId }, searchParams: { source } }: PageProps) {
-    const currentSource = resolveSocialPlatform(source);
+    const currentSource = resolveSource(source);
 
     const { data: channel = null, isLoading } = useQuery({
         queryKey: ['channel', currentSource, channelId],

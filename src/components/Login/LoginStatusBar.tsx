@@ -5,7 +5,7 @@ import { delay } from '@masknet/kit';
 import { ProfileAvatarAdd } from '@/components/Login/ProfileAvatarAdd.js';
 import { ProfileAvatarInteractive } from '@/components/Login/ProfileAvatarInteractive.js';
 import { config } from '@/configs/wagmiClient.js';
-import { SocialPlatform } from '@/constants/enum.js';
+import { Source } from '@/constants/enum.js';
 import { SORTED_SOURCES } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
@@ -42,7 +42,7 @@ export function LoginStatusBar({ collapsed = false }: LoginStatusBarProps) {
                         onClick={async () => {
                             updateSidebarOpen(false);
                             await delay(300);
-                            if (x === SocialPlatform.Lens) await getWalletClientRequired(config);
+                            if (x === Source.Lens) await getWalletClientRequired(config);
                             LoginModalRef.open({ source: x });
                         }}
                     />

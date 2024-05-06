@@ -19,7 +19,7 @@ import { Modal } from '@/components/Modal.js';
 import type { SourceInURL } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
-import { resolveSocialPlatform } from '@/helpers/resolveSocialPlatform.js';
+import { resolveSource } from '@/helpers/resolveSource.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 
 interface Props {
@@ -59,7 +59,7 @@ export default function PreviewPhotoModal({ params: { id: postId, index }, searc
     const router = useRouter();
     const isMedium = useIsMedium();
 
-    const currentSource = resolveSocialPlatform(source);
+    const currentSource = resolveSource(source);
 
     const { data: post = null } = useSuspenseQuery({
         queryKey: [currentSource, 'post-detail', postId],

@@ -6,7 +6,7 @@ import { produce } from 'immer';
 import { compact } from 'lodash-es';
 
 import { queryClient } from '@/configs/queryClient.js';
-import { NODE_ENV, SocialPlatform } from '@/constants/enum.js';
+import { NODE_ENV, Source } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { SORTED_SOURCES } from '@/constants/index.js';
 import { createMockComment } from '@/helpers/createMockComment.js';
@@ -22,7 +22,7 @@ import type { Post } from '@/providers/types/SocialMedia.js';
 import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
 import type { ComposeType } from '@/types/compose.js';
 
-async function refreshProfileFeed(source: SocialPlatform) {
+async function refreshProfileFeed(source: Source) {
     const currentProfileAll = getCurrentProfileAll();
 
     await queryClient.invalidateQueries({
@@ -49,7 +49,7 @@ async function updateRpClaimStrategy(compositePost: CompositePost) {
 
         const reactions = compact(
             SORTED_SOURCES.map((x) => {
-                if (x === SocialPlatform.Article) return;
+                if (x === Source.Article) return;
                 const id = postId[x];
                 return id
                     ? {
@@ -62,7 +62,7 @@ async function updateRpClaimStrategy(compositePost: CompositePost) {
 
         const claimPlatforms = compact(
             SORTED_SOURCES.map((x) => {
-                if (x === SocialPlatform.Article) return;
+                if (x === Source.Article) return;
                 const currentProfile = currentProfileAll[x];
                 return postId[x] && currentProfile
                     ? {
@@ -74,7 +74,7 @@ async function updateRpClaimStrategy(compositePost: CompositePost) {
         );
         const postOn: FireflyRedPacketAPI.PostOn[] = compact(
             SORTED_SOURCES.map((x) => {
-                if (x === SocialPlatform.Article) return;
+                if (x === Source.Article) return;
                 const currentProfile = currentProfileAll[x];
                 return postId[x] && currentProfile
                     ? {

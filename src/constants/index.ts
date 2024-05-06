@@ -8,7 +8,7 @@ import {
     ProfileTabType,
     RestrictionType,
     SearchType,
-    SocialPlatform,
+    Source,
     VERCEL_NEV,
 } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
@@ -32,31 +32,26 @@ export const RP_HASH_TAG = '#FireflyLuckyDrop';
 export const EMPTY_LIST = Object.freeze([]) as never[];
 export const EMPTY_OBJECT = Object.freeze({}) as Record<string, never>;
 
-export const SORTED_PROFILE_TAB_TYPE: Record<SocialPlatform, ProfileTabType[]> = {
-    [SocialPlatform.Lens]: [
-        ProfileTabType.Feed,
-        ProfileTabType.Replies,
-        ProfileTabType.Media,
-        ProfileTabType.Collected,
-    ],
-    [SocialPlatform.Farcaster]: [ProfileTabType.Feed, ProfileTabType.Replies, ProfileTabType.Liked],
-    [SocialPlatform.Twitter]: [ProfileTabType.Feed],
-    [SocialPlatform.Article]: [],
+export const SORTED_PROFILE_TAB_TYPE: Record<Source, ProfileTabType[]> = {
+    [Source.Lens]: [ProfileTabType.Feed, ProfileTabType.Replies, ProfileTabType.Media, ProfileTabType.Collected],
+    [Source.Farcaster]: [ProfileTabType.Feed, ProfileTabType.Replies, ProfileTabType.Liked],
+    [Source.Twitter]: [ProfileTabType.Feed],
+    [Source.Article]: [],
 };
-export const SORTED_ENGAGEMENT_TAB_TYPE: Record<SocialPlatform, EngagementType[]> = {
-    [SocialPlatform.Lens]: [EngagementType.Quotes, EngagementType.Mirrors, EngagementType.Likes],
+export const SORTED_ENGAGEMENT_TAB_TYPE: Record<Source, EngagementType[]> = {
+    [Source.Lens]: [EngagementType.Quotes, EngagementType.Mirrors, EngagementType.Likes],
     // TODO No API to fetch recasts for now.
-    [SocialPlatform.Farcaster]: [EngagementType.Recasts, EngagementType.Likes],
-    [SocialPlatform.Twitter]: [EngagementType.Quotes, EngagementType.Likes],
-    [SocialPlatform.Article]: [],
+    [Source.Farcaster]: [EngagementType.Recasts, EngagementType.Likes],
+    [Source.Twitter]: [EngagementType.Quotes, EngagementType.Likes],
+    [Source.Article]: [],
 };
-export const SORTED_SEARCH_TYPE: Record<SocialPlatform, SearchType[]> = {
-    [SocialPlatform.Lens]: [SearchType.Posts, SearchType.Users],
-    [SocialPlatform.Farcaster]: [SearchType.Posts, SearchType.Users, SearchType.Channels],
-    [SocialPlatform.Twitter]: [SearchType.Posts, SearchType.Users],
-    [SocialPlatform.Article]: [],
+export const SORTED_SEARCH_TYPE: Record<Source, SearchType[]> = {
+    [Source.Lens]: [SearchType.Posts, SearchType.Users],
+    [Source.Farcaster]: [SearchType.Posts, SearchType.Users, SearchType.Channels],
+    [Source.Twitter]: [SearchType.Posts, SearchType.Users],
+    [Source.Article]: [],
 };
-export const SORTED_SOURCES = [SocialPlatform.Farcaster, SocialPlatform.Lens, SocialPlatform.Twitter];
+export const SORTED_SOURCES = [Source.Farcaster, Source.Lens, Source.Twitter];
 export const SORTED_RESTECTION_TYPE = [RestrictionType.Everyone, RestrictionType.OnlyPeopleYouFollow];
 
 // Lens
@@ -84,23 +79,23 @@ export const S3_BUCKET = {
     FIREFLY_LENS_MEDIA: 'firefly-lens-media',
 };
 
-export const MAX_CHAR_SIZE_PER_POST: Record<SocialPlatform, number> = {
-    [SocialPlatform.Lens]: 5000,
-    [SocialPlatform.Farcaster]: 320,
-    [SocialPlatform.Twitter]: 280,
-    [SocialPlatform.Article]: 0,
+export const MAX_CHAR_SIZE_PER_POST: Record<Source, number> = {
+    [Source.Lens]: 5000,
+    [Source.Farcaster]: 320,
+    [Source.Twitter]: 280,
+    [Source.Article]: 0,
 };
-export const DANGER_CHAR_LIMIT: Record<SocialPlatform, number> = {
-    [SocialPlatform.Lens]: Math.floor(MAX_CHAR_SIZE_PER_POST[SocialPlatform.Lens] * 0.9),
-    [SocialPlatform.Farcaster]: Math.floor(MAX_CHAR_SIZE_PER_POST[SocialPlatform.Farcaster] * 0.9),
-    [SocialPlatform.Twitter]: Math.floor(MAX_CHAR_SIZE_PER_POST[SocialPlatform.Twitter] * 0.9),
-    [SocialPlatform.Article]: 0,
+export const DANGER_CHAR_LIMIT: Record<Source, number> = {
+    [Source.Lens]: Math.floor(MAX_CHAR_SIZE_PER_POST[Source.Lens] * 0.9),
+    [Source.Farcaster]: Math.floor(MAX_CHAR_SIZE_PER_POST[Source.Farcaster] * 0.9),
+    [Source.Twitter]: Math.floor(MAX_CHAR_SIZE_PER_POST[Source.Twitter] * 0.9),
+    [Source.Article]: 0,
 };
-export const SAFE_CHAR_LIMIT: Record<SocialPlatform, number> = {
-    [SocialPlatform.Lens]: Math.floor(MAX_CHAR_SIZE_PER_POST[SocialPlatform.Lens] * 0.8),
-    [SocialPlatform.Farcaster]: Math.floor(MAX_CHAR_SIZE_PER_POST[SocialPlatform.Farcaster] * 0.8),
-    [SocialPlatform.Twitter]: Math.floor(MAX_CHAR_SIZE_PER_POST[SocialPlatform.Twitter] * 0.8),
-    [SocialPlatform.Article]: 0,
+export const SAFE_CHAR_LIMIT: Record<Source, number> = {
+    [Source.Lens]: Math.floor(MAX_CHAR_SIZE_PER_POST[Source.Lens] * 0.8),
+    [Source.Farcaster]: Math.floor(MAX_CHAR_SIZE_PER_POST[Source.Farcaster] * 0.8),
+    [Source.Twitter]: Math.floor(MAX_CHAR_SIZE_PER_POST[Source.Twitter] * 0.8),
+    [Source.Article]: 0,
 };
 
 // Search Bar

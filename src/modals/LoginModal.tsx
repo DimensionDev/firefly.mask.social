@@ -19,7 +19,7 @@ import { Modal } from '@/components/Modal.js';
 import { Popover } from '@/components/Popover.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { config } from '@/configs/wagmiClient.js';
-import { SocialPlatform } from '@/constants/enum.js';
+import { Source } from '@/constants/enum.js';
 import { EMPTY_LIST, SORTED_SOURCES } from '@/constants/index.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
@@ -28,21 +28,21 @@ import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 export interface LoginModalProps {
-    source?: SocialPlatform;
+    source?: Source;
 }
 
 export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | void>>(function LoginModal(_, ref) {
     const isMedium = useIsMedium();
 
-    const [source, setSource] = useState<SocialPlatform>();
+    const [source, setSource] = useState<Source>();
     const [profiles, setProfiles] = useState<Profile[]>(EMPTY_LIST);
     const [isDirectly, setIsDirectly] = useState(false);
     const [currentAccount, setCurrentAccount] = useState<string>('');
 
-    const [{ loading }, handleLogin] = useAsyncFn(async (selectedSource: SocialPlatform) => {
+    const [{ loading }, handleLogin] = useAsyncFn(async (selectedSource: Source) => {
         try {
             switch (selectedSource) {
-                case SocialPlatform.Lens: {
+                case Source.Lens: {
                     const { account } = await getWalletClientRequired(config);
                     const profiles = await queryClient.fetchQuery({
                         queryKey: ['lens', 'profiles', account.address],
@@ -68,15 +68,15 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | 
                     setSource(selectedSource);
                     return;
                 }
-                case SocialPlatform.Farcaster:
+                case Source.Farcaster:
                     setProfiles(EMPTY_LIST);
                     setSource(selectedSource);
                     return;
-                case SocialPlatform.Twitter:
+                case Source.Twitter:
                     setProfiles(EMPTY_LIST);
                     setSource(selectedSource);
                     return;
-                case SocialPlatform.Article:
+                case Source.Article:
                     return;
                 default:
                     safeUnreachable(selectedSource);
@@ -138,9 +138,9 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | 
                 </div>
             }
         >
-            {source === SocialPlatform.Lens ? <LoginLens profiles={profiles} currentAccount={currentAccount} /> : null}
-            {source === SocialPlatform.Farcaster ? <LoginFarcaster /> : null}
-            {source === SocialPlatform.Twitter ? <LoginTwitter /> : null}
+            {source === Source.Lens ? <LoginLens profiles={profiles} currentAccount={currentAccount} /> : null}
+            {source === Source.Farcaster ? <LoginFarcaster /> : null}
+            {source === Source.Twitter ? <LoginTwitter /> : null}
         </Suspense>
     );
 
@@ -151,7 +151,7 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | 
                     className="inline-flex items-center justify-center gap-2 rounded-t-[12px] p-4 md:h-[56px] md:w-[600px]"
                     style={{ background: 'var(--m-modal-title-bg)' }}
                 >
-                    {source === SocialPlatform.Farcaster && !isDirectly ? (
+                    {source === Source.Farcaster && !isDirectly ? (
                         <ClickableButton onClick={() => setSource(undefined)}>
                             <LeftArrowIcon width={24} height={24} />
                         </ClickableButton>
@@ -160,9 +160,9 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | 
                     )}
 
                     <div className="shrink grow basis-0 text-center text-lg font-bold leading-snug text-main">
-                        {source === SocialPlatform.Lens ? (
+                        {source === Source.Lens ? (
                             <Trans>Select Account</Trans>
-                        ) : source === SocialPlatform.Farcaster ? (
+                        ) : source === Source.Farcaster ? (
                             <Trans>Log in to Farcaster account</Trans>
                         ) : (
                             <Trans>Login</Trans>

@@ -2,7 +2,7 @@ import { plural, t } from '@lingui/macro';
 import { delay, safeUnreachable } from '@masknet/kit';
 import { compact } from 'lodash-es';
 
-import { SocialPlatform } from '@/constants/enum.js';
+import { Source } from '@/constants/enum.js';
 import { SORTED_SOURCES } from '@/constants/index.js';
 import { enqueueErrorsMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { failedAt } from '@/helpers/isPublishedThread.js';
@@ -17,10 +17,10 @@ function shouldCrossPost(index: number, post: CompositePost) {
     return SORTED_SOURCES.some((x) => post.availableSources.includes(x) && !post.postId[x] && !post.parentPost[x]);
 }
 
-async function getParentPostById(source: SocialPlatform, postId: string) {
+async function getParentPostById(source: Source, postId: string) {
     if (!postId) throw new Error(`Failed to get parent post by id: ${postId}.`);
     switch (source) {
-        case SocialPlatform.Farcaster: {
+        case Source.Farcaster: {
             // in a thread, posts will sometimes be lost if we post too quickly
             await delay(1000);
 
@@ -35,11 +35,11 @@ async function getParentPostById(source: SocialPlatform, postId: string) {
 
             return mock;
         }
-        case SocialPlatform.Twitter:
+        case Source.Twitter:
             return { postId } as unknown as Post;
-        case SocialPlatform.Lens:
+        case Source.Lens:
             return { postId } as unknown as Post;
-        case SocialPlatform.Article:
+        case Source.Article:
             return null;
         default:
             safeUnreachable(source);
@@ -76,7 +76,7 @@ async function recompositePost(index: number, post: CompositePost, posts: Compos
                 const fetchedPost = settled.status === 'fulfilled' ? settled.value : null;
                 return [x, post.parentPost[x] ?? fetchedPost];
             }),
-        ) as Record<SocialPlatform, Post | null>,
+        ) as Record<Source, Post | null>,
     } satisfies CompositePost;
 }
 

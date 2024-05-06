@@ -6,14 +6,14 @@ import { memo } from 'react';
 import MessageIcon from '@/assets/message.svg';
 import { ListInPage } from '@/components/ListInPage.js';
 import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.js';
-import { ScrollListKey, SocialPlatform } from '@/constants/enum.js';
+import { ScrollListKey, Source } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 
 export interface CommentListProps {
     postId: string;
-    source: SocialPlatform;
+    source: Source;
     exclude?: string[];
 }
 
@@ -28,7 +28,7 @@ export const CommentList = memo<CommentListProps>(function CommentList({ postId,
             const provider = resolveSocialMediaProvider(source);
             const comments = await provider.getCommentsById(postId, createIndicator(undefined, pageParam));
 
-            if (source === SocialPlatform.Lens) {
+            if (source === Source.Lens) {
                 const ids = comments.data.flatMap((x) => [x.postId]);
                 await fetchAndStoreViews(ids);
             }

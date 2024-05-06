@@ -24,7 +24,7 @@ export enum PageRoute {
     Search = '/search',
 }
 
-export enum SocialPlatform {
+export enum Source {
     Farcaster = 'Farcaster',
     Lens = 'Lens',
     Twitter = 'Twitter',

@@ -1,11 +1,11 @@
 import { produce } from 'immer';
 
-import { SocialPlatform } from '@/constants/enum.js';
+import { Source } from '@/constants/enum.js';
 import { patchPostQueryData } from '@/helpers/patchPostQueryData.js';
 import type { Post, Provider } from '@/providers/types/SocialMedia.js';
 import type { ClassType } from '@/types/index.js';
 
-function commentPost(source: SocialPlatform, postId: string) {
+function commentPost(source: Source, postId: string) {
     patchPostQueryData(source, postId, (draft) => {
         draft.stats = produce(draft.stats, (old) => {
             return {
@@ -18,7 +18,7 @@ function commentPost(source: SocialPlatform, postId: string) {
     });
 }
 
-export function SetQueryDataForCommentPost(source: SocialPlatform) {
+export function SetQueryDataForCommentPost(source: Source) {
     return function decorator<T extends ClassType<Provider>>(target: T): T {
         const method = target.prototype.commentPost as Provider['commentPost'];
 

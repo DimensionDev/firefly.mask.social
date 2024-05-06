@@ -3,7 +3,7 @@ import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 
 import { ListInPage } from '@/components/ListInPage.js';
 import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.js';
-import { ScrollListKey, SocialPlatform } from '@/constants/enum.js';
+import { ScrollListKey, Source } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { getPostsSelector } from '@/helpers/getPostsSelector.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
@@ -11,7 +11,7 @@ import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 
 interface CollectedListProps {
     profileId: string;
-    source: SocialPlatform;
+    source: Source;
 }
 
 export function CollectedList({ profileId, source }: CollectedListProps) {
@@ -24,7 +24,7 @@ export function CollectedList({ profileId, source }: CollectedListProps) {
             const provider = resolveSocialMediaProvider(source);
             const posts = await provider.getCollectedPostsByProfileId(profileId, createIndicator(undefined, pageParam));
 
-            if (source === SocialPlatform.Lens) {
+            if (source === Source.Lens) {
                 const ids = posts.data.flatMap((x) => [x.postId]);
                 await fetchAndStoreViews(ids);
             }

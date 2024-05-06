@@ -3,14 +3,14 @@ import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 
 import { ListInPage } from '@/components/ListInPage.js';
 import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.js';
-import { ProfileTabType, ScrollListKey, SocialPlatform } from '@/constants/enum.js';
+import { ProfileTabType, ScrollListKey, Source } from '@/constants/enum.js';
 import { getPostsSelector } from '@/helpers/getPostsSelector.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 
 interface RepliesListProps {
     profileId: string;
-    source: SocialPlatform;
+    source: Source;
 }
 
 export function RepliesList({ profileId, source }: RepliesListProps) {
@@ -27,7 +27,7 @@ export function RepliesList({ profileId, source }: RepliesListProps) {
 
             const posts = await provider.getRepliesPostsByProfileId(profileId, createIndicator(undefined, pageParam));
 
-            if (source === SocialPlatform.Lens) {
+            if (source === Source.Lens) {
                 const ids = posts.data.flatMap((x) => [x.postId]);
                 await fetchAndStoreViews(ids);
             }

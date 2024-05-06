@@ -1,6 +1,6 @@
-import { SocialPlatform } from '@/constants/enum.js';
+import { Source } from '@/constants/enum.js';
 import { getCurrentProfileAll } from '@/helpers/getCurrentProfileAll.js';
 
-export function getCurrentProfile(source: SocialPlatform) {
+export function getCurrentProfile(source: Source) {
     return getCurrentProfileAll()[source];
 }

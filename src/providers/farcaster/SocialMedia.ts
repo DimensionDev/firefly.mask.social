@@ -2,7 +2,7 @@ import { t } from '@lingui/macro';
 import { createIndicator, createPageable, EMPTY_LIST, type Pageable, type PageIndicator } from '@masknet/shared-base';
 import { attemptUntil } from '@masknet/web3-shared-base';
 
-import { SocialPlatform } from '@/constants/enum.js';
+import { Source } from '@/constants/enum.js';
 import { SetQueryDataForBlockUser } from '@/decorators/SetQueryDataForBlockUser.js';
 import { SetQueryDataForCommentPost } from '@/decorators/SetQueryDataForCommentPost.js';
 import { SetQueryDataForDeletePost } from '@/decorators/SetQueryDataForDeletePost.js';
@@ -22,11 +22,11 @@ import {
 } from '@/providers/types/SocialMedia.js';
 import { WarpcastSocialMediaProvider } from '@/providers/warpcast/SocialMedia.js';
 
-@SetQueryDataForLikePost(SocialPlatform.Farcaster)
-@SetQueryDataForMirrorPost(SocialPlatform.Farcaster)
-@SetQueryDataForCommentPost(SocialPlatform.Farcaster)
-@SetQueryDataForDeletePost(SocialPlatform.Farcaster)
-@SetQueryDataForBlockUser(SocialPlatform.Farcaster)
+@SetQueryDataForLikePost(Source.Farcaster)
+@SetQueryDataForMirrorPost(Source.Farcaster)
+@SetQueryDataForCommentPost(Source.Farcaster)
+@SetQueryDataForDeletePost(Source.Farcaster)
+@SetQueryDataForBlockUser(Source.Farcaster)
 @SetQueryDataForPosts
 class FarcasterSocialMedia implements Provider {
     quotePost(postId: string, post: Post): Promise<string> {

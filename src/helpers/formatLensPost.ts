@@ -25,7 +25,7 @@ import type {
 import { safeUnreachable } from '@masknet/kit';
 import { compact, first, isEmpty, last } from 'lodash-es';
 
-import { SocialPlatform } from '@/constants/enum.js';
+import { Source } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { URL_REGEX } from '@/constants/regex.js';
 import { formatLensProfile, formatLensProfileByHandleInfo } from '@/helpers/formatLensProfile.js';
@@ -241,7 +241,7 @@ export function formatLensQuoteOrComment(result: CommentBaseFragment | PostFragm
     return {
         publicationId: result.id,
         type: result.__typename,
-        source: SocialPlatform.Lens,
+        source: Source.Lens,
         postId: result.id,
         timestamp,
         author: profile,
@@ -287,7 +287,7 @@ export function formatLensPost(result: AnyPublicationFragment): Post {
             author: formatLensProfile(result.mirrorOn.by),
             reporter: profile,
             isHidden: result.mirrorOn.isHidden,
-            source: SocialPlatform.Lens,
+            source: Source.Lens,
             mediaObjects,
             metadata: {
                 locale: result.mirrorOn.metadata.locale,
@@ -335,7 +335,7 @@ export function formatLensPost(result: AnyPublicationFragment): Post {
         return {
             publicationId: result.id,
             type: result.__typename,
-            source: SocialPlatform.Lens,
+            source: Source.Lens,
             postId: result.id,
             timestamp,
             author: profile,
@@ -374,7 +374,7 @@ export function formatLensPost(result: AnyPublicationFragment): Post {
         return {
             publicationId: result.id,
             type: result.__typename,
-            source: SocialPlatform.Lens,
+            source: Source.Lens,
             postId: result.id,
             timestamp,
             author: profile,
@@ -418,7 +418,7 @@ export function formatLensPost(result: AnyPublicationFragment): Post {
         return {
             publicationId: result.id,
             type: result.__typename,
-            source: SocialPlatform.Lens,
+            source: Source.Lens,
             postId: result.id,
             timestamp,
             author: profile,

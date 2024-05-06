@@ -7,10 +7,10 @@ import { createPageTitle } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
-import { resolveSocialPlatform } from '@/helpers/resolveSocialPlatform.js';
+import { resolveSource } from '@/helpers/resolveSource.js';
 
 export async function getPostOGById(source: SourceInURL, postId: string) {
-    const provider = resolveSocialMediaProvider(resolveSocialPlatform(source));
+    const provider = resolveSocialMediaProvider(resolveSource(source));
     const post = await provider.getPostById(postId);
     if (!post) return createSiteMetadata();
 

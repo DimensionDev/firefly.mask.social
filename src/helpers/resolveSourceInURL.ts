@@ -1,13 +1,13 @@
 import { createLookupTableResolver } from '@masknet/shared-base';
 
-import { SocialPlatform, SourceInURL } from '@/constants/enum.js';
+import { Source, SourceInURL } from '@/constants/enum.js';
 
-export const resolveSourceInURL = createLookupTableResolver<SocialPlatform, SourceInURL>(
+export const resolveSourceInURL = createLookupTableResolver<Source, SourceInURL>(
     {
-        [SocialPlatform.Farcaster]: SourceInURL.Farcaster,
-        [SocialPlatform.Lens]: SourceInURL.Lens,
-        [SocialPlatform.Twitter]: SourceInURL.Twitter,
-        [SocialPlatform.Article]: SourceInURL.Article,
+        [Source.Farcaster]: SourceInURL.Farcaster,
+        [Source.Lens]: SourceInURL.Lens,
+        [Source.Twitter]: SourceInURL.Twitter,
+        [Source.Article]: SourceInURL.Article,
     },
     (keyword) => {
         throw new Error(`Unknown keyword: ${keyword}`);

@@ -2,7 +2,7 @@ import { t } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
 import { first } from 'lodash-es';
 
-import { SocialPlatform } from '@/constants/enum.js';
+import { Source } from '@/constants/enum.js';
 import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
 import type { ComposeType } from '@/types/compose.js';
 import type { MediaObject } from '@/types/index.js';
@@ -12,7 +12,7 @@ type Options = Record<ComposeType, (images: MediaObject[], videos: MediaObject[]
     uploadVideos?: () => Promise<MediaObject[]>;
 };
 
-export function createPostTo(source: SocialPlatform, options: Options) {
+export function createPostTo(source: Source, options: Options) {
     const { updatePostInThread } = useComposeStateStore.getState();
 
     return async (type: ComposeType, post: CompositePost) => {

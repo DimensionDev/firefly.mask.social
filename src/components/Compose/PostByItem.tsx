@@ -8,7 +8,7 @@ import YesIcon from '@/assets/yes.svg';
 import { Avatar } from '@/components/Avatar.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { SourceIcon } from '@/components/SourceIcon.js';
-import { SocialPlatform } from '@/constants/enum.js';
+import { Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
@@ -24,7 +24,7 @@ import { useComposeStateStore } from '@/store/useComposeStore.js';
 import { useLensStateStore } from '@/store/useProfileStore.js';
 
 interface PostByItemProps {
-    source: SocialPlatform;
+    source: Source;
 }
 
 export function PostByItem({ source }: PostByItemProps) {
@@ -64,7 +64,7 @@ export function PostByItem({ source }: PostByItemProps) {
                 <ClickableButton
                     className=" font-bold text-blueBottom"
                     onClick={async () => {
-                        if (source === SocialPlatform.Farcaster && images.length > 2) {
+                        if (source === Source.Farcaster && images.length > 2) {
                             enqueueErrorMessage(t`Only up to 2 images can be chosen.`);
                             return;
                         }
@@ -115,7 +115,7 @@ export function PostByItem({ source }: PostByItemProps) {
                 ) : (
                     <RadioDisableNoIcon width={20} height={20} className=" text-secondaryLine" />
                 )
-            ) : currentProfile.source === SocialPlatform.Lens ? (
+            ) : currentProfile.source === Source.Lens ? (
                 <ClickableButton
                     className=" font-bold text-blueBottom disabled:cursor-not-allowed disabled:opacity-50"
                     disabled={loading}

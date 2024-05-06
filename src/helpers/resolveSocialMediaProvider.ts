@@ -1,19 +1,19 @@
 import { safeUnreachable } from '@masknet/kit';
 
-import { SocialPlatform } from '@/constants/enum.js';
+import { Source } from '@/constants/enum.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
 
-export function resolveSocialMediaProvider(source: SocialPlatform) {
+export function resolveSocialMediaProvider(source: Source) {
     switch (source) {
-        case SocialPlatform.Lens:
+        case Source.Lens:
             return LensSocialMediaProvider;
-        case SocialPlatform.Farcaster:
+        case Source.Farcaster:
             return FarcasterSocialMediaProvider;
-        case SocialPlatform.Twitter:
+        case Source.Twitter:
             return TwitterSocialMediaProvider;
-        case SocialPlatform.Article:
+        case Source.Article:
             throw new Error('Not allowed');
         default:
             safeUnreachable(source);

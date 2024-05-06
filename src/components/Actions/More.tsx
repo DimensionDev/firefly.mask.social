@@ -16,7 +16,7 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { config } from '@/configs/wagmiClient.js';
-import { EngagementType, SocialPlatform } from '@/constants/enum.js';
+import { EngagementType, Source } from '@/constants/enum.js';
 import { SORTED_ENGAGEMENT_TAB_TYPE } from '@/constants/index.js';
 import { Link } from '@/esm/Link.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
@@ -32,7 +32,7 @@ import { LoginModalRef } from '@/modals/controls.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 interface MoreProps {
-    source: SocialPlatform;
+    source: Source;
     author: Profile;
     id?: string;
 }
@@ -67,7 +67,7 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
                     event.stopPropagation();
                     if (!isLogin) {
                         event.preventDefault();
-                        if (source === SocialPlatform.Lens) await getWalletClientRequired(config);
+                        if (source === Source.Lens) await getWalletClientRequired(config);
                         LoginModalRef.open({ source });
                     }
                 }}
@@ -150,7 +150,7 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
                                     </ClickableButton>
                                 )}
                             </Menu.Item>
-                            {source === SocialPlatform.Lens ? (
+                            {source === Source.Lens ? (
                                 <Menu.Item>
                                     {({ close }) => (
                                         <ReportUserButton

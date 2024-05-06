@@ -10,14 +10,14 @@ import { forwardRef } from 'react';
 
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { ProfileName } from '@/components/ProfileName.js';
-import { SocialPlatform } from '@/constants/enum.js';
+import { Source } from '@/constants/enum.js';
 import { SORTED_SOURCES } from '@/constants/index.js';
 import { useProfileStoreAll } from '@/hooks/useProfileStoreAll.js';
 import { ConfirmModalRef } from '@/modals/controls.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 export interface LogoutModalProps {
-    source?: SocialPlatform;
+    source?: Source;
     profile?: Profile;
 }
 
@@ -66,7 +66,7 @@ export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps 
             const source = props?.source || props?.profile?.source;
 
             // call next-auth signOut for twitter
-            if (!source || source === SocialPlatform.Twitter) {
+            if (!source || source === Source.Twitter) {
                 await signOut({
                     redirect: false,
                 });

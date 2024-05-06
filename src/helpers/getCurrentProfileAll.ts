@@ -1,16 +1,16 @@
-import { SocialPlatform } from '@/constants/enum.js';
+import { Source } from '@/constants/enum.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { useFarcasterStateStore, useLensStateStore, useTwitterStateStore } from '@/store/useProfileStore.js';
 
-export function getCurrentProfileAll(): Record<SocialPlatform, Profile | null> {
+export function getCurrentProfileAll(): Record<Source, Profile | null> {
     const { currentProfile: currentLensProfile } = useLensStateStore.getState();
     const { currentProfile: currentFarcasterProfile } = useFarcasterStateStore.getState();
     const { currentProfile: currentTwitterProfile } = useTwitterStateStore.getState();
 
     return {
-        [SocialPlatform.Farcaster]: currentFarcasterProfile,
-        [SocialPlatform.Lens]: currentLensProfile,
-        [SocialPlatform.Twitter]: currentTwitterProfile,
-        [SocialPlatform.Article]: null,
+        [Source.Farcaster]: currentFarcasterProfile,
+        [Source.Lens]: currentLensProfile,
+        [Source.Twitter]: currentTwitterProfile,
+        [Source.Article]: null,
     };
 }

@@ -1,30 +1,30 @@
 import { safeUnreachable } from '@masknet/kit';
 import urlcat from 'urlcat';
 
-import { SocialPlatform } from '@/constants/enum.js';
+import { Source } from '@/constants/enum.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 export function getProfileUrl(profile: Profile) {
     switch (profile.source) {
-        case SocialPlatform.Lens:
+        case Source.Lens:
             if (!profile.handle) return '';
             return urlcat('/profile/:id', {
                 source: profile.source.toLowerCase(),
                 id: profile.handle,
             });
-        case SocialPlatform.Farcaster:
+        case Source.Farcaster:
             if (!profile.profileId) return '';
             return urlcat('/profile/:id', {
                 source: profile.source.toLowerCase(),
                 id: profile.profileId,
             });
-        case SocialPlatform.Twitter:
+        case Source.Twitter:
             if (!profile.profileId) return '';
             return urlcat('/profile/:id', {
                 source: profile.source.toLowerCase(),
                 id: profile.profileId,
             });
-        case SocialPlatform.Article:
+        case Source.Article:
             return '';
         default:
             safeUnreachable(profile.source);

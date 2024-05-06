@@ -2,9 +2,9 @@ import { useSuspenseQuery } from '@tanstack/react-query';
 import { memo } from 'react';
 
 import { Quote } from '@/components/Posts/Quote.js';
-import { SocialPlatform, type SourceInURL } from '@/constants/enum.js';
+import { Source, type SourceInURL } from '@/constants/enum.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
-import { resolveSocialPlatform } from '@/helpers/resolveSocialPlatform.js';
+import { resolveSource } from '@/helpers/resolveSource.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 
 interface PostEmbedProps {
@@ -13,7 +13,7 @@ interface PostEmbedProps {
 }
 
 export const PostEmbed = memo<PostEmbedProps>(function PostEmbed({ id, source }) {
-    const currentSource = resolveSocialPlatform(source);
+    const currentSource = resolveSource(source);
     const fetchAndStoreViews = useImpressionsStore.use.fetchAndStoreViews();
 
     const { data } = useSuspenseQuery({
@@ -26,7 +26,7 @@ export const PostEmbed = memo<PostEmbedProps>(function PostEmbed({ id, source })
 
             try {
                 const post = await provider.getPostById(id);
-                if (currentSource === SocialPlatform.Lens) fetchAndStoreViews([post.postId]);
+                if (currentSource === Source.Lens) fetchAndStoreViews([post.postId]);
                 return post;
             } catch {
                 return null;

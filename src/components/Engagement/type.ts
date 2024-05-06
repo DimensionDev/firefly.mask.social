@@ -1,7 +1,7 @@
-import type { EngagementType, SocialPlatform } from '@/constants/enum.js';
+import type { EngagementType, Source } from '@/constants/enum.js';
 
 export interface PostEngagementListProps {
     postId: string;
     type: EngagementType;
-    source: SocialPlatform;
+    source: Source;
 }

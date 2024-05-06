@@ -8,7 +8,7 @@ import { ChannelTag } from '@/components/Markup/MarkupLink/ChannelTag.js';
 import { ExternalLink } from '@/components/Markup/MarkupLink/ExternalLink.js';
 import { Hashtag } from '@/components/Markup/MarkupLink/Hashtag.js';
 import { MentionLink } from '@/components/Markup/MarkupLink/MentionLink.js';
-import { SocialPlatform } from '@/constants/enum.js';
+import { Source } from '@/constants/enum.js';
 import { BIO_TWITTER_PROFILE_REGEX } from '@/constants/regex.js';
 import { Link } from '@/esm/Link.js';
 import { createLensProfileFromHandle } from '@/helpers/createLensProfileFromHandle.js';
@@ -20,7 +20,7 @@ import { type Post } from '@/providers/types/SocialMedia.js';
 export interface MarkupLinkProps {
     title?: string;
     post?: Post;
-    source?: SocialPlatform;
+    source?: Source;
 }
 
 export const MarkupLink = memo<MarkupLinkProps>(function MarkupLink({ title, post, source }) {
@@ -31,7 +31,7 @@ export const MarkupLink = memo<MarkupLinkProps>(function MarkupLink({ title, pos
         if (!source) return title;
 
         switch (source) {
-            case SocialPlatform.Lens: {
+            case Source.Lens: {
                 const handle = getLensHandleFromMentionTitle(title);
                 if (!handle) return title;
 
@@ -39,7 +39,7 @@ export const MarkupLink = memo<MarkupLinkProps>(function MarkupLink({ title, pos
                 return <MentionLink handle={handle} link={link} />;
             }
 
-            case SocialPlatform.Farcaster: {
+            case Source.Farcaster: {
                 const profile = post.mentions?.find((x) => x.handle === title.replace(/^@/, ''));
                 if (!profile) return title;
 
@@ -47,9 +47,9 @@ export const MarkupLink = memo<MarkupLinkProps>(function MarkupLink({ title, pos
                 return <MentionLink handle={profile.handle} link={link} />;
             }
 
-            case SocialPlatform.Twitter:
+            case Source.Twitter:
                 return title;
-            case SocialPlatform.Article:
+            case Source.Article:
                 return title;
             default:
                 safeUnreachable(source);

@@ -1,11 +1,11 @@
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { SourceIcon } from '@/components/SourceIcon.js';
-import { SocialPlatform } from '@/constants/enum.js';
+import { Source } from '@/constants/enum.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 
 interface LoginButtonProps {
-    source: SocialPlatform;
-    onClick?: (source: SocialPlatform) => void;
+    source: Source;
+    onClick?: (source: Source) => void;
 }
 
 export function LoginButton(props: LoginButtonProps) {

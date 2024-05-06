@@ -12,7 +12,7 @@ import stripMarkdown from 'strip-markdown';
 import { Code } from '@/components/Code.js';
 import { MarkupLink } from '@/components/Markup/MarkupLink/index.js';
 import { ImageAsset } from '@/components/Posts/ImageAsset.js';
-import { SocialPlatform } from '@/constants/enum.js';
+import { Source } from '@/constants/enum.js';
 import {
     BIO_TWITTER_PROFILE_REGEX,
     CHANNEL_REGEX,
@@ -37,7 +37,7 @@ export const Markup = memo<MarkupProps>(function Markup({ children, post, ...res
             return compact([
                 [stripMarkdown, { keep: ['strong', 'emphasis', 'inlineCode'] }],
                 remarkBreaks,
-                post?.source === SocialPlatform.Farcaster ? linkifyRegex(CHANNEL_REGEX) : undefined,
+                post?.source === Source.Farcaster ? linkifyRegex(CHANNEL_REGEX) : undefined,
                 linkifyRegex(URL_REGEX),
                 linkifyRegex(HASHTAG_REGEX),
             ]);
@@ -46,7 +46,7 @@ export const Markup = memo<MarkupProps>(function Markup({ children, post, ...res
         return compact([
             [stripMarkdown, { keep: ['strong', 'emphasis', 'inlineCode'] }],
             remarkBreaks,
-            post?.source === SocialPlatform.Farcaster ? linkifyRegex(CHANNEL_REGEX) : undefined,
+            post?.source === Source.Farcaster ? linkifyRegex(CHANNEL_REGEX) : undefined,
             // Make sure Mention plugin is before URL plugin, to avoid matching
             // mentioned ens handle as url. For example, @mask.eth should be treat
             // as a mention rather than link
@@ -82,7 +82,7 @@ export function NakedMarkup(props: MarkupProps) {
 }
 
 export interface BioMarkupProps extends MarkupProps {
-    source?: SocialPlatform;
+    source?: Source;
 }
 
 export const BioMarkup = memo<BioMarkupProps>(function Markup({ children, post, source, ...rest }) {
@@ -90,7 +90,7 @@ export const BioMarkup = memo<BioMarkupProps>(function Markup({ children, post, 
         return compact([
             [stripMarkdown, { keep: ['strong', 'emphasis', 'inlineCode'] }],
             remarkBreaks,
-            source === SocialPlatform.Farcaster ? linkifyRegex(CHANNEL_REGEX) : undefined,
+            source === Source.Farcaster ? linkifyRegex(CHANNEL_REGEX) : undefined,
             linkifyRegex(MENTION_REGEX),
             linkifyRegex(HASHTAG_REGEX),
             linkifyRegex(BIO_TWITTER_PROFILE_REGEX),

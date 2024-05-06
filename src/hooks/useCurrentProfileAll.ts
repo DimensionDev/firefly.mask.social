@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 
-import { SocialPlatform } from '@/constants/enum.js';
+import { Source } from '@/constants/enum.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { useFarcasterStateStore, useLensStateStore, useTwitterStateStore } from '@/store/useProfileStore.js';
 
@@ -9,12 +9,12 @@ export function useCurrentProfileAll() {
     const currentFarcasterProfile = useFarcasterStateStore.use.currentProfile();
     const currentTwitterProfile = useTwitterStateStore.use.currentProfile();
 
-    return useMemo<Record<SocialPlatform, Profile | null>>(
+    return useMemo<Record<Source, Profile | null>>(
         () => ({
-            [SocialPlatform.Farcaster]: currentFarcasterProfile,
-            [SocialPlatform.Lens]: currentLensProfile,
-            [SocialPlatform.Twitter]: currentTwitterProfile,
-            [SocialPlatform.Article]: null,
+            [Source.Farcaster]: currentFarcasterProfile,
+            [Source.Lens]: currentLensProfile,
+            [Source.Twitter]: currentTwitterProfile,
+            [Source.Article]: null,
         }),
         [currentFarcasterProfile, currentLensProfile, currentTwitterProfile],
     );

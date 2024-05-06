@@ -7,7 +7,7 @@ import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { ListInPage } from '@/components/ListInPage.js';
 import { getArticleItemContent } from '@/components/VirtualList/getArticleItemContent.js';
 import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.js';
-import { ScrollListKey, SocialPlatform } from '@/constants/enum.js';
+import { ScrollListKey, Source } from '@/constants/enum.js';
 import { EMPTY_LIST, SORTED_SOURCES } from '@/constants/index.js';
 import { getPostsSelector } from '@/helpers/getPostsSelector.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
@@ -48,7 +48,7 @@ export default function Following() {
                 createIndicator(undefined, pageParam),
             );
 
-            if (currentSource === SocialPlatform.Lens) {
+            if (currentSource === Source.Lens) {
                 const ids = posts.data.flatMap((x) => [x.postId]);
                 fetchAndStoreViews(ids);
             }
@@ -67,7 +67,7 @@ export default function Following() {
         queryKey: ['articles', 'following', currentSource],
         networkMode: 'always',
         queryFn: async ({ pageParam }) => {
-            if (currentSource !== SocialPlatform.Article) return createPageable(EMPTY_LIST, undefined);
+            if (currentSource !== Source.Article) return createPageable(EMPTY_LIST, undefined);
             return FireflySocialMediaProvider.getFollowingArticles(createIndicator(undefined, pageParam));
         },
         initialPageParam: '',
@@ -77,7 +77,7 @@ export default function Following() {
 
     useNavigatorTitle(t`Following`);
 
-    if (currentSource === SocialPlatform.Article) {
+    if (currentSource === Source.Article) {
         return (
             <ListInPage
                 key={currentSource}
