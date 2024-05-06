@@ -51,6 +51,7 @@ export enum KeyType {
     UploadToBlob = 'uploadToBlob',
     GetLensThreadByPostId = 'getLensThreadByPostId',
     RefreshLensThreadLock = 'RefreshLensThreadLock',
+    GetFollowings = 'getFollowings',
 }
 
 export enum ProfileTabType {
@@ -78,6 +79,7 @@ export enum RestrictionType {
 export enum ScrollListKey {
     Discover = 'discover-list',
     Following = 'following-list',
+    Followers = 'followers-list',
     Notification = 'notification-list',
     Search = 'search-list',
     Comment = 'comment-list',

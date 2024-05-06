@@ -269,7 +269,7 @@ class FireflySocialMedia implements Provider {
                 method: 'GET',
             });
 
-            if (!cast) throw new Error('Post not found');
+            if (!cast || cast.deleted_at) throw new Error('Post not found');
             return formatFarcasterPostFromFirefly(cast);
         });
     }
@@ -287,7 +287,6 @@ class FireflySocialMedia implements Provider {
             );
             const user = resolveFireflyResponseData(response);
             const friendship = await this.getFriendship(profileId);
-
             return formatFarcasterProfileFromFirefly({
                 ...user,
                 ...friendship,
