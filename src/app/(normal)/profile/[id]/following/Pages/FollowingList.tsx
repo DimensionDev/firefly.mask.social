@@ -8,10 +8,10 @@ import ComeBack from '@/assets/comeback.svg';
 import { getFollowInList } from '@/components/FollowInList.js';
 import { ListInPage } from '@/components/ListInPage.js';
 import { ScrollListKey, SourceInURL } from '@/constants/enum.js';
+import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSocialPlatform } from '@/helpers/resolveSocialPlatform.js';
 import { useComeBack } from '@/hooks/useComeback.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
-import { getFollowings } from '@/services/getFollowings.js';
 
 export function FollowingList({ profileId, source }: { profileId: string; source: SourceInURL }) {
     const comeback = useComeBack();
@@ -19,7 +19,8 @@ export function FollowingList({ profileId, source }: { profileId: string; source
     const queryResult = useSuspenseInfiniteQuery({
         queryKey: ['following', source, profileId],
         async queryFn({ pageParam }) {
-            return getFollowings(resolveSocialPlatform(source), profileId, createIndicator(undefined, pageParam));
+            const provider = resolveSocialMediaProvider(resolveSocialPlatform(source));
+            return provider.getFollowings(profileId, createIndicator(undefined, pageParam));
         },
         initialPageParam: '',
         getNextPageParam: (lastPage) => (lastPage as Pageable<Profile, PageIndicator>)?.nextIndicator?.id,
