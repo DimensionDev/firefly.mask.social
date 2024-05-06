@@ -94,6 +94,9 @@ msgstr ""
 msgid "Transaction button is not available yet."
 msgstr ""
 
+msgid "Mute {0}"
+msgstr ""
+
 msgid "Debug Console"
 msgstr ""
 
@@ -259,7 +262,7 @@ msgstr ""
 msgid "Log out"
 msgstr ""
 
-msgid "Failed to {0} /{1}"
+msgid "Failed to mute {0}."
 msgstr ""
 
 msgid "{0, plural, one {Your post failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your post failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your post failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
@@ -320,6 +323,9 @@ msgid "Follow"
 msgstr ""
 
 msgid "Add account"
+msgstr ""
+
+msgid "Unmute {0}"
 msgstr ""
 
 msgid "{0} Comments"
@@ -386,9 +392,6 @@ msgid "{0, select, follow {Failed to followed @{handle} on {source}} unfollow {F
 msgstr ""
 
 msgid "Failed to follow."
-msgstr ""
-
-msgid "Mute"
 msgstr ""
 
 msgid "Confirm to log out this account?"
@@ -499,6 +502,9 @@ msgstr ""
 msgid "Failed to parse session."
 msgstr ""
 
+msgid "Failed to unmute {0}."
+msgstr ""
+
 msgid "Loading..."
 msgstr ""
 
@@ -518,9 +524,6 @@ msgid "One click to connect your account status."
 msgstr ""
 
 msgid "Quote"
-msgstr ""
-
-msgid "{0} /{1}"
 msgstr ""
 
 msgid "{0, plural, one {Post} other {Post All}}"
@@ -755,9 +758,6 @@ msgid "Your post have published successfully on {0}."
 msgstr ""
 
 msgid "Cancel mirror successfully"
-msgstr ""
-
-msgid "Unmute"
 msgstr ""
 
 msgid "Confirm to log out these accounts?"

@@ -94,6 +94,9 @@ msgstr "Casts"
 msgid "Transaction button is not available yet."
 msgstr "Transaction button is not available yet."
 
+msgid "Mute {0}"
+msgstr "Mute {0}"
+
 msgid "Debug Console"
 msgstr "Debug Console"
 
@@ -259,8 +262,8 @@ msgstr "Join our Telegram"
 msgid "Log out"
 msgstr "Log out"
 
-msgid "Failed to {0} /{1}"
-msgstr "Failed to {0} /{1}"
+msgid "Failed to mute {0}."
+msgstr "Failed to mute {0}."
 
 msgid "{0, plural, one {Your post failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your post failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your post failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
 msgstr "{0, plural, one {Your post failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your post failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your post failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
@@ -321,6 +324,9 @@ msgstr "Follow"
 
 msgid "Add account"
 msgstr "Add account"
+
+msgid "Unmute {0}"
+msgstr "Unmute {0}"
 
 msgid "{0} Comments"
 msgstr "{0} Comments"
@@ -387,9 +393,6 @@ msgstr "{0, select, follow {Failed to followed @{handle} on {source}} unfollow {
 
 msgid "Failed to follow."
 msgstr "Failed to follow."
-
-msgid "Mute"
-msgstr "Mute"
 
 msgid "Confirm to log out this account?"
 msgstr "Confirm to log out this account?"
@@ -499,6 +502,9 @@ msgstr "{count, plural, one {# view} other {{0}}}"
 msgid "Failed to parse session."
 msgstr "Failed to parse session."
 
+msgid "Failed to unmute {0}."
+msgstr "Failed to unmute {0}."
+
 msgid "Loading..."
 msgstr "Loading..."
 
@@ -519,9 +525,6 @@ msgstr "One click to connect your account status."
 
 msgid "Quote"
 msgstr "Quote"
-
-msgid "{0} /{1}"
-msgstr "{0} /{1}"
 
 msgid "{0, plural, one {Post} other {Post All}}"
 msgstr "{0, plural, one {Post} other {Post All}}"
@@ -756,9 +759,6 @@ msgstr "Your post have published successfully on {0}."
 
 msgid "Cancel mirror successfully"
 msgstr "Cancel mirror successfully"
-
-msgid "Unmute"
-msgstr "Unmute"
 
 msgid "Confirm to log out these accounts?"
 msgstr "Confirm to log out these accounts?"

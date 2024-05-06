@@ -99,6 +99,9 @@ msgstr ""
 msgid "Transaction button is not available yet."
 msgstr ""
 
+msgid "Mute {0}"
+msgstr ""
+
 msgid "Debug Console"
 msgstr "诊断命令行"
 
@@ -264,7 +267,7 @@ msgstr "加入我们的 Telegram"
 msgid "Log out"
 msgstr "登出"
 
-msgid "Failed to {0} /{1}"
+msgid "Failed to mute {0}."
 msgstr ""
 
 msgid "{0, plural, one {Your post failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your post failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your post failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
@@ -326,6 +329,9 @@ msgstr "关注"
 
 msgid "Add account"
 msgstr "添加账号"
+
+msgid "Unmute {0}"
+msgstr ""
 
 msgid "{0} Comments"
 msgstr "{0} 评论"
@@ -392,9 +398,6 @@ msgstr "{0, select, follow {在 {source} 关注 @{handle} 失败} unfollow {在 
 
 msgid "Failed to follow."
 msgstr "关注失败"
-
-msgid "Mute"
-msgstr ""
 
 msgid "Confirm to log out this account?"
 msgstr "确认退出该账号吗？"
@@ -504,6 +507,9 @@ msgstr ""
 msgid "Failed to parse session."
 msgstr "未能解析会话"
 
+msgid "Failed to unmute {0}."
+msgstr ""
+
 msgid "Loading..."
 msgstr "加载中..."
 
@@ -524,9 +530,6 @@ msgstr ""
 
 msgid "Quote"
 msgstr "引用"
-
-msgid "{0} /{1}"
-msgstr ""
 
 msgid "{0, plural, one {Post} other {Post All}}"
 msgstr ""
@@ -760,9 +763,6 @@ msgid "Your post have published successfully on {0}."
 msgstr ""
 
 msgid "Cancel mirror successfully"
-msgstr ""
-
-msgid "Unmute"
 msgstr ""
 
 msgid "Confirm to log out these accounts?"
