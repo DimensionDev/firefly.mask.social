@@ -54,7 +54,7 @@ export interface CompositePost {
     rpPayload: RedPacketPayload | null;
 
     // only available in farcaster now
-    channelMap: Record<SocialPlatform, Channel | null>;
+    channel: Record<SocialPlatform, Channel | null>;
 }
 
 interface ComposeState {
@@ -137,7 +137,7 @@ function createInitSinglePostState(cursor: Cursor): CompositePost {
         openGraphs: EMPTY_LIST,
         video: null,
         rpPayload: null,
-        channelMap: {
+        channel: {
             [SocialPlatform.Farcaster]: HOME_CHANNEL,
             [SocialPlatform.Lens]: null,
             [SocialPlatform.Twitter]: null,
@@ -434,8 +434,8 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
                     state,
                     (post) => ({
                         ...post,
-                        channelMap: {
-                            ...post.channelMap,
+                        channel: {
+                            ...post.channel,
                             [source]: channel,
                         },
                     }),
@@ -485,3 +485,6 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
 );
 
 export const useComposeStateStore = createSelectors(useComposeStateBase);
+
+// @ts-ignore
+global.__useComposeStateStore = useComposeStateBase;

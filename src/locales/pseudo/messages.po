@@ -662,6 +662,9 @@ msgstr ""
 msgid "No profile found"
 msgstr ""
 
+msgid "{0} channel"
+msgstr ""
+
 msgid "<0>You</0> liked"
 msgstr ""
 
@@ -738,9 +741,6 @@ msgid "You cannot reply to @{author} on {0}."
 msgstr ""
 
 msgid "Claim on {0}: {1}"
-msgstr ""
-
-msgid "Farcaster channel"
 msgstr ""
 
 msgid "Failed to unmirror post."

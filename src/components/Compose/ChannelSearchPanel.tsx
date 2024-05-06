@@ -1,15 +1,18 @@
 import { Popover, Transition } from '@headlessui/react';
-import { Fragment } from 'react';
 import { Trans } from '@lingui/macro';
+import { useQuery } from '@tanstack/react-query';
+import { Fragment } from 'react';
 
 import RadioDisableNoIcon from '@/assets/radio.disable-no.svg';
 import SearchIcon from '@/assets/search.svg';
 import YesIcon from '@/assets/yes.svg';
 import { Avatar } from '@/components/Avatar.js';
 import { SearchInput } from '@/components/Search/SearchInput.js';
-import { classNames } from '@/helpers/classNames.js';
 import { useIsSmall } from '@/hooks/useMediaQuery.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
+import { Loading } from '@/components/Loading.js';
+import LoadingIcon from '@/assets/loading.svg';
+
 
 interface ChannelSearchPanelProps {
     channelList: Channel[];
@@ -17,8 +20,7 @@ interface ChannelSearchPanelProps {
     selectedChannel: Channel | null;
     inputText: string;
     setInputText: (input: string) => void;
-    isLoading: boolean;
-    isError: boolean;
+    queryResult: ReturnType<typeof useQuery>;
 }
 
 export function ChannelSearchPanel({
@@ -27,14 +29,13 @@ export function ChannelSearchPanel({
     selectedChannel,
     inputText,
     setInputText,
-    isLoading,
-    isError,
+    queryResult: { isLoading, isError },
 }: ChannelSearchPanelProps) {
     const isSmall = useIsSmall('max');
 
     const listBox = isLoading ? (
         <div className="m-auto">
-            <Trans>Loading...</Trans>
+            <LoadingIcon className="animate-spin" width={24} height={24} />
         </div>
     ) : isError ? (
         <div className="m-auto">
@@ -44,21 +45,21 @@ export function ChannelSearchPanel({
         channelList.map((channel) => (
             <Fragment key={channel.id}>
                 <div
-                    className={'flex h-[32px] cursor-pointer items-center justify-between'}
+                    className="flex h-[32px] cursor-pointer items-center justify-between"
                     onClick={() => {
                         if (channel.id !== selectedChannel?.id) {
                             selectChannel(channel);
                         }
                     }}
                 >
-                    <div className={'flex h-[24px] items-center gap-2'}>
+                    <div className="flex h-[24px] items-center gap-2">
                         <Avatar
                             className="mr-3 shrink-0 rounded-full border"
                             src={channel.imageUrl}
                             size={isSmall ? 24 : 24}
                             alt={channel.name}
                         />
-                        <span className={classNames(' font-bold text-main')}>{channel.name}</span>
+                        <span className="font-bold text-main">{channel.name}</span>
                     </div>
                     {channel.id === selectedChannel?.id ? (
                         <YesIcon width={40} height={40} className=" relative -right-[10px]" />

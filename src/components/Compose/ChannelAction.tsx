@@ -1,19 +1,19 @@
 import { Popover } from '@headlessui/react';
 import { ChevronRightIcon } from '@heroicons/react/24/outline';
 import { Trans } from '@lingui/macro';
+import { useQuery } from '@tanstack/react-query';
 
 import { ChannelSearchPanel } from '@/components/Compose/ChannelSearchPanel.js';
-import type { Channel } from '@/providers/types/SocialMedia.js';
 import type { SocialPlatform } from '@/constants/enum.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
+import type { Channel } from '@/providers/types/SocialMedia.js';
 
 export interface ChannelActionProps {
     isRootPost: boolean;
     channelList: Channel[];
     channel: Channel;
     inputText: string;
-    isLoading: boolean;
-    isError: boolean;
+    queryResult: ReturnType<typeof useQuery>;
     setInputText: (input: string) => void;
     updateChannel: (channel: Channel) => void;
     source: SocialPlatform;
@@ -22,11 +22,10 @@ export function ChannelAction({
     isRootPost,
     channelList,
     channel,
+    queryResult,
     inputText,
     setInputText,
     updateChannel,
-    isLoading,
-    isError,
     source,
 }: ChannelActionProps) {
     return (
@@ -46,13 +45,10 @@ export function ChannelAction({
                         </Popover.Button>
                         <ChannelSearchPanel
                             inputText={inputText}
-                            isLoading={isLoading}
-                            isError={isError}
+                            queryResult={queryResult}
                             setInputText={setInputText}
                             channelList={channelList}
-                            selectChannel={(c) => {
-                                updateChannel(c);
-                            }}
+                            selectChannel={updateChannel}
                             selectedChannel={channel}
                         />
                     </>

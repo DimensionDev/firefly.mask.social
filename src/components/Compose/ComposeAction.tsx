@@ -21,6 +21,7 @@ import { ReplyRestriction } from '@/components/Compose/ReplyRestriction.js';
 import { ReplyRestrictionText } from '@/components/Compose/ReplyRestrictionText.js';
 import { SourceIcon } from '@/components/SourceIcon.js';
 import { Tooltip } from '@/components/Tooltip.js';
+import { CURRENT_SOURCE_WITH_CHANNEL_SUPPORT } from '@/constants/channel.js';
 import { NODE_ENV, SocialPlatform } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { MAX_POST_SIZE_PER_THREAD, SORTED_SOURCES } from '@/constants/index.js';
@@ -49,8 +50,7 @@ export function ComposeAction(props: ComposeActionProps) {
     const profilesAll = useProfilesAll();
 
     const { type, posts, addPostInThread, updateRestriction, updateChannel } = useComposeStateStore();
-    const { availableSources, chars, images, video, restriction, isRootPost, parentPost, channelMap } =
-        useCompositePost();
+    const { availableSources, chars, images, video, restriction, isRootPost, parentPost, channel } = useCompositePost();
 
     const { length, visibleLength, invisibleLength } = measureChars(chars, availableSources);
 
@@ -97,9 +97,8 @@ export function ComposeAction(props: ComposeActionProps) {
     const mediaDisabled = !!video || images.length >= maxImageCount;
 
     // channel
-    const currentSourceWithChannelSupport = SocialPlatform.Farcaster;
-    const { channelList, isError, isLoading } = useSearchChannels(inputText, currentSourceWithChannelSupport);
-    const channel = channelMap[currentSourceWithChannelSupport];
+    const { channelList, queryResult } = useSearchChannels(inputText, CURRENT_SOURCE_WITH_CHANNEL_SUPPORT);
+    const currChannel = channel[CURRENT_SOURCE_WITH_CHANNEL_SUPPORT];
     const showChannel = availableSources.includes(SocialPlatform.Farcaster) && type === 'compose';
 
     return (
@@ -258,14 +257,13 @@ export function ComposeAction(props: ComposeActionProps) {
                     )}
                 </Popover>
             </div>
-            {showChannel && channel ? (
+            {showChannel && currChannel ? (
                 <ChannelAction
-                    source={currentSourceWithChannelSupport}
+                    source={CURRENT_SOURCE_WITH_CHANNEL_SUPPORT}
                     isRootPost={isRootPost}
                     channelList={channelList}
-                    isError={isError}
-                    isLoading={isLoading}
-                    channel={channel}
+                    queryResult={queryResult}
+                    channel={currChannel}
                     inputText={inputText}
                     setInputText={setInputText}
                     updateChannel={(c) => {

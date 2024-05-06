@@ -1,34 +1,35 @@
+import { useQuery } from '@tanstack/react-query';
 import { compact, uniq } from 'lodash-es';
-import { useAsync, useAsyncFn } from 'react-use';
 import { useDebounce } from 'usehooks-ts';
 
 import { CHANNEL_SEARCH_LIST_SIZE, FF_GARDEN_CHANNEL_ID, HOME_CHANNEL } from '@/constants/channel.js';
 import { SocialPlatform } from '@/constants/enum.js';
+import { EMPTY_LIST } from '@/constants/index.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useFetchChannel } from '@/hooks/useFetchChannel.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
-import { useQuery } from '@tanstack/react-query';
-import { useMemo } from 'react';
-import { EMPTY_LIST } from '@/constants/index.js';
 
 export function useSearchChannels(
     kw: string,
     source: SocialPlatform,
-): { channelList: Channel[]; isLoading: boolean; isError: boolean } {
+): { channelList: Channel[]; queryResult: ReturnType<typeof useQuery> } {
     const defaultChannels = useDefaultChannelList(source);
     const debouncedKw = useDebounce(kw, 300);
 
-    const { data, isLoading, isError } = useQuery({
+    const queryResult = useQuery({
         enabled: !!debouncedKw,
         queryKey: ['searchChannels', source, debouncedKw],
         queryFn: () => resolveSocialMediaProvider(source).searchChannels(debouncedKw),
     });
 
-    if (!debouncedKw) return { channelList: defaultChannels, isLoading: false, isError: false };
-    if (!data) return { channelList: EMPTY_LIST, isLoading, isError };
+    if (!debouncedKw) return { channelList: defaultChannels, queryResult };
+    if (!queryResult.data) return { channelList: EMPTY_LIST, queryResult };
 
-    return { channelList: compact(data.data).slice(0, CHANNEL_SEARCH_LIST_SIZE), isLoading, isError: false };
+    return {
+        channelList: compact(queryResult.data.data).slice(0, CHANNEL_SEARCH_LIST_SIZE),
+        queryResult,
+    };
 }
 
 export function useDefaultChannelList(source: SocialPlatform) {

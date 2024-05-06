@@ -1,12 +1,15 @@
 import { t } from '@lingui/macro';
 import { uniqBy } from 'lodash-es';
 
+<<<<<<< HEAD
 import { Source, SourceInURL } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
+=======
+import { SocialPlatform, SourceInURL } from '@/constants/enum.js';
+>>>>>>> d5e722b3 (chore: lingui extract)
 import { isHomeChannel } from '@/helpers/channel.js';
 import { readChars } from '@/helpers/chars.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
-import { hasRpPayload } from '@/helpers/rpPayload.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { type Post, type PostType } from '@/providers/types/SocialMedia.js';
 import { createPostTo } from '@/services/createPostTo.js';
@@ -17,7 +20,7 @@ import type { ComposeType } from '@/types/compose.js';
 import type { MediaObject } from '@/types/index.js';
 
 export async function postToFarcaster(type: ComposeType, compositePost: CompositePost) {
-    const { chars, parentPost, images, frames, openGraphs, typedMessage, postId, channelMap } = compositePost;
+    const { chars, parentPost, images, frames, openGraphs, typedMessage, postId, channel } = compositePost;
 
     const farcasterPostId = postId.Farcaster;
     const farcasterParentPost = parentPost.Farcaster;
@@ -31,8 +34,7 @@ export async function postToFarcaster(type: ComposeType, compositePost: Composit
     if (!currentProfile?.profileId) throw new Error(t`Login required to post on ${sourceName}.`);
 
     const composeDraft = (postType: PostType, images: MediaObject[]) => {
-        const hasPayload = hasRpPayload(typedMessage);
-        const channel = channelMap[SocialPlatform.Farcaster];
+        const ffChannel = channel[SocialPlatform.Farcaster];
         return {
             publicationId: '',
             type: postType,
@@ -54,8 +56,8 @@ export async function postToFarcaster(type: ComposeType, compositePost: Composit
                 (x) => x.url.toLowerCase(),
             ),
             commentOn: type === 'reply' && farcasterParentPost ? farcasterParentPost : undefined,
-            parentChannelKey: channel ? (isHomeChannel(channel) ? undefined : channel.id) : undefined,
-            parentChannelUrl: channel ? (isHomeChannel(channel) ? undefined : channel.parentUrl) : undefined,
+            parentChannelKey: ffChannel ? (isHomeChannel(ffChannel) ? undefined : ffChannel.id) : undefined,
+            parentChannelUrl: ffChannel ? (isHomeChannel(ffChannel) ? undefined : ffChannel.parentUrl) : undefined,
         } satisfies Post;
     };
 
