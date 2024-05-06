@@ -43,7 +43,7 @@ export interface Provider {
     getArticleById: (articleId: string) => Promise<Article | null>;
 
     /**
-     * Retricves articles that are related to following profiles.
+     * Retrieves articles that are related to following profiles.
      * @param indicator
      * @returns
      */
