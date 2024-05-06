@@ -3,12 +3,12 @@ import { createIndicator, createPageable, EMPTY_LIST, type Pageable, type PageIn
 import { attemptUntil } from '@masknet/web3-shared-base';
 
 import { SocialPlatform } from '@/constants/enum.js';
+import { SetQueryDataForBlockUser } from '@/decorators/SetQueryDataForBlockUser.js';
 import { SetQueryDataForCommentPost } from '@/decorators/SetQueryDataForCommentPost.js';
 import { SetQueryDataForDeletePost } from '@/decorators/SetQueryDataForDeletePost.js';
 import { SetQueryDataForLikePost } from '@/decorators/SetQueryDataForLikePost.js';
 import { SetQueryDataForMirrorPost } from '@/decorators/SetQueryDataForMirrorPost.js';
 import { SetQueryDataForPosts } from '@/decorators/SetQueryDataForPosts.js';
-import { SetQueryDataForReportUser } from '@/decorators/SetQueryDataForReportUser.js';
 import { getFarcasterSessionType } from '@/helpers/getFarcasterSessionType.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { HubbleSocialMediaProvider } from '@/providers/hubble/SocialMedia.js';
@@ -26,7 +26,7 @@ import { WarpcastSocialMediaProvider } from '@/providers/warpcast/SocialMedia.js
 @SetQueryDataForMirrorPost(SocialPlatform.Farcaster)
 @SetQueryDataForCommentPost(SocialPlatform.Farcaster)
 @SetQueryDataForDeletePost(SocialPlatform.Farcaster)
-@SetQueryDataForReportUser(SocialPlatform.Farcaster)
+@SetQueryDataForBlockUser(SocialPlatform.Farcaster)
 @SetQueryDataForPosts
 class FarcasterSocialMedia implements Provider {
     quotePost(postId: string, post: Post): Promise<string> {
@@ -286,6 +286,12 @@ class FarcasterSocialMedia implements Provider {
         const { isCustodyWallet, isGrantByPermission } = getFarcasterSessionType();
         if (isCustodyWallet) return WarpcastSocialMediaProvider.reportPost(post);
         if (isGrantByPermission) return FireflySocialMediaProvider.reportPost(post);
+        return false;
+    }
+    async blockUser(profileId: string) {
+        const { isCustodyWallet, isGrantByPermission } = getFarcasterSessionType();
+        if (isCustodyWallet) return WarpcastSocialMediaProvider.blockUser(profileId);
+        if (isGrantByPermission) return FireflySocialMediaProvider.blockUser(profileId);
         return false;
     }
     async getPostsQuoteOn(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {

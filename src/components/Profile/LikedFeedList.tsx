@@ -13,7 +13,7 @@ interface LikedFeedListProps {
 }
 
 export function LikedFeedList({ profileId, source }: LikedFeedListProps) {
-    const queryResult = useSuspenseInfiniteQuery({
+    const query = useSuspenseInfiniteQuery({
         queryKey: ['posts', source, 'liked-posts-of', profileId],
 
         queryFn: async ({ pageParam }) => {
@@ -37,7 +37,7 @@ export function LikedFeedList({ profileId, source }: LikedFeedListProps) {
     return (
         <ListInPage
             key={source}
-            queryResult={queryResult}
+            queryResult={query}
             VirtualListProps={{
                 listKey: `${ScrollListKey.Profile}:${ProfileTabType.Liked}:${profileId}`,
                 computeItemKey: (index, post) => `${post.postId}-${index}`,

@@ -79,6 +79,9 @@ msgstr ""
 msgid "Change Wallet"
 msgstr ""
 
+msgid "Confirm you want to block @{0}"
+msgstr ""
+
 msgid "OpenGraph"
 msgstr ""
 
@@ -191,6 +194,12 @@ msgid "Audio Cover"
 msgstr ""
 
 msgid "Recent"
+msgstr ""
+
+msgid "Block"
+msgstr ""
+
+msgid "Block @{0}"
 msgstr ""
 
 msgid "OpenGraph Validator"
@@ -599,6 +608,9 @@ msgid "Copy"
 msgstr ""
 
 msgid "Skip for now"
+msgstr ""
+
+msgid "Failed to block @{0}"
 msgstr ""
 
 msgid "Notifications"

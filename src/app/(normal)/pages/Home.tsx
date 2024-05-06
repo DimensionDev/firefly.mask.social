@@ -46,7 +46,6 @@ export function HomePage({ source, pageable }: Props) {
         getNextPageParam: (lastPage) => lastPage.nextIndicator?.id,
         select: getPostsSelector(currentSource),
     });
-
     useNavigatorTitle(t`Discover`);
 
     return (
