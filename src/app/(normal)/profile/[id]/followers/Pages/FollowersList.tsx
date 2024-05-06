@@ -11,7 +11,7 @@ import { ScrollListKey, SourceInURL } from '@/constants/enum.js';
 import { resolveSocialPlatform } from '@/helpers/resolveSocialPlatform.js';
 import { useComeBack } from '@/hooks/useComeback.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
-import { getFollowings } from '@/services/getFollowings.js';
+import { getFollowers } from '@/services/getFollowers.js';
 
 export function FollowersList({ profileId, source }: { profileId: string; source: SourceInURL }) {
     const comeback = useComeBack();
@@ -19,7 +19,7 @@ export function FollowersList({ profileId, source }: { profileId: string; source
     const queryResult = useSuspenseInfiniteQuery({
         queryKey: ['followers', source, profileId],
         async queryFn({ pageParam }) {
-            return getFollowings(resolveSocialPlatform(source), profileId, createIndicator(undefined, pageParam));
+            return getFollowers(resolveSocialPlatform(source), profileId, createIndicator(undefined, pageParam));
         },
         initialPageParam: '',
         getNextPageParam: (lastPage) => (lastPage as Pageable<Profile, PageIndicator>)?.nextIndicator?.id,
