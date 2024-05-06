@@ -38,7 +38,7 @@ class FireflyArticle implements Provider {
         );
     }
 
-    async getArticleDetailById(articleId: string) {
+    async getArticleById(articleId: string) {
         const url = urlcat(FIREFLY_ROOT_URL, '/v1/article/contents_by_ids');
 
         const response = await fetchJSON<GetArticleDetailResponse>(url, {

@@ -35,7 +35,7 @@ export function ArticleDetailPage({ params: { id: articleId } }: PageProps) {
         queryFn: async () => {
             if (!articleId) return;
 
-            return FireflyArticleProvider.getArticleDetailById(articleId);
+            return FireflyArticleProvider.getArticleById(articleId);
         },
     });
 
@@ -60,9 +60,10 @@ export function ArticleDetailPage({ params: { id: articleId } }: PageProps) {
 
     useDocumentTitle(article ? createPageTitle(t`Post by ${article.author.handle}`) : SITE_NAME);
 
-    if (!article) return;
+    if (!article) return null;
 
     const authorUrl = EVMExplorerResolver.addressLink(ChainId.Mainnet, article.author.id);
+
     return (
         <div className="min-h-screen">
             <div className="sticky top-0 z-40 flex items-center bg-primaryBottom px-4 py-[18px]">

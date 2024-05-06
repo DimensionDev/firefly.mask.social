@@ -7,7 +7,7 @@ import { getArticleUrl } from '@/helpers/getArticleUrl.js';
 import { FireflyArticleProvider } from '@/providers/firefly/Article.js';
 
 export async function getArticleOGById(id: string) {
-    const article = await FireflyArticleProvider.getArticleDetailById(id);
+    const article = await FireflyArticleProvider.getArticleById(id);
     if (!article) return createSiteMetadata();
 
     return createSiteMetadata({
