@@ -79,7 +79,6 @@ export function formatTwitterPostFromFirefly(
     currentIndicator?: PageIndicator,
 ): Pageable<Post, PageIndicator> {
     const posts = data.data?.map((item) => tweetV2ToPost(item, type, data.includes)) || [];
-    console.log(posts)
     return createPageable(
         posts,
         createIndicator(currentIndicator),
