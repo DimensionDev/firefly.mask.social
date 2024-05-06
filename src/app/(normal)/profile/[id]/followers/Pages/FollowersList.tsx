@@ -7,19 +7,19 @@ import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import ComeBack from '@/assets/comeback.svg';
 import { getFollowInList } from '@/components/FollowInList.js';
 import { ListInPage } from '@/components/ListInPage.js';
-import { ScrollListKey, SourceInURL } from '@/constants/enum.js';
+import { ScrollListKey, type SocialSourceInURL } from '@/constants/enum.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
-import { resolveSocialPlatform } from '@/helpers/resolveSocialPlatform.js';
+import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { useComeBack } from '@/hooks/useComeback.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
-export function FollowersList({ profileId, source }: { profileId: string; source: SourceInURL }) {
+export function FollowersList({ profileId, source }: { profileId: string; source: SocialSourceInURL }) {
     const comeback = useComeBack();
 
     const queryResult = useSuspenseInfiniteQuery({
         queryKey: ['followers', source, profileId],
         queryFn({ pageParam }) {
-            const provider = resolveSocialMediaProvider(resolveSocialPlatform(source));
+            const provider = resolveSocialMediaProvider(resolveSocialSource(source));
             return provider.getFollowers(profileId, createIndicator(undefined, pageParam));
         },
         initialPageParam: '',
