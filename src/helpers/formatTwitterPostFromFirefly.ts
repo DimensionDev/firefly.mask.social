@@ -57,12 +57,8 @@ function tweetV2ToPost(item: TweetV2, type?: PostType, includes?: ApiV2Includes)
     if (repliedTweet) {
         ret.commentOn = tweetV2ToPost(repliedTweet, type, includes);
         let endCommentOn = ret.commentOn;
-        while (1) {
-            if (endCommentOn?.commentOn) {
-                endCommentOn = endCommentOn?.commentOn;
-            } else {
-                break;
-            }
+        while (endCommentOn?.commentOn) {
+            endCommentOn = endCommentOn?.commentOn;
         }
         const hasReplied = repliedTweet?.referenced_tweets?.find((tweet) => tweet.type === 'replied_to');
         if (!hasReplied) {
