@@ -38,12 +38,17 @@ export class FireflySession extends BaseSession implements Session {
                 return new FireflySession(data.accountId, data.accessToken);
             }
             case SessionType.Farcaster: {
-                if (!FarcasterSession.isGrantByPermission(session)) throw new Error('Not allowed');
+                if (FarcasterSession.isCustodyWallet(session)) throw new Error('Not allowed');
+
+                const isGrantByPermission = FarcasterSession.isGrantByPermission(session);
+                const isRelayService = FarcasterSession.isRelayService(session);
+
                 const url = urlcat(FIREFLY_ROOT_URL, '/v3/auth/farcaster/login');
                 const response = await fetchJSON<FarcasterLoginResponse>(url, {
                     method: 'POST',
                     body: JSON.stringify({
-                        channelToken: session.signerRequestToken,
+                        channelToken: isRelayService ? session.channelToken : undefined,
+                        token: isGrantByPermission ? session.token : undefined,
                     }),
                     signal,
                 });

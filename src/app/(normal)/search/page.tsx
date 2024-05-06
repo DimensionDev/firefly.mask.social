@@ -49,8 +49,6 @@ export default function Page() {
             if (!searchKeyword) return;
 
             const provider = resolveSocialMediaProvider(currentSource);
-            if (!provider) return;
-
             const indicator = pageParam ? createIndicator(undefined, pageParam) : undefined;
 
             switch (searchType) {

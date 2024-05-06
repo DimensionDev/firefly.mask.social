@@ -12,9 +12,8 @@ export function useDeletePost(source: SocialPlatform) {
     const pathname = usePathname();
     return useAsyncFn(
         async (postId: string) => {
-            const provider = resolveSocialMediaProvider(source);
-            if (!provider) return;
             try {
+                const provider = resolveSocialMediaProvider(source);
                 const result = await provider.deletePost(postId);
                 if (!result) throw new Error(`Failed to delete post: ${postId}`);
 

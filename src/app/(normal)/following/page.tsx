@@ -39,8 +39,6 @@ export default function Following() {
             if (!currentProfile?.profileId) return;
 
             const provider = resolveSocialMediaProvider(currentSource);
-            if (!provider) return;
-
             const posts = await provider.discoverPostsById(
                 currentProfile.profileId,
                 createIndicator(undefined, pageParam),
