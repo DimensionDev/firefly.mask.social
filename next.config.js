@@ -16,6 +16,10 @@ export default {
         // Note: we run tsc -b in other places
         ignoreBuildErrors: true,
     },
+    eslint: {
+        // Note: we run tsc -b in other places
+        ignoreDuringBuilds: true,
+    },
     logging: {
         fetches: {
             fullUrl: true,
