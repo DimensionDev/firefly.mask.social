@@ -27,7 +27,7 @@ jobs:
               run: ./scripts/setup-gh-actions.sh
 
             - name: Compile typescript files
-              run: npx tsc -p tsconfig.json --noEmit false
+              run: npx tsc -b .
 
             - uses: pnpm/action-setup@v2
             - name: Run unit tests
