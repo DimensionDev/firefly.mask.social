@@ -51,22 +51,24 @@ export const ConfirmModal = forwardRef<SingletonModalRefCreator<ConfirmModalOpen
 
                     <div className="flex flex-col gap-3 p-6">
                         {content}
-                        {enableCancelButton ? (
-                            <ClickableButton
-                                className=" flex items-center justify-center rounded-full py-[11px] font-bold text-lightBottom"
-                                onClick={() => dispatch?.close(false)}
-                            >
-                                {cancelButtonText || t`Cancel`}
-                            </ClickableButton>
-                        ) : null}
-                        {enableConfirmButton ? (
-                            <ClickableButton
-                                className=" flex items-center justify-center rounded-full bg-commonDanger py-[11px] font-bold text-lightBottom"
-                                onClick={() => dispatch?.close(true)}
-                            >
-                                {confirmButtonText || t`Confirm`}
-                            </ClickableButton>
-                        ) : null}
+                        <div className=" flex flex-row gap-3">
+                            {enableCancelButton ? (
+                                <ClickableButton
+                                    className=" flex flex-1 items-center justify-center rounded-full border border-lightBottom py-[11px] font-bold text-lightBottom"
+                                    onClick={() => dispatch?.close(false)}
+                                >
+                                    {cancelButtonText || t`Cancel`}
+                                </ClickableButton>
+                            ) : null}
+                            {enableConfirmButton ? (
+                                <ClickableButton
+                                    className=" flex flex-1 items-center justify-center rounded-full bg-commonDanger py-[11px] font-bold text-lightBottom"
+                                    onClick={() => dispatch?.close(true)}
+                                >
+                                    {confirmButtonText || t`Confirm`}
+                                </ClickableButton>
+                            ) : null}
+                        </div>
                     </div>
                 </div>
             </Modal>

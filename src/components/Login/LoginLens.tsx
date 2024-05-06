@@ -16,7 +16,13 @@ import { ProfileInList } from '@/components/Login/ProfileInList.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
-import { AccountModalRef, ConnectWalletModalRef, LoginModalRef } from '@/modals/controls.js';
+import { restoreProfile } from '@/helpers/restoreProfile.js';
+import {
+    AccountModalRef,
+    ConnectWalletModalRef,
+    FireflySessionConfirmModalRef,
+    LoginModalRef,
+} from '@/modals/controls.js';
 import { createSessionForProfileIdFirefly } from '@/providers/lens/createSessionForProfileId.js';
 import { updateSignless } from '@/providers/lens/updateSignless.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
@@ -48,8 +54,11 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
                     await updateSignless(true);
                 }
 
-                updateProfiles(profiles);
-                updateCurrentProfile(currentProfile, session);
+                // restore profiles exclude lens
+                await FireflySessionConfirmModalRef.openAndWaitForClose();
+                // restore profiles for lens
+                restoreProfile(currentProfile, profiles, session);
+
                 enqueueSuccessMessage(t`Your Lens account is now connected.`);
                 LoginModalRef.close();
             } catch (error) {

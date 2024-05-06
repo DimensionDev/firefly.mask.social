@@ -1,8 +1,13 @@
 import { t } from '@lingui/macro';
 import type { SingletonModalRefCreator } from '@masknet/shared-base';
 import { useSingletonModal } from '@masknet/shared-base-ui';
+import { compact } from 'lodash-es';
 import { forwardRef } from 'react';
 
+import { ProfileInList } from '@/components/ProfileInList.js';
+import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
+import { resolveSocialPlatformFromSessionType } from '@/helpers/resolveSocialPlatform.js';
+import { restoreProfile } from '@/helpers/restoreProfile.js';
 import { ConfirmModalRef } from '@/modals/controls.js';
 import { syncSessionFromFirefly } from '@/services/syncSessionFromFirefly.js';
 
@@ -17,27 +22,54 @@ export const FireflySessionConfirmModal = forwardRef<
 >(function FireflySessionModal(_, ref) {
     const [open, dispatch] = useSingletonModal(ref, {
         async onOpen() {
-            // firefly session has been created
             try {
+                // firefly session has been created
                 const sessions = await syncSessionFromFirefly();
+
+                // no session to restore
+                if (!sessions.length) {
+                    dispatch?.close(false);
+                    return;
+                }
+
+                // convert session to profile
+                const allSettled = await Promise.allSettled(
+                    sessions.map((x) => {
+                        const provider = resolveSocialMediaProvider(resolveSocialPlatformFromSessionType(x.type));
+                        return provider.getProfileById(x.profileId);
+                    }),
+                );
+                const pairs = compact(
+                    allSettled.map((x, i) =>
+                        x.status === 'fulfilled'
+                            ? {
+                                  profile: x.value,
+                                  session: sessions[i],
+                              }
+                            : null,
+                    ),
+                );
+
                 const confirmed = await ConfirmModalRef.openAndWaitForClose({
                     title: t`Device Logged In`,
                     content: (
-                        <div className="text-[15px] font-medium leading-normal text-lightMain">
-                            <p>One click to connect your account status.</p>
+                        <div>
+                            <p className="text-[15px] font-medium leading-normal text-lightMain">
+                                One click to connect your account status.
+                            </p>
+                            <ul className=" pt-2">
+                                {pairs.map(({ profile }) => (
+                                    <ProfileInList key={profile.profileId} profile={profile} noFollowButton />
+                                ))}
+                            </ul>
                         </div>
                     ),
                     enableCancelButton: true,
                     cancelButtonText: t`Skip for now`,
                 });
 
-                console.log('DEBUG: restored sessions');
-                console.log(sessions);
-
                 if (confirmed) {
-                    sessions.forEach((session) => {
-                        // restore session directly
-                    });
+                    pairs.forEach(({ profile, session }) => restoreProfile(profile, [profile], session));
                 }
 
                 dispatch?.close(confirmed);

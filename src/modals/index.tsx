@@ -9,6 +9,7 @@ import { ConfirmModal } from '@/modals/ConfirmModal.js';
 import { ConnectWalletModal } from '@/modals/ConnectWalletModal.js';
 import * as controls from '@/modals/controls.js';
 import { DraggablePopover } from '@/modals/DraggablePopover.js';
+import { FireflySessionConfirmModal } from '@/modals/FireflySessionConfirmModal.js';
 import { LoginModal } from '@/modals/LoginModal.js';
 import { LogoutModal } from '@/modals/LogoutModal.js';
 import { SessionRecoveryModal } from '@/modals/SessionRecoveryModal.js';
@@ -24,6 +25,7 @@ export const Modals = memo(function Modals() {
             <LogoutModal ref={controls.LogoutModalRef.register} />
             <ComposeModal ref={controls.ComposeModalRef.register} />
             <ConfirmModal ref={controls.ConfirmModalRef.register} />
+            <FireflySessionConfirmModal ref={controls.FireflySessionConfirmModalRef.register} />
             <DraggablePopover ref={controls.DraggablePopoverRef.register} />
             <Snackbar ref={controls.SnackbarRef.register} />
             <SessionRecoveryModal ref={controls.SessionRecoveryModalRef.register} />
