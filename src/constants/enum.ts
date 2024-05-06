@@ -100,7 +100,7 @@ export enum FarcasterSignType {
     GrantPermission = 'grant_permission',
     // reconnect with firefly
     RelayService = 'relay_service',
-    // recovery phrace
+    // recovery phrase
     RecoveryPhrase = 'recovery_phrase',
     // custody wallet
     CustodyWallet = 'custody_wallet',
