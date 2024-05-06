@@ -42,8 +42,15 @@
 
                 browserTips.setAttribute(
                     'style',
-                    `position: fixed; left: 0; top: 0; width: 100%; z-index: 9999; padding: 10px; text-align: center; font-size: 12px; line-height: 18px; background-color: ${bgColor} !important`,
+                    `position: fixed; 
+                    left: 0; top: 0; width: 100%; z-index: 9999; padding: 10px; text-align: center; font-size: 15px; line-height: 24px; background-color: ${bgColor} !important`,
                 );
+                //move page down to avoid cover by tips
+                function moveDownPage() {
+                    const tipHeight = browserTips.clientHeight;
+                    const content = (document.querySelectorAll('body>div:not(#browser-tips)').style.transform =
+                        `translateY(${tipHeight}px)`);
+                }
 
                 const keywordColor = isDarkMode ? 'var(--color-light-main)' : 'rgb(146, 80, 255)';
                 const keywordTag = (link, name) =>
@@ -54,10 +61,12 @@
 
                 const chromeLinkTag = keywordTag('https://www.google.com/chrome/', 'Chrome');
                 const downloadLinkTag = keywordTag('https://firefly.land/#download', isCN ? '下载' : 'download');
+
                 browserTips.innerHTML = isCN
                     ? `请使用 ${chromeLinkTag} 或 ${downloadLinkTag} 我们的APP浏览`
                     : `Please use ${chromeLinkTag} or ${downloadLinkTag} our app to explore more`;
                 document.body.appendChild(browserTips);
+                moveDownPage();
             };
 
             //watch dark mode change
@@ -66,7 +75,7 @@
             const observer = new MutationObserver((mutations) => {
                 mutations.forEach((mutation) => {
                     if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
-                        const isDark = mutation.target.classList.contains('dark');
+                        const isDark = mutation?.target?.classList?.contains('dark');
                         if (isDark) {
                             showTip(true);
                         } else {
@@ -78,6 +87,6 @@
             observer.observe(htmlElement, { attributes: true, attributeFilter: ['class'] });
         }
     } catch (error) {
-        console.error('Failed to detect bowser, reason: ', error.message);
+        console.error('Failed to detect bowser, reason: ', error);
     }
 })();
