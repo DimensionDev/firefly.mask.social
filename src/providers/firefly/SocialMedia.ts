@@ -149,7 +149,7 @@ class FireflySocialMedia implements Provider {
         return formatArticleFromFirefly(article);
     }
 
-    async getFollowingArtiles(indicator?: PageIndicator) {
+    async getFollowingArtcles(indicator?: PageIndicator) {
         const url = urlcat(FIREFLY_ROOT_URL, '/v1/timeline/articles');
 
         const response = await fireflySessionHolder.fetch<GetFollowingArticlesResponse>(url, {

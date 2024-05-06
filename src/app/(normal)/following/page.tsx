@@ -68,7 +68,7 @@ export default function Following() {
         networkMode: 'always',
         queryFn: async ({ pageParam }) => {
             if (currentSource !== SocialPlatform.Article) return createPageable(EMPTY_LIST, undefined);
-            return FireflySocialMediaProvider.getFollowingArtiles(createIndicator(undefined, pageParam));
+            return FireflySocialMediaProvider.getFollowingArtcles(createIndicator(undefined, pageParam));
         },
         initialPageParam: '',
         getNextPageParam: (lastPage) => lastPage.nextIndicator?.id,
