@@ -67,7 +67,7 @@ function tweetV2ToPost(item: TweetV2, type?: PostType, includes?: ApiV2Includes)
             ret.root = endCommentOn;
         }
         if (ret.root?.postId === ret.commentOn?.postId) {
-            delete ret.root
+            delete ret.root;
         }
     }
     return ret;
