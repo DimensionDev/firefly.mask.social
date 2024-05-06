@@ -36,8 +36,13 @@ async function login(createSession: () => Promise<FarcasterSession>) {
         // restore profile exclude farcaster
         await FireflySessionConfirmModalRef.openAndWaitForClose();
     } catch (error) {
+        // abort error should not be shown to user
         const message = error instanceof Error ? error.message : typeof error === 'string' ? error : `${error}`;
         if (message.toLowerCase().includes('aborted')) return;
+
+        // if login timed out, we will let the user refresh the QR code
+        if (message.toLowerCase().includes('farcaster login timed out')) return;
+
         enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to login`), {
             error,
         });
@@ -58,33 +63,32 @@ export function LoginFarcaster() {
         isIncrement: false,
     });
 
-    const [{ loading: loadingGrantPermission, error: errorGrantPermission }, onLoginWithGrantPermission] =
-        useAsyncFn(async () => {
-            // reset the process if abort controller is aborted or not initialized
-            if (!controllerRef.current || controllerRef.current?.signal.aborted) {
-                controllerRef.current = new AbortController();
+    const [{ loading: loadingGrantPermission }, onLoginWithGrantPermission] = useAsyncFn(async () => {
+        // reset the process if abort controller is aborted or not initialized
+        if (!controllerRef.current || controllerRef.current?.signal.aborted) {
+            controllerRef.current = new AbortController();
 
-                try {
-                    await login(() =>
-                        createSessionByGrantPermissionFirefly(
-                            (url) => {
-                                resetCountdown();
-                                startCountdown();
-                                const device = getMobileDevice();
-                                if (device === 'unknown') setUrl(url);
-                                else location.href = url;
-                            },
-                            controllerRef.current?.signal,
-                        ),
-                    );
-                } catch (error) {
-                    enqueueErrorMessage(t`Failed to login.`, {
-                        error,
-                    });
-                    throw error;
-                }
+            try {
+                await login(() =>
+                    createSessionByGrantPermissionFirefly(
+                        (url) => {
+                            resetCountdown();
+                            startCountdown();
+                            const device = getMobileDevice();
+                            if (device === 'unknown') setUrl(url);
+                            else location.href = url;
+                        },
+                        controllerRef.current?.signal,
+                    ),
+                );
+            } catch (error) {
+                enqueueErrorMessage(t`Failed to login.`, {
+                    error,
+                });
+                throw error;
             }
-        }, [startCountdown, stopCountdown, resetCountdown]);
+        }
+    }, [startCountdown, stopCountdown, resetCountdown]);
 
     const [{ loading: loadingCustodyWallet }, onLoginWithCustodyWallet] = useAsyncFn(async () => {
         controllerRef.current?.abort('aborted');
@@ -126,27 +130,35 @@ export function LoginFarcaster() {
                     {url ? (
                         <>
                             <div className=" text-center text-[12px] leading-[16px] text-lightSecond">
-                                <Trans>
-                                    On your mobile device with Warpcast, open the{' '}
-                                    <span className="font-bold">Camera</span> app and scan the QR code in{' '}
-                                    {
-                                        <span className="font-bold">
-                                            {plural(count, {
-                                                one: '1 second',
-                                                other: `${count} seconds`,
-                                            })}
-                                        </span>
-                                    }
-                                    .
-                                </Trans>
+                                {count === 0 ? (
+                                    <Trans>Please click and refresh the QR code to log in again.</Trans>
+                                ) : (
+                                    <Trans>
+                                        On your mobile device with Warpcast, open the{' '}
+                                        <span className="font-bold">Camera</span> app and scan the QR code in{' '}
+                                        {
+                                            <span className="font-bold">
+                                                {plural(count, {
+                                                    one: '1 second',
+                                                    other: `${count} seconds`,
+                                                })}
+                                            </span>
+                                        }
+                                        .
+                                    </Trans>
+                                )}
                             </div>
                             <div
                                 className=" relative flex cursor-pointer items-center justify-center"
-                                onClick={onLoginWithGrantPermission}
+                                onClick={() => {
+                                    controllerRef.current?.abort('aborted');
+                                    resetCountdown();
+                                    onLoginWithGrantPermission();
+                                }}
                             >
                                 <QRCode
                                     className={classNames({
-                                        'blur-md': !!errorGrantPermission,
+                                        'blur-md': count === 0,
                                     })}
                                     value={url}
                                     size={360}
