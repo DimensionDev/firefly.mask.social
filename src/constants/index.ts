@@ -17,6 +17,7 @@ export const SITE_DESCRIPTION =
 export const SITE_URL = env.external.NEXT_PUBLIC_SITE_URL;
 export const SITE_HOSTNAME = 'firefly.mask.social';
 
+export const FARCASTER_REPLY_URL = 'https://relay.farcaster.xyz';
 export const WARPCAST_ROOT_URL = 'https://api.warpcast.com/v2';
 export const WARPCAST_CLIENT_URL = 'https://client.warpcast.com/v2';
 export const FIREFLY_ROOT_URL = env.external.NEXT_PUBLIC_FIREFLY_API_URL;

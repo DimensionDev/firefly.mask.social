@@ -2,7 +2,9 @@ import { getPublicKey, utils } from '@noble/ed25519';
 import urlcat from 'urlcat';
 import { toHex } from 'viem';
 
+import { FARCASTER_REPLY_URL, SITE_HOSTNAME, SITE_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { parseURL } from '@/helpers/parseURL.js';
 import { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { FireflySession } from '@/providers/firefly/Session.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
@@ -17,7 +19,14 @@ interface WarpcastSignInResponse {
     deeplinkUrl: string;
 }
 
-async function createChallenge(signal?: AbortSignal) {
+interface FarcasterReplyResponse {
+    channelToken: string;
+    url: string;
+    connectUri: string;
+    nonce: string;
+}
+
+async function createChallengeFromWarpcast(signal?: AbortSignal) {
     // create key pair in client side
     const privateKey = utils.randomPrivateKey();
     const publicKey: `0x${string}` = `0x${Buffer.from(await getPublicKey(privateKey)).toString('hex')}`;
@@ -47,8 +56,35 @@ async function createChallenge(signal?: AbortSignal) {
     };
 }
 
+async function createChallengeFromFarcasterRelay(signal?: AbortSignal) {
+    const url = urlcat(FARCASTER_REPLY_URL, '/v1/channel');
+    const response = await fetchJSON<FarcasterReplyResponse>(url, {
+        method: 'POST',
+        body: JSON.stringify({
+            siweUri: SITE_URL,
+            domain: parseURL(SITE_URL)?.hostname ?? SITE_HOSTNAME,
+        }),
+        signal,
+    });
+
+    const farcasterSession = new FarcasterSession(
+        // not available
+        '',
+        // not available
+        '',
+        Date.now(),
+        Date.now(),
+        response.channelToken,
+    );
+
+    return {
+        deeplink: response.connectUri,
+        session: farcasterSession,
+    };
+}
+
 export async function createSessionByGrantPermissionFirefly(callback?: (url: string) => void, signal?: AbortSignal) {
-    const { deeplink, session } = await createChallenge(signal);
+    const { deeplink, session } = await createChallengeFromFarcasterRelay(signal);
 
     // present QR code to the user or open the link in a new tab
     callback?.(deeplink);
@@ -76,7 +112,7 @@ export async function createSessionByGrantPermissionFirefly(callback?: (url: str
  * @returns
  */
 export async function createSessionByGrantPermission(callback?: (url: string) => void, signal?: AbortSignal) {
-    const { deeplink, session } = await createChallenge(signal);
+    const { deeplink, session } = await createChallengeFromWarpcast(signal);
 
     // present QR code to the user or open the link in a new tab
     callback?.(deeplink);
