@@ -4,12 +4,12 @@ import { useSingletonModal } from '@masknet/shared-base-ui';
 import { compact } from 'lodash-es';
 import { forwardRef } from 'react';
 
+import { ProfileInList } from '@/components/Login/ProfileInList.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSocialPlatformFromSessionType } from '@/helpers/resolveSocialPlatform.js';
 import { restoreProfile } from '@/helpers/restoreProfile.js';
 import { ConfirmModalRef } from '@/modals/controls.js';
 import { syncSessionFromFirefly } from '@/services/syncSessionFromFirefly.js';
-import { ProfileInList } from '@/components/Login/ProfileInList.js';
 
 export interface FireflySessionConfirmModalProps {}
 
@@ -64,6 +64,9 @@ export const FireflySessionConfirmModal = forwardRef<
                                         profile={profile}
                                         isSelected={false}
                                         onSelect={() => {}}
+                                        ProfileAvatarProps={{
+                                            enableSourceIcon: true,
+                                        }}
                                     />
                                 ))}
                             </ul>

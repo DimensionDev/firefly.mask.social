@@ -26,7 +26,6 @@ import {
 import { createSessionForProfileIdFirefly } from '@/providers/lens/createSessionForProfileId.js';
 import { updateSignless } from '@/providers/lens/updateSignless.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
-import { useLensStateStore } from '@/store/useProfileStore.js';
 
 interface LoginLensProps {
     profiles: Profile[];

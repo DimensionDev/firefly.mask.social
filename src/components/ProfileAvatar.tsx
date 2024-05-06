@@ -6,7 +6,7 @@ import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { useIsLarge } from '@/hooks/useMediaQuery.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
-interface ProfileAvatarProps extends React.HTMLAttributes<HTMLElement> {
+export interface ProfileAvatarProps extends React.HTMLAttributes<HTMLElement> {
     profile: Profile;
     size?: number;
     linkable?: boolean;

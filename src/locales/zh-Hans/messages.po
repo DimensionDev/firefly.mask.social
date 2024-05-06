@@ -282,9 +282,6 @@ msgstr ""
 msgid "Reply"
 msgstr "回复"
 
-msgid "Querying the signed key state."
-msgstr ""
-
 msgid "Collected"
 msgstr "已收藏"
 
@@ -407,6 +404,9 @@ msgstr "设置"
 
 msgid "Details"
 msgstr "详情"
+
+msgid "Detect device accounts"
+msgstr ""
 
 msgid "Your Farcaster account is now connected."
 msgstr "你的 Farcaster 账号已经连接。"
@@ -575,9 +575,6 @@ msgstr "引用"
 
 msgid "Image"
 msgstr "图片"
-
-msgid "Failed to query the signed key state."
-msgstr ""
 
 msgid "Copy"
 msgstr ""

@@ -277,9 +277,6 @@ msgstr "Comment cannot be empty."
 msgid "Reply"
 msgstr "Reply"
 
-msgid "Querying the signed key state."
-msgstr "Querying the signed key state."
-
 msgid "Collected"
 msgstr "Collected"
 
@@ -402,6 +399,9 @@ msgstr "Settings"
 
 msgid "Details"
 msgstr "Details"
+
+msgid "Detect device accounts"
+msgstr "Detect device accounts"
 
 msgid "Your Farcaster account is now connected."
 msgstr "Your Farcaster account is now connected."
@@ -570,9 +570,6 @@ msgstr "quote"
 
 msgid "Image"
 msgstr "Image"
-
-msgid "Failed to query the signed key state."
-msgstr "Failed to query the signed key state."
 
 msgid "Copy"
 msgstr "Copy"
