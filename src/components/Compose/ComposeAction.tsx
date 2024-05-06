@@ -1,7 +1,7 @@
 import { Popover } from '@headlessui/react';
 import { BugAntIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext.js';
-import { Trans, t } from '@lingui/macro';
+import { t,Trans } from '@lingui/macro';
 import { delay } from '@masknet/kit';
 import { CrossIsolationMessages } from '@masknet/shared-base';
 import { $getSelection } from 'lexical';
@@ -14,8 +14,7 @@ import GalleryIcon from '@/assets/gallery.svg';
 import NumberSignIcon from '@/assets/number-sign.svg';
 import RedPacketIcon from '@/assets/red-packet.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
-import { ChannelPanel } from '@/components/Compose/Channel/ChannelPanel.js';
-import { useSearchChannels, useSetDefaultSelectedChannel, useShowChannel } from '@/components/Compose/Channel/utils.js';
+import { ChannelAction } from '@/components/Compose/ChannelAction.js';
 import { Media } from '@/components/Compose/Media.js';
 import { PostBy } from '@/components/Compose/PostBy.js';
 import { ReplyRestriction } from '@/components/Compose/ReplyRestriction.js';
@@ -34,11 +33,11 @@ import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfileAll.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useProfilesAll } from '@/hooks/useProfilesAll.js';
+import { useSearchChannels } from '@/hooks/useSearchChannel.js';
 import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';
 import { PluginDebuggerMessages } from '@/mask/message-host/index.js';
 import { ComposeModalRef } from '@/modals/controls.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
-import { ChannelAction } from '@/components/Compose/Channel/ChannelAction.js';
 
 interface ComposeActionProps {}
 
@@ -50,7 +49,8 @@ export function ComposeAction(props: ComposeActionProps) {
     const profilesAll = useProfilesAll();
 
     const { type, posts, addPostInThread, updateRestriction, updateChannel } = useComposeStateStore();
-    const { availableSources, chars, images, video, restriction, isRootPost, parentPost, channel } = useCompositePost();
+    const { availableSources, chars, images, video, restriction, isRootPost, parentPost, channelMap } =
+        useCompositePost();
 
     const { length, visibleLength, invisibleLength } = measureChars(chars, availableSources);
 
@@ -97,9 +97,10 @@ export function ComposeAction(props: ComposeActionProps) {
     const mediaDisabled = !!video || images.length >= maxImageCount;
 
     // channel
-    const channelList = useSearchChannels(inputText);
-    useSetDefaultSelectedChannel(inputText);
-    const showChannel = useShowChannel();
+    const currentSourceWithChannelSupport = SocialPlatform.Farcaster;
+    const channelList = useSearchChannels(inputText, currentSourceWithChannelSupport);
+    const channel = channelMap[currentSourceWithChannelSupport];
+    const showChannel = availableSources.includes(SocialPlatform.Farcaster) && type === 'compose';
 
     return (
         <div className=" px-4 pb-4">
@@ -257,14 +258,16 @@ export function ComposeAction(props: ComposeActionProps) {
                     )}
                 </Popover>
             </div>
-            {showChannel && channel ? (
+            {showChannel && channel && currentSourceWithChannelSupport === SocialPlatform.Farcaster ? (
                 <ChannelAction
                     isRootPost={isRootPost}
                     channelList={channelList}
                     channel={channel}
                     inputText={inputText}
                     setInputText={setInputText}
-                    updateChannel={updateChannel}
+                    updateChannel={(c) => {
+                        updateChannel(SocialPlatform.Farcaster, c);
+                    }}
                 />
             ) : null}
         </div>

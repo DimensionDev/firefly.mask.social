@@ -3,6 +3,7 @@ import { uniqBy } from 'lodash-es';
 
 import { Source, SourceInURL } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
+import { isHomeChannel } from '@/helpers/channel.js';
 import { readChars } from '@/helpers/chars.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { hasRpPayload } from '@/helpers/rpPayload.js';
@@ -14,10 +15,9 @@ import { type CompositePost } from '@/store/useComposeStore.js';
 import { useFarcasterStateStore } from '@/store/useProfileStore.js';
 import type { ComposeType } from '@/types/compose.js';
 import type { MediaObject } from '@/types/index.js';
-import { getChannelUrl } from '@/helpers/getChannelUrl.js';
 
 export async function postToFarcaster(type: ComposeType, compositePost: CompositePost) {
-    const { chars, parentPost, images, frames, openGraphs, typedMessage, postId, channel } = compositePost;
+    const { chars, parentPost, images, frames, openGraphs, typedMessage, postId, channelMap } = compositePost;
 
     const farcasterPostId = postId.Farcaster;
     const farcasterParentPost = parentPost.Farcaster;
@@ -32,6 +32,7 @@ export async function postToFarcaster(type: ComposeType, compositePost: Composit
 
     const composeDraft = (postType: PostType, images: MediaObject[]) => {
         const hasPayload = hasRpPayload(typedMessage);
+        const channel = channelMap[SocialPlatform.Farcaster];
         return {
             publicationId: '',
             type: postType,
@@ -53,10 +54,8 @@ export async function postToFarcaster(type: ComposeType, compositePost: Composit
                 (x) => x.url.toLowerCase(),
             ),
             commentOn: type === 'reply' && farcasterParentPost ? farcasterParentPost : undefined,
-            // parentChannelKey: hasPayload ? env.external.NEXT_PUBLIC_REDPACKET_CHANNEL_KEY : undefined,
-            // parentChannelUrl: hasPayload ? env.external.NEXT_PUBLIC_REDPACKET_CHANNEL_URL : undefined,
-            parentChannelKey: channel?.id || undefined,
-            parentChannelUrl: channel ? channel.parentUrl || undefined : undefined, // home channel's parentUrl is ''
+            parentChannelKey: channel ? (isHomeChannel(channel) ? undefined : channel.id) : undefined,
+            parentChannelUrl: channel ? (isHomeChannel(channel) ? undefined : channel.parentUrl) : undefined,
         } satisfies Post;
     };
 
@@ -73,7 +72,6 @@ export async function postToFarcaster(type: ComposeType, compositePost: Composit
             );
         },
         compose: (images) => {
-            console.log('xxx', composeDraft('Post', images));
             return FarcasterSocialMediaProvider.publishPost(composeDraft('Post', images));
         },
         reply: (images) => {

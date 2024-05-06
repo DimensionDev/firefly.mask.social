@@ -11,22 +11,21 @@ import { classNames } from '@/helpers/classNames.js';
 import { useIsSmall } from '@/hooks/useMediaQuery.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
 
-// export type SubChannel = Pick<Channel, 'id' | 'name' | 'imageUrl'>;
-interface FcChannelProps {
+interface ChannelSearchPanelProps {
     channelList: Channel[];
     selectChannel: (channel: Channel) => void;
     selectedChannel: Channel | null;
     inputText: string;
-    setInputText: (v: string) => void;
+    setInputText: (input: string) => void;
 }
 
-export function ChannelPanel({
+export function ChannelSearchPanel({
     channelList,
     selectChannel,
     selectedChannel,
     inputText,
     setInputText,
-}: FcChannelProps) {
+}: ChannelSearchPanelProps) {
     const isSmall = useIsSmall('max');
     return (
         <Transition
@@ -38,8 +37,8 @@ export function ChannelPanel({
             leaveFrom="opacity-100"
             leaveTo="opacity-0 translate-y-1"
         >
-            <Popover.Panel className="absolute bottom-full right-0 flex w-[320px] -translate-y-3 flex-col gap-2 rounded-lg bg-bgModal p-3 text-[15px] shadow-popover dark:border dark:border-line dark:shadow-none">
-                <div className="relative flex flex-grow items-center rounded-xl bg-lightBg px-3 text-main">
+            <Popover.Panel className="absolute bottom-full right-0 flex w-[320px] -translate-y-3 flex-col gap-2 rounded-lg bg-bgModal p-3 text-[15px] shadow-popover dark:border dark:border-line dark:shadow-none ">
+                <div className="relative flex flex-grow items-center rounded-xl px-3 text-main bg-gray-100">
                     <SearchIcon width={18} height={18} className="shrink-0" />
                     <SearchInput
                         value={inputText}
@@ -47,7 +46,7 @@ export function ChannelPanel({
                         onClear={() => setInputText('')}
                     />
                 </div>
-                <div className="channel-list">
+                <div className="channel-list flex flex-col gap-2">
                     {channelList.map((channel) => (
                         <Fragment key={channel.id}>
                             <div
@@ -73,7 +72,6 @@ export function ChannelPanel({
                                     <RadioDisableNoIcon width={20} height={20} className=" text-secondaryLine" />
                                 )}
                             </div>
-                            {channel.id !== last(channelList)?.id && <div className=" h-px bg-line" />}
                         </Fragment>
                     ))}
                 </div>

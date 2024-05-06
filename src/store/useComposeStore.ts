@@ -18,6 +18,7 @@ import type { Frame } from '@/types/frame.js';
 import type { MediaObject } from '@/types/index.js';
 import type { OpenGraph } from '@/types/og.js';
 import type { RedPacketPayload } from '@/types/rp.js';
+import { HOME_CHANNEL } from '@/constants/channel.js';
 
 // post id for tracking the current editable post
 type Cursor = string;
@@ -52,8 +53,8 @@ export interface CompositePost {
     openGraphs: OpenGraph[];
     rpPayload: RedPacketPayload | null;
 
-    // only available in farcaster
-    channel: Channel|null;
+    // only available in farcaster now
+    channelMap: Record<SocialPlatform, Channel | null>;
 }
 
 interface ComposeState {
@@ -103,7 +104,7 @@ interface ComposeState {
     updateRpPayload: (value: RedPacketPayload, cursor?: Cursor) => void;
     loadFramesFromChars: (cursor?: Cursor) => Promise<void>;
     loadOpenGraphsFromChars: (cursor?: Cursor) => Promise<void>;
-    updateChannel: (channel: Channel|null, cursor?: Cursor) => void;
+    updateChannel: (source: SocialPlatform, channel: Channel | null, cursor?: Cursor) => void;
 
     // reset the editor
     clear: () => void;
@@ -136,7 +137,11 @@ function createInitSinglePostState(cursor: Cursor): CompositePost {
         openGraphs: EMPTY_LIST,
         video: null,
         rpPayload: null,
-        channel: null,
+        channelMap: {
+            [SocialPlatform.Farcaster]: HOME_CHANNEL,
+            [SocialPlatform.Lens]: null,
+            [SocialPlatform.Twitter]: null,
+        },
     };
 }
 
@@ -423,13 +428,16 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
                 ),
             );
         },
-        updateChannel(channel, cursor) {
+        updateChannel(source, channel, cursor) {
             set((state) =>
                 next(
                     state,
                     (post) => ({
                         ...post,
-                        channel,
+                        channelMap: {
+                            ...post.channelMap,
+                            [source]: channel,
+                        },
                     }),
                     cursor,
                 ),
@@ -477,6 +485,3 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
 );
 
 export const useComposeStateStore = createSelectors(useComposeStateBase);
-
-// @ts-ignore
-global.__useComposeStateBase = useComposeStateBase;

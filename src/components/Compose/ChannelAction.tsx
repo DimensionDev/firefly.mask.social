@@ -1,17 +1,18 @@
 import { Popover } from '@headlessui/react';
-import { Trans, t } from '@lingui/macro';
-import { BugAntIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
-import { ChannelPanel } from '@/components/Compose/Channel/ChannelPanel.js';
+import { ChevronRightIcon } from '@heroicons/react/24/outline';
+import { Trans } from '@lingui/macro';
+
+import { ChannelSearchPanel } from '@/components/Compose/ChannelSearchPanel.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
 
-export type ChannelActionProps = {
+export interface ChannelActionProps {
     isRootPost: boolean;
     channelList: Channel[];
     channel: Channel;
     inputText: string;
-    setInputText: (v: string) => void;
-    updateChannel: (c: Channel) => void;
-};
+    setInputText: (input: string) => void;
+    updateChannel: (channel: Channel) => void;
+}
 export function ChannelAction({
     isRootPost,
     channelList,
@@ -35,7 +36,7 @@ export function ChannelAction({
                             <span className=" text-[15px] font-bold">{channel.name}</span>
                             <ChevronRightIcon className="h-5 w-5" aria-hidden="true" />
                         </Popover.Button>
-                        <ChannelPanel
+                        <ChannelSearchPanel
                             inputText={inputText}
                             setInputText={setInputText}
                             channelList={channelList}
