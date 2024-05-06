@@ -541,6 +541,9 @@ msgstr "No comments found"
 msgid "unmute"
 msgstr "unmute"
 
+msgid "{0} /{1} successfully"
+msgstr "{0} /{1} successfully"
+
 msgid "Discard"
 msgstr "Discard"
 

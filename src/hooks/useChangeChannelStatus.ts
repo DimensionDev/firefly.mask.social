@@ -25,7 +25,7 @@ export function useChangeChannelStatus(operator: Profile | null) {
                     stale: true,
                     type: 'active',
                 });
-                enqueueSuccessMessage(t`Successed to ${muted ? t`unmute` : t`mute`} /${channel.name}`);
+                enqueueSuccessMessage(t`${muted ? t`Unmute` : t`Mute`} /${channel.name} successfully`);
                 return true;
             } catch (error) {
                 enqueueErrorMessage(t`Failed to ${muted ? t`unmute` : t`mute`} /${channel.name}`, { error });
