@@ -18,9 +18,6 @@ pnpm install
 npx gulp polyfill
 npx gulp codegen
 
-# Build TypeScript code
-npx tsc -b
-
 # Return to the original directory
 cd -
 

@@ -5,7 +5,7 @@
         "declaration": true,
         "composite": true,
         "emitDeclarationOnly": true,
-        "lib": ["DOM", "ESNext", "webworker"]
+        "lib": ["ESNext", "WebWorker"]
     },
     "references": []
 }

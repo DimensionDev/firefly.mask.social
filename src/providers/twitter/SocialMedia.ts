@@ -70,11 +70,11 @@ class TwitterSocialMedia implements Provider {
         throw new Error('Method not implemented.');
     }
 
-    getFollowers(profileId: string): Promise<Pageable<Profile>> {
+    getFollowers(profileId: string, indicator?: PageIndicator): Promise<Pageable<Profile>> {
         throw new Error('Method not implemented.');
     }
 
-    getFollowings(profileId: string): Promise<Pageable<Profile>> {
+    getFollowings(profileId: string, indicator?: PageIndicator): Promise<Pageable<Profile>> {
         throw new Error('Method not implemented.');
     }
 

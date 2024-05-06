@@ -13,7 +13,7 @@
         "start": "next start",
         "lint": "next lint",
         "test": "vitest",
-        "typecheck": "tsc --noEmit",
+        "typecheck": "tsc -b . --noEmit",
         "lingui:compile": "lingui compile",
         "lingui:extract": "NODE_ENV=development lingui extract --clean",
         "lingui": "pnpm run lingui:extract && pnpm run lingui:compile",
