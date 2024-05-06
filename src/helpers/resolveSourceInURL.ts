@@ -1,6 +1,6 @@
 import { createLookupTableResolver } from '@masknet/shared-base';
 
-import { Source, SourceInURL, type SocialSource } from '@/constants/enum.js';
+import { type SocialSource,Source, SourceInURL } from '@/constants/enum.js';
 
 export const resolveSourceInURL = createLookupTableResolver<Source, SourceInURL>(
     {
