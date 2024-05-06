@@ -1,19 +1,19 @@
 import type { TypedMessageTextV1 } from '@masknet/typed-message';
 import { uniq } from 'lodash-es';
-import { type SetStateAction, useMemo } from 'react';
+import { type SetStateAction } from 'react';
 import { v4 as uuid } from 'uuid';
 import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
 
-import { SocialPlatform } from '@/constants/enum.js';
-import { EMPTY_LIST } from '@/constants/index.js';
+import { RestrictionType, SocialPlatform } from '@/constants/enum.js';
+import { EMPTY_LIST, SORTED_SOURCES } from '@/constants/index.js';
 import { type Chars, readChars } from '@/helpers/chars.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 import { getCurrentAvailableSources } from '@/helpers/getCurrentAvailableSources.js';
 import { FrameLoader } from '@/libs/frame/Loader.js';
 import { OpenGraphLoader } from '@/libs/og/Loader.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
-import { type ComposeType, RestrictionType } from '@/types/compose.js';
+import { type ComposeType } from '@/types/compose.js';
 import type { Frame } from '@/types/frame.js';
 import type { MediaObject } from '@/types/index.js';
 import type { OpenGraph } from '@/types/og.js';
@@ -28,6 +28,7 @@ export type OrphanPost = Omit<
     'embedPosts' | 'comments' | 'root' | 'commentOn' | 'quoteOn' | 'firstComment' | 'threads'
 >;
 
+// A composite post uses availableSources of the root post.
 export interface CompositePost {
     id: Cursor;
 
@@ -35,8 +36,11 @@ export interface CompositePost {
     postId: Record<SocialPlatform, string | null>;
     // tracking the parent post in specific platform
     parentPost: Record<SocialPlatform, OrphanPost | null>;
+    // tracking error
+    postError: Record<SocialPlatform, Error | null>;
 
     restriction: RestrictionType;
+    // use the same value of root post
     availableSources: SocialPlatform[];
     chars: Chars;
     typedMessage: TypedMessageTextV1 | null;
@@ -74,12 +78,15 @@ interface ComposeState {
     // switch to the current editable post
     updateCursor: (cursor: Cursor) => void;
 
+    // operations upon all posts
+    enableSource: (source: SocialPlatform) => void;
+    disableSource: (source: SocialPlatform) => void;
+    updateRestriction: (restriction: RestrictionType) => void;
+
     // operations upon the current editable post
-    enableSource: (source: SocialPlatform, cursor?: Cursor) => void;
-    disableSource: (source: SocialPlatform, cursor?: Cursor) => void;
     updatePostId: (source: SocialPlatform, postId: string, cursor?: Cursor) => void;
+    updatePostError: (source: SocialPlatform, postError: Error, cursor?: Cursor) => void;
     updateParentPost: (source: SocialPlatform, parentPost: Post, cursor?: Cursor) => void;
-    updateRestriction: (restriction: RestrictionType, cursor?: Cursor) => void;
     updateAvailableSources: (sources: SocialPlatform[], cursor?: Cursor) => void;
     updateChars: (charsOrUpdater: SetStateAction<Chars>, cursor?: Cursor) => void;
     updateTypedMessage: (typedMessage: TypedMessageTextV1 | null, cursor?: Cursor) => void;
@@ -102,6 +109,11 @@ function createInitSinglePostState(cursor: Cursor): CompositePost {
     return {
         id: cursor,
         postId: {
+            [SocialPlatform.Farcaster]: null,
+            [SocialPlatform.Lens]: null,
+            [SocialPlatform.Twitter]: null,
+        },
+        postError: {
             [SocialPlatform.Farcaster]: null,
             [SocialPlatform.Lens]: null,
             [SocialPlatform.Twitter]: null,
@@ -160,7 +172,10 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
 
                 const nextPosts = [
                     ...state.posts.slice(0, index + 1),
-                    createInitSinglePostState(cursor),
+                    {
+                        ...createInitSinglePostState(cursor),
+                        availableSources: state.posts[0].availableSources,
+                    },
                     ...state.posts.slice(index + 1), // corrected slicing here
                 ];
 
@@ -206,28 +221,28 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
             set((state) => {
                 state.type = type;
             }),
-        enableSource: (source, cursor) =>
-            set((state) =>
-                next(
-                    state,
-                    (post) => ({
-                        ...post,
-                        availableSources: uniq([...post.availableSources, source]),
-                    }),
-                    cursor,
-                ),
-            ),
-        disableSource: (source, cursor) =>
-            set((state) =>
-                next(
-                    state,
-                    (post) => ({
-                        ...post,
-                        availableSources: post.availableSources.filter((s) => s !== source),
-                    }),
-                    cursor,
-                ),
-            ),
+        enableSource: (source) =>
+            set((state) => ({
+                ...state,
+                posts: state.posts.map((x) => {
+                    const availableSources = uniq([...x.availableSources, source]);
+                    return {
+                        ...x,
+                        availableSources: SORTED_SOURCES.filter((x) => availableSources.includes(x)),
+                    };
+                }),
+            })),
+        disableSource: (source) =>
+            set((state) => ({
+                ...state,
+                posts: state.posts.map((x) => {
+                    const availableSources = x.availableSources.filter((s) => s !== source);
+                    return {
+                        ...x,
+                        availableSources: SORTED_SOURCES.filter((x) => availableSources.includes(x)),
+                    };
+                }),
+            })),
         updateParentPost: (source, parentPost, cursor) =>
             set((state) =>
                 next(
@@ -260,17 +275,28 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
                     cursor,
                 ),
             ),
-        updateRestriction: (restriction, cursor) =>
+        updatePostError: (source, postError, cursor) =>
             set((state) =>
                 next(
                     state,
                     (post) => ({
                         ...post,
-                        restriction,
+                        postId: {
+                            ...post.postId,
+                            [source]: postError,
+                        },
                     }),
                     cursor,
                 ),
             ),
+        updateRestriction: (restriction) =>
+            set((state) => ({
+                ...state,
+                posts: state.posts.map((x) => ({
+                    ...x,
+                    restriction,
+                })),
+            })),
         updateChars: (charsOrUpdater, cursor) =>
             set((state) =>
                 next(
@@ -435,18 +461,3 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
 );
 
 export const useComposeStateStore = createSelectors(useComposeStateBase);
-
-export function useCompositePost() {
-    const { posts, cursor } = useComposeStateStore();
-
-    return useMemo(() => {
-        const rootPost = posts[0];
-        const compositePost = posts.find((x) => x.id === cursor) || createInitSinglePostState(initialPostCursor);
-
-        return {
-            rootPost,
-            isRootPost: rootPost === compositePost,
-            ...compositePost,
-        };
-    }, [posts, cursor]);
-}

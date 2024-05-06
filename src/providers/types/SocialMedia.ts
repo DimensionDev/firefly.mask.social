@@ -1,7 +1,6 @@
 import type { Pageable, PageIndicator } from '@masknet/shared-base';
 
-import type { SocialPlatform } from '@/constants/enum.js';
-import type { RestrictionType } from '@/types/compose.js';
+import type { RestrictionType, SocialPlatform } from '@/constants/enum.js';
 
 export enum SessionType {
     Twitter = 'Twitter',
@@ -90,6 +89,12 @@ export interface Attachment {
 export type PostType = 'Post' | 'Comment' | 'Quote' | 'Mirror';
 
 export interface Post {
+    /**
+     * For Farcaster, it's hash of the cast.
+     * For Lens, it's id of the publication, which is different from post id.
+     * TODO id for Twitter
+     */
+    publicationId: string;
     type?: PostType;
     /** It's `hash` for Farcaster */
     postId: string;
@@ -169,6 +174,7 @@ export interface Post {
     quoteOn?: Post;
     comments?: Post[];
     embedPosts?: Post[];
+    channel?: Channel;
     /**
      * Lens only
      * To mirror a post on momoka, need to invoke with the client method mirrorOnMomoka
@@ -288,14 +294,17 @@ export interface ChannelLead {
 export interface Channel {
     source: SocialPlatform;
     id: string;
-    url: string;
     name: string;
     description?: string;
     imageUrl: string;
+    url: string;
     parentUrl: string;
+    followerCount: number;
+    mutualFollowerCount?: number;
     /** time in milliseconds */
     timestamp: number;
-    lead?: ChannelLead;
+    lead?: Profile;
+    hosts?: Profile[];
     __original__?: unknown;
 }
 
@@ -309,6 +318,14 @@ export interface Provider {
      * @returns A promise that resolves to post id.
      */
     publishPost: (post: Post) => Promise<string>;
+
+    /**
+     * Delete a post with the specified post ID.
+     *
+     * @param postId The ID of the post to delete.
+     * @returns
+     */
+    deletePost: (postId: string) => Promise<boolean>;
 
     /**
      * Mirrors a post with the specified post ID.
@@ -361,19 +378,17 @@ export interface Provider {
      * Upvotes a post with the specified post ID.
      *
      * @param postId The ID of the post to upvote.
-     * @param (optional) authorId The ID of the post author, used for hubble
      * @returns A promise that resolves to a Reaction object.
      */
-    upvotePost: (postId: string, authorId?: number) => Promise<void>;
+    upvotePost: (postId: string) => Promise<void>;
 
     /**
      * Removes an upvote from a post with the specified post ID.
      *
      * @param postId The ID of the post to remove the upvote from.
-     * @param (optional) authorId The ID of the post author, used for hubble
      * @returns A promise that resolves to void.
      */
-    unvotePost: (postId: string, authorId?: number) => Promise<void>;
+    unvotePost: (postId: string) => Promise<void>;
 
     /**
      *
@@ -405,6 +420,7 @@ export interface Provider {
 
     /**
      * Retrieves a post by its post ID.
+     * (This api must be implemented for cross posting to work properly.)
      *
      * @param postId The ID of the post to retrieve.
      * @returns A promise that resolves to a Post object.
@@ -470,6 +486,22 @@ export interface Provider {
      * @returns A promise that resolves to a pageable list of Post objects.
      */
     getPostsByProfileId: (profileId: string, indicator?: PageIndicator) => Promise<Pageable<Post>>;
+
+    /**
+     * Retrieves liked posts by a specific profile ID.
+     * @param profileId The ID of the profile.
+     * @param indicator Optional PageIndicator for pagination.
+     * @returns A promise that resolves to a pageable list of Post objects.
+     */
+    getLikedPostsByProfileId: (profileId: string, indicator?: PageIndicator) => Promise<Pageable<Post>>;
+
+    /**
+     *  Retrieves replies posts by a specific profile ID.
+     * @param profileId The ID of the profile.
+     * @param indicator Optional PageIndicator for pagination.
+     * @returns A promise that resolves to a pageable list of Post objects.
+     */
+    getRepliesPostsByProfileId: (profileId: string, indicator?: PageIndicator) => Promise<Pageable<Post>>;
 
     /**
      * Retrieves posts in a specific channel by ID.
@@ -622,7 +654,29 @@ export interface Provider {
     /**
      * Retrieves posts associated with a thread using the root post id.
      * @param postId
-     * @param rootPost
+     * @param localPost
      */
-    getThreadByPostId: (postId: string, rootPost?: Post) => Promise<Post[]>;
+    getThreadByPostId: (postId: string, localPost?: Post) => Promise<Post[]>;
+
+    /**
+     * Report a user
+     */
+    reportUser: (profileId: string) => Promise<boolean>;
+    /**
+     * Report a post
+     */
+    reportPost: (post: Post) => Promise<boolean>;
+    /**
+     * Block a user
+     */
+    blockUser: (profileId: string) => Promise<boolean>;
+
+    getLikeReactors: (postId: string, indicator?: PageIndicator) => Promise<Pageable<Profile, PageIndicator>>;
+
+    /**
+     * Including Reposts, Recasts, Mirrors, Retweets
+     */
+    getRepostReactors: (postId: string, indicator?: PageIndicator) => Promise<Pageable<Profile, PageIndicator>>;
+
+    getPostsQuoteOn: (postId: string, indicator?: PageIndicator) => Promise<Pageable<Post, PageIndicator>>;
 }

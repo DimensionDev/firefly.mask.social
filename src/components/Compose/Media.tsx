@@ -1,14 +1,18 @@
 import { Popover, Transition } from '@headlessui/react';
-import { Trans } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import { type ChangeEvent, Fragment, useRef } from 'react';
 import { useAsyncFn } from 'react-use';
 
 import ImageIcon from '@/assets/image.svg';
 import VideoIcon from '@/assets/video.svg';
 import { SocialPlatform } from '@/constants/enum.js';
+import { ALLOWED_IMAGES_MIMES, FILE_MAX_SIZE_IN_BYTES } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
+import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { getCurrentPostImageLimits } from '@/helpers/getCurrentPostImageLimits.js';
-import { useComposeStateStore, useCompositePost } from '@/store/useComposeStore.js';
+import { isValidFileType } from '@/helpers/isValidFileType.js';
+import { useCompositePost } from '@/hooks/useCompositePost.js';
+import { useComposeStateStore } from '@/store/useComposeStore.js';
 
 interface MediaProps {
     close: () => void;
@@ -18,18 +22,25 @@ export function Media({ close }: MediaProps) {
     const videoInputRef = useRef<HTMLInputElement>(null);
 
     const { updateVideo, updateImages } = useComposeStateStore();
-    const { video, images, rootPost } = useCompositePost();
+    const { availableSources, video, images } = useCompositePost();
 
-    const maxImageCount = getCurrentPostImageLimits(rootPost.availableSources);
+    const maxImageCount = getCurrentPostImageLimits(availableSources);
 
     const [, handleImageChange] = useAsyncFn(
         async (event: ChangeEvent<HTMLInputElement>) => {
             const files = event.target.files;
 
             if (files && files.length > 0) {
+                const shouldUploadFiles = [...files].filter((file) => {
+                    if (file.size > FILE_MAX_SIZE_IN_BYTES) {
+                        enqueueErrorMessage(t`The file "${file.name}" exceeds the size limit.`);
+                        return false;
+                    }
+                    return isValidFileType(file.type);
+                });
                 updateImages((images) => {
                     if (images.length === maxImageCount) return images;
-                    return [...images, ...[...files].map((file) => ({ file }))].slice(0, maxImageCount);
+                    return [...images, ...shouldUploadFiles.map((file) => ({ file }))].slice(0, maxImageCount);
                 });
             }
             close();
@@ -51,7 +62,10 @@ export function Media({ close }: MediaProps) {
         [close, updateVideo],
     );
 
-    const disabledVideo = !!video || rootPost.availableSources.includes(SocialPlatform.Farcaster);
+    const disabledVideo =
+        !!video ||
+        availableSources.includes(SocialPlatform.Farcaster) ||
+        (availableSources.includes(SocialPlatform.Lens) && images.length > 0);
 
     return (
         <Transition
@@ -86,7 +100,7 @@ export function Media({ close }: MediaProps) {
 
                 <input
                     type="file"
-                    accept="image/*"
+                    accept={ALLOWED_IMAGES_MIMES.join(', ')}
                     multiple
                     ref={imageInputRef}
                     className="hidden"
@@ -114,9 +128,9 @@ export function Media({ close }: MediaProps) {
 
                 <input
                     type="file"
-                    accept="video/*"
+                    accept="video/mp4"
                     ref={videoInputRef}
-                    className=" hidden"
+                    className="hidden"
                     onChange={handleVideoChange}
                 />
             </Popover.Panel>

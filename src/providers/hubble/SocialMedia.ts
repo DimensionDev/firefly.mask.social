@@ -1,4 +1,12 @@
-import { CastAddBody, Factories, Message, MessageType, ReactionType, toFarcasterTime } from '@farcaster/core';
+import {
+    CastAddBody,
+    CastRemoveBody,
+    Factories,
+    Message,
+    MessageType,
+    ReactionType,
+    toFarcasterTime,
+} from '@farcaster/core';
 import { t } from '@lingui/macro';
 import type { Pageable, PageIndicator } from '@masknet/shared-base';
 import { toInteger } from 'lodash-es';
@@ -68,6 +76,20 @@ class HubbleSocialMedia implements Provider {
     }
 
     getPostsByProfileId(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        throw new Error('Method not implemented.');
+    }
+
+    async getLikedPostsByProfileId(
+        profileId: string,
+        indicator?: PageIndicator,
+    ): Promise<Pageable<Post, PageIndicator>> {
+        throw new Error('Method not implemented.');
+    }
+
+    async getRepliesPostsByProfileId(
+        profileId: string,
+        indicator?: PageIndicator,
+    ): Promise<Pageable<Post, PageIndicator>> {
         throw new Error('Method not implemented.');
     }
 
@@ -223,8 +245,42 @@ class HubbleSocialMedia implements Provider {
             body: messageBytes,
         });
         if (!data) throw new Error(t`Failed to publish post.`);
-
         return hash;
+    }
+
+    async deletePost(postId: string): Promise<boolean> {
+        const { messageBytes } = await encodeMessageData(
+            () => {
+                const data: {
+                    castRemoveBody: CastRemoveBody;
+                } = {
+                    castRemoveBody: {
+                        targetHash: toBytes(postId),
+                    },
+                };
+
+                return data;
+            },
+            async (messageData, signer) => {
+                return Factories.CastRemoveMessage.create(
+                    {
+                        data: messageData,
+                    },
+                    {
+                        transient: { signer },
+                    },
+                );
+            },
+        );
+
+        const url = urlcat(HUBBLE_URL, '/v1/submitMessage');
+        const { data } = await fetchHubbleJSON<Pick<Message, 'data'> & { hash: string }>(url, {
+            method: 'POST',
+            body: messageBytes,
+        });
+        if (!data) throw new Error(t`Failed to publish post.`);
+
+        return true;
     }
 
     async upvotePost(postId: string, authorId?: number) {
@@ -258,6 +314,7 @@ class HubbleSocialMedia implements Provider {
             body: messageBytes,
         });
         if (!data) throw new Error(t`Failed to upvote post.`);
+        return;
     }
 
     async unvotePost(postId: string, authorId?: number) {
@@ -291,6 +348,7 @@ class HubbleSocialMedia implements Provider {
             body: messageBytes,
         });
         if (!data) throw new Error(t`Failed to unvote post.`);
+        return;
     }
 
     async mirrorPost(postId: string, options?: { authorId?: number }) {
@@ -391,7 +449,7 @@ class HubbleSocialMedia implements Provider {
             body: messageBytes,
         });
         if (!data) throw new Error(t`Failed to follow.`);
-        return null!;
+        return;
     }
 
     async unfollow(profileId: string) {
@@ -420,7 +478,7 @@ class HubbleSocialMedia implements Provider {
             body: messageBytes,
         });
         if (!data) throw new Error(t`Failed to unfollow.`);
-        return null!;
+        return;
     }
 
     async validateMessage(messageBytes: string) {
@@ -520,6 +578,25 @@ class HubbleSocialMedia implements Provider {
         if (typeof packet.untrustedData.state === 'undefined') delete packet.untrustedData.state;
 
         return packet;
+    }
+    async reportUser(profileId: string): Promise<boolean> {
+        throw new Error('Method not implemented.');
+    }
+    async reportPost(post: Post): Promise<boolean> {
+        throw new Error('Method not implemented.');
+    }
+    async blockUser(profileId: string): Promise<boolean> {
+        throw new Error('Method not implemented.');
+    }
+    async getLikeReactors(postId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
+        throw new Error('Method not implemented.');
+    }
+    async getRepostReactors(postId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
+        throw new Error('Method not implemented.');
+    }
+
+    async getPostsQuoteOn(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        throw new Error('Method not implemented.');
     }
 }
 

@@ -26,7 +26,6 @@ import type { Post } from '@/providers/types/SocialMedia.js';
 
 interface MirrorProps {
     shares?: number;
-
     source: SocialPlatform;
     postId: string;
     disabled?: boolean;
@@ -74,34 +73,35 @@ export const Mirror = memo<MirrorProps>(function Mirror({ shares = 0, source, po
     const [{ loading }, handleMirror] = useAsyncFn(async () => {
         if (!postId) return;
 
-        switch (source) {
-            case SocialPlatform.Lens:
-                try {
-                    const result = await LensSocialMediaProvider.mirrorPost(postId, { onMomoka: !!post.momoka?.proof });
-                    enqueueSuccessMessage(t`Mirrored`);
+        const mirror = async () => {
+            switch (source) {
+                case SocialPlatform.Lens: {
+                    const result = await LensSocialMediaProvider.mirrorPost(postId);
+                    enqueueSuccessMessage(mirrored ? t`Cancel mirror successfully` : t`Mirrored`);
                     return result;
-                } catch (error) {
-                    if (error instanceof Error) {
-                        enqueueErrorMessage(t`Failed to mirror. ${error.message}`);
-                        return;
-                    }
-                    return;
                 }
-            case SocialPlatform.Farcaster:
-                try {
-                    await (mirrored
+                case SocialPlatform.Farcaster: {
+                    const result = await (mirrored
                         ? FarcasterSocialMediaProvider.unmirrorPost(postId, Number(post.author.profileId))
                         : FarcasterSocialMediaProvider.mirrorPost(postId, { authorId: Number(post.author.profileId) }));
                     enqueueSuccessMessage(mirrored ? t`Cancel recast successfully` : t`Recasted`);
-                    return;
-                } catch {
-                    return;
+                    return result;
                 }
-            case SocialPlatform.Twitter:
-                throw new Error('Not implemented');
-            default:
-                safeUnreachable(source);
-                return;
+                case SocialPlatform.Twitter:
+                    throw new Error('Not implemented');
+                default:
+                    safeUnreachable(source);
+                    return;
+            }
+        };
+
+        try {
+            await mirror();
+        } catch (error) {
+            enqueueErrorMessage(t`Failed to mirror.`, {
+                error,
+            });
+            throw error;
         }
     }, [postId, source, mirrored, queryClient, post.author.profileId]);
 

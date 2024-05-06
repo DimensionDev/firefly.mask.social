@@ -1,3 +1,5 @@
+import { isUndefined } from 'lodash-es';
+
 import { Avatar } from '@/components/Avatar.js';
 import { FollowButton } from '@/components/Channel/FollowButton.js';
 import { SourceIcon } from '@/components/SourceIcon.js';
@@ -5,18 +7,28 @@ import { Link } from '@/esm/Link.js';
 import { getChannelUrl } from '@/helpers/getChannelUrl.js';
 import { useIsSmall } from '@/hooks/useMediaQuery.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
+import { useGlobalState } from '@/store/useGlobalStore.js';
 
 interface ChannelInListProps {
     channel: Channel;
     noFollowButton?: boolean;
+    listKey?: string;
+    index?: number;
 }
 
-export function ChannelInList({ channel, noFollowButton = true }: ChannelInListProps) {
+export function ChannelInList({ channel, noFollowButton = true, listKey, index }: ChannelInListProps) {
     const isSmall = useIsSmall('max');
+    const setScrollIndex = useGlobalState.use.setScrollIndex();
 
     return (
         <div className="flex-start flex cursor-pointer overflow-auto border-b border-secondaryLine px-4 py-6 hover:bg-bg dark:border-line">
-            <Link className="flex-start flex flex-1 overflow-auto" href={getChannelUrl(channel)}>
+            <Link
+                className="flex-start flex flex-1 overflow-auto"
+                onClick={() => {
+                    if (listKey && !isUndefined(index)) setScrollIndex(listKey, index);
+                }}
+                href={getChannelUrl(channel)}
+            >
                 <Avatar
                     className="mr-3 shrink-0 rounded-full border"
                     src={channel.imageUrl}

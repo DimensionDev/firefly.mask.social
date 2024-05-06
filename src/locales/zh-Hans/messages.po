@@ -27,14 +27,14 @@ msgstr "还没有人评论哦～快来抢沙发！"
 msgid "Quote Post"
 msgstr "引用"
 
+msgid "Report @{0}"
+msgstr ""
+
 msgid "Retweet"
 msgstr ""
 
 msgid "Failed to fetch as Blob."
 msgstr "获取 Blob 失败。"
-
-msgid "Failed to upload image to imgur."
-msgstr "上传图片失败。"
 
 msgid "Communities"
 msgstr "社区"
@@ -45,8 +45,8 @@ msgstr "发现"
 msgid "Please be cautious when connecting your wallet, as malicious websites may attempt to access your funds."
 msgstr "当您连接钱包时请务必小心，一些恶意网站会试图访问宁的钱包资产。"
 
-msgid "Failed to mirror. {0}"
-msgstr "转帖失败 {0}"
+msgid "{followerCount, plural, one {Follower} other {Followers}}"
+msgstr ""
 
 msgid "X"
 msgstr ""
@@ -57,8 +57,8 @@ msgstr "诊断网络"
 msgid "Allow Lens Manager to perform actions such as posting, liking, and commenting without the need to sign each transaction."
 msgstr "允许 Lens 管理员执行发帖、点赞和评论等操作，而无需签署每笔交易。"
 
-msgid "{0} views"
-msgstr "{0} 浏览数"
+msgid "Searching channel"
+msgstr ""
 
 msgid "Act"
 msgstr "收藏"
@@ -75,17 +75,26 @@ msgstr "还未支持收藏。"
 msgid "Join our Discord"
 msgstr "加入我们的 Discord"
 
+msgid "Found arweaveTxId is empty."
+msgstr ""
+
 msgid "<0>You</0> and {0} others recasted"
 msgstr "<0> 你 </0> 和 {0} 人都转发了"
 
 msgid "Change Wallet"
 msgstr "更换钱包"
 
+msgid "Confirm you want to block @{0}"
+msgstr ""
+
 msgid "OpenGraph"
 msgstr "OpenGraph"
 
 msgid "Wrong wallet"
 msgstr "错误的钱包"
+
+msgid "Casts"
+msgstr ""
 
 msgid "Transaction button is not available yet."
 msgstr ""
@@ -108,11 +117,23 @@ msgstr ""
 msgid "Copied"
 msgstr "已复制"
 
+msgid "Your posts have published successfully."
+msgstr ""
+
+msgid "Retry"
+msgstr ""
+
+msgid "Show less"
+msgstr ">>>>>>> released"
+
 msgid "comment"
 msgstr "评论"
 
 msgid "Confirm"
 msgstr "确认"
+
+msgid "Failed to report @{0}"
+msgstr ""
 
 msgid "Device Logged In"
 msgstr ""
@@ -128,9 +149,6 @@ msgstr "找不到网页"
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/> and # others}} <4>liked your </4><5><6/></5>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> 和 <2/>} other {<3/> 和其他 # 人}} <4>点赞了你的 </4><5><6/></5>"
-
-msgid "Failed to upload to Arweave"
-msgstr ""
 
 msgid "Password"
 msgstr ""
@@ -183,6 +201,12 @@ msgstr "音频封面"
 msgid "Recent"
 msgstr "最近"
 
+msgid "Block"
+msgstr ""
+
+msgid "Block @{0}"
+msgstr ""
+
 msgid "OpenGraph Validator"
 msgstr "OpenGraph Validator"
 
@@ -195,6 +219,9 @@ msgstr "连接钱包"
 msgid "Feed"
 msgstr "信息流"
 
+msgid "Recasts"
+msgstr ""
+
 msgid "Check out my LuckyDrop 🧧💰✨ on Firefly mobile app or {SITE_URL} !"
 msgstr "在 Firefly 移动端或者 {SITE_URL} 打开我的红包🧧💰✨ ！"
 
@@ -204,14 +231,29 @@ msgstr "确认"
 msgid "Follow more friends to continue exploring on {0}."
 msgstr "在 {0} 上去关注更多的人来继续浏览吧。"
 
+msgid "No wallet client found. Please connect your wallet."
+msgstr ""
+
 msgid "Frame Validator"
 msgstr "Frame Validator"
+
+msgid "Copy Link"
+msgstr ""
 
 msgid "Follow System"
 msgstr "跟随系统"
 
+msgid "Failed to mirror."
+msgstr ""
+
 msgid "URL is required."
 msgstr "请选择 URL"
+
+msgid "The file not found"
+msgstr ""
+
+msgid "Invalid file type. Allowed types: {0}"
+msgstr ""
 
 msgid "Connection failed"
 msgstr "连接失败"
@@ -221,6 +263,9 @@ msgstr "加入我们的 Telegram"
 
 msgid "Log out"
 msgstr "登出"
+
+msgid "{0, plural, one {Your post failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your post failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your post failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
+msgstr ""
 
 msgid "post"
 msgstr "发帖"
@@ -237,11 +282,11 @@ msgstr "查询规则"
 msgid "Try searching for something else."
 msgstr "试试搜索其他东西。"
 
+msgid "Invalid compose type: {type}."
+msgstr ""
+
 msgid "and"
 msgstr "和"
-
-msgid "Failed to quote post on {sourceName}."
-msgstr ""
 
 msgid "Channel"
 msgstr ""
@@ -252,20 +297,8 @@ msgstr ""
 msgid "Comment cannot be empty."
 msgstr ""
 
-msgid "Failed to fetch as Text."
-msgstr "获取内容失败。"
-
 msgid "Reply"
 msgstr "回复"
-
-msgid "Querying the signed key state."
-msgstr ""
-
-msgid "Replied on {sourceName}."
-msgstr ""
-
-msgid "Invalid compose type."
-msgstr ""
 
 msgid "Collected"
 msgstr "已收藏"
@@ -282,9 +315,6 @@ msgstr "无法对帖子进行投票。"
 msgid "Privacy Policy"
 msgstr "隐私条款"
 
-msgid "No wallet client found"
-msgstr "未找到钱包客户端"
-
 msgid "Switch"
 msgstr "切换"
 
@@ -297,6 +327,9 @@ msgstr "添加账号"
 msgid "{0} Comments"
 msgstr "{0} 评论"
 
+msgid "Replies"
+msgstr ""
+
 msgid "Comment"
 msgstr "评论"
 
@@ -306,8 +339,17 @@ msgstr ""
 msgid "Allow replies from"
 msgstr "允许回复"
 
+msgid "No one likes this post yet."
+msgstr ""
+
+msgid "Your posts have published successfully on {0}."
+msgstr ""
+
 msgid "Malformed session."
 msgstr "会话格式错误。"
+
+msgid "Failed to login."
+msgstr ""
 
 msgid "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code."
 msgstr "在你装有 Warpcast 的手机上，打开 <0> 相机 </0>，扫描二维码。"
@@ -318,10 +360,16 @@ msgstr "取消点赞"
 msgid "Post has been hidden"
 msgstr "帖子已经被隐藏"
 
+msgid "Your post has published successfully."
+msgstr ""
+
 msgid "Everyone"
 msgstr "任何人"
 
 msgid "Please confirm the login with Warpcast."
+msgstr ""
+
+msgid "Confirm you want to report this message"
 msgstr ""
 
 msgid "Compose"
@@ -351,20 +399,11 @@ msgstr "未找到帖子"
 msgid "Clear All"
 msgstr "全部清除"
 
-msgid "Failed to upload image to {sourceName}."
-msgstr ""
-
 msgid "Lens"
 msgstr "Lens"
 
-msgid "No session found."
-msgstr "未找到会话"
-
 msgid "Failed to upvote post."
 msgstr "无法对帖子进行投票。"
-
-msgid "One click to connect your account status"
-msgstr ""
 
 msgid "Post your reply"
 msgstr "发送你的回复"
@@ -374,6 +413,9 @@ msgstr "点赞"
 
 msgid "Users"
 msgstr "用户"
+
+msgid "The file \"{0}\" exceeds the size limit."
+msgstr ""
 
 msgid "Invalid URL."
 msgstr "无效 URL"
@@ -386,6 +428,9 @@ msgstr "设置"
 
 msgid "Details"
 msgstr "详情"
+
+msgid "Detect device accounts"
+msgstr ""
 
 msgid "Your Farcaster account is now connected."
 msgstr "你的 Farcaster 账号已经连接。"
@@ -401,6 +446,12 @@ msgstr "已回复"
 
 msgid "The page could not be found."
 msgstr "找不到该页面。"
+
+msgid "No matching channel"
+msgstr ""
+
+msgid "{0, plural, one {Your posts failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your posts failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your posts failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
+msgstr ""
 
 msgid "What's happening..."
 msgstr "正在发生..."
@@ -432,6 +483,9 @@ msgstr "显示"
 msgid "Show More"
 msgstr "显示更多"
 
+msgid "{count, plural, one {# view} other {{0}}}"
+msgstr ""
+
 msgid "Failed to parse session."
 msgstr "未能解析会话"
 
@@ -449,6 +503,9 @@ msgstr "成功取消转发"
 
 msgid "Failed to unfollow."
 msgstr "取消关注失败"
+
+msgid "One click to connect your account status."
+msgstr ""
 
 msgid "Quote"
 msgstr "引用"
@@ -483,17 +540,20 @@ msgstr "浅色模式"
 msgid "Please switch to the {chainName} network in your wallet."
 msgstr "请切换钱包网络至 {chainName}"
 
+msgid "Delete"
+msgstr ""
+
 msgid "There is no data available for display."
 msgstr "没有可显示的数据。"
+
+msgid "Cancel"
+msgstr ""
 
 msgid "Failed to like the post."
 msgstr ""
 
 msgid "Mirrored"
 msgstr "已转发"
-
-msgid "Quoted post on {sourceName}."
-msgstr ""
 
 msgid "Unable to retrieve post details."
 msgstr "数据获取失败。"
@@ -504,8 +564,14 @@ msgstr "发布帖子失败"
 msgid "recasted your"
 msgstr "转帖了你的"
 
+msgid "Quotes"
+msgstr ""
+
 msgid "Please input the url to be revalidated."
 msgstr "请输入 URL 重新验证："
+
+msgid "Show more"
+msgstr ""
 
 msgid "Something went wrong. Please try again."
 msgstr "出现错误，请重试。"
@@ -522,16 +588,13 @@ msgstr "未找到 Lens profile。请尝试其他钱包。"
 msgid "<0>{0}</0> mirrored"
 msgstr "<0>{0}</0> 已转发"
 
-msgid "Failed to post on {sourceName}."
-msgstr ""
-
 msgid "Follower"
 msgstr "粉丝"
 
 msgid "The frame server failed to process the request."
 msgstr "Frame 服务器未能处理请求"
 
-msgid "Failed to upload video to {sourceName}."
+msgid "Report"
 msgstr ""
 
 msgid "Post by {0}"
@@ -540,14 +603,26 @@ msgstr "由 {0} 发帖"
 msgid "quote"
 msgstr "引用"
 
+msgid "Casts + Replies"
+msgstr ""
+
 msgid "Image"
 msgstr "图片"
 
-msgid "Failed to query the signed key state."
+msgid "Copy"
+msgstr ""
+
+msgid "Skip for now"
+msgstr ""
+
+msgid "Failed to block @{0}"
 msgstr ""
 
 msgid "Notifications"
 msgstr "通知"
+
+msgid "Posting..."
+msgstr ""
 
 msgid "No Lens profile found. Please change to another wallet."
 msgstr "没有找到 Lens 账号，请连接另一个钱包。"
@@ -609,9 +684,6 @@ msgstr "红包"
 msgid "{0} and others"
 msgstr "{0} 和 其他"
 
-msgid "File type is not supported."
-msgstr ""
-
 msgid "Please switch to the wallet used for login."
 msgstr "请切换钱包登录。"
 
@@ -657,11 +729,14 @@ msgstr ""
 msgid "Failed to fetch as ArrayBuffer."
 msgstr "Failed to fetch as ArrayBuffer."
 
+msgid "Your post have published successfully on {0}."
+msgstr ""
+
+msgid "Cancel mirror successfully"
+msgstr ""
+
 msgid "Confirm to log out these accounts?"
 msgstr "确认登出这些账号？"
-
-msgid "Posted on {sourceName}."
-msgstr ""
 
 msgid "Your Lens account is now connected"
 msgstr "你的 Lens 账号已经连接。"
@@ -671,6 +746,9 @@ msgstr ""
 
 msgid "Mask Network"
 msgstr "Mask Network"
+
+msgid "View Engagements"
+msgstr ""
 
 msgid "Your Lens account is now connected."
 msgstr "你的 Lens 账号已经连接。"
@@ -702,6 +780,9 @@ msgstr ""
 msgid "Profile"
 msgstr "个人信息"
 
+msgid "Mirrors"
+msgstr ""
+
 msgid "Video"
 msgstr "视频"
 
@@ -722,9 +803,6 @@ msgstr ""
 
 msgid "<0/> commented on your <1><2/></1>"
 msgstr "<0/> 评论了你的 <1><2/></1>"
-
-msgid "Failed to relay post on {sourceName}."
-msgstr ""
 
 msgid "<0>You</0> recasted"
 msgstr "<0>你</0> 已转帖"
@@ -781,6 +859,9 @@ msgid "Replying to <0>@{0}</0> on {1}"
 msgstr "在 {1} 上回复 <0>@{0}</0>"
 
 msgid "A thread must have at least two posts."
+msgstr ""
+
+msgid "Likes"
 msgstr ""
 
 msgid "Mint button is not available yet."

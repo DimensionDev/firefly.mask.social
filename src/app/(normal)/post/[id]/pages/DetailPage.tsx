@@ -16,6 +16,7 @@ import { SocialPlatform, SourceInURL } from '@/constants/enum.js';
 import { EMPTY_LIST, MIN_POST_SIZE_PER_THREAD, SITE_NAME } from '@/constants/index.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { createPageTitle } from '@/helpers/createPageTitle.js';
+import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSocialPlatform } from '@/helpers/resolveSocialPlatform.js';
 import { useComeBack } from '@/hooks/useComeback.js';
@@ -73,6 +74,8 @@ export function PostDetailPage({ params: { id: postId }, searchParams: { source 
         queryFn: async () => {
             const root = post?.root ? post.root : post?.commentOn ? post.commentOn : post;
             if (!root?.stats?.comments) return createPageable(EMPTY_LIST, undefined);
+
+            if (!isSameProfile(root.author, post?.author)) return createPageable(EMPTY_LIST, undefined);
 
             const provider = resolveSocialMediaProvider(currentSource);
             if (!provider) return createPageable(EMPTY_LIST, undefined);

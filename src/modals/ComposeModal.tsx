@@ -12,8 +12,8 @@ import { useSingletonModal } from '@masknet/shared-base-ui';
 import type { TypedMessageTextV1 } from '@masknet/typed-message';
 import type { FireflyRedPacketAPI } from '@masknet/web3-providers/types';
 import { $getRoot } from 'lexical';
-import { forwardRef, useCallback } from 'react';
-import { useAsync } from 'react-use';
+import { forwardRef, useCallback, useRef } from 'react';
+import { useAsync, useUpdateEffect } from 'react-use';
 import { None } from 'ts-results-es';
 import urlcat from 'urlcat';
 
@@ -36,6 +36,7 @@ import { isEmptyPost } from '@/helpers/isEmptyPost.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { hasRpPayload, isRpEncrypted, updateRpEncrypted } from '@/helpers/rpPayload.js';
 import { throws } from '@/helpers/throws.js';
+import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfileAll.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
@@ -43,7 +44,7 @@ import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';
 import { ComposeModalRef, ConfirmModalRef } from '@/modals/controls.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { steganographyEncodeImage } from '@/services/steganography.js';
-import { useComposeStateStore, useCompositePost } from '@/store/useComposeStore.js';
+import { useComposeStateStore } from '@/store/useComposeStore.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import type { ComposeType } from '@/types/compose.js';
 
@@ -76,6 +77,7 @@ export type ComposeModalCloseProps = {
 
 export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalProps, ComposeModalCloseProps>>(
     function Compose(_, ref) {
+        const contentRef = useRef<HTMLDivElement>(null);
         const isMedium = useIsMedium();
         const currentSource = useGlobalState.use.currentSource();
 
@@ -166,6 +168,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
                 const fullMessage = [
                     t`Check out my LuckyDrop 🧧💰✨ on Firefly mobile app or ${SITE_URL} !`,
                     ...SORTED_SOURCES.map((x) => {
+                        if (x === SocialPlatform.Twitter) return '';
                         const currentProfile = currentProfileAll[x];
                         const profileLink = currentProfile ? getProfileUrl(currentProfile) : null;
                         return profileLink ? t`Claim on ${resolveSourceName(x)}: ${urlcat(SITE_URL, profileLink)}` : '';
@@ -191,10 +194,18 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
 
                 updateTypedMessage(updateRpEncrypted(typedMessage));
             } catch (error) {
-                enqueueErrorMessage(t`Failed to create image payload.`);
+                enqueueErrorMessage(t`Failed to create image payload.`, {
+                    error,
+                });
+                throw error;
             }
             // each time the typedMessage changes, we need to check if it has a red packet payload
         }, [typedMessage, rpPayload, id, currentProfileAll]);
+
+        useUpdateEffect(() => {
+            if (!contentRef.current || !posts.length) return;
+            contentRef.current.scrollTop = contentRef.current?.scrollHeight;
+        }, [posts.length]);
 
         return (
             <Modal open={open} onClose={onClose} className="flex-col">
@@ -220,18 +231,21 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalPr
                             ) : null}
                         </span>
 
-                        {isMedium ? null : <ComposeSend post={compositePost} />}
+                        {isMedium ? null : <ComposeSend />}
                     </Dialog.Title>
 
                     <div className=" flex flex-col overflow-auto px-4 pb-4">
-                        <div className="flex max-h-[300px] min-h-[300px] flex-1 flex-col overflow-auto rounded-lg border border-secondaryLine bg-bg px-4 py-[14px] md:max-h-[500px] md:min-h-[338px]">
+                        <div
+                            ref={contentRef}
+                            className="flex max-h-[300px] min-h-[300px] flex-1 flex-col overflow-auto rounded-lg border border-secondaryLine bg-bg px-4 py-[14px] md:max-h-[500px] md:min-h-[338px]"
+                        >
                             {posts.length === 1 ? <ComposeContent post={compositePost} /> : <ComposeThreadContent />}
                         </div>
                     </div>
 
-                    <ComposeAction post={compositePost} />
+                    <ComposeAction />
 
-                    {isMedium ? <ComposeSend post={compositePost} /> : null}
+                    {isMedium ? <ComposeSend /> : null}
                 </div>
             </Modal>
         );

@@ -22,13 +22,13 @@ msgstr ""
 msgid "Quote Post"
 msgstr ""
 
+msgid "Report @{0}"
+msgstr ""
+
 msgid "Retweet"
 msgstr ""
 
 msgid "Failed to fetch as Blob."
-msgstr ""
-
-msgid "Failed to upload image to imgur."
 msgstr ""
 
 msgid "Communities"
@@ -40,7 +40,7 @@ msgstr ""
 msgid "Please be cautious when connecting your wallet, as malicious websites may attempt to access your funds."
 msgstr ""
 
-msgid "Failed to mirror. {0}"
+msgid "{followerCount, plural, one {Follower} other {Followers}}"
 msgstr ""
 
 msgid "X"
@@ -52,7 +52,7 @@ msgstr ""
 msgid "Allow Lens Manager to perform actions such as posting, liking, and commenting without the need to sign each transaction."
 msgstr ""
 
-msgid "{0} views"
+msgid "Searching channel"
 msgstr ""
 
 msgid "Act"
@@ -70,16 +70,25 @@ msgstr ""
 msgid "Join our Discord"
 msgstr ""
 
+msgid "Found arweaveTxId is empty."
+msgstr ""
+
 msgid "<0>You</0> and {0} others recasted"
 msgstr ""
 
 msgid "Change Wallet"
 msgstr ""
 
+msgid "Confirm you want to block @{0}"
+msgstr ""
+
 msgid "OpenGraph"
 msgstr ""
 
 msgid "Wrong wallet"
+msgstr ""
+
+msgid "Casts"
 msgstr ""
 
 msgid "Transaction button is not available yet."
@@ -103,10 +112,22 @@ msgstr ""
 msgid "Copied"
 msgstr ""
 
+msgid "Your posts have published successfully."
+msgstr ""
+
+msgid "Retry"
+msgstr ""
+
+msgid "Show less"
+msgstr ">>>>>>> released"
+
 msgid "comment"
 msgstr ""
 
 msgid "Confirm"
+msgstr ""
+
+msgid "Failed to report @{0}"
 msgstr ""
 
 msgid "Device Logged In"
@@ -122,9 +143,6 @@ msgid "Page not found"
 msgstr ""
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/> and # others}} <4>liked your </4><5><6/></5>"
-msgstr ""
-
-msgid "Failed to upload to Arweave"
 msgstr ""
 
 msgid "Password"
@@ -178,6 +196,12 @@ msgstr ""
 msgid "Recent"
 msgstr ""
 
+msgid "Block"
+msgstr ""
+
+msgid "Block @{0}"
+msgstr ""
+
 msgid "OpenGraph Validator"
 msgstr ""
 
@@ -190,6 +214,9 @@ msgstr ""
 msgid "Feed"
 msgstr ""
 
+msgid "Recasts"
+msgstr ""
+
 msgid "Check out my LuckyDrop 🧧💰✨ on Firefly mobile app or {SITE_URL} !"
 msgstr ""
 
@@ -199,13 +226,28 @@ msgstr ""
 msgid "Follow more friends to continue exploring on {0}."
 msgstr ""
 
+msgid "No wallet client found. Please connect your wallet."
+msgstr ""
+
 msgid "Frame Validator"
+msgstr ""
+
+msgid "Copy Link"
 msgstr ""
 
 msgid "Follow System"
 msgstr ""
 
+msgid "Failed to mirror."
+msgstr ""
+
 msgid "URL is required."
+msgstr ""
+
+msgid "The file not found"
+msgstr ""
+
+msgid "Invalid file type. Allowed types: {0}"
 msgstr ""
 
 msgid "Connection failed"
@@ -215,6 +257,9 @@ msgid "Join our Telegram"
 msgstr ""
 
 msgid "Log out"
+msgstr ""
+
+msgid "{0, plural, one {Your post failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your post failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your post failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
 msgstr ""
 
 msgid "post"
@@ -232,10 +277,10 @@ msgstr ""
 msgid "Try searching for something else."
 msgstr ""
 
-msgid "and"
+msgid "Invalid compose type: {type}."
 msgstr ""
 
-msgid "Failed to quote post on {sourceName}."
+msgid "and"
 msgstr ""
 
 msgid "Channel"
@@ -247,19 +292,7 @@ msgstr ""
 msgid "Comment cannot be empty."
 msgstr ""
 
-msgid "Failed to fetch as Text."
-msgstr ""
-
 msgid "Reply"
-msgstr ""
-
-msgid "Querying the signed key state."
-msgstr ""
-
-msgid "Replied on {sourceName}."
-msgstr ""
-
-msgid "Invalid compose type."
 msgstr ""
 
 msgid "Collected"
@@ -277,9 +310,6 @@ msgstr ""
 msgid "Privacy Policy"
 msgstr ""
 
-msgid "No wallet client found"
-msgstr ""
-
 msgid "Switch"
 msgstr ""
 
@@ -292,6 +322,9 @@ msgstr ""
 msgid "{0} Comments"
 msgstr ""
 
+msgid "Replies"
+msgstr ""
+
 msgid "Comment"
 msgstr ""
 
@@ -301,7 +334,16 @@ msgstr ""
 msgid "Allow replies from"
 msgstr ""
 
+msgid "No one likes this post yet."
+msgstr ""
+
+msgid "Your posts have published successfully on {0}."
+msgstr ""
+
 msgid "Malformed session."
+msgstr ""
+
+msgid "Failed to login."
 msgstr ""
 
 msgid "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code."
@@ -313,10 +355,16 @@ msgstr ""
 msgid "Post has been hidden"
 msgstr ""
 
+msgid "Your post has published successfully."
+msgstr ""
+
 msgid "Everyone"
 msgstr ""
 
 msgid "Please confirm the login with Warpcast."
+msgstr ""
+
+msgid "Confirm you want to report this message"
 msgstr ""
 
 msgid "Compose"
@@ -346,19 +394,10 @@ msgstr ""
 msgid "Clear All"
 msgstr ""
 
-msgid "Failed to upload image to {sourceName}."
-msgstr ""
-
 msgid "Lens"
 msgstr ""
 
-msgid "No session found."
-msgstr ""
-
 msgid "Failed to upvote post."
-msgstr ""
-
-msgid "One click to connect your account status"
 msgstr ""
 
 msgid "Post your reply"
@@ -368,6 +407,9 @@ msgid "liked"
 msgstr ""
 
 msgid "Users"
+msgstr ""
+
+msgid "The file \"{0}\" exceeds the size limit."
 msgstr ""
 
 msgid "Invalid URL."
@@ -380,6 +422,9 @@ msgid "Settings"
 msgstr ""
 
 msgid "Details"
+msgstr ""
+
+msgid "Detect device accounts"
 msgstr ""
 
 msgid "Your Farcaster account is now connected."
@@ -395,6 +440,12 @@ msgid "commented"
 msgstr ""
 
 msgid "The page could not be found."
+msgstr ""
+
+msgid "No matching channel"
+msgstr ""
+
+msgid "{0, plural, one {Your posts failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your posts failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your posts failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
 msgstr ""
 
 msgid "What's happening..."
@@ -427,6 +478,9 @@ msgstr ""
 msgid "Show More"
 msgstr ""
 
+msgid "{count, plural, one {# view} other {{0}}}"
+msgstr ""
+
 msgid "Failed to parse session."
 msgstr ""
 
@@ -443,6 +497,9 @@ msgid "Cancel recast successfully"
 msgstr ""
 
 msgid "Failed to unfollow."
+msgstr ""
+
+msgid "One click to connect your account status."
 msgstr ""
 
 msgid "Quote"
@@ -478,16 +535,19 @@ msgstr ""
 msgid "Please switch to the {chainName} network in your wallet."
 msgstr ""
 
+msgid "Delete"
+msgstr ""
+
 msgid "There is no data available for display."
+msgstr ""
+
+msgid "Cancel"
 msgstr ""
 
 msgid "Failed to like the post."
 msgstr ""
 
 msgid "Mirrored"
-msgstr ""
-
-msgid "Quoted post on {sourceName}."
 msgstr ""
 
 msgid "Unable to retrieve post details."
@@ -499,7 +559,13 @@ msgstr ""
 msgid "recasted your"
 msgstr ""
 
+msgid "Quotes"
+msgstr ""
+
 msgid "Please input the url to be revalidated."
+msgstr ""
+
+msgid "Show more"
 msgstr ""
 
 msgid "Something went wrong. Please try again."
@@ -517,16 +583,13 @@ msgstr ""
 msgid "<0>{0}</0> mirrored"
 msgstr ""
 
-msgid "Failed to post on {sourceName}."
-msgstr ""
-
 msgid "Follower"
 msgstr ""
 
 msgid "The frame server failed to process the request."
 msgstr ""
 
-msgid "Failed to upload video to {sourceName}."
+msgid "Report"
 msgstr ""
 
 msgid "Post by {0}"
@@ -535,13 +598,25 @@ msgstr ""
 msgid "quote"
 msgstr ""
 
+msgid "Casts + Replies"
+msgstr ""
+
 msgid "Image"
 msgstr ""
 
-msgid "Failed to query the signed key state."
+msgid "Copy"
+msgstr ""
+
+msgid "Skip for now"
+msgstr ""
+
+msgid "Failed to block @{0}"
 msgstr ""
 
 msgid "Notifications"
+msgstr ""
+
+msgid "Posting..."
 msgstr ""
 
 msgid "No Lens profile found. Please change to another wallet."
@@ -604,9 +679,6 @@ msgstr ""
 msgid "{0} and others"
 msgstr ""
 
-msgid "File type is not supported."
-msgstr ""
-
 msgid "Please switch to the wallet used for login."
 msgstr ""
 
@@ -652,10 +724,13 @@ msgstr ""
 msgid "Failed to fetch as ArrayBuffer."
 msgstr ""
 
-msgid "Confirm to log out these accounts?"
+msgid "Your post have published successfully on {0}."
 msgstr ""
 
-msgid "Posted on {sourceName}."
+msgid "Cancel mirror successfully"
+msgstr ""
+
+msgid "Confirm to log out these accounts?"
 msgstr ""
 
 msgid "Your Lens account is now connected"
@@ -665,6 +740,9 @@ msgid "Click to copy"
 msgstr ""
 
 msgid "Mask Network"
+msgstr ""
+
+msgid "View Engagements"
 msgstr ""
 
 msgid "Your Lens account is now connected."
@@ -697,6 +775,9 @@ msgstr ""
 msgid "Profile"
 msgstr ""
 
+msgid "Mirrors"
+msgstr ""
+
 msgid "Video"
 msgstr ""
 
@@ -716,9 +797,6 @@ msgid "Please confirm the login with X."
 msgstr ""
 
 msgid "<0/> commented on your <1><2/></1>"
-msgstr ""
-
-msgid "Failed to relay post on {sourceName}."
 msgstr ""
 
 msgid "<0>You</0> recasted"
@@ -776,6 +854,9 @@ msgid "Replying to <0>@{0}</0> on {1}"
 msgstr ""
 
 msgid "A thread must have at least two posts."
+msgstr ""
+
+msgid "Likes"
 msgstr ""
 
 msgid "Mint button is not available yet."

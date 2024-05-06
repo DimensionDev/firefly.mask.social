@@ -55,13 +55,15 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({ attachm
                 <div className="absolute left-[calc(50%-16px)] top-[calc(50%-16px)] flex items-center justify-center rounded-xl bg-white/80 p-2 text-[#181818]">
                     <Play width={16} height={16} />
                 </div>
-                <Image
-                    width={120}
-                    height={120}
-                    className="h-[120px] w-[120px] rounded-xl object-cover"
-                    src={asset.coverUri}
-                    alt={asset.coverUri}
-                />
+                {asset.coverUri ? (
+                    <Image
+                        width={120}
+                        height={120}
+                        className="h-[120px] w-[120px] rounded-xl object-cover"
+                        src={asset.coverUri}
+                        alt={asset.coverUri}
+                    />
+                ) : null}
             </div>
         );
     }

@@ -8,18 +8,20 @@ export async function fetchJSON<T = unknown>(
     init?: RequestInit,
     options?: NextFetchersOptions,
 ): Promise<T> {
+    const { noDefaultContentType = false } = options ?? {};
     const response = await fetch(
         input,
         {
             ...init,
-            headers: {
-                'Content-Type': 'application/json',
-                ...init?.headers,
-            },
+            headers: noDefaultContentType
+                ? init?.headers
+                : {
+                      'Content-Type': 'application/json',
+                      ...init?.headers,
+                  },
         },
         getNextFetchers(options),
     );
-    if (options?.throwIfNotOK && !response.ok) throw new Error('Failed to fetch JSON.');
     return response.json();
 }
 

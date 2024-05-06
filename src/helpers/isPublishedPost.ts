@@ -1,5 +1,14 @@
 import type { CompositePost } from '@/store/useComposeStore.js';
 
-export function isPublishedPost(compositePost: CompositePost) {
-    return compositePost.availableSources.every((x) => !!compositePost.postId[x]);
+/**
+ * Return a list of failed social platforms.
+ * @param post
+ * @returns
+ */
+export function failedAt(post: CompositePost) {
+    return post.availableSources.filter((x) => !post.postId[x]);
+}
+
+export function isPublishedPost(post: CompositePost) {
+    return failedAt(post).length === 0;
 }

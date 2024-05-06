@@ -18,6 +18,7 @@ import {
 import type { ResponseJSON } from '@/types/index.js';
 
 class TwitterSocialMedia implements Provider {
+    unmirrorPost?: ((postId: string, authorId?: number | undefined) => Promise<void>) | undefined;
     mirrorPost(postId: string): Promise<string> {
         throw new Error('Method not implemented.');
     }
@@ -98,8 +99,10 @@ class TwitterSocialMedia implements Provider {
         throw new Error('Not implemented');
     }
 
-    getPostById(postId: string): Promise<Post> {
-        throw new Error('Not implemented');
+    async getPostById(postId: string): Promise<Post> {
+        return {
+            postId,
+        } as unknown as Post;
     }
 
     getProfileById(profileId: string): Promise<Profile> {
@@ -116,6 +119,20 @@ class TwitterSocialMedia implements Provider {
 
     getPostsByProfileId(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         throw new Error('Not implemented');
+    }
+
+    async getLikedPostsByProfileId(
+        profileId: string,
+        indicator?: PageIndicator,
+    ): Promise<Pageable<Post, PageIndicator>> {
+        throw new Error('Method not implemented.');
+    }
+
+    async getRepliesPostsByProfileId(
+        profileId: string,
+        indicator?: PageIndicator,
+    ): Promise<Pageable<Post, PageIndicator>> {
+        throw new Error('Method not implemented.');
     }
 
     getCommentsById(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
@@ -213,7 +230,7 @@ class TwitterSocialMedia implements Provider {
             },
             body: JSON.stringify({
                 quoteTwitterId: post.parentPostId,
-                reply_settings: post.restriction ? resolveTwitterReplyRestriction(post.restriction) : undefined,
+                replySettings: post.restriction ? resolveTwitterReplyRestriction(post.restriction) : undefined,
                 text: post.metadata.content?.content ?? '',
                 mediaIds: compact(post.mediaObjects?.map((x) => x.id)),
             }),
@@ -235,7 +252,7 @@ class TwitterSocialMedia implements Provider {
             },
             body: JSON.stringify({
                 inReplyToTweetId: post.parentPostId,
-                reply_settings: post.restriction ? resolveTwitterReplyRestriction(post.restriction) : undefined,
+                replySettings: post.restriction ? resolveTwitterReplyRestriction(post.restriction) : undefined,
                 text: post.metadata.content?.content ?? '',
                 mediaIds: compact(post.mediaObjects?.map((x) => x.id)),
             }),
@@ -243,6 +260,41 @@ class TwitterSocialMedia implements Provider {
 
         if (!response.success) throw new Error(t`Failed to publish post.`);
         return response.data.id;
+    }
+
+    async deletePost(tweetId: string): Promise<boolean> {
+        const response = await fetchJSON<
+            ResponseJSON<{
+                deleted: boolean;
+            }>
+        >(`/api/twitter/${tweetId}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        if (!response.success) throw new Error(t`Failed to publish post.`);
+        return response.data.deleted;
+    }
+    async reportUser(profileId: string): Promise<boolean> {
+        throw new Error('Method not implemented.');
+    }
+    async reportPost(post: Post): Promise<boolean> {
+        throw new Error('Method not implemented.');
+    }
+    async blockUser(profileId: string): Promise<boolean> {
+        throw new Error('Method not implemented.');
+    }
+
+    async getLikeReactors(postId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
+        throw new Error('Method not implemented.');
+    }
+    async getRepostReactors(postId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
+        throw new Error('Method not implemented.');
+    }
+    async getPostsQuoteOn(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        throw new Error('Method not implemented.');
     }
 }
 

@@ -6,7 +6,7 @@ import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { useIsLarge } from '@/hooks/useMediaQuery.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
-interface ProfileAvatarProps extends React.HTMLAttributes<HTMLElement> {
+export interface ProfileAvatarProps extends React.HTMLAttributes<HTMLElement> {
     profile: Profile;
     size?: number;
     linkable?: boolean;
@@ -27,12 +27,12 @@ export function ProfileAvatar(props: ProfileAvatarProps) {
 
     const content = (
         <div className="relative" style={style}>
-            <div className="absolute left-0 top-0 rounded-full shadow md:backdrop-blur-lg" style={style}>
+            <div className="absolute left-0 top-0 rounded-full" style={style}>
                 <Avatar src={profile.pfp} size={size} alt={profile.displayName} />
             </div>
             {enableSourceIcon ? (
                 <SourceIcon
-                    className="absolute left-6 top-5 z-10 h-4 w-4 rounded-full border border-white md:shadow"
+                    className="absolute -bottom-[1px] -right-[8px] z-10 h-4 w-4 rounded-full border border-white"
                     source={profile.source}
                     size={16}
                 />

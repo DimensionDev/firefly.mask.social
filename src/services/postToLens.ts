@@ -159,7 +159,8 @@ async function publishPostForLens(
     const tokenRes = await LensSocialMediaProvider.getAccessToken();
     const token = tokenRes.unwrap();
     const arweaveId = await uploadToArweave(metadata, token);
-    const post = await LensSocialMediaProvider.publishPost({
+    const publicationId = await LensSocialMediaProvider.publishPost({
+        publicationId: '',
         postId: metadata.lens.id,
         author: profile,
         metadata: {
@@ -169,7 +170,7 @@ async function publishPostForLens(
         },
         source: SocialPlatform.Lens,
     });
-    return post;
+    return publicationId;
 }
 
 async function commentPostForLens(
@@ -178,7 +179,6 @@ async function commentPostForLens(
     content: string,
     images: MediaObject[],
     video: MediaObject | null,
-    onMomoka?: boolean,
 ) {
     const profile = await LensSocialMediaProvider.getProfileById(profileId);
 
@@ -202,7 +202,6 @@ async function commentPostForLens(
         postId,
         createDummyPost(SocialPlatform.Lens, `ar://${arweaveId}`),
         profile.signless,
-        onMomoka,
     );
 }
 
@@ -212,7 +211,6 @@ async function quotePostForLens(
     content: string,
     images: MediaObject[],
     video: MediaObject | null,
-    onMomoka?: boolean,
 ) {
     const profile = await LensSocialMediaProvider.getProfileById(profileId);
 
@@ -236,7 +234,6 @@ async function quotePostForLens(
         postId,
         createDummyPost(SocialPlatform.Lens, `ar://${arweaveId}`),
         profile.signless,
-        onMomoka,
     );
     return post;
 }
@@ -285,26 +282,12 @@ export async function postToLens(type: ComposeType, compositePost: CompositePost
         reply(images, videos) {
             if (!lensParentPost) throw new Error(t`No parent post found.`);
             const video = first(videos) ?? null;
-            return commentPostForLens(
-                currentProfile.profileId,
-                lensParentPost.postId,
-                readChars(chars),
-                images,
-                video,
-                !!lensParentPost.momoka?.proof,
-            );
+            return commentPostForLens(currentProfile.profileId, lensParentPost.postId, readChars(chars), images, video);
         },
         quote(images, videos) {
             if (!lensParentPost) throw new Error(t`No parent post found.`);
             const video = first(videos) ?? null;
-            return quotePostForLens(
-                currentProfile.profileId,
-                lensParentPost.postId,
-                readChars(chars),
-                images,
-                video,
-                !!lensParentPost.momoka?.proof,
-            );
+            return quotePostForLens(currentProfile.profileId, lensParentPost.postId, readChars(chars), images, video);
         },
     });
 

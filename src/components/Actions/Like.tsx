@@ -51,26 +51,28 @@ export const Like = memo<LikeProps>(function Like({
             return;
         }
 
-        const provider = resolveSocialMediaProvider(source);
+        try {
+            const provider = resolveSocialMediaProvider(source);
+            const promise = hasLiked
+                ? provider.unvotePost(postId, Number(authorId))
+                : provider.upvotePost(postId, Number(authorId));
 
-        const promise = hasLiked
-            ? provider?.unvotePost(postId, Number(authorId))
-            : provider?.upvotePost(postId, Number(authorId));
-
-        enqueueSuccessMessage(hasLiked ? t`Unliked` : t`Liked`);
-
-        promise?.catch((error) => {
-            if (error instanceof Error) {
-                if (isComment) {
-                    enqueueErrorMessage(hasLiked ? t`Failed to unlike the comment.` : t`Failed to like the comment.`);
-                } else {
-                    enqueueErrorMessage(hasLiked ? t`Failed to unlike the post.` : t`Failed to like the post.`);
-                }
-
-                toggleLike(source, postId);
+            enqueueSuccessMessage(hasLiked ? t`Unliked` : t`Liked`);
+            await promise;
+            return;
+        } catch (error) {
+            if (isComment) {
+                enqueueErrorMessage(hasLiked ? t`Failed to unlike the comment.` : t`Failed to like the comment.`, {
+                    error,
+                });
+            } else {
+                enqueueErrorMessage(hasLiked ? t`Failed to unlike the post.` : t`Failed to like the post.`, {
+                    error,
+                });
             }
-        });
-        return;
+            toggleLike(source, postId);
+            throw error;
+        }
     }, [postId, source, hasLiked, queryClient, isLogin, authorId, isComment]);
 
     return (

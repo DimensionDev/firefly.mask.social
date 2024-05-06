@@ -12,6 +12,6 @@ Closes FW-0000
 
 ## Checklist
 
-- [ ] I have tested these changes locally.
-- [ ] I have reviewed the code changes.
-- [ ] I have added unit tests if applicable.
+-   [ ] I have tested these changes locally.
+-   [ ] I have reviewed the code changes.
+-   [ ] I have added unit tests if applicable.

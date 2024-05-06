@@ -18,7 +18,6 @@ import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 
 export default function Following() {
-    const setScrollIndex = useGlobalState.use.setScrollIndex();
     const currentSource = useGlobalState.use.currentSource();
     const isLogin = useIsLogin(currentSource);
 
@@ -55,7 +54,10 @@ export default function Following() {
             return posts;
         },
         initialPageParam: '',
-        getNextPageParam: (lastPage) => lastPage?.nextIndicator?.id,
+        getNextPageParam: (lastPage) => {
+            if (lastPage?.data.length === 0) return undefined;
+            return lastPage?.nextIndicator?.id;
+        },
         select: getPostsSelector(currentSource),
     });
 
@@ -70,9 +72,7 @@ export default function Following() {
                 listKey: `${ScrollListKey.Following}:${currentSource}`,
                 computeItemKey: (index, post) => `${post.postId}-${index}`,
                 itemContent: (index, post) =>
-                    getPostItemContent(index, post, {
-                        onClick: () => setScrollIndex(`${ScrollListKey.Following}:${currentSource}`, index),
-                    }),
+                    getPostItemContent(index, post, `${ScrollListKey.Following}:${currentSource}`),
             }}
             NoResultsFallbackProps={{
                 className: 'pt-[228px]',

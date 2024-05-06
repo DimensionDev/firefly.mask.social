@@ -9,7 +9,6 @@ import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.
 import { ScrollListKey, SocialPlatform } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
-import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 
 export interface CommentListProps {
@@ -19,7 +18,6 @@ export interface CommentListProps {
 }
 
 export const CommentList = memo<CommentListProps>(function CommentList({ postId, source, exclude = [] }) {
-    const setScrollIndex = useGlobalState.use.setScrollIndex();
     const fetchAndStoreViews = useImpressionsStore.use.fetchAndStoreViews();
 
     const queryResult = useSuspenseInfiniteQuery({
@@ -28,8 +26,6 @@ export const CommentList = memo<CommentListProps>(function CommentList({ postId,
             if (!postId) return createPageable(EMPTY_LIST, undefined);
 
             const provider = resolveSocialMediaProvider(source);
-            if (!provider) return createPageable(EMPTY_LIST, undefined);
-
             const comments = await provider.getCommentsById(postId, createIndicator(undefined, pageParam));
 
             if (source === SocialPlatform.Lens) {
@@ -53,12 +49,7 @@ export const CommentList = memo<CommentListProps>(function CommentList({ postId,
                 listKey: `${ScrollListKey.Comment}:${postId}`,
                 computeItemKey: (index, post) => `${post.postId}-${index}`,
                 itemContent: (index, post) =>
-                    getPostItemContent(index, post, {
-                        isComment: true,
-                        onClick: () => {
-                            setScrollIndex(`${ScrollListKey.Comment}:${postId}`, index);
-                        },
-                    }),
+                    getPostItemContent(index, post, `${ScrollListKey.Comment}:${postId}`, { isComment: true }),
             }}
             NoResultsFallbackProps={{
                 icon: <MessageIcon width={24} height={24} />,

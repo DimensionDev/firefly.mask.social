@@ -2,11 +2,11 @@ import { createIndicator, createPageable, EMPTY_LIST, type Pageable, type PageIn
 import { first } from 'lodash-es';
 import urlcat from 'urlcat';
 
-import { farcasterClient } from '@/configs/farcasterClient.js';
 import { env } from '@/constants/env.js';
 import { NEYNAR_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { formatFarcasterProfileFromNeynar } from '@/helpers/formatFarcasterProfileFromNeynar.js';
+import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import type { Profile as NeynarProfile } from '@/providers/types/Neynar.js';
 import {
     type Channel,
@@ -39,7 +39,22 @@ function fetchNeynarJSON<T>(url: string, options: RequestInit): Promise<T> {
 }
 
 class NeynarSocialMedia implements Provider {
+    mirrorPost?:
+        | ((
+              postId: string,
+              options?: { onMomoka?: boolean | undefined; authorId?: number | undefined } | undefined,
+          ) => Promise<string>)
+        | undefined;
+    unmirrorPost?: ((postId: string, authorId?: number | undefined) => Promise<void>) | undefined;
+    quotePost?: ((postId: string, post: Post) => Promise<string>) | undefined;
+    collectPost?: ((postId: string, collectionId?: string | undefined) => Promise<void>) | undefined;
+    isFollowedByMe?: ((profileId: string) => Promise<boolean>) | undefined;
+    isFollowingMe?: ((profileId: string) => Promise<boolean>) | undefined;
     commentPost(postId: string, post: Post): Promise<string> {
+        throw new Error('Method not implemented.');
+    }
+
+    deletePost(postId: string): Promise<boolean> {
         throw new Error('Method not implemented.');
     }
 
@@ -68,6 +83,20 @@ class NeynarSocialMedia implements Provider {
     }
 
     searchChannels(q: string, indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {
+        throw new Error('Method not implemented.');
+    }
+
+    async getLikedPostsByProfileId(
+        profileId: string,
+        indicator?: PageIndicator,
+    ): Promise<Pageable<Post, PageIndicator>> {
+        throw new Error('Method not implemented.');
+    }
+
+    async getRepliesPostsByProfileId(
+        profileId: string,
+        indicator?: PageIndicator,
+    ): Promise<Pageable<Post, PageIndicator>> {
         throw new Error('Method not implemented.');
     }
 
@@ -178,7 +207,7 @@ class NeynarSocialMedia implements Provider {
     async getProfilesByIds(ids: string[]) {
         if (!ids.length) return EMPTY_LIST;
 
-        return farcasterClient.withSession(async (session) => {
+        return farcasterSessionHolder.withSession(async (session) => {
             const url = urlcat(NEYNAR_URL, '/v2/farcaster/user/bulk', {
                 fids: ids.join(','),
                 viewer_fid: session?.profileId,
@@ -193,7 +222,7 @@ class NeynarSocialMedia implements Provider {
     }
 
     async searchProfiles(q: string, indicator?: PageIndicator) {
-        return farcasterClient.withSession(async (session) => {
+        return farcasterSessionHolder.withSession(async (session) => {
             const url = urlcat(NEYNAR_URL, '/v2/farcaster/user/search', {
                 q,
                 viewer_fid: session?.profileId || 0,
@@ -206,6 +235,25 @@ class NeynarSocialMedia implements Provider {
             const result = data.result.users.map(formatFarcasterProfileFromNeynar);
             return createPageable(result, createIndicator(indicator));
         });
+    }
+    async reportUser(profileId: string): Promise<boolean> {
+        throw new Error('Method not implemented.');
+    }
+    async reportPost(post: Post): Promise<boolean> {
+        throw new Error('Method not implemented.');
+    }
+    async blockUser(profileId: string): Promise<boolean> {
+        throw new Error('Method not implemented.');
+    }
+    async getLikeReactors(postId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
+        throw new Error('Method not implemented.');
+    }
+    async getRepostReactors(postId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
+        throw new Error('Method not implemented.');
+    }
+
+    async getPostsQuoteOn(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        throw new Error('Method not implemented.');
     }
 }
 

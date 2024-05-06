@@ -2,18 +2,14 @@ import type { SVGAttributes } from 'react';
 
 import { measureChars } from '@/helpers/chars.js';
 import { getCurrentPostLimits } from '@/helpers/getCurrentPostLimits.js';
-import type { CompositePost } from '@/store/useComposeStore.js';
+import { useCompositePost } from '@/hooks/useCompositePost.js';
 
-interface Props extends SVGAttributes<SVGElement> {
-    post: CompositePost;
-    rootPost: CompositePost;
-}
+interface Props extends SVGAttributes<SVGElement> {}
 
-export function CountdownCircle({ post, rootPost, ...rest }: Props) {
-    const { visibleLength } = measureChars(post.chars, rootPost.availableSources);
-    const { SAFE_CHAR_LIMIT, DANGER_CHAR_LIMIT, MAX_CHAR_SIZE_PER_POST } = getCurrentPostLimits(
-        rootPost.availableSources,
-    );
+export function CountdownCircle(props: Props) {
+    const { chars, availableSources } = useCompositePost();
+    const { visibleLength } = measureChars(chars, availableSources);
+    const { SAFE_CHAR_LIMIT, DANGER_CHAR_LIMIT, MAX_CHAR_SIZE_PER_POST } = getCurrentPostLimits(availableSources);
 
     const isGreen = visibleLength < SAFE_CHAR_LIMIT;
     const isWarning = visibleLength > SAFE_CHAR_LIMIT && visibleLength < DANGER_CHAR_LIMIT;
@@ -23,7 +19,7 @@ export function CountdownCircle({ post, rootPost, ...rest }: Props) {
     const dashoffset = Math.floor(dasharray * (1 - progress));
 
     return (
-        <svg viewBox="0 0 160 160" {...rest}>
+        <svg viewBox="0 0 160 160" {...props}>
             <circle r="70" cx="80" cy="80" fill="transparent" stroke="rgba(61,194,51,0.2)" strokeWidth="15px" />
             <circle
                 r="70"

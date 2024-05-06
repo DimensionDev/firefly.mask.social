@@ -2,7 +2,7 @@ import { t } from '@lingui/macro';
 import { memo, useState } from 'react';
 
 import LoadingIcon from '@/assets/loading.svg';
-import { ClickableButton } from '@/components/ClickableButton.js';
+import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { classNames } from '@/helpers/classNames.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useToggleFollow } from '@/hooks/useToggleFollow.js';
@@ -15,11 +15,11 @@ enum FollowLabel {
     Following = 'Following',
 }
 
-interface FollowButtonProps {
+interface FollowButtonProps extends Omit<ClickableButtonProps, 'children'> {
     profile: Profile;
 }
 
-export const FollowButton = memo(function FollowButton({ profile }: FollowButtonProps) {
+export const FollowButton = memo(function FollowButton({ profile, className, ...rest }: FollowButtonProps) {
     const [followHover, setFollowHover] = useState(false);
     const [isFollowing, { loading }, handleToggle] = useToggleFollow(profile);
 
@@ -37,7 +37,9 @@ export const FollowButton = memo(function FollowButton({ profile }: FollowButton
                 buttonState === FollowLabel.Unfollow
                     ? ' border-[1.5px] border-danger border-opacity-50 bg-danger bg-opacity-20 text-danger'
                     : '',
+                className,
             )}
+            {...rest}
             disabled={loading}
             onMouseEnter={() => {
                 if (loading) return;

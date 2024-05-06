@@ -1,4 +1,5 @@
 import { compact } from 'lodash-es';
+import { v4 as uuid } from 'uuid';
 
 import type { SocialPlatform } from '@/constants/enum.js';
 import { readChars } from '@/helpers/chars.js';
@@ -12,6 +13,7 @@ export function createMockComment(source: SocialPlatform, compositePost: Composi
     const postId = compositePost.postId[source];
     if (!parentPost || !postId) return null;
     return {
+        publicationId: uuid(),
         type: 'Comment',
         source,
         postId,
@@ -22,7 +24,7 @@ export function createMockComment(source: SocialPlatform, compositePost: Composi
         mediaObjects: compact([compositePost.video, ...compositePost.images, ...compositePost.images]).map((x) => ({
             title: x.file.name,
             mimeType: x.file.type,
-            url: x.ipfs?.uri || x.imgur || '',
+            url: x.ipfs?.uri || x.s3 || x.imgur || '',
         })),
         metadata: {
             locale: '',

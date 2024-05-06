@@ -14,12 +14,13 @@ import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMes
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
+import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useProfiles } from '@/hooks/useProfiles.js';
 import { ComposeModalRef, LoginModalRef } from '@/modals/controls.js';
-import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
+import { createSessionForProfileId } from '@/providers/lens/createSessionForProfileId.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
-import { useComposeStateStore, useCompositePost } from '@/store/useComposeStore.js';
+import { useComposeStateStore } from '@/store/useComposeStore.js';
 import { useLensStateStore } from '@/store/useProfileStore.js';
 
 interface PostByItemProps {
@@ -33,17 +34,20 @@ export function PostByItem({ source }: PostByItemProps) {
     const updateLensCurrentProfile = useLensStateStore.use.updateCurrentProfile();
 
     const { enableSource, disableSource } = useComposeStateStore();
-    const { images, rootPost } = useCompositePost();
+    const { availableSources, images } = useCompositePost();
 
     const [{ loading }, loginLens] = useAsyncFn(
         async (profile: Profile) => {
             try {
-                const session = await LensSocialMediaProvider.createSessionForProfileId(profile.profileId);
+                const session = await createSessionForProfileId(profile.profileId);
 
                 updateLensCurrentProfile(profile, session);
                 enqueueSuccessMessage(t`Your Lens account is now connected.`);
             } catch (error) {
-                enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to login`));
+                enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to login`), {
+                    error,
+                });
+                throw error;
             }
         },
         [updateLensCurrentProfile],
@@ -83,7 +87,7 @@ export function PostByItem({ source }: PostByItemProps) {
             key={profile.profileId}
             onClick={() => {
                 if (!isSameProfile(currentProfile, profile)) return;
-                if (rootPost.availableSources.includes(currentProfile.source)) disableSource(currentProfile.source);
+                if (availableSources.includes(currentProfile.source)) disableSource(currentProfile.source);
                 else enableSource(currentProfile.source);
             }}
         >
@@ -106,7 +110,7 @@ export function PostByItem({ source }: PostByItemProps) {
                 </span>
             </div>
             {isSameProfile(currentProfile, profile) ? (
-                rootPost.availableSources.includes(currentProfile.source) ? (
+                availableSources.includes(currentProfile.source) ? (
                     <YesIcon width={40} height={40} className=" relative -right-[10px]" />
                 ) : (
                     <RadioDisableNoIcon width={20} height={20} className=" text-secondaryLine" />

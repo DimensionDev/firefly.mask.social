@@ -70,7 +70,7 @@ export async function POST(request: Request) {
     if (!metrics.success)
         return createErrorResponseJSON(metrics.error.message, { status: StatusCodes.INTERNAL_SERVER_ERROR });
 
-    return createSuccessResponseJSON(metrics.data, { status: StatusCodes.OK });
+    return createSuccessResponseJSON(metrics.data);
 }
 
 function decrypt(cipherText: string) {

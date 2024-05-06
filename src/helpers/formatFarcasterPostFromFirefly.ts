@@ -3,6 +3,7 @@ import { compact, first, last, uniqBy } from 'lodash-es';
 import { SocialPlatform } from '@/constants/enum.js';
 import { URL_REGEX } from '@/constants/regex.js';
 import { fixUrlProtocol } from '@/helpers/fixUrlProtocol.js';
+import { formatChannelFromFirefly } from '@/helpers/formatFarcasterChannelFromFirefly.js';
 import { formatFarcasterProfileFromFirefly } from '@/helpers/formatFarcasterProfileFromFirefly.js';
 import { getResourceType } from '@/helpers/getResourceType.js';
 import type { Cast } from '@/providers/types/Firefly.js';
@@ -14,9 +15,13 @@ import {
     ProfileStatus,
 } from '@/providers/types/SocialMedia.js';
 
+const fixUrls = (urls: Array<string | undefined>) => {
+    return uniqBy(compact(urls), (x) => x).map(fixUrlProtocol);
+};
+
 function formatContent(cast: Cast): Post['metadata']['content'] {
-    const matchedUrls = [...cast.text.matchAll(URL_REGEX)].map((x) => x[0]);
-    const oembedUrls = uniqBy(compact([...matchedUrls]), (x) => x.toLowerCase()).map(fixUrlProtocol);
+    const matchedUrls = fixUrls([...cast.text.matchAll(URL_REGEX)].map((x) => x[0]));
+    const oembedUrls = fixUrls([...matchedUrls, ...cast.embeds.map((x) => x.url)]);
     const oembedUrl = last(oembedUrls);
     const defaultContent = { content: cast.text, oembedUrl, oembedUrls };
 
@@ -55,6 +60,7 @@ function formatContent(cast: Cast): Post['metadata']['content'] {
 
 export function formatFarcasterPostFromFirefly(cast: Cast, type?: PostType): Post {
     return {
+        publicationId: cast.hash,
         type: type ?? cast.parentCast ? 'Comment' : 'Post',
         postId: cast.hash,
         parentPostId: cast.parent_hash,
@@ -93,6 +99,7 @@ export function formatFarcasterPostFromFirefly(cast: Cast, type?: PostType): Pos
         commentOn: cast.parentCast ? formatFarcasterPostFromFirefly(cast.parentCast) : undefined,
         root: cast.rootParentCast ? formatFarcasterPostFromFirefly(cast.rootParentCast) : undefined,
         threads: cast.threads?.map((x) => formatFarcasterPostFromFirefly(x, 'Comment')),
+        channel: cast.channel ? formatChannelFromFirefly(cast.channel) : undefined,
         __original__: cast,
     };
 }

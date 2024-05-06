@@ -12,7 +12,7 @@ export function getResourceType(urlString: string) {
         return 'Image';
     }
 
-    if (['jpg', 'jpeg', 'png', 'gif'].includes(fileExtension)) {
+    if (['png', 'jpeg', 'gif', 'webp', 'bmp', 'jpg'].includes(fileExtension)) {
         return 'Image';
     } else if (['mp4', 'webm', 'ogg', 'm3u8'].includes(fileExtension)) {
         return 'Video';

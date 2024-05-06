@@ -1,24 +1,52 @@
-import { t } from '@lingui/macro';
+import { plural, t } from '@lingui/macro';
+import { delay, safeUnreachable } from '@masknet/kit';
+import { compact } from 'lodash-es';
 
-import type { SocialPlatform } from '@/constants/enum.js';
+import { SocialPlatform } from '@/constants/enum.js';
 import { SORTED_SOURCES } from '@/constants/index.js';
-import { isPublishedPost } from '@/helpers/isPublishedPost.js';
+import { enqueueErrorsMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import { failedAt } from '@/helpers/isPublishedThread.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
+import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { crossPost } from '@/services/crossPost.js';
 import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
+import { useFarcasterStateStore } from '@/store/useProfileStore.js';
 
-function shouldCrossPost(index: number, post: CompositePost, rootPost: CompositePost, posts: CompositePost[]) {
-    // the root post defines the available sources for the thread
-    const { availableSources } = rootPost;
-
-    return SORTED_SOURCES.some((x) => availableSources.includes(x) && !post.parentPost[x]);
+function shouldCrossPost(index: number, post: CompositePost) {
+    return SORTED_SOURCES.some((x) => post.availableSources.includes(x) && !post.postId[x] && !post.parentPost[x]);
 }
 
-async function recompositePost(index: number, post: CompositePost, rootPost: CompositePost, posts: CompositePost[]) {
-    if (index === 0) return post;
+async function getParentPostById(source: SocialPlatform, postId: string) {
+    if (!postId) throw new Error(`Failed to get parent post by id: ${postId}.`);
+    switch (source) {
+        case SocialPlatform.Farcaster: {
+            // in a thread, posts will sometimes be lost if we post too quickly
+            await delay(1000);
 
-    const { availableSources } = rootPost;
+            // the hub might be delay in updating the post
+            const mock = { postId, author: {} } as unknown as Post;
+
+            const profileId = useFarcasterStateStore.getState().currentProfile?.profileId;
+            if (!profileId) throw new Error('Farcaster profileId is missing.');
+
+            // fc should have profileId for replying
+            mock.author.profileId = profileId;
+
+            return mock;
+        }
+        case SocialPlatform.Twitter:
+            return { postId } as unknown as Post;
+        case SocialPlatform.Lens:
+            return { postId } as unknown as Post;
+        default:
+            safeUnreachable(source);
+            return null;
+    }
+}
+
+async function recompositePost(index: number, post: CompositePost, posts: CompositePost[]) {
+    if (index === 0) return post;
 
     // reply to the previous published post in thread
     const previousPost = posts[index - 1];
@@ -29,8 +57,8 @@ async function recompositePost(index: number, post: CompositePost, rootPost: Com
         const parentPostId = previousPost.postId[x];
         const provider = resolveSocialMediaProvider(x);
 
-        if (availableSources.includes(x) && parentPostId && !post.parentPost[x] && provider) {
-            all.push(provider.getPostById(parentPostId));
+        if (post.availableSources.includes(x) && parentPostId && !post.parentPost[x] && provider) {
+            all.push(getParentPostById(x, parentPostId));
         } else {
             all.push(Promise.resolve(null));
         }
@@ -47,34 +75,74 @@ async function recompositePost(index: number, post: CompositePost, rootPost: Com
                 return [x, post.parentPost[x] ?? fetchedPost];
             }),
         ) as Record<SocialPlatform, Post | null>,
-
-        // override the available sources with the root post's
-        availableSources,
     } satisfies CompositePost;
 }
 
-export async function crossPostThread() {
+export async function crossPostThread({
+    isRetry = false,
+    progressCallback,
+}: {
+    isRetry?: boolean;
+    progressCallback?: (progress: number, index: number, total: number) => void;
+}) {
     const { posts } = useComposeStateStore.getState();
     if (posts.length === 1) throw new Error(t`A thread must have at least two posts.`);
+    const shouldSendPostCount = posts.length;
+
+    progressCallback?.(0, 0, posts.length);
 
     for (const [index, _] of posts.entries()) {
         const { posts: allPosts } = useComposeStateStore.getState();
 
         // skip post when recover from error
-        if (!shouldCrossPost(index, _, allPosts[0], allPosts)) return;
+        if (!shouldCrossPost(index, _)) continue;
 
         // reply to the previous published post in thread
-        const post = await recompositePost(index, _, allPosts[0], allPosts);
+        const post = await recompositePost(index, _, allPosts);
         await crossPost(index === 0 ? 'compose' : 'reply', post, {
             skipIfPublishedPost: true,
             skipIfNoParentPost: true,
-            skipPublishedCheck: true,
             skipRefreshFeeds: index !== posts.length - 1,
+            skipCheckPublished: true,
         });
+        progressCallback?.((index + 1) / posts.length, index, posts.length);
     }
 
     const { posts: updatedPosts } = useComposeStateStore.getState();
-    if (!updatedPosts.every(isPublishedPost)) {
-        throw new Error('Posts failed to publish.');
+
+    // check publish result
+    const failedPlatforms = failedAt(updatedPosts);
+
+    if (failedPlatforms.length) {
+        // the first error on each platform
+        const allErrors = SORTED_SOURCES.map((x) => updatedPosts.find((y) => y.postError[x])?.postError[x] ?? null);
+
+        // show success message if no error found on certain platform
+        SORTED_SOURCES.forEach((x, i) => {
+            const error = allErrors[i];
+            if (error) return;
+            const rootPost = updatedPosts[0];
+            if (!rootPost.availableSources.includes(x)) return;
+            if (!isRetry) {
+                enqueueSuccessMessage(t`Your posts have published successfully on ${resolveSourceName(x)}.`);
+            }
+        });
+
+        const firstPlatform = failedPlatforms[0] ? resolveSourceName(failedPlatforms[0]) : '';
+        const secondPlatform = failedPlatforms[1] ? resolveSourceName(failedPlatforms[1]) : '';
+
+        const message = plural(failedPlatforms.length, {
+            one: `Your posts failed to publish on ${firstPlatform} due to an error. Click 'Retry' to attempt posting again.`,
+            two: `Your posts failed to publish on ${firstPlatform} and ${secondPlatform} due to an error. Click 'Retry' to attempt posting again.`,
+            other: "Your posts failed to publish due to an error. Click 'Retry' to attempt posting again.",
+        });
+
+        enqueueErrorsMessage(message, {
+            errors: compact(allErrors),
+            persist: true,
+        });
+        throw new Error(`Failed to post on: ${failedPlatforms.map(resolveSourceName).join(' ')}.`);
+    } else {
+        enqueueSuccessMessage(t`Your posts have published successfully.`);
     }
 }
