@@ -1,6 +1,6 @@
 import type { UserV2 } from 'twitter-api-v2';
 
-import { SocialPlatform } from '@/constants/enum.js';
+import { Source } from '@/constants/enum.js';
 import { type Profile, ProfileStatus } from '@/providers/types/SocialMedia.js';
 
 export function formatTwitterProfileFromFirefly(data: UserV2): Profile {
@@ -16,7 +16,7 @@ export function formatTwitterProfileFromFirefly(data: UserV2): Profile {
         followingCount: data.public_metrics?.following_count ?? 0,
         status: ProfileStatus.Active,
         verified: true,
-        source: SocialPlatform.Twitter,
+        source: Source.Twitter,
         viewerContext: {
             following,
         },

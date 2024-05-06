@@ -1,17 +1,19 @@
 import { safeUnreachable } from '@masknet/kit';
 import urlcat from 'urlcat';
 
-import { SocialPlatform } from '@/constants/enum.js';
+import { Source } from '@/constants/enum.js';
 import { FIREFLY_STAMP_URL } from '@/constants/index.js';
 
-export function getStampAvatarByProfileId(source: SocialPlatform, profileId: string) {
+export function getStampAvatarByProfileId(source: Source, profileId: string) {
     switch (source) {
-        case SocialPlatform.Lens:
+        case Source.Lens:
             return urlcat(FIREFLY_STAMP_URL, '/lens/:id', { id: profileId });
-        case SocialPlatform.Farcaster:
+        case Source.Farcaster:
             return urlcat(FIREFLY_STAMP_URL, '/farcaster/:id', { id: profileId });
-        case SocialPlatform.Twitter:
+        case Source.Twitter:
             return urlcat(FIREFLY_STAMP_URL, '/twitter/:id', { id: profileId });
+        case Source.Article:
+            return urlcat(FIREFLY_STAMP_URL, '/avatar/:address', { address: profileId });
         default:
             safeUnreachable(source);
             return '';

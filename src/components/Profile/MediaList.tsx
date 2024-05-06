@@ -3,14 +3,14 @@ import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 
 import { ListInPage } from '@/components/ListInPage.js';
 import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.js';
-import { ProfileTabType, ScrollListKey, SocialPlatform } from '@/constants/enum.js';
+import { ProfileTabType, ScrollListKey, type SocialSource, Source } from '@/constants/enum.js';
 import { getPostsSelector } from '@/helpers/getPostsSelector.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 
 interface MediaListProps {
     profileId: string;
-    source: SocialPlatform;
+    source: SocialSource;
 }
 
 export function MediaList({ profileId, source }: MediaListProps) {
@@ -20,14 +20,14 @@ export function MediaList({ profileId, source }: MediaListProps) {
         queryKey: ['posts', source, 'posts-of', profileId],
 
         queryFn: async ({ pageParam }) => {
-            if (!profileId || source !== SocialPlatform.Lens) return createPageable(EMPTY_LIST, undefined);
+            if (!profileId || source !== Source.Lens) return createPageable(EMPTY_LIST, undefined);
 
             const posts = await LensSocialMediaProvider.getMediaPostsByProfileId(
                 profileId,
                 createIndicator(undefined, pageParam),
             );
 
-            if (source === SocialPlatform.Lens) {
+            if (source === Source.Lens) {
                 const ids = posts.data.flatMap((x) => [x.postId]);
                 await fetchAndStoreViews(ids);
             }

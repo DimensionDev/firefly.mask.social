@@ -10,7 +10,7 @@ import LoadingIcon from '@/assets/loading.svg';
 import { BlockUserButton } from '@/components/Actions/BlockUserButton.js';
 import { ReportUserButton } from '@/components/Actions/ReportUserButton.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
-import { SocialPlatform } from '@/constants/enum.js';
+import { Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
@@ -82,7 +82,7 @@ export const ProfileMoreAction = memo<MoreProps>(function ProfileMoreAction({ pr
                         )}
                     </Menu.Item>
 
-                    {profile.source === SocialPlatform.Lens ? (
+                    {profile.source === Source.Lens ? (
                         <Menu.Item>
                             {({ close }) => (
                                 <ReportUserButton onConfirm={close} profile={profile} onReport={reportUser} />

@@ -30,7 +30,7 @@ import urlcat from 'urlcat';
 import type { TypedDataDomain } from 'viem';
 
 import { config } from '@/configs/wagmiClient.js';
-import { SocialPlatform } from '@/constants/enum.js';
+import { Source } from '@/constants/enum.js';
 import { SetQueryDataForBlockUser } from '@/decorators/SetQueryDataForBlockUser.js';
 import { SetQueryDataForCommentPost } from '@/decorators/SetQueryDataForCommentPost.js';
 import { SetQueryDataForDeletePost } from '@/decorators/SetQueryDataForDeletePost.js';
@@ -63,11 +63,11 @@ import type { ResponseJSON } from '@/types/index.js';
 
 const MOMOKA_ERROR_MSG = 'momoka publication is not allowed';
 
-@SetQueryDataForLikePost(SocialPlatform.Lens)
-@SetQueryDataForMirrorPost(SocialPlatform.Lens)
-@SetQueryDataForCommentPost(SocialPlatform.Lens)
-@SetQueryDataForDeletePost(SocialPlatform.Lens)
-@SetQueryDataForBlockUser(SocialPlatform.Lens)
+@SetQueryDataForLikePost(Source.Lens)
+@SetQueryDataForMirrorPost(Source.Lens)
+@SetQueryDataForCommentPost(Source.Lens)
+@SetQueryDataForDeletePost(Source.Lens)
+@SetQueryDataForBlockUser(Source.Lens)
 @SetQueryDataForPosts
 class LensSocialMedia implements Provider {
     getChannelById(channelId: string): Promise<Channel> {
@@ -893,7 +893,7 @@ class LensSocialMedia implements Provider {
 
                 const time = first(item.mirrors)?.mirroredAt;
                 return {
-                    source: SocialPlatform.Lens,
+                    source: Source.Lens,
                     notificationId: item.id,
                     type: NotificationType.Mirror,
                     mirrors: item.mirrors.map((x) => formatLensProfile(x.profile)),
@@ -905,7 +905,7 @@ class LensSocialMedia implements Provider {
             if (item.__typename === 'QuoteNotification') {
                 const time = item.quote.createdAt;
                 return {
-                    source: SocialPlatform.Lens,
+                    source: Source.Lens,
                     notificationId: item.id,
                     type: NotificationType.Quote,
                     quote: formatLensPost(item.quote),
@@ -918,7 +918,7 @@ class LensSocialMedia implements Provider {
                 if (item.reactions.length === 0) throw new Error('No reaction found');
                 const time = first(flatMap(item.reactions.map((x) => x.reactions)))?.reactedAt;
                 return {
-                    source: SocialPlatform.Lens,
+                    source: Source.Lens,
                     notificationId: item.id,
                     type: NotificationType.Reaction,
                     reaction: ReactionType.Upvote,
@@ -930,7 +930,7 @@ class LensSocialMedia implements Provider {
 
             if (item.__typename === 'CommentNotification') {
                 return {
-                    source: SocialPlatform.Lens,
+                    source: Source.Lens,
                     notificationId: item.id,
                     type: NotificationType.Comment,
                     comment: formatLensPost(item.comment),
@@ -943,7 +943,7 @@ class LensSocialMedia implements Provider {
                 if (item.followers.length === 0) throw new Error('No follower found');
 
                 return {
-                    source: SocialPlatform.Lens,
+                    source: Source.Lens,
                     notificationId: item.id,
                     type: NotificationType.Follow,
                     followers: item.followers.map(formatLensProfile),
@@ -954,7 +954,7 @@ class LensSocialMedia implements Provider {
                 const post = formatLensPost(item.publication);
 
                 return {
-                    source: SocialPlatform.Lens,
+                    source: Source.Lens,
                     notificationId: item.id,
                     type: NotificationType.Mention,
                     post,
@@ -965,7 +965,7 @@ class LensSocialMedia implements Provider {
             if (item.__typename === 'ActedNotification') {
                 const time = first(item.actions)?.actedAt;
                 return {
-                    source: SocialPlatform.Lens,
+                    source: Source.Lens,
                     notificationId: item.id,
                     type: NotificationType.Act,
                     post: formatLensPost(item.publication),

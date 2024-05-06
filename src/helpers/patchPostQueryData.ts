@@ -1,12 +1,12 @@
 import { type Draft, produce } from 'immer';
 
 import { queryClient } from '@/configs/queryClient.js';
-import type { SocialPlatform } from '@/constants/enum.js';
+import type { SocialSource } from '@/constants/enum.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 type Patcher = (old: Draft<Post>) => void;
 
-export function patchPostQueryData(source: SocialPlatform, postId: string, patcher: Patcher) {
+export function patchPostQueryData(source: SocialSource, postId: string, patcher: Patcher) {
     queryClient.setQueriesData<Post>({ queryKey: [source, 'post-detail'] }, (old) => {
         if (!old) return old;
 

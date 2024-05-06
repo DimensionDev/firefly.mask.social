@@ -3,7 +3,7 @@ import { t } from '@lingui/macro';
 import { first } from 'lodash-es';
 import { v4 as uuid } from 'uuid';
 
-import { SocialPlatform } from '@/constants/enum.js';
+import { Source } from '@/constants/enum.js';
 import { SITE_URL } from '@/constants/index.js';
 import { readChars } from '@/helpers/chars.js';
 import { createDummyPost } from '@/helpers/createDummyPost.js';
@@ -168,7 +168,7 @@ async function publishPostForLens(
             contentURI: `ar://${arweaveId}`,
             content: null,
         },
-        source: SocialPlatform.Lens,
+        source: Source.Lens,
     });
     return publicationId;
 }
@@ -200,7 +200,7 @@ async function commentPostForLens(
     const arweaveId = await uploadToArweave(metadata, token);
     return LensSocialMediaProvider.commentPost(
         postId,
-        createDummyPost(SocialPlatform.Lens, `ar://${arweaveId}`),
+        createDummyPost(Source.Lens, `ar://${arweaveId}`),
         profile.signless,
     );
 }
@@ -232,7 +232,7 @@ async function quotePostForLens(
     const arweaveId = await uploadToArweave(metadata, token);
     const post = await LensSocialMediaProvider.quotePost(
         postId,
-        createDummyPost(SocialPlatform.Lens, `ar://${arweaveId}`),
+        createDummyPost(Source.Lens, `ar://${arweaveId}`),
         profile.signless,
     );
     return post;
@@ -243,7 +243,7 @@ export async function postToLens(type: ComposeType, compositePost: CompositePost
 
     const lensPostId = postId.Lens;
     const lensParentPost = parentPost.Lens;
-    const sourceName = resolveSourceName(SocialPlatform.Lens);
+    const sourceName = resolveSourceName(Source.Lens);
 
     // already posted to lens
     if (lensPostId) throw new Error(t`Already posted on ${sourceName}.`);
@@ -252,7 +252,7 @@ export async function postToLens(type: ComposeType, compositePost: CompositePost
     const { currentProfile } = useLensStateStore.getState();
     if (!currentProfile?.profileId) throw new Error(t`Login required to post on ${sourceName}.`);
 
-    const postTo = createPostTo(SocialPlatform.Lens, {
+    const postTo = createPostTo(Source.Lens, {
         uploadImages() {
             return Promise.all(
                 images.map(async (media) => {

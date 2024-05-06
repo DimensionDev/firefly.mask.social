@@ -3,7 +3,7 @@ import { memo } from 'react';
 import { Avatar } from '@/components/Avatar.js';
 import { FollowButton } from '@/components/Profile/FollowButton.js';
 import { SourceIcon } from '@/components/SourceIcon.js';
-import { SocialPlatform } from '@/constants/enum.js';
+import { Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { getLennyURL } from '@/helpers/getLennyURL.js';
 import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
@@ -24,7 +24,7 @@ export const FollowInList = memo<{ profile: Profile }>(function FollowInList({ p
                 src={profile.pfp}
                 size={70}
                 alt={profile.profileId}
-                fallbackUrl={profile.source === SocialPlatform.Lens ? getLennyURL(profile.pfp) : undefined}
+                fallbackUrl={profile.source === Source.Lens ? getLennyURL(profile.pfp) : undefined}
             />
             <div className="leading-5.5 flex flex-col text-[15px]">
                 <div className="flex w-full items-center">
@@ -33,7 +33,7 @@ export const FollowInList = memo<{ profile: Profile }>(function FollowInList({ p
                     </div>
                     <SourceIcon
                         source={profile.source}
-                        className={profile.source === SocialPlatform.Lens ? 'dark:opacity-70' : undefined}
+                        className={profile.source === Source.Lens ? 'dark:opacity-70' : undefined}
                     />
                 </div>
                 <div className="w-full truncate text-secondary">@{profile.handle}</div>

@@ -5,7 +5,7 @@ import {
 } from '@masknet/plugin-infra/content-script';
 import { createConstantSubscription, ProfileIdentifier } from '@masknet/shared-base';
 
-import { SocialPlatform } from '@/constants/enum.js';
+import { Source } from '@/constants/enum.js';
 import { SITE_HOSTNAME } from '@/constants/index.js';
 import { createMaskSiteAdaptorContext } from '@/helpers/createMaskContext.js';
 import { type Profile, ProfileStatus } from '@/providers/types/SocialMedia.js';
@@ -19,7 +19,7 @@ const fireflyappProfile: Profile = {
     followerCount: 0,
     followingCount: 0,
     status: ProfileStatus.Active,
-    source: SocialPlatform.Lens,
+    source: Source.Lens,
     verified: true,
 };
 

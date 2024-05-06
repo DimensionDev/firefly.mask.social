@@ -1,11 +1,11 @@
 import { FollowingList } from '@/app/(normal)/profile/[id]/following/Pages/FollowingList.js';
-import { type SourceInURL } from '@/constants/enum.js';
+import { type SocialSourceInURL } from '@/constants/enum.js';
 
 interface Props {
     params: {
         id: string;
     };
-    searchParams: { source: SourceInURL };
+    searchParams: { source: SocialSourceInURL };
 }
 
 export default function Following(props: Props) {

@@ -67,6 +67,9 @@ msgstr "Searching users"
 msgid "Collect Action is not supported yet."
 msgstr "Collect Action is not supported yet."
 
+msgid "This entry has been permanently stored on-chain and signed by its creator"
+msgstr "This entry has been permanently stored on-chain and signed by its creator"
+
 msgid "Join our Discord"
 msgstr "Join our Discord"
 
@@ -159,6 +162,9 @@ msgstr "Type something here..."
 
 msgid "Missing IPFS hash for image or video."
 msgstr "Missing IPFS hash for image or video."
+
+msgid "Revise on"
+msgstr "Revise on"
 
 msgid "Only up to 2 images can be chosen."
 msgstr "Only up to 2 images can be chosen."
@@ -291,6 +297,9 @@ msgstr "{shares, plural, =0 {Mirror or Quote} zero {Mirror or Quote} one {Mirror
 
 msgid "Comment cannot be empty."
 msgstr "Comment cannot be empty."
+
+msgid "AUTHOR ADDRESS"
+msgstr "AUTHOR ADDRESS"
 
 msgid "Reply"
 msgstr "Reply"
@@ -549,6 +558,9 @@ msgstr "There is no data available for display."
 
 msgid "Cancel"
 msgstr "Cancel"
+
+msgid "Post on"
+msgstr "Post on"
 
 msgid "Failed to like the post."
 msgstr "Failed to like the post."

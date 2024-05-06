@@ -11,6 +11,7 @@ import { ListInPage } from '@/components/ListInPage.js';
 import { SinglePost } from '@/components/Posts/SinglePost.js';
 import { ProfileInList } from '@/components/ProfileInList.js';
 import { ScrollListKey, SearchType } from '@/constants/enum.js';
+import { narrowToSocialSource } from '@/helpers/narrowSource.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 import type { Channel, Post, Profile } from '@/providers/types/SocialMedia.js';
@@ -41,25 +42,24 @@ const getSearchItemContent = (
 
 export default function Page() {
     const { searchKeyword, searchType } = useSearchStateStore();
-    const { currentSource } = useGlobalState();
+    const currentSource = useGlobalState.use.currentSource();
+    const currentSocialSource = narrowToSocialSource(currentSource);
 
     const queryResult = useSuspenseInfiniteQuery({
         queryKey: ['search', searchType, searchKeyword, currentSource],
         queryFn: async ({ pageParam }) => {
             if (!searchKeyword) return;
 
-            const provider = resolveSocialMediaProvider(currentSource);
-            if (!provider) return;
-
+            const provider = resolveSocialMediaProvider(currentSocialSource);
             const indicator = pageParam ? createIndicator(undefined, pageParam) : undefined;
 
             switch (searchType) {
                 case SearchType.Users:
-                    return provider?.searchProfiles(searchKeyword, indicator);
+                    return provider.searchProfiles(searchKeyword, indicator);
                 case SearchType.Posts:
-                    return provider?.searchPosts(searchKeyword, indicator);
+                    return provider.searchPosts(searchKeyword, indicator);
                 case SearchType.Channels:
-                    return provider?.searchChannels(searchKeyword, indicator);
+                    return provider.searchChannels(searchKeyword, indicator);
                 default:
                     safeUnreachable(searchType);
                     return;

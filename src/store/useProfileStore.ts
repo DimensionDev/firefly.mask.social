@@ -4,7 +4,7 @@ import { persist, type PersistOptions } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
 
 import { queryClient } from '@/configs/queryClient.js';
-import { SocialPlatform } from '@/constants/enum.js';
+import { Source } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 import { createSessionStorage } from '@/helpers/createSessionStorage.js';
@@ -87,7 +87,7 @@ function createState(
                 clearCurrentProfile: () =>
                     set((state) => {
                         queryClient.resetQueries({
-                            queryKey: ['profile', 'is-following', SocialPlatform.Farcaster],
+                            queryKey: ['profile', 'is-following', Source.Farcaster],
                         });
                         state.currentProfile = null;
                         state.currentProfileSession = null;

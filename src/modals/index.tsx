@@ -12,6 +12,7 @@ import { DraggablePopover } from '@/modals/DraggablePopover.js';
 import { FireflySessionConfirmModal } from '@/modals/FireflySessionConfirmModal.js';
 import { LoginModal } from '@/modals/LoginModal.js';
 import { LogoutModal } from '@/modals/LogoutModal.js';
+import { PreviewImagesModal } from '@/modals/PreviewImagesModal.js';
 import { Snackbar } from '@/modals/Snackbar.js';
 
 export const Modals = memo(function Modals() {
@@ -22,6 +23,7 @@ export const Modals = memo(function Modals() {
             <ConnectWalletModal ref={controls.ConnectWalletModalRef.register} />
             <LoginModal ref={controls.LoginModalRef.register} />
             <LogoutModal ref={controls.LogoutModalRef.register} />
+            <PreviewImagesModal ref={controls.PreviewImageModalRef.register} />
             <ComposeModal ref={controls.ComposeModalRef.register} />
             <ConfirmModal ref={controls.ConfirmModalRef.register} />
             <FireflySessionConfirmModal ref={controls.FireflySessionConfirmModalRef.register} />

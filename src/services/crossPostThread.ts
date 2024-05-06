@@ -2,11 +2,10 @@ import { plural, t } from '@lingui/macro';
 import { delay, safeUnreachable } from '@masknet/kit';
 import { compact } from 'lodash-es';
 
-import { SocialPlatform } from '@/constants/enum.js';
+import { type SocialSource, Source } from '@/constants/enum.js';
 import { SORTED_SOURCES } from '@/constants/index.js';
 import { enqueueErrorsMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { failedAt } from '@/helpers/isPublishedThread.js';
-import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { crossPost } from '@/services/crossPost.js';
@@ -17,10 +16,10 @@ function shouldCrossPost(index: number, post: CompositePost) {
     return SORTED_SOURCES.some((x) => post.availableSources.includes(x) && !post.postId[x] && !post.parentPost[x]);
 }
 
-async function getParentPostById(source: SocialPlatform, postId: string) {
+async function getParentPostById(source: SocialSource, postId: string) {
     if (!postId) throw new Error(`Failed to get parent post by id: ${postId}.`);
     switch (source) {
-        case SocialPlatform.Farcaster: {
+        case Source.Farcaster: {
             // in a thread, posts will sometimes be lost if we post too quickly
             await delay(1000);
 
@@ -35,9 +34,9 @@ async function getParentPostById(source: SocialPlatform, postId: string) {
 
             return mock;
         }
-        case SocialPlatform.Twitter:
+        case Source.Twitter:
             return { postId } as unknown as Post;
-        case SocialPlatform.Lens:
+        case Source.Lens:
             return { postId } as unknown as Post;
         default:
             safeUnreachable(source);
@@ -55,9 +54,8 @@ async function recompositePost(index: number, post: CompositePost, posts: Compos
 
     SORTED_SOURCES.forEach((x) => {
         const parentPostId = previousPost.postId[x];
-        const provider = resolveSocialMediaProvider(x);
 
-        if (post.availableSources.includes(x) && parentPostId && !post.parentPost[x] && provider) {
+        if (post.availableSources.includes(x) && parentPostId && !post.parentPost[x]) {
             all.push(getParentPostById(x, parentPostId));
         } else {
             all.push(Promise.resolve(null));
@@ -74,7 +72,7 @@ async function recompositePost(index: number, post: CompositePost, posts: Compos
                 const fetchedPost = settled.status === 'fulfilled' ? settled.value : null;
                 return [x, post.parentPost[x] ?? fetchedPost];
             }),
-        ) as Record<SocialPlatform, Post | null>,
+        ) as Record<Source, Post | null>,
     } satisfies CompositePost;
 }
 

@@ -6,7 +6,7 @@ import { produce } from 'immer';
 import { compact } from 'lodash-es';
 
 import { queryClient } from '@/configs/queryClient.js';
-import { NODE_ENV, SocialPlatform } from '@/constants/enum.js';
+import { NODE_ENV, type SocialSource } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { SORTED_SOURCES } from '@/constants/index.js';
 import { createMockComment } from '@/helpers/createMockComment.js';
@@ -22,7 +22,7 @@ import type { Post } from '@/providers/types/SocialMedia.js';
 import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
 import type { ComposeType } from '@/types/compose.js';
 
-async function refreshProfileFeed(source: SocialPlatform) {
+async function refreshProfileFeed(source: SocialSource) {
     const currentProfileAll = getCurrentProfileAll();
 
     await queryClient.invalidateQueries({

@@ -1,11 +1,11 @@
 import { Trans } from '@lingui/macro';
 
 import { Avatar } from '@/components/Avatar.js';
-import { BioMarkup } from '@/components/Markup/index.js';
+import { BioMarkup } from '@/components/Markup/BioMarkup.js';
 import { FollowButton } from '@/components/Profile/FollowButton.js';
 import { ProfileMoreAction } from '@/components/Profile/ProfileMoreAction.js';
 import { SourceIcon } from '@/components/SourceIcon.js';
-import { SocialPlatform } from '@/constants/enum.js';
+import { type SocialSource, Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
@@ -15,7 +15,7 @@ import type { Profile } from '@/providers/types/SocialMedia.js';
 interface InfoProps {
     isMyProfile: boolean;
     profile?: Profile;
-    source: SocialPlatform;
+    source: SocialSource;
 }
 
 export function Info({ isMyProfile, profile, source }: InfoProps) {
@@ -23,7 +23,7 @@ export function Info({ isMyProfile, profile, source }: InfoProps) {
     const followerCount = profile?.followerCount ?? 0;
 
     const isMedium = useIsMedium();
-    const isClickableFollowList = source === SocialPlatform.Farcaster || source === SocialPlatform.Twitter;
+    const isClickableFollowList = source === Source.Farcaster || source === Source.Twitter;
 
     return (
         <div className=" flex gap-3 p-3">

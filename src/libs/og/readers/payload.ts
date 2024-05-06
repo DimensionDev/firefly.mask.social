@@ -14,6 +14,9 @@ export function getMirrorPayload(document: Document): MirrorPayload | null {
                           {
                               publishedAtTimestamp: number;
                               body: string;
+                              featuredImage?: {
+                                  url: string;
+                              };
                           }
                       >;
                       digest: string;
@@ -35,6 +38,7 @@ export function getMirrorPayload(document: Document): MirrorPayload | null {
     const ens = data?.props?.pageProps?.publicationLayoutProject?.ens;
     const displayName = data?.props?.pageProps?.publicationLayoutProject?.displayName;
     const body = entry?.body;
+    const cover = entry.featuredImage?.url;
     return {
         type: PayloadType.Mirror,
         address,
@@ -42,6 +46,7 @@ export function getMirrorPayload(document: Document): MirrorPayload | null {
         ens,
         displayName,
         body,
+        cover,
     };
 }
 

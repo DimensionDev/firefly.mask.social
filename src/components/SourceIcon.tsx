@@ -3,11 +3,11 @@ import { safeUnreachable } from '@masknet/kit';
 import FarcasterIcon from '@/assets/farcaster.svg';
 import LensIcon from '@/assets/lens.svg';
 import XIcon from '@/assets/x.svg';
-import { SocialPlatform } from '@/constants/enum.js';
+import { type SocialSource, Source } from '@/constants/enum.js';
 
 interface SourceIconProps extends React.SVGProps<SVGSVGElement> {
     size?: number;
-    source: SocialPlatform;
+    source: SocialSource;
 }
 
 export function SourceIcon({ source, size = 20, ...props }: SourceIconProps) {
@@ -18,11 +18,11 @@ export function SourceIcon({ source, size = 20, ...props }: SourceIconProps) {
     };
 
     switch (source) {
-        case SocialPlatform.Lens:
+        case Source.Lens:
             return <LensIcon {...props} style={style} width={size} height={size} />;
-        case SocialPlatform.Farcaster:
+        case Source.Farcaster:
             return <FarcasterIcon {...props} style={style} width={size} height={size} />;
-        case SocialPlatform.Twitter:
+        case Source.Twitter:
             return <XIcon {...props} style={style} width={size} height={size} />;
         default:
             safeUnreachable(source);
