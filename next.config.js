@@ -12,6 +12,10 @@ const polyfillsFolderPath = join(outputPath, './js/polyfills');
 
 /** @type {import('next').NextConfig} */
 export default {
+    typescript: {
+        // Note: we run tsc -b in other places
+        ignoreBuildErrors: true,
+    },
     logging: {
         fetches: {
             fullUrl: true,
