@@ -24,8 +24,6 @@ export function useSearchChannels(
         queryKey: ['searchChannels', source, debouncedKw],
         queryFn: () => resolveSocialMediaProvider(source).searchChannels(debouncedKw),
     });
-    console.log('deboncedKw', debouncedKw);
-    console.log('data', data, 'isLoading', isLoading, 'isError', isError);
 
     if (!debouncedKw) return { channelList: defaultChannels, isLoading: false, isError: false };
     if (!data) return { channelList: EMPTY_LIST, isLoading, isError };
@@ -53,7 +51,11 @@ export function useDefaultChannelList(source: SocialPlatform) {
  *  @note: this is temporary solution, using searchChannels('') to get followed channels
  */
 export function useFollowedChannels(source: SocialPlatform, count: number) {
-    const provider = resolveSocialMediaProvider(source);
-    const { value } = useAsync(async () => provider.searchChannels(''), []);
-    return value?.data.slice(0, count) || ([] as Channel[]);
+    const { data } = useQuery({
+        queryKey: ['searchFollowChannel', source],
+        queryFn: () => {
+            return resolveSocialMediaProvider(source).searchChannels('');
+        },
+    });
+    return data?.data.slice(0, count) || ([] as Channel[]);
 }

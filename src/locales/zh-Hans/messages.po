@@ -352,6 +352,7 @@ msgid "Allow replies from"
 msgstr "允许回复"
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 msgid "No one likes this post yet."
 msgstr ""
 =======
@@ -359,6 +360,8 @@ msgid "Farcaster channel"
 msgstr "Farcaster 频道"
 >>>>>>> 00139c79 (feat: channel compose)
 
+=======
+>>>>>>> e373656e (chore: lingui extract)
 msgid "Your posts have published successfully on {0}."
 msgstr ""
 
@@ -742,6 +745,9 @@ msgstr "你不能在 {0} 上评论 {author}"
 
 msgid "Claim on {0}: {1}"
 msgstr ""
+
+msgid "Farcaster channel"
+msgstr "Farcaster 频道"
 
 msgid "Failed to unmirror post."
 msgstr "未能取消转帖。"

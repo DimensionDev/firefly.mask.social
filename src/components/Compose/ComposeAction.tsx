@@ -258,8 +258,9 @@ export function ComposeAction(props: ComposeActionProps) {
                     )}
                 </Popover>
             </div>
-            {showChannel && channel && currentSourceWithChannelSupport === SocialPlatform.Farcaster ? (
+            {showChannel && channel ? (
                 <ChannelAction
+                    source={currentSourceWithChannelSupport}
                     isRootPost={isRootPost}
                     channelList={channelList}
                     isError={isError}

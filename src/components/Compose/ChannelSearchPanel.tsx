@@ -1,5 +1,6 @@
 import { Popover, Transition } from '@headlessui/react';
 import { Fragment } from 'react';
+import { Trans } from '@lingui/macro';
 
 import RadioDisableNoIcon from '@/assets/radio.disable-no.svg';
 import SearchIcon from '@/assets/search.svg';
@@ -32,9 +33,13 @@ export function ChannelSearchPanel({
     const isSmall = useIsSmall('max');
 
     const listBox = isLoading ? (
-        <div className="m-auto">Loading...</div>
+        <div className="m-auto">
+            <Trans>Loading...</Trans>
+        </div>
     ) : isError ? (
-        <div className="m-auto">Error</div>
+        <div className="m-auto">
+            <Trans>Something went wrong. Please try again.</Trans>
+        </div>
     ) : (
         channelList.map((channel) => (
             <Fragment key={channel.id}>
@@ -76,7 +81,7 @@ export function ChannelSearchPanel({
             leaveTo="opacity-0 translate-y-1"
         >
             <Popover.Panel className=" absolute bottom-full right-0 flex w-[320px] -translate-y-3 flex-col gap-2 rounded-lg bg-bgModal p-3 text-[15px] shadow-popover dark:border dark:border-line dark:shadow-none">
-                <div className="relative flex flex-grow items-center rounded-xl bg-gray-100 px-3 text-main">
+                <div className="relative flex flex-grow items-center rounded-xl bg-lightBg px-3 text-main">
                     <SearchIcon width={18} height={18} className="shrink-0" />
                     <SearchInput
                         value={inputText}

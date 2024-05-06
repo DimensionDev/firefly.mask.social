@@ -347,12 +347,15 @@ msgid "Allow replies from"
 msgstr ""
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 msgid "No one likes this post yet."
 =======
 msgid "Farcaster channel"
 >>>>>>> 00139c79 (feat: channel compose)
 msgstr ""
 
+=======
+>>>>>>> e373656e (chore: lingui extract)
 msgid "Your posts have published successfully on {0}."
 msgstr ""
 
@@ -735,6 +738,9 @@ msgid "You cannot reply to @{author} on {0}."
 msgstr ""
 
 msgid "Claim on {0}: {1}"
+msgstr ""
+
+msgid "Farcaster channel"
 msgstr ""
 
 msgid "Failed to unmirror post."

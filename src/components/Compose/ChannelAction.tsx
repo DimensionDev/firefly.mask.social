@@ -4,6 +4,8 @@ import { Trans } from '@lingui/macro';
 
 import { ChannelSearchPanel } from '@/components/Compose/ChannelSearchPanel.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
+import type { SocialPlatform } from '@/constants/enum.js';
+import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 
 export interface ChannelActionProps {
     isRootPost: boolean;
@@ -14,6 +16,7 @@ export interface ChannelActionProps {
     isError: boolean;
     setInputText: (input: string) => void;
     updateChannel: (channel: Channel) => void;
+    source: SocialPlatform;
 }
 export function ChannelAction({
     isRootPost,
@@ -24,11 +27,12 @@ export function ChannelAction({
     updateChannel,
     isLoading,
     isError,
+    source,
 }: ChannelActionProps) {
     return (
         <div className=" flex h-9 items-center justify-between pb-safe">
             <span className=" text-[15px] text-secondary">
-                <Trans>Farcaster channel</Trans>
+                <Trans>{resolveSourceName(source)} channel</Trans>
             </span>
             <Popover as="div" className="relative">
                 {(_) => (
