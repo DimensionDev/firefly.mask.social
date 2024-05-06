@@ -87,6 +87,9 @@ msgstr "更换钱包"
 msgid "OpenGraph"
 msgstr "OpenGraph"
 
+msgid "{count, plural, one { 1 second} other { {count} seconds}}"
+msgstr ""
+
 msgid "Wrong wallet"
 msgstr "错误的钱包"
 
@@ -342,9 +345,6 @@ msgstr "会话格式错误。"
 msgid "Failed to login."
 msgstr ""
 
-msgid "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code."
-msgstr "在你装有 Warpcast 的手机上，打开 <0> 相机 </0>，扫描二维码。"
-
 msgid "Unlike"
 msgstr "取消点赞"
 
@@ -421,6 +421,9 @@ msgid "Details"
 msgstr "详情"
 
 msgid "Detect device accounts"
+msgstr ""
+
+msgid "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code in {0}."
 msgstr ""
 
 msgid "Your Farcaster account is now connected."

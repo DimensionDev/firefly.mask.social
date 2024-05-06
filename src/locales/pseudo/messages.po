@@ -82,6 +82,9 @@ msgstr ""
 msgid "OpenGraph"
 msgstr ""
 
+msgid "{count, plural, one { 1 second} other { {count} seconds}}"
+msgstr ""
+
 msgid "Wrong wallet"
 msgstr ""
 
@@ -337,9 +340,6 @@ msgstr ""
 msgid "Failed to login."
 msgstr ""
 
-msgid "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code."
-msgstr ""
-
 msgid "Unlike"
 msgstr ""
 
@@ -416,6 +416,9 @@ msgid "Details"
 msgstr ""
 
 msgid "Detect device accounts"
+msgstr ""
+
+msgid "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code in {0}."
 msgstr ""
 
 msgid "Your Farcaster account is now connected."
