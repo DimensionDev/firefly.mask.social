@@ -39,7 +39,8 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
     const router = useRouter();
     const debouncedKeyword = useDebounce(keyword, 300);
 
-    const { currentSource } = useGlobalState();
+    const currentSource = useGlobalState.use.currentSource();
+
     const { updateState } = useSearchStateStore();
     const { records, addRecord, removeRecord, clearAll } = useSearchHistoryStateStore();
 

@@ -88,8 +88,6 @@ export function PostDetailPage({ params: { id: postId }, searchParams: { source 
             if (!isSameProfile(root.author, post.author)) return createPageable(EMPTY_LIST, undefined);
 
             const provider = resolveSocialMediaProvider(currentSource);
-            if (!provider) return createPageable(EMPTY_LIST, undefined);
-
             const posts = await provider.getThreadByPostId(root.postId, root.postId === post.postId ? post : undefined);
 
             /**

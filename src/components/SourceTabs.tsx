@@ -7,6 +7,7 @@ import { startTransition } from 'react';
 import { SearchType, Source, SourceInURL } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
+import { narrowToSocialSource } from '@/helpers/narrowSource.js';
 import { replaceSearchParams } from '@/helpers/replaceSearchParams.js';
 import { resolveSource } from '@/helpers/resolveSource.js';
 import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
@@ -15,7 +16,10 @@ import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useSearchStateStore } from '@/store/useSearchStore.js';
 
 export function SourceTabs() {
-    const { currentSource, updateCurrentSource } = useGlobalState();
+    const currentSource = useGlobalState.use.currentSource();
+    const currentSocialSource = narrowToSocialSource(currentSource);
+    const updateCurrentSource = useGlobalState.use.updateCurrentSource();
+
     const { updateSearchType } = useSearchStateStore();
     const currentProfileAll = useCurrentProfileAll();
     const searchParams = useSearchParams();
@@ -26,7 +30,7 @@ export function SourceTabs() {
         const handle = param[param.length - 1];
         const sourceString = searchParams.get('source') as SourceInURL;
         const source = resolveSource(sourceString);
-        if (currentProfileAll[source]?.handle !== handle) return null;
+        if (currentProfileAll[currentSocialSource]?.handle !== handle) return null;
     }
 
     if (pathname !== '/' && currentSource === Source.Farcaster) {

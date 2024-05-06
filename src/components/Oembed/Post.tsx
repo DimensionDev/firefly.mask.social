@@ -21,10 +21,8 @@ export const PostEmbed = memo<PostEmbedProps>(function PostEmbed({ id, source })
         queryFn: async () => {
             if (!id) return null;
 
-            const provider = resolveSocialMediaProvider(currentSource);
-            if (!provider) return null;
-
             try {
+                const provider = resolveSocialMediaProvider(currentSource);
                 const post = await provider.getPostById(id);
                 if (currentSource === Source.Lens) fetchAndStoreViews([post.postId]);
                 return post;

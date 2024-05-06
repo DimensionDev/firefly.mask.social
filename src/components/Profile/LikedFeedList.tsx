@@ -18,11 +18,9 @@ export function LikedFeedList({ profileId, source }: LikedFeedListProps) {
 
         queryFn: async ({ pageParam }) => {
             if (!profileId) return createPageable(EMPTY_LIST, undefined);
+
             const provider = resolveSocialMediaProvider(source);
-            if (!provider) return createPageable(EMPTY_LIST, undefined);
-
             const posts = await provider.getLikedPostsByProfileId(profileId, createIndicator(undefined, pageParam));
-
             return posts;
         },
         initialPageParam: '',

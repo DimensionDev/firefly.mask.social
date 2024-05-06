@@ -6,7 +6,6 @@ import { type SocialSource, Source } from '@/constants/enum.js';
 import { SORTED_SOURCES } from '@/constants/index.js';
 import { enqueueErrorsMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { failedAt } from '@/helpers/isPublishedThread.js';
-import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { crossPost } from '@/services/crossPost.js';
@@ -55,9 +54,8 @@ async function recompositePost(index: number, post: CompositePost, posts: Compos
 
     SORTED_SOURCES.forEach((x) => {
         const parentPostId = previousPost.postId[x];
-        const provider = resolveSocialMediaProvider(x);
 
-        if (post.availableSources.includes(x) && parentPostId && !post.parentPost[x] && provider) {
+        if (post.availableSources.includes(x) && parentPostId && !post.parentPost[x]) {
             all.push(getParentPostById(x, parentPostId));
         } else {
             all.push(Promise.resolve(null));

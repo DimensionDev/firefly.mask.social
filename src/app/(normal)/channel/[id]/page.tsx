@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 
 import { ChannelDetailPage } from '@/app/(normal)/channel/pages/DetailPage.js';
-import { KeyType, type SocialSourceInURL, type SourceInURL } from '@/constants/enum.js';
+import { KeyType, type SocialSourceInURL } from '@/constants/enum.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { isBotRequest } from '@/helpers/isBotRequest.js';
 import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';

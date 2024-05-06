@@ -33,6 +33,7 @@ import { fetchImageAsPNG } from '@/helpers/fetchImageAsPNG.js';
 import { getCurrentAvailableSources } from '@/helpers/getCurrentAvailableSources.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isEmptyPost } from '@/helpers/isEmptyPost.js';
+import { narrowToSocialSource } from '@/helpers/narrowSource.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { hasRpPayload, isRpEncrypted, updateRpEncrypted } from '@/helpers/rpPayload.js';
 import { throws } from '@/helpers/throws.js';
@@ -77,12 +78,14 @@ export type ComposeModalCloseProps = {
 
 export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalProps, ComposeModalCloseProps>>(
     function Compose(_, ref) {
+        const currentSource = useGlobalState.use.currentSource();
+        const currentSocialSource = narrowToSocialSource(currentSource);
+
         const contentRef = useRef<HTMLDivElement>(null);
         const isMedium = useIsMedium();
-        const currentSource = useGlobalState.use.currentSource();
 
         const currentProfileAll = useCurrentProfileAll();
-        const profile = useCurrentProfile(currentSource);
+        const profile = useCurrentProfile(currentSocialSource);
 
         const {
             type,

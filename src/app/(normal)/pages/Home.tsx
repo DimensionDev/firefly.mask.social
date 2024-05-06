@@ -10,6 +10,7 @@ import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.
 import { ScrollListKey, type SocialSource, Source } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { getPostsSelector } from '@/helpers/getPostsSelector.js';
+import { narrowToSocialSource } from '@/helpers/narrowSource.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 import { FireflyArticleProvider } from '@/providers/firefly/Article.js';
@@ -24,6 +25,7 @@ async function discoverPosts(source: SocialSource, indicator: PageIndicator): Pr
 
 export function HomePage() {
     const currentSource = useGlobalState.use.currentSource();
+    const currentSocialSource = narrowToSocialSource(currentSource);
 
     const fetchAndStoreViews = useImpressionsStore.use.fetchAndStoreViews();
     const queryResult = useSuspenseInfiniteQuery({
@@ -38,7 +40,7 @@ export function HomePage() {
         },
         initialPageParam: '',
         getNextPageParam: (lastPage) => lastPage.nextIndicator?.id,
-        select: getPostsSelector(currentSource),
+        select: getPostsSelector(currentSocialSource),
     });
 
     const articleQueryResult = useSuspenseInfiniteQuery({
