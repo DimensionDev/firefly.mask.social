@@ -5,7 +5,7 @@ import { v4 as uuid } from 'uuid';
 import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
 
-import { RestrictionType, Source } from '@/constants/enum.js';
+import { RestrictionType, type SocialSource, Source } from '@/constants/enum.js';
 import { EMPTY_LIST, SORTED_SOURCES } from '@/constants/index.js';
 import { type Chars, readChars } from '@/helpers/chars.js';
 import { createSelectors } from '@/helpers/createSelector.js';
@@ -33,15 +33,15 @@ export interface CompositePost {
     id: Cursor;
 
     // tracking the post id in specific platform if it's posted
-    postId: Record<Source, string | null>;
+    postId: Record<SocialSource, string | null>;
     // tracking the parent post in specific platform
-    parentPost: Record<Source, OrphanPost | null>;
+    parentPost: Record<SocialSource, OrphanPost | null>;
     // tracking error
-    postError: Record<Source, Error | null>;
+    postError: Record<SocialSource, Error | null>;
 
     restriction: RestrictionType;
     // use the same value of root post
-    availableSources: Source[];
+    availableSources: SocialSource[];
     chars: Chars;
     typedMessage: TypedMessageTextV1 | null;
     video: MediaObject | null;
@@ -79,15 +79,15 @@ interface ComposeState {
     updateCursor: (cursor: Cursor) => void;
 
     // operations upon all posts
-    enableSource: (source: Source) => void;
-    disableSource: (source: Source) => void;
+    enableSource: (source: SocialSource) => void;
+    disableSource: (source: SocialSource) => void;
     updateRestriction: (restriction: RestrictionType) => void;
 
     // operations upon the current editable post
-    updatePostId: (source: Source, postId: string, cursor?: Cursor) => void;
-    updatePostError: (source: Source, postError: Error, cursor?: Cursor) => void;
-    updateParentPost: (source: Source, parentPost: Post, cursor?: Cursor) => void;
-    updateAvailableSources: (sources: Source[], cursor?: Cursor) => void;
+    updatePostId: (source: SocialSource, postId: string, cursor?: Cursor) => void;
+    updatePostError: (source: SocialSource, postError: Error, cursor?: Cursor) => void;
+    updateParentPost: (source: SocialSource, parentPost: Post, cursor?: Cursor) => void;
+    updateAvailableSources: (sources: SocialSource[], cursor?: Cursor) => void;
     updateChars: (charsOrUpdater: SetStateAction<Chars>, cursor?: Cursor) => void;
     updateTypedMessage: (typedMessage: TypedMessageTextV1 | null, cursor?: Cursor) => void;
     updateVideo: (video: MediaObject | null, cursor?: Cursor) => void;
@@ -112,19 +112,16 @@ function createInitSinglePostState(cursor: Cursor): CompositePost {
             [Source.Farcaster]: null,
             [Source.Lens]: null,
             [Source.Twitter]: null,
-            [Source.Article]: null,
         },
         postError: {
             [Source.Farcaster]: null,
             [Source.Lens]: null,
             [Source.Twitter]: null,
-            [Source.Article]: null,
         },
         parentPost: {
             [Source.Farcaster]: null,
             [Source.Lens]: null,
             [Source.Twitter]: null,
-            [Source.Article]: null,
         },
         availableSources: getCurrentAvailableSources(),
         restriction: RestrictionType.Everyone,
@@ -256,7 +253,6 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
                             [Source.Lens]: null,
                             [Source.Farcaster]: null,
                             [Source.Twitter]: null,
-                            [Source.Article]: null,
                             // a post can only have one parent post in specific platform
                             [source]: parentPost,
                         },

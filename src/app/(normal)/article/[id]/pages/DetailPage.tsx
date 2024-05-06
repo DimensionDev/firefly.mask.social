@@ -16,8 +16,8 @@ import { createPageTitle } from '@/helpers/createPageTitle.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { useComeBack } from '@/hooks/useComeback.js';
 import { PreviewImageModalRef } from '@/modals/controls.js';
-import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
-import { ArticlePlatform } from '@/providers/types/SocialMedia.js';
+import { FireflyArticleProvider } from '@/providers/firefly/Article.js';
+import { ArticlePlatform } from '@/providers/types/Article.js';
 import type { ResponseJSON } from '@/types/index.js';
 import { type LinkDigested, PayloadType } from '@/types/og.js';
 
@@ -35,7 +35,7 @@ export function ArticleDetailPage({ params: { id: articleId } }: PageProps) {
         queryFn: async () => {
             if (!articleId) return;
 
-            return FireflySocialMediaProvider.getArticleDetailById(articleId);
+            return FireflyArticleProvider.getArticleDetailById(articleId);
         },
     });
 

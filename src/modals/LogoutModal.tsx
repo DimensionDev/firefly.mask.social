@@ -10,14 +10,14 @@ import { forwardRef } from 'react';
 
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { ProfileName } from '@/components/ProfileName.js';
-import { Source } from '@/constants/enum.js';
+import { type SocialSource, Source } from '@/constants/enum.js';
 import { SORTED_SOURCES } from '@/constants/index.js';
 import { useProfileStoreAll } from '@/hooks/useProfileStoreAll.js';
 import { ConfirmModalRef } from '@/modals/controls.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 export interface LogoutModalProps {
-    source?: Source;
+    source?: SocialSource;
     profile?: Profile;
 }
 

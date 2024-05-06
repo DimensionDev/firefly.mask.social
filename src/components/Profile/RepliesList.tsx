@@ -3,14 +3,14 @@ import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 
 import { ListInPage } from '@/components/ListInPage.js';
 import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.js';
-import { ProfileTabType, ScrollListKey, Source } from '@/constants/enum.js';
+import { ProfileTabType, ScrollListKey, type SocialSource, Source } from '@/constants/enum.js';
 import { getPostsSelector } from '@/helpers/getPostsSelector.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 
 interface RepliesListProps {
     profileId: string;
-    source: Source;
+    source: SocialSource;
 }
 
 export function RepliesList({ profileId, source }: RepliesListProps) {

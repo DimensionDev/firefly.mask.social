@@ -1,5 +1,5 @@
 import { SingleArticle, type SingleArticleProps } from '@/components/Article/SingleArticle.js';
-import type { Article } from '@/providers/types/SocialMedia.js';
+import type { Article } from '@/providers/types/Article.js';
 
 export function getArticleItemContent(
     index: number,

@@ -8,6 +8,7 @@ import {
     ProfileTabType,
     RestrictionType,
     SearchType,
+    type SocialSource,
     Source,
     VERCEL_NEV,
 } from '@/constants/enum.js';
@@ -32,24 +33,21 @@ export const RP_HASH_TAG = '#FireflyLuckyDrop';
 export const EMPTY_LIST = Object.freeze([]) as never[];
 export const EMPTY_OBJECT = Object.freeze({}) as Record<string, never>;
 
-export const SORTED_PROFILE_TAB_TYPE: Record<Source, ProfileTabType[]> = {
+export const SORTED_PROFILE_TAB_TYPE: Record<SocialSource, ProfileTabType[]> = {
     [Source.Lens]: [ProfileTabType.Feed, ProfileTabType.Replies, ProfileTabType.Media, ProfileTabType.Collected],
     [Source.Farcaster]: [ProfileTabType.Feed, ProfileTabType.Replies, ProfileTabType.Liked],
     [Source.Twitter]: [ProfileTabType.Feed],
-    [Source.Article]: [],
 };
-export const SORTED_ENGAGEMENT_TAB_TYPE: Record<Source, EngagementType[]> = {
+export const SORTED_ENGAGEMENT_TAB_TYPE: Record<SocialSource, EngagementType[]> = {
     [Source.Lens]: [EngagementType.Quotes, EngagementType.Mirrors, EngagementType.Likes],
     // TODO No API to fetch recasts for now.
     [Source.Farcaster]: [EngagementType.Recasts, EngagementType.Likes],
     [Source.Twitter]: [EngagementType.Quotes, EngagementType.Likes],
-    [Source.Article]: [],
 };
-export const SORTED_SEARCH_TYPE: Record<Source, SearchType[]> = {
+export const SORTED_SEARCH_TYPE: Record<SocialSource, SearchType[]> = {
     [Source.Lens]: [SearchType.Posts, SearchType.Users],
     [Source.Farcaster]: [SearchType.Posts, SearchType.Users, SearchType.Channels],
     [Source.Twitter]: [SearchType.Posts, SearchType.Users],
-    [Source.Article]: [],
 };
 export const SORTED_SOURCES = [Source.Farcaster, Source.Lens, Source.Twitter] as const;
 export const SORTED_RESTECTION_TYPE = [RestrictionType.Everyone, RestrictionType.OnlyPeopleYouFollow];
@@ -79,23 +77,20 @@ export const S3_BUCKET = {
     FIREFLY_LENS_MEDIA: 'firefly-lens-media',
 };
 
-export const MAX_CHAR_SIZE_PER_POST: Record<Source, number> = {
+export const MAX_CHAR_SIZE_PER_POST: Record<SocialSource, number> = {
     [Source.Lens]: 5000,
     [Source.Farcaster]: 320,
     [Source.Twitter]: 280,
-    [Source.Article]: 0,
 };
-export const DANGER_CHAR_LIMIT: Record<Source, number> = {
+export const DANGER_CHAR_LIMIT: Record<SocialSource, number> = {
     [Source.Lens]: Math.floor(MAX_CHAR_SIZE_PER_POST[Source.Lens] * 0.9),
     [Source.Farcaster]: Math.floor(MAX_CHAR_SIZE_PER_POST[Source.Farcaster] * 0.9),
     [Source.Twitter]: Math.floor(MAX_CHAR_SIZE_PER_POST[Source.Twitter] * 0.9),
-    [Source.Article]: 0,
 };
-export const SAFE_CHAR_LIMIT: Record<Source, number> = {
+export const SAFE_CHAR_LIMIT: Record<SocialSource, number> = {
     [Source.Lens]: Math.floor(MAX_CHAR_SIZE_PER_POST[Source.Lens] * 0.8),
     [Source.Farcaster]: Math.floor(MAX_CHAR_SIZE_PER_POST[Source.Farcaster] * 0.8),
     [Source.Twitter]: Math.floor(MAX_CHAR_SIZE_PER_POST[Source.Twitter] * 0.8),
-    [Source.Article]: 0,
 };
 
 // Search Bar

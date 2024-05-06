@@ -7,16 +7,16 @@ import { LikeList } from '@/components/Engagement/LikeList.js';
 import { QuoteList } from '@/components/Engagement/QuoteList.js';
 import { RepostList } from '@/components/Engagement/RepostList.js';
 import { Loading } from '@/components/Loading.js';
-import { EngagementType, Source, type SourceInURL } from '@/constants/enum.js';
+import { EngagementType, type SocialSource, type SocialSourceInURL } from '@/constants/enum.js';
 import { SORTED_ENGAGEMENT_TAB_TYPE } from '@/constants/index.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
-import { resolveSource } from '@/helpers/resolveSource.js';
+import { resolveSocialSource } from '@/helpers/resolveSource.js';
 
 interface ContentListProps {
     postId: string;
     type: Props['params']['type'];
-    source: Source;
+    source: SocialSource;
 }
 const ContentList = memo(function ContentList(props: ContentListProps) {
     switch (props.type) {
@@ -39,14 +39,14 @@ interface Props {
         type: EngagementType;
     };
     searchParams: {
-        source: SourceInURL;
+        source: SocialSourceInURL;
     };
 }
 
 export default function Page(props: Props) {
     const { type: engagementType, id } = props.params;
     const sourceInURL = props.searchParams.source;
-    const source = resolveSource(sourceInURL);
+    const source = resolveSocialSource(sourceInURL);
     return (
         <>
             <div className=" flex gap-5 border-b border-lightLineSecond px-5 dark:border-line">

@@ -12,7 +12,7 @@ import stripMarkdown from 'strip-markdown';
 import { Code } from '@/components/Code.js';
 import { MarkupLink } from '@/components/Markup/MarkupLink/index.js';
 import { ImageAsset } from '@/components/Posts/ImageAsset.js';
-import { Source } from '@/constants/enum.js';
+import { type SocialSource, Source } from '@/constants/enum.js';
 import {
     BIO_TWITTER_PROFILE_REGEX,
     CHANNEL_REGEX,
@@ -82,7 +82,7 @@ export function NakedMarkup(props: MarkupProps) {
 }
 
 export interface BioMarkupProps extends MarkupProps {
-    source?: Source;
+    source?: SocialSource;
 }
 
 export const BioMarkup = memo<BioMarkupProps>(function Markup({ children, post, source, ...rest }) {

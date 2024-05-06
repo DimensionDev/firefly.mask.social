@@ -16,10 +16,10 @@ import { ClickableButton, type ClickableButtonProps } from '@/components/Clickab
 import { CloseButton } from '@/components/CloseButton.js';
 import { Image } from '@/components/Image.js';
 import { Modal } from '@/components/Modal.js';
-import type { SourceInURL } from '@/constants/enum.js';
+import type { SocialSourceInURL } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
-import { resolveSource } from '@/helpers/resolveSource.js';
+import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 
 interface Props {
@@ -27,7 +27,7 @@ interface Props {
         id: string;
         index: string;
     };
-    searchParams: { source: SourceInURL };
+    searchParams: { source: SocialSourceInURL };
 }
 
 interface CustomArrowProps extends Omit<ClickableButtonProps, 'children'> {
@@ -59,7 +59,7 @@ export default function PreviewPhotoModal({ params: { id: postId, index }, searc
     const router = useRouter();
     const isMedium = useIsMedium();
 
-    const currentSource = resolveSource(source);
+    const currentSource = resolveSocialSource(source);
 
     const { data: post = null } = useSuspenseQuery({
         queryKey: [currentSource, 'post-detail', postId],

@@ -1,9 +1,9 @@
-import { Source } from '@/constants/enum.js';
+import type { SocialSource } from '@/constants/enum.js';
 import { deletePostFromQueryData } from '@/helpers/deletePostFromQueryData.js';
 import type { Provider } from '@/providers/types/SocialMedia.js';
 import type { ClassType } from '@/types/index.js';
 
-export function SetQueryDataForDeletePost(source: Source) {
+export function SetQueryDataForDeletePost(source: SocialSource) {
     return function decorator<T extends ClassType<Provider>>(target: T): T {
         const method = target.prototype.deletePost as Provider['deletePost'];
 

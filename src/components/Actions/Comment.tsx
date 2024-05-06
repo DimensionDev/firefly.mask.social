@@ -6,7 +6,7 @@ import ReplyIcon from '@/assets/reply.svg';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { config } from '@/configs/wagmiClient.js';
-import { Source } from '@/constants/enum.js';
+import { type SocialSource, Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { humanize, nFormatter } from '@/helpers/formatCommentCounts.js';
@@ -19,7 +19,7 @@ import type { Post } from '@/providers/types/SocialMedia.js';
 interface CommentProps {
     count?: number;
     disabled?: boolean;
-    source: Source;
+    source: SocialSource;
     author: string;
     canComment?: boolean;
     post: Post;

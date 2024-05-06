@@ -30,8 +30,6 @@ export function useIsFollowing({ profile, placeholder, enabled }: Options) {
                     return FarcasterSocialMediaProvider.getProfileById(identifier);
                 case Source.Twitter:
                     return TwitterSocialMediaProvider.getProfileById(identifier);
-                case Source.Article:
-                    return null;
                 default:
                     safeUnreachable(platform);
                     return null;

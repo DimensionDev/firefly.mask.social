@@ -11,7 +11,7 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { OnlineStatusIndicator } from '@/components/OnlineStatusIndicator.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { ProfileName } from '@/components/ProfileName.js';
-import { Source } from '@/constants/enum.js';
+import { type SocialSource, Source } from '@/constants/enum.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { useProfileStore } from '@/hooks/useProfileStore.js';
 import { useSwitchLensAccount } from '@/hooks/useSwitchLensAccount.js';
@@ -19,7 +19,7 @@ import { FireflySessionConfirmModalRef, LoginModalRef, LogoutModalRef } from '@/
 import { createSessionForProfileIdFirefly } from '@/providers/lens/createSessionForProfileId.js';
 
 interface ProfileSettingsProps {
-    source: Source;
+    source: SocialSource;
     onClose?: () => void;
 }
 

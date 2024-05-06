@@ -1,15 +1,15 @@
 import urlcat from 'urlcat';
 
-import type { SourceInURL } from '@/constants/enum.js';
+import type { SocialSourceInURL } from '@/constants/enum.js';
 import { SITE_URL } from '@/constants/index.js';
 import { createPageTitle } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { getChannelUrl } from '@/helpers/getChannelUrl.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
-import { resolveSource } from '@/helpers/resolveSource.js';
+import { resolveSocialSource } from '@/helpers/resolveSource.js';
 
-export async function getChannelOGById(source: SourceInURL, channelId: string) {
-    const provider = resolveSocialMediaProvider(resolveSource(source));
+export async function getChannelOGById(source: SocialSourceInURL, channelId: string) {
+    const provider = resolveSocialMediaProvider(resolveSocialSource(source));
     const channel = await provider.getChannelById(channelId);
     if (!channel) return createSiteMetadata();
 

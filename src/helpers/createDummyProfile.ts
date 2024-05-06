@@ -1,5 +1,5 @@
 import { Source } from '@/constants/enum.js';
-import { ProfileStatus } from '@/providers/types/SocialMedia.js';
+import { type Profile, ProfileStatus } from '@/providers/types/SocialMedia.js';
 
 export function createDummyProfile() {
     return {
@@ -13,5 +13,5 @@ export function createDummyProfile() {
         status: ProfileStatus.Active,
         source: Source.Twitter,
         verified: true,
-    };
+    } satisfies Profile;
 }

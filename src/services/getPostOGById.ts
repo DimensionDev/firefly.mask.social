@@ -1,16 +1,16 @@
 import { compact } from 'lodash-es';
 import urlcat from 'urlcat';
 
-import type { SourceInURL } from '@/constants/enum.js';
+import type { SocialSourceInURL } from '@/constants/enum.js';
 import { SITE_URL } from '@/constants/index.js';
 import { createPageTitle } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
-import { resolveSource } from '@/helpers/resolveSource.js';
+import { resolveSocialSource } from '@/helpers/resolveSource.js';
 
-export async function getPostOGById(source: SourceInURL, postId: string) {
-    const provider = resolveSocialMediaProvider(resolveSource(source));
+export async function getPostOGById(source: SocialSourceInURL, postId: string) {
+    const provider = resolveSocialMediaProvider(resolveSocialSource(source));
     const post = await provider.getPostById(postId);
     if (!post) return createSiteMetadata();
 

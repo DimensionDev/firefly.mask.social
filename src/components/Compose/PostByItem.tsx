@@ -8,7 +8,7 @@ import YesIcon from '@/assets/yes.svg';
 import { Avatar } from '@/components/Avatar.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { SourceIcon } from '@/components/SourceIcon.js';
-import { Source } from '@/constants/enum.js';
+import { type SocialSource, Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
@@ -24,7 +24,7 @@ import { useComposeStateStore } from '@/store/useComposeStore.js';
 import { useLensStateStore } from '@/store/useProfileStore.js';
 
 interface PostByItemProps {
-    source: Source;
+    source: SocialSource;
 }
 
 export function PostByItem({ source }: PostByItemProps) {

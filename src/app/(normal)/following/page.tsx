@@ -15,7 +15,7 @@ import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfileAll.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
-import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
+import { FireflyArticleProvider } from '@/providers/firefly/Article.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 
@@ -68,7 +68,7 @@ export default function Following() {
         networkMode: 'always',
         queryFn: async ({ pageParam }) => {
             if (currentSource !== Source.Article) return createPageable(EMPTY_LIST, undefined);
-            return FireflySocialMediaProvider.getFollowingArticles(createIndicator(undefined, pageParam));
+            return FireflyArticleProvider.getFollowingArticles(createIndicator(undefined, pageParam));
         },
         initialPageParam: '',
         getNextPageParam: (lastPage) => lastPage.nextIndicator?.id,

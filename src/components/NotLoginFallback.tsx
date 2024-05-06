@@ -3,7 +3,7 @@ import { memo } from 'react';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { config } from '@/configs/wagmiClient.js';
-import { Source } from '@/constants/enum.js';
+import { type SocialSource, Source } from '@/constants/enum.js';
 import { Image } from '@/esm/Image.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
@@ -11,7 +11,7 @@ import { resolveFallbackImageUrl } from '@/helpers/resolveFallbackImageUrl.js';
 import { LoginModalRef } from '@/modals/controls.js';
 
 interface NotLoginFallbackProps {
-    source: Source;
+    source: SocialSource;
 }
 
 export const NotLoginFallback = memo<NotLoginFallbackProps>(function LoginFallback({ source }) {

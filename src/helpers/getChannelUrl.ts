@@ -16,8 +16,6 @@ export function getChannelUrl(channel: Channel) {
             });
         case Source.Twitter:
             return '';
-        case Source.Article:
-            return '';
         default:
             safeUnreachable(channel.source);
             return '';

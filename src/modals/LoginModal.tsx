@@ -19,7 +19,7 @@ import { Modal } from '@/components/Modal.js';
 import { Popover } from '@/components/Popover.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { config } from '@/configs/wagmiClient.js';
-import { Source } from '@/constants/enum.js';
+import { type SocialSource, Source } from '@/constants/enum.js';
 import { EMPTY_LIST, SORTED_SOURCES } from '@/constants/index.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
@@ -28,18 +28,18 @@ import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 export interface LoginModalProps {
-    source?: Source;
+    source?: SocialSource;
 }
 
 export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | void>>(function LoginModal(_, ref) {
     const isMedium = useIsMedium();
 
-    const [source, setSource] = useState<Source>();
+    const [source, setSource] = useState<SocialSource>();
     const [profiles, setProfiles] = useState<Profile[]>(EMPTY_LIST);
     const [isDirectly, setIsDirectly] = useState(false);
     const [currentAccount, setCurrentAccount] = useState<string>('');
 
-    const [{ loading }, handleLogin] = useAsyncFn(async (selectedSource: Source) => {
+    const [{ loading }, handleLogin] = useAsyncFn(async (selectedSource: SocialSource) => {
         try {
             switch (selectedSource) {
                 case Source.Lens: {
@@ -75,8 +75,6 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalProps | 
                 case Source.Twitter:
                     setProfiles(EMPTY_LIST);
                     setSource(selectedSource);
-                    return;
-                case Source.Article:
                     return;
                 default:
                     safeUnreachable(selectedSource);

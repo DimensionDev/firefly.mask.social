@@ -17,7 +17,7 @@ import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { getArticleUrl } from '@/helpers/getArticleUrl.js';
 import { resolveArticlePlatformIcon } from '@/helpers/resolveArticlePlatformIcon.js';
 import { PreviewImageModalRef } from '@/modals/controls.js';
-import { type Article, ArticlePlatform, ArticleType } from '@/providers/types/SocialMedia.js';
+import { type Article, ArticlePlatform, ArticleType } from '@/providers/types/Article.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import type { ResponseJSON } from '@/types/index.js';
 import { type LinkDigested, PayloadType } from '@/types/og.js';

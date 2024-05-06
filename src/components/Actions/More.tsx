@@ -16,12 +16,12 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { config } from '@/configs/wagmiClient.js';
-import { EngagementType, Source } from '@/constants/enum.js';
+import { EngagementType, type SocialSource, Source } from '@/constants/enum.js';
 import { SORTED_ENGAGEMENT_TAB_TYPE } from '@/constants/index.js';
 import { Link } from '@/esm/Link.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
-import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
+import { resolveSocialSourceInURL } from '@/helpers/resolveSourceInURL.js';
 import { useBlockUser } from '@/hooks/useBlockUser.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useDeletePost } from '@/hooks/useDeletePost.js';
@@ -32,7 +32,7 @@ import { LoginModalRef } from '@/modals/controls.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 interface MoreProps {
-    source: Source;
+    source: SocialSource;
     author: Profile;
     id?: string;
 }
@@ -177,7 +177,7 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
                     {id ? (
                         <Menu.Item
                             as={Link}
-                            href={`/post/${id}/${engagementType}?source=${resolveSourceInURL(source)}`}
+                            href={`/post/${id}/${engagementType}?source=${resolveSocialSourceInURL(source)}`}
                             className="flex cursor-pointer items-center space-x-2 p-4 hover:bg-bg"
                             onClick={(e) => e.stopPropagation()}
                         >

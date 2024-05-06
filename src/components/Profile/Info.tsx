@@ -5,14 +5,14 @@ import { BioMarkup } from '@/components/Markup/index.js';
 import { FollowButton } from '@/components/Profile/FollowButton.js';
 import { ProfileMoreAction } from '@/components/Profile/ProfileMoreAction.js';
 import { SourceIcon } from '@/components/SourceIcon.js';
-import type { Source } from '@/constants/enum.js';
+import type { SocialSource } from '@/constants/enum.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 interface InfoProps {
     isMyProfile: boolean;
     profile?: Profile;
-    source: Source;
+    source: SocialSource;
 }
 
 export function Info({ isMyProfile, profile, source }: InfoProps) {

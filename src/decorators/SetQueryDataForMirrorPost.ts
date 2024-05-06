@@ -1,11 +1,11 @@
 import { produce } from 'immer';
 
-import { Source } from '@/constants/enum.js';
+import { type SocialSource, Source } from '@/constants/enum.js';
 import { patchPostQueryData } from '@/helpers/patchPostQueryData.js';
 import type { Provider } from '@/providers/types/SocialMedia.js';
 import type { ClassType } from '@/types/index.js';
 
-function toggleMirror(source: Source, postId: string) {
+function toggleMirror(source: SocialSource, postId: string) {
     patchPostQueryData(source, postId, (draft) => {
         // You can mirror many times on Lens.
         const mirrored = source === Source.Lens || !draft.hasMirrored;
@@ -23,7 +23,7 @@ function toggleMirror(source: Source, postId: string) {
 
 const METHODS_BE_OVERRIDDEN = ['mirrorPost', 'unmirrorPost'] as const;
 
-export function SetQueryDataForMirrorPost(source: Source) {
+export function SetQueryDataForMirrorPost(source: SocialSource) {
     return function decorator<T extends ClassType<Provider>>(target: T): T {
         function overrideMethod<K extends (typeof METHODS_BE_OVERRIDDEN)[number]>(key: K) {
             const method = target.prototype[key] as Provider[K];

@@ -2,7 +2,7 @@ import { plural, t } from '@lingui/macro';
 import { delay, safeUnreachable } from '@masknet/kit';
 import { compact } from 'lodash-es';
 
-import { Source } from '@/constants/enum.js';
+import { type SocialSource, Source } from '@/constants/enum.js';
 import { SORTED_SOURCES } from '@/constants/index.js';
 import { enqueueErrorsMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { failedAt } from '@/helpers/isPublishedThread.js';
@@ -17,7 +17,7 @@ function shouldCrossPost(index: number, post: CompositePost) {
     return SORTED_SOURCES.some((x) => post.availableSources.includes(x) && !post.postId[x] && !post.parentPost[x]);
 }
 
-async function getParentPostById(source: Source, postId: string) {
+async function getParentPostById(source: SocialSource, postId: string) {
     if (!postId) throw new Error(`Failed to get parent post by id: ${postId}.`);
     switch (source) {
         case Source.Farcaster: {
@@ -39,8 +39,6 @@ async function getParentPostById(source: Source, postId: string) {
             return { postId } as unknown as Post;
         case Source.Lens:
             return { postId } as unknown as Post;
-        case Source.Article:
-            return null;
         default:
             safeUnreachable(source);
             return null;

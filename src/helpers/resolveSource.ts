@@ -1,6 +1,6 @@
 import { createLookupTableResolver } from '@masknet/shared-base';
 
-import { Source, SourceInURL } from '@/constants/enum.js';
+import { type SocialSource, type SocialSourceInURL, Source, SourceInURL } from '@/constants/enum.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 
 export const resolveSource = createLookupTableResolver<SourceInURL, Source>(
@@ -15,7 +15,18 @@ export const resolveSource = createLookupTableResolver<SourceInURL, Source>(
     },
 );
 
-export const resolveSourceFromSessionType = createLookupTableResolver<SessionType, Source>(
+export const resolveSocialSource = createLookupTableResolver<SocialSourceInURL, SocialSource>(
+    {
+        [SourceInURL.Farcaster]: Source.Farcaster,
+        [SourceInURL.Lens]: Source.Lens,
+        [SourceInURL.Twitter]: Source.Twitter,
+    },
+    (keyword) => {
+        throw new Error(`Unknown keyword: ${keyword}`);
+    },
+);
+
+export const resolveSocialSourceFromSessionType = createLookupTableResolver<SessionType, SocialSource>(
     {
         [SessionType.Farcaster]: Source.Farcaster,
         [SessionType.Lens]: Source.Lens,

@@ -1,6 +1,6 @@
 import type { Pageable, PageIndicator } from '@masknet/shared-base';
 
-import type { RestrictionType, Source } from '@/constants/enum.js';
+import type { RestrictionType, SocialSource } from '@/constants/enum.js';
 
 export enum SessionType {
     Twitter = 'Twitter',
@@ -67,7 +67,7 @@ export interface Profile {
         networkType: NetworkType;
         address: string;
     };
-    source: Source;
+    source: SocialSource;
 }
 
 export interface MediaObject {
@@ -154,7 +154,7 @@ export interface Post {
     hasLiked?: boolean;
     hasActed?: boolean;
     hasQuoted?: boolean;
-    source: Source;
+    source: SocialSource;
     isThread?: boolean;
 
     /**
@@ -224,7 +224,7 @@ export interface Collection {
 
 export interface BaseNotification {
     notificationId: string;
-    source: Source;
+    source: SocialSource;
     /** time in milliseconds */
     timestamp?: number;
 }
@@ -292,7 +292,7 @@ export interface ChannelLead {
 }
 
 export interface Channel {
-    source: Source;
+    source: SocialSource;
     id: string;
     name: string;
     description?: string;
@@ -306,33 +306,6 @@ export interface Channel {
     lead?: Profile;
     hosts?: Profile[];
     __original__?: unknown;
-}
-
-export enum ArticlePlatform {
-    Mirror = 'mirror',
-    Paragraph = 'paragraph',
-}
-
-export enum ArticleType {
-    Post = 'post',
-    Revise = 'revise',
-}
-
-export interface Article {
-    platform: ArticlePlatform;
-    title: string;
-    content: string;
-    type: ArticleType;
-    hash: string;
-    author: {
-        handle: string;
-        avatar: string;
-        id: string;
-    };
-    origin?: string;
-    timestamp: string;
-    id: string;
-    coverUrl: string | null;
 }
 
 export interface Provider {

@@ -11,7 +11,7 @@ import {
     ValueRef,
 } from '@masknet/shared-base';
 
-import type { Source } from '@/constants/enum.js';
+import type { SocialSource } from '@/constants/enum.js';
 import { SITE_URL } from '@/constants/index.js';
 import { createRejectCallback } from '@/helpers/createRejectCallback.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
@@ -66,7 +66,7 @@ export function createMaskSiteAdaptorContext(context?: Partial<__SiteAdaptorCont
             await delay(300);
             ComposeModalRef.open({
                 chars: text.replaceAll(/mask\.io/gi, SITE_URL),
-                source: source as Source,
+                source: source as SocialSource,
             });
         },
         connectPersona: createRejectCallback('connectPersona'),
@@ -75,7 +75,7 @@ export function createMaskSiteAdaptorContext(context?: Partial<__SiteAdaptorCont
         getUserIdentity: undefined,
         postMessage: undefined,
         publishPost: undefined,
-        requestLogin: (source: Source) => {
+        requestLogin: (source: SocialSource) => {
             LoginModalRef.open({ source });
         },
         ...context,

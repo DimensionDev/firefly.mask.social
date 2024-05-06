@@ -1,8 +1,6 @@
-import { noop } from 'lodash-es';
 import { useMemo } from 'react';
 
-import { Source } from '@/constants/enum.js';
-import { EMPTY_LIST } from '@/constants/index.js';
+import { type SocialSource, Source } from '@/constants/enum.js';
 import { useFarcasterStateStore, useLensStateStore, useTwitterStateStore } from '@/store/useProfileStore.js';
 
 export function useProfileStoreAll() {
@@ -56,16 +54,8 @@ export function useProfileStoreAll() {
                 refreshProfiles: refreshTwitterProfiles,
                 refreshCurrentProfile: refreshTwitterProfile,
             },
-            [Source.Article]: {
-                currentProfile: null,
-                currentProfileSession: null,
-                profiles: EMPTY_LIST,
-                clearCurrentProfile: noop,
-                refreshProfiles: noop,
-                refreshCurrentProfile: noop,
-            },
         };
-        return store as Record<Source, (typeof store)[Source]>;
+        return store as Record<SocialSource, (typeof store)[SocialSource]>;
     }, [
         clearFarcasterCurrentProfile,
         clearLensCurrentProfile,

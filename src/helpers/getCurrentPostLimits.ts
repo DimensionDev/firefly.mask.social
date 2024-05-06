@@ -1,7 +1,7 @@
-import { Source } from '@/constants/enum.js';
+import { type SocialSource, Source } from '@/constants/enum.js';
 import { DANGER_CHAR_LIMIT, MAX_CHAR_SIZE_PER_POST, SAFE_CHAR_LIMIT } from '@/constants/index.js';
 
-export function getCurrentPostLimits(availableSources: Source[]) {
+export function getCurrentPostLimits(availableSources: SocialSource[]) {
     if (!availableSources.length)
         return {
             MAX_CHAR_SIZE_PER_POST: MAX_CHAR_SIZE_PER_POST[Source.Farcaster],

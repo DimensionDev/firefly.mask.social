@@ -6,7 +6,7 @@ import { forwardRef } from 'react';
 
 import { ProfileInList } from '@/components/Login/ProfileInList.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
-import { resolveSourceFromSessionType } from '@/helpers/resolveSource.js';
+import { resolveSocialSourceFromSessionType } from '@/helpers/resolveSource.js';
 import { restoreProfile } from '@/helpers/restoreProfile.js';
 import { ConfirmModalRef } from '@/modals/controls.js';
 import { syncSessionFromFirefly } from '@/services/syncSessionFromFirefly.js';
@@ -35,7 +35,7 @@ export const FireflySessionConfirmModal = forwardRef<
                 // convert session to profile
                 const allSettled = await Promise.allSettled(
                     sessions.map((x) => {
-                        const provider = resolveSocialMediaProvider(resolveSourceFromSessionType(x.type));
+                        const provider = resolveSocialMediaProvider(resolveSocialSourceFromSessionType(x.type));
                         return provider.getProfileById(x.profileId);
                     }),
                 );

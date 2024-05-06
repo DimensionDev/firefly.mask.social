@@ -4,14 +4,14 @@ import { Avatar } from '@/components/Avatar.js';
 import { FollowButton } from '@/components/Channel/FollowButton.js';
 import { BioMarkup } from '@/components/Markup/index.js';
 import { SourceIcon } from '@/components/SourceIcon.js';
-import type { Source } from '@/constants/enum.js';
+import type { SocialSource } from '@/constants/enum.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
 
 interface InfoProps {
     channel: Channel;
-    source: Source;
+    source: SocialSource;
 }
 
 export function Info({ channel, source }: InfoProps) {

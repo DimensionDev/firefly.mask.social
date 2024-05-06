@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import type React from 'react';
 
 import { PostDetailPage } from '@/app/(normal)/post/[id]/pages/DetailPage.js';
-import { KeyType, SourceInURL } from '@/constants/enum.js';
+import { KeyType, type SocialSourceInURL } from '@/constants/enum.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { isBotRequest } from '@/helpers/isBotRequest.js';
 import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
@@ -16,11 +16,12 @@ interface Props {
     params: {
         id: string;
     };
-    searchParams: { source: SourceInURL };
+    searchParams: { source: SocialSourceInURL };
 }
 
 export async function generateMetadata({ params, searchParams }: Props): Promise<Metadata> {
-    if (isBotRequest() && searchParams.source) return getPostOGByIdRedis(searchParams.source as SourceInURL, params.id);
+    if (isBotRequest() && searchParams.source)
+        return getPostOGByIdRedis(searchParams.source as SocialSourceInURL, params.id);
     return createSiteMetadata();
 }
 

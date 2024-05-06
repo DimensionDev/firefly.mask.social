@@ -13,13 +13,13 @@ import ComeBack from '@/assets/comeback.svg';
 import { CommentList } from '@/components/Comments/index.js';
 import { SinglePost } from '@/components/Posts/SinglePost.js';
 import { ThreadBody } from '@/components/Posts/ThreadBody.js';
-import { Source, SourceInURL } from '@/constants/enum.js';
+import { type SocialSourceInURL, Source } from '@/constants/enum.js';
 import { EMPTY_LIST, MIN_POST_SIZE_PER_THREAD, SITE_NAME } from '@/constants/index.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { createPageTitle } from '@/helpers/createPageTitle.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
-import { resolveSource } from '@/helpers/resolveSource.js';
+import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { useComeBack } from '@/hooks/useComeback.js';
 import { useUpdateCurrentVisitingPost } from '@/hooks/useCurrentVisitingPost.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
@@ -34,7 +34,7 @@ interface PageProps {
         id: string;
     };
     searchParams: {
-        source: SourceInURL;
+        source: SocialSourceInURL;
     };
 }
 
@@ -50,7 +50,7 @@ function refreshThreadByPostId(postId: string) {
 }
 
 export function PostDetailPage({ params: { id: postId }, searchParams: { source } }: PageProps) {
-    const currentSource = resolveSource(source);
+    const currentSource = resolveSocialSource(source);
 
     const fetchAndStoreViews = useImpressionsStore.use.fetchAndStoreViews();
 

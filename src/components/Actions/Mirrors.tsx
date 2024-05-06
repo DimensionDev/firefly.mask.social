@@ -13,7 +13,7 @@ import QuoteDownIcon from '@/assets/quote-down.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { config } from '@/configs/wagmiClient.js';
-import { Source } from '@/constants/enum.js';
+import { type SocialSource, Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { humanize, nFormatter } from '@/helpers/formatCommentCounts.js';
@@ -27,7 +27,7 @@ import type { Post } from '@/providers/types/SocialMedia.js';
 
 interface MirrorProps {
     shares?: number;
-    source: Source;
+    source: SocialSource;
     postId: string;
     disabled?: boolean;
     post: Post;
@@ -51,8 +51,6 @@ export const Mirror = memo<MirrorProps>(function Mirror({ shares = 0, source, po
                 return t`Recast`;
             case Source.Twitter:
                 return t`Retweet`;
-            case Source.Article:
-                return '';
             default:
                 safeUnreachable(source);
                 return '';
@@ -67,8 +65,6 @@ export const Mirror = memo<MirrorProps>(function Mirror({ shares = 0, source, po
                 return mirrored ? t`Cancel Recast` : t`Recast`;
             case Source.Twitter:
                 return t`Retweet`;
-            case Source.Article:
-                return '';
             default:
                 safeUnreachable(source);
                 return '';
@@ -98,8 +94,6 @@ export const Mirror = memo<MirrorProps>(function Mirror({ shares = 0, source, po
                         : TwitterSocialMediaProvider.mirrorPost(postId));
                     enqueueSuccessMessage(mirrored ? t`Cancel retweet successfully` : t`Retweeted`);
                     return result;
-                case Source.Article:
-                    return;
                 default:
                     safeUnreachable(source);
                     return;

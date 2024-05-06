@@ -3,13 +3,13 @@ import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 
 import { ListInPage } from '@/components/ListInPage.js';
 import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.js';
-import { ProfileTabType, ScrollListKey, Source } from '@/constants/enum.js';
+import { ProfileTabType, ScrollListKey, type SocialSource } from '@/constants/enum.js';
 import { getPostsSelector } from '@/helpers/getPostsSelector.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 
 interface LikedFeedListProps {
     profileId: string;
-    source: Source;
+    source: SocialSource;
 }
 
 export function LikedFeedList({ profileId, source }: LikedFeedListProps) {

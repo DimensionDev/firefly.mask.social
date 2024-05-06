@@ -2,7 +2,7 @@ import { ProfileIdentifier } from '@masknet/base';
 import { safeUnreachable } from '@masknet/kit';
 import type { IdentityResolved } from '@masknet/plugin-infra';
 
-import { Source } from '@/constants/enum.js';
+import { type SocialSource, Source } from '@/constants/enum.js';
 import { SITE_HOSTNAME } from '@/constants/index.js';
 import { getCurrentProfileAll } from '@/helpers/getCurrentProfileAll.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
@@ -14,7 +14,7 @@ import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
  * @param source
  * @returns
  */
-export async function resolveIdentity(source: Source) {
+export async function resolveIdentity(source: SocialSource) {
     const currentProfileAll = getCurrentProfileAll();
     const identity: IdentityResolved = {};
     switch (source) {
@@ -40,8 +40,6 @@ export async function resolveIdentity(source: Source) {
         case Source.Twitter:
             identity.profileId = currentProfileAll.Twitter?.profileId;
             identity.identifier = ProfileIdentifier.of(SITE_HOSTNAME, currentProfileAll.Twitter?.handle).unwrap();
-            break;
-        case Source.Article:
             break;
         default:
             safeUnreachable(source);

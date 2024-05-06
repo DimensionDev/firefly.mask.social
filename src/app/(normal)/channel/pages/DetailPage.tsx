@@ -5,21 +5,21 @@ import { notFound } from 'next/navigation.js';
 
 import { ChannelPage } from '@/app/(normal)/pages/Channel.js';
 import { Loading } from '@/components/Loading.js';
-import type { SourceInURL } from '@/constants/enum.js';
+import type { SocialSourceInURL } from '@/constants/enum.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
-import { resolveSource } from '@/helpers/resolveSource.js';
+import { resolveSocialSource } from '@/helpers/resolveSource.js';
 
 interface PageProps {
     params: {
         id: string;
     };
     searchParams: {
-        source: SourceInURL;
+        source: SocialSourceInURL;
     };
 }
 
 export function ChannelDetailPage({ params: { id: channelId }, searchParams: { source } }: PageProps) {
-    const currentSource = resolveSource(source);
+    const currentSource = resolveSocialSource(source);
 
     const { data: channel = null, isLoading } = useQuery({
         queryKey: ['channel', currentSource, channelId],

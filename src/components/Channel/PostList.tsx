@@ -3,14 +3,14 @@ import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 
 import { ListInPage } from '@/components/ListInPage.js';
 import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.js';
-import { ScrollListKey, Source } from '@/constants/enum.js';
+import { ScrollListKey, type SocialSource, Source } from '@/constants/enum.js';
 import { mergeThreadPosts } from '@/helpers/mergeThreadPosts.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 
 interface PostListProps {
     channelId: string;
-    source: Source;
+    source: SocialSource;
 }
 export function PostList({ channelId, source }: PostListProps) {
     const fetchAndStoreViews = useImpressionsStore.use.fetchAndStoreViews();

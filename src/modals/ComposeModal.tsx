@@ -25,7 +25,7 @@ import { ComposeSend } from '@/components/Compose/ComposeSend.js';
 import { ComposeThreadContent } from '@/components/Compose/ComposeThreadContent.js';
 import { MentionNode } from '@/components/Lexical/nodes/MentionsNode.js';
 import { Modal } from '@/components/Modal.js';
-import { Source } from '@/constants/enum.js';
+import { type SocialSource, Source } from '@/constants/enum.js';
 import { RP_HASH_TAG, SITE_HOSTNAME, SITE_URL, SORTED_SOURCES } from '@/constants/index.js';
 import { type Chars, readChars } from '@/helpers/chars.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
@@ -63,7 +63,7 @@ const initialConfig = {
 export interface ComposeModalProps {
     type?: ComposeType;
     chars?: Chars;
-    source?: Source;
+    source?: SocialSource;
     post?: Post | null;
     typedMessage?: TypedMessageTextV1 | null;
     rpPayload?: {

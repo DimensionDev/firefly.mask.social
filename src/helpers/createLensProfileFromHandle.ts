@@ -1,5 +1,5 @@
 import { Source } from '@/constants/enum.js';
-import { ProfileStatus } from '@/providers/types/SocialMedia.js';
+import { type Profile, ProfileStatus } from '@/providers/types/SocialMedia.js';
 
 export function createLensProfileFromHandle(handle: string) {
     return {
@@ -13,5 +13,5 @@ export function createLensProfileFromHandle(handle: string) {
         followingCount: 0,
         status: ProfileStatus.Active,
         verified: true,
-    };
+    } satisfies Profile;
 }

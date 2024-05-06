@@ -1,6 +1,6 @@
 import { memo } from 'react';
 
-import type { Article } from '@/providers/types/SocialMedia.js';
+import type { Article } from '@/providers/types/Article.js';
 
 interface ArticleBodyProps {
     article: Article;

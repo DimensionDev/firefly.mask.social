@@ -10,7 +10,7 @@ import { FeedList } from '@/components/Profile/FeedList.js';
 import { LikedFeedList } from '@/components/Profile/LikedFeedList.js';
 import { MediaList } from '@/components/Profile/MediaList.js';
 import { RepliesList } from '@/components/Profile/RepliesList.js';
-import { ProfileTabType, Source } from '@/constants/enum.js';
+import { ProfileTabType, type SocialSource, Source } from '@/constants/enum.js';
 import { SORTED_PROFILE_TAB_TYPE } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 
@@ -20,7 +20,7 @@ const ContentList = memo(function ContentList({
     profileId,
 }: {
     type: ProfileTabType;
-    source: Source;
+    source: SocialSource;
     profileId: string;
 }) {
     switch (type) {
@@ -44,7 +44,7 @@ const ContentList = memo(function ContentList({
 
 interface TabsProps {
     profileId: string;
-    source: Source;
+    source: SocialSource;
 }
 
 export function Tabs({ profileId, source }: TabsProps) {
