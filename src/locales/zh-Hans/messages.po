@@ -156,6 +156,9 @@ msgstr "从这里开始..."
 msgid "Missing IPFS hash for image or video."
 msgstr "未找到图片和视频的 hash 信息。"
 
+msgid "Explore"
+msgstr ""
+
 msgid "Only up to 2 images can be chosen."
 msgstr "至多可以选择2张图片。"
 
