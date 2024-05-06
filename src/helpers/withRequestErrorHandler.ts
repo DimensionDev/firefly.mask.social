@@ -11,24 +11,32 @@ export class UnauthorizedError extends Error {
     }
 }
 
-export function withRequestErrorHandler(handler: (request: NextRequest, ...other: any[]) => Promise<Response>) {
-    return async (request: NextRequest, ...other: any[]) => {
-        try {
-            return await handler(request, ...other);
-        } catch (error) {
-            if (error instanceof ZodError) {
-                return createErrorResponseJSON(handleZodErrorMessage(error), {
-                    status: StatusCodes.BAD_REQUEST,
-                });
+export function withRequestErrorHandler(options?: {
+    throwError?: boolean
+}) {
+    const { throwError = false } = options ?? {}
+    return (handler: (request: NextRequest, ...other: any[]) => Promise<Response>) => {
+        return async (request: NextRequest, ...other: any[]) => {
+            try {
+                return await handler(request, ...other);
+            } catch (error) {
+                if (error instanceof ZodError) {
+                    return createErrorResponseJSON(handleZodErrorMessage(error), {
+                        status: StatusCodes.BAD_REQUEST,
+                    });
+                }
+                if (error instanceof UnauthorizedError) {
+                    return createErrorResponseJSON(error.message, {
+                        status: StatusCodes.UNAUTHORIZED,
+                    });
+                }
+                if (!throwError) {
+                    return createErrorResponseJSON(error instanceof Error ? error.message : 'Internal Server Error', {
+                        status: StatusCodes.INTERNAL_SERVER_ERROR,
+                    });
+                }
+                throw error
             }
-            if (error instanceof UnauthorizedError) {
-                return createErrorResponseJSON(error.message, {
-                    status: StatusCodes.UNAUTHORIZED,
-                });
-            }
-            return createErrorResponseJSON(error instanceof Error ? error.message : 'Internal Server Error', {
-                status: StatusCodes.INTERNAL_SERVER_ERROR,
-            });
-        }
-    };
+        };
+    }
 }
