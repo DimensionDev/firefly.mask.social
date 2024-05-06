@@ -286,7 +286,7 @@ class FireflySocialMedia implements Provider {
                 },
             );
             const user = resolveFireflyResponseData(response);
-            const friendship = await this.getFriendship(profileId)
+            const friendship = await this.getFriendship(profileId);
             return formatFarcasterProfileFromFirefly({
                 ...user,
                 ...friendship,

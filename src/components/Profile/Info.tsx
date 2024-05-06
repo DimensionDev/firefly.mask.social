@@ -23,7 +23,7 @@ export function Info({ isMyProfile, profile, source }: InfoProps) {
     const followerCount = profile?.followerCount ?? 0;
 
     const isMedium = useIsMedium();
-    const isClickableFollowList = source === SocialPlatform.Farcaster || source === SocialPlatform.Twitter
+    const isClickableFollowList = source === SocialPlatform.Farcaster || source === SocialPlatform.Twitter;
 
     return (
         <div className=" flex gap-3 p-3">

@@ -28,7 +28,7 @@ export const FollowInList = memo<{ profile: Profile }>(function FollowInList({ p
             />
             <div className="leading-5.5 flex flex-col text-[15px]">
                 <div className="flex w-full items-center">
-                    <div className="mr-2 truncate text-xl leading-6 max-w-[calc(100% - 32px)]">
+                    <div className="max-w-[calc(100% - 32px)] mr-2 truncate text-xl leading-6">
                         {profile.displayName}
                     </div>
                     <SourceIcon
