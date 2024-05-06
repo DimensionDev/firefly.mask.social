@@ -5,6 +5,9 @@
             "path": "./src/maskbook/packages/mask-sdk/public-api/tsconfig.json"
         },
         {
+            "path": "./src/maskbook/packages/shared-base/tsconfig.json"
+        },
+        {
             "path": "./src/maskbook/packages/plugin-infra/tsconfig.json"
         },
         {
@@ -96,6 +99,7 @@
             "@masknet/shared-base-ui": ["./src/maskbook/packages/shared-base-ui/src/index.ts"],
             "@masknet/theme": ["./src/maskbook/packages/theme/src/index.ts"],
             "@masknet/typed-message": ["./src/maskbook/packages/typed-message/base/src/index.ts"],
+            "@masknet/typed-message/internal": ["./src/maskbook/packages/typed-message/base/src/internal.ts"],
             "@masknet/typed-message-react": ["./src/maskbook/packages/typed-message/react/src/index.ts"],
             "@masknet/types": ["./src/maskbook/packages/types/src/index.ts"],
             "@masknet/web3-helpers": ["./src/maskbook/packages/web3-helpers/src/index.ts"],
