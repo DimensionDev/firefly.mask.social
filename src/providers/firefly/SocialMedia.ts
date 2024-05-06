@@ -269,7 +269,7 @@ class FireflySocialMedia implements Provider {
                 method: 'GET',
             });
 
-            if (!cast) throw new Error('Post not found');
+            if (!cast || cast.deleted_at) throw new Error('Post not found');
             return formatFarcasterPostFromFirefly(cast);
         });
     }

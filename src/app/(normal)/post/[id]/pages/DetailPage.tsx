@@ -4,6 +4,7 @@ import { t, Trans } from '@lingui/macro';
 import { createPageable } from '@masknet/shared-base';
 import { useSuspenseInfiniteQuery, useSuspenseQuery } from '@tanstack/react-query';
 import { last } from 'lodash-es';
+import { notFound } from 'next/navigation.js';
 import type React from 'react';
 import urlcat from 'urlcat';
 import { useDocumentTitle } from 'usehooks-ts';
@@ -61,13 +62,22 @@ export function PostDetailPage({ params: { id: postId }, searchParams: { source 
         queryFn: async () => {
             if (!postId) return;
 
-            const post = await getPostById(currentSource, postId);
-            if (!post) return;
+            try {
+                const post = await getPostById(currentSource, postId);
+                if (!post) return;
 
-            if (currentSource === SocialPlatform.Lens) fetchAndStoreViews([post.postId]);
-            return post;
+                if (currentSource === SocialPlatform.Lens) fetchAndStoreViews([post.postId]);
+                return post;
+            } catch (err) {
+                if (err instanceof Error && err.message === 'Post not found') return null;
+                throw err;
+            }
         },
     });
+
+    if (!post) {
+        notFound();
+    }
 
     const { data: allPosts = EMPTY_LIST } = useSuspenseInfiniteQuery({
         queryKey: ['posts', currentSource, 'thread-detail', post?.postId, post?.root?.postId],
