@@ -22,7 +22,9 @@ interface WarpcastSignInResponse {
 interface FarcasterReplyResponse {
     channelToken: string;
     url: string;
+    // the same as url
     connectUri: string;
+    // example: dpO7VRkrPcwyLhyFZ
     nonce: string;
 }
 
