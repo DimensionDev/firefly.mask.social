@@ -19,8 +19,7 @@ interface Props {
 }
 
 export async function generateMetadata({ params, searchParams }: Props): Promise<Metadata> {
-    if (isBotRequest() && searchParams.source)
-        return getProfileOGByIdRedis(searchParams.source as SocialSourceInURL, params.id);
+    if (isBotRequest() && searchParams.source) return getProfileOGByIdRedis(searchParams.source, params.id);
     return createSiteMetadata();
 }
 
