@@ -295,9 +295,6 @@ msgstr "{shares, plural, =0 {Mirror or Quote} zero {Mirror or Quote} one {Mirror
 msgid "Comment cannot be empty."
 msgstr "Comment cannot be empty."
 
-msgid "Successed to {0} /{1}"
-msgstr "Successed to {0} /{1}"
-
 msgid "Reply"
 msgstr "Reply"
 

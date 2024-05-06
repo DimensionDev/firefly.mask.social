@@ -300,9 +300,6 @@ msgstr ""
 msgid "Comment cannot be empty."
 msgstr ""
 
-msgid "Successed to {0} /{1}"
-msgstr ""
-
 msgid "Reply"
 msgstr "回复"
 
