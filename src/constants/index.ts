@@ -1,5 +1,7 @@
 /* cspell:disable */
 
+import type { TweetV2UserTimelineParams } from 'twitter-api-v2';
+
 import {
     EngagementType,
     NODE_ENV,
@@ -141,3 +143,16 @@ export const SUFFIX_NAMES: Record<(typeof ALLOWED_IMAGES_MIMES)[number], string>
 };
 
 export const FILE_MAX_SIZE_IN_BYTES = 4 * 1024 * 1024; // 4MB
+
+export const TWITTER_TIMELINE_OPTIONS: TweetV2UserTimelineParams = {
+    expansions: [
+        'attachments.media_keys',
+        'attachments.poll_ids',
+        'author_id',
+        'referenced_tweets.id',
+        'referenced_tweets.id.author_id',
+    ],
+    'media.fields': ['media_key', 'height', 'width', 'type', 'url', 'preview_image_url', 'variants'],
+    'tweet.fields': ['text', 'attachments', 'author_id', 'created_at', 'lang', 'public_metrics', 'referenced_tweets'],
+    'user.fields': ['profile_image_url', 'name', 'username'],
+};

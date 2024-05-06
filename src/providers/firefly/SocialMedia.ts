@@ -337,7 +337,7 @@ class FireflySocialMedia implements Provider {
                 method: 'GET',
             });
 
-            if (!cast) throw new Error('Post not found');
+            if (!cast || cast.deleted_at) throw new Error('Post not found');
             return formatFarcasterPostFromFirefly(cast);
         });
     }
@@ -422,7 +422,6 @@ class FireflySocialMedia implements Provider {
                     size: 25,
                     sourceFid: session?.profileId,
                     cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
-                    needRootParentHash: true,
                 }),
             });
             const { casts, cursor } = resolveFireflyResponseData(response);
@@ -470,6 +469,7 @@ class FireflySocialMedia implements Provider {
                     size: 25,
                     sourceFid: session?.profileId,
                     cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
+                    needRootParentHash: true,
                 }),
             });
 

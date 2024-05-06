@@ -340,6 +340,9 @@ msgstr ""
 msgid "Only people you mention"
 msgstr ""
 
+msgid "Cancel retweet successfully"
+msgstr ""
+
 msgid "Allow replies from"
 msgstr ""
 
@@ -407,6 +410,9 @@ msgid "Lens"
 msgstr ""
 
 msgid "Failed to upvote post."
+msgstr ""
+
+msgid "Retweeted"
 msgstr ""
 
 msgid "Post your reply"

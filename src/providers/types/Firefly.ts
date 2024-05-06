@@ -16,6 +16,8 @@ export interface Cast {
         handle: string;
     }>;
     created_at: string;
+    /** example 2024-05-06T10:22:42.152Z */
+    deleted_at: string | null;
     likeCount: number;
     recastCount: number;
     replyCount: string;

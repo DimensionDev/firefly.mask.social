@@ -69,7 +69,7 @@ export const PostActions = memo<PostActionsProps>(function PostActions({
             authorId={post.source === SocialPlatform.Farcaster ? post.author.profileId : undefined}
             disabled={disabled}
         />,
-        post.source === SocialPlatform.Farcaster || isSmall ? null : (
+        post.source === SocialPlatform.Farcaster || post.source === SocialPlatform.Twitter || isSmall ? null : (
             <Views key="views" count={views} disabled={disabled} />
         ),
         <Share key="share" url={urlcat(location.origin, getPostUrl(post))} disabled={disabled} />,
