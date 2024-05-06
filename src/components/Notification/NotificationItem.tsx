@@ -15,7 +15,7 @@ import MirrorIcon from '@/assets/mirror-large.svg';
 import { PostActions } from '@/components/Actions/index.js';
 import { MoreAction } from '@/components/Actions/More.js';
 import { AvatarGroup } from '@/components/AvatarGroup.js';
-import { Markup } from '@/components/Markup/index.js';
+import { Markup } from '@/components/Markup/Markup.js';
 import { ProfileLink } from '@/components/Notification/ProfileLink.js';
 import { Quote } from '@/components/Posts/Quote.js';
 import { SourceIcon } from '@/components/SourceIcon.js';

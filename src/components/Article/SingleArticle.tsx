@@ -8,7 +8,7 @@ import { useMount } from 'react-use';
 import urlcat from 'urlcat';
 
 import { ArticleHeader } from '@/components/Article/ArticleHeader.js';
-import { ArticleMarkup } from '@/components/Markup/index.js';
+import { ArticleMarkup } from '@/components/Markup/ArticleMarkup.js';
 import { ImageAsset } from '@/components/Posts/ImageAsset.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { IS_APPLE, IS_SAFARI } from '@/constants/bowser.js';

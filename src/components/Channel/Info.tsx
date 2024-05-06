@@ -2,7 +2,7 @@ import { plural } from '@lingui/macro';
 
 import { Avatar } from '@/components/Avatar.js';
 import { FollowButton } from '@/components/Channel/FollowButton.js';
-import { BioMarkup } from '@/components/Markup/index.js';
+import { BioMarkup } from '@/components/Markup/BioMarkup.js';
 import { SourceIcon } from '@/components/SourceIcon.js';
 import type { SocialSource } from '@/constants/enum.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';

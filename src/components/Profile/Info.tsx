@@ -1,7 +1,7 @@
 import { Trans } from '@lingui/macro';
 
 import { Avatar } from '@/components/Avatar.js';
-import { BioMarkup } from '@/components/Markup/index.js';
+import { BioMarkup } from '@/components/Markup/BioMarkup.js';
 import { FollowButton } from '@/components/Profile/FollowButton.js';
 import { ProfileMoreAction } from '@/components/Profile/ProfileMoreAction.js';
 import { SourceIcon } from '@/components/SourceIcon.js';

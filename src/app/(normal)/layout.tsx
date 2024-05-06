@@ -3,7 +3,7 @@ import { IfPathname } from '@/components/IfPathname.js';
 import { NavigatorBar } from '@/components/NavigatorBar/index.js';
 import { AsideSearchBar, HeaderSearchBar } from '@/components/Search/SearchBar.js';
 import { SearchFilter } from '@/components/Search/SearchFilter.js';
-import { SourceTabs } from '@/components/SourceTabs.jsx';
+import { SourceTabs } from '@/components/SourceTabs.js';
 
 export default function Layout({ children, modal }: { children: React.ReactNode; modal: React.ReactNode }) {
     return (

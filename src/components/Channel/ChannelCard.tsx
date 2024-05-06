@@ -3,7 +3,7 @@ import { useRouter } from 'next/navigation.js';
 import React, { memo, useCallback } from 'react';
 
 import { Avatar } from '@/components/Avatar.js';
-import { BioMarkup } from '@/components/Markup/index.js';
+import { BioMarkup } from '@/components/Markup/BioMarkup.js';
 import { SourceIcon } from '@/components/SourceIcon.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { getChannelUrl } from '@/helpers/getChannelUrl.js';

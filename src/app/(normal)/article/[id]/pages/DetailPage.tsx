@@ -8,7 +8,7 @@ import { useDocumentTitle } from 'usehooks-ts';
 
 import ComeBack from '@/assets/comeback.svg';
 import { ArticleHeader } from '@/components/Article/ArticleHeader.js';
-import { ArticleMarkup } from '@/components/Markup/index.js';
+import { ArticleMarkup } from '@/components/Markup/ArticleMarkup.js';
 import { ImageAsset } from '@/components/Posts/ImageAsset.js';
 import { SITE_NAME } from '@/constants/index.js';
 import { Link } from '@/esm/Link.js';
