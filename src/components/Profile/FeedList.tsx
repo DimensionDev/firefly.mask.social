@@ -6,6 +6,7 @@ import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.
 import { ScrollListKey, SocialPlatform } from '@/constants/enum.js';
 import { getPostsSelector } from '@/helpers/getPostsSelector.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
+import { useFilteredQueryResult } from '@/hooks/useFilteredQueryResult.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 
 interface FeedListProps {
@@ -16,7 +17,7 @@ interface FeedListProps {
 export function FeedList({ profileId, source }: FeedListProps) {
     const fetchAndStoreViews = useImpressionsStore.use.fetchAndStoreViews();
 
-    const queryResult = useSuspenseInfiniteQuery({
+    const query = useSuspenseInfiniteQuery({
         queryKey: ['posts', source, 'posts-of', profileId],
 
         queryFn: async ({ pageParam }) => {
@@ -38,6 +39,8 @@ export function FeedList({ profileId, source }: FeedListProps) {
         },
         select: getPostsSelector(source),
     });
+
+    const queryResult = useFilteredQueryResult(source, query);
 
     return (
         <ListInPage

@@ -15,6 +15,7 @@ import { classNames } from '@/helpers/classNames.js';
 import { enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { useBlockUser } from '@/hooks/useBlockUser.js';
+import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useReportUser } from '@/hooks/useReportUser.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
@@ -25,8 +26,9 @@ interface MoreProps extends Omit<MenuProps<'div'>, 'className'> {
 
 export const ProfileMoreAction = memo<MoreProps>(function ProfileMoreAction({ profile, className, ...rest }) {
     const [, copyToClipboard] = useCopyToClipboard();
-    const [{ loading: reporting }, reportUser] = useReportUser();
-    const [{ loading: blocking }, blockUser] = useBlockUser();
+    const currentProfile = useCurrentProfile(profile.source);
+    const [{ loading: reporting }, reportUser] = useReportUser(currentProfile);
+    const [{ loading: blocking }, blockUser] = useBlockUser(currentProfile);
 
     const isBusy = reporting || blocking;
 

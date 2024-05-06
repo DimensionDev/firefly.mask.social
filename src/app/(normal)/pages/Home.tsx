@@ -9,6 +9,7 @@ import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.
 import { ScrollListKey, SocialPlatform } from '@/constants/enum.js';
 import { getPostsSelector } from '@/helpers/getPostsSelector.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
+import { useFilteredQueryResult } from '@/hooks/useFilteredQueryResult.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
@@ -30,7 +31,7 @@ export function HomePage({ source, pageable }: Props) {
     const currentSource = useGlobalState.use.currentSource();
 
     const fetchAndStoreViews = useImpressionsStore.use.fetchAndStoreViews();
-    const queryResult = useSuspenseInfiniteQuery({
+    const query = useSuspenseInfiniteQuery({
         queryKey: ['posts', currentSource, 'discover'],
         networkMode: 'always',
 
@@ -46,6 +47,7 @@ export function HomePage({ source, pageable }: Props) {
         getNextPageParam: (lastPage) => lastPage.nextIndicator?.id,
         select: getPostsSelector(currentSource),
     });
+    const queryResult = useFilteredQueryResult(source, query);
 
     useNavigatorTitle(t`Discover`);
 

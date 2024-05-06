@@ -642,13 +642,15 @@ class WarpcastSocialMedia implements Provider {
         );
     }
     async reportUser(profileId: string): Promise<boolean> {
-        throw new Error('Method not implemented.');
+        // TODO Mocking result for now.
+        return true;
     }
     async reportPost(post: Post): Promise<boolean> {
         throw new Error('Method not implemented.');
     }
     async blockUser(profileId: string): Promise<boolean> {
-        throw new Error('Method not implemented.');
+        // TODO Mocking result for now.
+        return true;
     }
 
     async getPostsQuoteOn(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {

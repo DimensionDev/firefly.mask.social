@@ -7,6 +7,7 @@ import { ScrollListKey, SocialPlatform } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { getPostsSelector } from '@/helpers/getPostsSelector.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
+import { useFilteredQueryResult } from '@/hooks/useFilteredQueryResult.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 
 interface CollectedListProps {
@@ -16,7 +17,7 @@ interface CollectedListProps {
 
 export function CollectedList({ profileId, source }: CollectedListProps) {
     const fetchAndStoreViews = useImpressionsStore.use.fetchAndStoreViews();
-    const queryResult = useSuspenseInfiniteQuery({
+    const query = useSuspenseInfiniteQuery({
         queryKey: ['posts', source, 'bookmarks', profileId],
         queryFn: async ({ pageParam }) => {
             if (!profileId) return createPageable(EMPTY_LIST, undefined);
@@ -38,6 +39,7 @@ export function CollectedList({ profileId, source }: CollectedListProps) {
         },
         select: getPostsSelector(source),
     });
+    const queryResult = useFilteredQueryResult(source, query);
 
     return (
         <ListInPage

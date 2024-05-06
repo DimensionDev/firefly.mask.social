@@ -44,8 +44,8 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
 
     const [isFollowed, { loading }, handleToggle] = useToggleFollow(author);
     const [{ loading: deleting }, deletePost] = useDeletePost(source);
-    const [{ loading: reporting }, reportUser] = useReportUser();
-    const [{ loading: blocking }, blockUser] = useBlockUser();
+    const [{ loading: reporting }, reportUser] = useReportUser(currentProfile);
+    const [{ loading: blocking }, blockUser] = useBlockUser(currentProfile);
 
     const engagementType = first(SORTED_ENGAGEMENT_TAB_TYPE[source]) || EngagementType.Likes;
 

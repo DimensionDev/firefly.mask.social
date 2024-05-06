@@ -31,12 +31,12 @@ import type { TypedDataDomain } from 'viem';
 
 import { config } from '@/configs/wagmiClient.js';
 import { SocialPlatform } from '@/constants/enum.js';
+import { SetQueryDataForBlockUser } from '@/decorators/SetQueryDataForBlockUser.js';
 import { SetQueryDataForCommentPost } from '@/decorators/SetQueryDataForCommentPost.js';
 import { SetQueryDataForDeletePost } from '@/decorators/SetQueryDataForDeletePost.js';
 import { SetQueryDataForLikePost } from '@/decorators/SetQueryDataForLikePost.js';
 import { SetQueryDataForMirrorPost } from '@/decorators/SetQueryDataForMirrorPost.js';
 import { SetQueryDataForPosts } from '@/decorators/SetQueryDataForPosts.js';
-import { SetQueryDataForReportUser } from '@/decorators/SetQueryDataForReportUser.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { formatLensPost, formatLensPostByFeed, formatLensQuoteOrComment } from '@/helpers/formatLensPost.js';
 import { formatLensProfile } from '@/helpers/formatLensProfile.js';
@@ -67,7 +67,7 @@ const MOMOKA_ERROR_MSG = 'momoka publication is not allowed';
 @SetQueryDataForMirrorPost(SocialPlatform.Lens)
 @SetQueryDataForCommentPost(SocialPlatform.Lens)
 @SetQueryDataForDeletePost(SocialPlatform.Lens)
-@SetQueryDataForReportUser(SocialPlatform.Lens)
+@SetQueryDataForBlockUser(SocialPlatform.Lens)
 @SetQueryDataForPosts
 class LensSocialMedia implements Provider {
     getChannelById(channelId: string): Promise<Channel> {
