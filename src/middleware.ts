@@ -6,7 +6,7 @@ import { OLD_MASK_SOCIAL_POST_PATH_REGEX, OLD_MASK_SOCIAL_PROFILE_PATH_REGEX } f
 export async function middleware(request: NextRequest) {
     const pathname = request.nextUrl.pathname;
     const isPost = pathname.startsWith('/post') && !pathname.includes('/photos');
-    const isProfile = pathname.startsWith('/profile'); // && !pathname.endsWith('/following') && !pathname.endsWith('/followers');
+    const isProfile = pathname.startsWith('/profile');
     const isFollowing = pathname.startsWith('/profile') && pathname.endsWith('/following');
     const isFollowers = pathname.startsWith('/profile') && pathname.endsWith('/followers');
 
