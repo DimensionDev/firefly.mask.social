@@ -1,4 +1,4 @@
-import { FlagIcon } from '@heroicons/react/24/outline';
+import { EyeSlashIcon } from '@heroicons/react/24/outline';
 import { t, Trans } from '@lingui/macro';
 import { forwardRef } from 'react';
 
@@ -13,11 +13,11 @@ interface Props extends Omit<ClickableButtonProps, 'children'> {
     busy?: boolean;
     profile: Profile;
     onConfirm?(): void;
-    onReport?(profile: Profile): Promise<boolean>;
+    onBlock?(profile: Profile): Promise<boolean>;
 }
 
-export const ReportUserButton = forwardRef<HTMLButtonElement, Props>(function ReportUserButton(
-    { busy, profile, className, onConfirm, onReport, ...rest }: Props,
+export const BlockUserButton = forwardRef<HTMLButtonElement, Props>(function BlockUserButton(
+    { busy, profile, className, onConfirm, onBlock, ...rest }: Props,
     ref,
 ) {
     return (
@@ -27,19 +27,19 @@ export const ReportUserButton = forwardRef<HTMLButtonElement, Props>(function Re
             onClick={async () => {
                 rest.onClick?.();
                 const confirmed = await ConfirmModalRef.openAndWaitForClose({
-                    title: t`Report`,
+                    title: t`Block`,
                     content: (
                         <div className="text-main">
-                            <Trans>Confirm you want to report this message</Trans>
+                            <Trans>Confirm you want to block @{profile.handle}</Trans>
                         </div>
                     ),
                 });
                 if (!confirmed) return;
                 onConfirm?.();
-                if (!onReport) return;
-                const result = await onReport(profile);
+                if (!onBlock) return;
+                const result = await onBlock(profile);
                 if (result === false) {
-                    enqueueErrorMessage(t`Failed to report @${profile.handle}`);
+                    enqueueErrorMessage(t`Failed to block @${profile.handle}`);
                 }
             }}
             ref={ref}
@@ -47,10 +47,10 @@ export const ReportUserButton = forwardRef<HTMLButtonElement, Props>(function Re
             {busy ? (
                 <LoadingIcon width={24} height={24} className="animate-spin text-danger" />
             ) : (
-                <FlagIcon width={24} height={24} />
+                <EyeSlashIcon width={24} height={24} />
             )}
             <span className="text-[17px] font-bold leading-[22px] text-main">
-                <Trans>Report @{profile.handle}</Trans>
+                <Trans>Block @{profile.handle}</Trans>
             </span>
         </ClickableButton>
     );

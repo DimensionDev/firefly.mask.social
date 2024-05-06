@@ -1,5 +1,6 @@
 'use client';
 
+import { CloudIcon } from '@heroicons/react/24/outline';
 import { Trans } from '@lingui/macro';
 import { signOut } from 'next-auth/react';
 import { useEffect } from 'react';
@@ -10,20 +11,20 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { OnlineStatusIndicator } from '@/components/OnlineStatusIndicator.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { ProfileName } from '@/components/ProfileName.js';
-import { WarpcastSignerRequestIndicator } from '@/components/WarpcastSignerRequestIndicator.js';
-import { NODE_ENV, SocialPlatform } from '@/constants/enum.js';
-import { env } from '@/constants/env.js';
+import { SocialPlatform } from '@/constants/enum.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { useProfileStore } from '@/hooks/useProfileStore.js';
 import { useSwitchLensAccount } from '@/hooks/useSwitchLensAccount.js';
-import { LoginModalRef, LogoutModalRef } from '@/modals/controls.js';
+import { FireflySessionConfirmModalRef, LoginModalRef, LogoutModalRef } from '@/modals/controls.js';
+import { createSessionForProfileIdFirefly } from '@/providers/lens/createSessionForProfileId.js';
 
 interface ProfileSettingsProps {
     source: SocialPlatform;
+    onClose?: () => void;
 }
 
-export function ProfileSettings({ source }: ProfileSettingsProps) {
-    const { currentProfile, currentProfileSession, profiles, refreshProfiles } = useProfileStore(source);
+export function ProfileSettings({ source, onClose }: ProfileSettingsProps) {
+    const { currentProfile, profiles, refreshProfiles } = useProfileStore(source);
     const { login } = useSwitchLensAccount();
 
     useEffect(() => {
@@ -37,7 +38,10 @@ export function ProfileSettings({ source }: ProfileSettingsProps) {
                     key={profile.profileId}
                     className="my-3 flex items-center justify-between gap-2 outline-none"
                     disabled={isSameProfile(currentProfile, profile) || source === SocialPlatform.Farcaster}
-                    onClick={() => login(profile)}
+                    onClick={async () => {
+                        await login(profile);
+                        onClose?.();
+                    }}
                 >
                     <ProfileAvatar
                         profile={profile}
@@ -46,13 +50,7 @@ export function ProfileSettings({ source }: ProfileSettingsProps) {
                     />
                     <ProfileName profile={profile} />
 
-                    {env.shared.NODE_ENV === NODE_ENV.Development ? (
-                        <WarpcastSignerRequestIndicator session={currentProfileSession}>
-                            {isSameProfile(currentProfile, profile) ? <OnlineStatusIndicator /> : null}
-                        </WarpcastSignerRequestIndicator>
-                    ) : isSameProfile(currentProfile, profile) ? (
-                        <OnlineStatusIndicator />
-                    ) : null}
+                    {isSameProfile(currentProfile, profile) ? <OnlineStatusIndicator /> : null}
                 </ClickableButton>
             ))}
             <ClickableButton
@@ -63,6 +61,7 @@ export function ProfileSettings({ source }: ProfileSettingsProps) {
                             redirect: false,
                         });
                     LoginModalRef.open({ source });
+                    onClose?.();
                 }}
             >
                 <UserAddIcon width={24} height={24} />
@@ -70,9 +69,27 @@ export function ProfileSettings({ source }: ProfileSettingsProps) {
                     <Trans>Switch account</Trans>
                 </span>
             </ClickableButton>
+            {currentProfile && source === SocialPlatform.Lens ? (
+                <ClickableButton
+                    className="flex w-full items-center rounded px-1 py-3 text-main outline-none hover:bg-bg"
+                    onClick={async () => {
+                        await createSessionForProfileIdFirefly(currentProfile.profileId);
+                        await FireflySessionConfirmModalRef.openAndWaitForClose();
+                        onClose?.();
+                    }}
+                >
+                    <CloudIcon width={24} height={24} />
+                    <span className=" pl-2 text-[17px] font-bold leading-[22px] text-main">
+                        <Trans>Detect device accounts</Trans>
+                    </span>
+                </ClickableButton>
+            ) : null}
             <ClickableButton
                 className="mb-3 flex items-center rounded px-1 py-3 outline-none hover:bg-bg"
-                onClick={() => LogoutModalRef.open({ source })}
+                onClick={() => {
+                    LogoutModalRef.open({ source });
+                    onClose?.();
+                }}
             >
                 <LogOutIcon width={24} height={24} />
                 <span className=" pl-2 text-[17px] font-bold leading-[22px] text-danger">

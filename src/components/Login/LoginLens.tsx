@@ -16,11 +16,16 @@ import { ProfileInList } from '@/components/Login/ProfileInList.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
-import { AccountModalRef, ConnectWalletModalRef, LoginModalRef } from '@/modals/controls.js';
-import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
+import { restoreProfile } from '@/helpers/restoreProfile.js';
+import {
+    AccountModalRef,
+    ConnectWalletModalRef,
+    FireflySessionConfirmModalRef,
+    LoginModalRef,
+} from '@/modals/controls.js';
+import { createSessionForProfileIdFirefly } from '@/providers/lens/createSessionForProfileId.js';
+import { updateSignless } from '@/providers/lens/updateSignless.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
-import { useLensStateStore } from '@/store/useProfileStore.js';
-import { useSyncSessionStore } from '@/store/useSyncSessionStore.js';
 
 interface LoginLensProps {
     profiles: Profile[];
@@ -32,10 +37,6 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
     const [signless, setSignless] = useState(false);
 
     const account = useAccount();
-
-    const { updateProfiles, updateCurrentProfile } = useLensStateStore();
-    const { syncFromFirefly: syncFromFirefly } = useSyncSessionStore();
-
     const currentProfile = selectedProfile || first(profiles);
 
     const [{ loading }, login] = useAsyncFn(
@@ -43,17 +44,19 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
             if (!profiles.length || !currentProfile) return;
 
             try {
-                const session = await LensSocialMediaProvider.createSessionForProfileId(currentProfile.profileId);
+                const session = await createSessionForProfileIdFirefly(currentProfile.profileId);
 
                 if (!currentProfile.signless && signless) {
-                    await LensSocialMediaProvider.updateSignless(true);
+                    await updateSignless(true);
                 }
 
-                updateProfiles(profiles);
-                updateCurrentProfile(currentProfile, session);
-                syncFromFirefly(session);
-                enqueueSuccessMessage(t`Your Lens account is now connected.`);
+                // restore profiles for lens
+                restoreProfile(currentProfile, profiles, session);
                 LoginModalRef.close();
+                enqueueSuccessMessage(t`Your Lens account is now connected.`);
+
+                // restore profiles exclude lens
+                await FireflySessionConfirmModalRef.openAndWaitForClose();
             } catch (error) {
                 enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to login`), {
                     error,

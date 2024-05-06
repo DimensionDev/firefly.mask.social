@@ -7,22 +7,23 @@ import type { Profile } from '@/providers/types/SocialMedia.js';
 import { useBlockedUsersState } from '@/store/useBlockedUsersStore.js';
 
 /**
- * Report a user
+ * Block a user
  */
-export function useReportUser(operator: Profile | null) {
+export function useBlockUser(operator: Profile | null) {
     const { blockUser } = useBlockedUsersState();
     return useAsyncFn(
         async (profile: Profile) => {
             try {
                 const provider = resolveSocialMediaProvider(profile.source);
-                const result = await provider.reportUser(profile.profileId);
+                const result = await provider.blockUser(profile.profileId);
                 if (result && operator) blockUser(operator, profile);
+
                 return result;
             } catch (error) {
-                enqueueErrorMessage(t`Failed to report @${profile.handle}`, { error });
+                enqueueErrorMessage(t`Failed to block @${profile.handle}`, { error });
                 throw error;
             }
         },
-        [blockUser, operator],
+        [operator, blockUser],
     );
 }

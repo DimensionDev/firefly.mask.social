@@ -1,7 +1,7 @@
 import DisableNoIcon from '@/assets/disable-no.svg';
 import YesIcon from '@/assets/yes.svg';
-import { Avatar } from '@/components/Avatar.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
+import { ProfileAvatar, type ProfileAvatarProps } from '@/components/ProfileAvatar.js';
 import { ProfileName } from '@/components/ProfileName.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
@@ -9,9 +9,10 @@ interface ProfileInListProps {
     profile: Profile;
     isSelected: boolean;
     onSelect: (profile: Profile) => void;
+    ProfileAvatarProps?: Partial<ProfileAvatarProps>;
 }
 
-export function ProfileInList({ isSelected, onSelect, profile }: ProfileInListProps) {
+export function ProfileInList({ isSelected, onSelect, profile, ProfileAvatarProps }: ProfileInListProps) {
     return (
         <ClickableButton
             className="inline-flex h-[48px] w-full items-center justify-start gap-4 outline-none"
@@ -20,13 +21,13 @@ export function ProfileInList({ isSelected, onSelect, profile }: ProfileInListPr
             }}
         >
             <div
-                className="flex h-[48px] w-[48px] items-center justify-center overflow-hidden rounded-full"
+                className="flex h-[48px] w-[48px] items-center justify-center rounded-full"
                 style={{
                     background:
                         'radial-gradient(circle at center, rgba(255, 184, 224, 1), rgba(190, 158, 255, 1), rgba(136, 192, 252, 1), rgba(134, 255, 153, 1))',
                 }}
             >
-                <Avatar src={profile.pfp} alt={profile.handle} size={48} />
+                <ProfileAvatar profile={profile} size={48} {...ProfileAvatarProps} />
             </div>
             <ProfileName profile={profile} />
             {isSelected ? (
