@@ -1,6 +1,6 @@
 'use client';
 
-import { t, Trans } from '@lingui/macro';
+import { plural, t, Trans } from '@lingui/macro';
 import { useRef, useState } from 'react';
 import QRCode from 'react-qr-code';
 import { useAsyncFn, useEffectOnce, useUnmount } from 'react-use';
@@ -9,7 +9,7 @@ import LoadingIcon from '@/assets/loading.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { config } from '@/configs/wagmiClient.js';
 import { IS_MOBILE_DEVICE } from '@/constants/bowser.js';
-import { IS_PRODUCTION } from '@/constants/index.js';
+import { FARCASTER_REPLY_COUNTDOWN, IS_PRODUCTION } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getMobileDevice } from '@/helpers/getMobileDevice.js';
@@ -21,6 +21,7 @@ import type { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { createSessionByCustodyWallet } from '@/providers/warpcast/createSessionByCustodyWallet.js';
 import { createSessionByGrantPermissionFirefly } from '@/providers/warpcast/createSessionByGrantPermission.js';
+import { useCountdown } from 'usehooks-ts';
 
 async function login(createSession: () => Promise<FarcasterSession>) {
     try {
@@ -50,6 +51,12 @@ async function login(createSession: () => Promise<FarcasterSession>) {
 export function LoginFarcaster() {
     const [url, setUrl] = useState('');
     const controllerRef = useRef<AbortController>();
+    const [count, { startCountdown, stopCountdown, resetCountdown }] = useCountdown({
+        countStart: FARCASTER_REPLY_COUNTDOWN,
+        intervalMs: 1000,
+        countStop: 0,
+        isIncrement: false,
+    });
 
     const [{ loading: loadingGrantPermission, error: errorGrantPermission }, onLoginWithGrantPermission] =
         useAsyncFn(async () => {
@@ -61,6 +68,8 @@ export function LoginFarcaster() {
                     await login(() =>
                         createSessionByGrantPermissionFirefly(
                             (url) => {
+                                resetCountdown();
+                                startCountdown();
                                 const device = getMobileDevice();
                                 if (device === 'unknown') setUrl(url);
                                 else location.href = url;
@@ -75,7 +84,7 @@ export function LoginFarcaster() {
                     throw error;
                 }
             }
-        }, []);
+        }, [startCountdown, stopCountdown, resetCountdown]);
 
     const [{ loading: loadingCustodyWallet }, onLoginWithCustodyWallet] = useAsyncFn(async () => {
         controllerRef.current?.abort('aborted');
@@ -119,7 +128,12 @@ export function LoginFarcaster() {
                             <div className=" text-center text-[12px] leading-[16px] text-lightSecond">
                                 <Trans>
                                     On your mobile device with Warpcast, open the{' '}
-                                    <span className="font-bold">Camera</span> app and scan the QR code.
+                                    <span className="font-bold">Camera</span> app and scan the QR code in
+                                    {plural(count, {
+                                        one: '1 second',
+                                        other: `${count} seconds`,
+                                    })}
+                                    .
                                 </Trans>
                             </div>
                             <div

@@ -23,6 +23,8 @@ export const WARPCAST_CLIENT_URL = 'https://client.warpcast.com/v2';
 export const FIREFLY_ROOT_URL = env.external.NEXT_PUBLIC_FIREFLY_API_URL;
 export const FIREFLY_STAMP_URL = 'https://stamp.firefly.land/avatar';
 
+export const FARCASTER_REPLY_COUNTDOWN = 50; // in seconds
+
 export const HUBBLE_URL = env.internal.HUBBLE_URL ?? env.external.NEXT_PUBLIC_HUBBLE_URL;
 
 export const NEYNAR_URL = 'https://api.neynar.com';

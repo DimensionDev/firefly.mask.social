@@ -92,18 +92,14 @@ export async function createSessionByGrantPermissionFirefly(callback?: (url: str
     // present QR code to the user or open the link in a new tab
     callback?.(deeplink);
 
-    try {
-        // firefly start polling for the signed key request
-        // once key request is signed, we will get the fid
-        const fireflySession = await FireflySession.from(session, signal);
+    // firefly start polling for the signed key request
+    // once key request is signed, we will get the fid
+    const fireflySession = await FireflySession.from(session, signal);
 
-        if (fireflySession) {
-            // we also posses the session in firefly session holder
-            // which means if we login in farcaster, we login firefly as well
-            fireflySessionHolder.resumeSession(fireflySession);
-        }
-    } catch (error) {
-        console.error(`[login farcaster] failed to restore firefly session: ${error}`);
+    if (fireflySession) {
+        // we also posses the session in firefly session holder
+        // which means if we login in farcaster, we login firefly as well
+        fireflySessionHolder.resumeSession(fireflySession);
     }
 
     return session;
