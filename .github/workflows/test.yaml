@@ -13,6 +13,8 @@ jobs:
               with:
                   submodules: 'true'
 
+            - name: Setup upterm session
+              uses: lhotari/action-upterm@v1
             - name: Authenticate NPM
               uses: DimensionDev/github-token-action@latest
               with:
