@@ -41,7 +41,7 @@ const FormDataSchema = z.object({
         }
         return value;
     }),
-    source: z.nativeEnum(SourceInURL),
+    source: z.enum([SourceInURL.Farcaster, SourceInURL.Twitter, SourceInURL.Lens]),
 });
 
 export async function PUT(req: NextRequest) {

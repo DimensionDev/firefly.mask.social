@@ -11,7 +11,7 @@ const getCurrentSource = () => {
     const searchParams = new URLSearchParams(location.search);
     const source = searchParams.get('source') as SourceInURL | null;
     if (!source) return Source.Farcaster;
-    return resolveSource(source) ?? Source.Farcaster;
+    return resolveSource(source);
 };
 
 interface GlobalState {
