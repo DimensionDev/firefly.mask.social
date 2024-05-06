@@ -22,6 +22,7 @@ import { formatFarcasterPostFromFirefly } from '@/helpers/formatFarcasterPostFro
 import { formatFarcasterProfileFromFirefly } from '@/helpers/formatFarcasterProfileFromFirefly.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
+import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { NeynarSocialMediaProvider } from '@/providers/neynar/SocialMedia.js';
 import {
     type CastResponse,
@@ -34,6 +35,7 @@ import {
     type DiscoverChannelsResponse,
     type FriendshipResponse,
     type GetArticleDetailResponse,
+    type GetFollowingArticlesResponse,
     type NotificationResponse,
     NotificationType as FireflyNotificationType,
     type ReactorsResponse,
@@ -111,6 +113,7 @@ class FireflySocialMedia implements Provider {
         const url = urlcat(FIREFLY_ROOT_URL, '/v2/discover/articles/timeline', {
             size: 20,
             platform: [ArticlePlatform.Paragraph, ArticlePlatform.Mirror].join(','),
+            cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
         });
 
         const response = await fetchJSON<DiscoverArticlesResponse>(url, {
@@ -144,6 +147,28 @@ class FireflySocialMedia implements Provider {
 
         if (!article) return;
         return formatArticleFromFirefly(article);
+    }
+
+    async getFollowingArtiles(indicator?: PageIndicator) {
+        const url = urlcat(FIREFLY_ROOT_URL, '/v1/timeline/articles');
+
+        const response = await fireflySessionHolder.fetch<GetFollowingArticlesResponse>(url, {
+            method: 'POST',
+            body: JSON.stringify({
+                size: 20,
+                cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
+            }),
+        });
+
+        const data = resolveFireflyResponseData(response);
+
+        const articles = data.result.map(formatArticleFromFirefly);
+
+        return createPageable(
+            articles,
+            createIndicator(indicator),
+            data.cursor ? createNextIndicator(indicator, `${data.cursor}`) : undefined,
+        );
     }
 
     getPostsByChannelId(channelId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {

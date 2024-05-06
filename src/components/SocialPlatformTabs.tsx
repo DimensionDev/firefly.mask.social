@@ -45,7 +45,7 @@ export function SocialPlatformTabs() {
                 {compact([
                     SocialPlatform.Farcaster,
                     SocialPlatform.Lens,
-                    pathname === '/' ? SocialPlatform.Article : undefined,
+                    pathname === '/' || pathname === '/following' ? SocialPlatform.Article : undefined,
                 ]).map((value) => (
                     <li key={value} className="flex flex-1 list-none justify-center lg:flex-initial lg:justify-start">
                         <a

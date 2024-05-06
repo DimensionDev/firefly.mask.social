@@ -244,6 +244,11 @@ export type DiscoverArticlesResponse = Response<{
 
 export type GetArticleDetailResponse = Response<Article[]>;
 
+export type GetFollowingArticlesResponse = Response<{
+    cursor: number;
+    result: Article[];
+}>;
+
 export type CastsOfChannelResponse = Response<{
     casts: Cast[];
     cursor: string;
