@@ -22,6 +22,9 @@ msgstr ""
 msgid "Quote Post"
 msgstr ""
 
+msgid "{count, plural, one {1 second} other {{count} seconds}}"
+msgstr ""
+
 msgid "Report @{0}"
 msgstr ""
 
@@ -80,9 +83,6 @@ msgid "Change Wallet"
 msgstr ""
 
 msgid "OpenGraph"
-msgstr ""
-
-msgid "{count, plural, one { 1 second} other { {count} seconds}}"
 msgstr ""
 
 msgid "Wrong wallet"
@@ -418,9 +418,6 @@ msgstr ""
 msgid "Detect device accounts"
 msgstr ""
 
-msgid "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code in {0}."
-msgstr ""
-
 msgid "Your Farcaster account is now connected."
 msgstr ""
 
@@ -680,6 +677,9 @@ msgid "Share to"
 msgstr ""
 
 msgid "Unknown session type."
+msgstr ""
+
+msgid "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code in <1>{0}</1>."
 msgstr ""
 
 msgid "Failed to quote post."
