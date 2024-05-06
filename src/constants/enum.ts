@@ -38,6 +38,8 @@ export enum SourceInURL {
     Article = 'article',
 }
 
+export type SocialSource = Source.Farcaster | Source.Lens | Source.Twitter;
+
 export enum SearchType {
     Users = 'users',
     Posts = 'posts',

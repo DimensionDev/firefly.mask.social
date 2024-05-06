@@ -51,7 +51,7 @@ export const SORTED_SEARCH_TYPE: Record<Source, SearchType[]> = {
     [Source.Twitter]: [SearchType.Posts, SearchType.Users],
     [Source.Article]: [],
 };
-export const SORTED_SOURCES = [Source.Farcaster, Source.Lens, Source.Twitter];
+export const SORTED_SOURCES = [Source.Farcaster, Source.Lens, Source.Twitter] as const;
 export const SORTED_RESTECTION_TYPE = [RestrictionType.Everyone, RestrictionType.OnlyPeopleYouFollow];
 
 // Lens

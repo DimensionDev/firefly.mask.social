@@ -49,7 +49,6 @@ async function updateRpClaimStrategy(compositePost: CompositePost) {
 
         const reactions = compact(
             SORTED_SOURCES.map((x) => {
-                if (x === Source.Article) return;
                 const id = postId[x];
                 return id
                     ? {
@@ -62,7 +61,6 @@ async function updateRpClaimStrategy(compositePost: CompositePost) {
 
         const claimPlatforms = compact(
             SORTED_SOURCES.map((x) => {
-                if (x === Source.Article) return;
                 const currentProfile = currentProfileAll[x];
                 return postId[x] && currentProfile
                     ? {
@@ -74,7 +72,6 @@ async function updateRpClaimStrategy(compositePost: CompositePost) {
         );
         const postOn: FireflyRedPacketAPI.PostOn[] = compact(
             SORTED_SOURCES.map((x) => {
-                if (x === Source.Article) return;
                 const currentProfile = currentProfileAll[x];
                 return postId[x] && currentProfile
                     ? {
@@ -173,7 +170,7 @@ export async function crossPost(
             }
 
             try {
-                const result = await resolvePostTo(x)?.(type, compositePost);
+                const result = await resolvePostTo(x)(type, compositePost);
                 updatePostInThread(compositePost.id, (y) => ({
                     ...y,
                     postError: {
