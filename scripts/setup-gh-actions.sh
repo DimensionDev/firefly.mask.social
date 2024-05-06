@@ -5,6 +5,8 @@ npm i -g pnpm@8.10.4
 # Change to the submodule directory
 cd src/maskbook
 
+rm -rf node_modules
+
 # Install dependencies using pnpm for development environment
 NODE_ENV=development pnpm install
 
