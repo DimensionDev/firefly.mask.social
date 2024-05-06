@@ -6,17 +6,12 @@ import { isUndefined } from 'lodash-es';
 import { usePathname, useRouter } from 'next/navigation.js';
 import { memo, useMemo } from 'react';
 
-import { Avatar } from '@/components/Avatar.js';
-import { ChannelCard } from '@/components/Channel/ChannelCard.js';
-import { ClickableArea } from '@/components/ClickableArea.js';
 import { FeedActionType } from '@/components/Posts/ActionType.js';
+import { ChannelAnchor } from '@/components/Posts/ChannelAnchor.js';
 import { PostBody } from '@/components/Posts/PostBody.js';
 import { PostHeader } from '@/components/Posts/PostHeader.js';
-import { SourceIcon } from '@/components/SourceIcon.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { dynamic } from '@/esm/dynamic.js';
-import { Tippy } from '@/esm/Tippy.js';
-import { getChannelUrl } from '@/helpers/getChannelUrl.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { type Post } from '@/providers/types/SocialMedia.js';
@@ -50,7 +45,7 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
     const pathname = usePathname();
 
     const isPostPage = isRoutePathname(pathname, '/post/:detail', true);
-
+    const isChannelPage = isRoutePathname(pathname, '/channel/:detail', true);
     const postLink = getPostUrl(post);
 
     const show = useMemo(() => {
@@ -81,41 +76,7 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
             <PostHeader post={post} />
 
             <PostBody post={post} showMore={showMore} />
-            {!!post.channel && post.type === 'Post' ? (
-                <ClickableArea className="my-2 flex justify-end">
-                    <Tippy
-                        maxWidth={400}
-                        className="channel-card"
-                        placement="bottom"
-                        duration={200}
-                        arrow={false}
-                        trigger="mouseenter"
-                        hideOnClick
-                        interactive
-                        content={<ChannelCard channel={post.channel} />}
-                    >
-                        <div
-                            onClick={() => {
-                                if (!post.channel) return;
-                                router.push(getChannelUrl(post.channel));
-                            }}
-                            className="flex items-center gap-1 rounded-full border border-secondaryLine bg-bg px-2 py-1"
-                        >
-                            {post.channel.imageUrl ? (
-                                <Avatar
-                                    src={post.channel.imageUrl}
-                                    alt={post.channel.id}
-                                    size={16}
-                                    className="h-4 w-4 rounded-full"
-                                />
-                            ) : (
-                                <SourceIcon className="rounded-full" source={post.channel.source} size={16} />
-                            )}
-                            <span className="text-[15px] text-secondary">/{post.channel.id}</span>
-                        </div>
-                    </Tippy>
-                </ClickableArea>
-            ) : null}
+            {!!post.channel && post.type === 'Post' && !isChannelPage ? <ChannelAnchor channel={post.channel} /> : null}
             {!isDetail ? <PostActions post={post} disabled={post.isHidden} /> : null}
 
             {show ? (
