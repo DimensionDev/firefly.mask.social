@@ -1,3 +1,5 @@
+import type { ArticlePlatform, ArticleType } from '@/providers/types/Article.js';
+
 export interface Cast {
     fid: string;
     hash: string;
@@ -14,6 +16,8 @@ export interface Cast {
         handle: string;
     }>;
     created_at: string;
+    /** example 2024-05-06T10:22:42.152Z */
+    deleted_at: string | null;
     likeCount: number;
     recastCount: number;
     replyCount: string;
@@ -133,6 +137,30 @@ export interface ChannelBrief {
     hostFids?: number[];
 }
 
+export interface Article {
+    timestamp: string;
+    hash: string;
+    owner: string;
+    digest: string;
+    type: ArticleType;
+    platform: ArticlePlatform;
+    content: {
+        body: string;
+        title: string;
+    };
+    author: string;
+    displayInfo: {
+        ensHandle: string;
+        avatarUrl: string;
+    };
+    authorship: {
+        contributor: string;
+    };
+    related_urls: string[];
+    article_id: string;
+    cover_img_url: string | null;
+}
+
 export interface Response<T> {
     code: number;
     data?: T;
@@ -209,6 +237,18 @@ export type ChannelsResponse = Response<Channel[]>;
 export type DiscoverChannelsResponse = Response<{
     channels: Channel[];
     cursor: number;
+}>;
+
+export type DiscoverArticlesResponse = Response<{
+    cursor: number;
+    result: Article[];
+}>;
+
+export type GetArticleDetailResponse = Response<Article[]>;
+
+export type GetFollowingArticlesResponse = Response<{
+    cursor: number;
+    result: Article[];
 }>;
 
 export type CastsOfChannelResponse = Response<{

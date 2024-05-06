@@ -5,12 +5,15 @@ import { memo } from 'react';
 
 import { SearchType } from '@/constants/enum.js';
 import { SORTED_SEARCH_TYPE } from '@/constants/index.js';
+import { narrowToSocialSource } from '@/helpers/narrowSource.js';
 import { DraggablePopoverRef } from '@/modals/controls.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useSearchStateStore } from '@/store/useSearchStore.js';
 
 export const SearchFilter = memo(function SearchFilter() {
-    const { currentSource } = useGlobalState();
+    const currentSource = useGlobalState.use.currentSource();
+    const currentSocialSource = narrowToSocialSource(currentSource);
+
     const { searchType, updateState } = useSearchStateStore();
 
     return (
@@ -34,7 +37,7 @@ export const SearchFilter = memo(function SearchFilter() {
                             label: <Trans>Channels</Trans>,
                         },
                     ]
-                        .filter((x) => SORTED_SEARCH_TYPE[currentSource].includes(x.type))
+                        .filter((x) => SORTED_SEARCH_TYPE[currentSocialSource].includes(x.type))
                         .map((filter) => (
                             <div key={filter.type} className="flex items-center">
                                 <label

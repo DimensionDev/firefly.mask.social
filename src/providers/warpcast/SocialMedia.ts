@@ -10,7 +10,7 @@ import { isZero, resolveCrossOriginURL } from '@masknet/web3-shared-base';
 import { compact, first } from 'lodash-es';
 import urlcat from 'urlcat';
 
-import { SocialPlatform } from '@/constants/enum.js';
+import { Source } from '@/constants/enum.js';
 import { WARPCAST_CLIENT_URL, WARPCAST_ROOT_URL } from '@/constants/index.js';
 import { formatWarpcastPost, formatWarpcastPostFromFeed } from '@/helpers/formatWarpcastPost.js';
 import { formatWarpcastUser } from '@/helpers/formatWarpcastUser.js';
@@ -626,7 +626,7 @@ class WarpcastSocialMedia implements Provider {
             const timestamp = notification.timestamp ? new Date(notification.timestamp).getTime() : undefined;
             if (notification.type === 'cast-reply') {
                 return {
-                    source: SocialPlatform.Farcaster,
+                    source: Source.Farcaster,
                     notificationId,
                     type: NotificationType.Comment,
                     post,
@@ -642,10 +642,15 @@ class WarpcastSocialMedia implements Provider {
         );
     }
     async reportUser(profileId: string): Promise<boolean> {
-        throw new Error('Method not implemented.');
+        // TODO Mocking result for now.
+        return true;
     }
     async reportPost(post: Post): Promise<boolean> {
         throw new Error('Method not implemented.');
+    }
+    async blockUser(profileId: string): Promise<boolean> {
+        // TODO Mocking result for now.
+        return true;
     }
 
     async getPostsQuoteOn(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {

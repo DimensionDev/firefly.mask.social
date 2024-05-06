@@ -73,6 +73,9 @@ msgstr "Searching users"
 msgid "Collect Action is not supported yet."
 msgstr "Collect Action is not supported yet."
 
+msgid "This entry has been permanently stored on-chain and signed by its creator"
+msgstr "This entry has been permanently stored on-chain and signed by its creator"
+
 msgid "Join our Discord"
 msgstr "Join our Discord"
 
@@ -84,6 +87,9 @@ msgstr "<0>You</0> and {0} others recasted"
 
 msgid "Change Wallet"
 msgstr "Change Wallet"
+
+msgid "Confirm you want to block @{0}"
+msgstr "Confirm you want to block @{0}"
 
 msgid "OpenGraph"
 msgstr "OpenGraph"
@@ -172,6 +178,9 @@ msgstr "Missing IPFS hash for image or video."
 msgid "Reconnect with Firefly"
 msgstr "Reconnect with Firefly"
 
+msgid "Revise on"
+msgstr "Revise on"
+
 msgid "Only up to 2 images can be chosen."
 msgstr "Only up to 2 images can be chosen."
 
@@ -207,6 +216,12 @@ msgstr "Audio Cover"
 
 msgid "Recent"
 msgstr "Recent"
+
+msgid "Block"
+msgstr "Block"
+
+msgid "Block @{0}"
+msgstr "Block @{0}"
 
 msgid "OpenGraph Validator"
 msgstr "OpenGraph Validator"
@@ -298,6 +313,9 @@ msgstr "{shares, plural, =0 {Mirror or Quote} zero {Mirror or Quote} one {Mirror
 msgid "Comment cannot be empty."
 msgstr "Comment cannot be empty."
 
+msgid "AUTHOR ADDRESS"
+msgstr "AUTHOR ADDRESS"
+
 msgid "Reply"
 msgstr "Reply"
 
@@ -336,6 +354,9 @@ msgstr "Comment"
 
 msgid "Only people you mention"
 msgstr "Only people you mention"
+
+msgid "Cancel retweet successfully"
+msgstr "Cancel retweet successfully"
 
 msgid "Allow replies from"
 msgstr "Allow replies from"
@@ -402,6 +423,9 @@ msgstr "Lens"
 
 msgid "Failed to upvote post."
 msgstr "Failed to upvote post."
+
+msgid "Retweeted"
+msgstr "Retweeted"
 
 msgid "Post your reply"
 msgstr "Post your reply"
@@ -550,6 +574,9 @@ msgstr "There is no data available for display."
 msgid "Cancel"
 msgstr "Cancel"
 
+msgid "Post on"
+msgstr "Post on"
+
 msgid "Failed to like the post."
 msgstr "Failed to like the post."
 
@@ -615,6 +642,9 @@ msgstr "Copy"
 
 msgid "Skip for now"
 msgstr "Skip for now"
+
+msgid "Failed to block @{0}"
+msgstr "Failed to block @{0}"
 
 msgid "Notifications"
 msgstr "Notifications"

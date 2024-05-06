@@ -10,17 +10,19 @@ import LoadingIcon from '@/assets/loading.svg';
 import MoreIcon from '@/assets/more.svg';
 import TrashIcon from '@/assets/trash.svg';
 import UnFollowUserIcon from '@/assets/unfollow-user.svg';
+import { BlockUserButton } from '@/components/Actions/BlockUserButton.js';
 import { ReportUserButton } from '@/components/Actions/ReportUserButton.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { config } from '@/configs/wagmiClient.js';
-import { EngagementType, SocialPlatform } from '@/constants/enum.js';
+import { EngagementType, type SocialSource, Source } from '@/constants/enum.js';
 import { SORTED_ENGAGEMENT_TAB_TYPE } from '@/constants/index.js';
 import { Link } from '@/esm/Link.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
-import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
+import { resolveSocialSourceInURL } from '@/helpers/resolveSourceInURL.js';
+import { useBlockUser } from '@/hooks/useBlockUser.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useDeletePost } from '@/hooks/useDeletePost.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
@@ -30,7 +32,7 @@ import { LoginModalRef } from '@/modals/controls.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 interface MoreProps {
-    source: SocialPlatform;
+    source: SocialSource;
     author: Profile;
     id?: string;
 }
@@ -41,12 +43,13 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
     const isMyPost = isSameProfile(author, currentProfile);
 
     const [isFollowed, { loading }, handleToggle] = useToggleFollow(author);
-
     const [{ loading: deleting }, deletePost] = useDeletePost(source);
-
-    const [{ loading: reporting }, reportUser] = useReportUser();
+    const [{ loading: reporting }, reportUser] = useReportUser(currentProfile);
+    const [{ loading: blocking }, blockUser] = useBlockUser(currentProfile);
 
     const engagementType = first(SORTED_ENGAGEMENT_TAB_TYPE[source]) || EngagementType.Likes;
+
+    const isBusy = loading || reporting || blocking;
     return (
         <Menu
             className=" relative"
@@ -64,12 +67,12 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
                     event.stopPropagation();
                     if (!isLogin) {
                         event.preventDefault();
-                        if (source === SocialPlatform.Lens) await getWalletClientRequired(config);
+                        if (source === Source.Lens) await getWalletClientRequired(config);
                         LoginModalRef.open({ source });
                     }
                 }}
             >
-                {loading || reporting ? (
+                {isBusy ? (
                     <span className="inline-flex h-6 w-6 animate-spin items-center justify-center">
                         <LoadingIcon width={16} height={16} />
                     </span>
@@ -147,19 +150,34 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
                                     </ClickableButton>
                                 )}
                             </Menu.Item>
-                            {source === SocialPlatform.Lens ? (
+                            {source === Source.Lens ? (
                                 <Menu.Item>
                                     {({ close }) => (
-                                        <ReportUserButton profile={author} onReport={reportUser} onClick={close} />
+                                        <ReportUserButton
+                                            busy={reporting}
+                                            profile={author}
+                                            onReport={reportUser}
+                                            onClick={close}
+                                        />
                                     )}
                                 </Menu.Item>
                             ) : null}
+                            <Menu.Item>
+                                {({ close }) => (
+                                    <BlockUserButton
+                                        busy={blocking}
+                                        profile={author}
+                                        onBlock={blockUser}
+                                        onClick={close}
+                                    />
+                                )}
+                            </Menu.Item>
                         </>
                     )}
                     {id ? (
                         <Menu.Item
                             as={Link}
-                            href={`/post/${id}/${engagementType}?source=${resolveSourceInURL(source)}`}
+                            href={`/post/${id}/${engagementType}?source=${resolveSocialSourceInURL(source)}`}
                             className="flex cursor-pointer items-center space-x-2 p-4 hover:bg-bg"
                             onClick={(e) => e.stopPropagation()}
                         >

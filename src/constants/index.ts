@@ -1,12 +1,15 @@
 /* cspell:disable */
 
+import type { TweetV2UserTimelineParams } from 'twitter-api-v2';
+
 import {
     EngagementType,
     NODE_ENV,
     ProfileTabType,
     RestrictionType,
     SearchType,
-    SocialPlatform,
+    type SocialSource,
+    Source,
     VERCEL_NEV,
 } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
@@ -33,28 +36,23 @@ export const RP_HASH_TAG = '#FireflyLuckyDrop';
 export const EMPTY_LIST = Object.freeze([]) as never[];
 export const EMPTY_OBJECT = Object.freeze({}) as Record<string, never>;
 
-export const SORTED_PROFILE_TAB_TYPE: Record<SocialPlatform, ProfileTabType[]> = {
-    [SocialPlatform.Lens]: [
-        ProfileTabType.Feed,
-        ProfileTabType.Replies,
-        ProfileTabType.Media,
-        ProfileTabType.Collected,
-    ],
-    [SocialPlatform.Farcaster]: [ProfileTabType.Feed, ProfileTabType.Replies, ProfileTabType.Liked],
-    [SocialPlatform.Twitter]: [ProfileTabType.Feed],
+export const SORTED_PROFILE_TAB_TYPE: Record<SocialSource, ProfileTabType[]> = {
+    [Source.Lens]: [ProfileTabType.Feed, ProfileTabType.Replies, ProfileTabType.Media, ProfileTabType.Collected],
+    [Source.Farcaster]: [ProfileTabType.Feed, ProfileTabType.Replies, ProfileTabType.Liked],
+    [Source.Twitter]: [ProfileTabType.Feed],
 };
-export const SORTED_ENGAGEMENT_TAB_TYPE: Record<SocialPlatform, EngagementType[]> = {
-    [SocialPlatform.Lens]: [EngagementType.Quotes, EngagementType.Mirrors, EngagementType.Likes],
+export const SORTED_ENGAGEMENT_TAB_TYPE: Record<SocialSource, EngagementType[]> = {
+    [Source.Lens]: [EngagementType.Quotes, EngagementType.Mirrors, EngagementType.Likes],
     // TODO No API to fetch recasts for now.
-    [SocialPlatform.Farcaster]: [EngagementType.Recasts, EngagementType.Likes],
-    [SocialPlatform.Twitter]: [EngagementType.Quotes, EngagementType.Likes],
+    [Source.Farcaster]: [EngagementType.Recasts, EngagementType.Likes],
+    [Source.Twitter]: [EngagementType.Quotes, EngagementType.Likes],
 };
-export const SORTED_SEARCH_TYPE: Record<SocialPlatform, SearchType[]> = {
-    [SocialPlatform.Lens]: [SearchType.Posts, SearchType.Users],
-    [SocialPlatform.Farcaster]: [SearchType.Posts, SearchType.Users, SearchType.Channels],
-    [SocialPlatform.Twitter]: [SearchType.Posts, SearchType.Users],
+export const SORTED_SEARCH_TYPE: Record<SocialSource, SearchType[]> = {
+    [Source.Lens]: [SearchType.Posts, SearchType.Users],
+    [Source.Farcaster]: [SearchType.Posts, SearchType.Users, SearchType.Channels],
+    [Source.Twitter]: [SearchType.Posts, SearchType.Users],
 };
-export const SORTED_SOURCES = [SocialPlatform.Farcaster, SocialPlatform.Lens, SocialPlatform.Twitter];
+export const SORTED_SOURCES = [Source.Farcaster, Source.Lens, Source.Twitter] as const;
 export const SORTED_RESTECTION_TYPE = [RestrictionType.Everyone, RestrictionType.OnlyPeopleYouFollow];
 
 // Lens
@@ -82,20 +80,20 @@ export const S3_BUCKET = {
     FIREFLY_LENS_MEDIA: 'firefly-lens-media',
 };
 
-export const MAX_CHAR_SIZE_PER_POST: Record<SocialPlatform, number> = {
-    [SocialPlatform.Lens]: 5000,
-    [SocialPlatform.Farcaster]: 320,
-    [SocialPlatform.Twitter]: 280,
+export const MAX_CHAR_SIZE_PER_POST: Record<SocialSource, number> = {
+    [Source.Lens]: 5000,
+    [Source.Farcaster]: 320,
+    [Source.Twitter]: 280,
 };
-export const DANGER_CHAR_LIMIT: Record<SocialPlatform, number> = {
-    [SocialPlatform.Lens]: Math.floor(MAX_CHAR_SIZE_PER_POST[SocialPlatform.Lens] * 0.9),
-    [SocialPlatform.Farcaster]: Math.floor(MAX_CHAR_SIZE_PER_POST[SocialPlatform.Farcaster] * 0.9),
-    [SocialPlatform.Twitter]: Math.floor(MAX_CHAR_SIZE_PER_POST[SocialPlatform.Twitter] * 0.9),
+export const DANGER_CHAR_LIMIT: Record<SocialSource, number> = {
+    [Source.Lens]: Math.floor(MAX_CHAR_SIZE_PER_POST[Source.Lens] * 0.9),
+    [Source.Farcaster]: Math.floor(MAX_CHAR_SIZE_PER_POST[Source.Farcaster] * 0.9),
+    [Source.Twitter]: Math.floor(MAX_CHAR_SIZE_PER_POST[Source.Twitter] * 0.9),
 };
-export const SAFE_CHAR_LIMIT: Record<SocialPlatform, number> = {
-    [SocialPlatform.Lens]: Math.floor(MAX_CHAR_SIZE_PER_POST[SocialPlatform.Lens] * 0.8),
-    [SocialPlatform.Farcaster]: Math.floor(MAX_CHAR_SIZE_PER_POST[SocialPlatform.Farcaster] * 0.8),
-    [SocialPlatform.Twitter]: Math.floor(MAX_CHAR_SIZE_PER_POST[SocialPlatform.Twitter] * 0.8),
+export const SAFE_CHAR_LIMIT: Record<SocialSource, number> = {
+    [Source.Lens]: Math.floor(MAX_CHAR_SIZE_PER_POST[Source.Lens] * 0.8),
+    [Source.Farcaster]: Math.floor(MAX_CHAR_SIZE_PER_POST[Source.Farcaster] * 0.8),
+    [Source.Twitter]: Math.floor(MAX_CHAR_SIZE_PER_POST[Source.Twitter] * 0.8),
 };
 
 // Search Bar
@@ -138,3 +136,16 @@ export const SUFFIX_NAMES: Record<(typeof ALLOWED_IMAGES_MIMES)[number], string>
 };
 
 export const FILE_MAX_SIZE_IN_BYTES = 4 * 1024 * 1024; // 4MB
+
+export const TWITTER_TIMELINE_OPTIONS: TweetV2UserTimelineParams = {
+    expansions: [
+        'attachments.media_keys',
+        'attachments.poll_ids',
+        'author_id',
+        'referenced_tweets.id',
+        'referenced_tweets.id.author_id',
+    ],
+    'media.fields': ['media_key', 'height', 'width', 'type', 'url', 'preview_image_url', 'variants'],
+    'tweet.fields': ['text', 'attachments', 'author_id', 'created_at', 'lang', 'public_metrics', 'referenced_tweets'],
+    'user.fields': ['profile_image_url', 'name', 'username'],
+};

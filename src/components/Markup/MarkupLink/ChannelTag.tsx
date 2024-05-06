@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation.js';
-import { memo, useEffect, useState } from 'react';
+import { memo, useEffect, useMemo, useState } from 'react';
 import { useInView } from 'react-cool-inview';
 
 import { ChannelCard } from '@/components/Channel/ChannelCard.js';
@@ -9,8 +9,10 @@ import type { MarkupLinkProps } from '@/components/Markup/MarkupLink/index.js';
 import { Tippy } from '@/esm/Tippy.js';
 import { getFarcasterChannelUrlById } from '@/helpers/getFarcasterChannelUrlById.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
+import { useIsMedium } from '@/hooks/useMediaQuery.js';
 
 export const ChannelTag = memo<Omit<MarkupLinkProps, 'post'>>(function ChannelTag({ title, source }) {
+    const isMedium = useIsMedium();
     const router = useRouter();
     const channelId = title?.slice(1);
     const [viewed, setViewed] = useState(false);
@@ -37,9 +39,24 @@ export const ChannelTag = memo<Omit<MarkupLinkProps, 'post'>>(function ChannelTa
         },
     });
 
+    const content = useMemo(() => {
+        if (!channelId) return;
+        return (
+            <ClickableArea
+                className="cursor-pointer text-link hover:underline"
+                as="span"
+                onClick={() => {
+                    router.push(getFarcasterChannelUrlById(channelId));
+                }}
+            >
+                {title}
+            </ClickableArea>
+        );
+    }, [title, channelId, router]);
+
     if (!channelId) return;
 
-    return (
+    return isMedium ? (
         <Tippy
             maxWidth={400}
             className="channel-card"
@@ -53,16 +70,10 @@ export const ChannelTag = memo<Omit<MarkupLinkProps, 'post'>>(function ChannelTa
         >
             <span>
                 <span ref={observe} />
-                <ClickableArea
-                    className="cursor-pointer text-link hover:underline"
-                    as="span"
-                    onClick={() => {
-                        router.push(getFarcasterChannelUrlById(channelId));
-                    }}
-                >
-                    {title}
-                </ClickableArea>
+                {content}
             </span>
         </Tippy>
+    ) : (
+        content
     );
 });

@@ -7,12 +7,15 @@ import { useCopyToClipboard } from 'react-use';
 import urlcat from 'urlcat';
 
 import LoadingIcon from '@/assets/loading.svg';
+import { BlockUserButton } from '@/components/Actions/BlockUserButton.js';
 import { ReportUserButton } from '@/components/Actions/ReportUserButton.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
-import { SocialPlatform } from '@/constants/enum.js';
+import { Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
+import { useBlockUser } from '@/hooks/useBlockUser.js';
+import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useReportUser } from '@/hooks/useReportUser.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
@@ -23,7 +26,11 @@ interface MoreProps extends Omit<MenuProps<'div'>, 'className'> {
 
 export const ProfileMoreAction = memo<MoreProps>(function ProfileMoreAction({ profile, className, ...rest }) {
     const [, copyToClipboard] = useCopyToClipboard();
-    const [{ loading: reporting }, reportUser] = useReportUser();
+    const currentProfile = useCurrentProfile(profile.source);
+    const [{ loading: reporting }, reportUser] = useReportUser(currentProfile);
+    const [{ loading: blocking }, blockUser] = useBlockUser(currentProfile);
+
+    const isBusy = reporting || blocking;
 
     return (
         <Menu className={classNames('relative', className as string)} as="div" {...rest}>
@@ -33,7 +40,7 @@ export const ProfileMoreAction = memo<MoreProps>(function ProfileMoreAction({ pr
                 className="flex items-center text-secondary"
                 aria-label="More"
             >
-                {reporting ? (
+                {isBusy ? (
                     <span className="inline-flex h-8 w-8 animate-spin items-center justify-center">
                         <LoadingIcon width={16} height={16} />
                     </span>
@@ -75,13 +82,16 @@ export const ProfileMoreAction = memo<MoreProps>(function ProfileMoreAction({ pr
                         )}
                     </Menu.Item>
 
-                    {profile.source === SocialPlatform.Lens ? (
+                    {profile.source === Source.Lens ? (
                         <Menu.Item>
                             {({ close }) => (
                                 <ReportUserButton onConfirm={close} profile={profile} onReport={reportUser} />
                             )}
                         </Menu.Item>
                     ) : null}
+                    <Menu.Item>
+                        {({ close }) => <BlockUserButton onConfirm={close} profile={profile} onBlock={blockUser} />}
+                    </Menu.Item>
                 </Menu.Items>
             </Transition>
         </Menu>

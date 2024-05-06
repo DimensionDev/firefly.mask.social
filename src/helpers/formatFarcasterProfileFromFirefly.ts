@@ -1,6 +1,6 @@
 import { first } from 'lodash-es';
 
-import { SocialPlatform } from '@/constants/enum.js';
+import { Source } from '@/constants/enum.js';
 import type { User } from '@/providers/types/Firefly.js';
 import { type Profile, ProfileStatus } from '@/providers/types/SocialMedia.js';
 
@@ -17,7 +17,7 @@ export function formatFarcasterProfileFromFirefly(user: User): Profile {
         followingCount: user.following,
         status: ProfileStatus.Active,
         verified: true,
-        source: SocialPlatform.Farcaster,
+        source: Source.Farcaster,
         viewerContext: {
             following: user.isFollowing,
             followedBy: user.isFollowedBack,

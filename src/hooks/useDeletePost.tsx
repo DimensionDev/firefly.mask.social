@@ -2,12 +2,12 @@ import { usePathname, useRouter } from 'next/navigation.js';
 import { Trans } from 'react-i18next';
 import { useAsyncFn } from 'react-use';
 
-import { type SocialPlatform, SourceInURL } from '@/constants/enum.js';
+import { type SocialSource, SourceInURL } from '@/constants/enum.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 
-export function useDeletePost(source: SocialPlatform) {
+export function useDeletePost(source: SocialSource) {
     const router = useRouter();
     const pathname = usePathname();
     return useAsyncFn(

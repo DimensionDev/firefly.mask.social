@@ -2,7 +2,7 @@ import { safeUnreachable } from '@masknet/kit';
 import { useQuery } from '@tanstack/react-query';
 import { useCallback } from 'react';
 
-import { SocialPlatform } from '@/constants/enum.js';
+import { Source } from '@/constants/enum.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
@@ -18,17 +18,17 @@ interface Options {
 
 export function useIsFollowing({ profile, placeholder, enabled }: Options) {
     const platform = profile.source;
-    const identifier = platform === SocialPlatform.Lens ? profile.handle : profile.profileId;
+    const identifier = platform === Source.Lens ? profile.handle : profile.profileId;
     const { data: isFollowing, refetch } = useQuery({
         enabled,
         queryKey: ['profile', 'is-following', platform, identifier],
         queryFn: () => {
             switch (platform) {
-                case SocialPlatform.Lens:
+                case Source.Lens:
                     return LensSocialMediaProvider.getProfileByHandle(identifier);
-                case SocialPlatform.Farcaster:
+                case Source.Farcaster:
                     return FarcasterSocialMediaProvider.getProfileById(identifier);
-                case SocialPlatform.Twitter:
+                case Source.Twitter:
                     return TwitterSocialMediaProvider.getProfileById(identifier);
                 default:
                     safeUnreachable(platform);

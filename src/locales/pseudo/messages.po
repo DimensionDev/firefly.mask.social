@@ -73,6 +73,9 @@ msgstr ""
 msgid "Collect Action is not supported yet."
 msgstr ""
 
+msgid "This entry has been permanently stored on-chain and signed by its creator"
+msgstr ""
+
 msgid "Join our Discord"
 msgstr ""
 
@@ -83,6 +86,9 @@ msgid "<0>You</0> and {0} others recasted"
 msgstr ""
 
 msgid "Change Wallet"
+msgstr ""
+
+msgid "Confirm you want to block @{0}"
 msgstr ""
 
 msgid "OpenGraph"
@@ -172,6 +178,9 @@ msgstr ""
 msgid "Reconnect with Firefly"
 msgstr ""
 
+msgid "Revise on"
+msgstr ""
+
 msgid "Only up to 2 images can be chosen."
 msgstr ""
 
@@ -206,6 +215,12 @@ msgid "Audio Cover"
 msgstr ""
 
 msgid "Recent"
+msgstr ""
+
+msgid "Block"
+msgstr ""
+
+msgid "Block @{0}"
 msgstr ""
 
 msgid "OpenGraph Validator"
@@ -298,6 +313,9 @@ msgstr ""
 msgid "Comment cannot be empty."
 msgstr ""
 
+msgid "AUTHOR ADDRESS"
+msgstr ""
+
 msgid "Reply"
 msgstr ""
 
@@ -335,6 +353,9 @@ msgid "Comment"
 msgstr ""
 
 msgid "Only people you mention"
+msgstr ""
+
+msgid "Cancel retweet successfully"
 msgstr ""
 
 msgid "Allow replies from"
@@ -401,6 +422,9 @@ msgid "Lens"
 msgstr ""
 
 msgid "Failed to upvote post."
+msgstr ""
+
+msgid "Retweeted"
 msgstr ""
 
 msgid "Post your reply"
@@ -550,6 +574,9 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
+msgid "Post on"
+msgstr ""
+
 msgid "Failed to like the post."
 msgstr ""
 
@@ -614,6 +641,9 @@ msgid "Copy"
 msgstr ""
 
 msgid "Skip for now"
+msgstr ""
+
+msgid "Failed to block @{0}"
 msgstr ""
 
 msgid "Notifications"
