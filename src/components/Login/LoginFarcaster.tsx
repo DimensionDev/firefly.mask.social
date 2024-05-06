@@ -21,7 +21,7 @@ import { FireflySessionConfirmModalRef, LoginModalRef } from '@/modals/controls.
 import type { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { createSessionByCustodyWallet } from '@/providers/warpcast/createSessionByCustodyWallet.js';
-import { createSessionByGrantPermissionFirefly } from '@/providers/warpcast/createSessionByGrantPermission.js';
+import { createSessionByRelayService } from '@/providers/warpcast/createSessionByRelayService.js';
 
 async function login(createSession: () => Promise<FarcasterSession>) {
     try {
@@ -70,7 +70,7 @@ export function LoginFarcaster() {
 
             try {
                 await login(() =>
-                    createSessionByGrantPermissionFirefly(
+                    createSessionByRelayService(
                         (url) => {
                             resetCountdown();
                             startCountdown();

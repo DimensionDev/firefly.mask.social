@@ -63,7 +63,7 @@ export class FarcasterSession extends BaseSession implements Session {
         return session.type === SessionType.Farcaster && !!(session as FarcasterSession).signerRequestToken;
     }
 
-    static isGrantByRelay(session: Session | null): session is FarcasterSession & { channelToken: string } {
+    static isGrantByRelayService(session: Session | null): session is FarcasterSession & { channelToken: string } {
         if (!session) return false;
         return session.type === SessionType.Farcaster && !!(session as FarcasterSession).channelToken;
     }
