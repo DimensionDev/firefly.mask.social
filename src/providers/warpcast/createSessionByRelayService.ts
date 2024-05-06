@@ -62,8 +62,14 @@ export async function createSessionByRelayService(callback?: (url: string) => vo
             fireflySessionHolder.resumeSession(fireflySession);
         }
     } catch (error) {
-        console.error(`[login farcaster] failed to restore firefly session: ${error}`);
+        console.error(`[createSessionByRelayService] failed to restore firefly session: ${error}`);
     }
+
+    // polling failed
+    if (!session.profileId)
+        throw new Error(
+            'Failed to query the signed key request status after several attempts. Please try again later.',
+        );
 
     return session;
 }

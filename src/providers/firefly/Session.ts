@@ -48,7 +48,7 @@ export class FireflySession extends BaseSession implements Session {
                     method: 'POST',
                     body: JSON.stringify({
                         channelToken: isRelayService ? session.channelToken : undefined,
-                        token: isGrantByPermission ? session.token : undefined,
+                        token: isGrantByPermission ? session.signerRequestToken : undefined,
                     }),
                     signal,
                 });

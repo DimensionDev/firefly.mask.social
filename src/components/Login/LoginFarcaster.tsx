@@ -21,7 +21,9 @@ import { FireflySessionConfirmModalRef, LoginModalRef } from '@/modals/controls.
 import type { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { createSessionByCustodyWallet } from '@/providers/warpcast/createSessionByCustodyWallet.js';
-import { createSessionByRelayService } from '@/providers/warpcast/createSessionByRelayService.js';
+import { createSessionByGrantPermissionFirefly } from '@/providers/warpcast/createSessionByGrantPermission.js';
+
+const USE_GRANT_BY_PERMISSION = true;
 
 async function login(createSession: () => Promise<FarcasterSession>) {
     try {
@@ -70,10 +72,13 @@ export function LoginFarcaster() {
 
             try {
                 await login(() =>
-                    createSessionByRelayService(
+                    createSessionByGrantPermissionFirefly(
                         (url) => {
-                            resetCountdown();
-                            startCountdown();
+                            // for login by relay service, we will use countdown
+                            if (!USE_GRANT_BY_PERMISSION) {
+                                resetCountdown();
+                                startCountdown();
+                            }
 
                             const device = getMobileDevice();
                             if (device === 'unknown') setUrl(url);
@@ -89,7 +94,7 @@ export function LoginFarcaster() {
                 throw error;
             }
         }
-    }, [startCountdown, resetCountdown]);
+    }, [resetCountdown, startCountdown]);
 
     const [{ loading: loadingCustodyWallet }, onLoginWithCustodyWallet] = useAsyncFn(async () => {
         controllerRef.current?.abort('aborted');
@@ -133,6 +138,11 @@ export function LoginFarcaster() {
                             <div className=" text-center text-[12px] leading-[16px] text-lightSecond">
                                 {count === 0 ? (
                                     <Trans>Please click and refresh the QR code to log in again.</Trans>
+                                ) : USE_GRANT_BY_PERMISSION ? (
+                                    <Trans>
+                                        On your mobile device with Warpcast, open the{' '}
+                                        <span className="font-bold">Camera</span> app and scan the QR code in.
+                                    </Trans>
                                 ) : (
                                     <Trans>
                                         On your mobile device with Warpcast, open the{' '}

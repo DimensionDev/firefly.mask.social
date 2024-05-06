@@ -103,6 +103,9 @@ msgstr ""
 msgid "Failed to login"
 msgstr ""
 
+msgid "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code in."
+msgstr ""
+
 msgid "Offline"
 msgstr ""
 
