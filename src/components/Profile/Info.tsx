@@ -58,7 +58,6 @@ export function Info({ isMyProfile, profile, source }: InfoProps) {
                             pathname: `/profile/${profile?.profileId}/following`,
                             query: { source: resolveSourceInURL(source) },
                         }}
-                        target="_blank"
                         className="flex gap-1 hover:underline"
                     >
                         <span className=" font-bold text-lightMain">{followingCount}</span>
@@ -67,12 +66,18 @@ export function Info({ isMyProfile, profile, source }: InfoProps) {
                         </span>
                     </Link>
 
-                    <div className="flex gap-1">
+                    <Link
+                        href={{
+                            pathname: `/profile/${profile?.profileId}/followers`,
+                            query: { source: resolveSourceInURL(source) },
+                        }}
+                        className="flex gap-1 hover:underline"
+                    >
                         <span className=" font-bold text-lightMain">{followerCount}</span>
                         <span className=" text-secondary">
                             {followerCount === 1 ? <Trans>Follower</Trans> : <Trans>Followers</Trans>}
                         </span>
-                    </div>
+                    </Link>
                 </div>
             </div>
         </div>
