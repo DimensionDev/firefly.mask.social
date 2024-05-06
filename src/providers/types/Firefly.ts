@@ -191,8 +191,8 @@ export type LensLoginResponse = Response<{
 }>;
 
 export type FarcasterLoginResponse = Response<{
-    accessToken: string;
-    accountId: string;
+    accessToken?: string;
+    accountId?: string;
     farcaster_signer_public_key?: string;
     farcaster_signer_private_key?: string;
     fid: string;

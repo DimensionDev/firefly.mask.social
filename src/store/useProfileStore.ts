@@ -114,12 +114,6 @@ const useFarcasterStateBase = createState(
             if (typeof window === 'undefined') return;
 
             const session = state?.currentProfileSession;
-
-            if (session && session.expiresAt < Date.now()) {
-                console.warn('[farcaster store] session expired');
-                state?.clearCurrentProfile();
-                return;
-            }
             if (session) {
                 farcasterSessionHolder.resumeSession(session as FarcasterSession);
             }

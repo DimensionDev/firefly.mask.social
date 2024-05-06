@@ -286,9 +286,6 @@ msgstr "Comment cannot be empty."
 msgid "Reply"
 msgstr "Reply"
 
-msgid "Querying the signed key state."
-msgstr "Querying the signed key state."
-
 msgid "Collected"
 msgstr "Collected"
 
@@ -394,9 +391,6 @@ msgstr "Lens"
 msgid "Failed to upvote post."
 msgstr "Failed to upvote post."
 
-msgid "One click to connect your account status"
-msgstr "One click to connect your account status"
-
 msgid "Post your reply"
 msgstr "Post your reply"
 
@@ -420,6 +414,9 @@ msgstr "Settings"
 
 msgid "Details"
 msgstr "Details"
+
+msgid "Detect device accounts"
+msgstr "Detect device accounts"
 
 msgid "Your Farcaster account is now connected."
 msgstr "Your Farcaster account is now connected."
@@ -493,6 +490,9 @@ msgstr "Cancel recast successfully"
 msgid "Failed to unfollow."
 msgstr "Failed to unfollow."
 
+msgid "One click to connect your account status."
+msgstr "One click to connect your account status."
+
 msgid "Quote"
 msgstr "Quote"
 
@@ -531,6 +531,9 @@ msgstr "Delete"
 
 msgid "There is no data available for display."
 msgstr "There is no data available for display."
+
+msgid "Cancel"
+msgstr "Cancel"
 
 msgid "Failed to like the post."
 msgstr "Failed to like the post."
@@ -592,11 +595,11 @@ msgstr "Casts + Replies"
 msgid "Image"
 msgstr "Image"
 
-msgid "Failed to query the signed key state."
-msgstr "Failed to query the signed key state."
-
 msgid "Copy"
 msgstr "Copy"
+
+msgid "Skip for now"
+msgstr "Skip for now"
 
 msgid "Notifications"
 msgstr "Notifications"

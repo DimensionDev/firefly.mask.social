@@ -15,25 +15,25 @@ import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMes
 import { getMobileDevice } from '@/helpers/getMobileDevice.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
-import { LoginModalRef } from '@/modals/controls.js';
+import { restoreProfile } from '@/helpers/restoreProfile.js';
+import { FireflySessionConfirmModalRef, LoginModalRef } from '@/modals/controls.js';
 import type { FarcasterSession } from '@/providers/farcaster/Session.js';
-import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { createSessionByCustodyWallet } from '@/providers/warpcast/createSessionByCustodyWallet.js';
 import { createSessionByGrantPermission } from '@/providers/warpcast/createSessionByGrantPermission.js';
-import { useFarcasterStateStore } from '@/store/useProfileStore.js';
 
 async function login(createSession: () => Promise<FarcasterSession>) {
     try {
         const session = await createSession();
         const profile = await FarcasterSocialMediaProvider.getProfileById(session.profileId);
 
-        useFarcasterStateStore.getState().updateProfiles([profile]);
-        useFarcasterStateStore.getState().updateCurrentProfile(profile, session);
-        farcasterSessionHolder.resumeSession(session);
-
+        // restore profiles for farcaster
+        restoreProfile(profile, [profile], session);
         enqueueSuccessMessage(t`Your Farcaster account is now connected.`);
         LoginModalRef.close();
+
+        // restore profile exclude farcaster
+        await FireflySessionConfirmModalRef.openAndWaitForClose();
     } catch (error) {
         const message = error instanceof Error ? error.message : typeof error === 'string' ? error : `${error}`;
         if (message.toLowerCase().includes('aborted')) return;

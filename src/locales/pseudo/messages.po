@@ -286,9 +286,6 @@ msgstr ""
 msgid "Reply"
 msgstr ""
 
-msgid "Querying the signed key state."
-msgstr ""
-
 msgid "Collected"
 msgstr ""
 
@@ -394,9 +391,6 @@ msgstr ""
 msgid "Failed to upvote post."
 msgstr ""
 
-msgid "One click to connect your account status"
-msgstr ""
-
 msgid "Post your reply"
 msgstr ""
 
@@ -419,6 +413,9 @@ msgid "Settings"
 msgstr ""
 
 msgid "Details"
+msgstr ""
+
+msgid "Detect device accounts"
 msgstr ""
 
 msgid "Your Farcaster account is now connected."
@@ -493,6 +490,9 @@ msgstr ""
 msgid "Failed to unfollow."
 msgstr ""
 
+msgid "One click to connect your account status."
+msgstr ""
+
 msgid "Quote"
 msgstr ""
 
@@ -530,6 +530,9 @@ msgid "Delete"
 msgstr ""
 
 msgid "There is no data available for display."
+msgstr ""
+
+msgid "Cancel"
 msgstr ""
 
 msgid "Failed to like the post."
@@ -592,10 +595,10 @@ msgstr ""
 msgid "Image"
 msgstr ""
 
-msgid "Failed to query the signed key state."
+msgid "Copy"
 msgstr ""
 
-msgid "Copy"
+msgid "Skip for now"
 msgstr ""
 
 msgid "Notifications"

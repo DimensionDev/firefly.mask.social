@@ -291,9 +291,6 @@ msgstr ""
 msgid "Reply"
 msgstr "回复"
 
-msgid "Querying the signed key state."
-msgstr ""
-
 msgid "Collected"
 msgstr "已收藏"
 
@@ -399,9 +396,6 @@ msgstr "Lens"
 msgid "Failed to upvote post."
 msgstr "无法对帖子进行投票。"
 
-msgid "One click to connect your account status"
-msgstr ""
-
 msgid "Post your reply"
 msgstr "发送你的回复"
 
@@ -425,6 +419,9 @@ msgstr "设置"
 
 msgid "Details"
 msgstr "详情"
+
+msgid "Detect device accounts"
+msgstr ""
 
 msgid "Your Farcaster account is now connected."
 msgstr "你的 Farcaster 账号已经连接。"
@@ -498,6 +495,9 @@ msgstr "成功取消转发"
 msgid "Failed to unfollow."
 msgstr "取消关注失败"
 
+msgid "One click to connect your account status."
+msgstr ""
+
 msgid "Quote"
 msgstr "引用"
 
@@ -536,6 +536,9 @@ msgstr ""
 
 msgid "There is no data available for display."
 msgstr "没有可显示的数据。"
+
+msgid "Cancel"
+msgstr ""
 
 msgid "Failed to like the post."
 msgstr ""
@@ -597,10 +600,10 @@ msgstr ""
 msgid "Image"
 msgstr "图片"
 
-msgid "Failed to query the signed key state."
+msgid "Copy"
 msgstr ""
 
-msgid "Copy"
+msgid "Skip for now"
 msgstr ""
 
 msgid "Notifications"
