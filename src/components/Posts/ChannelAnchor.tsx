@@ -10,11 +10,11 @@ import { getChannelUrl } from '@/helpers/getChannelUrl.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
 
-interface ChannelAnchorprops {
+interface ChannelAnchorProps {
     channel: Channel;
 }
 
-export const ChannelAnchor = memo<ChannelAnchorprops>(function ChannelAnchor({ channel }) {
+export const ChannelAnchor = memo<ChannelAnchorProps>(function ChannelAnchor({ channel }) {
     const isMedium = useIsMedium();
     const router = useRouter();
     const content = useMemo(() => {
