@@ -4,13 +4,13 @@ import { useAsyncFn } from 'react-use';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
-import { usePostState } from '@/store/usePostStore.js';
+import { useBlockedUsersState } from '@/store/useBlockedUsersStore.js';
 
 /**
  * Block a user
  */
 export function useBlockUser(operator: Profile | null) {
-    const { blockUser } = usePostState();
+    const { blockUser } = useBlockedUsersState();
     return useAsyncFn(
         async (profile: Profile) => {
             try {

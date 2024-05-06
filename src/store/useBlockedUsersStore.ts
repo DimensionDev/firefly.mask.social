@@ -11,7 +11,7 @@ interface PostState {
     blockUser(operator: Profile, profile: Profile): void;
 }
 
-const usePostStore = create<PostState, [['zustand/persist', PostState], ['zustand/immer', never]]>(
+const useBlockedUsersStore = create<PostState, [['zustand/persist', PostState], ['zustand/immer', never]]>(
     persist(
         immer((set, get) => ({
             allBlockedUsers: {},
@@ -27,10 +27,10 @@ const usePostStore = create<PostState, [['zustand/persist', PostState], ['zustan
             },
         })),
         {
-            name: 'firefly-posts',
+            name: 'firefly-blocked-users',
             storage: createJSONStorage(() => localStorage),
         },
     ),
 );
 
-export const usePostState = createSelectors(usePostStore);
+export const useBlockedUsersState = createSelectors(useBlockedUsersStore);
