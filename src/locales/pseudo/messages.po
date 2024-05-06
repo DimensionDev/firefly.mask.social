@@ -514,6 +514,9 @@ msgstr ""
 msgid "There is no data available for display."
 msgstr ""
 
+msgid "Cancel"
+msgstr ""
+
 msgid "Failed to like the post."
 msgstr ""
 
@@ -572,6 +575,9 @@ msgid "Failed to query the signed key state."
 msgstr ""
 
 msgid "Copy"
+msgstr ""
+
+msgid "Skip for now"
 msgstr ""
 
 msgid "Notifications"

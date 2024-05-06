@@ -3,7 +3,7 @@ import { useAsyncFn } from 'react-use';
 
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
-import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
+import { createSessionForProfileId } from '@/providers/lens/createSessionForProfileId.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { useLensStateStore } from '@/store/useProfileStore.js';
 
@@ -12,7 +12,7 @@ export function useSwitchLensAccount() {
     const [{ loading }, login] = useAsyncFn(
         async (profile: Profile) => {
             try {
-                const session = await LensSocialMediaProvider.createSessionForProfileId(profile.profileId);
+                const session = await createSessionForProfileId(profile.profileId);
                 updateCurrentProfile(profile, session);
                 enqueueSuccessMessage(t`Your Lens account is now connected`);
             } catch (error) {

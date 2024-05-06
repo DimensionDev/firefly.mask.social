@@ -53,14 +53,18 @@ export async function createSessionByGrantPermissionFirefly(callback?: (url: str
     // present QR code to the user or open the link in a new tab
     callback?.(deeplink);
 
-    // firefly start polling for the signed key request
-    // once key request is signed, we will get the fid
-    const fireflySession = await FireflySession.from(session);
+    try {
+        // firefly start polling for the signed key request
+        // once key request is signed, we will get the fid
+        const fireflySession = await FireflySession.from(session);
 
-    if (fireflySession) {
-        // we also posses the session in firefly session holder
-        // which means if we login in farcaster, we login firefly as well
-        fireflySessionHolder.resumeSession(fireflySession);
+        if (fireflySession) {
+            // we also posses the session in firefly session holder
+            // which means if we login in farcaster, we login firefly as well
+            fireflySessionHolder.resumeSession(fireflySession);
+        }
+    } catch (error) {
+        console.error(`[login farcaster] failed to restore firefly session: ${error}`);
     }
 
     return session;
@@ -106,15 +110,11 @@ export async function createSessionByGrantPermission(callback?: (url: string) =>
         throw lastError;
     };
 
-    const result = await queryTimes();
-    if (result?.result.signedKeyRequest.userFid) {
-        session.profileId = `${result.result.signedKeyRequest.userFid}`;
+    const { result } = await queryTimes();
+    if (result.signedKeyRequest.userFid) {
+        session.profileId = `${result.signedKeyRequest.userFid}`;
         return session;
     }
 
-    throw new Error(
-        result
-            ? JSON.stringify(result)
-            : 'Failed to query the signed key request status after several attempts. Please try again later.',
-    );
+    throw new Error('Failed to query the signed key request status after several attempts. Please try again later.');
 }

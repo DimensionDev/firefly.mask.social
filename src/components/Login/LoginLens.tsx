@@ -17,10 +17,10 @@ import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMes
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { AccountModalRef, ConnectWalletModalRef, LoginModalRef } from '@/modals/controls.js';
-import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
+import { createSessionForProfileIdFirefly } from '@/providers/lens/createSessionForProfileId.js';
+import { updateSignless } from '@/providers/lens/updateSignless.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { useLensStateStore } from '@/store/useProfileStore.js';
-import { useSyncSessionStore } from '@/store/useSyncSessionStore.js';
 
 interface LoginLensProps {
     profiles: Profile[];
@@ -34,7 +34,6 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
     const account = useAccount();
 
     const { updateProfiles, updateCurrentProfile } = useLensStateStore();
-    const { syncFromFirefly: syncFromFirefly } = useSyncSessionStore();
 
     const currentProfile = selectedProfile || first(profiles);
 
@@ -43,15 +42,14 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
             if (!profiles.length || !currentProfile) return;
 
             try {
-                const session = await LensSocialMediaProvider.createSessionForProfileId(currentProfile.profileId);
+                const session = await createSessionForProfileIdFirefly(currentProfile.profileId);
 
                 if (!currentProfile.signless && signless) {
-                    await LensSocialMediaProvider.updateSignless(true);
+                    await updateSignless(true);
                 }
 
                 updateProfiles(profiles);
                 updateCurrentProfile(currentProfile, session);
-                syncFromFirefly(session);
                 enqueueSuccessMessage(t`Your Lens account is now connected.`);
                 LoginModalRef.close();
             } catch (error) {

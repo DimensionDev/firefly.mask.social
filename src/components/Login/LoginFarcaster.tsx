@@ -15,7 +15,7 @@ import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMes
 import { getMobileDevice } from '@/helpers/getMobileDevice.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
-import { LoginModalRef } from '@/modals/controls.js';
+import { FireflySessionConfirmModalRef, LoginModalRef } from '@/modals/controls.js';
 import type { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
@@ -30,7 +30,14 @@ async function login(createSession: () => Promise<FarcasterSession>) {
 
         useFarcasterStateStore.getState().updateProfiles([profile]);
         useFarcasterStateStore.getState().updateCurrentProfile(profile, session);
-        farcasterSessionHolder.resumeSession(session);
+
+        const restored = await FireflySessionConfirmModalRef.openAndWaitForClose();
+        if (restored) {
+            LoginModalRef.close();
+            return;
+        } else {
+            farcasterSessionHolder.resumeSession(session);
+        }
 
         enqueueSuccessMessage(t`Your Farcaster account is now connected.`);
         LoginModalRef.close();

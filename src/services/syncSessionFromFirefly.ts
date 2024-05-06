@@ -55,14 +55,15 @@ function convertMetricToSession(metric: Metrics[0]) {
                 'fake_signer_request_token',
             );
         });
-        // for lens metric has profile_id
-    } else if (typeof first(lensMetric.login_metadata)?.profile_id === 'string') {
+    }
+    // for lens metric has profile_id
+    if (typeof first(lensMetric.login_metadata)?.profile_id === 'string') {
         return lensMetric.login_metadata.map((x) => {
             return new LensSession(x.profile_id, x.token, x.login_time, x.login_time, x.refresh_token);
         });
-    } else {
-        return [];
     }
+
+    return [];
 }
 
 /**
