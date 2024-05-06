@@ -63,7 +63,7 @@ export function LoginFarcaster() {
         isIncrement: false,
     });
 
-    const [{ loading: loadingGrantPermission }, onLoginWithGrantPermission] = useAsyncFn(async () => {
+    const [_, onLoginByRelayService] = useAsyncFn(async () => {
         // reset the process if abort controller is aborted or not initialized
         if (!controllerRef.current || controllerRef.current?.signal.aborted) {
             controllerRef.current = new AbortController();
@@ -107,7 +107,7 @@ export function LoginFarcaster() {
     }, []);
 
     useEffectOnce(() => {
-        onLoginWithGrantPermission();
+        onLoginByRelayService();
     });
 
     useUnmount(() => {
@@ -154,7 +154,7 @@ export function LoginFarcaster() {
                                 onClick={() => {
                                     controllerRef.current?.abort('aborted');
                                     resetCountdown();
-                                    onLoginWithGrantPermission();
+                                    onLoginByRelayService();
                                 }}
                             >
                                 <QRCode
