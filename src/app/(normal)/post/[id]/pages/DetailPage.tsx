@@ -23,7 +23,6 @@ import { resolveSocialPlatform } from '@/helpers/resolveSocialPlatform.js';
 import { useComeBack } from '@/hooks/useComeback.js';
 import { useUpdateCurrentVisitingPost } from '@/hooks/useCurrentVisitingPost.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
-import { getPostById } from '@/services/getPostById.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 
 const PostActions = dynamic(() => import('@/components/Actions/index.js').then((module) => module.PostActions), {
@@ -63,7 +62,8 @@ export function PostDetailPage({ params: { id: postId }, searchParams: { source 
             if (!postId) return;
 
             try {
-                const post = await getPostById(currentSource, postId);
+                const provider = resolveSocialMediaProvider(currentSource);
+                const post = await provider.getPostById(postId);
                 if (!post) return;
 
                 if (currentSource === SocialPlatform.Lens) fetchAndStoreViews([post.postId]);

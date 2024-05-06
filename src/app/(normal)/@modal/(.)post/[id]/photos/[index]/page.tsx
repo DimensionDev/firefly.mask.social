@@ -18,9 +18,9 @@ import { Image } from '@/components/Image.js';
 import { Modal } from '@/components/Modal.js';
 import type { SourceInURL } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
+import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSocialPlatform } from '@/helpers/resolveSocialPlatform.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
-import { getPostById } from '@/services/getPostById.js';
 
 interface Props {
     params: {
@@ -66,7 +66,8 @@ export default function PreviewPhotoModal({ params: { id: postId, index }, searc
         queryFn: async () => {
             if (!postId) return;
 
-            const post = await getPostById(currentSource, postId);
+            const provider = resolveSocialMediaProvider(currentSource);
+            const post = await provider.getPostById(postId);
             if (!post) return;
 
             return post;

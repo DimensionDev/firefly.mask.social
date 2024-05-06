@@ -6,11 +6,12 @@ import { SITE_URL } from '@/constants/index.js';
 import { createPageTitle } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
+import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSocialPlatform } from '@/helpers/resolveSocialPlatform.js';
-import { getPostById } from '@/services/getPostById.js';
 
 export async function getPostOGById(source: SourceInURL, postId: string) {
-    const post = await getPostById(resolveSocialPlatform(source), postId);
+    const provider = resolveSocialMediaProvider(resolveSocialPlatform(source));
+    const post = await provider.getPostById(postId);
     if (!post) return createSiteMetadata();
 
     const images = compact(
