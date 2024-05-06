@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Install the outer first, then cd into the submodule so submodule's patches can be applied.
+pnpm install
+
 # Change to the submodule directory
 cd src/maskbook
 
