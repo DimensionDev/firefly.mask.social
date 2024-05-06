@@ -27,6 +27,9 @@ msgstr "还没有人评论哦～快来抢沙发！"
 msgid "Quote Post"
 msgstr "引用"
 
+msgid "{count, plural, one {1 second} other {{count} seconds}}"
+msgstr ""
+
 msgid "Report @{0}"
 msgstr ""
 
@@ -86,9 +89,6 @@ msgstr "更换钱包"
 
 msgid "OpenGraph"
 msgstr "OpenGraph"
-
-msgid "{count, plural, one { 1 second} other { {count} seconds}}"
-msgstr ""
 
 msgid "Wrong wallet"
 msgstr "错误的钱包"
@@ -423,9 +423,6 @@ msgstr "详情"
 msgid "Detect device accounts"
 msgstr ""
 
-msgid "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code in {0}."
-msgstr ""
-
 msgid "Your Farcaster account is now connected."
 msgstr "你的 Farcaster 账号已经连接。"
 
@@ -686,6 +683,9 @@ msgstr "分享到"
 
 msgid "Unknown session type."
 msgstr "未知会话类型。"
+
+msgid "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code in <1>{0}</1>."
+msgstr ""
 
 msgid "Failed to quote post."
 msgstr ""
