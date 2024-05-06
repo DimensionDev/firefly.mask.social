@@ -4,6 +4,7 @@ import { plural, t, Trans } from '@lingui/macro';
 import { useRef, useState } from 'react';
 import QRCode from 'react-qr-code';
 import { useAsyncFn, useEffectOnce, useUnmount } from 'react-use';
+import { useCountdown } from 'usehooks-ts';
 
 import LoadingIcon from '@/assets/loading.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
@@ -21,7 +22,6 @@ import type { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { createSessionByCustodyWallet } from '@/providers/warpcast/createSessionByCustodyWallet.js';
 import { createSessionByGrantPermissionFirefly } from '@/providers/warpcast/createSessionByGrantPermission.js';
-import { useCountdown } from 'usehooks-ts';
 
 async function login(createSession: () => Promise<FarcasterSession>) {
     try {

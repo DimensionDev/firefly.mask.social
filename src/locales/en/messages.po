@@ -502,6 +502,9 @@ msgstr "{0, plural, one {Post} other {Post All}}"
 msgid "Unliked"
 msgstr "Unliked"
 
+msgid "Please click and refresh the QR code to log in again."
+msgstr "Please click and refresh the QR code to log in again."
+
 msgid "Visit mask.io"
 msgstr "Visit mask.io"
 

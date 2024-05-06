@@ -507,6 +507,9 @@ msgstr ""
 msgid "Unliked"
 msgstr "已取消点赞"
 
+msgid "Please click and refresh the QR code to log in again."
+msgstr ""
+
 msgid "Visit mask.io"
 msgstr "访问 mask.io"
 
