@@ -55,7 +55,9 @@
         "wagmi",
         "warpcast",
         "zora",
-        "zustand"
+        "zustand",
+        "Paginable",
+        "unretweet"
     ],
     "ignoreWords": [
         "DEVNET",
