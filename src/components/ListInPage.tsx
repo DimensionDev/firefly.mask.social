@@ -9,19 +9,10 @@ import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { VirtualList, type VirtualListProps } from '@/components/VirtualList/VirtualList.js';
 import { VirtualListFooter } from '@/components/VirtualList/VirtualListFooter.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
-import type { Post } from '@/providers/types/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 
-/**
- * We need to handle blocked users on client.
- * This typing would guard the result to make sure the posts are filtered
- */
-type ExpectedQueryResult<T> = Post extends T
-    ? UseSuspenseInfiniteQueryResult<T[]> & { __filtered: true }
-    : UseSuspenseInfiniteQueryResult<T[]>;
-
 interface ListInPageProps<T = unknown> {
-    queryResult: ExpectedQueryResult<T>;
+    queryResult: UseSuspenseInfiniteQueryResult<T[]>;
     loginRequired?: boolean;
     noResultsFallbackRequired?: boolean;
     VirtualListProps?: VirtualListProps<T>;

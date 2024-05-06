@@ -5,7 +5,6 @@ import { ListInPage } from '@/components/ListInPage.js';
 import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.js';
 import { ProfileTabType, ScrollListKey, SocialPlatform } from '@/constants/enum.js';
 import { getPostsSelector } from '@/helpers/getPostsSelector.js';
-import { useFilteredQueryResult } from '@/hooks/useFilteredQueryResult.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 
 interface LikedFeedListProps {
@@ -34,12 +33,11 @@ export function LikedFeedList({ profileId, source }: LikedFeedListProps) {
         },
         select: getPostsSelector(source),
     });
-    const queryResult = useFilteredQueryResult(source, query);
 
     return (
         <ListInPage
             key={source}
-            queryResult={queryResult}
+            queryResult={query}
             VirtualListProps={{
                 listKey: `${ScrollListKey.Profile}:${ProfileTabType.Liked}:${profileId}`,
                 computeItemKey: (index, post) => `${post.postId}-${index}`,
