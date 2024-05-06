@@ -46,6 +46,9 @@ msgstr ""
 msgid "{followerCount, plural, one {Follower} other {Followers}}"
 msgstr ""
 
+msgid "You can sign in to Farcaster with the following options."
+msgstr ""
+
 msgid "X"
 msgstr ""
 
@@ -83,6 +86,9 @@ msgid "Change Wallet"
 msgstr ""
 
 msgid "OpenGraph"
+msgstr ""
+
+msgid "Connect with Warpcast"
 msgstr ""
 
 msgid "Wrong wallet"
@@ -161,6 +167,9 @@ msgid "Type something here..."
 msgstr ""
 
 msgid "Missing IPFS hash for image or video."
+msgstr ""
+
+msgid "Reconnect with Firefly"
 msgstr ""
 
 msgid "Only up to 2 images can be chosen."
@@ -622,6 +631,9 @@ msgstr ""
 msgid "Switch account"
 msgstr ""
 
+msgid "Sign in with Custody Wallet"
+msgstr ""
+
 msgid "Mention"
 msgstr ""
 
@@ -782,6 +794,9 @@ msgid "Language"
 msgstr ""
 
 msgid "Add a comment"
+msgstr ""
+
+msgid "FREE"
 msgstr ""
 
 msgid "Profiles"

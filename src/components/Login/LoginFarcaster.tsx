@@ -1,5 +1,6 @@
 'use client';
 
+import { ArrowRightIcon } from '@heroicons/react/24/outline';
 import { plural, t, Trans } from '@lingui/macro';
 import { useRef, useState } from 'react';
 import QRCode from 'react-qr-code';
@@ -10,6 +11,7 @@ import LoadingIcon from '@/assets/loading.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { config } from '@/configs/wagmiClient.js';
 import { IS_MOBILE_DEVICE } from '@/constants/bowser.js';
+import { FarcasterSignType } from '@/constants/enum.js';
 import { FARCASTER_REPLY_COUNTDOWN, IS_PRODUCTION } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
@@ -24,6 +26,31 @@ import { createSessionByCustodyWallet } from '@/providers/warpcast/createSession
 import { createSessionByGrantPermissionFirefly } from '@/providers/warpcast/createSessionByGrantPermission.js';
 
 const USE_GRANT_BY_PERMISSION = true;
+
+interface LoginProps {
+    onBack?: () => void;
+}
+
+const SIGN_IN_OPTIONS = [
+    {
+        label: t`Connect with Warpcast`,
+        type: FarcasterSignType.GrantPermission,
+        developmentOnly: false,
+        isFreeOfTransactionFee: false,
+    },
+    {
+        label: t`Reconnect with Firefly`,
+        type: FarcasterSignType.RelayService,
+        developmentOnly: false,
+        isFreeOfTransactionFee: true,
+    },
+    {
+        label: t`Sign in with Custody Wallet`,
+        type: FarcasterSignType.CustodyWallet,
+        developmentOnly: true,
+        isFreeOfTransactionFee: true,
+    },
+].filter((x) => (IS_PRODUCTION ? !x.developmentOnly : true));
 
 async function login(createSession: () => Promise<FarcasterSession>) {
     try {
@@ -55,7 +82,7 @@ async function login(createSession: () => Promise<FarcasterSession>) {
     }
 }
 
-export function LoginFarcaster() {
+function Login({ onBack }: LoginProps) {
     const [url, setUrl] = useState('');
     const controllerRef = useRef<AbortController>();
     const [count, { startCountdown, resetCountdown }] = useCountdown({
@@ -120,10 +147,7 @@ export function LoginFarcaster() {
     });
 
     return (
-        <div
-            className="flex flex-col rounded-[12px] md:w-[600px]"
-            style={{ boxShadow: '0px 4px 30px 0px rgba(0, 0, 0, 0.10)' }}
-        >
+        <div className="flex flex-col rounded-[12px] md:w-[600px]">
             {IS_MOBILE_DEVICE ? (
                 <div className="flex min-h-[200px] w-full flex-col items-center justify-center gap-4 p-4">
                     <LoadingIcon className="animate-spin" width={24} height={24} />
@@ -198,4 +222,39 @@ export function LoginFarcaster() {
             )}
         </div>
     );
+}
+
+export function LoginFarcaster() {
+    const [signType, setSignType] = useState<FarcasterSignType | null>(
+        SIGN_IN_OPTIONS.length === 1 ? SIGN_IN_OPTIONS[0].type : null,
+    );
+
+    if (!signType) {
+        return (
+            <div className="flex flex-col gap-2 rounded-[12px] p-4 md:w-[600px]">
+                <p className=" pb-2 text-left text-sm">
+                    <Trans>You can sign in to Farcaster with the following options.</Trans>
+                </p>
+                {SIGN_IN_OPTIONS.map(({ label, type, isFreeOfTransactionFee }) => (
+                    <ClickableButton
+                        className=" flex w-full items-center rounded-lg border border-line p-2 py-4 text-main hover:bg-bg disabled:cursor-not-allowed disabled:opacity-50"
+                        key={type}
+                        onClick={() => setSignType(type)}
+                    >
+                        <span className=" flex flex-1 items-center">
+                            {label}
+                            {isFreeOfTransactionFee ? (
+                                <span className=" ml-2 rounded-md border border-lightBottom px-1 text-xs font-bold text-lightBottom">
+                                    {t`FREE`}
+                                </span>
+                            ) : null}
+                        </span>
+                        <ArrowRightIcon width={24} height={24} className="rounded-full p-1 text-main" />
+                    </ClickableButton>
+                ))}
+            </div>
+        );
+    }
+
+    return <Login onBack={() => setSignType(null)} />;
 }
