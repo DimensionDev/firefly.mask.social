@@ -7,21 +7,23 @@ import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { ListInPage } from '@/components/ListInPage.js';
 import { getArticleItemContent } from '@/components/VirtualList/getArticleItemContent.js';
 import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.js';
-import { ScrollListKey, SocialPlatform } from '@/constants/enum.js';
+import { ScrollListKey, Source } from '@/constants/enum.js';
 import { EMPTY_LIST, SORTED_SOURCES } from '@/constants/index.js';
 import { getPostsSelector } from '@/helpers/getPostsSelector.js';
+import { narrowToSocialSource } from '@/helpers/narrowSource.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfileAll.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
-import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
+import { FireflyArticleProvider } from '@/providers/firefly/Article.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 
 export default function Following() {
     const currentSource = useGlobalState.use.currentSource();
-    const isLogin = useIsLogin(currentSource);
+    const currentSocialSource = narrowToSocialSource(currentSource);
+    const isLogin = useIsLogin(currentSocialSource);
 
     const currentProfileAll = useCurrentProfileAll();
     const fetchAndStoreViews = useImpressionsStore.use.fetchAndStoreViews();
@@ -37,18 +39,16 @@ export default function Following() {
         queryFn: async ({ pageParam }) => {
             if (!isLogin) return;
 
-            const currentProfile = currentProfileAll[currentSource];
+            const currentProfile = currentProfileAll[currentSocialSource];
             if (!currentProfile?.profileId) return;
 
-            const provider = resolveSocialMediaProvider(currentSource);
-            if (!provider) return;
-
+            const provider = resolveSocialMediaProvider(currentSocialSource);
             const posts = await provider.discoverPostsById(
                 currentProfile.profileId,
                 createIndicator(undefined, pageParam),
             );
 
-            if (currentSource === SocialPlatform.Lens) {
+            if (currentSource === Source.Lens) {
                 const ids = posts.data.flatMap((x) => [x.postId]);
                 fetchAndStoreViews(ids);
             }
@@ -60,15 +60,15 @@ export default function Following() {
             if (lastPage?.data.length === 0) return undefined;
             return lastPage?.nextIndicator?.id;
         },
-        select: getPostsSelector(currentSource),
+        select: getPostsSelector(currentSocialSource),
     });
 
     const articleQueryResult = useSuspenseInfiniteQuery({
         queryKey: ['articles', 'following', currentSource],
         networkMode: 'always',
         queryFn: async ({ pageParam }) => {
-            if (currentSource !== SocialPlatform.Article) return createPageable(EMPTY_LIST, undefined);
-            return FireflySocialMediaProvider.getFollowingArticles(createIndicator(undefined, pageParam));
+            if (currentSource !== Source.Article) return createPageable(EMPTY_LIST, undefined);
+            return FireflyArticleProvider.getFollowingArticles(createIndicator(undefined, pageParam));
         },
         initialPageParam: '',
         getNextPageParam: (lastPage) => lastPage.nextIndicator?.id,
@@ -77,7 +77,7 @@ export default function Following() {
 
     useNavigatorTitle(t`Following`);
 
-    if (currentSource === SocialPlatform.Article) {
+    if (currentSource === Source.Article) {
         return (
             <ListInPage
                 key={currentSource}

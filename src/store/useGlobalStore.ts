@@ -2,24 +2,24 @@ import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
 
-import { SocialPlatform, SourceInURL } from '@/constants/enum.js';
+import { Source, SourceInURL } from '@/constants/enum.js';
 import { createSelectors } from '@/helpers/createSelector.js';
-import { resolveSocialPlatform } from '@/helpers/resolveSocialPlatform.js';
+import { resolveSource } from '@/helpers/resolveSource.js';
 
 const getCurrentSource = () => {
-    if (typeof document === 'undefined') return SocialPlatform.Farcaster;
+    if (typeof document === 'undefined') return Source.Farcaster;
     const searchParams = new URLSearchParams(location.search);
     const source = searchParams.get('source') as SourceInURL | null;
-    if (!source) return SocialPlatform.Farcaster;
-    return resolveSocialPlatform(source) ?? SocialPlatform.Farcaster;
+    if (!source) return Source.Farcaster;
+    return resolveSource(source) ?? Source.Farcaster;
 };
 
 interface GlobalState {
     routeChanged: boolean;
     scrollIndex: Record<string, number>;
     setScrollIndex: (key: string, value: number) => void;
-    currentSource: SocialPlatform;
-    updateCurrentSource: (source: SocialPlatform) => void;
+    currentSource: Source;
+    updateCurrentSource: (source: Source) => void;
 }
 
 const useGlobalStateBase = create<GlobalState, [['zustand/persist', unknown], ['zustand/immer', never]]>(
@@ -27,7 +27,7 @@ const useGlobalStateBase = create<GlobalState, [['zustand/persist', unknown], ['
         immer((set) => ({
             routeChanged: false,
             currentSource: getCurrentSource(),
-            updateCurrentSource: (source: SocialPlatform) =>
+            updateCurrentSource: (source: Source) =>
                 set((state) => {
                     state.currentSource = source;
                 }),

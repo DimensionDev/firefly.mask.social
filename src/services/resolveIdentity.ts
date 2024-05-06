@@ -2,7 +2,7 @@ import { ProfileIdentifier } from '@masknet/base';
 import { safeUnreachable } from '@masknet/kit';
 import type { IdentityResolved } from '@masknet/plugin-infra';
 
-import { SocialPlatform } from '@/constants/enum.js';
+import { type SocialSource, Source } from '@/constants/enum.js';
 import { SITE_HOSTNAME } from '@/constants/index.js';
 import { getCurrentProfileAll } from '@/helpers/getCurrentProfileAll.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
@@ -14,11 +14,11 @@ import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
  * @param source
  * @returns
  */
-export async function resolveIdentity(source: SocialPlatform) {
+export async function resolveIdentity(source: SocialSource) {
     const currentProfileAll = getCurrentProfileAll();
     const identity: IdentityResolved = {};
     switch (source) {
-        case SocialPlatform.Lens:
+        case Source.Lens:
             const lensToken = await LensSocialMediaProvider.getAccessToken();
             identity.lensToken = lensToken.unwrap();
             identity.profileId = currentProfileAll.Lens?.profileId;
@@ -26,7 +26,7 @@ export async function resolveIdentity(source: SocialPlatform) {
                 undefined,
             );
             break;
-        case SocialPlatform.Farcaster:
+        case Source.Farcaster:
             const session = farcasterSessionHolder.session;
             if (!session) break;
 
@@ -37,11 +37,9 @@ export async function resolveIdentity(source: SocialPlatform) {
             identity.profileId = currentProfileAll.Farcaster?.profileId;
             identity.identifier = ProfileIdentifier.of(SITE_HOSTNAME, currentProfileAll.Farcaster?.handle).unwrap();
             break;
-        case SocialPlatform.Twitter:
+        case Source.Twitter:
             identity.profileId = currentProfileAll.Twitter?.profileId;
             identity.identifier = ProfileIdentifier.of(SITE_HOSTNAME, currentProfileAll.Twitter?.handle).unwrap();
-            break;
-        case SocialPlatform.Article:
             break;
         default:
             safeUnreachable(source);

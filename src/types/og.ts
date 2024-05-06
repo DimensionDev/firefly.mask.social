@@ -1,4 +1,4 @@
-import type { SourceInURL } from '@/constants/enum.js';
+import type { SocialSourceInURL } from '@/constants/enum.js';
 import type { Cast } from '@/providers/types/Warpcast.js';
 
 export interface OpenGraphImage {
@@ -45,7 +45,7 @@ export interface FarcasterPayload {
 export interface PostPayload {
     type: PayloadType.Post;
     id: string;
-    source: SourceInURL;
+    source: SocialSourceInURL;
 }
 
 export interface ImageDigested {

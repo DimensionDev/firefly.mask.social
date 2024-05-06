@@ -6,7 +6,7 @@ import ReplyIcon from '@/assets/reply.svg';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { config } from '@/configs/wagmiClient.js';
-import { SocialPlatform } from '@/constants/enum.js';
+import { type SocialSource, Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { humanize, nFormatter } from '@/helpers/formatCommentCounts.js';
@@ -19,7 +19,7 @@ import type { Post } from '@/providers/types/SocialMedia.js';
 interface CommentProps {
     count?: number;
     disabled?: boolean;
-    source: SocialPlatform;
+    source: SocialSource;
     author: string;
     canComment?: boolean;
     post: Post;
@@ -44,7 +44,7 @@ export const Comment = memo<CommentProps>(function Comment({
 
     const handleClick = useCallback(async () => {
         if (!isLogin) {
-            if (source === SocialPlatform.Lens) await getWalletClientRequired(config);
+            if (source === Source.Lens) await getWalletClientRequired(config);
             LoginModalRef.open({ source });
             return;
         }

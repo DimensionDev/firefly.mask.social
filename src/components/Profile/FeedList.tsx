@@ -3,14 +3,14 @@ import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 
 import { ListInPage } from '@/components/ListInPage.js';
 import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.js';
-import { ScrollListKey, SocialPlatform } from '@/constants/enum.js';
+import { ScrollListKey, type SocialSource, Source } from '@/constants/enum.js';
 import { getPostsSelector } from '@/helpers/getPostsSelector.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 
 interface FeedListProps {
     profileId: string;
-    source: SocialPlatform;
+    source: SocialSource;
 }
 
 export function FeedList({ profileId, source }: FeedListProps) {
@@ -25,7 +25,7 @@ export function FeedList({ profileId, source }: FeedListProps) {
             const provider = resolveSocialMediaProvider(source);
             const posts = await provider.getPostsByProfileId(profileId, createIndicator(undefined, pageParam));
 
-            if (source === SocialPlatform.Lens) {
+            if (source === Source.Lens) {
                 const ids = posts.data.map((x) => x.postId);
                 await fetchAndStoreViews(ids);
             }

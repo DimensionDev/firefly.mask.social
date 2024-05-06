@@ -7,13 +7,12 @@ import {
     type PageIndicator,
 } from '@masknet/shared-base';
 import { isZero } from '@masknet/web3-shared-base';
-import { compact, first } from 'lodash-es';
+import { compact } from 'lodash-es';
 import urlcat from 'urlcat';
 
-import { SocialPlatform } from '@/constants/enum.js';
+import { Source } from '@/constants/enum.js';
 import { FIREFLY_ROOT_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
-import { formatArticleFromFirefly } from '@/helpers/formatArticleFromFirefly.js';
 import {
     formatBriefChannelFromFirefly,
     formatChannelFromFirefly,
@@ -22,7 +21,6 @@ import { formatFarcasterPostFromFirefly } from '@/helpers/formatFarcasterPostFro
 import { formatFarcasterProfileFromFirefly } from '@/helpers/formatFarcasterProfileFromFirefly.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
-import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { NeynarSocialMediaProvider } from '@/providers/neynar/SocialMedia.js';
 import {
     type CastResponse,
@@ -31,11 +29,8 @@ import {
     type ChannelResponse,
     type ChannelsResponse,
     type CommentsResponse,
-    type DiscoverArticlesResponse,
     type DiscoverChannelsResponse,
     type FriendshipResponse,
-    type GetArticleDetailResponse,
-    type GetFollowingArticlesResponse,
     type NotificationResponse,
     NotificationType as FireflyNotificationType,
     type ReactorsResponse,
@@ -48,7 +43,6 @@ import {
     type UsersResponse,
 } from '@/providers/types/Firefly.js';
 import {
-    ArticlePlatform,
     type Channel,
     type Notification,
     NotificationType,
@@ -104,68 +98,6 @@ class FireflySocialMedia implements Provider {
 
         return createPageable(
             channels,
-            createIndicator(indicator),
-            data.cursor ? createNextIndicator(indicator, `${data.cursor}`) : undefined,
-        );
-    }
-
-    async discoverArticles(indicator?: PageIndicator) {
-        const url = urlcat(FIREFLY_ROOT_URL, '/v2/discover/articles/timeline', {
-            size: 20,
-            platform: [ArticlePlatform.Paragraph, ArticlePlatform.Mirror].join(','),
-            cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
-        });
-
-        const response = await fetchJSON<DiscoverArticlesResponse>(url, {
-            method: 'GET',
-        });
-
-        const data = resolveFireflyResponseData(response);
-
-        const articles = data.result.map(formatArticleFromFirefly);
-
-        return createPageable(
-            articles,
-            createIndicator(indicator),
-            data.cursor ? createNextIndicator(indicator, `${data.cursor}`) : undefined,
-        );
-    }
-
-    async getArticleDetailById(articleId: string) {
-        const url = urlcat(FIREFLY_ROOT_URL, '/v1/article/contents_by_ids');
-
-        const response = await fetchJSON<GetArticleDetailResponse>(url, {
-            method: 'POST',
-            body: JSON.stringify({
-                ids: [articleId],
-            }),
-        });
-
-        const data = resolveFireflyResponseData(response);
-
-        const article = first(data);
-
-        if (!article) return;
-        return formatArticleFromFirefly(article);
-    }
-
-    async getFollowingArticles(indicator?: PageIndicator) {
-        const url = urlcat(FIREFLY_ROOT_URL, '/v1/timeline/articles');
-
-        const response = await fireflySessionHolder.fetch<GetFollowingArticlesResponse>(url, {
-            method: 'POST',
-            body: JSON.stringify({
-                size: 20,
-                cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
-            }),
-        });
-
-        const data = resolveFireflyResponseData(response);
-
-        const articles = data.result.map(formatArticleFromFirefly);
-
-        return createPageable(
-            articles,
             createIndicator(indicator),
             data.cursor ? createNextIndicator(indicator, `${data.cursor}`) : undefined,
         );
@@ -502,7 +434,7 @@ class FireflySocialMedia implements Provider {
             const timestamp = notification.timestamp ? new Date(notification.timestamp).getTime() : undefined;
             if (notification.notificationType === FireflyNotificationType.CastBeLiked) {
                 return {
-                    source: SocialPlatform.Farcaster,
+                    source: Source.Farcaster,
                     notificationId,
                     type: NotificationType.Reaction,
                     reactors: users,
@@ -511,7 +443,7 @@ class FireflySocialMedia implements Provider {
                 };
             } else if (notification.notificationType === FireflyNotificationType.CastBeRecasted) {
                 return {
-                    source: SocialPlatform.Farcaster,
+                    source: Source.Farcaster,
                     notificationId,
                     type: NotificationType.Mirror,
                     mirrors: users,
@@ -523,7 +455,7 @@ class FireflySocialMedia implements Provider {
                     ? formatFarcasterPostFromFirefly(notification.cast.parentCast)
                     : undefined;
                 return {
-                    source: SocialPlatform.Farcaster,
+                    source: Source.Farcaster,
                     notificationId,
                     type: NotificationType.Comment,
                     comment: post
@@ -537,14 +469,14 @@ class FireflySocialMedia implements Provider {
                 };
             } else if (notification.notificationType === FireflyNotificationType.BeFollowed) {
                 return {
-                    source: SocialPlatform.Farcaster,
+                    source: Source.Farcaster,
                     notificationId,
                     type: NotificationType.Follow,
                     followers: users,
                 };
             } else if (notification.notificationType === FireflyNotificationType.BeMentioned) {
                 return {
-                    source: SocialPlatform.Farcaster,
+                    source: Source.Farcaster,
                     notificationId,
                     type: NotificationType.Mention,
                     post,
@@ -655,7 +587,7 @@ class FireflySocialMedia implements Provider {
             return {
                 publicationId: cast.hash,
                 type: (cast.parent_hash ? 'Comment' : 'Post') as PostType,
-                source: SocialPlatform.Farcaster,
+                source: Source.Farcaster,
                 postId: cast.hash,
                 parentPostId: cast.parent_hash,
                 timestamp: Number(cast.created_at),

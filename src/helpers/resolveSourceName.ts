@@ -1,13 +1,13 @@
 import { createLookupTableResolver } from '@masknet/shared-base';
 
-import { SocialPlatform } from '@/constants/enum.js';
+import { Source } from '@/constants/enum.js';
 
-export const resolveSourceName = createLookupTableResolver<SocialPlatform, string>(
+export const resolveSourceName = createLookupTableResolver<Source, string>(
     {
-        [SocialPlatform.Lens]: 'Lens',
-        [SocialPlatform.Farcaster]: 'Farcaster',
-        [SocialPlatform.Twitter]: 'X',
-        [SocialPlatform.Article]: 'Article',
+        [Source.Lens]: 'Lens',
+        [Source.Farcaster]: 'Farcaster',
+        [Source.Twitter]: 'X',
+        [Source.Article]: 'Article',
     },
     (source) => {
         throw new Error(`Unknown social platform: ${source}`);

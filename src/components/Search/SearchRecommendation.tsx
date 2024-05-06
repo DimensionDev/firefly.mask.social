@@ -13,7 +13,7 @@ import { Avatar } from '@/components/Avatar.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { CloseButton } from '@/components/CloseButton.js';
 import { SourceIcon } from '@/components/SourceIcon.js';
-import { SearchType, SocialPlatform } from '@/constants/enum.js';
+import { SearchType, Source } from '@/constants/enum.js';
 import { MAX_RECOMMEND_PROFILE_SIZE } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getChannelUrl } from '@/helpers/getChannelUrl.js';
@@ -39,7 +39,8 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
     const router = useRouter();
     const debouncedKeyword = useDebounce(keyword, 300);
 
-    const { currentSource } = useGlobalState();
+    const currentSource = useGlobalState.use.currentSource();
+
     const { updateState } = useSearchStateStore();
     const { records, addRecord, removeRecord, clearAll } = useSearchHistoryStateStore();
 
@@ -47,9 +48,9 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
         queryKey: ['searchText', currentSource, debouncedKeyword],
         queryFn: async () => {
             // utilize the prefix number to maintain key order
-            const queriers: Record<`${number}_${SocialPlatform}`, Promise<Pageable<Profile, PageIndicator>>> = {
-                [`0_${SocialPlatform.Farcaster}`]: FarcasterSocialMediaProvider.searchProfiles(debouncedKeyword),
-                [`1_${SocialPlatform.Lens}`]: LensSocialMediaProvider.searchProfiles(debouncedKeyword),
+            const queriers: Record<`${number}_${Source}`, Promise<Pageable<Profile, PageIndicator>>> = {
+                [`0_${Source.Farcaster}`]: FarcasterSocialMediaProvider.searchProfiles(debouncedKeyword),
+                [`1_${Source.Lens}`]: LensSocialMediaProvider.searchProfiles(debouncedKeyword),
             };
             const allSettled = await Promise.allSettled(Object.values(queriers));
 
@@ -185,7 +186,7 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
                                     <div className="flex-1 text-left">
                                         <div className="flex">
                                             <span className="mr-1">{channel.name}</span>
-                                            <SourceIcon source={SocialPlatform.Farcaster} />
+                                            <SourceIcon source={Source.Farcaster} />
                                         </div>
                                     </div>
                                 </div>

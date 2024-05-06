@@ -1,9 +1,9 @@
-import { SocialPlatform } from '@/constants/enum.js';
+import type { SocialSource } from '@/constants/enum.js';
 import { deletePostsOfUserFromQueryData } from '@/helpers/deletePostsOfUserFromQueryData.js';
 import type { Provider } from '@/providers/types/SocialMedia.js';
 import type { ClassType } from '@/types/index.js';
 
-export function SetQueryDataForBlockUser(source: SocialPlatform) {
+export function SetQueryDataForBlockUser(source: SocialSource) {
     return function decorator<T extends ClassType<Provider>>(target: T): T {
         const method = target.prototype.blockUser as Provider['blockUser'];
 

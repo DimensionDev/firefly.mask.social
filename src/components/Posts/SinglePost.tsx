@@ -10,7 +10,7 @@ import { FeedActionType } from '@/components/Posts/ActionType.js';
 import { ChannelAnchor } from '@/components/Posts/ChannelAnchor.js';
 import { PostBody } from '@/components/Posts/PostBody.js';
 import { PostHeader } from '@/components/Posts/PostHeader.js';
-import { SocialPlatform } from '@/constants/enum.js';
+import { Source } from '@/constants/enum.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
@@ -51,7 +51,7 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
     const show = useMemo(() => {
         if (!post.isThread || isPostPage) return false;
 
-        if (post.source === SocialPlatform.Farcaster && post.stats?.comments === 0) return false;
+        if (post.source === Source.Farcaster && post.stats?.comments === 0) return false;
         return true;
     }, [post, isPostPage]);
 

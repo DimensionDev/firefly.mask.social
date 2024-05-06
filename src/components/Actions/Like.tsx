@@ -10,7 +10,7 @@ import LoadingIcon from '@/assets/loading.svg';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { config } from '@/configs/wagmiClient.js';
-import { SocialPlatform } from '@/constants/enum.js';
+import { type SocialSource, Source } from '@/constants/enum.js';
 import { toggleLike } from '@/decorators/SetQueryDataForLikePost.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
@@ -22,7 +22,7 @@ import { LoginModalRef } from '@/modals/controls.js';
 
 interface LikeProps {
     postId: string;
-    source: SocialPlatform;
+    source: SocialSource;
     count?: number;
     hasLiked?: boolean;
     disabled?: boolean;
@@ -46,7 +46,7 @@ export const Like = memo<LikeProps>(function Like({
         if (!postId) return null;
 
         if (!isLogin) {
-            if (source === SocialPlatform.Lens) await getWalletClientRequired(config);
+            if (source === Source.Lens) await getWalletClientRequired(config);
             LoginModalRef.open({ source });
             return;
         }

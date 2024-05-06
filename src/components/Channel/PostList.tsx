@@ -3,14 +3,14 @@ import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 
 import { ListInPage } from '@/components/ListInPage.js';
 import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.js';
-import { ScrollListKey, SocialPlatform } from '@/constants/enum.js';
+import { ScrollListKey, type SocialSource, Source } from '@/constants/enum.js';
 import { mergeThreadPosts } from '@/helpers/mergeThreadPosts.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 
 interface PostListProps {
     channelId: string;
-    source: SocialPlatform;
+    source: SocialSource;
 }
 export function PostList({ channelId, source }: PostListProps) {
     const fetchAndStoreViews = useImpressionsStore.use.fetchAndStoreViews();
@@ -21,11 +21,9 @@ export function PostList({ channelId, source }: PostListProps) {
             if (!channelId) return createPageable(EMPTY_LIST, undefined);
 
             const provider = resolveSocialMediaProvider(source);
-            if (!provider) return createPageable(EMPTY_LIST, undefined);
-
             const posts = await provider.getPostsByChannelId(channelId, createIndicator(undefined, pageParam));
 
-            if (source === SocialPlatform.Lens) {
+            if (source === Source.Lens) {
                 const ids = posts.data.flatMap((x) => [x.postId]);
                 await fetchAndStoreViews(ids);
             }

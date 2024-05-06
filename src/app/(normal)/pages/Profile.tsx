@@ -7,7 +7,7 @@ import { useDocumentTitle } from 'usehooks-ts';
 import { Info } from '@/components/Profile/Info.js';
 import { Tabs } from '@/components/Profile/Tabs.js';
 import { Title } from '@/components/Profile/Title.js';
-import { SocialPlatform } from '@/constants/enum.js';
+import { Source } from '@/constants/enum.js';
 import { SITE_NAME } from '@/constants/index.js';
 import { createPageTitle } from '@/helpers/createPageTitle.js';
 import { useUpdateCurrentVisitingProfile } from '@/hooks/useCurrentVisitingProfile.js';
@@ -20,7 +20,7 @@ interface ProfilePageProps {
 }
 
 export function ProfilePage({ profile }: ProfilePageProps) {
-    const currentProfileId = profile.source === SocialPlatform.Lens ? profile.handle : profile.profileId;
+    const currentProfileId = profile.source === Source.Lens ? profile.handle : profile.profileId;
     const isMyProfile = useIsMyProfile(profile.source, currentProfileId);
 
     const title = useMemo(() => {

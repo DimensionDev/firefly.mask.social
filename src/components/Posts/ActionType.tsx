@@ -11,7 +11,7 @@ import MirrorIcon from '@/assets/mirror.svg';
 import SparkIcon from '@/assets/spark.svg';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { ThreadBody } from '@/components/Posts/ThreadBody.js';
-import { SocialPlatform } from '@/constants/enum.js';
+import { Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
@@ -107,7 +107,7 @@ export const FeedActionType = memo<FeedActionType>(function FeedActionType({ pos
                     <MirrorIcon width={16} height={16} />
                     <Link href={getProfileUrl(first(post.mirrors)!)}>
                         {post.mirrors.some((profile) => isSameProfile(profile, currentProfile)) ? (
-                            post.source === SocialPlatform.Farcaster ? (
+                            post.source === Source.Farcaster ? (
                                 post.mirrors.length < 2 ? (
                                     <Trans>
                                         <strong>You</strong> recasted
@@ -131,7 +131,7 @@ export const FeedActionType = memo<FeedActionType>(function FeedActionType({ pos
                                     <strong>You</strong> mirrored
                                 </Trans>
                             )
-                        ) : post.source === SocialPlatform.Farcaster ? (
+                        ) : post.source === Source.Farcaster ? (
                             <Trans>
                                 <strong>{first(post.mirrors)?.displayName}</strong> recasted
                             </Trans>

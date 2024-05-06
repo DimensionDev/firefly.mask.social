@@ -156,8 +156,6 @@ export function MentionsPlugin(): JSX.Element | null {
             if (!currentSource) return;
 
             const provider = resolveSocialMediaProvider(currentSource);
-            if (!provider) return;
-
             return provider.searchProfiles(debounceQuery);
         },
     });

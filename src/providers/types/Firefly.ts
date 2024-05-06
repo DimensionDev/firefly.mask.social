@@ -1,4 +1,4 @@
-import type { ArticlePlatform, ArticleType } from '@/providers/types/SocialMedia.js';
+import type { ArticlePlatform, ArticleType } from '@/providers/types/Article.js';
 
 export interface Cast {
     fid: string;

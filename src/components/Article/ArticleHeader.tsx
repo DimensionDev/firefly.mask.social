@@ -4,7 +4,7 @@ import { memo } from 'react';
 import { Avatar } from '@/components/Avatar.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
 import { classNames } from '@/helpers/classNames.js';
-import type { Article } from '@/providers/types/SocialMedia.js';
+import type { Article } from '@/providers/types/Article.js';
 
 interface ArticleHeaderProps {
     article: Article;

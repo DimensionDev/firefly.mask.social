@@ -1,7 +1,7 @@
 import { t } from '@lingui/macro';
 import { uniqBy } from 'lodash-es';
 
-import { SocialPlatform, SourceInURL } from '@/constants/enum.js';
+import { Source, SourceInURL } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { readChars } from '@/helpers/chars.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
@@ -20,7 +20,7 @@ export async function postToFarcaster(type: ComposeType, compositePost: Composit
 
     const farcasterPostId = postId.Farcaster;
     const farcasterParentPost = parentPost.Farcaster;
-    const sourceName = resolveSourceName(SocialPlatform.Farcaster);
+    const sourceName = resolveSourceName(Source.Farcaster);
 
     // already posted to lens
     if (farcasterPostId) throw new Error(t`Already posted on ${sourceName}.`);
@@ -35,7 +35,7 @@ export async function postToFarcaster(type: ComposeType, compositePost: Composit
             publicationId: '',
             type: postType,
             postId: '',
-            source: SocialPlatform.Farcaster,
+            source: Source.Farcaster,
             author: currentProfile,
             metadata: {
                 locale: '',
@@ -57,7 +57,7 @@ export async function postToFarcaster(type: ComposeType, compositePost: Composit
         } satisfies Post;
     };
 
-    const postTo = createPostTo(SocialPlatform.Farcaster, {
+    const postTo = createPostTo(Source.Farcaster, {
         uploadImages: () => {
             return Promise.all(
                 images.map(async (media) => {

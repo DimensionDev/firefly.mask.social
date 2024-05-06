@@ -13,7 +13,7 @@ import QuoteDownIcon from '@/assets/quote-down.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { config } from '@/configs/wagmiClient.js';
-import { SocialPlatform } from '@/constants/enum.js';
+import { type SocialSource, Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { humanize, nFormatter } from '@/helpers/formatCommentCounts.js';
@@ -27,7 +27,7 @@ import type { Post } from '@/providers/types/SocialMedia.js';
 
 interface MirrorProps {
     shares?: number;
-    source: SocialPlatform;
+    source: SocialSource;
     postId: string;
     disabled?: boolean;
     post: Post;
@@ -40,19 +40,17 @@ export const Mirror = memo<MirrorProps>(function Mirror({ shares = 0, source, po
 
     const content = useMemo(() => {
         switch (source) {
-            case SocialPlatform.Lens:
+            case Source.Lens:
                 return plural(shares, {
                     0: 'Mirror or Quote',
                     zero: 'Mirror or Quote',
                     one: 'Mirror or Quote',
                     other: 'Mirrors or Quotes',
                 });
-            case SocialPlatform.Farcaster:
+            case Source.Farcaster:
                 return t`Recast`;
-            case SocialPlatform.Twitter:
+            case Source.Twitter:
                 return t`Retweet`;
-            case SocialPlatform.Article:
-                return '';
             default:
                 safeUnreachable(source);
                 return '';
@@ -61,14 +59,12 @@ export const Mirror = memo<MirrorProps>(function Mirror({ shares = 0, source, po
 
     const mirrorActionText = useMemo(() => {
         switch (source) {
-            case SocialPlatform.Lens:
+            case Source.Lens:
                 return mirrored ? t`Mirror again` : t`Mirror`;
-            case SocialPlatform.Farcaster:
+            case Source.Farcaster:
                 return mirrored ? t`Cancel Recast` : t`Recast`;
-            case SocialPlatform.Twitter:
+            case Source.Twitter:
                 return t`Retweet`;
-            case SocialPlatform.Article:
-                return '';
             default:
                 safeUnreachable(source);
                 return '';
@@ -80,26 +76,24 @@ export const Mirror = memo<MirrorProps>(function Mirror({ shares = 0, source, po
 
         const mirror = async () => {
             switch (source) {
-                case SocialPlatform.Lens: {
+                case Source.Lens: {
                     const result = await LensSocialMediaProvider.mirrorPost(postId);
                     enqueueSuccessMessage(mirrored ? t`Cancel mirror successfully` : t`Mirrored`);
                     return result;
                 }
-                case SocialPlatform.Farcaster: {
+                case Source.Farcaster: {
                     const result = await (mirrored
                         ? FarcasterSocialMediaProvider.unmirrorPost(postId, Number(post.author.profileId))
                         : FarcasterSocialMediaProvider.mirrorPost(postId, { authorId: Number(post.author.profileId) }));
                     enqueueSuccessMessage(mirrored ? t`Cancel recast successfully` : t`Recasted`);
                     return result;
                 }
-                case SocialPlatform.Twitter:
+                case Source.Twitter:
                     const result = await (mirrored
                         ? TwitterSocialMediaProvider.unmirrorPost(postId)
                         : TwitterSocialMediaProvider.mirrorPost(postId));
                     enqueueSuccessMessage(mirrored ? t`Cancel retweet successfully` : t`Retweeted`);
                     return result;
-                case SocialPlatform.Article:
-                    return;
                 default:
                     safeUnreachable(source);
                     return;
@@ -143,7 +137,7 @@ export const Mirror = memo<MirrorProps>(function Mirror({ shares = 0, source, po
 
                             event.stopPropagation();
                             if (!isLogin && !loading) {
-                                if (source === SocialPlatform.Lens) await getWalletClientRequired(config);
+                                if (source === Source.Lens) await getWalletClientRequired(config);
                                 LoginModalRef.open({ source: post.source });
                                 return;
                             }
@@ -210,7 +204,7 @@ export const Mirror = memo<MirrorProps>(function Mirror({ shares = 0, source, po
                                         </ClickableButton>
                                     )}
                                 </Menu.Item>
-                                {source === SocialPlatform.Lens ? (
+                                {source === Source.Lens ? (
                                     <Menu.Item>
                                         <ClickableButton
                                             className="flex cursor-pointer items-center md:space-x-2"

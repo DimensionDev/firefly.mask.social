@@ -1,7 +1,7 @@
 import { first } from 'lodash-es';
 
+import type { Article } from '@/providers/types/Article.js';
 import type { Article as FireflyArticle } from '@/providers/types/Firefly.js';
-import type { Article } from '@/providers/types/SocialMedia.js';
 
 export function formatArticleFromFirefly(article: FireflyArticle): Article {
     return {
