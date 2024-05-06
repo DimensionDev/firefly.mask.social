@@ -79,6 +79,9 @@ msgstr "<0>You</0> and {0} others recasted"
 msgid "Change Wallet"
 msgstr "Change Wallet"
 
+msgid "Confirm you want to block @{0}"
+msgstr "Confirm you want to block @{0}"
+
 msgid "OpenGraph"
 msgstr "OpenGraph"
 
@@ -192,6 +195,12 @@ msgstr "Audio Cover"
 
 msgid "Recent"
 msgstr "Recent"
+
+msgid "Block"
+msgstr "Block"
+
+msgid "Block @{0}"
+msgstr "Block @{0}"
 
 msgid "OpenGraph Validator"
 msgstr "OpenGraph Validator"
@@ -600,6 +609,9 @@ msgstr "Copy"
 
 msgid "Skip for now"
 msgstr "Skip for now"
+
+msgid "Failed to block @{0}"
+msgstr "Failed to block @{0}"
 
 msgid "Notifications"
 msgstr "Notifications"

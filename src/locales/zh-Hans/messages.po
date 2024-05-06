@@ -84,6 +84,9 @@ msgstr "<0> 你 </0> 和 {0} 人都转发了"
 msgid "Change Wallet"
 msgstr "更换钱包"
 
+msgid "Confirm you want to block @{0}"
+msgstr ""
+
 msgid "OpenGraph"
 msgstr "OpenGraph"
 
@@ -197,6 +200,12 @@ msgstr "音频封面"
 
 msgid "Recent"
 msgstr "最近"
+
+msgid "Block"
+msgstr ""
+
+msgid "Block @{0}"
+msgstr ""
 
 msgid "OpenGraph Validator"
 msgstr "OpenGraph Validator"
@@ -604,6 +613,9 @@ msgid "Copy"
 msgstr ""
 
 msgid "Skip for now"
+msgstr ""
+
+msgid "Failed to block @{0}"
 msgstr ""
 
 msgid "Notifications"
