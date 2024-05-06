@@ -147,14 +147,6 @@ export const TWITTER_TIMELINE_OPTIONS: TweetV2UserTimelineParams = {
         'referenced_tweets.id.author_id',
     ],
     'media.fields': ['media_key', 'height', 'width', 'type', 'url', 'preview_image_url', 'variants'],
-    'tweet.fields': [
-        'text',
-        'attachments',
-        'author_id',
-        'created_at',
-        'lang',
-        'public_metrics',
-        'referenced_tweets',
-    ],
+    'tweet.fields': ['text', 'attachments', 'author_id', 'created_at', 'lang', 'public_metrics', 'referenced_tweets'],
     'user.fields': ['profile_image_url', 'name', 'username'],
-}
+};

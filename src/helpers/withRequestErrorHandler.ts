@@ -11,10 +11,8 @@ export class UnauthorizedError extends Error {
     }
 }
 
-export function withRequestErrorHandler(options?: {
-    throwError?: boolean
-}) {
-    const { throwError = false } = options ?? {}
+export function withRequestErrorHandler(options?: { throwError?: boolean }) {
+    const { throwError = false } = options ?? {};
     return (handler: (request: NextRequest, ...other: any[]) => Promise<Response>) => {
         return async (request: NextRequest, ...other: any[]) => {
             try {
@@ -35,8 +33,8 @@ export function withRequestErrorHandler(options?: {
                         status: StatusCodes.INTERNAL_SERVER_ERROR,
                     });
                 }
-                throw error
+                throw error;
             }
         };
-    }
+    };
 }

@@ -12,7 +12,7 @@ import { withTwitterRequestErrorHandler } from '@/helpers/withTwitterRequestErro
 export const GET = compose<(request: NextRequest) => Promise<Response>>(
     withRequestErrorHandler({ throwError: true }),
     withTwitterRequestErrorHandler,
-     async (request: NextRequest) => {
+    async (request: NextRequest) => {
         const queryParams = getSearchParamsFromRequestWithZodObject(request, pageableSchemas);
         const client = await createTwitterClientV2(request);
         const limit = Number(queryParams.limit ?? '25');
@@ -22,5 +22,5 @@ export const GET = compose<(request: NextRequest) => Promise<Response>>(
             max_results: limit,
         });
         return createSuccessResponseJSON(data);
-    }
+    },
 );

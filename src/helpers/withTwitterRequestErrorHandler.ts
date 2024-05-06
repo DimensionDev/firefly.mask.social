@@ -4,7 +4,7 @@ import type { NextRequest } from 'next/server.js';
 import { createErrorResponseJSON } from '@/helpers/createErrorResponseJSON.js';
 import { getTwitterErrorMessage } from '@/helpers/getTwitterErrorMessage.js';
 
-export function withTwitterRequestErrorHandler(handler: (request: NextRequest, ...other: any[]) => Promise<Response>)  {
+export function withTwitterRequestErrorHandler(handler: (request: NextRequest, ...other: any[]) => Promise<Response>) {
     return async (request: NextRequest, ...other: any[]) => {
         try {
             return await handler(request, ...other);
