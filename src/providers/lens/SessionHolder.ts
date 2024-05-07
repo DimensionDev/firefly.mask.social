@@ -36,9 +36,6 @@ class LensSessionHolder extends SessionHolder<LensSession> {
         const refreshToken = session.refreshToken;
         if (!refreshToken) throw new Error('No refresh token');
 
-        const verified = await this.sdk.authentication.verify(session.token);
-        if (!verified) throw new Error('Invalid session');
-
         const now = Date.now();
         localStorage.setItem(
             'lens.production.credentials',

@@ -1,7 +1,7 @@
-import { first } from 'lodash-es';
+import { safeUnreachable } from '@masknet/kit';
 import urlcat from 'urlcat';
 
-import type { FarcasterMetric, LensMetric, Metrics } from '@/app/api/firefly/decrypt-metrics/route.js';
+import type { Metrics } from '@/app/api/firefly/decrypt-metrics/route.js';
 import { FIREFLY_ROOT_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
@@ -40,32 +40,32 @@ async function decryptMetricsFromFirefly(cipher: string, signal?: AbortSignal) {
 }
 
 function convertMetricToSession(metric: Metrics[0]) {
-    const farcasterMetric = metric as FarcasterMetric;
-    const lensMetric = metric as LensMetric;
-
-    // for farcaster metric has fid
-    if (typeof first(farcasterMetric.login_metadata)?.fid === 'number') {
-        return farcasterMetric.login_metadata.map((x) => {
-            return new FarcasterSession(
-                `${x.fid}`,
-                x.signer_private_key,
-                x.login_time,
-                x.login_time,
-                // the signerRequestToken cannot recover from the metric
-                // but it is necessary for distinguish grant by permission session
-                // so we use a fake token here
-                FAKE_SIGNER_REQUEST_TOKEN,
+    const platform = metric.platform;
+    switch (platform) {
+        case 'farcaster':
+            return metric.login_metadata.map(
+                (x) =>
+                    new FarcasterSession(
+                        `${x.fid}`,
+                        x.signer_private_key,
+                        x.login_time,
+                        x.login_time,
+                        // the signerRequestToken cannot recover from the metric
+                        // but it is necessary for distinguish grant by permission session
+                        // so we use a fake token here
+                        FAKE_SIGNER_REQUEST_TOKEN,
+                    ),
             );
-        });
+        case 'lens':
+            return metric.login_metadata.map(
+                (x) => new LensSession(x.profile_id, x.token, x.login_time, x.login_time, x.refresh_token),
+            );
+        case 'twitter':
+            return [];
+        default:
+            safeUnreachable(platform);
+            return [];
     }
-    // for lens metric has profile_id
-    if (typeof first(lensMetric.login_metadata)?.profile_id === 'string') {
-        return lensMetric.login_metadata.map((x) => {
-            return new LensSession(x.profile_id, x.token, x.login_time, x.login_time, x.refresh_token);
-        });
-    }
-
-    return [];
 }
 
 /**
