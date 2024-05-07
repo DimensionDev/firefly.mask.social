@@ -349,7 +349,6 @@ msgstr "Allow replies from"
 msgid "No one likes this post yet."
 msgstr "No one likes this post yet."
 
-
 msgid "Your posts have published successfully on {0}."
 msgstr "Your posts have published successfully on {0}."
 
@@ -655,9 +654,6 @@ msgstr "Search…"
 
 msgid "No profile found"
 msgstr "No profile found"
-
-msgid "{0} channel"
-msgstr "{0} channel"
 
 msgid "<0>You</0> liked"
 msgstr "<0>You</0> liked"

@@ -349,7 +349,6 @@ msgstr ""
 msgid "No one likes this post yet."
 msgstr ""
 
-
 msgid "Your posts have published successfully on {0}."
 msgstr ""
 
@@ -654,9 +653,6 @@ msgid "Search…"
 msgstr ""
 
 msgid "No profile found"
-msgstr ""
-
-msgid "{0} channel"
 msgstr ""
 
 msgid "<0>You</0> liked"
