@@ -39,7 +39,6 @@ export class FireflySession extends BaseSession implements Session {
             }
             case SessionType.Farcaster: {
                 if (FarcasterSession.isCustodyWallet(session)) throw new Error('Not allowed');
-
                 const isGrantByPermission = FarcasterSession.isGrantByPermission(session);
                 const isRelayService = FarcasterSession.isRelayService(session);
 

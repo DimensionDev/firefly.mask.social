@@ -115,9 +115,6 @@ msgstr "Failed to like the comment."
 msgid "Failed to login"
 msgstr "Failed to login"
 
-msgid "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code in."
-msgstr "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code in."
-
 msgid "Offline"
 msgstr "Offline"
 
@@ -373,6 +370,9 @@ msgstr "Malformed session."
 msgid "Failed to login."
 msgstr "Failed to login."
 
+msgid "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code."
+msgstr "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code."
+
 msgid "Unlike"
 msgstr "Unlike"
 
@@ -511,9 +511,6 @@ msgstr "{count, plural, one {# view} other {{0}}}"
 msgid "Failed to parse session."
 msgstr "Failed to parse session."
 
-msgid "Loading..."
-msgstr "Loading..."
-
 msgid "Share"
 msgstr "Share"
 
@@ -594,6 +591,9 @@ msgstr "recasted your"
 
 msgid "Quotes"
 msgstr "Quotes"
+
+msgid "The user rejected the request."
+msgstr "The user rejected the request."
 
 msgid "Please input the url to be revalidated."
 msgstr "Please input the url to be revalidated."
@@ -681,9 +681,6 @@ msgstr "You've hit rock bottom."
 
 msgid "Failed to mirror post."
 msgstr "Failed to mirror post."
-
-msgid "Login with custody wallet"
-msgstr "Login with custody wallet"
 
 msgid "Delegate Signing (Recommend)"
 msgstr "Delegate Signing (Recommend)"

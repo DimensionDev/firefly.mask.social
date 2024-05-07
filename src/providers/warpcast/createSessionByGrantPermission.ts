@@ -86,7 +86,7 @@ async function pollingSignerRequestToken(token: string, signal?: AbortSignal) {
  * @param signal
  * @returns
  */
-export async function createSessionByGrantPermission(callback?: (url: string) => void, signal?: AbortSignal) {
+async function createSessionByGrantPermission(callback?: (url: string) => void, signal?: AbortSignal) {
     const { deeplink, session } = await createSession(signal);
 
     // present QR code to the user or open the link in a new tab

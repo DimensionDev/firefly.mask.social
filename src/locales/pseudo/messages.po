@@ -115,9 +115,6 @@ msgstr ""
 msgid "Failed to login"
 msgstr ""
 
-msgid "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code in."
-msgstr ""
-
 msgid "Offline"
 msgstr ""
 
@@ -373,6 +370,9 @@ msgstr ""
 msgid "Failed to login."
 msgstr ""
 
+msgid "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code."
+msgstr ""
+
 msgid "Unlike"
 msgstr ""
 
@@ -511,9 +511,6 @@ msgstr ""
 msgid "Failed to parse session."
 msgstr ""
 
-msgid "Loading..."
-msgstr ""
-
 msgid "Share"
 msgstr ""
 
@@ -593,6 +590,9 @@ msgid "recasted your"
 msgstr ""
 
 msgid "Quotes"
+msgstr ""
+
+msgid "The user rejected the request."
 msgstr ""
 
 msgid "Please input the url to be revalidated."
@@ -680,9 +680,6 @@ msgid "You've hit rock bottom."
 msgstr ""
 
 msgid "Failed to mirror post."
-msgstr ""
-
-msgid "Login with custody wallet"
 msgstr ""
 
 msgid "Delegate Signing (Recommend)"

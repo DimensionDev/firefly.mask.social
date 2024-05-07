@@ -15,7 +15,7 @@ export function getSnackbarMessageFromError(error: unknown, fallback: string): S
                     <Trans>Connection failed</Trans>
                 </span>
                 <br />
-                <Trans>The user declined the request.</Trans>
+                <Trans>The user rejected the request.</Trans>
             </div>
         ) : error.message.startsWith('NotAllowed') ? (
             <Trans>Please switch to the wallet used for login.</Trans>

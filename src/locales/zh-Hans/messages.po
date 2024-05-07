@@ -120,9 +120,6 @@ msgstr ""
 msgid "Failed to login"
 msgstr "登录失败"
 
-msgid "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code in."
-msgstr ""
-
 msgid "Offline"
 msgstr "离线"
 
@@ -378,6 +375,9 @@ msgstr "会话格式错误。"
 msgid "Failed to login."
 msgstr ""
 
+msgid "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code."
+msgstr ""
+
 msgid "Unlike"
 msgstr "取消点赞"
 
@@ -516,9 +516,6 @@ msgstr ""
 msgid "Failed to parse session."
 msgstr "未能解析会话"
 
-msgid "Loading..."
-msgstr "加载中..."
-
 msgid "Share"
 msgstr "分享"
 
@@ -598,6 +595,9 @@ msgid "recasted your"
 msgstr "转帖了你的"
 
 msgid "Quotes"
+msgstr ""
+
+msgid "The user rejected the request."
 msgstr ""
 
 msgid "Please input the url to be revalidated."
@@ -686,9 +686,6 @@ msgstr "你已经滑到底部啦～"
 
 msgid "Failed to mirror post."
 msgstr "转发失败"
-
-msgid "Login with custody wallet"
-msgstr "使用托管钱包登录"
 
 msgid "Delegate Signing (Recommend)"
 msgstr "委托签名（推荐）"

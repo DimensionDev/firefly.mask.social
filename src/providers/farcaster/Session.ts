@@ -70,6 +70,10 @@ export class FarcasterSession extends BaseSession implements Session {
 
     static isCustodyWallet(session: Session | null): session is FarcasterSession & { signerRequestToken: undefined } {
         if (!session) return false;
-        return session.type === SessionType.Farcaster && !(session as FarcasterSession).signerRequestToken;
+        return (
+            session.type === SessionType.Farcaster &&
+            !(session as FarcasterSession).signerRequestToken &&
+            !(session as FarcasterSession).channelToken
+        );
     }
 }
