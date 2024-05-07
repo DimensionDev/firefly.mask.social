@@ -27,6 +27,7 @@
         "Oembed",
         "overscan",
         "pageable",
+        "Paginable",
         "recasted",
         "recaster",
         "recasters",
@@ -41,12 +42,14 @@
         "Thirdweb",
         "Twitterbot",
         "Twmoji",
+        "unbookmark",
         "unfollow",
         "unfollowed",
         "unhash",
         "unliked",
         "unlonely",
         "unmirror",
+        "unretweet",
         "unvote",
         "upvotes",
         "urlcat",
@@ -55,9 +58,7 @@
         "wagmi",
         "warpcast",
         "zora",
-        "zustand",
-        "Paginable",
-        "unretweet"
+        "zustand"
     ],
     "ignoreWords": [
         "DEVNET",

@@ -681,5 +681,9 @@ export interface Provider {
 
     getPostsQuoteOn: (postId: string, indicator?: PageIndicator) => Promise<Pageable<Post, PageIndicator>>;
 
+    bookmark: (postId: string) => Promise<boolean>;
+
+    unbookmark: (postId: string) => Promise<boolean>;
+
     getBookmarks: (indicator?: PageIndicator) => Promise<Pageable<Post, PageIndicator>>;
 }
