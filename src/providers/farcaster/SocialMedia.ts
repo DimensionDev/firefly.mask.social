@@ -296,6 +296,12 @@ class FarcasterSocialMedia implements Provider {
         if (isGrantByPermission) return FireflySocialMediaProvider.blockUser(profileId);
         return false;
     }
+    async unblockUser(profileId: string) {
+        const { isCustodyWallet, isGrantByPermission } = getFarcasterSessionType();
+        if (isCustodyWallet) return WarpcastSocialMediaProvider.unblockUser(profileId);
+        if (isGrantByPermission) return FireflySocialMediaProvider.blockUser(profileId);
+        return false;
+    }
     async getPostsQuoteOn(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         throw new Error('Method not implemented.');
     }

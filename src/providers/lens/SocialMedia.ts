@@ -1076,7 +1076,13 @@ class LensSocialMedia implements Provider {
         const result = await lensSessionHolder.sdk.profile.block({
             profiles: [profileId],
         });
-        return result.isSuccess().valueOf();
+        return result.isSuccess();
+    }
+    async unblockUser(profileId: string) {
+        const result = await lensSessionHolder.sdk.profile.unblock({
+            profiles: [profileId],
+        });
+        return result.isSuccess();
     }
     async getLikeReactors(postId: string, indicator?: PageIndicator) {
         const result = await lensSessionHolder.sdk.publication.reactions.fetch({
@@ -1119,9 +1125,9 @@ class LensSocialMedia implements Provider {
             },
         });
         if (!result) throw new Error(t`No one likes this post yet.`);
-        const profiles = result.items.map(formatLensPost);
+        const posts = result.items.map(formatLensPost);
         return createPageable(
-            profiles,
+            posts,
             indicator || createIndicator(),
             result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );

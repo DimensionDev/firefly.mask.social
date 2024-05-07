@@ -60,6 +60,9 @@ msgstr ""
 msgid "You can sign in to Farcaster with the following options."
 msgstr ""
 
+msgid "Mute @{0}"
+msgstr ""
+
 msgid "X"
 msgstr ""
 
@@ -99,9 +102,6 @@ msgstr "<0> 你 </0> 和 {0} 人都转发了"
 msgid "Change Wallet"
 msgstr "更换钱包"
 
-msgid "Confirm you want to block @{0}"
-msgstr ""
-
 msgid "OpenGraph"
 msgstr "OpenGraph"
 
@@ -119,6 +119,9 @@ msgstr ""
 
 msgid "Debug Console"
 msgstr "诊断命令行"
+
+msgid "Failed to mute @{0} on {sourceName}"
+msgstr ""
 
 msgid "Failed to like the comment."
 msgstr ""
@@ -149,6 +152,9 @@ msgstr "评论"
 
 msgid "Confirm"
 msgstr "确认"
+
+msgid "The author is muted by you."
+msgstr ""
 
 msgid "Failed to report @{0}"
 msgstr ""
@@ -204,6 +210,9 @@ msgstr "搜索"
 msgid "Connected Accounts"
 msgstr "已链接的账号"
 
+msgid "Confirm you want to report @{0}?"
+msgstr ""
+
 msgid "Select Account"
 msgstr "选择账号"
 
@@ -232,9 +241,6 @@ msgid "Recent"
 msgstr "最近"
 
 msgid "Block"
-msgstr ""
-
-msgid "Block @{0}"
 msgstr ""
 
 msgid "OpenGraph Validator"
@@ -432,7 +438,7 @@ msgstr ""
 msgid "Please confirm the login with Warpcast."
 msgstr ""
 
-msgid "Confirm you want to report this message"
+msgid "Confirm you want to mute @{0}?"
 msgstr ""
 
 msgid "Compose"
@@ -494,6 +500,9 @@ msgstr "帖子已经被加密"
 
 msgid "Settings"
 msgstr "设置"
+
+msgid "Unmuted @{0} on {sourceName}"
+msgstr ""
 
 msgid "Details"
 msgstr "详情"
@@ -687,13 +696,13 @@ msgstr ""
 msgid "Image"
 msgstr "图片"
 
+msgid "Muted @{0} on {sourceName}"
+msgstr ""
+
 msgid "Copy"
 msgstr ""
 
 msgid "Skip for now"
-msgstr ""
-
-msgid "Failed to block @{0}"
 msgstr ""
 
 msgid "Notifications"
@@ -768,6 +777,9 @@ msgstr "红包"
 msgid "{0} and others"
 msgstr "{0} 和 其他"
 
+msgid "Failed to unmute @{0} on {sourceName}"
+msgstr ""
+
 msgid "Please switch to the wallet used for login."
 msgstr "请切换钱包登录。"
 
@@ -835,6 +847,9 @@ msgid "Your Lens account is now connected"
 msgstr "你的 Lens 账号已经连接。"
 
 msgid "Click to copy"
+msgstr ""
+
+msgid "Unmute @{0}"
 msgstr ""
 
 msgid "Mask Network"
