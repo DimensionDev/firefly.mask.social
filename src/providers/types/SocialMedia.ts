@@ -1,6 +1,6 @@
 import type { Pageable, PageIndicator } from '@masknet/shared-base';
 
-import type { RestrictionType, SocialSource } from '@/constants/enum.js';
+import type { BookmarkType, RestrictionType, SocialSource } from '@/constants/enum.js';
 
 export enum SessionType {
     Twitter = 'Twitter',
@@ -681,7 +681,12 @@ export interface Provider {
 
     getPostsQuoteOn: (postId: string, indicator?: PageIndicator) => Promise<Pageable<Post, PageIndicator>>;
 
-    bookmark: (postId: string) => Promise<boolean>;
+    /**
+     * @param postId
+     * @param profileId - farcaster only
+     * @param postType - farcaster only
+     */
+    bookmark: (postId: string, profileId?: string, postType?: BookmarkType) => Promise<boolean>;
 
     unbookmark: (postId: string) => Promise<boolean>;
 
