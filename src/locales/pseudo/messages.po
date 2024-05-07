@@ -55,6 +55,9 @@ msgstr ""
 msgid "You can sign in to Farcaster with the following options."
 msgstr ""
 
+msgid "Mute @{0}"
+msgstr ""
+
 msgid "X"
 msgstr ""
 
@@ -113,6 +116,9 @@ msgid "Transaction button is not available yet."
 msgstr ""
 
 msgid "Debug Console"
+msgstr ""
+
+msgid "Failed to mute @{0} on {sourceName}"
 msgstr ""
 
 msgid "Failed to like the comment."
@@ -224,9 +230,6 @@ msgid "Recent"
 msgstr ""
 
 msgid "Block"
-msgstr ""
-
-msgid "Block @{0}"
 msgstr ""
 
 msgid "OpenGraph Validator"
@@ -484,6 +487,9 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
+msgid "Unmuted @{0} on {sourceName}"
+msgstr ""
+
 msgid "Details"
 msgstr ""
 
@@ -676,13 +682,13 @@ msgstr ""
 msgid "Image"
 msgstr ""
 
+msgid "Muted @{0} on {sourceName}"
+msgstr ""
+
 msgid "Copy"
 msgstr ""
 
 msgid "Skip for now"
-msgstr ""
-
-msgid "Failed to block @{0}"
 msgstr ""
 
 msgid "Notifications"
@@ -749,6 +755,9 @@ msgid "LuckyDrop"
 msgstr ""
 
 msgid "{0} and others"
+msgstr ""
+
+msgid "Failed to unmute @{0} on {sourceName}"
 msgstr ""
 
 msgid "Please switch to the wallet used for login."
@@ -818,6 +827,9 @@ msgid "Your Lens account is now connected"
 msgstr ""
 
 msgid "Click to copy"
+msgstr ""
+
+msgid "Unmute @{0}"
 msgstr ""
 
 msgid "Mask Network"

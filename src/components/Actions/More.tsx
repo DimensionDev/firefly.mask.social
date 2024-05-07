@@ -23,12 +23,12 @@ import { Link } from '@/esm/Link.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { resolveSocialSourceInURL } from '@/helpers/resolveSourceInURL.js';
-import { useBlockUser } from '@/hooks/useBlockUser.js';
 import { useChangeChannelStatus } from '@/hooks/useChangeChannelStatus.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useDeletePost } from '@/hooks/useDeletePost.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useReportUser } from '@/hooks/useReportUser.js';
+import { useToggleBlock } from '@/hooks/useToggleBlock.js';
 import { useToggleFollow } from '@/hooks/useToggleFollow.js';
 import { LoginModalRef } from '@/modals/controls.js';
 import type { Channel, Profile } from '@/providers/types/SocialMedia.js';
@@ -49,7 +49,7 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
     const [isFollowed, { loading }, handleToggle] = useToggleFollow(author);
     const [{ loading: deleting }, deletePost] = useDeletePost(source);
     const [{ loading: reporting }, reportUser] = useReportUser(currentProfile);
-    const [{ loading: blocking }, blockUser] = useBlockUser(currentProfile);
+    const [{ loading: blocking }, toggleBlock] = useToggleBlock(currentProfile);
     const [{ loading: muting }, changeChannelStatus] = useChangeChannelStatus(currentProfile);
     const engagementType = first(SORTED_ENGAGEMENT_TAB_TYPE[source]) || EngagementType.Likes;
 
@@ -183,7 +183,7 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
                                     <BlockUserButton
                                         busy={blocking}
                                         profile={author}
-                                        onBlock={blockUser}
+                                        onToggleBlock={toggleBlock}
                                         onClick={close}
                                     />
                                 )}

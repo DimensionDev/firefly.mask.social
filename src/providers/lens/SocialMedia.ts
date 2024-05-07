@@ -1076,7 +1076,13 @@ class LensSocialMedia implements Provider {
         const result = await lensSessionHolder.sdk.profile.block({
             profiles: [profileId],
         });
-        return result.isSuccess().valueOf();
+        return result.isSuccess();
+    }
+    async unblockUser(profileId: string) {
+        const result = await lensSessionHolder.sdk.profile.unblock({
+            profiles: [profileId],
+        });
+        return result.isSuccess();
     }
     async getLikeReactors(postId: string, indicator?: PageIndicator) {
         const result = await lensSessionHolder.sdk.publication.reactions.fetch({

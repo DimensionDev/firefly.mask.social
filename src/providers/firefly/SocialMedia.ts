@@ -665,6 +665,10 @@ class FireflySocialMedia implements Provider {
         // TODO Mocking result for now.
         return true;
     }
+    async unblockUser(profileId: string): Promise<boolean> {
+        // TODO Mocking result for now.
+        return true;
+    }
     async getPostLikeProfiles(postId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
         throw new Error('Method not implemented.');
     }

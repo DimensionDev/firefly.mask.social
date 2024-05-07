@@ -55,6 +55,9 @@ msgstr "{followerCount, plural, one {Follower} other {Followers}}"
 msgid "You can sign in to Farcaster with the following options."
 msgstr "You can sign in to Farcaster with the following options."
 
+msgid "Mute @{0}"
+msgstr "Mute @{0}"
+
 msgid "X"
 msgstr "X"
 
@@ -114,6 +117,9 @@ msgstr "Transaction button is not available yet."
 
 msgid "Debug Console"
 msgstr "Debug Console"
+
+msgid "Failed to mute @{0} on {sourceName}"
+msgstr "Failed to mute @{0} on {sourceName}"
 
 msgid "Failed to like the comment."
 msgstr "Failed to like the comment."
@@ -225,9 +231,6 @@ msgstr "Recent"
 
 msgid "Block"
 msgstr "Block"
-
-msgid "Block @{0}"
-msgstr "Block @{0}"
 
 msgid "OpenGraph Validator"
 msgstr "OpenGraph Validator"
@@ -484,6 +487,9 @@ msgstr "Post has been encrypted"
 msgid "Settings"
 msgstr "Settings"
 
+msgid "Unmuted @{0} on {sourceName}"
+msgstr "Unmuted @{0} on {sourceName}"
+
 msgid "Details"
 msgstr "Details"
 
@@ -676,14 +682,14 @@ msgstr "Casts + Replies"
 msgid "Image"
 msgstr "Image"
 
+msgid "Muted @{0} on {sourceName}"
+msgstr "Muted @{0} on {sourceName}"
+
 msgid "Copy"
 msgstr "Copy"
 
 msgid "Skip for now"
 msgstr "Skip for now"
-
-msgid "Failed to block @{0}"
-msgstr "Failed to block @{0}"
 
 msgid "Notifications"
 msgstr "Notifications"
@@ -750,6 +756,9 @@ msgstr "LuckyDrop"
 
 msgid "{0} and others"
 msgstr "{0} and others"
+
+msgid "Failed to unmute @{0} on {sourceName}"
+msgstr "Failed to unmute @{0} on {sourceName}"
 
 msgid "Please switch to the wallet used for login."
 msgstr "Please switch to the wallet used for login."
@@ -819,6 +828,9 @@ msgstr "Your Lens account is now connected"
 
 msgid "Click to copy"
 msgstr "Click to copy"
+
+msgid "Unmute @{0}"
+msgstr "Unmute @{0}"
 
 msgid "Mask Network"
 msgstr "Mask Network"

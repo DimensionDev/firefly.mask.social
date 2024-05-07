@@ -14,9 +14,9 @@ import { Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
-import { useBlockUser } from '@/hooks/useBlockUser.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useReportUser } from '@/hooks/useReportUser.js';
+import { useToggleBlock } from '@/hooks/useToggleBlock.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 interface MoreProps extends Omit<MenuProps<'div'>, 'className'> {
@@ -28,7 +28,7 @@ export const ProfileMoreAction = memo<MoreProps>(function ProfileMoreAction({ pr
     const [, copyToClipboard] = useCopyToClipboard();
     const currentProfile = useCurrentProfile(profile.source);
     const [{ loading: reporting }, reportUser] = useReportUser(currentProfile);
-    const [{ loading: blocking }, blockUser] = useBlockUser(currentProfile);
+    const [{ loading: blocking }, toggleBlock] = useToggleBlock(currentProfile);
 
     const isBusy = reporting || blocking;
 
@@ -90,7 +90,9 @@ export const ProfileMoreAction = memo<MoreProps>(function ProfileMoreAction({ pr
                         </Menu.Item>
                     ) : null}
                     <Menu.Item>
-                        {({ close }) => <BlockUserButton onConfirm={close} profile={profile} onBlock={blockUser} />}
+                        {({ close }) => (
+                            <BlockUserButton onConfirm={close} profile={profile} onToggleBlock={toggleBlock} />
+                        )}
                     </Menu.Item>
                 </Menu.Items>
             </Transition>
