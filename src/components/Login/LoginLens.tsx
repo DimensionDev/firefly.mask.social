@@ -14,8 +14,9 @@ import WalletIcon from '@/assets/wallet.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { ProfileInList } from '@/components/Login/ProfileInList.js';
 import { AbortError } from '@/constants/error.js';
-import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import { enqueueErrorMessage, enqueueInfoMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
+import { isAbortedError } from '@/helpers/isAbortedError.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { restoreProfile } from '@/helpers/restoreProfile.js';
 import {
@@ -27,6 +28,7 @@ import {
 import { createSessionForProfileIdFirefly } from '@/providers/lens/createSessionForProfileId.js';
 import { updateSignless } from '@/providers/lens/updateSignless.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
+import { syncSessionFromFirefly } from '@/services/syncSessionFromFirefly.js';
 
 interface LoginLensProps {
     profiles: Profile[];
@@ -34,9 +36,10 @@ interface LoginLensProps {
 }
 
 export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
+    const controllerRef = useRef<AbortController>();
+
     const [selectedProfile, setSelectedProfile] = useState<Profile>();
     const [signless, setSignless] = useState(false);
-    const controllerRef = useRef<AbortController>();
 
     const account = useAccount();
     const currentProfile = selectedProfile || first(profiles);
@@ -60,12 +63,20 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
 
                     // restore profiles for lens
                     restoreProfile(currentProfile, profiles, session);
-                    LoginModalRef.close();
                     enqueueSuccessMessage(t`Your Lens account is now connected.`);
 
                     // restore profiles exclude lens
-                    await FireflySessionConfirmModalRef.openAndWaitForClose();
+                    await FireflySessionConfirmModalRef.openAndWaitForClose({
+                        sessions: await syncSessionFromFirefly(controllerRef.current?.signal),
+                        onDetected(profiles) {
+                            if (!profiles.length) enqueueInfoMessage(t`No device accounts detected.`);
+                            LoginModalRef.close();
+                        },
+                    });
                 } catch (error) {
+                    // skip if the error is abort error
+                    if (isAbortedError(error)) return;
+
                     enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to login`), {
                         error,
                     });

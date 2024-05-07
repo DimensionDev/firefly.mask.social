@@ -7,7 +7,7 @@ import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { LensSession } from '@/providers/lens/Session.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 
-export async function createSessionForProfileId(profileId: string): Promise<LensSession> {
+export async function createSessionForProfileId(profileId: string, signal?: AbortSignal): Promise<LensSession> {
     const walletClient = await getWalletClientRequired(config, {
         chainId: polygon.id,
     });
@@ -38,13 +38,9 @@ export async function createSessionForProfileId(profileId: string): Promise<Lens
 export async function createSessionForProfileIdFirefly(profileId: string, signal?: AbortSignal) {
     const session = await createSessionForProfileId(profileId);
 
-    try {
-        const fireflySession = await FireflySession.from(session, signal);
-        if (fireflySession) {
-            fireflySessionHolder.resumeSession(fireflySession);
-        }
-    } catch (error) {
-        console.error('[login lens] Failed to resume firefly session:', error);
+    const fireflySession = await FireflySession.from(session, signal);
+    if (fireflySession) {
+        fireflySessionHolder.resumeSession(fireflySession);
     }
 
     return session;
