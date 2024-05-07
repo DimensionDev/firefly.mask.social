@@ -37,13 +37,15 @@ export const MuteChannelButton = forwardRef<HTMLButtonElement, Props>(function M
                     title: t`Block`,
                     content: (
                         <div className="text-main">
-                            <Trans>
-                                Confirm you want to {muted ? t`unmute` : t`mute`} /{channel.name}
-                            </Trans>
+                            {muted ? (
+                                <Trans>Confirm you want to unmute /{channel.name}</Trans>
+                            ) : (
+                                <Trans>Confirm you want to mute /{channel.name}</Trans>
+                            )}
                         </div>
                     ),
                 });
-                if (!onStatusChange) return;
+                if (!onStatusChange || !confirmed) return;
                 const result = await onStatusChange(channel);
                 if (result === false) {
                     enqueueErrorMessage(t`Failed to block /${channel.name}`);
@@ -57,7 +59,7 @@ export const MuteChannelButton = forwardRef<HTMLButtonElement, Props>(function M
                 <SpeakerXMarkIcon width={24} height={24} />
             )}
             <span className="text-[17px] font-bold leading-[22px] text-main">
-                {muted ? t`Unmute ${channel.name}` : t`Mute ${channel.name}`}
+                {muted ? t`Unmute` : t`Mute`} /{channel.name}
             </span>
         </ClickableButton>
     );
