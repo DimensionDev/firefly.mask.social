@@ -17,7 +17,7 @@ export function useChangeChannelStatus(operator: Profile | null) {
             try {
                 changeMuteStatus(operator, channel);
 
-                enqueueSuccessMessage(muted ? t`Unmute succcessfully.` : t`Mute successfully.`);
+                enqueueSuccessMessage(muted ? t`Unmute successfully.` : t`Mute successfully.`);
                 return true;
             } catch (error) {
                 enqueueErrorMessage(
