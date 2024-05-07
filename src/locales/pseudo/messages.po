@@ -22,9 +22,6 @@ msgstr ""
 msgid "Quote Post"
 msgstr ""
 
-msgid "Confirm you want to unmute /{0}"
-msgstr ""
-
 msgid "Report @{0}"
 msgstr ""
 
@@ -32,6 +29,9 @@ msgid "Retweet"
 msgstr ""
 
 msgid "Failed to fetch as Blob."
+msgstr ""
+
+msgid "Mute /{0}"
 msgstr ""
 
 msgid "Communities"
@@ -232,6 +232,9 @@ msgstr ""
 msgid "Confirmation"
 msgstr ""
 
+msgid "Failed to mute /{0}."
+msgstr ""
+
 msgid "Follow more friends to continue exploring on {0}."
 msgstr ""
 
@@ -268,9 +271,6 @@ msgstr ""
 msgid "Log out"
 msgstr ""
 
-msgid "Failed to mute {0}."
-msgstr ""
-
 msgid "{0, plural, one {Your post failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your post failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your post failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
 msgstr ""
 
@@ -287,6 +287,9 @@ msgid "Search Filter"
 msgstr ""
 
 msgid "Try searching for something else."
+msgstr ""
+
+msgid "Unmute /{0}"
 msgstr ""
 
 msgid "Invalid compose type: {type}."
@@ -308,6 +311,9 @@ msgid "AUTHOR ADDRESS"
 msgstr ""
 
 msgid "Reply"
+msgstr ""
+
+msgid "Confirm you want to mute /{0}?"
 msgstr ""
 
 msgid "Collected"
@@ -376,7 +382,13 @@ msgstr ""
 msgid "Your post has published successfully."
 msgstr ""
 
+msgid "Confirm you want to unmute /{0}?"
+msgstr ""
+
 msgid "Everyone"
+msgstr ""
+
+msgid "Failed to unmute /{0}."
 msgstr ""
 
 msgid "Please confirm the login with Warpcast."
@@ -487,6 +499,9 @@ msgstr ""
 msgid "This can’t be undone and you’ll lose your draft."
 msgstr ""
 
+msgid "Unmute succcessfully."
+msgstr ""
+
 msgid "Publications"
 msgstr ""
 
@@ -499,22 +514,16 @@ msgstr ""
 msgid "Display"
 msgstr ""
 
-msgid "Confirm you want to mute /{0}"
+msgid "Mute successfully."
 msgstr ""
 
 msgid "Show More"
-msgstr ""
-
-msgid "Failed to block /{0}"
 msgstr ""
 
 msgid "{count, plural, one {# view} other {{0}}}"
 msgstr ""
 
 msgid "Failed to parse session."
-msgstr ""
-
-msgid "Failed to unmute {0}."
 msgstr ""
 
 msgid "Loading..."
@@ -548,9 +557,6 @@ msgid "Visit mask.io"
 msgstr ""
 
 msgid "No comments found"
-msgstr ""
-
-msgid "{0} /{1} successfully"
 msgstr ""
 
 msgid "Discard"

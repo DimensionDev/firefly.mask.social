@@ -27,9 +27,6 @@ msgstr "还没有人评论哦～快来抢沙发！"
 msgid "Quote Post"
 msgstr "引用"
 
-msgid "Confirm you want to unmute /{0}"
-msgstr ""
-
 msgid "Report @{0}"
 msgstr ""
 
@@ -38,6 +35,9 @@ msgstr ""
 
 msgid "Failed to fetch as Blob."
 msgstr "获取 Blob 失败。"
+
+msgid "Mute /{0}"
+msgstr ""
 
 msgid "Communities"
 msgstr "社区"
@@ -237,6 +237,9 @@ msgstr "在 Firefly 移动端或者 {SITE_URL} 打开我的红包🧧💰✨ ！
 msgid "Confirmation"
 msgstr "确认"
 
+msgid "Failed to mute /{0}."
+msgstr ""
+
 msgid "Follow more friends to continue exploring on {0}."
 msgstr "在 {0} 上去关注更多的人来继续浏览吧。"
 
@@ -273,9 +276,6 @@ msgstr "加入我们的 Telegram"
 msgid "Log out"
 msgstr "登出"
 
-msgid "Failed to mute {0}."
-msgstr ""
-
 msgid "{0, plural, one {Your post failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your post failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your post failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
 msgstr ""
 
@@ -293,6 +293,9 @@ msgstr "查询规则"
 
 msgid "Try searching for something else."
 msgstr "试试搜索其他东西。"
+
+msgid "Unmute /{0}"
+msgstr ""
 
 msgid "Invalid compose type: {type}."
 msgstr ""
@@ -314,6 +317,9 @@ msgstr ""
 
 msgid "Reply"
 msgstr "回复"
+
+msgid "Confirm you want to mute /{0}?"
+msgstr ""
 
 msgid "Collected"
 msgstr "已收藏"
@@ -381,8 +387,14 @@ msgstr "帖子已经被隐藏"
 msgid "Your post has published successfully."
 msgstr ""
 
+msgid "Confirm you want to unmute /{0}?"
+msgstr ""
+
 msgid "Everyone"
 msgstr "任何人"
+
+msgid "Failed to unmute /{0}."
+msgstr ""
 
 msgid "Please confirm the login with Warpcast."
 msgstr ""
@@ -492,6 +504,9 @@ msgstr "通用"
 msgid "This can’t be undone and you’ll lose your draft."
 msgstr "此操作无法撤销，您将丢失您的草稿。"
 
+msgid "Unmute succcessfully."
+msgstr ""
+
 msgid "Publications"
 msgstr "帖子"
 
@@ -504,23 +519,17 @@ msgstr ""
 msgid "Display"
 msgstr "显示"
 
-msgid "Confirm you want to mute /{0}"
+msgid "Mute successfully."
 msgstr ""
 
 msgid "Show More"
 msgstr "显示更多"
-
-msgid "Failed to block /{0}"
-msgstr ""
 
 msgid "{count, plural, one {# view} other {{0}}}"
 msgstr ""
 
 msgid "Failed to parse session."
 msgstr "未能解析会话"
-
-msgid "Failed to unmute {0}."
-msgstr ""
 
 msgid "Loading..."
 msgstr "加载中..."
@@ -554,9 +563,6 @@ msgstr "访问 mask.io"
 
 msgid "No comments found"
 msgstr "未发现评论"
-
-msgid "{0} /{1} successfully"
-msgstr ""
 
 msgid "Discard"
 msgstr "放弃"
