@@ -1,6 +1,6 @@
 import { t } from '@lingui/macro';
 
-import { SocialPlatform } from '@/constants/enum.js';
+import { Source } from '@/constants/enum.js';
 import { readChars } from '@/helpers/chars.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
@@ -18,7 +18,7 @@ export async function postToTwitter(type: ComposeType, compositePost: CompositeP
 
     const twitterPostId = postId.Twitter;
     const twitterParentPost = parentPost.Twitter;
-    const sourceName = resolveSourceName(SocialPlatform.Twitter);
+    const sourceName = resolveSourceName(Source.Twitter);
 
     // already posted to x
     if (twitterPostId) throw new Error(t`Already posted on ${sourceName}.`);
@@ -42,11 +42,11 @@ export async function postToTwitter(type: ComposeType, compositePost: CompositeP
             mediaObjects: images.map((media) => ({ url: media.imgur!, mimeType: media.file.type, id: media.id })),
             restriction,
             parentPostId: twitterParentPost?.postId ?? '',
-            source: SocialPlatform.Twitter,
+            source: Source.Twitter,
         } satisfies Post;
     };
 
-    const postTo = createPostTo(SocialPlatform.Twitter, {
+    const postTo = createPostTo(Source.Twitter, {
         uploadImages: async () => {
             const uploaded = await uploadToTwitter(images.map((x) => x.file));
             return uploaded.map((x) => ({

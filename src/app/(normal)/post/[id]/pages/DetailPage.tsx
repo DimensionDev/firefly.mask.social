@@ -13,17 +13,16 @@ import ComeBack from '@/assets/comeback.svg';
 import { CommentList } from '@/components/Comments/index.js';
 import { SinglePost } from '@/components/Posts/SinglePost.js';
 import { ThreadBody } from '@/components/Posts/ThreadBody.js';
-import { SocialPlatform, SourceInURL } from '@/constants/enum.js';
+import { type SocialSourceInURL, Source } from '@/constants/enum.js';
 import { EMPTY_LIST, MIN_POST_SIZE_PER_THREAD, SITE_NAME } from '@/constants/index.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { createPageTitle } from '@/helpers/createPageTitle.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
-import { resolveSocialPlatform } from '@/helpers/resolveSocialPlatform.js';
+import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { useComeBack } from '@/hooks/useComeback.js';
 import { useUpdateCurrentVisitingPost } from '@/hooks/useCurrentVisitingPost.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
-import { getPostById } from '@/services/getPostById.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 
 const PostActions = dynamic(() => import('@/components/Actions/index.js').then((module) => module.PostActions), {
@@ -35,7 +34,7 @@ interface PageProps {
         id: string;
     };
     searchParams: {
-        source: SourceInURL;
+        source: SocialSourceInURL;
     };
 }
 
@@ -51,7 +50,7 @@ function refreshThreadByPostId(postId: string) {
 }
 
 export function PostDetailPage({ params: { id: postId }, searchParams: { source } }: PageProps) {
-    const currentSource = resolveSocialPlatform(source);
+    const currentSource = resolveSocialSource(source);
 
     const fetchAndStoreViews = useImpressionsStore.use.fetchAndStoreViews();
 
@@ -63,10 +62,11 @@ export function PostDetailPage({ params: { id: postId }, searchParams: { source 
             if (!postId) return;
 
             try {
-                const post = await getPostById(currentSource, postId);
+                const provider = resolveSocialMediaProvider(currentSource);
+                const post = await provider.getPostById(postId);
                 if (!post) return;
 
-                if (currentSource === SocialPlatform.Lens) fetchAndStoreViews([post.postId]);
+                if (currentSource === Source.Lens) fetchAndStoreViews([post.postId]);
                 return post;
             } catch (err) {
                 if (err instanceof Error && err.message === 'Post not found') return null;
@@ -88,8 +88,6 @@ export function PostDetailPage({ params: { id: postId }, searchParams: { source 
             if (!isSameProfile(root.author, post.author)) return createPageable(EMPTY_LIST, undefined);
 
             const provider = resolveSocialMediaProvider(currentSource);
-            if (!provider) return createPageable(EMPTY_LIST, undefined);
-
             const posts = await provider.getThreadByPostId(root.postId, root.postId === post.postId ? post : undefined);
 
             /**
@@ -97,7 +95,7 @@ export function PostDetailPage({ params: { id: postId }, searchParams: { source 
              * Since there is no expiration time and we need to check each time whether a new post has been added to the thread.
              * If so, we need to clear the cache and request again.
              */
-            if (currentSource === SocialPlatform.Lens && posts.length >= MIN_POST_SIZE_PER_THREAD) {
+            if (currentSource === Source.Lens && posts.length >= MIN_POST_SIZE_PER_THREAD) {
                 const lastPost = last(posts);
                 if (!lastPost) return createPageable(posts, undefined);
 

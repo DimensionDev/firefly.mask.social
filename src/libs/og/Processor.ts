@@ -2,7 +2,7 @@ import sizeOf from 'image-size';
 import { parseHTML } from 'linkedom';
 import urlcat from 'urlcat';
 
-import { SourceInURL } from '@/constants/enum.js';
+import { type SocialSourceInURL, SourceInURL } from '@/constants/enum.js';
 import {
     LENS_DETAIL_REGEX,
     MASK_SOCIAL_DETAIL_REGEX,
@@ -102,7 +102,6 @@ class Processor {
             const id = match ? match[1] : null;
 
             const url = new URL(documentUrl);
-
             const source = url.searchParams.get('source');
 
             if (!id || !source) return { og };
@@ -111,7 +110,7 @@ class Processor {
                 payload: {
                     type: PayloadType.Post,
                     id,
-                    source: source as SourceInURL,
+                    source: source as SocialSourceInURL,
                 },
             };
         }

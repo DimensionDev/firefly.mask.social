@@ -16,18 +16,18 @@ import { ClickableButton, type ClickableButtonProps } from '@/components/Clickab
 import { CloseButton } from '@/components/CloseButton.js';
 import { Image } from '@/components/Image.js';
 import { Modal } from '@/components/Modal.js';
-import type { SourceInURL } from '@/constants/enum.js';
+import type { SocialSourceInURL } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
-import { resolveSocialPlatform } from '@/helpers/resolveSocialPlatform.js';
+import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
+import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
-import { getPostById } from '@/services/getPostById.js';
 
 interface Props {
     params: {
         id: string;
         index: string;
     };
-    searchParams: { source: SourceInURL };
+    searchParams: { source: SocialSourceInURL };
 }
 
 interface CustomArrowProps extends Omit<ClickableButtonProps, 'children'> {
@@ -59,14 +59,15 @@ export default function PreviewPhotoModal({ params: { id: postId, index }, searc
     const router = useRouter();
     const isMedium = useIsMedium();
 
-    const currentSource = resolveSocialPlatform(source);
+    const currentSource = resolveSocialSource(source);
 
     const { data: post = null } = useSuspenseQuery({
         queryKey: [currentSource, 'post-detail', postId],
         queryFn: async () => {
             if (!postId) return;
 
-            const post = await getPostById(currentSource, postId);
+            const provider = resolveSocialMediaProvider(currentSource);
+            const post = await provider.getPostById(postId);
             if (!post) return;
 
             return post;

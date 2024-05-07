@@ -1,14 +1,14 @@
 import { redirect } from 'next/navigation.js';
 import urlcat from 'urlcat';
 
-import type { SourceInURL } from '@/constants/enum.js';
+import type { SocialSourceInURL } from '@/constants/enum.js';
 
 interface Props {
     params: {
         id: string;
         index: string;
     };
-    searchParams: { source: SourceInURL };
+    searchParams: { source: SocialSourceInURL };
 }
 
 export default async function Photo({ params: { id: postId }, searchParams: { source } }: Props) {

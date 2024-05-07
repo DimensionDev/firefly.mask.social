@@ -1,10 +1,10 @@
 import { useMemo } from 'react';
 
-import type { SocialPlatform } from '@/constants/enum.js';
+import type { SocialSource } from '@/constants/enum.js';
 import { SORTED_SOURCES } from '@/constants/index.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfileAll.js';
 
-export function useCurrentAvailableProfile(source?: SocialPlatform) {
+export function useCurrentAvailableProfile(source?: SocialSource) {
     const all = useCurrentProfileAll();
 
     return useMemo(() => {

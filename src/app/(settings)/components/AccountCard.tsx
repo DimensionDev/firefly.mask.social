@@ -3,7 +3,7 @@ import { Trans } from '@lingui/macro';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { ProfileName } from '@/components/ProfileName.js';
-import { SocialPlatform } from '@/constants/enum.js';
+import { Source } from '@/constants/enum.js';
 import { useSwitchLensAccount } from '@/hooks/useSwitchLensAccount.js';
 import { LogoutModalRef } from '@/modals/controls.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
@@ -35,7 +35,7 @@ export function AccountCard({ profile, isCurrent }: AccountCardProps) {
             ) : (
                 <ClickableButton
                     className="text-right text-[15px] font-bold leading-none text-main disabled:cursor-not-allowed disabled:opacity-50"
-                    disabled={profile.source === SocialPlatform.Farcaster}
+                    disabled={profile.source === Source.Farcaster}
                     onClick={() => {
                         login(profile);
                     }}

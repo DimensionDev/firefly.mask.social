@@ -8,6 +8,7 @@ import { NoResultsFallback, type NoResultsFallbackProps } from '@/components/NoR
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { VirtualList, type VirtualListProps } from '@/components/VirtualList/VirtualList.js';
 import { VirtualListFooter } from '@/components/VirtualList/VirtualListFooter.js';
+import { narrowToSocialSource } from '@/helpers/narrowSource.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 
@@ -26,9 +27,11 @@ export function ListInPage<T = unknown>({
     VirtualListProps,
     NoResultsFallbackProps,
 }: ListInPageProps<T>) {
-    const itemsRendered = useRef(false);
     const currentSource = useGlobalState.use.currentSource();
-    const isLogin = useIsLogin(currentSource);
+    const currentSocialSource = narrowToSocialSource(currentSource);
+
+    const itemsRendered = useRef(false);
+    const isLogin = useIsLogin(currentSocialSource);
 
     const { data, hasNextPage, fetchNextPage, isFetchingNextPage, isFetching } = queryResult;
 
@@ -40,7 +43,7 @@ export function ListInPage<T = unknown>({
     }, [fetchNextPage, hasNextPage, isFetching, isFetchingNextPage]);
 
     if (loginRequired && !isLogin) {
-        return <NotLoginFallback source={currentSource} />;
+        return <NotLoginFallback source={currentSocialSource} />;
     }
 
     if (noResultsFallbackRequired && !data.length) {

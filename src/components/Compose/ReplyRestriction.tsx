@@ -5,7 +5,7 @@ import { Fragment } from 'react';
 import RadioDisableNoIcon from '@/assets/radio.disable-no.svg';
 import YesIcon from '@/assets/yes.svg';
 import { ReplyRestrictionText } from '@/components/Compose/ReplyRestrictionText.js';
-import { RestrictionType, SocialPlatform } from '@/constants/enum.js';
+import { RestrictionType, Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 
@@ -16,7 +16,7 @@ interface ReplyRestrictionProps {
 
 export function ReplyRestriction({ restriction, setRestriction }: ReplyRestrictionProps) {
     const { availableSources } = useCompositePost();
-    const twitterOnly = availableSources.length === 1 && availableSources.includes(SocialPlatform.Twitter);
+    const twitterOnly = availableSources.length === 1 && availableSources.includes(Source.Twitter);
 
     const items = [
         {
@@ -25,7 +25,7 @@ export function ReplyRestriction({ restriction, setRestriction }: ReplyRestricti
         },
         {
             type: RestrictionType.OnlyPeopleYouFollow,
-            disabled: availableSources.length ? availableSources.includes(SocialPlatform.Farcaster) : false,
+            disabled: availableSources.length ? availableSources.includes(Source.Farcaster) : false,
         },
         {
             type: RestrictionType.MentionedUsers,

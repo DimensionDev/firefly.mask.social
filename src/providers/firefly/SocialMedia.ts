@@ -10,7 +10,7 @@ import { isZero } from '@masknet/web3-shared-base';
 import { compact } from 'lodash-es';
 import urlcat from 'urlcat';
 
-import { SocialPlatform } from '@/constants/enum.js';
+import { Source } from '@/constants/enum.js';
 import { FIREFLY_ROOT_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import {
@@ -287,7 +287,6 @@ class FireflySocialMedia implements Provider {
             );
             const user = resolveFireflyResponseData(response);
             const friendship = await this.getFriendship(profileId);
-
             return formatFarcasterProfileFromFirefly({
                 ...user,
                 ...friendship,
@@ -434,7 +433,7 @@ class FireflySocialMedia implements Provider {
             const timestamp = notification.timestamp ? new Date(notification.timestamp).getTime() : undefined;
             if (notification.notificationType === FireflyNotificationType.CastBeLiked) {
                 return {
-                    source: SocialPlatform.Farcaster,
+                    source: Source.Farcaster,
                     notificationId,
                     type: NotificationType.Reaction,
                     reactors: users,
@@ -443,7 +442,7 @@ class FireflySocialMedia implements Provider {
                 };
             } else if (notification.notificationType === FireflyNotificationType.CastBeRecasted) {
                 return {
-                    source: SocialPlatform.Farcaster,
+                    source: Source.Farcaster,
                     notificationId,
                     type: NotificationType.Mirror,
                     mirrors: users,
@@ -455,7 +454,7 @@ class FireflySocialMedia implements Provider {
                     ? formatFarcasterPostFromFirefly(notification.cast.parentCast)
                     : undefined;
                 return {
-                    source: SocialPlatform.Farcaster,
+                    source: Source.Farcaster,
                     notificationId,
                     type: NotificationType.Comment,
                     comment: post
@@ -469,14 +468,14 @@ class FireflySocialMedia implements Provider {
                 };
             } else if (notification.notificationType === FireflyNotificationType.BeFollowed) {
                 return {
-                    source: SocialPlatform.Farcaster,
+                    source: Source.Farcaster,
                     notificationId,
                     type: NotificationType.Follow,
                     followers: users,
                 };
             } else if (notification.notificationType === FireflyNotificationType.BeMentioned) {
                 return {
-                    source: SocialPlatform.Farcaster,
+                    source: Source.Farcaster,
                     notificationId,
                     type: NotificationType.Mention,
                     post,
@@ -587,7 +586,7 @@ class FireflySocialMedia implements Provider {
             return {
                 publicationId: cast.hash,
                 type: (cast.parent_hash ? 'Comment' : 'Post') as PostType,
-                source: SocialPlatform.Farcaster,
+                source: Source.Farcaster,
                 postId: cast.hash,
                 parentPostId: cast.parent_hash,
                 timestamp: Number(cast.created_at),

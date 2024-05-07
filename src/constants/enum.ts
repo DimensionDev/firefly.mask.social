@@ -24,17 +24,22 @@ export enum PageRoute {
     Search = '/search',
 }
 
-export enum SocialPlatform {
+export enum Source {
     Farcaster = 'Farcaster',
     Lens = 'Lens',
     Twitter = 'Twitter',
+    Article = 'Article',
 }
 
 export enum SourceInURL {
     Farcaster = 'farcaster',
     Lens = 'lens',
     Twitter = 'twitter',
+    Article = 'article',
 }
+
+export type SocialSource = Source.Farcaster | Source.Lens | Source.Twitter;
+export type SocialSourceInURL = SourceInURL.Farcaster | SourceInURL.Lens | SourceInURL.Twitter;
 
 export enum SearchType {
     Users = 'users',
@@ -46,11 +51,13 @@ export enum KeyType {
     DigestOpenGraphLink = 'digestOpenGraphLink',
     DigestFrameLink = 'digestFrameLink',
     GetPostOGById = 'getPostOGById',
+    GetArticleOGById = 'getArticleOGById',
     GetProfileOGById = 'getProfileOGById',
     GetChannelOGById = 'getChannelOGById',
     UploadToBlob = 'uploadToBlob',
     GetLensThreadByPostId = 'getLensThreadByPostId',
     RefreshLensThreadLock = 'RefreshLensThreadLock',
+    GetFollowings = 'getFollowings',
 }
 
 export enum ProfileTabType {
@@ -78,6 +85,7 @@ export enum RestrictionType {
 export enum ScrollListKey {
     Discover = 'discover-list',
     Following = 'following-list',
+    Followers = 'followers-list',
     Notification = 'notification-list',
     Search = 'search-list',
     Comment = 'comment-list',

@@ -6,7 +6,7 @@ import type { TweetV2PaginableTimelineResult } from 'twitter-api-v2';
 import type { UserV2 } from 'twitter-api-v2/dist/esm/types/v2/user.v2.types.js';
 import urlcat from 'urlcat';
 
-import { SocialPlatform } from '@/constants/enum.js';
+import { Source } from '@/constants/enum.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { formatTwitterPostFromFirefly } from '@/helpers/formatTwitterPostFromFirefly.js';
 import { formatTwitterProfileFromFirefly } from '@/helpers/formatTwitterProfileFromFirefly.js';
@@ -70,11 +70,11 @@ class TwitterSocialMedia implements Provider {
         throw new Error('Method not implemented.');
     }
 
-    getFollowers(profileId: string): Promise<Pageable<Profile>> {
+    getFollowers(profileId: string, indicator?: PageIndicator): Promise<Pageable<Profile>> {
         throw new Error('Method not implemented.');
     }
 
-    getFollowings(profileId: string): Promise<Pageable<Profile>> {
+    getFollowings(profileId: string, indicator?: PageIndicator): Promise<Pageable<Profile>> {
         throw new Error('Method not implemented.');
     }
 
@@ -266,7 +266,7 @@ class TwitterSocialMedia implements Provider {
             followingCount: 0,
             status: ProfileStatus.Active,
             verified: true,
-            source: SocialPlatform.Twitter,
+            source: Source.Twitter,
         };
     }
 

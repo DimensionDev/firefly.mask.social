@@ -2,7 +2,7 @@ import { createIndicator, createPageable, type Pageable, type PageIndicator } fr
 import type { TweetV2, TweetV2PaginableTimelineResult } from 'twitter-api-v2';
 import type { ApiV2Includes } from 'twitter-api-v2/dist/esm/types/v2/tweet.definition.v2.js';
 
-import { SocialPlatform } from '@/constants/enum.js';
+import { Source } from '@/constants/enum.js';
 import { type Attachment, type Post, type PostType, ProfileStatus } from '@/providers/types/SocialMedia.js';
 
 function tweetV2ToPost(item: TweetV2, type?: PostType, includes?: ApiV2Includes): Post {
@@ -13,7 +13,7 @@ function tweetV2ToPost(item: TweetV2, type?: PostType, includes?: ApiV2Includes)
         publicationId: item.id,
         postId: item.id,
         type,
-        source: SocialPlatform.Twitter,
+        source: Source.Twitter,
         author: {
             profileId: item.author_id!,
             displayName: user?.name ?? '',
@@ -24,7 +24,7 @@ function tweetV2ToPost(item: TweetV2, type?: PostType, includes?: ApiV2Includes)
             followingCount: 0,
             status: ProfileStatus.Active,
             verified: user?.verified ?? false,
-            source: SocialPlatform.Twitter,
+            source: Source.Twitter,
         },
         timestamp: item?.created_at ? new Date(item.created_at).getTime() : Date.now(),
         metadata: {

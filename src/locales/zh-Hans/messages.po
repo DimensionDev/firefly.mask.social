@@ -75,6 +75,9 @@ msgstr "查找用户中"
 msgid "Collect Action is not supported yet."
 msgstr "还未支持收藏。"
 
+msgid "This entry has been permanently stored on-chain and signed by its creator"
+msgstr ""
+
 msgid "Join our Discord"
 msgstr "加入我们的 Discord"
 
@@ -167,6 +170,9 @@ msgstr "从这里开始..."
 
 msgid "Missing IPFS hash for image or video."
 msgstr "未找到图片和视频的 hash 信息。"
+
+msgid "Revise on"
+msgstr ""
 
 msgid "Only up to 2 images can be chosen."
 msgstr "至多可以选择2张图片。"
@@ -301,6 +307,9 @@ msgid "{shares, plural, =0 {Mirror or Quote} zero {Mirror or Quote} one {Mirror 
 msgstr ""
 
 msgid "Comment cannot be empty."
+msgstr ""
+
+msgid "AUTHOR ADDRESS"
 msgstr ""
 
 msgid "Reply"
@@ -574,6 +583,9 @@ msgid "There is no data available for display."
 msgstr "没有可显示的数据。"
 
 msgid "Cancel"
+msgstr ""
+
+msgid "Post on"
 msgstr ""
 
 msgid "Failed to like the post."
