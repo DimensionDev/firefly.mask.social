@@ -102,9 +102,6 @@ msgstr "<0> 你 </0> 和 {0} 人都转发了"
 msgid "Change Wallet"
 msgstr "更换钱包"
 
-msgid "Confirm you want to block @{0}"
-msgstr ""
-
 msgid "OpenGraph"
 msgstr "OpenGraph"
 
@@ -488,6 +485,9 @@ msgstr "无效 URL"
 
 msgid "Post has been encrypted"
 msgstr "帖子已经被加密"
+
+msgid "Confirm you want to block @{0}?"
+msgstr ""
 
 msgid "Settings"
 msgstr "设置"

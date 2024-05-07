@@ -97,9 +97,6 @@ msgstr ""
 msgid "Change Wallet"
 msgstr ""
 
-msgid "Confirm you want to block @{0}"
-msgstr ""
-
 msgid "OpenGraph"
 msgstr ""
 
@@ -482,6 +479,9 @@ msgid "Invalid URL."
 msgstr ""
 
 msgid "Post has been encrypted"
+msgstr ""
+
+msgid "Confirm you want to block @{0}?"
 msgstr ""
 
 msgid "Settings"
