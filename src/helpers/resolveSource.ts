@@ -1,6 +1,6 @@
 import { createLookupTableResolver } from '@masknet/shared-base';
 
-import { type SocialSource, type SocialSourceInURL, Source, SourceInURL } from '@/constants/enum.js';
+import { FireflyPlatform, type SocialSource, type SocialSourceInURL, Source, SourceInURL } from '@/constants/enum.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 
 export const resolveSource = createLookupTableResolver<SourceInURL, Source>(
@@ -34,6 +34,19 @@ export const resolveSocialSourceFromSessionType = createLookupTableResolver<Sess
         [SessionType.Twitter]: Source.Twitter,
         // not correct in some situations
         [SessionType.Firefly]: Source.Farcaster,
+    },
+    (keyword) => {
+        throw new Error(`Unknown keyword: ${keyword}`);
+    },
+);
+
+export const resolveFireflyPlatform = createLookupTableResolver<Source, FireflyPlatform>(
+    {
+        [Source.Farcaster]: FireflyPlatform.Farcaster,
+        [Source.Lens]: FireflyPlatform.Lens,
+        [Source.Twitter]: FireflyPlatform.Twitter,
+        // not correct in some situations
+        [Source.Article]: FireflyPlatform.Article,
     },
     (keyword) => {
         throw new Error(`Unknown keyword: ${keyword}`);

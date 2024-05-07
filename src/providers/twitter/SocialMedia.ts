@@ -6,7 +6,7 @@ import type { TweetV2PaginableTimelineResult } from 'twitter-api-v2';
 import type { UserV2 } from 'twitter-api-v2/dist/esm/types/v2/user.v2.types.js';
 import urlcat from 'urlcat';
 
-import { Source } from '@/constants/enum.js';
+import { BookmarkType, Source } from '@/constants/enum.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { formatTwitterPostFromFirefly } from '@/helpers/formatTwitterPostFromFirefly.js';
 import { formatTwitterProfileFromFirefly } from '@/helpers/formatTwitterProfileFromFirefly.js';
@@ -350,7 +350,7 @@ class TwitterSocialMedia implements Provider {
     async getPostsQuoteOn(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         throw new Error('Method not implemented.');
     }
-    async bookmark(postId: string): Promise<boolean> {
+    async bookmark(postId: string, profileId?: string, postType?: BookmarkType): Promise<boolean> {
         throw new Error('Method not implemented.');
     }
     async unbookmark(postId: string): Promise<boolean> {

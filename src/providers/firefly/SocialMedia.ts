@@ -10,7 +10,7 @@ import { isZero } from '@masknet/web3-shared-base';
 import { compact } from 'lodash-es';
 import urlcat from 'urlcat';
 
-import { BookmarkType, Source } from '@/constants/enum.js';
+import { BookmarkType, FireflyPlatform, Source } from '@/constants/enum.js';
 import { FIREFLY_ROOT_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import {
@@ -752,7 +752,7 @@ class FireflySocialMedia implements Provider {
         const response = await fireflySessionHolder.fetch<string>(url, {
             method: 'POST',
             body: JSON.stringify({
-                platform: 'farcaster',
+                platform: FireflyPlatform.Farcaster,
                 platform_id: profileId,
                 post_type: postType,
                 post_id: postId,
@@ -783,8 +783,18 @@ class FireflySocialMedia implements Provider {
 
         console.log('DEBUG: response');
         console.log(response);
+        const posts = response.data?.list.map((x) => {
+            return {
+                ...formatFarcasterPostFromFirefly(x.post_content),
+                hasBookmarked: true,
+            };
+        });
 
-        return createPageable([], createIndicator(indicator));
+        return createPageable(
+            posts || [],
+            createIndicator(indicator),
+            response.data?.cursor ? createNextIndicator(indicator, `${response.data.cursor}`) : undefined,
+        );
     }
 }
 

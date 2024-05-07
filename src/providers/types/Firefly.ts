@@ -363,13 +363,14 @@ export interface Relation {
 
 export type RelationResponse = Response<Relation[]>;
 
-export interface BookmarkResponse {
+export type BookmarkResponse = Response<{
+    cursor: number;
     list: Array<{
         account_id: string;
         /** e.g. twitter, lens, farcaster, article */
         platform: string;
         platform_id: string;
         post_id: string;
-        post_content: {};
+        post_content: Cast;
     }>;
-}
+}>;

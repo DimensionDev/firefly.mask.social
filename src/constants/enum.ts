@@ -120,3 +120,5 @@ export enum BookmarkType {
     Audio = 'audio',
     Image = 'image',
 }
+
+export { SourceInURL as FireflyPlatform };

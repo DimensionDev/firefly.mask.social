@@ -92,7 +92,7 @@ export async function POST(request: Request) {
                     error: 'The frame server cannot handle the post-redirect request correctly.',
                 },
                 {
-                    status: 500,
+                    status: 502,
                 },
             );
         case ActionType.Link:
