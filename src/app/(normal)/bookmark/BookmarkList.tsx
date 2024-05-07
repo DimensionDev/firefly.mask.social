@@ -19,7 +19,6 @@ export function BookmarkList({ source }: Props) {
         queryKey: ['posts', source, 'bookmark'],
         queryFn: async ({ pageParam }) => {
             const provider = resolveSocialMediaProvider(source);
-            if (!provider) return;
             try {
                 const result = await provider.getBookmarks(createIndicator(undefined, pageParam));
                 return result;

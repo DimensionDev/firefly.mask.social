@@ -10,7 +10,7 @@ import { isZero } from '@masknet/web3-shared-base';
 import { compact } from 'lodash-es';
 import urlcat from 'urlcat';
 
-import { Source } from '@/constants/enum.js';
+import { BookmarkType, Source } from '@/constants/enum.js';
 import { FIREFLY_ROOT_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import {
@@ -672,16 +672,20 @@ class FireflySocialMedia implements Provider {
     async getPostsQuoteOn(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         throw new Error('Method not implemented.');
     }
-
+    async bookmark(postId: string): Promise<boolean> {
+        throw new Error('Method not implemented.');
+    }
+    async unbookmark(postId: string): Promise<boolean> {
+        throw new Error('Method not implemented.');
+    }
     async getBookmarks(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         const url = urlcat(FIREFLY_ROOT_URL, '/v1/bookmark/find', {
-            post_type: 'all',
+            post_type: BookmarkType.All,
             platforms: 'farcaster',
             limit: 25,
             cursor: indicator?.id || undefined,
         });
         const response = await farcasterSessionHolder.fetch<BookmarkResponse>(url);
-        console.log('TODO firefly bookmark list', response);
 
         return createPageable([], createIndicator(indicator));
     }

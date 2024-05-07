@@ -9,7 +9,6 @@ export function useToggleBookmark() {
     return useMutation({
         mutationFn: async (post: Post) => {
             const provider = resolveSocialMediaProvider(post.source);
-            if (!provider) return;
             const { hasBookmarked, postId } = post;
             try {
                 if (hasBookmarked) {
