@@ -41,6 +41,10 @@ export default function Layout({ children, modal }: { children: React.ReactNode;
                                 flags: 'i',
                             },
                             {
+                                r: '/post/[^/]+/\\w+$',
+                                flags: 'i',
+                            },
+                            {
                                 r: '/article/[^/]+$',
                                 flags: 'i',
                             },
