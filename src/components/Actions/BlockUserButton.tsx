@@ -31,7 +31,7 @@ export const BlockUserButton = forwardRef<HTMLButtonElement, Props>(function Blo
                         title: t`Block`,
                         content: (
                             <div className="text-main">
-                                <Trans>Confirm you want to block @{profile.handle}</Trans>
+                                <Trans>Confirm you want to block @{profile.handle}?</Trans>
                             </div>
                         ),
                     });
