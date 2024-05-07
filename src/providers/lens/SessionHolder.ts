@@ -34,7 +34,7 @@ class LensSessionHolder extends SessionHolder<LensSession> {
 
     override async resumeSession(session: LensSession) {
         const refreshToken = session.refreshToken;
-        if (!refreshToken) throw new Error('No refresh token');
+        if (!refreshToken) return;
 
         const now = Date.now();
         localStorage.setItem(

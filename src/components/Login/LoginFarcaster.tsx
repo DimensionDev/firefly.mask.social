@@ -16,10 +16,11 @@ import { FarcasterSignType } from '@/constants/enum.js';
 import { AbortError } from '@/constants/error.js';
 import { FARCASTER_REPLY_COUNTDOWN, IS_PRODUCTION } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
-import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import { enqueueErrorMessage, enqueueInfoMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getMobileDevice } from '@/helpers/getMobileDevice.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
+import { isAbortedError } from '@/helpers/isAbortedError.js';
 import { restoreProfile } from '@/helpers/restoreProfile.js';
 import { FireflySessionConfirmModalRef, LoginModalRef } from '@/modals/controls.js';
 import type { FarcasterSession } from '@/providers/farcaster/Session.js';
@@ -36,16 +37,20 @@ async function login(createSession: () => Promise<FarcasterSession>, signal?: Ab
 
         // restore profiles for farcaster
         restoreProfile(profile, [profile], session);
+
         enqueueSuccessMessage(t`Your Farcaster account is now connected.`);
-        LoginModalRef.close();
 
         // restore profile exclude farcaster
         await FireflySessionConfirmModalRef.openAndWaitForClose({
             sessions: await syncSessionFromFirefly(signal),
+            onDetected(profiles) {
+                if (!profiles.length) enqueueInfoMessage(t`No device accounts detected.`);
+                LoginModalRef.close();
+            },
         });
     } catch (error) {
         // skip if the error is abort error
-        if (error instanceof AbortError || (error instanceof DOMException && error.name === 'AbortError')) return;
+        if (isAbortedError(error)) return;
 
         enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to login`), {
             error,

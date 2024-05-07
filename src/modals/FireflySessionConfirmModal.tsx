@@ -56,10 +56,16 @@ function ProfileModal({ pairs, onConfirm, onClose }: ProfileModalProps) {
                                 isSameProfile(x?.profile, pair.profile),
                             )}
                             onSelect={() => {
-                                setSelectedPairs((prev) => ({
-                                    ...prev,
-                                    [pair.profile.source]: pair,
-                                }));
+                                setSelectedPairs((pairs) => {
+                                    const currentPair = pairs[pair.profile.source];
+                                    return {
+                                        ...pairs,
+                                        [pair.profile.source]:
+                                            currentPair && isSameProfile(currentPair.profile, pair.profile)
+                                                ? null
+                                                : pair,
+                                    };
+                                });
                             }}
                             ProfileAvatarProps={{
                                 enableSourceIcon: true,
@@ -79,7 +85,7 @@ function ProfileModal({ pairs, onConfirm, onClose }: ProfileModalProps) {
                 </ClickableButton>
                 <ClickableButton
                     className=" flex flex-1 items-center justify-center rounded-full bg-main py-[11px] font-bold text-primaryBottom disabled:cursor-not-allowed disabled:opacity-50"
-                    disabled={Object.values(selectedPairs).length === 0}
+                    disabled={compact(Object.values(selectedPairs)).length === 0}
                     onClick={() => {
                         Object.entries(selectedPairs).forEach(([_, x]) => {
                             if (!x) return;
@@ -125,6 +131,7 @@ export const FireflySessionConfirmModal = forwardRef<
                 // no session to restore
                 if (!sessions.length) {
                     dispatch?.close(false);
+                    props?.onDetected?.([]);
                     return;
                 }
 

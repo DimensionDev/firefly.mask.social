@@ -76,8 +76,8 @@ export function ProfileSettings({ source, onClose }: ProfileSettingsProps) {
                 await FireflySessionConfirmModalRef.openAndWaitForClose({
                     sessions: await syncSessionFromFirefly(controllerRef.current?.signal),
                     onDetected(profiles) {
-                        if (profiles.length) onClose?.();
-                        else enqueueInfoMessage(t`No device accounts detected.`);
+                        if (!profiles.length) enqueueInfoMessage(t`No device accounts detected.`);
+                        onClose?.();
                     },
                 });
             } catch (error) {
