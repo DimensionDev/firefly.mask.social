@@ -27,6 +27,9 @@ msgstr "还没有人评论哦～快来抢沙发！"
 msgid "Quote Post"
 msgstr "引用"
 
+msgid "Confirm you want to unmute /{0}"
+msgstr ""
+
 msgid "Report @{0}"
 msgstr ""
 
@@ -97,9 +100,6 @@ msgid "Casts"
 msgstr ""
 
 msgid "Transaction button is not available yet."
-msgstr ""
-
-msgid "Mute {0}"
 msgstr ""
 
 msgid "Debug Console"
@@ -330,9 +330,6 @@ msgstr "关注"
 msgid "Add account"
 msgstr "添加账号"
 
-msgid "Unmute {0}"
-msgstr ""
-
 msgid "{0} Comments"
 msgstr "{0} 评论"
 
@@ -398,6 +395,9 @@ msgstr "{0, select, follow {在 {source} 关注 @{handle} 失败} unfollow {在 
 
 msgid "Failed to follow."
 msgstr "关注失败"
+
+msgid "Mute"
+msgstr ""
 
 msgid "Confirm to log out this account?"
 msgstr "确认退出该账号吗？"
@@ -495,6 +495,9 @@ msgstr ""
 msgid "Display"
 msgstr "显示"
 
+msgid "Confirm you want to mute /{0}"
+msgstr ""
+
 msgid "Show More"
 msgstr "显示更多"
 
@@ -542,9 +545,6 @@ msgstr "访问 mask.io"
 
 msgid "No comments found"
 msgstr "未发现评论"
-
-msgid "unmute"
-msgstr ""
 
 msgid "{0} /{1} successfully"
 msgstr ""
@@ -681,9 +681,6 @@ msgstr "转发失败"
 msgid "Login with custody wallet"
 msgstr "使用托管钱包登录"
 
-msgid "mute"
-msgstr ""
-
 msgid "Delegate Signing (Recommend)"
 msgstr "委托签名（推荐）"
 
@@ -763,6 +760,9 @@ msgid "Your post have published successfully on {0}."
 msgstr ""
 
 msgid "Cancel mirror successfully"
+msgstr ""
+
+msgid "Unmute"
 msgstr ""
 
 msgid "Confirm to log out these accounts?"
@@ -872,9 +872,6 @@ msgstr "已转发"
 
 msgid "Following"
 msgstr "正在关注"
-
-msgid "Confirm you want to {0} /{1}"
-msgstr ""
 
 msgid "<0>{0}</0> recasted"
 msgstr "<0>{0}</0> 已转发"

@@ -22,6 +22,9 @@ msgstr ""
 msgid "Quote Post"
 msgstr ""
 
+msgid "Confirm you want to unmute /{0}"
+msgstr ""
+
 msgid "Report @{0}"
 msgstr ""
 
@@ -92,9 +95,6 @@ msgid "Casts"
 msgstr ""
 
 msgid "Transaction button is not available yet."
-msgstr ""
-
-msgid "Mute {0}"
 msgstr ""
 
 msgid "Debug Console"
@@ -325,9 +325,6 @@ msgstr ""
 msgid "Add account"
 msgstr ""
 
-msgid "Unmute {0}"
-msgstr ""
-
 msgid "{0} Comments"
 msgstr ""
 
@@ -392,6 +389,9 @@ msgid "{0, select, follow {Failed to followed @{handle} on {source}} unfollow {F
 msgstr ""
 
 msgid "Failed to follow."
+msgstr ""
+
+msgid "Mute"
 msgstr ""
 
 msgid "Confirm to log out this account?"
@@ -490,6 +490,9 @@ msgstr ""
 msgid "Display"
 msgstr ""
 
+msgid "Confirm you want to mute /{0}"
+msgstr ""
+
 msgid "Show More"
 msgstr ""
 
@@ -536,9 +539,6 @@ msgid "Visit mask.io"
 msgstr ""
 
 msgid "No comments found"
-msgstr ""
-
-msgid "unmute"
 msgstr ""
 
 msgid "{0} /{1} successfully"
@@ -676,9 +676,6 @@ msgstr ""
 msgid "Login with custody wallet"
 msgstr ""
 
-msgid "mute"
-msgstr ""
-
 msgid "Delegate Signing (Recommend)"
 msgstr ""
 
@@ -758,6 +755,9 @@ msgid "Your post have published successfully on {0}."
 msgstr ""
 
 msgid "Cancel mirror successfully"
+msgstr ""
+
+msgid "Unmute"
 msgstr ""
 
 msgid "Confirm to log out these accounts?"
@@ -866,9 +866,6 @@ msgid "mirrored"
 msgstr ""
 
 msgid "Following"
-msgstr ""
-
-msgid "Confirm you want to {0} /{1}"
 msgstr ""
 
 msgid "<0>{0}</0> recasted"

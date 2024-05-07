@@ -22,6 +22,9 @@ msgstr "Be the first one to comment!"
 msgid "Quote Post"
 msgstr "Quote Post"
 
+msgid "Confirm you want to unmute /{0}"
+msgstr "Confirm you want to unmute /{0}"
+
 msgid "Report @{0}"
 msgstr "Report @{0}"
 
@@ -93,9 +96,6 @@ msgstr "Casts"
 
 msgid "Transaction button is not available yet."
 msgstr "Transaction button is not available yet."
-
-msgid "Mute {0}"
-msgstr "Mute {0}"
 
 msgid "Debug Console"
 msgstr "Debug Console"
@@ -325,9 +325,6 @@ msgstr "Follow"
 msgid "Add account"
 msgstr "Add account"
 
-msgid "Unmute {0}"
-msgstr "Unmute {0}"
-
 msgid "{0} Comments"
 msgstr "{0} Comments"
 
@@ -393,6 +390,9 @@ msgstr "{0, select, follow {Failed to followed @{handle} on {source}} unfollow {
 
 msgid "Failed to follow."
 msgstr "Failed to follow."
+
+msgid "Mute"
+msgstr "Mute"
 
 msgid "Confirm to log out this account?"
 msgstr "Confirm to log out this account?"
@@ -490,6 +490,9 @@ msgstr "Visit firefly.social"
 msgid "Display"
 msgstr "Display"
 
+msgid "Confirm you want to mute /{0}"
+msgstr "Confirm you want to mute /{0}"
+
 msgid "Show More"
 msgstr "Show More"
 
@@ -537,9 +540,6 @@ msgstr "Visit mask.io"
 
 msgid "No comments found"
 msgstr "No comments found"
-
-msgid "unmute"
-msgstr "unmute"
 
 msgid "{0} /{1} successfully"
 msgstr "{0} /{1} successfully"
@@ -676,9 +676,6 @@ msgstr "Failed to mirror post."
 msgid "Login with custody wallet"
 msgstr "Login with custody wallet"
 
-msgid "mute"
-msgstr "mute"
-
 msgid "Delegate Signing (Recommend)"
 msgstr "Delegate Signing (Recommend)"
 
@@ -759,6 +756,9 @@ msgstr "Your post have published successfully on {0}."
 
 msgid "Cancel mirror successfully"
 msgstr "Cancel mirror successfully"
+
+msgid "Unmute"
+msgstr "Unmute"
 
 msgid "Confirm to log out these accounts?"
 msgstr "Confirm to log out these accounts?"
@@ -867,9 +867,6 @@ msgstr "mirrored"
 
 msgid "Following"
 msgstr "Following"
-
-msgid "Confirm you want to {0} /{1}"
-msgstr "Confirm you want to {0} /{1}"
 
 msgid "<0>{0}</0> recasted"
 msgstr "<0>{0}</0> recasted"
