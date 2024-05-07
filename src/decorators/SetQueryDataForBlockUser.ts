@@ -1,9 +1,10 @@
-import type { Draft } from 'immer';
+import { type Draft, produce } from 'immer';
 
+import { queryClient } from '@/configs/queryClient.js';
 import type { SocialSource } from '@/constants/enum.js';
 import { deletePostsOfUserFromQueryData } from '@/helpers/deletePostsOfUserFromQueryData.js';
 import { patchPostQueryData } from '@/helpers/patchPostQueryData.js';
-import type { Post, Provider } from '@/providers/types/SocialMedia.js';
+import type { Post, Profile, Provider } from '@/providers/types/SocialMedia.js';
 import type { ClassType } from '@/types/index.js';
 
 function setBlockStatus(source: SocialSource, profileId: string, status: boolean) {
@@ -14,6 +15,16 @@ function setBlockStatus(source: SocialSource, profileId: string, status: boolean
             ...draft.author.viewerContext,
             blocking: status,
         };
+    });
+
+    queryClient.setQueriesData<Profile>({ queryKey: ['profile', source] }, (old) => {
+        if (!old || old.profileId !== profileId) return old;
+        return produce(old, (draft) => {
+            draft.viewerContext = {
+                ...draft.viewerContext,
+                blocking: status,
+            };
+        });
     });
 }
 

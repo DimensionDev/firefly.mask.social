@@ -148,6 +148,9 @@ msgstr "comment"
 msgid "Confirm"
 msgstr "Confirm"
 
+msgid "The author is muted by you."
+msgstr "The author is muted by you."
+
 msgid "Failed to report @{0}"
 msgstr "Failed to report @{0}"
 
@@ -424,6 +427,9 @@ msgstr "Failed to unmute /{0}."
 msgid "Please confirm the login with Warpcast."
 msgstr "Please confirm the login with Warpcast."
 
+msgid "Confirm you want to mute @{0}?"
+msgstr "Confirm you want to mute @{0}?"
+
 msgid "Compose"
 msgstr "Compose"
 
@@ -480,9 +486,6 @@ msgstr "Invalid URL."
 
 msgid "Post has been encrypted"
 msgstr "Post has been encrypted"
-
-msgid "Confirm you want to block @{0}?"
-msgstr "Confirm you want to block @{0}?"
 
 msgid "Settings"
 msgstr "Settings"

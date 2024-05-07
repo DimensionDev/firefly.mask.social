@@ -32,9 +32,6 @@ const useBlockedUsersStore = create<
             unblockUser: (operator: Profile, profile: Profile) => {
                 set((state) => {
                     const key = `${operator.source}:${operator.profileId}`;
-                    if (!state.allBlockedUsers[key]) {
-                        state.allBlockedUsers[key] = [];
-                    }
                     const prevList = get().allBlockedUsers[key] || [];
                     state.allBlockedUsers[key] = prevList.filter((id) => id !== profile.profileId);
                 });

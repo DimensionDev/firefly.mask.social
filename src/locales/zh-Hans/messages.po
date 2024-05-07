@@ -153,6 +153,9 @@ msgstr "评论"
 msgid "Confirm"
 msgstr "确认"
 
+msgid "The author is muted by you."
+msgstr ""
+
 msgid "Failed to report @{0}"
 msgstr ""
 
@@ -429,6 +432,9 @@ msgstr ""
 msgid "Please confirm the login with Warpcast."
 msgstr ""
 
+msgid "Confirm you want to mute @{0}?"
+msgstr ""
+
 msgid "Compose"
 msgstr "发帖"
 
@@ -485,9 +491,6 @@ msgstr "无效 URL"
 
 msgid "Post has been encrypted"
 msgstr "帖子已经被加密"
-
-msgid "Confirm you want to block @{0}?"
-msgstr ""
 
 msgid "Settings"
 msgstr "设置"

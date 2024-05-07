@@ -85,13 +85,23 @@ export const ProfileMoreAction = memo<MoreProps>(function ProfileMoreAction({ pr
                     {profile.source === Source.Lens ? (
                         <Menu.Item>
                             {({ close }) => (
-                                <ReportUserButton onConfirm={close} profile={profile} onReport={reportUser} />
+                                <ReportUserButton
+                                    busy={reporting}
+                                    onConfirm={close}
+                                    profile={profile}
+                                    onReport={reportUser}
+                                />
                             )}
                         </Menu.Item>
                     ) : null}
                     <Menu.Item>
                         {({ close }) => (
-                            <BlockUserButton onConfirm={close} profile={profile} onToggleBlock={toggleBlock} />
+                            <BlockUserButton
+                                busy={blocking}
+                                onConfirm={close}
+                                profile={profile}
+                                onToggleBlock={toggleBlock}
+                            />
                         )}
                     </Menu.Item>
                 </Menu.Items>

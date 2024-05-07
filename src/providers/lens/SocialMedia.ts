@@ -1125,9 +1125,9 @@ class LensSocialMedia implements Provider {
             },
         });
         if (!result) throw new Error(t`No one likes this post yet.`);
-        const profiles = result.items.map(formatLensPost);
+        const posts = result.items.map(formatLensPost);
         return createPageable(
-            profiles,
+            posts,
             indicator || createIndicator(),
             result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );
