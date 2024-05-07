@@ -142,7 +142,7 @@ function createInitSinglePostState(cursor: Cursor): CompositePost {
         video: null,
         rpPayload: null,
         channel: {
-            [SocialPlatform.Farcaster]: HOME_CHANNEL,
+            [SocialPlatform.Farcaster]: HOME_CHANNEL[SocialPlatform.Farcaster],
             [SocialPlatform.Lens]: null,
             [SocialPlatform.Twitter]: null,
         },

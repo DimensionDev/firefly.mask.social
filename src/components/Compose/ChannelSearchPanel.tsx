@@ -12,7 +12,6 @@ import { SearchInput } from '@/components/Search/SearchInput.js';
 import { useIsSmall } from '@/hooks/useMediaQuery.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
 
-
 interface ChannelSearchPanelProps {
     channelList: Channel[];
     selectChannel: (channel: Channel) => void;
@@ -31,7 +30,6 @@ export function ChannelSearchPanel({
     queryResult: { isLoading, isError },
 }: ChannelSearchPanelProps) {
     const isSmall = useIsSmall('max');
-
     const listBox = isLoading ? (
         <div className="m-auto">
             <LoadingIcon className="animate-spin" width={24} height={24} />

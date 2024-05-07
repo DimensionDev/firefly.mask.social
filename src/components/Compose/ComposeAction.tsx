@@ -99,7 +99,7 @@ export function ComposeAction(props: ComposeActionProps) {
     // channel
     const { channelList, queryResult } = useSearchChannels(inputText, CURRENT_SOURCE_WITH_CHANNEL_SUPPORT);
     const currChannel = channel[CURRENT_SOURCE_WITH_CHANNEL_SUPPORT];
-    const showChannel = availableSources.includes(SocialPlatform.Farcaster) && type === 'compose';
+    const showChannel = availableSources.includes(CURRENT_SOURCE_WITH_CHANNEL_SUPPORT) && type === 'compose';
 
     return (
         <div className=" px-4 pb-4">
@@ -267,7 +267,7 @@ export function ComposeAction(props: ComposeActionProps) {
                     inputText={inputText}
                     setInputText={setInputText}
                     updateChannel={(c) => {
-                        updateChannel(SocialPlatform.Farcaster, c);
+                        updateChannel(CURRENT_SOURCE_WITH_CHANNEL_SUPPORT, c);
                     }}
                 />
             ) : null}

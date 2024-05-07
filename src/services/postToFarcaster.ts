@@ -34,7 +34,8 @@ export async function postToFarcaster(type: ComposeType, compositePost: Composit
     if (!currentProfile?.profileId) throw new Error(t`Login required to post on ${sourceName}.`);
 
     const composeDraft = (postType: PostType, images: MediaObject[]) => {
-        const ffChannel = channel[SocialPlatform.Farcaster];
+        const curChannel = channel[SocialPlatform.Farcaster];
+        const isCurChanelHomeChannel = curChannel ? isHomeChannel(curChannel, SocialPlatform.Farcaster) : false;
         return {
             publicationId: '',
             type: postType,
@@ -56,8 +57,8 @@ export async function postToFarcaster(type: ComposeType, compositePost: Composit
                 (x) => x.url.toLowerCase(),
             ),
             commentOn: type === 'reply' && farcasterParentPost ? farcasterParentPost : undefined,
-            parentChannelKey: ffChannel ? (isHomeChannel(ffChannel) ? undefined : ffChannel.id) : undefined,
-            parentChannelUrl: ffChannel ? (isHomeChannel(ffChannel) ? undefined : ffChannel.parentUrl) : undefined,
+            parentChannelKey: isCurChanelHomeChannel ? undefined : curChannel?.id ?? undefined,
+            parentChannelUrl: isCurChanelHomeChannel ? undefined : curChannel?.parentUrl ?? undefined,
         } satisfies Post;
     };
 

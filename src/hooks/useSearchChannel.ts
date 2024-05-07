@@ -2,12 +2,11 @@ import { useQuery } from '@tanstack/react-query';
 import { compact, uniq } from 'lodash-es';
 import { useDebounce } from 'usehooks-ts';
 
-import { CHANNEL_SEARCH_LIST_SIZE, FF_GARDEN_CHANNEL_ID, HOME_CHANNEL } from '@/constants/channel.js';
+import { CHANNEL_SEARCH_LIST_SIZE, FF_GARDEN_CHANNEL, HOME_CHANNEL } from '@/constants/channel.js';
 import { SocialPlatform } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
-import { useFetchChannel } from '@/hooks/useFetchChannel.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
 
 export function useSearchChannels(
@@ -33,16 +32,14 @@ export function useSearchChannels(
 }
 
 export function useDefaultChannelList(source: SocialPlatform) {
-    const ffGardenChannel = useFetchChannel(FF_GARDEN_CHANNEL_ID, source);
     const followedChannels = useFollowedChannels(source, CHANNEL_SEARCH_LIST_SIZE);
     const { rpPayload } = useCompositePost();
 
     switch (source) {
         case SocialPlatform.Farcaster:
-            return uniq(compact([HOME_CHANNEL, rpPayload ? ffGardenChannel : null, ...followedChannels])).slice(
-                0,
-                CHANNEL_SEARCH_LIST_SIZE,
-            ) as Channel[];
+            return uniq(
+                compact([HOME_CHANNEL[source], rpPayload ? FF_GARDEN_CHANNEL[source] : null, ...followedChannels]),
+            ).slice(0, CHANNEL_SEARCH_LIST_SIZE) as Channel[];
         default:
             return [];
     }
