@@ -205,6 +205,9 @@ msgstr "Search"
 msgid "Connected Accounts"
 msgstr "Connected Accounts"
 
+msgid "Confirm you want to report @{0}?"
+msgstr "Confirm you want to report @{0}?"
+
 msgid "Select Account"
 msgstr "Select Account"
 
@@ -423,9 +426,6 @@ msgstr "Failed to unmute /{0}."
 
 msgid "Please confirm the login with Warpcast."
 msgstr "Please confirm the login with Warpcast."
-
-msgid "Confirm you want to report this message"
-msgstr "Confirm you want to report this message"
 
 msgid "Compose"
 msgstr "Compose"
