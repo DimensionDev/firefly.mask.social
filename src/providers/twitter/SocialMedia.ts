@@ -341,7 +341,6 @@ class TwitterSocialMedia implements Provider {
     async unblockUser(profileId: string): Promise<boolean> {
         throw new Error('Method not implemented.');
     }
-
     async getLikeReactors(postId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
         throw new Error('Method not implemented.');
     }
