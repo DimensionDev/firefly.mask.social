@@ -27,6 +27,9 @@ msgstr "还没有人评论哦～快来抢沙发！"
 msgid "Quote Post"
 msgstr "引用"
 
+msgid "{count, plural, one {1 second} other {{count} seconds}}"
+msgstr ""
+
 msgid "Report @{0}"
 msgstr ""
 
@@ -52,6 +55,9 @@ msgid "Please be cautious when connecting your wallet, as malicious websites may
 msgstr "当您连接钱包时请务必小心，一些恶意网站会试图访问宁的钱包资产。"
 
 msgid "{followerCount, plural, one {Follower} other {Followers}}"
+msgstr ""
+
+msgid "You can sign in to Farcaster with the following options."
 msgstr ""
 
 msgid "X"
@@ -98,6 +104,9 @@ msgstr ""
 
 msgid "OpenGraph"
 msgstr "OpenGraph"
+
+msgid "Connect with Warpcast"
+msgstr ""
 
 msgid "Wrong wallet"
 msgstr "错误的钱包"
@@ -173,6 +182,9 @@ msgstr "从这里开始..."
 
 msgid "Missing IPFS hash for image or video."
 msgstr "未找到图片和视频的 hash 信息。"
+
+msgid "Reconnect with Firefly"
+msgstr ""
 
 msgid "Revise on"
 msgstr ""
@@ -379,7 +391,7 @@ msgid "Failed to login."
 msgstr ""
 
 msgid "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code."
-msgstr "在你装有 Warpcast 的手机上，打开 <0> 相机 </0>，扫描二维码。"
+msgstr ""
 
 msgid "Unlike"
 msgstr "取消点赞"
@@ -531,9 +543,6 @@ msgstr ""
 msgid "Failed to parse session."
 msgstr "未能解析会话"
 
-msgid "Loading..."
-msgstr "加载中..."
-
 msgid "Share"
 msgstr "分享"
 
@@ -557,6 +566,9 @@ msgstr ""
 
 msgid "Unliked"
 msgstr "已取消点赞"
+
+msgid "Please click and refresh the QR code to log in again."
+msgstr ""
 
 msgid "Visit mask.io"
 msgstr "访问 mask.io"
@@ -610,6 +622,9 @@ msgid "recasted your"
 msgstr "转帖了你的"
 
 msgid "Quotes"
+msgstr ""
+
+msgid "The user rejected the request."
 msgstr ""
 
 msgid "Please input the url to be revalidated."
@@ -678,6 +693,9 @@ msgstr "连接"
 msgid "Switch account"
 msgstr "切换账号"
 
+msgid "Sign in with Custody Wallet"
+msgstr ""
+
 msgid "Mention"
 msgstr "提及"
 
@@ -695,9 +713,6 @@ msgstr "你已经滑到底部啦～"
 
 msgid "Failed to mirror post."
 msgstr "转发失败"
-
-msgid "Login with custody wallet"
-msgstr "使用托管钱包登录"
 
 msgid "Delegate Signing (Recommend)"
 msgstr "委托签名（推荐）"
@@ -740,6 +755,9 @@ msgstr "分享到"
 
 msgid "Unknown session type."
 msgstr "未知会话类型。"
+
+msgid "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code in <1>{0}</1>."
+msgstr ""
 
 msgid "Failed to quote post."
 msgstr ""
@@ -839,6 +857,9 @@ msgstr "语言"
 
 msgid "Add a comment"
 msgstr "添加一条评论"
+
+msgid "FREE"
+msgstr ""
 
 msgid "Profiles"
 msgstr "个人信息"

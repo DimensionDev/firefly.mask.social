@@ -12,7 +12,7 @@ import { Code } from '@/components/Code.js';
 import type { MarkupProps } from '@/components/Markup/Markup.js';
 import { MarkupLink } from '@/components/Markup/MarkupLink/index.js';
 import { Source } from '@/constants/enum.js';
-import { CHANNEL_REGEX, HASHTAG_REGEX, URL_REGEX } from '@/constants/regex.js';
+import { CHANNEL_REGEX, HASHTAG_REGEX, URL_REGEX } from '@/constants/regexp.js';
 
 const trimify = (value: string): string => value.replace(/\n\n\s*\n/g, '\n\n').trim();
 

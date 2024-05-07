@@ -9,7 +9,7 @@ import { ExternalLink } from '@/components/Markup/MarkupLink/ExternalLink.js';
 import { Hashtag } from '@/components/Markup/MarkupLink/Hashtag.js';
 import { MentionLink } from '@/components/Markup/MarkupLink/MentionLink.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
-import { BIO_TWITTER_PROFILE_REGEX } from '@/constants/regex.js';
+import { BIO_TWITTER_PROFILE_REGEX } from '@/constants/regexp.js';
 import { Link } from '@/esm/Link.js';
 import { createLensProfileFromHandle } from '@/helpers/createLensProfileFromHandle.js';
 import { getLensHandleFromMentionTitle } from '@/helpers/getLensHandleFromMentionTitle.js';

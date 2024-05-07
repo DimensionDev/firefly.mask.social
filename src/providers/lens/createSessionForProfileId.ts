@@ -35,11 +35,11 @@ export async function createSessionForProfileId(profileId: string): Promise<Lens
     );
 }
 
-export async function createSessionForProfileIdFirefly(profileId: string) {
+export async function createSessionForProfileIdFirefly(profileId: string, signal?: AbortSignal) {
     const session = await createSessionForProfileId(profileId);
 
     try {
-        const fireflySession = await FireflySession.from(session);
+        const fireflySession = await FireflySession.from(session, signal);
         if (fireflySession) {
             fireflySessionHolder.resumeSession(fireflySession);
         }

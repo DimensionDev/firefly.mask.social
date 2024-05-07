@@ -65,7 +65,7 @@ export function ProfileSettings({ source, onClose }: ProfileSettingsProps) {
                     <Trans>Switch account</Trans>
                 </span>
             </ClickableButton>
-            {currentProfile && source === Source.Lens ? (
+            {currentProfile && (source === Source.Lens || source === Source.Farcaster) ? (
                 <ClickableButton
                     className="flex w-full items-center rounded px-1 py-3 text-main outline-none hover:bg-bg"
                     onClick={async () => {

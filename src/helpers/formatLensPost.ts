@@ -27,7 +27,7 @@ import { compact, first, isEmpty, last } from 'lodash-es';
 
 import { Source } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
-import { URL_REGEX } from '@/constants/regex.js';
+import { URL_REGEX } from '@/constants/regexp.js';
 import { formatLensProfile, formatLensProfileByHandleInfo } from '@/helpers/formatLensProfile.js';
 import type { Attachment, Post } from '@/providers/types/SocialMedia.js';
 

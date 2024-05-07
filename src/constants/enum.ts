@@ -94,3 +94,14 @@ export enum ScrollListKey {
     Collected = 'profile-collected-list',
     Engagement = 'post-engagement',
 }
+
+export enum FarcasterSignType {
+    // connect with warpcast
+    GrantPermission = 'grant_permission',
+    // reconnect with firefly
+    RelayService = 'relay_service',
+    // recovery phrase
+    RecoveryPhrase = 'recovery_phrase',
+    // custody wallet
+    CustodyWallet = 'custody_wallet',
+}

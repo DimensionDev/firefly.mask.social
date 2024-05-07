@@ -1,15 +1,20 @@
 'use client';
 
-import { t, Trans } from '@lingui/macro';
-import { useRef, useState } from 'react';
+import { ArrowRightIcon } from '@heroicons/react/24/outline';
+import { plural, t, Trans } from '@lingui/macro';
+import { safeUnreachable } from '@masknet/kit';
+import { useMemo, useRef, useState } from 'react';
 import QRCode from 'react-qr-code';
-import { useAsyncFn, useEffectOnce, useUnmount } from 'react-use';
+import { useAsyncFn, useUnmount } from 'react-use';
+import { useCountdown } from 'usehooks-ts';
 
 import LoadingIcon from '@/assets/loading.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { config } from '@/configs/wagmiClient.js';
 import { IS_MOBILE_DEVICE } from '@/constants/bowser.js';
-import { IS_PRODUCTION } from '@/constants/index.js';
+import { FarcasterSignType } from '@/constants/enum.js';
+import { AbortError } from '@/constants/error.js';
+import { FARCASTER_REPLY_COUNTDOWN, IS_PRODUCTION } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getMobileDevice } from '@/helpers/getMobileDevice.js';
@@ -20,7 +25,8 @@ import { FireflySessionConfirmModalRef, LoginModalRef } from '@/modals/controls.
 import type { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { createSessionByCustodyWallet } from '@/providers/warpcast/createSessionByCustodyWallet.js';
-import { createSessionByGrantPermission } from '@/providers/warpcast/createSessionByGrantPermission.js';
+import { createSessionByGrantPermissionFirefly } from '@/providers/warpcast/createSessionByGrantPermission.js';
+import { createSessionByRelayService } from '@/providers/warpcast/createSessionByRelayService.js';
 
 async function login(createSession: () => Promise<FarcasterSession>) {
     try {
@@ -35,11 +41,21 @@ async function login(createSession: () => Promise<FarcasterSession>) {
         // restore profile exclude farcaster
         await FireflySessionConfirmModalRef.openAndWaitForClose();
     } catch (error) {
-        const message = error instanceof Error ? error.message : typeof error === 'string' ? error : `${error}`;
-        if (message.toLowerCase().includes('aborted')) return;
+        // skip if the error is abort error
+        if (error instanceof AbortError || (error instanceof DOMException && error.name === 'AbortError')) return;
+
         enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to login`), {
             error,
         });
+
+        const message = error instanceof Error ? error.message : typeof error === 'string' ? error : `${error}`;
+
+        // if login timed out, we will let the user refresh the QR code
+        if (message.toLowerCase().includes('farcaster login timed out')) return;
+
+        // user rejected request
+        if (message.toLowerCase().includes('user rejected the request')) return;
+
         // if any error occurs, close the modal
         // by this we don't need to do error handling in UI part.
         LoginModalRef.close();
@@ -48,37 +64,90 @@ async function login(createSession: () => Promise<FarcasterSession>) {
 }
 
 export function LoginFarcaster() {
-    const [url, setUrl] = useState('');
+    const options = useMemo(() => {
+        return [
+            {
+                label: t`Connect with Warpcast`,
+                type: FarcasterSignType.GrantPermission,
+                developmentOnly: false,
+                isFreeOfTransactionFee: false,
+            },
+            {
+                label: t`Reconnect with Firefly`,
+                type: FarcasterSignType.RelayService,
+                developmentOnly: false,
+                isFreeOfTransactionFee: true,
+            },
+            {
+                label: t`Sign in with Custody Wallet`,
+                type: FarcasterSignType.CustodyWallet,
+                developmentOnly: true,
+                isFreeOfTransactionFee: true,
+            },
+        ].filter((x) => (IS_PRODUCTION ? !x.developmentOnly : true));
+    }, []);
+
     const controllerRef = useRef<AbortController>();
+    const [url, setUrl] = useState('');
+    const [signType, setSignType] = useState<FarcasterSignType | null>(options.length === 1 ? options[0].type : null);
+    const [count, { startCountdown, resetCountdown }] = useCountdown({
+        countStart: FARCASTER_REPLY_COUNTDOWN,
+        intervalMs: 1000,
+        countStop: 0,
+        isIncrement: false,
+    });
 
-    const [{ loading: loadingGrantPermission, error: errorGrantPermission }, onLoginWithGrantPermission] =
-        useAsyncFn(async () => {
-            // reset the process if abort controller is aborted or not initialized
-            if (!controllerRef.current || controllerRef.current?.signal.aborted) {
-                controllerRef.current = new AbortController();
+    const [, onLoginByGrantPermission] = useAsyncFn(async () => {
+        controllerRef.current?.abort(new AbortError());
+        controllerRef.current = new AbortController();
 
-                try {
-                    await login(() =>
-                        createSessionByGrantPermission(
-                            (url) => {
-                                const device = getMobileDevice();
-                                if (device === 'unknown') setUrl(url);
-                                else location.href = url;
-                            },
-                            controllerRef.current?.signal,
-                        ),
-                    );
-                } catch (error) {
-                    enqueueErrorMessage(t`Failed to login.`, {
-                        error,
-                    });
-                    throw error;
-                }
-            }
-        }, []);
+        try {
+            await login(() =>
+                createSessionByGrantPermissionFirefly(
+                    (url) => {
+                        const device = getMobileDevice();
+                        if (device === 'unknown') setUrl(url);
+                        else location.href = url;
+                    },
+                    controllerRef.current?.signal,
+                ),
+            );
+        } catch (error) {
+            enqueueErrorMessage(t`Failed to login.`, {
+                error,
+            });
+            throw error;
+        }
+    }, []);
+
+    const [, onLoginByRelayService] = useAsyncFn(async () => {
+        controllerRef.current?.abort(new AbortError());
+        controllerRef.current = new AbortController();
+
+        try {
+            await login(() =>
+                createSessionByRelayService(
+                    (url) => {
+                        resetCountdown();
+                        startCountdown();
+
+                        const device = getMobileDevice();
+                        if (device === 'unknown') setUrl(url);
+                        else location.href = url;
+                    },
+                    controllerRef.current?.signal,
+                ),
+            );
+        } catch (error) {
+            enqueueErrorMessage(t`Failed to login.`, {
+                error,
+            });
+            throw error;
+        }
+    }, [resetCountdown, startCountdown]);
 
     const [{ loading: loadingCustodyWallet }, onLoginWithCustodyWallet] = useAsyncFn(async () => {
-        controllerRef.current?.abort('aborted');
+        controllerRef.current?.abort(new AbortError());
         try {
             await login(async () => {
                 const client = await getWalletClientRequired(config);
@@ -92,19 +161,60 @@ export function LoginFarcaster() {
         }
     }, []);
 
-    useEffectOnce(() => {
-        onLoginWithGrantPermission();
-    });
-
     useUnmount(() => {
-        controllerRef.current?.abort('aborted');
+        controllerRef.current?.abort(new AbortError());
     });
 
+    if (signType === FarcasterSignType.RecoveryPhrase) return null;
+
+    // step 1: select sign type
+    if (!signType || signType === FarcasterSignType.CustodyWallet) {
+        return (
+            <div className="flex flex-col gap-2 rounded-[12px] p-4 md:w-[600px]">
+                <p className=" pb-2 text-left text-sm">
+                    <Trans>You can sign in to Farcaster with the following options.</Trans>
+                </p>
+                {options.map(({ label, type, isFreeOfTransactionFee }) => (
+                    <ClickableButton
+                        className=" flex w-full items-center rounded-lg border border-line px-3 py-4 text-main hover:bg-bg disabled:cursor-not-allowed disabled:opacity-50"
+                        key={type}
+                        onClick={() => {
+                            setSignType(type);
+                            switch (type) {
+                                case FarcasterSignType.GrantPermission:
+                                    onLoginByGrantPermission();
+                                    break;
+                                case FarcasterSignType.RelayService:
+                                    onLoginByRelayService();
+                                    break;
+                                case FarcasterSignType.CustodyWallet:
+                                    onLoginWithCustodyWallet();
+                                    break;
+                            }
+                        }}
+                    >
+                        <span className=" flex flex-1 items-center">
+                            {label}
+                            {isFreeOfTransactionFee ? (
+                                <span className=" ml-2 rounded-md border border-lightBottom px-1 text-xs font-bold text-lightBottom">
+                                    {t`FREE`}
+                                </span>
+                            ) : null}
+                        </span>
+                        {loadingCustodyWallet && type === FarcasterSignType.CustodyWallet ? (
+                            <LoadingIcon className="animate-spin" width={24} height={24} />
+                        ) : (
+                            <ArrowRightIcon width={24} height={24} className="rounded-full p-1 text-main" />
+                        )}
+                    </ClickableButton>
+                ))}
+            </div>
+        );
+    }
+
+    // step 2: display qr code
     return (
-        <div
-            className="flex flex-col rounded-[12px] md:w-[600px]"
-            style={{ boxShadow: '0px 4px 30px 0px rgba(0, 0, 0, 0.10)' }}
-        >
+        <div className="flex flex-col rounded-[12px] md:w-[600px]">
             {IS_MOBILE_DEVICE ? (
                 <div className="flex min-h-[200px] w-full flex-col items-center justify-center gap-4 p-4">
                     <LoadingIcon className="animate-spin" width={24} height={24} />
@@ -113,40 +223,60 @@ export function LoginFarcaster() {
                     </div>
                 </div>
             ) : (
-                <div className="flex min-h-[475px] w-full flex-col items-center gap-4 p-4 ">
+                <div className="flex min-h-[475px] w-full flex-col items-center gap-4 p-4">
                     {url ? (
                         <>
                             <div className=" text-center text-[12px] leading-[16px] text-lightSecond">
-                                <Trans>
-                                    On your mobile device with Warpcast, open the{' '}
-                                    <span className="font-bold">Camera</span> app and scan the QR code.
-                                </Trans>
+                                {count === 0 ? (
+                                    <Trans>Please click and refresh the QR code to log in again.</Trans>
+                                ) : signType === FarcasterSignType.GrantPermission ? (
+                                    <Trans>
+                                        On your mobile device with Warpcast, open the{' '}
+                                        <span className="font-bold">Camera</span> app and scan the QR code.
+                                    </Trans>
+                                ) : signType === FarcasterSignType.RelayService ? (
+                                    <Trans>
+                                        On your mobile device with Warpcast, open the{' '}
+                                        <span className="font-bold">Camera</span> app and scan the QR code in{' '}
+                                        {
+                                            <span className="font-bold">
+                                                {plural(count, {
+                                                    one: '1 second',
+                                                    other: `${count} seconds`,
+                                                })}
+                                            </span>
+                                        }
+                                        .
+                                    </Trans>
+                                ) : null}
                             </div>
                             <div
                                 className=" relative flex cursor-pointer items-center justify-center"
-                                onClick={onLoginWithGrantPermission}
+                                onClick={() => {
+                                    controllerRef.current?.abort(new AbortError());
+
+                                    switch (signType) {
+                                        case FarcasterSignType.GrantPermission:
+                                            onLoginByGrantPermission();
+                                            break;
+                                        case FarcasterSignType.RelayService:
+                                            resetCountdown();
+                                            onLoginByRelayService();
+                                            break;
+                                        default:
+                                            safeUnreachable(signType);
+                                            break;
+                                    }
+                                }}
                             >
                                 <QRCode
                                     className={classNames({
-                                        'blur-md': !!errorGrantPermission,
+                                        'blur-md': count === 0,
                                     })}
                                     value={url}
                                     size={360}
                                 />
                             </div>
-                            {!IS_PRODUCTION ? (
-                                <ClickableButton
-                                    className="text-sm font-semibold text-lightSecond disabled:cursor-not-allowed disabled:opacity-50"
-                                    disabled={loadingCustodyWallet}
-                                    onClick={onLoginWithCustodyWallet}
-                                >
-                                    {loadingCustodyWallet ? (
-                                        <Trans>Loading...</Trans>
-                                    ) : (
-                                        <Trans>Login with custody wallet</Trans>
-                                    )}
-                                </ClickableButton>
-                            ) : null}
                         </>
                     ) : (
                         <div className="flex w-full flex-1 flex-col items-center justify-center">

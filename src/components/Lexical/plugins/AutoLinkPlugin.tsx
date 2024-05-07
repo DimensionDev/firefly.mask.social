@@ -1,6 +1,6 @@
 import { AutoLinkPlugin } from '@lexical/react/LexicalAutoLinkPlugin.js';
 
-import { EMAIL_REGEX, MENTION_REGEX, URL_REGEX } from '@/constants/regex.js';
+import { EMAIL_REGEX, MENTION_REGEX, URL_REGEX } from '@/constants/regexp.js';
 
 const MATCHERS = [
     (text: string) => {

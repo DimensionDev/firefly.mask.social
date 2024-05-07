@@ -44,14 +44,14 @@ function convertMetricToSession(metric: Metrics[0]) {
     // for farcaster metric has fid
     if (typeof first(farcasterMetric.login_metadata)?.fid === 'number') {
         return farcasterMetric.login_metadata.map((x) => {
-            // the signerRequestToken cannot recover from the metric
-            // but it is necessary for distinguish grant by permission session
-            // so we use a fake token here
             return new FarcasterSession(
                 `${x.fid}`,
                 x.signer_private_key,
                 x.login_time,
                 x.login_time,
+                // the signerRequestToken cannot recover from the metric
+                // but it is necessary for distinguish grant by permission session
+                // so we use a fake token here
                 'fake_signer_request_token',
             );
         });

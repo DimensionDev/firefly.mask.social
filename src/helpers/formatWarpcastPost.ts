@@ -1,7 +1,7 @@
 import { first, last, union } from 'lodash-es';
 
 import { Source } from '@/constants/enum.js';
-import { URL_REGEX } from '@/constants/regex.js';
+import { URL_REGEX } from '@/constants/regexp.js';
 import { type Attachment, type Post, ProfileStatus } from '@/providers/types/SocialMedia.js';
 import type { Cast, Feed } from '@/providers/types/Warpcast.js';
 

@@ -22,6 +22,9 @@ msgstr "Be the first one to comment!"
 msgid "Quote Post"
 msgstr "Quote Post"
 
+msgid "{count, plural, one {1 second} other {{count} seconds}}"
+msgstr "{count, plural, one {1 second} other {{count} seconds}}"
+
 msgid "Report @{0}"
 msgstr "Report @{0}"
 
@@ -48,6 +51,9 @@ msgstr "Please be cautious when connecting your wallet, as malicious websites ma
 
 msgid "{followerCount, plural, one {Follower} other {Followers}}"
 msgstr "{followerCount, plural, one {Follower} other {Followers}}"
+
+msgid "You can sign in to Farcaster with the following options."
+msgstr "You can sign in to Farcaster with the following options."
 
 msgid "X"
 msgstr "X"
@@ -93,6 +99,9 @@ msgstr "Confirm you want to block @{0}"
 
 msgid "OpenGraph"
 msgstr "OpenGraph"
+
+msgid "Connect with Warpcast"
+msgstr "Connect with Warpcast"
 
 msgid "Wrong wallet"
 msgstr "Wrong wallet"
@@ -168,6 +177,9 @@ msgstr "Type something here..."
 
 msgid "Missing IPFS hash for image or video."
 msgstr "Missing IPFS hash for image or video."
+
+msgid "Reconnect with Firefly"
+msgstr "Reconnect with Firefly"
 
 msgid "Revise on"
 msgstr "Revise on"
@@ -526,9 +538,6 @@ msgstr "{count, plural, one {# view} other {{0}}}"
 msgid "Failed to parse session."
 msgstr "Failed to parse session."
 
-msgid "Loading..."
-msgstr "Loading..."
-
 msgid "Share"
 msgstr "Share"
 
@@ -552,6 +561,9 @@ msgstr "{0, plural, one {Post} other {Post All}}"
 
 msgid "Unliked"
 msgstr "Unliked"
+
+msgid "Please click and refresh the QR code to log in again."
+msgstr "Please click and refresh the QR code to log in again."
 
 msgid "Visit mask.io"
 msgstr "Visit mask.io"
@@ -606,6 +618,9 @@ msgstr "recasted your"
 
 msgid "Quotes"
 msgstr "Quotes"
+
+msgid "The user rejected the request."
+msgstr "The user rejected the request."
 
 msgid "Please input the url to be revalidated."
 msgstr "Please input the url to be revalidated."
@@ -673,6 +688,9 @@ msgstr "Connect"
 msgid "Switch account"
 msgstr "Switch account"
 
+msgid "Sign in with Custody Wallet"
+msgstr "Sign in with Custody Wallet"
+
 msgid "Mention"
 msgstr "Mention"
 
@@ -690,9 +708,6 @@ msgstr "You've hit rock bottom."
 
 msgid "Failed to mirror post."
 msgstr "Failed to mirror post."
-
-msgid "Login with custody wallet"
-msgstr "Login with custody wallet"
 
 msgid "Delegate Signing (Recommend)"
 msgstr "Delegate Signing (Recommend)"
@@ -735,6 +750,9 @@ msgstr "Share to"
 
 msgid "Unknown session type."
 msgstr "Unknown session type."
+
+msgid "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code in <1>{0}</1>."
+msgstr "On your mobile device with Warpcast, open the <0>Camera</0> app and scan the QR code in <1>{0}</1>."
 
 msgid "Failed to quote post."
 msgstr "Failed to quote post."
@@ -834,6 +852,9 @@ msgstr "Language"
 
 msgid "Add a comment"
 msgstr "Add a comment"
+
+msgid "FREE"
+msgstr "FREE"
 
 msgid "Profiles"
 msgstr "Profiles"
