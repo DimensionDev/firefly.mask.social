@@ -405,6 +405,9 @@ msgstr ""
 msgid "Confirm you want to unmute /{0}?"
 msgstr ""
 
+msgid "Bookmark"
+msgstr ""
+
 msgid "Everyone"
 msgstr "任何人"
 

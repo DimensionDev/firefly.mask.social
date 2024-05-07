@@ -1124,6 +1124,22 @@ class LensSocialMedia implements Provider {
             result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );
     }
+    async getBookmarks(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        const result = await lensSessionHolder.sdk.publication.bookmarks.fetch({
+            cursor: indicator?.id ? indicator.id : undefined,
+        });
+        if (result.isSuccess()) {
+            const value = result.value;
+            value.items.map(formatLensPost);
+            const profiles = value.items.map(formatLensPost);
+            return createPageable(
+                profiles,
+                indicator || createIndicator(),
+                value.pageInfo.next ? createNextIndicator(indicator, value.pageInfo.next) : undefined,
+            );
+        }
+        throw new Error('Failed to fetch bookmarks');
+    }
 }
 
 export const LensSocialMediaProvider = new LensSocialMedia();

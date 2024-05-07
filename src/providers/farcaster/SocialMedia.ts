@@ -297,6 +297,12 @@ class FarcasterSocialMedia implements Provider {
     async getPostsQuoteOn(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         throw new Error('Method not implemented.');
     }
+    async getBookmarks(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        const { isCustodyWallet, isGrantByPermission } = getFarcasterSessionType();
+        if (isCustodyWallet) return WarpcastSocialMediaProvider.getBookmarks(indicator);
+        if (isGrantByPermission) return FireflySocialMediaProvider.getBookmarks(indicator);
+        throw new Error('No session found.');
+    }
 }
 
 export const FarcasterSocialMediaProvider = new FarcasterSocialMedia();

@@ -400,6 +400,9 @@ msgstr "Your post has published successfully."
 msgid "Confirm you want to unmute /{0}?"
 msgstr "Confirm you want to unmute /{0}?"
 
+msgid "Bookmark"
+msgstr "Bookmark"
+
 msgid "Everyone"
 msgstr "Everyone"
 

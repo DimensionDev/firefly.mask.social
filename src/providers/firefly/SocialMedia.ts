@@ -23,6 +23,7 @@ import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { NeynarSocialMediaProvider } from '@/providers/neynar/SocialMedia.js';
 import {
+    type BookmarkResponse,
     type CastResponse,
     type CastsOfChannelResponse,
     type CastsResponse,
@@ -670,6 +671,19 @@ class FireflySocialMedia implements Provider {
 
     async getPostsQuoteOn(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         throw new Error('Method not implemented.');
+    }
+
+    async getBookmarks(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        const url = urlcat(FIREFLY_ROOT_URL, '/v1/bookmark/find', {
+            post_type: 'all',
+            platforms: 'farcaster',
+            limit: 25,
+            cursor: indicator?.id || undefined,
+        });
+        const response = await farcasterSessionHolder.fetch<BookmarkResponse>(url);
+        console.log('TODO firefly bookmark list', response);
+
+        return createPageable([], createIndicator(indicator));
     }
 }
 
