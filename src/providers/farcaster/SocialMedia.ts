@@ -4,6 +4,7 @@ import { attemptUntil } from '@masknet/web3-shared-base';
 
 import { Source } from '@/constants/enum.js';
 import { SetQueryDataForBlockUser } from '@/decorators/SetQueryDataForBlockUser.js';
+import { SetQueryDataForBookmarkPost } from '@/decorators/SetQueryDataForBookmarkPost.js';
 import { SetQueryDataForCommentPost } from '@/decorators/SetQueryDataForCommentPost.js';
 import { SetQueryDataForDeletePost } from '@/decorators/SetQueryDataForDeletePost.js';
 import { SetQueryDataForLikePost } from '@/decorators/SetQueryDataForLikePost.js';
@@ -23,6 +24,7 @@ import {
 import { WarpcastSocialMediaProvider } from '@/providers/warpcast/SocialMedia.js';
 
 @SetQueryDataForLikePost(Source.Farcaster)
+@SetQueryDataForBookmarkPost(Source.Farcaster)
 @SetQueryDataForMirrorPost(Source.Farcaster)
 @SetQueryDataForCommentPost(Source.Farcaster)
 @SetQueryDataForDeletePost(Source.Farcaster)
@@ -296,6 +298,18 @@ class FarcasterSocialMedia implements Provider {
     }
     async getPostsQuoteOn(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         throw new Error('Method not implemented.');
+    }
+    async bookmark(postId: string): Promise<boolean> {
+        throw new Error('Method not implemented.');
+    }
+    async unbookmark(postId: string): Promise<boolean> {
+        throw new Error('Method not implemented.');
+    }
+    async getBookmarks(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        const { isCustodyWallet, isGrantByPermission } = getFarcasterSessionType();
+        if (isCustodyWallet) return WarpcastSocialMediaProvider.getBookmarks(indicator);
+        if (isGrantByPermission) return FireflySocialMediaProvider.getBookmarks(indicator);
+        throw new Error('No session found.');
     }
 }
 

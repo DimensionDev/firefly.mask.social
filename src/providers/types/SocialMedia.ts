@@ -154,6 +154,7 @@ export interface Post {
     hasLiked?: boolean;
     hasActed?: boolean;
     hasQuoted?: boolean;
+    hasBookmarked?: boolean;
     source: SocialSource;
     isThread?: boolean;
 
@@ -679,4 +680,10 @@ export interface Provider {
     getRepostReactors: (postId: string, indicator?: PageIndicator) => Promise<Pageable<Profile, PageIndicator>>;
 
     getPostsQuoteOn: (postId: string, indicator?: PageIndicator) => Promise<Pageable<Post, PageIndicator>>;
+
+    bookmark: (postId: string) => Promise<boolean>;
+
+    unbookmark: (postId: string) => Promise<boolean>;
+
+    getBookmarks: (indicator?: PageIndicator) => Promise<Pageable<Post, PageIndicator>>;
 }

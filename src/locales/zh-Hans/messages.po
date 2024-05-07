@@ -219,6 +219,9 @@ msgstr ""
 msgid "Add another post..."
 msgstr "添加另一个帖子..."
 
+msgid "{count, plural, one {Bookmark} other {{0}}}"
+msgstr ""
+
 msgid "Audio Cover"
 msgstr "音频封面"
 
@@ -294,6 +297,9 @@ msgstr "登出"
 msgid "{0, plural, one {Your post failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your post failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your post failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
 msgstr ""
 
+msgid "Failed to un-bookmark"
+msgstr ""
+
 msgid "post"
 msgstr "发帖"
 
@@ -338,6 +344,9 @@ msgstr ""
 
 msgid "Collected"
 msgstr "已收藏"
+
+msgid "Failed to bookmark"
+msgstr ""
 
 msgid "<0>You</0> mirrored"
 msgstr "<0>你</0> 已转发"
@@ -403,6 +412,9 @@ msgid "Your post has published successfully."
 msgstr ""
 
 msgid "Confirm you want to unmute /{0}?"
+msgstr ""
+
+msgid "Bookmark"
 msgstr ""
 
 msgid "Everyone"
@@ -795,6 +807,9 @@ msgstr "Failed to fetch as ArrayBuffer."
 msgid "Your post have published successfully on {0}."
 msgstr ""
 
+msgid "Post added to your Bookmarks"
+msgstr ""
+
 msgid "Cancel mirror successfully"
 msgstr ""
 
@@ -821,6 +836,9 @@ msgstr "你的 Lens 账号已经连接。"
 
 msgid "Remove"
 msgstr "移除"
+
+msgid "Post remove from your Bookmarks"
+msgstr ""
 
 msgid "Cancel Recast"
 msgstr "取消转帖"

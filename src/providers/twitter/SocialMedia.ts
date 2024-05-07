@@ -348,6 +348,15 @@ class TwitterSocialMedia implements Provider {
     async getPostsQuoteOn(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         throw new Error('Method not implemented.');
     }
+    async bookmark(postId: string): Promise<boolean> {
+        throw new Error('Method not implemented.');
+    }
+    async unbookmark(postId: string): Promise<boolean> {
+        throw new Error('Method not implemented.');
+    }
+    async getBookmarks(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        throw new Error('Method not implemented.');
+    }
 }
 
 export const TwitterSocialMediaProvider = new TwitterSocialMedia();

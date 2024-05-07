@@ -10,7 +10,7 @@ import { isZero } from '@masknet/web3-shared-base';
 import { compact } from 'lodash-es';
 import urlcat from 'urlcat';
 
-import { Source } from '@/constants/enum.js';
+import { BookmarkType, Source } from '@/constants/enum.js';
 import { FIREFLY_ROOT_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import {
@@ -23,6 +23,7 @@ import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { NeynarSocialMediaProvider } from '@/providers/neynar/SocialMedia.js';
 import {
+    type BookmarkResponse,
     type CastResponse,
     type CastsOfChannelResponse,
     type CastsResponse,
@@ -670,6 +671,23 @@ class FireflySocialMedia implements Provider {
 
     async getPostsQuoteOn(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         throw new Error('Method not implemented.');
+    }
+    async bookmark(postId: string): Promise<boolean> {
+        throw new Error('Method not implemented.');
+    }
+    async unbookmark(postId: string): Promise<boolean> {
+        throw new Error('Method not implemented.');
+    }
+    async getBookmarks(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        const url = urlcat(FIREFLY_ROOT_URL, '/v1/bookmark/find', {
+            post_type: BookmarkType.All,
+            platforms: 'farcaster',
+            limit: 25,
+            cursor: indicator?.id || undefined,
+        });
+        const response = await farcasterSessionHolder.fetch<BookmarkResponse>(url);
+
+        return createPageable([], createIndicator(indicator));
     }
 }
 

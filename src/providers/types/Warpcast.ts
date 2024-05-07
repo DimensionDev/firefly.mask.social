@@ -19,6 +19,13 @@ export interface SearchCastsResponse extends ErrorResponse {
     next?: Next;
 }
 
+export interface BookmarkedCastsResponse extends ErrorResponse {
+    result: {
+        bookmarks: Cast[];
+    };
+    next?: Next;
+}
+
 export interface CastResponse extends ErrorResponse {
     result: { cast: Cast };
 }

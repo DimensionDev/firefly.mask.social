@@ -214,6 +214,9 @@ msgstr ""
 msgid "Add another post..."
 msgstr ""
 
+msgid "{count, plural, one {Bookmark} other {{0}}}"
+msgstr ""
+
 msgid "Audio Cover"
 msgstr ""
 
@@ -289,6 +292,9 @@ msgstr ""
 msgid "{0, plural, one {Your post failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your post failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your post failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
 msgstr ""
 
+msgid "Failed to un-bookmark"
+msgstr ""
+
 msgid "post"
 msgstr ""
 
@@ -332,6 +338,9 @@ msgid "Confirm you want to mute /{0}?"
 msgstr ""
 
 msgid "Collected"
+msgstr ""
+
+msgid "Failed to bookmark"
 msgstr ""
 
 msgid "<0>You</0> mirrored"
@@ -398,6 +407,9 @@ msgid "Your post has published successfully."
 msgstr ""
 
 msgid "Confirm you want to unmute /{0}?"
+msgstr ""
+
+msgid "Bookmark"
 msgstr ""
 
 msgid "Everyone"
@@ -790,6 +802,9 @@ msgstr ""
 msgid "Your post have published successfully on {0}."
 msgstr ""
 
+msgid "Post added to your Bookmarks"
+msgstr ""
+
 msgid "Cancel mirror successfully"
 msgstr ""
 
@@ -815,6 +830,9 @@ msgid "Your Lens account is now connected."
 msgstr ""
 
 msgid "Remove"
+msgstr ""
+
+msgid "Post remove from your Bookmarks"
 msgstr ""
 
 msgid "Cancel Recast"

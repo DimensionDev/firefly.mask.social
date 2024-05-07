@@ -19,6 +19,7 @@ export enum PageRoute {
     Following = '/following',
     Notifications = '/notifications',
     Profile = '/profile',
+    Bookmark = '/bookmark',
     Settings = '/settings',
     Developers = '/developers',
     Search = '/search',
@@ -91,6 +92,7 @@ export enum ScrollListKey {
     Comment = 'comment-list',
     Channel = 'channel-post-list',
     Profile = 'profile-post-list',
+    Bookmark = 'bookmark',
     Collected = 'profile-collected-list',
     Engagement = 'post-engagement',
 }
@@ -104,4 +106,11 @@ export enum FarcasterSignType {
     RecoveryPhrase = 'recovery_phrase',
     // custody wallet
     CustodyWallet = 'custody_wallet',
+}
+export enum BookmarkType {
+    All = 'all',
+    Text = 'text',
+    Video = 'video',
+    Audio = 'audio',
+    Image = 'image',
 }

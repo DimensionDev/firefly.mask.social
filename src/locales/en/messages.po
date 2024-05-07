@@ -214,6 +214,9 @@ msgstr "Mirror again"
 msgid "Add another post..."
 msgstr "Add another post..."
 
+msgid "{count, plural, one {Bookmark} other {{0}}}"
+msgstr "{count, plural, one {Bookmark} other {{0}}}"
+
 msgid "Audio Cover"
 msgstr "Audio Cover"
 
@@ -289,6 +292,9 @@ msgstr "Log out"
 msgid "{0, plural, one {Your post failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your post failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your post failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
 msgstr "{0, plural, one {Your post failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your post failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your post failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
 
+msgid "Failed to un-bookmark"
+msgstr "Failed to un-bookmark"
+
 msgid "post"
 msgstr "post"
 
@@ -333,6 +339,9 @@ msgstr "Confirm you want to mute /{0}?"
 
 msgid "Collected"
 msgstr "Collected"
+
+msgid "Failed to bookmark"
+msgstr "Failed to bookmark"
 
 msgid "<0>You</0> mirrored"
 msgstr "<0>You</0> mirrored"
@@ -399,6 +408,9 @@ msgstr "Your post has published successfully."
 
 msgid "Confirm you want to unmute /{0}?"
 msgstr "Confirm you want to unmute /{0}?"
+
+msgid "Bookmark"
+msgstr "Bookmark"
 
 msgid "Everyone"
 msgstr "Everyone"
@@ -790,6 +802,9 @@ msgstr "Failed to fetch as ArrayBuffer."
 msgid "Your post have published successfully on {0}."
 msgstr "Your post have published successfully on {0}."
 
+msgid "Post added to your Bookmarks"
+msgstr "Post added to your Bookmarks"
+
 msgid "Cancel mirror successfully"
 msgstr "Cancel mirror successfully"
 
@@ -816,6 +831,9 @@ msgstr "Your Lens account is now connected."
 
 msgid "Remove"
 msgstr "Remove"
+
+msgid "Post remove from your Bookmarks"
+msgstr "Post remove from your Bookmarks"
 
 msgid "Cancel Recast"
 msgstr "Cancel Recast"
