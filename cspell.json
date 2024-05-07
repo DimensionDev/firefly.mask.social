@@ -58,7 +58,8 @@
         "wagmi",
         "warpcast",
         "zora",
-        "zustand"
+        "zustand",
+        "keybase"
     ],
     "ignoreWords": [
         "DEVNET",
@@ -114,7 +115,9 @@
         "rarible",
         "rpid",
         "simplehash",
-        "imagedelivery"
+        "imagedelivery",
+        "ethLeaderboard",
+        "Leaderboard"
     ],
     "flagWords": [],
     "ignorePaths": [

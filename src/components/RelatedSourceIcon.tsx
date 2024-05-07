@@ -8,12 +8,12 @@ import XDarkIcon from '@/assets/x-circle-dark.svg';
 import XLightIcon from '@/assets/x-circle-light.svg';
 import { RelatedWalletSource } from '@/providers/types/Firefly.js';
 
-interface RelatdSourceIconProps extends React.SVGProps<SVGSVGElement> {
+interface RelatedSourceIconProps extends React.SVGProps<SVGSVGElement> {
     size?: number;
     source: RelatedWalletSource;
 }
 
-export function RelatedSourceIcon({ source, size = 20, ...props }: RelatdSourceIconProps) {
+export function RelatedSourceIcon({ source, size = 20, ...props }: RelatedSourceIconProps) {
     const isDarkMode = useDarkMode();
     const style = {
         width: size,

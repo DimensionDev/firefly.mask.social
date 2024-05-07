@@ -5,10 +5,12 @@ import { usePathname } from 'next/navigation.js';
 import { startTransition, useMemo } from 'react';
 import urlcat from 'urlcat';
 
+import type { Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { replaceSearchParams } from '@/helpers/replaceSearchParams.js';
 import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
+import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useProfileContext } from '@/hooks/useProfileContext.js';
 import type { FireFlyProfile } from '@/providers/types/Firefly.js';
 
@@ -20,7 +22,7 @@ export function ProfileSourceTabs({ profiles }: ProfileSourceTabs) {
     const { update, source } = useProfileContext();
     const tabs = useMemo(() => {
         const result = groupBy(profiles, (x) => x.source);
-        return keys(result);
+        return keys(result) as Source[];
     }, [profiles]);
     const pathname = usePathname();
     const isOtherProfile = pathname !== '/profile' && isRoutePathname(pathname, '/profile');
@@ -56,7 +58,7 @@ export function ProfileSourceTabs({ profiles }: ProfileSourceTabs) {
                                 })
                             }
                         >
-                            {value}
+                            {resolveSourceName(value)}
                         </a>
                     </li>
                 ))}

@@ -1,8 +1,8 @@
 'use client';
 import { safeUnreachable } from '@masknet/kit';
 
-import FarcasterIcon from '@/assets/farcaster-sqaure.svg';
-import LensIcon from '@/assets/lens-sqaure.svg';
+import FarcasterIcon from '@/assets/farcaster-square.svg';
+import LensIcon from '@/assets/lens-square.svg';
 import WalletSquareDarkIcon from '@/assets/wallet-square-dark.svg';
 import WalletSquareLightIcon from '@/assets/wallet-square-light.svg';
 import XSquareDarkIcon from '@/assets/x-square-dark.svg';
