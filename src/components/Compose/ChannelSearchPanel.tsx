@@ -3,6 +3,7 @@ import { Trans } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
 import { Fragment } from 'react';
 
+import LoadingIcon from '@/assets/loading.svg';
 import RadioDisableNoIcon from '@/assets/radio.disable-no.svg';
 import SearchIcon from '@/assets/search.svg';
 import YesIcon from '@/assets/yes.svg';
@@ -10,8 +11,6 @@ import { Avatar } from '@/components/Avatar.js';
 import { SearchInput } from '@/components/Search/SearchInput.js';
 import { useIsSmall } from '@/hooks/useMediaQuery.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
-import { Loading } from '@/components/Loading.js';
-import LoadingIcon from '@/assets/loading.svg';
 
 
 interface ChannelSearchPanelProps {

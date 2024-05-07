@@ -5,7 +5,12 @@ import { v4 as uuid } from 'uuid';
 import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
 
+<<<<<<< HEAD
 import { RestrictionType, type SocialSource, Source } from '@/constants/enum.js';
+=======
+import { HOME_CHANNEL } from '@/constants/channel.js';
+import { RestrictionType, SocialPlatform } from '@/constants/enum.js';
+>>>>>>> 5e6ef999 (chore: eslint)
 import { EMPTY_LIST, SORTED_SOURCES } from '@/constants/index.js';
 import { type Chars, readChars } from '@/helpers/chars.js';
 import { createSelectors } from '@/helpers/createSelector.js';
@@ -18,7 +23,6 @@ import type { Frame } from '@/types/frame.js';
 import type { MediaObject } from '@/types/index.js';
 import type { OpenGraph } from '@/types/og.js';
 import type { RedPacketPayload } from '@/types/rp.js';
-import { HOME_CHANNEL } from '@/constants/channel.js';
 
 // post id for tracking the current editable post
 type Cursor = string;
