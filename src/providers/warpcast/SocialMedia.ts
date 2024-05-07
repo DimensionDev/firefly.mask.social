@@ -657,11 +657,26 @@ class WarpcastSocialMedia implements Provider {
     async getPostsQuoteOn(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         throw new Error('Method not implemented.');
     }
+    /**
+     * @param {string} postId
+     * @param {'PUT' | 'DELETE'} method - PUT to bookmark, DELETE to unbookmark
+     * @returns {Promise<boolean>}
+     */
+    async baseBookmark(postId: string, method: 'PUT' | 'DELETE'): Promise<boolean> {
+        const url = urlcat(WARPCAST_CLIENT_URL, '/bookmarked-casts');
+        const { result } = await farcasterSessionHolder.fetch<SuccessResponse>(resolveCrossOriginURL(url), {
+            method,
+            body: JSON.stringify({
+                castHash: postId,
+            }),
+        });
+        return result.success;
+    }
     async bookmark(postId: string): Promise<boolean> {
-        throw new Error('Method not implemented.');
+        return this.baseBookmark(postId, 'PUT');
     }
     async unbookmark(postId: string): Promise<boolean> {
-        throw new Error('Method not implemented.');
+        return this.baseBookmark(postId, 'DELETE');
     }
     async getBookmarks(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         const url = urlcat(WARPCAST_CLIENT_URL, '/bookmarked-casts', {

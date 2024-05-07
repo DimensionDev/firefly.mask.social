@@ -300,10 +300,16 @@ class FarcasterSocialMedia implements Provider {
         throw new Error('Method not implemented.');
     }
     async bookmark(postId: string): Promise<boolean> {
-        throw new Error('Method not implemented.');
+        const { isCustodyWallet, isGrantByPermission } = getFarcasterSessionType();
+        if (isCustodyWallet) return WarpcastSocialMediaProvider.bookmark(postId);
+        if (isGrantByPermission) return FireflySocialMediaProvider.bookmark(postId);
+        return false;
     }
     async unbookmark(postId: string): Promise<boolean> {
-        throw new Error('Method not implemented.');
+        const { isCustodyWallet, isGrantByPermission } = getFarcasterSessionType();
+        if (isCustodyWallet) return WarpcastSocialMediaProvider.unbookmark(postId);
+        if (isGrantByPermission) return FireflySocialMediaProvider.unbookmark(postId);
+        return false;
     }
     async getBookmarks(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         const { isCustodyWallet, isGrantByPermission } = getFarcasterSessionType();
