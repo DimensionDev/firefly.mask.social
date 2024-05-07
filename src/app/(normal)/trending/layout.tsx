@@ -6,7 +6,7 @@ import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 
 export async function generateMetadata() {
     return createSiteMetadata({
-        title: createPageTitleSSR(t`Explore`), //TODO: i18n
+        title: createPageTitleSSR(t`Channel`),
     });
 }
 

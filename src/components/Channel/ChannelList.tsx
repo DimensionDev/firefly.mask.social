@@ -21,7 +21,7 @@ export function ChannelList({ source }: ChannelListProps) {
 
         queryFn: async ({ pageParam }) => {
             const provider = resolveSocialMediaProvider(source);
-            return provider.discoverChannels(createIndicator(undefined, pageParam)); //TODO:check createIndicator
+            return provider.discoverChannels(createIndicator(undefined, pageParam));
         },
         initialPageParam: '',
         getNextPageParam: (lastPage) => lastPage.nextIndicator?.id,
@@ -29,7 +29,6 @@ export function ChannelList({ source }: ChannelListProps) {
             return data.pages.flatMap((x) => x.data) || EMPTY_LIST;
         },
     });
-    console.log('==> ChannelList.tsx: queryResult:', queryResult);
 
     return (
         <ListInPage

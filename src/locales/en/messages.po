@@ -151,8 +151,6 @@ msgstr "Type something here..."
 msgid "Missing IPFS hash for image or video."
 msgstr "Missing IPFS hash for image or video."
 
-msgid "Explore"
-msgstr "Explore"
 
 msgid "Only up to 2 images can be chosen."
 msgstr "Only up to 2 images can be chosen."

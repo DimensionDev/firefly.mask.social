@@ -84,10 +84,7 @@ class FireflySocialMedia implements Provider {
         const channels = data.map(formatChannelFromFirefly);
         return createPageable(channels, createIndicator(indicator));
     }
-    /**
-     *  @warn: no cursor in response
-     *  @warn: when type query para (any value) is set, the response is empty, but the docs say it should exist
-     */
+    // no cursor in response
     async discoverChannels(indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {
         const url = urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/trending_channels', {
             size: 20,

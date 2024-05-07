@@ -70,12 +70,6 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                                     selectedIcon: FollowingSelectedIcon,
                                 },
                                 {
-                                    href: PageRoute.Explore,
-                                    name: <Trans>Explore</Trans>,
-                                    icon: NotificationIcon,
-                                    selectedIcon: NotificationSelectedIcon,
-                                },
-                                {
                                     href: PageRoute.Notifications,
                                     name: <Trans>Notifications</Trans>,
                                     icon: NotificationIcon,

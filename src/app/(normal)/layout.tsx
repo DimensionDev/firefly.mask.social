@@ -1,9 +1,11 @@
+import { SuggestedChannels } from '@/components/Channel/SuggestedChannels.js';
 import { ComposeButton } from '@/components/ComposeButton/index.js';
 import { IfPathname } from '@/components/IfPathname.js';
 import { NavigatorBar } from '@/components/NavigatorBar/index.js';
 import { AsideSearchBar, HeaderSearchBar } from '@/components/Search/SearchBar.js';
 import { SearchFilter } from '@/components/Search/SearchFilter.js';
 import { SocialPlatformTabs } from '@/components/SocialPlatformTabs.js';
+import { SocialPlatform } from '@/constants/enum.js';
 
 export default function Layout({ children, modal }: { children: React.ReactNode; modal: React.ReactNode }) {
     return (
@@ -38,6 +40,7 @@ export default function Layout({ children, modal }: { children: React.ReactNode;
                             },
                             '/channel',
                             '/settings',
+                            '/trending',
                         ]}
                     >
                         <SocialPlatformTabs />
@@ -53,6 +56,9 @@ export default function Layout({ children, modal }: { children: React.ReactNode;
                 <IfPathname isOneOf={['/search']}>
                     <SearchFilter />
                 </IfPathname>
+                <div className="mt-6">
+                    <SuggestedChannels source={SocialPlatform.Farcaster} />
+                </div>
 
                 <div className="mt-6">
                     <mask-calendar-widget />

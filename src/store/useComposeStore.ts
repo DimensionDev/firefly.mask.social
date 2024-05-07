@@ -462,5 +462,3 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
 
 export const useComposeStateStore = createSelectors(useComposeStateBase);
 
-//@ts-ignore
-window.__useComposeStateBase = useComposeStateBase;

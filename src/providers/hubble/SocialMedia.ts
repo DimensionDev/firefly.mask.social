@@ -201,7 +201,6 @@ class HubbleSocialMedia implements Provider {
     }
 
     async publishPost(post: Post): Promise<string> {
-        console.log('-->post', post);
         const result = await getAllMentionsForFarcaster(post.metadata.content?.content ?? '');
 
         const { messageBytes } = await encodeMessageData(
