@@ -29,6 +29,7 @@
     --color-warn: 255 177 0;
     --color-lens-primary: 154 227 42;
     --color-farcaster-primary: 146 80 255;
+    --color-twitter-primary: 29 161 243;
     --color-secondary: rgba(118, 127, 141, 1);
     --color-collected: 255 150 142;
     --color-second: rgba(118, 127, 141, 1);
@@ -83,6 +84,7 @@
     --color-danger: 255 53 69;
     --color-warn: 255 177 0;
     --color-lens-primary: 154 227 42;
+    --color-twitter-primary: 29 161 243;
     --color-farcaster-primary: 146 80 255;
     --color-collected: 255 150 142;
     --color-bottom80: rgba(0, 0, 0, 0.8);
@@ -325,4 +327,16 @@ body {
 
 .channel-card {
     background: none !important;
+}
+
+.ens-card {
+    background: none !important;
+}
+
+[data-hide-scrollbar] {
+    scrollbar-width: none;
+}
+
+[data-hide-scrollbar]::-webkit-scrollbar {
+    display: none;
 }

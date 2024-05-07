@@ -2,7 +2,7 @@ import { memo } from 'react';
 
 import { MoreAction } from '@/components/Actions/More.js';
 import { Avatar } from '@/components/Avatar.js';
-import { SourceIcon } from '@/components/SourceIcon.js';
+import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
 import { Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
@@ -61,7 +61,7 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({ post, isQu
                 </Link>
             </div>
             <div className="ml-auto flex items-center space-x-2 self-baseline">
-                <SourceIcon
+                <SocialSourceIcon
                     source={post.source}
                     className={post.source === Source.Lens ? 'dark:opacity-70' : undefined}
                 />

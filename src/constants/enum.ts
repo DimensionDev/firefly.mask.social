@@ -30,6 +30,7 @@ export enum Source {
     Lens = 'Lens',
     Twitter = 'Twitter',
     Article = 'Article',
+    Wallet = 'Wallet',
 }
 
 export enum SourceInURL {
@@ -37,6 +38,7 @@ export enum SourceInURL {
     Lens = 'lens',
     Twitter = 'twitter',
     Article = 'article',
+    Wallet = 'wallet',
 }
 
 export type SocialSource = Source.Farcaster | Source.Lens | Source.Twitter;

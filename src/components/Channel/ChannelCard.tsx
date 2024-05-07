@@ -4,7 +4,7 @@ import React, { memo, useCallback } from 'react';
 
 import { Avatar } from '@/components/Avatar.js';
 import { BioMarkup } from '@/components/Markup/BioMarkup.js';
-import { SourceIcon } from '@/components/SourceIcon.js';
+import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { getChannelUrl } from '@/helpers/getChannelUrl.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
@@ -63,7 +63,7 @@ export const ChannelCard = memo<ChannelCardProps>(function ChannelCard({ channel
                         className="h-20 w-20 cursor-pointer rounded-full"
                     />
                 ) : (
-                    <SourceIcon className="rounded-full" source={channel.source} size={80} />
+                    <SocialSourceIcon className="rounded-full" source={channel.source} size={80} />
                 )}
 
                 <div className="flex flex-1 flex-col justify-between">
@@ -71,7 +71,7 @@ export const ChannelCard = memo<ChannelCardProps>(function ChannelCard({ channel
                         <span onClick={handleNavigateToDetail} className="cursor-pointer text-xl text-lightMain">
                             {channel?.name}
                         </span>
-                        <SourceIcon source={channel.source} size={20} />
+                        <SocialSourceIcon source={channel.source} size={20} />
                     </div>
                     <div onClick={handleNavigateToDetail} className="cursor-pointer text-[15px] text-secondary">
                         /{channel?.id}

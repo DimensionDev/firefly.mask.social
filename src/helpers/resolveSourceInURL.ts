@@ -8,6 +8,7 @@ export const resolveSourceInURL = createLookupTableResolver<Source, SourceInURL>
         [Source.Lens]: SourceInURL.Lens,
         [Source.Twitter]: SourceInURL.Twitter,
         [Source.Article]: SourceInURL.Article,
+        [Source.Wallet]: SourceInURL.Wallet,
     },
     (keyword) => {
         throw new Error(`Unknown keyword: ${keyword}`);

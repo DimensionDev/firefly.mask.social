@@ -1,37 +1,57 @@
 'use client';
+
 import { useQuery } from '@tanstack/react-query';
 import { notFound } from 'next/navigation.js';
+import { useMemo, useState } from 'react';
 
 import { ProfilePage } from '@/app/(normal)/pages/Profile.js';
 import { Loading } from '@/components/Loading.js';
-import type { SocialSourceInURL } from '@/constants/enum.js';
-import { resolveSocialSource } from '@/helpers/resolveSource.js';
-import { getProfileById } from '@/services/getProfileById.js';
+import { SourceInURL } from '@/constants/enum.js';
+import { resolveSource } from '@/helpers/resolveSource.js';
+import { ProfileContext } from '@/hooks/useProfileContext.js';
+import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 
 interface PageProps {
     params: {
         id: string;
     };
     searchParams: {
-        source: SocialSourceInURL;
+        source: SourceInURL;
     };
 }
 
-export function ProfileDetailPage({ params: { id: handleOrProfileId }, searchParams: { source } }: PageProps) {
-    const currentSource = resolveSocialSource(source);
-
-    const { data: profile = null, isLoading } = useQuery({
-        queryKey: ['profile', currentSource, handleOrProfileId],
-        queryFn: () => getProfileById(currentSource, handleOrProfileId),
+export function ProfileDetailPage({ params: { id: identity }, searchParams: { source } }: PageProps) {
+    const currentSource = resolveSource(source);
+    const [value, setValue] = useState({
+        source: currentSource,
+        identity,
     });
 
-    if (isLoading) {
+    const context = useMemo(() => {
+        return {
+            ...value,
+            update: setValue,
+        };
+    }, [value]);
+
+    const { data: profiles, isLoading } = useQuery({
+        queryKey: ['all-profiles', currentSource, identity],
+        queryFn: async () => {
+            return FireflySocialMediaProvider.getAllPlatformProfileByIdentity(identity, currentSource);
+        },
+    });
+
+    if (isLoading && !profiles) {
         return <Loading />;
     }
 
-    if (!profile) {
+    if (!profiles?.length) {
         notFound();
     }
 
-    return <ProfilePage profile={profile} />;
+    return (
+        <ProfileContext.Provider value={context}>
+            <ProfilePage profiles={profiles} />
+        </ProfileContext.Provider>
+    );
 }

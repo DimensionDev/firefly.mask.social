@@ -31,7 +31,7 @@ export const DiscoverPostList = memo(function DiscoverPostList() {
 
         queryFn: async ({ pageParam }) => {
             if (currentSource === Source.Article) return createPageable(EMPTY_LIST, undefined);
-            const posts = await discoverPosts(currentSource, createIndicator(undefined, pageParam));
+            const posts = await discoverPosts(currentSocialSource, createIndicator(undefined, pageParam));
             if (currentSource === Source.Lens) fetchAndStoreViews(posts.data.flatMap((x) => [x.postId]));
             return posts;
         },

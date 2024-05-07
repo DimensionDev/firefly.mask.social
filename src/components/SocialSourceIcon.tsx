@@ -1,3 +1,4 @@
+'use client';
 import { safeUnreachable } from '@masknet/kit';
 
 import FarcasterIcon from '@/assets/farcaster.svg';
@@ -5,12 +6,12 @@ import LensIcon from '@/assets/lens.svg';
 import XIcon from '@/assets/x.svg';
 import { type SocialSource, Source } from '@/constants/enum.js';
 
-interface SourceIconProps extends React.SVGProps<SVGSVGElement> {
+interface SocialSourceIconProps extends React.SVGProps<SVGSVGElement> {
     size?: number;
     source: SocialSource;
 }
 
-export function SourceIcon({ source, size = 20, ...props }: SourceIconProps) {
+export function SocialSourceIcon({ source, size = 20, ...props }: SocialSourceIconProps) {
     const style = {
         width: size,
         height: size,

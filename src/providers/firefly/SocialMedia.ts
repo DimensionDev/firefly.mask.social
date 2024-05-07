@@ -19,8 +19,10 @@ import {
 } from '@/helpers/formatFarcasterChannelFromFirefly.js';
 import { formatFarcasterPostFromFirefly } from '@/helpers/formatFarcasterPostFromFirefly.js';
 import { formatFarcasterProfileFromFirefly } from '@/helpers/formatFarcasterProfileFromFirefly.js';
+import { formatFireflyProfilesFromWalletProfiles } from '@/helpers/formatFireflyProfilesFromWalletProfiles.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
+import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { NeynarSocialMediaProvider } from '@/providers/neynar/SocialMedia.js';
 import {
     type BookmarkResponse,
@@ -31,10 +33,12 @@ import {
     type ChannelsResponse,
     type CommentsResponse,
     type DiscoverChannelsResponse,
+    type FireFlyProfile,
     type FriendshipResponse,
     type NotificationResponse,
     NotificationType as FireflyNotificationType,
     type ReactorsResponse,
+    type RelationResponse,
     type SearchCastsResponse,
     type SearchChannelsResponse,
     type SearchProfileResponse,
@@ -42,6 +46,7 @@ import {
     type UploadMediaTokenResponse,
     type UserResponse,
     type UsersResponse,
+    type WalletProfileResponse,
 } from '@/providers/types/Firefly.js';
 import {
     type Channel,
@@ -293,6 +298,69 @@ class FireflySocialMedia implements Provider {
                 ...friendship,
             });
         });
+    }
+
+    async getAllPlatformProfileByIdentity(identity: string, source: Source): Promise<FireFlyProfile[]> {
+        let queryKey = '';
+        switch (source) {
+            case Source.Lens:
+                queryKey = 'lensHandle';
+                break;
+            case Source.Farcaster:
+                queryKey = 'fid';
+                break;
+            case Source.Wallet:
+                queryKey = 'walletAddress';
+                break;
+            case Source.Twitter:
+                queryKey = 'twitterId';
+                break;
+            case Source.Article:
+            default:
+                break;
+        }
+
+        const url = urlcat(FIREFLY_ROOT_URL, '/v2/wallet/profile', queryKey ? { [`${queryKey}`]: identity } : {});
+
+        const response = await fireflySessionHolder.fetch<WalletProfileResponse>(url, {
+            method: 'GET',
+        });
+
+        const profiles = resolveFireflyResponseData(response);
+
+        return formatFireflyProfilesFromWalletProfiles(profiles);
+    }
+
+    async getAllPlatformProfiles(lensHandle?: string, fid?: string, twitterId?: string): Promise<FireFlyProfile[]> {
+        if (!lensHandle && !fid && !twitterId) return EMPTY_LIST;
+
+        const url = urlcat(FIREFLY_ROOT_URL, '/v2/wallet/profile', {
+            twitterId,
+            lensHandle,
+            fid,
+        });
+
+        const response = await fireflySessionHolder.fetch<WalletProfileResponse>(url, {
+            method: 'GET',
+        });
+
+        const profiles = resolveFireflyResponseData(response);
+        return formatFireflyProfilesFromWalletProfiles(profiles);
+    }
+
+    async getNextIDRelations(platform: string, identity: string) {
+        const url = urlcat(FIREFLY_ROOT_URL, '/v1/wallet/relations', {
+            platform,
+            identity,
+        });
+
+        const response = await fireflySessionHolder.fetch<RelationResponse>(url, {
+            method: 'GET',
+        });
+
+        const relations = resolveFireflyResponseData(response);
+
+        return relations;
     }
 
     async getFollowers(profileId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
