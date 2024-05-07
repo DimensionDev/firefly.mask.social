@@ -346,19 +346,12 @@ msgstr "Cancel retweet successfully"
 msgid "Allow replies from"
 msgstr "Allow replies from"
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 msgid "No one likes this post yet."
 msgstr "No one likes this post yet."
-=======
+
 msgid "Farcaster channel"
 msgstr "Farcaster channel"
 
-
->>>>>>> 00139c79 (feat: channel compose)
-
-=======
->>>>>>> e373656e (chore: lingui extract)
 msgid "Your posts have published successfully on {0}."
 msgstr "Your posts have published successfully on {0}."
 

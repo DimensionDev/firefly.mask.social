@@ -3,7 +3,7 @@ import { compact, uniq } from 'lodash-es';
 import { useDebounce } from 'usehooks-ts';
 
 import { CHANNEL_SEARCH_LIST_SIZE, FF_GARDEN_CHANNEL, HOME_CHANNEL } from '@/constants/channel.js';
-import { SocialPlatform } from '@/constants/enum.js';
+import  { type SocialSource, Source } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
@@ -11,7 +11,7 @@ import type { Channel } from '@/providers/types/SocialMedia.js';
 
 export function useSearchChannels(
     kw: string,
-    source: SocialPlatform,
+    source: SocialSource,
 ): { channelList: Channel[]; queryResult: ReturnType<typeof useQuery> } {
     const defaultChannels = useDefaultChannelList(source);
     const debouncedKw = useDebounce(kw, 300);
@@ -31,12 +31,12 @@ export function useSearchChannels(
     };
 }
 
-export function useDefaultChannelList(source: SocialPlatform) {
+export function useDefaultChannelList(source: SocialSource) {
     const followedChannels = useFollowedChannels(source, CHANNEL_SEARCH_LIST_SIZE);
     const { rpPayload } = useCompositePost();
 
     switch (source) {
-        case SocialPlatform.Farcaster:
+        case Source.Farcaster:
             return uniq(
                 compact([HOME_CHANNEL[source], rpPayload ? FF_GARDEN_CHANNEL[source] : null, ...followedChannels]),
             ).slice(0, CHANNEL_SEARCH_LIST_SIZE) as Channel[];
@@ -48,7 +48,7 @@ export function useDefaultChannelList(source: SocialPlatform) {
 /**
  *  @note: this is temporary solution, using searchChannels('') to get followed channels
  */
-export function useFollowedChannels(source: SocialPlatform, count: number) {
+export function useFollowedChannels(source: SocialSource, count: number) {
     const { data } = useQuery({
         queryKey: ['searchFollowChannel', source],
         queryFn: () => {

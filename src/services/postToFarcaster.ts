@@ -1,12 +1,7 @@
 import { t } from '@lingui/macro';
 import { uniqBy } from 'lodash-es';
 
-<<<<<<< HEAD
 import { Source, SourceInURL } from '@/constants/enum.js';
-import { env } from '@/constants/env.js';
-=======
-import { SocialPlatform, SourceInURL } from '@/constants/enum.js';
->>>>>>> d5e722b3 (chore: lingui extract)
 import { isHomeChannel } from '@/helpers/channel.js';
 import { readChars } from '@/helpers/chars.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
@@ -34,8 +29,8 @@ export async function postToFarcaster(type: ComposeType, compositePost: Composit
     if (!currentProfile?.profileId) throw new Error(t`Login required to post on ${sourceName}.`);
 
     const composeDraft = (postType: PostType, images: MediaObject[]) => {
-        const curChannel = channel[SocialPlatform.Farcaster];
-        const isCurChanelHomeChannel = curChannel ? isHomeChannel(curChannel, SocialPlatform.Farcaster) : false;
+        const curChannel = channel[Source.Farcaster];
+        const isCurChanelHomeChannel = curChannel ? isHomeChannel(curChannel, Source.Farcaster) : false;
         return {
             publicationId: '',
             type: postType,

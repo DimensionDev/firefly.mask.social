@@ -1,7 +1,6 @@
 import { Popover, Transition } from '@headlessui/react';
 import { Trans } from '@lingui/macro';
-import { useQuery } from '@tanstack/react-query';
-import { Fragment } from 'react';
+import { Fragment, useState } from 'react';
 
 import LoadingIcon from '@/assets/loading.svg';
 import RadioDisableNoIcon from '@/assets/radio.disable-no.svg';
@@ -9,27 +8,26 @@ import SearchIcon from '@/assets/search.svg';
 import YesIcon from '@/assets/yes.svg';
 import { Avatar } from '@/components/Avatar.js';
 import { SearchInput } from '@/components/Search/SearchInput.js';
+import type { SocialSource } from '@/constants/enum.js';
+import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useIsSmall } from '@/hooks/useMediaQuery.js';
-import type { Channel } from '@/providers/types/SocialMedia.js';
+import { useSearchChannels } from '@/hooks/useSearchChannel.js';
+import { useComposeStateStore } from '@/store/useComposeStore.js';
 
 interface ChannelSearchPanelProps {
-    channelList: Channel[];
-    selectChannel: (channel: Channel) => void;
-    selectedChannel: Channel | null;
-    inputText: string;
-    setInputText: (input: string) => void;
-    queryResult: ReturnType<typeof useQuery>;
+    source: SocialSource;
 }
 
-export function ChannelSearchPanel({
-    channelList,
-    selectChannel,
-    selectedChannel,
-    inputText,
-    setInputText,
-    queryResult: { isLoading, isError },
-}: ChannelSearchPanelProps) {
+export function ChannelSearchPanel({ source }: ChannelSearchPanelProps) {
     const isSmall = useIsSmall('max');
+    const [inputText, setInputText] = useState('');
+    const { updateChannel } = useComposeStateStore();
+    const { channel: channelMap } = useCompositePost();
+    const {
+        channelList,
+        queryResult: { isLoading, isError },
+    } = useSearchChannels(inputText, source);
+    const channel = channelMap[source];
     const listBox = isLoading ? (
         <div className="m-auto">
             <LoadingIcon className="animate-spin" width={24} height={24} />
@@ -39,26 +37,26 @@ export function ChannelSearchPanel({
             <Trans>Something went wrong. Please try again.</Trans>
         </div>
     ) : (
-        channelList.map((channel) => (
-            <Fragment key={channel.id}>
+        channelList.map((ch) => (
+            <Fragment key={ch.id}>
                 <div
                     className="flex h-[32px] cursor-pointer items-center justify-between"
                     onClick={() => {
-                        if (channel.id !== selectedChannel?.id) {
-                            selectChannel(channel);
+                        if (ch.id !== channel?.id) {
+                            updateChannel(source, ch);
                         }
                     }}
                 >
                     <div className="flex h-[24px] items-center gap-2">
                         <Avatar
                             className="mr-3 shrink-0 rounded-full border"
-                            src={channel.imageUrl}
+                            src={ch.imageUrl}
                             size={isSmall ? 24 : 24}
-                            alt={channel.name}
+                            alt={ch.name}
                         />
-                        <span className="font-bold text-main">{channel.name}</span>
+                        <span className="font-bold text-main">{ch.name}</span>
                     </div>
-                    {channel.id === selectedChannel?.id ? (
+                    {ch.id === channel?.id ? (
                         <YesIcon width={40} height={40} className=" relative -right-[10px]" />
                     ) : (
                         <RadioDisableNoIcon width={20} height={20} className=" text-secondaryLine" />

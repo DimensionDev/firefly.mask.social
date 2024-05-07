@@ -5,12 +5,8 @@ import { v4 as uuid } from 'uuid';
 import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
 
-<<<<<<< HEAD
-import { RestrictionType, type SocialSource, Source } from '@/constants/enum.js';
-=======
 import { HOME_CHANNEL } from '@/constants/channel.js';
-import { RestrictionType, SocialPlatform } from '@/constants/enum.js';
->>>>>>> 5e6ef999 (chore: eslint)
+import { RestrictionType, type SocialSource,Source } from '@/constants/enum.js';
 import { EMPTY_LIST, SORTED_SOURCES } from '@/constants/index.js';
 import { type Chars, readChars } from '@/helpers/chars.js';
 import { createSelectors } from '@/helpers/createSelector.js';
@@ -58,7 +54,7 @@ export interface CompositePost {
     rpPayload: RedPacketPayload | null;
 
     // only available in farcaster now
-    channel: Record<SocialPlatform, Channel | null>;
+    channel: Record<SocialSource, Channel | null>;
 }
 
 interface ComposeState {
@@ -108,7 +104,7 @@ interface ComposeState {
     updateRpPayload: (value: RedPacketPayload, cursor?: Cursor) => void;
     loadFramesFromChars: (cursor?: Cursor) => Promise<void>;
     loadOpenGraphsFromChars: (cursor?: Cursor) => Promise<void>;
-    updateChannel: (source: SocialPlatform, channel: Channel | null, cursor?: Cursor) => void;
+    updateChannel: (source: SocialSource, channel: Channel | null, cursor?: Cursor) => void;
 
     // reset the editor
     clear: () => void;
@@ -142,9 +138,9 @@ function createInitSinglePostState(cursor: Cursor): CompositePost {
         video: null,
         rpPayload: null,
         channel: {
-            [SocialPlatform.Farcaster]: HOME_CHANNEL[SocialPlatform.Farcaster],
-            [SocialPlatform.Lens]: null,
-            [SocialPlatform.Twitter]: null,
+            [Source.Farcaster]: HOME_CHANNEL[Source.Farcaster],
+            [Source.Lens]: null,
+            [Source.Twitter]: null,
         },
     };
 }
@@ -489,6 +485,3 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
 );
 
 export const useComposeStateStore = createSelectors(useComposeStateBase);
-
-// @ts-ignore
-global.__useComposeStateStore = useComposeStateBase;
