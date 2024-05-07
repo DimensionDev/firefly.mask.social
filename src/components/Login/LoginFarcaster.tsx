@@ -29,7 +29,7 @@ import { createSessionByGrantPermissionFirefly } from '@/providers/warpcast/crea
 import { createSessionByRelayService } from '@/providers/warpcast/createSessionByRelayService.js';
 import { syncSessionFromFirefly } from '@/services/syncSessionFromFirefly.js';
 
-async function login(createSession: () => Promise<FarcasterSession>) {
+async function login(createSession: () => Promise<FarcasterSession>, signal?: AbortSignal) {
     try {
         const session = await createSession();
         const profile = await FarcasterSocialMediaProvider.getProfileById(session.profileId);
@@ -41,7 +41,7 @@ async function login(createSession: () => Promise<FarcasterSession>) {
 
         // restore profile exclude farcaster
         await FireflySessionConfirmModalRef.openAndWaitForClose({
-            sessions: await syncSessionFromFirefly(),
+            sessions: await syncSessionFromFirefly(signal),
         });
     } catch (error) {
         // skip if the error is abort error
@@ -91,6 +91,7 @@ export function LoginFarcaster() {
     }, []);
 
     const controllerRef = useRef<AbortController>();
+
     const [url, setUrl] = useState('');
     const [signType, setSignType] = useState<FarcasterSignType | null>(options.length === 1 ? options[0].type : null);
     const [count, { startCountdown, resetCountdown }] = useCountdown({
@@ -105,15 +106,17 @@ export function LoginFarcaster() {
         controllerRef.current = new AbortController();
 
         try {
-            await login(() =>
-                createSessionByGrantPermissionFirefly(
-                    (url) => {
-                        const device = getMobileDevice();
-                        if (device === 'unknown') setUrl(url);
-                        else location.href = url;
-                    },
-                    controllerRef.current?.signal,
-                ),
+            await login(
+                () =>
+                    createSessionByGrantPermissionFirefly(
+                        (url) => {
+                            const device = getMobileDevice();
+                            if (device === 'unknown') setUrl(url);
+                            else location.href = url;
+                        },
+                        controllerRef.current?.signal,
+                    ),
+                controllerRef.current?.signal,
             );
         } catch (error) {
             enqueueErrorMessage(t`Failed to login.`, {
@@ -128,18 +131,20 @@ export function LoginFarcaster() {
         controllerRef.current = new AbortController();
 
         try {
-            await login(() =>
-                createSessionByRelayService(
-                    (url) => {
-                        resetCountdown();
-                        startCountdown();
+            await login(
+                () =>
+                    createSessionByRelayService(
+                        (url) => {
+                            resetCountdown();
+                            startCountdown();
 
-                        const device = getMobileDevice();
-                        if (device === 'unknown') setUrl(url);
-                        else location.href = url;
-                    },
-                    controllerRef.current?.signal,
-                ),
+                            const device = getMobileDevice();
+                            if (device === 'unknown') setUrl(url);
+                            else location.href = url;
+                        },
+                        controllerRef.current?.signal,
+                    ),
+                controllerRef.current?.signal,
             );
         } catch (error) {
             enqueueErrorMessage(t`Failed to login.`, {
@@ -152,10 +157,13 @@ export function LoginFarcaster() {
     const [{ loading: loadingCustodyWallet }, onLoginWithCustodyWallet] = useAsyncFn(async () => {
         controllerRef.current?.abort(new AbortError());
         try {
-            await login(async () => {
-                const client = await getWalletClientRequired(config);
-                return createSessionByCustodyWallet(client);
-            });
+            await login(
+                async () => {
+                    const client = await getWalletClientRequired(config);
+                    return createSessionByCustodyWallet(client);
+                },
+                controllerRef.current?.signal,
+            );
         } catch (error) {
             enqueueErrorMessage(t`Failed to login.`, {
                 error,

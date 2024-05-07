@@ -4,8 +4,8 @@ import { CloudIcon } from '@heroicons/react/24/outline';
 import { t, Trans } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
 import { signOut } from 'next-auth/react';
-import { useEffect } from 'react';
-import { useAsyncFn } from 'react-use';
+import { useEffect, useRef } from 'react';
+import { useAsyncFn, useUnmount } from 'react-use';
 
 import LoadingIcon from '@/assets/loading.svg';
 import LogOutIcon from '@/assets/logout.svg';
@@ -15,6 +15,7 @@ import { OnlineStatusIndicator } from '@/components/OnlineStatusIndicator.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { ProfileName } from '@/components/ProfileName.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
+import { AbortError } from '@/constants/error.js';
 import { enqueueErrorMessage, enqueueInfoMessage } from '@/helpers/enqueueMessage.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { useProfileStore } from '@/hooks/useProfileStore.js';
@@ -33,6 +34,8 @@ interface ProfileSettingsProps {
 }
 
 export function ProfileSettings({ source, onClose }: ProfileSettingsProps) {
+    const controllerRef = useRef<AbortController>();
+
     const { currentProfile, profiles, refreshProfiles } = useProfileStore(source);
     const { login } = useSwitchLensAccount();
 
@@ -42,15 +45,21 @@ export function ProfileSettings({ source, onClose }: ProfileSettingsProps) {
 
     const [{ loading }, onDetect] = useAsyncFn(
         async (source: SocialSource) => {
+            controllerRef.current?.abort(new AbortError());
+            controllerRef.current = new AbortController();
+
             try {
                 switch (source) {
                     case Source.Lens:
                         if (!currentProfile) break;
-                        await createSessionForProfileIdFirefly(currentProfile.profileId);
+                        await createSessionForProfileIdFirefly(currentProfile.profileId, controllerRef.current?.signal);
                         break;
                     case Source.Farcaster:
                         if (!FarcasterSession.isGrantByPermission(farcasterSessionHolder.session, true)) break;
-                        const fireflySession = await FireflySession.from(farcasterSessionHolder.session);
+                        const fireflySession = await FireflySession.from(
+                            farcasterSessionHolder.session,
+                            controllerRef.current?.signal,
+                        );
                         if (!fireflySession) break;
                         fireflySessionHolder.resumeSession(fireflySession);
                         break;
@@ -65,7 +74,7 @@ export function ProfileSettings({ source, onClose }: ProfileSettingsProps) {
                 if (!fireflySessionHolder.session) throw new Error(t`Failed to create firefly session.`);
 
                 await FireflySessionConfirmModalRef.openAndWaitForClose({
-                    sessions: await syncSessionFromFirefly(),
+                    sessions: await syncSessionFromFirefly(controllerRef.current?.signal),
                     onDetected(profiles) {
                         if (profiles.length) onClose?.();
                         else enqueueInfoMessage(t`No device accounts detected.`);
@@ -78,6 +87,10 @@ export function ProfileSettings({ source, onClose }: ProfileSettingsProps) {
         },
         [currentProfile],
     );
+
+    useUnmount(() => {
+        controllerRef.current?.abort(new AbortError());
+    });
 
     return (
         <div className=" flex flex-col overflow-x-hidden rounded-2xl bg-primaryBottom md:w-[290px] md:border md:border-line md:px-5">

@@ -2,21 +2,82 @@ import { t, Trans } from '@lingui/macro';
 import type { SingletonModalRefCreator } from '@masknet/shared-base';
 import { useSingletonModal } from '@masknet/shared-base-ui';
 import { compact } from 'lodash-es';
-import { forwardRef } from 'react';
+import { forwardRef, useState } from 'react';
 
+import { ClickableButton } from '@/components/ClickableButton.js';
 import { ProfileInList } from '@/components/Login/ProfileInList.js';
+import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSocialSourceFromSessionType } from '@/helpers/resolveSource.js';
-import { restoreProfile } from '@/helpers/restoreProfile.js';
 import { ConfirmModalRef } from '@/modals/controls.js';
 import type { FarcasterSession } from '@/providers/farcaster/Session.js';
 import type { LensSession } from '@/providers/lens/Session.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
+interface ProfileModalProps {
+    pairs: Array<{
+        profile: Profile;
+        session: FarcasterSession | LensSession;
+    }>;
+    onConfirm?: () => void;
+    onClose?: () => void;
+}
+
+function ProfileModal({ pairs, onConfirm, onClose }: ProfileModalProps) {
+    const [selectedPairs, setSelectedPairs] = useState<Profile[]>([]);
+
+    return (
+        <div>
+            <p className="mb-2 mt-[-8px] text-[15px] font-medium leading-normal text-lightMain">
+                <Trans>One click to connect your account status.</Trans>
+            </p>
+            <ul className=" flex max-h-[288px] flex-col gap-2 overflow-auto py-2">
+                {pairs.map(({ profile }) => (
+                    <ProfileInList
+                        key={profile.profileId}
+                        profile={profile}
+                        isSelected={selectedPairs.some((x) => isSameProfile(x, profile))}
+                        onSelect={() => {
+                            setSelectedPairs((prev) => {
+                                const index = prev.findIndex((x) => isSameProfile(x, profile));
+                                if (index !== -1) return prev.filter((_, i) => i !== index);
+                                return [...prev, profile];
+                            });
+                        }}
+                        ProfileAvatarProps={{
+                            enableSourceIcon: true,
+                        }}
+                    />
+                ))}
+            </ul>
+            <div className=" flex gap-2">
+                <ClickableButton
+                    className=" flex flex-1 items-center justify-center rounded-full border border-lightBottom py-[11px] font-bold text-lightBottom"
+                    onClick={() => {
+                        onConfirm?.();
+                        ConfirmModalRef.close(false);
+                    }}
+                >
+                    <Trans>Skip for now</Trans>
+                </ClickableButton>
+                <ClickableButton
+                    className=" flex flex-1 items-center justify-center rounded-full bg-main py-[11px] font-bold text-primaryBottom disabled:cursor-not-allowed disabled:opacity-50"
+                    disabled={selectedPairs.length === 0}
+                    onClick={() => {
+                        onClose?.();
+                        ConfirmModalRef.close(true);
+                    }}
+                >
+                    <Trans>Confirm</Trans>
+                </ClickableButton>
+            </div>
+        </div>
+    );
+}
+
 export type FireflySessionOpenConfirmModalProps = {
     sessions?: Array<LensSession | FarcasterSession>;
     onDetected?: (profiles: Profile[]) => void;
-    signal?: AbortSignal;
 } | void;
 
 // true - indicates the user restored sessions
@@ -61,32 +122,15 @@ export const FireflySessionConfirmModal = forwardRef<
                 const confirmed = await ConfirmModalRef.openAndWaitForClose({
                     title: t`Device Logged In`,
                     content: (
-                        <div>
-                            <p className="text-[15px] font-medium leading-normal text-lightMain">
-                                <Trans>One click to connect your account status.</Trans>
-                            </p>
-                            <ul className=" py-2">
-                                {pairs.map(({ profile }) => (
-                                    <ProfileInList
-                                        key={profile.profileId}
-                                        profile={profile}
-                                        isSelected={false}
-                                        onSelect={() => {}}
-                                        ProfileAvatarProps={{
-                                            enableSourceIcon: true,
-                                        }}
-                                    />
-                                ))}
-                            </ul>
-                        </div>
+                        <ProfileModal
+                            pairs={pairs}
+                            onConfirm={() => dispatch?.close(true)}
+                            onClose={() => dispatch?.close(false)}
+                        />
                     ),
-                    enableCancelButton: true,
-                    cancelButtonText: t`Skip for now`,
+                    enableCancelButton: false,
+                    enableConfirmButton: false,
                 });
-
-                if (confirmed) {
-                    pairs.forEach(({ profile, session }) => restoreProfile(profile, [profile], session));
-                }
 
                 dispatch?.close(confirmed);
             } catch (error) {

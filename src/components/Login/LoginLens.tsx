@@ -35,9 +35,10 @@ interface LoginLensProps {
 }
 
 export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
+    const controllerRef = useRef<AbortController>();
+
     const [selectedProfile, setSelectedProfile] = useState<Profile>();
     const [signless, setSignless] = useState(false);
-    const controllerRef = useRef<AbortController>();
 
     const account = useAccount();
     const currentProfile = selectedProfile || first(profiles);

@@ -7,7 +7,7 @@ import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { LensSession } from '@/providers/lens/Session.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 
-export async function createSessionForProfileId(profileId: string): Promise<LensSession> {
+export async function createSessionForProfileId(profileId: string, signal?: AbortSignal): Promise<LensSession> {
     const walletClient = await getWalletClientRequired(config, {
         chainId: polygon.id,
     });
