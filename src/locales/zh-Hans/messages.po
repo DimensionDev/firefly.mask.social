@@ -36,6 +36,9 @@ msgstr ""
 msgid "Failed to fetch as Blob."
 msgstr "获取 Blob 失败。"
 
+msgid "Unmute successfully."
+msgstr ""
+
 msgid "Mute /{0}"
 msgstr ""
 
@@ -503,9 +506,6 @@ msgstr "通用"
 
 msgid "This can’t be undone and you’ll lose your draft."
 msgstr "此操作无法撤销，您将丢失您的草稿。"
-
-msgid "Unmute succcessfully."
-msgstr ""
 
 msgid "Publications"
 msgstr "帖子"

@@ -31,6 +31,9 @@ msgstr ""
 msgid "Failed to fetch as Blob."
 msgstr ""
 
+msgid "Unmute successfully."
+msgstr ""
+
 msgid "Mute /{0}"
 msgstr ""
 
@@ -497,9 +500,6 @@ msgid "General"
 msgstr ""
 
 msgid "This can’t be undone and you’ll lose your draft."
-msgstr ""
-
-msgid "Unmute succcessfully."
 msgstr ""
 
 msgid "Publications"
