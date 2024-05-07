@@ -493,6 +493,9 @@ msgstr ""
 msgid "Post has been encrypted"
 msgstr ""
 
+msgid "Articles"
+msgstr ""
+
 msgid "Settings"
 msgstr ""
 

@@ -493,6 +493,9 @@ msgstr "Invalid URL."
 msgid "Post has been encrypted"
 msgstr "Post has been encrypted"
 
+msgid "Articles"
+msgstr "Articles"
+
 msgid "Settings"
 msgstr "Settings"
 
