@@ -2,6 +2,7 @@
 
 import { ArrowRightIcon } from '@heroicons/react/24/outline';
 import { plural, t, Trans } from '@lingui/macro';
+import { safeUnreachable } from '@masknet/kit';
 import { useMemo, useRef, useState } from 'react';
 import QRCode from 'react-qr-code';
 import { useAsyncFn, useUnmount } from 'react-use';
@@ -12,6 +13,7 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { config } from '@/configs/wagmiClient.js';
 import { IS_MOBILE_DEVICE } from '@/constants/bowser.js';
 import { FarcasterSignType } from '@/constants/enum.js';
+import { AbortError } from '@/constants/error.js';
 import { FARCASTER_REPLY_COUNTDOWN, IS_PRODUCTION } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
@@ -39,13 +41,14 @@ async function login(createSession: () => Promise<FarcasterSession>) {
         // restore profile exclude farcaster
         await FireflySessionConfirmModalRef.openAndWaitForClose();
     } catch (error) {
-        // abort error should not be shown to user
-        const message = error instanceof Error ? error.message : typeof error === 'string' ? error : `${error}`;
-        if (message.toLowerCase().includes('aborted')) return;
+        // skip if the error is abort error
+        if (error instanceof AbortError || (error instanceof DOMException && error.name === 'AbortError')) return;
 
         enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to login`), {
             error,
         });
+
+        const message = error instanceof Error ? error.message : typeof error === 'string' ? error : `${error}`;
 
         // if login timed out, we will let the user refresh the QR code
         if (message.toLowerCase().includes('farcaster login timed out')) return;
@@ -95,60 +98,56 @@ export function LoginFarcaster() {
     });
 
     const [, onLoginByGrantPermission] = useAsyncFn(async () => {
-        // reset the process if abort controller is aborted or not initialized
-        if (!controllerRef.current || controllerRef.current?.signal.aborted) {
-            controllerRef.current = new AbortController();
+        controllerRef.current?.abort(new AbortError());
+        controllerRef.current = new AbortController();
 
-            try {
-                await login(() =>
-                    createSessionByGrantPermissionFirefly(
-                        (url) => {
-                            const device = getMobileDevice();
-                            if (device === 'unknown') setUrl(url);
-                            else location.href = url;
-                        },
-                        controllerRef.current?.signal,
-                    ),
-                );
-            } catch (error) {
-                enqueueErrorMessage(t`Failed to login.`, {
-                    error,
-                });
-                throw error;
-            }
+        try {
+            await login(() =>
+                createSessionByGrantPermissionFirefly(
+                    (url) => {
+                        const device = getMobileDevice();
+                        if (device === 'unknown') setUrl(url);
+                        else location.href = url;
+                    },
+                    controllerRef.current?.signal,
+                ),
+            );
+        } catch (error) {
+            enqueueErrorMessage(t`Failed to login.`, {
+                error,
+            });
+            throw error;
         }
     }, []);
 
     const [, onLoginByRelayService] = useAsyncFn(async () => {
-        // reset the process if abort controller is aborted or not initialized
-        if (!controllerRef.current || controllerRef.current?.signal.aborted) {
-            controllerRef.current = new AbortController();
+        controllerRef.current?.abort(new AbortError());
+        controllerRef.current = new AbortController();
 
-            try {
-                await login(() =>
-                    createSessionByRelayService(
-                        (url) => {
-                            resetCountdown();
-                            startCountdown();
+        try {
+            await login(() =>
+                createSessionByRelayService(
+                    (url) => {
+                        resetCountdown();
+                        startCountdown();
 
-                            const device = getMobileDevice();
-                            if (device === 'unknown') setUrl(url);
-                            else location.href = url;
-                        },
-                        controllerRef.current?.signal,
-                    ),
-                );
-            } catch (error) {
-                enqueueErrorMessage(t`Failed to login.`, {
-                    error,
-                });
-                throw error;
-            }
+                        const device = getMobileDevice();
+                        if (device === 'unknown') setUrl(url);
+                        else location.href = url;
+                    },
+                    controllerRef.current?.signal,
+                ),
+            );
+        } catch (error) {
+            enqueueErrorMessage(t`Failed to login.`, {
+                error,
+            });
+            throw error;
         }
     }, [resetCountdown, startCountdown]);
 
     const [{ loading: loadingCustodyWallet }, onLoginWithCustodyWallet] = useAsyncFn(async () => {
-        controllerRef.current?.abort('aborted');
+        controllerRef.current?.abort(new AbortError());
         try {
             await login(async () => {
                 const client = await getWalletClientRequired(config);
@@ -163,8 +162,10 @@ export function LoginFarcaster() {
     }, []);
 
     useUnmount(() => {
-        controllerRef.current?.abort('aborted');
+        controllerRef.current?.abort(new AbortError());
     });
+
+    if (signType === FarcasterSignType.RecoveryPhrase) return null;
 
     // step 1: select sign type
     if (!signType || signType === FarcasterSignType.CustodyWallet) {
@@ -252,9 +253,20 @@ export function LoginFarcaster() {
                             <div
                                 className=" relative flex cursor-pointer items-center justify-center"
                                 onClick={() => {
-                                    controllerRef.current?.abort('aborted');
-                                    resetCountdown();
-                                    onLoginByRelayService();
+                                    controllerRef.current?.abort(new AbortError());
+
+                                    switch (signType) {
+                                        case FarcasterSignType.GrantPermission:
+                                            onLoginByGrantPermission();
+                                            break;
+                                        case FarcasterSignType.RelayService:
+                                            resetCountdown();
+                                            onLoginByRelayService();
+                                            break;
+                                        default:
+                                            safeUnreachable(signType);
+                                            break;
+                                    }
                                 }}
                             >
                                 <QRCode

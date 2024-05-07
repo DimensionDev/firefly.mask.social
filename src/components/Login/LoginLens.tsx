@@ -13,6 +13,7 @@ import LoadingIcon from '@/assets/loading.svg';
 import WalletIcon from '@/assets/wallet.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { ProfileInList } from '@/components/Login/ProfileInList.js';
+import { AbortError } from '@/constants/error.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
@@ -81,7 +82,7 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
     }, [currentProfile, account, currentAccount]);
 
     useUnmount(() => {
-        controllerRef.current?.abort('aborted');
+        controllerRef.current?.abort(new AbortError());
     });
 
     return (

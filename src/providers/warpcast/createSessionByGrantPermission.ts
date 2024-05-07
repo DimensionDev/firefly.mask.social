@@ -89,10 +89,13 @@ async function pollingSignerRequestToken(token: string, signal?: AbortSignal) {
 async function createSessionByGrantPermission(callback?: (url: string) => void, signal?: AbortSignal) {
     const { deeplink, session } = await createSession(signal);
 
+    // invalid session type
+    if (!FarcasterSession.isGrantByPermission(session)) throw new Error('Invalid session type');
+
     // present QR code to the user or open the link in a new tab
     callback?.(deeplink);
 
-    const result = await pollingSignerRequestToken(session.signerRequestToken!);
+    const result = await pollingSignerRequestToken(session.signerRequestToken, signal);
     if (result.userFid) {
         session.profileId = `${result.userFid}`;
     }
@@ -109,25 +112,15 @@ async function createSessionByGrantPermission(callback?: (url: string) => void, 
 export async function createSessionByGrantPermissionFirefly(callback?: (url: string) => void, signal?: AbortSignal) {
     const session = await createSessionByGrantPermission(callback, signal);
 
-    try {
-        // firefly start polling for the signed key request
-        // once key request is signed, we will get the fid
-        const fireflySession = await FireflySession.from(session, signal);
+    // firefly start polling for the signed key request
+    // once key request is signed, we will get the fid
+    const fireflySession = await FireflySession.from(session, signal);
 
-        if (fireflySession) {
-            // we also posses the session in firefly session holder
-            // which means if we login in farcaster, we login firefly as well
-            fireflySessionHolder.resumeSession(fireflySession);
-        }
-    } catch (error) {
-        console.error(`[createSessionByGrantPermission] failed to restore firefly session: ${error}`);
+    if (fireflySession) {
+        // we also posses the session in firefly session holder
+        // which means if we login in farcaster, we login firefly as well
+        fireflySessionHolder.resumeSession(fireflySession);
     }
-
-    // polling failed
-    if (!session.profileId)
-        throw new Error(
-            'Failed to query the signed key request status after several attempts. Please try again later.',
-        );
 
     return session;
 }

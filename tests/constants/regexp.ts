@@ -1,7 +1,7 @@
 import { first } from 'lodash-es';
 import { describe, expect, test } from 'vitest';
 
-import { HASHTAG_REGEX, MENTION_REGEX, URL_REGEX } from '@/constants/regex.js';
+import { HASHTAG_REGEX, MENTION_REGEX, URL_REGEX } from '@/constants/regexp.js';
 
 describe('MENTION_REGEXP', () => {
     test('should match a mention', () => {
