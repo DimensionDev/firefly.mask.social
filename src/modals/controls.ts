@@ -3,7 +3,10 @@ import { SingletonModal } from '@masknet/shared-base';
 import type { DraggablePopoverProps } from '@/components/DraggablePopover.js';
 import type { ComposeModalCloseProps, ComposeModalProps } from '@/modals/ComposeModal.js';
 import type { ConfirmModalCloseProps, ConfirmModalOpenProps } from '@/modals/ConfirmModal.js';
-import type { FireflySessionCloseConfirmModalProps } from '@/modals/FireflySessionConfirmModal.js';
+import type {
+    FireflySessionCloseConfirmModalProps,
+    FireflySessionOpenConfirmModalProps,
+} from '@/modals/FireflySessionConfirmModal.js';
 import type { LoginModalProps } from '@/modals/LoginModal.js';
 import type { LogoutModalProps } from '@/modals/LogoutModal.js';
 import type { PreviewImagesModalOpenProps } from '@/modals/PreviewImagesModal.js';
@@ -18,6 +21,9 @@ export const PreviewImageModalRef = new SingletonModal<PreviewImagesModalOpenPro
 export const LogoutModalRef = new SingletonModal<LogoutModalProps | void>();
 export const ComposeModalRef = new SingletonModal<ComposeModalProps, ComposeModalCloseProps>();
 export const ConfirmModalRef = new SingletonModal<ConfirmModalOpenProps, ConfirmModalCloseProps>();
-export const FireflySessionConfirmModalRef = new SingletonModal<void, FireflySessionCloseConfirmModalProps>();
+export const FireflySessionConfirmModalRef = new SingletonModal<
+    FireflySessionOpenConfirmModalProps,
+    FireflySessionCloseConfirmModalProps
+>();
 export const DraggablePopoverRef = new SingletonModal<DraggablePopoverProps>();
 export const SnackbarRef = new SingletonModal<SnackbarOpenProps, SnackbarCloseProps>();

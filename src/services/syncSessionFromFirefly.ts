@@ -5,7 +5,7 @@ import type { FarcasterMetric, LensMetric, Metrics } from '@/app/api/firefly/dec
 import { FIREFLY_ROOT_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
-import { FarcasterSession } from '@/providers/farcaster/Session.js';
+import { FAKE_SIGNER_REQUEST_TOKEN, FarcasterSession } from '@/providers/farcaster/Session.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { LensSession } from '@/providers/lens/Session.js';
 import type { MetricsDownloadResponse } from '@/providers/types/Firefly.js';
@@ -16,11 +16,12 @@ import type { ResponseJSON } from '@/types/index.js';
  * @param session
  * @returns
  */
-async function downloadMetricsFromFirefly() {
+async function downloadMetricsFromFirefly(signal?: AbortSignal) {
     const response = await fireflySessionHolder.fetch<MetricsDownloadResponse>(
         urlcat(FIREFLY_ROOT_URL, '/v1/metrics/download'),
         {
             method: 'GET',
+            signal,
         },
         true,
     );
@@ -28,12 +29,13 @@ async function downloadMetricsFromFirefly() {
     return data?.ciphertext;
 }
 
-async function decryptMetricsFromFirefly(cipher: string) {
+async function decryptMetricsFromFirefly(cipher: string, signal?: AbortSignal) {
     const response = await fetchJSON<ResponseJSON<Metrics>>('/api/firefly/decrypt-metrics', {
         method: 'POST',
         body: JSON.stringify({ text: cipher }),
+        signal,
     });
-    if (!response.success) return [];
+    if (!response.success) throw new Error(response.error.message);
     return response.data;
 }
 
@@ -52,7 +54,7 @@ function convertMetricToSession(metric: Metrics[0]) {
                 // the signerRequestToken cannot recover from the metric
                 // but it is necessary for distinguish grant by permission session
                 // so we use a fake token here
-                'fake_signer_request_token',
+                FAKE_SIGNER_REQUEST_TOKEN,
             );
         });
     }
@@ -70,10 +72,10 @@ function convertMetricToSession(metric: Metrics[0]) {
  * Make sure resume firefly session before calling this function.
  * @returns
  */
-export async function syncSessionFromFirefly() {
-    const cipher = await downloadMetricsFromFirefly();
+export async function syncSessionFromFirefly(signal?: AbortSignal) {
+    const cipher = await downloadMetricsFromFirefly(signal);
     if (!cipher) return [];
 
-    const metrics = await decryptMetricsFromFirefly(cipher);
+    const metrics = await decryptMetricsFromFirefly(cipher, signal);
     return metrics.flatMap<FarcasterSession | LensSession>(convertMetricToSession);
 }

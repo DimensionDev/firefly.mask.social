@@ -211,6 +211,9 @@ msgstr ""
 msgid "Mirror again"
 msgstr ""
 
+msgid "Failed to detect device accounts."
+msgstr ""
+
 msgid "Add another post..."
 msgstr ""
 
@@ -341,6 +344,9 @@ msgid "Failed to create image payload."
 msgstr ""
 
 msgid "Failed to unvote post."
+msgstr ""
+
+msgid "Detecting..."
 msgstr ""
 
 msgid "Privacy Policy"
@@ -709,6 +715,9 @@ msgstr ""
 msgid "Failed to mirror post."
 msgstr ""
 
+msgid "Failed to create firefly session."
+msgstr ""
+
 msgid "Delegate Signing (Recommend)"
 msgstr ""
 
@@ -728,6 +737,9 @@ msgid "Firefly"
 msgstr ""
 
 msgid "Add"
+msgstr ""
+
+msgid "No device accounts detected."
 msgstr ""
 
 msgid "Log out all"

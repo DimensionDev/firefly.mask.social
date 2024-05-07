@@ -6,6 +6,8 @@ import { BaseSession } from '@/providers/base/Session.js';
 import type { Session } from '@/providers/types/Session.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 
+export const FAKE_SIGNER_REQUEST_TOKEN = 'fake_signer_request_token';
+
 export class FarcasterSession extends BaseSession implements Session {
     constructor(
         /**
@@ -58,9 +60,19 @@ export class FarcasterSession extends BaseSession implements Session {
         return;
     }
 
-    static isGrantByPermission(session: Session | null): session is FarcasterSession & { signerRequestToken: string } {
+    static isGrantByPermission(
+        session: Session | null,
+        // if strict is true, the session must have a valid signer request token
+        strict = false,
+    ): session is FarcasterSession & { signerRequestToken: string } {
         if (!session) return false;
-        return session.type === SessionType.Farcaster && !!(session as FarcasterSession).signerRequestToken;
+        const token = (session as FarcasterSession).signerRequestToken;
+        return (
+            session.type === SessionType.Farcaster &&
+            !!token &&
+            // strict mode
+            (strict ? token !== FAKE_SIGNER_REQUEST_TOKEN : true)
+        );
     }
 
     static isRelayService(session: Session | null): session is FarcasterSession & { channelToken: string } {

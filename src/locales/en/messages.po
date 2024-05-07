@@ -211,6 +211,9 @@ msgstr "Failed to unlike the post."
 msgid "Mirror again"
 msgstr "Mirror again"
 
+msgid "Failed to detect device accounts."
+msgstr "Failed to detect device accounts."
+
 msgid "Add another post..."
 msgstr "Add another post..."
 
@@ -342,6 +345,9 @@ msgstr "Failed to create image payload."
 
 msgid "Failed to unvote post."
 msgstr "Failed to unvote post."
+
+msgid "Detecting..."
+msgstr "Detecting..."
 
 msgid "Privacy Policy"
 msgstr "Privacy Policy"
@@ -709,6 +715,9 @@ msgstr "You've hit rock bottom."
 msgid "Failed to mirror post."
 msgstr "Failed to mirror post."
 
+msgid "Failed to create firefly session."
+msgstr "Failed to create firefly session."
+
 msgid "Delegate Signing (Recommend)"
 msgstr "Delegate Signing (Recommend)"
 
@@ -729,6 +738,9 @@ msgstr "Firefly"
 
 msgid "Add"
 msgstr "Add"
+
+msgid "No device accounts detected."
+msgstr "No device accounts detected."
 
 msgid "Log out all"
 msgstr "Log out all"

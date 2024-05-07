@@ -27,6 +27,7 @@ import {
 import { createSessionForProfileIdFirefly } from '@/providers/lens/createSessionForProfileId.js';
 import { updateSignless } from '@/providers/lens/updateSignless.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
+import { syncSessionFromFirefly } from '@/services/syncSessionFromFirefly.js';
 
 interface LoginLensProps {
     profiles: Profile[];
@@ -64,7 +65,9 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
                     enqueueSuccessMessage(t`Your Lens account is now connected.`);
 
                     // restore profiles exclude lens
-                    await FireflySessionConfirmModalRef.openAndWaitForClose();
+                    await FireflySessionConfirmModalRef.openAndWaitForClose({
+                        sessions: await syncSessionFromFirefly(controllerRef.current?.signal),
+                    });
                 } catch (error) {
                     enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to login`), {
                         error,

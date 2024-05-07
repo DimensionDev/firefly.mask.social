@@ -27,6 +27,7 @@ import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.
 import { createSessionByCustodyWallet } from '@/providers/warpcast/createSessionByCustodyWallet.js';
 import { createSessionByGrantPermissionFirefly } from '@/providers/warpcast/createSessionByGrantPermission.js';
 import { createSessionByRelayService } from '@/providers/warpcast/createSessionByRelayService.js';
+import { syncSessionFromFirefly } from '@/services/syncSessionFromFirefly.js';
 
 async function login(createSession: () => Promise<FarcasterSession>) {
     try {
@@ -39,7 +40,9 @@ async function login(createSession: () => Promise<FarcasterSession>) {
         LoginModalRef.close();
 
         // restore profile exclude farcaster
-        await FireflySessionConfirmModalRef.openAndWaitForClose();
+        await FireflySessionConfirmModalRef.openAndWaitForClose({
+            sessions: await syncSessionFromFirefly(),
+        });
     } catch (error) {
         // skip if the error is abort error
         if (error instanceof AbortError || (error instanceof DOMException && error.name === 'AbortError')) return;

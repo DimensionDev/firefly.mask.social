@@ -9,22 +9,27 @@ import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider
 import { resolveSocialSourceFromSessionType } from '@/helpers/resolveSource.js';
 import { restoreProfile } from '@/helpers/restoreProfile.js';
 import { ConfirmModalRef } from '@/modals/controls.js';
-import { syncSessionFromFirefly } from '@/services/syncSessionFromFirefly.js';
+import type { FarcasterSession } from '@/providers/farcaster/Session.js';
+import type { LensSession } from '@/providers/lens/Session.js';
+import type { Profile } from '@/providers/types/SocialMedia.js';
 
-export interface FireflySessionConfirmModalProps {}
+export type FireflySessionOpenConfirmModalProps = {
+    sessions?: Array<LensSession | FarcasterSession>;
+    onDetected?: (profiles: Profile[]) => void;
+    signal?: AbortSignal;
+} | void;
 
 // true - indicates the user restored sessions
 // false - indicates the users rejected the session restore
 export type FireflySessionCloseConfirmModalProps = boolean;
 
 export const FireflySessionConfirmModal = forwardRef<
-    SingletonModalRefCreator<void, FireflySessionCloseConfirmModalProps>
+    SingletonModalRefCreator<FireflySessionOpenConfirmModalProps, FireflySessionCloseConfirmModalProps>
 >(function FireflySessionModal(_, ref) {
     const [open, dispatch] = useSingletonModal(ref, {
-        async onOpen() {
+        async onOpen(props) {
             try {
-                // firefly session has been created
-                const sessions = await syncSessionFromFirefly();
+                const sessions = props?.sessions ?? [];
 
                 // no session to restore
                 if (!sessions.length) {
@@ -49,6 +54,9 @@ export const FireflySessionConfirmModal = forwardRef<
                             : null,
                     ),
                 );
+
+                // profiles detected, invoke the callback before showing the confirm modal
+                props?.onDetected?.(pairs.map((x) => x.profile));
 
                 const confirmed = await ConfirmModalRef.openAndWaitForClose({
                     title: t`Device Logged In`,
@@ -82,8 +90,7 @@ export const FireflySessionConfirmModal = forwardRef<
 
                 dispatch?.close(confirmed);
             } catch (error) {
-                console.error('[restore firefly session] Failed to restore sessions from Firefly:', error);
-                dispatch?.close(false);
+                dispatch?.abort?.(error instanceof Error ? error : new Error('Failed to restore sessions.'));
             }
         },
     });
