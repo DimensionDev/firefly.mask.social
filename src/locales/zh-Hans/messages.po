@@ -36,6 +36,12 @@ msgstr ""
 msgid "Failed to fetch as Blob."
 msgstr "获取 Blob 失败。"
 
+msgid "Unmute successfully."
+msgstr ""
+
+msgid "Mute /{0}"
+msgstr ""
+
 msgid "Communities"
 msgstr "社区"
 
@@ -234,6 +240,9 @@ msgstr "在 Firefly 移动端或者 {SITE_URL} 打开我的红包🧧💰✨ ！
 msgid "Confirmation"
 msgstr "确认"
 
+msgid "Failed to mute /{0}."
+msgstr ""
+
 msgid "Follow more friends to continue exploring on {0}."
 msgstr "在 {0} 上去关注更多的人来继续浏览吧。"
 
@@ -288,6 +297,9 @@ msgstr "查询规则"
 msgid "Try searching for something else."
 msgstr "试试搜索其他东西。"
 
+msgid "Unmute /{0}"
+msgstr ""
+
 msgid "Invalid compose type: {type}."
 msgstr ""
 
@@ -308,6 +320,9 @@ msgstr ""
 
 msgid "Reply"
 msgstr "回复"
+
+msgid "Confirm you want to mute /{0}?"
+msgstr ""
 
 msgid "Collected"
 msgstr "已收藏"
@@ -375,8 +390,14 @@ msgstr "帖子已经被隐藏"
 msgid "Your post has published successfully."
 msgstr ""
 
+msgid "Confirm you want to unmute /{0}?"
+msgstr ""
+
 msgid "Everyone"
 msgstr "任何人"
+
+msgid "Failed to unmute /{0}."
+msgstr ""
 
 msgid "Please confirm the login with Warpcast."
 msgstr ""
@@ -398,6 +419,9 @@ msgstr "{0, select, follow {在 {source} 关注 @{handle} 失败} unfollow {在 
 
 msgid "Failed to follow."
 msgstr "关注失败"
+
+msgid "Mute"
+msgstr ""
 
 msgid "Confirm to log out this account?"
 msgstr "确认退出该账号吗？"
@@ -494,6 +518,9 @@ msgstr ""
 
 msgid "Display"
 msgstr "显示"
+
+msgid "Mute successfully."
+msgstr ""
 
 msgid "Show More"
 msgstr "显示更多"
@@ -751,6 +778,9 @@ msgid "Your post have published successfully on {0}."
 msgstr ""
 
 msgid "Cancel mirror successfully"
+msgstr ""
+
+msgid "Unmute"
 msgstr ""
 
 msgid "Confirm to log out these accounts?"

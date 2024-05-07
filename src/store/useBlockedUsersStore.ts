@@ -6,12 +6,15 @@ import { immer } from 'zustand/middleware/immer';
 import { createSelectors } from '@/helpers/createSelector.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
-interface PostState {
+interface BlockedUserState {
     allBlockedUsers: Record<string, string[]>;
     blockUser(operator: Profile, profile: Profile): void;
 }
 
-const useBlockedUsersStore = create<PostState, [['zustand/persist', PostState], ['zustand/immer', never]]>(
+const useBlockedUsersStore = create<
+    BlockedUserState,
+    [['zustand/persist', BlockedUserState], ['zustand/immer', never]]
+>(
     persist(
         immer((set, get) => ({
             allBlockedUsers: {},
