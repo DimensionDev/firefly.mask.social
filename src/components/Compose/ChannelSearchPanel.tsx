@@ -10,24 +10,23 @@ import { Avatar } from '@/components/Avatar.js';
 import { SearchInput } from '@/components/Search/SearchInput.js';
 import type { SocialSource } from '@/constants/enum.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
-import { useIsSmall } from '@/hooks/useMediaQuery.js';
 import { useSearchChannels } from '@/hooks/useSearchChannel.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
+import { classNames } from '@/helpers/classNames.js';
+import { SOURCES_WITH_CHANNEL_SUPPORT } from '@/constants/channel.js';
 
-interface ChannelSearchPanelProps {
-    source: SocialSource;
-}
-
-export function ChannelSearchPanel({ source }: ChannelSearchPanelProps) {
-    const isSmall = useIsSmall('max');
+export function ChannelSearchPanel() {
     const [inputText, setInputText] = useState('');
     const { updateChannel } = useComposeStateStore();
     const { channel: channelMap } = useCompositePost();
+
+    // @note: only support one source now
+    const source = SOURCES_WITH_CHANNEL_SUPPORT[0];
     const {
         channelList,
         queryResult: { isLoading, isError },
     } = useSearchChannels(inputText, source);
-    const channel = channelMap[source];
+    const selectedChannel = channelMap[source];
     const listBox = isLoading ? (
         <div className="m-auto">
             <LoadingIcon className="animate-spin" width={24} height={24} />
@@ -37,33 +36,38 @@ export function ChannelSearchPanel({ source }: ChannelSearchPanelProps) {
             <Trans>Something went wrong. Please try again.</Trans>
         </div>
     ) : (
-        channelList.map((ch) => (
-            <Fragment key={ch.id}>
-                <div
-                    className="flex h-[32px] cursor-pointer items-center justify-between"
-                    onClick={() => {
-                        if (ch.id !== channel?.id) {
-                            updateChannel(source, ch);
-                        }
-                    }}
-                >
-                    <div className="flex h-[24px] items-center gap-2">
-                        <Avatar
-                            className="mr-3 shrink-0 rounded-full border"
-                            src={ch.imageUrl}
-                            size={isSmall ? 24 : 24}
-                            alt={ch.name}
-                        />
-                        <span className="font-bold text-main">{ch.name}</span>
+        channelList.map((ch) => {
+            const isSelected = ch.id === selectedChannel?.id;
+            return (
+                <Fragment key={ch.id}>
+                    <div
+                        className="flex h-[32px] cursor-pointer items-center justify-between"
+                        onClick={() => {
+                            if (!isSelected) {
+                                updateChannel(source, ch);
+                            }
+                        }}
+                    >
+                        <div className="flex h-[24px] items-center gap-2">
+                            <Avatar
+                                className="mr-3 shrink-0 rounded-full border "
+                                src={ch.imageUrl}
+                                size={24}
+                                alt={ch.name}
+                            />
+                            <span className={classNames('font-bold', isSelected ? 'text-main' : 'text-secondary')}>
+                                {ch.name}
+                            </span>
+                        </div>
+                        {isSelected ? (
+                            <YesIcon width={40} height={40} className=" relative -right-[10px]" />
+                        ) : (
+                            <RadioDisableNoIcon width={20} height={20} className=" text-secondaryLine" />
+                        )}
                     </div>
-                    {ch.id === channel?.id ? (
-                        <YesIcon width={40} height={40} className=" relative -right-[10px]" />
-                    ) : (
-                        <RadioDisableNoIcon width={20} height={20} className=" text-secondaryLine" />
-                    )}
-                </div>
-            </Fragment>
-        ))
+                </Fragment>
+            );
+        })
     );
 
     return (

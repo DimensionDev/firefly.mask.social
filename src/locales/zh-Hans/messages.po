@@ -354,8 +354,6 @@ msgstr "允许回复"
 msgid "No one likes this post yet."
 msgstr ""
 
-msgid "Farcaster channel"
-msgstr "Farcaster 频道"
 
 msgid "Your posts have published successfully on {0}."
 msgstr ""

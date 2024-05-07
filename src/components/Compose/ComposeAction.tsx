@@ -21,7 +21,7 @@ import { ReplyRestriction } from '@/components/Compose/ReplyRestriction.js';
 import { ReplyRestrictionText } from '@/components/Compose/ReplyRestrictionText.js';
 import { SourceIcon } from '@/components/SourceIcon.js';
 import { Tooltip } from '@/components/Tooltip.js';
-import { CURRENT_SOURCE_WITH_CHANNEL_SUPPORT } from '@/constants/channel.js';
+import { SOURCES_WITH_CHANNEL_SUPPORT } from '@/constants/channel.js';
 import { NODE_ENV } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { MAX_POST_SIZE_PER_THREAD, SORTED_SOURCES } from '@/constants/index.js';
@@ -30,7 +30,6 @@ import { classNames } from '@/helpers/classNames.js';
 import { connectMaskWithWagmi } from '@/helpers/connectWagmiWithMask.js';
 import { getCurrentPostImageLimits } from '@/helpers/getCurrentPostImageLimits.js';
 import { getCurrentPostLimits } from '@/helpers/getCurrentPostLimits.js';
-import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfileAll.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
@@ -39,6 +38,7 @@ import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';
 import { PluginDebuggerMessages } from '@/mask/message-host/index.js';
 import { ComposeModalRef } from '@/modals/controls.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
+import { compact } from 'lodash-es';
 
 interface ComposeActionProps {}
 
@@ -96,7 +96,10 @@ export function ComposeAction(props: ComposeActionProps) {
     const mediaDisabled = !!video || images.length >= maxImageCount;
 
     // channel
-    const showChannel = availableSources.includes(CURRENT_SOURCE_WITH_CHANNEL_SUPPORT) && type === 'compose';
+    const showChannel = availableSources.some((s) => SOURCES_WITH_CHANNEL_SUPPORT.includes(s)) && type === 'compose';
+    const selecteChannelNames = compact(
+        SORTED_SOURCES.filter((source) => !!channel[source]).map((source) => channel[source]?.name),
+    ).join(',');
 
     return (
         <div className=" px-4 pb-4">
@@ -257,7 +260,7 @@ export function ComposeAction(props: ComposeActionProps) {
             {showChannel ? (
                 <div className=" flex h-9 items-center justify-between pb-safe">
                     <span className=" text-[15px] text-secondary">
-                        <Trans>{resolveSourceName(CURRENT_SOURCE_WITH_CHANNEL_SUPPORT)} channel</Trans>
+                        <Trans>Channels</Trans>
                     </span>
                     <Popover as="div" className="relative">
                         {(_) => (
@@ -266,12 +269,10 @@ export function ComposeAction(props: ComposeActionProps) {
                                     className=" flex cursor-pointer gap-1 text-main focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
                                     disabled={!isRootPost}
                                 >
-                                    <span className=" text-[15px] font-bold">
-                                        {channel?.[CURRENT_SOURCE_WITH_CHANNEL_SUPPORT]?.name || ''}
-                                    </span>
+                                    <span className=" text-[15px] font-bold">{selecteChannelNames}</span>
                                     <ChevronRightIcon className="h-5 w-5" aria-hidden="true" />
                                 </Popover.Button>
-                                <ChannelSearchPanel source={CURRENT_SOURCE_WITH_CHANNEL_SUPPORT} />
+                                <ChannelSearchPanel />
                             </>
                         )}
                     </Popover>

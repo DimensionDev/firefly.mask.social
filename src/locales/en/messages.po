@@ -349,8 +349,6 @@ msgstr "Allow replies from"
 msgid "No one likes this post yet."
 msgstr "No one likes this post yet."
 
-msgid "Farcaster channel"
-msgstr "Farcaster channel"
 
 msgid "Your posts have published successfully on {0}."
 msgstr "Your posts have published successfully on {0}."

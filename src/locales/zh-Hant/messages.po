@@ -298,9 +298,6 @@ msgid "Allow replies from"
 msgstr ""
 
 
-msgid "Farcaster channel"
-msgstr ""
-
 msgid "Method not implemented."
 msgstr ""
 

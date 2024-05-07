@@ -1,4 +1,4 @@
-import  { type SocialSource, Source } from '@/constants/enum.js';
+import { type SocialSource, Source } from '@/constants/enum.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
 
 export const HOME_CHANNEL_BASE: Omit<Channel, 'source'> = {
@@ -32,4 +32,4 @@ export const FF_GARDEN_CHANNEL: Record<SocialSource, Channel | null> = {
 };
 
 export const CHANNEL_SEARCH_LIST_SIZE = 10;
-export const CURRENT_SOURCE_WITH_CHANNEL_SUPPORT = Source.Farcaster;
+export const SOURCES_WITH_CHANNEL_SUPPORT: SocialSource[] = [Source.Farcaster];
