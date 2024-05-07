@@ -29,7 +29,7 @@ export const ChannelMoreAction = memo<MoreProps>(function ChannelMoreAction({ ch
     const isBusy = muting;
 
     return (
-        <Menu className={classNames('relative', className as string)} as="div" {...rest}>
+        <Menu className={classNames('relative', className)} as="div" {...rest}>
             <Menu.Button
                 whileTap={{ scale: 0.9 }}
                 as={motion.button}

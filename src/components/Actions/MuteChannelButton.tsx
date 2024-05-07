@@ -34,13 +34,13 @@ export const MuteChannelButton = forwardRef<HTMLButtonElement, Props>(function M
             onClick={async () => {
                 rest.onClick?.();
                 const confirmed = await ConfirmModalRef.openAndWaitForClose({
-                    title: t`Block`,
+                    title: muted ? t`Unmute` : t`Mute`,
                     content: (
                         <div className="text-main">
                             {muted ? (
-                                <Trans>Confirm you want to unmute /{channel.name}</Trans>
+                                <Trans>Confirm you want to unmute /{channel.name}?</Trans>
                             ) : (
-                                <Trans>Confirm you want to mute /{channel.name}</Trans>
+                                <Trans>Confirm you want to mute /{channel.name}?</Trans>
                             )}
                         </div>
                     ),
@@ -48,7 +48,9 @@ export const MuteChannelButton = forwardRef<HTMLButtonElement, Props>(function M
                 if (!onStatusChange || !confirmed) return;
                 const result = await onStatusChange(channel);
                 if (result === false) {
-                    enqueueErrorMessage(t`Failed to block /${channel.name}`);
+                    enqueueErrorMessage(
+                        muted ? t`Failed to unmute /${channel.name}.` : t`Failed to mute /${channel.name}.`,
+                    );
                 }
             }}
             ref={ref}
@@ -59,7 +61,7 @@ export const MuteChannelButton = forwardRef<HTMLButtonElement, Props>(function M
                 <SpeakerXMarkIcon width={24} height={24} />
             )}
             <span className="text-[17px] font-bold leading-[22px] text-main">
-                {muted ? t`Unmute` : t`Mute`} /{channel.name}
+                {muted ? t`Unmute /${channel.name}` : t`Mute /${channel.name}`}
             </span>
         </ClickableButton>
     );

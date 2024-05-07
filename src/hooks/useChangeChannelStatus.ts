@@ -1,7 +1,6 @@
 import { t } from '@lingui/macro';
 import { useAsyncFn } from 'react-use';
 
-import { queryClient } from '@/configs/queryClient.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import type { Channel, Profile } from '@/providers/types/SocialMedia.js';
 import { useBlockedChannelState } from '@/store/useBlockedChannelStore.js';
@@ -17,20 +16,16 @@ export function useChangeChannelStatus(operator: Profile | null) {
 
             try {
                 changeMuteStatus(operator, channel);
-                await queryClient.invalidateQueries({
-                    queryKey: ['posts', channel.source],
-                });
-                await queryClient.refetchQueries({
-                    queryKey: ['posts', channel.source],
-                    stale: true,
-                    type: 'active',
-                });
-                enqueueSuccessMessage(t`${muted ? t`Unmute` : t`Mute`} /${channel.name} successfully`);
+
+                enqueueSuccessMessage(muted ? t`Unmute succcessfully.` : t`Mute successfully.`);
                 return true;
             } catch (error) {
-                enqueueErrorMessage(muted ? t`Failed to unmute ${channel.name}.` : t`Failed to mute ${channel.name}.`, {
-                    error,
-                });
+                enqueueErrorMessage(
+                    muted ? t`Failed to unmute /${channel.name}.` : t`Failed to mute /${channel.name}.`,
+                    {
+                        error,
+                    },
+                );
                 throw error;
             }
         },
