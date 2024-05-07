@@ -14,7 +14,6 @@ interface Props {
 }
 
 export function BookmarkList({ source }: Props) {
-    console.log('sources', source);
     const query = useSuspenseInfiniteQuery({
         queryKey: ['posts', source, 'bookmark'],
         queryFn: async ({ pageParam }) => {

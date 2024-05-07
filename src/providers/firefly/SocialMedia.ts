@@ -672,11 +672,30 @@ class FireflySocialMedia implements Provider {
     async getPostsQuoteOn(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         throw new Error('Method not implemented.');
     }
-    async bookmark(postId: string): Promise<boolean> {
-        throw new Error('Method not implemented.');
+    async bookmark(postId: string, profileId?: string, postType?: BookmarkType): Promise<boolean> {
+        const url = urlcat(FIREFLY_ROOT_URL, '/v1/bookmark/create');
+        const response = await farcasterSessionHolder.fetch<string>(url, {
+            method: 'POST',
+            body: JSON.stringify({
+                platform: 'farcaster',
+                platform_id: profileId,
+                post_type: postType,
+                post_id: postId,
+            }),
+        });
+        if (response) return true;
+        throw new Error('Failed to bookmark');
     }
     async unbookmark(postId: string): Promise<boolean> {
-        throw new Error('Method not implemented.');
+        const url = urlcat(FIREFLY_ROOT_URL, '/v1/bookmark/remove');
+        const response = await farcasterSessionHolder.fetch<string>(url, {
+            method: 'POST',
+            body: JSON.stringify({
+                post_ids: [postId],
+            }),
+        });
+        if (response) return true;
+        throw new Error('Failed to bookmark');
     }
     async getBookmarks(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         const url = urlcat(FIREFLY_ROOT_URL, '/v1/bookmark/find', {

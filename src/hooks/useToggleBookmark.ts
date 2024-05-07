@@ -8,9 +8,9 @@ import type { Post } from '@/providers/types/SocialMedia.js';
 export function useToggleBookmark() {
     return useMutation({
         mutationFn: async (post: Post) => {
-            const provider = resolveSocialMediaProvider(post.source);
             const { hasBookmarked, postId } = post;
             try {
+                const provider = resolveSocialMediaProvider(post.source);
                 if (hasBookmarked) {
                     const result = await provider.unbookmark(postId);
                     enqueueSuccessMessage(t`Post remove from your Bookmarks`);
