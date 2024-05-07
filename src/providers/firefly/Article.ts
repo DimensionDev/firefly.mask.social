@@ -38,6 +38,30 @@ class FireflyArticle implements Provider {
         );
     }
 
+    async discoverArticlesByAddress(address: string, indicator?: PageIndicator) {
+        const url = urlcat(FIREFLY_ROOT_URL, '/v1/user/timeline/articles');
+
+        const response = await fetchJSON<DiscoverArticlesResponse>(url, {
+            method: 'POST',
+            body: JSON.stringify({
+                platform: [ArticlePlatform.Paragraph, ArticlePlatform.Mirror].join(','),
+                walletAddresses: [address],
+                size: 20,
+                cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
+            }),
+        });
+
+        const data = resolveFireflyResponseData(response);
+
+        const articles = data.result.map(formatArticleFromFirefly);
+
+        return createPageable(
+            articles,
+            createIndicator(indicator),
+            data.cursor ? createNextIndicator(indicator, `${data.cursor}`) : undefined,
+        );
+    }
+
     async getArticleById(articleId: string) {
         const url = urlcat(FIREFLY_ROOT_URL, '/v1/article/contents_by_ids');
 

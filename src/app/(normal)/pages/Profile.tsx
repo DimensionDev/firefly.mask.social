@@ -16,6 +16,7 @@ import { ProfileTabs } from '@/components/Profile/ProfileTabs.js';
 import { Tabs } from '@/components/Profile/Tabs.js';
 import { Title } from '@/components/Profile/Title.js';
 import { WalletInfo } from '@/components/Profile/WalletInfo.js';
+import { WalletTabs } from '@/components/Profile/WalletTabs.js';
 import { Source } from '@/constants/enum.js';
 import { EMPTY_LIST, SITE_NAME } from '@/constants/index.js';
 import { createPageTitle } from '@/helpers/createPageTitle.js';
@@ -107,11 +108,14 @@ export function ProfilePage({ profiles, hiddenTitle }: ProfilePageProps) {
                 {info}
                 <ProfileTabs profiles={profiles.filter((x) => x.source === source)} />
 
-                {/* TODO: Wallet profile tabs */}
-                {profile ? <Tabs source={profile.source} profileId={profile.profileId} /> : null}
+                {walletProfile ? (
+                    <WalletTabs address={walletProfile.address} />
+                ) : profile ? (
+                    <Tabs source={profile.source} profileId={profile.profileId} />
+                ) : null}
             </>
         );
-    }, [isLoading, currentTwitterProfile, source, info, profiles, profile]);
+    }, [isLoading, currentTwitterProfile, source, info, profiles, profile, walletProfile]);
 
     useDocumentTitle(title);
     useNavigatorTitle(t`Profile`);

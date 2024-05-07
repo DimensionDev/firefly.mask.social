@@ -72,6 +72,10 @@ export enum ProfileTabType {
     Channels = 'Channels',
 }
 
+export enum WalletProfileTabType {
+    Articles = 'Articles',
+}
+
 export enum EngagementType {
     Mirrors = 'mirrors',
     Quotes = 'quotes',
