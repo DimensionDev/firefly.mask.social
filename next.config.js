@@ -4,6 +4,7 @@ import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 import { createRequire } from 'module';
 import CopyPlugin from 'copy-webpack-plugin';
+import { EsbuildPlugin } from 'esbuild-loader';
 
 const require = createRequire(import.meta.url);
 const __dirname = fileURLToPath(dirname(import.meta.url));
@@ -119,6 +120,7 @@ export default {
         config.optimization = {
             ...config.optimization,
             usedExports: false,
+            minimizer: [new EsbuildPlugin({ target: 'es2020' })],
         };
 
         config.experiments = {
