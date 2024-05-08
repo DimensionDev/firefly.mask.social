@@ -38,9 +38,9 @@ export const MuteChannelButton = forwardRef<HTMLButtonElement, Props>(function M
                     content: (
                         <div className="text-main">
                             {muted ? (
-                                <Trans>Confirm you want to unmute /{channel.name}?</Trans>
+                                <Trans>Confirm you want to unmute /{channel.id}?</Trans>
                             ) : (
-                                <Trans>Confirm you want to mute /{channel.name}?</Trans>
+                                <Trans>Confirm you want to mute /{channel.id}?</Trans>
                             )}
                         </div>
                     ),
