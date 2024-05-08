@@ -10,7 +10,7 @@ interface PageTitleProps extends React.HTMLAttributes<HTMLHeadingElement> {
 export const PageTitle = memo(function PageTitle({ delimiter = true, children, ...props }: PageTitleProps) {
     return (
         <h2
-            className={classNames('p-4 text-lg font-bold leading-snug text-main', {
+            className={classNames('p-4 text-xl font-bold leading-snug text-main', {
                 'border-b border-line': delimiter,
             })}
             {...props}

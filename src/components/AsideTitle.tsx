@@ -6,7 +6,7 @@ interface AsideTitleProps extends React.HTMLAttributes<HTMLHeadingElement> {
 
 export const AsideTitle = memo(function AsideTitle({ children, ...props }: AsideTitleProps) {
     return (
-        <h2 className="p-4 text-xl font-bold leading-none" {...props}>
+        <h2 className="p-4 text-lg font-bold leading-none" {...props}>
             {children}
         </h2>
     );

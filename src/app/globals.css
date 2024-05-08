@@ -212,17 +212,6 @@ ul {
     padding: 8px !important;
 }
 
-@layer components {
-    .hide-scrollbar {
-        -ms-overflow-style: none;
-        scrollbar-width: none;
-    }
-
-    .hide-scrollbar::-webkit-scrollbar {
-        display: none;
-    }
-}
-
 input[type='search']::-webkit-search-decoration,
 input[type='search']::-webkit-search-cancel-button,
 input[type='search']::-webkit-search-results-button,

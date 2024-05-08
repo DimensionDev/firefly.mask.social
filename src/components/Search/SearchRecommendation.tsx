@@ -150,7 +150,7 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
             {fetchChannelLoading || (keyword && channel) ? (
                 <>
                     <h2 className="border-t border-line p-3 pb-2 text-sm">
-                        <Trans>Channel</Trans>
+                        <Trans>Channels</Trans>
                     </h2>
                 </>
             ) : null}

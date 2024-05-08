@@ -96,7 +96,7 @@ class FireflySocialMedia implements Provider {
     // no cursor in response
     async discoverChannels(indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {
         const url = urlcat(FIREFLY_ROOT_URL, '/v2/farcaster-hub/trending_channels', {
-            size: 20,
+            size: 25,
             cursor: indicator?.id,
         });
         const response = await fetchJSON<DiscoverChannelsResponse>(url, {
